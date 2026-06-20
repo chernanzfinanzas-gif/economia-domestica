@@ -103,6 +103,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="presupuesto">Presupuesto</button>
     <button data-view="patrimonio">Patrimonio</button>
     <button data-view="proyeccion">Proyección</button>
+    <button data-view="amalia">Amalia</button>
   </nav>
   <div class="spacer"></div>
   <div class="month" id="monthBox">
@@ -223,6 +224,25 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div>
     <h3>Detalle año a año</h3>
     <div id="proyTabla" style="max-height:430px;overflow:auto"></div>
+  </section>
+
+  <!-- AMALIA -->
+  <section class="view" id="view-amalia">
+    <h2>Amalia</h2>
+    <div class="cards" id="amaCards"></div>
+    <h3>Nuevo apunte</h3>
+    <form class="grid" id="amaForm" autocomplete="off">
+      <label>Fecha<input type="date" id="amaFecha"></label>
+      <label>Concepto<input type="text" id="amaConcepto" placeholder="p. ej. Farmacia"></label>
+      <label>Tipo<select id="amaTipo"><option value="gasto">Gasto (Amalia debe)</option><option value="reembolso">Reembolso (te paga)</option></select></label>
+      <label>Importe (€)<input type="number" id="amaImporte" step="0.01" min="0" placeholder="0,00"></label>
+      <label>Nota<input type="text" id="amaNota" placeholder="opcional"></label>
+      <div class="row-actions">
+        <button type="submit" class="btn" id="amaAdd">Añadir</button>
+        <button type="button" class="btn ghost" id="amaImportBtn">Importar (.json)</button>
+      </div>
+    </form>
+    <div id="amaList"></div>
   </section>
 
 </main>
@@ -441,6 +461,7 @@ function afterLoad(){
   // migración: asegurar año en cada entrada de presupuesto
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   DB.patrimonio = DB.patrimonio||[];
+  DB.amalia = DB.amalia||[];
   if(!DB.config) DB.config={};
   if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
   if(presYear==null){ const ys=presYears(); const cy=new Date().getFullYear(); presYear = ys.includes(cy)? cy : ys[0]; }
@@ -845,7 +866,40 @@ function addEvento(){
   DB.config.proyeccion.eventos.push({anio,concepto,importe});
   renderProy(); scheduleSave();
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); renderProy(); }
+/* ============ Amalia (reembolsables) ============ */
+function amaliaSorted(){ return [...(DB.amalia||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
+function amaliaSaldo(){ let s=0; (DB.amalia||[]).forEach(e=>{ s += e.tipo==='gasto'? num(e.importe) : -num(e.importe); }); return s; }
+function renderAmalia(){
+  const fE=$('#amaFecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
+  const saldo=amaliaSaldo();
+  $('#amaCards').innerHTML=`<div class="card"><div class="lbl">Saldo pendiente (Amalia debe)</div><div class="val ${saldo>0.005?'neg':'pos'}">${fmt(saldo)}</div><div class="sub">${(DB.amalia||[]).length} apuntes</div></div>`;
+  const list=amaliaSorted();
+  if(!list.length){ $('#amaList').innerHTML='<div class="empty">Sin apuntes. Añade un gasto o un reembolso.</div>'; return; }
+  let run=0;
+  const rows=list.map(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe);
+    const signed=e.tipo==='gasto'? '+'+fmt(e.importe):'−'+fmt(e.importe);
+    return `<tr><td>${ddmmyyyy(e.fecha)}</td><td>${e.concepto||''}${e.nota?` <span class="muted">· ${e.nota}</span>`:''}</td>
+      <td><span class="tag ${e.tipo==='reembolso'?'in':''}">${e.tipo==='gasto'?'Gasto':'Reembolso'}</span></td>
+      <td class="num ${e.tipo==='gasto'?'neg':'pos'}">${signed}</td>
+      <td class="num"><b>${fmt(run)}</b></td>
+      <td class="right"><button class="btn danger sm" data-delama="${e.id}">✕</button></td></tr>`;}).join('');
+  $('#amaList').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th class="num">Importe</th><th class="num">Saldo</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function addAmalia(){
+  const fecha=$('#amaFecha').value; if(!fecha){alert('Pon una fecha');return;}
+  const importe=num($('#amaImporte').value); if(!importe){alert('Pon un importe');return;}
+  DB.amalia=DB.amalia||[];
+  DB.amalia.push({id:uid(),fecha,concepto:$('#amaConcepto').value.trim(),tipo:$('#amaTipo').value,importe,nota:$('#amaNota').value.trim()});
+  $('#amaConcepto').value=''; $('#amaImporte').value=''; $('#amaNota').value='';
+  renderAmalia(); scheduleSave();
+}
+function importAmalia(file){
+  file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+    const arr=Array.isArray(d)?d:(d.amalia||[]); if(!arr.length){alert('El archivo no contiene apuntes');return;}
+    DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
+    renderAmalia(); saveNow(); alert('Importados '+DB.amalia.length+' apuntes de Amalia.'); });
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); renderProy(); renderAmalia(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -933,6 +987,9 @@ $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);
 $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-delcuenta]');if(b)delCuenta(b.dataset.delcuenta);});
 $('#proyAddEvento').addEventListener('click',addEvento);
+$('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
+$('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
+$('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
 document.addEventListener('change',e=>{ const t=e.target; if(t&&t.dataset&&t.dataset.proy){ const k=t.dataset.proy; let v=num(t.value); if(k==='rentabilidad'||k==='rpd'||k==='crecDiv') v=v/100; DB.config.proyeccion[k]=v; renderProy(); scheduleSave(); }});
 $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
@@ -951,6 +1008,9 @@ document.body.appendChild(fi);
 const pf=document.createElement('input'); pf.type='file'; pf.accept='.json,application/json'; pf.id='patFile'; pf.style.display='none';
 pf.addEventListener('change',()=>{const f=pf.files[0];if(!f)return; importPatrimonio(f); pf.value='';});
 document.body.appendChild(pf);
+const af=document.createElement('input'); af.type='file'; af.accept='.json,application/json'; af.id='amaFile'; af.style.display='none';
+af.addEventListener('change',()=>{const f=af.files[0];if(!f)return; importAmalia(f); af.value='';});
+document.body.appendChild(af);
 
 /* arranque */
 init();
