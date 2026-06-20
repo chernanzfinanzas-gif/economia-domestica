@@ -286,9 +286,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="toolbar">
       <label class="muted">API key Twelve Data <input type="text" id="invKey" placeholder="pega tu clave" style="min-width:190px"></label>
       <button class="btn" id="invUpdate">Actualizar precios</button>
+      <button class="btn" id="invPasteBtn">Pegar precios</button>
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
       <span class="muted" id="invStatus"></span>
+    </div>
+    <div id="invPastePanel" class="card" style="display:none;margin-bottom:14px">
+      <div class="sub" style="margin-bottom:6px">Pega columnas <b>Ticker</b>, <b>Precio</b> y (opcional) <b>Dividendo/acción</b> copiadas de tu Excel, una por línea. Se emparejan por ticker o nombre.</div>
+      <textarea id="invPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px" placeholder="IBE	20,83&#10;SAN	11,80&#10;MAP	4,24"></textarea>
+      <div style="margin-top:8px"><button class="btn" id="invPasteApply">Aplicar precios</button>
+        <button class="btn ghost" id="invPasteCancel">Cerrar</button></div>
     </div>
     <h3>Añadir / editar posición</h3>
     <form class="grid" id="invForm" autocomplete="off" style="background:#fef9c3">
@@ -1157,6 +1164,28 @@ async function actualizarPrecios(){
   renderInv(); scheduleSave();
   setInvStatus('Actualizado '+ok+'/'+list.length+(fail.length?' · sin dato: '+fail.join(', '):' ✓'));
 }
+function parseNumES(t){ t=(t||'').toString().replace(/[^\d.,-]/g,''); if(!t)return NaN; if(t.indexOf(',')>=0){ return parseFloat(t.replace(/\./g,'').replace(',','.')); } return parseFloat(t); }
+function aplicarPreciosPegados(){
+  const txt=($('#invPasteTxt').value||''); if(!txt.trim()){alert('Pega los precios primero.');return;}
+  const norm=s=>(s||'').toString().trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  const byTick={}, byName={};
+  (DB.inversiones||[]).forEach(p=>{ if(p.ticker)byTick[norm(p.ticker)]=p; if(p.nombre)byName[norm(p.nombre)]=p; });
+  let okP=0, okD=0; const noMatch=[];
+  txt.split(/\r?\n/).forEach(line=>{
+    line=line.trim(); if(!line)return;
+    let cols=line.split(/[\t;]+/); if(cols.length<2) cols=line.split(/\s+/);
+    cols=cols.map(x=>x.trim()).filter(Boolean);
+    if(cols.length<2){ noMatch.push(line); return; }
+    const id=cols[0], price=parseNumES(cols[1]), div=cols.length>=3?parseNumES(cols[2]):NaN;
+    const p=byTick[norm(id)] || byName[norm(id)];
+    if(!p){ noMatch.push(id); return; }
+    if(!isNaN(price)){ p.precioActual=price; okP++; }
+    if(!isNaN(div)){ p.divAccion=div; okD++; }
+  });
+  renderInv(); scheduleSave();
+  setInvStatus('Precios: '+okP+(okD?(' · dividendos: '+okD):'')+(noMatch.length?(' · sin emparejar: '+noMatch.slice(0,6).join(', ')):' ✓'));
+  if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
+}
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); }
 
 /* ----- diálogo categoría ----- */
@@ -1265,6 +1294,9 @@ $('#invForm').addEventListener('submit',e=>{e.preventDefault();invSubmit();});
 $('#invCancel').addEventListener('click',invReset);
 $('#invAddBtn').addEventListener('click',()=>{invReset();window.scrollTo({top:0,behavior:'smooth'});});
 $('#invUpdate').addEventListener('click',actualizarPrecios);
+$('#invPasteBtn').addEventListener('click',()=>{const p=$('#invPastePanel'); p.style.display=p.style.display==='none'?'block':'none';});
+$('#invPasteCancel').addEventListener('click',()=>{$('#invPastePanel').style.display='none';});
+$('#invPasteApply').addEventListener('click',aplicarPreciosPegados);
 $('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
 $('#invKey').addEventListener('change',e=>{ if(!DB.config)DB.config={}; DB.config.twelveKey=e.target.value.trim(); scheduleSave(); });
 $('#invTable').addEventListener('click',e=>{const ed=e.target.closest('[data-invedit]'),de=e.target.closest('[data-invdel]'); if(ed)invEdit(ed.dataset.invedit); if(de&&confirm('¿Eliminar esta posición?')){DB.inversiones=DB.inversiones.filter(x=>x.id!==de.dataset.invdel);renderInv();scheduleSave();}});
