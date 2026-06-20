@@ -101,6 +101,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .modebtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
   tr.r-amar td{background:#fef9c3!important;color:#c2410c!important}
   tr.r-verde td{background:#dcfce7!important;color:#166534!important;font-size:15px}
+  #proyTabla table{font-size:11px}
+  #proyTabla th,#proyTabla td{padding:4px 6px}
+  #proyTabla .aporInput{font-size:11px}
 </style>
 </head>
 <body>
@@ -994,7 +997,7 @@ function renderProy(){
     <td class="num"><b>${fmt(r.patrimonio)}</b></td>
     <td class="num">${fmt(r.dividendoAnual)}</td>
     <td class="num">${fmt(r.ahorroTotal)}</td>
-    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}" style="width:84px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}" style="width:70px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
     <td class="num ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td>
     <td class="num">${fmt(r.disponibleMes)}</td>
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
