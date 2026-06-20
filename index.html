@@ -853,52 +853,84 @@ function delCuenta(id){
   (DB.patrimonio||[]).forEach(s=>{ s.lineas=(s.lineas||[]).filter(l=>l.cuentaId!==id); });
   renderPat(); scheduleSave();
 }
-/* ============ Proyección ============ */
+/* ============ Proyección (modelo EVO) ============ */
 function proyDefaults(){
   if(!DB.config) DB.config={};
-  if(DB.config.proyeccion){ const p=DB.config.proyeccion; if(!p.eventos)p.eventos=[]; return; }
+  const p=DB.config.proyeccion;
+  if(p && p.modeloEvo){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; return; }
   const snaps=patSnaps(); const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
-  DB.config.proyeccion={ edadActual:55, anioBase:new Date().getFullYear(), edadFin:90, edadFinAportar:67,
-    capitalInvertido:Math.round(last.inv), efectivo:Math.round(last.ef),
-    rentabilidad:0.07, rpd:0.06, crecDiv:0, aportacionAnual:20000, eventos:[] };
+  const yr=new Date().getFullYear();
+  const byName={}; DB.categorias.forEach(c=>byName[c.nombre]=c);
+  const mes=(n)=>{ const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0; };
+  const nominaMes=mes('Nómina Carlos')+mes('Nómina Susana')+mes('Pagas Extra'); // incluye las 14 pagas
+  const divAnual=mes('Dividendos')*12;
+  let gastosAnuales=0; DB.presupuesto.filter(x=>pAnio(x)===yr).forEach(x=>{ const c=byName2(x.categoriaId); if(c&&c.tipo==='gasto') gastosAnuales+=anual(x); });
+  function byName2(id){ return DB.categorias.find(cc=>cc.id===id); }
+  const ahorroNominas=Math.max(0,Math.round(nominaMes*12-gastosAnuales));
+  DB.config.proyeccion={ modeloEvo:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
+    efectivo:Math.round(last.ef), invertido:Math.round(last.inv),
+    dividendoBruto:Math.round(divAnual)||13836, nominaMes:Math.round(nominaMes)||5678, ahorroNominasAnual:ahorroNominas||26000,
+    crecCartera:0.015, rpd:0.05, retencion:0.19, crecDividendo:0, inflacion:0.02, crecAhorro:0.01,
+    aportacionDefault:25000, aportaciones:{}, eventos:[] };
+  scheduleSave();
 }
 function computeProy(c){
-  const out=[]; const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
-  let inv=num(c.capitalInvertido);
+  const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
+  const evOf=(anio)=>{ let t=0,con=''; (c.eventos||[]).forEach(e=>{ if(parseInt(e.anio,10)===anio){t+=num(e.importe); con=con?con+', '+(e.concepto||''):(e.concepto||'');} }); return {t,con}; };
+  const Sof=(anio,edad)=>{ const ap=c.aportaciones||{}; if(ap[anio]!=null && ap[anio]!=='') return num(ap[anio]); return edad<=c.edadFinAportar? num(c.aportacionDefault):0; };
+  const g=1+num(c.crecCartera), rpdNeto=num(c.rpd)*(1-num(c.retencion)), gd=1+num(c.crecDividendo), gi=1+num(c.inflacion), ga=1+num(c.crecAhorro);
+  let D=num(c.efectivo), H=num(c.invertido), E=num(c.invertido), J=num(c.dividendoBruto), M=num(c.nominaMes), P=num(c.ahorroNominasAnual);
+  let prevS=0,prevT=0,prevQ=0,prevD=D,prevE=E;
+  const out=[];
   for(let i=0;i<=N;i++){
     const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
+    const ev=evOf(anio); const T=ev.t;
+    const S=Sof(anio,edad);
     if(i>0){
-      inv = inv*(1+num(c.rentabilidad));
-      if(edad <= c.edadFinAportar) inv += num(c.aportacionAnual);
-      (c.eventos||[]).forEach(ev=>{ if(parseInt(ev.anio,10)===anio) inv -= num(ev.importe); });
+      D = prevD - prevT + (prevQ - prevS);
+      E = (prevE + prevS) * g;
+      H = H + S;
+      J = J*gd + S*rpdNeto;
+      M = M*gi;
+      P = P*ga;
     }
-    if(inv<0) inv=0;
-    const divA=inv*num(c.rpd)*Math.pow(1+num(c.crecDiv||0), i);
-    const patr=inv+num(c.efectivo);
-    out.push({anio,edad,invertido:inv,divAnual:divA,divMes:divA/12,patrimonio:patr});
+    const Q=P+J;
+    const dividendoMes=J/12;
+    const rentaMes=dividendoMes+M;
+    const disponibleMes=rentaMes-(Q-S)/12-S/12;
+    const patrimonio=E+D;
+    out.push({anio,edad,S,T,con:ev.con,invertido:H,cartera:E,efectivo:D,dividendoAnual:J,dividendoMes,nominaMes:M,rentaMes,disponibleMes,patrimonio});
+    prevD=D; prevE=E; prevS=S; prevT=T; prevQ=Q;
   }
   return out;
 }
 function renderProyParams(c){
   const el=$('#proyParams'); if(!el) return;
+  const pc=x=>+(x*100).toFixed(2);
   const f=[
-    ['edadActual','Edad actual',c.edadActual,'1'],
-    ['anioBase','Año actual',c.anioBase,'1'],
-    ['edadFin','Edad final',c.edadFin,'1'],
-    ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1'],
-    ['capitalInvertido','Capital invertido (€)',Math.round(c.capitalInvertido),'100'],
-    ['efectivo','Efectivo (€)',Math.round(c.efectivo),'100'],
-    ['rentabilidad','Rentabilidad anual %',+(c.rentabilidad*100).toFixed(2),'0.1'],
-    ['rpd','RPD dividendo %',+(c.rpd*100).toFixed(2),'0.1'],
-    ['crecDiv','Crec. dividendo %/año',+((c.crecDiv||0)*100).toFixed(2),'0.1'],
-    ['aportacionAnual','Aportación anual (€)',Math.round(c.aportacionAnual),'500']
+    ['edadActual','Edad actual',c.edadActual,'1',0],
+    ['anioBase','Año actual',c.anioBase,'1',0],
+    ['edadFin','Edad final',c.edadFin,'1',0],
+    ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1',0],
+    ['efectivo','Efectivo inicial (€)',Math.round(c.efectivo),'100',0],
+    ['invertido','Invertido inicial (€)',Math.round(c.invertido),'500',0],
+    ['dividendoBruto','Dividendos brutos/año (€)',Math.round(c.dividendoBruto),'100',0],
+    ['nominaMes','Nómina hogar/mes (con extras)',Math.round(c.nominaMes),'50',0],
+    ['ahorroNominasAnual','Ahorro de nóminas/año (€)',Math.round(c.ahorroNominasAnual),'500',0],
+    ['aportacionDefault','Aportación inversión/año (€)',Math.round(c.aportacionDefault),'500',0],
+    ['crecCartera','Crec. cartera %',pc(c.crecCartera),'0.1',1],
+    ['rpd','RPD dividendo %',pc(c.rpd),'0.1',1],
+    ['retencion','Retención fiscal %',pc(c.retencion),'0.1',1],
+    ['crecDividendo','Crec. dividendo %/año',pc(c.crecDividendo),'0.1',1],
+    ['inflacion','Inflación %',pc(c.inflacion),'0.1',1],
+    ['crecAhorro','Crec. ahorro nóminas %',pc(c.crecAhorro),'0.1',1]
   ];
-  el.innerHTML=f.map(x=>`<label>${x[1]}<input type="number" step="${x[3]}" data-proy="${x[0]}" value="${x[2]}"></label>`).join('');
+  el.innerHTML=f.map(x=>`<label>${x[1]}<input type="number" step="${x[3]}" data-proy="${x[0]}" data-pct="${x[4]}" value="${x[2]}"></label>`).join('');
 }
 function renderProyEventos(c){
   const el=$('#proyEventos'); if(!el) return;
   const evs=c.eventos||[];
-  if(!evs.length){ el.innerHTML='<span class="muted">Sin eventos.</span>'; return; }
+  if(!evs.length){ el.innerHTML='<span class="muted">Sin gastos puntuales. Añade uno (p. ej. Coche 2028, Casa 2030).</span>'; return; }
   el.innerHTML='<table><thead><tr><th>Año</th><th>Concepto</th><th class="num">Importe</th><th></th></tr></thead><tbody>'+
     evs.map((ev,i)=>`<tr><td>${ev.anio}</td><td>${ev.concepto||''}</td><td class="num">${fmt(ev.importe)}</td><td class="right"><button class="btn danger sm" data-delev="${i}">✕</button></td></tr>`).join('')+'</tbody></table>';
 }
@@ -922,14 +954,23 @@ function renderProy(){
   const ser=computeProy(c); const fin=ser[ser.length-1];
   const jub=ser.find(r=>r.edad>=c.edadFinAportar)||fin;
   $('#proyCards').innerHTML=[
-    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'invertido '+fmt(fin.invertido)},
-    {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.divMes),s:fmt(fin.divAnual)+'/año'},
-    {l:'Dividendos/mes a los '+Math.round(c.edadFinAportar),v:fmt(jub.divMes),s:'al dejar de aportar'},
-    {l:'Aportación anual',v:fmt(c.aportacionAnual),s:'hasta los '+Math.round(c.edadFinAportar)}
+    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'cartera '+fmt(fin.cartera)},
+    {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),s:fmt(fin.dividendoAnual)+'/año'},
+    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'},
+    {l:'Disponible/mes al jubilar',v:fmt(jub.disponibleMes),s:'tras ahorro'}
   ].map(x=>`<div class="card"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="sub">${x.s}</div></div>`).join('');
   drawProyChart(ser); renderProyEventos(c);
-  const rows=ser.map(r=>`<tr><td>${r.anio}</td><td class="num">${r.edad}</td><td class="num">${fmt(r.invertido)}</td><td class="num">${fmt(r.divAnual)}</td><td class="num">${fmt(r.divMes)}</td><td class="num"><b>${fmt(r.patrimonio)}</b></td></tr>`).join('');
-  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Invertido</th><th class="num">Dividendos/año</th><th class="num">Dividendos/mes</th><th class="num">Patrimonio</th></tr></thead><tbody>${rows}</tbody></table>`;
+  const rows=ser.map(r=>`<tr>
+    <td>${r.anio}</td><td class="num">${r.edad}</td>
+    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.S)}" style="width:88px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+    <td class="num">${fmt(r.invertido)}</td>
+    <td class="num">${fmt(r.patrimonio)}</td>
+    <td class="num">${fmt(r.dividendoMes)}</td>
+    <td class="num">${fmt(r.rentaMes)}</td>
+    <td class="num">${fmt(r.disponibleMes)}</td>
+    <td>${r.T?'<span class="neg">−'+fmt(r.T)+'</span> '+(r.con||''):''}</td>
+  </tr>`).join('');
+  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">A Inversión</th><th class="num">Invertido</th><th class="num">Patrimonio</th><th class="num">Dividendos/mes</th><th class="num">Renta/mes</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
@@ -1128,7 +1169,7 @@ $('#amaOrden').addEventListener('change',renderAmalia);
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
-document.addEventListener('change',e=>{ const t=e.target; if(t&&t.dataset&&t.dataset.proy){ const k=t.dataset.proy; let v=num(t.value); if(k==='rentabilidad'||k==='rpd'||k==='crecDiv') v=v/100; DB.config.proyeccion[k]=v; renderProy(); scheduleSave(); }});
+document.addEventListener('change',e=>{ const t=e.target; if(!t||!t.dataset)return; if(t.dataset.proy){ let v=num(t.value); if(t.dataset.pct==='1') v=v/100; DB.config.proyeccion[t.dataset.proy]=v; renderProy(); scheduleSave(); } else if(t.classList&&t.classList.contains('aporInput')){ DB.config.proyeccion.aportaciones[t.dataset.anio]=num(t.value); renderProy(); scheduleSave(); } });
 $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
 $('#patList').addEventListener('click',e=>{const b=e.target.closest('[data-delsnap]');if(b&&confirm('¿Eliminar este registro?')){DB.patrimonio=DB.patrimonio.filter(s=>s.id!==b.dataset.delsnap);renderPat();scheduleSave();}});
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
