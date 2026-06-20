@@ -324,6 +324,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <label>Precio (€)<input type="number" id="opPrecio" step="0.0001" min="0"></label>
       </div>
       <div style="margin-top:10px"><button class="btn" id="opAdd">Añadir operación</button>
+        <button class="btn ghost" id="opCancelEdit" style="display:none">Cancelar edición</button>
         <button class="btn ghost" id="opClose">Cerrar</button></div>
     </div>
   </section>
@@ -1128,7 +1129,7 @@ function importPresupuesto(file){
   });
 }
 /* ============ Inversiones (operaciones) ============ */
-let invOpsTicker=null, invOpsCartera=null, invCartFiltro='Todas';
+let invOpsTicker=null, invOpsCartera=null, invCartFiltro='Todas', opEditId=null;
 function invByFecha(a,b){ return (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0; }
 function invCarteras(){ const s=new Set(['Propia']); (DB.operaciones||[]).forEach(o=>s.add(o.cartera||'Propia')); return [...s]; }
 function invPositions(){
@@ -1194,7 +1195,7 @@ function renderInvOps(){
   if(!ops.length){ $('#invOpsList').innerHTML='<div class="empty">Sin operaciones para '+t+' en '+car+'.</div>'; return; }
   let acc=0;
   const rows=ops.map(o=>{ const n=num(o.acciones); acc+= o.tipo==='venta'?-n:n;
-    return `<tr><td>${o.fecha?o.fecha.split('-').reverse().join('/'):'—'}</td><td><span class="tag ${o.tipo==='venta'?'':'in'}">${o.tipo==='venta'?'Venta':'Compra'}</span></td><td class="num">${n}</td><td class="num">${fmt(o.precio)}</td><td class="num">${fmt(n*num(o.precio))}</td><td class="num">${acc}</td><td class="right"><button class="btn danger sm" data-delop="${o.id}">✕</button></td></tr>`;
+    return `<tr><td>${o.fecha?o.fecha.split('-').reverse().join('/'):'—'}</td><td><span class="tag ${o.tipo==='venta'?'':'in'}">${o.tipo==='venta'?'Venta':'Compra'}</span></td><td class="num">${n}</td><td class="num">${fmt(o.precio)}</td><td class="num">${fmt(n*num(o.precio))}</td><td class="num">${acc}</td><td class="right"><button class="btn ghost sm" data-editop="${o.id}">Editar</button> <button class="btn danger sm" data-delop="${o.id}">✕</button></td></tr>`;
   }).join('');
   $('#invOpsList').innerHTML=`<table><thead><tr><th>Fecha</th><th>Op.</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Importe</th><th class="num">Acumul.</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
@@ -1203,10 +1204,15 @@ function addOp(){
   const fecha=$('#opFecha').value, tipo=$('#opTipo').value, n=num($('#opAcc').value), precio=num($('#opPrecio').value);
   if(n<=0){alert('Indica acciones > 0.');return;}
   if(tipo==='compra'&&precio<=0){alert('Indica el precio de compra.');return;}
-  DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio});
+  if(opEditId){ const o=DB.operaciones.find(x=>x.id===opEditId); if(o){ o.fecha=fecha; o.tipo=tipo; o.acciones=n; o.precio=precio; } opEditEnd(); }
+  else { DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio}); }
   $('#opAcc').value=''; $('#opPrecio').value='';
   renderInv(); renderInvOps(); scheduleSave();
 }
+function editOp(id){ const o=DB.operaciones.find(x=>x.id===id); if(!o)return; opEditId=id;
+  $('#opFecha').value=o.fecha||''; $('#opTipo').value=o.tipo; $('#opAcc').value=o.acciones; $('#opPrecio').value=o.precio;
+  $('#opAdd').textContent='Guardar cambios'; $('#opCancelEdit').style.display='inline-block'; }
+function opEditEnd(){ opEditId=null; const b=$('#opAdd'); if(b)b.textContent='Añadir operación'; const c=$('#opCancelEdit'); if(c)c.style.display='none'; }
 function invNuevoValor(){
   const t=$('#invTicker').value.trim().toUpperCase(); if(!t){alert('Pon el ticker.');return;}
   DB.valores=DB.valores||{};
@@ -1364,8 +1370,9 @@ $('#invTable').addEventListener('click',e=>{const op=e.target.closest('[data-ops
   if(op){ invOpsTicker=op.dataset.opsT; invOpsCartera=op.dataset.opsC; renderInvOps(); const el=$('#invOpsPanel'); if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
   if(de){ const t=de.dataset.delT, car=de.dataset.delC; if(confirm('¿Eliminar las operaciones de '+t+' en la cartera '+car+'?')){ DB.operaciones=DB.operaciones.filter(o=>!((o.ticker||'').toUpperCase()===t && (o.cartera||'Propia')===car)); if(invOpsTicker===t&&invOpsCartera===car)invOpsTicker=null; renderInv(); renderInvOps(); scheduleSave(); } }});
 $('#opAdd').addEventListener('click',addOp);
-$('#opClose').addEventListener('click',()=>{invOpsTicker=null; renderInvOps();});
-$('#invOpsList').addEventListener('click',e=>{const d=e.target.closest('[data-delop]'); if(d&&confirm('¿Eliminar esta operación?')){DB.operaciones=DB.operaciones.filter(o=>o.id!==d.dataset.delop); renderInv(); renderInvOps(); scheduleSave();}});
+$('#opClose').addEventListener('click',()=>{opEditEnd(); invOpsTicker=null; renderInvOps();});
+$('#opCancelEdit').addEventListener('click',()=>{opEditEnd(); $('#opAcc').value=''; $('#opPrecio').value='';});
+$('#invOpsList').addEventListener('click',e=>{const ed=e.target.closest('[data-editop]'),d=e.target.closest('[data-delop]'); if(ed){editOp(ed.dataset.editop);return;} if(d&&confirm('¿Eliminar esta operación?')){DB.operaciones=DB.operaciones.filter(o=>o.id!==d.dataset.delop); if(opEditId===d.dataset.delop)opEditEnd(); renderInv(); renderInvOps(); scheduleSave();}});
 $('#invOpsMeta').addEventListener('change',e=>{const t=e.target; if(t.dataset&&t.dataset.meta&&invOpsTicker){ const v=DB.valores[invOpsTicker]=DB.valores[invOpsTicker]||{}; const k=t.dataset.meta; v[k]=(k==='precioActual'||k==='divAccion')?num(t.value):t.value; renderInv(); scheduleSave(); }});
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
