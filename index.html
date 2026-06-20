@@ -113,6 +113,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="patrimonio">Patrimonio</button>
     <button data-view="proyeccion">Proyección</button>
     <button data-view="amalia">Amalia</button>
+    <button data-view="inversiones">Inversiones</button>
   </nav>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
@@ -273,6 +274,33 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </form>
     <div class="toolbar"><label class="muted">Orden <select id="amaOrden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select></label></div>
     <div id="amaList"></div>
+  </section>
+
+  <!-- INVERSIONES -->
+  <section class="view" id="view-inversiones">
+    <h2>Inversiones</h2>
+    <div class="cards" id="invCards"></div>
+    <div class="toolbar">
+      <label class="muted">API key Twelve Data <input type="text" id="invKey" placeholder="pega tu clave" style="min-width:190px"></label>
+      <button class="btn" id="invUpdate">Actualizar precios</button>
+      <button class="btn sm" id="invAddBtn">+ Posición</button>
+      <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
+      <span class="muted" id="invStatus"></span>
+    </div>
+    <h3>Añadir / editar posición</h3>
+    <form class="grid" id="invForm" autocomplete="off" style="background:#fef9c3">
+      <input type="hidden" id="invId">
+      <label>Ticker<input type="text" id="invTicker" placeholder="SAN"></label>
+      <label>Nombre<input type="text" id="invNombre" placeholder="Santander"></label>
+      <label>Acciones<input type="number" id="invAcc" step="1" min="0"></label>
+      <label>Precio compra (€)<input type="number" id="invPC" step="0.0001" min="0"></label>
+      <label>Precio actual (€)<input type="number" id="invPA" step="0.0001" min="0"></label>
+      <label>Bróker<input type="text" id="invBroker" placeholder="R4 / ING / Santander"></label>
+      <label>Exchange<input type="text" id="invExch" value="BME"></label>
+      <div class="row-actions"><button type="submit" class="btn" id="invSubmit">Añadir</button>
+        <button type="button" class="btn ghost" id="invCancel" style="display:none">Cancelar</button></div>
+    </form>
+    <div id="invTable"></div>
   </section>
 
 </main>
@@ -492,6 +520,7 @@ function afterLoad(){
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   DB.patrimonio = DB.patrimonio||[];
   DB.amalia = DB.amalia||[];
+  DB.inversiones = DB.inversiones||[];
   if(DB.config && !DB.config.estructuraReparto){
     const REMAP={'Comunidad':'Casa','Luz':'Casa','IBI / Tasa Basuras':'Casa','Seguro Casa':'Casa','Movistar':'Casa','Alarma Ring':'Casa','Pepephone':'Casa','Compras Varios':'Compras','Seguro Coche':'Coche','Impuesto Circulación':'Coche','Revisión / ITV':'Coche','Gasolina':'Coche','Gimnasio':'Deporte','Wikiloc':'Deporte','Komoot':'Deporte','Zwift':'Deporte','Meteoblue':'Deporte','Iru':'Gastos Varios','Aldeas Infantiles':'Gastos Varios','Comisiones / Custodia':'Gastos Varios','Transporte':'Gastos Varios','Google One':'Software Productividad','Claude Pro':'Software Productividad','Microsoft 365 / Norton':'Software Productividad','Investing.com':'Software Productividad','Filmora':'Software Productividad','YouTube Premium':'Software Entretenimiento','Amazon Prime':'Software Entretenimiento','Audible':'Software Entretenimiento','Alimentación':'Alimentación','Ocio':'Ocio','Vacaciones':'Vacaciones'};
     DB.categorias.forEach(c=>{ if(REMAP[c.nombre]) c.grupo=REMAP[c.nombre]; });
@@ -853,83 +882,80 @@ function delCuenta(id){
   (DB.patrimonio||[]).forEach(s=>{ s.lineas=(s.lineas||[]).filter(l=>l.cuentaId!==id); });
   renderPat(); scheduleSave();
 }
-/* ============ Proyección (modelo EVO) ============ */
+/* ============ Proyección (modelo KH&Claude) ============ */
 function proyDefaults(){
-  if(!DB.config) DB.config={};
+  if(!DB.config)DB.config={};
   const p=DB.config.proyeccion;
-  if(p && p.modeloEvo){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; return; }
-  const snaps=patSnaps(); const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
+  if(p && p.modeloEvo2){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; return; }
   const yr=new Date().getFullYear();
+  const inv=DB.inversiones||[];
+  let cartera=0,coste=0,divB=0;
+  inv.forEach(x=>{cartera+=num(x.acciones)*num(x.precioActual); coste+=num(x.acciones)*num(x.precioCompra); divB+=num(x.acciones)*num(x.divAccion);});
+  const snaps=patSnaps(); const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
+  if(!cartera) cartera=last.inv||354620;
+  if(!coste) coste=169916;
+  if(!divB) divB=14151;
   const byName={}; DB.categorias.forEach(c=>byName[c.nombre]=c);
-  const mes=(n)=>{ const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0; };
-  const nominaMes=mes('Nómina Carlos')+mes('Nómina Susana')+mes('Pagas Extra'); // incluye las 14 pagas
-  const divAnual=mes('Dividendos')*12;
-  let gastosAnuales=0; DB.presupuesto.filter(x=>pAnio(x)===yr).forEach(x=>{ const c=byName2(x.categoriaId); if(c&&c.tipo==='gasto') gastosAnuales+=anual(x); });
-  function byName2(id){ return DB.categorias.find(cc=>cc.id===id); }
-  const ahorroNominas=Math.max(0,Math.round(nominaMes*12-gastosAnuales));
-  DB.config.proyeccion={ modeloEvo:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
-    efectivo:Math.round(last.ef), invertido:Math.round(last.inv),
-    dividendoBruto:Math.round(divAnual)||13836, nominaMes:Math.round(nominaMes)||5678, ahorroNominasAnual:ahorroNominas||26000,
-    crecCartera:0.015, rpd:0.05, retencion:0.19, crecDividendo:0, inflacion:0.02, crecAhorro:0.01,
+  const mes=(n)=>{const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0;};
+  const nominaMes=mes('Nómina Carlos')+mes('Nómina Susana')+mes('Pagas Extra');
+  let gastosAnu=0; DB.presupuesto.filter(x=>pAnio(x)===yr).forEach(x=>{const c=DB.categorias.find(cc=>cc.id===x.categoriaId); if(c&&c.tipo==='gasto')gastosAnu+=anual(x);});
+  DB.config.proyeccion={ modeloEvo2:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
+    efectivo:Math.round(last.ef)||9000, invertidoCoste:Math.round(coste), carteraInicial:Math.round(cartera),
+    dividendoBruto:Math.round(divB), nominaMes:Math.round(nominaMes)||5675, gastoMes:Math.round(gastosAnu/12)||3450,
+    crecCartera:0.04, crecDividendo:0.025, rpdNuevas:0.05, inflacionNomina:0.025, crecAhorro:0.01,
     aportacionDefault:25000, aportaciones:{}, eventos:[] };
   scheduleSave();
 }
 function computeProy(c){
   const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
-  const evOf=(anio)=>{ let t=0,con=''; (c.eventos||[]).forEach(e=>{ if(parseInt(e.anio,10)===anio){t+=num(e.importe); con=con?con+', '+(e.concepto||''):(e.concepto||'');} }); return {t,con}; };
-  const Sof=(anio,edad)=>{ const ap=c.aportaciones||{}; if(ap[anio]!=null && ap[anio]!=='') return num(ap[anio]); return edad<=c.edadFinAportar? num(c.aportacionDefault):0; };
-  const g=1+num(c.crecCartera), rpdNeto=num(c.rpd)*(1-num(c.retencion)), gd=1+num(c.crecDividendo), gi=1+num(c.inflacion), ga=1+num(c.crecAhorro);
-  let D=num(c.efectivo), H=num(c.invertido), E=num(c.invertido), J=num(c.dividendoBruto), M=num(c.nominaMes), P=num(c.ahorroNominasAnual);
-  let prevS=0,prevT=0,prevQ=0,prevD=D,prevE=E;
+  const Sof=(anio,edad)=>{const ap=c.aportaciones||{}; if(ap[anio]!=null&&ap[anio]!=='')return num(ap[anio]); return edad<=c.edadFinAportar?num(c.aportacionDefault):0;};
+  const Tof=(anio)=>{let t=0,con=''; (c.eventos||[]).forEach(e=>{if(parseInt(e.anio,10)===anio){t+=num(e.importe); con=con?con+', '+(e.concepto||''):(e.concepto||'');}}); return{t,con};};
+  const gC=1+num(c.crecCartera), gD=1+num(c.crecDividendo), gN=1+num(c.inflacionNomina), gA=1+num(c.crecAhorro), rpdN=num(c.rpdNuevas);
+  let Ef=num(c.efectivo), I=num(c.invertidoCoste), C=num(c.carteraInicial), Div=num(c.dividendoBruto), Nom=num(c.nominaMes);
+  let AN=(num(c.nominaMes)-num(c.gastoMes))*12; if(AN<0)AN=0;
+  let prevR=0,prevT=0,prevS=0;
   const out=[];
   for(let i=0;i<=N;i++){
     const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
-    const ev=evOf(anio); const T=ev.t;
-    const S=Sof(anio,edad);
+    const S=Sof(anio,edad); const ev=Tof(anio); const T=ev.t;
     if(i>0){
-      D = prevD - prevT + (prevQ - prevS);
-      E = (prevE + prevS) * g;
-      H = H + S;
-      J = J*gd + S*rpdNeto;
-      M = M*gi;
-      P = P*ga;
+      Nom=Nom*gN; AN=AN*gA;
+      Div=Div*gD + prevS*rpdN;
+      I=I+S;
+      C=(C+S)*gC;
+      Ef=Ef+prevR-prevT;
     }
-    const Q=P+J;
-    const dividendoMes=J/12;
-    const rentaMes=dividendoMes+M;
-    const disponibleMes=rentaMes-(Q-S)/12-S/12;
-    const patrimonio=E+D;
-    out.push({anio,edad,S,T,con:ev.con,invertido:H,cartera:E,efectivo:D,dividendoAnual:J,dividendoMes,nominaMes:M,rentaMes,disponibleMes,patrimonio});
-    prevD=D; prevE=E; prevS=S; prevT=T; prevQ=Q;
+    const Q=AN+Div; const R=Q-S; const patrim=C+Ef;
+    const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; const dispMes=rentaMes-R/12-S/12;
+    out.push({anio,edad,efectivo:Ef,invertido:I,cartera:C,patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
+    prevR=R; prevT=T; prevS=S;
   }
   return out;
 }
 function renderProyParams(c){
-  const el=$('#proyParams'); if(!el) return;
-  const pc=x=>+(x*100).toFixed(2);
+  const el=$('#proyParams'); if(!el) return; const pc=x=>+(x*100).toFixed(2);
   const f=[
     ['edadActual','Edad actual',c.edadActual,'1',0],
     ['anioBase','Año actual',c.anioBase,'1',0],
     ['edadFin','Edad final',c.edadFin,'1',0],
     ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1',0],
     ['efectivo','Efectivo inicial (€)',Math.round(c.efectivo),'100',0],
-    ['invertido','Invertido inicial (€)',Math.round(c.invertido),'500',0],
-    ['dividendoBruto','Dividendos brutos/año (€)',Math.round(c.dividendoBruto),'100',0],
+    ['invertidoCoste','Invertido / coste (€)',Math.round(c.invertidoCoste),'500',0],
+    ['carteraInicial','Valor cartera inicial (€)',Math.round(c.carteraInicial),'500',0],
+    ['dividendoBruto','Dividendo bruto/año (€)',Math.round(c.dividendoBruto),'100',0],
     ['nominaMes','Nómina hogar/mes (con extras)',Math.round(c.nominaMes),'50',0],
-    ['ahorroNominasAnual','Ahorro de nóminas/año (€)',Math.round(c.ahorroNominasAnual),'500',0],
+    ['gastoMes','Gasto mensual presupuestado (€)',Math.round(c.gastoMes),'50',0],
     ['aportacionDefault','Aportación inversión/año (€)',Math.round(c.aportacionDefault),'500',0],
-    ['crecCartera','Crec. cartera %',pc(c.crecCartera),'0.1',1],
-    ['rpd','RPD dividendo %',pc(c.rpd),'0.1',1],
-    ['retencion','Retención fiscal %',pc(c.retencion),'0.1',1],
-    ['crecDividendo','Crec. dividendo %/año',pc(c.crecDividendo),'0.1',1],
-    ['inflacion','Inflación %',pc(c.inflacion),'0.1',1],
-    ['crecAhorro','Crec. ahorro nóminas %',pc(c.crecAhorro),'0.1',1]
+    ['crecCartera','Revalorización cartera %/año',pc(c.crecCartera),'0.5',1],
+    ['crecDividendo','Subida dividendo %/año',pc(c.crecDividendo),'0.1',1],
+    ['rpdNuevas','RPD nuevas aportaciones %',pc(c.rpdNuevas),'0.1',1],
+    ['inflacionNomina','Subida nómina %/año',pc(c.inflacionNomina),'0.1',1],
+    ['crecAhorro','Subida ahorro nóminas %/año',pc(c.crecAhorro),'0.1',1]
   ];
   el.innerHTML=f.map(x=>`<label>${x[1]}<input type="number" step="${x[3]}" data-proy="${x[0]}" data-pct="${x[4]}" value="${x[2]}"></label>`).join('');
 }
 function renderProyEventos(c){
-  const el=$('#proyEventos'); if(!el) return;
-  const evs=c.eventos||[];
+  const el=$('#proyEventos'); if(!el) return; const evs=c.eventos||[];
   if(!evs.length){ el.innerHTML='<span class="muted">Sin gastos puntuales. Añade uno (p. ej. Coche 2028, Casa 2030).</span>'; return; }
   el.innerHTML='<table><thead><tr><th>Año</th><th>Concepto</th><th class="num">Importe</th><th></th></tr></thead><tbody>'+
     evs.map((ev,i)=>`<tr><td>${ev.anio}</td><td>${ev.concepto||''}</td><td class="num">${fmt(ev.importe)}</td><td class="right"><button class="btn danger sm" data-delev="${i}">✕</button></td></tr>`).join('')+'</tbody></table>';
@@ -939,8 +965,8 @@ function drawProyChart(ser){
   const ctx=cv.getContext('2d'); const W=cv.width=cv.clientWidth||700, H=cv.height=220;
   ctx.clearRect(0,0,W,H); const pad={l:8,r:8,t:14,b:18};
   const vals=ser.map(r=>r.patrimonio); const max=Math.max(...vals), min=Math.min(...vals,0); const n=ser.length;
-  const X=i=> pad.l+(W-pad.l-pad.r)*(n<=1?0.5:i/(n-1));
-  const Y=v=> pad.t+(H-pad.t-pad.b)*(1-(v-min)/((max-min)||1));
+  const X=i=>pad.l+(W-pad.l-pad.r)*(n<=1?0.5:i/(n-1));
+  const Y=v=>pad.t+(H-pad.t-pad.b)*(1-(v-min)/((max-min)||1));
   ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0])); for(let i=1;i<n;i++)ctx.lineTo(X(i),Y(vals[i]));
   ctx.lineTo(X(n-1),H-pad.b); ctx.lineTo(X(0),H-pad.b); ctx.closePath(); ctx.fillStyle='rgba(22,163,74,.10)'; ctx.fill();
   ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0])); for(let i=1;i<n;i++)ctx.lineTo(X(i),Y(vals[i]));
@@ -956,21 +982,24 @@ function renderProy(){
   $('#proyCards').innerHTML=[
     {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'cartera '+fmt(fin.cartera)},
     {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),s:fmt(fin.dividendoAnual)+'/año'},
-    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'},
-    {l:'Disponible/mes al jubilar',v:fmt(jub.disponibleMes),s:'tras ahorro'}
+    {l:'Plusvalía latente a los '+Math.round(c.edadFin),v:fmt(fin.plusvalia),s:'cartera − invertido'},
+    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'}
   ].map(x=>`<div class="card"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="sub">${x.s}</div></div>`).join('');
   drawProyChart(ser); renderProyEventos(c);
   const rows=ser.map(r=>`<tr>
     <td>${r.anio}</td><td class="num">${r.edad}</td>
-    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.S)}" style="width:88px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+    <td class="num">${fmt(r.efectivo)}</td>
     <td class="num">${fmt(r.invertido)}</td>
-    <td class="num">${fmt(r.patrimonio)}</td>
-    <td class="num">${fmt(r.dividendoMes)}</td>
-    <td class="num">${fmt(r.rentaMes)}</td>
+    <td class="num">${fmt(r.cartera)}</td>
+    <td class="num"><b>${fmt(r.patrimonio)}</b></td>
+    <td class="num">${fmt(r.dividendoAnual)}</td>
+    <td class="num">${fmt(r.ahorroTotal)}</td>
+    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}" style="width:84px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+    <td class="num ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td>
     <td class="num">${fmt(r.disponibleMes)}</td>
-    <td>${r.T?'<span class="neg">−'+fmt(r.T)+'</span> '+(r.con||''):''}</td>
+    <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
   </tr>`).join('');
-  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">A Inversión</th><th class="num">Invertido</th><th class="num">Patrimonio</th><th class="num">Dividendos/mes</th><th class="num">Renta/mes</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Valor Cartera</th><th class="num">Patrimonio</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
@@ -1062,7 +1091,70 @@ function importPresupuesto(file){
     fillCatSelects(); fillGrupoList(); renderAll(); saveNow(); alert('Presupuesto importado: '+DB.presupuesto.length+' entradas.');
   });
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); }
+/* ============ Inversiones ============ */
+function renderInv(){
+  if(!DB.config) DB.config={};
+  const kEl=$('#invKey'); if(kEl && !kEl.value && DB.config.twelveKey) kEl.value=DB.config.twelveKey;
+  const list=DB.inversiones||[];
+  const valor=list.reduce((s,p)=>s+num(p.acciones)*num(p.precioActual),0);
+  const coste=list.reduce((s,p)=>s+num(p.acciones)*num(p.precioCompra),0);
+  const pl=valor-coste, plpct=coste?pl/coste*100:0;
+  const divAnual=list.reduce((s,p)=>s+num(p.acciones)*num(p.divAccion),0);
+  $('#invCards').innerHTML=[
+    {l:'Valor cartera',v:fmt(valor),cls:'',s:list.length+' posiciones'},
+    {l:'Coste',v:fmt(coste),cls:'',s:''},
+    {l:'Plusvalía',v:(pl>=0?'+':'')+fmt(pl),cls:pl>=0?'pos':'neg',s:(plpct>=0?'+':'')+plpct.toFixed(1)+'%'},
+    {l:'Dividendos/año (bruto)',v:fmt(divAnual),cls:'',s:(valor?(divAnual/valor*100).toFixed(1):0)+'% RPD'}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  if(!list.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Añade una o importa tu cartera.</div>'; return; }
+  const rows=[...list].sort((a,b)=>(num(b.acciones)*num(b.precioActual))-(num(a.acciones)*num(a.precioActual))).map(p=>{
+    const v=num(p.acciones)*num(p.precioActual), c=num(p.acciones)*num(p.precioCompra), g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
+    return `<tr><td><b>${p.ticker||''}</b></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td>
+      <td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td>
+      <td class="num">${fmt(v)}</td>
+      <td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td>
+      <td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td>
+      <td class="num">${peso.toFixed(1)}%</td><td>${p.broker||''}</td>
+      <td class="right"><button class="btn ghost sm" data-invedit="${p.id}">Editar</button> <button class="btn danger sm" data-invdel="${p.id}">✕</button></td></tr>`;
+  }).join('');
+  $('#invTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th>Bróker</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function invReset(){ $('#invForm').reset(); $('#invId').value=''; $('#invExch').value='BME'; $('#invSubmit').textContent='Añadir'; $('#invCancel').style.display='none'; }
+function invSubmit(){
+  const id=$('#invId').value||uid();
+  const prev=DB.inversiones.find(x=>x.id===id)||{};
+  const p={id, ticker:$('#invTicker').value.trim().toUpperCase(), nombre:$('#invNombre').value.trim(), acciones:num($('#invAcc').value), precioCompra:num($('#invPC').value), precioActual:num($('#invPA').value), broker:$('#invBroker').value.trim(), exchange:$('#invExch').value.trim()||'BME', divAccion:prev.divAccion||0};
+  if(!p.ticker && !p.nombre){alert('Pon al menos ticker o nombre');return;}
+  if(prev.id) Object.assign(prev,p); else DB.inversiones.push(p);
+  invReset(); renderInv(); scheduleSave();
+}
+function invEdit(id){ const p=DB.inversiones.find(x=>x.id===id); if(!p)return;
+  $('#invId').value=p.id; $('#invTicker').value=p.ticker||''; $('#invNombre').value=p.nombre||''; $('#invAcc').value=p.acciones; $('#invPC').value=p.precioCompra; $('#invPA').value=p.precioActual; $('#invBroker').value=p.broker||''; $('#invExch').value=p.exchange||'BME';
+  $('#invSubmit').textContent='Guardar'; $('#invCancel').style.display='inline-block'; window.scrollTo({top:0,behavior:'smooth'}); }
+function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Sin posiciones');return;}
+  DB.inversiones=arr.map(p=>({id:uid(),ticker:p.ticker||'',nombre:p.nombre||'',acciones:num(p.acciones),precioCompra:num(p.precioCompra),precioActual:num(p.precioActual),divAccion:num(p.divAccion),exchange:p.exchange||'BME',broker:p.broker||''}));
+  renderInv(); saveNow(); alert('Importadas '+DB.inversiones.length+' posiciones.'); }); }
+function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
+async function actualizarPrecios(){
+  const key=(($('#invKey')||{}).value||'').trim(); if(!key){alert('Pega tu API key de Twelve Data en el campo.');return;}
+  DB.config.twelveKey=key; scheduleSave();
+  const list=(DB.inversiones||[]).filter(p=>p.ticker); if(!list.length){alert('No hay posiciones con ticker.');return;}
+  setInvStatus('Actualizando…'); let ok=0; const fail=[];
+  for(const p of list){
+    try{
+      const ex=p.exchange?('&exchange='+encodeURIComponent(p.exchange)):'';
+      const r=await fetch('https://api.twelvedata.com/price?symbol='+encodeURIComponent(p.ticker)+ex+'&apikey='+encodeURIComponent(key));
+      const j=await r.json();
+      if(j && j.price){ p.precioActual=num(j.price); ok++; }
+      else if(j && (j.code===429 || (j.message&&/limit|run out|credit/i.test(j.message)))){ renderInv(); scheduleSave(); setInvStatus('Límite del plan: '+ok+' actualizadas. Espera 1 min y reintenta.'); return; }
+      else { fail.push(p.ticker); }
+    }catch(e){ fail.push(p.ticker); }
+    await new Promise(res=>setTimeout(res,250));
+  }
+  renderInv(); scheduleSave();
+  setInvStatus('Actualizado '+ok+'/'+list.length+(fail.length?' · sin dato: '+fail.join(', '):' ✓'));
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -1166,6 +1258,13 @@ $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
 $('#amaOrden').addEventListener('change',renderAmalia);
+$('#invForm').addEventListener('submit',e=>{e.preventDefault();invSubmit();});
+$('#invCancel').addEventListener('click',invReset);
+$('#invAddBtn').addEventListener('click',()=>{invReset();window.scrollTo({top:0,behavior:'smooth'});});
+$('#invUpdate').addEventListener('click',actualizarPrecios);
+$('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
+$('#invKey').addEventListener('change',e=>{ if(!DB.config)DB.config={}; DB.config.twelveKey=e.target.value.trim(); scheduleSave(); });
+$('#invTable').addEventListener('click',e=>{const ed=e.target.closest('[data-invedit]'),de=e.target.closest('[data-invdel]'); if(ed)invEdit(ed.dataset.invedit); if(de&&confirm('¿Eliminar esta posición?')){DB.inversiones=DB.inversiones.filter(x=>x.id!==de.dataset.invdel);renderInv();scheduleSave();}});
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
@@ -1189,6 +1288,9 @@ document.body.appendChild(pf);
 const af=document.createElement('input'); af.type='file'; af.accept='.json,application/json'; af.id='amaFile'; af.style.display='none';
 af.addEventListener('change',()=>{const f=af.files[0];if(!f)return; importAmalia(f); af.value='';});
 document.body.appendChild(af);
+const invf=document.createElement('input'); invf.type='file'; invf.accept='.json,application/json'; invf.id='invFile'; invf.style.display='none';
+invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
+document.body.appendChild(invf);
 const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
 prf.addEventListener('change',()=>{const f=prf.files[0];if(!f)return; importPresupuesto(f); prf.value='';});
 document.body.appendChild(prf);
