@@ -354,6 +354,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
 </main>
+<div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
 
 <!-- dialog: categoria / presupuesto -->
 <dialog id="catDlg">
@@ -574,6 +575,7 @@ function afterLoad(){
   DB.operaciones = DB.operaciones||[];
   DB.valores = DB.valores||{};
   DB.analisis = DB.analisis||[];
+  DB.dividendos = DB.dividendos||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -598,6 +600,8 @@ function afterLoad(){
   fillGrupoList();
   fillPresYear();
   renderAll();
+  const _fm=(location.hash||'').match(/ficha=([^&]+)/);
+  if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
 }
 function addYear(){
   const dataYears=[...new Set(DB.presupuesto.map(pAnio))].sort((a,b)=>b-a);
@@ -1199,7 +1203,7 @@ function renderInv(){
     const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC;
     const rows=lst.map(p=>{
       const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
-      return `<tr><td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
+      return `<tr><td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn ghost sm" data-ficha="${p.ticker}">Ficha</button> <button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
     }).join('');
     const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>SUBTOTAL</td><td></td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td></td><td></td><td class="num">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
     html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
@@ -1275,6 +1279,7 @@ function aplicarPreciosPegados(){
   if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
 }
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+  if(d && d.dividendos){ DB.dividendos=DB.dividendos||{}; Object.keys(d.dividendos).forEach(k=>{ DB.dividendos[k.toUpperCase()]=(d.dividendos[k]||[]).map(x=>({fecha:x.fecha,importe:num(x.importe)})); }); if(!d.operaciones && !d.valores){ renderInv(); saveNow(); alert('Importados dividendos de '+Object.keys(d.dividendos).length+' empresas.'); return; } }
   if(d && (d.operaciones||d.valores)){
     if(!confirm('Esto reemplazará operaciones y valores de Inversiones por los del archivo. ¿Continuar?')) return;
     DB.operaciones=(d.operaciones||[]).map(o=>({id:uid(),fecha:o.fecha||'',ticker:(o.ticker||'').toUpperCase(),cartera:o.cartera||'Propia',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}));
@@ -1322,7 +1327,7 @@ function renderAnalisis(){
       <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
       <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
       <td><span class="pill ${a.cls}">${a.txt}</span></td>
-      <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
+      <td class="right"><button class="btn ghost sm" data-ficha="${a.ticker}">Ficha</button> <button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
   $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
@@ -1358,6 +1363,65 @@ function aplicarAnaPaste(){
   });
   renderAnalisis(); renderInv(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+'.');
+}
+let fichaTicker=null;
+function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
+function fichaCalc(ticker){
+  const t=(ticker||'').toUpperCase();
+  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
+  const divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
+  const v=(DB.valores||{})[t]||{}; const precioActual=num(v.precioActual);
+  const compras=ops.filter(o=>o.tipo!=='venta');
+  const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),coste=N*P;
+    const divShareAfter=divs.filter(x=>x.fecha>o.fecha).reduce((s,x)=>s+num(x.importe),0);
+    const divCobrado=N*divShareAfter, precioNeto=P-divShareAfter, valor=N*precioActual, balance=valor-coste;
+    return {fecha:o.fecha,cartera:o.cartera||'Propia',N,P,coste,divCobrado,precioNeto,valor,balance,rentTotal:coste?(balance+divCobrado)/coste:0};
+  });
+  const tot={N:0,coste:0,div:0,valor:0}; lotes.forEach(l=>{tot.N+=l.N;tot.coste+=l.coste;tot.div+=l.divCobrado;tot.valor+=l.valor;});
+  tot.precioMedio=tot.N?tot.coste/tot.N:0; tot.balance=tot.valor-tot.coste; tot.rentTotal=tot.coste?(tot.balance+tot.div)/tot.coste:0; tot.netoMedio=tot.precioMedio-(tot.N?tot.div/tot.N:0);
+  const divRows=divs.map(x=>{ const acc=compras.filter(o=>o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0)-ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0);
+    return {fecha:x.fecha,divShare:num(x.importe),acc,importe:acc*num(x.importe)}; });
+  return {t,nombre:v.nombre||t,precioActual,lotes,tot,divRows};
+}
+function renderFicha(t){
+  fichaTicker=(t||'').toUpperCase(); const f=fichaCalc(fichaTicker);
+  const invUrl='https://es.investing.com/search/?q='+encodeURIComponent(f.nombre||f.t);
+  const tt=f.tot;
+  const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
+  const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
+  const divRows=[...f.divRows].reverse().map(x=>`<tr><td>${ddmmyyyy(x.fecha)}</td><td class="num">${fmt(x.divShare)}</td><td class="num">${x.acc}</td><td class="num">${fmt(x.importe)}</td><td class="right"><button class="btn danger sm" data-delf="${x.fecha}" data-deli="${x.divShare}">✕</button></td></tr>`).join('');
+  $('#fichaView').innerHTML=`
+   <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+     <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}</div></div>
+     <div style="flex:1"></div>
+     <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
+     <a class="btn" href="${invUrl}" target="_blank" rel="noopener">Ver en investing.com</a>
+     <button class="btn ghost" onclick="window.close()">Cerrar</button>
+   </div>
+   <div class="cards" style="margin-top:14px">
+     <div class="card"><div class="lbl">Valor</div><div class="val">${fmt(tt.valor)}</div><div class="sub">coste ${fmt(tt.coste)}</div></div>
+     <div class="card"><div class="lbl">Plusvalía latente</div><div class="val ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</div></div>
+     <div class="card"><div class="lbl">Dividendos cobrados</div><div class="val pos">${fmt(tt.div)}</div></div>
+     <div class="card"><div class="lbl">Rentabilidad total</div><div class="val ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</div><div class="sub">plusvalía + dividendos</div></div>
+     <div class="card"><div class="lbl">Precio neto medio</div><div class="val">${fmt(tt.netoMedio)}</div><div class="sub">coste − dividendos/acción</div></div>
+   </div>
+   <h3>Lotes</h3>
+   <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
+   ${f.lotes.length?'':'<div class="empty">Sin lotes en cartera (empresa solo en seguimiento).</div>'}
+   <h3>Histórico de dividendos</h3>
+   <div class="card" style="margin-bottom:10px"><div class="patgrid">
+     <label>Fecha<input type="date" id="fdivFecha"></label>
+     <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
+     <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
+   </div></div>
+   <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Importe</th><th></th></tr></thead><tbody>${divRows||'<tr><td colspan="5" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+  document.title='Ficha '+f.t;
+}
+function addFichaDiv(){
+  const fch=$('#fdivFecha').value, imp=num($('#fdivImp').value);
+  if(!fch||!imp){alert('Pon fecha e importe del dividendo.');return;}
+  DB.dividendos=DB.dividendos||{}; DB.dividendos[fichaTicker]=DB.dividendos[fichaTicker]||[];
+  DB.dividendos[fichaTicker].push({fecha:fch,importe:imp}); saveNow(); renderFicha(fichaTicker);
 }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); }
 
@@ -1510,6 +1574,8 @@ document.body.appendChild(af);
 const invf=document.createElement('input'); invf.type='file'; invf.accept='.json,application/json'; invf.id='invFile'; invf.style.display='none';
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
+$('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-delf]'); if(dd){ const fch=dd.dataset.delf, imp=parseFloat(dd.dataset.deli); const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.fecha===fch && Math.abs(num(x.importe)-imp)<1e-9); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
 prf.addEventListener('change',()=>{const f=prf.files[0];if(!f)return; importPresupuesto(f); prf.value='';});
 document.body.appendChild(prf);
