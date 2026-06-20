@@ -337,12 +337,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="toolbar">
       <button class="btn" id="anaPasteBtn">Pegar cotizaciones</button>
       <button class="btn sm" id="anaAddBtn">+ Empresa</button>
+      <button class="btn danger sm" id="anaClear">Vaciar</button>
       <label class="muted">Barata ≥ <input type="number" id="anaVerde" step="1" style="width:58px">%</label>
       <label class="muted">Media ≥ <input type="number" id="anaAmbar" step="1" style="width:58px">%</label>
       <span class="muted" id="anaStatus"></span>
     </div>
     <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
-      <div class="sub" style="margin-bottom:6px">Pega <b>Ticker</b>, <b>Cotización</b> y (opcional) <b>Dividendo/acción</b>, una por línea. Si la empresa no existe, se añade al seguimiento.</div>
+      <div class="sub" style="margin-bottom:6px">Pega <b>Ticker</b>, (opcional) <b>Nombre</b>, <b>Cotización</b> y (opcional) <b>Dividendo</b>, una por línea. Si la empresa no existe, se añade al seguimiento.</div>
       <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
       <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
     </div>
@@ -1344,10 +1345,13 @@ function aplicarAnaPaste(){
   txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
     let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
     if(cols.length<2)return;
-    const tk=cols[0].toUpperCase(), precio=parseNumES(cols[1]), div=cols.length>=3?parseNumES(cols[2]):NaN;
+    const tk=cols[0].toUpperCase(); let nombre='', nums=[];
+    for(let i=1;i<cols.length;i++){ if(/^[+-]?[\d.,]+$/.test(cols[i])) nums.push(parseNumES(cols[i])); else if(!nombre) nombre=cols[i]; }
+    if(!nums.length && !nombre) return;
+    const precio=nums.length>0?nums[0]:NaN, div=nums.length>1?nums[1]:NaN;
     let a=byTick[tk];
-    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; upd++; }
-    else { a={id:uid(),ticker:tk,nombre:tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[tk]=a; add++; }
+    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; if(nombre&&(!a.nombre||a.nombre===a.ticker))a.nombre=nombre; upd++; }
+    else { a={id:uid(),ticker:tk,nombre:nombre||tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[tk]=a; add++; }
   });
   renderAnalisis(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+'.');
@@ -1480,6 +1484,7 @@ $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none'
 $('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
 $('#anaVerde').addEventListener('change',e=>{DB.config.anaVerde=num(e.target.value)/100;renderAnalisis();scheduleSave();});
 $('#anaAmbar').addEventListener('change',e=>{DB.config.anaAmbar=num(e.target.value)/100;renderAnalisis();scheduleSave();});
+$('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
