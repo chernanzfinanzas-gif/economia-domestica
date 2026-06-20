@@ -1279,7 +1279,10 @@ function aplicarPreciosPegados(){
   if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
 }
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
-  if(d && d.dividendos){ DB.dividendos=DB.dividendos||{}; Object.keys(d.dividendos).forEach(k=>{ DB.dividendos[k.toUpperCase()]=(d.dividendos[k]||[]).map(x=>({fecha:x.fecha,importe:num(x.importe),id:'d'+Math.random().toString(36).slice(2,9)})); }); if(!d.operaciones && !d.valores){ renderInv(); saveNow(); alert('Importados dividendos de '+Object.keys(d.dividendos).length+' empresas.'); return; } }
+  let _divMap=null;
+  if(d && d.dividendos){ _divMap=d.dividendos; }
+  else if(d && !Array.isArray(d) && !d.operaciones && !d.valores && !d.inversiones){ const ks=Object.keys(d); if(ks.length && ks.every(k=>Array.isArray(d[k]) && (d[k].length===0 || (d[k][0] && ('importe' in d[k][0]))))) _divMap=d; }
+  if(_divMap){ DB.dividendos=DB.dividendos||{}; Object.keys(_divMap).forEach(k=>{ DB.dividendos[k.toUpperCase()]=(_divMap[k]||[]).map(x=>({fecha:x.fecha,importe:num(x.importe),id:'d'+Math.random().toString(36).slice(2,9)})); }); renderInv(); saveNow(); alert('Importados dividendos de '+Object.keys(_divMap).length+' empresas.'); return; }
   if(d && (d.operaciones||d.valores)){
     if(!confirm('Esto reemplazará operaciones y valores de Inversiones por los del archivo. ¿Continuar?')) return;
     DB.operaciones=(d.operaciones||[]).map(o=>({id:uid(),fecha:o.fecha||'',ticker:(o.ticker||'').toUpperCase(),cartera:o.cartera||'Propia',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}));
