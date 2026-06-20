@@ -104,6 +104,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #proyTabla table{font-size:11px}
   #proyTabla th,#proyTabla td{padding:4px 6px}
   #proyTabla .aporInput{font-size:11px}
+  #invTable table{font-size:12px}
+  #invTable th,#invTable td{padding:5px 7px}
 </style>
 </head>
 <body>
@@ -284,8 +286,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Inversiones</h2>
     <div class="cards" id="invCards"></div>
     <div class="toolbar">
-      <label class="muted">API key Twelve Data <input type="text" id="invKey" placeholder="pega tu clave" style="min-width:190px"></label>
-      <button class="btn" id="invUpdate">Actualizar precios</button>
+      <label class="muted">Cartera <select id="invCartSel"></select></label>
       <button class="btn" id="invPasteBtn">Pegar precios</button>
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
@@ -293,24 +294,39 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
     <div id="invPastePanel" class="card" style="display:none;margin-bottom:14px">
       <div class="sub" style="margin-bottom:6px">Pega columnas <b>Ticker</b>, <b>Precio</b> y (opcional) <b>Dividendo/acción</b> copiadas de tu Excel, una por línea. Se emparejan por ticker o nombre.</div>
-      <textarea id="invPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px" placeholder="IBE	20,83&#10;SAN	11,80&#10;MAP	4,24"></textarea>
+      <textarea id="invPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
       <div style="margin-top:8px"><button class="btn" id="invPasteApply">Aplicar precios</button>
         <button class="btn ghost" id="invPasteCancel">Cerrar</button></div>
     </div>
-    <h3>Añadir / editar posición</h3>
-    <form class="grid" id="invForm" autocomplete="off" style="background:#fef9c3">
-      <input type="hidden" id="invId">
+    <form class="grid" id="invForm" autocomplete="off" style="background:#fef9c3;display:none">
       <label>Ticker<input type="text" id="invTicker" placeholder="SAN"></label>
       <label>Nombre<input type="text" id="invNombre" placeholder="Santander"></label>
+      <label>Precio actual (€)<input type="number" id="invPA" step="0.0001" min="0"></label>
+      <label>Dividendo/acción (€)<input type="number" id="invDiv" step="0.0001" min="0"></label>
+      <label>Bróker<input type="text" id="invBroker"></label>
+      <label>Exchange<input type="text" id="invExch" value="BME"></label>
+      <label>Cartera<input type="text" id="invCart" list="cartList" value="Propia"><datalist id="cartList"></datalist></label>
+      <label>1ª compra · fecha<input type="date" id="invFecha"></label>
       <label>Acciones<input type="number" id="invAcc" step="1" min="0"></label>
       <label>Precio compra (€)<input type="number" id="invPC" step="0.0001" min="0"></label>
-      <label>Precio actual (€)<input type="number" id="invPA" step="0.0001" min="0"></label>
-      <label>Bróker<input type="text" id="invBroker" placeholder="R4 / ING / Santander"></label>
-      <label>Exchange<input type="text" id="invExch" value="BME"></label>
-      <div class="row-actions"><button type="submit" class="btn" id="invSubmit">Añadir</button>
-        <button type="button" class="btn ghost" id="invCancel" style="display:none">Cancelar</button></div>
+      <div class="row-actions"><button type="submit" class="btn">Crear posición</button>
+        <button type="button" class="btn ghost" id="invCancel">Cancelar</button></div>
     </form>
-    <div id="invTable"></div>
+    <div id="invTable" style="overflow:auto"></div>
+    <div id="invOpsPanel" class="card" style="display:none;margin-top:14px">
+      <div style="font-weight:700;margin-bottom:8px" id="invOpsTitle">Operaciones</div>
+      <div class="patgrid" id="invOpsMeta"></div>
+      <div id="invOpsList" style="margin-top:10px;overflow:auto"></div>
+      <h3>Añadir operación</h3>
+      <div class="patgrid">
+        <label>Fecha<input type="date" id="opFecha"></label>
+        <label>Operación<select id="opTipo"><option value="compra">Compra</option><option value="venta">Venta</option></select></label>
+        <label>Acciones<input type="number" id="opAcc" step="1" min="0"></label>
+        <label>Precio (€)<input type="number" id="opPrecio" step="0.0001" min="0"></label>
+      </div>
+      <div style="margin-top:10px"><button class="btn" id="opAdd">Añadir operación</button>
+        <button class="btn ghost" id="opClose">Cerrar</button></div>
+    </div>
   </section>
 
 </main>
@@ -531,6 +547,17 @@ function afterLoad(){
   DB.patrimonio = DB.patrimonio||[];
   DB.amalia = DB.amalia||[];
   DB.inversiones = DB.inversiones||[];
+  DB.operaciones = DB.operaciones||[];
+  DB.valores = DB.valores||{};
+  if(DB.config && !DB.config.invModeloOps){
+    if(DB.operaciones.length===0 && (DB.inversiones||[]).length){
+      DB.inversiones.forEach(p=>{ const t=((p.ticker||p.nombre||'')+'').toUpperCase(); if(!t)return;
+        DB.valores[t]={nombre:p.nombre||t,precioActual:num(p.precioActual),divAccion:num(p.divAccion),broker:p.broker||'',exchange:p.exchange||'BME'};
+        if(num(p.acciones)>0) DB.operaciones.push({id:uid(),fecha:'',ticker:t,tipo:'compra',acciones:num(p.acciones),precio:num(p.precioCompra)});
+      });
+    }
+    DB.config.invModeloOps=true; scheduleSave();
+  }
   if(DB.config && !DB.config.estructuraReparto){
     const REMAP={'Comunidad':'Casa','Luz':'Casa','IBI / Tasa Basuras':'Casa','Seguro Casa':'Casa','Movistar':'Casa','Alarma Ring':'Casa','Pepephone':'Casa','Compras Varios':'Compras','Seguro Coche':'Coche','Impuesto Circulación':'Coche','Revisión / ITV':'Coche','Gasolina':'Coche','Gimnasio':'Deporte','Wikiloc':'Deporte','Komoot':'Deporte','Zwift':'Deporte','Meteoblue':'Deporte','Iru':'Gastos Varios','Aldeas Infantiles':'Gastos Varios','Comisiones / Custodia':'Gastos Varios','Transporte':'Gastos Varios','Google One':'Software Productividad','Claude Pro':'Software Productividad','Microsoft 365 / Norton':'Software Productividad','Investing.com':'Software Productividad','Filmora':'Software Productividad','YouTube Premium':'Software Entretenimiento','Amazon Prime':'Software Entretenimiento','Audible':'Software Entretenimiento','Alimentación':'Alimentación','Ocio':'Ocio','Vacaciones':'Vacaciones'};
     DB.categorias.forEach(c=>{ if(REMAP[c.nombre]) c.grupo=REMAP[c.nombre]; });
@@ -1101,91 +1128,133 @@ function importPresupuesto(file){
     fillCatSelects(); fillGrupoList(); renderAll(); saveNow(); alert('Presupuesto importado: '+DB.presupuesto.length+' entradas.');
   });
 }
-/* ============ Inversiones ============ */
+/* ============ Inversiones (operaciones) ============ */
+let invOpsTicker=null, invOpsCartera=null, invCartFiltro='Todas';
+function invByFecha(a,b){ return (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0; }
+function invCarteras(){ const s=new Set(['Propia']); (DB.operaciones||[]).forEach(o=>s.add(o.cartera||'Propia')); return [...s]; }
+function invPositions(){
+  const map={};
+  (DB.operaciones||[]).slice().sort(invByFecha).forEach(o=>{
+    const t=(o.ticker||'').toUpperCase(); if(!t)return; const car=o.cartera||'Propia'; const k=car+'|'+t;
+    const m=map[k]=map[k]||{cartera:car,ticker:t,acc:0,cost:0};
+    const n=num(o.acciones), pr=num(o.precio);
+    if(o.tipo==='venta'){ const avg=m.acc?m.cost/m.acc:0; m.acc-=n; if(m.acc<0)m.acc=0; m.cost=m.acc*avg; }
+    else { m.acc+=n; m.cost+=n*pr; }
+  });
+  const out=[]; Object.keys(map).forEach(k=>{ const m=map[k]; const v=(DB.valores&&DB.valores[m.ticker])||{};
+    out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:m.acc?m.cost/m.acc:0,precioActual:num(v.precioActual),divAccion:num(v.divAccion),broker:v.broker||''});
+  });
+  return out;
+}
+function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
 function renderInv(){
-  if(!DB.config) DB.config={};
-  const kEl=$('#invKey'); if(kEl && !kEl.value && DB.config.twelveKey) kEl.value=DB.config.twelveKey;
-  const list=DB.inversiones||[];
-  const valor=list.reduce((s,p)=>s+num(p.acciones)*num(p.precioActual),0);
-  const coste=list.reduce((s,p)=>s+num(p.acciones)*num(p.precioCompra),0);
+  if(!DB.config)DB.config={};
+  const carts=invCarteras();
+  const sel=$('#invCartSel'); if(sel){ sel.innerHTML='<option value="Todas">Todas las carteras</option>'+carts.map(c=>`<option value="${c}">${c}</option>`).join(''); if(invCartFiltro!=='Todas' && !carts.includes(invCartFiltro)) invCartFiltro='Todas'; sel.value=invCartFiltro; }
+  const dl=$('#cartList'); if(dl) dl.innerHTML=carts.map(c=>`<option value="${c}">`).join('');
+  const all=invPositions().filter(p=>p.acciones>0.0001);
+  const list=invCartFiltro==='Todas'?all:all.filter(p=>p.cartera===invCartFiltro);
+  const valor=all.reduce((s,p)=>s+p.acciones*p.precioActual,0);
+  const coste=all.reduce((s,p)=>s+p.acciones*p.precioCompra,0);
   const pl=valor-coste, plpct=coste?pl/coste*100:0;
-  const divAnual=list.reduce((s,p)=>s+num(p.acciones)*num(p.divAccion),0);
+  const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
   $('#invCards').innerHTML=[
-    {l:'Valor cartera',v:fmt(valor),cls:'',s:list.length+' posiciones'},
+    {l:'Valor cartera (todas)',v:fmt(valor),cls:'',s:all.length+' posiciones · ambas carteras'},
     {l:'Coste',v:fmt(coste),cls:'',s:''},
     {l:'Plusvalía',v:(pl>=0?'+':'')+fmt(pl),cls:pl>=0?'pos':'neg',s:(plpct>=0?'+':'')+plpct.toFixed(1)+'%'},
     {l:'Dividendos/año (bruto)',v:fmt(divAnual),cls:'',s:(valor?(divAnual/valor*100).toFixed(1):0)+'% RPD'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
-  if(!list.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Añade una o importa tu cartera.</div>'; return; }
-  const rows=[...list].sort((a,b)=>(num(b.acciones)*num(b.precioActual))-(num(a.acciones)*num(a.precioActual))).map(p=>{
-    const v=num(p.acciones)*num(p.precioActual), c=num(p.acciones)*num(p.precioCompra), g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
-    return `<tr><td><b>${p.ticker||''}</b></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td>
+  if(!list.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Pulsa «+ Posición» o importa tu cartera.</div>'; return; }
+  const rows=[...list].sort((a,b)=>(b.acciones*b.precioActual)-(a.acciones*a.precioActual)).map(p=>{
+    const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
+    return `<tr>
+      <td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td>
+      <td>${p.nombre||''}</td><td><span class="tag">${p.cartera}</span></td><td class="num">${p.acciones}</td>
       <td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td>
       <td class="num">${fmt(v)}</td>
       <td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td>
       <td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td>
-      <td class="num">${peso.toFixed(1)}%</td><td>${p.broker||''}</td>
-      <td class="right"><button class="btn ghost sm" data-invedit="${p.id}">Editar</button> <button class="btn danger sm" data-invdel="${p.id}">✕</button></td></tr>`;
+      <td class="num">${peso.toFixed(1)}%</td>
+      <td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td>
+      <td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td>
+      <td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td>
+      <td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
   }).join('');
-  $('#invTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th>Bróker</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  const tV=list.reduce((x,p)=>x+p.acciones*p.precioActual,0), tC=list.reduce((x,p)=>x+p.acciones*p.precioCompra,0), tD=list.reduce((x,p)=>x+p.acciones*p.divAccion,0), tPL=tV-tC;
+  const totalRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL${invCartFiltro!=='Todas'?(' '+invCartFiltro):''}</td><td></td><td></td><td></td><td></td><td></td><td class="num">${fmt(tV)}</td><td class="num ${tPL>=0?'pos':'neg'}">${tPL>=0?'+':''}${fmt(tPL)}</td><td></td><td></td><td></td><td class="num">${fmt(tD)}</td><td></td><td></td><td></td></tr>`;
+  $('#invTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th>Cartera</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th class="num">Div/acc</th><th class="num">Div/año</th><th class="num">RPD</th><th class="num">YoC</th><th></th></tr></thead><tbody>${rows}${totalRow}</tbody></table>`;
 }
-function invReset(){ $('#invForm').reset(); $('#invId').value=''; $('#invExch').value='BME'; $('#invSubmit').textContent='Añadir'; $('#invCancel').style.display='none'; }
-function invSubmit(){
-  const id=$('#invId').value||uid();
-  const prev=DB.inversiones.find(x=>x.id===id)||{};
-  const p={id, ticker:$('#invTicker').value.trim().toUpperCase(), nombre:$('#invNombre').value.trim(), acciones:num($('#invAcc').value), precioCompra:num($('#invPC').value), precioActual:num($('#invPA').value), broker:$('#invBroker').value.trim(), exchange:$('#invExch').value.trim()||'BME', divAccion:prev.divAccion||0};
-  if(!p.ticker && !p.nombre){alert('Pon al menos ticker o nombre');return;}
-  if(prev.id) Object.assign(prev,p); else DB.inversiones.push(p);
-  invReset(); renderInv(); scheduleSave();
+function renderInvOps(){
+  const panel=$('#invOpsPanel'); if(!panel) return;
+  if(!invOpsTicker){ panel.style.display='none'; return; }
+  const t=invOpsTicker, car=invOpsCartera||'Propia'; const v=(DB.valores&&DB.valores[t])||{};
+  panel.style.display='block';
+  $('#invOpsTitle').textContent='Operaciones · '+t+' · '+car+(v.nombre?(' · '+v.nombre):'');
+  $('#invOpsMeta').innerHTML=
+    '<label>Nombre<input data-meta="nombre" value="'+(v.nombre||'')+'"></label>'+
+    '<label>Precio actual (€)<input type="number" step="0.0001" data-meta="precioActual" value="'+(v.precioActual||0)+'"></label>'+
+    '<label>Dividendo/acción (€)<input type="number" step="0.0001" data-meta="divAccion" value="'+(v.divAccion||0)+'"></label>'+
+    '<label>Bróker<input data-meta="broker" value="'+(v.broker||'')+'"></label>';
+  if($('#opFecha') && !$('#opFecha').value) $('#opFecha').value=new Date().toISOString().slice(0,10);
+  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t && (o.cartera||'Propia')===car).slice().sort(invByFecha);
+  if(!ops.length){ $('#invOpsList').innerHTML='<div class="empty">Sin operaciones para '+t+' en '+car+'.</div>'; return; }
+  let acc=0;
+  const rows=ops.map(o=>{ const n=num(o.acciones); acc+= o.tipo==='venta'?-n:n;
+    return `<tr><td>${o.fecha?o.fecha.split('-').reverse().join('/'):'—'}</td><td><span class="tag ${o.tipo==='venta'?'':'in'}">${o.tipo==='venta'?'Venta':'Compra'}</span></td><td class="num">${n}</td><td class="num">${fmt(o.precio)}</td><td class="num">${fmt(n*num(o.precio))}</td><td class="num">${acc}</td><td class="right"><button class="btn danger sm" data-delop="${o.id}">✕</button></td></tr>`;
+  }).join('');
+  $('#invOpsList').innerHTML=`<table><thead><tr><th>Fecha</th><th>Op.</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Importe</th><th class="num">Acumul.</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
-function invEdit(id){ const p=DB.inversiones.find(x=>x.id===id); if(!p)return;
-  $('#invId').value=p.id; $('#invTicker').value=p.ticker||''; $('#invNombre').value=p.nombre||''; $('#invAcc').value=p.acciones; $('#invPC').value=p.precioCompra; $('#invPA').value=p.precioActual; $('#invBroker').value=p.broker||''; $('#invExch').value=p.exchange||'BME';
-  $('#invSubmit').textContent='Guardar'; $('#invCancel').style.display='inline-block'; window.scrollTo({top:0,behavior:'smooth'}); }
-function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Sin posiciones');return;}
-  DB.inversiones=arr.map(p=>({id:uid(),ticker:p.ticker||'',nombre:p.nombre||'',acciones:num(p.acciones),precioCompra:num(p.precioCompra),precioActual:num(p.precioActual),divAccion:num(p.divAccion),exchange:p.exchange||'BME',broker:p.broker||''}));
-  renderInv(); saveNow(); alert('Importadas '+DB.inversiones.length+' posiciones.'); }); }
-function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
-async function actualizarPrecios(){
-  const key=(($('#invKey')||{}).value||'').trim(); if(!key){alert('Pega tu API key de Twelve Data en el campo.');return;}
-  DB.config.twelveKey=key; scheduleSave();
-  const list=(DB.inversiones||[]).filter(p=>p.ticker); if(!list.length){alert('No hay posiciones con ticker.');return;}
-  setInvStatus('Actualizando…'); let ok=0; const fail=[];
-  for(const p of list){
-    try{
-      const ex=p.exchange?('&exchange='+encodeURIComponent(p.exchange)):'';
-      const r=await fetch('https://api.twelvedata.com/price?symbol='+encodeURIComponent(p.ticker)+ex+'&apikey='+encodeURIComponent(key));
-      const j=await r.json();
-      if(j && j.price){ p.precioActual=num(j.price); ok++; }
-      else if(j && (j.code===429 || (j.message&&/limit|run out|credit/i.test(j.message)))){ renderInv(); scheduleSave(); setInvStatus('Límite del plan: '+ok+' actualizadas. Espera 1 min y reintenta.'); return; }
-      else { fail.push(p.ticker); }
-    }catch(e){ fail.push(p.ticker); }
-    await new Promise(res=>setTimeout(res,250));
-  }
-  renderInv(); scheduleSave();
-  setInvStatus('Actualizado '+ok+'/'+list.length+(fail.length?' · sin dato: '+fail.join(', '):' ✓'));
+function addOp(){
+  if(!invOpsTicker){alert('Elige un valor primero.');return;}
+  const fecha=$('#opFecha').value, tipo=$('#opTipo').value, n=num($('#opAcc').value), precio=num($('#opPrecio').value);
+  if(n<=0){alert('Indica acciones > 0.');return;}
+  if(tipo==='compra'&&precio<=0){alert('Indica el precio de compra.');return;}
+  DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio});
+  $('#opAcc').value=''; $('#opPrecio').value='';
+  renderInv(); renderInvOps(); scheduleSave();
+}
+function invNuevoValor(){
+  const t=$('#invTicker').value.trim().toUpperCase(); if(!t){alert('Pon el ticker.');return;}
+  DB.valores=DB.valores||{};
+  DB.valores[t]={nombre:$('#invNombre').value.trim()||t, precioActual:num($('#invPA').value), divAccion:num($('#invDiv').value), broker:$('#invBroker').value.trim(), exchange:$('#invExch').value.trim()||'BME'};
+  const acc=num($('#invAcc').value);
+  const car=($('#invCart').value||'').trim()||'Propia';
+  if(acc>0){ DB.operaciones.push({id:uid(),fecha:$('#invFecha').value||'',ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:num($('#invPC').value)}); }
+  $('#invForm').reset(); $('#invExch').value='BME'; $('#invForm').style.display='none';
+  renderInv(); scheduleSave(); setInvStatus('Valor añadido: '+t);
 }
 function parseNumES(t){ t=(t||'').toString().replace(/[^\d.,-]/g,''); if(!t)return NaN; if(t.indexOf(',')>=0){ return parseFloat(t.replace(/\./g,'').replace(',','.')); } return parseFloat(t); }
 function aplicarPreciosPegados(){
   const txt=($('#invPasteTxt').value||''); if(!txt.trim()){alert('Pega los precios primero.');return;}
   const norm=s=>(s||'').toString().trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  const byTick={}, byName={};
-  (DB.inversiones||[]).forEach(p=>{ if(p.ticker)byTick[norm(p.ticker)]=p; if(p.nombre)byName[norm(p.nombre)]=p; });
-  let okP=0, okD=0; const noMatch=[];
-  txt.split(/\r?\n/).forEach(line=>{
-    line=line.trim(); if(!line)return;
-    let cols=line.split(/[\t;]+/); if(cols.length<2) cols=line.split(/\s+/);
-    cols=cols.map(x=>x.trim()).filter(Boolean);
-    if(cols.length<2){ noMatch.push(line); return; }
+  const keyByTick={}, keyByName={};
+  Object.keys(DB.valores||{}).forEach(t=>{ keyByTick[norm(t)]=t; const v=DB.valores[t]; if(v&&v.nombre)keyByName[norm(v.nombre)]=t; });
+  let okP=0,okD=0; const noMatch=[];
+  txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
+    let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
+    if(cols.length<2){noMatch.push(line);return;}
     const id=cols[0], price=parseNumES(cols[1]), div=cols.length>=3?parseNumES(cols[2]):NaN;
-    const p=byTick[norm(id)] || byName[norm(id)];
-    if(!p){ noMatch.push(id); return; }
-    if(!isNaN(price)){ p.precioActual=price; okP++; }
-    if(!isNaN(div)){ p.divAccion=div; okD++; }
+    const t=keyByTick[norm(id)]||keyByName[norm(id)];
+    if(!t){noMatch.push(id);return;}
+    const v=DB.valores[t]; if(!isNaN(price)){v.precioActual=price;okP++;} if(!isNaN(div)){v.divAccion=div;okD++;}
   });
-  renderInv(); scheduleSave();
+  renderInv(); if(invOpsTicker)renderInvOps(); scheduleSave();
   setInvStatus('Precios: '+okP+(okD?(' · dividendos: '+okD):'')+(noMatch.length?(' · sin emparejar: '+noMatch.slice(0,6).join(', ')):' ✓'));
   if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
 }
+function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+  if(d && (d.operaciones||d.valores)){
+    if(!confirm('Esto reemplazará operaciones y valores de Inversiones por los del archivo. ¿Continuar?')) return;
+    DB.operaciones=(d.operaciones||[]).map(o=>({id:uid(),fecha:o.fecha||'',ticker:(o.ticker||'').toUpperCase(),tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}));
+    DB.valores={}; const vv=d.valores||{}; Object.keys(vv).forEach(t=>{const x=vv[t]; DB.valores[t.toUpperCase()]={nombre:x.nombre||t,precioActual:num(x.precioActual),divAccion:num(x.divAccion),broker:x.broker||'',exchange:x.exchange||'BME'};});
+    DB.config.invModeloOps=true; invOpsTicker=null; renderInv(); renderInvOps(); saveNow(); alert('Importadas '+DB.operaciones.length+' operaciones.'); return;
+  }
+  const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Formato no reconocido.');return;}
+  if(!confirm('Esto reemplazará tus posiciones por las del archivo. ¿Continuar?')) return;
+  DB.operaciones=[]; DB.valores={};
+  arr.forEach(p=>{const t=((p.ticker||p.nombre||'')+'').toUpperCase(); if(!t)return; DB.valores[t]={nombre:p.nombre||t,precioActual:num(p.precioActual),divAccion:num(p.divAccion),broker:p.broker||'',exchange:p.exchange||'BME'}; if(num(p.acciones)>0)DB.operaciones.push({id:uid(),fecha:'',ticker:t,tipo:'compra',acciones:num(p.acciones),precio:num(p.precioCompra)});});
+  DB.config.invModeloOps=true; invOpsTicker=null; renderInv(); renderInvOps(); saveNow(); alert('Importadas '+DB.operaciones.length+' posiciones.');
+}); }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); }
 
 /* ----- diálogo categoría ----- */
@@ -1290,16 +1359,21 @@ $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
 $('#amaOrden').addEventListener('change',renderAmalia);
-$('#invForm').addEventListener('submit',e=>{e.preventDefault();invSubmit();});
-$('#invCancel').addEventListener('click',invReset);
-$('#invAddBtn').addEventListener('click',()=>{invReset();window.scrollTo({top:0,behavior:'smooth'});});
-$('#invUpdate').addEventListener('click',actualizarPrecios);
+$('#invForm').addEventListener('submit',e=>{e.preventDefault();invNuevoValor();});
+$('#invCancel').addEventListener('click',()=>{$('#invForm').style.display='none';});
+$('#invAddBtn').addEventListener('click',()=>{const f=$('#invForm'); f.reset(); $('#invExch').value='BME'; $('#invFecha').value=new Date().toISOString().slice(0,10); f.style.display=(f.style.display==='none'||!f.style.display)?'grid':'none';});
 $('#invPasteBtn').addEventListener('click',()=>{const p=$('#invPastePanel'); p.style.display=p.style.display==='none'?'block':'none';});
 $('#invPasteCancel').addEventListener('click',()=>{$('#invPastePanel').style.display='none';});
 $('#invPasteApply').addEventListener('click',aplicarPreciosPegados);
 $('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
-$('#invKey').addEventListener('change',e=>{ if(!DB.config)DB.config={}; DB.config.twelveKey=e.target.value.trim(); scheduleSave(); });
-$('#invTable').addEventListener('click',e=>{const ed=e.target.closest('[data-invedit]'),de=e.target.closest('[data-invdel]'); if(ed)invEdit(ed.dataset.invedit); if(de&&confirm('¿Eliminar esta posición?')){DB.inversiones=DB.inversiones.filter(x=>x.id!==de.dataset.invdel);renderInv();scheduleSave();}});
+$('#invCartSel').addEventListener('change',e=>{invCartFiltro=e.target.value;renderInv();});
+$('#invTable').addEventListener('click',e=>{const op=e.target.closest('[data-ops-t]'),de=e.target.closest('[data-del-t]');
+  if(op){ invOpsTicker=op.dataset.opsT; invOpsCartera=op.dataset.opsC; renderInvOps(); const el=$('#invOpsPanel'); if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
+  if(de){ const t=de.dataset.delT, car=de.dataset.delC; if(confirm('¿Eliminar las operaciones de '+t+' en la cartera '+car+'?')){ DB.operaciones=DB.operaciones.filter(o=>!((o.ticker||'').toUpperCase()===t && (o.cartera||'Propia')===car)); if(invOpsTicker===t&&invOpsCartera===car)invOpsTicker=null; renderInv(); renderInvOps(); scheduleSave(); } }});
+$('#opAdd').addEventListener('click',addOp);
+$('#opClose').addEventListener('click',()=>{invOpsTicker=null; renderInvOps();});
+$('#invOpsList').addEventListener('click',e=>{const d=e.target.closest('[data-delop]'); if(d&&confirm('¿Eliminar esta operación?')){DB.operaciones=DB.operaciones.filter(o=>o.id!==d.dataset.delop); renderInv(); renderInvOps(); scheduleSave();}});
+$('#invOpsMeta').addEventListener('change',e=>{const t=e.target; if(t.dataset&&t.dataset.meta&&invOpsTicker){ const v=DB.valores[invOpsTicker]=DB.valores[invOpsTicker]||{}; const k=t.dataset.meta; v[k]=(k==='precioActual'||k==='divAccion')?num(t.value):t.value; renderInv(); scheduleSave(); }});
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
