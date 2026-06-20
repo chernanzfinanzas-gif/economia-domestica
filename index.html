@@ -92,6 +92,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .patgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .patgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .patgrid input{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
+  .dd{position:relative;display:inline-block}
+  .dd-panel{position:absolute;z-index:30;top:112%;left:0;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow);padding:8px;max-height:300px;overflow:auto;min-width:230px;display:none}
+  .dd-panel.open{display:block}
+  .dd-panel .g{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:6px 0 2px}
+  .dd-panel label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:2px 0;cursor:pointer}
+  #titChips button.on{background:var(--brand);color:#fff}
 </style>
 </head>
 <body>
@@ -165,9 +171,23 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div>
     </form>
     <div class="toolbar">
-      <input type="search" id="fltText" placeholder="Buscar concepto o comercio…">
-      <select id="fltCat"><option value="">Todas las categorías</option></select>
-      <select id="fltTit"><option value="">Todos</option><option>Dos</option><option>Carlos</option><option>Susana</option></select>
+      <input type="search" id="fltText" placeholder="Buscar…">
+      <label class="muted">Desde <input type="date" id="fltDesde"></label>
+      <label class="muted">Hasta <input type="date" id="fltHasta"></label>
+      <select id="fltOrden">
+        <option value="fecha_desc">Fecha ↓ reciente</option>
+        <option value="fecha_asc">Fecha ↑ antigua</option>
+        <option value="imp_desc">Importe ↓</option>
+        <option value="imp_asc">Importe ↑</option>
+      </select>
+      <div class="dd"><button type="button" class="btn ghost sm" id="catDDbtn">Categorías ▾</button>
+        <div class="dd-panel" id="catDDpanel"></div></div>
+      <div class="seg" id="titChips">
+        <button type="button" data-t="Dos">Dos</button>
+        <button type="button" data-t="Carlos">Carlos</button>
+        <button type="button" data-t="Susana">Susana</button>
+      </div>
+      <button type="button" class="btn ghost sm" id="fltClear">Limpiar</button>
       <span class="muted" id="movCount"></span>
     </div>
     <div id="movTable"></div>
@@ -184,6 +204,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <span class="muted" id="presTotals"></span>
     </div>
     <div id="presTable"></div>
+    <h3>Análisis por clase (evolución anual)</h3>
+    <div id="presAnalisis" style="overflow:auto"></div>
   </section>
   <!-- PATRIMONIO -->
   <section class="view" id="view-patrimonio">
@@ -501,6 +523,7 @@ function initPeriod(){
 }
 
 let presYear;
+let movFiltCats=new Set(), movFiltTits=new Set();
 function catById(id){ return DB.categorias.find(c=>c.id===id); }
 function baseYear(){ return (DB.config&&DB.config.anioBasePresupuesto)||2026; }
 function pAnio(p){ return p.anio||baseYear(); }
@@ -515,18 +538,26 @@ function fillPresYear(){
 function fillCatSelects(){
   const groups={};
   DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
-  const build=(sel,withAll,placeholder)=>{
-    sel.innerHTML='';
-    if(withAll){const o=document.createElement('option');o.value='';o.textContent=placeholder;sel.appendChild(o);}
+  const sel=$('#movCat'); if(sel){ sel.innerHTML='';
     Object.keys(groups).sort().forEach(g=>{
       const og=document.createElement('optgroup');og.label=g;
       groups[g].forEach(c=>{const o=document.createElement('option');o.value=c.id;o.textContent=c.nombre;og.appendChild(o);});
       sel.appendChild(og);
-    });
-  };
-  build($('#movCat'),false);
-  build($('#fltCat'),true,'Todas las categorías');
+    }); }
+  renderCatDD();
 }
+function renderCatDD(){
+  const p=$('#catDDpanel'); if(!p) return;
+  const groups={};
+  DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
+  let html='<label style="font-weight:700"><input type="checkbox" id="catDDall">Todas / ninguna</label>';
+  Object.keys(groups).sort().forEach(g=>{
+    html+='<div class="g">'+g+'</div>';
+    groups[g].forEach(c=>{ const ck=movFiltCats.has(c.id)?'checked':''; html+='<label><input type="checkbox" class="catCk" value="'+c.id+'" '+ck+'>'+c.nombre+'</label>'; });
+  });
+  p.innerHTML=html; updateCatDDbtn();
+}
+function updateCatDDbtn(){ const b=$('#catDDbtn'); if(b) b.textContent='Categorías'+(movFiltCats.size?' ('+movFiltCats.size+')':'')+' ▾'; }
 function fillGrupoList(){
   const dl=$('#grupoList'); dl.innerHTML='';
   [...new Set(DB.categorias.map(c=>c.grupo))].sort().forEach(g=>{const o=document.createElement('option');o.value=g;dl.appendChild(o);});
@@ -585,20 +616,28 @@ function renderPanel(){
 let movTipo='gasto';
 function renderMovs(){
   const txt=$('#fltText').value.toLowerCase().trim();
-  const fc=$('#fltCat').value, ft=$('#fltTit').value;
-  const pref = curYear+'-'+String(curMonth+1).padStart(2,'0');
-  let list=DB.movimientos.filter(m=>m.fecha.startsWith(pref));
-  if(fc) list=list.filter(m=>m.categoriaId===fc);
-  if(ft) list=list.filter(m=>m.titular===ft);
+  const desde=$('#fltDesde').value, hasta=$('#fltHasta').value;
+  let list=DB.movimientos.slice();
+  if(desde) list=list.filter(m=>m.fecha>=desde);
+  if(hasta) list=list.filter(m=>m.fecha<=hasta);
+  if(movFiltCats.size) list=list.filter(m=>movFiltCats.has(m.categoriaId));
+  if(movFiltTits.size) list=list.filter(m=>movFiltTits.has(m.titular));
   if(txt) list=list.filter(m=>((m.concepto||'')+' '+(m.comercio||'')).toLowerCase().includes(txt));
-  list.sort((a,b)=> a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0);
-  $('#movCount').textContent = list.length+' movimiento'+(list.length!==1?'s':'');
-  if(!list.length){ $('#movTable').innerHTML='<div class="empty">No hay movimientos en este periodo con los filtros aplicados.</div>'; return; }
+  const ord=($('#fltOrden')||{}).value||'fecha_desc';
+  list.sort((a,b)=>{
+    if(ord==='fecha_asc') return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0;
+    if(ord==='imp_desc') return num(b.importe)-num(a.importe);
+    if(ord==='imp_asc') return num(a.importe)-num(b.importe);
+    return a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0;
+  });
+  const neto=list.reduce((x,m)=> x+(m.tipo==='ingreso'?num(m.importe):-num(m.importe)),0);
+  $('#movCount').textContent = list.length+' mov. · neto '+fmt(neto);
+  if(!list.length){ $('#movTable').innerHTML='<div class="empty">No hay movimientos con los filtros aplicados.</div>'; return; }
   const rows=list.map(m=>{
     const c=catById(m.categoriaId);
     const signed = m.tipo==='ingreso'? '+'+fmt(m.importe) : '−'+fmt(m.importe);
     return `<tr>
-      <td>${m.fecha.slice(8,10)}/${m.fecha.slice(5,7)}</td>
+      <td>${ddmmyyyy(m.fecha)}</td>
       <td>${m.concepto||''}${m.comercio?` <span class="muted">· ${m.comercio}</span>`:''}</td>
       <td><span class="tag">${c?c.nombre:'—'}</span></td>
       <td>${m.titular||''}</td>
@@ -899,7 +938,37 @@ function importAmalia(file){
     DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
     renderAmalia(); saveNow(); alert('Importados '+DB.amalia.length+' apuntes de Amalia.'); });
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); renderProy(); renderAmalia(); }
+function renderPresAnalisis(){
+  const el=$('#presAnalisis'); if(!el) return;
+  const curY=new Date().getFullYear();
+  const ys=new Set(DB.presupuesto.map(pAnio));
+  DB.movimientos.forEach(m=>ys.add(+m.fecha.slice(0,4)));
+  const years=[...ys].sort((a,b)=>a-b);
+  const groups=[...new Set(DB.categorias.map(c=>c.grupo))].sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
+  const catG={}; DB.categorias.forEach(c=>catG[c.id]=c.grupo);
+  const real={};
+  DB.movimientos.forEach(m=>{ const g=catG[m.categoriaId]; if(!g)return; const y=+m.fecha.slice(0,4); const k=g+'|'+y; real[k]=(real[k]||0)+num(m.importe); });
+  const pptoFor=(g,y)=>{ let t=0; DB.categorias.filter(c=>c.grupo===g).forEach(c=>{ const p=presFor(c.id,y); if(p)t+=anual(p); }); return t; };
+  let head='<tr><th>Clase</th>';
+  years.forEach(y=>{ const cur=y===curY?' ('+'en curso'+')':''; head+=`<th class="num">${y} Ppto</th><th class="num">${y} Gasto${cur}</th><th class="num">${y} %</th>`; });
+  head+='</tr>';
+  const totals={}; let body='';
+  groups.forEach(g=>{
+    let row=`<tr><td><b>${g}</b></td>`;
+    years.forEach(y=>{
+      const pp=pptoFor(g,y); const rr=real[g+'|'+y]||0; const pct=pp?Math.round(rr/pp*100):0;
+      const cls= pp? (rr/pp<=1?'g':rr/pp<=1.1?'a':'r') : '';
+      row+=`<td class="num">${pp?fmt(pp):'—'}</td><td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
+      totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr;
+    });
+    body+=row+'</tr>';
+  });
+  let tot='<tr style="font-weight:700"><td>TOTAL</td>';
+  years.forEach(y=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0; tot+=`<td class="num">${fmt(o.pp)}</td><td class="num">${fmt(o.rr)}</td><td class="num">${o.pp?pct+'%':'—'}</td>`; });
+  tot+='</tr>';
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${tot}</tbody></table>`;
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -981,7 +1050,18 @@ $('#movTable').addEventListener('click',e=>{
   if(ed) editMov(ed.dataset.edit);
   if(de){ if(confirm('¿Eliminar este movimiento?')){DB.movimientos=DB.movimientos.filter(m=>m.id!==de.dataset.del);renderAll();scheduleSave();} }
 });
-['#fltText','#fltCat','#fltTit'].forEach(s=>$(s).addEventListener('input',renderMovs));
+$('#fltText').addEventListener('input',renderMovs);
+['#fltDesde','#fltHasta','#fltOrden'].forEach(s=>$(s).addEventListener('change',renderMovs));
+$('#catDDbtn').addEventListener('click',e=>{e.stopPropagation();$('#catDDpanel').classList.toggle('open');});
+$('#catDDpanel').addEventListener('click',e=>e.stopPropagation());
+$('#catDDpanel').addEventListener('change',e=>{
+  if(e.target.id==='catDDall'){ if(e.target.checked){DB.categorias.forEach(c=>movFiltCats.add(c.id));} else {movFiltCats.clear();} renderCatDD(); }
+  else if(e.target.classList.contains('catCk')){ if(e.target.checked) movFiltCats.add(e.target.value); else movFiltCats.delete(e.target.value); updateCatDDbtn(); }
+  renderMovs();
+});
+document.addEventListener('click',()=>{ const p=$('#catDDpanel'); if(p) p.classList.remove('open'); });
+$('#titChips').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; b.classList.toggle('on'); if(b.classList.contains('on'))movFiltTits.add(b.dataset.t); else movFiltTits.delete(b.dataset.t); renderMovs(); });
+$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
 $('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
 $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);
