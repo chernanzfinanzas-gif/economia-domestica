@@ -89,6 +89,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dlg-b input,.dlg-b select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
   .dlg-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
   @media(max-width:720px){nav button{padding:8px 9px;font-size:13px}.logo .logo-img{height:40px}main{margin-top:12px}}
+  .patgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .patgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
+  .patgrid input{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
 </style>
 </head>
 <body>
@@ -98,6 +101,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="panel" class="active">Panel</button>
     <button data-view="movimientos">Movimientos</button>
     <button data-view="presupuesto">Presupuesto</button>
+    <button data-view="patrimonio">Patrimonio</button>
   </nav>
   <div class="spacer"></div>
   <div class="month" id="monthBox">
@@ -179,6 +183,25 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
     <div id="presTable"></div>
   </section>
+  <!-- PATRIMONIO -->
+  <section class="view" id="view-patrimonio">
+    <h2>Patrimonio</h2>
+    <div class="cards" id="patCards"></div>
+    <div id="patReparto" style="margin-top:14px"></div>
+    <h3>Evolución</h3>
+    <div class="card"><canvas id="patChart" style="width:100%;height:220px;display:block"></canvas><div id="patEvol" class="sub" style="margin-top:6px"></div></div>
+    <h3>Registrar patrimonio</h3>
+    <div class="card">
+      <div id="patFormFields" class="patgrid"></div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn" id="patAdd">Guardar registro</button>
+        <button class="btn ghost" id="patImportBtn">Importar histórico (.json)</button>
+      </div>
+    </div>
+    <h3>Registros</h3>
+    <div id="patList"></div>
+  </section>
+
 </main>
 
 <!-- dialog: categoria / presupuesto -->
@@ -394,6 +417,9 @@ function afterLoad(){
   $$('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view==='panel'));
   // migración: asegurar año en cada entrada de presupuesto
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
+  DB.patrimonio = DB.patrimonio||[];
+  if(!DB.config) DB.config={};
+  if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
   if(presYear==null){ const ys=presYears(); const cy=new Date().getFullYear(); presYear = ys.includes(cy)? cy : ys[0]; }
   initPeriod();
   fillCatSelects();
@@ -584,7 +610,113 @@ function renderPres(){
   $('#presTotals').innerHTML = `<b>${presYear}</b> · Ingresos: <b class="pos">${fmt(totMensIng)}</b>/mes · Gastos: <b class="neg">${fmt(totMensGasto)}</b>/mes · Ahorro previsto: <b>${fmt(totMensIng-totMensGasto)}</b>/mes (${fmt((totMensIng-totMensGasto)*12)}/año)`;
 }
 
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); }
+/* ============ Patrimonio ============ */
+function patSnaps(){ return [...(DB.patrimonio||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
+function snapTot(s){ let ef=0,inv=0; (s.lineas||[]).forEach(l=>{ef+=num(l.ef);inv+=num(l.inv);}); return {ef,inv,total:ef+inv}; }
+function ddmmyyyy(f){ return f.split('-').reverse().join('/'); }
+
+function renderPat(){
+  const snaps=patSnaps();
+  const obj=(DB.config&&DB.config.objetivoReparto!=null)?DB.config.objetivoReparto:0.5;
+  const cardsEl=$('#patCards'), repEl=$('#patReparto');
+  if(!snaps.length){
+    cardsEl.innerHTML='<div class="empty">Aún no hay registros de patrimonio. Añade uno abajo o importa tu histórico.</div>';
+    repEl.innerHTML=''; $('#patEvol').textContent='';
+    const cv=$('#patChart'); if(cv){const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);}
+    renderPatForm(); renderPatList(); return;
+  }
+  const last=snaps[snaps.length-1], first=snaps[0];
+  const t=snapTot(last), tf=snapTot(first);
+  const prev = snaps.length>1? snapTot(snaps[snaps.length-2]) : null;
+  const pctInv = t.total? t.inv/t.total : 0;
+  const rendIni = tf.total? (t.total-tf.total)/tf.total : 0;
+  const rendPrev = prev&&prev.total? (t.total-prev.total)/prev.total : 0;
+  cardsEl.innerHTML=[
+    {l:'Patrimonio total',v:fmt(t.total),s:ddmmyyyy(last.fecha),cls:''},
+    {l:'Efectivo',v:fmt(t.ef),s:Math.round((1-pctInv)*100)+'% del total',cls:''},
+    {l:'Invertido',v:fmt(t.inv),s:Math.round(pctInv*100)+'% del total',cls:''},
+    {l:'Rendimiento vs inicio',v:(rendIni>=0?'+':'')+(rendIni*100).toFixed(1)+'%',s:'vs anterior: '+(rendPrev>=0?'+':'')+(rendPrev*100).toFixed(1)+'%',cls:rendIni>=0?'pos':'neg'}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  const pInv=Math.round(pctInv*100), pEf=100-pInv, oInv=Math.round(obj*100);
+  repEl.innerHTML=`<div class="card"><div class="lbl">Reparto efectivo / invertido</div>
+    <div class="bar" style="height:18px;margin-top:8px;display:flex">
+      <i style="width:${pEf}%;background:var(--brand)"></i><i style="width:${pInv}%;background:var(--green)"></i></div>
+    <div class="sub" style="margin-top:6px">Efectivo ${pEf}% · Invertido ${pInv}% &nbsp;|&nbsp; objetivo invertido
+      <input type="number" id="patObj" min="0" max="100" value="${oInv}" style="width:62px;padding:4px;border:1px solid var(--line);border-radius:6px">%</div></div>`;
+  drawPatChart(snaps);
+  $('#patEvol').textContent=snaps.length+' registros · desde '+ddmmyyyy(first.fecha)+' ('+fmt(tf.total)+') hasta '+ddmmyyyy(last.fecha)+' ('+fmt(t.total)+')';
+  renderPatForm(); renderPatList();
+}
+
+function drawPatChart(snaps){
+  const cv=$('#patChart'); if(!cv) return;
+  const ctx=cv.getContext('2d');
+  const W=cv.width=cv.clientWidth||700, H=cv.height=220;
+  ctx.clearRect(0,0,W,H);
+  const pad={l:8,r:8,t:14,b:18};
+  const vals=snaps.map(s=>snapTot(s).total);
+  const max=Math.max(...vals), min=Math.min(...vals,0);
+  const n=snaps.length;
+  const X=i=> pad.l + (W-pad.l-pad.r)*(n<=1?0.5:i/(n-1));
+  const Y=v=> pad.t + (H-pad.t-pad.b)*(1-(v-min)/((max-min)||1));
+  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0]));
+  for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(vals[i]));
+  ctx.lineTo(X(n-1),H-pad.b); ctx.lineTo(X(0),H-pad.b); ctx.closePath();
+  ctx.fillStyle='rgba(37,99,235,.10)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0]));
+  for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(vals[i]));
+  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  const seen={};
+  snaps.forEach((s,i)=>{ const yr=s.fecha.slice(0,4); if(!seen[yr]){seen[yr]=1; ctx.fillText(yr, X(i), H-5);} });
+}
+
+function renderPatForm(){
+  const el=$('#patFormFields'); if(!el) return;
+  const today=new Date().toISOString().slice(0,10);
+  let html='<label>Fecha<input type="date" id="patFecha" value="'+today+'"></label>';
+  DB.cuentas.forEach(c=>{
+    html+='<label>'+c.nombre+' · efectivo<input type="number" step="0.01" class="patEf" data-c="'+c.id+'" placeholder="0"></label>';
+    html+='<label>'+c.nombre+' · invertido<input type="number" step="0.01" class="patInv" data-c="'+c.id+'" placeholder="0"></label>';
+  });
+  el.innerHTML=html;
+}
+function renderPatList(){
+  const snaps=patSnaps().reverse();
+  if(!snaps.length){ $('#patList').innerHTML=''; return; }
+  const rows=snaps.map(s=>{ const t=snapTot(s); return `<tr>
+    <td>${ddmmyyyy(s.fecha)}</td><td class="num">${fmt(t.ef)}</td><td class="num">${fmt(t.inv)}</td>
+    <td class="num"><b>${fmt(t.total)}</b></td><td class="num">${t.total?Math.round(t.inv/t.total*100):0}%</td>
+    <td class="right"><button class="btn danger sm" data-delsnap="${s.id}">✕</button></td></tr>`;}).join('');
+  $('#patList').innerHTML=`<table><thead><tr><th>Fecha</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th><th class="num">% Inv.</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function addSnapshot(){
+  const fE=$('#patFecha'); const fecha=fE?fE.value:''; if(!fecha){alert('Pon una fecha');return;}
+  const efs=$$('.patEf'), invs=$$('.patInv');
+  const lineas=DB.cuentas.map(c=>{
+    const ef=num((efs.find(i=>i.dataset.c===c.id)||{}).value);
+    const inv=num((invs.find(i=>i.dataset.c===c.id)||{}).value);
+    return {cuentaId:c.id, ef, inv};
+  });
+  DB.patrimonio=DB.patrimonio||[];
+  const ex=DB.patrimonio.find(s=>s.fecha===fecha);
+  if(ex){ if(!confirm('Ya hay un registro en esa fecha. ¿Reemplazarlo?'))return; ex.lineas=lineas; }
+  else DB.patrimonio.push({id:uid(),fecha,lineas});
+  renderPat(); scheduleSave();
+}
+function importPatrimonio(file){
+  file.text().then(txt=>{
+    let data; try{ data=JSON.parse(txt); }catch(e){ alert('JSON no válido'); return; }
+    const arr=Array.isArray(data)?data:(data.patrimonio||[]);
+    if(!arr.length){ alert('El archivo no contiene registros de patrimonio'); return; }
+    const byName={}; DB.cuentas.forEach(c=>byName[c.nombre.toLowerCase()]=c.id);
+    function cid(nombre){ const k=(nombre||'').toLowerCase(); if(byName[k])return byName[k]; const id=uid(); DB.cuentas.push({id,nombre:nombre||'Cuenta',tipo:'otro',naturaleza:'efectivo',saldoInicial:0}); byName[k]=id; return id; }
+    DB.patrimonio = arr.map(s=>({ id:uid(), fecha:s.fecha, lineas:(s.lineas||[]).map(l=> l.cuentaId? {cuentaId:l.cuentaId,ef:num(l.ef),inv:num(l.inv)} : {cuentaId:cid(l.cuenta),ef:num(l.ef),inv:num(l.inv)}) }));
+    renderPat(); saveNow(); alert('Importados '+DB.patrimonio.length+' registros de patrimonio.');
+  });
+}
+
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -633,6 +765,7 @@ $('#nav').addEventListener('click',e=>{
   $$('#nav button').forEach(x=>x.classList.toggle('active',x===b));
   $$('.view').forEach(v=>v.classList.remove('active'));
   $('#view-'+b.dataset.view).classList.add('active');
+  if(b.dataset.view==='patrimonio') renderPat();
 });
 $('#mYear').addEventListener('change',e=>{curYear=+e.target.value;renderAll();});
 $('#mMonth').addEventListener('change',e=>{curMonth=+e.target.value;renderAll();});
@@ -666,6 +799,10 @@ $('#movTable').addEventListener('click',e=>{
 });
 ['#fltText','#fltCat','#fltTit'].forEach(s=>$(s).addEventListener('input',renderMovs));
 $('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
+$('#patAdd').addEventListener('click',addSnapshot);
+$('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
+$('#patList').addEventListener('click',e=>{const b=e.target.closest('[data-delsnap]');if(b&&confirm('¿Eliminar este registro?')){DB.patrimonio=DB.patrimonio.filter(s=>s.id!==b.dataset.delsnap);renderPat();scheduleSave();}});
+document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
 $('#btnAddYear').addEventListener('click',addYear);
 $('#btnAddCat').addEventListener('click',()=>openCatDlg(null));
 $('#presTable').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b)openCatDlg(b.dataset.cat);});
@@ -676,6 +813,9 @@ $('#catDelete').addEventListener('click',deleteCat);
 const fi=document.createElement('input'); fi.type='file'; fi.accept='.json,application/json'; fi.id='fileInput'; fi.style.display='none';
 fi.addEventListener('change',async()=>{const f=fi.files[0];if(!f)return; await importLocal(f); fi.value='';});
 document.body.appendChild(fi);
+const pf=document.createElement('input'); pf.type='file'; pf.accept='.json,application/json'; pf.id='patFile'; pf.style.display='none';
+pf.addEventListener('change',()=>{const f=pf.files[0];if(!f)return; importPatrimonio(f); pf.value='';});
+document.body.appendChild(pf);
 
 /* arranque */
 init();
