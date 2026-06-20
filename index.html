@@ -274,6 +274,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <button type="button" class="btn ghost" id="amaImportBtn">Importar (.json)</button>
       </div>
     </form>
+    <div class="toolbar"><label class="muted">Orden <select id="amaOrden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select></label></div>
     <div id="amaList"></div>
   </section>
 
@@ -951,13 +952,15 @@ function renderAmalia(){
   const list=amaliaSorted();
   if(!list.length){ $('#amaList').innerHTML='<div class="empty">Sin apuntes. Añade un gasto o un reembolso.</div>'; return; }
   let run=0;
-  const rows=list.map(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe);
+  const rowsArr=list.map(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe);
     const signed=e.tipo==='gasto'? '+'+fmt(e.importe):'−'+fmt(e.importe);
     return `<tr><td>${ddmmyyyy(e.fecha)}</td><td>${e.concepto||''}${e.nota?` <span class="muted">· ${e.nota}</span>`:''}</td>
       <td><span class="tag ${e.tipo==='reembolso'?'in':''}">${e.tipo==='gasto'?'Gasto':'Reembolso'}</span></td>
       <td class="num ${e.tipo==='gasto'?'neg':'pos'}">${signed}</td>
       <td class="num"><b>${fmt(run)}</b></td>
-      <td class="right"><button class="btn danger sm" data-delama="${e.id}">✕</button></td></tr>`;}).join('');
+      <td class="right"><button class="btn danger sm" data-delama="${e.id}">✕</button></td></tr>`;});
+  const ord=($('#amaOrden')||{}).value||'desc';
+  const rows=(ord==='desc'?rowsArr.slice().reverse():rowsArr).join('');
   $('#amaList').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th class="num">Importe</th><th class="num">Saldo</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addAmalia(){
@@ -988,6 +991,7 @@ function renderPresAnalisis(){
   let head='<tr><th>Clase</th>';
   years.forEach((y,yi)=>{ head+=`<th class="num">${y} Ppto</th>`; if(yi>0) head+=`<th class="num">${y} vs ant.</th>`; head+=`<th class="num">${y} Ejecutado${y===curY?' (en curso)':''}</th><th class="num">${y} %</th>`; });
   head+='</tr>';
+  const ingGroups=new Set(DB.categorias.filter(c=>c.tipo==='ingreso').map(c=>c.grupo));
   const totals={}; let body='';
   groups.forEach(g=>{
     let row=`<tr><td><b>${g}</b></td>`;
@@ -997,11 +1001,11 @@ function renderPresAnalisis(){
       row+=`<td class="num">${pp?fmt(pp):'—'}</td>`;
       if(yi>0){ const prev=pptoFor(g,years[yi-1]); let cell='—'; if(prev){ const dd=Math.round((pp/prev-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } row+=`<td class="num">${cell}</td>`; }
       row+=`<td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
-      totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr;
+      if(!ingGroups.has(g)){ totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr; }
     });
     body+=row+'</tr>';
   });
-  let tot='<tr style="font-weight:700"><td>TOTAL</td>';
+  let tot='<tr style="font-weight:700;background:#fef9c3;color:#c2410c"><td>TOTAL GASTOS</td>';
   years.forEach((y,yi)=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0;
     tot+=`<td class="num">${fmt(o.pp)}</td>`;
     if(yi>0){ const op=totals[years[yi-1]]||{pp:0}; let cell='—'; if(op.pp){ const dd=Math.round((o.pp/op.pp-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } tot+=`<td class="num">${cell}</td>`; }
@@ -1123,6 +1127,7 @@ $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-de
 $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
+$('#amaOrden').addEventListener('change',renderAmalia);
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
