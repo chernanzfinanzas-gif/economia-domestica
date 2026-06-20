@@ -1265,16 +1265,21 @@ function aplicarPreciosPegados(){
   const norm=s=>(s||'').toString().trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
   const keyByTick={}, keyByName={};
   Object.keys(DB.valores||{}).forEach(t=>{ keyByTick[norm(t)]=t; const v=DB.valores[t]; if(v&&v.nombre)keyByName[norm(v.nombre)]=t; });
+  const anaByTick={}, anaByName={};
+  (DB.analisis||[]).forEach(a=>{ if(a.ticker)anaByTick[norm(a.ticker)]=a; if(a.nombre)anaByName[norm(a.nombre)]=a; });
   let okP=0,okD=0; const noMatch=[];
   txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
     let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
     if(cols.length<2){noMatch.push(line);return;}
-    const id=cols[0], price=parseNumES(cols[1]), div=cols.length>=3?parseNumES(cols[2]):NaN;
-    const t=keyByTick[norm(id)]||keyByName[norm(id)];
-    if(!t){noMatch.push(id);return;}
-    const v=DB.valores[t]; if(!isNaN(price)){v.precioActual=price;okP++;} if(!isNaN(div)){v.divAccion=div;okD++;}
+    const id=cols[0], nid=norm(id); let nums=[];
+    for(let i=1;i<cols.length;i++){ if(/^[+-]?[\d.,]+$/.test(cols[i])) nums.push(parseNumES(cols[i])); }
+    const price=nums.length>0?nums[0]:NaN, div=nums.length>1?nums[1]:NaN;
+    const t=keyByTick[nid]||keyByName[nid]; const a=anaByTick[nid]||anaByName[nid]; let hit=false;
+    if(t){ const v=DB.valores[t]; if(!isNaN(price)){v.precioActual=price;hit=true;} if(!isNaN(div))v.divAccion=div; }
+    if(a){ if(!isNaN(price))a.cotizacion=price; if(!isNaN(div))a.divAccion=div; hit=true; }
+    if(hit){ if(!isNaN(price))okP++; if(!isNaN(div))okD++; } else noMatch.push(id);
   });
-  renderInv(); if(invOpsTicker)renderInvOps(); scheduleSave();
+  renderInv(); renderAnalisis(); if(invOpsTicker)renderInvOps(); scheduleSave();
   setInvStatus('Precios: '+okP+(okD?(' · dividendos: '+okD):'')+(noMatch.length?(' · sin emparejar: '+noMatch.slice(0,6).join(', ')):' ✓'));
   if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
 }
@@ -1316,7 +1321,7 @@ function renderAnalisis(){
     const estado=a.pot==null?'—':(a.pot>=vU?'Barata':a.pot>=aU?'Media':'Cara');
     return `<tr>
       <td><b>${a.ticker||''}</b></td><td>${a.nombre||''}</td>
-      <td class="num">${fmt(a.cot)}</td><td class="num">${fmt(a.ent)}</td><td class="num">${fmt(a.obj)}</td>
+      <td class="num">${fmt(a.cot)}</td><td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioEntrada" value="${a.ent||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td><td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioObjetivo" value="${a.obj||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
       <td class="num"><span class="pill ${cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
       <td class="num ${a.vsEnt!=null?(a.vsEnt<=0?'pos':'neg'):''}">${a.vsEnt==null?'—':(a.vsEnt>=0?'+':'')+(a.vsEnt*100).toFixed(1)+'%'}</td>
       <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
@@ -1340,20 +1345,23 @@ function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
   $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
 function aplicarAnaPaste(){
   const txt=$('#anaPasteTxt').value||''; if(!txt.trim()){alert('Pega los datos primero.');return;}
-  DB.analisis=DB.analisis||[]; const byTick={}; DB.analisis.forEach(a=>{if(a.ticker)byTick[a.ticker.toUpperCase()]=a;});
+  const norm=s=>(s||'').toString().trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+  DB.analisis=DB.analisis||[]; const byTick={}; DB.analisis.forEach(a=>{if(a.ticker)byTick[norm(a.ticker)]=a;});
+  const valByTick={}, valByName={}; Object.keys(DB.valores||{}).forEach(t=>{valByTick[norm(t)]=t; const v=DB.valores[t]; if(v&&v.nombre)valByName[norm(v.nombre)]=t;});
   let upd=0,add=0;
   txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
     let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
     if(cols.length<2)return;
-    const tk=cols[0].toUpperCase(); let nombre='', nums=[];
+    const tk=cols[0].toUpperCase(), nid=norm(cols[0]); let nombre='', nums=[];
     for(let i=1;i<cols.length;i++){ if(/^[+-]?[\d.,]+$/.test(cols[i])) nums.push(parseNumES(cols[i])); else if(!nombre) nombre=cols[i]; }
     if(!nums.length && !nombre) return;
     const precio=nums.length>0?nums[0]:NaN, div=nums.length>1?nums[1]:NaN;
-    let a=byTick[tk];
+    let a=byTick[nid];
     if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; if(nombre&&(!a.nombre||a.nombre===a.ticker))a.nombre=nombre; upd++; }
-    else { a={id:uid(),ticker:tk,nombre:nombre||tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[tk]=a; add++; }
+    else { a={id:uid(),ticker:tk,nombre:nombre||tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[nid]=a; add++; }
+    const vt=valByTick[nid]||valByName[nid]; if(vt){ const v=DB.valores[vt]; if(!isNaN(precio))v.precioActual=precio; if(!isNaN(div))v.divAccion=div; }
   });
-  renderAnalisis(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
+  renderAnalisis(); renderInv(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+'.');
 }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); }
@@ -1482,6 +1490,7 @@ $('#anaAddBtn').addEventListener('click',()=>{const f=$('#anaForm'); f.reset(); 
 $('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
 $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});
 $('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
+$('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){a[t.dataset.f]=num(t.value); renderAnalisis(); scheduleSave();}}});
 $('#anaVerde').addEventListener('change',e=>{DB.config.anaVerde=num(e.target.value)/100;renderAnalisis();scheduleSave();});
 $('#anaAmbar').addEventListener('change',e=>{DB.config.anaAmbar=num(e.target.value)/100;renderAnalisis();scheduleSave();});
 $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
