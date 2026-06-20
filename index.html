@@ -287,16 +287,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Inversiones</h2>
     <div class="cards" id="invCards"></div>
     <div class="toolbar">
-      <button class="btn" id="invPasteBtn">Pegar precios</button>
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
       <span class="muted" id="invStatus"></span>
-    </div>
-    <div id="invPastePanel" class="card" style="display:none;margin-bottom:14px">
-      <div class="sub" style="margin-bottom:6px">Pega columnas <b>Ticker</b>, <b>Precio</b> y (opcional) <b>Dividendo/acción</b> copiadas de tu Excel, una por línea. Se emparejan por ticker o nombre.</div>
-      <textarea id="invPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
-      <div style="margin-top:8px"><button class="btn" id="invPasteApply">Aplicar precios</button>
-        <button class="btn ghost" id="invPasteCancel">Cerrar</button></div>
     </div>
     <form class="grid" id="invForm" autocomplete="off" style="background:#fef9c3;display:none">
       <label>Ticker<input type="text" id="invTicker" placeholder="SAN"></label>
@@ -1301,8 +1294,9 @@ function renderAnalisis(){
     const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo),dv=num(a.divAccion);
     const pot=(cot&&obj)?(obj-cot)/cot:null;
     let cls,txt,rank;
-    if(cot&&ent&&cot<=ent){cls='g';txt='Barata';rank=0;}
-    else if(cot&&obj&&cot>=obj){cls='r';txt='Cara';rank=2;}
+    const M=1.05;
+    if(cot&&ent&&cot<=ent*M){cls='g';txt='Barata';rank=0;}
+    else if(cot&&obj&&cot>=obj*M){cls='r';txt='Cara';rank=2;}
     else if(ent&&obj){cls='a';txt='Media';rank=1;}
     else if(pot!=null){ if(pot>=0.15){cls='g';txt='Barata';rank=0;} else if(pot>=0.03){cls='a';txt='Media';rank=1;} else {cls='r';txt='Cara';rank=2;} }
     else {cls='';txt='—';rank=3;}
@@ -1313,8 +1307,8 @@ function renderAnalisis(){
   const baratas=list.filter(x=>x.rank===0).length, caras=list.filter(x=>x.rank===2).length;
   $('#anaCards').innerHTML=[
     {l:'Empresas en seguimiento',v:list.length,cls:''},
-    {l:'Baratas (≤ tu entrada)',v:baratas,cls:'pos'},
-    {l:'Caras (≥ objetivo)',v:caras,cls:'neg'}
+    {l:'Baratas (≤ entrada +5%)',v:baratas,cls:'pos'},
+    {l:'Caras (≥ objetivo +5%)',v:caras,cls:'neg'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
   if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
   const rows=list.map(a=>{
@@ -1472,9 +1466,6 @@ $('#amaOrden').addEventListener('change',renderAmalia);
 $('#invForm').addEventListener('submit',e=>{e.preventDefault();invNuevoValor();});
 $('#invCancel').addEventListener('click',()=>{$('#invForm').style.display='none';});
 $('#invAddBtn').addEventListener('click',()=>{const f=$('#invForm'); f.reset(); $('#invExch').value='BME'; $('#invFecha').value=new Date().toISOString().slice(0,10); f.style.display=(f.style.display==='none'||!f.style.display)?'grid':'none';});
-$('#invPasteBtn').addEventListener('click',()=>{const p=$('#invPastePanel'); p.style.display=p.style.display==='none'?'block':'none';});
-$('#invPasteCancel').addEventListener('click',()=>{$('#invPastePanel').style.display='none';});
-$('#invPasteApply').addEventListener('click',aplicarPreciosPegados);
 $('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
 $('#invTable').addEventListener('click',e=>{const op=e.target.closest('[data-ops-t]'),de=e.target.closest('[data-del-t]');
   if(op){ invOpsTicker=op.dataset.opsT; invOpsCartera=op.dataset.opsC; renderInvOps(); const el=$('#invOpsPanel'); if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
