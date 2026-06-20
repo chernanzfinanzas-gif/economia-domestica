@@ -1382,9 +1382,11 @@ function fichaCalc(ticker){
   });
   const tot={N:0,coste:0,div:0,valor:0}; lotes.forEach(l=>{tot.N+=l.N;tot.coste+=l.coste;tot.div+=l.divCobrado;tot.valor+=l.valor;});
   tot.precioMedio=tot.N?tot.coste/tot.N:0; tot.balance=tot.valor-tot.coste; tot.rentTotal=tot.coste?(tot.balance+tot.div)/tot.coste:0; tot.netoMedio=tot.precioMedio-(tot.N?tot.div/tot.N:0);
-  const divRows=divs.map(x=>{ const acc=compras.filter(o=>o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0)-ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0);
-    return {id:x.id,fecha:x.fecha,divShare:num(x.importe),acc,importe:acc*num(x.importe)}; });
-  return {t,nombre:v.nombre||t,precioActual,lotes,tot,divRows};
+  const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0); const pm=sb?cost/sb:0;
+    return {id:x.id,fecha:x.fecha,year:(x.fecha||'').slice(0,4),divShare:num(x.importe),acc:sb-sold,precioMedio:pm,importe:(sb-sold)*num(x.importe)}; });
+  const ymap={}; divRows.forEach(r=>{ const g=ymap[r.year]||(ymap[r.year]={year:r.year,importeSum:0,divShareSum:0,pmEnd:0,rows:[]}); g.importeSum+=r.importe; g.divShareSum+=r.divShare; g.pmEnd=r.precioMedio; g.rows.push(r); });
+  const divYears=Object.values(ymap).map(g=>Object.assign(g,{rend:g.pmEnd?g.divShareSum/g.pmEnd:0})).sort((a,b)=>(b.year||'').localeCompare(a.year||''));
+  return {t,nombre:v.nombre||t,precioActual,lotes,tot,divRows,divYears};
 }
 function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
@@ -1394,7 +1396,7 @@ function renderFicha(t){
   const tt=f.tot;
   const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
   const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
-  const divRows=[...f.divRows].reverse().map(x=>`<tr><td><input type="date" class="anaInp" style="width:142px" data-edf="${x.id}" value="${x.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${x.id}" value="${x.divShare}"></td><td class="num">${x.acc}</td><td class="num">${fmt(x.importe)}</td><td class="right"><button class="btn danger sm" data-deldiv="${x.id}">✕</button></td></tr>`).join('');
+  let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Bruto</div><div class="pos">${fmt(g.importeSum)}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">Neto</div><div class="pos">${fmt(g.importeSum*0.81)}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">Rent. año</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div></td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
   $('#fichaView').innerHTML=`
    <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
      <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}</div></div>
@@ -1419,7 +1421,7 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>
-   <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Importe</th><th></th></tr></thead><tbody>${divRows||'<tr><td colspan="5" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+   <div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
   document.title='Ficha '+f.t;
 }
 function addFichaDiv(){
