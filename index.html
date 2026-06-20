@@ -129,7 +129,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </div>
 
   <!-- PANEL -->
-  <section class="view" id="view-panel">
+  <section class="view active" id="view-panel">
     <h2 id="panelTitle">Panel</h2>
     <div class="cards" id="panelCards"></div>
     <h3>Seguimiento del presupuesto (mes)</h3>
@@ -390,6 +390,8 @@ let curYear, curMonth;
 function afterLoad(){
   $('#welcome').style.display='none';
   $('#btnLogout').style.display='inline-block';
+  $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-panel'));
+  $$('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view==='panel'));
   // migración: asegurar año en cada entrada de presupuesto
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   if(presYear==null){ const ys=presYears(); const cy=new Date().getFullYear(); presYear = ys.includes(cy)? cy : ys[0]; }
