@@ -286,7 +286,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Inversiones</h2>
     <div class="cards" id="invCards"></div>
     <div class="toolbar">
-      <label class="muted">Cartera <select id="invCartSel"></select></label>
       <button class="btn" id="invPasteBtn">Pegar precios</button>
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
@@ -1149,40 +1148,35 @@ function invPositions(){
 function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
 function renderInv(){
   if(!DB.config)DB.config={};
-  const carts=invCarteras();
-  const sel=$('#invCartSel'); if(sel){ sel.innerHTML='<option value="Todas">Todas las carteras</option>'+carts.map(c=>`<option value="${c}">${c}</option>`).join(''); if(invCartFiltro!=='Todas' && !carts.includes(invCartFiltro)) invCartFiltro='Todas'; sel.value=invCartFiltro; }
-  const dl=$('#cartList'); if(dl) dl.innerHTML=carts.map(c=>`<option value="${c}">`).join('');
   const all=invPositions().filter(p=>p.acciones>0.0001);
-  const list=invCartFiltro==='Todas'?all:all.filter(p=>p.cartera===invCartFiltro);
+  const carts=[...new Set(['Propia','Compartida',...invCarteras()])];
+  const dl=$('#cartList'); if(dl) dl.innerHTML=carts.map(c=>`<option value="${c}">`).join('');
   const valor=all.reduce((s,p)=>s+p.acciones*p.precioActual,0);
   const coste=all.reduce((s,p)=>s+p.acciones*p.precioCompra,0);
   const pl=valor-coste, plpct=coste?pl/coste*100:0;
   const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
   $('#invCards').innerHTML=[
-    {l:'Valor cartera (todas)',v:fmt(valor),cls:'',s:all.length+' posiciones · ambas carteras'},
+    {l:'Valor total (todas)',v:fmt(valor),cls:'',s:all.length+' posiciones · ambas carteras'},
     {l:'Coste',v:fmt(coste),cls:'',s:''},
     {l:'Plusvalía',v:(pl>=0?'+':'')+fmt(pl),cls:pl>=0?'pos':'neg',s:(plpct>=0?'+':'')+plpct.toFixed(1)+'%'},
     {l:'Dividendos/año (bruto)',v:fmt(divAnual),cls:'',s:(valor?(divAnual/valor*100).toFixed(1):0)+'% RPD'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
-  if(!list.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Pulsa «+ Posición» o importa tu cartera.</div>'; return; }
-  const rows=[...list].sort((a,b)=>(b.acciones*b.precioActual)-(a.acciones*a.precioActual)).map(p=>{
-    const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
-    return `<tr>
-      <td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td>
-      <td>${p.nombre||''}</td><td><span class="tag">${p.cartera}</span></td><td class="num">${p.acciones}</td>
-      <td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td>
-      <td class="num">${fmt(v)}</td>
-      <td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td>
-      <td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td>
-      <td class="num">${peso.toFixed(1)}%</td>
-      <td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td>
-      <td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td>
-      <td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td>
-      <td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
-  }).join('');
-  const tV=list.reduce((x,p)=>x+p.acciones*p.precioActual,0), tC=list.reduce((x,p)=>x+p.acciones*p.precioCompra,0), tD=list.reduce((x,p)=>x+p.acciones*p.divAccion,0), tPL=tV-tC;
-  const totalRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL${invCartFiltro!=='Todas'?(' '+invCartFiltro):''}</td><td></td><td></td><td></td><td></td><td></td><td class="num">${fmt(tV)}</td><td class="num ${tPL>=0?'pos':'neg'}">${tPL>=0?'+':''}${fmt(tPL)}</td><td></td><td></td><td></td><td class="num">${fmt(tD)}</td><td></td><td></td><td></td></tr>`;
-  $('#invTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th>Cartera</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th class="num">Div/acc</th><th class="num">Div/año</th><th class="num">RPD</th><th class="num">YoC</th><th></th></tr></thead><tbody>${rows}${totalRow}</tbody></table>`;
+  if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Pulsa «+ Posición» o importa tu cartera.</div>'; return; }
+  const byCart={}; all.forEach(p=>{(byCart[p.cartera]=byCart[p.cartera]||[]).push(p);});
+  const ordered=Object.keys(byCart).sort((a,b)=>a==='Propia'?-1:b==='Propia'?1:a.localeCompare(b));
+  const head='<tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th class="num">Div/acc</th><th class="num">Div/año</th><th class="num">RPD</th><th class="num">YoC</th><th></th></tr>';
+  let html='';
+  ordered.forEach(car=>{
+    const lst=[...byCart[car]].sort((a,b)=>(b.acciones*b.precioActual)-(a.acciones*a.precioActual));
+    const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC;
+    const rows=lst.map(p=>{
+      const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
+      return `<tr><td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
+    }).join('');
+    const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>SUBTOTAL</td><td></td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td></td><td></td><td class="num">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
+    html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+  });
+  $('#invTable').innerHTML=html;
 }
 function renderInvOps(){
   const panel=$('#invOpsPanel'); if(!panel) return;
@@ -1245,7 +1239,7 @@ function aplicarPreciosPegados(){
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
   if(d && (d.operaciones||d.valores)){
     if(!confirm('Esto reemplazará operaciones y valores de Inversiones por los del archivo. ¿Continuar?')) return;
-    DB.operaciones=(d.operaciones||[]).map(o=>({id:uid(),fecha:o.fecha||'',ticker:(o.ticker||'').toUpperCase(),tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}));
+    DB.operaciones=(d.operaciones||[]).map(o=>({id:uid(),fecha:o.fecha||'',ticker:(o.ticker||'').toUpperCase(),cartera:o.cartera||'Propia',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)}));
     DB.valores={}; const vv=d.valores||{}; Object.keys(vv).forEach(t=>{const x=vv[t]; DB.valores[t.toUpperCase()]={nombre:x.nombre||t,precioActual:num(x.precioActual),divAccion:num(x.divAccion),broker:x.broker||'',exchange:x.exchange||'BME'};});
     DB.config.invModeloOps=true; invOpsTicker=null; renderInv(); renderInvOps(); saveNow(); alert('Importadas '+DB.operaciones.length+' operaciones.'); return;
   }
@@ -1366,7 +1360,6 @@ $('#invPasteBtn').addEventListener('click',()=>{const p=$('#invPastePanel'); p.s
 $('#invPasteCancel').addEventListener('click',()=>{$('#invPastePanel').style.display='none';});
 $('#invPasteApply').addEventListener('click',aplicarPreciosPegados);
 $('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
-$('#invCartSel').addEventListener('change',e=>{invCartFiltro=e.target.value;renderInv();});
 $('#invTable').addEventListener('click',e=>{const op=e.target.closest('[data-ops-t]'),de=e.target.closest('[data-del-t]');
   if(op){ invOpsTicker=op.dataset.opsT; invOpsCartera=op.dataset.opsC; renderInvOps(); const el=$('#invOpsPanel'); if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'}); }
   if(de){ const t=de.dataset.delT, car=de.dataset.delC; if(confirm('¿Eliminar las operaciones de '+t+' en la cartera '+car+'?')){ DB.operaciones=DB.operaciones.filter(o=>!((o.ticker||'').toUpperCase()===t && (o.cartera||'Propia')===car)); if(invOpsTicker===t&&invOpsCartera===car)invOpsTicker=null; renderInv(); renderInvOps(); scheduleSave(); } }});
