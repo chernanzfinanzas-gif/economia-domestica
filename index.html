@@ -119,6 +119,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="proyeccion">Proyección</button>
     <button data-view="amalia">Amalia</button>
     <button data-view="inversiones">Inversiones</button>
+    <button data-view="analisis">Análisis</button>
   </nav>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
@@ -327,6 +328,37 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <button class="btn ghost" id="opCancelEdit" style="display:none">Cancelar edición</button>
         <button class="btn ghost" id="opClose">Cerrar</button></div>
     </div>
+  </section>
+
+  <!-- ANALISIS -->
+  <section class="view" id="view-analisis">
+    <h2>Análisis de inversión</h2>
+    <div class="cards" id="anaCards"></div>
+    <div class="toolbar">
+      <button class="btn" id="anaPasteBtn">Pegar cotizaciones</button>
+      <button class="btn sm" id="anaAddBtn">+ Empresa</button>
+      <label class="muted">Barata ≥ <input type="number" id="anaVerde" step="1" style="width:58px">%</label>
+      <label class="muted">Media ≥ <input type="number" id="anaAmbar" step="1" style="width:58px">%</label>
+      <span class="muted" id="anaStatus"></span>
+    </div>
+    <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
+      <div class="sub" style="margin-bottom:6px">Pega <b>Ticker</b>, <b>Cotización</b> y (opcional) <b>Dividendo/acción</b>, una por línea. Si la empresa no existe, se añade al seguimiento.</div>
+      <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
+      <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
+    </div>
+    <form class="grid" id="anaForm" autocomplete="off" style="background:#fef9c3;display:none">
+      <input type="hidden" id="anaId">
+      <label>Ticker<input type="text" id="anaTicker"></label>
+      <label>Nombre<input type="text" id="anaNombre"></label>
+      <label>Cotización (€)<input type="number" id="anaCot" step="0.0001"></label>
+      <label>Precio entrada (€)<input type="number" id="anaEnt" step="0.0001"></label>
+      <label>Precio objetivo (€)<input type="number" id="anaObj" step="0.0001"></label>
+      <label>Dividendo/acción (€)<input type="number" id="anaDivA" step="0.0001"></label>
+      <label>Notas<input type="text" id="anaNotas"></label>
+      <div class="row-actions"><button type="submit" class="btn" id="anaSubmit">Añadir</button>
+        <button type="button" class="btn ghost" id="anaCancel">Cancelar</button></div>
+    </form>
+    <div id="anaTable" style="overflow:auto"></div>
   </section>
 
 </main>
@@ -549,6 +581,9 @@ function afterLoad(){
   DB.inversiones = DB.inversiones||[];
   DB.operaciones = DB.operaciones||[];
   DB.valores = DB.valores||{};
+  DB.analisis = DB.analisis||[];
+  if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
+  if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
     if(DB.operaciones.length===0 && (DB.inversiones||[]).length){
       DB.inversiones.forEach(p=>{ const t=((p.ticker||p.nombre||'')+'').toUpperCase(); if(!t)return;
@@ -1255,7 +1290,69 @@ function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}
   arr.forEach(p=>{const t=((p.ticker||p.nombre||'')+'').toUpperCase(); if(!t)return; DB.valores[t]={nombre:p.nombre||t,precioActual:num(p.precioActual),divAccion:num(p.divAccion),broker:p.broker||'',exchange:p.exchange||'BME'}; if(num(p.acciones)>0)DB.operaciones.push({id:uid(),fecha:'',ticker:t,tipo:'compra',acciones:num(p.acciones),precio:num(p.precioCompra)});});
   DB.config.invModeloOps=true; invOpsTicker=null; renderInv(); renderInvOps(); saveNow(); alert('Importadas '+DB.operaciones.length+' posiciones.');
 }); }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); }
+function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
+function renderAnalisis(){
+  if(!DB.config)DB.config={};
+  const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
+  const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
+  const ae=$('#anaAmbar'); if(ae)ae.value=Math.round(aU*100);
+  const list=(DB.analisis||[]).map(a=>{
+    const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo),dv=num(a.divAccion);
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre,notas:a.notas,cot,ent,obj,dv,
+      pot:(cot&&obj)?(obj-cot)/cot:null, rpdAct:cot?dv/cot:null, rpdEnt:ent?dv/ent:null, vsEnt:ent?(cot-ent)/ent:null};
+  });
+  list.sort((a,b)=>(b.pot==null?-1e9:b.pot)-(a.pot==null?-1e9:a.pot));
+  const baratas=list.filter(x=>x.pot!=null&&x.pot>=vU).length;
+  const enEntrada=list.filter(x=>x.ent&&x.cot&&x.cot<=x.ent).length;
+  $('#anaCards').innerHTML=[
+    {l:'Empresas en seguimiento',v:list.length,cls:''},
+    {l:'Baratas (≥'+Math.round(vU*100)+'% potencial)',v:baratas,cls:'pos'},
+    {l:'A tu precio de entrada o menos',v:enEntrada,cls:'pos'}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
+  if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
+  const rows=list.map(a=>{
+    const cls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
+    const estado=a.pot==null?'—':(a.pot>=vU?'Barata':a.pot>=aU?'Media':'Cara');
+    return `<tr>
+      <td><b>${a.ticker||''}</b></td><td>${a.nombre||''}</td>
+      <td class="num">${fmt(a.cot)}</td><td class="num">${fmt(a.ent)}</td><td class="num">${fmt(a.obj)}</td>
+      <td class="num"><span class="pill ${cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
+      <td class="num ${a.vsEnt!=null?(a.vsEnt<=0?'pos':'neg'):''}">${a.vsEnt==null?'—':(a.vsEnt>=0?'+':'')+(a.vsEnt*100).toFixed(1)+'%'}</td>
+      <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
+      <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
+      <td><span class="pill ${cls}">${estado}</span></td>
+      <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
+  }).join('');
+  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function anaSubmit(){
+  const id=$('#anaId').value||uid();
+  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),precioEntrada:num($('#anaEnt').value),precioObjetivo:num($('#anaObj').value),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim()};
+  if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
+  DB.analisis=DB.analisis||[];
+  const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
+  $('#anaForm').reset(); $('#anaId').value=''; $('#anaForm').style.display='none'; $('#anaSubmit').textContent='Añadir';
+  renderAnalisis(); scheduleSave();
+}
+function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
+  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaEnt').value=a.precioEntrada; $('#anaObj').value=a.precioObjetivo; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
+  $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
+function aplicarAnaPaste(){
+  const txt=$('#anaPasteTxt').value||''; if(!txt.trim()){alert('Pega los datos primero.');return;}
+  DB.analisis=DB.analisis||[]; const byTick={}; DB.analisis.forEach(a=>{if(a.ticker)byTick[a.ticker.toUpperCase()]=a;});
+  let upd=0,add=0;
+  txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
+    let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
+    if(cols.length<2)return;
+    const tk=cols[0].toUpperCase(), precio=parseNumES(cols[1]), div=cols.length>=3?parseNumES(cols[2]):NaN;
+    let a=byTick[tk];
+    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; upd++; }
+    else { a={id:uid(),ticker:tk,nombre:tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[tk]=a; add++; }
+  });
+  renderAnalisis(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
+  setAnaStatus('Actualizadas '+upd+', añadidas '+add+'.');
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -1374,6 +1471,15 @@ $('#opClose').addEventListener('click',()=>{opEditEnd(); invOpsTicker=null; rend
 $('#opCancelEdit').addEventListener('click',()=>{opEditEnd(); $('#opAcc').value=''; $('#opPrecio').value='';});
 $('#invOpsList').addEventListener('click',e=>{const ed=e.target.closest('[data-editop]'),d=e.target.closest('[data-delop]'); if(ed){editOp(ed.dataset.editop);return;} if(d&&confirm('¿Eliminar esta operación?')){DB.operaciones=DB.operaciones.filter(o=>o.id!==d.dataset.delop); if(opEditId===d.dataset.delop)opEditEnd(); renderInv(); renderInvOps(); scheduleSave();}});
 $('#invOpsMeta').addEventListener('change',e=>{const t=e.target; if(t.dataset&&t.dataset.meta&&invOpsTicker){ const v=DB.valores[invOpsTicker]=DB.valores[invOpsTicker]||{}; const k=t.dataset.meta; v[k]=(k==='precioActual'||k==='divAccion')?num(t.value):t.value; renderInv(); scheduleSave(); }});
+$('#anaPasteBtn').addEventListener('click',()=>{const p=$('#anaPastePanel'); p.style.display=p.style.display==='none'?'block':'none';});
+$('#anaPasteCancel').addEventListener('click',()=>{$('#anaPastePanel').style.display='none';});
+$('#anaPasteApply').addEventListener('click',aplicarAnaPaste);
+$('#anaAddBtn').addEventListener('click',()=>{const f=$('#anaForm'); f.reset(); $('#anaId').value=''; $('#anaSubmit').textContent='Añadir'; f.style.display=(f.style.display==='none'||!f.style.display)?'grid':'none';});
+$('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
+$('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});
+$('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
+$('#anaVerde').addEventListener('change',e=>{DB.config.anaVerde=num(e.target.value)/100;renderAnalisis();scheduleSave();});
+$('#anaAmbar').addEventListener('change',e=>{DB.config.anaAmbar=num(e.target.value)/100;renderAnalisis();scheduleSave();});
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
