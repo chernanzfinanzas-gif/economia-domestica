@@ -115,16 +115,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="amalia">Amalia</button>
   </nav>
   <div class="spacer"></div>
-  <div class="month" id="monthBox" style="flex-direction:column;align-items:flex-start;gap:3px">
-    <span class="muted" style="font-size:11px;line-height:1.05">El periodo (año/mes) solo afecta al Panel</span>
-    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
-      <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
-      <label class="muted" for="mYear">Periodo</label>
-      <select id="mYear"></select>
-      <select id="mMonth"></select>
-      <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
-    </div>
-  </div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
   </div>
@@ -151,6 +141,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- PANEL -->
   <section class="view active" id="view-panel">
     <h2 id="panelTitle">Panel</h2>
+    <div class="toolbar" id="panelPeriodo">
+      <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
+      <label class="muted" for="mYear">Periodo</label>
+      <select id="mYear"></select>
+      <select id="mMonth"></select>
+      <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
+    </div>
     <div class="cards" id="panelCards"></div>
     <h3 id="panelBudgetH">Seguimiento del presupuesto</h3>
     <div id="panelBudget"></div>
