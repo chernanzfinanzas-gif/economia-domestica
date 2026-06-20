@@ -338,8 +338,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <button class="btn" id="anaPasteBtn">Pegar cotizaciones</button>
       <button class="btn sm" id="anaAddBtn">+ Empresa</button>
       <button class="btn danger sm" id="anaClear">Vaciar</button>
-      <label class="muted">Barata ≥ <input type="number" id="anaVerde" step="1" style="width:58px">%</label>
-      <label class="muted">Media ≥ <input type="number" id="anaAmbar" step="1" style="width:58px">%</label>
       <span class="muted" id="anaStatus"></span>
     </div>
     <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
@@ -1299,34 +1297,37 @@ function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}
 function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
 function renderAnalisis(){
   if(!DB.config)DB.config={};
-  const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
-  const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
-  const ae=$('#anaAmbar'); if(ae)ae.value=Math.round(aU*100);
   const list=(DB.analisis||[]).map(a=>{
     const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo),dv=num(a.divAccion);
-    return {id:a.id,ticker:a.ticker,nombre:a.nombre,notas:a.notas,cot,ent,obj,dv,
-      pot:(cot&&obj)?(obj-cot)/cot:null, rpdAct:cot?dv/cot:null, rpdEnt:ent?dv/ent:null, vsEnt:ent?(cot-ent)/ent:null};
+    const pot=(cot&&obj)?(obj-cot)/cot:null;
+    let cls,txt,rank;
+    if(cot&&ent&&cot<=ent){cls='g';txt='Barata';rank=0;}
+    else if(cot&&obj&&cot>=obj){cls='r';txt='Cara';rank=2;}
+    else if(ent&&obj){cls='a';txt='Media';rank=1;}
+    else if(pot!=null){ if(pot>=0.15){cls='g';txt='Barata';rank=0;} else if(pot>=0.03){cls='a';txt='Media';rank=1;} else {cls='r';txt='Cara';rank=2;} }
+    else {cls='';txt='—';rank=3;}
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre,cot,ent,obj,dv,pot,cls,txt,rank,
+      rpdAct:cot?dv/cot:null, rpdEnt:ent?dv/ent:null, vsEnt:ent?(cot-ent)/ent:null};
   });
-  list.sort((a,b)=>(b.pot==null?-1e9:b.pot)-(a.pot==null?-1e9:a.pot));
-  const baratas=list.filter(x=>x.pot!=null&&x.pot>=vU).length;
-  const enEntrada=list.filter(x=>x.ent&&x.cot&&x.cot<=x.ent).length;
+  list.sort((a,b)=> a.rank-b.rank || ((b.pot==null?-1e9:b.pot)-(a.pot==null?-1e9:a.pot)));
+  const baratas=list.filter(x=>x.rank===0).length, caras=list.filter(x=>x.rank===2).length;
   $('#anaCards').innerHTML=[
     {l:'Empresas en seguimiento',v:list.length,cls:''},
-    {l:'Baratas (≥'+Math.round(vU*100)+'% potencial)',v:baratas,cls:'pos'},
-    {l:'A tu precio de entrada o menos',v:enEntrada,cls:'pos'}
+    {l:'Baratas (≤ tu entrada)',v:baratas,cls:'pos'},
+    {l:'Caras (≥ objetivo)',v:caras,cls:'neg'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
   if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
   const rows=list.map(a=>{
-    const cls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
-    const estado=a.pot==null?'—':(a.pot>=vU?'Barata':a.pot>=aU?'Media':'Cara');
     return `<tr>
       <td><b>${a.ticker||''}</b></td><td>${a.nombre||''}</td>
-      <td class="num">${fmt(a.cot)}</td><td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioEntrada" value="${a.ent||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td><td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioObjetivo" value="${a.obj||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
-      <td class="num"><span class="pill ${cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
+      <td class="num">${fmt(a.cot)}</td>
+      <td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioEntrada" value="${a.ent||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+      <td class="num"><input type="number" step="0.0001" class="anaInp" data-id="${a.id}" data-f="precioObjetivo" value="${a.obj||''}" style="width:80px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
+      <td class="num"><span class="pill ${a.cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
       <td class="num ${a.vsEnt!=null?(a.vsEnt<=0?'pos':'neg'):''}">${a.vsEnt==null?'—':(a.vsEnt>=0?'+':'')+(a.vsEnt*100).toFixed(1)+'%'}</td>
       <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
       <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
-      <td><span class="pill ${cls}">${estado}</span></td>
+      <td><span class="pill ${a.cls}">${a.txt}</span></td>
       <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
   $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
@@ -1491,8 +1492,6 @@ $('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
 $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});
 $('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
 $('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){a[t.dataset.f]=num(t.value); renderAnalisis(); scheduleSave();}}});
-$('#anaVerde').addEventListener('change',e=>{DB.config.anaVerde=num(e.target.value)/100;renderAnalisis();scheduleSave();});
-$('#anaAmbar').addEventListener('change',e=>{DB.config.anaAmbar=num(e.target.value)/100;renderAnalisis();scheduleSave();});
 $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
