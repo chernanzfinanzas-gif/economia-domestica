@@ -102,6 +102,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="movimientos">Movimientos</button>
     <button data-view="presupuesto">Presupuesto</button>
     <button data-view="patrimonio">Patrimonio</button>
+    <button data-view="proyeccion">Proyección</button>
   </nav>
   <div class="spacer"></div>
   <div class="month" id="monthBox">
@@ -190,6 +191,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="patReparto" style="margin-top:14px"></div>
     <h3>Evolución</h3>
     <div class="card"><canvas id="patChart" style="width:100%;height:220px;display:block"></canvas><div id="patEvol" class="sub" style="margin-top:6px"></div></div>
+    <h3>Cuentas</h3>
+    <div class="card">
+      <div id="patCuentas"></div>
+      <div style="margin-top:10px"><button class="btn sm" id="patAddCuenta">+ Nueva cuenta</button>
+        <span class="sub" style="margin-left:8px">Añade aquí cuentas nuevas (p. ej. Bankinter); aparecerán en el formulario y en el estudio.</span></div>
+    </div>
     <h3>Registrar patrimonio</h3>
     <div class="card">
       <div id="patFormFields" class="patgrid"></div>
@@ -200,6 +207,22 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
     <h3>Registros</h3>
     <div id="patList"></div>
+  </section>
+
+  <!-- PROYECCION -->
+  <section class="view" id="view-proyeccion">
+    <h2>Proyección a futuro</h2>
+    <div class="card"><div class="patgrid" id="proyParams"></div>
+      <div class="sub" style="margin-top:8px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de patrimonio.</div></div>
+    <div class="cards" id="proyCards" style="margin-top:14px"></div>
+    <h3>Evolución proyectada del patrimonio</h3>
+    <div class="card"><canvas id="proyChart" style="width:100%;height:220px;display:block"></canvas></div>
+    <h3>Eventos puntuales (gastos grandes)</h3>
+    <div class="card"><div id="proyEventos"></div>
+      <div style="margin-top:10px"><button class="btn sm" id="proyAddEvento">+ Evento</button>
+        <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div>
+    <h3>Detalle año a año</h3>
+    <div id="proyTabla" style="max-height:430px;overflow:auto"></div>
   </section>
 
 </main>
@@ -623,7 +646,7 @@ function renderPat(){
     cardsEl.innerHTML='<div class="empty">Aún no hay registros de patrimonio. Añade uno abajo o importa tu histórico.</div>';
     repEl.innerHTML=''; $('#patEvol').textContent='';
     const cv=$('#patChart'); if(cv){const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);}
-    renderPatForm(); renderPatList(); return;
+    renderPatCuentas(); renderPatForm(); renderPatList(); return;
   }
   const last=snaps[snaps.length-1], first=snaps[0];
   const t=snapTot(last), tf=snapTot(first);
@@ -645,7 +668,7 @@ function renderPat(){
       <input type="number" id="patObj" min="0" max="100" value="${oInv}" style="width:62px;padding:4px;border:1px solid var(--line);border-radius:6px">%</div></div>`;
   drawPatChart(snaps);
   $('#patEvol').textContent=snaps.length+' registros · desde '+ddmmyyyy(first.fecha)+' ('+fmt(tf.total)+') hasta '+ddmmyyyy(last.fecha)+' ('+fmt(t.total)+')';
-  renderPatForm(); renderPatList();
+  renderPatCuentas(); renderPatForm(); renderPatList();
 }
 
 function drawPatChart(snaps){
@@ -716,7 +739,113 @@ function importPatrimonio(file){
   });
 }
 
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); }
+function renderPatCuentas(){
+  const el=$('#patCuentas'); if(!el) return;
+  if(!DB.cuentas.length){ el.innerHTML='<span class="muted">No hay cuentas todavía.</span>'; return; }
+  el.innerHTML=DB.cuentas.map(c=>`<span class="tag" style="margin:3px 6px 3px 0;display:inline-flex;align-items:center;gap:6px">${c.nombre}<button class="btn danger sm" data-delcuenta="${c.id}" style="padding:0 6px">✕</button></span>`).join('');
+}
+function addCuenta(){
+  const n=prompt('Nombre de la nueva cuenta (p. ej. Bankinter):'); if(n===null) return;
+  const nombre=n.trim(); if(!nombre) return;
+  if(DB.cuentas.some(c=>c.nombre.toLowerCase()===nombre.toLowerCase())){ alert('Ya existe una cuenta con ese nombre.'); return; }
+  DB.cuentas.push({id:uid(),nombre,tipo:'banco',naturaleza:'efectivo',saldoInicial:0});
+  renderPat(); scheduleSave();
+}
+function delCuenta(id){
+  const c=DB.cuentas.find(x=>x.id===id); if(!c) return;
+  const used=(DB.patrimonio||[]).some(s=>(s.lineas||[]).some(l=>l.cuentaId===id && (num(l.ef)||num(l.inv))));
+  if(!confirm('¿Eliminar la cuenta "'+c.nombre+'"?'+(used?' Tiene importes en registros de patrimonio que se quitarán.':''))) return;
+  DB.cuentas=DB.cuentas.filter(x=>x.id!==id);
+  (DB.patrimonio||[]).forEach(s=>{ s.lineas=(s.lineas||[]).filter(l=>l.cuentaId!==id); });
+  renderPat(); scheduleSave();
+}
+/* ============ Proyección ============ */
+function proyDefaults(){
+  if(!DB.config) DB.config={};
+  if(DB.config.proyeccion){ const p=DB.config.proyeccion; if(!p.eventos)p.eventos=[]; return; }
+  const snaps=patSnaps(); const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
+  DB.config.proyeccion={ edadActual:55, anioBase:new Date().getFullYear(), edadFin:90, edadFinAportar:67,
+    capitalInvertido:Math.round(last.inv), efectivo:Math.round(last.ef),
+    rentabilidad:0.07, rpd:0.06, crecDiv:0, aportacionAnual:20000, eventos:[] };
+}
+function computeProy(c){
+  const out=[]; const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
+  let inv=num(c.capitalInvertido);
+  for(let i=0;i<=N;i++){
+    const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
+    if(i>0){
+      inv = inv*(1+num(c.rentabilidad));
+      if(edad <= c.edadFinAportar) inv += num(c.aportacionAnual);
+      (c.eventos||[]).forEach(ev=>{ if(parseInt(ev.anio,10)===anio) inv -= num(ev.importe); });
+    }
+    if(inv<0) inv=0;
+    const divA=inv*num(c.rpd)*Math.pow(1+num(c.crecDiv||0), i);
+    const patr=inv+num(c.efectivo);
+    out.push({anio,edad,invertido:inv,divAnual:divA,divMes:divA/12,patrimonio:patr});
+  }
+  return out;
+}
+function renderProyParams(c){
+  const el=$('#proyParams'); if(!el) return;
+  const f=[
+    ['edadActual','Edad actual',c.edadActual,'1'],
+    ['anioBase','Año actual',c.anioBase,'1'],
+    ['edadFin','Edad final',c.edadFin,'1'],
+    ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1'],
+    ['capitalInvertido','Capital invertido (€)',Math.round(c.capitalInvertido),'100'],
+    ['efectivo','Efectivo (€)',Math.round(c.efectivo),'100'],
+    ['rentabilidad','Rentabilidad anual %',+(c.rentabilidad*100).toFixed(2),'0.1'],
+    ['rpd','RPD dividendo %',+(c.rpd*100).toFixed(2),'0.1'],
+    ['crecDiv','Crec. dividendo %/año',+((c.crecDiv||0)*100).toFixed(2),'0.1'],
+    ['aportacionAnual','Aportación anual (€)',Math.round(c.aportacionAnual),'500']
+  ];
+  el.innerHTML=f.map(x=>`<label>${x[1]}<input type="number" step="${x[3]}" data-proy="${x[0]}" value="${x[2]}"></label>`).join('');
+}
+function renderProyEventos(c){
+  const el=$('#proyEventos'); if(!el) return;
+  const evs=c.eventos||[];
+  if(!evs.length){ el.innerHTML='<span class="muted">Sin eventos.</span>'; return; }
+  el.innerHTML='<table><thead><tr><th>Año</th><th>Concepto</th><th class="num">Importe</th><th></th></tr></thead><tbody>'+
+    evs.map((ev,i)=>`<tr><td>${ev.anio}</td><td>${ev.concepto||''}</td><td class="num">${fmt(ev.importe)}</td><td class="right"><button class="btn danger sm" data-delev="${i}">✕</button></td></tr>`).join('')+'</tbody></table>';
+}
+function drawProyChart(ser){
+  const cv=$('#proyChart'); if(!cv) return;
+  const ctx=cv.getContext('2d'); const W=cv.width=cv.clientWidth||700, H=cv.height=220;
+  ctx.clearRect(0,0,W,H); const pad={l:8,r:8,t:14,b:18};
+  const vals=ser.map(r=>r.patrimonio); const max=Math.max(...vals), min=Math.min(...vals,0); const n=ser.length;
+  const X=i=> pad.l+(W-pad.l-pad.r)*(n<=1?0.5:i/(n-1));
+  const Y=v=> pad.t+(H-pad.t-pad.b)*(1-(v-min)/((max-min)||1));
+  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0])); for(let i=1;i<n;i++)ctx.lineTo(X(i),Y(vals[i]));
+  ctx.lineTo(X(n-1),H-pad.b); ctx.lineTo(X(0),H-pad.b); ctx.closePath(); ctx.fillStyle='rgba(22,163,74,.10)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0])); for(let i=1;i<n;i++)ctx.lineTo(X(i),Y(vals[i]));
+  ctx.strokeStyle='#16a34a'; ctx.lineWidth=2; ctx.stroke();
+  ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  ser.forEach((r,i)=>{ if(r.edad%5===0) ctx.fillText(r.edad, X(i), H-5); });
+}
+function renderProy(){
+  proyDefaults(); const c=DB.config.proyeccion;
+  renderProyParams(c);
+  const ser=computeProy(c); const fin=ser[ser.length-1];
+  const jub=ser.find(r=>r.edad>=c.edadFinAportar)||fin;
+  $('#proyCards').innerHTML=[
+    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'invertido '+fmt(fin.invertido)},
+    {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.divMes),s:fmt(fin.divAnual)+'/año'},
+    {l:'Dividendos/mes a los '+Math.round(c.edadFinAportar),v:fmt(jub.divMes),s:'al dejar de aportar'},
+    {l:'Aportación anual',v:fmt(c.aportacionAnual),s:'hasta los '+Math.round(c.edadFinAportar)}
+  ].map(x=>`<div class="card"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="sub">${x.s}</div></div>`).join('');
+  drawProyChart(ser); renderProyEventos(c);
+  const rows=ser.map(r=>`<tr><td>${r.anio}</td><td class="num">${r.edad}</td><td class="num">${fmt(r.invertido)}</td><td class="num">${fmt(r.divAnual)}</td><td class="num">${fmt(r.divMes)}</td><td class="num"><b>${fmt(r.patrimonio)}</b></td></tr>`).join('');
+  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Invertido</th><th class="num">Dividendos/año</th><th class="num">Dividendos/mes</th><th class="num">Patrimonio</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function addEvento(){
+  const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
+  const concepto=prompt('Concepto (p. ej. Casa):')||'';
+  const im=prompt('Importe (€):'); const importe=num(im); if(!importe) return;
+  DB.config.proyeccion.eventos=DB.config.proyeccion.eventos||[];
+  DB.config.proyeccion.eventos.push({anio,concepto,importe});
+  renderProy(); scheduleSave();
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPat(); renderProy(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -766,6 +895,7 @@ $('#nav').addEventListener('click',e=>{
   $$('.view').forEach(v=>v.classList.remove('active'));
   $('#view-'+b.dataset.view).classList.add('active');
   if(b.dataset.view==='patrimonio') renderPat();
+  if(b.dataset.view==='proyeccion') renderProy();
 });
 $('#mYear').addEventListener('change',e=>{curYear=+e.target.value;renderAll();});
 $('#mMonth').addEventListener('change',e=>{curMonth=+e.target.value;renderAll();});
@@ -800,6 +930,11 @@ $('#movTable').addEventListener('click',e=>{
 ['#fltText','#fltCat','#fltTit'].forEach(s=>$(s).addEventListener('input',renderMovs));
 $('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
 $('#patAdd').addEventListener('click',addSnapshot);
+$('#patAddCuenta').addEventListener('click',addCuenta);
+$('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-delcuenta]');if(b)delCuenta(b.dataset.delcuenta);});
+$('#proyAddEvento').addEventListener('click',addEvento);
+$('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
+document.addEventListener('change',e=>{ const t=e.target; if(t&&t.dataset&&t.dataset.proy){ const k=t.dataset.proy; let v=num(t.value); if(k==='rentabilidad'||k==='rpd'||k==='crecDiv') v=v/100; DB.config.proyeccion[k]=v; renderProy(); scheduleSave(); }});
 $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
 $('#patList').addEventListener('click',e=>{const b=e.target.closest('[data-delsnap]');if(b&&confirm('¿Eliminar este registro?')){DB.patrimonio=DB.patrimonio.filter(s=>s.id!==b.dataset.delsnap);renderPat();scheduleSave();}});
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
