@@ -99,6 +99,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dd-panel label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:2px 0;cursor:pointer}
   #titChips button.on{background:var(--brand);color:#fff}
   .modebtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  tr.r-amar td{background:#fef9c3!important;color:#c2410c!important}
+  tr.r-verde td{background:#dcfce7!important;color:#166534!important;font-size:15px}
 </style>
 </head>
 <body>
@@ -113,13 +115,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="amalia">Amalia</button>
   </nav>
   <div class="spacer"></div>
-  <div class="month" id="monthBox">
-    <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
-    <label class="muted" for="mYear">Periodo</label>
-    <select id="mYear"></select>
-    <select id="mMonth"></select>
-    <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
-    <span class="muted" style="font-size:11px;line-height:1.05;max-width:120px">El periodo (año/mes) solo afecta al Panel</span>
+  <div class="month" id="monthBox" style="flex-direction:column;align-items:flex-start;gap:3px">
+    <span class="muted" style="font-size:11px;line-height:1.05">El periodo (año/mes) solo afecta al Panel</span>
+    <div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">
+      <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
+      <label class="muted" for="mYear">Periodo</label>
+      <select id="mYear"></select>
+      <select id="mMonth"></select>
+      <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
+    </div>
   </div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
@@ -155,7 +159,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- MOVIMIENTOS -->
   <section class="view" id="view-movimientos">
     <h2>Movimientos</h2>
-    <form class="grid" id="movForm" autocomplete="off">
+    <form class="grid" id="movForm" autocomplete="off" style="background:#fef9c3">
       <input type="hidden" id="movId">
       <label>Fecha<input type="date" id="movFecha" required></label>
       <label>Concepto<input type="text" id="movConcepto" placeholder="p. ej. Compra Ahorramás" required></label>
@@ -206,6 +210,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <select id="presYear"></select>
       <button class="btn ghost sm" id="btnAddYear">+ Año</button>
       <button class="btn sm" id="btnAddCat">+ Nueva categoría</button>
+      <button class="btn ghost sm" id="presImportBtn">Importar presupuesto</button>
       <span class="muted" id="presTotals"></span>
     </div>
     <div id="presTable"></div>
@@ -659,13 +664,14 @@ function renderMovs(){
   if(!list.length){ $('#movTable').innerHTML='<div class="empty">No hay movimientos con los filtros aplicados.</div>'; return; }
   const rows=list.map(m=>{
     const c=catById(m.categoriaId);
-    const signed = m.tipo==='ingreso'? '+'+fmt(m.importe) : '−'+fmt(m.importe);
+    const eff = (m.tipo==='ingreso'? num(m.importe) : -num(m.importe));
+    const signed = (eff>=0?'+':'−')+fmt(Math.abs(eff));
     return `<tr>
       <td>${ddmmyyyy(m.fecha)}</td>
       <td>${m.concepto||''}${m.comercio?` <span class="muted">· ${m.comercio}</span>`:''}</td>
       <td><span class="tag">${c?c.nombre:'—'}</span></td>
       <td>${m.titular||''}</td>
-      <td class="num ${m.tipo==='ingreso'?'pos':'neg'}">${signed}</td>
+      <td class="num ${eff>=0?'pos':'neg'}">${signed}</td>
       <td class="right"><div class="row-actions" style="justify-content:flex-end">
         <button class="btn ghost sm" data-edit="${m.id}">Editar</button>
         <button class="btn danger sm" data-del="${m.id}">✕</button></div></td>
@@ -712,10 +718,10 @@ function renderPres(){
         <td class="right"><button class="btn ghost sm" data-cat="${c.id}">Editar</button></td>
       </tr>`;
     }).join('');
-    return `<tr class="grp-row"${g==='Ingresos'?' style="background:#fef9c3;color:#c2410c"':''}><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
+    return `<tr class="grp-row${g==='Ingresos'?' r-amar':''}"><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
   };
   const blocks=order.map(blockOf);
-  const sumRows=`<tr class="grp-row" style="background:#fef9c3;color:#c2410c"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row" style="background:#dcfce7;color:#166534;font-size:15px"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
+  const sumRows=`<tr class="grp-row r-amar"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row r-verde"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
   let html=''; let inserted=false;
   order.forEach((g,i)=>{ html+=blocks[i]; if(g==='Ingresos'){ html+=sumRows; inserted=true; } });
   if(!inserted) html=sumRows+html;
@@ -989,7 +995,7 @@ function renderPresAnalisis(){
       const pp=pptoFor(g,y); const rr=real[g+'|'+y]||0; const pct=pp?Math.round(rr/pp*100):0;
       const cls= pp? (rr/pp<=1?'g':rr/pp<=1.1?'a':'r') : '';
       row+=`<td class="num">${pp?fmt(pp):'—'}</td>`;
-      if(yi>0){ const prev=pptoFor(g,years[yi-1]); const vs=prev?Math.round(pp/prev*100):0; row+=`<td class="num">${prev?vs+'%':'—'}</td>`; }
+      if(yi>0){ const prev=pptoFor(g,years[yi-1]); let cell='—'; if(prev){ const dd=Math.round((pp/prev-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } row+=`<td class="num">${cell}</td>`; }
       row+=`<td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
       totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr;
     });
@@ -998,11 +1004,21 @@ function renderPresAnalisis(){
   let tot='<tr style="font-weight:700"><td>TOTAL</td>';
   years.forEach((y,yi)=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0;
     tot+=`<td class="num">${fmt(o.pp)}</td>`;
-    if(yi>0){ const op=totals[years[yi-1]]||{pp:0}; const vs=op.pp?Math.round(o.pp/op.pp*100):0; tot+=`<td class="num">${op.pp?vs+'%':'—'}</td>`; }
+    if(yi>0){ const op=totals[years[yi-1]]||{pp:0}; let cell='—'; if(op.pp){ const dd=Math.round((o.pp/op.pp-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } tot+=`<td class="num">${cell}</td>`; }
     tot+=`<td class="num">${fmt(o.rr)}</td><td class="num">${o.pp?pct+'%':'—'}</td>`;
   });
   tot+='</tr>';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${tot}</tbody></table>`;
+}
+function importPresupuesto(file){
+  file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+    const arr=Array.isArray(d)?d:(d.presupuesto||[]); if(!arr.length){alert('El archivo no contiene presupuesto');return;}
+    if(!confirm('Esto reemplazará el presupuesto actual (todos los años) por el del archivo. Tus movimientos no se tocan. ¿Continuar?')) return;
+    const byName={}; DB.categorias.forEach(c=>byName[c.nombre.toLowerCase()]=c.id);
+    function cid(n,grupo,tipo){ const k=(n||'').toLowerCase(); if(byName[k])return byName[k]; const id=uid(); DB.categorias.push({id,grupo:grupo||'Otros',nombre:n,tipo:tipo||'gasto'}); byName[k]=id; return id; }
+    DB.presupuesto = arr.map(e=>({id:uid(),categoriaId:cid(e.nombre,e.grupo,e.tipo),importe:num(e.importe),frecuencia:e.frecuencia||'anual',metodoPago:e.metodoPago||'',renovacion:e.renovacion||'',anio:+e.anio}));
+    fillCatSelects(); fillGrupoList(); renderAll(); saveNow(); alert('Presupuesto importado: '+DB.presupuesto.length+' entradas.');
+  });
 }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); }
 
@@ -1107,6 +1123,7 @@ $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-de
 $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
+$('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
 document.addEventListener('change',e=>{ const t=e.target; if(t&&t.dataset&&t.dataset.proy){ const k=t.dataset.proy; let v=num(t.value); if(k==='rentabilidad'||k==='rpd'||k==='crecDiv') v=v/100; DB.config.proyeccion[k]=v; renderProy(); scheduleSave(); }});
@@ -1129,6 +1146,9 @@ document.body.appendChild(pf);
 const af=document.createElement('input'); af.type='file'; af.accept='.json,application/json'; af.id='amaFile'; af.style.display='none';
 af.addEventListener('change',()=>{const f=af.files[0];if(!f)return; importAmalia(f); af.value='';});
 document.body.appendChild(af);
+const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
+prf.addEventListener('change',()=>{const f=prf.files[0];if(!f)return; importPresupuesto(f); prf.value='';});
+document.body.appendChild(prf);
 
 /* arranque */
 init();
