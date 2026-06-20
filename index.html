@@ -98,6 +98,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dd-panel .g{font-size:10px;text-transform:uppercase;color:var(--muted);font-weight:700;margin:6px 0 2px}
   .dd-panel label{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:500;padding:2px 0;cursor:pointer}
   #titChips button.on{background:var(--brand);color:#fff}
+  .modebtn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 </style>
 </head>
 <body>
@@ -113,9 +114,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </nav>
   <div class="spacer"></div>
   <div class="month" id="monthBox">
+    <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
     <label class="muted" for="mYear">Periodo</label>
     <select id="mYear"></select>
     <select id="mMonth"></select>
+    <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
   </div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
@@ -144,7 +147,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view active" id="view-panel">
     <h2 id="panelTitle">Panel</h2>
     <div class="cards" id="panelCards"></div>
-    <h3>Seguimiento del presupuesto (mes)</h3>
+    <h3 id="panelBudgetH">Seguimiento del presupuesto</h3>
     <div id="panelBudget"></div>
   </section>
 
@@ -190,6 +193,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <button type="button" class="btn ghost sm" id="fltClear">Limpiar</button>
       <span class="muted" id="movCount"></span>
     </div>
+    <div class="cards" id="movCards" style="margin-bottom:12px"></div>
     <div id="movTable"></div>
   </section>
 
@@ -351,9 +355,9 @@ function seed(){
     ['Deporte','Zwift','gasto',200,'anual','Paypal','2026-12-20'],
     ['Deporte','Meteoblue','gasto',4.99,'anual','Play Store','2026-05-01'],
     ['Vacaciones','Vacaciones','gasto',8590,'anual','',''],
-    ['Streaming','Amazon Prime','gasto',49.9,'anual','ING','2026-04-08'],
-    ['Streaming','YouTube Premium','gasto',25.99,'mensual','Paypal',''],
-    ['Streaming','Audible','gasto',9.99,'mensual','ING',''],
+    ['Internet y Teléfono','Amazon Prime','gasto',49.9,'anual','ING','2026-04-08'],
+    ['Internet y Teléfono','YouTube Premium','gasto',25.99,'mensual','Paypal',''],
+    ['Internet y Teléfono','Audible','gasto',9.99,'mensual','ING',''],
     ['Software','Filmora','gasto',18.99,'anual','Paypal','2027-01-02'],
     ['Software','Investing.com','gasto',134.32,'bianual','','2027-05-02'],
     ['Software','Google One','gasto',219.99,'anual','Paypal','2026-07-11'],
@@ -484,6 +488,7 @@ function afterLoad(){
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   DB.patrimonio = DB.patrimonio||[];
   DB.amalia = DB.amalia||[];
+  let _migS=false; DB.categorias.forEach(c=>{ if(c.grupo==='Streaming'){ c.grupo='Internet y Teléfono'; _migS=true; } }); if(_migS) scheduleSave();
   if(!DB.config) DB.config={};
   if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
   if(presYear==null){ const ys=presYears(); const cy=new Date().getFullYear(); presYear = ys.includes(cy)? cy : ys[0]; }
@@ -523,6 +528,7 @@ function initPeriod(){
 }
 
 let presYear;
+let panelMode='mes';
 let movFiltCats=new Set(), movFiltTits=new Set();
 function catById(id){ return DB.categorias.find(c=>c.id===id); }
 function baseYear(){ return (DB.config&&DB.config.anioBasePresupuesto)||2026; }
@@ -572,18 +578,24 @@ function barColor(cls){ return cls==='g'?'var(--green)':cls==='a'?'var(--amber)'
 
 /* ----- PANEL ----- */
 function renderPanel(){
-  $('#panelTitle').textContent='Panel · '+MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear;
-  const movs=monthMovs();
+  const isYear = panelMode==='anio';
+  const bm=$('#mModeMes'), ba=$('#mModeAnio'); if(bm)bm.classList.toggle('on',!isYear); if(ba)ba.classList.toggle('on',isYear);
+  const mm=$('#mMonth'); if(mm){ mm.disabled=isYear; mm.style.opacity=isYear?0.45:1; }
+  const suf = isYear?'del año':'del mes';
+  $('#panelTitle').textContent='Panel · '+(isYear? curYear : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear));
+  const bh=$('#panelBudgetH'); if(bh) bh.textContent='Seguimiento del presupuesto ('+(isYear?'año':'mes')+')';
+  const pref = isYear? (''+curYear) : (curYear+'-'+String(curMonth+1).padStart(2,'0'));
+  const movs = DB.movimientos.filter(m=>m.fecha.startsWith(pref));
   const ing=movs.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+num(m.importe),0);
   const gas=movs.filter(m=>m.tipo==='gasto').reduce((s,m)=>s+num(m.importe),0);
   const ahorro=ing-gas;
-  // presupuesto del mes (gastos)
+  const mult = isYear?12:1;
   let presGasto=0, presIng=0;
-  DB.presupuesto.filter(p=>pAnio(p)===curYear).forEach(p=>{const c=catById(p.categoriaId); if(!c)return; if(c.tipo==='gasto') presGasto+=mensual(p); else presIng+=mensual(p);});
+  DB.presupuesto.filter(p=>pAnio(p)===curYear).forEach(p=>{const c=catById(p.categoriaId); if(!c)return; const v=mensual(p)*mult; if(c.tipo==='gasto') presGasto+=v; else presIng+=v;});
   const cards=[
-    {l:'Ingresos del mes',v:fmt(ing),s:'Presupuesto: '+fmt(presIng),cls:'pos'},
-    {l:'Gastos del mes',v:fmt(gas),s:'Presupuesto: '+fmt(presGasto),cls:'neg'},
-    {l:'Ahorro del mes',v:fmt(ahorro),s:'Previsto: '+fmt(presIng-presGasto),cls:ahorro>=0?'pos':'neg'},
+    {l:'Ingresos '+suf,v:fmt(ing),s:'Presupuesto: '+fmt(presIng),cls:'pos'},
+    {l:'Gastos '+suf,v:fmt(gas),s:'Presupuesto: '+fmt(presGasto),cls:'neg'},
+    {l:'Ahorro '+suf,v:fmt(ahorro),s:'Previsto: '+fmt(presIng-presGasto),cls:ahorro>=0?'pos':'neg'},
     {l:'Gasto vs presupuesto',v:(presGasto?Math.round(gas/presGasto*100):0)+'%',s:fmt(gas)+' de '+fmt(presGasto),cls:''},
   ];
   $('#panelCards').innerHTML=cards.map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
@@ -591,7 +603,7 @@ function renderPanel(){
   // seguimiento por grupo (solo gastos)
   const groups={};
   DB.categorias.filter(c=>c.tipo==='gasto').forEach(c=>{
-    const p=presFor(c.id,curYear); const pres=p?mensual(p):0;
+    const p=presFor(c.id,curYear); const pres=(p?mensual(p):0)*mult;
     const real=movs.filter(m=>m.categoriaId===c.id&&m.tipo==='gasto').reduce((s,m)=>s+num(m.importe),0);
     const g=groups[c.grupo]=groups[c.grupo]||{pres:0,real:0};
     g.pres+=pres; g.real+=real;
@@ -630,8 +642,15 @@ function renderMovs(){
     if(ord==='imp_asc') return num(a.importe)-num(b.importe);
     return a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0;
   });
-  const neto=list.reduce((x,m)=> x+(m.tipo==='ingreso'?num(m.importe):-num(m.importe)),0);
-  $('#movCount').textContent = list.length+' mov. · neto '+fmt(neto);
+  const ing=list.filter(m=>m.tipo==='ingreso').reduce((x,m)=>x+num(m.importe),0);
+  const gas=list.filter(m=>m.tipo==='gasto').reduce((x,m)=>x+num(m.importe),0);
+  const neto=ing-gas;
+  $('#movCards').innerHTML=[
+    {l:'Ingresos (filtro)',v:fmt(ing),cls:'pos'},
+    {l:'Gastos (filtro)',v:fmt(gas),cls:'neg'},
+    {l:'Resultado neto',v:fmt(neto),cls:neto>=0?'pos':'neg'}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
+  $('#movCount').textContent = list.length+' mov.';
   if(!list.length){ $('#movTable').innerHTML='<div class="empty">No hay movimientos con los filtros aplicados.</div>'; return; }
   const rows=list.map(m=>{
     const c=catById(m.categoriaId);
@@ -669,11 +688,12 @@ function renderPres(){
   const groups={};
   DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
   let totMensGasto=0,totMensIng=0;
-  const blocks=Object.keys(groups).sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b)).map(g=>{
+  const order=Object.keys(groups).sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
+  const blockOf=(g)=>{
     let gm=0;
     const rows=groups[g].map(c=>{
       const p=presFor(c.id,presYear)||{importe:0,frecuencia:'mensual',metodoPago:'',renovacion:''};
-      const m=mensual(p); gm+=(c.tipo==='gasto'?m:m);
+      const m=mensual(p); gm+=m;
       if(c.tipo==='gasto') totMensGasto+=m; else totMensIng+=m;
       const fr={mensual:'Mensual',anual:'Anual',bianual:'Bianual'}[p.frecuencia]||p.frecuencia;
       return `<tr>
@@ -688,8 +708,13 @@ function renderPres(){
       </tr>`;
     }).join('');
     return `<tr class="grp-row"><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
-  }).join('');
-  $('#presTable').innerHTML=`<table><thead><tr><th>Categoría</th><th class="num">Importe</th><th>Frecuencia</th><th class="num">Mensual</th><th class="num">Anual</th><th>Pago</th><th>Renovación</th><th></th></tr></thead><tbody>${blocks}</tbody></table>`;
+  };
+  const blocks=order.map(blockOf);
+  const sumRows=`<tr class="grp-row" style="background:#e0e7ff;color:#1e3a8a"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row" style="background:#dcfce7;color:#166534"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
+  let html=''; let inserted=false;
+  order.forEach((g,i)=>{ html+=blocks[i]; if(g==='Ingresos'){ html+=sumRows; inserted=true; } });
+  if(!inserted) html=sumRows+html;
+  $('#presTable').innerHTML=`<table><thead><tr><th>Categoría</th><th class="num">Importe</th><th>Frecuencia</th><th class="num">Mensual</th><th class="num">Anual</th><th>Pago</th><th>Renovación</th><th></th></tr></thead><tbody>${html}</tbody></table>`;
   $('#presTotals').innerHTML = `<b>${presYear}</b> · Ingresos: <b class="pos">${fmt(totMensIng)}</b>/mes · Gastos: <b class="neg">${fmt(totMensGasto)}</b>/mes · Ahorro previsto: <b>${fmt(totMensIng-totMensGasto)}</b>/mes (${fmt((totMensIng-totMensGasto)*12)}/año)`;
 }
 
@@ -1022,6 +1047,8 @@ $('#nav').addEventListener('click',e=>{
 });
 $('#mYear').addEventListener('change',e=>{curYear=+e.target.value;renderAll();});
 $('#mMonth').addEventListener('change',e=>{curMonth=+e.target.value;renderAll();});
+$('#mModeMes').addEventListener('click',()=>{panelMode='mes';renderPanel();});
+$('#mModeAnio').addEventListener('click',()=>{panelMode='anio';renderPanel();});
 $('#btnLogin').addEventListener('click',login);
 $('#btnLogout').addEventListener('click',logout);
 $('#btnImport').addEventListener('click',()=>$('#fileInput').click());
