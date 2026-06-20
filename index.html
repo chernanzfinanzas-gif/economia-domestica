@@ -119,6 +119,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <select id="mYear"></select>
     <select id="mMonth"></select>
     <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
+    <span class="muted" style="font-size:11px;line-height:1.05;max-width:120px">El periodo (año/mes) solo afecta al Panel</span>
   </div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
@@ -711,10 +712,10 @@ function renderPres(){
         <td class="right"><button class="btn ghost sm" data-cat="${c.id}">Editar</button></td>
       </tr>`;
     }).join('');
-    return `<tr class="grp-row"${g==='Ingresos'?' style="background:#fef9c3;color:#854d0e"':''}><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
+    return `<tr class="grp-row"${g==='Ingresos'?' style="background:#fef9c3;color:#c2410c"':''}><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
   };
   const blocks=order.map(blockOf);
-  const sumRows=`<tr class="grp-row" style="background:#fef9c3;color:#854d0e"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row" style="background:#dcfce7;color:#166534;font-size:15px"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
+  const sumRows=`<tr class="grp-row" style="background:#fef9c3;color:#c2410c"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row" style="background:#dcfce7;color:#166534;font-size:15px"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
   let html=''; let inserted=false;
   order.forEach((g,i)=>{ html+=blocks[i]; if(g==='Ingresos'){ html+=sumRows; inserted=true; } });
   if(!inserted) html=sumRows+html;
@@ -976,24 +977,30 @@ function renderPresAnalisis(){
   const groups=[...new Set(DB.categorias.map(c=>c.grupo))].sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
   const catG={}; DB.categorias.forEach(c=>catG[c.id]=c.grupo);
   const real={};
-  DB.movimientos.forEach(m=>{ const g=catG[m.categoriaId]; if(!g)return; const y=+m.fecha.slice(0,4); const k=g+'|'+y; real[k]=(real[k]||0)+num(m.importe); });
+  DB.movimientos.forEach(m=>{ const g=catG[m.categoriaId]; if(!g)return; const y=+m.fecha.slice(0,4); real[g+'|'+y]=(real[g+'|'+y]||0)+num(m.importe); });
   const pptoFor=(g,y)=>{ let t=0; DB.categorias.filter(c=>c.grupo===g).forEach(c=>{ const p=presFor(c.id,y); if(p)t+=anual(p); }); return t; };
   let head='<tr><th>Clase</th>';
-  years.forEach(y=>{ const cur=y===curY?' ('+'en curso'+')':''; head+=`<th class="num">${y} Ppto</th><th class="num">${y} Gasto${cur}</th><th class="num">${y} %</th>`; });
+  years.forEach((y,yi)=>{ head+=`<th class="num">${y} Ppto</th>`; if(yi>0) head+=`<th class="num">${y} vs ant.</th>`; head+=`<th class="num">${y} Ejecutado${y===curY?' (en curso)':''}</th><th class="num">${y} %</th>`; });
   head+='</tr>';
   const totals={}; let body='';
   groups.forEach(g=>{
     let row=`<tr><td><b>${g}</b></td>`;
-    years.forEach(y=>{
+    years.forEach((y,yi)=>{
       const pp=pptoFor(g,y); const rr=real[g+'|'+y]||0; const pct=pp?Math.round(rr/pp*100):0;
       const cls= pp? (rr/pp<=1?'g':rr/pp<=1.1?'a':'r') : '';
-      row+=`<td class="num">${pp?fmt(pp):'—'}</td><td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
+      row+=`<td class="num">${pp?fmt(pp):'—'}</td>`;
+      if(yi>0){ const prev=pptoFor(g,years[yi-1]); const vs=prev?Math.round(pp/prev*100):0; row+=`<td class="num">${prev?vs+'%':'—'}</td>`; }
+      row+=`<td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
       totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr;
     });
     body+=row+'</tr>';
   });
   let tot='<tr style="font-weight:700"><td>TOTAL</td>';
-  years.forEach(y=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0; tot+=`<td class="num">${fmt(o.pp)}</td><td class="num">${fmt(o.rr)}</td><td class="num">${o.pp?pct+'%':'—'}</td>`; });
+  years.forEach((y,yi)=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0;
+    tot+=`<td class="num">${fmt(o.pp)}</td>`;
+    if(yi>0){ const op=totals[years[yi-1]]||{pp:0}; const vs=op.pp?Math.round(o.pp/op.pp*100):0; tot+=`<td class="num">${op.pp?vs+'%':'—'}</td>`; }
+    tot+=`<td class="num">${fmt(o.rr)}</td><td class="num">${o.pp?pct+'%':'—'}</td>`;
+  });
   tot+='</tr>';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${tot}</tbody></table>`;
 }
