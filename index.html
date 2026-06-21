@@ -396,7 +396,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <section class="view" id="view-prevision">
     <h2>Histórico y previsión de dividendos</h2>
-    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año. Años pasados calculados del histórico; los años futuros (fondo amarillo) son editables como previsión.</div>
+    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año (2011→futuro) de cada empresa. Todo editable; los años futuros van en amarillo. Base para el simulador.</div>
+    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="prevAdd">+ Empresa</button> <span class="muted" id="prevStatus"></span></div>
     <div style="overflow:auto" id="prevTabla"></div>
   </section>
 
@@ -628,6 +629,7 @@ function afterLoad(){
   DB.devolucionHacienda = DB.devolucionHacienda||{};
   DB.calendario = DB.calendario||[];
   DB.previsionDiv = DB.previsionDiv||{};
+  DB.divPorAccion = DB.divPorAccion||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1335,6 +1337,7 @@ function aplicarPreciosPegados(){
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
   if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
   if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({id:c.id||('c'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',ops:Array.isArray(c.ops)?c.ops.map(o=>({fecha:o.fecha||'',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})):null,divs:Array.isArray(c.divs)?c.divs.map(x=>({fecha:x.fecha,importe:num(x.importe)})):null,acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); renderDividendos(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
+  if(d && d.divPorAccion){ DB.divPorAccion=DB.divPorAccion||{}; Object.keys(d.divPorAccion).forEach(t=>{ DB.divPorAccion[t.toUpperCase()]=d.divPorAccion[t]; }); renderPrevision(); saveNow(); alert('Importado dividendo/acción de '+Object.keys(d.divPorAccion).length+' empresas.'); return; }
   if(d && d.devolucionHacienda){ DB.devolucionHacienda=DB.devolucionHacienda||{}; Object.keys(d.devolucionHacienda).forEach(y=>{ DB.devolucionHacienda[y]=num(d.devolucionHacienda[y]); }); renderDividendos(); saveNow(); alert('Importadas devoluciones de Hacienda de '+Object.keys(d.devolucionHacienda).length+' años.'); return; }
   if(d && d.calendario){ DB.calendario=(d.calendario||[]).map(c=>({id:c.id||('k'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',precio:(c.precio==null?null:num(c.precio)),divNeto:(c.divNeto==null?null:num(c.divNeto)),meses:(Array.isArray(c.meses)?c.meses.map(x=>x?1:0):[0,0,0,0,0,0,0,0,0,0,0,0])})); renderCalendario(); saveNow(); alert('Importado calendario de '+DB.calendario.length+' empresas.'); return; }
   let _divMap=null;
@@ -1732,27 +1735,31 @@ function renderRanking(){
 }
 function renderPrevision(){
   const el=$('#prevTabla'); if(!el)return;
-  const divs=DB.dividendos||{}; const prev=DB.previsionDiv=DB.previsionDiv||{};
-  let tickers=[...new Set([...Object.keys(divs),...Object.keys(prev)])].filter(t=>((divs[t]&&divs[t].length)||(prev[t]&&Object.keys(prev[t]).length)));
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin histórico de dividendos. Añade dividendos en las fichas.</div>'; return; }
-  const hist={}; let minY=9999; const nowY=new Date().getFullYear();
-  tickers.forEach(t=>{ hist[t]={}; (divs[t]||[]).forEach(d=>{ const y=+(''+(d.fecha||'')).slice(0,4); if(!y)return; hist[t][y]=(hist[t][y]||0)+num(d.importe); if(y<minY)minY=y; }); });
-  if(minY===9999)minY=nowY-1;
-  const maxFut=nowY+4; const years=[]; for(let y=minY;y<=maxFut;y++)years.push(y);
+  const dpa=DB.divPorAccion=DB.divPorAccion||{};
+  const set=new Set(Object.keys(dpa).map(t=>t.toUpperCase()));
+  (DB.calendario||[]).forEach(c=>{ if(c.ticker)set.add((c.ticker||'').toUpperCase()); });
+  (DB.analisis||[]).forEach(a=>{ if(a.ticker)set.add((a.ticker||'').toUpperCase()); });
+  (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
+  let tickers=[...set].filter(Boolean);
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Importa «divporaccion-historico.json» o pulsa «+ Empresa».</div>'; return; }
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  tickers.sort((a,b)=>Object.values(hist[b]||{}).reduce((s,x)=>s+x,0)-Object.values(hist[a]||{}).reduce((s,x)=>s+x,0));
+  tickers.sort((x,y)=> Object.values(dpa[y]||{}).reduce((s,v)=>s+num(v),0)-Object.values(dpa[x]||{}).reduce((s,v)=>s+num(v),0) || x.localeCompare(y));
+  const nowY=new Date().getFullYear(); const y0=2011, y1=Math.max(2030,nowY+3); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'</tr>';
-  const body=[...years].reverse().map(y=>{
-    const fut=y>nowY;
-    const cells=tickers.map(t=>{
-      const ov=(prev[t]&&prev[t][y]!=null)?prev[t][y]:null;
-      const v=(ov!=null)?ov:(hist[t][y]!=null?hist[t][y]:'');
-      return `<td><input type="number" step="0.0001" class="anaInp" style="width:60px;text-align:center" data-prev="${t}" data-py="${y}" value="${v}"></td>`;
-    }).join('');
+  const body=[...years].reverse().map(y=>{ const fut=y>nowY;
+    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?dpa[t][y]:''; const v=(raw===''?'':num(raw).toFixed(3)); return `<td><input type="number" step="0.001" class="anaInp" style="width:58px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}"></td>`; }).join('');
     return `<tr${fut?' style="background:#fffbeb"':''}><td>${y}${fut?' <span class="muted" style="font-size:9px">prev</span>':''}</td>${cells}</tr>`;
   }).join('');
   el.innerHTML=`<table>${head}${body}</table>`;
-  const _v=$('#view-prevision'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('prevTabla',8,12),0);
+  const _v=$('#view-prevision'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('prevTabla',7,11),0);
+}
+function addPrevEmpresa(){
+  const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return;
+  const nombre=(prompt('Nombre de la empresa:')||tk).trim();
+  DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
+  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
+  saveNow(); renderPrevision();
+  const st=$('#prevStatus'); if(st)st.textContent='Añadida '+tk;
 }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); }
 
@@ -1816,7 +1823,8 @@ function activarVista(view){
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group==='inv'){ activarVista(invCurrent); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
-$('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-prev]'); if(d){ const t=d.dataset.prev, y=d.dataset.py; DB.previsionDiv=DB.previsionDiv||{}; DB.previsionDiv[t]=DB.previsionDiv[t]||{}; const v=num(d.value); if(v) DB.previsionDiv[t][y]=v; else delete DB.previsionDiv[t][y]; saveNow(); } });
+$('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-dpa]'); if(d){ const t=d.dataset.dpa, y=d.dataset.y; DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; const v=num(d.value); if(d.value.trim()==='') delete DB.divPorAccion[t][y]; else DB.divPorAccion[t][y]=v; saveNow(); renderPrevision(); } });
+if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
 $('#mYear').addEventListener('change',e=>{curYear=+e.target.value;renderAll();});
 $('#mMonth').addEventListener('change',e=>{curMonth=+e.target.value;renderAll();});
 $('#mModeMes').addEventListener('click',()=>{panelMode='mes';renderPanel();});
