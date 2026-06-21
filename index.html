@@ -1840,7 +1840,7 @@ function renderPrevision(){
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011, y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'</tr>';
   const body=[...years].reverse().map(y=>{ const fut=y>nowY; const pv=fut&&!conf[y];
-    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const v=(raw==null?'':raw.toFixed(3)); const star=raw===0?'<span style="color:#dc2626;font-weight:700">*</span>':''; return `<td><input type="number" step="0.001" class="anaInp" style="width:52px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}">${star}</td>`; }).join('');
+    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const v=(raw==null?'':raw.toFixed(3)); const star=raw===0?'<span style="color:#dc2626;font-weight:700">*</span>':''; return `<td><div style="font-size:8px;color:var(--muted);line-height:1.1">${t} '${String(y).slice(2)}</div><input type="number" step="0.001" class="anaInp" style="width:52px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}">${star}</td>`; }).join('');
     return `<tr${pv?' style="background:#fffbeb"':''}><td ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</td>${cells}</tr>`;
   }).join('');
   el.innerHTML=`<table>${head}${body}</table>`;
@@ -1888,7 +1888,7 @@ function renderSimulador(){
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
       const divCell=`<input type="number" step="0.001" class="anaInp" style="width:54px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
-      return `<td style="${(y>nowY&&!conf[y])?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--muted)">acc</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px">div</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
+      return `<td style="${(y>nowY&&!conf[y])?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--brand);font-weight:700;line-height:1.1">${t}</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px;line-height:1.1">div '${String(y).slice(2)}</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
     }).join('');
     return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}</tr>`;
   }).join('');
