@@ -107,6 +107,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #invTable table{font-size:12px}
   #invTable th,#invTable td{padding:5px 7px}
   #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:3px 6px}
+  #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:3px 6px}
 </style>
 </head>
 <body>
@@ -592,6 +593,7 @@ function afterLoad(){
   DB.dividendos = DB.dividendos||{};
   DB.divIngresos = DB.divIngresos||{};
   DB.cerradas = DB.cerradas||[];
+  DB.devolucionHacienda = DB.devolucionHacienda||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1298,6 +1300,7 @@ function aplicarPreciosPegados(){
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
   if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
   if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({id:c.id||('c'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',ops:Array.isArray(c.ops)?c.ops.map(o=>({fecha:o.fecha||'',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})):null,divs:Array.isArray(c.divs)?c.divs.map(x=>({fecha:x.fecha,importe:num(x.importe)})):null,acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); renderDividendos(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
+  if(d && d.devolucionHacienda){ DB.devolucionHacienda=DB.devolucionHacienda||{}; Object.keys(d.devolucionHacienda).forEach(y=>{ DB.devolucionHacienda[y]=num(d.devolucionHacienda[y]); }); renderDividendos(); saveNow(); alert('Importadas devoluciones de Hacienda de '+Object.keys(d.devolucionHacienda).length+' años.'); return; }
   let _divMap=null;
   if(d && d.dividendos){ _divMap=d.dividendos; }
   else if(d && !Array.isArray(d) && !d.operaciones && !d.valores && !d.inversiones){ const ks=Object.keys(d); if(ks.length && ks.every(k=>Array.isArray(d[k]) && (d[k].length===0 || (d[k][0] && ('importe' in d[k][0]))))) _divMap=d; }
@@ -1603,17 +1606,25 @@ function renderDividendos(){
   let foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td>${cols.map(t=>`<td class="num">${fmt(totT[t])}</td>`).join('')}<td class="num">${fmt(grand)}</td></tr>`;
   $('#divMatrixWrap').innerHTML=cols.length?`<table>${head}${body}${foot}</table>`:'<div class="empty">Sin dividendos registrados todavía.</div>';
   // RESUMEN ANUAL
-  const compY={},ventY={};
-  ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(!y)return; const amt=num(o.acciones)*num(o.precio); if(o.tipo==='venta') ventY[y]=(ventY[y]||0)+amt; else compY[y]=(compY[y]||0)+amt; });
-  (DB.cerradas||[]).forEach(c=>{ if(c.ops&&c.ops.length){ c.ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(!y)return; const amt=num(o.acciones)*num(o.precio); if(o.tipo==='venta') ventY[y]=(ventY[y]||0)+amt; else compY[y]=(compY[y]||0)+amt; }); } else { const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc) compY[yc]=(compY[yc]||0)+num(c.coste); if(yv) ventY[yv]=(ventY[yv]||0)+num(c.venta); } });
-  const ry=[...new Set([...years,...Object.keys(compY),...Object.keys(ventY)])].sort();
+  const compY={},ventY={},costSoldY={};
+  const cerrOps=(DB.cerradas||[]).flatMap(c=>(c.ops||[]).map(o=>({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})));
+  const cerrNoOps=(DB.cerradas||[]).filter(c=>!(c.ops&&c.ops.length));
+  const allOps=[...ops.map(o=>({ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})),...cerrOps].sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+  const posCost={};
+  allOps.forEach(o=>{ const t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; const n=num(o.acciones), pr=num(o.precio); const p=posCost[t]=posCost[t]||{sh:0,cost:0};
+    if(o.tipo==='venta'){ const avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr; p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
+    else { compY[y]=(compY[y]||0)+n*pr; p.sh+=n; p.cost+=n*pr; } });
+  cerrNoOps.forEach(c=>{ const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc)compY[yc]=(compY[yc]||0)+num(c.coste); if(yv){ventY[yv]=(ventY[yv]||0)+num(c.venta); costSoldY[yv]=(costSoldY[yv]||0)+num(c.coste);} });
+  const ry=[...new Set([...years,...Object.keys(compY),...Object.keys(ventY),...Object.keys(DB.devolucionHacienda||{})])].sort();
   let cumInv=0,cumCom=0; const rs=[];
-  ry.forEach(y=>{ const comp=compY[y]||0, vent=ventY[y]||0;
-    cumCom+=comp; cumInv+=comp-vent; const divB=totYear[y]||0, divN=divB*0.81;
-    rs.push({y,comp,vent,cumInv,cumCom,divB,divN,rInv:cumInv>0?divB/cumInv:0,rCom:cumCom>0?divB/cumCom:0}); });
-  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">Coste compras</th><th class="num">Div. bruto</th><th class="num">Div. neto</th><th class="num">% s/ invertido</th><th class="num">% s/ coste</th></tr>';
-  const rbody=[...rs].reverse().map(r=>`<tr><td>${r.y}</td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.cumInv)}</td><td class="num">${fmt(r.cumCom)}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td></tr>`).join('');
-  $('#divResumenWrap').innerHTML=rs.length?`<table>${rhead}${rbody}</table>`:'<div class="empty">Sin operaciones todavía.</div>';
+  ry.forEach(y=>{ const comp=compY[y]||0, vent=ventY[y]||0, cSold=costSoldY[y]||0;
+    const divB=totYear[y]||0, divN=divB*0.81;
+    cumInv+=comp-vent-divB; cumCom+=comp-cSold;
+    const dev=num((DB.devolucionHacienda||{})[y]||0), imp=divB-divN, totIng=divN+dev, descR=divB-totIng;
+    rs.push({y,comp,vent,inv:cumInv,valC:cumCom,divB,divN,dev,imp,totIng,descR,
+      rInv:cumInv>0?divB/cumInv:0, rCom:cumCom>0?divB/cumCom:0, rNeta:cumCom>0?totIng/cumCom:0, tasa:divB?descR/divB:0}); });
+  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">%Inv</th><th class="num">Valor compra</th><th class="num">%Compra</th><th class="num">Div bruto</th><th class="num">Div neto</th><th class="num">Dev. Hacienda</th><th class="num">Impuesto</th><th class="num">Total ingresado</th><th class="num">Descuento real</th><th class="num">Rent. neta</th><th class="num">Tasa imp.</th></tr>';
+  const rbody=[...rs].reverse().map(r=>{ const has=r.divB||r.dev; return `<tr><td>${r.y}</td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.inv)}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${fmt(r.valC)}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num"><input type="number" step="0.01" class="anaInp" style="width:78px;text-align:right" data-devhac="${r.y}" value="${r.dev||''}"></td><td class="num">${r.divB?fmt(r.imp):'·'}</td><td class="num pos">${has?fmt(r.totIng):'·'}</td><td class="num ${r.descR<0?'pos':''}">${has?fmt(r.descR):'·'}</td><td class="num">${(r.valC>0&&has)?fmtpct(r.rNeta):'·'}</td><td class="num">${r.divB?fmtpct(r.tasa):'·'}</td></tr>`; }).join('');
 }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); }
 
@@ -1767,6 +1778,7 @@ const invf=document.createElement('input'); invf.type='file'; invf.accept='.json
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
+$('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
 $('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
