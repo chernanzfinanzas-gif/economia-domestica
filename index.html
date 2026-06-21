@@ -386,6 +386,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Ranking de cartera por dividendo</h2>
     <div class="cards" id="rankKpis"></div>
     <div class="sub" style="margin-bottom:6px">Tus posiciones ordenadas por aportación al dividendo anual. Div/acc es el bruto actual; «Dividendos» es lo cobrado históricamente; Balance y ratios incluyen dividendos.</div>
+    <div id="rankPie" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:4px 0 14px"></div>
     <div style="overflow:auto" id="rankTabla"></div>
   </section>
 
@@ -1729,6 +1730,9 @@ function divCobrados(t){ t=(t||'').toUpperCase();
   const tops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
   const td=((DB.dividendos||{})[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   let s=0; td.forEach(d=>{ const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0); s+=acc*num(d.importe); }); return s; }
+function pieSVG(items){ const tot=items.reduce((s,i)=>s+i.val,0)||1; let a=-Math.PI/2; const R=78,cx=86,cy=86; let p='';
+  items.forEach(it=>{ const ang=it.val/tot*2*Math.PI, a2=a+ang; const x1=cx+R*Math.cos(a),y1=cy+R*Math.sin(a),x2=cx+R*Math.cos(a2),y2=cy+R*Math.sin(a2); const lg=ang>Math.PI?1:0; p+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${R},${R} 0 ${lg} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${it.color}" stroke="#fff" stroke-width="1.5"/>`; a=a2; });
+  return `<svg width="172" height="172" viewBox="0 0 172 172">${p}</svg>`; }
 function renderRanking(){
   const el=$('#rankTabla'); if(!el)return;
   const agg={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones<=0.0001)return; const t=(p.ticker||'').toUpperCase(); const a=agg[t]=agg[t]||{ticker:t,nombre:p.nombre,sh:0,cost:0}; a.sh+=p.acciones; a.cost+=p.acciones*p.precioCompra; });
@@ -1743,6 +1747,9 @@ function renderRanking(){
   const body=rows.map(r=>`<tr><td><button class="btn ghost sm" data-ficha="${r.ticker}"><b>${r.ticker}</b></button></td><td class="num">${r.sh}</td><td class="num">${fmt(r.pm)}</td><td class="num">${pct(r.yoc)}</td><td class="num">${fmt(r.divAcc)}</td><td class="num pos">${fmt(r.divAno)}</td><td class="num">${pct(r.pesoDiv)}</td><td class="num">${fmt(r.cost)}</td><td class="num pos">${fmt(r.cobr)}</td><td class="num">${fmt(r.cot)}</td><td class="num">${fmt(r.valor)}</td><td class="num ${r.bal>=0?'pos':'neg'}">${r.bal>=0?'+':''}${fmt(r.bal)}</td><td class="num ${r.reval>=0?'pos':'neg'}">${pct(r.reval)}</td><td class="num pos">${pct(r.divPct)}</td><td class="num ${r.totPct>=0?'pos':'neg'}">${pct(r.totPct)}</td><td class="num">${pct(r.pesoCoste)}</td><td class="num">${pct(r.pesoValor)}</td><td class="num ${r.bal>=0?'pos':'neg'}">${pct(r.pesoBal)}</td></tr>`).join('');
   const foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td></td><td></td><td class="num">${pct(T.cost?T.divAno/T.cost:0)}</td><td></td><td class="num pos">${fmt(T.divAno)}</td><td class="num">100%</td><td class="num">${fmt(T.cost)}</td><td class="num pos">${fmt(T.cobr)}</td><td></td><td class="num">${fmt(T.valor)}</td><td class="num ${T.bal>=0?'pos':'neg'}">${T.bal>=0?'+':''}${fmt(T.bal)}</td><td class="num">${pct(T.cost?T.valor/T.cost-1:0)}</td><td class="num">${pct(T.cost?T.cobr/T.cost:0)}</td><td class="num">${pct(T.cost?T.bal/T.cost:0)}</td><td class="num">100%</td><td class="num">100%</td><td class="num">100%</td></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${foot}</tbody></table>`;
+  const _pal=['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#db2777','#65a30d','#ca8a04','#0d9488','#9333ea','#e11d48','#475569','#84cc16','#f59e0b'];
+  const _pi=rows.filter(r=>r.pesoDiv>0).map((r,i)=>({label:r.ticker,val:r.pesoDiv,color:_pal[i%_pal.length]}));
+  const _rp=$('#rankPie'); if(_rp) _rp.innerHTML=_pi.length?(pieSVG(_pi)+'<div style="font-size:12px;display:grid;grid-template-columns:repeat(2,auto);gap:3px 16px">'+_pi.map(it=>`<div><span style="display:inline-block;width:10px;height:10px;background:${it.color};border-radius:2px;margin-right:6px"></span>${it.label} <b>${(it.val*100).toFixed(1)}%</b></div>`).join('')+'</div>'):'';
   $('#rankKpis').innerHTML=[['Dividendo bruto/año',fmt(T.divAno)],['YoC cartera',pct(T.cost?T.divAno/T.cost:0)],['RPD actual',pct(T.valor?T.divAno/T.valor:0)],['Dividendos cobrados (total)',fmt(T.cobr)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',8,12),0);
 }
@@ -1764,7 +1771,7 @@ function renderPrevision(){
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011, y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'</tr>';
   const body=[...years].reverse().map(y=>{ const fut=y>nowY; const pv=fut&&!conf[y];
-    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?dpa[t][y]:''; const v=(raw===''?'':num(raw).toFixed(3)); return `<td><input type="number" step="0.001" class="anaInp" style="width:58px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}"></td>`; }).join('');
+    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const v=(raw==null?'':raw.toFixed(3)); const star=raw===0?'<span style="color:#dc2626;font-weight:700">*</span>':''; return `<td><input type="number" step="0.001" class="anaInp" style="width:52px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}">${star}</td>`; }).join('');
     return `<tr${pv?' style="background:#fffbeb"':''}><td ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</td>${cells}</tr>`;
   }).join('');
   el.innerHTML=`<table>${head}${body}</table>`;
@@ -1805,15 +1812,18 @@ function renderSimulador(){
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num((dpa[t]||{})[y]||0); }));
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
-    const cells=years.map(y=>{ const past=y<=nowY; const div=num((dpa[t]||{})[y]||0); const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:48px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
-      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:48px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${div?div.toFixed(3):''}">`;
-      return `<td style="${(y>nowY&&!conf[y])?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--muted)">acc</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px">div</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${imp?fmt(imp):'·'}</div></td>`;
+    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
+      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:46px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
+      const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
+      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:42px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
+      let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
+      return `<td style="${(y>nowY&&!conf[y])?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--muted)">acc</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px">div</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
     }).join('');
     return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}</tr>`;
   }).join('');
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
-  el.innerHTML=`<table>${head}${body}${totRow}</table>`;
+  const grRow='<tr style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
+  el.innerHTML=`<table>${head}${body}${totRow}${grRow}</table>`;
   $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
 }
