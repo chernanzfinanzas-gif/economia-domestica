@@ -112,7 +112,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:2px 5px}
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
   #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:2px 5px}
-  #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 5px}
+  #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
+  #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
 </style>
 </head>
 <body>
@@ -1706,7 +1707,7 @@ function renderCalendario(){
     ['Media mensual',fmt(ingAnual/12)],
     ['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']
   ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',8,12),0);
+  const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',7,11),0);
 }
 function divCobrados(t){ t=(t||'').toUpperCase();
   const tops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
@@ -1744,9 +1745,9 @@ function renderPrevision(){
   const body=[...years].reverse().map(y=>{
     const fut=y>nowY;
     const cells=tickers.map(t=>{
-      if(!fut){ const v=hist[t][y]; return `<td class="num">${v?fmt(v):'·'}</td>`; }
-      const pv=(prev[t]&&prev[t][y]!=null)?prev[t][y]:'';
-      return `<td class="num"><input type="number" step="0.0001" class="anaInp" style="width:62px;text-align:right" data-prev="${t}" data-py="${y}" value="${pv}"></td>`;
+      const ov=(prev[t]&&prev[t][y]!=null)?prev[t][y]:null;
+      const v=(ov!=null)?ov:(hist[t][y]!=null?hist[t][y]:'');
+      return `<td><input type="number" step="0.0001" class="anaInp" style="width:60px;text-align:center" data-prev="${t}" data-py="${y}" value="${v}"></td>`;
     }).join('');
     return `<tr${fut?' style="background:#fffbeb"':''}><td>${y}${fut?' <span class="muted" style="font-size:9px">prev</span>':''}</td>${cells}</tr>`;
   }).join('');
@@ -1807,7 +1808,7 @@ function activarVista(view){
   $$('#nav button').forEach(x=>x.classList.toggle('active', inGroup ? (x.dataset.group==='inv') : (x.dataset.view===view)));
   if(inGroup){ invCurrent=view; $$('#subnav button').forEach(x=>x.classList.toggle('active', x.dataset.sub===view)); }
   if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
-  if(view==='calendario') setTimeout(()=>autoFitTable('calTabla',8,12),120);
+  if(view==='calendario') setTimeout(()=>autoFitTable('calTabla',7,11),120);
   if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',8,12),120);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',8,12),120);
   if(view==='patrimonio') renderPat();
