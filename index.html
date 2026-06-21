@@ -1969,18 +1969,18 @@ function renderDistrib(){
   const el=$('#distTabla'); if(!el)return;
   const obj=DB.distribObjetivo=DB.distribObjetivo||{};
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
-  const valByT={}; pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); valByT[t]=(valByT[t]||0)+p.acciones*p.precioActual; });
+  const valByT={}; pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); valByT[t]=(valByT[t]||0)+p.acciones*p.precioCompra; });
   const total=Object.values(valByT).reduce((s,v)=>s+v,0);
   let tickers=[...new Set([...Object.keys(obj),...Object.keys(valByT)])].filter(Boolean);
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin datos. Importa «distribucion-objetivo.json» o pulsa «+ Empresa».</div>'; $('#distKpis').innerHTML=''; $('#distPie').innerHTML=''; return; }
   let rows=tickers.map(t=>{ const o=num(obj[t]); const v=valByT[t]||0; const pa=total?v/total:0; return {t,o,v,pa,dev:pa-o,falta:o*total-v}; }).sort((a,b)=>b.o-a.o||b.v-a.v);
-  const head='<tr><th>Ticker</th><th class="num">Objetivo %</th><th class="num">Valor</th><th class="num">Actual %</th><th class="num">Desviación</th><th class="num">Para alcanzar</th></tr>';
+  const head='<tr><th>Ticker</th><th class="num">Objetivo %</th><th class="num">Invertido</th><th class="num">Actual %</th><th class="num">Desviación</th><th class="num">Para alcanzar</th></tr>';
   const body=rows.map(r=>`<tr><td><button class="btn ghost sm" data-ficha="${r.t}"><b>${r.t}</b></button></td><td class="num"><input type="number" step="0.1" class="anaInp" style="width:64px;text-align:center" data-distobj="${r.t}" value="${r.o?(r.o*100).toFixed(1):''}"></td><td class="num">${fmt(r.v)}</td><td class="num">${(r.pa*100).toFixed(1)}%</td><td class="num ${Math.abs(r.dev)<0.005?'':(r.dev>0?'neg':'pos')}">${(r.dev>=0?'+':'')+(r.dev*100).toFixed(1)} pp</td><td class="num ${r.falta>=0?'pos':'neg'}">${(r.falta>=0?'comprar ':'reducir ')+fmt(Math.abs(r.falta))}</td></tr>`).join('');
   const sumO=rows.reduce((s,r)=>s+r.o,0);
   const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${(sumO*100).toFixed(1)}%</td><td class="num">${fmt(total)}</td><td class="num">100%</td><td></td><td></td></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}</tbody></table>`;
   const big=rows.slice().sort((a,b)=>Math.abs(b.dev)-Math.abs(a.dev))[0];
-  $('#distKpis').innerHTML=[['Valor cartera',fmt(total)],['Suma objetivo',(sumO*100).toFixed(1)+'%'],['Mayor desviación', big?(big.t+' '+(big.dev>=0?'+':'')+(big.dev*100).toFixed(1)+'pp'):'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  $('#distKpis').innerHTML=[['Invertido total',fmt(total)],['Suma objetivo',(sumO*100).toFixed(1)+'%'],['Mayor desviación', big?(big.t+' '+(big.dev>=0?'+':'')+(big.dev*100).toFixed(1)+'pp'):'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const pal=['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#db2777','#65a30d','#ca8a04','#0d9488','#9333ea','#e11d48','#475569','#84cc16','#f59e0b','#06b6d4','#a855f7','#22c55e','#ef4444'];
   const colorByT={}; rows.forEach((r,i)=>colorByT[r.t]=pal[i%pal.length]);
   const piA=rows.filter(r=>r.v>0).map(r=>({label:r.t,val:r.v,color:colorByT[r.t]}));
