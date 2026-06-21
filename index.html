@@ -112,8 +112,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:2px 5px}
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
   #rankTabla table{font-size:10px} #rankTabla th,#rankTabla td{padding:1px 3px}
-  #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
-  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px} #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
+  #prevTabla table{font-size:11px;border-collapse:separate;border-spacing:0} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
+  #planTabla table{font-size:11px;border-collapse:separate;border-spacing:0} #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky;left:0;background:#fff;z-index:2}
+  #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px} #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:10px} #calEventos th,#calEventos td{padding:2px 3px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
@@ -411,6 +412,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div style="overflow:auto" id="simTabla"></div>
   </section>
 
+  <section class="view" id="view-plan">
+    <h2>Plan de compras multi-anual</h2>
+    <div class="cards" id="planKpis"></div>
+    <div class="sub" style="margin-bottom:6px">€ a invertir por empresa y año. <b>Todas las operaciones previstas son editables</b>: cambia las cifras cuando cambies de idea. «Por ejecutar» = presupuesto − planificado. Estas compras alimentan el <b>Simulador</b> (€ ÷ precio actual = acciones que se suman a los años futuros).</div>
+    <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
+    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="planAdd">+ Empresa</button> <button class="btn sm" id="planAddYear">+ Año</button> <span class="muted" id="planStatus"></span></div>
+    <div style="overflow:auto" id="planTabla"></div>
+  </section>
+
 </main>
 <div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
 
@@ -644,6 +654,8 @@ function afterLoad(){
   DB.previsionMaxYear = DB.previsionMaxYear||2030;
   DB.aniosConfirmados = DB.aniosConfirmados||{};
   DB.eventos = DB.eventos||{};
+  DB.planCompras = DB.planCompras||{};
+  DB.planPresupuesto = DB.planPresupuesto||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1352,6 +1364,7 @@ function aplicarPreciosPegados(){
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
   if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
   if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({id:c.id||('c'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',ops:Array.isArray(c.ops)?c.ops.map(o=>({fecha:o.fecha||'',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})):null,divs:Array.isArray(c.divs)?c.divs.map(x=>({fecha:x.fecha,importe:num(x.importe)})):null,acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); renderDividendos(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
+  if(d && (d.planCompras||d.planPresupuesto)){ if(d.planCompras){DB.planCompras={}; Object.keys(d.planCompras).forEach(t=>DB.planCompras[t.toUpperCase()]=d.planCompras[t]);} if(d.planPresupuesto)DB.planPresupuesto=d.planPresupuesto; renderPlan(); saveNow(); alert('Importado plan de compras de '+Object.keys(d.planCompras||{}).length+' empresas.'); return; }
   if(d && d.eventos){ DB.eventos=DB.eventos||{}; Object.keys(d.eventos).forEach(t=>{ DB.eventos[t.toUpperCase()]=d.eventos[t]; }); renderCalendario(); saveNow(); alert('Importados eventos de '+Object.keys(d.eventos).length+' empresas.'); return; }
   if(d && d.divPorAccion){ DB.divPorAccion=DB.divPorAccion||{}; Object.keys(d.divPorAccion).forEach(t=>{ DB.divPorAccion[t.toUpperCase()]=d.divPorAccion[t]; }); renderPrevision(); saveNow(); alert('Importado dividendo/acción de '+Object.keys(d.divPorAccion).length+' empresas.'); return; }
   if(d && d.devolucionHacienda){ DB.devolucionHacienda=DB.devolucionHacienda||{}; Object.keys(d.devolucionHacienda).forEach(y=>{ DB.devolucionHacienda[y]=num(d.devolucionHacienda[y]); }); renderDividendos(); saveNow(); alert('Importadas devoluciones de Hacienda de '+Object.keys(d.devolucionHacienda).length+' años.'); return; }
@@ -1828,7 +1841,7 @@ function simIsReal(t){ return (DB.operaciones||[]).some(o=>(o.ticker||'').toUppe
 function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t];
   if(ss&&ss[year]!=null) return num(ss[year]);
   if(year<=nowY) return simIsReal(t)?realSharesAt(t,year):0;
-  return simIsReal(t)?realSharesAt(t,nowY):0; }
+  return (simIsReal(t)?realSharesAt(t,nowY):0) + planSharesAt(t,year); }
 function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
@@ -1904,7 +1917,31 @@ function renderPanelDash(){
     if(mx>1) html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
   el.innerHTML=html;
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); }
+function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let eur=0; Object.keys(pc).forEach(y=>{ if(+y<=year) eur+=num(pc[y]); }); return eur/pr; }
+function renderPlan(){
+  const el=$('#planTabla'); if(!el)return;
+  const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
+  const nowY=new Date().getFullYear(); const y1=Math.max(num(DB.previsionMaxYear)||2030, nowY+1); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
+  const set=new Set(Object.keys(pc).map(t=>t.toUpperCase()));
+  (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
+  let tickers=[...set].filter(Boolean);
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin plan. Importa «plan-compras.json» o pulsa «+ Empresa».</div>'; $('#planKpis').innerHTML=''; return; }
+  const tt=t=>Object.values(pc[t]||{}).reduce((s,v)=>s+num(v),0);
+  tickers.sort((a,b)=>tt(b)-tt(a)||a.localeCompare(b));
+  const totYear={}; years.forEach(y=>totYear[y]=0);
+  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; rt+=v; totYear[y]+=v; return `<td><input type="number" step="100" class="anaInp" style="width:62px;text-align:center" data-plan="${t}" data-y="${y}" value="${v||''}"></td>`; }).join('');
+    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}<td class="num" style="font-weight:700">${rt?fmt(rt):'·'}</td></tr>`; }).join('');
+  const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}</th>`).join('')+'<th class="num">Total</th></tr>';
+  const grand=Object.values(totYear).reduce((s,v)=>s+v,0);
+  const totRow='<tr style="font-weight:700;background:#eef2f7"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
+  const presRow='<tr style="background:#fffbeb"><td>Presupuesto/año</td>'+years.map(y=>`<td><input type="number" step="100" class="anaInp" style="width:62px;text-align:center" data-plpres="${y}" value="${(pr[y]!=null)?pr[y]:''}"></td>`).join('')+'<td></td></tr>';
+  const exeRow='<tr style="font-weight:600"><td>Por ejecutar</td>'+years.map(y=>{ const dif=num(pr[y]||0)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${(pr[y]!=null)?fmt(dif):'·'}</td>`; }).join('')+'<td></td></tr>';
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table>`;
+  $('#planKpis').innerHTML=[['Plan total',fmt(grand)],['Plan '+nowY,fmt(totYear[nowY]||0)],['Presupuesto '+nowY,fmt(num(pr[nowY]||0))]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('planTabla',7,11),0);
+}
+function addPlanEmpresa(){ const tk=(prompt('Ticker de la empresa:')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim(); DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{}; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre; saveNow(); renderPlan(); }
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -1948,7 +1985,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], pat:[['patrimonio','Patrimonio'],['proyeccion','Proyección']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], pat:[['patrimonio','Patrimonio'],['proyeccion','Proyección']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', pat:'patrimonio', inv:'inversiones'};
 function activarVista(view){
@@ -1963,6 +2000,7 @@ function activarVista(view){
   if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',7,10),120);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',8,12),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
+  if(view==='plan') setTimeout(()=>autoFitTable('planTabla',7,11),120);
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
 }
@@ -1972,7 +2010,10 @@ $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-go
 $('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-dpa]'); if(d){ const t=d.dataset.dpa, y=d.dataset.y; DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; const v=num(d.value); if(d.value.trim()==='') delete DB.divPorAccion[t][y]; else DB.divPorAccion[t][y]=v; saveNow(); renderPrevision(); } });
 if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
 if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
-function addPrevYear(){ DB.previsionMaxYear=(num(DB.previsionMaxYear)||2030)+1; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); }
+if($('#planAdd'))$('#planAdd').addEventListener('click',addPlanEmpresa);
+if($('#planAddYear'))$('#planAddYear').addEventListener('click',addPrevYear);
+$('#planTabla').addEventListener('change',e=>{ const a=e.target.closest('[data-plan]'); if(a){ const t=a.dataset.plan,y=a.dataset.y; DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(a.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(a.value); saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const p=e.target.closest('[data-plpres]'); if(p){ DB.planPresupuesto=DB.planPresupuesto||{}; if(p.value.trim()==='')delete DB.planPresupuesto[p.dataset.plpres]; else DB.planPresupuesto[p.dataset.plpres]=num(p.value); saveNow(); renderPlan(); } });
+function addPrevYear(){ DB.previsionMaxYear=(num(DB.previsionMaxYear)||2030)+1; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); if(typeof renderPlan==='function')renderPlan(); }
 function toggleAnioConf(y){ DB.aniosConfirmados=DB.aniosConfirmados||{}; if(DB.aniosConfirmados[y]) delete DB.aniosConfirmados[y]; else DB.aniosConfirmados[y]=true; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); }
 if($('#prevAddYear'))$('#prevAddYear').addEventListener('click',addPrevYear);
 if($('#simAddYear'))$('#simAddYear').addEventListener('click',addPrevYear);
