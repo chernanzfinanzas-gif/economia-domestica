@@ -111,9 +111,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #invTable th,#invTable td{padding:5px 7px}
   #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:2px 5px}
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
-  #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:2px 5px}
+  #rankTabla table{font-size:10px} #rankTabla th,#rankTabla td{padding:1px 3px}
   #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
-  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
+  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px} #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:10px} #calEventos th,#calEventos td{padding:2px 3px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
@@ -126,8 +126,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="panel" class="active">Panel</button>
     <button data-group="mov">Movimientos</button>
     <button data-view="presupuesto">Presupuesto</button>
-    <button data-view="patrimonio">Patrimonio</button>
-    <button data-view="proyeccion">Proyección</button>
+    <button data-group="pat">Patrimonio</button>
     <button data-group="inv">Inversiones</button>
   </nav>
   <div id="subnav" style="display:none"></div>
@@ -1736,25 +1735,26 @@ function renderEventos(){
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
   const _ve=$('#view-calendario'); if(_ve&&_ve.classList.contains('active')) setTimeout(()=>autoFitTable('calEventos',7,11),0);
 }
+function calDivBruto(c){ const t=(c.ticker||'').toUpperCase(); const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0) return num(v.divAccion); if(c.divNeto) return num(c.divNeto)/0.81; return 0; }
 function renderCalendario(){
   const el=$('#calTabla'); if(!el)return;
   const cal=(DB.calendario||[]).slice();
   if(!cal.length){ el.innerHTML='<div class="empty">Sin calendario. Importa «calendario-historico.json» en Inversiones.</div>'; $('#calKpis').innerHTML=''; return; }
   const shares=calSharesByTicker();
-  cal.sort((a,b)=>{ const ra=calPrecio(a)?(a.divNeto||0)/calPrecio(a):0, rb=calPrecio(b)?(b.divNeto||0)/calPrecio(b):0; return rb-ra; });
+  cal.sort((a,b)=>{ const ra=calPrecio(a)?calDivBruto(a)/calPrecio(a):0, rb=calPrecio(b)?calDivBruto(b)/calPrecio(b):0; return rb-ra; });
   const ingMes=new Array(12).fill(0); let ingAnual=0;
-  cal.forEach(c=>{ const n=c.meses.reduce((s,x)=>s+(x?1:0),0); const sh=shares[(c.ticker||'').toUpperCase()]||0; if(sh>0 && n>0 && c.divNeto){ const porPago=c.divNeto*sh/n; c.meses.forEach((x,i)=>{ if(x){ ingMes[i]+=porPago; ingAnual+=porPago; } }); } });
-  let head='<tr><th>Empresa</th><th class="num">Precio</th><th class="num">Div neto</th><th class="num">Rent</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
-  let body=cal.map(c=>{ const t=(c.ticker||'').toUpperCase(); const p=calPrecio(t?c:c); const pr=calPrecio(c); const rent=pr?((c.divNeto||0)/pr):0; const enCart=(shares[t]||0)>0;
+  cal.forEach(c=>{ const n=c.meses.reduce((s,x)=>s+(x?1:0),0); const sh=shares[(c.ticker||'').toUpperCase()]||0; const _db=calDivBruto(c); if(sh>0 && n>0 && _db){ const porPago=_db*sh/n; c.meses.forEach((x,i)=>{ if(x){ ingMes[i]+=porPago; ingAnual+=porPago; } }); } });
+  let head='<tr><th>Empresa</th><th class="num">Precio</th><th class="num">Div bruto</th><th class="num">Rent</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
+  let body=cal.map(c=>{ const t=(c.ticker||'').toUpperCase(); const p=calPrecio(t?c:c); const pr=calPrecio(c); const dbruto=calDivBruto(c); const rent=pr?(dbruto/pr):0; const enCart=(shares[t]||0)>0;
     const cells=c.meses.map((x,i)=>`<td class="num calmes" data-calm="${c.id}" data-mi="${i}" style="cursor:pointer;${x?'background:#dcfce7;color:#166534;font-weight:700':''}">${x?'●':''}</td>`).join('');
-    return `<tr><td>${enCart?'<b>':''}${c.nombre}${enCart?'</b>':''} <span class="muted" style="font-size:10px">${t}</span></td><td class="num">${fmt(pr)}</td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:80px;text-align:right" data-caldiv="${c.id}" value="${c.divNeto!=null?c.divNeto:''}"></td><td class="num">${pr?(rent*100).toFixed(1)+'%':'—'}</td>${cells}</tr>`;
+    return `<tr><td>${enCart?'<b>':''}${c.nombre}${enCart?'</b>':''} <span class="muted" style="font-size:10px">${t}</span></td><td class="num">${fmt(pr)}</td><td class="num"><input type="number" step="0.001" class="anaInp" style="width:80px;text-align:right" data-caldiv="${c.id}" value="${dbruto?dbruto.toFixed(3):''}"></td><td class="num">${pr?(rent*100).toFixed(1)+'%':'—'}</td>${cells}</tr>`;
   }).join('');
   const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso estimado (cartera)</td><td></td><td></td><td class="num">${fmt(ingAnual)}</td>${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${ingRow}</tbody></table>`;
   const mejorMes=ingMes.indexOf(Math.max(...ingMes));
   $('#calKpis').innerHTML=[
     ['Empresas en calendario',String(cal.length)],
-    ['Ingreso neto estimado/año',fmt(ingAnual)],
+    ['Ingreso bruto estimado/año',fmt(ingAnual)],
     ['Media mensual',fmt(ingAnual/12)],
     ['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']
   ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
@@ -1786,7 +1786,7 @@ function renderRanking(){
   const _pi=rows.filter(r=>r.pesoDiv>0).map((r,i)=>({label:r.ticker,val:r.pesoDiv,color:_pal[i%_pal.length]}));
   const _rp=$('#rankPie'); if(_rp) _rp.innerHTML=_pi.length?(pieSVG(_pi)+'<div style="font-size:12px;display:grid;grid-template-columns:repeat(2,auto);gap:3px 16px">'+_pi.map(it=>`<div><span style="display:inline-block;width:10px;height:10px;background:${it.color};border-radius:2px;margin-right:6px"></span>${it.label} <b>${(it.val*100).toFixed(1)}%</b></div>`).join('')+'</div>'):'';
   $('#rankKpis').innerHTML=[['Dividendo bruto/año',fmt(T.divAno)],['YoC cartera',pct(T.cost?T.divAno/T.cost:0)],['RPD actual',pct(T.valor?T.divAno/T.valor:0)],['Dividendos cobrados (total)',fmt(T.cobr)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',8,12),0);
+  const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',7,10),0);
 }
 function renderPrevision(){
   const el=$('#prevTabla'); if(!el)return;
@@ -1848,7 +1848,7 @@ function renderSimulador(){
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
+      const accCell=`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
       const divCell=`<input type="number" step="0.001" class="anaInp" style="width:54px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
@@ -1948,9 +1948,9 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], pat:[['patrimonio','Patrimonio'],['proyeccion','Proyección']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
-const groupCurrent={mov:'movimientos', inv:'inversiones'};
+const groupCurrent={mov:'movimientos', pat:'patrimonio', inv:'inversiones'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
@@ -1960,7 +1960,7 @@ function activarVista(view){
   $$('#nav button').forEach(x=>x.classList.toggle('active', g ? (x.dataset.group===g) : (x.dataset.view===view)));
   if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
   if(view==='calendario'){ setTimeout(()=>autoFitTable('calTabla',7,11),120); setTimeout(()=>autoFitTable('calEventos',7,11),140); }
-  if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',8,12),120);
+  if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',7,10),120);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',8,12),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
   if(view==='patrimonio') renderPat();
@@ -2086,9 +2086,9 @@ if($('#btnRestore'))$('#btnRestore').addEventListener('click',()=>bkf.click());
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
-window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',8,12); });
+window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',7,10); });
 $('#calTabla').addEventListener('click',e=>{ const m=e.target.closest('[data-calm]'); if(m){ const c=(DB.calendario||[]).find(x=>x.id===m.dataset.calm); if(c){ const i=+m.dataset.mi; c.meses[i]=c.meses[i]?0:1; saveNow(); renderCalendario(); } } });
-$('#calTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ c.divNeto=num(d.value); saveNow(); renderCalendario(); } } });
+$('#calTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ const t=(c.ticker||'').toUpperCase(); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(d.value); saveNow(); renderInv(); renderCalendario(); } } });
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
 $('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
