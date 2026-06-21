@@ -1413,13 +1413,14 @@ function renderFicha(t){
   const savedUrl=(((DB.valores||{})[fichaTicker]||{}).urlInvesting||'').trim();
   const invUrl=savedUrl||('https://es.investing.com/search/?q='+encodeURIComponent(f.nombre||f.t));
   const tt=f.tot;
-  const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
-  const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
-  const rendByYear={}; f.divYears.forEach(g=>{rendByYear[g.year]=g.rend;});
-  let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción</div><div>${fmt(g.divShareSum)}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return ''; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
-  $('#fichaView').innerHTML=`
+  const hasOps=(DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===fichaTicker);
+  let cerr=(DB.cerradas||[]).find(c=>(c.ticker||'').toUpperCase()===fichaTicker);
+  if(!cerr){ try{ cerr=invClosedComputed().find(c=>c.ticker===fichaTicker); }catch(e){} }
+  const isClosed=!!cerr;
+  // cabecera + URL externa
+  const header=`
    <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-     <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}</div></div>
+     <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}${isClosed?' · <span style=\"color:#b45309\">Posición cerrada</span>':''}</div></div>
      <div style="flex:1"></div>
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
      <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
@@ -1430,24 +1431,50 @@ function renderFicha(t){
      <input id="finvUrl" class="anaInp" style="flex:1;min-width:260px" placeholder="https://es.investing.com/equities/..." value="${savedUrl}">
      <button class="btn" id="finvVal">Validar</button>
      <span class="muted" style="font-size:11px">${savedUrl?'Enlace propio guardado ✓':'Usando búsqueda genérica'}</span>
-   </div>
-   <div class="cards" style="margin-top:14px">
-     <div class="card"><div class="lbl">Valor</div><div class="val">${fmt(tt.valor)}</div><div class="sub">coste ${fmt(tt.coste)}</div></div>
-     <div class="card"><div class="lbl">Plusvalía latente</div><div class="val ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</div></div>
-     <div class="card"><div class="lbl">Dividendos cobrados</div><div class="val pos">${fmt(tt.div)}</div></div>
-     <div class="card"><div class="lbl">Rentabilidad total</div><div class="val ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</div><div class="sub">plusvalía + dividendos</div></div>
-     <div class="card"><div class="lbl">Precio neto medio</div><div class="val">${fmt(tt.netoMedio)}</div><div class="sub">coste − dividendos/acción</div></div>
-   </div>
-   <h3>Lotes</h3>
-   <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
-   ${f.lotes.length?'':'<div class="empty">Sin lotes en cartera (empresa solo en seguimiento).</div>'}
-   <h3>Histórico de dividendos</h3>
+   </div>`;
+  // bloque central: cerrada -> resumen; abierta -> valoración + lotes
+  let mid='';
+  if(isClosed){
+    const neto=cerr.venta-cerr.coste+cerr.dividendos, rent=cerr.coste?neto/cerr.coste:0;
+    mid=`<div class="card" style="margin-top:14px;border-left:4px solid var(--brand)"><div style="font-weight:700;margin-bottom:8px">Resultado de la posición · ${cerr.fechaCompra?ddmmyyyy(cerr.fechaCompra):'—'} → ${cerr.fechaVenta?ddmmyyyy(cerr.fechaVenta):'—'}</div><div class="cards">
+      <div class="card"><div class="lbl">Acciones</div><div class="val">${cerr.acciones}</div></div>
+      <div class="card"><div class="lbl">Coste</div><div class="val">${fmt(cerr.coste)}</div></div>
+      <div class="card"><div class="lbl">Venta</div><div class="val">${fmt(cerr.venta)}</div></div>
+      <div class="card"><div class="lbl">Dividendos</div><div class="val pos">${fmt(cerr.dividendos)}</div></div>
+      <div class="card"><div class="lbl">P/G neta</div><div class="val ${neto>=0?'pos':'neg'}">${neto>=0?'+':''}${fmt(neto)}</div><div class="sub">venta − coste + dividendos</div></div>
+      <div class="card"><div class="lbl">Rentabilidad</div><div class="val ${rent>=0?'pos':'neg'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</div></div>
+    </div></div>`;
+  } else {
+    const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
+    const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
+    mid=`<div class="cards" style="margin-top:14px">
+       <div class="card"><div class="lbl">Valor</div><div class="val">${fmt(tt.valor)}</div><div class="sub">coste ${fmt(tt.coste)}</div></div>
+       <div class="card"><div class="lbl">Plusvalía latente</div><div class="val ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</div></div>
+       <div class="card"><div class="lbl">Dividendos cobrados</div><div class="val pos">${fmt(tt.div)}</div></div>
+       <div class="card"><div class="lbl">Rentabilidad total</div><div class="val ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</div><div class="sub">plusvalía + dividendos</div></div>
+       <div class="card"><div class="lbl">Precio neto medio</div><div class="val">${fmt(tt.netoMedio)}</div><div class="sub">coste − dividendos/acción</div></div>
+     </div>
+     <h3>Lotes</h3>
+     <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
+     ${f.lotes.length?'':'<div class="empty">Sin lotes en cartera (empresa solo en seguimiento).</div>'}`;
+  }
+  // dividendos
+  const rendByYear={}; f.divYears.forEach(g=>{rendByYear[g.year]=g.rend;});
+  let divTable;
+  if(hasOps){
+    let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción</div><div>${fmt(g.divShareSum)}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return ''; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
+    divTable=`<div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+  } else {
+    let divBodyS=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBodyS+='<tr>'; if(i===0){ divBodyS+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción año</div><div>${fmt(g.divShareSum)}</div></td>`; } divBodyS+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
+    divTable=`<div class="sub" style="margin-bottom:6px">Posición sin lotes detallados: se muestra el dividendo por acción registrado.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th></th></tr></thead><tbody>${divBodyS||'<tr><td colspan="4" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+  }
+  const divSection=`<h3>Histórico de dividendos</h3>
    <div class="card" style="margin-bottom:10px"><div class="patgrid">
      <label>Fecha<input type="date" id="fdivFecha"></label>
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
-   </div></div>
-   <div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+   </div></div>${divTable}`;
+  $('#fichaView').innerHTML=header+mid+divSection;
   document.title='Ficha '+f.t;
 }
 function validarUrlInv(){
@@ -1541,9 +1568,12 @@ function renderDividendos(){
   let foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td>${cols.map(t=>`<td class="num">${fmt(totT[t])}</td>`).join('')}<td class="num">${fmt(grand)}</td></tr>`;
   $('#divMatrixWrap').innerHTML=cols.length?`<table>${head}${body}${foot}</table>`:'<div class="empty">Sin dividendos registrados todavía.</div>';
   // RESUMEN ANUAL
+  const compY={},ventY={};
+  ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(!y)return; const amt=num(o.acciones)*num(o.precio); if(o.tipo==='venta') ventY[y]=(ventY[y]||0)+amt; else compY[y]=(compY[y]||0)+amt; });
+  (DB.cerradas||[]).forEach(c=>{ const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc) compY[yc]=(compY[yc]||0)+num(c.coste); if(yv) ventY[yv]=(ventY[yv]||0)+num(c.venta); });
+  const ry=[...new Set([...years,...Object.keys(compY),...Object.keys(ventY)])].sort();
   let cumInv=0,cumCom=0; const rs=[];
-  years.forEach(y=>{ const comp=ops.filter(o=>o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y).reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
-    const vent=ops.filter(o=>o.tipo==='venta'&&(o.fecha||'').slice(0,4)===y).reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+  ry.forEach(y=>{ const comp=compY[y]||0, vent=ventY[y]||0;
     cumCom+=comp; cumInv+=comp-vent; const divB=totYear[y]||0, divN=divB*0.81;
     rs.push({y,comp,vent,cumInv,cumCom,divB,divN,rInv:cumInv>0?divB/cumInv:0,rCom:cumCom>0?divB/cumCom:0}); });
   const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">Coste compras</th><th class="num">Div. bruto</th><th class="num">Div. neto</th><th class="num">% s/ invertido</th><th class="num">% s/ coste</th></tr>';
