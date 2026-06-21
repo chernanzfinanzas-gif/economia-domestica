@@ -1743,7 +1743,11 @@ function renderPrevision(){
   let tickers=[...set].filter(Boolean);
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Importa «divporaccion-historico.json» o pulsa «+ Empresa».</div>'; return; }
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  tickers.sort((x,y)=> Object.values(dpa[y]||{}).reduce((s,v)=>s+num(v),0)-Object.values(dpa[x]||{}).reduce((s,v)=>s+num(v),0) || x.localeCompare(y));
+  const _held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)_held.add((p.ticker||'').toUpperCase()); });
+  const _closed=new Set((DB.cerradas||[]).map(c=>(c.ticker||'').toUpperCase())); try{ invClosedComputed().forEach(c=>_closed.add(c.ticker)); }catch(e){}
+  const _grp=t=> _held.has(t)?0:(_closed.has(t)?1:2);
+  const _tot=t=>Object.values(dpa[t]||{}).reduce((s,v)=>s+num(v),0);
+  tickers.sort((x,y)=> _grp(x)-_grp(y) || _tot(y)-_tot(x) || x.localeCompare(y));
   const nowY=new Date().getFullYear(); const y0=2011, y1=Math.max(2030,nowY+3); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'</tr>';
   const body=[...years].reverse().map(y=>{ const fut=y>nowY;
