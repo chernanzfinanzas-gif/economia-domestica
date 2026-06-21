@@ -1392,7 +1392,8 @@ function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
   ((DB.dividendos||{})[fichaTicker]||[]).forEach(x=>{ if(!x.id) x.id='d'+Math.random().toString(36).slice(2,9); });
   const f=fichaCalc(fichaTicker);
-  const invUrl='https://es.investing.com/search/?q='+encodeURIComponent(f.nombre||f.t);
+  const savedUrl=(((DB.valores||{})[fichaTicker]||{}).urlInvesting||'').trim();
+  const invUrl=savedUrl||('https://es.investing.com/search/?q='+encodeURIComponent(f.nombre||f.t));
   const tt=f.tot;
   const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
   const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
@@ -1403,8 +1404,14 @@ function renderFicha(t){
      <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}</div></div>
      <div style="flex:1"></div>
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
-     <a class="btn" href="${invUrl}" target="_blank" rel="noopener">Ver en investing.com</a>
+     <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
      <button class="btn ghost" onclick="window.close()">Cerrar</button>
+   </div>
+   <div class="card" style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+     <span class="muted" style="font-size:12px;white-space:nowrap">URL ficha externa:</span>
+     <input id="finvUrl" class="anaInp" style="flex:1;min-width:260px" placeholder="https://es.investing.com/equities/..." value="${savedUrl}">
+     <button class="btn" id="finvVal">Validar</button>
+     <span class="muted" style="font-size:11px">${savedUrl?'Enlace propio guardado ✓':'Usando búsqueda genérica'}</span>
    </div>
    <div class="cards" style="margin-top:14px">
      <div class="card"><div class="lbl">Valor</div><div class="val">${fmt(tt.valor)}</div><div class="sub">coste ${fmt(tt.coste)}</div></div>
@@ -1424,6 +1431,14 @@ function renderFicha(t){
    </div></div>
    <div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
   document.title='Ficha '+f.t;
+}
+function validarUrlInv(){
+  const u=($('#finvUrl').value||'').trim();
+  if(u && !/^https?:\/\//i.test(u)){ alert('La URL debe empezar por http:// o https://'); return; }
+  DB.valores=DB.valores||{}; DB.valores[fichaTicker]=DB.valores[fichaTicker]||{};
+  if(u){ DB.valores[fichaTicker].urlInvesting=u; } else { delete DB.valores[fichaTicker].urlInvesting; }
+  saveNow(); renderFicha(fichaTicker);
+  alert(u?'Enlace guardado. La ficha usará esta URL.':'Enlace borrado. Se vuelve a la búsqueda genérica.');
 }
 function addFichaDiv(){
   const fch=$('#fdivFecha').value, imp=num($('#fdivImp').value);
@@ -1583,7 +1598,7 @@ const invf=document.createElement('input'); invf.type='file'; invf.accept='.json
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
-$('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
+$('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
 const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
 prf.addEventListener('change',()=>{const f=prf.files[0];if(!f)return; importPresupuesto(f); prf.value='';});
