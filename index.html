@@ -113,7 +113,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
   #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:2px 5px}
   #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
-  #simTabla table{font-size:11px} #simTabla th,#simTabla td{padding:2px 3px;text-align:center;vertical-align:top} #simTabla th:first-child,#simTabla td:first-child{text-align:left}
+  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 2px} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
 </style>
 </head>
@@ -1804,8 +1804,8 @@ function renderSimulador(){
   const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}${y>nowY?' <span class="muted" style="font-size:9px">prev</span>':''}</th>`).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const div=num((dpa[t]||{})[y]||0); const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:52px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
-      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:52px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${div?div.toFixed(3):''}">`;
+      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:48px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
+      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:48px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${div?div.toFixed(3):''}">`;
       return `<td style="${y>nowY?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--muted)">acc</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px">div</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${imp?fmt(imp):'·'}</div></td>`;
     }).join('');
     return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}</tr>`;
@@ -1813,7 +1813,7 @@ function renderSimulador(){
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
   el.innerHTML=`<table>${head}${body}${totRow}</table>`;
   $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,11),0);
+  const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
 }
 function addSimEmpresa(){
   const tk=(prompt('Ticker de la empresa nueva:')||'').trim().toUpperCase(); if(!tk)return;
@@ -1880,7 +1880,7 @@ function activarVista(view){
   if(view==='calendario') setTimeout(()=>autoFitTable('calTabla',7,11),120);
   if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',8,12),120);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',8,12),120);
-  if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,11),120);
+  if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
 }
