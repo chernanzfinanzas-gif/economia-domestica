@@ -113,7 +113,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
   #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:2px 5px}
   #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
-  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 2px} #simTabla .pos{font-size:10px}
+  #simTabla table{font-size:10px;border-collapse:collapse} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
 </style>
 </head>
@@ -140,6 +140,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </div>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
+    <button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button>
+    <button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
   </div>
 </header>
@@ -592,7 +594,7 @@ async function saveNow(){
 }
 
 async function startSession(){
-  $('#btnLogout').style.display='inline-block';
+  $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
   setFileStatus('warn','Cargando…');
   try{
     const data=await driveLoad();
@@ -623,7 +625,7 @@ let curYear, curMonth;
 
 function afterLoad(){
   $('#welcome').style.display='none';
-  $('#btnLogout').style.display='inline-block';
+  $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
   $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-panel'));
   $$('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view==='panel'));
   // migración: asegurar año en cada entrada de presupuesto
@@ -1813,16 +1815,16 @@ function renderSimulador(){
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:46px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
+      const accCell=(past&&real)?`<div>${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(real?sh:'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
-      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:42px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
+      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:54px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
       return `<td style="${(y>nowY&&!conf[y])?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--muted)">acc</div>${accCell}<div style="font-size:8px;color:var(--muted);margin-top:1px">div</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
     }).join('');
     return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}</tr>`;
   }).join('');
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
-  const grRow='<tr style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
+  const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
   el.innerHTML=`<table>${head}${body}${totRow}${grRow}</table>`;
   $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
@@ -2007,6 +2009,11 @@ document.body.appendChild(af);
 const invf=document.createElement('input'); invf.type='file'; invf.accept='.json,application/json'; invf.id='invFile'; invf.style.display='none';
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);
+function descargarBackup(){ try{ const data=JSON.stringify(DB,null,2); const blob=new Blob([data],{type:'application/json'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); const d=new Date(); a.href=url; a.download='economia-backup-'+d.toISOString().slice(0,10)+'.json'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000); setFileStatus&&setFileStatus('ok','Copia descargada ✓'); }catch(e){ alert('No se pudo generar la copia: '+e); } }
+function restaurarBackup(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} if(!d||typeof d!=='object'||Array.isArray(d)){alert('Ese archivo no parece una copia de seguridad válida.');return;} if(!confirm('Vas a REEMPLAZAR todos los datos actuales por los de la copia. Esto no se puede deshacer.\n\n¿Continuar?'))return; DB=d; const p=saveNow(); if(p&&p.then){ p.then(()=>{ alert('Copia restaurada correctamente.'); location.reload(); }).catch(()=>{ alert('Restaurada en memoria, pero no se pudo guardar en Drive. Revisa la conexión.'); renderAll(); }); } else { renderAll(); alert('Copia restaurada.'); } }); }
+const bkf=document.createElement('input'); bkf.type='file'; bkf.accept='.json,application/json'; bkf.style.display='none'; bkf.addEventListener('change',e=>{ if(e.target.files[0]) restaurarBackup(e.target.files[0]); e.target.value=''; }); document.body.appendChild(bkf);
+if($('#btnBackup'))$('#btnBackup').addEventListener('click',descargarBackup);
+if($('#btnRestore'))$('#btnRestore').addEventListener('click',()=>bkf.click());
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
