@@ -339,7 +339,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <span class="muted" id="anaStatus"></span>
     </div>
     <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
-      <div class="sub" style="margin-bottom:6px">Pega <b>Ticker</b>, (opcional) <b>Nombre</b>, <b>Cotización</b> y (opcional) <b>Dividendo</b>, una por línea. Si la empresa no existe, se añade al seguimiento.</div>
+      <div class="sub" style="margin-bottom:6px">Pega <b>Nombre</b> · <b>Cotización</b> · <b>Dividendo bruto</b> (separados por tabulador), una por línea. La empresa se identifica por el nombre y se actualizan a la vez Análisis e Inversiones.</div>
       <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
       <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
     </div>
@@ -1379,26 +1379,42 @@ function anaSubmit(){
 function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
   $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaEnt').value=a.precioEntrada; $('#anaObj').value=a.precioObjetivo; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
   $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
+const NAME2TICK={"IBERDROLASA":"IBE","BANCOSANTANDERSA":"SAN","REPSOLSA":"REP","NATURGYENERGYGROUPSA":"NTGY","MAPFRESA":"MAP","ENDESASOCIEDADANONIMA":"ELE","ATRESMEDIACORPORACIONDEMEDIOSDECOMUNICACIONSA":"A3M","LOGISTAINTEGRALSA":"LOG","VISCOFANSA":"VIS","INDUSTRIADEDISENOTEXTILSA":"ITX","EBROFOODSSA":"EBRO","FAESFARMASA":"FAE","ACSACTIVIDADESDECONSTRUCCIONYSERVICIOSSA":"ACS","VIDRALASA":"VID","AENASMESA":"AENA","AMADEUSITGROUPSA":"AMS","REDEIACORPORACIONSA":"RED","CAIXABANKSA":"CABK","PRIMSA":"PRM","BANKINTERSA":"BKT","RENTA4BANCOSA":"R4","MIQUELYCOSTASMIQUELSA":"MCM","SACYRSA":"SCYR","FOMENTODECONSTRUCCIONESYCONTRATASSA":"FCC","ENAGASSA":"ENG","BANCOBILBAOVIZCAYAARGENTARIASA":"BBVA","UNICAJABANCOSA":"UNI","ACCIONASA":"ANA","TELEFONICASA":"TEF","ACERINOXSA":"ACX","AIRBUSSE":"AIR","FERROVIALNV":"FER","ARCELORMITTALSA":"MTS","INTERNATIONALCONSOLIDATEDAIRLINESGROUPSA":"IAG","INDRASISTEMASSA":"IDR","CORPORACIONACCIONAENERGIASRENOVABLESSA":"ANE","GRIFOLSSA":"GRF","CIEAUTOMOTIVESOCIEDADANONIMA":"CIE","LABORATORIOSFARMACEUTICOSROVISA":"ROVI","COLONIALSFLSOCIMISA":"COL","ALMIRALLSA":"ALM","PUIGBRANDSSA":"PUIG","APERAMSA":"APAM.AS","GRENERGYRENOVABLESSA":"GRE","TECNICASREUNIDASSA":"TRE","SOLARIAENERGIAYMEDIOAMBIENTESA":"SLR","ELECNORSA":"ENO","CONSTRUCCIONESYAUXILIARDEFERROCARRILESSA":"CAF","MAKINGSCIENCEGROUPSA":"MAKS","NEINORHOMESSA":"HOME","GESTAMPAUTOMOCIONSA":"GEST","MELIAHOTELSINTERNATIONALSA":"MEL","LLEIDANETWORKSSERVEISTELEMATICSSA":"LLN","REALIABUSINESSSA":"RLIA","COMPANIAESPANOLADEVIVIENDASENALQUILERSA":"CEV","METROVACESASOCIEDADANONIMA":"MVC","PHARMAMARSA":"PHM","PROSEGURCOMPANIADESEGURIDADSA":"PSG","ARTECHELANTEGIELKARTEASOCIEDADANONIMA":"ART","ECOENERSA":"ECO","LINEADIRECTAASEGURADORASACOMPANIADESEGUROSYREASEGUROS":"LDA","AEDASHOMESSA":"AEDAS","COXABGGROUPSA":"COXG","AUDAXRENOVABLESSA":"ADX","ENCEENERGIAYCELULOSASA":"ENC","GRUPOEMPRESARIALSANJOSESA":"GSJ","OBRASCONHUARTELAINSA":"OHLA","PROMOTORADEINFORMACIONESSA":"PRS","GIGASHOSTINGSA":"GIGA","TUBACEXSA":"TUB","AMPERSA":"AMP","NUEVAEXPRESIONTEXTILSA":"NXT","TALGOSA":"TLGO","ALANTRAPARTNERSSA":"ALNT","ERCROSSA":"ECR","BERKELEYENERGIALIMITED":"BKY","AZKOYENSA":"AZK","LABORATORIOREIGJOFRESA":"RJF","ARIMAREALESTATESOCIMISA":"ARM","AIRTIFICIALINTELLIGENCESTRUCTURESSA":"AI","NICOLASCORREASA":"NEA","DEOLEOSA":"OLE","VOCENTOSA":"VOC","TUBOSREUNIDOSSA":"TRG","LINGOTESESPECIALESSA":"LGT","ADOLFODOMINGUEZSA":"ADZ","GRUPOEZENTISSA":"EZE","RENTACORPORACIONREALESTATESA":"REN","BODEGASRIOJANASSOCIEDADANONIMA":"RIO","PESCANOVASA":"PVA","COCACOLAEUROPACIFICPARTNERSPLC":"CCEP","NYESAVALORESCORPORACIONSA":"NYE","SECUOYAGRUPODECOMUNICACIONSA":"SEC","URBASGRUPOFINANCIEROSA":"UBS"};
+function anaNorm(s){ return (s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+function anaFindTicker(nombre){
+  const k=anaNorm(nombre); if(!k) return '';
+  if(NAME2TICK[k]) return NAME2TICK[k];
+  let hit=null;
+  (DB.analisis||[]).forEach(a=>{ if(a.nombre&&anaNorm(a.nombre)===k)hit=a.ticker; });
+  if(hit) return hit.toUpperCase();
+  Object.keys(DB.valores||{}).forEach(t=>{ const v=DB.valores[t]; if(v&&v.nombre&&anaNorm(v.nombre)===k)hit=t; });
+  if(hit) return hit.toUpperCase();
+  let best=''; Object.keys(NAME2TICK).forEach(kk=>{ if(kk.length>=5 && (k.indexOf(kk)===0||kk.indexOf(k)===0)){ if(kk.length>best.length)best=kk; } });
+  if(best) return NAME2TICK[best];
+  return k.slice(0,4);
+}
 function aplicarAnaPaste(){
   const txt=$('#anaPasteTxt').value||''; if(!txt.trim()){alert('Pega los datos primero.');return;}
-  const norm=s=>(s||'').toString().trim().toUpperCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
-  DB.analisis=DB.analisis||[]; const byTick={}; DB.analisis.forEach(a=>{if(a.ticker)byTick[norm(a.ticker)]=a;});
-  const valByTick={}, valByName={}; Object.keys(DB.valores||{}).forEach(t=>{valByTick[norm(t)]=t; const v=DB.valores[t]; if(v&&v.nombre)valByName[norm(v.nombre)]=t;});
-  let upd=0,add=0;
-  txt.split(/\r?\n/).forEach(line=>{ line=line.trim(); if(!line)return;
-    let cols=line.split(/[\t;]+/); if(cols.length<2)cols=line.split(/\s+/); cols=cols.map(x=>x.trim()).filter(Boolean);
-    if(cols.length<2)return;
-    const tk=cols[0].toUpperCase(), nid=norm(cols[0]); let nombre='', nums=[];
-    for(let i=1;i<cols.length;i++){ if(/^[+-]?[\d.,]+$/.test(cols[i])) nums.push(parseNumES(cols[i])); else if(!nombre) nombre=cols[i]; }
-    if(!nums.length && !nombre) return;
-    const precio=nums.length>0?nums[0]:NaN, div=nums.length>1?nums[1]:NaN;
-    let a=byTick[nid];
-    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; if(nombre&&(!a.nombre||a.nombre===a.ticker))a.nombre=nombre; upd++; }
-    else { a={id:uid(),ticker:tk,nombre:nombre||tk,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); byTick[nid]=a; add++; }
-    const vt=valByTick[nid]||valByName[nid]; if(vt){ const v=DB.valores[vt]; if(!isNaN(precio))v.precioActual=precio; if(!isNaN(div))v.divAccion=div; }
+  DB.analisis=DB.analisis||[]; DB.valores=DB.valores||{};
+  const anaByTick={}; DB.analisis.forEach(a=>{ if(a.ticker)anaByTick[a.ticker.toUpperCase()]=a; });
+  let upd=0,add=0,bad=0;
+  txt.split(/\r?\n/).forEach(line=>{ if(!line.trim())return;
+    let cols=line.split('\t'); if(cols.length<2) cols=line.split(/\t|\s{2,}|;/);
+    cols=cols.map(c=>c.trim());
+    const nombre=cols[0]||''; if(!nombre){bad++;return;}
+    const precio=parseNumES(cols[1]||''); const div=parseNumES(cols[2]||'');
+    if(isNaN(precio)&&isNaN(div)){bad++;return;}
+    const t=anaFindTicker(nombre).toUpperCase();
+    const v=DB.valores[t]=DB.valores[t]||{}; v.nombre=nombre;
+    if(!isNaN(precio)) v.precioActual=precio;
+    if(!isNaN(div)) v.divAccion=div;
+    let a=anaByTick[t];
+    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
+    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
   });
-  renderAnalisis(); renderInv(); scheduleSave(); $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
-  setAnaStatus('Actualizadas '+upd+', añadidas '+add+'.');
+  renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); scheduleSave();
+  $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
+  setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
 }
 let fichaTicker=null;
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
