@@ -120,6 +120,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="amalia">Amalia</button>
     <button data-view="inversiones">Inversiones</button>
     <button data-view="analisis">Análisis</button>
+    <button data-view="dividendos">Dividendos</button>
   </nav>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
@@ -306,6 +307,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <button type="button" class="btn ghost" id="invCancel">Cancelar</button></div>
     </form>
     <div id="invTable" style="overflow:auto"></div>
+    <div id="invClosed"></div>
     <div id="invOpsPanel" class="card" style="display:none;margin-top:14px">
       <div style="font-weight:700;margin-bottom:8px" id="invOpsTitle">Operaciones</div>
       <div class="patgrid" id="invOpsMeta"></div>
@@ -351,6 +353,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <button type="button" class="btn ghost" id="anaCancel">Cancelar</button></div>
     </form>
     <div id="anaTable" style="overflow:auto"></div>
+  </section>
+
+  <section class="view" id="view-dividendos">
+    <h2>Dividendos y rentabilidad de la cartera</h2>
+    <div class="cards" id="divKpis"></div>
+    <h3>Dividendos cobrados por empresa y año</h3>
+    <div class="sub" style="margin-bottom:6px">Calculado con tus operaciones y el histórico de dividendos por acción. Importes brutos en €.</div>
+    <div style="overflow:auto" id="divMatrixWrap"></div>
+    <h3>Resumen anual de la cartera</h3>
+    <div class="sub" style="margin-bottom:6px">Invertido = acumulado de compras − ventas. Div. neto = bruto − 19% retención. % calculado sobre el dividendo bruto del año.</div>
+    <div style="overflow:auto" id="divResumenWrap"></div>
   </section>
 
 </main>
@@ -576,6 +589,8 @@ function afterLoad(){
   DB.valores = DB.valores||{};
   DB.analisis = DB.analisis||[];
   DB.dividendos = DB.dividendos||{};
+  DB.divIngresos = DB.divIngresos||{};
+  DB.cerradas = DB.cerradas||[];
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1193,7 +1208,7 @@ function renderInv(){
     {l:'Plusvalía',v:(pl>=0?'+':'')+fmt(pl),cls:pl>=0?'pos':'neg',s:(plpct>=0?'+':'')+plpct.toFixed(1)+'%'},
     {l:'Dividendos/año (bruto)',v:fmt(divAnual),cls:'',s:(valor?(divAnual/valor*100).toFixed(1):0)+'% RPD'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
-  if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones. Pulsa «+ Posición» o importa tu cartera.</div>'; return; }
+  if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; renderInvClosed(); return; }
   const byCart={}; all.forEach(p=>{(byCart[p.cartera]=byCart[p.cartera]||[]).push(p);});
   const ordered=Object.keys(byCart).sort((a,b)=>a==='Propia'?-1:b==='Propia'?1:a.localeCompare(b));
   const head='<tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">P.Actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th><th class="num">Div/acc</th><th class="num">Div/año</th><th class="num">RPD</th><th class="num">YoC</th><th></th></tr>';
@@ -1209,6 +1224,7 @@ function renderInv(){
     html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
   });
   $('#invTable').innerHTML=html;
+  renderInvClosed();
 }
 function renderInvOps(){
   const panel=$('#invOpsPanel'); if(!panel) return;
@@ -1279,6 +1295,8 @@ function aplicarPreciosPegados(){
   if(okP||okD){ $('#invPasteTxt').value=''; $('#invPastePanel').style.display='none'; }
 }
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+  if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
+  if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
   let _divMap=null;
   if(d && d.dividendos){ _divMap=d.dividendos; }
   else if(d && !Array.isArray(d) && !d.operaciones && !d.valores && !d.inversiones){ const ks=Object.keys(d); if(ks.length && ks.every(k=>Array.isArray(d[k]) && (d[k].length===0 || (d[k][0] && ('importe' in d[k][0]))))) _divMap=d; }
@@ -1446,7 +1464,93 @@ function addFichaDiv(){
   DB.dividendos=DB.dividendos||{}; DB.dividendos[fichaTicker]=DB.dividendos[fichaTicker]||[];
   DB.dividendos[fichaTicker].push({fecha:fch,importe:imp,id:'d'+Math.random().toString(36).slice(2,9)}); saveNow(); renderFicha(fichaTicker);
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); }
+function invClosedComputed(){
+  const ops=DB.operaciones||[]; const res=[];
+  [...new Set(ops.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))].forEach(t=>{
+    const tops=ops.filter(o=>(o.ticker||'').toUpperCase()===t);
+    const buys=tops.filter(o=>o.tipo!=='venta'), sells=tops.filter(o=>o.tipo==='venta');
+    const bSh=buys.reduce((s,o)=>s+num(o.acciones),0), sSh=sells.reduce((s,o)=>s+num(o.acciones),0);
+    if(sSh>0.0001 && Math.abs(bSh-sSh)<0.0001){
+      const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+      const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+      const td=((DB.dividendos||{})[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+      let div=0; td.forEach(d=>{ const acc=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); div+=acc*num(d.importe); });
+      res.push({ticker:t,nombre:((DB.valores||{})[t]||{}).nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',acciones:bSh,coste,venta,dividendos:div,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||''});
+    }
+  });
+  return res;
+}
+function renderInvClosed(){
+  const el=$('#invClosed'); if(!el)return;
+  const stored=(DB.cerradas||[]).map(c=>Object.assign({},c));
+  const storedT=new Set(stored.map(c=>(c.ticker||'').toUpperCase()));
+  const comp=invClosedComputed().filter(c=>!storedT.has(c.ticker));
+  const lst=[...stored,...comp].sort((a,b)=>(b.fechaVenta||'').localeCompare(a.fechaVenta||''));
+  if(!lst.length){ el.innerHTML=''; return; }
+  const fdate=x=>x?ddmmyyyy(x):'—';
+  let sC=0,sV=0,sD=0;
+  const rows=lst.map(p=>{
+    const pc=p.acciones?p.coste/p.acciones:0, pv=p.acciones?p.venta/p.acciones:0;
+    const neto=p.venta-p.coste+p.dividendos, rent=p.coste?neto/p.coste:0;
+    sC+=p.coste; sV+=p.venta; sD+=p.dividendos;
+    return `<tr><td><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(pc)}</td><td class="num">${fmt(p.coste)}</td><td class="num">${fmt(pv)}</td><td class="num">${fmt(p.venta)}</td><td class="num pos">${fmt(p.dividendos)}</td><td class="num ${neto>=0?'pos':'neg'}">${neto>=0?'+':''}${fmt(neto)}</td><td class="num ${rent>=0?'pos':'neg'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td class="muted" style="font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td></tr>`;
+  }).join('');
+  const netoT=sV-sC+sD, rentT=sC?netoT/sC:0;
+  const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td></td><td></td><td class="num">${fmt(sC)}</td><td></td><td class="num">${fmt(sV)}</td><td class="num pos">${fmt(sD)}</td><td class="num ${netoT>=0?'pos':'neg'}">${netoT>=0?'+':''}${fmt(netoT)}</td><td class="num ${rentT>=0?'pos':'neg'}">${(rentT>=0?'+':'')+(rentT*100).toFixed(1)+'%'}</td><td></td></tr>`;
+  const head='<tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">Coste</th><th class="num">P.Venta</th><th class="num">Venta</th><th class="num">Dividendos</th><th class="num">P/G neta</th><th class="num">Rent.</th><th>Periodo</th></tr>';
+  el.innerHTML=`<h3 style="margin-top:22px">Posiciones cerradas <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} · resultado neto incluye dividendos</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+}
+function renderDividendos(){
+  const ops=(DB.operaciones||[]).slice();
+  const divs=DB.dividendos||{}; const valores=DB.valores||{};
+  const divIng=DB.divIngresos||{};
+  const opTickers=new Set(ops.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean));
+  const tickers=[...new Set([...Object.keys(divs), ...opTickers, ...Object.keys(divIng)])].filter(Boolean);
+  const byTY={}; const yearsSet=new Set();
+  tickers.forEach(t=>{
+    byTY[t]={};
+    if(opTickers.has(t)){
+      const tops=ops.filter(o=>(o.ticker||'').toUpperCase()===t);
+      const td=(divs[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+      td.forEach(d=>{ const y=(d.fecha||'').slice(0,4); if(!y)return;
+        const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0);
+        byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });
+    } else if(divIng[t]){
+      Object.keys(divIng[t]).forEach(y=>{ byTY[t][y]=num(divIng[t][y]); yearsSet.add(y); });
+    }
+  });
+  ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(y)yearsSet.add(y); });
+  const years=[...yearsSet].sort();
+  const totT={}; tickers.forEach(t=>{ totT[t]=Object.values(byTY[t]).reduce((s,x)=>s+x,0); });
+  const cols=tickers.filter(t=>totT[t]>0).sort((a,b)=>totT[b]-totT[a]);
+  const nm=t=>(valores[t]&&valores[t].nombre)?valores[t].nombre:t;
+  const totYear={}; years.forEach(y=>{ totYear[y]=cols.reduce((s,t)=>s+(byTY[t][y]||0),0); });
+  const grand=cols.reduce((s,t)=>s+totT[t],0);
+  // KPIs
+  const ultimo=years.filter(y=>totYear[y]>0).slice(-1)[0]||'—';
+  const kpis=[
+    ['Total cobrado (bruto)',fmt(grand)],
+    ['Total neto (−19%)',fmt(grand*0.81)],
+    ['Cobrado '+ultimo, ultimo==='—'?'—':fmt(totYear[ultimo]||0)],
+    ['Empresas que pagan', String(cols.length)]
+  ];
+  $('#divKpis').innerHTML=kpis.map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  // MATRIZ (años desc)
+  let head='<tr><th>Año</th>'+cols.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'<th class="num">TOTAL</th></tr>';
+  let body=''; [...years].reverse().forEach(y=>{ if(!totYear[y])return; const tds=cols.map(t=>{const v=byTY[t][y]||0; return `<td class="num">${v?fmt(v):'·'}</td>`;}).join(''); body+=`<tr><td>${y}</td>${tds}<td class="num" style="font-weight:700">${fmt(totYear[y])}</td></tr>`; });
+  let foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td>${cols.map(t=>`<td class="num">${fmt(totT[t])}</td>`).join('')}<td class="num">${fmt(grand)}</td></tr>`;
+  $('#divMatrixWrap').innerHTML=cols.length?`<table>${head}${body}${foot}</table>`:'<div class="empty">Sin dividendos registrados todavía.</div>';
+  // RESUMEN ANUAL
+  let cumInv=0,cumCom=0; const rs=[];
+  years.forEach(y=>{ const comp=ops.filter(o=>o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y).reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+    const vent=ops.filter(o=>o.tipo==='venta'&&(o.fecha||'').slice(0,4)===y).reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+    cumCom+=comp; cumInv+=comp-vent; const divB=totYear[y]||0, divN=divB*0.81;
+    rs.push({y,comp,vent,cumInv,cumCom,divB,divN,rInv:cumInv>0?divB/cumInv:0,rCom:cumCom>0?divB/cumCom:0}); });
+  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">Coste compras</th><th class="num">Div. bruto</th><th class="num">Div. neto</th><th class="num">% s/ invertido</th><th class="num">% s/ coste</th></tr>';
+  const rbody=[...rs].reverse().map(r=>`<tr><td>${r.y}</td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.cumInv)}</td><td class="num">${fmt(r.cumCom)}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td></tr>`).join('');
+  $('#divResumenWrap').innerHTML=rs.length?`<table>${rhead}${rbody}</table>`:'<div class="empty">Sin operaciones todavía.</div>';
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
