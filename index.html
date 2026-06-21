@@ -123,6 +123,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="inversiones">Inversiones</button>
     <button data-view="analisis">Análisis</button>
     <button data-view="dividendos">Dividendos</button>
+    <button data-view="calendario">Calendario</button>
   </nav>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
@@ -368,6 +369,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div style="overflow:auto" id="divResumenWrap"></div>
   </section>
 
+  <section class="view" id="view-calendario">
+    <h2>Calendario de dividendos</h2>
+    <div class="cards" id="calKpis"></div>
+    <div class="sub" style="margin-bottom:6px">Marca/desmarca los meses haciendo clic en la celda. El dividendo neto es editable. El ingreso estimado usa tus acciones en cartera repartiendo el dividendo entre sus meses de pago.</div>
+    <div style="overflow:auto" id="calTabla"></div>
+  </section>
+
 </main>
 <div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
 
@@ -594,6 +602,7 @@ function afterLoad(){
   DB.divIngresos = DB.divIngresos||{};
   DB.cerradas = DB.cerradas||[];
   DB.devolucionHacienda = DB.devolucionHacienda||{};
+  DB.calendario = DB.calendario||[];
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1302,6 +1311,7 @@ function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}
   if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
   if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({id:c.id||('c'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',ops:Array.isArray(c.ops)?c.ops.map(o=>({fecha:o.fecha||'',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})):null,divs:Array.isArray(c.divs)?c.divs.map(x=>({fecha:x.fecha,importe:num(x.importe)})):null,acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); renderDividendos(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
   if(d && d.devolucionHacienda){ DB.devolucionHacienda=DB.devolucionHacienda||{}; Object.keys(d.devolucionHacienda).forEach(y=>{ DB.devolucionHacienda[y]=num(d.devolucionHacienda[y]); }); renderDividendos(); saveNow(); alert('Importadas devoluciones de Hacienda de '+Object.keys(d.devolucionHacienda).length+' años.'); return; }
+  if(d && d.calendario){ DB.calendario=(d.calendario||[]).map(c=>({id:c.id||('k'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',precio:(c.precio==null?null:num(c.precio)),divNeto:(c.divNeto==null?null:num(c.divNeto)),meses:(Array.isArray(c.meses)?c.meses.map(x=>x?1:0):[0,0,0,0,0,0,0,0,0,0,0,0])})); renderCalendario(); saveNow(); alert('Importado calendario de '+DB.calendario.length+' empresas.'); return; }
   let _divMap=null;
   if(d && d.dividendos){ _divMap=d.dividendos; }
   else if(d && !Array.isArray(d) && !d.operaciones && !d.valores && !d.inversiones){ const ks=Object.keys(d); if(ks.length && ks.every(k=>Array.isArray(d[k]) && (d[k].length===0 || (d[k][0] && ('importe' in d[k][0]))))) _divMap=d; }
@@ -1631,7 +1641,34 @@ function renderDividendos(){
   $('#divResumenWrap').innerHTML=rs.length?`<table>${rhead}${rbody}</table>`:'<div class="empty">Sin operaciones todavía.</div>';
   const _vd=$('#view-dividendos'); if(_vd&&_vd.classList.contains('active')) setTimeout(fitDividendos,0);
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); }
+const MESES_ES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+function calPrecio(c){ const v=(DB.valores||{})[(c.ticker||'').toUpperCase()]; const p=v&&num(v.precioActual)>0?num(v.precioActual):(c.precio||0); return p; }
+function calSharesByTicker(){ const m={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001){ const t=(p.ticker||'').toUpperCase(); m[t]=(m[t]||0)+p.acciones; } }); return m; }
+function renderCalendario(){
+  const el=$('#calTabla'); if(!el)return;
+  const cal=(DB.calendario||[]).slice();
+  if(!cal.length){ el.innerHTML='<div class="empty">Sin calendario. Importa «calendario-historico.json» en Inversiones.</div>'; $('#calKpis').innerHTML=''; return; }
+  const shares=calSharesByTicker();
+  cal.sort((a,b)=>{ const ra=calPrecio(a)?(a.divNeto||0)/calPrecio(a):0, rb=calPrecio(b)?(b.divNeto||0)/calPrecio(b):0; return rb-ra; });
+  const ingMes=new Array(12).fill(0); let ingAnual=0;
+  cal.forEach(c=>{ const n=c.meses.reduce((s,x)=>s+(x?1:0),0); const sh=shares[(c.ticker||'').toUpperCase()]||0; if(sh>0 && n>0 && c.divNeto){ const porPago=c.divNeto*sh/n; c.meses.forEach((x,i)=>{ if(x){ ingMes[i]+=porPago; ingAnual+=porPago; } }); } });
+  let head='<tr><th>Empresa</th><th class="num">Precio</th><th class="num">Div neto</th><th class="num">Rent</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
+  let body=cal.map(c=>{ const t=(c.ticker||'').toUpperCase(); const p=calPrecio(t?c:c); const pr=calPrecio(c); const rent=pr?((c.divNeto||0)/pr):0; const enCart=(shares[t]||0)>0;
+    const cells=c.meses.map((x,i)=>`<td class="num calmes" data-calm="${c.id}" data-mi="${i}" style="cursor:pointer;${x?'background:#dcfce7;color:#166534;font-weight:700':''}">${x?'●':''}</td>`).join('');
+    return `<tr><td>${enCart?'<b>':''}${c.nombre}${enCart?'</b>':''} <span class="muted" style="font-size:10px">${t}</span></td><td class="num">${fmt(pr)}</td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:80px;text-align:right" data-caldiv="${c.id}" value="${c.divNeto!=null?c.divNeto:''}"></td><td class="num">${pr?(rent*100).toFixed(1)+'%':'—'}</td>${cells}</tr>`;
+  }).join('');
+  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso estimado (cartera)</td><td></td><td></td><td class="num">${fmt(ingAnual)}</td>${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${ingRow}</tbody></table>`;
+  const mejorMes=ingMes.indexOf(Math.max(...ingMes));
+  $('#calKpis').innerHTML=[
+    ['Empresas en calendario',String(cal.length)],
+    ['Ingreso neto estimado/año',fmt(ingAnual)],
+    ['Media mensual',fmt(ingAnual/12)],
+    ['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']
+  ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',8,12),0);
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderCalendario(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -1681,6 +1718,7 @@ $('#nav').addEventListener('click',e=>{
   $$('.view').forEach(v=>v.classList.remove('active'));
   $('#view-'+b.dataset.view).classList.add('active');
   if(b.dataset.view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,0);
+  if(b.dataset.view==='calendario'&&typeof autoFitTable==='function') setTimeout(()=>autoFitTable('calTabla',8,12),0);
   if(b.dataset.view==='patrimonio') renderPat();
   if(b.dataset.view==='proyeccion') renderProy();
 });
@@ -1786,6 +1824,8 @@ document.body.appendChild(invf);
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
+$('#calTabla').addEventListener('click',e=>{ const m=e.target.closest('[data-calm]'); if(m){ const c=(DB.calendario||[]).find(x=>x.id===m.dataset.calm); if(c){ const i=+m.dataset.mi; c.meses[i]=c.meses[i]?0:1; saveNow(); renderCalendario(); } } });
+$('#calTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ c.divNeto=num(d.value); saveNow(); renderCalendario(); } } });
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
 $('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
