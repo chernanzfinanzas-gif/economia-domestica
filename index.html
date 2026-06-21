@@ -481,7 +481,7 @@ function waitGoogle(){ return new Promise(res=>{ let n=0; const t=setInterval(()
 
 function initAuth(){
   tokenClient=google.accounts.oauth2.initTokenClient({
-    client_id:GD.clientId, scope:SCOPE,
+    client_id:GD.clientId, scope:SCOPE, login_hint:'carlos220271@gmail.com',
     callback:(resp)=>{ if(resp&&resp.access_token){ accessToken=resp.access_token; if(_res){_res(resp.access_token);_res=_rej=null;} } },
     error_callback:(err)=>{ if(_rej){_rej(err);_res=_rej=null;} }
   });
