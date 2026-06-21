@@ -28,6 +28,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .logo .logo-img{height:52px;width:auto;display:block}
   nav{display:flex;gap:4px}
   nav button{background:none;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--muted);font-weight:600}
+  #subnav{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--line)}
+  #subnav button{background:none;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
+  #subnav button.active{background:var(--brand);color:#fff}
   nav button.active{background:var(--brand);color:#fff}
   nav button:hover:not(.active){background:#eef2ff;color:var(--brand)}
   .spacer{flex:1}
@@ -106,9 +109,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #proyTabla .aporInput{font-size:11px}
   #invTable table{font-size:12px}
   #invTable th,#invTable td{padding:5px 7px}
-  #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:3px 6px}
-  #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:3px 6px}
-  #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:3px 6px}
+  #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:2px 5px}
+  #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
+  #rankTabla table{font-size:11px} #rankTabla th,#rankTabla td{padding:2px 5px}
+  #prevTabla table{font-size:11px} #prevTabla th,#prevTabla td{padding:2px 5px}
 </style>
 </head>
 <body>
@@ -121,12 +125,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="patrimonio">Patrimonio</button>
     <button data-view="proyeccion">Proyección</button>
     <button data-view="amalia">Amalia</button>
-    <button data-view="inversiones">Inversiones</button>
-    <button data-view="analisis">Análisis</button>
-    <button data-view="dividendos">Dividendos</button>
-    <button data-view="ranking">Ranking</button>
-    <button data-view="calendario">Calendario</button>
+    <button data-group="inv">Inversiones</button>
   </nav>
+  <div id="subnav" style="display:none">
+    <button data-sub="inversiones" class="active">Cartera</button>
+    <button data-sub="analisis">Análisis</button>
+    <button data-sub="dividendos">Dividendos</button>
+    <button data-sub="ranking">Ranking</button>
+    <button data-sub="calendario">Calendario</button>
+    <button data-sub="prevision">Histórico/Previsión</button>
+  </div>
   <div class="spacer"></div>
   <div class="filestat"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
     <button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button>
@@ -385,6 +393,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div style="overflow:auto" id="calTabla"></div>
   </section>
 
+  <section class="view" id="view-prevision">
+    <h2>Histórico y previsión de dividendos</h2>
+    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año. Años pasados calculados del histórico; los años futuros (fondo amarillo) son editables como previsión.</div>
+    <div style="overflow:auto" id="prevTabla"></div>
+  </section>
+
 </main>
 <div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
 
@@ -612,6 +626,7 @@ function afterLoad(){
   DB.cerradas = DB.cerradas||[];
   DB.devolucionHacienda = DB.devolucionHacienda||{};
   DB.calendario = DB.calendario||[];
+  DB.previsionDiv = DB.previsionDiv||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1714,7 +1729,31 @@ function renderRanking(){
   $('#rankKpis').innerHTML=[['Dividendo bruto/año',fmt(T.divAno)],['YoC cartera',pct(T.cost?T.divAno/T.cost:0)],['RPD actual',pct(T.valor?T.divAno/T.valor:0)],['Dividendos cobrados (total)',fmt(T.cobr)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',8,12),0);
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); }
+function renderPrevision(){
+  const el=$('#prevTabla'); if(!el)return;
+  const divs=DB.dividendos||{}; const prev=DB.previsionDiv=DB.previsionDiv||{};
+  let tickers=[...new Set([...Object.keys(divs),...Object.keys(prev)])].filter(t=>((divs[t]&&divs[t].length)||(prev[t]&&Object.keys(prev[t]).length)));
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin histórico de dividendos. Añade dividendos en las fichas.</div>'; return; }
+  const hist={}; let minY=9999; const nowY=new Date().getFullYear();
+  tickers.forEach(t=>{ hist[t]={}; (divs[t]||[]).forEach(d=>{ const y=+(''+(d.fecha||'')).slice(0,4); if(!y)return; hist[t][y]=(hist[t][y]||0)+num(d.importe); if(y<minY)minY=y; }); });
+  if(minY===9999)minY=nowY-1;
+  const maxFut=nowY+4; const years=[]; for(let y=minY;y<=maxFut;y++)years.push(y);
+  const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
+  tickers.sort((a,b)=>Object.values(hist[b]||{}).reduce((s,x)=>s+x,0)-Object.values(hist[a]||{}).reduce((s,x)=>s+x,0));
+  const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}">${t}</th>`).join('')+'</tr>';
+  const body=[...years].reverse().map(y=>{
+    const fut=y>nowY;
+    const cells=tickers.map(t=>{
+      if(!fut){ const v=hist[t][y]; return `<td class="num">${v?fmt(v):'·'}</td>`; }
+      const pv=(prev[t]&&prev[t][y]!=null)?prev[t][y]:'';
+      return `<td class="num"><input type="number" step="0.0001" class="anaInp" style="width:62px;text-align:right" data-prev="${t}" data-py="${y}" value="${pv}"></td>`;
+    }).join('');
+    return `<tr${fut?' style="background:#fffbeb"':''}><td>${y}${fut?' <span class="muted" style="font-size:9px">prev</span>':''}</td>${cells}</tr>`;
+  }).join('');
+  el.innerHTML=`<table>${head}${body}</table>`;
+  const _v=$('#view-prevision'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('prevTabla',8,12),0);
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -1758,17 +1797,25 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-$('#nav').addEventListener('click',e=>{
-  const b=e.target.closest('button[data-view]'); if(!b)return;
-  $$('#nav button').forEach(x=>x.classList.toggle('active',x===b));
+let invCurrent='inversiones';
+const INV_VIEWS=['inversiones','analisis','dividendos','ranking','calendario','prevision'];
+function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
-  $('#view-'+b.dataset.view).classList.add('active');
-  if(b.dataset.view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,0);
-  if(b.dataset.view==='calendario'&&typeof autoFitTable==='function') setTimeout(()=>autoFitTable('calTabla',8,12),0);
-  if(b.dataset.view==='ranking'&&typeof autoFitTable==='function') setTimeout(()=>autoFitTable('rankTabla',8,12),0);
-  if(b.dataset.view==='patrimonio') renderPat();
-  if(b.dataset.view==='proyeccion') renderProy();
-});
+  const el=$('#view-'+view); if(el)el.classList.add('active');
+  const inGroup=INV_VIEWS.includes(view);
+  const sn=$('#subnav'); if(sn) sn.style.display=inGroup?'flex':'none';
+  $$('#nav button').forEach(x=>x.classList.toggle('active', inGroup ? (x.dataset.group==='inv') : (x.dataset.view===view)));
+  if(inGroup){ invCurrent=view; $$('#subnav button').forEach(x=>x.classList.toggle('active', x.dataset.sub===view)); }
+  if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
+  if(view==='calendario') setTimeout(()=>autoFitTable('calTabla',8,12),120);
+  if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',8,12),120);
+  if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',8,12),120);
+  if(view==='patrimonio') renderPat();
+  if(view==='proyeccion') renderProy();
+}
+$('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group==='inv'){ activarVista(invCurrent); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
+$('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
+$('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-prev]'); if(d){ const t=d.dataset.prev, y=d.dataset.py; DB.previsionDiv=DB.previsionDiv||{}; DB.previsionDiv[t]=DB.previsionDiv[t]||{}; const v=num(d.value); if(v) DB.previsionDiv[t][y]=v; else delete DB.previsionDiv[t][y]; saveNow(); } });
 $('#mYear').addEventListener('change',e=>{curYear=+e.target.value;renderAll();});
 $('#mMonth').addEventListener('change',e=>{curMonth=+e.target.value;renderAll();});
 $('#mModeMes').addEventListener('click',()=>{panelMode='mes';renderPanel();});
