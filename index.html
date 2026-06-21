@@ -106,6 +106,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #proyTabla .aporInput{font-size:11px}
   #invTable table{font-size:12px}
   #invTable th,#invTable td{padding:5px 7px}
+  #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:3px 6px}
 </style>
 </head>
 <body>
@@ -1296,7 +1297,7 @@ function aplicarPreciosPegados(){
 }
 function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
   if(d && d.divIngresos){ DB.divIngresos={}; Object.keys(d.divIngresos).forEach(k=>{ DB.divIngresos[k.toUpperCase()]=d.divIngresos[k]; }); renderDividendos(); saveNow(); alert('Importados dividendos históricos de '+Object.keys(d.divIngresos).length+' empresas (vendidas).'); return; }
-  if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
+  if(d && d.cerradas){ DB.cerradas=(d.cerradas||[]).map(c=>({id:c.id||('c'+Math.random().toString(36).slice(2,9)),ticker:(c.ticker||'').toUpperCase(),nombre:c.nombre||'',cartera:c.cartera||'Propia',ops:Array.isArray(c.ops)?c.ops.map(o=>({fecha:o.fecha||'',tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})):null,divs:Array.isArray(c.divs)?c.divs.map(x=>({fecha:x.fecha,importe:num(x.importe)})):null,acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''})); renderInv(); renderDividendos(); saveNow(); alert('Importadas '+DB.cerradas.length+' posiciones cerradas.'); return; }
   let _divMap=null;
   if(d && d.dividendos){ _divMap=d.dividendos; }
   else if(d && !Array.isArray(d) && !d.operaciones && !d.valores && !d.inversiones){ const ks=Object.keys(d); if(ks.length && ks.every(k=>Array.isArray(d[k]) && (d[k].length===0 || (d[k][0] && ('importe' in d[k][0]))))) _divMap=d; }
@@ -1389,8 +1390,9 @@ let fichaTicker=null;
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
 function fichaCalc(ticker){
   const t=(ticker||'').toUpperCase();
-  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
-  const divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
+  let ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
+  let divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
+  if(!ops.length){ const _c=(DB.cerradas||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_c&&_c.ops&&_c.ops.length){ ops=_c.ops.slice().sort(invByFecha); if(_c.divs&&_c.divs.length) divs=_c.divs.slice().sort(invByFecha); } }
   const v=(DB.valores||{})[t]||{}; const precioActual=num(v.precioActual);
   const compras=ops.filter(o=>o.tipo!=='venta');
   const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),coste=N*P;
@@ -1415,8 +1417,8 @@ function renderFicha(t){
   const tt=f.tot;
   const hasOps=(DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===fichaTicker);
   let cerr=(DB.cerradas||[]).find(c=>(c.ticker||'').toUpperCase()===fichaTicker);
-  if(!cerr){ try{ cerr=invClosedComputed().find(c=>c.ticker===fichaTicker); }catch(e){} }
-  const isClosed=!!cerr;
+  if(cerr){ cerr=cerradaCalc(cerr); } else { try{ cerr=invClosedComputed().find(c=>c.ticker===fichaTicker); }catch(e){} }
+  const isClosed=!!cerr; const detailed=f.lotes.length>0;
   // cabecera + URL externa
   const header=`
    <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
@@ -1461,7 +1463,7 @@ function renderFicha(t){
   // dividendos
   const rendByYear={}; f.divYears.forEach(g=>{rendByYear[g.year]=g.rend;});
   let divTable;
-  if(hasOps){
+  if(detailed){
     let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción</div><div>${fmt(g.divShareSum)}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return ''; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400;margin-top:3px">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
     divTable=`<div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
   } else {
@@ -1491,6 +1493,37 @@ function addFichaDiv(){
   DB.dividendos=DB.dividendos||{}; DB.dividendos[fichaTicker]=DB.dividendos[fichaTicker]||[];
   DB.dividendos[fichaTicker].push({fecha:fch,importe:imp,id:'d'+Math.random().toString(36).slice(2,9)}); saveNow(); renderFicha(fichaTicker);
 }
+function cerradaCalc(c){
+  if(c && c.ops && c.ops.length){
+    const buys=c.ops.filter(o=>o.tipo!=='venta'), sells=c.ops.filter(o=>o.tipo==='venta');
+    const acc=buys.reduce((s,o)=>s+num(o.acciones),0);
+    const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+    const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+    const dv=(c.divs||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+    let dividendos=0; const byYear={};
+    dv.forEach(d=>{ const held=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); const eur=held*num(d.importe); dividendos+=eur; const y=(d.fecha||'').slice(0,4); if(y)byYear[y]=(byYear[y]||0)+eur; });
+    return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:acc,coste,venta,dividendos,byYear,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||c.fechaCompra||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||c.fechaVenta||''};
+  }
+  const byYear={}; if(c.fechaVenta) byYear[(c.fechaVenta||'').slice(0,4)]=num(c.dividendos);
+  return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),byYear,fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''};
+}
+function archivarCerrada(ticker){
+  const t=(ticker||'').toUpperCase();
+  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
+  if(!ops.length){alert('No hay operaciones de '+t);return;}
+  const buys=ops.filter(o=>o.tipo!=='venta'), sells=ops.filter(o=>o.tipo==='venta');
+  const bSh=buys.reduce((s,o)=>s+num(o.acciones),0), sSh=sells.reduce((s,o)=>s+num(o.acciones),0);
+  if(!(sSh>0.0001 && Math.abs(bSh-sSh)<0.0001)){ alert(t+' no está cerrada (acciones ≠ 0).'); return; }
+  if(!confirm('¿Archivar '+t+' como posición cerrada permanente?\nSe quitará de operaciones activas; una nueva compra empezará un ciclo nuevo sin mezclar.')) return;
+  const first=buys.map(o=>o.fecha).filter(Boolean).sort()[0]||''; const last=sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||'';
+  const dvs=((DB.dividendos||{})[t]||[]).filter(d=>(!first||d.fecha>=first)&&(!last||d.fecha<=last)).map(d=>({fecha:d.fecha,importe:num(d.importe)}));
+  const v=(DB.valores||{})[t]||{};
+  DB.cerradas=DB.cerradas||[];
+  DB.cerradas.push({id:'c'+Math.random().toString(36).slice(2,9),ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>({fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})),divs:dvs});
+  DB.operaciones=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()!==t);
+  if(DB.dividendos&&DB.dividendos[t]){ DB.dividendos[t]=DB.dividendos[t].filter(d=>!((!first||d.fecha>=first)&&(!last||d.fecha<=last))); if(!DB.dividendos[t].length) delete DB.dividendos[t]; }
+  saveNow(); renderInv(); renderDividendos(); alert(t+' archivada como posición cerrada.');
+}
 function invClosedComputed(){
   const ops=DB.operaciones||[]; const res=[];
   [...new Set(ops.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))].forEach(t=>{
@@ -1509,10 +1542,10 @@ function invClosedComputed(){
 }
 function renderInvClosed(){
   const el=$('#invClosed'); if(!el)return;
-  const stored=(DB.cerradas||[]).map(c=>Object.assign({},c));
-  const storedT=new Set(stored.map(c=>(c.ticker||'').toUpperCase()));
-  const comp=invClosedComputed().filter(c=>!storedT.has(c.ticker));
-  const lst=[...stored,...comp].sort((a,b)=>(b.fechaVenta||'').localeCompare(a.fechaVenta||''));
+  const arch=(DB.cerradas||[]).map(c=>cerradaCalc(c)); arch.forEach(a=>a._arch=true);
+  const archT=new Set(arch.map(a=>(a.ticker||'').toUpperCase()));
+  const comp=invClosedComputed().filter(c=>!archT.has(c.ticker)).map(c=>Object.assign({},c,{_arch:false}));
+  const lst=[...arch,...comp].sort((a,b)=>(b.fechaVenta||'').localeCompare(a.fechaVenta||''));
   if(!lst.length){ el.innerHTML=''; return; }
   const fdate=x=>x?ddmmyyyy(x):'—';
   let sC=0,sV=0,sD=0;
@@ -1520,12 +1553,13 @@ function renderInvClosed(){
     const pc=p.acciones?p.coste/p.acciones:0, pv=p.acciones?p.venta/p.acciones:0;
     const neto=p.venta-p.coste+p.dividendos, rent=p.coste?neto/p.coste:0;
     sC+=p.coste; sV+=p.venta; sD+=p.dividendos;
-    return `<tr><td><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(pc)}</td><td class="num">${fmt(p.coste)}</td><td class="num">${fmt(pv)}</td><td class="num">${fmt(p.venta)}</td><td class="num pos">${fmt(p.dividendos)}</td><td class="num ${neto>=0?'pos':'neg'}">${neto>=0?'+':''}${fmt(neto)}</td><td class="num ${rent>=0?'pos':'neg'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td class="muted" style="font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td></tr>`;
+    const act=p._arch?`<button class="btn danger sm" data-delcerrada="${p.id}" title="Quitar de archivadas">✕</button>`:`<button class="btn ghost sm" data-archive="${p.ticker}" title="Archivar permanente">Archivar</button>`;
+    return `<tr><td><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(pc)}</td><td class="num">${fmt(p.coste)}</td><td class="num">${fmt(pv)}</td><td class="num">${fmt(p.venta)}</td><td class="num pos">${fmt(p.dividendos)}</td><td class="num ${neto>=0?'pos':'neg'}">${neto>=0?'+':''}${fmt(neto)}</td><td class="num ${rent>=0?'pos':'neg'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td class="muted" style="font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td><td class="right">${act}</td></tr>`;
   }).join('');
   const netoT=sV-sC+sD, rentT=sC?netoT/sC:0;
-  const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td></td><td></td><td class="num">${fmt(sC)}</td><td></td><td class="num">${fmt(sV)}</td><td class="num pos">${fmt(sD)}</td><td class="num ${netoT>=0?'pos':'neg'}">${netoT>=0?'+':''}${fmt(netoT)}</td><td class="num ${rentT>=0?'pos':'neg'}">${(rentT>=0?'+':'')+(rentT*100).toFixed(1)+'%'}</td><td></td></tr>`;
-  const head='<tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">Coste</th><th class="num">P.Venta</th><th class="num">Venta</th><th class="num">Dividendos</th><th class="num">P/G neta</th><th class="num">Rent.</th><th>Periodo</th></tr>';
-  el.innerHTML=`<h3 style="margin-top:22px">Posiciones cerradas <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} · resultado neto incluye dividendos</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+  const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td></td><td></td><td class="num">${fmt(sC)}</td><td></td><td class="num">${fmt(sV)}</td><td class="num pos">${fmt(sD)}</td><td class="num ${netoT>=0?'pos':'neg'}">${netoT>=0?'+':''}${fmt(netoT)}</td><td class="num ${rentT>=0?'pos':'neg'}">${(rentT>=0?'+':'')+(rentT*100).toFixed(1)+'%'}</td><td></td><td></td></tr>`;
+  const head='<tr><th>Ticker</th><th>Nombre</th><th class="num">Acc.</th><th class="num">P.Compra</th><th class="num">Coste</th><th class="num">P.Venta</th><th class="num">Venta</th><th class="num">Dividendos</th><th class="num">P/G neta</th><th class="num">Rent.</th><th>Periodo</th><th></th></tr>';
+  el.innerHTML=`<h3 style="margin-top:22px">Posiciones cerradas <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} · resultado neto incluye dividendos · «Archivar» fija el ciclo para siempre</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
 }
 function renderDividendos(){
   const ops=(DB.operaciones||[]).slice();
@@ -1547,6 +1581,7 @@ function renderDividendos(){
     }
   });
   ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(y)yearsSet.add(y); });
+  (DB.cerradas||[]).forEach(c=>{ const cc=cerradaCalc(c); const t=(cc.ticker||'').toUpperCase(); if(!t)return; byTY[t]=byTY[t]||{}; Object.keys(cc.byYear).forEach(y=>{ byTY[t][y]=(byTY[t][y]||0)+cc.byYear[y]; yearsSet.add(y); }); if(!tickers.includes(t)) tickers.push(t); });
   const years=[...yearsSet].sort();
   const totT={}; tickers.forEach(t=>{ totT[t]=Object.values(byTY[t]).reduce((s,x)=>s+x,0); });
   const cols=tickers.filter(t=>totT[t]>0).sort((a,b)=>totT[b]-totT[a]);
@@ -1570,7 +1605,7 @@ function renderDividendos(){
   // RESUMEN ANUAL
   const compY={},ventY={};
   ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(!y)return; const amt=num(o.acciones)*num(o.precio); if(o.tipo==='venta') ventY[y]=(ventY[y]||0)+amt; else compY[y]=(compY[y]||0)+amt; });
-  (DB.cerradas||[]).forEach(c=>{ const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc) compY[yc]=(compY[yc]||0)+num(c.coste); if(yv) ventY[yv]=(ventY[yv]||0)+num(c.venta); });
+  (DB.cerradas||[]).forEach(c=>{ if(c.ops&&c.ops.length){ c.ops.forEach(o=>{ const y=(o.fecha||'').slice(0,4); if(!y)return; const amt=num(o.acciones)*num(o.precio); if(o.tipo==='venta') ventY[y]=(ventY[y]||0)+amt; else compY[y]=(compY[y]||0)+amt; }); } else { const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc) compY[yc]=(compY[yc]||0)+num(c.coste); if(yv) ventY[yv]=(ventY[yv]||0)+num(c.venta); } });
   const ry=[...new Set([...years,...Object.keys(compY),...Object.keys(ventY)])].sort();
   let cumInv=0,cumCom=0; const rs=[];
   ry.forEach(y=>{ const comp=compY[y]||0, vent=ventY[y]||0;
@@ -1732,6 +1767,7 @@ const invf=document.createElement('input'); invf.type='file'; invf.accept='.json
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
+$('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
 $('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
 const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
