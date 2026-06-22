@@ -707,6 +707,8 @@ async function sincronizarCotizaciones(){
     if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }
   }catch(e){}
 }
+async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); }); _dossierSet=set; if(typeof renderAnalisis==='function')renderAnalisis(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e){} }
+function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase(); if(t&&_dossierSet&&_dossierSet.has(t))return 'dossiers/'+t+'.html'; return ''; }
 function afterLoad(){
   $('#welcome').style.display='none';
   $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
@@ -774,6 +776,7 @@ function afterLoad(){
   fillPresYear();
   renderAll();
   if(typeof sincronizarCotizaciones==='function') sincronizarCotizaciones();
+  if(typeof cargarDossiers==='function') cargarDossiers();
   const _fm=(location.hash||'').match(/ficha=([^&]+)/);
   if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
 }
@@ -1514,11 +1517,12 @@ function renderAnalisis(){
     if(a.score!=null){ if(a.score>=70){sLbl='Buena';sCol='#16a34a';} else if(a.score>=50){sLbl='Media';sCol='#d97706';} else {sLbl='Mala';sCol='#dc2626';} }
     const _dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dv=(a.decision||'').toUpperCase();
     const _dopts=['','COMPRAR','MANTENER','ESPERAR','VENDER'].map(o=>`<option value="${o}"${o===_dv?' selected':''}>${o||'—'}</option>`).join('');
-    const decCell=`<td style="text-align:center;white-space:nowrap"><select class="anaInp" data-id="${a.id}" data-f="decision" style="font-size:10px;font-weight:700;color:${_dc[_dv]||'#475569'}">${_dopts}</select>${a.dossierUrl?` <a href="${a.dossierUrl}" target="_blank" rel="noopener" title="Abrir dossier${a.dossierFecha?' ('+a.dossierFecha+')':''}" style="text-decoration:none;font-size:14px">📄</a>`:''}</td>`;
+    const _du=(typeof dossierURL==='function')?dossierURL(a.ticker,a.dossierUrl):(a.dossierUrl||'');
+    const decCell=`<td style="text-align:center;white-space:nowrap"><select class="anaInp" data-id="${a.id}" data-f="decision" style="font-size:10px;font-weight:700;color:${_dc[_dv]||'#475569'}">${_dopts}</select>${_du?` <a href="${_du}" target="_blank" rel="noopener" title="Abrir dossier${a.dossierFecha?' ('+a.dossierFecha+')':''}" style="text-decoration:none;font-size:14px">📄</a>`:''}</td>`;
     const star=a.id===bestId?'⭐ ':'';
     const rowStyle=a.stopHit?' style="background:#fef2f2"':(a.id===bestId?' style="background:#f0fdf4"':'');
     return `<tr${rowStyle}>
-      <td>${star}<b>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.nombre||''}</td>
+      <td>${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.ticker?`<span data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand);text-decoration:underline" title="Abrir ficha">${a.nombre||''}</span>`:(a.nombre||'')}</td>
       <td style="text-align:center;white-space:nowrap"><div style="font-size:20px;font-weight:800;line-height:1.05;color:${sCol}">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div style="font-size:9px;font-weight:700;color:${sCol};text-transform:uppercase;letter-spacing:.03em">${sLbl}</div>`}</td>
       ${decCell}
       <td class="num">${fmt(a.cot)}</td>
@@ -1575,7 +1579,7 @@ function aplicarAnaPaste(){
   $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
 }
-let fichaTicker=null;
+let fichaTicker=null; let _dossierSet=null;
 let fichaRange='all';
 const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
@@ -1681,8 +1685,8 @@ function renderFicha(t){
   const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
   const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
-  const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase();
-  const veredictoCard = (_dec||_ana.rating||_ana.dossierUrl) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span class="muted" style="font-size:11px">análisis ${_ana.dossierFecha}</span>`:''}<div style="flex:1"></div>${_ana.dossierUrl?`<a class="btn" href="${_ana.dossierUrl}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
+  const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||'');
+  const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span class="muted" style="font-size:11px">análisis ${_ana.dossierFecha}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
   $('#fichaView').innerHTML=header+veredictoCard+chartCard+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
