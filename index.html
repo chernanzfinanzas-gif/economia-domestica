@@ -437,7 +437,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-caja">
     <h2>Caja del bróker</h2>
     <div class="cards" id="cajaKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Libro de movimientos del bróker (caja combinada). Aportaciones (SAN/R4) y dividendos previstos (netos) se generan automáticamente en su fecha. Los dividendos marcados «prev» puedes corregirlos con la cifra <b>realmente cobrada</b> (queda con ✓). Añade compras y extras con «+ Movimiento» (editables/borrables). Verde = entra, rojo = sale.</div>
+    <div class="sub" style="margin-bottom:6px">Libro de movimientos del bróker (caja combinada). Aportaciones (SAN/R4) y dividendos previstos (netos) se generan automáticamente en su fecha. Tanto las aportaciones como los dividendos «prev» puedes corregirlos con la cifra <b>real</b> (quedan con ✓). Añade compras y extras con «+ Movimiento» (editables/borrables). Verde = entra, rojo = sale.</div>
     <div id="cajaCfg" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:10px"></div>
     <div style="overflow:auto" id="cajaTabla"></div>
   </section>
@@ -2089,8 +2089,8 @@ function cajaMovs(){ const cfg=DB.cajaConfig||{}; const out=[];
   const defSAN=(cfg.defSAN!=null&&cfg.defSAN!=='')?num(cfg.defSAN):400, defR4=(cfg.defR4!=null&&cfg.defR4!=='')?num(cfg.defR4):700;
   const dia=String(num(cfg.aportDia)||3).padStart(2,'0');
   for(let y=desdeY;y<=hastaY;y++){ const m0=(y===desdeY?desdeM:1); for(let m=m0;m<=12;m++){ const f=`${y}-${String(m).padStart(2,'0')}-${dia}`;
-    if(defSAN)out.push({fecha:f,concepto:'Aportación SAN',entra:defSAN,sale:0,auto:1});
-    if(defR4)out.push({fecha:f,concepto:'Aportación R4',entra:defR4,sale:0,auto:1}); } }
+    if(defSAN){ const _ks='SAN|'+f; const _os=(DB.cajaAporReal||{})[_ks]; out.push({fecha:f,concepto:'Aportación SAN',entra:(_os!=null&&_os!=='')?num(_os):defSAN,sale:0,auto:1,apor:1,aporKey:_ks,real:(_os!=null&&_os!=='')}); }
+    if(defR4){ const _kr='R4|'+f; const _or=(DB.cajaAporReal||{})[_kr]; out.push({fecha:f,concepto:'Aportación R4',entra:(_or!=null&&_or!=='')?num(_or):defR4,sale:0,auto:1,apor:1,aporKey:_kr,real:(_or!=null&&_or!=='')}); } } }
   const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{};
   const dayW=w=>String(Math.min(28,(w-1)*7+3)).padStart(2,'0');
   Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return; const v=(DB.valores||{})[t]||{}; let br=num(v.divAccion); if(!(br>0)){ const c=(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t); br=c?calDivBruto(c):0; } if(!(br>0))return; const des=(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w); const rp=rep[t]||[];
@@ -2116,8 +2116,8 @@ function renderCaja(){
   if(cfg.saldoIni!=null&&cfg.saldoIni!==''){ body+=`<tr style="font-weight:600;background:#eef2f7"><td>${fIni||'—'}</td><td>Situación inicial</td><td class="num"></td><td class="num"></td><td class="num">${fmt(saldo)}</td><td></td></tr>`; minS=saldo; minF=fIni; }
   movs.forEach(mv=>{ saldo+=mv.entra-mv.sale; totIn+=mv.entra; totOut+=mv.sale; if(saldo<minS){minS=saldo;minF=mv.fecha;}
     const sCell=`<td class="num" style="font-weight:600;${saldo<0?'color:#dc2626':''}">${fmt(saldo)}</td>`;
-    if(mv.div){ const ec=`<td class="num" style="background:#dcfce7"><input type="number" class="anaInp" style="width:66px;text-align:right;background:transparent;color:#166534;font-weight:700" data-cajadiv="${mv.divKey}" value="${mv.entra||''}" title="Pon aquí el dividendo realmente cobrado">${mv.real?' <span style=\"color:#166534;font-weight:700\">✓</span>':''}</td>`;
-      body+=`<tr><td>${mv.fecha}</td><td>${mv.concepto}${mv.real?'':' <span class=\"muted\" style=\"font-size:9px\">prev</span>'}</td>${ec}<td class="num"></td>${sCell}<td></td></tr>`; }
+    if(mv.div||mv.apor){ const attr=mv.div?'data-cajadiv':'data-cajaapor'; const key=mv.div?mv.divKey:mv.aporKey; const tag=(mv.div&&!mv.real)?' <span class=\"muted\" style=\"font-size:9px\">prev</span>':''; const ec=`<td class="num" style="background:#dcfce7"><input type="number" class="anaInp" style="width:66px;text-align:right;background:transparent;color:#166534;font-weight:700" ${attr}="${key}" value="${mv.entra||''}" title="Edita para poner el importe real">${mv.real?' <span style=\"color:#166534;font-weight:700\">✓</span>':''}</td>`;
+      body+=`<tr><td>${mv.fecha}</td><td>${mv.concepto}${tag}</td>${ec}<td class="num"></td>${sCell}<td></td></tr>`; }
     else if(mv.auto){ const ec=mv.entra?`<td class="num" style="background:#dcfce7;color:#166534;font-weight:600">${fmt(mv.entra)}</td>`:'<td class="num"></td>'; const oc=mv.sale?`<td class="num" style="background:#fee2e2;color:#991b1b;font-weight:600">${fmt(mv.sale)}</td>`:'<td class="num"></td>';
       body+=`<tr><td>${mv.fecha}</td><td>${mv.concepto}</td>${ec}${oc}${sCell}<td></td></tr>`; }
     else { const eBg=mv.entra?'background:#dcfce7;':''; const sBg=mv.sale?'background:#fee2e2;':'';
@@ -2200,6 +2200,7 @@ $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-go
 $('#view-caja').addEventListener('change',e=>{ const t=e.target; if(!t||!t.dataset)return;
   if(t.dataset.cajacfg){ DB.cajaConfig=DB.cajaConfig||{}; const k=t.dataset.cajacfg; DB.cajaConfig[k]=(k==='fechaIni')?t.value:(t.value.trim()===''?'':num(t.value)); saveNow(); renderCaja(); return; }
   if(t.dataset.cajadiv){ DB.cajaDivReal=DB.cajaDivReal||{}; if(t.value.trim()==='')delete DB.cajaDivReal[t.dataset.cajadiv]; else DB.cajaDivReal[t.dataset.cajadiv]=num(t.value); saveNow(); renderCaja(); return; }
+  if(t.dataset.cajaapor){ DB.cajaAporReal=DB.cajaAporReal||{}; if(t.value.trim()==='')delete DB.cajaAporReal[t.dataset.cajaapor]; else DB.cajaAporReal[t.dataset.cajaapor]=num(t.value); saveNow(); renderCaja(); return; }
   if(t.dataset.cajamv){ const a=t.dataset.cajamv.split('|'); const mv=(DB.cajaMov||[]).find(x=>x.id===a[0]); if(mv){ const f=a[1]; if(f==='entra'||f==='sale') mv[f]=(t.value.trim()===''?0:num(t.value)); else mv[f]=t.value; saveNow(); renderCaja(); } return; } });
 $('#view-caja').addEventListener('click',e=>{ const d=e.target.closest('[data-cajadel]'); if(d){ DB.cajaMov=(DB.cajaMov||[]).filter(x=>x.id!==d.dataset.cajadel); saveNow(); renderCaja(); } });
 function _loteTk(v){ const m=(v||'').match(/\(([^)]+)\)\s*$/); let tk=m?m[1]:(v||''); tk=tk.trim().toUpperCase(); const all=new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase())); return all.has(tk)?tk:''; }
