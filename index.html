@@ -490,6 +490,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div>
     </form>
     <div style="overflow:auto" id="cajaTabla"></div>
+    <div id="cajaPlanRef" style="margin-top:16px"></div>
   </section>
 
 
@@ -2287,6 +2288,14 @@ function renderCaja(){
   const head='<tr><th title="Ejecutado">✓</th><th>Fecha</th><th>Concepto</th><th class="num">Entra</th><th class="num">Sale</th><th class="num">Saldo</th><th></th></tr>';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body||'<tr><td colspan="7" class="empty">Sin movimientos. Pon el saldo inicial y el periodo, o pulsa «+ Movimiento».</td></tr>'}</tbody></table>`;
   $('#cajaKpis').innerHTML=[['Entradas',fmt(totIn)],['Salidas',fmt(totOut)],['Saldo final',fmt(saldo)],['Saldo mínimo', isFinite(minS)?fmt(minS)+(minF?' ('+minF+')':''):'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  const _pre=$('#cajaPlanRef');
+  if(_pre){ const pby={}; Object.keys(DB.planCompras||{}).forEach(t=>Object.keys((DB.planCompras||{})[t]||{}).forEach(y=>{ const v=num(DB.planCompras[t][y]); if(v>0){ pby[y]=pby[y]||{tot:0,det:[]}; pby[y].tot+=v; pby[y].det.push(t+' '+fmt(v)); } }));
+    const _yrs=Object.keys(pby).sort();
+    if(!_yrs.length){ _pre.innerHTML=''; }
+    else { const saldoHasta=ye=>{ let q=num(cfg.saldoIni||0); movs.forEach(mv=>{ if((mv.fecha||'')<=ye) q+=num(mv.entra)-num(mv.sale); }); return q; };
+      let acum=0; const rows=_yrs.map(y=>{ const plan=pby[y].tot; acum+=plan; const cajaFin=saldoHasta(y+'-12-31'); const tras=cajaFin-acum; const cls=tras>=0?'pos':'neg'; const det=(pby[y].det.join(' · ')).replace(/"/g,'');
+        return `<tr><td>${y}</td><td class="num" title="${det}">${fmt(plan)}</td><td class="num">${fmt(cajaFin)}</td><td class="num ${cls}" style="font-weight:700">${fmt(tras)}</td></tr>`; }).join('');
+      _pre.innerHTML=`<h3 style="margin:0 0 6px;font-size:14px">Compras del Plan (referencia)</h3><div class="sub" style="margin-bottom:6px">Compara lo que planeas invertir cada año (Plan/Diversificación) con la caja prevista. <b>Tras ejecutar plan</b> = caja a fin de año − plan acumulado: si es negativo (rojo), la caja no cubre el plan. Pasa el ratón por el importe del plan para ver el desglose por empresa.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Plan compras</th><th class="num">Caja fin de año</th><th class="num">Tras ejecutar plan (acum.)</th></tr></thead><tbody>${rows}</tbody></table></div>`; } }
   const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
