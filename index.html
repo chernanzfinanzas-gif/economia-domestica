@@ -2162,9 +2162,14 @@ function renderMonitor(){
   const yr=new Date().getFullYear();
   const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
   const plan=new Set((DB.planLote||[]).map(x=>(x||'').toUpperCase()));
+  const closed=new Set(); (DB.cerradas||[]).forEach(c=>{ const t=(c.ticker||'').toUpperCase(); if(t)closed.add(t); }); try{ (invClosedComputed()||[]).forEach(c=>closed.add((c.ticker||'').toUpperCase())); }catch(e){}
+  const _sigueCotiz=t=>{ const pf=((DB.valores||{})[t]||{}).precioFecha; if(!pf)return true; return (Date.now()-Date.parse(pf)) < 60*86400000; };
   let tickers=[...new Set([...held,...plan])].filter(Boolean);
+  closed.forEach(t=>{ if(t&&!held.has(t)&&!plan.has(t)&&_sigueCotiz(t)) tickers.push(t); });
+  tickers=[...new Set(tickers)];
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas (ten posiciones o añade empresas en Diversificación).</div>'; return; }
-  tickers.sort((a,b)=>(held.has(b)?1:0)-(held.has(a)?1:0)||a.localeCompare(b));
+  const _grp=t=> held.has(t)?0:(plan.has(t)?1:2);
+  tickers.sort((a,b)=>_grp(a)-_grp(b)||a.localeCompare(b));
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
   const body=tickers.map(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe;
     const rolInp=`<input class="anaInp" style="width:120px;font-size:11px" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
@@ -2172,7 +2177,7 @@ function renderMonitor(){
     let q;
     if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=!!(m.rev&&m.rev[key]); const passed=qPassed(t,qc,yr); const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'·'); return `<td class="num" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Resultados ya publicados':'Aún no publicados'}">${mark}</td>`; }).join(''); }
     else { q='<td colspan="4" class="muted" style="font-size:11px;text-align:center">Falta informe</td>'; }
-    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span></td><td>${rolInp}</td><td>${infCell}</td>${q}</tr>`;
+    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${q}</tr>`;
   }).join('');
   const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
