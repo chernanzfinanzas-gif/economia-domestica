@@ -115,7 +115,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #rankTabla table{font-size:10px} #rankTabla th,#rankTabla td{padding:1px 3px}
   #prevTabla table{font-size:11px;border-collapse:separate;border-spacing:0} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
   #planTabla table{font-size:11px;border-collapse:separate;border-spacing:0}
-  #distTabla table{font-size:12px} #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
+  #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
   #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #cajaTabla table{font-size:11px} #cajaTabla th,#cajaTabla td{padding:3px 6px;text-align:right;border:1px solid #e2e8f0} #cajaTabla th:first-child,#cajaTabla td:first-child,#cajaTabla th:nth-child(2),#cajaTabla td:nth-child(2){text-align:left} #cajaTabla input[type=number]{-moz-appearance:textfield} #cajaTabla input[type=number]::-webkit-inner-spin-button,#cajaTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
@@ -457,14 +457,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div style="overflow:auto" id="cajaTabla"></div>
   </section>
 
-  <section class="view" id="view-distrib">
-    <h2>Distribución de capital</h2>
-    <div class="cards" id="distKpis"></div>
-    <div id="distPie" style="display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin:6px 0 14px"></div>
-    <div class="sub" style="margin-bottom:6px">Sobre el <b>dinero invertido (coste)</b>. «Objetivo inv.» = € a los que quieres llegar (editable). «Falta» = objetivo − invertido (lo que queda por invertir; debería cuadrar con tu Plan de compras).</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="distAdd">+ Empresa</button></div>
-    <div style="overflow:auto" id="distTabla"></div>
-  </section>
+
 
 </main>
 <div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
@@ -706,7 +699,6 @@ function afterLoad(){
   DB.eventos = DB.eventos||{};
   DB.planCompras = DB.planCompras||{};
   DB.planPresupuesto = DB.planPresupuesto||{};
-  DB.distribObjetivo = DB.distribObjetivo||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1771,7 +1763,7 @@ function renderCalendario(){
     const monthEur=new Array(12).fill(0);
     des.forEach((e,idx)=>{ const bruto=sh*br*(num(rep[idx]||0)/100); if(bruto){ monthEur[e.m-1]+=bruto*0.81; brutoAnual+=bruto; } });
     monthEur.forEach((v,i)=>{ if(v){ ingMes[i]+=v; ingAnual+=v; } });
-    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:36px;text-align:right;font-size:9px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
+    const pctInputs=[0,1,2,3].map(i=>`<td class="num" style="white-space:nowrap"><input type="number" step="1" class="anaInp" style="width:28px;text-align:center;font-size:9px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"><span style="font-size:8px;color:#64748b">%</span></td>`).join('');
     const sumPct=rep.reduce((s,x)=>s+num(x||0),0);
     const warn=(sumPct>0&&Math.abs(sumPct-100)>0.5)?` <span style="color:#dc2626" title="Los % no suman 100 (suman ${sumPct})">!</span>`:'';
     const noEv=(!des.length&&br>0)?` <span style="color:#d97706" title="Sin eventos de dividendo (D) en el calendario anual">o</span>`:'';
@@ -1938,7 +1930,11 @@ function renderPanelDash(){
   let all=[]; Object.keys(ev).forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
   if(all.length){ const now=new Date(); const nm=now.getMonth()+1, nw=Math.min(4,Math.max(1,Math.ceil(now.getDate()/7)));
     let up=all.filter(e=>e.m>nm||(e.m===nm&&e.w>=nw)).sort((a,b)=>a.m-b.m||a.w-b.w); if(!up.length)up=all.sort((a,b)=>a.m-b.m||a.w-b.w);
-    const ag=up.slice(0,6).map(e=>`<div style="font-size:12px;margin:1px 0">${MESES_ES[e.m-1]} s${e.w} · <span class="evchip ev-${(typeof evTipo==='function'?evTipo(e.code):'otro')}">${e.code}</span> ${held.has(e.t)?'<b>'+e.t+'</b>':e.t}</div>`).join('');
+    const _isD=e=>((e.code||'')[0]||'').toUpperCase()==='D';
+    const g1=up.filter(e=>held.has(e.t)&&_isD(e)).slice(0,6), g2=up.filter(e=>held.has(e.t)&&!_isD(e)).slice(0,6), g3=up.filter(e=>!held.has(e.t)&&_isD(e)).slice(0,5), g4=up.filter(e=>!held.has(e.t)&&!_isD(e)).slice(0,5);
+    const _row=(e,fs,bold)=>`<div style="font-size:${fs}px;margin:1px 0">${MESES_ES[e.m-1]} s${e.w} · <span class="evchip ev-${(typeof evTipo==='function'?evTipo(e.code):'otro')}">${e.code}</span> ${bold?'<b>'+e.t+'</b>':e.t}</div>`;
+    const _sec=(title,arr,fs,bold)=> arr.length?(`<div class="muted" style="font-size:10px;font-weight:700;margin:7px 0 2px;text-transform:uppercase;letter-spacing:.03em">${title}</div>`+arr.map(e=>_row(e,fs,bold)).join('')):'';
+    const ag=_sec('Dividendos · en cartera',g1,13,true)+_sec('Resultados y otros · en cartera',g2,12,true)+_sec('Dividendos · otras acciones',g3,11,false)+_sec('Otros · otras acciones',g4,11,false);
     html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="calendario">Próximos eventos <span class="muted" style="font-size:12px">›</span></h3>${ag}</div>`; }
   // Mini-gráfico dividendos por año
   if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars=''; ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`; });
@@ -1969,30 +1965,6 @@ function renderPlan(){
   const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('planTabla',7,11),0);
 }
 function addPlanEmpresa(){ const tk=(prompt('Ticker de la empresa:')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim(); DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{}; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre; saveNow(); renderPlan(); }
-function renderDistrib(){
-  const el=$('#distTabla'); if(!el)return;
-  const obj=DB.distribObjetivo=DB.distribObjetivo||{};
-  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
-  const invByT={}; pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra; });
-  const totalInv=Object.values(invByT).reduce((s,v)=>s+v,0);
-  const totalObj=Object.values(obj).reduce((s,v)=>s+num(v),0);
-  let tickers=[...new Set([...Object.keys(obj),...Object.keys(invByT)])].filter(Boolean);
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin datos. Importa «distribucion-objetivo.json» o pulsa «+ Empresa».</div>'; $('#distKpis').innerHTML=''; $('#distPie').innerHTML=''; return; }
-  let rows=tickers.map(t=>{ const o=num(obj[t]); const inv=invByT[t]||0; return {t,o,inv,falta:o-inv,pa:totalInv?inv/totalInv:0,po:totalObj?o/totalObj:0}; }).sort((a,b)=>b.o-a.o||b.inv-a.inv);
-  const head='<tr><th>Ticker</th><th class="num">Invertido</th><th class="num">% actual</th><th class="num">Objetivo inv.</th><th class="num">% objetivo</th><th class="num">Falta</th></tr>';
-  const body=rows.map(r=>`<tr><td><button class="btn ghost sm" data-ficha="${r.t}"><b>${r.t}</b></button></td><td class="num">${fmt(r.inv)}</td><td class="num">${(r.pa*100).toFixed(1)}%</td><td class="num"><input type="number" step="100" class="anaInp" style="width:80px;text-align:right" data-distobj="${r.t}" value="${r.o||''}"></td><td class="num">${(r.po*100).toFixed(1)}%</td><td class="num ${r.falta>0.5?'pos':(r.falta<-0.5?'neg':'')}">${Math.abs(r.falta)<0.5?'·':((r.falta>0?'+':'−')+fmt(Math.abs(r.falta)))}</td></tr>`).join('');
-  const totFalta=totalObj-totalInv;
-  const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${fmt(totalInv)}</td><td class="num">100%</td><td class="num">${fmt(totalObj)}</td><td class="num">100%</td><td class="num ${totFalta>=0?'pos':'neg'}">${(totFalta>=0?'+':'−')+fmt(Math.abs(totFalta))}</td></tr>`;
-  el.innerHTML=`<table>${head}${body}${totRow}</table>`;
-  $('#distKpis').innerHTML=[['Invertido total',fmt(totalInv)],['Objetivo total',fmt(totalObj)],['Falta por invertir',fmt(totFalta)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const pal=['#2563eb','#16a34a','#dc2626','#d97706','#7c3aed','#0891b2','#db2777','#65a30d','#ca8a04','#0d9488','#9333ea','#e11d48','#475569','#84cc16','#f59e0b','#06b6d4','#a855f7','#22c55e','#ef4444','#3b82f6'];
-  const colorByT={}; rows.forEach((r,i)=>colorByT[r.t]=pal[i%pal.length]);
-  const piA=rows.filter(r=>r.inv>0).map(r=>({label:r.t,val:r.inv,color:colorByT[r.t]}));
-  const piO=rows.filter(r=>r.o>0).map(r=>({label:r.t,val:r.o,color:colorByT[r.t]}));
-  const pie=$('#distPie'); if(pie) pie.innerHTML=`<div style="text-align:center"><div class="muted" style="font-size:12px;font-weight:600;margin-bottom:4px">Invertido actual</div>${piA.length?pieSVG(piA):'<div class="muted">—</div>'}</div><div style="text-align:center"><div class="muted" style="font-size:12px;font-weight:600;margin-bottom:4px">Objetivo</div>${piO.length?pieSVG(piO):'<div class="muted">—</div>'}</div>`;
-}
-
-function addDistEmpresa(){ const tk=(prompt('Ticker:')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim(); DB.distribObjetivo=DB.distribObjetivo||{}; DB.distribObjetivo[tk]=DB.distribObjetivo[tk]||0; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre; saveNow(); renderDistrib(); }
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
   DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{}; const pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};
@@ -2095,7 +2067,7 @@ function renderCaja(){
   const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); renderCaja(); }
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -2155,7 +2127,6 @@ function activarVista(view){
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
   if(view==='plan') setTimeout(()=>autoFitTable('planTabla',7,11),120);
-  if(view==='distrib') setTimeout(()=>autoFitTable('distTabla',9,12),120);
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
   if(view==='caja') renderCaja();
@@ -2184,8 +2155,6 @@ if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
 if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
 if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
 if($('#planAdd'))$('#planAdd').addEventListener('click',addPlanEmpresa);
-if($('#distAdd'))$('#distAdd').addEventListener('click',addDistEmpresa);
-$('#distTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-distobj]'); if(d){ DB.distribObjetivo=DB.distribObjetivo||{}; if(d.value.trim()==='')delete DB.distribObjetivo[d.dataset.distobj]; else DB.distribObjetivo[d.dataset.distobj]=num(d.value); saveNow(); renderDistrib(); } });
 if($('#planAddYear'))$('#planAddYear').addEventListener('click',addPrevYear);
 $('#planTabla').addEventListener('change',e=>{ const a=e.target.closest('[data-plan]'); if(a){ const t=a.dataset.plan,y=a.dataset.y; DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(a.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(a.value); saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const p=e.target.closest('[data-plpres]'); if(p){ DB.planPresupuesto=DB.planPresupuesto||{}; if(p.value.trim()==='')delete DB.planPresupuesto[p.dataset.plpres]; else DB.planPresupuesto[p.dataset.plpres]=num(p.value); saveNow(); renderPlan(); } });
 function addPrevYear(){ DB.previsionMaxYear=(num(DB.previsionMaxYear)||2030)+1; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); if(typeof renderPlan==='function')renderPlan(); }
