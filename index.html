@@ -1931,10 +1931,10 @@ function renderPanelDash(){
   if(all.length){ const now=new Date(); const nm=now.getMonth()+1, nw=Math.min(4,Math.max(1,Math.ceil(now.getDate()/7)));
     let up=all.filter(e=>e.m>nm||(e.m===nm&&e.w>=nw)).sort((a,b)=>a.m-b.m||a.w-b.w); if(!up.length)up=all.sort((a,b)=>a.m-b.m||a.w-b.w);
     const _isD=e=>((e.code||'')[0]||'').toUpperCase()==='D';
-    const g1=up.filter(e=>held.has(e.t)&&_isD(e)).slice(0,6), g2=up.filter(e=>held.has(e.t)&&!_isD(e)).slice(0,6), g3=up.filter(e=>!held.has(e.t)&&_isD(e)).slice(0,5), g4=up.filter(e=>!held.has(e.t)&&!_isD(e)).slice(0,5);
+    const g1=up.filter(e=>held.has(e.t)&&_isD(e)).slice(0,12), g2=up.filter(e=>held.has(e.t)&&!_isD(e)).slice(0,12), g3=up.filter(e=>!held.has(e.t)&&_isD(e)).slice(0,12), g4=up.filter(e=>!held.has(e.t)&&!_isD(e)).slice(0,12);
     const _row=(e,fs,bold)=>`<div style="font-size:${fs}px;margin:1px 0">${MESES_ES[e.m-1]} s${e.w} · <span class="evchip ev-${(typeof evTipo==='function'?evTipo(e.code):'otro')}">${e.code}</span> ${bold?'<b>'+e.t+'</b>':e.t}</div>`;
-    const _sec=(title,arr,fs,bold)=> arr.length?(`<div class="muted" style="font-size:10px;font-weight:700;margin:7px 0 2px;text-transform:uppercase;letter-spacing:.03em">${title}</div>`+arr.map(e=>_row(e,fs,bold)).join('')):'';
-    const ag=_sec('Dividendos · en cartera',g1,13,true)+_sec('Resultados y otros · en cartera',g2,12,true)+_sec('Dividendos · otras acciones',g3,11,false)+_sec('Otros · otras acciones',g4,11,false);
+    const _col=(title,arr,fs,bold,bl)=>`<div style="${bl?'border-left:1px solid var(--line);padding-left:10px;':''}"><div class="muted" style="font-size:10px;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.03em">${title}</div>${arr.length?arr.map(e=>_row(e,fs,bold)).join(''):'<div class="muted" style="font-size:10px">—</div>'}</div>`;
+    const ag=`<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">${_col('Dividendos · cartera',g1,13,true,false)}${_col('Result. y otros · cartera',g2,12,true,false)}${_col('Dividendos · otras',g3,11,false,true)}${_col('Result. y otros · otras',g4,11,false,false)}</div>`;
     html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="calendario">Próximos eventos <span class="muted" style="font-size:12px">›</span></h3>${ag}</div>`; }
   // Mini-gráfico dividendos por año
   if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars=''; ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`; });
