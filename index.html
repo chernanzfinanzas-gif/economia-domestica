@@ -144,6 +144,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="presupuesto">Presupuesto</button>
     <button data-group="inv">Inversiones</button>
     <button data-group="planinv">Plan Inversor</button>
+    <button data-view="graficas">Gráficas</button>
   </nav>
   <div id="subnav" style="display:none"></div>
   <div class="spacer"></div>
@@ -493,6 +494,14 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
 
 
+  <section class="view" id="view-graficas">
+    <h2>Gráficas</h2>
+    <div class="toolbar" style="margin-bottom:10px"><span class="muted">Año:</span> <select id="grafYear" class="anaInp" style="width:90px"></select></div>
+    <h3 style="margin:6px 0">Hogar</h3>
+    <div id="grafHogar"></div>
+    <h3 style="margin:16px 0 6px">Inversión</h3>
+    <div id="grafInv"></div>
+  </section>
 </main>
 <div id="fichaView" style="display:none;max-width:1100px;margin:18px auto;padding:0 16px"></div>
 
@@ -716,6 +725,7 @@ async function sincronizarCotizaciones(){
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); }); _dossierSet=set; if(typeof renderAnalisis==='function')renderAnalisis(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e){} }
 function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase(); if(t&&_dossierSet&&_dossierSet.has(t))return 'dossiers/'+t+'.html'; return ''; }
 const INFO_TXT={
+'view-graficas':`Análisis visual de tus finanzas: bloque <b>Hogar</b> (gastos) y bloque <b>Inversión</b>. Usa el selector de <b>Año</b> para los gráficos de Hogar. Los datos salen solos de Movimientos, Presupuesto, Patrimonio, Cartera y Calendario; no requiere pasos propios.`,
 'view-panel':`Resumen de tu situación; se rellena solo desde el resto de secciones. Haz clic en cualquier bloque para ir a su sección. Si una empresa toca su stop de tesis, aquí sale una alerta roja arriba del todo.`,
 'view-movimientos':`Registra aquí tus ingresos y gastos del hogar (fecha, concepto, importe, categoría). Es la base para comparar con el Presupuesto.`,
 'view-amalia':`Apunta importes que has adelantado y te reembolsarán; márcalos como cobrados cuando los recuperes.`,
@@ -2315,7 +2325,73 @@ function renderMonitor(){
   const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
 }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); renderMonitor(); }
+let grafYear=new Date().getFullYear();
+const GRAF_COLS=['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#0d9488','#9333ea','#475569'];
+function grafYears(){ const s=new Set(); (DB.movimientos||[]).forEach(m=>{ if(m.fecha)s.add(+m.fecha.slice(0,4)); }); (DB.presupuesto||[]).forEach(p=>{ if(typeof pAnio==='function')s.add(pAnio(p)); }); s.add(new Date().getFullYear()); return [...s].filter(Boolean).sort((a,b)=>b-a); }
+function gEsc(x){ return (''+x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function gBars(title,labels,series,opt){ opt=opt||{}; const W=Math.max(340,labels.length*(series.length>1?40:30)+50),H=200,padL=46,padB=26,padT=10;
+  const max=Math.max(1,...series.reduce((a,sg)=>a.concat(sg.vals.map(v=>Math.abs(num(v)))),[]));
+  const plotH=H-padB-padT,plotW=W-padL-12,gw=plotW/labels.length,bw=Math.min(26,(gw-6)/series.length);
+  let bars='',xlab='';
+  labels.forEach((lb,i)=>{ const gx=padL+i*gw+(gw-bw*series.length)/2;
+    series.forEach((sg,si)=>{ const v=num(sg.vals[i]); const h=Math.round(Math.abs(v)/max*plotH); const x=gx+si*bw; const y=padT+plotH-h;
+      bars+=`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(bw-2).toFixed(1)}" height="${h}" fill="${sg.color}"><title>${gEsc(lb)} · ${sg.name}: ${opt.pct?v.toFixed(1)+'%':fmt(v)}</title></rect>`; });
+    xlab+=`<text x="${(padL+i*gw+gw/2).toFixed(1)}" y="${H-8}" font-size="9" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`; });
+  const yax=`<text x="3" y="${padT+8}" font-size="9" fill="#94a3b8">${opt.pct?max.toFixed(0)+'%':fmt(max)}</text>`;
+  const leg=series.length>1?`<div style="display:flex;gap:12px;font-size:11px;margin-top:2px">${series.map(sg=>`<span><span style="display:inline-block;width:10px;height:10px;background:${sg.color};border-radius:2px;margin-right:4px"></span>${sg.name}</span>`).join('')}</div>`:'';
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${yax}${bars}${xlab}</svg></div>${leg}</div>`; }
+function gDonut(title,items){ items=items.filter(x=>num(x.val)>0).sort((a,b)=>b.val-a.val); const tot=items.reduce((s,x)=>s+num(x.val),0);
+  if(!tot)return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div class="muted" style="font-size:12px">Sin datos.</div></div>`;
+  const cx=70,cy=70,r=58,rin=34; let segs='';
+  if(items.length===1){ const col=items[0].color||GRAF_COLS[0]; segs=`<circle cx="${cx}" cy="${cy}" r="${((r+rin)/2).toFixed(1)}" fill="none" stroke="${col}" stroke-width="${r-rin}"><title>${gEsc(items[0].label)}: ${fmt(items[0].val)} (100%)</title></circle>`; }
+  else { let a0=-Math.PI/2; items.forEach((x,i)=>{ const frac=num(x.val)/tot; const a1=a0+frac*2*Math.PI; const lg=frac>0.5?1:0; const col=x.color||GRAF_COLS[i%GRAF_COLS.length];
+    const x0=cx+r*Math.cos(a0),y0=cy+r*Math.sin(a0),x1=cx+r*Math.cos(a1),y1=cy+r*Math.sin(a1),xi1=cx+rin*Math.cos(a1),yi1=cy+rin*Math.sin(a1),xi0=cx+rin*Math.cos(a0),yi0=cy+rin*Math.sin(a0);
+    segs+=`<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 ${lg} 1 ${x1.toFixed(1)} ${y1.toFixed(1)} L${xi1.toFixed(1)} ${yi1.toFixed(1)} A${rin} ${rin} 0 ${lg} 0 ${xi0.toFixed(1)} ${yi0.toFixed(1)} Z" fill="${col}"><title>${gEsc(x.label)}: ${fmt(x.val)} (${(frac*100).toFixed(1)}%)</title></path>`; a0=a1; }); }
+  const leg=items.map((x,i)=>`<div style="font-size:11px;margin:1px 0;white-space:nowrap"><span style="display:inline-block;width:10px;height:10px;background:${x.color||GRAF_COLS[i%GRAF_COLS.length]};border-radius:2px;margin-right:5px"></span>${gEsc(x.label)} <b>${fmt(x.val)}</b> <span class="muted">${(x.val/tot*100).toFixed(0)}%</span></div>`).join('');
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg width="140" height="140" viewBox="0 0 140 140">${segs}<text x="70" y="74" font-size="10" text-anchor="middle" fill="#475569">${fmt(tot)}</text></svg><div style="flex:1;min-width:150px">${leg}</div></div></div>`; }
+function gLine(title,labels,vals,opt){ opt=opt||{}; const W=Math.max(340,labels.length*30+50),H=180,padL=44,padB=24,padT=12;
+  const mn=Math.min(0,...vals.map(num)),mx=Math.max(1,...vals.map(num)),rng=(mx-mn)||1,plotH=H-padB-padT,plotW=W-padL-12;
+  const X=i=>padL+(labels.length>1?i*plotW/(labels.length-1):plotW/2), Yf=v=>padT+plotH-((num(v)-mn)/rng)*plotH;
+  const pts=vals.map((v,i)=>`${X(i).toFixed(1)},${Yf(v).toFixed(1)}`).join(' ');
+  const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Yf(v).toFixed(1)}" r="2.5" fill="${opt.color||'#2563eb'}"><title>${gEsc(labels[i])}: ${opt.pct?num(v).toFixed(1)+'%':fmt(v)}</title></circle>`).join('');
+  const xlab=labels.map((lb,i)=>`<text x="${X(i).toFixed(1)}" y="${H-8}" font-size="9" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`).join('');
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><line x1="${padL}" y1="${Yf(0).toFixed(1)}" x2="${W-12}" y2="${Yf(0).toFixed(1)}" stroke="#e2e8f0"/><polyline points="${pts}" fill="none" stroke="${opt.color||'#2563eb'}" stroke-width="2"/>${dots}${xlab}</svg></div></div>`; }
+function gStack(title,labels,sA,sB,names){ const n=labels.length,W=Math.max(340,n*30+50),H=200,padL=46,padB=30,padT=10;
+  const tot=labels.map((_,i)=>num(sA[i])+num(sB[i])),mx=Math.max(1,...tot),plotH=H-padB-padT,plotW=W-padL-12,gw=plotW/n,bw=Math.min(28,gw-6);
+  let bars='',xlab=''; const step=Math.ceil(n/10)||1;
+  labels.forEach((lb,i)=>{ const x=padL+i*gw+(gw-bw)/2; const ha=Math.round(num(sA[i])/mx*plotH),hb=Math.round(num(sB[i])/mx*plotH),ya=padT+plotH-ha,yb=ya-hb;
+    bars+=`<rect x="${x.toFixed(1)}" y="${ya.toFixed(1)}" width="${bw.toFixed(1)}" height="${ha}" fill="#16a34a"><title>${gEsc(lb)} ${names[0]}: ${fmt(sA[i])}</title></rect><rect x="${x.toFixed(1)}" y="${yb.toFixed(1)}" width="${bw.toFixed(1)}" height="${hb}" fill="#2563eb"><title>${gEsc(lb)} ${names[1]}: ${fmt(sB[i])}</title></rect>`;
+    if(i%step===0)xlab+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-8}" font-size="8" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`; });
+  const leg=`<div style="display:flex;gap:12px;font-size:11px;margin-top:2px"><span><span style="display:inline-block;width:10px;height:10px;background:#16a34a;border-radius:2px;margin-right:4px"></span>${names[0]}</span><span><span style="display:inline-block;width:10px;height:10px;background:#2563eb;border-radius:2px;margin-right:4px"></span>${names[1]}</span></div>`;
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">${bars}${xlab}</svg></div>${leg}</div>`; }
+function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&&!elI)return;
+  const ys=grafYears(); if(!ys.includes(grafYear))grafYear=ys[0]||new Date().getFullYear();
+  const selEl=$('#grafYear'); if(selEl)selEl.innerHTML=ys.map(y=>`<option value="${y}"${y===grafYear?' selected':''}>${y}</option>`).join('');
+  const Y=grafYear, MES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  if(elH){ const movs=(DB.movimientos||[]).filter(m=>m.fecha&&+m.fecha.slice(0,4)===Y); const gasMes=new Array(12).fill(0),ingMes=new Array(12).fill(0);
+    movs.forEach(m=>{ const mo=+m.fecha.slice(5,7)-1; if(mo<0||mo>11)return; if(m.tipo==='gasto')gasMes[mo]+=num(m.importe); else if(m.tipo==='ingreso')ingMes[mo]+=num(m.importe); });
+    let presMes=0; (DB.presupuesto||[]).filter(p=>pAnio(p)===Y).forEach(p=>{ const c=catById(p.categoriaId); if(c&&c.tipo==='gasto')presMes+=mensual(p); });
+    const c1=gBars('Gasto real vs presupuesto por mes · '+Y,MES,[{name:'Gasto real',color:'#dc2626',vals:gasMes},{name:'Presupuesto',color:'#94a3b8',vals:new Array(12).fill(presMes)}]);
+    const porG={}; movs.filter(m=>m.tipo==='gasto').forEach(m=>{ const c=catById(m.categoriaId); const g=(c&&c.grupo)||'Otros'; porG[g]=(porG[g]||0)+num(m.importe); });
+    const c2=gDonut('Reparto del gasto por grupo · '+Y,Object.keys(porG).map(g=>({label:g,val:porG[g]})));
+    const ah=MES.map((_,i)=>ingMes[i]?((ingMes[i]-gasMes[i])/ingMes[i]*100):0);
+    const c3=gLine('Tasa de ahorro mensual % · '+Y,MES,ah,{pct:true,color:'#16a34a'});
+    elH.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">${c1}${c2}${c3}</div>`; }
+  if(elI){ const snaps=(typeof patSnaps==='function'?patSnaps():[]); const labels=snaps.map(s=>(s.fecha||'').slice(0,7));
+    const ef=snaps.map(s=>(s.lineas||[]).reduce((a,l)=>a+num(l.ef),0)), inv=snaps.map(s=>(s.lineas||[]).reduce((a,l)=>a+num(l.inv),0));
+    const c4=labels.length?gStack('Patrimonio: efectivo vs invertido',labels,ef,inv,['Efectivo','Invertido']):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Patrimonio</div><div class="muted" style="font-size:12px">Sin snapshots de Patrimonio.</div></div>';
+    const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+    const c5=gDonut('Composición de la cartera por empresa',pos.map(p=>({label:p.ticker,val:p.acciones*num(p.precioActual)})));
+    const nowY=new Date().getFullYear(); const yA=[]; for(let y=nowY-6;y<=nowY+2;y++)yA.push(y); const dv=yA.map(y=>(typeof simYearTotal==='function'?simYearTotal(y):0));
+    const dvP=yA.map((y,i)=>y<=nowY?dv[i]:0), dvF=yA.map((y,i)=>y>nowY?dv[i]:0);
+    const c6=gBars('Dividendo bruto por año ('+(nowY+1)+'-'+(nowY+2)+' = previsión)',yA.map(String),[{name:'Cobrado/actual',color:'#16a34a',vals:dvP},{name:'Previsión',color:'#93c5fd',vals:dvF}]);
+    const mes=(typeof cajaDivMes==='function'?cajaDivMes():new Array(12).fill(0));
+    const c7=gBars('Dividendo estimado por mes (ciclo actual)',MES,[{name:'Dividendo',color:'#2563eb',vals:mes}]);
+    elI.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px">${c4}${c5}${c6}${c7}</div>`; }
+}
+document.addEventListener('change',e=>{ if(e.target&&e.target.id==='grafYear'){ grafYear=+e.target.value; renderGraficas(); } });
+document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('button[data-view="graficas"]'); if(b&&typeof renderGraficas==='function')setTimeout(renderGraficas,0); });
+function renderAll(){ renderGraficas(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); renderMonitor(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
