@@ -350,6 +350,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
     <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
       <div class="sub" style="margin-bottom:6px">Pega <b>Nombre</b> · <b>Cotización</b> · <b>Dividendo bruto</b> (separados por tabulador), una por línea. La empresa se identifica por el nombre y se actualizan a la vez Análisis e Inversiones.</div>
+      <div class="sub" style="margin-bottom:6px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Cuidado con el dividendo:</b> al pegar, el dividendo bruto se guarda en el <b>año en curso</b> del Histórico/Previsión. No actualices el dividendo de una empresa hasta estar en el año que le corresponde (si no, sobrescribirías el año en curso con un valor que no toca).</div>
       <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
       <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
     </div>
@@ -1478,12 +1479,12 @@ function aplicarAnaPaste(){
     const t=anaFindTicker(nombre).toUpperCase();
     const v=DB.valores[t]=DB.valores[t]||{}; v.nombre=nombre;
     if(!isNaN(precio)) v.precioActual=precio;
-    if(!isNaN(div)) v.divAccion=div;
+    if(!isNaN(div)){ v.divAccion=div; const _ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][_ny]=div; }
     let a=anaByTick[t];
     if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
     else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
   });
-  renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); scheduleSave();
+  renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); scheduleSave();
   $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
 }
