@@ -378,6 +378,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>Entrada máx (€)<input type="number" id="anaEntMax" step="0.0001"></label>
       <label>Rating (AAA…C)<input type="text" id="anaRating" style="text-transform:uppercase"></label>
       <label>Stop tesis (€)<input type="number" id="anaStop" step="0.0001"></label>
+      <label>Decisión<select id="anaDecision"><option value="">—</option><option>COMPRAR</option><option>MANTENER</option><option>ESPERAR</option><option>VENDER</option></select></label>
+      <label>Fecha análisis<input type="date" id="anaDossierFecha"></label>
+      <label>Enlace dossier/Excel<input type="text" id="anaDossierUrl" placeholder="https://drive.google.com/..."></label>
       <label>Dividendo/acción (€)<input type="number" id="anaDivA" step="0.0001"></label>
       <label>Notas<input type="text" id="anaNotas"></label>
       <div class="row-actions"><button type="submit" class="btn" id="anaSubmit">Añadir</button>
@@ -722,6 +725,9 @@ function afterLoad(){
     if(a.entMin==null&&a.entMax==null){ const e=num(a.precioEntrada); a.entMin=e||0; a.entMax=e||0; }
     if(a.rating==null)a.rating='';
     if(a.stopTesis==null)a.stopTesis=0;
+    if(a.decision==null)a.decision='';
+    if(a.dossierUrl==null)a.dossierUrl='';
+    if(a.dossierFecha==null)a.dossierFecha='';
   });
   DB.dividendos = DB.dividendos||{};
   DB.divIngresos = DB.divIngresos||{};
@@ -1506,11 +1512,15 @@ function renderAnalisis(){
     const scls=a.score==null?'':(a.score>=70?'g':a.score>=50?'a':'r');
     let sLbl='',sCol='#64748b';
     if(a.score!=null){ if(a.score>=70){sLbl='Buena';sCol='#16a34a';} else if(a.score>=50){sLbl='Media';sCol='#d97706';} else {sLbl='Mala';sCol='#dc2626';} }
+    const _dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dv=(a.decision||'').toUpperCase();
+    const _dopts=['','COMPRAR','MANTENER','ESPERAR','VENDER'].map(o=>`<option value="${o}"${o===_dv?' selected':''}>${o||'—'}</option>`).join('');
+    const decCell=`<td style="text-align:center;white-space:nowrap"><select class="anaInp" data-id="${a.id}" data-f="decision" style="font-size:10px;font-weight:700;color:${_dc[_dv]||'#475569'}">${_dopts}</select>${a.dossierUrl?` <a href="${a.dossierUrl}" target="_blank" rel="noopener" title="Abrir dossier${a.dossierFecha?' ('+a.dossierFecha+')':''}" style="text-decoration:none;font-size:14px">📄</a>`:''}</td>`;
     const star=a.id===bestId?'⭐ ':'';
     const rowStyle=a.stopHit?' style="background:#fef2f2"':(a.id===bestId?' style="background:#f0fdf4"':'');
     return `<tr${rowStyle}>
       <td>${star}<b>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.nombre||''}</td>
       <td style="text-align:center;white-space:nowrap"><div style="font-size:20px;font-weight:800;line-height:1.05;color:${sCol}">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div style="font-size:9px;font-weight:700;color:${sCol};text-transform:uppercase;letter-spacing:.03em">${sLbl}</div>`}</td>
+      ${decCell}
       <td class="num">${fmt(a.cot)}</td>
       <td class="num">${inp(a.id,'poMin',a.poMin)}</td>
       <td class="num">${a.poMed?fmt(a.poMed):'—'}</td>
@@ -1524,14 +1534,14 @@ function renderAnalisis(){
       <td class="num"><input type="text" class="anaInp" style="width:48px;text-align:center;text-transform:uppercase" data-id="${a.id}" data-f="rating" value="${a.rating||''}"></td>
       <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
-  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Score</th><th class="num">Cotiz.</th><th class="num">PO mín</th><th class="num">PO med</th><th class="num">PO máx</th><th class="num">Potencial</th><th class="num">Ent. mín</th><th class="num">Ent. máx</th><th>Estado entrada</th><th class="num">Stop tesis</th><th>Salida</th><th class="num">Rating</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Score</th><th>Decisión</th><th class="num">Cotiz.</th><th class="num">PO mín</th><th class="num">PO med</th><th class="num">PO máx</th><th class="num">Potencial</th><th class="num">Ent. mín</th><th class="num">Ent. máx</th><th>Estado entrada</th><th class="num">Stop tesis</th><th>Salida</th><th class="num">Rating</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function anaSubmit(){
   const id=$('#anaId').value||uid();
   const poMin=num($('#anaPoMin').value), poMax=num($('#anaPoMax').value);
   const entMin=num($('#anaEntMin').value), entMax=num($('#anaEntMax').value);
   const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
-  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),poMin,poMax,entMin,entMax,rating:($('#anaRating').value||'').trim().toUpperCase(),stopTesis:num($('#anaStop').value),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim(),precioObjetivo:poMed,precioEntrada:entMax};
+  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),poMin,poMax,entMin,entMax,rating:($('#anaRating').value||'').trim().toUpperCase(),stopTesis:num($('#anaStop').value),decision:($('#anaDecision').value||'').toUpperCase(),dossierFecha:$('#anaDossierFecha').value||'',dossierUrl:($('#anaDossierUrl').value||'').trim(),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim(),precioObjetivo:poMed,precioEntrada:entMax};
   if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
   DB.analisis=DB.analisis||[];
   const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
@@ -1539,7 +1549,7 @@ function anaSubmit(){
   renderAnalisis(); scheduleSave();
 }
 function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
-  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaPoMin').value=a.poMin||''; $('#anaPoMax').value=a.poMax||''; $('#anaEntMin').value=a.entMin||''; $('#anaEntMax').value=a.entMax||''; $('#anaRating').value=a.rating||''; $('#anaStop').value=a.stopTesis||''; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
+  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaPoMin').value=a.poMin||''; $('#anaPoMax').value=a.poMax||''; $('#anaEntMin').value=a.entMin||''; $('#anaEntMax').value=a.entMax||''; $('#anaRating').value=a.rating||''; $('#anaStop').value=a.stopTesis||''; $('#anaDecision').value=a.decision||''; $('#anaDossierFecha').value=a.dossierFecha||''; $('#anaDossierUrl').value=a.dossierUrl||''; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
   $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
 function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
 function aplicarAnaPaste(){
@@ -1559,7 +1569,7 @@ function aplicarAnaPaste(){
     if(!isNaN(div)){ v.divAccion=div; const _ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][_ny]=div; }
     let a=anaByTick[t];
     if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
-    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
+    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,decision:'',dossierFecha:'',dossierUrl:'',precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
   });
   renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); scheduleSave();
   $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
@@ -1670,7 +1680,10 @@ function renderFicha(t){
   const _ranges=[['1a','1A'],['3a','3A'],['5a','5A'],['all','Todo']];
   const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
   const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
-  $('#fichaView').innerHTML=header+chartCard+mid+divSection;
+  const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
+  const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase();
+  const veredictoCard = (_dec||_ana.rating||_ana.dossierUrl) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span class="muted" style="font-size:11px">análisis ${_ana.dossierFecha}</span>`:''}<div style="flex:1"></div>${_ana.dossierUrl?`<a class="btn" href="${_ana.dossierUrl}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
+  $('#fichaView').innerHTML=header+veredictoCard+chartCard+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -2443,7 +2456,7 @@ $('#anaAddBtn').addEventListener('click',()=>{const f=$('#anaForm'); f.reset(); 
 $('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
 $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});
 $('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
-$('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')&&t.dataset.f){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){ if(t.dataset.f==='rating'){a.rating=(t.value||'').trim().toUpperCase();} else {a[t.dataset.f]=num(t.value); const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax);} renderAnalisis(); scheduleSave();}}});
+$('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')&&t.dataset.f){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){ if(t.dataset.f==='rating'){a.rating=(t.value||'').trim().toUpperCase();} else if(t.dataset.f==='decision'){a.decision=(t.value||'').trim().toUpperCase();} else {a[t.dataset.f]=num(t.value); const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax);} renderAnalisis(); scheduleSave();}}});
 $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
