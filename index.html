@@ -122,6 +122,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:8px} #calEventos th,#calEventos td{padding:0 1px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
   #loteTabla table{font-size:11px} #loteTabla td,#loteTabla th{padding:3px 6px;border:1px solid #e2e8f0} #loteTabla input{font-size:10px;padding:1px 2px} #loteTabla input[type=number]{-moz-appearance:textfield} #loteTabla input[type=number]::-webkit-inner-spin-button,#loteTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+@keyframes stoppulse{0%,100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}50%{box-shadow:0 0 0 5px rgba(220,38,38,.18)}}
+.stopalert{animation:stoppulse 1.8s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -367,8 +369,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>Ticker<input type="text" id="anaTicker"></label>
       <label>Nombre<input type="text" id="anaNombre"></label>
       <label>Cotización (€)<input type="number" id="anaCot" step="0.0001"></label>
-      <label>Precio entrada (€)<input type="number" id="anaEnt" step="0.0001"></label>
-      <label>Precio objetivo (€)<input type="number" id="anaObj" step="0.0001"></label>
+      <label>PO mínimo (€)<input type="number" id="anaPoMin" step="0.0001"></label>
+      <label>PO máximo (€)<input type="number" id="anaPoMax" step="0.0001"></label>
+      <label>Entrada mín (€)<input type="number" id="anaEntMin" step="0.0001"></label>
+      <label>Entrada máx (€)<input type="number" id="anaEntMax" step="0.0001"></label>
+      <label>Rating (AAA…C)<input type="text" id="anaRating" style="text-transform:uppercase"></label>
+      <label>Stop tesis (€)<input type="number" id="anaStop" step="0.0001"></label>
       <label>Dividendo/acción (€)<input type="number" id="anaDivA" step="0.0001"></label>
       <label>Notas<input type="text" id="anaNotas"></label>
       <div class="row-actions"><button type="submit" class="btn" id="anaSubmit">Añadir</button>
@@ -706,6 +712,12 @@ function afterLoad(){
   DB.operaciones = DB.operaciones||[];
   DB.valores = DB.valores||{};
   DB.analisis = DB.analisis||[];
+  (DB.analisis||[]).forEach(a=>{
+    if(a.poMin==null&&a.poMax==null){ const o=num(a.precioObjetivo); a.poMin=o||0; a.poMax=o||0; }
+    if(a.entMin==null&&a.entMax==null){ const e=num(a.precioEntrada); a.entMin=e||0; a.entMax=e||0; }
+    if(a.rating==null)a.rating='';
+    if(a.stopTesis==null)a.stopTesis=0;
+  });
   DB.dividendos = DB.dividendos||{};
   DB.divIngresos = DB.divIngresos||{};
   DB.cerradas = DB.cerradas||[];
@@ -1436,38 +1448,83 @@ function renderAnalisis(){
   const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
   const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
   const ae=$('#anaAmbar'); if(ae)ae.value=Math.round(aU*100);
+  const RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+  const cw=DB.config.anaPesos||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15);
+  const cl=x=>Math.max(0,Math.min(100,x));
+  const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
   const list=(DB.analisis||[]).map(a=>{
-    const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo),dv=num(a.divAccion);
-    return {id:a.id,ticker:a.ticker,nombre:a.nombre,notas:a.notas,cot,ent,obj,dv,
-      pot:(cot&&obj)?(obj-cot)/cot:null, rpdAct:cot?dv/cot:null, rpdEnt:ent?dv/ent:null, vsEnt:ent?(cot-ent)/ent:null};
+    const cot=num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
+    const rating=(a.rating||'').toUpperCase();
+    const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
+    const pot=(cot&&poMed)?(poMed/cot-1):null;
+    const dist=(cot&&entMax)?(cot-entMax)/entMax:null;
+    const colchon=(cot&&stop)?(cot-stop)/cot:null;
+    const stopHit=!!(cot&&stop&&cot<=stop);
+    let A=null,B=null,D=null; const C=(rating&&RPTS[rating]!=null)?RPTS[rating]:50;
+    if(cot&&poMed) A=(pot<=0?0:cl(pot/0.5*100));
+    if(dist!=null){ if(dist<=-0.20)B=100; else if(dist<=0)B=70+(-dist/0.20)*30; else if(dist<=0.25)B=70*(1-dist/0.25); else B=0; }
+    if(poMin&&poMax&&poMed){ const amp=(poMax-poMin)/poMed; D=cl((0.60-amp)/0.50*100); } else if(poMed){ D=100; }
+    let score=null;
+    if(A!=null&&B!=null&&D!=null) score=wA*A+wB*B+wC*C+wD*D;
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre,cot,poMin,poMax,poMed,entMin,entMax,stop,colchon,stopHit,held:held.has((a.ticker||'').toUpperCase()),rating,dv,pot,dist,A,B,C,D,score};
   });
-  list.sort((a,b)=>(b.pot==null?-1e9:b.pot)-(a.pot==null?-1e9:a.pot));
-  const baratas=list.filter(x=>x.pot!=null&&x.pot>=vU).length;
-  const enEntrada=list.filter(x=>x.ent&&x.cot&&x.cot<=x.ent).length;
+  list.sort((a,b)=>(b.score==null?-1:b.score)-(a.score==null?-1:a.score));
+  let bestId=null,bestSc=-1;
+  list.forEach(x=>{ if(x.score!=null&&x.entMax&&x.cot&&x.cot<=x.entMax&&x.score>bestSc){bestSc=x.score;bestId=x.id;} });
+  const enZona=list.filter(x=>x.entMax&&x.cot&&x.cot<=x.entMax).length;
+  const buenScore=list.filter(x=>x.score!=null&&x.score>=70).length;
+  const stopHits=list.filter(x=>x.stopHit).length;
+  const bestT=(list.find(x=>x.id===bestId)||{}).ticker||'—';
   $('#anaCards').innerHTML=[
     {l:'Empresas en seguimiento',v:list.length,cls:''},
-    {l:'Baratas (≥'+Math.round(vU*100)+'% potencial)',v:baratas,cls:'pos'},
-    {l:'A tu precio de entrada o menos',v:enEntrada,cls:'pos'}
+    {l:'En zona de compra',v:enZona,cls:enZona?'pos':''},
+    {l:'Mejor oportunidad ahora',v:bestT,cls:'pos'},
+    {l:'🚨 Stop de tesis alcanzado',v:stopHits,cls:stopHits?'neg':''}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
   if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
+  const inp=(id,f,v,w)=>`<input type="number" step="0.0001" class="anaInp" style="width:${w||72}px;text-align:right" data-id="${id}" data-f="${f}" value="${(v!=null&&v!==0)?v:''}">`;
   const rows=list.map(a=>{
-    const cls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
-    const estado=a.pot==null?'—':(a.pot>=vU?'Barata':a.pot>=aU?'Media':'Cara');
-    return `<tr>
-      <td><b>${a.ticker||''}</b></td><td>${a.nombre||''}</td>
-      <td class="num">${fmt(a.cot)}</td><td class="num">${fmt(a.ent)}</td><td class="num">${fmt(a.obj)}</td>
-      <td class="num"><span class="pill ${cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
-      <td class="num ${a.vsEnt!=null?(a.vsEnt<=0?'pos':'neg'):''}">${a.vsEnt==null?'—':(a.vsEnt>=0?'+':'')+(a.vsEnt*100).toFixed(1)+'%'}</td>
-      <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
-      <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
-      <td><span class="pill ${cls}">${estado}</span></td>
+    const potcls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
+    let estado='—',ecls='';
+    if(a.entMax&&a.cot){
+      if(a.entMin&&a.cot<=a.entMin){estado='🟢 Óptimo';ecls='g';}
+      else if(a.cot<=a.entMax){estado='🟢 En zona';ecls='g';}
+      else if(a.cot<=a.entMax*1.10){estado='🟡 +'+(a.dist*100).toFixed(1)+'%';ecls='a';}
+      else {estado='🔴 −'+((a.cot-a.entMax)/a.cot*100).toFixed(1)+'%';ecls='r';}
+    }
+    let salida='—',scls2='';
+    if(a.stop&&a.cot){
+      if(a.stopHit){salida='🚨 VENDER';scls2='r';}
+      else if(a.colchon<=0.10){salida='🟠 cerca '+(a.colchon*100).toFixed(0)+'%';scls2='a';}
+      else {salida='colchón '+(a.colchon*100).toFixed(0)+'%';scls2='g';}
+    }
+    const scls=a.score==null?'':(a.score>=70?'g':a.score>=50?'a':'r');
+    const star=a.id===bestId?'⭐ ':'';
+    const rowStyle=a.stopHit?' style="background:#fef2f2"':(a.id===bestId?' style="background:#f0fdf4"':'');
+    return `<tr${rowStyle}>
+      <td>${star}<b>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.nombre||''}</td>
+      <td class="num">${fmt(a.cot)}</td>
+      <td class="num">${inp(a.id,'poMin',a.poMin)}</td>
+      <td class="num">${a.poMed?fmt(a.poMed):'—'}</td>
+      <td class="num">${inp(a.id,'poMax',a.poMax)}</td>
+      <td class="num"><span class="pill ${potcls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
+      <td class="num">${inp(a.id,'entMin',a.entMin)}</td>
+      <td class="num">${inp(a.id,'entMax',a.entMax)}</td>
+      <td><span class="pill ${ecls}">${estado}</span></td>
+      <td class="num">${inp(a.id,'stopTesis',a.stop)}</td>
+      <td><span class="pill ${scls2}">${salida}</span></td>
+      <td class="num"><input type="text" class="anaInp" style="width:48px;text-align:center;text-transform:uppercase" data-id="${a.id}" data-f="rating" value="${a.rating||''}"></td>
+      <td class="num"><span class="pill ${scls}">${a.score==null?'—':a.score.toFixed(0)}</span></td>
       <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
-  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotiz.</th><th class="num">PO mín</th><th class="num">PO med</th><th class="num">PO máx</th><th class="num">Potencial</th><th class="num">Ent. mín</th><th class="num">Ent. máx</th><th>Estado entrada</th><th class="num">Stop tesis</th><th>Salida</th><th class="num">Rating</th><th class="num">Score</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function anaSubmit(){
   const id=$('#anaId').value||uid();
-  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),precioEntrada:num($('#anaEnt').value),precioObjetivo:num($('#anaObj').value),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim()};
+  const poMin=num($('#anaPoMin').value), poMax=num($('#anaPoMax').value);
+  const entMin=num($('#anaEntMin').value), entMax=num($('#anaEntMax').value);
+  const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
+  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),poMin,poMax,entMin,entMax,rating:($('#anaRating').value||'').trim().toUpperCase(),stopTesis:num($('#anaStop').value),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim(),precioObjetivo:poMed,precioEntrada:entMax};
   if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
   DB.analisis=DB.analisis||[];
   const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
@@ -1475,7 +1532,7 @@ function anaSubmit(){
   renderAnalisis(); scheduleSave();
 }
 function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
-  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaEnt').value=a.precioEntrada; $('#anaObj').value=a.precioObjetivo; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
+  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaPoMin').value=a.poMin||''; $('#anaPoMax').value=a.poMax||''; $('#anaEntMin').value=a.entMin||''; $('#anaEntMax').value=a.entMax||''; $('#anaRating').value=a.rating||''; $('#anaStop').value=a.stopTesis||''; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
   $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
 function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
 function aplicarAnaPaste(){
@@ -1495,7 +1552,7 @@ function aplicarAnaPaste(){
     if(!isNaN(div)){ v.divAccion=div; const _ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][_ny]=div; }
     let a=anaByTick[t];
     if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
-    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
+    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
   });
   renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); scheduleSave();
   $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
@@ -1983,6 +2040,15 @@ function addSimEmpresa(){
 function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ tot+=simEffShares(t,year,nowY)*num((dpa[t]||{})[year]||0); }); return tot; }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
+  // ALERTA CRÍTICA: stop de tesis alcanzado
+  const _heldP={}; try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)_heldP[(p.ticker||'').toUpperCase()]=p; }); }catch(e){}
+  const _stops=(DB.analisis||[]).filter(a=>{ const c=num(a.cotizacion),st=num(a.stopTesis); return c&&st&&c<=st; });
+  if(_stops.length){
+    const _it=_stops.map(a=>{ const t=(a.ticker||'').toUpperCase(); const c=num(a.cotizacion),st=num(a.stopTesis); const p=_heldP[t];
+      const det=p?`Tienes <b>${p.acciones}</b> acc. (${fmt(p.acciones*p.precioActual)}) — <b>ORDEN DE SALIDA</b>`:'En vigilancia (sin posición)';
+      return `<div style="font-size:13px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid #dc2626;border-radius:4px">🚨 <b>${t}</b>${a.nombre?' · '+a.nombre:''} — precio ${fmt(c)} ≤ stop tesis ${fmt(st)}. ${det}</div>`; }).join('');
+    html+=`<div class="stopalert" style="margin-top:4px;padding:12px 14px;background:#fee2e2;border:1px solid #fecaca;border-radius:10px;cursor:pointer" data-goto="analisis"><div style="font-weight:800;color:#991b1b;font-size:15px;margin-bottom:4px">🚨 STOP DE TESIS ALCANZADO (${_stops.length}) — revisa la salida</div><div style="font-size:12px;color:#7f1d1d;margin-bottom:6px">El precio ha tocado tu nivel de tesis rota. Actúa con disciplina: la razón por la que compraste ya no se sostiene. No promedies a la baja.</div>${_it}</div>`;
+  }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;
   // Patrimonio
@@ -2356,7 +2422,7 @@ $('#anaAddBtn').addEventListener('click',()=>{const f=$('#anaForm'); f.reset(); 
 $('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
 $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});
 $('#anaTable').addEventListener('click',e=>{const ed=e.target.closest('[data-anaedit]'),de=e.target.closest('[data-anadel]'); if(ed)anaEdit(ed.dataset.anaedit); if(de&&confirm('¿Eliminar esta empresa del seguimiento?')){DB.analisis=DB.analisis.filter(x=>x.id!==de.dataset.anadel);renderAnalisis();scheduleSave();}});
-$('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){a[t.dataset.f]=num(t.value); renderAnalisis(); scheduleSave();}}});
+$('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t.classList.contains('anaInp')&&t.dataset.f){const a=DB.analisis.find(x=>x.id===t.dataset.id); if(a){ if(t.dataset.f==='rating'){a.rating=(t.value||'').trim().toUpperCase();} else {a[t.dataset.f]=num(t.value); const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax);} renderAnalisis(); scheduleSave();}}});
 $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]');if(b&&confirm('¿Eliminar este apunte?')){DB.amalia=DB.amalia.filter(x=>x.id!==b.dataset.delama);renderAmalia();scheduleSave();}});
