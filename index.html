@@ -107,7 +107,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   tr.r-verde td{background:#dcfce7!important;color:#166534!important;font-size:15px}
   #proyTabla table{font-size:11px}
   #proyTabla th,#proyTabla td{padding:4px 6px}
-  #proyTabla .aporInput{font-size:11px}
+  #proyTabla .aporInput{font-size:13px;font-weight:600}
   #invTable table{font-size:12px}
   #invTable th,#invTable td{padding:5px 7px}
   #divMatrixWrap table{font-size:11px} #divMatrixWrap th,#divMatrixWrap td{padding:2px 5px}
@@ -127,11 +127,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #anaTable table{font-size:11px}
 #anaTable th,#anaTable td{padding:3px 6px}
 #anaTable input.anaInp{font-size:11px;padding:1px 3px}
-.infobox{border:1px solid #bfdbfe;background:#eff6ff;border-radius:10px;margin:0 0 12px;overflow:hidden}
-.infobox-head{cursor:pointer;padding:8px 12px;font-weight:700;color:#1e40af;font-size:13px;display:flex;align-items:center;gap:6px;user-select:none}
+.infobox{border:1px solid #fdba74;background:#fff7ed;border-radius:10px;margin:0 0 12px;overflow:hidden}
+.infobox-head{cursor:pointer;padding:8px 12px;font-weight:700;color:#9a3412;font-size:13px;display:flex;align-items:center;gap:6px;user-select:none}
 .infobox-arrow{margin-left:auto;transition:transform .15s}
 .infobox.open .infobox-arrow{transform:rotate(90deg)}
-.infobox-body{display:none;padding:0 12px 10px;font-size:12.5px;color:#1e3a5f;line-height:1.55}
+.infobox.open .infobox-head{background:#78350f;color:#fff}
+.infobox-body{display:none;padding:0 12px 10px;font-size:12.5px;color:#7c2d12;line-height:1.55}
 .infobox.open .infobox-body{display:block}
 </style>
 </head>
@@ -2321,6 +2322,7 @@ function renderCaja(){
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
 function qPassed(t,q,year){ const ev=(DB.eventos||{})[t]||[]; const e=ev.find(x=>(x.code||'').toUpperCase()===q); if(!e)return false; const day=Math.min(28,((e.w||1)-1)*7+3); return new Date(year,(e.m||1)-1,day)<=new Date(); }
+function mesesDesde(fechaStr){ if(!fechaStr)return null; const d=new Date(fechaStr+'T00:00:00'); if(isNaN(d.getTime()))return null; const now=new Date(); return (now.getFullYear()-d.getFullYear())*12+(now.getMonth()-d.getMonth()); }
 function renderMonitor(){
   DB.todos=DB.todos||[]; DB.monitor=DB.monitor||{};
   const te=$('#todoTabla');
@@ -2347,19 +2349,21 @@ function renderMonitor(){
   const body=tickers.map(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe;
     const rolInp=`<input class="anaInp" style="width:120px;font-size:11px" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
     const infCell=`<button class="btn ghost sm" data-moninf="${t}">${inf?'<span class="pos">✓ Sí</span>':'<span class="muted">Pendiente</span>'}</button>${(inf&&m.informeFecha)?`<div class="muted" style="font-size:9px">${m.informeFecha}</div>`:''}`;
+    const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}; const _df=_an.dossierFecha; let _m=(typeof mesesDesde==='function')?mesesDesde(_df):null; if(_m!=null&&_m<0)_m=0;
+    let dosCell; if(!_df){ dosCell='<td class="muted" style="font-size:10px;text-align:center">sin dossier</td>'; } else if(_m!=null&&_m>12){ dosCell=`<td style="text-align:center;background:#fee2e2" title="Dossier de ${_df}"><span style="color:#dc2626;font-weight:700">⚠️ ${_m} m</span><div class="muted" style="font-size:9px">reanalizar</div></td>`; } else { dosCell=`<td style="text-align:center" title="Dossier de ${_df}"><span class="pos">${_m==null?'?':_m+' m'}</span><div class="muted" style="font-size:9px">${_df}</div></td>`; }
     let q;
     if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=!!(m.rev&&m.rev[key]); const passed=qPassed(t,qc,yr); const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'·'); return `<td class="num" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Resultados ya publicados':'Aún no publicados'}">${mark}</td>`; }).join(''); }
     else { q='<td colspan="4" class="muted" style="font-size:11px;text-align:center">Falta informe</td>'; }
-    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${q}</tr>`;
+    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${dosCell}${q}</tr>`;
   }).join('');
-  const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
+  const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th rowspan="2">Dossier</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
 }
 let grafYear=new Date().getFullYear();
 const GRAF_COLS=['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#0d9488','#9333ea','#475569'];
 function grafYears(){ const s=new Set(); (DB.movimientos||[]).forEach(m=>{ if(m.fecha)s.add(+m.fecha.slice(0,4)); }); (DB.presupuesto||[]).forEach(p=>{ if(typeof pAnio==='function')s.add(pAnio(p)); }); s.add(new Date().getFullYear()); return [...s].filter(Boolean).sort((a,b)=>b-a); }
 function gEsc(x){ return (''+x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-function gBars(title,labels,series,opt){ opt=opt||{}; const W=Math.max(340,labels.length*(series.length>1?40:30)+50),H=200,padL=46,padB=26,padT=10;
+function gBars(title,labels,series,opt){ opt=opt||{}; const W=Math.max(340,labels.length*(series.length>1?40:30)+50),H=280,padL=46,padB=26,padT=10;
   const max=Math.max(1,...series.reduce((a,sg)=>a.concat(sg.vals.map(v=>Math.abs(num(v)))),[]));
   const plotH=H-padB-padT,plotW=W-padL-12,gw=plotW/labels.length,bw=Math.min(26,(gw-6)/series.length);
   let bars='',xlab='';
@@ -2379,14 +2383,14 @@ function gDonut(title,items){ items=items.filter(x=>num(x.val)>0).sort((a,b)=>b.
     segs+=`<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 ${lg} 1 ${x1.toFixed(1)} ${y1.toFixed(1)} L${xi1.toFixed(1)} ${yi1.toFixed(1)} A${rin} ${rin} 0 ${lg} 0 ${xi0.toFixed(1)} ${yi0.toFixed(1)} Z" fill="${col}"><title>${gEsc(x.label)}: ${fmt(x.val)} (${(frac*100).toFixed(1)}%)</title></path>`; a0=a1; }); }
   const leg=items.map((x,i)=>`<div style="font-size:11px;margin:1px 0;white-space:nowrap"><span style="display:inline-block;width:10px;height:10px;background:${x.color||GRAF_COLS[i%GRAF_COLS.length]};border-radius:2px;margin-right:5px"></span>${gEsc(x.label)} <b>${fmt(x.val)}</b> <span class="muted">${(x.val/tot*100).toFixed(0)}%</span></div>`).join('');
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg width="140" height="140" viewBox="0 0 140 140">${segs}<text x="70" y="74" font-size="10" text-anchor="middle" fill="#475569">${fmt(tot)}</text></svg><div style="flex:1;min-width:150px">${leg}</div></div></div>`; }
-function gLine(title,labels,vals,opt){ opt=opt||{}; const W=Math.max(340,labels.length*30+50),H=180,padL=44,padB=24,padT=12;
+function gLine(title,labels,vals,opt){ opt=opt||{}; const W=Math.max(340,labels.length*30+50),H=240,padL=44,padB=24,padT=12;
   const mn=Math.min(0,...vals.map(num)),mx=Math.max(1,...vals.map(num)),rng=(mx-mn)||1,plotH=H-padB-padT,plotW=W-padL-12;
   const X=i=>padL+(labels.length>1?i*plotW/(labels.length-1):plotW/2), Yf=v=>padT+plotH-((num(v)-mn)/rng)*plotH;
   const pts=vals.map((v,i)=>`${X(i).toFixed(1)},${Yf(v).toFixed(1)}`).join(' ');
   const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Yf(v).toFixed(1)}" r="2.5" fill="${opt.color||'#2563eb'}"><title>${gEsc(labels[i])}: ${opt.pct?num(v).toFixed(1)+'%':fmt(v)}</title></circle>`).join('');
   const xlab=labels.map((lb,i)=>`<text x="${X(i).toFixed(1)}" y="${H-8}" font-size="9" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`).join('');
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet"><line x1="${padL}" y1="${Yf(0).toFixed(1)}" x2="${W-12}" y2="${Yf(0).toFixed(1)}" stroke="#e2e8f0"/><polyline points="${pts}" fill="none" stroke="${opt.color||'#2563eb'}" stroke-width="2"/>${dots}${xlab}</svg></div></div>`; }
-function gStack(title,labels,sA,sB,names){ const n=labels.length,W=Math.max(340,n*30+50),H=200,padL=46,padB=30,padT=10;
+function gStack(title,labels,sA,sB,names){ const n=labels.length,W=Math.max(340,n*30+50),H=280,padL=46,padB=30,padT=10;
   const tot=labels.map((_,i)=>num(sA[i])+num(sB[i])),mx=Math.max(1,...tot),plotH=H-padB-padT,plotW=W-padL-12,gw=plotW/n,bw=Math.min(28,gw-6);
   let bars='',xlab=''; const step=Math.ceil(n/10)||1;
   labels.forEach((lb,i)=>{ const x=padL+i*gw+(gw-bw)/2; const ha=Math.round(num(sA[i])/mx*plotH),hb=Math.round(num(sB[i])/mx*plotH),ya=padT+plotH-ha,yb=ya-hb;
