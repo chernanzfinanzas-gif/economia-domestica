@@ -434,6 +434,22 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div style="overflow:auto" id="planTabla"></div>
   </section>
 
+  <section class="view" id="view-monitor">
+    <h2>Monitor y tareas</h2>
+    <h3>Tareas (ToDo)</h3>
+    <form class="grid" id="todoForm" autocomplete="off" style="background:#fffef0;margin-bottom:10px">
+      <label>Fecha límite<input type="date" id="todoFecha"></label>
+      <label>Descripción<input type="text" id="todoDesc" placeholder="p. ej. Rotar Enagás → Naturgy" required></label>
+      <label>Razonamiento<input type="text" id="todoRazon" placeholder="por qué"></label>
+      <label>Empresa (opcional)<input type="text" id="todoTicker" placeholder="TICKER" style="text-transform:uppercase"></label>
+      <div class="row-actions"><button type="submit" class="btn">Añadir tarea</button> <button type="button" class="btn ghost" id="todoDelDone">Borrar completadas</button></div>
+    </form>
+    <div style="overflow:auto" id="todoTabla"></div>
+    <h3 style="margin-top:20px">Monitor de seguimiento</h3>
+    <div class="sub" style="margin-bottom:6px">Marca el <b>informe de inversión</b> de cada empresa; al hacerlo aparecen las casillas de <b>revisión trimestral</b> del año. En rojo, el trimestre cuyos resultados ya salieron y aún no has revisado (según las fechas de tu Calendario).</div>
+    <div style="overflow:auto" id="monTabla"></div>
+  </section>
+
   <section class="view" id="view-caja">
     <h2>Caja del bróker</h2>
     <div class="cards" id="cajaKpis"></div>
@@ -708,6 +724,8 @@ function afterLoad(){
   DB.eventos = DB.eventos||{};
   DB.planCompras = DB.planCompras||{};
   DB.planPresupuesto = DB.planPresupuesto||{};
+  DB.todos = DB.todos||[];
+  DB.monitor = DB.monitor||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
@@ -1984,6 +2002,9 @@ function renderPanelDash(){
   if(ana.length) html+=block('Oportunidades','analisis',[['Empresas baratas',String(baratas),baratas?'pos':''],['Top potencial',top.length?top.map(x=>x.t+' '+(x.pot>=0?'+':'')+(x.pot*100).toFixed(0)+'%').join(' · '):'—']]);
   // Amalia
   if(typeof amaliaSaldo==='function'){ const am=amaliaSaldo(); html+=block('Reembolsables (Amalia)','amalia',[['Pendiente de cobro',fmt(am),am>0.005?'neg':'pos']]); }
+  // Tareas pendientes (antes de eventos)
+  const _pend=(DB.todos||[]).filter(x=>!x.hecho).sort((a,b)=>(a.fecha||'9999').localeCompare(b.fecha||'9999'));
+  if(_pend.length){ const _hoy=new Date().toISOString().slice(0,10); const _it=_pend.slice(0,8).map(x=>{ const v=x.fecha&&x.fecha<_hoy; return `<div style="font-size:12px;margin:1px 0"><span style="color:${v?'#dc2626':'#64748b'}">${x.fecha?ddmmyyyy(x.fecha):'—'}</span> ${x.desc||''}${x.ticker?' <b>'+x.ticker+'</b>':''}</div>`; }).join(''); html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="monitor">Tareas pendientes <span class="muted" style="font-size:12px">›</span></h3>${_it}</div>`; }
   // Próximos eventos
   const ev=DB.eventos||{}; const held=new Set(pos.map(p=>(p.ticker||'').toUpperCase()));
   let all=[]; Object.keys(ev).forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
@@ -2126,7 +2147,37 @@ function renderCaja(){
   const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); }
+function qPassed(t,q,year){ const ev=(DB.eventos||{})[t]||[]; const e=ev.find(x=>(x.code||'').toUpperCase()===q); if(!e)return false; const day=Math.min(28,((e.w||1)-1)*7+3); return new Date(year,(e.m||1)-1,day)<=new Date(); }
+function renderMonitor(){
+  DB.todos=DB.todos||[]; DB.monitor=DB.monitor||{};
+  const te=$('#todoTabla');
+  if(te){
+    const hoy=new Date().toISOString().slice(0,10);
+    const todos=DB.todos.slice().sort((a,b)=>(a.hecho?1:0)-(b.hecho?1:0)||((a.fecha||'9999').localeCompare(b.fecha||'9999')));
+    if(!todos.length){ te.innerHTML='<div class="empty">Sin tareas. Añade una arriba.</div>'; }
+    else{ const rows=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<tr style="${venc?'background:#fee2e2;':(x.hecho?'opacity:.55;':'')}"><td class="num"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}></td><td style="white-space:nowrap">${x.fecha?ddmmyyyy(x.fecha):'—'}</td><td>${(x.desc||'').replace(/</g,'&lt;')}</td><td class="muted">${(x.razon||'').replace(/</g,'&lt;')}</td><td>${x.ticker?`<button class="btn ghost sm" data-ficha="${x.ticker}">${x.ticker}</button>`:''}</td><td><button class="btn ghost sm" data-tododel="${x.id}" title="Eliminar">✕</button></td></tr>`; }).join('');
+      te.innerHTML=`<table><thead><tr><th class="num">✓</th><th>Fecha</th><th>Descripción</th><th>Razonamiento</th><th>Empresa</th><th></th></tr></thead><tbody>${rows}</tbody></table>`; }
+  }
+  const el=$('#monTabla'); if(!el)return;
+  const yr=new Date().getFullYear();
+  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
+  const plan=new Set((DB.planLote||[]).map(x=>(x||'').toUpperCase()));
+  let tickers=[...new Set([...held,...plan])].filter(Boolean);
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas (ten posiciones o añade empresas en Diversificación).</div>'; return; }
+  tickers.sort((a,b)=>(held.has(b)?1:0)-(held.has(a)?1:0)||a.localeCompare(b));
+  const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
+  const body=tickers.map(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe;
+    const rolInp=`<input class="anaInp" style="width:120px;font-size:11px" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
+    const infCell=`<button class="btn ghost sm" data-moninf="${t}">${inf?'<span class="pos">✓ Sí</span>':'<span class="muted">Pendiente</span>'}</button>${(inf&&m.informeFecha)?`<div class="muted" style="font-size:9px">${m.informeFecha}</div>`:''}`;
+    let q;
+    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=!!(m.rev&&m.rev[key]); const passed=qPassed(t,qc,yr); const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'·'); return `<td class="num" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Resultados ya publicados':'Aún no publicados'}">${mark}</td>`; }).join(''); }
+    else { q='<td colspan="4" class="muted" style="font-size:11px;text-align:center">Falta informe</td>'; }
+    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span></td><td>${rolInp}</td><td>${infCell}</td>${q}</tr>`;
+  }).join('');
+  const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); renderMonitor(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -2170,7 +2221,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
@@ -2189,6 +2240,7 @@ function activarVista(view){
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
   if(view==='caja') renderCaja();
+  if(view==='monitor') renderMonitor();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
@@ -2205,6 +2257,10 @@ let cajaTipo='';
 if($('#cajaTipoSeg'))$('#cajaTipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; cajaTipo=b.dataset.t; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.toggle('on',x===b)); });
 if($('#cajaForm'))$('#cajaForm').addEventListener('submit',e=>{ e.preventDefault(); const f=$('#cajaFecha').value; const c=($('#cajaConcepto').value||'').trim(); const imp=num($('#cajaImporte').value); if(!f||!imp){ alert('Pon fecha e importe.'); return; } if(!cajaTipo){ alert('Elige el tipo: Ingreso o Gasto.'); return; } DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:f,concepto:c,entra:cajaTipo==='entra'?imp:0,sale:cajaTipo==='sale'?imp:0}); saveNow(); $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); renderCaja(); });
 if($('#cajaFormCancel'))$('#cajaFormCancel').addEventListener('click',()=>{ $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); });
+if($('#todoForm'))$('#todoForm').addEventListener('submit',e=>{ e.preventDefault(); const desc=($('#todoDesc').value||'').trim(); if(!desc){ alert('Pon una descripción.'); return; } DB.todos=DB.todos||[]; DB.todos.push({id:'t'+Math.random().toString(36).slice(2,9),fecha:$('#todoFecha').value,desc,razon:($('#todoRazon').value||'').trim(),ticker:($('#todoTicker').value||'').trim().toUpperCase(),hecho:false}); saveNow(); $('#todoForm').reset(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
+if($('#todoDelDone'))$('#todoDelDone').addEventListener('click',()=>{ if(!confirm('¿Borrar todas las tareas completadas?'))return; DB.todos=(DB.todos||[]).filter(x=>!x.hecho); saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
+if($('#view-monitor'))$('#view-monitor').addEventListener('change',e=>{ const c=e.target.closest('[data-todone]'); if(c){ const x=(DB.todos||[]).find(z=>z.id===c.dataset.todone); if(x){ x.hecho=c.checked; x.fechaHecho=c.checked?new Date().toISOString().slice(0,10):''; saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); } return; } const r=e.target.closest('[data-mon]'); if(r){ const a=r.dataset.mon.split('|'); DB.monitor[a[0]]=DB.monitor[a[0]]||{}; DB.monitor[a[0]].rol=r.value; saveNow(); return; } });
+if($('#view-monitor'))$('#view-monitor').addEventListener('click',e=>{ const d=e.target.closest('[data-tododel]'); if(d){ DB.todos=(DB.todos||[]).filter(x=>x.id!==d.dataset.tododel); saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); return; } const inf=e.target.closest('[data-moninf]'); if(inf){ const t=inf.dataset.moninf; DB.monitor[t]=DB.monitor[t]||{}; const m=DB.monitor[t]; m.informe=!m.informe; m.informeFecha=m.informe?new Date().toISOString().slice(0,10):''; saveNow(); renderMonitor(); return; } const rv=e.target.closest('[data-monrev]'); if(rv){ const a=rv.dataset.monrev.split('|'); const t=a[0],key=a[1]; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; if(DB.monitor[t].rev[key])delete DB.monitor[t].rev[key]; else DB.monitor[t].rev[key]=true; saveNow(); renderMonitor(); return; } });
 function _loteTk(v){ const m=(v||'').match(/\(([^)]+)\)\s*$/); let tk=m?m[1]:(v||''); tk=tk.trim().toUpperCase(); const all=new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase())); return all.has(tk)?tk:''; }
 $('#loteTabla').addEventListener('change',e=>{ const dp=e.target.closest('[data-lotedisp]'); if(dp){ DB.planDispFijo=DB.planDispFijo||{}; if(dp.value.trim()==='')delete DB.planDispFijo[dp.dataset.lotedisp]; else DB.planDispFijo[dp.dataset.lotedisp]=num(dp.value); saveNow(); renderPlanLote(); return; } const ag=e.target.closest('[data-asig]'); if(ag){ const [t,y]=ag.dataset.asig.split('|'); DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(ag.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(ag.value); saveNow(); renderPlanLote(); if(typeof renderPlan==='function')renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const yr=e.target.closest('[data-loteyr]'); if(yr){ DB.planLotePeriodo=DB.planLotePeriodo||{}; DB.planLotePeriodo[yr.dataset.loteyr]=num(yr.value); saveNow(); renderPlanLote(); return; } const ad=e.target.closest('[data-loteadd]'); if(ad){ const tk=_loteTk(ad.value); if(tk){ DB.planLote=DB.planLote||[]; if(!DB.planLote.includes(tk))DB.planLote.push(tk); } saveNow(); renderPlanLote(); return; } const ch=e.target.closest('[data-lotechg]'); if(ch){ const i=+ch.dataset.lotechg; const tk=_loteTk(ch.value); if(!ch.value.trim()){ DB.planLote.splice(i,1); } else if(tk){ DB.planLote[i]=tk; } saveNow(); renderPlanLote(); } });
 $('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lotedel]'); if(d){ DB.planLote.splice(+d.dataset.lotedel,1); saveNow(); renderPlanLote(); } });
