@@ -1507,6 +1507,15 @@ function fichaCalc(ticker){
   const divYears=Object.values(ymap).map(g=>Object.assign(g,{rend:g.pmEnd?g.divShareSum/g.pmEnd:0})).sort((a,b)=>(b.year||'').localeCompare(a.year||''));
   return {t,nombre:v.nombre||t,precioActual,lotes,tot,divRows,divYears};
 }
+function fichaOps(t){ t=(t||'').toUpperCase(); const ops=[];
+  (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t) ops.push({fecha:o.fecha,tipo:o.tipo,acciones:num(o.acciones),precio:num(o.precio)}); });
+  (DB.cerradas||[]).forEach(c=>{ if((c.ticker||'').toUpperCase()===t&&c.ops) c.ops.forEach(o=>ops.push({fecha:o.fecha,tipo:o.tipo,acciones:num(o.acciones),precio:num(o.precio)})); });
+  ops.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')); return ops; }
+function fichaOpsTabla(t){ const ops=fichaOps(t); if(!ops.length) return '';
+  const rows=ops.map(o=>`<tr><td>${o.fecha?ddmmyyyy(o.fecha):'—'}</td><td>${o.tipo==='venta'?'<span class="neg">Venta</span>':'<span class="pos">Compra</span>'}</td><td class="num">${o.acciones}</td><td class="num">${fmt(o.precio)}</td><td class="num">${fmt(o.acciones*o.precio)}</td></tr>`).join('');
+  return `<h3 style="margin-top:14px">Operaciones</h3><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Acciones</th><th class="num">Precio</th><th class="num">Importe</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
+function abrirFicha(t){ if(!t)return; const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(t); window.scrollTo({top:0}); }
+function cerrarFicha(){ const fv=$('#fichaView'); if(fv){ fv.style.display='none'; fv.innerHTML=''; } const h=document.querySelector('header'); if(h)h.style.display=''; const m=$('#main'); if(m)m.style.display=''; fichaTicker=null; document.title='Economía Doméstica'; if(location.hash) history.replaceState(null,'',location.pathname+location.search); }
 function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
   ((DB.dividendos||{})[fichaTicker]||[]).forEach(x=>{ if(!x.id) x.id='d'+Math.random().toString(36).slice(2,9); });
@@ -1525,7 +1534,7 @@ function renderFicha(t){
      <div style="flex:1"></div>
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
      <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
-     <button class="btn ghost" onclick="window.close()">Cerrar</button>
+     <button class="btn ghost" onclick="cerrarFicha()">Volver</button>
    </div>
    <div class="card" style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
      <span class="muted" style="font-size:12px;white-space:nowrap">URL ficha externa:</span>
@@ -1545,6 +1554,7 @@ function renderFicha(t){
       <div class="card"><div class="lbl">P/G neta</div><div class="val ${neto>=0?'pos':'neg'}">${neto>=0?'+':''}${fmt(neto)}</div><div class="sub">venta − coste + dividendos</div></div>
       <div class="card"><div class="lbl">Rentabilidad</div><div class="val ${rent>=0?'pos':'neg'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</div></div>
     </div></div>`;
+    mid+=fichaOpsTabla(fichaTicker);
   } else {
     const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
     const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
@@ -1601,7 +1611,7 @@ async function drawFichaChart(t){
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
   let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
   const t0=data[0][0], t1=data[data.length-1][0];
-  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t&&o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:num(o.precio),venta:o.tipo==='venta'}));
+  const ops=(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
   const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
   ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; }
@@ -2318,7 +2328,7 @@ function restaurarBackup(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(
 const bkf=document.createElement('input'); bkf.type='file'; bkf.accept='.json,application/json'; bkf.style.display='none'; bkf.addEventListener('change',e=>{ if(e.target.files[0]) restaurarBackup(e.target.files[0]); e.target.value=''; }); document.body.appendChild(bkf);
 if($('#btnBackup'))$('#btnBackup').addEventListener('click',descargarBackup);
 if($('#btnRestore'))$('#btnRestore').addEventListener('click',()=>bkf.click());
-document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ window.open(location.pathname+location.search+'#ficha='+encodeURIComponent(b.dataset.ficha),'_blank'); } });
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ e.preventDefault(); abrirFicha(b.dataset.ficha); } });
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
 window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',7,10); });
