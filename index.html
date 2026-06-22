@@ -445,8 +445,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>Importe (€)<input type="number" id="cajaImporte" step="0.01" min="0" placeholder="0,00" required></label>
       <label>Tipo
         <div class="seg" id="cajaTipoSeg">
-          <button type="button" data-t="entra" class="on">Ingreso / Entra</button>
-          <button type="button" data-t="sale">Compra / Sale</button>
+          <button type="button" data-t="entra">Ingreso</button>
+          <button type="button" data-t="sale">Gasto</button>
         </div>
       </label>
       <div class="row-actions">
@@ -2092,7 +2092,7 @@ function renderCaja(){
   const head='<tr><th>Fecha</th><th>Concepto</th><th class="num">Entra</th><th class="num">Sale</th><th class="num">Saldo</th><th></th></tr>';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body||'<tr><td colspan="6" class="empty">Sin movimientos. Pon el saldo inicial y el periodo, o pulsa «+ Movimiento».</td></tr>'}</tbody></table>`;
   $('#cajaKpis').innerHTML=[['Entradas',fmt(totIn)],['Salidas',fmt(totOut)],['Saldo final',fmt(saldo)],['Saldo mínimo', isFinite(minS)?fmt(minS)+(minF?' ('+minF+')':''):'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); } };
+  const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); renderCaja(); }
@@ -2139,7 +2139,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['caja','Caja bróker'],['prevision','Evolución Dividendo'],['simulador','Simulador']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
@@ -2171,10 +2171,10 @@ $('#view-caja').addEventListener('change',e=>{ const t=e.target; if(!t||!t.datas
   if(t.dataset.cajaapor){ DB.cajaAporReal=DB.cajaAporReal||{}; if(t.value.trim()==='')delete DB.cajaAporReal[t.dataset.cajaapor]; else DB.cajaAporReal[t.dataset.cajaapor]=num(t.value); saveNow(); renderCaja(); return; }
   if(t.dataset.cajamv){ const a=t.dataset.cajamv.split('|'); const mv=(DB.cajaMov||[]).find(x=>x.id===a[0]); if(mv){ const f=a[1]; if(f==='entra'||f==='sale') mv[f]=(t.value.trim()===''?0:num(t.value)); else mv[f]=t.value; saveNow(); renderCaja(); } return; } });
 $('#view-caja').addEventListener('click',e=>{ const d=e.target.closest('[data-cajadel]'); if(d){ DB.cajaMov=(DB.cajaMov||[]).filter(x=>x.id!==d.dataset.cajadel); saveNow(); renderCaja(); } });
-let cajaTipo='entra';
+let cajaTipo='';
 if($('#cajaTipoSeg'))$('#cajaTipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; cajaTipo=b.dataset.t; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.toggle('on',x===b)); });
-if($('#cajaForm'))$('#cajaForm').addEventListener('submit',e=>{ e.preventDefault(); const f=$('#cajaFecha').value; const c=($('#cajaConcepto').value||'').trim(); const imp=num($('#cajaImporte').value); if(!f||!imp){ alert('Pon fecha e importe.'); return; } DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:f,concepto:c,entra:cajaTipo==='entra'?imp:0,sale:cajaTipo==='sale'?imp:0}); saveNow(); $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo='entra'; [...$('#cajaTipoSeg').children].forEach((x,i)=>x.classList.toggle('on',i===0)); renderCaja(); });
-if($('#cajaFormCancel'))$('#cajaFormCancel').addEventListener('click',()=>{ $('#cajaForm').reset(); $('#cajaForm').style.display='none'; });
+if($('#cajaForm'))$('#cajaForm').addEventListener('submit',e=>{ e.preventDefault(); const f=$('#cajaFecha').value; const c=($('#cajaConcepto').value||'').trim(); const imp=num($('#cajaImporte').value); if(!f||!imp){ alert('Pon fecha e importe.'); return; } if(!cajaTipo){ alert('Elige el tipo: Ingreso o Gasto.'); return; } DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:f,concepto:c,entra:cajaTipo==='entra'?imp:0,sale:cajaTipo==='sale'?imp:0}); saveNow(); $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); renderCaja(); });
+if($('#cajaFormCancel'))$('#cajaFormCancel').addEventListener('click',()=>{ $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); });
 function _loteTk(v){ const m=(v||'').match(/\(([^)]+)\)\s*$/); let tk=m?m[1]:(v||''); tk=tk.trim().toUpperCase(); const all=new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase())); return all.has(tk)?tk:''; }
 $('#loteTabla').addEventListener('change',e=>{ const dp=e.target.closest('[data-lotedisp]'); if(dp){ DB.planDispFijo=DB.planDispFijo||{}; if(dp.value.trim()==='')delete DB.planDispFijo[dp.dataset.lotedisp]; else DB.planDispFijo[dp.dataset.lotedisp]=num(dp.value); saveNow(); renderPlanLote(); return; } const ag=e.target.closest('[data-asig]'); if(ag){ const [t,y]=ag.dataset.asig.split('|'); DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(ag.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(ag.value); saveNow(); renderPlanLote(); if(typeof renderPlan==='function')renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const yr=e.target.closest('[data-loteyr]'); if(yr){ DB.planLotePeriodo=DB.planLotePeriodo||{}; DB.planLotePeriodo[yr.dataset.loteyr]=num(yr.value); saveNow(); renderPlanLote(); return; } const ad=e.target.closest('[data-loteadd]'); if(ad){ const tk=_loteTk(ad.value); if(tk){ DB.planLote=DB.planLote||[]; if(!DB.planLote.includes(tk))DB.planLote.push(tk); } saveNow(); renderPlanLote(); return; } const ch=e.target.closest('[data-lotechg]'); if(ch){ const i=+ch.dataset.lotechg; const tk=_loteTk(ch.value); if(!ch.value.trim()){ DB.planLote.splice(i,1); } else if(tk){ DB.planLote[i]=tk; } saveNow(); renderPlanLote(); } });
 $('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lotedel]'); if(d){ DB.planLote.splice(+d.dataset.lotedel,1); saveNow(); renderPlanLote(); } });
