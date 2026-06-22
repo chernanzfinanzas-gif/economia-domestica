@@ -118,7 +118,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #distTabla table{font-size:12px} #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
   #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
-  #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #cajaTabla table{font-size:11px} #cajaTabla th,#cajaTabla td{padding:3px 6px;text-align:right;border:1px solid #e2e8f0} #cajaTabla th:first-child,#cajaTabla td:first-child,#cajaTabla td:nth-child(7){text-align:left} #cajaTabla input[type=number]{-moz-appearance:textfield} #cajaTabla input[type=number]::-webkit-inner-spin-button,#cajaTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:10px} #calEventos th,#calEventos td{padding:2px 3px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
   #loteTabla table{font-size:11px} #loteTabla td,#loteTabla th{padding:3px 6px;border:1px solid #e2e8f0} #loteTabla input{font-size:10px;padding:1px 2px} #loteTabla input[type=number]{-moz-appearance:textfield} #loteTabla input[type=number]::-webkit-inner-spin-button,#loteTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
@@ -399,7 +399,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-calendario">
     <h2>Calendario de dividendos</h2>
     <div class="cards" id="calKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Solo posiciones en cartera. Introduce el % de cada pago (1º–4º); el importe de cada cobro = acciones × dividendo bruto/acción × %. Los meses se toman de los eventos de dividendo (<b>D</b>) del calendario anual de abajo. ⚠ los % deben sumar 100.</div>
+    <div class="sub" style="margin-bottom:6px">Solo posiciones en cartera. Introduce el % de cada pago (1º–4º); el importe de cada cobro (neto) = acciones × dividendo bruto/acción × % × 0,81. La retención total (19%) aparece como <b>Devolución Hacienda</b> en abril. Los meses se toman de los eventos de dividendo (<b>D</b>) del calendario anual. ⚠ los % deben sumar 100.</div>
     <div style="overflow:auto" id="calTabla"></div>
     <h3 style="margin-top:18px">Próximos eventos</h3>
     <div class="sub" style="margin-bottom:6px">Solo mes en curso y el siguiente. <span class="evchip ev-div">D</span> dividendo · <span class="evchip ev-res">Q</span> resultados · <span class="evchip ev-jun">JA</span> junta. En negrita, empresas en cartera.</div>
@@ -432,6 +432,14 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
     <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="planAdd">+ Empresa</button> <button class="btn sm" id="planAddYear">+ Año</button> <span class="muted" id="planStatus"></span></div>
     <div style="overflow:auto" id="planTabla"></div>
+  </section>
+
+  <section class="view" id="view-caja">
+    <h2>Caja del bróker</h2>
+    <div class="cards" id="cajaKpis"></div>
+    <div class="sub" style="margin-bottom:6px">Proyección mensual de liquidez (caja combinada). Las aportaciones (SAN/R4) y los dividendos previstos entran automáticamente; en «Mov. manual» anota compras y extras (negativo = salida) con su concepto. El saldo es el corriente al final de cada mes.</div>
+    <div id="cajaCfg" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:10px"></div>
+    <div style="overflow:auto" id="cajaTabla"></div>
   </section>
 
   <section class="view" id="view-distrib">
@@ -1792,23 +1800,27 @@ function renderCalendario(){
   const brutoT=t=>{ const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0)return num(v.divAccion); const c=calOf(t); return c?calDivBruto(c):0; };
   const divEvents=t=>(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w);
   held.sort((a,b)=>{ const ra=precioT(a)?brutoT(a)/precioT(a):0, rb=precioT(b)?brutoT(b)/precioT(b):0; return rb-ra; });
-  const ingMes=new Array(12).fill(0); let ingAnual=0;
+  const ingMes=new Array(12).fill(0); let ingAnual=0; let brutoAnual=0;
   const rows=held.map(t=>{ const sh=shares[t]; const pr=precioT(t); const br=brutoT(t); const rep=DB.divReparto[t]||[]; const des=divEvents(t);
     const monthEur=new Array(12).fill(0);
-    des.forEach((e,idx)=>{ const eur=sh*br*(num(rep[idx]||0)/100); if(eur) monthEur[e.m-1]+=eur; });
+    des.forEach((e,idx)=>{ const bruto=sh*br*(num(rep[idx]||0)/100); if(bruto){ monthEur[e.m-1]+=bruto*0.81; brutoAnual+=bruto; } });
     monthEur.forEach((v,i)=>{ if(v){ ingMes[i]+=v; ingAnual+=v; } });
-    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:42px;text-align:right" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
+    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:34px;text-align:right;font-size:8px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
     const sumPct=rep.reduce((s,x)=>s+num(x||0),0);
     const warn=(sumPct>0&&Math.abs(sumPct-100)>0.5)?` <span style="color:#dc2626" title="Los % no suman 100 (suman ${sumPct})">!</span>`:'';
     const noEv=(!des.length&&br>0)?` <span style="color:#d97706" title="Sin eventos de dividendo (D) en el calendario anual">o</span>`:'';
-    const monthCells=monthEur.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('');
-    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${warn}${noEv}</td><td class="num">${pr?fmt(pr):'·'}</td><td class="num">${br?br.toFixed(4):'·'}</td>${pctInputs}${monthCells}</tr>`;
+    const monthCells=monthEur.map(v=>v?`<td class="num" style="background:#dcfce7;color:#166534;font-weight:600">${fmt(v)}</td>`:`<td class="num">·</td>`).join('');
+    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${warn}${noEv}</td><td class="num">${pr?fmt(pr):'·'}</td><td class="num">${br?br.toFixed(3):'·'}</td>${pctInputs}${monthCells}</tr>`;
   }).join('');
+  const reten=brutoAnual*0.19;
+  const empty6='<td></td><td></td><td></td><td></td><td></td><td></td>';
+  const devCells=new Array(12).fill(0).map((_,i)=> i===3 ? `<td class="num" style="color:#dc2626;font-weight:700">${reten?fmt(reten):'·'}</td>` : '<td class="num">·</td>').join('');
+  const devRow=`<tr><td>Devolución Hacienda</td>${empty6}${devCells}</tr>`;
   const head='<tr><th>Empresa</th><th class="num">Cotización</th><th class="num">Div bruto</th><th class="num">%1</th><th class="num">%2</th><th class="num">%3</th><th class="num">%4</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
-  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso estimado · ${fmt(ingAnual)}/año</td><td></td><td></td><td></td><td></td><td></td><td></td>${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${rows}${ingRow}</tbody></table>`;
+  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso neto estimado · ${fmt(ingAnual)}/año</td>${empty6}${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${devRow}${rows}${ingRow}</tbody></table>`;
   const mejorMes=ingMes.indexOf(Math.max(...ingMes));
-  $('#calKpis').innerHTML=[['Empresas en cartera',String(held.length)],['Ingreso bruto estimado/año',fmt(ingAnual)],['Media mensual',fmt(ingAnual/12)],['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  $('#calKpis').innerHTML=[['Empresas en cartera',String(held.length)],['Ingreso neto estimado/año',fmt(ingAnual)],['Retención 19% (Devol. Hacienda)',fmt(reten)],['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',7,11),0);
   if(typeof renderEventos==='function')renderEventos();
 }
@@ -2067,7 +2079,30 @@ function renderPlanLote(){
   el.innerHTML=cab+dl+`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
 }
 
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); }
+function cajaDivMes(){ const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{}; const out=new Array(12).fill(0);
+  Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return; const v=(DB.valores||{})[t]||{}; let br=num(v.divAccion); if(!(br>0)){ const c=(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t); br=c?calDivBruto(c):0; } if(!(br>0))return; const des=(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w); const rp=rep[t]||[]; des.forEach((e,idx)=>{ const eur=shares[t]*br*(num(rp[idx]||0)/100); if(eur)out[e.m-1]+=eur; }); });
+  return out; }
+function renderCaja(){
+  const el=$('#cajaTabla'); if(!el)return;
+  const cfg=DB.cajaConfig=DB.cajaConfig||{};
+  const nowD=new Date(); const cuY=nowD.getFullYear(), cuM=nowD.getMonth()+1; const curYM=cuY+'-'+String(cuM).padStart(2,'0');
+  const desdeY=num(cfg.desdeY)||cuY, desdeM=num(cfg.desdeM)||cuM, hastaY=num(cfg.hastaY)||(cuY+1);
+  const defSAN=(cfg.defSAN!=null&&cfg.defSAN!=='')?num(cfg.defSAN):400, defR4=(cfg.defR4!=null&&cfg.defR4!=='')?num(cfg.defR4):700;
+  const apor=DB.cajaApor=DB.cajaApor||{}; const extra=DB.cajaExtra=DB.cajaExtra||{}; const divM=cajaDivMes();
+  const cf=$('#cajaCfg'); if(cf){ const fld=(lb,ds,val,w)=>`<div><div class="muted" style="font-size:11px;margin-bottom:2px">${lb}</div><input type="number" class="anaInp" style="width:${w||80}px;text-align:right" data-cajacfg="${ds}" value="${val}"></div>`;
+    cf.innerHTML=fld('Saldo inicial €','saldoIni',(cfg.saldoIni!=null?cfg.saldoIni:''),90)+fld('Desde año','desdeY',desdeY,70)+fld('Desde mes','desdeM',desdeM,60)+fld('Hasta año','hastaY',hastaY,70)+fld('Aport. SAN/mes','defSAN',defSAN,90)+fld('Aport. R4/mes','defR4',defR4,90); }
+  let saldo=num(cfg.saldoIni||0); let minS=Infinity,minYM='',totAp=0,nMes=0; let body='';
+  for(let y=desdeY;y<=hastaY;y++){ const m0=(y===desdeY?desdeM:1); for(let m=m0;m<=12;m++){
+    const ym=y+'-'+String(m).padStart(2,'0'); const a=apor[ym]||{}; const ex=extra[ym]||{};
+    const san=(a.san!=null?num(a.san):defSAN), r4=(a.r4!=null?num(a.r4):defR4); const dv=divM[m-1]||0; const exi=num(ex.imp||0); const nota=(ex.nota||'').replace(/"/g,'&quot;');
+    const ini=saldo; saldo=ini+san+r4+dv+exi; totAp+=san+r4; nMes++; if(saldo<minS){minS=saldo;minYM=ym;} const cur=(ym===curYM);
+    body+=`<tr style="${cur?'background:#eff6ff;':''}"><td style="white-space:nowrap${cur?';font-weight:700':''}">${MESES_ES[m-1]} ${y}</td><td class="num">${fmt(ini)}</td><td class="num"><input type="number" class="anaInp" style="width:60px;text-align:right" data-cajaap="${ym}|san" value="${san}"></td><td class="num"><input type="number" class="anaInp" style="width:60px;text-align:right" data-cajaap="${ym}|r4" value="${r4}"></td><td class="num pos">${dv?fmt(dv):'·'}</td><td class="num"><input type="number" class="anaInp" style="width:72px;text-align:right" data-cajaex="${ym}" value="${(ex.imp!=null&&ex.imp!=='')?ex.imp:''}"></td><td><input class="anaInp" style="width:150px" data-cajanota="${ym}" value="${nota}" placeholder="compra / extra…"></td><td class="num" style="font-weight:700;${saldo<0?'color:#dc2626':''}">${fmt(saldo)}</td></tr>`;
+  }}
+  const head='<tr><th>Mes</th><th class="num">Saldo ini.</th><th class="num">Aport. SAN</th><th class="num">Aport. R4</th><th class="num">Dividendos</th><th class="num">Mov. manual</th><th>Concepto</th><th class="num">Saldo fin.</th></tr>';
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+  $('#cajaKpis').innerHTML=[['Saldo inicial',fmt(num(cfg.saldoIni||0))],['Aportación media/mes',fmt(nMes?totAp/nMes:0)],['Saldo final proyectado',fmt(saldo)],['Saldo mínimo', isFinite(minS)?fmt(minS)+(minYM?' ('+minYM+')':''):'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); renderCaja(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -2111,7 +2146,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['caja','Caja bróker'],['prevision','Evolución Dividendo'],['simulador','Simulador']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
@@ -2122,7 +2157,7 @@ function activarVista(view){
   else if(sn){ sn.style.display='none'; sn.innerHTML=''; }
   $$('#nav button').forEach(x=>x.classList.toggle('active', g ? (x.dataset.group===g) : (x.dataset.view===view)));
   if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
-  if(view==='calendario'){ setTimeout(()=>autoFitTable('calTabla',7,11),120); setTimeout(()=>autoFitTable('calEventos',7,11),140); }
+  if(view==='calendario'){ setTimeout(()=>autoFitTable('calTabla',7,11),120); }
   if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',7,10),120);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
@@ -2130,10 +2165,16 @@ function activarVista(view){
   if(view==='distrib') setTimeout(()=>autoFitTable('distTabla',9,12),120);
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
+  if(view==='caja') renderCaja();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
 $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-goto]'); if(h&&typeof activarVista==='function') activarVista(h.dataset.goto); });
+$('#view-caja').addEventListener('change',e=>{ const t=e.target; if(!t||!t.dataset)return;
+  if(t.dataset.cajacfg){ DB.cajaConfig=DB.cajaConfig||{}; DB.cajaConfig[t.dataset.cajacfg]=(t.value.trim()===''?'':num(t.value)); saveNow(); renderCaja(); return; }
+  if(t.dataset.cajaap){ const a=t.dataset.cajaap.split('|'); DB.cajaApor=DB.cajaApor||{}; DB.cajaApor[a[0]]=DB.cajaApor[a[0]]||{}; if(t.value.trim()==='')delete DB.cajaApor[a[0]][a[1]]; else DB.cajaApor[a[0]][a[1]]=num(t.value); saveNow(); renderCaja(); return; }
+  if(t.dataset.cajaex){ DB.cajaExtra=DB.cajaExtra||{}; DB.cajaExtra[t.dataset.cajaex]=DB.cajaExtra[t.dataset.cajaex]||{}; DB.cajaExtra[t.dataset.cajaex].imp=(t.value.trim()===''?0:num(t.value)); saveNow(); renderCaja(); return; }
+  if(t.dataset.cajanota){ DB.cajaExtra=DB.cajaExtra||{}; DB.cajaExtra[t.dataset.cajanota]=DB.cajaExtra[t.dataset.cajanota]||{}; DB.cajaExtra[t.dataset.cajanota].nota=t.value; saveNow(); return; } });
 function _loteTk(v){ const m=(v||'').match(/\(([^)]+)\)\s*$/); let tk=m?m[1]:(v||''); tk=tk.trim().toUpperCase(); const all=new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase())); return all.has(tk)?tk:''; }
 $('#loteTabla').addEventListener('change',e=>{ const dp=e.target.closest('[data-lotedisp]'); if(dp){ DB.planDispFijo=DB.planDispFijo||{}; if(dp.value.trim()==='')delete DB.planDispFijo[dp.dataset.lotedisp]; else DB.planDispFijo[dp.dataset.lotedisp]=num(dp.value); saveNow(); renderPlanLote(); return; } const ag=e.target.closest('[data-asig]'); if(ag){ const [t,y]=ag.dataset.asig.split('|'); DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(ag.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(ag.value); saveNow(); renderPlanLote(); if(typeof renderPlan==='function')renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const yr=e.target.closest('[data-loteyr]'); if(yr){ DB.planLotePeriodo=DB.planLotePeriodo||{}; DB.planLotePeriodo[yr.dataset.loteyr]=num(yr.value); saveNow(); renderPlanLote(); return; } const ad=e.target.closest('[data-loteadd]'); if(ad){ const tk=_loteTk(ad.value); if(tk){ DB.planLote=DB.planLote||[]; if(!DB.planLote.includes(tk))DB.planLote.push(tk); } saveNow(); renderPlanLote(); return; } const ch=e.target.closest('[data-lotechg]'); if(ch){ const i=+ch.dataset.lotechg; const tk=_loteTk(ch.value); if(!ch.value.trim()){ DB.planLote.splice(i,1); } else if(tk){ DB.planLote[i]=tk; } saveNow(); renderPlanLote(); } });
 $('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lotedel]'); if(d){ DB.planLote.splice(+d.dataset.lotedel,1); saveNow(); renderPlanLote(); } });
