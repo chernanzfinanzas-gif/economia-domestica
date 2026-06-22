@@ -1781,7 +1781,7 @@ function renderEventos(){
   const h1='<tr><th rowspan="2">Empresa</th>'+MESES_ES.map(m=>`<th colspan="4" style="text-align:center;border-left:2px solid #cbd5e1">${m}</th>`).join('')+'</tr>';
   const h2='<tr>'+MESES_ES.map(()=>[1,2,3,4].map((w,i)=>`<th style="font-weight:400;color:var(--muted)${i===0?';border-left:2px solid #cbd5e1':''}">${w}</th>`).join('')).join('')+'</tr>';
   const body=tickers.map(t=>{ let cells='';
-    for(let m=1;m<=12;m++)for(let w=1;w<=4;w++){ const codes=(ev[t]||[]).filter(e=>e.m===m&&e.w===w).map(e=>e.code).join(' '); cells+=`<td style="padding:1px${w===1?';border-left:2px solid #cbd5e1':''}"><input class="anaInp" style="width:30px;text-align:center;font-size:9px;padding:1px" data-evcell="${t}|${m}|${w}" value="${codes}"></td>`; }
+    for(let m=1;m<=12;m++)for(let w=1;w<=4;w++){ const arr=(ev[t]||[]).filter(e=>e.m===m&&e.w===w).map(e=>(e.code||'')); const val=arr.join(' '); const U=arr.map(c=>c.toUpperCase()); let cs=''; if(U.some(c=>c[0]==='D')) cs=';background:#dcfce7;color:#166534;font-weight:700'; else if(U.some(c=>c==='JA'||c==='ID')) cs=';background:#fef9c3;color:#c2410c;font-weight:700'; else if(U.some(c=>c[0]==='Q')) cs=';background:#dbeafe;color:#1e40af;font-weight:700'; cells+=`<td style="padding:1px${w===1?';border-left:2px solid #cbd5e1':''}"><input class="anaInp" style="width:30px;text-align:center;font-size:9px;padding:1px${cs}" data-evcell="${t}|${m}|${w}" value="${val}"></td>`; }
     return `<tr><td style="white-space:nowrap">${held.has(t)?'<b>'+t+'</b>':t}</td>${cells}</tr>`;
   }).join('');
   el.innerHTML=`<table><thead>${h1}${h2}</thead><tbody>${body}</tbody></table>`;
@@ -1805,7 +1805,7 @@ function renderCalendario(){
     const monthEur=new Array(12).fill(0);
     des.forEach((e,idx)=>{ const bruto=sh*br*(num(rep[idx]||0)/100); if(bruto){ monthEur[e.m-1]+=bruto*0.81; brutoAnual+=bruto; } });
     monthEur.forEach((v,i)=>{ if(v){ ingMes[i]+=v; ingAnual+=v; } });
-    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:34px;text-align:right;font-size:8px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
+    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:36px;text-align:right;font-size:9px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
     const sumPct=rep.reduce((s,x)=>s+num(x||0),0);
     const warn=(sumPct>0&&Math.abs(sumPct-100)>0.5)?` <span style="color:#dc2626" title="Los % no suman 100 (suman ${sumPct})">!</span>`:'';
     const noEv=(!des.length&&br>0)?` <span style="color:#d97706" title="Sin eventos de dividendo (D) en el calendario anual">o</span>`:'';
@@ -1813,6 +1813,7 @@ function renderCalendario(){
     return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${warn}${noEv}</td><td class="num">${pr?fmt(pr):'·'}</td><td class="num">${br?br.toFixed(3):'·'}</td>${pctInputs}${monthCells}</tr>`;
   }).join('');
   const reten=brutoAnual*0.19;
+  ingMes[3]+=reten; ingAnual+=reten;
   const empty6='<td></td><td></td><td></td><td></td><td></td><td></td>';
   const devCells=new Array(12).fill(0).map((_,i)=> i===3 ? `<td class="num" style="color:#dc2626;font-weight:700">${reten?fmt(reten):'·'}</td>` : '<td class="num">·</td>').join('');
   const devRow=`<tr><td>Devolución Hacienda</td>${empty6}${devCells}</tr>`;
