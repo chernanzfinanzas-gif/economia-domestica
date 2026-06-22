@@ -1681,7 +1681,7 @@ function renderFicha(t){
   // cabecera + URL externa
   const header=`
    <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-     <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}${isClosed?' · <span style=\"color:#b45309\">Posición cerrada</span>':''}</div></div>
+     <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}${(typeof SECTOR!=='undefined'&&SECTOR[fichaTicker])?` · <span style="color:#9a3412;font-weight:600">${SECTOR[fichaTicker]}</span>`:''}${isClosed?' · <span style=\"color:#b45309\">Posición cerrada</span>':''}</div></div>
      <div style="flex:1"></div>
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
      <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
@@ -2362,6 +2362,7 @@ function renderMonitor(){
 }
 let grafYear=new Date().getFullYear();
 const GRAF_COLS=['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#0d9488','#9333ea','#475569'];
+const SECTOR={"BKT":"FINANCIERAS","BBVA":"FINANCIERAS","CABK":"FINANCIERAS","SAN":"FINANCIERAS","MAP":"FINANCIERAS","UNI":"FINANCIERAS","LDA":"FINANCIERAS","R4":"FINANCIERAS","ALNT":"FINANCIERAS","IBE":"REGULADAS","ELE":"REGULADAS","NTGY":"REGULADAS","RED":"REGULADAS","ENG":"REGULADAS","AENA":"CONCESIONAL","FER":"CONCESIONAL","ANA":"CONCESIONAL","SCYR":"CONCESIONAL","FCC":"CONCESIONAL","ENO":"CONCESIONAL","SLR":"CONCESIONAL","ANE":"CONCESIONAL","ADX":"CONCESIONAL","GRE":"CONCESIONAL","ECO":"CONCESIONAL","COXG":"CONCESIONAL","AIR":"INDUSTRIAL","ITX":"INDUSTRIAL","VID":"INDUSTRIAL","CIE":"INDUSTRIAL","ACS":"INDUSTRIAL","CAF":"INDUSTRIAL","GEST":"INDUSTRIAL","TLGO":"INDUSTRIAL","TUB":"INDUSTRIAL","ART":"INDUSTRIAL","AZK":"INDUSTRIAL","TRE":"INDUSTRIAL","LGT":"INDUSTRIAL","NEA":"INDUSTRIAL","GSJ":"INDUSTRIAL","OHLA":"INDUSTRIAL","AI":"INDUSTRIAL","TRG":"INDUSTRIAL","NXT":"INDUSTRIAL","UBS":"INDUSTRIAL","REP":"COMMODITY","ACX":"COMMODITY","MTS":"COMMODITY","APAM.AS":"COMMODITY","ENC":"COMMODITY","ECR":"COMMODITY","BKY":"COMMODITY","LOG":"CONSUMO","VIS":"CONSUMO","CCEP":"CONSUMO","PUIG":"CONSUMO","EBRO":"CONSUMO","MCM":"CONSUMO","A3M":"CONSUMO","IAG":"CONSUMO","MEL":"CONSUMO","ADZ":"CONSUMO","RIO":"CONSUMO","VOC":"CONSUMO","SEC":"CONSUMO","OLE":"CONSUMO","PRS":"CONSUMO","PVA":"CONSUMO","AMS":"ESCALABLES","IDR":"ESCALABLES","TEF":"ESCALABLES","PSG":"ESCALABLES","LLN":"ESCALABLES","GIGA":"ESCALABLES","MAKS":"ESCALABLES","AMP":"ESCALABLES","EZE":"ESCALABLES","ROVI":"SALUD","FAE":"SALUD","ALM":"SALUD","PHM":"SALUD","RJF":"SALUD","PRM":"SALUD","GRF":"SALUD","COL":"INMOBILIARIAS","AEDAS":"INMOBILIARIAS","HOME":"INMOBILIARIAS","MVC":"INMOBILIARIAS","ARM":"INMOBILIARIAS","RLIA":"INMOBILIARIAS","REN":"INMOBILIARIAS","CEV":"INMOBILIARIAS","NYE":"INMOBILIARIAS"};
 function grafYears(){ const s=new Set(); (DB.movimientos||[]).forEach(m=>{ if(m.fecha)s.add(+m.fecha.slice(0,4)); }); (DB.presupuesto||[]).forEach(p=>{ if(typeof pAnio==='function')s.add(pAnio(p)); }); s.add(new Date().getFullYear()); return [...s].filter(Boolean).sort((a,b)=>b-a); }
 function gEsc(x){ return (''+x).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function gBars(title,labels,series,opt){ opt=opt||{}; const W=Math.max(340,labels.length*(series.length>1?40:30)+50),H=280,padL=46,padB=26,padT=10;
@@ -2416,13 +2417,13 @@ function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&
     const ef=snaps.map(s=>(s.lineas||[]).reduce((a,l)=>a+num(l.ef),0)), inv=snaps.map(s=>(s.lineas||[]).reduce((a,l)=>a+num(l.inv),0));
     const c4=labels.length?gStack('Patrimonio: efectivo vs invertido',labels,ef,inv,['Efectivo','Invertido']):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Patrimonio</div><div class="muted" style="font-size:12px">Sin snapshots de Patrimonio.</div></div>';
     const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
-    const c5=gDonut('Composición de la cartera por empresa',pos.map(p=>({label:p.ticker,val:p.acciones*num(p.precioActual)})));
+    const c5=gDonut('Composición de la cartera por empresa',pos.map(p=>({label:p.ticker,val:p.acciones*num(p.precioActual)}))); const _secAgg={}; pos.forEach(p=>{ const _sec=(typeof SECTOR!=='undefined'&&SECTOR[(p.ticker||'').toUpperCase()])||'Sin sector'; _secAgg[_sec]=(_secAgg[_sec]||0)+p.acciones*num(p.precioActual); }); const c5b=gDonut('Composición por sector',Object.keys(_secAgg).map(x=>({label:x,val:_secAgg[x]})));
     const nowY=new Date().getFullYear(); const yA=[]; for(let y=nowY-6;y<=nowY+2;y++)yA.push(y); const dv=yA.map(y=>(typeof simYearTotal==='function'?simYearTotal(y):0));
     const dvP=yA.map((y,i)=>y<=nowY?dv[i]:0), dvF=yA.map((y,i)=>y>nowY?dv[i]:0);
     const c6=gBars('Dividendo bruto por año ('+(nowY+1)+'-'+(nowY+2)+' = previsión)',yA.map(String),[{name:'Cobrado/actual',color:'#16a34a',vals:dvP},{name:'Previsión',color:'#93c5fd',vals:dvF}]);
     const mes=(typeof cajaDivMes==='function'?cajaDivMes():new Array(12).fill(0));
     const c7=gBars('Dividendo estimado por mes (ciclo actual)',MES,[{name:'Dividendo',color:'#2563eb',vals:mes}]);
-    elI.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:12px">${c4}${c5}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">${c6}${c7}</div>`; }
+    elI.innerHTML=`<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-bottom:12px">${c4}${c5}${c5b}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px">${c6}${c7}</div>`; }
 }
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='grafYear'){ grafYear=+e.target.value; renderGraficas(); } });
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('button[data-view="graficas"]'); if(b&&typeof renderGraficas==='function')setTimeout(renderGraficas,0); });
