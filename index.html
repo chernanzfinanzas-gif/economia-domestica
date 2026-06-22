@@ -130,7 +130,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="panel" class="active">Panel</button>
     <button data-group="mov">Movimientos</button>
     <button data-view="presupuesto">Presupuesto</button>
-    <button data-view="patrimonio">Patrimonio</button>
     <button data-group="inv">Inversiones</button>
     <button data-group="planinv">Plan Inversor</button>
   </nav>
@@ -276,6 +275,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div>
     <h3>Detalle año a año</h3>
     <div id="proyTabla" style="max-height:430px;overflow:auto"></div>
+  </section>
+
+  <section class="view" id="view-diversif">
+    <h2>Diversificación — clasificación de empresas</h2>
+    <div class="sub" style="margin-bottom:8px">Lista de 20 empresas del plan. Las primeras son tu cartera actual; en los slots libres elige empresas del listado de Análisis (orden alfabético).</div>
+    <div id="loteTabla"></div>
   </section>
 
   <!-- AMALIA -->
@@ -668,6 +673,7 @@ function afterLoad(){
   DB.previsionMaxYear = DB.previsionMaxYear||2030;
   DB.aniosConfirmados = DB.aniosConfirmados||{};
   DB.divConfirmado = DB.divConfirmado||{};
+  DB.planLote = DB.planLote||[];
   DB.eventos = DB.eventos||{};
   DB.planCompras = DB.planCompras||{};
   DB.planPresupuesto = DB.planPresupuesto||{};
@@ -1442,7 +1448,7 @@ function renderAnalisis(){
       <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
       <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
       <td><span class="pill ${a.cls}">${a.txt}</span></td>
-      <td class="right"><button class="btn ghost sm" data-ficha="${a.ticker}">Ficha</button> <button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
+      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${a.ticker}">Ficha</button> <button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
   $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
@@ -1998,7 +2004,27 @@ function renderDistrib(){
 }
 
 function addDistEmpresa(){ const tk=(prompt('Ticker:')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim(); DB.distribObjetivo=DB.distribObjetivo||{}; DB.distribObjetivo[tk]=DB.distribObjetivo[tk]||0; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre; saveNow(); renderDistrib(); }
-function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); }
+function renderPlanLote(){
+  const el=$('#loteTabla'); if(!el)return;
+  DB.planLote=DB.planLote||[];
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  const invByT={}; pos.forEach(p=>{const t=(p.ticker||'').toUpperCase(); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra;});
+  const held=Object.keys(invByT);
+  const totalInv=Object.values(invByT).reduce((s,v)=>s+v,0);
+  const nm=t=>((DB.valores||{})[t]||{}).nombre || (((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre) || t;
+  DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i&&!held.includes(t));
+  const chosen=DB.planLote;
+  const total=held.length+chosen.length;
+  const ana=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))].filter(t=>!held.includes(t));
+  ana.sort((a,b)=>nm(a).localeCompare(nm(b)));
+  const optHtml=(sel)=>ana.filter(t=>t===sel||!chosen.includes(t)).map(t=>`<option value="${t}"${t===sel?' selected':''}>${t} · ${nm(t)}</option>`).join('');
+  let rows=''; let n=0;
+  held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted">${nm(t)}</span></td><td><span class="pill g">En cartera</span></td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td><td></td></tr>`; });
+  chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td><select class="anaInp" data-lotechg="${i}" style="min-width:200px"><option value="">— (quitar) —</option>${optHtml(t)}</select></td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td class="num">·</td><td class="num">·</td><td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
+  for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td><select class="anaInp" data-loteadd style="min-width:200px"><option value="">— añadir empresa —</option>${optHtml('')}</select></td><td class="muted">slot libre</td><td class="num">·</td><td class="num">·</td><td></td></tr>`; }
+  el.innerHTML=`<div class="sub" style="margin-bottom:6px"><b>${total}/20</b> empresas seleccionadas.</div><div style="overflow:auto"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th class="num">Invertido</th><th class="num">% actual</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -2042,7 +2068,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan'],['distrib','Distribución']], planinv:[['proyeccion','Proyección']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan'],['distrib','Distribución']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
@@ -2065,6 +2091,8 @@ function activarVista(view){
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
 $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-goto]'); if(h&&typeof activarVista==='function') activarVista(h.dataset.goto); });
+$('#loteTabla').addEventListener('change',e=>{ const ad=e.target.closest('[data-loteadd]'); if(ad){ if(ad.value){ DB.planLote=DB.planLote||[]; DB.planLote.push(ad.value.toUpperCase()); saveNow(); renderPlanLote(); } return; } const ch=e.target.closest('[data-lotechg]'); if(ch){ const i=+ch.dataset.lotechg; if(!ch.value){ DB.planLote.splice(i,1); } else { DB.planLote[i]=ch.value.toUpperCase(); } saveNow(); renderPlanLote(); } });
+$('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lotedel]'); if(d){ DB.planLote.splice(+d.dataset.lotedel,1); saveNow(); renderPlanLote(); } });
 $('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-dpa]'); if(d){ const t=d.dataset.dpa, y=d.dataset.y; DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; const v=num(d.value); if(d.value.trim()==='') delete DB.divPorAccion[t][y]; else DB.divPorAccion[t][y]=v; saveNow(); renderPrevision(); } });
 if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
 if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
