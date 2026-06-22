@@ -1747,21 +1747,22 @@ async function drawFichaChart(t){
   const MAXP=600; const step=Math.ceil(data.length/MAXP); let pts=step>1?data.filter((_,i)=>i%step===0):data.slice();
   if(pts[pts.length-1][0]!==data[data.length-1][0]) pts.push(data[data.length-1]);
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
-  let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
+  let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0; const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0);
   const t0=data[0][0], t1=data[data.length-1][0];
   const ops=(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
   const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
-  ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; }
+  ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } });
   const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
   const X=x=>L+(x-t0)/((t1-t0)||1)*pw, Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
   let path=''; pts.forEach((p,i)=>{ path+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)+' '; });
   let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Y(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(2)}</text>`; }
   let xl=''; const yA=new Date(t0).getFullYear(), yB=new Date(t1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
   let avgL=''; if(avg){ const y=Y(avg); avgL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="5 3"/><text x="${W-R}" y="${(y-3).toFixed(1)}" text-anchor="end" font-size="9" fill="#7c3aed">P.medio ${avg.toFixed(2)}</text>`; }
+  let poL=''; [['bear',poB,'#dc2626'],['base',poM,'#2563eb'],['bull',poU,'#16a34a']].forEach(it=>{ const v=it[1]; if(v>0){ const y=Y(v); poL+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="${it[2]}" stroke-width="1" stroke-dasharray="2 3" opacity="0.85"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="${it[2]}">PO ${it[0]} ${v.toFixed(2)}</text>`; } });
   let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
   const last=pts[pts.length-1][1];
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">${grid}${xl}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${avgL}${mk}</svg><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio</div>`;
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">${grid}${xl}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${poL}${avgL}${mk}</svg><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo (bear/base/bull)</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
