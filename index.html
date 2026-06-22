@@ -118,7 +118,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #distTabla table{font-size:12px} #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
   #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
-  #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left}
+  #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:10px} #calEventos th,#calEventos td{padding:2px 3px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
   #loteTabla table{font-size:11px} #loteTabla td,#loteTabla th{padding:3px 6px;border:1px solid #e2e8f0} #loteTabla input{font-size:10px;padding:1px 2px} #loteTabla input[type=number]{-moz-appearance:textfield} #loteTabla input[type=number]::-webkit-inner-spin-button,#loteTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
@@ -399,12 +399,14 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-calendario">
     <h2>Calendario de dividendos</h2>
     <div class="cards" id="calKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Marca/desmarca los meses haciendo clic en la celda. El dividendo neto es editable. El ingreso estimado usa tus acciones en cartera repartiendo el dividendo entre sus meses de pago.</div>
+    <div class="sub" style="margin-bottom:6px">Solo posiciones en cartera. Introduce el % de cada pago (1º–4º); el importe de cada cobro = acciones × dividendo bruto/acción × %. Los meses se toman de los eventos de dividendo (<b>D</b>) del calendario anual de abajo. ⚠ los % deben sumar 100.</div>
     <div style="overflow:auto" id="calTabla"></div>
     <h3 style="margin-top:18px">Próximos eventos</h3>
-    <div class="sub" style="margin-bottom:6px"><span class="evchip ev-div">D</span> dividendo · <span class="evchip ev-res">Q</span> resultados · <span class="evchip ev-jun">JA</span> junta · semana aproximada. En negrita, empresas en cartera.</div>
+    <div class="sub" style="margin-bottom:6px">Solo mes en curso y el siguiente. <span class="evchip ev-div">D</span> dividendo · <span class="evchip ev-res">Q</span> resultados · <span class="evchip ev-jun">JA</span> junta. En negrita, empresas en cartera.</div>
     <div id="calAgenda" style="margin-bottom:8px"></div>
-    <h3>Calendario de eventos (anual)</h3>
+    <h3 style="margin-top:18px">Calendario de eventos (anual)</h3>
+    <div class="sub" style="margin-bottom:6px">Cada mes dividido en 4 semanas. Escribe el código del evento en su semana (<b>D</b>=dividendo, <b>Q1-Q4</b>=resultados, <b>JA</b>=junta, <b>ID</b>=Investor Day). Editable para ajustar próximos años; varios códigos en una celda separados por espacio.</div>
+    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="evAdd">+ Empresa</button></div>
     <div style="overflow:auto" id="calEventos"></div>
   </section>
 
@@ -1752,57 +1754,61 @@ function calSharesByTicker(){ const m={}; (typeof invPositions==='function'?invP
 function evTipo(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return 'div'; if(c[0]==='Q') return 'res'; if(c==='JA') return 'jun'; return 'otro'; }
 function evTexto(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return 'Dividendo'; if(c[0]==='Q') return 'Resultados '+c; if(c==='JA') return 'Junta de accionistas'; if(c==='ID') return 'Investor Day'; return c; }
 function renderEventos(){
-  const ev=DB.eventos||{};
+  const ev=DB.eventos=DB.eventos||{};
   const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
-  const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  let tickers=Object.keys(ev);
+  let tickers=[...new Set([...Object.keys(ev), ...held])].filter(Boolean);
+  /* ---- Agenda: mes en curso + siguiente, en rejilla de bloques ---- */
   const ag=$('#calAgenda');
   if(ag){
-    const now=new Date(); const nowM=now.getMonth()+1; const nowW=Math.min(4,Math.max(1,Math.ceil(now.getDate()/7)));
+    const now=new Date(); const nowM=now.getMonth()+1; const nextM=nowM===12?1:nowM+1;
     let all=[]; tickers.forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
-    let up=all.filter(e=> e.m>nowM || (e.m===nowM&&e.w>=nowW)).sort((a,b)=> a.m-b.m||a.w-b.w);
-    if(!up.length) up=all.sort((a,b)=> a.m-b.m||a.w-b.w);
-    let html=''; let curM=0;
-    up.slice(0,60).forEach(e=>{ if(e.m!==curM){ curM=e.m; html+=`<div style="font-weight:700;margin:6px 0 2px;color:var(--brand)">${MESES_ES[e.m-1]}</div>`; }
-      const tp=evTipo(e.code); const h=held.has(e.t);
-      html+=`<div style="font-size:12px;margin:1px 0">sem.${e.w} · <span class="evchip ev-${tp}">${e.code}</span> ${h?'<b>':''}${e.t}${h?'</b>':''} <span class="muted">${evTexto(e.code)}</span></div>`; });
-    ag.innerHTML=up.length?html:'<div class="empty">Sin eventos. Importa «eventos-calendario.json».</div>';
+    let up=all.filter(e=> e.m===nowM || e.m===nextM).sort((a,b)=> a.m-b.m||a.w-b.w);
+    const item=e=>{ const tp=evTipo(e.code); const h=held.has(e.t); return `<div style="font-size:11px;padding:3px 6px;background:#f8fafc;border-radius:6px"><span class="muted">${MESES_ES[e.m-1]} s${e.w}</span> <span class="evchip ev-${tp}">${e.code}</span> ${h?'<b>'+e.t+'</b>':e.t} <span class="muted">${evTexto(e.code)}</span></div>`; };
+    ag.innerHTML=up.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:5px">${up.map(item).join('')}</div>`:'<div class="empty">Sin eventos en el mes en curso ni el siguiente.</div>';
   }
+  /* ---- Calendario anual: 4 semanas/mes, editable ---- */
   const el=$('#calEventos'); if(!el)return;
-  if(!tickers.length){ el.innerHTML=''; return; }
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin eventos. Importa «eventos-calendario.json» o pulsa «+ Empresa».</div>'; return; }
   tickers.sort((a,b)=>(held.has(b)?1:0)-(held.has(a)?1:0) || a.localeCompare(b));
-  const head='<tr><th>Empresa</th>'+MESES_ES.map(m=>`<th>${m}</th>`).join('')+'</tr>';
-  const body=tickers.map(t=>{ const cells=[];
-    for(let m=1;m<=12;m++){ const es=(ev[t]||[]).filter(e=>e.m===m).sort((a,b)=>a.w-b.w);
-      cells.push('<td>'+es.map(e=>`<span class="evchip ev-${evTipo(e.code)}" title="semana ${e.w}">${e.code}</span>`).join('')+'</td>'); }
-    return `<tr><td>${held.has(t)?'<b>'+t+'</b>':t}</td>${cells.join('')}</tr>`;
+  const h1='<tr><th rowspan="2">Empresa</th>'+MESES_ES.map(m=>`<th colspan="4" style="text-align:center;border-left:2px solid #cbd5e1">${m}</th>`).join('')+'</tr>';
+  const h2='<tr>'+MESES_ES.map(()=>[1,2,3,4].map((w,i)=>`<th style="font-weight:400;color:var(--muted)${i===0?';border-left:2px solid #cbd5e1':''}">${w}</th>`).join('')).join('')+'</tr>';
+  const body=tickers.map(t=>{ let cells='';
+    for(let m=1;m<=12;m++)for(let w=1;w<=4;w++){ const codes=(ev[t]||[]).filter(e=>e.m===m&&e.w===w).map(e=>e.code).join(' '); cells+=`<td style="padding:1px${w===1?';border-left:2px solid #cbd5e1':''}"><input class="anaInp" style="width:30px;text-align:center;font-size:9px;padding:1px" data-evcell="${t}|${m}|${w}" value="${codes}"></td>`; }
+    return `<tr><td style="white-space:nowrap">${held.has(t)?'<b>'+t+'</b>':t}</td>${cells}</tr>`;
   }).join('');
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
-  const _ve=$('#view-calendario'); if(_ve&&_ve.classList.contains('active')) setTimeout(()=>autoFitTable('calEventos',7,11),0);
+  el.innerHTML=`<table><thead>${h1}${h2}</thead><tbody>${body}</tbody></table>`;
 }
+function addEventoEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; DB.eventos=DB.eventos||{}; DB.eventos[tk]=DB.eventos[tk]||[]; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; saveNow(); renderEventos(); }
 function calDivBruto(c){ const t=(c.ticker||'').toUpperCase(); const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0) return num(v.divAccion); if(c.divNeto) return num(c.divNeto)/0.81; return 0; }
 function renderCalendario(){
   const el=$('#calTabla'); if(!el)return;
-  const cal=(DB.calendario||[]).slice();
-  if(!cal.length){ el.innerHTML='<div class="empty">Sin calendario. Importa «calendario-historico.json» en Inversiones.</div>'; $('#calKpis').innerHTML=''; return; }
   const shares=calSharesByTicker();
-  cal.sort((a,b)=>{ const ra=calPrecio(a)?calDivBruto(a)/calPrecio(a):0, rb=calPrecio(b)?calDivBruto(b)/calPrecio(b):0; return rb-ra; });
+  const ev=DB.eventos||{}; DB.divReparto=DB.divReparto||{};
+  const held=Object.keys(shares).filter(t=>shares[t]>0.0001);
+  if(!held.length){ el.innerHTML='<div class="empty">Sin posiciones en cartera.</div>'; $('#calKpis').innerHTML=''; if(typeof renderEventos==='function')renderEventos(); return; }
+  const calOf=t=>(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+  const nm=t=>((DB.valores||{})[t]||{}).nombre||(calOf(t)||{}).nombre||t;
+  const precioT=t=>{ const v=(DB.valores||{})[t]; return v&&num(v.precioActual)>0?num(v.precioActual):0; };
+  const brutoT=t=>{ const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0)return num(v.divAccion); const c=calOf(t); return c?calDivBruto(c):0; };
+  const divEvents=t=>(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w);
+  held.sort((a,b)=>{ const ra=precioT(a)?brutoT(a)/precioT(a):0, rb=precioT(b)?brutoT(b)/precioT(b):0; return rb-ra; });
   const ingMes=new Array(12).fill(0); let ingAnual=0;
-  cal.forEach(c=>{ const n=c.meses.reduce((s,x)=>s+(x?1:0),0); const sh=shares[(c.ticker||'').toUpperCase()]||0; const _db=calDivBruto(c); if(sh>0 && n>0 && _db){ const porPago=_db*sh/n; c.meses.forEach((x,i)=>{ if(x){ ingMes[i]+=porPago; ingAnual+=porPago; } }); } });
-  let head='<tr><th>Empresa</th><th class="num">Precio</th><th class="num">Div bruto</th><th class="num">Rent</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
-  let body=cal.map(c=>{ const t=(c.ticker||'').toUpperCase(); const p=calPrecio(t?c:c); const pr=calPrecio(c); const dbruto=calDivBruto(c); const rent=pr?(dbruto/pr):0; const enCart=(shares[t]||0)>0;
-    const cells=c.meses.map((x,i)=>`<td class="num calmes" data-calm="${c.id}" data-mi="${i}" style="cursor:pointer;${x?'background:#dcfce7;color:#166534;font-weight:700':''}">${x?'●':''}</td>`).join('');
-    return `<tr><td>${enCart?'<b>':''}${c.nombre}${enCart?'</b>':''} <span class="muted" style="font-size:10px">${t}</span></td><td class="num">${fmt(pr)}</td><td class="num"><input type="number" step="0.001" class="anaInp" style="width:80px;text-align:right" data-caldiv="${c.id}" value="${dbruto?dbruto.toFixed(3):''}"></td><td class="num">${pr?(rent*100).toFixed(1)+'%':'—'}</td>${cells}</tr>`;
+  const rows=held.map(t=>{ const sh=shares[t]; const pr=precioT(t); const br=brutoT(t); const rep=DB.divReparto[t]||[]; const des=divEvents(t);
+    const monthEur=new Array(12).fill(0);
+    des.forEach((e,idx)=>{ const eur=sh*br*(num(rep[idx]||0)/100); if(eur) monthEur[e.m-1]+=eur; });
+    monthEur.forEach((v,i)=>{ if(v){ ingMes[i]+=v; ingAnual+=v; } });
+    const pctInputs=[0,1,2,3].map(i=>`<td class="num"><input type="number" step="1" class="anaInp" style="width:42px;text-align:right" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"></td>`).join('');
+    const sumPct=rep.reduce((s,x)=>s+num(x||0),0);
+    const warn=(sumPct>0&&Math.abs(sumPct-100)>0.5)?` <span style="color:#dc2626" title="Los % no suman 100 (suman ${sumPct})">!</span>`:'';
+    const noEv=(!des.length&&br>0)?` <span style="color:#d97706" title="Sin eventos de dividendo (D) en el calendario anual">o</span>`:'';
+    const monthCells=monthEur.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('');
+    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${warn}${noEv}</td><td class="num">${pr?fmt(pr):'·'}</td><td class="num">${br?br.toFixed(4):'·'}</td>${pctInputs}${monthCells}</tr>`;
   }).join('');
-  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso estimado (cartera)</td><td></td><td></td><td class="num">${fmt(ingAnual)}</td>${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${ingRow}</tbody></table>`;
+  const head='<tr><th>Empresa</th><th class="num">Cotización</th><th class="num">Div bruto</th><th class="num">%1</th><th class="num">%2</th><th class="num">%3</th><th class="num">%4</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
+  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso estimado · ${fmt(ingAnual)}/año</td><td></td><td></td><td></td><td></td><td></td><td></td>${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${rows}${ingRow}</tbody></table>`;
   const mejorMes=ingMes.indexOf(Math.max(...ingMes));
-  $('#calKpis').innerHTML=[
-    ['Empresas en calendario',String(cal.length)],
-    ['Ingreso bruto estimado/año',fmt(ingAnual)],
-    ['Media mensual',fmt(ingAnual/12)],
-    ['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']
-  ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  $('#calKpis').innerHTML=[['Empresas en cartera',String(held.length)],['Ingreso bruto estimado/año',fmt(ingAnual)],['Media mensual',fmt(ingAnual/12)],['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',7,11),0);
   if(typeof renderEventos==='function')renderEventos();
 }
@@ -2134,6 +2140,7 @@ $('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lo
 $('#loteTabla').addEventListener('change',e=>{ const tp=e.target.closest('[data-lotetipo]'); if(tp){ DB.planTipo=DB.planTipo||{}; if(tp.value)DB.planTipo[tp.dataset.lotetipo]=tp.value; else delete DB.planTipo[tp.dataset.lotetipo]; saveNow(); renderPlanLote(); } });
 $('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-dpa]'); if(d){ const t=d.dataset.dpa, y=d.dataset.y; DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; const v=num(d.value); if(d.value.trim()==='') delete DB.divPorAccion[t][y]; else DB.divPorAccion[t][y]=v; saveNow(); renderPrevision(); } });
 if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
+if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
 if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
 if($('#planAdd'))$('#planAdd').addEventListener('click',addPlanEmpresa);
 if($('#distAdd'))$('#distAdd').addEventListener('click',addDistEmpresa);
@@ -2257,7 +2264,8 @@ $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[d
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
 window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',7,10); });
 $('#calTabla').addEventListener('click',e=>{ const m=e.target.closest('[data-calm]'); if(m){ const c=(DB.calendario||[]).find(x=>x.id===m.dataset.calm); if(c){ const i=+m.dataset.mi; c.meses[i]=c.meses[i]?0:1; saveNow(); renderCalendario(); } } });
-$('#calTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ const t=(c.ticker||'').toUpperCase(); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(d.value); saveNow(); renderInv(); renderCalendario(); } } });
+$('#calTabla').addEventListener('change',e=>{ const r=e.target.closest('[data-calrep]'); if(r){ const a=r.dataset.calrep.split('|'); const t=a[0], i=+a[1]; DB.divReparto=DB.divReparto||{}; DB.divReparto[t]=DB.divReparto[t]||[]; DB.divReparto[t][i]=(r.value.trim()===''?'':num(r.value)); saveNow(); renderCalendario(); return; } const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ const t=(c.ticker||'').toUpperCase(); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(d.value); saveNow(); renderInv(); renderCalendario(); } } });
+$('#calEventos').addEventListener('change',e=>{ const c=e.target.closest('[data-evcell]'); if(!c)return; const a=c.dataset.evcell.split('|'); const t=a[0], m=+a[1], w=+a[2]; DB.eventos=DB.eventos||{}; DB.eventos[t]=(DB.eventos[t]||[]).filter(x=>!(x.m===m&&x.w===w)); (c.value||'').trim().split(/[\s,]+/).filter(Boolean).forEach(code=>DB.eventos[t].push({m,w,code:code.toUpperCase()})); saveNow(); renderEventos(); });
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
 $('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
