@@ -409,8 +409,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-prevision">
-    <h2>Histórico y previsión de dividendos</h2>
-    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año (2011→futuro) de cada empresa. Todo editable; los años futuros van en amarillo. Base para el simulador.</div>
+    <h2>Evolución del dividendo</h2>
+    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año (2011→futuro) de cada empresa. <b>Única fuente editable</b> del dividendo: aquí registras manualmente históricos y previsiones. El <b>Simulador</b> los lee de aquí (allí son solo lectura). Años futuros en amarillo.</div>
     <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="prevAdd">+ Empresa</button> <button class="btn sm" id="prevAddYear">+ Año</button> <span class="muted" id="prevStatus"></span></div>
     <div style="overflow:auto" id="prevTabla"></div>
   </section>
@@ -418,7 +418,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-simulador">
     <h2>Simulador de dividendos</h2>
     <div class="cards" id="simKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Pasado automático (tus títulos reales); futuro editable (parte de tus títulos actuales) para simular compras. Añade empresas nuevas con «+ Empresa».</div>
+    <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Vista de resultado: las <b>acciones futuras</b> vienen de <b>Diversificación</b> y el <b>dividendo/acción</b> de <b>Evolución Dividendo</b> (aquí solo lectura). Editable solo el pasado/año en curso de acciones.</div>
     <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="simAdd">+ Empresa</button> <button class="btn sm" id="simAddYear">+ Año</button> <span class="muted" id="simStatus"></span></div>
     <div style="overflow:auto" id="simTabla"></div>
   </section>
@@ -433,7 +433,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-distrib">
-    <h2>Distribución objetivo vs actual</h2>
+    <h2>Distribución de capital</h2>
     <div class="cards" id="distKpis"></div>
     <div id="distPie" style="display:flex;gap:30px;justify-content:center;flex-wrap:wrap;margin:6px 0 14px"></div>
     <div class="sub" style="margin-bottom:6px">Sobre el <b>dinero invertido (coste)</b>. «Objetivo inv.» = € a los que quieres llegar (editable). «Falta» = objetivo − invertido (lo que queda por invertir; debería cuadrar con tu Plan de compras).</div>
@@ -1905,7 +1905,7 @@ function renderSimulador(){
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
       const accCell=(y>nowY)?`<div class="num" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
-      const divCell=`<input type="number" step="0.001" class="anaInp" style="width:54px;text-align:center" data-simdiv="${t}" data-y="${y}" value="${divRaw==null?'':divRaw.toFixed(3)}">${divStar}`;
+      const divCell=`<div class="num" style="color:#475569">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div>`;
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
       const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const cpv=(y>nowY)&&!cc; return `<td style="${cpv?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--brand);font-weight:700;line-height:1.1">${t}</div>${accCell}<div data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado" style="font-size:8px;margin-top:1px;line-height:1.1;cursor:pointer;color:${(y>nowY&&cc&&!conf[y])?'#16a34a':'var(--muted)'};font-weight:${(y>nowY&&cc&&!conf[y])?'700':'400'}">div '${String(y).slice(2)}${(y>nowY&&cc&&!conf[y])?' ✓':''}</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
     }).join('');
@@ -2105,7 +2105,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan'],['distrib','Distribución']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['plan','Plan']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['distrib','Distribución Capital'],['prevision','Evolución Dividendo'],['simulador','Simulador']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
