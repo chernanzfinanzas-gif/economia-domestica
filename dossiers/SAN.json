@@ -1,0 +1,34 @@
+{
+"ticker": "SAN",
+"empresa": "Banco Santander, S.A.",
+"fecha": "2026-06-23",
+"rating": "A",
+"score": 74.3,
+"decision": "ESPERAR",
+"metodoValoracion": "P/TBV justificado (RoTE vs CoE) + RoTE — banca. PO oficial = síntesis Cap. VI ≈8,3 €; escenarios P/TBV justificado: bear ~7,0 €, bull ~12,4 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS).",
+"poBear": 7.0,
+"poBase": 8.3,
+"poBull": 12.4,
+"entMin": 6.5,
+"entMax": 7.2,
+"stop": 5.9,
+"moat": "Moat moderado (65/100): escala global y diversificación geográfica difíciles de replicar, pero sin barreras anchas; banca minorista competida.",
+"catalizadores": [
+"RoTE sostenido > 16%",
+"Ejecución de recompras acretivas para el BPA/DPA",
+"Mejora del coste del riesgo en Brasil (normalización)",
+"Defensa del margen de intereses ante la bajada de tipos del BCE",
+"Cierre de la brecha de P/BV frente a peers domésticos (BBVA/CaixaBank ~2x)"
+],
+"riesgos": [
+"Macro/crédito LatAm: recesión en Brasil/México dispara la morosidad (~40% del beneficio en LatAm)",
+"Divisa: depreciación de emergentes (BRL/MXN) reduce beneficio y capital en euros",
+"Tipos: recortes del BCE comprimen el margen de intereses",
+"Regulatorio: impuesto a la banca en España / mayores requerimientos de capital",
+"Deterioro sincronizado del crédito global (mayores provisiones)",
+"Disrupción: neobancos y plataformas de pago erosionan comisiones"
+],
+"bull": "RoTE >16% sostenido, el coste de capital se comprime y el mercado cierra el descuento de P/BV hacia ~1,8–2,0x con recompras reduciendo acciones → P/TBV justificado ~12,4 €.",
+"bear": "Crisis de crédito y divisa en LatAm: coste del riesgo >2%, recorte de la retribución y de-rating, con compresión del margen por la bajada de tipos → P/TBV pesimista ~7,0 €.",
+"resumen": "Banco de alta calidad (Rating A, 74,3): RoTE 16,4% > CoE, eficiencia 46%, CET1 13,5%, retribución sostenible. Moat moderado (65/100). A 11,35 € no ofrece margen de seguridad: PO central ~8,3 € (−27%) y perfil riesgo/recompensa asimétrico a la baja. ESPERAR; entrada con margen ~7 €, stop previsto ~5,9 €."
+}

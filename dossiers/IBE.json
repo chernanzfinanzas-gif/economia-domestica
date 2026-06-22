@@ -1,0 +1,34 @@
+{
+"ticker": "IBE",
+"empresa": "Iberdrola, S.A.",
+"fecha": "2026-06-23",
+"rating": "A",
+"score": 67.6,
+"decision": "COMPRAR",
+"metodoValoracion": "DCF + múltiplos regulados (RAB) — utility. PO oficial = objetivo del analista 12–18M (€24–29), que incorpora normalización de tipos y expansión de múltiplos; el DCF puro sobre FCL básico daría 9,8/14,4/18,1 €, más conservador.",
+"poBear": 12.5,
+"poBase": 26.5,
+"poBull": 32,
+"entMin": 18,
+"entMax": 21,
+"stop": 10.4,
+"moat": "Moat 77,2/100 — redes reguladas (CNMC/Ofgem/FERC) con retorno garantizado y barreras de entrada infranqueables; escala global en renovables y diversificación en 4 mercados de alta calidad crediticia.",
+"catalizadores": [
+"Confirmación de EBITDA 2026 en línea con la guía (~€16.500M)",
+"Bajada de tipos del BCE: –50 pb adicionales en 2026",
+"Resolución de la tarifa de redes España 2026–2031 con TIR ≥ 5,5%",
+"Puesta en servicio acumulada ≥ 2.500 MW renovables",
+"Reducción orgánica de DFN/EBITDA hacia 4,0x (vs. 4,4x FY2025)"
+],
+"riesgos": [
+"Regulatorio: reforma del marco retributivo de redes/renovables en España (precedente 2013-14)",
+"Financiero: refinanciación de €29.381M de deuda a tipos del 4–5% (+€500-700M gasto anual)",
+"Divisa: ~65% de ingresos en USD/GBP/BRL; –€3.887M en PN por conversión en FY2025",
+"Dilución estructural: +5% de acciones en 3 años; riesgo de nueva ampliación en el plan",
+"Ejecución: plan €58.000M con riesgo de retrasos en permisos e inflación de costes",
+"Político (EE.UU.): recorte de incentivos IRA / permisos de eólica marina (Avangrid)"
+],
+"bull": "Con bajada de tipos en Europa el descuento de valoración se comprime: el plan €58.000M genera EBITDA creciente en activos regulados y el múltiplo EV/EBITDA se expande de ~9x a ~11x → precio implícito €29–35.",
+"bear": "España recorta la TIR regulada y el BCE mantiene tipos altos: cae el valor del RAB, sube el gasto financiero y aparece riesgo de ampliación dilutiva → precio implícito €11–14.",
+"resumen": "Utility regulada global, moat 77,2/100, Score 67,6 / Rating A. Cotiza a €20,32 con descuento frente a su valor en un escenario de tipos normalizados; los tres miedos del mercado (dilución, tipos, regulación) son monitoreables y no letales. COMPRAR/ACUMULAR en €18–21, PO 12–18m €24–29, stop €14,50."
+}
