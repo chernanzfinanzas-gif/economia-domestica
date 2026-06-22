@@ -1,6 +1,8 @@
-
 name: Actualizar cotizaciones
 
+# Cuando se ejecuta:
+#  - automaticamente de lunes a viernes a las 18:00 UTC (tras el cierre europeo)
+#  - manualmente desde la pestana "Actions" -> "Run workflow" (para el historico inicial)
 on:
   schedule:
     - cron: "0 18 * * 1-5"
