@@ -248,6 +248,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="presTable"></div>
     <h3>Análisis por clase (evolución anual)</h3>
     <div id="presAnalisis" style="overflow:auto"></div>
+    <div id="presRenov" style="margin-top:16px"></div>
   </section>
   <!-- PATRIMONIO -->
   <section class="view" id="view-patrimonio">
@@ -2143,6 +2144,9 @@ function renderPanelDash(){
   // Tareas pendientes (antes de eventos)
   const _pend=(DB.todos||[]).filter(x=>!x.hecho).sort((a,b)=>(a.fecha||'9999').localeCompare(b.fecha||'9999'));
   if(_pend.length){ const _hoy=new Date().toISOString().slice(0,10); const _it=_pend.slice(0,8).map(x=>{ const v=x.fecha&&x.fecha<_hoy; return `<div style="font-size:12px;margin:1px 0"><span style="color:${v?'#dc2626':'#64748b'}">${x.fecha?ddmmyyyy(x.fecha):'—'}</span> ${x.desc||''}${x.ticker?' <b>'+x.ticker+'</b>':''}</div>`; }).join(''); html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="monitor">Tareas pendientes <span class="muted" style="font-size:12px">›</span></h3>${_it}</div>`; }
+  // Renovaciones próximas
+  const _renv=(typeof renovList==='function')?renovList(30):[];
+  if(_renv.length){ const _it=_renv.slice(0,8).map(r=>{ const f=r.fecha; const fs=String(f.getDate()).padStart(2,'0')+'/'+String(f.getMonth()+1).padStart(2,'0'); return `<div style="font-size:12px;margin:1px 0"><span style="color:${r.dias<=7?'#dc2626':'#64748b'}">${fs}</span> ${r.nombre} <span class="muted">${fmt(r.importe)}</span></div>`; }).join(''); html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="presupuesto">Renovaciones próximas <span class="muted" style="font-size:12px">›</span></h3>${_it}</div>`; }
   // Próximos eventos
   const ev=DB.eventos||{}; const held=new Set(pos.map(p=>(p.ticker||'').toUpperCase()));
   let all=[]; Object.keys(ev).forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
@@ -2400,7 +2404,14 @@ function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&
 }
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='grafYear'){ grafYear=+e.target.value; renderGraficas(); } });
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('button[data-view="graficas"]'); if(b&&typeof renderGraficas==='function')setTimeout(renderGraficas,0); });
-function renderAll(){ renderGraficas(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); renderMonitor(); }
+function proxRenov(p){ if(!p||!p.renovacion)return null; const base=new Date(p.renovacion+'T00:00:00'); if(isNaN(base.getTime()))return null; const today=new Date(); today.setHours(0,0,0,0); const f=(p.frecuencia||'').toLowerCase(); const stepM=f==='mensual'?1:(f==='bianual'?24:(f==='anual'?12:0)); let d=new Date(base); if(stepM>0){ let g=0; while(d<today&&g<2000){ d.setMonth(d.getMonth()+stepM); g++; } } return d; }
+function renovList(maxDias){ const out=[]; const seen={}; const today=new Date(); today.setHours(0,0,0,0); (DB.presupuesto||[]).forEach(p=>{ if(!p.renovacion)return; const k=p.categoriaId+'|'+p.renovacion; if(seen[k])return; seen[k]=1; const d=proxRenov(p); if(!d)return; const dias=Math.round((d-today)/86400000); if(maxDias!=null&&dias>maxDias)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; out.push({nombre:(c&&c.nombre)||'—',grupo:(c&&c.grupo)||'',importe:num(p.importe),frec:p.frecuencia||'',metodo:p.metodoPago||'',fecha:d,dias}); }); out.sort((a,b)=>a.fecha-b.fecha); return out; }
+function renderRenov(){ const el=$('#presRenov'); if(!el)return; const list=renovList(null); if(!list.length){ el.innerHTML=''; return; }
+  const rows=list.map(r=>{ const cls=(r.dias<=7)?'r':(r.dias<=30?'a':''); const dtxt=r.dias<0?('vencida '+(-r.dias)+'d'):(r.dias===0?'hoy':('en '+r.dias+' d')); const f=r.fecha; const fs=String(f.getDate()).padStart(2,'0')+'/'+String(f.getMonth()+1).padStart(2,'0')+'/'+f.getFullYear();
+    return `<tr><td>${r.nombre}</td><td class="muted">${r.grupo}</td><td class="num">${fmt(r.importe)}</td><td>${r.frec}</td><td>${r.metodo||'<span class="muted">—</span>'}</td><td>${fs}</td><td><span class="pill ${cls}">${dtxt}</span></td></tr>`; }).join('');
+  el.innerHTML=`<h3 style="margin:0 0 6px;font-size:14px">Próximas renovaciones y pagos</h3><div class="sub" style="margin-bottom:6px">De las partidas del Presupuesto con fecha de renovación. Rojo = vencida o ≤7 días · ámbar = ≤30 días.</div><div style="overflow:auto"><table><thead><tr><th>Concepto</th><th>Grupo</th><th class="num">Importe</th><th>Frecuencia</th><th>Método</th><th>Próxima</th><th>Aviso</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function renderAll(){ renderGraficas(); renderRenov(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderCaja(); renderMonitor(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
