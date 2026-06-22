@@ -1332,7 +1332,7 @@ function renderInv(){
     const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC;
     const rows=lst.map(p=>{
       const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
-      return `<tr><td><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}"><b>${p.ticker}</b></button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn ghost sm" data-ficha="${p.ticker}">Ficha</button> <button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
+      return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button><br><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px;margin-top:3px">+ Operación</button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
     }).join('');
     const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>SUBTOTAL</td><td></td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td></td><td></td><td class="num">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
     html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
@@ -1474,6 +1474,8 @@ function aplicarAnaPaste(){
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
 }
 let fichaTicker=null;
+let fichaRange='all';
+const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
 function fichaCalc(ticker){
   const t=(ticker||'').toUpperCase();
@@ -1563,8 +1565,45 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>${divTable}`;
-  $('#fichaView').innerHTML=header+mid+divSection;
+  const _ranges=[['1a','1A'],['3a','3A'],['5a','5A'],['all','Todo']];
+  const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
+  const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
+  $('#fichaView').innerHTML=header+chartCard+mid+divSection;
   document.title='Ficha '+f.t;
+  if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
+}
+async function drawFichaChart(t){
+  const el=$('#fichaChart'); if(!el)return;
+  let pj=_precioCache[t];
+  if(pj===undefined){
+    try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; }
+    _precioCache[t]=pj;
+  }
+  if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; return; }
+  let data=pj.data.map(d=>[Date.parse(d[0]),d[1]]).filter(d=>!isNaN(d[0]));
+  if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; return; }
+  const lastT=data[data.length-1][0];
+  const yrs={'1a':1,'3a':3,'5a':5}[fichaRange];
+  if(yrs){ const cut=lastT-yrs*365.25*86400000; data=data.filter(d=>d[0]>=cut); }
+  if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Pocos datos en este rango.</div>'; return; }
+  const MAXP=600; const step=Math.ceil(data.length/MAXP); let pts=step>1?data.filter((_,i)=>i%step===0):data.slice();
+  if(pts[pts.length-1][0]!==data[data.length-1][0]) pts.push(data[data.length-1]);
+  const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
+  let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
+  const t0=data[0][0], t1=data[data.length-1][0];
+  const ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t&&o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:num(o.precio),venta:o.tipo==='venta'}));
+  const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
+  let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
+  ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; }
+  const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
+  const X=x=>L+(x-t0)/((t1-t0)||1)*pw, Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
+  let path=''; pts.forEach((p,i)=>{ path+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)+' '; });
+  let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Y(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(2)}</text>`; }
+  let xl=''; const yA=new Date(t0).getFullYear(), yB=new Date(t1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
+  let avgL=''; if(avg){ const y=Y(avg); avgL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="5 3"/><text x="${W-R}" y="${(y-3).toFixed(1)}" text-anchor="end" font-size="9" fill="#7c3aed">P.medio ${avg.toFixed(2)}</text>`; }
+  let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
+  const last=pts[pts.length-1][1];
+  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">${grid}${xl}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${avgL}${mk}</svg><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
@@ -1740,7 +1779,7 @@ function renderEventos(){
   const h2='<tr>'+MESES_ES.map(()=>[1,2,3,4].map((w,i)=>`<th style="font-weight:400;color:var(--muted)${i===0?';border-left:2px solid #cbd5e1':''}">${w}</th>`).join('')).join('')+'</tr>';
   const body=tickers.map(t=>{ let cells='';
     for(let m=1;m<=12;m++)for(let w=1;w<=4;w++){ const arr=(ev[t]||[]).filter(e=>e.m===m&&e.w===w).map(e=>(e.code||'')); const val=arr.join(' '); const U=arr.map(c=>c.toUpperCase()); let cs=''; if(U.some(c=>c[0]==='D')) cs=';background:#dcfce7;color:#166534;font-weight:700'; else if(U.some(c=>c==='JA'||c==='ID')) cs=';background:#fef9c3;color:#c2410c;font-weight:700'; else if(U.some(c=>c[0]==='Q')) cs=';background:#dbeafe;color:#1e40af;font-weight:700'; cells+=`<td style="padding:1px${w===1?';border-left:2px solid #cbd5e1':''}"><input class="anaInp" style="width:16px;text-align:center;font-size:8px;padding:0;background:transparent${cs}" data-evcell="${t}|${m}|${w}" value="${val}"></td>`; }
-    return `<tr${held.has(t)?' style="background:#fffbeb"':''}><td style="white-space:nowrap">${held.has(t)?'<b>'+t+'</b>':t}</td>${cells}</tr>`;
+    return `<tr${held.has(t)?' style="background:#fffbeb"':''}><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}" style="padding:0 4px">${held.has(t)?'<b>'+t+'</b>':t}</button></td>${cells}</tr>`;
   }).join('');
   el.innerHTML=`<table><thead>${h1}${h2}</thead><tbody>${body}</tbody></table>`;
 }
@@ -1917,8 +1956,8 @@ function renderPanelDash(){
   if(pos.length){ const cV=pos.reduce((s,p)=>s+p.acciones*p.precioActual,0), cC=pos.reduce((s,p)=>s+p.acciones*p.precioCompra,0), cD=pos.reduce((s,p)=>s+p.acciones*p.divAccion,0), cPL=cV-cC;
     html+=block('Cartera','inversiones',[['Valor',fmt(cV),'','coste '+fmt(cC)],['Plusvalía',(cPL>=0?'+':'')+fmt(cPL),cPL>=0?'pos':'neg',(cC?(cPL/cC*100).toFixed(1):0)+'%'],['Dividendo bruto/año',fmt(cD),'',(cV?(cD/cV*100).toFixed(1):0)+'% RPD'],['YoC',(cC?(cD/cC*100).toFixed(1):0)+'%','pos']]); }
   // Dividendos
-  if(typeof simYearTotal==='function'){ const y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const dN=simYearTotal(nowY), dF=simYearTotal(y1), cr=dN?((dF/dN)-1):0;
-    html+=block('Dividendos','dividendos',[['Cobrado '+nowY,fmt(dN)],['Previsión '+y1,fmt(dF)],['Crecimiento',(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
+  if(typeof simYearTotal==='function'){ const y1=nowY+1, y2=nowY+2; const dN=simYearTotal(nowY), d1=simYearTotal(y1), d2=simYearTotal(y2), cr=dN?((d1/dN)-1):0;
+    html+=block('Dividendos','dividendos',[['Cobrado '+nowY,fmt(dN)],['Previsión '+y1,fmt(d1)],['Previsión '+y2,fmt(d2)],['Crecimiento '+nowY+'→'+y1,(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
   // Oportunidades
   const ana=(DB.analisis||[]).map(a=>{const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo);return {t:a.ticker,pot:(cot&&obj)?(obj-cot)/cot:null,barata:!!(cot&&ent&&cot<=ent*1.05)};});
   const baratas=ana.filter(a=>a.barata).length, top=ana.filter(a=>a.pot!=null).sort((a,b)=>b.pot-a.pot).slice(0,3);
@@ -2277,7 +2316,7 @@ $('#calTabla').addEventListener('click',e=>{ const m=e.target.closest('[data-cal
 $('#calTabla').addEventListener('change',e=>{ const r=e.target.closest('[data-calrep]'); if(r){ const a=r.dataset.calrep.split('|'); const t=a[0], i=+a[1]; DB.divReparto=DB.divReparto||{}; DB.divReparto[t]=DB.divReparto[t]||[]; DB.divReparto[t][i]=(r.value.trim()===''?'':num(r.value)); saveNow(); renderCalendario(); return; } const d=e.target.closest('[data-caldiv]'); if(d){ const c=(DB.calendario||[]).find(x=>x.id===d.dataset.caldiv); if(c){ const t=(c.ticker||'').toUpperCase(); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(d.value); saveNow(); renderInv(); renderCalendario(); } } });
 $('#calEventos').addEventListener('change',e=>{ const c=e.target.closest('[data-evcell]'); if(!c)return; const a=c.dataset.evcell.split('|'); const t=a[0], m=+a[1], w=+a[2]; DB.eventos=DB.eventos||{}; DB.eventos[t]=(DB.eventos[t]||[]).filter(x=>!(x.m===m&&x.w===w)); (c.value||'').trim().split(/[\s,]+/).filter(Boolean).forEach(code=>DB.eventos[t].push({m,w,code:code.toUpperCase()})); saveNow(); renderEventos(); });
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ if(confirm('¿Quitar esta posición de archivadas? (no recupera las operaciones)')){ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==d.dataset.delcerrada); saveNow(); renderInv(); renderDividendos(); } } });
-$('#fichaView').addEventListener('click',e=>{ if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
+$('#fichaView').addEventListener('click',e=>{ const _fr=e.target.closest('[data-frange]'); if(_fr){ fichaRange=_fr.dataset.frange; if(_fr.parentElement)[..._fr.parentElement.children].forEach(x=>x.classList.toggle('on',x===_fr)); drawFichaChart(fichaTicker); return; } if(e.target.closest('#finvVal')){ validarUrlInv(); return; } if(e.target.closest('#fdivAdd')){ addFichaDiv(); return; } const dd=e.target.closest('[data-deldiv]'); if(dd){ const arr=(DB.dividendos||{})[fichaTicker]||[]; const i=arr.findIndex(x=>x.id===dd.dataset.deldiv); if(i>=0){arr.splice(i,1); saveNow(); renderFicha(fichaTicker);} } });
 $('#fichaView').addEventListener('change',e=>{ const arr=(DB.dividendos||{})[fichaTicker]||[]; const ef=e.target.closest('[data-edf]'); if(ef){ const it=arr.find(x=>x.id===ef.dataset.edf); if(it){ it.fecha=ef.value; saveNow(); renderFicha(fichaTicker);} return; } const ei=e.target.closest('[data-edi]'); if(ei){ const it=arr.find(x=>x.id===ei.dataset.edi); if(it){ it.importe=num(ei.value); saveNow(); renderFicha(fichaTicker);} } });
 const prf=document.createElement('input'); prf.type='file'; prf.accept='.json,application/json'; prf.id='presFile'; prf.style.display='none';
 prf.addEventListener('change',()=>{const f=prf.files[0];if(!f)return; importPresupuesto(f); prf.value='';});
