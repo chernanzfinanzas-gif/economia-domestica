@@ -2015,26 +2015,39 @@ function renderPlanLote(){
   const totalInv=Object.values(invByT).reduce((s,v)=>s+v,0);
   const nm=t=>((DB.valores||{})[t]||{}).nombre || (((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre) || t;
   DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i&&!held.includes(t));
-  const chosen=DB.planLote; const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{}; const tipoSel=t=>`<select class="anaInp" data-lotetipo="${t}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="mantener"${pt[t]==='mantener'?' selected':''}>Mantener</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option></select>`;
+  const chosen=DB.planLote; const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{};
+  const tipoSel=t=>`<select class="anaInp" data-lotetipo="${t}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="mantener"${pt[t]==='mantener'?' selected':''}>Mantener</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option></select>`;
   const anaAll=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))];
   const ana=anaAll.filter(t=>!held.includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b)));
   const dl='<datalist id="loteDL">'+ana.filter(t=>!chosen.includes(t)).map(t=>`<option value="${nm(t)} (${t})">`).join('')+'</datalist>';
-  // disponible en periodo desde Proyección
   let disponible=0;
   try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=num(pe.desde)&&r.anio<=num(pe.hasta)) disponible+=num(r.aInversion); }); }catch(e){}
-  // cabecera: periodo + totales
+  // --- asignación de capital ---
+  const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
+  const tipoOf=t=>pt[t]||'';
+  const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length;
+  const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
+  const sumFijos=allTk.filter(t=>tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo').reduce((s,t)=>s+(invByT[t]||0),0); // mantener + sin clasificar (su inversión actual queda fija)
+  const restante=TF>0?(1-JOYA*nJoya-sumFijos/TF):0;
+  const nucPct=nNuc>0?restante/nNuc:0;
+  const objPct=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA; if(tp==='nucleo')return nucPct; return TF?(invByT[t]||0)/TF:0; };
+  const objEur=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  const asignar=t=>objEur(t)-(invByT[t]||0);
+  const totAsignarPos=allTk.reduce((s,t)=>s+Math.max(0,asignar(t)),0);
   const cab=`<div class="cards" style="margin-bottom:12px">
      <div class="card"><div class="lbl">Invertido total</div><div class="val">${fmt(totalInv)}</div><div class="sub">${held.length} en cartera</div></div>
-     <div class="card"><div class="lbl">Disponible en periodo</div><div class="val">${fmt(disponible)}</div><div class="sub">A invertir ${num(pe.desde)}–${num(pe.hasta)} (de Proyección)</div></div>
-     <div class="card"><div class="lbl">Capital asignado</div><div class="val muted">—</div><div class="sub">pendiente (siguiente paso)</div></div>
+     <div class="card"><div class="lbl">Disponible en periodo</div><div class="val">${fmt(disponible)}</div><div class="sub">A invertir ${num(pe.desde)}–${num(pe.hasta)}</div></div>
+     <div class="card"><div class="lbl">Capital final total</div><div class="val">${fmt(TF)}</div><div class="sub">invertido + disponible</div></div>
+     <div class="card"><div class="lbl">Capital a asignar</div><div class="val pos">${fmt(totAsignarPos)}</div><div class="sub">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
    </div>
-   <div class="toolbar" style="margin-bottom:8px"><span class="muted">Periodo del plan:</span> <input type="number" step="1" data-loteyr="desde" value="${num(pe.desde)}" style="width:80px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted">a</span> <input type="number" step="1" data-loteyr="hasta" value="${num(pe.hasta)}" style="width:80px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="margin-left:10px"><b>${total}/20</b> empresas</span></div>`;
-  const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:220px">`;
+   <div class="toolbar" style="margin-bottom:8px"><span class="muted">Periodo del plan:</span> <input type="number" step="1" data-loteyr="desde" value="${num(pe.desde)}" style="width:80px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted">a</span> <input type="number" step="1" data-loteyr="hasta" value="${num(pe.hasta)}" style="width:80px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="margin-left:10px"><b>${total}/20</b> empresas · ${nJoya} joyas</span></div>`;
+  const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:200px">`;
+  const objCells=t=>`<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td>`;
   let rows=''; let n=0;
-  held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted">${nm(t)}</span></td><td><span class="pill g">En cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td><td></td></tr>`; });
-  chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td><td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
-  for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot libre</td><td></td><td class="num">·</td><td class="num">·</td><td></td></tr>`; }
-  el.innerHTML=cab+dl+`<div style="overflow:auto"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% actual</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted">${nm(t)}</span></td><td><span class="pill g">En cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}<td></td></tr>`; });
+  chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
+  for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot libre</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td></td></tr>`; }
+  el.innerHTML=cab+dl+`<div style="overflow:auto"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% actual</th><th class="num">% objetivo</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function renderAll(){ renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderDistrib(); renderPlanLote(); }
