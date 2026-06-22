@@ -1996,11 +1996,21 @@ function realSharesAt(t,year){ const ye=year+'-12-31'; let sh=0;
   (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&(o.fecha||'')<=ye) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); });
   (DB.cerradas||[]).forEach(c=>{ if((c.ticker||'').toUpperCase()===t&&c.ops) c.ops.forEach(o=>{ if((o.fecha||'')<=ye) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); });
   return sh; }
+function opRealEnAnio(t,year){ const y=String(year);
+  if((DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===t&&(o.fecha||'').slice(0,4)===y))return true;
+  return (DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t&&(c.ops||[]).some(o=>(o.fecha||'').slice(0,4)===y));
+}
+function execBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y) e+=num(o.acciones)*num(o.precio); }); return e; }
+function planPendShares(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year){ const pend=Math.max(0,num(pc[y])-execBuyEur(t,+y)); sh+=Math.floor(pend/pr); } }); return sh; }
 function simIsReal(t){ return (DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===t)||(DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t); }
-function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t];
-  if(ss&&ss[year]!=null) return num(ss[year]);
-  if(year<=nowY) return simIsReal(t)?realSharesAt(t,year):0;
-  return (simIsReal(t)?realSharesAt(t,nowY):0) + planSharesAt(t,year); }
+function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss&&ss[year]!=null); const opAnio=(typeof opRealEnAnio==='function')&&opRealEnAnio(t,year); const pend=(typeof planPendShares==='function')?planPendShares(t,year):0;
+  if(year<=nowY){
+    if(opAnio) return realSharesAt(t,year)+pend;
+    if(ov) return num(ss[year]);
+    return (simIsReal(t)?realSharesAt(t,year):0)+pend;
+  }
+  if(ov) return num(ss[year]);
+  return (simIsReal(t)?realSharesAt(t,nowY):0) + pend; }
 function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
@@ -2106,14 +2116,17 @@ function renderPlan(){
   const tt=t=>Object.values(pc[t]||{}).reduce((s,v)=>s+num(v),0);
   tickers.sort((a,b)=>tt(b)-tt(a)||a.localeCompare(b));
   const totYear={}; years.forEach(y=>totYear[y]=0);
-  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; rt+=v; totYear[y]+=v; return `<td class="num">${v?fmt(v):'·'}</td>`; }).join('');
+  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; rt+=v; totYear[y]+=v; const exeE=(v>0&&typeof execBuyEur==='function')?execBuyEur(t,+y):0; const comp=(v>0&&exeE>=v-0.005); const parc=(v>0&&exeE>0&&exeE<v-0.005); const bg=comp?'#dcfce7':(parc?'#fff7ed':''); const mark=comp?' ✓':(parc?' ◐':''); return `<td class="num"${bg?` style="background:${bg}" title="ejecutado ${fmt(exeE)} de ${fmt(v)}"`:''}>${v?fmt(v):'·'}${mark}</td>`; }).join('');
     return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}<td class="num" style="font-weight:700">${rt?fmt(rt):'·'}</td></tr>`; }).join('');
   const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}</th>`).join('')+'<th class="num">Total</th></tr>';
   const grand=Object.values(totYear).reduce((s,v)=>s+v,0);
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
   const presRow='<tr style="background:#fffbeb"><td>Presupuesto/año</td>'+years.map(y=>`<td class="num">${(pr[y]!=null)?fmt(pr[y]):'·'}</td>`).join('')+'<td></td></tr>';
   const exeRow='<tr style="font-weight:600"><td>Por ejecutar</td>'+years.map(y=>{ const dif=num(pr[y]||0)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${(pr[y]!=null)?fmt(dif):'·'}</td>`; }).join('')+'<td></td></tr>';
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table>`;
+  const ejec=[]; tickers.forEach(t=>Object.keys(pc[t]||{}).forEach(y=>{ const plan=num(pc[t][y]); if(plan<=0)return; const exe=(typeof execBuyEur==='function')?execBuyEur(t,+y):0; if(exe<=0)return; const falta=Math.max(0,plan-exe); const comp=exe>=plan-0.005; ejec.push({t,y,plan,exe,falta,comp}); }));
+  const _pendTot=ejec.reduce((s,e)=>s+e.falta,0);
+  const aviso = ejec.length ? `<div class="card" style="margin-top:12px;background:#fff7ed;border:1px solid #fed7aa"><div style="font-weight:700;color:#b45309;margin-bottom:6px">Ejecución del plan (${ejec.length})${_pendTot>0.005?` · faltan ${fmt(_pendTot)}`:''}</div><div class="sub" style="margin-bottom:8px">Compras del plan que ya has empezado. Las <b>parciales</b> siguen contando en el Simulador (real + lo que falta). Cuando una esté <b>completa</b>, quítala del Plan.</div>${ejec.map(e=>`<div style="font-size:13px;margin:4px 0;display:flex;align-items:center;gap:10px"><span>${e.comp?'✅':'🟠'} <b>${e.t}</b> · ${e.y} — ejecutado ${fmt(e.exe)} de ${fmt(e.plan)}${e.comp?' <b style=\"color:#16a34a\">(completa)</b>':` · <b style=\"color:#b45309\">faltan ${fmt(e.falta)}</b>`}</span>${e.comp?`<button class="btn danger sm" data-planexe="${e.t}|${e.y}">Quitar del Plan</button>`:''}</div>`).join('')}</div>` : '';
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table>`+aviso;
   $('#planKpis').innerHTML=[['Plan total',fmt(grand)],['Plan '+nowY,fmt(totYear[nowY]||0)],['Presupuesto '+nowY,fmt(num(pr[nowY]||0))]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('planTabla',7,11),0);
 }
@@ -2349,6 +2362,7 @@ if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
 if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
 if($('#planAdd'))$('#planAdd').addEventListener('click',addPlanEmpresa);
 if($('#planAddYear'))$('#planAddYear').addEventListener('click',addPrevYear);
+$('#planTabla').addEventListener('click',e=>{ const b=e.target.closest('[data-planexe]'); if(b){ const [t,y]=b.dataset.planexe.split('|'); if(confirm('¿Quitar del Plan la compra de '+t+' en '+y+'? Ya tienes operación real ese año.')){ if(DB.planCompras&&DB.planCompras[t])delete DB.planCompras[t][y]; saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); } } });
 $('#planTabla').addEventListener('change',e=>{ const a=e.target.closest('[data-plan]'); if(a){ const t=a.dataset.plan,y=a.dataset.y; DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(a.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(a.value); saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const p=e.target.closest('[data-plpres]'); if(p){ DB.planPresupuesto=DB.planPresupuesto||{}; if(p.value.trim()==='')delete DB.planPresupuesto[p.dataset.plpres]; else DB.planPresupuesto[p.dataset.plpres]=num(p.value); saveNow(); renderPlan(); } });
 function addPrevYear(){ DB.previsionMaxYear=(num(DB.previsionMaxYear)||2030)+1; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); if(typeof renderPlan==='function')renderPlan(); }
 function toggleDivConf(t,y){ DB.divConfirmado=DB.divConfirmado||{}; DB.divConfirmado[t]=DB.divConfirmado[t]||{}; if(DB.divConfirmado[t][y]) delete DB.divConfirmado[t][y]; else DB.divConfirmado[t][y]=true; saveNow(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); }
