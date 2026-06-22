@@ -1379,6 +1379,70 @@ function invNuevoValor(){
   renderInv(); scheduleSave(); setInvStatus('Valor añadido: '+t);
 }
 function parseNumES(t){ t=(t||'').toString().replace(/[^\d.,-]/g,''); if(!t)return NaN; if(t.indexOf(',')>=0){ return parseFloat(t.replace(/\./g,'').replace(',','.')); } return parseFloat(t); }
+const NAME2TICK={"IBERDROLASA": "IBE", "BANCOSANTANDERSA": "SAN", "REPSOLSA": "REP", "NATURGYENERGYGROUPSA": "NTGY", "MAPFRESA": "MAP", "ENDESASA": "ELE", "ATRESMEDIA": "A3M", "LOGISTAINTEGRALSA": "LOG", "VISCOFANSA": "VIS", "INDITEX": "ITX", "EBROFOODSSA": "EBRO", "FAESFARMASA": "FAE", "ACS": "ACS", "VIDRALASA": "VID", "AENA": "AENA", "AMADEUSITGROUPSA": "AMS", "REDEIACORPORACION": "RED", "CAIXABANKSA": "CABK", "PRIMSA": "PRM", "BANKINTERSA": "BKT", "RENTA4BANCOSA": "R4", "MIQUELYCOSTAS": "MCM", "SACYRSA": "SCYR", "FCC": "FCC", "ENAGASSA": "ENG", "BBVA": "BBVA", "UNICAJABANCOSA": "UNI", "ACCIONASA": "ANA", "TELEFONICASA": "TEF", "ACERINOXSA": "ACX", "AIRBUS": "AIR", "FERROVIAL": "FER", "ARCELORMITTAL": "MTS", "IAG": "IAG", "INDRA": "IDR", "ACCIONAENERGIA": "ANE", "GRIFOLS": "GRF", "CIEAUTOMOTIVE": "CIE", "ROVI": "ROVI", "INMOBILIARIACOLONIAL": "COL", "ALMIRALL": "ALM", "PUIG": "PUIG", "APERAM": "APAM.AS", "GRENERGYRENOVABLES": "GRE", "TECNICASREUNIDAS": "TRE", "SOLARIA": "SLR", "ELECNOR": "ENO", "CAF": "CAF", "MAKINGSCIENCE": "MAKS", "NEINORHOMES": "HOME", "GESTAMP": "GEST", "MELIAHOTELS": "MEL", "LLEIDANET": "LLN", "REALIA": "RLIA", "CEVASA": "CEV", "METROVACESA": "MVC", "PHARMAMAR": "PHM", "PROSEGUR": "PSG", "ARTECHE": "ART", "ECOENER": "ECO", "LINEADIRECTA": "LDA", "AEDASHOMES": "AEDAS", "COX": "COXG", "AUDAXRENOVABLES": "ADX", "ENCE": "ENC", "INMOBILIARIASANJOSE": "GSJ", "OHLA": "OHLA", "PRISA": "PRS", "GIGASHOSTING": "GIGA", "TUBACEX": "TUB", "AMPER": "AMP", "NEXTIL": "NXT", "TALGO": "TLGO", "ALANTRAPARTNERS": "ALNT", "ERCROS": "ECR", "BERKELEYENERGIA": "BKY", "AZKOYEN": "AZK", "REIGJOFRE": "RJF", "ARIMAREALESTATE": "ARM", "AIRTIFICIAL": "AI", "NICOLASCORREA": "NEA", "DEOLEO": "OLE", "VOCENTO": "VOC", "TUBOSREUNIDOS": "TRG", "LINGOTESESPECIALES": "LGT", "ADOLFODOMINGUEZ": "ADZ", "EZENTIS": "EZE", "RENTACORPORACION": "REN", "BODEGASRIOJANAS": "RIO", "PESCANOVA": "PVA", "COCACOLAEUROPACIFIC": "CCEP", "NYESAVALORES": "NYE", "SECUOYA": "SEC", "URBAS": "UBS"};
+function anaNorm(s){ return (s||'').toString().normalize('NFD').replace(/[̀-ͯ]/g,'').toUpperCase().replace(/[^A-Z0-9]/g,''); }
+function anaFindTicker(nombre){
+  const k=anaNorm(nombre); if(!k) return '';
+  if(NAME2TICK[k]) return NAME2TICK[k];
+  let hit=null;
+  (DB.analisis||[]).forEach(a=>{ if(a.nombre&&anaNorm(a.nombre)===k)hit=a.ticker; });
+  if(hit) return hit.toUpperCase();
+  Object.keys(DB.valores||{}).forEach(t=>{ const v=DB.valores[t]; if(v&&v.nombre&&anaNorm(v.nombre)===k)hit=t; });
+  if(hit) return hit.toUpperCase();
+  let best=''; Object.keys(NAME2TICK).forEach(kk=>{ if(kk.length>=5 && (k.indexOf(kk)===0||kk.indexOf(k)===0)){ if(kk.length>best.length)best=kk; } });
+  if(best) return NAME2TICK[best];
+  return k.slice(0,4);
+}
+function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Sin posiciones');return;}
+  DB.inversiones=arr.map(p=>({id:uid(),ticker:p.ticker||'',nombre:p.nombre||'',acciones:num(p.acciones),precioCompra:num(p.precioCompra),precioActual:num(p.precioActual),divAccion:num(p.divAccion),exchange:p.exchange||'BME',broker:p.broker||''}));
+  renderInv(); saveNow(); alert('Importadas '+DB.inversiones.length+' posiciones.'); }); }
+function renderAnalisis(){
+  if(!DB.config)DB.config={};
+  const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
+  const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
+  const ae=$('#anaAmbar'); if(ae)ae.value=Math.round(aU*100);
+  const list=(DB.analisis||[]).map(a=>{
+    const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo),dv=num(a.divAccion);
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre,notas:a.notas,cot,ent,obj,dv,
+      pot:(cot&&obj)?(obj-cot)/cot:null, rpdAct:cot?dv/cot:null, rpdEnt:ent?dv/ent:null, vsEnt:ent?(cot-ent)/ent:null};
+  });
+  list.sort((a,b)=>(b.pot==null?-1e9:b.pot)-(a.pot==null?-1e9:a.pot));
+  const baratas=list.filter(x=>x.pot!=null&&x.pot>=vU).length;
+  const enEntrada=list.filter(x=>x.ent&&x.cot&&x.cot<=x.ent).length;
+  $('#anaCards').innerHTML=[
+    {l:'Empresas en seguimiento',v:list.length,cls:''},
+    {l:'Baratas (≥'+Math.round(vU*100)+'% potencial)',v:baratas,cls:'pos'},
+    {l:'A tu precio de entrada o menos',v:enEntrada,cls:'pos'}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
+  if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
+  const rows=list.map(a=>{
+    const cls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
+    const estado=a.pot==null?'—':(a.pot>=vU?'Barata':a.pot>=aU?'Media':'Cara');
+    return `<tr>
+      <td><b>${a.ticker||''}</b></td><td>${a.nombre||''}</td>
+      <td class="num">${fmt(a.cot)}</td><td class="num">${fmt(a.ent)}</td><td class="num">${fmt(a.obj)}</td>
+      <td class="num"><span class="pill ${cls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
+      <td class="num ${a.vsEnt!=null?(a.vsEnt<=0?'pos':'neg'):''}">${a.vsEnt==null?'—':(a.vsEnt>=0?'+':'')+(a.vsEnt*100).toFixed(1)+'%'}</td>
+      <td class="num">${a.rpdAct==null?'—':(a.rpdAct*100).toFixed(2)+'%'}</td>
+      <td class="num">${a.rpdEnt==null?'—':(a.rpdEnt*100).toFixed(2)+'%'}</td>
+      <td><span class="pill ${cls}">${estado}</span></td>
+      <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
+  }).join('');
+  $('#anaTable').innerHTML=`<table><thead><tr><th>Ticker</th><th>Nombre</th><th class="num">Cotización</th><th class="num">Entrada</th><th class="num">Objetivo</th><th class="num">Potencial</th><th class="num">vs Entrada</th><th class="num">RPD act.</th><th class="num">RPD entr.</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function anaSubmit(){
+  const id=$('#anaId').value||uid();
+  const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),precioEntrada:num($('#anaEnt').value),precioObjetivo:num($('#anaObj').value),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim()};
+  if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
+  DB.analisis=DB.analisis||[];
+  const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
+  $('#anaForm').reset(); $('#anaId').value=''; $('#anaForm').style.display='none'; $('#anaSubmit').textContent='Añadir';
+  renderAnalisis(); scheduleSave();
+}
+function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
+  $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaEnt').value=a.precioEntrada; $('#anaObj').value=a.precioObjetivo; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
+  $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
+function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
 function aplicarAnaPaste(){
   const txt=$('#anaPasteTxt').value||''; if(!txt.trim()){alert('Pega los datos primero.');return;}
   DB.analisis=DB.analisis||[]; DB.valores=DB.valores||{};
