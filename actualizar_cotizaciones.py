@@ -132,6 +132,20 @@ def main():
     with open(os.path.join(outdir, "_index.json"), "w", encoding="utf-8") as f:
         json.dump(indice, f, ensure_ascii=False, indent=0)
 
+    # _ultimos.json: ultimo cierre de cada empresa (para que la app fije el "precio actual")
+    ultimos = {}
+    for ticker in tickers:
+        pth = os.path.join(outdir, ticker + ".json")
+        if os.path.exists(pth):
+            try:
+                dd = json.load(open(pth, encoding="utf-8"))
+                if dd.get("data"):
+                    ultimos[ticker] = dd["data"][-1]  # [fecha, cierre]
+            except Exception:
+                pass
+    with open(os.path.join(outdir, "_ultimos.json"), "w", encoding="utf-8") as f:
+        json.dump(ultimos, f, ensure_ascii=False)
+
     print(f"\nHecho. {len(indice['tickers'])} con datos, {len(indice['fallos'])} fallos.")
     if indice["fallos"]:
         print("Revisa estos simbolos en tickers.json:",
