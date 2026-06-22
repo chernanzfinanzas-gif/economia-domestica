@@ -27,6 +27,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .logo{display:flex;align-items:center}
   .logo .logo-img{height:52px;width:auto;display:block}
   nav{display:flex;gap:4px}
+  tr.trasjub>td{background:#f3f4f6} tr.trasjub-sep>td{background:#e2e8f0;font-weight:700;border-top:2px solid #94a3b8}
   nav button{background:none;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--muted);font-weight:600}
   #subnav{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 0;padding:8px 0 0;border-top:1px solid var(--line)}
   #subnav button{background:none;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:var(--muted);font-weight:600}
@@ -129,8 +130,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-view="panel" class="active">Panel</button>
     <button data-group="mov">Movimientos</button>
     <button data-view="presupuesto">Presupuesto</button>
-    <button data-group="pat">Patrimonio</button>
+    <button data-view="patrimonio">Patrimonio</button>
     <button data-group="inv">Inversiones</button>
+    <button data-group="planinv">Plan Inversor</button>
   </nav>
   <div id="subnav" style="display:none"></div>
   <div class="spacer"></div>
@@ -1049,7 +1051,7 @@ function delCuenta(id){
 function proyDefaults(){
   if(!DB.config)DB.config={};
   const p=DB.config.proyeccion;
-  if(p && p.modeloEvo2){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; return; }
+  if(p && p.modeloEvo2){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; if(p.anioTrasJub==null)p.anioTrasJub=2039; return; }
   const yr=new Date().getFullYear();
   const inv=DB.inversiones||[];
   let cartera=0,coste=0,divB=0;
@@ -1065,7 +1067,7 @@ function proyDefaults(){
   DB.config.proyeccion={ modeloEvo2:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
     efectivo:Math.round(last.ef)||9000, invertidoCoste:Math.round(coste), carteraInicial:Math.round(cartera),
     dividendoBruto:Math.round(divB), nominaMes:Math.round(nominaMes)||5675, gastoMes:Math.round(gastosAnu/12)||3450,
-    crecCartera:0.04, crecDividendo:0.025, rpdNuevas:0.05, inflacionNomina:0.025, crecAhorro:0.01,
+    crecCartera:0.04, crecDividendo:0.025, rpdNuevas:0.05, inflacionNomina:0.025, crecAhorro:0.01, anioTrasJub:2039,
     aportacionDefault:25000, aportaciones:{}, eventos:[] };
   scheduleSave();
 }
@@ -1076,21 +1078,22 @@ function computeProy(c){
   const gC=1+num(c.crecCartera), gD=1+num(c.crecDividendo), gN=1+num(c.inflacionNomina), gA=1+num(c.crecAhorro), rpdN=num(c.rpdNuevas);
   let Ef=num(c.efectivo), I=num(c.invertidoCoste), C=num(c.carteraInicial), Div=num(c.dividendoBruto), Nom=num(c.nominaMes);
   let AN=(num(c.nominaMes)-num(c.gastoMes))*12; if(AN<0)AN=0;
+  const yJub=num(c.anioTrasJub)||2039;
   let prevR=0,prevT=0,prevS=0;
   const out=[];
   for(let i=0;i<=N;i++){
     const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
-    const S=Sof(anio,edad); const ev=Tof(anio); const T=ev.t;
+    const S=Sof(anio,edad); const ev=Tof(anio); const T=ev.t; const trasJub=anio>=yJub;
     if(i>0){
       Nom=Nom*gN; AN=AN*gA;
       Div=Div*gD + prevS*rpdN;
       I=I+S;
       C=(C+S)*gC;
-      Ef=Ef+prevR-prevT;
+      Ef=Ef+((anio-1)<yJub?prevR:0)-prevT;
     }
     const Q=AN+Div; const R=Q-S; const patrim=C+Ef;
-    const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; const dispMes=rentaMes-R/12-S/12;
-    out.push({anio,edad,efectivo:Ef,invertido:I,cartera:C,patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
+    const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; let dispMes=rentaMes-R/12-S/12; if(trasJub) dispMes=dispMes+R/12;
+    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
     prevR=R; prevT=T; prevS=S;
   }
   return out;
@@ -1102,6 +1105,7 @@ function renderProyParams(c){
     ['anioBase','Año actual',c.anioBase,'1',0],
     ['edadFin','Edad final',c.edadFin,'1',0],
     ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1',0],
+    ['anioTrasJub','Año tras jubilación (→ a gastos)',Math.round(c.anioTrasJub||2039),'1',0],
     ['efectivo','Efectivo inicial (€)',Math.round(c.efectivo),'100',0],
     ['invertidoCoste','Invertido / coste (€)',Math.round(c.invertidoCoste),'500',0],
     ['carteraInicial','Valor cartera inicial (€)',Math.round(c.carteraInicial),'500',0],
@@ -1149,7 +1153,10 @@ function renderProy(){
     {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'}
   ].map(x=>`<div class="card"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="sub">${x.s}</div></div>`).join('');
   drawProyChart(ser); renderProyEventos(c);
-  const rows=ser.map(r=>`<tr>
+  let rows=''; let sepDone=false;
+  ser.forEach(r=>{
+    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
+    rows+=`<tr${r.trasJub?' class="trasjub"':''}>
     <td>${r.anio}</td><td class="num">${r.edad}</td>
     <td class="num">${fmt(r.efectivo)}</td>
     <td class="num">${fmt(r.invertido)}</td>
@@ -1161,7 +1168,7 @@ function renderProy(){
     <td class="num ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td>
     <td class="num">${fmt(r.disponibleMes)}</td>
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
-  </tr>`).join('');
+  </tr>`; });
   $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Valor Cartera</th><th class="num">Patrimonio</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addEvento(){
@@ -2035,9 +2042,9 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], pat:[['patrimonio','Patrimonio'],['proyeccion','Proyección']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan'],['distrib','Distribución']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['prevision','Histórico/Previsión'],['simulador','Simulador'],['plan','Plan'],['distrib','Distribución']], planinv:[['proyeccion','Proyección']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
-const groupCurrent={mov:'movimientos', pat:'patrimonio', inv:'inversiones'};
+const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
