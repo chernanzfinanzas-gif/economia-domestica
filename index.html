@@ -1739,7 +1739,7 @@ function renderFicha(t){
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||'');
   const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span class="muted" style="font-size:11px">análisis ${_ana.dossierFecha}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
-  if(_tesisSet&&_tesisSet.has(fichaTicker)&&_tesisCache[fichaTicker]===undefined&&typeof cargarTesis==='function')cargarTesis(fichaTicker);
+  if(_tesisCache[fichaTicker]===undefined&&typeof cargarTesis==='function')cargarTesis(fichaTicker);
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
   $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+chartCard+mid+divSection;
   document.title='Ficha '+f.t;
