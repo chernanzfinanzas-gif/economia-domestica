@@ -1,0 +1,33 @@
+{
+"ticker": "MAP",
+"empresa": "Mapfre, S.A.",
+"fecha": "2026-06-17",
+"rating": "A",
+"score": 73.9,
+"decision": "ESPERAR",
+"metodoValoracion": "P/TBV justificado (RoTE vs CoE) — aseguradora. PO oficial = escenarios P/TBV justo sobre VCPA-T (bear 3,15 / base 4,43 / bull 5,89 €); la síntesis ponderada (70% forward + 30% múltiplos) da 3,76 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS/seguros).",
+"poBear": 3.15,
+"poBase": 4.43,
+"poBull": 5.89,
+"entMin": 3.15,
+"entMax": 3.5,
+"stop": 2.35,
+"moat": "Estrecho (54,8/100): escala y marca en España y reaseguro LatAm, pero seguro comoditizado, con costes de cambio bajos y escaso poder de fijación de precios.",
+"catalizadores": [
+"Resultados S1-2026 con ratio combinado ≤92% y RoTE sostenido",
+"Solvencia II de cierre 2025 (SFCR) por encima del 200%, que blinda el dividendo",
+"Estabilización o apreciación del real brasileño (menor drag de divisa)",
+"Subida del dividendo con cargo a 2025 (DPA ≥0,18 €)",
+"Cumplimiento del Plan Estratégico 2024-2026 (ROE >13%, combinado 93-94%)"
+],
+"riesgos": [
+"Divisa e hiperinflación en LatAm (real/peso) — probabilidad alta, impacto −10 a −20%",
+"Catástrofes naturales y cambio climático (siniestralidad y coste de reaseguro)",
+"Competencia y guerra de precios en Autos",
+"Tipos de interés y mercados (cartera de inversión, duración ~5 años)",
+"Concentración del control en la Fundación Mapfre (~67,7%): menor peso del minoritario, sin opa"
+],
+"bull": "El combinado se mantiene ~90%, el real se estabiliza y el múltiplo converge hacia 2,0x → 5,0-5,9 € (+20% a +40%).",
+"bear": "Tormenta latinoamericana (divisa + hiperinflación): recorte del dividendo y P/TBV a 1,0x → 2,4-3,0 € (−30% a −40%).",
+"resumen": "Aseguradora de calidad (rating A, el mejor ratio combinado de su grupo 90,2%, RoTE 15,4% sobre un coste de capital ~5-8% y Solvencia II ~210%) cuya calidad ya está reconocida en el precio tras revalorizarse +145%. Cotiza en su valor justo (PO 3,76-4,43 € vs 4,18 €), sin margen de seguridad y con un riesgo-recompensa simétrico. Tesis de RENTA (dividendo ~4,3% bien cubierto), no de revalorización: ESPERAR para abrir posición (entrada atractiva <3,50 €) y MANTENER si ya se está en cartera. Riesgo clave a vigilar: la divisa latinoamericana (real brasileño + ratio combinado)."
+}
