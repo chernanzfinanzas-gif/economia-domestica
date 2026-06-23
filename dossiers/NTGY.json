@@ -1,0 +1,33 @@
+{
+  "ticker": "NTGY",
+  "empresa": "Naturgy",
+  "fecha": "2026-06-23",
+  "rating": "A",
+  "score": 74.2,
+  "decision": "MANTENER",
+  "metodoValoracion": "DCF a 10 años (peso 35%) + múltiplos históricos 10A (peso 65%). El precio objetivo es la media ponderada de ambos métodos: rango DCF 34,9–73,7 € (base ~49,7 €) y precio por múltiplos inferior, que rebaja el PO ponderado a 32,81 €.",
+  "poBear": 21,
+  "poBase": 32.81,
+  "poBull": 40,
+  "entMin": 24,
+  "entMax": 26,
+  "stop": 20.1,
+  "moat": 72,
+  "catalizadores": [
+    "Subida de la tasa de retribución regulada: la TRF de distribución eléctrica sube al 6,58% para 2026-2031, elevando el EBITDA de redes desde enero de 2026.",
+    "Confirmación del guidance 2026: EBITDA 2026E ≈ 5.300 M€ y resultado neto en línea con la guía de la compañía.",
+    "Claridad sobre la estructura accionarial (IFM/Criteria/GIP): un acuerdo entre accionistas o una colocación que amplíe el free float reduciría el descuento de gobernanza.",
+    "Bajada de tipos del BCE: revaloriza los activos regulados de larga duración y abarata el coste de la deuda.",
+    "Normalización del pay-out: fin de las recompras agresivas y política de dividendo sostenible (pay-out hacia 60-70%)."
+  ],
+  "riesgos": [
+    "Cambio regulatorio o tarifario que reduzca la retribución de redes (regulatorio, impacto alto).",
+    "Estructura accionarial y gobernanza: concentración en fondos (IFM/Criteria/GIP) y bajo free float, con conflicto potencial de intereses.",
+    "Exposición a Latinoamérica: riesgo de divisa e inflación en los mercados latinoamericanos.",
+    "Transición energética y declive estructural del negocio de gas a largo plazo.",
+    "Erosión del patrimonio neto por la retribución agresiva (dividendo elevado + recompras de 2.580 M€ en 2025), que eleva el gearing."
+  ],
+  "bull": "Catalizadores regulatorio (nueva TRF del 6,58%) + bajada de tipos del BCE + claridad accionarial elevan el EBITDA regulado y reducen el descuento de gobernanza, con el dividendo y el BPA creciendo apoyados en las recompras. Precio ~40 € (+39%), probabilidad ~P90.",
+  "bear": "Del Pre-Mortem (§8.2): shock regulatorio que recorte la retribución de redes y/o crisis en Latinoamérica, agravado por la erosión del patrimonio. Precio ~21 € (−27%), probabilidad ~P10.",
+  "resumen": "Naturgy es un negocio de alta calidad (Rating A, 74,2/100; ROIC 11,1% > WACC 5,0%, spread +6,1 pp; margen EBITDA en máximos del 25,4% y desapalancamiento a DN/EBITDA 2,5x) que cotiza a un precio justo: precio objetivo 32,81 € frente a 28,80 €, con un margen de seguridad de +13,9%. La tesis es de income de calidad —dividendo recuperado a 1,77 € y BPA en máximos (2,17 €) impulsado por las recompras que han reducido las acciones de 1.000 a 930 M— más que de fuerte revalorización. Decisión: MANTENER; la compra resulta atractiva por debajo de ~26 € (MdS > 25%). Moat moderado-ancho (72) anclado en redes reguladas, con el matiz del patrimonio erosionado por la retribución agresiva y el descuento de gobernanza por la estructura accionarial (IFM/Criteria/GIP)."
+}
