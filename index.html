@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f3d6b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Economía">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <title>Economía Doméstica</title>
 <script src="https://accounts.google.com/gsi/client" async></script>
 <script>
@@ -93,7 +99,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dlg-b label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .dlg-b input,.dlg-b select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
   .dlg-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
-  @media(max-width:720px){nav button{padding:8px 9px;font-size:13px}.logo .logo-img{height:40px}main{margin-top:12px}}
+  @media(max-width:720px){header{flex-wrap:wrap;gap:8px;padding:8px 12px}nav{flex-wrap:wrap;gap:3px}nav button{padding:7px 9px;font-size:13px}.logo .logo-img{height:36px}.spacer{display:none}.filestat{margin-left:auto}main{margin-top:12px;padding:0 10px 60px}h2{font-size:16px}.view table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}th,td{padding:7px 8px;font-size:12px}.card .val{font-size:20px}.cards{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.toolbar input[type=search]{min-width:120px}}
   .patgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .patgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .patgrid input{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
@@ -545,5 +551,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/05-graficas.js"></script>
   <script src="js/06-main.js"></script>
 
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
