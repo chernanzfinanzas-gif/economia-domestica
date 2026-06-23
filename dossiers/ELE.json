@@ -1,0 +1,33 @@
+{
+  "ticker": "ELE",
+  "empresa": "Endesa",
+  "fecha": "2026-06-23",
+  "rating": "A",
+  "score": 69.8,
+  "decision": "ESPERAR",
+  "metodoValoracion": "DCF a 10 años (peso 35%) + múltiplos históricos 10A (peso 65%). El precio objetivo es la media ponderada de ambos métodos: DCF base 38,8 € y precio por múltiplos 23,2 €.",
+  "poBear": 23,
+  "poBase": 28.65,
+  "poBull": 45,
+  "entMin": 25,
+  "entMax": 30,
+  "stop": 21.7,
+  "moat": 67.8,
+  "catalizadores": [
+    "Nueva retribución de redes: la tasa de la CNMC sube del 5,58% al 6,58% para 2026-31, elevando el EBITDA regulado de distribución.",
+    "Plan Estratégico 2026-28: mayor CAPEX en redes y renovables, con guía de EBITDA y beneficio al alza.",
+    "Bajada de tipos del BCE: revaloriza los activos regulados de larga duración y abarata el coste de la deuda.",
+    "Confirmación del suelo del dividendo: DPA ≥ 1,5 € con un pay-out sostenible (70-80%)."
+  ],
+  "riesgos": [
+    "Revisión a la baja del marco retributivo de redes por la CNMC (regulatorio, impacto alto).",
+    "Control mayoritario de Enel (~70%): conflicto potencial con el free float minoritario (gobernanza).",
+    "Volatilidad de los precios mayoristas y del pool eléctrico (mercado).",
+    "Intervención política o nuevo gravamen energético (político-fiscal).",
+    "Ejecución del plan inversor con CAPEX creciente (operativo).",
+    "De-rating del múltiplo: P/BV récord de 4,48x, el más alto del sector, vulnerable a revertir a su media histórica."
+  ],
+  "bull": "Regulación favorable (nueva tasa de redes del 6,58%) + bajada de tipos del BCE + cumplimiento del Plan 2026-28 elevan el EBITDA y revalorizan los activos regulados, con el dividendo creciendo sobre un beneficio normalizado. Precio ~45 € (+22%), probabilidad ~25%.",
+  "bear": "De-rating del múltiplo (el P/BV récord de 4,48x revierte a su media histórica), agravado por presión regulatoria/fiscal y un nuevo shock de precios. Derivado del Pre-Mortem (§8.2). Precio ~23 € (−38%), probabilidad ~30%. Asimetría desfavorable al precio actual de 37 €.",
+  "resumen": "Endesa es una compañía de calidad (Rating A, 69,8/100; spread ROIC−WACC +7,5 pp, apalancamiento bajo ~1,9x y coberturas holgadas) cotizando a un precio exigente: precio objetivo 28,65 € frente a 37,01 €, con un margen de seguridad de −22,6%. El mercado ya paga la calidad —P/BV récord de 4,48x, el más alto del sector—, así que no hay margen a los precios actuales. Decisión: ESPERAR; zona de acumulación por debajo de 30 € y compra con margen por debajo de 25 €. Moat moderado (67,8), anclado en la distribución regulada, y management sólido (66,6) con el matiz del control de Enel (~70%)."
+}
