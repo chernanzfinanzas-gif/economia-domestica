@@ -27,7 +27,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
-  header{background:var(--panel);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
+  header{background:var(--panel);border-bottom:1px solid var(--line);padding:10px 18px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
   .logo{font-weight:700;font-size:16px;color:var(--brand);white-space:nowrap}
   .logo span{color:var(--ink)}
   .logo{display:flex;align-items:center}
@@ -35,7 +35,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   nav{display:flex;gap:4px}
   tr.trasjub>td{background:#f3f4f6} tr.trasjub-sep>td{background:#e2e8f0;font-weight:700;border-top:2px solid #94a3b8}
   nav button{background:none;border:none;padding:8px 14px;border-radius:8px;cursor:pointer;font-size:14px;color:var(--muted);font-weight:600}
-  #subnav{display:flex;gap:4px;flex-wrap:wrap;margin:8px 0 0;padding:8px 10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa}
+  #subnav{display:flex;flex-basis:100%;width:100%;order:5;gap:4px;flex-wrap:wrap;margin:8px 0 0;padding:8px 10px;border-radius:10px;background:#fff7ed;border:1px solid #fed7aa}
   #subnav button{background:none;border:none;padding:6px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:#9a3412;font-weight:600}
   #subnav button.active{background:#78350f;color:#fff}
   #subnav button:hover:not(.active){background:#ffedd5;color:#7c2d12}
@@ -99,7 +99,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dlg-b label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .dlg-b input,.dlg-b select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
   .dlg-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
-  @media(max-width:720px){header{flex-wrap:wrap;gap:8px;padding:8px 12px}.logo{order:1}.filestat{order:2;margin-left:auto}nav{order:3;flex-basis:100%;width:100%;flex-wrap:wrap;gap:3px}nav button{padding:7px 9px;font-size:13px}#subnav{order:4;flex-basis:100%;width:100%;flex-wrap:wrap;margin:6px 0 0;padding:6px 8px;gap:3px}#subnav button{padding:6px 9px;font-size:12px}.logo .logo-img{height:36px}.spacer{display:none}main{margin-top:12px;padding:0 10px 60px}h2{font-size:16px}.view table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}th,td{padding:7px 8px;font-size:12px}.card .val{font-size:20px}.cards{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.toolbar input[type=search]{min-width:120px}}
+  @media(max-width:960px){header{flex-wrap:wrap;gap:8px;padding:8px 12px}.logo{order:1}.filestat{order:2;margin-left:auto}nav{order:3;flex-basis:100%;width:100%;flex-wrap:wrap;gap:3px}nav button{padding:7px 9px;font-size:13px}#subnav{order:4;flex-basis:100%;width:100%;flex-wrap:wrap;margin:6px 0 0;padding:6px 8px;gap:3px}#subnav button{padding:6px 9px;font-size:12px}.logo .logo-img{height:36px}.spacer{display:none}main{margin-top:12px;padding:0 10px 60px}h2{font-size:16px}.view table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}th,td{padding:7px 8px;font-size:12px}.card .val{font-size:20px}.cards{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.toolbar input[type=search]{min-width:120px}}
+  @media(orientation:landscape) and (max-height:520px){header{position:static}main{margin-top:8px}}
   .patgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .patgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .patgrid input{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
