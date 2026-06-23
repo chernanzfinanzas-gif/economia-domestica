@@ -310,12 +310,16 @@ function renderFicha(t){
   } else {
     const lotRows=f.lotes.map(l=>`<tr><td>${l.fecha?ddmmyyyy(l.fecha):'—'}</td><td>${l.cartera}</td><td class="num">${l.N}</td><td class="num">${fmt(l.P)}</td><td class="num">${fmt(l.coste)}</td><td class="num pos">${fmt(l.divCobrado)}</td><td class="num">${fmt(l.precioNeto)}</td><td class="num">${fmt(l.valor)}</td><td class="num ${l.balance>=0?'pos':'neg'}">${l.balance>=0?'+':''}${fmt(l.balance)}</td><td class="num ${l.rentTotal>=0?'pos':'neg'}">${fmtpct(l.rentTotal)}</td></tr>`).join('');
     const totRow=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td></td><td class="num">${tt.N}</td><td class="num">${fmt(tt.precioMedio)}</td><td class="num">${fmt(tt.coste)}</td><td class="num pos">${fmt(tt.div)}</td><td class="num">${fmt(tt.netoMedio)}</td><td class="num">${fmt(tt.valor)}</td><td class="num ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</td><td class="num ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</td></tr>`;
+    const _annDiv=(f.divYears&&f.divYears.length)?num(f.divYears[0].divShareSum):num(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{}).divAccion); const _yoc=tt.precioMedio>0?_annDiv/tt.precioMedio:0; let _totCart=0; try{ (invPositions()||[]).forEach(p=>{_totCart+=num(p.acciones)*num(p.precioActual);}); }catch(e){} const _peso=_totCart>0?tt.valor/_totCart:0;
     mid=`<div class="cards" style="margin-top:14px">
        <div class="card"><div class="lbl">Valor</div><div class="val">${fmt(tt.valor)}</div><div class="sub">coste ${fmt(tt.coste)}</div></div>
        <div class="card"><div class="lbl">Plusvalía latente</div><div class="val ${tt.balance>=0?'pos':'neg'}">${tt.balance>=0?'+':''}${fmt(tt.balance)}</div></div>
        <div class="card"><div class="lbl">Dividendos cobrados</div><div class="val pos">${fmt(tt.div)}</div></div>
+       <div class="card"><div class="lbl">Balance total</div><div class="val ${(tt.balance+tt.div)>=0?'pos':'neg'}">${(tt.balance+tt.div)>=0?'+':''}${fmt(tt.balance+tt.div)}</div><div class="sub">plusvalía + dividendos (€)</div></div>
        <div class="card"><div class="lbl">Rentabilidad total</div><div class="val ${tt.rentTotal>=0?'pos':'neg'}">${fmtpct(tt.rentTotal)}</div><div class="sub">plusvalía + dividendos</div></div>
        <div class="card"><div class="lbl">Precio neto medio</div><div class="val">${fmt(tt.netoMedio)}</div><div class="sub">coste − dividendos/acción</div></div>
+       <div class="card"><div class="lbl">YoC (yield on cost)</div><div class="val ${_yoc>=0?'pos':''}">${fmtpct(_yoc)}</div><div class="sub">div/acción ÷ precio medio</div></div>
+       <div class="card"><div class="lbl">Peso en la cartera</div><div class="val">${fmtpct(_peso)}</div><div class="sub">valor ÷ cartera total</div></div>
      </div>
      <h3>Lotes</h3>
      <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
