@@ -1,5 +1,5 @@
 {
-"actualizado": "2026-06-22",
+"actualizado": "2026-06-23",
 "tickers": [
 {
 "ticker": "A3M",
@@ -191,6 +191,20 @@
 "n": 3956
 },
 {
+"ticker": "CIRSA",
+"symbol": "CIRSA.MC",
+"desde": "2025-07-09",
+"hasta": "2026-06-19",
+"n": 242
+},
+{
+"ticker": "CLNX",
+"symbol": "CLNX.MC",
+"desde": "2015-05-07",
+"hasta": "2026-06-19",
+"n": 2846
+},
+{
 "ticker": "COL",
 "symbol": "COL.MC",
 "desde": "2011-01-03",
@@ -275,6 +289,13 @@
 "n": 3956
 },
 {
+"ticker": "FDR",
+"symbol": "FDR.MC",
+"desde": "2011-01-03",
+"hasta": "2026-06-19",
+"n": 3955
+},
+{
 "ticker": "FER",
 "symbol": "FER.MC",
 "desde": "2011-01-03",
@@ -336,6 +357,13 @@
 "desde": "2011-01-03",
 "hasta": "2026-06-22",
 "n": 3956
+},
+{
+"ticker": "IBG",
+"symbol": "IBG.MC",
+"desde": "2011-01-03",
+"hasta": "2026-06-19",
+"n": 3955
 },
 {
 "ticker": "IDR",
@@ -408,6 +436,13 @@
 "n": 3956
 },
 {
+"ticker": "MRL",
+"symbol": "MRL.MC",
+"desde": "2014-06-30",
+"hasta": "2026-06-19",
+"n": 3063
+},
+{
 "ticker": "MTS",
 "symbol": "MTS.MC",
 "desde": "2011-01-03",
@@ -462,6 +497,13 @@
 "desde": "2011-01-03",
 "hasta": "2026-06-22",
 "n": 3956
+},
+{
+"ticker": "ORY",
+"symbol": "ORY.MC",
+"desde": "2015-12-14",
+"hasta": "2026-06-19",
+"n": 2689
 },
 {
 "ticker": "PHM",
