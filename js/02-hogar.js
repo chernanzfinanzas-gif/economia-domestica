@@ -127,7 +127,34 @@ function renderPanel(){
 
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';
+function _sugUniq(arr){ var seen={},out=[]; arr.forEach(function(x){ var v=(x==null?'':x).toString().trim(); var k=v.toLowerCase(); if(v&&!seen[k]){seen[k]=1;out.push(v);} }); return out; }
+var SUGSRC={
+  movConcepto:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.concepto;})); },
+  movComercio:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.comercio;})); },
+  amaConcepto:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.concepto;})); },
+  amaNota:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.nota;})); }
+};
+function wireSuggest(inp,key,minChars){
+  if(!inp||inp._sugWired)return; inp._sugWired=true; var mn=minChars||5;
+  var dl=document.createElement('datalist'); dl.id='dl_'+key+'_'+Math.random().toString(36).slice(2,7);
+  document.body.appendChild(dl); inp.setAttribute('autocomplete','off');
+  inp.addEventListener('input',function(){
+    var v=(inp.value||'').trim().toLowerCase();
+    if(v.length<mn){ inp.removeAttribute('list'); dl.innerHTML=''; return; }
+    var src=(SUGSRC[key]?SUGSRC[key]():[]);
+    var vals=src.filter(function(x){ var lx=x.toLowerCase(); return lx.indexOf(v)>=0 && lx!==v; }).slice(0,15);
+    dl.innerHTML=vals.map(function(x){ return '<option value="'+x.replace(/"/g,'&quot;')+'"></option>'; }).join('');
+    if(vals.length) inp.setAttribute('list',dl.id); else inp.removeAttribute('list');
+  });
+}
+function wireAllSuggests(){
+  wireSuggest(document.getElementById('movConcepto'),'movConcepto');
+  wireSuggest(document.getElementById('movComercio'),'movComercio');
+  wireSuggest(document.getElementById('amaConcepto'),'amaConcepto');
+  wireSuggest(document.getElementById('amaNota'),'amaNota');
+}
 function renderMovs(){
+  wireAllSuggests();
   const txt=$('#fltText').value.toLowerCase().trim();
   const desde=$('#fltDesde').value, hasta=$('#fltHasta').value;
   let list=DB.movimientos.slice();
@@ -263,22 +290,31 @@ function drawPatChart(snaps){
   const ctx=cv.getContext('2d');
   const W=cv.width=cv.clientWidth||700, H=cv.height=220;
   ctx.clearRect(0,0,W,H);
-  const pad={l:8,r:8,t:14,b:18};
-  const vals=snaps.map(s=>snapTot(s).total);
-  const max=Math.max(...vals), min=Math.min(...vals,0);
-  const n=snaps.length;
+  const pad={l:8,r:8,t:26,b:18};
+  const n=snaps.length; if(!n) return;
+  const tot=snaps.map(s=>snapTot(s).total);
+  const ef=snaps.map(s=>snapTot(s).ef);
+  const inv=snaps.map(s=>snapTot(s).inv);
+  const max=Math.max(...tot,1), min=Math.min(...tot,...ef,...inv,0);
   const X=i=> pad.l + (W-pad.l-pad.r)*(n<=1?0.5:i/(n-1));
   const Y=v=> pad.t + (H-pad.t-pad.b)*(1-(v-min)/((max-min)||1));
-  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0]));
-  for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(vals[i]));
+  // area bajo el patrimonio total
+  ctx.beginPath(); ctx.moveTo(X(0),Y(tot[0]));
+  for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(tot[i]));
   ctx.lineTo(X(n-1),H-pad.b); ctx.lineTo(X(0),H-pad.b); ctx.closePath();
   ctx.fillStyle='rgba(37,99,235,.10)'; ctx.fill();
-  ctx.beginPath(); ctx.moveTo(X(0),Y(vals[0]));
-  for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(vals[i]));
-  ctx.strokeStyle='#2563eb'; ctx.lineWidth=2; ctx.stroke();
+  function line(arr,color,w){ ctx.beginPath(); ctx.moveTo(X(0),Y(arr[0])); for(let i=1;i<n;i++) ctx.lineTo(X(i),Y(arr[i])); ctx.strokeStyle=color; ctx.lineWidth=w; ctx.stroke(); }
+  line(inv,'#f59e0b',2);        // invertido en acciones
+  line(ef,'#16a34a',2);         // efectivo
+  line(tot,'#2563eb',2.5);      // patrimonio total
+  // etiquetas de anos
   ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
   const seen={};
-  snaps.forEach((s,i)=>{ const yr=s.fecha.slice(0,4); if(!seen[yr]){seen[yr]=1; ctx.fillText(yr, X(i), H-5);} });
+  snaps.forEach((s,i)=>{ const yr=(s.fecha||'').slice(0,4); if(yr&&!seen[yr]){seen[yr]=1; ctx.fillText(yr, X(i), H-5);} });
+  // leyenda
+  ctx.textAlign='left'; ctx.font='10px sans-serif';
+  const leg=[['Patrimonio','#2563eb'],['Efectivo','#16a34a'],['Invertido acciones','#f59e0b']]; let lx=pad.l+2;
+  leg.forEach(function(g){ ctx.fillStyle=g[1]; ctx.fillRect(lx,6,9,9); ctx.fillStyle='#374151'; ctx.fillText(g[0],lx+12,14); lx+=12+ctx.measureText(g[0]).width+16; });
 }
 
 function renderPatForm(){
@@ -497,7 +533,7 @@ function renderProy(){
     <td class="num">${fmt(r.disponibleMes)}</td>
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
   </tr>`; });
-  $('#proyTabla').innerHTML=`<style>#proyTabla table{font-size:10px}#proyTabla th{padding:3px 5px}#proyTabla td{padding:3px 5px;white-space:nowrap}#proyTabla th:nth-child(-n+2),#proyTabla td:nth-child(-n+2){font-size:10px;padding:2px 3px;width:30px}#proyTabla td:nth-child(1){white-space:normal}#proyTabla th:nth-child(3),#proyTabla td:nth-child(3){display:none}</style><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Efectivo real</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio teórico</th><th class="num">Patrimonio real</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table><div style="font-size:11px;color:#64748b;margin-top:6px">Patrimonio real (años ya vividos) vs objetivo teórico: <span style="background:#dcfce7;padding:1px 6px;border-radius:4px">≥ objetivo</span> <span style="background:#fef9c3;padding:1px 6px;border-radius:4px">95–100%</span> <span style="background:#fee2e2;padding:1px 6px;border-radius:4px">por debajo</span></div>`;
+  $('#proyTabla').innerHTML=`<style>#proyTabla table{font-size:10px}#proyTabla th{padding:3px 5px}#proyTabla td{padding:3px 5px;white-space:nowrap}#proyTabla td:nth-child(1){white-space:normal}#proyTabla th:nth-child(13),#proyTabla td:nth-child(13),#proyTabla th:nth-child(15),#proyTabla td:nth-child(15){display:none}</style><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Efectivo real</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio teórico</th><th class="num">Patrimonio real</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table><div style="font-size:11px;color:#64748b;margin-top:6px">Patrimonio real (años ya vividos) vs objetivo teórico: <span style="background:#dcfce7;padding:1px 6px;border-radius:4px">≥ objetivo</span> <span style="background:#fef9c3;padding:1px 6px;border-radius:4px">95–100%</span> <span style="background:#fee2e2;padding:1px 6px;border-radius:4px">por debajo</span></div>`;
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
@@ -511,6 +547,7 @@ function addEvento(){
 function amaliaSorted(){ return [...(DB.amalia||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
 function amaliaSaldo(){ let s=0; (DB.amalia||[]).forEach(e=>{ s += e.tipo==='gasto'? num(e.importe) : -num(e.importe); }); return s; }
 function renderAmalia(){
+  wireAllSuggests();
   const fE=$('#amaFecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
   const saldo=amaliaSaldo();
   $('#amaCards').innerHTML=`<div class="card"><div class="lbl">Saldo pendiente (Amalia debe)</div><div class="val ${saldo>0.005?'neg':'pos'}">${fmt(saldo)}</div><div class="sub">${(DB.amalia||[]).length} apuntes</div></div>`;
