@@ -143,8 +143,15 @@ def main():
                     ultimos[ticker] = dd["data"][-1]  # [fecha, cierre]
             except Exception:
                 pass
-    with open(os.path.join(outdir, "_ultimos.json"), "w", encoding="utf-8") as f:
-        json.dump(ultimos, f, ensure_ascii=False)
+    # Guarda: NO sobrescribir _ultimos.json con un diccionario vacio.
+    # Si algo fallo al leer los precios/*.json, conservamos el ultimo bueno.
+    ult_path = os.path.join(outdir, "_ultimos.json")
+    if ultimos:
+        with open(ult_path, "w", encoding="utf-8") as f:
+            json.dump(ultimos, f, ensure_ascii=False)
+        print(f"_ultimos.json escrito ({len(ultimos)} empresas).")
+    else:
+        print("AVISO: _ultimos.json NO se sobrescribe (0 empresas leidas); se conserva el anterior.")
 
     print(f"\nHecho. {len(indice['tickers'])} con datos, {len(indice['fallos'])} fallos.")
     if indice["fallos"]:
