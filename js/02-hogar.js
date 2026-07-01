@@ -393,7 +393,10 @@ function computeProy(c){
     }
     const Q=AN+Div; const R=Q-S; const patrim=C+Ef;
     const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; let dispMes=rentaMes-R/12-S/12; if(trasJub) dispMes=dispMes+R/12;
-    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,carteraReal:(anio===yrNow?LV:null),patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
+    const _cr=anio<yrNow?carteraAtClose(anio):(anio===yrNow?LV:null); const _crv=(_cr!=null&&_cr>0)?_cr:null;
+    const _efR=(anio<=yrNow)?efectivoRealAt(anio):null;
+    const _patR=(_crv!=null)?(_crv+(_efR!=null?_efR:Ef)):null;
+    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,carteraReal:_crv,patrimonio:patrim,patrimonioReal:_patR,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
     prevR=R; prevT=T; prevS=S;
   }
   return out;
@@ -450,6 +453,8 @@ function carteraAtClose(year){
   var val=0; Object.keys(sh).forEach(function(t){ if(sh[t]>0.0001){ var px=priceRepoAt(t,cut); if(px>0)val+=sh[t]*px; } });
   return val;
 }
+function efectivoRealAt(year){ var cut=Date.UTC(year,11,31); var snaps=(typeof patSnaps==='function'?patSnaps():[]); var best=null; snaps.forEach(function(s){ if(!s.fecha)return; var sm=Date.parse(s.fecha+'T00:00:00'); if(isNaN(sm)||sm>cut)return; best=s; }); return best?snapTot(best).ef:null; }
+function proyColor(real,teor){ if(real==null||!teor||teor<=0)return 'transparent'; var r=real/teor; if(r>=1)return '#dcfce7'; if(r>=0.95)return '#fef9c3'; return '#fee2e2'; }
 function proyRefreshBase(c){
   // Ancla de la CARTERA TEORICA = valor de cartera a cierre del 31-dic del ano ANTERIOR al ano base,
   // reconstruido con cotizaciones reales del repo. Es historico y fijo (no se mueve con el mercado).
@@ -475,7 +480,7 @@ function renderProy(){
   drawProyChart(ser); renderProyEventos(c);
   let rows=''; let sepDone=false;
   ser.forEach(r=>{
-    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
+    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
     rows+=`<tr${r.trasJub?' class="trasjub"':''}>
     <td>${r.anio}</td><td class="num">${r.edad}</td>
     <td class="num">${fmt(r.efectivo)}</td>
@@ -483,6 +488,7 @@ function renderProy(){
     <td class="num">${fmt(r.cartera)}</td>
     <td class="num">${r.carteraReal!=null?fmt(r.carteraReal):'—'}</td>
     <td class="num"><b>${fmt(r.patrimonio)}</b></td>
+    <td class="num"${r.patrimonioReal!=null?` style="background:${proyColor(r.patrimonioReal,r.patrimonio)};font-weight:700"`:''}>${r.patrimonioReal!=null?fmt(r.patrimonioReal):'—'}</td>
     <td class="num">${fmt(r.dividendoAnual)}</td>
     <td class="num">${fmt(r.ahorroTotal)}</td>
     <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}" style="width:70px;padding:4px;border:1px solid var(--line);border-radius:6px;text-align:right"></td>
@@ -490,7 +496,7 @@ function renderProy(){
     <td class="num">${fmt(r.disponibleMes)}</td>
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
   </tr>`; });
-  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio teórico</th><th class="num">Patrimonio real</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table><div style="font-size:11px;color:#64748b;margin-top:6px">Patrimonio real (años ya vividos) vs objetivo teórico: <span style="background:#dcfce7;padding:1px 6px;border-radius:4px">≥ objetivo</span> <span style="background:#fef9c3;padding:1px 6px;border-radius:4px">95–100%</span> <span style="background:#fee2e2;padding:1px 6px;border-radius:4px">por debajo</span></div>`;
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
