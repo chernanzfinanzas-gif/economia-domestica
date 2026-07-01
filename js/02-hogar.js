@@ -228,15 +228,37 @@ function generarInforme(){
   html+='<h2>Resumen</h2>'+resumen;
   var host=_infEnsurePrint(); host.innerHTML=html; window.print();
 }
+function _infUpdateChips(){
+  var wrap=document.getElementById('informeWrap'); if(!wrap)return;
+  var sel=[].slice.call(wrap.querySelectorAll('.infCatCk:checked'));
+  var chips=document.getElementById('infSelChips'), cnt=document.getElementById('infSelCount');
+  if(cnt)cnt.textContent=sel.length;
+  if(!chips)return;
+  if(!sel.length){ chips.innerHTML='<span class="muted" style="font-size:11px">Ninguna (= todas)</span>'; return; }
+  chips.innerHTML=sel.map(function(x){ return '<span class="tag" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;margin:0">'+_infEsc(x.getAttribute('data-name'))+'<b class="infChipX" data-cid="'+x.value+'" title="Quitar" style="cursor:pointer;color:#b91c1c">✕</b></span>'; }).join('');
+}
+function _infSyncGrp(grp){
+  var wrap=document.getElementById('informeWrap'); if(!wrap)return;
+  var cks=[].slice.call(wrap.querySelectorAll('.infCatCk[data-grp="'+grp+'"]'));
+  var gc=wrap.querySelector('.infGrpCk[data-grp="'+grp+'"]'); if(!gc)return;
+  var n=cks.filter(function(x){return x.checked;}).length;
+  gc.checked=(n>0&&n===cks.length); gc.indeterminate=(n>0&&n<cks.length);
+}
 function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
   if(document.getElementById('informeWrap')) return;
   var box=document.createElement('div'); box.className='card'; box.id='informeWrap'; box.style.marginTop='14px';
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
-  var catHtml=Object.keys(groups).sort().map(function(g){
+  var accHtml=Object.keys(groups).sort().map(function(g){
     var gs=g.replace(/"/g,'');
-    var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px"><input type="checkbox" class="infCatCk" value="'+c.id+'" data-grp="'+gs+'"> '+_infEsc(c.nombre)+'</label>'; }).join('');
-    return '<div style="break-inside:avoid;margin-bottom:6px"><label style="font-weight:700;font-size:11px"><input type="checkbox" class="infGrpCk" data-grp="'+gs+'"> '+_infEsc(g)+'</label>'+items+'</div>';
+    var items=groups[g].map(function(c){ var nm=_infEsc(c.nombre).replace(/"/g,'&quot;'); return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infCatCk" value="'+c.id+'" data-grp="'+gs+'" data-name="'+nm+'"> '+_infEsc(c.nombre)+'</label>'; }).join('');
+    return '<div class="infGrpBlock" data-grp="'+gs+'" style="border-bottom:1px solid var(--line)">'
+      +'<div class="infGrpRow" data-grp="'+gs+'" style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 4px">'
+      +'<span class="infGrpTog" style="width:12px;display:inline-block;color:#64748b">▸</span>'
+      +'<label class="infGrpLbl" style="font-weight:700;font-size:12px;cursor:pointer;flex:1"><input type="checkbox" class="infGrpCk" data-grp="'+gs+'"> '+_infEsc(g)+' <span class="muted" style="font-weight:400">('+groups[g].length+')</span></label>'
+      +'</div>'
+      +'<div class="infGrpCats" style="display:none;padding:2px 0 6px 24px">'+items+'</div>'
+      +'</div>';
   }).join('');
   var titHtml=_infTitulares().map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infTitCk" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
   var now=new Date(); var ym=now.getFullYear()+'-'+_infPad(now.getMonth()+1);
@@ -253,18 +275,23 @@ function renderInformeBlock(){
     +'<label>Comercio/entidad contiene<input type="text" id="infComercio" placeholder="(opcional)"></label>'
     +'</div>'
     +'<div style="margin-bottom:8px"><b style="font-size:12px">Titular</b> <span class="muted" style="font-size:11px">(vacío = todos)</span><div style="margin-top:4px">'+titHtml+'</div></div>'
-    +'<div style="margin-bottom:10px"><b style="font-size:12px">Categorías</b> <span class="muted" style="font-size:11px">(vacío = todas)</span> <label style="margin-left:8px;font-size:11px"><input type="checkbox" id="infCatAll"> Todas / ninguna</label>'
-    +'<div id="infCats" style="max-height:180px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px;margin-top:6px;column-count:2;column-gap:16px">'+catHtml+'</div></div>'
+    +'<div style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap"><b style="font-size:12px">Categorías</b> <span class="muted" style="font-size:11px">(vacío = todas)</span> <label style="font-size:11px"><input type="checkbox" id="infCatAll"> Todas / ninguna</label></div>'
+    +'<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">'
+    +'<div id="infCatAcc" style="flex:1 1 240px;min-width:220px;max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:8px">'+accHtml+'</div>'
+    +'<div style="flex:1 1 200px;min-width:180px"><div style="font-size:11px;font-weight:700;margin-bottom:4px">Seleccionadas (<span id="infSelCount">0</span>)</div><div id="infSelChips" style="display:flex;flex-wrap:wrap;gap:5px;max-height:230px;overflow:auto"><span class="muted" style="font-size:11px">Ninguna (= todas)</span></div></div>'
+    +'</div></div>'
     +'<button class="btn" id="infPrint">🖨️ Generar informe (PDF)</button>'
     +'</div>';
   sec.appendChild(box);
   document.getElementById('informeHead').addEventListener('click',function(){ var b=document.getElementById('informeBody'); var open=b.style.display!=='none'; b.style.display=open?'none':'block'; document.getElementById('informeArrow').textContent=open?'▾':'▴'; });
   document.getElementById('infPeriodo').addEventListener('change',function(){ var v=this.value; document.getElementById('infMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infHastaWrap').style.display=v==='rango'?'':'none'; });
-  document.getElementById('infCatAll').addEventListener('change',function(){ var ck=this.checked; box.querySelectorAll('.infCatCk,.infGrpCk').forEach(function(x){ x.checked=ck; }); });
-  box.querySelectorAll('.infGrpCk').forEach(function(gc){ gc.addEventListener('change',function(){ var grp=this.getAttribute('data-grp'); box.querySelectorAll('.infCatCk[data-grp="'+grp+'"]').forEach(function(x){ x.checked=gc.checked; }); }); });
+  document.getElementById('infCatAll').addEventListener('change',function(){ var ck=this.checked; box.querySelectorAll('.infCatCk').forEach(function(x){x.checked=ck;}); box.querySelectorAll('.infGrpCk').forEach(function(x){x.checked=ck;x.indeterminate=false;}); _infUpdateChips(); });
+  var acc=document.getElementById('infCatAcc');
+  acc.addEventListener('click',function(e){ if(e.target.closest('.infGrpLbl'))return; if(e.target.tagName==='INPUT')return; var row=e.target.closest('.infGrpRow'); if(!row)return; var block=row.parentNode; var cats=block.querySelector('.infGrpCats'); var tog=row.querySelector('.infGrpTog'); var open=cats.style.display!=='none'; cats.style.display=open?'none':'block'; if(tog)tog.textContent=open?'▸':'▾'; });
+  acc.addEventListener('change',function(e){ var t=e.target; if(t.classList.contains('infGrpCk')){ var grp=t.getAttribute('data-grp'); box.querySelectorAll('.infCatCk[data-grp="'+grp+'"]').forEach(function(x){x.checked=t.checked;}); t.indeterminate=false; _infUpdateChips(); } else if(t.classList.contains('infCatCk')){ _infSyncGrp(t.getAttribute('data-grp')); _infUpdateChips(); } });
+  document.getElementById('infSelChips').addEventListener('click',function(e){ var x=e.target.closest('.infChipX'); if(!x)return; var cid=x.getAttribute('data-cid'); var ck=box.querySelector('.infCatCk[value="'+cid+'"]'); if(ck){ ck.checked=false; _infSyncGrp(ck.getAttribute('data-grp')); _infUpdateChips(); } });
   document.getElementById('infPrint').addEventListener('click',generarInforme);
 }
-
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';
 function _sugUniq(arr){ var seen={},out=[]; arr.forEach(function(x){ var v=(x==null?'':x).toString().trim(); var k=v.toLowerCase(); if(v&&!seen[k]){seen[k]=1;out.push(v);} }); return out; }
