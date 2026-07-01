@@ -440,8 +440,30 @@ function drawProyChart(ser){
   ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
   ser.forEach((r,i)=>{ if(r.edad%5===0) ctx.fillText(r.edad, X(i), H-5); });
 }
+function proyRefreshBase(c){
+  // Valor de cartera VIVO (posiciones abiertas x precio actual, mismo criterio que la vista Cartera)
+  var cartera=0,coste=0,divB=0;
+  try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(p.acciones>0.0001){ cartera+=num(p.acciones)*num(p.precioActual); coste+=num(p.acciones)*num(p.precioCompra); divB+=num(p.acciones)*num(p.divAccion); } }); }catch(e){}
+  var snaps=(typeof patSnaps==='function'?patSnaps():[]); var last=snaps.length?snapTot(snaps[snaps.length-1]):null;
+  var yrNow=new Date().getFullYear(); var changed=false;
+  if(num(c.anioBase)<yrNow){
+    // El ejercicio se cerro: avanza el ano base y toma como snapshot inicial el valor actual del nuevo ano
+    var d=yrNow-num(c.anioBase);
+    c.anioBase=yrNow; c.edadActual=Math.round(num(c.edadActual))+d;
+    if(cartera>0)c.carteraInicial=Math.round(cartera);
+    if(coste>0)c.invertidoCoste=Math.round(coste);
+    if(divB>0)c.dividendoBruto=Math.round(divB);
+    if(last)c.efectivo=Math.round(last.ef);
+    changed=true;
+  } else if(num(c.anioBase)===yrNow && cartera>0){
+    // Ano en curso: el valor de cartera inicial sigue al ultimo valor mas reciente
+    if(Math.round(cartera)!==Math.round(num(c.carteraInicial))){ c.carteraInicial=Math.round(cartera); changed=true; }
+  }
+  if(changed)scheduleSave();
+}
 function renderProy(){
   proyDefaults(); const c=DB.config.proyeccion;
+  proyRefreshBase(c);
   renderProyParams(c);
   const ser=computeProy(c); const fin=ser[ser.length-1];
   const jub=ser.find(r=>r.edad>=c.edadFinAportar)||fin;
