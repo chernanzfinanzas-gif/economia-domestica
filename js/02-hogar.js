@@ -379,6 +379,7 @@ function computeProy(c){
   let AN=(num(c.nominaMes)-num(c.gastoMes))*12; if(AN<0)AN=0;
   const yJub=num(c.anioTrasJub)||2039;
   let prevR=0,prevT=0,prevS=0;
+  const yrNow=new Date().getFullYear(); const LV=(typeof carteraLive==='function'?carteraLive():0);
   const out=[];
   for(let i=0;i<=N;i++){
     const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
@@ -386,13 +387,13 @@ function computeProy(c){
     if(i>0){
       Nom=Nom*gN; AN=AN*gA;
       Div=Div*gD + prevS*rpdN;
-      I=I+S;
-      C=(C+S)*gC;
+      I=I+prevS;
+      C=C*gC+prevS;
       Ef=Ef+((anio-1)<yJub?prevR:0)-prevT;
     }
     const Q=AN+Div; const R=Q-S; const patrim=C+Ef;
     const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; let dispMes=rentaMes-R/12-S/12; if(trasJub) dispMes=dispMes+R/12;
-    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
+    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,carteraReal:(anio===yrNow?LV:null),patrimonio:patrim,dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
     prevR=R; prevT=T; prevS=S;
   }
   return out;
@@ -407,7 +408,7 @@ function renderProyParams(c){
     ['anioTrasJub','Año tras jubilación (→ a gastos)',Math.round(c.anioTrasJub||2039),'1',0],
     ['efectivo','Efectivo inicial (€)',Math.round(c.efectivo),'100',0],
     ['invertidoCoste','Invertido / coste (€)',Math.round(c.invertidoCoste),'500',0],
-    ['carteraInicial','Valor cartera inicial (€)',Math.round(c.carteraInicial),'500',0],
+    ['carteraInicial','Cartera teórica inicial = cierre 31-dic año prev. (€)',Math.round(c.carteraInicial),'500',0],
     ['dividendoBruto','Dividendo bruto/año (€)',Math.round(c.dividendoBruto),'100',0],
     ['nominaMes','Nómina hogar/mes (con extras)',Math.round(c.nominaMes),'50',0],
     ['gastoMes','Gasto mensual presupuestado (€)',Math.round(c.gastoMes),'50',0],
@@ -440,35 +441,33 @@ function drawProyChart(ser){
   ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
   ser.forEach((r,i)=>{ if(r.edad%5===0) ctx.fillText(r.edad, X(i), H-5); });
 }
+function carteraLive(){ var v=0; try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(p.acciones>0.0001)v+=num(p.acciones)*num(p.precioActual); }); }catch(e){} return v; }
+function carteraAtClose(year){
+  // Valor de cartera a cierre del 31-dic de 'year' = Sigma (acciones que tenias ese dia) x (cierre real del repo)
+  if(typeof _allOps!=='function' || typeof priceRepoAt!=='function') return 0;
+  var cut=Date.UTC(year,11,31); var sh={};
+  _allOps().forEach(function(o){ if(!o.fecha)return; var om=Date.parse(o.fecha+'T00:00:00'); if(isNaN(om)||om>cut)return; var t=(o.ticker||'').toUpperCase(); var sg=o.tipo==='venta'?-1:1; sh[t]=(sh[t]||0)+sg*num(o.acciones); });
+  var val=0; Object.keys(sh).forEach(function(t){ if(sh[t]>0.0001){ var px=priceRepoAt(t,cut); if(px>0)val+=sh[t]*px; } });
+  return val;
+}
 function proyRefreshBase(c){
-  // Valor de cartera VIVO (posiciones abiertas x precio actual, mismo criterio que la vista Cartera)
-  var cartera=0,coste=0,divB=0;
-  try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(p.acciones>0.0001){ cartera+=num(p.acciones)*num(p.precioActual); coste+=num(p.acciones)*num(p.precioCompra); divB+=num(p.acciones)*num(p.divAccion); } }); }catch(e){}
-  var snaps=(typeof patSnaps==='function'?patSnaps():[]); var last=snaps.length?snapTot(snaps[snaps.length-1]):null;
-  var yrNow=new Date().getFullYear(); var changed=false;
-  if(num(c.anioBase)<yrNow){
-    // El ejercicio se cerro: avanza el ano base y toma como snapshot inicial el valor actual del nuevo ano
-    var d=yrNow-num(c.anioBase);
-    c.anioBase=yrNow; c.edadActual=Math.round(num(c.edadActual))+d;
-    if(cartera>0)c.carteraInicial=Math.round(cartera);
-    if(coste>0)c.invertidoCoste=Math.round(coste);
-    if(divB>0)c.dividendoBruto=Math.round(divB);
-    if(last)c.efectivo=Math.round(last.ef);
-    changed=true;
-  } else if(num(c.anioBase)===yrNow && cartera>0){
-    // Ano en curso: el valor de cartera inicial sigue al ultimo valor mas reciente
-    if(Math.round(cartera)!==Math.round(num(c.carteraInicial))){ c.carteraInicial=Math.round(cartera); changed=true; }
-  }
-  if(changed)scheduleSave();
+  // Ancla de la CARTERA TEORICA = valor de cartera a cierre del 31-dic del ano ANTERIOR al ano base,
+  // reconstruido con cotizaciones reales del repo. Es historico y fijo (no se mueve con el mercado).
+  var anch=carteraAtClose(num(c.anioBase)-1);
+  if(anch>0 && Math.round(anch)!==Math.round(num(c.carteraInicial))){ c.carteraInicial=Math.round(anch); scheduleSave(); }
 }
 function renderProy(){
   proyDefaults(); const c=DB.config.proyeccion;
+  if(typeof cargarPreciosCartera==='function' && typeof _allOps==='function' && typeof _precioCache!=='undefined'){
+    const _tt=_allOps().map(o=>(o.ticker||'').toUpperCase()).filter(Boolean);
+    if(_tt.some(t=>_precioCache[t]===undefined)){ cargarPreciosCartera().then(()=>renderProy()); }
+  }
   proyRefreshBase(c);
   renderProyParams(c);
   const ser=computeProy(c); const fin=ser[ser.length-1];
   const jub=ser.find(r=>r.edad>=c.edadFinAportar)||fin;
   $('#proyCards').innerHTML=[
-    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'cartera '+fmt(fin.cartera)},
+    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'cartera teórica '+fmt(fin.cartera)},
     {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),s:fmt(fin.dividendoAnual)+'/año'},
     {l:'Plusvalía latente a los '+Math.round(c.edadFin),v:fmt(fin.plusvalia),s:'cartera − invertido'},
     {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'}
@@ -476,12 +475,13 @@ function renderProy(){
   drawProyChart(ser); renderProyEventos(c);
   let rows=''; let sepDone=false;
   ser.forEach(r=>{
-    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
+    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
     rows+=`<tr${r.trasJub?' class="trasjub"':''}>
     <td>${r.anio}</td><td class="num">${r.edad}</td>
     <td class="num">${fmt(r.efectivo)}</td>
     <td class="num">${fmt(r.invertido)}</td>
     <td class="num">${fmt(r.cartera)}</td>
+    <td class="num">${r.carteraReal!=null?fmt(r.carteraReal):'—'}</td>
     <td class="num"><b>${fmt(r.patrimonio)}</b></td>
     <td class="num">${fmt(r.dividendoAnual)}</td>
     <td class="num">${fmt(r.ahorroTotal)}</td>
@@ -490,7 +490,7 @@ function renderProy(){
     <td class="num">${fmt(r.disponibleMes)}</td>
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
   </tr>`; });
-  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Valor Cartera</th><th class="num">Patrimonio</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#proyTabla').innerHTML=`<table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
