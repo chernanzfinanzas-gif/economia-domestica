@@ -123,6 +123,146 @@ function renderPanel(){
     <tr style="font-weight:700"><td>TOTAL</td><td class="num">${fmt(tot.pres)}</td><td class="num">${fmt(tot.real)}</td><td class="num ${totDev>=0?'pos':'neg'}">${totDev>=0?'+':''}${fmt(totDev)}</td><td></td><td><span class="pill ${semClass(tot.pres?tot.real/tot.pres:0)}">${tot.pres?Math.round(tot.real/tot.pres*100):0}%</span></td></tr>
     </tbody></table>` : '<div class="empty">No hay categorías de gasto.</div>';
   if(typeof renderPanelDash==='function')renderPanelDash();
+  if(typeof renderInformeBlock==='function')renderInformeBlock();
+}
+
+/* ============ Informe / PDF (Panel) ============ */
+function _infEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function _infPad(n){ return String(n).padStart(2,'0'); }
+function _infTitulares(){ var s=['Carlos','Susana','Dos']; (DB.movimientos||[]).forEach(function(m){ if(m.titular&&s.indexOf(m.titular)<0)s.push(m.titular); }); return s; }
+function _infMonthsInRange(d0,d1){ var out=[]; var y=d0.getFullYear(), m=d0.getMonth(); var ey=d1.getFullYear(), em=d1.getMonth(); while(y<ey||(y===ey&&m<=em)){ out.push({y:y,m:m}); m++; if(m>11){m=0;y++;} } return out; }
+function _infDetalle(list,tipo){
+  var movs=list.filter(function(m){return m.tipo===tipo;}).sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
+  if(!movs.length)return {html:'<p class="muted">Sin '+(tipo==='ingreso'?'ingresos':'gastos')+' con estos filtros.</p>',total:0};
+  var byG={};
+  movs.forEach(function(m){ var c=catById(m.categoriaId); var g=(c&&c.grupo)||'Sin grupo'; var cn=(c&&c.nombre)||'Sin categoría'; byG[g]=byG[g]||{}; byG[g][cn]=byG[g][cn]||[]; byG[g][cn].push(m); });
+  var html='',total=0;
+  Object.keys(byG).sort().forEach(function(g){
+    var gTot=0,gRows='';
+    Object.keys(byG[g]).sort().forEach(function(cn){
+      var arr=byG[g][cn],cTot=0;
+      arr.forEach(function(m){ var v=num(m.importe); cTot+=v; gRows+='<tr><td>'+ddmmyyyy(m.fecha)+'</td><td>'+_infEsc(m.concepto)+'</td><td>'+_infEsc(m.comercio)+'</td><td>'+_infEsc(cn)+'</td><td>'+_infEsc(m.titular)+'</td><td class="num">'+fmt(v)+'</td></tr>'; });
+      gRows+='<tr class="sub"><td colspan="5">Subtotal '+_infEsc(cn)+'</td><td class="num">'+fmt(cTot)+'</td></tr>';
+      gTot+=cTot;
+    });
+    total+=gTot;
+    html+='<div class="sec"><h3>'+_infEsc(g)+'</h3><table><thead><tr><th>Fecha</th><th>Concepto</th><th>Comercio</th><th>Categoría</th><th>Titular</th><th class="num">Importe</th></tr></thead><tbody>'+gRows+'<tr class="tot"><td colspan="5">TOTAL '+_infEsc(g)+'</td><td class="num">'+fmt(gTot)+'</td></tr></tbody></table></div>';
+  });
+  return {html:html,total:total};
+}
+function _infEnsurePrint(){
+  var host=document.getElementById('informePrint');
+  if(!host){ host=document.createElement('div'); host.id='informePrint'; document.body.appendChild(host); }
+  if(!document.getElementById('informePrintCSS')){
+    var st=document.createElement('style'); st.id='informePrintCSS';
+    st.textContent='#informePrint{display:none;-webkit-print-color-adjust:exact;print-color-adjust:exact}'
+      +'@media print{ body>*:not(#informePrint){display:none!important} #informePrint{display:block!important} @page{margin:13mm} }'
+      +'#informePrint{font-family:Arial,Helvetica,sans-serif;color:#111;font-size:12px;padding:8px}'
+      +'#informePrint h1{font-size:18px;margin:0 0 2px}'
+      +'#informePrint h2{font-size:14px;margin:16px 0 4px;border-bottom:2px solid #333;padding-bottom:2px}'
+      +'#informePrint h3{font-size:12px;margin:10px 0 3px;color:#374151}'
+      +'#informePrint table{width:100%;border-collapse:collapse;font-size:11px;margin:4px 0 8px}'
+      +'#informePrint th,#informePrint td{border:1px solid #d1d5db;padding:3px 6px;text-align:left}'
+      +'#informePrint th{background:#f1f5f9}'
+      +'#informePrint td.num,#informePrint th.num{text-align:right;white-space:nowrap}'
+      +'#informePrint tr.sub td{background:#f8fafc;font-style:italic}'
+      +'#informePrint tr.tot td{background:#eef2f7;font-weight:700}'
+      +'#informePrint .kpis{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}'
+      +'#informePrint .kpi{border:1px solid #d1d5db;border-radius:8px;padding:6px 12px;min-width:110px}'
+      +'#informePrint .kpi .l{font-size:10px;color:#6b7280}'
+      +'#informePrint .kpi .v{font-size:16px;font-weight:700}'
+      +'#informePrint .muted{color:#6b7280}'
+      +'#informePrint .sec{page-break-inside:avoid}';
+    document.head.appendChild(st);
+  }
+  return host;
+}
+function generarInforme(){
+  var per=document.getElementById('infPeriodo').value;
+  var d0,d1,label;
+  if(per==='mes'){ var v=document.getElementById('infMes').value; if(!v){alert('Elige un mes');return;} var pp=v.split('-'); var Y=+pp[0],M=+pp[1]; d0=new Date(Y,M-1,1); d1=new Date(Y,M,0); var mn=(typeof MESES!=='undefined'?MESES[M-1]:''+M); label='Mes de '+(mn.charAt(0).toUpperCase()+mn.slice(1))+' '+Y; }
+  else if(per==='anio'){ var Ya=parseInt(document.getElementById('infAnio').value,10); if(!Ya){alert('Pon un año');return;} d0=new Date(Ya,0,1); d1=new Date(Ya,11,31); label='Año '+Ya; }
+  else { var a=document.getElementById('infDesde').value, b=document.getElementById('infHasta').value; if(!a||!b){alert('Pon fecha desde y hasta');return;} d0=new Date(a+'T00:00:00'); d1=new Date(b+'T00:00:00'); if(d1<d0){var t=d0;d0=d1;d1=t;} label='Del '+ddmmyyyy(a)+' al '+ddmmyyyy(b); }
+  var s0=d0.getFullYear()+'-'+_infPad(d0.getMonth()+1)+'-'+_infPad(d0.getDate());
+  var s1=d1.getFullYear()+'-'+_infPad(d1.getMonth()+1)+'-'+_infPad(d1.getDate());
+  var tipo=document.getElementById('infTipo').value;
+  var selTits=[].slice.call(document.querySelectorAll('.infTitCk:checked')).map(function(x){return x.value;});
+  var selCats=[].slice.call(document.querySelectorAll('.infCatCk:checked')).map(function(x){return x.value;});
+  var conc=(document.getElementById('infConcepto').value||'').trim().toLowerCase();
+  var com=(document.getElementById('infComercio').value||'').trim().toLowerCase();
+  var list=(DB.movimientos||[]).filter(function(m){
+    if(!m.fecha||m.fecha<s0||m.fecha>s1)return false;
+    if(tipo!=='ambos'&&m.tipo!==tipo)return false;
+    if(selTits.length&&selTits.indexOf(m.titular||'')<0)return false;
+    if(selCats.length&&selCats.indexOf(m.categoriaId)<0)return false;
+    if(conc&&(m.concepto||'').toLowerCase().indexOf(conc)<0)return false;
+    if(com&&(m.comercio||'').toLowerCase().indexOf(com)<0)return false;
+    return true;
+  });
+  if(!list.length){ alert('No hay movimientos con esos filtros en ese periodo.'); return; }
+  var ingD=_infDetalle(list,'ingreso'), gasD=_infDetalle(list,'gasto');
+  var ing=ingD.total, gas=gasD.total, ahorro=ing-gas, tasa=ing?ahorro/ing*100:0;
+  // presupuesto vs real (solo de lo filtrado)
+  var months=_infMonthsInRange(d0,d1);
+  var catsInScope=selCats.length?selCats.slice():Object.keys(list.reduce(function(o,m){o[m.categoriaId]=1;return o;},{}));
+  var presRows='',tPres=0,tReal=0,overList=[];
+  catsInScope.forEach(function(cid){ var c=catById(cid); if(!c)return; var pres=0; months.forEach(function(mm){ var p=presFor(cid,mm.y); if(p)pres+=mensual(p); }); var real=0; list.forEach(function(m){ if(m.categoriaId===cid)real+=num(m.importe); }); if(pres===0&&real===0)return; var dev=pres-real; var ratio=pres?real/pres:(real?2:0); var bg='transparent'; if(c.tipo==='gasto'){ bg=ratio<=1?'#dcfce7':ratio<=1.1?'#fef9c3':'#fee2e2'; if(real>pres+0.005)overList.push(c.nombre); } var pct=pres?Math.round(real/pres*100):0; tPres+=pres; tReal+=real; presRows+='<tr><td>'+_infEsc(c.nombre)+' <span class="muted">('+_infEsc(c.grupo)+')</span></td><td class="num">'+fmt(pres)+'</td><td class="num">'+fmt(real)+'</td><td class="num">'+(dev>=0?'+':'')+fmt(dev)+'</td><td class="num" style="background:'+bg+'">'+(pres?pct+'%':'—')+'</td></tr>'; });
+  // resumen
+  var gGroups={}; list.filter(function(m){return m.tipo==='gasto';}).forEach(function(m){ var c=catById(m.categoriaId); var g=(c&&c.grupo)||'Sin grupo'; gGroups[g]=(gGroups[g]||0)+num(m.importe); });
+  var topG=Object.keys(gGroups).sort(function(a,b){return gGroups[b]-gGroups[a];})[0];
+  var resumen='<p>En <b>'+_infEsc(label)+'</b> los ingresos sumaron <b>'+fmt(ing)+'</b> y los gastos <b>'+fmt(gas)+'</b>, con un '+(ahorro>=0?'ahorro':'desahorro')+' de <b>'+fmt(Math.abs(ahorro))+'</b>'+(ing?' (tasa de ahorro '+tasa.toFixed(0)+'%)':'')+'.</p>';
+  if(topG)resumen+='<p>El grupo de mayor gasto fue <b>'+_infEsc(topG)+'</b> ('+fmt(gGroups[topG])+').</p>';
+  if(overList.length)resumen+='<p>Categorías por encima del presupuesto: <b>'+overList.map(_infEsc).join('</b>, <b>')+'</b>.</p>';
+  else if(presRows)resumen+='<p>Ninguna categoría superó su presupuesto en el periodo.</p>';
+  resumen+='<p class="muted">'+list.length+' movimientos analizados.</p>';
+  // ensamblado
+  var kpi=function(l,vv){return '<div class="kpi"><div class="l">'+l+'</div><div class="v">'+vv+'</div></div>';};
+  var td=new Date(); var todayS=td.getFullYear()+'-'+_infPad(td.getMonth()+1)+'-'+_infPad(td.getDate());
+  var filt=[]; if(tipo!=='ambos')filt.push('Tipo: '+(tipo==='ingreso'?'ingresos':'gastos')); if(selTits.length)filt.push('Titular: '+selTits.join(', ')); if(selCats.length)filt.push('Categorías: '+selCats.length+' sel.'); if(conc)filt.push('Concepto ~ "'+_infEsc(conc)+'"'); if(com)filt.push('Comercio ~ "'+_infEsc(com)+'"');
+  var html='<h1>Informe financiero</h1><div class="muted">'+_infEsc(label)+' · emitido el '+ddmmyyyy(todayS)+'</div>';
+  if(filt.length)html+='<div class="muted" style="margin-top:2px">Filtros — '+filt.join(' · ')+'</div>';
+  html+='<h2>Situación financiera</h2><div class="kpis">'+kpi('Ingresos',fmt(ing))+kpi('Gastos',fmt(gas))+kpi('Ahorro',fmt(ahorro))+kpi('Tasa de ahorro',(ing?tasa.toFixed(0)+'%':'—'))+kpi('Nº movimientos',String(list.length))+'</div>';
+  if(tipo!=='gasto')html+='<h2>Ingresos detallados</h2>'+ingD.html;
+  if(tipo!=='ingreso')html+='<h2>Gastos detallados</h2>'+gasD.html;
+  html+='<h2>Presupuesto vs real'+((selCats.length||conc||com)?' (de lo filtrado)':'')+'</h2>'+(presRows?('<table><thead><tr><th>Categoría</th><th class="num">Presupuesto</th><th class="num">Real</th><th class="num">Desviación</th><th class="num">%</th></tr></thead><tbody>'+presRows+'<tr class="tot"><td>TOTAL</td><td class="num">'+fmt(tPres)+'</td><td class="num">'+fmt(tReal)+'</td><td class="num">'+((tPres-tReal)>=0?'+':'')+fmt(tPres-tReal)+'</td><td class="num">'+(tPres?Math.round(tReal/tPres*100)+'%':'—')+'</td></tr></tbody></table>'):'<p class="muted">Sin presupuesto asignado a las categorías filtradas.</p>');
+  html+='<h2>Resumen</h2>'+resumen;
+  var host=_infEnsurePrint(); host.innerHTML=html; window.print();
+}
+function renderInformeBlock(){
+  var sec=document.getElementById('view-panel'); if(!sec) return;
+  if(document.getElementById('informeWrap')) return;
+  var box=document.createElement('div'); box.className='card'; box.id='informeWrap'; box.style.marginTop='14px';
+  var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
+  var catHtml=Object.keys(groups).sort().map(function(g){
+    var gs=g.replace(/"/g,'');
+    var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px"><input type="checkbox" class="infCatCk" value="'+c.id+'" data-grp="'+gs+'"> '+_infEsc(c.nombre)+'</label>'; }).join('');
+    return '<div style="break-inside:avoid;margin-bottom:6px"><label style="font-weight:700;font-size:11px"><input type="checkbox" class="infGrpCk" data-grp="'+gs+'"> '+_infEsc(g)+'</label>'+items+'</div>';
+  }).join('');
+  var titHtml=_infTitulares().map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infTitCk" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
+  var now=new Date(); var ym=now.getFullYear()+'-'+_infPad(now.getMonth()+1);
+  box.innerHTML='<div id="informeHead" style="cursor:pointer;font-weight:700;font-size:14px">🖨️ Informe / Imprimir PDF <span id="informeArrow">▾</span></div>'
+    +'<div id="informeBody" style="display:none;margin-top:10px">'
+    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:10px">'
+    +'<label>Periodo<select id="infPeriodo"><option value="mes">Mes</option><option value="anio">Año completo</option><option value="rango">Rango de fechas</option></select></label>'
+    +'<label id="infMesWrap">Mes<input type="month" id="infMes" value="'+ym+'"></label>'
+    +'<label id="infAnioWrap" style="display:none">Año<input type="number" id="infAnio" value="'+now.getFullYear()+'" step="1"></label>'
+    +'<label id="infDesdeWrap" style="display:none">Desde<input type="date" id="infDesde"></label>'
+    +'<label id="infHastaWrap" style="display:none">Hasta<input type="date" id="infHasta"></label>'
+    +'<label>Tipo<select id="infTipo"><option value="ambos">Ingresos y gastos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option></select></label>'
+    +'<label>Concepto contiene<input type="text" id="infConcepto" placeholder="(opcional)"></label>'
+    +'<label>Comercio/entidad contiene<input type="text" id="infComercio" placeholder="(opcional)"></label>'
+    +'</div>'
+    +'<div style="margin-bottom:8px"><b style="font-size:12px">Titular</b> <span class="muted" style="font-size:11px">(vacío = todos)</span><div style="margin-top:4px">'+titHtml+'</div></div>'
+    +'<div style="margin-bottom:10px"><b style="font-size:12px">Categorías</b> <span class="muted" style="font-size:11px">(vacío = todas)</span> <label style="margin-left:8px;font-size:11px"><input type="checkbox" id="infCatAll"> Todas / ninguna</label>'
+    +'<div id="infCats" style="max-height:180px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:8px;margin-top:6px;column-count:2;column-gap:16px">'+catHtml+'</div></div>'
+    +'<button class="btn" id="infPrint">🖨️ Generar informe (PDF)</button>'
+    +'</div>';
+  sec.appendChild(box);
+  document.getElementById('informeHead').addEventListener('click',function(){ var b=document.getElementById('informeBody'); var open=b.style.display!=='none'; b.style.display=open?'none':'block'; document.getElementById('informeArrow').textContent=open?'▾':'▴'; });
+  document.getElementById('infPeriodo').addEventListener('change',function(){ var v=this.value; document.getElementById('infMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infHastaWrap').style.display=v==='rango'?'':'none'; });
+  document.getElementById('infCatAll').addEventListener('change',function(){ var ck=this.checked; box.querySelectorAll('.infCatCk,.infGrpCk').forEach(function(x){ x.checked=ck; }); });
+  box.querySelectorAll('.infGrpCk').forEach(function(gc){ gc.addEventListener('change',function(){ var grp=this.getAttribute('data-grp'); box.querySelectorAll('.infCatCk[data-grp="'+grp+'"]').forEach(function(x){ x.checked=gc.checked; }); }); });
+  document.getElementById('infPrint').addEventListener('click',generarInforme);
 }
 
 /* ----- MOVIMIENTOS ----- */
