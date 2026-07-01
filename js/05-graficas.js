@@ -55,7 +55,7 @@ function priceRepoAt(t,ms){ const pj=_precioCache[(t||'').toUpperCase()]; if(!pj
 function opPriceAt(t,ms){ t=(t||'').toUpperCase(); let best=0,bt=-1,first=0,ft=Infinity; (typeof _allOps==='function'?_allOps():[]).forEach(o=>{ if((o.ticker||'').toUpperCase()!==t)return; const p=num(o.precio); if(p<=0)return; const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; if(om<=ms&&om>bt){bt=om;best=p;} if(om<ft){ft=om;first=p;} }); return best||first; }
 function priceAtFB(t,ms){ return priceRepoAt(t,ms)||opPriceAt(t,ms); }
 
-function gLines(title,labels,series){ const W=Math.max(360,labels.length*7+60),H=220,padL=54,padB=26,padT=10;
+function gLines(title,labels,series){ const W=Math.max(360,labels.length*7+60),H=340,padL=54,padB=26,padT=10;
   const allv=series.reduce((a,sg)=>a.concat(sg.vals.map(num)),[]); const mn=Math.min(0,...allv),mx=Math.max(1,...allv),rng=(mx-mn)||1,plotH=H-padB-padT,plotW=W-padL-12;
   const X=i=>padL+(labels.length>1?i*plotW/(labels.length-1):plotW/2), Yf=v=>padT+plotH-((num(v)-mn)/rng)*plotH;
   const lines=series.map(sg=>`<polyline points="${sg.vals.map((v,i)=>X(i).toFixed(1)+','+Yf(v).toFixed(1)).join(' ')}" fill="none" stroke="${sg.color}" stroke-width="2"${sg.dash?' stroke-dasharray="'+sg.dash+'"':''}/>`).join('');
