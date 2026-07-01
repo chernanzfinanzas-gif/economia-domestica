@@ -247,7 +247,7 @@ function _infSyncGrp(grp){
 function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
   if(document.getElementById('informeWrap')) return;
-  var box=document.createElement('div'); box.className='card'; box.id='informeWrap'; box.style.marginTop='14px';
+  var box=document.createElement('div'); box.className='card'; box.id='informeWrap'; box.style.margin='4px 0 14px';
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
   var accHtml=Object.keys(groups).sort().map(function(g){
     var gs=g.replace(/"/g,'');
@@ -282,7 +282,7 @@ function renderInformeBlock(){
     +'</div></div>'
     +'<button class="btn" id="infPrint">🖨️ Generar informe (PDF)</button>'
     +'</div>';
-  sec.appendChild(box);
+  var _ref=document.getElementById('panelPeriodo'); if(_ref&&_ref.parentNode===sec)sec.insertBefore(box,_ref); else sec.insertBefore(box,sec.firstChild);
   document.getElementById('informeHead').addEventListener('click',function(){ var b=document.getElementById('informeBody'); var open=b.style.display!=='none'; b.style.display=open?'none':'block'; document.getElementById('informeArrow').textContent=open?'▾':'▴'; });
   document.getElementById('infPeriodo').addEventListener('change',function(){ var v=this.value; document.getElementById('infMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infHastaWrap').style.display=v==='rango'?'':'none'; });
   document.getElementById('infCatAll').addEventListener('change',function(){ var ck=this.checked; box.querySelectorAll('.infCatCk').forEach(function(x){x.checked=ck;}); box.querySelectorAll('.infGrpCk').forEach(function(x){x.checked=ck;x.indeterminate=false;}); _infUpdateChips(); });
