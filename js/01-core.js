@@ -226,7 +226,7 @@ const INFO_TXT={
 'view-comparador':`Compara hasta 3 empresas finalistas lado a lado con lo que no cabe en Análisis: Score, decisión, PO, potencial, entrada, stop, RPD, sector y lo cualitativo del dossier (moat, catalizadores, riesgos, tesis a favor/en contra). Elige las empresas en los desplegables; por defecto salen las 3 de mayor Score.`,
 'view-graficas':`Análisis visual de tus finanzas: bloque <b>Hogar</b> (gasto, ahorro, por grupo/titular/comercio) y bloque <b>Inversión</b> (composición por empresa y sector, dividendos, YoC, RPD, aportado vs valor…). Usa el selector de <b>Año</b> para los gráficos de Hogar. Los datos salen solos del resto de secciones; algunos gráficos de Inversión usan las <b>cotizaciones del repo</b>, así que necesitan conexión y pueden tardar un instante en cargar.`,
 'view-panel':`Resumen de tu situación; se rellena solo desde el resto de secciones. Haz clic en cualquier bloque para ir a su sección. Arriba tienes una <b>bandeja de avisos</b> que reúne, por prioridad: stops de tesis alcanzados, dossiers de más de 12 meses, renovaciones y pagos próximos, trimestres publicados sin revisar y sobreconcentración por sector. Cada aviso te lleva a su sección.`,
-'view-movimientos':`Registra aquí tus ingresos y gastos del hogar (fecha, concepto, importe, categoría). Es la base para comparar con el Presupuesto.`,
+'view-movimientos':`Registra ingresos y gastos (fecha, concepto, importe, categoría). El campo <b>Comercio</b> es el negocio base agrupable (p. ej. Repsol) y <b>Detalle</b> guarda lo fino (Repsol Ribadeo). Usa el filtro «Comercio» para acotar, y el panel «🧹 Regularizar comercios» para agrupar de golpe varios detalles bajo un mismo negocio (marca la casilla de regla para aplicarlo también a futuros y similares).`,
 'view-amalia':`Apunta importes que has adelantado y te reembolsarán; márcalos como cobrados cuando los recuperes.`,
 'view-patrimonio':`Añade una foto de tu patrimonio (efectivo e invertido). Recomendado una vez al mes. Alimenta el objetivo 50/50 y el Panel.`,
 'view-presupuesto':`Define el presupuesto por categoría y año, a principio de año. Se compara con lo registrado en Movimientos. Si fijas la <b>renovación</b> y la <b>frecuencia</b> (mensual/anual…) de una partida, la app te avisa de los pagos próximos aquí y en el Panel.`,
@@ -306,6 +306,17 @@ function afterLoad(){ if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   }
   if(!DB.config) DB.config={};
   if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
+  if(!DB.config.comercioBaseV1){
+    DB.config.comercioAlias=DB.config.comercioAlias||{};
+    DB.config.negocioRules=DB.config.negocioRules||[];
+    if(!DB.config.negocioRules.length && typeof NEGOCIO_SEED!=='undefined'){ NEGOCIO_SEED.forEach(function(r){ DB.config.negocioRules.push(r); }); }
+    (DB.movimientos||[]).forEach(function(m){
+      if(m.detalle==null) m.detalle = m.comercio||'';
+      var b = (typeof baseComercio==='function') ? baseComercio(m.detalle) : '';
+      m.comercio = b || m.detalle;
+    });
+    DB.config.comercioBaseV1=true; scheduleSave();
+  }
   if(presYear==null){ const ys=presYears(); const cy=new Date().getFullYear(); presYear = ys.includes(cy)? cy : ys[0]; }
   initPeriod();
   fillCatSelects();

@@ -158,11 +158,16 @@ $('#btnSeed').addEventListener('click',async()=>{ DB=seed(); await saveNow(); af
 $('#movTipoSeg').addEventListener('click',e=>{const b=e.target.closest('button');if(b)setMovTipo(b.dataset.t);});
 $('#movForm').addEventListener('submit',e=>{
   e.preventDefault();
+  let _det=$('#movDetalle').value.trim();
+  let _bas=$('#movComercio').value.trim();
+  if(!_bas) _bas = baseComercio(_det) || _det;
+  if(!_det) _det = _bas;
   const mov={
     id:$('#movId').value||uid(),
     fecha:$('#movFecha').value,
     concepto:$('#movConcepto').value.trim(),
-    comercio:$('#movComercio').value.trim(),
+    comercio:_bas,
+    detalle:_det,
     categoriaId:$('#movCat').value,
     titular:$('#movTitular').value,
     tipo:movTipo,
@@ -189,7 +194,18 @@ $('#catDDpanel').addEventListener('change',e=>{
 });
 document.addEventListener('click',()=>{ const p=$('#catDDpanel'); if(p) p.classList.remove('open'); });
 $('#titChips').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; b.classList.toggle('on'); if(b.classList.contains('on'))movFiltTits.add(b.dataset.t); else movFiltTits.delete(b.dataset.t); renderMovs(); });
-$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
+$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); movFiltCom.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
+$('#comDDbtn') && $('#comDDbtn').addEventListener('click',e=>{e.stopPropagation();$('#comDDpanel').classList.toggle('open');});
+$('#comDDpanel') && $('#comDDpanel').addEventListener('click',e=>e.stopPropagation());
+$('#comDDpanel') && $('#comDDpanel').addEventListener('change',e=>{
+  if(e.target.id==='comDDall'){ if(e.target.checked){comBases().forEach(b=>movFiltCom.add(b.name));} else {movFiltCom.clear();} }
+  else if(e.target.classList.contains('comCk')){ if(e.target.checked) movFiltCom.add(e.target.value); else movFiltCom.delete(e.target.value); }
+  renderMovs();
+});
+document.addEventListener('click',()=>{ const p=$('#comDDpanel'); if(p) p.classList.remove('open'); });
+$('#comRegFilter') && $('#comRegFilter').addEventListener('input',()=>renderComReg());
+$('#comRegApply') && $('#comRegApply').addEventListener('click',comRegAsignar);
+$('#comRegRun') && $('#comRegRun').addEventListener('click',()=>{ if(confirm('¿Aplicar las reglas y alias a TODO el histórico de movimientos?')){ aplicarBaseComercio(); renderMovs(); scheduleSave(); } });
 $('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
 $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);

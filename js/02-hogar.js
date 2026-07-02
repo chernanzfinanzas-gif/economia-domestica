@@ -29,7 +29,7 @@ function initPeriod(){
 
 let presYear;
 let panelMode='mes';
-let movFiltCats=new Set(), movFiltTits=new Set();
+let movFiltCats=new Set(), movFiltTits=new Set(), movFiltCom=new Set();
 function catById(id){ return DB.categorias.find(c=>c.id===id); }
 function baseYear(){ return (DB.config&&DB.config.anioBasePresupuesto)||2026; }
 function pAnio(p){ return p.anio||baseYear(); }
@@ -294,10 +294,30 @@ function renderInformeBlock(){
 }
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';
+var NEGOCIO_SEED=[
+ {kw:'repsol',base:'Repsol'},{kw:'cepsa',base:'Cepsa'},{kw:'galp',base:'Galp'},
+ {kw:'mercadona',base:'Mercadona'},{kw:'carrefour',base:'Carrefour'},{kw:'lidl',base:'Lidl'},
+ {kw:'alcampo',base:'Alcampo'},{kw:'ahorramas',base:'Ahorram\u00e1s'},{kw:'ahorram\u00e1s',base:'Ahorram\u00e1s'},
+ {kw:'eroski',base:'Eroski'},{kw:'consum',base:'Consum'},
+ {kw:'amazon',base:'Amazon'},{kw:'aliexpress',base:'AliExpress'},{kw:'decathlon',base:'Decathlon'},
+ {kw:'ikea',base:'Ikea'},{kw:'leroy',base:'Leroy Merlin'},{kw:'mediamarkt',base:'MediaMarkt'},
+ {kw:'corte ingl',base:'El Corte Ingl\u00e9s'}
+];
+function normTxt(s){ return (s==null?'':s).toString().toLowerCase().trim(); }
+function baseComercio(detalle){
+  var d=normTxt(detalle); if(!d) return '';
+  var al=(DB.config&&DB.config.comercioAlias)||{};
+  if(al[d]) return al[d];
+  var rules=(DB.config&&DB.config.negocioRules)||[];
+  for(var i=0;i<rules.length;i++){ if(rules[i].kw && d.indexOf(rules[i].kw)>=0) return rules[i].base; }
+  return '';
+}
+function aplicarBaseComercio(){ (DB.movimientos||[]).forEach(function(m){ var b=baseComercio(m.detalle||m.comercio); if(b) m.comercio=b; }); }
 function _sugUniq(arr){ var seen={},out=[]; arr.forEach(function(x){ var v=(x==null?'':x).toString().trim(); var k=v.toLowerCase(); if(v&&!seen[k]){seen[k]=1;out.push(v);} }); return out; }
 var SUGSRC={
   movConcepto:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.concepto;})); },
   movComercio:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.comercio;})); },
+  movDetalle:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.detalle;})); },
   amaConcepto:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.concepto;})); },
   amaNota:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.nota;})); }
 };
@@ -317,11 +337,13 @@ function wireSuggest(inp,key,minChars){
 function wireAllSuggests(){
   wireSuggest(document.getElementById('movConcepto'),'movConcepto');
   wireSuggest(document.getElementById('movComercio'),'movComercio');
+  wireSuggest(document.getElementById('movDetalle'),'movDetalle',3);
   wireSuggest(document.getElementById('amaConcepto'),'amaConcepto');
   wireSuggest(document.getElementById('amaNota'),'amaNota');
 }
 function renderMovs(){
   wireAllSuggests();
+  renderComDD(); renderComReg();
   const txt=$('#fltText').value.toLowerCase().trim();
   const desde=$('#fltDesde').value, hasta=$('#fltHasta').value;
   let list=DB.movimientos.slice();
@@ -329,6 +351,7 @@ function renderMovs(){
   if(hasta) list=list.filter(m=>m.fecha<=hasta);
   if(movFiltCats.size) list=list.filter(m=>movFiltCats.has(m.categoriaId));
   if(movFiltTits.size) list=list.filter(m=>movFiltTits.has(m.titular));
+  if(movFiltCom.size) list=list.filter(m=>movFiltCom.has(m.comercio||''));
   if(txt) list=list.filter(m=>((m.concepto||'')+' '+(m.comercio||'')).toLowerCase().includes(txt));
   const ord=($('#fltOrden')||{}).value||'fecha_desc';
   list.sort((a,b)=>{
@@ -353,7 +376,9 @@ function renderMovs(){
     const signed = (eff>=0?'+':'−')+fmt(Math.abs(eff));
     return `<tr>
       <td>${ddmmyyyy(m.fecha)}</td>
-      <td>${m.concepto||''}${m.comercio?` <span class="muted">· ${m.comercio}</span>`:''}</td>
+      <td>${m.concepto||''}</td>
+      <td>${m.comercio?`<span class="tag">${m.comercio}</span>`:''}</td>
+      <td class="muted">${m.detalle&&m.detalle!==m.comercio?m.detalle:''}</td>
       <td><span class="tag">${c?c.nombre:'—'}</span></td>
       <td>${m.titular||''}</td>
       <td class="num ${eff>=0?'pos':'neg'}">${signed}</td>
@@ -362,12 +387,17 @@ function renderMovs(){
         <button class="btn danger sm" data-del="${m.id}">✕</button></div></td>
     </tr>`;
   }).join('');
-  $('#movTable').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Categoría</th><th>Titular</th><th class="num">Importe</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#movTable').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Comercio</th><th>Detalle</th><th>Categoría</th><th>Titular</th><th class="num">Importe</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
+function comBases(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var b=(m.comercio||'').trim(); if(b) s[b]=(s[b]||0)+1; }); return Object.keys(s).sort(function(a,b){return s[b]-s[a]||a.localeCompare(b);}).map(function(k){return {name:k,n:s[k]};}); }
+function renderComDD(){ var p=$('#comDDpanel'); if(!p)return; var bs=comBases(); var html='<label style="font-weight:700"><input type="checkbox" id="comDDall">Todas / ninguna</label>'; bs.forEach(function(b){ var ck=movFiltCom.has(b.name)?'checked':''; html+='<label><input type="checkbox" class="comCk" value="'+b.name.replace(/"/g,'&quot;')+'" '+ck+'>'+_infEsc(b.name)+' <span class="muted">('+b.n+')</span></label>'; }); p.innerHTML=html; var btn=$('#comDDbtn'); if(btn) btn.textContent='Comercio'+(movFiltCom.size?' ('+movFiltCom.size+')':'')+' \u25be'; }
+function comRegItems(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var d=((m.detalle||m.comercio)||'').trim(); if(!d)return; var k=d.toLowerCase(); if(!s[k])s[k]={detalle:d,base:m.comercio||'',n:0}; s[k].n++; }); return Object.keys(s).map(function(k){return s[k];}).sort(function(a,b){ return b.n-a.n || a.detalle.localeCompare(b.detalle); }); }
+function renderComReg(){ var body=$('#comRegBody'); if(!body)return; var f=normTxt(($('#comRegFilter')||{}).value||''); var items=comRegItems(); if(f) items=items.filter(function(it){ return it.detalle.toLowerCase().indexOf(f)>=0 || (it.base||'').toLowerCase().indexOf(f)>=0; }); if(!items.length){ body.innerHTML='<div class="muted" style="padding:8px">Sin comercios que coincidan.</div>'; return; } var html='<table style="width:100%;font-size:13px"><thead><tr><th></th><th>Detalle</th><th>Base actual</th><th class="num">N\u00ba</th></tr></thead><tbody>'; items.forEach(function(it){ var same=normTxt(it.base)===normTxt(it.detalle)||!it.base; html+='<tr><td><input type="checkbox" class="comRegCk" data-det="'+it.detalle.replace(/"/g,'&quot;')+'"></td><td>'+_infEsc(it.detalle)+'</td><td>'+(it.base?('<span class="tag">'+_infEsc(it.base)+'</span>'):'<span class="muted">\u2014</span>')+(same?' <span class="muted" title="sin regularizar">\u2022</span>':'')+'</td><td class="num">'+it.n+'</td></tr>'; }); html+='</tbody></table>'; body.innerHTML=html; }
+function comRegAsignar(){ var base=(($('#comRegBase')||{}).value||'').trim(); if(!base){ alert('Escribe el negocio base a asignar.'); return; } var cks=$$('#comRegBody .comRegCk:checked'); if(!cks.length){ alert('Selecciona al menos un detalle de la lista.'); return; } DB.config=DB.config||{}; DB.config.comercioAlias=DB.config.comercioAlias||{}; DB.config.negocioRules=DB.config.negocioRules||[]; var sel={}; cks.forEach(function(c){ var d=c.getAttribute('data-det'); sel[normTxt(d)]=1; DB.config.comercioAlias[normTxt(d)]=base; }); var mkRule=(($('#comRegRule')||{}).checked); if(mkRule){ var kw=normTxt(base); if(kw && !DB.config.negocioRules.some(function(r){return r.kw===kw;})) DB.config.negocioRules.push({kw:kw,base:base}); } (DB.movimientos||[]).forEach(function(m){ var d=normTxt(m.detalle||m.comercio); if(sel[d]) m.comercio=base; }); if(mkRule) aplicarBaseComercio(); var bi=$('#comRegBase'); if(bi)bi.value=''; renderMovs(); scheduleSave(); }
 function editMov(id){
   const m=DB.movimientos.find(x=>x.id===id); if(!m)return;
   $('#movId').value=m.id; $('#movFecha').value=m.fecha; $('#movConcepto').value=m.concepto||'';
-  $('#movComercio').value=m.comercio||''; $('#movCat').value=m.categoriaId; $('#movTitular').value=m.titular||'Dos';
+  $('#movComercio').value=m.comercio||''; $('#movDetalle').value=m.detalle||''; $('#movCat').value=m.categoriaId; $('#movTitular').value=m.titular||'Dos';
   $('#movImporte').value=m.importe; setMovTipo(m.tipo);
   $('#movSubmit').textContent='Guardar cambios'; $('#movCancel').style.display='inline-block';
   window.scrollTo({top:0,behavior:'smooth'});
