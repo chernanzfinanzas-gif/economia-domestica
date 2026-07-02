@@ -204,7 +204,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <input type="hidden" id="movId">
       <label>Fecha<input type="date" id="movFecha" required></label>
       <label>Concepto<input type="text" id="movConcepto" placeholder="p. ej. Compra Ahorramás" required></label>
-      <label>Comercio / Entidad<input type="text" id="movComercio" placeholder="p. ej. Ahorramás"></label>
+      <label>Comercio (base)<input type="text" id="movComercio" placeholder="p. ej. Repsol"></label>
+      <label>Detalle (opcional)<input type="text" id="movDetalle" placeholder="p. ej. Repsol Ribadeo"></label>
       <label>Categoría<select id="movCat" required></select></label>
       <label>Titular<select id="movTitular"><option>Dos</option><option>Carlos</option><option>Susana</option></select></label>
       <label>Tipo
@@ -231,6 +232,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </select>
       <div class="dd"><button type="button" class="btn ghost sm" id="catDDbtn">Categorías ▾</button>
         <div class="dd-panel" id="catDDpanel"></div></div>
+      <div class="dd"><button type="button" class="btn ghost sm" id="comDDbtn">Comercio ▾</button>
+        <div class="dd-panel" id="comDDpanel"></div></div>
       <div class="seg" id="titChips">
         <button type="button" data-t="Dos">Dos</button>
         <button type="button" data-t="Carlos">Carlos</button>
@@ -240,6 +243,20 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <span class="muted" id="movCount"></span>
     </div>
     <div class="cards" id="movCards" style="margin-bottom:12px"></div>
+    <details id="comReg" style="margin-bottom:12px;border:1px solid var(--line);border-radius:8px;background:#fafafa">
+      <summary style="cursor:pointer;padding:8px 12px;font-weight:700">🧹 Regularizar comercios</summary>
+      <div style="padding:10px 12px">
+        <p class="muted" style="margin:0 0 8px;font-size:12px">Selecciona los detalles que sean el mismo negocio, escribe el nombre base y pulsa «Asignar». Si marcas «crear regla», ese nombre se aplicará también a los movimientos futuros y a cualquier detalle que lo contenga.</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px">
+          <input type="search" id="comRegFilter" placeholder="Filtrar detalles…" style="flex:1;min-width:160px">
+          <input type="text" id="comRegBase" placeholder="Negocio base (p. ej. Repsol)" style="flex:1;min-width:160px">
+          <label style="display:flex;align-items:center;gap:5px;font-size:12px"><input type="checkbox" id="comRegRule" checked>crear regla por palabra clave</label>
+          <button type="button" class="btn sm" id="comRegApply">Asignar a seleccionados</button>
+          <button type="button" class="btn ghost sm" id="comRegRun">Aplicar reglas al histórico</button>
+        </div>
+        <div id="comRegBody" style="max-height:340px;overflow:auto"></div>
+      </div>
+    </details>
     <div id="movTable"></div>
   </section>
 
