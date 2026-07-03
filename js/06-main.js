@@ -210,7 +210,7 @@ $('#catDDpanel').addEventListener('change',e=>{
 });
 document.addEventListener('click',()=>{ const p=$('#catDDpanel'); if(p) p.classList.remove('open'); });
 $('#titChips').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; b.classList.toggle('on'); if(b.classList.contains('on'))movFiltTits.add(b.dataset.t); else movFiltTits.delete(b.dataset.t); renderMovs(); });
-$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); movFiltCom.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
+$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); movFiltCom.clear(); movFiltDet.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
 $('#comDDbtn') && $('#comDDbtn').addEventListener('click',e=>{e.stopPropagation();$('#comDDpanel').classList.toggle('open');});
 $('#comDDpanel') && $('#comDDpanel').addEventListener('click',e=>e.stopPropagation());
 $('#comDDpanel') && $('#comDDpanel').addEventListener('change',e=>{

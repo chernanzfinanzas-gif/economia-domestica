@@ -29,7 +29,7 @@ function initPeriod(){
 
 let presYear;
 let panelMode='mes';
-let movFiltCats=new Set(), movFiltTits=new Set(), movFiltCom=new Set();
+let movFiltCats=new Set(), movFiltTits=new Set(), movFiltCom=new Set(), movFiltDet=new Set();
 function catById(id){ return DB.categorias.find(c=>c.id===id); }
 function baseYear(){ return (DB.config&&DB.config.anioBasePresupuesto)||2026; }
 function pAnio(p){ return p.anio||baseYear(); }
@@ -344,7 +344,7 @@ function wireAllSuggests(){
 }
 function renderMovs(){
   wireAllSuggests();
-  renderComDD(); renderComReg();
+  renderComDD(); renderComReg(); ensureDetDD(); renderDetDD();
   const txt=$('#fltText').value.toLowerCase().trim();
   const desde=$('#fltDesde').value, hasta=$('#fltHasta').value;
   let list=DB.movimientos.slice();
@@ -353,6 +353,7 @@ function renderMovs(){
   if(movFiltCats.size) list=list.filter(m=>movFiltCats.has(m.categoriaId));
   if(movFiltTits.size) list=list.filter(m=>movFiltTits.has(m.titular));
   if(movFiltCom.size) list=list.filter(m=>movFiltCom.has(m.comercio||''));
+  if(movFiltDet.size) list=list.filter(m=>movFiltDet.has((m.detalle||'').trim()));
   if(txt) list=list.filter(m=>((m.concepto||'')+' '+(m.comercio||'')).toLowerCase().includes(txt));
   const ord=($('#fltOrden')||{}).value||'fecha_desc';
   list.sort((a,b)=>{
@@ -395,6 +396,10 @@ function renderComDD(){ var p=$('#comDDpanel'); if(!p)return; var bs=comBases();
 function comRegItems(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var d=((m.detalle||m.comercio)||'').trim(); if(!d)return; var k=d.toLowerCase(); if(!s[k])s[k]={detalle:d,base:m.comercio||'',n:0}; s[k].n++; }); return Object.keys(s).map(function(k){return s[k];}).sort(function(a,b){ return b.n-a.n || a.detalle.localeCompare(b.detalle); }); }
 function renderComReg(){ var body=$('#comRegBody'); if(!body)return; var f=normTxt(($('#comRegFilter')||{}).value||''); var items=comRegItems(); if(f) items=items.filter(function(it){ return it.detalle.toLowerCase().indexOf(f)>=0 || (it.base||'').toLowerCase().indexOf(f)>=0; }); if(!items.length){ body.innerHTML='<div class="muted" style="padding:8px">Sin comercios que coincidan.</div>'; return; } var html='<table style="width:100%;font-size:13px"><thead><tr><th></th><th>Detalle</th><th>Base actual</th><th class="num">N\u00ba</th></tr></thead><tbody>'; items.forEach(function(it){ var same=normTxt(it.base)===normTxt(it.detalle)||!it.base; html+='<tr><td><input type="checkbox" class="comRegCk" data-det="'+it.detalle.replace(/"/g,'&quot;')+'"></td><td>'+_infEsc(it.detalle)+'</td><td>'+(it.base?('<span class="tag">'+_infEsc(it.base)+'</span>'):'<span class="muted">\u2014</span>')+(same?' <span class="muted" title="sin regularizar">\u2022</span>':'')+'</td><td class="num">'+it.n+'</td></tr>'; }); html+='</tbody></table>'; body.innerHTML=html; }
 function comRegAsignar(){ var base=(($('#comRegBase')||{}).value||'').trim(); if(!base){ alert('Escribe el negocio base a asignar.'); return; } var cks=$$('#comRegBody .comRegCk:checked'); if(!cks.length){ alert('Selecciona al menos un detalle de la lista.'); return; } DB.config=DB.config||{}; DB.config.comercioAlias=DB.config.comercioAlias||{}; DB.config.negocioRules=DB.config.negocioRules||[]; var sel={}; cks.forEach(function(c){ var d=c.getAttribute('data-det'); sel[normTxt(d)]=1; DB.config.comercioAlias[normTxt(d)]=base; }); var mkRule=(($('#comRegRule')||{}).checked); if(mkRule){ var kw=normTxt(base); if(kw && !DB.config.negocioRules.some(function(r){return r.kw===kw;})) DB.config.negocioRules.push({kw:kw,base:base}); } (DB.movimientos||[]).forEach(function(m){ var d=normTxt(m.detalle||m.comercio); if(sel[d]) m.comercio=base; }); if(mkRule) aplicarBaseComercio(); var bi=$('#comRegBase'); if(bi)bi.value=''; renderMovs(); scheduleSave(); }
+function detValues(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var d=(m.detalle||'').trim(); if(d) s[d]=(s[d]||0)+1; }); return Object.keys(s).sort(function(a,b){return s[b]-s[a]||a.localeCompare(b);}).map(function(k){return {name:k,n:s[k]};}); }
+function detShown(){ var q=((document.getElementById('detDDsearch')||{}).value||'').trim().toLowerCase(); var all=detValues(); return q?all.filter(function(d){return d.name.toLowerCase().indexOf(q)>=0;}):all.slice(0,30); }
+function renderDetDD(){ var list=document.getElementById('detDDlist'); if(!list)return; var q=((document.getElementById('detDDsearch')||{}).value||'').trim().toLowerCase(); var all=detValues(); var shown=detShown().slice(); movFiltDet.forEach(function(nm){ if(!shown.some(function(d){return d.name===nm;})){ var f=all.find(function(d){return d.name===nm;}); shown.unshift(f||{name:nm,n:0}); } }); var html='<label style="font-weight:700"><input type="checkbox" id="detDDall">Todas / ninguna (mostradas)</label>'; if(!q && all.length>30) html+='<div class="muted" style="font-size:10px;margin:2px 0">Mostrando 30 de '+all.length+'. Escribe para buscar.</div>'; shown.forEach(function(d){ var ck=movFiltDet.has(d.name)?'checked':''; html+='<label><input type="checkbox" class="detCk" value="'+escAttr(d.name)+'" '+ck+'>'+_infEsc(d.name)+' <span class="muted">('+d.n+')</span></label>'; }); list.innerHTML=html; var btn=document.getElementById('detDDbtn'); if(btn) btn.textContent='Detalle'+(movFiltDet.size?' ('+movFiltDet.size+')':'')+' ▾'; }
+function ensureDetDD(){ if(document.getElementById('detDDbtn'))return; var comBtn=document.getElementById('comDDbtn'); if(!comBtn)return; var comWrap=comBtn.closest('.dd'); if(!comWrap)return; var wrap=document.createElement('div'); wrap.className='dd'; wrap.id='detDDwrap'; wrap.innerHTML='<button type="button" class="btn ghost sm" id="detDDbtn">Detalle ▾</button><div class="dd-panel" id="detDDpanel"><input type="search" id="detDDsearch" placeholder="Escribe para filtrar…" style="width:100%;margin-bottom:6px;padding:4px;border:1px solid var(--line);border-radius:6px"><div id="detDDlist"></div></div>'; comWrap.insertAdjacentElement('afterend',wrap); document.getElementById('detDDbtn').addEventListener('click',function(e){ e.stopPropagation(); document.getElementById('detDDpanel').classList.toggle('open'); renderDetDD(); }); var panel=document.getElementById('detDDpanel'); panel.addEventListener('click',function(e){ e.stopPropagation(); }); document.getElementById('detDDsearch').addEventListener('input',renderDetDD); panel.addEventListener('change',function(e){ if(e.target.id==='detDDall'){ var shown=detShown(); if(e.target.checked){ shown.forEach(function(d){movFiltDet.add(d.name);}); } else { shown.forEach(function(d){movFiltDet.delete(d.name);}); } } else if(e.target.classList.contains('detCk')){ if(e.target.checked)movFiltDet.add(e.target.value); else movFiltDet.delete(e.target.value); } renderMovs(); }); document.addEventListener('click',function(){ var p=document.getElementById('detDDpanel'); if(p)p.classList.remove('open'); }); }
 function editMov(id){
   const m=DB.movimientos.find(x=>x.id===id); if(!m)return;
   $('#movId').value=m.id; $('#movFecha').value=m.fecha; $('#movConcepto').value=m.concepto||'';
