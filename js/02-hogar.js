@@ -313,6 +313,7 @@ function baseComercio(detalle){
   return '';
 }
 function aplicarBaseComercio(){ (DB.movimientos||[]).forEach(function(m){ var b=baseComercio(m.detalle||m.comercio); if(b) m.comercio=b; }); }
+function escAttr(s){ return (s==null?'':s).toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 function _sugUniq(arr){ var seen={},out=[]; arr.forEach(function(x){ var v=(x==null?'':x).toString().trim(); var k=v.toLowerCase(); if(v&&!seen[k]){seen[k]=1;out.push(v);} }); return out; }
 var SUGSRC={
   movConcepto:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.concepto;})); },
@@ -378,7 +379,7 @@ function renderMovs(){
       <td>${ddmmyyyy(m.fecha)}</td>
       <td>${m.concepto||''}</td>
       <td>${m.comercio?`<span class="tag">${m.comercio}</span>`:''}</td>
-      <td class="muted">${m.detalle&&m.detalle!==m.comercio?m.detalle:''}</td>
+      <td><input class="movDetInp" data-mid="${m.id}" value="${escAttr(m.detalle||'')}" placeholder="—" style="width:100%;min-width:120px;font-size:12px;padding:2px 4px;border:1px solid #e5e7eb;border-radius:4px;background:#fff"></td>
       <td><span class="tag">${c?c.nombre:'—'}</span></td>
       <td>${m.titular||''}</td>
       <td class="num ${eff>=0?'pos':'neg'}">${signed}</td>

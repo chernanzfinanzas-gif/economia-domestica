@@ -183,6 +183,22 @@ $('#movTable').addEventListener('click',e=>{
   if(ed) editMov(ed.dataset.edit);
   if(de){ if(confirm('¿Eliminar este movimiento?')){DB.movimientos=DB.movimientos.filter(m=>m.id!==de.dataset.del);renderAll();scheduleSave();} }
 });
+$('#movTable').addEventListener('input',e=>{
+  const t=e.target; if(!t.classList||!t.classList.contains('movDetInp'))return;
+  const v=(t.value||'').trim().toLowerCase();
+  let dl=document.getElementById('dlMovDet');
+  if(!dl){ dl=document.createElement('datalist'); dl.id='dlMovDet'; document.body.appendChild(dl); }
+  if(v.length<4){ t.removeAttribute('list'); dl.innerHTML=''; return; }
+  const src=(typeof SUGSRC!=='undefined'&&SUGSRC.movDetalle)?SUGSRC.movDetalle():[];
+  const vals=src.filter(x=>{const lx=(x||'').toLowerCase();return lx.indexOf(v)>=0&&lx!==v;}).slice(0,15);
+  dl.innerHTML=vals.map(x=>'<option value="'+(x||'').replace(/"/g,'&quot;')+'"></option>').join('');
+  if(vals.length)t.setAttribute('list','dlMovDet'); else t.removeAttribute('list');
+});
+$('#movTable').addEventListener('change',e=>{
+  const t=e.target; if(!t.classList||!t.classList.contains('movDetInp'))return;
+  const m=DB.movimientos.find(x=>x.id===t.dataset.mid);
+  if(m){ m.detalle=(t.value||'').trim(); scheduleSave(); }
+});
 $('#fltText').addEventListener('input',renderMovs);
 ['#fltDesde','#fltHasta','#fltOrden'].forEach(s=>$(s).addEventListener('change',renderMovs));
 $('#catDDbtn').addEventListener('click',e=>{e.stopPropagation();$('#catDDpanel').classList.toggle('open');});
