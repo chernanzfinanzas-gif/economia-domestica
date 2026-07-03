@@ -11,14 +11,19 @@ function invPositions(){
     else { m.acc+=n; m.cost+=n*pr; }
   });
   const out=[]; Object.keys(map).forEach(k=>{ const m=map[k]; const v=(DB.valores&&DB.valores[m.ticker])||{};
-    out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:m.acc?m.cost/m.acc:0,precioActual:num(v.precioActual),divAccion:num(v.divAccion),broker:v.broker||''});
+    out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:m.acc?m.cost/m.acc:0,precioActual:num(v.precioActual),precioFecha:v.precioFecha||'',divAccion:num(v.divAccion),broker:v.broker||''});
   });
   return out;
 }
 function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
+function _daysBetween(a,b){ if(!a||!b)return null; var da=Date.parse(a+'T00:00:00'), db=Date.parse(b+'T00:00:00'); if(isNaN(da)||isNaN(db))return null; return Math.round((da-db)/86400000); }
+function precioFreshColor(pf,ref){ if(!pf)return '#dc2626'; var d=_daysBetween(ref,pf); if(d==null)return '#dc2626'; if(d<=0)return '#16a34a'; if(d<=4)return '#d97706'; return '#dc2626'; }
 function renderInv(){
   if(!DB.config)DB.config={};
   const all=invPositions().filter(p=>p.acciones>0.0001);
+  const _fechas=all.map(p=>p.precioFecha).filter(Boolean).sort();
+  const refFecha=_fechas.length?_fechas[_fechas.length-1]:'';
+  const fechaBanner=`<div class="muted" style="font-size:12px;margin:2px 0 10px">${refFecha?('Precios al cierre del <b style=\'color:#334155\'>'+ddmmyyyy(refFecha)+'</b>'):'Precios sin fecha de referencia'} · el color de la cotización indica su actualización: <b style="color:#16a34a">al día</b> · <b style="color:#d97706">rezagada</b> · <b style="color:#dc2626">desfasada/sin fecha</b></div>`;
   const carts=[...new Set(['Propia','Compartida',...invCarteras()])];
   const dl=$('#cartList'); if(dl) dl.innerHTML=carts.map(c=>`<option value="${c}">`).join('');
   const valor=all.reduce((s,p)=>s+p.acciones*p.precioActual,0);
@@ -41,12 +46,12 @@ function renderInv(){
     const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC;
     const rows=lst.map(p=>{
       const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
-      return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button><br><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px;margin-top:3px">+ Operación</button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
+      return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button><br><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px;margin-top:3px">+ Operación</button></td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num" style="color:${precioFreshColor(p.precioFecha,refFecha)};font-weight:600" title="${p.precioFecha?('Cotización del '+ddmmyyyy(p.precioFecha)):'Sin fecha de cotización'}">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
     }).join('');
     const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>SUBTOTAL</td><td></td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td></td><td></td><td class="num">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
     html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
   });
-  $('#invTable').innerHTML=html;
+  $('#invTable').innerHTML=fechaBanner+html;
   renderInvClosed();
   if(typeof renderDividendos==='function')renderDividendos();
 }
