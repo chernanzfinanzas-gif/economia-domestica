@@ -375,7 +375,7 @@ function renderMovs(){
     const c=catById(m.categoriaId);
     const eff = (m.tipo==='ingreso'? num(m.importe) : -num(m.importe));
     const signed = (eff>=0?'+':'−')+fmt(Math.abs(eff));
-    return `<tr>
+    return `<tr${m.tipo==='ingreso'?' style="background:#f0fdf4"':''}>
       <td>${ddmmyyyy(m.fecha)}</td>
       <td>${m.concepto||''}</td>
       <td>${m.comercio?`<span class="tag">${m.comercio}</span>`:''}</td>
