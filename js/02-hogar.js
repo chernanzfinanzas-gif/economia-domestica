@@ -235,7 +235,7 @@ function generarInforme(){
   var resumen='<p>En <b>'+_infEsc(label)+'</b> los ingresos sumaron <b>'+fmt(ing)+'</b> y los gastos <b>'+fmt(gas)+'</b>, con un '+(ahorro>=0?'ahorro':'desahorro')+' de <b>'+fmt(Math.abs(ahorro))+'</b>'+(ing?' (tasa de ahorro '+tasa.toFixed(0)+'%)':'')+'.</p>';
   if(topG)resumen+='<p>El grupo de mayor gasto fue <b>'+_infEsc(topG)+'</b> ('+fmt(gGroups[topG])+').</p>';
   if(overList.length)resumen+='<p>Categorías por encima del presupuesto: <b>'+overList.map(_infEsc).join('</b>, <b>')+'</b>.</p>';
-  else if(presRows)resumen+='<p>Ninguna categoría superó su presupuesto en el periodo.</p>';
+  else if(presBody)resumen+='<p>Ninguna categoría superó su presupuesto en el periodo.</p>';
   resumen+='<p class="muted">'+list.length+' movimientos analizados.</p>';
   // ensamblado
   var kpi=function(l,vv){return '<div class="kpi"><div class="l">'+l+'</div><div class="v">'+vv+'</div></div>';};
