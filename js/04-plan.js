@@ -131,7 +131,6 @@ function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date(
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
   const GITHUB_RUN_URL='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml';
-  html+=`<div style="display:flex;justify-content:flex-end;margin-bottom:6px"><a href="${GITHUB_RUN_URL}" target="_blank" rel="noopener" class="btn ghost sm" style="text-decoration:none" title="Abre GitHub para lanzar la actualización de cotizaciones">🔄 Actualizar cotizaciones</a></div>`;
   // 🔔 BANDEJA DE AVISOS UNIFICADA
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
