@@ -143,11 +143,75 @@ function buildPresupuesto(ctx){
   return _infDocWrap('Ejecución presupuestaria',[_infEsc(ctx.label)+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ 4.1 PATRIMONIO ============ */
+function buildPatrimonio(ctx){
+  var snaps=(typeof patSnaps==='function')?patSnaps():[];
+  if(!snaps.length)return _infDocWrap('Informe de patrimonio',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin registros de patrimonio.</p>');
+  function ei(s){ var ef=0,inv=0; (s.lineas||[]).forEach(function(l){ef+=num(l.ef);inv+=num(l.inv);}); return {ef:ef,inv:inv}; }
+  var last=snaps[snaps.length-1]; var L=ei(last); var total=L.ef+L.inv; var pInv=total?L.inv/total:0;
+  var labels=[],sEf=[],sInv=[]; var step=Math.ceil(snaps.length/24)||1;
+  snaps.forEach(function(s,i){ if(i%step!==0 && i!==snaps.length-1)return; var e=ei(s); labels.push((s.fecha||'').slice(2,7)); sEf.push(e.ef); sInv.push(e.inv); });
+  var chart=(typeof gStack==='function')?gStack('Efectivo vs invertido',labels,sEf,sInv,['Efectivo','Invertido']):'';
+  var donut=(typeof gDonut==='function')?gDonut('Reparto actual',[{label:'Efectivo',val:L.ef,color:'#2563eb'},{label:'Invertido',val:L.inv,color:'#16a34a'}]):'';
+  var rows=''; snaps.slice(-12).reverse().forEach(function(s){ var e=ei(s); var t=e.ef+e.inv; rows+='<tr><td>'+ddmmyyyy(s.fecha)+'</td><td class="num">'+fmt(e.ef)+'</td><td class="num">'+fmt(e.inv)+'</td><td class="num">'+fmt(t)+'</td><td class="num">'+(t?Math.round(e.inv/t*100)+'%':'—')+'</td></tr>'; });
+  var inner='';
+  inner+='<h2>Situación patrimonial</h2>'+_infKpis([['Patrimonio total',fmt(total)],['Efectivo',fmt(L.ef)],['Invertido',fmt(L.inv)],['% invertido',Math.round(pInv*100)+'%'],['Objetivo 50/50',Math.round(pInv*100)+'% inv']]);
+  inner+=_infChartsWrap([chart,donut]);
+  inner+='<h2>Últimos registros</h2><table><thead><tr><th>Fecha</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th><th class="num">% inv.</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Informe de patrimonio',['A fecha de '+ddmmyyyy(_infHoyS())+' · último registro '+ddmmyyyy(last.fecha)],inner);
+}
+
+/* ============ 4.2 CARTERA ============ */
+function buildCartera(ctx){
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  if(!pos.length)return _infDocWrap('Informe de cartera',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin posiciones abiertas.</p>');
+  var valor=0,coste=0,divB=0; pos.forEach(function(p){ valor+=p.acciones*p.precioActual; coste+=p.acciones*p.precioCompra; divB+=p.acciones*p.divAccion; });
+  var pl=valor-coste;
+  var byEmp=pos.map(function(p){return {label:p.ticker,val:p.acciones*p.precioActual};}).sort(function(a,b){return b.val-a.val;});
+  var bySec={}; pos.forEach(function(p){ var sc=(typeof SECTOR!=='undefined'&&SECTOR[(p.ticker||'').toUpperCase()])||'Sin sector'; bySec[sc]=(bySec[sc]||0)+p.acciones*p.precioActual; });
+  var donutEmp=(typeof gDonut==='function')?gDonut('Peso por empresa',byEmp):'';
+  var donutSec=(typeof gDonut==='function')?gDonut('Peso por sector',Object.keys(bySec).map(function(k){return {label:k,val:bySec[k]};})):'';
+  var plEmp=pos.map(function(p){ var c=p.acciones*p.precioCompra; var pv=p.acciones*p.precioActual-c; return {label:p.ticker,val:c?pv/c*100:0}; }).sort(function(a,b){return b.val-a.val;});
+  var plChart=(typeof gHBars==='function')?gHBars('Plusvalía % por empresa',plEmp,{top:14,labelW:70,pct:true,signColor:true}):'';
+  var rows=''; pos.slice().sort(function(a,b){return (b.acciones*b.precioActual)-(a.acciones*a.precioActual);}).forEach(function(p){ var v=p.acciones*p.precioActual,c=p.acciones*p.precioCompra,pv=v-c; var sc=(typeof SECTOR!=='undefined'&&SECTOR[(p.ticker||'').toUpperCase()])||'—'; rows+='<tr><td><b>'+_infEsc(p.ticker)+'</b> <span class="muted">'+_infEsc(sc)+'</span></td><td class="num">'+p.acciones+'</td><td class="num">'+fmt(p.precioCompra)+'</td><td class="num">'+fmt(p.precioActual)+'</td><td class="num">'+fmt(v)+'</td><td class="num" style="color:'+(pv>=0?'#16a34a':'#dc2626')+'">'+(pv>=0?'+':'')+fmt(pv)+'</td><td class="num">'+(c?((pv/c*100>=0?'+':'')+(pv/c*100).toFixed(1)+'%'):'—')+'</td><td class="num">'+(valor?(v/valor*100).toFixed(1)+'%':'—')+'</td></tr>'; });
+  rows+='<tr class="tot"><td>TOTAL</td><td class="num"></td><td class="num"></td><td class="num"></td><td class="num">'+fmt(valor)+'</td><td class="num">'+(pl>=0?'+':'')+fmt(pl)+'</td><td class="num">'+(coste?((pl/coste*100>=0?'+':'')+(pl/coste*100).toFixed(1)+'%'):'—')+'</td><td class="num">100%</td></tr>';
+  var inner='';
+  inner+='<h2>Resumen de la cartera</h2>'+_infKpis([['Valor',fmt(valor)],['Coste',fmt(coste)],['Plusvalía',(pl>=0?'+':'')+fmt(pl)],['Rentabilidad',(coste?(pl/coste*100).toFixed(1)+'%':'—')],['Div. bruto/año',fmt(divB)],['RPD',(valor?(divB/valor*100).toFixed(1)+'%':'—')]]);
+  inner+=_infChartsWrap([donutEmp,donutSec,plChart]);
+  inner+='<h2>Posiciones</h2><table><thead><tr><th>Empresa</th><th class="num">Acc.</th><th class="num">P.compra</th><th class="num">P.actual</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Peso</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Informe de cartera',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 4.3 DIVIDENDOS ============ */
+function buildDividendos(ctx){
+  var nowY=new Date().getFullYear(); var refY=(ctx.per==='anio')?ctx.d0.getFullYear():nowY;
+  var syt=(typeof simYearTotal==='function')?simYearTotal:function(){return 0;};
+  var dN=syt(nowY),d1=syt(nowY+1),d2=syt(nowY+2); var cr=dN?((d1/dN)-1):0;
+  var years=[]; for(var y=nowY-4;y<=nowY+2;y++)years.push(y);
+  var vals=years.map(function(y){return syt(y);});
+  var chart=(typeof gBars==='function')?gBars('Dividendo bruto por año',years.map(String),[{name:'Dividendo',color:'#16a34a',vals:vals}],{}):'';
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var valor=pos.reduce(function(s,p){return s+p.acciones*p.precioActual;},0);
+  var dpa=DB.divPorAccion||{}; var rows='',tDiv=0;
+  var drows=pos.map(function(p){ var t=(p.ticker||'').toUpperCase(); var da=num((dpa[t]||{})[refY]||p.divAccion); var db=p.acciones*da; var v=p.acciones*p.precioActual; var c=p.acciones*p.precioCompra; return {t:t,acc:p.acciones,da:da,db:db,rpd:(v?db/v*100:0),yoc:(c?db/c*100:0)}; });
+  drows.sort(function(a,b){return b.db-a.db;});
+  drows.forEach(function(x){ tDiv+=x.db; rows+='<tr><td><b>'+_infEsc(x.t)+'</b></td><td class="num">'+x.acc+'</td><td class="num">'+fmt(x.da)+'</td><td class="num">'+fmt(x.db)+'</td><td class="num">'+x.rpd.toFixed(1)+'%</td><td class="num">'+x.yoc.toFixed(1)+'%</td></tr>'; });
+  rows+='<tr class="tot"><td>TOTAL</td><td class="num"></td><td class="num"></td><td class="num">'+fmt(tDiv)+'</td><td class="num">'+(valor?(tDiv/valor*100).toFixed(1)+'%':'—')+'</td><td class="num"></td></tr>';
+  var inner='';
+  inner+='<h2>Dividendos</h2>'+_infKpis([['Cobrado '+nowY,fmt(dN)],['Previsión '+(nowY+1),fmt(d1)],['Previsión '+(nowY+2),fmt(d2)],['Crecimiento',(cr>=0?'+':'')+(cr*100).toFixed(0)+'%'],['RPD cartera',(valor?(tDiv/valor*100).toFixed(1)+'%':'—')]]);
+  inner+=_infChartsWrap([chart]);
+  inner+='<h2>Dividendo por empresa (año '+refY+')</h2><table><thead><tr><th>Empresa</th><th class="num">Acc.</th><th class="num">Div/acción</th><th class="num">Dividendo bruto</th><th class="num">RPD</th><th class="num">YoC</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Informe de dividendos',['A fecha de '+ddmmyyyy(_infHoyS())+' · año de referencia '+refY],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
   {id:'ahorro',nombre:'Ahorro / flujo de caja',ambito:'Hogar',build:buildAhorro},
-  {id:'presupuesto',nombre:'Ejecución presupuestaria',ambito:'Hogar',build:buildPresupuesto}
+  {id:'presupuesto',nombre:'Ejecución presupuestaria',ambito:'Hogar',build:buildPresupuesto},
+  {id:'patrimonio',nombre:'Patrimonio',ambito:'Inversión',build:buildPatrimonio},
+  {id:'cartera',nombre:'Cartera',ambito:'Inversión',build:buildCartera},
+  {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos}
 ];
 
 /* ---------- generar (uno o varios combinados) ---------- */
@@ -163,23 +227,19 @@ function generarInformesMulti(){
 /* ---------- interfaz del centro de informes ---------- */
 function renderInformesCenter(){
   var host=document.getElementById('informesCenter'); if(!host) return;
-  if(document.getElementById('infcBuilt')) return; // construir una sola vez
+  if(document.getElementById('infcBuilt')) return;
   var now=new Date(); var ym=now.getFullYear()+'-'+_infPad(now.getMonth()+1);
-  // checkboxes de informes por ámbito
   var byAmb={}; INF_REPORTS.forEach(function(r){ (byAmb[r.ambito]=byAmb[r.ambito]||[]).push(r); });
   var repsHtml=Object.keys(byAmb).map(function(am){
     var items=byAmb[am].map(function(r){ return '<label style="display:block;font-size:13px;padding:2px 0"><input type="checkbox" class="infcRep" value="'+r.id+'"'+(r.id==='gastos'?' checked':'')+'> '+_infEsc(r.nombre)+'</label>'; }).join('');
     return '<div style="margin-bottom:8px"><div style="font-weight:700;font-size:12px;color:#1f3d6b;margin-bottom:2px">'+_infEsc(am)+'</div>'+items+'</div>';
   }).join('');
-  // categorías agrupadas (para el informe de gastos)
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
   var catHtml=Object.keys(groups).sort().map(function(g){ var gs=_infEsc(g); var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infcCat" value="'+c.id+'"> '+_infEsc(c.nombre)+'</label>'; }).join(''); return '<div style="margin-bottom:4px"><div style="font-weight:700;font-size:11px">'+gs+'</div>'+items+'</div>'; }).join('');
   var titHtml=(typeof _infTitulares==='function'?_infTitulares():['Carlos','Susana','Dos']).map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infcTit" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
   host.innerHTML='<div id="infcBuilt" class="card" style="margin:0 0 14px">'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">'
-    // Columna 1: informes
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">1 · Elige informes</div><div class="muted" style="font-size:11px;margin-bottom:6px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml+'</div>'
-    // Columna 2: periodo
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">2 · Periodo</div>'
       +'<label style="display:block;margin-bottom:6px">Periodo<select id="infcPeriodo" style="width:100%"><option value="mes">Mes</option><option value="anio" selected>Año completo</option><option value="rango">Rango de fechas</option></select></label>'
       +'<label id="infcMesWrap" style="display:none">Mes<input type="month" id="infcMes" value="'+ym+'" style="width:100%"></label>'
@@ -187,7 +247,6 @@ function renderInformesCenter(){
       +'<label id="infcDesdeWrap" style="display:none">Desde<input type="date" id="infcDesde" style="width:100%"></label>'
       +'<label id="infcHastaWrap" style="display:none">Hasta<input type="date" id="infcHasta" style="width:100%"></label>'
     +'</div>'
-    // Columna 3: filtros del informe de gastos
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">3 · Filtros del informe de gastos</div>'
       +'<label style="display:block;margin-bottom:6px">Tipo<select id="infcTipo" style="width:100%"><option value="ambos">Ingresos y gastos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option></select></label>'
       +'<label style="display:block;margin-bottom:6px">Nivel de detalle<select id="infcDetalle" style="width:100%"><option value="completo">Cada movimiento</option><option value="totales">Solo totales por sección</option></select></label>'
@@ -198,7 +257,6 @@ function renderInformesCenter(){
     +'</div>'
     +'<div style="margin-top:12px"><button class="btn" id="infcGen">🖨️ Generar informe (PDF)</button></div>'
     +'</div>';
-  // listeners
   var pe=document.getElementById('infcPeriodo');
   pe.addEventListener('change',function(){ var v=this.value; document.getElementById('infcMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infcAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infcDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infcHastaWrap').style.display=v==='rango'?'':'none'; });
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.infcCat').forEach(function(x){x.checked=ck;}); });
