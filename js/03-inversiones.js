@@ -628,3 +628,39 @@ function divCobrados(t){ t=(t||'').toUpperCase();
 function pieSVG(items){ const tot=items.reduce((s,i)=>s+i.val,0)||1; let a=-Math.PI/2; const R=78,cx=86,cy=86; let p='';
   items.forEach(it=>{ const ang=it.val/tot*2*Math.PI, a2=a+ang; const x1=cx+R*Math.cos(a),y1=cy+R*Math.sin(a),x2=cx+R*Math.cos(a2),y2=cy+R*Math.sin(a2); const lg=ang>Math.PI?1:0; p+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${R},${R} 0 ${lg} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${it.color}" stroke="#fff" stroke-width="1.5"/>`; a=a2; });
   return `<svg width="172" height="172" viewBox="0 0 172 172">${p}</svg>`; }
+
+/* Datos fiscales por año (reutilizable por el Centro de Informes) */
+function _fiscalPorAnio(){
+  var ops=(DB.operaciones||[]).slice();
+  var divs=DB.dividendos||{}; var divIng=DB.divIngresos||{};
+  var opTickers=new Set(ops.map(function(o){return (o.ticker||'').toUpperCase();}).filter(Boolean));
+  var tickers=[...new Set([...Object.keys(divs),...opTickers,...Object.keys(divIng)])].filter(Boolean);
+  var byTY={}, yearsSet=new Set();
+  tickers.forEach(function(t){ byTY[t]={};
+    if(opTickers.has(t)){
+      var tops=ops.filter(function(o){return (o.ticker||'').toUpperCase()===t;});
+      var td=(divs[t]||[]).slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
+      td.forEach(function(d){ var y=(d.fecha||'').slice(0,4); if(!y)return;
+        var acc=tops.filter(function(o){return o.tipo!=='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0)-tops.filter(function(o){return o.tipo==='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0);
+        byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });
+    } else if(divIng[t]){
+      Object.keys(divIng[t]).forEach(function(y){ byTY[t][y]=num(divIng[t][y]); yearsSet.add(y); });
+    }
+  });
+  ops.forEach(function(o){ var y=(o.fecha||'').slice(0,4); if(y)yearsSet.add(y); });
+  (DB.cerradas||[]).forEach(function(c){ var cc=cerradaCalc(c); var t=(cc.ticker||'').toUpperCase(); if(!t)return; byTY[t]=byTY[t]||{}; Object.keys(cc.byYear).forEach(function(y){ byTY[t][y]=(byTY[t][y]||0)+cc.byYear[y]; yearsSet.add(y); }); });
+  var years=[...yearsSet].sort();
+  var totYear={}; years.forEach(function(y){ var s=0; Object.keys(byTY).forEach(function(t){ s+=(byTY[t][y]||0); }); totYear[y]=s; });
+  var ventY={},costSoldY={};
+  var cerrOps=(DB.cerradas||[]).reduce(function(a,c){ (c.ops||[]).forEach(function(o){ a.push({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio}); }); return a; },[]);
+  var cerrNoOps=(DB.cerradas||[]).filter(function(c){return !(c.ops&&c.ops.length);});
+  var allOps=ops.map(function(o){return {ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio};}).concat(cerrOps).sort(function(x,y){return (x.fecha||'').localeCompare(y.fecha||'');});
+  var posCost={};
+  allOps.forEach(function(o){ var t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; var n=num(o.acciones),pr=num(o.precio); var p=posCost[t]=posCost[t]||{sh:0,cost:0};
+    if(o.tipo==='venta'){ var avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr; p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
+    else { p.sh+=n; p.cost+=n*pr; } });
+  cerrNoOps.forEach(function(c){ var yv=(c.fechaVenta||'').slice(0,4); if(yv){ventY[yv]=(ventY[yv]||0)+num(c.venta); costSoldY[yv]=(costSoldY[yv]||0)+num(c.coste);} });
+  var dh=DB.devolucionHacienda||{};
+  var fy=[...new Set([...Object.keys(totYear),...Object.keys(ventY),...Object.keys(dh)])].filter(function(y){return (totYear[y]||0)>0||(ventY[y]||0)>0||(costSoldY[y]||0)>0||num(dh[y]||0)>0;}).sort();
+  return fy.map(function(y){ var db=totYear[y]||0, ret=db*0.19, pl=(ventY[y]||0)-(costSoldY[y]||0), base=db+pl, dev=num(dh[y]||0); return {year:y,divB:db,ret:ret,pl:pl,base:base,dev:dev}; });
+}

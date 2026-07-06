@@ -204,6 +204,24 @@ function buildDividendos(ctx){
   return _infDocWrap('Informe de dividendos',['A fecha de '+ddmmyyyy(_infHoyS())+' · año de referencia '+refY],inner);
 }
 
+/* ============ 4.4 FISCAL (RENTA) ============ */
+function buildFiscal(ctx){
+  var rows=(typeof _fiscalPorAnio==='function')?_fiscalPorAnio():[];
+  if(!rows.length)return _infDocWrap('Informe fiscal (renta)',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin datos fiscales todavía.</p>');
+  var tDB=0,tRet=0,tPL=0,tBase=0,tDev=0;
+  var trs=rows.slice().reverse().map(function(r){ tDB+=r.divB;tRet+=r.ret;tPL+=r.pl;tBase+=r.base;tDev+=r.dev; return '<tr><td>'+r.year+'</td><td class="num">'+(r.divB?fmt(r.divB):'·')+'</td><td class="num">'+(r.divB?fmt(r.ret):'·')+'</td><td class="num" style="color:'+(r.pl<0?'#dc2626':'#16a34a')+'">'+((r.pl||r.divB)?fmt(r.pl):'·')+'</td><td class="num" style="font-weight:600">'+fmt(r.base)+'</td><td class="num">'+(r.dev?fmt(r.dev):'·')+'</td></tr>'; }).join('');
+  trs+='<tr class="tot"><td>TOTAL</td><td class="num">'+fmt(tDB)+'</td><td class="num">'+fmt(tRet)+'</td><td class="num">'+fmt(tPL)+'</td><td class="num">'+fmt(tBase)+'</td><td class="num">'+fmt(tDev)+'</td></tr>';
+  var years=rows.map(function(r){return r.year;}); var bases=rows.map(function(r){return r.base;});
+  var chart=(typeof gBars==='function')?gBars('Base del ahorro por año',years,[{name:'Base',color:'#2563eb',vals:bases}],{}):'';
+  var last=rows[rows.length-1]||{};
+  var inner='';
+  inner+='<h2>Resumen fiscal</h2>'+_infKpis([['Dividendos brutos (hist.)',fmt(tDB)],['Retención 19%',fmt(tRet)],['Plusvalías realizadas',fmt(tPL)],['Base del ahorro (hist.)',fmt(tBase)],['Último año',last.year||'—']]);
+  inner+=_infChartsWrap([chart]);
+  inner+='<h2>Detalle por año fiscal</h2><table><thead><tr><th>Año</th><th class="num">Dividendos brutos</th><th class="num">Retención 19%</th><th class="num">Plusvalías (ventas)</th><th class="num">Base del ahorro</th><th class="num">Devol. Hacienda</th></tr></thead><tbody>'+trs+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">Orientativo para la renta: los dividendos son rendimientos del capital mobiliario (retención 19%); la plusvalía es ventas − coste de lo vendido (precio medio). No incluye comisiones ni pérdidas compensables de años anteriores. Consulta con tu asesor.</p></div>';
+  return _infDocWrap('Informe fiscal (renta)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
@@ -211,7 +229,8 @@ var INF_REPORTS=[
   {id:'presupuesto',nombre:'Ejecución presupuestaria',ambito:'Hogar',build:buildPresupuesto},
   {id:'patrimonio',nombre:'Patrimonio',ambito:'Inversión',build:buildPatrimonio},
   {id:'cartera',nombre:'Cartera',ambito:'Inversión',build:buildCartera},
-  {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos}
+  {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos},
+  {id:'fiscal',nombre:'Fiscal (renta)',ambito:'Inversión',build:buildFiscal}
 ];
 
 /* ---------- generar (uno o varios combinados) ---------- */
