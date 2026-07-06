@@ -222,15 +222,84 @@ function buildFiscal(ctx){
   return _infDocWrap('Informe fiscal (renta)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ 3.4 COMPARATIVO INTERANUAL ============ */
+function buildInteranual(ctx){
+  var d0=ctx.d0,d1=ctx.d1;
+  function ymd(x){return x.getFullYear()+'-'+_infPad(x.getMonth()+1)+'-'+_infPad(x.getDate());}
+  var hoy=new Date(); var d1e=(d1>hoy)?hoy:d1; var capado=(d1e<d1);
+  var pd0=new Date(d0.getFullYear()-1,d0.getMonth(),d0.getDate());
+  var pd1=new Date(d1e.getFullYear()-1,d1e.getMonth(),d1e.getDate());
+  var cs0=ctx.s0,cs1=ymd(d1e),ps0=ymd(pd0),ps1=ymd(pd1);
+  var curr={},prev={};
+  (DB.movimientos||[]).forEach(function(m){ if(m.tipo!=='gasto')return; if(m.fecha>=cs0&&m.fecha<=cs1)curr[m.categoriaId]=(curr[m.categoriaId]||0)+num(m.importe); else if(m.fecha>=ps0&&m.fecha<=ps1)prev[m.categoriaId]=(prev[m.categoriaId]||0)+num(m.importe); });
+  var cids={}; Object.keys(curr).forEach(function(k){cids[k]=1;}); Object.keys(prev).forEach(function(k){cids[k]=1;});
+  var byGrupo={};
+  Object.keys(cids).forEach(function(cid){ var c=catById(cid); if(!c)return; var cv=curr[cid]||0, pv=prev[cid]||0; if(cv===0&&pv===0)return; (byGrupo[c.grupo]=byGrupo[c.grupo]||[]).push({nombre:c.nombre,cv:cv,pv:pv}); });
+  var grupos=Object.keys(byGrupo).sort();
+  var yC=d0.getFullYear(), yP=yC-1;
+  if(!grupos.length)return _infDocWrap('Comparativo interanual',[_infEsc(ctx.label)+' vs '+yP],'<p class="muted">Sin gastos para comparar.</p>');
+  var rows='',tCur=0,tPrev=0,chg=[];
+  grupos.forEach(function(g){ var gc=0,gp=0,sub=''; byGrupo[g].sort(function(a,b){return b.cv-a.cv;}).forEach(function(x){ gc+=x.cv;gp+=x.pv; var dd=x.cv-x.pv; var pct=x.pv?dd/x.pv*100:(x.cv?100:0); sub+='<tr><td>'+_infEsc(x.nombre)+'</td><td class="num">'+fmt(x.cv)+'</td><td class="num">'+fmt(x.pv)+'</td><td class="num" style="color:'+(dd>0?'#dc2626':'#16a34a')+'">'+(dd>=0?'+':'')+fmt(dd)+'</td><td class="num">'+(x.pv?((dd>=0?'+':'')+pct.toFixed(0)+'%'):'—')+'</td></tr>'; chg.push({label:x.nombre,val:-dd}); });
+    rows+='<tr class="sub"><td colspan="5">'+_infEsc(g)+'</td></tr>'+sub+'<tr class="tot"><td>Subtotal '+_infEsc(g)+'</td><td class="num">'+fmt(gc)+'</td><td class="num">'+fmt(gp)+'</td><td class="num">'+((gc-gp)>=0?'+':'')+fmt(gc-gp)+'</td><td class="num">'+(gp?((gc-gp>=0?'+':'')+((gc-gp)/gp*100).toFixed(0)+'%'):'—')+'</td></tr>'; tCur+=gc;tPrev+=gp; });
+  rows+='<tr class="tot"><td>TOTAL</td><td class="num">'+fmt(tCur)+'</td><td class="num">'+fmt(tPrev)+'</td><td class="num">'+((tCur-tPrev)>=0?'+':'')+fmt(tCur-tPrev)+'</td><td class="num">'+(tPrev?((tCur-tPrev>=0?'+':'')+((tCur-tPrev)/tPrev*100).toFixed(0)+'%'):'—')+'</td></tr>';
+  chg.sort(function(a,b){return Math.abs(b.val)-Math.abs(a.val);});
+  var chart=(typeof gHBars==='function')?gHBars('Variación del gasto (verde = gastas menos)',chg,{top:12,labelW:110,signColor:true}):'';
+  var inner='';
+  inner+='<h2>Comparativa interanual</h2>'+_infKpis([['Gasto actual',fmt(tCur)],['Gasto '+yP,fmt(tPrev)],['Variación',((tCur-tPrev)>=0?'+':'')+fmt(tCur-tPrev)],['Variación %',(tPrev?((tCur-tPrev>=0?'+':'')+((tCur-tPrev)/tPrev*100).toFixed(0)+'%'):'—')]]);
+  inner+=_infChartsWrap([chart]);
+  inner+='<h2>Por categoría</h2><table><thead><tr><th>Categoría</th><th class="num">Actual</th><th class="num">'+yP+'</th><th class="num">Δ €</th><th class="num">Δ %</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  var _meta=_infEsc(ctx.label)+' vs mismo periodo de '+yP+(capado?(' (comparado solo hasta hoy '+ddmmyyyy(cs1)+', periodo en curso)'):'')+' · emitido el '+ddmmyyyy(_infHoyS());
+  return _infDocWrap('Comparativo interanual',[_meta],inner);
+}
+
+/* ============ 3.7 RECURRENTES Y SUSCRIPCIONES ============ */
+function buildRecurrentes(ctx){
+  var yr=(ctx.per==='anio')?ctx.d0.getFullYear():new Date().getFullYear();
+  var anualF=(typeof anual==='function')?anual:function(p){return mensual(p)*12;};
+  var items=(DB.presupuesto||[]).filter(function(p){ var c=catById(p.categoriaId); return c&&c.tipo==='gasto'&&(p.anio||yr)===yr&&num(p.importe)>0; });
+  if(!items.length)return _infDocWrap('Gastos recurrentes y suscripciones',['Año '+yr],'<p class="muted">Sin partidas de presupuesto de gasto.</p>');
+  var byGrp={},tAnual=0,rows='';
+  items.map(function(p){ var c=catById(p.categoriaId); return {nombre:c.nombre,grupo:c.grupo,importe:num(p.importe),frec:p.frecuencia||'mensual',metodo:p.metodoPago||'',renov:p.renovacion||'',an:anualF(p)}; }).sort(function(a,b){return b.an-a.an;}).forEach(function(x){ tAnual+=x.an; byGrp[x.grupo]=(byGrp[x.grupo]||0)+x.an; rows+='<tr><td>'+_infEsc(x.nombre)+' <span class="muted">('+_infEsc(x.grupo)+')</span></td><td class="num">'+fmt(x.importe)+'</td><td>'+_infEsc(x.frec)+'</td><td>'+_infEsc(x.metodo||'—')+'</td><td>'+(x.renov?ddmmyyyy(x.renov):'—')+'</td><td class="num">'+fmt(x.an)+'</td></tr>'; });
+  rows+='<tr class="tot"><td colspan="5">TOTAL anualizado</td><td class="num">'+fmt(tAnual)+'</td></tr>';
+  var donut=(typeof gDonut==='function')?gDonut('Recurrentes por grupo (anual)',Object.keys(byGrp).map(function(k){return {label:k,val:byGrp[k]};})):'';
+  var renHtml='';
+  if(typeof renovList==='function'){ var rl=renovList(90)||[]; if(rl.length){ var rr=rl.map(function(r){ var f=r.fecha; var fs=_infPad(f.getDate())+'/'+_infPad(f.getMonth()+1)+'/'+f.getFullYear(); return '<tr><td>'+fs+'</td><td>'+_infEsc(r.nombre)+'</td><td class="num">'+fmt(r.importe)+'</td><td>'+(r.dias<0?'vencida':('en '+r.dias+' d'))+'</td></tr>'; }).join(''); renHtml='<h2>Próximas renovaciones (90 días)</h2><table><thead><tr><th>Fecha</th><th>Concepto</th><th class="num">Importe</th><th>Aviso</th></tr></thead><tbody>'+rr+'</tbody></table>'; } }
+  var inner='';
+  inner+='<h2>Gastos recurrentes</h2>'+_infKpis([['Coste fijo anual',fmt(tAnual)],['Coste fijo mensual',fmt(tAnual/12)],['Nº partidas',String(items.length)]]);
+  inner+=_infChartsWrap([donut]);
+  inner+='<h2>Detalle de recurrentes</h2><table><thead><tr><th>Partida</th><th class="num">Importe</th><th>Frecuencia</th><th>Método</th><th>Próx. renov.</th><th class="num">Coste anual</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  inner+=renHtml;
+  return _infDocWrap('Gastos recurrentes y suscripciones',['Año '+yr+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 4.5 RENTABILIDAD vs IBEX ============ */
+function buildRentabilidad(ctx){
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var valor=0,coste=0; pos.forEach(function(p){ valor+=p.acciones*p.precioActual; coste+=p.acciones*p.precioCompra; });
+  var pl=valor-coste;
+  var divB=0; if(typeof _fiscalPorAnio==='function'){ _fiscalPorAnio().forEach(function(r){divB+=r.divB;}); }
+  var rentTot=coste?((pl+divB)/coste*100):0;
+  var chartMain=(typeof aportValorHTML==='function')?aportValorHTML():'';
+  var rows=''; pos.slice().map(function(p){ var v=p.acciones*p.precioActual,c=p.acciones*p.precioCompra; return {t:p.ticker,v:v,c:c,pl:v-c,pct:c?(v-c)/c*100:0}; }).sort(function(a,b){return b.pct-a.pct;}).forEach(function(x){ rows+='<tr><td><b>'+_infEsc(x.t)+'</b></td><td class="num">'+fmt(x.c)+'</td><td class="num">'+fmt(x.v)+'</td><td class="num" style="color:'+(x.pl>=0?'#16a34a':'#dc2626')+'">'+(x.pl>=0?'+':'')+fmt(x.pl)+'</td><td class="num">'+((x.pct>=0?'+':'')+x.pct.toFixed(1))+'%</td></tr>'; });
+  var inner='';
+  inner+='<h2>Rentabilidad</h2>'+_infKpis([['Valor cartera',fmt(valor)],['Aportado (coste)',fmt(coste)],['Plusvalía',(pl>=0?'+':'')+fmt(pl)],['Rentab. s/coste',(coste?(pl/coste*100).toFixed(1)+'%':'—')],['Dividendos (hist.)',fmt(divB)],['Rentab. total',(coste?rentTot.toFixed(1)+'%':'—')]]);
+  if(chartMain)inner+='<h2>Aportado vs valor vs IBEX</h2>'+chartMain;
+  inner+='<h2>Rentabilidad por empresa</h2><table><thead><tr><th>Empresa</th><th class="num">Coste</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Informe de rentabilidad',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
   {id:'ahorro',nombre:'Ahorro / flujo de caja',ambito:'Hogar',build:buildAhorro},
   {id:'presupuesto',nombre:'Ejecución presupuestaria',ambito:'Hogar',build:buildPresupuesto},
+  {id:'interanual',nombre:'Comparativo interanual',ambito:'Hogar',build:buildInteranual},
+  {id:'recurrentes',nombre:'Recurrentes y suscripciones',ambito:'Hogar',build:buildRecurrentes},
   {id:'patrimonio',nombre:'Patrimonio',ambito:'Inversión',build:buildPatrimonio},
   {id:'cartera',nombre:'Cartera',ambito:'Inversión',build:buildCartera},
   {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos},
-  {id:'fiscal',nombre:'Fiscal (renta)',ambito:'Inversión',build:buildFiscal}
+  {id:'fiscal',nombre:'Fiscal (renta)',ambito:'Inversión',build:buildFiscal},
+  {id:'rentabilidad',nombre:'Rentabilidad vs IBEX',ambito:'Inversión',build:buildRentabilidad}
 ];
 
 /* ---------- generar (uno o varios combinados) ---------- */
@@ -238,9 +307,9 @@ function generarInformesMulti(){
   var sel=[].slice.call(document.querySelectorAll('.infcRep:checked')).map(function(x){return x.value;});
   if(!sel.length){ alert('Marca al menos un informe.'); return; }
   var ctx=_infCtx(); if(!ctx)return;
-  var docs=[];
-  INF_REPORTS.forEach(function(r){ if(sel.indexOf(r.id)>=0){ try{ docs.push(r.build(ctx)); }catch(e){ docs.push(_infDocWrap(r.nombre,[],'<p class="muted">No se pudo generar este informe: '+_infEsc(e.message||e)+'</p>')); } } });
-  var host=_infEnsurePrint(); host.innerHTML=docs.join(''); window.print();
+  function _doPrint(){ var docs=[]; INF_REPORTS.forEach(function(r){ if(sel.indexOf(r.id)>=0){ try{ docs.push(r.build(ctx)); }catch(e){ docs.push(_infDocWrap(r.nombre,[],'<p class="muted">No se pudo generar este informe: '+_infEsc(e.message||e)+'</p>')); } } }); var host=_infEnsurePrint(); host.innerHTML=docs.join(''); window.print(); }
+  if(sel.indexOf('rentabilidad')>=0 && typeof cargarPreciosCartera==='function'){ cargarPreciosCartera().then(_doPrint,_doPrint); }
+  else _doPrint();
 }
 
 /* ---------- interfaz del centro de informes ---------- */
