@@ -185,11 +185,12 @@ async function sincronizarCotizaciones(){
   try{
     const r=await fetch('precios/_ultimos.json',{cache:'no-store'});
     if(!r.ok) return;
-    const u=await r.json(); DB.valores=DB.valores||{}; let n=0;
+    const u=await r.json(); DB.valores=DB.valores||{}; let n=0; let _maxF='';
     const _now=new Date(); const _trasCierre=(_now.getHours()*60+_now.getMinutes())>=(17*60+30); const _hoy=_now.toISOString().slice(0,10);
     const _anaByT={}; (DB.analisis||[]).forEach(a=>{ if(a.ticker)_anaByT[(a.ticker||'').toUpperCase()]=a; });
-    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf||fecha>pf||(fecha===pf&&_trasCierre&&fecha===_hoy)); if(gana){ v.precioActual=close; v.precioFecha=fecha; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
-    if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }
+    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(fecha&&fecha>_maxF)_maxF=fecha; if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf||fecha>pf||(fecha===pf&&_trasCierre&&fecha===_hoy)); if(gana){ v.precioActual=close; v.precioFecha=fecha; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
+    if(_maxF)window._cotizUltFecha=_maxF;
+    if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } else if(typeof renderPanelDash==='function'){ renderPanelDash(); }
   }catch(e){}
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e){} }
