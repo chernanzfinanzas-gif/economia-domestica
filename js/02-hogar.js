@@ -176,7 +176,7 @@ function _infEnsurePrint(){
       +'#informePrint h1{font-size:30px;margin:0}'
       +'#informePrint h2{font-size:16px;margin:18px 0 7px;color:#1E3A5F;border-bottom:2px solid #d7dee6;padding-bottom:3px;text-transform:uppercase;letter-spacing:.4px;page-break-after:avoid;break-after:avoid}'
       +'#informePrint h3{font-size:13.5px;margin:9px 0 3px;color:#2E7D42;font-weight:700;break-after:avoid;page-break-after:avoid}'
-      +'#informePrint table{width:100%;border-collapse:collapse;font-size:12px;margin:2px 0 8px;page-break-inside:avoid;break-inside:avoid}'
+      +'#informePrint table{width:100%;border-collapse:collapse;font-size:12px;margin:2px 0 8px}'
       +'#informePrint th,#informePrint td{border:1px solid #d1d5db;padding:3px 7px;text-align:left;vertical-align:top}'
       +'#informePrint th{background:#1E3A5F;color:#fff;font-weight:600;font-size:11.5px}'
       +'#informePrint td.num,#informePrint th.num{text-align:right;white-space:nowrap}'
@@ -188,8 +188,13 @@ function _infEnsurePrint(){
       +'#informePrint .kpi .l{font-size:11px;color:#6b7280;text-transform:uppercase;letter-spacing:.3px}'
       +'#informePrint .kpi .v{font-size:20px;font-weight:700;color:#1E3A5F;margin-top:2px}'
       +'#informePrint .muted{color:#6b7280}'
-      +'#informePrint .sec{margin-bottom:6px;page-break-inside:avoid;break-inside:avoid}'
-      +'#informePrint .foot{margin-top:22px;border-top:1px solid #d7dee6;padding-top:6px;font-size:10px;color:#94a3b8;display:flex;justify-content:space-between}';
+      +'#informePrint .sec{margin-bottom:6px}'
+      +'#informePrint .foot{margin-top:22px;border-top:1px solid #d7dee6;padding-top:6px;font-size:10px;color:#94a3b8;display:flex;justify-content:space-between}'
+      +'#informePrint .infDoc+.infDoc{page-break-before:always;break-before:page}'
+      +'#informePrint .infCharts{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 12px}'
+      +'#informePrint .infCharts>*{flex:1 1 240px;min-width:220px;max-width:370px}'
+      +'#informePrint .infCharts .card{border:1px solid #dde3ea;border-radius:8px;padding:8px;background:#fff;margin:0;box-shadow:none}'
+      +'#informePrint svg{max-width:100%;height:auto}';
     document.head.appendChild(st);
   }
   return host;
