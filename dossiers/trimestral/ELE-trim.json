@@ -1,0 +1,55 @@
+{
+  "ticker": "ELE",
+  "empresa": "Endesa",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-06",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T-2026: arranque muy sólido del nuevo Plan Estratégico 2026-28. EBITDA +14% (1.632 M€) y Resultado Ordinario Neto +24% (725 M€), con la mejora concentrada en Distribución (+45% de EBITDA por el nuevo marco regulatorio y reliquidaciones de años anteriores) y la resiliencia del negocio liberalizado. Margen EBITDA en el 28% —por encima del 24% que REFUERZA la tesis (§10.1)— y RON/EBITDA sube al 44%. La deuda neta repunta a 10,6 mil M€ (+5%) por el mayor ritmo inversor del plan, pero DFN/EBITDA se mantiene en 1,8x, muy por debajo del 2,5x de la zona de refuerzo. Conversión de caja del 65% del EBITDA y reservas hidráulicas en niveles récord. La dirección confirma los objetivos para todo el año. Todos los KPIs críticos del §10.1 (apalancamiento, margen, cobertura) en zona de refuerzo. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 5824
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 1632
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11200
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": 28.0
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 725
+        },
+        {
+          "nombre": "Producción Total TWh",
+          "valor": 16.9
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22616
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 17
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 11.3
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.4
+        }
+      ]
+    }
+  ]
+}
