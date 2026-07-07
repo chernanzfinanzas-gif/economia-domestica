@@ -230,7 +230,7 @@ function aplicarAnaPaste(){
     if(isNaN(precio)&&isNaN(div)){bad++;return;}
     const t=anaFindTicker(nombre).toUpperCase();
     const v=DB.valores[t]=DB.valores[t]||{}; v.nombre=nombre;
-    if(!isNaN(precio)){ v.precioActual=precio; v.precioFecha=new Date().toISOString().slice(0,10); }
+    if(!isNaN(precio)){ v.precioActual=precio; v.precioFecha=new Date().toISOString().slice(0,10); v.precioManual=true; }
     if(!isNaN(div)){ v.divAccion=div; const _ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][_ny]=div; }
     let a=anaByTick[t];
     if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
