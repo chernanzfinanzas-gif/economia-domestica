@@ -1,0 +1,55 @@
+{
+  "ticker": "IBE",
+  "empresa": "Iberdrola",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VERDE: EBITDA ajustado +2,4% (reportado −9,7% por efecto base US 2025); BNA ajustado +11,4% (reportado −14,6% por operaciones discontinuadas de México). Desinversión de México completada (24/04) y OPA de Neoenergia cerrada al 98%. Vineyard Wind 780 MW operativos. DFN/EBITDA 3,4x. Rating BBB+ estable. Crecimiento subyacente confirmado.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 12017.6
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 4067.1
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 33.84
+        },
+        {
+          "nombre": "BNA",
+          "valor": 1865
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 51922
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.4
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 2699
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6757.8
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.253
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 2.4
+        }
+      ]
+    }
+  ]
+}

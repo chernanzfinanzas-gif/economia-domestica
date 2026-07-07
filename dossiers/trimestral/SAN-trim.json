@@ -1,0 +1,55 @@
+{
+  "ticker": "SAN",
+  "empresa": "Banco Santander",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T'26 ordinario: BNA 3.560 M€ (+12,5% interanual); estatutario 5.455 M€ por la plusvalía de la venta de Polonia (+1.895 M€), que eleva el CET1 a 14,4% (+95 pb). RoTE ordinario 15,2% (estatutario 17,3%) y eficiencia mejora a 42,8%. Comisiones 3.357 M€ y TNAV/acción salta a 6,13 € (+0,37 €). Coste del riesgo 1,14% y NPL 3,00% con leve repunte (vigilar). Anuncio de compra de Webster (~10.300 M€, 7,4% de la capitalización).",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11019
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15140
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3357
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3560
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.2
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 14.4
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.14
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 42.8
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 6.13
+        }
+      ]
+    }
+  ]
+}

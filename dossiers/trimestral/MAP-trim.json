@@ -1,0 +1,55 @@
+{
+  "ticker": "MAP",
+  "empresa": "Mapfre",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-29",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "La rentabilidad sigue mejorando (resultado +12,7%, ROE 12,9%, combinado 93,2%, solvencia 205,3% (dic-2025 prov.; SFCR 20-may)), PERO las primas caen −2,2% por la divisa: riesgo LatAm/FX visible. Iberia 138, Mapfre RE 85.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 8394
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9697
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 311
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 12.7
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 93.2
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 12.9
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 138
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 114
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 85.4
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 205.3
+        }
+      ]
+    }
+  ]
+}
