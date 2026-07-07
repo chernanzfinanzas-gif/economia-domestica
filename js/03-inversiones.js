@@ -240,7 +240,7 @@ function aplicarAnaPaste(){
   $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
   setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
 }
-let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={};
+let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={}; let _trimCache={};
 let fichaRange='all';
 const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
@@ -354,7 +354,9 @@ function renderFicha(t){
   const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span style="font-size:11px;color:${(_mmV!=null&&_mmV>12)?'#dc2626':'#64748b'}">análisis ${_ana.dossierFecha}${_mmV!=null?' ('+_mmV+'m'+(_mmV>12?' ⚠️':'')+')':''}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
   if(_tesisCache[fichaTicker]===undefined&&typeof cargarTesis==='function')cargarTesis(fichaTicker);
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
+  const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -663,4 +665,33 @@ function _fiscalPorAnio(){
   var dh=DB.devolucionHacienda||{};
   var fy=[...new Set([...Object.keys(totYear),...Object.keys(ventY),...Object.keys(dh)])].filter(function(y){return (totYear[y]||0)>0||(ventY[y]||0)>0||(costSoldY[y]||0)>0||num(dh[y]||0)>0;}).sort();
   return fy.map(function(y){ var db=totYear[y]||0, ret=db*0.19, pl=(ventY[y]||0)-(costSoldY[y]||0), base=db+pl, dev=num(dh[y]||0); return {year:y,divB:db,ret:ret,pl:pl,base:base,dev:dev}; });
+}
+
+
+/* ===== Monitor trimestral (puente dossiers/trimestral/[TICKER]-trim.json) ===== */
+function _trimEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function _trimFmt(v){ if(typeof v==='number'){ try{ return new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(v); }catch(e){ return ''+v; } } return v==null?'':(''+v); }
+async function cargarTrimestral(t){ t=(t||'').toUpperCase(); if(!t){return;}
+  try{ const r=await fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}); _trimCache[t]=r.ok?await r.json():null; }catch(e){ _trimCache[t]=null; }
+  try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ if(rv.periodo&&!DB.monitor[t].rev[rv.periodo]){ DB.monitor[t].rev[rv.periodo]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
+  if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t);
+}
+function trimCardHTML(d){
+  if(!d||!d.revisiones||!d.revisiones.length)return '';
+  var revs=d.revisiones.slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
+  var last=revs[revs.length-1];
+  var semCol={V:'#16a34a',A:'#d97706',R:'#dc2626'}; var semTxt={V:'🟢 VERDE',A:'🟡 ÁMBAR',R:'🔴 ROJO'};
+  var sg=(last.semaforoGlobal||'').toUpperCase();
+  var metr=(last.metricas||[]).map(function(m){ return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600">'+_trimFmt(m.valor)+'</td></tr>'; }).join('');
+  var trend=revs.map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); var c=semCol[s]||'#94a3b8'; return '<span title="'+_trimEsc(r.periodo)+' ('+(r.fecha||'')+')" style="display:inline-block;width:13px;height:13px;border-radius:3px;background:'+c+';margin-right:3px"></span>'; }).join('');
+  var alerta=(sg==='R'||last.tesisSigueIntacta===false)?'<span style="margin-left:8px;color:#dc2626;font-weight:700">⚠️ revisar tesis</span>':'';
+  return '<div class="card" style="margin-top:10px;border-left:4px solid '+(semCol[sg]||'#94a3b8')+'">'
+    +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">'
+    +'<div style="font-weight:800;font-size:15px">📊 Monitor trimestral</div>'
+    +'<span style="font-weight:700;color:'+(semCol[sg]||'#475569')+'">'+(semTxt[sg]||sg||'—')+'</span>'
+    +'<span class="muted" style="font-size:12px">'+_trimEsc(last.periodo)+(last.fecha?' · '+ddmmyyyy(last.fecha):'')+'</span>'+alerta
+    +'<div style="flex:1"></div>'+(revs.length>1?'<div title="Tendencia del semáforo por trimestre" style="white-space:nowrap">'+trend+'</div>':'')+'</div>'
+    +(last.resumen?'<div class="sub" style="margin-bottom:8px;line-height:1.45">'+_trimEsc(last.resumen)+'</div>':'')
+    +(metr?'<div style="overflow:auto"><table><thead><tr><th>Métrica ('+_trimEsc(last.periodo)+')</th><th class="num">Valor</th></tr></thead><tbody>'+metr+'</tbody></table></div>':'')
+    +'</div>';
 }
