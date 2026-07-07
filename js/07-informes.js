@@ -361,6 +361,77 @@ function buildAmalia(ctx){
   return _infDocWrap('Reembolsables (Amalia)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ 4.7 PLAN DE INVERSIÓN ============ */
+function buildPlan(ctx){
+  var pc=DB.planCompras||{}, pp=DB.planPresupuesto||{};
+  var tickers=Object.keys(pc);
+  var yset={}; tickers.forEach(function(t){ Object.keys(pc[t]||{}).forEach(function(y){ if(num(pc[t][y])>0)yset[y]=1; }); }); Object.keys(pp).forEach(function(y){ if(num(pp[y])>0)yset[y]=1; });
+  var years=Object.keys(yset).sort();
+  if(!years.length && !tickers.length)return _infDocWrap('Plan de inversión',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin plan de compras definido.</p>');
+  var rowsY='',planTotByY={},execByY={};
+  years.forEach(function(y){ var plan=0,ex=0; tickers.forEach(function(t){ var v=num((pc[t]||{})[y]||0); plan+=v; if(typeof execBuyEur==='function')ex+=execBuyEur(t.toUpperCase(),+y); }); planTotByY[y]=plan; execByY[y]=ex; var pres=num(pp[y]||0); var pend=Math.max(0,plan-ex); rowsY+='<tr><td>'+y+'</td><td class="num">'+fmt(pres)+'</td><td class="num">'+fmt(plan)+'</td><td class="num">'+fmt(ex)+'</td><td class="num">'+fmt(pend)+'</td></tr>'; });
+  var chartY=(typeof gBars==='function')?gBars('Plan de compras por año',years,[{name:'Plan',color:'#2563eb',vals:years.map(function(y){return planTotByY[y];})},{name:'Ejecutado',color:'#16a34a',vals:years.map(function(y){return execByY[y];})}],{}):'';
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var totVal=pos.reduce(function(s,p){return s+p.acciones*p.precioActual;},0);
+  var realW={}; pos.forEach(function(p){ realW[(p.ticker||'').toUpperCase()]=(p.acciones*p.precioActual)/(totVal||1); });
+  var obj=DB.distribObjetivo||{}; var divRows='',divChart=[]; var allT={};
+  Object.keys(realW).forEach(function(t){allT[t]=1;}); Object.keys(obj).forEach(function(t){allT[t.toUpperCase()]=1;});
+  Object.keys(allT).sort(function(a,b){return (realW[b]||0)-(realW[a]||0);}).forEach(function(t){ var rw=realW[t]||0; var ow=num(obj[t]||obj[t.toUpperCase()]||0); if(rw===0&&ow===0)return; var diff=rw-ow; divRows+='<tr><td><b>'+_infEsc(t)+'</b></td><td class="num">'+(rw*100).toFixed(1)+'%</td><td class="num">'+(ow*100).toFixed(1)+'%</td><td class="num" style="color:'+(diff>=0?'#2563eb':'#d97706')+'">'+(diff>=0?'+':'')+(diff*100).toFixed(1)+'%</td></tr>'; divChart.push({label:t,val:(rw-ow)*100}); });
+  divChart.sort(function(a,b){return Math.abs(b.val)-Math.abs(a.val);});
+  var chartDiv=(typeof gHBars==='function')?gHBars('Desvío diversificación (real − objetivo, pts%)',divChart,{top:12,labelW:70,pct:true,signColor:true}):'';
+  var totPlan=years.reduce(function(s,y){return s+planTotByY[y];},0), totExec=years.reduce(function(s,y){return s+execByY[y];},0);
+  var inner='';
+  inner+='<h2>Plan de inversión</h2>'+_infKpis([['Plan total',fmt(totPlan)],['Ejecutado',fmt(totExec)],['Pendiente',fmt(Math.max(0,totPlan-totExec))],['Años con plan',String(years.length)]]);
+  inner+=_infChartsWrap([chartY]);
+  inner+='<h2>Plan por año</h2><table><thead><tr><th>Año</th><th class="num">Presupuesto</th><th class="num">Plan compras</th><th class="num">Ejecutado</th><th class="num">Pendiente</th></tr></thead><tbody>'+rowsY+'</tbody></table>';
+  if(divRows){ inner+='<h2>Diversificación: real vs objetivo</h2>'+_infChartsWrap([chartDiv])+'<table><thead><tr><th>Empresa</th><th class="num">% real</th><th class="num">% objetivo</th><th class="num">Desvío</th></tr></thead><tbody>'+divRows+'</tbody></table>'; }
+  return _infDocWrap('Plan de inversión',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 4.8 SEGUIMIENTO (MONITOR) ============ */
+function buildMonitor(ctx){
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var held=pos.map(function(p){return (p.ticker||'').toUpperCase();});
+  if(!held.length)return _infDocWrap('Informe de seguimiento (monitor)',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin posiciones en cartera.</p>');
+  var mon=DB.monitor||{}; var anaBy={}; (DB.analisis||[]).forEach(function(a){ anaBy[(a.ticker||'').toUpperCase()]=a; });
+  var nowY=new Date().getFullYear(); var nInf=0,nOld=0,nPend=0,nStop=0;
+  var rows=held.slice().sort().map(function(t){ var m=mon[t]||{}, a=anaBy[t]||{};
+    var rol=m.rol||'—'; var inf=m.informe?'Sí':'Pendiente'; if(m.informe)nInf++;
+    var mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; var dossier=(mm==null)?'sin dossier':(mm>12?('hace '+mm+'m ⚠️'):('hace '+mm+'m')); if(mm!=null&&mm>12)nOld++;
+    var qs=''; ['Q1','Q2','Q3','Q4'].forEach(function(q){ var pas=(typeof qPassed==='function')&&qPassed(t,q,nowY); var rev=!!(m.rev&&m.rev[nowY+'-'+q]); var col=rev?'#16a34a':(pas?'#dc2626':'#cbd5e1'); if(pas&&!rev)nPend++; qs+='<span style="color:'+col+';font-weight:700;margin-right:4px">'+q+'</span>'; });
+    var cot=num(a.cotizacion),st=num(a.stopTesis); var stop=(st>0&&cot>0&&cot<=st); if(stop)nStop++;
+    return '<tr'+(stop?' style="background:#fef2f2"':'')+'><td><b>'+_infEsc(t)+'</b></td><td>'+_infEsc(rol)+'</td><td>'+inf+'</td><td>'+dossier+'</td><td>'+qs+'</td><td>'+(stop?'<span style="color:#dc2626">stop</span>':'ok')+'</td></tr>';
+  }).join('');
+  var inner='';
+  inner+='<h2>Seguimiento de cartera</h2>'+_infKpis([['Empresas en cartera',String(held.length)],['Con informe',String(nInf)],['Dossiers >12m',String(nOld)],['Trim. sin revisar',String(nPend)],['Stops tocados',String(nStop)]]);
+  inner+='<h2>Estado por empresa</h2><table><thead><tr><th>Empresa</th><th>Rol</th><th>Informe</th><th>Dossier</th><th>Trimestres '+nowY+'</th><th>Stop</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">Trimestres: verde = revisado, rojo = publicado sin revisar, gris = aún no publicado. Dossier en rojo si tiene más de 12 meses.</p></div>';
+  return _infDocWrap('Informe de seguimiento (monitor)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 4.9 PROYECCIÓN / JUBILACIÓN ============ */
+function buildProyeccion(ctx){
+  if(typeof proyDefaults==='function')proyDefaults();
+  var c=(DB.config&&DB.config.proyeccion);
+  if(!c||typeof computeProy!=='function')return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin modelo de proyección configurado.</p>');
+  var rows=computeProy(c);
+  if(!rows.length)return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin datos de proyección.</p>');
+  var nowY=new Date().getFullYear();
+  var actual=rows.filter(function(r){return r.anio<=nowY;}).slice(-1)[0]||rows[0];
+  var jub=rows.filter(function(r){return r.trasJub;})[0]||rows[rows.length-1];
+  var fin=rows[rows.length-1];
+  var labels=rows.map(function(r){return String(r.anio);});
+  var chart=(typeof gLines==='function')?gLines('Patrimonio proyectado (teórico)',labels,[{name:'Patrimonio',color:'#2563eb',vals:rows.map(function(r){return r.patrimonio;})}]):'';
+  var chartDiv=(typeof gBars==='function')?gBars('Dividendo bruto proyectado',labels,[{name:'Dividendo',color:'#d97706',vals:rows.map(function(r){return r.dividendoAnual;})}],{}):'';
+  var trs=rows.map(function(r){ var pr=r.patrimonioReal; var bg=(typeof proyColor==='function'&&pr!=null)?proyColor(pr,r.patrimonio):'transparent'; return '<tr><td>'+r.anio+'</td><td class="num">'+r.edad+'</td><td class="num">'+fmt(r.aInversion)+'</td><td class="num">'+fmt(r.cartera)+'</td><td class="num" style="font-weight:600">'+fmt(r.patrimonio)+'</td><td class="num" style="background:'+bg+'">'+(pr!=null?fmt(pr):'—')+'</td><td class="num">'+fmt(r.dividendoAnual)+'</td></tr>'; }).join('');
+  var inner='';
+  inner+='<h2>Proyección de patrimonio</h2>'+_infKpis([['Patrimonio actual',fmt(actual.patrimonio)],['Patrimonio a jubilación',fmt(jub.patrimonio)],['Dividendo/año a jub.',fmt(jub.dividendoAnual)],['Horizonte',rows.length+' años'],['Edad final',String(fin.edad)]]);
+  inner+=_infChartsWrap([chart,chartDiv]);
+  inner+='<h2>Detalle año a año</h2><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Aportación</th><th class="num">Cartera teórica</th><th class="num">Patrim. teórico</th><th class="num">Patrim. real</th><th class="num">Dividendo/año</th></tr></thead><tbody>'+trs+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">Patrimonio teórico = modelo compuesto (revalorización + aportaciones). Patrimonio real (años ya vividos) se reconstruye con cotizaciones de cierre. Verde/ámbar/rojo = real frente a teórico.</p></div>';
+  return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
@@ -376,7 +447,10 @@ var INF_REPORTS=[
   {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos},
   {id:'fiscal',nombre:'Fiscal (renta)',ambito:'Inversión',build:buildFiscal},
   {id:'rentabilidad',nombre:'Rentabilidad vs IBEX',ambito:'Inversión',build:buildRentabilidad},
-  {id:'oportunidades',nombre:'Oportunidades (watchlist)',ambito:'Inversión',build:buildOportunidades}
+  {id:'oportunidades',nombre:'Oportunidades (watchlist)',ambito:'Inversión',build:buildOportunidades},
+  {id:'plan',nombre:'Plan de inversión',ambito:'Inversión',build:buildPlan},
+  {id:'monitor',nombre:'Seguimiento (monitor)',ambito:'Inversión',build:buildMonitor},
+  {id:'proyeccion',nombre:'Proyección / jubilación',ambito:'Inversión',build:buildProyeccion}
 ];
 
 /* ---------- generar (uno o varios combinados) ---------- */
@@ -385,7 +459,7 @@ function generarInformesMulti(){
   if(!sel.length){ alert('Marca al menos un informe.'); return; }
   var ctx=_infCtx(); if(!ctx)return;
   function _doPrint(){ var docs=[]; INF_REPORTS.forEach(function(r){ if(sel.indexOf(r.id)>=0){ try{ docs.push(r.build(ctx)); }catch(e){ docs.push(_infDocWrap(r.nombre,[],'<p class="muted">No se pudo generar este informe: '+_infEsc(e.message||e)+'</p>')); } } }); var host=_infEnsurePrint(); host.innerHTML=docs.join(''); window.print(); }
-  if(sel.indexOf('rentabilidad')>=0 && typeof cargarPreciosCartera==='function'){ cargarPreciosCartera().then(_doPrint,_doPrint); }
+  if((sel.indexOf('rentabilidad')>=0||sel.indexOf('proyeccion')>=0) && typeof cargarPreciosCartera==='function'){ cargarPreciosCartera().then(_doPrint,_doPrint); }
   else _doPrint();
 }
 
