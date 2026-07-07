@@ -275,53 +275,11 @@ function _infSyncGrp(grp){
 }
 function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
-  if(document.getElementById('informeWrap')) return;
-  var box=document.createElement('div'); box.className='card'; box.id='informeWrap'; box.style.margin='4px 0 14px';
-  var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
-  var accHtml=Object.keys(groups).sort().map(function(g){
-    var gs=g.replace(/"/g,'');
-    var items=groups[g].map(function(c){ var nm=_infEsc(c.nombre).replace(/"/g,'&quot;'); return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infCatCk" value="'+c.id+'" data-grp="'+gs+'" data-name="'+nm+'"> '+_infEsc(c.nombre)+'</label>'; }).join('');
-    return '<div class="infGrpBlock" data-grp="'+gs+'" style="border-bottom:1px solid var(--line)">'
-      +'<div class="infGrpRow" data-grp="'+gs+'" style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:4px 4px">'
-      +'<span class="infGrpTog" style="width:12px;display:inline-block;color:#64748b">▸</span>'
-      +'<label class="infGrpLbl" style="font-weight:700;font-size:12px;cursor:pointer;flex:1"><input type="checkbox" class="infGrpCk" data-grp="'+gs+'"> '+_infEsc(g)+' <span class="muted" style="font-weight:400">('+groups[g].length+')</span></label>'
-      +'</div>'
-      +'<div class="infGrpCats" style="display:none;padding:2px 0 6px 24px">'+items+'</div>'
-      +'</div>';
-  }).join('');
-  var titHtml=_infTitulares().map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infTitCk" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
-  var now=new Date(); var ym=now.getFullYear()+'-'+_infPad(now.getMonth()+1);
-  box.innerHTML='<div id="informeHead" style="cursor:pointer;font-weight:700;font-size:14px">🖨️ Informe / Imprimir PDF <span id="informeArrow">▾</span></div>'
-    +'<div id="informeBody" style="display:none;margin-top:10px">'
-    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:10px">'
-    +'<label>Periodo<select id="infPeriodo"><option value="mes">Mes</option><option value="anio">Año completo</option><option value="rango">Rango de fechas</option></select></label>'
-    +'<label id="infMesWrap">Mes<input type="month" id="infMes" value="'+ym+'"></label>'
-    +'<label id="infAnioWrap" style="display:none">Año<input type="number" id="infAnio" value="'+now.getFullYear()+'" step="1"></label>'
-    +'<label id="infDesdeWrap" style="display:none">Desde<input type="date" id="infDesde"></label>'
-    +'<label id="infHastaWrap" style="display:none">Hasta<input type="date" id="infHasta"></label>'
-    +'<label>Tipo<select id="infTipo"><option value="ambos">Ingresos y gastos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option></select></label>'
-    +'<label>Nivel de detalle<select id="infDetalle"><option value="completo">Cada movimiento</option><option value="totales">Solo totales por secci\u00f3n</option></select></label>'
-    +'<label>Concepto contiene<input type="text" id="infConcepto" placeholder="(opcional)"></label>'
-    +'<label>Comercio/entidad contiene<input type="text" id="infComercio" placeholder="(opcional)"></label>'
-    +'</div>'
-    +'<div style="margin-bottom:8px"><b style="font-size:12px">Titular</b> <span class="muted" style="font-size:11px">(vacío = todos)</span><div style="margin-top:4px">'+titHtml+'</div></div>'
-    +'<div style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;flex-wrap:wrap"><b style="font-size:12px">Categorías</b> <span class="muted" style="font-size:11px">(vacío = todas)</span> <label style="font-size:11px"><input type="checkbox" id="infCatAll"> Todas / ninguna</label></div>'
-    +'<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:flex-start">'
-    +'<div id="infCatAcc" style="flex:1 1 240px;min-width:220px;max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:8px">'+accHtml+'</div>'
-    +'<div style="flex:1 1 200px;min-width:180px"><div style="font-size:11px;font-weight:700;margin-bottom:4px">Seleccionadas (<span id="infSelCount">0</span>)</div><div id="infSelChips" style="display:flex;flex-wrap:wrap;gap:5px;max-height:230px;overflow:auto"><span class="muted" style="font-size:11px">Ninguna (= todas)</span></div></div>'
-    +'</div></div>'
-    +'<button class="btn" id="infPrint">🖨️ Generar informe (PDF)</button>'
-    +'</div>';
-  var _ref=document.getElementById('panelPeriodo'); if(_ref&&_ref.parentNode===sec)sec.insertBefore(box,_ref); else sec.insertBefore(box,sec.firstChild);
-  if(!document.getElementById('cotizPanelBtn')){ var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.margin='2px 0 12px'; _cbtn.innerHTML='<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>'; sec.insertBefore(_cbtn, box); }
-  document.getElementById('informeHead').addEventListener('click',function(){ var b=document.getElementById('informeBody'); var open=b.style.display!=='none'; b.style.display=open?'none':'block'; document.getElementById('informeArrow').textContent=open?'▾':'▴'; });
-  document.getElementById('infPeriodo').addEventListener('change',function(){ var v=this.value; document.getElementById('infMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infHastaWrap').style.display=v==='rango'?'':'none'; });
-  document.getElementById('infCatAll').addEventListener('change',function(){ var ck=this.checked; box.querySelectorAll('.infCatCk').forEach(function(x){x.checked=ck;}); box.querySelectorAll('.infGrpCk').forEach(function(x){x.checked=ck;x.indeterminate=false;}); _infUpdateChips(); });
-  var acc=document.getElementById('infCatAcc');
-  acc.addEventListener('click',function(e){ if(e.target.closest('.infGrpLbl'))return; if(e.target.tagName==='INPUT')return; var row=e.target.closest('.infGrpRow'); if(!row)return; var block=row.parentNode; var cats=block.querySelector('.infGrpCats'); var tog=row.querySelector('.infGrpTog'); var open=cats.style.display!=='none'; cats.style.display=open?'none':'block'; if(tog)tog.textContent=open?'▸':'▾'; });
-  acc.addEventListener('change',function(e){ var t=e.target; if(t.classList.contains('infGrpCk')){ var grp=t.getAttribute('data-grp'); box.querySelectorAll('.infCatCk[data-grp="'+grp+'"]').forEach(function(x){x.checked=t.checked;}); t.indeterminate=false; _infUpdateChips(); } else if(t.classList.contains('infCatCk')){ _infSyncGrp(t.getAttribute('data-grp')); _infUpdateChips(); } });
-  document.getElementById('infSelChips').addEventListener('click',function(e){ var x=e.target.closest('.infChipX'); if(!x)return; var cid=x.getAttribute('data-cid'); var ck=box.querySelector('.infCatCk[value="'+cid+'"]'); if(ck){ ck.checked=false; _infSyncGrp(ck.getAttribute('data-grp')); _infUpdateChips(); } });
-  document.getElementById('infPrint').addEventListener('click',generarInforme);
+  if(document.getElementById('cotizPanelBtn')) return;
+  var _ref=document.getElementById('panelPeriodo');
+  var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.margin='2px 0 12px';
+  _cbtn.innerHTML='<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>';
+  if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
 }
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';

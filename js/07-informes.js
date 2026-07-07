@@ -491,7 +491,7 @@ function renderInformesCenter(){
       +'<label style="display:block;margin-bottom:6px">Nivel de detalle<select id="infcDetalle" style="width:100%"><option value="completo">Cada movimiento</option><option value="totales">Solo totales por sección</option></select></label>'
       +'<div style="font-size:11px;font-weight:700;margin:4px 0 2px">Titular <span class="muted" style="font-weight:400">(vacío = todos)</span></div><div>'+titHtml+'</div>'
       +'<div style="font-size:11px;font-weight:700;margin:6px 0 2px">Categorías <span class="muted" style="font-weight:400">(vacío = todas)</span> <label style="font-weight:400"><input type="checkbox" id="infcCatAll"> todas/ninguna</label></div>'
-      +'<div style="max-height:160px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px">'+catHtml+'</div>'
+      +'<div style="max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px">'+catHtml+'</div>'
     +'</div>'
     +'</div>'
     +'<div style="margin-top:12px"><button class="btn" id="infcGen">🖨️ Generar informe (PDF)</button></div>'
