@@ -1,0 +1,55 @@
+{
+  "ticker": "REP",
+  "empresa": "Repsol",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Fuerte rebote: RNA 873 M€ (+57% YoY), margen de refino 10,9 $/bbl, EBITDA CCS 1.790 e Industrial 440. Deuda neta sube algo (4.800) sin tensión. Verde.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 873
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 1790
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 2613
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 1042
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 4800
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 10.9
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 539
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 81.1
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 302
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 440
+        }
+      ]
+    }
+  ]
+}
