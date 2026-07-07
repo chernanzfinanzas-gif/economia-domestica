@@ -432,6 +432,30 @@ function buildProyeccion(ctx){
   return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ COMBUSTIBLE (Mazinger Z) ============ */
+function buildCombustible(ctx){
+  var all=(typeof _mzCalc==='function')?_mzCalc():[];
+  var rows=all.filter(function(e){ return e.fecha && e.fecha>=ctx.s0 && e.fecha<=ctx.s1; });
+  if(!rows.length)return _infDocWrap('Informe de combustible (Mazinger Z)',[_infEsc(ctx.label)],'<p class="muted">Sin repostajes en el periodo.</p>');
+  var totKm=0,totLit=0,gastoTramos=0,gastoTot=0,litTot=0;
+  rows.forEach(function(e){ gastoTot+=num(e.precio); litTot+=num(e.litros); if(e._kmRec){ totKm+=e._kmRec; totLit+=num(e.litros); gastoTramos+=num(e.precio); } });
+  var cons=totKm?totLit/totKm*100:0, eurL=litTot?gastoTot/litTot:0, eur100=totKm?gastoTramos/totKm*100:0;
+  var fN=function(x,d){ return num(x).toFixed(d).replace('.',','); };
+  var pts=rows.filter(function(e){return e._cons!=null;});
+  var ch1=(typeof gLine==='function'&&pts.length)?gLine('Consumo por repostaje (L/100km)',pts.map(function(e){return ddmmyyyy(e.fecha).slice(0,5);}),pts.map(function(e){return e._cons;}),{}):'';
+  var byM={}; rows.forEach(function(e){ var m=(e.fecha||'').slice(0,7); if(m)byM[m]=(byM[m]||0)+num(e.precio); });
+  var mk=Object.keys(byM).sort();
+  var ch2=(typeof gBars==='function'&&mk.length)?gBars('Gasto por mes (€)',mk.map(function(m){return m.slice(5)+'/'+m.slice(2,4);}),[{name:'Gasto',color:'#dc2626',vals:mk.map(function(m){return byM[m];})}],{}):'';
+  var trs=rows.slice().reverse().map(function(e){ return '<tr><td>'+ddmmyyyy(e.fecha)+'</td><td class="num">'+fN(e.km,0)+'</td><td class="num">'+(e.autonomia!=null&&e.autonomia!==''?fN(e.autonomia,0):'—')+'</td><td class="num">'+fN(e.litros,2)+'</td><td class="num">'+fmt(num(e.precio))+'</td><td class="num">'+(e._kmRec!=null?fN(e._kmRec,0):'—')+'</td><td class="num" style="font-weight:600">'+(e._cons!=null?fN(e._cons,2):'—')+'</td><td class="num">'+(e._eur100!=null?fN(e._eur100,2):'—')+'</td></tr>'; }).join('');
+  trs+='<tr class="tot"><td colspan="5">TOTAL ('+rows.length+' repostajes)</td><td class="num">'+fN(totKm,0)+'</td><td class="num">'+fN(cons,2)+'</td><td class="num">'+fN(eur100,2)+'</td></tr>';
+  var inner='';
+  inner+='<h2>Consumo del vehículo</h2>'+_infKpis([['Consumo medio',fN(cons,2)+' L/100km'],['Km recorridos',fN(totKm,0)+' km'],['Litros',fN(totLit,2)+' L'],['Gasto total',fmt(gastoTot)],['Coste medio',fN(eur100,2)+' €/100km'],['Precio medio',fN(eurL,3)+' €/L']]);
+  inner+=_infChartsWrap([ch1,ch2]);
+  inner+='<h2>Repostajes</h2><table><thead><tr><th>Fecha</th><th class="num">Km coche</th><th class="num">Auton.</th><th class="num">Litros</th><th class="num">Precio</th><th class="num">Km recorr.</th><th class="num">L/100km</th><th class="num">€/100km</th></tr></thead><tbody>'+trs+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">Método de lleno a lleno: los litros de cada repostaje cubren los km desde el anterior. El primer repostaje del histórico no entra en la media.</p></div>';
+  return _infDocWrap('Informe de combustible (Mazinger Z)',[_infEsc(ctx.label)+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
@@ -442,6 +466,7 @@ var INF_REPORTS=[
   {id:'titular',nombre:'Por titular',ambito:'Hogar',build:buildTitular},
   {id:'comercios',nombre:'Comercios',ambito:'Hogar',build:buildComercios},
   {id:'amalia',nombre:'Reembolsables (Amalia)',ambito:'Hogar',build:buildAmalia},
+  {id:'combustible',nombre:'Combustible (Mazinger Z)',ambito:'Hogar',build:buildCombustible},
   {id:'patrimonio',nombre:'Patrimonio',ambito:'Inversión',build:buildPatrimonio},
   {id:'cartera',nombre:'Cartera',ambito:'Inversión',build:buildCartera},
   {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos},
