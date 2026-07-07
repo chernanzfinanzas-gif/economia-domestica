@@ -288,6 +288,79 @@ function buildRentabilidad(ctx){
   return _infDocWrap('Informe de rentabilidad',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ 4.6 OPORTUNIDADES (watchlist) ============ */
+function buildOportunidades(ctx){
+  var ana=(DB.analisis||[]).slice();
+  if(!ana.length)return _infDocWrap('Oportunidades de inversión',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin empresas en el análisis.</p>');
+  var _held={}; try{ (invPositions()||[]).forEach(function(p){ if(p.acciones>0.0001)_held[(p.ticker||'').toUpperCase()]=1; }); }catch(e){}
+  var rows=ana.map(function(a){ var cot=num(a.cotizacion),mn=num(a.poMin),mx=num(a.poMax); var med=(mn&&mx)?(mn+mx)/2:(mx||mn||0); var pot=(cot&&med)?(med/cot-1)*100:null; var entH=num(a.entMax); var enZona=(cot>0&&entH>0&&cot<=entH); var st=num(a.stopTesis); var stopTocado=(st>0&&cot>0&&cot<=st); var sc=(typeof cmpScore==='function')?cmpScore(a):null; return {t:(a.ticker||'').toUpperCase(),dec:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),cot:cot,med:med,pot:pot,entH:entH,enZona:enZona,stopTocado:stopTocado,sc:sc,held:_held[(a.ticker||'').toUpperCase()]}; });
+  rows.sort(function(a,b){return (b.sc||0)-(a.sc||0);});
+  var nZona=rows.filter(function(r){return r.enZona;}).length, nComprar=rows.filter(function(r){return r.dec==='COMPRAR';}).length, nStop=rows.filter(function(r){return r.stopTocado;}).length;
+  var dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  var trs=rows.map(function(r){ var estado=r.stopTocado?'<span style="color:#dc2626">🚨 stop</span>':(r.enZona?'<span style="color:#16a34a">🟢 en zona</span>':(r.cot&&r.entH?('🔴 +'+((r.cot/r.entH-1)*100).toFixed(0)+'%'):'—')); return '<tr'+(r.held?' style="background:#f0fdf4"':'')+'><td><b>'+_infEsc(r.t)+'</b>'+(r.held?' <span class="muted">en cartera</span>':'')+'</td><td style="color:'+(dc[r.dec]||'#475569')+';font-weight:600">'+(r.dec||'—')+'</td><td class="num">'+(r.rating||'—')+'</td><td class="num">'+(r.sc!=null?Math.round(r.sc):'—')+'</td><td class="num">'+(r.cot?fmt(r.cot):'—')+'</td><td class="num">'+(r.med?fmt(r.med):'—')+'</td><td class="num" style="color:'+(r.pot>=0?'#16a34a':'#dc2626')+'">'+(r.pot!=null?((r.pot>=0?'+':'')+r.pot.toFixed(0)+'%'):'—')+'</td><td>'+estado+'</td></tr>'; }).join('');
+  var potChart=rows.filter(function(r){return r.pot!=null;}).map(function(r){return {label:r.t,val:r.pot};}).sort(function(a,b){return b.val-a.val;});
+  var chart=(typeof gHBars==='function')?gHBars('Potencial por empresa (%)',potChart,{top:14,labelW:70,pct:true,signColor:true}):'';
+  var inner='';
+  inner+='<h2>Oportunidades</h2>'+_infKpis([['Empresas analizadas',String(rows.length)],['En zona de compra',String(nZona)],['Decisión COMPRAR',String(nComprar)],['Stops tocados',String(nStop)]]);
+  inner+=_infChartsWrap([chart]);
+  inner+='<h2>Ranking por score</h2><table><thead><tr><th>Empresa</th><th>Decisión</th><th class="num">Rating</th><th class="num">Score</th><th class="num">Cotización</th><th class="num">PO medio</th><th class="num">Potencial</th><th>Estado</th></tr></thead><tbody>'+trs+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">El score (0–100) pondera potencial, margen de entrada, calidad (rating) y certeza. «En zona» = cotización ≤ entrada máxima. No es recomendación de compra automática.</p></div>';
+  return _infDocWrap('Oportunidades de inversión',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 3.6 COMERCIOS ============ */
+function buildComercios(ctx){
+  var gl=ctx.base.filter(function(m){return m.tipo==='gasto';});
+  if(!gl.length)return _infDocWrap('Informe de comercios',[_infEsc(ctx.label)],'<p class="muted">Sin gastos en el periodo.</p>');
+  var by={}; gl.forEach(function(m){ var co=(m.comercio||'').trim()||'(sin comercio)'; var o=by[co]=by[co]||{tot:0,n:0}; o.tot+=num(m.importe); o.n++; });
+  var arr=Object.keys(by).map(function(k){return {c:k,tot:by[k].tot,n:by[k].n,med:by[k].tot/by[k].n};}).sort(function(a,b){return b.tot-a.tot;});
+  var totalGasto=arr.reduce(function(s,x){return s+x.tot;},0), totalN=arr.reduce(function(s,x){return s+x.n;},0);
+  var chart=(typeof gHBars==='function')?gHBars('Top comercios (€)',arr.map(function(x){return {label:x.c,val:x.tot};}),{top:15,labelW:120}):'';
+  var rows=arr.slice(0,30).map(function(x){return '<tr><td>'+_infEsc(x.c)+'</td><td class="num">'+fmt(x.tot)+'</td><td class="num">'+x.n+'</td><td class="num">'+fmt(x.med)+'</td><td class="num">'+(totalGasto?(x.tot/totalGasto*100).toFixed(1)+'%':'—')+'</td></tr>';}).join('');
+  rows+='<tr class="tot"><td>TOTAL</td><td class="num">'+fmt(totalGasto)+'</td><td class="num">'+totalN+'</td><td class="num"></td><td class="num">100%</td></tr>';
+  var top=arr[0]||{};
+  var inner='';
+  inner+='<h2>Gasto por comercio</h2>'+_infKpis([['Nº comercios',String(arr.length)],['Comercio top',_infEsc(top.c||'—')],['Gasto en el top',fmt(top.tot||0)],['Gasto total',fmt(totalGasto)]]);
+  inner+=_infChartsWrap([chart]);
+  inner+='<h2>Detalle por comercio (top 30)</h2><table><thead><tr><th>Comercio</th><th class="num">Importe</th><th class="num">Nº ops</th><th class="num">Ticket medio</th><th class="num">% gasto</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Informe de comercios',[_infEsc(ctx.label)+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 3.5 POR TITULAR ============ */
+function buildTitular(ctx){
+  var byT={};
+  ctx.base.forEach(function(m){ var t=(m.titular||'(sin titular)'); var o=byT[t]=byT[t]||{ing:0,gas:0}; if(m.tipo==='ingreso')o.ing+=num(m.importe); else if(m.tipo==='gasto')o.gas+=num(m.importe); });
+  var tits=Object.keys(byT);
+  if(!tits.length)return _infDocWrap('Informe por titular',[_infEsc(ctx.label)],'<p class="muted">Sin movimientos en el periodo.</p>');
+  var totGas=tits.reduce(function(s,t){return s+byT[t].gas;},0);
+  var donut=(typeof gDonut==='function')?gDonut('Gasto por titular',tits.map(function(t){return {label:t,val:byT[t].gas};})):'';
+  var rows=tits.slice().sort(function(a,b){return byT[b].gas-byT[a].gas;}).map(function(t){ var o=byT[t]; return '<tr><td>'+_infEsc(t)+'</td><td class="num">'+fmt(o.ing)+'</td><td class="num">'+fmt(o.gas)+'</td><td class="num" style="color:'+((o.ing-o.gas)>=0?'#16a34a':'#dc2626')+'">'+((o.ing-o.gas)>=0?'+':'')+fmt(o.ing-o.gas)+'</td></tr>';}).join('');
+  var dos=byT['Dos']?byT['Dos'].gas:0; var imput={};
+  tits.forEach(function(t){ if(t==='Dos')return; imput[t]=byT[t].gas; });
+  ['Carlos','Susana'].forEach(function(t){ imput[t]=(imput[t]||0)+dos/2; });
+  var repRows=Object.keys(imput).sort(function(a,b){return imput[b]-imput[a];}).map(function(t){ return '<tr><td>'+_infEsc(t)+'</td><td class="num">'+fmt(imput[t])+'</td><td class="num">'+(totGas?(imput[t]/totGas*100).toFixed(0)+'%':'—')+'</td></tr>';}).join('');
+  var inner='';
+  inner+='<h2>Por titular</h2>'+_infKpis(tits.slice(0,4).map(function(t){return ['Gasto '+t,fmt(byT[t].gas)];}));
+  inner+=_infChartsWrap([donut]);
+  inner+='<h2>Ingresos y gastos por titular</h2><table><thead><tr><th>Titular</th><th class="num">Ingresos</th><th class="num">Gastos</th><th class="num">Balance</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  inner+='<h2>Reparto del gasto (común al 50%)</h2><table><thead><tr><th>Persona</th><th class="num">Gasto imputado</th><th class="num">% del total</th></tr></thead><tbody>'+repRows+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">El reparto imputa a cada persona sus gastos propios más la mitad de los gastos marcados como «Dos» (compartidos).</p></div>';
+  return _infDocWrap('Informe por titular',[_infEsc(ctx.label)+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
+}
+
+/* ============ 3.8 REEMBOLSABLES (AMALIA) ============ */
+function buildAmalia(ctx){
+  var am=(DB.amalia||[]).slice();
+  if(!am.length)return _infDocWrap('Reembolsables (Amalia)',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin movimientos de Amalia.</p>');
+  var saldo=(typeof amaliaSaldo==='function')?amaliaSaldo():am.reduce(function(s,e){return s+(e.tipo==='gasto'?num(e.importe):-num(e.importe));},0);
+  var tGas=0,tReemb=0; am.forEach(function(e){ if(e.tipo==='gasto')tGas+=num(e.importe); else tReemb+=num(e.importe); });
+  var rows=am.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');}).map(function(e){ return '<tr><td>'+(e.fecha?ddmmyyyy(e.fecha):'—')+'</td><td>'+_infEsc(e.concepto)+'</td><td>'+(e.tipo==='gasto'?'Gasto':'Reembolso')+'</td><td>'+_infEsc(e.nota||'')+'</td><td class="num" style="color:'+(e.tipo==='gasto'?'#dc2626':'#16a34a')+'">'+(e.tipo==='gasto'?'+':'−')+fmt(num(e.importe))+'</td></tr>';}).join('');
+  var inner='';
+  inner+='<h2>Reembolsables</h2>'+_infKpis([['Pendiente de cobro',fmt(saldo)],['Total gastos',fmt(tGas)],['Total reembolsado',fmt(tReemb)],['Nº movimientos',String(am.length)]]);
+  inner+='<h2>Movimientos</h2><table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Nota</th><th class="num">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Reembolsables (Amalia)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
@@ -295,11 +368,15 @@ var INF_REPORTS=[
   {id:'presupuesto',nombre:'Ejecución presupuestaria',ambito:'Hogar',build:buildPresupuesto},
   {id:'interanual',nombre:'Comparativo interanual',ambito:'Hogar',build:buildInteranual},
   {id:'recurrentes',nombre:'Recurrentes y suscripciones',ambito:'Hogar',build:buildRecurrentes},
+  {id:'titular',nombre:'Por titular',ambito:'Hogar',build:buildTitular},
+  {id:'comercios',nombre:'Comercios',ambito:'Hogar',build:buildComercios},
+  {id:'amalia',nombre:'Reembolsables (Amalia)',ambito:'Hogar',build:buildAmalia},
   {id:'patrimonio',nombre:'Patrimonio',ambito:'Inversión',build:buildPatrimonio},
   {id:'cartera',nombre:'Cartera',ambito:'Inversión',build:buildCartera},
   {id:'dividendos',nombre:'Dividendos',ambito:'Inversión',build:buildDividendos},
   {id:'fiscal',nombre:'Fiscal (renta)',ambito:'Inversión',build:buildFiscal},
-  {id:'rentabilidad',nombre:'Rentabilidad vs IBEX',ambito:'Inversión',build:buildRentabilidad}
+  {id:'rentabilidad',nombre:'Rentabilidad vs IBEX',ambito:'Inversión',build:buildRentabilidad},
+  {id:'oportunidades',nombre:'Oportunidades (watchlist)',ambito:'Inversión',build:buildOportunidades}
 ];
 
 /* ---------- generar (uno o varios combinados) ---------- */
