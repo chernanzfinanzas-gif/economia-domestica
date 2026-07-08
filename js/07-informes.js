@@ -461,7 +461,7 @@ var INF_LOGO_KHB='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGlu
 function _infDocWrapKHB(titulo, metas, inner){
   var m=(metas||[]).map(function(x){return '<div class="metaline">'+x+'</div>';}).join('');
   return '<div class="infDoc">'
-    +'<div class="infHdr"><img src="'+INF_LOGO_KHB+'" alt="KHB Equity Investment" style="height:56px"><div class="tt"><h1>'+_infEsc(titulo)+'</h1><div class="sub">KHB Equity Investment · Analisis y Gestion de Carteras</div></div></div><div class="accent"></div>'
+    +'<div class="infHdr"><div class="khblogo"><svg viewBox="0 0 156 50" width="156" height="50" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="KHB Equity Investment" style="height:60px;width:auto;display:block"><g font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="46"><text x="0" y="42" fill="#1f3d6b">K</text><text x="40" y="42" fill="#3a7d44">H</text><text x="82" y="42" fill="#3a7d44">B</text></g><g fill="none" stroke="#1f3d6b" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"><polyline points="86,34 104,16 114,24 138,6"/></g><polygon points="148,2 126,4 142,20" fill="#1f3d6b"/></svg></div><div class="tt"><h1>'+_infEsc(titulo)+'</h1><div class="sub">KHB Equity Investment · Analisis y Gestion de Carteras</div></div></div><div class="accent"></div>'
     +m+inner
     +'<div class="foot"><span>KHB Equity Investment · Informes y Gestion de Carteras</span><span></span></div>'
     +'</div>';
