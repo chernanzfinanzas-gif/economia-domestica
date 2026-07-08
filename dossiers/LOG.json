@@ -1,0 +1,32 @@
+{
+"ticker": "LOG",
+"empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
+"fecha": "2026-07-08",
+"rating": "AA",
+"score": 79.8,
+"decision": "MANTENER",
+"metodoValoracion": "DCF (WACC normalizado 8%) + múltiplos históricos — consumo/distribución. PO oficial = síntesis ponderada ≈ 33,5 €; el DCF base daría ~39 € y los múltiplos históricos (sesgados a la baja por precios ajustados por dividendo) ~20 €.",
+"poBear": 24.0,
+"poBase": 34.0,
+"poBull": 47.0,
+"entMin": 27.0,
+"entMax": 30.0,
+"stop": 22.7,
+"moat": "Ancho (78/100)",
+"catalizadores": [
+"Dividendo FY2026 sostenido o creciente (valida la tesis de renta)",
+"La diversificación (transporte, Pharma, conveniencia) compensa el declive del tabaco",
+"Estabilización del resultado financiero al tocar suelo los tipos del BCE",
+"Nueva adquisición bolt-on creadora de valor (ROIC>WACC) con la caja neta"
+],
+"riesgos": [
+"Declive estructural de los volúmenes de tabaco (~−3%/año)",
+"Caída de tipos del BCE que revierte el ingreso financiero de la caja",
+"Endurecimiento fiscal/regulatorio del tabaco (Francia/UE)",
+"Gobernanza: Imperial Brands controla el 50,01% y la línea de tesorería",
+"Pay-out ~98% sin colchón ante un mal ejercicio"
+],
+"bull": "La diversificación compensa el tabaco, los tipos se estabilizan altos manteniendo el ingreso financiero y el mercado recalifica a PER ~16x: la acción tendería a 45-50 € (+35-47%).",
+"bear": "Tormenta fiscal-monetaria (recorte de tipos + subida fiscal del tabaco en Francia) → beneficio −20% → recorte del dividendo ~30% → des-rating: 22-25 € (−26 a −35%).",
+"resumen": "Logista es un cuasi-monopolio regulado de distribución, de calidad excepcional (Rating AA, moat ancho, ROIC ~31%, balance de caja neta, dividendo ~6% cubierto por la caja libre), que cotiza cerca de su valor razonable tras re-valorizarse con fuerza. Tesis de RENTA defensiva, no de revalorización: MANTENER para el inversor posicionado; ESPERAR entrada por debajo de 30 €. El punto a vigilar es la sensibilidad del beneficio a los tipos del BCE con un pay-out del ~98%."
+}
