@@ -456,6 +456,161 @@ function buildCombustible(ctx){
   return _infDocWrap('Informe de combustible (Mazinger Z)',[_infEsc(ctx.label)+' · emitido el '+ddmmyyyy(_infHoyS())],inner);
 }
 
+/* ============ 4.10 INFORME POR EMPRESA (ficha + tesis + situacion + evolucion) ============ */
+var INF_LOGO_KHB='data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB2aWV3Qm94PSIwIDAgMTU2IDUwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iS0hCIEVxdWl0eSBJbnZlc3RtZW50Ij4KICAgICAgPGcgZm9udC1mYW1pbHk9IidBcmlhbCBCbGFjaycsJ0FyaWFsIE5hcnJvdyBCb2xkJyxBcmlhbCxzYW5zLXNlcmlmIiBmb250LXdlaWdodD0iOTAwIiBmb250LXNpemU9IjQ2Ij4KICAgICAgICA8dGV4dCB4PSIwIiAgeT0iNDIiIGZpbGw9IiMxZjNkNmIiPks8L3RleHQ+CiAgICAgICAgPHRleHQgeD0iNDAiIHk9IjQyIiBmaWxsPSIjM2E3ZDQ0Ij5IPC90ZXh0PgogICAgICAgIDx0ZXh0IHg9IjgyIiB5PSI0MiIgZmlsbD0iIzNhN2Q0NCI+QjwvdGV4dD4KICAgICAgPC9nPgogICAgICA8ZyBmaWxsPSJub25lIiBzdHJva2U9IiMxZjNkNmIiIHN0cm9rZS13aWR0aD0iNiIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4KICAgICAgICA8cG9seWxpbmUgcG9pbnRzPSI4NiwzNCAxMDQsMTYgMTE0LDI0IDEzOCw2Ii8+CiAgICAgIDwvZz4KICAgICAgPHBvbHlnb24gcG9pbnRzPSIxNDgsMiAxMjYsNCAxNDIsMjAiIGZpbGw9IiMxZjNkNmIiLz4KICAgIDwvc3ZnPg==';
+function _infDocWrapKHB(titulo, metas, inner){
+  var m=(metas||[]).map(function(x){return '<div class="metaline">'+x+'</div>';}).join('');
+  return '<div class="infDoc">'
+    +'<div class="infHdr"><img src="'+INF_LOGO_KHB+'" alt="KHB Equity Investment" style="height:56px"><div class="tt"><h1>'+_infEsc(titulo)+'</h1><div class="sub">KHB Equity Investment · Analisis y Gestion de Carteras</div></div></div><div class="accent"></div>'
+    +m+inner
+    +'<div class="foot"><span>KHB Equity Investment · Informes y Gestion de Carteras</span><span></span></div>'
+    +'</div>';
+}
+function _infTrimTabla(t){
+  t=(t||'').toUpperCase(); var d=(typeof _trimCache!=='undefined')?_trimCache[t]:null;
+  if(!d||!d.revisiones||!d.revisiones.length)return '<p class="muted">Sin informes trimestrales registrados para esta empresa.</p>';
+  var semCol={V:'#16a34a',A:'#d97706',R:'#dc2626'}; var semTxt={V:'🟢 VERDE',A:'🟡 AMBAR',R:'🔴 ROJO'};
+  var revs=d.revisiones.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
+  var trend=d.revisiones.slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');}).map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); return (semTxt[s]||'·').split(' ')[0]; }).join(' → ');
+  var rows=revs.map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); var intac=(r.tesisSigueIntacta===false)?'<span style="color:#dc2626;font-weight:700">en revision</span>':(r.tesisSigueIntacta===true?'<span style="color:#16a34a;font-weight:700">intacta</span>':'—');
+    return '<tr><td>'+_trimEsc(r.periodo||'—')+'</td><td>'+(r.fecha?ddmmyyyy(r.fecha):'—')+'</td><td style="color:'+(semCol[s]||'#475569')+';font-weight:700">'+(semTxt[s]||s||'—')+'</td><td>'+intac+'</td><td>'+_trimEsc(r.resumen||'')+'</td></tr>'; }).join('');
+  var last=revs[0]; var metr=(last&&last.metricas)?last.metricas.map(function(m){return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600">'+_trimFmt(m.valor)+'</td></tr>';}).join(''):'';
+  var html='';
+  if(d.revisiones.length>1)html+='<div class="metaline" style="font-size:13px;margin:0 0 6px">Progreso del semaforo: '+trend+'</div>';
+  html+='<table><thead><tr><th>Periodo</th><th>Fecha</th><th>Semaforo</th><th>Tesis</th><th>Resumen del trimestre</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  if(metr)html+='<h3>Metricas del ultimo trimestre ('+_trimEsc(last.periodo||'')+')</h3><table><thead><tr><th>Metrica</th><th class="num">Valor</th></tr></thead><tbody>'+metr+'</tbody></table>';
+  return html;
+}
+function _infEmpresaUniverse(){
+  var seen={}, out=[];
+  function add(t,nombre){ t=(t||'').toUpperCase(); if(!t||seen[t])return; seen[t]=1; out.push({t:t,nombre:nombre||t}); }
+  (DB.analisis||[]).forEach(function(a){ add(a.ticker,a.nombre); });
+  try{ (invPositions()||[]).forEach(function(p){ if(p.acciones>0.0001) add(p.ticker,p.nombre); }); }catch(e){}
+  (DB.cerradas||[]).forEach(function(c){ add(c.ticker,c.nombre); });
+  out.sort(function(a,b){ return a.t.localeCompare(b.t); });
+  return out;
+}
+function _infResolveEmpresa(str){
+  str=(str||'').trim(); if(!str)return '';
+  if(str.indexOf(' — ')>=0) str=str.split(' — ')[0].trim();
+  var up=str.toUpperCase(); var uni=_infEmpresaUniverse(); var set={}; uni.forEach(function(x){set[x.t]=1;});
+  if(set[up])return up;
+  var hit=uni.filter(function(x){return (x.nombre||'').toUpperCase()===up;})[0]; if(hit)return hit.t;
+  if(typeof anaFindTicker==='function'){ var ft=(''+(anaFindTicker(str)||'')).toUpperCase(); if(ft&&set[ft])return ft; }
+  hit=uni.filter(function(x){return x.t.indexOf(up)===0||(x.nombre||'').toUpperCase().indexOf(up)===0;})[0]; if(hit)return hit.t;
+  return '';
+}
+function _infEstadoEntrada(cot,entMax){ if(!(cot>0&&entMax>0))return '—'; if(cot<=entMax)return '<span style="color:#16a34a;font-weight:700">en zona de compra</span>'; return '<span style="color:#dc2626;font-weight:700">+'+((cot/entMax-1)*100).toFixed(0)+'% sobre la entrada</span>'; }
+function _infTesisHistTabla(t){
+  t=(t||'').toUpperCase(); var arr=(((DB.tesisHist||{})[t])||[]).slice().sort(function(x,y){return (y.fecha||'').localeCompare(x.fecha||'');});
+  var a=(DB.analisis||[]).filter(function(x){return (x.ticker||'').toUpperCase()===t;})[0]||{}; var ahora=num(a.cotizacion); var dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  if(!arr.length)return '<p class="muted">Sin fotos de la tesis registradas todavia.</p>';
+  var rows=arr.map(function(sn){ var then=num(sn.cotizacion); var rent=(then&&ahora)?(ahora/then-1):null; var d=(sn.decision||'').toUpperCase(); var mk='—',mc='#64748b';
+    if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){ mk=rent>=0?'acertada':'a la baja'; mc=rent>=0?'#16a34a':'#dc2626'; } else if(d==='VENDER'){ mk=rent<0?'acertada':'subio'; mc=rent<0?'#16a34a':'#dc2626'; } else if(d==='ESPERAR'){ if(rent>0.05){mk='se escapo +'+(rent*100).toFixed(0)+'%';mc='#d97706';} else if(rent<0){mk='bien esperado';mc='#16a34a';} else {mk='neutral';} } }
+    return '<tr><td>'+(sn.fecha?ddmmyyyy(sn.fecha):'—')+'</td><td style="color:'+(dc[d]||'#475569')+';font-weight:700">'+(d||'—')+'</td><td class="num">'+(sn.rating||'—')+(sn.score!=null?' · '+Math.round(sn.score):'')+'</td><td class="num">'+(sn.poBase?fmt(sn.poBase):'—')+'</td><td class="num">'+(then?fmt(then):'—')+'</td><td class="num" style="color:'+(rent==null?'#111':(rent>=0?'#16a34a':'#dc2626'))+'">'+(rent==null?'—':(rent>=0?'+':'')+(rent*100).toFixed(1)+'%')+'</td><td style="color:'+mc+'">'+mk+'</td></tr>';
+  }).join('');
+  return '<table><thead><tr><th>Fecha</th><th>Decision</th><th class="num">Rating·Score</th><th class="num">PO base</th><th class="num">Cotiz. entonces</th><th class="num">Rentab. desde</th><th>Resultado</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function buildEmpresa(ctx,tOverride){
+  var t=((tOverride||(ctx&&ctx.empresa)||'')+'').toUpperCase();
+  if(!t)return _infDocWrap('Informe por empresa',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">No se ha elegido ninguna empresa.</p>');
+  var a=(DB.analisis||[]).filter(function(x){return (x.ticker||'').toUpperCase()===t;})[0]||{};
+  var v=(DB.valores||{})[t]||{};
+  var nombre=a.nombre||v.nombre||t;
+  var sector=(typeof SECTOR!=='undefined'&&SECTOR[t])||'—';
+  var sub=(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||'';
+  var f=(typeof fichaCalc==='function')?fichaCalc(t):null;
+  var cot=num(a.cotizacion)||num(v.precioActual)||(f?f.precioActual:0);
+  var bear=num(a.poMin),bull=num(a.poMax); var base=(bear&&bull)?(bear+bull)/2:(num(a.precioObjetivo)||bull||bear||0);
+  var entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis);
+  var dec=(a.decision||'').toUpperCase(), rating=(a.rating||'').toUpperCase();
+  var dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  var pot=(cot&&base)?(base/cot-1)*100:null; var potBull=(cot&&bull)?(bull/cot-1)*100:null;
+  var potStr=(pot!=null)?((pot>=0?'+':'')+pot.toFixed(0)+'%'):'—';
+  var mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null;
+  var dossierTxt=(a.dossierFecha?('dossier '+ddmmyyyy(a.dossierFecha)+(mm!=null?(' · hace '+mm+' m'+(mm>12?' (conviene reanalizar)':'')):'')):'sin dossier');
+  var posList=[]; try{ posList=(invPositions()||[]).filter(function(p){return (p.ticker||'').toUpperCase()===t&&p.acciones>0.0001;}); }catch(e){}
+  var esHeld=posList.length>0;
+  var esCerrada=(DB.cerradas||[]).some(function(c){return (c.ticker||'').toUpperCase()===t;});
+  var acc=0,coste=0,pa=cot; posList.forEach(function(p){ acc+=p.acciones; coste+=p.acciones*p.precioCompra; if(p.precioActual)pa=p.precioActual; });
+  var valor=acc*pa, pl=valor-coste, plpct=coste?pl/coste*100:0;
+  var divCobr=(f&&f.tot)?f.tot.div:0; var netoMedio=(f&&f.tot)?f.tot.netoMedio:0; var precioMedio=(coste&&acc)?coste/acc:((f&&f.tot)?f.tot.precioMedio:0);
+  var rentTot=coste?(pl+divCobr)/coste*100:0;
+  var divAccAnual=num(a.divAccion)||num(v.divAccion)||(posList[0]?posList[0].divAccion:0);
+  var rpd=valor?(acc*divAccAnual)/valor*100:0; var yoc=coste?(acc*divAccAnual)/coste*100:0;
+  var totPort=0; try{ (invPositions()||[]).forEach(function(p){ if(p.acciones>0.0001)totPort+=p.acciones*p.precioActual; }); }catch(e){}
+  var peso=totPort?valor/totPort*100:0;
+  var estadoBadge=esHeld?'<span style="color:#16a34a;font-weight:700">POSICION ABIERTA</span>':(esCerrada?'<span style="color:#64748b;font-weight:700">POSICION CERRADA</span>':'<span style="color:#d97706;font-weight:700">PENDIENTE DE ABRIR / DECIDIR</span>');
+  var metas=[_infEsc(nombre)+' ('+t+') · '+_infEsc(sector)+(sub?(' · '+_infEsc(sub)):''), 'A fecha de '+ddmmyyyy(_infHoyS())+' · '+dossierTxt];
+  var inner='';
+  inner+='<h2>Ficha y veredicto</h2>';
+  inner+='<div class="metaline" style="font-size:13px;margin:0 0 6px">Estado de la inversion: '+estadoBadge+'</div>';
+  inner+=_infKpis([['Decision','<span style="color:'+(dc[dec]||'#475569')+'">'+(dec||'—')+'</span>'],['Calidad',(rating||'—')],['Cotizacion',(cot?fmt(cot):'—')],['PO base',(base?fmt(base):'—')],['Potencial',potStr]]);
+  var chartVal=(typeof gBars==='function'&&(bear||base||bull))?gBars('Rango de valoracion vs cotizacion',['Pesimista','Base','Optimista','Cotizacion'],[{name:'€',color:'#1E3A5F',vals:[bear,base,bull,cot]}],{}):'';
+  var tRows=''
+    +'<tr><td>PO pesimista (bear)</td><td class="num">'+(bear?fmt(bear):'—')+'</td></tr>'
+    +'<tr><td>PO base</td><td class="num">'+(base?fmt(base):'—')+'</td></tr>'
+    +'<tr><td>PO optimista (bull)</td><td class="num">'+(bull?fmt(bull):'—')+'</td></tr>'
+    +'<tr><td>Banda de entrada</td><td class="num">'+((entMin||entMax)?(fmt(entMin)+' – '+fmt(entMax)):'—')+'</td></tr>'
+    +'<tr><td>Stop de tesis</td><td class="num">'+(stop?fmt(stop):'—')+'</td></tr>'
+    +'<tr><td>Cotizacion actual</td><td class="num">'+(cot?fmt(cot):'—')+'</td></tr>'
+    +'<tr><td>Potencial a PO base</td><td class="num">'+potStr+'</td></tr>'
+    +'<tr><td>Potencial a PO optimista</td><td class="num">'+(potBull!=null?((potBull>=0?'+':'')+potBull.toFixed(0)+'%'):'—')+'</td></tr>'
+    +'<tr><td>Estado de entrada</td><td class="num">'+_infEstadoEntrada(cot,entMax)+'</td></tr>';
+  inner+='<h2>Tesis de inversion</h2>';
+  if(chartVal)inner+=_infChartsWrap([chartVal]);
+  inner+='<table><thead><tr><th>Parametro</th><th class="num">Valor</th></tr></thead><tbody>'+tRows+'</tbody></table>';
+  if(!(bear||bull||dec))inner+='<p class="muted">Esta empresa aun no tiene tesis ni veredicto registrados en el analisis.</p>';
+  inner+='<h2>Situacion</h2>';
+  if(esHeld){
+    inner+=_infKpis([['Acciones',String(Math.round(acc))],['Precio medio',fmt(precioMedio)],['Precio neto',fmt(netoMedio)],['Valor',fmt(valor)],['Plusvalia',(pl>=0?'+':'')+fmt(pl)+' ('+(plpct>=0?'+':'')+plpct.toFixed(1)+'%)']]);
+    inner+=_infKpis([['Dividendos cobrados',fmt(divCobr)],['Rentab. total',(rentTot>=0?'+':'')+rentTot.toFixed(1)+'%'],['Peso en cartera',peso.toFixed(1)+'%'],['RPD',rpd.toFixed(1)+'%'],['YoC',yoc.toFixed(1)+'%']]);
+    var stopLine=''; if(stop>0&&cot>0){ stopLine=(cot<=stop)?('<b style="color:#dc2626">La cotizacion ha tocado el stop de tesis ('+fmt(stop)+'): revisar la posicion.</b>'):('Colchon sobre el stop de tesis: '+((cot/stop-1)*100).toFixed(0)+'%.'); }
+    inner+='<div class="resumen"><p>Tienes <b>'+Math.round(acc)+'</b> acciones compradas a un precio medio de <b>'+fmt(precioMedio)+'</b> (neto <b>'+fmt(netoMedio)+'</b> tras descontar dividendos). Hoy valen <b>'+fmt(valor)+'</b> frente a un coste de <b>'+fmt(coste)+'</b>, con una plusvalia de <b style="color:'+(pl>=0?'#16a34a':'#dc2626')+'">'+(pl>=0?'+':'')+fmt(pl)+'</b> ('+(plpct>=0?'+':'')+plpct.toFixed(1)+'%). Has cobrado <b>'+fmt(divCobr)+'</b> en dividendos, por lo que la rentabilidad total (con dividendos) es del <b>'+rentTot.toFixed(1)+'%</b>. '+stopLine+'</p></div>';
+  } else if(esCerrada){
+    inner+='<div class="resumen"><p>Posicion <b>cerrada</b>. Ya no la mantienes en cartera; permanece en el radar por si vuelve a ser una oportunidad. El resultado realizado y el detalle de operaciones estan en su Ficha (Inversiones → '+t+').</p></div>';
+  } else {
+    inner+=_infKpis([['Cotizacion',(cot?fmt(cot):'—')],['Decision','<span style="color:'+(dc[dec]||'#475569')+'">'+(dec||'—')+'</span>'],['PO base',(base?fmt(base):'—')],['Potencial',potStr],['Entrada','≤ '+(entMax?fmt(entMax):'—')]]);
+    var falta=''; if(entMax>0&&cot>0){ falta=(cot<=entMax)?('La cotizacion ya esta en zona de compra (≤ '+fmt(entMax)+').'):('Para entrar en zona deberia caer un '+((cot/entMax-1)*100).toFixed(0)+'% (hasta '+fmt(entMax)+').'); }
+    inner+='<div class="resumen"><p>Posicion <b>pendiente de abrir o decidir</b>. Decision actual del analisis: <b style="color:'+(dc[dec]||'#475569')+'">'+(dec||'sin definir')+'</b>. La empresa cotiza a <b>'+fmt(cot)+'</b>'+((base&&pot!=null)?(', frente a un precio objetivo base de <b>'+fmt(base)+'</b> ('+potStr+' de potencial)'):'')+'. '+falta+' '+_infEstadoEntrada(cot,entMax)+'.</p></div>';
+  }
+  inner+='<h2>Informes trimestrales y progreso de la tesis</h2>'+_infTrimTabla(t);
+  inner+='<h2>Evolucion</h2>';
+  var dpa=(DB.divPorAccion||{})[t]||{}; var yrs=Object.keys(dpa).filter(function(y){return num(dpa[y])>0;}).sort();
+  if(yrs.length>=2&&typeof gBars==='function'){ inner+=_infChartsWrap([gBars('Dividendo por accion por año',yrs,[{name:'Div/accion',color:'#2E7D42',vals:yrs.map(function(y){return num(dpa[y]);})}],{})]); }
+  inner+='<h3>Historico de la tesis y su resultado</h3>'+_infTesisHistTabla(t);
+  if(esHeld&&f&&f.divYears&&f.divYears.length){
+    var dyRows=f.divYears.slice(0,10).map(function(g){ return '<tr><td>'+g.year+'</td><td class="num">'+fmt(g.divShareSum)+'</td><td class="num">'+(g.rend*100).toFixed(2)+'%</td></tr>'; }).join('');
+    inner+='<h3>Rentabilidad sobre coste por año (YoC)</h3><table><thead><tr><th>Año</th><th class="num">Div/accion</th><th class="num">YoC</th></tr></thead><tbody>'+dyRows+'</tbody></table>';
+  }
+  return _infDocWrapKHB('Informe de empresa · '+nombre+' ('+t+')',metas,inner);
+}
+function _infEmpresaBlockHTML(){
+  var uni=_infEmpresaUniverse();
+  var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
+  return '<div class="card" style="margin:0 0 14px;border:2px solid #1E3A5F">'
+    +'<div style="font-weight:800;font-size:15px;margin-bottom:4px">📄 Informe por empresa</div>'
+    +'<div class="muted" style="font-size:12px;margin-bottom:8px">Escribe el ticker o el nombre de cualquier empresa de tu radar; se te sugieren coincidencias. Genera su informe: veredicto, tesis, tu situacion (si la tienes en cartera) o como va la empresa (si esta pendiente), y la evolucion.</div>'
+    +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+    +'<input id="infcEmpresa" list="infcEmpresaDL" placeholder="Ej.: IBE o Iberdrola…" autocomplete="off" style="flex:1;min-width:240px;padding:8px;border:1px solid var(--line);border-radius:8px">'
+    +'<datalist id="infcEmpresaDL">'+opts+'</datalist>'
+    +'<button class="btn" id="infcGenEmpresa">🖨️ Generar informe de la empresa (PDF)</button>'
+    +'</div>'
+    +'<div id="infcEmpresaMsg" class="muted" style="font-size:12px;margin-top:6px"></div>'
+    +'</div>';
+}
+function generarInformeEmpresa(){
+  var inp=document.getElementById('infcEmpresa'); var msg=document.getElementById('infcEmpresaMsg');
+  var t=_infResolveEmpresa(inp?inp.value:'');
+  if(!t){ if(msg)msg.innerHTML='<span style="color:#dc2626">No reconozco esa empresa. Prueba con el ticker (p. ej. IBE) o eligela de la lista.</span>'; return; }
+  if(msg){ msg.innerHTML='<span class="muted">Preparando el informe de <b>'+t+'</b>…</span>'; }
+  function _p(){ if(msg)msg.textContent=''; var host=_infEnsurePrint(); host.innerHTML=buildEmpresa(null,t); window.print(); }
+  var jobs=[];
+  if(typeof cargarPreciosCartera==='function')jobs.push(Promise.resolve(cargarPreciosCartera()).catch(function(){}));
+  if(typeof cargarTrimestral==='function')jobs.push(Promise.resolve(cargarTrimestral(t)).catch(function(){}));
+  if(jobs.length)Promise.all(jobs).then(_p,_p); else _p();
+}
+
 /* ---------- registro de informes ---------- */
 var INF_REPORTS=[
   {id:'gastos',nombre:'Informe de gastos (con gráficos)',ambito:'Hogar',build:buildGastos},
@@ -501,7 +656,7 @@ function renderInformesCenter(){
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
   var catHtml=Object.keys(groups).sort().map(function(g){ var gs=_infEsc(g); var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infcCat" value="'+c.id+'"> '+_infEsc(c.nombre)+'</label>'; }).join(''); return '<div style="margin-bottom:4px"><div style="font-weight:700;font-size:11px">'+gs+'</div>'+items+'</div>'; }).join('');
   var titHtml=(typeof _infTitulares==='function'?_infTitulares():['Carlos','Susana','Dos']).map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infcTit" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
-  host.innerHTML='<div id="infcBuilt" class="card" style="margin:0 0 14px">'
+  host.innerHTML=_infEmpresaBlockHTML()+'<div id="infcBuilt" class="card" style="margin:0 0 14px">'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">'
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">1 · Elige informes</div><div class="muted" style="font-size:11px;margin-bottom:6px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml+'</div>'
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">2 · Periodo</div>'
@@ -525,4 +680,6 @@ function renderInformesCenter(){
   pe.addEventListener('change',function(){ var v=this.value; document.getElementById('infcMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infcAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infcDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infcHastaWrap').style.display=v==='rango'?'':'none'; });
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.infcCat').forEach(function(x){x.checked=ck;}); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
+  var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
+  var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
 }
