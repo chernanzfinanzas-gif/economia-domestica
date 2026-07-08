@@ -1,0 +1,55 @@
+{
+  "ticker": "LOG",
+  "empresa": "Logista",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-02-05",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre mixto que confirma el patrón de 2025: el Bº de Explotación Ajustado crece +2,0% y el margen sobre Ventas Económicas mejora 60 pb (hasta 22,0%) —fortaleza operativa—, pero el Beneficio Neto vuelve a caer (−8,4%) por la menor aportación del ingreso financiero al bajar los tipos del BCE. Las Ventas Económicas ceden ligeramente (−0,8%), primer trimestre en negativo. Ámbar: la tesis operativa sigue intacta, pero el beneficio —y el dividendo, con pay-out ~98%— siguen presionados por la reversión de tipos, el riesgo clave del §8.1.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3399
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 454
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 100
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22.0
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 82
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 71
+        },
+        {
+          "nombre": "%var VE",
+          "valor": -0.8
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 2.0
+        },
+        {
+          "nombre": "%var BN",
+          "valor": -8.4
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    }
+  ]
+}
