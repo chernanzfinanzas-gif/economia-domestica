@@ -344,10 +344,35 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="amaList"></div>
   </section>
 
+  <!-- FONDO R4 (liquidez remunerada) -->
+  <section class="view" id="view-fondor4">
+    <h2>Fondo R4 <span class="muted" style="font-weight:400;font-size:13px">· Renta 4 Foncuenta · liquidez remunerada</span></h2>
+    <div class="cards" id="r4Cards"></div>
+    <h3>Nuevo movimiento</h3>
+    <form class="grid" id="r4Form" autocomplete="off">
+      <label>Fecha<input type="date" id="r4Fecha"></label>
+      <label>Tipo<select id="r4Tipo"><option value="aportacion">Aportación (+)</option><option value="retirada">Retirada (−)</option></select></label>
+      <label>Importe (€)<input type="number" id="r4Importe" step="0.01" min="0" placeholder="0,00"></label>
+      <label>Valor del fondo tras el mov. (€)<input type="number" id="r4Valor" step="0.01" min="0" placeholder="opcional"></label>
+      <label id="r4NetoWrap" style="display:none">Interés neto realizado (€)<input type="number" id="r4Neto" step="0.01" placeholder="opcional"></label>
+      <div class="row-actions">
+        <button type="submit" class="btn" id="r4Add">Añadir</button>
+        <button type="button" class="btn ghost" id="r4ImportBtn">Importar (.json)</button>
+      </div>
+    </form>
+    <div class="toolbar"><label class="muted">Orden <select id="r4Orden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select></label></div>
+    <div id="r4List" style="overflow:auto"></div>
+  </section>
+
   <!-- INVERSIONES -->
   <section class="view" id="view-inversiones">
     <h2>Inversiones</h2>
     <div class="cards" id="invCards"></div>
+    <h3 style="margin-top:18px">Posiciones ejecutadas <span class="muted" style="font-weight:400;font-size:12px">· cada compra como un lote, con rentabilidad anualizada (precio + dividendo)</span></h3>
+    <div class="toolbar"><label class="muted">Ver <select id="posFiltro"><option value="todas">Todas</option><option value="cartera">Solo en cartera</option><option value="vendida">Solo vendidas</option></select></label>
+      <label class="muted" style="margin-left:10px">Orden <select id="posOrden"><option value="fecha_desc">Fecha reciente→antigua</option><option value="fecha_asc">Fecha antigua→reciente</option></select></label></div>
+    <div id="posTable" style="overflow:auto"></div>
+    <h3 style="margin-top:24px">Cartera por empresa</h3>
     <div class="toolbar">
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
