@@ -3,8 +3,596 @@
   "empresa": "Logista",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Inicio de FY2023 con integración de adquisiciones de transporte (El Mosca, Carbó). Crecimiento fuerte.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2986
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 398
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 84
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.1
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 71
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 60
+        },
+        {
+          "nombre": "%var VE",
+          "valor": null
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": null
+        },
+        {
+          "nombre": "%var BN",
+          "valor": null
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1 sólido; margen sobre Ventas Económicas del 22%.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 5935.4
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 833.8
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 183.1
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 146.1
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 125.8
+        },
+        {
+          "nombre": "%var VE",
+          "valor": null
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": null
+        },
+        {
+          "nombre": "%var BN",
+          "valor": null
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M con Ventas Económicas de 1.260 M€. EBIT Ajustado no reportado con esa etiqueta en el informe (Pte. Rev.).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9149.8
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1260.3
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 273.3
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 193.4
+        },
+        {
+          "nombre": "%var VE",
+          "valor": null
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": null
+        },
+        {
+          "nombre": "%var BN",
+          "valor": null
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VE +36% (mayoritariamente perímetro por adquisiciones de transporte); BN 272 M€ (+37%). El margen s/VE baja a 21,7% al integrar transporte, de menor margen.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 12428
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1684
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 366
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.7
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 293
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 272
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 36.36
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 17.31
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 36.68
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 1.85
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque fuerte de FY2024; BN +22%, ayudado por el ingreso financiero de la caja (tipos altos).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3166
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 426
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 89
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 20.9
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 72
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 73
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 7.04
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 5.95
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 21.67
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "BN +27%; margen s/VE 22,3%. Aportación creciente del resultado financiero.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 6206
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 867
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 193
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22.3
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 168
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 160
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 3.98
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 5.41
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 27.19
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "BN +22,5%, camino del récord anual.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9480
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1318
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 290
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 249
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 237
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 4.58
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": null
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 22.54
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Récord histórico: BN 308 M€ (+13%), impulsado por el ingreso financiero de la caja a tipos altos. Margen s/VE 21,9%.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 12986
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1757
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 385
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.9
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 326
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 308
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 4.33
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 5.19
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 13.24
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 2.09
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VE +7,5% pero BN sólo +5,5%: empieza a notarse la menor aportación financiera al moderarse los tipos.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3292
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 458
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 98
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.4
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 86
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 77
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 7.51
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 10.11
+        },
+        {
+          "nombre": "%var BN",
+          "valor": 5.48
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "VE +5,7% y BN −5,6%: la divergencia confirma la reversión del ingreso financiero (BCE a la baja).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 6425
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 916
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 202
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 22.1
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 174
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 151
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 5.65
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 4.66
+        },
+        {
+          "nombre": "%var BN",
+          "valor": -5.63
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "VE +3,3% con BN −9,7%: el beneficio cae pese a crecer las Ventas Económicas. Efecto tipos. Ámbar por el subyacente.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9937
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1361
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 287
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.1
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 245
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 214
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 3.26
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": -1.03
+        },
+        {
+          "nombre": "%var BN",
+          "valor": -9.7
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre FY2025: VE +3,0%, BN 281 M€ (−8,8%) y EBIT Aj. −1,8%. El negocio crece pero el beneficio baja por el menor ingreso financiero. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 13536
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1809
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 378
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 20.9
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 318
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 281
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 2.96
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": -1.82
+        },
+        {
+          "nombre": "%var BN",
+          "valor": -8.77
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 2.01
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
-      "fecha": "2026-02-05",
+      "fecha": "2026-04-28",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
       "resumen": "Trimestre mixto que confirma el patrón de 2025: el Bº de Explotación Ajustado crece +2,0% y el margen sobre Ventas Económicas mejora 60 pb (hasta 22,0%) —fortaleza operativa—, pero el Beneficio Neto vuelve a caer (−8,4%) por la menor aportación del ingreso financiero al bajar los tipos del BCE. Las Ventas Económicas ceden ligeramente (−0,8%), primer trimestre en negativo. Ámbar: la tesis operativa sigue intacta, pero el beneficio —y el dividendo, con pay-out ~98%— siguen presionados por la reversión de tipos, el riesgo clave del §8.1.",
@@ -23,7 +611,7 @@
         },
         {
           "nombre": "Margen s/VE %",
-          "valor": 22.0
+          "valor": 22
         },
         {
           "nombre": "Bº Explot. (M€)",
@@ -39,7 +627,7 @@
         },
         {
           "nombre": "%var EBIT Aj.",
-          "valor": 2.0
+          "valor": 2
         },
         {
           "nombre": "%var BN",
@@ -53,7 +641,7 @@
     },
     {
       "periodo": "2026-Q2",
-      "fecha": "2026-04-30",
+      "fecha": "2026-07-25",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
       "resumen": "El primer semestre confirma y AMPLÍA el deterioro: además del Beneficio Neto (−9,9%, por el menor ingreso financiero al bajar los tipos), ahora también ceden la magnitud operativa —Bº de Explotación Ajustado −3,5% y margen sobre Ventas Económicas −49 pb, hasta 21,6%— y las Ventas Económicas (−1,3%). El negocio sigue siendo muy rentable y el balance intacto, pero la debilidad ya no es solo financiera sino también operativa, frente a comparativas altas del año anterior. Ámbar en vigilancia estrecha: un tercer trimestre en negativo obligaría a revisar la tesis. El pay-out ~98% mantiene la presión sobre el dividendo.",

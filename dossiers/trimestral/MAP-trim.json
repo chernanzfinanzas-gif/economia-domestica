@@ -3,8 +3,596 @@
   "empresa": "Mapfre",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-28",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Suelo del ciclo: terremoto de Turquía (−77 M€) y Autos hunden el resultado −17%. Iberia (67) y LATAM (94) sostienen; Mapfre RE muy golpeado por la catástrofe. Solvencia 198,1%.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 7786
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9121
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 128
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": -17
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 98.5
+        },
+        {
+          "nombre": "ROE %",
+          "valor": null
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 67.3
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 94
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 198.1
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Sigue lastrado (−6%) pero el combinado mejora a 97,1%; Iberia 123, LATAM 193 y Mapfre RE 121 aportan. ROE 8,1% y solvencia 197,3% aún flojos.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 14350
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 17026
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 317
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": -6
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 97.1
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 8.1
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 122.7
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 193
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 121
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 197.3
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Combinado 96,8% y Mapfre RE duplica (190), pero el deterioro del fondo de comercio de EE.UU. (−75 M€) deja el neto en −3,6%. Iberia 246, solvencia 198,1%.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 20679
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 24596
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 471
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": -3.6
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 96.8
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 8.2
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 245.5
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 284
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 190
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 198.1
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación (+7,7%; +19% ex-impairment), primas récord. Iberia 361, LATAM 373, Mapfre RE 245, solvencia 199,6%. ROE 9,0% por debajo del umbral del 11%.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 26917
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 32239
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 692
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 7.7
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 97.2
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 9
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 361
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 373
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 245
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 199.6
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Inflexión: resultado +69%, combinado −2,7 pp a 95,8% y ROE supera el 10%. Iberia 73, Mapfre RE recupera (67). El nuevo Plan empieza a notarse.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 8143
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9389
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 216
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 69
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 95.8
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 73.1
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 94
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 67
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 197.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Fuerte momentum (+46%), ROE 10,6%, combinado 95,7%; mejora generalizada (Iberia 168, LATAM 203, Mapfre RE 140).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 15145
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 17725
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 462
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 46
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 95.7
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 10.6
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 168
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 203
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 140
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 196.6
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Combinado 94,8% y ROE 10,9%; mejora técnica en todas las regiones (Iberia 283, LATAM 305, RE 207) pese a Verti Alemania. Solvencia 202,4%.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 21622
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 25345
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 744
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 36
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 94.8
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 10.9
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 283
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 305
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 207
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 202.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Consolidación: +29%, combinado 94,4%, ROE ~11% y solvencia 207,4%. Iberia 367, LATAM 408, Mapfre RE 382.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 28122
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 33177
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 992
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 29
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 94.4
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 10.9
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 367
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 408
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 382
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 207.4
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Buen arranque (+27,6%), combinado 94,1%, ROE 11,7% y solvencia 205,6%; la recuperación de Autos impulsa Iberia (121, +65,6%).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 8584
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9888
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 276
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 27.6
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 94.1
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 11.7
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 121
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 118
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 48
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 205.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Combinado baja a 93,1% y ROE 12,2%; mejora en todas las regiones (Iberia 239, LATAM 223, RE 149). Solvencia sube a 208,7%.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 15947
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 18725
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 570
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 23.6
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 93.1
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 12.2
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 239
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 223
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 149
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 208.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Combinado excelente 92,6%, ROE 12,4% y solvencia 210,4% pese a extraordinarios (−79 M€). Iberia 347, LATAM 340, Mapfre RE 256.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 22384
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 26456
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 829
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 26.8
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 92.6
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 12.4
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 347
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 340
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 256
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 210.4
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Récord histórico: combinado 92,2% (el mejor de su historia), beneficio NIIF 1.133 M€ (+17%), ROE 12,4%, solvencia 205,3% (Dic) y dividendo +12,5%. Iberia 450, Mapfre RE 381.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 29145
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 34501
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 1079
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 19.6
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 92.2
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 12.4
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 450
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 365
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 381
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 205.3
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-29",
+      "fecha": "2026-04-28",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
       "resumen": "La rentabilidad sigue mejorando (resultado +12,7%, ROE 12,9%, combinado 93,2%, solvencia 205,3% (dic-2025 prov.; SFCR 20-may)), PERO las primas caen −2,2% por la divisa: riesgo LatAm/FX visible. Iberia 138, Mapfre RE 85.",

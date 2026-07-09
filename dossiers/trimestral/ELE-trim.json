@@ -3,8 +3,596 @@
   "empresa": "Endesa",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "1T-2023: EBITDA +60% interanual, pero sobre una base muy baja (1T-2022, golpeado por el inicio de la crisis del gas); los ingresos ya caen por la normalización de precios mayoristas. DFN elevada en 11,6 mil M€ por el circulante. Mejora más óptica que real. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 7504
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 1462
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11600
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 594
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 15.7
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22044
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 19
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 9.3
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.8
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1S-2023: EBITDA +13% con recuperación de márgenes de generación y descenso de la deuda a medida que se libera el circulante del gas. Producción aún débil. La tendencia mejora respecto al 1T y confirma la salida gradual de la crisis. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 13121
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 2476
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11600
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 879
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 29.5
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22044
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 36
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 9.3
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.9
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2023: EBITDA −10% y producción −7% por menor hidraulicidad y demanda, y por la comparación con un 3T-2022 fuerte. La normalización de precios pesa sobre los ingresos. Trimestre flojo que anticipa un cierre de año débil. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 19211
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 3353
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11600
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1059
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 46
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22044
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 59.2
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 9.3
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.9
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "FY-2023: el peor año del ciclo. EBITDA −32% y producción −7% por la crisis energética y la baja hidraulicidad. El RON reportado de 2.398 M€ infla la cifra con extraordinarios (comparable ~951 M€); el beneficio neto cae a 742 M€. Inversiones de 2.068 M€ sostenidas. Suelo del ciclo. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 25459
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 3777
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11600
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 951
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 60.3
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 21247
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 75
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 9.9
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.9
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "1T-2024: EBITDA −26% sobre la base alta del 1T-2023 (favorecido por coberturas). Arranque flojo, con márgenes de comercialización presionados. Comparación exigente más que deterioro estructural. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 5547
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 1079
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11300
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 292
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 19
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 21345
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 19
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.9
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "1S-2024: EBITDA −3%, estabilizándose tras el mal arranque; los márgenes empiezan a recomponerse y la deuda se mantiene controlada. Transición hacia la recuperación que se consolidará en el segundo semestre. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 10416
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 2413
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11300
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 772
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 29.78
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 21440
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 37
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2024: EBITDA +16% y RON +30%, clara mejora operativa apoyada en la normalización de los márgenes de generación y la buena evolución de renovables y comercialización. Punto de inflexión del año. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 15765
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 3881
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11300
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1376
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 45.7
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 21440
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 56
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY-2024: recuperación plena. EBITDA +40% hasta 5.293 M€, RON 1.993 M€ (+110% comparable) y DFN reducida a 9,7 mil M€. La normalización de precios, las coberturas y la aportación renovable devuelven el negocio a su nivel estructural. Dividendo holgadamente cubierto. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 21307
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 5293
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11300
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1993
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 59.8
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 21449
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 74
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T-2025: EBITDA +33% y producción +2%, fuerte arranque del ejercicio con márgenes ya normalizados y mayor producción libre de emisiones. Confirma la solidez de la recuperación iniciada en 2024. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 5899
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 1431
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11500
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 583
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 15.9
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22072
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 18
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10.8
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1S-2025: EBITDA +12% y Resultado Neto +30%, con crecimiento de renovables y comercialización y costes financieros bajo control. Semestre que afianza la tendencia y da visibilidad al cumplimiento del guidance anual. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 10880
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 2711
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11500
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1041
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 30.13
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22099
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 35
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 10.8
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.4
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2025: EBITDA +9%, RON +26% y producción +1%, tendencia sólida y sostenida pese a comparaciones cada vez más exigentes. La calidad del mix (renovables + redes) sostiene el margen. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 15948
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 4224
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11500
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1735
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 46.4
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22346
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 54
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 11
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.3
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY-2025: confirma el cierre con EBITDA 5.756 M€ (+9%), RON 2.351 M€ (+18%), producción 61,0 TWh y DFN 10,1 mil M€ (~1,8x). Supera el guidance y consolida la recuperación. Idéntica a la fila REAL. Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 21424
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 5756
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11500
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": null
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 2351
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 61
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22616
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 71
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 11.3
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.2
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
-      "fecha": "2026-05-06",
+      "fecha": "2026-04-28",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
       "resumen": "1T-2026: arranque muy sólido del nuevo Plan Estratégico 2026-28. EBITDA +14% (1.632 M€) y Resultado Ordinario Neto +24% (725 M€), con la mejora concentrada en Distribución (+45% de EBITDA por el nuevo marco regulatorio y reliquidaciones de años anteriores) y la resiliencia del negocio liberalizado. Margen EBITDA en el 28% —por encima del 24% que REFUERZA la tesis (§10.1)— y RON/EBITDA sube al 44%. La deuda neta repunta a 10,6 mil M€ (+5%) por el mayor ritmo inversor del plan, pero DFN/EBITDA se mantiene en 1,8x, muy por debajo del 2,5x de la zona de refuerzo. Conversión de caja del 65% del EBITDA y reservas hidráulicas en niveles récord. La dirección confirma los objetivos para todo el año. Todos los KPIs críticos del §10.1 (apalancamiento, margen, cobertura) en zona de refuerzo. Verde.",
@@ -23,14 +611,14 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": 28.0
+          "valor": null
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
           "valor": 725
         },
         {
-          "nombre": "Producción Total TWh",
+          "nombre": "Producción  Total TWh",
           "valor": 16.9
         },
         {

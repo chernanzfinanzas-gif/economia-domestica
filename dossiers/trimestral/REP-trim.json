@@ -3,8 +3,596 @@
   "empresa": "Repsol",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Pico de ciclo: margen de refino 15,6 $/bbl, EBITDA CCS 3.061 e Industrial 1.279; deuda neta mínima (880). Trimestre muy fuerte.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 3061
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 2696
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 1827
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 880
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 608
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 81.2
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 474
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1279
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Semestre potente: márgenes altos (11,0 $/bbl), FCO 3.522 y deuda neta 797. Año de bonanza del refino.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 4982
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 4303
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 3522
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 797
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 11
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 602
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 79.7
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 884
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1623
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Nueve meses sólidos (EBITDA CCS 7.408); deuda neta sube a 1.855 por retribución e inversión, sin tensión.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 7408
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 7194
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 4820
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 1855
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 11.9
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 600
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 82.1
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 1225
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 2173
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Gran año: EBITDA CCS 9.864, FCO récord 7.064 y deuda neta baja (2.096). Referencia alta del ciclo del refino.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 9864
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 9254
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 7064
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 2096
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 11.1
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 599
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 82.6
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 1779
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 2734
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Normalización: margen aún alto (11,4) pero EBITDA −20% YoY e Industrial a la baja (731); deuda neta sube a 3.901 por recompras. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 2144
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 2143
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 1362
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 3901
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 11.4
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 590
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 83.2
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 442
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 731
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Márgenes en descenso y deuda neta al alza (4.595) por recompras y dividendo. FCO más débil (2.287). Ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 4259
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 4144
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 2287
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 4595
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": null
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 589
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 84.1
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 869
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1019
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Deterioro continuado: EBITDA −23% YoY, deuda neta 5.532 (inversión + dividendo). Industrial flojo. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 6078
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 5565
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 3792
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 5532
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": null
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 577
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 82.8
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 1156
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1204
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Año base sólido (modelo nuevo): RNA 3.025 M€, EBITDA CCS 6.627 y deuda neta baja (4.015). Por debajo de 2023 pero con balance fuerte; referencia verde.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 3025
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 6627
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 6052
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 4965
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 4015
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 6.6
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 571
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 80.8
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 1490
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1460
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque flojo: margen de refino en mínimo (5,3 $/bbl) e Industrial hundido (131 M€); Upstream aguanta (458). Señales mixtas → ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 557
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 1504
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 1244
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 1142
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 4694
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 5.3
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 540
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 75.7
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 458
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 131
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre débil en Industrial (230) por márgenes bajos (5,6 $/bbl) y Brent a la baja (71,9). FCO sólido (2.860). Ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 1155
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 2935
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 2392
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 2860
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 5728
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 5.6
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 549
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 71.9
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 897
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 230
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación incipiente del refino (9M 6,7; 3T 8,8 $/bbl) e Industrial (545); deuda neta repunta a 5.708. Mejora, aún ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 1907
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 4587
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 3929
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 4343
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 5708
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 6.7
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 549
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 70.9
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 1214
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 545
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Año a la baja (RNA −15% YoY) pero salida fuerte: 4T con refino 11,1 e Industrial 423; deuda neta vuelve a 4.487. Cierre mejor que el grueso del año → ámbar.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 2568
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 6184
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 5312
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 5365
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 4487
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 7.9
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 548
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 69.1
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 957
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 963
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-30",
+      "fecha": "2026-04-28",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
       "resumen": "Fuerte rebote: RNA 873 M€ (+57% YoY), margen de refino 10,9 $/bbl, EBITDA CCS 1.790 e Industrial 440. Deuda neta sube algo (4.800) sin tensión. Verde.",

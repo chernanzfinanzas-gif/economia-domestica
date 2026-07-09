@@ -3,8 +3,596 @@
   "empresa": "Iberdrola",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +37.7% YoY. Rec. déficit tarifa SVT R.Unido. DFN/EBITDA LTM 3.05x. FFO/DFN 25.3%. DPA: acuenta 2022 €0,18/acc.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 15460.6
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 4064.5
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 26.3
+        },
+        {
+          "nombre": "BNA",
+          "valor": 1485.4
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 43722
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.05
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 1755.4
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6446.4
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.18
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 37.7
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +17.3% YoY. DFN +3.6% por esfuerzo inversor (wind offshore UK). DPA: complementario 2022 €0,347/acc. DFN/EBITDA LTM 3.16x.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 26263.2
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 7560.7
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 28.8
+        },
+        {
+          "nombre": "BNA",
+          "valor": 2520.7
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 45290
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.16
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 4554.9
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6446.4
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.347
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 17.3
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +13.2% YoY. Plan inv.+17%. DFN/EBITDA LTM 3.31x. Recompra acciones: 6.350M acc. DPA: acuenta 2023 €0,202/acc.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 37193
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 10783.1
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 29
+        },
+        {
+          "nombre": "BNA",
+          "valor": 3637
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 47951
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.31
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 7679.5
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6350.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.202
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 13.2
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +9.0% YoY. DFN/EBITDA 3.32x. BNA +5.9%. Inv.orgánicas: €11.382M. Div.total 2023: €0,550/acc (+10% vs 2022).",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 49334.9
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 14417.4
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 29.2
+        },
+        {
+          "nombre": "BNA",
+          "valor": 4802.8
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 47832
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.32
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 11382
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6350.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.55
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 9
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +44.1% incl.efecto venta activos México (~€1.900M one-off). Ajustado: crecimiento orgánico moderado. DFN/EBITDA 2.78x. DPA: acuenta 2023 €0,202/acc (ene-24).",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 12678.5
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 5857
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 46.2
+        },
+        {
+          "nombre": "BNA",
+          "valor": 2759.7
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 44998
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 2.78
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 2382.4
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6423.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.202
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 44.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +27.0% incl.México. Leverage mínimo: 2.74x DFN/EBITDA. DPA: complementario 2023 €0,348/acc (jul-24). BNA +64.0% YoY.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 22637
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 9613.6
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 42.5
+        },
+        {
+          "nombre": "BNA",
+          "valor": 4133.9
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 45153
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 2.74
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 5276.4
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6423.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.348
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 27
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +23.1% incl.México. DFN/EBITDA 2.76x. DPA: acuenta 2024 €0,230/acc. Recompra acciones: 6.364M acc.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 33116.8
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 13268.5
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 40.1
+        },
+        {
+          "nombre": "BNA",
+          "valor": 5470.7
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 46697
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 2.76
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 8601.2
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6364.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.23
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 23.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +16.9% YoY (incl.México). DFN/EBITDA 3.07x. Inv.orgánicas: €11.946M. Div.total 2024: €0,619/acc (+12.5% vs 2023). Neoenergia OPA lanzada (impacta DFN 2025).",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 44739.3
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 16847.7
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 37.6
+        },
+        {
+          "nombre": "BNA",
+          "valor": 5611.9
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 51672
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.07
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 11946
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6364.3
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.619
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 16.9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA -20.7% vs base 2024 inflada por México. DFN máx.histórico 55.685M€ por OPA Neoenergia. DFN/EBITDA LTM 3.56x. México aún operativo. DPA: acuenta 2024 €0,230/acc (ene-25).",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 12864.7
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 4643
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 36.1
+        },
+        {
+          "nombre": "BNA",
+          "valor": 2004.4
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 55685
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.56
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 2719.7
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6440.6
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.23
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -20.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA -13.8% vs S1-2024 (base México). DFN reduce a 52.666M€ desde máx. S1. DPA: compl.2024 €0,389/acc (jul-25). BNA -13.9%.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 22743.1
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 8286.9
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 36.4
+        },
+        {
+          "nombre": "BNA",
+          "valor": 3562.2
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 52666
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.39
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 5662
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6440.6
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.389
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -13.8
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VERDE: la caída de EBITDA (−6,3%) es solo efecto base por la desinversión de México; el apalancamiento ya está normalizado (DFN/EBITDA LTM 3,03x, zona verde) y México quedó desinvertido en abr-2025. +240M de acciones nuevas por Neoenergia. DPA a cuenta 2025 €0,250/acc propuesto. Subyacente sólido.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 33863.2
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 12438.2
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 36.7
+        },
+        {
+          "nombre": "BNA",
+          "valor": 5307
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 48474
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.03
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 8964
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6681.2
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.25
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -6.3
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VERDE: EBITDA reportado −1,5% por el efecto base de México (excl. México ~15.647 M€, comparable); BNA recurrente +12% (récord histórico) y DFN/EBITDA 3,02x (dentro de objetivo). Dividendo total 2025 €0,680/acc (+10% vs 2024). La tesis está intacta: el descenso es óptico, no real.",
+      "metricas": [
+        {
+          "nombre": "Ingresos",
+          "valor": 45546.8
+        },
+        {
+          "nombre": "EBITDA",
+          "valor": 16592.4
+        },
+        {
+          "nombre": "Mg.EBITDA%",
+          "valor": 36.4
+        },
+        {
+          "nombre": "BNA",
+          "valor": 6285
+        },
+        {
+          "nombre": "DFN Aj.",
+          "valor": 50182
+        },
+        {
+          "nombre": "DFN/EBITDA",
+          "valor": 3.02
+        },
+        {
+          "nombre": "CapEx",
+          "valor": 12563
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 6681.2
+        },
+        {
+          "nombre": "DPA €/acc",
+          "valor": 0.68
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -1.5
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-30",
+      "fecha": "2026-04-28",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
       "resumen": "VERDE: EBITDA ajustado +2,4% (reportado −9,7% por efecto base US 2025); BNA ajustado +11,4% (reportado −14,6% por operaciones discontinuadas de México). Desinversión de México completada (24/04) y OPA de Neoenergia cerrada al 98%. Vineyard Wind 780 MW operativos. DFN/EBITDA 3,4x. Rating BBB+ estable. Crecimiento subyacente confirmado.",
