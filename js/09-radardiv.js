@@ -99,9 +99,14 @@ function renderRadarDiv(){
     var bar=st?_radarBar(st.pos):'<span class="muted">—</span>';
     var nivel='—',nivCol='#94a3b8';
     if(st){ if(st.pos<33){nivel='Bajo';nivCol='#16a34a';} else if(st.pos<66){nivel='Medio';nivCol='#d97706';} else {nivel='Alto';nivCol='#dc2626';} nivel+=' ('+st.pos.toFixed(0)+'%)'; }
-    var rowBg=(st&&st.pos<=33&&r.rpd!=null&&r.rpd>=rpdMed)?' style="background:#f0fdf4"':'';
-    return '<tr'+rowBg+'>'
-      +'<td><b>'+_infEscSafe(x.t)+'</b> <span class="muted" style="font-size:11px">'+_infEscSafe((x.nombre||'').slice(0,22))+'</span></td>'
+    var selMark=!!(DB.radarSel&&DB.radarSel[x.t]);
+    var rowStyle= selMark
+      ? ' style="background:#dbeafe;font-size:15px;font-weight:600"'
+      : ((st&&st.pos<=33&&r.rpd!=null&&r.rpd>=rpdMed)?' style="background:#f0fdf4"':'');
+    var nameSz= selMark?'12px':'11px';
+    return '<tr'+rowStyle+'>'
+      +'<td style="text-align:center"><input type="checkbox" class="radarCk" data-radarck="'+_infEscSafe(x.t)+'"'+(selMark?' checked':'')+' title="Marcar como empresa interesante" style="width:16px;height:16px;cursor:pointer"></td>'
+      +'<td><b>'+_infEscSafe(x.t)+'</b> <span class="muted" style="font-size:'+nameSz+'">'+_infEscSafe((x.nombre||'').slice(0,22))+'</span></td>'
       +'<td class="num">'+fmt(x.precio)+(x.manual?' <span class="muted" title="precio pegado a mano">✎</span>':'')+'</td>'
       +'<td class="num">'+fmt(x.div)+'</td>'
       +'<td class="num" style="font-weight:700;color:'+rpdCol+'">'+rpdTxt+'</td>'
@@ -111,7 +116,7 @@ function renderRadarDiv(){
       +'</tr>';
   }).join('');
   var arr=function(k){ return _radarSort.k===k?(_radarSort.dir<0?' \u25bc':' \u25b2'):''; };
-  var tabla='<div style="overflow:auto"><table><thead><tr><th>Empresa</th><th class="num">Cotización</th><th class="num">Div/acc.</th><th class="num" data-sortk="rpd" style="cursor:pointer" title="Ordenar por rentabilidad (RPD)">RPD'+arr('rpd')+'</th><th class="num">Rango '+_radarYears+' años</th><th data-sortk="pos" style="cursor:pointer" title="Ordenar por posición: barato/caro vs histórico">Posición'+arr('pos')+'</th><th>Nivel</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+  var tabla='<div style="overflow:auto"><table><thead><tr><th title="Marca las empresas que encajan con tu filosofía">★</th><th>Empresa</th><th class="num">Cotización</th><th class="num">Div/acc.</th><th class="num" data-sortk="rpd" style="cursor:pointer" title="Ordenar por rentabilidad (RPD)">RPD'+arr('rpd')+'</th><th class="num">Rango '+_radarYears+' años</th><th data-sortk="pos" style="cursor:pointer" title="Ordenar por posición: barato/caro vs histórico">Posición'+arr('pos')+'</th><th>Nivel</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 
   var nota='<div class="muted" style="font-size:11px;margin-top:8px">Pulsa <b>RPD</b> o <b>Posición</b> en la cabecera para ordenar (rentabilidad, o barato/caro vs histórico). '
     +'La <b>posición</b> sitúa el precio actual dentro del rango de los últimos '+_radarYears+' años: barra <span style="color:#16a34a">verde</span> = cerca del mínimo (barato), <span style="color:#dc2626">roja</span> = cerca del máximo (caro). '
@@ -126,6 +131,13 @@ function renderRadarDiv(){
   var sd=document.getElementById('radarSoloDiv');
   if(sd)sd.addEventListener('change',function(){ _radarSoloDiv=this.checked; renderRadarDiv(); });
   host.querySelectorAll('th[data-sortk]').forEach(function(th){ th.addEventListener('click',function(){ var k=th.getAttribute('data-sortk'); if(_radarSort.k===k){ _radarSort.dir=-_radarSort.dir; } else { _radarSort.k=k; _radarSort.dir=(k==='pos'?1:-1); } renderRadarDiv(); }); });
+  host.querySelectorAll('input.radarCk').forEach(function(ck){ ck.addEventListener('change',function(){
+    var t=(this.getAttribute('data-radarck')||'').toUpperCase(); if(!t)return;
+    DB.radarSel=DB.radarSel||{};
+    if(this.checked){ DB.radarSel[t]=true; } else { delete DB.radarSel[t]; }
+    if(typeof scheduleSave==='function')scheduleSave();
+    renderRadarDiv();
+  }); });
 }
 
 /* helper de escape local (por si _infEsc no está disponible) */
