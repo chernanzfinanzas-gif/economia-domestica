@@ -2,7 +2,7 @@ let _sort={};
 function sortToggle(t,k){ const c=_sort[t]||{}; if(c.k===k)c.dir=(c.dir===1?-1:1); else { c.k=k; c.dir=-1; } _sort[t]=c; }
 function sortArrow(t,k){ const c=_sort[t]||{}; return c.k===k?(c.dir===1?' ▲':' ▼'):''; }
 function sortApply(t,arr,g){ const c=_sort[t]; if(!c||!c.k||!g[c.k])return arr; const f=g[c.k]; return arr.slice().sort((a,b)=>{ let va=f(a),vb=f(b); if(typeof va==='string'||typeof vb==='string')return c.dir*String(va==null?'':va).localeCompare(String(vb==null?'':vb)); va=(va==null||isNaN(va))?-Infinity:va; vb=(vb==null||isNaN(vb))?-Infinity:vb; return c.dir*(va-vb); }); }
-document.addEventListener('click',e=>{ const h=e.target.closest&&e.target.closest('[data-sortk]'); if(!h)return; sortToggle(h.dataset.sorttbl,h.dataset.sortk); const fn={ranking:(typeof renderRanking==='function'?renderRanking:null),cartera:(typeof renderInv==='function'?renderInv:null),analisis:(typeof renderAnalisis==='function'?renderAnalisis:null)}[h.dataset.sorttbl]; if(fn)fn(); });
+document.addEventListener('click',e=>{ const h=e.target.closest&&e.target.closest('[data-sortk]'); if(!h)return; sortToggle(h.dataset.sorttbl,h.dataset.sortk); const fn={ranking:(typeof renderRanking==='function'?renderRanking:null),cartera:(typeof renderInv==='function'?renderInv:null),analisis:(typeof renderAnalisis==='function'?renderAnalisis:null),pos:(typeof renderPOS==='function'?renderPOS:null)}[h.dataset.sorttbl]; if(fn)fn(); });
 function renderRanking(){
   const el=$('#rankTabla'); if(!el)return;
   const agg={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones<=0.0001)return; const t=(p.ticker||'').toUpperCase(); const a=agg[t]=agg[t]||{ticker:t,nombre:p.nombre,sh:0,cost:0}; a.sh+=p.acciones; a.cost+=p.acciones*p.precioCompra; });

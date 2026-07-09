@@ -41,7 +41,7 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -85,7 +85,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['comparador','Comparador']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['comparador','Comparador']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'inversiones', planinv:'proyeccion'};
 function activarVista(view){
@@ -101,6 +101,7 @@ function activarVista(view){
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
   if(view==='plan') setTimeout(()=>autoFitTable('planTabla',7,11),120);
+  if(view==='fondor4') renderFondoR4();
   if(view==='patrimonio') renderPat();
   if(view==='proyeccion') renderProy();
   if(view==='caja') renderCaja();
@@ -230,6 +231,13 @@ $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-de
 $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
+if($('#r4Form')) $('#r4Form').addEventListener('submit',e=>{e.preventDefault();addFondoR4();});
+if($('#r4ImportBtn')) $('#r4ImportBtn').addEventListener('click',()=>$('#r4File').click());
+if($('#r4Tipo')) $('#r4Tipo').addEventListener('change',()=>{ const rt=$('#r4NetoWrap'); if(rt) rt.style.display=($('#r4Tipo').value==='retirada'?'':'none'); });
+if($('#r4Orden')) $('#r4Orden').addEventListener('change',renderFondoR4);
+if($('#posFiltro')) $('#posFiltro').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
+if($('#posOrden')) $('#posOrden').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
+if($('#r4List')) $('#r4List').addEventListener('click',e=>{const b=e.target.closest('[data-delr4]'); if(b&&confirm('¿Eliminar este movimiento?')){ DB.easy=(DB.easy||[]).filter(x=>x.id!==b.dataset.delr4); renderFondoR4(); scheduleSave(); }});
 $('#amaOrden').addEventListener('change',renderAmalia);
 $('#invForm').addEventListener('submit',e=>{e.preventDefault();invNuevoValor();});
 $('#invCancel').addEventListener('click',()=>{$('#invForm').style.display='none';});
@@ -275,6 +283,9 @@ document.body.appendChild(pf);
 const af=document.createElement('input'); af.type='file'; af.accept='.json,application/json'; af.id='amaFile'; af.style.display='none';
 af.addEventListener('change',()=>{const f=af.files[0];if(!f)return; importAmalia(f); af.value='';});
 document.body.appendChild(af);
+const r4f=document.createElement('input'); r4f.type='file'; r4f.accept='.json,application/json'; r4f.id='r4File'; r4f.style.display='none';
+r4f.addEventListener('change',()=>{const f=r4f.files[0];if(!f)return; importFondoR4(f); r4f.value='';});
+document.body.appendChild(r4f);
 const invf=document.createElement('input'); invf.type='file'; invf.accept='.json,application/json'; invf.id='invFile'; invf.style.display='none';
 invf.addEventListener('change',()=>{const f=invf.files[0];if(!f)return; importInv(f); invf.value='';});
 document.body.appendChild(invf);

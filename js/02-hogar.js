@@ -774,6 +774,64 @@ function importAmalia(file){
     DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
     renderAmalia(); saveNow(); alert('Importados '+DB.amalia.length+' apuntes de Amalia.'); });
 }
+function easySorted(){ return [...(DB.easy||[])].sort((a,b)=> (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0); }
+function renderFondoR4(){
+  const fE=$('#r4Fecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
+  const asc=easySorted();
+  const Y=new Date().getFullYear();
+  let inv=0, valorAct=null, valorFecha='', netoAnio=0, netoTot=0;
+  asc.forEach(e=>{ inv += e.tipo==='retirada'? -num(e.importe): num(e.importe);
+    if(e.valor!=null && e.valor!=='' ){ valorAct=num(e.valor); valorFecha=e.fecha||''; }
+    if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto); netoTot+=n; if((e.fecha||'').slice(0,4)===String(Y)) netoAnio+=n; }
+  });
+  const plusv = (valorAct!=null)? valorAct-inv : null;
+  const cardEl=$('#r4Cards');
+  if(cardEl) cardEl.innerHTML=[
+    {l:'Valor del fondo',v:(valorAct!=null?fmt(valorAct):'—'),cls:'',s:(valorFecha?('al '+ddmmyyyy(valorFecha)):'sin valor registrado')},
+    {l:'Saldo aportado (neto)',v:fmt(inv),cls:'',s:(DB.easy||[]).length+' movimientos'},
+    {l:'Plusvalía latente',v:(plusv!=null?((plusv>=0?'+':'')+fmt(plusv)):'—'),cls:(plusv!=null?(plusv>=0?'pos':'neg'):''),s:(plusv!=null&&inv>0?((plusv/inv>=0?'+':'')+(plusv/inv*100).toFixed(2)+'%'):'')},
+    {l:'Interés neto '+Y,v:(netoAnio>=0?'+':'')+fmt(netoAnio),cls:netoAnio>=0?'pos':'neg',s:'total histórico '+(netoTot>=0?'+':'')+fmt(netoTot)}
+  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  const listEl=$('#r4List'); if(!listEl) return;
+  if(!asc.length){ listEl.innerHTML='<div class="empty">Sin movimientos. Añade una aportación o una retirada, o importa el histórico.</div>'; return; }
+  let run=0; const rowsArr=asc.map(e=>{ run += e.tipo==='retirada'? -num(e.importe): num(e.importe);
+    const signed=(e.tipo==='retirada'?'−':'+')+fmt(e.importe);
+    const val=(e.valor!=null&&e.valor!=='')?num(e.valor):null; const pl=(val!=null)?val-run:null;
+    return `<tr><td style="white-space:nowrap">${ddmmyyyy(e.fecha)}</td>`+
+      `<td><span class="tag ${e.tipo==='aportacion'?'in':''}">${e.tipo==='aportacion'?'Aportación':'Retirada'}</span></td>`+
+      `<td class="num ${e.tipo==='retirada'?'neg':'pos'}">${signed}</td>`+
+      `<td class="num"><b>${fmt(run)}</b></td>`+
+      `<td class="num">${val!=null?fmt(val):'—'}</td>`+
+      `<td class="num ${pl!=null?(pl>=0?'pos':'neg'):''}">${pl!=null?((pl>=0?'+':'')+fmt(pl)):'—'}</td>`+
+      `<td class="num pos">${(e.tipo==='retirada'&&e.neto!=null&&e.neto!=='')?fmt(num(e.neto)):''}</td>`+
+      `<td class="right"><button class="btn danger sm" data-delr4="${e.id}">✕</button></td></tr>`;
+  });
+  const ord=($('#r4Orden')||{}).value||'desc';
+  const rows=(ord==='desc'?rowsArr.slice().reverse():rowsArr).join('');
+  listEl.innerHTML=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Importe</th><th class="num">Aportado acum.</th><th class="num">Valor fondo</th><th class="num">Plusvalía</th><th class="num">Interés neto</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function addFondoR4(){
+  const fecha=$('#r4Fecha').value; if(!fecha){alert('Pon una fecha');return;}
+  const importe=num($('#r4Importe').value); if(!importe){alert('Pon un importe');return;}
+  const valRaw=$('#r4Valor').value; const netoRaw=$('#r4Neto')?$('#r4Neto').value:'';
+  const tipo=$('#r4Tipo').value==='retirada'?'retirada':'aportacion';
+  DB.easy=DB.easy||[];
+  const mov={id:uid(),fecha,tipo,importe:Math.abs(importe)};
+  if(valRaw!=='') mov.valor=num(valRaw);
+  if(tipo==='retirada' && netoRaw!=='') mov.neto=num(netoRaw);
+  DB.easy.push(mov);
+  $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Neto'))$('#r4Neto').value='';
+  renderFondoR4(); scheduleSave();
+}
+function importFondoR4(file){
+  file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+    const arr=Array.isArray(d)?d:(d.easy||d.movimientos||[]); if(!arr.length){alert('El archivo no contiene movimientos');return;}
+    DB.easy=arr.map(e=>{ const m={id:uid(),fecha:e.fecha,tipo:(e.tipo==='retirada'?'retirada':'aportacion'),importe:Math.abs(num(e.importe))};
+      if(e.valor!=null&&e.valor!=='') m.valor=num(e.valor);
+      if(e.neto!=null&&e.neto!=='') m.neto=num(e.neto);
+      return m; });
+    renderFondoR4(); saveNow(); alert('Importados '+DB.easy.length+' movimientos del Fondo R4.'); });
+}
 function renderPresExtras(){
   const sec=document.getElementById('view-presupuesto'); if(!sec)return;
   DB.config=DB.config||{}; const ah=DB.config.ahorro=DB.config.ahorro||{mensual:0,anual:0,tasa:0};
