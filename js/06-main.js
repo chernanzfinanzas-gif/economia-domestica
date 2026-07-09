@@ -239,6 +239,14 @@ if($('#r4Orden')) $('#r4Orden').addEventListener('change',renderFondoR4);
 if($('#posFiltro')) $('#posFiltro').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
 if($('#posOrden')) $('#posOrden').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
 if($('#r4List')) $('#r4List').addEventListener('click',e=>{const b=e.target.closest('[data-delr4]'); if(b&&confirm('¿Eliminar este movimiento?')){ DB.easy=(DB.easy||[]).filter(x=>x.id!==b.dataset.delr4); renderFondoR4(); scheduleSave(); }});
+if($('#r4List')) $('#r4List').addEventListener('change',e=>{ const inp=e.target.closest('input.r4inp'); if(!inp)return; const id=inp.dataset.id, f=inp.dataset.f; const mov=(DB.easy||[]).find(x=>x.id===id); if(!mov)return;
+  const asc=easySorted(); let prev=0; for(const m of asc){ if(m.id===id) break; prev += m.tipo==='retirada'? -num(m.importe): num(m.importe); }
+  const s=(inp.value||'').trim();
+  if(f==='imp'){ const v=num(s); mov.tipo=v<0?'retirada':'aportacion'; mov.importe=Math.abs(v); }
+  else if(f==='acum'){ const delta=num(s)-prev; mov.tipo=delta<0?'retirada':'aportacion'; mov.importe=Math.abs(delta); }
+  else if(f==='valor'){ if(s===''){ delete mov.valor; } else { mov.valor=num(s); } }
+  else if(f==='plus'){ const runHere=prev+(mov.tipo==='retirada'? -num(mov.importe): num(mov.importe)); if(s===''){ delete mov.valor; } else { mov.valor=runHere+num(s); } }
+  renderFondoR4(); scheduleSave(); });
 $('#amaOrden').addEventListener('change',renderAmalia);
 $('#invForm').addEventListener('submit',e=>{e.preventDefault();invNuevoValor();});
 $('#invCancel').addEventListener('click',()=>{$('#invForm').style.display='none';});

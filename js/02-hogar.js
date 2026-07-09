@@ -796,15 +796,15 @@ function renderFondoR4(){
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
   const listEl=$('#r4List'); if(!listEl) return;
   if(!asc.length){ listEl.innerHTML='<div class="empty">Sin movimientos. Añade una aportación o una retirada, o importa el histórico.</div>'; return; }
-  let run=0; const rowsArr=asc.map(e=>{ run += e.tipo==='retirada'? -num(e.importe): num(e.importe);
-    const signed=(e.tipo==='retirada'?'−':'+')+fmt(e.importe);
+  const _ri='width:88px;text-align:right;border:1px solid #cbd5e1;border-radius:4px;padding:2px 4px;font-size:12px;background:#fff';
+  let run=0; const rowsArr=asc.map(e=>{ const signedNum=e.tipo==='retirada'? -num(e.importe): num(e.importe); run += signedNum;
     const val=(e.valor!=null&&e.valor!=='')?num(e.valor):null; const pl=(val!=null)?val-run:null;
     return `<tr><td style="white-space:nowrap">${ddmmyyyy(e.fecha)}</td>`+
       `<td><span class="tag ${e.tipo==='aportacion'?'in':''}">${e.tipo==='aportacion'?'Aportación':'Retirada'}</span></td>`+
-      `<td class="num ${e.tipo==='retirada'?'neg':'pos'}">${signed}</td>`+
-      `<td class="num"><b>${fmt(run)}</b></td>`+
-      `<td class="num">${val!=null?fmt(val):'—'}</td>`+
-      `<td class="num ${pl!=null?(pl>=0?'pos':'neg'):''}">${pl!=null?((pl>=0?'+':'')+fmt(pl)):'—'}</td>`+
+      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="imp" value="${signedNum.toFixed(2)}" style="${_ri};color:${signedNum<0?'#dc2626':'#16a34a'};font-weight:600"></td>`+
+      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="acum" value="${run.toFixed(2)}" style="${_ri};font-weight:700"></td>`+
+      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="valor" value="${val!=null?val.toFixed(2):''}" placeholder="—" style="${_ri}"></td>`+
+      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="plus" value="${pl!=null?pl.toFixed(2):''}" placeholder="—" style="${_ri};color:${pl!=null?(pl>=0?'#16a34a':'#dc2626'):'#64748b'}"></td>`+
       `<td class="num">${(e.tipo==='retirada'&&e.retencion!=null&&e.retencion!=='')?fmt(num(e.retencion)):''}</td>`+
       `<td class="num">${(e.tipo==='retirada'&&e.bruto!=null&&e.bruto!=='')?fmt(num(e.bruto)):''}</td>`+
       `<td class="num pos">${(e.tipo==='retirada'&&e.neto!=null&&e.neto!=='')?fmt(num(e.neto)):''}</td>`+
