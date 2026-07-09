@@ -1,0 +1,643 @@
+{
+  "ticker": "VIS",
+  "empresa": "Viscofan",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Fuerte crecimiento comparable (+15,6% ingresos) por precios, pero margen EBITDA en mínimos (20,0%) y BNA −6,1% por el shock de costes: la rentabilidad va por detrás del crecimiento.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 308.3
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 61.7
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 6.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 20.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 68.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 41.1
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 25.8
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": -6.1
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Comparable sólido pero márgenes aún presionados y BNA −3,1%. Fase de traslación de costes a precios; tesis a vigilar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 628.6
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 11.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 129.4
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 9.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 20.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 88.1
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 62.9
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": -3.1
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Año del mayor destocking en 24 años: el margen bruto (centinela) cae a 65,9% y el BNA −4,1%; el crecimiento comparable por precio sostiene, pero la señal clave se deteriora.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 926.2
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 7.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 192.6
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 8.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 20.8
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 65.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 130.5
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 100.8
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": -4.1
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre con margen bruto erosionado (65,7% vs 67,6%) pero BNA vuelve a crecer (+1,1%). Balance sólido (deuda banc. neta 138 M€). Tesis intacta, márgenes a recuperar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1225.8
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 4.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 268.4
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 7.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 21.9
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 65.7
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 184.7
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 141.0
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 1.1
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 138.0
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos comparables negativos (−5,1%) pero fuerte recuperación de rentabilidad: margen bruto a 67,6% y BNA +22,4%. Señales mixtas: top line débil, márgenes al alza.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 289.7
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": -5.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 61.6
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 3.1
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 21.3
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 40.4
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 31.6
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 22.4
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 176.6
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Continúa la recuperación de márgenes (EBITDA 22,2%) con BNA +9,5%, pero el comparable de ingresos sigue negativo. A vigilar el retorno al crecimiento de volúmenes.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 593.1
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": -5.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 131.6
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 22.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 89.4
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 68.8
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 9.5
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen EBITDA recupera al 23,0% y BNA +5,5%; el comparable de ingresos mejora (−2,6%). Transición de vigilar a reforzar, aún con top line comparable en negativo.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 898.3
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": -2.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 206.4
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 5.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": null
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 143.3
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 106.3
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 5.5
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 147.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Récords de EBITDA y BNA (+11,4%) con margen EBITDA 23,7% y margen bruto recuperado a 67,6%. La caída de ingresos es solo por energía; la rentabilidad refuerza la tesis.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1204.0
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": -1.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 285.3
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 3.6
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.7
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 201.5
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 157.0
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 11.4
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 146.9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El crecimiento comparable vuelve a positivo (+4,0% ingresos) con margen bruto en 68,7% (máximos). BNA plano por divisa. La recuperación de volúmenes+precios confirma la tesis.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 307.3
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 4.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 68.8
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 4.1
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 22.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 68.7
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 46.8
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 31.4
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": -0.7
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 170.8
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comparable fuerte (ingresos +4,5%, EBITDA +7,7%) y margen bruto expandiéndose a 69,6%. La retribución flexible eleva la deuda neta (228,7 M€) pero sin comprometer la solvencia.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 618.8
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 4.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 145.2
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 7.7
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.5
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 69.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 101.8
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 69.8
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 1.5
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 228.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-22",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comparable sólido (+5,5% ingresos, +7,3% EBITDA) con margen EBITDA 23,3%. La deuda neta baja a 185,5 M€ tras el pico del scrip. Tesis reforzada.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 936.9
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 5.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 218.2
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 7.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.3
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": null
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 153.8
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 108.6
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 185.5
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre récord: ingresos comparables +6,1%, EBITDA +6,2%, BNA máximo. Margen bruto 67,3%. Balance sano (deuda banc. neta 206 M€). La calidad se confirma; sigue el reto del precio.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1252.0
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 6.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 290.0
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.3
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 204.8
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 159.9
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 1.8
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 206.1
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque del plan Beat'30: comparable fuerte (ingresos +4,6%, EBITDA +9,3%, margen EBITDA comparable 23,4%) y margen bruto récord (69,1%). El −7,9% de EBITDA reportado es solo divisa. BNA +7,4%. Tesis reforzada.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 304.8
+        },
+        {
+          "nombre": "Crec. comp. ingresos (%)",
+          "valor": 4.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 63.4
+        },
+        {
+          "nombre": "Crec. comp. EBITDA (%)",
+          "valor": 9.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 20.8
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 69.1
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 42.2
+        },
+        {
+          "nombre": "Rdo. neto (M€)",
+          "valor": 33.7
+        },
+        {
+          "nombre": "%Var Rdo. neto (%)",
+          "valor": 7.4
+        },
+        {
+          "nombre": "Deuda banc. neta (M€)",
+          "valor": 234.4
+        }
+      ]
+    }
+  ]
+}
