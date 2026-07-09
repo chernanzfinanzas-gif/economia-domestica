@@ -155,6 +155,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-group="planinv">Plan Inversor</button>
     <button data-view="graficas">Gráficas</button>
     <button data-view="informes">Informes</button>
+    <button data-view="origen">El origen</button>
   </nav>
   <div id="subnav" style="display:none"></div>
   <div class="spacer"></div>
@@ -199,6 +200,108 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <!-- MOVIMIENTOS -->
+  <!-- EL ORIGEN (recreación de la pestaña INI) -->
+  <section class="view" id="view-origen">
+    <h2>El origen <span class="muted" style="font-weight:400;font-size:13px">· la foto de partida, cuando decidí tomarme en serio las finanzas</span></h2>
+
+    <div class="card" style="border-left:5px solid #1B75BC">
+      <div style="font-size:21px;font-weight:800;color:#1B75BC;letter-spacing:.3px">ESTRATEGIA ECONÓMICA 2019 – 2025</div>
+      <div style="font-size:15px;font-weight:700;color:#334155;margin-top:3px">Más ahorro, más rentabilidad, menos gasto</div>
+      <div class="muted" style="margin-top:6px">Carlos Hernanz Blázquez · 05/02/2019</div>
+    </div>
+
+    <h3>Situación de inicio</h3>
+    <div class="card" style="overflow:auto">
+      <table style="min-width:420px"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">R. Variable</th></tr></thead><tbody>
+        <tr><td>R4</td><td class="num">1.417,93 €</td><td class="num">32.616,98 €</td></tr>
+        <tr><td>ING</td><td class="num">28.314,30 €</td><td class="num">10.792,28 €</td></tr>
+        <tr><td>Santander</td><td class="num">6.878,25 €</td><td class="num">22.602,00 €</td></tr>
+        <tr style="font-weight:700"><td>Subtotal</td><td class="num" style="color:#CE181E">36.610,48 €</td><td class="num" style="color:#CE181E">66.011,26 €</td></tr>
+        <tr style="font-weight:800;background:#f1f5f9"><td>TOTAL</td><td class="num" style="color:#CE181E" colspan="2">102.621,74 €</td></tr>
+      </tbody></table>
+      <div style="margin-top:10px"><b style="color:#1B75BC">Acciones:</b> <span style="color:#1B75BC;font-weight:600">3.893 IBE · 547 TEF · 1.434 TEF</span> <span style="color:#CE181E;font-weight:600">(Vender!!! · 10.740,84 €)</span> <span style="color:#1B75BC;font-weight:600">· 5.554 SAN</span></div>
+      <div class="muted" style="margin-top:6px">Aporte objetivo: <b>10.000 € Efectivo + 5.000 € Renta Variable</b> · <b>OBJETIVO: EQUILIBRIO INVERSIÓN</b></div>
+    </div>
+
+    <h3>Objetivo: equilibrio inversión</h3>
+    <div class="card" style="overflow:auto">
+      <table style="min-width:560px"><thead><tr><th>Año</th><th class="num">Efectivo %</th><th class="num">Efectivo €</th><th class="num">R. Variable %</th><th class="num">R. Variable €</th><th class="num">TOTAL</th></tr></thead><tbody>
+        <tr><td>2018</td><td class="num">31,4 %</td><td class="num">32.000 €</td><td class="num">68,6 %</td><td class="num">70.000 €</td><td class="num">102.000 €</td></tr>
+        <tr><td>2019</td><td class="num">35,9 %</td><td class="num">42.000 €</td><td class="num">64,1 %</td><td class="num">75.000 €</td><td class="num">117.000 €</td></tr>
+        <tr><td>2020</td><td class="num">39,4 %</td><td class="num">52.000 €</td><td class="num">60,6 %</td><td class="num">80.000 €</td><td class="num">132.000 €</td></tr>
+        <tr><td>2021</td><td class="num">42,2 %</td><td class="num">62.000 €</td><td class="num">57,8 %</td><td class="num">85.000 €</td><td class="num">147.000 €</td></tr>
+        <tr><td>2022</td><td class="num">44,4 %</td><td class="num">72.000 €</td><td class="num">55,6 %</td><td class="num">90.000 €</td><td class="num">162.000 €</td></tr>
+        <tr><td>2023</td><td class="num">46,3 %</td><td class="num">82.000 €</td><td class="num">53,7 %</td><td class="num">95.000 €</td><td class="num">177.000 €</td></tr>
+        <tr><td>2024</td><td class="num">47,9 %</td><td class="num">92.000 €</td><td class="num">52,1 %</td><td class="num">100.000 €</td><td class="num">192.000 €</td></tr>
+        <tr><td>2025</td><td class="num">49,3 %</td><td class="num">102.000 €</td><td class="num">50,7 %</td><td class="num">105.000 €</td><td class="num">207.000 €</td></tr>
+        <tr style="font-weight:700;background:#f1f5f9"><td>2026</td><td class="num">50,5 %</td><td class="num">112.000 €</td><td class="num">49,5 %</td><td class="num">110.000 €</td><td class="num">222.000 €</td></tr>
+      </tbody></table>
+    </div>
+
+    <h3>Situación nueva cartera</h3>
+    <div class="card" style="overflow:auto">
+      <table style="min-width:420px"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">R. Variable</th></tr></thead><tbody>
+        <tr><td>R4</td><td class="num">1.417,93 €</td><td class="num">32.616,98 €</td></tr>
+        <tr><td>ING</td><td class="num">24.002,58 €</td><td class="num">14.996,00 €</td></tr>
+        <tr><td>Santander</td><td class="num">6.878,25 €</td><td class="num">22.602,00 €</td></tr>
+        <tr style="font-weight:700"><td>Total</td><td class="num" style="color:#CE181E">32.298,76 €</td><td class="num" style="color:#CE181E">70.214,98 €</td></tr>
+        <tr style="font-weight:700"><td>% del total</td><td class="num" style="color:#009353">31,5 %</td><td class="num" style="color:#009353">68,5 %</td></tr>
+        <tr style="font-weight:800;background:#f1f5f9"><td>TOTAL</td><td class="num" style="color:#CE181E" colspan="2">102.513,74 €</td></tr>
+      </tbody></table>
+      <div style="margin-top:14px;font-weight:700">Dividendos de la cartera</div>
+      <table style="min-width:640px;margin-top:6px"><thead><tr><th>Valor</th><th class="num">Acciones</th><th class="num">Dividendo</th><th class="num">Div. bruto</th><th class="num">Div. neto</th><th class="num">Retención</th><th class="num">D. Hacienda</th></tr></thead><tbody>
+        <tr><td style="color:#1B75BC;font-weight:700">IBE</td><td class="num">3.893</td><td class="num">0,34 €</td><td class="num">1.323,62 €</td><td class="num">1.072,13 €</td><td class="num">251,49 €</td><td class="num">150,89 €</td></tr>
+        <tr><td style="color:#1B75BC;font-weight:700">TEF</td><td class="num">547</td><td class="num">0,40 €</td><td class="num">218,80 €</td><td class="num">177,23 €</td><td class="num">41,57 €</td><td class="num">24,94 €</td></tr>
+        <tr><td style="color:#1B75BC;font-weight:700">BME</td><td class="num">575</td><td class="num">1,78 €</td><td class="num">1.023,50 €</td><td class="num">829,04 €</td><td class="num">194,47 €</td><td class="num">116,68 €</td></tr>
+        <tr><td style="color:#1B75BC;font-weight:700">SAN</td><td class="num">5.554</td><td class="num">0,23 €</td><td class="num">1.277,42 €</td><td class="num">1.034,71 €</td><td class="num">242,71 €</td><td class="num">145,63 €</td></tr>
+        <tr style="font-weight:800;background:#f1f5f9"><td>TOTAL</td><td class="num"></td><td class="num"></td><td class="num" style="color:#CE181E">3.843,34 €</td><td class="num" style="color:#CE181E">3.113,11 €</td><td class="num" style="color:#CE181E">730,23 €</td><td class="num" style="color:#CE181E">438,14 €</td></tr>
+      </tbody></table>
+    </div>
+
+    <h3>Plan de ahorro</h3>
+    <div class="cards" style="grid-template-columns:1fr 1fr;gap:14px">
+      <div class="card" style="overflow:auto">
+        <div style="font-weight:700;margin-bottom:6px">Ingresos (mensual)</div>
+        <table style="min-width:300px"><thead><tr><th>Concepto</th><th class="num">2019</th><th class="num">2026</th></tr></thead><tbody>
+          <tr><td>Nómina</td><td class="num">1.945,00 €</td><td class="num">2.448,64 €</td></tr>
+          <tr><td>Nómina</td><td class="num">1.365,00 €</td><td class="num">2.417,94 €</td></tr>
+          <tr><td>Paga extra (/12)</td><td class="num">558,00 €</td><td class="num">811,10 €</td></tr>
+          <tr><td>Rentabilidad</td><td class="num">295,94 €</td><td class="num">1.153,00 €</td></tr>
+          <tr style="font-weight:800;background:#f1f5f9"><td>Total ingresos</td><td class="num" style="color:#1B75BC">4.163,94 €</td><td class="num" style="color:#1B75BC">6.830,68 €</td></tr>
+        </tbody></table>
+      </div>
+      <div class="card">
+        <div style="font-weight:700;margin-bottom:6px">Ahorro</div>
+        <div class="cards" style="grid-template-columns:1fr 1fr;gap:10px">
+          <div class="card"><div class="lbl">Ahorro mensual</div><div class="val pos">1.255,94 €</div></div>
+          <div class="card"><div class="lbl">Ahorro anual</div><div class="val pos">15.071,25 €</div></div>
+        </div>
+        <div style="font-weight:700;margin-top:12px;margin-bottom:4px">Oportunidades de ahorro</div>
+        <ul style="margin:0;padding-left:18px;line-height:1.6">
+          <li>Las cuotas de la comunidad bajarán con subvenciones o pago</li>
+          <li>Moderar el gasto vacacional</li>
+          <li>Disminuir comida de encargo o fuera de casa</li>
+          <li>Disminuir las compras</li>
+          <li>Optimizar menú y logística de compra</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card" style="overflow:auto;margin-top:14px">
+      <div style="font-weight:700;margin-bottom:6px">Gastos (mensual)</div>
+      <table style="min-width:560px"><thead><tr><th>Concepto</th><th class="num">2019</th><th class="num">2026</th><th>Detalle</th></tr></thead><tbody>
+        <tr><td>Generales</td><td class="num">490 €</td><td class="num">490 €</td><td class="muted">Comunidad, Teléfono, Internet, IBI, Seguro</td></tr>
+        <tr><td>Coche</td><td class="num">130 €</td><td class="num">130 €</td><td class="muted">Seguro, Gasolina, Mantenimiento</td></tr>
+        <tr><td>Comida</td><td class="num">450 €</td><td class="num">450 €</td><td class="muted">Supermercado</td></tr>
+        <tr><td>Regalos</td><td class="num">100 €</td><td class="num">100 €</td><td class="muted">Regalos Familia</td></tr>
+        <tr><td>Varios</td><td class="num">100 €</td><td class="num">100 €</td><td class="muted">Gimnasio, Iru, Transporte, Solidaridad, Farmacia</td></tr>
+        <tr><td>Viajes</td><td class="num">833 €</td><td class="num">1.000 €</td><td class="muted">Para unas vacaciones de 10.000 € o 12.000 €</td></tr>
+        <tr><td>Ocio</td><td class="num">400 €</td><td class="num">319 €</td><td class="muted">Espectáculos, Cenas, Copas, Rutas, Libros</td></tr>
+        <tr><td>Compras</td><td class="num">405 €</td><td class="num">319 €</td><td class="muted">Ropa, Hogar, Personales</td></tr>
+        <tr style="font-weight:800;background:#f1f5f9"><td>Total mes</td><td class="num" style="color:#CE181E">2.908 €</td><td class="num" style="color:#CE181E">2.908 €</td><td></td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
   <section class="view" id="view-movimientos">
     <h2>Movimientos</h2>
     <form class="grid" id="movForm" autocomplete="off" style="background:#fef9c3">
