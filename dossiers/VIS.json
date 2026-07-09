@@ -1,0 +1,33 @@
+{
+"ticker": "VIS",
+"empresa": "Viscofan, S.A.",
+"fecha": "2026-07-09",
+"rating": "AA",
+"score": 77.1,
+"decision": "ESPERAR",
+"metodoValoracion": "DCF a dos fases + múltiplos históricos (arquetipo calidad/consumo). PO oficial = síntesis ponderada del Cap. VI (55% DCF + 45% múltiplos) = 47,8 €; bear 25,5 €, bull 65,1 €. WACC normalizado 6,5-8,5% en el DCF (el CAPM con β=0,14 daría un WACC ~4% que dispararía el valor).",
+"poBear": 25.5,
+"poBase": 47.8,
+"poBull": 65.1,
+"entMin": 42.0,
+"entMax": 45.0,
+"stop": 25.0,
+"moat": "Ancho (76/100) — líder mundial, única en las 4 tecnologías; ventaja de costes + intangibles + costes de cambio.",
+"catalizadores": [
+"Cumplimiento de las guías 2026 (ingresos +5-8%, EBITDA +8-12%, BNA +6-10%)",
+"Normalización de márgenes hacia el 25% de EBITDA",
+"Mejora de la conversión de EBITDA a caja libre",
+"Recuperación de volúmenes de envolturas tras el ajuste de inventarios",
+"Retribución al accionista creciente (dividendo + recompras)"
+],
+"riesgos": [
+"Shock de materias primas y energía sin traslación a precio",
+"Exposición a divisas emergentes (USD, BRL, CNY)",
+"Presión de precios en plásticos / Nuevos Negocios",
+"Debilidad estructural de la demanda de carne procesada",
+"Ejecución y retorno del CAPEX del plan Beyond25"
+],
+"bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
+"bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
+"resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €)."
+}
