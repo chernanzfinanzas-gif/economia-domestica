@@ -354,7 +354,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>Tipo<select id="r4Tipo"><option value="aportacion">Aportación (+)</option><option value="retirada">Retirada (−)</option></select></label>
       <label>Importe (€)<input type="number" id="r4Importe" step="0.01" min="0" placeholder="0,00"></label>
       <label>Valor del fondo tras el mov. (€)<input type="number" id="r4Valor" step="0.01" min="0" placeholder="opcional"></label>
-      <label id="r4NetoWrap" style="display:none">Interés neto realizado (€)<input type="number" id="r4Neto" step="0.01" placeholder="opcional"></label>
+      <label id="r4NetoWrap" style="display:none">Retención de la retirada (€)<input type="number" id="r4Ret" step="0.01" min="0" placeholder="0,00"><span class="sub" id="r4RetCalc" style="font-weight:400"></span></label>
       <div class="row-actions">
         <button type="submit" class="btn" id="r4Add">Añadir</button>
         <button type="button" class="btn ghost" id="r4ImportBtn">Importar (.json)</button>
