@@ -365,14 +365,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <!-- INVERSIONES -->
-  <section class="view" id="view-inversiones">
-    <h2>Inversiones</h2>
-    <div class="cards" id="invCards"></div>
-    <h3 style="margin-top:18px">Posiciones ejecutadas <span class="muted" style="font-weight:400;font-size:12px">· cada compra como un lote, con rentabilidad anualizada (precio + dividendo)</span></h3>
+  <!-- POSICIONES (POS) -->
+  <section class="view" id="view-posiciones">
+    <h2>Posiciones ejecutadas <span class="muted" style="font-weight:400;font-size:13px">· cada compra como un lote, con rentabilidad anualizada (precio + dividendo)</span></h2>
     <div class="toolbar"><label class="muted">Ver <select id="posFiltro"><option value="todas">Todas</option><option value="cartera">Solo en cartera</option><option value="vendida">Solo vendidas</option></select></label>
       <label class="muted" style="margin-left:10px">Orden <select id="posOrden"><option value="fecha_desc">Fecha reciente→antigua</option><option value="fecha_asc">Fecha antigua→reciente</option></select></label></div>
     <div id="posTable" style="overflow:auto"></div>
-    <h3 style="margin-top:24px">Cartera por empresa</h3>
+  </section>
+
+  <section class="view" id="view-inversiones">
+    <h2>Inversiones</h2>
+    <div class="cards" id="invCards"></div>
     <div class="toolbar">
       <button class="btn sm" id="invAddBtn">+ Posición</button>
       <button class="btn ghost sm" id="invImportBtn">Importar (.json)</button>
