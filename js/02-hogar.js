@@ -774,15 +774,17 @@ function importAmalia(file){
     DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
     renderAmalia(); saveNow(); alert('Importados '+DB.amalia.length+' apuntes de Amalia.'); });
 }
+const R4_RET=0.19; // retención fiscal sobre plusvalía (España, primer tramo)
+function r4DesdeRetencion(ret){ ret=num(ret); if(ret<=0) return {retencion:0,bruto:0,neto:0}; const bruto=ret/R4_RET; return {retencion:ret,bruto,neto:bruto-ret}; }
 function easySorted(){ return [...(DB.easy||[])].sort((a,b)=> (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0); }
 function renderFondoR4(){
   const fE=$('#r4Fecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
   const asc=easySorted();
   const Y=new Date().getFullYear();
-  let inv=0, valorAct=null, valorFecha='', netoAnio=0, netoTot=0;
+  let inv=0, valorAct=null, valorFecha='', netoAnio=0, netoTot=0, brutoAnio=0, brutoTot=0;
   asc.forEach(e=>{ inv += e.tipo==='retirada'? -num(e.importe): num(e.importe);
     if(e.valor!=null && e.valor!=='' ){ valorAct=num(e.valor); valorFecha=e.fecha||''; }
-    if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto); netoTot+=n; if((e.fecha||'').slice(0,4)===String(Y)) netoAnio+=n; }
+    if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto), b=num(e.bruto); netoTot+=n; brutoTot+=b; if((e.fecha||'').slice(0,4)===String(Y)){ netoAnio+=n; brutoAnio+=b; } }
   });
   const plusv = (valorAct!=null)? valorAct-inv : null;
   const cardEl=$('#r4Cards');
@@ -790,7 +792,7 @@ function renderFondoR4(){
     {l:'Valor del fondo',v:(valorAct!=null?fmt(valorAct):'—'),cls:'',s:(valorFecha?('al '+ddmmyyyy(valorFecha)):'sin valor registrado')},
     {l:'Saldo aportado (neto)',v:fmt(inv),cls:'',s:(DB.easy||[]).length+' movimientos'},
     {l:'Plusvalía latente',v:(plusv!=null?((plusv>=0?'+':'')+fmt(plusv)):'—'),cls:(plusv!=null?(plusv>=0?'pos':'neg'):''),s:(plusv!=null&&inv>0?((plusv/inv>=0?'+':'')+(plusv/inv*100).toFixed(2)+'%'):'')},
-    {l:'Interés neto '+Y,v:(netoAnio>=0?'+':'')+fmt(netoAnio),cls:netoAnio>=0?'pos':'neg',s:'total histórico '+(netoTot>=0?'+':'')+fmt(netoTot)}
+    {l:'Interés neto '+Y,v:(netoAnio>=0?'+':'')+fmt(netoAnio),cls:netoAnio>=0?'pos':'neg',s:'bruto '+fmt(brutoAnio)+' · histórico neto '+fmt(netoTot)}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
   const listEl=$('#r4List'); if(!listEl) return;
   if(!asc.length){ listEl.innerHTML='<div class="empty">Sin movimientos. Añade una aportación o una retirada, o importa el histórico.</div>'; return; }
@@ -803,24 +805,26 @@ function renderFondoR4(){
       `<td class="num"><b>${fmt(run)}</b></td>`+
       `<td class="num">${val!=null?fmt(val):'—'}</td>`+
       `<td class="num ${pl!=null?(pl>=0?'pos':'neg'):''}">${pl!=null?((pl>=0?'+':'')+fmt(pl)):'—'}</td>`+
+      `<td class="num">${(e.tipo==='retirada'&&e.retencion!=null&&e.retencion!=='')?fmt(num(e.retencion)):''}</td>`+
+      `<td class="num">${(e.tipo==='retirada'&&e.bruto!=null&&e.bruto!=='')?fmt(num(e.bruto)):''}</td>`+
       `<td class="num pos">${(e.tipo==='retirada'&&e.neto!=null&&e.neto!=='')?fmt(num(e.neto)):''}</td>`+
       `<td class="right"><button class="btn danger sm" data-delr4="${e.id}">✕</button></td></tr>`;
   });
   const ord=($('#r4Orden')||{}).value||'desc';
   const rows=(ord==='desc'?rowsArr.slice().reverse():rowsArr).join('');
-  listEl.innerHTML=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Importe</th><th class="num">Aportado acum.</th><th class="num">Valor fondo</th><th class="num">Plusvalía</th><th class="num">Interés neto</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  listEl.innerHTML=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Importe</th><th class="num">Aportado acum.</th><th class="num">Valor fondo</th><th class="num">Plusvalía</th><th class="num">Retención</th><th class="num">Int. bruto</th><th class="num">Int. neto</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 function addFondoR4(){
   const fecha=$('#r4Fecha').value; if(!fecha){alert('Pon una fecha');return;}
   const importe=num($('#r4Importe').value); if(!importe){alert('Pon un importe');return;}
-  const valRaw=$('#r4Valor').value; const netoRaw=$('#r4Neto')?$('#r4Neto').value:'';
+  const valRaw=$('#r4Valor').value; const retRaw=$('#r4Ret')?$('#r4Ret').value:'';
   const tipo=$('#r4Tipo').value==='retirada'?'retirada':'aportacion';
   DB.easy=DB.easy||[];
   const mov={id:uid(),fecha,tipo,importe:Math.abs(importe)};
   if(valRaw!=='') mov.valor=num(valRaw);
-  if(tipo==='retirada' && netoRaw!=='') mov.neto=num(netoRaw);
+  if(tipo==='retirada' && retRaw!=='' && num(retRaw)>0){ const c=r4DesdeRetencion(retRaw); mov.retencion=c.retencion; mov.bruto=c.bruto; mov.neto=c.neto; }
   DB.easy.push(mov);
-  $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Neto'))$('#r4Neto').value='';
+  $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Ret')){$('#r4Ret').value='';} if($('#r4RetCalc'))$('#r4RetCalc').textContent='';
   renderFondoR4(); scheduleSave();
 }
 function importFondoR4(file){
@@ -828,7 +832,8 @@ function importFondoR4(file){
     const arr=Array.isArray(d)?d:(d.easy||d.movimientos||[]); if(!arr.length){alert('El archivo no contiene movimientos');return;}
     DB.easy=arr.map(e=>{ const m={id:uid(),fecha:e.fecha,tipo:(e.tipo==='retirada'?'retirada':'aportacion'),importe:Math.abs(num(e.importe))};
       if(e.valor!=null&&e.valor!=='') m.valor=num(e.valor);
-      if(e.neto!=null&&e.neto!=='') m.neto=num(e.neto);
+      if(e.retencion!=null&&e.retencion!==''&&num(e.retencion)>0){ const c=r4DesdeRetencion(e.retencion); m.retencion=c.retencion; m.bruto=c.bruto; m.neto=c.neto; }
+      else { if(e.bruto!=null&&e.bruto!=='') m.bruto=num(e.bruto); if(e.neto!=null&&e.neto!=='') m.neto=num(e.neto); }
       return m; });
     renderFondoR4(); saveNow(); alert('Importados '+DB.easy.length+' movimientos del Fondo R4.'); });
 }

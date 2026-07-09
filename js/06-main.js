@@ -234,6 +234,7 @@ $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
 if($('#r4Form')) $('#r4Form').addEventListener('submit',e=>{e.preventDefault();addFondoR4();});
 if($('#r4ImportBtn')) $('#r4ImportBtn').addEventListener('click',()=>$('#r4File').click());
 if($('#r4Tipo')) $('#r4Tipo').addEventListener('change',()=>{ const rt=$('#r4NetoWrap'); if(rt) rt.style.display=($('#r4Tipo').value==='retirada'?'':'none'); });
+if($('#r4Ret')) $('#r4Ret').addEventListener('input',()=>{ const el=$('#r4RetCalc'); if(!el)return; const c=r4DesdeRetencion($('#r4Ret').value); el.textContent=(c.retencion>0)?(' → bruto '+fmt(c.bruto)+' € · neto '+fmt(c.neto)+' €'):''; });
 if($('#r4Orden')) $('#r4Orden').addEventListener('change',renderFondoR4);
 if($('#posFiltro')) $('#posFiltro').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
 if($('#posOrden')) $('#posOrden').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
