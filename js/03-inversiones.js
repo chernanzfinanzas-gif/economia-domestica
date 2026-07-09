@@ -63,40 +63,43 @@ function renderPOS(){
   const el=$('#posTable'); if(!el) return;
   let lots=posLots();
   const filt=($('#posFiltro')||{}).value||'todas';
-  if(filt==='cartera') lots=lots.filter(l=>l.estado==='Cartera');
-  else if(filt==='vendida') lots=lots.filter(l=>l.estado==='Vendida');
-  if(!lots.length){ el.innerHTML='<div class="empty">Sin lotes para mostrar.</div>'; return; }
   // métricas por lote
   lots.forEach(l=>{ l.vc=l.acc*l.pc; l.va=l.acc*l.pa; l.pl=l.va-l.vc;
     l.cotPct=l.vc?l.pl/l.vc:0; l.divPct=l.vc?l.div/l.vc:0;
     l.cotYr=l.years>0?l.cotPct/l.years:l.cotPct; l.divYr=l.years>0?l.divPct/l.years:l.divPct; l.totYr=l.cotYr+l.divYr; });
   const g={fecha:l=>l.fecha,ticker:l=>l.ticker,acc:l=>l.acc,pc:l=>l.pc,pa:l=>l.pa,vc:l=>l.vc,va:l=>l.va,pl:l=>l.pl,cotpct:l=>l.cotPct,div:l=>l.div,years:l=>l.years,cotyr:l=>l.cotYr,divyr:l=>l.divYr,totyr:l=>l.totYr,estado:l=>l.estado};
-  if(_sort['pos']&&_sort['pos'].k) lots=sortApply('pos',lots,g);
-  else { const ord=(($('#posOrden')||{}).value||'fecha_desc'); lots=lots.slice().sort((a,b)=> ord==='fecha_asc'?((a.fecha<b.fecha)?-1:1):((a.fecha>b.fecha)?-1:1)); }
+  const ord=(($('#posOrden')||{}).value||'fecha_desc');
+  const sortLots=arr=> (_sort['pos']&&_sort['pos'].k)?sortApply('pos',arr,g):arr.slice().sort((a,b)=> ord==='fecha_asc'?((a.fecha<b.fecha)?-1:1):((a.fecha>b.fecha)?-1:1));
   const pc2=x=>(x>=0?'+':'')+(x*100).toFixed(1)+'%';
   const _sh=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="pos" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('pos',k)}</th>`;
-  const head='<tr>'+_sh('fecha','Fecha','')+_sh('ticker','Empresa','')+_sh('acc','Acc.')+_sh('pc','P.compra')+_sh('pa','P.actual')+_sh('vc','Valor compra')+_sh('va','Valor actual')+_sh('pl','Plusvalía')+_sh('cotpct','Δ% cotiz')+_sh('div','Div cobrado')+_sh('years','Años')+_sh('cotyr','%Cotiz/año')+_sh('divyr','%Div/año')+_sh('totyr','%Total/año')+_sh('estado','Estado','')+'</tr>';
-  let sVC=0,sVA=0,sPL=0,sDIV=0;
-  const rows=lots.map(l=>{ sVC+=l.vc; sVA+=l.va; sPL+=l.pl; sDIV+=l.div;
-    return `<tr><td style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
-      `<td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${l.ticker}"><b>${l.ticker}</b></button> <span class="muted" style="font-size:11px">${l.cartera}</span></td>`+
-      `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td><td class="num">${fmt(l.pa)}</td>`+
-      `<td class="num">${fmt(l.vc)}</td><td class="num">${fmt(l.va)}</td>`+
-      `<td class="num ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</td>`+
-      `<td class="num ${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</td>`+
-      `<td class="num pos">${fmt(l.div)}</td><td class="num">${l.years.toFixed(1)}</td>`+
-      `<td class="num ${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</td>`+
-      `<td class="num pos">${pc2(l.divYr)}</td>`+
-      `<td class="num ${l.totYr>=0?'pos':'neg'}"><b>${pc2(l.totYr)}</b></td>`+
-      `<td><span class="tag ${l.estado==='Cartera'?'in':''}">${l.estado}</span></td></tr>`;
-  }).join('');
-  const totCot=sVC?sPL/sVC:0, totDiv=sVC?sDIV/sVC:0;
-  const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>TOTAL</td><td class="muted">${lots.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td><td></td></tr>`;
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table>`;
+  const head='<tr>'+_sh('fecha','Fecha','')+_sh('ticker','Empresa','')+_sh('acc','Acc.')+_sh('pc','P.compra')+_sh('pa','P.actual')+_sh('vc','Valor compra')+_sh('va','Valor actual')+_sh('pl','Plusvalía')+_sh('cotpct','Δ% cotiz')+_sh('div','Div cobrado')+_sh('years','Años')+_sh('cotyr','%Cotiz/año')+_sh('divyr','%Div/año')+_sh('totyr','%Total/año')+'</tr>';
+  function seccion(titulo,arr,totBg){
+    if(!arr.length) return '';
+    arr=sortLots(arr);
+    let sVC=0,sVA=0,sPL=0,sDIV=0;
+    const rows=arr.map(l=>{ sVC+=l.vc; sVA+=l.va; sPL+=l.pl; sDIV+=l.div;
+      return `<tr><td style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
+        `<td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${l.ticker}"><b>${l.ticker}</b></button> <span class="muted" style="font-size:11px">${l.cartera}</span></td>`+
+        `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td><td class="num">${fmt(l.pa)}</td>`+
+        `<td class="num">${fmt(l.vc)}</td><td class="num">${fmt(l.va)}</td>`+
+        `<td class="num ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</td>`+
+        `<td class="num ${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</td>`+
+        `<td class="num pos">${fmt(l.div)}</td><td class="num">${l.years.toFixed(1)}</td>`+
+        `<td class="num ${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</td>`+
+        `<td class="num pos">${pc2(l.divYr)}</td>`+
+        `<td class="num ${l.totYr>=0?'pos':'neg'}"><b>${pc2(l.totYr)}</b></td></tr>`;
+    }).join('');
+    const totCot=sVC?sPL/sVC:0, totDiv=sVC?sDIV/sVC:0;
+    const sub=`<tr style="font-weight:700;background:${totBg}"><td>TOTAL</td><td class="muted">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td></tr>`;
+    return `<h3 style="margin-top:14px">${titulo} <span class="muted" style="font-weight:400;font-size:12px">· ${arr.length} lotes · valor ${fmt(sVA)} · plusvalía ${sPL>=0?'+':''}${fmt(sPL)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+  }
+  let html='';
+  if(filt!=='vendida') html+=seccion('En cartera',lots.filter(l=>l.estado==='Cartera'),'#eafaf0');
+  if(filt!=='cartera') html+=seccion('Vendidas',lots.filter(l=>l.estado==='Vendida'),'#f1f5f9');
+  el.innerHTML= html || '<div class="empty">Sin lotes para mostrar.</div>';
 }
 function renderInv(){
   if(!DB.config)DB.config={};
-  if(typeof renderPOS==='function') renderPOS();
   const all=invPositions().filter(p=>p.acciones>0.0001);
   const _fechas=all.map(p=>p.precioFecha).filter(Boolean).sort();
   const refFecha=_fechas.length?_fechas[_fechas.length-1]:'';
