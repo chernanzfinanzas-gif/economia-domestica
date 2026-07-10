@@ -154,7 +154,8 @@ function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; const nowY
   if(proxYearSel==null)proxYearSel=nowY; const yIn=$('#proxYear'); if(yIn&&(yIn.value===''||yIn.value==null))yIn.value=proxYearSel;
   const M=(typeof proximaCompra==='function')?proximaCompra():null; const kp=$('#proxKpis');
   if(!M){ el.innerHTML='<div class="empty">Sin datos de análisis. Rellena cotización, banda de entrada y rating en Análisis.</div>'; if(kp)kp.innerHTML=''; return; }
-  if(kp)kp.innerHTML=[['Caja disponible',M.cajaHoy!=null?fmt(M.cajaHoy):'sin configurar'],['En zona de compra',String(M.cand.length)],['A repartir (según caja)',fmt(M.recTotal)],['Año destino del Plan',String(proxYearSel)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  const _pi=(typeof _planYearInfo==='function')?_planYearInfo(proxYearSel):{budget:0,planned:0,remaining:0};
+  if(kp)kp.innerHTML=[['Caja disponible',M.cajaHoy!=null?fmt(M.cajaHoy):'sin configurar',''],['En zona de compra',String(M.cand.length),''],['A repartir (según caja)',fmt(M.recTotal),''],['Presupuesto Plan '+proxYearSel,_pi.budget?fmt(_pi.budget):'—',''],['Libre en presupuesto',_pi.budget?fmt(_pi.remaining):'—',_pi.budget?(_pi.remaining<0?'neg':'pos'):'']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
   const estCls=x=>x.enBanda?'pos':((x.dist!=null&&x.dist>0.25)?'neg':'');
   const rowT=(x,i,tipo)=>{ const btns=(tipo==='cand')?`<button class="btn ghost sm" data-proxplan="${x.t}" title="Añadir al Plan del año ${proxYearSel}">→ Plan</button> <button class="btn ghost sm" data-proxcaja="${x.t}" title="Registrar salida en la Caja bróker">→ Caja</button>`:'';
     const rec=(tipo==='cand')?(x.rec>0?fmt(x.rec):(x.gap>0?fmt(x.gap):'·')):'·';
@@ -172,6 +173,14 @@ function proxAddPlan(t,all){ if(typeof proximaCompra!=='function')return 0; cons
   return added; }
 function proxAddCaja(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; const amt=Math.round(x.rec>0?x.rec:x.gap); if(amt<=0)return 0;
   DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(x.acc?x.acc+' ':'')+x.t,entra:0,sale:amt});
+  if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
+// === Presupuesto del Plan por año + reasignación ===
+function _planYearInfo(yr){ const b=num((DB.planPresupuesto||{})[yr]||0); let planned=0; const pc=DB.planCompras||{}; Object.keys(pc).forEach(t=>{ planned+=num((pc[t]||{})[yr]||0); }); return {budget:b,planned,remaining:b-planned}; }
+function proxAmount(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; return Math.round(x.rec>0?x.rec:x.gap); }
+function planDonorsYear(yr,exclude){ const pc=DB.planCompras||{}; const ex=(exclude||'').toUpperCase(); return Object.keys(pc).map(t=>({t:t.toUpperCase(),amt:num((pc[t]||{})[yr]||0)})).filter(x=>x.amt>0&&x.t!==ex).sort((a,b)=>b.amt-a.amt); }
+function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Math.round(num(amt)); if(amt<=0)return 0; DB.planCompras=DB.planCompras||{};
+  if(donor&&donorAmt>0){ donor=donor.toUpperCase(); DB.planCompras[donor]=DB.planCompras[donor]||{}; const cur=num((DB.planCompras[donor]||{})[yr]||0); const ded=Math.min(Math.round(donorAmt),cur); DB.planCompras[donor][yr]=cur-ded; if(DB.planCompras[donor][yr]<=0)delete DB.planCompras[donor][yr]; }
+  DB.planCompras[t]=DB.planCompras[t]||{}; DB.planCompras[t][yr]=num((DB.planCompras[t]||{})[yr]||0)+amt;
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
