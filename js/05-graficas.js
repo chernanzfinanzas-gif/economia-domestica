@@ -82,6 +82,32 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
     labels.push(String(yy).slice(2)+'/'+String(mn2+1).padStart(2,'0')); aport.push(ap); valor.push(val); valdiv.push(val+divAc); if(hayIbex){ const ipx=priceRepoAt('IBEX',cut); const dAp=ap-_prevAp; if(ipx>0&&dAp!==0)ibexUnits+=dAp/ipx; ibexVal.push(ipx>0?ibexUnits*ipx:(ibexVal.length?ibexVal[ibexVal.length-1]:0)); } _prevAp=ap; mn2++; if(mn2>11){mn2=0;yy++;} }
   return {ok:true,labels,aport,valor,valdiv,ibexVal,hayIbex}; }
 
+// === Rentabilidad real: TIR/XIRR (ponderada por dinero) y TWR (ponderada por tiempo) + benchmark IBEX ===
+function _xirr(cf){ if(!cf||cf.length<2)return null; const pos=cf.some(c=>c.a>0),neg=cf.some(c=>c.a<0); if(!pos||!neg)return null;
+  const t0=Math.min(...cf.map(c=>c.t)); const yr=c=>(c.t-t0)/(365.25*86400000);
+  const npv=r=>cf.reduce((s,c)=>s+c.a/Math.pow(1+r,yr(c)),0);
+  let lo=-0.9999,hi=100,flo=npv(lo),fhi=npv(hi); if(!isFinite(flo)||!isFinite(fhi))return null;
+  if((flo<0)===(fhi<0)){ let r=0.1; for(let i=0;i<100;i++){ const f=npv(r); const d=(npv(r+1e-5)-f)/1e-5; if(!isFinite(f)||!isFinite(d)||d===0)break; let nr=r-f/d; if(!isFinite(nr))break; if(nr<=-0.999)nr=-0.999; if(Math.abs(nr-r)<1e-8)return nr; r=nr; } return (isFinite(npv(r))&&Math.abs(npv(r))<1)?r:null; }
+  for(let i=0;i<200;i++){ const mid=(lo+hi)/2,fm=npv(mid); if(Math.abs(fm)<1e-7||(hi-lo)<1e-10)return mid; if((flo<0)!==(fm<0)){hi=mid;}else{lo=mid;flo=fm;} } return (lo+hi)/2; }
+function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d.ok)return null;
+  const aport=d.aport, valor=d.valor, valdiv=d.valdiv, ibex=d.ibexVal||[], n=aport.length; if(n<2)return null;
+  // TWR: retornos mensuales encadenados. Cuenta total = valor de mercado + dividendos acumulados; flujo externo del mes = variación de aportación neta.
+  const twrOf=serie=>{ let r=1,ok=false; for(let m=1;m<n;m++){ const start=num(serie[m-1]); const flow=num(aport[m])-num(aport[m-1]); const end=num(serie[m]); if(start>0.01){ r*=(end-flow)/start; ok=true; } } return ok?r-1:null; };
+  const twr=twrOf(valdiv), ibexTwr=d.hayIbex?twrOf(ibex):null;
+  const anios=Math.max((n-1)/12,1/12); const anual=x=>x==null?null:(Math.pow(1+x,1/anios)-1);
+  const twrAnual=anual(twr), ibexTwrAnual=anual(ibexTwr); const alfa=(twrAnual!=null&&ibexTwrAnual!=null)?twrAnual-ibexTwrAnual:null;
+  const valFinal=num(valdiv[n-1]), ibexFinal=d.hayIbex?num(ibex[n-1]):null, valDif=(ibexFinal!=null)?valFinal-ibexFinal:null;
+  // XIRR (money-weighted): flujos datados = compras(−)/ventas(+)/dividendos(+) + valor de mercado actual como flujo terminal(+)
+  const ops=(typeof _allOps==='function'?_allOps():[]); const cf=[];
+  ops.forEach(o=>{ if(!o.fecha)return; const ms=Date.parse(o.fecha+'T00:00:00'); if(isNaN(ms))return; const eur=num(o.acciones)*num(o.precio); if(!eur)return; cf.push({t:ms,a:(o.tipo==='venta'?eur:-eur)}); });
+  const shAt=(t,ms)=>{ let sh=0; ops.forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.fecha){ const om=Date.parse(o.fecha+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
+  const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=shAt(T,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } }); });
+  (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=shAt(T,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } }); });
+  const _opSet=new Set(ops.map(o=>(o.ticker||'').toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||'').toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ const e=num(_dIng[t][y]); if(e)cf.push({t:Date.UTC(+y,11,31),a:e}); }); });
+  const term=num(valor[n-1]); if(term>0)cf.push({t:Date.now(),a:term});
+  const xirr=_xirr(cf);
+  return {xirr,twr,twrAnual,ibexTwrAnual,alfa,valFinal,ibexFinal,valDif,anios,hayIbex:d.hayIbex}; }
+
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;
 function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
