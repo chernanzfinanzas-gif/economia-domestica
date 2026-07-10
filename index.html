@@ -738,6 +738,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>Nombre<input type="text" id="catNombre" required></label>
       <label>Grupo<input type="text" id="catGrupo" list="grupoList" placeholder="p. ej. Casa"><datalist id="grupoList"></datalist></label>
       <label>Tipo<select id="catTipo"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select></label>
+      <label style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="catEsencial" style="width:auto"> Gasto esencial (imprescindible si cae el ingreso)</label>
       <label>Importe presupuestado (€)<input type="number" id="catImporte" step="0.01" min="0" value="0"></label>
       <label>Frecuencia<select id="catFrec"><option value="mensual">Mensual</option><option value="anual">Anual</option><option value="bianual">Bianual</option></select></label>
       <label>Método de pago<input type="text" id="catMetodo" placeholder="ING, Paypal, Play Store…"></label>
