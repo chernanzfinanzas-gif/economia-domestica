@@ -110,16 +110,14 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
 // === Atribución del crecimiento de la cartera: de dónde viene el cambio de valor+dividendos ===
 // total (valor+div) = aportación neta + revalorización de mercado + dividendos cobrados, en un periodo.
 function crecimientoAtribucion(mesesAtras){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const n=d.labels.length; if(n<2)return null;
-  const end=n-1; const start=Math.max(0,end-(mesesAtras||12));
-  const aportacion=num(d.aport[end])-num(d.aport[start]);
-  const dvIni=num(d.valdiv[start])-num(d.valor[start]), dvFin=num(d.valdiv[end])-num(d.valor[end]); const dividendos=dvFin-dvIni;
-  const total=num(d.valdiv[end])-num(d.valdiv[start]); const revaloriz=total-aportacion-dividendos;
-  return {aportacion,revaloriz,dividendos,total,desde:d.labels[start],hasta:d.labels[end],valIni:num(d.valdiv[start]),valFin:num(d.valdiv[end]),meses:end-start}; }
+  const end=n-1; const start=Math.max(0,end-(mesesAtras||12)); const A=_atribFrom(_evoState(d,start),_evoState(d,end)); A.desde=d.labels[start]; A.hasta=d.labels[end]; A.meses=end-start; return A; }
 // Atribución generalizada por rango de meses / por año (reusa carteraEvolData)
 function _labelYM(lb){ const p=(lb||'').split('/'); return (2000+ +p[0])*100 + (+p[1]); }
 function _evoState(d,idx){ if(idx==null||idx<0)return {aport:0,valor:0,valdiv:0}; return {aport:num(d.aport[idx]),valor:num(d.valor[idx]),valdiv:num(d.valdiv[idx])}; }
 function _idxLE(d,ym){ let idx=null; for(let i=0;i<d.labels.length;i++){ if(_labelYM(d.labels[i])<=ym)idx=i; else break; } return idx; }
-function _atribFrom(s0,s1){ const aportacion=s1.aport-s0.aport; const dividendos=(s1.valdiv-s1.valor)-(s0.valdiv-s0.valor); const total=s1.valdiv-s0.valdiv; const revaloriz=total-aportacion-dividendos; return {aportacion,revaloriz,dividendos,total,valIni:s0.valdiv,valFin:s1.valdiv}; }
+// Atribución sobre el VALOR de mercado de la cartera (reconcilia con lo que ves en Cartera).
+// crecimiento del valor = aportación + mercado. Los dividendos del periodo van aparte (a caja, no son valor de acciones).
+function _atribFrom(s0,s1){ const aportacion=s1.aport-s0.aport; const dividendos=(s1.valdiv-s1.valor)-(s0.valdiv-s0.valor); const crecValor=s1.valor-s0.valor; const revaloriz=crecValor-aportacion; const retorno=revaloriz+dividendos; return {aportacion,revaloriz,dividendos,crecValor,retorno,total:crecValor,valIni:s0.valor,valFin:s1.valor}; }
 function atribucionRango(desdeYM,hastaYM){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const endIdx=_idxLE(d,hastaYM); if(endIdx==null)return null; const dm=desdeYM%100,dy=Math.floor(desdeYM/100); const prevYM=dm>1?(dy*100+(dm-1)):((dy-1)*100+12); const startIdx=_idxLE(d,prevYM); return _atribFrom(_evoState(d,startIdx),_evoState(d,endIdx)); }
 function atribucionPorAnio(){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return []; const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>a-b); return years.map(Y=>{ const s0=_evoState(d,_idxLE(d,(Y-1)*100+12)); const s1=_evoState(d,_idxLE(d,Y*100+12)); return Object.assign({anio:Y},_atribFrom(s0,s1)); }); }
 function gWaterfall(steps){ const W=600,H=300,padL=56,padB=42,padT=16; const plotH=H-padB-padT,plotW=W-padL-14;
@@ -147,11 +145,14 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
   else { A=crecimientoAtribucion(12); titulo='Últimos 12 meses'; }
   if(!A){ el.innerHTML='<div class="empty">No hay datos para ese periodo.</div>'; if(kp)kp.innerHTML=''; return; }
   const sg=x=>(x>=0?'+':'')+fmt(x);
-  if(kp)kp.innerHTML=[['Aportación',sg(A.aportacion),''],['Mercado',sg(A.revaloriz),A.revaloriz>=0?'pos':'neg'],['Dividendos',sg(A.dividendos),'pos'],['Crecimiento total',sg(A.total),A.total>=0?'pos':'neg']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
-  const vi=num(A.valIni), vf=(A.valFin!=null?num(A.valFin):vi+A.total);
-  const wf=gWaterfall([{label:'Inicio',base:vi},{label:'Aportación',delta:A.aportacion},{label:'Mercado',delta:A.revaloriz},{label:'Dividendos',delta:A.dividendos},{label:'Final',base:vf}]);
-  const porY=atribucionPorAnio(); const yrows=porY.slice().reverse().map(r=>`<tr><td><b>${r.anio}</b></td><td class="num">${sg(r.aportacion)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.total>=0?'pos':'neg'}" style="font-weight:700">${sg(r.total)}</td></tr>`).join('');
-  el.innerHTML=`<div class="card" style="margin:0 0 12px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${titulo}</div><div class="sub" style="margin-bottom:6px">Cómo pasó tu valor+dividendos de ${fmt(vi)} a ${fmt(vf)}. Barras verdes/rojas = qué sumó o restó.</div>${wf}</div><h3 style="font-size:14px;margin:6px 0">Atribución por año</h3><div class="sub" style="margin-bottom:6px">Cada año natural: cuánto vino de aportar, del mercado y de dividendos.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Aportación</th><th class="num">Mercado</th><th class="num">Dividendos</th><th class="num">Total</th></tr></thead><tbody>${yrows}</tbody></table></div>`;
+  if(kp)kp.innerHTML=[['Aportación',sg(A.aportacion),''],['Mercado',sg(A.revaloriz),A.revaloriz>=0?'pos':'neg'],['Dividendos',sg(A.dividendos),'pos'],['Retorno (mkt+div)',sg(A.retorno),A.retorno>=0?'pos':'neg']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  const vi=num(A.valIni), vf=num(A.valFin);
+  const wf=gWaterfall([{label:'Inicio',base:vi},{label:'Aportación',delta:A.aportacion},{label:'Mercado',delta:A.revaloriz},{label:'Valor final',base:vf}]);
+  const nota=`<div class="sub" style="margin-top:6px">Además cobraste <b style="color:#16a34a">${fmt(A.dividendos)}</b> en dividendos durante el periodo (van a tu caja, no forman parte del valor de las acciones). Retorno de tu dinero (mercado + dividendos): <b>${sg(A.retorno)}</b>.</div>`;
+  const porY=atribucionPorAnio(); let tA=0,tM=0,tD=0,tC=0; porY.forEach(r=>{tA+=r.aportacion;tM+=r.revaloriz;tD+=r.dividendos;tC+=r.crecValor;});
+  const yrows=porY.slice().reverse().map(r=>`<tr><td><b>${r.anio}</b></td><td class="num">${sg(r.aportacion)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.crecValor>=0?'pos':'neg'}" style="font-weight:700">${sg(r.crecValor)}</td></tr>`).join('');
+  const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>Total (= valor cartera)</td><td class="num">${sg(tA)}</td><td class="num ${tM>=0?'pos':'neg'}">${sg(tM)}</td><td class="num pos">${sg(tD)}</td><td class="num">${fmt(tC)}</td></tr>`;
+  el.innerHTML=`<div class="card" style="margin:0 0 12px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${titulo}</div><div class="sub" style="margin-bottom:6px">Tu cartera pasó de ${fmt(vi)} a <b>${fmt(vf)}</b> (valor de mercado). El cambio se reparte entre lo que <b>aportaste</b> y lo que hizo el <b>mercado</b>.</div>${wf}${nota}</div><h3 style="font-size:14px;margin:6px 0">Atribución por año</h3><div class="sub" style="margin-bottom:6px">Cada año natural: aportación + mercado = crecimiento del valor; dividendos aparte. La columna "Crec. valor" suma tu valor de cartera actual.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Aportación</th><th class="num">Mercado</th><th class="num">Dividendos</th><th class="num">Crec. valor</th></tr></thead><tbody>${yrows}${totRow}</tbody></table></div>`;
 }
 
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
