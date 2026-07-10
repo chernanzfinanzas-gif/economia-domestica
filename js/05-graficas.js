@@ -130,6 +130,67 @@ function coberturaDivGastos(){ if(typeof simYearTotal!=='function')return null; 
   const years=[],divSerie=[],gastoSerie=[]; for(let i=0;i<fullY.length;i++){ if(fullY[i]<=chartEnd){ years.push(fullY[i]);divSerie.push(fullDiv[i]);gastoSerie.push(fullGasto[i]); } }
   return {gastoReal,divNow,cobertura,gDiv,infla,anioIndep,horizon,lastY,years,divSerie,gastoSerie}; }
 
+// === Riesgo y diversificación: volatilidad, drawdown, correlaciones (pesos actuales + precios diarios del repo) ===
+function riesgoData(reRender){
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  if(!pos.length)return {empty:true};
+  const tickers=[...new Set(pos.map(p=>(p.ticker||'').toUpperCase()))];
+  const need=[...new Set([...tickers,'IBEX'])]; const falta=need.filter(t=>_precioCache[t]===undefined);
+  if(falta.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
+  const usable=tickers.filter(t=>{ const pj=_precioCache[t]; return pj&&pj.data&&pj.data.length>30; });
+  if(usable.length<1)return {noData:true};
+  const maps={}; usable.forEach(t=>{ const m={}; _precioCache[t].data.forEach(r=>{ m[r[0]]=num(r[1]); }); maps[t]=m; });
+  const ibexData=_precioCache['IBEX']&&_precioCache['IBEX'].data; const ibexMap={}; if(ibexData)ibexData.forEach(r=>ibexMap[r[0]]=num(r[1]));
+  let dates=Object.keys(maps[usable[0]]); usable.slice(1).forEach(t=>{ const mm=maps[t]; dates=dates.filter(d=>mm[d]!=null); }); dates.sort();
+  const N=520; if(dates.length>N)dates=dates.slice(dates.length-N);
+  if(dates.length<20)return {noData:true};
+  let totV=0; const valById={}; pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); if(usable.includes(t)){ const v=p.acciones*num(p.precioActual); valById[t]=(valById[t]||0)+v; totV+=v; } });
+  const W={}; usable.forEach(t=>W[t]=totV>0?(valById[t]||0)/totV:0);
+  const ret={}; usable.forEach(t=>{ const arr=[]; for(let i=1;i<dates.length;i++){ const p0=maps[t][dates[i-1]],p1=maps[t][dates[i]]; arr.push(p0>0?(p1/p0-1):0); } ret[t]=arr; });
+  const n=dates.length-1;
+  const portRet=[]; for(let i=0;i<n;i++){ let r=0; usable.forEach(t=>{ r+=W[t]*ret[t][i]; }); portRet.push(r); }
+  let ibexRet=null; if(ibexData&&dates.every(d=>ibexMap[d]!=null)){ ibexRet=[]; for(let i=1;i<dates.length;i++){ const p0=ibexMap[dates[i-1]],p1=ibexMap[dates[i]]; ibexRet.push(p0>0?(p1/p0-1):0); } }
+  const mean=a=>a.reduce((s,x)=>s+x,0)/(a.length||1);
+  const std=a=>{ if(a.length<2)return 0; const m=mean(a); return Math.sqrt(a.reduce((s,x)=>s+(x-m)*(x-m),0)/(a.length-1)); };
+  const corr=(a,b)=>{ if(a.length<2)return 0; const ma=mean(a),mb=mean(b); let nu=0,da=0,db=0; for(let i=0;i<a.length;i++){ nu+=(a[i]-ma)*(b[i]-mb); da+=(a[i]-ma)*(a[i]-ma); db+=(b[i]-mb)*(b[i]-mb); } return (da&&db)?nu/Math.sqrt(da*db):0; };
+  const ANN=Math.sqrt(252);
+  const volPort=std(portRet)*ANN; const volById={}; usable.forEach(t=>volById[t]=std(ret[t])*ANN);
+  let idx=100,peak=100,ddMax=0; for(let i=0;i<n;i++){ idx*=(1+portRet[i]); if(idx>peak)peak=idx; const dd=idx/peak-1; if(dd<ddMax)ddMax=dd; }
+  let beta=null,corrIbex=null; if(ibexRet){ corrIbex=corr(portRet,ibexRet); const mI=mean(ibexRet),mP=mean(portRet); let cov=0; for(let i=0;i<n;i++)cov+=(portRet[i]-mP)*(ibexRet[i]-mI); cov/=(n-1); const vI=std(ibexRet); beta=(vI>0)?cov/(vI*vI):null; }
+  const corrM={}; usable.forEach(a=>{ corrM[a]={}; usable.forEach(b=>{ corrM[a][b]=(a===b)?1:corr(ret[a],ret[b]); }); });
+  let cs=0,cc=0; for(let i=0;i<usable.length;i++)for(let j=i+1;j<usable.length;j++){ cs+=corrM[usable[i]][usable[j]]; cc++; } const avgCorr=cc?cs/cc:null;
+  let hhi=0; usable.forEach(t=>hhi+=W[t]*W[t]); const effN=hhi>0?1/hhi:0; const topT=usable.slice().sort((a,b)=>W[b]-W[a])[0]; const topW=topT?W[topT]:0;
+  const secW={}; usable.forEach(t=>{ const s=(typeof SECTOR!=='undefined'&&SECTOR[t])||'Sin sector'; secW[s]=(secW[s]||0)+W[t]; });
+  return {ok:true,tickers:usable,W,volPort,volById,ddMax,beta,corrIbex,corrM,avgCorr,effN,topT,topW,secW,nDays:dates.length,desde:dates[0],hasta:dates[dates.length-1]};
+}
+function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#riesgoKpis'); const R=riesgoData(renderRiesgo);
+  if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
+  if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
+  if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
+  const pv=x=>x==null?'—':(x*100).toFixed(1)+'%';
+  if(kp)kp.innerHTML=[
+    ['Volatilidad anual',pv(R.volPort),R.volPort>0.25?'neg':(R.volPort<0.15?'pos':'')],
+    ['Drawdown máximo',pv(R.ddMax),'neg'],
+    ['Beta vs IBEX',R.beta==null?'—':R.beta.toFixed(2),''],
+    ['Correlación media',R.avgCorr==null?'—':R.avgCorr.toFixed(2),(R.avgCorr!=null&&R.avgCorr<0.5)?'pos':(R.avgCorr>=0.7?'neg':'')],
+    ['Nº efectivo posiciones',R.effN.toFixed(1)+' / '+R.tickers.length,''],
+    ['Concentración top',R.topT+' '+pv(R.topW),R.topW>=0.35?'neg':'']
+  ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  const perT=R.tickers.slice().sort((a,b)=>R.W[b]-R.W[a]);
+  const avgCorrOf=t=>{ let s=0,c=0; R.tickers.forEach(o=>{ if(o!==t){s+=R.corrM[t][o];c++;} }); return c?s/c:null; };
+  const trows=perT.map(t=>{ const a=avgCorrOf(t); return `<tr><td><b data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</b></td><td class="num">${pv(R.W[t])}</td><td class="num">${pv(R.volById[t])}</td><td class="num">${a==null?'—':a.toFixed(2)}</td></tr>`; }).join('');
+  const colFor=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){ const c=Math.round(255-x*105); return `rgb(255,${c},${c})`; } const c=Math.round(255+x*105); return `rgb(${c},255,${c})`; };
+  const head='<tr><th></th>'+perT.map(t=>`<th class="num" style="font-size:10px">${t}</th>`).join('')+'</tr>';
+  const mrows=perT.map(a=>`<tr><th style="text-align:left;font-size:10px">${a}</th>`+perT.map(b=>{ const v=R.corrM[a][b]; return `<td class="num" style="background:${colFor(v)};font-size:10px">${v.toFixed(2)}</td>`; }).join('')+'</tr>').join('');
+  const secArr=Object.keys(R.secW).map(s=>({s,w:R.secW[s]})).sort((a,b)=>b.w-a.w);
+  const secRows=secArr.map(x=>`<tr><td>${x.s}</td><td class="num ${x.w>=0.35?'neg':''}">${pv(x.w)}</td></tr>`).join('');
+  el.innerHTML=`<div class="sub" style="margin-bottom:8px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · ${R.nDays} días · ${R.desde} → ${R.hasta}. Volatilidad y beta anualizadas.</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
+    <div><h3 style="font-size:14px;margin:0 0 6px">Por posición</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th class="num">Peso</th><th class="num">Volat.</th><th class="num">Corr. media</th></tr></thead><tbody>${trows}</tbody></table></div></div>
+    <div><h3 style="font-size:14px;margin:0 0 6px">Peso por sector</h3><div style="overflow:auto"><table><thead><tr><th>Sector</th><th class="num">Peso</th></tr></thead><tbody>${secRows}</tbody></table></div></div>
+  </div>
+  <h3 style="font-size:14px;margin:14px 0 6px">Matriz de correlaciones</h3><div class="sub" style="margin-bottom:6px">Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). Correlación media de la cartera: <b>${R.avgCorr==null?'—':R.avgCorr.toFixed(2)}</b>.</div><div style="overflow:auto"><table style="font-size:11px"><thead>${head}</thead><tbody>${mrows}</tbody></table></div>`;
+}
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;
 function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
