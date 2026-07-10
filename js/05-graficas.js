@@ -122,14 +122,18 @@ function atribucionRango(desdeYM,hastaYM){ const d=(typeof carteraEvolData==='fu
 function atribucionPorAnio(){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return []; const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>a-b); return years.map(Y=>{ const s0=_evoState(d,_idxLE(d,(Y-1)*100+12)); const s1=_evoState(d,_idxLE(d,Y*100+12)); return Object.assign({anio:Y},_atribFrom(s0,s1)); }); }
 function gWaterfall(steps){ const W=600,H=300,padL=56,padB=42,padT=16; const plotH=H-padB-padT,plotW=W-padL-14;
   let cum=0; const bars=[]; let mx=0,mn=0; const cumAfter=[];
-  steps.forEach(s=>{ if(s.base!=null){ bars.push({label:s.label,lo:Math.min(0,s.base),hi:Math.max(0,s.base),val:s.base,kind:'base'}); cum=s.base; } else { const start=cum,end=cum+s.delta; bars.push({label:s.label,lo:Math.min(start,end),hi:Math.max(start,end),val:s.delta,kind:'delta',up:s.delta>=0}); cum=end; } cumAfter.push(cum); mx=Math.max(mx,cum,0); mn=Math.min(mn,cum,0); });
+  steps.forEach(s=>{ if(s.base!=null){ bars.push({label:s.label,lo:Math.min(0,s.base),hi:Math.max(0,s.base),val:s.base,kind:'base'}); cum=s.base; }
+    else if(s.over!=null){ const start=cum,end=cum+s.over; bars.push({label:s.label,lo:Math.min(start,end),hi:Math.max(start,end),val:s.over,kind:'over',up:s.over>=0}); }
+    else { const start=cum,end=cum+s.delta; bars.push({label:s.label,lo:Math.min(start,end),hi:Math.max(start,end),val:s.delta,kind:'delta',up:s.delta>=0}); cum=end; }
+    cumAfter.push(cum); });
+  bars.forEach(b=>{ mx=Math.max(mx,b.hi,0); mn=Math.min(mn,b.lo,0); });
   const rng=(mx-mn)||1; const Y=v=>padT+plotH-((v-mn)/rng)*plotH; const gw=plotW/bars.length, bw=Math.min(60,gw-16);
   let g=gYAxis(mn,mx,padL,padT,plotH,W,false);
-  bars.forEach((b,i)=>{ const x=padL+i*gw+(gw-bw)/2; const yTop=Y(b.hi),yBot=Y(b.lo); const h=Math.max(1,yBot-yTop); const col=b.kind==='base'?'#64748b':(b.up?'#16a34a':'#dc2626');
-    g+=`<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}"><title>${b.label}: ${(b.kind==='delta'&&b.val>=0?'+':'')+fmt(b.val)}</title></rect>`;
-    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${(yTop-4).toFixed(1)}" font-size="10" text-anchor="middle" fill="#334155">${(b.kind==='delta'&&b.val>=0?'+':'')+gAbrev(b.val)}</text>`;
-    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-24}" font-size="10" text-anchor="middle" fill="#64748b">${b.label}</text>`;
-    if(i<bars.length-1){ const yc=Y(cumAfter[i]); const x2=padL+(i+1)*gw+(gw-bw)/2; g+=`<line x1="${(x+bw).toFixed(1)}" y1="${yc.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${yc.toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="3 2"/>`; }
+  bars.forEach((b,i)=>{ const x=padL+i*gw+(gw-bw)/2; const yTop=Y(b.hi),yBot=Y(b.lo); const h=Math.max(1,yBot-yTop); const col=b.kind==='base'?'#64748b':(b.up?'#16a34a':'#dc2626'); const over=b.kind==='over'; const pre=(b.kind!=='base'&&b.val>=0)?'+':'';
+    g+=`<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}"${over?' fill-opacity="0.3" stroke="#16a34a" stroke-dasharray="3 2"':''}><title>${b.label}: ${pre+fmt(b.val)}${over?' (a caja, aparte)':''}</title></rect>`;
+    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${(yTop-4).toFixed(1)}" font-size="10" text-anchor="middle" fill="${over?'#16a34a':'#334155'}">${pre+gAbrev(b.val)}</text>`;
+    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-24}" font-size="10" text-anchor="middle" fill="#64748b">${b.label}</text>${over?`<text x="${(x+bw/2).toFixed(1)}" y="${H-12}" font-size="8" text-anchor="middle" fill="#94a3b8">a caja</text>`:''}`;
+    if(i<bars.length-1&&bars[i+1].kind!=='over'){ const yc=Y(cumAfter[i]); const x2=padL+(i+1)*gw+(gw-bw)/2; g+=`<line x1="${(x+bw).toFixed(1)}" y1="${yc.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${yc.toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="3 2"/>`; }
   });
   return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;max-width:660px" preserveAspectRatio="xMidYMid meet">${g}</svg>`; }
 let atribSel={modo:'12m',anio:null,desde:'',hasta:''};
@@ -147,8 +151,9 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
   const sg=x=>(x>=0?'+':'')+fmt(x);
   if(kp)kp.innerHTML=[['Aportación',sg(A.aportacion),''],['Mercado',sg(A.revaloriz),A.revaloriz>=0?'pos':'neg'],['Dividendos',sg(A.dividendos),'pos'],['Retorno (mkt+div)',sg(A.retorno),A.retorno>=0?'pos':'neg']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
   const vi=num(A.valIni), vf=num(A.valFin);
-  const wf=gWaterfall([{label:'Inicio',base:vi},{label:'Aportación',delta:A.aportacion},{label:'Mercado',delta:A.revaloriz},{label:'Valor final',base:vf}]);
-  const nota=`<div class="sub" style="margin-top:6px">Además cobraste <b style="color:#16a34a">${fmt(A.dividendos)}</b> en dividendos durante el periodo (van a tu caja, no forman parte del valor de las acciones). Retorno de tu dinero (mercado + dividendos): <b>${sg(A.retorno)}</b>.</div>`;
+  const wfSteps=[{label:'Inicio',base:vi},{label:'Aportación',delta:A.aportacion},{label:'Mercado',delta:A.revaloriz},{label:'Valor final',base:vf}]; if(Math.abs(A.dividendos)>0.5)wfSteps.push({label:'Dividendos',over:A.dividendos});
+  const wf=gWaterfall(wfSteps);
+  const nota=`<div class="sub" style="margin-top:6px">La barra verde discontinua de <b style="color:#16a34a">Dividendos</b> (${fmt(A.dividendos)}) son los cobrados en el periodo: van a tu caja y <b>no</b> forman parte del valor de las acciones, por eso se muestran aparte. Retorno de tu dinero (mercado + dividendos): <b>${sg(A.retorno)}</b>.</div>`;
   const porY=atribucionPorAnio(); let tA=0,tM=0,tD=0,tC=0; porY.forEach(r=>{tA+=r.aportacion;tM+=r.revaloriz;tD+=r.dividendos;tC+=r.crecValor;});
   const yrows=porY.slice().reverse().map(r=>`<tr><td><b>${r.anio}</b></td><td class="num">${sg(r.aportacion)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.crecValor>=0?'pos':'neg'}" style="font-weight:700">${sg(r.crecValor)}</td></tr>`).join('');
   const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>Total (= valor cartera)</td><td class="num">${sg(tA)}</td><td class="num ${tM>=0?'pos':'neg'}">${sg(tM)}</td><td class="num pos">${sg(tD)}</td><td class="num">${fmt(tC)}</td></tr>`;
