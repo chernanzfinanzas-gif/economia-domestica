@@ -757,13 +757,21 @@ async function cargarTrimestral(t){ t=(t||'').toUpperCase(); if(!t){return;}
   try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ if(rv.periodo&&!DB.monitor[t].rev[rv.periodo]){ DB.monitor[t].rev[rv.periodo]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
   if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t);
 }
+function _trimUnidad(nombre){ var m=(''+(nombre==null?'':nombre)).match(/\(([^()]*)\)\s*$/); return m?m[1].trim():''; }
+function _trimValUnidad(m){ var u=_trimUnidad(m.nombre); var v=_trimFmt(m.valor); if(typeof m.valor!=='number')return v; if(u==='%'||u==='pp')return v+u; return u?(v+' '+u):v; }
+function _trimPeriodo(p){ p=''+(p==null?'':p); var y=p.match(/(19|20)\d{2}/); var year=y?parseInt(y[0],10):0; var tipo=p.replace(/(19|20)\d{2}/,'').replace(/[-_/\s]+/g,'').trim().toUpperCase(); return {tipo:tipo,year:year}; }
+function _trimDelta(cur,prevVal,prevPeriodo){ if(typeof cur!=='number'||typeof prevVal!=='number'||prevVal===0)return ''; var pct=(cur-prevVal)/Math.abs(prevVal)*100; var col=pct>=0?'#16a34a':'#dc2626'; var sign=pct>=0?'+':''; var txt=sign+pct.toFixed(1).replace('.',',')+'%'; return ' <span title="vs '+_trimEsc(prevPeriodo||'')+'" style="color:'+col+';font-weight:600;font-size:11px;white-space:nowrap">('+txt+')</span>'; }
 function trimCardHTML(d){
   if(!d||!d.revisiones||!d.revisiones.length)return '';
   var revs=d.revisiones.slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
   var last=revs[revs.length-1];
   var semCol={V:'#16a34a',A:'#d97706',R:'#dc2626'}; var semTxt={V:'🟢 VERDE',A:'🟡 ÁMBAR',R:'🔴 ROJO'};
   var sg=(last.semaforoGlobal||'').toUpperCase();
-  var metr=(last.metricas||[]).map(function(m){ return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600">'+_trimFmt(m.valor)+'</td></tr>'; }).join('');
+  // Informe correspondiente anterior: mismo tipo de periodo (Q1/S1/9M/FY) del año previo más reciente.
+  var lp=_trimPeriodo(last.periodo); var prev=null;
+  for(var i=revs.length-2;i>=0;i--){ var pp=_trimPeriodo(revs[i].periodo); if(pp.tipo===lp.tipo&&pp.year<lp.year){ prev=revs[i]; break; } }
+  var prevMap={}; if(prev){ (prev.metricas||[]).forEach(function(x){ prevMap[x.nombre]=x.valor; }); }
+  var metr=(last.metricas||[]).map(function(m){ var dlt=prev?_trimDelta(m.valor,prevMap[m.nombre],prev.periodo):''; return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600;white-space:nowrap">'+_trimValUnidad(m)+dlt+'</td></tr>'; }).join('');
   var trend=revs.map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); var c=semCol[s]||'#94a3b8'; return '<span title="'+_trimEsc(r.periodo)+' ('+(r.fecha||'')+')" style="display:inline-block;width:13px;height:13px;border-radius:3px;background:'+c+';margin-right:3px"></span>'; }).join('');
   var alerta=(sg==='R'||last.tesisSigueIntacta===false)?'<span style="margin-left:8px;color:#dc2626;font-weight:700">⚠️ revisar tesis</span>':'';
   return '<div class="card" style="margin-top:10px;border-left:4px solid '+(semCol[sg]||'#94a3b8')+'">'
@@ -773,6 +781,6 @@ function trimCardHTML(d){
     +'<span class="muted" style="font-size:12px">'+_trimEsc(last.periodo)+(last.fecha?' · '+ddmmyyyy(last.fecha):'')+'</span>'+alerta
     +'<div style="flex:1"></div>'+(revs.length>1?'<div title="Tendencia del semáforo por trimestre" style="white-space:nowrap">'+trend+'</div>':'')+'</div>'
     +(last.resumen?'<div class="sub" style="margin-bottom:8px;line-height:1.45">'+_trimEsc(last.resumen)+'</div>':'')
-    +(metr?'<div style="overflow:auto"><table><thead><tr><th>Métrica ('+_trimEsc(last.periodo)+')</th><th class="num">Valor</th></tr></thead><tbody>'+metr+'</tbody></table></div>':'')
+    +(metr?'<div style="overflow:auto"><table><thead><tr><th>Métrica ('+_trimEsc(last.periodo)+')</th><th class="num">Valor'+(prev?' <span class="muted" style="font-weight:400;font-size:11px">(var. vs '+_trimEsc(prev.periodo)+')</span>':'')+'</th></tr></thead><tbody>'+metr+'</tbody></table></div>':'')
     +'</div>';
 }
