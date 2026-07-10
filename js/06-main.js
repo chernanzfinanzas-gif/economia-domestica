@@ -85,9 +85,9 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador'],['backtest','Backtest'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['analisis','Análisis'],['proxcompra','Próxima compra'],['comparador','Comparador'],['backtest','Backtest'],['radardiv','Radar Dividendo'],['riesgo','Riesgo']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
-const groupCurrent={mov:'movimientos', inv:'posiciones', planinv:'proyeccion'};
+const groupCurrent={mov:'movimientos', cartera:'posiciones', estudio:'analisis', rentas:'dividendos', planinv:'proyeccion'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
