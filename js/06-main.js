@@ -41,7 +41,7 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -85,7 +85,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador'],['backtest','Backtest'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['atribucion','Atribución'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador'],['backtest','Backtest'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'posiciones', planinv:'proyeccion'};
 function activarVista(view){
@@ -112,10 +112,15 @@ function activarVista(view){
   if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
   if(view==='riesgo' && typeof renderRiesgo==='function') renderRiesgo();
   if(view==='fiscalidad' && typeof renderFiscalidad==='function') renderFiscalidad();
+  if(view==='atribucion' && typeof renderAtribucion==='function') renderAtribucion();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
 $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-goto]'); if(h&&typeof activarVista==='function') activarVista(h.dataset.goto); });
+if($('#view-atribucion')){
+  $('#view-atribucion').addEventListener('click',e=>{ const b=e.target.closest('[data-atrib]'); if(b){ atribSel.modo=b.dataset.atrib; if(typeof renderAtribucion==='function')renderAtribucion(); return; } const r=e.target.closest('#atribRango'); if(r){ const dd=$('#atribDesde').value,hh=$('#atribHasta').value; if(dd&&hh){ atribSel.modo='rango'; atribSel.desde=dd; atribSel.hasta=hh; if(typeof renderAtribucion==='function')renderAtribucion(); } else alert('Elige fecha de inicio y de fin.'); return; } });
+  $('#view-atribucion').addEventListener('change',e=>{ const y=e.target.closest('#atribAnio'); if(y&&y.value){ atribSel.modo='anio'; atribSel.anio=+y.value; if(typeof renderAtribucion==='function')renderAtribucion(); } });
+}
 if($('#view-proxcompra')){
   $('#view-proxcompra').addEventListener('click',e=>{ const _y=(typeof proxYearSel!=='undefined'&&proxYearSel)?proxYearSel:new Date().getFullYear();
     const p=e.target.closest('[data-proxplan]'); if(p){ const t=p.dataset.proxplan; const amt=(typeof proxAmount==='function')?proxAmount(t):0; if(amt<=0){ alert('No hay importe recomendado para '+t+'.'); return; }

@@ -107,6 +107,52 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
   const term=num(valor[n-1]); if(term>0)cf.push({t:Date.now(),a:term});
   const xirr=_xirr(cf);
   return {xirr,twr,twrAnual,ibexTwrAnual,alfa,valFinal,ibexFinal,valDif,anios,hayIbex:d.hayIbex}; }
+// === Atribución del crecimiento de la cartera: de dónde viene el cambio de valor+dividendos ===
+// total (valor+div) = aportación neta + revalorización de mercado + dividendos cobrados, en un periodo.
+function crecimientoAtribucion(mesesAtras){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const n=d.labels.length; if(n<2)return null;
+  const end=n-1; const start=Math.max(0,end-(mesesAtras||12));
+  const aportacion=num(d.aport[end])-num(d.aport[start]);
+  const dvIni=num(d.valdiv[start])-num(d.valor[start]), dvFin=num(d.valdiv[end])-num(d.valor[end]); const dividendos=dvFin-dvIni;
+  const total=num(d.valdiv[end])-num(d.valdiv[start]); const revaloriz=total-aportacion-dividendos;
+  return {aportacion,revaloriz,dividendos,total,desde:d.labels[start],hasta:d.labels[end],valIni:num(d.valdiv[start]),valFin:num(d.valdiv[end]),meses:end-start}; }
+// Atribución generalizada por rango de meses / por año (reusa carteraEvolData)
+function _labelYM(lb){ const p=(lb||'').split('/'); return (2000+ +p[0])*100 + (+p[1]); }
+function _evoState(d,idx){ if(idx==null||idx<0)return {aport:0,valor:0,valdiv:0}; return {aport:num(d.aport[idx]),valor:num(d.valor[idx]),valdiv:num(d.valdiv[idx])}; }
+function _idxLE(d,ym){ let idx=null; for(let i=0;i<d.labels.length;i++){ if(_labelYM(d.labels[i])<=ym)idx=i; else break; } return idx; }
+function _atribFrom(s0,s1){ const aportacion=s1.aport-s0.aport; const dividendos=(s1.valdiv-s1.valor)-(s0.valdiv-s0.valor); const total=s1.valdiv-s0.valdiv; const revaloriz=total-aportacion-dividendos; return {aportacion,revaloriz,dividendos,total,valIni:s0.valdiv,valFin:s1.valdiv}; }
+function atribucionRango(desdeYM,hastaYM){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const endIdx=_idxLE(d,hastaYM); if(endIdx==null)return null; const dm=desdeYM%100,dy=Math.floor(desdeYM/100); const prevYM=dm>1?(dy*100+(dm-1)):((dy-1)*100+12); const startIdx=_idxLE(d,prevYM); return _atribFrom(_evoState(d,startIdx),_evoState(d,endIdx)); }
+function atribucionPorAnio(){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return []; const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>a-b); return years.map(Y=>{ const s0=_evoState(d,_idxLE(d,(Y-1)*100+12)); const s1=_evoState(d,_idxLE(d,Y*100+12)); return Object.assign({anio:Y},_atribFrom(s0,s1)); }); }
+function gWaterfall(steps){ const W=600,H=300,padL=56,padB=42,padT=16; const plotH=H-padB-padT,plotW=W-padL-14;
+  let cum=0; const bars=[]; let mx=0,mn=0; const cumAfter=[];
+  steps.forEach(s=>{ if(s.base!=null){ bars.push({label:s.label,lo:Math.min(0,s.base),hi:Math.max(0,s.base),val:s.base,kind:'base'}); cum=s.base; } else { const start=cum,end=cum+s.delta; bars.push({label:s.label,lo:Math.min(start,end),hi:Math.max(start,end),val:s.delta,kind:'delta',up:s.delta>=0}); cum=end; } cumAfter.push(cum); mx=Math.max(mx,cum,0); mn=Math.min(mn,cum,0); });
+  const rng=(mx-mn)||1; const Y=v=>padT+plotH-((v-mn)/rng)*plotH; const gw=plotW/bars.length, bw=Math.min(60,gw-16);
+  let g=gYAxis(mn,mx,padL,padT,plotH,W,false);
+  bars.forEach((b,i)=>{ const x=padL+i*gw+(gw-bw)/2; const yTop=Y(b.hi),yBot=Y(b.lo); const h=Math.max(1,yBot-yTop); const col=b.kind==='base'?'#64748b':(b.up?'#16a34a':'#dc2626');
+    g+=`<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}"><title>${b.label}: ${(b.kind==='delta'&&b.val>=0?'+':'')+fmt(b.val)}</title></rect>`;
+    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${(yTop-4).toFixed(1)}" font-size="10" text-anchor="middle" fill="#334155">${(b.kind==='delta'&&b.val>=0?'+':'')+gAbrev(b.val)}</text>`;
+    g+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-24}" font-size="10" text-anchor="middle" fill="#64748b">${b.label}</text>`;
+    if(i<bars.length-1){ const yc=Y(cumAfter[i]); const x2=padL+(i+1)*gw+(gw-bw)/2; g+=`<line x1="${(x+bw).toFixed(1)}" y1="${yc.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${yc.toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="3 2"/>`; }
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;max-width:660px" preserveAspectRatio="xMidYMid meet">${g}</svg>`; }
+let atribSel={modo:'12m',anio:null,desde:'',hasta:''};
+function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$('#atribKpis'); const d=(typeof carteraEvolData==='function')?carteraEvolData(renderAtribucion):null;
+  if(!d||d.empty){ el.innerHTML='<div class="empty">Sin operaciones registradas.</div>'; if(kp)kp.innerHTML=''; return; }
+  if(!d.ok){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo…</div>'; if(kp)kp.innerHTML=''; return; }
+  const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>b-a); const selEl=$('#atribAnio'); if(selEl){ selEl.innerHTML='<option value="">— año —</option>'+years.map(y=>`<option value="${y}"${(atribSel.modo==='anio'&&+atribSel.anio===y)?' selected':''}>${y}</option>`).join(''); }
+  const nowY=new Date().getFullYear(); let A=null, titulo='';
+  if(atribSel.modo==='ytd'){ A=atribucionRango(nowY*100+1,nowY*100+12); titulo='Año en curso ('+nowY+')'; }
+  else if(atribSel.modo==='anio'&&atribSel.anio){ A=atribucionRango(atribSel.anio*100+1,atribSel.anio*100+12); titulo='Año '+atribSel.anio; }
+  else if(atribSel.modo==='todo'){ A=Object.assign(_atribFrom(_evoState(d,null),_evoState(d,d.labels.length-1)),{}); titulo='Desde el inicio'; }
+  else if(atribSel.modo==='rango'&&atribSel.desde&&atribSel.hasta){ const dY=+atribSel.desde.slice(0,4),dM=+atribSel.desde.slice(5,7),hY=+atribSel.hasta.slice(0,4),hM=+atribSel.hasta.slice(5,7); A=atribucionRango(dY*100+dM,hY*100+hM); titulo='Del '+atribSel.desde+' al '+atribSel.hasta; }
+  else { A=crecimientoAtribucion(12); titulo='Últimos 12 meses'; }
+  if(!A){ el.innerHTML='<div class="empty">No hay datos para ese periodo.</div>'; if(kp)kp.innerHTML=''; return; }
+  const sg=x=>(x>=0?'+':'')+fmt(x);
+  if(kp)kp.innerHTML=[['Aportación',sg(A.aportacion),''],['Mercado',sg(A.revaloriz),A.revaloriz>=0?'pos':'neg'],['Dividendos',sg(A.dividendos),'pos'],['Crecimiento total',sg(A.total),A.total>=0?'pos':'neg']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  const vi=num(A.valIni), vf=(A.valFin!=null?num(A.valFin):vi+A.total);
+  const wf=gWaterfall([{label:'Inicio',base:vi},{label:'Aportación',delta:A.aportacion},{label:'Mercado',delta:A.revaloriz},{label:'Dividendos',delta:A.dividendos},{label:'Final',base:vf}]);
+  const porY=atribucionPorAnio(); const yrows=porY.slice().reverse().map(r=>`<tr><td><b>${r.anio}</b></td><td class="num">${sg(r.aportacion)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.total>=0?'pos':'neg'}" style="font-weight:700">${sg(r.total)}</td></tr>`).join('');
+  el.innerHTML=`<div class="card" style="margin:0 0 12px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${titulo}</div><div class="sub" style="margin-bottom:6px">Cómo pasó tu valor+dividendos de ${fmt(vi)} a ${fmt(vf)}. Barras verdes/rojas = qué sumó o restó.</div>${wf}</div><h3 style="font-size:14px;margin:6px 0">Atribución por año</h3><div class="sub" style="margin-bottom:6px">Cada año natural: cuánto vino de aportar, del mercado y de dividendos.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Aportación</th><th class="num">Mercado</th><th class="num">Dividendos</th><th class="num">Total</th></tr></thead><tbody>${yrows}</tbody></table></div>`;
+}
 
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
 // Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su
