@@ -92,10 +92,17 @@ function renderPanel(){
   const mult = isYear?12:1;
   let presGasto=0, presIng=0;
   DB.presupuesto.filter(p=>pAnio(p)===curYear).forEach(p=>{const c=catById(p.categoriaId); if(!c)return; const v=mensual(p)*mult; if(c.tipo==='gasto') presGasto+=v; else presIng+=v;});
+  // YoY: mismo periodo del año anterior
+  const prevPref = isYear? (''+(curYear-1)) : ((curYear-1)+'-'+String(curMonth+1).padStart(2,'0'));
+  const prevMovs = DB.movimientos.filter(m=>m.fecha.startsWith(prevPref));
+  const pIng=prevMovs.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+num(m.importe),0);
+  const pGas=prevMovs.filter(m=>m.tipo==='gasto').reduce((s,m)=>s+num(m.importe),0);
+  const pAho=pIng-pGas; const hasPrev=prevMovs.length>0;
+  const yoy=(cur,prev,upGood)=>{ if(!hasPrev||Math.abs(prev)<0.005)return ''; const d=(cur-prev)/Math.abs(prev); const good=(d>=0)===upGood; const col=good?'#16a34a':'#dc2626'; return ` · <span style="color:${col}">vs ${curYear-1}: ${d>=0?'+':''}${(d*100).toFixed(0)}%</span>`; };
   const cards=[
-    {l:'Ingresos '+suf,v:fmt(ing),s:'Presupuesto: '+fmt(presIng),cls:'pos'},
-    {l:'Gastos '+suf,v:fmt(gas),s:'Presupuesto: '+fmt(presGasto),cls:'neg'},
-    {l:'Ahorro '+suf,v:fmt(ahorro),s:'Previsto: '+fmt(presIng-presGasto),cls:ahorro>=0?'pos':'neg'},
+    {l:'Ingresos '+suf,v:fmt(ing),s:'Presupuesto: '+fmt(presIng)+yoy(ing,pIng,true),cls:'pos'},
+    {l:'Gastos '+suf,v:fmt(gas),s:'Presupuesto: '+fmt(presGasto)+yoy(gas,pGas,false),cls:'neg'},
+    {l:'Ahorro '+suf,v:fmt(ahorro),s:'Previsto: '+fmt(presIng-presGasto)+yoy(ahorro,pAho,true),cls:ahorro>=0?'pos':'neg'},
     {l:'Gasto vs presupuesto',v:(presGasto?Math.round(gas/presGasto*100):0)+'%',s:fmt(gas)+' de '+fmt(presGasto),cls:''},
   ];
   $('#panelCards').innerHTML=cards.map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
