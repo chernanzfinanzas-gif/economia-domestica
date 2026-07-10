@@ -690,6 +690,19 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="fiscalKpis" class="cards" style="margin-top:10px"></div>
     <div id="fiscalBody" style="margin-top:10px"></div>
   </section>
+  <section class="view" id="view-atribucion">
+    <h2>Atribución del crecimiento</h2>
+    <div class="toolbar" style="gap:8px;flex-wrap:wrap;align-items:center">
+      <button class="btn ghost sm" data-atrib="12m">Últimos 12m</button>
+      <button class="btn ghost sm" data-atrib="ytd">Año en curso</button>
+      <button class="btn ghost sm" data-atrib="todo">Todo</button>
+      <select id="atribAnio" class="anaInp" style="width:100px"></select>
+      <span class="muted">·</span>
+      <span class="muted">Rango:</span> <input type="date" id="atribDesde" class="anaInp"> <input type="date" id="atribHasta" class="anaInp"> <button class="btn sm" id="atribRango">Aplicar</button>
+    </div>
+    <div id="atribKpis" class="cards" style="margin-top:10px"></div>
+    <div id="atribBody" style="margin-top:10px"></div>
+  </section>
   <section class="view" id="view-informes">
     <h2>Informes</h2>
     <div id="informesCenter"></div>
