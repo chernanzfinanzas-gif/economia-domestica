@@ -63,6 +63,76 @@ function gLines(title,labels,series){ const W=Math.max(360,labels.length*7+60),H
   const step=Math.ceil(labels.length/8)||1; let xl=''; labels.forEach((lb,i)=>{ if(i%step===0)xl+=`<text x="${X(i).toFixed(1)}" y="${H-7}" font-size="10" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`; });
   const leg=`<div style="display:flex;gap:12px;font-size:11px;margin-top:2px">${series.map(sg=>`<span><span style="display:inline-block;width:10px;height:10px;background:${sg.color};border-radius:2px;margin-right:4px"></span>${sg.name}</span>`).join('')}</div>`;
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet">${yax}${lines}${xl}</svg></div>${leg}</div>`; }
+// === Serie mes a mes de la cartera: coste (aportado neto), valor por cotización y valor+dividendos ===
+function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  if(!_ops2.length) return {empty:true};
+  const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
+  if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
+  const priceAt=(t,ms)=>priceAtFB(t,ms);
+  const sharesAt=(t,ms)=>{ let sh=0; _ops2.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
+  const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
+  (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
+  const _opSet=new Set(_ops2.map(o=>(o.ticker||"").toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||"").toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ divEv.push({ms:Date.UTC(+y,11,31),eur:num(_dIng[t][y])}); }); });
+  divEv.sort((a,b)=>a.ms-b.ms);
+  const t0=new Date(Date.parse(_ops2[0].fecha+'T00:00:00')); let yy=t0.getFullYear(),mn2=t0.getMonth(); const now=new Date(); const labels=[],aport=[],valor=[],valdiv=[]; let divAc=0,di=0; const _ibexJ=_precioCache['IBEX']; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length); const ibexVal=[]; let ibexUnits=0,_prevAp=0;
+  while(yy<now.getFullYear()||(yy===now.getFullYear()&&mn2<=now.getMonth())){ const cut=Date.UTC(yy,mn2+1,0); const sh={}; let ap=0;
+    _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=cut){ const t=(o.ticker||'').toUpperCase(); const sg=o.tipo==='venta'?-1:1; sh[t]=(sh[t]||0)+sg*num(o.acciones); ap+=sg*num(o.acciones)*num(o.precio); } });
+    while(di<divEv.length&&divEv[di].ms<=cut){ divAc+=divEv[di].eur; di++; }
+    const isLast=(yy===now.getFullYear()&&mn2===now.getMonth()); const _pxAt=(t)=>{ const T=(t||'').toUpperCase(); if(isLast){ const v=(DB.valores||{})[T]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const pj=_precioCache[T]; let rp=0,rf=''; if(pj&&pj.data&&pj.data.length){ rp=num(pj.data[pj.data.length-1][1]); rf=pj.data[pj.data.length-1][0]; } if(lp>0&&rp>0) return (lf>=rf)?lp:rp; if(rp>0) return rp; if(lp>0) return lp; } return priceAt(t,cut); }; let val=0; Object.keys(sh).forEach(t=>{ if(sh[t]>0.0001)val+=sh[t]*_pxAt(t); });
+    labels.push(String(yy).slice(2)+'/'+String(mn2+1).padStart(2,'0')); aport.push(ap); valor.push(val); valdiv.push(val+divAc); if(hayIbex){ const ipx=priceRepoAt('IBEX',cut); const dAp=ap-_prevAp; if(ipx>0&&dAp!==0)ibexUnits+=dAp/ipx; ibexVal.push(ipx>0?ibexUnits*ipx:(ibexVal.length?ibexVal[ibexVal.length-1]:0)); } _prevAp=ap; mn2++; if(mn2>11){mn2=0;yy++;} }
+  return {ok:true,labels,aport,valor,valdiv,ibexVal,hayIbex}; }
+
+// === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
+const _evoReg={}; let _evoBound=false;
+function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
+function _evoBindHover(){ if(_evoBound)return; _evoBound=true;
+  document.addEventListener('mousemove',e=>{
+    const svg=(e.target&&e.target.closest)?e.target.closest('.evoSvg'):null;
+    if(!svg){ _evoHideAll(); return; }
+    const id=svg.getAttribute('data-evo'); const D=_evoReg[id]; if(!D)return;
+    const r=svg.getBoundingClientRect(); if(!r.width)return;
+    const vx=(e.clientX-r.left)*D.W/r.width; let bi=0,bd=Infinity; for(let i=0;i<D.xs.length;i++){ const dd=Math.abs(D.xs[i]-vx); if(dd<bd){bd=dd;bi=i;} }
+    const gx=D.xs[bi]; const Yv=v=>D.padT+D.plotH-((num(v)-D.mn)/D.rng)*D.plotH;
+    document.querySelectorAll('.evoTip').forEach(t=>{ if(t.getAttribute('data-evo')!==id)t.style.display='none'; });
+    const g=svg.querySelector('.evoGuide'); if(g){ g.setAttribute('x1',gx); g.setAttribute('x2',gx); g.style.display=''; }
+    const setDot=(cls,val)=>{ const c=svg.querySelector('.'+cls); if(c){ c.setAttribute('cx',gx); c.setAttribute('cy',Yv(val)); c.style.display=''; } };
+    setDot('evoDotC',D.coste[bi]); setDot('evoDotV',D.valor[bi]); setDot('evoDotD',D.valdiv[bi]); if(D.hayIbex)setDot('evoDotX',D.ibex[bi]);
+    const c=num(D.coste[bi]),v=num(D.valor[bi]),dv=num(D.valdiv[bi]); const rev=c>0?((dv-c)/c*100):0; const revc=c>0?((v-c)/c*100):0;
+    const p=(D.labels[bi]||'').split('/'); const fecha=p.length===2?(p[1]+'/20'+p[0]):D.labels[bi];
+    const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.evoTip'):null;
+    if(tip){ let h=`<div style="font-weight:700;margin-bottom:3px">${fecha}</div><div><span style="color:#94a3b8">Precio de coste:</span> ${fmt(c)}</div><div><span style="color:#60a5fa">Valor (cotización):</span> ${fmt(v)}</div><div><span style="color:#4ade80">Valor + dividendo:</span> ${fmt(dv)}</div>`;
+      if(D.hayIbex)h+=`<div><span style="color:#fbbf24">Si fuera IBEX-35:</span> ${fmt(num(D.ibex[bi]))}</div>`;
+      h+=`<div style="margin-top:3px;border-top:1px solid #334155;padding-top:3px">Revalorización con dividendo: <b style="color:${rev>=0?'#4ade80':'#f87171'}">${rev>=0?'+':''}${rev.toFixed(1)}%</b></div><div style="color:#94a3b8">Solo cotización: ${revc>=0?'+':''}${revc.toFixed(1)}%</div>`;
+      tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(70,Math.min(r.width-70,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
+  });
+}
+// Renderizador único e interactivo. opts: {id, reRender, ibex, goto, title, head, foot, mt}
+function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=carteraEvolData(opts.reRender);
+  if(d.empty) return '';
+  if(!d.ok) return `<div style="margin-top:${opts.mt!==undefined?opts.mt:16}px"><div class="muted" style="font-size:12px">Cargando cotizaciones…</div></div>`;
+  _evoBindHover();
+  const labels=d.labels, coste=d.aport, valor=d.valor, valdiv=d.valdiv, ibex=d.ibexVal||[], n=labels.length; const wantIbex=!!(opts.ibex&&d.hayIbex);
+  const W=820,H=300,padL=60,padR=14,padT=12,padB=38; const plotW=W-padL-padR, plotH=H-padT-padB;
+  let all=coste.concat(valor,valdiv); if(wantIbex)all=all.concat(ibex); all=all.map(num); const mn=Math.min(0,...all), mx=Math.max(1,...all), rng=(mx-mn)||1;
+  const X=i=> n>1 ? padL+i*plotW/(n-1) : padL+plotW/2; const Y=v=> padT+plotH-((num(v)-mn)/rng)*plotH;
+  const poly=(arr,col,w,dash)=>`<polyline points="${arr.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="${w}"${dash?` stroke-dasharray="${dash}"`:''}/>`;
+  const yax=(typeof gYAxis==='function')?gYAxis(mn,mx,padL,padT,plotH,W,false):'';
+  const step=Math.ceil(n/9)||1; let xl=''; labels.forEach((lb,i)=>{ if(i%step===0){ const p=lb.split('/'); xl+=`<text x="${X(i).toFixed(1)}" y="${H-18}" font-size="10" text-anchor="middle" fill="#64748b">${p[1]}/${p[0]}</text>`; } });
+  const xs=labels.map((_,i)=>X(i)); _evoReg[id]={labels,coste,valor,valdiv,ibex,hayIbex:wantIbex,xs,W,padT,plotH,mn,rng};
+  const guide=`<line class="evoGuide" x1="0" x2="0" y1="${padT}" y2="${padT+plotH}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
+  const dots=`<circle class="evoDot evoDotC" r="3.5" fill="#64748b" style="display:none"/>${wantIbex?'<circle class="evoDot evoDotX" r="3.5" fill="#f59e0b" style="display:none"/>':''}<circle class="evoDot evoDotV" r="3.5" fill="#2563eb" style="display:none"/><circle class="evoDot evoDotD" r="3.5" fill="#16a34a" style="display:none"/>`;
+  const ibexLine=wantIbex?poly(ibex,'#f59e0b',1.6,'6 4'):'';
+  const svg=`<svg class="evoSvg" data-evo="${id}" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" preserveAspectRatio="xMidYMid meet">${yax}${guide}${poly(coste,'#94a3b8',1.6)}${ibexLine}${poly(valor,'#2563eb',2)}${poly(valdiv,'#16a34a',2)}${dots}${xl}</svg>`;
+  const lc=num(coste[n-1]),lv=num(valor[n-1]),ld=num(valdiv[n-1]); const rev=lc>0?((ld-lc)/lc*100):0;
+  const leg=`<div style="display:flex;flex-wrap:wrap;gap:14px;font-size:11.5px;margin-top:2px"><span><span style="display:inline-block;width:10px;height:10px;background:#94a3b8;border-radius:2px;margin-right:4px"></span>Precio de coste</span>${wantIbex?'<span><span style="display:inline-block;width:10px;height:10px;background:#f59e0b;border-radius:2px;margin-right:4px"></span>Si fuera IBEX-35</span>':''}<span><span style="display:inline-block;width:10px;height:10px;background:#2563eb;border-radius:2px;margin-right:4px"></span>Valor (cotización)</span><span><span style="display:inline-block;width:10px;height:10px;background:#16a34a;border-radius:2px;margin-right:4px"></span>Valor + dividendos</span></div>`;
+  const tip=`<div class="evoTip" data-evo="${id}" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:7px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
+  const head=(opts.head===false)?'':`<h3 style="cursor:pointer;margin-bottom:6px" data-goto="${opts.goto||'graficas'}">${opts.title||'Evolución de la cartera'} <span class="muted" style="font-size:12px">›</span></h3>`;
+  const foot=(opts.foot===false)?'':`<div class="muted" style="font-size:11.5px;margin-top:4px">Hoy · coste ${fmt(lc)} · valor ${fmt(lv)} · con dividendos ${fmt(ld)} · revalorización con dividendo <b style="color:${rev>=0?'#16a34a':'#dc2626'}">${rev>=0?'+':''}${rev.toFixed(1)}%</b></div>`;
+  const mt=opts.mt!==undefined?opts.mt:16;
+  return `<div style="margin-top:${mt}px">${head}<div class="evoWrap" style="position:relative">${svg}${tip}</div>${leg}${foot}</div>`; }
+// alias de compatibilidad
+function evoPanelHTML(reRender){ return evoChartHTML({id:'evoPanel',reRender:reRender,goto:'graficas'}); }
+
 function aportValorHTML(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
   if(!_ops2.length)return '<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Aportado vs valor</div><div class="muted" style="font-size:12px">Sin operaciones.</div></div>';
@@ -109,7 +179,7 @@ function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&
     const _nyB=new Date().getFullYear(); let _acB=0; const _bnV=[],_bnY=[]; for(let y=2011;y<=_nyB;y++){ _acB+=(typeof simYearTotal==='function'?simYearTotal(y):0); _bnV.push(_acB); _bnY.push(String(y)); } const cBola=gBars('Bola de nieve: dividendos brutos acumulados',_bnY,[{name:'Acumulado',color:'#16a34a',vals:_bnV}]);
     const _ot=Object.keys(_objCache); const _oit=_ot.map(t=>({t:t,real:_objCache[t].real,obj:_objCache[t].obj})).filter(x=>x.obj>0||x.real>0).sort((a,b)=>b.obj-a.obj).slice(0,12); const cObj=_oit.length?gBars('Cartera: real vs objetivo (€)',_oit.map(x=>x.t),[{name:'Real',color:'#2563eb',vals:_oit.map(x=>x.real)},{name:'Objetivo',color:'#94a3b8',vals:_oit.map(x=>x.obj)}]):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">Cartera: real vs objetivo</div><div class="muted" style="font-size:12px">Abre la Diversificación una vez para calcular el objetivo.</div></div>';
     const _nyY=new Date().getFullYear(); const _yy=[],_yv=[]; const _dpa=DB.divPorAccion||{}; const _allT=[...new Set((DB.operaciones||[]).map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))]; for(let y=2011;y<=_nyY;y++){ let coste=0; (DB.operaciones||[]).forEach(o=>{ const oy=+((o.fecha||'').slice(0,4)); if(oy&&oy<=y)coste+=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); }); let divA=0; _allT.forEach(t=>{ const sh=(typeof realSharesAt==='function')?realSharesAt(t,y):0; divA+=sh*num((_dpa[t]||{})[y]||0); }); if(coste>0){ _yy.push(String(y)); _yv.push(divA/coste*100); } } const cYoC=_yy.length?gLine('Yield on cost por año (%)',_yy,_yv,{pct:true,color:'#16a34a'}):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">YoC por año</div><div class="muted" style="font-size:12px">Sin datos.</div></div>'; const _rpY=[],_rpV=[]; for(let y=2011;y<=_nyY;y++){ let val=0,divA=0; _allT.forEach(t=>{ const sh=(typeof realSharesAt==='function')?realSharesAt(t,y):0; if(sh>0.0001){ divA+=sh*num((_dpa[t]||{})[y]||0); val+=sh*priceAtFB(t,Date.UTC(y,11,31)); } }); if(val>0){ _rpY.push(String(y)); _rpV.push(divA/val*100); } } const cRPD=_rpY.length?gLine('RPD por año (%) · dividendo \u00f7 cotización',_rpY,_rpV,{pct:true,color:'#0ea5e9'}):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">RPD por año</div><div class="muted" style="font-size:12px">Sin datos de cotización aún.</div></div>';
-    const cAport=aportValorHTML(renderGraficas);
+    const cAport=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoGraf',reRender:renderGraficas,ibex:true}):aportValorHTML(renderGraficas);
     elI.innerHTML=`<div style="margin-bottom:12px">${c4}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c5}${c5b}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c6}${c7}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">${cCap}${cRent}${cBola}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px">${cObj}${cYoC}${cRPD}</div><div style="margin-top:12px">${cAport}</div>`; }
 }
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='grafYear'){ grafYear=+e.target.value; renderGraficas(); } });
