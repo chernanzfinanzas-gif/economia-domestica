@@ -159,6 +159,41 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
   const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>Total (= valor cartera)</td><td class="num">${sg(tE)}</td><td class="num pos">${sg(tD)}</td><td class="num ${tM>=0?'pos':'neg'}">${sg(tM)}</td><td class="num">${fmt(tC)}</td></tr>`;
   el.innerHTML=`<div class="card" style="margin:0 0 12px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${titulo}</div><div class="sub" style="margin-bottom:6px">Tu cartera pasó de ${fmt(vi)} a <b>${fmt(vf)}</b> (valor de mercado): dividendos reinvertidos + efectivo nuevo + mercado.</div>${wf}${nota}</div><h3 style="font-size:14px;margin:6px 0">Atribución por año</h3><div class="sub" style="margin-bottom:6px">Efectivo (dinero nuevo) + Dividendo (reinvertido) + Mercado = crecimiento del valor. El total de "Crec. valor" suma tu valor de cartera actual.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Efectivo</th><th class="num">Dividendo</th><th class="num">Mercado</th><th class="num">Crec. valor</th></tr></thead><tbody>${yrows}${totRow}</tbody></table></div>`;
 }
+// === Rentabilidad por empresa: TIR de tu posición + rentab. total + TR del valor por periodos (YTD/1A/3A) ===
+function rentabilidadEmpresas(reRender){
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  if(!pos.length)return {empty:true};
+  const tickers=[...new Set(pos.map(p=>(p.ticker||'').toUpperCase()))];
+  const falta=tickers.filter(t=>_precioCache[t]===undefined);
+  if(falta.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
+  const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o.fecha&&num(o.acciones)>0);
+  const opsByT={}; ops.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); (opsByT[t]=opsByT[t]||[]).push(o); });
+  const sharesAt=(t,ms)=>{ let sh=0; (opsByT[t]||[]).forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); return sh; };
+  const dvO=DB.dividendos||{}; const nowMs=Date.now(); const nowY=new Date().getFullYear();
+  const msY1=nowMs-365.25*86400000, msY3=nowMs-3*365.25*86400000, msYTD=Date.UTC(nowY,0,1);
+  const totVal=pos.reduce((s,p)=>s+p.acciones*num(p.precioActual),0);
+  const rows=pos.map(p=>{ const t=(p.ticker||'').toUpperCase(); const acc=p.acciones, pa=num(p.precioActual);
+    const coste=acc*num(p.precioCompra), valor=acc*pa, pl=valor-coste;
+    let divCob=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm))divCob+=sharesAt(t,dm)*num(dd.importe); } });
+    const rentTot=coste>0?(pl+divCob)/coste:null;
+    const cf=[]; (opsByT[t]||[]).forEach(o=>{ const ms=Date.parse(o.fecha+'T00:00:00'); if(isNaN(ms))return; const eur=num(o.acciones)*num(o.precio); if(!eur)return; cf.push({t:ms,a:(o.tipo==='venta'?eur:-eur)}); });
+    (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=sharesAt(t,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } });
+    if(valor>0)cf.push({t:nowMs,a:valor});
+    const xirr=(typeof _xirr==='function')?_xirr(cf):null;
+    const prNow=pa>0?pa:((typeof priceAtFB==='function')?priceAtFB(t,nowMs):0);
+    const trOf=(msStart)=>{ const p0=(typeof priceAtFB==='function')?priceAtFB(t,msStart):0; if(!(p0>0)||!(prNow>0))return null; let divS=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(dm>=msStart&&dm<=nowMs)divS+=num(dd.importe); } }); return (prNow-p0+divS)/p0; };
+    return {t,acc,pa,coste,valor,pl,plPct:coste>0?pl/coste:null,divCob,rentTot,xirr,peso:totVal>0?valor/totVal:0,trYTD:trOf(msYTD),tr1A:trOf(msY1),tr3A:trOf(msY3)};
+  }).sort((a,b)=>b.peso-a.peso);
+  return {ok:true,rows,totVal}; }
+function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const kp=$('#rentaKpis'); const R=rentabilidadEmpresas(renderRentabEmpresas);
+  if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
+  if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
+  const pc=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
+  const CR=(typeof carteraRentabilidad==='function')?carteraRentabilidad(renderRentabEmpresas):null;
+  if(kp)kp.innerHTML=[['TIR cartera (anual)',CR?pc(CR.xirr):'—',(CR&&CR.xirr>=0)?'pos':'neg'],['Rentab. temporal (anual)',CR?pc(CR.twrAnual):'—',(CR&&CR.twrAnual>=0)?'pos':'neg'],['Alfa vs IBEX',(CR&&CR.alfa!=null)?pc(CR.alfa):'—',(CR&&CR.alfa!=null&&CR.alfa>=0)?'pos':'neg'],['Valor cartera',fmt(R.totVal),'']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  const rows=R.rows.map(r=>`<tr><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td class="num">${(r.peso*100).toFixed(1)}%</td><td class="num">${fmt(r.valor)}</td><td class="num ${r.pl>=0?'pos':'neg'}">${(r.pl>=0?'+':'')+fmt(r.pl)}</td><td class="num ${r.pl>=0?'pos':'neg'}">${pc(r.plPct)}</td><td class="num pos">${fmt(r.divCob)}</td><td class="num ${(r.rentTot!=null&&r.rentTot>=0)?'pos':'neg'}" style="font-weight:700">${pc(r.rentTot)}</td><td class="num ${(r.xirr!=null&&r.xirr>=0)?'pos':'neg'}">${pc(r.xirr)}</td><td class="num ${(r.trYTD!=null&&r.trYTD>=0)?'pos':'neg'}">${pc(r.trYTD)}</td><td class="num ${(r.tr1A!=null&&r.tr1A>=0)?'pos':'neg'}">${pc(r.tr1A)}</td><td class="num ${(r.tr3A!=null&&r.tr3A>=0)?'pos':'neg'}">${pc(r.tr3A)}</td></tr>`).join('');
+  el.innerHTML=`<div class="sub" style="margin-bottom:8px"><b>Rent. total</b> y <b>TIR</b> miden TU posición (con tus fechas de compra y tus dividendos; TIR = anual ponderada por dinero). <b>TR YTD/1A/3A</b> miden el <b>valor</b> del activo (cotización + dividendos/acción del periodo), para comparar cómo va cada empresa independientemente de cuándo entraste. TR 3A es acumulado. Usa las cotizaciones del repo.</div><div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Empresa</th><th class="num">Peso</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">%</th><th class="num">Div. cobrado</th><th class="num">Rent. total</th><th class="num">TIR</th><th class="num">TR YTD</th><th class="num">TR 1A</th><th class="num">TR 3A</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
 
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
 // Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su
