@@ -148,6 +148,30 @@ function proximaCompra(){ if(typeof cmpScore!=='function')return null;
   cand.forEach(x=>{ let rec=Math.min(x.gap,rem); if(!isFinite(rec))rec=x.gap; if(rec<0)rec=0; x.rec=Math.round(rec); x.acc=x.cot>0?Math.floor(x.rec/x.cot):0; if(capByCash){rem-=rec; if(rem<0)rem=0;} recTotal+=x.rec; });
   const near=items.filter(x=>!x.enBanda&&x.dist!=null&&x.dist>0&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>a.dist-b.dist);
   return {cajaHoy,capByCash,items,cand,near,recTotal}; }
+// === Backtest del método: agrega las fotos de tesis (DB.tesisHist) y mide aciertos ===
+function backtestData(){ const TH=DB.tesisHist||{}; const dec={COMPRAR:{n:0,ok:0,sum:0,nr:0,esc:0},MANTENER:{n:0,ok:0,sum:0,nr:0,esc:0},ESPERAR:{n:0,ok:0,sum:0,nr:0,esc:0},VENDER:{n:0,ok:0,sum:0,nr:0,esc:0}};
+  const rows=[]; let total=0, okTotal=0, evalTotal=0;
+  Object.keys(TH).forEach(t=>{ const T=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===T)||{}; let ahora=num(a.cotizacion); if(!(ahora>0))ahora=num(((DB.valores||{})[T]||{}).precioActual);
+    (TH[t]||[]).forEach(sn=>{ const then=num(sn.cotizacion); const d=(sn.decision||'').toUpperCase(); const rent=(then>0&&ahora>0)?(ahora/then-1):null; total++;
+      let ok=null, esc=false;
+      if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER')ok=rent>=0; else if(d==='VENDER')ok=rent<0; else if(d==='ESPERAR'){ esc=rent>0.05; ok=!esc; } }
+      if(dec[d]){ dec[d].n++; if(rent!=null){ dec[d].nr++; dec[d].sum+=rent; if(ok)dec[d].ok++; if(esc)dec[d].esc++; } }
+      if(rent!=null){ evalTotal++; if(ok)okTotal++; }
+      rows.push({t:T,fecha:sn.fecha,decision:d,rating:sn.rating,score:sn.score,then,ahora,rent,ok,esc}); }); });
+  return {dec,rows,total,okTotal,evalTotal}; }
+function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#btKpis'); const B=backtestData();
+  const pct=(a,b)=>b>0?(a/b*100).toFixed(0)+'%':'—'; const rp=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
+  if(!B.total){ el.innerHTML='<div class="empty">Aún no hay fotos de tesis. Guárdalas desde la Ficha de cada empresa («+ Guardar foto») o al importar/actualizar un dossier.</div>'; if(kp)kp.innerHTML=''; return; }
+  const cAvg=B.dec.COMPRAR.nr?B.dec.COMPRAR.sum/B.dec.COMPRAR.nr:null;
+  if(kp)kp.innerHTML=[['Fotos evaluables',B.evalTotal+' / '+B.total,''],['Acierto global',pct(B.okTotal,B.evalTotal),(B.evalTotal&&B.okTotal/B.evalTotal>=0.5)?'pos':'neg'],['Rentab. media COMPRAR',rp(cAvg),cAvg==null?'':(cAvg>=0?'pos':'neg')],['Escapadas (ESPERAR)',String(B.dec.ESPERAR.esc||0),(B.dec.ESPERAR.esc>0?'neg':'')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  const dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  const decRows=['COMPRAR','MANTENER','ESPERAR','VENDER'].map(d=>{ const o=B.dec[d]; if(!o||!o.n)return ''; const avg=o.nr?o.sum/o.nr:null; return `<tr><td><b style="color:${dc[d]}">${d}</b></td><td class="num">${o.n}</td><td class="num">${o.ok||0}</td><td class="num">${pct(o.ok||0,o.nr||0)}</td><td class="num ${avg!=null?(avg>=0?'pos':'neg'):''}">${rp(avg)}</td><td class="num">${d==='ESPERAR'?(o.esc||0):'·'}</td></tr>`; }).join('');
+  let sHi={n:0,s:0}, sLo={n:0,s:0}; B.rows.forEach(r=>{ if(r.rent!=null&&r.score!=null){ if(r.score>=70){sHi.n++;sHi.s+=r.rent;} else {sLo.n++;sLo.s+=r.rent;} } });
+  const scoreInsight=`<div class="sub" style="margin:10px 0 4px">Rentabilidad media según el Score de la foto — <b>Score ≥ 70</b>: ${sHi.n?rp(sHi.s/sHi.n):'—'} (${sHi.n} fotos) · <b>Score &lt; 70</b>: ${sLo.n?rp(sLo.s/sLo.n):'—'} (${sLo.n} fotos). Si el primero es mayor, tu Score está discriminando bien.</div>`;
+  const det=B.rows.slice().sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')).map(r=>{ let mk='—',mc='#64748b'; const d=r.decision; if(r.rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){mk=r.rent>=0?'✓':'✗';mc=r.rent>=0?'#16a34a':'#dc2626';} else if(d==='VENDER'){mk=r.rent<0?'✓':'✗';mc=r.rent<0?'#16a34a':'#dc2626';} else if(d==='ESPERAR'){ if(r.esc){mk='se escapó';mc='#d97706';} else {mk=r.rent<0?'✓':'≈';mc=r.rent<0?'#16a34a':'#64748b';} } }
+    return `<tr><td>${r.fecha||'—'}</td><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${r.rating||'—'}${r.score!=null?' · '+Math.round(r.score):''}</td><td class="num">${r.then?fmt(r.then):'—'}</td><td class="num">${r.ahora?fmt(r.ahora):'—'}</td><td class="num ${r.rent!=null?(r.rent>=0?'pos':'neg'):''}">${rp(r.rent)}</td><td style="color:${mc};font-weight:700;text-align:center">${mk}</td></tr>`; }).join('');
+  el.innerHTML=`<div style="overflow:auto"><table><thead><tr><th>Decisión</th><th class="num">Fotos</th><th class="num">Aciertos</th><th class="num">% acierto</th><th class="num">Rentab. media</th><th class="num">Escapadas</th></tr></thead><tbody>${decRows}</tbody></table></div>${scoreInsight}<h3 style="margin:14px 0 6px;font-size:14px">Detalle de fotos</h3><div class="sub" style="margin-bottom:6px">Rentabilidad desde la fecha de cada foto hasta la cotización actual. ✓ acierto · ✗ fallo · «se escapó» = un ESPERAR que subió >5% · ≈ ESPERAR plano.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Empresa</th><th>Decisión</th><th class="num">Rating·Score</th><th class="num">Cotiz. foto</th><th class="num">Ahora</th><th class="num">Rentab.</th><th>OK</th></tr></thead><tbody>${det}</tbody></table></div>`;
+}
 // === Vista completa del motor "Próxima compra" ===
 let proxYearSel=null;
 function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; const nowY=new Date().getFullYear();
