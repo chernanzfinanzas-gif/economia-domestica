@@ -784,6 +784,32 @@ function importAmalia(file){
 const R4_RET=0.19; // retención fiscal sobre plusvalía (España, primer tramo)
 function r4DesdeRetencion(ret){ ret=num(ret); if(ret<=0) return {retencion:0,bruto:0,neto:0}; const bruto=ret/R4_RET; return {retencion:ret,bruto,neto:bruto-ret}; }
 function easySorted(){ return [...(DB.easy||[])].sort((a,b)=> (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0); }
+// === Metas financieras: objetivo € + fecha → progreso y ahorro mensual necesario ===
+function addMeta(){ DB.metas=DB.metas||[]; DB.metas.push({id:'m'+Math.random().toString(36).slice(2,9),nombre:'Nueva meta',objetivo:0,fecha:'',actual:0,aporte:0}); if(typeof saveNow==='function')saveNow(); renderMetas(); }
+function metaCalc(m){ const now=new Date(); const obj=num(m.objetivo),act=num(m.actual),ap=num(m.aporte); const falta=Math.max(0,obj-act); const prog=obj>0?Math.min(1,act/obj):0;
+  let mesesRest=null; if(m.fecha){ const d=new Date(m.fecha+'T00:00:00'); if(!isNaN(d.getTime()))mesesRest=(d.getFullYear()-now.getFullYear())*12+(d.getMonth()-now.getMonth()); }
+  const apNec=(mesesRest!=null&&mesesRest>0)?falta/mesesRest:(falta<=0?0:null);
+  let estim=''; if(falta>0&&ap>0){ const mm=Math.ceil(falta/ap); const de=new Date(now); de.setMonth(de.getMonth()+mm); estim=de.toISOString().slice(0,7); }
+  return {obj,act,ap,falta,prog,mesesRest,apNec,estim}; }
+function renderMetas(){ const el=$('#metasBody'); if(!el)return; const metas=DB.metas=DB.metas||[];
+  const rows=metas.map(m=>{ const c=metaCalc(m); let etxt='—',ecol='#64748b';
+    if(c.falta<=0&&c.obj>0){ etxt='✓ conseguida'; ecol='#16a34a'; }
+    else if(c.mesesRest!=null&&c.mesesRest<=0){ etxt='fecha vencida'; ecol='#dc2626'; }
+    else if(c.apNec!=null){ if(c.ap>0){ if(c.ap>=c.apNec-0.005){ etxt='en camino'; ecol='#16a34a'; } else { etxt='aporte corto'; ecol='#dc2626'; } } else { etxt='pon '+fmt(c.apNec)+'/mes'; ecol='#d97706'; } }
+    return `<tr>
+      <td><input class="anaInp" data-meta="${m.id}|nombre" value="${(m.nombre||'').replace(/"/g,'&quot;')}" style="width:150px"></td>
+      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|objetivo" value="${c.obj||''}" style="width:95px;text-align:right"></td>
+      <td><input type="date" class="anaInp" data-meta="${m.id}|fecha" value="${m.fecha||''}" style="width:132px"></td>
+      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|actual" value="${c.act||''}" style="width:95px;text-align:right"></td>
+      <td style="min-width:130px"><div class="bar"><i style="width:${(c.prog*100).toFixed(0)}%;background:${c.prog>=1?'#16a34a':'#2563eb'}"></i></div><div class="muted" style="font-size:10px">${(c.prog*100).toFixed(0)}% · falta ${fmt(c.falta)}</div></td>
+      <td class="num">${c.mesesRest!=null?c.mesesRest:'—'}</td>
+      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|aporte" value="${c.ap||''}" placeholder="${c.apNec!=null?Math.round(c.apNec):''}" style="width:85px;text-align:right"></td>
+      <td class="num">${c.apNec!=null?fmt(c.apNec):'—'}</td>
+      <td style="color:${ecol};font-size:11px;white-space:nowrap">${etxt}${c.estim?'<br><span class="muted">llegas '+c.estim+'</span>':''}</td>
+      <td><button class="btn danger sm" data-metadel="${m.id}">✕</button></td>
+    </tr>`; }).join('');
+  el.innerHTML=`<div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="metaAdd">+ Meta</button></div>`+(metas.length?`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Meta</th><th class="num">Objetivo</th><th>Fecha</th><th class="num">Ahorrado</th><th>Progreso</th><th class="num">Meses</th><th class="num">Aporte/mes</th><th class="num">Necesario</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><div class="sub" style="margin-top:6px">"Ahorrado" lo actualizas tú. "Necesario" = lo que falta ÷ meses hasta la fecha. Si pones un "Aporte/mes", te dice cuándo llegarías y si vas en camino.</div>`:'<div class="empty">Sin metas. Pulsa «+ Meta» para crear una (entrada de casa, coche, jubilación, viaje…).</div>');
+}
 function renderFondoR4(){
   const fE=$('#r4Fecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
   const asc=easySorted();
