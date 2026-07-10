@@ -172,10 +172,15 @@ function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=
   const realTable=rY.length?`<h3 style="font-size:14px;margin:14px 0 6px">Realizado en ${F.nowY} (FIFO)</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Venta</th><th class="num">Acc</th><th class="num">Compra→Venta</th><th class="num">Ganancia</th><th>Aviso</th></tr></thead><tbody>${realRows}<tr style="font-weight:700;background:#eef2f7"><td colspan="4">Neto realizado ${F.nowY}</td><td class="num ${F.realGainY>=0?'pos':'neg'}">${sg(F.realGainY)}</td><td></td></tr></tbody></table></div>`:`<div class="sub" style="margin-top:12px">Sin ventas registradas en ${F.nowY}.</div>`;
   el.innerHTML=`<div class="sub" style="margin-bottom:10px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas del año. Tramos del ahorro 2025: 19% / 21% / 23% / 27% / 28%.</div>${harvestBox}${candTable}${realTable}`;
 }
+// === Base de gasto/ingreso recurrente = presupuesto mensual del año en curso (evita distorsión de gastos puntuales) ===
+function gastoMensualPresu(){ const nowY=new Date().getFullYear(); let g=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='gasto'){ g+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?g:null; }
+function ingMensualPresu(){ const nowY=new Date().getFullYear(); let ing=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='ingreso'){ ing+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?ing:null; }
 // === Score de salud financiera: media de 4 pilares (ahorro, fondo emergencia, diversificación, alfa) ===
 function saludFinanciera(){ const clamp=x=>Math.max(0,Math.min(100,x));
-  const hoy=Date.now(), y1=hoy-365.25*86400000; let ing=0,gas=0; (DB.movimientos||[]).forEach(m=>{ if(m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(ms>=y1&&ms<=hoy){ if((m.tipo||'')==='ingreso')ing+=num(m.importe); else if((m.tipo||'')==='gasto')gas+=num(m.importe); } } });
-  const tasa=ing>0?(ing-gas)/ing:null; const sAhorro=tasa==null?null:clamp(tasa/0.20*100);
+  const gp=(typeof gastoMensualPresu==='function')?gastoMensualPresu():null; const ip=(typeof ingMensualPresu==='function')?ingMensualPresu():null;
+  const hoy=Date.now(), y1=hoy-365.25*86400000; let ingR=0,gasR=0; (DB.movimientos||[]).forEach(m=>{ if(m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(ms>=y1&&ms<=hoy){ if((m.tipo||'')==='ingreso')ingR+=num(m.importe); else if((m.tipo||'')==='gasto')gasR+=num(m.importe); } } });
+  const ingM=(ip!=null&&ip>0)?ip:(ingR/12), gasM=(gp!=null&&gp>0)?gp:(gasR/12);
+  const tasa=ingM>0?(ingM-gasM)/ingM:null; const sAhorro=tasa==null?null:clamp(tasa/0.20*100);
   const FE=(typeof fondoEmergencia==='function')?fondoEmergencia():null; const meses=FE?FE.meses:null; const sFondo=meses==null?null:clamp(meses/6*100);
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001); let sDiv=null,topW=null,effN=null;
   if(pos.length){ const tot=pos.reduce((s,p)=>s+p.acciones*num(p.precioActual),0); if(tot>0){ const ws=pos.map(p=>p.acciones*num(p.precioActual)/tot); topW=Math.max(...ws); const hhi=ws.reduce((s,w)=>s+w*w,0); effN=hhi>0?1/hhi:0; const sEff=clamp((effN-2)/8*100); const sTop=clamp((0.40-topW)/0.30*100); sDiv=sEff*0.6+sTop*0.4; } }
@@ -185,11 +190,12 @@ function saludFinanciera(){ const clamp=x=>Math.max(0,Math.min(100,x));
   return {pilares,score}; }
 // === Fondo de emergencia: meses de gastos cubiertos con el efectivo del Patrimonio (incluye R4) ===
 function fondoEmergencia(){ const snaps=(typeof patSnaps==='function')?patSnaps():[]; const last=snaps[snaps.length-1]; let efectivo=0; if(last)(last.lineas||[]).forEach(l=>efectivo+=num(l.ef));
-  const hoy=Date.now(), y1=hoy-365.25*86400000; let g12=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)g12+=num(m.importe); } });
-  if(g12<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)g12=porY[ys[0]]; }
-  const gastoMes=g12/12; const meses=gastoMes>0?efectivo/gastoMes:null;
+  const gp=(typeof gastoMensualPresu==='function')?gastoMensualPresu():null; let gastoMes, base;
+  if(gp!=null&&gp>0){ gastoMes=gp; base='presupuesto'; }
+  else { const hoy=Date.now(), y1=hoy-365.25*86400000; let g12=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)g12+=num(m.importe); } }); if(g12<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)g12=porY[ys[0]]; } gastoMes=g12/12; base='real'; }
+  const meses=gastoMes>0?efectivo/gastoMes:null;
   let estado='—'; if(meses!=null){ if(meses<3)estado='rojo'; else if(meses<6)estado='ambar'; else estado='verde'; }
-  return {efectivo,gastoMes,g12,meses,estado}; }
+  return {efectivo,gastoMes,meses,estado,base}; }
 // === Saldo de caja disponible HOY (bróker): saldo inicial + movimientos con fecha ≤ hoy ===
 function _saldoCajaHoy(){ const cfg=DB.cajaConfig||{}; if(cfg.saldoIni==null||cfg.saldoIni==='')return null; const hoy=new Date().toISOString().slice(0,10); let q=num(cfg.saldoIni); (typeof cajaMovs==='function'?cajaMovs():[]).forEach(mv=>{ if((mv.fecha||'')<=hoy)q+=num(mv.entra)-num(mv.sale); }); return q; }
 // === Motor "próxima mejor compra": Score × infraponderación vs objetivo × banda de entrada, repartiendo la caja disponible ===
@@ -302,7 +308,7 @@ function renderPanelDash(){
   const patTot=ef+inv, pInv=patTot?inv/patTot:0;
   if(patTot) html+=block('Patrimonio','patrimonio',[['Total',fmt(patTot)],['Efectivo',fmt(ef),'',Math.round((1-pInv)*100)+'%'],['Invertido',fmt(inv),'',Math.round(pInv*100)+'%'],['Objetivo 50/50',(pInv*100).toFixed(0)+'% inv',pInv>=0.5?'pos':'neg','meta 50%']]);
   // Fondo de emergencia
-  if(typeof fondoEmergencia==='function'){ try{ const FE=fondoEmergencia(); if(FE.efectivo>0||FE.gastoMes>0){ const mtxt=FE.meses==null?'—':FE.meses.toFixed(1)+' meses'; const cls=FE.estado==='verde'?'pos':(FE.estado==='rojo'?'neg':''); const emoji=FE.estado==='verde'?'🟢':(FE.estado==='ambar'?'🟡':(FE.estado==='rojo'?'🔴':'')); const obj=FE.gastoMes*6; const cs=[['Efectivo disponible',fmt(FE.efectivo),'','incluye R4'],['Gasto mensual',fmt(FE.gastoMes),'','media 12 meses'],['Colchón',emoji+' '+mtxt,cls,FE.meses==null?'':(FE.meses>=6?'holgado':(FE.meses>=3?'aceptable':'insuficiente'))],['Objetivo 6 meses',fmt(obj),FE.efectivo>=obj?'pos':'',FE.efectivo>=obj?'cubierto ✓':('faltan '+fmt(Math.max(0,obj-FE.efectivo)))]]; html+=block('Fondo de emergencia','patrimonio',cs); } }catch(e){} }
+  if(typeof fondoEmergencia==='function'){ try{ const FE=fondoEmergencia(); if(FE.efectivo>0||FE.gastoMes>0){ const mtxt=FE.meses==null?'—':FE.meses.toFixed(1)+' meses'; const cls=FE.estado==='verde'?'pos':(FE.estado==='rojo'?'neg':''); const emoji=FE.estado==='verde'?'🟢':(FE.estado==='ambar'?'🟡':(FE.estado==='rojo'?'🔴':'')); const obj=FE.gastoMes*6; const cs=[['Efectivo disponible',fmt(FE.efectivo),'','incluye R4'],['Gasto mensual',fmt(FE.gastoMes),'',FE.base==='presupuesto'?('presupuesto '+nowY):'media 12m (real)'],['Colchón',emoji+' '+mtxt,cls,FE.meses==null?'':(FE.meses>=6?'holgado':(FE.meses>=3?'aceptable':'insuficiente'))],['Objetivo 6 meses',fmt(obj),FE.efectivo>=obj?'pos':'',FE.efectivo>=obj?'cubierto ✓':('faltan '+fmt(Math.max(0,obj-FE.efectivo)))]]; html+=block('Fondo de emergencia','patrimonio',cs); } }catch(e){} }
   // Cartera
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(pos.length){ const cV=pos.reduce((s,p)=>s+p.acciones*p.precioActual,0), cC=pos.reduce((s,p)=>s+p.acciones*p.precioCompra,0), cD=pos.reduce((s,p)=>s+p.acciones*p.divAccion,0), cPL=cV-cC;

@@ -202,8 +202,9 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
 // crecimiento estimado (CAGR de la trayectoria del plan; fallback histórico; fallback 5%) y gasto con
 // inflación (DB.config.fireInfla o 2,5%) hasta el cruce → año de independencia.
 function coberturaDivGastos(){ if(typeof simYearTotal!=='function')return null; const nowY=new Date().getFullYear();
-  const hoy=Date.now(), y1=hoy-365.25*86400000; let gastoReal=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)gastoReal+=num(m.importe); } });
-  if(gastoReal<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)gastoReal=porY[ys[0]]; }
+  const gp=(typeof gastoMensualPresu==='function')?gastoMensualPresu():null; let gastoReal;
+  if(gp!=null&&gp>0){ gastoReal=gp*12; }
+  else { const hoy=Date.now(), y1=hoy-365.25*86400000; gastoReal=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)gastoReal+=num(m.importe); } }); if(gastoReal<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)gastoReal=porY[ys[0]]; } }
   const divNow=num(simYearTotal(nowY)); if(gastoReal<=0)return {gastoReal:0,divNow,cobertura:null};
   const cobertura=divNow>0?divNow/gastoReal:0;
   const horizon=Math.max(nowY,(typeof maxDataYear==='function'?maxDataYear():nowY)); let lastY=nowY,divLast=divNow;
