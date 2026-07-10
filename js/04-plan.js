@@ -163,6 +163,8 @@ function renderPanelDash(){
   // Dividendos
   if(typeof simYearTotal==='function'){ const y1=nowY+1, y2=nowY+2; const dN=simYearTotal(nowY), d1=simYearTotal(y1), d2=simYearTotal(y2), cr=dN?((d1/dN)-1):0;
     html+=block('Dividendos','dividendos',[['Cobrado '+nowY,fmt(dN)],['Previsión '+y1,fmt(d1)],['Previsión '+y2,fmt(d2)],['Crecimiento '+nowY+'→'+y1,(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
+  // Independencia: cobertura de gastos por dividendos (FIRE)
+  if(typeof coberturaDivGastos==='function'){ try{ const F=coberturaDivGastos(); if(F&&F.cobertura!=null){ const pc=x=>x==null?'—':(x*100).toFixed(0)+'%'; const cs=[['Cobertura de gastos',pc(F.cobertura),F.cobertura>=1?'pos':(F.cobertura>=0.5?'':'neg'),'div bruto '+fmt(F.divNow)+' · gasto '+fmt(F.gastoReal)],['Año de independencia',F.anioIndep?String(F.anioIndep):'—',F.anioIndep?'pos':'',F.anioIndep?('faltan '+(F.anioIndep-nowY)+' años'):'no alcanzado en 60 a'],['Crecim. dividendo',(F.gDiv>=0?'+':'')+(F.gDiv*100).toFixed(1)+'%','','anual estimado'],['Inflación gasto','+'+(F.infla*100).toFixed(1)+'%','','asumida']]; html+=block('Independencia (dividendos vs gastos)','dividendos',cs); } }catch(e){} }
   // Oportunidades
   const ana=(DB.analisis||[]).map(a=>{const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo);return {t:a.ticker,pot:(cot&&obj)?(obj-cot)/cot:null,barata:!!(cot&&ent&&cot<=ent*1.05)};});
   const baratas=ana.filter(a=>a.barata).length, top=ana.filter(a=>a.pot!=null).sort((a,b)=>b.pot-a.pot).slice(0,3);

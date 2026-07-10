@@ -108,6 +108,28 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
   const xirr=_xirr(cf);
   return {xirr,twr,twrAnual,ibexTwrAnual,alfa,valFinal,ibexFinal,valDif,anios,hayIbex:d.hayIbex}; }
 
+// === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
+// Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su
+// crecimiento estimado (CAGR de la trayectoria del plan; fallback histórico; fallback 5%) y gasto con
+// inflación (DB.config.fireInfla o 2,5%) hasta el cruce → año de independencia.
+function coberturaDivGastos(){ if(typeof simYearTotal!=='function')return null; const nowY=new Date().getFullYear();
+  const hoy=Date.now(), y1=hoy-365.25*86400000; let gastoReal=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)gastoReal+=num(m.importe); } });
+  if(gastoReal<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)gastoReal=porY[ys[0]]; }
+  const divNow=num(simYearTotal(nowY)); if(gastoReal<=0)return {gastoReal:0,divNow,cobertura:null};
+  const cobertura=divNow>0?divNow/gastoReal:0;
+  const horizon=Math.max(nowY,(typeof maxDataYear==='function'?maxDataYear():nowY)); let lastY=nowY,divLast=divNow;
+  for(let Y=nowY;Y<=horizon;Y++){ const v=num(simYearTotal(Y)); if(v>0){lastY=Y;divLast=v;} }
+  const cagr=(a,b,yrs)=>(a>0&&b>0&&yrs>0)?Math.pow(b/a,1/yrs)-1:null;
+  let gDiv=cagr(divNow,divLast,lastY-nowY);
+  if(gDiv==null){ let a=null,ay=null; for(let Y=nowY-6;Y<nowY;Y++){ const v=num(simYearTotal(Y)); if(v>0){a=v;ay=Y;break;} } gDiv=(a!=null&&divNow>0&&(nowY-ay)>0)?cagr(a,divNow,nowY-ay):0.05; }
+  if(gDiv==null||!isFinite(gDiv))gDiv=0.05; gDiv=Math.max(-0.3,Math.min(gDiv,0.4));
+  const infla=(DB.config&&DB.config.fireInfla!=null)?num(DB.config.fireInfla):0.025;
+  let anioIndep=null; const fullY=[],fullDiv=[],fullGasto=[];
+  for(let Y=nowY;Y<=nowY+60;Y++){ let dv; if(Y<=lastY){ dv=num(simYearTotal(Y)); if(!(dv>0))dv=divLast*Math.pow(1+gDiv,Y-lastY); } else dv=divLast*Math.pow(1+gDiv,Y-lastY); const gs=gastoReal*Math.pow(1+infla,Y-nowY); fullY.push(Y);fullDiv.push(dv);fullGasto.push(gs); if(anioIndep==null&&dv>=gs)anioIndep=Y; }
+  const chartEnd=anioIndep?Math.min(anioIndep+2,nowY+60):(nowY+15);
+  const years=[],divSerie=[],gastoSerie=[]; for(let i=0;i<fullY.length;i++){ if(fullY[i]<=chartEnd){ years.push(fullY[i]);divSerie.push(fullDiv[i]);gastoSerie.push(fullGasto[i]); } }
+  return {gastoReal,divNow,cobertura,gDiv,infla,anioIndep,horizon,lastY,years,divSerie,gastoSerie}; }
+
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;
 function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
@@ -206,7 +228,9 @@ function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&
     const _ot=Object.keys(_objCache); const _oit=_ot.map(t=>({t:t,real:_objCache[t].real,obj:_objCache[t].obj})).filter(x=>x.obj>0||x.real>0).sort((a,b)=>b.obj-a.obj).slice(0,12); const cObj=_oit.length?gBars('Cartera: real vs objetivo (€)',_oit.map(x=>x.t),[{name:'Real',color:'#2563eb',vals:_oit.map(x=>x.real)},{name:'Objetivo',color:'#94a3b8',vals:_oit.map(x=>x.obj)}]):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">Cartera: real vs objetivo</div><div class="muted" style="font-size:12px">Abre la Diversificación una vez para calcular el objetivo.</div></div>';
     const _nyY=new Date().getFullYear(); const _yy=[],_yv=[]; const _dpa=DB.divPorAccion||{}; const _allT=[...new Set((DB.operaciones||[]).map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))]; for(let y=2011;y<=_nyY;y++){ let coste=0; (DB.operaciones||[]).forEach(o=>{ const oy=+((o.fecha||'').slice(0,4)); if(oy&&oy<=y)coste+=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); }); let divA=0; _allT.forEach(t=>{ const sh=(typeof realSharesAt==='function')?realSharesAt(t,y):0; divA+=sh*num((_dpa[t]||{})[y]||0); }); if(coste>0){ _yy.push(String(y)); _yv.push(divA/coste*100); } } const cYoC=_yy.length?gLine('Yield on cost por año (%)',_yy,_yv,{pct:true,color:'#16a34a'}):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">YoC por año</div><div class="muted" style="font-size:12px">Sin datos.</div></div>'; const _rpY=[],_rpV=[]; for(let y=2011;y<=_nyY;y++){ let val=0,divA=0; _allT.forEach(t=>{ const sh=(typeof realSharesAt==='function')?realSharesAt(t,y):0; if(sh>0.0001){ divA+=sh*num((_dpa[t]||{})[y]||0); val+=sh*priceAtFB(t,Date.UTC(y,11,31)); } }); if(val>0){ _rpY.push(String(y)); _rpV.push(divA/val*100); } } const cRPD=_rpY.length?gLine('RPD por año (%) · dividendo \u00f7 cotización',_rpY,_rpV,{pct:true,color:'#0ea5e9'}):'<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">RPD por año</div><div class="muted" style="font-size:12px">Sin datos de cotización aún.</div></div>';
     const cAport=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoGraf',reRender:renderGraficas,ibex:true}):aportValorHTML(renderGraficas);
-    elI.innerHTML=`<div style="margin-bottom:12px">${c4}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c5}${c5b}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c6}${c7}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">${cCap}${cRent}${cBola}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px">${cObj}${cYoC}${cRPD}</div><div style="margin-top:12px">${cAport}</div>`; }
+    let cCob='';
+    if(typeof coberturaDivGastos==='function'){ const F=coberturaDivGastos(); if(F&&F.cobertura!=null&&F.years&&F.years.length){ cCob=gLines('Dividendo bruto previsto vs gasto anual'+(F.anioIndep?' · independencia en '+F.anioIndep:' · no alcanzado'),F.years.map(String),[{name:'Dividendo bruto',color:'#16a34a',vals:F.divSerie},{name:'Gasto anual',color:'#dc2626',vals:F.gastoSerie}]); } else cCob='<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">Independencia (dividendos vs gastos)</div><div class="muted" style="font-size:12px">Sin gasto registrado o sin dividendos previstos.</div></div>'; }
+    elI.innerHTML=`<div style="margin-bottom:12px">${c4}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c5}${c5b}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;margin-bottom:12px">${c6}${c7}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px">${cCap}${cRent}${cBola}</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px;margin-top:12px">${cObj}${cYoC}${cRPD}</div><div style="margin-top:12px">${cAport}</div><div style="margin-top:12px">${cCob}</div>`; }
 }
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='grafYear'){ grafYear=+e.target.value; renderGraficas(); } });
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('button[data-view="graficas"]'); if(b&&typeof renderGraficas==='function')setTimeout(renderGraficas,0); });
