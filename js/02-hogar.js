@@ -784,6 +784,30 @@ function importAmalia(file){
 const R4_RET=0.19; // retención fiscal sobre plusvalía (España, primer tramo)
 function r4DesdeRetencion(ret){ ret=num(ret); if(ret<=0) return {retencion:0,bruto:0,neto:0}; const bruto=ret/R4_RET; return {retencion:ret,bruto,neto:bruto-ret}; }
 function easySorted(){ return [...(DB.easy||[])].sort((a,b)=> (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0); }
+// === Asignación por clase de activo (asset allocation) + rebalanceo ===
+function addClase(){ DB.asignacion=DB.asignacion||[]; DB.asignacion.push({id:'k'+Math.random().toString(36).slice(2,9),nombre:'Nueva clase',actual:0,objetivo:0}); if(typeof saveNow==='function')saveNow(); renderAsignacion(); }
+function autorellenarAsignacion(){ DB.asignacion=DB.asignacion||[]; const find=n=>DB.asignacion.find(c=>(c.nombre||'').toLowerCase()===n.toLowerCase());
+  const snaps=(typeof patSnaps==='function')?patSnaps():[]; const last=snaps[snaps.length-1]; let ef=0; if(last)(last.lineas||[]).forEach(l=>ef+=num(l.ef));
+  const rv=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001).reduce((s,p)=>s+p.acciones*num(p.precioActual),0);
+  const setC=(n,val)=>{ let c=find(n); if(!c){ c={id:'k'+Math.random().toString(36).slice(2,9),nombre:n,actual:0,objetivo:0}; DB.asignacion.push(c); } c.actual=Math.round(val); };
+  if(ef>0)setC('Efectivo',ef); if(rv>0)setC('Renta variable',rv);
+  if(typeof saveNow==='function')saveNow(); renderAsignacion(); }
+function renderAsignacion(){ const el=$('#asignBody'); if(!el)return; const cs=DB.asignacion=DB.asignacion||[];
+  const total=cs.reduce((s,c)=>s+num(c.actual),0); const totObj=cs.reduce((s,c)=>s+num(c.objetivo),0);
+  const rows=cs.map(c=>{ const act=num(c.actual),obj=num(c.objetivo); const actPct=total>0?act/total*100:0; const objEur=total*obj/100; const aMover=objEur-act; const desvPp=actPct-obj;
+    const off=obj>0&&Math.abs(desvPp)>5; const col=off?(desvPp>0?'#dc2626':'#d97706'):'#16a34a';
+    return `<tr>
+      <td><input class="anaInp" data-asign="${c.id}|nombre" value="${(c.nombre||'').replace(/"/g,'&quot;')}" style="width:150px"></td>
+      <td class="num"><input type="number" class="anaInp" data-asign="${c.id}|actual" value="${act||''}" style="width:105px;text-align:right"></td>
+      <td class="num">${actPct.toFixed(1)}%</td>
+      <td class="num"><input type="number" class="anaInp" data-asign="${c.id}|objetivo" value="${obj||''}" style="width:62px;text-align:right"> %</td>
+      <td class="num" style="color:${col}">${desvPp>=0?'+':''}${desvPp.toFixed(1)} pp</td>
+      <td class="num">${fmt(objEur)}</td>
+      <td class="num" style="color:${aMover>=0?'#16a34a':'#dc2626'};font-weight:600">${aMover>=0?'+':''}${fmt(aMover)}</td>
+      <td><button class="btn danger sm" data-asigndel="${c.id}">✕</button></td>
+    </tr>`; }).join('');
+  el.innerHTML=`<div class="toolbar" style="margin-bottom:8px;gap:8px;flex-wrap:wrap"><button class="btn sm" id="asignAdd">+ Clase</button><button class="btn ghost sm" id="asignAuto">Autorrellenar (Efectivo + R.Variable)</button></div>`+(cs.length?`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Clase de activo</th><th class="num">Actual €</th><th class="num">% actual</th><th class="num">% objetivo</th><th class="num">Desviación</th><th class="num">Objetivo €</th><th class="num">A mover</th><th></th></tr></thead><tbody>${rows}<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${fmt(total)}</td><td class="num">100%</td><td class="num ${Math.abs(totObj-100)<0.5?'':'neg'}">${totObj.toFixed(0)}%</td><td></td><td></td><td></td><td></td></tr></tbody></table></div><div class="sub" style="margin-top:6px">Rellena <b>Actual €</b> y <b>% objetivo</b> de cada clase. "A mover" = objetivo − actual (verde = aportar/comprar en esa clase; rojo = reducir). Desviación en rojo si te alejas más de 5 puntos del objetivo. ${Math.abs(totObj-100)>=0.5?'<b style="color:#dc2626">⚠ Los % objetivo deberían sumar 100 (ahora '+totObj.toFixed(0)+'%).</b>':''}</div>`:'<div class="empty">Sin clases. Pulsa «Autorrellenar» para partir de Efectivo + Renta variable, o «+ Clase» y añade Renta fija, Inmuebles, Fondos, Oro…</div>');
+}
 // === Metas financieras: objetivo € + fecha → progreso y ahorro mensual necesario ===
 function addMeta(){ DB.metas=DB.metas||[]; DB.metas.push({id:'m'+Math.random().toString(36).slice(2,9),nombre:'Nueva meta',objetivo:0,fecha:'',actual:0,aporte:0}); if(typeof saveNow==='function')saveNow(); renderMetas(); }
 function metaCalc(m){ const now=new Date(); const obj=num(m.objetivo),act=num(m.actual),ap=num(m.aporte); const falta=Math.max(0,obj-act); const prog=obj>0?Math.min(1,act/obj):0;
