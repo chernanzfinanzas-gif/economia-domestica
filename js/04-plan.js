@@ -21,7 +21,7 @@ function renderRanking(){
   const _pi=rows.filter(r=>r.pesoDiv>0).map((r,i)=>({label:r.ticker,val:r.pesoDiv,color:_pal[i%_pal.length]}));
   const _rp=$('#rankPie'); if(_rp) _rp.innerHTML=_pi.length?(pieSVG(_pi)+'<div style="font-size:12px;display:grid;grid-template-columns:repeat(2,auto);gap:3px 16px">'+_pi.map(it=>`<div><span style="display:inline-block;width:10px;height:10px;background:${it.color};border-radius:2px;margin-right:6px"></span>${it.label} <b>${(it.val*100).toFixed(1)}%</b></div>`).join('')+'</div>'):'';
   $('#rankKpis').innerHTML=[['Dividendo bruto/año',fmt(T.divAno)],['YoC cartera',pct(T.cost?T.divAno/T.cost:0)],['RPD actual',pct(T.valor?T.divAno/T.valor:0)],['Dividendos cobrados (total)',fmt(T.cobr)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _ra=$('#rankAport'); if(_ra)_ra.innerHTML='<h3 style="margin:14px 0 6px;font-size:14px">Aportado acumulado vs valor de cartera</h3>'+((typeof aportValorHTML==='function')?aportValorHTML(renderRanking):'');
+  const _ra=$('#rankAport'); if(_ra)_ra.innerHTML=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoRank',reRender:renderRanking,ibex:true,goto:'ranking',title:'Aportado acumulado vs valor de cartera'}):((typeof aportValorHTML==='function')?aportValorHTML(renderRanking):'');
   const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',7,10),0);
 }
 function buildFrozen(wrapId,lHead,lBody,rHead,rBody){
@@ -148,6 +148,8 @@ function renderPanelDash(){
   }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;
+  // Evolución de la cartera (coste / valor / valor+dividendos) con tooltip al pasar el ratón — al principio del panel
+  if(typeof evoPanelHTML==='function'){ try{ html+=evoPanelHTML(renderPanelDash); }catch(e){} }
   // Patrimonio
   const snaps=(typeof patSnaps==='function')?patSnaps():[]; const last=snaps[snaps.length-1]; let ef=0,inv=0; if(last)(last.lineas||[]).forEach(l=>{ef+=num(l.ef);inv+=num(l.inv);});
   const patTot=ef+inv, pInv=patTot?inv/patTot:0;
