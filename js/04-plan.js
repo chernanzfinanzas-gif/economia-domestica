@@ -128,6 +128,57 @@ function addSimEmpresa(){
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
 function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ tot+=simEffShares(t,year,nowY)*num((dpa[t]||{})[year]||0); }); return tot; }
+// === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
+function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
+function _precioActualDe(t){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; let p=num(v.precioActual); if(p>0)return p; const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&num(a.cotizacion)>0)return num(a.cotizacion); if(typeof _precioCache!=='undefined'){ const pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); } return 0; }
+function fiscalidadData(){ const nowY=new Date().getFullYear();
+  const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o.fecha&&num(o.acciones)>0).slice().sort((a,b)=>{ const c=(a.fecha||'').localeCompare(b.fecha||''); if(c)return c; return (a.tipo==='venta'?1:0)-(b.tipo==='venta'?1:0); });
+  const byT={}; ops.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); (byT[t]=byT[t]||[]).push(o); });
+  const openLots=[], realized=[];
+  Object.keys(byT).forEach(t=>{ const q=[]; byT[t].forEach(o=>{ const acc=num(o.acciones),pr=num(o.precio); if(o.tipo==='venta'){ let rem=acc; while(rem>1e-6&&q.length){ const lot=q[0]; const take=Math.min(rem,lot.acciones); realized.push({t,fechaV:o.fecha,fechaC:lot.fecha,acc:take,precioC:lot.precio,precioV:pr,gan:(pr-lot.precio)*take}); lot.acciones-=take; rem-=take; if(lot.acciones<=1e-6)q.shift(); } } else q.push({fecha:o.fecha,acciones:acc,precio:pr}); }); q.forEach(lot=>{ if(lot.acciones>1e-6)openLots.push({t,fecha:lot.fecha,acciones:lot.acciones,precio:lot.precio}); }); });
+  openLots.forEach(l=>{ const pa=_precioActualDe(l.t); l.precioActual=pa; l.latente=(pa>0)?(pa-l.precio)*l.acciones:null; l.pct=(pa>0&&l.precio>0)?(pa/l.precio-1):null; });
+  const latGain=openLots.reduce((s,l)=>s+((l.latente!=null&&l.latente>0)?l.latente:0),0);
+  const latLoss=openLots.reduce((s,l)=>s+((l.latente!=null&&l.latente<0)?l.latente:0),0);
+  const realY=realized.filter(r=>(r.fechaV||'').slice(0,4)===String(nowY));
+  const realGainY=realY.reduce((s,r)=>s+r.gan,0);
+  const buys=ops.filter(o=>o.tipo!=='venta');
+  const DOS_M=61*86400000;
+  realY.forEach(r=>{ if(r.gan<0){ const vs=Date.parse(r.fechaV+'T00:00:00'); r.recompra=buys.some(b=>(b.ticker||'').toUpperCase()===r.t && b.fecha!==r.fechaV && Math.abs(Date.parse((b.fecha||'')+'T00:00:00')-vs)<=DOS_M); } });
+  const hoyMs=Date.now();
+  openLots.forEach(l=>{ if(l.latente!=null&&l.latente<0){ l.recompraReciente=buys.some(b=>(b.ticker||'').toUpperCase()===l.t && (hoyMs-Date.parse((b.fecha||'')+'T00:00:00'))<=DOS_M && (hoyMs-Date.parse((b.fecha||'')+'T00:00:00'))>=0); } });
+  const harvestable=-latLoss;
+  const gPos=Math.max(0,realGainY); const offset=Math.min(gPos,harvestable);
+  const taxSaved=_impuestoAhorro(gPos)-_impuestoAhorro(gPos-offset);
+  const impuestoY=_impuestoAhorro(gPos);
+  return {nowY,openLots,realized,realY,latGain,latLoss,realGainY,harvestable,offset,taxSaved,impuestoY};
+}
+function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=$('#fiscalKpis'); const F=fiscalidadData();
+  if(!F.openLots.length&&!F.realized.length){ el.innerHTML='<div class="empty">Sin operaciones registradas. La fiscalidad se calcula a partir de tus compras y ventas (Inversiones).</div>'; if(kp)kp.innerHTML=''; return; }
+  const sg=x=>(x>=0?'+':'')+fmt(x);
+  if(kp)kp.innerHTML=[
+    ['Plusvalía latente',fmt(F.latGain),'pos','no tributa hasta vender'],
+    ['Minusvalía latente',fmt(F.latLoss),F.latLoss<0?'neg':'','disponible para aflorar'],
+    ['Realizado '+F.nowY,sg(F.realGainY),F.realGainY>=0?'pos':'neg','ganancia/pérdida del año'],
+    ['Impuesto estimado '+F.nowY,fmt(F.impuestoY),'','sobre lo realizado']
+  ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[1]&&k[2]||''}">${k[1]}</div><div class="sub">${k[3]}</div></div>`).join('');
+  let harvestBox='';
+  if(F.realGainY>0.5&&F.harvestable>0.5){ harvestBox=`<div class="card" style="background:#f0fdf4;border:1px solid #bbf7d0;margin-bottom:12px"><div style="font-weight:700;color:#166534;margin-bottom:4px">💡 Afloramiento de pérdidas</div><div class="sub">Tienes ${fmt(F.realGainY)} de ganancias realizadas este año y ${fmt(F.harvestable)} en minusvalías latentes. Aflorando <b>${fmt(F.offset)}</b> compensarías esas ganancias y ahorrarías <b style="color:#166534">~${fmt(F.taxSaved)}</b> de impuestos. Ojo a la <b>regla de los 2 meses</b>: si vendes con pérdida, no recompres la MISMA acción en los 2 meses anteriores o posteriores o la pérdida no será deducible este año.</div></div>`; }
+  else if(F.harvestable>0.5){ harvestBox=`<div class="card" style="background:#fff7ed;border:1px solid #fed7aa;margin-bottom:12px"><div class="sub">Tienes ${fmt(F.harvestable)} en minusvalías latentes, pero no hay ganancias realizadas este año que compensar. Las pérdidas afloradas compensan ganancias del mismo año, hasta el 25% de otros rendimientos del ahorro, y el resto se arrastra 4 años. Recuerda la regla de los 2 meses al recomprar.</div></div>`; }
+  const cand=F.openLots.filter(l=>l.latente!=null&&l.latente<0).sort((a,b)=>a.latente-b.latente);
+  const candRows=cand.map(l=>`<tr><td><b data-ficha="${l.t}" style="cursor:pointer;color:var(--brand)">${l.t}</b></td><td>${l.fecha||'—'}</td><td class="num">${(+l.acciones).toFixed(0)}</td><td class="num">${fmt(l.precio)}</td><td class="num">${fmt(l.precioActual)}</td><td class="num neg">${fmt(l.latente)}</td><td class="num neg">${l.pct!=null?(l.pct*100).toFixed(1)+'%':'—'}</td><td style="font-size:11px">${l.recompraReciente?'<span style="color:#dc2626">⚠ compra &lt;2m: no deducible ahora</span>':'<span class="muted">ok si no recompras 2m</span>'}</td></tr>`).join('');
+  const candTable=cand.length?`<h3 style="font-size:14px;margin:6px 0 6px">Candidatos a afloramiento (minusvalías latentes)</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Compra</th><th class="num">Acc</th><th class="num">P.compra</th><th class="num">P.actual</th><th class="num">Minusvalía</th><th class="num">%</th><th>Regla 2 meses</th></tr></thead><tbody>${candRows}</tbody></table></div>`:'<div class="sub" style="margin:8px 0">No tienes lotes con pérdida latente ahora mismo.</div>';
+  const rY=F.realY.slice().sort((a,b)=>(b.fechaV||'').localeCompare(a.fechaV||''));
+  const realRows=rY.map(r=>`<tr><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td>${r.fechaV||'—'}</td><td class="num">${(+r.acc).toFixed(0)}</td><td class="num">${fmt(r.precioC)} → ${fmt(r.precioV)}</td><td class="num ${r.gan>=0?'pos':'neg'}">${sg(r.gan)}</td><td style="font-size:11px">${(r.gan<0&&r.recompra)?'<span style="color:#dc2626">⚠ pérdida bloqueada (recompra &lt;2m)</span>':''}</td></tr>`).join('');
+  const realTable=rY.length?`<h3 style="font-size:14px;margin:14px 0 6px">Realizado en ${F.nowY} (FIFO)</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Venta</th><th class="num">Acc</th><th class="num">Compra→Venta</th><th class="num">Ganancia</th><th>Aviso</th></tr></thead><tbody>${realRows}<tr style="font-weight:700;background:#eef2f7"><td colspan="4">Neto realizado ${F.nowY}</td><td class="num ${F.realGainY>=0?'pos':'neg'}">${sg(F.realGainY)}</td><td></td></tr></tbody></table></div>`:`<div class="sub" style="margin-top:12px">Sin ventas registradas en ${F.nowY}.</div>`;
+  el.innerHTML=`<div class="sub" style="margin-bottom:10px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas del año. Tramos del ahorro 2025: 19% / 21% / 23% / 27% / 28%.</div>${harvestBox}${candTable}${realTable}`;
+}
+// === Fondo de emergencia: meses de gastos cubiertos con el efectivo del Patrimonio (incluye R4) ===
+function fondoEmergencia(){ const snaps=(typeof patSnaps==='function')?patSnaps():[]; const last=snaps[snaps.length-1]; let efectivo=0; if(last)(last.lineas||[]).forEach(l=>efectivo+=num(l.ef));
+  const hoy=Date.now(), y1=hoy-365.25*86400000; let g12=0; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(!isNaN(ms)&&ms>=y1&&ms<=hoy)g12+=num(m.importe); } });
+  if(g12<=0){ const porY={}; (DB.movimientos||[]).forEach(m=>{ if((m.tipo||'')==='gasto'&&m.fecha){ const y=+m.fecha.slice(0,4); if(y)porY[y]=(porY[y]||0)+num(m.importe); } }); const ys=Object.keys(porY).map(Number).sort((a,b)=>b-a); if(ys.length)g12=porY[ys[0]]; }
+  const gastoMes=g12/12; const meses=gastoMes>0?efectivo/gastoMes:null;
+  let estado='—'; if(meses!=null){ if(meses<3)estado='rojo'; else if(meses<6)estado='ambar'; else estado='verde'; }
+  return {efectivo,gastoMes,g12,meses,estado}; }
 // === Saldo de caja disponible HOY (bróker): saldo inicial + movimientos con fecha ≤ hoy ===
 function _saldoCajaHoy(){ const cfg=DB.cajaConfig||{}; if(cfg.saldoIni==null||cfg.saldoIni==='')return null; const hoy=new Date().toISOString().slice(0,10); let q=num(cfg.saldoIni); (typeof cajaMovs==='function'?cajaMovs():[]).forEach(mv=>{ if((mv.fecha||'')<=hoy)q+=num(mv.entra)-num(mv.sale); }); return q; }
 // === Motor "próxima mejor compra": Score × infraponderación vs objetivo × banda de entrada, repartiendo la caja disponible ===
@@ -220,6 +271,7 @@ function renderPanelDash(){
   _heldSet.forEach(t=>{ const m=(DB.monitor||{})[t]||{}; if(!m.informe)return; ['Q1','Q2','Q3','Q4'].forEach(qc=>{ const key=nowY+'-'+qc; const done=!!(m.rev&&m.rev[key]); if((typeof qPassed==='function'&&qPassed(t,qc,nowY))&&!done) avisos.push({pri:2,cls:'a',goto:'monitor',txt:`📊 <b>${t}</b> — ${qc} ${nowY} publicado sin revisar`}); }); });
   try{ const _totC=Object.values(_heldP).reduce((q,p)=>q+p.acciones*num(p.precioActual),0); if(_totC>0){ const _bs={}; Object.values(_heldP).forEach(p=>{ const _sc=(typeof SECTOR!=='undefined'&&SECTOR[(p.ticker||'').toUpperCase()])||'Sin sector'; _bs[_sc]=(_bs[_sc]||0)+p.acciones*num(p.precioActual); }); Object.keys(_bs).forEach(sc=>{ const pct=_bs[sc]/_totC; if(pct>=0.35) avisos.push({pri:pct>=0.5?1:3,cls:pct>=0.5?'r':'a',goto:'graficas',txt:`📦 Sector <b>${sc}</b> = ${(pct*100).toFixed(0)}% de la cartera — sobreconcentración`}); }); } }catch(e){}
   try{ const _ymd=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); const _x=new Date(); do{ _x.setDate(_x.getDate()-1); }while(_x.getDay()===0||_x.getDay()===6); const _prev=_ymd(_x); const _uf=window._cotizUltFecha||''; if(_uf&&_uf<_prev){ avisos.push({pri:1,cls:'a',goto:'panel',txt:`💹 <b>Cotizaciones desactualizadas</b> (última: ${(typeof ddmmyyyy==='function'?ddmmyyyy(_uf):_uf)}). Ejecuta el acceso directo «Actualizar cotizaciones» del escritorio, o <a href="${GITHUB_RUN_URL}" target="_blank" rel="noopener" onclick="event.stopPropagation()" style="color:#9a3412;text-decoration:underline;font-weight:700">lánzalo en GitHub</a>.`}); } }catch(e){}
+  try{ if(typeof fondoEmergencia==='function'){ const FE=fondoEmergencia(); if(FE.meses!=null&&FE.gastoMes>0&&FE.meses<3) avisos.push({pri:1,cls:'r',goto:'patrimonio',txt:`🛟 <b>Fondo de emergencia bajo</b>: solo ${FE.meses.toFixed(1)} meses de gastos cubiertos (recomendado 3–6). Efectivo ${fmt(FE.efectivo)} · gasto/mes ${fmt(FE.gastoMes)}.`}); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri); const hayCrit=avisos.some(x=>x.cls==='r');
     const _itav=avisos.map(x=>`<div data-goto="${x.goto}" style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;cursor:pointer">${x.txt}</div>`).join('');
     html+=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;margin-bottom:6px">🔔 Avisos (${avisos.length})</div>${_itav}</div>`;
@@ -234,6 +286,8 @@ function renderPanelDash(){
   const snaps=(typeof patSnaps==='function')?patSnaps():[]; const last=snaps[snaps.length-1]; let ef=0,inv=0; if(last)(last.lineas||[]).forEach(l=>{ef+=num(l.ef);inv+=num(l.inv);});
   const patTot=ef+inv, pInv=patTot?inv/patTot:0;
   if(patTot) html+=block('Patrimonio','patrimonio',[['Total',fmt(patTot)],['Efectivo',fmt(ef),'',Math.round((1-pInv)*100)+'%'],['Invertido',fmt(inv),'',Math.round(pInv*100)+'%'],['Objetivo 50/50',(pInv*100).toFixed(0)+'% inv',pInv>=0.5?'pos':'neg','meta 50%']]);
+  // Fondo de emergencia
+  if(typeof fondoEmergencia==='function'){ try{ const FE=fondoEmergencia(); if(FE.efectivo>0||FE.gastoMes>0){ const mtxt=FE.meses==null?'—':FE.meses.toFixed(1)+' meses'; const cls=FE.estado==='verde'?'pos':(FE.estado==='rojo'?'neg':''); const emoji=FE.estado==='verde'?'🟢':(FE.estado==='ambar'?'🟡':(FE.estado==='rojo'?'🔴':'')); const obj=FE.gastoMes*6; const cs=[['Efectivo disponible',fmt(FE.efectivo),'','incluye R4'],['Gasto mensual',fmt(FE.gastoMes),'','media 12 meses'],['Colchón',emoji+' '+mtxt,cls,FE.meses==null?'':(FE.meses>=6?'holgado':(FE.meses>=3?'aceptable':'insuficiente'))],['Objetivo 6 meses',fmt(obj),FE.efectivo>=obj?'pos':'',FE.efectivo>=obj?'cubierto ✓':('faltan '+fmt(Math.max(0,obj-FE.efectivo)))]]; html+=block('Fondo de emergencia','patrimonio',cs); } }catch(e){} }
   // Cartera
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(pos.length){ const cV=pos.reduce((s,p)=>s+p.acciones*p.precioActual,0), cC=pos.reduce((s,p)=>s+p.acciones*p.precioCompra,0), cD=pos.reduce((s,p)=>s+p.acciones*p.divAccion,0), cPL=cV-cC;

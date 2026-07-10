@@ -41,7 +41,7 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -85,7 +85,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador'],['backtest','Backtest'],['riesgo','Riesgo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador'],['backtest','Backtest'],['riesgo','Riesgo'],['fiscalidad','Fiscalidad']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'posiciones', planinv:'proyeccion'};
 function activarVista(view){
@@ -111,6 +111,7 @@ function activarVista(view){
   if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
   if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
   if(view==='riesgo' && typeof renderRiesgo==='function') renderRiesgo();
+  if(view==='fiscalidad' && typeof renderFiscalidad==='function') renderFiscalidad();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
