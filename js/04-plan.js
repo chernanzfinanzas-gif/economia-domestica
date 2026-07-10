@@ -128,6 +128,26 @@ function addSimEmpresa(){
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
 function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ tot+=simEffShares(t,year,nowY)*num((dpa[t]||{})[year]||0); }); return tot; }
+// === Saldo de caja disponible HOY (bróker): saldo inicial + movimientos con fecha ≤ hoy ===
+function _saldoCajaHoy(){ const cfg=DB.cajaConfig||{}; if(cfg.saldoIni==null||cfg.saldoIni==='')return null; const hoy=new Date().toISOString().slice(0,10); let q=num(cfg.saldoIni); (typeof cajaMovs==='function'?cajaMovs():[]).forEach(mv=>{ if((mv.fecha||'')<=hoy)q+=num(mv.entra)-num(mv.sale); }); return q; }
+// === Motor "próxima mejor compra": Score × infraponderación vs objetivo × banda de entrada, repartiendo la caja disponible ===
+function proximaCompra(){ if(typeof cmpScore!=='function')return null;
+  const held={}; try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001)held[(p.ticker||'').toUpperCase()]=p; }); }catch(e){}
+  if((!_objCache||!Object.keys(_objCache).length)&&typeof renderPlanLote==='function'){ try{ renderPlanLote(); }catch(e){} }
+  const oc=_objCache||{};
+  const marginBand=(cot,entMax,entMin)=>{ if(!(cot>0)||!(entMax>0))return {estado:'sin banda',dist:null,margen:50}; const d=(cot-entMax)/entMax;
+    if(cot<=entMax){ const prof=entMin>0?(entMax-cot)/((entMax-entMin)||entMax):0; return {estado:'🟢 en banda',dist:d,margen:70+Math.max(0,Math.min(1,prof))*30}; }
+    return {estado:(d>0.25?'🔴 ':'🟡 ')+'+'+(d*100).toFixed(0)+'%',dist:d,margen:Math.max(0,70-d/0.25*70)}; };
+  const items=(DB.analisis||[]).map(a=>{ const t=(a.ticker||'').toUpperCase(); const cot=num(a.cotizacion),entMax=num(a.entMax),entMin=num(a.entMin),stop=num(a.stopTesis); const score=cmpScore(a); const dec=(a.decision||'').toUpperCase();
+    const o=oc[t]||{}; const obj=num(o.obj),real=num(o.real); const gap=Math.max(0,obj-real); const gapPct=obj>0?gap/obj:0; const infraP=Math.max(0,Math.min(100,gapPct/0.5*100));
+    const mb=marginBand(cot,entMax,entMin); const enBanda=(cot>0&&entMax>0&&cot<=entMax); const stopTocado=(stop>0&&cot>0&&cot<=stop);
+    const prio=0.5*(score!=null?score:50)+0.3*infraP+0.2*mb.margen;
+    return {t,cot,entMax,entMin,stop,score,dec,obj,real,gap,gapPct,infraP,estado:mb.estado,dist:mb.dist,margen:mb.margen,enBanda,stopTocado,prio,held:!!held[t]}; }).filter(x=>x.cot>0);
+  const cand=items.filter(x=>x.enBanda&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>b.prio-a.prio);
+  const cajaHoy=_saldoCajaHoy(); const capByCash=(cajaHoy!=null&&cajaHoy>0); let rem=capByCash?cajaHoy:Infinity; let recTotal=0;
+  cand.forEach(x=>{ let rec=Math.min(x.gap,rem); if(!isFinite(rec))rec=x.gap; if(rec<0)rec=0; x.rec=Math.round(rec); x.acc=x.cot>0?Math.floor(x.rec/x.cot):0; if(capByCash){rem-=rec; if(rem<0)rem=0;} recTotal+=x.rec; });
+  const near=items.filter(x=>!x.enBanda&&x.dist!=null&&x.dist>0&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>a.dist-b.dist);
+  return {cajaHoy,capByCash,items,cand,near,recTotal}; }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
   const GITHUB_RUN_URL='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml';
@@ -169,6 +189,15 @@ function renderPanelDash(){
   const ana=(DB.analisis||[]).map(a=>{const cot=num(a.cotizacion),ent=num(a.precioEntrada),obj=num(a.precioObjetivo);return {t:a.ticker,pot:(cot&&obj)?(obj-cot)/cot:null,barata:!!(cot&&ent&&cot<=ent*1.05)};});
   const baratas=ana.filter(a=>a.barata).length, top=ana.filter(a=>a.pot!=null).sort((a,b)=>b.pot-a.pot).slice(0,3);
   if(ana.length) html+=block('Oportunidades','analisis',[['Empresas baratas',String(baratas),baratas?'pos':''],['Top potencial',top.length?top.map(x=>x.t+' '+(x.pot>=0?'+':'')+(x.pot*100).toFixed(0)+'%').join(' · '):'—']]);
+  // Próxima mejor compra (motor)
+  if(typeof proximaCompra==='function'){ try{ const M=proximaCompra(); if(M&&(M.cand.length||M.near.length)){
+    const cajaTxt=M.cajaHoy!=null?('caja disponible '+fmt(M.cajaHoy)):'caja sin configurar';
+    let cuerpo='';
+    if(M.cand.length){ const lst=M.cand.slice(0,5).map((x,i)=>{ const rec=x.rec>0?`<b>invierte ${fmt(x.rec)}</b>${x.acc?` · ${x.acc} acc`:''}`:(x.gap<=0?'<span class="muted">en objetivo</span>':(M.capByCash?'<span class="muted">sin caja</span>':`<b>${fmt(x.gap)}</b>`)); return `<div data-ficha="${x.t}" style="display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:5px 8px;border-left:3px solid ${i===0?'#16a34a':'#86efac'};background:#fff;border-radius:4px;margin:3px 0;cursor:pointer"><span>${i===0?'⭐ ':''}<b>${x.t}</b> · Score ${x.score!=null?x.score.toFixed(0):'—'} · ${x.estado}${x.held?' · en cartera':''}</span><span style="white-space:nowrap">${rec} <span class="muted">hueco ${fmt(x.gap)}</span></span></div>`; }).join('');
+      cuerpo=`<div class="muted" style="font-size:11.5px;margin-bottom:6px">${cajaTxt} · combina Score, hueco hasta objetivo y banda de entrada${M.recTotal>0?` · a repartir ${fmt(M.recTotal)}`:''}</div>${lst}`; }
+    else { const n=M.near.slice(0,3).map(x=>`<b>${x.t}</b> (${x.estado})`).join(' · '); cuerpo=`<div class="muted" style="font-size:12px">Ninguna empresa en zona de compra ahora. Más cerca: ${n||'—'}.</div>`; }
+    html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="analisis">Próxima mejor compra <span class="muted" style="font-size:12px">›</span></h3>${cuerpo}</div>`;
+  } }catch(e){} }
   // Amalia
   if(typeof amaliaSaldo==='function'){ const am=amaliaSaldo(); html+=block('Reembolsables (Amalia)','amalia',[['Pendiente de cobro',fmt(am),am>0.005?'neg':'pos']]); }
   // Tareas pendientes (antes de eventos)
