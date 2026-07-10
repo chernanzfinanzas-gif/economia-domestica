@@ -148,6 +148,31 @@ function proximaCompra(){ if(typeof cmpScore!=='function')return null;
   cand.forEach(x=>{ let rec=Math.min(x.gap,rem); if(!isFinite(rec))rec=x.gap; if(rec<0)rec=0; x.rec=Math.round(rec); x.acc=x.cot>0?Math.floor(x.rec/x.cot):0; if(capByCash){rem-=rec; if(rem<0)rem=0;} recTotal+=x.rec; });
   const near=items.filter(x=>!x.enBanda&&x.dist!=null&&x.dist>0&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>a.dist-b.dist);
   return {cajaHoy,capByCash,items,cand,near,recTotal}; }
+// === Vista completa del motor "Próxima compra" ===
+let proxYearSel=null;
+function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; const nowY=new Date().getFullYear();
+  if(proxYearSel==null)proxYearSel=nowY; const yIn=$('#proxYear'); if(yIn&&(yIn.value===''||yIn.value==null))yIn.value=proxYearSel;
+  const M=(typeof proximaCompra==='function')?proximaCompra():null; const kp=$('#proxKpis');
+  if(!M){ el.innerHTML='<div class="empty">Sin datos de análisis. Rellena cotización, banda de entrada y rating en Análisis.</div>'; if(kp)kp.innerHTML=''; return; }
+  if(kp)kp.innerHTML=[['Caja disponible',M.cajaHoy!=null?fmt(M.cajaHoy):'sin configurar'],['En zona de compra',String(M.cand.length)],['A repartir (según caja)',fmt(M.recTotal)],['Año destino del Plan',String(proxYearSel)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  const estCls=x=>x.enBanda?'pos':((x.dist!=null&&x.dist>0.25)?'neg':'');
+  const rowT=(x,i,tipo)=>{ const btns=(tipo==='cand')?`<button class="btn ghost sm" data-proxplan="${x.t}" title="Añadir al Plan del año ${proxYearSel}">→ Plan</button> <button class="btn ghost sm" data-proxcaja="${x.t}" title="Registrar salida en la Caja bróker">→ Caja</button>`:'';
+    const rec=(tipo==='cand')?(x.rec>0?fmt(x.rec):(x.gap>0?fmt(x.gap):'·')):'·';
+    return `<tr${(tipo==='cand'&&i===0)?' style="background:#f0fdf4"':''}><td class="num">${x.__n}</td><td><button class="btn ghost sm" data-ficha="${x.t}"><b>${x.t}</b></button></td><td class="num">${x.score!=null?x.score.toFixed(0):'—'}</td><td>${x.dec||'—'}</td><td class="${estCls(x)}">${x.estado}</td><td class="num">${fmt(x.cot)}</td><td class="num">${x.obj?fmt(x.obj):'·'}</td><td class="num">${x.real?fmt(x.real):'·'}</td><td class="num">${x.gap>0?fmt(x.gap):'·'}</td><td class="num">${x.infraP.toFixed(0)}</td><td class="num" style="font-weight:700">${rec}</td><td class="num">${(tipo==='cand'&&x.acc)?x.acc:'·'}</td><td style="white-space:nowrap">${btns}</td></tr>`; };
+  let n=0; const cand=M.cand.map(x=>{x.__n=++n;return x;}); const near=M.near.map(x=>{x.__n=++n;return x;});
+  const head='<tr><th class="num">#</th><th>Empresa</th><th class="num">Score</th><th>Decisión</th><th>Estado</th><th class="num">Cotiz.</th><th class="num">Objetivo</th><th class="num">Invertido</th><th class="num">Hueco</th><th class="num">Infra</th><th class="num">Recom. €</th><th class="num">Acc.</th><th>Acción</th></tr>';
+  const secc=(t,c)=>`<tr style="background:#eef2f7;font-weight:700"><td colspan="13">${t} (${c})</td></tr>`;
+  const body=(cand.length?secc('En zona de compra',cand.length)+cand.map((x,i)=>rowT(x,i,'cand')).join(''):'')+(near.length?secc('Cerca de entrada',near.length)+near.map((x,i)=>rowT(x,i,'near')).join(''):'');
+  el.innerHTML=(cand.length||near.length)?`<div class="sub" style="margin-bottom:8px">Prioridad = 0,5·Score + 0,3·infraponderación vs objetivo + 0,2·margen de entrada. La columna <b>Recom. €</b> reparte tu caja disponible tapando primero el hueco de la mejor candidata. «→ Plan» lo añade al Plan de compras del año elegido; «→ Caja» registra la salida en la Caja bróker.</div><table style="font-size:12px"><thead>${head}</thead><tbody>${body}</tbody></table>`:'<div class="empty">Ninguna empresa en zona de compra ni cerca. Rellena cotización y banda de entrada en Análisis.</div>';
+}
+function proxAddPlan(t,all){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const yr=proxYearSel||new Date().getFullYear(); DB.planCompras=DB.planCompras||{};
+  const list=all?M.cand:M.cand.filter(x=>x.t===(t||'').toUpperCase()); let added=0;
+  list.forEach(x=>{ const amt=Math.round(x.rec>0?x.rec:x.gap); if(amt>0){ DB.planCompras[x.t]=DB.planCompras[x.t]||{}; DB.planCompras[x.t][yr]=num((DB.planCompras[x.t]||{})[yr]||0)+amt; added+=amt; } });
+  if(added>0){ if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
+  return added; }
+function proxAddCaja(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; const amt=Math.round(x.rec>0?x.rec:x.gap); if(amt<=0)return 0;
+  DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(x.acc?x.acc+' ':'')+x.t,entra:0,sale:amt});
+  if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
   const GITHUB_RUN_URL='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml';
@@ -196,7 +221,7 @@ function renderPanelDash(){
     if(M.cand.length){ const lst=M.cand.slice(0,5).map((x,i)=>{ const rec=x.rec>0?`<b>invierte ${fmt(x.rec)}</b>${x.acc?` · ${x.acc} acc`:''}`:(x.gap<=0?'<span class="muted">en objetivo</span>':(M.capByCash?'<span class="muted">sin caja</span>':`<b>${fmt(x.gap)}</b>`)); return `<div data-ficha="${x.t}" style="display:flex;justify-content:space-between;gap:8px;font-size:12.5px;padding:5px 8px;border-left:3px solid ${i===0?'#16a34a':'#86efac'};background:#fff;border-radius:4px;margin:3px 0;cursor:pointer"><span>${i===0?'⭐ ':''}<b>${x.t}</b> · Score ${x.score!=null?x.score.toFixed(0):'—'} · ${x.estado}${x.held?' · en cartera':''}</span><span style="white-space:nowrap">${rec} <span class="muted">hueco ${fmt(x.gap)}</span></span></div>`; }).join('');
       cuerpo=`<div class="muted" style="font-size:11.5px;margin-bottom:6px">${cajaTxt} · combina Score, hueco hasta objetivo y banda de entrada${M.recTotal>0?` · a repartir ${fmt(M.recTotal)}`:''}</div>${lst}`; }
     else { const n=M.near.slice(0,3).map(x=>`<b>${x.t}</b> (${x.estado})`).join(' · '); cuerpo=`<div class="muted" style="font-size:12px">Ninguna empresa en zona de compra ahora. Más cerca: ${n||'—'}.</div>`; }
-    html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="analisis">Próxima mejor compra <span class="muted" style="font-size:12px">›</span></h3>${cuerpo}</div>`;
+    html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="proxcompra">Próxima mejor compra <span class="muted" style="font-size:12px">›</span></h3>${cuerpo}</div>`;
   } }catch(e){} }
   // Amalia
   if(typeof amaliaSaldo==='function'){ const am=amaliaSaldo(); html+=block('Reembolsables (Amalia)','amalia',[['Pendiente de cobro',fmt(am),am>0.005?'neg':'pos']]); }

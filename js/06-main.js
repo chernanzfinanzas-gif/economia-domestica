@@ -41,7 +41,7 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -85,7 +85,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['calendario','Calendario'],['comparador','Comparador']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['mazinger','Mazinger Z']], inv:[['posiciones','Posiciones'],['inversiones','Cartera'],['analisis','Análisis'],['dividendos','Dividendos'],['ranking','Ranking'],['proxcompra','Próxima compra'],['calendario','Calendario'],['comparador','Comparador']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['prevision','Evolución Dividendo'],['simulador','Simulador'],['caja','Caja bróker'],['monitor','Monitor'],['radardiv','Radar Dividendo']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', inv:'posiciones', planinv:'proyeccion'};
 function activarVista(view){
@@ -108,10 +108,19 @@ function activarVista(view){
   if(view==='caja') renderCaja();
   if(view==='monitor') renderMonitor();
   if(view==='radardiv') renderRadarDiv();
+  if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
 $('#panelDash').addEventListener('click',e=>{ const h=e.target.closest('[data-goto]'); if(h&&typeof activarVista==='function') activarVista(h.dataset.goto); });
+if($('#view-proxcompra')){
+  $('#view-proxcompra').addEventListener('click',e=>{ const _y=(typeof proxYearSel!=='undefined'&&proxYearSel)?proxYearSel:new Date().getFullYear();
+    const p=e.target.closest('[data-proxplan]'); if(p){ if(confirm('¿Añadir la compra sugerida de '+p.dataset.proxplan+' al Plan del año '+_y+'?')){ const a=proxAddPlan(p.dataset.proxplan,false); if(a>0)alert('Añadido '+fmt(a)+' € al Plan de '+_y+'.'); } return; }
+    const c=e.target.closest('[data-proxcaja]'); if(c){ if(confirm('¿Registrar la compra de '+c.dataset.proxcaja+' como salida en la Caja bróker (hoy)?')){ const a=proxAddCaja(c.dataset.proxcaja); if(a>0)alert('Registrada salida de '+fmt(a)+' € en la Caja.'); } return; }
+    const all=e.target.closest('#proxAllPlan'); if(all){ if(confirm('¿Añadir TODAS las compras sugeridas al Plan del año '+_y+'?')){ const a=proxAddPlan(null,true); alert(a>0?('Añadido '+fmt(a)+' € al Plan de '+_y+'.'):'No hay compras sugeridas que añadir.'); } return; }
+    const rf=e.target.closest('#proxRefresh'); if(rf){ if(typeof renderProxCompra==='function')renderProxCompra(); return; } });
+  $('#view-proxcompra').addEventListener('change',e=>{ const y=e.target.closest('#proxYear'); if(y){ proxYearSel=+y.value||new Date().getFullYear(); if(typeof renderProxCompra==='function')renderProxCompra(); } });
+}
 $('#view-caja').addEventListener('change',e=>{ const t=e.target; if(!t||!t.dataset)return;
   if(t.dataset.cajahecho){ DB.cajaHecho=DB.cajaHecho||{}; const k=t.dataset.cajahecho; if(t.checked)DB.cajaHecho[k]=true; else delete DB.cajaHecho[k]; const tr=t.closest('tr'); if(tr)tr.style.background=t.checked?'#f0fdf4':(tr.dataset.defbg||''); saveNow(); return; }
   if(t.dataset.cajacfg){ DB.cajaConfig=DB.cajaConfig||{}; const k=t.dataset.cajacfg; DB.cajaConfig[k]=(k==='fechaIni')?t.value:(t.value.trim()===''?'':num(t.value)); saveNow(); renderCaja(); return; }
