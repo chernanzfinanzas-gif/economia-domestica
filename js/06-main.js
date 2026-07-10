@@ -52,11 +52,13 @@ function openCatDlg(id){
     $('#catId').value=id; $('#catNombre').value=c.nombre; $('#catGrupo').value=c.grupo; $('#catTipo').value=c.tipo;
     $('#catImporte').value=p.importe||0; $('#catFrec').value=p.frecuencia||'mensual';
     $('#catMetodo').value=p.metodoPago||''; $('#catRenov').value=p.renovacion||'';
+    if($('#catEsencial'))$('#catEsencial').checked=!!(c&&c.esencial);
     $('#catDelete').style.display='inline-block';
   } else {
     $('#catDlgTitle').textContent='Nueva categoría';
     $('#catId').value=''; $('#catNombre').value=''; $('#catGrupo').value=''; $('#catTipo').value='gasto';
     $('#catImporte').value=0; $('#catFrec').value='mensual'; $('#catMetodo').value=''; $('#catRenov').value='';
+    if($('#catEsencial'))$('#catEsencial').checked=false;
     $('#catDelete').style.display='none';
   }
   dlg.showModal();
@@ -64,7 +66,7 @@ function openCatDlg(id){
 function saveCat(){
   const id=$('#catId').value;
   const nombre=$('#catNombre').value.trim(); if(!nombre){alert('Pon un nombre');return;}
-  const data={grupo:$('#catGrupo').value.trim()||'Otros',nombre,tipo:$('#catTipo').value};
+  const data={grupo:$('#catGrupo').value.trim()||'Otros',nombre,tipo:$('#catTipo').value,esencial:!!($('#catEsencial')&&$('#catEsencial').checked)};
   const pdata={importe:num($('#catImporte').value),frecuencia:$('#catFrec').value,metodoPago:$('#catMetodo').value.trim(),renovacion:$('#catRenov').value};
   if(id){
     Object.assign(catById(id),data);
