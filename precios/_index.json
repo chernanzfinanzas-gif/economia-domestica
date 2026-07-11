@@ -219,6 +219,13 @@
 "n": 404
 },
 {
+"ticker": "DIA",
+"symbol": "DIA.MC",
+"desde": "2011-07-04",
+"hasta": "2026-07-10",
+"n": 3842
+},
+{
 "ticker": "EBRO",
 "symbol": "EBRO.MC",
 "desde": "2011-01-03",
@@ -606,6 +613,13 @@
 {
 "ticker": "ROVI",
 "symbol": "ROVI.MC",
+"desde": "2011-01-03",
+"hasta": "2026-07-10",
+"n": 3970
+},
+{
+"ticker": "SAB",
+"symbol": "SAB.MC",
 "desde": "2011-01-03",
 "hasta": "2026-07-10",
 "n": 3970
