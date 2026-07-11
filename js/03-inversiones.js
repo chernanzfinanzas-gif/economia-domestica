@@ -437,7 +437,8 @@ function renderFicha(t){
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -773,7 +774,7 @@ function trimCardHTML(d){
   var prevMap={}; if(prev){ (prev.metricas||[]).forEach(function(x){ prevMap[x.nombre]=x.valor; }); }
   var metr=(last.metricas||[]).map(function(m){ var dlt=prev?_trimDelta(m.valor,prevMap[m.nombre],prev.periodo):''; return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600;white-space:nowrap">'+_trimValUnidad(m)+dlt+'</td></tr>'; }).join('');
   var trend=revs.map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); var c=semCol[s]||'#94a3b8'; return '<span title="'+_trimEsc(r.periodo)+' ('+(r.fecha||'')+')" style="display:inline-block;width:13px;height:13px;border-radius:3px;background:'+c+';margin-right:3px"></span>'; }).join('');
-  var alerta=(sg==='R'||last.tesisSigueIntacta===false)?'<span style="margin-left:8px;color:#dc2626;font-weight:700">⚠️ revisar tesis</span>':'';
+  var alerta=(sg==='R'||last.tesisSigueIntacta===false)?'<span onclick="if(typeof showProtocolo===\'function\')showProtocolo(\'S2\',\'\',\''+_trimEsc((d.ticker||'').toUpperCase())+'\')" title="Pulsa para ver el procedimiento (señal S2 · plazo 7 días)" style="margin-left:8px;color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted">⚠️ revisar tesis · S2 📋</span>':'';
   return '<div class="card" style="margin-top:10px;border-left:4px solid '+(semCol[sg]||'#94a3b8')+'">'
     +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">'
     +'<div style="font-weight:800;font-size:15px">📊 Monitor trimestral</div>'
