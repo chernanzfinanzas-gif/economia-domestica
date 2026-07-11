@@ -287,6 +287,7 @@ $('#amaOrden').addEventListener('change',renderAmalia);
 $('#invForm').addEventListener('submit',e=>{e.preventDefault();invNuevoValor();});
 $('#invCancel').addEventListener('click',()=>{$('#invForm').style.display='none';});
 $('#invAddBtn').addEventListener('click',()=>{const f=$('#invForm'); f.reset(); $('#invExch').value='BME'; $('#invFecha').value=new Date().toISOString().slice(0,10); f.style.display=(f.style.display==='none'||!f.style.display)?'grid':'none';});
+$('#invTicker').addEventListener('change',()=>{ if(typeof invPrefillTicker==='function')invPrefillTicker(); });
 $('#invImportBtn').addEventListener('click',()=>$('#invFile').click());
 $('#invTable').addEventListener('click',e=>{const op=e.target.closest('[data-ops-t]'),de=e.target.closest('[data-del-t]');
   if(op){ invOpsTicker=op.dataset.opsT; invOpsCartera=op.dataset.opsC; renderInvOps(); const el=$('#invOpsPanel'); if(el)el.scrollIntoView({behavior:'smooth',block:'nearest'}); }

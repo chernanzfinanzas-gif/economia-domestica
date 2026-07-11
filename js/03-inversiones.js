@@ -170,10 +170,26 @@ function editOp(id){ const o=DB.operaciones.find(x=>x.id===id); if(!o)return; op
   $('#opFecha').value=o.fecha||''; $('#opTipo').value=o.tipo; $('#opAcc').value=o.acciones; $('#opPrecio').value=o.precio;
   $('#opAdd').textContent='Guardar cambios'; $('#opCancelEdit').style.display='inline-block'; }
 function opEditEnd(){ opEditId=null; const b=$('#opAdd'); if(b)b.textContent='Añadir operación'; const c=$('#opCancelEdit'); if(c)c.style.display='none'; }
+/* Auto-relleno de "+ Posición" al teclear un ticker que ya existe (no pisa lo ya escrito) */
+function invPrefillTicker(){
+  const el0=$('#invTicker'); const t=((el0&&el0.value)||'').trim().toUpperCase(); if(!t) return;
+  const v=(DB.valores||{})[t];
+  const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+  if(!v && !a) return;                       /* ticker nuevo: no autorrellenar */
+  const nombre=(v&&v.nombre)||(a&&a.nombre)||'';
+  const pa=(v&&num(v.precioActual))||(a&&num(a.cotizacion))||0;
+  const div=(v&&num(v.divAccion))||(a&&num(a.divAccion))||0;
+  const setIf=(id,val)=>{ const el=$(id); if(el && el.value.trim()==='' && val) el.value=val; };
+  setIf('#invNombre',nombre); if(pa>0)setIf('#invPA',pa); if(div>0)setIf('#invDiv',div);
+  if(v&&v.broker)setIf('#invBroker',v.broker);
+  const ex=$('#invExch'); if(ex && v&&v.exchange) ex.value=v.exchange;
+  const st=$('#invStatus'); if(st) st.textContent='✓ Empresa existente: datos cargados (edita lo que quieras).';
+}
 function invNuevoValor(){
   const t=$('#invTicker').value.trim().toUpperCase(); if(!t){alert('Pon el ticker.');return;}
   DB.valores=DB.valores||{};
   DB.valores[t]={nombre:$('#invNombre').value.trim()||t, precioActual:num($('#invPA').value), divAccion:num($('#invDiv').value), broker:$('#invBroker').value.trim(), exchange:$('#invExch').value.trim()||'BME'};
+  { const _iDiv=num($('#invDiv').value); if(_iDiv>0){ const _an=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_an)_an.divAccion=_iDiv; } }  /* sincroniza el DPA con la ficha de Análisis */
   const acc=num($('#invAcc').value);
   const car=($('#invCart').value||'').trim()||'Propia';
   if(acc>0){ DB.operaciones.push({id:uid(),fecha:$('#invFecha').value||'',ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:num($('#invPC').value)}); }
@@ -291,6 +307,7 @@ function anaSubmit(){
   if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
   DB.analisis=DB.analisis||[];
   const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
+  if(a.ticker && a.divAccion>0){ DB.valores=DB.valores||{}; DB.valores[a.ticker]=DB.valores[a.ticker]||{}; DB.valores[a.ticker].divAccion=a.divAccion; }  /* sincroniza el DPA con Inversiones/valores */
   $('#anaForm').reset(); $('#anaId').value=''; $('#anaForm').style.display='none'; $('#anaSubmit').textContent='Añadir';
   renderAnalisis(); scheduleSave();
 }
@@ -421,7 +438,7 @@ function renderFicha(t){
     let divBodyS=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBodyS+='<tr>'; if(i===0){ divBodyS+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción año</div><div>${fmt(g.divShareSum)}</div></td>`; } divBodyS+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
     divTable=`<div class="sub" style="margin-bottom:6px">Posición sin lotes detallados: se muestra el dividendo por acción registrado.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th></th></tr></thead><tbody>${divBodyS||'<tr><td colspan="4" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
   }
-  const divSection=`<h3>Histórico de dividendos</h3>
+  const divSection=`<h3>Histórico de dividendos</h3>${(typeof dpaCheckHTML==='function')?dpaCheckHTML(fichaTicker):''}
    <div class="card" style="margin-bottom:10px"><div class="patgrid">
      <label>Fecha<input type="date" id="fdivFecha"></label>
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
@@ -443,6 +460,56 @@ function renderFicha(t){
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
+/* === DPA derivado: dividendo por acción real desde el histórico DB.dividendos === */
+function dpaReal(t){
+  t=(t||'').toUpperCase();
+  const arr=((DB.dividendos||{})[t]||[])
+    .filter(d=>d&&d.fecha)
+    .map(d=>({ms:Date.parse(d.fecha+'T00:00:00'),imp:num(d.importe)}))
+    .filter(d=>!isNaN(d.ms)&&d.imp>0).sort((a,b)=>a.ms-b.ms);
+  if(!arr.length) return null;
+  const y12=Date.now()-365*86400000;
+  const t12=arr.filter(d=>d.ms>=y12).reduce((s,d)=>s+d.imp,0);
+  const nowY=new Date().getFullYear(); const byY={};
+  arr.forEach(d=>{ const y=new Date(d.ms).getFullYear(); byY[y]=(byY[y]||0)+d.imp; });
+  const anos=Object.keys(byY).map(Number).filter(y=>y<nowY).sort((a,b)=>b-a);
+  const lastYearNum=anos.length?anos[0]:null;
+  return {t12, lastYear:lastYearNum!=null?byY[lastYearNum]:null, lastYearNum, n:arr.length};
+}
+/* Tarjeta de contraste DPA manual vs dividendos registrados (para la sección de dividendos de la Ficha).
+   Muestra siempre el contraste; solo avisa (ámbar + botón) cuando el manual va por debajo de AMBAS
+   medidas recientes (último año completo Y últimos 12 m) → señal fiable de DPA caducado. Evita falsas
+   alarmas por el calendario de pagos (12 m puede sobre/infra-contar) o dividendos crecientes. */
+function dpaCheckHTML(t){
+  t=(t||'').toUpperCase();
+  const dr=dpaReal(t); if(!dr) return '';
+  const usado=num(((DB.valores||{})[t]||{}).divAccion);
+  const ly=num(dr.lastYear), t12=num(dr.t12), lyn=dr.lastYearNum;
+  const ref = ly>0 ? ly : (t12>0 ? t12 : 0);           // referencia canónica: último año completo
+  if(!(ref>0) && !(usado>0)) return '';
+  const belowLy  = ly>0  && usado>0 && usado < ly*0.85;
+  const belowT12 = t12>0 && usado>0 && usado < t12*0.85;
+  const stale = (usado<=0 && ref>0) || (belowLy && belowT12);
+  const info = `<span class="muted">DPA manual:</span> <b>${fmt(usado)}</b>`
+    + (ly>0 ? ` <span class="muted">· dividendos año ${lyn}:</span> <b>${fmt(ly)}</b>` : '')
+    + (t12>0 ? ` <span class="muted">· últ. 12 m:</span> <b>${fmt(t12)}</b>` : '');
+  const act = stale
+    ? `<span style="color:#b45309;font-weight:700">⚠️ ${usado>0?'el manual va por debajo del histórico':'sin DPA manual'}</span> <button class="btn sm" data-dpasync="${t}|${ref}">Igualar (${fmt(ref)})</button>`
+    : '';
+  return `<div class="card" style="margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px">
+    ${info}<div style="flex:1"></div>${act}</div>`;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest&&e.target.closest('[data-dpasync]'); if(!b) return;
+  e.stopPropagation();
+  const a=(b.dataset.dpasync||'').split('|'); const t=(a[0]||'').toUpperCase(); const val=num(a[1]);
+  if(!t||!(val>0)) return;
+  DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=val;
+  const an=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(an) an.divAccion=val;
+  const ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][ny]=val;
+  if(typeof saveNow==='function') saveNow();
+  if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
+});
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
   let pj=_precioCache[t];
