@@ -438,7 +438,8 @@ function renderFicha(t){
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
