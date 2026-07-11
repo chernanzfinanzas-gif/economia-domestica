@@ -117,11 +117,14 @@ async function gfetch(url,opts){
   if(r.status===401){ try{ await getToken(false); opts.headers.Authorization='Bearer '+accessToken; r=await fetch(url,opts); }catch(e){} }
   return r;
 }
+var _lastMod='';   /* modifiedTime del fichero en Drive la última vez que lo leímos/guardamos (chequeo de concurrencia) */
 async function driveFindId(){
   const q=encodeURIComponent("name='"+FNAME+"' and trashed=false");
-  const r=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id,name)&pageSize=1');
+  const r=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id,name,modifiedTime)&pageSize=1');
   if(!r.ok) throw new Error('Drive '+r.status);
-  const j=await r.json(); return (j.files&&j.files[0])?j.files[0].id:null;
+  const j=await r.json(); const f=(j.files&&j.files[0])||null;
+  if(f){ _lastMod=f.modifiedTime||''; return f.id; }
+  return null;
 }
 async function driveLoad(){
   fileId=await driveFindId(); if(!fileId) return null;
@@ -129,26 +132,64 @@ async function driveLoad(){
   if(!r.ok) throw new Error('Drive read '+r.status);
   return await r.json();
 }
-async function driveSave(){
+async function driveSave(force){
   const body=JSON.stringify(DB,null,2);
   if(!fileId){
     const meta={name:FNAME};
     const b='-----econ'+Date.now();
     const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
-    const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
+    const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id,modifiedTime',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
     if(!r.ok) throw new Error('Drive create '+r.status);
-    const j=await r.json(); fileId=j.id;
+    const j=await r.json(); fileId=j.id; if(j.modifiedTime)_lastMod=j.modifiedTime;
   } else {
-    const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body});
+    /* chequeo de concurrencia: ¿alguien (p. ej. el móvil) guardó desde que cargamos? */
+    if(!force && _lastMod){
+      try{ const rc=await gfetch('https://www.googleapis.com/drive/v3/files/'+fileId+'?fields=modifiedTime');
+        if(rc.ok){ const jc=await rc.json(); if(jc.modifiedTime && jc.modifiedTime!==_lastMod) return {conflict:true}; } }catch(e){}
+    }
+    const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files/'+fileId+'?uploadType=media&fields=id,modifiedTime',{method:'PATCH',headers:{'Content-Type':'application/json'},body});
     if(!r.ok) throw new Error('Drive save '+r.status);
+    const j=await r.json(); if(j&&j.modifiedTime)_lastMod=j.modifiedTime;
   }
+  return {ok:true};
 }
 function scheduleSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
 async function saveNow(){
   if(!DB) return;
   setFileStatus('warn','Guardando…');
-  try{ await driveSave(); setFileStatus('ok','Guardado en Drive ✓'); }
-  catch(e){ setFileStatus('warn','Error al guardar'); console.error(e); }
+  try{
+    let res=await driveSave(false);
+    if(res&&res.conflict){
+      const ok=confirm('⚠️ Los datos en Drive han cambiado desde que abriste esta sesión (quizá el móvil u otra pestaña abierta).\n\nSi guardas ahora SOBRESCRIBIRÁS esos cambios.\n\n• Aceptar = guardar igualmente\n• Cancelar = no guardar (recomendado: recarga la página para traer la última versión).');
+      if(!ok){ setFileStatus('warn','⚠️ Guardado cancelado: datos cambiados en Drive — recarga la página'); return; }
+      res=await driveSave(true);
+    }
+    setFileStatus('ok','Guardado en Drive ✓');
+  }catch(e){ setFileStatus('warn','Error al guardar'); console.error(e); }
+}
+/* Respaldo automático: una copia fechada al mes en Drive, con retención de las 12 más recientes */
+async function driveMonthlyBackup(){
+  try{
+    if(!DB) return;
+    const ym=new Date().toISOString().slice(0,7);           /* YYYY-MM */
+    DB.config=DB.config||{};
+    if(DB.config.lastMonthlyBackup===ym) return;            /* ya hecho este mes */
+    const meta={name:'datos-economia-backup-'+ym+'.json'};
+    const b='-----bkp'+Date.now();
+    const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+JSON.stringify(DB,null,2)+'\r\n--'+b+'--';
+    const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
+    if(!r.ok) return;                                        /* silencioso: no molestar si falla */
+    DB.config.lastMonthlyBackup=ym;
+    try{  /* retención: conservar solo las 12 copias más recientes */
+      const q=encodeURIComponent("name contains 'datos-economia-backup-' and trashed=false");
+      const lr=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id,name)&pageSize=100');
+      if(lr.ok){ const lj=await lr.json();
+        const files=(lj.files||[]).filter(f=>/^datos-economia-backup-\d{4}-\d{2}\.json$/.test(f.name)).sort((a,b)=>a.name<b.name?1:-1);
+        for(let i=12;i<files.length;i++){ try{ await gfetch('https://www.googleapis.com/drive/v3/files/'+files[i].id,{method:'DELETE'}); }catch(e){} }
+      }
+    }catch(e){}
+    if(typeof scheduleSave==='function') scheduleSave();     /* persiste lastMonthlyBackup */
+  }catch(e){}
 }
 
 async function startSession(){
@@ -156,7 +197,7 @@ async function startSession(){
   setFileStatus('warn','Cargando…');
   try{
     const data=await driveLoad();
-    if(data){ DB=data; afterLoad(); setFileStatus('ok','Google Drive ✓'); }
+    if(data){ DB=data; afterLoad(); setFileStatus('ok','Google Drive ✓'); if(typeof driveMonthlyBackup==='function')driveMonthlyBackup(); }
     else { showWelcome('import'); setFileStatus('warn','Sin datos en Drive'); }
   }catch(e){ console.error(e); setFileStatus('warn','Error al cargar'); alert('No se pudieron cargar los datos de Drive: '+e.message); }
 }
