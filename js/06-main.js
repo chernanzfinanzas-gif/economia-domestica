@@ -87,7 +87,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['metas','Metas'],['asignacion','Asignación'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['analisis','Análisis'],['proxcompra','Próxima compra'],['comparador','Comparador'],['backtest','Backtest'],['radardiv','Radar Dividendo'],['riesgo','Riesgo']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['metas','Metas'],['asignacion','Asignación'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['vision','Visión de conjunto'],['analisis','Análisis'],['proxcompra','Próxima compra'],['comparador','Comparador'],['backtest','Backtest'],['radardiv','Radar Dividendo'],['riesgo','Riesgo']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', cartera:'posiciones', estudio:'analisis', rentas:'dividendos', planinv:'proyeccion'};
 function activarVista(view){
@@ -115,6 +115,7 @@ function activarVista(view){
   if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
   if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
   if(view==='riesgo' && typeof renderRiesgo==='function') renderRiesgo();
+  if(view==='vision' && typeof renderVision==='function') renderVision();
   if(view==='fiscalidad' && typeof renderFiscalidad==='function') renderFiscalidad();
   if(view==='atribucion' && typeof renderAtribucion==='function') renderAtribucion();
   if(view==='rentabilidad' && typeof renderRentabEmpresas==='function') renderRentabEmpresas();
