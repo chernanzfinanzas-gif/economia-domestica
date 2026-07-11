@@ -313,10 +313,19 @@ function renderPanelDash(){
   try{ const _tA=(DB.asignacion||[]).reduce((s,c)=>s+num(c.actual),0); if(_tA>0)(DB.asignacion||[]).forEach(c=>{ const obj=num(c.objetivo); if(obj>0){ const actPct=num(c.actual)/_tA*100; const d=actPct-obj; if(Math.abs(d)>5){ const objEur=_tA*obj/100; const aMover=objEur-num(c.actual); avisos.push({pri:3,cls:'a',goto:'asignacion',txt:`⚖️ <b>${c.nombre}</b> desviada ${d>=0?'+':''}${d.toFixed(0)} pp del objetivo — ${aMover>=0?'aportar':'reducir'} ${fmt(Math.abs(aMover))}`}); } } }); }catch(e){}
   try{ if(typeof protoAvisos==='function') protoAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof calibAvisos==='function') calibAvisos().forEach(x=>avisos.push(x)); }catch(e){}
-  /* Silenciar avisos de señal (S1/S3/S4/S5…) cuya revisión ya está registrada en la ficha.
-     El apunte del registro (esApunte) NO se silencia: si queda abierto/vencido, seguirá avisando. */
-  try{ const _conApunte=(t,sig)=>((DB.protocolo||{})[t]||[]).some(a=>a.sig===sig);
-    for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_conApunte(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
+  /* Silenciar avisos de señal cuya revisión ya está registrada en la ficha.
+     - Apunte ABIERTO → silencia siempre (el registro ya avisa como abierto/vencido).
+     - Señales de precio (S1/S3) resueltas → silencio de 60 días desde el último apunte; si la
+       condición persiste pasado ese plazo, el aviso vuelve a sonar para forzar re-revisión.
+     - Resto de señales resueltas → silencio permanente hasta que cambie la condición.
+     El apunte del registro (esApunte) nunca se silencia aquí. */
+  try{ const _PRECIO={S1:1,S3:1}, _DIAS_SIL=60, _hoyMs=Date.now();
+    const _silenciada=(t,sig)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig); if(!arr.length)return false;
+      if(arr.some(a=>a.estado==='abierta'))return true;
+      if(!_PRECIO[sig])return true;
+      const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
+      return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL; };
+    for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri); const hayCrit=avisos.some(x=>x.cls==='r');
     const _itav=avisos.map(x=>`<div data-goto="${x.goto}"${x.sig?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;cursor:pointer">${x.txt}${x.sig?` <span style="float:right;font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px" title="Protocolo de Revisión Extraordinaria">${x.sig} 📋</span>`:''}</div>`).join('');
     html+=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;margin-bottom:6px">🔔 Avisos (${avisos.length})</div>${_itav}</div>`;
