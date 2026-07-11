@@ -75,6 +75,10 @@ const PROTOCOLO_SENALES = {
 
 const PROTO_DECISIONES = ['SIN CAMBIOS (justificado)','VENDER','RECORTAR POSICIÓN','MANTENER (stop recalculado)','RE-VALORAR (Bloques 8–9)','PTE. REVISIÓN'];
 
+/* Señales de precio y días de silencio tras registrar su revisión (compartido con el panel). */
+const PROTO_SIG_PRECIO = {S1:1,S3:1};
+const PROTO_SILENCIO_DIAS = 60;
+
 function _protoDlg(){
   let dlg = document.getElementById('protoDlg');
   if(!dlg){
@@ -192,9 +196,20 @@ function protoRegHTML(t){
   t=(t||'').toUpperCase();
   const arr=((DB.protocolo||{})[t]||[]);
   const hoy=_protoHoy();
+  // Apunte más reciente por señal (el que gobierna el silencio del panel) y señales con apunte abierto.
+  const _ultPorSig={}, _abiertaPorSig={};
+  arr.forEach(a=>{ if(!a.sig)return; if(!_ultPorSig[a.sig]||(a.fecha||'')>(_ultPorSig[a.sig].fecha||''))_ultPorSig[a.sig]=a; if(a.estado==='abierta')_abiertaPorSig[a.sig]=true; });
   const rows=arr.map(a=>{
     const p=PROTOCOLO_SENALES[a.sig]||{color:'#64748b',icono:'📋'};
     const vencido=a.estado==='abierta'&&a.limite&&a.limite<hoy;
+    // Cuenta atrás del silencio (solo señales de precio resueltas que gobiernan y sin apunte abierto de esa señal).
+    let silChip='';
+    if(a.estado==='resuelta'&&PROTO_SIG_PRECIO[a.sig]&&a.fecha&&_ultPorSig[a.sig]===a&&!_abiertaPorSig[a.sig]){
+      const rem=PROTO_SILENCIO_DIAS-Math.floor((Date.now()-new Date(a.fecha+'T00:00:00').getTime())/86400000);
+      silChip=rem>0
+        ?`<span title="Si el precio sigue en zona de disparo, la alerta del panel volverá a sonar en ${rem} día(s)." style="display:inline-block;margin-top:3px;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;background:#fef3c7;color:#92400e">⏳ alerta en ${rem} d</span>`
+        :`<span title="El silencio de ${PROTO_SILENCIO_DIAS} días ha vencido: si el precio sigue en zona de disparo, la alerta ya está activa en el panel." style="display:inline-block;margin-top:3px;font-size:9.5px;font-weight:700;padding:1px 6px;border-radius:8px;background:#e2e8f0;color:#475569">🔔 silencio vencido</span>`;
+    }
     const chip=a.estado==='abierta'
       ?`<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:${vencido?'#fee2e2':'#fef3c7'};color:${vencido?'#991b1b':'#92400e'}">${vencido?'⏰ VENCIDO':'ABIERTA'}${a.limite?' · lím. '+a.limite:''}</span>`
       :'<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#dcfce7;color:#166534">RESUELTA</span>';
@@ -203,7 +218,7 @@ function protoRegHTML(t){
       <td style="white-space:nowrap"><span title="${_protoEsc((PROTOCOLO_SENALES[a.sig]||{}).titulo||'')}" data-protosig="${a.sig}|${t}" style="cursor:pointer;font-weight:700;color:${p.color}">${p.icono} ${a.sig}</span></td>
       <td class="num">${a.cot!=null&&a.cot!==0?fmt(a.cot):'—'}</td>
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
-      <td>${chip}</td>
+      <td>${chip}${silChip}</td>
       <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
       <td class="right" style="white-space:nowrap">${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
     </tr>`;

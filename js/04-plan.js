@@ -319,7 +319,7 @@ function renderPanelDash(){
        condición persiste pasado ese plazo, el aviso vuelve a sonar para forzar re-revisión.
      - Resto de señales resueltas → silencio permanente hasta que cambie la condición.
      El apunte del registro (esApunte) nunca se silencia aquí. */
-  try{ const _PRECIO={S1:1,S3:1}, _DIAS_SIL=60, _hoyMs=Date.now();
+  try{ const _PRECIO=(typeof PROTO_SIG_PRECIO!=='undefined')?PROTO_SIG_PRECIO:{S1:1,S3:1}, _DIAS_SIL=(typeof PROTO_SILENCIO_DIAS!=='undefined')?PROTO_SILENCIO_DIAS:60, _hoyMs=Date.now();
     const _silenciada=(t,sig)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
       if(!_PRECIO[sig])return true;
