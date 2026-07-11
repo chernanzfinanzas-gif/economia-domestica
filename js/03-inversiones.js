@@ -482,20 +482,28 @@ function dpaReal(t){
    alarmas por el calendario de pagos (12 m puede sobre/infra-contar) o dividendos crecientes. */
 function dpaCheckHTML(t){
   t=(t||'').toUpperCase();
-  const dr=dpaReal(t); if(!dr) return '';
+  const dr=dpaReal(t);
+  const te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t];
+  const prev=te?num(te.dpaPrevisto):0;                 // DPA previsto del dossier (tesis.json)
+  if(!dr && !(prev>0)) return '';
   const usado=num(((DB.valores||{})[t]||{}).divAccion);
-  const ly=num(dr.lastYear), t12=num(dr.t12), lyn=dr.lastYearNum;
-  const ref = ly>0 ? ly : (t12>0 ? t12 : 0);           // referencia canónica: último año completo
-  if(!(ref>0) && !(usado>0)) return '';
-  const belowLy  = ly>0  && usado>0 && usado < ly*0.85;
-  const belowT12 = t12>0 && usado>0 && usado < t12*0.85;
-  const stale = (usado<=0 && ref>0) || (belowLy && belowT12);
+  const ly=dr?num(dr.lastYear):0, t12=dr?num(dr.t12):0, lyn=dr?dr.lastYearNum:null;
   const info = `<span class="muted">DPA manual:</span> <b>${fmt(usado)}</b>`
+    + (prev>0 ? ` <span class="muted">· previsto (dossier):</span> <b>${fmt(prev)}</b>` : '')
     + (ly>0 ? ` <span class="muted">· dividendos año ${lyn}:</span> <b>${fmt(ly)}</b>` : '')
     + (t12>0 ? ` <span class="muted">· últ. 12 m:</span> <b>${fmt(t12)}</b>` : '');
-  const act = stale
-    ? `<span style="color:#b45309;font-weight:700">⚠️ ${usado>0?'el manual va por debajo del histórico':'sin DPA manual'}</span> <button class="btn sm" data-dpasync="${t}|${ref}">Igualar (${fmt(ref)})</button>`
-    : '';
+  let act='';
+  if(prev>0){                                          // prioridad: el previsto del dossier (forward del analista)
+    const dif = usado>0 ? Math.abs(usado-prev)/prev : 1;
+    act = (usado<=0 || dif>0.05)
+      ? `<span style="color:#b45309;font-weight:700">⚠️ ${usado>0?'difiere del previsto del dossier':'sin DPA manual'}</span> <button class="btn sm" data-dpasync="${t}|${prev}">Usar previsto (${fmt(prev)})</button>`
+      : `<span style="color:#16a34a;font-weight:600">✓ coincide con el dossier</span>`;
+  } else {                                             // respaldo: histórico de dividendos
+    const ref = ly>0 ? ly : (t12>0 ? t12 : 0);
+    const belowLy=ly>0&&usado>0&&usado<ly*0.85, belowT12=t12>0&&usado>0&&usado<t12*0.85;
+    if((usado<=0&&ref>0)||(belowLy&&belowT12))
+      act=`<span style="color:#b45309;font-weight:700">⚠️ ${usado>0?'el manual va por debajo del histórico':'sin DPA manual'}</span> <button class="btn sm" data-dpasync="${t}|${ref}">Igualar (${fmt(ref)})</button>`;
+  }
   return `<div class="card" style="margin-bottom:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px">
     ${info}<div style="flex:1"></div>${act}</div>`;
 }
