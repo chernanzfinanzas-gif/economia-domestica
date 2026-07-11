@@ -227,8 +227,8 @@ function protoAvisos(){
     (DB.protocolo[t]||[]).forEach(a=>{
       if(a.estado!=='abierta')return;
       const p=PROTOCOLO_SENALES[a.sig]||{};
-      if(a.limite&&a.limite<hoy) out.push({pri:0,cls:'r',goto:'analisis',sig:a.sig,tick:t,txt:`⏰ <b>${t}</b> — apunte ${a.sig} (${_protoEsc((a.decision||''))}) VENCIDO desde ${a.limite}: resuélvelo`});
-      else out.push({pri:3,cls:'a',goto:'analisis',sig:a.sig,tick:t,txt:`📋 <b>${t}</b> — apunte ${a.sig} abierto${a.limite?' (límite '+a.limite+')':''}`});
+      if(a.limite&&a.limite<hoy) out.push({pri:0,cls:'r',goto:'analisis',sig:a.sig,tick:t,esApunte:true,txt:`⏰ <b>${t}</b> — apunte ${a.sig} (${_protoEsc((a.decision||''))}) VENCIDO desde ${a.limite}: resuélvelo`});
+      else out.push({pri:3,cls:'a',goto:'analisis',sig:a.sig,tick:t,esApunte:true,txt:`📋 <b>${t}</b> — apunte ${a.sig} abierto${a.limite?' (límite '+a.limite+')':''}`});
     });
   });
   return out;
