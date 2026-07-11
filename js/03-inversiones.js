@@ -306,8 +306,13 @@ function anaSubmit(){
   const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),poMin,poMax,entMin,entMax,rating:($('#anaRating').value||'').trim().toUpperCase(),stopTesis:num($('#anaStop').value),decision:($('#anaDecision').value||'').toUpperCase(),dossierFecha:$('#anaDossierFecha').value||'',dossierUrl:($('#anaDossierUrl').value||'').trim(),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim(),precioObjetivo:poMed,precioEntrada:entMax};
   if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
   DB.analisis=DB.analisis||[];
-  const ex=DB.analisis.find(x=>x.id===id); if(ex)Object.assign(ex,a); else DB.analisis.push(a);
+  const ex=DB.analisis.find(x=>x.id===id);
+  /* 5.2.e: si se EDITA un registro existente y cambia decision/banda/stop => rastro + motivo + recordatorio §10.5 */
+  let critChg=null;
+  if(ex){ const chg=[]; if((ex.decision||'').toUpperCase()&&(ex.decision||'').toUpperCase()!==a.decision)chg.push('la decision'); if(num(ex.entMin)>0&&num(ex.entMin)!==a.entMin)chg.push('la banda min.'); if(num(ex.entMax)>0&&num(ex.entMax)!==a.entMax)chg.push('la banda max.'); if(num(ex.stopTesis)>0&&num(ex.stopTesis)!==a.stopTesis)chg.push('el stop'); if(chg.length)critChg=chg.join(', '); }
+  if(ex)Object.assign(ex,a); else DB.analisis.push(a);
   if(a.ticker && a.divAccion>0){ DB.valores=DB.valores||{}; DB.valores[a.ticker]=DB.valores[a.ticker]||{}; DB.valores[a.ticker].divAccion=a.divAccion; }  /* sincroniza el DPA con Inversiones/valores */
+  if(critChg && a.ticker && typeof anotarAjusteTesis==='function'){ anotarAjusteTesis(a.ticker,critChg); }
   $('#anaForm').reset(); $('#anaId').value=''; $('#anaForm').style.display='none'; $('#anaSubmit').textContent='Añadir';
   renderAnalisis(); scheduleSave();
 }
