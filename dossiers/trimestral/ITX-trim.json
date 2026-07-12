@@ -1,0 +1,591 @@
+{
+  "ticker": "ITX",
+  "empresa": "Inditex",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-06-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque fuerte: +13% con margen bruto 60,5% y caja neta €10,5bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 7611
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 13.0
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 13.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 60.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2195
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1168
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5801
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10500
+        }
+      ]
+    },
+    {
+      "periodo": "2023-S1",
+      "fecha": "2023-09-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre muy sólido (+13,5%; a tipo constante +16,6%).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 16851
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 13.5
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 16.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 4663
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2513
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5745
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10500
+        }
+      ]
+    },
+    {
+      "periodo": "2023-9M",
+      "fecha": "2023-12-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Doble dígito sostenido (+11,1%); margen 59,4%; caja €11,5bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 25609
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 11.1
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 59.4
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 7429
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 4102
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5722
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11500
+        }
+      ]
+    },
+    {
+      "periodo": "2023-FY",
+      "fecha": "2024-03-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Ejercicio récord: +10,4%; EBITDA 9.850; caja €11,4bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 35947
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 10.4
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 14.1
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 57.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 9850
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 5381
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5692
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11400
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-06-12",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Buen inicio (+7,1%; a tipo constante +10,6%); margen 60,6%.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 8150
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.1
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 10.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 60.6
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2370
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1294
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5698
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11623
+        }
+      ]
+    },
+    {
+      "periodo": "2024-S1",
+      "fecha": "2024-09-11",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Crecimiento sano y márgenes estables (+7,2%; cc +10,2%).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 18065
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.2
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 10.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.4
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 5040
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2768
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5667
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10911
+        }
+      ]
+    },
+    {
+      "periodo": "2024-9M",
+      "fecha": "2024-12-11",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "+7,1% con caja creciente €11,8bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 27422
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.1
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 59.4
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 7967
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 4449
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5659
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11824
+        }
+      ]
+    },
+    {
+      "periodo": "2024-FY",
+      "fecha": "2025-03-12",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre +7,5%; EBITDA 10.728; caja €11,5bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 38632
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.5
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 57.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 10728
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 5866
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5563
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11495
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-06-11",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Fuerte desaceleración (+1,5% vs +7,1%): comparativa exigente y efecto divisa; margen estable. A vigilar.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 8274
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 1.5
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 60.6
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2393
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1305
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5562
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10778
+        }
+      ]
+    },
+    {
+      "periodo": "2025-S1",
+      "fecha": "2025-09-10",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre flojo (+1,6%); márgenes intactos; la caja baja por el dividendo. Seguir de cerca.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 18357
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 1.6
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 5114
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2791
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5528
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10012
+        }
+      ]
+    },
+    {
+      "periodo": "2025-9M",
+      "fecha": "2025-12-10",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ligera mejora (+2,7%; cc +6,2%); aún por debajo del ritmo histórico.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 28171
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 59.7
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 8303
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 4622
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5527
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 11268
+        }
+      ]
+    },
+    {
+      "periodo": "2025-FY",
+      "fecha": "2026-03-11",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Reacelera (+3,2%; cc +7,0%); EBITDA +5%, margen estable. Tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 39864
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 3.2
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": 7.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 11267
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 6220
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5460
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10958
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-06-10",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Fuerte reaceleración (+5,8%); margen bruto 61,2%; EBITDA +7,3%. Buena señal.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 8750
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 5.8
+        },
+        {
+          "nombre": "Ventas cc (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 61.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2568
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1375
+        },
+        {
+          "nombre": "Nº tiendas",
+          "valor": 5456
+        },
+        {
+          "nombre": "PFN / Caja neta (M€)",
+          "valor": 10796
+        }
+      ]
+    }
+  ]
+}
