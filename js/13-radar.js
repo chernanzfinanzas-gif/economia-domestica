@@ -219,3 +219,7 @@ function cadAvisos(){
   if(!_cadRefrescado){ _cadRefrescado=true; try{ _cadRefreshAll(); }catch(e){} }
   return out;
 }
+
+/* listeners de la cola (reañadidos: se perdieron al reescribir la cadencia) */
+document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });
+document.addEventListener('click',function(e){ var mv=e.target.closest&&e.target.closest('[data-colamove]'); if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|'); var i=+a[0], d=+a[1]; var arr=DB.cola||[]; var j=i+d; if(j>=0&&j<arr.length){ var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } return; } var dl=e.target.closest&&e.target.closest('[data-coladel]'); if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
