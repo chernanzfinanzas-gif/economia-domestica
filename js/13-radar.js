@@ -176,8 +176,10 @@ function renderCobertura(){
 
 /* ================= CALENDARIO UNIFICADO DE COBERTURA ================= */
 function _cbHoy(){ return new Date().toISOString().slice(0,10); }
-function _cbDias(dateStr,hoy){ if(!dateStr)return null; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return null; return Math.round((d-hoy)/86400000); }
-function _cbFechaTxt(dateStr){ if(!dateStr)return '<span class="muted">—</span>'; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return '<span class="muted">—</span>'; return _cadFmtD(d); }
+/* normaliza a "YYYY-MM-DD" acepte un Date (como devuelve _cadenciaDe) o una cadena */
+function _cbToStr(d){ if(!d)return null; if(d instanceof Date){ return isNaN(d)?null:(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')); } var m=/^(\d{4}-\d{2}-\d{2})/.exec(''+d); return m?m[1]:null; }
+function _cbDias(dateStr,hoy){ dateStr=_cbToStr(dateStr); if(!dateStr)return null; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return null; return Math.round((d-hoy)/86400000); }
+function _cbFechaTxt(dateStr){ dateStr=_cbToStr(dateStr); if(!dateStr)return '<span class="muted">—</span>'; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return '<span class="muted">—</span>'; return _cadFmtD(d); }
 function _cbDiasTxt(dias){ if(dias==null)return '<span class="muted">sin fecha</span>'; if(dias===0)return '<b style="color:#dc2626">hoy</b>'; if(dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-dias)+' d</span>'; if(dias<=14)return '<span style="color:#b45309;font-weight:600">en '+dias+' d</span>'; return 'en '+dias+' d'; }
 /* diana de calibración "activa": la de mayor fecha ya alcanzada; si ninguna, la más próxima */
 function _calibActivo(hitos,hoy){ if(!hitos||!hitos.length)return null; var withD=hitos.filter(function(h){return h.diana;}); if(!withD.length)return null; var reached=withD.filter(function(h){return new Date(h.diana+'T00:00:00')<=hoy;}); if(reached.length){ reached.sort(function(a,b){return a.diana<b.diana?1:-1;}); return reached[0]; } var up=withD.slice().sort(function(a,b){return a.diana<b.diana?-1:1;}); return up[0]; }
@@ -195,7 +197,7 @@ function _pintarCalendario(analizadas){
   /* 2) intervenciones programadas por empresa analizada */
   (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
     var c=_cadenciaDe(t);
-    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=c.next.date; var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||dias<=0)?0:2; var doneRep=!!((infDone[t]||{})[dt]);
+    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
       items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt}); }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
