@@ -523,6 +523,26 @@ document.addEventListener('click',e=>{
   if(typeof saveNow==='function') saveNow();
   if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
 });
+// === Tooltip interactivo del gráfico de cotización de la ficha (fecha + precio al pasar el ratón) ===
+let _fichaHov=null, _fichaHovBound=false;
+function _fichaHideHover(){ const svg=document.querySelector('.fichaSvg'); if(!svg)return; const g=svg.querySelector('.fchGuide'); if(g)g.style.display='none'; const d=svg.querySelector('.fchDot'); if(d)d.style.display='none'; const wrap=svg.parentNode; const tip=wrap&&wrap.querySelector('.fchTip'); if(tip)tip.style.display='none'; }
+function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
+  document.addEventListener('mousemove',e=>{
+    const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null;
+    if(!svg||!_fichaHov){ _fichaHideHover(); return; }
+    const D=_fichaHov; const r=svg.getBoundingClientRect(); if(!r.width)return;
+    const vx=(e.clientX-r.left)*D.W/r.width;
+    let bi=0,bd=Infinity; for(let i=0;i<D.xs.length;i++){ const dd=Math.abs(D.xs[i]-vx); if(dd<bd){bd=dd;bi=i;} }
+    const gx=D.xs[bi], gy=D.ys[bi];
+    const g=svg.querySelector('.fchGuide'); if(g){ g.setAttribute('x1',gx); g.setAttribute('x2',gx); g.style.display=''; }
+    const dot=svg.querySelector('.fchDot'); if(dot){ dot.setAttribute('cx',gx); dot.setAttribute('cy',gy); dot.style.display=''; }
+    const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.fchTip'):null;
+    if(tip){ const price=num(D.prices[bi]); const ds=D.dates[bi];
+      let h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">Cotización:</span> <b>${fmt(price)}</b></div>`;
+      if(D.avg>0){ const dv=D.avg>0?(price-D.avg)/D.avg*100:0; h+=`<div style="color:#cbd5e1;margin-top:1px">vs precio medio: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }
+      tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(64,Math.min(r.width-64,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
+  },{passive:true});
+}
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
   let pj=_precioCache[t];
@@ -558,7 +578,14 @@ async function drawFichaChart(t){
   let poL=''; [['bear',poB,'#dc2626',2],['base',poM,'#2563eb',1.1],['bull',poU,'#16a34a',2]].forEach(it=>{ const v=it[1]; if(v>0){ const y=Y(v); poL+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="${it[2]}" stroke-width="${it[3]}" stroke-dasharray="${it[3]>=2?'7 3':'2 3'}" opacity="0.9"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="${it[2]}">PO ${it[0]} ${v.toFixed(2)}</text>`; } });
   let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
   const last=pts[pts.length-1][1];
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto" xmlns="http://www.w3.org/2000/svg">${grid}${xl}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${poL}${stopL}${avgL}${mk}</svg><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo · <span style="color:#0ea5e9">▬</span> banda de entrada · <span style="color:#dc2626">▬</span> stop</div>`;
+  // Registro para el tooltip interactivo (fecha + cotización al pasar el ratón sobre la línea)
+  const xs=pts.map(p=>X(p[0])), ys=pts.map(p=>Y(p[1])), prices=pts.map(p=>p[1]);
+  const dates=pts.map(p=>{ const dt=new Date(p[0]); return String(dt.getUTCDate()).padStart(2,'0')+'/'+String(dt.getUTCMonth()+1).padStart(2,'0')+'/'+dt.getUTCFullYear(); });
+  _fichaHov={W,xs,ys,prices,dates,avg}; _fichaBindHover();
+  const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
+  const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
+  const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
+  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg">${grid}${xl}${guide}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${poL}${stopL}${avgL}${mk}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · pasa el ratón sobre la línea para ver fecha y cotización · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo · <span style="color:#0ea5e9">▬</span> banda de entrada · <span style="color:#dc2626">▬</span> stop</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();

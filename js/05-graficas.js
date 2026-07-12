@@ -26,13 +26,49 @@ function gDonut(title,items){ items=items.filter(x=>num(x.val)>0).sort((a,b)=>b.
     segs+=`<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 ${lg} 1 ${x1.toFixed(1)} ${y1.toFixed(1)} L${xi1.toFixed(1)} ${yi1.toFixed(1)} A${rin} ${rin} 0 ${lg} 0 ${xi0.toFixed(1)} ${yi0.toFixed(1)} Z" fill="${col}"><title>${gEsc(x.label)}: ${fmt(x.val)} (${(frac*100).toFixed(1)}%)</title></path>`; a0=a1; }); }
   const leg=items.map((x,i)=>`<div style="font-size:11px;margin:1px 0;white-space:nowrap"><span style="display:inline-block;width:10px;height:10px;background:${x.color||GRAF_COLS[i%GRAF_COLS.length]};border-radius:2px;margin-right:5px"></span>${gEsc(x.label)} <b>${fmt(x.val)}</b> <span class="muted">${(x.val/tot*100).toFixed(0)}%</span></div>`).join('');
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg width="140" height="140" viewBox="0 0 140 140">${segs}<text x="70" y="74" font-size="10" text-anchor="middle" fill="#475569">${fmt(tot)}</text></svg><div style="flex:1;min-width:150px">${leg}</div></div></div>`; }
+// === Tooltip interactivo genérico para gLine/gLines (guía vertical + puntos + etiqueta con fecha/valor al pasar el ratón) ===
+const _gtReg={}; let _gtSeq=0, _gtBound=false;
+function _gtHideAll(){ document.querySelectorAll('.gtTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.gtGuide,.gtDotH').forEach(el=>el.style.display='none'); }
+function _gtBind(){ if(_gtBound)return; _gtBound=true;
+  document.addEventListener('mousemove',e=>{
+    const svg=(e.target&&e.target.closest)?e.target.closest('.gtSvg'):null;
+    if(!svg){ _gtHideAll(); return; }
+    const id=svg.getAttribute('data-gt'); const D=_gtReg[id]; if(!D){ _gtHideAll(); return; }
+    const r=svg.getBoundingClientRect(); if(!r.width)return;
+    const vx=(e.clientX-r.left)*D.W/r.width;
+    let bi=0,bd=Infinity; for(let i=0;i<D.xs.length;i++){ const dd=Math.abs(D.xs[i]-vx); if(dd<bd){bd=dd;bi=i;} }
+    const gx=D.xs[bi];
+    document.querySelectorAll('.gtTip').forEach(t=>{ if(t.getAttribute('data-gt')!==id)t.style.display='none'; });
+    const g=svg.querySelector('.gtGuide'); if(g){ g.setAttribute('x1',gx); g.setAttribute('x2',gx); g.style.display=''; }
+    D.series.forEach((s,si)=>{ const c=svg.querySelector('.gtDotH'+si); if(c){ c.setAttribute('cx',gx); c.setAttribute('cy',D.Y(s.vals[bi]).toFixed(1)); c.style.display=''; } });
+    const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.gtTip'):null;
+    if(tip){ let h=`<div style="font-weight:700;margin-bottom:2px">${gEsc(D.labels[bi])}</div>`;
+      D.series.forEach(s=>{ const v=num(s.vals[bi]); const nm=s.name?`${gEsc(s.name)}: `:''; h+=`<div><span style="display:inline-block;width:8px;height:8px;border-radius:2px;background:${s.color};margin-right:5px"></span>${nm}<b>${D.pct?v.toFixed(1)+'%':fmt(v)}</b></div>`; });
+      tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(58,Math.min(r.width-58,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
+  },{passive:true});
+}
+// Registra un gráfico y devuelve {id, guide, dots, tip} para inyectar en el SVG. geom:{W,padL,padT,plotH,plotW,mn,rng,pct}
+function _gtRegister(labels,series,geom){
+  if(Object.keys(_gtReg).length>300){ for(const k in _gtReg)delete _gtReg[k]; }
+  const id='gt'+(++_gtSeq);
+  const X=i=> labels.length>1 ? geom.padL+i*geom.plotW/(labels.length-1) : geom.padL+geom.plotW/2;
+  const Y=v=> geom.padT+geom.plotH-((num(v)-geom.mn)/geom.rng)*geom.plotH;
+  const xs=labels.map((_,i)=>X(i));
+  _gtReg[id]={labels,series,xs,W:geom.W,Y,pct:!!geom.pct};
+  _gtBind();
+  const guide=`<line class="gtGuide" x1="0" x2="0" y1="${geom.padT}" y2="${(geom.padT+geom.plotH).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
+  const dots=series.map((s,si)=>`<circle class="gtDotH gtDotH${si}" r="3.5" fill="${s.color}" stroke="#fff" stroke-width="1" style="display:none"/>`).join('');
+  const tip=`<div class="gtTip" data-gt="${id}" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.4;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
+  return {id,guide,dots,tip};
+}
 function gLine(title,labels,vals,opt){ opt=opt||{}; const W=Math.max(340,labels.length*30+50),H=240,padL=44,padB=24,padT=12;
   const mn=Math.min(0,...vals.map(num)),mx=Math.max(1,...vals.map(num)),rng=(mx-mn)||1,plotH=H-padB-padT,plotW=W-padL-12;
   const X=i=>padL+(labels.length>1?i*plotW/(labels.length-1):plotW/2), Yf=v=>padT+plotH-((num(v)-mn)/rng)*plotH;
   const pts=vals.map((v,i)=>`${X(i).toFixed(1)},${Yf(v).toFixed(1)}`).join(' ');
   const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Yf(v).toFixed(1)}" r="2.5" fill="${opt.color||'#2563eb'}"><title>${gEsc(labels[i])}: ${opt.pct?num(v).toFixed(1)+'%':fmt(v)}</title></circle>`).join('');
   const xlab=labels.map((lb,i)=>`<text x="${X(i).toFixed(1)}" y="${H-7}" font-size="11" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`).join('');
-  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet">${gYAxis(mn,mx,padL,padT,plotH,W,opt.pct)}<line x1="${padL}" y1="${Yf(0).toFixed(1)}" x2="${W-12}" y2="${Yf(0).toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="2 2"/><polyline points="${pts}" fill="none" stroke="${opt.color||'#2563eb'}" stroke-width="2"/>${dots}${xlab}</svg></div></div>`; }
+  const _gt=_gtRegister(labels,[{name:'',color:opt.color||'#2563eb',vals}],{W,padL,padT,plotH,plotW,mn,rng,pct:!!opt.pct});
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><div style="position:relative"><svg class="gtSvg" data-gt="${_gt.id}" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" preserveAspectRatio="xMidYMid meet">${gYAxis(mn,mx,padL,padT,plotH,W,opt.pct)}<line x1="${padL}" y1="${Yf(0).toFixed(1)}" x2="${W-12}" y2="${Yf(0).toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="2 2"/>${_gt.guide}<polyline points="${pts}" fill="none" stroke="${opt.color||'#2563eb'}" stroke-width="2"/>${dots}${_gt.dots}${xlab}</svg>${_gt.tip}</div></div></div>`; }
 function gStack(title,labels,sA,sB,names){ const n=labels.length,W=Math.max(340,n*20+50),H=280,padL=46,padB=30,padT=10;
   const tot=labels.map((_,i)=>num(sA[i])+num(sB[i])),mx=Math.max(1,...tot),plotH=H-padB-padT,plotW=W-padL-12,gw=plotW/n,bw=Math.min(28,gw-6);
   let bars='',xlab=''; const step=Math.ceil(n/10)||1;
@@ -66,7 +102,8 @@ function gLines(title,labels,series){ const W=Math.max(360,labels.length*7+60),H
   const yax=gYAxis(mn,mx,padL,padT,plotH,W,false);
   const step=Math.ceil(labels.length/8)||1; let xl=''; labels.forEach((lb,i)=>{ if(i%step===0)xl+=`<text x="${X(i).toFixed(1)}" y="${H-7}" font-size="10" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`; });
   const leg=`<div style="display:flex;gap:12px;font-size:11px;margin-top:2px">${series.map(sg=>`<span><span style="display:inline-block;width:10px;height:10px;background:${sg.color};border-radius:2px;margin-right:4px"></span>${sg.name}</span>`).join('')}</div>`;
-  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet">${yax}${lines}${xl}</svg></div>${leg}</div>`; }
+  const _gt=_gtRegister(labels,series.map(sg=>({name:sg.name,color:sg.color,vals:sg.vals})),{W,padL,padT,plotH,plotW,mn,rng,pct:false});
+  return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="position:relative"><svg class="gtSvg" data-gt="${_gt.id}" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" preserveAspectRatio="xMidYMid meet">${yax}${_gt.guide}${lines}${_gt.dots}${xl}</svg>${_gt.tip}</div></div>${leg}`; }
 // === Serie mes a mes de la cartera: coste (aportado neto), valor por cotización y valor+dividendos ===
 function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   if(!_ops2.length) return {empty:true};
