@@ -122,6 +122,7 @@ function activarVista(view){
   if(view==='fiscalidad' && typeof renderFiscalidad==='function') renderFiscalidad();
   if(view==='atribucion' && typeof renderAtribucion==='function') renderAtribucion();
   if(view==='rentabilidad' && typeof renderRentabEmpresas==='function') renderRentabEmpresas();
+  if(typeof renderInfoBoxes==='function') renderInfoBoxes();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });

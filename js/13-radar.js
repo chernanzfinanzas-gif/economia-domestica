@@ -162,14 +162,84 @@ function renderCobertura(){
   sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'
     +'<div class="sub" style="margin-bottom:8px">Qué empresas has analizado y cuáles tienes en cola. La cola la <b>ordenas tú</b> (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'
     +kpis
-    +'<h3 style="margin:14px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
+    +'<h3 style="margin:14px 0 4px">📅 Calendario de cobertura</h3>'
+    +'<div class="sub" style="margin-bottom:6px">Todo lo que tienes que hacer, en un solo sitio: arriba las <b>intervenciones vencidas</b> (su fecha ya llegó) y las <b>señales de precio</b> activas; luego las empresas <b>pendientes de analizar</b> (sin fecha, por tu orden de prioridad); debajo, las <b>intervenciones programadas</b> con su fecha y los días que faltan. Marca ✓ cuando la hayas realizado: la fila queda en verde.</div>'
+    +'<div id="calHost"><div class="muted" style="font-size:12px">Preparando calendario…</div></div>'
+    +'<h3 style="margin:16px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
     +'<h3 style="margin:16px 0 4px">Analizadas ('+nAnaliz+')</h3><div class="muted" style="font-size:12px">'+(lista||'—')+'</div>'
     +'<h3 style="margin:16px 0 4px">Cadencia de las analizadas</h3><div id="cadHost"><div class="muted" style="font-size:12px">Cargando informes trimestrales…</div></div>';
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var tks=analizadas.map(function(a){return (a.ticker||'').toUpperCase();});
-  if(tks.length) _cadCargar(tks).then(function(){ _pintarCadencia(analizadas); });
-  else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; }
+  if(tks.length) _cadCargar(tks).then(function(){ _pintarCadencia(analizadas); _pintarCalendario(analizadas); });
+  else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; _pintarCalendario([]); }
 }
+
+/* ================= CALENDARIO UNIFICADO DE COBERTURA ================= */
+function _cbHoy(){ return new Date().toISOString().slice(0,10); }
+function _cbDias(dateStr,hoy){ if(!dateStr)return null; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return null; return Math.round((d-hoy)/86400000); }
+function _cbFechaTxt(dateStr){ if(!dateStr)return '<span class="muted">—</span>'; var d=new Date(dateStr+'T00:00:00'); if(isNaN(d))return '<span class="muted">—</span>'; return _cadFmtD(d); }
+function _cbDiasTxt(dias){ if(dias==null)return '<span class="muted">sin fecha</span>'; if(dias===0)return '<b style="color:#dc2626">hoy</b>'; if(dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-dias)+' d</span>'; if(dias<=14)return '<span style="color:#b45309;font-weight:600">en '+dias+' d</span>'; return 'en '+dias+' d'; }
+/* diana de calibración "activa": la de mayor fecha ya alcanzada; si ninguna, la más próxima */
+function _calibActivo(hitos,hoy){ if(!hitos||!hitos.length)return null; var withD=hitos.filter(function(h){return h.diana;}); if(!withD.length)return null; var reached=withD.filter(function(h){return new Date(h.diana+'T00:00:00')<=hoy;}); if(reached.length){ reached.sort(function(a,b){return a.diana<b.diana?1:-1;}); return reached[0]; } var up=withD.slice().sort(function(a,b){return a.diana<b.diana?-1:1;}); return up[0]; }
+/* señal de precio activa de una empresa (stop/compra/PO), sin fecha */
+function _senalActiva(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===(t||'').toUpperCase();}); if(!a)return null; var c=num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||num(a.precioObjetivo); if(c&&st&&c<=st)return {tipo:'stop',lbl:'🚨 stop',col:'#dc2626',sev:0}; if(c>0&&eH>0&&c<=eH)return {tipo:'compra',lbl:'🟢 compra',col:'#16a34a',sev:1}; if(pmax>0&&c>=pmax)return {tipo:'po',lbl:'🎯 PO',col:'#b45309',sev:2}; return null; }
+function _pintarCalendario(analizadas){
+  var host=document.getElementById('calHost'); if(!host)return;
+  var hoy=new Date(); hoy.setHours(0,0,0,0);
+  var cob=(DB.cobertura||{}); var infDone=cob.informe||{}, senDone=cob.senal||{};
+  var items=[];
+  /* 1) empresas pendientes de analizar (cola, sin fecha) */
+  (DB.cola||[]).forEach(function(c,i){ var t=(c.t||'').toUpperCase(); if(!t||_esAnalizada(t))return; var inf=_uniInfo(t);
+    items.push({t:t,nombre:inf.nombre,tipo:'analisis',tipoLbl:'Analizar',date:null,dias:null,bucket:1,ordCola:i,estado:c.estado||'pendiente',done:(c.estado==='hecha')});
+  });
+  /* 2) intervenciones programadas por empresa analizada */
+  (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
+    var c=_cadenciaDe(t);
+    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=c.next.date; var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||dias<=0)?0:2; var doneRep=!!((infDone[t]||{})[dt]);
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt}); }
+    var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
+    if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
+    var sen=_senalActiva(t); if(sen){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
+  });
+  items.sort(function(a,b){ if(a.bucket!==b.bucket)return a.bucket-b.bucket; if(a.bucket===1)return a.ordCola-b.ordCola; var ad=(a.dias==null),bd=(b.dias==null); if(ad&&bd)return (a.sev==null?9:a.sev)-(b.sev==null?9:b.sev); if(ad)return 1; if(bd)return -1; return a.dias-b.dias; });
+  if(!items.length){ host.innerHTML='<div class="muted" style="font-size:12px;padding:8px">No hay empresas en cola ni intervenciones programadas. Marca candidatas con ★ en Radar Op. y añádelas a la cola.</div>'; return; }
+  var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(x){return '<option'+(x===sel?' selected':'')+'>'+x+'</option>';}).join(''); };
+  var tipoChip=function(it){ var col=it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); return '<span style="font-size:11px;font-weight:700;color:'+col+'">'+_radEsc(it.tipoLbl)+'</span>'; };
+  var estadoCell=function(it){
+    if(it.tipo==='analisis') return '<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
+    if(it.tipo==='senal') return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>';
+    if(it.done) return '<span style="color:#16a34a;font-weight:600">hecha</span>';
+    if(it.dias!=null&&it.dias<0) return '<span style="color:#dc2626;font-weight:600">vencida</span>';
+    if(it.dias!=null&&it.dias<=14) return '<span style="color:#b45309;font-weight:600">vence pronto</span>';
+    return '<span class="muted">programada</span>';
+  };
+  var rows=items.map(function(it,idx){
+    var bg=it.done?'background:#f0fdf4':(it.tipo==='senal'?'background:#fef2f2':((it.bucket===0)?'background:#fff7ed':''));
+    var chk=(it.tipo==='analisis')
+      ? '<input type="checkbox" class="calChk" data-caltype="analisis" data-ct="'+_radEsc(it.t)+'"'+(it.done?' checked':'')+' title="Marcar analizada" style="width:16px;height:16px;cursor:pointer">'
+      : '<input type="checkbox" class="calChk" data-caltype="'+it.chkType+'" data-ct="'+_radEsc(it.t)+'" data-ck="'+_radEsc(it.chkKey)+'"'+(it.done?' checked':'')+' title="Marcar realizada" style="width:16px;height:16px;cursor:pointer">';
+    return '<tr style="'+bg+'">'
+      +'<td class="num" style="color:#94a3b8">'+(idx+1)+'</td>'
+      +'<td><b>'+_radEsc(it.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((it.nombre||'').slice(0,22))+'</span></td>'
+      +'<td>'+tipoChip(it)+'</td>'
+      +'<td style="font-size:12px">'+_cbFechaTxt(it.date)+'</td>'
+      +'<td style="font-size:12px">'+_cbDiasTxt(it.dias)+'</td>'
+      +'<td>'+estadoCell(it)+'</td>'
+      +'<td style="text-align:center">'+chk+'</td>'
+      +'</tr>';
+  }).join('');
+  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>#</th><th>Empresa</th><th>Tipo</th><th>Fecha</th><th>Días</th><th>Estado</th><th style="text-align:center">✓</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+}
+/* listener del check ✓ del calendario */
+document.addEventListener('change',function(e){ var c=e.target; if(!c.classList||!c.classList.contains('calChk'))return;
+  var tp=c.getAttribute('data-caltype'), t=(c.getAttribute('data-ct')||'').toUpperCase(), k=c.getAttribute('data-ck')||''; var on=c.checked;
+  DB.cobertura=DB.cobertura||{};
+  if(tp==='calib'){ DB.calibracion=DB.calibracion||{}; DB.calibracion[t]=DB.calibracion[t]||{}; var prev=DB.calibracion[t][k]||{}; DB.calibracion[t][k]={done:on,fecha:on?(typeof _calibHoy==='function'?_calibHoy():_cbHoy()):(prev.fecha||''),nota:prev.nota||''}; }
+  else if(tp==='informe'){ DB.cobertura.informe=DB.cobertura.informe||{}; DB.cobertura.informe[t]=DB.cobertura.informe[t]||{}; if(on)DB.cobertura.informe[t][k]={done:true,fecha:_cbHoy()}; else delete DB.cobertura.informe[t][k]; }
+  else if(tp==='senal'){ DB.cobertura.senal=DB.cobertura.senal||{}; DB.cobertura.senal[t]=DB.cobertura.senal[t]||{}; if(on)DB.cobertura.senal[t][k]={done:true,fecha:_cbHoy()}; else delete DB.cobertura.senal[t][k]; }
+  else if(tp==='analisis'){ var it=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===t;}); if(it)it.estado=on?'hecha':'pendiente'; }
+  if(typeof scheduleSave==='function')scheduleSave(); if(typeof renderCobertura==='function')renderCobertura();
+});
 
 /* ---- Cadencia (último/próximo informe desde el monitor -trim.json) ---- */
 var _MESES_R=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
