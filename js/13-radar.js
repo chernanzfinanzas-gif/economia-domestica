@@ -247,7 +247,13 @@ document.addEventListener('change',function(e){ var c=e.target; if(!c.classList|
 var _MESES_R=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 var _cadTrim={};
 function _cadFmtD(d){ return d.getDate()+'-'+_MESES_R[d.getMonth()]; }
-function _qtoken(periodo){ var m=(''+periodo).match(/Q[1-4]/); return m?m[0]:null; }
+function _qtoken(periodo){ var p=(''+periodo).toUpperCase();
+  /* normaliza cualquier convención (Q1-Q4 ó semestral S1/9M/FY que usa Inditex) al token canónico Q1/Q2/Q3/Q4 */
+  if(/Q4|FY|12M|ANUAL/.test(p))return 'Q4';
+  if(/Q3|9M/.test(p))return 'Q3';
+  if(/Q2|S1|H1|1S|1H|6M|SEM/.test(p))return 'Q2';
+  if(/Q1|3M|1T/.test(p))return 'Q1';
+  return null; }
 function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTrim[t]===undefined;}); if(!need.length)return Promise.resolve(); return Promise.all(need.map(function(t){ return fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_cadTrim[t]=j;}).catch(function(){_cadTrim[t]=null;}); })); }
 function _cadenciaDe(t){
   var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!d.revisiones.length)return null;
