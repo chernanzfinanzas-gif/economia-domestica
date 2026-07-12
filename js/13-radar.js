@@ -96,7 +96,7 @@ function renderRadar(){
     var mejor=cands.slice().sort(function(a,b){return b.atr-a.atr;})[0];
     var card=function(l,v){ return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>'; };
     var kpis='<div class="cards">'+card('Universo con datos',String(cands.length))+card('Mejor atractivo',mejor?(mejor.atr.toFixed(1)+' · '+_radEsc(mejor.t)):'—')+card('Posibles trampas',String(trampas))+card('Actualizado',_radEsc((fund&&fund.actualizado)||'—'))+'</div>';
-    var filtro='<div style="margin:10px 0"><label style="font-size:13px">Arquetipo: <select id="radArq"><option value="">todos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('')+'</select></label> <span class="muted" style="font-size:12px">· pulsa Atractivo o RPD para ordenar</span></div>';
+    var filtro='<div style="margin:10px 0"><label style="font-size:13px">Arquetipo: <select id="radArq"><option value="">todos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('')+'</select></label> <span class="muted" style="font-size:12px">· pulsa Atractivo o RPD para ordenar</span>'+'<button class="btn sm" id="radAddCola" style="margin-left:12px">➕ Añadir ★ a la cola</button></div>';
     var arr=function(k){ return _radSort.k===k?(_radSort.dir<0?' ▼':' ▲'):''; };
     var trs=view.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
       var acol=c.atr>=70?'#16a34a':(c.atr>=55?'#2563eb':'#64748b');
