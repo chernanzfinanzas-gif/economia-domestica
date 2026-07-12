@@ -10,6 +10,7 @@
 var _radarYears = 3;   /* ventana histórica: 2, 3 o 4 años */
 var _radarSort = {k:'rpd', dir:-1};   /* k: 'rpd' | 'pos' ; dir: -1 desc, 1 asc */
 var _radarSoloDiv = true;   /* true = solo empresas con dividendo (RPD) */
+var _radarBusca = {q:''};   /* búsqueda por nombre/ticker */
 
 function _radarUniverso(){
   var out=[], seen={};
@@ -88,7 +89,8 @@ function renderRadarDiv(){
     +'<select id="radarYears" style="margin-left:6px">'
     +[2,3,4].map(function(y){return '<option value="'+y+'"'+(y===_radarYears?' selected':'')+'>'+y+' años</option>';}).join('')
     +'</select></label>'
-    +'<label style="font-size:13px;margin-left:16px"><input type="checkbox" id="radarSoloDiv"'+(_radarSoloDiv?' checked':'')+'> Solo con dividendo</label></div>';
+    +'<label style="font-size:13px;margin-left:16px"><input type="checkbox" id="radarSoloDiv"'+(_radarSoloDiv?' checked':'')+'> Solo con dividendo</label>'
+    +'<input type="search" id="radarSearch" placeholder="Buscar nombre o ticker…" style="margin-left:16px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px"></div>';
 
   /* tabla */
   var trs=rows.map(function(r){
@@ -104,7 +106,7 @@ function renderRadarDiv(){
       ? ' style="background:#dbeafe;font-size:15px;font-weight:600"'
       : ((st&&st.pos<=33&&r.rpd!=null&&r.rpd>=rpdMed)?' style="background:#f0fdf4"':'');
     var nameSz= selMark?'12px':'11px';
-    return '<tr'+rowStyle+'>'
+    return '<tr data-fs="'+_infEscSafe((x.t+' '+(x.nombre||'')).toLowerCase())+'"'+rowStyle+'>'
       +'<td style="text-align:center"><input type="checkbox" class="radarCk" data-radarck="'+_infEscSafe(x.t)+'"'+(selMark?' checked':'')+' title="Marcar como empresa interesante" style="width:16px;height:16px;cursor:pointer"></td>'
       +'<td><b>'+_infEscSafe(x.t)+'</b> <span class="muted" style="font-size:'+nameSz+'">'+_infEscSafe((x.nombre||'').slice(0,22))+'</span></td>'
       +'<td class="num">'+fmt(x.precio)+(x.manual?' <span class="muted" title="precio pegado a mano">✎</span>':'')+'</td>'
@@ -126,6 +128,7 @@ function renderRadarDiv(){
     +'<div class="muted" style="font-size:13px;margin-bottom:8px">Qué empresas del radar reparten más dividendo y a qué nivel de precio están frente a su histórico.</div>'
     +kpis+sel+tabla+nota;
 
+  _wireBuscador(host.querySelector('#radarSearch'), host.querySelectorAll('tbody tr[data-fs]'), _radarBusca);
   var ys=document.getElementById('radarYears');
   if(ys)ys.addEventListener('change',function(){ _radarYears=parseInt(this.value,10)||3; renderRadarDiv(); });
   var sd=document.getElementById('radarSoloDiv');

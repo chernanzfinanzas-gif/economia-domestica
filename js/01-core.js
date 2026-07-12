@@ -9,6 +9,23 @@ const fmt = n => eur.format(n||0);
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const num = v => { const n = parseFloat(v); return isNaN(n)?0:n; };
 
+/* ---- Buscador de empresas por nombre/ticker (filtra filas con data-fs sin recargar la tabla) ---- */
+function _wireBuscador(input, rows, state){
+  if(!input) return;
+  var list = Array.prototype.slice.call(rows||[]);
+  if(state && state.q){ input.value = state.q; }
+  var apply = function(){
+    var q = (input.value||'').trim().toLowerCase();
+    if(state) state.q = q;
+    list.forEach(function(tr){
+      var hay = tr.getAttribute('data-fs')||'';
+      tr.style.display = (!q || hay.indexOf(q)>=0) ? '' : 'none';
+    });
+  };
+  input.addEventListener('input', apply);
+  apply();
+}
+
 /* importe mensual equivalente según frecuencia */
 function mensual(p){
   const i = num(p.importe);
@@ -298,7 +315,17 @@ const INFO_TXT={
 'view-prevision':`ÚNICO sitio donde editas el dividendo por acción de cada empresa y año. Marca como confirmado el dividendo cuando ya sea real. Es la fuente del Simulador y de Dividendos.`,
 'view-simulador':`Proyección de acciones y dividendos por año. Años pasados y el actual usan lo real (manda sobre la anotación manual en cuanto registras la compra). Años futuros = real + lo pendiente del Plan. Edita a mano solo donde no haya operación.`,
 'view-caja':`Libro de la cuenta del bróker. Configura el saldo inicial y las aportaciones mensuales; los dividendos previstos vienen del Calendario. Edita una celda para poner el importe real (queda con ✓) y marca la casilla de la izquierda cuando el movimiento ya se ha ejecutado (la fila se pone verde).`,
-'view-monitor':`Seguimiento por empresa: rol (mantener/aumentar/abrir), si has leído el último informe, la revisión trimestral y la <b>antigüedad del dossier</b> (en rojo si pasa de 12 meses → toca reanalizar). El trimestre se marca en rojo si se publicaron resultados (Calendario) y no los has revisado. Arriba tienes tu lista de tareas (ToDo).`
+'view-monitor':`Seguimiento por empresa: rol (mantener/aumentar/abrir), si has leído el último informe, la revisión trimestral y la <b>antigüedad del dossier</b> (en rojo si pasa de 12 meses → toca reanalizar). El trimestre se marca en rojo si se publicaron resultados (Calendario) y no los has revisado. Arriba tienes tu lista de tareas (ToDo).`,
+'view-origen':`La <b>foto de partida</b>: tu situación cuando decidiste tomarte en serio las finanzas y la estrategia que te marcaste (más ahorro, más rentabilidad, menos gasto). Es una página de <b>solo lectura</b>, un recordatorio del punto de salida y del rumbo. No hay nada que rellenar.`,
+'view-fondor4':`Libro del <b>Fondo R4</b> (Renta 4 Foncuenta), tu liquidez remunerada. Apunta cada <b>aportación</b> (+) o <b>retirada</b> (−) con su fecha e importe; si quieres, añade el <b>valor del fondo</b> tras el movimiento para seguir los intereses acumulados, y en las retiradas la <b>retención</b> aplicada. Alimenta tu efectivo disponible y la Asignación de activos.`,
+'view-posiciones':`Cada compra ejecutada vista como un <b>lote</b> independiente, con su <b>rentabilidad anualizada</b> (precio + dividendo). Se genera solo a partir de tus operaciones de la <b>Cartera</b>; aquí solo <b>filtras</b> (todas / en cartera / vendidas) y <b>ordenas</b> por fecha. Para que aparezca un lote, registra antes la compra en Cartera.`,
+'view-vision':`Ranking de todas las empresas de <b>Análisis</b> por <b>Atractivo</b> (0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD) para priorizar cuál analizar o actualizar antes. Debajo, tu <b>exposición por tema de riesgo</b> según las etiquetas de las tesis de las empresas que tienes en cartera. Se calcula solo; ⚠ marca dossiers de más de 12 meses. Necesita conexión para leer los dossiers del repo.`,
+'view-informes':`Centro de <b>informes en PDF</b>, en tres pasos: <b>1)</b> elige uno o varios informes (gastos, inversión…) para combinarlos en un solo PDF; <b>2)</b> fija el <b>periodo</b> (mes, año o rango de fechas); <b>3)</b> ajusta los <b>filtros</b> del informe de gastos (tipo, nivel de detalle, titular y categorías). Se generan a partir de los datos que ya tienes en el resto de secciones.`,
+'view-mazinger':`Control del <b>consumo de tu coche</b>. Apunta cada <b>repostaje</b> (fecha, km, autonomía, litros y precio) y la app calcula el <b>consumo</b> (L/100 km), el <b>gasto mensual</b> en combustible y su evolución en gráficos. Solo tienes que ir registrando cada repostaje.`,
+'view-radardiv':`Qué empresas de tu radar reparten más <b>dividendo</b> y a qué nivel de precio están frente a su histórico. <b>RPD</b> = dividendo/acción ÷ cotización. La <b>posición</b> sitúa el precio actual en el rango de los últimos 2/3/4 años (verde = barato, rojo = caro). Marca con ★ las que encajen con tu filosofía y usa el <b>buscador</b> por nombre o ticker. Necesita conexión para las cotizaciones históricas del repo. No es recomendación de compra.`,
+'view-universo':`La base de datos de la <b>Matriz</b> (arquetipo, sub-tipo, naturaleza, rating de cada empresa), <b>editable</b>. Impórtala una vez desde <code>matriz.json</code> (lo genera el .bat «Exportar matriz.json») y edítala aquí cuando algo cambie; el <b>Radar</b> la usa para el arquetipo y el rating. Usa el <b>buscador</b> para encontrar una empresa por nombre o ticker.`,
+'view-radar':`Cruza tu <b>Universo</b> con <code>fundamentales.json</code> del repo y rankea las empresas por <b>Atractivo</b> (35% Dividendo + 35% Calidad + 30% Valoración) para decidir a quién analizar. ⚠️ señala posibles trampas de dividendo. Filtra por arquetipo, ordena por Atractivo/RPD, <b>busca</b> por nombre o ticker y marca ★ las interesantes para pasarlas a la cola con «Añadir ★ a la cola». Requiere el Universo importado y <code>fundamentales.json</code> subido al repo. No es recomendación de compra.`,
+'view-cobertura':`Qué empresas has <b>analizado</b> y cuáles tienes <b>en cola</b>. La cola la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★). Abajo, la <b>cadencia</b> de las analizadas: último y próximo informe estimado, próxima diana de calibración y señal de precio activa (stop / compra / PO). Las urgentes también salen en el Panel.`
 };
 function renderInfoBoxes(){ try{ const op=(DB.config&&DB.config.infoOpen)||{}; Object.keys(INFO_TXT).forEach(id=>{ const sec=document.getElementById(id); if(!sec)return; if(sec.querySelector(':scope > .infobox'))return; const div=document.createElement('div'); div.className='infobox'+(op[id]?' open':''); div.dataset.info=id; div.innerHTML=`<div class="infobox-head">ℹ️ Info — pasos previos <span class="infobox-arrow">▸</span></div><div class="infobox-body">${INFO_TXT[id]}</div>`; const h2=sec.querySelector(':scope > h2'); if(h2)h2.insertAdjacentElement('afterend',div); else sec.insertBefore(div,sec.firstChild); }); }catch(e){} }
 document.addEventListener('click',e=>{ const h=e.target.closest('.infobox-head'); if(!h)return; const box=h.parentElement; box.classList.toggle('open'); const id=box.dataset.info; DB.config=DB.config||{}; DB.config.infoOpen=DB.config.infoOpen||{}; if(box.classList.contains('open'))DB.config.infoOpen[id]=true; else delete DB.config.infoOpen[id]; if(typeof scheduleSave==='function')scheduleSave(); });

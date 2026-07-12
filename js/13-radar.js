@@ -12,6 +12,7 @@ var RAD_ARQ=["FINANCIERAS","REGULADAS","CONCESIONAL","INDUSTRIAL","COMMODITY","C
 /* campos editables del universo (key,label,ancho px). arquetipo se pinta como select */
 var UNI_FIELDS=[["nombre","Nombre",150],["arquetipo","Arquetipo",0],["subtipo","Sub-tipo",110],["naturaleza","Naturaleza",110],["rating","Rating",60],["actividad","Actividad principal",170],["justificacion","Justificación",230],["intensidadCapital","Intensidad capital",110],["apalancamiento","Apalancamiento",110],["marcoRegulatorio","Marco regulatorio",130]];
 var UNI_KEYS=UNI_FIELDS.map(function(f){return f[0];});
+var _uniBusca={q:''}, _radBusca={q:''};
 var RAD_RATING={AAA:100,AA:90,A:78,BBB:65,BB:52,B:40,CCC:28,CC:18,C:10};
 var RAD_W={div:0.35,cal:0.35,val:0.30}, RAD_RPDTOP=6, RAD_PAYALTO=85, RAD_ROETOP=20;
 function _rclamp(x){ return Math.max(0,Math.min(100,x)); }
@@ -44,17 +45,19 @@ function renderUniverso(){
     return '<td><input class="uInp" data-ut="'+_radEsc(t)+'" data-uf="'+key+'" value="'+_radEsc(u[key]||'')+'" style="width:'+w+'px"></td>';
   };
   var rows=ks.map(function(t){ var u=DB.universo[t]||{};
-    return '<tr><td><b>'+_radEsc(t)+'</b></td>'
+    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"><td><b>'+_radEsc(t)+'</b></td>'
       + UNI_FIELDS.map(function(f){ return celdaEdit(t,u,f[0],f[2]||120); }).join('')
       + '<td class="right"><button class="btn ghost sm" data-udel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
   }).join('');
   sec.innerHTML='<h2>Universo — clasificación (Matriz)</h2>'
     +'<div class="sub" style="margin-bottom:8px">La base de datos de la Matriz, <b>editable</b>. El Radar la usa para el arquetipo y el rating. Impórtala una vez desde <code>matriz.json</code> (lo genera el <code>.bat</code> «Exportar matriz.json») y edítala aquí cuando cambie algo.</div>'
-    +'<div class="toolbar" style="margin-bottom:8px"><button class="btn" id="uImport">Importar matriz.json</button><button class="btn sm" id="uAdd">+ Empresa</button><input type="file" id="uFile" accept="application/json,.json" style="display:none"><span class="muted" id="uStatus"></span></div>'
+    +'<div class="toolbar" style="margin-bottom:8px"><button class="btn" id="uImport">Importar matriz.json</button><button class="btn sm" id="uAdd">+ Empresa</button><input type="file" id="uFile" accept="application/json,.json" style="display:none"><input type="search" id="uSearch" placeholder="Buscar nombre o ticker…" style="padding:5px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:200px"><span class="muted" id="uStatus"></span></div>'
     +'<div style="overflow:auto"><table><thead><tr><th>Ticker</th>'+UNI_FIELDS.map(function(f){return '<th>'+f[1]+'</th>';}).join('')+'<th></th></tr></thead><tbody>'
     +(rows||'<tr><td colspan="'+(UNI_FIELDS.length+2)+'" class="muted" style="padding:10px">Universo vacío. Pulsa «Importar matriz.json».</td></tr>')
     +'</tbody></table></div>';
+  if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var st=document.getElementById('uStatus'); if(st)st.textContent=ks.length+' empresas';
+  _wireBuscador(document.getElementById('uSearch'), sec.querySelectorAll('tbody tr[data-fs]'), _uniBusca);
   var imp=document.getElementById('uImport'), file=document.getElementById('uFile');
   if(imp&&file){ imp.addEventListener('click',function(){ file.click(); }); file.addEventListener('change',function(e){ var f=e.target.files&&e.target.files[0]; if(!f)return; var rd=new FileReader(); rd.onload=function(){ try{ importUniverso(JSON.parse(rd.result)); }catch(err){ alert('matriz.json no válido: '+err); } }; rd.readAsText(f); }); }
   var add=document.getElementById('uAdd');
@@ -82,13 +85,13 @@ function _rf(v,suf,nd){ if(v==null)return '—'; nd=(nd==null?1:nd); return (typ
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return;
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
-  if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; return; }
+  if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
   _radCargarFund().then(function(fund){
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     var cands=[];
     Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
-    if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; return; }
+    if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
     var view=cands.filter(function(c){ return !_radArqFilter||c.arq===_radArqFilter; });
     view.sort(function(a,b){ var k=_radSort.k,d=_radSort.dir,av,bv; if(k==='atr'){av=a.atr;bv=b.atr;} else { av=(a.f[k]==null?-1e9:a.f[k]); bv=(b.f[k]==null?-1e9:b.f[k]); } return (av-bv)*d; });
@@ -96,12 +99,12 @@ function renderRadar(){
     var mejor=cands.slice().sort(function(a,b){return b.atr-a.atr;})[0];
     var card=function(l,v){ return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>'; };
     var kpis='<div class="cards">'+card('Universo con datos',String(cands.length))+card('Mejor atractivo',mejor?(mejor.atr.toFixed(1)+' · '+_radEsc(mejor.t)):'—')+card('Posibles trampas',String(trampas))+card('Actualizado',_radEsc((fund&&fund.actualizado)||'—'))+'</div>';
-    var filtro='<div style="margin:10px 0"><label style="font-size:13px">Arquetipo: <select id="radArq"><option value="">todos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('')+'</select></label> <span class="muted" style="font-size:12px">· pulsa Atractivo o RPD para ordenar</span>'+'<button class="btn sm" id="radAddCola" style="margin-left:12px">➕ Añadir ★ a la cola</button></div>';
+    var filtro='<div style="margin:10px 0"><label style="font-size:13px">Arquetipo: <select id="radArq"><option value="">todos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('')+'</select></label> <input type="search" id="radSearch" placeholder="Buscar nombre o ticker…" style="margin-left:12px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px"> <span class="muted" style="font-size:12px">· pulsa Atractivo o RPD para ordenar</span>'+'<button class="btn sm" id="radAddCola" style="margin-left:12px">➕ Añadir ★ a la cola</button></div>';
     var arr=function(k){ return _radSort.k===k?(_radSort.dir<0?' ▼':' ▲'):''; };
     var trs=view.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
       var acol=c.atr>=70?'#16a34a':(c.atr>=55?'#2563eb':'#64748b');
       var nota=(c.nota+(c.trampa?(c.nota?', ':'')+'posible trampa':'')).trim();
-      return '<tr'+(sel?' style="background:#dbeafe"':'')+'>'
+      return '<tr data-fs="'+_radEsc((c.t+' '+(c.nombre||'')).toLowerCase())+'"'+(sel?' style="background:#dbeafe"':'')+'>'
         +'<td style="text-align:center"><input type="checkbox" class="radCk" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+' title="Marcar interesante" style="width:15px;height:15px;cursor:pointer"></td>'
         +'<td class="num" style="font-weight:800;color:'+acol+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+'</td>'
         +'<td><b>'+_radEsc(c.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((c.nombre||'').slice(0,20))+'</span></td>'
@@ -120,6 +123,8 @@ function renderRadar(){
     var thead='<tr><th>★</th><th class="num" data-radsk="atr" style="cursor:pointer">Atractivo'+arr('atr')+'</th><th>Empresa</th><th>Arquetipo</th><th class="num" data-radsk="rpd" style="cursor:pointer">RPD'+arr('rpd')+'</th><th class="num">Payout</th><th class="num">ROE</th><th class="num">DN/EBITDA</th><th class="num">PER</th><th class="num">P/BV</th><th class="num">Pos.52s</th><th>Rating</th><th>Nota</th></tr>';
     var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. Datos de <code>fundamentales.json</code>.</div>';
     sec.innerHTML='<h2>Radar de oportunidades</h2>'+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
+    if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+    _wireBuscador(document.getElementById('radSearch'), sec.querySelectorAll('tbody tr[data-fs]'), _radBusca);
     var fa=document.getElementById('radArq'); if(fa)fa.addEventListener('change',function(){ _radArqFilter=this.value; renderRadar(); });
     sec.querySelectorAll('th[data-radsk]').forEach(function(th){ th.addEventListener('click',function(){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} renderRadar(); }); });
     var ac=document.getElementById('radAddCola'); if(ac)ac.addEventListener('click',function(){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(_esAnalizada(t)){ya++;return;} if(colaAdd(t))n++; else ya++; }); alert(n+' añadidas a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'')); });
@@ -160,6 +165,7 @@ function renderCobertura(){
     +'<h3 style="margin:14px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
     +'<h3 style="margin:16px 0 4px">Analizadas ('+nAnaliz+')</h3><div class="muted" style="font-size:12px">'+(lista||'—')+'</div>'
     +'<h3 style="margin:16px 0 4px">Cadencia de las analizadas</h3><div id="cadHost"><div class="muted" style="font-size:12px">Cargando informes trimestrales…</div></div>';
+  if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var tks=analizadas.map(function(a){return (a.ticker||'').toUpperCase();});
   if(tks.length) _cadCargar(tks).then(function(){ _pintarCadencia(analizadas); });
   else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; }
