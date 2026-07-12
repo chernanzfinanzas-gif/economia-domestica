@@ -313,6 +313,7 @@ function renderPanelDash(){
   try{ const _tA=(DB.asignacion||[]).reduce((s,c)=>s+num(c.actual),0); if(_tA>0)(DB.asignacion||[]).forEach(c=>{ const obj=num(c.objetivo); if(obj>0){ const actPct=num(c.actual)/_tA*100; const d=actPct-obj; if(Math.abs(d)>5){ const objEur=_tA*obj/100; const aMover=objEur-num(c.actual); avisos.push({pri:3,cls:'a',goto:'asignacion',txt:`⚖️ <b>${c.nombre}</b> desviada ${d>=0?'+':''}${d.toFixed(0)} pp del objetivo — ${aMover>=0?'aportar':'reducir'} ${fmt(Math.abs(aMover))}`}); } } }); }catch(e){}
   try{ if(typeof protoAvisos==='function') protoAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof calibAvisos==='function') calibAvisos().forEach(x=>avisos.push(x)); }catch(e){}
+  try{ if(typeof cadAvisos==='function') cadAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   /* Silenciar avisos de señal cuya revisión ya está registrada en la ficha.
      - Apunte ABIERTO → silencia siempre (el registro ya avisa como abierto/vencido).
      - Señales de precio (S1/S3) resueltas → silencio de 60 días desde el último apunte; si la

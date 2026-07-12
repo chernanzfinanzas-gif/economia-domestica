@@ -350,6 +350,7 @@ function afterLoad(){ if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   DB.riesgoTags = DB.riesgoTags||{};
   DB.universo = DB.universo||{};
   DB.cola = DB.cola||[];
+  DB.cadencia = DB.cadencia||{};
   if(DB.config.anaVerde==null)DB.config.anaVerde=0.20;
   if(DB.config.anaAmbar==null)DB.config.anaAmbar=0.05;
   if(DB.config && !DB.config.invModeloOps){
