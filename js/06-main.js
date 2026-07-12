@@ -87,7 +87,7 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['metas','Metas'],['asignacion','Asignación'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['universo','Universo'],['vision','Visión de conjunto'],['radardiv','Radar Dividendo'],['radar','Radar Op.'],['analisis','Análisis'],['comparador','Comparador'],['riesgo','Riesgo'],['proxcompra','Próxima compra'],['backtest','Backtest']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
+const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['metas','Metas'],['asignacion','Asignación'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['universo','Universo'],['vision','Visión de conjunto'],['radardiv','Radar Dividendo'],['radar','Radar Op.'],['cobertura','Cobertura'],['analisis','Análisis'],['comparador','Comparador'],['riesgo','Riesgo'],['proxcompra','Próxima compra'],['backtest','Backtest']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 const groupCurrent={mov:'movimientos', cartera:'posiciones', estudio:'analisis', rentas:'dividendos', planinv:'proyeccion'};
 function activarVista(view){
@@ -114,6 +114,7 @@ function activarVista(view){
   if(view==='radardiv') renderRadarDiv();
   if(view==='radar' && typeof renderRadar==='function') renderRadar();
   if(view==='universo' && typeof renderUniverso==='function') renderUniverso();
+  if(view==='cobertura' && typeof renderCobertura==='function') renderCobertura();
   if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
   if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
   if(view==='riesgo' && typeof renderRiesgo==='function') renderRiesgo();

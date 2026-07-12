@@ -122,6 +122,83 @@ function renderRadar(){
     sec.innerHTML='<h2>Radar de oportunidades</h2>'+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
     var fa=document.getElementById('radArq'); if(fa)fa.addEventListener('change',function(){ _radArqFilter=this.value; renderRadar(); });
     sec.querySelectorAll('th[data-radsk]').forEach(function(th){ th.addEventListener('click',function(){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} renderRadar(); }); });
+    var ac=document.getElementById('radAddCola'); if(ac)ac.addEventListener('click',function(){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(_esAnalizada(t)){ya++;return;} if(colaAdd(t))n++; else ya++; }); alert(n+' añadidas a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'')); });
     sec.querySelectorAll('input.radCk').forEach(function(ck){ ck.addEventListener('change',function(){ var t=(this.getAttribute('data-radck')||'').toUpperCase(); if(!t)return; DB.radarSel=DB.radarSel||{}; if(this.checked)DB.radarSel[t]=true; else delete DB.radarSel[t]; if(typeof scheduleSave==='function')scheduleSave(); }); });
   });
 }
+
+
+/* ================= PESTAÑA COBERTURA (plan de análisis) ================= */
+function _colaHas(t){ t=(t||'').toUpperCase(); return (DB.cola||[]).some(function(x){return (x.t||'').toUpperCase()===t;}); }
+function _esAnalizada(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.dossierFecha)return true; if(typeof _tesisSet!=='undefined'&&_tesisSet&&_tesisSet.has&&_tesisSet.has(t))return true; return false; }
+function colaAdd(t){ t=(t||'').toUpperCase(); if(!t)return false; DB.cola=DB.cola||[]; if(_colaHas(t))return false; DB.cola.push({t:t,estado:'pendiente',nota:''}); if(typeof scheduleSave==='function')scheduleSave(); return true; }
+function _uniInfo(t){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{}; var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;})||{}; return {nombre:u.nombre||a.nombre||t, arq:u.arquetipo||''}; }
+function renderCobertura(){
+  var sec=document.getElementById('view-cobertura'); if(!sec)return;
+  DB.cola=DB.cola||[]; DB.analisis=DB.analisis||[];
+  var analizadas=DB.analisis.filter(function(a){return a.dossierFecha;});
+  var nAnaliz=analizadas.length, nCola=DB.cola.length, nUni=Object.keys(DB.universo||{}).length;
+  var card=function(l,v){return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>';};
+  var kpis='<div class="cards">'+card('Analizadas',String(nAnaliz))+card('En cola',String(nCola))+card('Universo',String(nUni))+'</div>';
+  var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(e){return '<option'+(e===sel?' selected':'')+'>'+e+'</option>';}).join(''); };
+  var filas=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
+    return '<tr'+(anz?' style="background:#f0fdf4"':'')+'>'
+      +'<td class="num">'+(i+1)+'</td>'
+      +'<td><b>'+_radEsc(t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((inf.nombre||'').slice(0,22))+'</span>'+(anz?' <span style="color:#16a34a;font-size:11px">✓ analizada</span>':'')+'</td>'
+      +'<td style="font-size:11px">'+_radEsc(inf.arq)+'</td>'
+      +'<td><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select></td>'
+      +'<td><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="width:160px"></td>'
+      +'<td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-colamove="'+i+'|-1" title="Subir">▲</button><button class="btn ghost sm" data-colamove="'+i+'|1" title="Bajar">▼</button><button class="btn ghost sm" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td>'
+      +'</tr>';
+  }).join('');
+  var colaTabla='<div style="overflow:auto"><table><thead><tr><th>#</th><th>Empresa</th><th>Arquetipo</th><th>Estado</th><th>Nota</th><th></th></tr></thead><tbody>'
+    +(filas||'<tr><td colspan="6" class="muted" style="padding:10px">Cola vacía. Marca empresas con ★ en Radar Op. y pulsa «Añadir ★ a la cola».</td></tr>')+'</tbody></table></div>';
+  var lista=analizadas.map(function(a){return _radEsc((a.ticker||'').toUpperCase());}).sort().join(' · ');
+  sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'
+    +'<div class="sub" style="margin-bottom:8px">Qué empresas has analizado y cuáles tienes en cola. La cola la <b>ordenas tú</b> (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'
+    +kpis
+    +'<h3 style="margin:14px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
+    +'<h3 style="margin:16px 0 4px">Analizadas ('+nAnaliz+')</h3><div class="muted" style="font-size:12px">'+(lista||'—')+'</div>'
+    +'<h3 style="margin:16px 0 4px">Cadencia de las analizadas</h3><div id="cadHost"><div class="muted" style="font-size:12px">Cargando informes trimestrales…</div></div>';
+  var tks=analizadas.map(function(a){return (a.ticker||'').toUpperCase();});
+  if(tks.length) _cadCargar(tks).then(function(){ _pintarCadencia(analizadas); });
+  else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; }
+}
+
+/* ---- Cadencia (último/próximo informe desde el monitor -trim.json) ---- */
+var _MESES_R=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+var _cadTrim={};
+function _cadFmtD(d){ return d.getDate()+'-'+_MESES_R[d.getMonth()]; }
+function _qtoken(periodo){ var m=(''+periodo).match(/Q[1-4]/); return m?m[0]:null; }
+function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTrim[t]===undefined;}); if(!need.length)return Promise.resolve(); return Promise.all(need.map(function(t){ return fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_cadTrim[t]=j;}).catch(function(){_cadTrim[t]=null;}); })); }
+function _cadenciaDe(t){
+  var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!d.revisiones.length)return null;
+  var revs=d.revisiones.filter(function(r){return r.fecha;}).slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
+  if(!revs.length)return null;
+  var ultimo=revs[revs.length-1];
+  var mdByQ={}; revs.forEach(function(r){ var q=_qtoken(r.periodo); if(q&&r.fecha)mdByQ[q]=r.fecha.slice(5); });
+  var uDate=new Date(ultimo.fecha+'T00:00:00'); var next=null;
+  Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
+  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo)};
+}
+var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
+function _pintarCadencia(analizadas){
+  var host=document.getElementById('cadHost'); if(!host)return;
+  var hoy=new Date(); hoy.setHours(0,0,0,0);
+  var rows=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t);
+    if(!c) return '<tr><td><b>'+_radEsc(t)+'</b></td><td colspan="3" class="muted" style="font-size:11px">sin monitor trimestral publicado</td></tr>';
+    var ult=_QLABEL[c.uq]||c.uq||''; var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
+    var proxTxt='—', aviso='<span class="muted">al día</span>';
+    if(c.next){ var ql=_QLABEL[c.next.q]||c.next.q; proxTxt=ql+' ~'+_cadFmtD(c.next.date);
+      if(c.next.date<=hoy) aviso='<span style="color:#b45309;font-weight:600">⏳ toca monitor</span>'; }
+    // revisión anual: último informe FY reciente (<120 días) y dossier de año anterior
+    var anual='';
+    if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dossYear=(''+(a.dossierFecha||'')).slice(0,4); var fyYear=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dossYear&&fyYear&&fyYear>dossYear){ anual='<span style="color:#dc2626;font-weight:600">📅 toca revisión anual</span>'; } }
+    if(anual) aviso=anual;
+    return '<tr><td><b>'+_radEsc(t)+'</b></td><td style="font-size:12px">'+ultTxt+'</td><td style="font-size:12px">'+proxTxt+'</td><td style="font-size:12px">'+aviso+'</td></tr>';
+  }).join('');
+  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Último informe</th><th>Próximo esperado</th><th>Aviso</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+    +'<div class="muted" style="font-size:11px;margin-top:6px">El próximo esperado se estima del patrón de fechas de sus informes; «toca monitor» = la fecha estimada ya pasó y ese periodo aún no está registrado. «Revisión anual» = FY publicado tras el año del dossier.</div>';
+}
+document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });
+document.addEventListener('click',function(e){ var mv=e.target.closest&&e.target.closest('[data-colamove]'); if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|'); var i=+a[0], d=+a[1]; var arr=DB.cola||[]; var j=i+d; if(j>=0&&j<arr.length){ var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } return; } var dl=e.target.closest&&e.target.closest('[data-coladel]'); if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
