@@ -182,23 +182,40 @@ function _cadenciaDe(t){
   return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo)};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
+function _cadEstado(c,hoy,dossierFecha){
+  var tocaMonitor=!!(c.next && c.next.date<=hoy); var tocaAnual=false;
+  if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dy=(''+(dossierFecha||'')).slice(0,4); var fyY=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dy&&fyY&&fyY>dy)tocaAnual=true; }
+  var proxLabel=c.next?((_QLABEL[c.next.q]||c.next.q)+' ~'+_cadFmtD(c.next.date)):'';
+  return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel};
+}
+function _calibCell(t){ if(typeof calibDataFor!=='function')return '—'; var d=calibDataFor(t); if(!d)return '—'; var pend=d.hitos.filter(function(h){return !h.done;}); if(!pend.length)return '<span style="color:#16a34a">✓ completa</span>'; var nx=pend[0]; if(nx.vencida)return '<span style="color:#b45309;font-weight:600">⏳ '+nx.k+' vencida</span>'; return nx.k+(nx.dias!=null?' (en '+nx.dias+'d)':''); }
+function _senalCell(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return '—'; var c=num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||num(a.precioObjetivo); if(c&&st&&c<=st)return '<span style="color:#dc2626;font-weight:700">🚨 stop</span>'; if(c>0&&eH>0&&c<=eH&&!(st&&c<=st))return '<span style="color:#16a34a;font-weight:600">🟢 compra</span>'; if(pmax>0&&c>=pmax)return '<span style="color:#b45309;font-weight:600">🎯 PO</span>'; return '<span class="muted">—</span>'; }
 function _pintarCadencia(analizadas){
   var host=document.getElementById('cadHost'); if(!host)return;
-  var hoy=new Date(); hoy.setHours(0,0,0,0);
-  var rows=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t);
-    if(!c) return '<tr><td><b>'+_radEsc(t)+'</b></td><td colspan="3" class="muted" style="font-size:11px">sin monitor trimestral publicado</td></tr>';
-    var ult=_QLABEL[c.uq]||c.uq||''; var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
-    var proxTxt='—', aviso='<span class="muted">al día</span>';
-    if(c.next){ var ql=_QLABEL[c.next.q]||c.next.q; proxTxt=ql+' ~'+_cadFmtD(c.next.date);
-      if(c.next.date<=hoy) aviso='<span style="color:#b45309;font-weight:600">⏳ toca monitor</span>'; }
-    // revisión anual: último informe FY reciente (<120 días) y dossier de año anterior
-    var anual='';
-    if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dossYear=(''+(a.dossierFecha||'')).slice(0,4); var fyYear=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dossYear&&fyYear&&fyYear>dossYear){ anual='<span style="color:#dc2626;font-weight:600">📅 toca revisión anual</span>'; } }
-    if(anual) aviso=anual;
-    return '<tr><td><b>'+_radEsc(t)+'</b></td><td style="font-size:12px">'+ultTxt+'</td><td style="font-size:12px">'+proxTxt+'</td><td style="font-size:12px">'+aviso+'</td></tr>';
+  var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{}; var chg=false;
+  var rows=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t);
+    if(!c){ return '<tr><td><b>'+_radEsc(t)+'</b></td><td colspan="3" class="muted" style="font-size:11px">sin monitor trimestral</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>'; }
+    var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual}; chg=true;
+    var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
+    var proxTxt=c.next?_radEsc(e.proxLabel):'—';
+    var aviso=e.tocaAnual?'<span style="color:#dc2626;font-weight:600">📅 revisión anual</span>':(e.tocaMonitor?'<span style="color:#b45309;font-weight:600">⏳ toca monitor</span>':'<span class="muted">al día</span>');
+    return '<tr><td><b>'+_radEsc(t)+'</b></td><td style="font-size:12px">'+ultTxt+'</td><td style="font-size:12px">'+proxTxt+'</td><td style="font-size:12px">'+aviso+'</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>';
   }).join('');
-  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Último informe</th><th>Próximo esperado</th><th>Aviso</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
-    +'<div class="muted" style="font-size:11px;margin-top:6px">El próximo esperado se estima del patrón de fechas de sus informes; «toca monitor» = la fecha estimada ya pasó y ese periodo aún no está registrado. «Revisión anual» = FY publicado tras el año del dossier.</div>';
+  if(chg&&typeof scheduleSave==='function')scheduleSave();
+  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Último informe</th><th>Próximo</th><th>Trimestral/Anual</th><th>Calibración</th><th>Señal precio</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+    +'<div class="muted" style="font-size:11px;margin-top:6px">Agenda por empresa: trimestral (próximo informe estimado), calibración (próxima diana 6/12/36 m) y señal de precio activa (stop / compra / PO). Las urgentes también salen en el Panel.</div>';
 }
-document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });
-document.addEventListener('click',function(e){ var mv=e.target.closest&&e.target.closest('[data-colamove]'); if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|'); var i=+a[0], d=+a[1]; var arr=DB.cola||[]; var j=i+d; if(j>=0&&j<arr.length){ var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } return; } var dl=e.target.closest&&e.target.closest('[data-coladel]'); if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
+var _cadRefrescado=false;
+function _cadRefreshAll(){
+  var an=(DB.analisis||[]).filter(function(a){return a.dossierFecha;}); var tk=an.map(function(a){return (a.ticker||'').toUpperCase();}); if(!tk.length)return;
+  _cadCargar(tk).then(function(){ var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{};
+    an.forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual}; });
+    if(typeof scheduleSave==='function')scheduleSave(); if(typeof renderPanelDash==='function')renderPanelDash();
+  });
+}
+function cadAvisos(){
+  var out=[]; var cad=DB.cadencia||{}; var held=(typeof _heldSet!=='undefined'&&_heldSet&&_heldSet.has)?_heldSet:null;
+  Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
+  if(!_cadRefrescado){ _cadRefrescado=true; try{ _cadRefreshAll(); }catch(e){} }
+  return out;
+}
