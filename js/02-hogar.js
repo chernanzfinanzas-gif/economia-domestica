@@ -294,16 +294,18 @@ function renderInformeBlock(){
   if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
 }
 function _hemEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function _hemFecha(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[1]+m[2]+m[3]):'00000000'; }
 function renderHemeroteca(){
   var sec=document.getElementById('view-hemeroteca'); if(!sec) return;
   var api='https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/informes-semanales';
   var pages='https://chernanzfinanzas-gif.github.io/economia-domestica/informes-semanales/';
   sec.innerHTML='<h2>Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:10px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con el botón «🧾 Informe semanal (Claude)» del Panel.</div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div>';
+  if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var host=document.getElementById('hemeroSemanal');
   fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;}).then(function(arr){
     if(!Array.isArray(arr))arr=[];
     var pdfs=arr.filter(function(f){return /\.pdf$/i.test(f.name||'');});
-    pdfs.sort(function(a,b){return (a.name<b.name)?1:-1;}); // por fecha del nombre, más reciente arriba
+    pdfs.sort(function(a,b){ var fa=_hemFecha(a.name), fb=_hemFecha(b.name); return fa<fb?1:(fa>fb?-1:0); }); // más reciente arriba (por fecha del nombre)
     if(!pdfs.length){ host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Panel y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
     var rows=pdfs.map(function(f){ var m=(f.name||'').match(/(\d{4})-(\d{2})-(\d{2})/); var fecha=m?(m[3]+'/'+m[2]+'/'+m[1]):(f.name||''); var url=pages+encodeURIComponent(f.name);
       return '<tr><td><b>'+fecha+'</b></td><td class="muted" style="font-size:11px">'+_hemEsc(f.name||'')+'</td><td class="right"><a class="btn sm" href="'+url+'" target="_blank" rel="noopener" style="text-decoration:none">📄 Abrir PDF</a></td></tr>'; }).join('');
