@@ -87,9 +87,19 @@ function deleteCat(){
 }
 
 /* ============ Eventos ============ */
-const GROUPS={ mov:[['movimientos','Movimientos'],['amalia','Amalia'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['metas','Metas'],['asignacion','Asignación'],['mazinger','Mazinger Z']], cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker']], estudio:[['universo','Universo'],['vision','Visión de conjunto'],['radardiv','Radar Dividendo'],['radar','Radar Op.'],['cobertura','Cobertura'],['analisis','Análisis'],['comparador','Comparador'],['hemeroteca','Hemeroteca Informes'],['riesgo','Riesgo'],['proxcompra','Próxima compra'],['backtest','Backtest']], rentas:[['dividendos','Dividendos'],['atribucion','Atribución'],['calendario','Calendario'],['fiscalidad','Fiscalidad'],['prevision','Evolución Dividendo']], planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['monitor','Monitor']] };
+const GROUPS={
+  control:[['panel','Panel'],['presupuesto','Presupuesto']],
+  mov:[['movimientos','Movimientos'],['amalia','Amalia'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual'],['origen','El origen']],
+  trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
+  eleccion:[['vision','Visión de conjunto'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
+  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
+  tesis:[['monitor','Monitor'],['metodo','Panel del Método'],['riesgo','Riesgo']],
+  planinv:[['proyeccion','Proyección'],['plan','Plan'],['simulador','Simulador'],['diversif','Diversificación'],['metas','Metas'],['asignacion','Asignación']],
+  informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes']],
+  graficas:[['graficas','Gráficas'],['backtest','Backtest']]
+};
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
-const groupCurrent={mov:'movimientos', cartera:'posiciones', estudio:'analisis', rentas:'dividendos', planinv:'proyeccion'};
+const groupCurrent={control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
@@ -115,6 +125,8 @@ function activarVista(view){
   if(view==='radar' && typeof renderRadar==='function') renderRadar();
   if(view==='universo' && typeof renderUniverso==='function') renderUniverso();
   if(view==='cobertura' && typeof renderCobertura==='function') renderCobertura();
+  if(view==='metodo' && typeof renderPanelMetodo==='function') renderPanelMetodo();
+  if(view==='desglose' && typeof renderPresDesglose==='function') renderPresDesglose();
   if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
   if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
   if(view==='hemeroteca' && typeof renderHemeroteca==='function') renderHemeroteca();
@@ -360,6 +372,8 @@ const bkf=document.createElement('input'); bkf.type='file'; bkf.accept='.json,ap
 if($('#btnBackup'))$('#btnBackup').addEventListener('click',descargarBackup);
 if($('#btnRestore'))$('#btnRestore').addEventListener('click',()=>bkf.click());
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ e.preventDefault(); abrirFicha(b.dataset.ficha); } });
+/* Estado inicial de la navegación: grupo Control activo con su subnav visible */
+try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e){}
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
 window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',7,10); });

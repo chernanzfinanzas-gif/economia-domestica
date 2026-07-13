@@ -236,7 +236,7 @@ function _pintarCalendario(analizadas){
 document.addEventListener('change',function(e){ var c=e.target; if(!c.classList||!c.classList.contains('calChk'))return;
   var tp=c.getAttribute('data-caltype'), t=(c.getAttribute('data-ct')||'').toUpperCase(), k=c.getAttribute('data-ck')||''; var on=c.checked;
   DB.cobertura=DB.cobertura||{};
-  if(tp==='calib'){ DB.calibracion=DB.calibracion||{}; DB.calibracion[t]=DB.calibracion[t]||{}; var prev=DB.calibracion[t][k]||{}; DB.calibracion[t][k]={done:on,fecha:on?(typeof _calibHoy==='function'?_calibHoy():_cbHoy()):(prev.fecha||''),nota:prev.nota||''}; }
+  if(tp==='calib'){ if(typeof _calibToggleDone==='function'){ _calibToggleDone(t,k,on); } else { DB.calibracion=DB.calibracion||{}; DB.calibracion[t]=DB.calibracion[t]||{}; var prev=DB.calibracion[t][k]||{}; DB.calibracion[t][k]=Object.assign({},prev,{done:on,fecha:on?(typeof _calibHoy==='function'?_calibHoy():_cbHoy()):(prev.fecha||'')}); } }
   else if(tp==='informe'){ DB.cobertura.informe=DB.cobertura.informe||{}; DB.cobertura.informe[t]=DB.cobertura.informe[t]||{}; if(on)DB.cobertura.informe[t][k]={done:true,fecha:_cbHoy()}; else delete DB.cobertura.informe[t][k]; }
   else if(tp==='senal'){ DB.cobertura.senal=DB.cobertura.senal||{}; DB.cobertura.senal[t]=DB.cobertura.senal[t]||{}; if(on)DB.cobertura.senal[t][k]={done:true,fecha:_cbHoy()}; else delete DB.cobertura.senal[t][k]; }
   else if(tp==='analisis'){ var it=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===t;}); if(it)it.estado=on?'hecha':'pendiente'; }
