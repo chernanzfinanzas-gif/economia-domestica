@@ -292,27 +292,23 @@ function renderInformeBlock(){
     +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;margin-left:8px" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>'
     +'<a class="btn" href="'+_infHref+'" style="text-decoration:none;margin-left:8px" title="Abre Claude (Cowork) en ESTE ordenador y prepara un chat nuevo, con acceso a la carpeta del programa y la orden «genera el informe semanal de cartera» ya escrita (solo revisar y enviar). Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>';
   if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
-  // Hemeroteca: lista de informes semanales archivados en el repo (informes-semanales/)
-  var _hem=document.createElement('div'); _hem.id='hemeroWrap'; _hem.style.margin='0 0 14px';
-  _hem.innerHTML='<div style="font-weight:700;font-size:13px;margin:2px 0 5px">🗂️ Informes semanales archivados</div><div id="hemeroSemanal"></div>';
-  sec.insertBefore(_hem, _cbtn.nextSibling);
-  try{ renderHemerotecaSemanal(); }catch(e){}
 }
-function renderHemerotecaSemanal(){
-  var host=document.getElementById('hemeroSemanal'); if(!host) return;
-  host.innerHTML='<div class="muted" style="font-size:12px">Cargando informes…</div>';
+function _hemEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function renderHemeroteca(){
+  var sec=document.getElementById('view-hemeroteca'); if(!sec) return;
   var api='https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/informes-semanales';
   var pages='https://chernanzfinanzas-gif.github.io/economia-domestica/informes-semanales/';
+  sec.innerHTML='<h2>Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:10px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con el botón «🧾 Informe semanal (Claude)» del Panel.</div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div>';
+  var host=document.getElementById('hemeroSemanal');
   fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;}).then(function(arr){
     if(!Array.isArray(arr))arr=[];
     var pdfs=arr.filter(function(f){return /\.pdf$/i.test(f.name||'');});
     pdfs.sort(function(a,b){return (a.name<b.name)?1:-1;}); // por fecha del nombre, más reciente arriba
-    if(!pdfs.length){ host.innerHTML='<div class="muted" style="font-size:12px">Aún no hay informes archivados. Genera uno con «Informe semanal (Claude)» y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
+    if(!pdfs.length){ host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Panel y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
     var rows=pdfs.map(function(f){ var m=(f.name||'').match(/(\d{4})-(\d{2})-(\d{2})/); var fecha=m?(m[3]+'/'+m[2]+'/'+m[1]):(f.name||''); var url=pages+encodeURIComponent(f.name);
-      return '<tr><td>'+fecha+'</td><td class="right"><a class="btn sm" href="'+url+'" target="_blank" rel="noopener" style="text-decoration:none">📄 Abrir PDF</a></td></tr>'; }).join('');
-    host.innerHTML='<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Semana</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'
-      +'<div class="muted" style="font-size:11px;margin-top:4px">'+pdfs.length+' informe(s) · se abren desde GitHub Pages.</div>';
-  }).catch(function(){ host.innerHTML='<div class="muted" style="font-size:12px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
+      return '<tr><td><b>'+fecha+'</b></td><td class="muted" style="font-size:11px">'+_hemEsc(f.name||'')+'</td><td class="right"><a class="btn sm" href="'+url+'" target="_blank" rel="noopener" style="text-decoration:none">📄 Abrir PDF</a></td></tr>'; }).join('');
+    host.innerHTML='<div style="overflow:auto"><table style="font-size:13px"><thead><tr><th>Semana</th><th>Archivo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="muted" style="font-size:11px;margin-top:6px">'+pdfs.length+' informe(s) · se abren desde GitHub Pages.</div>';
+  }).catch(function(){ host.innerHTML='<div class="muted" style="font-size:13px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
 }
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';
