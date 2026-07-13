@@ -41,7 +41,7 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -266,7 +266,7 @@ document.addEventListener('click',()=>{ const p=$('#comDDpanel'); if(p) p.classL
 $('#comRegFilter') && $('#comRegFilter').addEventListener('input',()=>renderComReg());
 $('#comRegApply') && $('#comRegApply').addEventListener('click',comRegAsignar);
 $('#comRegRun') && $('#comRegRun').addEventListener('click',()=>{ if(confirm('¿Aplicar las reglas y alias a TODO el histórico de movimientos?')){ aplicarBaseComercio(); renderMovs(); scheduleSave(); } });
-$('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
+$('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();renderPresDesglose();});
 $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);
 $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-delcuenta]');if(b)delCuenta(b.dataset.delcuenta);});

@@ -473,6 +473,77 @@ function renderPres(){
   $('#presTotals').innerHTML = `<b>${presYear}</b> · Ingresos: <b class="pos">${fmt(totMensIng)}</b>/mes · Gastos: <b class="neg">${fmt(totMensGasto)}</b>/mes · Ahorro previsto: <b>${fmt(totMensIng-totMensGasto)}</b>/mes (${fmt((totMensIng-totMensGasto)*12)}/año)`;
 }
 
+/* ----- PRESUPUESTO · DESGLOSE MENSUAL (réplica hoja anual del Excel) ----- */
+/* Cada concepto = 2 filas: Pres. (presupuestado) y Real (ejecutado). 15 columnas:
+   Concepto | Tipo | Ene..Dic | Total. Orden: INGRESOS, bloque resumen, gastos. */
+function renderPresDesglose(){
+  const el=$('#presDesglose'); if(!el) return;
+  const year=+presYear||new Date().getFullYear();
+  // Realizado por categoría y mes (desde Movimientos)
+  const realCat={};
+  (DB.movimientos||[]).forEach(m=>{
+    if(!m.fecha || (+m.fecha.slice(0,4))!==year) return;
+    const mi=(+m.fecha.slice(5,7))-1; if(mi<0||mi>11) return;
+    (realCat[m.categoriaId]=realCat[m.categoriaId]||new Array(12).fill(0))[mi]+=num(m.importe);
+  });
+  // Presupuestado mensual por categoría (constante según frecuencia)
+  const presMens={};
+  DB.categorias.forEach(c=>{ const p=presFor(c.id,year); presMens[c.id]= p?mensual(p):0; });
+  const realOf=(cid,mi)=>(realCat[cid]||[])[mi]||0;
+  const realYear=cid=>{ const a=realCat[cid]; return a?a.reduce((s,v)=>s+v,0):0; };
+  const short=MESES.map(m=>m.slice(0,3).replace(/^./,x=>x.toUpperCase()));
+  const td=(v)=> (Math.abs(v)>0.005)?`<td class="num">${fmt(v)}</td>`:'<td class="num muted">·</td>';
+  // Par de filas Pres./Real de un concepto
+  const conceptRows=(c)=>{
+    const b=presMens[c.id]||0; let bTds='',rTds='',bTot=0,rTot=0;
+    for(let mi=0;mi<12;mi++){ bTds+=td(b); bTot+=b; const r=realOf(c.id,mi); rTds+=td(r); rTot+=r; }
+    const ok = c.tipo==='gasto' ? (rTot<=bTot+0.005) : (rTot>=bTot-0.005);
+    const rColor=(bTot>0&&rTot>0)?` style="color:${ok?'#16a34a':'#dc2626'}"`:'';
+    return `<tr class="dg-pres">`+
+        `<td rowspan="2" class="dg-name">${c.nombre}${c.tipo==='ingreso'?' <span class="tag in">ing</span>':''}</td>`+
+        `<td class="muted">Pres.</td>${bTds}<td class="num">${bTot?fmt(bTot):'·'}</td></tr>`+
+      `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num"${rColor}><b>${rTot?fmt(rTot):'·'}</b></td></tr>`;
+  };
+  // Agrupar categorías (Ingresos primero, resto alfabético)
+  const groups={};
+  DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
+  const order=Object.keys(groups).sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
+  const catsConDato=g=> (groups[g]||[]).filter(c=> (presMens[c.id]||0)>0 || (realCat[c.id]&&realCat[c.id].some(v=>Math.abs(v)>0.005)) );
+  const bandRow=(g)=>{
+    let bp=0,br=0; (groups[g]||[]).forEach(c=>{ bp+=(presMens[c.id]||0)*12; br+=realYear(c.id); });
+    return `<tr class="grp-row"><td colspan="15">${g} <span class="muted" style="font-weight:400">· Pres. ${fmt(bp)} / Real ${fmt(br)}</span></td></tr>`;
+  };
+  // Bloque resumen (espejo del Excel)
+  const ingCats=DB.categorias.filter(c=>c.tipo==='ingreso'), gasCats=DB.categorias.filter(c=>c.tipo==='gasto');
+  const sumMonth=(cats,fn)=>{ const a=new Array(12).fill(0); for(let mi=0;mi<12;mi++) cats.forEach(c=>a[mi]+=fn(c,mi)); return a; };
+  const ingReal=sumMonth(ingCats,(c,mi)=>realOf(c.id,mi));
+  const ingPres=sumMonth(ingCats,c=>presMens[c.id]||0);
+  const gasReal=sumMonth(gasCats,(c,mi)=>realOf(c.id,mi));
+  const gasPres=sumMonth(gasCats,c=>presMens[c.id]||0);
+  const combo=(a,b,sg)=>a.map((v,i)=>v+sg*b[i]);
+  const ahoPrev=combo(ingPres,gasPres,-1), ahoLog=combo(ingReal,gasReal,-1);
+  const sumRow=(lbl,arr,cls,signo)=>{
+    let tds='',tot=0; arr.forEach(v=>{ tot+=v; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num"${signo&&v<0?' style="color:#dc2626"':''}>${fmt(v)}</td>`); });
+    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num"${signo&&tot<0?' style="color:#dc2626"':''}><b>${fmt(tot)}</b></td></tr>`;
+  };
+  const resumen =
+      sumRow('Total INGRESOS (real)',ingReal,'grp-row r-verde')+
+      sumRow('Ingreso presupuestado',ingPres,'')+
+      sumRow('Gasto presupuestado',gasPres,'')+
+      sumRow('Gasto realizado',gasReal,'')+
+      sumRow('Ahorro presupuestado',ahoPrev,'grp-row',true)+
+      sumRow('Ahorro logrado',ahoLog,'grp-row r-verde',true);
+  // Montaje: INGRESOS → resumen → gastos
+  let body='';
+  const ing=catsConDato('Ingresos'); if(ing.length) body+=bandRow('Ingresos')+ing.map(conceptRows).join('');
+  body+=`<tr class="grp-row r-amar"><td colspan="15"><b>RESUMEN</b></td></tr>`+resumen;
+  order.filter(g=>g!=='Ingresos').forEach(g=>{ const cs=catsConDato(g); if(!cs.length)return; body+=bandRow(g)+cs.map(conceptRows).join(''); });
+  const head=`<tr><th style="text-align:left">Concepto</th><th></th>${short.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">Total</th></tr>`;
+  const hasData=ing.length || order.some(g=>g!=='Ingresos'&&catsConDato(g).length);
+  el.innerHTML=`<table class="tbl-desglose"><thead>${head}</thead><tbody>${body}</tbody></table>`
+    + (hasData?'':`<p class="muted" style="margin-top:8px">Sin conceptos con presupuesto o movimientos en ${year}.</p>`);
+}
+
 /* ============ Patrimonio ============ */
 function patSnaps(){ return [...(DB.patrimonio||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
 function snapTot(s){ let ef=0,inv=0; (s.lineas||[]).forEach(l=>{ef+=num(l.ef);inv+=num(l.inv);}); return {ef,inv,total:ef+inv}; }
