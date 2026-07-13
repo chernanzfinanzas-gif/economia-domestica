@@ -36,9 +36,11 @@ function pAnio(p){ return p.anio||baseYear(); }
 function presFor(id,year){ return DB.presupuesto.find(p=>p.categoriaId===id && pAnio(p)===year); }
 function presYears(){ const s=new Set(DB.presupuesto.map(pAnio)); s.add(new Date().getFullYear()); if(presYear) s.add(presYear); return [...s].sort((a,b)=>b-a); }
 function fillPresYear(){
-  const sel=$('#presYear'); if(!sel) return;
-  sel.innerHTML=''; presYears().forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);});
-  sel.value=presYear;
+  const ys=presYears();
+  const sel=$('#presYear');
+  if(sel){ sel.innerHTML=''; ys.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);}); sel.value=presYear; }
+  const sel2=$('#presDesgloseYear');
+  if(sel2){ const prev=+sel2.value; sel2.innerHTML=''; ys.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel2.appendChild(o);}); sel2.value=(prev&&ys.includes(prev))?prev:presYear; }
 }
 
 function fillCatSelects(){
@@ -478,7 +480,8 @@ function renderPres(){
    Concepto | Tipo | Ene..Dic | Total. Orden: INGRESOS, bloque resumen, gastos. */
 function renderPresDesglose(){
   const el=$('#presDesglose'); if(!el) return;
-  const year=+presYear||new Date().getFullYear();
+  const ysel=$('#presDesgloseYear');
+  const year=(ysel&&+ysel.value) || +presYear || new Date().getFullYear();
   // Realizado por categoría y mes (desde Movimientos)
   const realCat={};
   (DB.movimientos||[]).forEach(m=>{
