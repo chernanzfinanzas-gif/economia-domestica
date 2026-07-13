@@ -496,16 +496,22 @@ function renderPresDesglose(){
   const realYear=cid=>{ const a=realCat[cid]; return a?a.reduce((s,v)=>s+v,0):0; };
   const short=MESES.map(m=>m.slice(0,3).replace(/^./,x=>x.toUpperCase()));
   const f2=v=>fmt(v).replace(/\s?€/,''); // sin símbolo € para estrechar columnas
-  const td=(v)=> (Math.abs(v)>0.005)?`<td class="num">${f2(v)}</td>`:'<td class="num muted">·</td>';
+  // celda presupuesto (fondo gris) y celda real (verde=mejora / rojo=empeora vs su mes presupuestado)
+  const cellB=(v)=> (Math.abs(v)>0.005)?`<td class="num dg-b">${f2(v)}</td>`:'<td class="num muted dg-b">·</td>';
+  const cellR=(r,b,esGasto)=>{
+    let cls='';
+    if(b>0.005 && Math.abs(r)>0.005){ const mejora= esGasto ? (r<=b+0.005) : (r>=b-0.005); cls=' '+(mejora?'dg-up':'dg-dn'); }
+    return (Math.abs(r)>0.005)?`<td class="num${cls}">${f2(r)}</td>`:`<td class="num muted${cls}">·</td>`;
+  };
   // Par de filas Pres./Real de un concepto
   const conceptRows=(c)=>{
-    const b=presMens[c.id]||0; let bTds='',rTds='',bTot=0,rTot=0;
-    for(let mi=0;mi<12;mi++){ bTds+=td(b); bTot+=b; const r=realOf(c.id,mi); rTds+=td(r); rTot+=r; }
-    const ok = c.tipo==='gasto' ? (rTot<=bTot+0.005) : (rTot>=bTot-0.005);
+    const b=presMens[c.id]||0, esG=c.tipo==='gasto'; let bTds='',rTds='',bTot=0,rTot=0;
+    for(let mi=0;mi<12;mi++){ bTds+=cellB(b); bTot+=b; const r=realOf(c.id,mi); rTds+=cellR(r,b,esG); rTot+=r; }
+    const ok = esG ? (rTot<=bTot+0.005) : (rTot>=bTot-0.005);
     const rColor=(bTot>0&&rTot>0)?` style="color:${ok?'#16a34a':'#dc2626'}"`:'';
     return `<tr class="dg-pres">`+
         `<td rowspan="2" class="dg-name">${c.nombre}${c.tipo==='ingreso'?' <span class="tag in">ing</span>':''}</td>`+
-        `<td class="muted">Pres.</td>${bTds}<td class="num">${bTot?f2(bTot):'·'}</td></tr>`+
+        `<td class="muted dg-b">Pres.</td>${bTds}<td class="num">${bTot?f2(bTot):'·'}</td></tr>`+
       `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num"${rColor}><b>${rTot?f2(rTot):'·'}</b></td></tr>`;
   };
   // Agrupar categorías (Ingresos primero, resto alfabético)
@@ -527,8 +533,9 @@ function renderPresDesglose(){
   const combo=(a,b,sg)=>a.map((v,i)=>v+sg*b[i]);
   const ahoPrev=combo(ingPres,gasPres,-1), ahoLog=combo(ingReal,gasReal,-1);
   const sumRow=(lbl,arr,cls,signo)=>{
-    let tds='',tot=0; arr.forEach(v=>{ tot+=v; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num"${signo&&v<0?' style="color:#dc2626"':''}>${f2(v)}</td>`); });
-    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num"${signo&&tot<0?' style="color:#dc2626"':''}><b>${f2(tot)}</b></td></tr>`;
+    let tds='',tot=0; arr.forEach(v=>{ tot+=v; const neg=signo&&v<0; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num${neg?' dg-neg':''}">${f2(v)}</td>`); });
+    const negT=signo&&tot<0;
+    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num${negT?' dg-neg':''}"><b>${f2(tot)}</b></td></tr>`;
   };
   const resumen =
       sumRow('Total INGRESOS (real)',ingReal,'grp-row r-verde')+
