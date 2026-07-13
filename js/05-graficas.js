@@ -313,8 +313,8 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   const avgCorrOf=t=>{ let s=0,c=0; R.tickers.forEach(o=>{ if(o!==t){s+=R.corrM[t][o];c++;} }); return c?s/c:null; };
   const trows=perT.map(t=>{ const a=avgCorrOf(t); return `<tr><td><b data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</b></td><td class="num">${pv(R.W[t])}</td><td class="num">${pv(R.volById[t])}</td><td class="num">${a==null?'—':a.toFixed(2)}</td></tr>`; }).join('');
   const colFor=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){ const c=Math.round(255-x*105); return `rgb(255,${c},${c})`; } const c=Math.round(255+x*105); return `rgb(${c},255,${c})`; };
-  const head='<tr><th></th>'+perT.map(t=>`<th class="num" style="font-size:10px">${t}</th>`).join('')+'</tr>';
-  const mrows=perT.map(a=>`<tr><th style="text-align:left;font-size:10px">${a}</th>`+perT.map(b=>{ const v=R.corrM[a][b]; return `<td class="num" style="background:${colFor(v)};font-size:10px">${v.toFixed(2)}</td>`; }).join('')+'</tr>').join('');
+  const head='<tr><th></th>'+perT.map(t=>`<th class="num" style="font-size:10px"><span data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</span></th>`).join('')+'</tr>';
+  const mrows=perT.map(a=>`<tr><th style="text-align:left;font-size:10px"><span data-ficha="${a}" style="cursor:pointer;color:var(--brand)">${a}</span></th>`+perT.map(b=>{ const v=R.corrM[a][b]; return `<td class="num" style="background:${colFor(v)};font-size:10px">${v.toFixed(2)}</td>`; }).join('')+'</tr>').join('');
   const secArr=Object.keys(R.secW).map(s=>({s,w:R.secW[s]})).sort((a,b)=>b.w-a.w);
   const secRows=secArr.map(x=>`<tr><td>${x.s}</td><td class="num ${x.w>=0.35?'neg':''}">${pv(x.w)}</td></tr>`).join('');
   el.innerHTML=`<div class="sub" style="margin-bottom:8px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · ${R.nDays} días · ${R.desde} → ${R.hasta}. Volatilidad y beta anualizadas.</div>

@@ -132,7 +132,7 @@ function renderVision(){
     const manual=!!((DB.riesgoTags||{})[x.t]);
     const chips=(x.tags.length?x.tags:['—']).map(tg=>tg==='—'?`<span class="muted" style="font-size:11px">sin tags</span>`:`<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#f1f5f9;border-radius:10px;padding:1px 8px;margin:1px">${tg} <span data-vistagdel="${x.t}|${tg}" style="cursor:pointer;color:#94a3b8">✕</span></span>`).join('');
     const addSel=`<select data-vistagadd="${x.t}" class="anaInp" style="font-size:11px;padding:1px 4px"><option value="">+ tema…</option>${opts.filter(o=>x.tags.indexOf(o)<0).map(o=>`<option>${o}</option>`).join('')}</select>`;
-    return `<tr><td style="white-space:nowrap"><b>${x.t}</b></td><td>${chips}</td><td style="white-space:nowrap">${addSel} ${manual?`<button class="btn ghost sm" data-vistagauto="${x.t}" title="Volver a los tags automáticos">↻ auto</button>`:'<span class="muted" style="font-size:10px">auto</span>'}</td></tr>`;
+    return `<tr><td style="white-space:nowrap"><b data-ficha="${x.t}" style="cursor:pointer;color:var(--brand)">${x.t}</b></td><td>${chips}</td><td style="white-space:nowrap">${addSel} ${manual?`<button class="btn ghost sm" data-vistagauto="${x.t}" title="Volver a los tags automáticos">↻ auto</button>`:'<span class="muted" style="font-size:10px">auto</span>'}</td></tr>`;
   }).join('');
   const editor=`<div class="card" style="margin-top:10px"><div style="font-weight:800;font-size:15px;margin-bottom:6px">🏷️ Tags de riesgo por empresa</div>
     <div class="sub" style="margin-bottom:6px">Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). "↻ auto" descarta los cambios manuales de esa empresa.</div>

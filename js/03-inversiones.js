@@ -759,7 +759,7 @@ function renderEventos(){
     const now=new Date(); const nowM=now.getMonth()+1; const nextM=nowM===12?1:nowM+1;
     let all=[]; tickers.forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
     let up=all.filter(e=> e.m===nowM || e.m===nextM).sort((a,b)=> a.m-b.m||a.w-b.w);
-    const item=e=>{ const tp=evTipo(e.code); const h=held.has(e.t); return `<div style="font-size:11px;padding:3px 6px;background:#f8fafc;border-radius:6px"><span class="muted">${MESES_ES[e.m-1]} s${e.w}</span> <span class="evchip ev-${tp}">${e.code}</span> ${h?'<b>'+e.t+'</b>':e.t} <span class="muted">${evTexto(e.code)}</span></div>`; };
+    const item=e=>{ const tp=evTipo(e.code); const h=held.has(e.t); return `<div style="font-size:11px;padding:3px 6px;background:#f8fafc;border-radius:6px"><span class="muted">${MESES_ES[e.m-1]} s${e.w}</span> <span class="evchip ev-${tp}">${e.code}</span> <span data-ficha="${e.t}" style="cursor:pointer;color:var(--brand)${h?';font-weight:700':''}">${e.t}</span> <span class="muted">${evTexto(e.code)}</span></div>`; };
     ag.innerHTML=up.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:5px">${up.map(item).join('')}</div>`:'<div class="empty">Sin eventos en el mes en curso ni el siguiente.</div>';
   }
   /* ---- Calendario anual: 4 semanas/mes, editable ---- */
