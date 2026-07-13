@@ -1,0 +1,644 @@
+{
+  "schemaVersion": 1,
+  "ticker": "VID",
+  "empresa": "Vidrala, S.A.",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque muy fuerte: ventas +35% y EBITDA récord por el traspaso de la inflación energética a precio; deuda 0,9x. La var. de BPA es engañosa (base 2022 casi nula).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 377.9
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 35.5
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 38.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 100.7
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 26.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 58.6
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.91
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 7819.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 315.7
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.9
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Crecimiento sólido (+22%), margen 27,1% y desapalancamiento a 0,8x.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 794.8
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 22.1
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 23.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 215.2
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 27.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 128.7
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 4.19
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 131.6
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 283.8
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.8
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Ventas +17% y deuda neta 209 M€ (0,5x). Tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1194.1
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 17.4
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 18.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 315.6
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 26.4
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 184.6
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 6.01
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 138.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 208.9
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.5
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre +15% pero Vidroporto eleva el apalancamiento a 1,1x proforma y el margen baja a 25,3%. Digestión de M&A.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1558.8
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 15.8
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 15.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 393.7
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 25.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 233.4
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 7.23
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 53.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 472.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen en contracción (26,2%), apalancamiento alto (1,2x) y orgánico débil. Señales mixtas.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 419.4
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 11.0
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 1.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 109.8
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 26.2
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 52.8
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.64
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -9.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 529.7
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.2
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Estabilización: margen 27,1% y deuda 1,0x, pero orgánico plano. Vigilar volumen.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 830.4
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 4.5
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 0.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 225.0
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 27.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 120.8
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.75
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -6.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 433.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.0
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Mejora: orgánico +4,3%, margen 27,8% y desapalancamiento a 0,7x.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1216.4
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 1.9
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 0.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 337.7
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 27.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 232.1
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 7.22
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 26.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 299.1
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Año sólido: margen 28,6%, deuda 0,6x y venta de Italia que cristaliza valor.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1588.3
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 1.9
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": 0.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 454.0
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 298.3
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 8.85
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 28.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 248.3
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Normalización de precios: ventas -11%, pero margen sube a 28,1% y apalancamiento cae a 0,7x. Top-line a vigilar.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 372.5
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": -11.2
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -6.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 104.6
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 47.6
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.42
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -9.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 289.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Contracción de ventas (-9,7%) por precio, compensada por margen récord (28,8%) y deuda 0,5x.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 750.1
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": -9.7
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -6.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 216.1
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 107.8
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.22
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -10.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 214.8
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.5
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ventas -7,6% pero orgánico mejora a -5,1% y margen 29,3%; deuda en mínimos (0,3x).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1124.4
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": -7.6
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -5.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 328.9
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 29.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 165.2
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 4.93
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -2.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 150.3
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.3
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Normalización digerida: margen récord 30,1%, deuda 0,2x y FCF 200 M€. La caída es precio, no deterioro. Tesis vigente.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1465.2
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": -7.8
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -5.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 441.0
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 30.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 219.6
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 6.24
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": -26.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 105.3
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.2
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Inflexión: beneficio +13% y BPA +13,3%, margen 28,3%. Apalancamiento sube a 0,6x por la compra de Chile (75 M€). Recuperación en marcha.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 367.5
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": -1.3
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -4.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 104.0
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 53.7
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.53
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 13.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 273.1
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.6
+        }
+      ]
+    }
+  ]
+}
