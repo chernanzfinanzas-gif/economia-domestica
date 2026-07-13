@@ -285,8 +285,12 @@ function renderInformeBlock(){
   if(document.getElementById('cotizPanelBtn')) return;
   var _ref=document.getElementById('panelPeriodo');
   var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.margin='2px 0 12px';
+  // Botón «Informe semanal»: abre Claude (Cowork) en ESTE ordenador, chat nuevo con la carpeta del programa y la orden prerrellenada.
+  var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
+  var _infHref='claude://cowork/new?q='+encodeURIComponent('genera el informe semanal de cartera')+'&folder='+encodeURIComponent(_khCarpeta);
   _cbtn.innerHTML='<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>'
-    +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;margin-left:8px" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>';
+    +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;margin-left:8px" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>'
+    +'<a class="btn" href="'+_infHref+'" style="text-decoration:none;margin-left:8px" title="Abre Claude (Cowork) en ESTE ordenador y prepara un chat nuevo, con acceso a la carpeta del programa y la orden «genera el informe semanal de cartera» ya escrita (solo revisar y enviar). Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>';
   if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
 }
 /* ----- MOVIMIENTOS ----- */
