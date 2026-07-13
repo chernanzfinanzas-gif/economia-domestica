@@ -103,7 +103,42 @@ function calibVerdicto(base, ev){
   };
 }
 
-/* Datos de calibración de una empresa: sus 3 hitos con diana, estado y evaluación */
+/* ---------- Datos desde el histórico diario (precios/TICKER.json + dividendos) ----------
+   Calcula cotización en la diana (último cierre ≤ diana), máx/mín del tramo t0→diana
+   y dividendos cobrados. Devuelve null si el histórico no está en caché o no hay datos.
+   Fuente idéntica a la del gráfico de la ficha (_precioCache de 03-inversiones.js). */
+function _calibDesdeHistorico(ticker, base, t0, diana){
+  ticker = (ticker||'').toUpperCase();
+  const pj = (typeof _precioCache!=='undefined' && _precioCache) ? _precioCache[ticker] : null;
+  if(!pj || !pj.data || !pj.data.length) return null;
+  const data = pj.data.filter(p => Array.isArray(p) && p[0] && typeof p[1]==='number');
+  const hasta = data.filter(p => p[0] <= diana);          // data ordenada ascendente
+  const per   = data.filter(p => p[0] >= t0 && p[0] <= diana);
+  if(!hasta.length || !per.length) return null;
+  const cot = hasta[hasta.length - 1];
+  const precios = per.map(p => p[1]);
+  const maxP = Math.max.apply(null, precios), minP = Math.min.apply(null, precios);
+  const divs = ((DB.dividendos||{})[ticker]||[]).filter(x => x && x.fecha && x.fecha > t0 && x.fecha <= diana);
+  const div = Math.round(divs.reduce((s,x) => s + (_calibN(x.importe)||0), 0) * 10000) / 10000;
+  const ev = { cotDiana:cot[1], maxP:maxP, minP:minP, div:div };
+  return { cot:cot[1], cotFecha:cot[0], maxP, minP, div, nDiv:divs.length, nPer:per.length,
+           futuro: cot[0] < diana, ev, ver: calibVerdicto(base, ev) };
+}
+
+/* Carga perezosa del histórico de una empresa (una sola vez) y re-render vía callback */
+const _calibFetching = {};
+function _calibLazyPrecios(ticker, cb){
+  ticker = (ticker||'').toUpperCase();
+  if(typeof _precioCache === 'undefined' || !_precioCache){ if(cb) cb(); return; }
+  if(_precioCache[ticker] !== undefined){ if(cb) cb(); return; }   // ya cargado (json o null)
+  if(_calibFetching[ticker]) return;
+  _calibFetching[ticker] = true;
+  fetch('precios/' + ticker + '.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : null).catch(() => null)
+    .then(j => { _precioCache[ticker] = (j || null); _calibFetching[ticker] = false; if(cb) cb(); });
+}
+
+/* Datos de calibración de una empresa: sus 3 hitos con diana, estado, evaluación y provisional */
 function calibDataFor(ticker){
   ticker = (ticker||'').toUpperCase();
   const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker);
@@ -119,7 +154,10 @@ function calibDataFor(ticker){
       const done = !!(info && info.done);
       const vencida = !done && diana && diana <= hoy;
       const ver = calibVerdicto(base, info);
-      return { k:h.k, meses:h.meses, diana, done, vencida, info, ver, dias:_calibDiasHasta(diana) };
+      const manualEval = !!(info && info.cotDiana!=null && info.cotDiana!=='');
+      // veredicto provisional: solo si la diana venció, no está cerrada y no hay dato manual
+      const prov = (!done && vencida && !manualEval) ? _calibDesdeHistorico(ticker, base, a.dossierFecha, diana) : null;
+      return { k:h.k, meses:h.meses, diana, done, vencida, info, ver, manualEval, prov, dias:_calibDiasHasta(diana) };
     })
   };
 }
@@ -266,7 +304,7 @@ function showCalib(ticker, hito){
   dlg.querySelector('#calibCopy').onclick = () => _calibCopiarFila(ticker, h.k, readEv());
 
   // Auto-rellenar cotización diana + máx/mín del periodo (precios/TICKER.json) y dividendos (DB.dividendos)
-  const doAuto = async () => {
+  const doAuto = async (silencioso) => {
     const btn = dlg.querySelector('#calibAuto'), msg = dlg.querySelector('#calibAutoMsg');
     if(btn){ btn.disabled = true; if(!btn.dataset.o) btn.dataset.o = btn.textContent; btn.textContent = '⏳ Cargando…'; }
     const fin = t => { if(btn){ btn.disabled = false; btn.textContent = btn.dataset.o || '⚡ Auto-rellenar desde histórico'; } if(msg) msg.textContent = t||''; };
@@ -275,27 +313,20 @@ function showCalib(ticker, hito){
       try{ const r = await fetch('precios/' + ticker + '.json', {cache:'no-store'}); pj = r.ok ? await r.json() : null; }catch(e){ pj = null; }
       if(typeof _precioCache !== 'undefined' && _precioCache) _precioCache[ticker] = pj;
     }
-    if(!pj || !pj.data || !pj.data.length){ fin('⚠️ No hay histórico en precios/' + ticker + '.json — rellena a mano.'); return; }
-    const data = pj.data.filter(p => Array.isArray(p) && p[0] && typeof p[1] === 'number');
-    const t0 = d.dossierFecha, dia = h.diana;
-    const hasta = data.filter(p => p[0] <= dia);           // data viene ordenada ascendente
-    const per   = data.filter(p => p[0] >= t0 && p[0] <= dia);
-    if(!hasta.length || !per.length){ fin('⚠️ Sin cierres en el tramo ' + t0 + '→' + dia + '.'); return; }
-    const cot = hasta[hasta.length - 1];                    // último cierre en/antes de la diana
-    const precios = per.map(p => p[1]);
-    const mx = Math.max.apply(null, precios), mn = Math.min.apply(null, precios);
-    const divs = ((DB.dividendos||{})[ticker]||[]).filter(x => x && x.fecha && x.fecha > t0 && x.fecha <= dia);
-    const sumDiv = divs.reduce((s,x) => s + (_calibN(x.importe)||0), 0);
+    const r = _calibDesdeHistorico(ticker, readBase(), d.dossierFecha, h.diana);
+    if(!r){ fin('⚠️ No hay histórico utilizable en precios/' + ticker + '.json — rellena a mano.'); return; }
     const set = (id,val) => { const el = dlg.querySelector('#'+id); if(el && val!=null) el.value = ''+val; };
-    set('cCot', cot[1]); set('cMax', mx); set('cMin', mn);
-    if(divs.length) set('cDiv', Math.round(sumDiv*10000)/10000);
+    set('cCot', r.cot); set('cMax', r.maxP); set('cMin', r.minP);
+    if(r.nDiv) set('cDiv', r.div);
     _calibPintaVer(dlg, readBase());
-    const aviso = (cot[0] < dia) ? ' · ⚠️ aún sin cierre en la diana; usado el último disponible (' + cot[0] + ')' : '';
-    fin('✓ ' + per.length + ' cierres · ' + divs.length + ' dividendo(s). Revisa y guarda.' + aviso);
+    const aviso = r.futuro ? ' · ⚠️ aún sin cierre en la diana; usado el último disponible (' + r.cotFecha + ')' : '';
+    fin('✓ ' + r.nPer + ' cierres · ' + r.nDiv + ' dividendo(s). Revisa y guarda.' + aviso);
   };
-  dlg.querySelector('#calibAuto').onclick = doAuto;
+  dlg.querySelector('#calibAuto').onclick = () => doAuto(false);
 
   dlg.showModal();
+  // Si el hito ya venció y no hay dato manual, auto-rellena al abrir para que solo confirmes
+  if(h.vencida && !(info && info.cotDiana!=null && info.cotDiana!=='')) doAuto(true);
 }
 
 /* ---------- Persistencia ---------- */
@@ -334,6 +365,7 @@ function _calibRefrescar(){
   if(typeof saveNow==='function') saveNow();
   if(typeof renderPanelDash==='function') renderPanelDash();
   if(typeof renderCobertura==='function') renderCobertura();
+  if(typeof renderPanelMetodo==='function') renderPanelMetodo();
   if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
 }
 
@@ -347,34 +379,49 @@ function _calibCopiarFila(ticker, hito, ev){
 }
 
 /* ---------- Tarjeta en la Ficha ---------- */
+function _calibVchip(txt,ok){ return txt==null?'<span class="muted">—</span>':`<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:7px;background:${ok?'#dcfce7':'#fee2e2'};color:${ok?'#166534':'#991b1b'}">${txt}</span>`; }
+function _calibVerCell(v, provisional){
+  if(!v || !v.evaluada) return '<span class="muted" style="font-size:11px">sin datos</span>';
+  const tag = provisional ? ` <span style="font-size:9px;font-weight:800;padding:1px 5px;border-radius:6px;background:#fef3c7;color:#92400e" title="Calculado desde el histórico; pendiente de confirmar">PROVISIONAL</span>` : '';
+  return `<span title="Retorno total" style="font-weight:700;color:${v.retTotal!=null&&v.retTotal>=0?'#166534':'#991b1b'}">${_calibPct(v.retTotal)}</span>
+     ${_calibVchip(v.entroBanda?('banda '+v.entroBanda):null, v.entroBanda==='SÍ')}
+     ${_calibVchip(v.tocoStop?('stop '+v.tocoStop):null, v.tocoStop==='NO')}
+     ${_calibVchip(v.alcanzoPO?('PO '+v.alcanzoPO):null, v.alcanzoPO==='SÍ')}${tag}`;
+}
 function calibFichaHTML(ticker){
   const d = calibDataFor(ticker);
   if(!d) return '';
-  const vchip = (txt,ok) => txt==null?'<span class="muted">—</span>':`<span style="font-size:10px;font-weight:700;padding:1px 6px;border-radius:7px;background:${ok?'#dcfce7':'#fee2e2'};color:${ok?'#166534':'#991b1b'}">${txt}</span>`;
+  // Carga perezosa del histórico para veredictos provisionales (y re-render cuando llegue)
+  const tkU = (ticker||'').toUpperCase();
+  const needProv = d.hitos.some(h => h.vencida && !h.done && !h.manualEval);
+  if(needProv && typeof _precioCache!=='undefined' && _precioCache && _precioCache[tkU]===undefined){
+    _calibLazyPrecios(tkU, () => { if(typeof fichaTicker!=='undefined' && (fichaTicker||'').toUpperCase()===tkU && typeof renderFicha==='function') renderFicha(fichaTicker); });
+  }
   const rows = d.hitos.map(h => {
-    const v = h.ver;
-    let chip, acc;
+    let chip, acc, verV=null, provFlag=false;
     if(h.done){
       chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#ccfbf1;color:#0f766e">✓ CALIBRADA${h.info&&h.info.fecha?' · '+h.info.fecha:''}</span>`;
       acc = `<button class="btn ghost sm" data-calibopen="${d.ticker}|${h.k}" title="Ver / editar">✎</button>`;
+      verV = h.ver;
     } else if(h.vencida){
-      chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#92400e">⏰ VENCIDA · hace ${-h.dias} d</span>`;
-      acc = `<button class="btn sm" data-calibopen="${d.ticker}|${h.k}" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}">Calibrar</button>`;
+      if(h.prov && h.prov.ver && h.prov.ver.evaluada){
+        chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#92400e">⏰ VENCIDA · provisional</span>`;
+        acc = `<button class="btn sm" data-calibopen="${d.ticker}|${h.k}" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}" title="Revisar y confirmar">Confirmar</button>`;
+        verV = h.prov.ver; provFlag = true;
+      } else {
+        chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#fef3c7;color:#92400e">⏰ VENCIDA · hace ${-h.dias} d</span>`;
+        acc = `<button class="btn sm" data-calibopen="${d.ticker}|${h.k}" style="background:${CALIB_COLOR};border-color:${CALIB_COLOR}">Calibrar</button>`;
+      }
     } else {
       chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:#f1f5f9;color:#64748b">Próxima · faltan ${h.dias} d</span>`;
       acc = `<button class="btn ghost sm" data-calibopen="${d.ticker}|${h.k}" title="Adelantar / ver">👁</button>`;
+      verV = h.ver.evaluada ? h.ver : null;
     }
-    const verCell = v.evaluada
-      ? `<span title="Retorno total" style="font-weight:700;color:${v.retTotal!=null&&v.retTotal>=0?'#166534':'#991b1b'}">${_calibPct(v.retTotal)}</span>
-         ${vchip(v.entroBanda?('banda '+v.entroBanda):null, v.entroBanda==='SÍ')}
-         ${vchip(v.tocoStop?('stop '+v.tocoStop):null, v.tocoStop==='NO')}
-         ${vchip(v.alcanzoPO?('PO '+v.alcanzoPO):null, v.alcanzoPO==='SÍ')}`
-      : '<span class="muted" style="font-size:11px">sin datos</span>';
     return `<tr>
       <td style="font-weight:700;white-space:nowrap">${h.k}</td>
       <td style="white-space:nowrap">${h.diana||'—'}</td>
       <td>${chip}</td>
-      <td style="font-size:11px;line-height:1.5">${verCell}</td>
+      <td style="font-size:11px;line-height:1.5">${_calibVerCell(verV, provFlag)}</td>
       <td class="right">${acc}</td>
     </tr>`;
   }).join('');
@@ -389,6 +436,96 @@ function calibFichaHTML(ticker){
     <div class="sub" style="margin-bottom:6px;font-size:11px;color:#64748b">${baseTxt}</div>
     <div style="overflow:auto"><table><thead><tr><th>Hito</th><th>Fecha diana</th><th>Estado</th><th>Veredicto</th><th></th></tr></thead><tbody>${rows}</tbody></table></div>
   </div>`;
+}
+
+/* ---------- Panel del Método (marcador agregado, como el Excel) ---------- */
+function _calibMetPct(x){ return x==null?'—':(x*100).toLocaleString('es-ES',{maximumFractionDigits:0})+'%'; }
+function _calibMetRet(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
+function _calibRetColor(x){ return x==null?'#94a3b8':(x>=0?'#166534':'#991b1b'); }
+
+function renderPanelMetodo(){
+  const sec = document.getElementById('view-metodo'); if(!sec) return;
+  const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
+  const cerr = {'6m':[], '12m':[], '36m':[]};
+  let proxDiana = null, proxTk = '', pendientes = 0, provis = 0;
+  empresas.forEach(d => {
+    d.hitos.forEach(h => {
+      if(!h.done && h.diana){ pendientes++; if(!proxDiana || h.diana < proxDiana){ proxDiana = h.diana; proxTk = d.ticker; } }
+      if(!h.done && h.vencida && h.prov && h.prov.ver && h.prov.ver.evaluada) provis++;
+      if(h.done && h.ver && h.ver.evaluada) cerr[h.k].push({ v:h.ver, info:h.info||{}, decision:d.base.decision, ticker:d.ticker });
+    });
+  });
+  const avg = arr => arr.length ? arr.reduce((s,x)=>s+x,0)/arr.length : null;
+  const col = k => {
+    const arr = cerr[k], n = arr.length;
+    const stops = arr.filter(x => x.v.tocoStop==='SÍ');
+    const rets = arr.map(x => x.v.retTotal).filter(x => x!=null);
+    const avgDec = dec => avg(arr.filter(x => x.decision===dec).map(x => x.v.retTotal).filter(x => x!=null));
+    return {
+      n,
+      banda: n ? arr.filter(x => x.v.entroBanda==='SÍ').length / n : null,
+      stops: stops.length,
+      justif: stops.filter(x => (x.info.stopJust||'')==='JUSTIFICADO').length,
+      ruido:  stops.filter(x => (x.info.stopJust||'')==='RUIDO').length,
+      po: n ? arr.filter(x => x.v.alcanzoPO==='SÍ').length / n : null,
+      ret: avg(rets), comprar: avgDec('COMPRAR'), mantener: avgDec('MANTENER'), esperar: avgDec('ESPERAR')
+    };
+  };
+  const C = { '6m':col('6m'), '12m':col('12m'), '36m':col('36m') };
+  const totalCerradas = C['6m'].n + C['12m'].n + C['36m'].n;
+
+  const cel = v => `<td style="text-align:center">${v}</td>`;
+  const celRet = v => `<td style="text-align:center;font-weight:700;color:${_calibRetColor(v)}">${_calibMetRet(v)}</td>`;
+  const fila = (etq, fn, sub) => `<tr${sub?' style="color:#64748b"':''}><td style="${sub?'padding-left:18px;':'font-weight:600;'}white-space:nowrap">${etq}</td>${['6m','12m','36m'].map(k=>fn(C[k])).join('')}</tr>`;
+
+  const kpis = `<div class="cards" style="margin-bottom:12px">
+    <div class="card"><div class="sub">Análisis registrados (t0)</div><div style="font-size:22px;font-weight:800">${empresas.length}</div></div>
+    <div class="card"><div class="sub">Evaluaciones cerradas</div><div style="font-size:22px;font-weight:800;color:${CALIB_COLOR}">${totalCerradas}</div></div>
+    <div class="card"><div class="sub">Pendientes · provisionales</div><div style="font-size:22px;font-weight:800">${pendientes} · <span style="color:#92400e">${provis}</span></div></div>
+    <div class="card"><div class="sub">Próxima diana</div><div style="font-size:16px;font-weight:800">${proxDiana?(proxDiana+' · '+proxTk):'—'}</div></div>
+  </div>`;
+
+  const tabla = `<div style="overflow:auto"><table>
+    <thead><tr><th>Métrica</th><th style="text-align:center">6 meses</th><th style="text-align:center">12 meses</th><th style="text-align:center">36 meses</th></tr></thead>
+    <tbody>
+      ${fila('Evaluaciones cerradas', c=>cel(c.n))}
+      ${fila('% entró en banda de entrada', c=>cel(_calibMetPct(c.banda)))}
+      ${fila('Stops tocados', c=>cel(c.stops))}
+      ${fila('· de ellos justificados', c=>cel(c.justif), true)}
+      ${fila('· de ellos ruido (falso stop)', c=>cel(c.ruido), true)}
+      ${fila('% alcanzó PO Base', c=>cel(_calibMetPct(c.po)))}
+      ${fila('Retorno total medio', c=>celRet(c.ret))}
+      ${fila('· decisiones COMPRAR', c=>celRet(c.comprar), true)}
+      ${fila('· decisiones MANTENER', c=>celRet(c.mantener), true)}
+      ${fila('· decisiones ESPERAR', c=>celRet(c.esperar), true)}
+    </tbody></table></div>`;
+
+  // Detalle de evaluaciones cerradas
+  let det = '';
+  const filasDet = [];
+  ['6m','12m','36m'].forEach(k => cerr[k].forEach(x => filasDet.push(
+    `<tr><td><b>${x.ticker}</b></td><td>${k}</td><td>${x.decision||'—'}</td>
+     <td style="font-weight:700;color:${_calibRetColor(x.v.retTotal)}">${_calibMetRet(x.v.retTotal)}</td>
+     <td>${_calibVchip(x.v.entroBanda?('banda '+x.v.entroBanda):null, x.v.entroBanda==='SÍ')}</td>
+     <td>${_calibVchip(x.v.tocoStop?('stop '+x.v.tocoStop):null, x.v.tocoStop==='NO')}</td>
+     <td>${_calibVchip(x.v.alcanzoPO?('PO '+x.v.alcanzoPO):null, x.v.alcanzoPO==='SÍ')}</td>
+     <td style="font-size:11px;color:#64748b">${x.info.nota?_calibEsc(x.info.nota):''}</td></tr>`
+  )));
+  if(filasDet.length) det = `<h3 style="margin-top:18px">Evaluaciones cerradas</h3>
+    <div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Hito</th><th>Decisión t0</th><th>Retorno total</th><th>Banda</th><th>Stop</th><th>PO</th><th>Nota</th></tr></thead><tbody>${filasDet.join('')}</tbody></table></div>`;
+
+  const guia = `<div class="card" style="margin-top:14px;background:#f8fafc">
+    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Qué corregir del método (cuando haya datos)</div>
+    <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.6;color:#475569">
+      <li>Si COMPRAR no bate a ESPERAR de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li>
+      <li>Si el % que alcanza PO Base es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li>
+      <li>Si hay muchos stops "ruido" (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li>
+      <li>Si casi nunca se "entró en banda" → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li>
+    </ul></div>`;
+
+  sec.innerHTML = `<h2>📐 Panel del Método — ¿cuánto acierta?</h2>
+    <div class="sub" style="margin-bottom:10px">Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuenta las evaluaciones <b>cerradas</b> (confirmadas); se actualiza al confirmar una calibración. Los ${provis>0?('<b>'+provis+'</b> provisionales'):'provisionales'} aún no computan aquí.</div>
+    ${kpis}${tabla}${det}${guia}`;
 }
 
 /* ---------- Eventos delegados ---------- */
