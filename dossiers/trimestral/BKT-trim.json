@@ -1,0 +1,612 @@
+{
+  "schemaVersion": 1,
+  "ticker": "BKT",
+  "empresa": "Bankinter",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque 2023: margen +23% i.a., beneficio 185 M€, CET1 12,2%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 522.2
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 615.9
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 184.7
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.5
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 35.65
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.21
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.18
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.55
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 114122
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2023: beneficio 418 M€, RoTE 16,4%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1068.3
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 1277.9
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 417.9
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.44
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 35.39
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.22
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 119139
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-19",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2023: beneficio 685 M€, RoTE 18,2%, CET1 12,48%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1638.7
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 2005.1
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 684.7
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.15
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 34.89
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.48
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.19
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.2
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 119844
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-01-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2023: beneficio 845 M€, RoTE 18,1%, morosidad 2,11%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2213.5
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 2660.5
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 844.8
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.14
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 37.34
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.11
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 64.69
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 125512
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2024: beneficio 201 M€, RoTE 18,4%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 577.7
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 658.7
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 200.8
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.42
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 35.26
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.46
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.23
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 129232
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2024: beneficio 474 M€, RoTE 18,8%, eficiencia 34,1%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1160.3
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 1410.5
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 473.5
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.8
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 34.13
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.44
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.17
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 133524
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2024: beneficio 731 M€, CET1 12,56%, coste del riesgo 0,40%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1728.4
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 2151.4
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 731.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.18
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 34.62
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.56
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.22
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.69
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 136189
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-01-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2024: beneficio récord 953 M€, RoTE 19,0%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2278.4
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 2901.5
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 953.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.99
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 36.32
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.41
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.11
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.84
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 140709
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.39
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2025: RoTE 19,94%; el margen empieza a normalizar.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 540.7
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 731.7
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 270.1
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.94
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 36.76
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.35
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.16
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.77
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 143542
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.32
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2025: RoTE 19,5%, cobertura 70,3%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1101.1
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 1494.4
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 541.7
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.5
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 35.88
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.57
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.14
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 70.31
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 147902
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.32
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2025: RoTE 19,36%, CET1 12,94%, morosidad 2,05%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1667.1
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 2251.5
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 811.5
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.36
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 36.19
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.94
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.05
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.71
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 151114
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.33
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-01-22",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2025: beneficio 1.090 M€, RoTE 20,03%, morosidad 1,94%.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2237.1
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 3046.9
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 1090.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.03
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 36.09
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.72
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.94
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 67.89
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 156572
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.33
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2026: RoTE 20,0%, CET1 12,96%, morosidad 1,92% (mínimos).",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 570.6
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 779.0
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 290.7
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.0
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 35.44
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.96
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.92
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.53
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 154044
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.32
+        }
+      ]
+    }
+  ]
+}
