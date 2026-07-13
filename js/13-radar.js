@@ -45,7 +45,7 @@ function renderUniverso(){
     return '<td><input class="uInp" data-ut="'+_radEsc(t)+'" data-uf="'+key+'" value="'+_radEsc(u[key]||'')+'" style="width:'+w+'px"></td>';
   };
   var rows=ks.map(function(t){ var u=DB.universo[t]||{};
-    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"><td><b>'+_radEsc(t)+'</b></td>'
+    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"><td><b data-ficha="'+_radEsc(t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(t)+'</b></td>'
       + UNI_FIELDS.map(function(f){ return celdaEdit(t,u,f[0],f[2]||120); }).join('')
       + '<td class="right"><button class="btn ghost sm" data-udel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
   }).join('');
@@ -107,7 +107,7 @@ function renderRadar(){
       return '<tr data-fs="'+_radEsc((c.t+' '+(c.nombre||'')).toLowerCase())+'"'+(sel?' style="background:#dbeafe"':'')+'>'
         +'<td style="text-align:center"><input type="checkbox" class="radCk" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+' title="Marcar interesante" style="width:15px;height:15px;cursor:pointer"></td>'
         +'<td class="num" style="font-weight:800;color:'+acol+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+'</td>'
-        +'<td><b>'+_radEsc(c.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((c.nombre||'').slice(0,20))+'</span></td>'
+        +'<td><b data-ficha="'+_radEsc(c.t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(c.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((c.nombre||'').slice(0,20))+'</span></td>'
         +'<td style="font-size:11px">'+_radEsc(c.arq)+'</td>'
         +'<td class="num" style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'
         +'<td class="num">'+_rf(f.payout,'%',0)+'</td>'

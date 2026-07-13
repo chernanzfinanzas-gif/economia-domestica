@@ -108,7 +108,7 @@ function renderRadarDiv(){
     var nameSz= selMark?'12px':'11px';
     return '<tr data-fs="'+_infEscSafe((x.t+' '+(x.nombre||'')).toLowerCase())+'"'+rowStyle+'>'
       +'<td style="text-align:center"><input type="checkbox" class="radarCk" data-radarck="'+_infEscSafe(x.t)+'"'+(selMark?' checked':'')+' title="Marcar como empresa interesante" style="width:16px;height:16px;cursor:pointer"></td>'
-      +'<td><b>'+_infEscSafe(x.t)+'</b> <span class="muted" style="font-size:'+nameSz+'">'+_infEscSafe((x.nombre||'').slice(0,22))+'</span></td>'
+      +'<td><b data-ficha="'+_infEscSafe(x.t)+'" style="cursor:pointer;color:var(--brand)">'+_infEscSafe(x.t)+'</b> <span class="muted" style="font-size:'+nameSz+'">'+_infEscSafe((x.nombre||'').slice(0,22))+'</span></td>'
       +'<td class="num">'+fmt(x.precio)+(x.manual?' <span class="muted" title="precio pegado a mano">✎</span>':'')+'</td>'
       +'<td class="num">'+fmt(x.div)+'</td>'
       +'<td class="num" style="font-weight:700;color:'+rpdCol+'">'+rpdTxt+'</td>'
