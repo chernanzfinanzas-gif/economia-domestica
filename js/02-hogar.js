@@ -495,7 +495,8 @@ function renderPresDesglose(){
   const realOf=(cid,mi)=>(realCat[cid]||[])[mi]||0;
   const realYear=cid=>{ const a=realCat[cid]; return a?a.reduce((s,v)=>s+v,0):0; };
   const short=MESES.map(m=>m.slice(0,3).replace(/^./,x=>x.toUpperCase()));
-  const td=(v)=> (Math.abs(v)>0.005)?`<td class="num">${fmt(v)}</td>`:'<td class="num muted">·</td>';
+  const f2=v=>fmt(v).replace(/\s?€/,''); // sin símbolo € para estrechar columnas
+  const td=(v)=> (Math.abs(v)>0.005)?`<td class="num">${f2(v)}</td>`:'<td class="num muted">·</td>';
   // Par de filas Pres./Real de un concepto
   const conceptRows=(c)=>{
     const b=presMens[c.id]||0; let bTds='',rTds='',bTot=0,rTot=0;
@@ -504,8 +505,8 @@ function renderPresDesglose(){
     const rColor=(bTot>0&&rTot>0)?` style="color:${ok?'#16a34a':'#dc2626'}"`:'';
     return `<tr class="dg-pres">`+
         `<td rowspan="2" class="dg-name">${c.nombre}${c.tipo==='ingreso'?' <span class="tag in">ing</span>':''}</td>`+
-        `<td class="muted">Pres.</td>${bTds}<td class="num">${bTot?fmt(bTot):'·'}</td></tr>`+
-      `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num"${rColor}><b>${rTot?fmt(rTot):'·'}</b></td></tr>`;
+        `<td class="muted">Pres.</td>${bTds}<td class="num">${bTot?f2(bTot):'·'}</td></tr>`+
+      `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num"${rColor}><b>${rTot?f2(rTot):'·'}</b></td></tr>`;
   };
   // Agrupar categorías (Ingresos primero, resto alfabético)
   const groups={};
@@ -526,8 +527,8 @@ function renderPresDesglose(){
   const combo=(a,b,sg)=>a.map((v,i)=>v+sg*b[i]);
   const ahoPrev=combo(ingPres,gasPres,-1), ahoLog=combo(ingReal,gasReal,-1);
   const sumRow=(lbl,arr,cls,signo)=>{
-    let tds='',tot=0; arr.forEach(v=>{ tot+=v; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num"${signo&&v<0?' style="color:#dc2626"':''}>${fmt(v)}</td>`); });
-    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num"${signo&&tot<0?' style="color:#dc2626"':''}><b>${fmt(tot)}</b></td></tr>`;
+    let tds='',tot=0; arr.forEach(v=>{ tot+=v; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num"${signo&&v<0?' style="color:#dc2626"':''}>${f2(v)}</td>`); });
+    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num"${signo&&tot<0?' style="color:#dc2626"':''}><b>${f2(tot)}</b></td></tr>`;
   };
   const resumen =
       sumRow('Total INGRESOS (real)',ingReal,'grp-row r-verde')+
@@ -993,7 +994,9 @@ function importFondoR4(file){
     renderFondoR4(); saveNow(); alert('Importados '+DB.easy.length+' movimientos del Fondo R4.'); });
 }
 function renderPresExtras(){
-  const sec=document.getElementById('view-presupuesto'); if(!sec)return;
+  const sec=document.getElementById('ptab-anual')||document.getElementById('view-presupuesto'); if(!sec)return;
+  // por si en una carga previa quedaron colgados de la sección (fuera de la pestaña), reubicarlos
+  ['ahorroWrap','varGastoWrap'].forEach(id=>{ const w=document.getElementById(id); if(w && w.parentElement!==sec){ const h=w.previousElementSibling; if(h&&h.tagName==='H3')sec.appendChild(h); sec.appendChild(w); } });
   DB.config=DB.config||{}; const ah=DB.config.ahorro=DB.config.ahorro||{mensual:0,anual:0,tasa:0};
   if(!renderPresExtras._bound){ renderPresExtras._bound=true; document.addEventListener('change',function(e){ const t=e.target; if(t&&t.classList&&t.classList.contains('ahorroInp')&&t.dataset.k){ DB.config=DB.config||{}; DB.config.ahorro=DB.config.ahorro||{mensual:0,anual:0,tasa:0}; DB.config.ahorro[t.dataset.k]=num(t.value); if(typeof saveNow==='function')saveNow(); renderPresExtras(); } }); }
   const now=new Date(); const Y=now.getFullYear(), M=now.getMonth(); const pad=n=>String(n).padStart(2,'0');
