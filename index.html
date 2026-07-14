@@ -81,6 +81,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   form.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow);margin-bottom:16px;align-items:end}
   form.grid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   form.grid input,form.grid select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+  .form-title{grid-column:1/-1;font-size:14px;font-weight:800;color:var(--ink);margin:-2px 0 4px;display:flex;align-items:center;gap:6px}
+  #fabAdd{position:fixed;right:16px;bottom:18px;z-index:9998;width:56px;height:56px;border-radius:50%;border:none;background:var(--brand);color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:none;align-items:center;justify-content:center}
   .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
   .seg button{border:none;background:#fff;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
   .seg button.on[data-t=gasto]{background:var(--red-bg);color:var(--red)}
@@ -101,6 +103,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dlg-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
   @media(max-width:960px){header{flex-wrap:wrap;gap:8px;padding:8px 12px}.logo{order:1}.filestat{order:2;margin-left:auto}nav{order:3;flex-basis:100%;width:100%;flex-wrap:wrap;gap:3px}nav button{padding:7px 9px;font-size:13px}#subnav{order:4;flex-basis:100%;width:100%;flex-wrap:wrap;margin:6px 0 0;padding:6px 8px;gap:3px}#subnav button{padding:6px 9px;font-size:12px}.logo .logo-img{height:36px}.spacer{display:none}main{margin-top:12px;padding:0 10px 60px}h2{font-size:16px}.view table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}th,td{padding:7px 8px;font-size:12px}.card .val{font-size:20px}.cards{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.toolbar input[type=search]{min-width:120px}}
   @media(orientation:landscape) and (max-height:520px){header{position:static}main{margin-top:8px}}
+  @media(max-width:600px){
+    form.grid{grid-template-columns:1fr;gap:12px;padding:16px}
+    form.grid input,form.grid select{font-size:16px;padding:11px}
+    form.grid .seg{display:flex;width:100%}
+    form.grid .seg button{flex:1;padding:11px;font-size:15px}
+    form.grid .row-actions{flex-direction:column;gap:8px}
+    form.grid .row-actions .btn{width:100%;padding:13px;font-size:15px}
+    .dlg-b input,.dlg-b select,.patgrid input,.toolbar input,.toolbar select{font-size:16px}
+    #fabAdd:not(.fab-hidden){display:flex}
+  }
   .patgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
   .patgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .patgrid input{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
@@ -178,7 +190,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <div class="spacer"></div>
   <div class="filestat" style="flex-direction:column;align-items:flex-end;gap:4px">
     <div style="display:flex;align-items:center;gap:8px"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span><button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button></div>
-    <div style="display:flex;gap:6px"><button class="btn ghost sm" id="btnPapelera" title="Papelera: elementos borrados recientemente (restaurables)">🗑️ Papelera</button><button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button><button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button></div>
+    <div style="display:flex;gap:6px"><button class="btn ghost sm" id="btnCmdK" title="Buscar / ir a… (Ctrl-K)">🔎 Buscar</button><button class="btn ghost sm" id="btnPapelera" title="Papelera: elementos borrados recientemente (restaurables)">🗑️ Papelera</button><button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button><button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button></div>
   </div>
 </header>
 
@@ -322,6 +334,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-movimientos">
     <h2>Movimientos</h2>
     <form class="grid" id="movForm" autocomplete="off" style="background:#fef9c3">
+      <div class="form-title">➕ Añadir gasto o ingreso</div>
       <input type="hidden" id="movId">
       <label>Fecha<input type="date" id="movFecha" required></label>
       <label>Concepto<input type="text" id="movConcepto" placeholder="p. ej. Compra Ahorramás" required></label>
@@ -821,6 +834,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/06-main.js"></script>
   <script src="js/15-cmdk.js"></script>
 
+<button id="fabAdd" class="fab-hidden" aria-label="Añadir" title="Añadir">+</button>
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
 </html>
