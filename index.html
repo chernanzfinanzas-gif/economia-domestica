@@ -27,11 +27,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
-  header{background:var(--panel);border-bottom:1px solid var(--line);padding:6px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
+  header{background:var(--panel);border-bottom:1px solid var(--line);padding:4px 12px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;position:sticky;top:0;z-index:10;box-shadow:var(--shadow)}
   .logo{font-weight:700;font-size:16px;color:var(--brand);white-space:nowrap}
   .logo span{color:var(--ink)}
   .logo{display:flex;align-items:center}
-  .logo .logo-img{height:38px;width:auto;display:block}
+  .logo .logo-img{height:30px;width:auto;display:block}
   nav{display:flex;gap:4px}
   tr.trasjub>td{background:#f3f4f6} tr.trasjub-sep>td{background:#e2e8f0;font-weight:700;border-top:2px solid #94a3b8}
   nav button{background:none;border:none;padding:5px 10px;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--muted);font-weight:600}
@@ -51,6 +51,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .btn:hover{background:var(--brand-d)}
   .btn.ghost{background:#fff;color:var(--brand);border:1px solid var(--brand)}
   .btn.sm{padding:5px 10px;font-size:12px}
+  .filestat{flex-wrap:nowrap}
+  .filestat .hbtn{padding:4px 7px;font-size:12.5px;line-height:1.1}
   .btn.danger{background:#fff;color:var(--red);border:1px solid #fecaca}
   .btn.danger:hover{background:var(--red-bg)}
   main{max-width:1180px;margin:20px auto;padding:0 18px 60px}
@@ -188,9 +190,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </nav>
   <div id="subnav" style="display:none"></div>
   <div class="spacer"></div>
-  <div class="filestat" style="flex-direction:column;align-items:flex-end;gap:4px">
-    <div style="display:flex;align-items:center;gap:8px"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span><button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button></div>
-    <div style="display:flex;gap:6px"><button class="btn ghost sm" id="btnCmdK" title="Buscar / ir a… (Ctrl-K)">🔎 Buscar</button><button class="btn ghost sm" id="btnPapelera" title="Papelera: elementos borrados recientemente (restaurables)">🗑️ Papelera</button><button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button><button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button></div>
+  <div class="filestat" style="flex-direction:row;align-items:center;gap:5px">
+    <span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
+    <button class="btn ghost sm hbtn" id="btnLogout" style="display:none" title="Cerrar sesión de Google Drive">Salir</button>
+    <button class="btn ghost sm hbtn" id="btnCmdK" title="Buscar / ir a… (Ctrl-K)">🔎</button>
+    <button class="btn ghost sm hbtn" id="btnPapelera" title="Papelera (elementos borrados, restaurables)">🗑️</button>
+    <button class="btn ghost sm hbtn" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓</button>
+    <button class="btn ghost sm hbtn" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">↺</button>
   </div>
 </header>
 
