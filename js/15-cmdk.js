@@ -62,7 +62,8 @@
     else if(e.key==='Enter'){ e.preventDefault(); exec(_sel); }
     else if(e.key==='Escape'){ e.preventDefault(); close(); }
   }
-  document.addEventListener('click',function(e){ var c=e.target.closest&&e.target.closest('[data-cmdk]'); if(c){ exec(+c.getAttribute('data-cmdk')); } });
+  document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; var c=e.target.closest('[data-cmdk]'); if(c){ exec(+c.getAttribute('data-cmdk')); return; } if(e.target.closest('#btnCmdK')){ open(); } });
+  try{ window.openCmdK=open; }catch(e){}
   document.addEventListener('mousemove',function(e){ var c=e.target.closest&&e.target.closest('[data-cmdk]'); if(!c)return; var i=+c.getAttribute('data-cmdk'); if(i===_sel)return; _sel=i; var list=document.getElementById('cmdkList'); if(list){ [].forEach.call(list.children,function(ch,idx){ ch.style.background = idx===_sel?'#eef2ff':''; }); } });
-  document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&(e.key==='k'||e.key==='K')){ e.preventDefault(); if(document.getElementById('cmdkOverlay'))close(); else open(); } });
+  document.addEventListener('keydown',function(e){ if((e.ctrlKey||e.metaKey)&&!e.altKey&&(e.key==='k'||e.key==='K')){ e.preventDefault(); e.stopPropagation(); if(document.getElementById('cmdkOverlay'))close(); else open(); } }, true);
 })();
