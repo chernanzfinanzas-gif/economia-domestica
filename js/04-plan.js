@@ -426,7 +426,19 @@ function renderPlan(){
   $('#planKpis').innerHTML=[['Plan total',fmt(grand)],['Plan '+nowY,fmt(totYear[nowY]||0)],['Presupuesto '+nowY,fmt(num(pr[nowY]||0))]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
   const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('planTabla',7,11),0);
 }
-function addPlanEmpresa(){ const tk=(prompt('Ticker de la empresa:')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim(); DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{}; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre; saveNow(); renderPlan(); }
+/* Alta única de empresa desde Diversificación: entra en el lote (o ya es cartera),
+   crea su entrada en el plan y aparece en Diversificación, Plan y Simulador. */
+function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim();
+  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
+  DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{};
+  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
+  if(!held.has(tk)){ DB.planLote=DB.planLote||[]; if(!DB.planLote.map(x=>(x||'').toUpperCase()).includes(tk))DB.planLote.push(tk); }
+  saveNow();
+  if(typeof renderPlanLote==='function')renderPlanLote();
+  if(typeof renderPlan==='function')renderPlan();
+  if(typeof renderSimulador==='function')renderSimulador();
+  const st=$('#loteStatus'); if(st)st.textContent='Añadida '+tk;
+}
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
   DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{}; const pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};

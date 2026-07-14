@@ -94,7 +94,7 @@ const GROUPS={
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
   tesis:[['monitor','Monitor'],['metodo','Panel del Método'],['riesgo','Riesgo']],
-  planinv:[['proyeccion','Proyección'],['plan','Plan'],['simulador','Simulador'],['diversif','Diversificación'],['metas','Metas'],['asignacion','Asignación']],
+  planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['metas','Metas'],['asignacion','Asignación']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes']],
   graficas:[['graficas','Gráficas'],['backtest','Backtest']]
 };
@@ -189,8 +189,7 @@ $('#loteTabla').addEventListener('change',e=>{ const tp=e.target.closest('[data-
 $('#prevTabla').addEventListener('change',e=>{ const d=e.target.closest('[data-dpa]'); if(d){ const t=d.dataset.dpa, y=d.dataset.y; DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; const v=num(d.value); if(d.value.trim()==='') delete DB.divPorAccion[t][y]; else DB.divPorAccion[t][y]=v; saveNow(); renderPrevision(); } });
 if($('#prevAdd'))$('#prevAdd').addEventListener('click',addPrevEmpresa);
 if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
-if($('#simAdd'))$('#simAdd').addEventListener('click',addSimEmpresa);
-if($('#planAdd'))$('#planAdd').addEventListener('click',addPlanEmpresa);
+if($('#loteAdd'))$('#loteAdd').addEventListener('click',addLoteEmpresa);
 if($('#planAddYear'))$('#planAddYear').addEventListener('click',addPrevYear);
 $('#planTabla').addEventListener('click',e=>{ const b=e.target.closest('[data-planexe]'); if(b){ const [t,y]=b.dataset.planexe.split('|'); if(confirm('¿Quitar del Plan la compra de '+t+' en '+y+'? Ya tienes operación real ese año.')){ if(DB.planCompras&&DB.planCompras[t])delete DB.planCompras[t][y]; saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); } } });
 $('#planTabla').addEventListener('change',e=>{ const a=e.target.closest('[data-plan]'); if(a){ const t=a.dataset.plan,y=a.dataset.y; DB.planCompras=DB.planCompras||{}; DB.planCompras[t]=DB.planCompras[t]||{}; if(a.value.trim()==='')delete DB.planCompras[t][y]; else DB.planCompras[t][y]=num(a.value); saveNow(); renderPlan(); if(typeof renderSimulador==='function')renderSimulador(); return; } const p=e.target.closest('[data-plpres]'); if(p){ DB.planPresupuesto=DB.planPresupuesto||{}; if(p.value.trim()==='')delete DB.planPresupuesto[p.dataset.plpres]; else DB.planPresupuesto[p.dataset.plpres]=num(p.value); saveNow(); renderPlan(); } });
