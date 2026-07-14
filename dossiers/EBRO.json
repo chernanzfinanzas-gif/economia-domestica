@@ -1,0 +1,35 @@
+{
+"schemaVersion": 2,
+"ticker": "EBRO",
+"empresa": "Ebro Foods, S.A.",
+"fecha": "2026-07-14",
+"rating": "A",
+"score": 65.3,
+"decision": "ESPERAR",
+"metodoValoracion": "DCF con SUELO de WACC (7–8,5%) + múltiplos históricos — consumo defensivo. PO oficial = síntesis ponderada ≈17,05 € (bear ~9,9 €, bull ~22,5 €). El WACC CAPM (4,1%) NO se usa por la β de 0,15, artificialmente baja.",
+"poBear": 9.86,
+"poBase": 17.05,
+"poBull": 22.55,
+"entMin": 14.0,
+"entMax": 15.5,
+"stop": 9.71,
+"dpaPrevisto": 0.69,
+"moat": "Estrecho (51,6) — escala global del arroz y marcas premium (Tilda, Garofalo); sin costes de cambio ni efecto de red.",
+"catalizadores": [
+"Normalización del precio del arroz/trigo → recuperación de márgenes",
+"Mejora de la conversión EBITDA→FCL con circulante normalizado",
+"Debilidad del euro frente al dólar (viento a favor en ~32% de ventas de América)",
+"Retribución extraordinaria por desinversiones o exceso de caja",
+"Adquisición acretiva con el balance holgado (DN/EBITDA 1,3x)"
+],
+"riesgos": [
+"Inflación del precio del arroz/trigo (impacto alto, probabilidad alta)",
+"Apreciación del euro frente al dólar (~32% ventas en América)",
+"Avance de la marca blanca y presión de la distribución",
+"Conversión de caja baja que tensiona la cobertura del dividendo",
+"Cambio estructural de hábitos de consumo (low-carb, GLP-1)"
+],
+"bull": "Con la materia prima normalizada, un euro débil y una compra acretiva, los márgenes se expanden y el múltiplo se re-valoriza hacia ~22,5 € (+24%).",
+"bear": "Una tormenta de precios del arroz junto a un euro fuerte comprime márgenes, hunde el FCL y fuerza un recorte de dividendo: escenario Pre-Mortem hacia ~10 € (−45%).",
+"resumen": "Ebro Foods es un buen negocio defensivo a un precio sin margen. Calidad sólida (Rating A, balance saneado DN/EBITDA 1,3x, dividendo sostenible) pero moat estrecho y retornos moderados. Cotiza a 18,12 € por encima del precio objetivo (17,05 €) tras re-valorarse; la asimetría riesgo/recompensa es desfavorable. Veredicto ESPERAR: entrada atractiva por debajo de ~15 €, donde aparecería el margen de seguridad que hoy falta."
+}
