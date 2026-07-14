@@ -1,0 +1,16 @@
+{
+  "actualizado": "2026-07-14T22:51:07+02:00",
+  "ficheros": [
+    {
+      "clave": "vigia",
+      "titulo": "Vigía de informes trimestrales",
+      "archivo": "vigia.json",
+      "generadoEl": "2026-07-14T22:51:07+02:00",
+      "destinoApp": [
+        "avisos",
+        "calendario"
+      ],
+      "resumen": "0 vencidos · 0 esta semana · 11 próx. 14d"
+    }
+  ]
+}
