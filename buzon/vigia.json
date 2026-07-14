@@ -1,0 +1,121 @@
+{
+  "generadoEl": "2026-07-14T22:51:07+02:00",
+  "generadoPor": "vigia.py (GitHub Actions)",
+  "zona": "Europe/Madrid",
+  "fechaReferencia": "2026-07-14",
+  "resumenTexto": "🔜 PRÓXIMOS 14 DÍAS: Viscofan 23-07, Atresmedia 24-07, Bankinter 24-07, Ebro Foods 25-07, Endesa 25-07, Iberdrola 25-07, Mapfre 25-07, Naturgy 25-07, Repsol 25-07, Vidrala, S.A. 25-07, Logista 28-07. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [],
+  "estaSemana": [],
+  "proximos14d": [
+    {
+      "ticker": "VIS",
+      "empresa": "Viscofan",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-23",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
+    },
+    {
+      "ticker": "A3M",
+      "empresa": "Atresmedia",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-24",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-23"
+    },
+    {
+      "ticker": "BKT",
+      "empresa": "Bankinter",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-24",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-23"
+    },
+    {
+      "ticker": "EBRO",
+      "empresa": "Ebro Foods",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-25"
+    },
+    {
+      "ticker": "ELE",
+      "empresa": "Endesa",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
+    },
+    {
+      "ticker": "IBE",
+      "empresa": "Iberdrola",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
+    },
+    {
+      "ticker": "MAP",
+      "empresa": "Mapfre",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
+    },
+    {
+      "ticker": "NTGY",
+      "empresa": "Naturgy",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-25"
+    },
+    {
+      "ticker": "REP",
+      "empresa": "Repsol",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
+    },
+    {
+      "ticker": "VID",
+      "empresa": "Vidrala, S.A.",
+      "periodoEsperado": "2026-Q2",
+      "fechaEstimada": "2026-07-25",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-25"
+    },
+    {
+      "ticker": "LOG",
+      "empresa": "Logista",
+      "periodoEsperado": "2026-Q3",
+      "fechaEstimada": "2026-07-28",
+      "gruesa": false,
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-04-30"
+    }
+  ],
+  "siguienteEvento": {
+    "ticker": "VIS",
+    "empresa": "Viscofan",
+    "periodoEsperado": "2026-Q2",
+    "fechaEstimada": "2026-07-23",
+    "gruesa": false,
+    "ultimoPeriodo": "2026-Q1",
+    "ultimaFecha": "2026-04-28"
+  },
+  "sinDeterminar": [],
+  "totalEmpresas": 13
+}
