@@ -41,7 +41,23 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=h;
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
-function renderAll(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+/* ===== Render selectivo: al cambiar datos repinta SOLO la vista activa (mapa vista→funciones).
+   Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
+   no está en el mapa, cae al render completo. ===== */
+const VIEW_FNS={
+  panel:['renderPanel'], presupuesto:['renderPres','renderPresAnalisis','renderPresExtras','renderRenov'],
+  movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:[],
+  universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
+  vision:['renderVision'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],
+  posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderPrevision'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
+  monitor:['renderMonitor'], metodo:['renderPanelMetodo'], riesgo:['renderRiesgo'],
+  proyeccion:['renderProy'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], metas:['renderMetas'], asignacion:['renderAsignacion'],
+  informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], graficas:['renderGraficas'], backtest:['renderBacktest']
+};
+function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
+function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
+function renderAllFull(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
 function openCatDlg(id){
@@ -113,29 +129,8 @@ function activarVista(view){
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador') setTimeout(()=>autoFitTable('simTabla',7,10),120);
   if(view==='plan') setTimeout(()=>autoFitTable('planTabla',7,11),120);
-  if(view==='posiciones' && typeof renderPOS==='function') renderPOS();
-  if(view==='fondor4') renderFondoR4();
-  if(view==='metas' && typeof renderMetas==='function') renderMetas();
-  if(view==='asignacion' && typeof renderAsignacion==='function') renderAsignacion();
-  if(view==='patrimonio') renderPat();
-  if(view==='proyeccion') renderProy();
-  if(view==='rebalanceo' && typeof renderRebalanceo==='function') renderRebalanceo();
-  if(view==='caja') renderCaja();
-  if(view==='monitor') renderMonitor();
-  if(view==='radardiv') renderRadarDiv();
-  if(view==='radar' && typeof renderRadar==='function') renderRadar();
-  if(view==='universo' && typeof renderUniverso==='function') renderUniverso();
-  if(view==='cobertura' && typeof renderCobertura==='function') renderCobertura();
-  if(view==='metodo' && typeof renderPanelMetodo==='function') renderPanelMetodo();
-  if(view==='desglose' && typeof renderPresDesglose==='function') renderPresDesglose();
-  if(view==='proxcompra' && typeof renderProxCompra==='function') renderProxCompra();
-  if(view==='backtest' && typeof renderBacktest==='function') renderBacktest();
-  if(view==='hemeroteca' && typeof renderHemeroteca==='function') renderHemeroteca();
-  if(view==='riesgo' && typeof renderRiesgo==='function') renderRiesgo();
-  if(view==='vision' && typeof renderVision==='function') renderVision();
-  if(view==='fiscalidad' && typeof renderFiscalidad==='function') renderFiscalidad();
-  if(view==='atribucion' && typeof renderAtribucion==='function') renderAtribucion();
-  if(view==='rentabilidad' && typeof renderRentabEmpresas==='function') renderRentabEmpresas();
+  /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
+  if(!renderView(view)) renderAllFull();
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
