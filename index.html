@@ -178,7 +178,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <div class="spacer"></div>
   <div class="filestat" style="flex-direction:column;align-items:flex-end;gap:4px">
     <div style="display:flex;align-items:center;gap:8px"><span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span><button class="btn ghost sm" id="btnLogout" style="display:none">Salir</button></div>
-    <div style="display:flex;gap:6px"><button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button><button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button></div>
+    <div style="display:flex;gap:6px"><button class="btn ghost sm" id="btnPapelera" title="Papelera: elementos borrados recientemente (restaurables)">🗑️ Papelera</button><button class="btn ghost sm" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Copia</button><button class="btn ghost sm" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">Restaurar</button></div>
   </div>
 </header>
 
@@ -807,6 +807,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/11-calibracion.js"></script>
   <script src="js/12-vision.js"></script>
   <script src="js/13-radar.js"></script>
+  <script src="js/14-papelera.js"></script>
   <script src="js/06-main.js"></script>
 
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
