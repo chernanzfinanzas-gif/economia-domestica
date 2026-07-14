@@ -45,7 +45,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel'], presupuesto:['renderPres','renderPresAnalisis','renderPresExtras','renderRenov'],
+  panel:['renderPanel','renderBuzonPanel'], presupuesto:['renderPres','renderPresAnalisis','renderPresExtras','renderRenov'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:[],
   universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
   vision:['renderVision'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],

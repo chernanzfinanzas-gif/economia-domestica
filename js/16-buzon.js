@@ -51,6 +51,37 @@
     return h;
   }
 
+  // Aviso compacto en el Panel (visible a diario) con acceso rápido al buzón.
+  // Los lunes se resalta como recordatorio para "volcar el buzón".
+  window.renderBuzonPanel=function(){
+    var host=document.getElementById('panelBuzon'); if(!host) return;
+    var esLunes=(new Date().getDay()===1);
+    Promise.all([jget('buzon/index.json'), jget('buzon/vigia.json')]).then(function(r){
+      var idx=r[0], v=r[1];
+      var linea;
+      if(v){
+        var nV=(v.vencidos||[]).length, nS=(v.estaSemana||[]).length, nP=(v.proximos14d||[]).length;
+        linea='';
+        if(nV) linea+='<b style="color:#b91c1c">'+nV+' vencido'+(nV>1?'s':'')+'</b> · ';
+        linea+=(nS? ('<b>'+nS+'</b> esta semana') : 'nada esta semana');
+        if(nP) linea+=' · '+nP+' próx. 14 días';
+        if(v.generadoEl) linea+=' <span class="muted">('+fdt(v.generadoEl).slice(0,10)+')</span>';
+      } else {
+        linea='Se actualiza solo cada lunes por la mañana.';
+      }
+      var bg=esLunes?'linear-gradient(90deg,#fff7ed,#ffedd5)':'#fff';
+      var borde=esLunes?'#f59e0b':'var(--line)';
+      var record=esLunes?'<div style="font-weight:700;color:#9a3412;font-size:12.5px;margin-top:4px">📌 Hoy es lunes: revisa y vuelca el buzón</div>':'';
+      host.innerHTML='<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between;'
+        +'background:'+bg+';border:1px solid '+borde+';border-radius:12px;padding:12px 14px;margin:10px 0 6px">'
+        +'<div style="min-width:200px;flex:1"><div style="font-weight:700;font-size:14px">📥 Buzón del lunes</div>'
+        +'<div class="muted" style="font-size:13px;margin-top:2px">'+linea+'</div>'+record+'</div>'
+        +'<button id="panelBuzonBtn" style="background:var(--brand);color:#fff;border:none;border-radius:9px;padding:8px 14px;font-weight:700;cursor:pointer;white-space:nowrap">Abrir buzón →</button></div>';
+      var b=document.getElementById('panelBuzonBtn');
+      if(b) b.addEventListener('click',function(){ if(typeof activarVista==='function') activarVista('buzon'); });
+    });
+  };
+
   window.renderBuzon=function(){
     var wrap=document.getElementById('buzonWrap'); if(!wrap) return;
     wrap.innerHTML='<p class="muted">Cargando buzón…</p>';
