@@ -115,6 +115,17 @@ const GROUPS={
   graficas:[['graficas','Gráficas'],['backtest','Backtest']]
 };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
+/* Botón flotante «+»: en cada vista lleva directo a donde se añade información */
+const ADD_ACTIONS={
+  movimientos:()=>{ const f=$('#movForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); const d=$('#movFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); setTimeout(()=>{ const c=$('#movConcepto'); if(c)c.focus(); },350); },
+  inversiones:()=>{ const b=$('#invAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
+  analisis:()=>{ const b=$('#anaAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#anaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
+  fondor4:()=>{ const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
+  amalia:()=>{ const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
+  patrimonio:()=>{ const b=$('#patAdd'); if(b)b.click(); },
+  diversif:()=>{ const b=$('#loteAdd'); if(b)b.click(); }
+};
+if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
 const groupCurrent={control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
@@ -132,6 +143,8 @@ function activarVista(view){
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
   if(!renderView(view)) renderAllFull();
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
+  /* Botón flotante «+»: visible (en móvil) solo si la vista tiene acción de añadir */
+  const _fab=$('#fabAdd'); if(_fab) _fab.classList.toggle('fab-hidden', !ADD_ACTIONS[view]);
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
