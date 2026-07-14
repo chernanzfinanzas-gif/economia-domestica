@@ -447,6 +447,10 @@ function renderPlanLote(){
   const held=Object.keys(invByT);
   const totalInv=Object.values(invByT).reduce((s,v)=>s+v,0);
   const nm=t=>((DB.valores||{})[t]||{}).nombre || (((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre) || t;
+  /* Empresas con plan asignado (importe>0) que ya no están en cartera: mantenerlas
+     visibles en Diversificación como elegidas, para que no desaparezcan al vender. */
+  DB.planLote=DB.planLote||[];
+  Object.keys(DB.planCompras||{}).forEach(t=>{ t=(t||'').toUpperCase(); if(!t||held.includes(t))return; const hasAmt=Object.values(DB.planCompras[t]||{}).some(v=>num(v)>0); if(hasAmt && !DB.planLote.map(x=>(x||'').toUpperCase()).includes(t)) DB.planLote.push(t); });
   DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i&&!held.includes(t));
   const chosen=DB.planLote; const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{};
   const tipoSel=t=>`<select class="anaInp" data-lotetipo="${t}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="mantener"${pt[t]==='mantener'?' selected':''}>Mantener</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option></select>`;
