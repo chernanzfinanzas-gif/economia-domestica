@@ -4,11 +4,98 @@
   "empresa": "Ebro Foods",
   "revisiones": [
     {
-      "periodo": "2023-FY",
-      "fecha": "2024-02-28",
+      "periodo": "1T-2023",
+      "fecha": "2023-04-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "2023: recuperación tras el shock de 2022; EBITDA-A +21%, deuda 570 M€ (1,5x).",
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 810.2
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 96.3
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 11.9
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 43.8
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "S1-2023",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1557.9
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 194.8
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 93.1
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "9M-2023",
+      "fecha": "2023-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2306.8
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 284.4
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 140.1
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "FY-2023",
+      "fecha": "2024-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
@@ -23,41 +110,108 @@
           "valor": 12.6
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "BNA atribuible (M€)",
           "valor": 187.0
         },
         {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 570.4
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.47
-        },
-        {
-          "nombre": "CapEx (M€)",
-          "valor": 141.7
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "DPA (€)",
-          "valor": 0.66
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 21.0
+          "nombre": "%Var EBITDA YoY",
+          "valor": null
         }
       ]
     },
     {
-      "periodo": "2024-FY",
-      "fecha": "2025-02-27",
+      "periodo": "1T-2024",
+      "fecha": "2024-04-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "2024: crecimiento sólido (EBITDA-A +6,7%, ventas récord), leve repunte de deuda por CapEx.",
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 806.6
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 109.7
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.6
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 53.7
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 13.9
+        }
+      ]
+    },
+    {
+      "periodo": "S1-2024",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1580.1
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 210.5
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.3
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 108.9
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 8.1
+        }
+      ]
+    },
+    {
+      "periodo": "9M-2024",
+      "fecha": "2024-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2346.8
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 308.0
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.1
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 169.2
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 8.3
+        }
+      ]
+    },
+    {
+      "periodo": "FY-2024",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
@@ -72,41 +226,108 @@
           "valor": 13.2
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "BNA atribuible (M€)",
           "valor": 207.9
         },
         {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 593.2
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.44
-        },
-        {
-          "nombre": "CapEx (M€)",
-          "valor": 155.3
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "DPA (€)",
-          "valor": 0.69
-        },
-        {
-          "nombre": "%Var EBITDA",
+          "nombre": "%Var EBITDA YoY",
           "valor": 6.7
         }
       ]
     },
     {
-      "periodo": "2025-FY",
+      "periodo": "1T-2025",
+      "fecha": "2025-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 792.0
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 112.1
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 14.2
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 50.3
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 2.2
+        }
+      ]
+    },
+    {
+      "periodo": "S1-2025",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1533.4
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 212.9
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.9
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 97.0
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 1.1
+        }
+      ]
+    },
+    {
+      "periodo": "9M-2025",
+      "fecha": "2025-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2276.0
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 311.5
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.7
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 154.3
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": 1.1
+        }
+      ]
+    },
+    {
+      "periodo": "FY-2025",
       "fecha": "2026-02-26",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "2025: márgenes en máximos (14,0%) pese a −4% de ventas por divisa; fuerte desapalancamiento a 1,26x y beneficio récord.",
+      "resumen": "Trimestre en línea; márgenes firmes y tesis intacta.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
@@ -121,32 +342,41 @@
           "valor": 14.0
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "BNA atribuible (M€)",
           "valor": 214.9
         },
         {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 529.4
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.26
-        },
-        {
-          "nombre": "CapEx (M€)",
-          "valor": 134.9
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "DPA (€)",
-          "valor": 0.69
-        },
-        {
-          "nombre": "%Var EBITDA",
+          "nombre": "%Var EBITDA YoY",
           "valor": 1.8
+        }
+      ]
+    },
+    {
+      "periodo": "1T-2026",
+      "fecha": "2026-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "1T-2026: EBITDA-A −10,8% interanual por comparación exigente y divisa; margen 13,2%. Señal temprana a vigilar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 755.5
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 100.0
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.2
+        },
+        {
+          "nombre": "BNA atribuible (M€)",
+          "valor": 52.9
+        },
+        {
+          "nombre": "%Var EBITDA YoY",
+          "valor": -10.8
         }
       ]
     }
