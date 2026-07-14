@@ -149,5 +149,7 @@ function renderMazinger(){
   var cancel=document.getElementById('mzCancel');
   if(cancel)cancel.addEventListener('click',function(){ _mzEdit=null; renderMazinger(); });
   host.querySelectorAll('.mzEd').forEach(function(b){ b.addEventListener('click',function(){ _mzEdit=b.getAttribute('data-id'); renderMazinger(); var f=document.getElementById('mzFecha'); if(f)f.scrollIntoView({block:'center'}); }); });
-  host.querySelectorAll('.mzDel').forEach(function(b){ b.addEventListener('click',function(){ var id=b.getAttribute('data-id'); if(!confirm('¿Borrar este repostaje?'))return; DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); if(_mzEdit===id)_mzEdit=null; if(typeof scheduleSave==='function')scheduleSave(); renderMazinger(); }); });
+  host.querySelectorAll('.mzDel').forEach(function(b){ b.addEventListener('click',function(){ var id=b.getAttribute('data-id'); var it=(DB.combustible||[]).filter(function(x){return x.id===id;})[0]; if(!it)return;
+    if(typeof undoableDelete==='function'){ if(_mzEdit===id)_mzEdit=null; undoableDelete('combustible','Repostaje'+(it.fecha?(' '+it.fecha):''),{item:it},function(){ DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); },['renderMazinger']); }
+    else { if(!confirm('¿Borrar este repostaje?'))return; DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); if(_mzEdit===id)_mzEdit=null; if(typeof scheduleSave==='function')scheduleSave(); renderMazinger(); } }); });
 }

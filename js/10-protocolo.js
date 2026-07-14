@@ -260,7 +260,7 @@ document.addEventListener('click',e=>{
     if(ap){ const m=prompt('Desenlace (se añade al motivo):',''); if(m===null)return; ap.estado='resuelta'; if(m.trim())ap.motivo=(ap.motivo?ap.motivo+' → ':'')+m.trim(); ap.resuelto=_protoHoy();
       if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } return; }
   const del=e.target.closest&&e.target.closest('[data-protodel]');
-  if(del){ const a=(del.dataset.protodel||'').split('|'); if(!confirm('¿Borrar este apunte del registro?'))return;
-    if(DB.protocolo&&DB.protocolo[a[0]]){ DB.protocolo[a[0]]=DB.protocolo[a[0]].filter(x=>x.id!==a[1]);
-      if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } return; }
+  if(del){ const a=(del.dataset.protodel||'').split('|'); if(DB.protocolo&&DB.protocolo[a[0]]){ const _it=(DB.protocolo[a[0]]||[]).find(x=>x.id===a[1]); if(!_it)return;
+    if(typeof undoableDelete==='function'){ undoableDelete('protocolo','Apunte de protocolo '+a[0],{t:a[0],item:_it},()=>{ DB.protocolo[a[0]]=DB.protocolo[a[0]].filter(x=>x.id!==a[1]); },['renderPanelDash']); }
+    else { if(!confirm('¿Borrar este apunte del registro?'))return; DB.protocolo[a[0]]=DB.protocolo[a[0]].filter(x=>x.id!==a[1]); if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } } return; }
 });

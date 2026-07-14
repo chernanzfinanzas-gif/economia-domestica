@@ -78,7 +78,9 @@ function importUniverso(j){
   alert('Importado: '+add+' nuevas, '+fill+' campos rellenados. Tus ediciones previas se conservan.');
 }
 document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('uInp'))return; var tk=(t.getAttribute('data-ut')||''), f=t.getAttribute('data-uf'); if(!tk||!f)return; DB.universo=DB.universo||{}; DB.universo[tk]=DB.universo[tk]||{}; DB.universo[tk][f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); });
-document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-udel]'); if(!b)return; var t=b.getAttribute('data-udel'); if(DB.universo&&DB.universo[t]&&confirm('¿Quitar '+t+' del universo?')){ delete DB.universo[t]; if(typeof scheduleSave==='function')scheduleSave(); renderUniverso(); } });
+document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-udel]'); if(!b)return; var t=b.getAttribute('data-udel'); if(DB.universo&&DB.universo[t]){ var item=DB.universo[t];
+  if(typeof undoableDelete==='function'){ undoableDelete('universo','Empresa '+t+' del universo',{t:t,item:item},function(){ delete DB.universo[t]; },['renderUniverso']); }
+  else { if(!confirm('¿Quitar '+t+' del universo?'))return; delete DB.universo[t]; if(typeof scheduleSave==='function')scheduleSave(); renderUniverso(); } } });
 
 /* ================= PESTAÑA RADAR ================= */
 var _radFundCache=null, _radSort={k:'atr',dir:-1}, _radArqFilter='';
