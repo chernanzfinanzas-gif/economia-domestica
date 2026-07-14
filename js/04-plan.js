@@ -417,7 +417,7 @@ function renderPlan(){
   const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}</th>`).join('')+'<th class="num">Total</th></tr>';
   const grand=Object.values(totYear).reduce((s,v)=>s+v,0);
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
-  const presRow='<tr style="background:#fffbeb"><td>Presupuesto/año</td>'+years.map(y=>`<td class="num">${(pr[y]!=null)?fmt(pr[y]):'·'}</td>`).join('')+'<td></td></tr>';
+  const presRow='<tr style="background:#fffbeb"><td>Presupuesto/año</td>'+years.map(y=>`<td class="num"><input type="number" step="100" class="anaInp" style="width:70px;text-align:center" data-plpres="${y}" value="${pr[y]!=null?pr[y]:''}" placeholder="·" title="Presupuesto disponible ese año"></td>`).join('')+'<td></td></tr>';
   const exeRow='<tr style="font-weight:600"><td>Por ejecutar</td>'+years.map(y=>{ const dif=num(pr[y]||0)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${(pr[y]!=null)?fmt(dif):'·'}</td>`; }).join('')+'<td></td></tr>';
   const ejec=[]; tickers.forEach(t=>Object.keys(pc[t]||{}).forEach(y=>{ const plan=num(pc[t][y]); if(plan<=0)return; const exe=(typeof execBuyEur==='function')?execBuyEur(t,+y):0; if(exe<=0)return; const falta=Math.max(0,plan-exe); const comp=exe>=plan-0.005; ejec.push({t,y,plan,exe,falta,comp}); }));
   const _pendTot=ejec.reduce((s,e)=>s+e.falta,0);
