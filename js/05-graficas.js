@@ -438,3 +438,43 @@ function renderRenov(){ const el=$('#presRenov'); if(!el)return; const list=reno
     return `<tr><td>${r.nombre}</td><td class="muted">${r.grupo}</td><td class="num">${fmt(r.importe)}</td><td>${r.frec}</td><td>${r.metodo||'<span class="muted">—</span>'}</td><td>${fs}</td><td><span class="pill ${cls}">${dtxt}</span></td></tr>`; }).join('');
   el.innerHTML=`<h3 style="margin:0 0 6px;font-size:14px">Próximas renovaciones y pagos</h3><div class="sub" style="margin-bottom:6px">De las partidas del Presupuesto con fecha de renovación. Rojo = vencida o ≤7 días · ámbar = ≤30 días.</div><div style="overflow:auto"><table><thead><tr><th>Concepto</th><th>Grupo</th><th class="num">Importe</th><th>Frecuencia</th><th>Método</th><th>Próxima</th><th>Aviso</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
+
+/* ===== Proyección con incertidumbre (Monte Carlo) =====
+   Simula el valor de la cartera con rendimiento medio = crecCartera y volatilidad histórica
+   (del panel de Riesgo). Bandas p10/p50/p90 sobre patrimonio y probabilidad de alcanzar una meta. */
+function _mcNormal(){ let u=0,v=0; while(u===0)u=Math.random(); while(v===0)v=Math.random(); return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v); }
+function _mcBandSVG(years,p10,p50,p90,det,target){
+  const W=700,H=260,padL=54,padR=14,padT=12,padB=26; const n=years.length; if(n<2)return '';
+  const allV=p90.concat(det,[target]); let vmax=Math.max.apply(null,allV); let vmin=Math.min.apply(null,p10.concat([0])); if(vmin>0)vmin=0; if(vmax<=vmin)vmax=vmin+1;
+  const x=i=> padL+(W-padL-padR)*(i/(n-1));
+  const y=v=> padT+(H-padT-padB)*(1-(v-vmin)/(vmax-vmin));
+  const line=arr=> arr.map((v,i)=>(i?'L':'M')+x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ');
+  const bandPts=p90.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).join(' ')+' '+p10.map((v,i)=>x(i).toFixed(1)+','+y(v).toFixed(1)).reverse().join(' ');
+  const fmtK=v=> Math.abs(v)>=1000?(Math.round(v/1000)+'k'):String(Math.round(v));
+  let yl=''; const ticks=4; for(let k=0;k<=ticks;k++){ const v=vmin+(vmax-vmin)*k/ticks; const yy=y(v); yl+=`<line x1="${padL}" y1="${yy.toFixed(1)}" x2="${W-padR}" y2="${yy.toFixed(1)}" stroke="#eef2f7"/><text x="${padL-6}" y="${(yy+3).toFixed(1)}" text-anchor="end" font-size="10" fill="#94a3b8">${fmtK(v)}</text>`; }
+  let xl=''; [0,Math.floor((n-1)/2),n-1].forEach(i=>{ xl+=`<text x="${x(i).toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="10" fill="#94a3b8">${years[i]}</text>`; });
+  const tY=y(target); const tgt=(target>=vmin&&target<=vmax)?`<line x1="${padL}" y1="${tY.toFixed(1)}" x2="${W-padR}" y2="${tY.toFixed(1)}" stroke="#16a34a" stroke-width="1.2" stroke-dasharray="4 3"/><text x="${(W-padR).toFixed(1)}" y="${(tY-4).toFixed(1)}" text-anchor="end" font-size="10" fill="#16a34a">objetivo ${fmtK(target)}</text>`:'';
+  return `<svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block">${yl}<polygon points="${bandPts}" fill="#93c5fd" fill-opacity="0.35" stroke="none"/><path d="${line(p90)}" fill="none" stroke="#93c5fd" stroke-width="1"/><path d="${line(p10)}" fill="none" stroke="#93c5fd" stroke-width="1"/><path d="${line(p50)}" fill="none" stroke="#1d4ed8" stroke-width="1.9"/><path d="${line(det)}" fill="none" stroke="#64748b" stroke-width="1.1" stroke-dasharray="5 3"/>${tgt}${xl}</svg>`;
+}
+function renderProyMonteCarlo(){
+  const el=document.getElementById('proyMC'); if(!el)return;
+  const _pv=document.getElementById('view-proyeccion'); if(_pv && !_pv.classList.contains('active'))return; /* solo si la pestaña está visible (riesgoData es pesado) */
+  if(typeof computeProy!=='function'||!DB.config||!DB.config.proyeccion){ el.innerHTML='<div class="muted" style="font-size:12px">Configura la Proyección primero.</div>'; return; }
+  const c=DB.config.proyeccion; const base=computeProy(c); if(!base||!base.length){ el.innerHTML=''; return; }
+  const card=(l,v,cls)=>`<div class="card"><div class="lbl">${l}</div><div class="val ${cls||''}">${v}</div></div>`;
+  const mu=num(c.crecCartera)||0.04; let sigma=null,sigmaSrc='';
+  try{ if(typeof riesgoData==='function'){ const R=riesgoData(renderProyMonteCarlo); if(R&&R.ok&&R.volPort>0){ sigma=R.volPort; sigmaSrc='histórica de tu cartera'; } else if(R&&R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones para estimar la volatilidad de tu cartera…</div>'; return; } } }catch(e){}
+  if(sigma==null){ sigma=num(c.mcVol)||0.18; sigmaSrc='estimada '+(sigma*100).toFixed(0)+'%'; }
+  const years=base.map(r=>r.anio); const S=base.map(r=>num(r.aInversion)); const Ef=base.map(r=>num(r.efectivo));
+  const C0=num(c.carteraInicial); const N=years.length; const M=1000;
+  const paths=[]; for(let m=0;m<M;m++){ let C=C0; const arr=[C]; for(let i=1;i<N;i++){ const r=mu+sigma*_mcNormal(); C=C*(1+r)+num(S[i-1]); if(C<0)C=0; arr.push(C); } paths.push(arr); }
+  const pctl=(sorted,p)=>{ const idx=Math.min(sorted.length-1,Math.max(0,Math.round(p*(sorted.length-1)))); return sorted[idx]; };
+  const p10=[],p50=[],p90=[],det=[]; for(let i=0;i<N;i++){ const col=paths.map(pp=>pp[i]+Ef[i]).sort((a,b)=>a-b); p10.push(pctl(col,0.10)); p50.push(pctl(col,0.50)); p90.push(pctl(col,0.90)); det.push(num(base[i].patrimonio)); }
+  const defObj=Math.round((det[N-1]||p50[N-1])/10000)*10000; let target=num(c.mcObjetivo); if(!(target>0))target=defObj;
+  const finalCol=paths.map(pp=>pp[N-1]+Ef[N-1]); const probFinal=finalCol.filter(v=>v>=target).length/M;
+  let anioMed=null; for(let i=0;i<N;i++){ if(p50[i]>=target){ anioMed=years[i]; break; } }
+  const kb=`<div class="cards" style="margin-bottom:10px">`+card('Mediana (p50) '+years[N-1],fmt(p50[N-1]))+card('Rango p10–p90 '+years[N-1],fmt(p10[N-1])+' – '+fmt(p90[N-1]))+card('Prob. ≥ objetivo',(probFinal*100).toFixed(0)+'%',probFinal>=0.7?'pos':(probFinal<0.4?'neg':''))+card('Volatilidad usada',(sigma*100).toFixed(0)+'%')+`</div>`;
+  const ctrl=`<div class="toolbar" style="margin:4px 0 10px;gap:10px"><label style="font-size:13px">Patrimonio objetivo € <input type="number" step="10000" id="mcObjetivo" value="${Math.round(target)}" style="width:130px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></label><span class="muted" style="font-size:12px">${anioMed?('La mediana alcanza el objetivo en <b>'+anioMed+'</b>'):'La mediana no alcanza el objetivo en el horizonte'}</span></div>`;
+  el.innerHTML=kb+ctrl+_mcBandSVG(years,p10,p50,p90,det,target)+`<div class="muted" style="font-size:11px;margin-top:8px">${M} simulaciones. Rendimiento medio anual ${(mu*100).toFixed(1)}% (tu «crecimiento cartera» de la Proyección) y volatilidad ${sigmaSrc}. La banda azul es el 80% central de escenarios (p10–p90), la línea azul la mediana (p50) y la gris discontinua tu proyección determinista. Incluye tus aportaciones anuales y el efectivo previsto. Es una simulación estadística, no una garantía.</div>`;
+  { const _o=document.getElementById('mcObjetivo'); if(_o)_o.addEventListener('change',()=>{ DB.config.proyeccion.mcObjetivo=Math.max(0,num(_o.value)); if(typeof scheduleSave==='function')scheduleSave(); renderProyMonteCarlo(); }); }
+}

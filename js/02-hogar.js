@@ -845,6 +845,7 @@ function renderProy(){
     <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
   </tr>`; });
   $('#proyTabla').innerHTML=`<style>#proyTabla table{font-size:10px}#proyTabla th{padding:3px 5px}#proyTabla td{padding:3px 5px;white-space:nowrap}#proyTabla td:nth-child(1){white-space:normal}#proyTabla th:nth-child(13),#proyTabla td:nth-child(13),#proyTabla th:nth-child(15),#proyTabla td:nth-child(15){display:none}</style><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Efectivo real</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio teórico</th><th class="num">Patrimonio real</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table><div style="font-size:11px;color:#64748b;margin-top:6px">Patrimonio real (años ya vividos) vs objetivo teórico: <span style="background:#dcfce7;padding:1px 6px;border-radius:4px">≥ objetivo</span> <span style="background:#fef9c3;padding:1px 6px;border-radius:4px">95–100%</span> <span style="background:#fee2e2;padding:1px 6px;border-radius:4px">por debajo</span></div>`;
+  if(typeof renderProyMonteCarlo==='function')renderProyMonteCarlo();
 }
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;

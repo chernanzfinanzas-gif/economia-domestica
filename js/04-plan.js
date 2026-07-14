@@ -204,6 +204,39 @@ function fiscalSimVenta(){
   const aviso2m=reciente?`<div class="card" style="background:#fee2e2;border:1px solid #fecaca;margin-bottom:8px"><div class="sub" style="color:#991b1b"><b>Regla de los 2 meses:</b> has comprado ${t} en los últimos 2 meses. Si vendes con pérdida, Hacienda NO permite deducirla este año (tampoco si recompras en los 2 meses siguientes).</div></div>`:'';
   out.innerHTML=aviso2m+resumen+`<div class="sub" style="margin-bottom:4px">Lotes que se venden (FIFO, del más antiguo al más nuevo):</div><div style="overflow:auto"><table style="width:100%"><thead><tr><th>Compra</th><th class="num">Acc.</th><th class="num">P.compra</th><th class="num">Resultado</th></tr></thead><tbody>${lotHTML}</tbody></table></div>`;
 }
+/* ===== Motor de rebalanceo por bandas =====
+   Peso actual (valor de mercado) vs objetivo (Diversificación → _objCache). Banda ±pp configurable.
+   Reparte una aportación SOLO comprando, proporcional al hueco de las infraponderadas fuera de banda. */
+function renderRebalanceo(){
+  const el=document.getElementById('rebalBody'); if(!el)return; const kp=document.getElementById('rebalKpis');
+  if((!_objCache||!Object.keys(_objCache).length)&&typeof renderPlanLote==='function'){ try{ renderPlanLote(); }catch(e){} }
+  const oc=_objCache||{}; const tickers=Object.keys(oc);
+  if(!tickers.length){ el.innerHTML='<div class="empty">Primero define objetivos en <b>Diversificación</b> (asigna Tipo y objetivos a tus empresas).</div>'; if(kp)kp.innerHTML=''; return; }
+  const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
+  const mv={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001){ const t=(p.ticker||'').toUpperCase(); mv[t]=(mv[t]||0)+p.acciones*num(p.precioActual); } });
+  let totMV=0; tickers.forEach(t=>{ totMV+=(mv[t]||0); });
+  const sumObj=tickers.reduce((s,t)=>s+num(oc[t].obj),0);
+  DB.config=DB.config||{};
+  let band=num(DB.config.rebalBandPP); if(!(band>0))band=5;
+  const aport=Math.max(0,num(DB.config.rebalAportacion)); const newTotal=totMV+aport;
+  let rows=tickers.map(t=>{ const targetW=sumObj>0?num(oc[t].obj)/sumObj:0; const curV=mv[t]||0; const curW=totMV>0?curV/totMV:0; const driftPP=(curW-targetW)*100; const desired=targetW*newTotal; const gap=Math.max(0,desired-curV); let estado; if(driftPP<-band)estado='bajo'; else if(driftPP>band)estado='alto'; else estado='ok'; return {t,nombre:nm(t),targetW,curV,curW,driftPP,gap,estado,aportar:0}; });
+  let elig=rows.filter(r=>r.estado==='bajo'&&r.gap>0); if(!elig.length)elig=rows.filter(r=>r.driftPP<0&&r.gap>0);
+  const sumGap=elig.reduce((s,r)=>s+r.gap,0); let repartida=0;
+  if(aport>0&&sumGap>0){ const eligSet=new Set(elig.map(r=>r.t)); rows.forEach(r=>{ if(eligSet.has(r.t)){ r.aportar=Math.round(aport*r.gap/sumGap); repartida+=r.aportar; } }); }
+  rows.sort((a,b)=>{ const oa=a.estado==='ok'?1:0, ob=b.estado==='ok'?1:0; return oa-ob || Math.abs(b.driftPP)-Math.abs(a.driftPP); });
+  const nFuera=rows.filter(r=>r.estado!=='ok').length; const pf=x=>x.toFixed(1)+'%';
+  const estCell=r=> r.estado==='bajo'?'<span style="color:#16a34a;font-weight:700">▼ infra</span>':(r.estado==='alto'?'<span style="color:#dc2626;font-weight:700">▲ sobre</span>':'<span class="muted">en banda</span>');
+  const body=rows.map(r=>`<tr${r.estado!=='ok'?` style="background:${r.estado==='bajo'?'#f0fdf4':'#fef2f2'}"`:''}><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b> <span class="muted" style="font-size:10px">${(r.nombre||'').slice(0,18)}</span></td><td class="num">${fmt(r.curV)}</td><td class="num">${pf(r.curW*100)}</td><td class="num">${pf(r.targetW*100)}</td><td class="num ${r.driftPP<0?'pos':(r.driftPP>0?'neg':'')}">${r.driftPP>=0?'+':''}${r.driftPP.toFixed(1)} pp</td><td class="num">${estCell(r)}</td><td class="num" style="font-weight:700">${r.aportar>0?fmt(r.aportar):'·'}</td></tr>`).join('');
+  const head='<tr><th>Empresa</th><th class="num">Valor</th><th class="num">% actual</th><th class="num">% objetivo</th><th class="num">Desvío</th><th class="num">Banda</th><th class="num">Aportar €</th></tr>';
+  const toolbar=`<div class="toolbar" style="margin-bottom:10px;gap:10px"><label style="font-size:13px">Banda ± <input type="number" step="1" id="rebalBand" value="${band}" style="width:60px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:center"> pp</label><label style="font-size:13px">Aportación € <input type="number" step="100" id="rebalAport" value="${aport||''}" placeholder="0" style="width:110px;padding:3px;border:1px solid var(--line);border-radius:6px;text-align:right"></label></div>`;
+  const nota='<div class="muted" style="font-size:11px;margin-top:8px">Peso objetivo = objetivo € de Diversificación normalizado a 100%. Fuera de banda si el desvío supera ±'+band+' pp. La aportación se reparte <b>solo comprando</b>, proporcional al hueco de las infraponderadas fuera de banda (si ninguna se sale, a las más infraponderadas). No vende ni ejecuta órdenes reales.</div>';
+  el.innerHTML=toolbar+'<div style="overflow:auto"><table><thead>'+head+'</thead><tbody>'+body+'</tbody></table></div>'+nota;
+  if(kp)kp.innerHTML=[['Valor cartera',fmt(totMV)],['Fuera de banda',nFuera+' / '+rows.length],['Aportación',fmt(aport)],['Repartida',fmt(repartida)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  { const _b=document.getElementById('rebalBand'), _a=document.getElementById('rebalAport');
+    if(_b)_b.addEventListener('change',()=>{ DB.config.rebalBandPP=Math.max(0,num(_b.value)); if(typeof scheduleSave==='function')scheduleSave(); renderRebalanceo(); });
+    if(_a)_a.addEventListener('change',()=>{ DB.config.rebalAportacion=Math.max(0,num(_a.value)); if(typeof scheduleSave==='function')scheduleSave(); renderRebalanceo(); });
+  }
+}
 // === Base de gasto/ingreso recurrente = presupuesto mensual del año en curso (evita distorsión de gastos puntuales) ===
 function gastoMensualPresu(){ const nowY=new Date().getFullYear(); let g=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='gasto'){ g+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?g:null; }
 function ingMensualPresu(){ const nowY=new Date().getFullYear(); let ing=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='ingreso'){ ing+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?ing:null; }
