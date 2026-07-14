@@ -93,6 +93,7 @@ function renderRadarDiv(){
     +'<input type="search" id="radarSearch" placeholder="Buscar nombre o ticker…" style="margin-left:16px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px"></div>';
 
   /* tabla */
+  var _dHeld=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
   var trs=rows.map(function(r){
     var st=r.st, x=r.x;
     var rpdTxt=r.rpd!=null?(pf(r.rpd,2)+'%'):'—';
@@ -102,9 +103,11 @@ function renderRadarDiv(){
     var nivel='—',nivCol='#94a3b8';
     if(st){ if(st.pos<33){nivel='Bajo';nivCol='#16a34a';} else if(st.pos<66){nivel='Medio';nivCol='#d97706';} else {nivel='Alto';nivCol='#dc2626';} nivel+=' ('+st.pos.toFixed(0)+'%)'; }
     var selMark=!!(DB.radarSel&&DB.radarSel[x.t]);
-    var rowStyle= selMark
-      ? ' style="background:#dbeafe;font-size:15px;font-weight:600"'
-      : ((st&&st.pos<=33&&r.rpd!=null&&r.rpd>=rpdMed)?' style="background:#f0fdf4"':'');
+    var _bg=(typeof statusRowBg==='function')?statusRowBg(x.t,_dHeld):'';
+    var rowStyle;
+    if(_bg){ rowStyle=' style="background:'+_bg+(selMark?';font-size:15px;font-weight:600':'')+'"'; }
+    else if(selMark){ rowStyle=' style="background:#dbeafe;font-size:15px;font-weight:600"'; }
+    else { rowStyle=(st&&st.pos<=33&&r.rpd!=null&&r.rpd>=rpdMed)?' style="background:#f0fdf4"':''; }
     var nameSz= selMark?'12px':'11px';
     return '<tr data-fs="'+_infEscSafe((x.t+' '+(x.nombre||'')).toLowerCase())+'"'+rowStyle+'>'
       +'<td style="text-align:center"><input type="checkbox" class="radarCk" data-radarck="'+_infEscSafe(x.t)+'"'+(selMark?' checked':'')+' title="Marcar como empresa interesante" style="width:16px;height:16px;cursor:pointer"></td>'

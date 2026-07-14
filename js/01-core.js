@@ -419,3 +419,10 @@ function afterLoad(){ if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   const _fm=(location.hash||'').match(/ficha=([^&]+)/);
   if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
 }
+
+/* ---- Estado de una empresa para colorear filas (cartera / analizada) ---- */
+/* Devuelve el Set de tickers con posición abierta en cartera. */
+function heldTickerSet(){ var s=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(num(p.acciones)>0.0001) s.add((p.ticker||'').toUpperCase()); }); }catch(e){} return s; }
+/* Fondo de fila: verde claro = en cartera; amarillo claro = analizada pero no comprada; '' = ninguno.
+   Se le puede pasar un Set ya calculado (held) para no recomputarlo en cada fila. */
+function statusRowBg(t,held){ t=(t||'').toUpperCase(); if(!t)return ''; held=held||heldTickerSet(); if(held.has(t))return '#dcfce7'; if(typeof _esAnalizada==='function'&&_esAnalizada(t))return '#fef9c3'; return ''; }

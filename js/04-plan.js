@@ -574,7 +574,8 @@ function renderMonitor(){
     let q;
     if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=!!(m.rev&&m.rev[key]); const passed=qPassed(t,qc,yr); const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'·'); return `<td class="num" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Resultados ya publicados':'Aún no publicados'}">${mark}</td>`; }).join(''); }
     else { q='<td colspan="4" class="muted" style="font-size:11px;text-align:center">Falta informe</td>'; }
-    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${dosCell}${q}</tr>`;
+    const _bg=(typeof statusRowBg==='function')?statusRowBg(t,held):'';
+    return `<tr${_bg?` style="background:${_bg}"`:''}><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${dosCell}${q}</tr>`;
   }).join('');
   const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th rowspan="2">Dossier</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;

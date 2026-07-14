@@ -44,8 +44,10 @@ function renderUniverso(){
     if(key==='arquetipo') return '<td><select class="uInp" data-ut="'+_radEsc(t)+'" data-uf="arquetipo">'+arqOpts(u.arquetipo||'Sin clasificar')+'</select></td>';
     return '<td><input class="uInp" data-ut="'+_radEsc(t)+'" data-uf="'+key+'" value="'+_radEsc(u[key]||'')+'" style="width:'+w+'px"></td>';
   };
+  var _uHeld=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
   var rows=ks.map(function(t){ var u=DB.universo[t]||{};
-    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"><td><b data-ficha="'+_radEsc(t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(t)+'</b></td>'
+    var _bg=(typeof statusRowBg==='function')?statusRowBg(t,_uHeld):'';
+    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"'+(_bg?' style="background:'+_bg+'"':'')+'><td><b data-ficha="'+_radEsc(t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(t)+'</b></td>'
       + UNI_FIELDS.map(function(f){ return celdaEdit(t,u,f[0],f[2]||120); }).join('')
       + '<td class="right"><button class="btn ghost sm" data-udel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
   }).join('');
@@ -101,10 +103,13 @@ function renderRadar(){
     var kpis='<div class="cards">'+card('Universo con datos',String(cands.length))+card('Mejor atractivo',mejor?(mejor.atr.toFixed(1)+' · '+_radEsc(mejor.t)):'—')+card('Posibles trampas',String(trampas))+card('Actualizado',_radEsc((fund&&fund.actualizado)||'—'))+'</div>';
     var filtro='<div style="margin:10px 0"><label style="font-size:13px">Arquetipo: <select id="radArq"><option value="">todos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('')+'</select></label> <input type="search" id="radSearch" placeholder="Buscar nombre o ticker…" style="margin-left:12px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px"> <span class="muted" style="font-size:12px">· pulsa Atractivo o RPD para ordenar</span>'+'<button class="btn sm" id="radAddCola" style="margin-left:12px">➕ Añadir ★ a la cola</button></div>';
     var arr=function(k){ return _radSort.k===k?(_radSort.dir<0?' ▼':' ▲'):''; };
+    var _rHeld=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
     var trs=view.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
       var acol=c.atr>=70?'#16a34a':(c.atr>=55?'#2563eb':'#64748b');
       var nota=(c.nota+(c.trampa?(c.nota?', ':'')+'posible trampa':'')).trim();
-      return '<tr data-fs="'+_radEsc((c.t+' '+(c.nombre||'')).toLowerCase())+'"'+(sel?' style="background:#dbeafe"':'')+'>'
+      var _bg=(typeof statusRowBg==='function')?statusRowBg(c.t,_rHeld):'';
+      var _st=_bg?' style="background:'+_bg+'"':(sel?' style="background:#dbeafe"':'');
+      return '<tr data-fs="'+_radEsc((c.t+' '+(c.nombre||'')).toLowerCase())+'"'+_st+'>'
         +'<td style="text-align:center"><input type="checkbox" class="radCk" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+' title="Marcar interesante" style="width:15px;height:15px;cursor:pointer"></td>'
         +'<td class="num" style="font-weight:800;color:'+acol+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+'</td>'
         +'<td><b data-ficha="'+_radEsc(c.t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(c.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((c.nombre||'').slice(0,20))+'</span></td>'
