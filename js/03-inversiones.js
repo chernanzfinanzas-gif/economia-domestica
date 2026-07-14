@@ -677,7 +677,38 @@ function renderInvClosed(){
 }
 function autoFitTable(id,minPx,maxPx){ const w=$('#'+id); if(!w)return; const t=w.querySelector('table'); if(!t)return; if(!w.clientWidth)return; let fs=maxPx; t.style.fontSize=fs+'px'; let g=0; while(t.scrollWidth>w.clientWidth+1 && fs>minPx && g<50){ fs-=0.5; t.style.fontSize=fs+'px'; g++; } }
 function fitDividendos(){ autoFitTable('divMatrixWrap',8,12); autoFitTable('divResumenWrap',8,12); }
+/* ===== Alerta temprana de recorte de dividendo =====
+   Señal para empresas en cartera: caída del DPA (histórico o previsto en Evolución Dividendo)
+   y, si hay fundamentales.json cargado, payout muy alto con BPA cayendo. Nivel 1=medio, 2=alto. */
+function _divRiesgoScan(){
+  const nowY=new Date().getFullYear();
+  const held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
+  const dpaAll=DB.divPorAccion||{};
+  const fmap={}; try{ if(typeof _radFundCache!=='undefined' && _radFundCache && _radFundCache.empresas){ _radFundCache.empresas.forEach(f=>{ fmap[(''+f.ticker).toUpperCase()]=f; }); } }catch(e){}
+  const out=[];
+  held.forEach(t=>{
+    const o=dpaAll[t]||{};
+    const ys=Object.keys(o).map(Number).filter(y=>num(o[y])>0).sort((a,b)=>a-b);
+    const razones=[]; let nivel=0;
+    if(ys.length>=2){ const last=ys[ys.length-1], prev=ys[ys.length-2]; const vLast=num(o[last]), vPrev=num(o[prev]); if(vLast<vPrev*0.98){ const caida=1-vLast/vPrev; razones.push('DPA '+last+' −'+(caida*100).toFixed(0)+'% vs '+prev); nivel=Math.max(nivel, caida>=0.15?2:1); } }
+    let firmeY=null, firmeV=0; ys.forEach(y=>{ if(y<=nowY){ firmeY=y; firmeV=num(o[y]); } });
+    if(firmeV>0){ [nowY+1,nowY+2].forEach(fy=>{ const v=num(o[fy]); if(v>0 && v<firmeV*0.98){ const c=1-v/firmeV; razones.push('previsión '+fy+' −'+(c*100).toFixed(0)+'% vs '+firmeY); nivel=Math.max(nivel, c>=0.15?2:1); } }); }
+    const f=fmap[t]; const payoutAlto=!!(f&&f.payout!=null&&f.payout>90); const bpaCae=!!(f&&f.crecBpa!=null&&f.crecBpa<0); const irregular=!!(f&&(f.flags||[]).some(x=>/irregular/i.test(x)));
+    if(nivel>0){ if(payoutAlto)razones.push('payout '+Math.round(f.payout)+'%'); if(bpaCae)razones.push('BPA cayendo'); if(irregular)razones.push('div. irregular'); if(payoutAlto&&bpaCae)nivel=2; }
+    else if(payoutAlto&&bpaCae){ nivel=1; razones.push('payout '+Math.round(f.payout)+'% + BPA cayendo'); if(irregular)razones.push('div. irregular'); }
+    if(nivel>0 && razones.length) out.push({t,nivel,razones});
+  });
+  out.sort((a,b)=> b.nivel-a.nivel || a.t.localeCompare(b.t));
+  return out;
+}
+function dividendoAlertas(){ return _divRiesgoScan().map(r=>({pri:r.nivel>=2?1:3, cls:r.nivel>=2?'r':'a', goto:'dividendos', tick:r.t, txt:'✂️ <b>'+r.t+'</b> — posible recorte de dividendo: '+r.razones.join(' · ')})); }
+function _divRiesgoCardHTML(){
+  const scan=_divRiesgoScan(); if(!scan.length)return '';
+  const rows=scan.map(r=>{ const col=r.nivel>=2?'#dc2626':'#d97706'; const chip=r.nivel>=2?'Alto':'Medio'; return '<tr><td><b data-ficha="'+r.t+'" style="cursor:pointer;color:var(--brand)">'+r.t+'</b></td><td style="color:'+col+';font-weight:700">'+chip+'</td><td style="font-size:12px">'+r.razones.join(' · ')+'</td></tr>'; }).join('');
+  return '<div class="card" style="background:#fff7ed;border:1px solid #fed7aa;margin-bottom:12px"><div style="font-weight:700;color:#9a3412;margin-bottom:4px">✂️ Riesgo de recorte de dividendo ('+scan.length+')</div><div class="sub" style="margin-bottom:6px">Señal temprana: caída del DPA (histórico o previsto en <b>Evolución Dividendo</b>) y, si hay <code>fundamentales.json</code>, payout muy alto con BPA cayendo. Es un filtro de alerta, no recomendación.</div><div style="overflow:auto"><table style="width:100%"><thead><tr><th>Empresa</th><th>Riesgo</th><th>Motivo</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>';
+}
 function renderDividendos(){
+  { const _rw=document.getElementById('divRiesgoWrap'); if(_rw)_rw.innerHTML=(typeof _divRiesgoCardHTML==='function')?_divRiesgoCardHTML():''; }
   const ops=(DB.operaciones||[]).slice();
   const divs=DB.dividendos||{}; const valores=DB.valores||{};
   const divIng=DB.divIngresos||{};

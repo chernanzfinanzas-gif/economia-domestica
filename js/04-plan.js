@@ -170,7 +170,39 @@ function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=
   const rY=F.realY.slice().sort((a,b)=>(b.fechaV||'').localeCompare(a.fechaV||''));
   const realRows=rY.map(r=>`<tr><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td>${r.fechaV||'—'}</td><td class="num">${(+r.acc).toFixed(0)}</td><td class="num">${fmt(r.precioC)} → ${fmt(r.precioV)}</td><td class="num ${r.gan>=0?'pos':'neg'}">${sg(r.gan)}</td><td style="font-size:11px">${(r.gan<0&&r.recompra)?'<span style="color:#dc2626">⚠ pérdida bloqueada (recompra &lt;2m)</span>':''}</td></tr>`).join('');
   const realTable=rY.length?`<h3 style="font-size:14px;margin:14px 0 6px">Realizado en ${F.nowY} (FIFO)</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Venta</th><th class="num">Acc</th><th class="num">Compra→Venta</th><th class="num">Ganancia</th><th>Aviso</th></tr></thead><tbody>${realRows}<tr style="font-weight:700;background:#eef2f7"><td colspan="4">Neto realizado ${F.nowY}</td><td class="num ${F.realGainY>=0?'pos':'neg'}">${sg(F.realGainY)}</td><td></td></tr></tbody></table></div>`:`<div class="sub" style="margin-top:12px">Sin ventas registradas en ${F.nowY}.</div>`;
-  el.innerHTML=`<div class="sub" style="margin-bottom:10px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas del año. Tramos del ahorro 2025: 19% / 21% / 23% / 27% / 28%.</div>${harvestBox}${candTable}${realTable}`;
+  const _openBy={}; F.openLots.forEach(l=>{ _openBy[l.t]=(_openBy[l.t]||0)+l.acciones; });
+  const _stks=Object.keys(_openBy).sort();
+  const simHTML=`<div class="card" style="margin-bottom:12px"><div style="font-weight:700;margin-bottom:6px">🧮 Simulador de venta (FIFO)</div><div class="sub" style="margin-bottom:6px">Elige empresa y nº de acciones (o «Todas»): verás los lotes FIFO que se venden, la plusvalía/minusvalía realizada, el impuesto o el ahorro fiscal, y la regla de los 2 meses. En España el lote lo fija Hacienda (FIFO), no se elige.</div><div class="toolbar" style="gap:8px"><select id="fsimTk" class="anaInp"><option value="">— empresa —</option>${_stks.map(t=>`<option value="${t}">${t} (${Math.round(_openBy[t]*100)/100} acc.)</option>`).join('')}</select><input type="number" id="fsimQ" class="anaInp" placeholder="nº acciones" style="width:120px"><button class="btn sm" id="fsimAll" title="Rellenar con todas las acciones de la empresa elegida">Todas</button></div><div id="fsimOut" style="margin-top:8px"><div class="muted" style="font-size:12px">Elige una empresa de tu cartera.</div></div></div>`;
+  el.innerHTML=`<div class="sub" style="margin-bottom:10px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas del año. Tramos del ahorro 2025: 19% / 21% / 23% / 27% / 28%.</div>${simHTML}${harvestBox}${candTable}${realTable}`;
+  { const _st=document.getElementById('fsimTk'), _sq=document.getElementById('fsimQ'), _sa=document.getElementById('fsimAll');
+    if(_st)_st.addEventListener('change',fiscalSimVenta);
+    if(_sq)_sq.addEventListener('input',fiscalSimVenta);
+    if(_sa)_sa.addEventListener('click',()=>{ const t=(_st&&_st.value||'').toUpperCase(); if(!t)return; let tot=0; F.openLots.forEach(l=>{ if(l.t===t)tot+=l.acciones; }); if(_sq){ _sq.value=Math.round(tot*10000)/10000; fiscalSimVenta(); } });
+  }
+}
+/* Simulador de venta FIFO: plusvalía/minusvalía realizada, impuesto/ahorro y regla de los 2 meses. */
+function fiscalSimVenta(){
+  const out=document.getElementById('fsimOut'); if(!out)return;
+  const t=((document.getElementById('fsimTk')||{}).value||'').toUpperCase();
+  const q=num((document.getElementById('fsimQ')||{}).value);
+  if(!t){ out.innerHTML='<div class="muted" style="font-size:12px">Elige una empresa de tu cartera.</div>'; return; }
+  const F=fiscalidadData();
+  const lots=F.openLots.filter(l=>l.t===t);
+  const totalOpen=lots.reduce((s,l)=>s+l.acciones,0);
+  const pa=(lots[0]&&lots[0].precioActual)||(typeof _precioActualDe==='function'?_precioActualDe(t):0)||0;
+  if(!(q>0)){ out.innerHTML=`<div class="muted" style="font-size:12px">Tienes <b>${Math.round(totalOpen*10000)/10000}</b> acciones abiertas de ${t} (precio ${fmt(pa)}). Indica cuántas vender o pulsa «Todas».</div>`; return; }
+  if(q>totalOpen+1e-6){ out.innerHTML=`<div class="neg" style="font-size:12px;font-weight:600">Solo tienes ${Math.round(totalOpen*10000)/10000} acciones abiertas de ${t}.</div>`; return; }
+  let rem=q, gl=0; const used=[];
+  for(let i=0;i<lots.length&&rem>1e-6;i++){ const take=Math.min(rem,lots[i].acciones); gl+=(pa-lots[i].precio)*take; used.push({fecha:lots[i].fecha,take,precio:lots[i].precio,sub:(pa-lots[i].precio)*take}); rem-=take; }
+  const ingreso=q*pa; const base0=Math.max(0,F.realGainY); let impuesto=0, ahorro=0;
+  if(gl>0){ impuesto=_impuestoAhorro(base0+gl)-_impuestoAhorro(base0); }
+  else if(gl<0){ ahorro=_impuestoAhorro(base0)-_impuestoAhorro(Math.max(0,F.realGainY+gl)); }
+  let reciente=false; if(gl<0){ const dosM=61*86400000, hoy=Date.now(); (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.tipo!=='venta'&&o.fecha){ const d=Date.parse(o.fecha+'T00:00:00'); if(!isNaN(d)&&(hoy-d)>=0&&(hoy-d)<=dosM)reciente=true; } }); }
+  const lotHTML=used.map(u=>`<tr><td>${u.fecha||'—'}</td><td class="num">${Math.round(u.take*10000)/10000}</td><td class="num">${fmt(u.precio)}</td><td class="num ${u.sub>=0?'pos':'neg'}">${u.sub>=0?'+':''}${fmt(u.sub)}</td></tr>`).join('');
+  const glCol=gl>=0?'pos':'neg';
+  const resumen=`<div class="cards" style="margin:8px 0"><div class="card"><div class="lbl">Ingreso venta</div><div class="val">${fmt(ingreso)}</div><div class="sub">${q} × ${fmt(pa)}</div></div><div class="card"><div class="lbl">${gl>=0?'Plusvalía':'Minusvalía'} realizada</div><div class="val ${glCol}">${gl>=0?'+':''}${fmt(gl)}</div></div>${gl>0?`<div class="card"><div class="lbl">Impuesto estimado</div><div class="val">${fmt(impuesto)}</div><div class="sub">marginal · ya realizado ${fmt(F.realGainY)}</div></div>`:''}${gl<0?`<div class="card"><div class="lbl">Ahorro fiscal potencial</div><div class="val pos">${fmt(ahorro)}</div><div class="sub">compensa ganancias del año</div></div>`:''}</div>`;
+  const aviso2m=reciente?`<div class="card" style="background:#fee2e2;border:1px solid #fecaca;margin-bottom:8px"><div class="sub" style="color:#991b1b"><b>Regla de los 2 meses:</b> has comprado ${t} en los últimos 2 meses. Si vendes con pérdida, Hacienda NO permite deducirla este año (tampoco si recompras en los 2 meses siguientes).</div></div>`:'';
+  out.innerHTML=aviso2m+resumen+`<div class="sub" style="margin-bottom:4px">Lotes que se venden (FIFO, del más antiguo al más nuevo):</div><div style="overflow:auto"><table style="width:100%"><thead><tr><th>Compra</th><th class="num">Acc.</th><th class="num">P.compra</th><th class="num">Resultado</th></tr></thead><tbody>${lotHTML}</tbody></table></div>`;
 }
 // === Base de gasto/ingreso recurrente = presupuesto mensual del año en curso (evita distorsión de gastos puntuales) ===
 function gastoMensualPresu(){ const nowY=new Date().getFullYear(); let g=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='gasto'){ g+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?g:null; }
@@ -314,6 +346,9 @@ function renderPanelDash(){
   try{ if(typeof protoAvisos==='function') protoAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof calibAvisos==='function') calibAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof cadAvisos==='function') cadAvisos().forEach(x=>avisos.push(x)); }catch(e){}
+  try{ if(typeof dividendoAlertas==='function') dividendoAlertas().forEach(x=>avisos.push(x)); }catch(e){}
+  /* carga fundamentales.json en segundo plano una vez, para enriquecer la alerta de dividendo (payout/BPA) */
+  try{ if(typeof _radFundCache!=='undefined' && _radFundCache===null && typeof _radCargarFund==='function'){ _radCargarFund().then(function(){ if(typeof renderPanelDash==='function')renderPanelDash(); }); } }catch(e){}
   /* Silenciar avisos de señal cuya revisión ya está registrada en la ficha.
      - Apunte ABIERTO → silencia siempre (el registro ya avisa como abierto/vencido).
      - Señales de precio (S1/S3) resueltas → silencio de 60 días desde el último apunte; si la
