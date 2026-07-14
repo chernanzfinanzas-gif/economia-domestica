@@ -50,7 +50,7 @@ const VIEW_FNS={
   universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
   vision:['renderVision'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderPrevision'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
-  monitor:['renderMonitor'], metodo:['renderPanelMetodo'], riesgo:['renderRiesgo'],
+  monitor:['renderMonitor'], buzon:['renderBuzon'], metodo:['renderPanelMetodo'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], metas:['renderMetas'], asignacion:['renderAsignacion'],
   informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], graficas:['renderGraficas'], backtest:['renderBacktest']
 };
@@ -109,7 +109,7 @@ const GROUPS={
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
-  tesis:[['monitor','Monitor'],['metodo','Panel del Método'],['riesgo','Riesgo']],
+  tesis:[['monitor','Monitor'],['buzon','Buzón del lunes'],['metodo','Panel del Método'],['riesgo','Riesgo']],
   planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas'],['asignacion','Asignación']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes']],
   graficas:[['graficas','Gráficas'],['backtest','Backtest']]
