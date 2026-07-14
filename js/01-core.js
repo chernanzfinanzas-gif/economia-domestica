@@ -182,6 +182,7 @@ async function saveNow(){
       res=await driveSave(true);
     }
     setFileStatus('ok','Guardado en Drive ✓');
+    driveSaveBridge();   /* puente privado para el informe semanal (fire-and-forget) */
   }catch(e){ setFileStatus('warn','Error al guardar'); console.error(e); }
 }
 /* Respaldo automático: una copia fechada al mes en Drive, con retención de las 12 más recientes */
@@ -207,6 +208,49 @@ async function driveMonthlyBackup(){
     }catch(e){}
     if(typeof scheduleSave==='function') scheduleSave();     /* persiste lastMonthlyBackup */
   }catch(e){}
+}
+
+/* ===== Puente para el informe semanal automático =====
+   Escribe en Drive un JSON PEQUEÑO y PRIVADO ("cartera-bridge.json") con solo lo
+   que necesita el informe de cartera: posiciones, tareas, calendario de eventos,
+   roles/monitor y precios de respaldo. Los precios vivos y el análisis (PO, entrada,
+   stop, decisión) los toma el informe del repo PÚBLICO de GitHub (precios/ y dossiers/).
+   Así el email semanal es 100% automático sin exponer tus cifras y sin leer los 790 KB
+   de la base completa. */
+let bridgeFileId=null;
+const BRIDGE_FNAME='cartera-bridge.json';
+function buildBridge(){
+  const c=(DB.config&&DB.config.proyeccion)||{};
+  return {
+    generado:new Date().toISOString(),
+    efectivo:(typeof c.efectivo==='number')?c.efectivo:null,
+    operaciones:DB.operaciones||[],
+    todos:DB.todos||[],
+    eventos:DB.eventos||{},
+    divPorAccion:DB.divPorAccion||{},
+    monitor:DB.monitor||{},
+    valores:DB.valores||{}
+  };
+}
+async function driveSaveBridge(){
+  try{
+    if(!DB) return;
+    const body=JSON.stringify(buildBridge());
+    if(!bridgeFileId){
+      const q=encodeURIComponent("name='"+BRIDGE_FNAME+"' and trashed=false");
+      const fr=await gfetch('https://www.googleapis.com/drive/v3/files?q='+q+'&fields=files(id)&pageSize=1');
+      if(fr.ok){ const fj=await fr.json(); if(fj.files&&fj.files[0]) bridgeFileId=fj.files[0].id; }
+    }
+    if(!bridgeFileId){
+      const meta={name:BRIDGE_FNAME};
+      const b='-----brg'+Date.now();
+      const mp='--'+b+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+JSON.stringify(meta)+'\r\n--'+b+'\r\nContent-Type: application/json\r\n\r\n'+body+'\r\n--'+b+'--';
+      const r=await gfetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+b},body:mp});
+      if(r.ok){ const j=await r.json(); bridgeFileId=j.id; }
+    } else {
+      await gfetch('https://www.googleapis.com/upload/drive/v3/files/'+bridgeFileId+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body});
+    }
+  }catch(e){ /* silencioso: no molestar si falla */ }
 }
 
 async function startSession(){
