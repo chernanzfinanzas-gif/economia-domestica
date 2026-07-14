@@ -4,7 +4,7 @@
   "empresa": "Ebro Foods",
   "revisiones": [
     {
-      "periodo": "1T-2023",
+      "periodo": "2023-Q1",
       "fecha": "2023-04-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -50,10 +50,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 10.7
         }
-      ]
+      ],
+      "periodoDisplay": "1T"
     },
     {
-      "periodo": "S1-2023",
+      "periodo": "2023-Q2",
       "fecha": "2023-07-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -99,10 +100,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 15.2
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "9M-2023",
+      "periodo": "2023-Q3",
       "fecha": "2023-10-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -148,10 +150,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 16.1
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "FY-2023",
+      "periodo": "2023-Q4",
       "fecha": "2024-02-26",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -197,10 +200,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 15.7
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
-      "periodo": "1T-2024",
+      "periodo": "2024-Q1",
       "fecha": "2024-04-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -246,10 +250,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 13.9
         }
-      ]
+      ],
+      "periodoDisplay": "1T"
     },
     {
-      "periodo": "S1-2024",
+      "periodo": "2024-Q2",
       "fecha": "2024-07-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -295,10 +300,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 8.1
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "9M-2024",
+      "periodo": "2024-Q3",
       "fecha": "2024-10-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -344,10 +350,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 8.3
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "FY-2024",
+      "periodo": "2024-Q4",
       "fecha": "2025-02-26",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -393,10 +400,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 6.7
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
-      "periodo": "1T-2025",
+      "periodo": "2025-Q1",
       "fecha": "2025-04-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -442,10 +450,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 2.2
         }
-      ]
+      ],
+      "periodoDisplay": "1T"
     },
     {
-      "periodo": "S1-2025",
+      "periodo": "2025-Q2",
       "fecha": "2025-07-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -491,10 +500,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 1.1
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "9M-2025",
+      "periodo": "2025-Q3",
       "fecha": "2025-10-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -540,10 +550,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 1.1
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "FY-2025",
+      "periodo": "2025-Q4",
       "fecha": "2026-02-26",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -589,10 +600,11 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": 1.8
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
-      "periodo": "1T-2026",
+      "periodo": "2026-Q1",
       "fecha": "2026-04-25",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
@@ -638,7 +650,8 @@
           "nombre": "%Var EBITDA-A YoY",
           "valor": -10.8
         }
-      ]
+      ],
+      "periodoDisplay": "1T"
     }
   ]
 }

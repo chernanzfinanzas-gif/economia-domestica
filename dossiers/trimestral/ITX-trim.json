@@ -48,7 +48,7 @@
       ]
     },
     {
-      "periodo": "2023-S1",
+      "periodo": "2023-Q2",
       "fecha": "2023-09-13",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -90,10 +90,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 10500
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "2023-9M",
+      "periodo": "2023-Q3",
       "fecha": "2023-12-13",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -135,10 +136,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 11500
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "2023-FY",
+      "periodo": "2023-Q4",
       "fecha": "2024-03-13",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -180,7 +182,8 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 11400
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
       "periodo": "2024-Q1",
@@ -228,7 +231,7 @@
       ]
     },
     {
-      "periodo": "2024-S1",
+      "periodo": "2024-Q2",
       "fecha": "2024-09-11",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -270,10 +273,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 10911
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "2024-9M",
+      "periodo": "2024-Q3",
       "fecha": "2024-12-11",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -315,10 +319,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 11824
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "2024-FY",
+      "periodo": "2024-Q4",
       "fecha": "2025-03-12",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -360,7 +365,8 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 11495
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
       "periodo": "2025-Q1",
@@ -408,7 +414,7 @@
       ]
     },
     {
-      "periodo": "2025-S1",
+      "periodo": "2025-Q2",
       "fecha": "2025-09-10",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
@@ -450,10 +456,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 10012
         }
-      ]
+      ],
+      "periodoDisplay": "S1"
     },
     {
-      "periodo": "2025-9M",
+      "periodo": "2025-Q3",
       "fecha": "2025-12-10",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
@@ -495,10 +502,11 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 11268
         }
-      ]
+      ],
+      "periodoDisplay": "9M"
     },
     {
-      "periodo": "2025-FY",
+      "periodo": "2025-Q4",
       "fecha": "2026-03-11",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
@@ -540,7 +548,8 @@
           "nombre": "PFN / Caja neta (M€)",
           "valor": 10958
         }
-      ]
+      ],
+      "periodoDisplay": "FY"
     },
     {
       "periodo": "2026-Q1",
