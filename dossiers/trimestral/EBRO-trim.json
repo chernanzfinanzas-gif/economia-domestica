@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "ticker": "EBRO",
+  "empresa": "Ebro Foods",
+  "revisiones": [
+    {
+      "periodo": "2023-FY",
+      "fecha": "2024-02-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2023: recuperación tras el shock de 2022; EBITDA-A +21%, deuda 570 M€ (1,5x).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3084.5
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 387.2
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 12.6
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 187.0
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 570.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.47
+        },
+        {
+          "nombre": "CapEx (M€)",
+          "valor": 141.7
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 153.9
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 0.66
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 21.0
+        }
+      ]
+    },
+    {
+      "periodo": "2024-FY",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2024: crecimiento sólido (EBITDA-A +6,7%, ventas récord), leve repunte de deuda por CapEx.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3140.5
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 413.1
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 13.2
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 207.9
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 593.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.44
+        },
+        {
+          "nombre": "CapEx (M€)",
+          "valor": 155.3
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 153.9
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 0.69
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 6.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-FY",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2025: márgenes en máximos (14,0%) pese a −4% de ventas por divisa; fuerte desapalancamiento a 1,26x y beneficio récord.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3013.6
+        },
+        {
+          "nombre": "EBITDA-A (M€)",
+          "valor": 420.7
+        },
+        {
+          "nombre": "Margen EBITDA-A (%)",
+          "valor": 14.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 214.9
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 529.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 1.26
+        },
+        {
+          "nombre": "CapEx (M€)",
+          "valor": 134.9
+        },
+        {
+          "nombre": "Nº Acc (M)",
+          "valor": 153.9
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 0.69
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.8
+        }
+      ]
+    }
+  ]
+}
