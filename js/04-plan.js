@@ -42,8 +42,8 @@ function renderPrevision(){
   let tickers=[...set].filter(Boolean);
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Importa «divporaccion-historico.json» o pulsa «+ Empresa».</div>'; return; }
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  const _held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)_held.add((p.ticker||'').toUpperCase()); });
-  const _closed=new Set((DB.cerradas||[]).map(c=>(c.ticker||'').toUpperCase())); try{ invClosedComputed().forEach(c=>_closed.add(c.ticker)); }catch(e){}
+  const _held=heldTickerSet();
+  const _closed=closedTickerSet();
   const _grp=t=> _held.has(t)?0:(_closed.has(t)?1:2);
   const _tot=t=>Object.values(dpa[t]||{}).reduce((s,v)=>s+num(v),0);
   tickers.sort((x,y)=> _grp(x)-_grp(y) || _tot(y)-_tot(x) || x.localeCompare(y));
@@ -95,8 +95,8 @@ function renderSimulador(){
   Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase()));
   let tickers=[...set].filter(Boolean);
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Ten posiciones en cartera o pulsa «+ Empresa».</div>'; $('#simKpis').innerHTML=''; return; }
-  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase());});
-  const closed=new Set((DB.cerradas||[]).map(c=>(c.ticker||'').toUpperCase())); try{invClosedComputed().forEach(c=>closed.add(c.ticker));}catch(e){}
+  const held=heldTickerSet();
+  const closed=closedTickerSet();
   const grp=t=>held.has(t)?0:(closed.has(t)?1:2);
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
@@ -431,7 +431,7 @@ function renderPlan(){
 function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim();
   DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
   DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{};
-  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
+  const held=heldTickerSet();
   if(!held.has(tk)){ DB.planLote=DB.planLote||[]; if(!DB.planLote.map(x=>(x||'').toUpperCase()).includes(tk))DB.planLote.push(tk); }
   saveNow();
   if(typeof renderPlanLote==='function')renderPlanLote();
@@ -571,9 +571,9 @@ function renderMonitor(){
   }
   const el=$('#monTabla'); if(!el)return;
   const yr=new Date().getFullYear();
-  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
+  const held=heldTickerSet();
   const plan=new Set((DB.planLote||[]).map(x=>(x||'').toUpperCase()));
-  const closed=new Set(); (DB.cerradas||[]).forEach(c=>{ const t=(c.ticker||'').toUpperCase(); if(t)closed.add(t); }); try{ (invClosedComputed()||[]).forEach(c=>closed.add((c.ticker||'').toUpperCase())); }catch(e){}
+  const closed=closedTickerSet();
   const _sigueCotiz=t=>{ const pf=((DB.valores||{})[t]||{}).precioFecha; if(!pf)return true; return (Date.now()-Date.parse(pf)) < 60*86400000; };
   let tickers=[...new Set([...held,...plan])].filter(Boolean);
   closed.forEach(t=>{ if(t&&!held.has(t)&&!plan.has(t)&&_sigueCotiz(t)) tickers.push(t); });

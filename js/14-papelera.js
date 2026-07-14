@@ -92,11 +92,52 @@ function renderPapelera(){
   var el=document.getElementById('papeleraBody'); if(!el)return;
   _trashPurge();
   var items=DB.papelera||[];
+  var snap=_snapSectionHTML();
   var head='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h2 style="margin:0;font-size:18px">🗑️ Papelera</h2><button class="btn ghost sm" data-papclose="1">Cerrar</button></div>';
-  if(!items.length){ el.innerHTML=head+'<div class="muted" style="padding:10px">Vacía. Aquí quedan los últimos elementos borrados ('+TRASH_DAYS+' días) por si quieres recuperarlos.</div>'; return; }
+  if(!items.length){ el.innerHTML=head+'<div class="muted" style="padding:10px">Vacía. Aquí quedan los últimos elementos borrados ('+TRASH_DAYS+' días) por si quieres recuperarlos.</div>'+snap; return; }
   var fmtWhen=function(ms){ try{ var d=new Date(ms); return d.toLocaleDateString('es-ES')+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
   var rows=items.map(function(e){ return '<tr><td>'+_papEsc(e.label)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+fmtWhen(e.when)+'</td><td class="right" style="white-space:nowrap"><button class="btn sm" data-restore="'+e.id+'">Restaurar</button> <button class="btn ghost sm" data-purge="'+e.id+'" title="Borrar definitivamente">✕</button></td></tr>'; }).join('');
-  el.innerHTML=head+'<div class="sub" style="margin-bottom:8px">'+items.length+' elemento(s). Se guardan '+TRASH_DAYS+' días o hasta '+TRASH_MAX+' como máximo.</div><div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div><div style="margin-top:12px;text-align:right"><button class="btn danger sm" data-papvaciar="1">Vaciar papelera</button></div>';
+  el.innerHTML=head+'<div class="sub" style="margin-bottom:8px">'+items.length+' elemento(s). Se guardan '+TRASH_DAYS+' días o hasta '+TRASH_MAX+' como máximo.</div><div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div><div style="margin-top:12px;text-align:right"><button class="btn danger sm" data-papvaciar="1">Vaciar papelera</button></div>'+snap;
+}
+
+/* ===== Puntos de restauración (snapshot completo en localStorage) =====
+   Copia entera de DB antes de operaciones destructivas (importar, vaciar, restaurar).
+   Se guarda FUERA de DB (localStorage) para no crecer de forma recursiva. */
+var SNAP_KEY='ecodom_snapshots', SNAP_MAX=5;
+function _snapLoad(){ try{ return JSON.parse(localStorage.getItem(SNAP_KEY)||'[]')||[]; }catch(e){ return []; } }
+function _snapStore(arr){ try{ localStorage.setItem(SNAP_KEY, JSON.stringify(arr)); return true; }catch(e){ try{ localStorage.setItem(SNAP_KEY, JSON.stringify(arr.slice(0,2))); }catch(e2){} return false; } }
+function pushSnapshot(motivo){
+  try{
+    if(typeof DB==='undefined'||!DB)return;
+    var data=JSON.stringify(DB);
+    var arr=_snapLoad();
+    /* evita duplicar si nada cambió desde el último punto */
+    if(arr.length && arr[0].data===data){ arr[0].when=Date.now(); arr[0].motivo=motivo||arr[0].motivo; _snapStore(arr); return; }
+    arr.unshift({ when:Date.now(), motivo:motivo||'(manual)', bytes:data.length, data:data });
+    if(arr.length>SNAP_MAX)arr=arr.slice(0,SNAP_MAX);
+    if(!_snapStore(arr))showToast('⚠️ Punto de restauración no guardado (almacenamiento del navegador lleno)', null, null, 4000);
+  }catch(e){}
+}
+function _snapSectionHTML(){
+  var arr=_snapLoad();
+  var when=function(ms){ try{ var d=new Date(ms); return d.toLocaleDateString('es-ES')+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
+  var rows=arr.map(function(s){ var kb=Math.round((s.bytes||0)/1024); return '<tr><td>'+_papEsc(s.motivo)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+when(s.when)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+kb+' KB</td><td class="right"><button class="btn sm" data-snaprestore="'+s.when+'">Restaurar</button></td></tr>'; }).join('');
+  return '<div style="margin-top:16px;border-top:1px solid #e2e8f0;padding-top:12px">'
+    +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><h3 style="margin:0;font-size:15px">💾 Puntos de restauración</h3><button class="btn sm" data-snapmake="1">Crear punto ahora</button></div>'
+    +'<div class="sub" style="margin-bottom:8px">Copia completa de tus datos guardada en este navegador. Se crea sola antes de importar o vaciar; también puedes crear uno a mano. Se conservan los últimos '+SNAP_MAX+'.</div>'
+    +(rows?('<div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div>'):'<div class="muted" style="font-size:12px">Aún no hay puntos de restauración.</div>');
+}
+function restoreSnapshot(when){
+  var arr=_snapLoad();
+  var s=null; for(var i=0;i<arr.length;i++){ if(arr[i].when===when){ s=arr[i]; break; } }
+  if(!s){ alert('No encuentro ese punto de restauración.'); return; }
+  if(!confirm('Vas a REEMPLAZAR todos los datos actuales por el punto «'+s.motivo+'» del '+new Date(s.when).toLocaleString('es-ES')+'.\n\nSe guardará antes un punto con el estado actual por si acaso.\n\n¿Continuar?'))return;
+  var d; try{ d=JSON.parse(s.data); }catch(e){ alert('El punto está dañado y no se puede leer.'); return; }
+  pushSnapshot('antes de restaurar un punto');
+  DB=d;
+  var p=(typeof saveNow==='function')?saveNow():null;
+  if(p&&p.then){ p.then(function(){ location.reload(); }).catch(function(){ if(typeof renderAll==='function')renderAll(); showToast('Restaurado en memoria (no se pudo guardar en Drive)', null, null, 4000); }); }
+  else { if(typeof renderAll==='function')renderAll(); var ov=document.getElementById('papeleraOverlay'); if(ov)ov.remove(); showToast('✓ Datos restaurados', null, null, 3000); }
 }
 
 /* --- Clicks dentro de la papelera (delegado) --- */
@@ -104,6 +145,8 @@ document.addEventListener('click',function(e){
   if(!e.target||!e.target.closest)return;
   var r=e.target.closest('[data-restore]'); if(r){ restoreTrash(r.getAttribute('data-restore')); return; }
   var p=e.target.closest('[data-purge]'); if(p){ var id=p.getAttribute('data-purge'); DB.papelera=(DB.papelera||[]).filter(function(x){return x.id!==id;}); _papSave(); renderPapelera(); return; }
+  var sr=e.target.closest('[data-snaprestore]'); if(sr){ restoreSnapshot(+sr.getAttribute('data-snaprestore')); return; }
+  if(e.target.closest('[data-snapmake]')){ pushSnapshot('punto manual'); showToast('💾 Punto de restauración creado', null, null, 2500); renderPapelera(); return; }
   if(e.target.closest('[data-papclose]')){ var ov=document.getElementById('papeleraOverlay'); if(ov)ov.remove(); return; }
   if(e.target.closest('[data-papvaciar]')){ if(confirm('¿Vaciar la papelera definitivamente? Esto sí es irreversible.')){ DB.papelera=[]; _papSave(); renderPapelera(); } return; }
 });

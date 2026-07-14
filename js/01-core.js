@@ -218,7 +218,7 @@ async function startSession(){
     else { showWelcome('import'); setFileStatus('warn','Sin datos en Drive'); }
   }catch(e){ console.error(e); setFileStatus('warn','Error al cargar'); alert('No se pudieron cargar los datos de Drive: '+e.message); }
 }
-async function importLocal(file){
+async function importLocal(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar datos');
   try{ DB=JSON.parse(await file.text()); }catch(e){ alert('El archivo no es un JSON válido.'); return; }
   await saveNow(); afterLoad();
 }
@@ -426,3 +426,12 @@ function heldTickerSet(){ var s=new Set(); try{ (typeof invPositions==='function
 /* Fondo de fila: verde claro = en cartera; amarillo claro = analizada pero no comprada; '' = ninguno.
    Se le puede pasar un Set ya calculado (held) para no recomputarlo en cada fila. */
 function statusRowBg(t,held){ t=(t||'').toUpperCase(); if(!t)return ''; held=held||heldTickerSet(); if(held.has(t))return '#dcfce7'; if(typeof _esAnalizada==='function'&&_esAnalizada(t))return '#fef9c3'; return ''; }
+
+/* ---- Selectores de estado canónicos (única fuente de verdad) ----
+   Evitan recomputar a mano estos conjuntos por todo el código (origen de desincronizaciones). */
+/* Conjunto de tickers de posiciones cerradas (archivadas + calculadas). */
+function closedTickerSet(){ var s=new Set(); (DB.cerradas||[]).forEach(function(c){ var t=(c.ticker||'').toUpperCase(); if(t)s.add(t); }); try{ (typeof invClosedComputed==='function'?invClosedComputed():[]).forEach(function(c){ var t=(c.ticker||'').toUpperCase(); if(t)s.add(t); }); }catch(e){} return s; }
+/* Conjunto de tickers con importe planificado (>0) en el Plan. */
+function enPlanTickerSet(){ var s=new Set(); var pc=DB.planCompras||{}; Object.keys(pc).forEach(function(t){ if(Object.values(pc[t]||{}).some(function(v){return num(v)>0;})) s.add((t||'').toUpperCase()); }); return s; }
+/* Nº de acciones netas de un ticker en una cartera (compras − ventas), opcionalmente excluyendo una operación (para editar). */
+function sharesHeldOf(ticker,cartera,excludeOpId){ ticker=(ticker||'').toUpperCase(); cartera=cartera||'Propia'; var sh=0; (DB.operaciones||[]).forEach(function(o){ if(excludeOpId&&o.id===excludeOpId)return; if((o.ticker||'').toUpperCase()===ticker && (o.cartera||'Propia')===cartera){ sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; }

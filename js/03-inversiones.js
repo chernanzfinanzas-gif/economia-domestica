@@ -161,6 +161,10 @@ function addOp(){
   const fecha=$('#opFecha').value, tipo=$('#opTipo').value, n=num($('#opAcc').value), precio=num($('#opPrecio').value);
   if(n<=0){alert('Indica acciones > 0.');return;}
   if(tipo==='compra'&&precio<=0){alert('Indica el precio de compra.');return;}
+  if(precio<0){alert('El precio no puede ser negativo.');return;}
+  /* Validador de coherencia: bloquea lo imposible, avisa (y deja seguir) en lo dudoso */
+  if(fecha){ const _d=new Date(fecha+'T00:00:00'); const _y=_d.getFullYear(); if(isNaN(_d.getTime())||_y<1990||_y>new Date().getFullYear()+1){ alert('La fecha «'+fecha+'» no parece válida.'); return; } if(_d.getTime()>Date.now()+86400000){ if(!confirm('La fecha '+fecha+' es futura. ¿Registrar la operación igualmente?'))return; } }
+  if(tipo==='venta'){ const _sh=(typeof sharesHeldOf==='function')?sharesHeldOf(invOpsTicker,invOpsCartera||'Propia',opEditId):null; if(_sh!=null && n>_sh+1e-6){ if(!confirm('Vas a vender '+n+' acciones, pero en '+invOpsTicker+' ('+(invOpsCartera||'Propia')+') solo constan '+(Math.round(_sh*10000)/10000)+'. ¿Continuar igualmente?'))return; } }
   if(opEditId){ const o=DB.operaciones.find(x=>x.id===opEditId); if(o){ o.fecha=fecha; o.tipo=tipo; o.acciones=n; o.precio=precio; } opEditEnd(); }
   else { DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio}); }
   $('#opAcc').value=''; $('#opPrecio').value='';
@@ -211,7 +215,7 @@ function anaFindTicker(nombre){
   if(best) return NAME2TICK[best];
   return k.slice(0,4);
 }
-function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Sin posiciones');return;}
+function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;} const arr=Array.isArray(d)?d:(d.inversiones||[]); if(!arr.length){alert('Sin posiciones');return;} if(typeof pushSnapshot==='function')pushSnapshot('antes de importar cartera');
   DB.inversiones=arr.map(p=>({id:uid(),ticker:p.ticker||'',nombre:p.nombre||'',acciones:num(p.acciones),precioCompra:num(p.precioCompra),precioActual:num(p.precioActual),divAccion:num(p.divAccion),exchange:p.exchange||'BME',broker:p.broker||''}));
   renderInv(); saveNow(); alert('Importadas '+DB.inversiones.length+' posiciones.'); }); }
 function renderAnalisis(){
@@ -222,7 +226,7 @@ function renderAnalisis(){
   const RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
   const cw=DB.config.anaPesos||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15);
   const cl=x=>Math.max(0,Math.min(100,x));
-  const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
+  const held=heldTickerSet();
   const list=(DB.analisis||[]).map(a=>{
     const cot=num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
     const rating=(a.rating||'').toUpperCase();
@@ -598,6 +602,8 @@ function validarUrlInv(){
 function addFichaDiv(){
   const fch=$('#fdivFecha').value, imp=num($('#fdivImp').value);
   if(!fch||!imp){alert('Pon fecha e importe del dividendo.');return;}
+  if(imp<0){alert('El importe del dividendo no puede ser negativo.');return;}
+  { const _d=new Date(fch+'T00:00:00'); const _y=_d.getFullYear(); if(isNaN(_d.getTime())||_y<1990||_y>new Date().getFullYear()+1){ alert('La fecha «'+fch+'» no parece válida.'); return; } }
   DB.dividendos=DB.dividendos||{}; DB.dividendos[fichaTicker]=DB.dividendos[fichaTicker]||[];
   DB.dividendos[fichaTicker].push({fecha:fch,importe:imp,id:'d'+Math.random().toString(36).slice(2,9)}); saveNow(); renderFicha(fichaTicker);
 }
@@ -751,7 +757,7 @@ function evTipo(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return '
 function evTexto(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return 'Dividendo'; if(c[0]==='Q') return 'Resultados '+c; if(c==='JA') return 'Junta de accionistas'; if(c==='ID') return 'Investor Day'; return c; }
 function renderEventos(){
   const ev=DB.eventos=DB.eventos||{};
-  const held=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); });
+  const held=heldTickerSet();
   let tickers=[...new Set([...Object.keys(ev), ...held])].filter(Boolean);
   /* ---- Agenda: mes en curso + siguiente, en rejilla de bloques ---- */
   const ag=$('#calAgenda');

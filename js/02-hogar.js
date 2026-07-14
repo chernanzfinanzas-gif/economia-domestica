@@ -337,7 +337,7 @@ function baseComercio(detalle){
   for(var i=0;i<rules.length;i++){ if(rules[i].kw && d.indexOf(rules[i].kw)>=0) return rules[i].base; }
   return '';
 }
-function aplicarBaseComercio(){ (DB.movimientos||[]).forEach(function(m){ var b=baseComercio(m.detalle||m.comercio); if(b) m.comercio=b; }); }
+function aplicarBaseComercio(){ if(typeof pushSnapshot==='function')pushSnapshot('antes de aplicar reglas a movimientos'); (DB.movimientos||[]).forEach(function(m){ var b=baseComercio(m.detalle||m.comercio); if(b) m.comercio=b; }); }
 function escAttr(s){ return (s==null?'':s).toString().replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 function _sugUniq(arr){ var seen={},out=[]; arr.forEach(function(x){ var v=(x==null?'':x).toString().trim(); var k=v.toLowerCase(); if(v&&!seen[k]){seen[k]=1;out.push(v);} }); return out; }
 var SUGSRC={
@@ -661,7 +661,7 @@ function addSnapshot(){
   else DB.patrimonio.push({id:uid(),fecha,lineas});
   renderPat(); scheduleSave();
 }
-function importPatrimonio(file){
+function importPatrimonio(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar patrimonio');
   file.text().then(txt=>{
     let data; try{ data=JSON.parse(txt); }catch(e){ alert('JSON no válido'); return; }
     const arr=Array.isArray(data)?data:(data.patrimonio||[]);
@@ -884,7 +884,7 @@ function addAmalia(){
   $('#amaConcepto').value=''; $('#amaImporte').value=''; $('#amaNota').value='';
   renderAmalia(); scheduleSave();
 }
-function importAmalia(file){
+function importAmalia(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar Amalia');
   file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
     const arr=Array.isArray(d)?d:(d.amalia||[]); if(!arr.length){alert('El archivo no contiene apuntes');return;}
     DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
@@ -993,7 +993,7 @@ function addFondoR4(){
   $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Ret')){$('#r4Ret').value='';} if($('#r4RetCalc'))$('#r4RetCalc').textContent='';
   renderFondoR4(); scheduleSave();
 }
-function importFondoR4(file){
+function importFondoR4(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar Fondo R4');
   file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
     const arr=Array.isArray(d)?d:(d.easy||d.movimientos||[]); if(!arr.length){alert('El archivo no contiene movimientos');return;}
     DB.easy=arr.map(e=>{ const m={id:uid(),fecha:e.fecha,tipo:(e.tipo==='retirada'?'retirada':'aportacion'),importe:Math.abs(num(e.importe))};
@@ -1074,7 +1074,7 @@ function renderPresAnalisis(){
   tot+='</tr>';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${tot}</tbody></table>`;
 }
-function importPresupuesto(file){
+function importPresupuesto(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar presupuesto');
   file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
     const arr=Array.isArray(d)?d:(d.presupuesto||[]); if(!arr.length){alert('El archivo no contiene presupuesto');return;}
     if(!confirm('Esto reemplazará el presupuesto actual (todos los años) por el del archivo. Tus movimientos no se tocan. ¿Continuar?')) return;
