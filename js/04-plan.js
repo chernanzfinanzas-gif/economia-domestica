@@ -395,9 +395,32 @@ function renderPanelDash(){
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
       return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL; };
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
-  if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri); const hayCrit=avisos.some(x=>x.cls==='r');
-    const _itav=avisos.map(x=>`<div data-goto="${x.goto}"${x.sig?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;cursor:pointer">${x.txt}${x.sig?` <span style="float:right;font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px" title="Protocolo de Revisión Extraordinaria">${x.sig} 📋</span>`:''}</div>`).join('');
-    html+=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;margin-bottom:6px">🔔 Avisos (${avisos.length})</div>${_itav}</div>`;
+  if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
+    /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
+    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',cobertura:'tesis'};
+    const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
+    const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
+    avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
+    DB.avisosVistos=DB.avisosVistos||{}; const _vis=DB.avisosVistos;
+    const F=window._avFiltro=window._avFiltro||{tipo:'',showSeen:false};
+    const _nVistos=avisos.filter(x=>_vis[x.key]).length;
+    let show=avisos.filter(x=> F.showSeen || !_vis[x.key]);
+    if(F.tipo) show=show.filter(x=>x.tipo===F.tipo);
+    const hayCrit=show.some(x=>x.cls==='r'&&!_vis[x.key]);
+    const tiposPres=[...new Set(avisos.map(x=>x.tipo))];
+    const _cont={}; avisos.forEach(x=>{ if(F.showSeen||!_vis[x.key]) _cont[x.tipo]=(_cont[x.tipo]||0)+1; });
+    const chips='<div style="margin:2px 0 8px;display:flex;flex-wrap:wrap;gap:5px;align-items:center">'
+      +`<span data-avtipo="" style="cursor:pointer;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:${F.tipo?'#f1f5f9':'#1f2937'};color:${F.tipo?'#475569':'#fff'}">Todos</span>`
+      +tiposPres.map(tp=>`<span data-avtipo="${tp}" style="cursor:pointer;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:${F.tipo===tp?'#1f2937':'#f1f5f9'};color:${F.tipo===tp?'#fff':'#475569'}">${_TN[tp]||tp}${_cont[tp]?' '+_cont[tp]:''}</span>`).join('')
+      +(_nVistos?`<span data-avshow="1" style="cursor:pointer;font-size:11px;padding:2px 8px;border-radius:10px;background:#f1f5f9;color:#475569">${F.showSeen?'ocultar vistos':('ver vistos ('+_nVistos+')')}</span>`:'')
+      +'</div>';
+    const grupos={}; show.forEach(x=>{ (grupos[x.tipo]=grupos[x.tipo]||[]).push(x); });
+    const _itav=Object.keys(grupos).map(tp=>{
+      const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${x.sig?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${x.sig?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
+      return `<div style="margin-bottom:6px"><div style="font-size:11px;font-weight:700;color:#94a3b8;margin:4px 0 2px">${_TN[tp]||tp}</div>${its}</div>`;
+    }).join('');
+    const _allKeys=show.map(x=>x.key).join('~');
+    html+=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px">🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${chips}${_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>'}</div>`;
   }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;
