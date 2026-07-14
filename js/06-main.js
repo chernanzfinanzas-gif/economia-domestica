@@ -148,6 +148,24 @@ function activarVista(view){
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
+/* ===== Móvil v2: barra inferior + hoja «Más» + tablas en tarjetas ===== */
+(function(){
+  var GC=(typeof groupCurrent!=='undefined')?groupCurrent:{};
+  function go(g){ if(!g)return; if(typeof activarVista==='function') activarVista(GC[g]||g); }
+  var bnav=document.getElementById('botNav');
+  var sheet=document.getElementById('botSheet');
+  function sheetOpen(v){ if(!sheet)return; if(v===undefined)v=!sheet.classList.contains('open'); sheet.classList.toggle('open',v); }
+  if(bnav){ bnav.addEventListener('click',function(e){ var b=e.target.closest('button'); if(!b)return; var g=b.getAttribute('data-bgroup'); if(g==='mas'){ sheetOpen(); return; } go(g); sheetOpen(false); }); }
+  if(sheet){ sheet.addEventListener('click',function(e){ if(e.target===sheet){ sheetOpen(false); return; } var b=e.target.closest('button[data-bgroup]'); if(!b)return; go(b.getAttribute('data-bgroup')); sheetOpen(false); }); }
+  function syncBottom(){ if(!bnav)return; var a=document.querySelector('#nav button.active'); var g=a?a.getAttribute('data-group'):null; var main4=['control','cartera','eleccion','planinv']; var btns=bnav.querySelectorAll('button'); for(var i=0;i<btns.length;i++){ var bg=btns[i].getAttribute('data-bgroup'); var on=(bg===g)||(bg==='mas'&&g&&main4.indexOf(g)<0); btns[i].classList.toggle('on',on); } }
+  var navEl=document.getElementById('nav');
+  if(navEl&&window.MutationObserver){ new MutationObserver(syncBottom).observe(navEl,{subtree:true,attributes:true,attributeFilter:['class']}); }
+  syncBottom();
+  /* Tablas de lista -> tarjetas en móvil: inyecta data-label desde las cabeceras */
+  var CARD_IDS=['invTable','anaTable','rankTabla','loteTabla'];
+  function labelize(host){ if(!host)return; var t=host.querySelector('table'); if(!t)return; var ths=t.querySelectorAll('thead th'); if(!ths.length)return; var heads=[]; for(var i=0;i<ths.length;i++){ heads.push((ths[i].textContent||'').replace(/[▲▼▶▸›>\s]+$/,'').trim()); } var rows=t.querySelectorAll('tbody tr'); for(var r=0;r<rows.length;r++){ var tds=rows[r].children; for(var c=0;c<tds.length;c++){ if(tds[c].hasAttribute('colspan'))continue; tds[c].setAttribute('data-label',heads[c]!==undefined?heads[c]:''); } } }
+  CARD_IDS.forEach(function(id){ var el=document.getElementById(id); if(!el)return; el.classList.add('cardify'); labelize(el); if(window.MutationObserver){ new MutationObserver(function(){ labelize(el); }).observe(el,{childList:true,subtree:true}); } });
+})();
 $('#panelDash').addEventListener('click',e=>{
   const sv=e.target.closest('[data-avseen]'); if(sv){ const k=sv.dataset.avseen; DB.avisosVistos=DB.avisosVistos||{}; if(DB.avisosVistos[k])delete DB.avisosVistos[k]; else DB.avisosVistos[k]=Date.now(); if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); return; }
   const sa=e.target.closest('[data-avseenall]'); if(sa){ DB.avisosVistos=DB.avisosVistos||{}; (sa.dataset.avseenall||'').split('~').forEach(k=>{ if(k)DB.avisosVistos[k]=Date.now(); }); if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); return; }
