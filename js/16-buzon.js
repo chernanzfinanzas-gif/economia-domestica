@@ -27,7 +27,7 @@
   function vigiaHtml(v){
     if(!v) return '';
     var emp=function(x){ return esc(x.empresa)+' <span class="muted">('+esc(x.ticker)+')</span>'; };
-    var per=function(x){ return esc(x.periodoEsperado)+(x.gruesa?' <span class="muted" title="estimación gruesa">≈</span>':''); };
+    var per=function(x){ return esc(x.periodoLabel||x.periodoEsperado); };
     var fst=function(x){ return fday(x.fechaEstimada); };
     var h='';
     h+='<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:2px 0 10px">'

@@ -170,7 +170,7 @@ function renderCobertura(){
     +'<div class="sub" style="margin-bottom:8px">Qué empresas has analizado y cuáles tienes en cola. La cola la <b>ordenas tú</b> (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'
     +kpis
     +'<h3 style="margin:14px 0 4px">📅 Calendario de cobertura</h3>'
-    +'<div class="sub" style="margin-bottom:6px">Todo lo que tienes que hacer, en un solo sitio: arriba las <b>intervenciones vencidas</b> (su fecha ya llegó) y las <b>señales de precio</b> activas; luego las empresas <b>pendientes de analizar</b> (sin fecha, por tu orden de prioridad); debajo, las <b>intervenciones programadas</b> con su fecha y los días que faltan. Marca ✓ cuando la hayas realizado: la fila queda en verde.</div>'
+    +'<div class="sub" style="margin-bottom:6px">Todo lo que tienes que hacer, en un solo sitio: arriba las <b>intervenciones vencidas</b> (su fecha ya llegó) y las <b>señales de precio</b> activas; luego las empresas <b>pendientes de analizar</b> (sin fecha, por tu orden de prioridad); debajo, las <b>intervenciones programadas</b> con su fecha y los días que faltan. Marca ✓ cuando la hayas realizado: la fila queda en verde. <span class="muted">El próximo <b>Informe</b> se estima desde el <b>monitor trimestral</b> (los informes que registras) — mismo cálculo que el <b>Buzón del lunes</b>.</span></div>'
     +'<div id="calHost"><div class="muted" style="font-size:12px">Preparando calendario…</div></div>'
     +'<h3 style="margin:16px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
     +'<h3 style="margin:16px 0 4px">Analizadas ('+nAnaliz+')</h3><div class="muted" style="font-size:12px">'+(lista||'—')+'</div>'
