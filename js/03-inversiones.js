@@ -460,12 +460,12 @@ function renderFicha(t){
    </div></div>${divTable}`;
   try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(typeof gp.vsIbex==='boolean')fichaVsIbex=gp.vsIbex; if(gp.range)fichaRange=gp.range; } } }catch(e){}
   const _ranges=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']];
-  const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
+  const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''} style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:4px 10px;min-width:46px"><span style="font-weight:700;font-size:12.5px">${r[1]}</span><span style="font-size:9.5px;color:#94a3b8">·</span></button>`).join('');
   const maBtns=[[50,'MM50'],[200,'MM200'],[1000,'MM1000']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''}>${m[1]}</button>`).join('');
   const ibexBtn=`<button type="button" data-fibex="1"${fichaVsIbex?' class="on"':''}>vs IBEX</button>`;
   const chartCard=`<div class="card" style="margin-top:10px">`
-    +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px"><div style="font-weight:700">Cotización</div><span id="fchVar"></span><span id="fchZoom"></span><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div>`
-    +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><span class="muted" style="font-size:11px">Media móvil</span><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div></div>`
+    +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><span class="muted" style="font-size:11px">Medias</span><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div></div>`
+    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div class="seg" id="fchRange">${rangeBtns}</div></div>`
     +`<div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
@@ -602,9 +602,14 @@ async function drawFichaChart(t){
   const vcol=varPct>=0?'#16a34a':'#dc2626';
   const _fd=ms=>{ const d=new Date(ms); return String(d.getUTCDate()).padStart(2,'0')+'/'+String(d.getUTCMonth()+1).padStart(2,'0'); };
   const _fdy=ms=>{ const d=new Date(ms); return _fd(ms)+'/'+d.getUTCFullYear(); };
-  setVar(`<span style="color:${vcol};font-weight:800;font-size:14px">${varPct>=0?'▲ +':'▼ '}${varPct.toFixed(1)}%</span> <span class="muted" style="font-size:11px">en el periodo</span>`);
-  if(zoom) setZoom(`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px">🔍 ${_fdy(data[0][0])}–${_fdy(data[data.length-1][0])} <b data-fzreset="1" style="cursor:pointer" title="Reiniciar zoom">✕</b></span>`);
-  else setZoom('');
+  // Botones de rango a dos líneas: etiqueta + variación de ESE plazo
+  const _daysMap={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827};
+  const _rangeVar=key=>{ const d=_daysMap[key]; let si=0; if(d){ const cut=lastT-d*86400000; while(si<dataFull.length&&dataFull[si][0]<cut)si++; } if(si>=dataFull.length-1)return null; const f=dataFull[si][1]; return f>0?(dataFull[dataFull.length-1][1]-f)/f*100:null; };
+  const _rb=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']].map(r=>{ const vp=_rangeVar(r[0]); const vc=(vp==null)?'#94a3b8':(vp>=0?'#16a34a':'#dc2626'); const vt=(vp==null)?'—':((vp>=0?'+':'')+vp.toFixed(1)+'%'); const on=(fichaRange===r[0]&&!zoom)?' class="on"':''; return `<button type="button" data-frange="${r[0]}"${on} style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:4px 10px;min-width:46px"><span style="font-weight:700;font-size:12.5px">${r[1]}</span><span style="font-size:9.5px;color:${vc}">${vt}</span></button>`; }).join('');
+  const _rc=document.getElementById('fchRange'); if(_rc)_rc.innerHTML=_rb;
+  // El % del periodo ya sale en cada botón; con zoom (sin botón) va junto al chip, en el medio.
+  if(zoom){ setVar(`<span style="color:${vcol};font-weight:800;font-size:13px">${varPct>=0?'+':''}${varPct.toFixed(1)}%</span>`); setZoom(`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px">🔍 ${_fdy(data[0][0])}–${_fdy(data[data.length-1][0])} <b data-fzreset="1" style="cursor:pointer" title="Reiniciar zoom">✕</b></span>`); }
+  else { setVar(''); setZoom(''); }
   const MAXP=600; const step=Math.max(1,Math.ceil(data.length/MAXP));
   const idxs=[]; for(let i=0;i<data.length;i+=step)idxs.push(i); if(idxs[idxs.length-1]!==data.length-1)idxs.push(data.length-1);
   const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
