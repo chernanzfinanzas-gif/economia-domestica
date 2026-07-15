@@ -1,12 +1,15 @@
 /* ==========================================================================
    16-buzon.js — "Buzón del lunes"
    --------------------------------------------------------------------------
-   Lee la carpeta buzon/ del repo, que rellenan tareas automáticas (la primera
-   es el Vigía de informes trimestrales, que corre cada lunes por GitHub
-   Actions y deja buzon/vigia.json). Muestra sus avisos y el calendario de
-   próximos resultados. SOLO LECTURA: la app nunca escribe en el buzón.
-   Para añadir una acción nueva basta con que deje su fichero en buzon/ y su
-   entrada en buzon/index.json; este módulo lo listará automáticamente.
+   Lee la carpeta buzon/ del repo, que rellenan tareas automáticas. Hoy hay dos:
+     · Vigía (vigia.json)  → ESTIMA la fecha del próximo informe trimestral
+                             (mismo motor que la vista Cobertura, sin internet).
+     · Agenda (agenda.json)→ CONFIRMA con Yahoo la fecha de resultados y ex-dividend
+                             (lo que el navegador no puede: llamar a internet).
+   La app enseña primero lo CONFIRMADO (Agenda) y deja la ESTIMACIÓN (Vigía) como
+   respaldo para lo que Yahoo aún no publica. SOLO LECTURA: la app nunca escribe.
+   Para añadir una acción nueva basta con que deje su fichero en buzon/ y su entrada
+   en buzon/index.json; este módulo lo listará automáticamente.
    ========================================================================== */
 (function(){
   'use strict';
@@ -15,6 +18,7 @@
   function dd(n){ return ('0'+n).slice(-2); }
   function fdt(iso){ try{ var d=new Date(iso); if(isNaN(d))return esc(iso||''); return dd(d.getDate())+'/'+dd(d.getMonth()+1)+'/'+d.getFullYear()+' '+dd(d.getHours())+':'+dd(d.getMinutes()); }catch(e){ return esc(iso||''); } }
   function fday(iso){ try{ var d=new Date(iso+'T00:00:00'); if(isNaN(d))return esc(iso||''); var dias=['dom','lun','mar','mié','jue','vie','sáb']; return dias[d.getDay()]+' '+dd(d.getDate())+'/'+dd(d.getMonth()+1); }catch(e){ return esc(iso||''); } }
+  function eur(n){ if(n==null||n==='')return ''; try{ return (typeof fmt==='function')?fmt(n):(Number(n).toFixed(3)+' €'); }catch(e){ return esc(''+n); } }
   function jget(path){ return fetch(path,{cache:'no-store'}).then(function(r){ return r.ok? r.json() : null; }).catch(function(){ return null; }); }
 
   function tabla(titulo, arr, cols){
@@ -22,6 +26,40 @@
     var body=arr.map(function(x){ return '<tr>'+cols.map(function(c){ return '<td'+(c.num?' class="num"':'')+'>'+c.f(x)+'</td>'; }).join('')+'</tr>'; }).join('');
     return '<h3 style="margin:14px 0 6px;font-size:14px">'+titulo+'</h3>'
       +'<table><thead><tr>'+cols.map(function(c){return '<th'+(c.num?' class="num"':'')+'>'+c.t+'</th>';}).join('')+'</tr></thead><tbody>'+body+'</tbody></table>';
+  }
+
+  // ---- Agenda confirmada (Yahoo): resultados + ex-dividend --------------------
+  function agendaHtml(a){
+    if(!a) return '';
+    var emp=function(x){ return esc(x.empresa)+' <span class="muted">('+esc(x.ticker)+')</span>'; };
+    var badge=function(conf){ return conf
+      ? '<span style="background:#dcfce7;color:#166534;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700">confirmada</span>'
+      : '<span style="background:#fef9c3;color:#854d0e;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700">estimada Yahoo</span>'; };
+    var h='';
+    h+='<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:2px 0 10px">'
+      +'<h2 style="margin:0">📌 Agenda confirmada</h2>'
+      +'<span class="muted" style="font-size:12px">Yahoo Finance · generado '+fdt(a.generadoEl)+'</span></div>';
+    h+='<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:13.5px;line-height:1.5">'+esc(a.resumenTexto||'')+'</div>';
+    h+=tabla('📊 Próximos resultados', a.resultados, [
+      {t:'Empresa',f:emp},
+      {t:'Fecha',f:function(x){return fday(x.fecha);}},
+      {t:'En',num:true,f:function(x){return (x.dias<0?'hace '+(-x.dias):'en '+x.dias)+' d';}},
+      {t:'',f:function(x){return badge(x.confirmada);}}
+    ]);
+    h+=tabla('💶 Próximos ex-dividend', a.exDividendos, [
+      {t:'Empresa',f:emp},
+      {t:'Ex-date',f:function(x){return fday(x.exFecha);}},
+      {t:'Pago',f:function(x){return x.pagoFecha?fday(x.pagoFecha):'—';}},
+      {t:'€/acción',num:true,f:function(x){return x.importe!=null?eur(x.importe):'—';}}
+    ]);
+    if(!(a.resultados&&a.resultados.length)&&!(a.exDividendos&&a.exDividendos.length)){
+      h+='<p class="muted" style="margin:10px 0">Sin fechas confirmadas por Yahoo en la ventana. Rige la estimación del Vigía (más abajo).</p>';
+    }
+    if(a.sinConfirmar&&a.sinConfirmar.length){
+      h+='<p class="muted" style="margin:8px 0;font-size:12px">Sin confirmar por Yahoo ('+a.sinConfirmar.length+'): '
+        +a.sinConfirmar.map(function(x){return esc(x.ticker);}).join(', ')+'. Para estas rige la <b>estimación del Vigía</b>.</p>';
+    }
+    return h;
   }
 
   function vigiaHtml(v){
@@ -32,7 +70,7 @@
     var h='';
     h+='<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:2px 0 10px">'
       +'<h2 style="margin:0">🗓️ Vigía de informes trimestrales</h2>'
-      +'<span class="muted" style="font-size:12px">Generado '+fdt(v.generadoEl)+' · '+esc(v.totalEmpresas||0)+' empresas</span></div>';
+      +'<span class="muted" style="font-size:12px">Estimación · generado '+fdt(v.generadoEl)+' · '+esc(v.totalEmpresas||0)+' empresas</span></div>';
     h+='<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;margin-bottom:6px;font-size:13.5px;line-height:1.5">'+esc(v.resumenTexto||'')+'</div>';
     h+=tabla('⚠️ Vencidos (aún sin registrar)', v.vencidos, [
       {t:'Empresa',f:emp},{t:'Periodo',f:per},{t:'Fecha est.',f:fst},{t:'Retraso',num:true,f:function(x){return '+'+x.diasVencido+' d';}}
@@ -56,19 +94,27 @@
   window.renderBuzonPanel=function(){
     var host=document.getElementById('panelBuzon'); if(!host) return;
     var esLunes=(new Date().getDay()===1);
-    Promise.all([jget('buzon/index.json'), jget('buzon/vigia.json')]).then(function(r){
-      var idx=r[0], v=r[1];
-      var linea;
+    Promise.all([jget('buzon/index.json'), jget('buzon/vigia.json'), jget('buzon/agenda.json')]).then(function(r){
+      var idx=r[0], v=r[1], a=r[2];
+      var partes=[];
+      if(a){
+        var nR=(a.resultados||[]).length, nX=(a.exDividendos||[]).length;
+        if(nR||nX){
+          var seg='';
+          if(nR) seg+='📊 <b>'+nR+'</b> resultado'+(nR>1?'s':'');
+          if(nX) seg+=(seg?' · ':'')+'💶 <b>'+nX+'</b> ex-div';
+          partes.push(seg+' <span class="muted">confirmados</span>');
+        }
+      }
       if(v){
         var nV=(v.vencidos||[]).length, nS=(v.estaSemana||[]).length, nP=(v.proximos14d||[]).length;
-        linea='';
-        if(nV) linea+='<b style="color:#b91c1c">'+nV+' vencido'+(nV>1?'s':'')+'</b> · ';
-        linea+=(nS? ('<b>'+nS+'</b> esta semana') : 'nada esta semana');
-        if(nP) linea+=' · '+nP+' próx. 14 días';
-        if(v.generadoEl) linea+=' <span class="muted">('+fdt(v.generadoEl).slice(0,10)+')</span>';
-      } else {
-        linea='Se actualiza solo cada lunes por la mañana.';
+        var lv='';
+        if(nV) lv+='<b style="color:#b91c1c">'+nV+' vencido'+(nV>1?'s':'')+'</b> · ';
+        lv+=(nS? ('<b>'+nS+'</b> esta semana') : 'nada esta semana');
+        if(nP) lv+=' · '+nP+' próx. 14 días';
+        partes.push('🗓️ '+lv+' <span class="muted">(est.)</span>');
       }
+      var linea = partes.length ? partes.join('<br>') : 'Se actualiza solo cada lunes por la mañana.';
       var bg=esLunes?'linear-gradient(90deg,#fff7ed,#ffedd5)':'#fff';
       var borde=esLunes?'#f59e0b':'var(--line)';
       var record=esLunes?'<div style="font-weight:700;color:#9a3412;font-size:12.5px;margin-top:4px">📌 Hoy es lunes: revisa y vuelca el buzón</div>':'';
@@ -87,7 +133,8 @@
     wrap.innerHTML='<p class="muted">Cargando buzón…</p>';
     jget('buzon/index.json').then(function(idx){
       var files=(idx&&idx.ficheros&&idx.ficheros.length)? idx.ficheros
-                 : [{clave:'vigia',archivo:'vigia.json',titulo:'Vigía de informes trimestrales'}];
+                 : [{clave:'agenda',archivo:'agenda.json',titulo:'Agenda confirmada'},
+                    {clave:'vigia',archivo:'vigia.json',titulo:'Vigía de informes trimestrales'}];
       return Promise.all(files.map(function(f){
         return jget('buzon/'+f.archivo).then(function(data){ return {meta:f,data:data}; });
       }));
@@ -99,7 +146,8 @@
       (items||[]).forEach(function(it){
         if(!it.data) return;
         any=true;
-        if(it.meta.clave==='vigia'){ out+='<div style="margin-bottom:20px">'+vigiaHtml(it.data)+'</div>'; }
+        if(it.meta.clave==='agenda'){ out+='<div style="margin-bottom:20px">'+agendaHtml(it.data)+'</div>'; }
+        else if(it.meta.clave==='vigia'){ out+='<div style="margin-bottom:20px">'+vigiaHtml(it.data)+'</div>'; }
         else {
           out+='<div style="margin-bottom:20px"><h2>'+esc(it.meta.titulo||it.meta.clave)+'</h2>'
             +(it.data.resumenTexto?('<p style="line-height:1.5">'+esc(it.data.resumenTexto)+'</p>')
@@ -108,7 +156,7 @@
       });
       if(!any){
         out+='<div style="background:#f8fafc;border:1px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted)">'
-          +'El buzón está vacío por ahora.<br><span style="font-size:12px">La tarea del lunes (Vigía) dejará aquí el aviso de resultados trimestrales. Se actualiza sola cada lunes.</span></div>';
+          +'El buzón está vacío por ahora.<br><span style="font-size:12px">Las tareas del lunes (Agenda y Vigía) dejarán aquí las fechas de resultados y dividendos. Se actualiza solo cada lunes.</span></div>';
       }
       wrap.innerHTML=out;
       var rb=document.getElementById('buzonReload'); if(rb) rb.addEventListener('click',window.renderBuzon);
