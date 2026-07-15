@@ -228,6 +228,8 @@ function buildBridge(){
     todos:DB.todos||[],
     eventos:DB.eventos||{},
     divPorAccion:DB.divPorAccion||{},
+    divReparto:DB.divReparto||{},
+    dividendos:(function(){var cut=new Date(Date.now()-60*864e5).toISOString().slice(0,10);var o={};var src=DB.dividendos||{};for(var k in src){o[k]=(src[k]||[]).filter(function(x){return x&&x.fecha>=cut;});}return o;})(),
     monitor:DB.monitor||{},
     valores:DB.valores||{}
   };
