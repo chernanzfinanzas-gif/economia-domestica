@@ -990,9 +990,14 @@ function _fiscalPorAnio(){
 /* ===== Monitor trimestral (puente dossiers/trimestral/[TICKER]-trim.json) ===== */
 function _trimEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _trimFmt(v){ if(typeof v==='number'){ try{ return new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(v); }catch(e){ return ''+v; } } return v==null?'':(''+v); }
+/* Normaliza cualquier token de periodo (1T/S1/9M/FY, T1/2T/6M/12M, AAAA-TOKEN o TOKEN-AAAA) al canonico AAAA-Qn.
+   Globales: los usan el Monitor (04-plan) y la vista de Informes (07-informes) para no depender de que el -trim.json venga pre-normalizado. */
+var _TRIM_TOK_Q={Q1:1,'1T':1,T1:1,'3M':1, Q2:2,'2T':2,T2:2,S1:2,H1:2,'6M':2, Q3:3,'3T':3,T3:3,'9M':3, Q4:4,'4T':4,T4:4,FY:4,'12M':4,A:4};
+function _trimCanon(p){ if(p==null)return ''; var s=(''+p).trim().toUpperCase(); if(/^\d{4}-Q[1-4]$/.test(s))return s; var pt=s.split('-'); if(pt.length!==2)return ''+p; var a=pt[0],b=pt[1],year=null,tok=null; if(/^\d{4}$/.test(a)){year=a;tok=b;}else if(/^\d{4}$/.test(b)){year=b;tok=a;}else return ''+p; var q=_TRIM_TOK_Q[tok]; return q?(year+'-Q'+q):(''+p); }
+function _revHecha(rev,canon){ if(!rev)return false; if(rev[canon])return true; for(var k in rev){ if(rev[k]&&_trimCanon(k)===canon)return true; } return false; }
 async function cargarTrimestral(t){ t=(t||'').toUpperCase(); if(!t){return;}
   try{ const r=await fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}); _trimCache[t]=r.ok?await r.json():null; }catch(e){ _trimCache[t]=null; }
-  try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ if(rv.periodo&&!DB.monitor[t].rev[rv.periodo]){ DB.monitor[t].rev[rv.periodo]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
+  try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ var pc=_trimCanon(rv.periodo); if(pc&&!DB.monitor[t].rev[pc]){ DB.monitor[t].rev[pc]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
   if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t);
 }
 function _trimUnidad(nombre){ var m=(''+(nombre==null?'':nombre)).match(/\(([^()]*)\)\s*$/); return m?m[1].trim():''; }
