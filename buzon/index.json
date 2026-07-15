@@ -1,6 +1,17 @@
 {
-  "actualizado": "2026-07-15T00:08:40+02:00",
+  "actualizado": "2026-07-15T14:47:10+02:00",
   "ficheros": [
+    {
+      "clave": "agenda",
+      "titulo": "Agenda confirmada (resultados y ex-dividend)",
+      "archivo": "agenda.json",
+      "generadoEl": "2026-07-15T14:47:10+02:00",
+      "destinoApp": [
+        "calendario",
+        "avisos"
+      ],
+      "resumen": "10 resultados · 2 ex-dividend confirmados"
+    },
     {
       "clave": "vigia",
       "titulo": "Vigía de informes trimestrales",
