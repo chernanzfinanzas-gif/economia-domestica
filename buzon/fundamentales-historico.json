@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "actualizado": "2026-07-15T15:00:00+02:00",
+  "meses": [
+    {
+      "mesKey": "2026-05",
+      "fecha": "2026-05-01",
+      "periodoTexto": "desde 2026-04-01 (~30 días)",
+      "resumenTexto": "Radar (mayo): 3 empresas con cambios, 2 con señal.",
+      "totales": {
+        "conCambios": 3,
+        "conSenal": 2,
+        "universo": 93
+      },
+      "senaladas": [
+        {
+          "ticker": "VIS",
+          "nombre": "Viscofan",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MAP",
+          "nombre": "Mapfre",
+          "senales": [
+            "💰 RPD cruzó el 5%"
+          ]
+        }
+      ]
+    },
+    {
+      "mesKey": "2026-06",
+      "fecha": "2026-06-01",
+      "periodoTexto": "desde 2026-05-01 (~31 días)",
+      "resumenTexto": "Radar (junio): 2 empresas con cambios, 1 con señal.",
+      "totales": {
+        "conCambios": 2,
+        "conSenal": 1,
+        "universo": 93
+      },
+      "senaladas": [
+        {
+          "ticker": "REP",
+          "nombre": "Repsol",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        }
+      ]
+    },
+    {
+      "mesKey": "2026-07",
+      "fecha": "2026-07-15",
+      "periodoTexto": "desde 2026-06-15 (~30 días)",
+      "resumenTexto": "Radar (desde 2026-06-15 (~30 días)): 5 empresas con cambios, 4 con señal accionable. Señales: Naturgy — ⚠️ Payout por encima del 80%, 📊 BPA revisado ▼ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular; Ebro Foods — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; Iberdrola — 🟢 Más barata que hace un mes; Bankinter — 💰 RPD cruzó el 4%. Nuevas en el universo: 1 (RJF).",
+      "totales": {
+        "conCambios": 5,
+        "conSenal": 4,
+        "universo": 93
+      },
+      "senaladas": [
+        {
+          "ticker": "NTGY",
+          "nombre": "Naturgy",
+          "senales": [
+            "⚠️ Payout por encima del 80%",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular"
+          ]
+        },
+        {
+          "ticker": "EBRO",
+          "nombre": "Ebro Foods",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "IBE",
+          "nombre": "Iberdrola",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "BKT",
+          "nombre": "Bankinter",
+          "senales": [
+            "💰 RPD cruzó el 4%"
+          ]
+        }
+      ]
+    }
+  ]
+}
