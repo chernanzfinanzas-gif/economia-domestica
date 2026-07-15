@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-07-15T15:00:00+02:00",
+  "actualizado": "2026-07-15T14:47:10+02:00",
   "ficheros": [
     {
       "clave": "agenda",
@@ -11,17 +11,6 @@
         "avisos"
       ],
       "resumen": "10 resultados · 2 ex-dividend confirmados"
-    },
-    {
-      "clave": "radar",
-      "titulo": "Radar: qué cambió (fundamentales)",
-      "archivo": "fundamentales-cambios.json",
-      "generadoEl": "2026-07-15T15:00:00+02:00",
-      "destinoApp": [
-        "radar",
-        "informe"
-      ],
-      "resumen": "5 con cambios · 4 con señal"
     },
     {
       "clave": "vigia",
