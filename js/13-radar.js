@@ -86,12 +86,25 @@ document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.
 var _radFundCache=null, _radSort={k:'atr',dir:-1}, _radArqFilter='';
 function _radCargarFund(){ if(_radFundCache!==null)return Promise.resolve(_radFundCache); return fetch('fundamentales.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_radFundCache=j||{empresas:[]};return _radFundCache;}).catch(function(){_radFundCache={empresas:[]};return _radFundCache;}); }
 function _rf(v,suf,nd){ if(v==null)return '—'; nd=(nd==null?1:nd); return (typeof v==='number'?v.toFixed(nd):v)+(suf||''); }
+/* ---- Radar: "qué cambió" (buzon/fundamentales-cambios.json, mensual) ---- */
+var _radCambios=null, _radCambiosLoad=null;
+function _radCambiosCargar(){ if(_radCambios!==null)return Promise.resolve(_radCambios); if(_radCambiosLoad)return _radCambiosLoad;
+  _radCambiosLoad=fetch('buzon/fundamentales-cambios.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_radCambios=j||false;return _radCambios;}).catch(function(){_radCambios=false;return _radCambios;});
+  return _radCambiosLoad; }
+function _radCambiosStrip(){ var c=_radCambios; if(!c||!c.totales)return '';
+  var top=(c.cambios||[]).filter(function(x){return x.senales&&x.senales.length;}).slice(0,6);
+  var chips=top.map(function(x){ return '<span style="display:inline-block;background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;margin:2px 4px 0 0;font-size:12px"><b>'+_radEsc(x.ticker)+'</b> '+_radEsc(x.senales[0].txt)+(x.senales.length>1?(' +'+(x.senales.length-1)):'')+'</span>'; }).join('');
+  return '<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:8px 12px;margin:8px 0">'
+    +'<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px"><div style="font-weight:700;font-size:13px">🔎 Cambios '+_radEsc(c.periodoTexto||'')+'</div>'
+    +'<a href="#" id="radVerBuzon" style="font-size:12px">ver en el Buzón →</a></div>'
+    +'<div class="muted" style="font-size:12px;margin:2px 0 4px">'+(c.totales.conCambios||0)+' empresas con cambios · '+(c.totales.conSenal||0)+' con señal accionable</div>'
+    +(chips?('<div>'+chips+'</div>'):'')+'</div>'; }
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return;
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
-  _radCargarFund().then(function(fund){
+  Promise.all([_radCargarFund(), _radCambiosCargar()]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     var cands=[];
     Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
@@ -129,8 +142,9 @@ function renderRadar(){
     }).join('');
     var thead='<tr><th>★</th><th class="num" data-radsk="atr" style="cursor:pointer">Atractivo'+arr('atr')+'</th><th>Empresa</th><th>Arquetipo</th><th class="num" data-radsk="rpd" style="cursor:pointer">RPD'+arr('rpd')+'</th><th class="num">Payout</th><th class="num">ROE</th><th class="num">DN/EBITDA</th><th class="num">PER</th><th class="num">P/BV</th><th class="num">Pos.52s</th><th>Rating</th><th>Nota</th></tr>';
     var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. Datos de <code>fundamentales.json</code>.</div>';
-    sec.innerHTML='<h2>Radar de oportunidades</h2>'+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
+    sec.innerHTML='<h2>Radar de oportunidades</h2>'+_radCambiosStrip()+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
     if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+    var _vb=document.getElementById('radVerBuzon'); if(_vb)_vb.addEventListener('click',function(e){ e.preventDefault(); if(typeof activarVista==='function')activarVista('buzon'); });
     _wireBuscador(document.getElementById('radSearch'), sec.querySelectorAll('tbody tr[data-fs]'), _radBusca);
     var fa=document.getElementById('radArq'); if(fa)fa.addEventListener('change',function(){ _radArqFilter=this.value; renderRadar(); });
     sec.querySelectorAll('th[data-radsk]').forEach(function(th){ th.addEventListener('click',function(){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} renderRadar(); }); });

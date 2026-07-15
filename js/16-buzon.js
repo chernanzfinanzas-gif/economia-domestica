@@ -94,17 +94,75 @@
     return h;
   }
 
+  // ---- Radar: histórico de meses anteriores (fundamentales-historico.json) --
+  function radarHistHtml(hist){
+    if(!hist||!hist.meses||!hist.meses.length) return '';
+    var meses=hist.meses.slice().sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); }); // más reciente primero
+    // el más reciente ya se muestra arriba en detalle; en el histórico van todos, resumidos
+    var filas=meses.map(function(m){
+      var t=(m.totales||{});
+      var lista=(m.senaladas||[]).map(function(s){
+        return '<div style="margin:2px 0 0 8px;font-size:12px"><b>'+esc(s.ticker)+'</b> <span class="muted">'+esc((s.nombre||'').slice(0,22))+'</span> — '+(s.senales||[]).map(esc).join(' · ')+'</div>';
+      }).join('');
+      return '<details style="border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:6px">'
+        +'<summary style="cursor:pointer;font-size:12.5px"><b>'+esc((m.fecha||'').slice(0,7))+'</b> · '+(t.conCambios||0)+' cambios · '+(t.conSenal||0)+' con señal'
+        +' <span class="muted">'+esc(m.periodoTexto||'')+'</span></summary>'
+        +(lista?('<div style="margin-top:4px">'+lista+'</div>'):'<div class="muted" style="font-size:12px;margin-top:4px">Sin señales accionables ese mes.</div>')
+        +'</details>';
+    }).join('');
+    return '<div style="margin-top:14px"><h3 style="margin:0 0 6px;font-size:14px">🕘 Meses anteriores</h3>'
+      +'<div class="muted" style="font-size:11px;margin-bottom:6px">Cada mes queda archivado aquí (se guardan los últimos '+meses.length+'). Despliega uno para ver sus señales.</div>'
+      +filas+'</div>';
+  }
+
+  // ---- Radar: qué cambió (fundamentales, mensual) --------------------------
+  function radarHtml(a, hist){
+    if(!a) return (hist?radarHistHtml(hist):'');
+    var chip=function(c){
+      var col=c.dir==='up'?'#166534':'#b91c1c', bg=c.dir==='up'?'#dcfce7':'#fee2e2', arr=c.dir==='up'?'▲':'▼';
+      var dp=(c.deltaPct!=null)?(' <span style="opacity:.8">'+(c.deltaPct>=0?'+':'')+c.deltaPct+'%</span>'):'';
+      return '<span style="display:inline-block;background:'+bg+';color:'+col+';border-radius:5px;padding:1px 6px;margin:2px 4px 0 0;font-size:11px;white-space:nowrap">'
+        +esc(c.label)+' '+esc(''+c.antes)+esc(c.unidad||'')+'→'+esc(''+c.ahora)+esc(c.unidad||'')+' '+arr+dp+'</span>';
+    };
+    var sen=function(s){ return '<span style="display:inline-block;background:#eef2ff;color:#3730a3;border-radius:5px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:600">'+esc(s.txt)+'</span>'; };
+    var h='';
+    h+='<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:2px 0 10px">'
+      +'<h2 style="margin:0">🔎 Radar: qué cambió</h2>'
+      +'<span class="muted" style="font-size:12px">Fundamentales · '+esc(a.periodoTexto||'')+' · generado '+fdt(a.generadoEl)+'</span></div>';
+    h+='<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13.5px;line-height:1.5">'+esc(a.resumenTexto||'')+'</div>';
+    var cambios=(a.cambios||[]);
+    if(cambios.length){
+      cambios.slice(0,15).forEach(function(c){
+        h+='<div style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px">'
+          +'<div style="font-weight:700">'+esc(c.nombre)+' <span class="muted" style="font-weight:400;font-size:12px">('+esc(c.ticker)+')</span></div>'
+          +(c.senales&&c.senales.length?('<div style="margin-top:2px">'+c.senales.map(sen).join('')+'</div>'):'')
+          +(c.campos&&c.campos.length?('<div style="margin-top:3px">'+c.campos.map(chip).join('')+'</div>'):'')
+          +'</div>';
+      });
+      if(cambios.length>15) h+='<p class="muted" style="font-size:12px">…y '+(cambios.length-15)+' más.</p>';
+    } else {
+      h+='<p class="muted" style="margin:10px 0">Sin cambios materiales respecto a la foto anterior.</p>';
+    }
+    if(a.nuevas&&a.nuevas.length) h+='<p class="muted" style="font-size:12px;margin-top:6px">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
+    if(hist) h+=radarHistHtml(hist);
+    return h;
+  }
+
   // Aviso compacto en el Panel (visible a diario) con acceso rápido al buzón.
   // Los lunes se resalta como recordatorio para "volcar el buzón".
   window.renderBuzonPanel=function(){
     var host=document.getElementById('panelBuzon'); if(!host) return;
     var esLunes=(new Date().getDay()===1);
-    Promise.all([jget('buzon/index.json'), jget('buzon/vigia.json'), jget('buzon/agenda.json')]).then(function(r){
-      var idx=r[0], v=r[1], a=r[2];
+    Promise.all([jget('buzon/index.json'), jget('buzon/vigia.json'), jget('buzon/agenda.json'), jget('buzon/fundamentales-cambios.json')]).then(function(r){
+      var idx=r[0], v=r[1], a=r[2], rad=r[3];
       var partes=[];
       if(a){
         var nR=(a.resultados||[]).length;
         if(nR) partes.push('📊 <b>'+nR+'</b> resultado'+(nR>1?'s':'')+' <span class="muted">confirmados</span>');
+      }
+      if(rad&&rad.totales){
+        var nC=rad.totales.conCambios||0, nSn=rad.totales.conSenal||0;
+        if(nC) partes.push('🔎 <b>'+nC+'</b> cambio'+(nC>1?'s':'')+' de radar'+(nSn?(' · <b>'+nSn+'</b> con señal'):'')+' <span class="muted">(mes)</span>');
       }
       if(v){
         var nV=(v.vencidos||[]).length, nS=(v.estaSemana||[]).length, nP=(v.proximos14d||[]).length;
@@ -137,8 +195,12 @@
                     {clave:'vigia',archivo:'vigia.json',titulo:'Vigía de informes trimestrales'}];
       return Promise.all(files.map(function(f){
         return jget('buzon/'+f.archivo).then(function(data){ return {meta:f,data:data}; });
-      }));
-    }).then(function(items){
+      })).then(function(items){
+        // el histórico del radar es complementario (no va en index.json): se carga aparte
+        return jget('buzon/fundamentales-historico.json').then(function(hist){ return {items:items, hist:hist}; });
+      });
+    }).then(function(bundle){
+      var items=bundle.items, radHist=bundle.hist;
       var out='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
         +'<span class="muted" style="font-size:12px">📥 Buzón del lunes — lo rellenan las tareas automáticas del método</span>'
         +'<button id="buzonReload" style="background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">↻ Refrescar</button></div>';
@@ -148,6 +210,7 @@
         any=true;
         if(it.meta.clave==='agenda'){ out+='<div style="margin-bottom:20px">'+agendaHtml(it.data)+'</div>'; }
         else if(it.meta.clave==='vigia'){ out+='<div style="margin-bottom:20px">'+vigiaHtml(it.data)+'</div>'; }
+        else if(it.meta.clave==='radar'){ out+='<div style="margin-bottom:20px">'+radarHtml(it.data, radHist)+'</div>'; }
         else {
           out+='<div style="margin-bottom:20px"><h2>'+esc(it.meta.titulo||it.meta.clave)+'</h2>'
             +(it.data.resumenTexto?('<p style="line-height:1.5">'+esc(it.data.resumenTexto)+'</p>')
