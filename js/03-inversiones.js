@@ -349,6 +349,7 @@ function aplicarAnaPaste(){
 }
 let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={}; let _trimCache={};
 let fichaRange='all';
+let fichaMA={50:false,200:false};   // medias móviles activas en la gráfica de la ficha
 const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
 function fichaCalc(ticker){
@@ -453,9 +454,10 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>${divTable}`;
-  const _ranges=[['1a','1A'],['3a','3A'],['5a','5A'],['all','Todo']];
+  const _ranges=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']];
   const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
-  const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
+  const maBtns=[[50,'MM50'],[200,'MM200']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''}>${m[1]}</button>`).join('');
+  const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><span class="muted" style="font-size:11px">Media móvil</span><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
   const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span style="font-size:11px;color:${(_mmV!=null&&_mmV>12)?'#dc2626':'#64748b'}">análisis ${_ana.dossierFecha}${_mmV!=null?' ('+_mmV+'m'+(_mmV>12?' ⚠️':'')+')':''}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
@@ -544,6 +546,7 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
     if(tip){ const price=num(D.prices[bi]); const ds=D.dates[bi];
       let h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">Cotización:</span> <b>${fmt(price)}</b></div>`;
       if(D.avg>0){ const dv=D.avg>0?(price-D.avg)/D.avg*100:0; h+=`<div style="color:#cbd5e1;margin-top:1px">vs precio medio: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }
+      if(D.ma){ [50,200].forEach(function(w){ const arr=D.ma[w]; if(!arr)return; const mv=arr[bi]; if(mv==null)return; const cc=(D.maCols&&D.maCols[w])||'#93c5fd'; h+=`<div style="margin-top:1px"><span style="color:${cc}">MM${w}:</span> <b>${fmt(mv)}</b></div>`; }); }
       tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(64,Math.min(r.width-64,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
   },{passive:true});
 }
@@ -555,14 +558,22 @@ async function drawFichaChart(t){
     _precioCache[t]=pj;
   }
   if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; return; }
-  let data=pj.data.map(d=>[Date.parse(d[0]),d[1]]).filter(d=>!isNaN(d[0]));
-  if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; return; }
-  const lastT=data[data.length-1][0];
-  const yrs={'1a':1,'3a':3,'5a':5}[fichaRange];
-  if(yrs){ const cut=lastT-yrs*365.25*86400000; data=data.filter(d=>d[0]>=cut); }
+  const dataFull=pj.data.map(d=>[Date.parse(d[0]),d[1]]).filter(d=>!isNaN(d[0]));
+  if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; return; }
+  const lastT=dataFull[dataFull.length-1][0];
+  // Medias móviles (simples) sobre TODO el histórico → válidas también al borde izquierdo del rango
+  const _rollMA=function(arr,w){ const out=new Array(arr.length).fill(null); let sum=0; for(let i=0;i<arr.length;i++){ sum+=arr[i][1]; if(i>=w)sum-=arr[i-w][1]; if(i>=w-1)out[i]=sum/w; } return out; };
+  const wantMA=[50,200].filter(w=>fichaMA[w]);
+  const maFull={}; wantMA.forEach(w=>{ maFull[w]=_rollMA(dataFull,w); });
+  // Recorte por rango, en días de calendario (1S/1M/3M/1A/5A; 'all' = todo)
+  const _days={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827}[fichaRange];
+  let startIdx=0; if(_days){ const cut=lastT-_days*86400000; while(startIdx<dataFull.length&&dataFull[startIdx][0]<cut)startIdx++; }
+  const data=dataFull.slice(startIdx);
   if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Pocos datos en este rango.</div>'; return; }
-  const MAXP=600; const step=Math.ceil(data.length/MAXP); let pts=step>1?data.filter((_,i)=>i%step===0):data.slice();
-  if(pts[pts.length-1][0]!==data[data.length-1][0]) pts.push(data[data.length-1]);
+  const maVis={}; wantMA.forEach(w=>{ maVis[w]=maFull[w].slice(startIdx); });
+  const MAXP=600; const step=Math.max(1,Math.ceil(data.length/MAXP));
+  const idxs=[]; for(let i=0;i<data.length;i+=step)idxs.push(i); if(idxs[idxs.length-1]!==data.length-1)idxs.push(data.length-1);
+  let pts=idxs.map(i=>data[i]);
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
   let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0; const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0); const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
   const t0=data[0][0], t1=data[data.length-1][0];
@@ -570,9 +581,12 @@ async function drawFichaChart(t){
   const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
   ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); [entL,entH,stopV].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } });
+  wantMA.forEach(w=>{ idxs.forEach(i=>{ const v=maVis[w][i]; if(v!=null){ if(v<lo)lo=v; if(v>hi)hi=v; } }); });
   const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
   const X=x=>L+(x-t0)/((t1-t0)||1)*pw, Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
   let path=''; pts.forEach((p,i)=>{ path+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)+' '; });
+  const _maCols={50:'#0891b2',200:'#ea580c'};
+  let maPaths=''; wantMA.forEach(w=>{ const arr=maVis[w]; let dstr='',started=false; idxs.forEach(i=>{ const v=arr[i]; if(v==null)return; dstr+=(started?'L':'M')+X(data[i][0]).toFixed(1)+','+Y(v).toFixed(1)+' '; started=true; }); if(dstr)maPaths+=`<path d="${dstr}" fill="none" stroke="${_maCols[w]}" stroke-width="1.3" opacity="0.9"/>`; });
   let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Y(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(2)}</text>`; }
   let xl=''; const yA=new Date(t0).getFullYear(), yB=new Date(t1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
   let avgL=''; if(avg){ const y=Y(avg); avgL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="5 3"/><text x="${W-R}" y="${(y-3).toFixed(1)}" text-anchor="end" font-size="9" fill="#7c3aed">P.medio ${avg.toFixed(2)}</text>`; }
@@ -585,11 +599,13 @@ async function drawFichaChart(t){
   // Registro para el tooltip interactivo (fecha + cotización al pasar el ratón sobre la línea)
   const xs=pts.map(p=>X(p[0])), ys=pts.map(p=>Y(p[1])), prices=pts.map(p=>p[1]);
   const dates=pts.map(p=>{ const dt=new Date(p[0]); return String(dt.getUTCDate()).padStart(2,'0')+'/'+String(dt.getUTCMonth()+1).padStart(2,'0')+'/'+dt.getUTCFullYear(); });
-  _fichaHov={W,xs,ys,prices,dates,avg}; _fichaBindHover();
+  const maSampled={}; wantMA.forEach(w=>{ maSampled[w]=idxs.map(i=>maVis[w][i]); });
+  _fichaHov={W,xs,ys,prices,dates,avg,ma:maSampled,maCols:_maCols}; _fichaBindHover();
   const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
   const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
   const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
-  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg">${grid}${xl}${guide}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${poL}${stopL}${avgL}${mk}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · pasa el ratón sobre la línea para ver fecha y cotización · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo · <span style="color:#0ea5e9">▬</span> banda de entrada · <span style="color:#dc2626">▬</span> stop</div>`;
+  const maLeg=wantMA.map(w=>`<span style="color:${_maCols[w]}">▬</span> MM${w}`).join(' · ');
+  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg">${grid}${xl}${guide}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${maPaths}${poL}${stopL}${avgL}${mk}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · pasa el ratón sobre la línea para ver fecha y cotización · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo · <span style="color:#0ea5e9">▬</span> banda de entrada · <span style="color:#dc2626">▬</span> stop${maLeg?' · '+maLeg:''}</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
