@@ -1,37 +1,51 @@
 {
-"schemaVersion": 2,
-"ticker": "VID",
-"empresa": "Vidrala, S.A.",
-"fecha": "2026-07-13",
-"rating": "AA",
-"score": 75.6,
-"decision": "COMPRAR",
-"metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER) + DCF de calidad — industrial. PO oficial = síntesis del Cap. VI ≈ 107,3 € (55% DCF ponderado + 45% múltiplos históricos).",
-"poBear": 70.3,
-"poBase": 107.3,
-"poBull": 139.9,
-"entMin": 80.0,
-"entMax": 90.0,
-"stop": 63.5,
-"dpaPrevisto": 1.75,
-"moat": "Moderado (67/100) — ventaja de costes + escala eficiente regional",
-"catalizadores": [
-"Normalización de márgenes al ~30% en 2026",
-"Recuperación del volumen orgánico",
-"Despliegue de la caja (M&A acretiva o retribución extraordinaria)",
-"Cierre del descuento de múltiplo (EV/EBITDA 7,9x → 9,8x)",
-"Bajada de tipos del BCE"
-],
-"riesgos": [
-"Coste energético (gas/electricidad)",
-"Recesión / caída de volumen",
-"Sustitución del vidrio (lata/rPET/cartón)",
-"Descarbonización (CO2 / CBAM)",
-"Sobrepago o mala integración en M&A",
-"Divisa (GBP y BRL)",
-"Tipos de interés / refinanciación"
-],
-"bull": "Márgenes 30%+ sostenidos, recuperación de volumen, M&A acretiva y re-rating al múltiplo histórico llevarían la acción a ~140 € (+58%).",
-"bear": "Crisis energética prolongada más guerra de precios comprimirían el margen por debajo del 20% y el valor a ~70 € (−20%), caída acotada por el balance sin deuda.",
-"resumen": "Líder de calidad del vidrio europeo (margen 30%, DN/EBITDA 0,2x, ROIC 14% > WACC 8%) cotizando por debajo de sus múltiplos históricos. PO 107,3 € (+21%). Veredicto COMPRAR/ACUMULAR; convicción plena < 86 €. Riesgo nº1: coste energético."
+ "schemaVersion": 3,
+ "ticker": "VID",
+ "empresa": "Vidrala, S.A.",
+ "fecha": "2026-07-13",
+ "rating": "AA",
+ "score": 75.6,
+ "decision": "COMPRAR",
+ "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER) + DCF de calidad — industrial. PO oficial = síntesis del Cap. VI ≈ 107,3 € (55% DCF ponderado + 45% múltiplos históricos).",
+ "poBear": 70.3,
+ "poBase": 107.3,
+ "poBull": 139.9,
+ "entMin": 80.0,
+ "entMax": 90.0,
+ "stop": 63.5,
+ "dpaPrevisto": 1.75,
+ "moat": "Moderado (67/100) — ventaja de costes + escala eficiente regional",
+ "catalizadores": [
+  "Normalización de márgenes al ~30% en 2026",
+  "Recuperación del volumen orgánico",
+  "Despliegue de la caja (M&A acretiva o retribución extraordinaria)",
+  "Cierre del descuento de múltiplo (EV/EBITDA 7,9x → 9,8x)",
+  "Bajada de tipos del BCE"
+ ],
+ "riesgos": [
+  "Coste energético (gas/electricidad)",
+  "Recesión / caída de volumen",
+  "Sustitución del vidrio (lata/rPET/cartón)",
+  "Descarbonización (CO2 / CBAM)",
+  "Sobrepago o mala integración en M&A",
+  "Divisa (GBP y BRL)",
+  "Tipos de interés / refinanciación"
+ ],
+ "bull": "Márgenes 30%+ sostenidos, recuperación de volumen, M&A acretiva y re-rating al múltiplo histórico llevarían la acción a ~140 € (+58%).",
+ "bear": "Crisis energética prolongada más guerra de precios comprimirían el margen por debajo del 20% y el valor a ~70 € (−20%), caída acotada por el balance sin deuda.",
+ "resumen": "Líder de calidad del vidrio europeo (margen 30%, DN/EBITDA 0,2x, ROIC 14% > WACC 8%) cotizando por debajo de sus múltiplos históricos. PO 107,3 € (+21%). Veredicto COMPRAR/ACUMULAR; convicción plena < 86 €. Riesgo nº1: coste energético.",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-15"
+ }
 }

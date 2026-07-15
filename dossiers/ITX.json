@@ -1,34 +1,49 @@
 {
-"schemaVersion": 2,
-"ticker": "ITX",
-"empresa": "Industria de Diseño Textil, S.A. (Inditex)",
-"fecha": "2026-07-12",
-"rating": "AA",
-"score": 86.3,
-"decision": "ESPERAR",
-"metodoValoracion": "DCF (calidad/growth) + múltiplos históricos — retail de moda. PO oficial = síntesis del Cap. VI ≈44,5 € (40% DCF base 44,3 € + 60% múltiplos ~44,6 €); bear 34,5 €, bull 59,3 €. EV con caja neta (+10.958 M€).",
-"poBear": 34.5,
-"poBase": 44.5,
-"poBull": 59.3,
-"entMin": 40.0,
-"entMax": 46.0,
-"stop": 30.8,
-"dpaPrevisto": 1.75,
-"moat": "Ancho (75/100) — ventaja de coste/velocidad del modelo vertical integrado + marca Zara",
-"catalizadores": [
-"Resultados trimestrales con ventas comparables positivas y margen bruto estable",
-"Aumento del dividendo o extraordinario",
-"Expansión internacional (India, EE.UU.) e inteligencia artificial",
-"Corrección del precio hacia 44-46 € (activa la compra)"
-],
-"riesgos": [
-"Disrupción del ultra-fast-fashion (Shein/Temu)",
-"Recesión de consumo discrecional",
-"Exposición a divisa (euro fuerte)",
-"Ejecución de moda y riesgo de inventario",
-"Valoración exigente: de-rating del múltiplo"
-],
-"bull": "Crecimiento sostenido ~7-8%, márgenes estables y online >30%; el mercado mantiene la prima (P/E ~27) → 59-65 € (+6/+17%).",
-"bear": "Comoditización por Shein/Temu + recesión: margen bruto <50%, EBIT −25/30% y de-rating del P/E a ~16x → 30-35 € (−40%).",
-"resumen": "Inditex es un negocio de calidad excepcional (Rating AA 86,3; moat ancho; ROIC 40% frente a un WACC del 8,75%; caja neta +10.958 M€). Pero a 55,72 € el mercado ya descuenta toda su calidad: el precio objetivo (~44,5 €) implica un margen de seguridad NEGATIVO del −20%. Veredicto ESPERAR: a la watchlist con alerta de entrada en 44-46 € (ideal ≤40 €)."
+ "schemaVersion": 3,
+ "ticker": "ITX",
+ "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
+ "fecha": "2026-07-12",
+ "rating": "AA",
+ "score": 86.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF (calidad/growth) + múltiplos históricos — retail de moda. PO oficial = síntesis del Cap. VI ≈44,5 € (40% DCF base 44,3 € + 60% múltiplos ~44,6 €); bear 34,5 €, bull 59,3 €. EV con caja neta (+10.958 M€).",
+ "poBear": 34.5,
+ "poBase": 44.5,
+ "poBull": 59.3,
+ "entMin": 40.0,
+ "entMax": 46.0,
+ "stop": 30.8,
+ "dpaPrevisto": 1.75,
+ "moat": "Ancho (75/100) — ventaja de coste/velocidad del modelo vertical integrado + marca Zara",
+ "catalizadores": [
+  "Resultados trimestrales con ventas comparables positivas y margen bruto estable",
+  "Aumento del dividendo o extraordinario",
+  "Expansión internacional (India, EE.UU.) e inteligencia artificial",
+  "Corrección del precio hacia 44-46 € (activa la compra)"
+ ],
+ "riesgos": [
+  "Disrupción del ultra-fast-fashion (Shein/Temu)",
+  "Recesión de consumo discrecional",
+  "Exposición a divisa (euro fuerte)",
+  "Ejecución de moda y riesgo de inventario",
+  "Valoración exigente: de-rating del múltiplo"
+ ],
+ "bull": "Crecimiento sostenido ~7-8%, márgenes estables y online >30%; el mercado mantiene la prima (P/E ~27) → 59-65 € (+6/+17%).",
+ "bear": "Comoditización por Shein/Temu + recesión: margen bruto <50%, EBIT −25/30% y de-rating del P/E a ~16x → 30-35 € (−40%).",
+ "resumen": "Inditex es un negocio de calidad excepcional (Rating AA 86,3; moat ancho; ROIC 40% frente a un WACC del 8,75%; caja neta +10.958 M€). Pero a 55,72 € el mercado ya descuenta toda su calidad: el precio objetivo (~44,5 €) implica un margen de seguridad NEGATIVO del −20%. Veredicto ESPERAR: a la watchlist con alerta de entrada en 44-46 € (ideal ≤40 €).",
+ "confianza": {
+  "score": 96,
+  "nivel": "A",
+  "motivos": [
+   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)",
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-15"
+ }
 }

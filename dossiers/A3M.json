@@ -1,34 +1,49 @@
 {
-"ticker": "A3M",
-"empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
-"fecha": "2026-07-09",
-"rating": "A",
-"score": 71.5,
-"decision": "ESPERAR",
-"metodoValoracion": "Múltiplos normalizados (EV/EBITDA ~5x, PER ~7,5x mid-cycle) + DCF sobre FCL normalizado — arquetipo CONSUMO/cíclico. PO oficial = síntesis ponderada (40% DCF + 60% múltiplos) = 5,15 €; rango DCF 4,40–8,53 €.",
-"poBear": 4.4,
-"poBase": 5.15,
-"poBull": 8.53,
-"entMin": 3.9,
-"entMax": 4.3,
-"stop": 2.5,
-"moat": "Estrecho (56)",
-"catalizadores": [
-"Estabilización de ingresos 2026 (guía: margen EBITDA ~15%)",
-"Integración de Clear Channel España (publicidad exterior, 115 M€)",
-"Monetización creciente de Atresplayer y digital",
-"Normalización del dividendo (payout FCL <100%)",
-"Re-rating de la caja neta (cierre del descuento de múltiplo)"
-],
-"riesgos": [
-"Declive estructural de la TV lineal (−20 a −35%)",
-"Ciclicidad del mercado publicitario (−15 a −30%)",
-"Inflación de costes de contenido",
-"Insostenibilidad del dividendo (payout FCL >100%)",
-"Fracaso de la transición digital / M&A destructivo",
-"Gobernanza: accionista de control (Planeta ~44,5%)"
-],
-"bull": "Estabilización de ingresos con el digital y la publicidad exterior compensando el declive del lineal, dividendo sostenido y re-rating de la caja neta: convergencia hacia el DCF optimista (~8,5 €).",
-"bear": "Declive acelerado del lineal y/o recesión publicitaria hunden el EBITDA >40%, fuerzan el recorte del dividendo y comprimen el múltiplo a mínimos (~2,5–2,9 €).",
-"resumen": "Atresmedia es un negocio maduro de alta calidad financiera (Rating A, caja neta, gran generación de caja y dividendo atractivo) que lidera un sector en declive estructural con un moat estrecho. A 4,82 € el precio objetivo (5,15 €) ofrece apenas +7% de recorrido frente a un Bear Case del −45%: la asimetría es desfavorable. Decisión: ESPERAR — acción de renta/valor a comprar con paciencia por debajo de ~4,30 €."
+ "ticker": "A3M",
+ "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
+ "fecha": "2026-07-09",
+ "rating": "A",
+ "score": 71.5,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Múltiplos normalizados (EV/EBITDA ~5x, PER ~7,5x mid-cycle) + DCF sobre FCL normalizado — arquetipo CONSUMO/cíclico. PO oficial = síntesis ponderada (40% DCF + 60% múltiplos) = 5,15 €; rango DCF 4,40–8,53 €.",
+ "poBear": 4.4,
+ "poBase": 5.15,
+ "poBull": 8.53,
+ "entMin": 3.9,
+ "entMax": 4.3,
+ "stop": 2.5,
+ "moat": "Estrecho (56)",
+ "catalizadores": [
+  "Estabilización de ingresos 2026 (guía: margen EBITDA ~15%)",
+  "Integración de Clear Channel España (publicidad exterior, 115 M€)",
+  "Monetización creciente de Atresplayer y digital",
+  "Normalización del dividendo (payout FCL <100%)",
+  "Re-rating de la caja neta (cierre del descuento de múltiplo)"
+ ],
+ "riesgos": [
+  "Declive estructural de la TV lineal (−20 a −35%)",
+  "Ciclicidad del mercado publicitario (−15 a −30%)",
+  "Inflación de costes de contenido",
+  "Insostenibilidad del dividendo (payout FCL >100%)",
+  "Fracaso de la transición digital / M&A destructivo",
+  "Gobernanza: accionista de control (Planeta ~44,5%)"
+ ],
+ "bull": "Estabilización de ingresos con el digital y la publicidad exterior compensando el declive del lineal, dividendo sostenido y re-rating de la caja neta: convergencia hacia el DCF optimista (~8,5 €).",
+ "bear": "Declive acelerado del lineal y/o recesión publicitaria hunden el EBITDA >40%, fuerzan el recorte del dividendo y comprimen el múltiplo a mínimos (~2,5–2,9 €).",
+ "resumen": "Atresmedia es un negocio maduro de alta calidad financiera (Rating A, caja neta, gran generación de caja y dividendo atractivo) que lidera un sector en declive estructural con un moat estrecho. A 4,82 € el precio objetivo (5,15 €) ofrece apenas +7% de recorrido frente a un Bear Case del −45%: la asimetría es desfavorable. Decisión: ESPERAR — acción de renta/valor a comprar con paciencia por debajo de ~4,30 €.",
+ "schemaVersion": 3,
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-15"
+ }
 }
