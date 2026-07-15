@@ -46,18 +46,23 @@
       {t:'En',num:true,f:function(x){return (x.dias<0?'hace '+(-x.dias):'en '+x.dias)+' d';}},
       {t:'',f:function(x){return badge(x.confirmada);}}
     ]);
-    h+=tabla('💶 Próximos ex-dividend', a.exDividendos, [
-      {t:'Empresa',f:emp},
-      {t:'Ex-date',f:function(x){return fday(x.exFecha);}},
-      {t:'Pago',f:function(x){return x.pagoFecha?fday(x.pagoFecha):'—';}},
-      {t:'€/acción',num:true,f:function(x){return x.importe!=null?eur(x.importe):'—';}}
-    ]);
-    if(!(a.resultados&&a.resultados.length)&&!(a.exDividendos&&a.exDividendos.length)){
-      h+='<p class="muted" style="margin:10px 0">Sin fechas confirmadas por Yahoo en la ventana. Rige la estimación del Vigía (más abajo).</p>';
+    if(!(a.resultados&&a.resultados.length)){
+      h+='<p class="muted" style="margin:10px 0">Sin fecha de resultados confirmada por Yahoo en la ventana. Rige la estimación del Vigía (más abajo).</p>';
     }
     if(a.sinConfirmar&&a.sinConfirmar.length){
-      h+='<p class="muted" style="margin:8px 0;font-size:12px">Sin confirmar por Yahoo ('+a.sinConfirmar.length+'): '
+      h+='<p class="muted" style="margin:8px 0;font-size:12px">Sin fecha de resultados confirmada ('+a.sinConfirmar.length+'): '
         +a.sinConfirmar.map(function(x){return esc(x.ticker);}).join(', ')+'. Para estas rige la <b>estimación del Vigía</b>.</p>';
+    }
+    // Ex-dividend: secundario y discreto. Lo bueno son las fechas de resultados; para
+    // dividendos manda TU sección de Dividendos (Yahoo es flojo con la bolsa española).
+    if(a.exDividendos&&a.exDividendos.length){
+      h+='<details style="margin-top:10px"><summary class="muted" style="cursor:pointer;font-size:12px">💶 Ex-dividend (orientativo, '+a.exDividendos.length+') — tus fechas exactas están en Dividendos</summary>'
+        +'<div style="margin-top:6px">'+tabla('', a.exDividendos, [
+          {t:'Empresa',f:emp},
+          {t:'Ex-date',f:function(x){return fday(x.exFecha);}},
+          {t:'Pago',f:function(x){return x.pagoFecha?fday(x.pagoFecha):'—';}},
+          {t:'€/acción',num:true,f:function(x){return x.importe!=null?eur(x.importe):'—';}}
+        ])+'</div></details>';
     }
     return h;
   }
@@ -98,13 +103,8 @@
       var idx=r[0], v=r[1], a=r[2];
       var partes=[];
       if(a){
-        var nR=(a.resultados||[]).length, nX=(a.exDividendos||[]).length;
-        if(nR||nX){
-          var seg='';
-          if(nR) seg+='📊 <b>'+nR+'</b> resultado'+(nR>1?'s':'');
-          if(nX) seg+=(seg?' · ':'')+'💶 <b>'+nX+'</b> ex-div';
-          partes.push(seg+' <span class="muted">confirmados</span>');
-        }
+        var nR=(a.resultados||[]).length;
+        if(nR) partes.push('📊 <b>'+nR+'</b> resultado'+(nR>1?'s':'')+' <span class="muted">confirmados</span>');
       }
       if(v){
         var nV=(v.vencidos||[]).length, nS=(v.estaSemana||[]).length, nP=(v.proximos14d||[]).length;
