@@ -1,7 +1,11 @@
 name: Actualizar fundamentales
-# Solo manual (boton "Run workflow"): los fundamentales cambian despacio y asi
-# no se piden datos a Yahoo a diario. Alternativa: el .bat local de la misma carpeta.
-on: { workflow_dispatch: {} }
+# MENSUAL (día 1, 06:00 UTC) + manual. Los fundamentales cambian despacio, así que
+# una vez al mes basta y no satura a Yahoo. Baja la foto nueva y calcula "qué cambió"
+# respecto al mes anterior, dejándolo en el buzón (buzon/fundamentales-cambios.json).
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch: {}
 permissions: { contents: write }
 jobs:
   fundamentales:
@@ -11,20 +15,23 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
       - run: pip install yfinance pandas
-      - run: python actualizar_fundamentales.py
+      - name: Bajar fundamentales (Yahoo)
+        run: python actualizar_fundamentales.py
+      - name: Calcular cambios vs mes anterior
+        run: python fundamentales_cambios.py
       - name: Commit y push (con reintentos ante colisiones)
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add fundamentales.json
+          git add fundamentales.json buzon/fundamentales-cambios.json buzon/fundamentales-historico.json buzon/index.json buzon/_fundamentales-prev.json
           if git diff --staged --quiet; then
-            echo "Sin cambios en fundamentales.json"; exit 0
+            echo "Sin cambios en fundamentales"; exit 0
           fi
-          git commit -m "Fundamentales"
+          git commit -m "Fundamentales + cambios (mensual)"
           for i in 1 2 3 4 5; do
             if git pull --rebase --autostash origin main && git push origin main; then
               echo "Push OK en el intento $i"; exit 0
             fi
-            echo "Push rechazado (colision), reintento $i..."; sleep 5
+            echo "Push rechazado (colisión), reintento $i..."; sleep 5
           done
           echo "No se pudo hacer push tras 5 intentos"; exit 1
