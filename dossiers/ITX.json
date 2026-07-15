@@ -1,5 +1,5 @@
 {
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
  "fecha": "2026-07-12",
@@ -44,6 +44,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 34.5,
+   "p50": 44.5,
+   "p90": 59.3
+  },
+  "sensibilidad": {
+   "poMin": 40.0,
+   "poMax": 55.2,
+   "poBase": 46.2,
+   "cotizacion": 55.72,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -28.2,
+   "mdsMax": -0.9
+  },
+  "beta": {
+   "capm": 0.9,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (55.72) queda por ENCIMA de toda la banda de PO [40.0–55.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

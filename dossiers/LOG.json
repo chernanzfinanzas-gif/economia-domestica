@@ -29,7 +29,7 @@
  "bull": "La diversificación compensa el tabaco, los tipos se estabilizan altos manteniendo el ingreso financiero y el mercado recalifica a PER ~16x: la acción tendería a 45-50 € (+35-47%).",
  "bear": "Tormenta fiscal-monetaria (recorte de tipos + subida fiscal del tabaco en Francia) → beneficio −20% → recorte del dividendo ~30% → des-rating: 22-25 € (−26 a −35%).",
  "resumen": "Logista es un cuasi-monopolio regulado de distribución, de calidad excepcional (Rating AA, moat ancho, ROIC ~31%, balance de caja neta, dividendo ~6% cubierto por la caja libre), que cotiza cerca de su valor razonable tras re-valorizarse con fuerza. Tesis de RENTA defensiva, no de revalorización: MANTENER para el inversor posicionado; ESPERAR entrada por debajo de 30 €. El punto a vigilar es la sensibilidad del beneficio a los tipos del BCE con un pay-out del ~98%.",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -43,6 +43,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 24.0,
+   "p50": 34.0,
+   "p90": 47.0
+  },
+  "sensibilidad": {
+   "poMin": 40.3,
+   "poMax": 56.8,
+   "poBase": 52.3,
+   "cotizacion": 33.9,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 18.9,
+   "mdsMax": 67.6
+  },
+  "beta": {
+   "capm": 0.47,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (33.90) queda por DEBAJO de toda la banda de PO [40.3–56.8] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

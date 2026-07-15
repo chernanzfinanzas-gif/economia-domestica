@@ -30,7 +30,7 @@
  "bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
  "bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
  "resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €).",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -44,6 +44,36 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 25.5,
+   "p50": 47.8,
+   "p90": 65.1
+  },
+  "sensibilidad": {
+   "poMin": 30.6,
+   "poMax": 54.2,
+   "poBase": 39.3,
+   "cotizacion": 57.2,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -46.5,
+   "mdsMax": -5.2
+  },
+  "beta": {
+   "capm": 0.14,
+   "ref2": null,
+   "aviso": "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  },
+  "motivos": [
+   "la cotización (57.20) queda por ENCIMA de toda la banda de PO [30.6–54.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
+   "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

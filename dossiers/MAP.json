@@ -30,7 +30,7 @@
  "bull": "El combinado se mantiene ~90%, el real se estabiliza y el múltiplo converge hacia 2,0x → 5,0-5,9 € (+20% a +40%).",
  "bear": "Tormenta latinoamericana (divisa + hiperinflación): recorte del dividendo y P/TBV a 1,0x → 2,4-3,0 € (−30% a −40%).",
  "resumen": "Aseguradora de calidad (rating A, el mejor ratio combinado de su grupo 90,2%, RoTE 15,4% sobre un coste de capital ~5-8% y Solvencia II ~210%) cuya calidad ya está reconocida en el precio tras revalorizarse +145%. Cotiza en su valor justo (PO 3,76-4,43 € vs 4,18 €), sin margen de seguridad y con un riesgo-recompensa simétrico. Tesis de RENTA (dividendo ~4,3% bien cubierto), no de revalorización: ESPERAR para abrir posición (entrada atractiva <3,50 €) y MANTENER si ya se está en cartera. Riesgo clave a vigilar: la divisa latinoamericana (real brasileño + ratio combinado).",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -43,6 +43,36 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "banda": {
+   "p10": 3.15,
+   "p50": 4.43,
+   "p90": 5.89
+  },
+  "sensibilidad": {
+   "poMin": 3.84,
+   "poMax": 5.67,
+   "poBase": 4.8,
+   "cotizacion": 4.18,
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -8.1,
+   "mdsMax": 35.6
+  },
+  "beta": {
+   "capm": 0.26,
+   "ref2": null,
+   "aviso": "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  },
+  "motivos": [
+   "la cotización (4.18) cae DENTRO de la banda de PO [3.8–5.7] bajo CoE±1.0pp/RoTE±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

@@ -1,5 +1,5 @@
 {
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
  "fecha": "2026-07-13",
@@ -46,6 +46,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "banda": {
+   "p10": 70.3,
+   "p50": 107.3,
+   "p90": 139.9
+  },
+  "sensibilidad": {
+   "poMin": 87.9,
+   "poMax": 146.9,
+   "poBase": 109.5,
+   "cotizacion": 88.3,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -0.5,
+   "mdsMax": 66.4
+  },
+  "beta": {
+   "capm": 0.81,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (88.30) cae DENTRO de la banda de PO [87.9–146.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

@@ -32,7 +32,7 @@
  "bull": "Si el crudo y el margen de refino se recuperan y se ejecuta el plan de retribución, el valor converge hacia 30-32 € (DCF mid-cycle); el FCL Yield de doble dígito y el dividendo creciente premian la espera.",
  "bear": "Una recesión con Brent ~45 $/bbl hunde el FCL, fuerza un recorte del dividendo y desencadena un derating hacia 13-15 € (−30/−40%).",
  "resumen": "Repsol es una integrada financieramente sólida (Rating A, DN/EBITDA 1,3x) y muy generadora de caja (FCL Yield ~9%, dividendo creciente, recompras), pero cíclica, con moat estrecho y un ROIC que no cubre su coste de capital salvo en picos del crudo. A 21,81 € —tras rebotar desde 15,4 €— no ofrece margen de seguridad: el precio objetivo ponderado (~18 €) está un 16% por debajo. Veredicto ESPERAR: buena empresa de caja y dividendo, a comprar con descuento (entrada ≤16 €, stop ~11,7 €).",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 96,
   "nivel": "A",
@@ -46,6 +46,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 14,
+   "p50": 18,
+   "p90": 31
+  },
+  "sensibilidad": {
+   "poMin": 24.76,
+   "poMax": 46.48,
+   "poBase": 32.4176120300048,
+   "cotizacion": 21.81,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 13.5,
+   "mdsMax": 113.1
+  },
+  "beta": {
+   "capm": null,
+   "ref2": 1.0,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (21.81) queda por DEBAJO de toda la banda de PO [24.8–46.5] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

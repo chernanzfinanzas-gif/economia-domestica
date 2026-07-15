@@ -1,5 +1,5 @@
 {
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "ticker": "EBRO",
  "empresa": "Ebro Foods, S.A.",
  "fecha": "2026-07-14",
@@ -45,6 +45,36 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "banda": {
+   "p10": 9.86,
+   "p50": 17.05,
+   "p90": 22.55
+  },
+  "sensibilidad": {
+   "poMin": 11.99,
+   "poMax": 21.9,
+   "poBase": 15.6194607208218,
+   "cotizacion": 18.12,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -33.8,
+   "mdsMax": 20.8
+  },
+  "beta": {
+   "capm": 0.15,
+   "ref2": 0.53,
+   "aviso": "beta CAPM 0.15 vs 2ª ref 0.53: divergencia 0.38 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (18.12) cae DENTRO de la banda de PO [12.0–21.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "beta CAPM 0.15 vs 2ª ref 0.53: divergencia 0.38 > 0.3 → revisar cuál usar en el WACC"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

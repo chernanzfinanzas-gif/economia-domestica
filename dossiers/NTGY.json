@@ -30,7 +30,7 @@
  "bull": "Catalizadores regulatorio (nueva TRF del 6,58%) + bajada de tipos del BCE + claridad accionarial elevan el EBITDA regulado y reducen el descuento de gobernanza, con el dividendo y el BPA creciendo apoyados en las recompras. Precio ~40 € (+39%), probabilidad ~P90.",
  "bear": "Del Pre-Mortem (§8.2): shock regulatorio que recorte la retribución de redes y/o crisis en Latinoamérica, agravado por la erosión del patrimonio. Precio ~21 € (−27%), probabilidad ~P10.",
  "resumen": "Naturgy es un negocio de alta calidad (Rating A, 74,2/100; ROIC 11,1% > WACC 5,0%, spread +6,1 pp; margen EBITDA en máximos del 25,4% y desapalancamiento a DN/EBITDA 2,5x) que cotiza a un precio justo: precio objetivo 32,81 € frente a 28,80 €, con un margen de seguridad de +13,9%. La tesis es de income de calidad —dividendo recuperado a 1,77 € y BPA en máximos (2,17 €) impulsado por las recompras que han reducido las acciones de 1.000 a 930 M— más que de fuerte revalorización. Decisión: MANTENER; la compra resulta atractiva por debajo de ~26 € (MdS > 25%). Moat moderado-ancho (72) anclado en redes reguladas, con el matiz del patrimonio erosionado por la retribución agresiva y el descuento de gobernanza por la estructura accionarial (IFM/Criteria/GIP).",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -44,6 +44,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 21,
+   "p50": 32.81,
+   "p90": 40
+  },
+  "sensibilidad": {
+   "poMin": 35.42,
+   "poMax": 78.02,
+   "poBase": 49.7141898176677,
+   "cotizacion": 28.8,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 23.0,
+   "mdsMax": 170.9
+  },
+  "beta": {
+   "capm": 0.45,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (28.80) queda por DEBAJO de toda la banda de PO [35.4–78.0] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

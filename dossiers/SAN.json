@@ -31,7 +31,7 @@
  "bull": "RoTE >16% sostenido, el coste de capital se comprime y el mercado cierra el descuento de P/BV hacia ~1,8–2,0x con recompras reduciendo acciones → P/TBV justificado ~12,4 €.",
  "bear": "Crisis de crédito y divisa en LatAm: coste del riesgo >2%, recorte de la retribución y de-rating, con compresión del margen por la bajada de tipos → P/TBV pesimista ~7,0 €.",
  "resumen": "Banco de alta calidad (Rating A, 74,3): RoTE 16,4% > CoE, eficiencia 46%, CET1 13,5%, retribución sostenible. Moat moderado (65/100). A 11,35 € no ofrece margen de seguridad: PO central ~8,3 € (−27%) y perfil riesgo/recompensa asimétrico a la baja. ESPERAR; entrada con margen ~7 €, stop previsto ~5,9 €.",
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -44,6 +44,35 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "banda": {
+   "p10": 7.0,
+   "p50": 8.3,
+   "p90": 12.4
+  },
+  "sensibilidad": {
+   "poMin": 8.98,
+   "poMax": 12.36,
+   "poBase": 10.1,
+   "cotizacion": 11.352,
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -20.9,
+   "mdsMax": 8.9
+  },
+  "beta": {
+   "capm": 0.95,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (11.35) cae DENTRO de la banda de PO [9.0–12.4] bajo CoE±1.0pp/RoTE±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }

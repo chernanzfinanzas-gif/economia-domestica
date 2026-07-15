@@ -1,5 +1,5 @@
 {
- "schemaVersion": 3,
+ "schemaVersion": 4,
  "ticker": "BKT",
  "empresa": "Bankinter, S.A.",
  "fecha": "2026-07-13",
@@ -44,6 +44,36 @@
    "motivo": "",
    "accion": null
   },
+  "calculadoEl": "2026-07-15"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 8.1,
+   "p50": 10.2,
+   "p90": 15.5
+  },
+  "sensibilidad": {
+   "poMin": 10.43,
+   "poMax": 14.37,
+   "poBase": 11.74,
+   "cotizacion": 15.395,
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -32.3,
+   "mdsMax": -6.7
+  },
+  "beta": {
+   "capm": 0.04,
+   "ref2": null,
+   "aviso": "beta CAPM 0.04 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  },
+  "motivos": [
+   "la cotización (15.39) queda por ENCIMA de toda la banda de PO [10.4–14.4] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
+   "beta CAPM 0.04 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  ],
   "calculadoEl": "2026-07-15"
  }
 }
