@@ -349,7 +349,11 @@ function aplicarAnaPaste(){
 }
 let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={}; let _trimCache={};
 let fichaRange='all';
-let fichaMA={50:false,200:false};   // medias móviles activas en la gráfica de la ficha
+let fichaMA={50:false,200:false,1000:false};   // medias móviles activas en la gráfica de la ficha
+let fichaVsIbex=false;                          // modo comparativa vs IBEX (rebase a 100)
+let fichaZoom=null;                             // zoom por arrastre {t0,t1,ticker} o null
+let _fichaGeo=null, _fichaDrag=null, _fichaPrefsLoaded=false;
+function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={ma:{50:!!fichaMA[50],200:!!fichaMA[200],1000:!!fichaMA[1000]},vsIbex:!!fichaVsIbex,range:fichaRange}; if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
 const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
 function fichaCalc(ticker){
@@ -454,10 +458,15 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>${divTable}`;
+  try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(typeof gp.vsIbex==='boolean')fichaVsIbex=gp.vsIbex; if(gp.range)fichaRange=gp.range; } } }catch(e){}
   const _ranges=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']];
   const rangeBtns=_ranges.map(r=>`<button type="button" data-frange="${r[0]}"${fichaRange===r[0]?' class="on"':''}>${r[1]}</button>`).join('');
-  const maBtns=[[50,'MM50'],[200,'MM200']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''}>${m[1]}</button>`).join('');
-  const chartCard=`<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="flex:1"></div><span class="muted" style="font-size:11px">Media móvil</span><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchRange">${rangeBtns}</div></div><div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
+  const maBtns=[[50,'MM50'],[200,'MM200'],[1000,'MM1000']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''}>${m[1]}</button>`).join('');
+  const ibexBtn=`<button type="button" data-fibex="1"${fichaVsIbex?' class="on"':''}>vs IBEX</button>`;
+  const chartCard=`<div class="card" style="margin-top:10px">`
+    +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px"><div style="font-weight:700">Cotización</div><span id="fchVar"></span><span id="fchZoom"></span><div style="flex:1"></div><div class="seg" id="fchRange">${rangeBtns}</div></div>`
+    +`<div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px"><span class="muted" style="font-size:11px">Media móvil</span><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div></div>`
+    +`<div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
   const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span style="font-size:11px;color:${(_mmV!=null&&_mmV>12)?'#dc2626':'#64748b'}">análisis ${_ana.dossierFecha}${_mmV!=null?' ('+_mmV+'m'+(_mmV>12?' ⚠️':'')+')':''}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
@@ -529,11 +538,13 @@ document.addEventListener('click',e=>{
   if(typeof saveNow==='function') saveNow();
   if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
 });
-// === Tooltip interactivo del gráfico de cotización de la ficha (fecha + precio al pasar el ratón) ===
+// === Interacción del gráfico de la ficha: tooltip al pasar el ratón + zoom por arrastre ===
 let _fichaHov=null, _fichaHovBound=false;
 function _fichaHideHover(){ const svg=document.querySelector('.fichaSvg'); if(!svg)return; const g=svg.querySelector('.fchGuide'); if(g)g.style.display='none'; const d=svg.querySelector('.fchDot'); if(d)d.style.display='none'; const wrap=svg.parentNode; const tip=wrap&&wrap.querySelector('.fchTip'); if(tip)tip.style.display='none'; }
 function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
+  // --- tooltip ---
   document.addEventListener('mousemove',e=>{
+    if(_fichaDrag){ _fichaHideHover(); return; }
     const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null;
     if(!svg||!_fichaHov){ _fichaHideHover(); return; }
     const D=_fichaHov; const r=svg.getBoundingClientRect(); if(!r.width)return;
@@ -543,49 +554,108 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
     const g=svg.querySelector('.fchGuide'); if(g){ g.setAttribute('x1',gx); g.setAttribute('x2',gx); g.style.display=''; }
     const dot=svg.querySelector('.fchDot'); if(dot){ dot.setAttribute('cx',gx); dot.setAttribute('cy',gy); dot.style.display=''; }
     const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.fchTip'):null;
-    if(tip){ const price=num(D.prices[bi]); const ds=D.dates[bi];
-      let h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">Cotización:</span> <b>${fmt(price)}</b></div>`;
-      if(D.avg>0){ const dv=D.avg>0?(price-D.avg)/D.avg*100:0; h+=`<div style="color:#cbd5e1;margin-top:1px">vs precio medio: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }
-      if(D.ma){ [50,200].forEach(function(w){ const arr=D.ma[w]; if(!arr)return; const mv=arr[bi]; if(mv==null)return; const cc=(D.maCols&&D.maCols[w])||'#93c5fd'; h+=`<div style="margin-top:1px"><span style="color:${cc}">MM${w}:</span> <b>${fmt(mv)}</b></div>`; }); }
+    if(tip){ let h='';
+      if(D.mode==='ibex'){ const ds=D.dates[bi], sv=D.sVals[bi], iv=D.iVals[bi], rel=sv-iv;
+        h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">${_fichaGeo?_fichaGeo.ticker:''}:</span> <b>${sv.toFixed(1)}</b></div><div style="color:#cbd5e1">IBEX: <b>${iv.toFixed(1)}</b></div><div style="margin-top:1px">rel: <b style="color:${rel>=0?'#4ade80':'#f87171'}">${rel>=0?'+':''}${rel.toFixed(1)} pp</b></div>`;
+      } else {
+        const price=num(D.prices[bi]); const ds=D.dates[bi];
+        h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">Cotización:</span> <b>${fmt(price)}</b></div>`;
+        if(D.avg>0){ const dv=(price-D.avg)/D.avg*100; h+=`<div style="color:#cbd5e1;margin-top:1px">vs P.medio: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }
+        if(D.ref){ const R=D.ref; const rr=(lbl,v)=>{ if(!(v>0))return ''; const dv=(price-v)/v*100; return `<div style="color:#cbd5e1;margin-top:1px">vs ${lbl}: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }; h+=rr('entrada',R.entH)+rr('PO base',R.poM)+rr('stop',R.stop); }
+        if(D.ma){ [50,200,1000].forEach(function(w){ const arr=D.ma[w]; if(!arr)return; const mv=arr[bi]; if(mv==null)return; const cc=(D.maCols&&D.maCols[w])||'#93c5fd'; h+=`<div style="margin-top:1px"><span style="color:${cc}">MM${w}:</span> <b>${fmt(mv)}</b></div>`; }); }
+      }
       tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(64,Math.min(r.width-64,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
   },{passive:true});
+  // --- zoom por arrastre (brush) ---
+  document.addEventListener('mousedown',e=>{ const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null; if(!svg||!_fichaGeo)return; const r=svg.getBoundingClientRect(); if(!r.width)return; const g=_fichaGeo; let vx=(e.clientX-r.left)*g.W/r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); _fichaDrag={svg,r,x0:vx}; const br=svg.querySelector('.fchBrush'); if(br){ br.setAttribute('x',vx); br.setAttribute('width',0); br.style.display=''; } e.preventDefault(); });
+  document.addEventListener('mousemove',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo; let vx=(e.clientX-_fichaDrag.r.left)*g.W/_fichaDrag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const x0=_fichaDrag.x0; const br=_fichaDrag.svg.querySelector('.fchBrush'); if(br){ br.setAttribute('x',Math.min(x0,vx)); br.setAttribute('width',Math.abs(vx-x0)); } });
+  document.addEventListener('mouseup',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo, drag=_fichaDrag; _fichaDrag=null; const br=drag.svg.querySelector('.fchBrush'); if(br)br.style.display='none'; let vx=(e.clientX-drag.r.left)*g.W/drag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const xa=Math.min(drag.x0,vx), xb=Math.max(drag.x0,vx); if(xb-xa<8)return; const px2t=px=>g.t0+(px-g.L)/g.pw*(g.t1-g.t0); fichaZoom={t0:px2t(xa),t1:px2t(xb),ticker:g.ticker}; if(typeof drawFichaChart==='function')drawFichaChart(g.ticker); });
+  document.addEventListener('dblclick',e=>{ const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null; if(!svg)return; if(fichaZoom){ fichaZoom=null; if(_fichaGeo&&typeof drawFichaChart==='function')drawFichaChart(_fichaGeo.ticker); } });
 }
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
+  const setVar=h=>{ const v=document.getElementById('fchVar'); if(v)v.innerHTML=h||''; };
+  const setZoom=h=>{ const z=document.getElementById('fchZoom'); if(z)z.innerHTML=h||''; };
   let pj=_precioCache[t];
-  if(pj===undefined){
-    try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; }
-    _precioCache[t]=pj;
-  }
-  if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; return; }
+  if(pj===undefined){ try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; } _precioCache[t]=pj; }
+  if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; setVar(''); setZoom(''); return; }
   const dataFull=pj.data.map(d=>[Date.parse(d[0]),d[1]]).filter(d=>!isNaN(d[0]));
-  if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; return; }
+  if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; setVar(''); return; }
   const lastT=dataFull[dataFull.length-1][0];
-  // Medias móviles (simples) sobre TODO el histórico → válidas también al borde izquierdo del rango
-  const _rollMA=function(arr,w){ const out=new Array(arr.length).fill(null); let sum=0; for(let i=0;i<arr.length;i++){ sum+=arr[i][1]; if(i>=w)sum-=arr[i-w][1]; if(i>=w-1)out[i]=sum/w; } return out; };
-  const wantMA=[50,200].filter(w=>fichaMA[w]);
+  const _rollMA=function(arr,w){ const out=new Array(arr.length).fill(null); let s=0; for(let i=0;i<arr.length;i++){ s+=arr[i][1]; if(i>=w)s-=arr[i-w][1]; if(i>=w-1)out[i]=s/w; } return out; };
+  const wantMA=fichaVsIbex?[]:[50,200,1000].filter(w=>fichaMA[w]);
   const maFull={}; wantMA.forEach(w=>{ maFull[w]=_rollMA(dataFull,w); });
-  // Recorte por rango, en días de calendario (1S/1M/3M/1A/5A; 'all' = todo)
-  const _days={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827}[fichaRange];
-  let startIdx=0; if(_days){ const cut=lastT-_days*86400000; while(startIdx<dataFull.length&&dataFull[startIdx][0]<cut)startIdx++; }
-  const data=dataFull.slice(startIdx);
-  if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Pocos datos en este rango.</div>'; return; }
-  const maVis={}; wantMA.forEach(w=>{ maVis[w]=maFull[w].slice(startIdx); });
+  // ventana visible: el zoom por arrastre manda sobre el preset
+  const zoom=(fichaZoom&&fichaZoom.ticker===t)?fichaZoom:null;
+  let startIdx=0, endIdx=dataFull.length-1;
+  if(zoom){ while(startIdx<dataFull.length&&dataFull[startIdx][0]<zoom.t0)startIdx++; while(endIdx>0&&dataFull[endIdx][0]>zoom.t1)endIdx--; if(endIdx<startIdx)endIdx=startIdx; }
+  else { const _days={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827}[fichaRange]; if(_days){ const cut=lastT-_days*86400000; while(startIdx<dataFull.length&&dataFull[startIdx][0]<cut)startIdx++; } }
+  const data=dataFull.slice(startIdx,endIdx+1);
+  if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Pocos datos en este tramo. Amplía el rango o reinicia el zoom (doble clic).</div>'; setVar(''); return; }
+  const maVis={}; wantMA.forEach(w=>{ maVis[w]=maFull[w].slice(startIdx,endIdx+1); });
+  // variación / máximo / mínimo del periodo
+  const firstC=data[0][1], lastC=data[data.length-1][1];
+  const varPct=firstC>0?(lastC-firstC)/firstC*100:0;
+  let maxC=-Infinity,minC=Infinity,maxJ=0,minJ=0;
+  for(let i=0;i<data.length;i++){ const v=data[i][1]; if(v>maxC){maxC=v;maxJ=i;} if(v<minC){minC=v;minJ=i;} }
+  const ddMax=maxC>0?(lastC-maxC)/maxC*100:0;
+  const vcol=varPct>=0?'#16a34a':'#dc2626';
+  const _fd=ms=>{ const d=new Date(ms); return String(d.getUTCDate()).padStart(2,'0')+'/'+String(d.getUTCMonth()+1).padStart(2,'0'); };
+  const _fdy=ms=>{ const d=new Date(ms); return _fd(ms)+'/'+d.getUTCFullYear(); };
+  setVar(`<span style="color:${vcol};font-weight:800;font-size:14px">${varPct>=0?'▲ +':'▼ '}${varPct.toFixed(1)}%</span> <span class="muted" style="font-size:11px">en el periodo</span>`);
+  if(zoom) setZoom(`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px">🔍 ${_fdy(data[0][0])}–${_fdy(data[data.length-1][0])} <b data-fzreset="1" style="cursor:pointer" title="Reiniciar zoom">✕</b></span>`);
+  else setZoom('');
   const MAXP=600; const step=Math.max(1,Math.ceil(data.length/MAXP));
   const idxs=[]; for(let i=0;i<data.length;i+=step)idxs.push(i); if(idxs[idxs.length-1]!==data.length-1)idxs.push(data.length-1);
+  const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
+  const t0=data[0][0], t1=data[data.length-1][0];
+  const X=x=>L+(x-t0)/((t1-t0)||1)*pw;
+  _fichaGeo={W,L,pw,t0,t1,ticker:t};
+  const brush=`<rect class="fchBrush" x="0" y="${Tp}" width="0" height="${ph.toFixed(1)}" fill="#2563eb" opacity="0.12" style="display:none"/>`;
+  const clip=`<clipPath id="fchClip"><rect x="${L}" y="${Tp}" width="${pw.toFixed(1)}" height="${ph.toFixed(1)}"/></clipPath>`;
+
+  // ===== MODO vs IBEX (ambos rebasados a base 100 al inicio del tramo) =====
+  if(fichaVsIbex){
+    let ij=_precioCache['__IBEX__'];
+    if(ij===undefined){ try{ const r=await fetch('precios/IBEX.json',{cache:'no-store'}); ij=r.ok?await r.json():null; }catch(e){ ij=null; } _precioCache['__IBEX__']=ij; }
+    if(!ij||!ij.data||!ij.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos del IBEX (¿precios/IBEX.json en el repo?).</div>'; return; }
+    const ibx={}; ij.data.forEach(d=>{ ibx[d[0]]=d[1]; });
+    const pairs=[]; for(let i=0;i<data.length;i++){ const ds=new Date(data[i][0]).toISOString().slice(0,10); const iv=ibx[ds]; if(iv!=null)pairs.push([data[i][0],data[i][1],iv]); }
+    if(pairs.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">No hay solape de fechas con el IBEX en este tramo.</div>'; return; }
+    const s0=pairs[0][1], i0=pairs[0][2];
+    const sRe=pairs.map(p=>[p[0],p[1]/s0*100]), iRe=pairs.map(p=>[p[0],p[2]/i0*100]);
+    let lo=Infinity,hi=-Infinity; sRe.forEach(p=>{ if(p[1]<lo)lo=p[1]; if(p[1]>hi)hi=p[1]; }); iRe.forEach(p=>{ if(p[1]<lo)lo=p[1]; if(p[1]>hi)hi=p[1]; });
+    const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
+    const tb0=pairs[0][0], tb1=pairs[pairs.length-1][0];
+    const Xb=x=>L+(x-tb0)/((tb1-tb0)||1)*pw, Yb=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
+    _fichaGeo={W,L,pw,t0:tb0,t1:tb1,ticker:t};
+    const stepB=Math.max(1,Math.ceil(pairs.length/MAXP)); const jb=[]; for(let i=0;i<pairs.length;i+=stepB)jb.push(i); if(jb[jb.length-1]!==pairs.length-1)jb.push(pairs.length-1);
+    let sp='',ip=''; jb.forEach((i,k)=>{ sp+=(k?'L':'M')+Xb(sRe[i][0]).toFixed(1)+','+Yb(sRe[i][1]).toFixed(1)+' '; ip+=(k?'L':'M')+Xb(iRe[i][0]).toFixed(1)+','+Yb(iRe[i][1]).toFixed(1)+' '; });
+    let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Yb(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(0)}</text>`; }
+    const y100=Yb(100); const base100=`<line x1="${L}" y1="${y100.toFixed(1)}" x2="${W-R}" y2="${y100.toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="2 3"/><text x="${L+3}" y="${(y100-2).toFixed(1)}" font-size="9" fill="#64748b">base 100</text>`;
+    let xl=''; const yA=new Date(tb0).getFullYear(), yB=new Date(tb1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<tb0||ts>tb1)continue; const x=Xb(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
+    const rel=sRe[sRe.length-1][1]-iRe[iRe.length-1][1], relCol=rel>=0?'#16a34a':'#dc2626';
+    const xs=jb.map(i=>Xb(sRe[i][0])), ys=jb.map(i=>Yb(sRe[i][1])), dts=jb.map(i=>_fdy(sRe[i][0])), sV=jb.map(i=>sRe[i][1]), iV=jb.map(i=>iRe[i][1]);
+    _fichaHov={mode:'ibex',W,xs,ys,dates:dts,sVals:sV,iVals:iV}; _fichaBindHover();
+    const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
+    const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
+    const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
+    el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${base100}${guide}<g clip-path="url(#fchClip)"><path d="${ip}" fill="none" stroke="#94a3b8" stroke-width="1.4"/><path d="${sp}" fill="none" stroke="var(--brand)" stroke-width="1.8"/></g>${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px"><b style="color:var(--brand)">▬</b> ${t} · <b style="color:#94a3b8">▬</b> IBEX (base 100 al inicio) · rel: <b style="color:${relCol}">${rel>=0?'+':''}${rel.toFixed(1)} pp</b> · ${t} <span style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</span> · arrastra para zoom, doble clic reinicia · medias y niveles ocultos en este modo</div>`;
+    return;
+  }
+
+  // ===== MODO precio (normal) =====
   let pts=idxs.map(i=>data[i]);
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
-  let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0; const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0); const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
-  const t0=data[0][0], t1=data[data.length-1][0];
+  let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
+  const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0); const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
   const ops=(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
-  const W=860,H=280,L=52,R=12,Tp=12,B=26; const pw=W-L-R, ph=H-Tp-B;
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
   ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); [entL,entH,stopV].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } });
-  wantMA.forEach(w=>{ idxs.forEach(i=>{ const v=maVis[w][i]; if(v!=null){ if(v<lo)lo=v; if(v>hi)hi=v; } }); });
   const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
-  const X=x=>L+(x-t0)/((t1-t0)||1)*pw, Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
+  const Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
   let path=''; pts.forEach((p,i)=>{ path+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)+' '; });
-  const _maCols={50:'#0891b2',200:'#ea580c'};
+  const _maCols={50:'#0891b2',200:'#ea580c',1000:'#475569'};
   let maPaths=''; wantMA.forEach(w=>{ const arr=maVis[w]; let dstr='',started=false; idxs.forEach(i=>{ const v=arr[i]; if(v==null)return; dstr+=(started?'L':'M')+X(data[i][0]).toFixed(1)+','+Y(v).toFixed(1)+' '; started=true; }); if(dstr)maPaths+=`<path d="${dstr}" fill="none" stroke="${_maCols[w]}" stroke-width="1.3" opacity="0.9"/>`; });
   let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Y(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(2)}</text>`; }
   let xl=''; const yA=new Date(t0).getFullYear(), yB=new Date(t1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
@@ -595,17 +665,17 @@ async function drawFichaChart(t){
   let stopL=''; if(stopV>0){ const y=Y(stopV); stopL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#dc2626" stroke-width="2" opacity="0.95"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="#dc2626">Stop ${stopV.toFixed(2)}</text>`; }
   let poL=''; [['bear',poB,'#dc2626',2],['base',poM,'#2563eb',1.1],['bull',poU,'#16a34a',2]].forEach(it=>{ const v=it[1]; if(v>0){ const y=Y(v); poL+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="${it[2]}" stroke-width="${it[3]}" stroke-dasharray="${it[3]>=2?'7 3':'2 3'}" opacity="0.9"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="${it[2]}">PO ${it[0]} ${v.toFixed(2)}</text>`; } });
   let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
+  const mmk=`<circle cx="${X(data[maxJ][0]).toFixed(1)}" cy="${Y(maxC).toFixed(1)}" r="3" fill="#16a34a"/><text x="${X(data[maxJ][0]).toFixed(1)}" y="${(Y(maxC)-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#16a34a">máx ${maxC.toFixed(2)}</text><circle cx="${X(data[minJ][0]).toFixed(1)}" cy="${Y(minC).toFixed(1)}" r="3" fill="#dc2626"/><text x="${X(data[minJ][0]).toFixed(1)}" y="${(Y(minC)+11).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#dc2626">mín ${minC.toFixed(2)}</text>`;
   const last=pts[pts.length-1][1];
-  // Registro para el tooltip interactivo (fecha + cotización al pasar el ratón sobre la línea)
   const xs=pts.map(p=>X(p[0])), ys=pts.map(p=>Y(p[1])), prices=pts.map(p=>p[1]);
-  const dates=pts.map(p=>{ const dt=new Date(p[0]); return String(dt.getUTCDate()).padStart(2,'0')+'/'+String(dt.getUTCMonth()+1).padStart(2,'0')+'/'+dt.getUTCFullYear(); });
+  const dates=pts.map(p=>_fdy(p[0]));
   const maSampled={}; wantMA.forEach(w=>{ maSampled[w]=idxs.map(i=>maVis[w][i]); });
-  _fichaHov={W,xs,ys,prices,dates,avg,ma:maSampled,maCols:_maCols}; _fichaBindHover();
+  _fichaHov={mode:'price',W,xs,ys,prices,dates,avg,ma:maSampled,maCols:_maCols,ref:{entH:entH,poM:poM,poU:poU,poB:poB,stop:stopV}}; _fichaBindHover();
   const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
   const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
   const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
   const maLeg=wantMA.map(w=>`<span style="color:${_maCols[w]}">▬</span> MM${w}`).join(' · ');
-  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg">${grid}${xl}${guide}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/>${maPaths}${poL}${stopL}${avgL}${mk}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · pasa el ratón sobre la línea para ver fecha y cotización · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> precio medio · <span style="color:#2563eb">▬</span> precio objetivo · <span style="color:#0ea5e9">▬</span> banda de entrada · <span style="color:#dc2626">▬</span> stop${maLeg?' · '+maLeg:''}</div>`;
+  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/><g clip-path="url(#fchClip)">${maPaths}</g>${poL}${stopL}${avgL}${mk}${mmk}${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Periodo: <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · máx ${maxC.toFixed(2)} (${_fd(data[maxJ][0])}) · mín ${minC.toFixed(2)} (${_fd(data[minJ][0])}) · desde máx <b style="color:${ddMax<0?'#dc2626':'#16a34a'}">${ddMax>=0?'+':''}${ddMax.toFixed(1)}%</b><br>Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> P.medio · <span style="color:#2563eb">▬</span> PO · <span style="color:#0ea5e9">▬</span> entrada · <span style="color:#dc2626">▬</span> stop${maLeg?' · '+maLeg:''}</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
