@@ -177,7 +177,7 @@ function renderCobertura(){
     +'<h3 style="margin:16px 0 4px">Cadencia de las analizadas</h3><div id="cadHost"><div class="muted" style="font-size:12px">Cargando informes trimestrales…</div></div>';
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var tks=analizadas.map(function(a){return (a.ticker||'').toUpperCase();});
-  if(tks.length) _cadCargar(tks).then(function(){ _pintarCadencia(analizadas); _pintarCalendario(analizadas); });
+  if(tks.length) Promise.all([_cadCargar(tks),_agCargar()]).then(function(){ _pintarCadencia(analizadas); _pintarCalendario(analizadas); });
   else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; _pintarCalendario([]); }
 }
 
@@ -204,8 +204,10 @@ function _pintarCalendario(analizadas){
   /* 2) intervenciones programadas por empresa analizada */
   (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
     var c=_cadenciaDe(t);
-    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
-      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt}); }
+    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var conf=false;
+      var ag=_agResultado(t); if(ag&&ag.fecha){ var ags=_cbToStr(ag.fecha); if(ags){ dt=ags; conf=!!ag.confirmada; } }
+      var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
     var sen=_senalActiva(t); if(sen){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
@@ -231,7 +233,7 @@ function _pintarCalendario(analizadas){
       +'<td class="num" style="color:#94a3b8">'+(idx+1)+'</td>'
       +'<td><b>'+_radEsc(it.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((it.nombre||'').slice(0,22))+'</span></td>'
       +'<td>'+tipoChip(it)+'</td>'
-      +'<td style="font-size:12px">'+_cbFechaTxt(it.date)+'</td>'
+      +'<td style="font-size:12px">'+_cbFechaTxt(it.date)+(it.conf?' <span title="Fecha confirmada (Yahoo · buzón)" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>':'')+'</td>'
       +'<td style="font-size:12px">'+_cbDiasTxt(it.dias)+'</td>'
       +'<td>'+estadoCell(it)+'</td>'
       +'<td style="text-align:center">'+chk+'</td>'
@@ -262,6 +264,16 @@ function _qtoken(periodo){ var p=(''+periodo).toUpperCase();
   if(/Q1|3M|1T/.test(p))return 'Q1';
   return null; }
 function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTrim[t]===undefined;}); if(!need.length)return Promise.resolve(); return Promise.all(need.map(function(t){ return fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_cadTrim[t]=j;}).catch(function(){_cadTrim[t]=null;}); })); }
+/* ---- Agenda confirmada (buzon/agenda.json): fecha REAL del próximo informe ----
+   La deja agenda.py cada lunes (Yahoo). Si hay fecha confirmada para un ticker,
+   manda sobre la ESTIMACIÓN de _cadenciaDe en el calendario, la cadencia y el Panel. */
+var _agConf=null, _agLoading=null, _agRefrescado=false;
+function _agCargar(){ if(_agConf)return Promise.resolve(_agConf); if(_agLoading)return _agLoading;
+  _agLoading=fetch('buzon/agenda.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;})
+    .then(function(j){ _agConf={byT:{}}; if(j&&j.resultados)j.resultados.forEach(function(x){ if(x&&x.ticker)_agConf.byT[(x.ticker||'').toUpperCase()]={fecha:x.fecha,confirmada:!!x.confirmada}; }); return _agConf; })
+    .catch(function(){ _agConf={byT:{}}; return _agConf; });
+  return _agLoading; }
+function _agResultado(t){ if(!_agConf)return null; return _agConf.byT[(t||'').toUpperCase()]||null; }
 function _cadenciaDe(t){
   var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!d.revisiones.length)return null;
   var revs=d.revisiones.filter(function(r){return r.fecha;}).slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
@@ -289,6 +301,7 @@ function _pintarCadencia(analizadas){
     var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual}; chg=true;
     var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
     var proxTxt=c.next?_radEsc(e.proxLabel):'—';
+    var ag=_agResultado(t); if(ag&&ag.fecha){ var agd=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(!isNaN(agd))proxTxt='<b>'+_cadFmtD(agd)+'</b> <span title="confirmada (Yahoo · buzón)" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>'; }
     var aviso=e.tocaAnual?'<span style="color:#dc2626;font-weight:600">📅 revisión anual</span>':(e.tocaMonitor?'<span style="color:#b45309;font-weight:600">⏳ toca monitor</span>':'<span class="muted">al día</span>');
     return '<tr><td><b>'+_radEsc(t)+'</b></td><td style="font-size:12px">'+ultTxt+'</td><td style="font-size:12px">'+proxTxt+'</td><td style="font-size:12px">'+aviso+'</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>';
   }).join('');
@@ -307,6 +320,13 @@ function _cadRefreshAll(){
 function cadAvisos(){
   var out=[]; var cad=DB.cadencia||{}; var held=(typeof _heldSet!=='undefined'&&_heldSet&&_heldSet.has)?_heldSet:null;
   Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
+  // Próximos resultados con fecha CONFIRMADA (Yahoo · buzón) para analizadas, en ≤10 días
+  if(_agConf){ var hoyA=new Date(); hoyA.setHours(0,0,0,0);
+    (DB.analisis||[]).forEach(function(a){ if(!a.dossierFecha)return; var t=(a.ticker||'').toUpperCase(); var ag=_agResultado(t); if(!ag||!ag.fecha||!ag.confirmada)return;
+      var d=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(isNaN(d))return; var dias=Math.round((d-hoyA)/86400000);
+      if(dias>=0&&dias<=10) out.push({pri:dias<=3?2:3,cls:'a',goto:'cobertura',tick:t,txt:'📊 <b>'+t+'</b> — resultados '+_cadFmtD(d)+' <span class="muted">(confirmado)</span>'+(dias===0?' · hoy':' · en '+dias+' d')});
+    });
+  } else if(!_agRefrescado){ _agRefrescado=true; try{ _agCargar().then(function(){ if(typeof renderPanelDash==='function')renderPanelDash(); }); }catch(e){} }
   if(!_cadRefrescado){ _cadRefrescado=true; try{ _cadRefreshAll(); }catch(e){} }
   return out;
 }
