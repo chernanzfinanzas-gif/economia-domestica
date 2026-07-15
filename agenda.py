@@ -185,19 +185,21 @@ def build_item(ticker, empresa, raw, hoy_):
     else:
         faltan.append("resultados")
 
+    # Ex-dividend: SECUNDARIO. Yahoo es flojo con la bolsa española y las fechas/importes
+    # EXACTOS ya los mantienes en la app (sección Dividendos). Aquí es solo un extra
+    # orientativo; su ausencia NO se considera un hueco (no entra en 'sinConfirmar').
     ex, pago, imp, fue_d = _next_exdiv(raw, hoy_)
     if ex:
         exd = {"ticker": ticker, "empresa": empresa,
                "exFecha": ex.isoformat(), "dias": (ex - hoy_).days,
                "pagoFecha": pago.isoformat() if pago else None,
                "importe": imp, "fuente": fue_d}
-    else:
-        faltan.append("ex-dividend")
 
+    # 'sinConfirmar' = solo las que Yahoo NO da fecha de RESULTADOS (para esas rige el Vigía).
     sin = None
     if faltan:
         sin = {"ticker": ticker, "empresa": empresa,
-               "motivo": "Yahoo no confirma " + " ni ".join(faltan) + " (se usa la estimación del Vigía)"}
+               "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"}
     return res, exd, sin
 
 
@@ -244,7 +246,7 @@ def main():
         res, exd, sin = build_item(tk, emp, raw, HOY)
         if res and -MARGEN_PASADO <= res["dias"] <= VENTANA_RES:
             resultados.append(res)
-        if exd and -MARGEN_PASADO <= exd["dias"] <= VENTANA_DIV:
+        if exd and 0 <= exd["dias"] <= VENTANA_DIV:   # solo ex-div FUTUROS (extra orientativo)
             exdivs.append(exd)
         if sin:
             sinconf.append(sin)
@@ -262,11 +264,11 @@ def main():
         L.append(f"📌 RESULTADOS confirmados ({len(resultados)}): {det}.")
     if exdivs:
         det = ", ".join(f"{e['empresa']} {ddmm(e['exFecha'])}" for e in exdivs[:8])
-        L.append(f"💶 EX-DIVIDEND ({len(exdivs)}): {det}.")
-    if not resultados and not exdivs:
-        L.append("Sin fechas confirmadas por Yahoo en la ventana; rige la estimación del Vigía.")
+        L.append(f"💶 Ex-dividend (orientativo, {len(exdivs)}): {det}.")
+    if not resultados:
+        L.append("Sin fecha de resultados confirmada por Yahoo; rige la estimación del Vigía.")
     if sinconf:
-        L.append(f"Sin confirmar por Yahoo: {len(sinconf)} (usan la estimación del Vigía).")
+        L.append(f"Sin fecha de resultados confirmada: {len(sinconf)} (rige la estimación del Vigía).")
     resumen = " ".join(L)
 
     ahora = datetime.datetime.now(TZ).replace(microsecond=0).isoformat()
