@@ -377,6 +377,8 @@ function _evoBindHover(){ if(_evoBound)return; _evoBound=true;
   document.addEventListener('click',e=>{ const b=(e.target&&e.target.closest)?e.target.closest('[data-evorange],[data-evozreset]'):null; if(!b)return;
     if(b.hasAttribute('data-evozreset')){ const id=b.getAttribute('data-evozreset'); const st=_evoSt(id); st.zoom=null; const D=_evoReg[id]; if(D&&typeof D.reRender==='function')D.reRender(); return; }
     const p=(b.getAttribute('data-evorange')||'').split('|'); const key=p[0], id=p[1]; const st=_evoSt(id); st.range=key; st.zoom=null; const D=_evoReg[id]; if(D&&typeof D.reRender==='function')D.reRender(); });
+  /* Edición manual del periodo de zoom con los dos campos de fecha (afinar la selección). */
+  document.addEventListener('change',e=>{ const el=e.target; if(!el||!el.getAttribute)return; const idf=el.getAttribute('data-evozfrom'), idt=el.getAttribute('data-evozto'); const id=idf||idt; if(!id)return; const ms=Date.parse((el.value||'')+'T00:00:00'); if(isNaN(ms))return; const D=_evoReg[id]; const st=_evoSt(id); if(!st.zoom) st.zoom={t0:(D?D.t0ms:ms),t1:(D?D.t1ms:ms)}; if(idf) st.zoom.t0=ms; else st.zoom.t1=ms; if(st.zoom.t0>st.zoom.t1){ var _t=st.zoom.t0; st.zoom.t0=st.zoom.t1; st.zoom.t1=_t; } if(D&&typeof D.reRender==='function')D.reRender(); });
 }
 // Renderizador único e interactivo. opts: {id, reRender, ibex, goto, title, head, foot, mt}
 function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=carteraEvolData(opts.reRender);
@@ -416,7 +418,7 @@ function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=car
     }).join('');
     let _zvp=null; if(st.zoom){ const _z0=num(valorF[i0]),_z1=num(valorF[i1]); _zvp=_z0>0?((_z1/_z0)-1)*100:null; }
     const _zvt=_zvp==null?'—':((_zvp>=0?'+':'')+_zvp.toFixed(1)+'%'); const _zvc=_zvp==null?'#94a3b8':(_zvp>=0?'#16a34a':'#dc2626');
-    const _zc=st.zoom?`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px;margin-left:6px">🔍 zoom · <b style="color:${_zvc}">${_zvt}</b> <span style="font-size:9.5px">en el periodo (sin div.)</span> <b data-evozreset="${id}" style="cursor:pointer;margin-left:2px" title="Reiniciar zoom">✕</b></span>`:'';
+    const _zc=st.zoom?`<span style="display:inline-flex;align-items:center;gap:4px;background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px;margin-left:6px">🔍 <input type="date" data-evozfrom="${id}" value="${labF[i0]}" min="${labF[0]}" max="${labF[fN-1]}" title="Inicio del periodo (editable)" style="font-size:10px;padding:1px 3px;border:1px solid #c7d2fe;border-radius:4px;color:#3730a3;background:#fff"> <span>→</span> <input type="date" data-evozto="${id}" value="${labF[i1]}" min="${labF[0]}" max="${labF[fN-1]}" title="Fin del periodo (editable)" style="font-size:10px;padding:1px 3px;border:1px solid #c7d2fe;border-radius:4px;color:#3730a3;background:#fff"> · <b style="color:${_zvc}">${_zvt}</b> <span style="font-size:9.5px">(sin div.)</span> <b data-evozreset="${id}" style="cursor:pointer;margin-left:2px;font-size:12px" title="Reiniciar zoom">✕</b></span>`:'';
     rangeBar=`<div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin:2px 0 6px">${_btns}${_zc}<span class="muted" style="font-size:10.5px;margin-left:4px">· arrastra en la gráfica para hacer zoom, doble clic reinicia</span></div>`;
   }
   const mt=opts.mt!==undefined?opts.mt:16;
