@@ -86,7 +86,8 @@ function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss
   return (simIsReal(t)?realSharesAt(t,nowY):0) + pend; }
 function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
-  const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
+  const _prevSL=el.scrollLeft||0;
+  const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const dpa=DB.divPorAccion||{};
   const set=new Set();
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
@@ -102,7 +103,7 @@ function renderSimulador(){
   const tot={}; years.forEach(y=>tot[y]=0);
   const simDpa=(t,y)=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; if(d!=null) return d; const v=(dpa[t]||{})[y]; return v!=null?num(v):null; };
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
-  const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
+  const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
       const accCell=(y>nowY)?`<div class="num" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
@@ -117,6 +118,21 @@ function renderSimulador(){
   const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
   el.innerHTML=`<table>${head}${body}${totRow}${grRow}</table>`;
   $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  /* Banda deslizante horizontal + arranque centrado en (nowY-2) */
+  (function(){ var sc=el; var rng=document.getElementById('simScroll');
+    var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
+    var sync=function(){ if(!rng)return; var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+    if(rng && !rng._simWired){ rng._simWired=true;
+      rng.addEventListener('input',function(){ sc.scrollLeft=maxSL()*(num(rng.value)/1000); });
+      sc.addEventListener('scroll',sync);
+    }
+    if(!window._simSeek){ sc.scrollLeft=_prevSL; }
+    setTimeout(function(){
+      if(window._simSeek){ var th=sc.querySelector('th[data-simyear="'+(nowY-2)+'"]'); var f=sc.querySelector('th'); var off=f?f.offsetWidth:0; sc.scrollLeft=th?Math.max(0,th.offsetLeft-off):0; window._simSeek=false; }
+      else { sc.scrollLeft=_prevSL; }
+      sync();
+    },180);
+  })();
   const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
 }
 
@@ -497,7 +513,7 @@ function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0
 function renderPlan(){
   const el=$('#planTabla'); if(!el)return;
   const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
-  const nowY=new Date().getFullYear(); const y1=Math.max(num(DB.previsionMaxYear)||2030, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
+  const nowY=new Date().getFullYear(); const y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
   const set=new Set(Object.keys(pc).map(t=>t.toUpperCase()));
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
   let tickers=[...set].filter(Boolean);
@@ -586,7 +602,7 @@ function renderPlanLote(){
   held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
   chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
   for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="num">·</td>').join('')}<td></td></tr>`; }
-  const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
+  const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
   el.innerHTML=cab+dl+`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
 }
 
