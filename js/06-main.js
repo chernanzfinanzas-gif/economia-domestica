@@ -49,7 +49,7 @@ const VIEW_FNS={
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:[],
   universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],
-  posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderPrevision'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
+  posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], buzon:['renderBuzon'], metodo:['renderPanelMetodo'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], metas:['renderMetas'], asignacion:['renderAsignacion'],
   informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], graficas:['renderGraficas'], backtest:['renderBacktest']
@@ -108,7 +108,7 @@ const GROUPS={
   mov:[['movimientos','Movimientos'],['amalia','Amalia'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual'],['origen','El origen']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
-  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
+  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
   tesis:[['monitor','Monitor'],['buzon','Buzón del lunes'],['metodo','Panel del Método']],
   planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas'],['asignacion','Asignación']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes']],
