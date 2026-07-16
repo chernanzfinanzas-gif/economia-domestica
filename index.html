@@ -139,6 +139,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #planTabla table{font-size:11px;border-collapse:separate;border-spacing:0}
   #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
+  #simTabla,#loteScrollBox{max-height:calc(100vh - 250px)} #simTabla thead th,#loteTabla thead th{position:sticky;top:0;z-index:4;background:#fff;box-shadow:inset 0 -1px 0 var(--line)} #simTabla thead th:first-child{left:0;z-index:5}
   #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #cajaTabla table{font-size:11px} #cajaTabla th,#cajaTabla td{padding:3px 6px;text-align:right;border:1px solid #e2e8f0} #cajaTabla th:first-child,#cajaTabla td:first-child,#cajaTabla th:nth-child(2),#cajaTabla td:nth-child(2){text-align:left} #cajaTabla input[type=number]{-moz-appearance:textfield} #cajaTabla input[type=number]::-webkit-inner-spin-button,#cajaTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
@@ -539,6 +540,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Diversificación — clasificación de empresas</h2>
     <div class="sub" style="margin-bottom:8px">Lista de 20 empresas del plan. Las primeras son tu cartera actual; en los slots libres elige empresas del listado de Análisis (orden alfabético). El alta de una empresa nueva se hace aquí y aparece luego en Plan y Simulador.</div>
     <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="loteAdd">+ Empresa</button> <span class="muted" id="loteStatus"></span></div>
+    <input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años" style="width:100%;margin:0 0 6px;accent-color:#1f3d6b;cursor:pointer">
     <div id="loteTabla"></div>
   </section>
 
@@ -815,7 +817,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="asignBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-escenarios">
-    <div id="escBody" style="margin-top:2px"></div>
+    <h2>Escenarios</h2>
+    <div id="escBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-riesgo">
     <h2>Riesgo y diversificación</h2>
@@ -909,4 +912,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/06-main.js"></script>
   <script src="js/15-cmdk.js"></script>
 
-<script>if('s
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
+</body>
+</html>
