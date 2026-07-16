@@ -159,7 +159,7 @@ function renderEvoDiv(){
     var divTot=r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—';
     var main='<tr class="evo-main" data-evorow="'+_evoEsc(r.t)+'" data-fs="'+_evoEsc((r.t+' '+r.nombre).toLowerCase())+'" style="cursor:pointer'+(r.isCartera?';background:#f8fbff':'')+'">'
       +'<td style="text-align:center;color:#94a3b8">'+(open?'▾':'▸')+'</td>'
-      +'<td><b data-ficha="'+_evoEsc(r.t)+'" style="cursor:pointer;color:var(--brand)">'+_evoEsc(r.t)+'</b> <span class="muted" style="font-size:11px">'+_evoEsc((r.nombre||'').slice(0,26))+'</span> '+_grpBadge(r)+'</td>'
+      +'<td><b data-ficha="'+_evoEsc(r.t)+'" style="cursor:pointer;color:var(--brand)">'+_evoEsc(r.t)+'</b> <span class="muted" style="font-size:11px">'+_evoEsc((r.nombre||'').slice(0,26))+'</span> '+_grpBadge(r)+((r.e&&r.e.nota)?' <span title="'+_evoEsc(r.e.nota)+'" style="cursor:help">📝</span>':'')+'</td>'
       +'<td class="num" style="font-weight:600">'+divTot+'</td>'
       +'<td class="num" style="font-weight:700;color:'+rpdCol+'">'+rpdTxt+'</td>'
       +'<td>'+_evoFecha(r.junta)+'</td>'
@@ -199,7 +199,8 @@ function renderEvoDiv(){
 
 function _evoDetalleHTML(r){
   var a=r.a;
-  if(!a){ return '<span class="muted" style="font-size:12px">Sin datos de dividendo para '+_evoYear+'.</span>'; }
+  var notaHTML=(r.e&&r.e.nota)?'<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:6px 8px;margin-bottom:8px;font-size:12px;color:#9a3412">📝 '+_evoEsc(r.e.nota)+'</div>':'';
+  if(!a){ return notaHTML+'<span class="muted" style="font-size:12px">Sin datos de dividendo para '+_evoYear+'.</span>'; }
   var meta=[];
   if(a.naturaleza) meta.push('Naturaleza: <b>'+_evoEsc(a.naturaleza)+'</b>');
   if(a.nPagos) meta.push('Nº pagos: <b>'+a.nPagos+'</b>');
@@ -219,5 +220,5 @@ function _evoDetalleHTML(r){
         +'<td class="num">'+_evoPf(p.bruto,4)+'</td><td class="num">'+_evoPf(p.neto,4)+'</td><td>'+_evoEsc(p.tipo||'—')+'</td></tr>'; }).join('')
       +'</tbody></table>';
   }
-  return metaHTML+pagosHTML;
+  return notaHTML+metaHTML+pagosHTML;
 }
