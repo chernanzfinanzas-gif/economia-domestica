@@ -108,7 +108,7 @@
 },
 {
 "ticker": "APAM",
-"symbol": "APAM.AS",
+"symbol": "APAM.MC",
 "desde": "2011-01-26",
 "hasta": "2026-07-16",
 "n": 3958
@@ -579,8 +579,8 @@
 "ticker": "REN",
 "symbol": "REN.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-15",
-"n": 3973
+"hasta": "2026-07-16",
+"n": 3974
 },
 {
 "ticker": "REP",
