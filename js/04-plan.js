@@ -559,6 +559,18 @@ function renderPanelDash(){
   el.innerHTML=html;
 }
 function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(pc[y])/pr); }); return sh; }
+/* Banda de desplazamiento superior sincronizada con la tabla del Plan (como Diversificación/Simulador):
+   scroll horizontal con la columna Empresa fija; se ve siempre desde el inicio (año en curso). */
+function _planSyncBand(){
+  var el=document.getElementById('planTabla'); if(!el)return; var band=document.getElementById('planScrollTop');
+  var tbl=el.querySelector('table'); var w=tbl?tbl.scrollWidth:0;
+  if(band){ band.innerHTML='<div style="height:1px;width:'+w+'px"></div>';
+    if(!band._wired){ band._wired=true;
+      band.addEventListener('scroll',function(){ if(el.scrollLeft!==band.scrollLeft)el.scrollLeft=band.scrollLeft; });
+      el.addEventListener('scroll',function(){ if(band.scrollLeft!==el.scrollLeft)band.scrollLeft=el.scrollLeft; });
+    }
+  }
+}
 function renderPlan(){
   const el=$('#planTabla'); if(!el)return;
   const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
@@ -588,7 +600,7 @@ function renderPlan(){
   const aviso = ejec.length ? `<div class="card" style="margin-top:12px;background:#fff7ed;border:1px solid #fed7aa"><div style="font-weight:700;color:#b45309;margin-bottom:6px">Ejecución del plan (${ejec.length})${_pendTot>0.005?` · faltan ${fmt(_pendTot)}`:''}</div><div class="sub" style="margin-bottom:8px">Compras del plan que ya has empezado. Las <b>parciales</b> siguen contando en el Simulador (real + lo que falta). Cuando una esté <b>completa</b>, quítala del Plan.</div>${ejec.map(e=>`<div style="font-size:13px;margin:4px 0;display:flex;align-items:center;gap:10px"><span>${e.comp?'✅':'🟠'} <b>${e.t}</b> · ${e.y} — ejecutado ${fmt(e.exe)} de ${fmt(e.plan)}${e.comp?' <b style=\"color:#16a34a\">(completa)</b>':` · <b style=\"color:#b45309\">faltan ${fmt(e.falta)}</b>`}</span>${e.comp?`<button class="btn danger sm" data-planexe="${e.t}|${e.y}">Quitar del Plan</button>`:''}</div>`).join('')}</div>` : '';
   el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table>`+aviso;
   $('#planKpis').innerHTML=[['Plan total',fmt(grand)],['Plan '+nowY,fmt(totYear[nowY]||0)],['Presupuesto '+nowY,fmt(presShown(nowY))]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('planTabla',7,11),0);
+  const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(_planSyncBand,0);
 }
 /* Alta única de empresa desde Diversificación: entra en el lote (o ya es cartera),
    crea su entrada en el plan y aparece en Diversificación, Plan y Simulador. */

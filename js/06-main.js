@@ -140,7 +140,7 @@ function activarVista(view){
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador'){ window._simSeek=true; setTimeout(()=>autoFitTable('simTabla',7,10),120); }
   if(view==='diversif') window._loteSeek=true;
-  if(view==='plan') setTimeout(()=>autoFitTable('planTabla',7,11),120);
+  if(view==='plan') setTimeout(function(){ if(typeof _planSyncBand==='function')_planSyncBand(); },120);
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
   if(!renderView(view)) renderAllFull();
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
