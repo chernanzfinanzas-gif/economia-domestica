@@ -116,7 +116,7 @@ function renderSimulador(){
   }).join('');
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
   const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${grRow}</tbody></table>`;
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${totRow}${grRow}${body}</tbody></table>`;
   $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card" style="padding:9px 12px"><div class="lbl">${k[0]}</div><div class="val" style="font-size:18px;margin-top:2px">${k[1]}</div></div>`).join('');
   /* Banda deslizante horizontal + arranque centrado en (nowY-2) */
   (function(){ var sc=el; var rng=document.getElementById('simScroll');
@@ -594,7 +594,7 @@ function renderPlanLote(){
      <div class="card"><div class="lbl">Capital final total</div><div class="val">${fmt(TF)}</div><div class="sub">invertido + disponible</div></div>
      <div class="card"><div class="lbl">Capital a asignar</div><div class="val pos">${fmt(totAsignarPos)}</div><div class="sub">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
    </div>
-   <div class="toolbar" style="margin-bottom:8px"><span class="muted">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:75px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:75px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="margin-left:10px"><b>${total}/20</b> · ${nJoya} joyas</span></div>`;
+   <div class="toolbar" style="margin-bottom:8px;font-size:15px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:82px;padding:5px 6px;font-size:15px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:82px;padding:5px 6px;font-size:15px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:12.5px">Elige aquí los años que aparecen en la proyección</span> <span class="muted" style="margin-left:10px;font-size:12.5px"><b>${total}/20</b> · ${nJoya} joyas</span></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
   const objCells=t=>{ const fa=asignar(t)-sumAsig(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
   const yrCells=t=>yrs.map(y=>`<td><div style="font-size:8px;color:var(--muted);line-height:1.1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:54px;text-align:center" data-asig="${t}|${y}" value="${aYear(t,y)||''}"></td>`).join('');
@@ -604,15 +604,15 @@ function renderPlanLote(){
   chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
   for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="num">·</td>').join('')}<td></td></tr>`; }
   const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
-  el.innerHTML=cab+dl+`<div style="overflow:auto" id="loteScrollBox"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
-  /* Banda deslizante horizontal + arranque en el año actual (columnas fijas visibles) */
-  (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc)return;
+  el.innerHTML=cab+'<input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">'+dl+`<div style="overflow:auto" id="loteScrollBox"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
+  /* Banda deslizante horizontal (debajo del Periodo) + arranque en el año actual, hacia el futuro */
+  (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc||!rng)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
-    var sync=function(){ if(!rng)return; var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
-    sc.addEventListener('scroll',sync);
-    if(rng && !rng._loteWired){ rng._loteWired=true; rng.addEventListener('input',function(){ var s=document.getElementById('loteScrollBox'); if(!s)return; s.scrollLeft=Math.max(0,s.scrollWidth-s.clientWidth)*(num(rng.value)/1000); }); }
+    var toSlider=function(){ var m=maxSL(); rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+    rng.addEventListener('input',function(){ var m=maxSL(); if(m>0) sc.scrollLeft=m*(num(rng.value)/1000); });
+    sc.addEventListener('scroll',toSlider);
     sc.scrollLeft = window._loteSeek ? 0 : _lotePrevSL; window._loteSeek=false;
-    setTimeout(sync,40);
+    setTimeout(toSlider,50);
   })();
 }
 
