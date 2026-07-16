@@ -57,7 +57,7 @@ function _evoClean(t){ var s=DB.divData||{}; var T=(t||'').toUpperCase(); var o=
 function _evoSave(t){ _evoClean(t); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); }
 function _evoHoy(){ try{ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }catch(e){ return ''; } }
 /* Ajusta la altura de #evoApp para llenar el viewport: cabecera y pie fijos, solo la tabla scrollea. */
-function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-8; if(v>240){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
+function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-4; if(v>170){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
 /* MIGRACIÓN Excel → app (una sola vez): registra dividendos.json en DB.divData para
    trabajar 100% en la app y poder replicar/exportar. No pisa ediciones existentes. */
 function _evoMigrar(){
@@ -145,7 +145,7 @@ function _evoClaveHTML(){
   var clases=['I','F','o','scrip','extraordinario','especial','B','prima','prima junta','reducción capital','único','previsto','anómalo',''];
   var frec=['12M','6M','3M'];
   var pill=function(code){ var inf=_evoTipoInfo(code); return '<span style="display:inline-flex;gap:6px;align-items:baseline;margin:2px 12px 2px 0;font-size:11px"><span style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px">'+_evoEsc(code||'—')+'</span><span style="color:#475569"><b>'+_evoEsc(inf.label)+'</b>'+(inf.def?(' · '+_evoEsc(inf.def)):'')+'</span></span>'; };
-  return '<details style="margin:2px 0 10px;border:1px solid var(--line);border-radius:8px;background:#f8fafc">'
+  return '<details style="margin:2px 0 6px;border:1px solid var(--line);border-radius:8px;background:#f8fafc">'
     +'<summary style="cursor:pointer;padding:6px 10px;font-size:12px;font-weight:700;color:#1f3d6b">❔ Clave de tipos de dividendo</summary>'
     +'<div style="padding:2px 10px 10px">'
     +'<div style="font-size:11px;font-weight:700;color:#64748b;margin:4px 0 2px">Clase</div><div>'+clases.map(pill).join('')+'</div>'
@@ -383,14 +383,14 @@ function renderEvoDiv(){
   var chips=EVO_GRUPOS.map(function(g){ var on=!!_evoGroups[g.k];
     return '<button class="btn sm" data-evogrp="'+g.k+'" style="border:1px solid '+(on?'var(--brand)':'var(--line)')+';background:'+(on?'#eff6ff':'#fff')+';color:'+(on?'var(--brand)':'inherit')+';font-weight:'+(on?'700':'400')+'">'+g.lbl+'</button>';
   }).join(' ');
-  var toolbar='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">'
+  var toolbar='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0">'
     +'<button class="btn sm" id="evoAddYear" title="Añadir un año futuro para proyectar">+ año</button>'
     +'<span style="display:flex;gap:5px;flex-wrap:wrap">'+chips+'</span>'
     +'<input type="search" id="evoSearch" placeholder="Buscar nombre o ticker…" style="padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:180px">'
     +'<button class="btn sm" id="evoExport" title="Descargar dividendos.json con todos los datos de la app (para regenerar el Excel)">⬇️ Exportar</button>'
     +'</div>';
   var yearTag=(_evoYear>nowY)?' <span style="font-size:11px;color:#92400e">· proyección</span>':'';
-  var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 12px;flex-wrap:wrap">'
+  var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 5px;flex-wrap:wrap">'
     +'<span style="font-size:13px;font-weight:700;color:#1f3d6b;min-width:150px">Año: <span id="evoYearLbl" style="font-size:17px">'+_evoYear+'</span><span id="evoYearTag">'+yearTag+'</span></span>'
     +'<input type="range" id="evoYearRange" min="'+minData+'" max="'+horizon+'" step="1" value="'+_evoYear+'" style="flex:1;min-width:220px;max-width:560px;accent-color:#1f3d6b">'
     +'<span class="muted" style="font-size:11px">'+minData+' – '+horizon+'</span>'
