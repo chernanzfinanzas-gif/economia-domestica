@@ -502,6 +502,29 @@ let _demoRealDB = null;
 /* hash estable (FNV-1a) para generar cantidades ficticias reproducibles */
 function _demoHash(s){ s=''+s; let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 
+/* Categorías + presupuesto GENÉRICOS inventados (sustituyen los reales en la demo, para no
+   mostrar nombres personales tipo "Nómina Carlos"/"Iru"). */
+function _demoCatsPresupuesto(yNow){
+  const defs=[
+    ['Ingresos','Nómina titular 1','ingreso',1900,'mensual'],
+    ['Ingresos','Nómina titular 2','ingreso',1650,'mensual'],
+    ['Ingresos','Dividendos','ingreso',120,'mensual'],
+    ['Ingresos','Otros ingresos','ingreso',0,'mensual'],
+    ['Vivienda','Alquiler','gasto',850,'mensual'],
+    ['Suministros','Luz y agua','gasto',90,'mensual'],
+    ['Alimentación','Supermercado','gasto',400,'mensual'],
+    ['Transporte','Gasolina','gasto',110,'mensual'],
+    ['Internet y Teléfono','Internet y móvil','gasto',45,'mensual'],
+    ['Ocio','Ocio y restaurantes','gasto',150,'mensual'],
+    ['Deporte','Gimnasio','gasto',40,'mensual'],
+    ['Compras','Compras varias','gasto',120,'mensual'],
+    ['Seguros','Seguros hogar y coche','gasto',600,'anual']
+  ];
+  const categorias=[], presupuesto=[];
+  defs.forEach(d=>{ const cid=uid(); categorias.push({id:cid,grupo:d[0],nombre:d[1],tipo:d[2]}); presupuesto.push({id:uid(),categoriaId:cid,importe:d[3],frecuencia:d[4],metodoPago:'',renovacion:'',anio:yNow}); });
+  return {categorias:categorias, presupuesto:presupuesto};
+}
+
 /* Movimientos ficticios genéricos (nómina, supermercado, luz, gasolina, ocio…) para las
    pantallas de Ingresos/Gastos. Se reparten en los últimos 6 meses y se enlazan a las
    categorías por tipo/nombre cuando existen. */
@@ -618,6 +641,8 @@ function _demoBuild(real){
     {id:cuBanco, nombre:'Cuenta corriente (demo)', tipo:'efectivo', naturaleza:'activo', saldoInicial:0},
     {id:cuInv,   nombre:'Broker Demo',             tipo:'inversion', naturaleza:'activo', saldoInicial:0}
   ];
+  /* categorías y presupuesto genéricos inventados (sustituyen por completo los reales) */
+  const _cp=_demoCatsPresupuesto(yNow); D.categorias=_cp.categorias; D.presupuesto=_cp.presupuesto;
   D.movimientos=_demoMovimientos(D, yNow);   /* nómina, supermercado, luz, gasolina… ficticios */
   D.combustible=_demoCombustible(yNow);       /* Mazinger Z: repostajes ficticios */
   const efectivoDemo=8500;
@@ -628,13 +653,7 @@ function _demoBuild(real){
     lineas:[{cuentaId:cuBanco, ef:efectivoDemo, inv:0}, {cuentaId:cuInv, ef:0, inv:carteraVal}] }];
   D.cajaConfig={saldoIni:6000, hastaY:yNow, desdeM:1};
 
-  /* -------- Ingresos / gastos ficticios (presupuesto): misma estructura, importes inventados -------- */
-  D.presupuesto=(D.presupuesto||[]).map(p=>{
-    const c=(D.categorias||[]).find(cc=>cc.id===p.categoriaId)||{};
-    const h=_demoHash((p.id||'')+'|'+(p.categoriaId||''));
-    const imp = (c.tipo==='ingreso') ? (1400 + (h%1200)) : (40 + (h%760));
-    return Object.assign({}, p, {importe:imp});
-  });
+  /* (categorías y presupuesto ya reemplazados arriba por un set genérico inventado) */
 
   /* -------- Proyección ficticia (ahorrador modesto) -------- */
   D.config = D.config || {};
