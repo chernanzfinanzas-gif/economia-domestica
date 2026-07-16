@@ -165,6 +165,15 @@ function evoYearsDisponibles(){ return (_evoData&&_evoData.years)?_evoData.years
 
 /* --- % de crecimiento y proyección de años futuros --- */
 function _evoCrec(){ return (DB.divCrecim!=null && DB.divCrecim!=='')?num(DB.divCrecim):4; }
+/* % de crecimiento POR AÑO futuro (una celda por año). Si no se fija, hereda el del año
+   futuro anterior; si tampoco, el default global (DB.divCrecim) o 4%. */
+function _evoCrecAno(year){
+  var m=DB.divCrecimAno||{}; var v=m[String(year)];
+  if(v!=null&&v!==''){ var n=num(v); if(!isNaN(n)) return n; }
+  var ny=new Date().getFullYear();
+  if(year-1>ny) return _evoCrecAno(year-1);
+  return (DB.divCrecim!=null&&DB.divCrecim!=='')?num(DB.divCrecim):4;
+}
 function _evoRound(x,d){ var p=Math.pow(10,d==null?4:d); return Math.round(num(x)*p)/p; }
 var _EVO_RET = 0.19;   /* retención IRPF por defecto: neto = bruto × (1 − 19%) */
 function _evoNeto(bruto){ return _evoRound(num(bruto)*(1-_EVO_RET),4); }
@@ -176,19 +185,22 @@ function _evoOverride(t,year){
 /* DPA bruto PROYECTADO: real del Excel > override manual > año anterior × (1+%). Cascada. */
 function evoDpaProyectado(t, year){
   t=(t||'').toUpperCase();
+  var ny=new Date().getFullYear(); var esFut=year>ny;
   var a=evoAnioM(t,year);
-  if(a && a.dpaBruto!=null) return num(a.dpaBruto);
+  /* Año vigente/pasado: el valor real manda (aunque sea 0). Futuro: real solo si >0 (ignora placeholders). */
+  if(a && a.dpaBruto!=null && (!esFut || num(a.dpaBruto)>0)) return num(a.dpaBruto);
+  if(!esFut) return null;   /* vigente/pasado sin dato real: no se proyecta */
   var ov=_evoOverride(t,year); if(ov!=null) return ov;
-  if(year<1990||year>2100) return null;
+  if(year>2100) return null;
   var prev=evoDpaProyectado(t, year-1);
   if(prev==null||!(prev>0)) return null;
-  return _evoRound(prev*(1+_evoCrec()/100),4);
+  return _evoRound(prev*(1+_evoCrecAno(year)/100),4);
 }
 /* Proyección automática de un año, IGNORANDO su propio override (para el placeholder de la casilla). */
 function _evoAutoProj(t, year){
   var prev=evoDpaProyectado(t, year-1);
   if(prev==null||!(prev>0)) return null;
-  return _evoRound(prev*(1+_evoCrec()/100),4);
+  return _evoRound(prev*(1+_evoCrecAno(year)/100),4);
 }
 
 /* --- helpers de contexto de la app --- */
@@ -255,7 +267,7 @@ function renderEvoDiv(){
   var horizon=Math.max(maxData, (DB.divHorizonte!=null?num(DB.divHorizonte):(maxData+6)));
   var allYears=[]; for(var _y=minData;_y<=horizon;_y++) allYears.push(_y);
   if(_evoYear==null){ _evoYear=(allYears.indexOf(nowY)>=0)?nowY:maxData; }
-  var esFuturo = _evoYear > maxData;
+  var esFuturo = _evoYear > nowY;   /* futuro = posterior al año en vigor: proyección, sin pagos/juntas */
 
   var held=_evoHeldSet(), infoS=_evoInformeSet(), planS=_evoPlanSet();
 
@@ -332,7 +344,7 @@ function renderEvoDiv(){
     +'<input type="search" id="evoSearch" placeholder="Buscar nombre o ticker…" style="padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:180px">'
     +'<button class="btn sm" id="evoExport" title="Descargar dividendos.json con todos los datos de la app (para regenerar el Excel)">⬇️ Exportar</button>'
     +'</div>';
-  var yearTag=(_evoYear>maxData)?' <span style="font-size:11px;color:#92400e">· proyección</span>':((_evoYear>nowY)?' <span style="font-size:11px;color:#2563eb">· previsión</span>':'');
+  var yearTag=(_evoYear>nowY)?' <span style="font-size:11px;color:#92400e">· proyección</span>':'';
   var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 12px;flex-wrap:wrap">'
     +'<span style="font-size:13px;font-weight:700;color:#1f3d6b;min-width:150px">Año: <span id="evoYearLbl" style="font-size:17px">'+_evoYear+'</span><span id="evoYearTag">'+yearTag+'</span></span>'
     +'<input type="range" id="evoYearRange" min="'+minData+'" max="'+horizon+'" step="1" value="'+_evoYear+'" style="flex:1;min-width:220px;max-width:560px;accent-color:#1f3d6b">'
@@ -342,9 +354,9 @@ function renderEvoDiv(){
   /* control de crecimiento (solo en años futuros) */
   var futuroCtrl = esFuturo
     ? '<div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:0 0 10px;padding:8px 12px;background:#fffbeb;border:1px solid #fde68a;border-radius:8px">'
-      +'<span style="font-size:13px;font-weight:700;color:#92400e">📈 Año futuro '+_evoYear+' · proyección</span>'
-      +'<label style="font-size:13px">Crecimiento anual <input type="number" id="evoCrecim" step="0.5" value="'+_evoCrec()+'" style="width:64px;text-align:right;padding:3px 6px;border:1px solid var(--line);border-radius:6px">%</label>'
-      +'<span class="muted" style="font-size:12px">DPA = año anterior × (1+%). Escribe en una casilla para <b>pisar</b> la sugerencia; vacíala para volver a la proyección.</span>'
+      +'<span style="font-size:13px;font-weight:700;color:#92400e">📈 Proyección '+_evoYear+'</span>'
+      +'<label style="font-size:13px">Crecimiento de '+_evoYear+' (desde '+(_evoYear-1)+') <input type="number" id="evoCrecim" step="0.5" value="'+_evoCrecAno(_evoYear)+'" style="width:64px;text-align:right;padding:3px 6px;border:1px solid var(--line);border-radius:6px">%</label>'
+      +'<span class="muted" style="font-size:12px">DPA '+_evoYear+' = dividendo '+(_evoYear-1)+' × (1+%). Cada año futuro tiene su propio %. Escribe en la casilla de una empresa para <b>pisar</b> su estimación.</span>'
       +'</div>'
     : '';
 
@@ -390,9 +402,9 @@ function renderEvoDiv(){
     +'<th>Junta</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 
   var nota = esFuturo
-    ? '<div class="muted" style="font-size:11px;margin-top:8px">Año <b>futuro</b>: el dividendo se <b>proyecta</b> desde el último real con el % de crecimiento anual (DPA = año anterior × (1+%)). '
-      +'Edita una casilla para <b>pisar</b> la sugerencia de una empresa; vacíala para volver a la proyección. Con «+ año» amplías el horizonte sin límite. '
-      +'Estos valores alimentan el <b>Simulador</b>. RPD = dividendo proyectado ÷ cotización actual.</div>'
+    ? '<div class="muted" style="font-size:11px;margin-top:8px">Año <b>futuro</b> (posterior al vigente): el dividendo se <b>proyecta</b> = dividendo del año anterior × (1 + % de <b>este</b> año). Cada año futuro tiene su propio %. '
+      +'Edita la casilla de una empresa para <b>pisar</b> su estimación; vacíala para volver a la proyección. Con «+ año» amplías el horizonte sin límite. '
+      +'Aquí no se registran pagos ni juntas (eso al pasar a año en vigor). Estos valores <b>alimentan el Simulador</b> de cartera. RPD = dividendo proyectado ÷ cotización actual.</div>'
     : '<div class="muted" style="font-size:11px;margin-top:8px">Dividendo total y RPD en <b>bruto</b> (RPD = dividendo bruto ÷ cotización actual). '
       +'Orden: en cartera → con informe → en plan → resto por RPD → sin dividendo. Pulsa una fila para ver el detalle y «✏️ Editar dividendos» para añadir/editar pagos, junta y totales. '
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
@@ -407,11 +419,11 @@ function renderEvoDiv(){
   var ay=document.getElementById('evoAddYear');
   if(ay) ay.addEventListener('click',function(){ var h=Math.max(maxData,(DB.divHorizonte!=null?num(DB.divHorizonte):(maxData+6))); DB.divHorizonte=h+1; if(typeof scheduleSave==='function')scheduleSave(); _evoYear=DB.divHorizonte; renderEvoDiv(); });
   var cr=document.getElementById('evoCrecim');
-  if(cr) cr.addEventListener('change',function(){ DB.divCrecim=num((this.value||'').replace(',','.')); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); });
+  if(cr) cr.addEventListener('change',function(){ DB.divCrecimAno=DB.divCrecimAno||{}; var vv=(this.value||'').trim(); if(vv==='') delete DB.divCrecimAno[String(_evoYear)]; else DB.divCrecimAno[String(_evoYear)]=num(vv.replace(',','.')); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); });
   var exb=document.getElementById('evoExport');
   if(exb) exb.addEventListener('click',function(){ evoExportarJSON(); });
   var yrg=document.getElementById('evoYearRange');
-  if(yrg){ yrg.addEventListener('input',function(){ var lbl=document.getElementById('evoYearLbl'); if(lbl)lbl.textContent=this.value; var tg=document.getElementById('evoYearTag'); if(tg){ var vy=parseInt(this.value,10); tg.innerHTML=(vy>maxData)?' <span style="font-size:11px;color:#92400e">· proyección</span>':((vy>nowY)?' <span style="font-size:11px;color:#2563eb">· previsión</span>':''); } });
+  if(yrg){ yrg.addEventListener('input',function(){ var lbl=document.getElementById('evoYearLbl'); if(lbl)lbl.textContent=this.value; var tg=document.getElementById('evoYearTag'); if(tg){ var vy=parseInt(this.value,10); tg.innerHTML=(vy>nowY)?' <span style="font-size:11px;color:#92400e">· proyección</span>':''; } });
     yrg.addEventListener('change',function(){ _evoYear=parseInt(this.value,10)||_evoYear; renderEvoDiv(); }); }
   host.querySelectorAll('[data-evogrp]').forEach(function(b){ b.addEventListener('click',function(){ var k=b.getAttribute('data-evogrp'); _evoGroups[k]=!_evoGroups[k]; renderEvoDiv(); }); });
   host.querySelectorAll('input[data-ovr]').forEach(function(inp){
@@ -491,11 +503,12 @@ function _evoEditHTML(r){
 }
 function _evoDetalleHTML(r){
   var t=r.t;
-  var editBtn='<button class="btn sm" data-evoedit="'+_evoEsc(t)+'" style="float:right;font-size:11px;'+(_evoEdit[t]?'background:#1f3d6b;color:#fff;':'')+'">'+(_evoEdit[t]?'✓ Cerrar edición':'✏️ Editar dividendos')+'</button><div style="clear:both"></div>';
-  if(_evoEdit[t]) return editBtn+_evoEditHTML(r);
+  var _nowY=new Date().getFullYear(); var esFut=_evoYear>_nowY;
+  var editBtn=esFut?'':('<button class="btn sm" data-evoedit="'+_evoEsc(t)+'" style="float:right;font-size:11px;'+(_evoEdit[t]?'background:#1f3d6b;color:#fff;':'')+'">'+(_evoEdit[t]?'✓ Cerrar edición':'✏️ Editar dividendos')+'</button><div style="clear:both"></div>');
+  if(!esFut && _evoEdit[t]) return editBtn+_evoEditHTML(r);
   var a=r.a;
   var notaHTML=(r.e&&r.e.nota)?'<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:6px 8px;margin-bottom:8px;font-size:12px;color:#9a3412">📝 '+_evoEsc(r.e.nota)+'</div>':'';
-  if(!a){ return editBtn+notaHTML+'<span class="muted" style="font-size:12px">'+((r.dpaB!=null)?('Año proyectado: DPA estimado <b>'+_evoPf(r.dpaB,4)+' €</b>'+(r.ovr!=null?' (pisado a mano)':' (proyección '+_evoPf(_evoCrec(),1)+'%/año)')+'. Sin calendario de pagos aún.'):('Sin datos de dividendo para '+_evoYear+'. Pulsa «✏️ Editar dividendos» para añadirlos a mano.'))+'</span>'; }
+  if(!a){ return editBtn+notaHTML+'<span class="muted" style="font-size:12px">'+((r.dpaB!=null)?('Dividendo <b>estimado</b> '+_evoYear+': <b>'+_evoPf(r.dpaB,4)+' €</b>'+(r.ovr!=null?' (pisado a mano)':' (proyección '+_evoPf(_evoCrecAno(_evoYear),1)+'%/año desde '+(_evoYear-1)+')')+'. Los pagos, la junta y demás se rellenan cuando el año pase a ser el vigente.'):('Sin datos de dividendo para '+_evoYear+'.'+(esFut?'':' Pulsa «✏️ Editar dividendos» para añadirlos a mano.')))+'</span>'; }
   var meta=[];
   if(a.naturaleza) meta.push('Naturaleza: <b>'+_evoEsc(a.naturaleza)+'</b>');
   if(a.nPagos) meta.push('Nº pagos: <b>'+a.nPagos+'</b>');
