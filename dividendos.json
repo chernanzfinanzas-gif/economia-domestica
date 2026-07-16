@@ -28,6 +28,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.47,
@@ -406,8 +407,8 @@
 },
 "2026": {
 "dpaBruto": 0.39,
-"dpaNeto": 0.1701,
-"nPagos": 1,
+"dpaNeto": 0.3159,
+"nPagos": 2,
 "deltaPct": -0.4,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -416,11 +417,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-06-15",
-"pago": "2026-06-17",
+"exDiv": "2026-06-16",
+"pago": "2026-06-18",
 "bruto": 0.21,
 "neto": 0.1701,
 "tipo": "o"
+},
+{
+"exDiv": "2026-12-15",
+"pago": "2026-12-17",
+"bruto": 0.18,
+"neto": 0.1458,
+"tipo": null
 }
 ]
 },
@@ -446,6 +454,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 2.05,
@@ -860,8 +869,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 2.025,
-"dpaNeto": 1.8816,
+"dpaBruto": 2.323,
+"dpaNeto": 1.8817,
 "nPagos": 2,
 "deltaPct": 0.006962,
 "racha": 16,
@@ -872,17 +881,17 @@
 "pagos": [
 {
 "exDiv": "2026-01-21",
-"pago": "2026-01-28",
+"pago": "2026-02-05",
 "bruto": 0.457,
-"neto": 0.37017,
-"tipo": "o"
+"neto": 0.3702,
+"tipo": null
 },
 {
-"exDiv": "2026-06-29",
+"exDiv": "2026-06-26",
 "pago": "2026-07-06",
 "bruto": 1.866,
-"neto": 1.51146,
-"tipo": "o"
+"neto": 1.5115,
+"tipo": null
 }
 ]
 },
@@ -908,6 +917,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.45,
@@ -1302,11 +1312,11 @@
 "pago": "2026-01-23",
 "bruto": 0.31,
 "neto": 0.2511,
-"tipo": "I"
+"tipo": "F"
 },
 {
-"exDiv": "2026-07-15",
-"pago": "2026-07-17",
+"exDiv": "2026-07-16",
+"pago": "2026-07-18",
 "bruto": 0.31,
 "neto": 0.2511,
 "tipo": "F"
@@ -1335,6 +1345,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -1542,7 +1553,7 @@
 },
 "2026": {
 "dpaBruto": 0.0337,
-"dpaNeto": 0.0337,
+"dpaNeto": 0.0273,
 "nPagos": 1,
 "deltaPct": 0.012012,
 "racha": 3,
@@ -1555,7 +1566,7 @@
 "exDiv": "2026-07-01",
 "pago": "2026-07-03",
 "bruto": 0.0337,
-"neto": null,
+"neto": 0.0273,
 "tipo": "o"
 }
 ]
@@ -1582,6 +1593,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -1793,10 +1805,11 @@
 {
 "ticker": "AEDAS",
 "nombre": "AEDAS HOMES, S.A.",
-"clasificacion": "Paga",
+"clasificacion": "No paga",
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": "Ya no cotiza en bolsa — excluida por OPA de Neinor Homes.",
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -2047,7 +2060,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 2.82,
+"dpaBruto": 0.0,
 "dpaNeto": 0.0,
 "nPagos": 0,
 "deltaPct": -0.104762,
@@ -2071,7 +2084,7 @@
 "pagos": []
 }
 },
-"paga": true
+"paga": false
 },
 {
 "ticker": "AENA",
@@ -2080,6 +2093,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -2329,7 +2343,7 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-04-23",
+"exDiv": "2026-04-22",
 "pago": "2026-04-27",
 "bruto": 1.09,
 "neto": 0.8829,
@@ -2359,6 +2373,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -2574,6 +2589,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "NL",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.22,
@@ -2860,8 +2876,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 3.9506,
-"dpaNeto": 3.2,
+"dpaBruto": 3.2,
+"dpaNeto": 2.592,
 "nPagos": 1,
 "deltaPct": 0.316867,
 "racha": 5,
@@ -2874,8 +2890,8 @@
 "exDiv": "2026-04-21",
 "pago": "2026-04-23",
 "bruto": 3.2,
-"neto": null,
-"tipo": "12M"
+"neto": 2.592,
+"tipo": null
 }
 ]
 },
@@ -2901,6 +2917,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.28,
@@ -3207,7 +3224,7 @@
 "pagos": [
 {
 "exDiv": "2026-05-14",
-"pago": "2026-05-25",
+"pago": "2026-06-03",
 "bruto": 0.187,
 "neto": 0.15147,
 "tipo": "scrip"
@@ -3236,6 +3253,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -3642,6 +3660,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -3857,6 +3876,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.3,
@@ -4231,8 +4251,8 @@
 "tipo": "I"
 },
 {
-"exDiv": "2026-07-01",
-"pago": "2026-07-03",
+"exDiv": "2026-07-02",
+"pago": "2026-07-04",
 "bruto": 1.01,
 "neto": 0.8181,
 "tipo": "F"
@@ -4261,6 +4281,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 3.1,
@@ -4576,8 +4597,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 5.6,
-"dpaNeto": 4.6564,
+"dpaBruto": 5.748,
+"dpaNeto": 4.6559,
 "nPagos": 1,
 "deltaPct": 0.059803,
 "racha": 12,
@@ -4589,9 +4610,9 @@
 {
 "exDiv": "2026-07-07",
 "pago": "2026-07-09",
-"bruto": 5.7487,
-"neto": 4.656423,
-"tipo": "12M"
+"bruto": 5.748,
+"neto": 4.6559,
+"tipo": null
 }
 ]
 },
@@ -4617,6 +4638,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -4844,7 +4866,7 @@
 {
 "exDiv": "2026-06-16",
 "pago": "2026-06-18",
-"bruto": 0.03,
+"bruto": 0.03002,
 "neto": 0.024316,
 "tipo": "12M"
 }
@@ -4872,6 +4894,7 @@
 "moneda": "EUR*",
 "domicilioFiscal": "LU",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -5402,8 +5425,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 2.0988,
-"dpaNeto": 1.7,
+"dpaBruto": 2.0,
+"dpaNeto": 1.62,
 "nPagos": 4,
 "deltaPct": 0.0494,
 "racha": 11,
@@ -5416,29 +5439,29 @@
 "exDiv": "2026-02-24",
 "pago": "2026-03-19",
 "bruto": 0.5,
-"neto": 0.425,
-"tipo": "3M"
+"neto": 0.405,
+"tipo": null
 },
 {
 "exDiv": "2026-05-21",
 "pago": "2026-06-18",
 "bruto": 0.5,
-"neto": 0.425,
-"tipo": "3M"
+"neto": 0.405,
+"tipo": null
 },
 {
 "exDiv": "2026-08-13",
 "pago": "2026-09-10",
 "bruto": 0.5,
-"neto": 0.425,
-"tipo": "3M"
+"neto": 0.405,
+"tipo": null
 },
 {
 "exDiv": "2026-11-13",
 "pago": "2026-12-10",
 "bruto": 0.5,
-"neto": 0.425,
-"tipo": "3M"
+"neto": 0.405,
+"tipo": null
 }
 ]
 },
@@ -5464,6 +5487,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -5679,6 +5703,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -5894,7 +5919,7 @@
 },
 "2026": {
 "dpaBruto": 0.3969,
-"dpaNeto": 0.3215,
+"dpaNeto": 0.3159,
 "nPagos": 1,
 "deltaPct": 1.398187,
 "racha": 5,
@@ -5906,9 +5931,9 @@
 {
 "exDiv": "2026-05-08",
 "pago": "2026-05-12",
-"bruto": 0.3969,
-"neto": 0.321489,
-"tipo": "12M"
+"bruto": 0.39,
+"neto": 0.3159,
+"tipo": null
 }
 ]
 },
@@ -5934,6 +5959,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -6198,7 +6224,7 @@
 "2026": {
 "dpaBruto": 1.0,
 "dpaNeto": 0.81,
-"nPagos": 1,
+"nPagos": 2,
 "deltaPct": 1.604167,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -6209,9 +6235,16 @@
 {
 "exDiv": "2026-07-22",
 "pago": "2026-07-24",
-"bruto": 1.0,
-"neto": 0.81,
-"tipo": "o"
+"bruto": 0.356,
+"neto": 0.2884,
+"tipo": null
+},
+{
+"exDiv": "2026-07-22",
+"pago": "2026-07-24",
+"bruto": 0.644,
+"neto": 0.5216,
+"tipo": null
 }
 ]
 },
@@ -6237,6 +6270,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.44,
@@ -6715,8 +6749,8 @@
 },
 "2026": {
 "dpaBruto": 0.9198,
-"dpaNeto": 0.486,
-"nPagos": 1,
+"dpaNeto": 0.7452,
+"nPagos": 2,
 "deltaPct": 0.26,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -6730,6 +6764,13 @@
 "bruto": 0.6,
 "neto": 0.486,
 "tipo": "F"
+},
+{
+"exDiv": "2026-11-03",
+"pago": "2026-11-05",
+"bruto": 0.32,
+"neto": 0.2592,
+"tipo": null
 }
 ]
 },
@@ -6755,6 +6796,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1522,
@@ -7324,8 +7366,8 @@
 },
 "2026": {
 "dpaBruto": 0.6062,
-"dpaNeto": 0.2559,
-"nPagos": 2,
+"dpaNeto": 0.491,
+"nPagos": 3,
 "deltaPct": 0.054261,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -7336,16 +7378,23 @@
 {
 "exDiv": "2026-03-31",
 "pago": "2026-04-02",
-"bruto": 0.1549,
-"neto": 0.125496,
-"tipo": "F"
+"bruto": 0.15,
+"neto": 0.1215,
+"tipo": null
 },
 {
-"exDiv": "2026-06-22",
-"pago": "2026-06-24",
-"bruto": 0.1609,
-"neto": 0.130355,
-"tipo": "I"
+"exDiv": "2026-06-23",
+"pago": "2026-06-27",
+"bruto": 0.3078,
+"neto": 0.2493,
+"tipo": null
+},
+{
+"exDiv": "2026-11-28",
+"pago": "2026-12-02",
+"bruto": 0.1484,
+"neto": 0.1202,
+"tipo": null
 }
 ]
 },
@@ -7371,6 +7420,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -7586,6 +7636,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.248,
@@ -8042,9 +8093,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.5,
-"dpaNeto": 0.269,
-"nPagos": 1,
+"dpaBruto": 0.5021,
+"dpaNeto": 0.4067,
+"nPagos": 2,
 "deltaPct": 0.100594,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -8056,8 +8107,15 @@
 "exDiv": "2026-04-07",
 "pago": "2026-04-09",
 "bruto": 0.3321,
-"neto": 0.269001,
-"tipo": "F"
+"neto": 0.269,
+"tipo": null
+},
+{
+"exDiv": "2026-11-04",
+"pago": "2026-11-06",
+"bruto": 0.17,
+"neto": 0.1377,
+"tipo": null
 }
 ]
 },
@@ -8083,6 +8141,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 1.05,
@@ -8384,8 +8443,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 1.34,
-"dpaNeto": 1.2312,
+"dpaBruto": 1.521,
+"dpaNeto": 1.232,
 "nPagos": 1,
 "deltaPct": -0.001118,
 "racha": 6,
@@ -8397,9 +8456,9 @@
 {
 "exDiv": "2026-07-03",
 "pago": "2026-07-07",
-"bruto": 1.52,
-"neto": 1.2312,
-"tipo": "12M"
+"bruto": 1.521,
+"neto": 1.232,
+"tipo": null
 }
 ]
 },
@@ -8425,6 +8484,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "GB",
 "origen": "web",
+"nota": "2º pago (1,28 €, dic) pendiente de confirmar en noviembre.",
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -8771,9 +8831,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 2.0247,
-"dpaNeto": 0.82,
-"nPagos": 1,
+"dpaBruto": 2.1,
+"dpaNeto": 1.701,
+"nPagos": 2,
 "deltaPct": -0.0075,
 "racha": 11,
 "naturaleza": "efectivo",
@@ -8785,8 +8845,15 @@
 "exDiv": "2026-05-14",
 "pago": "2026-05-27",
 "bruto": 0.82,
-"neto": null,
-"tipo": "6M"
+"neto": 0.6642,
+"tipo": null
+},
+{
+"exDiv": "2026-11-16",
+"pago": "2026-12-03",
+"bruto": 1.28,
+"neto": 1.0368,
+"tipo": null
 }
 ]
 },
@@ -8812,6 +8879,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.253,
@@ -9128,7 +9196,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.23,
+"dpaBruto": 0.25,
 "dpaNeto": 0.2025,
 "nPagos": 1,
 "deltaPct": 0.0,
@@ -9143,7 +9211,7 @@
 "pago": "2026-07-03",
 "bruto": 0.25,
 "neto": 0.2025,
-"tipo": "o"
+"tipo": null
 }
 ]
 },
@@ -9169,6 +9237,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -9576,7 +9645,7 @@
 "pago": "2026-01-07",
 "bruto": 0.47,
 "neto": 0.3807,
-"tipo": "I"
+"tipo": "F"
 },
 {
 "exDiv": "2026-07-03",
@@ -9609,6 +9678,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -9832,6 +9902,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -10166,7 +10237,7 @@
 },
 "2026": {
 "dpaBruto": 0.7479,
-"dpaNeto": 0.7479,
+"dpaNeto": 0.6058,
 "nPagos": 2,
 "deltaPct": 43.784431,
 "racha": 12,
@@ -10178,15 +10249,15 @@
 {
 "exDiv": "2026-01-13",
 "pago": "2026-01-15",
-"bruto": 0.371009,
-"neto": null,
+"bruto": 0.371,
+"neto": 0.3005,
 "tipo": "o"
 },
 {
 "exDiv": "2026-07-13",
 "pago": "2026-07-15",
 "bruto": 0.37687,
-"neto": null,
+"neto": 0.3053,
 "tipo": "o"
 }
 ]
@@ -10213,6 +10284,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -10516,6 +10588,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -10731,6 +10804,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -11002,6 +11076,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.8647,
@@ -11578,14 +11653,14 @@
 "pago": "2026-04-01",
 "bruto": 0.23,
 "neto": 0.1863,
-"tipo": "I"
+"tipo": "F"
 },
 {
-"exDiv": "2026-06-26",
+"exDiv": "2026-06-28",
 "pago": "2026-06-30",
 "bruto": 0.23,
 "neto": 0.1863,
-"tipo": "I"
+"tipo": "F"
 },
 {
 "exDiv": "2026-09-29",
@@ -11618,6 +11693,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -11841,6 +11917,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -12112,6 +12189,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 1.017,
@@ -12491,7 +12569,7 @@
 },
 "2026": {
 "dpaBruto": 1.58,
-"dpaNeto": 1.283,
+"dpaNeto": 1.28,
 "nPagos": 2,
 "deltaPct": 0.199696,
 "racha": 13,
@@ -12508,11 +12586,11 @@
 "tipo": "I"
 },
 {
-"exDiv": "2026-07-08",
-"pago": "2026-07-10",
-"bruto": 1.084,
-"neto": 0.87804,
-"tipo": "F"
+"exDiv": "2026-06-28",
+"pago": "2026-07-03",
+"bruto": 1.0802,
+"neto": 0.875,
+"tipo": null
 }
 ]
 },
@@ -12538,6 +12616,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -12926,6 +13005,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.907,
@@ -13334,8 +13414,8 @@
 },
 "2026": {
 "dpaBruto": 1.0,
-"dpaNeto": 0.486,
-"nPagos": 1,
+"dpaNeto": 0.81,
+"nPagos": 2,
 "deltaPct": 0.0,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -13344,11 +13424,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-06-30",
-"pago": "2026-07-02",
+"exDiv": "2026-06-28",
+"pago": "2026-07-01",
 "bruto": 0.6,
 "neto": 0.486,
 "tipo": "F"
+},
+{
+"exDiv": "2026-12-19",
+"pago": "2026-12-23",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": null
 }
 ]
 },
@@ -13374,6 +13461,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.29,
@@ -13796,7 +13884,7 @@
 },
 "2026": {
 "dpaBruto": 0.4284,
-"dpaNeto": 0.347,
+"dpaNeto": 0.3467,
 "nPagos": 1,
 "deltaPct": -0.86708,
 "racha": 16,
@@ -13808,9 +13896,9 @@
 {
 "exDiv": "2026-06-08",
 "pago": "2026-06-10",
-"bruto": 0.4284,
-"neto": 0.347038,
-"tipo": "F"
+"bruto": 0.428,
+"neto": 0.3467,
+"tipo": null
 }
 ]
 },
@@ -13836,6 +13924,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -14051,6 +14140,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -14459,8 +14549,8 @@
 },
 "2026": {
 "dpaBruto": 0.128,
-"dpaNeto": 0.1742,
-"nPagos": 3,
+"dpaNeto": 0.1037,
+"nPagos": 2,
 "deltaPct": -0.268571,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -14469,25 +14559,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-01-08",
+"exDiv": "2026-01-10",
 "pago": "2026-01-12",
 "bruto": 0.041,
-"neto": 0.03321,
-"tipo": "I"
+"neto": 0.0332,
+"tipo": null
 },
 {
-"exDiv": "2026-06-23",
-"pago": "2026-06-25",
-"bruto": 0.087,
-"neto": 0.07047,
-"tipo": "o"
-},
-{
-"exDiv": "2026-07-02",
+"exDiv": "2026-07-04",
 "pago": "2026-07-06",
 "bruto": 0.087,
-"neto": 0.07047,
-"tipo": "F"
+"neto": 0.0705,
+"tipo": null
 }
 ]
 },
@@ -14513,6 +14596,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 1.43,
@@ -14782,7 +14866,7 @@
 },
 "2026": {
 "dpaBruto": 0.5,
-"dpaNeto": 0.5,
+"dpaNeto": 0.405,
 "nPagos": 1,
 "deltaPct": 0.0,
 "racha": 8,
@@ -14794,9 +14878,9 @@
 {
 "exDiv": "2026-07-14",
 "pago": "2026-07-16",
-"bruto": 0.6173,
-"neto": 0.5,
-"tipo": "o"
+"bruto": 0.5,
+"neto": 0.405,
+"tipo": null
 }
 ]
 },
@@ -14822,6 +14906,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.072,
@@ -15135,7 +15220,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.62,
+"dpaBruto": 0.65,
 "dpaNeto": 0.5265,
 "nPagos": 2,
 "deltaPct": 0.033333,
@@ -15150,14 +15235,14 @@
 "pago": "2026-07-14",
 "bruto": 0.32,
 "neto": 0.2592,
-"tipo": "I"
+"tipo": null
 },
 {
-"exDiv": "2026-12-08",
+"exDiv": "2026-12-09",
 "pago": "2026-12-10",
 "bruto": 0.33,
 "neto": 0.2673,
-"tipo": "F"
+"tipo": null
 }
 ]
 },
@@ -15183,6 +15268,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "NL",
 "origen": "web",
+"nota": "Dividendo flexible (scrip) en varios tramos. Tramo confirmado 0,5578 € (jun). 2º importe 0,08 € previsto, pendiente de confirmación (Ferrovial anuncia el tramo de otoño ~octubre).",
 "anios": {
 "2011": {
 "dpaBruto": 0.5,
@@ -15604,8 +15690,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 1.1717,
-"dpaNeto": 1.1156,
+"dpaBruto": 0.6378,
+"dpaNeto": 0.5166,
 "nPagos": 2,
 "deltaPct": 0.473836,
 "racha": 16,
@@ -15615,18 +15701,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-05-20",
-"pago": "2026-06-02",
-"bruto": 0.5578,
-"neto": null,
-"tipo": "scrip"
-},
-{
 "exDiv": "2026-05-18",
 "pago": "2026-06-15",
 "bruto": 0.5578,
-"neto": null,
+"neto": 0.4518,
 "tipo": "scrip"
+},
+{
+"exDiv": null,
+"pago": null,
+"bruto": 0.08,
+"neto": 0.0648,
+"tipo": "previsto"
 }
 ]
 },
@@ -15652,6 +15738,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -15973,6 +16060,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -16188,6 +16276,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -16403,6 +16492,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -16755,6 +16845,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -16996,7 +17087,7 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-05-19",
+"exDiv": "2026-05-18",
 "pago": "2026-05-21",
 "bruto": 0.18,
 "neto": 0.1458,
@@ -17026,6 +17117,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": "1er pago vía reducción de capital; 3er pago (0,78 €, dic) con forma de pago por determinar.",
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -17283,9 +17375,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 1.651,
-"dpaNeto": 1.7121,
-"nPagos": 2,
+"dpaBruto": 2.4921,
+"dpaNeto": 2.0186,
+"nPagos": 3,
 "deltaPct": -0.202415,
 "racha": 6,
 "naturaleza": "devol. capital",
@@ -17297,15 +17389,22 @@
 "exDiv": "2026-02-10",
 "pago": "2026-02-12",
 "bruto": 0.9327,
-"neto": null,
-"tipo": "o"
+"neto": 0.7555,
+"tipo": "reducción capital"
 },
 {
 "exDiv": "2026-06-04",
 "pago": "2026-06-08",
 "bruto": 0.7794,
-"neto": null,
-"tipo": "o"
+"neto": 0.6313,
+"tipo": null
+},
+{
+"exDiv": "2026-12-04",
+"pago": "2026-12-04",
+"bruto": 0.78,
+"neto": 0.6318,
+"tipo": null
 }
 ]
 },
@@ -17331,6 +17430,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -17605,8 +17705,8 @@
 },
 "2026": {
 "dpaBruto": 0.098,
-"dpaNeto": 0.0405,
-"nPagos": 1,
+"dpaNeto": 0.081,
+"nPagos": 2,
 "deltaPct": -0.092593,
 "racha": 3,
 "naturaleza": "efectivo",
@@ -17617,6 +17717,13 @@
 {
 "exDiv": "2026-06-25",
 "pago": "2026-06-29",
+"bruto": 0.05,
+"neto": 0.0405,
+"tipo": "F"
+},
+{
+"exDiv": "2026-11-30",
+"pago": "2026-12-01",
 "bruto": 0.05,
 "neto": 0.0405,
 "tipo": "F"
@@ -17645,6 +17752,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.302,
@@ -18060,8 +18168,8 @@
 },
 "2026": {
 "dpaBruto": 0.685,
-"dpaNeto": 0.5589,
-"nPagos": 4,
+"dpaNeto": 0.5509,
+"nPagos": 2,
 "deltaPct": 0.070312,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -18071,31 +18179,17 @@
 "pagos": [
 {
 "exDiv": "2026-01-12",
-"pago": "2026-01-26",
+"pago": "2026-02-02",
 "bruto": 0.253,
 "neto": 0.20493,
 "tipo": "o"
 },
 {
-"exDiv": "2026-05-21",
-"pago": "2026-06-01",
-"bruto": 0.005,
-"neto": 0.00405,
-"tipo": "prima junta"
-},
-{
-"exDiv": "2026-05-22",
-"pago": "2026-06-01",
-"bruto": 0.005,
-"neto": 0.00405,
-"tipo": "prima junta"
-},
-{
-"exDiv": "2026-07-06",
-"pago": "2026-07-20",
-"bruto": 0.427,
-"neto": 0.34587,
-"tipo": "o"
+"exDiv": "2026-07-03",
+"pago": "2026-07-24",
+"bruto": 0.4272,
+"neto": 0.346,
+"tipo": null
 }
 ]
 },
@@ -18121,6 +18215,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": "3er pago (0,433 €, dic) previsto.",
 "anios": {
 "2011": {
 "dpaBruto": 0.7,
@@ -18423,9 +18518,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.9186,
-"dpaNeto": 0.3958,
-"nPagos": 1,
+"dpaBruto": 0.863,
+"dpaNeto": 0.699,
+"nPagos": 3,
 "deltaPct": -0.012258,
 "racha": 16,
 "naturaleza": "devol. capital",
@@ -18434,11 +18529,25 @@
 "primaAsistencia": null,
 "pagos": [
 {
+"exDiv": "2026-06-04",
+"pago": "2026-06-08",
+"bruto": 0.18,
+"neto": 0.1458,
+"tipo": null
+},
+{
 "exDiv": "2026-06-05",
 "pago": "2026-06-09",
-"bruto": 0.3958,
-"neto": null,
-"tipo": "o"
+"bruto": 0.25,
+"neto": 0.2025,
+"tipo": null
+},
+{
+"exDiv": "2026-12-10",
+"pago": "2026-12-11",
+"bruto": 0.433,
+"neto": 0.3507,
+"tipo": null
 }
 ]
 },
@@ -18464,6 +18573,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.68,
@@ -18751,6 +18861,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.32,
@@ -19166,7 +19277,7 @@
 "pago": "2026-05-04",
 "bruto": 0.875,
 "neto": 0.70875,
-"tipo": "I"
+"tipo": "o"
 },
 {
 "exDiv": "2026-10-29",
@@ -19199,6 +19310,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": "3er pago (0,016549 €, oct) previsto/pendiente de confirmar.",
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -19477,9 +19589,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.0414,
-"dpaNeto": 0.0246,
-"nPagos": 2,
+"dpaBruto": 0.046888,
+"dpaNeto": 0.038,
+"nPagos": 3,
 "deltaPct": 0.0,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -19490,16 +19602,23 @@
 {
 "exDiv": "2026-04-20",
 "pago": "2026-04-22",
-"bruto": 0.0138,
-"neto": 0.011171,
-"tipo": "F"
+"bruto": 0.013791,
+"neto": 0.0112,
+"tipo": null
 },
 {
 "exDiv": "2026-07-03",
 "pago": "2026-07-07",
-"bruto": 0.0165,
-"neto": 0.013404,
-"tipo": "I"
+"bruto": 0.016548,
+"neto": 0.0134,
+"tipo": null
+},
+{
+"exDiv": "2026-10-05",
+"pago": "2026-10-09",
+"bruto": 0.016549,
+"neto": 0.0134,
+"tipo": null
 }
 ]
 },
@@ -19525,6 +19644,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.216,
@@ -19836,6 +19956,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -20075,6 +20196,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -20423,8 +20545,8 @@
 },
 "2026": {
 "dpaBruto": 2.09,
-"dpaNeto": 1.2393,
-"nPagos": 1,
+"dpaNeto": 1.6929,
+"nPagos": 2,
 "deltaPct": 0.0,
 "racha": 12,
 "naturaleza": "efectivo",
@@ -20438,6 +20560,13 @@
 "bruto": 1.53,
 "neto": 1.2393,
 "tipo": "F"
+},
+{
+"exDiv": "2026-08-25",
+"pago": "2026-08-27",
+"bruto": 0.56,
+"neto": 0.4536,
+"tipo": null
 }
 ]
 },
@@ -20463,6 +20592,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing/CNMV",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -20658,7 +20788,7 @@
 {
 "exDiv": "2026-04-28",
 "pago": "2026-04-30",
-"bruto": 0.17997,
+"bruto": 0.18,
 "neto": 0.1458,
 "tipo": "12M"
 }
@@ -20686,6 +20816,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.15,
@@ -21101,8 +21232,8 @@
 },
 "2026": {
 "dpaBruto": 0.1815,
-"dpaNeto": 0.0894,
-"nPagos": 1,
+"dpaNeto": 0.1458,
+"nPagos": 2,
 "deltaPct": 0.086176,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -21111,11 +21242,18 @@
 "primaAsistencia": 0.0015,
 "pagos": [
 {
-"exDiv": "2026-05-26",
-"pago": "2026-05-28",
-"bruto": 0.1104,
-"neto": 0.089401,
-"tipo": "F"
+"exDiv": "2026-05-27",
+"pago": "2026-05-29",
+"bruto": 0.11,
+"neto": 0.0891,
+"tipo": null
+},
+{
+"exDiv": "2026-11-28",
+"pago": "2026-11-30",
+"bruto": 0.07,
+"neto": 0.0567,
+"tipo": null
 }
 ]
 },
@@ -21141,6 +21279,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.2871,
@@ -21759,8 +21898,8 @@
 },
 "2026": {
 "dpaBruto": 0.4889,
-"dpaNeto": 0.2145,
-"nPagos": 2,
+"dpaNeto": 0.3937,
+"nPagos": 4,
 "deltaPct": 0.0,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -21771,16 +21910,30 @@
 {
 "exDiv": "2026-04-14",
 "pago": "2026-04-16",
-"bruto": 0.1228,
-"neto": 0.099485,
-"tipo": "I"
+"bruto": 0.11,
+"neto": 0.0891,
+"tipo": null
 },
 {
-"exDiv": "2026-07-14",
-"pago": "2026-07-16",
-"bruto": 0.1421,
-"neto": 0.115062,
-"tipo": "F"
+"exDiv": "2026-07-15",
+"pago": "2026-07-17",
+"bruto": 0.156,
+"neto": 0.1264,
+"tipo": null
+},
+{
+"exDiv": "2026-10-14",
+"pago": "2026-10-16",
+"bruto": 0.11,
+"neto": 0.0891,
+"tipo": null
+},
+{
+"exDiv": "2026-12-15",
+"pago": "2026-12-17",
+"bruto": 0.11,
+"neto": 0.0891,
+"tipo": null
 }
 ]
 },
@@ -21806,6 +21959,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0542,
@@ -22117,6 +22271,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": "2º pago (0,20 €, nov) provisional.",
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -22464,9 +22619,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.4681,
-"dpaNeto": 0.2172,
-"nPagos": 1,
+"dpaBruto": 0.4172,
+"dpaNeto": 0.3379,
+"nPagos": 2,
 "deltaPct": 0.114524,
 "racha": 12,
 "naturaleza": "devol. capital",
@@ -22478,8 +22633,15 @@
 "exDiv": "2026-05-07",
 "pago": "2026-05-25",
 "bruto": 0.217161,
-"neto": null,
-"tipo": "o"
+"neto": 0.1759,
+"tipo": null
+},
+{
+"exDiv": "2026-11-24",
+"pago": "2026-11-27",
+"bruto": 0.2,
+"neto": 0.162,
+"tipo": null
 }
 ]
 },
@@ -22505,6 +22667,7 @@
 "moneda": "EUR*",
 "domicilioFiscal": "LU",
 "origen": "web",
+"nota": "Paga en dólares: 0,15 USD por pago (importe en € aproximado, ~1,15 EUR/USD).",
 "anios": {
 "2011": {
 "dpaBruto": 1.616,
@@ -22853,16 +23016,45 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.6369,
-"dpaNeto": 0.0,
-"nPagos": 0,
+"dpaBruto": 0.52,
+"dpaNeto": 0.4212,
+"nPagos": 4,
 "deltaPct": 0.310494,
 "racha": 6,
 "naturaleza": "efectivo",
 "junta": "2026-05-05",
 "presentacionResultados": "2026-07-30",
 "primaAsistencia": null,
-"pagos": []
+"pagos": [
+{
+"exDiv": "2026-02-12",
+"pago": "2026-03-18",
+"bruto": 0.13,
+"neto": 0.1053,
+"tipo": null
+},
+{
+"exDiv": "2026-05-12",
+"pago": "2026-06-10",
+"bruto": 0.13,
+"neto": 0.1053,
+"tipo": null
+},
+{
+"exDiv": "2026-08-06",
+"pago": "2026-09-09",
+"bruto": 0.13,
+"neto": 0.1053,
+"tipo": null
+},
+{
+"exDiv": "2026-11-12",
+"pago": "2026-12-02",
+"bruto": 0.13,
+"neto": 0.1053,
+"tipo": null
+}
+]
 },
 "2027": {
 "dpaBruto": 0.0,
@@ -22886,6 +23078,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -23151,9 +23344,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 2.4938,
-"dpaNeto": 0.9,
-"nPagos": 1,
+"dpaBruto": 2.02,
+"dpaNeto": 1.6362,
+"nPagos": 2,
 "deltaPct": 0.578354,
 "racha": 6,
 "naturaleza": "devol. capital",
@@ -23165,8 +23358,15 @@
 "exDiv": "2026-05-20",
 "pago": "2026-05-22",
 "bruto": 0.9,
-"neto": null,
-"tipo": "o"
+"neto": 0.729,
+"tipo": null
+},
+{
+"exDiv": "2026-12-21",
+"pago": "2026-12-23",
+"bruto": 1.12,
+"neto": 0.9072,
+"tipo": null
 }
 ]
 },
@@ -23192,6 +23392,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -23471,6 +23672,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.8,
@@ -23949,8 +24151,8 @@
 },
 "2026": {
 "dpaBruto": 1.77,
-"dpaNeto": 0.4617,
-"nPagos": 1,
+"dpaNeto": 1.4337,
+"nPagos": 3,
 "deltaPct": 0.0,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -23964,6 +24166,20 @@
 "bruto": 0.57,
 "neto": 0.4617,
 "tipo": "F"
+},
+{
+"exDiv": "2026-07-28",
+"pago": "2026-07-30",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": null
+},
+{
+"exDiv": "2026-11-03",
+"pago": "2026-11-05",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": null
 }
 ]
 },
@@ -23989,6 +24205,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -24204,6 +24421,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -24419,6 +24637,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.4903,
@@ -24690,6 +24909,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -24905,6 +25125,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -25120,6 +25341,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -25350,8 +25572,8 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.9877,
-"dpaNeto": 1.0,
+"dpaBruto": 1.0,
+"dpaNeto": 0.81,
 "nPagos": 1,
 "deltaPct": 0.234625,
 "racha": 7,
@@ -25361,11 +25583,11 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-07-08",
-"pago": "2026-07-10",
+"exDiv": "2026-07-07",
+"pago": "2026-07-09",
 "bruto": 1.0,
-"neto": null,
-"tipo": "o"
+"neto": 0.81,
+"tipo": null
 }
 ]
 },
@@ -25391,6 +25613,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -25827,8 +26050,8 @@
 },
 "2026": {
 "dpaBruto": 0.489,
-"dpaNeto": 0.3229,
-"nPagos": 2,
+"dpaNeto": 0.3961,
+"nPagos": 3,
 "deltaPct": 0.042644,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -25844,11 +26067,18 @@
 "tipo": "I"
 },
 {
-"exDiv": "2026-07-13",
-"pago": "2026-07-15",
-"bruto": 0.2686,
-"neto": 0.217566,
-"tipo": "F"
+"exDiv": "2026-07-16",
+"pago": "2026-07-18",
+"bruto": 0.22,
+"neto": 0.1782,
+"tipo": null
+},
+{
+"exDiv": "2026-12-19",
+"pago": "2026-12-21",
+"bruto": 0.139,
+"neto": 0.1126,
+"tipo": null
 }
 ]
 },
@@ -25874,6 +26104,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -26089,6 +26320,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.098,
@@ -26665,15 +26897,23 @@
 },
 "2026": {
 "dpaBruto": 0.1593,
-"dpaNeto": 0.0,
-"nPagos": 0,
+"dpaNeto": 0.1337,
+"nPagos": 1,
 "deltaPct": 0.0,
 "racha": 16,
 "naturaleza": "efectivo",
 "junta": "2026-04-30",
 "presentacionResultados": "2026-02-27",
 "primaAsistencia": null,
-"pagos": []
+"pagos": [
+{
+"exDiv": "Pte. Revis",
+"pago": "Pte. Revis",
+"bruto": 0.1651,
+"neto": 0.1337,
+"tipo": null
+}
+]
 },
 "2027": {
 "dpaBruto": 0.0,
@@ -26697,6 +26937,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -26900,7 +27141,7 @@
 {
 "exDiv": "2026-06-15",
 "pago": "2026-06-17",
-"bruto": 0.4216,
+"bruto": 0.42159,
 "neto": 0.341488,
 "tipo": "12M"
 }
@@ -26928,6 +27169,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -27151,6 +27393,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -27530,8 +27773,8 @@
 },
 "2026": {
 "dpaBruto": 0.61,
-"dpaNeto": 0.2025,
-"nPagos": 1,
+"dpaNeto": 0.4941,
+"nPagos": 2,
 "deltaPct": 0.0,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -27545,6 +27788,13 @@
 "bruto": 0.25,
 "neto": 0.2025,
 "tipo": "F"
+},
+{
+"exDiv": "2026-10-28",
+"pago": "2026-11-04",
+"bruto": 0.36,
+"neto": 0.2916,
+"tipo": null
 }
 ]
 },
@@ -27570,6 +27820,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.5531,
@@ -28025,6 +28276,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -28287,6 +28539,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 1.05,
@@ -28749,6 +29002,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -29044,6 +29298,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -29306,7 +29561,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.049,
+"dpaBruto": 0.024,
 "dpaNeto": 0.0194,
 "nPagos": 1,
 "deltaPct": 0.0,
@@ -29318,10 +29573,10 @@
 "pagos": [
 {
 "exDiv": "2026-05-21",
-"pago": "2026-06-02",
+"pago": "2026-06-08",
 "bruto": 0.024,
-"neto": 0.01944,
-"tipo": "o"
+"neto": 0.0194,
+"tipo": null
 }
 ]
 },
@@ -29347,6 +29602,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -29578,6 +29834,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.172,
@@ -29921,6 +30178,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.05,
@@ -30304,6 +30562,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.607,
@@ -30802,8 +31061,8 @@
 },
 "2026": {
 "dpaBruto": 0.24,
-"dpaNeto": 0.1013,
-"nPagos": 1,
+"dpaNeto": 0.1945,
+"nPagos": 2,
 "deltaPct": 0.142857,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -30812,11 +31071,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-04-30",
+"exDiv": "2026-04-29",
 "pago": "2026-05-05",
 "bruto": 0.125,
 "neto": 0.10125,
 "tipo": "F"
+},
+{
+"exDiv": "2026-10-28",
+"pago": "2026-11-01",
+"bruto": 0.115,
+"neto": 0.0932,
+"tipo": null
 }
 ]
 },
@@ -30842,6 +31108,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.1,
@@ -31160,7 +31427,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.094,
+"dpaBruto": 0.149,
 "dpaNeto": 0.1207,
 "nPagos": 2,
 "deltaPct": -0.235772,
@@ -31171,18 +31438,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-01-13",
-"pago": "2026-01-22",
+"exDiv": "2026-01-12",
+"pago": "2026-01-29",
 "bruto": 0.049,
-"neto": 0.03969,
-"tipo": "scrip"
+"neto": 0.0397,
+"tipo": null
 },
 {
 "exDiv": "2026-06-29",
 "pago": "2026-07-01",
 "bruto": 0.1,
 "neto": 0.081,
-"tipo": "scrip"
+"tipo": null
 }
 ]
 },
@@ -31208,6 +31475,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -31493,6 +31761,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.035,
@@ -31723,6 +31992,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.77,
@@ -32116,9 +32386,9 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.15,
-"dpaNeto": 0.1215,
-"nPagos": 1,
+"dpaBruto": 0.3,
+"dpaNeto": 0.243,
+"nPagos": 2,
 "deltaPct": -0.5,
 "racha": 16,
 "naturaleza": "scrip",
@@ -32127,11 +32397,18 @@
 "primaAsistencia": null,
 "pagos": [
 {
-"exDiv": "2026-06-16",
-"pago": "2026-06-18",
+"exDiv": "2026-06-17",
+"pago": "2026-06-19",
 "bruto": 0.15,
 "neto": 0.1215,
-"tipo": "scrip"
+"tipo": null
+},
+{
+"exDiv": "2026-12-16",
+"pago": "2026-12-18",
+"bruto": 0.15,
+"neto": 0.1215,
+"tipo": null
 }
 ]
 },
@@ -32157,6 +32434,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -32396,6 +32674,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 1.34,
@@ -32731,6 +33010,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.012,
@@ -32986,6 +33266,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -33260,7 +33541,7 @@
 ]
 },
 "2026": {
-"dpaBruto": 0.2036,
+"dpaBruto": 0.05,
 "dpaNeto": 0.0405,
 "nPagos": 1,
 "deltaPct": 0.0,
@@ -33272,10 +33553,10 @@
 "pagos": [
 {
 "exDiv": "2026-06-12",
-"pago": "2026-06-26",
+"pago": "2026-07-09",
 "bruto": 0.05,
 "neto": 0.0405,
-"tipo": "o"
+"tipo": null
 }
 ]
 },
@@ -33301,6 +33582,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "no paga",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -33516,6 +33798,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "web",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
@@ -33776,8 +34059,8 @@
 },
 "2026": {
 "dpaBruto": 0.1726,
-"dpaNeto": 0.0863,
-"nPagos": 1,
+"dpaNeto": 0.1398,
+"nPagos": 2,
 "deltaPct": 0.23701,
 "racha": 6,
 "naturaleza": "efectivo",
@@ -33788,9 +34071,16 @@
 {
 "exDiv": "2026-04-21",
 "pago": "2026-04-23",
-"bruto": 0.1066,
-"neto": 0.086314,
-"tipo": "F"
+"bruto": 0.107,
+"neto": 0.0867,
+"tipo": null
+},
+{
+"exDiv": "2026-09-23",
+"pago": "2026-09-25",
+"bruto": 0.0656,
+"neto": 0.0531,
+"tipo": null
 }
 ]
 },
@@ -33816,6 +34106,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.333,
@@ -34231,7 +34522,7 @@
 },
 "2026": {
 "dpaBruto": 1.751,
-"dpaNeto": 1.3774,
+"dpaNeto": 1.4179,
 "nPagos": 2,
 "deltaPct": 0.132674,
 "racha": 16,
@@ -34250,9 +34541,9 @@
 {
 "exDiv": "2026-07-13",
 "pago": "2026-07-15",
-"bruto": 0.4687,
-"neto": 0.379647,
-"tipo": "F"
+"bruto": 0.5187,
+"neto": 0.4201,
+"tipo": null
 }
 ]
 },
@@ -34278,6 +34569,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "app",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.854,
@@ -34700,8 +34992,8 @@
 },
 "2026": {
 "dpaBruto": 3.25,
-"dpaNeto": 1.4572,
-"nPagos": 1,
+"dpaNeto": 2.6244,
+"nPagos": 2,
 "deltaPct": 0.04,
 "racha": 16,
 "naturaleza": "efectivo",
@@ -34710,11 +35002,18 @@
 "primaAsistencia": 0.01,
 "pagos": [
 {
-"exDiv": "2026-06-03",
-"pago": "2026-06-17",
-"bruto": 1.799,
-"neto": 1.45719,
-"tipo": "o"
+"exDiv": "2026-05-15",
+"pago": "2026-06-11",
+"bruto": 1.757,
+"neto": 1.4232,
+"tipo": null
+},
+{
+"exDiv": "2026-11-20",
+"pago": "2026-12-17",
+"bruto": 1.483,
+"neto": 1.2012,
+"tipo": null
 }
 ]
 },
@@ -34740,6 +35039,7 @@
 "moneda": "EUR",
 "domicilioFiscal": "ES",
 "origen": "Investing",
+"nota": null,
 "anios": {
 "2011": {
 "dpaBruto": 0.0,
