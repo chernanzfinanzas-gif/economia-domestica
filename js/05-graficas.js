@@ -409,17 +409,20 @@ function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=car
   const foot=(opts.foot===false)?'':`<div class="muted" style="font-size:11.5px;margin-top:4px">Hoy · coste ${fmt(lc)} · valor ${fmt(lv)} · con dividendos ${fmt(ld)} · revalorización con dividendo <b style="color:${rev>=0?'#16a34a':'#dc2626'}">${rev>=0?'+':''}${rev.toFixed(1)}%</b></div>`;
   let rangeBar='';
   if(wantRanges){
-    const _rv=key=>{ const _d=_EVO_DAYS[key]; let s=0; if(_d){ const cut=lastMs-_d*86400000; while(s<fN&&tms[s]<cut)s++; if(s>fN-1)s=fN-1; } const a=num(valdivF[s]),b=num(valdivF[fN-1]); return a>0?((b/a)-1)*100:null; };
+    /* La variación del periodo se mide con la Valoración de cartera SIN dividendos (valorF). */
+    const _rv=key=>{ const _d=_EVO_DAYS[key]; let s=0; if(_d){ const cut=lastMs-_d*86400000; while(s<fN&&tms[s]<cut)s++; if(s>fN-1)s=fN-1; } const a=num(valorF[s]),b=num(valorF[fN-1]); return a>0?((b/a)-1)*100:null; };
     const _btns=[['1s','1S'],['1m','1M'],['3m','3M'],['6m','6M'],['1y','1A'],['5y','5A'],['max','Máx']].map(rr=>{ const sel=!st.zoom&&st.range===rr[0]; const vp=_rv(rr[0]); const vc=vp==null?'#94a3b8':(vp>=0?'#16a34a':'#dc2626'); const vt=vp==null?'—':((vp>=0?'+':'')+vp.toFixed(1)+'%');
       return `<button type="button" data-evorange="${rr[0]}|${id}" style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:2px 8px;min-width:42px;border:1px solid ${sel?'var(--brand)':'var(--line)'};border-radius:7px;background:${sel?'#eff6ff':'#fff'};cursor:pointer;transform:${sel?'scale(1.08)':'none'}"><span style="font-weight:700;font-size:11px;color:${sel?'var(--brand)':'inherit'}">${rr[1]}</span><span style="font-size:9.5px;font-weight:700;color:${vc}">${vt}</span></button>`;
     }).join('');
-    const _zc=st.zoom?`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px;margin-left:6px">🔍 zoom <b data-evozreset="${id}" style="cursor:pointer" title="Reiniciar zoom">✕</b></span>`:'';
+    let _zvp=null; if(st.zoom){ const _z0=num(valorF[i0]),_z1=num(valorF[i1]); _zvp=_z0>0?((_z1/_z0)-1)*100:null; }
+    const _zvt=_zvp==null?'—':((_zvp>=0?'+':'')+_zvp.toFixed(1)+'%'); const _zvc=_zvp==null?'#94a3b8':(_zvp>=0?'#16a34a':'#dc2626');
+    const _zc=st.zoom?`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px;margin-left:6px">🔍 zoom · <b style="color:${_zvc}">${_zvt}</b> <span style="font-size:9.5px">en el periodo (sin div.)</span> <b data-evozreset="${id}" style="cursor:pointer;margin-left:2px" title="Reiniciar zoom">✕</b></span>`:'';
     rangeBar=`<div style="display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin:2px 0 6px">${_btns}${_zc}<span class="muted" style="font-size:10.5px;margin-left:4px">· arrastra en la gráfica para hacer zoom, doble clic reinicia</span></div>`;
   }
   const mt=opts.mt!==undefined?opts.mt:16;
   return `<div style="margin-top:${mt}px">${head}${rangeBar}<div class="evoWrap" style="position:relative">${svg}${tip}</div>${leg}${foot}</div>`; }
 // alias de compatibilidad
-function evoPanelHTML(reRender){ return evoChartHTML({id:'evoPanel',reRender:reRender,goto:'graficas'}); }
+function evoPanelHTML(reRender){ return evoChartHTML({id:'evoPanel',reRender:reRender,goto:'graficas',ranges:true}); }
 
 function aportValorHTML(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
