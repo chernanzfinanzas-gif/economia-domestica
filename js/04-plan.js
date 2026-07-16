@@ -116,8 +116,8 @@ function renderSimulador(){
   }).join('');
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
   const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
-  el.innerHTML=`<table>${head}${body}${totRow}${grRow}</table>`;
-  $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${grRow}</tbody></table>`;
+  $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card" style="padding:9px 12px"><div class="lbl">${k[0]}</div><div class="val" style="font-size:18px;margin-top:2px">${k[1]}</div></div>`).join('');
   /* Banda deslizante horizontal + arranque centrado en (nowY-2) */
   (function(){ var sc=el; var rng=document.getElementById('simScroll');
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
@@ -550,6 +550,7 @@ function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):'
 }
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
+  const _lotePrevSL=(document.getElementById('loteScrollBox')||{}).scrollLeft||0;
   DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{}; const pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   const invByT={}; pos.forEach(p=>{const t=(p.ticker||'').toUpperCase(); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra;});
@@ -597,13 +598,22 @@ function renderPlanLote(){
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
   const objCells=t=>{ const fa=asignar(t)-sumAsig(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
   const yrCells=t=>yrs.map(y=>`<td><div style="font-size:8px;color:var(--muted);line-height:1.1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:54px;text-align:center" data-asig="${t}|${y}" value="${aYear(t,y)||''}"></td>`).join('');
-  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:58px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:2px auto 1px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
+  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num" data-loteyear="${y}">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:58px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:2px auto 1px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
   let rows=''; let n=0;
   held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
   chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
   for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="num">·</td>').join('')}<td></td></tr>`; }
   const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
-  el.innerHTML=cab+dl+`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
+  el.innerHTML=cab+dl+`<div style="overflow:auto" id="loteScrollBox"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
+  /* Banda deslizante horizontal + arranque en el año actual (columnas fijas visibles) */
+  (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc)return;
+    var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
+    var sync=function(){ if(!rng)return; var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+    sc.addEventListener('scroll',sync);
+    if(rng && !rng._loteWired){ rng._loteWired=true; rng.addEventListener('input',function(){ var s=document.getElementById('loteScrollBox'); if(!s)return; s.scrollLeft=Math.max(0,s.scrollWidth-s.clientWidth)*(num(rng.value)/1000); }); }
+    sc.scrollLeft = window._loteSeek ? 0 : _lotePrevSL; window._loteSeek=false;
+    setTimeout(sync,40);
+  })();
 }
 
 function cajaDivMes(){ const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{}; const out=new Array(12).fill(0);
