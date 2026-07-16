@@ -26,6 +26,7 @@ function _radarDiv(t){
   for(var k=0;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }
   return 0;
 }
+function _radarUnionUniverso(out,seen){ var uni=DB.universo||{}; Object.keys(uni).forEach(function(t){ t=(t||'').toUpperCase(); if(!t||seen[t])return; var v=(DB.valores||{})[t]||{}; var precio=_radarPrecio(t); var div=_radarDiv(t); if(!(precio>0))return; if(_radarSoloDiv && !(div>0))return; seen[t]=1; out.push({t:t,nombre:(uni[t]||{}).nombre||v.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''}); }); }
 function _radarUniverso(){
   var out=[], seen={};
   /* Fuente principal: la base de dividendos (dividendos.json → _evoData). */
@@ -40,7 +41,7 @@ function _radarUniverso(){
       if(_radarSoloDiv && !(div>0))return;   /* con el filtro activo, solo empresas con dividendo (RPD) */
       out.push({t:t,nombre:e.nombre||v.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''});
     });
-    return out;
+    _radarUnionUniverso(out,seen); return out;
   }
   /* Respaldo (si aún no cargó dividendos.json): DB.analisis, comportamiento anterior. */
   (DB.analisis||[]).forEach(function(a){
@@ -52,7 +53,7 @@ function _radarUniverso(){
     if(_radarSoloDiv && !(div>0))return;
     out.push({t:t,nombre:v.nombre||a.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''});
   });
-  return out;
+  _radarUnionUniverso(out,seen); return out;
 }
 
 function cargarPreciosRadar(){

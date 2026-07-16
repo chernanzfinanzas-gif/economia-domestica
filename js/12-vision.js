@@ -52,7 +52,7 @@ const _VIS_RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
 function visRankData(){
   const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
   const cl=x=>Math.max(0,Math.min(100,x));
-  return (DB.analisis||[]).map(a=>{
+  let rows=(DB.analisis||[]).map(a=>{
     const t=(a.ticker||'').toUpperCase();
     const te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t]||{};
     const v=(DB.valores||{})[t]||{};
@@ -71,6 +71,11 @@ function visRankData(){
     return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, mds, rpd, meses, atractivo,
       held:held.has(t), decision:(a.decision||te.decision||'').toUpperCase(), tags:visTags(t), stale:(meses!=null&&meses>12)};
   }).filter(x=>x.cot>0 || x.score!=null);
+  /* Uni\u00f3n con Universo: empresas de la Matriz a\u00fan no en An\u00e1lisis (Pte. An\u00e1lisis, sin score). */
+  var _seen=new Set(rows.map(function(x){return x.t;}));
+  var _uni=DB.universo||{};
+  Object.keys(_uni).forEach(function(tt){ tt=(tt||'').toUpperCase(); if(!tt||_seen.has(tt))return; var v=(DB.valores||{})[tt]||{}; rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:num(v.precioActual),poBase:0,rating:'',score:null,mds:null,rpd:null,meses:null,atractivo:0,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
+  return rows;
 }
 
 function visRiesgoExpo(){
@@ -88,7 +93,7 @@ function renderVision(){
   const faltan=(DB.analisis||[]).some(a=>{ const t=(a.ticker||'').toUpperCase(); return t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined); });
   if(faltan) visLoadTesis(renderVision);   /* al terminar re-renderiza con score/riesgos */
 
-  if(!(DB.analisis||[]).length){ el.innerHTML='<div class="empty">Sin empresas en Análisis todavía.</div>'; return; }
+  if(!(DB.analisis||[]).length && !Object.keys(DB.universo||{}).length){ el.innerHTML='<div class="empty">Sin empresas en Análisis todavía.</div>'; return; }
 
   let rows=visRankData();
   const pct=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');

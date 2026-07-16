@@ -63,7 +63,30 @@ function renderUniverso(){
   var imp=document.getElementById('uImport'), file=document.getElementById('uFile');
   if(imp&&file){ imp.addEventListener('click',function(){ file.click(); }); file.addEventListener('change',function(e){ var f=e.target.files&&e.target.files[0]; if(!f)return; var rd=new FileReader(); rd.onload=function(){ try{ importUniverso(JSON.parse(rd.result)); }catch(err){ alert('matriz.json no válido: '+err); } }; rd.readAsText(f); }); }
   var add=document.getElementById('uAdd');
-  if(add)add.addEventListener('click',function(){ var t=(prompt('Ticker (p.ej. IBE):','')||'').trim().toUpperCase(); if(!t)return; if(!DB.universo[t]){ var _u={}; UNI_KEYS.forEach(function(k){_u[k]='';}); _u.arquetipo='Sin clasificar'; DB.universo[t]=_u; } if(typeof scheduleSave==='function')scheduleSave(); renderUniverso(); });
+  if(add)add.addEventListener('click',function(){
+    var t=(prompt('Ticker (p.ej. IBE):','')||'').trim().toUpperCase(); if(!t)return;
+    var _ex=DB.universo[t]||{};
+    var nombre=(prompt('Nombre de la empresa:', _ex.nombre||'')||'').trim();
+    var arq=(prompt('Arquetipo (deja vac\u00edo si no lo sabes):', _ex.arquetipo||'')||'').trim();
+    if(!DB.universo[t]){ var _u={}; UNI_KEYS.forEach(function(k){_u[k]='';}); DB.universo[t]=_u; }
+    if(nombre)DB.universo[t].nombre=nombre;
+    DB.universo[t].arquetipo=arq||DB.universo[t].arquetipo||'Sin clasificar';
+    /* Alta unificada: sembrar entrada m\u00ednima en An\u00e1lisis para que aparezca en An\u00e1lisis, Visi\u00f3n, ficha y Radar Dividendo. */
+    DB.analisis=DB.analisis||[];
+    if(!DB.analisis.some(function(a){return (a.ticker||'').toUpperCase()===t;})){
+      var _v=(DB.valores||{})[t]||{};
+      DB.analisis.push({id:uid(),ticker:t,nombre:nombre||_v.nombre||t,cotizacion:num(_v.precioActual)||0,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,decision:'',dossierFecha:'',dossierUrl:'',precioEntrada:0,precioObjetivo:0,divAccion:num(_v.divAccion)||0,notas:''});
+    }
+    /* Alta unificada: crear registro de dividendos para que aparezca en Evoluci\u00f3n del Dividendo. */
+    DB.divData=DB.divData||{};
+    if(!DB.divData[t]){ DB.divData[t]={nombre:nombre||t, paga:false, anios:{}, origenApp:true}; }
+    else if(nombre && !DB.divData[t].nombre){ DB.divData[t].nombre=nombre; }
+    if(typeof saveNow==='function')saveNow(); else if(typeof scheduleSave==='function')scheduleSave();
+    renderUniverso();
+    if(typeof renderAnalisis==='function')renderAnalisis();
+    if(typeof renderVision==='function')renderVision();
+    if(typeof renderRadarDiv==='function')renderRadarDiv();
+  });
 }
 function importUniverso(j){
   DB.universo=DB.universo||{};
