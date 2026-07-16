@@ -150,6 +150,7 @@ async function driveLoad(){
   return await r.json();
 }
 async function driveSave(force){
+  if(window._demoOn) return {demo:true};   /* MODO DEMO: nunca escribir en Drive */
   const body=JSON.stringify(DB,null,2);
   if(!fileId){
     const meta={name:FNAME};
@@ -170,9 +171,10 @@ async function driveSave(force){
   }
   return {ok:true};
 }
-function scheduleSave(){ clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
+function scheduleSave(){ if(window._demoOn) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
 async function saveNow(){
   if(!DB) return;
+  if(window._demoOn){ setFileStatus('warn','MODO DEMO — sin guardar'); return; }
   setFileStatus('warn','Guardando…');
   try{
     let res=await driveSave(false);
@@ -189,6 +191,7 @@ async function saveNow(){
 async function driveMonthlyBackup(){
   try{
     if(!DB) return;
+    if(window._demoOn) return;   /* MODO DEMO: no crear copias */
     const ym=new Date().toISOString().slice(0,7);           /* YYYY-MM */
     DB.config=DB.config||{};
     if(DB.config.lastMonthlyBackup===ym) return;            /* ya hecho este mes */
@@ -235,6 +238,7 @@ function buildBridge(){
 async function driveSaveBridge(){
   try{
     if(!DB) return;
+    if(window._demoOn) return;   /* MODO DEMO: no tocar el puente */
     const body=JSON.stringify(buildBridge());
     if(!bridgeFileId){
       const q=encodeURIComponent("name='"+BRIDGE_FNAME+"' and trashed=false");
@@ -262,7 +266,7 @@ async function startSession(){
     else { showWelcome('import'); setFileStatus('warn','Sin datos en Drive'); }
   }catch(e){ console.error(e); setFileStatus('warn','Error al cargar'); alert('No se pudieron cargar los datos de Drive: '+e.message); }
 }
-async function importLocal(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar datos');
+async function importLocal(file){ if(window._demoOn){ alert('Estás en MODO DEMO: sal del demo antes de importar datos.'); return; } if(typeof pushSnapshot==='function')pushSnapshot('antes de importar datos');
   try{ DB=JSON.parse(await file.text()); }catch(e){ alert('El archivo no es un JSON válido.'); return; }
   await saveNow(); afterLoad();
 }
@@ -301,7 +305,7 @@ function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const
   DB.tesisHist=DB.tesisHist||{}; const arr=DB.tesisHist[t]=DB.tesisHist[t]||[]; const ix=arr.findIndex(x=>x.fecha===fecha); const prev=ix>=0?arr[ix]:null;
   let mot=(motivo||'').trim(); if(prev&&prev.motivo){ mot = mot ? (prev.motivo+' · '+mot) : prev.motivo; }
   const org=origen||(prev&&prev.origen)||'';
-  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,qScore:(a.qScore!=null&&a.qScore!==''?num(a.qScore):null),poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion)};
+  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion)};
   if(mot)snap.motivo=mot; if(org)snap.origen=org;
   if(ix>=0)arr[ix]=snap; else arr.push(snap); arr.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||'')); }
 /* 5.2.e simetria de registros: todo cambio manual de decision/banda/stop deja rastro (foto + motivo) y recuerda anotarlo en Excel §10.5 */
@@ -311,12 +315,12 @@ function tesisHistHTML(t){ t=(t||'').toUpperCase(); const arr=((DB.tesisHist||{}
   let rows='';
   arr.forEach(sn=>{ const then=num(sn.cotizacion); const rent=(then&&ahora)?(ahora/then-1):null; const d=(sn.decision||'').toUpperCase(); let mk='—',mc='#64748b';
     if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){ mk=rent>=0?'✓ acertada':'✗ a la baja'; mc=rent>=0?'#16a34a':'#dc2626'; } else if(d==='VENDER'){ mk=rent<0?'✓ acertada':'✗ subió'; mc=rent<0?'#16a34a':'#dc2626'; } else if(d==='ESPERAR'){ if(rent>0.05){mk='se escapó +'+(rent*100).toFixed(0)+'%';mc='#d97706';} else if(rent<0){mk='✓ bien esperado';mc='#16a34a';} else {mk='neutral';mc='#64748b';} } }
-    rows+=`<tr><td>${sn.fecha||'—'}${sn.origen==='app'?' <span title="'+String(sn.motivo||'ajuste en app').replace(/"/g,'&quot;')+'" style="cursor:help">📝</span>':''}</td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${sn.rating||'—'}${sn.qScore!=null?' · Cal '+Math.round(sn.qScore):''}${sn.score!=null?' · Op '+Math.round(sn.score):''}</td><td class="num">${sn.poBase!=null&&sn.poBase!==0?fmt(sn.poBase):'—'}</td><td class="num">${then?fmt(then):'—'}</td><td class="num ${rent!=null?(rent>=0?'pos':'neg'):''}">${rent==null?'—':(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td style="color:${mc};font-size:11px;white-space:nowrap">${mk}</td><td class="right"><button class="btn ghost sm" data-deltesissnap="${t}|${sn.fecha}" title="Borrar foto">✕</button></td></tr>`; });
+    rows+=`<tr><td>${sn.fecha||'—'}${sn.origen==='app'?' <span title="'+String(sn.motivo||'ajuste en app').replace(/"/g,'&quot;')+'" style="cursor:help">📝</span>':''}</td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${sn.rating||'—'}${sn.score!=null?' · '+Math.round(sn.score):''}</td><td class="num">${sn.poBase!=null&&sn.poBase!==0?fmt(sn.poBase):'—'}</td><td class="num">${then?fmt(then):'—'}</td><td class="num ${rent!=null?(rent>=0?'pos':'neg'):''}">${rent==null?'—':(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td style="color:${mc};font-size:11px;white-space:nowrap">${mk}</td><td class="right"><button class="btn ghost sm" data-deltesissnap="${t}|${sn.fecha}" title="Borrar foto">✕</button></td></tr>`; });
   const body=rows||'<tr><td colspan="8" class="muted" style="font-size:12px">Aún no hay fotos de la tesis. Se guardan al actualizar desde el dossier o con «+ Guardar foto».</td></tr>';
-  return `<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="font-weight:800;font-size:15px">Histórico de tesis y resultado</div><div style="flex:1"></div><button class="btn ghost sm" data-savetesis="${t}">+ Guardar foto</button></div><div class="sub" style="margin-bottom:6px">Cada foto compara la cotización de entonces con la de ahora (${fmt(ahora)}) para ver si la decisión acertó.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Decisión</th><th class="num">Rating·Cal·Op</th><th class="num">PO base</th><th class="num">Cotiz. entonces</th><th class="num">Rentab. desde</th><th>Resultado</th><th></th></tr></thead><tbody>${body}</tbody></table></div></div>`; }
+  return `<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="font-weight:800;font-size:15px">Histórico de tesis y resultado</div><div style="flex:1"></div><button class="btn ghost sm" data-savetesis="${t}">+ Guardar foto</button></div><div class="sub" style="margin-bottom:6px">Cada foto compara la cotización de entonces con la de ahora (${fmt(ahora)}) para ver si la decisión acertó.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Decisión</th><th class="num">Rating·Score</th><th class="num">PO base</th><th class="num">Cotiz. entonces</th><th class="num">Rentab. desde</th><th>Resultado</th><th></th></tr></thead><tbody>${body}</tbody></table></div></div>`; }
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-savetesis]'); if(!b)return; if(typeof guardarTesisSnap==='function')guardarTesisSnap(b.dataset.savetesis); if(typeof saveNow==='function')saveNow(); if(typeof renderFicha==='function'&&fichaTicker)renderFicha(fichaTicker); });
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-deltesissnap]'); if(!b)return; const a=(b.dataset.deltesissnap||'').split('|'); const t=a[0],f=a[1]; if(DB.tesisHist&&DB.tesisHist[t]){ DB.tesisHist[t]=DB.tesisHist[t].filter(x=>x.fecha!==f); if(typeof saveNow==='function')saveNow(); if(typeof renderFicha==='function'&&fichaTicker)renderFicha(fichaTicker); } });
-function importTesis(t){ t=(t||'').toUpperCase(); const j=_tesisCache[t]; if(!j)return false; DB.analisis=DB.analisis||[]; let a=DB.analisis.find(x=>(x.ticker||'').toUpperCase()===t); if(!a){ a={id:uid(),ticker:t,nombre:j.empresa||t,cotizacion:num(((DB.valores||{})[t]||{}).precioActual)}; DB.analisis.push(a); } if(j.rating)a.rating=(''+j.rating).toUpperCase(); if(j.score!=null&&j.score!=='')a.qScore=num(j.score); if(j.decision)a.decision=(''+j.decision).toUpperCase(); if(j.poBear!=null&&j.poBear!=='')a.poMin=num(j.poBear); if(j.poBull!=null&&j.poBull!=='')a.poMax=num(j.poBull); if(j.entMin!=null&&j.entMin!=='')a.entMin=num(j.entMin); if(j.entMax!=null&&j.entMax!=='')a.entMax=num(j.entMax); if(j.stop!=null&&j.stop!=='')a.stopTesis=num(j.stop); if(j.fecha)a.dossierFecha=j.fecha; if(j.dpaPrevisto!=null&&j.dpaPrevisto!==''){ a.divAccion=num(j.dpaPrevisto); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(j.dpaPrevisto); } const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax); if(typeof guardarTesisSnap==='function')guardarTesisSnap(t,j.fecha); return true; }
+function importTesis(t){ t=(t||'').toUpperCase(); const j=_tesisCache[t]; if(!j)return false; DB.analisis=DB.analisis||[]; let a=DB.analisis.find(x=>(x.ticker||'').toUpperCase()===t); if(!a){ a={id:uid(),ticker:t,nombre:j.empresa||t,cotizacion:num(((DB.valores||{})[t]||{}).precioActual)}; DB.analisis.push(a); } if(j.rating)a.rating=(''+j.rating).toUpperCase(); if(j.decision)a.decision=(''+j.decision).toUpperCase(); if(j.poBear!=null&&j.poBear!=='')a.poMin=num(j.poBear); if(j.poBull!=null&&j.poBull!=='')a.poMax=num(j.poBull); if(j.entMin!=null&&j.entMin!=='')a.entMin=num(j.entMin); if(j.entMax!=null&&j.entMax!=='')a.entMax=num(j.entMax); if(j.stop!=null&&j.stop!=='')a.stopTesis=num(j.stop); if(j.fecha)a.dossierFecha=j.fecha; if(j.dpaPrevisto!=null&&j.dpaPrevisto!==''){ a.divAccion=num(j.dpaPrevisto); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(j.dpaPrevisto); } const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax); if(typeof guardarTesisSnap==='function')guardarTesisSnap(t,j.fecha); return true; }
 function validarTesisJSON(j){ const out={warns:[],info:[]}; if(!j||typeof j!=='object'){ out.warns.push('El archivo no es un objeto JSON valido.'); return out; } const SCHEMA_TESIS=4; const _sv=parseFloat((''+(j.schemaVersion!=null?j.schemaVersion:1)).replace(',','.'))||1; if(_sv>SCHEMA_TESIS) out.info.push('Esquema del fichero v'+_sv+' (mas nuevo que el soportado v'+SCHEMA_TESIS+'): la app lee los campos conocidos e ignora los nuevos.'); const KNOWN={schemaVersion:1,ticker:1,empresa:1,fecha:1,rating:1,score:1,decision:1,metodoValoracion:1,poBear:1,poBase:1,poBull:1,entMin:1,entMax:1,stop:1,dpaPrevisto:1,moat:1,catalizadores:1,riesgos:1,bull:1,bear:1,resumen:1,confianza:1,robustez:1}; const NUMK=['score','poBear','poBase','poBull','entMin','entMax','stop']; const ARRK=['catalizadores','riesgos']; const REC=['decision','rating','poBear','poBull','fecha']; const norm=x=>(''+x).toLowerCase().replace(/[^a-z0-9]/g,''); Object.keys(j).forEach(k=>{ if(!KNOWN[k]){ let h=''; const nk=norm(k); Object.keys(KNOWN).forEach(kk=>{ if(norm(kk)===nk) h=' (quiza querias "'+kk+'")'; }); (_sv>SCHEMA_TESIS?out.info:out.warns).push('Campo no reconocido: "'+k+'"'+h+' - se ignora.'); } }); NUMK.forEach(k=>{ if(j[k]!=null&&j[k]!==''&&isNaN(parseFloat((''+j[k]).replace(',','.')))) out.warns.push('"'+k+'" deberia ser numerico (valor: '+JSON.stringify(j[k])+').'); }); ARRK.forEach(k=>{ if(j[k]!=null&&!Array.isArray(j[k])) out.warns.push('"'+k+'" deberia ser una lista [] o no se mostrara.'); }); const dec=(j.decision||'').toUpperCase(); if(dec&&['COMPRAR','MANTENER','ESPERAR','VENDER'].indexOf(dec)<0) out.warns.push('decision="'+j.decision+'" no es COMPRAR/MANTENER/ESPERAR/VENDER.'); const b=num(j.poBear),u=num(j.poBull); if(b&&u&&b>u) out.warns.push('poBear ('+b+') es mayor que poBull ('+u+'): puede que esten invertidos.'); REC.forEach(k=>{ if(j[k]==null||j[k]==='') out.info.push('falta "'+k+'"'); }); return out; }
 function tesisCardHTML(j){ if(!j||typeof j!=='object')return '';
   const dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const d=(j.decision||'').toUpperCase(); const _mm=(j.fecha&&typeof mesesDesde==='function')?mesesDesde(j.fecha):null; const _wk=(j.ticker||fichaTicker||'').toUpperCase(); const _w=(typeof _tesisWarn!=='undefined')?_tesisWarn[_wk]:null; const warnHTML=(_w&&((_w.warns&&_w.warns.length)||(_w.info&&_w.info.length)))?`<div style="background:#fff7ed;border:1px solid #fdba74;border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px">${(_w.warns&&_w.warns.length)?'<div style="color:#9a3412;font-weight:700">\u26a0\ufe0f Avisos del JSON del dossier</div><ul style="margin:4px 0 0 16px;padding:0;color:#7c2d12">'+_w.warns.map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}${(_w.info&&_w.info.length)?'<div style="color:#92400e;font-size:11px;margin-top:6px">Campos recomendados: '+_w.info.join(', ')+'.</div>':''}</div>`:'';
@@ -479,3 +483,139 @@ function closedTickerSet(){ var s=new Set(); (DB.cerradas||[]).forEach(function(
 function enPlanTickerSet(){ var s=new Set(); var pc=DB.planCompras||{}; Object.keys(pc).forEach(function(t){ if(Object.values(pc[t]||{}).some(function(v){return num(v)>0;})) s.add((t||'').toUpperCase()); }); return s; }
 /* Nº de acciones netas de un ticker en una cartera (compras − ventas), opcionalmente excluyendo una operación (para editar). */
 function sharesHeldOf(ticker,cartera,excludeOpId){ ticker=(ticker||'').toUpperCase(); cartera=cartera||'Propia'; var sh=0; (DB.operaciones||[]).forEach(function(o){ if(excludeOpId&&o.id===excludeOpId)return; if((o.ticker||'').toUpperCase()===ticker && (o.cartera||'Propia')===cartera){ sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; }
+
+/* ==================================================================
+   MODO DEMO — enseñar la app sin exponer cifras reales
+   ------------------------------------------------------------------
+   • Inventa: cartera (con TUS empresas analizadas), operaciones,
+     ingresos, gastos, dividendos, patrimonio, efectivo, proyección,
+     plan de inversión y plan de ahorro.
+   • Respeta: análisis, tesis, ratings, PO, valores/precios (públicos),
+     universo, cola, método, informes (vienen de GitHub).
+   • Mientras está activo NO se guarda NADA en Drive (saveNow/scheduleSave/
+     bridge/backup están bloqueados). Al salir se RECARGA la página, de modo
+     que los datos reales vuelven intactos desde Drive.
+   ================================================================== */
+window._demoOn = false;
+let _demoRealDB = null;
+
+/* hash estable (FNV-1a) para generar cantidades ficticias reproducibles */
+function _demoHash(s){ s=''+s; let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
+
+function _demoBuild(real){
+  const D = JSON.parse(JSON.stringify(real));   /* copia profunda: análisis, tesis, valores, universo… se conservan */
+  const yNow = new Date().getFullYear();
+
+  /* -------- Cartera ficticia con TUS empresas analizadas -------- */
+  const anas = (D.analisis||[]).filter(a=>a && a.ticker);
+  const priceOf = t=>{
+    const v=(D.valores||{})[t]||{};
+    const a=(anas.find(x=>(x.ticker||'').toUpperCase()===t)||{});
+    return num(v.precioActual) || num(a.cotizacion) || 10;
+  };
+  const rank = x=>({COMPRAR:0,MANTENER:1,ESPERAR:2,VENDER:3}[(x.decision||'').toUpperCase()]);
+  const pick = anas.slice().sort((a,b)=>{
+    const ra=(rank(a)==null?2:rank(a)), rb=(rank(b)==null?2:rank(b));
+    if(ra!==rb) return ra-rb;
+    return _demoHash(a.ticker)-_demoHash(b.ticker);
+  }).slice(0,12);   /* hasta 12 posiciones, priorizando COMPRAR/MANTENER */
+
+  const ops=[], inv=[], dividendos={}, divIngresos={};
+  pick.forEach(a=>{
+    const t=(a.ticker||'').toUpperCase();
+    const pa=priceOf(t); if(!(pa>0)) return;
+    const h=_demoHash(t);
+    const objetivo = 1500 + (h % 2600);                      /* 1.500–4.100 € por posición (inventado) */
+    const acc = Math.max(1, Math.round(objetivo/pa));
+    const pc = +(pa*(0.68 + ((h>>3)%28)/100)).toFixed(4);    /* compra 68–95% del precio actual → plusvalía ficticia */
+    const anioC = 2019 + (h % 6);                            /* 2019–2024 */
+    const mesC = 1 + ((h>>5)%12), diaC = 1 + ((h>>7)%27);
+    const fecha = anioC+'-'+String(mesC).padStart(2,'0')+'-'+String(diaC).padStart(2,'0');
+    ops.push({id:uid(), fecha:fecha, ticker:t, cartera:'Propia', tipo:'compra', acciones:acc, precio:pc});
+    const dpa = num(((D.valores||{})[t]||{}).divAccion) || num(a.divAccion) || 0;
+    inv.push({id:uid(), ticker:t, nombre:a.nombre||t, acciones:acc, precioCompra:pc, precioActual:pa, divAccion:dpa, exchange:'', broker:'Broker Demo'});
+    if(dpa>0){
+      const arr=[]; const imp=+(dpa*0.5).toFixed(4);
+      for(let y=anioC; y<=yNow; y++){
+        arr.push({fecha:y+'-06-15', importe:imp, id:uid()});
+        arr.push({fecha:y+'-12-15', importe:imp, id:uid()});
+        divIngresos[t]=divIngresos[t]||{}; divIngresos[t][y]=+(dpa*acc).toFixed(2);
+      }
+      dividendos[t]=arr;
+    }
+  });
+  D.operaciones=ops; D.inversiones=inv; D.dividendos=dividendos; D.divIngresos=divIngresos;
+  D.cerradas=[]; D.devolucionHacienda={}; D.amalia=[];
+  D.previsionDiv={}; D.divConfirmado={}; D.aniosConfirmados={};
+
+  /* -------- Cuentas, movimientos y patrimonio ficticios (ahorrador modesto) -------- */
+  const cuBanco=uid(), cuInv=uid();
+  D.cuentas=[
+    {id:cuBanco, nombre:'Cuenta corriente (demo)', tipo:'efectivo', naturaleza:'activo', saldoInicial:0},
+    {id:cuInv,   nombre:'Broker Demo',             tipo:'inversion', naturaleza:'activo', saldoInicial:0}
+  ];
+  D.movimientos=[];
+  const efectivoDemo=8500;
+  const invCoste = Math.round(inv.reduce((s,x)=>s+x.acciones*x.precioCompra,0));
+  const carteraVal = Math.round(inv.reduce((s,x)=>s+x.acciones*x.precioActual,0));
+  const divBruto = Math.round(inv.reduce((s,x)=>s+x.acciones*x.divAccion,0));
+  D.patrimonio=[{ id:uid(), fecha:(yNow-1)+'-12-31',
+    lineas:[{cuentaId:cuBanco, ef:efectivoDemo, inv:0}, {cuentaId:cuInv, ef:0, inv:carteraVal}] }];
+  D.cajaConfig={saldoIni:6000, hastaY:yNow, desdeM:1};
+
+  /* -------- Ingresos / gastos ficticios (presupuesto): misma estructura, importes inventados -------- */
+  D.presupuesto=(D.presupuesto||[]).map(p=>{
+    const c=(D.categorias||[]).find(cc=>cc.id===p.categoriaId)||{};
+    const h=_demoHash((p.id||'')+'|'+(p.categoriaId||''));
+    const imp = (c.tipo==='ingreso') ? (1400 + (h%1200)) : (40 + (h%760));
+    return Object.assign({}, p, {importe:imp});
+  });
+
+  /* -------- Proyección ficticia (ahorrador modesto) -------- */
+  D.config = D.config || {};
+  D.config.proyeccion = {
+    modeloEvo2:true, anioBase:yNow, edadActual:38, edadFin:90, edadFinAportar:67, anioTrasJub:yNow+29,
+    efectivo:efectivoDemo, invertidoCoste:invCoste, carteraInicial:carteraVal, dividendoBruto:divBruto,
+    nominaMes:2100, gastoMes:1600,
+    crecCartera:0.04, crecDividendo:0.025, rpdNuevas:0.05, inflacionNomina:0.02, crecAhorro:0.01,
+    aportacionDefault:6000, aportaciones:{}, eventos:[]
+  };
+  D.config.ahorro = {mensual:500, anual:6000};
+
+  /* -------- Planes ficticios: se vacían los manuales para que hereden de la proyección demo -------- */
+  D.planDispFijo={}; D.planPresupuesto={}; D.planCompras={}; D.simShares={};
+  D.planLote=[]; D.planTipo={}; D.asignacion=[]; D.metas={};
+
+  return D;
+}
+
+function _demoUI(on){
+  const btn=document.getElementById('btnDemo');
+  if(btn){ btn.textContent = on?'Salir demo':'Demo'; btn.title = on?'Salir del modo demo (recarga y vuelven tus datos reales)':'Entrar en modo demo (datos ficticios, no se guarda nada)'; btn.style.background = on?'#a21caf':''; btn.style.color = on?'#fff':'#a21caf'; }
+  const ban=document.getElementById('demoBanner'); if(ban) ban.style.display = on?'flex':'none';
+  try{ document.body.classList.toggle('demo-on', on); }catch(e){}
+}
+
+function toggleDemo(){
+  if(!window._demoOn){
+    if(!DB){ alert('Conéctate a Drive antes de abrir el modo demo.'); return; }
+    let built;
+    try{ built=_demoBuild(DB); }catch(e){ console.error('demo',e); alert('No se pudo construir el modo demo: '+e.message); return; }
+    _demoRealDB = DB;          /* guarda referencia a los datos reales (solo en memoria) */
+    DB = built;
+    window._demoOn = true;
+    _demoUI(true);
+    try{ if(typeof renderAllFull==='function') renderAllFull(); else if(typeof renderAll==='function') renderAll(); }catch(e){ console.error(e); }
+    setFileStatus('warn','MODO DEMO — sin guardar');
+  } else {
+    /* salir: recargar para traer los datos reales frescos desde Drive (nada se ha escrito) */
+    window._demoOn=false;
+    location.reload();
+  }
+}
+
+document.addEventListener('click', e=>{
+  const b = e.target.closest && e.target.closest('#btnDemo, #btnDemoExit');
+  if(!b) return;
+  toggleDemo();
+});
