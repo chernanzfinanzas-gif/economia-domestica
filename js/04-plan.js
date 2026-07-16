@@ -21,7 +21,7 @@ function renderRanking(){
   const _pi=rows.filter(r=>r.pesoDiv>0).map((r,i)=>({label:r.ticker,val:r.pesoDiv,color:_pal[i%_pal.length]}));
   const _rp=$('#rankPie'); if(_rp) _rp.innerHTML=_pi.length?(pieSVG(_pi)+'<div style="font-size:12px;display:grid;grid-template-columns:repeat(2,auto);gap:3px 16px">'+_pi.map(it=>`<div><span style="display:inline-block;width:10px;height:10px;background:${it.color};border-radius:2px;margin-right:6px"></span>${it.label} <b>${(it.val*100).toFixed(1)}%</b></div>`).join('')+'</div>'):'';
   $('#rankKpis').innerHTML=[['Dividendo bruto/año',fmt(T.divAno)],['YoC cartera',pct(T.cost?T.divAno/T.cost:0)],['RPD actual',pct(T.valor?T.divAno/T.valor:0)],['Dividendos cobrados (total)',fmt(T.cobr)]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _ra=$('#rankAport'); if(_ra)_ra.innerHTML=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoRank',reRender:renderRanking,ibex:true,ranges:true,goto:'ranking',title:'Aportado acumulado vs valor de cartera'}):((typeof aportValorHTML==='function')?aportValorHTML(renderRanking):'');
+  const _ra=$('#rankAport'); if(_ra)_ra.innerHTML=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoRank',reRender:renderRanking,ibex:true,goto:'ranking',title:'Aportado acumulado vs valor de cartera'}):((typeof aportValorHTML==='function')?aportValorHTML(renderRanking):'');
   const _v=$('#view-ranking'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('rankTabla',7,10),0);
 }
 function buildFrozen(wrapId,lHead,lBody,rHead,rBody){
@@ -86,7 +86,8 @@ function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss
   return (simIsReal(t)?realSharesAt(t,nowY):0) + pend; }
 function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
-  const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
+  const _prevSL=el.scrollLeft||0;
+  const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const dpa=DB.divPorAccion||{};
   const set=new Set();
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
@@ -100,10 +101,11 @@ function renderSimulador(){
   const grp=t=>held.has(t)?0:(closed.has(t)?1:2);
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
-  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num((dpa[t]||{})[y]||0); }));
+  const simDpa=(t,y)=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; if(d!=null) return d; const v=(dpa[t]||{})[y]; return v!=null?num(v):null; };
+  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
-    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
+    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
       const accCell=(y>nowY)?`<div class="num" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
       const divCell=`<div class="num" style="color:#475569">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div>`;
@@ -114,15 +116,24 @@ function renderSimulador(){
   }).join('');
   const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
   const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
-  const _prevSL=el.scrollLeft;
-  el.innerHTML=`<table>${head}${body}${totRow}${grRow}</table>`;
-  $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(function(){
-    if(el.clientWidth&&typeof autoFitTable==='function') autoFitTable('simTabla',7,10);
-    var doSeek=window._simSeek; window._simSeek=false;
-    if(doSeek){ var th=el.querySelector('th[data-simyear="'+(nowY-2)+'"]'); var off=el.querySelector('thead th:first-child')||el.querySelector('th:first-child'); var ow=off?off.offsetWidth:0; el.scrollLeft=th?Math.max(0,th.offsetLeft-ow):0; }
-    else { el.scrollLeft=_prevSL; }
-  },120);
+  el.innerHTML=`<table><thead>${head}</thead><tbody>${totRow}${grRow}${body}</tbody></table>`;
+  $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card" style="padding:9px 12px"><div class="lbl">${k[0]}</div><div class="val" style="font-size:18px;margin-top:2px">${k[1]}</div></div>`).join('');
+  /* Banda deslizante horizontal + arranque centrado en (nowY-2) */
+  (function(){ var sc=el; var rng=document.getElementById('simScroll');
+    var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
+    var sync=function(){ if(!rng)return; var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+    if(rng && !rng._simWired){ rng._simWired=true;
+      rng.addEventListener('input',function(){ sc.scrollLeft=maxSL()*(num(rng.value)/1000); });
+      sc.addEventListener('scroll',sync);
+    }
+    if(!window._simSeek){ sc.scrollLeft=_prevSL; }
+    setTimeout(function(){
+      if(window._simSeek){ var th=sc.querySelector('th[data-simyear="'+(nowY-2)+'"]'); var f=sc.querySelector('th'); var off=f?f.offsetWidth:0; sc.scrollLeft=th?Math.max(0,th.offsetLeft-off):0; window._simSeek=false; }
+      else { sc.scrollLeft=_prevSL; }
+      sync();
+    },180);
+  })();
+  const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
 }
 
 function addSimEmpresa(){
@@ -133,7 +144,7 @@ function addSimEmpresa(){
   DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
-function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ tot+=simEffShares(t,year,nowY)*num((dpa[t]||{})[year]||0); }); return tot; }
+function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; if(d==null) d=num((dpa[t]||{})[year]||0); tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
 // === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
 function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
 function _precioActualDe(t){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; let p=num(v.precioActual); if(p>0)return p; const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&num(a.cotizacion)>0)return num(a.cotizacion); if(typeof _precioCache!=='undefined'){ const pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); } return 0; }
@@ -313,8 +324,33 @@ function backtestData(){ const TH=DB.tesisHist||{}; const dec={COMPRAR:{n:0,ok:0
       if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER')ok=rent>=0; else if(d==='VENDER')ok=rent<0; else if(d==='ESPERAR'){ esc=rent>0.05; ok=!esc; } }
       if(dec[d]){ dec[d].n++; if(rent!=null){ dec[d].nr++; dec[d].sum+=rent; if(ok)dec[d].ok++; if(esc)dec[d].esc++; } }
       if(rent!=null){ evalTotal++; if(ok)okTotal++; }
-      rows.push({t:T,fecha:sn.fecha,decision:d,rating:sn.rating,score:sn.score,then,ahora,rent,ok,esc}); }); });
+      rows.push({t:T,fecha:sn.fecha,decision:d,rating:sn.rating,score:sn.score,qScore:(sn.qScore!=null?num(sn.qScore):null),then,ahora,rent,ok,esc}); }); });
   return {dec,rows,total,okTotal,evalTotal}; }
+async function regenerarFotosDossiers(){
+  const st=$('#btStatus'); const say=m=>{ if(st)st.textContent=m; };
+  try{
+    if(typeof cargarDossiers==='function') await cargarDossiers();
+    const lista=(typeof _tesisSet!=='undefined'&&_tesisSet)?[..._tesisSet]:[];
+    if(!lista.length){ say('No se encontraron dossiers (.json) en el repo.'); return; }
+    say('Cargando '+lista.length+' dossiers y precios…');
+    await Promise.all(lista.map(t=>(typeof cargarTesis==='function')?Promise.resolve(cargarTesis(t)).catch(()=>{}):null));
+    await Promise.all(lista.map(t=>{ if(typeof _precioCache!=='undefined'&&_precioCache[t]===undefined){ return fetch('precios/'+t+'.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{_precioCache[t]=j;}).catch(()=>{_precioCache[t]=null;}); } return null; }));
+    DB.tesisHist=DB.tesisHist||{}; let nAdd=0,nUpd=0,nSkip=0,nSinP=0;
+    lista.forEach(t=>{ t=(t||'').toUpperCase(); const j=(typeof _tesisCache!=='undefined')?_tesisCache[t]:null; if(!j||!j.fecha){ nSkip++; return; }
+      const ms=Date.parse(j.fecha+'T00:00:00'); const px=(typeof priceRepoAt==='function')?num(priceRepoAt(t,ms)):0;
+      const mn=num(j.poBear),mx=num(j.poBull); const md=(mn&&mx)?(mn+mx)/2:(mx||mn||0);
+      const qS=(j.score!=null&&j.score!=='')?num(j.score):null;
+      const oS=(typeof cmpScore==='function')?cmpScore({cotizacion:px,poMin:mn,poMax:mx,entMax:num(j.entMax),rating:(j.rating||'').toUpperCase()}):null;
+      const arr=DB.tesisHist[t]=DB.tesisHist[t]||[]; const ix=arr.findIndex(x=>x.fecha===j.fecha);
+      if(ix>=0){ const ex=arr[ix]; if(qS!=null)ex.qScore=qS; if((ex.score==null)&&oS!=null)ex.score=oS; if(!(num(ex.cotizacion)>0)&&px>0)ex.cotizacion=px; ex.origen=ex.origen||'dossier'; nUpd++; }
+      else if(px>0){ arr.push({fecha:j.fecha,decision:(j.decision||'').toUpperCase(),rating:(j.rating||'').toUpperCase(),score:oS,qScore:qS,poBear:mn,poBase:md,poBull:mx,cotizacion:px,origen:'dossier'}); nAdd++; }
+      else { nSinP++; }
+      arr.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||'')); });
+    if(typeof saveNow==='function')saveNow();
+    renderBacktest();
+    say('Listo: '+nAdd+' fotos nuevas · '+nUpd+' completadas con Calidad'+(nSinP?(' · '+nSinP+' sin precio histórico'):'')+(nSkip?(' · '+nSkip+' sin fecha'):'')+'.');
+  }catch(e){ say('Error: '+((e&&e.message)||e)); }
+}
 function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#btKpis'); const B=backtestData();
   const pct=(a,b)=>b>0?(a/b*100).toFixed(0)+'%':'—'; const rp=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
   if(!B.total){ el.innerHTML='<div class="empty">Aún no hay fotos de tesis. Guárdalas desde la Ficha de cada empresa («+ Guardar foto») o al importar/actualizar un dossier.</div>'; if(kp)kp.innerHTML=''; return; }
@@ -322,11 +358,25 @@ function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#b
   if(kp)kp.innerHTML=[['Fotos evaluables',B.evalTotal+' / '+B.total,''],['Acierto global',pct(B.okTotal,B.evalTotal),(B.evalTotal&&B.okTotal/B.evalTotal>=0.5)?'pos':'neg'],['Rentab. media COMPRAR',rp(cAvg),cAvg==null?'':(cAvg>=0?'pos':'neg')],['Escapadas (ESPERAR)',String(B.dec.ESPERAR.esc||0),(B.dec.ESPERAR.esc>0?'neg':'')]].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
   const dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
   const decRows=['COMPRAR','MANTENER','ESPERAR','VENDER'].map(d=>{ const o=B.dec[d]; if(!o||!o.n)return ''; const avg=o.nr?o.sum/o.nr:null; return `<tr><td><b style="color:${dc[d]}">${d}</b></td><td class="num">${o.n}</td><td class="num">${o.ok||0}</td><td class="num">${pct(o.ok||0,o.nr||0)}</td><td class="num ${avg!=null?(avg>=0?'pos':'neg'):''}">${rp(avg)}</td><td class="num">${d==='ESPERAR'?(o.esc||0):'·'}</td></tr>`; }).join('');
-  let sHi={n:0,s:0}, sLo={n:0,s:0}; B.rows.forEach(r=>{ if(r.rent!=null&&r.score!=null){ if(r.score>=70){sHi.n++;sHi.s+=r.rent;} else {sLo.n++;sLo.s+=r.rent;} } });
-  const scoreInsight=`<div class="sub" style="margin:10px 0 4px">Rentabilidad media según el Score de la foto — <b>Score ≥ 70</b>: ${sHi.n?rp(sHi.s/sHi.n):'—'} (${sHi.n} fotos) · <b>Score &lt; 70</b>: ${sLo.n?rp(sLo.s/sLo.n):'—'} (${sLo.n} fotos). Si el primero es mayor, tu Score está discriminando bien.</div>`;
+  const _acc=()=>({n:0,s:0}); const avgA=o=>o.n?rp(o.s/o.n):'—';
+  const oHi=_acc(),oLo=_acc(),qHi=_acc(),qLo=_acc(); const MX={hh:_acc(),hl:_acc(),lh:_acc(),ll:_acc()};
+  B.rows.forEach(r=>{ if(r.rent==null)return;
+    if(r.score!=null){ const o=(r.score>=70?oHi:oLo); o.n++; o.s+=r.rent; }
+    if(r.qScore!=null){ const o=(r.qScore>=70?qHi:qLo); o.n++; o.s+=r.rent; }
+    if(r.score!=null&&r.qScore!=null){ const c=(r.qScore>=70?'h':'l')+(r.score>=70?'h':'l'); MX[c].n++; MX[c].s+=r.rent; } });
+  const cM=(o,best)=>`<td class="num ${o.n?(o.s/o.n>=0?'pos':'neg'):''}" style="text-align:center;${best?'background:#ecfdf5':''}">${o.n?avgA(o):'—'}<div style="font-size:9px;color:#94a3b8;font-weight:400">${o.n} foto${o.n===1?'':'s'}</div></td>`;
+  const scoreInsight=`<div class="sub" style="margin:12px 0 4px"><b>Discriminación de tus dos scores</b> (rentabilidad media desde la foto hasta hoy):</div>`
+    +`<div class="sub" style="margin:0 0 2px">· <b>Calidad</b> (Bloque 5) — ≥70: <b>${avgA(qHi)}</b> (${qHi.n}) · &lt;70: <b>${avgA(qLo)}</b> (${qLo.n}). Si ≥70 rinde más, tu <b>calidad</b> discrimina.</div>`
+    +`<div class="sub" style="margin:0 0 8px">· <b>Oportunidad</b> (Score del comparador) — ≥70: <b>${avgA(oHi)}</b> (${oHi.n}) · &lt;70: <b>${avgA(oLo)}</b> (${oLo.n}). Si ≥70 rinde más, tu <b>momento de entrada</b> discrimina.</div>`
+    +`<div class="sub" style="margin:0 0 4px"><b>Matriz Calidad × Oportunidad</b> — rentabilidad media por cuadrante:</div>`
+    +`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th></th><th class="num" style="text-align:center">Oportunidad ≥70</th><th class="num" style="text-align:center">Oportunidad &lt;70</th></tr></thead><tbody>`
+    +`<tr><td><b>Calidad ≥70</b></td>${cM(MX.hh,true)}${cM(MX.hl)}</tr>`
+    +`<tr><td><b>Calidad &lt;70</b></td>${cM(MX.lh)}${cM(MX.ll)}</tr>`
+    +`</tbody></table></div>`
+    +`<div class="muted" style="font-size:11px;margin-top:4px">El cuadrante ideal (verde) es <b>Calidad ≥70 + Oportunidad ≥70</b>: buenas empresas compradas cuando además estaban baratas. Si ese rinde más que los demás, tu método completo funciona.</div>`;
   const det=B.rows.slice().sort((a,b)=>(b.fecha||'').localeCompare(a.fecha||'')).map(r=>{ let mk='—',mc='#64748b'; const d=r.decision; if(r.rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){mk=r.rent>=0?'✓':'✗';mc=r.rent>=0?'#16a34a':'#dc2626';} else if(d==='VENDER'){mk=r.rent<0?'✓':'✗';mc=r.rent<0?'#16a34a':'#dc2626';} else if(d==='ESPERAR'){ if(r.esc){mk='se escapó';mc='#d97706';} else {mk=r.rent<0?'✓':'≈';mc=r.rent<0?'#16a34a':'#64748b';} } }
-    return `<tr><td>${r.fecha||'—'}</td><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${r.rating||'—'}${r.score!=null?' · '+Math.round(r.score):''}</td><td class="num">${r.then?fmt(r.then):'—'}</td><td class="num">${r.ahora?fmt(r.ahora):'—'}</td><td class="num ${r.rent!=null?(r.rent>=0?'pos':'neg'):''}">${rp(r.rent)}</td><td style="color:${mc};font-weight:700;text-align:center">${mk}</td></tr>`; }).join('');
-  el.innerHTML=`<div style="overflow:auto"><table><thead><tr><th>Decisión</th><th class="num">Fotos</th><th class="num">Aciertos</th><th class="num">% acierto</th><th class="num">Rentab. media</th><th class="num">Escapadas</th></tr></thead><tbody>${decRows}</tbody></table></div>${scoreInsight}<h3 style="margin:14px 0 6px;font-size:14px">Detalle de fotos</h3><div class="sub" style="margin-bottom:6px">Rentabilidad desde la fecha de cada foto hasta la cotización actual. ✓ acierto · ✗ fallo · «se escapó» = un ESPERAR que subió >5% · ≈ ESPERAR plano.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Empresa</th><th>Decisión</th><th class="num">Rating·Score</th><th class="num">Cotiz. foto</th><th class="num">Ahora</th><th class="num">Rentab.</th><th>OK</th></tr></thead><tbody>${det}</tbody></table></div>`;
+    return `<tr><td>${r.fecha||'—'}</td><td><b data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b></td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${r.rating||'—'}${r.qScore!=null?' · Cal '+Math.round(r.qScore):''}${r.score!=null?' · Op '+Math.round(r.score):''}</td><td class="num">${r.then?fmt(r.then):'—'}</td><td class="num">${r.ahora?fmt(r.ahora):'—'}</td><td class="num ${r.rent!=null?(r.rent>=0?'pos':'neg'):''}">${rp(r.rent)}</td><td style="color:${mc};font-weight:700;text-align:center">${mk}</td></tr>`; }).join('');
+  el.innerHTML=`<div style="overflow:auto"><table><thead><tr><th>Decisión</th><th class="num">Fotos</th><th class="num">Aciertos</th><th class="num">% acierto</th><th class="num">Rentab. media</th><th class="num">Escapadas</th></tr></thead><tbody>${decRows}</tbody></table></div>${scoreInsight}<h3 style="margin:14px 0 6px;font-size:14px">Detalle de fotos</h3><div class="sub" style="margin-bottom:6px">Rentabilidad desde la fecha de cada foto hasta la cotización actual. ✓ acierto · ✗ fallo · «se escapó» = un ESPERAR que subió >5% · ≈ ESPERAR plano.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Empresa</th><th>Decisión</th><th class="num">Rating·Cal·Op</th><th class="num">Cotiz. foto</th><th class="num">Ahora</th><th class="num">Rentab.</th><th>OK</th></tr></thead><tbody>${det}</tbody></table></div>`;
 }
 // === Vista completa del motor "Próxima compra" ===
 let proxYearSel=null;
@@ -455,7 +505,8 @@ function renderPanelDash(){
   // Cartera
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(pos.length){ const cV=pos.reduce((s,p)=>s+p.acciones*p.precioActual,0), cC=pos.reduce((s,p)=>s+p.acciones*p.precioCompra,0), cD=pos.reduce((s,p)=>s+p.acciones*p.divAccion,0), cPL=cV-cC;
-    html+=block('Cartera','inversiones',[['Valor',fmt(cV),'','coste '+fmt(cC)],['Plusvalía',(cPL>=0?'+':'')+fmt(cPL),cPL>=0?'pos':'neg',(cC?(cPL/cC*100).toFixed(1):0)+'%'],['Dividendo bruto/año',fmt(cD),'',(cV?(cD/cV*100).toFixed(1):0)+'% RPD'],['YoC',(cC?(cD/cC*100).toFixed(1):0)+'%','pos']]); }
+    let cMax=cV,cMaxSub='ahora';try{if(typeof carteraEvolData==='function'){var _ed=carteraEvolData(renderPanelDash);if(_ed&&_ed.ok&&_ed.valor&&_ed.valor.length){var _mx=-Infinity,_mi=-1;_ed.valor.forEach(function(v,i){var nv=num(v);if(nv>_mx){_mx=nv;_mi=i;}});if(_mx>-Infinity){cMax=_mx;var _lb=(_ed.labels[_mi]||'').split('-');var _when=_lb.length===3?(_lb[2]+'/'+_lb[1]+'/'+_lb[0]):'';cMaxSub=(_mi===_ed.valor.length-1)?('máximo actual'+(_when?' · '+_when:'')):(_when+' · ahora '+(_mx>0?(cV/_mx*100).toFixed(0):'100')+'% del máx.');}}}}catch(e){}
+    html+=block('Cartera','inversiones',[['Valor',fmt(cV),'','coste '+fmt(cC)],['Plusvalía',(cPL>=0?'+':'')+fmt(cPL),cPL>=0?'pos':'neg',(cC?(cPL/cC*100).toFixed(1):0)+'%'],['Máximo histórico',fmt(cMax),'',cMaxSub],['YoC',(cC?(cD/cC*100).toFixed(1):0)+'%','pos']]); }
   // Dividendos
   if(typeof simYearTotal==='function'){ const y1=nowY+1, y2=nowY+2; const dN=simYearTotal(nowY), d1=simYearTotal(y1), d2=simYearTotal(y2), cr=dN?((d1/dN)-1):0;
     html+=block('Dividendos','dividendos',[['Cobrado '+nowY,fmt(dN)],['Previsión '+y1,fmt(d1)],['Previsión '+y2,fmt(d2)],['Crecimiento '+nowY+'→'+y1,(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
@@ -501,7 +552,7 @@ function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0
 function renderPlan(){
   const el=$('#planTabla'); if(!el)return;
   const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
-  const nowY=new Date().getFullYear(); const y1=Math.max(num(DB.previsionMaxYear)||2030, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
+  const nowY=new Date().getFullYear(); const y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
   const set=new Set(Object.keys(pc).map(t=>t.toUpperCase()));
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
   let tickers=[...set].filter(Boolean);
@@ -538,6 +589,7 @@ function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):'
 }
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
+  const _lotePrevSL=(document.getElementById('loteScrollBox')||{}).scrollLeft||0;
   DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{}; const pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   const invByT={}; pos.forEach(p=>{const t=(p.ticker||'').toUpperCase(); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra;});
@@ -575,24 +627,32 @@ function renderPlanLote(){
   const aYear=(t,y)=>num(((DB.planCompras||{})[t]||{})[y]||0);
   const sumAsig=t=>yrs.reduce((s,y)=>s+aYear(t,y),0);
   const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+aYear(t,y),0); });
-  const _minic=`display:inline-flex;flex-direction:column;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:#fff;line-height:1.15`;
-  const cab=`<div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;font-size:11px">
-     <div style="${_minic}"><span class="muted" style="font-size:10px">Invertido total</span><b style="font-size:13px">${fmt(totalInv)}</b><span class="muted" style="font-size:9px">${held.length} en cartera</span></div>
-     <div style="${_minic}"><span class="muted" style="font-size:10px">Disponible en periodo</span><b style="font-size:13px">${fmt(disponible)}</b><span class="muted" style="font-size:9px">${ydesde}–${yhasta}</span></div>
-     <div style="${_minic}"><span class="muted" style="font-size:10px">Capital final total</span><b style="font-size:13px">${fmt(TF)}</b><span class="muted" style="font-size:9px">invertido + disponible</span></div>
-     <div style="${_minic}"><span class="muted" style="font-size:10px">Capital a asignar</span><b class="pos" style="font-size:13px">${fmt(totAsignarPos)}</b><span class="muted" style="font-size:9px">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</span></div>
+  const cab=`<div class="cards" style="margin-bottom:12px">
+     <div class="card"><div class="lbl">Invertido total</div><div class="val">${fmt(totalInv)}</div><div class="sub">${held.length} en cartera</div></div>
+     <div class="card"><div class="lbl">Disponible en periodo</div><div class="val">${fmt(disponible)}</div><div class="sub">${ydesde}–${yhasta}</div></div>
+     <div class="card"><div class="lbl">Capital final total</div><div class="val">${fmt(TF)}</div><div class="sub">invertido + disponible</div></div>
+     <div class="card"><div class="lbl">Capital a asignar</div><div class="val pos">${fmt(totAsignarPos)}</div><div class="sub">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
    </div>
-   <div class="toolbar" style="margin-bottom:8px"><span class="muted">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:75px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:75px;padding:4px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="margin-left:10px"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" id="loteAdd" style="margin-left:auto">+ Empresa</button> <span class="muted" id="loteStatus"></span></div>`;
+   <div class="toolbar" style="margin-bottom:8px;font-size:15px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:82px;padding:5px 6px;font-size:15px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:82px;padding:5px 6px;font-size:15px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:12.5px">Elige aquí los años que aparecen en la proyección</span> <span class="muted" style="margin-left:10px;font-size:12.5px"><b>${total}/20</b> · ${nJoya} joyas</span></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
   const objCells=t=>{ const fa=asignar(t)-sumAsig(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
   const yrCells=t=>yrs.map(y=>`<td><div style="font-size:8px;color:var(--muted);line-height:1.1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:54px;text-align:center" data-asig="${t}|${y}" value="${aYear(t,y)||''}"></td>`).join('');
-  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:58px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:2px auto 1px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
+  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num" data-loteyear="${y}">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:58px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:2px auto 1px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
   let rows=''; let n=0;
   held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
   chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
   for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="num">·</td>').join('')}<td></td></tr>`; }
-  const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
-  el.innerHTML=cab+dl+`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
+  const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
+  el.innerHTML=cab+'<input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">'+dl+`<div style="overflow:auto" id="loteScrollBox"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
+  /* Banda deslizante horizontal (debajo del Periodo) + arranque en el año actual, hacia el futuro */
+  (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc||!rng)return;
+    var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
+    var toSlider=function(){ var m=maxSL(); rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+    rng.addEventListener('input',function(){ var m=maxSL(); if(m>0) sc.scrollLeft=m*(num(rng.value)/1000); });
+    sc.addEventListener('scroll',toSlider);
+    sc.scrollLeft = window._loteSeek ? 0 : _lotePrevSL; window._loteSeek=false;
+    setTimeout(toSlider,50);
+  })();
 }
 
 function cajaDivMes(){ const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{}; const out=new Array(12).fill(0);
