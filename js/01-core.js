@@ -502,6 +502,70 @@ let _demoRealDB = null;
 /* hash estable (FNV-1a) para generar cantidades ficticias reproducibles */
 function _demoHash(s){ s=''+s; let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h^=s.charCodeAt(i); h=Math.imul(h,16777619); } return h>>>0; }
 
+/* Movimientos ficticios genéricos (nómina, supermercado, luz, gasolina, ocio…) para las
+   pantallas de Ingresos/Gastos. Se reparten en los últimos 6 meses y se enlazan a las
+   categorías por tipo/nombre cuando existen. */
+function _demoMovimientos(D, yNow){
+  const cats=(D.categorias||[]);
+  const catByKw=(tipo, kws)=>{
+    const c=cats.find(x=>x.tipo===tipo && kws.some(k=>((x.nombre||'')+' '+(x.grupo||'')).toLowerCase().includes(k)));
+    return c ? c.id : (cats.find(x=>x.tipo===tipo)||{}).id || '';
+  };
+  const cIngNom=catByKw('ingreso',['nómina','nomina','salario','sueldo']);
+  const cIngDiv=catByKw('ingreso',['dividendo','inversión','inversion']);
+  const cGasHog=catByKw('gasto',['alquiler','hipoteca','casa','vivienda']);
+  const cGasAli=catByKw('gasto',['aliment','superm','comida','compra']);
+  const cGasSum=catByKw('gasto',['luz','agua','gas','sumin','electric']);
+  const cGasTel=catByKw('gasto',['internet','teléfono','telefono','móvil','movil']);
+  const cGasCoc=catByKw('gasto',['coche','gasolina','combustible','transporte']);
+  const cGasOci=catByKw('gasto',['ocio','restaur','cena']);
+  const cGasDep=catByKw('gasto',['deporte','gimnasio']);
+  const mesNombre=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const out=[];
+  const push=(fecha,concepto,comercio,tipo,imp,catId,titular)=>{ out.push({id:uid(),fecha:fecha,concepto:concepto,comercio:comercio,detalle:'',categoriaId:catId,titular:titular||'',tipo:tipo,importe:+(+imp).toFixed(2)}); };
+  const now=new Date(); const y=yNow, m0=now.getMonth();   /* 0-based mes actual */
+  const dstr=(yy,mm,dd)=>yy+'-'+String(mm+1).padStart(2,'0')+'-'+String(Math.min(dd,28)).padStart(2,'0');
+  for(let back=5; back>=0; back--){
+    let mm=m0-back, yy=y; while(mm<0){ mm+=12; yy--; }
+    const h=_demoHash('mov'+yy+'-'+mm);
+    /* --- Ingresos --- */
+    push(dstr(yy,mm,25),'Nómina '+mesNombre[mm],'Empresa Demo S.L.','ingreso',1850+(h%180),cIngNom,'Titular 1');
+    if((h>>>2)%2===0) push(dstr(yy,mm,26),'Nómina '+mesNombre[mm],'Servicios Demo S.A.','ingreso',1550+((h>>>4)%160),cIngNom,'Titular 2');
+    if((h>>>6)%3===0) push(dstr(yy,mm,12),'Dividendos cobrados','Broker Demo','ingreso',60+((h>>>8)%140),cIngDiv,'Titular 1');
+    /* --- Gastos recurrentes --- */
+    push(dstr(yy,mm,1),'Alquiler vivienda','Inmobiliaria Demo','gasto',820+((h>>>3)%60),cGasHog,'Titular 1');
+    push(dstr(yy,mm,8),'Factura de luz','Eléctrica Demo','gasto',48+((h>>>5)%55),cGasSum,'');
+    push(dstr(yy,mm,10),'Internet y móvil','Telecom Demo','gasto',42+((h>>>7)%20),cGasTel,'');
+    push(dstr(yy,mm,5),'Cuota gimnasio','Gimnasio Demo','gasto',35+((h>>>9)%15),cGasDep,'Titular 2');
+    /* --- Supermercado: 3-4 compras/mes --- */
+    const nSuper=3+((h>>>10)%2);
+    for(let i=0;i<nSuper;i++){ const hi=_demoHash('sup'+yy+mm+i); push(dstr(yy,mm,4+i*7),'Compra supermercado',['Mercadona','Carrefour','Lidl','Alcampo'][hi%4],'gasto',38+(hi%75),cGasAli,''); }
+    /* --- Gasolina --- */
+    push(dstr(yy,mm,14),'Repostaje combustible','Gasolinera Demo','gasto',45+((h>>>11)%35),cGasCoc,'Titular 1');
+    /* --- Ocio / restaurante --- */
+    const nOcio=1+((h>>>12)%3);
+    for(let i=0;i<nOcio;i++){ const hi=_demoHash('oci'+yy+mm+i); push(dstr(yy,mm,9+i*6),['Restaurante','Cine','Cañas','Café'][hi%4],['Bar Demo','Cines Demo','Cafetería Demo','Restaurante Demo'][hi%4],'gasto',12+(hi%48),cGasOci,''); }
+  }
+  out.sort((a,b)=>a.fecha<b.fecha?1:a.fecha>b.fecha?-1:0);
+  return out;
+}
+
+/* Mazinger Z: repostajes ficticios (odómetro creciente, ~30 L, precio total del depósito). */
+function _demoCombustible(yNow){
+  const out=[]; let km=42000; const now=new Date(); const m0=now.getMonth();
+  for(let back=9; back>=0; back--){
+    let mm=m0-back, yy=yNow; while(mm<0){ mm+=12; yy--; }
+    const h=_demoHash('fuel'+yy+mm);
+    km += 480 + (h%320);                       /* +480–800 km entre repostajes */
+    const litros = +(28 + (h%9) + (h%100)/100).toFixed(2);   /* ~28–37 L */
+    const precio = +(litros*(1.55 + (h%18)/100)).toFixed(2);  /* €/L ~1.55–1.72 → importe total */
+    const auton = 40 + (h%140);
+    const fecha = yy+'-'+String(mm+1).padStart(2,'0')+'-'+String(6+(h%20)).padStart(2,'0');
+    out.push({id:uid(), fecha:fecha, km:km, autonomia:auton, litros:litros, precio:precio});
+  }
+  return out;
+}
+
 function _demoBuild(real){
   const D = JSON.parse(JSON.stringify(real));   /* copia profunda: análisis, tesis, valores, universo… se conservan */
   const yNow = new Date().getFullYear();
@@ -527,9 +591,9 @@ function _demoBuild(real){
     const h=_demoHash(t);
     const objetivo = 1500 + (h % 2600);                      /* 1.500–4.100 € por posición (inventado) */
     const acc = Math.max(1, Math.round(objetivo/pa));
-    const pc = +(pa*(0.68 + ((h>>3)%28)/100)).toFixed(4);    /* compra 68–95% del precio actual → plusvalía ficticia */
+    const pc = +(pa*(0.68 + ((h>>>3)%28)/100)).toFixed(4);    /* compra 68–95% del precio actual → plusvalía ficticia */
     const anioC = 2019 + (h % 6);                            /* 2019–2024 */
-    const mesC = 1 + ((h>>5)%12), diaC = 1 + ((h>>7)%27);
+    const mesC = 1 + ((h>>>5)%12), diaC = 1 + ((h>>>7)%27);
     const fecha = anioC+'-'+String(mesC).padStart(2,'0')+'-'+String(diaC).padStart(2,'0');
     ops.push({id:uid(), fecha:fecha, ticker:t, cartera:'Propia', tipo:'compra', acciones:acc, precio:pc});
     const dpa = num(((D.valores||{})[t]||{}).divAccion) || num(a.divAccion) || 0;
@@ -554,7 +618,8 @@ function _demoBuild(real){
     {id:cuBanco, nombre:'Cuenta corriente (demo)', tipo:'efectivo', naturaleza:'activo', saldoInicial:0},
     {id:cuInv,   nombre:'Broker Demo',             tipo:'inversion', naturaleza:'activo', saldoInicial:0}
   ];
-  D.movimientos=[];
+  D.movimientos=_demoMovimientos(D, yNow);   /* nómina, supermercado, luz, gasolina… ficticios */
+  D.combustible=_demoCombustible(yNow);       /* Mazinger Z: repostajes ficticios */
   const efectivoDemo=8500;
   const invCoste = Math.round(inv.reduce((s,x)=>s+x.acciones*x.precioCompra,0));
   const carteraVal = Math.round(inv.reduce((s,x)=>s+x.acciones*x.precioActual,0));
@@ -596,19 +661,34 @@ function _demoUI(on){
   try{ document.body.classList.toggle('demo-on', on); }catch(e){}
 }
 
-function toggleDemo(){
+/* Carga SIN Drive: base vacía + empresas analizadas y precios desde el repo PÚBLICO de GitHub.
+   Así el modo demo funciona aunque no inicies sesión (ideal para enseñar la app a otros). */
+async function _demoLoadFromGitHub(){
+  DB = (typeof seed==='function') ? seed() : {config:{},cuentas:[],categorias:[],presupuesto:[],movimientos:[]};
+  DB.analisis=[]; DB.valores={}; DB.operaciones=[]; DB.inversiones=[];
+  try{ if(typeof cargarDossiers==='function') await cargarDossiers(); }catch(e){}
+  const tickers = Array.from((typeof _tesisSet!=='undefined' && _tesisSet) ? _tesisSet : []);
+  for(const t of tickers){
+    try{ if(typeof cargarTesis==='function'){ await cargarTesis(t); if(_tesisCache && _tesisCache[t] && typeof importTesis==='function') importTesis(t); } }catch(e){}
+  }
+  try{ if(typeof sincronizarCotizaciones==='function') await sincronizarCotizaciones(); }catch(e){}
+}
+
+async function toggleDemo(){
   if(!window._demoOn){
-    if(!DB){ alert('Conéctate a Drive antes de abrir el modo demo.'); return; }
-    let built;
-    try{ built=_demoBuild(DB); }catch(e){ console.error('demo',e); alert('No se pudo construir el modo demo: '+e.message); return; }
-    _demoRealDB = DB;          /* guarda referencia a los datos reales (solo en memoria) */
-    DB = built;
-    window._demoOn = true;
+    window._demoOn = true;                 /* bloquea cualquier guardado desde ya */
     _demoUI(true);
+    setFileStatus('warn','MODO DEMO — cargando…');
+    try{
+      if(!DB){ await _demoLoadFromGitHub(); }   /* sin Drive: trae análisis y precios de GitHub */
+      DB = _demoBuild(DB);                        /* encima, cartera y finanzas ficticias */
+    }catch(e){ console.error('demo',e); window._demoOn=false; _demoUI(false); alert('No se pudo construir el modo demo: '+e.message); return; }
+    try{ if(typeof afterLoad==='function') afterLoad(); }catch(e){ console.error(e); }
     try{ if(typeof renderAllFull==='function') renderAllFull(); else if(typeof renderAll==='function') renderAll(); }catch(e){ console.error(e); }
     setFileStatus('warn','MODO DEMO — sin guardar');
   } else {
-    /* salir: recargar para traer los datos reales frescos desde Drive (nada se ha escrito) */
+    /* salir: recargar (nada se ha escrito). Si estabas conectado, vuelven tus datos reales de Drive;
+       si entraste sin conexión, vuelve la pantalla de inicio. */
     window._demoOn=false;
     location.reload();
   }
