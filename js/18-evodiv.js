@@ -21,6 +21,7 @@ var _evoGroups = {};          /* filtros de grupo activos (aditivo) */
 var _evoBusca = {q:''};
 var _evoOpen = {};            /* filas desplegadas: ticker -> true */
 var _evoEdit = {};            /* ticker -> modo edición de dividendos abierto */
+var _evoScrollTo = null;      /* ticker cuya fila hay que dejar a la vista tras re-render */
 
 function _evoCargar(){
   if(_evoData) return Promise.resolve(_evoData);
@@ -254,6 +255,7 @@ function renderEvoDiv(){
   var sec=document.getElementById('view-prevision'); if(!sec) return;
   var host=document.getElementById('evoApp');
   if(!host){ host=document.createElement('div'); host.id='evoApp'; sec.appendChild(host); }
+  var _evoPrevScroll=(function(){ var s=document.getElementById('evoScroll'); return s?s.scrollTop:0; })();
 
   if(!_evoData){ host.innerHTML='<div class="muted" style="padding:10px">Cargando dividendos.json…</div>'; _evoCargar().then(renderEvoDiv); return; }
   _evoMigrar();   /* Opción B: registra el Excel en la app una sola vez; luego se trabaja aquí. */
@@ -441,12 +443,12 @@ function renderEvoDiv(){
     });
   });
   /* --- edición de dividendos (capa DB.divData) --- */
-  host.querySelectorAll('[data-evoedit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var t=(b.getAttribute('data-evoedit')||'').toUpperCase(); _evoEdit[t]=!_evoEdit[t]; _evoOpen[t]=true; renderEvoDiv(); }); });
+  host.querySelectorAll('[data-evoedit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var t=(b.getAttribute('data-evoedit')||'').toUpperCase(); _evoEdit[t]=!_evoEdit[t]; _evoOpen[t]=true; _evoScrollTo=t; renderEvoDiv(); }); });
   host.querySelectorAll('[data-dpaga]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var t=(this.getAttribute('data-dpaga')||'').toUpperCase(); var o=_evoEnsure(t,null); o.paga=this.checked; _evoSave(t); }); });
   host.querySelectorAll('[data-df]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-df')||'').split('|'); var t=(p[0]||'').toUpperCase(); var f=p[1]; var o=_evoEnsure(t,null); var v=(this.value||'').trim(); if(v==='') delete o[f]; else o[f]=v; _evoSave(t); }); });
   host.querySelectorAll('[data-dy]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dy')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); var v=(this.value||'').trim(); if(v==='') delete ay[f]; else ay[f]=(f==='dpaBruto'||f==='dpaNeto')?num(v.replace(',','.')):v; if(f==='dpaBruto'){ if(v==='') delete ay.dpaNeto; else ay.dpaNeto=_evoNeto(num(v.replace(',','.'))); } _evoSave(t); }); });
   host.querySelectorAll('[data-dp]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dp')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; var v=(this.value||'').trim(); ay.pagos[idx][f]=(f==='bruto'||f==='neto')?num(v.replace(',','.')):v; if(f==='bruto' && !(num(ay.pagos[idx].neto)>0)) ay.pagos[idx].neto=_evoNeto(num(v.replace(',','.'))); _evoSave(t); }); });
-  host.querySelectorAll('[data-dpadd]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpadd')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.push({exDiv:'',pago:'',bruto:0,neto:0,tipo:'ordinario'}); _evoEdit[t]=true; _evoOpen[t]=true; _evoSave(t); }); });
+  host.querySelectorAll('[data-dpadd]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpadd')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.push({exDiv:'',pago:'',bruto:0,neto:0,tipo:'ordinario'}); _evoEdit[t]=true; _evoOpen[t]=true; _evoScrollTo=t; _evoSave(t); }); });
   host.querySelectorAll('[data-dpdel]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpdel')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.splice(idx,1); _evoSave(t); }); });
   host.querySelectorAll('[data-dyb]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var p=(this.getAttribute('data-dyb')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); ay[f]=this.checked; _evoSave(t); }); });
   host.querySelectorAll('[data-dpb]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var p=(this.getAttribute('data-dpb')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; ay.pagos[idx][f]=this.checked; _evoSave(t); }); });
@@ -455,10 +457,11 @@ function renderEvoDiv(){
     if(e.target.closest('[data-ficha]')) return;   /* el clic en el ticker abre la ficha */
     if(e.target.closest('input')) return;          /* el clic en la casilla de override no despliega */
     var t=(tr.getAttribute('data-evorow')||'').toUpperCase(); if(!t)return;
-    _evoOpen[t]=!_evoOpen[t]; renderEvoDiv();
+    _evoOpen[t]=!_evoOpen[t]; _evoScrollTo=t; renderEvoDiv();
   }); });
   if(typeof _wireBuscador==='function'){ _wireBuscador(document.getElementById('evoSearch'), host.querySelectorAll('tbody tr.evo-main[data-fs]'), _evoBusca); }
   _evoFit();
+  (function(){ var s=document.getElementById('evoScroll'); if(!s)return; void s.scrollHeight; s.scrollTop=_evoPrevScroll; if(_evoScrollTo){ var row=host.querySelector('tr.evo-main[data-evorow="'+_evoScrollTo+'"]'); if(row&&row.scrollIntoView){ try{ row.scrollIntoView({block:'nearest'}); }catch(e){ row.scrollIntoView(); } } _evoScrollTo=null; } })();
   if(!window._evoFitBound){ window._evoFitBound=true; window.addEventListener('resize',_evoFit); }
 }
 
