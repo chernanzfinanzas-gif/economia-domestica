@@ -378,7 +378,26 @@ const INFO_TXT={
 };
 function renderInfoBoxes(){ try{ const op=(DB.config&&DB.config.infoOpen)||{}; Object.keys(INFO_TXT).forEach(id=>{ const sec=document.getElementById(id); if(!sec)return; if(sec.querySelector(':scope > .infobox'))return; const div=document.createElement('div'); div.className='infobox'+(op[id]?' open':''); div.dataset.info=id; div.innerHTML=`<div class="infobox-head">ℹ️ Info — pasos previos <span class="infobox-arrow">▸</span></div><div class="infobox-body">${INFO_TXT[id]}</div>`; const h2=sec.querySelector(':scope > h2'); if(h2)h2.insertAdjacentElement('afterend',div); else sec.insertBefore(div,sec.firstChild); }); }catch(e){} }
 document.addEventListener('click',e=>{ const h=e.target.closest('.infobox-head'); if(!h)return; const box=h.parentElement; box.classList.toggle('open'); const id=box.dataset.info; DB.config=DB.config||{}; DB.config.infoOpen=DB.config.infoOpen||{}; if(box.classList.contains('open'))DB.config.infoOpen[id]=true; else delete DB.config.infoOpen[id]; if(typeof scheduleSave==='function')scheduleSave(); });
-function afterLoad(){ if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+/* ===== Logos y cabecera de informes (P1.5: una sola fuente; logos en fichero, no en JS) ===== */
+var INF_LOGO_SRC='logo-informe.jpg', INF_LOGO_KHB_SRC='logo-khb.jpg';
+var _infLogosLoaded=false;
+function _infFileToDataURL(url){ return fetch(url,{cache:'force-cache'}).then(function(r){return r.ok?r.blob():null;}).then(function(b){ return b?new Promise(function(res){ var fr=new FileReader(); fr.onload=function(){res(fr.result);}; fr.onerror=function(){res('');}; fr.readAsDataURL(b); }):''; }).catch(function(){return '';}); }
+async function ensureInfLogos(){
+  if(_infLogosLoaded) return;
+  try{ var a=await _infFileToDataURL(INF_LOGO_SRC); if(a && typeof INF_LOGO!=='undefined') INF_LOGO=a;
+       var b=await _infFileToDataURL(INF_LOGO_KHB_SRC); if(b && typeof INF_LOGO_KHB!=='undefined') INF_LOGO_KHB=b; }catch(e){}
+  _infLogosLoaded=true;
+}
+/* Cabecera unica de informe (sustituye las 3 copias casi identicas) */
+function infHeaderHTML(titulo, subtitulo, logoSrc, imgAttrs){
+  logoSrc = logoSrc || (typeof INF_LOGO!=='undefined'?INF_LOGO:'');
+  subtitulo = (subtitulo==null) ? 'Gestión de Economía Doméstica' : subtitulo;
+  imgAttrs = imgAttrs || 'alt="KHB"';
+  var t=(typeof _infEsc==='function')?_infEsc(titulo||''):(titulo||'');
+  return '<div class="infHdr"><img src="'+logoSrc+'" '+imgAttrs+'><div class="tt"><h1>'+t+'</h1><div class="sub">'+subtitulo+'</div></div></div><div class="accent"></div>';
+}
+
+function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   $('#welcome').style.display='none';
   $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
   $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-panel'));
