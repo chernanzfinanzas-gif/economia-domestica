@@ -100,10 +100,11 @@ function renderSimulador(){
   const grp=t=>held.has(t)?0:(closed.has(t)?1:2);
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
-  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num((dpa[t]||{})[y]||0); }));
+  const simDpa=(t,y)=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; if(d!=null) return d; const v=(dpa[t]||{})[y]; return v!=null?num(v):null; };
+  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
-    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
+    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
       const accCell=(y>nowY)?`<div class="num" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
       const divCell=`<div class="num" style="color:#475569">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div>`;
