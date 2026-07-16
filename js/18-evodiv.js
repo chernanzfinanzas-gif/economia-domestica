@@ -55,6 +55,8 @@ function _evoClean(t){ var s=DB.divData||{}; var T=(t||'').toUpperCase(); var o=
 }
 function _evoSave(t){ _evoClean(t); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); }
 function _evoHoy(){ try{ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }catch(e){ return ''; } }
+/* Ajusta la altura de #evoApp para llenar el viewport: cabecera y pie fijos, solo la tabla scrollea. */
+function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-8; if(v>240){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
 /* MIGRACIÓN Excel → app (una sola vez): registra dividendos.json en DB.divData para
    trabajar 100% en la app y poder replicar/exportar. No pisa ediciones existentes. */
 function _evoMigrar(){
@@ -323,12 +325,12 @@ function renderEvoDiv(){
   var pag=rows.filter(function(r){return r.dpaB!=null&&r.dpaB>0;});
   var rpdList=rows.filter(function(r){return r.rpd!=null;});
   var rpdMed=rpdList.length?rpdList.reduce(function(s,r){return s+r.rpd;},0)/rpdList.length:0;
-  var card=function(l,v){ return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>'; };
-  var kpis='<div class="cards">'
-    +card('Empresas', String(rows.length))
-    +card('Con dividendo '+_evoYear, String(pag.length))
-    +card('RPD media', _evoPf(rpdMed,2)+'%')
-    +card(esFuturo?'Crecimiento':'Actualizado', esFuturo?(_evoPf(_evoCrec(),1)+'%/año'):_evoEsc((_evoData.actualizado||'—')))
+  var kpi=function(l,v){ return '<div style="background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:11px;white-space:nowrap"><span class="muted">'+l+':</span> <b>'+v+'</b></div>'; };
+  var kpis='<div style="display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 4px">'
+    +kpi('Empresas', String(rows.length))
+    +kpi('Con dividendo '+_evoYear, String(pag.length))
+    +kpi('RPD media', _evoPf(rpdMed,2)+'%')
+    +kpi(esFuturo?'Crecim.':'Actualizado', esFuturo?(_evoPf(_evoCrecAno(_evoYear),1)+'%/año'):_evoEsc((_evoData.actualizado||'—')))
     +'</div>';
 
   /* selector de año (con futuros) + "+ año" + chips de grupo + buscador */
@@ -395,11 +397,12 @@ function renderEvoDiv(){
   }).join('');
 
   var thDiv = esFuturo ? 'Dividendo proyectado (bruto)' : 'Dividendo total (bruto)';
-  var tabla='<div style="overflow:auto"><table><thead><tr>'
-    +'<th style="width:24px"></th><th>Empresa</th>'
-    +'<th class="num">'+thDiv+'</th>'
-    +'<th class="num">RPD vs cotización</th>'
-    +'<th>Junta</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+  var _thS='position:sticky;top:0;background:#fff;z-index:2;box-shadow:inset 0 -1px 0 var(--line)';
+  var tabla='<div id="evoScroll" style="overflow:auto;border:1px solid var(--line);border-radius:8px;flex:1 1 auto;min-height:0"><table><thead><tr>'
+    +'<th style="width:24px;'+_thS+'"></th><th style="'+_thS+'">Empresa</th>'
+    +'<th class="num" style="'+_thS+'">'+thDiv+'</th>'
+    +'<th class="num" style="'+_thS+'">RPD vs cotización</th>'
+    +'<th style="'+_thS+'">Junta</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 
   var nota = esFuturo
     ? '<div class="muted" style="font-size:11px;margin-top:8px">Año <b>futuro</b> (posterior al vigente): el dividendo se <b>proyecta</b> = dividendo del año anterior × (1 + % de <b>este</b> año). Cada año futuro tiene su propio %. '
@@ -409,8 +412,7 @@ function renderEvoDiv(){
       +'Orden: en cartera → con informe → en plan → resto por RPD → sin dividendo. Pulsa una fila para ver el detalle y «✏️ Editar dividendos» para añadir/editar pagos, junta y totales. '
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
 
-  host.innerHTML='<div style="font-size:20px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
-    +'<div class="muted" style="font-size:13px;margin-bottom:6px">Base de datos de dividendos por empresa y año. Elige el año (incluidos futuros) y los grupos a mostrar.</div>'
+  host.innerHTML='<div style="font-size:16px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
     +kpis+toolbar+yearSlider+futuroCtrl+tabla+nota;
 
   /* wiring */
@@ -456,6 +458,8 @@ function renderEvoDiv(){
     _evoOpen[t]=!_evoOpen[t]; renderEvoDiv();
   }); });
   if(typeof _wireBuscador==='function'){ _wireBuscador(document.getElementById('evoSearch'), host.querySelectorAll('tbody tr.evo-main[data-fs]'), _evoBusca); }
+  _evoFit();
+  if(!window._evoFitBound){ window._evoFitBound=true; window.addEventListener('resize',_evoFit); }
 }
 
 function _evoTipoOpts(sel){ var opts=['ordinario','complementario','a cuenta','extraordinario','scrip','único']; sel=(sel||''); var h='<option value=""></option>'; opts.forEach(function(o){ h+='<option value="'+o+'"'+(o===sel?' selected':'')+'>'+o+'</option>'; }); if(sel&&opts.indexOf(sel)<0)h+='<option value="'+_evoEsc(sel)+'" selected>'+_evoEsc(sel)+'</option>'; return h; }
