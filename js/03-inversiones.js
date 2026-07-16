@@ -241,7 +241,8 @@ function renderAnalisis(){
     if(poMin&&poMax&&poMed){ const amp=(poMax-poMin)/poMed; D=cl((0.60-amp)/0.50*100); } else if(poMed){ D=100; }
     let score=null;
     if(A!=null&&B!=null&&D!=null) score=wA*A+wB*B+wC*C+wD*D;
-    return {id:a.id,ticker:a.ticker,nombre:a.nombre,cot,poMin,poMax,poMed,entMin,entMax,stop,colchon,stopHit,held:held.has((a.ticker||'').toUpperCase()),rating,dv,pot,dist,A,B,C,D,score};
+    const _uni=(DB.universo&&DB.universo[(a.ticker||'').toUpperCase()])||{};
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre||_uni.nombre||'',cot,poMin,poMax,poMed,entMin,entMax,stop,colchon,stopHit,held:held.has((a.ticker||'').toUpperCase()),rating,dv,pot,dist,A,B,C,D,score};
   });
   if(_sort['analisis']&&_sort['analisis'].k){ list=sortApply('analisis',list,{ticker:x=>x.ticker,nombre:x=>x.nombre,score:x=>x.score,cot:x=>x.cot,poMin:x=>x.poMin,poMax:x=>x.poMax,poMed:x=>x.poMed,entMin:x=>x.entMin,entMax:x=>x.entMax,pot:x=>x.pot,dist:x=>x.dist,stop:x=>x.stop,colchon:x=>x.colchon,rating:x=>x.rating}); } else { list.sort((a,b)=>(b.score==null?-1:b.score)-(a.score==null?-1:a.score)); }
   let bestId=null,bestSc=-1;
@@ -283,7 +284,7 @@ function renderAnalisis(){
     const star=a.id===bestId?'⭐ ':'';
     const rowStyle=a.stopHit?' style="background:#fef2f2"':(a.id===bestId?' style="background:#f0fdf4"':'');
     return `<tr${rowStyle}>
-      <td>${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.ticker?`<span data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand);text-decoration:underline" title="Abrir ficha">${a.nombre||''}</span>`:(a.nombre||'')}${(typeof SECTOR!=='undefined'&&SECTOR[(a.ticker||'').toUpperCase()])?`<div class="muted" style="font-size:9px" title="${(typeof SUBTIPO!=='undefined'&&SUBTIPO[(a.ticker||'').toUpperCase()])||''}">${SECTOR[(a.ticker||'').toUpperCase()]}</div>`:''}</td>
+      <td>${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.ticker?`<span data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand);text-decoration:underline" title="Abrir ficha">${a.nombre||''}</span>`:(a.nombre||'')}${(function(){var _t=(a.ticker||'').toUpperCase();var _u=(DB.universo&&DB.universo[_t])||{};var _arq=(typeof SECTOR!=='undefined'&&SECTOR[_t])||_u.arquetipo||'';var _sub=(typeof SUBTIPO!=='undefined'&&SUBTIPO[_t])||_u.subtipo||'';return _arq?('<div class="muted" style="font-size:9px" title="'+_sub+'">'+_arq+'</div>'):'';})()}</td>
       <td style="text-align:center;white-space:nowrap"><div style="font-size:20px;font-weight:800;line-height:1.05;color:${sCol}">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div style="font-size:9px;font-weight:700;color:${sCol};text-transform:uppercase;letter-spacing:.03em">${sLbl}</div>`}</td>
       ${decCell}
       <td class="num">${fmt(a.cot)}</td>
