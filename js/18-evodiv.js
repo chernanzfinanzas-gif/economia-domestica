@@ -21,6 +21,7 @@ var _evoGroups = {};          /* filtros de grupo activos (aditivo) */
 var _evoBusca = {q:''};
 var _evoOpen = {};            /* filas desplegadas: ticker -> true */
 var _evoEdit = {};            /* ticker -> modo edición de dividendos abierto */
+var _evoScrollTo = null;      /* ticker cuya fila hay que dejar a la vista tras re-render */
 
 function _evoCargar(){
   if(_evoData) return Promise.resolve(_evoData);
@@ -56,7 +57,7 @@ function _evoClean(t){ var s=DB.divData||{}; var T=(t||'').toUpperCase(); var o=
 function _evoSave(t){ _evoClean(t); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); }
 function _evoHoy(){ try{ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }catch(e){ return ''; } }
 /* Ajusta la altura de #evoApp para llenar el viewport: cabecera y pie fijos, solo la tabla scrollea. */
-function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-8; if(v>240){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
+function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-4; if(v>170){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
 /* MIGRACIÓN Excel → app (una sola vez): registra dividendos.json en DB.divData para
    trabajar 100% en la app y poder replicar/exportar. No pisa ediciones existentes. */
 function _evoMigrar(){
@@ -104,12 +105,53 @@ function evoExportarJSON(){
   var out={schemaVersion:2,actualizado:_evoHoy(),years:Object.keys(yset).map(Number).sort(function(a,b){return a-b;}),empresas:empresas};
   try{ var blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'}); var url=URL.createObjectURL(blob); var el=document.createElement('a'); el.href=url; el.download='dividendos.json'; document.body.appendChild(el); el.click(); setTimeout(function(){ document.body.removeChild(el); URL.revokeObjectURL(url); },200); }catch(e){ alert('No se pudo exportar: '+e); }
 }
-var _EVO_TIPO_COL={'a cuenta':['#dbeafe','#1e40af'],'complementario':['#dcfce7','#166534'],'ordinario':['#e2e8f0','#334155'],'extraordinario':['#fef3c7','#92400e'],'scrip':['#ede9fe','#5b21b6'],'único':['#fae8ff','#86198f']};
+/* Clave de tipos de dividendo: código real (Investing/Excel) -> etiqueta + definición + color. */
+var _EVO_TIPO_INFO={
+  'I':               {label:'A cuenta',            def:'anticipo pagado durante el ejercicio, antes del cierre', bg:'#dbeafe', fg:'#1e40af'},
+  'a cuenta':        {label:'A cuenta',            def:'anticipo pagado durante el ejercicio, antes del cierre', bg:'#dbeafe', fg:'#1e40af'},
+  'F':               {label:'Complementario',      def:'pago que cierra el ejercicio; complementa al/los a cuenta', bg:'#dcfce7', fg:'#166534'},
+  'complementario':  {label:'Complementario',      def:'pago que cierra el ejercicio; complementa al/los a cuenta', bg:'#dcfce7', fg:'#166534'},
+  'o':               {label:'Otros',               def:'clasificación «otros» de Investing', bg:'#e2e8f0', fg:'#334155'},
+  'ordinario':       {label:'Ordinario',           def:'pago ordinario recurrente', bg:'#e2e8f0', fg:'#334155'},
+  'scrip':           {label:'Scrip / flexible',    def:'en acciones o efectivo a elección del accionista', bg:'#ede9fe', fg:'#5b21b6'},
+  'extraordinario':  {label:'Extraordinario',      def:'pago puntual no recurrente', bg:'#fef3c7', fg:'#92400e'},
+  'especial':        {label:'Especial',            def:'pago especial puntual', bg:'#fef3c7', fg:'#92400e'},
+  'B':               {label:'Bonus',               def:'dividendo extra sobre el ordinario', bg:'#ffe4e6', fg:'#9f1239'},
+  'prima':           {label:'Prima',               def:'prima (p. ej. de asistencia a junta)', bg:'#fae8ff', fg:'#86198f'},
+  'prima junta':     {label:'Prima de junta',      def:'prima de asistencia a la junta de accionistas', bg:'#fae8ff', fg:'#86198f'},
+  'prima/I':         {label:'Prima + a cuenta',    def:'prima combinada con dividendo a cuenta', bg:'#fae8ff', fg:'#86198f'},
+  'reduccion capital':{label:'Reducción de capital',def:'retribución vía devolución/reducción de capital', bg:'#fce7f3', fg:'#9d174d'},
+  'reducción capital':{label:'Reducción de capital',def:'retribución vía devolución/reducción de capital', bg:'#fce7f3', fg:'#9d174d'},
+  'unico':           {label:'Único',               def:'pago único anual', bg:'#fae8ff', fg:'#86198f'},
+  'único':           {label:'Único',               def:'pago único anual', bg:'#fae8ff', fg:'#86198f'},
+  'previsto':        {label:'Previsto',            def:'pago previsto, aún sin confirmar', bg:'#fff7ed', fg:'#c2410c'},
+  'anomalo':         {label:'Anómalo',             def:'dato marcado como anómalo, revisar', bg:'#fee2e2', fg:'#991b1b'},
+  'anómalo':         {label:'Anómalo',             def:'dato marcado como anómalo, revisar', bg:'#fee2e2', fg:'#991b1b'},
+  '12M':             {label:'Anual',               def:'frecuencia: un pago al año', bg:'#f1f5f9', fg:'#475569'},
+  '6M':              {label:'Semestral',           def:'frecuencia: pago semestral', bg:'#f1f5f9', fg:'#475569'},
+  '3M':              {label:'Trimestral',          def:'frecuencia: pago trimestral', bg:'#f1f5f9', fg:'#475569'},
+  '':                {label:'Sin clasificar',      def:'sin tipo asignado', bg:'#f1f5f9', fg:'#94a3b8'}
+};
+function _evoTipoInfo(code){ var k=(code==null?'':(''+code)).trim(); if(_EVO_TIPO_INFO[k]) return _EVO_TIPO_INFO[k]; var lk=k.toLowerCase(); if(_EVO_TIPO_INFO[lk]) return _EVO_TIPO_INFO[lk]; return {label:(k||'—'), def:'', bg:'#f1f5f9', fg:'#475569'}; }
 function _evoTipoBadge(tipo,previsto){
-  tipo=tipo||'—'; var c=_EVO_TIPO_COL[tipo]||['#f1f5f9','#475569'];
-  var h='<span style="font-size:9px;font-weight:700;background:'+c[0]+';color:'+c[1]+';padding:1px 6px;border-radius:6px">'+_evoEsc(tipo)+'</span>';
-  if(previsto) h+=' <span style="font-size:9px;font-weight:700;background:#fff7ed;color:#c2410c;padding:1px 5px;border-radius:6px">previsto</span>';
+  var raw=(tipo==null||tipo==='')?'—':(''+tipo); var inf=_evoTipoInfo(tipo);
+  var tip=inf.label+(inf.def?(' — '+inf.def):'');
+  var h='<span title="'+_evoEsc(tip)+'" style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px;cursor:help">'+_evoEsc(raw)+'</span>';
+  if(previsto) h+=' <span title="Pago previsto, aún sin confirmar" style="font-size:9px;font-weight:700;background:#fff7ed;color:#c2410c;padding:1px 5px;border-radius:6px;cursor:help">previsto</span>';
   return h;
+}
+/* Leyenda desplegable (nativa <details>): clave de todos los tipos. */
+function _evoClaveHTML(){
+  var clases=['I','F','o','scrip','extraordinario','especial','B','prima','prima junta','reducción capital','único','previsto','anómalo',''];
+  var frec=['12M','6M','3M'];
+  var pill=function(code){ var inf=_evoTipoInfo(code); return '<span style="display:inline-flex;gap:6px;align-items:baseline;margin:2px 12px 2px 0;font-size:11px"><span style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px">'+_evoEsc(code||'—')+'</span><span style="color:#475569"><b>'+_evoEsc(inf.label)+'</b>'+(inf.def?(' · '+_evoEsc(inf.def)):'')+'</span></span>'; };
+  return '<details style="margin:2px 0 6px;border:1px solid var(--line);border-radius:8px;background:#f8fafc">'
+    +'<summary style="cursor:pointer;padding:6px 10px;font-size:12px;font-weight:700;color:#1f3d6b">❔ Clave de tipos de dividendo</summary>'
+    +'<div style="padding:2px 10px 10px">'
+    +'<div style="font-size:11px;font-weight:700;color:#64748b;margin:4px 0 2px">Clase</div><div>'+clases.map(pill).join('')+'</div>'
+    +'<div style="font-size:11px;font-weight:700;color:#64748b;margin:8px 0 2px">Frecuencia <span style="font-weight:400;color:#94a3b8">(algunos registros la anotan en el mismo campo)</span></div><div>'+frec.map(pill).join('')+'</div>'
+    +'<div style="font-size:10.5px;color:#94a3b8;margin-top:8px">Pasa el cursor por encima de cualquier etiqueta de tipo en la tabla para ver su significado.</div>'
+    +'</div></details>';
 }
 /* Control: total declarado vs suma de pagos (con previsión y nota). */
 function _evoControlHTML(a){
@@ -254,6 +296,7 @@ function renderEvoDiv(){
   var sec=document.getElementById('view-prevision'); if(!sec) return;
   var host=document.getElementById('evoApp');
   if(!host){ host=document.createElement('div'); host.id='evoApp'; sec.appendChild(host); }
+  var _evoPrevScroll=(function(){ var s=document.getElementById('evoScroll'); return s?s.scrollTop:0; })();
 
   if(!_evoData){ host.innerHTML='<div class="muted" style="padding:10px">Cargando dividendos.json…</div>'; _evoCargar().then(renderEvoDiv); return; }
   _evoMigrar();   /* Opción B: registra el Excel en la app una sola vez; luego se trabaja aquí. */
@@ -340,14 +383,14 @@ function renderEvoDiv(){
   var chips=EVO_GRUPOS.map(function(g){ var on=!!_evoGroups[g.k];
     return '<button class="btn sm" data-evogrp="'+g.k+'" style="border:1px solid '+(on?'var(--brand)':'var(--line)')+';background:'+(on?'#eff6ff':'#fff')+';color:'+(on?'var(--brand)':'inherit')+';font-weight:'+(on?'700':'400')+'">'+g.lbl+'</button>';
   }).join(' ');
-  var toolbar='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">'
+  var toolbar='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:4px 0">'
     +'<button class="btn sm" id="evoAddYear" title="Añadir un año futuro para proyectar">+ año</button>'
     +'<span style="display:flex;gap:5px;flex-wrap:wrap">'+chips+'</span>'
     +'<input type="search" id="evoSearch" placeholder="Buscar nombre o ticker…" style="padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:180px">'
     +'<button class="btn sm" id="evoExport" title="Descargar dividendos.json con todos los datos de la app (para regenerar el Excel)">⬇️ Exportar</button>'
     +'</div>';
   var yearTag=(_evoYear>nowY)?' <span style="font-size:11px;color:#92400e">· proyección</span>':'';
-  var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 12px;flex-wrap:wrap">'
+  var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 5px;flex-wrap:wrap">'
     +'<span style="font-size:13px;font-weight:700;color:#1f3d6b;min-width:150px">Año: <span id="evoYearLbl" style="font-size:17px">'+_evoYear+'</span><span id="evoYearTag">'+yearTag+'</span></span>'
     +'<input type="range" id="evoYearRange" min="'+minData+'" max="'+horizon+'" step="1" value="'+_evoYear+'" style="flex:1;min-width:220px;max-width:560px;accent-color:#1f3d6b">'
     +'<span class="muted" style="font-size:11px">'+minData+' – '+horizon+'</span>'
@@ -413,7 +456,7 @@ function renderEvoDiv(){
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
 
   host.innerHTML='<div style="font-size:16px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
-    +kpis+toolbar+yearSlider+futuroCtrl+tabla+nota;
+    +kpis+toolbar+yearSlider+futuroCtrl+_evoClaveHTML()+tabla+nota;
 
   /* wiring */
   var ys=document.getElementById('evoYearSel');
@@ -441,12 +484,12 @@ function renderEvoDiv(){
     });
   });
   /* --- edición de dividendos (capa DB.divData) --- */
-  host.querySelectorAll('[data-evoedit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var t=(b.getAttribute('data-evoedit')||'').toUpperCase(); _evoEdit[t]=!_evoEdit[t]; _evoOpen[t]=true; renderEvoDiv(); }); });
+  host.querySelectorAll('[data-evoedit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var t=(b.getAttribute('data-evoedit')||'').toUpperCase(); _evoEdit[t]=!_evoEdit[t]; _evoOpen[t]=true; _evoScrollTo=t; renderEvoDiv(); }); });
   host.querySelectorAll('[data-dpaga]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var t=(this.getAttribute('data-dpaga')||'').toUpperCase(); var o=_evoEnsure(t,null); o.paga=this.checked; _evoSave(t); }); });
   host.querySelectorAll('[data-df]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-df')||'').split('|'); var t=(p[0]||'').toUpperCase(); var f=p[1]; var o=_evoEnsure(t,null); var v=(this.value||'').trim(); if(v==='') delete o[f]; else o[f]=v; _evoSave(t); }); });
   host.querySelectorAll('[data-dy]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dy')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); var v=(this.value||'').trim(); if(v==='') delete ay[f]; else ay[f]=(f==='dpaBruto'||f==='dpaNeto')?num(v.replace(',','.')):v; if(f==='dpaBruto'){ if(v==='') delete ay.dpaNeto; else ay.dpaNeto=_evoNeto(num(v.replace(',','.'))); } _evoSave(t); }); });
   host.querySelectorAll('[data-dp]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dp')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; var v=(this.value||'').trim(); ay.pagos[idx][f]=(f==='bruto'||f==='neto')?num(v.replace(',','.')):v; if(f==='bruto' && !(num(ay.pagos[idx].neto)>0)) ay.pagos[idx].neto=_evoNeto(num(v.replace(',','.'))); _evoSave(t); }); });
-  host.querySelectorAll('[data-dpadd]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpadd')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.push({exDiv:'',pago:'',bruto:0,neto:0,tipo:'ordinario'}); _evoEdit[t]=true; _evoOpen[t]=true; _evoSave(t); }); });
+  host.querySelectorAll('[data-dpadd]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpadd')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.push({exDiv:'',pago:'',bruto:0,neto:0,tipo:'ordinario'}); _evoEdit[t]=true; _evoOpen[t]=true; _evoScrollTo=t; _evoSave(t); }); });
   host.querySelectorAll('[data-dpdel]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpdel')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.splice(idx,1); _evoSave(t); }); });
   host.querySelectorAll('[data-dyb]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var p=(this.getAttribute('data-dyb')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); ay[f]=this.checked; _evoSave(t); }); });
   host.querySelectorAll('[data-dpb]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var p=(this.getAttribute('data-dpb')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; ay.pagos[idx][f]=this.checked; _evoSave(t); }); });
@@ -455,10 +498,11 @@ function renderEvoDiv(){
     if(e.target.closest('[data-ficha]')) return;   /* el clic en el ticker abre la ficha */
     if(e.target.closest('input')) return;          /* el clic en la casilla de override no despliega */
     var t=(tr.getAttribute('data-evorow')||'').toUpperCase(); if(!t)return;
-    _evoOpen[t]=!_evoOpen[t]; renderEvoDiv();
+    _evoOpen[t]=!_evoOpen[t]; _evoScrollTo=t; renderEvoDiv();
   }); });
   if(typeof _wireBuscador==='function'){ _wireBuscador(document.getElementById('evoSearch'), host.querySelectorAll('tbody tr.evo-main[data-fs]'), _evoBusca); }
   _evoFit();
+  (function(){ var s=document.getElementById('evoScroll'); if(!s)return; void s.scrollHeight; s.scrollTop=_evoPrevScroll; if(_evoScrollTo){ var row=host.querySelector('tr.evo-main[data-evorow="'+_evoScrollTo+'"]'); if(row&&row.scrollIntoView){ try{ row.scrollIntoView({block:'nearest'}); }catch(e){ row.scrollIntoView(); } } _evoScrollTo=null; } })();
   if(!window._evoFitBound){ window._evoFitBound=true; window.addEventListener('resize',_evoFit); }
 }
 
