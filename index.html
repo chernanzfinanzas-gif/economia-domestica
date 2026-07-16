@@ -139,6 +139,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #planTabla table{font-size:11px;border-collapse:separate;border-spacing:0}
   #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
+  #simTabla,#loteScrollBox{max-height:calc(100vh - 250px)} #simTabla thead th,#loteTabla thead th{position:sticky;top:0;z-index:4;background:#fff;box-shadow:inset 0 -1px 0 var(--line)} #simTabla thead th:first-child{left:0;z-index:5}
   #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #cajaTabla table{font-size:11px} #cajaTabla th,#cajaTabla td{padding:3px 6px;text-align:right;border:1px solid #e2e8f0} #cajaTabla th:first-child,#cajaTabla td:first-child,#cajaTabla th:nth-child(2),#cajaTabla td:nth-child(2){text-align:left} #cajaTabla input[type=number]{-moz-appearance:textfield} #cajaTabla input[type=number]::-webkit-inner-spin-button,#cajaTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
@@ -538,6 +539,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-diversif">
     <h2>Diversificación — clasificación de empresas</h2>
     <div class="sub" style="margin-bottom:8px">Lista de 20 empresas del plan. Las primeras son tu cartera actual; en los slots libres elige empresas del listado de Análisis (orden alfabético). El alta de una empresa nueva se hace aquí y aparece luego en Plan y Simulador.</div>
+    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="loteAdd">+ Empresa</button> <span class="muted" id="loteStatus"></span></div>
     <div id="loteTabla"></div>
   </section>
 
@@ -678,6 +680,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="row-actions"><button type="submit" class="btn" id="anaSubmit">Añadir</button>
         <button type="button" class="btn ghost" id="anaCancel">Cancelar</button></div>
     </form>
+    <div style="margin:2px 0 10px"><input type="search" id="anaSearch" placeholder="Buscar empresa (nombre o ticker)…" style="padding:6px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;min-width:240px"></div>
     <div id="anaTable" style="overflow:auto"></div>
   </section>
 
@@ -717,17 +720,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-prevision">
-    <h2>Evolución del dividendo</h2>
-    <div class="sub" style="margin-bottom:6px">Dividendo <b>por acción</b> por año (2011→futuro) de cada empresa. <b>Única fuente editable</b> del dividendo: aquí registras manualmente históricos y previsiones. El <b>Simulador</b> los lee de aquí (allí son solo lectura). Años futuros en amarillo.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="prevAdd">+ Empresa</button> <button class="btn sm" id="prevAddYear">+ Año</button> <span class="muted" id="prevStatus"></span></div>
-    <div style="overflow:auto" id="prevTabla"></div>
+    <div id="evoApp"></div>
   </section>
 
   <section class="view" id="view-simulador">
     <h2>Simulador de dividendos</h2>
     <div class="cards" id="simKpis"></div>
     <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Vista de resultado: las <b>acciones futuras</b> vienen de <b>Diversificación</b> y el <b>dividendo/acción</b> de <b>Evolución Dividendo</b> (aquí solo lectura). Editable solo el pasado/año en curso de acciones.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="simAdd">+ Empresa</button> <button class="btn sm" id="simAddYear">+ Año</button> <span class="muted" id="simStatus"></span></div>
+    <div class="toolbar" style="margin-bottom:6px"><span class="muted" id="simStatus">El alta de empresas y el horizonte de años se gestionan en <b>Diversificación</b>.</span></div>
+    <input type="range" id="simScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años" style="width:100%;margin:0 0 6px;accent-color:#1f3d6b;cursor:pointer">
     <div style="overflow:auto" id="simTabla"></div>
   </section>
 
@@ -736,7 +737,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="cards" id="planKpis"></div>
     <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan Inversor → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="planAddYear">+ Año</button> <span class="muted" id="planStatus"></span></div>
+    <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="planStatus">El horizonte de años se gestiona en <b>Diversificación</b>.</span></div>
     <div style="overflow:auto" id="planTabla"></div>
   </section>
 
@@ -803,6 +804,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
   <section class="view" id="view-backtest">
     <h2>Backtest del método</h2>
+    <div class="toolbar" style="margin:6px 0 4px"><button class="btn sm" id="btRegen" title="Lee tus dossiers y crea/completa las fotos con Calidad + Oportunidad en la fecha de cada análisis">🔄 Regenerar fotos desde dossiers</button> <span class="muted" id="btStatus"></span></div>
     <div id="btKpis" class="cards" style="margin-top:10px"></div>
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
@@ -906,6 +908,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/14-papelera.js"></script>
   <script src="js/16-buzon.js"></script>
   <script src="js/17-escenarios.js"></script>
+  <script src="js/18-evodiv.js"></script>
   <script src="js/06-main.js"></script>
   <script src="js/15-cmdk.js"></script>
 
