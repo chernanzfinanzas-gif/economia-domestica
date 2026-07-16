@@ -12,15 +12,44 @@ var _radarSort = {k:'rpd', dir:-1};   /* k: 'rpd' | 'pos' ; dir: -1 desc, 1 asc 
 var _radarSoloDiv = true;   /* true = solo empresas con dividendo (RPD) */
 var _radarBusca = {q:''};   /* búsqueda por nombre/ticker */
 
+/* Precio actual del ticker: DB.valores → _precioActualDe → último de precios/[t].json */
+function _radarPrecio(t){
+  var v=(DB.valores||{})[t]||{}; var p=num(v.precioActual); if(p>0)return p;
+  if(typeof _precioActualDe==='function'){ p=num(_precioActualDe(t)); if(p>0)return p; }
+  if(typeof _precioCache!=='undefined'){ var pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); }
+  return 0;
+}
+/* DPA bruto del año en curso (o el último con dato) desde dividendos.json */
+function _radarDiv(t){
+  if(typeof evoDpaBruto!=='function')return 0;
+  var y=new Date().getFullYear();
+  for(var k=0;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }
+  return 0;
+}
 function _radarUniverso(){
   var out=[], seen={};
+  /* Fuente principal: la base de dividendos (dividendos.json → _evoData). */
+  var src=(typeof _evoData!=='undefined' && _evoData && _evoData.empresas && _evoData.empresas.length) ? _evoData.empresas : null;
+  if(src){
+    src.forEach(function(e){
+      var t=(e.ticker||'').toUpperCase(); if(!t||seen[t])return; seen[t]=1;
+      var v=(DB.valores||{})[t]||{};
+      var precio=_radarPrecio(t);
+      var div=_radarDiv(t);
+      if(!(precio>0))return;                 /* necesita cotización para calcular posición */
+      if(_radarSoloDiv && !(div>0))return;   /* con el filtro activo, solo empresas con dividendo (RPD) */
+      out.push({t:t,nombre:e.nombre||v.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''});
+    });
+    return out;
+  }
+  /* Respaldo (si aún no cargó dividendos.json): DB.analisis, comportamiento anterior. */
   (DB.analisis||[]).forEach(function(a){
     var t=(a.ticker||'').toUpperCase(); if(!t||seen[t])return; seen[t]=1;
     var v=(DB.valores||{})[t]||{};
     var precio=num(v.precioActual)||num(a.cotizacion);
     var div=num(v.divAccion)||num(a.divAccion);
-    if(!(precio>0))return;                 /* necesita cotización para calcular posición */
-    if(_radarSoloDiv && !(div>0))return;   /* con el filtro activo, solo empresas con dividendo (RPD) */
+    if(!(precio>0))return;
+    if(_radarSoloDiv && !(div>0))return;
     out.push({t:t,nombre:v.nombre||a.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''});
   });
   return out;
@@ -56,8 +85,13 @@ function _radarBar(pos){
 function renderRadarDiv(){
   var sec=document.getElementById('view-radardiv'); if(!sec) return;
   var host=document.getElementById('radarApp'); if(!host){ host=document.createElement('div'); host.id='radarApp'; sec.appendChild(host); }
+  /* asegurar que la base de dividendos (dividendos.json) esté cargada antes de construir el universo */
+  if(typeof _evoCargar==='function' && !(typeof _evoData!=='undefined' && _evoData && _evoData.empresas)){
+    host.innerHTML='<div class="muted" style="padding:10px">Cargando base de dividendos…</div>';
+    _evoCargar().then(function(){ renderRadarDiv(); }); return;
+  }
   var uni=_radarUniverso();
-  if(!uni.length){ host.innerHTML='<div class="empty">Sin empresas con cotización y dividendo en el radar. Pega cotizaciones en Análisis (Nombre · Cotización · Dividendo).</div>'; return; }
+  if(!uni.length){ host.innerHTML='<div class="empty">Sin empresas con cotización en la base de dividendos. Comprueba que <code>dividendos.json</code> está subido al repo y que hay cotizaciones en <code>precios/</code>.</div>'; return; }
   /* cargar precios históricos que falten y re-render */
   if(typeof _precioCache!=='undefined'){
     var faltan=uni.map(function(x){return x.t;}).filter(function(t){return _precioCache[t]===undefined;});
