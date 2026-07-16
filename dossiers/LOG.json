@@ -70,8 +70,10 @@
    "aviso": null
   },
   "motivos": [
-   "la cotización (33.90) queda por DEBAJO de toda la banda de PO [40.3–56.8] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+   "la cotización (33.90) queda por DEBAJO de toda la banda de PO [40.3–56.8] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
   ],
-  "calculadoEl": "2026-07-15"
+  "calculadoEl": "2026-07-15",
+  "matizada": true
  }
 }
