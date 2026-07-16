@@ -105,12 +105,53 @@ function evoExportarJSON(){
   var out={schemaVersion:2,actualizado:_evoHoy(),years:Object.keys(yset).map(Number).sort(function(a,b){return a-b;}),empresas:empresas};
   try{ var blob=new Blob([JSON.stringify(out,null,1)],{type:'application/json'}); var url=URL.createObjectURL(blob); var el=document.createElement('a'); el.href=url; el.download='dividendos.json'; document.body.appendChild(el); el.click(); setTimeout(function(){ document.body.removeChild(el); URL.revokeObjectURL(url); },200); }catch(e){ alert('No se pudo exportar: '+e); }
 }
-var _EVO_TIPO_COL={'a cuenta':['#dbeafe','#1e40af'],'complementario':['#dcfce7','#166534'],'ordinario':['#e2e8f0','#334155'],'extraordinario':['#fef3c7','#92400e'],'scrip':['#ede9fe','#5b21b6'],'único':['#fae8ff','#86198f']};
+/* Clave de tipos de dividendo: código real (Investing/Excel) -> etiqueta + definición + color. */
+var _EVO_TIPO_INFO={
+  'I':               {label:'A cuenta',            def:'anticipo pagado durante el ejercicio, antes del cierre', bg:'#dbeafe', fg:'#1e40af'},
+  'a cuenta':        {label:'A cuenta',            def:'anticipo pagado durante el ejercicio, antes del cierre', bg:'#dbeafe', fg:'#1e40af'},
+  'F':               {label:'Complementario',      def:'pago que cierra el ejercicio; complementa al/los a cuenta', bg:'#dcfce7', fg:'#166534'},
+  'complementario':  {label:'Complementario',      def:'pago que cierra el ejercicio; complementa al/los a cuenta', bg:'#dcfce7', fg:'#166534'},
+  'o':               {label:'Otros',               def:'clasificación «otros» de Investing', bg:'#e2e8f0', fg:'#334155'},
+  'ordinario':       {label:'Ordinario',           def:'pago ordinario recurrente', bg:'#e2e8f0', fg:'#334155'},
+  'scrip':           {label:'Scrip / flexible',    def:'en acciones o efectivo a elección del accionista', bg:'#ede9fe', fg:'#5b21b6'},
+  'extraordinario':  {label:'Extraordinario',      def:'pago puntual no recurrente', bg:'#fef3c7', fg:'#92400e'},
+  'especial':        {label:'Especial',            def:'pago especial puntual', bg:'#fef3c7', fg:'#92400e'},
+  'B':               {label:'Bonus',               def:'dividendo extra sobre el ordinario', bg:'#ffe4e6', fg:'#9f1239'},
+  'prima':           {label:'Prima',               def:'prima (p. ej. de asistencia a junta)', bg:'#fae8ff', fg:'#86198f'},
+  'prima junta':     {label:'Prima de junta',      def:'prima de asistencia a la junta de accionistas', bg:'#fae8ff', fg:'#86198f'},
+  'prima/I':         {label:'Prima + a cuenta',    def:'prima combinada con dividendo a cuenta', bg:'#fae8ff', fg:'#86198f'},
+  'reduccion capital':{label:'Reducción de capital',def:'retribución vía devolución/reducción de capital', bg:'#fce7f3', fg:'#9d174d'},
+  'reducción capital':{label:'Reducción de capital',def:'retribución vía devolución/reducción de capital', bg:'#fce7f3', fg:'#9d174d'},
+  'unico':           {label:'Único',               def:'pago único anual', bg:'#fae8ff', fg:'#86198f'},
+  'único':           {label:'Único',               def:'pago único anual', bg:'#fae8ff', fg:'#86198f'},
+  'previsto':        {label:'Previsto',            def:'pago previsto, aún sin confirmar', bg:'#fff7ed', fg:'#c2410c'},
+  'anomalo':         {label:'Anómalo',             def:'dato marcado como anómalo, revisar', bg:'#fee2e2', fg:'#991b1b'},
+  'anómalo':         {label:'Anómalo',             def:'dato marcado como anómalo, revisar', bg:'#fee2e2', fg:'#991b1b'},
+  '12M':             {label:'Anual',               def:'frecuencia: un pago al año', bg:'#f1f5f9', fg:'#475569'},
+  '6M':              {label:'Semestral',           def:'frecuencia: pago semestral', bg:'#f1f5f9', fg:'#475569'},
+  '3M':              {label:'Trimestral',          def:'frecuencia: pago trimestral', bg:'#f1f5f9', fg:'#475569'},
+  '':                {label:'Sin clasificar',      def:'sin tipo asignado', bg:'#f1f5f9', fg:'#94a3b8'}
+};
+function _evoTipoInfo(code){ var k=(code==null?'':(''+code)).trim(); if(_EVO_TIPO_INFO[k]) return _EVO_TIPO_INFO[k]; var lk=k.toLowerCase(); if(_EVO_TIPO_INFO[lk]) return _EVO_TIPO_INFO[lk]; return {label:(k||'—'), def:'', bg:'#f1f5f9', fg:'#475569'}; }
 function _evoTipoBadge(tipo,previsto){
-  tipo=tipo||'—'; var c=_EVO_TIPO_COL[tipo]||['#f1f5f9','#475569'];
-  var h='<span style="font-size:9px;font-weight:700;background:'+c[0]+';color:'+c[1]+';padding:1px 6px;border-radius:6px">'+_evoEsc(tipo)+'</span>';
-  if(previsto) h+=' <span style="font-size:9px;font-weight:700;background:#fff7ed;color:#c2410c;padding:1px 5px;border-radius:6px">previsto</span>';
+  var raw=(tipo==null||tipo==='')?'—':(''+tipo); var inf=_evoTipoInfo(tipo);
+  var tip=inf.label+(inf.def?(' — '+inf.def):'');
+  var h='<span title="'+_evoEsc(tip)+'" style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px;cursor:help">'+_evoEsc(raw)+'</span>';
+  if(previsto) h+=' <span title="Pago previsto, aún sin confirmar" style="font-size:9px;font-weight:700;background:#fff7ed;color:#c2410c;padding:1px 5px;border-radius:6px;cursor:help">previsto</span>';
   return h;
+}
+/* Leyenda desplegable (nativa <details>): clave de todos los tipos. */
+function _evoClaveHTML(){
+  var clases=['I','F','o','scrip','extraordinario','especial','B','prima','prima junta','reducción capital','único','previsto','anómalo',''];
+  var frec=['12M','6M','3M'];
+  var pill=function(code){ var inf=_evoTipoInfo(code); return '<span style="display:inline-flex;gap:6px;align-items:baseline;margin:2px 12px 2px 0;font-size:11px"><span style="font-size:9px;font-weight:700;background:'+inf.bg+';color:'+inf.fg+';padding:1px 6px;border-radius:6px">'+_evoEsc(code||'—')+'</span><span style="color:#475569"><b>'+_evoEsc(inf.label)+'</b>'+(inf.def?(' · '+_evoEsc(inf.def)):'')+'</span></span>'; };
+  return '<details style="margin:2px 0 10px;border:1px solid var(--line);border-radius:8px;background:#f8fafc">'
+    +'<summary style="cursor:pointer;padding:6px 10px;font-size:12px;font-weight:700;color:#1f3d6b">❔ Clave de tipos de dividendo</summary>'
+    +'<div style="padding:2px 10px 10px">'
+    +'<div style="font-size:11px;font-weight:700;color:#64748b;margin:4px 0 2px">Clase</div><div>'+clases.map(pill).join('')+'</div>'
+    +'<div style="font-size:11px;font-weight:700;color:#64748b;margin:8px 0 2px">Frecuencia <span style="font-weight:400;color:#94a3b8">(algunos registros la anotan en el mismo campo)</span></div><div>'+frec.map(pill).join('')+'</div>'
+    +'<div style="font-size:10.5px;color:#94a3b8;margin-top:8px">Pasa el cursor por encima de cualquier etiqueta de tipo en la tabla para ver su significado.</div>'
+    +'</div></details>';
 }
 /* Control: total declarado vs suma de pagos (con previsión y nota). */
 function _evoControlHTML(a){
@@ -415,7 +456,7 @@ function renderEvoDiv(){
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
 
   host.innerHTML='<div style="font-size:16px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
-    +kpis+toolbar+yearSlider+futuroCtrl+tabla+nota;
+    +kpis+toolbar+yearSlider+futuroCtrl+_evoClaveHTML()+tabla+nota;
 
   /* wiring */
   var ys=document.getElementById('evoYearSel');
