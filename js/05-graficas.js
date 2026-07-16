@@ -139,7 +139,7 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
   // FIX (alfa): primer tramo desde el COSTE aportado (serie[0]/aport[0]) para capturar el retorno del primer mes en AMBAS series (cartera e IBEX) y evitar el sesgo de base desalineada que podía anular o invertir la alfa.
   const twrOf=serie=>{ let r=1,ok=false; const base0=num(aport[0]); if(base0>0.01){ r*=num(serie[0])/base0; ok=true; } for(let m=1;m<n;m++){ const start=num(serie[m-1]); const flow=num(aport[m])-num(aport[m-1]); const end=num(serie[m]); if(start>0.01){ r*=(end-flow)/start; ok=true; } } return ok?r-1:null; };
   const twr=twrOf(valdiv), ibexTwr=d.hayIbex?twrOf(ibex):null;
-  const anios=Math.max((n-1)/12,1/12); const anual=x=>x==null?null:(Math.pow(1+x,1/anios)-1);
+  const anios=Math.max((n-1)/12,1/12); const anual=x=>x==null?null:(Math.pow(1+x,1/Math.max(anios,1))-1); // P2.3: no anualizar (extrapolar) historiales <1 año; evita que la alfa se dispare en carteras jóvenes
   const twrAnual=anual(twr), ibexTwrAnual=anual(ibexTwr); const alfa=(twrAnual!=null&&ibexTwrAnual!=null)?twrAnual-ibexTwrAnual:null;
   const valFinal=num(valdiv[n-1]), ibexFinal=d.hayIbex?num(ibex[n-1]):null, valDif=(ibexFinal!=null)?valFinal-ibexFinal:null;
   // XIRR (money-weighted): flujos datados = compras(−)/ventas(+)/dividendos(+) + valor de mercado actual como flujo terminal(+)
