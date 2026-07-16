@@ -645,6 +645,18 @@ function buildEmpresa(ctx,tOverride){
   return _infDocWrapKHB('Informe de empresa · '+nombre+' ('+t+')',metas,inner);
 }
 
+function _infSemanalBlockHTML(){
+  var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
+  var _infOrden='genera el informe semanal de cartera';
+  var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
+  return '<div class="card" style="margin:0 0 14px;border:2px solid #1E3A5F">'
+    +'<div style="font-weight:800;font-size:15px;margin-bottom:4px">🧾 Informe semanal de cartera</div>'
+    +'<div class="muted" style="font-size:12px;margin-bottom:8px">Genera un PDF con la <b>coyuntura</b> y el <b>stress test</b> de todas tus empresas con análisis completo: una portada-resumen y una página por empresa, con los drivers del periodo, semáforos de riesgo y alertas tempranas. Es un filtro grueso de vigilancia, no una recomendación de compra/venta. Se crea con Claude (Cowork) en este ordenador y se archiva en la Hemeroteca.</div>'
+    +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
+    +'<a class="btn" id="infcSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
+    +'</div>'
+    +'</div>';
+}
 function _infEmpresaBlockHTML(){
   var uni=_infEmpresaUniverse();
   var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
@@ -719,7 +731,7 @@ function renderInformesCenter(){
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
   var catHtml=Object.keys(groups).sort().map(function(g){ var gs=_infEsc(g); var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infcCat" value="'+c.id+'"> '+_infEsc(c.nombre)+'</label>'; }).join(''); return '<div style="margin-bottom:4px"><div style="font-weight:700;font-size:11px">'+gs+'</div>'+items+'</div>'; }).join('');
   var titHtml=(typeof _infTitulares==='function'?_infTitulares():['Carlos','Susana','Dos']).map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infcTit" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
-  host.innerHTML=_infEmpresaBlockHTML()+'<div id="infcBuilt" class="card" style="margin:0 0 14px">'
+  host.innerHTML=_infSemanalBlockHTML()+_infEmpresaBlockHTML()+'<div id="infcBuilt" class="card" style="margin:0 0 14px">'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">'
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">1 · Elige informes</div><div class="muted" style="font-size:11px;margin-bottom:6px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml+'</div>'
     +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">2 · Periodo</div>'
@@ -743,6 +755,7 @@ function renderInformesCenter(){
   pe.addEventListener('change',function(){ var v=this.value; document.getElementById('infcMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infcAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infcDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infcHastaWrap').style.display=v==='rango'?'':'none'; });
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.infcCat').forEach(function(x){x.checked=ck;}); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
+  var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ try{ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText('genera el informe semanal de cartera'); }catch(e){} });
   var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
   var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
 }
