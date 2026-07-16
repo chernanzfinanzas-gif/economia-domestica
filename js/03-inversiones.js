@@ -229,7 +229,7 @@ function renderAnalisis(){
   const cl=x=>Math.max(0,Math.min(100,x));
   const held=heldTickerSet();
   const list=(DB.analisis||[]).map(a=>{
-    const cot=num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
+    const cot=num(((DB.valores||{})[(a.ticker||'').toUpperCase()]||{}).precioActual)||num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
     const rating=(a.rating||'').toUpperCase();
     const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
     const pot=(cot&&poMed)?(poMed/cot-1):null;
