@@ -152,6 +152,8 @@ function evoAnioM(t,year){ t=(t||'').toUpperCase(); year=String(year);
     if(ov.dpaNeto!=null&&ov.dpaNeto!=='') a.dpaNeto=num(ov.dpaNeto);
     a._editado=true;
   }
+  /* Total neto calculado con la regla del 19% si no hay un neto explícito. */
+  if((a.dpaNeto==null||a.dpaNeto==='') && a.dpaBruto!=null) a.dpaNeto=_evoNeto(a.dpaBruto);
   return a;
 }
 
@@ -164,6 +166,8 @@ function evoYearsDisponibles(){ return (_evoData&&_evoData.years)?_evoData.years
 /* --- % de crecimiento y proyección de años futuros --- */
 function _evoCrec(){ return (DB.divCrecim!=null && DB.divCrecim!=='')?num(DB.divCrecim):4; }
 function _evoRound(x,d){ var p=Math.pow(10,d==null?4:d); return Math.round(num(x)*p)/p; }
+var _EVO_RET = 0.19;   /* retención IRPF por defecto: neto = bruto × (1 − 19%) */
+function _evoNeto(bruto){ return _evoRound(num(bruto)*(1-_EVO_RET),4); }
 function _evoOverride(t,year){
   var o=DB.divOverride&&DB.divOverride[(t||'').toUpperCase()];
   if(o){ var v=o[String(year)]; if(v!=null&&v!==''){ var n=num(v); if(!isNaN(n)) return n; } }
@@ -323,11 +327,16 @@ function renderEvoDiv(){
     return '<button class="btn sm" data-evogrp="'+g.k+'" style="border:1px solid '+(on?'var(--brand)':'var(--line)')+';background:'+(on?'#eff6ff':'#fff')+';color:'+(on?'var(--brand)':'inherit')+';font-weight:'+(on?'700':'400')+'">'+g.lbl+'</button>';
   }).join(' ');
   var toolbar='<div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0">'
-    +'<label style="font-size:13px">Año:'+yearSel+'</label>'
     +'<button class="btn sm" id="evoAddYear" title="Añadir un año futuro para proyectar">+ año</button>'
     +'<span style="display:flex;gap:5px;flex-wrap:wrap">'+chips+'</span>'
     +'<input type="search" id="evoSearch" placeholder="Buscar nombre o ticker…" style="padding:4px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:180px">'
     +'<button class="btn sm" id="evoExport" title="Descargar dividendos.json con todos los datos de la app (para regenerar el Excel)">⬇️ Exportar</button>'
+    +'</div>';
+  var yearTag=(_evoYear>maxData)?' <span style="font-size:11px;color:#92400e">· proyección</span>':((_evoYear>nowY)?' <span style="font-size:11px;color:#2563eb">· previsión</span>':'');
+  var yearSlider='<div style="display:flex;align-items:center;gap:12px;margin:2px 0 12px;flex-wrap:wrap">'
+    +'<span style="font-size:13px;font-weight:700;color:#1f3d6b;min-width:150px">Año: <span id="evoYearLbl" style="font-size:17px">'+_evoYear+'</span><span id="evoYearTag">'+yearTag+'</span></span>'
+    +'<input type="range" id="evoYearRange" min="'+minData+'" max="'+horizon+'" step="1" value="'+_evoYear+'" style="flex:1;min-width:220px;max-width:560px;accent-color:#1f3d6b">'
+    +'<span class="muted" style="font-size:11px">'+minData+' – '+horizon+'</span>'
     +'</div>';
 
   /* control de crecimiento (solo en años futuros) */
@@ -390,7 +399,7 @@ function renderEvoDiv(){
 
   host.innerHTML='<div style="font-size:20px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
     +'<div class="muted" style="font-size:13px;margin-bottom:6px">Base de datos de dividendos por empresa y año. Elige el año (incluidos futuros) y los grupos a mostrar.</div>'
-    +kpis+toolbar+futuroCtrl+tabla+nota;
+    +kpis+toolbar+yearSlider+futuroCtrl+tabla+nota;
 
   /* wiring */
   var ys=document.getElementById('evoYearSel');
@@ -401,6 +410,9 @@ function renderEvoDiv(){
   if(cr) cr.addEventListener('change',function(){ DB.divCrecim=num((this.value||'').replace(',','.')); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); });
   var exb=document.getElementById('evoExport');
   if(exb) exb.addEventListener('click',function(){ evoExportarJSON(); });
+  var yrg=document.getElementById('evoYearRange');
+  if(yrg){ yrg.addEventListener('input',function(){ var lbl=document.getElementById('evoYearLbl'); if(lbl)lbl.textContent=this.value; var tg=document.getElementById('evoYearTag'); if(tg){ var vy=parseInt(this.value,10); tg.innerHTML=(vy>maxData)?' <span style="font-size:11px;color:#92400e">· proyección</span>':((vy>nowY)?' <span style="font-size:11px;color:#2563eb">· previsión</span>':''); } });
+    yrg.addEventListener('change',function(){ _evoYear=parseInt(this.value,10)||_evoYear; renderEvoDiv(); }); }
   host.querySelectorAll('[data-evogrp]').forEach(function(b){ b.addEventListener('click',function(){ var k=b.getAttribute('data-evogrp'); _evoGroups[k]=!_evoGroups[k]; renderEvoDiv(); }); });
   host.querySelectorAll('input[data-ovr]').forEach(function(inp){
     inp.addEventListener('click',function(e){ e.stopPropagation(); });
@@ -418,8 +430,8 @@ function renderEvoDiv(){
   host.querySelectorAll('[data-evoedit]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var t=(b.getAttribute('data-evoedit')||'').toUpperCase(); _evoEdit[t]=!_evoEdit[t]; _evoOpen[t]=true; renderEvoDiv(); }); });
   host.querySelectorAll('[data-dpaga]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var t=(this.getAttribute('data-dpaga')||'').toUpperCase(); var o=_evoEnsure(t,null); o.paga=this.checked; _evoSave(t); }); });
   host.querySelectorAll('[data-df]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-df')||'').split('|'); var t=(p[0]||'').toUpperCase(); var f=p[1]; var o=_evoEnsure(t,null); var v=(this.value||'').trim(); if(v==='') delete o[f]; else o[f]=v; _evoSave(t); }); });
-  host.querySelectorAll('[data-dy]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dy')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); var v=(this.value||'').trim(); if(v==='') delete ay[f]; else ay[f]=(f==='dpaBruto'||f==='dpaNeto')?num(v.replace(',','.')):v; _evoSave(t); }); });
-  host.querySelectorAll('[data-dp]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dp')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; var v=(this.value||'').trim(); ay.pagos[idx][f]=(f==='bruto'||f==='neto')?num(v.replace(',','.')):v; _evoSave(t); }); });
+  host.querySelectorAll('[data-dy]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dy')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); var v=(this.value||'').trim(); if(v==='') delete ay[f]; else ay[f]=(f==='dpaBruto'||f==='dpaNeto')?num(v.replace(',','.')):v; if(f==='dpaBruto'){ if(v==='') delete ay.dpaNeto; else ay.dpaNeto=_evoNeto(num(v.replace(',','.'))); } _evoSave(t); }); });
+  host.querySelectorAll('[data-dp]').forEach(function(inp){ inp.addEventListener('click',function(e){ e.stopPropagation(); }); inp.addEventListener('change',function(){ var p=(this.getAttribute('data-dp')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; var f=p[3]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); if(!ay.pagos[idx])return; var v=(this.value||'').trim(); ay.pagos[idx][f]=(f==='bruto'||f==='neto')?num(v.replace(',','.')):v; if(f==='bruto' && !(num(ay.pagos[idx].neto)>0)) ay.pagos[idx].neto=_evoNeto(num(v.replace(',','.'))); _evoSave(t); }); });
   host.querySelectorAll('[data-dpadd]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpadd')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.push({exDiv:'',pago:'',bruto:0,neto:0,tipo:'ordinario'}); _evoEdit[t]=true; _evoOpen[t]=true; _evoSave(t); }); });
   host.querySelectorAll('[data-dpdel]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); var p=(b.getAttribute('data-dpdel')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var idx=+p[2]; _evoPagosSeed(t,y); var ay=_evoEnsure(t,y); ay.pagos.splice(idx,1); _evoSave(t); }); });
   host.querySelectorAll('[data-dyb]').forEach(function(c){ c.addEventListener('click',function(e){ e.stopPropagation(); }); c.addEventListener('change',function(){ var p=(this.getAttribute('data-dyb')||'').split('|'); var t=(p[0]||'').toUpperCase(); var y=p[1]; var f=p[2]; var ay=_evoEnsure(t,y); ay[f]=this.checked; _evoSave(t); }); });
@@ -453,7 +465,7 @@ function _evoEditHTML(r){
     +fld('Presentación resultados','data-dy="'+esc(t)+'|'+Y+'|presentacionResultados" type="date"', (a.presentacionResultados||'').slice(0,10), '', 150)
     +fld('Naturaleza','data-dy="'+esc(t)+'|'+Y+'|naturaleza" type="text"', a.naturaleza||'', 'ordinario', 120)
     +fld('Total bruto (€)','data-dy="'+esc(t)+'|'+Y+'|dpaBruto" type="number" step="0.0001"', (a.dpaBruto!=null?a.dpaBruto:''), '', 110)
-    +fld('Total neto (€)','data-dy="'+esc(t)+'|'+Y+'|dpaNeto" type="number" step="0.0001"', (a.dpaNeto!=null?a.dpaNeto:''), '', 110)
+    +'<span style="font-size:11px;color:#475569;margin:0 8px 6px 0;display:inline-flex;flex-direction:column;gap:2px">Total neto (auto −19%)<span style="padding:3px 5px;font-size:12px;font-weight:700;background:#f8fafc;border:1px solid var(--line);border-radius:5px;min-width:96px;text-align:right">'+((a.dpaNeto!=null)?_evoPf(a.dpaNeto,4)+' €':'—')+'</span></span>'
     +'<label style="font-size:11px;margin-right:10px"><input type="checkbox" data-dyb="'+esc(t)+'|'+Y+'|totalPrevisto"'+(a.totalPrevisto?' checked':'')+'> Total en previsión</label>'
     +'<button class="btn sm" data-dpsuma="'+esc(t)+'|'+Y+'" title="Poner el total = suma de los pagos" style="font-size:11px">= usar suma de pagos</button>'
     +'<label style="font-size:11px;display:flex;flex-direction:column;gap:2px;color:#475569;margin-top:4px">Nota de la previsión<textarea data-dy="'+esc(t)+'|'+Y+'|notaTotal" rows="1" style="width:100%;padding:3px 5px;border:1px solid var(--line);border-radius:5px;font-size:12px">'+esc(a.notaTotal||'')+'</textarea></label>'
