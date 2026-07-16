@@ -177,13 +177,13 @@
      #view-escenarios .esc-chip.on{background:#1f3864;color:#fff;border-color:#1f3864}
      #view-escenarios .esc-slgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;margin-top:6px}
      @media(max-width:640px){#view-escenarios .esc-slgrid{grid-template-columns:1fr}}
-     #view-escenarios .esc-sl .esc-lab{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;margin-bottom:0}
+     #view-escenarios .esc-sl .esc-lab{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;margin-bottom:0}
      #view-escenarios .esc-val{font-weight:800;font-variant-numeric:tabular-nums}
      #view-escenarios .esc-track{position:relative}
      #view-escenarios .esc-zero{position:absolute;top:14px;bottom:5px;width:2px;background:#0ea5e9;transform:translateX(-1px);pointer-events:none;z-index:2}
      #view-escenarios .esc-zlbl{position:absolute;top:0;font-size:10px;font-weight:700;color:#0369a1;background:#e0f2fe;border:1px solid #7dd3fc;border-radius:4px;padding:0 4px;line-height:1.5;pointer-events:none;z-index:3;white-space:nowrap}
      #view-escenarios .esc-track input[type=range]{width:100%;position:relative;z-index:1;background:transparent;margin:12px 0 0 0}
-     #view-escenarios .esc-ends{display:flex;justify-content:space-between;font-size:10px;color:#64748b;margin-top:-3px}
+     #view-escenarios .esc-ends{display:flex;justify-content:space-between;font-size:9px;color:#64748b;margin-top:-3px}
      #view-escenarios .esc-gauge{display:flex;gap:12px;flex-wrap:wrap}
      #view-escenarios .esc-kpi{flex:1;min-width:150px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
      #view-escenarios .esc-kl{font-size:11.5px;color:#64748b}
@@ -203,7 +203,6 @@
      #view-escenarios .esc-heat{font-size:11px}
      #view-escenarios details{margin-top:10px}#view-escenarios summary{cursor:pointer;font-weight:600;font-size:13px}
    </style>
-   <div class="esc-mut">Cartera real en vivo · 11 factores macro en valores reales · un evento = un preset · mueve las barras en cualquier sentido (línea azul = nivel normal, 0 impacto).</div>
    <div class="esc-card"><h3 style="margin:0 0 6px">Escenario</h3>
      <div class="esc-chips" id="escChips">${chips.map((c,i)=>`<div class="esc-chip${i===0?' on':''}" data-preset="${c[0]}"${(c[0]==='aleatorio'||c[0]==='normal')?' style="border-style:dashed"':''}>${c[1]}</div>`).join('')}</div>
      <div class="esc-mut" id="escPresetDesc" style="margin-top:6px"></div>
