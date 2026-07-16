@@ -109,22 +109,40 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
   if(!_ops2.length) return {empty:true};
   const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
   if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
-  const priceAt=(t,ms)=>priceAtFB(t,ms);
+  // === SERIE DIARIA (por sesión): valor de cartera cada día = Σ participaciones(día) × cierre(día) del repo. ===
   const sharesAt=(t,ms)=>{ let sh=0; _ops2.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
   const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   const _opSet=new Set(_ops2.map(o=>(o.ticker||"").toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||"").toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ divEv.push({ms:Date.UTC(+y,11,31),eur:num(_dIng[t][y])}); }); });
   divEv.sort((a,b)=>a.ms-b.ms);
-  const t0=new Date(Date.parse(_ops2[0].fecha+'T00:00:00')); let yy=t0.getFullYear(),mn2=t0.getMonth(); const now=new Date(); const labels=[],aport=[],valor=[],valdiv=[]; let divAc=0,di=0; const _ibexJ=_precioCache['IBEX']; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length); const ibexVal=[];
-  // FIX #1 (timing): unidades IBEX compradas al precio del índice del DÍA de cada operación (no a fin de mes). Fallback al primer precio conocido si la op es anterior al histórico.
+  const heldT=[...new Set(_ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))];
+  const firstD=(_ops2[0].fecha||'').slice(0,10); const now=new Date(); const todayD=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  const _ibexJ=_precioCache['IBEX']; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length);
+  // Eje temporal = unión de SESIONES (fechas de cierre) de las empresas en cartera + IBEX, de la 1ª operación a hoy.
+  const _dset={}; heldT.forEach(t=>{ const pj=_precioCache[t]; if(pj&&pj.data){ for(let i=0;i<pj.data.length;i++){ const ds=pj.data[i][0]; if(ds>=firstD&&ds<=todayD)_dset[ds]=1; } } });
+  if(hayIbex){ for(let i=0;i<_ibexJ.data.length;i++){ const ds=_ibexJ.data[i][0]; if(ds>=firstD&&ds<=todayD)_dset[ds]=1; } }
+  _dset[firstD]=1; let dates=Object.keys(_dset).sort(); if(!dates.length||dates[dates.length-1]<todayD)dates.push(todayD);
+  // Punteros por empresa: acciones acumuladas y último cierre conocido (carry-forward, = priceRepoAt).
+  const opsByT={}; heldT.forEach(t=>opsByT[t]=[]); _ops2.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); if(opsByT[t])opsByT[t].push(o); });
+  const _pj={},_pi={},_oi={},_sh={},_px={}; heldT.forEach(t=>{ const pj=_precioCache[t]; _pj[t]=(pj&&pj.data)?pj.data:[]; _pi[t]=-1; _oi[t]=0; _sh[t]=0; _px[t]=0; });
+  // IBEX: unidades compradas al precio del índice del DÍA de cada operación (fallback al 1er precio conocido).
   const _ibx0=(hayIbex&&_ibexJ.data.length)?num(_ibexJ.data[0][1]):0; const _ibexOps=[]; if(hayIbex){ _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; const cash=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); const ipo=priceRepoAt('IBEX',om)||_ibx0; if(ipo>0&&cash!==0)_ibexOps.push({ms:om,units:cash/ipo}); }); _ibexOps.sort((a,b)=>a.ms-b.ms); }
-  let ibexUnits=0,ibexDivCash=0,_ibi=0,_ibexPx=0;
-  while(yy<now.getFullYear()||(yy===now.getFullYear()&&mn2<=now.getMonth())){ const cut=Date.UTC(yy,mn2+1,0); const sh={}; let ap=0;
-    _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=cut){ const t=(o.ticker||'').toUpperCase(); const sg=o.tipo==='venta'?-1:1; sh[t]=(sh[t]||0)+sg*num(o.acciones); ap+=sg*num(o.acciones)*num(o.precio); } });
-    while(di<divEv.length&&divEv[di].ms<=cut){ divAc+=divEv[di].eur; di++; }
-    const isLast=(yy===now.getFullYear()&&mn2===now.getMonth()); const _pxAt=(t)=>{ const T=(t||'').toUpperCase(); if(isLast){ const v=(DB.valores||{})[T]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const pj=_precioCache[T]; let rp=0,rf=''; if(pj&&pj.data&&pj.data.length){ rp=num(pj.data[pj.data.length-1][1]); rf=pj.data[pj.data.length-1][0]; } if(lp>0&&rp>0) return (lf>=rf)?lp:rp; if(rp>0) return rp; if(lp>0) return lp; } return priceAt(t,cut); }; let val=0; Object.keys(sh).forEach(t=>{ if(sh[t]>0.0001)val+=sh[t]*_pxAt(t); });
-    labels.push(String(yy).slice(2)+'/'+String(mn2+1).padStart(2,'0')); aport.push(ap); valor.push(val); valdiv.push(val+divAc); if(hayIbex){ const ipx=priceRepoAt('IBEX',cut); while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=cut){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } if(ipx>0){ _ibexPx=ibexUnits*ipx; if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexYield()/12); } ibexVal.push(_ibexPx+ibexDivCash); } mn2++; if(mn2>11){mn2=0;yy++;} }
-  return {ok:true,labels,aport,valor,valdiv,ibexVal,hayIbex}; }
+  const _ibxData=hayIbex?_ibexJ.data:[]; let _ibxi=-1,ibexUnits=0,ibexDivCash=0,_ibi=0;
+  const labels=[],aport=[],valor=[],valdiv=[],ibexVal=[]; let divAc=0,di=0,apRun=0,opGi=0; const lastD=dates[dates.length-1];
+  for(let k=0;k<dates.length;k++){ const d=dates[k]; const dms=Date.parse(d+'T00:00:00'); const isLast=(d===lastD);
+    while(opGi<_ops2.length&&(_ops2[opGi].fecha||'').slice(0,10)<=d){ const o=_ops2[opGi]; apRun+=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); opGi++; }
+    while(di<divEv.length&&divEv[di].ms<=dms){ divAc+=divEv[di].eur; di++; }
+    let val=0;
+    for(let h=0;h<heldT.length;h++){ const t=heldT[h]; const ol=opsByT[t]; while(_oi[t]<ol.length&&(ol[_oi[t]].fecha||'').slice(0,10)<=d){ const o=ol[_oi[t]]; _sh[t]+=(o.tipo==='venta'?-1:1)*num(o.acciones); _oi[t]++; }
+      if(_sh[t]>0.0001){ const pa=_pj[t]; while(_pi[t]+1<pa.length&&pa[_pi[t]+1][0]<=d){ _pi[t]++; _px[t]=num(pa[_pi[t]][1]); }
+        let px=_px[t];
+        if(isLast){ const v=(DB.valores||{})[t]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const rf=(_pi[t]>=0)?pa[_pi[t]][0]:''; if(lp>0&&(lf>=rf||!(px>0)))px=lp; }
+        if(!(px>0)&&typeof opPriceAt==='function')px=num(opPriceAt(t,dms));
+        if(px>0)val+=_sh[t]*px; } }
+    let ibxV=0; if(hayIbex){ while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=dms){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } while(_ibxi+1<_ibxData.length&&_ibxData[_ibxi+1][0]<=d){ _ibxi++; } const ipx=(_ibxi>=0)?num(_ibxData[_ibxi][1]):0; if(ipx>0){ if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexYield()/252); ibxV=ibexUnits*ipx+ibexDivCash; } }
+    labels.push(d); aport.push(apRun); valor.push(val); valdiv.push(val+divAc); if(hayIbex)ibexVal.push(ibxV);
+  }
+  return {ok:true,labels,dates:labels,aport,valor,valdiv,ibexVal,hayIbex,daily:true}; }
 
 // === Rentabilidad real: TIR/XIRR (ponderada por dinero) y TWR (ponderada por tiempo) + benchmark IBEX ===
 function _xirr(cf){ if(!cf||cf.length<2)return null; const pos=cf.some(c=>c.a>0),neg=cf.some(c=>c.a<0); if(!pos||!neg)return null;
@@ -139,7 +157,7 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
   // FIX (alfa): primer tramo desde el COSTE aportado (serie[0]/aport[0]) para capturar el retorno del primer mes en AMBAS series (cartera e IBEX) y evitar el sesgo de base desalineada que podía anular o invertir la alfa.
   const twrOf=serie=>{ let r=1,ok=false; const base0=num(aport[0]); if(base0>0.01){ r*=num(serie[0])/base0; ok=true; } for(let m=1;m<n;m++){ const start=num(serie[m-1]); const flow=num(aport[m])-num(aport[m-1]); const end=num(serie[m]); if(start>0.01){ r*=(end-flow)/start; ok=true; } } return ok?r-1:null; };
   const twr=twrOf(valdiv), ibexTwr=d.hayIbex?twrOf(ibex):null;
-  const anios=Math.max((n-1)/12,1/12); const anual=x=>x==null?null:(Math.pow(1+x,1/Math.max(anios,1))-1); // P2.3: no anualizar (extrapolar) historiales <1 año; evita que la alfa se dispare en carteras jóvenes
+  const _lab=d.labels||[]; const _spanMs=(_lab.length>1)?(Date.parse(_lab[_lab.length-1]+'T00:00:00')-Date.parse(_lab[0]+'T00:00:00')):0; const anios=Math.max(_spanMs/(365.25*86400000),1/12); const anual=x=>x==null?null:(Math.pow(1+x,1/Math.max(anios,1))-1); // P2.3: no anualizar (extrapolar) historiales <1 año; evita que la alfa se dispare en carteras jóvenes
   const twrAnual=anual(twr), ibexTwrAnual=anual(ibexTwr); const alfa=(twrAnual!=null&&ibexTwrAnual!=null)?twrAnual-ibexTwrAnual:null;
   const valFinal=num(valdiv[n-1]), ibexFinal=d.hayIbex?num(ibex[n-1]):null, valDif=(ibexFinal!=null)?valFinal-ibexFinal:null;
   // XIRR (money-weighted): flujos datados = compras(−)/ventas(+)/dividendos(+) + valor de mercado actual como flujo terminal(+)
@@ -155,16 +173,16 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
 // === Atribución del crecimiento de la cartera: de dónde viene el cambio de valor+dividendos ===
 // total (valor+div) = aportación neta + revalorización de mercado + dividendos cobrados, en un periodo.
 function crecimientoAtribucion(mesesAtras){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const n=d.labels.length; if(n<2)return null;
-  const end=n-1; const start=Math.max(0,end-(mesesAtras||12)); const A=_atribFrom(_evoState(d,start),_evoState(d,end)); A.desde=d.labels[start]; A.hasta=d.labels[end]; A.meses=end-start; return A; }
+  const end=n-1; const _mm=(mesesAtras||12); const _lastMs=Date.parse(d.labels[end]+'T00:00:00'); const _cutMs=_lastMs-_mm*30.4375*86400000; let start=0; for(let i=0;i<n;i++){ if(Date.parse(d.labels[i]+'T00:00:00')<=_cutMs)start=i; else break; } const A=_atribFrom(_evoState(d,start),_evoState(d,end)); A.desde=d.labels[start]; A.hasta=d.labels[end]; A.meses=_mm; return A; }
 // Atribución generalizada por rango de meses / por año (reusa carteraEvolData)
-function _labelYM(lb){ const p=(lb||'').split('/'); return (2000+ +p[0])*100 + (+p[1]); }
+function _labelYM(lb){ const p=(lb||'').split('-'); return (+p[0])*100 + (+p[1]); }
 function _evoState(d,idx){ if(idx==null||idx<0)return {aport:0,valor:0,valdiv:0}; return {aport:num(d.aport[idx]),valor:num(d.valor[idx]),valdiv:num(d.valdiv[idx])}; }
 function _idxLE(d,ym){ let idx=null; for(let i=0;i<d.labels.length;i++){ if(_labelYM(d.labels[i])<=ym)idx=i; else break; } return idx; }
 // Atribución sobre el VALOR de mercado de la cartera (reconcilia con lo que ves en Cartera).
 // crecimiento del valor = aportación + mercado. Los dividendos del periodo van aparte (a caja, no son valor de acciones).
 function _atribFrom(s0,s1){ const aportacion=s1.aport-s0.aport; const dividendos=(s1.valdiv-s1.valor)-(s0.valdiv-s0.valor); const crecValor=s1.valor-s0.valor; const revaloriz=crecValor-aportacion; const retorno=revaloriz+dividendos; return {aportacion,revaloriz,dividendos,crecValor,retorno,total:crecValor,valIni:s0.valor,valFin:s1.valor}; }
 function atribucionRango(desdeYM,hastaYM){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return null; const endIdx=_idxLE(d,hastaYM); if(endIdx==null)return null; const dm=desdeYM%100,dy=Math.floor(desdeYM/100); const prevYM=dm>1?(dy*100+(dm-1)):((dy-1)*100+12); const startIdx=_idxLE(d,prevYM); return _atribFrom(_evoState(d,startIdx),_evoState(d,endIdx)); }
-function atribucionPorAnio(){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return []; const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>a-b); return years.map(Y=>{ const s0=_evoState(d,_idxLE(d,(Y-1)*100+12)); const s1=_evoState(d,_idxLE(d,Y*100+12)); return Object.assign({anio:Y},_atribFrom(s0,s1)); }); }
+function atribucionPorAnio(){ const d=(typeof carteraEvolData==='function')?carteraEvolData():null; if(!d||!d.ok)return []; const years=[...new Set(d.labels.map(lb=>+lb.split('-')[0]))].sort((a,b)=>a-b); return years.map(Y=>{ const s0=_evoState(d,_idxLE(d,(Y-1)*100+12)); const s1=_evoState(d,_idxLE(d,Y*100+12)); return Object.assign({anio:Y},_atribFrom(s0,s1)); }); }
 function gWaterfall(steps){ const W=600,H=300,padL=56,padB=42,padT=16; const plotH=H-padB-padT,plotW=W-padL-14;
   let cum=0; const bars=[]; let mx=0,mn=0; const cumAfter=[];
   steps.forEach(s=>{ if(s.base!=null){ bars.push({label:s.label,lo:Math.min(0,s.base),hi:Math.max(0,s.base),val:s.base,kind:'base'}); cum=s.base; }
@@ -185,7 +203,7 @@ let atribSel={modo:'12m',anio:null,desde:'',hasta:''};
 function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$('#atribKpis'); const d=(typeof carteraEvolData==='function')?carteraEvolData(renderAtribucion):null;
   if(!d||d.empty){ el.innerHTML='<div class="empty">Sin operaciones registradas.</div>'; if(kp)kp.innerHTML=''; return; }
   if(!d.ok){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo…</div>'; if(kp)kp.innerHTML=''; return; }
-  const years=[...new Set(d.labels.map(lb=>2000+ +lb.split('/')[0]))].sort((a,b)=>b-a); const selEl=$('#atribAnio'); if(selEl){ selEl.innerHTML='<option value="">— año —</option>'+years.map(y=>`<option value="${y}"${(atribSel.modo==='anio'&&+atribSel.anio===y)?' selected':''}>${y}</option>`).join(''); }
+  const years=[...new Set(d.labels.map(lb=>+lb.split('-')[0]))].sort((a,b)=>b-a); const selEl=$('#atribAnio'); if(selEl){ selEl.innerHTML='<option value="">— año —</option>'+years.map(y=>`<option value="${y}"${(atribSel.modo==='anio'&&+atribSel.anio===y)?' selected':''}>${y}</option>`).join(''); }
   const nowY=new Date().getFullYear(); let A=null, titulo='';
   if(atribSel.modo==='ytd'){ A=atribucionRango(nowY*100+1,nowY*100+12); titulo='Año en curso ('+nowY+')'; }
   else if(atribSel.modo==='anio'&&atribSel.anio){ A=atribucionRango(atribSel.anio*100+1,atribSel.anio*100+12); titulo='Año '+atribSel.anio; }
@@ -340,7 +358,7 @@ function _evoBindHover(){ if(_evoBound)return; _evoBound=true;
     const setDot=(cls,val)=>{ const c=svg.querySelector('.'+cls); if(c){ c.setAttribute('cx',gx); c.setAttribute('cy',Yv(val)); c.style.display=''; } };
     setDot('evoDotC',D.coste[bi]); setDot('evoDotV',D.valor[bi]); setDot('evoDotD',D.valdiv[bi]); if(D.hayIbex)setDot('evoDotX',D.ibex[bi]);
     const c=num(D.coste[bi]),v=num(D.valor[bi]),dv=num(D.valdiv[bi]); const rev=c>0?((dv-c)/c*100):0; const revc=c>0?((v-c)/c*100):0;
-    const p=(D.labels[bi]||'').split('/'); const fecha=p.length===2?(p[1]+'/20'+p[0]):D.labels[bi];
+    const p=(D.labels[bi]||'').split('-'); const fecha=p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):D.labels[bi];
     const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.evoTip'):null;
     if(tip){ let h=`<div style="font-weight:700;margin-bottom:3px">${fecha}</div><div><span style="color:#94a3b8">Precio de coste:</span> ${fmt(c)}</div><div><span style="color:#60a5fa">Valor (cotización):</span> ${fmt(v)}</div><div><span style="color:#4ade80">Valor + dividendo:</span> ${fmt(dv)}</div>`;
       if(D.hayIbex)h+=`<div><span style="color:#fbbf24">Si fuera IBEX-35 (c/div):</span> ${fmt(num(D.ibex[bi]))}</div>`;
@@ -359,7 +377,7 @@ function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=car
   const X=i=> n>1 ? padL+i*plotW/(n-1) : padL+plotW/2; const Y=v=> padT+plotH-((num(v)-mn)/rng)*plotH;
   const poly=(arr,col,w,dash)=>`<polyline points="${arr.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ')}" fill="none" stroke="${col}" stroke-width="${w}"${dash?` stroke-dasharray="${dash}"`:''}/>`;
   const yax=(typeof gYAxis==='function')?gYAxis(mn,mx,padL,padT,plotH,W,false):'';
-  const step=Math.ceil(n/9)||1; let xl=''; labels.forEach((lb,i)=>{ if(i%step===0){ const p=lb.split('/'); xl+=`<text x="${X(i).toFixed(1)}" y="${H-18}" font-size="10" text-anchor="middle" fill="#64748b">${p[1]}/${p[0]}</text>`; } });
+  const step=Math.ceil(n/9)||1; let xl=''; labels.forEach((lb,i)=>{ if(i%step===0){ const p=lb.split('-'); xl+=`<text x="${X(i).toFixed(1)}" y="${H-18}" font-size="10" text-anchor="middle" fill="#64748b">${p[1]}/${(p[0]||'').slice(2)}</text>`; } });
   const xs=labels.map((_,i)=>X(i)); _evoReg[id]={labels,coste,valor,valdiv,ibex,hayIbex:wantIbex,xs,W,padT,plotH,mn,rng};
   const guide=`<line class="evoGuide" x1="0" x2="0" y1="${padT}" y2="${padT+plotH}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
   const dots=`<circle class="evoDot evoDotC" r="3.5" fill="#64748b" style="display:none"/>${wantIbex?'<circle class="evoDot evoDotX" r="3.5" fill="#f59e0b" style="display:none"/>':''}<circle class="evoDot evoDotV" r="3.5" fill="#2563eb" style="display:none"/><circle class="evoDot evoDotD" r="3.5" fill="#16a34a" style="display:none"/>`;
