@@ -45,7 +45,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel','renderBuzonPanel'], presupuesto:['renderPres','renderPresAnalisis','renderPresExtras','renderRenov'],
+  panel:['renderPanel','renderBuzonPanel'], presupuesto:['renderPres'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],
@@ -56,7 +56,7 @@ const VIEW_FNS={
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
-function renderAllFull(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPresAnalisis(); renderPresExtras(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAllFull(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
@@ -379,8 +379,7 @@ $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
 $('#patList').addEventListener('click',e=>{const b=e.target.closest('[data-delsnap]'); if(b){ const _id=b.dataset.delsnap; const _it=(DB.patrimonio||[]).find(s=>s.id===_id); if(_it)undoableDelete('patrimonio','Registro de patrimonio'+(_it.fecha?(' '+_it.fecha):''),{item:_it},()=>{DB.patrimonio=DB.patrimonio.filter(s=>s.id!==_id);},['renderPat']); }});
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
 $('#btnAddYear').addEventListener('click',addYear);
-$('#btnAddCat').addEventListener('click',()=>openCatDlg(null));
-$('#presTable').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(b)openCatDlg(b.dataset.cat);});
+if($('#btnAddCap'))$('#btnAddCap').addEventListener('click',function(){ var g=(prompt('Nombre del nuevo capítulo (p. ej. Mascotas):')||'').trim(); if(!g)return; DB.config=DB.config||{}; DB.config.capitulosExtra=DB.config.capitulosExtra||[]; if(DB.config.capitulosExtra.indexOf(g)<0 && !(DB.categorias||[]).some(function(c){return c.grupo===g;})) DB.config.capitulosExtra.push(g); window._presOpen=window._presOpen||{}; window._presOpen[g]=true; if(typeof renderPres==='function')renderPres(); if(typeof scheduleSave==='function')scheduleSave(); });
 $('#catSave').addEventListener('click',saveCat);
 $('#catDelete').addEventListener('click',deleteCat);
 
@@ -443,3 +442,28 @@ init();
 /* Panel: plegar Avisos y Seguimiento del presupuesto (flecha en la fila del título) */
 (function(){ var h=document.getElementById('panelBudgetH'); if(h){ h.style.cursor='pointer'; h.addEventListener('click',function(){ var pb=document.getElementById('panelBudget'); if(!pb)return; var open=pb.style.display!=='none'; window._pBudOpen=!open; pb.style.display=open?'none':''; var a=h.querySelector('.pcol-arw'); if(a)a.classList.toggle('open',!open); }); } })();
 (function(){ var host=document.getElementById('panelDash'); if(!host)return; host.addEventListener('click',function(e){ var av=e.target.closest('[data-pavi]'); if(av){ window._pAviOpen=(window._pAviOpen===false); if(typeof renderPanelDash==='function')renderPanelDash(); } }); })();
+
+/* ===== Presupuesto v2 · cableado (delegado en #view-presupuesto) ===== */
+(function(){ var host=document.getElementById('view-presupuesto'); if(!host)return;
+  function up(catId,field,value){ var p=presFor(catId,presYear); if(!p){ p={id:uid(),categoriaId:catId,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:presYear}; DB.presupuesto.push(p); } p[field]=value; }
+  host.addEventListener('click',function(e){
+    var t;
+    if(t=e.target.closest('[data-presfrec]')){ var a=t.getAttribute('data-presfrec').split('|'); up(a[0],'frecuencia',a[1]); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presdel]')){ var id=t.getAttribute('data-presdel'); if(!confirm('¿Eliminar esta partida del presupuesto?'))return; DB.categorias=(DB.categorias||[]).filter(function(c){return c.id!==id;}); DB.presupuesto=(DB.presupuesto||[]).filter(function(p){return p.categoriaId!==id;}); if(typeof fillCatSelects==='function')fillCatSelects(); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presaddpart]')){ var g=t.getAttribute('data-presaddpart'); var nombre=(prompt('Nombre de la nueva partida'+(g==='Ingresos'?' de ingreso':' en '+g)+':')||'').trim(); if(!nombre)return; var tipo=(g==='Ingresos')?'ingreso':'gasto'; var cid=uid(); DB.categorias.push({id:cid,grupo:g,nombre:nombre,tipo:tipo}); DB.presupuesto.push({id:uid(),categoriaId:cid,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:presYear}); window._presOpen=window._presOpen||{}; window._presOpen[g==='Ingresos'?'ing':g]=true; window._presOpen['p:'+cid]=true; if(typeof fillCatSelects==='function')fillCatSelects(); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presp]')){ if(e.target.closest('input,button,select'))return; var id=t.getAttribute('data-presp'); window._presOpen=window._presOpen||{}; window._presOpen['p:'+id]=!window._presOpen['p:'+id]; renderPres(); return; }
+    if(t=e.target.closest('[data-presi]')){ window._presOpen=window._presOpen||{}; window._presOpen.ing=(window._presOpen.ing===false); renderPres(); return; }
+    if(t=e.target.closest('[data-presg]')){ if(e.target.closest('input,button,select'))return; var g=t.getAttribute('data-presg'); window._presOpen=window._presOpen||{}; window._presOpen[g]=!window._presOpen[g]; renderPres(); return; }
+  });
+  host.addEventListener('change',function(e){
+    var t;
+    if(t=e.target.closest('[data-prescant]')){ up(t.getAttribute('data-prescant'),'importe',num(t.value)); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-prespago]')){ up(t.getAttribute('data-prespago'),'metodoPago', t.value==='—'?'':t.value); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presrenov]')){ up(t.getAttribute('data-presrenov'),'renovacion',t.value); renderPres(); scheduleSave(); return; }
+  });
+  host.addEventListener('input',function(e){
+    var t=e.target.closest('#presAhorroInp'); if(!t)return;
+    DB.config=DB.config||{}; DB.config.ahorroObjetivo=DB.config.ahorroObjetivo||{}; DB.config.ahorroObjetivo[presYear]=num(t.value);
+    var pos=t.selectionStart; renderPres(); scheduleSave(); var n=document.getElementById('presAhorroInp'); if(n){ n.focus(); try{n.setSelectionRange(pos,pos);}catch(err){} }
+  });
+})();

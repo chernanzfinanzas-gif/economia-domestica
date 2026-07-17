@@ -486,38 +486,78 @@ function resetMovForm(){
 function setMovTipo(t){ movTipo=t; $$('#movTipoSeg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t)); }
 
 /* ----- PRESUPUESTO ----- */
+/* ===== PRESUPUESTO v2 · planificador (ingresos + ahorro objetivo → disponible; capítulos y fichas) ===== */
+function _presFrecCap(f){ f=(f||'mensual'); return f.charAt(0).toUpperCase()+f.slice(1); }
+function _presMesOf(p){ return p?mensual(p):0; }
+function _presAhorroObj(y){ DB.config=DB.config||{}; var a=DB.config.ahorroObjetivo||{}; return num(a[y]); }
+function _presIcon(g){ var M={'Casa':'🏠','Coche':'🚗','Alimentación':'🛒','Ocio':'🎬','Compras':'🛍️','Deporte':'🏃','Vacaciones':'🏖️','Gastos Varios':'🧾','Software Entretenimiento':'📺','Software Productividad':'💻','Salud':'⚕️','Suministros':'💡'}; return M[g]||'📁'; }
+function _presGruposGasto(){
+  var set=[]; (DB.categorias||[]).forEach(function(c){ if(c.tipo!=='ingreso' && set.indexOf(c.grupo)<0) set.push(c.grupo); });
+  ((DB.config&&DB.config.capitulosExtra)||[]).forEach(function(g){ if(set.indexOf(g)<0) set.push(g); });
+  return set;
+}
+function _presFicha(c,y,income,open){
+  var PAGOS=['—','Recibo','Tarjeta','Efectivo','Nómina','Domiciliado'];
+  var p=presFor(c.id,y)||{importe:0,frecuencia:'mensual',metodoPago:'',renovacion:''};
+  var fr=(p.frecuencia||'mensual'), mes=_presMesOf(p), isOpen=!!open['p:'+c.id], isPer=fr!=='mensual';
+  var perLabel=fr==='anual'?'al año':fr==='bianual'?'cada 2 años':'al mes';
+  var imp=num(p.importe);
+  var anualEq=fr==='anual'?imp:(fr==='bianual'?imp/2:imp*12);
+  var divNote=fr==='anual'?'(importe anual ÷ 12)':fr==='bianual'?'(importe ÷ 24)':'';
+  var perSub=fr==='anual'?fmt(imp)+'/año':fr==='bianual'?fmt(imp)+' cada 2 años':'';
+  var head='<div class="par-h" data-presp="'+c.id+'"><span class="par-arw">▶</span><span class="par-n">'+(c.nombre||'')+'</span>'
+    +'<span class="par-frec '+(isPer?'anual':'')+'">'+_presFrecCap(fr)+'</span>'
+    +(!income&&p.metodoPago?'<span class="par-pago">'+p.metodoPago+'</span>':'')
+    +'<span class="par-right"><span class="par-mes">'+fmt(mes)+'/mes</span>'+(isPer?'<div class="par-anual">'+perSub+((!income&&p.renovacion)?' · renov '+(''+p.renovacion).split('-').reverse().join('/'):'')+'</div>':'')+'</span></div>';
+  if(!isOpen) return '<div class="par">'+head+'</div>';
+  var extra=income?'':'<div class="fld"><label>Pago (informativo)</label><select data-prespago="'+c.id+'">'+PAGOS.map(function(x){ var sel=((x===p.metodoPago)||(x==='—'&&!p.metodoPago))?' selected':''; return '<option'+sel+'>'+x+'</option>'; }).join('')+'</select></div>'
+    +'<div class="fld"><label>Renovación</label><input type="date" value="'+(p.renovacion||'')+'" data-presrenov="'+c.id+'"></div>';
+  var form='<div class="par-form">'
+    +'<div class="fld"><label>Frecuencia</label><div class="fldseg">'
+      +'<button class="'+(fr==='mensual'?'on':'')+'" data-presfrec="'+c.id+'|mensual">Mensual</button>'
+      +'<button class="'+(fr==='anual'?'on':'')+'" data-presfrec="'+c.id+'|anual">Anual</button>'
+      +'<button class="'+(fr==='bianual'?'on':'')+'" data-presfrec="'+c.id+'|bianual">Bianual</button></div></div>'
+    +'<div class="fld"><label>Cantidad ('+perLabel+')</label><input type="number" step="0.01" value="'+imp+'" data-prescant="'+c.id+'"></div>'
+    +extra
+    +'<div class="par-calc"><span class="cc">'+(income?'Suma':'Aporta al presupuesto')+': <b>'+fmt(mes)+'/mes</b> · <b>'+fmt(anualEq)+'/año</b> <span class="muted">'+divNote+'</span></span><span class="par-acts"><button class="btn danger sm" data-presdel="'+c.id+'">Eliminar</button></span></div>'
+    +'</div>';
+  return '<div class="par open">'+head+form+'</div>';
+}
 function renderPres(){
-  const groups={};
-  DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
-  let totMensGasto=0,totMensIng=0;
-  const order=Object.keys(groups).sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
-  const blockOf=(g)=>{
-    let gm=0;
-    const rows=groups[g].map(c=>{
-      const p=presFor(c.id,presYear)||{importe:0,frecuencia:'mensual',metodoPago:'',renovacion:''};
-      const m=mensual(p); gm+=m;
-      if(c.tipo==='gasto') totMensGasto+=m; else totMensIng+=m;
-      const fr={mensual:'Mensual',anual:'Anual',bianual:'Bianual'}[p.frecuencia]||p.frecuencia;
-      return `<tr>
-        <td>${c.nombre} ${c.tipo==='ingreso'?'<span class="tag in">ingreso</span>':''}</td>
-        <td class="num">${fmt(num(p.importe))}</td>
-        <td>${fr}</td>
-        <td class="num">${fmt(m)}</td>
-        <td class="num">${fmt(anual(p))}</td>
-        <td>${p.metodoPago||'<span class="muted">—</span>'}</td>
-        <td>${p.renovacion? p.renovacion.split('-').reverse().join('/'):'<span class="muted">—</span>'}</td>
-        <td class="right"><button class="btn ghost sm" data-cat="${c.id}">Editar</button></td>
-      </tr>`;
-    }).join('');
-    return `<tr class="grp-row${g==='Ingresos'?' r-amar':''}"><td colspan="3">${g}</td><td class="num">${fmt(gm)}</td><td class="num">${fmt(gm*12)}</td><td colspan="3"></td></tr>${rows}`;
-  };
-  const blocks=order.map(blockOf);
-  const sumRows=`<tr class="grp-row r-amar"><td colspan="3">TOTAL GASTOS</td><td class="num">${fmt(totMensGasto)}</td><td class="num">${fmt(totMensGasto*12)}</td><td colspan="3"></td></tr><tr class="grp-row r-verde"><td colspan="3">AHORRO PREVISTO</td><td class="num">${fmt(totMensIng-totMensGasto)}</td><td class="num">${fmt((totMensIng-totMensGasto)*12)}</td><td colspan="3"></td></tr>`;
-  let html=''; let inserted=false;
-  order.forEach((g,i)=>{ html+=blocks[i]; if(g==='Ingresos'){ html+=sumRows; inserted=true; } });
-  if(!inserted) html=sumRows+html;
-  $('#presTable').innerHTML=`<table><thead><tr><th>Categoría</th><th class="num">Importe</th><th>Frecuencia</th><th class="num">Mensual</th><th class="num">Anual</th><th>Pago</th><th>Renovación</th><th></th></tr></thead><tbody>${html}</tbody></table>`;
-  $('#presTotals').innerHTML = `<b>${presYear}</b> · Ingresos: <b class="pos">${fmt(totMensIng)}</b>/mes · Gastos: <b class="neg">${fmt(totMensGasto)}</b>/mes · Ahorro previsto: <b>${fmt(totMensIng-totMensGasto)}</b>/mes (${fmt((totMensIng-totMensGasto)*12)}/año)`;
+  var host=$('#presBody'); if(!host) return;
+  var y=presYear, open=window._presOpen=window._presOpen||{ing:true};
+  var t=$('#presTitle'); if(t)t.textContent='Presupuesto '+y;
+  // ---- Ingresos ----
+  var ingCats=(DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';});
+  var ingMes=ingCats.reduce(function(s,c){return s+_presMesOf(presFor(c.id,y));},0), ingAnio=ingMes*12;
+  var ingOpen=open.ing!==false;
+  var ingLines=ingCats.map(function(c){return _presFicha(c,y,true,open);}).join('')+'<button class="par-add" data-presaddpart="Ingresos">+ Añadir ingreso</button>';
+  var ingHTML='<div class="blk '+(ingOpen?'open':'')+'"><div class="blk-h" data-presi="ing"><span class="blk-arw">▶</span><span class="blk-ic">💰</span><div><div class="blk-t">Ingresos previstos</div><div class="blk-sub">'+ingCats.length+' partidas · mete la cifra mensual o la anual</div></div><div class="blk-right"><div class="blk-amount pos">'+fmt(ingAnio)+'</div><div class="blk-mes">'+fmt(ingMes)+'/mes</div></div></div><div class="blk-b">'+ingLines+'</div></div>';
+  // ---- Capítulos de gasto + totales ----
+  var grupos=_presGruposGasto();
+  var gastoMes=0;
+  var capData=grupos.map(function(g){ var cats=(DB.categorias||[]).filter(function(c){return c.tipo!=='ingreso'&&c.grupo===g;}); var cm=cats.reduce(function(s,c){return s+_presMesOf(presFor(c.id,y));},0); gastoMes+=cm; return {g:g,cats:cats,cm:cm}; });
+  // ---- Planificador ----
+  var ahorro=_presAhorroObj(y);
+  var dispAnio=ingAnio-ahorro, dispMes=dispAnio/12;
+  var gastoAnio=gastoMes*12, restMes=dispMes-gastoMes, restAnio=restMes*12;
+  var asignadoPct=dispAnio>0?Math.min(100,gastoAnio/dispAnio*100):0, over=restAnio<-0.5;
+  var planHTML='<div class="plan"><div class="plan-row">'
+    +'<div class="pcell"><div class="pl">Ingresos previstos</div><div class="pv">'+fmt(ingAnio)+'<small> /año</small></div></div>'
+    +'<div class="op">−</div>'
+    +'<div class="pcell"><div class="pl">Ahorro objetivo (año)</div><div style="display:flex;align-items:center;gap:6px;margin-top:2px"><input id="presAhorroInp" class="ahorro-inp" value="'+ahorro+'"><span style="font-size:12px;color:#dbeafe">€</span></div></div>'
+    +'<div class="op">=</div>'
+    +'<div class="pcell"><div class="pl">Disponible para gastar</div><div class="pv">'+fmt(dispAnio)+'<small> /año</small></div></div></div>'
+    +'<div class="plan-big"><div class="pb-main"><div class="pb-l">Gasto disponible al mes</div><div class="pb-v">'+fmt(dispMes)+'<small> /mes</small></div>'
+    +'<div class="assignbar"><i style="width:'+asignadoPct.toFixed(0)+'%;background:'+(over?'#fecaca':'#fff')+'"></i></div>'
+    +'<div style="font-size:11px;color:#dbeafe;margin-top:5px">Asignado en capítulos: '+fmt(gastoMes)+'/mes ('+asignadoPct.toFixed(0)+'%)</div></div>'
+    +'<div class="pb-rest"><div class="pb-l">'+(over?'Te has pasado':'Restante por asignar')+'</div><div class="rv" style="color:'+(over?'#fecaca':'#bbf7d0')+'">'+(restMes>=0?'':'−')+fmt(Math.abs(restMes))+'<small style="font-size:12px;color:#dbeafe"> /mes</small></div></div></div></div>';
+  var capsHTML=capData.map(function(o){
+    var gOpen=!!open[o.g], share=dispMes>0?Math.min(100,o.cm/dispMes*100):0;
+    var parts=gOpen?(o.cats.map(function(c){return _presFicha(c,y,false,open);}).join('')+'<button class="par-add" data-presaddpart="'+o.g+'">+ Añadir partida a '+o.g+'</button>'):'';
+    return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+'</div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div><div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
+  }).join('');
+  host.innerHTML=ingHTML+planHTML+'<div class="subhead">Capítulos de gasto — reparte el disponible</div>'+capsHTML;
 }
 
 /* ----- PRESUPUESTO · DESGLOSE MENSUAL (réplica hoja anual del Excel) ----- */
