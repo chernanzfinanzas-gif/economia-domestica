@@ -754,3 +754,83 @@ document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)r
   if(e.target.closest('#cfgSave')){ guardarPerfilCfg(); return; }
 });
 
+/* ===== P4.3 · Hemeroteca de Análisis (dossiers por empresa) ===== */
+function renderHemeroAnalisis(){
+  var sec=document.getElementById('view-hemeroanalisis'); if(!sec)return;
+  try{ if((!_dossierSet || !_dossierSet.size) && typeof cargarDossiers==='function'){ cargarDossiers().then(function(){ if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); }); } }catch(e){}
+  var setT={};
+  (DB.analisis||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); if(t)setT[t]=1; });
+  try{ if(_dossierSet)_dossierSet.forEach(function(t){setT[t]=1;}); }catch(e){}
+  try{ if(_tesisSet)_tesisSet.forEach(function(t){setT[t]=1;}); }catch(e){}
+  var hoy=new Date();
+  function meses(f){ if(!f)return null; var d=new Date(f+'T00:00:00'); if(isNaN(d))return null; return Math.round((hoy-d)/(1000*3600*24*30.4)); }
+  var dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  var cfCol={A:'#16a34a',B:'#d97706',C:'#dc2626'}, rbCol={solida:'#16a34a',sensible:'#d97706'};
+  var rows=Object.keys(setT).map(function(t){
+    var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;})||{};
+    var j=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+    var dec=(a.decision||(j&&j.decision)||'').toUpperCase();
+    var rating=a.rating||(j&&j.rating)||'';
+    var score=(j&&j.score!=null&&j.score!=='')?j.score:null;
+    var fecha=a.dossierFecha||(j&&j.fecha)||'';
+    var cf=(j&&j.confianza)?(''+(j.confianza.nivel||'')).toUpperCase():'';
+    var rb=(j&&j.robustez&&j.robustez.nivel)?(''+j.robustez.nivel).toLowerCase():'';
+    var du=(typeof dossierURL==='function')?dossierURL(t,a.dossierUrl):'';
+    return {t:t,nombre:a.nombre||(j&&j.empresa)||t,dec:dec,rating:rating,score:score,fecha:fecha,mm:meses(fecha),cf:cf,rb:rb,du:du};
+  });
+  rows.sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
+  var caduc=rows.filter(function(r){return r.mm!=null&&r.mm>12;}).length;
+  var trs=rows.map(function(r){
+    var decC=r.dec?('<b style="color:'+(dc[r.dec]||'#475569')+'">'+r.dec+'</b>'):'<span class="muted">—</span>';
+    var fC=r.fecha?('<span style="color:'+(r.mm!=null&&r.mm>12?'#dc2626':'#64748b')+'">'+r.fecha+(r.mm!=null?' · '+r.mm+'m'+(r.mm>12?' ⚠️':''):'')+'</span>'):'<span class="muted">—</span>';
+    var cfC=r.cf?('<span style="background:'+(cfCol[r.cf]||'#64748b')+';color:#fff;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700">'+r.cf+'</span>'):'—';
+    var rbC=r.rb?('<span style="background:'+(rbCol[r.rb]||'#64748b')+';color:#fff;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700">'+(r.rb==='solida'?'sólida':r.rb)+'</span>'):'—';
+    var docC=r.du?('<a class="btn ghost sm" href="'+r.du+'" target="_blank" rel="noopener">📄 Abrir</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
+    var cal=(r.rating||'—')+(r.score!=null?' · '+Math.round(r.score):'');
+    return '<tr><td><button class="btn ghost sm" data-ficha="'+r.t+'"><b>'+r.t+'</b></button></td><td>'+_cfgEsc(r.nombre)+'</td><td>'+decC+'</td><td class="num">'+cal+'</td><td>'+fC+'</td><td style="text-align:center">'+cfC+'</td><td style="text-align:center">'+rbC+'</td><td>'+docC+'</td></tr>';
+  }).join('');
+  sec.innerHTML='<h2>Hemeroteca de Análisis</h2>'+
+    '<div class="sub" style="margin-bottom:10px">Todas las empresas con dossier o análisis, del más reciente al más antiguo. <b>'+rows.length+'</b> empresas'+(caduc?(' · <b style="color:#dc2626">'+caduc+' a reanalizar (&gt;12 m)</b>'):'')+'. Pulsa el ticker para abrir su ficha o «Abrir» para el dossier. Necesita conexión para leer los dossiers del repo.</div>'+
+    '<div class="card" style="overflow:auto"><table style="min-width:660px"><thead><tr><th>Ticker</th><th>Empresa</th><th>Decisión</th><th class="num">Calidad</th><th>Análisis</th><th style="text-align:center">Confianza</th><th style="text-align:center">Robustez</th><th>Dossier</th></tr></thead><tbody>'+(trs||'<tr><td colspan="8" class="muted">Sin dossiers cargados todavía (requiere conexión).</td></tr>')+'</tbody></table></div>';
+}
+
+/* ===== P4.1 · Cockpit de Salud del sistema ===== */
+function _saludHeld(){ var sh={}; (DB.operaciones||[]).forEach(function(o){ var t=(o.ticker||'').toUpperCase(); if(!t)return; sh[t]=(sh[t]||0)+(o.tipo==='venta'?-1:1)*num(o.acciones); }); return Object.keys(sh).filter(function(t){return sh[t]>0.0001;}); }
+function renderSalud(){
+  var sec=document.getElementById('view-salud'); if(!sec)return;
+  var held=_saludHeld();
+  var anaSet={}; (DB.analisis||[]).forEach(function(a){var t=(a.ticker||'').toUpperCase(); if(t)anaSet[t]=a;});
+  var dSet=(typeof _dossierSet!=='undefined'&&_dossierSet)?_dossierSet:new Set();
+  var jSet=(typeof _tesisSet!=='undefined'&&_tesisSet)?_tesisSet:new Set();
+  var cache=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache:{};
+  var warns=(typeof _tesisWarn!=='undefined'&&_tesisWarn)?_tesisWarn:{};
+  var hoy=new Date();
+  function meses(f){ if(!f)return null; var d=new Date(f+'T00:00:00'); if(isNaN(d))return null; return Math.round((hoy-d)/(1000*3600*24*30.4)); }
+  var refF=''; Object.keys(DB.valores||{}).forEach(function(t){ var f=(DB.valores[t]||{}).precioFecha||''; if(f>refF)refF=f; });
+  var refMs=refF?Date.parse(refF+'T00:00:00'):0;
+  var staleN=0; held.forEach(function(t){ var f=((DB.valores||{})[t]||{}).precioFecha||''; if(!f){staleN++;return;} var dd=(refMs-Date.parse(f+'T00:00:00'))/(864e5); if(dd>7)staleN++; });
+  var viejosN=0; Object.keys(anaSet).forEach(function(t){ var a=anaSet[t]; var j=cache[t]; var f=a.dossierFecha||(j&&j.fecha)||''; var m=meses(f); if(m!=null&&m>12)viejosN++; });
+  var warnN=0; Object.keys(warns).forEach(function(t){ var w=warns[t]; if(w&&w.warns)warnN+=w.warns.length; });
+  var carteraSin=held.filter(function(t){ return !dSet.has(t) && !anaSet[t]; });
+  var htmlSinJson=[]; dSet.forEach(function(t){ if(!jSet.has(t))htmlSinJson.push(t); });
+  var jsonSinAna=[]; jSet.forEach(function(t){ if(!anaSet[t])jsonSinAna.push(t); });
+  var anaSinDoss=Object.keys(anaSet).filter(function(t){ return !dSet.has(t); });
+  var huerfN=carteraSin.length+htmlSinJson.length+jsonSinAna.length+anaSinDoss.length;
+  var cfC=0,rbS=0; Object.keys(cache).forEach(function(t){ var j=cache[t]; if(!j)return; if(j.confianza&&(''+(j.confianza.nivel||'')).toUpperCase()==='C')cfC++; if(j.robustez&&(''+(j.robustez.nivel||'')).toLowerCase()==='sensible')rbS++; });
+  function card(tit,val,est,det,goto){ var col=est==='ok'?'#16a34a':(est==='warn'?'#d97706':'#dc2626'); var ico=est==='ok'?'✓':(est==='warn'?'⚠':'✕'); return '<div class="card" style="border-left:5px solid '+col+'"><div style="display:flex;align-items:center;gap:8px"><span style="color:'+col+';font-weight:800;font-size:18px">'+ico+'</span><b>'+tit+'</b><div style="flex:1"></div>'+(goto?'<button class="btn ghost sm" onclick="activarVista(\''+goto+'\')">ir →</button>':'')+'</div><div style="font-size:19px;font-weight:800;color:'+col+';margin:4px 0">'+val+'</div><div class="muted" style="font-size:12px">'+det+'</div></div>'; }
+  var cards=[
+    card('Frescura de cotizaciones', staleN===0?'Al día':staleN+' desactualizadas', staleN===0?'ok':(staleN<=2?'warn':'bad'), 'Última fecha del repo: '+(refF||'—')+'. Empresas en cartera con cotización de más de 7 días respecto a esa fecha.', 'posiciones'),
+    card('Antigüedad de dossiers', viejosN===0?'Todos recientes':viejosN+' caducados', viejosN===0?'ok':(viejosN<=2?'warn':'bad'), 'Análisis con dossier de más de 12 meses (conviene reanalizar).', 'hemeroanalisis'),
+    card('Avisos de esquema (JSON)', warnN===0?'Sin avisos':warnN+' avisos', warnN===0?'ok':'warn', 'Campos incorrectos detectados por el validador en los dossiers cargados.', 'hemeroanalisis'),
+    card('Huérfanos y desincronías', huerfN===0?'Nada suelto':huerfN+' incidencias', huerfN===0?'ok':(huerfN<=3?'warn':'bad'), 'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · análisis sin dossier ('+anaSinDoss.length+').', 'hemeroanalisis'),
+    card('Señales del método', (cfC+rbS)===0?'Sin banderas':(cfC+' conf. C · '+rbS+' sensible'), (cfC+rbS)===0?'ok':'warn', 'Empresas con Confianza C (regla dura de no comprar en firme) o Robustez sensible.', 'analisis')
+  ];
+  sec.innerHTML='<h2>Salud del sistema</h2><div class="sub" style="margin-bottom:10px">Estado de calidad del sistema. Los cinco indicadores se calculan en el navegador con lo que la app ya tiene cargado; el bloque de escritorio se lee de <code>salud_estado.json</code> (lo genera <code>generar_salud.py</code> en tu ordenador).</div><div class="cards">'+cards.join('')+'</div><div id="saludDesktop" style="margin-top:14px"></div>';
+  var box=document.getElementById('saludDesktop'); if(!box)return;
+  fetch('salud_estado.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j){ box.innerHTML='<div class="card" style="border-left:5px solid #94a3b8"><b>Controles de escritorio</b><div class="muted" style="font-size:12px;margin-top:4px">No hay <code>salud_estado.json</code> en el repo todavía. Ejecuta <code>generar_salud.py</code> en tu ordenador y súbelo para ver aquí el linter completo y la sincronía repo↔carpetas.</div></div>'; return; }
+    function dcard(tit,o){ var ok=o&&o.ok; var col=ok?'#16a34a':'#dc2626'; return '<div class="card" style="border-left:5px solid '+col+'"><div style="display:flex;gap:8px;align-items:center"><span style="color:'+col+';font-weight:800">'+(ok?'✓':'✕')+'</span><b>'+tit+'</b></div><div class="muted" style="font-size:12px;margin-top:4px">'+((o&&o.detalle)||'')+'</div></div>'; }
+    box.innerHTML='<div class="sub" style="margin:6px 0">Controles de escritorio · generado '+(j.generado||'—')+'</div><div class="cards">'+dcard('Linter de dossiers (completo)',j.linter)+dcard('Sincronía repo ↔ carpetas',j.sincronia)+'</div>';
+  }).catch(function(){ if(box)box.innerHTML=''; });
+}
+
