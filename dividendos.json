@@ -1,6 +1,6 @@
 {
 "schemaVersion": 1,
-"actualizado": "2026-07-16",
+"actualizado": "2026-07-17",
 "years": [
 2011,
 2012,
@@ -7628,6 +7628,364 @@
 }
 },
 "paga": false
+},
+{
+"ticker": "BME",
+"nombre": "Bolsas y Mercados Españoles, S.A.",
+"clasificacion": "Paga",
+"moneda": "EUR",
+"domicilioFiscal": "ES",
+"origen": "app",
+"nota": "Excluida de bolsa tras la OPA de SIX Group (jun-2020). Registro para histórico de dividendos.",
+"anios": {
+"2011": {
+"dpaBruto": 1.972,
+"dpaNeto": 1.59732,
+"nPagos": 4,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2011-05-06",
+"pago": "2011-05-06",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "F"
+},
+{
+"exDiv": "2011-05-13",
+"pago": "2011-05-13",
+"bruto": 0.372,
+"neto": 0.30132,
+"tipo": "extraordinario"
+},
+{
+"exDiv": "2011-09-09",
+"pago": "2011-09-09",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": "I"
+},
+{
+"exDiv": "2011-12-23",
+"pago": "2011-12-23",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "I"
+}
+]
+},
+"2012": {
+"dpaBruto": 1.972,
+"dpaNeto": 1.55788,
+"nPagos": 4,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2012-05-04",
+"pago": "2012-05-04",
+"bruto": 0.6,
+"neto": 0.474,
+"tipo": "F"
+},
+{
+"exDiv": "2012-05-11",
+"pago": "2012-05-11",
+"bruto": 0.372,
+"neto": 0.29388,
+"tipo": "extraordinario"
+},
+{
+"exDiv": "2012-09-07",
+"pago": "2012-09-07",
+"bruto": 0.4,
+"neto": 0.316,
+"tipo": "I"
+},
+{
+"exDiv": "2012-12-27",
+"pago": "2012-12-27",
+"bruto": 0.6,
+"neto": 0.474,
+"tipo": "I"
+}
+]
+},
+"2013": {
+"dpaBruto": 2.0331,
+"dpaNeto": 1.60618,
+"nPagos": 4,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2013-05-10",
+"pago": "2013-05-10",
+"bruto": 0.6,
+"neto": 0.474,
+"tipo": "F"
+},
+{
+"exDiv": "2013-06-27",
+"pago": "2013-06-27",
+"bruto": 0.4331,
+"neto": 0.34218,
+"tipo": "extraordinario"
+},
+{
+"exDiv": "2013-09-09",
+"pago": "2013-09-09",
+"bruto": 0.4,
+"neto": 0.316,
+"tipo": "I"
+},
+{
+"exDiv": "2013-12-27",
+"pago": "2013-12-27",
+"bruto": 0.6,
+"neto": 0.474,
+"tipo": "I"
+}
+]
+},
+"2014": {
+"dpaBruto": 1.65,
+"dpaNeto": 1.3035,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2014-05-09",
+"pago": "2014-05-09",
+"bruto": 0.65,
+"neto": 0.5135,
+"tipo": "F"
+},
+{
+"exDiv": "2014-09-12",
+"pago": "2014-09-12",
+"bruto": 0.4,
+"neto": 0.316,
+"tipo": "I"
+},
+{
+"exDiv": "2014-12-23",
+"pago": "2014-12-23",
+"bruto": 0.6,
+"neto": 0.474,
+"tipo": "I"
+}
+]
+},
+"2015": {
+"dpaBruto": 1.89,
+"dpaNeto": 1.517,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2015-05-08",
+"pago": "2015-05-08",
+"bruto": 0.89,
+"neto": 0.712,
+"tipo": "F"
+},
+{
+"exDiv": "2015-09-11",
+"pago": "2015-09-11",
+"bruto": 0.4,
+"neto": 0.322,
+"tipo": "I"
+},
+{
+"exDiv": "2015-12-29",
+"pago": "2015-12-29",
+"bruto": 0.6,
+"neto": 0.483,
+"tipo": "I"
+}
+]
+},
+"2016": {
+"dpaBruto": 1.93,
+"dpaNeto": 1.5633,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2016-05-03",
+"pago": "2016-05-06",
+"bruto": 0.93,
+"neto": 0.7533,
+"tipo": "F"
+},
+{
+"exDiv": "2016-09-13",
+"pago": "2016-09-16",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": "I"
+},
+{
+"exDiv": "2016-12-27",
+"pago": "2016-12-29",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "I"
+}
+]
+},
+"2017": {
+"dpaBruto": 1.8,
+"dpaNeto": 1.458,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2017-05-03",
+"pago": "2017-05-05",
+"bruto": 0.8,
+"neto": 0.648,
+"tipo": "F"
+},
+{
+"exDiv": "2017-09-06",
+"pago": "2017-09-08",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": "I"
+},
+{
+"exDiv": "2017-12-27",
+"pago": "2017-12-29",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "I"
+}
+]
+},
+"2018": {
+"dpaBruto": 1.78,
+"dpaNeto": 1.4418,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2018-05-09",
+"pago": "2018-05-11",
+"bruto": 0.78,
+"neto": 0.6318,
+"tipo": "F"
+},
+{
+"exDiv": "2018-09-12",
+"pago": "2018-09-14",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": "I"
+},
+{
+"exDiv": "2018-12-24",
+"pago": "2018-12-28",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "I"
+}
+]
+},
+"2019": {
+"dpaBruto": 1.57,
+"dpaNeto": 1.2717,
+"nPagos": 3,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2019-05-08",
+"pago": "2019-05-10",
+"bruto": 0.57,
+"neto": 0.4617,
+"tipo": "F"
+},
+{
+"exDiv": "2019-09-11",
+"pago": "2019-09-13",
+"bruto": 0.4,
+"neto": 0.324,
+"tipo": "I"
+},
+{
+"exDiv": "2019-12-24",
+"pago": "2019-12-30",
+"bruto": 0.6,
+"neto": 0.486,
+"tipo": "I"
+}
+]
+},
+"2020": {
+"dpaBruto": 0.42,
+"dpaNeto": 0.3402,
+"nPagos": 1,
+"deltaPct": null,
+"racha": null,
+"naturaleza": "efectivo",
+"junta": null,
+"presentacionResultados": null,
+"primaAsistencia": null,
+"pagos": [
+{
+"exDiv": "2020-05-06",
+"pago": "2020-05-08",
+"bruto": 0.42,
+"neto": 0.3402,
+"tipo": "F"
+}
+]
+}
+}
 },
 {
 "ticker": "CABK",
