@@ -86,12 +86,15 @@ function gHBars(title,items,opt){ opt=opt||{}; items=(items||[]).slice(0,opt.top
     g+=`<text x="2" y="${y+14}" font-size="11" fill="#475569">${gEsc(x.label).slice(0,20)}</text><rect x="${barX}" y="${y+4}" width="${w}" height="${rowH-9}" rx="2" fill="${col}"></rect><text x="${barX+w+4}" y="${y+14}" font-size="11" fill="#334155">${opt.pct?(v>=0?'+':'')+v.toFixed(1)+'%':fmt(v)}</text>`; });
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block" preserveAspectRatio="xMidYMid meet">${g}</svg></div>`; }
 function _allOps(){ const out=(DB.operaciones||[]).slice(); (DB.cerradas||[]).forEach(c=>{ const t=(c.ticker||'').toUpperCase(); (c.ops||[]).forEach(o=>out.push({ticker:t,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})); }); return out; }
-function cargarPreciosCartera(){ const need=[...new Set([..._allOps().map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const pend=need.filter(t=>_precioCache[t]===undefined); if(!pend.length)return Promise.resolve(); return Promise.all(pend.map(t=>fetch('precios/'+t+'.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{_precioCache[t]=j;}).catch(()=>{_precioCache[t]=null;}))); }
+function cargarPreciosCartera(){ const need=[...new Set([..._allOps().map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX','IBEXTR'])]; const pend=need.filter(t=>_precioCache[t]===undefined); if(!pend.length)return Promise.resolve(); return Promise.all(pend.map(t=>fetch('precios/'+t+'.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{_precioCache[t]=j;}).catch(()=>{_precioCache[t]=null;}))); }
 function priceRepoAt(t,ms){ const pj=_precioCache[(t||'').toUpperCase()]; if(!pj||!pj.data||!pj.data.length)return 0; const arr=pj.data; let lo=0,hi=arr.length-1,res=0; while(lo<=hi){ const md=(lo+hi)>>1; const mt=Date.parse(arr[md][0]+'T00:00:00'); if(mt<=ms){res=arr[md][1];lo=md+1;}else hi=md-1; } return num(res); }
 function opPriceAt(t,ms){ t=(t||'').toUpperCase(); let best=0,bt=-1,first=0,ft=Infinity; (typeof _allOps==='function'?_allOps():[]).forEach(o=>{ if((o.ticker||'').toUpperCase()!==t)return; const p=num(o.precio); if(p<=0)return; const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; if(om<=ms&&om>bt){bt=om;best=p;} if(om<ft){ft=om;first=p;} }); return best||first; }
 function priceAtFB(t,ms){ return priceRepoAt(t,ms)||opPriceAt(t,ms); }
 // Rentabilidad por dividendos anual estimada del IBEX-35 (para convertir el índice de PRECIO en TOTAL-RETURN). Editable en DB.config.ibexYield.
 function _ibexYield(){ return (typeof DB!=='undefined'&&DB.config&&DB.config.ibexYield!=null)?num(DB.config.ibexYield):0.03; }
+// P2.3: si existe el índice oficial IBEX-35 CON dividendos (IBEXTR = INDJ.MC, total-return de BME) lo usamos como benchmark y NO añadimos yield sintético (ya lo lleva dentro). Si no hay datos aún, fallback al IBEX de precio + yield estimado.
+function _ibexBenchSym(){ const tr=_precioCache['IBEXTR']; return (tr&&tr.data&&tr.data.length>250)?'IBEXTR':'IBEX'; }
+function _ibexAccYield(){ return _ibexBenchSym()==='IBEXTR'?0:_ibexYield(); }
 // Editable desde la nota de Rentabilidad: fija el yield de dividendo del IBEX (%) usado en el total-return del benchmark.
 function setIbexYield(v){ const y=parseFloat((''+v).replace(',','.')); if(!isFinite(y)||y<0||y>20)return; DB.config=DB.config||{}; DB.config.ibexYield=y/100; if(typeof saveNow==='function')saveNow(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); if(typeof renderPanelDash==='function')renderPanelDash(); }
 
@@ -107,7 +110,7 @@ function gLines(title,labels,series,opt){ opt=opt||{}; const W=Math.max(360,labe
 // === Serie mes a mes de la cartera: coste (aportado neto), valor por cotización y valor+dividendos ===
 function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   if(!_ops2.length) return {empty:true};
-  const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
+  const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX','IBEXTR'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
   if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
   // === SERIE DIARIA (por sesión): valor de cartera cada día = Σ participaciones(día) × cierre(día) del repo. ===
   const sharesAt=(t,ms)=>{ let sh=0; _ops2.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
@@ -117,7 +120,7 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
   divEv.sort((a,b)=>a.ms-b.ms);
   const heldT=[...new Set(_ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))];
   const firstD=(_ops2[0].fecha||'').slice(0,10); const now=new Date(); const todayD=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
-  const _ibexJ=_precioCache['IBEX']; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length);
+  const _bsym=_ibexBenchSym(); const _ibexJ=_precioCache[_bsym]; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length);
   // Eje temporal = unión de SESIONES (fechas de cierre) de las empresas en cartera + IBEX, de la 1ª operación a hoy.
   const _dset={}; heldT.forEach(t=>{ const pj=_precioCache[t]; if(pj&&pj.data){ for(let i=0;i<pj.data.length;i++){ const ds=pj.data[i][0]; if(ds>=firstD&&ds<=todayD)_dset[ds]=1; } } });
   if(hayIbex){ for(let i=0;i<_ibexJ.data.length;i++){ const ds=_ibexJ.data[i][0]; if(ds>=firstD&&ds<=todayD)_dset[ds]=1; } }
@@ -126,7 +129,7 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
   const opsByT={}; heldT.forEach(t=>opsByT[t]=[]); _ops2.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); if(opsByT[t])opsByT[t].push(o); });
   const _pj={},_pi={},_oi={},_sh={},_px={}; heldT.forEach(t=>{ const pj=_precioCache[t]; _pj[t]=(pj&&pj.data)?pj.data:[]; _pi[t]=-1; _oi[t]=0; _sh[t]=0; _px[t]=0; });
   // IBEX: unidades compradas al precio del índice del DÍA de cada operación (fallback al 1er precio conocido).
-  const _ibx0=(hayIbex&&_ibexJ.data.length)?num(_ibexJ.data[0][1]):0; const _ibexOps=[]; if(hayIbex){ _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; const cash=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); const ipo=priceRepoAt('IBEX',om)||_ibx0; if(ipo>0&&cash!==0)_ibexOps.push({ms:om,units:cash/ipo}); }); _ibexOps.sort((a,b)=>a.ms-b.ms); }
+  const _ibx0=(hayIbex&&_ibexJ.data.length)?num(_ibexJ.data[0][1]):0; const _ibexOps=[]; if(hayIbex){ _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; const cash=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); const ipo=priceRepoAt(_bsym,om)||_ibx0; if(ipo>0&&cash!==0)_ibexOps.push({ms:om,units:cash/ipo}); }); _ibexOps.sort((a,b)=>a.ms-b.ms); }
   const _ibxData=hayIbex?_ibexJ.data:[]; let _ibxi=-1,ibexUnits=0,ibexDivCash=0,_ibi=0;
   const labels=[],aport=[],valor=[],valdiv=[],ibexVal=[]; let divAc=0,di=0,apRun=0,opGi=0; const lastD=dates[dates.length-1];
   for(let k=0;k<dates.length;k++){ const d=dates[k]; const dms=Date.parse(d+'T00:00:00'); const isLast=(d===lastD);
@@ -139,7 +142,7 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
         if(isLast){ const v=(DB.valores||{})[t]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const rf=(_pi[t]>=0)?pa[_pi[t]][0]:''; if(lp>0&&(lf>=rf||!(px>0)))px=lp; }
         if(!(px>0)&&typeof opPriceAt==='function')px=num(opPriceAt(t,dms));
         if(px>0)val+=_sh[t]*px; } }
-    let ibxV=0; if(hayIbex){ while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=dms){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } while(_ibxi+1<_ibxData.length&&_ibxData[_ibxi+1][0]<=d){ _ibxi++; } const ipx=(_ibxi>=0)?num(_ibxData[_ibxi][1]):0; if(ipx>0){ if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexYield()/252); ibxV=ibexUnits*ipx+ibexDivCash; } }
+    let ibxV=0; if(hayIbex){ while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=dms){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } while(_ibxi+1<_ibxData.length&&_ibxData[_ibxi+1][0]<=d){ _ibxi++; } const ipx=(_ibxi>=0)?num(_ibxData[_ibxi][1]):0; if(ipx>0){ if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexAccYield()/252); ibxV=ibexUnits*ipx+ibexDivCash; } }
     labels.push(d); aport.push(apRun); valor.push(val); valdiv.push(val+divAc); if(hayIbex)ibexVal.push(ibxV);
   }
   return {ok:true,labels,dates:labels,aport,valor,valdiv,ibexVal,hayIbex,daily:true}; }
@@ -427,7 +430,7 @@ function evoChartHTML(opts){ opts=opts||{}; const id=opts.id||'evo'; const d=car
 function evoPanelHTML(reRender){ return evoChartHTML({id:'evoPanel',reRender:reRender,goto:'graficas',ranges:true}); }
 
 function aportValorHTML(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-  const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
+  const _needP=[...new Set([..._ops2.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX','IBEXTR'])]; const _faltaP=_needP.filter(t=>_precioCache[t]===undefined);
   if(!_ops2.length)return '<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Aportado vs valor</div><div class="muted" style="font-size:12px">Sin operaciones.</div></div>';
   if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return '<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Aportado acumulado vs valor de cartera</div><div class="muted" style="font-size:12px">Cargando cotizaciones…</div></div>'; }
   const priceAt=(t,ms)=>priceAtFB(t,ms);
@@ -436,15 +439,15 @@ function aportValorHTML(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort
   (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   const _opSet=new Set(_ops2.map(o=>(o.ticker||"").toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||"").toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ divEv.push({ms:Date.UTC(+y,11,31),eur:num(_dIng[t][y])}); }); });
   divEv.sort((a,b)=>a.ms-b.ms);
-  const t0=new Date(Date.parse(_ops2[0].fecha+'T00:00:00')); let yy=t0.getFullYear(),mn2=t0.getMonth(); const now=new Date(); const labels=[],aport=[],valor=[],valdiv=[]; let divAc=0,di=0; const _ibexJ=_precioCache['IBEX']; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length); const ibexVal=[];
+  const t0=new Date(Date.parse(_ops2[0].fecha+'T00:00:00')); let yy=t0.getFullYear(),mn2=t0.getMonth(); const now=new Date(); const labels=[],aport=[],valor=[],valdiv=[]; let divAc=0,di=0; const _bsym=_ibexBenchSym(); const _ibexJ=_precioCache[_bsym]; const hayIbex=!!(_ibexJ&&_ibexJ.data&&_ibexJ.data.length); const ibexVal=[];
   // FIX #1 (timing): unidades IBEX compradas al precio del índice del DÍA de cada operación (no a fin de mes). Fallback al primer precio conocido si la op es anterior al histórico.
-  const _ibx0=(hayIbex&&_ibexJ.data.length)?num(_ibexJ.data[0][1]):0; const _ibexOps=[]; if(hayIbex){ _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; const cash=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); const ipo=priceRepoAt('IBEX',om)||_ibx0; if(ipo>0&&cash!==0)_ibexOps.push({ms:om,units:cash/ipo}); }); _ibexOps.sort((a,b)=>a.ms-b.ms); }
+  const _ibx0=(hayIbex&&_ibexJ.data.length)?num(_ibexJ.data[0][1]):0; const _ibexOps=[]; if(hayIbex){ _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; const cash=(o.tipo==='venta'?-1:1)*num(o.acciones)*num(o.precio); const ipo=priceRepoAt(_bsym,om)||_ibx0; if(ipo>0&&cash!==0)_ibexOps.push({ms:om,units:cash/ipo}); }); _ibexOps.sort((a,b)=>a.ms-b.ms); }
   let ibexUnits=0,ibexDivCash=0,_ibi=0,_ibexPx=0;
   while(yy<now.getFullYear()||(yy===now.getFullYear()&&mn2<=now.getMonth())){ const cut=Date.UTC(yy,mn2+1,0); const sh={}; let ap=0;
     _ops2.forEach(o=>{ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=cut){ const t=(o.ticker||'').toUpperCase(); const sg=o.tipo==='venta'?-1:1; sh[t]=(sh[t]||0)+sg*num(o.acciones); ap+=sg*num(o.acciones)*num(o.precio); } });
     while(di<divEv.length&&divEv[di].ms<=cut){ divAc+=divEv[di].eur; di++; }
     const isLast=(yy===now.getFullYear()&&mn2===now.getMonth()); const _pxAt=(t)=>{ const T=(t||'').toUpperCase(); if(isLast){ const v=(DB.valores||{})[T]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const pj=_precioCache[T]; let rp=0,rf=''; if(pj&&pj.data&&pj.data.length){ rp=num(pj.data[pj.data.length-1][1]); rf=pj.data[pj.data.length-1][0]; } if(lp>0&&rp>0) return (lf>=rf)?lp:rp; if(rp>0) return rp; if(lp>0) return lp; } return priceAt(t,cut); }; let val=0; Object.keys(sh).forEach(t=>{ if(sh[t]>0.0001)val+=sh[t]*_pxAt(t); });
-    labels.push(String(yy).slice(2)+'/'+String(mn2+1).padStart(2,'0')); aport.push(ap); valor.push(val); valdiv.push(val+divAc); if(hayIbex){ const ipx=priceRepoAt('IBEX',cut); while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=cut){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } if(ipx>0){ _ibexPx=ibexUnits*ipx; if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexYield()/12); } ibexVal.push(_ibexPx+ibexDivCash); } mn2++; if(mn2>11){mn2=0;yy++;} }
+    labels.push(String(yy).slice(2)+'/'+String(mn2+1).padStart(2,'0')); aport.push(ap); valor.push(val); valdiv.push(val+divAc); if(hayIbex){ const ipx=priceRepoAt(_bsym,cut); while(_ibi<_ibexOps.length&&_ibexOps[_ibi].ms<=cut){ ibexUnits+=_ibexOps[_ibi].units; _ibi++; } if(ipx>0){ _ibexPx=ibexUnits*ipx; if(ibexUnits>0)ibexDivCash+=ibexUnits*ipx*(_ibexAccYield()/12); } ibexVal.push(_ibexPx+ibexDivCash); } mn2++; if(mn2>11){mn2=0;yy++;} }
   const _ser=[{name:'Aportado',color:'#94a3b8',vals:aport}]; if(hayIbex)_ser.push({name:'Si fuera IBEX-35 (c/div)',color:'#f59e0b',vals:ibexVal,dash:'6 4'}); _ser.push({name:'Valor cartera',color:'#2563eb',vals:valor}); _ser.push({name:'Valor + dividendos',color:'#16a34a',vals:valdiv}); return gLines('Aportado vs valor vs valor+dividendos (cotización real)'+(hayIbex?' vs IBEX-35 c/div':''),labels,_ser); }
 function renderGraficas(){ const elH=$('#grafHogar'),elI=$('#grafInv'); if(!elH&&!elI)return;
   const ys=grafYears(); if(grafYear!=='all' && !ys.includes(grafYear))grafYear=ys[0]||new Date().getFullYear();
