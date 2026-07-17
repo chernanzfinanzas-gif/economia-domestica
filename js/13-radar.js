@@ -229,6 +229,26 @@ function _cbDiasTxt(dias){ if(dias==null)return '<span class="muted">sin fecha</
 function _calibActivo(hitos,hoy){ if(!hitos||!hitos.length)return null; var withD=hitos.filter(function(h){return h.diana;}); if(!withD.length)return null; var reached=withD.filter(function(h){return new Date(h.diana+'T00:00:00')<=hoy;}); if(reached.length){ reached.sort(function(a,b){return a.diana<b.diana?1:-1;}); return reached[0]; } var up=withD.slice().sort(function(a,b){return a.diana<b.diana?-1:1;}); return up[0]; }
 /* señal de precio activa de una empresa (stop/compra/PO), sin fecha */
 function _senalActiva(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===(t||'').toUpperCase();}); if(!a)return null; var c=num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||num(a.precioObjetivo); if(c&&st&&c<=st)return {tipo:'stop',lbl:'🚨 stop',col:'#dc2626',sev:0}; if(c>0&&eH>0&&c<=eH)return {tipo:'compra',lbl:'🟢 compra',col:'#16a34a',sev:1}; if(pmax>0&&c>=pmax)return {tipo:'po',lbl:'🎯 PO',col:'#b45309',sev:2}; return null; }
+/* ¿La señal de precio ya está RESPONDIDA en la ficha? Mismo criterio que el Panel
+   (04-plan `_silenciada`): mira los apuntes del protocolo (DB.protocolo[t]) de la señal
+   equivalente (stop→S1, PO→S3). Silencia si hay apunte ABIERTO, o si la última revisión
+   RESUELTA es de hace ≤ PROTO_SILENCIO_DIAS (60 d); pasado ese plazo, si el precio sigue
+   en zona, la señal vuelve. La señal de compra no tiene apunte de protocolo → nunca se
+   silencia por aquí (igual que en el Panel). Evita que Cobertura muestre una señal que el
+   Panel ya oculta por estar contestada. */
+function _cbSenalRespondida(t,tipo){
+  var sig = tipo==='stop'?'S1':(tipo==='po'?'S3':null);
+  if(!sig) return false;
+  var arr=((DB.protocolo||{})[(t||'').toUpperCase()]||[]).filter(function(a){return a.sig===sig;});
+  if(!arr.length) return false;
+  if(arr.some(function(a){return a.estado==='abierta';})) return true;
+  var PRECIO=(typeof PROTO_SIG_PRECIO!=='undefined')?PROTO_SIG_PRECIO:{S1:1,S3:1};
+  if(!PRECIO[sig]) return true;
+  var DIAS=(typeof PROTO_SILENCIO_DIAS!=='undefined')?PROTO_SILENCIO_DIAS:60;
+  var ult=arr.map(function(a){return a.fecha;}).filter(Boolean).sort().slice(-1)[0];
+  if(!ult) return true;
+  return (Date.now()-new Date(ult+'T00:00:00').getTime())/86400000 <= DIAS;
+}
 function _pintarCalendario(analizadas){
   var host=document.getElementById('calHost'); if(!host)return;
   var hoy=new Date(); hoy.setHours(0,0,0,0);
@@ -247,7 +267,7 @@ function _pintarCalendario(analizadas){
       items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
-    var sen=_senalActiva(t); if(sen){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
+    var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
   });
   items.sort(function(a,b){ if(a.bucket!==b.bucket)return a.bucket-b.bucket; if(a.bucket===1)return a.ordCola-b.ordCola; var ad=(a.dias==null),bd=(b.dias==null); if(ad&&bd)return (a.sev==null?9:a.sev)-(b.sev==null?9:b.sev); if(ad)return 1; if(bd)return -1; return a.dias-b.dias; });
   if(!items.length){ host.innerHTML='<div class="muted" style="font-size:12px;padding:8px">No hay empresas en cola ni intervenciones programadas. Marca candidatas con ★ en Radar Op. y añádelas a la cola.</div>'; return; }
