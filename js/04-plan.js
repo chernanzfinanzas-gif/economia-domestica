@@ -685,8 +685,13 @@ function renderPlanLote(){
   })();
 }
 
-function cajaDivMes(){ const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{}; const out=new Array(12).fill(0);
-  Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return; const v=(DB.valores||{})[t]||{}; let br=num(v.divAccion); if(!(br>0)){ const c=(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t); br=c?calDivBruto(c):0; } if(!(br>0))return; const des=(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w); const rp=rep[t]||[]; des.forEach((e,idx)=>{ const eur=shares[t]*br*(num(rp[idx]||0)/100); if(eur)out[e.m-1]+=eur; }); });
+/* Dividendo BRUTO por mes del ciclo en curso (para la gráfica), desde el MOTOR derivado:
+   pagos exactos de dividendos.json (acciones a la fecha × bruto/acción). */
+function cajaDivMes(){ const out=new Array(12).fill(0); const nowY=new Date().getFullYear(); const shares=calSharesByTicker();
+  if(typeof _calEvDiv!=='function') return out;
+  Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return;
+    _calEvDiv(t,nowY).forEach(e=>{ if(e.tipo!=='pago')return; const m=parseInt((e.fecha||'').slice(5,7),10)-1; if(m>=0&&m<12) out[m]+=num(e.sh)*num(e.imp); });
+  });
   return out; }
 function cajaMovs(){ const cfg=DB.cajaConfig||{}; const out=[];
   const nowD=new Date(); const cuY=nowD.getFullYear();
@@ -696,15 +701,29 @@ function cajaMovs(){ const cfg=DB.cajaConfig||{}; const out=[];
   for(let y=desdeY;y<=hastaY;y++){ const m0=(y===desdeY?desdeM:1); for(let m=m0;m<=12;m++){ const f=`${y}-${String(m).padStart(2,'0')}-${dia}`;
     if(defSAN){ const _ks='SAN|'+f; const _os=(DB.cajaAporReal||{})[_ks]; const _fs=(DB.cajaAporFecha||{})[_ks]||f; out.push({fecha:_fs,concepto:'Aportación SAN',entra:(_os!=null&&_os!=='')?num(_os):defSAN,sale:0,auto:1,apor:1,aporKey:_ks,real:(_os!=null&&_os!=='')}); }
     if(defR4){ const _kr='R4|'+f; const _or=(DB.cajaAporReal||{})[_kr]; const _fr=(DB.cajaAporFecha||{})[_kr]||f; out.push({fecha:_fr,concepto:'Aportación R4',entra:(_or!=null&&_or!=='')?num(_or):defR4,sale:0,auto:1,apor:1,aporKey:_kr,real:(_or!=null&&_or!=='')}); } } }
-  const shares=calSharesByTicker(); const ev=DB.eventos||{}; const rep=DB.divReparto||{};
-  const dayW=w=>String(Math.min(28,(w-1)*7+3)).padStart(2,'0');
-  Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return; const v=(DB.valores||{})[t]||{}; let br=num(v.divAccion); if(!(br>0)){ const c=(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t); br=c?calDivBruto(c):0; } if(!(br>0))return; const des=(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w); const rp=rep[t]||[];
-    for(let y=desdeY;y<=hastaY;y++){ des.forEach((e,idx)=>{ if(y===desdeY&&e.m<desdeM)return; const neto=Math.round(shares[t]*br*(num(rp[idx]||0)/100)*0.81*100)/100; if(neto>0){ const _f=`${y}-${String(e.m).padStart(2,'0')}-${dayW(e.w)}`; const _k=t+'|'+_f; const _ov=(DB.cajaDivReal||{})[_k]; const _df=(DB.cajaDivFecha||{})[_k]||_f; out.push({fecha:_df,concepto:'Dividendo '+t,entra:(_ov!=null&&_ov!=='')?num(_ov):neto,sale:0,auto:1,div:1,divKey:_k,real:(_ov!=null&&_ov!=='')}); } }); } });
+  /* DIVIDENDOS desde el MOTOR derivado: cada cobro con su FECHA DE PAGO REAL y su NETO EXACTO
+     (acciones a la fecha × bruto/acción × 0,81; futuro = acciones del Plan). Overrides manuales
+     por cobro se conservan: importe en DB.cajaDivReal[t|fecha], fecha en DB.cajaDivFecha[t|fecha]. */
+  const shares=calSharesByTicker();
+  const _rangoIni=`${desdeY}-${String(desdeM).padStart(2,'0')}-01`;
+  Object.keys(shares).forEach(t=>{ if(shares[t]<=0.0001)return;
+    for(let y=desdeY;y<=hastaY;y++){
+      const pagos=(typeof _calEvDiv==='function')?_calEvDiv(t,y).filter(e=>e.tipo==='pago'):[];
+      pagos.forEach(e=>{ const f=(e.fecha||'').slice(0,10); if(!f||f<_rangoIni)return;
+        const neto=Math.round(num(e.sh)*num(e.imp)*0.81*100)/100; if(!(neto>0))return;
+        const _k=t+'|'+f; const _ov=(DB.cajaDivReal||{})[_k]; const _df=(DB.cajaDivFecha||{})[_k]||f;
+        out.push({fecha:_df,concepto:'Dividendo '+t,entra:(_ov!=null&&_ov!=='')?num(_ov):neto,sale:0,auto:1,div:1,divKey:_k,real:(_ov!=null&&_ov!=='')});
+      });
+    }
+  });
   (DB.cajaMov||[]).forEach(mv=>out.push({fecha:mv.fecha||'',concepto:mv.concepto||'',entra:num(mv.entra||0),sale:num(mv.sale||0),auto:0,id:mv.id}));
   out.sort((a,b)=> (a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0) || (b.auto-a.auto));
   return out; }
 function renderCaja(){
   const el=$('#cajaTabla'); if(!el)return; const cfg=DB.cajaConfig=DB.cajaConfig||{};
+  /* Los dividendos de la caja salen del motor derivado (dividendos.json). Si aún no está
+     cargado, lo cargamos y re-pintamos la caja cuando esté listo. */
+  if(typeof _evoCargar==='function' && typeof _evoData!=='undefined' && !_evoData){ try{ _evoCargar().then(function(){ if(typeof renderCaja==='function') renderCaja(); }); }catch(e){} }
   const nowD=new Date(); const cuY=nowD.getFullYear();
   const cf=$('#cajaCfg'); if(cf){ const fld=(lb,ds,val,w,type)=>`<div><div class="muted" style="font-size:11px;margin-bottom:2px">${lb}</div><input type="${type||'number'}" class="anaInp" style="width:${w||80}px;text-align:${type==='date'?'left':'right'}" data-cajacfg="${ds}" value="${val}"></div>`;
     cf.innerHTML=fld('Saldo inicial €','saldoIni',(cfg.saldoIni!=null?cfg.saldoIni:''),90)
