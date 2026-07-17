@@ -79,6 +79,29 @@ function semClass(ratio){ return ratio<=1?'g':ratio<=1.1?'a':'r'; }
 function barColor(cls){ return cls==='g'?'var(--green)':cls==='a'?'var(--amber)':'var(--red)'; }
 
 /* ----- PANEL ----- */
+function _pnlSpark(vals,w,h,col,fill){
+  if(!vals||!vals.length) return '';
+  var mn=Math.min.apply(null,vals),mx=Math.max.apply(null,vals),rg=(mx-mn)||1;
+  var P=vals.map(function(v,i){return [i/(vals.length-1)*w, h-((v-mn)/rg)*(h-4)-2];});
+  var L=P.map(function(p,i){return (i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1);}).join(' ');
+  var A='M0 '+h+' '+P.map(function(p){return 'L'+p[0].toFixed(1)+' '+p[1].toFixed(1);}).join(' ')+' L'+w+' '+h+' Z';
+  return '<svg viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none" style="width:100%;height:'+h+'px;display:block">'+(fill?'<path d="'+A+'" fill="'+fill+'"/>':'')+'<path d="'+L+'" fill="none" stroke="'+col+'" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+}
+function _pnl12m(){
+  var out={ing:[],gas:[],aho:[]};
+  for(var i=11;i>=0;i--){ var mmn=curMonth-i, yy=curYear; while(mmn<0){mmn+=12;yy--;} var pref=yy+'-'+String(mmn+1).padStart(2,'0');
+    var mv=(DB.movimientos||[]).filter(function(x){return (x.fecha||'').indexOf(pref)===0;});
+    var ii=mv.filter(function(x){return x.tipo==='ingreso';}).reduce(function(s,x){return s+num(x.importe);},0);
+    var gg=mv.filter(function(x){return x.tipo==='gasto';}).reduce(function(s,x){return s+num(x.importe);},0);
+    out.ing.push(ii); out.gas.push(gg); out.aho.push(ii-gg);
+  }
+  return out;
+}
+function _pnlDelta(cur,prev,upGood){
+  if(prev==null||Math.abs(prev)<0.005) return '';
+  var d=(cur-prev)/Math.abs(prev); var up=d>=0; var good=(up===upGood);
+  return '<span class="kdelta '+(good?'up':'dn')+'">'+(up?'▲':'▼')+' '+Math.abs(d*100).toFixed(0)+'%</span>';
+}
 function renderPanel(){
   const isYear = panelMode==='anio';
   const bm=$('#mModeMes'), ba=$('#mModeAnio'); if(bm)bm.classList.toggle('on',!isYear); if(ba)ba.classList.toggle('on',isYear);
@@ -94,22 +117,41 @@ function renderPanel(){
   const mult = isYear?12:1;
   let presGasto=0, presIng=0;
   DB.presupuesto.filter(p=>pAnio(p)===curYear).forEach(p=>{const c=catById(p.categoriaId); if(!c)return; const v=mensual(p)*mult; if(c.tipo==='gasto') presGasto+=v; else presIng+=v;});
-  // YoY: mismo periodo del año anterior
   const prevPref = isYear? (''+(curYear-1)) : ((curYear-1)+'-'+String(curMonth+1).padStart(2,'0'));
   const prevMovs = DB.movimientos.filter(m=>m.fecha.startsWith(prevPref));
   const pIng=prevMovs.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+num(m.importe),0);
   const pGas=prevMovs.filter(m=>m.tipo==='gasto').reduce((s,m)=>s+num(m.importe),0);
   const pAho=pIng-pGas; const hasPrev=prevMovs.length>0;
-  const yoy=(cur,prev,upGood)=>{ if(!hasPrev||Math.abs(prev)<0.005)return ''; const d=(cur-prev)/Math.abs(prev); const good=(d>=0)===upGood; const col=good?'#16a34a':'#dc2626'; return ` · <span style="color:${col}">vs ${curYear-1}: ${d>=0?'+':''}${(d*100).toFixed(0)}%</span>`; };
-  const cards=[
-    {l:'Ingresos '+suf,v:fmt(ing),s:'Presupuesto: '+fmt(presIng)+yoy(ing,pIng,true),cls:'pos'},
-    {l:'Gastos '+suf,v:fmt(gas),s:'Presupuesto: '+fmt(presGasto)+yoy(gas,pGas,false),cls:'neg'},
-    {l:'Ahorro '+suf,v:fmt(ahorro),s:'Previsto: '+fmt(presIng-presGasto)+yoy(ahorro,pAho,true),cls:ahorro>=0?'pos':'neg'},
-    {l:'Gasto vs presupuesto',v:(presGasto?Math.round(gas/presGasto*100):0)+'%',s:fmt(gas)+' de '+fmt(presGasto),cls:''},
-  ];
-  $('#panelCards').innerHTML=cards.map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
-
-  // seguimiento por grupo (solo gastos)
+  const yMovs=DB.movimientos.filter(m=>(m.fecha||'').startsWith(''+curYear));
+  const ingA=yMovs.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+num(m.importe),0);
+  const gasA=yMovs.filter(m=>m.tipo==='gasto').reduce((s,m)=>s+num(m.importe),0);
+  const ahoA=ingA-gasA;
+  const tasa = ing>0? (ahorro/ing*100):0;
+  const tasaA = ingA>0? (ahoA/ingA*100):0;
+  const s12=_pnl12m();
+  const yoyHero = (hasPrev&&Math.abs(pAho)>=0.005)? (' · vs '+(curYear-1)+': '+((ahorro-pAho)>=0?'+':'')+(((ahorro-pAho)/Math.abs(pAho))*100).toFixed(0)+'%') : '';
+  const heroPer = isYear? (''+curYear) : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear);
+  const ph=$('#panelHero');
+  if(ph) ph.innerHTML='<div class="ph"><div class="ph-main"><div class="ph-per">Ahorro · '+heroPer+'</div>'
+    +'<div class="ph-big '+(ahorro<0?'ph-neg':'')+'">'+fmt(ahorro)+(ing>0?'<span class="ph-tasa">tasa '+tasa.toFixed(0)+'%</span>':'')+'</div>'
+    +'<div class="ph-cap">Previsto '+fmt(presIng-presGasto)+yoyHero+'</div></div>'
+    +'<div class="ph-spark">'+_pnlSpark(s12.aho,190,52,'#fff','rgba(255,255,255,.18)')+'</div></div>';
+  const budPct = presGasto? Math.round(gas/presGasto*100) : 0;
+  const budCls = semClass(presGasto? gas/presGasto : (gas?2:0));
+  const budColor = budCls==='g'?'var(--green)':budCls==='a'?'var(--amber)':'var(--red)';
+  const kIn='<div class="kpi k-in"><div class="k-top"><span class="k-ic">↘</span><span class="k-lbl">Ingresos '+suf+'</span>'+_pnlDelta(ing,pIng,true)+'</div>'
+    +'<div class="k-val">'+fmt(ing)+'</div><div class="k-year">Año <b>'+fmt(ingA)+'</b> · ppto '+fmt(presIng)+'</div>'
+    +'<div class="k-spark">'+_pnlSpark(s12.ing,200,24,'var(--green)','rgba(22,163,74,.10)')+'</div></div>';
+  const kOut='<div class="kpi k-out"><div class="k-top"><span class="k-ic">↗</span><span class="k-lbl">Gastos '+suf+'</span>'+_pnlDelta(gas,pGas,false)+'</div>'
+    +'<div class="k-val">'+fmt(gas)+'</div><div class="k-year">Año <b>'+fmt(gasA)+'</b> · ppto '+fmt(presGasto)+'</div>'
+    +'<div class="k-spark">'+_pnlSpark(s12.gas,200,24,'var(--red)','rgba(220,38,38,.08)')+'</div></div>';
+  const kSave='<div class="kpi k-save"><div class="k-top"><span class="k-ic">＝</span><span class="k-lbl">Ahorro '+suf+'</span>'+_pnlDelta(ahorro,pAho,true)+'</div>'
+    +'<div class="k-val '+(ahorro<0?'neg':'')+'">'+fmt(ahorro)+'</div><div class="k-year">Año <b>'+fmt(ahoA)+'</b> · tasa '+tasaA.toFixed(0)+'%</div>'
+    +'<div class="k-spark">'+_pnlSpark(s12.aho,200,24,'var(--brand)','rgba(37,99,235,.10)')+'</div></div>';
+  const kBud='<div class="kpi k-bud"><div class="k-top"><span class="k-ic">◐</span><span class="k-lbl">Salud del ppto.</span></div>'
+    +'<div class="k-body"><div class="k-ring" style="--p:'+Math.min(100,budPct)+';--rc:'+budColor+'"><div class="k-ring-in">'+budPct+'%</div></div>'
+    +'<div class="k-year">Consumido<br><b>'+fmt(gas)+'</b> de '+fmt(presGasto)+'<br>'+(presGasto>=gas?'<span style="color:var(--green)">quedan '+fmt(presGasto-gas)+'</span>':'<span style="color:var(--red)">excede '+fmt(gas-presGasto)+'</span>')+'</div></div></div>';
+  $('#panelCards').innerHTML=kIn+kOut+kSave+kBud;
   const groups={};
   DB.categorias.filter(c=>c.tipo==='gasto').forEach(c=>{
     const p=presFor(c.id,curYear); const pres=(p?mensual(p):0)*mult;
@@ -117,20 +159,18 @@ function renderPanel(){
     const g=groups[c.grupo]=groups[c.grupo]||{pres:0,real:0};
     g.pres+=pres; g.real+=real;
   });
-  const rows=Object.keys(groups).sort().map(g=>{
+  const rowsHTML=Object.keys(groups).sort().map(g=>{
     const o=groups[g]; const ratio=o.pres?o.real/o.pres:(o.real?2:0); const cls=semClass(ratio);
-    const pct=o.pres?Math.min(100,Math.round(o.real/o.pres*100)):0;
-    const dev=o.pres-o.real;
-    return `<tr><td><b>${g}</b></td><td class="num">${fmt(o.pres)}</td><td class="num">${fmt(o.real)}</td>
-      <td class="num ${dev>=0?'pos':'neg'}">${dev>=0?'+':''}${fmt(dev)}</td>
-      <td><div class="bar"><i style="width:${pct}%;background:${barColor(cls)}"></i></div></td>
-      <td><span class="pill ${cls}">${o.pres?Math.round(o.real/o.pres*100):0}%</span></td></tr>`;
+    const pct=o.pres?Math.min(100,Math.round(o.real/o.pres*100)):0; const dev=o.pres-o.real;
+    return '<div class="pbud-row"><div class="pbud-top"><span class="pbud-name">'+g+'</span><span class="pbud-fig"><b>'+fmt(o.real)+'</b> / '+fmt(o.pres)+'</span></div>'
+      +'<div class="pbud-bar"><i style="width:'+pct+'%;background:'+barColor(cls)+'"></i></div>'
+      +'<div class="pbud-bot"><span class="pill '+cls+'">'+(o.pres?Math.round(o.real/o.pres*100):0)+'%</span>'
+      +'<span class="pbud-dev '+(dev>=0?'pos':'neg')+'">'+(dev>=0?'queda ':'excede ')+fmt(Math.abs(dev))+'</span></div></div>';
   }).join('');
   const tot=Object.values(groups).reduce((a,o)=>({pres:a.pres+o.pres,real:a.real+o.real}),{pres:0,real:0});
   const totDev=tot.pres-tot.real;
-  $('#panelBudget').innerHTML = rows? `<table><thead><tr><th>Grupo</th><th class="num">Presupuesto</th><th class="num">Realizado</th><th class="num">Desviación</th><th>Consumo</th><th>%</th></tr></thead><tbody>${rows}
-    <tr style="font-weight:700"><td>TOTAL</td><td class="num">${fmt(tot.pres)}</td><td class="num">${fmt(tot.real)}</td><td class="num ${totDev>=0?'pos':'neg'}">${totDev>=0?'+':''}${fmt(totDev)}</td><td></td><td><span class="pill ${semClass(tot.pres?tot.real/tot.pres:0)}">${tot.pres?Math.round(tot.real/tot.pres*100):0}%</span></td></tr>
-    </tbody></table>` : '<div class="empty">No hay categorías de gasto.</div>';
+  $('#panelBudget').innerHTML = rowsHTML? ('<div class="pbud">'+rowsHTML+'<div class="pbud-total"><span>TOTAL</span><span class="pbud-fig"><b>'+fmt(tot.real)+'</b> / '+fmt(tot.pres)+' · '+(totDev>=0?'<span style="color:var(--green)">quedan '+fmt(totDev)+'</span>':'<span style="color:var(--red)">excede '+fmt(-totDev)+'</span>')+' · <span class="pill '+semClass(tot.pres?tot.real/tot.pres:0)+'">'+(tot.pres?Math.round(tot.real/tot.pres*100):0)+'%</span></span></div></div>')
+    : '<div class="empty">No hay categorías de gasto.</div>';
   if(typeof renderPanelDash==='function')renderPanelDash();
   if(typeof renderInformeBlock==='function')renderInformeBlock();
 }
