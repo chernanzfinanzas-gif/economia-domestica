@@ -74,7 +74,19 @@ function opRealEnAnio(t,year){ const y=String(year);
   return (DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t&&(c.ops||[]).some(o=>(o.fecha||'').slice(0,4)===y));
 }
 function execBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y) e+=num(o.acciones)*num(o.precio); }); return e; }
-function planPendShares(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year){ const pend=Math.max(0,num(pc[y])-execBuyEur(t,+y)); sh+=Math.floor(pend/pr); } }); return sh; }
+/* Consumo del plan de un ticker por lo YA COMPRADO, del año más próximo al más lejano.
+   Lo comprado del ticker dentro del periodo del plan se descuenta de sus compras previstas
+   empezando por la más cercana (aunque se haya comprado en otro año). Devuelve el € que QUEDA
+   por año. Así "queda", el presupuesto por asignar y la proyección no duplican lo ya invertido. */
+function _planRem(t){ t=(t||'').toUpperCase(); const pc=(DB.planCompras||{})[t]||{};
+  const pe=DB.planLotePeriodo||{}; const desde=num(pe.desde)||2026, hasta=Math.max(num(pe.hasta)||2034, desde);
+  let bought=0; for(let y=desde;y<=hasta;y++){ bought+=(typeof execBuyEur==='function')?execBuyEur(t,y):0; }
+  const rem={}, comp={}; let pool=bought;
+  Object.keys(pc).map(Number).filter(y=>num(pc[y])>0).sort((a,b)=>a-b).forEach(y=>{ const plan=num(pc[y]); const c=Math.min(plan,pool); comp[y]=c; rem[y]=plan-c; pool-=c; });
+  return {rem:rem, comp:comp, bought:bought, sobra:pool};
+}
+function planPendShares(t,year){ const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0;
+  const R=_planRem(t); let sh=0; Object.keys(R.rem).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(R.rem[y])/pr); }); return sh; }
 function simIsReal(t){ return (DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===t)||(DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t); }
 function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss&&ss[year]!=null); const opAnio=(typeof opRealEnAnio==='function')&&opRealEnAnio(t,year); const pend=(typeof planPendShares==='function')?planPendShares(t,year):0;
   if(year<=nowY){
@@ -577,11 +589,12 @@ function renderPlan(){
   const el=$('#planTabla'); if(!el)return;
   const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
   const nowY=new Date().getFullYear(); const y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
+  const _cierre=num((DB.planLotePeriodo||{}).cierre)||y1;   /* el plan solo reparte capital hasta el año de cierre */
   /* Presupuesto/año por defecto = disponible de Proyección/Diversificación (mismo criterio que la pestaña Diversificación); el campo del Plan solo lo sobrescribe si lo escribes a mano. */
   const _dispY={}; try{ if(typeof proyDefaults==='function')proyDefaults(); const _ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; _ser.forEach(r=>{ _dispY[r.anio]=num(r.aInversion); }); }catch(e){}
   const _execY={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const yy=+((o.fecha||'').slice(0,4)); if(yy)_execY[yy]=(_execY[yy]||0)+num(o.acciones)*num(o.precio); } });
   const _fijo=DB.planDispFijo||{};
-  const dispShown=y=>(_fijo[y]!=null&&_fijo[y]!=='')?num(_fijo[y]):(num(_dispY[y]||0)-(y<=nowY?num(_execY[y]||0):0));
+  const dispShown=y=> (y>_cierre)?0:((_fijo[y]!=null&&_fijo[y]!=='')?num(_fijo[y]):(num(_dispY[y]||0)-(y<=nowY?num(_execY[y]||0):0)));
   const presShown=y=>(num(pr[y])>0)?num(pr[y]):dispShown(y);
   const set=new Set(Object.keys(pc).map(t=>t.toUpperCase()));
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
@@ -637,13 +650,18 @@ function renderPlanLote(){
   const ana=anaAll.filter(t=>!held.includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b)));
   const dl='<datalist id="loteDL">'+ana.filter(t=>!chosen.includes(t)).map(t=>`<option value="${nm(t)} (${t})">`).join('')+'</datalist>';
   const ydesde=num(pe.desde), yhasta=num(pe.hasta); const yrs=[]; for(let y=ydesde;y<=yhasta;y++)yrs.push(y);
+  /* AÑO DE CIERRE DEL PLAN: hasta aquí se distribuye el capital (disponible/objetivos). Separado
+     del horizonte de VISUALIZACIÓN/proyección (yhasta). Por defecto = yhasta (migración) y luego
+     editable aparte, para poder ampliar la vista sin inflar el capital a repartir. */
+  let ycierre=num(pe.cierre); if(!ycierre){ ycierre=yhasta; pe.cierre=ycierre; if(typeof scheduleSave==='function')scheduleSave(); }
+  ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
   const nowY=new Date().getFullYear();
   const dispYear={}; let disponible=0;
-  try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=yhasta){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
+  try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
   const execYear={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const y=+((o.fecha||'').slice(0,4)); if(y) execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
   const dispNeto=y=> (dispYear[y]||0) - (y<=nowY?(execYear[y]||0):0);
   const dispFijo=DB.planDispFijo=DB.planDispFijo||{};
-  const dispShown=y=> (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):dispNeto(y);
+  const dispShown=y=> (y>ycierre)?0:((dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):dispNeto(y));
   const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
   const tipoOf=t=>pt[t]||'';
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length; const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
@@ -656,18 +674,33 @@ function renderPlanLote(){
   const totAsignarPos=allTk.reduce((s,t)=>s+Math.max(0,asignar(t)),0);
   const aYear=(t,y)=>num(((DB.planCompras||{})[t]||{})[y]||0);
   const sumAsig=t=>yrs.reduce((s,y)=>s+aYear(t,y),0);
-  const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+aYear(t,y),0); });
+  /* Consumo del plan por lo ya comprado (por año más próximo) para cada ticker */
+  const remByT={}; allTk.forEach(t=>{ remByT[t]=(typeof _planRem==='function')?_planRem(t):{rem:{},comp:{}}; });
+  const remYear=(t,y)=> num((remByT[t]&&remByT[t].rem||{})[y]||0);
+  const compYear=(t,y)=> num((remByT[t]&&remByT[t].comp||{})[y]||0);
+  /* "Asignado" del año a efectos de presupuesto = lo que QUEDA por comprar (plan − comprado),
+     así al ejecutar una compra el año libera cupo y el resto sale con "falta por asignar". */
+  const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+remYear(t,y),0); });
   const _cS='padding:5px 9px', _lS='font-size:10px', _vS='font-size:14px;margin-top:1px', _sS='font-size:9.5px';
   const cab=`<div class="cards" style="margin-bottom:8px;gap:7px">
      <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Invertido total</div><div class="val" style="${_vS}">${fmt(totalInv)}</div><div class="sub" style="${_sS}">${held.length} en cartera</div></div>
-     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Disponible en periodo</div><div class="val" style="${_vS}">${fmt(disponible)}</div><div class="sub" style="${_sS}">${ydesde}–${yhasta}</div></div>
+     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Disponible a repartir</div><div class="val" style="${_vS}">${fmt(disponible)}</div><div class="sub" style="${_sS}">${ydesde}–${ycierre} (cierre del plan)</div></div>
      <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital final total</div><div class="val" style="${_vS}">${fmt(TF)}</div><div class="sub" style="${_sS}">invertido + disponible</div></div>
      <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital a asignar</div><div class="val pos" style="${_vS}">${fmt(totAsignarPos)}</div><div class="sub" style="${_sS}">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
    </div>
-   <div class="toolbar" style="margin-bottom:6px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:62px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:62px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11.5px">Años que aparecen en la proyección</span> <span class="muted" style="font-size:11.5px"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" style="margin-left:auto" title="Añadir empresa al lote">+ Empresa</button></div>`;
+   <div class="toolbar" style="margin-bottom:6px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección (Simulador, Plan y Calendario llegan hasta aquí)" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización/proyección</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se distribuye el capital disponible (${fmt(disponible)}). Ampliar 'Ver' NO cambia esto." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte capital hasta aquí</span> <span class="muted" style="font-size:11.5px"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" style="margin-left:auto" title="Añadir empresa al lote">+ Empresa</button></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
   const objCells=t=>{ const fa=asignar(t)-sumAsig(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
-  const yrCells=t=>yrs.map(y=>`<td style="padding:1px 2px"><div style="font-size:8px;color:var(--muted);line-height:1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:46px;text-align:center;padding:1px 2px" data-asig="${t}|${y}" value="${aYear(t,y)||''}"></td>`).join('');
+  /* Cada celda muestra el plan (editable) y, debajo, LO QUE QUEDA tras lo ya comprado
+     (queda = plan − comprado, consumido del año más próximo primero). El plan efectivo baja solo
+     al registrar la compra, igual que la proyección — sin duplicar. */
+  const yrCells=t=>yrs.map(y=>{ const plan=aYear(t,y); const comp=compYear(t,y); const queda=remYear(t,y);
+    let annot='';
+    if(comp>0.5){ annot = (queda<0.5)
+      ? '<div style="font-size:8px;color:#16a34a;font-weight:700;line-height:1" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">✓ comprado</div>'
+      : '<div style="font-size:8px;color:#16a34a;font-weight:700;line-height:1" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">queda '+fmt(queda)+'</div>'; }
+    return `<td style="padding:1px 2px"><div style="font-size:8px;color:var(--muted);line-height:1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:46px;text-align:center;padding:1px 2px" data-asig="${t}|${y}" value="${plan||''}">${annot}</td>`;
+  }).join('');
   const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num" data-loteyear="${y}" style="padding:1px 2px">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:48px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:1px auto;padding:1px 2px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
   let rows=''; let n=0;
   held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
