@@ -80,10 +80,28 @@ function execBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[])
    por año. Así "queda", el presupuesto por asignar y la proyección no duplican lo ya invertido. */
 function _planRem(t){ t=(t||'').toUpperCase(); const pc=(DB.planCompras||{})[t]||{};
   const pe=DB.planLotePeriodo||{}; const desde=num(pe.desde)||2026, hasta=Math.max(num(pe.hasta)||2034, desde);
-  let bought=0; for(let y=desde;y<=hasta;y++){ bought+=(typeof execBuyEur==='function')?execBuyEur(t,y):0; }
-  const rem={}, comp={}; let pool=bought;
-  Object.keys(pc).map(Number).filter(y=>num(pc[y])>0).sort((a,b)=>a-b).forEach(y=>{ const plan=num(pc[y]); const c=Math.min(plan,pool); comp[y]=c; rem[y]=plan-c; pool-=c; });
-  return {rem:rem, comp:comp, bought:bought, sobra:pool};
+  /* Años del plan con importe > 0 (los que tienen "queda"/tramo por comprar). */
+  const py=Object.keys(pc).map(Number).filter(y=>num(pc[y])>0).sort((a,b)=>a-b);
+  const rem={}, comp={}; py.forEach(y=>{ rem[y]=num(pc[y]); comp[y]=0; });
+  let bought=0; const adel=[];
+  for(let y=desde;y<=hasta;y++){ const b=(typeof execBuyEur==='function')?execBuyEur(t,y):0; if(b<=0) continue; bought+=b;
+    if(String(y) in pc){
+      /* Compra en un año CON tramo de plan (aunque el tramo sea 0, como los años ya
+         reconciliados a mano): consume SOLO el tramo de ESE año; el exceso es sobra de ese
+         año y NO se traslada a otros años del plan. Así no toca compras/tramos ya cerrados. */
+      if(rem[y]!=null){ const c=Math.min(rem[y], b); rem[y]-=c; comp[y]+=c; }
+    } else {
+      /* Compra en un año SIN tramo de plan = adelanto real (p.ej. compras una prevista
+         antes de su año): sí consume el tramo FUTURO más próximo (año >= año de compra). */
+      adel.push({y:y, eur:b});
+    }
+  }
+  let sobra=0;
+  adel.sort((a,b)=>a.y-b.y).forEach(a=>{ let pool=a.eur;
+    py.forEach(y=>{ if(pool<=0||y<a.y) return; const c=Math.min(rem[y], pool); rem[y]-=c; comp[y]+=c; pool-=c; });
+    sobra+=pool;
+  });
+  return {rem:rem, comp:comp, bought:bought, sobra:sobra};
 }
 function planPendShares(t,year){ const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0;
   const R=_planRem(t); let sh=0; Object.keys(R.rem).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(R.rem[y])/pr); }); return sh; }
@@ -436,6 +454,9 @@ function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Ma
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html='';
+  /* El bloque "Próximos eventos" usa el motor derivado (calAgenda→evoAnioM). Si dividendos.json
+     aún no está cargado, cárgalo una vez y re-renderiza para pintar las fechas reales. */
+  if(typeof _evoCargar==='function' && typeof _evoData!=='undefined' && !_evoData){ try{ _evoCargar().then(function(){ if(typeof renderPanelDash==='function') renderPanelDash(); }); }catch(e){} }
   const GITHUB_RUN_URL='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml';
   // 🔔 BANDEJA DE AVISOS UNIFICADA
   const _heldP={}, _heldSet=new Set();
@@ -556,17 +577,23 @@ function renderPanelDash(){
   // Tareas pendientes (antes de eventos)
   const _pend=(DB.todos||[]).filter(x=>!x.hecho).sort((a,b)=>(a.fecha||'9999').localeCompare(b.fecha||'9999'));
   if(_pend.length){ const _hoy=new Date().toISOString().slice(0,10); const _it=_pend.slice(0,8).map(x=>{ const v=x.fecha&&x.fecha<_hoy; return `<div style="font-size:12px;margin:1px 0"><span style="color:${v?'#dc2626':'#64748b'}">${x.fecha?ddmmyyyy(x.fecha):'—'}</span> ${x.desc||''}${x.ticker?' <b>'+x.ticker+'</b>':''}</div>`; }).join(''); html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="monitor">Tareas pendientes <span class="muted" style="font-size:12px">›</span></h3>${_it}</div>`; }
-  // Próximos eventos
-  const ev=DB.eventos||{}; const held=new Set(pos.map(p=>(p.ticker||'').toUpperCase()));
-  let all=[]; Object.keys(ev).forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
-  if(all.length){ const now=new Date(); const nm=now.getMonth()+1, nw=Math.min(4,Math.max(1,Math.ceil(now.getDate()/7)));
-    let up=all.filter(e=>e.m>nm||(e.m===nm&&e.w>=nw)).sort((a,b)=>a.m-b.m||a.w-b.w); if(!up.length)up=all.sort((a,b)=>a.m-b.m||a.w-b.w);
-    const _isD=e=>((e.code||'')[0]||'').toUpperCase()==='D';
-    const g1=up.filter(e=>held.has(e.t)&&_isD(e)).slice(0,12), g2=up.filter(e=>held.has(e.t)&&!_isD(e)).slice(0,12), g3=up.filter(e=>!held.has(e.t)&&_isD(e)).slice(0,12), g4=up.filter(e=>!held.has(e.t)&&!_isD(e)).slice(0,12);
-    const _row=(e,fs,bold)=>`<div style="font-size:${fs}px;margin:1px 0">${MESES_ES[e.m-1]} s${e.w} · <span class="evchip ev-${(typeof evTipo==='function'?evTipo(e.code):'otro')}">${e.code}</span> <span data-ficha="${e.t}" style="cursor:pointer;color:var(--brand)${bold?';font-weight:700':''}">${e.t}</span></div>`;
+  // Próximos eventos — MOTOR DERIVADO (fechas exactas de dividendos.json + -trim.json vía calAgenda),
+  // ya no del calendario manual DB.eventos. Mantiene el layout de 4 columnas (cartera/otras × div/result).
+  if(typeof calAgenda==='function'){
+    let up=[]; try{ up=calAgenda(_calHoy(), {limite:400})||[]; }catch(e){ up=[]; }
+    const _isD=e=>e.tipo==='exdiv'||e.tipo==='pago';
+    const _cart=e=>e.grp==='cartera';
+    const g1=up.filter(e=>_cart(e)&&_isD(e)).slice(0,12), g2=up.filter(e=>_cart(e)&&!_isD(e)).slice(0,12), g3=up.filter(e=>!_cart(e)&&_isD(e)).slice(0,12), g4=up.filter(e=>!_cart(e)&&!_isD(e)).slice(0,12);
+    const _fd=e=>{ const yy=(e.fecha||'').slice(0,4); const base=(typeof _calFmtF==='function')?_calFmtF(e.fecha):(e.fecha||''); return base+(yy&&yy!==String(nowY)?(" '"+yy.slice(2)):''); };
+    const _chip=e=>(typeof _calChip==='function')?_calChip(e.tipo,e.periodo):`<span class="evchip">${e.tipo}</span>`;
+    const _bdg=e=>(typeof _calBadge==='function')?_calBadge(e):'';
+    const _row=(e,fs,bold)=>`<div style="font-size:${fs}px;margin:1px 0;white-space:nowrap"><span class="muted" style="font-variant-numeric:tabular-nums">${_fd(e)}</span> ${_chip(e)} <span data-ficha="${e.t}" style="cursor:pointer;color:var(--brand)${bold?';font-weight:700':''}">${e.t}</span>${_bdg(e)}</div>`;
     const _col=(title,arr,fs,bold,bl)=>`<div style="${bl?'border-left:1px solid var(--line);padding-left:10px;':''}"><div class="muted" style="font-size:10px;font-weight:700;margin:0 0 3px;text-transform:uppercase;letter-spacing:.03em">${title}</div>${arr.length?arr.map(e=>_row(e,fs,bold)).join(''):'<div class="muted" style="font-size:10px">—</div>'}</div>`;
-    const ag=`<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">${_col('Dividendos · cartera',g1,13,true,false)}${_col('Result. y otros · cartera',g2,12,true,false)}${_col('Dividendos · otras',g3,11,false,true)}${_col('Result. y otros · otras',g4,11,false,false)}</div>`;
-    html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="calendario">Próximos eventos <span class="muted" style="font-size:12px">›</span></h3>${ag}</div>`; }
+    if(g1.length||g2.length||g3.length||g4.length){
+      const ag=`<div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px">${_col('Dividendos · cartera',g1,13,true,false)}${_col('Result. y otros · cartera',g2,12,true,false)}${_col('Dividendos · otras',g3,11,false,true)}${_col('Result. y otros · otras',g4,11,false,false)}</div>`;
+      html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="calendario">Próximos eventos <span class="muted" style="font-size:12px">›</span></h3>${ag}</div>`;
+    }
+  }
   // Mini-gráfico dividendos por año
   if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars=''; ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`; });
     if(mx>1) html+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
