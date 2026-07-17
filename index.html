@@ -211,6 +211,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     .cardify tbody tr.grp-row td::before{display:none}
     .cardify input,.cardify select{max-width:62%}
   }
+
+  /* === Rediseño cabecera: ⚙ Ajustes === */
+  .cogwrap{position:relative;display:inline-block}
+  .cogmenu{position:absolute;top:calc(100% + 6px);right:0;z-index:70;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 30px rgba(15,23,42,.18);padding:8px;width:236px;display:none}
+  .cogmenu.open{display:block}
+  .cogmenu .cog-h{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);padding:4px 8px 6px}
+  .cogmenu .cogitem{width:100%;justify-content:flex-start;text-align:left;border:none;background:none;color:var(--ink);font-weight:600;padding:9px 8px;border-radius:8px;margin:0;font-size:13px}
+  .cogmenu .cogitem:hover{background:#f1f5f9;color:var(--ink)}
+  .cogmenu .sep{height:1px;background:var(--line);margin:5px 4px}
+  @media(max-width:960px){ .cog-t{display:none} }
+
 </style>
 </head>
 <body>
@@ -229,17 +240,25 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </nav>
   <div id="subnav" style="display:none"></div>
   <div class="spacer"></div>
-  <div class="filestat" style="flex-direction:row;align-items:center;gap:5px">
+  <div class="filestat" style="flex-direction:row;align-items:center;gap:6px">
     <span class="dot" id="fdot"></span><span id="fstat">Sin conectar</span>
-    <button class="btn ghost sm hbtn" id="btnLogout" style="display:none" title="Cerrar sesión de Google Drive">Salir</button>
-    <button class="btn ghost sm hbtn" id="btnCmdK" title="Buscar / ir a… (Ctrl-K)">🔎</button>
-    <button class="btn ghost sm hbtn" id="btnPapelera" title="Papelera (elementos borrados, restaurables)">🗑️</button>
-    <button class="btn ghost sm hbtn" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓</button>
-    <button class="btn ghost sm hbtn" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">↺</button>
-    <button class="btn ghost sm hbtn" id="btnConfig" title="Configuración (perfil y datos personales)">⚙</button>
-    <button class="btn ghost sm hbtn" id="btnDemo" title="Entrar en modo demo (datos ficticios, no se guarda nada)" style="border-color:#c026d3;color:#a21caf;font-weight:700">Demo</button>
+    <span class="cogwrap">
+      <button class="btn ghost sm hbtn" id="btnCog" title="Ajustes y datos" aria-haspopup="true">⚙<span class="cog-t"> Ajustes</span></button>
+      <div class="cogmenu" id="cogMenu" role="menu">
+        <div class="cog-h">Ajustes y datos</div>
+        <button class="btn ghost sm hbtn cogitem" id="btnBackup" style="display:none" title="Descargar copia de seguridad (.json)">⤓ Descargar copia (.json)</button>
+        <button class="btn ghost sm hbtn cogitem" id="btnRestore" style="display:none" title="Restaurar copia de seguridad">↺ Restaurar copia</button>
+        <button class="btn ghost sm hbtn cogitem" id="btnPapelera" title="Papelera (elementos borrados, restaurables)">🗑️ Papelera</button>
+        <div class="sep"></div>
+        <button class="btn ghost sm hbtn cogitem" id="btnConfig" title="Configuración (perfil y datos personales)">⚙ Configuración</button>
+        <button class="btn ghost sm hbtn cogitem" id="btnCmdK" title="Buscar / ir a… (Ctrl-K)">🔎 Buscar (Ctrl-K)</button>
+        <button class="btn ghost sm hbtn cogitem" id="btnDemo" title="Entrar en modo demo (datos ficticios, no se guarda nada)" style="color:#a21caf;font-weight:700">🎭 Modo demo</button>
+        <div class="sep"></div>
+        <button class="btn ghost sm hbtn cogitem" id="btnLogout" style="display:none" title="Cerrar sesión de Google Drive">⏻ Salir de Drive</button>
+      </div>
+    </span>
   </div>
-</header>
+  </header>
 <div id="demoBanner" style="display:none;position:sticky;top:0;z-index:60;align-items:center;justify-content:center;gap:10px;background:#fdf4ff;border-bottom:2px solid #d946ef;color:#86198f;font-weight:700;font-size:13px;padding:6px 12px">
   <span>🎭 MODO DEMO — datos ficticios. No se guarda nada en Drive. Al salir o recargar vuelven tus datos reales.</span>
   <button class="btn ghost sm" id="btnDemoExit" style="border-color:#a21caf;color:#a21caf">Salir del demo</button>
