@@ -123,7 +123,7 @@ const ADD_ACTIONS={
   fondor4:()=>{ const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   amalia:()=>{ const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   patrimonio:()=>{ const b=$('#patAdd'); if(b)b.click(); },
-  diversif:()=>{ const b=$('#loteAdd'); if(b)b.click(); }
+  diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
 const groupCurrent={control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};

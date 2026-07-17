@@ -561,17 +561,17 @@ function renderPanelDash(){
   el.innerHTML=html;
 }
 function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(pc[y])/pr); }); return sh; }
-/* Banda de desplazamiento superior sincronizada con la tabla del Plan (como Diversificación/Simulador):
-   scroll horizontal con la columna Empresa fija; se ve siempre desde el inicio (año en curso). */
+/* Slider de rango horizontal sincronizado con la tabla del Plan (igual que el Simulador):
+   mueve la tabla en horizontal por los años desde cualquier posición; la columna Empresa queda fija. */
 function _planSyncBand(){
-  var el=document.getElementById('planTabla'); if(!el)return; var band=document.getElementById('planScrollTop');
-  var tbl=el.querySelector('table'); var w=tbl?tbl.scrollWidth:0;
-  if(band){ band.innerHTML='<div style="height:1px;width:'+w+'px"></div>';
-    if(!band._wired){ band._wired=true;
-      band.addEventListener('scroll',function(){ if(el.scrollLeft!==band.scrollLeft)el.scrollLeft=band.scrollLeft; });
-      el.addEventListener('scroll',function(){ if(band.scrollLeft!==el.scrollLeft)band.scrollLeft=el.scrollLeft; });
-    }
+  var sc=document.getElementById('planTabla'); var rng=document.getElementById('planScroll'); if(!sc||!rng)return;
+  var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
+  var sync=function(){ var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
+  if(!rng._wired){ rng._wired=true;
+    rng.addEventListener('input',function(){ sc.scrollLeft=maxSL()*(num(rng.value)/1000); });
+    sc.addEventListener('scroll',sync);
   }
+  sync();
 }
 function renderPlan(){
   const el=$('#planTabla'); if(!el)return;
@@ -657,11 +657,12 @@ function renderPlanLote(){
   const aYear=(t,y)=>num(((DB.planCompras||{})[t]||{})[y]||0);
   const sumAsig=t=>yrs.reduce((s,y)=>s+aYear(t,y),0);
   const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+aYear(t,y),0); });
-  const cab=`<div class="cards" style="margin-bottom:12px">
-     <div class="card"><div class="lbl">Invertido total</div><div class="val">${fmt(totalInv)}</div><div class="sub">${held.length} en cartera</div></div>
-     <div class="card"><div class="lbl">Disponible en periodo</div><div class="val">${fmt(disponible)}</div><div class="sub">${ydesde}–${yhasta}</div></div>
-     <div class="card"><div class="lbl">Capital final total</div><div class="val">${fmt(TF)}</div><div class="sub">invertido + disponible</div></div>
-     <div class="card"><div class="lbl">Capital a asignar</div><div class="val pos">${fmt(totAsignarPos)}</div><div class="sub">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
+  const _cS='padding:5px 9px', _lS='font-size:10px', _vS='font-size:14px;margin-top:1px', _sS='font-size:9.5px';
+  const cab=`<div class="cards" style="margin-bottom:8px;gap:7px">
+     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Invertido total</div><div class="val" style="${_vS}">${fmt(totalInv)}</div><div class="sub" style="${_sS}">${held.length} en cartera</div></div>
+     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Disponible en periodo</div><div class="val" style="${_vS}">${fmt(disponible)}</div><div class="sub" style="${_sS}">${ydesde}–${yhasta}</div></div>
+     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital final total</div><div class="val" style="${_vS}">${fmt(TF)}</div><div class="sub" style="${_sS}">invertido + disponible</div></div>
+     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital a asignar</div><div class="val pos" style="${_vS}">${fmt(totAsignarPos)}</div><div class="sub" style="${_sS}">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
    </div>
    <div class="toolbar" style="margin-bottom:6px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Periodo:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" style="width:62px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" style="width:62px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11.5px">Años que aparecen en la proyección</span> <span class="muted" style="font-size:11.5px"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" style="margin-left:auto" title="Añadir empresa al lote">+ Empresa</button></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
