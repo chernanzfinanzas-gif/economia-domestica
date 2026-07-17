@@ -264,6 +264,24 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-panel .pbud-total{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 0 4px;margin-top:4px;border-top:2px solid var(--line);font-weight:700}
   @media(max-width:820px){ #view-panel .ph-big{font-size:30px} #view-panel .ph-spark{width:100%;max-width:none;margin-top:6px} }
 
+
+  /* === Fase B: secciones plegables del dashboard del Panel === */
+  #view-panel .psec-wrap{margin-top:16px}
+  #view-panel .psec-bar{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  #view-panel .psec-idx{display:flex;flex-wrap:wrap;gap:6px;flex:1}
+  #view-panel .psec-idx a{font-size:12px;font-weight:700;color:#64748b;background:var(--panel);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+  #view-panel .psec-idx a:hover{background:#eef2ff;color:var(--brand)}
+  #view-panel .psec-all{font-size:12px;font-weight:700;color:var(--brand);background:#eef2ff;border:1px solid #c7d7fe;border-radius:8px;padding:6px 12px;cursor:pointer;white-space:nowrap}
+  #view-panel .psec-all:hover{background:#e0e7ff}
+  #view-panel .psec{margin-bottom:12px}
+  #view-panel .psec-h{display:flex;align-items:center;gap:9px;cursor:pointer;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px 14px;box-shadow:var(--shadow)}
+  #view-panel .psec-h:hover{background:#f8fafc}
+  #view-panel .psec-arw{color:#64748b;transition:transform .15s;font-size:12px}
+  #view-panel .psec.open .psec-arw{transform:rotate(90deg)}
+  #view-panel .psec-t{font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#334155}
+  #view-panel .psec-b{display:none;padding:0 2px}
+  #view-panel .psec.open .psec-b{display:block}
+
 </style>
 </head>
 <body>
