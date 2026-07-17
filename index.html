@@ -288,6 +288,66 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-panel .pcol-arw.open{transform:rotate(90deg)}
   #view-panel .pcol-h{cursor:pointer}
 
+
+  /* === Presupuesto v2 · planificador === */
+  #view-presupuesto .blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}
+  #view-presupuesto .blk-h{display:flex;align-items:center;gap:11px;cursor:pointer;padding:13px 15px}
+  #view-presupuesto .blk-arw{color:#64748b;transition:transform .15s;font-size:12px}
+  #view-presupuesto .blk.open .blk-arw{transform:rotate(90deg)}
+  #view-presupuesto .blk-ic{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;background:#f1f5f9;flex:0 0 auto}
+  #view-presupuesto .blk-t{font-weight:800;font-size:14px}
+  #view-presupuesto .blk-sub{font-size:11.5px;color:#64748b}
+  #view-presupuesto .blk-right{margin-left:auto;text-align:right;flex:0 0 auto}
+  #view-presupuesto .blk-amount{font-weight:800;font-size:15px;font-variant-numeric:tabular-nums}
+  #view-presupuesto .blk-mes{font-size:11px;color:#64748b}
+  #view-presupuesto .blk-barwrap{padding:0 15px 4px}
+  #view-presupuesto .blk-bar{height:6px;background:#eef2f7;border-radius:4px;overflow:hidden}
+  #view-presupuesto .blk-bar>i{display:block;height:100%;border-radius:4px}
+  #view-presupuesto .blk-b{display:none;padding:4px 12px 12px;border-top:1px solid #f1f5f9}
+  #view-presupuesto .blk.open .blk-b{display:block}
+  #view-presupuesto .par{border:1px solid var(--line);border-radius:10px;margin:8px 0;overflow:hidden;background:#fff}
+  #view-presupuesto .par-h{display:flex;align-items:center;gap:10px;padding:9px 11px;cursor:pointer}
+  #view-presupuesto .par-arw{color:#94a3b8;transition:transform .15s;font-size:11px}
+  #view-presupuesto .par.open .par-arw{transform:rotate(90deg)}
+  #view-presupuesto .par.open .par-h{background:#f8fafc;border-bottom:1px solid #f1f5f9}
+  #view-presupuesto .par-n{font-weight:600;font-size:13px}
+  #view-presupuesto .par-frec{font-size:10.5px;color:#64748b;background:#f1f5f9;border-radius:6px;padding:2px 7px;flex:0 0 auto}
+  #view-presupuesto .par-frec.anual{background:#fef3c7;color:#b45309}
+  #view-presupuesto .par-pago{font-size:11px;color:#64748b;flex:0 0 auto}
+  #view-presupuesto .par-right{margin-left:auto;text-align:right;flex:0 0 auto}
+  #view-presupuesto .par-mes{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+  #view-presupuesto .par-anual{font-size:10.5px;color:#64748b}
+  #view-presupuesto .par-form{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
+  #view-presupuesto .fld{display:flex;flex-direction:column;gap:4px}
+  #view-presupuesto .fld label{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:700}
+  #view-presupuesto .fld input,#view-presupuesto .fld select{padding:7px 9px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;width:100%}
+  #view-presupuesto .fldseg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  #view-presupuesto .fldseg button{border:none;background:#fff;padding:7px 10px;font-size:12.5px;font-weight:600;color:#64748b;cursor:pointer;flex:1}
+  #view-presupuesto .fldseg button.on{background:var(--brand);color:#fff}
+  #view-presupuesto .par-calc{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#eff6ff;border:1px solid #dbeafe;border-radius:8px;padding:8px 12px;flex-wrap:wrap}
+  #view-presupuesto .par-calc .cc{font-size:12.5px}
+  #view-presupuesto .par-calc b{font-variant-numeric:tabular-nums}
+  #view-presupuesto .par-add{margin:6px 2px 2px;background:none;border:1px dashed var(--line);color:#64748b;border-radius:8px;padding:8px;width:100%;cursor:pointer;font-size:12.5px;font-weight:600}
+  #view-presupuesto .plan{background:linear-gradient(135deg,#1e3a5f 0,#2563eb 100%);color:#fff;border-radius:16px;padding:16px 18px;box-shadow:var(--shadow);margin-bottom:14px}
+  #view-presupuesto .plan-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  #view-presupuesto .plan .pcell{flex:1;min-width:120px}
+  #view-presupuesto .plan .pl{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:#bfdbfe;font-weight:700}
+  #view-presupuesto .plan .pv{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:3px}
+  #view-presupuesto .plan .pv small{font-size:12px;color:#dbeafe;font-weight:600}
+  #view-presupuesto .plan .op{font-size:22px;color:#93c5fd;font-weight:800;flex:0 0 auto}
+  #view-presupuesto .plan .ahorro-inp{width:120px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:8px;padding:6px 8px;font-size:17px;font-weight:800;text-align:right;font-variant-numeric:tabular-nums}
+  #view-presupuesto .plan-big{background:rgba(255,255,255,.12);border-radius:12px;padding:12px 14px;margin-top:12px;display:flex;flex-wrap:wrap;align-items:center;gap:16px}
+  #view-presupuesto .plan-big .pb-main{flex:1;min-width:170px}
+  #view-presupuesto .plan-big .pb-l{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:#bfdbfe;font-weight:700}
+  #view-presupuesto .plan-big .pb-v{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1}
+  #view-presupuesto .plan-big .pb-v small{font-size:14px;color:#dbeafe;font-weight:600}
+  #view-presupuesto .plan-big .pb-rest{text-align:right;min-width:150px}
+  #view-presupuesto .plan-big .pb-rest .rv{font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+  #view-presupuesto .assignbar{height:8px;background:rgba(255,255,255,.22);border-radius:5px;overflow:hidden;margin-top:8px}
+  #view-presupuesto .assignbar>i{display:block;height:100%;border-radius:5px;background:#fff}
+  #view-presupuesto .subhead{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:#64748b;margin:16px 2px 8px}
+  @media(max-width:820px){ #view-presupuesto .par-form{grid-template-columns:1fr 1fr} }
+
 </style>
 </head>
 <body>
@@ -560,21 +620,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- PRESUPUESTO -->
   <section class="view" id="view-presupuesto">
-    <h2>Presupuesto anual</h2>
-    <div id="ptab-anual">
-      <div class="toolbar">
-        <label class="muted" for="presYear">Año</label>
-        <select id="presYear"></select>
-        <button class="btn ghost sm" id="btnAddYear">+ Año</button>
-        <button class="btn sm" id="btnAddCat">+ Nueva categoría</button>
-        <button class="btn ghost sm" id="presImportBtn">Importar presupuesto</button>
-        <span class="muted" id="presTotals"></span>
-      </div>
-      <div id="presTable"></div>
-      <h3>Análisis por clase (evolución anual)</h3>
-      <div id="presAnalisis" style="overflow:auto"></div>
-      <div id="presRenov" style="margin-top:16px"></div>
+    <h2 id="presTitle">Presupuesto anual</h2>
+    <div class="toolbar" id="presToolbar">
+      <label class="muted" for="presYear">Año</label>
+      <select id="presYear"></select>
+      <button class="btn ghost sm" id="btnAddYear">+ Año</button>
+      <button class="btn sm" id="btnAddCap">+ Añadir capítulo</button>
+      <button class="btn ghost sm" id="presImportBtn">Importar presupuesto</button>
     </div>
+    <div id="presBody"></div>
   </section>
 
   <section class="view" id="view-desglose">
