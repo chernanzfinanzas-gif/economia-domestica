@@ -132,24 +132,44 @@ function _calEvJuntaRes(t, year){
   return out;
 }
 
+/* Patrón de publicación por trimestre canónico: MM-DD del informe MÁS RECIENTE de cada Q
+   (Q1/Q2/Q3/Q4). Respeta el año fiscal de cada empresa (p.ej. Logista Q4≈11-03, IBE Q4≈02-26).
+   Sirve para PROYECTAR la cadencia completa del año, no solo el próximo informe. */
+function _calPatronTrim(t){
+  var d=(typeof _cadTrim!=='undefined' && _cadTrim) ? _cadTrim[(t||'').toUpperCase()] : null;
+  if(!d || !d.revisiones) return null;
+  var md={};
+  d.revisiones.filter(function(r){ return r.fecha; }).slice().sort(function(a,b){ return (a.fecha||'')<(b.fecha||'')?-1:1; })
+    .forEach(function(r){ var q=_calQ(r.periodo); if(q && r.fecha) md[q]=(''+r.fecha).slice(5,10); });
+  return Object.keys(md).length ? md : null;
+}
 /* ---- informes trimestrales desde -trim.json cuya fecha cae en `year` ---- */
 function _calEvTrim(t, year){
-  t=(t||'').toUpperCase(); var out=[];
+  t=(t||'').toUpperCase(); var out=[]; var filed={};
   var d=(typeof _cadTrim!=='undefined' && _cadTrim) ? _cadTrim[t] : null;
   if(d && d.revisiones){
-    d.revisiones.forEach(function(r){ var f=(r.fecha||'').slice(0,10); if(f && f.slice(0,4)==String(year)){
-      out.push({ t:t, fecha:f, tipo:'res', periodo:_calQ(r.periodo), imp:0, sh:0, fuente:'trim', estimado:false, proyectado:false });
-    }});
+    d.revisiones.forEach(function(r){ var f=(r.fecha||'').slice(0,10); if(!f) return; var q=_calQ(r.periodo);
+      if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:false, proyectado:false }); }
+      filed[f.slice(0,4)+'-'+q]=1;   /* trimestre YA presentado ese año → no proyectarlo encima */
+    });
   }
-  /* próximo informe estimado (o confirmado por agenda.json) si cae en el año */
+  /* Proyección de la CADENCIA COMPLETA del año (todos los trimestres con patrón), no solo el
+     próximo. Solo futuros (fecha>=hoy) y que no estén ya presentados. Así aparecen 9M, FY, etc. */
+  var pat=_calPatronTrim(t); var hoy=(typeof _calHoy==='function')?_calHoy():null;
+  if(pat){ ['Q1','Q2','Q3','Q4'].forEach(function(q){ var md=pat[q]; if(!md) return;
+    var dt=year+'-'+md;
+    if(filed[year+'-'+q]) return;
+    if(hoy && dt<hoy) return;
+    out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:true, proyectado:false });
+  }); }
+  /* Fecha CONFIRMADA (Yahoo · buzón) del próximo informe: si cae en el año, prevalece con su
+     fecha exacta (el dedup deja esta por delante de la proyección por patrón). */
   if(typeof _cadenciaDe==='function'){
     var c=_cadenciaDe(t);
-    if(c && c.next){
-      var dt=(typeof _cbToStr==='function') ? _cbToStr(c.next.date) : null;
-      var conf=false;
-      if(typeof _agResultado==='function'){ var ag=_agResultado(t); if(ag && ag.fecha){ var a2=_cbToStr(ag.fecha); if(a2){ dt=a2; conf=!!ag.confirmada; } } }
-      if(dt && dt.slice(0,4)==String(year)){
-        out.push({ t:t, fecha:dt, tipo:'res', periodo:_calQ(c.next.q), imp:0, sh:0, fuente:'trim', estimado:!conf, proyectado:false });
+    if(c && c.next && typeof _agResultado==='function'){
+      var ag=_agResultado(t);
+      if(ag && ag.fecha){ var a2=(typeof _cbToStr==='function')?_cbToStr(ag.fecha):null;
+        if(a2 && a2.slice(0,4)==String(year)){ out.push({ t:t, fecha:a2, tipo:'res', periodo:_calQ(c.next.q), imp:0, sh:0, fuente:'trim', estimado:!ag.confirmada, proyectado:false }); }
       }
     }
   }
