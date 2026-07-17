@@ -66,6 +66,96 @@ def descargar(symbol, start):
     return out
 
 
+IBEXTR_YIELD = 0.04   # yield bruto anual asumido SOLO para el tramo reciente que extiende el IBEXTR real
+
+def _indj_ultimo(dias=15):
+    # Yahoo no da historico de INDJ.MC (IBEX 35 con Dividendos) pero SI su valor del dia.
+    # Devuelve [fecha, valor] mas reciente, o None.
+    try:
+        filas = descargar("INDJ.MC", (dt.date.today() - dt.timedelta(days=dias)).isoformat())
+    except Exception as e:
+        print(f"INDJ.MC no disponible ({str(e)[:50]})")
+        return None
+    return filas[-1] if filas else None
+
+
+def extender_ibextr(outdir, indj_row=None, yield_anual=IBEXTR_YIELD):
+    # Mantiene precios/IBEXTR.json al dia. El historico real (investing.com) se congela hasta
+    # 'real_hasta'. A partir de ahi: cada dia se captura el valor REAL de INDJ.MC (escalado al
+    # nivel de la serie real) y se guarda en 'indj_puntos'; los huecos que Yahoo no cubra se
+    # rellenan con los retornos del ^IBEX + un pequeno devengo. Idempotente: reconstruye el
+    # tramo posterior a 'real_hasta' en cada ejecucion.
+    tr_path = os.path.join(outdir, "IBEXTR.json")
+    ib_path = os.path.join(outdir, "IBEX.json")
+    if not os.path.exists(tr_path):
+        return
+    try:
+        tr = json.load(open(tr_path, encoding="utf-8"))
+    except Exception:
+        return
+    data0 = tr.get("data", [])
+    if not data0:
+        return
+    real_hasta = tr.get("real_hasta") or data0[-1][0]
+    tr["real_hasta"] = real_hasta
+    base = [d for d in data0 if d[0] <= real_hasta]
+    if not base:
+        return
+    basemap = {d[0]: d[1] for d in base}
+    factor = tr.get("indj_factor")
+    puntos = dict(tr.get("indj_puntos", {}))
+    if indj_row and indj_row[1] and float(indj_row[1]) > 0:
+        dfecha = indj_row[0]; dval = float(indj_row[1])
+        if factor is None and dfecha in basemap:
+            f = basemap[dfecha] / dval
+            if 0.3 <= f <= 3.0:
+                factor = round(f, 6); tr["indj_factor"] = factor
+                print(f"IBEXTR: factor de escala INDJ.MC = {factor} (anclado en {dfecha})")
+            else:
+                print(f"IBEXTR: factor INDJ.MC fuera de rango ({f:.3f}); se ignora INDJ, solo sintetico.")
+        if factor and dfecha > real_hasta:
+            puntos[dfecha] = round(dval * factor, DECIMALS)
+    tr["indj_puntos"] = puntos
+    data = list(base)
+    lvl = base[-1][1]
+    ib = None
+    if os.path.exists(ib_path):
+        try:
+            ib = json.load(open(ib_path, encoding="utf-8"))
+        except Exception:
+            ib = None
+    dia = (1.0 + yield_anual) ** (1.0/252) - 1.0
+    nreal = 0; nsint = 0
+    if ib and ib.get("data"):
+        ibd = sorted(ib["data"], key=lambda x: x[0])
+        ibmap = {d[0]: d[1] for d in ibd}
+        prev_ib = ibmap.get(real_hasta)
+        for fecha, close in ibd:
+            if fecha <= real_hasta:
+                if close and close > 0:
+                    prev_ib = close
+                continue
+            if fecha in puntos:
+                lvl = puntos[fecha]; data.append([fecha, lvl]); nreal += 1
+            elif prev_ib and prev_ib > 0 and close and close > 0:
+                lvl = lvl * (close / prev_ib) * (1.0 + dia)
+                data.append([fecha, round(lvl, DECIMALS)]); nsint += 1
+            if close and close > 0:
+                prev_ib = close
+    else:
+        for fecha in sorted(puntos):
+            if fecha > real_hasta:
+                data.append([fecha, puntos[fecha]]); nreal += 1
+    tr["data"] = data
+    tr["actualizado"] = data[-1][0]
+    with open(tr_path, "w", encoding="utf-8") as f:
+        json.dump(tr, f, ensure_ascii=False)
+    if nreal or nsint:
+        print(f"IBEXTR: tramo tras {real_hasta} -> {nreal} reales (INDJ.MC) + {nsint} sinteticos; hasta {data[-1][0]}")
+    else:
+        print(f"IBEXTR: al dia ({real_hasta}); sin tramo posterior.")
+
+
 def main():
     base = os.path.dirname(os.path.abspath(__file__))
     tickers_path = os.path.join(base, "tickers.json")
@@ -152,6 +242,11 @@ def main():
         print(f"_ultimos.json escrito ({len(ultimos)} empresas).")
     else:
         print("AVISO: _ultimos.json NO se sobrescribe (0 empresas leidas); se conserva el anterior.")
+
+    _indj = _indj_ultimo()
+    if _indj:
+        print(f"INDJ.MC valor real de hoy: {_indj}")
+    extender_ibextr(outdir, indj_row=_indj)
 
     print(f"\nHecho. {len(indice['tickers'])} con datos, {len(indice['fallos'])} fallos.")
     if indice["fallos"]:
