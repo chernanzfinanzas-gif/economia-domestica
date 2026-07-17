@@ -108,7 +108,8 @@ function renderPanel(){
   const mm=$('#mMonth'); if(mm){ mm.disabled=isYear; mm.style.opacity=isYear?0.45:1; }
   const suf = isYear?'del año':'del mes';
   $('#panelTitle').textContent='Panel · '+(isYear? curYear : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear));
-  const bh=$('#panelBudgetH'); if(bh) bh.textContent='Seguimiento del presupuesto ('+(isYear?'año':'mes')+')';
+  const _bOpen=window._pBudOpen!==false;
+  const bh=$('#panelBudgetH'); if(bh){ bh.innerHTML='<span class="pcol-arw'+(_bOpen?' open':'')+'">▶</span>Seguimiento del presupuesto ('+(isYear?'año':'mes')+')'; bh.classList.add('pcol-h'); }
   const pref = isYear? (''+curYear) : (curYear+'-'+String(curMonth+1).padStart(2,'0'));
   const movs = DB.movimientos.filter(m=>m.fecha.startsWith(pref));
   const ing=movs.filter(m=>m.tipo==='ingreso').reduce((s,m)=>s+num(m.importe),0);
@@ -171,6 +172,7 @@ function renderPanel(){
   const totDev=tot.pres-tot.real;
   $('#panelBudget').innerHTML = rowsHTML? ('<div class="pbud">'+rowsHTML+'<div class="pbud-total"><span>TOTAL</span><span class="pbud-fig"><b>'+fmt(tot.real)+'</b> / '+fmt(tot.pres)+' · '+(totDev>=0?'<span style="color:var(--green)">quedan '+fmt(totDev)+'</span>':'<span style="color:var(--red)">excede '+fmt(-totDev)+'</span>')+' · <span class="pill '+semClass(tot.pres?tot.real/tot.pres:0)+'">'+(tot.pres?Math.round(tot.real/tot.pres*100):0)+'%</span></span></div></div>')
     : '<div class="empty">No hay categorías de gasto.</div>';
+  var _pb=$('#panelBudget'); if(_pb)_pb.style.display=(window._pBudOpen!==false)?'':'none';
   if(typeof renderPanelDash==='function')renderPanelDash();
   if(typeof renderInformeBlock==='function')renderInformeBlock();
 }

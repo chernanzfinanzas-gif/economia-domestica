@@ -439,3 +439,7 @@ init();
     var j=e.target.closest('[data-psjump]'); if(j){ var kk=j.getAttribute('data-psjump'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[kk]=1; rel(); setTimeout(function(){ var el=document.querySelector('[data-pssec="'+kk+'"]'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },40); return; }
   });
 })();
+
+/* Panel: plegar Avisos y Seguimiento del presupuesto (flecha en la fila del título) */
+(function(){ var h=document.getElementById('panelBudgetH'); if(h){ h.style.cursor='pointer'; h.addEventListener('click',function(){ var pb=document.getElementById('panelBudget'); if(!pb)return; var open=pb.style.display!=='none'; window._pBudOpen=!open; pb.style.display=open?'none':''; var a=h.querySelector('.pcol-arw'); if(a)a.classList.toggle('open',!open); }); } })();
+(function(){ var host=document.getElementById('panelDash'); if(!host)return; host.addEventListener('click',function(e){ var av=e.target.closest('[data-pavi]'); if(av){ window._pAviOpen=(window._pAviOpen===false); if(typeof renderPanelDash==='function')renderPanelDash(); } }); })();
