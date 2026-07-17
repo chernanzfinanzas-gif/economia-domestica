@@ -546,7 +546,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-diversif">
     <h2>Diversificación — clasificación de empresas</h2>
     <div class="sub" style="margin-bottom:8px">Lista de 20 empresas del plan. Las primeras son tu cartera actual; en los slots libres elige empresas del listado de Análisis (orden alfabético). El alta de una empresa nueva se hace aquí y aparece luego en Plan y Simulador.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="loteAdd">+ Empresa</button> <span class="muted" id="loteStatus"></span></div>
+    <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="loteStatus"></span></div>
     <div id="loteTabla"></div>
   </section>
 
@@ -728,7 +728,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Simulador de dividendos</h2>
     <div class="cards" id="simKpis"></div>
     <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Vista de resultado: las <b>acciones futuras</b> vienen de <b>Diversificación</b> y el <b>dividendo/acción</b> de <b>Evolución Dividendo</b> (aquí solo lectura). Editable solo el pasado/año en curso de acciones.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="simAdd">+ Empresa</button> <button class="btn sm" id="simAddYear">+ Año</button> <span class="muted" id="simStatus"></span></div>
+    <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="simStatus"></span></div>
     <input type="range" id="simScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
     <div style="overflow:auto" id="simTabla"></div>
   </section>
@@ -738,8 +738,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="cards" id="planKpis"></div>
     <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan Inversor → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="planAddYear">+ Año</button> <span class="muted" id="planStatus"></span></div>
-    <div id="planScrollTop" style="overflow-x:auto;overflow-y:hidden;height:16px;margin-bottom:2px"></div>
+    <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="planStatus"></span></div>
+    <input type="range" id="planScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
     <div style="overflow:auto" id="planTabla"></div>
   </section>
 
