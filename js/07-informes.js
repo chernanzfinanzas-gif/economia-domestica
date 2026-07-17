@@ -398,7 +398,7 @@ function buildMonitor(ctx){
   var rows=held.slice().sort().map(function(t){ var m=mon[t]||{}, a=anaBy[t]||{};
     var rol=m.rol||'—'; var inf=m.informe?'Sí':'Pendiente'; if(m.informe)nInf++;
     var mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; var dossier=(mm==null)?'sin dossier':(mm>12?('hace '+mm+'m ⚠️'):('hace '+mm+'m')); if(mm!=null&&mm>12)nOld++;
-    var qs=''; ['Q1','Q2','Q3','Q4'].forEach(function(q){ var pas=(typeof qPassed==='function')&&qPassed(t,q,nowY); var rev=(typeof _revHecha==='function')?_revHecha(m.rev,nowY+'-'+q):!!(m.rev&&m.rev[nowY+'-'+q]); var col=rev?'#16a34a':(pas?'#dc2626':'#cbd5e1'); if(pas&&!rev)nPend++; qs+='<span style="color:'+col+';font-weight:700;margin-right:4px">'+q+'</span>'; });
+    var qs=''; ['Q1','Q2','Q3','Q4'].forEach(function(q){ var pas=(typeof _qPub==='function')&&_qPub(t,nowY+'-'+q); var rev=(typeof _revHecha==='function')?_revHecha(m.rev,nowY+'-'+q):!!(m.rev&&m.rev[nowY+'-'+q]); var col=rev?'#16a34a':(pas?'#dc2626':'#cbd5e1'); if(pas&&!rev)nPend++; qs+='<span style="color:'+col+';font-weight:700;margin-right:4px">'+q+'</span>'; });
     var cot=num(a.cotizacion),st=num(a.stopTesis); var stop=(st>0&&cot>0&&cot<=st); if(stop)nStop++;
     return '<tr'+(stop?' style="background:#fef2f2"':'')+'><td><b>'+_infEsc(t)+'</b></td><td>'+_infEsc(rol)+'</td><td>'+inf+'</td><td>'+dossier+'</td><td>'+qs+'</td><td>'+(stop?'<span style="color:#dc2626">stop</span>':'ok')+'</td></tr>';
   }).join('');

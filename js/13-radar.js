@@ -326,7 +326,12 @@ function _cadEstado(c,hoy,dossierFecha){
   var tocaMonitor=!!(c.next && c.next.date<=hoy); var tocaAnual=false;
   if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dy=(''+(dossierFecha||'')).slice(0,4); var fyY=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dy&&fyY&&fyY>dy)tocaAnual=true; }
   var proxLabel=c.next?((_QLABEL[c.next.q]||c.next.q)+' ~'+_cadFmtD(c.next.date)):'';
-  return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel};
+  /* Clave canónica (fiscal AAAA-Qn) del PRÓXIMO informe = el siguiente al último revisado.
+     La usan el Monitor, el Panel y la vista Informes para marcar "publicado sin revisar"
+     desde la cadencia de los -trim.json (en vez del calendario manual/qPassed). */
+  var nextKey=''; try{ if(c.ultimo && typeof _trimCanon==='function'){ var uc=_trimCanon(c.ultimo.periodo); var mm=/^(\d{4})-Q([1-4])$/.exec(uc); if(mm){ var yy=+mm[1], qq=+mm[2]+1; if(qq>4){qq=1;yy++;} nextKey=yy+'-Q'+qq; } } }catch(e){}
+  var nextDate=(c.next&&typeof _cbToStr==='function')?_cbToStr(c.next.date):null;
+  return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel,nextKey:nextKey,nextDate:nextDate};
 }
 function _calibCell(t){ if(typeof calibDataFor!=='function')return '—'; var d=calibDataFor(t); if(!d)return '—'; var pend=d.hitos.filter(function(h){return !h.done;}); if(!pend.length)return '<span style="color:#16a34a">✓ completa</span>'; var nx=pend[0]; if(nx.vencida)return '<span style="color:#b45309;font-weight:600">⏳ '+nx.k+' vencida</span>'; return nx.k+(nx.dias!=null?' (en '+nx.dias+'d)':''); }
 function _senalCell(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return '—'; var c=num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||num(a.precioObjetivo); if(c&&st&&c<=st)return '<span style="color:#dc2626;font-weight:700">🚨 stop</span>'; if(c>0&&eH>0&&c<=eH&&!(st&&c<=st))return '<span style="color:#16a34a;font-weight:600">🟢 compra</span>'; if(pmax>0&&c>=pmax)return '<span style="color:#b45309;font-weight:600">🎯 PO</span>'; return '<span class="muted">—</span>'; }
@@ -335,7 +340,7 @@ function _pintarCadencia(analizadas){
   var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{}; var chg=false;
   var rows=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t);
     if(!c){ return '<tr><td><b>'+_radEsc(t)+'</b></td><td colspan="3" class="muted" style="font-size:11px">sin monitor trimestral</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>'; }
-    var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual}; chg=true;
+    var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate}; chg=true;
     var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
     var proxTxt=c.next?_radEsc(e.proxLabel):'—';
     var ag=_agResultado(t); if(ag&&ag.fecha){ var agd=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(!isNaN(agd))proxTxt='<b>'+_cadFmtD(agd)+'</b> <span title="confirmada (Yahoo · buzón)" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>'; }
@@ -350,7 +355,7 @@ var _cadRefrescado=false;
 function _cadRefreshAll(){
   var an=(DB.analisis||[]).filter(function(a){return a.dossierFecha;}); var tk=an.map(function(a){return (a.ticker||'').toUpperCase();}); if(!tk.length)return;
   _cadCargar(tk).then(function(){ var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{};
-    an.forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual}; });
+    an.forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate}; });
     if(typeof scheduleSave==='function')scheduleSave(); if(typeof renderPanelDash==='function')renderPanelDash();
   });
 }
