@@ -222,6 +222,48 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .cogmenu .sep{height:1px;background:var(--line);margin:5px 4px}
   @media(max-width:960px){ .cog-t{display:none} }
 
+
+  /* === Rediseño cuerpo del Panel (Fase A-2) === */
+  #panelTitle{display:none}
+  #view-panel .ph{background:linear-gradient(135deg,#1e3a5f 0,#2563eb 100%);color:#fff;border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin:0 0 14px}
+  #view-panel .ph-main{flex:1;min-width:190px}
+  #view-panel .ph-per{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#bfdbfe;font-weight:700}
+  #view-panel .ph-big{font-size:38px;font-weight:800;margin:2px 0;letter-spacing:-.5px;line-height:1}
+  #view-panel .ph-big.ph-neg{color:#fecaca}
+  #view-panel .ph-tasa{display:inline-block;background:rgba(255,255,255,.16);border-radius:999px;padding:2px 10px;font-size:12px;font-weight:700;margin-left:8px;vertical-align:middle}
+  #view-panel .ph-cap{font-size:12.5px;color:#dbeafe}
+  #view-panel .ph-spark{flex:0 0 auto;width:200px;max-width:45%}
+  #view-panel .kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 15px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+  #view-panel .kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px}
+  #view-panel .kpi.k-in::before{background:var(--green)} #view-panel .kpi.k-out::before{background:var(--red)} #view-panel .kpi.k-save::before{background:var(--brand)} #view-panel .kpi.k-bud::before{background:var(--amber)}
+  #view-panel .kpi .k-top{display:flex;align-items:center;gap:8px}
+  #view-panel .kpi .k-ic{width:28px;height:28px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px}
+  #view-panel .kpi.k-in .k-ic{background:var(--green-bg)} #view-panel .kpi.k-out .k-ic{background:var(--red-bg)} #view-panel .kpi.k-save .k-ic{background:#dbeafe} #view-panel .kpi.k-bud .k-ic{background:var(--amber-bg)}
+  #view-panel .kpi .k-lbl{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  #view-panel .kpi .k-top .kdelta{margin-left:auto}
+  #view-panel .kpi .k-val{font-size:24px;font-weight:800;letter-spacing:-.3px;margin-top:7px;font-variant-numeric:tabular-nums}
+  #view-panel .kpi .k-year{font-size:11.5px;color:#64748b;margin-top:5px}
+  #view-panel .kpi .k-year b{color:var(--ink);font-variant-numeric:tabular-nums}
+  #view-panel .kpi .k-spark{margin-top:8px}
+  #view-panel .kdelta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;padding:2px 7px;border-radius:999px}
+  #view-panel .kdelta.up{background:var(--green-bg);color:var(--green)} #view-panel .kdelta.dn{background:var(--red-bg);color:var(--red)}
+  #view-panel .kpi.k-bud .k-body{display:flex;align-items:center;gap:12px;margin-top:8px}
+  #view-panel .k-ring{--p:0;--rc:var(--amber);width:54px;height:54px;border-radius:50%;background:conic-gradient(var(--rc) calc(var(--p)*1%),#eef2f7 0);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+  #view-panel .k-ring-in{width:40px;height:40px;border-radius:50%;background:var(--panel);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:var(--ink)}
+  #view-panel .pbud{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:6px 15px}
+  #view-panel .pbud-row{padding:10px 0;border-bottom:1px solid #f1f5f9}
+  #view-panel .pbud-row:last-child{border-bottom:none}
+  #view-panel .pbud-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:5px}
+  #view-panel .pbud-name{font-weight:700;font-size:13px}
+  #view-panel .pbud-fig{font-size:12px;color:#64748b;font-variant-numeric:tabular-nums}
+  #view-panel .pbud-fig b{color:var(--ink)}
+  #view-panel .pbud-bar{height:8px;background:#eef2f7;border-radius:6px;overflow:hidden}
+  #view-panel .pbud-bar>i{display:block;height:100%;border-radius:6px}
+  #view-panel .pbud-bot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:5px}
+  #view-panel .pbud-dev{font-size:11.5px;font-weight:700}
+  #view-panel .pbud-total{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 0 4px;margin-top:4px;border-top:2px solid var(--line);font-weight:700}
+  @media(max-width:820px){ #view-panel .ph-big{font-size:30px} #view-panel .ph-spark{width:100%;max-width:none;margin-top:6px} }
+
 </style>
 </head>
 <body>
@@ -319,6 +361,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <select id="mMonth"></select>
       <button class="btn ghost sm modebtn" id="mModeMes">Mes</button>
     </div>
+    <div id="panelHero"></div>
     <div class="cards" id="panelCards"></div>
     <h3 id="panelBudgetH">Seguimiento del presupuesto</h3>
     <div id="panelBudget"></div>
