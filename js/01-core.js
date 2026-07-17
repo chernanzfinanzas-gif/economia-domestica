@@ -117,7 +117,7 @@ function waitGoogle(){ return new Promise(res=>{ let n=0; const t=setInterval(()
 
 function initAuth(){
   tokenClient=google.accounts.oauth2.initTokenClient({
-    client_id:GD.clientId, scope:SCOPE, login_hint:'carlos220271@gmail.com',
+    client_id:GD.clientId, scope:SCOPE, login_hint:(typeof perfilEmail==='function'?perfilEmail():'carlos220271@gmail.com'),
     callback:(resp)=>{ if(resp&&resp.access_token){ accessToken=resp.access_token; if(_res){_res(resp.access_token);_res=_rej=null;} } },
     error_callback:(err)=>{ if(_rej){_rej(err);_res=_rej=null;} }
   });
@@ -464,6 +464,7 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   }
   if(!DB.config) DB.config={};
   if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
+  if(!DB.config.perfil){ DB.config.perfil={titulares:[{nombre:'Carlos',nomina:2448.64},{nombre:'Susana',nomina:2417.94}],email:'carlos220271@gmail.com'}; }
   if(!DB.config.comercioBaseV1){
     DB.config.comercioAlias=DB.config.comercioAlias||{};
     DB.config.negocioRules=DB.config.negocioRules||[];
@@ -737,3 +738,19 @@ document.addEventListener('click', e=>{
   if(!b) return;
   toggleDemo();
 });
+
+/* ===== P4.4 · ⚙ Configuración / Perfil (datos personales parametrizados) ===== */
+function perfilTitulares(){ try{ var p=(DB.config&&DB.config.perfil)||{}; return (p.titulares||[]).map(function(t){return t.nombre;}).filter(Boolean); }catch(e){ return []; } }
+function perfilEmail(){ try{ return (DB&&DB.config&&DB.config.perfil&&DB.config.perfil.email)||'carlos220271@gmail.com'; }catch(e){ return 'carlos220271@gmail.com'; } }
+function _cfgEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
+function _cfgCollect(){ var tit=[]; document.querySelectorAll('#cfgBody .cfgTn').forEach(function(inp){ var i=inp.getAttribute('data-i'); var nombre=(inp.value||'').trim(); var mInp=document.querySelector('#cfgBody .cfgTm[data-i="'+i+'"]'); var nom=mInp?parseFloat((''+mInp.value).replace(',','.')):NaN; tit.push({nombre:nombre,nomina:isFinite(nom)?nom:0}); }); var em=(document.getElementById('cfgEmail')||{}).value||''; return {titulares:tit,email:(''+em).trim()}; }
+function renderCfg(draft){ var body=document.getElementById('cfgBody'); if(!body)return; var p=draft||((DB.config&&DB.config.perfil))||{titulares:[],email:''}; var rows=(p.titulares||[]).map(function(t,i){ return '<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><input class="cfgTn" data-i="'+i+'" value="'+_cfgEsc(t.nombre)+'" placeholder="Titular" style="flex:1"><input class="cfgTm" data-i="'+i+'" type="number" step="0.01" value="'+(t.nomina!=null?t.nomina:'')+'" placeholder="Nomina EUR/mes" style="width:130px"><button type="button" class="btn ghost sm" data-cfgdel="'+i+'" title="Quitar">X</button></div>'; }).join(''); body.innerHTML='<div class="muted" style="font-size:12px;margin-bottom:8px">Titulares del hogar y su nomina mensual (se usan en informes por titular y en el plan de ahorro).</div>'+rows+'<button type="button" class="btn ghost sm" id="cfgAddTit">+ Titular</button><div style="margin-top:12px"><label class="muted" style="font-size:12px">Email de Google Drive (login)</label><br><input id="cfgEmail" value="'+_cfgEsc(p.email||'')+'" style="width:100%;max-width:340px"></div>'; }
+function abrirConfig(){ var dlg=document.getElementById('cfgDlg'); if(!dlg)return; renderCfg(); if(typeof dlg.showModal==='function'){ if(!dlg.open)dlg.showModal(); } else { dlg.setAttribute('open',''); } }
+function guardarPerfilCfg(){ var d=_cfgCollect(); d.titulares=d.titulares.filter(function(t){return t.nombre;}); DB.config=DB.config||{}; DB.config.perfil=d; if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
+document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return;
+  if(e.target.closest('#btnConfig')){ abrirConfig(); return; }
+  if(e.target.closest('#cfgAddTit')){ var d=_cfgCollect(); d.titulares.push({nombre:'',nomina:0}); renderCfg(d); return; }
+  var del=e.target.closest('[data-cfgdel]'); if(del){ var i=+del.getAttribute('data-cfgdel'); var d2=_cfgCollect(); d2.titulares.splice(i,1); renderCfg(d2); return; }
+  if(e.target.closest('#cfgSave')){ guardarPerfilCfg(); return; }
+});
+

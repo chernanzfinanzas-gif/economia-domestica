@@ -139,7 +139,7 @@ function renderPanel(){
 var INF_LOGO='';
 function _infEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _infPad(n){ return String(n).padStart(2,'0'); }
-function _infTitulares(){ var s=['Carlos','Susana','Dos']; (DB.movimientos||[]).forEach(function(m){ if(m.titular&&s.indexOf(m.titular)<0)s.push(m.titular); }); return s; }
+function _infTitulares(){ var base=(typeof perfilTitulares==='function'?perfilTitulares():[]); var s=base.slice(); if(s.indexOf('Dos')<0)s.push('Dos'); (DB.movimientos||[]).forEach(function(m){ if(m.titular&&s.indexOf(m.titular)<0)s.push(m.titular); }); if(!s.length)s=['Carlos','Susana','Dos']; return s; }
 function _infMonthsInRange(d0,d1){ var out=[]; var y=d0.getFullYear(), m=d0.getMonth(); var ey=d1.getFullYear(), em=d1.getMonth(); while(y<ey||(y===ey&&m<=em)){ out.push({y:y,m:m}); m++; if(m>11){m=0;y++;} } return out; }
 function _infDetalle(list,tipo,modo){
   var movs=list.filter(function(m){return m.tipo===tipo;}).sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
@@ -708,7 +708,7 @@ function proyDefaults(){
   if(!divB) divB=14151;
   const byName={}; DB.categorias.forEach(c=>byName[c.nombre]=c);
   const mes=(n)=>{const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0;};
-  const nominaMes=mes('Nómina Carlos')+mes('Nómina Susana')+mes('Pagas Extra');
+  const _titN=(typeof perfilTitulares==='function'&&perfilTitulares().length)?perfilTitulares():['Carlos','Susana']; const nominaMes=_titN.reduce(function(a,n){return a+mes('Nómina '+n);},0)+mes('Pagas Extra');
   let gastosAnu=0; DB.presupuesto.filter(x=>pAnio(x)===yr).forEach(x=>{const c=DB.categorias.find(cc=>cc.id===x.categoriaId); if(c&&c.tipo==='gasto')gastosAnu+=anual(x);});
   DB.config.proyeccion={ modeloEvo2:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
     efectivo:Math.round(last.ef)||9000, invertidoCoste:Math.round(coste), carteraInicial:Math.round(cartera),
@@ -1086,3 +1086,46 @@ function importPresupuesto(file){ if(typeof pushSnapshot==='function')pushSnapsh
   });
 }
 /* ============ Inversiones (operaciones) ============ */
+
+/* ===== P4.2 · «El origen»: bloque dinámico «entonces → hoy» (solo lectura) ===== */
+function renderOrigen(){
+  var sec=document.getElementById('view-origen'); if(!sec) return;
+  var old=document.getElementById('origenDinamico'); if(old)old.remove();
+  var snaps=(typeof patSnaps==='function')?patSnaps():[];
+  var last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
+  var efHoy=num(last.ef), invHoy=num(last.inv), totHoy=efHoy+invHoy;
+  var efPctHoy=totHoy>0?(efHoy/totHoy*100):0;
+  var yr=(typeof baseYear==='function')?baseYear():new Date().getFullYear();
+  var byId={}; (DB.categorias||[]).forEach(function(c){byId[c.id]=c;});
+  var ingMes=0,gasAnu=0;
+  (DB.categorias||[]).forEach(function(c){ if(c.tipo==='ingreso'){ var pp=(typeof presFor==='function')?presFor(c.id,yr):null; if(pp)ingMes+=mensual(pp); } });
+  (DB.presupuesto||[]).filter(function(x){return pAnio(x)===yr;}).forEach(function(x){ var c=byId[x.categoriaId]; if(c&&c.tipo==='gasto')gasAnu+=anual(x); });
+  var gasMes=gasAnu/12;
+  var INI=102621.74, P={total:222000,ef:112000,rv:110000,efPct:50.5,ing:6830.68,gas:3457};
+  var crec=INI>0?(totHoy/INI):0;
+  var pctCumpl=P.total>0?(totHoy/P.total):0;
+  var rumboCol,rumboTxt;
+  if(pctCumpl>=1){rumboCol='#16a34a';rumboTxt='Por delante del plan';}
+  else if(pctCumpl>=0.9){rumboCol='#d97706';rumboTxt='En línea con el plan';}
+  else {rumboCol='#dc2626';rumboTxt='Por detrás del plan';}
+  function eur(v){return fmt(v)+' €';}
+  function rowE(label,plan,hoy,higherBetter){ var d=hoy-plan; var fav=higherBetter?(d>=0):(d<=0); return '<tr><td>'+label+'</td><td class="num">'+eur(plan)+'</td><td class="num"><b>'+eur(hoy)+'</b></td><td class="num '+(fav?'pos':'neg')+'">'+(d>=0?'+':'')+fmt(d)+'</td></tr>'; }
+  function rowP(label,plan,hoy){ var d=hoy-plan; return '<tr><td>'+label+'</td><td class="num">'+plan.toFixed(1)+'%</td><td class="num"><b>'+hoy.toFixed(1)+'%</b></td><td class="num">'+(d>=0?'+':'')+d.toFixed(1)+' pp</td></tr>'; }
+  var div=document.createElement('div');
+  div.className='card'; div.id='origenDinamico'; div.style='border-left:5px solid #16a34a;margin-top:12px';
+  div.innerHTML=
+    '<div style="font-size:16px;font-weight:800;color:#16a34a">Entonces → hoy · el plan frente a la realidad</div>'+
+    '<div class="muted" style="font-size:12px;margin:4px 0 10px">Se calcula solo con tus datos actuales (patrimonio, ingresos y gastos del año '+yr+'). Solo lectura.</div>'+
+    '<div style="margin-bottom:10px;font-size:14px">Desde el origen (05/02/2019): <b>'+eur(INI)+'</b> → hoy <b style="color:#16a34a">'+eur(totHoy)+'</b> <span class="muted">(×'+crec.toFixed(2)+' · '+(crec>=1?'+':'')+((crec-1)*100).toFixed(0)+'%)</span></div>'+
+    '<div style="overflow:auto"><table style="min-width:440px"><thead><tr><th>Concepto</th><th class="num">Plan 2026</th><th class="num">Hoy</th><th class="num">Δ</th></tr></thead><tbody>'+
+      rowE('Patrimonio total',P.total,totHoy,true)+
+      rowE('Efectivo',P.ef,efHoy,true)+
+      rowE('R. Variable',P.rv,invHoy,true)+
+      rowP('% Efectivo',P.efPct,efPctHoy)+
+      rowE('Ingresos / mes',P.ing,ingMes,true)+
+      rowE('Gastos / mes',P.gas,gasMes,false)+
+    '</tbody></table></div>'+
+    '<div style="margin-top:10px"><span style="background:'+rumboCol+';color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;font-size:13px">'+rumboTxt+' · '+(pctCumpl*100).toFixed(0)+'% del objetivo 2026</span></div>';
+  sec.appendChild(div);
+}
+
