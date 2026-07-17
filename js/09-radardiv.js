@@ -19,11 +19,19 @@ function _radarPrecio(t){
   if(typeof _precioCache!=='undefined'){ var pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); }
   return 0;
 }
-/* DPA bruto del año en curso (o el último con dato) desde dividendos.json */
+/* DPA bruto del AÑO EN VIGOR desde dividendos.json.
+   El dividendo del radar es el del año en curso: si ese año tiene dato DECLARADO
+   (aunque sea 0 = dividendo suspendido, como Bodegas Riojanas desde 2024), ese manda
+   y la empresa figura sin dividendo. Solo si el año en vigor NO tiene fila cargada
+   todavía se recurre al último real conocido, para no descartar a un pagador cuyo
+   dato del año aún no está en la base. (La ventana de años del RANGO de precio, que sí
+   usa 3+ años, es aparte: _radarStats.) */
 function _radarDiv(t){
   if(typeof evoDpaBruto!=='function')return 0;
   var y=new Date().getFullYear();
-  for(var k=0;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }
+  var a=(typeof evoAnioM==='function')?evoAnioM(t,y):null;
+  if(a && a.dpaBruto!=null) return num(a.dpaBruto);   /* año en vigor declarado (incl. 0) */
+  for(var k=1;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }  /* sin fila del año: último real */
   return 0;
 }
 function _radarUnionUniverso(out,seen){ var uni=DB.universo||{}; Object.keys(uni).forEach(function(t){ t=(t||'').toUpperCase(); if(!t||seen[t])return; var v=(DB.valores||{})[t]||{}; var precio=_radarPrecio(t); var div=_radarDiv(t); if(!(precio>0))return; if(_radarSoloDiv && !(div>0))return; seen[t]=1; out.push({t:t,nombre:(uni[t]||{}).nombre||v.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''}); }); }
