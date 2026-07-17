@@ -467,3 +467,32 @@ init();
     var pos=t.selectionStart; renderPres(); scheduleSave(); var n=document.getElementById('presAhorroInp'); if(n){ n.focus(); try{n.setSelectionRange(pos,pos);}catch(err){} }
   });
 })();
+
+/* ===== Calculadora flotante (botón 🧮 en la cabecera, disponible en todas las vistas) ===== */
+(function(){
+  var panel=document.getElementById('calcPanel'), btn=document.getElementById('btnCalc'); if(!panel||!btn)return;
+  var disp=document.getElementById('calcDisp'), opv=document.getElementById('calcOp');
+  var acc=null, op=null, cur='0', fresh=false;
+  function fmtN(x){ return ''+(Math.round(x*1e10)/1e10); }
+  function opSym(o){ return o==='+'?'+':o==='-'?'−':o==='*'?'×':o==='/'?'÷':''; }
+  function upd(){ disp.textContent=cur; opv.textContent=(op&&acc!=null)?(fmtN(acc)+' '+opSym(op)):''; }
+  function digit(d){ if(fresh){cur='0';fresh=false;} if(d==='.'){ if(cur.indexOf('.')<0)cur+='.'; } else { cur=(cur==='0')?d:cur+d; } upd(); }
+  function calc(a,b,o){ return o==='+'?a+b:o==='-'?a-b:o==='*'?a*b:o==='/'?(b===0?0:a/b):b; }
+  function operator(o){ var v=parseFloat(cur); if(op!==null&&!fresh){ acc=calc(acc,v,op); cur=fmtN(acc); } else { acc=v; } op=o; fresh=true; upd(); }
+  function equals(){ if(op!==null){ var v=parseFloat(cur); acc=calc(acc,v,op); cur=fmtN(acc); op=null; fresh=true; upd(); } }
+  function clearAll(){ acc=null;op=null;cur='0';fresh=false;upd(); }
+  function back(){ if(fresh)return; cur=(cur.length>1)?cur.slice(0,-1):'0'; if(cur==='-'||cur==='')cur='0'; upd(); }
+  function pct(){ cur=fmtN(parseFloat(cur)/100); fresh=false; upd(); }
+  function neg(){ cur=fmtN(parseFloat(cur)*-1); upd(); }
+  function key(k){ if(/^[0-9.]$/.test(k))return digit(k); if(k.slice(0,3)==='op:')return operator(k.slice(3)); if(k==='eq')return equals(); if(k==='c')return clearAll(); if(k==='back')return back(); if(k==='pct')return pct(); if(k==='neg')return neg(); }
+  document.getElementById('calcKeys').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b)key(b.getAttribute('data-k')); });
+  btn.addEventListener('click',function(){ panel.classList.toggle('hidden'); });
+  document.getElementById('calcClose').addEventListener('click',function(){ panel.classList.add('hidden'); });
+  document.addEventListener('keydown',function(e){ if(panel.classList.contains('hidden'))return; var ae=document.activeElement; if(ae&&/^(INPUT|TEXTAREA|SELECT)$/.test(ae.tagName))return; var k=e.key, h=true;
+    if(/^[0-9]$/.test(k)||k==='.')key(k); else if(k==='+'||k==='-'||k==='*'||k==='/')key('op:'+k); else if(k==='Enter'||k==='=')key('eq'); else if(k==='Backspace')key('back'); else if(k==='Escape')key('c'); else if(k==='%')key('pct'); else h=false;
+    if(h)e.preventDefault(); });
+  var head=document.getElementById('calcHead'), drag=false, ox=0, oy=0;
+  head.addEventListener('pointerdown',function(e){ if(e.target.id==='calcClose')return; drag=true; var r=panel.getBoundingClientRect(); ox=e.clientX-r.left; oy=e.clientY-r.top; panel.style.right='auto'; panel.style.left=r.left+'px'; panel.style.top=r.top+'px'; try{head.setPointerCapture(e.pointerId);}catch(_){} });
+  head.addEventListener('pointermove',function(e){ if(!drag)return; panel.style.left=Math.max(0,Math.min(window.innerWidth-60,e.clientX-ox))+'px'; panel.style.top=Math.max(0,Math.min(window.innerHeight-40,e.clientY-oy))+'px'; });
+  head.addEventListener('pointerup',function(){ drag=false; });
+})();
