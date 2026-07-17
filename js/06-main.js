@@ -423,3 +423,9 @@ document.body.appendChild(prf);
 
 /* arranque */
 init();
+
+/* ⚙ Ajustes: menú desplegable de la cabecera (reagrupa copia/restaurar/papelera/config/buscar/demo/salir) */
+(function(){ var cog=document.getElementById('btnCog'), menu=document.getElementById('cogMenu'); if(!cog||!menu)return;
+  cog.addEventListener('click',function(e){ e.stopPropagation(); menu.classList.toggle('open'); });
+  document.addEventListener('click',function(){ menu.classList.remove('open'); });
+})();
