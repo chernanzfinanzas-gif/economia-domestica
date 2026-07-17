@@ -429,3 +429,13 @@ init();
   cog.addEventListener('click',function(e){ e.stopPropagation(); menu.classList.toggle('open'); });
   document.addEventListener('click',function(){ menu.classList.remove('open'); });
 })();
+
+/* Panel · Fase B: plegado de las secciones del dashboard (delegado en #panelDash) */
+(function(){ var host=document.getElementById('panelDash'); if(!host)return;
+  function rel(){ if(typeof renderPanelDash==='function') renderPanelDash(); }
+  host.addEventListener('click',function(e){
+    var f=e.target.closest('[data-psfold]'); if(f){ var k=f.getAttribute('data-psfold'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[k]=window._panelSecOpen[k]?0:1; rel(); return; }
+    var a=e.target.closest('[data-psall]'); if(a){ var v=+a.getAttribute('data-psall'); window._panelSecOpen=window._panelSecOpen||{}; ['hogar','cartera','dividendos','accion','mas'].forEach(function(k){window._panelSecOpen[k]=v;}); rel(); return; }
+    var j=e.target.closest('[data-psjump]'); if(j){ var kk=j.getAttribute('data-psjump'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[kk]=1; rel(); setTimeout(function(){ var el=document.querySelector('[data-pssec="'+kk+'"]'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },40); return; }
+  });
+})();
