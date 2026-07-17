@@ -301,7 +301,7 @@ function calYearsDisponibles(){
    Vistas: Agenda cronológica · Vista anual (52 semanas) · Dividendos €/mes.
    Selector de año (horizonte del Plan). Solo lectura (derivado).
    ============================================================ */
-var _calYearSel=null, _calVista='agenda', _calFil={tipo:'todos',ambito:'todas'};
+var _calYearSel=null, _calVista='agenda', _calFil={tipo:'todos',ambito:'todas',empresa:'todas'};
 var _calDatosOK=false, _calListo=false, _calCargando=false;
 var _CAL_MES=(typeof MESES_ES!=='undefined')?MESES_ES:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 var _CAL_TT={exdiv:'EX-DIV',pago:'PAGO',junta:'JUNTA',res:'RESULT.'};
@@ -347,18 +347,26 @@ function _calPaint(){
   body.innerHTML = _calVista==='agenda'?_calAgendaHTML() : (_calVista==='anual'?_calAnualHTML() : _calDivsHTML());
 }
 
+function _calYearTagHTML(y){ var nowY=_calNowY();
+  return y<nowY ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#dcfce7;color:#166534">histórico</span>'
+       : (y===nowY ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#fef9c3;color:#92400e">año en curso</span>'
+       : '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#ede9fe;color:#5b21b6">proyectado</span>');
+}
 function _calBarHTML(ymin,ymax){
   var y=_calYearSel, nowY=_calNowY();
-  var tag = y<nowY ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#dcfce7;color:#166534">histórico</span>'
-          : (y===nowY ? '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#fef9c3;color:#92400e">año en curso</span>'
-          : '<span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;background:#ede9fe;color:#5b21b6">proyectado</span>');
   var sub=function(v,lbl){ return '<button class="btn sm calSubtab'+(_calVista===v?' on':'')+'" data-calv="'+v+'" style="'+(_calVista===v?'background:var(--brand);color:#fff;':'')+'">'+lbl+'</button>'; };
   return '<div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:10px">'
     +'<div style="display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:5px 9px">'
-      +'<button class="btn sm calYbtn" data-caldy="-1"'+(y<=ymin?' disabled':'')+' style="font-weight:700">◀</button>'
-      +'<span style="font-size:20px;font-weight:800;min-width:66px;text-align:center">'+y+'</span>'
-      +'<button class="btn sm calYbtn" data-caldy="1"'+(y>=ymax?' disabled':'')+' style="font-weight:700">▶</button>'
-      +tag+'<span class="muted" style="font-size:11px">'+ymin+'–'+ymax+'</span>'
+      +'<button class="btn sm calYbtn" data-caldy="-1"'+(y<=ymin?' disabled':'')+' style="font-weight:700" title="Año anterior">◀</button>'
+      +'<span id="calYearNum" style="font-size:20px;font-weight:800;min-width:66px;text-align:center">'+y+'</span>'
+      +'<button class="btn sm calYbtn" data-caldy="1"'+(y>=ymax?' disabled':'')+' style="font-weight:700" title="Año siguiente">▶</button>'
+      +'<span id="calYearTag">'+_calYearTagHTML(y)+'</span>'
+    +'</div>'
+    +'<div style="display:flex;align-items:center;gap:8px;flex:1;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:5px 11px">'
+      +'<span class="muted" style="font-size:11px">'+ymin+'</span>'
+      +'<input type="range" id="calYearRange" min="'+ymin+'" max="'+ymax+'" step="1" value="'+y+'" title="Desliza para cambiar de año" style="flex:1;accent-color:var(--brand);cursor:pointer">'
+      +'<span class="muted" style="font-size:11px">'+ymax+'</span>'
+      +'<button class="btn sm" id="calHoy" data-calhoy="1" title="Ir al año en curso ('+nowY+')" style="font-weight:700">Hoy</button>'
     +'</div>'
     +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+sub('agenda','Agenda')+sub('anual','Vista anual')+sub('divs','Dividendos €/mes')+'</div>'
   +'</div>';
@@ -378,7 +386,7 @@ function _calChip(tipo,periodo){
   return '<span style="display:inline-block;font-size:10px;font-weight:700;padding:1px 7px;border-radius:20px;color:#fff;background:'+col+'">'+lbl+'</span>';
 }
 function _calDetalle(e){
-  if(e.tipo==='pago') return '<span class="muted" style="font-size:12px">'+(_calNum(e.sh)).toLocaleString('es-ES')+' acc × '+_calDps(e.imp)+' = <b>'+_calEur(e.sh*e.imp)+'</b> bruto</span>';
+  if(e.tipo==='pago') return '<span class="muted" style="font-size:12px">'+(_calNum(e.sh)).toLocaleString('es-ES')+' acc × '+_calDps(e.imp)+' = <b>'+_calEur(e.sh*e.imp)+'</b> bruto · <b style="color:#166534">'+_calEur(e.sh*e.imp*0.81)+'</b> neto</span>';
   if(e.tipo==='exdiv') return '<span class="muted" style="font-size:12px">último día con derecho · '+_calDps(e.imp)+' €/acc</span>';
   if(e.tipo==='res') return '<span class="muted" style="font-size:12px">'+(e.periodo==='Q4'?'resultados anuales':'informe '+(_CAL_QL[e.periodo]||e.periodo))+'</span>';
   if(e.tipo==='junta') return '<span class="muted" style="font-size:12px">junta general</span>';
@@ -391,22 +399,28 @@ function _calBadge(e){
 }
 
 function _calAgendaHTML(){
-  var y=_calYearSel;
-  var ev=calEventosAnio(y).filter(function(e){ return (_calFil.tipo==='todos'||e.tipo===_calFil.tipo)&&(_calFil.ambito==='todas'||e.grp==='cartera'); });
+  var y=_calYearSel, nowY=_calNowY(), hoy=_calHoy();
+  var empSel=(_calFil.empresa==null?'todas':_calFil.empresa);
+  var ev=calEventosAnio(y).filter(function(e){ return (_calFil.tipo==='todos'||e.tipo===_calFil.tipo)&&(_calFil.ambito==='todas'||e.grp==='cartera')&&(empSel==='todas'||e.t===empSel); });
   var fb=function(v,lbl,key){ return '<button class="btn sm calFbtn'+((_calFil[key==='a'?'ambito':'tipo'])===v?' on':'')+'" data-cal'+key+'="'+v+'" style="'+((_calFil[key==='a'?'ambito':'tipo'])===v?'background:#0f172a;color:#fff;':'')+'font-size:12px">'+lbl+'</button>'; };
   var amb=fb('todas','Cartera + radar','a')+fb('cartera','Solo cartera','a');
   var tip=['todos','exdiv','pago','junta','res'].map(function(x){ return fb(x, x==='todos'?'Todos':_CAL_TT[x],'f'); }).join('');
+  var emps=calTickers().slice().sort();
+  var empDD='<select class="calEmpSel" title="Filtrar por empresa" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;cursor:pointer"><option value="todas"'+(empSel==='todas'?' selected':'')+'>Todas las empresas</option>'+emps.map(function(t){ return '<option value="'+_calEsc(t)+'"'+(empSel===t?' selected':'')+'>'+_calEsc(t)+(_calHeld().has(t)?'':' · radar')+'</option>'; }).join('')+'</select>';
+  var nPas=0;
   var rows=ev.map(function(e){
+    var pasado=(y>=nowY)&&(e.fecha<hoy); if(pasado)nPas++;
     var bg=e.grp==='cartera'?'background:#fffbeb':'background:#f6f8fc';
     var tag=e.grp==='cartera'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#fde68a;color:#92400e">cartera</span>':'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#dbe4f5;color:#1e3a63">radar</span>';
-    return '<tr style="'+bg+'"><td style="white-space:nowrap;font-weight:600;color:#334155;font-variant-numeric:tabular-nums">'+_calFmtF(e.fecha)+'</td>'
+    return '<tr style="'+bg+(pasado?';opacity:.4':'')+'"><td style="white-space:nowrap;font-weight:600;color:#334155;font-variant-numeric:tabular-nums">'+_calFmtF(e.fecha)+(pasado?' <span style="font-size:9px;color:#94a3b8;font-weight:700">✓</span>':'')+'</td>'
       +'<td>'+_calChip(e.tipo,e.periodo)+'</td>'
       +'<td><span data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer;font-weight:700;color:var(--brand)">'+_calEsc(e.t)+'</span> '+tag+_calBadge(e)+' <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,22))+'</span></td>'
       +'<td>'+_calDetalle(e)+'</td></tr>';
   }).join('');
-  return '<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">'+amb+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+tip+'</div>'
-    +'<div style="overflow:auto"><table style="width:100%"><tbody>'+(rows||'<tr><td class="muted" style="padding:8px">Sin eventos este año.</td></tr>')+'</tbody></table></div>'
-    +'<div class="muted" style="font-size:11px;margin-top:6px">Todos los eventos de '+y+'. Fondo ámbar = cartera · azul = prevista del radar. Clic en la empresa para abrir su ficha.</div></div>';
+  var notaPas=(nPas&&y===nowY)?(' Los <b>'+nPas+'</b> eventos ya pasados van atenuados (✓) para resaltar lo pendiente.'):'';
+  return '<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">'+amb+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+tip+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+empDD+'</div>'
+    +'<div style="overflow:auto"><table style="width:100%"><tbody>'+(rows||'<tr><td class="muted" style="padding:8px">Sin eventos con este filtro.</td></tr>')+'</tbody></table></div>'
+    +'<div class="muted" style="font-size:11px;margin-top:6px">Eventos de '+y+'. Fondo ámbar = cartera · azul = prevista del radar. Clic en la empresa para abrir su ficha.'+notaPas+'</div></div>';
 }
 
 function _calWeekIdx(fecha,year){ var d=new Date(fecha+'T00:00:00'); var s=new Date(year,0,1); return Math.floor((d-s)/86400000/7); }
@@ -416,26 +430,37 @@ function _calAnualHTML(){
   var held=_calHeld(); var cart=[], prev=[];
   calTickers().forEach(function(t){ (held.has(t)?cart:prev).push(t); });
   var bands=[]; for(var w=0;w<53;w++){ var dt=new Date(y,0,1+w*7); var m=dt.getMonth(); if(bands.length&&bands[bands.length-1].m===m)bands[bands.length-1].n++; else bands.push({m:m,n:1}); }
-  var stEmp='border:1px solid var(--line);text-align:left;white-space:nowrap;font-weight:700;font-size:11px;padding:2px 6px;position:sticky;left:0;background:#fff;z-index:2';
-  var h1='<tr><th style="'+stEmp+'">Empresa</th>'+bands.map(function(b){ return '<th style="border:1px solid var(--line);background:#f8fafc;font-size:10px;font-weight:700" colspan="'+b.n+'">'+_CAL_MES[b.m]+'</th>'; }).join('')+'</tr>';
-  var h2='<tr><th style="'+stEmp+'"></th>'; for(var w2=0;w2<53;w2++) h2+='<th style="font-weight:400;color:#cbd5e1;font-size:7px;border:1px solid #eef2f7">'+(w2+1)+'</th>'; h2+='</tr>';
+  var stEmp='border:1px solid var(--line);text-align:left;white-space:nowrap;font-weight:700;font-size:10px;padding:1px 5px;position:sticky;left:0;background:#fff;z-index:2';
+  var h1='<tr><th style="'+stEmp+'">Empresa</th>'+bands.map(function(b){ return '<th style="border:1px solid var(--line);background:#f8fafc;font-size:9px;font-weight:700;padding:1px 0" colspan="'+b.n+'">'+_CAL_MES[b.m]+'</th>'; }).join('')+'</tr>';
+  var h2='<tr><th style="'+stEmp+'"></th>'; for(var w2=0;w2<53;w2++) h2+='<th style="font-weight:400;color:#cbd5e1;font-size:6px;border:1px solid #eef2f7;padding:0">'+(w2+1)+'</th>'; h2+='</tr>';
   var col={exdiv:'#d97706',pago:'#16a34a',junta:'#c2410c',res:'#2563eb'};
+  var PRIO={pago:0,exdiv:1,res:2,junta:3};   /* importancia: dividendo > ex-div > resultados > junta */
   function rowFor(t){
     var grpbg=held.has(t)?'#fffbeb':'#f6f8fc'; var cells='';
     var es=evByT[t]||[];
     for(var w=0;w<53;w++){
-      var dots=es.filter(function(e){ return _calWeekIdx(e.fecha,y)===w; }).map(function(e){
-        var extra=e.proyectado?'opacity:.55;border:1px dashed #7c3aed;':(e.estimado?'opacity:.6;border:1px dashed #b45309;':'');
-        var tip=_calFmtF(e.fecha)+'-'+y+' · '+(_CAL_TT[e.tipo])+(e.tipo==='res'&&e.periodo?' '+(_CAL_QL[e.periodo]||e.periodo):'')+(e.tipo==='pago'?' · '+_calEur(e.sh*e.imp):'');
-        return '<span title="'+_calEsc(tip)+'" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:'+(col[e.tipo]||'#64748b')+';'+extra+'"></span>';
-      }).join('');
-      cells+='<td style="border:1px solid #eef2f7;width:15px;height:15px;text-align:center">'+dots+'</td>';
+      var wk=es.filter(function(e){ return _calWeekIdx(e.fecha,y)===w; });
+      var cell='';
+      if(wk.length){
+        var main=wk.slice().sort(function(a,b){ var pa=(PRIO[a.tipo]==null?9:PRIO[a.tipo]), pb=(PRIO[b.tipo]==null?9:PRIO[b.tipo]); return pa!==pb?pa-pb:(a.fecha<b.fecha?-1:1); })[0];
+        var extra=main.proyectado?'opacity:.6;border:1px dashed #7c3aed;':(main.estimado?'opacity:.65;border:1px dashed #b45309;':'');
+        var ring=wk.length>1?'box-shadow:0 0 0 1.4px #cbd5e1;':'';
+        var tip=wk.slice().sort(function(a,b){return a.fecha<b.fecha?-1:1;}).map(function(e){ return _calFmtF(e.fecha)+'-'+y+' · '+(_CAL_TT[e.tipo])+(e.tipo==='res'&&e.periodo?' '+(_CAL_QL[e.periodo]||e.periodo):'')+(e.tipo==='pago'?' · '+_calEur(e.sh*e.imp)+' bruto':'')+(e.proyectado?' (proy)':'')+(e.estimado?' (est)':''); }).join('\n');
+        cell='<span title="'+_calEsc((wk.length>1?(wk.length+' eventos:\n'):'')+tip)+'" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+(col[main.tipo]||'#64748b')+';'+extra+ring+'"></span>';
+      }
+      cells+='<td style="border:1px solid #eef2f7;width:10px;height:12px;text-align:center;padding:0">'+cell+'</td>';
     }
     return '<tr><td style="'+stEmp+';background:'+grpbg+'">'+_calEsc(t)+'</td>'+cells+'</tr>';
   }
   var body=cart.map(rowFor).join('')+'<tr><td colspan="54" style="border-top:2px solid #cbd5e1;height:0;padding:0"></td></tr>'+prev.map(rowFor).join('');
-  return '<div class="card" style="overflow:auto"><table style="border-collapse:collapse;font-size:9px">'+h1+h2+body+'</table></div>'
-    +'<div class="muted" style="font-size:11px;margin-top:6px">52 semanas de '+y+' con los meses arriba. Cartera arriba, previstas del radar debajo de la línea. Pasa el ratón por cada punto para ver fecha e importe.</div>';
+  var legItem=function(c,lbl,st){ return '<span style="display:inline-flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;'+(st||('background:'+c))+';display:inline-block"></span>'+lbl+'</span>'; };
+  var leg='<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:10.5px;margin-top:7px;color:#475569">'
+    +legItem(col.pago,'pago')+legItem(col.exdiv,'ex-div')+legItem(col.res,'resultados')+legItem(col.junta,'junta')
+    +'<span style="width:1px;height:12px;background:var(--line)"></span>'
+    +legItem(null,'proyectado','border:1px dashed #7c3aed')+legItem(null,'estimado','border:1px dashed #b45309')+legItem(null,'varios (ver tooltip)','box-shadow:0 0 0 1.4px #cbd5e1')
+    +'</div>';
+  return '<div class="card"><div style="overflow:auto"><table style="border-collapse:collapse;font-size:9px">'+h1+h2+body+'</table></div>'+leg
+    +'<div class="muted" style="font-size:11px;margin-top:6px">Semanas del año '+y+' con los meses arriba. Cartera arriba, previstas del radar debajo de la línea. Si una semana tiene varios eventos se muestra el más importante (dividendo › ex-div › resultados › junta) y el resto aparece al pasar el ratón por el punto.</div></div>';
 }
 
 function _calDivsHTML(){
@@ -461,12 +486,32 @@ function _calDivsHTML(){
     +'<div class="muted" style="font-size:11px;margin-top:6px">'+nota+' Cada celda = neto de esa empresa ese mes (× 0,81). En abril el IRPF entra como <b>ingreso</b> (devolución de retenciones del año anterior).</div>';
 }
 
+/* Cambia solo el número de año y la etiqueta (feedback en vivo del slider, sin reconstruir la barra). */
+function _calYearNumLive(ny){
+  var n=document.getElementById('calYearNum'); if(n) n.textContent=ny;
+  var g=document.getElementById('calYearTag'); if(g) g.innerHTML=_calYearTagHTML(ny);
+}
+/* Repinta KPIs + cuerpo para el año actual SIN tocar la barra (mantiene el slider mientras se arrastra). */
+function _calBodyRepaint(){
+  var kp=document.getElementById('calKpis'); if(kp) kp.innerHTML=_calKpisHTML();
+  var body=document.getElementById('calBody'); if(!body) return;
+  body.innerHTML = !_calDatosOK ? '<div class="card"><div class="muted" style="padding:10px">Cargando calendario…</div></div>'
+    : (_calVista==='agenda'?_calAgendaHTML() : (_calVista==='anual'?_calAnualHTML() : _calDivsHTML()));
+}
+function _calClampYear(ny){ var ys=calYearsDisponibles(); if(!ys.length)return ny; return Math.max(ys[0],Math.min(ys[ys.length-1],ny)); }
 function _calInitListeners(){
   if(_calListo) return; _calListo=true;
   document.addEventListener('click', function(e){
     var t=e.target; if(!t||!t.closest) return;
-    var yb=t.closest('.calYbtn'); if(yb){ var dd=parseInt(yb.getAttribute('data-caldy'),10)||0; var ys=calYearsDisponibles(); _calYearSel=Math.max(ys[0],Math.min(ys[ys.length-1],_calYearSel+dd)); _calPaint(); return; }
+    var hy=t.closest('[data-calhoy]'); if(hy){ _calYearSel=_calClampYear(_calNowY()); _calPaint(); return; }
+    var yb=t.closest('.calYbtn'); if(yb){ var dd=parseInt(yb.getAttribute('data-caldy'),10)||0; _calYearSel=_calClampYear(_calYearSel+dd); _calPaint(); return; }
     var sb=t.closest('.calSubtab'); if(sb){ _calVista=sb.getAttribute('data-calv')||'agenda'; _calPaint(); return; }
     var fb=t.closest('.calFbtn'); if(fb){ var vt=fb.getAttribute('data-calf'), va=fb.getAttribute('data-cala'); if(vt!=null)_calFil.tipo=vt; if(va!=null)_calFil.ambito=va; _calPaint(); return; }
+  });
+  /* Slider de año: en vivo solo actualiza el número (fluido al arrastrar); al soltar repinta el contenido. */
+  document.addEventListener('input', function(e){ var r=e.target; if(!r||r.id!=='calYearRange') return; _calYearSel=_calClampYear(parseInt(r.value,10)||_calNowY()); _calYearNumLive(_calYearSel); });
+  document.addEventListener('change', function(e){ var s=e.target; if(!s) return;
+    if(s.id==='calYearRange'){ _calYearSel=_calClampYear(parseInt(s.value,10)||_calNowY()); _calBodyRepaint(); return; }
+    if(s.classList&&s.classList.contains('calEmpSel')){ _calFil.empresa=s.value||'todas'; _calBodyRepaint(); return; }
   });
 }
