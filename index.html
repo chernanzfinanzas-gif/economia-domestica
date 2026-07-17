@@ -710,17 +710,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-calendario">
-    <h2>Calendario de dividendos</h2>
-    <div class="cards" id="calKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Solo posiciones en cartera. Introduce el % de cada pago (1º–4º); el importe de cada cobro (neto) = acciones × dividendo bruto/acción × % × 0,81. La retención total (19%) aparece como <b>Devolución Hacienda</b> en abril. Los meses se toman de los eventos de dividendo (<b>D</b>) del calendario anual. ⚠ los % deben sumar 100.</div>
-    <div style="overflow:auto" id="calTabla"></div>
-    <h3 style="margin-top:18px">Próximos eventos</h3>
-    <div class="sub" style="margin-bottom:6px">Solo mes en curso y el siguiente. <span class="evchip ev-div">D</span> dividendo · <span class="evchip ev-res">Q</span> resultados · <span class="evchip ev-jun">JA</span> junta. En negrita, empresas en cartera.</div>
-    <div id="calAgenda" style="margin-bottom:8px"></div>
-    <h3 style="margin-top:18px">Calendario de eventos (anual)</h3>
-    <div class="sub" style="margin-bottom:6px">Cada mes dividido en 4 semanas. Escribe el código del evento en su semana (<b>D</b>=dividendo, <b>Q1-Q4</b>=resultados, <b>JA</b>=junta, <b>ID</b>=Investor Day). Editable para ajustar próximos años; varios códigos en una celda separados por espacio.</div>
-    <div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="evAdd">+ Empresa</button></div>
-    <div style="overflow:auto" id="calEventos"></div>
+    <h2>Calendario</h2>
+    <div class="sub" style="margin-bottom:8px">Calendario <b>derivado</b> de tus datos: ex-dividendo, pago de dividendo, junta, resultados e informes trimestrales, con fechas exactas. Solo lectura — las correcciones puntuales se hacen en <b>Evolución del Dividendo</b>. Viaja por los años con ◀ ▶: histórico real, año en curso y proyección desde tu Plan.</div>
+    <div id="calBar"></div>
+    <div class="cards" id="calKpis" style="margin-bottom:12px"></div>
+    <div id="calBody"></div>
   </section>
 
   <section class="view" id="view-prevision">
@@ -911,6 +905,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/16-buzon.js"></script>
   <script src="js/17-escenarios.js"></script>
   <script src="js/18-evodiv.js"></script>
+  <script src="js/19-calendario.js"></script>
   <script src="js/06-main.js"></script>
   <script src="js/15-cmdk.js"></script>
 
