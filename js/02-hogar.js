@@ -1140,9 +1140,8 @@ function renderProy(){
   $('#proyCards').innerHTML=_kp.map(x=>`<div class="k${x.hero?' hero':''}"><div class="l">${x.l}</div><div class="v">${x.v}</div><div class="p">${x.p}</div></div>`).join('');
   renderProyEventos(c);
   /* plegables cerrados por defecto */
-  window._proyBlk=window._proyBlk||{hip:false,ev:false};
-  var _bh=document.getElementById('blkProyHip'); if(_bh)_bh.classList.toggle('open',!!window._proyBlk.hip);
-  var _be=document.getElementById('blkProyEv'); if(_be)_be.classList.toggle('open',!!window._proyBlk.ev);
+  window._proyBlk=window._proyBlk||{hip:false,mc:false,ev:false,det:false};
+  [['blkProyHip','hip'],['blkProyMC','mc'],['blkProyEv','ev'],['blkProyDet','det']].forEach(function(p){ var b=document.getElementById(p[0]); if(b)b.classList.toggle('open',!!window._proyBlk[p[1]]); });
   window._proyYr=window._proyYr||{};
   const _pcls=(real,teor)=>{ if(real==null||!teor||teor<=0)return ''; const r=real/teor; if(r>=1)return 'g'; if(r>=0.95)return 'a'; return 'r'; };
   const yJub=num(c.anioTrasJub)||2039;
