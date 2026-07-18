@@ -1276,6 +1276,42 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-monitor #monKpis .k .v{font-size:18px}
   #view-monitor .pos-desk{display:none}#view-monitor .pos-mob{display:block}
 }
+/* ===== Backtest del método ===== */
+#view-backtest .bt-sub{color:var(--muted);font-size:13px;margin:2px 0 12px;line-height:1.5}
+#view-backtest #btKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-backtest #btKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-backtest #btKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-backtest #btKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-backtest #btKpis .k .v.pos{color:var(--green)}#view-backtest #btKpis .k .v.neg{color:var(--red)}
+#view-backtest #btKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-backtest #btKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-backtest #btKpis .k.hero .l,#view-backtest #btKpis .k.hero .p{color:#bbf7d0}#view-backtest #btKpis .k.hero .v{color:#fff}
+#view-backtest .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-backtest .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-backtest .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-backtest .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-backtest .pos-blk-h .bt{font-weight:800;font-size:14px}#view-backtest .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-backtest .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-backtest .pos-blk.open .pos-blk-b{display:block}
+#view-backtest .blk-pad{padding:14px}
+#view-backtest .sub2{color:var(--muted);font-size:12.5px;margin-bottom:10px;line-height:1.5}
+#view-backtest .ptable{overflow:auto;border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+#view-backtest .ptable table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap}
+#view-backtest .ptable thead th{background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700}
+#view-backtest .ptable thead th.l{text-align:left}
+#view-backtest .ptable tbody td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-backtest .ptable tbody td.l{text-align:left}#view-backtest .ptable .tk{font-weight:800;color:var(--brand);cursor:pointer}
+#view-backtest .ptable td.pos{color:var(--green)}#view-backtest .ptable td.neg{color:var(--red)}
+#view-backtest .disc{background:#f8fafc;border-radius:10px;padding:10px 13px;font-size:12.5px;line-height:1.7;color:#334155}
+#view-backtest .foot{color:var(--muted);font-size:11.5px;margin-top:8px;line-height:1.5}
+#view-backtest .pos-mob{display:none}
+#view-backtest .btcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;box-shadow:var(--shadow)}
+#view-backtest .bt-h{display:flex;justify-content:space-between;align-items:center}#view-backtest .bt-h .tk{font-size:15px;font-weight:800;color:var(--brand);cursor:pointer}#view-backtest .bt-h .nm{font-size:10px;color:#94a3b8;font-weight:400}#view-backtest .bt-ok{font-weight:800;font-size:13px}
+#view-backtest .bt-row{font-size:12.5px;margin-top:5px}#view-backtest .bt-row2{display:flex;justify-content:space-between;margin-top:5px;font-size:12.5px}#view-backtest .bt-row2 b{font-weight:800}#view-backtest .bt-row2 .pos{color:var(--green)}#view-backtest .bt-row2 .neg{color:var(--red)}
+#view-backtest .meth p{font-size:12.5px;line-height:1.6;color:#334155;margin:6px 0}#view-backtest .meth b{color:#1e293b}#view-backtest .warn-box{background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:8px 11px;color:#92400e !important}
+@media(max-width:960px){
+  #view-backtest #btKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-backtest #btKpis .k .v{font-size:18px}
+  #view-backtest .pos-desk{display:none}#view-backtest .pos-mob{display:block}
+}
 /* ===== Buzón del lunes ===== */
 #view-buzon .buz-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 #view-buzon .buz-top h2{font-size:20px}
@@ -3063,8 +3099,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="proxTabla" style="overflow:auto;margin-top:10px"></div>
   </section>
   <section class="view" id="view-backtest">
-    <h2>Backtest del método</h2>
-    <div id="btKpis" class="cards" style="margin-top:10px"></div>
+    <h2>🧪 Backtest del método</h2>
+    <div class="bt-sub">Agrega todas las fotos de tesis guardadas y compara la cotización de entonces con la de ahora. Mide si tus decisiones y tus scores (Calidad y Oportunidad) aciertan. Cuantas más fotos guardes con el tiempo, más fiable será.</div>
+    <div id="btKpis" style="margin-top:10px"></div>
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-metas">
