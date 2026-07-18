@@ -971,6 +971,42 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-rentabilidad .pos-desk{display:none}#view-rentabilidad .pos-mob{display:block}
   #view-rentabilidad .cmp-grid{grid-template-columns:1fr}
 }
+/* ===== Atribución ===== */
+#view-atribucion #atribKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-atribucion #atribKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-atribucion #atribKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-atribucion #atribKpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-atribucion #atribKpis .k .v.pos{color:var(--green)}#view-atribucion #atribKpis .k .v.neg{color:var(--red)}
+#view-atribucion #atribKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-atribucion #atribKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-atribucion #atribKpis .k.hero .l,#view-atribucion #atribKpis .k.hero .p{color:#bbf7d0}
+#view-atribucion [data-atrib].atrib-on{background:#166534;color:#fff;border-color:#166534}
+#view-atribucion .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-atribucion .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-atribucion .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-atribucion .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-atribucion .pos-blk-h .bt{font-weight:800;font-size:14px}#view-atribucion .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-atribucion .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-atribucion .pos-blk.open .pos-blk-b{display:block}
+#view-atribucion .atrib-pad{padding:14px}
+#view-atribucion .atrib-wtitle{font-weight:800;font-size:14px;margin-bottom:8px}
+#view-atribucion .atrib-note{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:10px;padding:10px 13px;font-size:12.5px;line-height:1.55;color:#334155;margin-top:12px}
+#view-atribucion .ptable{overflow:auto}
+#view-atribucion .ptable table{width:100%;border-collapse:collapse;font-size:12.5px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent}
+#view-atribucion .ptable thead th{background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700}
+#view-atribucion .ptable thead th:nth-child(1){text-align:left}
+#view-atribucion .ptable tbody td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-atribucion .ptable tbody td.l{text-align:left}
+#view-atribucion .ptable .atrib-tot td{background:#eef2f7;font-weight:700}
+#view-atribucion .pos-mob{display:none}
+#view-atribucion .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-atribucion .lc-h{display:flex;justify-content:space-between;align-items:center;gap:10px}#view-atribucion .lc-h .tk{font-size:19px;font-weight:800;color:var(--ink)}
+#view-atribucion .ty{text-align:right;font-size:16px;font-weight:800}#view-atribucion .ty.g{color:var(--green)}#view-atribucion .ty.r{color:var(--red)}#view-atribucion .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-atribucion .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#view-atribucion .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-atribucion .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-atribucion .lg .m b{font-size:12.5px;font-weight:700}
+@media(max-width:960px){
+  #view-atribucion #atribKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-atribucion #atribKpis .k .v{font-size:17px}
+  #view-atribucion .pos-desk{display:none}#view-atribucion .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2699,17 +2735,19 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="rentaBody"></div>
   </section>
   <section class="view" id="view-atribucion">
-    <h2>Atribución del crecimiento</h2>
-    <div class="toolbar" style="gap:8px;flex-wrap:wrap;align-items:center">
+    <h2>🔍 Atribución del crecimiento</h2>
+    <div class="sub" style="margin-bottom:10px">De dónde viene el cambio de valor de tu cartera: dinero nuevo que aportaste, dividendos cobrados y lo que hizo el mercado.</div>
+    <div id="atribKpis" style="margin-bottom:14px"></div>
+    <div class="toolbar" style="gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <span class="muted">Periodo:</span>
       <button class="btn ghost sm" data-atrib="12m">Últimos 12m</button>
       <button class="btn ghost sm" data-atrib="ytd">Año en curso</button>
-      <button class="btn ghost sm" data-atrib="todo">Todo</button>
+      <button class="btn ghost sm" data-atrib="todo">Desde inicio</button>
       <select id="atribAnio" class="anaInp" style="width:100px"></select>
       <span class="muted">·</span>
       <span class="muted">Rango:</span> <input type="date" id="atribDesde" class="anaInp"> <input type="date" id="atribHasta" class="anaInp"> <button class="btn sm" id="atribRango">Aplicar</button>
     </div>
-    <div id="atribKpis" class="cards" style="margin-top:10px"></div>
-    <div id="atribBody" style="margin-top:10px"></div>
+    <div id="atribBody"></div>
   </section>
   <section class="view" id="view-informes">
     <h2>Informes</h2>
