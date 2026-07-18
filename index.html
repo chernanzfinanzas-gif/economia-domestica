@@ -1114,6 +1114,34 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-calendario .cal-more{font-size:8px}
   #view-calendario .calMchip .cm-cnt{display:none}
 }
+/* ===== Evolución del Dividendo ===== */
+#view-prevision .evo-title{font-size:20px;font-weight:800;margin:0 0 8px}
+#view-prevision #evoApp .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
+#view-prevision #evoApp .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-prevision #evoApp .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-prevision #evoApp .pos-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-prevision #evoApp .pos-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-prevision #evoApp .pos-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-prevision #evoApp .pos-kpis .k.hero .l,#view-prevision #evoApp .pos-kpis .k.hero .p{color:#bbf7d0}
+#view-prevision .pos-mob{display:none}
+#view-prevision .evo-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-prevision .evo-card.cart{background:#f8fbff}
+#view-prevision .evo-card .ec-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#view-prevision .evo-card .ec-tk{font-size:16px;font-weight:800}#view-prevision .evo-card .ec-tk b{color:var(--brand)}#view-prevision .evo-card .ec-tk .nm{font-size:10px;color:#94a3b8;font-weight:400}
+#view-prevision .evo-card .ec-arw{color:#94a3b8}
+#view-prevision .evo-card .ec-badge{margin-top:5px;min-height:14px}
+#view-prevision .evo-card .ec-g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:9px}
+#view-prevision .evo-card .ec-g .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-prevision .evo-card .ec-g .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-prevision .evo-card .ec-g .m b{font-size:13px;font-weight:700}
+#view-prevision .evo-card .ec-det{margin-top:10px;border-top:1px dashed var(--line);padding-top:10px}
+#view-prevision .evo-card .ec-det table{border-collapse:collapse;width:100%;font-size:11px}
+#view-prevision .evo-card .ec-det thead th{background:#eef2f7;padding:3px 6px;text-align:left;font-size:10px;color:#475569;text-transform:none;border-bottom:1px solid #e2e8f0}
+#view-prevision .evo-card .ec-det tbody td{padding:3px 6px;border-bottom:1px solid #eef2f7}
+#view-prevision .evo-card .ec-det .num{text-align:right}
+@media(max-width:960px){
+  #view-prevision #evoApp .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-prevision #evoApp .pos-kpis .k .v{font-size:18px}
+  #view-prevision .pos-desk{display:none}#view-prevision .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
