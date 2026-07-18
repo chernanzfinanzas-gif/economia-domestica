@@ -1142,6 +1142,53 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-prevision #evoApp .pos-kpis .k .v{font-size:18px}
   #view-prevision .pos-desk{display:none}#view-prevision .pos-mob{display:block}
 }
+/* ===== Fiscalidad ===== */
+#view-fiscalidad #fiscalKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-fiscalidad #fiscalKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-fiscalidad #fiscalKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-fiscalidad #fiscalKpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-fiscalidad #fiscalKpis .k .v.pos{color:var(--green)}#view-fiscalidad #fiscalKpis .k .v.neg{color:var(--red)}
+#view-fiscalidad #fiscalKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-fiscalidad #fiscalKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-fiscalidad #fiscalKpis .k.hero .l,#view-fiscalidad #fiscalKpis .k.hero .p{color:#bbf7d0}
+#view-fiscalidad .fisc-info{border-radius:12px;padding:11px 14px;margin-bottom:12px;font-size:12.5px;line-height:1.55}
+#view-fiscalidad .fisc-info.green{background:#f0fdf4;border:1px solid #bbf7d0}#view-fiscalidad .fisc-info.amber{background:#fff7ed;border:1px solid #fed7aa}
+#view-fiscalidad .fisc-info .fi-t{font-weight:700;color:#166534;margin-bottom:3px}#view-fiscalidad .fisc-info .fi-b{color:#334155}
+#view-fiscalidad .warn{color:#dc2626;font-weight:600}
+#view-fiscalidad .sub2{color:var(--muted);font-size:12.5px;margin-bottom:10px;line-height:1.5}
+#view-fiscalidad .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-fiscalidad .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-fiscalidad .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-fiscalidad .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-fiscalidad .pos-blk-h .bt{font-weight:800;font-size:14px}#view-fiscalidad .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-fiscalidad .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-fiscalidad .pos-blk.open .pos-blk-b{display:block}
+#view-fiscalidad .fisc-pad{padding:14px}
+#view-fiscalidad .fisc-pad .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+#view-fiscalidad .fisc-pad .anaInp{padding:5px 8px;border:1px solid var(--line);border-radius:7px;font-size:13px}
+#view-fiscalidad #fsimOut{font-size:12px}
+#view-fiscalidad .ptable{overflow:auto;max-height:64vh}
+#view-fiscalidad .ptable table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent}
+#view-fiscalidad .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-fiscalidad .ptable thead th.l{text-align:left}
+#view-fiscalidad .ptable tbody td{padding:7px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-fiscalidad .ptable tbody td.l{text-align:left}
+#view-fiscalidad .fisc-tk{font-weight:800;color:var(--brand);cursor:pointer}
+#view-fiscalidad .ptable .y-sub td{background:#f1f5f9;font-weight:700}
+#view-fiscalidad .fisc-ystrip{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-bottom:12px}
+#view-fiscalidad .fisc-ystrip .ycard{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 11px;text-align:center;box-shadow:var(--shadow)}
+#view-fiscalidad .fisc-ystrip .ycard.empty{opacity:.55}
+#view-fiscalidad .fisc-ystrip .yy{font-size:11px;font-weight:800;color:#334155}#view-fiscalidad .fisc-ystrip .yn{font-size:15px;font-weight:800;margin-top:2px}#view-fiscalidad .fisc-ystrip .yn.pos{color:var(--green)}#view-fiscalidad .fisc-ystrip .yn.neg{color:var(--red)}#view-fiscalidad .fisc-ystrip .ys{font-size:8.5px;color:var(--muted);text-transform:uppercase;font-weight:700;margin-top:1px}
+#view-fiscalidad .fisc-ymob{display:flex;justify-content:space-between;align-items:center;background:#eef2f7;border-radius:8px;padding:6px 10px;margin:6px 0;font-weight:800;font-size:13px}
+#view-fiscalidad .pos-mob{display:none}
+#view-fiscalidad .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-fiscalidad .lc-h{display:flex;justify-content:space-between;align-items:center;gap:10px}#view-fiscalidad .lc-h .tk{font-size:16px;font-weight:800;color:var(--ink)}#view-fiscalidad .lc-h .tk .nm{font-size:10px;color:#94a3b8;font-weight:400;display:block;margin-top:2px}
+#view-fiscalidad .ty{text-align:right;font-size:16px;font-weight:800}#view-fiscalidad .ty.g{color:var(--green)}#view-fiscalidad .ty.r{color:var(--red)}#view-fiscalidad .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-fiscalidad .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}#view-fiscalidad .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-fiscalidad .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-fiscalidad .lg .m b{font-size:12px;font-weight:700}
+@media(max-width:960px){
+  #view-fiscalidad #fiscalKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-fiscalidad #fiscalKpis .k .v{font-size:18px}
+  #view-fiscalidad .pos-desk{display:none}#view-fiscalidad .pos-mob{display:block}
+  #view-fiscalidad .fisc-ystrip{grid-template-columns:repeat(3,1fr)}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2854,9 +2901,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="riesgoBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-fiscalidad">
-    <h2>Fiscalidad de la cartera</h2>
-    <div id="fiscalKpis" class="cards" style="margin-top:10px"></div>
-    <div id="fiscalBody" style="margin-top:10px"></div>
+    <h2>📋 Fiscalidad</h2>
+    <div class="sub" style="margin-bottom:10px">Tu situación fiscal orientativa: plusvalías/minusvalías latentes y realizadas, simulador de venta FIFO y el realizado de los últimos 5 ejercicios para el arrastre de pérdidas en el IRPF.</div>
+    <div id="fiscalKpis" style="margin-bottom:14px"></div>
+    <div id="fiscalBody"></div>
   </section>
   <section class="view" id="view-rentabilidad">
     <h2>📊 Rentabilidad por empresa</h2>
