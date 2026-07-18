@@ -161,7 +161,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 /* ============ Eventos ============ */
 const GROUPS={
   control:[['panel','Panel'],['presupuesto','Presupuesto']],
-  mov:[['movimientos','Movimientos'],['amalia','Amalia'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual'],['origen','El origen']],
+  mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual'],['origen','El origen']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
@@ -177,7 +177,7 @@ const ADD_ACTIONS={
   inversiones:()=>{ const b=$('#invAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
   analisis:()=>{ const b=$('#anaAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#anaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
   fondor4:()=>{ const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
-  amalia:()=>{ const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
+  amalia:()=>{ const b=$('#blkAmaAdd'); if(b)b.classList.add('open'); const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   patrimonio:()=>{ const b=$('#patAdd'); if(b)b.click(); },
   diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
@@ -387,6 +387,11 @@ $('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-de
 $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());
+if($('#view-amalia'))$('#view-amalia').addEventListener('click',e=>{ const h=e.target.closest('[data-amablk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-amablk')); if(blk)blk.classList.toggle('open'); });
+if($('#amaTipoSeg'))$('#amaTipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(b&&typeof setAmaTipo==='function')setAmaTipo(b.dataset.t); });
+if($('#amaCancel'))$('#amaCancel').addEventListener('click',()=>{ if(typeof resetAmaForm==='function')resetAmaForm(); });
+if($('#amaBuscar'))$('#amaBuscar').addEventListener('input',renderAmalia);
+if($('#amaFtipo'))$('#amaFtipo').addEventListener('change',renderAmalia);
 if($('#r4Form')) $('#r4Form').addEventListener('submit',e=>{e.preventDefault();addFondoR4();});
 if($('#r4ImportBtn')) $('#r4ImportBtn').addEventListener('click',()=>$('#r4File').click());
 if($('#r4Tipo')) $('#r4Tipo').addEventListener('change',()=>{ const rt=$('#r4NetoWrap'); if(rt) rt.style.display=($('#r4Tipo').value==='retirada'?'':'none'); });
@@ -432,7 +437,11 @@ $('#anaTable').addEventListener('change',e=>{const t=e.target; if(t.classList&&t
   if(f==='rating'){a.rating=(t.value||'').trim().toUpperCase();} else if(f==='decision'){a.decision=(t.value||'').trim().toUpperCase(); const _dcm={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; t.style.color=_dcm[a.decision]||'#475569'; if(critChg&&typeof anotarAjusteTesis==='function')anotarAjusteTesis(a.ticker,CRIT[f]); scheduleSave(); return;} else {a[f]=num(t.value); const pmn=num(a.poMin),pmx=num(a.poMax); a.precioObjetivo=(pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0); a.precioEntrada=num(a.entMax);} if(critChg&&typeof anotarAjusteTesis==='function')anotarAjusteTesis(a.ticker,CRIT[f]); renderAnalisis(); scheduleSave();}}});
 $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista de Análisis? (no afecta a tu cartera)')){ if(typeof pushSnapshot==='function')pushSnapshot('antes de vaciar Análisis'); DB.analisis=[]; renderAnalisis(); scheduleSave(); } });
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
-$('#amaList').addEventListener('click',e=>{const b=e.target.closest('[data-delama]'); if(b){ const _id=b.dataset.delama; const _it=(DB.amalia||[]).find(x=>x.id===_id); if(_it)undoableDelete('amalia','Apunte de Amalia',{item:_it},()=>{DB.amalia=DB.amalia.filter(x=>x.id!==_id);},['renderAmalia']); }});
+$('#amaList').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-editama]'); if(ed){ if(typeof editAmalia==='function')editAmalia(ed.dataset.editama); return; }
+  const b=e.target.closest('[data-delama]'); if(b){ const _id=b.dataset.delama; const _it=(DB.amalia||[]).find(x=>x.id===_id); if(_it)undoableDelete('amalia','Apunte reembolsable'+(_it.concepto?(' · '+_it.concepto):''),{item:_it},()=>{DB.amalia=DB.amalia.filter(x=>x.id!==_id);},['renderAmalia']); return; }
+  const r=e.target.closest('[data-amarow]'); if(r){ if(e.target.closest('input,button,select,a'))return; const it=r.closest('.ama-item'); if(it)it.classList.toggle('open'); }
+});
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});
 document.addEventListener('change',e=>{ const t=e.target; if(!t||!t.dataset)return; if(t.dataset.proy){ let v=num(t.value); if(t.dataset.pct==='1') v=v/100; DB.config.proyeccion[t.dataset.proy]=v; renderProy(); scheduleSave(); } else if(t.classList&&t.classList.contains('aporInput')){ DB.config.proyeccion.aportaciones[t.dataset.anio]=num(t.value); renderProy(); scheduleSave(); } });
 $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());

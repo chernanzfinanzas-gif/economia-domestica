@@ -586,8 +586,8 @@ function renderPanelDash(){
     else { const n=M.near.slice(0,3).map(x=>`<b>${x.t}</b> (${x.estado})`).join(' · '); cuerpo=`<div class="muted" style="font-size:12px">Ninguna empresa en zona de compra ahora. Más cerca: ${n||'—'}.</div>`; }
     SEC.accion+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="proxcompra">Próxima mejor compra <span class="muted" style="font-size:12px">›</span></h3>${cuerpo}</div>`;
   } }catch(e){} }
-  // Amalia
-  if(typeof amaliaSaldo==='function'){ const am=amaliaSaldo(); SEC.accion+=block('Reembolsables (Amalia)','amalia',[['Pendiente de cobro',fmt(am),am>0.005?'neg':'pos']]); }
+  // Reembolsables (antes Amalia) — va en Hogar
+  if(typeof amaliaSaldo==='function'){ const am=amaliaSaldo(); SEC.hogar+=block('Reembolsables','amalia',[['Pendiente de cobro',fmt(am),am>0.005?'neg':'pos']]); }
   // Tareas pendientes (antes de eventos)
   const _pend=(DB.todos||[]).filter(x=>!x.hecho).sort((a,b)=>(a.fecha||'9999').localeCompare(b.fecha||'9999'));
   if(_pend.length){ const _hoy=new Date().toISOString().slice(0,10); const _it=_pend.slice(0,8).map(x=>{ const v=x.fecha&&x.fecha<_hoy; return `<div style="font-size:12px;margin:1px 0"><span style="color:${v?'#dc2626':'#64748b'}">${x.fecha?ddmmyyyy(x.fecha):'—'}</span> ${x.desc||''}${x.ticker?' <b>'+x.ticker+'</b>':''}</div>`; }).join(''); SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="monitor">Tareas pendientes <span class="muted" style="font-size:12px">›</span></h3>${_it}</div>`; }

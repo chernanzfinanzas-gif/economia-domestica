@@ -458,7 +458,6 @@ function renderMovs(){
         <div class="mv-dets">
           <div class="d"><span>Comercio</span>${m.comercio?_infEsc(m.comercio):'—'}</div>
           <div class="d"><span>Titular</span>${_infEsc(m.titular||'—')}</div>
-          <div class="d"><span>Detalle</span><input class="movDetInp" data-mid="${m.id}" value="${escAttr(m.detalle||'')}" placeholder="—"></div>
         </div>
         <div class="mv-acts">
           <button class="btn ghost sm" data-edit="${m.id}">✎ Editar</button>
@@ -1074,31 +1073,80 @@ function addEvento(){
 /* ============ Amalia (reembolsables) ============ */
 function amaliaSorted(){ return [...(DB.amalia||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
 function amaliaSaldo(){ let s=0; (DB.amalia||[]).forEach(e=>{ s += e.tipo==='gasto'? num(e.importe) : -num(e.importe); }); return s; }
+function _amaFmt(v){ return fmt(Math.abs(num(v))<0.005?0:num(v)); }
+function setAmaTipo(t){ var h=$('#amaTipo'); if(h)h.value=t; $$('#amaTipoSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===t); }); }
 function renderAmalia(){
   wireAllSuggests();
   const fE=$('#amaFecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
-  const saldo=amaliaSaldo();
-  $('#amaCards').innerHTML=`<div class="card"><div class="lbl">Saldo pendiente (Amalia debe)</div><div class="val ${saldo>0.005?'neg':'pos'}">${fmt(saldo)}</div><div class="sub">${(DB.amalia||[]).length} apuntes</div></div>`;
-  const list=amaliaSorted();
-  if(!list.length){ $('#amaList').innerHTML='<div class="empty">Sin apuntes. Añade un gasto o un reembolso.</div>'; return; }
-  let run=0;
-  const rowsArr=list.map(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe);
-    const signed=e.tipo==='gasto'? '+'+fmt(e.importe):'−'+fmt(e.importe);
-    return `<tr><td>${ddmmyyyy(e.fecha)}</td><td>${e.concepto||''}${e.nota?` <span class="muted">· ${e.nota}</span>`:''}</td>
-      <td><span class="tag ${e.tipo==='reembolso'?'in':''}">${e.tipo==='gasto'?'Gasto':'Reembolso'}</span></td>
-      <td class="num ${e.tipo==='gasto'?'neg':'pos'}">${signed}</td>
-      <td class="num"><b>${fmt(run)}</b></td>
-      <td class="right"><button class="btn danger sm" data-delama="${e.id}">✕</button></td></tr>`;});
-  const ord=($('#amaOrden')||{}).value||'desc';
-  const rows=(ord==='desc'?rowsArr.slice().reverse():rowsArr).join('');
-  $('#amaList').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th class="num">Importe</th><th class="num">Saldo</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  // ---- Hero: saldo pendiente + totales ----
+  let tG=0,tR=0; (DB.amalia||[]).forEach(e=>{ if(e.tipo==='gasto')tG+=num(e.importe); else tR+=num(e.importe); });
+  const saldo=tG-tR, settled=Math.abs(saldo)<0.005, n=(DB.amalia||[]).length;
+  const hero=$('#amaHero');
+  if(hero) hero.innerHTML=
+    '<div><div class="big">'+(settled?'Todo reembolsado':'Pendiente de reembolso')+'</div><div class="amt">'+_amaFmt(saldo)+' €</div>'+
+    '<div class="st">'+(settled?'no te deben nada ahora mismo':'es lo que aún te deben')+'</div></div>'+
+    (settled?'<div class="settled">✓ saldado</div>':'')+
+    '<div class="spacer"></div><div class="ama-minis">'+
+    '<div class="ama-mini"><div class="l">Adelantado</div><div class="v">'+fmt(tG)+'</div></div>'+
+    '<div class="ama-mini"><div class="l">Reembolsado</div><div class="v">'+fmt(tR)+'</div></div>'+
+    '<div class="ama-mini"><div class="l">Apuntes</div><div class="v">'+n+'</div></div></div>';
+  // ---- Saldo corriente (orden cronológico) ----
+  const chrono=amaliaSorted(); let run=0; const salMap={};
+  chrono.forEach(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe); salMap[e.id]=run; });
+  // ---- Filtros de la lista ----
+  const txt=(($('#amaBuscar')||{}).value||'').toLowerCase().trim();
+  const ft=(($('#amaFtipo')||{}).value||'');
+  const ord=(($('#amaOrden')||{}).value||'desc');
+  let list=chrono.slice();
+  if(ft) list=list.filter(e=>e.tipo===ft);
+  if(txt) list=list.filter(e=>((e.concepto||'')+' '+(e.nota||'')).toLowerCase().indexOf(txt)>=0);
+  if(ord==='desc') list=list.reverse();
+  const cnt=$('#amaCount'); if(cnt) cnt.textContent=list.length+' apuntes';
+  if(!list.length){ $('#amaList').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin apuntes con esos filtros.</div>'; return; }
+  $('#amaList').innerHTML=list.map(e=>{
+    const g=e.tipo==='gasto'; const signed=(g?'+':'−')+fmt(e.importe);
+    return `<div class="ama-item" data-amaid="${e.id}">
+      <div class="ama-ih" data-amarow>
+        <span class="ama-arw">▶</span>
+        <span class="ama-fch">${ddmmyyyy(e.fecha)}</span>
+        <span class="ama-main">${_infEsc(e.concepto||'—')}${e.nota?`<small>${_infEsc(e.nota)}</small>`:''}</span>
+        <span class="ama-tp"><span class="ama-tag ${g?'g':'r'}">${g?'Gasto':'Reembolso'}</span></span>
+        <span class="ama-imp ${g?'g':'r'}">${signed}</span>
+        <span class="ama-sal">${_amaFmt(salMap[e.id])}</span>
+      </div>
+      <div class="ama-b">
+        <div class="ama-dets">
+          <div class="d"><span>Nota</span>${e.nota?_infEsc(e.nota):'—'}</div>
+          <div class="d"><span>Saldo tras el apunte</span>${_amaFmt(salMap[e.id])} €</div>
+        </div>
+        <div class="ama-acts">
+          <button class="btn ghost sm" data-editama="${e.id}">✎ Editar</button>
+          <button class="btn danger sm" data-delama="${e.id}">🗑 Eliminar</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+function resetAmaForm(){
+  $('#amaId').value=''; $('#amaConcepto').value=''; $('#amaImporte').value=''; $('#amaNota').value='';
+  setAmaTipo('gasto'); $('#amaAdd').textContent='Añadir apunte'; const c=$('#amaCancel'); if(c)c.style.display='none';
+}
+function editAmalia(id){
+  const e=(DB.amalia||[]).find(x=>x.id===id); if(!e)return;
+  $('#amaId').value=e.id; $('#amaFecha').value=e.fecha||''; $('#amaConcepto').value=e.concepto||'';
+  $('#amaImporte').value=e.importe; $('#amaNota').value=e.nota||''; setAmaTipo(e.tipo==='reembolso'?'reembolso':'gasto');
+  $('#amaAdd').textContent='Guardar cambios'; const c=$('#amaCancel'); if(c)c.style.display='inline-block';
+  const b=$('#blkAmaAdd'); if(b){ b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
 }
 function addAmalia(){
   const fecha=$('#amaFecha').value; if(!fecha){alert('Pon una fecha');return;}
   const importe=num($('#amaImporte').value); if(!importe){alert('Pon un importe');return;}
   DB.amalia=DB.amalia||[];
-  DB.amalia.push({id:uid(),fecha,concepto:$('#amaConcepto').value.trim(),tipo:$('#amaTipo').value,importe,nota:$('#amaNota').value.trim()});
-  $('#amaConcepto').value=''; $('#amaImporte').value=''; $('#amaNota').value='';
+  const data={fecha,concepto:$('#amaConcepto').value.trim(),tipo:($('#amaTipo').value==='reembolso'?'reembolso':'gasto'),importe,nota:$('#amaNota').value.trim()};
+  const id=$('#amaId').value;
+  if(id){ const ex=DB.amalia.find(x=>x.id===id); if(ex)Object.assign(ex,data); }
+  else { DB.amalia.push({id:uid(),...data}); }
+  resetAmaForm();
   renderAmalia(); scheduleSave();
 }
 function importAmalia(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar Amalia');
