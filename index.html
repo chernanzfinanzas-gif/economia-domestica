@@ -542,6 +542,51 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-vision .vis-sortb{display:none}
   #view-vision .vis-sortm{display:flex}
 }
+/* ===== RIESGO Y DIVERSIFICACIÓN (rediseño) ===== */
+#view-riesgo h2{font-size:20px;margin:0 0 4px}
+#view-riesgo #riesgoKpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:4px}
+#view-riesgo .rz-c{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-riesgo .rz-c .l{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+#view-riesgo .rz-c .v{font-size:24px;font-weight:800;margin-top:4px}
+#view-riesgo .rz-c .p{font-size:11.5px;color:var(--muted);margin-top:2px}
+#view-riesgo .rz-c.hero{background:linear-gradient(135deg,#7c2d12,#ea580c);color:#fff;border:none}
+#view-riesgo .rz-c.hero .l,#view-riesgo .rz-c.hero .p{color:#fed7aa}
+#view-riesgo .rz-c .v.neg{color:var(--red,#dc2626)}#view-riesgo .rz-c .v.pos{color:var(--green,#16a34a)}
+#view-riesgo .rz-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+#view-riesgo .rz-blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+#view-riesgo .rz-blk-h .ic{font-size:17px}#view-riesgo .rz-blk-h .t{font-weight:800;font-size:15px}#view-riesgo .rz-blk-h .cnt{color:var(--muted);font-size:12.5px;font-weight:600}
+#view-riesgo .rz-blk-h .arw{margin-left:auto;color:#94a3b8;font-size:12px;transition:transform .15s}
+#view-riesgo .rz-blk.open .rz-blk-h .arw{transform:rotate(90deg)}
+#view-riesgo .rz-blk-b{display:none;padding:0 16px 16px;border-top:1px solid var(--line)}#view-riesgo .rz-blk.open .rz-blk-b{display:block}
+#view-riesgo .rz-note{font-size:12px;color:var(--muted);margin:10px 2px 12px;line-height:1.5}
+#view-riesgo .rz-desk{overflow:auto}#view-riesgo .rz-mob{display:none}
+#view-riesgo .rz-desk table{width:100%;border-collapse:collapse;font-size:13px}
+#view-riesgo .rz-desk thead th{background:#f8fafc;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:9px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
+#view-riesgo .rz-desk thead th.l{text-align:left}
+#view-riesgo .rz-desk tbody td{padding:8px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-riesgo .rz-desk tbody td.l{text-align:left}
+#view-riesgo .rz-tk{font-weight:800;color:var(--brand);cursor:pointer}
+#view-riesgo .rz-secbar{margin:9px 0}
+#view-riesgo .rz-secbar .top{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px}
+#view-riesgo .rz-secbar .bar{height:9px;background:#e2e8f0;border-radius:5px;overflow:hidden}#view-riesgo .rz-secbar .bar i{display:block;height:100%}
+#view-riesgo .rz-heat{font-size:11px}
+#view-riesgo .rz-heat th,#view-riesgo .rz-heat td{padding:5px 6px;text-align:center;border:none;white-space:nowrap}
+#view-riesgo .rz-heat th.l,#view-riesgo .rz-heat td.l{text-align:left;font-weight:700}
+#view-riesgo .rz-pcard{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px}
+#view-riesgo .rz-pcard .top{display:flex;justify-content:space-between;align-items:baseline}
+#view-riesgo .rz-pcard .facs{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+#view-riesgo .rz-pfac{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+#view-riesgo .rz-icard{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px}
+#view-riesgo .rz-icard .top{display:flex;justify-content:space-between;align-items:baseline}
+#view-riesgo .rz-icard .g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:8px}
+#view-riesgo .rz-icard .g .m{background:#f8fafc;border-radius:8px;padding:6px 8px;text-align:center}
+#view-riesgo .rz-icard .g .m .l{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
+#view-riesgo .rz-icard .g .m .v{font-size:13px;font-weight:700;margin-top:1px}
+@media(max-width:820px){
+  #view-riesgo #riesgoKpis{grid-template-columns:1fr 1fr}
+  #view-riesgo .rz-c .v{font-size:20px}
+  #view-riesgo .rz-desk{display:none}#view-riesgo .rz-mob{display:block}
+}
 #anaTable input.anaInp{font-size:11px;padding:1px 3px}
 .infobox{border:1px solid #fdba74;background:#fff7ed;border-radius:10px;margin:0 0 12px;overflow:hidden}
 .infobox-head{cursor:pointer;padding:8px 12px;font-weight:700;color:#9a3412;font-size:13px;display:flex;align-items:center;gap:6px;user-select:none}
@@ -1981,8 +2026,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="escBody"></div>
   </section>
   <section class="view" id="view-riesgo">
-    <h2>Riesgo y diversificación</h2>
-    <div id="riesgoKpis" class="cards" style="margin-top:10px"></div>
+    <h2>🛡️ Riesgo y diversificación</h2>
+    <div id="riesgoKpis" style="margin-top:10px"></div>
     <div id="riesgoBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-fiscalidad">
