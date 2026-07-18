@@ -587,6 +587,43 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-riesgo .rz-c .v{font-size:20px}
   #view-riesgo .rz-desk{display:none}#view-riesgo .rz-mob{display:block}
 }
+#view-analisis #anaCards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+#view-analisis .ana-k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
+#view-analisis .ana-k .l{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+#view-analisis .ana-k .v{font-size:24px;font-weight:800;margin-top:4px}
+#view-analisis .ana-k .p{font-size:11.5px;color:var(--muted);margin-top:2px}
+#view-analisis .ana-k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-analisis .ana-k.hero .l,#view-analisis .ana-k.hero .p{color:#bbf7d0}
+#view-analisis .ana-k .v.pos{color:var(--green)}
+#view-analisis .ana-k .v.neg{color:var(--red)}
+#view-analisis .atable{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+#view-analisis .acards{display:none}
+#view-analisis .acard{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:9px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+#view-analisis .acard.best{border-left:4px solid #22c55e}
+#view-analisis .acard.stop{border-left:4px solid var(--red)}
+#view-analisis .acard-h{display:flex;align-items:center;gap:11px;padding:11px 13px;cursor:pointer}
+#view-analisis .acard-h .sc{min-width:44px;text-align:center}
+#view-analisis .acard-h .sc .n{font-size:21px;font-weight:800;line-height:1}
+#view-analisis .acard-h .sc .l{font-size:8px;font-weight:700;text-transform:uppercase}
+#view-analisis .acard-h .mid{flex:1;min-width:0}
+#view-analisis .acard-h .mid .nm2{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#view-analisis .acard-h .mid .s2{margin-top:4px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#view-analisis .acard-h .arw{color:#94a3b8;font-size:10px;transition:transform .15s}
+#view-analisis .acard.open .acard-h .arw{transform:rotate(90deg)}
+#view-analisis .acard-b{display:none;padding:0 13px 13px;border-top:1px solid #f1f5f9}
+#view-analisis .acard.open .acard-b{display:block}
+#view-analisis .agrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+#view-analisis .agrid .m{background:#f8fafc;border-radius:9px;padding:7px 9px}
+#view-analisis .agrid .m .l{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
+#view-analisis .agrid .m .v{font-size:13px;font-weight:700;margin-top:1px}
+#view-analisis .dec{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:20px;color:#fff}
+#view-analisis .macts{margin-top:11px}
+@media(max-width:900px){
+  #view-analisis #anaCards{grid-template-columns:1fr 1fr}
+  #view-analisis .ana-k .v{font-size:20px}
+  #view-analisis .atable{display:none}
+  #view-analisis .acards{display:block}
+}
 #anaTable input.anaInp{font-size:11px;padding:1px 3px}
 .infobox{border:1px solid #fdba74;background:#fff7ed;border-radius:10px;margin:0 0 12px;overflow:hidden}
 .infobox-head{cursor:pointer;padding:8px 12px;font-weight:700;color:#9a3412;font-size:13px;display:flex;align-items:center;gap:6px;user-select:none}
