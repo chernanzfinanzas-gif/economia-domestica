@@ -121,7 +121,7 @@ function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss
   return (simIsReal(t)?realSharesAt(t,nowY):0) + pend; }
 function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
-  const _prevSL=el.scrollLeft||0;
+  const _prevSL=(el.querySelector('.sim-desk')||el).scrollLeft||0;
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
   const dpa=DB.divPorAccion||{};
   const set=new Set();
@@ -138,6 +138,8 @@ function renderSimulador(){
   const tot={}; years.forEach(y=>tot[y]=0);
   const simDpa=(t,y)=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; if(d!=null) return d; const v=(dpa[t]||{})[y]; return v!=null?num(v):null; };
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
+  const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
+  const nmS=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
@@ -147,28 +149,51 @@ function renderSimulador(){
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
       const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const cpv=(y>nowY)&&!cc; return `<td style="${cpv?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--brand);font-weight:700;line-height:1.1">${t}</div>${accCell}<div data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado" style="font-size:8px;margin-top:1px;line-height:1.1;cursor:pointer;color:${(y>nowY&&cc&&!conf[y])?'#16a34a':'var(--muted)'};font-weight:${(y>nowY&&cc&&!conf[y])?'700':'400'}">div '${String(y).slice(2)}${(y>nowY&&cc&&!conf[y])?' ✓':''}</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
     }).join('');
-    return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}</tr>`;
+    return `<tr><td class="sim-emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}</tr>`;
   }).join('');
-  const totRow='<tr style="font-weight:700;background:#eef2f7"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
-  const grRow='<tr class="grrow" style="font-weight:600;background:#f8fafc"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${totRow}${grRow}${body}</tbody></table>`;
-  $('#simKpis').innerHTML=[['Dividendo '+nowY,fmt(tot[nowY]||0)],['Previsión '+y1,fmt(tot[y1]||0)],['Crecimiento '+nowY+'→'+y1,(tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—')]].map(k=>`<div class="card" style="padding:9px 12px"><div class="lbl">${k[0]}</div><div class="val" style="font-size:18px;margin-top:2px">${k[1]}</div></div>`).join('');
-  /* Banda deslizante horizontal + arranque centrado en (nowY-2) */
-  (function(){ var sc=el; var rng=document.getElementById('simScroll');
+  const totRow='<tr class="simtot"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
+  const grRow='<tr class="simgr grrow"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
+  const deskHTML=`<div class="sim-desk"><table><thead>${head}</thead><tbody>${totRow}${grRow}${body}</tbody></table></div>`;
+  /* Móvil: dividendo por año (chips) + selector de empresa */
+  const pyChip=(y,i)=>{ const pr=i>0?tot[years[i-1]]:0; const g=pr?((tot[y]/pr)-1):null; const cls=g==null?'z':(g>=0?'g':'r'); const fut=y>nowY; const cc=conf[y]; return `<div class="pychip ${cls}"${fut?` data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}><div class="yy">${y}${fut?(cc?' ✓':' ·'):''}</div><div class="pv2">${eurK(tot[y]||0)} €</div><div class="pl2">dividendo${fut?' prev.':''}</div><div class="pv">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</div><div class="pl">Δ anual</div></div>`; };
+  const pyStripHTML='<div class="pystrip-t">Dividendo total por año</div><div class="dv-pystrip">'+years.map(pyChip).join('')+'</div>';
+  if(!window._simCoSel || tickers.indexOf(window._simCoSel)<0) window._simCoSel=tickers[0]||'';
+  const selIdx=Math.max(0,tickers.indexOf(window._simCoSel));
+  const grpLbl=t=>held.has(t)?'Cartera':(closed.has(t)?'Cerrada':'Plan');
+  const coOptions=tickers.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${grpLbl(t)}</option>`).join('');
+  const mrow=(t,y)=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t]; const fut=y>nowY;
+    if(!(sh>0)&&!(ss&&ss[y]!=null)&&!(imp>0)&&fut) return '';
+    const accCell=fut?`<b>${sh||'·'}</b>`:`<input type="number" class="anaInp" style="width:64px;text-align:right" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
+    return `<div class="simrow"><span class="yy">${y}${fut?' <em>prev</em>':''}</span><div class="acc">${accCell}<span class="lbl">acc.</span></div><div class="dv">${divRaw==null?'·':divRaw.toFixed(3)}<span class="lbl">€/acc</span></div><div class="im">${imp>0?fmt(imp):'·'}<span class="lbl">importe</span></div></div>`; };
+  const mdetail=(t,i)=>{ const rows=years.map(y=>mrow(t,y)).filter(Boolean).join('');
+    return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
+      +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b> <span class="pill">${grpLbl(t)}</span></div><div class="t2">${(nmS(t)||'').slice(0,28)}</div></div><div class="fh"><b>${fmt(tot2(t))}</b><div class="fl">dividendo ${y1}</div></div></div>`
+      +`<div class="simlist">${rows||'<div class="muted" style="font-size:12px;padding:6px">Sin datos.</div>'}</div>`
+      +`</div>`; };
+  function tot2(t){ return simEffShares(t,y1,nowY)*num(simDpa(t,y1)||0); }
+  const mobHTML='<div class="sim-mob">'+pyStripHTML+'<div class="cosel-t">Ver empresa</div><select class="cosel" id="simCoSel">'+coOptions+'</select><div class="codetails">'+tickers.map(mdetail).join('')+'</div></div>';
+  el.innerHTML=deskHTML+mobHTML;
+  $('#simKpis').innerHTML='<div class="sim-kpis">'
+    +`<div class="k"><div class="l">Dividendo ${nowY}</div><div class="v">${fmt(tot[nowY]||0)}</div><div class="p">bruto este año</div></div>`
+    +`<div class="k hero"><div class="l">Previsión ${y1}</div><div class="v">${fmt(tot[y1]||0)}</div><div class="p">dividendo bruto proyectado</div></div>`
+    +`<div class="k"><div class="l">Crecimiento ${nowY}→${y1}</div><div class="v">${tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—'}</div><div class="p">total del periodo</div></div>`
+    +'</div>';
+  /* Banda deslizante ↔ scroll horizontal (arranque centrado en nowY-2) */
+  (function(){ var sc=el.querySelector('.sim-desk'); var rng=document.getElementById('simScroll'); if(!sc)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
     var sync=function(){ if(!rng)return; var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
     if(rng && !rng._simWired){ rng._simWired=true;
-      rng.addEventListener('input',function(){ sc.scrollLeft=maxSL()*(num(rng.value)/1000); });
-      sc.addEventListener('scroll',sync);
+      rng.addEventListener('input',function(){ var s=document.querySelector('#simTabla .sim-desk'); if(s)s.scrollLeft=Math.max(0,s.scrollWidth-s.clientWidth)*(num(rng.value)/1000); });
     }
-    if(!window._simSeek){ sc.scrollLeft=_prevSL; }
+    sc.addEventListener('scroll',sync);
     setTimeout(function(){
       if(window._simSeek){ var th=sc.querySelector('th[data-simyear="'+(nowY-2)+'"]'); var f=sc.querySelector('th'); var off=f?f.offsetWidth:0; sc.scrollLeft=th?Math.max(0,th.offsetLeft-off):0; window._simSeek=false; }
       else { sc.scrollLeft=_prevSL; }
       sync();
     },180);
   })();
-  const _v=$('#view-simulador'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('simTabla',7,10),0);
+  if(!el._simCoBound){ el._simCoBound=true; el.addEventListener('change',function(e){ var s=e.target.closest('#simCoSel'); if(!s)return; var i=s.value; var arr=window.__simOrder||[]; window._simCoSel=arr[+i]||window._simCoSel; el.querySelectorAll('.sim-mob .codet').forEach(function(d){ d.style.display=(d.getAttribute('data-coi')===String(i))?'':'none'; }); }); }
+  window.__simOrder=tickers;
 }
 
 function addSimEmpresa(){
@@ -646,7 +671,7 @@ function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0
 /* Slider de rango horizontal sincronizado con la tabla del Plan (igual que el Simulador):
    mueve la tabla en horizontal por los años desde cualquier posición; la columna Empresa queda fija. */
 function _planSyncBand(){
-  var sc=document.getElementById('planTabla'); var rng=document.getElementById('planScroll'); if(!sc||!rng)return;
+  var sc=document.querySelector('#planTabla .pl-desk')||document.getElementById('planTabla'); var rng=document.getElementById('planScroll'); if(!sc||!rng)return;
   var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
   var sync=function(){ var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
   if(!rng._wired){ rng._wired=true;
@@ -673,18 +698,42 @@ function renderPlan(){
   const tt=t=>Object.values(pc[t]||{}).reduce((s,v)=>s+num(v),0);
   tickers.sort((a,b)=>tt(b)-tt(a)||a.localeCompare(b));
   const totYear={}; years.forEach(y=>totYear[y]=0);
-  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; rt+=v; totYear[y]+=v; const exeE=(v>0&&typeof execBuyEur==='function')?execBuyEur(t,+y):0; const comp=(v>0&&exeE>=v-0.005); const parc=(v>0&&exeE>0&&exeE<v-0.005); const bg=comp?'#dcfce7':(parc?'#fff7ed':''); const mark=comp?' ✓':(parc?' ◐':''); return `<td class="num"${bg?` style="background:${bg}" title="ejecutado ${fmt(exeE)} de ${fmt(v)}"`:''}>${v?fmt(v):'·'}${mark}</td>`; }).join('');
-    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td>${cells}<td class="num" style="font-weight:700">${rt?fmt(rt):'·'}</td></tr>`; }).join('');
+  const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
+  const ttOf=t=>years.reduce((s,y)=>s+((pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0),0);
+  const cellMark=(t,y)=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; const exeE=(v>0&&typeof execBuyEur==='function')?execBuyEur(t,+y):0; const comp=(v>0&&exeE>=v-0.005); const parc=(v>0&&exeE>0&&exeE<v-0.005); return {v,comp,parc,exeE}; };
+  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const m=cellMark(t,y); rt+=m.v; totYear[y]+=m.v; const cls=m.comp?'pl-comp':(m.parc?'pl-parc':''); const mark=m.comp?' ✓':(m.parc?' ◐':''); return `<td class="num ${cls}"${(m.comp||m.parc)?` title="ejecutado ${fmt(m.exeE)} de ${fmt(m.v)}"`:''}>${m.v?fmt(m.v):'·'}${mark}</td>`; }).join('');
+    return `<tr><td class="pl-emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}<td class="num" style="font-weight:700">${rt?fmt(rt):'·'}</td></tr>`; }).join('');
   const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}</th>`).join('')+'<th class="num">Total</th></tr>';
   const grand=Object.values(totYear).reduce((s,v)=>s+v,0);
-  const totRow='<tr style="font-weight:700;background:#eef2f7"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
-  const presRow='<tr style="background:#fffbeb"><td title="Por defecto = lo presupuestado para invertir ese año en Proyección/Diversificación. Escribe un número para fijar uno propio en el Plan.">Presupuesto/año</td>'+years.map(y=>{ const manual=(num(pr[y])>0); const val=manual?pr[y]:Math.round(presShown(y)); return `<td class="num"><input type="number" step="100" class="anaInp" style="width:70px;text-align:center;color:${manual?'#0f172a':'#94a3b8'};font-style:${manual?'normal':'italic'}" data-plpres="${y}" value="${val}" title="${manual?'Fijado a mano en el Plan':'Heredado de Proyección/Diversificación · edítalo para fijar uno propio'}"></td>`; }).join('')+'<td></td></tr>';
-  const exeRow='<tr style="font-weight:600"><td title="Presupuesto del año menos lo ya planificado">Por ejecutar</td>'+years.map(y=>{ const dif=presShown(y)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${fmt(dif)}</td>`; }).join('')+'<td></td></tr>';
+  const totRow='<tr class="pl-tot"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
+  const presRow='<tr class="pl-pres"><td title="Por defecto = lo presupuestado para invertir ese año en Proyección/Diversificación. Escribe un número para fijar uno propio en el Plan.">Presupuesto/año</td>'+years.map(y=>{ const manual=(num(pr[y])>0); const val=manual?pr[y]:Math.round(presShown(y)); return `<td class="num"><input type="number" step="100" class="anaInp" style="width:70px;text-align:center;color:${manual?'#0f172a':'#94a3b8'};font-style:${manual?'normal':'italic'}" data-plpres="${y}" value="${val}" title="${manual?'Fijado a mano en el Plan':'Heredado de Proyección/Diversificación · edítalo para fijar uno propio'}"></td>`; }).join('')+'<td></td></tr>';
+  const exeRow='<tr class="pl-exe"><td title="Presupuesto del año menos lo ya planificado">Por ejecutar</td>'+years.map(y=>{ const dif=presShown(y)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${fmt(dif)}</td>`; }).join('')+'<td></td></tr>';
   const ejec=[]; tickers.forEach(t=>Object.keys(pc[t]||{}).forEach(y=>{ const plan=num(pc[t][y]); if(plan<=0)return; const exe=(typeof execBuyEur==='function')?execBuyEur(t,+y):0; if(exe<=0)return; const falta=Math.max(0,plan-exe); const comp=exe>=plan-0.005; ejec.push({t,y,plan,exe,falta,comp}); }));
   const _pendTot=ejec.reduce((s,e)=>s+e.falta,0);
   const aviso = ejec.length ? `<div class="card" style="margin-top:12px;background:#fff7ed;border:1px solid #fed7aa"><div style="font-weight:700;color:#b45309;margin-bottom:6px">Ejecución del plan (${ejec.length})${_pendTot>0.005?` · faltan ${fmt(_pendTot)}`:''}</div><div class="sub" style="margin-bottom:8px">Compras del plan que ya has empezado. Las <b>parciales</b> siguen contando en el Simulador (real + lo que falta). Cuando una esté <b>completa</b>, quítala del Plan.</div>${ejec.map(e=>`<div style="font-size:13px;margin:4px 0;display:flex;align-items:center;gap:10px"><span>${e.comp?'✅':'🟠'} <b>${e.t}</b> · ${e.y} — ejecutado ${fmt(e.exe)} de ${fmt(e.plan)}${e.comp?' <b style=\"color:#16a34a\">(completa)</b>':` · <b style=\"color:#b45309\">faltan ${fmt(e.falta)}</b>`}</span>${e.comp?`<button class="btn danger sm" data-planexe="${e.t}|${e.y}">Quitar del Plan</button>`:''}</div>`).join('')}</div>` : '';
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table>`+aviso;
-  $('#planKpis').innerHTML='<div style="display:flex;gap:8px;flex-wrap:wrap">'+[['Plan total',fmt(grand)],['Plan '+nowY,fmt(totYear[nowY]||0)],['Presupuesto '+nowY,fmt(presShown(nowY))]].map(k=>`<div style="display:inline-flex;flex-direction:column;padding:4px 10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);line-height:1.15"><span class="lbl" style="font-size:10px">${k[0]}</span><b style="font-size:14px">${k[1]}</b></div>`).join('')+'</div>';
+  const deskHTML=`<div class="pl-desk"><table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table></div>`;
+  /* Móvil: tira por año (presupuesto / planificado / por ejecutar) + selector de empresa */
+  const pyChip=y=>{ const dif=presShown(y)-totYear[y]; const cls=dif>0.5?'g':(dif<-0.5?'r':'z'); return `<div class="pychip ${cls}"><div class="yy">${y}</div><div class="pv2">${eurK(presShown(y))} €</div><div class="pl2">presupuesto</div><div class="pmid">plan ${eurK(totYear[y])} €</div><div class="pv">${dif>0.5?'+':''}${eurK(dif)} €</div><div class="pl">por ejecutar</div></div>`; };
+  const pyStripHTML='<div class="pystrip-t">Presupuesto y ejecución por año</div><div class="dv-pystrip">'+years.map(pyChip).join('')+'</div>';
+  const nm=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
+  if(!window._plCoSel || tickers.indexOf(window._plCoSel)<0) window._plCoSel=tickers[0]||'';
+  const selIdx=Math.max(0,tickers.indexOf(window._plCoSel));
+  const coOptions=tickers.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · plan ${eurK(ttOf(t))} €</option>`).join('');
+  const mdetail=(t,i)=>{ const rt=ttOf(t);
+    return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
+      +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></div><div class="t2">${(nm(t)||'').slice(0,28)}</div></div><div class="fh"><b>${fmt(rt)}</b><div class="fl">plan total</div></div></div>`
+      +`<div class="yrgrid">${years.map(y=>{ const m=cellMark(t,y); if(!m.v) return ''; const badge=m.comp?'<em class="ok">✓ comprado</em>':(m.parc?'<em class="parc">◐ parcial</em>':''); return `<div class="yg2"><span>${y}</span><b>${fmt(m.v)}</b>${badge}</div>`; }).filter(Boolean).join('')||'<div class="muted" style="font-size:12px;padding:6px">Sin compras planificadas.</div>'}</div>`
+      +`</div>`; };
+  const mobHTML='<div class="pl-mob">'+pyStripHTML+'<div class="cosel-t">Ver empresa</div><select class="cosel" id="plCoSel">'+coOptions+'</select><div class="codetails">'+tickers.map(mdetail).join('')+'</div></div>';
+  el.innerHTML=deskHTML+mobHTML+aviso;
+  $('#planKpis').innerHTML='<div class="pl-kpis">'
+    +`<div class="k hero"><div class="l">Plan total</div><div class="v">${fmt(grand)}</div><div class="p">${tickers.length} empresas · ${years[0]}–${years[years.length-1]}</div></div>`
+    +`<div class="k"><div class="l">Plan ${nowY}</div><div class="v">${fmt(totYear[nowY]||0)}</div><div class="p">planificado este año</div></div>`
+    +`<div class="k"><div class="l">Presupuesto ${nowY}</div><div class="v">${fmt(presShown(nowY))}</div><div class="p">disponible ${nowY}</div></div>`
+    +`<div class="k"><div class="l">Por ejecutar ${nowY}</div><div class="v ${(presShown(nowY)-(totYear[nowY]||0))<0?'neg':'pos'}">${fmt(presShown(nowY)-(totYear[nowY]||0))}</div><div class="p">presupuesto − plan</div></div>`
+    +'</div>';
+  if(!el._plCoBound){ el._plCoBound=true; el.addEventListener('change',function(e){ var s=e.target.closest('#plCoSel'); if(!s)return; var i=s.value; var arr=window.__plOrder||[]; window._plCoSel=arr[+i]||window._plCoSel; el.querySelectorAll('.pl-mob .codet').forEach(function(d){ d.style.display=(d.getAttribute('data-coi')===String(i))?'':'none'; }); }); }
+  window.__plOrder=tickers;
   const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(_planSyncBand,0);
 }
 /* Alta única de empresa desde Diversificación: entra en el lote (o ya es cartera),
