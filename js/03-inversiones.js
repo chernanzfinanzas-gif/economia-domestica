@@ -243,7 +243,7 @@ function renderAnalisis(){
     let score=null;
     if(A!=null&&B!=null&&D!=null) score=wA*A+wB*B+wC*C+wD*D;
     const _uni=(DB.universo&&DB.universo[(a.ticker||'').toUpperCase()])||{};
-    return {id:a.id,ticker:a.ticker,nombre:a.nombre||_uni.nombre||'',cot,poMin,poMax,poMed,entMin,entMax,stop,colchon,stopHit,held:held.has((a.ticker||'').toUpperCase()),rating,dv,pot,dist,A,B,C,D,score};
+    return {id:a.id,ticker:a.ticker,nombre:a.nombre||_uni.nombre||'',cot,poMin,poMax,poMed,entMin,entMax,stop,colchon,stopHit,held:held.has((a.ticker||'').toUpperCase()),rating,dv,pot,dist,A,B,C,D,score,decision:a.decision,dossierUrl:a.dossierUrl,dossierFecha:a.dossierFecha};
   });
   if(_sort['analisis']&&_sort['analisis'].k){ list=sortApply('analisis',list,{ticker:x=>x.ticker,nombre:x=>x.nombre,score:x=>x.score,cot:x=>x.cot,poMin:x=>x.poMin,poMax:x=>x.poMax,poMed:x=>x.poMed,entMin:x=>x.entMin,entMax:x=>x.entMax,pot:x=>x.pot,dist:x=>x.dist,stop:x=>x.stop,colchon:x=>x.colchon,rating:x=>x.rating}); } else { list.sort((a,b)=>(b.score==null?-1:b.score)-(a.score==null?-1:a.score)); }
   let bestId=null,bestSc=-1;
@@ -252,12 +252,11 @@ function renderAnalisis(){
   const buenScore=list.filter(x=>x.score!=null&&x.score>=70).length;
   const stopHits=list.filter(x=>x.stopHit).length;
   const bestT=(list.find(x=>x.id===bestId)||{}).ticker||'—';
-  $('#anaCards').innerHTML=[
-    {l:'Empresas en seguimiento',v:list.length,cls:''},
-    {l:'En zona de compra',v:enZona,cls:enZona?'pos':''},
-    {l:'Mejor oportunidad ahora',v:bestT,cls:'pos'},
-    {l:'🚨 Stop de tesis alcanzado',v:stopHits,cls:stopHits?'neg':''}
-  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
+  $('#anaCards').innerHTML=
+    '<div class="ana-k"><div class="l">Empresas en seguimiento</div><div class="v">'+list.length+'</div><div class="p">en la lista</div></div>'+
+    '<div class="ana-k"><div class="l">En zona de compra</div><div class="v '+(enZona?'pos':'')+'">'+enZona+'</div><div class="p">cotiza ≤ banda de entrada</div></div>'+
+    '<div class="ana-k hero"><div class="l">Mejor oportunidad ahora</div><div class="v">'+bestT+'</div><div class="p">mejor score en zona</div></div>'+
+    '<div class="ana-k"><div class="l">🚨 Stop de tesis alcanzado</div><div class="v '+(stopHits?'neg':'')+'">'+stopHits+'</div><div class="p">requieren decisión</div></div>';
   if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
   const inp=(id,f,v,w)=>`<input type="number" step="0.0001" class="anaInp" style="width:${w||56}px;text-align:right" data-id="${id}" data-f="${f}" value="${(v!=null&&v!==0)?v:''}">`;
   const rows=list.map(a=>{
@@ -301,9 +300,47 @@ function renderAnalisis(){
       <td class="num"><input type="text" class="anaInp" style="width:48px;text-align:center;text-transform:uppercase" data-id="${a.id}" data-f="rating" value="${a.rating||''}"></td>
       <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
   }).join('');
-  $('#anaTable').innerHTML=`<table><thead><tr><th data-sorttbl="analisis" data-sortk="ticker" style="cursor:pointer">Ticker${sortArrow('analisis','ticker')}</th><th>Nombre</th><th class="num" data-sorttbl="analisis" data-sortk="score" style="cursor:pointer">Score${sortArrow('analisis','score')}</th><th>Decisión</th><th class="num" data-sorttbl="analisis" data-sortk="cot" style="cursor:pointer">Cotiz.${sortArrow('analisis','cot')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMin" style="cursor:pointer">PO mín${sortArrow('analisis','poMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMed" style="cursor:pointer">PO med${sortArrow('analisis','poMed')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMax" style="cursor:pointer">PO máx${sortArrow('analisis','poMax')}</th><th class="num" data-sorttbl="analisis" data-sortk="pot" style="cursor:pointer">Potencial${sortArrow('analisis','pot')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMin" style="cursor:pointer">Ent. mín${sortArrow('analisis','entMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMax" style="cursor:pointer">Ent. máx${sortArrow('analisis','entMax')}</th><th data-sorttbl="analisis" data-sortk="dist" style="cursor:pointer">Estado entrada${sortArrow('analisis','dist')}</th><th class="num" data-sorttbl="analisis" data-sortk="stop" style="cursor:pointer">Stop tesis${sortArrow('analisis','stop')}</th><th data-sorttbl="analisis" data-sortk="colchon" style="cursor:pointer">Salida${sortArrow('analisis','colchon')}</th><th class="num" data-sorttbl="analisis" data-sortk="rating" style="cursor:pointer">Rating${sortArrow('analisis','rating')}</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  var _anaTbl=`<table><thead><tr><th data-sorttbl="analisis" data-sortk="ticker" style="cursor:pointer">Ticker${sortArrow('analisis','ticker')}</th><th>Nombre</th><th class="num" data-sorttbl="analisis" data-sortk="score" style="cursor:pointer">Score${sortArrow('analisis','score')}</th><th>Decisión</th><th class="num" data-sorttbl="analisis" data-sortk="cot" style="cursor:pointer">Cotiz.${sortArrow('analisis','cot')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMin" style="cursor:pointer">PO mín${sortArrow('analisis','poMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMed" style="cursor:pointer">PO med${sortArrow('analisis','poMed')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMax" style="cursor:pointer">PO máx${sortArrow('analisis','poMax')}</th><th class="num" data-sorttbl="analisis" data-sortk="pot" style="cursor:pointer">Potencial${sortArrow('analisis','pot')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMin" style="cursor:pointer">Ent. mín${sortArrow('analisis','entMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMax" style="cursor:pointer">Ent. máx${sortArrow('analisis','entMax')}</th><th data-sorttbl="analisis" data-sortk="dist" style="cursor:pointer">Estado entrada${sortArrow('analisis','dist')}</th><th class="num" data-sorttbl="analisis" data-sortk="stop" style="cursor:pointer">Stop tesis${sortArrow('analisis','stop')}</th><th data-sorttbl="analisis" data-sortk="colchon" style="cursor:pointer">Salida${sortArrow('analisis','colchon')}</th><th class="num" data-sorttbl="analisis" data-sortk="rating" style="cursor:pointer">Rating${sortArrow('analisis','rating')}</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  const _anaCards=list.map(a=>{
+    const best=a.id===bestId;
+    let e_t='—',e_c='';
+    if(a.entMax&&a.cot){
+      if(a.entMin&&a.cot<=a.entMin){e_t='🟢 Óptimo';e_c='g';}
+      else if(a.cot<=a.entMax){e_t='🟢 En zona';e_c='g';}
+      else if(a.cot<=a.entMax*1.10){e_t='🟡 +'+(a.dist*100).toFixed(1)+'%';e_c='a';}
+      else {e_t='🔴 −'+((a.cot-a.entMax)/a.cot*100).toFixed(1)+'%';e_c='r';}
+    }
+    let s_t='—',s_c='';
+    if(a.stop&&a.cot){
+      if(a.stopHit){s_t='🚨 VENDER';s_c='r';}
+      else if(a.colchon<=0.10){s_t='🟠 cerca '+(a.colchon*100).toFixed(0)+'%';s_c='a';}
+      else {s_t='colchón '+(a.colchon*100).toFixed(0)+'%';s_c='g';}
+    }
+    const sCol=a.score==null?'#64748b':(a.score>=70?'#16a34a':a.score>=50?'#d97706':'#dc2626');
+    const sLbl=a.score==null?'':(a.score>=70?'Buena':a.score>=50?'Media':'Mala');
+    const potcls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
+    const _potPill='<span class="pill '+potcls+'">'+(a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%')+'</span>';
+    const _dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};const _dvv=(a.decision||'').toUpperCase();
+    const _decChip=_dvv?'<span class="dec" style="background:'+(_dc[_dvv]||'#64748b')+'">'+_dvv+'</span>':'<span style="color:#cbd5e1">—</span>';
+    const _nm=(a.nombre||'');
+    return '<div class="acard'+(a.stopHit?' stop':(best?' best':''))+'" data-fs="'+((a.ticker||'')+' '+(a.nombre||'')).toLowerCase().replace(/"/g,'')+'">'+
+      '<div class="acard-h"><div class="sc"><div class="n" style="color:'+sCol+'">'+(a.score==null?'—':a.score.toFixed(0))+'</div><div class="l" style="color:'+sCol+'">'+sLbl+'</div></div>'+
+      '<div class="mid"><div class="nm2">'+(best?'⭐ ':'')+(a.ticker||'')+(a.held?' <span class="arq" style="font-weight:400;color:#94a3b8;font-size:10px">en cartera</span>':'')+(_nm?' · '+_nm:'')+'</div><div class="s2">'+_decChip+'<span class="pill '+e_c+'" style="font-size:10px">'+e_t+'</span>'+(s_t!=='—'?'<span class="pill '+s_c+'" style="font-size:10px">'+s_t+'</span>':'')+'</div></div>'+
+      '<span class="arw">▶</span></div>'+
+      '<div class="acard-b"><div class="agrid">'+
+        '<div class="m"><div class="l">Cotización</div><div class="v">'+fmt(a.cot)+'</div></div>'+
+        '<div class="m"><div class="l">Potencial</div><div class="v">'+_potPill+'</div></div>'+
+        '<div class="m"><div class="l">Precio objetivo</div><div class="v">'+(a.poMin?fmt(a.poMin):'—')+' – '+(a.poMax?fmt(a.poMax):'—')+'</div></div>'+
+        '<div class="m"><div class="l">Banda entrada</div><div class="v">'+(a.entMin?fmt(a.entMin):'—')+' – '+(a.entMax?fmt(a.entMax):'—')+'</div></div>'+
+        '<div class="m"><div class="l">Stop tesis</div><div class="v">'+(a.stop?fmt(a.stop):'—')+'</div></div>'+
+        '<div class="m"><div class="l">Rating</div><div class="v">'+(a.rating||'—')+'</div></div>'+
+      '</div><div class="macts"><button class="btn ghost sm" data-anaedit="'+a.id+'">✎ Editar</button> <button class="btn danger sm" data-anadel="'+a.id+'">✕ Borrar</button></div></div></div>';
+  }).join('');
+  $('#anaTable').innerHTML='<div class="atable">'+_anaTbl+'</div><div class="acards">'+_anaCards+'</div>';
+  var _at=$('#anaTable');
+  if(_at&&!_at._anaCardBound){ _at._anaCardBound=true; _at.addEventListener('click',function(e){ if(e.target.closest('input,select,textarea,button,a,[data-anaedit],[data-anadel]'))return; var h=e.target.closest('.acard-h'); if(h){ h.parentElement.classList.toggle('open'); } }); }
   $$("#anaTable select[data-f='decision']").forEach(sel=>{ const _a=(DB.analisis||[]).find(x=>x.id===sel.dataset.id); if(_a)sel.value=(_a.decision||'').toUpperCase(); });
-  if(typeof _wireBuscador==='function') _wireBuscador($('#anaSearch'), $$('#anaTable tbody tr[data-fs]'), _anaBusca);
+  if(typeof _wireBuscador==='function') _wireBuscador($('#anaSearch'), $$('#anaTable tbody tr[data-fs], #anaTable .acard[data-fs]'), _anaBusca);
 }
 function anaSubmit(){
   const id=$('#anaId').value||uid();
