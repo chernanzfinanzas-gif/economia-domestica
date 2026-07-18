@@ -1235,6 +1235,47 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-caja #cajaKpis .k .v{font-size:18px}
   #view-caja .pos-desk{display:none}#view-caja .pos-mob{display:block}
 }
+/* ===== Monitor y tareas ===== */
+#view-monitor #monKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-monitor #monKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-monitor #monKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-monitor #monKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-monitor #monKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-monitor #monKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-monitor #monKpis .k.hero .l,#view-monitor #monKpis .k.hero .p{color:#bbf7d0}
+#view-monitor .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-monitor .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-monitor .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-monitor .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-monitor .pos-blk-h .bt{font-weight:800;font-size:14px}#view-monitor .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-monitor .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-monitor .pos-blk.open .pos-blk-b{display:block}
+#view-monitor .blk-pad{padding:14px}
+#view-monitor .ptable{overflow:auto;max-height:62vh;border:1px solid var(--line);border-radius:12px}
+#view-monitor .ptable table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap}
+#view-monitor .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:left;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-monitor .ptable thead th.ctr{text-align:center}
+#view-monitor .ptable tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9}#view-monitor .ptable td.l{text-align:left}#view-monitor .ptable td.ctr{text-align:center}
+#view-monitor .ptable tr.mt-done{opacity:.5}
+#view-monitor .ptable .mt-tk{font-weight:800;color:var(--brand);cursor:pointer}#view-monitor .ptable .nm{color:#94a3b8;font-size:10px}
+#view-monitor .ptable .mt-dot{color:#cbd5e1}
+#view-monitor .ptable .mt-rol{border:1px solid var(--line);border-radius:5px;padding:2px 5px;font-size:11px;width:120px}
+#view-monitor .ptable th:nth-child(1),#view-monitor .ptable td:nth-child(1){position:sticky;left:0;background:#fff;z-index:1;min-width:120px}
+#view-monitor .ptable thead th:nth-child(1){z-index:3;background:#f8fafc}
+#view-monitor .pos-mob{display:none}
+#view-monitor .mt-tcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;box-shadow:var(--shadow);border-left:4px solid #f59e0b}
+#view-monitor .mt-tcard.done{opacity:.55;border-left-color:#16a34a}#view-monitor .mt-tcard.venc{border-left-color:#dc2626}
+#view-monitor .mt-th{display:flex;align-items:center;gap:9px}#view-monitor .mt-tmain{flex:1}#view-monitor .mt-td{font-weight:700;font-size:13.5px}#view-monitor .mt-tf{font-size:11px;color:var(--muted);margin-top:1px}#view-monitor .mt-tr{font-size:12px;color:#475569;margin-top:6px}
+#view-monitor .mt-mcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;box-shadow:var(--shadow)}
+#view-monitor .mt-mh{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}#view-monitor .mt-mh .mt-tk{font-size:15px;font-weight:800;color:var(--brand)}#view-monitor .mt-mh .nm{font-size:10px;color:#94a3b8;font-weight:400}
+#view-monitor .mt-badges{display:flex;flex-wrap:wrap;gap:4px;justify-content:flex-end}
+#view-monitor .mt-bg{font-size:9px;font-weight:700;padding:1px 6px;border-radius:6px}#view-monitor .mt-bg.ok{background:#dcfce7;color:#166534}#view-monitor .mt-bg.pend{background:#f1f5f9;color:#64748b}#view-monitor .mt-bg.bad{background:#fee2e2;color:#991b1b}
+#view-monitor .mt-mrow{display:flex;gap:8px;margin-top:8px;align-items:center}#view-monitor .mt-mrow .mt-rol{flex:1;border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12px}
+#view-monitor .mt-mq{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+#view-monitor .mt-qch{font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:#f1f5f9;color:#64748b;cursor:pointer}#view-monitor .mt-qch.ok{background:#dcfce7;color:#166534}#view-monitor .mt-qch.bad{background:#fee2e2;color:#991b1b}
+@media(max-width:960px){
+  #view-monitor #monKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-monitor #monKpis .k .v{font-size:18px}
+  #view-monitor .pos-desk{display:none}#view-monitor .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2862,19 +2903,29 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-monitor">
-    <h2>Monitor y tareas</h2>
-    <h3>Tareas (ToDo)</h3>
-    <form class="grid" id="todoForm" autocomplete="off" style="background:#fffef0;margin-bottom:10px">
-      <label>Fecha límite<input type="date" id="todoFecha"></label>
-      <label>Descripción<input type="text" id="todoDesc" placeholder="p. ej. Rotar Enagás → Naturgy" required></label>
-      <label>Razonamiento<input type="text" id="todoRazon" placeholder="por qué"></label>
-      <label>Empresa (opcional)<input type="text" id="todoTicker" placeholder="TICKER" style="text-transform:uppercase"></label>
-      <div class="row-actions"><button type="submit" class="btn">Añadir tarea</button> <button type="button" class="btn ghost" id="todoDelDone">Borrar completadas</button></div>
-    </form>
-    <div style="overflow:auto" id="todoTabla"></div>
-    <h3 style="margin-top:20px">Monitor de seguimiento</h3>
-    <div class="sub" style="margin-bottom:6px">Marca el <b>informe de inversión</b> de cada empresa; al hacerlo aparecen las casillas de <b>revisión trimestral</b> del año. En rojo, el trimestre cuyos resultados ya salieron y aún no has revisado (según las fechas de tu Calendario).</div>
-    <div style="overflow:auto" id="monTabla"></div>
+    <h2>🧭 Monitor y tareas</h2>
+    <div class="sub" style="margin-bottom:10px">Tu lista de acciones pendientes y el seguimiento del método por empresa: informe de inversión, antigüedad del dossier y revisión trimestral de resultados.</div>
+    <div id="monKpis" style="margin-bottom:14px"></div>
+    <div class="pos-blk open" data-monblk="tareas">
+      <div class="pos-blk-h"><span class="arw">▶</span><span class="bt">✅ Tareas (ToDo)</span><span class="bsum">acciones pendientes</span></div>
+      <div class="pos-blk-b"><div class="blk-pad">
+        <form class="grid" id="todoForm" autocomplete="off" style="background:#fffef0;margin-bottom:10px">
+          <label>Fecha límite<input type="date" id="todoFecha"></label>
+          <label>Descripción<input type="text" id="todoDesc" placeholder="p. ej. Rotar Enagás → Naturgy" required></label>
+          <label>Razonamiento<input type="text" id="todoRazon" placeholder="por qué"></label>
+          <label>Empresa (opcional)<input type="text" id="todoTicker" placeholder="TICKER" style="text-transform:uppercase"></label>
+          <div class="row-actions"><button type="submit" class="btn">Añadir tarea</button> <button type="button" class="btn ghost" id="todoDelDone">Borrar completadas</button></div>
+        </form>
+        <div id="todoTabla"></div>
+      </div></div>
+    </div>
+    <div class="pos-blk" data-monblk="mon">
+      <div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🔬 Monitor de seguimiento</span><span class="bsum">informe · dossier · revisión trimestral</span></div>
+      <div class="pos-blk-b"><div class="blk-pad">
+        <div class="sub" style="margin-bottom:8px">Marca el <b>informe de inversión</b> de cada empresa; al hacerlo aparecen las casillas de <b>revisión trimestral</b> del año. En rojo, el trimestre cuyos resultados ya salieron y aún no has revisado (según las fechas de tu Calendario).</div>
+        <div id="monTabla"></div>
+      </div></div>
+    </div>
   </section>
 
   <section class="view" id="view-caja">
