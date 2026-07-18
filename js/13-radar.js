@@ -316,39 +316,56 @@ function _uniInfo(t){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{}; v
 function renderCobertura(){
   var sec=document.getElementById('view-cobertura'); if(!sec)return;
   DB.cola=DB.cola||[]; DB.analisis=DB.analisis||[];
+  window._cobOpen=window._cobOpen||{cal:true,cola:false,cad:false};
   var analizadas=DB.analisis.filter(function(a){return a.dossierFecha;});
-  var nAnaliz=analizadas.length, nCola=DB.cola.length, nUni=Object.keys(DB.universo||{}).length;
-  var card=function(l,v){return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div></div>';};
-  var kpis='<div class="cards">'+card('Analizadas',String(nAnaliz))+card('En cola',String(nCola))+card('Universo',String(nUni))+'</div>';
-  var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(e){return '<option'+(e===sel?' selected':'')+'>'+e+'</option>';}).join(''); };
-  var filas=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
-    return '<tr'+(anz?' style="background:#f0fdf4"':'')+'>'
-      +'<td class="num">'+(i+1)+'</td>'
-      +'<td><b>'+_radEsc(t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((inf.nombre||'').slice(0,22))+'</span>'+(anz?' <span style="color:#16a34a;font-size:11px">✓ analizada</span>':'')+'</td>'
-      +'<td style="font-size:11px">'+_radEsc(inf.arq)+'</td>'
-      +'<td><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select></td>'
-      +'<td><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="width:160px"></td>'
-      +'<td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-colamove="'+i+'|-1" title="Subir">▲</button><button class="btn ghost sm" data-colamove="'+i+'|1" title="Bajar">▼</button><button class="btn ghost sm" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td>'
-      +'</tr>';
-  }).join('');
-  var colaTabla='<div style="overflow:auto"><table><thead><tr><th>#</th><th>Empresa</th><th>Arquetipo</th><th>Estado</th><th>Nota</th><th></th></tr></thead><tbody>'
-    +(filas||'<tr><td colspan="6" class="muted" style="padding:10px">Cola vacía. Marca empresas con ★ en Radar Op. y pulsa «Añadir ★ a la cola».</td></tr>')+'</tbody></table></div>';
-  var lista=analizadas.map(function(a){return _radEsc((a.ticker||'').toUpperCase());}).sort().join(' · ');
-  sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'
-    +'<div class="sub" style="margin-bottom:8px">Qué empresas has analizado y cuáles tienes en cola. La cola la <b>ordenas tú</b> (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'
-    +kpis
-    +'<h3 style="margin:14px 0 4px">📅 Calendario de cobertura</h3>'
-    +'<div class="sub" style="margin-bottom:6px">Todo lo que tienes que hacer, en un solo sitio: arriba las <b>intervenciones vencidas</b> (su fecha ya llegó) y las <b>señales de precio</b> activas; luego las empresas <b>pendientes de analizar</b> (sin fecha, por tu orden de prioridad); debajo, las <b>intervenciones programadas</b> con su fecha y los días que faltan. Marca ✓ cuando la hayas realizado: la fila queda en verde. <span class="muted">El próximo <b>Informe</b> se estima desde el <b>monitor trimestral</b> (los informes que registras) — mismo cálculo que el <b>Buzón del lunes</b>.</span></div>'
-    +'<div id="calHost"><div class="muted" style="font-size:12px">Preparando calendario…</div></div>'
-    +'<h3 style="margin:16px 0 4px">Cola de análisis (por orden de prioridad)</h3>'+colaTabla
-    +'<h3 style="margin:16px 0 4px">Analizadas ('+nAnaliz+')</h3><div class="muted" style="font-size:12px">'+(lista||'—')+'</div>'
-    +'<h3 style="margin:16px 0 4px">Cadencia de las analizadas</h3><div id="cadHost"><div class="muted" style="font-size:12px">Cargando informes trimestrales…</div></div>';
+  var nAnaliz=analizadas.length;
+  var nColaPend=DB.cola.filter(function(c){return !_esAnalizada(c.t)&&(c.estado!=='hecha');}).length;
+  var nUni=Object.keys(DB.universo||{}).length;
+  var kpis='<div class="cob-k">'+
+    '<div class="c hero"><div class="l">Analizadas</div><div class="v">'+nAnaliz+'</div><div class="p">con dossier</div></div>'+
+    '<div class="c"><div class="l">En cola</div><div class="v">'+nColaPend+'</div><div class="p">pendientes de analizar</div></div>'+
+    '<div class="c"><div class="l">Universo</div><div class="v">'+nUni+'</div><div class="p">empresas clasificadas</div></div>'+
+    '<div class="c"><div class="l">Requieren acción</div><div class="v warn" id="cobAccion">·</div><div class="p">señales y vencidas</div></div>'+
+  '</div>';
+  var blk=function(key,ic,title,cnt,note,inner){ var op=window._cobOpen[key]; return '<div class="cob-blk'+(op?' open':'')+'" data-cblk="'+key+'"><div class="cob-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div><div class="cob-blk-b">'+(note?'<div class="cob-note">'+note+'</div>':'')+inner+'</div></div>'; };
+  sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'+
+    '<div class="sub" style="margin-bottom:14px">Qué empresas has analizado y cuáles tienes en cola. El <b>Calendario</b> reúne lo que toca hacer (análisis en cola, informes que vencen, señales de precio); la <b>Cola</b> la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'+
+    kpis+
+    blk('cal','📅','Calendario de cobertura','','Arriba lo que requiere acción ahora (señales de precio y vencidas), luego las pendientes de analizar (tu cola) y las programadas con los días que faltan. Marca ✓ al hacerlo. <span class="muted">El próximo informe se estima desde el monitor trimestral (mismo cálculo que el Buzón del lunes).</span>','<div id="calHost"><div class="muted" style="font-size:12px;padding:8px 0">Preparando calendario…</div></div>')+
+    blk('cola','🗂️','Cola de análisis',nColaPend+' pendientes','Por tu orden de prioridad (▲▼). Se nutre desde Radar Op. con ★.',_cobColaHtml())+
+    blk('cad','🔁','Cadencia de las analizadas',nAnaliz+' analizadas','Último y próximo informe estimado, si toca monitor o revisión anual, calibración y señal de precio activa.','<div id="cadHost"><div class="muted" style="font-size:12px;padding:8px 0">Cargando informes trimestrales…</div></div>');
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+  _cobBind(sec);
   var tks=analizadas.map(function(a){return (a.ticker||'').toUpperCase();});
   if(tks.length) Promise.all([_cadCargar(tks),_agCargar()]).then(function(){ _pintarCadencia(analizadas); _pintarCalendario(analizadas); });
-  else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px">Aún no hay empresas analizadas.</div>'; _pintarCalendario([]); }
+  else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px;padding:8px 0">Aún no hay empresas analizadas.</div>'; _pintarCalendario([]); }
 }
-
+function _cobAtag(a){ a=a||'Sin clasificar'; var col=(typeof UNI_ARQCOL!=='undefined'&&UNI_ARQCOL[a])||'#94a3b8'; return a?'<span class="cob-atag" style="background:'+col+'">'+_radEsc(a)+'</span>':''; }
+function _cobColaHtml(){
+  var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(e){return '<option'+(e===sel?' selected':'')+'>'+e+'</option>';}).join(''); };
+  if(!(DB.cola||[]).length) return '<div class="muted" style="font-size:12px;padding:8px 0">Cola vacía. Marca empresas con ★ en Radar Op. y pulsa «Añadir ★ a la cola».</div>';
+  var filas=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
+    return '<tr'+(anz?' class="done"':'')+'><td class="num" style="color:#94a3b8">'+(i+1)+'</td>'+
+      '<td><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,20))+'</span>'+(anz?' <span class="cob-anz">✓ analizada</span>':'')+'</td>'+
+      '<td>'+_cobAtag(inf.arq)+'</td>'+
+      '<td><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select></td>'+
+      '<td><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="width:150px"></td>'+
+      '<td style="white-space:nowrap;text-align:right"><button class="cob-mv" data-colamove="'+i+'|-1" title="Subir">▲</button> <button class="cob-mv" data-colamove="'+i+'|1" title="Bajar">▼</button> <button class="cob-mv del" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
+  }).join('');
+  var desk='<div class="cob-desk"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Arquetipo</th><th>Estado</th><th>Nota</th><th></th></tr></thead><tbody>'+filas+'</tbody></table></div>';
+  var cards=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
+    return '<div class="cob-card cola'+(anz?' done':'')+'"><div class="top"><span class="num">'+(i+1)+'</span><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:12px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,16))+'</span> '+_cobAtag(inf.arq)+(anz?' <span class="cob-anz">✓</span>':'')+'</div>'+
+      '<div class="row2"><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="flex:1"><span class="acts"><button class="cob-mv" data-colamove="'+i+'|-1">▲</button><button class="cob-mv" data-colamove="'+i+'|1">▼</button><button class="cob-mv del" data-coladel="'+_radEsc(t)+'">✕</button></span></div></div>';
+  }).join('');
+  return desk+'<div class="cob-mob">'+cards+'</div>';
+}
+function _cobBind(sec){
+  if(renderCobertura._bound)return; renderCobertura._bound=true;
+  sec.addEventListener('click',function(e){
+    if(e.target.closest('.colaInp')||e.target.closest('.cob-mv')||e.target.closest('.calChk')||e.target.closest('select')||e.target.closest('input'))return;
+    var h=e.target.closest('.cob-blk-h'); if(h){ var blk=h.parentElement; var k=blk.getAttribute('data-cblk'); window._cobOpen=window._cobOpen||{}; window._cobOpen[k]=!window._cobOpen[k]; blk.classList.toggle('open'); return; }
+  });
+}
 /* ================= CALENDARIO UNIFICADO DE COBERTURA ================= */
 function _cbHoy(){ return new Date().toISOString().slice(0,10); }
 /* normaliza a "YYYY-MM-DD" acepte un Date (como devuelve _cadenciaDe) o una cadena */
@@ -385,11 +402,9 @@ function _pintarCalendario(analizadas){
   var hoy=new Date(); hoy.setHours(0,0,0,0);
   var cob=(DB.cobertura||{}); var infDone=cob.informe||{}, senDone=cob.senal||{};
   var items=[];
-  /* 1) empresas pendientes de analizar (cola, sin fecha) */
   (DB.cola||[]).forEach(function(c,i){ var t=(c.t||'').toUpperCase(); if(!t||_esAnalizada(t))return; var inf=_uniInfo(t);
     items.push({t:t,nombre:inf.nombre,tipo:'analisis',tipoLbl:'Analizar',date:null,dias:null,bucket:1,ordCola:i,estado:c.estado||'pendiente',done:(c.estado==='hecha')});
   });
-  /* 2) intervenciones programadas por empresa analizada */
   (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
     var c=_cadenciaDe(t);
     if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var conf=false;
@@ -401,9 +416,11 @@ function _pintarCalendario(analizadas){
     var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
   });
   items.sort(function(a,b){ if(a.bucket!==b.bucket)return a.bucket-b.bucket; if(a.bucket===1)return a.ordCola-b.ordCola; var ad=(a.dias==null),bd=(b.dias==null); if(ad&&bd)return (a.sev==null?9:a.sev)-(b.sev==null?9:b.sev); if(ad)return 1; if(bd)return -1; return a.dias-b.dias; });
-  if(!items.length){ host.innerHTML='<div class="muted" style="font-size:12px;padding:8px">No hay empresas en cola ni intervenciones programadas. Marca candidatas con ★ en Radar Op. y añádelas a la cola.</div>'; return; }
+  var acc=document.getElementById('cobAccion'); if(acc)acc.textContent=items.filter(function(x){return x.bucket===0;}).length;
+  if(!items.length){ host.innerHTML='<div class="muted" style="font-size:12px;padding:8px 0">No hay empresas en cola ni intervenciones programadas. Marca candidatas con ★ en Radar Op. y añádelas a la cola.</div>'; return; }
   var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(x){return '<option'+(x===sel?' selected':'')+'>'+x+'</option>';}).join(''); };
-  var tipoChip=function(it){ var col=it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); return '<span style="font-size:11px;font-weight:700;color:'+col+'">'+_radEsc(it.tipoLbl)+'</span>'; };
+  var tipoCol=function(it){ return it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); };
+  var diasTxt=function(it){ if(it.tipo==='senal')return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>'; if(it.dias==null)return '<span class="muted">sin fecha</span>'; if(it.dias===0)return '<b style="color:#dc2626">hoy</b>'; if(it.dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-it.dias)+' d</span>'; if(it.dias<=14)return '<span style="color:#b45309;font-weight:600">en '+it.dias+' d</span>'; return 'en '+it.dias+' d'; };
   var estadoCell=function(it){
     if(it.tipo==='analisis') return '<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
     if(it.tipo==='senal') return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>';
@@ -412,22 +429,37 @@ function _pintarCalendario(analizadas){
     if(it.dias!=null&&it.dias<=14) return '<span style="color:#b45309;font-weight:600">vence pronto</span>';
     return '<span class="muted">programada</span>';
   };
-  var rows=items.map(function(it,idx){
-    var bg=it.done?'background:#f0fdf4':(it.tipo==='senal'?'background:#fef2f2':((it.bucket===0)?'background:#fff7ed':''));
-    var chk=(it.tipo==='analisis')
-      ? '<input type="checkbox" class="calChk" data-caltype="analisis" data-ct="'+_radEsc(it.t)+'"'+(it.done?' checked':'')+' title="Marcar analizada" style="width:16px;height:16px;cursor:pointer">'
-      : '<input type="checkbox" class="calChk" data-caltype="'+it.chkType+'" data-ct="'+_radEsc(it.t)+'" data-ck="'+_radEsc(it.chkKey)+'"'+(it.done?' checked':'')+' title="Marcar realizada" style="width:16px;height:16px;cursor:pointer">';
-    return '<tr style="'+bg+'">'
-      +'<td class="num" style="color:#94a3b8">'+(idx+1)+'</td>'
-      +'<td><b>'+_radEsc(it.t)+'</b> <span class="muted" style="font-size:11px">'+_radEsc((it.nombre||'').slice(0,22))+'</span></td>'
-      +'<td>'+tipoChip(it)+'</td>'
-      +'<td style="font-size:12px">'+_cbFechaTxt(it.date)+(it.conf?' <span title="Fecha confirmada (Yahoo · buzón)" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>':'')+'</td>'
-      +'<td style="font-size:12px">'+_cbDiasTxt(it.dias)+'</td>'
-      +'<td>'+estadoCell(it)+'</td>'
-      +'<td style="text-align:center">'+chk+'</td>'
-      +'</tr>';
-  }).join('');
-  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>#</th><th>Empresa</th><th>Tipo</th><th>Fecha</th><th>Días</th><th>Estado</th><th style="text-align:center">✓</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  var chkFor=function(it){ if(it.tipo==='senal')return ''; return (it.tipo==='analisis')
+    ? '<input type="checkbox" class="calChk" data-caltype="analisis" data-ct="'+_radEsc(it.t)+'"'+(it.done?' checked':'')+' title="Marcar analizada">'
+    : '<input type="checkbox" class="calChk" data-caltype="'+it.chkType+'" data-ct="'+_radEsc(it.t)+'" data-ck="'+_radEsc(it.chkKey)+'"'+(it.done?' checked':'')+' title="Marcar realizada">'; };
+  var rowCls=function(it){ return it.done?'done':(it.tipo==='senal'?'sen':(it.bucket===0?'urgent':'')); };
+  var BANDS=[[0,'Ahora · requieren acción','b0'],[1,'Pendientes de analizar','b1'],[2,'Programadas','b2']];
+  var idx=0, rows='';
+  BANDS.forEach(function(bd){ var its=items.filter(function(x){return x.bucket===bd[0];}); if(!its.length)return;
+    rows+='<tr class="cob-band '+bd[2]+'"><td colspan="7">'+bd[1]+' · '+its.length+'</td></tr>';
+    its.forEach(function(it){ idx++;
+      rows+='<tr class="'+rowCls(it)+'"><td class="num" style="color:#94a3b8">'+idx+'</td>'+
+        '<td><b class="cob-tk">'+_radEsc(it.t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((it.nombre||'').slice(0,20))+'</span></td>'+
+        '<td><span style="font-size:11px;font-weight:700;color:'+tipoCol(it)+'">'+_radEsc(it.tipoLbl)+'</span></td>'+
+        '<td style="font-size:12px">'+_cbFechaTxt(it.date)+(it.conf?' <span title="Fecha confirmada" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>':'')+'</td>'+
+        '<td style="font-size:12px">'+diasTxt(it)+'</td>'+
+        '<td>'+estadoCell(it)+'</td>'+
+        '<td style="text-align:center">'+chkFor(it)+'</td></tr>';
+    });
+  });
+  var desk='<div class="cob-desk"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Tipo</th><th>Fecha</th><th>Días</th><th>Estado</th><th style="text-align:center">✓</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  var mob='';
+  BANDS.forEach(function(bd){ var its=items.filter(function(x){return x.bucket===bd[0];}); if(!its.length)return;
+    mob+='<div class="cob-mband '+bd[2]+'">'+bd[1]+' · '+its.length+'</div>';
+    its.forEach(function(it){
+      var right=it.tipo==='analisis'?('<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>'):('<div style="font-weight:600">'+diasTxt(it)+'</div>'+(it.date?'<div class="muted" style="font-size:11px">'+_cbFechaTxt(it.date)+'</div>':''));
+      mob+='<div class="cob-card cal '+rowCls(it)+'">'+chkFor(it)+
+        '<div class="cmid"><div class="ct"><b class="cob-tk">'+_radEsc(it.t)+'</b> <span style="font-weight:400;font-size:12px;color:#94a3b8">'+_radEsc((it.nombre||'').slice(0,16))+'</span></div>'+
+        '<div class="cs"><span style="font-size:11px;font-weight:700;color:'+tipoCol(it)+'">'+_radEsc(it.tipoLbl)+'</span></div></div>'+
+        '<div class="cr">'+right+'</div></div>';
+    });
+  });
+  host.innerHTML=desk+'<div class="cob-mob">'+mob+'</div>';
 }
 /* listener del check ✓ del calendario */
 document.addEventListener('change',function(e){ var c=e.target; if(!c.classList||!c.classList.contains('calChk'))return;
@@ -489,18 +521,22 @@ function _senalCell(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticke
 function _pintarCadencia(analizadas){
   var host=document.getElementById('cadHost'); if(!host)return;
   var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{}; var chg=false;
-  var rows=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t);
-    if(!c){ return '<tr><td><b>'+_radEsc(t)+'</b></td><td colspan="3" class="muted" style="font-size:11px">sin monitor trimestral</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>'; }
+  var data=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t); var inf=_uniInfo(t);
+    if(!c){ return {t:t,nombre:inf.nombre,ult:'<span class="muted" style="font-size:11px">sin monitor trimestral</span>',prox:'—',aviso:'',avisoCol:'#94a3b8',cal:cal,sen:sen}; }
     var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate}; chg=true;
     var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
     var proxTxt=c.next?_radEsc(e.proxLabel):'—';
-    var ag=_agResultado(t); if(ag&&ag.fecha){ var agd=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(!isNaN(agd))proxTxt='<b>'+_cadFmtD(agd)+'</b> <span title="confirmada (Yahoo · buzón)" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>'; }
-    var aviso=e.tocaAnual?'<span style="color:#dc2626;font-weight:600">📅 revisión anual</span>':(e.tocaMonitor?'<span style="color:#b45309;font-weight:600">⏳ toca monitor</span>':'<span class="muted">al día</span>');
-    return '<tr><td><b>'+_radEsc(t)+'</b></td><td style="font-size:12px">'+ultTxt+'</td><td style="font-size:12px">'+proxTxt+'</td><td style="font-size:12px">'+aviso+'</td><td style="font-size:12px">'+cal+'</td><td style="font-size:12px">'+sen+'</td></tr>';
-  }).join('');
+    var ag=_agResultado(t); if(ag&&ag.fecha){ var agd=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(!isNaN(agd))proxTxt='<b>'+_cadFmtD(agd)+'</b> <span title="confirmada" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>'; }
+    var aviso,avisoCol; if(e.tocaAnual){ aviso='📅 revisión anual'; avisoCol='#dc2626'; } else if(e.tocaMonitor){ aviso='⏳ toca monitor'; avisoCol='#b45309'; } else { aviso='al día'; avisoCol='#94a3b8'; }
+    return {t:t,nombre:inf.nombre,ult:ultTxt,prox:proxTxt,aviso:aviso,avisoCol:avisoCol,cal:cal,sen:sen};
+  });
   if(chg&&typeof scheduleSave==='function')scheduleSave();
-  host.innerHTML='<div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Último informe</th><th>Próximo</th><th>Trimestral/Anual</th><th>Calibración</th><th>Señal precio</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
-    +'<div class="muted" style="font-size:11px;margin-top:6px">Agenda por empresa: trimestral (próximo informe estimado), calibración (próxima diana 6/12/36 m) y señal de precio activa (stop / compra / PO). Las urgentes también salen en el Panel.</div>';
+  var rows=data.map(function(r){ return '<tr><td><b class="cob-tk">'+_radEsc(r.t)+'</b></td><td style="font-size:12px">'+r.ult+'</td><td style="font-size:12px">'+r.prox+'</td><td style="font-size:12px;color:'+r.avisoCol+';font-weight:600">'+_radEsc(r.aviso)+'</td><td style="font-size:12px">'+r.cal+'</td><td style="font-size:12px">'+r.sen+'</td></tr>'; }).join('');
+  var desk='<div class="cob-desk"><table><thead><tr><th>Empresa</th><th>Último informe</th><th>Próximo</th><th>Estado</th><th>Calibración</th><th>Señal precio</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  var cards=data.map(function(r){ return '<div class="cob-card cad"><div class="top"><b class="cob-tk">'+_radEsc(r.t)+' <span style="font-weight:400;font-size:12px;color:#94a3b8">'+_radEsc((r.nombre||'').slice(0,16))+'</span></b><span style="color:'+r.avisoCol+';font-weight:600;font-size:12px">'+_radEsc(r.aviso)+'</span></div>'+
+    '<div class="cgrid"><div><span class="k">Último</span>'+r.ult+'</div><div><span class="k">Próximo</span>'+r.prox+'</div><div><span class="k">Calibración</span>'+r.cal+'</div><div><span class="k">Señal precio</span>'+r.sen+'</div></div></div>'; }).join('');
+  host.innerHTML=desk+'<div class="cob-mob">'+cards+'</div>'
+    +'<div class="muted" style="font-size:11px;margin-top:8px">Agenda por empresa: trimestral (próximo informe estimado), calibración (próxima diana 6/12/36 m) y señal de precio activa (stop / compra / PO). Las urgentes también salen en el Panel.</div>';
 }
 var _cadRefrescado=false;
 function _cadRefreshAll(){
