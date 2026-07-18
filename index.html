@@ -375,6 +375,67 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     #presAna .mcmp .mcrow>span{color:var(--muted);font-weight:700;flex:0 0 auto}
     #presAna .mcmp .mcrow>b{font-weight:600;text-align:right}
   }
+  /* ===== Movimientos rediseñado ===== */
+  #view-movimientos .blk{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  #view-movimientos .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
+  #view-movimientos .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
+  #view-movimientos .blk.open .blk-arw{transform:rotate(90deg)}
+  #view-movimientos .blk-ic{font-size:20px}
+  #view-movimientos .blk-t{font-weight:800;font-size:15px}
+  #view-movimientos .blk-sub{font-size:12px;color:var(--muted);margin-top:1px}
+  #view-movimientos .blk-right{margin-left:auto;text-align:right}
+  #view-movimientos .blk-b{display:none;border-top:1px solid var(--line)}
+  #view-movimientos .blk.open .blk-b{display:block}
+  #view-movimientos .mv-count{font-size:12px;font-weight:700}
+  #view-movimientos .mv-addform{padding:16px}
+  #view-movimientos .mv-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;width:100%}
+  #view-movimientos .mv-seg button{border:none;background:#fff;padding:12px 10px;font-size:14px;font-weight:700;color:#64748b;cursor:pointer;flex:1}
+  #view-movimientos .mv-seg button[data-t="gasto"].on{background:var(--red);color:#fff}
+  #view-movimientos .mv-seg button[data-t="ingreso"].on{background:var(--green);color:#fff}
+  #view-movimientos .mv-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  #view-movimientos .mv-fld{display:flex;flex-direction:column;gap:5px}
+  #view-movimientos .mv-fld.full{grid-column:1/-1}
+  #view-movimientos .mv-fld label{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:800}
+  #view-movimientos .mv-fld input,#view-movimientos .mv-fld select{padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff;width:100%}
+  #view-movimientos #movComercioAdd{flex:0 0 auto;width:44px;padding:0;font-size:20px}
+  #view-movimientos .mv-actions{display:flex;gap:10px;align-items:center;margin-top:2px}
+  #view-movimientos .mv-big{flex:1;padding:14px;border-radius:11px;background:var(--brand);color:#fff;font-size:16px;font-weight:800;border:none}
+  #view-movimientos .mv-big:hover{background:var(--brand-d)}
+  #view-movimientos .mv-toolbar{padding:14px 16px;margin:0}
+  #view-movimientos .mv-summ .card{text-align:center}
+  #view-movimientos #movTable table{display:none}
+  #view-movimientos .mv-item{border-top:1px solid #f1f5f9}
+  #view-movimientos .mv-item:first-child{border-top:none}
+  #view-movimientos .mv-h{display:grid;grid-template-columns:14px 76px 1fr 130px 100px;gap:10px;align-items:center;padding:11px 16px;cursor:pointer}
+  #view-movimientos .mv-arw{color:#cbd5e1;font-size:11px;transition:transform .15s}
+  #view-movimientos .mv-item.open .mv-arw{transform:rotate(90deg)}
+  #view-movimientos .mv-fch{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  #view-movimientos .mv-main{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-movimientos .mv-main small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-movimientos .mv-catw{overflow:hidden}
+  #view-movimientos .mv-catw .tag{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-movimientos .mv-imp{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:14.5px}
+  #view-movimientos .mv-imp.pos{color:var(--green)}#view-movimientos .mv-imp.neg{color:var(--red)}
+  #view-movimientos .mv-ingb{font-size:9.5px;font-weight:800;color:var(--green);background:#dcfce7;border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:middle}
+  #view-movimientos .mv-b{display:none;padding:4px 16px 14px 40px;background:#fafcff}
+  #view-movimientos .mv-item.open .mv-b{display:block}
+  #view-movimientos .mv-dets{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;margin-bottom:11px}
+  #view-movimientos .mv-dets .d{font-size:13px}
+  #view-movimientos .mv-dets .d>span{color:var(--muted);font-weight:800;display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+  #view-movimientos .mv-dets .d input{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-size:13px;background:#fff}
+  #view-movimientos .mv-acts{display:flex;gap:8px}
+  #view-movimientos .mv-acts .btn{padding:8px 14px}
+  @media(max-width:640px){
+    #view-movimientos .mv-fgrid{grid-template-columns:1fr}
+    #view-movimientos .mv-h{grid-template-columns:1fr auto;gap:3px 10px;padding:12px 14px}
+    #view-movimientos .mv-arw{display:none}
+    #view-movimientos .mv-fch{grid-column:1;grid-row:1}
+    #view-movimientos .mv-imp{grid-column:2;grid-row:1/4;align-self:center}
+    #view-movimientos .mv-main{grid-column:1;grid-row:2}
+    #view-movimientos .mv-catw{grid-column:1;grid-row:3;margin-top:3px}
+    #view-movimientos .mv-b{padding-left:14px}
+    #view-movimientos .mv-dets{grid-template-columns:1fr}
+  }
   #view-presupuesto .blk-edit{border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;padding:0 4px;line-height:1;opacity:.55;border-radius:6px}
   #view-presupuesto .blk-edit:hover{opacity:1;background:#eef2ff;color:var(--brand)}
   #view-presupuesto .par-form{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
@@ -654,51 +715,64 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <section class="view" id="view-movimientos">
     <h2>Movimientos</h2>
-    <form class="grid" id="movForm" autocomplete="off" style="background:#fef9c3">
-      <div class="form-title">➕ Añadir gasto o ingreso</div>
-      <input type="hidden" id="movId">
-      <label>Fecha<input type="date" id="movFecha" required></label>
-      <label>Concepto<input type="text" id="movConcepto" placeholder="p. ej. Compra Ahorramás" required></label>
-      <label>Comercio (base)<input type="text" id="movComercio" placeholder="p. ej. Repsol"></label>
-      <label>Detalle (opcional)<input type="text" id="movDetalle" placeholder="p. ej. Repsol Ribadeo"></label>
-      <label>Categoría<select id="movCat" required></select></label>
-      <label>Titular<select id="movTitular"><option>Dos</option><option>Carlos</option><option>Susana</option></select></label>
-      <label>Tipo
-        <div class="seg" id="movTipoSeg">
-          <button type="button" data-t="gasto" class="on">Gasto</button>
-          <button type="button" data-t="ingreso">Ingreso</button>
-        </div>
-      </label>
-      <label>Importe (€)<input type="number" id="movImporte" step="0.01" min="0" placeholder="0,00" required></label>
-      <div class="row-actions">
-        <button type="submit" class="btn" id="movSubmit">Añadir</button>
-        <button type="button" class="btn ghost" id="movCancel" style="display:none">Cancelar</button>
+
+    <div class="blk mv-blk" id="blkMovAdd">
+      <div class="blk-h" data-movblk="blkMovAdd"><span class="blk-arw">▶</span><span class="blk-ic">➕</span>
+        <div><div class="blk-t">Añadir gasto o ingreso</div><div class="blk-sub">Registra un nuevo movimiento</div></div>
       </div>
-    </form>
-    <div class="toolbar">
-      <input type="search" id="fltText" placeholder="Buscar…">
-      <label class="muted">Desde <input type="date" id="fltDesde"></label>
-      <label class="muted">Hasta <input type="date" id="fltHasta"></label>
-      <select id="fltOrden">
-        <option value="fecha_desc">Fecha ↓ reciente</option>
-        <option value="fecha_asc">Fecha ↑ antigua</option>
-        <option value="imp_desc">Importe ↓</option>
-        <option value="imp_asc">Importe ↑</option>
-      </select>
-      <div class="dd"><button type="button" class="btn ghost sm" id="catDDbtn">Categorías ▾</button>
-        <div class="dd-panel" id="catDDpanel"></div></div>
-      <div class="dd"><button type="button" class="btn ghost sm" id="comDDbtn">Comercio ▾</button>
-        <div class="dd-panel" id="comDDpanel"></div></div>
-      <div class="seg" id="titChips">
-        <button type="button" data-t="Dos">Dos</button>
-        <button type="button" data-t="Carlos">Carlos</button>
-        <button type="button" data-t="Susana">Susana</button>
-      </div>
-      <button type="button" class="btn ghost sm" id="fltClear">Limpiar</button>
-      <span class="muted" id="movCount"></span>
+      <div class="blk-b"><div class="mv-addform">
+        <form id="movForm" autocomplete="off">
+          <input type="hidden" id="movId">
+          <div class="seg mv-seg" id="movTipoSeg">
+            <button type="button" data-t="gasto" class="on">Gasto</button>
+            <button type="button" data-t="ingreso">Ingreso</button>
+          </div>
+          <div class="mv-fgrid">
+            <div class="mv-fld"><label>Fecha</label><input type="date" id="movFecha" required></div>
+            <div class="mv-fld"><label>Importe (€)</label><input type="number" id="movImporte" step="0.01" min="0" placeholder="0,00" required></div>
+            <div class="mv-fld full"><label>Concepto</label><input type="text" id="movConcepto" placeholder="p. ej. Compra Ahorramás" required></div>
+            <div class="mv-fld full"><label>Detalle (opcional)</label><input type="text" id="movDetalle" placeholder="p. ej. Repsol Ribadeo"></div>
+            <div class="mv-fld"><label>Comercio (base)</label><input type="text" id="movComercio" placeholder="p. ej. Repsol"></div>
+            <div class="mv-fld"><label>Categoría</label><select id="movCat" required></select></div>
+            <div class="mv-fld full"><label>Titular</label><select id="movTitular"><option>Dos</option><option>Carlos</option><option>Susana</option></select></div>
+            <div class="mv-actions full">
+              <button type="submit" class="btn mv-big" id="movSubmit">Añadir movimiento</button>
+              <button type="button" class="btn ghost" id="movCancel" style="display:none">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div></div>
     </div>
-    <div class="cards" id="movCards" style="margin-bottom:12px"></div>
-    <details id="comReg" style="margin-bottom:12px;border:1px solid var(--line);border-radius:8px;background:#fafafa">
+
+    <div class="blk mv-blk" id="blkMovFilt">
+      <div class="blk-h" data-movblk="blkMovFilt"><span class="blk-arw">▶</span><span class="blk-ic">🔎</span>
+        <div><div class="blk-t">Filtros de búsqueda</div><div class="blk-sub">Texto, fechas, categoría, comercio y titular</div></div>
+        <div class="blk-right"><span class="muted mv-count" id="movCount"></span></div>
+      </div>
+      <div class="blk-b">
+        <div class="toolbar mv-toolbar">
+          <input type="search" id="fltText" placeholder="Buscar concepto o comercio…">
+          <label class="muted">Desde <input type="date" id="fltDesde"></label>
+          <label class="muted">Hasta <input type="date" id="fltHasta"></label>
+          <select id="fltOrden">
+            <option value="fecha_desc">Fecha ↓ reciente</option>
+            <option value="fecha_asc">Fecha ↑ antigua</option>
+            <option value="imp_desc">Importe ↓</option>
+            <option value="imp_asc">Importe ↑</option>
+          </select>
+          <div class="dd"><button type="button" class="btn ghost sm" id="catDDbtn">Categorías ▾</button>
+            <div class="dd-panel" id="catDDpanel"></div></div>
+          <div class="dd"><button type="button" class="btn ghost sm" id="comDDbtn">Comercio ▾</button>
+            <div class="dd-panel" id="comDDpanel"></div></div>
+          <div class="seg" id="titChips">
+            <button type="button" data-t="Dos">Dos</button>
+            <button type="button" data-t="Carlos">Carlos</button>
+            <button type="button" data-t="Susana">Susana</button>
+          </div>
+          <button type="button" class="btn ghost sm" id="fltClear">Limpiar</button>
+        </div>
+        <div class="cards mv-summ" id="movCards" style="margin:0 16px 14px"></div>
+        <div style="padding:0 16px 14px"><details id="comReg" style="margin-bottom:12px;border:1px solid var(--line);border-radius:8px;background:#fafafa">
       <summary style="cursor:pointer;padding:8px 12px;font-weight:700">🧹 Regularizar comercios</summary>
       <div style="padding:10px 12px">
         <p class="muted" style="margin:0 0 8px;font-size:12px">Selecciona los detalles que sean el mismo negocio, escribe el nombre base y pulsa «Asignar». Si marcas «crear regla», ese nombre se aplicará también a los movimientos futuros y a cualquier detalle que lo contenga.</p>
@@ -711,8 +785,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         </div>
         <div id="comRegBody" style="max-height:340px;overflow:auto"></div>
       </div>
-    </details>
-    <div id="movTable"></div>
+    </details></div>
+      </div>
+    </div>
+
+    <div class="blk mv-blk open" id="blkMovList">
+      <div class="blk-h" data-movblk="blkMovList"><span class="blk-arw">▶</span><span class="blk-ic">🧾</span>
+        <div><div class="blk-t">Movimientos</div><div class="blk-sub">Toca una fila para ver comercio, titular y editar/borrar</div></div>
+      </div>
+      <div class="blk-b"><div id="movTable"></div></div>
+    </div>
   </section>
 
   <!-- PRESUPUESTO -->
