@@ -796,6 +796,91 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-proyeccion .proy-desk{display:none}
   #view-proyeccion .proy-mob{display:block}
 }
+/* ===== Metas ===== */
+#view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
+#view-metas .mt-explain b{color:#1e40af}
+#view-metas .mt-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+#view-metas .mt-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-metas .mt-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-metas .mt-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-metas .mt-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-metas .mt-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-metas .mt-kpis .k.hero .l,#view-metas .mt-kpis .k.hero .p{color:#bbf7d0}
+#view-metas .mt-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow)}
+#view-metas .mt-desk table{width:100%;border-collapse:collapse;font-size:12.5px;overflow:visible;border:none;box-shadow:none;background:transparent}
+#view-metas .mt-desk thead th{background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
+#view-metas .mt-desk thead th:first-child,#view-metas .mt-desk thead th:nth-child(3),#view-metas .mt-desk thead th:nth-child(5),#view-metas .mt-desk thead th:nth-child(9){text-align:left}
+#view-metas .mt-desk tbody td{padding:8px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:middle}
+#view-metas .mt-desk tbody td.l{text-align:left}
+#view-metas .mt-desk .anaInp{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12.5px}
+#view-metas .bar{height:8px;background:#eef2f7;border-radius:20px;overflow:hidden}#view-metas .bar.big{height:11px;margin:9px 0 0}#view-metas .bar i{display:block;height:100%}
+#view-metas .pl{font-size:10px;color:#64748b;margin-top:3px}#view-metas .pl2{font-size:11.5px;color:#64748b;margin-top:7px}
+#view-metas .mt-legend{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+#view-metas .mt-legend .lt{font-weight:800;font-size:13px;margin-bottom:8px;color:#1e3a8a}
+#view-metas .mt-legend dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:12.5px}
+#view-metas .mt-legend dt{font-weight:800;color:#334155}#view-metas .mt-legend dd{margin:0;color:#475569;line-height:1.45}
+#view-metas .mt-mob{display:none}
+#view-metas .mcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}
+#view-metas .mc-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#view-metas .mc-nm{flex:1;font-size:16px;font-weight:800;border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+#view-metas .mg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+#view-metas .mg .m{display:flex;flex-direction:column;gap:3px;background:#f8fafc;border-radius:8px;padding:7px 9px}
+#view-metas .mg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
+#view-metas .mg .m input{border:1px solid var(--line);border-radius:6px;padding:6px;font-size:14px;font-weight:700;width:100%;box-sizing:border-box}
+#view-metas .mt-info{margin-top:10px;font-size:12px;color:#475569;background:#f8fafc;border-radius:8px;padding:7px 10px}#view-metas .mt-info b{color:#0f172a}
+@media(max-width:900px){
+  #view-metas .mt-kpis{grid-template-columns:1fr}
+  #view-metas .mt-desk{display:none}#view-metas .mt-mob{display:block}
+  #view-metas .mt-legend dl{grid-template-columns:1fr}
+}
+/* ===== Rebalanceo ===== */
+#view-rebalanceo #rebalKpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-rebalanceo .rb-kpis{display:contents}
+#view-rebalanceo #rebalKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+#view-rebalanceo #rebalKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-rebalanceo #rebalKpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-rebalanceo #rebalKpis .k .v.neg{color:var(--red)}
+#view-rebalanceo #rebalKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-rebalanceo #rebalKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-rebalanceo #rebalKpis .k.hero .l,#view-rebalanceo #rebalKpis .k.hero .p{color:#bbf7d0}
+#view-rebalanceo .rb-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:13px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
+#view-rebalanceo .rb-explain b{color:#1e40af}
+#view-rebalanceo .rb-explain .t{font-weight:800;color:#1e3a8a;margin-bottom:5px;font-size:14px}
+#view-rebalanceo .rb-ctrl{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:14px;box-shadow:var(--shadow)}
+#view-rebalanceo .rb-ctrl .f{display:flex;flex-direction:column;gap:3px}
+#view-rebalanceo .rb-ctrl label{font-size:12px;font-weight:700;color:#334155}
+#view-rebalanceo .rb-ctrl input{padding:6px 8px;border:1px solid var(--line);border-radius:7px;text-align:right;font-size:14px;width:120px}
+#view-rebalanceo .rb-ctrl .h{font-size:11px;color:var(--muted);max-width:240px;line-height:1.4}
+#view-rebalanceo .rb-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow)}
+#view-rebalanceo .rb-desk table{width:100%;border-collapse:collapse;font-size:12.5px;overflow:visible;border:none;box-shadow:none;background:transparent}
+#view-rebalanceo .rb-desk thead th{background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
+#view-rebalanceo .rb-desk thead th:first-child{text-align:left}
+#view-rebalanceo .rb-desk tbody td{padding:7px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-rebalanceo .rb-desk tbody td.l{text-align:left}
+#view-rebalanceo .rb-desk tbody tr.rb-lo{background:#f0fdf4}#view-rebalanceo .rb-desk tbody tr.rb-hi{background:#fef2f2}
+#view-rebalanceo .rb-desk .tk{font-weight:800;color:var(--brand)}#view-rebalanceo .rb-desk .nm{color:#94a3b8;font-size:10px}
+#view-rebalanceo .rb-desk .ap{font-weight:700}
+#view-rebalanceo .eb{display:inline-block;font-size:11px;font-weight:800;padding:2px 8px;border-radius:20px}
+#view-rebalanceo .eb.infra{background:#dcfce7;color:#166534}#view-rebalanceo .eb.sobre{background:#fee2e2;color:#991b1b}#view-rebalanceo .eb.ok{background:#eef2f7;color:#64748b}
+#view-rebalanceo .rb-legend{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+#view-rebalanceo .rb-legend .lt{font-weight:800;font-size:13px;margin-bottom:8px;color:#1e3a8a}
+#view-rebalanceo .rb-legend dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:12.5px}
+#view-rebalanceo .rb-legend dt{font-weight:800;color:#334155}#view-rebalanceo .rb-legend dd{margin:0;color:#475569;line-height:1.45}
+#view-rebalanceo .rb-mob{display:none}
+#view-rebalanceo .rcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-rebalanceo .rcard.lo{border-left:4px solid #22c55e}#view-rebalanceo .rcard.hi{border-left:4px solid var(--red)}
+#view-rebalanceo .rc-h{display:flex;align-items:center;justify-content:space-between}#view-rebalanceo .rc-h .tk{font-size:16px;font-weight:800;color:var(--brand)}#view-rebalanceo .rc-h .nm{color:#94a3b8;font-size:10px;font-weight:400}
+#view-rebalanceo .rc-bars{margin:9px 0}#view-rebalanceo .rc-bars .bl{font-size:10px;color:#64748b;font-weight:700;margin:5px 0 2px}#view-rebalanceo .rc-bars .bl b{color:#0f172a}
+#view-rebalanceo .bar{height:7px;background:#eef2f7;border-radius:20px;overflow:hidden}#view-rebalanceo .bar i{display:block;height:100%}
+#view-rebalanceo .rc-f{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+#view-rebalanceo .rc-f .m{background:#f8fafc;border-radius:8px;padding:6px 9px}#view-rebalanceo .rc-f .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-rebalanceo .rc-f .m b{font-size:13px;font-weight:800}
+#view-rebalanceo .rc-f .m.hi{background:#ecfdf5;border:1px solid #a7f3d0;grid-column:1/-1}
+@media(max-width:900px){
+  #view-rebalanceo #rebalKpis{grid-template-columns:1fr 1fr}
+  #view-rebalanceo #rebalKpis .k .v{font-size:18px}
+  #view-rebalanceo .rb-desk{display:none}#view-rebalanceo .rb-mob{display:block}
+  #view-rebalanceo .rb-legend dl{grid-template-columns:1fr}
+}
 /* ===== Simulador ===== */
 #view-simulador .sim-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 #view-simulador .sim-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
@@ -2088,10 +2173,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-rebalanceo">
-    <h2>Rebalanceo por bandas</h2>
-    <div class="sub" style="margin-bottom:8px">Compara el <b>peso actual</b> (valor de mercado) de cada empresa con su <b>peso objetivo</b> (de Diversificación). Solo se actúa sobre las que se salen de la <b>banda de tolerancia</b>. Indica una <b>aportación</b> y la reparte comprando primero donde más falta (nunca vende). Marca en rojo las sobreponderadas para que pauses compras.</div>
-    <div class="cards" id="rebalKpis"></div>
-    <div id="rebalBody" style="margin-top:10px"></div>
+    <h2>⚖️ Rebalanceo por bandas</h2>
+    <div id="rebalKpis" style="margin-bottom:12px"></div>
+    <div id="rebalBody"></div>
   </section>
 
   <!-- AMALIA -->
@@ -2406,8 +2490,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-metas">
-    <h2>Metas financieras</h2>
-    <div id="metasBody" style="margin-top:10px"></div>
+    <h2>🎯 Metas de ahorro</h2>
+    <div id="metasBody"></div>
   </section>
   <section class="view" id="view-asignacion">
     <h2>Asignación por clase de activo</h2>
