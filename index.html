@@ -796,6 +796,45 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-proyeccion .proy-desk{display:none}
   #view-proyeccion .proy-mob{display:block}
 }
+/* ===== Posiciones ===== */
+#view-posiciones #posKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-posiciones #posKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-posiciones #posKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-posiciones #posKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-posiciones #posKpis .k .v.pos{color:var(--green)}#view-posiciones #posKpis .k .v.neg{color:var(--red)}
+#view-posiciones #posKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-posiciones #posKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-posiciones #posKpis .k.hero .l,#view-posiciones #posKpis .k.hero .p{color:#bbf7d0}
+#view-posiciones .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-posiciones .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-posiciones .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-posiciones .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-posiciones .pos-blk-h .bt{font-weight:800;font-size:14px}#view-posiciones .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-posiciones .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-posiciones .pos-blk.open .pos-blk-b{display:block}
+#view-posiciones .ptable{overflow:auto;max-height:62vh}
+#view-posiciones .ptable table{border-collapse:collapse;font-size:12px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent;width:auto}
+#view-posiciones .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-posiciones .ptable thead th:nth-child(1),#view-posiciones .ptable thead th:nth-child(2){text-align:left}
+#view-posiciones .ptable tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-posiciones .ptable tbody td.l{text-align:left}
+#view-posiciones .ptable th:nth-child(1),#view-posiciones .ptable td:nth-child(1){position:sticky;left:0;z-index:3;background:#fff;min-width:78px}
+#view-posiciones .ptable th:nth-child(2),#view-posiciones .ptable td:nth-child(2){position:sticky;left:78px;z-index:3;background:#fff;box-shadow:6px 0 8px -6px rgba(15,23,42,.18);min-width:120px}
+#view-posiciones .ptable thead th:nth-child(1),#view-posiciones .ptable thead th:nth-child(2){z-index:6;background:#f8fafc}
+#view-posiciones .pos-tk{font-weight:800;color:var(--brand)}#view-posiciones .pos-nm{color:#94a3b8;font-size:10px}
+#view-posiciones .ptable .pos-tot td{background:#eef2f7;font-weight:700}
+#view-posiciones .ptable .pos-tot td:nth-child(1),#view-posiciones .ptable .pos-tot td:nth-child(2){background:#eef2f7}
+#view-posiciones .pos-mob{display:none;padding:11px 12px}
+#view-posiciones .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-posiciones .lc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#view-posiciones .lc-h .tk{font-size:16px;font-weight:800;color:var(--brand)}#view-posiciones .lc-h .tk .nm{font-size:10px;color:#94a3b8;font-weight:400;display:block;margin-top:2px}
+#view-posiciones .ty{text-align:right;font-size:17px;font-weight:800}#view-posiciones .ty.g{color:var(--green)}#view-posiciones .ty.r{color:var(--red)}#view-posiciones .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-posiciones .lc-row{margin:8px 0 2px;font-size:12.5px}#view-posiciones .lc-row .pl{font-weight:800;font-size:15px}#view-posiciones .lc-row b{font-weight:800}
+#view-posiciones .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#view-posiciones .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-posiciones .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-posiciones .lg .m b{font-size:12px;font-weight:700}
+@media(max-width:960px){
+  #view-posiciones #posKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-posiciones #posKpis .k .v{font-size:18px}
+  #view-posiciones .pos-desk{display:none}#view-posiciones .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2281,10 +2320,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- INVERSIONES -->
   <!-- POSICIONES (POS) -->
   <section class="view" id="view-posiciones">
-    <h2>Posiciones ejecutadas <span class="muted" style="font-weight:400;font-size:13px">· cada compra como un lote, con rentabilidad anualizada (precio + dividendo)</span></h2>
-    <div class="toolbar"><label class="muted">Ver <select id="posFiltro"><option value="todas">Todas</option><option value="cartera">Solo en cartera</option><option value="vendida">Solo vendidas</option></select></label>
+    <h2>📌 Posiciones ejecutadas</h2>
+    <div class="sub" style="margin-bottom:10px">Cada compra vista como un <b>lote</b> independiente, con su rentabilidad anualizada (precio + dividendo). Se genera solo desde tus operaciones de Cartera.</div>
+    <div id="posKpis" style="margin-bottom:12px"></div>
+    <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ver <select id="posFiltro"><option value="todas">Todas</option><option value="cartera">Solo en cartera</option><option value="vendida">Solo vendidas</option></select></label>
       <label class="muted" style="margin-left:10px">Orden <select id="posOrden"><option value="fecha_desc">Fecha reciente→antigua</option><option value="fecha_asc">Fecha antigua→reciente</option></select></label></div>
-    <div id="posTable" style="overflow:auto"></div>
+    <div id="posTable"></div>
   </section>
 
   <section class="view" id="view-inversiones">
