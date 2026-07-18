@@ -1300,11 +1300,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <nav id="nav">
     <button data-group="control" class="active">Control</button>
     <button data-group="mov">Movimientos</button>
-    <button data-group="trabajo">Radar y Trabajo</button>
-    <button data-group="eleccion">Análisis y Elección</button>
+    <button data-group="trabajo">Radar</button>
+    <button data-group="eleccion">Análisis</button>
+    <button data-group="planinv">Plan</button>
     <button data-group="cartera">Cartera y Rentas</button>
     <button data-group="tesis">Evaluación de Tesis</button>
-    <button data-group="planinv">Plan Inversor</button>
     <button data-group="informes">Informes</button>
     <button data-group="graficas">Gráficas</button>
   </nav>
@@ -1349,11 +1349,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="bsheet-grid">
       <button data-bgroup="control">🏠 Control</button>
       <button data-bgroup="mov">💶 Movimientos</button>
-      <button data-bgroup="trabajo">🛠️ Radar y Trabajo</button>
-      <button data-bgroup="eleccion">🔎 Análisis y Elección</button>
+      <button data-bgroup="trabajo">🛠️ Radar</button>
+      <button data-bgroup="eleccion">🔎 Análisis</button>
+      <button data-bgroup="planinv">📈 Plan</button>
       <button data-bgroup="cartera">📊 Cartera y Rentas</button>
       <button data-bgroup="tesis">🧭 Evaluación de Tesis</button>
-      <button data-bgroup="planinv">📈 Plan Inversor</button>
       <button data-bgroup="informes">📄 Informes</button>
       <button data-bgroup="graficas">📉 Gráficas</button>
     </div>
@@ -1976,7 +1976,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-plan">
     <h2>Plan de compras multi-anual</h2>
     <div class="cards" id="planKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan Inversor → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
+    <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
     <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="planStatus"></span></div>
     <input type="range" id="planScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
