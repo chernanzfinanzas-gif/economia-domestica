@@ -1354,7 +1354,12 @@ function importPresupuesto(file){ if(typeof pushSnapshot==='function')pushSnapsh
 /* ===== P4.2 · «El origen»: bloque dinámico «entonces → hoy» (solo lectura) ===== */
 function renderOrigen(){
   var sec=document.getElementById('view-origen'); if(!sec) return;
-  var old=document.getElementById('origenDinamico'); if(old)old.remove();
+  var host=document.getElementById('origenEval');
+  var oldD=document.getElementById('origenDinamico'); if(oldD)oldD.remove();
+  if(!renderOrigen._bound){ renderOrigen._bound=true;
+    sec.addEventListener('click',function(ev){ var h=ev.target.closest('[data-orblk]'); if(!h)return; var b=document.getElementById(h.getAttribute('data-orblk')); if(b)b.classList.toggle('open'); });
+  }
+  if(!host) return;
   var snaps=(typeof patSnaps==='function')?patSnaps():[];
   var last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
   var efHoy=num(last.ef), invHoy=num(last.inv), totHoy=efHoy+invHoy;
@@ -1368,20 +1373,22 @@ function renderOrigen(){
   var INI=102621.74, P={total:222000,ef:112000,rv:110000,efPct:50.5,ing:6830.68,gas:3457};
   var crec=INI>0?(totHoy/INI):0;
   var pctCumpl=P.total>0?(totHoy/P.total):0;
-  var rumboCol,rumboTxt;
-  if(pctCumpl>=1){rumboCol='#16a34a';rumboTxt='Por delante del plan';}
-  else if(pctCumpl>=0.9){rumboCol='#d97706';rumboTxt='En línea con el plan';}
-  else {rumboCol='#dc2626';rumboTxt='Por detrás del plan';}
+  var rumboCls,rumboTxt;
+  if(pctCumpl>=1){rumboCls='';rumboTxt='Por delante del plan';}
+  else if(pctCumpl>=0.9){rumboCls=' amber';rumboTxt='En línea con el plan';}
+  else {rumboCls=' red';rumboTxt='Por detrás del plan';}
   function eur(v){return fmt(v)+' €';}
   function rowE(label,plan,hoy,higherBetter){ var d=hoy-plan; var fav=higherBetter?(d>=0):(d<=0); return '<tr><td>'+label+'</td><td class="num">'+eur(plan)+'</td><td class="num"><b>'+eur(hoy)+'</b></td><td class="num '+(fav?'pos':'neg')+'">'+(d>=0?'+':'')+fmt(d)+'</td></tr>'; }
   function rowP(label,plan,hoy){ var d=hoy-plan; return '<tr><td>'+label+'</td><td class="num">'+plan.toFixed(1)+'%</td><td class="num"><b>'+hoy.toFixed(1)+'%</b></td><td class="num">'+(d>=0?'+':'')+d.toFixed(1)+' pp</td></tr>'; }
-  var div=document.createElement('div');
-  div.className='card'; div.id='origenDinamico'; div.style='border-left:5px solid #16a34a;margin-top:12px';
-  div.innerHTML=
-    '<div style="font-size:16px;font-weight:800;color:#16a34a">Entonces → hoy · el plan frente a la realidad</div>'+
-    '<div class="muted" style="font-size:12px;margin:4px 0 10px">Se calcula solo con tus datos actuales (patrimonio, ingresos y gastos del año '+yr+'). Solo lectura.</div>'+
-    '<div style="margin-bottom:10px;font-size:14px">Desde el origen (05/02/2019): <b>'+eur(INI)+'</b> → hoy <b style="color:#16a34a">'+eur(totHoy)+'</b> <span class="muted">(×'+crec.toFixed(2)+' · '+(crec>=1?'+':'')+((crec-1)*100).toFixed(0)+'%)</span></div>'+
-    '<div style="overflow:auto"><table style="min-width:440px"><thead><tr><th>Concepto</th><th class="num">Plan 2026</th><th class="num">Hoy</th><th class="num">Δ</th></tr></thead><tbody>'+
+  host.innerHTML=
+    '<div class="et">Entonces → hoy · el plan frente a la realidad</div>'+
+    '<div class="ed">Se calcula con tus datos actuales (patrimonio, ingresos y gastos del año '+yr+'). Solo lectura.</div>'+
+    '<div class="or-growth">'+
+      '<div class="or-gcard"><div class="l">Patrimonio en el origen (05/02/2019)</div><div class="v">'+eur(INI)+'</div></div>'+
+      '<div class="or-gcard"><div class="l">Patrimonio hoy</div><div class="v">'+eur(totHoy)+'</div></div>'+
+      '<div class="or-gcard"><div class="l">Crecimiento</div><div class="v">×'+crec.toFixed(2)+' · '+(crec>=1?'+':'')+((crec-1)*100).toFixed(0)+'%</div></div>'+
+    '</div>'+
+    '<div class="or-tw"><table class="or-evt"><thead><tr><th>Concepto</th><th class="num">Plan 2026</th><th class="num">Hoy</th><th class="num">&#916;</th></tr></thead><tbody>'+
       rowE('Patrimonio total',P.total,totHoy,true)+
       rowE('Efectivo',P.ef,efHoy,true)+
       rowE('R. Variable',P.rv,invHoy,true)+
@@ -1389,7 +1396,6 @@ function renderOrigen(){
       rowE('Ingresos / mes',P.ing,ingMes,true)+
       rowE('Gastos / mes',P.gas,gasMes,false)+
     '</tbody></table></div>'+
-    '<div style="margin-top:10px"><span style="background:'+rumboCol+';color:#fff;border-radius:6px;padding:2px 10px;font-weight:700;font-size:13px">'+rumboTxt+' · '+(pctCumpl*100).toFixed(0)+'% del objetivo 2026</span></div>';
-  sec.appendChild(div);
+    '<div style="margin-top:12px"><span class="or-badge'+rumboCls+'">'+rumboTxt+' &middot; '+(pctCumpl*100).toFixed(0)+'% del objetivo 2026</span></div>';
 }
 

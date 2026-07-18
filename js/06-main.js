@@ -160,8 +160,8 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['panel','Panel'],['presupuesto','Presupuesto']],
-  mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual'],['origen','El origen']],
+  control:[['origen','El Origen'],['panel','Panel'],['presupuesto','Presupuesto']],
+  mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
