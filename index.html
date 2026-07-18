@@ -171,6 +171,43 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 .tbl-desglose td.dg-up{background:#dcfce7;color:#166534}
 .tbl-desglose td.dg-dn{background:#fee2e2;color:#991b1b}
 .tbl-desglose td.dg-neg{color:#dc2626!important}
+  /* ===== Desglose: columna Concepto fija (escritorio) + vista móvil ===== */
+  #view-desglose .dg-desktop{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:auto;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  #view-desglose .dg-desktop>#presDesglose{overflow:visible}
+  .tbl-desglose td.dg-name{position:sticky;left:0;z-index:2;box-shadow:1px 0 0 #e2e8f0}
+  .tbl-desglose tr.grp-row td,.tbl-desglose tr.r-amar td,.tbl-desglose tr.r-verde td{position:sticky;left:0}
+  #view-desglose .dg-mobile{display:none}
+  #view-desglose .dg-mpager{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:10px}
+  #view-desglose .dg-mpager select{padding:10px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-weight:700;background:#fff}
+  #view-desglose .dg-mpager #dgMonthSel{flex:1;text-align:center}
+  #view-desglose .dg-mpager #dgYearM{flex:0 0 84px}
+  #view-desglose .dg-mpager button.nav{border:1px solid var(--line);background:#fff;border-radius:8px;width:38px;height:40px;font-size:16px;cursor:pointer;color:var(--brand);font-weight:800}
+  #view-desglose .dg-mnote{font-size:12px;color:var(--muted);margin:0 2px 12px}
+  #view-desglose .dg-msum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+  #view-desglose .dg-msum .c{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 6px;text-align:center}
+  #view-desglose .dg-msum .c .l{font-size:10px;color:var(--muted);font-weight:700}
+  #view-desglose .dg-msum .c .v{font-size:15px;font-weight:800;margin-top:2px}
+  #view-desglose .dg-msum .c .v.pos{color:var(--green,#16a34a)}#view-desglose .dg-msum .c .v.neg{color:var(--red,#dc2626)}
+  #view-desglose .dg-msum .c .p{font-size:9.5px;color:var(--muted)}
+  #view-desglose .dg-mblk{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  #view-desglose .dg-mblk-h{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;font-weight:800;font-size:14px}
+  #view-desglose .dg-mblk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}
+  #view-desglose .dg-mblk.open .dg-mblk-h .arw{transform:rotate(90deg)}
+  #view-desglose .dg-mblk-h .bt{margin-left:auto;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+  #view-desglose .dg-mblk-b{display:none;border-top:1px solid var(--line)}
+  #view-desglose .dg-mblk.open .dg-mblk-b{display:block}
+  #view-desglose .dg-mrow{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:9px 14px;border-top:1px solid #f5f7fa;font-size:13px}
+  #view-desglose .dg-mrow:first-child{border-top:none}
+  #view-desglose .dg-mrow .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-desglose .dg-mrow .v{text-align:right;font-variant-numeric:tabular-nums;min-width:54px}
+  #view-desglose .dg-mrow .v .k{display:block;font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase}
+  #view-desglose .dg-mrow .dv{font-weight:800}
+  #view-desglose .dg-mrow .dv.pos{color:var(--green,#16a34a)}#view-desglose .dg-mrow .dv.neg{color:var(--red,#dc2626)}
+  #view-desglose .dg-mrow.tot{background:#f8fafc;font-weight:800}
+  @media(max-width:640px){
+    #view-desglose .dg-toolbar,#view-desglose .dg-desktop,#view-desglose .dg-desktop-note{display:none}
+    #view-desglose .dg-mobile{display:block}
+  }
 #anaTable input.anaInp{font-size:11px;padding:1px 3px}
 .infobox{border:1px solid #fdba74;background:#fff7ed;border-radius:10px;margin:0 0 12px;overflow:hidden}
 .infobox-head{cursor:pointer;padding:8px 12px;font-weight:700;color:#9a3412;font-size:13px;display:flex;align-items:center;gap:6px;user-select:none}
@@ -1118,7 +1155,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div>
     </div>
 
-    <div class="blk mv-blk open" id="blkMovList">
+    <div class="blk mv-blk" id="blkMovList">
       <div class="blk-h" data-movblk="blkMovList"><span class="blk-arw">▶</span><span class="blk-ic">🧾</span>
         <div><div class="blk-t">Movimientos</div><div class="blk-sub">Toca una fila para ver comercio, titular y editar/borrar</div></div>
       </div>
@@ -1201,13 +1238,14 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <section class="view" id="view-desglose">
     <h2>Desglose mensual</h2>
-    <div class="toolbar">
+    <div class="toolbar dg-toolbar">
       <label class="muted" for="presDesgloseYear">Año</label>
       <select id="presDesgloseYear"></select>
       <span class="muted">Réplica de la hoja anual del Excel · presupuestado vs ejecutado por concepto.</span>
     </div>
-    <div class="sub" style="margin:-2px 0 8px">Cada concepto muestra dos filas: <b>Pres.</b> (presupuestado) y <b>Real</b> (ejecutado en Movimientos), con los 12 meses en columnas y el total anual a la derecha. Importes en €.</div>
-    <div id="presDesglose" style="overflow:auto"></div>
+    <div class="sub dg-desktop-note" style="margin:-2px 0 8px">Cada concepto muestra dos filas: <b>Pres.</b> (presupuestado) y <b>Real</b> (ejecutado en Movimientos), con los 12 meses en columnas y el total anual a la derecha. Importes en €.</div>
+    <div class="dg-desktop"><div id="presDesglose" style="overflow:auto"></div></div>
+    <div class="dg-mobile" id="dgMobile"></div>
   </section>
   <!-- PATRIMONIO -->
   <section class="view" id="view-patrimonio">
@@ -1215,7 +1253,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="pat-hero" id="patCards"></div>
     <div class="pat-rep" id="patReparto"></div>
 
-    <div class="blk pat-blk open" id="blkPatEvo">
+    <div class="blk pat-blk" id="blkPatEvo">
       <div class="blk-h" data-patblk="blkPatEvo"><span class="blk-arw">▶</span><span class="blk-ic">📈</span>
         <div><div class="blk-t">Evolución</div><div class="blk-sub" id="patEvol"></div></div>
       </div>
@@ -1240,7 +1278,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b"><div class="pat-cuentas"><div id="patCuentas"></div><button class="btn sm" id="patAddCuenta" style="margin-top:10px">+ Nueva cuenta</button></div></div>
     </div>
 
-    <div class="blk pat-blk open" id="blkPatList">
+    <div class="blk pat-blk" id="blkPatList">
       <div class="blk-h" data-patblk="blkPatList"><span class="blk-arw">▶</span><span class="blk-ic">📋</span>
         <div><div class="blk-t">Registros</div><div class="blk-sub">Toca una fila para ver el desglose por cuenta, editar o borrar</div></div>
         <div class="blk-right"><span class="blk-sub" id="patCount"></span></div>
@@ -1316,7 +1354,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div></div>
     </div>
 
-    <div class="blk ama-blk open" id="blkAmaList">
+    <div class="blk ama-blk" id="blkAmaList">
       <div class="blk-h" data-amablk="blkAmaList"><span class="blk-arw">▶</span><span class="blk-ic">📋</span>
         <div><div class="blk-t">Apuntes</div><div class="blk-sub">Toca una fila para ver la nota, editar o borrar</div></div>
         <div class="blk-right"><span class="blk-sub" id="amaCount"></span></div>
@@ -1365,7 +1403,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div></div>
     </div>
 
-    <div class="blk r4-blk open" id="blkR4List">
+    <div class="blk r4-blk" id="blkR4List">
       <div class="blk-h" data-r4blk="blkR4List"><span class="blk-arw">▶</span><span class="blk-ic">📒</span>
         <div><div class="blk-t">Movimientos</div><div class="blk-sub">Toca una fila para ver plusvalía, intereses, editar o borrar</div></div>
         <div class="blk-right"><span class="blk-sub" id="r4Count"></span></div>
