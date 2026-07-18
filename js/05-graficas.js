@@ -215,15 +215,51 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
   else { A=crecimientoAtribucion(12); titulo='Últimos 12 meses'; }
   if(!A){ el.innerHTML='<div class="empty">No hay datos para ese periodo.</div>'; if(kp)kp.innerHTML=''; return; }
   const sg=x=>(x>=0?'+':'')+fmt(x); const efectivo=A.aportacion-A.dividendos;
-  if(kp)kp.innerHTML=[['Efectivo (nuevo)',sg(efectivo),''],['Dividendo (reinv.)',sg(A.dividendos),'pos'],['Mercado',sg(A.revaloriz),A.revaloriz>=0?'pos':'neg'],['Retorno (mkt+div)',sg(A.retorno),A.retorno>=0?'pos':'neg']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
+  // botón de periodo activo
+  try{ document.querySelectorAll('#view-atribucion [data-atrib]').forEach(b=>b.classList.toggle('atrib-on',b.dataset.atrib===atribSel.modo)); }catch(e){}
+  // KPIs héroe
+  if(kp)kp.innerHTML='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Retorno (mercado + dividendos)</div><div class="v">${sg(A.retorno)}</div><div class="p">lo que generó tu cartera en el periodo</div></div>`
+    +`<div class="k"><div class="l">Mercado (revalorización)</div><div class="v ${A.revaloriz>=0?'pos':'neg'}">${sg(A.revaloriz)}</div><div class="p">subida/bajada de las cotizaciones</div></div>`
+    +`<div class="k"><div class="l">Dividendo (reinvertido)</div><div class="v pos">${sg(A.dividendos)}</div><div class="p">dividendos cobrados en el periodo</div></div>`
+    +`<div class="k"><div class="l">Efectivo (dinero nuevo)</div><div class="v">${sg(efectivo)}</div><div class="p">aportaciones de tu bolsillo</div></div>`
+    +'</div>';
   const vi=num(A.valIni), vf=num(A.valFin);
-  const wfSteps=[{label:'Inicio',base:vi}]; if(Math.abs(A.dividendos)>0.5)wfSteps.push({label:'Dividendo',delta:A.dividendos}); if(Math.abs(efectivo)>0.5)wfSteps.push({label:'Efectivo',delta:efectivo}); wfSteps.push({label:'Mercado',delta:A.revaloriz},{label:'Valor final',base:vf});
-  const wf=gWaterfall(wfSteps);
-  const nota=`<div class="sub" style="margin-top:6px"><b>Dividendo</b> (reinvertido) + <b>Efectivo</b> (dinero nuevo de tu bolsillo) = tu aportación del periodo (${fmt(A.aportacion)}). El valor de la cartera creció por esa aportación más lo que hizo el <b>mercado</b>. Retorno de tu dinero (mercado + dividendos): <b>${sg(A.retorno)}</b>.</div>`;
-  const porY=atribucionPorAnio(); let tE=0,tD=0,tM=0,tC=0; porY.forEach(r=>{tD+=r.dividendos;tM+=r.revaloriz;tC+=r.crecValor;tE+=(r.aportacion-r.dividendos);});
-  const yrows=porY.slice().reverse().map(r=>{ const ef=r.aportacion-r.dividendos; return `<tr><td><b>${r.anio}</b></td><td class="num">${sg(ef)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num ${r.crecValor>=0?'pos':'neg'}" style="font-weight:700">${sg(r.crecValor)}</td></tr>`; }).join('');
-  const totRow=`<tr style="font-weight:700;background:#eef2f7"><td>Total (= valor cartera)</td><td class="num">${sg(tE)}</td><td class="num pos">${sg(tD)}</td><td class="num ${tM>=0?'pos':'neg'}">${sg(tM)}</td><td class="num">${fmt(tC)}</td></tr>`;
-  el.innerHTML=`<div class="card" style="margin:0 0 12px"><div style="font-weight:700;font-size:14px;margin-bottom:4px">${titulo}</div><div class="sub" style="margin-bottom:6px">Tu cartera pasó de ${fmt(vi)} a <b>${fmt(vf)}</b> (valor de mercado): dividendos reinvertidos + efectivo nuevo + mercado.</div>${wf}${nota}</div><h3 style="font-size:14px;margin:6px 0">Atribución por año</h3><div class="sub" style="margin-bottom:6px">Efectivo (dinero nuevo) + Dividendo (reinvertido) + Mercado = crecimiento del valor. El total de "Crec. valor" suma tu valor de cartera actual.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th class="num">Efectivo</th><th class="num">Dividendo</th><th class="num">Mercado</th><th class="num">Crec. valor</th></tr></thead><tbody>${yrows}${totRow}</tbody></table></div>`;
+  const wf=_atribWaterfall([{label:'Inicio',base:vi},{label:'Dividendo reinvertido',delta:A.dividendos,col:'#16a34a'},{label:'Efectivo nuevo',delta:efectivo,col:'#2563eb'},{label:'Mercado',delta:A.revaloriz,col:'#0d9488'},{label:'Valor final',base:vf}]);
+  const wfNote=`<div class="atrib-note">Tu cartera pasó de <b>${fmt(vi)}</b> a <b>${fmt(vf)}</b>. De ese crecimiento, el <b style="color:#2563eb">efectivo nuevo</b> (dinero de tu bolsillo) aportó ${sg(efectivo)}; el resto lo generó la cartera sola: <b style="color:#16a34a">dividendos</b> ${sg(A.dividendos)} + <b style="color:#0d9488">mercado</b> ${sg(A.revaloriz)} = retorno ${sg(A.retorno)}.</div>`;
+  const cascada=`<div class="atrib-wtitle">${titulo} · ${fmt(vi)} → ${fmt(vf)}</div>${wf}${wfNote}`;
+  // por año
+  const porY=atribucionPorAnio().slice().reverse(); let tE=0,tD=0,tM=0,tR=0,tC=0; porY.forEach(r=>{tD+=r.dividendos;tM+=r.revaloriz;tR+=r.retorno;tC+=r.crecValor;tE+=(r.aportacion-r.dividendos);});
+  const yhead='<tr><th>Año</th><th class="num">Efectivo</th><th class="num">Dividendo</th><th class="num">Mercado</th><th class="num">Retorno</th><th class="num">Crec. valor</th></tr>';
+  const yrows=porY.map(r=>{ const ef=r.aportacion-r.dividendos; return `<tr><td class="l"><b>${r.anio}</b></td><td class="num ${ef>=0?'':'neg'}">${sg(ef)}</td><td class="num pos">${sg(r.dividendos)}</td><td class="num ${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</td><td class="num ${r.retorno>=0?'pos':'neg'}">${sg(r.retorno)}</td><td class="num ${r.crecValor>=0?'pos':'neg'}" style="font-weight:700">${sg(r.crecValor)}</td></tr>`; }).join('');
+  const totRow=`<tr class="atrib-tot"><td class="l">TOTAL</td><td class="num">${sg(tE)}</td><td class="num pos">${sg(tD)}</td><td class="num ${tM>=0?'pos':'neg'}">${sg(tM)}</td><td class="num ${tR>=0?'pos':'neg'}">${sg(tR)}</td><td class="num"><b>${fmt(tC)}</b></td></tr>`;
+  const ydesk=`<div class="ptable"><table><thead>${yhead}</thead><tbody>${yrows}${totRow}</tbody></table></div>`;
+  const ymob=porY.map(r=>{ const ef=r.aportacion-r.dividendos; return `<div class="lcard"><div class="lc-h"><div class="tk">${r.anio}</div><div class="ty ${r.crecValor>=0?'g':'r'}">${sg(r.crecValor)}<span>crec. valor</span></div></div><div class="lg"><div class="m"><span>Efectivo nuevo</span><b>${sg(ef)}</b></div><div class="m"><span>Dividendo</span><b class="pos">${sg(r.dividendos)}</b></div><div class="m"><span>Mercado</span><b class="${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</b></div><div class="m"><span>Retorno</span><b class="${r.retorno>=0?'pos':'neg'}">${sg(r.retorno)}</b></div></div></div>`; }).join('');
+  const yearBlk=`<div class="atrib-note" style="margin-top:0;margin-bottom:12px">Efectivo (dinero nuevo) + Dividendo (reinvertido) + Mercado = crecimiento del valor de cada año. La suma de «Crec. valor» reconstruye el valor actual de tu cartera.</div><div class="pos-desk">${ydesk}</div><div class="pos-mob">${ymob}</div>`;
+  window._atribBlk=window._atribBlk||{cascada:true,anual:false};
+  const B=(key,icon,title,sum,inner)=>{ const op=window._atribBlk[key]?' open':''; return `<div class="pos-blk${op}" data-atribblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="atrib-pad">${inner}</div></div></div>`; };
+  el.innerHTML=B('cascada','📊','Cascada del periodo',titulo,cascada)+B('anual','📅','Atribución por año',porY.length+' años · '+fmt(tC)+' acumulado',yearBlk);
+  if(!el._atribBlkBound){ el._atribBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('input,select,button,a'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-atribblk'); if(k){window._atribBlk=window._atribBlk||{};window._atribBlk[k]=b.classList.contains('open');} } }); }
+}
+function _atribWaterfall(steps){
+  const W=680,H=300,pl=56,pr=16,pt=18,pb=46; const plotH=H-pt-pb,plotW=W-pl-pr;
+  const _ab=v=>{const a=Math.abs(v);const s=v<0?'-':'+';if(a>=1000)return s+(a/1000).toFixed(a>=10000?0:1)+'k';return s+Math.round(a);};
+  let cum=0; const bars=[]; let mx=0,mn=0;
+  steps.forEach(s=>{ if(s.base!=null){bars.push({label:s.label,lo:Math.min(0,s.base),hi:Math.max(0,s.base),val:s.base,kind:'base'});cum=s.base;}
+   else{const st=cum,en=cum+num(s.delta);bars.push({label:s.label,lo:Math.min(st,en),hi:Math.max(st,en),val:num(s.delta),kind:'delta',col:s.col});cum=en;} });
+  bars.forEach(b=>{mx=Math.max(mx,b.hi);mn=Math.min(mn,b.lo,0);});
+  const rng=(mx-mn)||1; const Y=v=>pt+plotH-((v-mn)/rng)*plotH; const gw=plotW/bars.length, bw=Math.min(66,gw-18);
+  let g=''; for(let k=0;k<=4;k++){const gv=mn+(mx-mn)*k/4;g+=`<line x1="${pl}" y1="${Y(gv).toFixed(1)}" x2="${W-pr}" y2="${Y(gv).toFixed(1)}" stroke="#eef2f7"/><text x="${pl-6}" y="${(Y(gv)+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8">${Math.round(gv/1000)}k</text>`;}
+  const cumA=[]; let c2=0; bars.forEach(b=>{ if(b.kind==='base')c2=b.val; else c2=c2+b.val; cumA.push(c2); });
+  bars.forEach((b,i)=>{ const x=pl+i*gw+(gw-bw)/2; const yTop=Y(b.hi),yBot=Y(b.lo); const h=Math.max(2,yBot-yTop);
+   const col=b.kind==='base'?'#64748b':(b.col||(b.val>=0?'#16a34a':'#dc2626')); const pre=b.kind==='delta'&&b.val>=0?'+':'';
+   g+=`<rect x="${x.toFixed(1)}" y="${yTop.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="3" fill="${col}"/>`;
+   g+=`<text x="${(x+bw/2).toFixed(1)}" y="${(yTop-5).toFixed(1)}" font-size="10.5" font-weight="700" text-anchor="middle" fill="${b.kind==='base'?'#334155':col}">${b.kind==='base'?fmt(b.val):(pre+_ab(b.val))}</text>`;
+   const lines=(b.label||'').split(' ');
+   g+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-22}" font-size="10" text-anchor="middle" fill="#475569" font-weight="600">${lines[0]}</text>`+(lines[1]?`<text x="${(x+bw/2).toFixed(1)}" y="${H-10}" font-size="9" text-anchor="middle" fill="#94a3b8">${lines.slice(1).join(' ')}</text>`:'');
+   if(i<bars.length-1){ const yc=Y(cumA[i]); const x2=pl+(i+1)*gw+(gw-bw)/2; g+=`<line x1="${(x+bw).toFixed(1)}" y1="${yc.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${yc.toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="3 3"/>`; }
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:700px;display:block">${g}</svg>`;
 }
 // === Rentabilidad por empresa: TIR de tu posición + rentab. total + TR del valor por periodos (YTD/1A/3A) ===
 function rentabilidadEmpresas(reRender){
