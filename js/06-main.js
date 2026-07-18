@@ -16,29 +16,73 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   cols.forEach(t=>{ if(typeof _tesisCache!=='undefined'&&_tesisCache[t]===undefined&&typeof cargarTesis==='function')cargarTesis(t); });
   const AA={}; cols.forEach(t=>{ AA[t]=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t)||{}; });
   const dcol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  const sCol=s=>s==null?'#64748b':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626');
+  const sLbl=s=>s==null?'':(s>=70?'Buena':s>=50?'Media':'Mala');
   const poMedOf=a=>{const mn=num(a.poMin),mx=num(a.poMax);return (mn&&mx)?(mn+mx)/2:(mx||mn||0);};
-  const lst=arr=>Array.isArray(arr)&&arr.length?('<ul style="margin:0 0 0 15px;padding:0;font-size:11px">'+arr.map(x=>`<li>${x}</li>`).join('')+'</ul>'):'<span class="muted">—</span>';
+  const potOf=a=>{const c=num(a.cotizacion),md=poMedOf(a);return (c&&md)?(md/c-1):null;};
+  const pctF=p=>p==null?'—':(p>=0?'+':'')+(p*100).toFixed(1)+'%';
+  const bandTxt=a=>{const c=num(a.cotizacion),eM=num(a.entMax);if(!(c&&eM))return fmt(c);const inB=c<=eM,near=c<=eM*1.10;const dot=inB?'🟢':near?'🟡':'🔴';return dot+' '+fmt(c)+' <span class="muted" style="font-size:10px">/ ent '+fmt(eM)+'</span>';};
+  const lst=arr=>Array.isArray(arr)&&arr.length?('<ul class="ql">'+arr.map(x=>`<li>${x}</li>`).join('')+'</ul>'):'<span class="muted">—</span>';
   const J=t=>(typeof _tesisCache!=='undefined')?_tesisCache[t]:null;
-  const row=(label,fn)=>`<tr><th style="text-align:left;vertical-align:top;background:#f8fafc;font-size:11px">${label}</th>${cols.map(t=>`<td style="vertical-align:top;font-size:12px;word-wrap:break-word">${fn(AA[t],J(t),t)}</td>`).join('')}</tr>`;
-  let h='<table style="font-size:12px;table-layout:fixed;width:100%"><thead><tr><th style="width:128px"></th>'+cols.map(t=>`<th style="font-size:15px">${t}<div class="muted" style="font-size:9px;font-weight:400">${(typeof SECTOR!=='undefined'&&SECTOR[t])||''}</div></th>`).join('')+'</tr></thead><tbody>';
-  h+=row('Score',a=>{const sc=cmpScore(a);const c=sc==null?'#64748b':(sc>=70?'#16a34a':sc>=50?'#d97706':'#dc2626');return sc==null?'—':`<b style="font-size:18px;color:${c}">${sc.toFixed(0)}</b>`;});
-  h+=row('Decisión',a=>{const d=(a.decision||'').toUpperCase();return d?`<b style="color:${dcol[d]||'#475569'}">${d}</b>`:'—';});
-  h+=row('Rating',a=>a.rating||'—');
-  h+=row('Sub-tipo',(a,j,t)=>(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||'—');
-  h+=row('Cotización',a=>fmt(num(a.cotizacion)));
-  h+=row('PO bear/base/bull',a=>{const mn=num(a.poMin),mx=num(a.poMax),md=poMedOf(a);return md?`${fmt(mn)} / ${fmt(md)} / ${fmt(mx)}`:'—';});
-  h+=row('Potencial',a=>{const cot=num(a.cotizacion),md=poMedOf(a);const p=(cot&&md)?(md/cot-1):null;return p==null?'—':`<b style="color:${p>=0?'#16a34a':'#dc2626'}">${(p>=0?'+':'')+(p*100).toFixed(1)}%</b>`;});
-  h+=row('Banda entrada',a=>{const mn=num(a.entMin),mx=num(a.entMax);return mx?`${fmt(mn)} – ${fmt(mx)}`:'—';});
-  h+=row('Stop tesis',a=>num(a.stopTesis)?fmt(num(a.stopTesis)):'—');
-  h+=row('RPD',a=>{const c=num(a.cotizacion),d=num(a.divAccion);return c?`${(d/c*100).toFixed(2)}%`:'—';});
-  h+=row('Moat',(a,j)=>(j&&j.moat)?j.moat:'<span class="muted">—</span>');
-  h+=row('Catalizadores',(a,j)=>lst(j&&j.catalizadores));
-  h+=row('Riesgos',(a,j)=>lst(j&&j.riesgos));
-  h+=row('A favor',(a,j)=>(j&&j.bull)?j.bull:'<span class="muted">—</span>');
-  h+=row('En contra',(a,j)=>(j&&j.bear)?j.bear:'<span class="muted">—</span>');
-  h+=row('Dossier',(a,j,t)=>{const u=(typeof dossierURL==='function')?dossierURL(t,a.dossierUrl):''; const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; return (u?`<a href="${u}" target="_blank" rel="noopener">📄 abrir</a>`:'<span class="muted">—</span>')+(mm!=null?` <span class="muted" style="font-size:9px">${mm}m${mm>12?' ⚠️':''}</span>`:'');});
-  h+='</tbody></table>';
-  wrap.innerHTML=h;
+  const dossCell=(a,t)=>{const u=(typeof dossierURL==='function')?dossierURL(t,a.dossierUrl):''; const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; return (u?`<a href="${u}" target="_blank" rel="noopener">📄 abrir</a>`:'<span class="muted">—</span>')+(mm!=null?` <span class="muted" style="font-size:9px">${mm}m${mm>12?' ⚠️':''}</span>`:'');};
+  /* ---- ESCRITORIO: tabla comparativa ---- */
+  const rowsDef=[
+    ['sec','VALORACIÓN'],
+    ['Score',(a)=>{const sc=cmpScore(a);return sc==null?'—':`<b style="font-size:19px;color:${sCol(sc)}">${sc.toFixed(0)}</b> <span style="font-size:10px;font-weight:700;color:${sCol(sc)}">${sLbl(sc)}</span>`;}],
+    ['Decisión',(a)=>{const d=(a.decision||'').toUpperCase();return d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:'—';}],
+    ['Rating',(a)=>`<b>${a.rating||'—'}</b>`],
+    ['Sub-tipo',(a,j,t)=>(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||'—'],
+    ['Cotización',(a)=>fmt(num(a.cotizacion))],
+    ['PO bear/base/bull',(a)=>{const mn=num(a.poMin),mx=num(a.poMax),md=poMedOf(a);return md?`${fmt(mn)} / <b>${fmt(md)}</b> / ${fmt(mx)}`:'—';}],
+    ['Potencial',(a)=>{const p=potOf(a);return p==null?'—':`<b style="color:${p>=0?'#16a34a':'#dc2626'}">${pctF(p)}</b>`;}],
+    ['Banda entrada',(a)=>{const mn=num(a.entMin),mx=num(a.entMax);return mx?`${fmt(mn)} – ${fmt(mx)}`:'—';}],
+    ['Estado vs banda',(a)=>bandTxt(a)],
+    ['Stop tesis',(a)=>num(a.stopTesis)?fmt(num(a.stopTesis)):'—'],
+    ['RPD',(a)=>{const c=num(a.cotizacion),d=num(a.divAccion);return c?`${(d/c*100).toFixed(2)}%`:'—';}],
+    ['sec','CUALITATIVO — DOSSIER'],
+    ['Moat',(a,j)=>(j&&j.moat)?j.moat:'<span class="muted">—</span>'],
+    ['Catalizadores',(a,j)=>lst(j&&j.catalizadores)],
+    ['Riesgos',(a,j)=>lst(j&&j.riesgos)],
+    ['A favor',(a,j)=>(j&&j.bull)?j.bull:'<span class="muted">—</span>'],
+    ['En contra',(a,j)=>(j&&j.bear)?j.bear:'<span class="muted">—</span>'],
+    ['Dossier',(a,j,t)=>dossCell(a,t)],
+  ];
+  const thead='<tr><th class="rowlbl"></th>'+cols.map(t=>{const a=AA[t],sc=cmpScore(a),d=(a.decision||'').toUpperCase();return `<th><div class="chdr"><div class="ct">${t}</div><div class="csec">${(typeof SECTOR!=='undefined'&&SECTOR[t])||''}</div><div class="cscore" style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}<span>${sLbl(sc)}</span></div>${d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:''}</div></th>`;}).join('')+'</tr>';
+  const tbody=rowsDef.map(r=>{ if(r[0]==='sec')return `<tr class="secrow"><td colspan="${cols.length+1}">${r[1]}</td></tr>`; return `<tr><th class="rowlbl">${r[0]}</th>${cols.map(t=>`<td>${r[1](AA[t],J(t),t)}</td>`).join('')}</tr>`; }).join('');
+  const deskHTML=`<div class="cmp-desk"><table class="cmp"><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`;
+  /* ---- MÓVIL: comparativa rápida + ficha plegable por empresa ---- */
+  const miniRows=[
+    ['Score',(a)=>{const sc=cmpScore(a);return `<b style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}</b>`;}],
+    ['Rating',(a)=>`<b>${a.rating||'—'}</b>`],
+    ['Decisión',(a)=>{const d=(a.decision||'').toUpperCase();return d?`<span class="cdec sm" style="background:${dcol[d]}">${d.slice(0,4)}</span>`:'—';}],
+    ['Potencial',(a)=>{const p=potOf(a);return `<b style="color:${p>=0?'#16a34a':'#dc2626'}">${pctF(p)}</b>`;}],
+    ['Cotiz. / banda',(a)=>{const c=num(a.cotizacion),eM=num(a.entMax);const dot=(c&&eM)?(c<=eM?'🟢':c<=eM*1.10?'🟡':'🔴'):'';return dot+' '+fmt(c);}],
+  ];
+  const miniTable='<table class="minicmp"><thead><tr><th></th>'+cols.map(t=>`<th style="color:${sCol(cmpScore(AA[t]))}">${t}</th>`).join('')+'</tr></thead><tbody>'+miniRows.map(r=>`<tr><th>${r[0]}</th>${cols.map(t=>`<td>${r[1](AA[t])}</td>`).join('')}</tr>`).join('')+'</tbody></table>';
+  window._cmpOpen=window._cmpOpen||{};
+  const mcard=t=>{const a=AA[t],j=J(t),sc=cmpScore(a),d=(a.decision||'').toUpperCase(),p=potOf(a),op=window._cmpOpen[t]?' open':'';
+    return `<div class="ccard${op}" data-cmpc="${t}"><div class="ccard-h"><div class="ct">${t}</div><div class="cmeta">${(typeof SECTOR!=='undefined'&&SECTOR[t])||''} · ${(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||''}</div><div class="cscore" style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}<span>${sLbl(sc)}</span></div><span class="arw">▶</span></div>
+    <div class="ccard-b"><div class="ccard-sub">${d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:''}<span class="pill">Rating ${a.rating||'—'}</span><span class="pill" style="color:${p>=0?'#166534':'#991b1b'};background:${p>=0?'#dcfce7':'#fee2e2'}">Pot. ${pctF(p)}</span></div>
+    <div class="cgrid">
+      <div class="m"><span>Cotización</span><b>${fmt(num(a.cotizacion))}</b></div>
+      <div class="m"><span>PO base</span><b>${poMedOf(a)?fmt(poMedOf(a)):'—'}</b></div>
+      <div class="m"><span>PO bear/bull</span><b>${num(a.poMin)?fmt(num(a.poMin)):'—'} / ${num(a.poMax)?fmt(num(a.poMax)):'—'}</b></div>
+      <div class="m"><span>Banda entrada</span><b>${num(a.entMax)?fmt(num(a.entMin))+' – '+fmt(num(a.entMax)):'—'}</b></div>
+      <div class="m"><span>Estado</span><b>${bandTxt(a)}</b></div>
+      <div class="m"><span>Stop tesis</span><b>${num(a.stopTesis)?fmt(num(a.stopTesis)):'—'}</b></div>
+      <div class="m"><span>RPD</span><b>${num(a.cotizacion)?(num(a.divAccion)/num(a.cotizacion)*100).toFixed(2)+'%':'—'}</b></div>
+      <div class="m"><span>Dossier</span><b>${dossCell(a,t)}</b></div>
+    </div>
+    <div class="cqual">
+      <div class="q"><span>🏰 Moat</span><p>${(j&&j.moat)||'—'}</p></div>
+      <div class="q"><span>🚀 Catalizadores</span>${lst(j&&j.catalizadores)}</div>
+      <div class="q"><span>⚠️ Riesgos</span>${lst(j&&j.riesgos)}</div>
+      <div class="q"><span>👍 A favor</span><p>${(j&&j.bull)||'—'}</p></div>
+      <div class="q"><span>👎 En contra</span><p>${(j&&j.bear)||'—'}</p></div>
+    </div></div></div>`;};
+  const mobHTML=`<div class="cmp-mob"><div class="cmphdr">Comparativa rápida</div>${miniTable}<div class="cmphdr">Ficha por empresa</div>${cols.map(mcard).join('')}</div>`;
+  wrap.innerHTML=deskHTML+mobHTML;
+  if(!wrap._cmpBound){ wrap._cmpBound=true; wrap.addEventListener('click',function(e){ if(e.target.closest('a,button'))return; const h=e.target.closest('.ccard-h'); if(h){ const c=h.parentElement; c.classList.toggle('open'); const t=c.getAttribute('data-cmpc'); if(t){window._cmpOpen=window._cmpOpen||{};window._cmpOpen[t]=c.classList.contains('open');} } }); }
 }
 if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
 /* ===== Render selectivo: al cambiar datos repinta SOLO la vista activa (mapa vista→funciones).
@@ -164,7 +208,8 @@ const GROUPS={
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
-  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['caja','Caja bróker'],['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['atribucion','Atribución'],['fiscalidad','Fiscalidad']],
+  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
+  retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['buzon','Buzón del lunes'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
@@ -182,7 +227,7 @@ const ADD_ACTIONS={
   diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
+const groupCurrent={control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');

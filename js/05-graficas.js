@@ -354,7 +354,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
 }
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;
-var _evoState={}; function _evoSt(id){ _evoState[id]=_evoState[id]||{range:'max',zoom:null}; return _evoState[id]; }
+var _evoStState={}; function _evoSt(id){ _evoStState[id]=_evoStState[id]||{range:'max',zoom:null}; return _evoStState[id]; }
 var _evoDrag=null;
 const _EVO_DAYS={'1s':7,'1m':31,'3m':92,'6m':183,'1y':366,'5y':1827,'max':null};
 function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
