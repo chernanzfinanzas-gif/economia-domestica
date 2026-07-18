@@ -1007,6 +1007,50 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-atribucion #atribKpis .k .v{font-size:17px}
   #view-atribucion .pos-desk{display:none}#view-atribucion .pos-mob{display:block}
 }
+/* ===== Dividendos ===== */
+#view-dividendos #divKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-dividendos #divKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-dividendos #divKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-dividendos #divKpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-dividendos #divKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-dividendos #divKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-dividendos #divKpis .k.hero .l,#view-dividendos #divKpis .k.hero .p{color:#bbf7d0}
+#view-dividendos .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-dividendos .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-dividendos .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-dividendos .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-dividendos .pos-blk-h .bt{font-weight:800;font-size:14px}#view-dividendos .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-dividendos .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-dividendos .pos-blk.open .pos-blk-b{display:block}
+#view-dividendos .div-pad{padding:14px}
+#view-dividendos .d-note{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.5;color:#334155;margin-bottom:12px}
+#view-dividendos .div-barleg{display:flex;gap:18px;font-size:12px;color:#475569;margin-top:8px}#view-dividendos .div-barleg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:middle}
+#view-dividendos .ptable{overflow:auto;max-height:66vh}
+#view-dividendos .ptable table{border-collapse:collapse;font-size:12px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent;width:auto}
+#view-dividendos .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-dividendos .ptable thead th:nth-child(1){text-align:left}
+#view-dividendos .ptable tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-dividendos .ptable tbody td.l{text-align:left}
+#view-dividendos .ptable .dtk{font-weight:800;color:var(--brand)}#view-dividendos .ptable .tot{font-weight:700}#view-dividendos .ptable .dot{color:#cbd5e1}
+#view-dividendos .ptable th:nth-child(1),#view-dividendos .ptable td:nth-child(1){position:sticky;left:0;z-index:3;background:#fff;min-width:52px;box-shadow:6px 0 8px -6px rgba(15,23,42,.18)}
+#view-dividendos .ptable thead th:nth-child(1){z-index:6;background:#f8fafc}
+#view-dividendos .ptable .d-tot td{background:#eef2f7;font-weight:700}#view-dividendos .ptable .d-tot td:nth-child(1){background:#eef2f7}
+#view-dividendos .devcol{background:#fffbeb !important}
+#view-dividendos thead th.devcol{background:#fef3c7 !important;color:#92400e}
+#view-dividendos .devinp{border:1.5px solid #f59e0b;background:#fff;font-weight:700;color:#92400e;border-radius:6px;padding:3px 5px;font-size:12px}
+#view-dividendos .devinp::placeholder{color:#d97706;font-weight:400;font-style:italic}
+#view-dividendos .pos-mob{display:none}
+#view-dividendos .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-dividendos .lc-h{display:flex;justify-content:space-between;align-items:center;gap:10px}#view-dividendos .lc-h .tk{font-size:19px;font-weight:800;color:var(--ink)}
+#view-dividendos .ty{text-align:right;font-size:16px;font-weight:800;color:var(--ink)}#view-dividendos .ty.g{color:var(--green)}#view-dividendos .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-dividendos .dchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+#view-dividendos .dchip{background:#f8fafc;border:1px solid var(--line);border-radius:7px;padding:3px 7px;font-size:11px}#view-dividendos .dchip b{color:var(--brand)}
+#view-dividendos .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#view-dividendos .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-dividendos .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-dividendos .lg .m b{font-size:12.5px;font-weight:700}
+#view-dividendos .lg .m.dev{grid-column:span 2;background:#fffbeb;border:1px solid #fde68a}#view-dividendos .lg .m.dev span{color:#92400e}#view-dividendos .lg .m.dev .devinp{width:100%;margin-top:3px;text-align:right}
+@media(max-width:960px){
+  #view-dividendos #divKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-dividendos #divKpis .k .v{font-size:17px}
+  #view-dividendos .pos-desk{display:none}#view-dividendos .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2587,15 +2631,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-dividendos">
-    <h2>Dividendos y rentabilidad de la cartera</h2>
+    <h2>💰 Dividendos</h2>
+    <div class="sub" style="margin-bottom:10px">Todo lo que ha rentado tu cartera vía dividendos: por empresa y año, en bruto y en neto, con su tratamiento fiscal.</div>
     <div id="divRiesgoWrap"></div>
-    <div class="cards" id="divKpis"></div>
-    <h3>Dividendos cobrados por empresa y año</h3>
-    <div class="sub" style="margin-bottom:6px">Calculado con tus operaciones y el histórico de dividendos por acción. Importes brutos en €.</div>
-    <div style="overflow:auto" id="divMatrixWrap"></div>
-    <h3>Resumen anual de la cartera</h3>
-    <div class="sub" style="margin-bottom:6px">Invertido = acumulado de compras − ventas. Div. neto = bruto − 19% retención. % calculado sobre el dividendo bruto del año.</div>
-    <div style="overflow:auto" id="divResumenWrap"></div>
+    <div id="divKpis" style="margin-bottom:14px"></div>
+    <div id="divBody"></div>
   </section>
 
   <section class="view" id="view-ranking">
