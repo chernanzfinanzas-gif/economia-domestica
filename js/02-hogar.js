@@ -1121,6 +1121,7 @@ function proyRefreshBase(c){
   if(anch>0 && Math.round(anch)!==Math.round(num(c.carteraInicial))){ c.carteraInicial=Math.round(anch); scheduleSave(); }
 }
 function renderProy(){
+  try{ _proyWireToggles(); }catch(e){}
   proyDefaults(); const c=DB.config.proyeccion;
   if(typeof cargarPreciosCartera==='function' && typeof _allOps==='function' && typeof _precioCache!=='undefined'){
     const _tt=_allOps().map(o=>(o.ticker||'').toUpperCase()).filter(Boolean);
@@ -1130,35 +1131,51 @@ function renderProy(){
   renderProyParams(c);
   const ser=computeProy(c); const fin=ser[ser.length-1];
   const jub=ser.find(r=>r.edad>=c.edadFinAportar)||fin;
-  $('#proyCards').innerHTML=[
-    {l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),s:'cartera teórica '+fmt(fin.cartera)},
-    {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),s:fmt(fin.dividendoAnual)+'/año'},
-    {l:'Plusvalía latente a los '+Math.round(c.edadFin),v:fmt(fin.plusvalia),s:'cartera − invertido'},
-    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),s:'dividendos + nómina'}
-  ].map(x=>`<div class="card"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="sub">${x.s}</div></div>`).join('');
-  drawProyChart(ser); renderProyEventos(c);
-  let rows=''; let sepDone=false;
+  const _kp=[
+    {hero:1,l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),p:'cartera teórica '+fmt(fin.cartera)},
+    {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),p:fmt(fin.dividendoAnual)+'/año'},
+    {l:'Plusvalía latente a los '+Math.round(c.edadFin),v:fmt(fin.plusvalia),p:'cartera − invertido'},
+    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),p:'dividendos + nómina'}
+  ];
+  $('#proyCards').innerHTML=_kp.map(x=>`<div class="k${x.hero?' hero':''}"><div class="l">${x.l}</div><div class="v">${x.v}</div><div class="p">${x.p}</div></div>`).join('');
+  renderProyEventos(c);
+  /* plegables cerrados por defecto */
+  window._proyBlk=window._proyBlk||{hip:false,ev:false};
+  var _bh=document.getElementById('blkProyHip'); if(_bh)_bh.classList.toggle('open',!!window._proyBlk.hip);
+  var _be=document.getElementById('blkProyEv'); if(_be)_be.classList.toggle('open',!!window._proyBlk.ev);
+  window._proyYr=window._proyYr||{};
+  const _pcls=(real,teor)=>{ if(real==null||!teor||teor<=0)return ''; const r=real/teor; if(r>=1)return 'g'; if(r>=0.95)return 'a'; return 'r'; };
+  const yJub=num(c.anioTrasJub)||2039;
+  /* ---- ESCRITORIO ---- */
+  let drows='',sepDone=false;
   ser.forEach(r=>{
-    if(r.trasJub && !sepDone){ rows+='<tr class="trasjub-sep"><td><b>Tras Jubilación</b></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="num"><b>A Gastos</b></td><td class="num"><b>Disponible/mes</b></td><td></td></tr>'; sepDone=true; }
-    rows+=`<tr${r.trasJub?' class="trasjub"':''}>
-    <td>${r.anio}</td><td class="num">${r.edad}</td>
-    <td class="num">${fmt(r.efectivo)}</td>
-    <td class="num">${r.efectivoReal!=null?fmt(r.efectivoReal):'—'}</td>
-    <td class="num">${fmt(r.invertido)}</td>
-    <td class="num">${fmt(r.cartera)}</td>
-    <td class="num">${r.carteraReal!=null?fmt(r.carteraReal):'—'}</td>
-    <td class="num"><b>${fmt(r.patrimonio)}</b></td>
-    <td class="num"${r.patrimonioReal!=null?` style="background:${proyColor(r.patrimonioReal,r.patrimonio)};font-weight:700"`:''}>${r.patrimonioReal!=null?fmt(r.patrimonioReal):'—'}</td>
-    <td class="num">${fmt(r.dividendoAnual)}</td>
-    <td class="num">${fmt(r.ahorroTotal)}</td>
-    <td class="num"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}" style="width:56px;padding:2px;border:1px solid var(--line);border-radius:6px;text-align:right;font-size:11px"></td>
-    <td class="num ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td>
-    <td class="num">${fmt(r.disponibleMes)}</td>
-    <td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td>
-  </tr>`; });
-  $('#proyTabla').innerHTML=`<style>#proyTabla table{font-size:10px}#proyTabla th{padding:3px 5px}#proyTabla td{padding:3px 5px;white-space:nowrap}#proyTabla td:nth-child(1){white-space:normal}#proyTabla th:nth-child(13),#proyTabla td:nth-child(13),#proyTabla th:nth-child(15),#proyTabla td:nth-child(15){display:none}</style><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Efectivo real</th><th class="num">Invertido</th><th class="num">Cartera teórica</th><th class="num">Cartera real</th><th class="num">Patrimonio teórico</th><th class="num">Patrimonio real</th><th class="num">Dividendo/año</th><th class="num">Ahorro/año</th><th class="num">A Inversión</th><th class="num">A Efectivo</th><th class="num">Disponible/mes</th><th>Gasto puntual</th></tr></thead><tbody>${rows}</tbody></table><div style="font-size:11px;color:#64748b;margin-top:6px">Patrimonio real (años ya vividos) vs objetivo teórico: <span style="background:#dcfce7;padding:1px 6px;border-radius:4px">≥ objetivo</span> <span style="background:#fef9c3;padding:1px 6px;border-radius:4px">95–100%</span> <span style="background:#fee2e2;padding:1px 6px;border-radius:4px">por debajo</span></div>`;
-  if(typeof renderProyMonteCarlo==='function')renderProyMonteCarlo();
+    if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="14">Tras jubilación (${yJub}) — el ahorro a efectivo pasa a cubrir gastos</td></tr>`; }
+    const pc=_pcls(r.patrimonioReal,r.patrimonio);
+    drows+=`<tr${r.trasJub?' class="tj"':''}><td><b>${r.anio}</b></td><td class="num">${r.edad}</td><td class="num">${fmt(r.efectivo)}</td><td class="num">${fmt(r.invertido)}</td><td class="num">${fmt(r.cartera)}</td><td class="num">${r.carteraReal!=null?fmt(r.carteraReal):'—'}</td><td class="num"><b>${fmt(r.patrimonio)}</b></td><td class="num pr ${pc}">${r.patrimonioReal!=null?fmt(r.patrimonioReal):'—'}</td><td class="num">${fmt(r.dividendoAnual)}</td><td class="num split1"><b>${fmt(r.ahorroTotal)}</b></td><td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td><td class="num split3 ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td><td class="num">${fmt(r.disponibleMes)}</td><td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td></tr>`;
+  });
+  const dhead=`<tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teór.</th><th class="num">Cartera real</th><th class="num">Patrim. teór.</th><th class="num">Patrim. real</th><th class="num">Div./año</th><th class="num split1">Ahorro/año</th><th class="num split2">→ Inversión</th><th class="num split3">→ Efectivo</th><th class="num">Dispon./mes</th><th>Gasto puntual</th></tr>`;
+  const deskHTML=`<div class="proy-desk"><div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Patrimonio real (años ya vividos) vs objetivo teórico: <span class="lg g">≥ objetivo</span> <span class="lg a">95–100%</span> <span class="lg r">por debajo</span></div></div>`;
+  /* ---- MÓVIL: fila desplegable por año ---- */
+  const mrows=ser.map(r=>{ const pc=_pcls(r.patrimonioReal,r.patrimonio); const rb=r.patrimonioReal!=null?`<span class="rbadge ${pc}">real ${fmt(r.patrimonioReal)}</span>`:''; const op=window._proyYr[r.anio]?' open':'';
+    return `<div class="yr${op}${r.trasJub?' tj':''}" data-yr="${r.anio}"><div class="yr-h"><div class="yy"><b>${r.anio}</b><span>${r.edad} años</span></div><div class="yp">${fmt(r.patrimonio)}${rb}</div><span class="arw">▶</span></div><div class="yr-b"><div class="mg"><div class="m"><span>Efectivo</span><b>${fmt(r.efectivo)}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.invertido)}</b></div><div class="m"><span>Cartera teórica</span><b>${fmt(r.cartera)}</b></div><div class="m"><span>Cartera real</span><b>${r.carteraReal!=null?fmt(r.carteraReal):'—'}</b></div><div class="m"><span>Dividendo/año</span><b>${fmt(r.dividendoAnual)}</b></div><div class="m"><span>Disponible/mes</span><b>${fmt(r.disponibleMes)}</b></div></div><div class="split"><div class="split-t">Reparto del ahorro <b>${fmt(r.ahorroTotal)}</b></div><div class="split-row"><label>→ A inversión<input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></label><div class="split-ef"><span>→ A efectivo ${r.trasJub?'(a gastos)':'('+(r.anio+1)+')'}</span><b class="${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</b></div></div></div>${r.gasto?`<div class="gasto">💸 Gasto puntual ${r.gastoCon||''}: <b class="neg">−${fmt(r.gasto)}</b></div>`:''}</div></div>`;
+  }).join('');
+  const pt=$('#proyTabla'); pt.innerHTML=deskHTML+`<div class="proy-mob">${mrows}</div>`;
+  try{ if(typeof renderProyMonteCarlo==='function')renderProyMonteCarlo(); }catch(e){}
 }
+/* Plegables de Proyección (Hipótesis Inicial / Eventos) y filas por año — enlazado
+   ESTÁTICO (una vez) sobre #view-proyeccion, independiente de renderProy: así los
+   desplegables funcionan aunque el render falle a mitad. */
+function _proyWireToggles(){
+  var pv=document.getElementById('view-proyeccion'); if(!pv||pv._proyTogBound)return; pv._proyTogBound=true;
+  pv.addEventListener('click',function(e){
+    if(e.target.closest('input,button,a,label,select'))return;
+    var bh=e.target.closest('.blk-h[data-proyblk]');
+    if(bh){ var k=bh.getAttribute('data-proyblk'); var b=bh.parentElement; b.classList.toggle('open'); window._proyBlk=window._proyBlk||{}; window._proyBlk[k]=b.classList.contains('open'); return; }
+    var yh=e.target.closest('.yr-h');
+    if(yh){ var y=yh.parentElement; y.classList.toggle('open'); var a=y.getAttribute('data-yr'); if(a){ window._proyYr=window._proyYr||{}; window._proyYr[a]=y.classList.contains('open'); } }
+  });
+}
+try{ _proyWireToggles(); }catch(e){}
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
   const concepto=prompt('Concepto (p. ej. Casa):')||'';
