@@ -560,6 +560,126 @@ function renderPres(){
     return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+' <button class="blk-edit" data-pressec="'+o.g+'" title="Editar o eliminar capítulo">✎</button></div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div><div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
   }).join('');
   host.innerHTML=ingHTML+planHTML+'<div class="subhead">Capítulos de gasto — reparte el disponible</div>'+capsHTML;
+  if(typeof renderPresAna==='function')renderPresAna();
+}
+
+/* ============ ANÁLISIS DEL PRESUPUESTO · Cumplimiento + Comparativas ============ */
+function _anaRealMap(){ var r={}; (DB.movimientos||[]).forEach(function(m){ var f=m.fecha||''; var y=+(''+f).slice(0,4),mo=+(''+f).slice(5,7); if(!y||!mo)return; var cid=m.categoriaId; if(!cid)return; (r[cid]=r[cid]||{}); (r[cid][y]=r[cid][y]||{}); r[cid][y][mo]=(r[cid][y][mo]||0)+num(m.importe); }); return r; }
+function _anaYears(){ var s={}; (DB.presupuesto||[]).forEach(function(p){ s[pAnio(p)]=1; }); (DB.movimientos||[]).forEach(function(m){ var y=+(''+(m.fecha||'')).slice(0,4); if(y)s[y]=1; }); return Object.keys(s).map(Number).sort(function(a,b){return a-b;}); }
+function _anaPresMes(cid,y){ var p=presFor(cid,y); return p?mensual(p):0; }
+function _anaRealFor(R,cid,y,per,curY,curMonth){ var rr=(R[cid]||{})[y]; if(!rr)return 0; var s=0,m; if(per==='year'){for(m=1;m<=12;m++)s+=rr[m]||0;} else if(per==='ytd'){var lim=(y===curY)?curMonth:12;for(m=1;m<=lim;m++)s+=rr[m]||0;} else {s=rr[+per]||0;} return s; }
+function _anaMonths(y,per,curY,curMonth){ if(per==='year')return 12; if(per==='ytd')return (y===curY)?curMonth:12; return 1; }
+function _anaGruposDe(ing){ var s=[]; (DB.categorias||[]).forEach(function(c){ var isIng=c.tipo==='ingreso'; if(isIng===ing && s.indexOf(c.grupo)<0)s.push(c.grupo); }); return s.sort(); }
+function _anaPill(P,G,ing){ if(!P)return ''; var r=G/P; if(ing)return r>=1?'g':r>=0.9?'a':'r'; return r<=1?'g':r<=1.1?'a':'r'; }
+function _anaDevCls(d){ return d>=0?'pos':'neg'; }
+function _anaSc(l,v,extra){ return '<div class="sc"><div class="l">'+l+'</div><div class="v">'+v+'</div>'+(extra?('<div>'+(String(extra).charAt(0)==='<'?extra:'<small>'+extra+'</small>')+'</div>'):'')+'</div>'; }
+function _anaBar(pct,ratio){ var w=Math.min(100,pct); var col=!isFinite(ratio)?'#94a3b8':ratio<=1?'#16a34a':ratio<=1.1?'#d97706':'#dc2626'; return '<div class="bar"><i style="width:'+w+'%;background:'+col+'"></i></div>'; }
+function _anaCell(label,v,cls){ return '<span class="a-num '+(cls||'')+'">'+v+'</span><div class="mcell"><span>'+label+'</span><b class="'+(cls||'')+'">'+v+'</b></div>'; }
+function _anaDcol(v,cls){ return '<span class="a-num '+(cls||'')+'">'+v+'</span>'; }
+function _anaKey(sec,g){ return sec+'::'+g; }
+function _anaFillYears(id,list,val){ var sel=document.getElementById(id); if(!sel)return; sel.innerHTML=list.map(function(y){return '<option value="'+y+'">'+y+'</option>';}).join(''); sel.value=val; }
+function _anaState(){ if(!window._anaSt){ var ys=_anaYears(); var cur=new Date().getFullYear(); var last=ys.length?ys[ys.length-1]:cur; var prev=ys.length>1?ys[ys.length-2]:last; var cy=(ys.indexOf(cur)>=0)?cur:last; window._anaSt={cumpYear:cy,cumpPer:'ytd',cmpA:prev,cmpB:last,cmpiA:prev,cmpiB:last}; } window._anaOpen=window._anaOpen||{}; return window._anaSt; }
+function renderPresAna(){
+  if(!document.getElementById('presAna'))return;
+  var st=_anaState(); var R=_anaRealMap(); var d=new Date(), curY=d.getFullYear(), curMonth=d.getMonth()+1;
+  var ys=_anaYears();
+  if(!ys.length){ ['cumpBody','cmpBody','cmpiBody'].forEach(function(id){var e=document.getElementById(id); if(e)e.innerHTML='<div class="row"><div class="rh"><span class="nm">Sin datos de presupuesto todavía.</span></div></div>';}); return; }
+  ['cumpYear','cmpA','cmpB','cmpiA','cmpiB'].forEach(function(k){ if(ys.indexOf(+st[k])<0) st[k]=ys[ys.length-1]; });
+  _anaFillYears('cumpYear',ys,st.cumpYear); var cp=document.getElementById('cumpPer'); if(cp)cp.value=st.cumpPer;
+  _anaFillYears('cmpA',ys,st.cmpA); _anaFillYears('cmpB',ys,st.cmpB);
+  _anaFillYears('cmpiA',ys,st.cmpiA); _anaFillYears('cmpiB',ys,st.cmpiB);
+  _anaCump(R,curY,curMonth); _anaCmp(R,curY,curMonth,false); _anaCmp(R,curY,curMonth,true);
+  if(!renderPresAna._bound){ renderPresAna._bound=true; var host=document.getElementById('view-presupuesto');
+    if(host){
+      host.addEventListener('click',function(e){
+        var bh=e.target.closest('#presAna [data-anablk]'); if(bh){ var blk=document.getElementById(bh.getAttribute('data-anablk')); if(blk)blk.classList.toggle('open'); return; }
+        var gr=e.target.closest('#presAna [data-anagrp]'); if(gr){ var key=gr.getAttribute('data-anagrp'); window._anaOpen=window._anaOpen||{}; window._anaOpen[key]=!window._anaOpen[key]; var grp=gr.closest('.grp'); if(grp)grp.classList.toggle('open'); return; }
+      });
+      host.addEventListener('change',function(e){ var t=e.target; if(!t||!t.id)return; var F={cumpYear:1,cumpPer:1,cmpA:1,cmpB:1,cmpiA:1,cmpiB:1}; if(F[t.id]){ window._anaSt=window._anaSt||{}; window._anaSt[t.id]=(t.id==='cumpPer')?t.value:(+t.value); renderPresAna(); } });
+    }
+  }
+}
+function _anaCumpGroups(R,ing,y,per,mf,curY,curMonth){
+  return _anaGruposDe(ing).map(function(g){
+    var cs=(DB.categorias||[]).filter(function(c){return (c.tipo==='ingreso')===ing && c.grupo===g;});
+    var parts=cs.map(function(c){var P=_anaPresMes(c.id,y)*mf,G=_anaRealFor(R,c.id,y,per,curY,curMonth);return {c:c,P:P,G:G};}).filter(function(p){return p.P||p.G;});
+    var P=0,G=0; parts.forEach(function(p){P+=p.P;G+=p.G;});
+    return {g:g,parts:parts,P:P,G:G};
+  }).filter(function(o){return o.P||o.G;});
+}
+function _anaCumpGrpHtml(o,ing){
+  var key=_anaKey(ing?'ci':'cg',o.g), isOpen=!!window._anaOpen[key];
+  var p=o.P?Math.round(o.G/o.P*100):0, cls=_anaPill(o.P,o.G,ing);
+  var dv=ing?(o.G-o.P):(o.P-o.G), lblB=ing?'Recibido':'Gastado';
+  var parts=o.parts.map(function(pt){var pp=pt.P?Math.round(pt.G/pt.P*100):0,pc=_anaPill(pt.P,pt.G,ing);var pdv=ing?(pt.G-pt.P):(pt.P-pt.G);
+    var tag=ing?'':(pt.c.esencial?'<span class="tag nec">Nec</span>':'<span class="tag pre">Pre</span>');
+    return '<div class="row part"><div class="rh"><span class="nm">'+_infEsc(pt.c.nombre)+' '+tag+'</span>'+
+      _anaCell('Previsto',fmt(pt.P))+_anaCell(lblB,fmt(pt.G))+_anaCell('Desv.',(pdv>=0?'+':'−')+fmt(Math.abs(pdv)),_anaDevCls(pdv))+
+      '<span class="a-num">'+(pt.P?'<span class="pill '+pc+'">'+pp+'%</span>':'—')+'</span>'+
+      '<div class="mcell"><span>Acierto</span>'+(pt.P?'<span class="pill '+pc+'">'+pp+'%</span>':'—')+'</div></div></div>';}).join('');
+  return '<div class="row grp'+(isOpen?' open':'')+'"><div class="rh" data-anagrp="'+key+'"><span class="nm"><span class="arw">▶</span>'+_infEsc(o.g)+'</span>'+
+    _anaCell('Previsto',fmt(o.P))+_anaCell(lblB,fmt(o.G))+_anaCell('Desv.',(dv>=0?'+':'−')+fmt(Math.abs(dv)),_anaDevCls(dv))+
+    '<span class="a-num">'+(o.P?'<span class="pill '+cls+'">'+p+'%</span>':'—')+'</span>'+
+    '<div class="mcell"><span>Acierto</span>'+(o.P?'<span class="pill '+cls+'">'+p+'%</span>':'—')+'</div>'+
+    '</div><div class="parts">'+parts+'</div></div>';
+}
+function _anaCump(R,curY,curMonth){
+  var st=window._anaSt, y=+st.cumpYear, per=st.cumpPer, mf=_anaMonths(y,per,curY,curMonth);
+  var ing=_anaCumpGroups(R,true,y,per,mf,curY,curMonth), gas=_anaCumpGroups(R,false,y,per,mf,curY,curMonth);
+  var iP=0,iG=0; ing.forEach(function(o){iP+=o.P;iG+=o.G;});
+  var gP=0,gG=0; gas.forEach(function(o){gP+=o.P;gG+=o.G;});
+  var pct=gP?Math.round(gG/gP*100):0, dev=gP-gG, iAci=iP?Math.round(iG/iP*100):0, iDev=iG-iP;
+  var head=document.getElementById('cumpHeadPct'); head.textContent=gP?pct+'%':'—'; head.className='blk-amount '+(gP?(gG/gP<=1?'pos':gG/gP<=1.1?'warnc':'neg'):'');
+  document.getElementById('cumpSum').innerHTML=
+    _anaSc('Ingresos',fmt(iG)+' € de '+fmt(iP)+' €','acierto '+(iP?iAci+'%':'—')+(iDev>=0?' · +'+fmt(iDev):' · −'+fmt(Math.abs(iDev))))+
+    _anaSc('Gastado real',fmt(gG)+' € de '+fmt(gP)+' €',pct+'% del presupuesto')+
+    _anaSc(dev>=0?'Te sobran':'Te has pasado',(dev>=0?'':'−')+fmt(Math.abs(dev))+' €',_anaBar(pct,gP?gG/gP:NaN));
+  var totIng='<div class="tot"><span>TOTAL INGRESOS</span>'+_anaCell('Previsto',fmt(iP))+_anaCell('Recibido',fmt(iG))+_anaCell('Desv.',(iDev>=0?'+':'−')+fmt(Math.abs(iDev)),_anaDevCls(iDev))+'<span class="a-num">'+(iP?iAci+'%':'—')+'</span><div class="mcell"><span>Acierto</span><b>'+(iP?iAci+'%':'—')+'</b></div></div>';
+  var totGas='<div class="tot"><span>TOTAL GASTOS</span>'+_anaCell('Presup.',fmt(gP))+_anaCell('Gastado',fmt(gG))+_anaCell('Desv.',(dev>=0?'+':'−')+fmt(Math.abs(dev)),_anaDevCls(dev))+'<span class="a-num">'+(gP?pct+'%':'—')+'</span><div class="mcell"><span>%</span><b>'+(gP?pct+'%':'—')+'</b></div></div>';
+  document.getElementById('cumpBody').innerHTML=
+    (ing.length?('<div class="minihd">💰 Ingresos previstos vs recibidos</div>'+ing.map(function(o){return _anaCumpGrpHtml(o,true);}).join('')+totIng):'')+
+    '<div class="minihd">🧾 Gastos presupuestados vs gastados</div>'+gas.map(function(o){return _anaCumpGrpHtml(o,false);}).join('')+totGas;
+}
+function _anaMetrics(R,cid,y,curY,curMonth){ return {p:_anaPresMes(cid,y)*12, g:_anaRealFor(R,cid,y,'year',curY,curMonth)}; }
+function _anaCmp(R,curY,curMonth,ing){
+  var st=window._anaSt, A=ing?+st.cmpiA:+st.cmpA, B=ing?+st.cmpiB:+st.cmpB;
+  var lblB=ing?'Recib.':'Gasto', pref=ing?'ci':'cc';
+  var dv=function(o){return ing?(o.g-o.p):(o.p-o.g);};
+  var TA={p:0,g:0},TB={p:0,g:0};
+  var groups=_anaGruposDe(ing).map(function(g){
+    var cs=(DB.categorias||[]).filter(function(c){return (c.tipo==='ingreso')===ing && c.grupo===g;});
+    var parts=cs.map(function(c){return {c:c,a:_anaMetrics(R,c.id,A,curY,curMonth),b:_anaMetrics(R,c.id,B,curY,curMonth)};}).filter(function(p){return p.a.p||p.b.p||p.a.g||p.b.g;});
+    var a={p:0,g:0},b={p:0,g:0}; parts.forEach(function(p){a.p+=p.a.p;a.g+=p.a.g;b.p+=p.b.p;b.g+=p.b.g;});
+    TA.p+=a.p;TA.g+=a.g;TB.p+=b.p;TB.g+=b.g; return {g:g,parts:parts,a:a,b:b};
+  }).filter(function(o){return o.a.p||o.b.p||o.a.g||o.b.g;});
+  var dP=TB.p-TA.p, pcP=TA.p?Math.round((TB.p/TA.p-1)*100):0;
+  var headD=document.getElementById(ing?'cmpiHeadD':'cmpHeadD'); headD.textContent=(dP>=0?'+':'−')+fmt(Math.abs(dP))+' €'; headD.className='blk-amount neu';
+  document.getElementById(ing?'cmpiHead2':'cmpHead2').innerHTML='<span>Sección / partida</span><span class="ya">'+(ing?'Ingresos ':'Presupuesto ')+A+'</span><span class="yb">'+(ing?'Ingresos ':'Presupuesto ')+B+'</span><span>Δ Previsto</span>';
+  document.getElementById(ing?'cmpiHead':'cmpHead').innerHTML='<span></span><span>Previsto</span><span>'+lblB+'</span><span>Desv.</span><span>Previsto</span><span>'+lblB+'</span><span>Desv.</span><span>B−A</span>';
+  document.getElementById(ing?'cmpiSum':'cmpSum').innerHTML=
+    _anaSc('Previsto',fmt(TA.p)+' € → '+fmt(TB.p)+' €','año '+A+' vs '+B)+
+    _anaSc(ing?'Recibido real':'Gastado real',fmt(TA.g)+' € → '+fmt(TB.g)+' €','lo '+(ing?'recibido':'ejecutado')+' cada año')+
+    _anaSc('Variación del previsto',(dP>=0?'+':'−')+fmt(Math.abs(dP))+' €',(pcP>=0?'+':'')+pcP+'% respecto a '+A);
+  var rowFor=function(nm,a,b,isGrp,key){
+    var dp=b.p-a.p, pc=a.p?Math.round((b.p/a.p-1)*100):0, da=dv(a), db=dv(b);
+    var arw=isGrp?'<span class="arw">▶</span>':'';
+    var deskA=_anaDcol(fmt(a.p))+_anaDcol(fmt(a.g))+_anaDcol((da>=0?'+':'−')+fmt(Math.abs(da)),_anaDevCls(da));
+    var deskB=_anaDcol(fmt(b.p))+_anaDcol(fmt(b.g))+_anaDcol((db>=0?'+':'−')+fmt(Math.abs(db)),_anaDevCls(db));
+    var deskD=_anaDcol((dp>=0?'+':'−')+fmt(Math.abs(dp))+(isGrp&&a.p?' ('+(pc>=0?'+':'')+pc+'%)':''),'neu');
+    var mob='<div class="mcmp">'+
+      '<div class="mcrow"><span>'+A+'</span><b>Prev '+fmt(a.p)+' · '+lblB+' '+fmt(a.g)+' · <span class="'+_anaDevCls(da)+'">Desv '+(da>=0?'+':'−')+fmt(Math.abs(da))+'</span></b></div>'+
+      '<div class="mcrow"><span>'+B+'</span><b>Prev '+fmt(b.p)+' · '+lblB+' '+fmt(b.g)+' · <span class="'+_anaDevCls(db)+'">Desv '+(db>=0?'+':'−')+fmt(Math.abs(db))+'</span></b></div>'+
+      '<div class="mcrow"><span>Δ Previsto</span><b class="neu">'+(dp>=0?'+':'−')+fmt(Math.abs(dp))+(a.p?' ('+(pc>=0?'+':'')+pc+'%)':'')+'</b></div></div>';
+    return '<div class="rh"'+(isGrp?(' data-anagrp="'+key+'"'):'')+'><span class="nm">'+arw+_infEsc(nm)+'</span>'+deskA+deskB+deskD+mob+'</div>';
+  };
+  var dTA=dv(TA),dTB=dv(TB);
+  document.getElementById(ing?'cmpiBody':'cmpBody').innerHTML=groups.map(function(o){
+    var key=_anaKey(pref,o.g), isOpen=!!window._anaOpen[key];
+    var parts=o.parts.map(function(pt){return '<div class="row part">'+rowFor(pt.c.nombre,pt.a,pt.b,false)+'</div>';}).join('');
+    return '<div class="row grp'+(isOpen?' open':'')+'">'+rowFor(o.g,o.a,o.b,true,key)+'<div class="parts">'+parts+'</div></div>';
+  }).join('')+
+    '<div class="tot"><span>TOTAL</span>'+_anaDcol(fmt(TA.p))+_anaDcol(fmt(TA.g))+_anaDcol((dTA>=0?'+':'−')+fmt(Math.abs(dTA)),_anaDevCls(dTA))+_anaDcol(fmt(TB.p))+_anaDcol(fmt(TB.g))+_anaDcol((dTB>=0?'+':'−')+fmt(Math.abs(dTB)),_anaDevCls(dTB))+_anaDcol((dP>=0?'+':'−')+fmt(Math.abs(dP)),'neu')+
+    '<div class="mcmp"><div class="mcrow"><span>'+A+'</span><b>Prev '+fmt(TA.p)+' · '+lblB+' '+fmt(TA.g)+'</b></div><div class="mcrow"><span>'+B+'</span><b>Prev '+fmt(TB.p)+' · '+lblB+' '+fmt(TB.g)+'</b></div><div class="mcrow"><span>Δ Previsto</span><b class="neu">'+(dP>=0?'+':'−')+fmt(Math.abs(dP))+'</b></div></div></div>';
 }
 
 /* ----- PRESUPUESTO · DESGLOSE MENSUAL (réplica hoja anual del Excel) ----- */
