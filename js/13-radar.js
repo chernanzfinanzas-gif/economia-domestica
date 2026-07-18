@@ -34,6 +34,18 @@ function radScore(f,rating){
   return {atr:atr, nota:nota, trampa:trampa};
 }
 
+/* ---- RPD unificada: dividendo anual (Evolución del Dividendo) ÷ precio VIVO ----
+   Misma fuente exacta que la pestaña Radar Dividendo: _radarDiv (DPA del año en vigor
+   vía evoAnioM, con respaldo al último año real) sobre _radarPrecio (precio vivo).
+   Así ambas pestañas muestran SIEMPRE la misma RPD. El DPA anual es el total del año
+   (previsión de principio de año); los extraordinarios NO se filtran aquí. */
+function _radRpdVivo(t){
+  t=(''+(t||'')).toUpperCase();
+  var div=(typeof _radarDiv==='function')?num(_radarDiv(t)):num(((DB.valores||{})[t]||{}).divAccion);
+  var precio=(typeof _radarPrecio==='function')?num(_radarPrecio(t)):num(((DB.valores||{})[t]||{}).precioActual);
+  return (precio>0&&div>0)?(div/precio*100):null;
+}
+
 /* ================= PESTAÑA UNIVERSO ================= */
 function renderUniverso(){
   var sec=document.getElementById('view-universo'); if(!sec)return;
@@ -127,10 +139,13 @@ function renderRadar(){
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
-  Promise.all([_radCargarFund(), _radCambiosCargar()]).then(function(_res){ var fund=_res[0];
+  var _evoP=(typeof _evoData!=='undefined'&&_evoData&&_evoData.empresas)?Promise.resolve():((typeof _evoCargar==='function')?_evoCargar():Promise.resolve());
+  Promise.all([_radCargarFund(), _radCambiosCargar(), _evoP]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     var cands=[];
-    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
+    Object.keys(DB.universo).forEach(function(t){ var f0=fmap[t]; if(!f0)return; var u=DB.universo[t];
+      var f=Object.assign({},f0,{rpd:_radRpdVivo(t)});   /* RPD desde Evolución del Dividendo + precio vivo (alimenta RPD, Atractivo y trampa) */
+      var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
     if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
     var view=cands.filter(function(c){ return !_radArqFilter||c.arq===_radArqFilter; });
@@ -164,7 +179,7 @@ function renderRadar(){
         +'</tr>';
     }).join('');
     var thead='<tr><th>★</th><th class="num" data-radsk="atr" style="cursor:pointer">Atractivo'+arr('atr')+'</th><th>Empresa</th><th>Arquetipo</th><th class="num" data-radsk="rpd" style="cursor:pointer">RPD'+arr('rpd')+'</th><th class="num">Payout</th><th class="num">ROE</th><th class="num">DN/EBITDA</th><th class="num">PER</th><th class="num">P/BV</th><th class="num">Pos.52s</th><th>Rating</th><th>Nota</th></tr>';
-    var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. Datos de <code>fundamentales.json</code>.</div>';
+    var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. <b>RPD</b> = dividendo anual (Evolución del Dividendo) ÷ precio vivo, igual que en Radar Dividendo; el resto de columnas, de <code>fundamentales.json</code>.</div>';
     sec.innerHTML='<h2>Radar de oportunidades</h2>'+_radCambiosStrip()+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
     if(typeof renderInfoBoxes==='function')renderInfoBoxes();
     var _vb=document.getElementById('radVerBuzon'); if(_vb)_vb.addEventListener('click',function(e){ e.preventDefault(); if(typeof activarVista==='function')activarVista('buzon'); });
