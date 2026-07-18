@@ -80,6 +80,7 @@ function execBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[])
    por año. Así "queda", el presupuesto por asignar y la proyección no duplican lo ya invertido. */
 function _planRem(t){ t=(t||'').toUpperCase(); const pc=(DB.planCompras||{})[t]||{};
   const pe=DB.planLotePeriodo||{}; const desde=num(pe.desde)||2026, hasta=Math.max(num(pe.hasta)||2034, desde);
+  const nowRefY=new Date().getFullYear();
   /* Años del plan con importe > 0 (los que tienen "queda"/tramo por comprar). */
   const py=Object.keys(pc).map(Number).filter(y=>num(pc[y])>0).sort((a,b)=>a-b);
   const rem={}, comp={}; py.forEach(y=>{ rem[y]=num(pc[y]); comp[y]=0; });
@@ -90,9 +91,13 @@ function _planRem(t){ t=(t||'').toUpperCase(); const pc=(DB.planCompras||{})[t]|
          reconciliados a mano): consume SOLO el tramo de ESE año; el exceso es sobra de ese
          año y NO se traslada a otros años del plan. Así no toca compras/tramos ya cerrados. */
       if(rem[y]!=null){ const c=Math.min(rem[y], b); rem[y]-=c; comp[y]+=c; }
-    } else {
-      /* Compra en un año SIN tramo de plan = adelanto real (p.ej. compras una prevista
-         antes de su año): sí consume el tramo FUTURO más próximo (año >= año de compra). */
+    } else if(y>nowRefY){
+      /* Compra en un año FUTURO sin tramo = adelanto real de una compra prevista:
+         consume el tramo FUTURO más próximo (año >= año de compra). Las compras del año
+         en curso o de años pasados SIN tramo NO se tratan como adelanto: son acumulación
+         normal (ya reflejada en "invertido") y no deben consumir tramos futuros del plan
+         (p.ej. NTGY: 18.051 comprados en 2026 no deben marcar el tramo de 2032). Equivale
+         a la reconciliación manual "año en curso = 0" que ya se hizo en LOG/VIS. */
       adel.push({y:y, eur:b});
     }
   }
@@ -425,16 +430,40 @@ function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; const nowY
   const M=(typeof proximaCompra==='function')?proximaCompra():null; const kp=$('#proxKpis');
   if(!M){ el.innerHTML='<div class="empty">Sin datos de análisis. Rellena cotización, banda de entrada y rating en Análisis.</div>'; if(kp)kp.innerHTML=''; return; }
   const _pi=(typeof _planYearInfo==='function')?_planYearInfo(proxYearSel):{budget:0,planned:0,remaining:0};
-  if(kp)kp.innerHTML=[['Caja disponible',M.cajaHoy!=null?fmt(M.cajaHoy):'sin configurar',''],['En zona de compra',String(M.cand.length),''],['A repartir (según caja)',fmt(M.recTotal),''],['Presupuesto Plan '+proxYearSel,_pi.budget?fmt(_pi.budget):'—',''],['Libre en presupuesto',_pi.budget?fmt(_pi.remaining):'—',_pi.budget?(_pi.remaining<0?'neg':'pos'):'']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
-  const estCls=x=>x.enBanda?'pos':((x.dist!=null&&x.dist>0.25)?'neg':'');
+  const sCol=s=>s==null?'#64748b':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626');
+  const dcol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  let n=0; const cand=M.cand.map(x=>{x.__n=++n;return x;}); const near=M.near.map(x=>{x.__n=++n;return x;});
+  const best=cand[0];
+  if(kp){ const hero=best?`<div class="k hero"><div class="l">🏆 Mejor compra ahora</div><div class="v">${best.t}</div><div class="p">${best.rec>0?fmt(best.rec):'—'}${best.acc?' · '+best.acc+' acc.':''} · Score ${best.score!=null?best.score.toFixed(0):'—'}</div></div>`:'';
+    kp.innerHTML=hero+[['Caja disponible',M.cajaHoy!=null?fmt(M.cajaHoy):'sin configurar',''],['En zona de compra',String(M.cand.length),M.cand.length?'pos':''],['A repartir (según caja)',fmt(M.recTotal),''],['Presupuesto Plan '+proxYearSel,_pi.budget?fmt(_pi.budget):'—',''],['Libre en presupuesto',_pi.budget?fmt(_pi.remaining):'—',_pi.budget?(_pi.remaining<0?'neg':'pos'):'']].map(k=>`<div class="k"><div class="l">${k[0]}</div><div class="v ${k[2]||''}">${k[1]}</div></div>`).join(''); }
+  if(!cand.length&&!near.length){ el.innerHTML='<div class="empty">Ninguna empresa en zona de compra ni cerca. Rellena cotización y banda de entrada en Análisis.</div>'; return; }
+  const estCls=x=>x.enBanda?'g':((x.dist!=null&&x.dist>0.25)?'r':'a');
+  window._proxNearOpen=window._proxNearOpen||false;
+  /* ---- ESCRITORIO ---- */
   const rowT=(x,i,tipo)=>{ const btns=(tipo==='cand')?`<button class="btn ghost sm" data-proxplan="${x.t}" title="Añadir al Plan del año ${proxYearSel}">→ Plan</button> <button class="btn ghost sm" data-proxcaja="${x.t}" title="Registrar salida en la Caja bróker">→ Caja</button>`:'';
     const rec=(tipo==='cand')?(x.rec>0?fmt(x.rec):(x.gap>0?fmt(x.gap):'·')):'·';
-    return `<tr${(tipo==='cand'&&i===0)?' style="background:#f0fdf4"':''}><td class="num">${x.__n}</td><td><button class="btn ghost sm" data-ficha="${x.t}"><b>${x.t}</b></button></td><td class="num">${x.score!=null?x.score.toFixed(0):'—'}</td><td>${x.dec||'—'}</td><td class="${estCls(x)}">${x.estado}</td><td class="num">${fmt(x.cot)}</td><td class="num">${x.obj?fmt(x.obj):'·'}</td><td class="num">${x.real?fmt(x.real):'·'}</td><td class="num">${x.gap>0?fmt(x.gap):'·'}</td><td class="num">${x.infraP.toFixed(0)}</td><td class="num" style="font-weight:700">${rec}</td><td class="num">${(tipo==='cand'&&x.acc)?x.acc:'·'}</td><td style="white-space:nowrap">${btns}</td></tr>`; };
-  let n=0; const cand=M.cand.map(x=>{x.__n=++n;return x;}); const near=M.near.map(x=>{x.__n=++n;return x;});
+    return `<tr${(tipo==='cand'&&i===0)?' class="best"':''}><td class="num">${x.__n}</td><td><b class="tk" data-ficha="${x.t}" style="cursor:pointer">${x.t}</b>${x.held?' <span class="hc">en cartera</span>':''}</td><td class="num"><b style="color:${sCol(x.score)}">${x.score!=null?x.score.toFixed(0):'—'}</b></td><td>${x.dec?`<span class="dec" style="background:${dcol[x.dec]}">${x.dec}</span>`:'—'}</td><td><span class="pill ${estCls(x)}">${x.estado}</span></td><td class="num">${fmt(x.cot)}</td><td class="num">${x.obj?fmt(x.obj):'·'}</td><td class="num">${x.real?fmt(x.real):'·'}</td><td class="num">${x.gap>0?fmt(x.gap):'·'}</td><td class="num">${x.infraP.toFixed(0)}</td><td class="num" style="font-weight:800">${rec}</td><td class="num">${(tipo==='cand'&&x.acc)?x.acc:'·'}</td><td style="white-space:nowrap">${btns}</td></tr>`; };
   const head='<tr><th class="num">#</th><th>Empresa</th><th class="num">Score</th><th>Decisión</th><th>Estado</th><th class="num">Cotiz.</th><th class="num">Objetivo</th><th class="num">Invertido</th><th class="num">Hueco</th><th class="num">Infra</th><th class="num">Recom. €</th><th class="num">Acc.</th><th>Acción</th></tr>';
-  const secc=(t,c)=>`<tr style="background:#eef2f7;font-weight:700"><td colspan="13">${t} (${c})</td></tr>`;
-  const body=(cand.length?secc('En zona de compra',cand.length)+cand.map((x,i)=>rowT(x,i,'cand')).join(''):'')+(near.length?secc('Cerca de entrada',near.length)+near.map((x,i)=>rowT(x,i,'near')).join(''):'');
-  el.innerHTML=(cand.length||near.length)?`<div class="sub" style="margin-bottom:8px">Prioridad = 0,5·Score + 0,3·infraponderación vs objetivo + 0,2·margen de entrada. La columna <b>Recom. €</b> reparte tu caja disponible tapando primero el hueco de la mejor candidata. «→ Plan» lo añade al Plan de compras del año elegido; «→ Caja» registra la salida en la Caja bróker.</div><table style="font-size:12px"><thead>${head}</thead><tbody>${body}</tbody></table>`:'<div class="empty">Ninguna empresa en zona de compra ni cerca. Rellena cotización y banda de entrada en Análisis.</div>';
+  const infoSub='<div class="sub" style="margin-bottom:8px">Prioridad = 0,5·Score + 0,3·infraponderación vs objetivo + 0,2·margen de entrada. La columna <b>Recom. €</b> reparte tu caja disponible tapando primero el hueco de la mejor candidata. «→ Plan» lo añade al Plan de compras del año elegido; «→ Caja» registra la salida en la Caja bróker.</div>';
+  const deskCand=cand.length?`<div class="secttl">🟢 En zona de compra <span>(${cand.length})</span></div><div class="ptable"><table><thead>${head}</thead><tbody>${cand.map((x,i)=>rowT(x,i,'cand')).join('')}</tbody></table></div>`:'<div class="empty">Ninguna empresa en zona de compra ahora mismo.</div>';
+  const deskNear=near.length?`<div class="blk${window._proxNearOpen?' open':''}" data-proxnear><div class="blk-h"><span class="arw">▶</span><span class="blk-t">🟡 Cerca de entrada</span><span class="blk-c">${near.length}</span></div><div class="blk-b"><div class="ptable"><table><thead>${head}</thead><tbody>${near.map((x,i)=>rowT(x,i,'near')).join('')}</tbody></table></div></div></div>`:'';
+  const deskHTML=`<div class="desk">${infoSub}${deskCand}${deskNear}</div>`;
+  /* ---- MÓVIL ---- */
+  const mcard=(x,tipo,i)=>`<div class="pcard${tipo==='cand'&&i===0?' best':''}"><div class="pcard-h"><div class="rk">#${x.__n}</div><div class="tk" data-ficha="${x.t}" style="cursor:pointer">${x.t}${x.held?' <span class="hc">en cartera</span>':''}<div class="est"><span class="pill ${estCls(x)}">${x.estado}</span> ${x.dec?`<span class="dec" style="background:${dcol[x.dec]}">${x.dec}</span>`:''}</div></div><div class="sc" style="color:${sCol(x.score)}">${x.score!=null?x.score.toFixed(0):'—'}<span>score</span></div></div>
+    <div class="pgrid">
+      <div class="m"><span>Cotización</span><b>${fmt(x.cot)}</b></div>
+      <div class="m"><span>Objetivo cartera</span><b>${x.obj?fmt(x.obj):'·'}</b></div>
+      <div class="m"><span>Invertido</span><b>${x.real?fmt(x.real):'·'}</b></div>
+      <div class="m"><span>Hueco</span><b>${x.gap>0?fmt(x.gap):'·'}</b></div>
+      <div class="m"><span>Infraponderación</span><b>${x.infraP.toFixed(0)}</b></div>
+      ${tipo==='cand'?`<div class="m hi"><span>Recomendado</span><b>${x.rec>0?fmt(x.rec):'·'}${x.acc?' · '+x.acc+' acc':''}</b></div>`:''}
+    </div>
+    ${tipo==='cand'?`<div class="pacts"><button class="btn ghost sm" data-proxplan="${x.t}">→ Plan</button> <button class="btn ghost sm" data-proxcaja="${x.t}">→ Caja</button></div>`:''}</div>`;
+  const mobCand=cand.length?`<div class="secttl">🟢 En zona de compra <span>(${cand.length})</span></div>${cand.map((x,i)=>mcard(x,'cand',i)).join('')}`:'<div class="empty">Ninguna empresa en zona de compra ahora mismo.</div>';
+  const mobNear=near.length?`<div class="blk${window._proxNearOpen?' open':''}" data-proxnear><div class="blk-h"><span class="arw">▶</span><span class="blk-t">🟡 Cerca de entrada</span><span class="blk-c">${near.length}</span></div><div class="blk-b">${near.map((x,i)=>mcard(x,'near',i)).join('')}</div></div>`:'';
+  const mobHTML=`<div class="pcards">${infoSub}${mobCand}${mobNear}</div>`;
+  el.innerHTML=deskHTML+mobHTML;
+  if(!el._proxBound){ el._proxBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-proxplan],[data-proxcaja],a,button'))return; const h=e.target.closest('.blk-h'); if(h){ window._proxNearOpen=!window._proxNearOpen; el.querySelectorAll('.blk[data-proxnear]').forEach(function(b){ b.classList.toggle('open',window._proxNearOpen); }); } }); }
 }
 function proxAddPlan(t,all){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const yr=proxYearSel||new Date().getFullYear(); DB.planCompras=DB.planCompras||{};
   const list=all?M.cand:M.cand.filter(x=>x.t===(t||'').toUpperCase()); let added=0;
