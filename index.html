@@ -103,6 +103,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   .dlg-b label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);font-weight:600}
   .dlg-b input,.dlg-b select{padding:8px;border:1px solid var(--line);border-radius:8px;font-size:13px}
   .dlg-f{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+  #catNivelSeg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;margin-top:2px}
+  #catNivelSeg button{border:none;background:#fff;padding:9px 10px;font-size:12.5px;font-weight:700;color:#64748b;cursor:pointer;flex:1}
+  #catNivelSeg button.on{background:var(--brand);color:#fff}
+  #catDlg.nivel-seccion .cat-part{display:none}
   @media(max-width:960px){header{flex-wrap:wrap;gap:8px;padding:8px 12px}.logo{order:1}.filestat{order:2;margin-left:auto}nav{order:3;flex-basis:100%;width:100%;flex-wrap:wrap;gap:3px}nav button{padding:7px 9px;font-size:13px}#subnav{order:4;flex-basis:100%;width:100%;flex-wrap:wrap;margin:6px 0 0;padding:6px 8px;gap:3px}#subnav button{padding:6px 9px;font-size:12px}.logo .logo-img{height:36px}.spacer{display:none}main{margin-top:12px;padding:0 10px 60px}h2{font-size:16px}.view table{display:block;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}th,td{padding:7px 8px;font-size:12px}.card .val{font-size:20px}.cards{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}.toolbar input[type=search]{min-width:120px}}
   @media(orientation:landscape) and (max-height:520px){header{position:static}main{margin-top:8px}}
   @media(max-width:820px){
@@ -317,6 +321,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-presupuesto .par-right{margin-left:auto;text-align:right;flex:0 0 auto}
   #view-presupuesto .par-mes{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
   #view-presupuesto .par-anual{font-size:10.5px;color:#64748b}
+  #view-presupuesto .blk-edit{border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;padding:0 4px;line-height:1;opacity:.55;border-radius:6px}
+  #view-presupuesto .blk-edit:hover{opacity:1;background:#eef2ff;color:var(--brand)}
   #view-presupuesto .par-form{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
   #view-presupuesto .fld{display:flex;flex-direction:column;gap:4px}
   #view-presupuesto .fld label{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:700}
@@ -366,6 +372,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #calcPanel .calc-keys button.eq{background:var(--brand);color:#fff}
   #calcPanel .calc-keys button.eq:hover{background:var(--brand-d)}
   #calcPanel .calc-keys button.fn{color:var(--red);font-size:15px}
+
+
+  #view-presupuesto .par-esc{font-size:10px;font-weight:700;border-radius:6px;padding:2px 7px;flex:0 0 auto}
+  #view-presupuesto .par-esc.esc-nec{background:#dcfce7;color:#166534}
+  #view-presupuesto .par-esc.esc-pre{background:#f1f5f9;color:#64748b}
 
 </style>
 </head>
@@ -1062,14 +1073,21 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="dlg-h" id="catDlgTitle">Categoría</div>
     <div class="dlg-b">
       <input type="hidden" id="catId">
-      <label>Nombre<input type="text" id="catNombre" required></label>
-      <label>Grupo<input type="text" id="catGrupo" list="grupoList" placeholder="p. ej. Casa"><datalist id="grupoList"></datalist></label>
-      <label>Tipo<select id="catTipo"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select></label>
-      <label style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="catEsencial" style="width:auto"> Gasto esencial (imprescindible si cae el ingreso)</label>
-      <label>Importe presupuestado (€)<input type="number" id="catImporte" step="0.01" min="0" value="0"></label>
-      <label>Frecuencia<select id="catFrec"><option value="mensual">Mensual</option><option value="anual">Anual</option><option value="bianual">Bianual</option></select></label>
-      <label>Método de pago<input type="text" id="catMetodo" placeholder="ING, Paypal, Play Store…"></label>
-      <label>Fecha de renovación<input type="date" id="catRenov"></label>
+      <input type="hidden" id="catSecOrig">
+      <label>Tipo de elemento
+        <div id="catNivelSeg">
+          <button type="button" data-nivel="seccion">Sección (capítulo)</button>
+          <button type="button" data-nivel="partida">Partida</button>
+        </div>
+      </label>
+      <label id="catNombreLbl">Nombre<input type="text" id="catNombre" required></label>
+      <label class="cat-part">Grupo (capítulo)<input type="text" id="catGrupo" list="grupoList" placeholder="p. ej. Casa"><datalist id="grupoList"></datalist></label>
+      <label class="cat-part">Tipo<select id="catTipo"><option value="gasto">Gasto</option><option value="ingreso">Ingreso</option></select></label>
+      <label class="cat-part" style="flex-direction:row;align-items:center;gap:8px"><input type="checkbox" id="catEsencial" style="width:auto"> Gasto esencial (imprescindible si cae el ingreso)</label>
+      <label class="cat-part">Importe presupuestado (€)<input type="number" id="catImporte" step="0.01" min="0" value="0"></label>
+      <label class="cat-part">Frecuencia<select id="catFrec"><option value="mensual">Mensual</option><option value="anual">Anual</option><option value="bianual">Bianual</option></select></label>
+      <label class="cat-part">Método de pago<input type="text" id="catMetodo" placeholder="ING, Paypal, Play Store…"></label>
+      <label class="cat-part">Fecha de renovación<input type="date" id="catRenov"></label>
     </div>
     <div class="dlg-f">
       <button type="button" class="btn danger" id="catDelete" style="display:none">Eliminar</button>
