@@ -1016,13 +1016,18 @@ function _qPub(t,key){ const c=(DB.cadencia||{})[(t||'').toUpperCase()]||{}; ret
 function mesesDesde(fechaStr){ if(!fechaStr)return null; const d=new Date(fechaStr+'T00:00:00'); if(isNaN(d.getTime()))return null; const now=new Date(); return (now.getFullYear()-d.getFullYear())*12+(now.getMonth()-d.getMonth()); }
 function renderMonitor(){
   DB.todos=DB.todos||[]; DB.monitor=DB.monitor||{};
+  const hoy=new Date().toISOString().slice(0,10);
+  const todos=DB.todos.slice().sort((a,b)=>(a.hecho?1:0)-(b.hecho?1:0)||((a.fecha||'9999').localeCompare(b.fecha||'9999')));
+  const tareasPend=todos.filter(x=>!x.hecho).length;
   const te=$('#todoTabla');
   if(te){
-    const hoy=new Date().toISOString().slice(0,10);
-    const todos=DB.todos.slice().sort((a,b)=>(a.hecho?1:0)-(b.hecho?1:0)||((a.fecha||'9999').localeCompare(b.fecha||'9999')));
     if(!todos.length){ te.innerHTML='<div class="empty">Sin tareas. Añade una arriba.</div>'; }
-    else{ const rows=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<tr style="${venc?'background:#fee2e2;':(x.hecho?'opacity:.55;':'')}"><td class="num"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}></td><td style="white-space:nowrap">${x.fecha?ddmmyyyy(x.fecha):'—'}</td><td>${(x.desc||'').replace(/</g,'&lt;')}</td><td class="muted">${(x.razon||'').replace(/</g,'&lt;')}</td><td>${x.ticker?`<button class="btn ghost sm" data-ficha="${x.ticker}">${x.ticker}</button>`:''}</td><td><button class="btn ghost sm" data-tododel="${x.id}" title="Eliminar">✕</button></td></tr>`; }).join('');
-      te.innerHTML=`<table><thead><tr><th class="num">✓</th><th>Fecha</th><th>Descripción</th><th>Razonamiento</th><th>Empresa</th><th></th></tr></thead><tbody>${rows}</tbody></table>`; }
+    else{
+      const rows=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<tr class="${x.hecho?'mt-done':''}" style="${venc?'background:#fee2e2':''}"><td class="ctr"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}></td><td class="l" style="white-space:nowrap">${x.fecha?ddmmyyyy(x.fecha):'—'}</td><td class="l"><b>${(x.desc||'').replace(/</g,'&lt;')}</b></td><td class="l muted">${(x.razon||'').replace(/</g,'&lt;')}</td><td class="l">${x.ticker?`<button class="btn ghost sm" data-ficha="${x.ticker}">${x.ticker}</button>`:''}</td><td class="ctr"><button class="btn ghost sm" data-tododel="${x.id}" title="Eliminar">✕</button></td></tr>`; }).join('');
+      const desk=`<div class="pos-desk"><div class="ptable"><table><thead><tr><th class="ctr">✓</th><th class="l">Fecha</th><th class="l">Descripción</th><th class="l">Razonamiento</th><th class="l">Empresa</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+      const mob=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<div class="mt-tcard ${x.hecho?'done':(venc?'venc':'')}"><div class="mt-th"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}><div class="mt-tmain"><div class="mt-td">${(x.desc||'').replace(/</g,'&lt;')}</div><div class="mt-tf">${x.fecha?ddmmyyyy(x.fecha):'sin fecha'}${x.ticker?(' · <button class="btn ghost sm" data-ficha="'+x.ticker+'">'+x.ticker+'</button>'):''}</div></div><button class="btn ghost sm" data-tododel="${x.id}">✕</button></div>${x.razon?('<div class="mt-tr">'+(x.razon||'').replace(/</g,'&lt;')+'</div>'):''}</div>`; }).join('');
+      te.innerHTML=desk+`<div class="pos-mob">${mob}</div>`;
+    }
   }
   const el=$('#monTabla'); if(!el)return;
   const yr=new Date().getFullYear();
@@ -1033,21 +1038,34 @@ function renderMonitor(){
   let tickers=[...new Set([...held,...plan])].filter(Boolean);
   closed.forEach(t=>{ if(t&&!held.has(t)&&!plan.has(t)&&_sigueCotiz(t)) tickers.push(t); });
   tickers=[...new Set(tickers)];
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas (ten posiciones o añade empresas en Diversificación).</div>'; return; }
+  const kp=$('#monKpis');
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas (ten posiciones o añade empresas en Diversificación).</div>'; if(kp)kp.innerHTML=''; return; }
   const _grp=t=> held.has(t)?0:(plan.has(t)?1:2);
   tickers.sort((a,b)=>_grp(a)-_grp(b)||a.localeCompare(b));
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  const body=tickers.map(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe;
-    const rolInp=`<input class="anaInp" style="width:120px;font-size:11px" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
+  let pendInf=0, dosRe=0, qPend=0;
+  const deskRows=[], mobCards=[];
+  tickers.forEach(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe; if(!inf)pendInf++;
+    const rolInp=`<input class="anaInp mt-rol" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
     const infCell=`<button class="btn ghost sm" data-moninf="${t}">${inf?'<span class="pos">✓ Sí</span>':'<span class="muted">Pendiente</span>'}</button>${(inf&&m.informeFecha)?`<div class="muted" style="font-size:9px">${m.informeFecha}</div>`:''}`;
     const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}; const _df=_an.dossierFecha; let _m=(typeof mesesDesde==='function')?mesesDesde(_df):null; if(_m!=null&&_m<0)_m=0;
-    let dosCell; if(!_df){ dosCell='<td class="muted" style="font-size:10px;text-align:center">sin dossier</td>'; } else if(_m!=null&&_m>12){ dosCell=`<td style="text-align:center;background:#fee2e2" title="Dossier de ${_df}"><span style="color:#dc2626;font-weight:700">⚠️ ${_m} m</span><div class="muted" style="font-size:9px">reanalizar</div></td>`; } else { dosCell=`<td style="text-align:center" title="Dossier de ${_df}"><span class="pos">${_m==null?'?':_m+' m'}</span><div class="muted" style="font-size:9px">${_df}</div></td>`; }
-    let q;
-    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=(typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key]); const passed=_qPub(t,key); const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'·'); return `<td class="num" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
-    else { q='<td colspan="4" class="muted" style="font-size:11px;text-align:center">Falta informe</td>'; }
+    const dosOver=(_m!=null&&_m>12); if(dosOver)dosRe++;
+    let dosCell; if(!_df){ dosCell='<td class="ctr muted" style="font-size:10px">sin dossier</td>'; } else if(dosOver){ dosCell=`<td class="ctr" style="background:#fee2e2" title="Dossier de ${_df}"><span style="color:#dc2626;font-weight:700">⚠️ ${_m} m</span><div class="muted" style="font-size:9px">reanalizar</div></td>`; } else { dosCell=`<td class="ctr" title="Dossier de ${_df}"><span class="pos">${_m==null?'?':_m+' m'}</span><div class="muted" style="font-size:9px">${_df}</div></td>`; }
+    let q, qm=[];
+    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=(typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key]); const passed=_qPub(t,key); if(passed&&!done)qPend++; const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'<span class="mt-dot">·</span>'); qm.push({qc,key,done,passed}); return `<td class="ctr" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
+    else { q='<td colspan="4" class="ctr muted" style="font-size:11px">Falta informe</td>'; }
     const _bg=(typeof statusRowBg==='function')?statusRowBg(t,held):'';
-    return `<tr${_bg?` style="background:${_bg}"`:''}><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada (seguimiento)</span>':''}</td><td>${rolInp}</td><td>${infCell}</td>${dosCell}${q}</tr>`;
-  }).join('');
-  const head=`<tr><th rowspan="2">Empresa</th><th rowspan="2">Rol/Plan</th><th rowspan="2">Informe</th><th rowspan="2">Dossier</th><th class="num" colspan="4" style="text-align:center">Revisión trimestral ${yr}</th></tr><tr><th class="num">Q1</th><th class="num">Q2</th><th class="num">Q3</th><th class="num">Q4</th></tr>`;
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}</tbody></table>`;
+    deskRows.push(`<tr${_bg?` style="background:${_bg}"`:''}><td class="l" style="white-space:nowrap"><b class="mt-tk" data-ficha="${t}">${t}</b> <span class="nm">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada</span>':''}</td><td class="l">${rolInp}</td><td class="ctr">${infCell}</td>${dosCell}${q}</tr>`);
+    const badges=(inf?'<span class="mt-bg ok">informe ✓</span>':'<span class="mt-bg pend">sin informe</span>')+(dosOver?'<span class="mt-bg bad">dossier ⚠</span>':'');
+    const qchips=inf?qm.map(o=>`<span class="mt-qch ${o.done?'ok':(o.passed?'bad':'')}" data-monrev="${t}|${o.key}">${o.qc} ${o.done?'✓':(o.passed?'!':'·')}</span>`).join(''):'<span class="mt-qch muted">falta informe</span>';
+    mobCards.push(`<div class="mt-mcard"><div class="mt-mh"><div class="mt-tk" data-ficha="${t}" style="cursor:pointer">${t} <span class="nm">${(nm(t)||'').slice(0,20)}</span></div><div class="mt-badges">${badges}</div></div><div class="mt-mrow"><input class="anaInp mt-rol" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}" placeholder="Rol/Plan"><button class="btn ghost sm" data-moninf="${t}">${inf?'informe ✓':'marcar informe'}</button></div><div class="mt-mq">${qchips}</div></div>`);
+  });
+  const head=`<tr><th class="l" rowspan="2">Empresa</th><th class="l" rowspan="2">Rol/Plan</th><th class="ctr" rowspan="2">Informe</th><th class="ctr" rowspan="2">Dossier</th><th class="ctr" colspan="4">Revisión trimestral ${yr}</th></tr><tr><th class="ctr">Q1</th><th class="ctr">Q2</th><th class="ctr">Q3</th><th class="ctr">Q4</th></tr>`;
+  el.innerHTML=`<div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${deskRows.join('')}</tbody></table></div></div><div class="pos-mob">${mobCards.join('')}</div>`;
+  if(kp)kp.innerHTML='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Tareas pendientes</div><div class="v">${tareasPend}</div><div class="p">acciones por ejecutar</div></div>`
+    +`<div class="k"><div class="l">Revisiones pendientes</div><div class="v"${qPend>0?' style="color:#dc2626"':''}>${qPend}</div><div class="p">trimestres publicados sin revisar</div></div>`
+    +`<div class="k"><div class="l">Empresas en seguimiento</div><div class="v">${tickers.length}</div><div class="p">cartera · plan · cerradas</div></div>`
+    +`<div class="k"><div class="l">Dossiers a reanalizar</div><div class="v"${dosRe>0?' style="color:#dc2626"':''}>${dosRe}</div><div class="p">antigüedad > 12 meses</div></div>`
+    +'</div>';
 }
