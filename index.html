@@ -796,6 +796,112 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-proyeccion .proy-desk{display:none}
   #view-proyeccion .proy-mob{display:block}
 }
+/* ===== Simulador ===== */
+#view-simulador .sim-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#view-simulador .sim-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+#view-simulador .sim-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-simulador .sim-kpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-simulador .sim-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-simulador .sim-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-simulador .sim-kpis .k.hero .l,#view-simulador .sim-kpis .k.hero .p{color:#bbf7d0}
+#view-simulador .dv-tk{font-weight:800;color:var(--brand)}
+#view-simulador .sim-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:66vh}
+#view-simulador .sim-desk table{border-collapse:collapse;font-size:11px;white-space:nowrap}
+#view-simulador .sim-desk thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:11px;color:var(--muted);padding:5px 7px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-simulador .sim-desk thead th:first-child{text-align:left}
+#view-simulador .sim-desk tbody td{padding:4px 7px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
+#view-simulador .sim-desk tbody td:first-child{text-align:left}
+#view-simulador .sim-desk td:first-child,#view-simulador .sim-desk th:first-child{position:sticky;left:0;z-index:3;background:#fff;box-shadow:6px 0 8px -6px rgba(15,23,42,.18);min-width:56px}
+#view-simulador .sim-desk thead th:first-child{z-index:6;background:#f8fafc}
+#view-simulador .sim-desk .simtot td{background:#eef2f7;font-weight:700}
+#view-simulador .sim-desk .simtot td:first-child{background:#eef2f7}
+#view-simulador .sim-desk .simgr td{background:#f8fafc;font-weight:600}
+#view-simulador .sim-desk .simgr td:first-child{background:#f8fafc}
+#view-simulador .sim-mob{display:none}
+#view-simulador .pystrip-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:8px 0 5px}
+#view-simulador .dv-pystrip{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+#view-simulador .pychip{flex:0 0 auto;min-width:88px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;text-align:center;box-shadow:var(--shadow)}
+#view-simulador .pychip .yy{font-size:12px;font-weight:800;color:#1e40af}
+#view-simulador .pychip .pv2{font-size:14px;font-weight:800;color:#0f172a;margin-top:3px}
+#view-simulador .pychip .pl2,#view-simulador .pychip .pl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-simulador .pychip .pv{font-size:13px;font-weight:800;margin-top:5px}
+#view-simulador .pychip.g{border-color:#bbf7d0}#view-simulador .pychip.g .pv{color:var(--green)}
+#view-simulador .pychip.r{border-color:#fecaca}#view-simulador .pychip.r .pv{color:var(--red)}
+#view-simulador .pychip.z .pv{color:#94a3b8}
+#view-simulador .cosel-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:10px 0 5px}
+#view-simulador .cosel{width:100%;padding:11px 12px;border:1px solid var(--brand);border-radius:11px;font-size:14px;font-weight:700;background:#fff;color:#1e3a8a;box-shadow:var(--shadow);margin-bottom:12px}
+#view-simulador .codet{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;box-shadow:var(--shadow)}
+#view-simulador .codet-h{display:flex;align-items:flex-start;gap:10px;padding-bottom:10px;border-bottom:1px solid #f1f5f9;margin-bottom:4px}
+#view-simulador .codet-h .mid{flex:1;min-width:0}#view-simulador .codet-h .t1{font-size:16px}#view-simulador .codet-h .t2{margin-top:3px;font-size:11px;color:#94a3b8}
+#view-simulador .codet-h .fh{text-align:right}#view-simulador .codet-h .fh b{font-size:15px}#view-simulador .codet-h .fh .fl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-simulador .pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;background:#eef2f7;color:#475569}
+#view-simulador .simrow{display:flex;align-items:center;gap:8px;padding:7px 2px;border-bottom:1px solid #f5f5f5}
+#view-simulador .simrow .yy{min-width:52px;font-weight:800;font-size:12px}
+#view-simulador .simrow .yy em{font-size:8px;color:#94a3b8;font-weight:700;font-style:normal}
+#view-simulador .simrow .acc,#view-simulador .simrow .dv,#view-simulador .simrow .im{flex:1;text-align:right;font-size:13px;font-weight:700}
+#view-simulador .simrow .dv{color:#475569;font-weight:600}
+#view-simulador .simrow .im{color:#166534}
+#view-simulador .simrow .lbl{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+@media(max-width:960px){
+  #view-simulador .sim-kpis{grid-template-columns:1fr}
+  #view-simulador .sim-desk,#view-simulador #simScroll{display:none}
+  #view-simulador .sim-mob{display:block}
+}
+/* ===== Plan de compras ===== */
+#view-plan .pl-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-plan .pl-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
+#view-plan .pl-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-plan .pl-kpis .k .v{font-size:20px;font-weight:800;margin-top:3px}
+#view-plan .pl-kpis .k .v.pos{color:var(--green)}#view-plan .pl-kpis .k .v.neg{color:var(--red)}
+#view-plan .pl-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-plan .pl-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-plan .pl-kpis .k.hero .l,#view-plan .pl-kpis .k.hero .p{color:#bbf7d0}
+#view-plan .dv-tk{font-weight:800;color:var(--brand)}
+#view-plan .pl-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:64vh}
+#view-plan .pl-desk table{border-collapse:collapse;font-size:12px;white-space:nowrap}
+#view-plan .pl-desk thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-plan .pl-desk thead th:first-child{text-align:left}
+#view-plan .pl-desk tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-plan .pl-desk tbody td:first-child{text-align:left}
+#view-plan .pl-desk td:first-child,#view-plan .pl-desk th:first-child{position:sticky;left:0;z-index:3;background:#fff;box-shadow:6px 0 8px -6px rgba(15,23,42,.18);min-width:70px}
+#view-plan .pl-desk thead th:first-child{z-index:6;background:#f8fafc}
+#view-plan .pl-desk .pl-comp{background:#dcfce7}#view-plan .pl-desk .pl-parc{background:#fff7ed}
+#view-plan .pl-desk .pl-tot td{background:#eef2f7;font-weight:700}
+#view-plan .pl-desk .pl-tot td:first-child{background:#eef2f7}
+#view-plan .pl-desk .pl-pres td{background:#fffbeb}
+#view-plan .pl-desk .pl-pres td:first-child{background:#fffbeb}
+#view-plan .pl-desk .pl-exe td{font-weight:600}
+#view-plan .pl-desk .pl-exe td:first-child{background:#fff}
+#view-plan .pl-mob{display:none}
+#view-plan .pystrip-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:8px 0 5px}
+#view-plan .dv-pystrip{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
+#view-plan .pychip{flex:0 0 auto;min-width:96px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;text-align:center;box-shadow:var(--shadow)}
+#view-plan .pychip .yy{font-size:12px;font-weight:800;color:#1e40af}
+#view-plan .pychip .pv2{font-size:14px;font-weight:800;color:#0f172a;margin-top:3px}
+#view-plan .pychip .pmid{font-size:10px;color:#475569;font-weight:700;margin-top:3px}
+#view-plan .pychip .pl2,#view-plan .pychip .pl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-plan .pychip .pv{font-size:13px;font-weight:800;margin-top:4px}
+#view-plan .pychip.g{border-color:#bbf7d0}#view-plan .pychip.g .pv{color:var(--green)}
+#view-plan .pychip.r{border-color:#fecaca}#view-plan .pychip.r .pv{color:var(--red)}
+#view-plan .pychip.z .pv{color:#94a3b8}
+#view-plan .cosel-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:10px 0 5px}
+#view-plan .cosel{width:100%;padding:11px 12px;border:1px solid var(--brand);border-radius:11px;font-size:14px;font-weight:700;background:#fff;color:#1e3a8a;box-shadow:var(--shadow);margin-bottom:12px}
+#view-plan .codet{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;box-shadow:var(--shadow)}
+#view-plan .codet-h{display:flex;align-items:flex-start;gap:10px;padding-bottom:11px;border-bottom:1px solid #f1f5f9;margin-bottom:6px}
+#view-plan .codet-h .mid{flex:1;min-width:0}#view-plan .codet-h .t1{font-size:16px}#view-plan .codet-h .t2{margin-top:3px;font-size:11px;color:#94a3b8}
+#view-plan .codet-h .fh{text-align:right}#view-plan .codet-h .fh b{font-size:15px}#view-plan .codet-h .fh .fl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-plan .yrgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+#view-plan .yg2{background:#fafcff;border:1px solid #e5eefb;border-radius:8px;padding:7px 9px}
+#view-plan .yg2 span{font-size:10px;color:#64748b;font-weight:700;display:block}
+#view-plan .yg2 b{font-size:14px;font-weight:800;color:#0f172a}
+#view-plan .yg2 em{display:inline-block;margin-top:3px;font-size:9.5px;font-style:normal;font-weight:700;border-radius:5px;padding:1px 5px}
+#view-plan .yg2 em.ok{color:#166534;background:#dcfce7}#view-plan .yg2 em.parc{color:#b45309;background:#fff7ed}
+@media(max-width:960px){
+  #view-plan .pl-kpis{grid-template-columns:1fr 1fr}
+  #view-plan .pl-kpis .k .v{font-size:18px}
+  #view-plan .pl-desk,#view-plan #planScroll{display:none}
+  #view-plan .pl-mob{display:block}
+}
 /* ===== Diversificación ===== */
 #view-diversif .dv-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:6px}
 #view-diversif .dv-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
@@ -2211,8 +2317,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-simulador">
-    <h2>Simulador de dividendos</h2>
-    <div class="cards" id="simKpis"></div>
+    <h2>🔮 Simulador de dividendos</h2>
+    <div id="simKpis" style="margin-bottom:12px"></div>
     <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Vista de resultado: las <b>acciones futuras</b> vienen de <b>Diversificación</b> y el <b>dividendo/acción</b> de <b>Evolución Dividendo</b> (aquí solo lectura). Editable solo el pasado/año en curso de acciones.</div>
     <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="simStatus"></span></div>
     <input type="range" id="simScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
@@ -2220,8 +2326,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-plan">
-    <h2>Plan de compras multi-anual</h2>
-    <div class="cards" id="planKpis"></div>
+    <h2>📈 Plan de compras multi-anual</h2>
+    <div id="planKpis" style="margin-bottom:12px"></div>
     <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
     <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="planStatus"></span></div>
