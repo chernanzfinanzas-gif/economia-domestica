@@ -176,7 +176,7 @@ const ADD_ACTIONS={
   movimientos:()=>{ const b=$('#blkMovAdd'); if(b)b.classList.add('open'); const f=$('#movForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); const d=$('#movFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); setTimeout(()=>{ const c=$('#movConcepto'); if(c)c.focus(); },350); },
   inversiones:()=>{ const b=$('#invAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
   analisis:()=>{ const b=$('#anaAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#anaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
-  fondor4:()=>{ const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
+  fondor4:()=>{ const b=$('#blkR4Add'); if(b)b.classList.add('open'); const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   amalia:()=>{ const b=$('#blkAmaAdd'); if(b)b.classList.add('open'); const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   patrimonio:()=>{ const b=$('#patAdd'); if(b)b.click(); },
   diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
@@ -397,9 +397,18 @@ if($('#r4ImportBtn')) $('#r4ImportBtn').addEventListener('click',()=>$('#r4File'
 if($('#r4Tipo')) $('#r4Tipo').addEventListener('change',()=>{ const rt=$('#r4NetoWrap'); if(rt) rt.style.display=($('#r4Tipo').value==='retirada'?'':'none'); });
 if($('#r4Ret')) $('#r4Ret').addEventListener('input',()=>{ const el=$('#r4RetCalc'); if(!el)return; const c=r4DesdeRetencion($('#r4Ret').value); el.textContent=(c.retencion>0)?(' → bruto '+fmt(c.bruto)+' € · neto '+fmt(c.neto)+' €'):''; });
 if($('#r4Orden')) $('#r4Orden').addEventListener('change',renderFondoR4);
+if($('#view-fondor4')) $('#view-fondor4').addEventListener('click',e=>{ const h=e.target.closest('[data-r4blk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-r4blk')); if(blk)blk.classList.toggle('open'); });
+if($('#r4TipoSeg')) $('#r4TipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(b&&typeof setR4Tipo==='function')setR4Tipo(b.dataset.t); });
+if($('#r4Cancel')) $('#r4Cancel').addEventListener('click',()=>{ if(typeof resetR4Form==='function')resetR4Form(); });
+if($('#r4Buscar')) $('#r4Buscar').addEventListener('input',renderFondoR4);
+if($('#r4Ftipo')) $('#r4Ftipo').addEventListener('change',renderFondoR4);
 if($('#posFiltro')) $('#posFiltro').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
 if($('#posOrden')) $('#posOrden').addEventListener('change',()=>{ if(typeof renderPOS==='function')renderPOS(); });
-if($('#r4List')) $('#r4List').addEventListener('click',e=>{const b=e.target.closest('[data-delr4]'); if(b){ const _id=b.dataset.delr4; const _it=(DB.easy||[]).find(x=>x.id===_id); if(_it)undoableDelete('easy','Movimiento Fondo R4',{item:_it},()=>{ DB.easy=(DB.easy||[]).filter(x=>x.id!==_id); },['renderFondoR4']); }});
+if($('#r4List')) $('#r4List').addEventListener('click',e=>{
+  const ed=e.target.closest('[data-editr4]'); if(ed){ if(typeof editFondoR4==='function')editFondoR4(ed.dataset.editr4); return; }
+  const b=e.target.closest('[data-delr4]'); if(b){ const _id=b.dataset.delr4; const _it=(DB.easy||[]).find(x=>x.id===_id); if(_it)undoableDelete('easy','Movimiento Fondo R4'+(_it.fecha?(' '+_it.fecha):''),{item:_it},()=>{ DB.easy=(DB.easy||[]).filter(x=>x.id!==_id); },['renderFondoR4']); return; }
+  const r=e.target.closest('[data-r4row]'); if(r){ if(e.target.closest('input,button,select,a'))return; const it=r.closest('.r4-item'); if(it)it.classList.toggle('open'); }
+});
 if($('#r4List')) $('#r4List').addEventListener('change',e=>{ const inp=e.target.closest('input.r4inp'); if(!inp)return; const id=inp.dataset.id, f=inp.dataset.f; const mov=(DB.easy||[]).find(x=>x.id===id); if(!mov)return;
   const asc=easySorted(); let prev=0; for(const m of asc){ if(m.id===id) break; prev += m.tipo==='retirada'? -num(m.importe): num(m.importe); }
   const s=(inp.value||'').trim();

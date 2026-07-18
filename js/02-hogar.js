@@ -1208,42 +1208,68 @@ function renderMetas(){ const el=$('#metasBody'); if(!el)return; const metas=DB.
     </tr>`; }).join('');
   el.innerHTML=`<div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="metaAdd">+ Meta</button></div>`+(metas.length?`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Meta</th><th class="num">Objetivo</th><th>Fecha</th><th class="num">Ahorrado</th><th>Progreso</th><th class="num">Meses</th><th class="num">Aporte/mes</th><th class="num">Necesario</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><div class="sub" style="margin-top:6px">"Ahorrado" lo actualizas tú. "Necesario" = lo que falta ÷ meses hasta la fecha. Si pones un "Aporte/mes", te dice cuándo llegarías y si vas en camino.</div>`:'<div class="empty">Sin metas. Pulsa «+ Meta» para crear una (entrada de casa, coche, jubilación, viaje…).</div>');
 }
+function setR4Tipo(t){ var h=$('#r4Tipo'); if(h)h.value=t; $$('#r4TipoSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===t); }); var rw=$('#r4NetoWrap'); if(rw)rw.style.display=(t==='retirada'?'':'none'); }
 function renderFondoR4(){
   const fE=$('#r4Fecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
   const asc=easySorted();
   const Y=new Date().getFullYear();
-  let inv=0, valorAct=null, valorFecha='', netoAnio=0, netoTot=0, brutoAnio=0, brutoTot=0;
-  asc.forEach(e=>{ inv += e.tipo==='retirada'? -num(e.importe): num(e.importe);
-    if(e.valor!=null && e.valor!=='' ){ valorAct=num(e.valor); valorFecha=e.fecha||''; }
-    if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto), b=num(e.bruto); netoTot+=n; brutoTot+=b; if((e.fecha||'').slice(0,4)===String(Y)){ netoAnio+=n; brutoAnio+=b; } }
+  let inv=0, valorAct=null, valorFecha='', netoAnio=0, brutoAnio=0, netoTot=0;
+  const acumMap={}, plusMap={};
+  asc.forEach(e=>{ inv += e.tipo==='retirada'? -num(e.importe): num(e.importe); acumMap[e.id]=inv;
+    const val=(e.valor!=null&&e.valor!=='')?num(e.valor):null; plusMap[e.id]=(val!=null)?val-inv:null;
+    if(val!=null){ valorAct=val; valorFecha=e.fecha||''; }
+    if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto), b=num(e.bruto); netoTot+=n; if((e.fecha||'').slice(0,4)===String(Y)){ netoAnio+=n; brutoAnio+=b; } }
   });
-  const plusv = (valorAct!=null)? valorAct-inv : null;
+  const plusv=(valorAct!=null)?valorAct-inv:null;
   const cardEl=$('#r4Cards');
-  if(cardEl) cardEl.innerHTML=[
-    {l:'Valor del fondo',v:(valorAct!=null?fmt(valorAct):'—'),cls:'',s:(valorFecha?('al '+ddmmyyyy(valorFecha)):'sin valor registrado')},
-    {l:'Saldo aportado (neto)',v:fmt(inv),cls:'',s:(DB.easy||[]).length+' movimientos'},
-    {l:'Plusvalía latente',v:(plusv!=null?((plusv>=0?'+':'')+fmt(plusv)):'—'),cls:(plusv!=null?(plusv>=0?'pos':'neg'):''),s:(plusv!=null&&inv>0?((plusv/inv>=0?'+':'')+(plusv/inv*100).toFixed(2)+'%'):'')},
-    {l:'Interés neto '+Y,v:(netoAnio>=0?'+':'')+fmt(netoAnio),cls:netoAnio>=0?'pos':'neg',s:'bruto '+fmt(brutoAnio)+' · histórico neto '+fmt(netoTot)}
-  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  if(cardEl) cardEl.innerHTML=
+    '<div class="r4-kpi"><div class="l">Valor del fondo</div><div class="v">'+(valorAct!=null?fmt(valorAct):'—')+'</div><div class="s">'+(valorFecha?('al '+ddmmyyyy(valorFecha)):'sin valor registrado')+'</div></div>'+
+    '<div class="r4-kpi"><div class="l">Saldo aportado (neto)</div><div class="v">'+fmt(inv)+'</div><div class="s">'+(DB.easy||[]).length+' movimientos</div></div>'+
+    '<div class="r4-kpi"><div class="l">Plusvalía latente</div><div class="v '+(plusv!=null?(plusv>=0?'pos':'neg'):'')+'">'+(plusv!=null?((plusv>=0?'+':'')+fmt(plusv)):'—')+'</div><div class="s">'+(plusv!=null&&inv>0?((plusv/inv>=0?'+':'')+(plusv/inv*100).toFixed(2)+'%'):'')+'</div></div>'+
+    '<div class="r4-kpi"><div class="l">Interés neto '+Y+'</div><div class="v '+(netoAnio>=0?'pos':'neg')+'">'+(netoAnio>=0?'+':'')+fmt(netoAnio)+'</div><div class="s">bruto '+fmt(brutoAnio)+' · histórico '+fmt(netoTot)+'</div></div>';
   const listEl=$('#r4List'); if(!listEl) return;
-  if(!asc.length){ listEl.innerHTML='<div class="empty">Sin movimientos. Añade una aportación o una retirada, o importa el histórico.</div>'; return; }
-  const _ri='width:88px;text-align:right;border:1px solid #cbd5e1;border-radius:4px;padding:2px 4px;font-size:12px;background:#fff';
-  let run=0; const rowsArr=asc.map(e=>{ const signedNum=e.tipo==='retirada'? -num(e.importe): num(e.importe); run += signedNum;
-    const val=(e.valor!=null&&e.valor!=='')?num(e.valor):null; const pl=(val!=null)?val-run:null;
-    return `<tr><td style="white-space:nowrap">${ddmmyyyy(e.fecha)}</td>`+
-      `<td><span class="tag ${e.tipo==='aportacion'?'in':''}">${e.tipo==='aportacion'?'Aportación':'Retirada'}</span></td>`+
-      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="imp" value="${signedNum.toFixed(2)}" style="${_ri};color:${signedNum<0?'#dc2626':'#16a34a'};font-weight:600"></td>`+
-      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="acum" value="${run.toFixed(2)}" style="${_ri};font-weight:700"></td>`+
-      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="valor" value="${val!=null?val.toFixed(2):''}" placeholder="—" style="${_ri}"></td>`+
-      `<td class="num"><input class="r4inp" data-id="${e.id}" data-f="plus" value="${pl!=null?pl.toFixed(2):''}" placeholder="—" style="${_ri};color:${pl!=null?(pl>=0?'#16a34a':'#dc2626'):'#64748b'}"></td>`+
-      `<td class="num">${(e.tipo==='retirada'&&e.retencion!=null&&e.retencion!=='')?fmt(num(e.retencion)):''}</td>`+
-      `<td class="num">${(e.tipo==='retirada'&&e.bruto!=null&&e.bruto!=='')?fmt(num(e.bruto)):''}</td>`+
-      `<td class="num pos">${(e.tipo==='retirada'&&e.neto!=null&&e.neto!=='')?fmt(num(e.neto)):''}</td>`+
-      `<td class="right"><button class="btn danger sm" data-delr4="${e.id}">✕</button></td></tr>`;
-  });
-  const ord=($('#r4Orden')||{}).value||'desc';
-  const rows=(ord==='desc'?rowsArr.slice().reverse():rowsArr).join('');
-  listEl.innerHTML=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Importe</th><th class="num">Aportado acum.</th><th class="num">Valor fondo</th><th class="num">Plusvalía</th><th class="num">Retención</th><th class="num">Int. bruto</th><th class="num">Int. neto</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  const txt=(($('#r4Buscar')||{}).value||'').toLowerCase().trim();
+  const ft=(($('#r4Ftipo')||{}).value||'');
+  let list=asc.slice();
+  if(ft) list=list.filter(e=>e.tipo===ft);
+  if(txt) list=list.filter(e=>(ddmmyyyy(e.fecha)||'').toLowerCase().indexOf(txt)>=0 || (e.fecha||'').indexOf(txt)>=0);
+  const ord=(($('#r4Orden')||{}).value||'desc');
+  if(ord==='desc') list=list.slice().reverse();
+  const cnt=$('#r4Count'); if(cnt)cnt.textContent=list.length+' movimientos';
+  if(!list.length){ listEl.innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin movimientos con esos filtros.</div>'; return; }
+  listEl.innerHTML=list.map(e=>{
+    const ap=e.tipo==='aportacion'; const signed=(ap?'+':'−')+fmt(num(e.importe));
+    const acum=acumMap[e.id], plus=plusMap[e.id];
+    const val=(e.valor!=null&&e.valor!=='')?num(e.valor):null;
+    return '<div class="r4-item" data-r4id="'+e.id+'"><div class="r4-ih" data-r4row="'+e.id+'">'+
+      '<span class="r4-arw">▶</span>'+
+      '<span class="r4-fch">'+ddmmyyyy(e.fecha)+'</span>'+
+      '<span class="r4-tp"><span class="r4-tag '+(ap?'ap':'re')+'">'+(ap?'Aportación':'Retirada')+'</span></span>'+
+      '<span class="r4-imp '+(ap?'pos':'neg')+'">'+signed+'</span>'+
+      '<span class="r4-n">'+fmt(acum)+'</span>'+
+      '<span class="r4-n">'+(val!=null?fmt(val):'—')+'</span>'+
+      '<span class="r4-meta">Acum. '+fmt(acum)+' · Valor '+(val!=null?fmt(val):'—')+'</span>'+
+      '</div><div class="r4-b"><div class="r4-dets">'+
+        '<div class="d"><span>Plusvalía</span>'+(plus!=null?('<b class="'+(plus>=0?'pos':'neg')+'">'+(plus>=0?'+':'')+fmt(plus)+' €</b>'):'—')+'</div>'+
+        '<div class="d"><span>Retención</span>'+((e.retencion!=null&&e.retencion!=='')?fmt(num(e.retencion))+' €':'—')+'</div>'+
+        '<div class="d"><span>Interés bruto</span>'+((e.bruto!=null&&e.bruto!=='')?fmt(num(e.bruto))+' €':'—')+'</div>'+
+        '<div class="d"><span>Interés neto</span>'+((e.neto!=null&&e.neto!=='')?'<b class="pos">'+fmt(num(e.neto))+' €</b>':'—')+'</div>'+
+      '</div><div class="r4-acts"><button class="btn ghost sm" data-editr4="'+e.id+'">✎ Editar</button><button class="btn danger sm" data-delr4="'+e.id+'">🗑 Eliminar</button></div></div></div>';
+  }).join('');
+}
+function resetR4Form(){
+  $('#r4Id').value=''; $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Ret'))$('#r4Ret').value=''; if($('#r4RetCalc'))$('#r4RetCalc').textContent='';
+  setR4Tipo('aportacion'); $('#r4Add').textContent='Añadir movimiento'; var c=$('#r4Cancel'); if(c)c.style.display='none';
+}
+function editFondoR4(id){
+  var e=(DB.easy||[]).find(x=>x.id===id); if(!e)return;
+  $('#r4Id').value=e.id; $('#r4Fecha').value=e.fecha||''; $('#r4Importe').value=num(e.importe);
+  $('#r4Valor').value=(e.valor!=null&&e.valor!=='')?num(e.valor):'';
+  setR4Tipo(e.tipo==='retirada'?'retirada':'aportacion');
+  if($('#r4Ret')) $('#r4Ret').value=(e.retencion!=null&&e.retencion!=='')?num(e.retencion):'';
+  if($('#r4RetCalc')){ if(e.retencion){ var c=r4DesdeRetencion(e.retencion); $('#r4RetCalc').textContent=' → bruto '+fmt(c.bruto)+' € · neto '+fmt(c.neto)+' €'; } else $('#r4RetCalc').textContent=''; }
+  $('#r4Add').textContent='Guardar cambios'; var cc=$('#r4Cancel'); if(cc)cc.style.display='inline-block';
+  var b=$('#blkR4Add'); if(b){ b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
 }
 function addFondoR4(){
   const fecha=$('#r4Fecha').value; if(!fecha){alert('Pon una fecha');return;}
@@ -1251,11 +1277,13 @@ function addFondoR4(){
   const valRaw=$('#r4Valor').value; const retRaw=$('#r4Ret')?$('#r4Ret').value:'';
   const tipo=$('#r4Tipo').value==='retirada'?'retirada':'aportacion';
   DB.easy=DB.easy||[];
-  const mov={id:uid(),fecha,tipo,importe:Math.abs(importe)};
-  if(valRaw!=='') mov.valor=num(valRaw);
-  if(tipo==='retirada' && retRaw!=='' && num(retRaw)>0){ const c=r4DesdeRetencion(retRaw); mov.retencion=c.retencion; mov.bruto=c.bruto; mov.neto=c.neto; }
-  DB.easy.push(mov);
-  $('#r4Importe').value=''; $('#r4Valor').value=''; if($('#r4Ret')){$('#r4Ret').value='';} if($('#r4RetCalc'))$('#r4RetCalc').textContent='';
+  const ret=(tipo==='retirada' && retRaw!=='' && num(retRaw)>0)?r4DesdeRetencion(retRaw):null;
+  const id=$('#r4Id').value;
+  if(id){ const ex=DB.easy.find(x=>x.id===id); if(ex){ ex.fecha=fecha; ex.tipo=tipo; ex.importe=Math.abs(importe);
+      if(valRaw!=='') ex.valor=num(valRaw); else delete ex.valor;
+      if(ret){ ex.retencion=ret.retencion; ex.bruto=ret.bruto; ex.neto=ret.neto; } else { delete ex.retencion; delete ex.bruto; delete ex.neto; } } }
+  else { const mov={id:uid(),fecha,tipo,importe:Math.abs(importe)}; if(valRaw!=='') mov.valor=num(valRaw); if(ret){ mov.retencion=ret.retencion; mov.bruto=ret.bruto; mov.neto=ret.neto; } DB.easy.push(mov); }
+  resetR4Form();
   renderFondoR4(); scheduleSave();
 }
 function importFondoR4(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar Fondo R4');
