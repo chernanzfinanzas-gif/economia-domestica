@@ -376,7 +376,81 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     #presAna .mcmp .mcrow>b{font-weight:600;text-align:right}
   }
   /* ===== Movimientos rediseñado ===== */
-  #view-movimientos .blk{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  /* ===== Reembolsables (antes Amalia) ===== */
+  #view-amalia .blk{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  #view-amalia .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
+  #view-amalia .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
+  #view-amalia .blk.open .blk-arw{transform:rotate(90deg)}
+  #view-amalia .blk-ic{font-size:20px}
+  #view-amalia .blk-t{font-weight:800;font-size:15px}
+  #view-amalia .blk-sub{font-size:12px;color:var(--muted);margin-top:1px}
+  #view-amalia .blk-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  #view-amalia .blk-b{display:none;border-top:1px solid var(--line)}
+  #view-amalia .blk.open .blk-b{display:block}
+  #view-amalia .ama-hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:16px;padding:18px 20px;margin-bottom:12px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  #view-amalia .ama-hero .big{font-size:15px;font-weight:700;opacity:.9}
+  #view-amalia .ama-hero .amt{font-size:32px;font-weight:800;line-height:1.05;margin-top:2px}
+  #view-amalia .ama-hero .st{font-size:12px;opacity:.85;margin-top:3px}
+  #view-amalia .ama-hero .settled{background:rgba(255,255,255,.18);border-radius:10px;padding:4px 10px;font-size:12px;font-weight:700}
+  #view-amalia .ama-hero .spacer{flex:1}
+  #view-amalia .ama-minis{display:flex;gap:10px}
+  #view-amalia .ama-mini{background:rgba(255,255,255,.12);border-radius:11px;padding:9px 13px;text-align:center;min-width:92px}
+  #view-amalia .ama-mini .l{font-size:10.5px;opacity:.85;font-weight:700}
+  #view-amalia .ama-mini .v{font-size:16px;font-weight:800;margin-top:1px}
+  #view-amalia .ama-addform{padding:16px}
+  #view-amalia .ama-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;width:100%}
+  #view-amalia .ama-seg button{border:none;background:#fff;padding:12px 10px;font-size:14px;font-weight:700;color:#64748b;cursor:pointer;flex:1}
+  #view-amalia .ama-seg button[data-t="gasto"].on{background:var(--amber,#d97706);color:#fff}
+  #view-amalia .ama-seg button[data-t="reembolso"].on{background:var(--green,#16a34a);color:#fff}
+  #view-amalia .ama-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  #view-amalia .ama-fld{display:flex;flex-direction:column;gap:5px}
+  #view-amalia .ama-fld.full{grid-column:1/-1}
+  #view-amalia .ama-fld label{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:800}
+  #view-amalia .ama-fld input{padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff;width:100%}
+  #view-amalia .ama-actions{display:flex;gap:10px;align-items:center;grid-column:1/-1;margin-top:2px}
+  #view-amalia .ama-big{flex:1;padding:14px;border-radius:11px;background:var(--brand);color:#fff;font-size:16px;font-weight:800;border:none}
+  #view-amalia .ama-big:hover{background:var(--brand-d)}
+  #view-amalia .ama-ltool{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  #view-amalia .ama-ltool input,#view-amalia .ama-ltool select{padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:13px;background:#fff}
+  #view-amalia .ama-ltool input[type=search]{flex:1;min-width:140px}
+  #view-amalia .ama-collbl{padding:8px 16px;background:#f1f5f9;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b;display:grid;grid-template-columns:14px 76px 1fr 96px 96px 96px;gap:10px}
+  #view-amalia .ama-collbl span{text-align:right}#view-amalia .ama-collbl span.l{text-align:left}#view-amalia .ama-collbl span:nth-child(4){text-align:center}
+  #view-amalia .ama-item{border-top:1px solid #f1f5f9}
+  #view-amalia .ama-item:first-child{border-top:none}
+  #view-amalia .ama-ih{display:grid;grid-template-columns:14px 76px 1fr 96px 96px 96px;gap:10px;align-items:center;padding:11px 16px;cursor:pointer}
+  #view-amalia .ama-arw{color:#cbd5e1;font-size:11px;transition:transform .15s}
+  #view-amalia .ama-item.open .ama-arw{transform:rotate(90deg)}
+  #view-amalia .ama-fch{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  #view-amalia .ama-main{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-amalia .ama-main small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-amalia .ama-tp{text-align:center}
+  #view-amalia .ama-tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:800}
+  #view-amalia .ama-tag.g{background:#ffedd5;color:#9a3412}#view-amalia .ama-tag.r{background:#dcfce7;color:#166534}
+  #view-amalia .ama-imp{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+  #view-amalia .ama-imp.g{color:var(--amber,#d97706)}#view-amalia .ama-imp.r{color:var(--green,#16a34a)}
+  #view-amalia .ama-sal{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+  #view-amalia .ama-b{display:none;padding:4px 16px 14px 40px;background:#fafcff}
+  #view-amalia .ama-item.open .ama-b{display:block}
+  #view-amalia .ama-dets{display:grid;grid-template-columns:1fr 1fr;gap:9px 16px;margin-bottom:11px}
+  #view-amalia .ama-dets .d{font-size:13px}
+  #view-amalia .ama-dets .d>span{color:var(--muted);font-weight:800;display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+  #view-amalia .ama-acts{display:flex;gap:8px}
+  #view-amalia .ama-acts .btn{padding:8px 14px}
+  @media(max-width:640px){
+    #view-amalia .ama-fgrid{grid-template-columns:1fr}
+    #view-amalia .ama-hero{flex-direction:column;align-items:flex-start}
+    #view-amalia .ama-minis{width:100%}#view-amalia .ama-mini{flex:1}
+    #view-amalia .ama-collbl{display:none}
+    #view-amalia .ama-ih{grid-template-columns:1fr auto;gap:3px 10px}
+    #view-amalia .ama-arw{display:none}
+    #view-amalia .ama-fch{grid-column:1;grid-row:1}
+    #view-amalia .ama-imp{grid-column:2;grid-row:1;text-align:right}
+    #view-amalia .ama-main{grid-column:1;grid-row:2}
+    #view-amalia .ama-tp{grid-column:1;grid-row:3;text-align:left;margin-top:3px}
+    #view-amalia .ama-sal{grid-column:2;grid-row:2/4;align-self:center;font-size:15px}
+    #view-amalia .ama-sal::before{content:"saldo ";font-size:10px;color:var(--muted);font-weight:600}
+    #view-amalia .ama-dets{grid-template-columns:1fr}
+  }
   #view-movimientos .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
   #view-movimientos .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
   #view-movimientos .blk.open .blk-arw{transform:rotate(90deg)}
@@ -939,22 +1013,51 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- AMALIA -->
   <section class="view" id="view-amalia">
-    <h2>Amalia</h2>
-    <div class="cards" id="amaCards"></div>
-    <h3>Nuevo apunte</h3>
-    <form class="grid" id="amaForm" autocomplete="off">
-      <label>Fecha<input type="date" id="amaFecha"></label>
-      <label>Concepto<input type="text" id="amaConcepto" placeholder="p. ej. Farmacia"></label>
-      <label>Tipo<select id="amaTipo"><option value="gasto">Gasto (Amalia debe)</option><option value="reembolso">Reembolso (te paga)</option></select></label>
-      <label>Importe (€)<input type="number" id="amaImporte" step="0.01" min="0" placeholder="0,00"></label>
-      <label>Nota<input type="text" id="amaNota" placeholder="opcional"></label>
-      <div class="row-actions">
-        <button type="submit" class="btn" id="amaAdd">Añadir</button>
-        <button type="button" class="btn ghost" id="amaImportBtn">Importar (.json)</button>
+    <h2>Reembolsables</h2>
+    <div id="amaHero" class="ama-hero"></div>
+
+    <div class="blk ama-blk" id="blkAmaAdd">
+      <div class="blk-h" data-amablk="blkAmaAdd"><span class="blk-arw">▶</span><span class="blk-ic">➕</span>
+        <div><div class="blk-t">Añadir apunte</div><div class="blk-sub">Registra un gasto adelantado o un reembolso</div></div>
+        <div class="blk-right"><button type="button" class="btn ghost sm" id="amaImportBtn" onclick="event.stopPropagation()">Importar .json</button></div>
       </div>
-    </form>
-    <div class="toolbar"><label class="muted">Orden <select id="amaOrden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select></label></div>
-    <div id="amaList"></div>
+      <div class="blk-b"><div class="ama-addform">
+        <form id="amaForm" autocomplete="off">
+          <input type="hidden" id="amaId">
+          <input type="hidden" id="amaTipo" value="gasto">
+          <div class="seg ama-seg" id="amaTipoSeg">
+            <button type="button" data-t="gasto" class="on">Gasto (te deben)</button>
+            <button type="button" data-t="reembolso">Reembolso (te pagan)</button>
+          </div>
+          <div class="ama-fgrid">
+            <div class="ama-fld"><label>Fecha</label><input type="date" id="amaFecha"></div>
+            <div class="ama-fld"><label>Importe (€)</label><input type="number" id="amaImporte" step="0.01" min="0" placeholder="0,00"></div>
+            <div class="ama-fld full"><label>Concepto</label><input type="text" id="amaConcepto" placeholder="p. ej. Farmacia"></div>
+            <div class="ama-fld full"><label>Nota (opcional)</label><input type="text" id="amaNota" placeholder="p. ej. vía / persona"></div>
+            <div class="ama-actions full">
+              <button type="submit" class="btn ama-big" id="amaAdd">Añadir apunte</button>
+              <button type="button" class="btn ghost" id="amaCancel" style="display:none">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div></div>
+    </div>
+
+    <div class="blk ama-blk open" id="blkAmaList">
+      <div class="blk-h" data-amablk="blkAmaList"><span class="blk-arw">▶</span><span class="blk-ic">📋</span>
+        <div><div class="blk-t">Apuntes</div><div class="blk-sub">Toca una fila para ver la nota, editar o borrar</div></div>
+        <div class="blk-right"><span class="blk-sub" id="amaCount"></span></div>
+      </div>
+      <div class="blk-b">
+        <div class="ama-ltool">
+          <input type="search" id="amaBuscar" placeholder="Buscar concepto o nota…">
+          <select id="amaFtipo"><option value="">Todos</option><option value="gasto">Solo gastos</option><option value="reembolso">Solo reembolsos</option></select>
+          <select id="amaOrden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select>
+        </div>
+        <div class="ama-collbl"><span></span><span class="l">Fecha</span><span class="l">Concepto</span><span>Tipo</span><span>Importe</span><span>Saldo</span></div>
+        <div id="amaList"></div>
+      </div>
+    </div>
   </section>
 
   <!-- FONDO R4 (liquidez remunerada) -->
