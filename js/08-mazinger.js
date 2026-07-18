@@ -45,111 +45,98 @@ function _mzCalc(){
   return arr;
 }
 
+function _mzUIState(){ if(!window._mzUI)window._mzUI={add:false,list:true,graf:false}; window._mzRow=window._mzRow||{}; return window._mzUI; }
+function _mzSaveFromForm(){
+  var fecha=(document.getElementById('mzFecha').value||'').trim();
+  var km=num(document.getElementById('mzKm').value);
+  var auton=document.getElementById('mzAuton').value;
+  var litros=num(document.getElementById('mzLitros').value);
+  var precio=num(document.getElementById('mzPrecio').value);
+  if(!fecha){ alert('Pon la fecha.'); return; }
+  if(!(km>0)){ alert('Pon los km del coche (odómetro).'); return; }
+  if(!(litros>0)){ alert('Pon los litros repostados.'); return; }
+  DB.combustible=DB.combustible||[];
+  if(_mzEdit){ var e=DB.combustible.find(function(x){return x.id===_mzEdit;}); if(e){ e.fecha=fecha; e.km=km; e.autonomia=(auton===''?null:num(auton)); e.litros=litros; e.precio=precio; } _mzEdit=null; }
+  else { DB.combustible.push({id:uid(),fecha:fecha,km:km,autonomia:(auton===''?null:num(auton)),litros:litros,precio:precio}); }
+  if(typeof scheduleSave==='function')scheduleSave();
+  renderMazinger();
+}
 function renderMazinger(){
   var sec=document.getElementById('view-mazinger'); if(!sec) return;
   if(DB.combustible===undefined){ DB.combustible=_mzSeed(); if(typeof scheduleSave==='function')scheduleSave(); }
   var host=document.getElementById('mzApp'); if(!host){ host=document.createElement('div'); host.id='mzApp'; sec.appendChild(host); }
+  var ui=_mzUIState();
   var arr=_mzCalc();
 
-  /* ---- totales ---- */
   var totKm=0,totLit=0,gastoTramos=0,gastoTotal=0,litTotal=0;
   arr.forEach(function(e){ gastoTotal+=num(e.precio); litTotal+=num(e.litros); if(e._kmRec){ totKm+=e._kmRec; totLit+=num(e.litros); gastoTramos+=num(e.precio); } });
-  var consMedio=totKm?totLit/totKm*100:0;
-  var eurLmed=litTotal?gastoTotal/litTotal:0;
-  var eur100med=totKm?gastoTramos/totKm*100:0;
+  var consMedio=totKm?totLit/totKm*100:0, eurLmed=litTotal?gastoTotal/litTotal:0, eur100med=totKm?gastoTramos/totKm*100:0;
 
-  /* ---- cabecera con las dos fotos (robot izq · coche der) ---- */
-  var _imgBox=function(src,alt,ph){ return src
-    ? '<img src="'+src+'" alt="'+alt+'" style="height:140px;width:auto;max-width:230px;border-radius:10px;display:block;object-fit:contain">'
-    : '<div style="height:140px;width:150px;border:2px dashed #cbd5e1;border-radius:10px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:12px;text-align:center;padding:6px">'+ph+'</div>'; };
-  var head='<div style="display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:12px">'
-    +'<div style="flex:0 0 auto">'+_imgBox(MZ_ROBOT,'Mazinger Z','🤖 Robot Mazinger Z')+'</div>'
-    +'<div style="flex:1 1 200px;text-align:center;min-width:180px"><div style="font-size:24px;font-weight:800;color:#1f3d6b">Mazinger Z</div>'
-    +'<div class="muted" style="font-size:13px;margin-top:2px">Toyota Corolla · estudio de consumo desde agosto 2025</div></div>'
-    +'<div style="flex:0 0 auto">'+_imgBox(MZ_FOTO,'Toyota Corolla','📷 Foto del coche')+'</div>'
-    +'</div>';
+  var _img=function(src,alt,ph){ return src?'<img src="'+src+'" alt="'+alt+'">':'<div class="mz-ph">'+ph+'</div>'; };
+  var hero='<div class="mz-hero">'+_img(MZ_ROBOT,'Mazinger Z','🤖 Robot')
+    +'<div class="mz-mid"><div class="mz-ttl">Mazinger Z</div><div class="mz-sub">Toyota Corolla · estudio de consumo desde agosto 2025</div>'
+    +'<div class="mz-consbadge">⛽ '+_mzNum(consMedio,2)+' L/100km de media</div></div>'
+    +_img(MZ_FOTO,'Toyota Corolla','📷 Coche')+'</div>';
 
-  /* ---- KPIs ---- */
-  var card=function(l,v,s){ return '<div class="card"><div class="lbl">'+l+'</div><div class="val">'+v+'</div>'+(s?'<div class="sub">'+s+'</div>':'')+'</div>'; };
-  var kpis='<div class="cards">'
-    +card('Consumo medio',_mzNum(consMedio,2)+' L/100km')
-    +card('Km recorridos',_mzNum(totKm,0)+' km')
-    +card('Litros totales',_mzNum(totLit,2)+' L')
-    +card('Gasto total',fmt(gastoTotal))
-    +card('Coste medio',_mzNum(eur100med,2)+' €/100km')
-    +card('Precio medio',_mzNum(eurLmed,3)+' €/L')
-    +'</div>';
+  var kpi=function(l,v,hl){ return '<div class="mz-kpi'+(hl?' hl':'')+'"><div class="l">'+l+'</div><div class="v">'+v+'</div></div>'; };
+  var kpis='<div class="mz-kpis">'+kpi('Consumo medio',_mzNum(consMedio,2)+' L/100km',1)+kpi('Km recorridos',_mzNum(totKm,0)+' km')+kpi('Litros totales',_mzNum(totLit,2)+' L')+kpi('Gasto total',fmt(gastoTotal)+' €')+kpi('Coste medio',_mzNum(eur100med,2)+' €/100km')+kpi('Precio medio',_mzNum(eurLmed,3)+' €/L')+'</div>';
 
-  /* ---- formulario (añadir / editar) ---- */
   var ed=_mzEdit?(DB.combustible||[]).find(function(e){return e.id===_mzEdit;}):null;
   var v=function(x){return x==null?'':x;};
   var hoy=new Date().toISOString().slice(0,10);
-  var form='<div class="card" style="margin:12px 0">'
-    +'<div style="font-weight:700;font-size:14px;margin-bottom:8px">'+(ed?'✎ Editar repostaje':'➕ Nuevo repostaje')+'</div>'
-    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px">'
-    +'<label>Fecha<input type="date" id="mzFecha" value="'+(ed?v(ed.fecha):hoy)+'"></label>'
-    +'<label>Km del coche<input type="number" id="mzKm" step="1" placeholder="odómetro" value="'+(ed?v(ed.km):'')+'"></label>'
-    +'<label>Autonomía (km)<input type="number" id="mzAuton" step="1" placeholder="restante" value="'+(ed?v(ed.autonomia):'')+'"></label>'
-    +'<label>Litros<input type="number" id="mzLitros" step="0.01" value="'+(ed?v(ed.litros):'')+'"></label>'
-    +'<label>Precio (€)<input type="number" id="mzPrecio" step="0.01" value="'+(ed?v(ed.precio):'')+'"></label>'
-    +'</div>'
-    +'<div style="margin-top:10px"><button class="btn" id="mzSave">'+(ed?'Guardar cambios':'Añadir repostaje')+'</button>'
-    +(ed?' <button class="btn ghost" id="mzCancel">Cancelar</button>':'')+'</div>'
-    +'</div>';
+  if(ed)ui.add=true;
+  var form='<div class="blk mz-blk'+(ui.add?' open':'')+'"><div class="blk-h" data-mzblk="add"><span class="blk-arw">▶</span><span class="blk-ic">➕</span><div><div class="blk-t">'+(ed?'Editar repostaje':'Nuevo repostaje')+'</div><div class="blk-sub">Apunta cada llenado del depósito</div></div></div>'
+    +'<div class="blk-b"><div class="mz-addform"><div class="mz-fgrid">'
+    +'<div class="mz-fld"><label>Fecha</label><input type="date" id="mzFecha" value="'+(ed?v(ed.fecha):hoy)+'"></div>'
+    +'<div class="mz-fld"><label>Km del coche</label><input type="number" id="mzKm" step="1" placeholder="odómetro" value="'+(ed?v(ed.km):'')+'"></div>'
+    +'<div class="mz-fld"><label>Autonomía (km)</label><input type="number" id="mzAuton" step="1" placeholder="restante" value="'+(ed?v(ed.autonomia):'')+'"></div>'
+    +'<div class="mz-fld"><label>Litros</label><input type="number" id="mzLitros" step="0.01" placeholder="0,00" value="'+(ed?v(ed.litros):'')+'"></div>'
+    +'<div class="mz-fld"><label>Precio (€)</label><input type="number" id="mzPrecio" step="0.01" placeholder="0,00" value="'+(ed?v(ed.precio):'')+'"></div>'
+    +'<div class="mz-actions"><button class="btn mz-big" data-mzsave>'+(ed?'Guardar cambios':'Añadir repostaje')+'</button>'+(ed?'<button class="btn ghost" data-mzcancel>Cancelar</button>':'')+'</div>'
+    +'</div></div></div></div>';
 
-  /* ---- gráficos ---- */
+  var rowsHtml=arr.slice().reverse().map(function(e){
+    var open=!!window._mzRow[e.id];
+    return '<div class="mz-item'+(open?' open':'')+'"><div class="mz-ih" data-mzrow="'+e.id+'">'
+      +'<span class="mz-arw">▶</span>'
+      +'<span class="mz-fch">'+(e.fecha?ddmmyyyy(e.fecha):'—')+'</span>'
+      +'<span class="mz-km">'+_mzNum(e.km,0)+' km</span>'
+      +'<span class="mz-n">'+_mzNum(e.litros,2)+' L</span>'
+      +'<span class="mz-cons">'+(e._cons!=null?_mzNum(e._cons,2):'—')+'<span class="mz-u"> L/100km</span></span>'
+      +'<span class="mz-n">'+fmt(num(e.precio))+' €</span>'
+      +'<span class="mz-meta">'+_mzNum(e.litros,2)+' L · '+fmt(num(e.precio))+' €</span>'
+      +'</div><div class="mz-b"><div class="mz-dets">'
+      +'<div class="d"><span>Autonomía</span>'+((e.autonomia!=null&&e.autonomia!=='')?_mzNum(e.autonomia,0)+' km':'—')+'</div>'
+      +'<div class="d"><span>Km recorridos</span>'+(e._kmRec!=null?_mzNum(e._kmRec,0)+' km':'—')+'</div>'
+      +'<div class="d"><span>€/L</span>'+(e._eurL!=null?_mzNum(e._eurL,3)+' €':'—')+'</div>'
+      +'<div class="d"><span>€/100km</span>'+(e._eur100!=null?_mzNum(e._eur100,2)+' €':'—')+'</div>'
+      +'</div><div class="mz-acts"><button class="btn ghost sm" data-mzedit="'+e.id+'">✎ Editar</button><button class="btn danger sm" data-mzdel="'+e.id+'">🗑 Eliminar</button></div></div></div>';
+  }).join('');
+  var totrow=arr.length?'<div class="mz-tot"><span></span><span>TOTALES</span><span>'+arr.length+' repostajes</span><span>'+_mzNum(totKm,0)+' km</span><span>'+_mzNum(consMedio,2)+'</span><span>'+fmt(gastoTotal)+' €</span></div>':'';
+  var lista=arr.length?('<div class="mz-collbl"><span></span><span>Fecha</span><span>Km coche</span><span>Litros</span><span>L/100km</span><span>Precio</span></div>'+rowsHtml+totrow+'<div class="mz-nota">Método "de lleno a lleno": los litros de cada repostaje cubren los km recorridos desde el anterior. El primer repostaje no entra en la media (no hay tramo previo).</div>'):'<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin repostajes. Añade el primero arriba.</div>';
+  var listBlk='<div class="blk mz-blk'+(ui.list?' open':'')+'"><div class="blk-h" data-mzblk="list"><span class="blk-arw">▶</span><span class="blk-ic">⛽</span><div><div class="blk-t">Repostajes</div><div class="blk-sub">Toca una fila para ver el detalle, editar o borrar</div></div><div class="blk-right"><span class="blk-sub">'+arr.length+' repostajes</span></div></div><div class="blk-b">'+lista+'</div></div>';
+
   var consPts=arr.filter(function(e){return e._cons!=null;});
   var chart1=(typeof gLine==='function'&&consPts.length)?gLine('Consumo por repostaje (L/100km)',consPts.map(function(e){return ddmmyyyy(e.fecha).slice(0,5);}),consPts.map(function(e){return e._cons;}),{}):'';
   var byMes={}; arr.forEach(function(e){ var m=(e.fecha||'').slice(0,7); if(m)byMes[m]=(byMes[m]||0)+num(e.precio); });
   var mk=Object.keys(byMes).sort();
   var chart2=(typeof gBars==='function'&&mk.length)?gBars('Gasto en combustible por mes (€)',mk.map(function(m){return m.slice(5)+'/'+m.slice(2,4);}),[{name:'Gasto',color:'#dc2626',vals:mk.map(function(m){return byMes[m];})}],{}):'';
-  var charts=(chart1||chart2)?'<div style="display:flex;flex-wrap:wrap;gap:12px;margin:8px 0">'+(chart1?'<div style="flex:1 1 320px;min-width:280px">'+chart1+'</div>':'')+(chart2?'<div style="flex:1 1 320px;min-width:280px">'+chart2+'</div>':'')+'</div>':'';
+  var charts=(chart1||chart2)?'<div class="mz-charts">'+(chart1?'<div class="mz-chart">'+chart1+'</div>':'')+(chart2?'<div class="mz-chart">'+chart2+'</div>':'')+'</div>':'<div class="mz-nota">Aún no hay datos suficientes para los gráficos.</div>';
+  var grafBlk='<div class="blk mz-blk'+(ui.graf?' open':'')+'"><div class="blk-h" data-mzblk="graf"><span class="blk-arw">▶</span><span class="blk-ic">📊</span><div><div class="blk-t">Gráficos</div><div class="blk-sub">Consumo por repostaje y gasto mensual</div></div></div><div class="blk-b">'+charts+'</div></div>';
 
-  /* ---- tabla (más reciente arriba) ---- */
-  var rows=arr.slice().reverse().map(function(e){
-    return '<tr>'
-      +'<td>'+(e.fecha?ddmmyyyy(e.fecha):'—')+'</td>'
-      +'<td class="num">'+_mzNum(e.km,0)+'</td>'
-      +'<td class="num">'+(e.autonomia!=null&&e.autonomia!==''?_mzNum(e.autonomia,0):'—')+'</td>'
-      +'<td class="num">'+_mzNum(e.litros,2)+'</td>'
-      +'<td class="num">'+fmt(num(e.precio))+'</td>'
-      +'<td class="num">'+(e._kmRec!=null?_mzNum(e._kmRec,0):'—')+'</td>'
-      +'<td class="num" style="font-weight:600;color:#1f3d6b">'+(e._cons!=null?_mzNum(e._cons,2):'—')+'</td>'
-      +'<td class="num">'+(e._eurL!=null?_mzNum(e._eurL,3):'—')+'</td>'
-      +'<td class="num">'+(e._eur100!=null?_mzNum(e._eur100,2):'—')+'</td>'
-      +'<td class="right" style="white-space:nowrap"><button class="btn ghost sm mzEd" data-id="'+e.id+'" title="Editar">✎</button> <button class="btn danger sm mzDel" data-id="'+e.id+'" title="Borrar">✕</button></td>'
-      +'</tr>';
-  }).join('');
-  var tot='<tr class="tot" style="font-weight:700;background:#eef2f7"><td colspan="5">TOTALES ('+arr.length+' repostajes)</td><td class="num">'+_mzNum(totKm,0)+'</td><td class="num">'+_mzNum(consMedio,2)+'</td><td class="num">'+_mzNum(eurLmed,3)+'</td><td class="num">'+_mzNum(eur100med,2)+'</td><td></td></tr>';
-  var tabla=arr.length
-    ? '<div style="overflow:auto"><table><thead><tr><th>Fecha</th><th class="num">Km coche</th><th class="num">Auton.</th><th class="num">Litros</th><th class="num">Precio</th><th class="num">Km recorr.</th><th class="num">L/100km</th><th class="num">€/L</th><th class="num">€/100km</th><th></th></tr></thead><tbody>'+rows+tot+'</tbody></table></div>'
-    : '<div class="empty">Sin repostajes. Añade el primero arriba.</div>';
+  host.innerHTML=hero+kpis+form+listBlk+grafBlk;
 
-  var nota='<div class="muted" style="font-size:11px;margin-top:6px">Método "de lleno a lleno": los litros de cada repostaje cubren los km recorridos desde el anterior. El primer repostaje no entra en la media (no hay tramo previo).</div>';
-
-  host.innerHTML=head+kpis+form+'<h3 style="margin:12px 0 6px">Repostajes</h3>'+tabla+nota+(charts?'<h3 style="margin:16px 0 6px">Gráficos</h3>'+charts:'');
-
-  /* ---- listeners (se recablean en cada render) ---- */
-  var save=document.getElementById('mzSave');
-  if(save)save.addEventListener('click',function(){
-    var fecha=(document.getElementById('mzFecha').value||'').trim();
-    var km=num(document.getElementById('mzKm').value);
-    var auton=document.getElementById('mzAuton').value;
-    var litros=num(document.getElementById('mzLitros').value);
-    var precio=num(document.getElementById('mzPrecio').value);
-    if(!fecha){ alert('Pon la fecha.'); return; }
-    if(!(km>0)){ alert('Pon los km del coche (odómetro).'); return; }
-    if(!(litros>0)){ alert('Pon los litros repostados.'); return; }
-    DB.combustible=DB.combustible||[];
-    if(_mzEdit){ var e=DB.combustible.find(function(x){return x.id===_mzEdit;}); if(e){ e.fecha=fecha; e.km=km; e.autonomia=(auton===''?null:num(auton)); e.litros=litros; e.precio=precio; } _mzEdit=null; }
-    else { DB.combustible.push({id:uid(),fecha:fecha,km:km,autonomia:(auton===''?null:num(auton)),litros:litros,precio:precio}); }
-    if(typeof scheduleSave==='function')scheduleSave();
-    renderMazinger();
-  });
-  var cancel=document.getElementById('mzCancel');
-  if(cancel)cancel.addEventListener('click',function(){ _mzEdit=null; renderMazinger(); });
-  host.querySelectorAll('.mzEd').forEach(function(b){ b.addEventListener('click',function(){ _mzEdit=b.getAttribute('data-id'); renderMazinger(); var f=document.getElementById('mzFecha'); if(f)f.scrollIntoView({block:'center'}); }); });
-  host.querySelectorAll('.mzDel').forEach(function(b){ b.addEventListener('click',function(){ var id=b.getAttribute('data-id'); var it=(DB.combustible||[]).filter(function(x){return x.id===id;})[0]; if(!it)return;
-    if(typeof undoableDelete==='function'){ if(_mzEdit===id)_mzEdit=null; undoableDelete('combustible','Repostaje'+(it.fecha?(' '+it.fecha):''),{item:it},function(){ DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); },['renderMazinger']); }
-    else { if(!confirm('¿Borrar este repostaje?'))return; DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); if(_mzEdit===id)_mzEdit=null; if(typeof scheduleSave==='function')scheduleSave(); renderMazinger(); } }); });
+  if(!renderMazinger._bound){ renderMazinger._bound=true;
+    sec.addEventListener('click',function(ev){
+      var t;
+      if(t=ev.target.closest('[data-mzblk]')){ var k=t.getAttribute('data-mzblk'); window._mzUI[k]=!window._mzUI[k]; var blk=t.closest('.mz-blk'); if(blk)blk.classList.toggle('open'); return; }
+      if(t=ev.target.closest('[data-mzsave]')){ _mzSaveFromForm(); return; }
+      if(t=ev.target.closest('[data-mzcancel]')){ _mzEdit=null; renderMazinger(); return; }
+      if(t=ev.target.closest('[data-mzedit]')){ _mzEdit=t.getAttribute('data-mzedit'); window._mzUI.add=true; renderMazinger(); var f=document.getElementById('mzFecha'); if(f)f.scrollIntoView({block:'center'}); return; }
+      if(t=ev.target.closest('[data-mzdel]')){ var id=t.getAttribute('data-mzdel'); var it=(DB.combustible||[]).filter(function(x){return x.id===id;})[0]; if(!it)return; if(_mzEdit===id)_mzEdit=null;
+        if(typeof undoableDelete==='function'){ undoableDelete('combustible','Repostaje'+(it.fecha?(' '+it.fecha):''),{item:it},function(){ DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); },['renderMazinger']); }
+        else { if(!confirm('¿Borrar este repostaje?'))return; DB.combustible=(DB.combustible||[]).filter(function(x){return x.id!==id;}); if(typeof scheduleSave==='function')scheduleSave(); renderMazinger(); } return; }
+      if(t=ev.target.closest('[data-mzrow]')){ if(ev.target.closest('input,button,select,a'))return; var rid=t.getAttribute('data-mzrow'); window._mzRow[rid]=!window._mzRow[rid]; var item=t.closest('.mz-item'); if(item)item.classList.toggle('open'); return; }
+    });
+  }
 }
