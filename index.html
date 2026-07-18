@@ -915,6 +915,62 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-ranking .pos-desk{display:none}#view-ranking .pos-mob{display:block}
   #view-ranking .rank-pie{flex-direction:column;align-items:flex-start}
 }
+/* ===== Rentabilidad ===== */
+#view-rentabilidad #rentaKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-rentabilidad #rentaKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-rentabilidad #rentaKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-rentabilidad #rentaKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-rentabilidad #rentaKpis .k .v.pos{color:var(--green)}#view-rentabilidad #rentaKpis .k .v.neg{color:var(--red)}
+#view-rentabilidad #rentaKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-rentabilidad #rentaKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-rentabilidad #rentaKpis .k.hero .l,#view-rentabilidad #rentaKpis .k.hero .p{color:#bbf7d0}
+#view-rentabilidad .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-rentabilidad .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-rentabilidad .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-rentabilidad .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-rentabilidad .pos-blk-h .bt{font-weight:800;font-size:14px}#view-rentabilidad .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-rentabilidad .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-rentabilidad .pos-blk.open .pos-blk-b{display:block}
+#view-rentabilidad .renta-pad{padding:12px 14px}
+#view-rentabilidad .ptable{overflow:auto;max-height:66vh}
+#view-rentabilidad .ptable table{border-collapse:collapse;font-size:12px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent;width:auto}
+#view-rentabilidad .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-rentabilidad .ptable thead th:nth-child(1){text-align:left}
+#view-rentabilidad .ptable tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-rentabilidad .ptable tbody td.l{text-align:left}
+#view-rentabilidad .ptable th:nth-child(1),#view-rentabilidad .ptable td:nth-child(1){position:sticky;left:0;z-index:3;background:#fff;min-width:118px;box-shadow:6px 0 8px -6px rgba(15,23,42,.18)}
+#view-rentabilidad .ptable thead th:nth-child(1){z-index:6;background:#f8fafc}
+#view-rentabilidad .renta-tk{font-weight:800;color:var(--brand)}#view-rentabilidad .renta-nm{color:#94a3b8;font-size:10px}
+#view-rentabilidad .pos-mob{display:none}
+#view-rentabilidad .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-rentabilidad .lc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#view-rentabilidad .lc-h .tk{font-size:16px;font-weight:800;color:var(--brand)}#view-rentabilidad .lc-h .tk .nm{font-size:10px;color:#94a3b8;font-weight:400;display:block;margin-top:2px}
+#view-rentabilidad .ty{text-align:right;font-size:17px;font-weight:800}#view-rentabilidad .ty.g{color:var(--green)}#view-rentabilidad .ty.r{color:var(--red)}#view-rentabilidad .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-rentabilidad .lc-row{margin:8px 0 2px;font-size:12.5px}#view-rentabilidad .lc-row .pl{font-weight:800;font-size:15px}#view-rentabilidad .lc-row b{font-weight:800}
+#view-rentabilidad .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#view-rentabilidad .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-rentabilidad .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-rentabilidad .lg .m b{font-size:12px;font-weight:700}
+#view-rentabilidad .bar-note{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:10px;padding:10px 13px;font-size:12.5px;line-height:1.5;color:#334155;margin-bottom:12px}
+#view-rentabilidad .bars{display:flex;flex-direction:column;gap:7px}
+#view-rentabilidad .bar-row{display:grid;grid-template-columns:48px 1fr 66px 74px;align-items:center;gap:10px}
+#view-rentabilidad .bar-lb{font-weight:800;color:var(--brand);font-size:12px}
+#view-rentabilidad .bar-tr{position:relative;background:#f1f5f9;border-radius:7px;height:22px;overflow:hidden}
+#view-rentabilidad .bar-fill{position:absolute;left:0;top:0;height:100%;border-radius:7px}#view-rentabilidad .bar-fill.g{background:linear-gradient(90deg,#22c55e,#16a34a)}#view-rentabilidad .bar-fill.r{background:linear-gradient(90deg,#f87171,#dc2626)}
+#view-rentabilidad .bar-val{font-size:12px;font-weight:800;text-align:right}
+#view-rentabilidad .bar-tir{font-size:10.5px;color:#64748b;text-align:right}
+#view-rentabilidad .cmp-note{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:11px 14px;font-size:12.5px;line-height:1.55;color:#334155;margin-bottom:14px}#view-rentabilidad .cmp-note b{color:#92400e}
+#view-rentabilidad .cmp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px}
+#view-rentabilidad .cmp-c{border-radius:12px;padding:13px 15px;border:1px solid var(--line)}
+#view-rentabilidad .cmp-c.cart{background:#f0fdf4;border-color:#bbf7d0}#view-rentabilidad .cmp-c.ibex{background:#fffbeb;border-color:#fde68a}#view-rentabilidad .cmp-c.dif{background:#f8fafc}
+#view-rentabilidad .cmp-t{font-size:10px;font-weight:800;letter-spacing:.03em;color:var(--muted)}#view-rentabilidad .cmp-v{font-size:22px;font-weight:800;margin-top:4px}#view-rentabilidad .cmp-v.pos{color:var(--green)}#view-rentabilidad .cmp-v.neg{color:var(--red)}
+#view-rentabilidad .cmp-s{font-size:11px;color:var(--muted);margin-top:2px}#view-rentabilidad .cmp-r{font-size:14px;font-weight:800;margin-top:8px;padding-top:8px;border-top:1px solid rgba(0,0,0,.06)}#view-rentabilidad .cmp-r.pos{color:var(--green)}#view-rentabilidad .cmp-r.neg{color:var(--red)}#view-rentabilidad .cmp-r span{font-size:10px;font-weight:600;color:var(--muted)}
+#view-rentabilidad .cmp-leg{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#475569;margin-top:8px}#view-rentabilidad .cmp-leg i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:middle}
+#view-rentabilidad .meth-item{margin-bottom:14px}#view-rentabilidad .meth-h{font-weight:800;font-size:13.5px;color:#1e293b;margin-bottom:5px}
+#view-rentabilidad .meth p{font-size:12.5px;line-height:1.6;color:#334155;margin:0 0 7px}#view-rentabilidad .meth b{color:#1e40af}#view-rentabilidad .meth i{color:#64748b}
+#view-rentabilidad .meth-f{background:#f1f5f9;border-radius:7px;padding:7px 11px;font-weight:700;color:#0f172a;display:inline-block}
+@media(max-width:960px){
+  #view-rentabilidad #rentaKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-rentabilidad #rentaKpis .k .v{font-size:18px}
+  #view-rentabilidad .pos-desk{display:none}#view-rentabilidad .pos-mob{display:block}
+  #view-rentabilidad .cmp-grid{grid-template-columns:1fr}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2636,9 +2692,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="fiscalBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-rentabilidad">
-    <h2>Rentabilidad por empresa</h2>
-    <div id="rentaKpis" class="cards" style="margin-top:10px"></div>
-    <div id="rentaBody" style="margin-top:10px"></div>
+    <h2>📊 Rentabilidad por empresa</h2>
+    <div class="sub" style="margin-bottom:10px">Cómo rinde cada posición: tu rentabilidad real (con tus fechas y dividendos) y el rendimiento del activo (total-return del mercado). Comparado con el IBEX-35.</div>
+    <div id="rentaKpis" style="margin-bottom:14px"></div>
+    <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ordenar empresas por <select id="rentaOrden" onchange="rentaSetOrden(this.value)"></select></label></div>
+    <div id="rentaBody"></div>
   </section>
   <section class="view" id="view-atribucion">
     <h2>Atribución del crecimiento</h2>
