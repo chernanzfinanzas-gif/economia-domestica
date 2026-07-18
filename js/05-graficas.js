@@ -321,33 +321,40 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
+  window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,corr:false};
   const pv=x=>x==null?'—':(x*100).toFixed(1)+'%';
-  if(kp)kp.innerHTML=[
-    ['Volatilidad anual',pv(R.volPort),R.volPort>0.25?'neg':(R.volPort<0.15?'pos':'')],
-    ['Drawdown máximo',pv(R.ddMax),'neg'],
-    ['Beta vs IBEX',R.beta==null?'—':R.beta.toFixed(2),''],
-    ['Correlación media',R.avgCorr==null?'—':R.avgCorr.toFixed(2),(R.avgCorr!=null&&R.avgCorr<0.5)?'pos':(R.avgCorr>=0.7?'neg':'')],
-    ['Nº efectivo posiciones',R.effN.toFixed(1)+' / '+R.tickers.length,''],
-    ['Concentración top',R.topT+' '+pv(R.topW),R.topW>=0.35?'neg':'']
-  ].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val ${k[2]||''}">${k[1]}</div></div>`).join('');
-  const perT=R.tickers.slice().sort((a,b)=>R.W[b]-R.W[a]);
+  const corrCol=v=>v>=0.6?'#dc2626':v>=0.4?'#d97706':'#16a34a';
+  const corrBg=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){const c=Math.round(255-x*105);return 'rgb(255,'+c+','+c+')';} const c2=Math.round(255+x*105); return 'rgb('+c2+',255,'+c2+')'; };
   const avgCorrOf=t=>{ let s=0,c=0; R.tickers.forEach(o=>{ if(o!==t){s+=R.corrM[t][o];c++;} }); return c?s/c:null; };
-  const trows=perT.map(t=>{ const a=avgCorrOf(t); return `<tr><td><b data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</b></td><td class="num">${pv(R.W[t])}</td><td class="num">${pv(R.volById[t])}</td><td class="num">${a==null?'—':a.toFixed(2)}</td></tr>`; }).join('');
-  const colFor=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){ const c=Math.round(255-x*105); return `rgb(255,${c},${c})`; } const c=Math.round(255+x*105); return `rgb(${c},255,${c})`; };
-  const head='<tr><th></th>'+perT.map(t=>`<th class="num" style="font-size:10px"><span data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</span></th>`).join('')+'</tr>';
-  const mrows=perT.map(a=>`<tr><th style="text-align:left;font-size:10px"><span data-ficha="${a}" style="cursor:pointer;color:var(--brand)">${a}</span></th>`+perT.map(b=>{ const v=R.corrM[a][b]; return `<td class="num" style="background:${colFor(v)};font-size:10px">${v.toFixed(2)}</td>`; }).join('')+'</tr>').join('');
+  if(kp)kp.innerHTML=
+    '<div class="rz-c hero"><div class="l">Volatilidad anual</div><div class="v">'+pv(R.volPort)+'</div><div class="p">'+(R.volPort>0.25?'alta':R.volPort<0.15?'contenida':'media')+'</div></div>'+
+    '<div class="rz-c"><div class="l">Drawdown máximo</div><div class="v neg">'+pv(R.ddMax)+'</div><div class="p">peor caída del periodo</div></div>'+
+    '<div class="rz-c"><div class="l">Beta vs IBEX</div><div class="v">'+(R.beta==null?'—':R.beta.toFixed(2))+'</div><div class="p">'+(R.beta==null?'':(R.beta>1?'más que el mercado':'menos que el mercado'))+'</div></div>'+
+    '<div class="rz-c"><div class="l">Correlación media</div><div class="v '+(R.avgCorr!=null&&R.avgCorr<0.5?'pos':(R.avgCorr>=0.7?'neg':''))+'">'+(R.avgCorr==null?'—':R.avgCorr.toFixed(2))+'</div><div class="p">'+(R.avgCorr!=null&&R.avgCorr<0.5?'diversifica bien':'poco diversificada')+'</div></div>'+
+    '<div class="rz-c"><div class="l">Nº efectivo posiciones</div><div class="v">'+R.effN.toFixed(1)+' / '+R.tickers.length+'</div><div class="p">diversificación real</div></div>'+
+    '<div class="rz-c"><div class="l">Concentración top</div><div class="v '+(R.topW>=0.35?'neg':'')+'">'+R.topT+' '+pv(R.topW)+'</div><div class="p">mayor posición</div></div>';
+  const perT=R.tickers.slice().sort((a,b)=>R.W[b]-R.W[a]);
+  const trows=perT.map(t=>{ const a=avgCorrOf(t); return '<tr><td class="l"><b data-ficha="'+t+'" class="rz-tk">'+t+'</b></td><td>'+pv(R.W[t])+'</td><td>'+pv(R.volById[t])+'</td><td style="color:'+(a==null?'#64748b':corrCol(a))+';font-weight:600">'+(a==null?'—':a.toFixed(2))+'</td></tr>'; }).join('');
+  const posDesk='<div class="rz-desk"><table><thead><tr><th class="l">Empresa</th><th>Peso</th><th>Volat.</th><th>Corr. media</th></tr></thead><tbody>'+trows+'</tbody></table></div>';
+  const posCards=perT.map(t=>{ const a=avgCorrOf(t); return '<div class="rz-icard"><div class="top"><b data-ficha="'+t+'" class="rz-tk">'+t+'</b><span style="font-weight:700">'+pv(R.W[t])+'</span></div><div class="g"><div class="m"><div class="l">Peso</div><div class="v">'+pv(R.W[t])+'</div></div><div class="m"><div class="l">Volat.</div><div class="v">'+pv(R.volById[t])+'</div></div><div class="m"><div class="l">Corr. media</div><div class="v" style="color:'+(a==null?'#64748b':corrCol(a))+'">'+(a==null?'—':a.toFixed(2))+'</div></div></div></div>'; }).join('');
   const secArr=Object.keys(R.secW).map(s=>({s,w:R.secW[s]})).sort((a,b)=>b.w-a.w);
-  const secRows=secArr.map(x=>`<tr><td>${x.s}</td><td class="num ${x.w>=0.35?'neg':''}">${pv(x.w)}</td></tr>`).join('');
-  el.innerHTML=`<div class="sub" style="margin-bottom:8px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · ${R.nDays} días · ${R.desde} → ${R.hasta}. Volatilidad y beta anualizadas.</div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-    <div><h3 style="font-size:14px;margin:0 0 6px">Por posición</h3><div style="overflow:auto"><table><thead><tr><th>Empresa</th><th class="num">Peso</th><th class="num">Volat.</th><th class="num">Corr. media</th></tr></thead><tbody>${trows}</tbody></table></div></div>
-    <div><h3 style="font-size:14px;margin:0 0 6px">Peso por sector</h3><div style="overflow:auto"><table><thead><tr><th>Sector</th><th class="num">Peso</th></tr></thead><tbody>${secRows}</tbody></table></div></div>
-  </div>
-  <h3 style="font-size:14px;margin:14px 0 6px">Matriz de correlaciones</h3><div class="sub" style="margin-bottom:6px">Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). Correlación media de la cartera: <b>${R.avgCorr==null?'—':R.avgCorr.toFixed(2)}</b>.</div><div style="overflow:auto"><table style="font-size:11px"><thead>${head}</thead><tbody>${mrows}</tbody></table></div>`;
+  const secInner=secArr.map(x=>{ const p=x.w*100; const col=p>=35?'#dc2626':p>=25?'#d97706':'#2563eb'; return '<div class="rz-secbar"><div class="top"><span><b>'+x.s+'</b></span><span style="font-weight:800;color:'+col+'">'+p.toFixed(0)+'%</span></div><div class="bar"><i style="width:'+Math.min(100,p)+'%;background:'+col+'"></i></div></div>'; }).join('');
+  const chead='<tr><th class="l"></th>'+perT.map(t=>'<th>'+t+'</th>').join('')+'</tr>';
+  const crows=perT.map(a=>'<tr><th class="l">'+a+'</th>'+perT.map(b=>{ const v=R.corrM[a][b]; return '<td style="background:'+corrBg(v)+'">'+v.toFixed(2)+'</td>'; }).join('')+'</tr>').join('');
+  const corrDesk='<div class="rz-desk"><table class="rz-heat"><thead>'+chead+'</thead><tbody>'+crows+'</tbody></table></div>';
+  const corrCards=perT.map(t=>{ const peers=perT.filter(o=>o!==t).map(o=>({o,v:R.corrM[t][o]})).sort((x,y)=>y.v-x.v).slice(0,3); const a=avgCorrOf(t);
+    return '<div class="rz-pcard"><div class="top"><b data-ficha="'+t+'" class="rz-tk">'+t+'</b><span style="font-size:11px;color:#64748b">corr. media '+(a==null?'—':a.toFixed(2))+'</span></div><div class="facs">'+peers.map(p=>'<span class="rz-pfac" style="background:'+(p.v>=0.6?'#fef2f2':p.v>=0.4?'#fff7ed':'#f0fdf4')+';color:'+corrCol(p.v)+'">'+p.o+' '+p.v.toFixed(2)+'</span>').join('')+'</div></div>'; }).join('');
+  const blk=(key,ic,title,cnt,note,inner)=>{ const op=window._riesgoOpen[key]; return '<div class="rz-blk'+(op?' open':'')+'" data-rzblk="'+key+'"><div class="rz-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div><div class="rz-blk-b">'+(note?'<div class="rz-note">'+note+'</div>':'')+inner+'</div></div>'; };
+  el.innerHTML='<div class="sub" style="margin-bottom:12px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · '+R.nDays+' días · '+R.desde+' → '+R.hasta+'. Volatilidad y beta anualizadas.</div>'+
+    blk('pos','📊','Por posición',R.tickers.length+' empresas','Peso, volatilidad individual y correlación media de cada empresa con el resto (rojo = se mueve con la cartera).',posDesk+'<div class="rz-mob">'+posCards+'</div>')+
+    blk('sec','🏭','Peso por sector',Object.keys(R.secW).length+' sectores','Rojo ≥35% (sobreconcentración) · ámbar ≥25%.',secInner)+
+    blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>');
+  var _rsec=document.getElementById('view-riesgo');
+  if(_rsec && !renderRiesgo._bound){ renderRiesgo._bound=true; _rsec.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.rz-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-rzblk'); window._riesgoOpen[k]=!window._riesgoOpen[k]; h.parentElement.classList.toggle('open'); } }); }
 }
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;
-var _evoZoom={}; function _evoSt(id){ _evoZoom[id]=_evoZoom[id]||{range:'max',zoom:null}; return _evoZoom[id]; }
+var _evoState={}; function _evoSt(id){ _evoState[id]=_evoState[id]||{range:'max',zoom:null}; return _evoState[id]; }
 var _evoDrag=null;
 const _EVO_DAYS={'1s':7,'1m':31,'3m':92,'6m':183,'1y':366,'5y':1827,'max':null};
 function _evoHideAll(){ document.querySelectorAll('.evoTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.evoGuide,.evoDot').forEach(el=>el.style.display='none'); }
