@@ -781,33 +781,33 @@ function ddmmyyyy(f){ return f.split('-').reverse().join('/'); }
 function renderPat(){
   const snaps=patSnaps();
   const obj=(DB.config&&DB.config.objetivoReparto!=null)?DB.config.objetivoReparto:0.5;
-  const cardsEl=$('#patCards'), repEl=$('#patReparto');
+  const heroEl=$('#patCards'), repEl=$('#patReparto');
   if(!snaps.length){
-    cardsEl.innerHTML='<div class="empty">Aún no hay registros de patrimonio. Añade uno abajo o importa tu histórico.</div>';
-    repEl.innerHTML=''; $('#patEvol').textContent='';
+    if(heroEl)heroEl.innerHTML='<div class="empty" style="padding:16px">Aún no hay registros de patrimonio. Añade uno abajo o importa tu histórico.</div>';
+    if(repEl)repEl.innerHTML=''; if($('#patEvol'))$('#patEvol').textContent='';
     const cv=$('#patChart'); if(cv){const x=cv.getContext('2d');x.clearRect(0,0,cv.width,cv.height);}
     renderPatCuentas(); renderPatForm(); renderPatList(); return;
   }
   const last=snaps[snaps.length-1], first=snaps[0];
   const t=snapTot(last), tf=snapTot(first);
-  const prev = snaps.length>1? snapTot(snaps[snaps.length-2]) : null;
-  const pctInv = t.total? t.inv/t.total : 0;
-  const rendIni = tf.total? (t.total-tf.total)/tf.total : 0;
-  const rendPrev = prev&&prev.total? (t.total-prev.total)/prev.total : 0;
-  cardsEl.innerHTML=[
-    {l:'Patrimonio total',v:fmt(t.total),s:ddmmyyyy(last.fecha),cls:''},
-    {l:'Efectivo',v:fmt(t.ef),s:Math.round((1-pctInv)*100)+'% del total',cls:''},
-    {l:'Invertido',v:fmt(t.inv),s:Math.round(pctInv*100)+'% del total',cls:''},
-    {l:'Rendimiento vs inicio',v:(rendIni>=0?'+':'')+(rendIni*100).toFixed(1)+'%',s:'vs anterior: '+(rendPrev>=0?'+':'')+(rendPrev*100).toFixed(1)+'%',cls:rendIni>=0?'pos':'neg'}
-  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  const prev=snaps.length>1?snapTot(snaps[snaps.length-2]):null;
+  const pctInv=t.total?t.inv/t.total:0;
+  const rendIni=tf.total?(t.total-tf.total)/tf.total:0;
+  const rendPrev=prev&&prev.total?(t.total-prev.total)/prev.total:0;
+  if(heroEl)heroEl.innerHTML=
+    '<div><div class="ph-l">Patrimonio total</div><div class="ph-amt">'+fmt(t.total)+' €</div><div class="ph-s">al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros</div></div>'+
+    '<div class="ph-rend">'+(rendIni>=0?'+':'')+(rendIni*100).toFixed(0)+'% desde el inicio</div>'+
+    '<div class="ph-sp"></div><div class="ph-minis">'+
+      '<div class="ph-mini"><div class="l">Efectivo</div><div class="v">'+fmt(t.ef)+'</div><div class="p">'+Math.round((1-pctInv)*100)+'%</div></div>'+
+      '<div class="ph-mini"><div class="l">Invertido</div><div class="v">'+fmt(t.inv)+'</div><div class="p">'+Math.round(pctInv*100)+'%</div></div>'+
+      '<div class="ph-mini"><div class="l">vs anterior</div><div class="v">'+(rendPrev>=0?'+':'')+(rendPrev*100).toFixed(1)+'%</div><div class="p">último registro</div></div>'+
+    '</div>';
   const pInv=Math.round(pctInv*100), pEf=100-pInv, oInv=Math.round(obj*100);
-  repEl.innerHTML=`<div class="card"><div class="lbl">Reparto efectivo / invertido</div>
-    <div class="bar" style="height:18px;margin-top:8px;display:flex">
-      <i style="width:${pEf}%;background:var(--brand)"></i><i style="width:${pInv}%;background:var(--green)"></i></div>
-    <div class="sub" style="margin-top:6px">Efectivo ${pEf}% · Invertido ${pInv}% &nbsp;|&nbsp; objetivo invertido
-      <input type="number" id="patObj" min="0" max="100" value="${oInv}" style="width:62px;padding:4px;border:1px solid var(--line);border-radius:6px">%</div></div>`;
+  if(repEl)repEl.innerHTML='<div class="pr-l">Reparto efectivo / invertido</div>'+
+    '<div class="pr-bar"><i style="width:'+pEf+'%;background:var(--brand)"></i><i style="width:'+pInv+'%;background:var(--green,#16a34a)"></i></div>'+
+    '<div class="pr-leg"><span><span class="pr-dot" style="background:var(--brand)"></span>Efectivo '+pEf+'%</span><span><span class="pr-dot" style="background:var(--green,#16a34a)"></span>Invertido '+pInv+'%</span><span>| objetivo invertido <input type="number" id="patObj" min="0" max="100" value="'+oInv+'">%</span></div>';
   drawPatChart(snaps);
-  $('#patEvol').textContent=snaps.length+' registros · desde '+ddmmyyyy(first.fecha)+' ('+fmt(tf.total)+') hasta '+ddmmyyyy(last.fecha)+' ('+fmt(t.total)+')';
+  if($('#patEvol'))$('#patEvol').textContent=snaps.length+' registros · desde '+ddmmyyyy(first.fecha)+' ('+fmt(tf.total)+') hasta '+ddmmyyyy(last.fecha)+' ('+fmt(t.total)+')';
   renderPatCuentas(); renderPatForm(); renderPatList();
 }
 
@@ -846,21 +846,45 @@ function drawPatChart(snaps){
 function renderPatForm(){
   const el=$('#patFormFields'); if(!el) return;
   const today=new Date().toISOString().slice(0,10);
-  let html='<label>Fecha<input type="date" id="patFecha" value="'+today+'"></label>';
-  DB.cuentas.forEach(c=>{
-    html+='<label>'+c.nombre+' · efectivo<input type="number" step="0.01" class="patEf" data-c="'+c.id+'" placeholder="0"></label>';
-    html+='<label>'+c.nombre+' · invertido<input type="number" step="0.01" class="patInv" data-c="'+c.id+'" placeholder="0"></label>';
+  let html='<div class="pat-fld"><label>Fecha</label><input type="date" id="patFecha" value="'+today+'"></div>';
+  (DB.cuentas||[]).forEach(function(c){
+    html+='<div class="pat-fld acc"><div class="an">'+_infEsc(c.nombre)+'</div><div class="prow">'+
+      '<div><label>Efectivo</label><input type="number" step="0.01" class="patEf" data-c="'+c.id+'" placeholder="0"></div>'+
+      '<div><label>Invertido</label><input type="number" step="0.01" class="patInv" data-c="'+c.id+'" placeholder="0"></div></div></div>';
   });
   el.innerHTML=html;
 }
+function editSnapshot(id){
+  var s=(DB.patrimonio||[]).find(function(x){return x.id===id;}); if(!s)return;
+  var b=$('#blkPatReg'); if(b)b.classList.add('open');
+  renderPatForm();
+  if($('#patFecha'))$('#patFecha').value=s.fecha||'';
+  var efs=$$('.patEf'), invs=$$('.patInv');
+  (s.lineas||[]).forEach(function(l){ var ef=efs.find(function(i){return i.dataset.c===l.cuentaId;}); var iv=invs.find(function(i){return i.dataset.c===l.cuentaId;}); if(ef)ef.value=(num(l.ef)||''); if(iv)iv.value=(num(l.inv)||''); });
+  var rc=$('#patRegCancel'); if(rc)rc.style.display='inline-block';
+  if(b)b.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function resetPatForm(){ renderPatForm(); var rc=$('#patRegCancel'); if(rc)rc.style.display='none'; }
 function renderPatList(){
-  const snaps=patSnaps().reverse();
-  if(!snaps.length){ $('#patList').innerHTML=''; return; }
-  const rows=snaps.map(s=>{ const t=snapTot(s); return `<tr>
-    <td>${ddmmyyyy(s.fecha)}</td><td class="num">${fmt(t.ef)}</td><td class="num">${fmt(t.inv)}</td>
-    <td class="num"><b>${fmt(t.total)}</b></td><td class="num">${t.total?Math.round(t.inv/t.total*100):0}%</td>
-    <td class="right"><button class="btn danger sm" data-delsnap="${s.id}">✕</button></td></tr>`;}).join('');
-  $('#patList').innerHTML=`<table><thead><tr><th>Fecha</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th><th class="num">% Inv.</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  const snaps=patSnaps().slice().reverse();
+  const cnt=$('#patCount'); if(cnt)cnt.textContent=snaps.length+' registros';
+  const listEl=$('#patList'); if(!listEl)return;
+  if(!snaps.length){ listEl.innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin registros.</div>'; return; }
+  const cById=function(id){return (DB.cuentas||[]).find(function(c){return c.id===id;});};
+  listEl.innerHTML=snaps.map(function(s){ var t=snapTot(s); var pInv=t.total?Math.round(t.inv/t.total*100):0;
+    var brk=(s.lineas||[]).map(function(l){ var c=cById(l.cuentaId); return '<tr><td>'+(c?_infEsc(c.nombre):'—')+'</td><td class="num">'+fmt(num(l.ef))+' €</td><td class="num">'+fmt(num(l.inv))+' €</td><td class="num">'+fmt(num(l.ef)+num(l.inv))+' €</td></tr>'; }).join('');
+    return '<div class="pat-item"><div class="pat-ih" data-patrow>'+
+      '<span class="pat-arw">▶</span>'+
+      '<span class="pat-fch">'+ddmmyyyy(s.fecha)+'</span>'+
+      '<span class="pat-n">'+fmt(t.ef)+' / '+fmt(t.inv)+'</span>'+
+      '<span class="pat-tot">'+fmt(t.total)+' €</span>'+
+      '<span class="pat-pinv">'+pInv+'%</span>'+
+      '<span class="pat-meta">Efect. '+fmt(t.ef)+' · Invert. '+fmt(t.inv)+' · '+pInv+'% inv.</span>'+
+      '</div><div class="pat-b">'+
+        '<table class="pat-brk"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th></tr></thead><tbody>'+brk+'</tbody></table>'+
+        '<div class="pat-acts"><button class="btn ghost sm" data-editsnap="'+s.id+'">✎ Editar</button><button class="btn danger sm" data-delsnap="'+s.id+'">🗑 Eliminar</button></div>'+
+      '</div></div>';
+  }).join('');
 }
 function addSnapshot(){
   const fE=$('#patFecha'); const fecha=fE?fE.value:''; if(!fecha){alert('Pon una fecha');return;}
@@ -890,8 +914,8 @@ function importPatrimonio(file){ if(typeof pushSnapshot==='function')pushSnapsho
 
 function renderPatCuentas(){
   const el=$('#patCuentas'); if(!el) return;
-  if(!DB.cuentas.length){ el.innerHTML='<span class="muted">No hay cuentas todavía.</span>'; return; }
-  el.innerHTML=DB.cuentas.map(c=>`<span class="tag" style="margin:3px 6px 3px 0;display:inline-flex;align-items:center;gap:6px">${c.nombre}<button class="btn danger sm" data-delcuenta="${c.id}" style="padding:0 6px">✕</button></span>`).join('');
+  if(!(DB.cuentas||[]).length){ el.innerHTML='<span class="muted">No hay cuentas todavía.</span>'; return; }
+  el.innerHTML=DB.cuentas.map(function(c){ return '<span class="pat-ctag">'+_infEsc(c.nombre)+'<button data-delcuenta="'+c.id+'" title="Borrar cuenta">✕</button></span>'; }).join('');
 }
 function addCuenta(){
   const n=prompt('Nombre de la nueva cuenta (p. ej. Bankinter):'); if(n===null) return;
