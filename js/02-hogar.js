@@ -737,9 +737,11 @@ function renderPresDesglose(){
   DB.categorias.forEach(c=>{(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
   const order=Object.keys(groups).sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
   const catsConDato=g=> (groups[g]||[]).filter(c=> (presMens[c.id]||0)>0 || (realCat[c.id]&&realCat[c.id].some(v=>Math.abs(v)>0.005)) );
+  window._dgDeskOpen=window._dgDeskOpen||{};
+  const isDk=g=>!!window._dgDeskOpen[g];
   const bandRow=(g)=>{
     let bp=0,br=0; (groups[g]||[]).forEach(c=>{ bp+=(presMens[c.id]||0)*12; br+=realYear(c.id); });
-    return `<tr class="grp-row"><td colspan="15">${g} <span class="muted" style="font-weight:400">· Pres. ${fmt(bp)} / Real ${fmt(br)}</span></td></tr>`;
+    return `<tr class="grp-row dg-band" data-dgdk="${g}"><td colspan="15"><span class="dg-arw">${isDk(g)?'▼':'▶'}</span> ${g} <span class="muted" style="font-weight:400">· Pres. ${fmt(bp)} / Real ${fmt(br)}</span></td></tr>`;
   };
   // Bloque resumen (espejo del Excel)
   const ingCats=DB.categorias.filter(c=>c.tipo==='ingreso'), gasCats=DB.categorias.filter(c=>c.tipo==='gasto');
@@ -762,11 +764,11 @@ function renderPresDesglose(){
       sumRow('Gasto realizado',gasReal,'')+
       sumRow('Ahorro presupuestado',ahoPrev,'grp-row',true)+
       sumRow('Ahorro logrado',ahoLog,'grp-row r-verde',true);
-  // Montaje: INGRESOS → resumen → gastos
+  // Montaje: INGRESOS → resumen → gastos (cada capítulo plegable; cerrado por defecto)
   let body='';
-  const ing=catsConDato('Ingresos'); if(ing.length) body+=bandRow('Ingresos')+ing.map(conceptRows).join('');
-  body+=`<tr class="grp-row r-amar"><td colspan="15"><b>RESUMEN</b></td></tr>`+resumen;
-  order.filter(g=>g!=='Ingresos').forEach(g=>{ const cs=catsConDato(g); if(!cs.length)return; body+=bandRow(g)+cs.map(conceptRows).join(''); });
+  const ing=catsConDato('Ingresos'); if(ing.length){ body+=bandRow('Ingresos'); if(isDk('Ingresos')) body+=ing.map(conceptRows).join(''); }
+  body+=`<tr class="grp-row r-amar dg-band" data-dgdk="__resumen"><td colspan="15"><span class="dg-arw">${isDk('__resumen')?'▼':'▶'}</span> <b>RESUMEN</b></td></tr>`; if(isDk('__resumen')) body+=resumen;
+  order.filter(g=>g!=='Ingresos').forEach(g=>{ const cs=catsConDato(g); if(!cs.length)return; body+=bandRow(g); if(isDk(g)) body+=cs.map(conceptRows).join(''); });
   const head=`<tr><th style="text-align:left">Concepto</th><th></th>${short.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">Total</th></tr>`;
   const hasData=ing.length || order.some(g=>g!=='Ingresos'&&catsConDato(g).length);
   el.innerHTML=`<table class="tbl-desglose"><thead>${head}</thead><tbody>${body}</tbody></table>`
@@ -775,6 +777,7 @@ function renderPresDesglose(){
   if(!renderPresDesglose._bound){ renderPresDesglose._bound=true; var _sec=document.getElementById('view-desglose');
     if(_sec){
       _sec.addEventListener('click',function(e){
+        var dk=e.target.closest('[data-dgdk]'); if(dk){ var gg=dk.getAttribute('data-dgdk'); window._dgDeskOpen=window._dgDeskOpen||{}; window._dgDeskOpen[gg]=!window._dgDeskOpen[gg]; renderPresDesglose(); return; }
         var ch=e.target.closest('[data-dgch]'); if(ch){ var g=ch.getAttribute('data-dgch'); window._dgOpen=window._dgOpen||{}; window._dgOpen[g]=!window._dgOpen[g]; var blk=ch.closest('.dg-mblk'); if(blk)blk.classList.toggle('open'); return; }
         if(e.target.closest('#dgPrev')){ _dgStep(-1); return; }
         if(e.target.closest('#dgNext')){ _dgStep(1); return; }
@@ -806,15 +809,23 @@ function _dgMobileRender(year, realCat, presMens){
   var iP=sum(ingC,function(c){return presOf(c.id);}), iR=sum(ingC,function(c){return realP(c.id);});
   var gP=sum(gasC,function(c){return presOf(c.id);}), gR=sum(gasC,function(c){return realP(c.id);});
   var ahP=iP-gP, ahR=iR-gR;
+  // Totales anuales (siempre, para tener el resumen del año a la vista aunque se mire un mes)
+  var iPy=sum(ingC,function(c){return (presMens[c.id]||0)*12;}), iRy=sum(ingC,function(c){return realYr(c.id);});
+  var gPy=sum(gasC,function(c){return (presMens[c.id]||0)*12;}), gRy=sum(gasC,function(c){return realYr(c.id);});
+  var ahPy=iPy-gPy, ahRy=iRy-gRy;
   var years={}; (DB.presupuesto||[]).forEach(function(p){years[pAnio(p)]=1;}); (DB.movimientos||[]).forEach(function(m){var y=+(''+(m.fecha||'')).slice(0,4); if(y)years[y]=1;});
   var yl=Object.keys(years).map(Number).sort(function(a,b){return a-b;});
   var yopts=yl.map(function(y){return '<option value="'+y+'"'+(y===year?' selected':'')+'>'+y+'</option>';}).join('');
   var mopts=''; for(var i=0;i<12;i++)mopts+='<option value="'+i+'"'+(per===i?' selected':'')+'>'+MM[i]+'</option>'; mopts+='<option value="year"'+(per==='year'?' selected':'')+'>Año completo</option>';
   var perLbl=per==='year'?('Año completo '+year):(MM[per]+' '+year);
-  var sumHtml='<div class="dg-msum">'+
+  var kpiTrio=function(iR,iP,gR,gP,ahR,ahP){ return ''+
     '<div class="c"><div class="l">Ingresos</div><div class="v">'+f2(iR)+'</div><div class="p">de '+f2(iP)+' prev.</div></div>'+
     '<div class="c"><div class="l">Gastos</div><div class="v">'+f2(gR)+'</div><div class="p">de '+f2(gP)+' prev.</div></div>'+
-    '<div class="c"><div class="l">Ahorro</div><div class="v '+(ahR>=0?'pos':'neg')+'">'+(ahR>=0?'+':'−')+f2(Math.abs(ahR))+'</div><div class="p">prev. '+(ahP>=0?'+':'−')+f2(Math.abs(ahP))+'</div></div></div>';
+    '<div class="c"><div class="l">Ahorro</div><div class="v '+(ahR>=0?'pos':'neg')+'">'+(ahR>=0?'+':'−')+f2(Math.abs(ahR))+'</div><div class="p">prev. '+(ahP>=0?'+':'−')+f2(Math.abs(ahP))+'</div></div>'; };
+  var esMes=(per!=='year');
+  var sumHtml=(esMes?'<div class="dg-msum-lbl">Del mes · '+MM[per]+'</div>':'')+
+    '<div class="dg-msum">'+kpiTrio(iR,iP,gR,gP,ahR,ahP)+'</div>'+
+    (esMes?('<div class="dg-msum-lbl">Acumulado del año '+year+'</div><div class="dg-msum year">'+kpiTrio(iRy,iPy,gRy,gPy,ahRy,ahPy)+'</div>'):'');
   var chapters=order.map(function(g){ var cs=withData(g); if(!cs.length)return ''; var isIng=g==='Ingresos';
     var gp=0,gr=0; cs.forEach(function(c){gp+=presOf(c.id);gr+=realP(c.id);});
     var dvG=isIng?(gr-gp):(gp-gr);
