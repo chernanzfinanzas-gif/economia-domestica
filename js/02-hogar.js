@@ -437,25 +437,37 @@ function renderMovs(){
     {l:'Resultado neto',v:fmt(neto),cls:neto>=0?'pos':'neg'}
   ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
   $('#movCount').textContent = list.length+' mov.';
-  if(!list.length){ $('#movTable').innerHTML='<div class="empty">No hay movimientos con los filtros aplicados.</div>'; return; }
+  if(!list.length){ $('#movTable').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">No hay movimientos con los filtros aplicados.</div>'; return; }
   const rows=list.map(m=>{
     const c=catById(m.categoriaId);
-    const eff = (m.tipo==='ingreso'? num(m.importe) : -num(m.importe));
+    const isIng=m.tipo==='ingreso';
+    const eff = (isIng? num(m.importe) : -num(m.importe));
     const signed = (eff>=0?'+':'−')+fmt(Math.abs(eff));
-    return `<tr${m.tipo==='ingreso'?' style="background:#dcfce7"':''}>
-      <td>${ddmmyyyy(m.fecha)}</td>
-      <td>${m.concepto||''}</td>
-      <td>${m.comercio?`<span class="tag">${m.comercio}</span>`:''}</td>
-      <td><input class="movDetInp" data-mid="${m.id}" value="${escAttr(m.detalle||'')}" placeholder="—" style="width:100%;min-width:120px;font-size:12px;padding:2px 4px;border:1px solid #e5e7eb;border-radius:4px;background:#fff"></td>
-      <td><span class="tag">${c?c.nombre:'—'}</span></td>
-      <td>${m.titular||''}</td>
-      <td class="num ${eff>=0?'pos':'neg'}">${signed}</td>
-      <td class="right"><div class="row-actions" style="justify-content:flex-end">
-        <button class="btn ghost sm" data-edit="${m.id}">Editar</button>
-        <button class="btn danger sm" data-del="${m.id}">✕</button></div></td>
-    </tr>`;
+    const concepto=(m.concepto||'').trim(), detalle=(m.detalle||'').trim();
+    const main = concepto || detalle || '—';
+    const sub = (detalle && detalle.toLowerCase()!==concepto.toLowerCase()) ? detalle : '';
+    return `<div class="mv-item${isIng?' ing':''}" data-mvid="${m.id}">
+      <div class="mv-h" data-movrow>
+        <span class="mv-arw">▶</span>
+        <span class="mv-fch">${ddmmyyyy(m.fecha)}</span>
+        <span class="mv-main">${_infEsc(main)}${isIng?'<span class="mv-ingb">ingreso</span>':''}${sub?`<small>${_infEsc(sub)}</small>`:''}</span>
+        <span class="mv-catw"><span class="tag">${c?_infEsc(c.nombre):'—'}</span></span>
+        <span class="mv-imp ${eff>=0?'pos':'neg'}">${signed}</span>
+      </div>
+      <div class="mv-b">
+        <div class="mv-dets">
+          <div class="d"><span>Comercio</span>${m.comercio?_infEsc(m.comercio):'—'}</div>
+          <div class="d"><span>Titular</span>${_infEsc(m.titular||'—')}</div>
+          <div class="d"><span>Detalle</span><input class="movDetInp" data-mid="${m.id}" value="${escAttr(m.detalle||'')}" placeholder="—"></div>
+        </div>
+        <div class="mv-acts">
+          <button class="btn ghost sm" data-edit="${m.id}">✎ Editar</button>
+          <button class="btn danger sm" data-del="${m.id}">🗑 Eliminar</button>
+        </div>
+      </div>
+    </div>`;
   }).join('');
-  $('#movTable').innerHTML=`<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Comercio</th><th>Detalle</th><th>Categoría</th><th>Titular</th><th class="num">Importe</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  $('#movTable').innerHTML=rows;
 }
 function comBases(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var b=(m.comercio||'').trim(); if(b) s[b]=(s[b]||0)+1; }); return Object.keys(s).sort(function(a,b){return s[b]-s[a]||a.localeCompare(b);}).map(function(k){return {name:k,n:s[k]};}); }
 function renderComDD(){ var p=$('#comDDpanel'); if(!p)return; var bs=comBases(); var html='<label style="font-weight:700"><input type="checkbox" id="comDDall">Todas / ninguna</label>'; bs.forEach(function(b){ var ck=movFiltCom.has(b.name)?'checked':''; html+='<label><input type="checkbox" class="comCk" value="'+b.name.replace(/"/g,'&quot;')+'" '+ck+'>'+_infEsc(b.name)+' <span class="muted">('+b.n+')</span></label>'; }); p.innerHTML=html; var btn=$('#comDDbtn'); if(btn) btn.textContent='Comercio'+(movFiltCom.size?' ('+movFiltCom.size+')':'')+' \u25be'; }
@@ -476,7 +488,7 @@ function editMov(id){
   $('#movComercio').value=m.comercio||''; $('#movDetalle').value=m.detalle||''; $('#movCat').value=m.categoriaId; $('#movTitular').value=m.titular||'Dos';
   $('#movImporte').value=m.importe; setMovTipo(m.tipo);
   $('#movSubmit').textContent='Guardar cambios'; $('#movCancel').style.display='inline-block';
-  window.scrollTo({top:0,behavior:'smooth'});
+  var _b=document.getElementById('blkMovAdd'); if(_b){ _b.classList.add('open'); _b.scrollIntoView({behavior:'smooth',block:'start'}); } else { window.scrollTo({top:0,behavior:'smooth'}); }
 }
 function resetMovForm(){
   $('#movForm').reset(); $('#movId').value=''; setMovTipo('gasto');

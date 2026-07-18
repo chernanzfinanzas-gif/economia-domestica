@@ -173,7 +173,7 @@ const GROUPS={
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
 /* Botón flotante «+»: en cada vista lleva directo a donde se añade información */
 const ADD_ACTIONS={
-  movimientos:()=>{ const f=$('#movForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); const d=$('#movFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); setTimeout(()=>{ const c=$('#movConcepto'); if(c)c.focus(); },350); },
+  movimientos:()=>{ const b=$('#blkMovAdd'); if(b)b.classList.add('open'); const f=$('#movForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); const d=$('#movFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); setTimeout(()=>{ const c=$('#movConcepto'); if(c)c.focus(); },350); },
   inversiones:()=>{ const b=$('#invAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
   analisis:()=>{ const b=$('#anaAddBtn'); if(b)b.click(); setTimeout(()=>{ const f=$('#anaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },60); },
   fondor4:()=>{ const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
@@ -324,6 +324,10 @@ $('#movForm').addEventListener('submit',e=>{
   resetMovForm(); initPeriod(); renderAll(); scheduleSave();
 });
 $('#movCancel').addEventListener('click',resetMovForm);
+/* Bloques plegables de Movimientos (Añadir / Filtros / Lista) */
+if($('#view-movimientos'))$('#view-movimientos').addEventListener('click',e=>{ const h=e.target.closest('[data-movblk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-movblk')); if(blk)blk.classList.toggle('open'); });
+/* Expandir/contraer una fila de movimiento */
+$('#movTable').addEventListener('click',e=>{ const r=e.target.closest('[data-movrow]'); if(!r)return; if(e.target.closest('input,button,select,a'))return; const it=r.closest('.mv-item'); if(it)it.classList.toggle('open'); });
 $('#movTable').addEventListener('click',e=>{
   const ed=e.target.closest('[data-edit]'), de=e.target.closest('[data-del]');
   if(ed) editMov(ed.dataset.edit);
