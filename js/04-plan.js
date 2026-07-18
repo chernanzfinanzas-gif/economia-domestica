@@ -751,34 +751,51 @@ function renderPlanLote(){
   /* "Asignado" del año a efectos de presupuesto = lo que QUEDA por comprar (plan − comprado),
      así al ejecutar una compra el año libera cupo y el resto sale con "falta por asignar". */
   const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+remYear(t,y),0); });
-  const _cS='padding:5px 9px', _lS='font-size:10px', _vS='font-size:14px;margin-top:1px', _sS='font-size:9.5px';
-  const cab=`<div class="cards" style="margin-bottom:8px;gap:7px">
-     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Invertido total</div><div class="val" style="${_vS}">${fmt(totalInv)}</div><div class="sub" style="${_sS}">${held.length} en cartera</div></div>
-     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Disponible a repartir</div><div class="val" style="${_vS}">${fmt(disponible)}</div><div class="sub" style="${_sS}">${ydesde}–${ycierre} (cierre del plan)</div></div>
-     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital final total</div><div class="val" style="${_vS}">${fmt(TF)}</div><div class="sub" style="${_sS}">invertido + disponible</div></div>
-     <div class="card" style="${_cS}"><div class="lbl" style="${_lS}">Capital a asignar</div><div class="val pos" style="${_vS}">${fmt(totAsignarPos)}</div><div class="sub" style="${_sS}">${nNuc?('núcleo: '+(nucPct*100).toFixed(1)+'% c/u'):'marca alguna como Núcleo'}</div></div>
-   </div>
-   <div class="toolbar" style="margin-bottom:6px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección (Simulador, Plan y Calendario llegan hasta aquí)" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización/proyección</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se distribuye el capital disponible (${fmt(disponible)}). Ampliar 'Ver' NO cambia esto." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte capital hasta aquí</span> <span class="muted" style="font-size:11.5px"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" style="margin-left:auto" title="Añadir empresa al lote">+ Empresa</button></div>`;
-  const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:170px">`;
+  /* ===================== RENDER (rediseño v2) ===================== */
+  const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
+  const TIPOL={joya:'Joya 👑',nucleo:'Núcleo',mantener:'Mantener','':'sin clasificar'};
+  const TIPOB={joya:['#7c3aed','#ede9fe'],nucleo:['#1e40af','#dbeafe'],mantener:['#475569','#e2e8f0'],'':['#94a3b8','#f1f5f9']};
+  const kpisHTML='<div class="dv-kpis">'
+    +`<div class="k"><div class="l">Invertido total</div><div class="v">${fmt(totalInv)}</div><div class="p">${held.length} en cartera</div></div>`
+    +`<div class="k"><div class="l">Disponible a repartir</div><div class="v">${fmt(disponible)}</div><div class="p">${ydesde}–${ycierre}</div></div>`
+    +`<div class="k"><div class="l">Capital final total</div><div class="v">${fmt(TF)}</div><div class="p">invertido + disponible</div></div>`
+    +`<div class="k hero"><div class="l">Capital a asignar</div><div class="v">${fmt(totAsignarPos)}</div><div class="p">${nNuc?('núcleo '+(nucPct*100).toFixed(1)+'% c/u · '):''}${nJoya} joyas</div></div>`
+    +'</div>';
+  const toolbarHTML=`<div class="toolbar dv-tb" style="margin:12px 0 8px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se reparte el capital disponible (${fmt(disponible)})." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte hasta aquí</span> <span class="muted" style="font-size:11.5px;margin-left:auto"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" title="Añadir empresa">+ Empresa</button></div>`;
+  const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:150px">`;
   const objCells=t=>{ const fa=asignar(t)-sumAsig(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
-  /* Cada celda muestra el plan (editable) y, debajo, LO QUE QUEDA tras lo ya comprado
-     (queda = plan − comprado, consumido del año más próximo primero). El plan efectivo baja solo
-     al registrar la compra, igual que la proyección — sin duplicar. */
-  const yrCells=t=>yrs.map(y=>{ const plan=aYear(t,y); const comp=compYear(t,y); const queda=remYear(t,y);
-    let annot='';
-    if(comp>0.5){ annot = (queda<0.5)
-      ? '<div style="font-size:8px;color:#16a34a;font-weight:700;line-height:1" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">✓ comprado</div>'
-      : '<div style="font-size:8px;color:#16a34a;font-weight:700;line-height:1" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">queda '+fmt(queda)+'</div>'; }
-    return `<td style="padding:1px 2px"><div style="font-size:8px;color:var(--muted);line-height:1">${t} '${String(y).slice(2)}</div><input type="number" step="100" class="anaInp" style="width:46px;text-align:center;padding:1px 2px" data-asig="${t}|${y}" value="${plan||''}">${annot}</td>`;
-  }).join('');
-  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="num" data-loteyear="${y}" style="padding:1px 2px">${y}<input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Disponible del año (editable)" style="width:48px;font-size:9px;text-align:center;border:1px solid var(--line);border-radius:4px;display:block;margin:1px auto;padding:1px 2px"><div style="font-size:9px;font-weight:600;color:${pend<-0.5?'#dc2626':(pend>0.5?'#16a34a':'#64748b')}" title="Pendiente por asignar">${fmt(pend)}</div></th>`; }).join('');
-  let rows=''; let n=0;
-  held.slice().sort((a,b)=>invByT[b]-invByT[a]).forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
-  chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill" style="background:#dbeafe;color:#1e40af">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
-  for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="num">·</td>').join('')}<td></td></tr>`; }
-  const pendRow='<tr style="font-weight:700;background:#eef2f7"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
-  el.innerHTML=cab+'<input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">'+dl+`<div style="overflow:auto" id="loteScrollBox"><table style="font-size:12px"><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>${yrHead}<th></th></tr></thead><tbody>${rows}${pendRow}</tbody></table></div>`;
-  /* Banda deslizante horizontal (debajo del Periodo) + arranque en el año actual, hacia el futuro */
+  const yrAnnot=(t,y)=>{ const comp=compYear(t,y),queda=remYear(t,y),plan=aYear(t,y); if(comp>0.5){ return (queda<0.5) ? '<div class="qbadge ok" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">✓ comprado</div>' : '<div class="qbadge" title="Comprado '+fmt(comp)+' de '+fmt(plan)+'">queda '+eurK(queda)+' €</div>'; } return ''; };
+  const yrCells=t=>yrs.map(y=>{ const plan=aYear(t,y); return `<td class="yc"><input type="number" step="100" class="anaInp asig" data-asig="${t}|${y}" value="${plan?Math.round(plan):''}">${yrAnnot(t,y)}</td>`; }).join('');
+  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; return `<th class="yc" data-loteyear="${y}"><div class="yh">${y}</div><input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Presupuesto de inversión de ${y} (editable)" class="dispinp"><div class="dlbl">presupuesto</div><div class="pend ${pend>0.5?'g':(pend<-0.5?'r':'z')}">${pend>0.5?'+':''}${eurK(pend)} €</div><div class="plbl">pendiente</div></th>`; }).join('');
+  const heldSorted=held.slice().sort((a,b)=>invByT[b]-invByT[a]);
+  let rows='',n=0;
+  heldSorted.forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b><div class="dv-nm">${(nm(t)||'').slice(0,18)}</div></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
+  chosen.forEach((t,i)=>{ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-lotechg="'+i+'"', nm(t)+' ('+t+')')}</td><td><span class="pill b">Nueva</span></td><td>${tipoSel(t)}</td><td class="num">·</td><td class="num">·</td>${objCells(t)}${yrCells(t)}<td class="right"><button class="btn danger sm" data-lotedel="${i}">✕</button></td></tr>`; });
+  for(let k=total;k<20;k++){ n++; rows+=`<tr><td class="num">${n}</td><td>${optInput('data-loteadd','')}</td><td class="muted">slot</td><td></td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="num">·</td>${yrs.map(()=>'<td class="yc muted">·</td>').join('')}<td></td></tr>`; }
+  const pendRow='<tr class="pendrow"><td></td><td>Pendiente asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-asignYear[y]; return `<td class="num yc ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
+  const deskHTML='<div class="dv-desk"><input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años" class="dv-slider"><div class="dtable" id="loteScrollBox"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>'+yrHead+'<th></th></tr></thead><tbody>'+rows+pendRow+'</tbody></table></div></div>';
+  /* Pendiente por año (chips) */
+  const pyChip=y=>{ const ds=dispShown(y); const pend=ds-asignYear[y]; const cls=pend>0.5?'g':(pend<-0.5?'r':'z'); return `<div class="pychip ${cls}"><div class="yy">${y}</div><div class="pv2">${eurK(ds)} €</div><div class="pl2">presupuesto</div><div class="pv">${pend>0.5?'+':''}${eurK(pend)} €</div><div class="pl">pendiente</div></div>`; };
+  const pyStripHTML='<div class="pystrip-t">Pendiente por asignar cada año</div><div class="dv-pystrip">'+yrs.map(pyChip).join('')+'</div>';
+  /* Móvil: selector de empresa + detalle */
+  const allOrder=[...heldSorted, ...chosen];
+  if(!window._loteCoSel || allOrder.indexOf(window._loteCoSel)<0) window._loteCoSel=allOrder[0]||'';
+  const selIdx=Math.max(0, allOrder.indexOf(window._loteCoSel));
+  const faltaShort=t=>{ const f=asignar(t)-sumAsig(t); return Math.abs(f)<0.5?'✓ repartido':(f>0?'falta '+eurK(f)+'€':'sobra '+eurK(-f)+'€'); };
+  const coOptions=allOrder.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${(TIPOL[tipoOf(t)]||'').replace(' 👑','')} · ${held.includes(t)?'Cartera':'Nueva'} · ${faltaShort(t)}</option>`).join('');
+  const tipoBadge=t=>{ const o=TIPOB[tipoOf(t)]||TIPOB['']; return `<span class="tbadge" style="color:${o[0]};background:${o[1]}">${TIPOL[tipoOf(t)]}</span>`; };
+  const faltaTxt=t=>{ const f=asignar(t)-sumAsig(t); return Math.abs(f)<0.5?'<span class="ok2">✓ repartido</span>':(f>0?'<span class="fw2">falta '+fmt(f)+'</span>':'<span class="fn2">sobra '+fmt(-f)+'</span>'); };
+  const mdetail=(t,i)=>{ const estPill=held.includes(t)?'<span class="pill g">Cartera</span>':'<span class="pill b">Nueva</span>';
+    return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
+      +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b> ${tipoBadge(t)} ${estPill}</div><div class="t2">${(nm(t)||'').slice(0,28)}</div></div><div class="fh">${faltaTxt(t)}<div class="fl">pendiente</div></div></div>`
+      +`<div class="drow"><span>Clasificación</span>${tipoSel(t)}</div>`
+      +`<div class="mg"><div class="m"><span>Invertido</span><b>${invByT[t]?fmt(invByT[t]):'·'}</b></div><div class="m"><span>% actual</span><b>${(invByT[t]&&totalInv)?(invByT[t]/totalInv*100).toFixed(1)+'%':'·'}</b></div><div class="m"><span>Objetivo (${(objPct(t)*100).toFixed(1)}%)</span><b>${fmt(objEur(t))}</b></div><div class="m"><span>A asignar</span><b class="${asignar(t)>0.5?'pos':''}">${asignar(t)>0.5?'+'+fmt(asignar(t)):'·'}</b></div></div>`
+      +`<div class="yrs-t">Reparto de compras por año</div>`
+      +`<div class="yrgrid">${yrs.map(y=>{ const plan=aYear(t,y); return `<label class="yg"><span>${y}</span><input type="number" step="100" class="anaInp asig" data-asig="${t}|${y}" value="${plan?Math.round(plan):''}">${yrAnnot(t,y)}</label>`; }).join('')}</div>`
+      +`</div>`; };
+  const mobHTML='<div class="dv-mob"><div class="cosel-t">Elige empresa</div><select class="cosel" id="loteCoSel">'+coOptions+'</select><div class="codetails">'+allOrder.map(mdetail).join('')+'</div></div>';
+  el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML;
+  /* Banda deslizante ↔ scroll horizontal de la tabla */
   (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc||!rng)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
     var toSlider=function(){ var m=maxSL(); rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
@@ -787,6 +804,9 @@ function renderPlanLote(){
     sc.scrollLeft = window._loteSeek ? 0 : _lotePrevSL; window._loteSeek=false;
     setTimeout(toSlider,50);
   })();
+  /* Selector de empresa (móvil): muestra el detalle elegido y recuerda la selección */
+  if(!el._loteCoBound){ el._loteCoBound=true; el.addEventListener('change',function(e){ var s=e.target.closest('#loteCoSel'); if(!s)return; var i=s.value; var arr=window.__loteOrder||[]; window._loteCoSel=arr[+i]||window._loteCoSel; el.querySelectorAll('.codet').forEach(function(d){ d.style.display=(d.getAttribute('data-coi')===String(i))?'':'none'; }); }); }
+  window.__loteOrder=allOrder;
 }
 
 /* Dividendo BRUTO por mes del ciclo en curso (para la gráfica), desde el MOTOR derivado:
