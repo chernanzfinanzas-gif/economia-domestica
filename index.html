@@ -875,6 +875,46 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-inversiones #invCards .k .v{font-size:18px}
   #view-inversiones .pos-desk{display:none}#view-inversiones .pos-mob{display:block}
 }
+/* ===== Ranking ===== */
+#view-ranking #rankKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-ranking #rankKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-ranking #rankKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-ranking #rankKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-ranking #rankKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-ranking #rankKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-ranking #rankKpis .k.hero .l,#view-ranking #rankKpis .k.hero .p{color:#bbf7d0}
+#view-ranking .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-ranking .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-ranking .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-ranking .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-ranking .pos-blk-h .bt{font-weight:800;font-size:14px}#view-ranking .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-ranking .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-ranking .pos-blk.open .pos-blk-b{display:block}
+#view-ranking .rank-pad{padding:12px 14px}
+#view-ranking .ptable{overflow:auto;max-height:66vh}
+#view-ranking .ptable table{border-collapse:collapse;font-size:11.5px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;background:transparent;width:auto}
+#view-ranking .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9px;text-transform:uppercase;color:var(--muted);padding:7px 8px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-ranking .ptable thead th:nth-child(1){text-align:left}
+#view-ranking .ptable tbody td{padding:6px 8px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-ranking .ptable tbody td.l{text-align:left}
+#view-ranking .ptable th:nth-child(1),#view-ranking .ptable td:nth-child(1){position:sticky;left:0;z-index:3;background:#fff;min-width:58px;box-shadow:6px 0 8px -6px rgba(15,23,42,.18)}
+#view-ranking .ptable thead th:nth-child(1){z-index:6;background:#f8fafc}
+#view-ranking .rank-tk{font-weight:800;color:var(--brand)}
+#view-ranking .ptable .rank-tot td{background:#eef2f7;font-weight:700}#view-ranking .ptable .rank-tot td:nth-child(1){background:#eef2f7}
+#view-ranking .pos-mob{display:none}
+#view-ranking .lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-ranking .lc-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#view-ranking .lc-h .tk{font-size:16px;font-weight:800;color:var(--brand)}#view-ranking .lc-h .tk .nm{font-size:10px;color:#94a3b8;font-weight:400;display:block;margin-top:2px}
+#view-ranking .ty{text-align:right;font-size:17px;font-weight:800;color:#166534}#view-ranking .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-ranking .lc-row{margin:8px 0 2px;font-size:12.5px}#view-ranking .lc-row .pl{font-weight:800;font-size:15px}#view-ranking .lc-row b{font-weight:800}
+#view-ranking .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#view-ranking .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-ranking .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-ranking .lg .m b{font-size:12px;font-weight:700}
+#view-ranking .rank-pie{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+#view-ranking .rank-pieleg{display:grid;grid-template-columns:repeat(2,auto);gap:5px 20px;font-size:12.5px}#view-ranking .rank-pieleg .dot{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px}
+@media(max-width:960px){
+  #view-ranking #rankKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-ranking #rankKpis .k .v{font-size:18px}
+  #view-ranking .pos-desk{display:none}#view-ranking .pos-mob{display:block}
+  #view-ranking .rank-pie{flex-direction:column;align-items:flex-start}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2467,12 +2507,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-ranking">
-    <h2>Ranking de cartera por dividendo</h2>
-    <div class="cards" id="rankKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Tus posiciones ordenadas por aportación al dividendo anual. Div/acc es el bruto actual; «Dividendos» es lo cobrado históricamente; Balance y ratios incluyen dividendos.</div>
-    <div id="rankPie" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin:4px 0 14px"></div>
-    <div style="overflow:auto" id="rankTabla"></div>
-    <div id="rankAport" style="margin-top:14px"></div>
+    <h2>🏆 Ranking de cartera por dividendo</h2>
+    <div class="sub" style="margin-bottom:10px">Tus posiciones ordenadas por aportación al dividendo anual. Div/acc es el bruto actual; «Dividendos» es lo cobrado históricamente; Balance y ratios incluyen dividendos.</div>
+    <div id="rankKpis" style="margin-bottom:14px"></div>
+    <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ordenar empresas por <select id="rankOrden" onchange="rankSetOrden(this.value)"></select></label></div>
+    <div id="rankTabla"></div>
   </section>
 
   <section class="view" id="view-calendario">
