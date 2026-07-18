@@ -121,112 +121,135 @@
    const P=PRESETS[p]; if(!P)return; VARS.forEach(v=>escVal[v.id]=P[v.id]);
    document.getElementById('escPresetDesc').textContent=P.desc||''; escRenderSliders(); escRender();
  }
+  function _escKpi(l,v,c,sub,hero){ var cls='esc-k'+(hero?(' hero'+(c==='#16a34a'?' pos':'')):''); return '<div class="'+cls+'"><div class="l">'+l+'</div><div class="v" style="'+(hero?'':'color:'+c)+'">'+v+'</div><div class="s">'+(sub||'')+'</div></div>'; }
  function escRender(){
    const H=heldRows(); const rows=H.map(c=>({c,i:idx(c.s)})).sort((a,b)=>a.i-b.i);
-   const tb=document.querySelector('#escTbl tbody'); if(tb)tb.innerHTML='';
    let net=0,contra=0,alarma=0,caida=0,totDiv=0,divRisk=0,negSum=0,topD=null;
    H.forEach(c=>totDiv+=c.dv);
    const tierCls={joya:'esc-t-joya',nucleo:'esc-t-nucleo',mantener:'esc-t-mantener'};
    rows.forEach(({c,i})=>{ net+=c.w*i; if(i<0)contra+=c.w; if(i<=-60)alarma++;
      caida+=c.w*Math.max(-80,Math.min(40,i*K_CAIDA)); divRisk+=c.dv*Math.max(0,Math.min(1,(-i-30)/40));
-     const ct=c.w*i; if(ct<0)negSum+=ct; if(topD===null||ct<topD.c)topD={t:c.t,c:ct};
-     if(tb)tb.innerHTML+=`<tr><td><b>${c.t}</b> <span class="esc-mut">${c.n}</span></td>
-       <td>${c.tier?`<span class="esc-tier ${tierCls[c.tier]||''}">${c.tier}</span>`:''}</td><td class="esc-num">${(c.w*100).toFixed(1)}%</td>
-       <td>${bar(i)}</td><td class="esc-num" style="color:${i<0?'#dc2626':i>0?'#16a34a':'#64748b'};font-weight:700">${i>0?'+':''}${i}</td>
-       <td>${i<=-60?'<span class="esc-pill">⚠ pre-mortem</span>':''}</td></tr>`; });
+     const ct=c.w*i; if(ct<0)negSum+=ct; if(topD===null||ct<topD.c)topD={t:c.t,c:ct}; });
    net=Math.round(net); caida=Math.round(caida);
    const divPct=totDiv>0?Math.round(divRisk/totDiv*100):0;
    const dmg=(negSum<0&&topD&&topD.c<0)?Math.round(topD.c/negSum*100):0;
-   const g=document.getElementById('escGauge');
+   const g=document.getElementById('escResp');
    if(g)g.innerHTML=
-     kpi('Caída estimada de la cartera',(caida>0?'+':'')+caida+'%',caida<0?'#dc2626':caida>0?'#16a34a':'#64748b','orientativa')+
-     kpi('Inclinación neta',(net>0?'+':'')+net,net<0?'#dc2626':net>0?'#16a34a':'#64748b','índice −100…+100')+
-     kpi('% cartera en contra',Math.round(contra*100)+'%',contra>0.5?'#dc2626':'#d97706','del valor')+
-     kpi('Dividendo en riesgo',divPct+'%',divPct>=30?'#dc2626':divPct>=10?'#d97706':'#16a34a','de tus '+Math.round(totDiv).toLocaleString('es')+' €/año')+
-     kpi('Pre-mortems en alarma',alarma+' / '+H.length,alarma>0?'#dc2626':'#16a34a','tesis que peligran')+
-     kpi('Quién te hace el daño',(topD&&topD.c<0)?topD.t:'—','#dc2626',(topD&&topD.c<0)?dmg+'% del golpe':'nadie sufre');
+     _escKpi('Caída estimada de la cartera',(caida>0?'+':'')+caida+'%',caida<0?'#dc2626':'#16a34a','orientativa',true)+
+     _escKpi('Inclinación neta',(net>0?'+':'')+net,net<0?'#dc2626':net>0?'#16a34a':'#64748b','índice −100…+100')+
+     _escKpi('% cartera en contra',Math.round(contra*100)+'%',contra>0.5?'#dc2626':'#d97706','del valor')+
+     _escKpi('Dividendo en riesgo',divPct+'%',divPct>=30?'#dc2626':divPct>=10?'#d97706':'#16a34a','de tus '+Math.round(totDiv).toLocaleString('es')+' €/año')+
+     _escKpi('Pre-mortems en alarma',alarma+' / '+H.length,alarma>0?'#dc2626':'#16a34a','tesis que peligran')+
+     _escKpi('Quién te hace el daño',(topD&&topD.c<0)?topD.t:'—','#dc2626',(topD&&topD.c<0)?dmg+'% del golpe':'nadie sufre');
    const nf=document.getElementById('escNetFoot');
    if(nf){ const worst=rows[0],best=rows[rows.length-1];
      nf.innerHTML=(!rows.length)?'Sin posiciones abiertas en cartera.':(net===0)?'Todo en su nivel normal: ningún factor aprieta.':
-     `Más golpeada <b>${worst.c.t}</b> (${worst.i}); más resiliente <b>${best.c.t}</b> (${best.i}). <span class="esc-mut">La caída estimada es orientativa (índice × 0,75), no una predicción de precio.</span>`; }
-   // coberturas
-   const heldSet=new Set(H.map(c=>c.t)); const cr=candRows(heldSet).map(c=>({c,i:idx(c.s)})).sort((a,b)=>b.i-a.i);
-   const tc=document.querySelector('#escTblC tbody'); if(tc){ tc.innerHTML='';
-     if(!cr.length)tc.innerHTML='<tr><td colspan="3" class="esc-mut">No hay empresas analizadas fuera de la cartera con sensibilidad conocida.</td></tr>';
-     cr.forEach(({c,i})=>{ const lect=i>=0?'aguantaría / cobertura':(i>-40?'resiste mejor que la media':'también sufriría');
-       tc.innerHTML+=`<tr><td><b>${c.t}</b> <span class="esc-mut">${c.n}</span></td><td class="esc-num" style="color:${i<0?'#dc2626':i>0?'#16a34a':'#64748b'};font-weight:700">${i>0?'+':''}${i}</td><td>${lect}</td></tr>`; }); }
-   // mapa de calor
-   const heat=document.getElementById('escHeat');
-   if(heat){ let h='<table class="esc-heat"><thead><tr><th>Empresa</th>'+VARS.map(v=>`<th class="esc-num" title="${v.lab}">${v.id}</th>`).join('')+'<th class="esc-num">Índice</th></tr></thead><tbody>';
-     H.forEach(c=>{ h+=`<tr><td><b>${c.t}</b></td>`+VARS.map(v=>heatCell((c.s[v.id]||0)*inten(v.id))).join('')+`<td class="esc-num" style="font-weight:700;color:${idx(c.s)<0?'#dc2626':'#16a34a'}">${idx(c.s)>0?'+':''}${idx(c.s)}</td></tr>`; });
+     'Más golpeada <b>'+worst.c.t+'</b> ('+worst.i+'); más resiliente <b>'+best.c.t+'</b> ('+best.i+'). <span class="esc-mut">La caída estimada es orientativa (índice × 0,75), no una predicción de precio.</span>'; }
+   /* Impacto por empresa */
+   const tb=document.querySelector('#escImpDesk tbody'); if(tb){ tb.innerHTML=rows.map(({c,i})=>'<tr><td><b class="esc-tk">'+c.t+'</b> <span class="esc-mut">'+((c.n||'').slice(0,16))+'</span></td>'+
+     '<td>'+(c.tier?'<span class="esc-tier '+(tierCls[c.tier]||'')+'">'+c.tier+'</span>':'')+'</td><td class="esc-num">'+(c.w*100).toFixed(1)+'%</td>'+
+     '<td style="width:30%">'+bar(i)+'</td><td class="esc-num" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+';font-weight:700">'+(i>0?'+':'')+i+'</td>'+
+     '<td>'+(i<=-60?'<span class="esc-pill">⚠ pre-mortem</span>':'')+'</td></tr>').join(''); }
+   const im=document.getElementById('escImpMob'); if(im){ im.innerHTML=rows.map(({c,i})=>'<div class="esc-icard"><div class="esc-idx" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+'">'+(i>0?'+':'')+i+'</div><div class="esc-imid"><div style="font-weight:700">'+c.t+' <span class="esc-mut" style="font-weight:400">'+((c.n||'').slice(0,16))+'</span></div><div style="margin-top:4px;display:flex;gap:6px;align-items:center;flex-wrap:wrap">'+(c.tier?'<span class="esc-tier '+(tierCls[c.tier]||'')+'">'+c.tier+'</span>':'')+'<span class="esc-mut">peso '+(c.w*100).toFixed(1)+'%</span>'+(i<=-60?'<span class="esc-pill">⚠ pre-mortem</span>':'')+'</div></div></div>').join(''); }
+   /* Mapa de calor */
+   const heat=document.getElementById('escHeatDesk');
+   if(heat){ let h='<table class="esc-heat"><thead><tr><th style="text-align:left">Empresa</th>'+VARS.map(v=>'<th class="esc-num" title="'+v.lab+'">'+v.id+'</th>').join('')+'<th class="esc-num">Índice</th></tr></thead><tbody>';
+     H.forEach(c=>{ h+='<tr><td style="text-align:left"><b class="esc-tk">'+c.t+'</b></td>'+VARS.map(v=>heatCell((c.s[v.id]||0)*inten(v.id))).join('')+'<td class="esc-num" style="font-weight:700;color:'+(idx(c.s)<0?'#dc2626':'#16a34a')+'">'+(idx(c.s)>0?'+':'')+idx(c.s)+'</td></tr>'; });
      h+='</tbody></table>'; heat.innerHTML=h; }
+   const hm=document.getElementById('escHeatMob'); if(hm){ hm.innerHTML=H.map(c=>{ var facs=VARS.map(v=>({id:v.id,x:(c.s[v.id]||0)*inten(v.id)})).filter(f=>Math.abs(f.x)>=0.05).sort((a,b)=>Math.abs(b.x)-Math.abs(a.x)).slice(0,4); var i=idx(c.s);
+     return '<div class="esc-hcard"><div class="esc-htop"><b class="esc-tk">'+c.t+'</b><span style="font-weight:800;color:'+(i<0?'#dc2626':'#16a34a')+'">Índice '+(i>0?'+':'')+i+'</span></div><div class="esc-hfacs">'+(facs.length?facs.map(f=>'<span class="esc-hfac" style="background:'+(f.x<0?'#fef2f2':'#f0fdf4')+';color:'+(f.x<0?'#dc2626':'#16a34a')+'">'+f.id+' '+(f.x>0?'+':'')+f.x.toFixed(1)+'</span>').join(''):'<span class="esc-mut">sin factores relevantes</span>')+'</div></div>'; }).join(''); }
+   /* Coberturas */
+   const heldSet=new Set(H.map(c=>c.t)); const cr=candRows(heldSet).map(c=>({c,i:idx(c.s)})).sort((a,b)=>b.i-a.i);
+   const lect=i=>i>=0?'aguantaría / cobertura':(i>-40?'resiste mejor que la media':'también sufriría');
+   const tc=document.querySelector('#escCobDesk tbody'); if(tc){ tc.innerHTML=!cr.length?'<tr><td colspan="3" class="esc-mut">No hay empresas analizadas fuera de la cartera con sensibilidad conocida.</td></tr>':
+     cr.map(({c,i})=>'<tr><td><b class="esc-tk">'+c.t+'</b> <span class="esc-mut">'+((c.n||'').slice(0,16))+'</span></td><td class="esc-num" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+';font-weight:700">'+(i>0?'+':'')+i+'</td><td>'+lect(i)+'</td></tr>').join(''); }
+   const cm=document.getElementById('escCobMob'); if(cm){ cm.innerHTML=!cr.length?'<div class="esc-mut" style="padding:6px 0">No hay analizadas fuera de la cartera con sensibilidad conocida.</div>':
+     cr.map(({c,i})=>'<div class="esc-icard"><div class="esc-idx" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+'">'+(i>0?'+':'')+i+'</div><div class="esc-imid"><div style="font-weight:700">'+c.t+' <span class="esc-mut" style="font-weight:400">'+((c.n||'').slice(0,16))+'</span></div><div style="margin-top:3px" class="esc-mut">'+lect(i)+'</div></div></div>').join(''); }
  }
- function kpi(l,v,c,sub){ return `<div class="esc-kpi"><div class="esc-kl">${l}</div><div class="esc-kv" style="color:${c}">${v}</div><div class="esc-kl" style="margin-top:2px">${sub||''}</div></div>`; }
-
  window.renderEscenarios=function(){
    const el=document.getElementById('escBody'); if(!el)return;
    if(escVal===null){ escVal={}; VARS.forEach(v=>escVal[v.id]=PRESETS.lehman[v.id]); }
+   window._escOpen=window._escOpen||{imp:false,heat:false,cob:false};
    const chips=[['lehman','Lehman 2008'],['covid','COVID 2020'],['guerra','Guerra energética 2022'],['recesion','Recesión clásica'],['materias','Escasez de materias primas'],['favorable','Expansión favorable'],['bonanza','☀️ Bonanza (mejor caso)'],['aleatorio','🎲 Aleatorio'],['normal','Todo normal']];
+   const blk=(key,ic,title,note,inner)=>{ var op=window._escOpen[key]; return '<div class="esc-blk'+(op?' open':'')+'" data-eblk="'+key+'"><div class="esc-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="arw">▶</span></div><div class="esc-blk-b">'+(note?'<div class="esc-note">'+note+'</div>':'')+inner+'</div></div>'; };
    el.innerHTML=`
    <style>
-     #view-escenarios .esc-card{background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:9px 12px;margin-top:8px}
+     #view-escenarios .esc-card{background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:14px 16px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+     #view-escenarios .esc-card>h3{font-size:15px;font-weight:800;margin:0 0 8px}
      #view-escenarios .esc-mut{color:#64748b;font-size:11.5px}
-     #view-escenarios h3{font-size:14px;line-height:1.15;margin:0 0 5px}
-     #view-escenarios .esc-chips{display:flex;gap:5px;flex-wrap:wrap;margin:2px 0}
-     #view-escenarios .esc-chip{border:1px solid #e2e8f0;border-radius:13px;padding:2px 9px;font-size:11px;cursor:pointer;background:#fff}
+     #view-escenarios .esc-chips{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 8px}
+     #view-escenarios .esc-chip{border:1px solid #e2e8f0;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;background:#fff;font-weight:600}
      #view-escenarios .esc-chip.on{background:#1f3864;color:#fff;border-color:#1f3864}
-     #view-escenarios .esc-slgrid{display:grid;grid-template-columns:1fr 1fr;gap:2px 22px;margin-top:6px}
-     @media(max-width:640px){#view-escenarios .esc-slgrid{grid-template-columns:1fr}}
-     #view-escenarios .esc-sl .esc-lab{display:flex;justify-content:space-between;align-items:baseline;font-size:10.5px;margin-bottom:0}
+     #view-escenarios #escPresetDesc{color:#64748b;font-size:12px;margin:2px 0 8px;line-height:1.5}
+     #view-escenarios .esc-slgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-top:6px}
+     #view-escenarios .esc-sl .esc-lab{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;margin-bottom:0}
      #view-escenarios .esc-val{font-weight:800;font-variant-numeric:tabular-nums}
      #view-escenarios .esc-track{position:relative}
      #view-escenarios .esc-zero{position:absolute;top:14px;bottom:5px;width:2px;background:#0ea5e9;transform:translateX(-1px);pointer-events:none;z-index:2}
      #view-escenarios .esc-zlbl{position:absolute;top:0;font-size:10px;font-weight:700;color:#0369a1;background:#e0f2fe;border:1px solid #7dd3fc;border-radius:4px;padding:0 4px;line-height:1.5;pointer-events:none;z-index:3;white-space:nowrap}
      #view-escenarios .esc-track input[type=range]{width:100%;position:relative;z-index:1;background:transparent;margin:12px 0 0 0}
      #view-escenarios .esc-ends{display:flex;justify-content:space-between;font-size:9px;color:#64748b;margin-top:-3px}
-     #view-escenarios .esc-gauge{display:flex;gap:12px;flex-wrap:wrap}
-     #view-escenarios .esc-kpi{flex:1;min-width:150px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-     #view-escenarios .esc-kl{font-size:11.5px;color:#64748b}
-     #view-escenarios .esc-kv{font-size:22px;font-weight:800;line-height:1.1;margin-top:2px}
-     #view-escenarios table{width:100%;border-collapse:collapse}
-     #view-escenarios th,#view-escenarios td{padding:6px 8px;text-align:left;font-size:12.5px;border-bottom:1px solid #e2e8f0}
-     #view-escenarios th{color:#64748b;font-weight:600}
+     #view-escenarios .esc-rk{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+     #view-escenarios .esc-k{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:11px 13px}
+     #view-escenarios .esc-k.hero{background:linear-gradient(135deg,#7f1d1d,#dc2626);color:#fff;border:none}
+     #view-escenarios .esc-k.hero.pos{background:linear-gradient(135deg,#14532d,#16a34a)}
+     #view-escenarios .esc-k .l{font-size:11px;color:#64748b;font-weight:700}
+     #view-escenarios .esc-k.hero .l{color:#fecaca}#view-escenarios .esc-k.hero.pos .l{color:#bbf7d0}
+     #view-escenarios .esc-k .v{font-size:22px;font-weight:800;line-height:1.1;margin-top:2px}
+     #view-escenarios .esc-k .s{font-size:11px;color:#64748b;margin-top:2px}
+     #view-escenarios .esc-k.hero .s{color:#fecaca}#view-escenarios .esc-k.hero.pos .s{color:#bbf7d0}
+     #view-escenarios #escNetFoot{color:#64748b;font-size:12px;margin-top:10px}
+     #view-escenarios .esc-blk{background:#fff;border:1px solid #e2e8f0;border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+     #view-escenarios .esc-blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+     #view-escenarios .esc-blk-h .ic{font-size:17px}#view-escenarios .esc-blk-h .t{font-weight:800;font-size:15px}
+     #view-escenarios .esc-blk-h .arw{margin-left:auto;color:#94a3b8;font-size:12px;transition:transform .15s}
+     #view-escenarios .esc-blk.open .esc-blk-h .arw{transform:rotate(90deg)}
+     #view-escenarios .esc-blk-b{display:none;padding:0 16px 16px;border-top:1px solid #e2e8f0}
+     #view-escenarios .esc-blk.open .esc-blk-b{display:block}
+     #view-escenarios .esc-note{font-size:12px;color:#64748b;margin:10px 2px 12px;line-height:1.5}
+     #view-escenarios table{width:100%;border-collapse:collapse;font-size:12.5px}
+     #view-escenarios thead th{color:#64748b;font-weight:700;text-align:left;padding:7px 8px;border-bottom:1px solid #e2e8f0;font-size:10.5px;text-transform:uppercase}
+     #view-escenarios tbody td{padding:7px 8px;border-bottom:1px solid #f1f5f9}
      #view-escenarios .esc-num{text-align:right;font-variant-numeric:tabular-nums}
-     #view-escenarios .esc-tier{font-size:10.5px;padding:2px 7px;border-radius:6px;font-weight:700}
-     #view-escenarios .esc-t-joya{background:#fef9c3;color:#854d0e}
-     #view-escenarios .esc-t-nucleo{background:#dbeafe;color:#1e40af}
-     #view-escenarios .esc-t-mantener{background:#f1f5f9;color:#475569}
-     #view-escenarios .esc-bar{height:16px;border-radius:5px;background:#eef2f7;position:relative;overflow:hidden;min-width:110px}
+     #view-escenarios .esc-tk{font-weight:800;color:var(--brand,#2563eb)}
+     #view-escenarios .esc-tier{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:700}
+     #view-escenarios .esc-t-joya{background:#fef9c3;color:#854d0e}#view-escenarios .esc-t-nucleo{background:#dbeafe;color:#1e40af}#view-escenarios .esc-t-mantener{background:#f1f5f9;color:#475569}
+     #view-escenarios .esc-bar{height:16px;border-radius:5px;background:#eef2f7;position:relative;overflow:hidden;min-width:100px}
      #view-escenarios .esc-fill{position:absolute;top:0;bottom:0}
      #view-escenarios .esc-mid{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:#94a3b8}
-     #view-escenarios .esc-pill{font-size:10.5px;padding:1px 6px;border-radius:5px;font-weight:700;background:#fef2f2;color:#dc2626}
-     #view-escenarios .esc-heat{font-size:11px}
-     #view-escenarios details{margin-top:10px}#view-escenarios summary{cursor:pointer;font-weight:600;font-size:13px}
+     #view-escenarios .esc-pill{font-size:10px;padding:1px 6px;border-radius:5px;font-weight:700;background:#fef2f2;color:#dc2626}
+     #view-escenarios .esc-heat{font-size:11px}#view-escenarios .esc-heat th{text-align:center}
+     #view-escenarios .esc-desk{overflow:auto}#view-escenarios .esc-mob{display:none}
+     #view-escenarios .esc-icard{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:10px 12px;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+     #view-escenarios .esc-icard .esc-idx{min-width:44px;text-align:center;font-size:19px;font-weight:800}
+     #view-escenarios .esc-icard .esc-imid{flex:1;min-width:0}
+     #view-escenarios .esc-hcard{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:10px 12px;margin-bottom:8px}
+     #view-escenarios .esc-hcard .esc-htop{display:flex;justify-content:space-between;align-items:baseline}
+     #view-escenarios .esc-hcard .esc-hfacs{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+     #view-escenarios .esc-hfac{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+     @media(max-width:820px){
+       #view-escenarios .esc-slgrid{grid-template-columns:1fr}
+       #view-escenarios .esc-rk{grid-template-columns:1fr 1fr}
+       #view-escenarios .esc-desk{display:none}#view-escenarios .esc-mob{display:block}
+     }
    </style>
-   <div class="esc-card"><h3 style="margin:0 0 6px">Escenario</h3>
+   <div class="esc-card"><h3>Escenario</h3>
      <div class="esc-chips" id="escChips">${chips.map((c,i)=>`<div class="esc-chip${i===0?' on':''}" data-preset="${c[0]}"${(c[0]==='aleatorio'||c[0]==='normal')?' style="border-style:dashed"':''}>${c[1]}</div>`).join('')}</div>
-     <div class="esc-mut" id="escPresetDesc" style="margin-top:6px"></div>
+     <div id="escPresetDesc"></div>
      <div class="esc-slgrid" id="escSliders"></div>
    </div>
-   <div class="esc-card"><h3 style="margin:0 0 8px">Respuesta de tu cartera</h3>
-     <div class="esc-gauge" id="escGauge"></div>
-     <div class="esc-mut" id="escNetFoot" style="margin-top:8px"></div>
+   <div class="esc-card"><h3>Respuesta de tu cartera</h3>
+     <div class="esc-rk" id="escResp"></div>
+     <div id="escNetFoot"></div>
    </div>
-   <div class="esc-card"><h3 style="margin:0 0 8px">Impacto por empresa <span class="esc-mut" style="font-weight:400">· de más golpeada a más resiliente</span></h3>
-     <table id="escTbl"><thead><tr><th>Empresa</th><th>Nivel</th><th class="esc-num">Peso</th><th style="width:32%">Impacto</th><th class="esc-num">Índice</th><th>Alarma</th></tr></thead><tbody></tbody></table>
-   </div>
-   <div class="esc-card"><h3 style="margin:0 0 8px">De dónde viene el golpe <span class="esc-mut" style="font-weight:400">· aporte de cada factor a cada empresa (rojo resta · verde suma)</span></h3>
-     <div id="escHeat" style="overflow:auto"></div>
-   </div>
-   <div class="esc-card"><h3 style="margin:0 0 4px">Coberturas — analizadas que NO tienes</h3>
-     <div class="esc-mut">Cómo responderían al mismo shock (mejor arriba).</div>
-     <table id="escTblC"><thead><tr><th>Empresa</th><th class="esc-num">Índice</th><th>Lectura</th></tr></thead><tbody></tbody></table>
-   </div>
-   <div class="esc-card"><details><summary>Cómo funciona</summary>
-     <div class="esc-mut" style="margin-top:8px">Cada empresa tiene una sensibilidad (−2..+2) a cada factor, calibrada con sus informes 2024/25; las empresas nuevas heredan de su arquetipo del Universo. El impacto = Σ (sensibilidad × intensidad del factor), ponderado por tu peso. Índice = dirección + severidad relativa (no € de pérdida). Rangos reales de ~20 años.</div>
-   </details></div>`;
+   ${blk('imp','📊','Impacto por empresa','De más golpeada a más resiliente. ⚠ pre-mortem = tesis que peligra (índice ≤ −60).','<div class="esc-desk"><table id="escImpDesk"><thead><tr><th>Empresa</th><th>Nivel</th><th class="esc-num">Peso</th><th style="width:30%">Impacto</th><th class="esc-num">Índice</th><th>Alarma</th></tr></thead><tbody></tbody></table></div><div class="esc-mob" id="escImpMob"></div>')}
+   ${blk('heat','🔥','De dónde viene el golpe','Aporte de cada factor a cada empresa (rojo resta · verde suma). En móvil, los factores que más pesan.','<div class="esc-desk" id="escHeatDesk"></div><div class="esc-mob" id="escHeatMob"></div>')}
+   ${blk('cob','🛡️','Coberturas — analizadas que NO tienes','Cómo responderían al mismo shock (mejor arriba).','<div class="esc-desk"><table id="escCobDesk"><thead><tr><th>Empresa</th><th class="esc-num">Índice</th><th>Lectura</th></tr></thead><tbody></tbody></table></div><div class="esc-mob" id="escCobMob"></div>')}
+   `;
    document.querySelectorAll('#escChips [data-preset]').forEach(c=>c.addEventListener('click',()=>{
      document.querySelectorAll('#escChips [data-preset]').forEach(x=>x.classList.remove('on')); c.classList.add('on'); escApplyPreset(c.dataset.preset); }));
+   var _sec=document.getElementById('view-escenarios');
+   if(_sec && !renderEscenarios._bound){ renderEscenarios._bound=true; _sec.addEventListener('click',function(e){ var h=e.target.closest('.esc-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-eblk'); window._escOpen[k]=!window._escOpen[k]; h.parentElement.classList.toggle('open'); } }); }
    escApplyPreset('lehman');
  };
 })();
