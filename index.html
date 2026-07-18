@@ -1887,15 +1887,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b"><div class="patgrid" id="proyParams"></div>
         <div class="sub" style="margin-top:8px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de Patrimonio.</div></div></div>
     <div class="secttl">📊 Resultado de la proyección (escenario base)</div>
-    <div id="proyCards" class="proy-kpis"></div>
-    <div class="secttl">🎲 Proyección con incertidumbre (Monte Carlo)</div>
-    <div class="mccard" id="proyMC"></div>
-    <div class="secttl" style="margin-top:20px">📆 Detalle año a año</div>
-    <div class="blk" id="blkProyEv" style="margin-bottom:12px"><div class="blk-h" data-proyblk="ev"><span class="arw">▶</span><span class="blk-t">💸 Eventos puntuales (gastos grandes)</span><span class="blk-sub">restan de un año concreto</span></div>
+    <div id="proyCards" class="proy-kpis" style="margin-bottom:14px"></div>
+    <div class="blk" id="blkProyMC"><div class="blk-h" data-proyblk="mc"><span class="arw">▶</span><span class="blk-t">🎲 Proyección con incertidumbre (Monte Carlo)</span><span class="blk-sub">1.000 escenarios · mediana, rango y probabilidad de objetivo</span></div>
+      <div class="blk-b"><div id="proyMC"></div></div></div>
+    <div class="blk" id="blkProyEv"><div class="blk-h" data-proyblk="ev"><span class="arw">▶</span><span class="blk-t">💸 Eventos puntuales (gastos grandes)</span><span class="blk-sub">restan de un año concreto</span></div>
       <div class="blk-b"><div id="proyEventos"></div>
         <div style="margin-top:10px"><button class="btn sm" id="proyAddEvento">+ Evento</button>
           <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div></div>
-    <div id="proyTabla"></div>
+    <div class="blk" id="blkProyDet"><div class="blk-h" data-proyblk="det"><span class="arw">▶</span><span class="blk-t">📆 Detalle año a año</span><span class="blk-sub">patrimonio, ahorro y reparto (inversión / efectivo) año por año</span></div>
+      <div class="blk-b"><div id="proyTabla"></div></div></div>
   </section>
 
   <section class="view" id="view-diversif">
