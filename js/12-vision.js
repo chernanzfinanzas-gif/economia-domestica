@@ -87,64 +87,102 @@ function visRiesgoExpo(){
   return {rows, tot, held:Object.keys(pos).length};
 }
 
-/* ---------- Render ---------- */
+/* ---------- Render (rediseño: KPIs + 3 bloques plegables) ---------- */
+window._visOpen=window._visOpen||{rank:false,expo:false,tags:false};
+var _VISDEC={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+function _visPct(x){ return x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%'); }
+function _visDecChip(d){ d=(d||'').toUpperCase(); if(!d)return '<span style="color:#cbd5e1">—</span>'; return '<span class="vis-dec" style="background:'+(_VISDEC[d]||'#64748b')+'">'+d+'</span>'; }
+function _visScoreCol(s){ return s==null?'#94a3b8':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626'); }
+function _visAtrCol(a){ return a>=70?'#16a34a':(a>=55?'#2563eb':'#64748b'); }
+function _visRankDesk(rows){
+  var trs=rows.map(function(x,i){ return '<tr class="'+(i===0&&!x.pte?'best':'')+(x.pte?' pte':'')+'">'+
+    '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b> <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
+    '<td>'+(x.rating||'—')+'</td>'+
+    '<td style="color:'+_visScoreCol(x.score)+';font-weight:700">'+(x.score==null?'—':Math.round(x.score))+'</td>'+
+    '<td class="'+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</td>'+
+    '<td>'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</td>'+
+    '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</td>'+
+    '<td style="white-space:nowrap">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' <span title="dossier caducado" style="color:#dc2626">⚠</span>':'')+'</td>'+
+    '<td class="l">'+_visDecChip(x.decision)+'</td></tr>';
+  }).join('');
+  return '<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+}
+function _visRankCards(rows){
+  return '<div class="vis-cards">'+rows.map(function(x,i){ return '<div class="vis-card'+(i===0&&!x.pte?' best':'')+(x.pte?' pte':'')+'"><div class="vis-card-h">'+
+    '<div class="score"><div class="n" style="color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</div><div class="l">Atr</div></div>'+
+    '<div class="mid"><div class="nm">'+x.t+' · '+_infEscSafe((x.nombre||'').slice(0,18))+'</div><div class="s2">'+_visDecChip(x.decision)+' <span style="font-size:11px;color:#94a3b8">'+(x.held?'en cartera':(x.pte?'Pte. Análisis':(x.rating||'')))+'</span></div></div>'+
+    '<span class="arw">▶</span></div>'+
+    '<div class="vis-card-b"><div class="mgrid">'+
+      '<div class="m"><div class="l">Rating</div><div class="v">'+(x.rating||'—')+'</div></div>'+
+      '<div class="m"><div class="l">Score</div><div class="v" style="color:'+_visScoreCol(x.score)+'">'+(x.score==null?'—':Math.round(x.score))+'</div></div>'+
+      '<div class="m"><div class="l">Margen seg.</div><div class="v '+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</div></div>'+
+      '<div class="m"><div class="l">RPD</div><div class="v">'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</div></div>'+
+      '<div class="m"><div class="l">Dossier</div><div class="v">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' ⚠':'')+'</div></div>'+
+      '<div class="m"><div class="l">Cotiz.</div><div class="v">'+(x.cot?fmt(x.cot):'—')+'</div></div>'+
+    '</div></div></div>';
+  }).join('')+'</div>';
+}
+function _visExpoHtml(ex){
+  if(!ex.rows.length) return '<div class="muted" style="font-size:12px;padding:8px 0">Sin posiciones en cartera con tesis etiquetada todavía.</div>';
+  return '<div class="vis-expo">'+ex.rows.map(function(r){ var p=r.pct*100; var col=p>=40?'#dc2626':p>=25?'#d97706':'#2563eb';
+    return '<div class="row"><div class="top"><span><b>'+_infEscSafe(r.tag)+'</b> <span class="tk">'+r.tk.join(', ')+'</span></span><span style="font-weight:800;color:'+col+'">'+p.toFixed(0)+'%</span></div><div class="bar"><i style="width:'+Math.min(100,p)+'%;background:'+col+'"></i></div></div>';
+  }).join('')+'</div>';
+}
+function _visTagsHtml(rows){
+  var opts=RIESGO_TAG_NAMES;
+  var filas=rows.filter(function(x){return !x.pte;}).slice().sort(function(a,b){return a.t<b.t?-1:1;}).map(function(x){
+    var manual=!!((DB.riesgoTags||{})[x.t]);
+    var chips=(x.tags.length?x.tags:['—']).map(function(tg){ return tg==='—'?'<span class="muted" style="font-size:11px">sin tags</span>':'<span class="vis-chip">'+_infEscSafe(tg)+' <span data-vistagdel="'+x.t+'|'+tg+'" class="x">✕</span></span>'; }).join('');
+    var addSel='<select data-vistagadd="'+x.t+'" class="vis-tagsel"><option value="">+ tema…</option>'+opts.filter(function(o){return x.tags.indexOf(o)<0;}).map(function(o){return '<option>'+_infEscSafe(o)+'</option>';}).join('')+'</select>';
+    return '<tr><td style="white-space:nowrap"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b></td><td>'+chips+'</td><td style="white-space:nowrap">'+addSel+' '+(manual?'<button class="vis-autob" data-vistagauto="'+x.t+'" title="Volver a los tags automáticos">↻ auto</button>':'<span class="muted" style="font-size:10px">auto</span>')+'</td></tr>';
+  }).join('');
+  return '<div class="vis-desk"><table class="vis-tage"><thead><tr><th style="text-align:left">Empresa</th><th style="text-align:left">Tags</th><th style="text-align:left">Editar</th></tr></thead><tbody>'+filas+'</tbody></table></div>';
+}
+function _visSortTools(){
+  var b=[['atractivo','Atractivo'],['cal','Calidad'],['mds','Margen seg.'],['rpd','RPD'],['meses','Antigüedad']];
+  var desk='<span class="muted" style="font-size:11px">Ordenar:</span>'+b.map(function(o){return '<button class="vis-sortb'+(_visSort===o[0]?' on':'')+'" data-vissort="'+o[0]+'">'+o[1]+'</button>';}).join('');
+  var mob='<label class="vis-sortm">Ordenar <select id="visSortSel">'+b.map(function(o){return '<option value="'+o[0]+'"'+(_visSort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>';
+  return '<div class="vis-tools">'+desk+mob+'</div>';
+}
+function _visBlk(key,ic,title,cnt,note,tools,inner){ var op=window._visOpen[key]; return '<div class="vis-blk'+(op?' open':'')+'" data-vblk="'+key+'"><div class="vis-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div><div class="vis-blk-b">'+(note?'<div class="vis-note">'+note+'</div>':'')+(tools||'')+inner+'</div></div>'; }
 function renderVision(){
   const el=$('#visBody'); if(!el) return;
   const faltan=(DB.analisis||[]).some(a=>{ const t=(a.ticker||'').toUpperCase(); return t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined); });
-  if(faltan) visLoadTesis(renderVision);   /* al terminar re-renderiza con score/riesgos */
-
+  if(faltan) visLoadTesis(renderVision);
   if(!(DB.analisis||[]).length && !Object.keys(DB.universo||{}).length){ el.innerHTML='<div class="empty">Sin empresas en Análisis todavía.</div>'; return; }
-
-  let rows=visRankData();
-  const pct=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
-  const key={atractivo:x=>x.atractivo, mds:x=>(x.mds==null?-9:x.mds), cal:x=>(x.score==null?-9:x.score), rpd:x=>(x.rpd==null?-9:x.rpd), meses:x=>(x.meses==null?-9:x.meses)}[_visSort]||(x=>x.atractivo);
+  var rows=visRankData();
+  var key={atractivo:x=>x.atractivo, mds:x=>(x.mds==null?-9:x.mds), cal:x=>(x.score==null?-9:x.score), rpd:x=>(x.rpd==null?-9:x.rpd), meses:x=>(x.meses==null?-9:x.meses)}[_visSort]||(x=>x.atractivo);
   rows=rows.slice().sort((a,b)=>key(b)-key(a));
-
-  const sortBtn=(k,txt)=>`<button class="btn ghost sm${_visSort===k?' on':''}" data-vissort="${k}" style="${_visSort===k?'background:#78350f;color:#fff':''}">${txt}</button>`;
-  const decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
-  const rtCol=s=>s==null?'#94a3b8':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626');
-  const trs=rows.map((x,i)=>`<tr${i===0?' style="background:#fffbeb"':''}>
-    <td><b data-ficha="${x.t}" style="cursor:pointer;color:var(--brand)">${x.t}</b> <span class="muted" style="font-size:11px">${x.held?'· en cartera':''}</span></td>
-    <td class="num">${x.rating||'—'}</td>
-    <td class="num" style="color:${rtCol(x.score)};font-weight:700">${x.score==null?'—':Math.round(x.score)}</td>
-    <td class="num ${x.mds!=null&&x.mds>=0?'pos':'neg'}">${pct(x.mds)}</td>
-    <td class="num">${x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%'}</td>
-    <td class="num" style="font-weight:800">${x.atractivo}</td>
-    <td class="num" style="white-space:nowrap">${x.meses==null?'—':x.meses+'m'} ${x.stale?'<span title="dossier caducado" style="color:#dc2626">⚠</span>':''}</td>
-    <td style="font-weight:700;color:${decCol[x.decision]||'#475569'}">${x.decision||'—'}</td>
-  </tr>`).join('');
-  const tabla=`<div class="card"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-      <div style="font-weight:800;font-size:15px">🧭 Ranking de atractivo</div><div style="flex:1"></div>
-      <span class="muted" style="font-size:11px">Ordenar:</span>${sortBtn('atractivo','Atractivo')}${sortBtn('cal','Calidad')}${sortBtn('mds','Margen seg.')}${sortBtn('rpd','RPD')}${sortBtn('meses','Antigüedad')}
-    </div>
-    <div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Empresa</th><th class="num">Rating</th><th class="num">Score</th><th class="num">Margen seg.</th><th class="num">RPD</th><th class="num">Atractivo</th><th class="num">Dossier</th><th>Decisión</th></tr></thead><tbody>${trs}</tbody></table></div>
-    <div class="sub" style="margin-top:6px">Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). Sirve para priorizar qué empresa analizar/actualizar antes; ⚠ marca dossier de más de 12 meses.</div>
-  </div>`;
-
-  const ex=visRiesgoExpo();
-  let expo;
-  if(!ex.rows.length){ expo=`<div class="card" style="margin-top:10px"><div style="font-weight:800;font-size:15px;margin-bottom:6px">🛡️ Exposición por tema de riesgo</div><div class="muted" style="font-size:12px">Sin posiciones en cartera con tesis etiquetada todavía.</div></div>`; }
-  else {
-    const bars=ex.rows.map(r=>{ const p=(r.pct*100); const col=p>=40?'#dc2626':p>=25?'#d97706':'#2563eb';
-      return `<div style="margin:6px 0"><div style="display:flex;justify-content:space-between;font-size:12px"><span><b>${r.tag}</b> <span class="muted">${r.tk.join(', ')}</span></span><span style="font-weight:700;color:${col}">${p.toFixed(0)}%</span></div><div style="height:8px;background:#e2e8f0;border-radius:4px;overflow:hidden"><div style="height:100%;width:${Math.min(100,p)}%;background:${col}"></div></div></div>`; }).join('');
-    expo=`<div class="card" style="margin-top:10px"><div style="font-weight:800;font-size:15px;margin-bottom:6px">🛡️ Exposición por tema de riesgo</div>
-      <div class="sub" style="margin-bottom:6px">% del valor de tu cartera expuesto a cada tema (una empresa puede sumar a varios). Rojo ≥40% · ámbar ≥25%.</div>${bars}</div>`;
-  }
-
-  /* Editor de tags por empresa */
-  const opts=RIESGO_TAG_NAMES;
-  const filas=rows.slice().sort((a,b)=>a.t<b.t?-1:1).map(x=>{
-    const manual=!!((DB.riesgoTags||{})[x.t]);
-    const chips=(x.tags.length?x.tags:['—']).map(tg=>tg==='—'?`<span class="muted" style="font-size:11px">sin tags</span>`:`<span style="display:inline-flex;align-items:center;gap:4px;font-size:11px;background:#f1f5f9;border-radius:10px;padding:1px 8px;margin:1px">${tg} <span data-vistagdel="${x.t}|${tg}" style="cursor:pointer;color:#94a3b8">✕</span></span>`).join('');
-    const addSel=`<select data-vistagadd="${x.t}" class="anaInp" style="font-size:11px;padding:1px 4px"><option value="">+ tema…</option>${opts.filter(o=>x.tags.indexOf(o)<0).map(o=>`<option>${o}</option>`).join('')}</select>`;
-    return `<tr><td style="white-space:nowrap"><b data-ficha="${x.t}" style="cursor:pointer;color:var(--brand)">${x.t}</b></td><td>${chips}</td><td style="white-space:nowrap">${addSel} ${manual?`<button class="btn ghost sm" data-vistagauto="${x.t}" title="Volver a los tags automáticos">↻ auto</button>`:'<span class="muted" style="font-size:10px">auto</span>'}</td></tr>`;
-  }).join('');
-  const editor=`<div class="card" style="margin-top:10px"><div style="font-weight:800;font-size:15px;margin-bottom:6px">🏷️ Tags de riesgo por empresa</div>
-    <div class="sub" style="margin-bottom:6px">Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). "↻ auto" descarta los cambios manuales de esa empresa.</div>
-    <div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Empresa</th><th>Tags</th><th>Editar</th></tr></thead><tbody>${filas}</tbody></table></div></div>`;
-
-  el.innerHTML=tabla+expo+editor;
+  var nAn=rows.filter(function(x){return !x.pte;}).length;
+  var nHeld=rows.filter(function(x){return x.held;}).length;
+  var best=rows.slice().sort(function(a,b){return b.atractivo-a.atractivo;})[0];
+  var ex=visRiesgoExpo();
+  var enRojo=ex.rows.filter(function(r){return r.pct>=0.4;}).length;
+  var kpis='<div class="vis-k">'+
+    '<div class="c hero"><div class="l">Mejor atractivo</div><div class="v">'+(best?best.atractivo:'—')+'</div><div class="p">'+(best?_infEscSafe(best.t):'')+'</div></div>'+
+    '<div class="c"><div class="l">Analizadas</div><div class="v">'+nAn+'</div><div class="p">con dossier o score</div></div>'+
+    '<div class="c"><div class="l">En cartera</div><div class="v">'+nHeld+'</div><div class="p">con posición</div></div>'+
+    '<div class="c"><div class="l">Temas en rojo</div><div class="v warn">'+enRojo+'</div><div class="p">exposición ≥ 40%</div></div>'+
+  '</div>';
+  el.innerHTML=
+    '<div class="sub" style="margin-bottom:14px">Ranking transversal de todas tus empresas por <b>atractivo</b> (calidad + margen de seguridad + RPD) para priorizar qué analizar o comprar, y tu <b>exposición por tema de riesgo</b> en cartera.</div>'+
+    kpis+
+    _visBlk('rank','🧭','Ranking de atractivo',nAn+' analizadas','Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). Prioriza qué analizar o actualizar antes; ⚠ marca dossier de más de 12 meses.',_visSortTools(),_visRankDesk(rows)+_visRankCards(rows))+
+    _visBlk('expo','🛡️','Exposición por tema de riesgo',ex.rows.length+' temas','% del valor de tu cartera expuesto a cada tema (una empresa puede sumar a varios). Rojo ≥40% · ámbar ≥25%.','',_visExpoHtml(ex))+
+    _visBlk('tags','🏷️','Tags de riesgo por empresa',nAn+' empresas','Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). «↻ auto» descarta los cambios manuales de esa empresa.','',_visTagsHtml(rows));
+  if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+  _visBind();
 }
+function _visBind(){
+  var sec=document.getElementById('view-vision'); if(!sec||renderVision._bound)return; renderVision._bound=true;
+  sec.addEventListener('click',function(e){
+    if(e.target.closest('[data-vissort]')||e.target.closest('[data-vistagdel]')||e.target.closest('[data-vistagauto]')||e.target.closest('[data-ficha]')||e.target.closest('select'))return;
+    var vc=e.target.closest('.vis-card-h'); if(vc){ vc.parentElement.classList.toggle('open'); return; }
+    var h=e.target.closest('.vis-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-vblk'); window._visOpen[k]=!window._visOpen[k]; h.parentElement.classList.toggle('open'); return; }
+  });
+  sec.addEventListener('change',function(e){ if(e.target&&e.target.id==='visSortSel'){ _visSort=e.target.value; renderVision(); } });
+}
+function _infEscSafe(x){ if(typeof _infEsc==='function')return _infEsc(x); return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
 /* ---------- Eventos ---------- */
 function _visSetTags(t,arr){ t=(t||'').toUpperCase(); DB.riesgoTags=DB.riesgoTags||{}; DB.riesgoTags[t]=arr; if(typeof scheduleSave==='function')scheduleSave(); renderVision(); }
