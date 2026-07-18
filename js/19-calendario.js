@@ -323,7 +323,9 @@ function calYearsDisponibles(){
    ============================================================ */
 var _calYearSel=null, _calVista='agenda', _calFil={tipo:'todos',ambito:'todas',empresa:'todas'};
 var _calDatosOK=false, _calListo=false, _calCargando=false;
+var _calMes=null, _calSelDay=null;
 var _CAL_MES=(typeof MESES_ES!=='undefined')?MESES_ES:['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+var _CAL_MESL=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 var _CAL_TT={exdiv:'EX-DIV',pago:'PAGO',junta:'JUNTA',res:'RESULT.'};
 var _CAL_QL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
 function _calEsc(s){ return (''+(s==null?'':s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
@@ -364,7 +366,7 @@ function _calPaint(){
   if(bar) bar.innerHTML=_calBarHTML(ymin,ymax);
   if(kp)  kp.innerHTML=_calKpisHTML();
   if(!_calDatosOK){ body.innerHTML='<div class="card"><div class="muted" style="padding:10px">Cargando calendario…</div></div>'; return; }
-  body.innerHTML = _calVista==='agenda'?_calAgendaHTML() : (_calVista==='anual'?_calAnualHTML() : _calDivsHTML());
+  body.innerHTML = _calVista==='agenda'?_calAgendaHTML() : (_calVista==='mensual'?_calMensualHTML() : _calDivsHTML());
 }
 
 function _calYearTagHTML(y){ var nowY=_calNowY();
@@ -388,7 +390,7 @@ function _calBarHTML(ymin,ymax){
       +'<span class="muted" style="font-size:11px">'+ymax+'</span>'
       +'<button class="btn sm" id="calHoy" data-calhoy="1" title="Ir al año en curso ('+nowY+')" style="font-weight:700">Hoy</button>'
     +'</div>'
-    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+sub('agenda','Agenda')+sub('anual','Vista anual')+sub('divs','Dividendos €/mes')+'</div>'
+    +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+sub('agenda','Agenda')+sub('mensual','Mensual')+sub('divs','Dividendos €/mes')+'</div>'
   +'</div>';
 }
 
@@ -396,8 +398,12 @@ function _calKpisHTML(){
   var y=_calYearSel; var ev=calEventosAnio(y); var nP=0, bruto=0;
   ev.forEach(function(e){ if(e.tipo==='pago'){ nP++; bruto+=_calNum(e.sh)*_calNum(e.imp); } });
   var dm=calDivMesAnio(y);
-  var k=[['Eventos',String(ev.length)],['Pagos de dividendo',String(nP)],['Dividendo bruto',_calEur(bruto)],['Neto en caja + IRPF',_calEur(dm.total)]];
-  return k.map(function(c){ return '<div class="card"><div class="lbl">'+c[0]+'</div><div class="val">'+c[1]+'</div></div>'; }).join('');
+  return '<div class="pos-kpis">'
+    +'<div class="k hero"><div class="l">Neto en caja + IRPF</div><div class="v">'+_calEur(dm.total)+'</div><div class="p">dividendos netos + devolución de abril</div></div>'
+    +'<div class="k"><div class="l">Dividendo bruto</div><div class="v">'+_calEur(bruto)+'</div><div class="p">'+nP+' pagos en el año</div></div>'
+    +'<div class="k"><div class="l">Pagos de dividendo</div><div class="v">'+nP+'</div><div class="p">reparto por empresa y fecha</div></div>'
+    +'<div class="k"><div class="l">Eventos totales</div><div class="v">'+ev.length+'</div><div class="p">dividendos, ex-div, juntas, resultados</div></div>'
+    +'</div>';
 }
 
 function _calChip(tipo,periodo){
@@ -437,50 +443,65 @@ function _calAgendaHTML(){
       +'<td><span data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer;font-weight:700;color:var(--brand)">'+_calEsc(e.t)+'</span> '+tag+_calBadge(e)+' <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,22))+'</span></td>'
       +'<td>'+_calDetalle(e)+'</td></tr>';
   }).join('');
+  var mob=ev.map(function(e){
+    var pasado=(y>=nowY)&&(e.fecha<hoy);
+    var tag=e.grp==='cartera'?'<span class="cal-gtag cart">cartera</span>':'<span class="cal-gtag rad">radar</span>';
+    return '<div class="cal-ecard '+(e.grp==='cartera'?'e-cart':'e-rad')+(pasado?' e-past':'')+'"><div class="ec-h"><span class="cal-fdate">'+_calFmtF(e.fecha)+(pasado?' ✓':'')+'</span>'+_calChip(e.tipo,e.periodo)+tag+_calBadge(e)+'</div><div class="ec-t"><span class="tk" data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer">'+_calEsc(e.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,24))+'</span></div><div class="cal-det">'+_calDetalle(e)+'</div></div>';
+  }).join('');
   var notaPas=(nPas&&y===nowY)?(' Los <b>'+nPas+'</b> eventos ya pasados van atenuados (✓) para resaltar lo pendiente.'):'';
   return '<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:10px">'+amb+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+tip+'<span style="width:1px;height:18px;background:var(--line);margin:0 4px"></span>'+empDD+'</div>'
-    +'<div style="overflow:auto"><table style="width:100%"><tbody>'+(rows||'<tr><td class="muted" style="padding:8px">Sin eventos con este filtro.</td></tr>')+'</tbody></table></div>'
+    +'<div class="pos-desk" style="overflow:auto"><table style="width:100%"><tbody>'+(rows||'<tr><td class="muted" style="padding:8px">Sin eventos con este filtro.</td></tr>')+'</tbody></table></div>'
+    +'<div class="pos-mob">'+(mob||'<div class="muted" style="font-size:12.5px;padding:6px">Sin eventos con este filtro.</div>')+'</div>'
     +'<div class="muted" style="font-size:11px;margin-top:6px">Eventos de '+y+'. Fondo ámbar = cartera · azul = prevista del radar. Clic en la empresa para abrir su ficha.'+notaPas+'</div></div>';
 }
 
-function _calWeekIdx(fecha,year){ var d=new Date(fecha+'T00:00:00'); var s=new Date(year,0,1); return Math.floor((d-s)/86400000/7); }
-function _calAnualHTML(){
-  var y=_calYearSel; var ev=calEventosAnio(y);
-  var evByT={}; ev.forEach(function(e){ (evByT[e.t]=evByT[e.t]||[]).push(e); });
-  var held=_calHeld(); var cart=[], prev=[];
-  calTickers().forEach(function(t){ (held.has(t)?cart:prev).push(t); });
-  var bands=[]; for(var w=0;w<53;w++){ var dt=new Date(y,0,1+w*7); var m=dt.getMonth(); if(bands.length&&bands[bands.length-1].m===m)bands[bands.length-1].n++; else bands.push({m:m,n:1}); }
-  var stEmp='border:1px solid var(--line);text-align:left;white-space:nowrap;font-weight:700;font-size:10px;padding:1px 5px;position:sticky;left:0;background:#fff;z-index:2';
-  var h1='<tr><th style="'+stEmp+'">Empresa</th>'+bands.map(function(b){ return '<th style="border:1px solid var(--line);background:#f8fafc;font-size:9px;font-weight:700;padding:1px 0" colspan="'+b.n+'">'+_CAL_MES[b.m]+'</th>'; }).join('')+'</tr>';
-  var h2='<tr><th style="'+stEmp+'"></th>'; for(var w2=0;w2<53;w2++) h2+='<th style="font-weight:400;color:#cbd5e1;font-size:6px;border:1px solid #eef2f7;padding:0">'+(w2+1)+'</th>'; h2+='</tr>';
+function _calPad2(n){ return (n<10?'0':'')+n; }
+function _calMensualHTML(){
+  var y=_calYearSel, nowY=_calNowY();
+  if(_calMes==null) _calMes=(y===nowY)?new Date().getMonth():0;
+  if(_calMes<0)_calMes=0; if(_calMes>11)_calMes=11;
+  var ev=calEventosAnio(y).filter(function(e){ return e.fecha && (''+e.fecha).slice(0,4)==String(y); });
+  var cnt=[0,0,0,0,0,0,0,0,0,0,0,0]; ev.forEach(function(e){ var m=(+(''+e.fecha).slice(5,7))-1; if(m>=0&&m<12)cnt[m]++; });
+  var chips=''; for(var i=0;i<12;i++){ chips+='<button class="calMchip'+(i===_calMes?' on':'')+(cnt[i]?'':' empty')+'" data-calmes="'+i+'">'+_CAL_MES[i]+(cnt[i]?'<span class="cm-cnt">'+cnt[i]+'</span>':'')+'</button>'; }
+  var mnav='<div class="cal-mnav"><button class="btn sm calMarw" data-calmd="-1" title="Mes anterior">◀</button><span class="cal-mtitle">'+_CAL_MESL[_calMes]+'</span><button class="btn sm calMarw" data-calmd="1" title="Mes siguiente">▶</button><div class="cal-mchips">'+chips+'</div></div>';
+  /* eventos del mes por día */
+  var EVD={}; ev.forEach(function(e){ var m=(+(''+e.fecha).slice(5,7))-1; if(m===_calMes){ var k=(''+e.fecha).slice(0,10); (EVD[k]=EVD[k]||[]).push(e); } });
   var col={exdiv:'#d97706',pago:'#16a34a',junta:'#c2410c',res:'#2563eb'};
-  var PRIO={pago:0,exdiv:1,res:2,junta:3};   /* importancia: dividendo > ex-div > resultados > junta */
-  function rowFor(t){
-    var grpbg=held.has(t)?'#fffbeb':'#f6f8fc'; var cells='';
-    var es=evByT[t]||[];
-    for(var w=0;w<53;w++){
-      var wk=es.filter(function(e){ return _calWeekIdx(e.fecha,y)===w; });
-      var cell='';
-      if(wk.length){
-        var main=wk.slice().sort(function(a,b){ var pa=(PRIO[a.tipo]==null?9:PRIO[a.tipo]), pb=(PRIO[b.tipo]==null?9:PRIO[b.tipo]); return pa!==pb?pa-pb:(a.fecha<b.fecha?-1:1); })[0];
-        var extra=main.proyectado?'opacity:.6;border:1px dashed #7c3aed;':(main.estimado?'opacity:.65;border:1px dashed #b45309;':'');
-        var ring=wk.length>1?'box-shadow:0 0 0 1.4px #cbd5e1;':'';
-        var tip=wk.slice().sort(function(a,b){return a.fecha<b.fecha?-1:1;}).map(function(e){ return _calFmtF(e.fecha)+'-'+y+' · '+(_CAL_TT[e.tipo])+(e.tipo==='res'&&e.periodo?' '+(_CAL_QL[e.periodo]||e.periodo):'')+(e.tipo==='pago'?' · '+_calEur(e.sh*e.imp)+' bruto':'')+(e.proyectado?' (proy)':'')+(e.estimado?' (est)':''); }).join('\n');
-        cell='<span title="'+_calEsc((wk.length>1?(wk.length+' eventos:\n'):'')+tip)+'" style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+(col[main.tipo]||'#64748b')+';'+extra+ring+'"></span>';
-      }
-      cells+='<td style="border:1px solid #eef2f7;width:10px;height:12px;text-align:center;padding:0">'+cell+'</td>';
-    }
-    return '<tr><td style="'+stEmp+';background:'+grpbg+'">'+_calEsc(t)+'</td>'+cells+'</tr>';
+  var first=new Date(y,_calMes,1); var fw=(first.getDay()+6)%7; var dim=new Date(y,_calMes+1,0).getDate();
+  var hoy=_calHoy();
+  var dow=['L','M','X','J','V','S','D'];
+  var grid='<div class="cal-grid">'+dow.map(function(d,i){ return '<div class="cal-dow'+(i>=5?' we':'')+'">'+d+'</div>'; }).join('');
+  var cells=[]; for(var a=0;a<fw;a++)cells.push(null); for(var d=1;d<=dim;d++)cells.push(d); while(cells.length%7!==0)cells.push(null);
+  cells.forEach(function(d){
+    if(d===null){ grid+='<div class="cal-cell out"></div>'; return; }
+    var iso=y+'-'+_calPad2(_calMes+1)+'-'+_calPad2(d);
+    var es=(EVD[iso]||[]).slice().sort(function(a,b){ var P={pago:0,exdiv:1,res:2,junta:3}; return (P[a.tipo]==null?9:P[a.tipo])-(P[b.tipo]==null?9:P[b.tipo]); });
+    var we=((new Date(y,_calMes,d).getDay()+6)%7)>=5;
+    var isToday=(iso===hoy);
+    var cls='cal-cell'+(we?' we':'')+(isToday?' today':'')+(_calSelDay===iso?' sel':'');
+    var pills='<div class="cal-evwrap">';
+    es.slice(0,3).forEach(function(e){ var c=col[e.tipo]||'#64748b'; var am=(e.tipo==='pago'&&e.sh&&e.imp)?'<span class="am">'+_calEur(e.sh*e.imp*0.81)+'</span>':''; pills+='<span class="cal-evp '+(e.grp==='cartera'?'cart':'rad')+(e.proyectado?' proy':(e.estimado?' est':''))+'"><i style="background:'+c+'"></i>'+_calEsc(e.t)+am+'</span>'; });
+    if(es.length>3)pills+='<span class="cal-more">+'+(es.length-3)+' más</span>';
+    pills+='</div>';
+    grid+='<div class="'+cls+'" data-calday="'+iso+'"><span class="cal-dn">'+d+'</span>'+(es.length?pills:'')+'</div>';
+  });
+  grid+='</div>';
+  var leg='<div class="cal-leg"><span><i style="background:#16a34a"></i>dividendo</span><span><i style="background:#d97706"></i>ex-div</span><span><i style="background:#2563eb"></i>resultados</span><span><i style="background:#c2410c"></i>junta</span><span class="muted">· etiqueta ámbar = cartera · azul = radar · borde punteado = proyectado/estimado</span></div>';
+  /* detalle: día seleccionado o lista del mes */
+  var det='';
+  if(_calSelDay && (''+_calSelDay).slice(0,7)===y+'-'+_calPad2(_calMes+1)){
+    var dd=_calSelDay.split('-'); var des=(EVD[_calSelDay]||[]).slice().sort(function(a,b){ var P={pago:0,exdiv:1,res:2,junta:3}; return (P[a.tipo]==null?9:P[a.tipo])-(P[b.tipo]==null?9:P[b.tipo]); });
+    det='<div class="cal-detail"><h4>'+(+dd[2])+' de '+_CAL_MESL[_calMes]+' '+y+' · '+(des.length||'sin')+' evento'+(des.length===1?'':'s')+' <button class="btn sm calDayClr" data-caldayclr="1">ver todo el mes</button></h4>'+(des.length?des.map(_calDetRow).join(''):'<div class="muted" style="font-size:12.5px">Sin eventos este día.</div>')+'</div>';
+  } else {
+    var me=ev.filter(function(e){ return (+(''+e.fecha).slice(5,7))-1===_calMes; }).sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
+    det='<div class="cal-detail"><h4>Eventos de '+_CAL_MESL[_calMes]+' '+y+' ('+me.length+')</h4>'+(me.length?me.map(_calDetRow).join(''):'<div class="muted" style="font-size:12.5px">Sin eventos este mes.</div>')+'</div>';
   }
-  var body=cart.map(rowFor).join('')+'<tr><td colspan="54" style="border-top:2px solid #cbd5e1;height:0;padding:0"></td></tr>'+prev.map(rowFor).join('');
-  var legItem=function(c,lbl,st){ return '<span style="display:inline-flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;'+(st||('background:'+c))+';display:inline-block"></span>'+lbl+'</span>'; };
-  var leg='<div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:10.5px;margin-top:7px;color:#475569">'
-    +legItem(col.pago,'pago')+legItem(col.exdiv,'ex-div')+legItem(col.res,'resultados')+legItem(col.junta,'junta')
-    +'<span style="width:1px;height:12px;background:var(--line)"></span>'
-    +legItem(null,'proyectado','border:1px dashed #7c3aed')+legItem(null,'estimado','border:1px dashed #b45309')+legItem(null,'varios (ver tooltip)','box-shadow:0 0 0 1.4px #cbd5e1')
-    +'</div>';
-  return '<div class="card"><div style="overflow:auto"><table style="border-collapse:collapse;font-size:9px">'+h1+h2+body+'</table></div>'+leg
-    +'<div class="muted" style="font-size:11px;margin-top:6px">Semanas del año '+y+' con los meses arriba. Cartera arriba, previstas del radar debajo de la línea. Si una semana tiene varios eventos se muestra el más importante (dividendo › ex-div › resultados › junta) y el resto aparece al pasar el ratón por el punto.</div></div>';
+  return '<div class="card cal-monthcard">'+mnav+grid+leg+det+'</div>';
+}
+function _calDetRow(e){
+  var dd=(''+e.fecha).split('-');
+  var grp=e.grp==='cartera'?'<span class="cal-gtag cart">cartera</span>':'<span class="cal-gtag rad">radar</span>';
+  return '<div class="cal-drow"><div class="cal-dd">'+dd[2]+' '+_CAL_MES[(+dd[1])-1].toLowerCase()+'</div><div>'+_calChip(e.tipo,e.periodo)+'</div><div style="flex:1"><span class="tk" data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer">'+_calEsc(e.t)+'</span> '+grp+_calBadge(e)+' <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,22))+'</span><div class="cal-det">'+_calDetalle(e)+'</div></div></div>';
 }
 
 function _calDivsHTML(){
@@ -500,9 +521,14 @@ function _calDivsHTML(){
   var nota = y>nowY ? 'Año <b>proyectado</b> (dividendos.json + Plan/Simulador, incluye previstas del radar).'
            : (y===nowY ? 'Año en curso: <b>cartera real cobrada</b> + previsto de las <b>compras pendientes de ejecutar</b>.'
            : 'Año real: dividendos <b>cobrados</b> por empresa (cuadra con tu pestaña Dividendos).');
-  return '<div class="card" style="overflow:auto"><table class="calDivt" style="border-collapse:collapse;width:100%">'
+  var mob=d.rows.map(function(r){ var chips=r.neto.map(function(v,i){ return v>=1?'<span class="cal-mchip2"><b>'+_CAL_MES[i]+'</b> '+_calEur(v)+'</span>':''; }).filter(Boolean).join('');
+    return '<div class="cal-lcard"><div class="cal-lh"><div class="tk" data-ficha="'+_calEsc(r.t)+'" style="cursor:pointer">'+_calEsc(r.t)+' <span class="muted" style="font-size:10px">'+_calEsc((_calNombre(r.t)||'').slice(0,16))+'</span></div><div class="cal-ty">'+_calEur(r.total)+'<span>año</span></div></div><div class="cal-dchips">'+chips+'</div></div>';
+  }).join('');
+  var mobSum='<div class="cal-lcard sumc"><div class="cal-lh"><div class="tk">Resumen '+y+'</div><div class="cal-ty">'+_calEur(d.total)+'<span>neto en caja</span></div></div><div class="cal-lg"><div class="m"><span>Total cobrado</span><b class="pos">'+_calEur(d.netoTotal)+'</b></div><div class="m"><span>Devolucion IRPF (abr)</span><b class="pos">+'+_calEur(d.irpf)+'</b></div></div></div>';
+  return '<div class="card cal-divcard"><div class="pos-desk" style="overflow:auto"><table class="calDivt" style="border-collapse:collapse;width:100%">'
     +'<style>.calDivt th,.calDivt td{border:1px solid var(--line);padding:3px 6px;text-align:right;font-size:12px}.calDivt th:first-child,.calDivt td:first-child{text-align:left}</style>'
     +head+body+totMes+irpfRow+netRow+'</table></div>'
+    +'<div class="pos-mob">'+(mob||'<div class="muted" style="font-size:12.5px;padding:6px">Sin dividendos este ano.</div>')+(d.rows.length?mobSum:'')+'</div>'
     +'<div class="muted" style="font-size:11px;margin-top:6px">'+nota+' Cada celda = neto de esa empresa ese mes (× 0,81). En abril el IRPF entra como <b>ingreso</b> (devolución de retenciones del año anterior).</div>';
 }
 
@@ -516,17 +542,21 @@ function _calBodyRepaint(){
   var kp=document.getElementById('calKpis'); if(kp) kp.innerHTML=_calKpisHTML();
   var body=document.getElementById('calBody'); if(!body) return;
   body.innerHTML = !_calDatosOK ? '<div class="card"><div class="muted" style="padding:10px">Cargando calendario…</div></div>'
-    : (_calVista==='agenda'?_calAgendaHTML() : (_calVista==='anual'?_calAnualHTML() : _calDivsHTML()));
+    : (_calVista==='agenda'?_calAgendaHTML() : (_calVista==='mensual'?_calMensualHTML() : _calDivsHTML()));
 }
 function _calClampYear(ny){ var ys=calYearsDisponibles(); if(!ys.length)return ny; return Math.max(ys[0],Math.min(ys[ys.length-1],ny)); }
 function _calInitListeners(){
   if(_calListo) return; _calListo=true;
   document.addEventListener('click', function(e){
     var t=e.target; if(!t||!t.closest) return;
-    var hy=t.closest('[data-calhoy]'); if(hy){ _calYearSel=_calClampYear(_calNowY()); _calPaint(); return; }
+    var hy=t.closest('[data-calhoy]'); if(hy){ _calYearSel=_calClampYear(_calNowY()); _calMes=new Date().getMonth(); _calSelDay=null; _calPaint(); return; }
     var yb=t.closest('.calYbtn'); if(yb){ var dd=parseInt(yb.getAttribute('data-caldy'),10)||0; _calYearSel=_calClampYear(_calYearSel+dd); _calPaint(); return; }
     var sb=t.closest('.calSubtab'); if(sb){ _calVista=sb.getAttribute('data-calv')||'agenda'; _calPaint(); return; }
     var fb=t.closest('.calFbtn'); if(fb){ var vt=fb.getAttribute('data-calf'), va=fb.getAttribute('data-cala'); if(vt!=null)_calFil.tipo=vt; if(va!=null)_calFil.ambito=va; _calPaint(); return; }
+    var mc=t.closest('.calMchip'); if(mc){ _calMes=parseInt(mc.getAttribute('data-calmes'),10)||0; _calSelDay=null; _calBodyRepaint(); return; }
+    var ma=t.closest('.calMarw'); if(ma){ var md=parseInt(ma.getAttribute('data-calmd'),10)||0; _calSelDay=null; var nm=(_calMes==null?0:_calMes)+md; if(nm<0){ if(_calYearSel>calYearsDisponibles()[0]){ _calYearSel--; _calMes=11; } else _calMes=0; _calPaint(); return; } if(nm>11){ var ys=calYearsDisponibles(); if(_calYearSel<ys[ys.length-1]){ _calYearSel++; _calMes=0; } else _calMes=11; _calPaint(); return; } _calMes=nm; _calBodyRepaint(); return; }
+    var cd=t.closest('[data-calday]'); if(cd){ if(t.closest('[data-ficha]'))return; var iso=cd.getAttribute('data-calday'); _calSelDay=(_calSelDay===iso)?null:iso; _calBodyRepaint(); return; }
+    var dc=t.closest('.calDayClr'); if(dc){ _calSelDay=null; _calBodyRepaint(); return; }
   });
   /* Slider de año: en vivo solo actualiza el número (fluido al arrastrar); al soltar repinta el contenido. */
   document.addEventListener('input', function(e){ var r=e.target; if(!r||r.id!=='calYearRange') return; _calYearSel=_calClampYear(parseInt(r.value,10)||_calNowY()); _calYearNumLive(_calYearSel); });
