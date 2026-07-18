@@ -1302,24 +1302,44 @@ function metaCalc(m){ const now=new Date(); const obj=num(m.objetivo),act=num(m.
   const apNec=(mesesRest!=null&&mesesRest>0)?falta/mesesRest:(falta<=0?0:null);
   let estim=''; if(falta>0&&ap>0){ const mm=Math.ceil(falta/ap); const de=new Date(now); de.setMonth(de.getMonth()+mm); estim=de.toISOString().slice(0,7); }
   return {obj,act,ap,falta,prog,mesesRest,apNec,estim}; }
+function _metaEstado(c){ let etxt='—',ecol='#64748b';
+  if(c.falta<=0&&c.obj>0){ etxt='✓ conseguida'; ecol='#16a34a'; }
+  else if(c.mesesRest!=null&&c.mesesRest<=0){ etxt='fecha vencida'; ecol='#dc2626'; }
+  else if(c.apNec!=null){ if(c.ap>0){ if(c.ap>=c.apNec-0.005){ etxt='en camino'; ecol='#16a34a'; } else { etxt='aporte corto'; ecol='#dc2626'; } } else { etxt='pon '+fmt(c.apNec)+'/mes'; ecol='#d97706'; } }
+  return {etxt,ecol}; }
 function renderMetas(){ const el=$('#metasBody'); if(!el)return; const metas=DB.metas=DB.metas||[];
-  const rows=metas.map(m=>{ const c=metaCalc(m); let etxt='—',ecol='#64748b';
-    if(c.falta<=0&&c.obj>0){ etxt='✓ conseguida'; ecol='#16a34a'; }
-    else if(c.mesesRest!=null&&c.mesesRest<=0){ etxt='fecha vencida'; ecol='#dc2626'; }
-    else if(c.apNec!=null){ if(c.ap>0){ if(c.ap>=c.apNec-0.005){ etxt='en camino'; ecol='#16a34a'; } else { etxt='aporte corto'; ecol='#dc2626'; } } else { etxt='pon '+fmt(c.apNec)+'/mes'; ecol='#d97706'; } }
+  const explainHTML='<div class="mt-explain">Tus <b>objetivos de ahorro</b> con importe y fecha (entrada de casa, coche, viaje, jubilación…). Tú pones el <b>objetivo</b>, la <b>fecha</b> y lo que llevas <b>ahorrado</b>; la app calcula el <b>progreso</b>, cuánto <b>apartar cada mes</b> para llegar a tiempo y, con tu aporte previsto, <b>cuándo llegarías</b> y si vas en camino.</div>';
+  const toolbarHTML='<div class="toolbar" style="margin:0 0 10px"><button class="btn sm" id="metaAdd">+ Meta</button></div>';
+  if(!metas.length){ el.innerHTML=explainHTML+toolbarHTML+'<div class="empty">Sin metas. Pulsa «+ Meta» para crear una (entrada de casa, coche, jubilación, viaje…).</div>'; return; }
+  const totObj=metas.reduce((s,m)=>s+num(m.objetivo),0), totAct=metas.reduce((s,m)=>s+num(m.actual),0); const gProg=totObj?totAct/totObj:0;
+  const kpisHTML='<div class="mt-kpis">'
+    +`<div class="k"><div class="l">Objetivo total</div><div class="v">${fmt(totObj)}</div><div class="p">${metas.length} meta${metas.length===1?'':'s'}</div></div>`
+    +`<div class="k"><div class="l">Ahorrado</div><div class="v">${fmt(totAct)}</div><div class="p">${(gProg*100).toFixed(0)}% del total</div></div>`
+    +`<div class="k hero"><div class="l">Falta por ahorrar</div><div class="v">${fmt(Math.max(0,totObj-totAct))}</div><div class="p">para todas las metas</div></div>`
+    +'</div>';
+  const rows=metas.map(m=>{ const c=metaCalc(m); const {etxt,ecol}=_metaEstado(c);
     return `<tr>
-      <td><input class="anaInp" data-meta="${m.id}|nombre" value="${(m.nombre||'').replace(/"/g,'&quot;')}" style="width:150px"></td>
-      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|objetivo" value="${c.obj||''}" style="width:95px;text-align:right"></td>
-      <td><input type="date" class="anaInp" data-meta="${m.id}|fecha" value="${m.fecha||''}" style="width:132px"></td>
-      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|actual" value="${c.act||''}" style="width:95px;text-align:right"></td>
-      <td style="min-width:130px"><div class="bar"><i style="width:${(c.prog*100).toFixed(0)}%;background:${c.prog>=1?'#16a34a':'#2563eb'}"></i></div><div class="muted" style="font-size:10px">${(c.prog*100).toFixed(0)}% · falta ${fmt(c.falta)}</div></td>
-      <td class="num">${c.mesesRest!=null?c.mesesRest:'—'}</td>
-      <td class="num"><input type="number" class="anaInp" data-meta="${m.id}|aporte" value="${c.ap||''}" placeholder="${c.apNec!=null?Math.round(c.apNec):''}" style="width:85px;text-align:right"></td>
-      <td class="num">${c.apNec!=null?fmt(c.apNec):'—'}</td>
-      <td style="color:${ecol};font-size:11px;white-space:nowrap">${etxt}${c.estim?'<br><span class="muted">llegas '+c.estim+'</span>':''}</td>
-      <td><button class="btn danger sm" data-metadel="${m.id}">✕</button></td>
+      <td class="l"><input class="anaInp" data-meta="${m.id}|nombre" value="${(m.nombre||'').replace(/"/g,'&quot;')}" style="width:150px"></td>
+      <td><input type="number" class="anaInp" data-meta="${m.id}|objetivo" value="${c.obj||''}" style="width:95px;text-align:right"></td>
+      <td class="l"><input type="date" class="anaInp" data-meta="${m.id}|fecha" value="${m.fecha||''}" style="width:132px"></td>
+      <td><input type="number" class="anaInp" data-meta="${m.id}|actual" value="${c.act||''}" style="width:95px;text-align:right"></td>
+      <td style="min-width:140px"><div class="bar"><i style="width:${(c.prog*100).toFixed(0)}%;background:${c.prog>=1?'#16a34a':'#2563eb'}"></i></div><div class="pl">${(c.prog*100).toFixed(0)}% · falta ${fmt(c.falta)}</div></td>
+      <td>${c.mesesRest!=null?c.mesesRest:'—'}</td>
+      <td><input type="number" class="anaInp" data-meta="${m.id}|aporte" value="${c.ap||''}" placeholder="${c.apNec!=null?Math.round(c.apNec):''}" style="width:85px;text-align:right"></td>
+      <td>${c.apNec!=null?fmt(c.apNec):'—'}</td>
+      <td class="l" style="color:${ecol};font-size:11.5px;white-space:nowrap">${etxt}${c.estim?'<br><span class="muted">llegas '+c.estim+'</span>':''}</td>
+      <td class="l"><button class="btn danger sm" data-metadel="${m.id}">✕</button></td>
     </tr>`; }).join('');
-  el.innerHTML=`<div class="toolbar" style="margin-bottom:8px"><button class="btn sm" id="metaAdd">+ Meta</button></div>`+(metas.length?`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Meta</th><th class="num">Objetivo</th><th>Fecha</th><th class="num">Ahorrado</th><th>Progreso</th><th class="num">Meses</th><th class="num">Aporte/mes</th><th class="num">Necesario</th><th>Estado</th><th></th></tr></thead><tbody>${rows}</tbody></table></div><div class="sub" style="margin-top:6px">"Ahorrado" lo actualizas tú. "Necesario" = lo que falta ÷ meses hasta la fecha. Si pones un "Aporte/mes", te dice cuándo llegarías y si vas en camino.</div>`:'<div class="empty">Sin metas. Pulsa «+ Meta» para crear una (entrada de casa, coche, jubilación, viaje…).</div>');
+  const deskHTML='<div class="mt-desk"><table><thead><tr><th>Meta</th><th>Objetivo</th><th>Fecha</th><th>Ahorrado</th><th>Progreso</th><th>Meses</th><th>Aporte/mes</th><th>Necesario</th><th>Estado</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  const mcards=metas.map(m=>{ const c=metaCalc(m); const {etxt,ecol}=_metaEstado(c);
+    return `<div class="mcard"><div class="mc-h"><input class="anaInp mc-nm" data-meta="${m.id}|nombre" value="${(m.nombre||'').replace(/"/g,'&quot;')}"><button class="btn danger sm" data-metadel="${m.id}">✕</button></div>
+    <div class="bar big"><i style="width:${(c.prog*100).toFixed(0)}%;background:${c.prog>=1?'#16a34a':'#2563eb'}"></i></div>
+    <div class="pl2">${(c.prog*100).toFixed(0)}% · falta ${fmt(c.falta)} · <span style="color:${ecol};font-weight:700">${etxt}</span></div>
+    <div class="mg"><label class="m"><span>Objetivo</span><input type="number" class="anaInp" data-meta="${m.id}|objetivo" value="${c.obj||''}"></label><label class="m"><span>Fecha</span><input type="date" class="anaInp" data-meta="${m.id}|fecha" value="${m.fecha||''}"></label><label class="m"><span>Ahorrado</span><input type="number" class="anaInp" data-meta="${m.id}|actual" value="${c.act||''}"></label><label class="m"><span>Aporte/mes</span><input type="number" class="anaInp" data-meta="${m.id}|aporte" value="${c.ap||''}" placeholder="${c.apNec!=null?Math.round(c.apNec):''}"></label></div>
+    <div class="mt-info">Necesario/mes: <b>${c.apNec!=null?fmt(c.apNec):'—'}</b>${c.mesesRest!=null?' · '+c.mesesRest+' meses':''}${c.estim?' · a tu ritmo llegas <b>'+c.estim+'</b>':''}</div></div>`; }).join('');
+  const mobHTML='<div class="mt-mob">'+mcards+'</div>';
+  const legendHTML='<div class="mt-legend"><div class="lt">¿Qué significa cada valor?</div><dl><dt>Objetivo</dt><dd>La cantidad total que quieres reunir para esa meta.</dd><dt>Fecha</dt><dd>Cuándo quieres tenerla lista. Vacía = no se calculan meses ni aporte necesario.</dd><dt>Ahorrado</dt><dd>Lo que llevas guardado. <b>Lo actualizas tú</b>.</dd><dt>Progreso</dt><dd>Qué parte del objetivo ya tienes (ahorrado ÷ objetivo) y cuánto falta.</dd><dt>Meses</dt><dd>Los que quedan hasta la fecha objetivo.</dd><dt>Aporte/mes</dt><dd>Lo que prevés apartar cada mes (lo pones tú).</dd><dt>Necesario</dt><dd>Lo que <b>deberías</b> apartar al mes para llegar a tiempo: lo que falta ÷ meses restantes.</dd><dt>Estado</dt><dd><b style="color:#16a34a">En camino</b> si tu aporte cubre el necesario; <b style="color:#dc2626">aporte corto</b> si no; y a qué mes llegarías a tu ritmo.</dd></dl></div>';
+  el.innerHTML=explainHTML+kpisHTML+toolbarHTML+deskHTML+mobHTML+legendHTML;
 }
 function setR4Tipo(t){ var h=$('#r4Tipo'); if(h)h.value=t; $$('#r4TipoSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===t); }); var rw=$('#r4NetoWrap'); if(rw)rw.style.display=(t==='retirada'?'':'none'); }
 function renderFondoR4(){
