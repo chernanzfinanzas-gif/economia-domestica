@@ -186,43 +186,81 @@
     });
   };
 
+  /* ===== Diseño v2: secciones con KPIs héroe, bloques plegables y listas/tarjetas móviles ===== */
+  function _agendaInner(a){
+    if(!a) return '';
+    var res=a.resultados||[];
+    var badge=function(c){ return c?'<span class="agb conf">confirmada</span>':'<span class="agb est">estimada Yahoo</span>'; };
+    var h='<div class="ibox sky">'+esc(a.resumenTexto||'Agenda de resultados y ex-dividend (Yahoo).')+'</div>';
+    if(res.length){ h+='<div class="bsec"><div class="bsec-t">📊 Próximos resultados ('+res.length+')</div>'
+      +res.map(function(x){ return '<div class="brow"><div class="bl"><b class="tk">'+esc(x.ticker)+'</b> <span class="nm">'+esc(x.empresa)+'</span></div><div class="bc"><span class="bd2">'+fday(x.fecha)+'</span> <span class="muted" style="font-size:11px">'+(x.dias<0?'hace '+(-x.dias):'en '+x.dias)+' d</span></div><div class="bd">'+badge(x.confirmada)+'</div></div>'; }).join('')+'</div>'; }
+    else h+='<p class="foot">Sin fecha de resultados confirmada por Yahoo en la ventana. Rige la estimación del Vigía.</p>';
+    if(a.sinConfirmar&&a.sinConfirmar.length) h+='<p class="foot">Sin fecha confirmada ('+a.sinConfirmar.length+'): '+a.sinConfirmar.map(function(x){return esc(x.ticker);}).join(', ')+'. Rige la estimación del Vigía.</p>';
+    if(a.exDividendos&&a.exDividendos.length){
+      var ex=a.exDividendos.map(function(x){ return '<div class="brow"><div class="bl"><b class="tk">'+esc(x.ticker)+'</b> <span class="nm">'+esc(x.empresa)+'</span></div><div class="bc"><span class="muted" style="font-size:11px">ex '+fday(x.exFecha)+(x.pagoFecha?' · pago '+fday(x.pagoFecha):'')+'</span></div><div class="bd">'+(x.importe!=null?eur(x.importe):'—')+'</div></div>'; }).join('');
+      h+='<details class="exdet"><summary>💶 Ex-dividend (orientativo, '+a.exDividendos.length+') — tus fechas exactas están en Dividendos</summary><div style="margin-top:8px">'+ex+'</div></details>';
+    }
+    return h;
+  }
+  function _vigiaInner(v){
+    if(!v) return '';
+    var row=function(x,venc){ return '<div class="brow'+(venc?' venc':'')+'"><div class="bl"><b class="tk">'+esc(x.ticker)+'</b> <span class="nm">'+esc(x.empresa)+'</span></div><div class="bc"><span class="per">'+esc(x.periodoLabel||x.periodoEsperado)+'</span></div><div class="bd'+(venc?' neg':'')+'">'+(venc?('+'+x.diasVencido+' d'):fday(x.fechaEstimada))+'</div></div>'; };
+    var h='<div class="ibox amber">'+esc(v.resumenTexto||'')+'</div>';
+    if(v.vencidos&&v.vencidos.length) h+='<div class="bsec"><div class="bsec-t neg">⚠️ Vencidos sin registrar ('+v.vencidos.length+')</div>'+v.vencidos.map(function(x){return row(x,true);}).join('')+'</div>';
+    if(v.estaSemana&&v.estaSemana.length) h+='<div class="bsec"><div class="bsec-t">📅 Esta semana ('+v.estaSemana.length+')</div>'+v.estaSemana.map(function(x){return row(x);}).join('')+'</div>';
+    if(v.proximos14d&&v.proximos14d.length) h+='<div class="bsec"><div class="bsec-t">🔜 Próximos 14 días ('+v.proximos14d.length+')</div>'+v.proximos14d.map(function(x){return row(x);}).join('')+'</div>';
+    var vac=!(v.vencidos&&v.vencidos.length)&&!(v.estaSemana&&v.estaSemana.length)&&!(v.proximos14d&&v.proximos14d.length);
+    if(vac){ var s=v.siguienteEvento; h+='<p class="foot">Sin resultados esperados en 14 días.'+(s?(' Siguiente: <b>'+esc(s.empresa)+'</b> ~'+fday(s.fechaEstimada)+'.'):'')+'</p>'; }
+    if(v.sinDeterminar&&v.sinDeterminar.length) h+='<p class="foot">Pte. Revisión ('+v.sinDeterminar.length+'): '+v.sinDeterminar.map(function(x){return esc(x.ticker||x.archivo);}).join(', ')+'.</p>';
+    h+='<p class="foot">Para registrar un informe, dile al analista: <i>"analizar informe trimestral de [empresa]"</i>.</p>';
+    return h;
+  }
+  function _radarInner(a){
+    if(!a) return '';
+    var chip=function(c){ var up=c.dir==='up'; var dp=(c.deltaPct!=null)?(' '+(c.deltaPct>=0?'+':'')+c.deltaPct+'%'):''; return '<span class="cchip '+(up?'up':'down')+'">'+esc(c.label)+' '+esc(''+c.antes)+esc(c.unidad||'')+'→'+esc(''+c.ahora)+esc(c.unidad||'')+' '+(up?'▲':'▼')+dp+'</span>'; };
+    var sen=function(s){ return '<span class="schip">'+esc(s.txt)+'</span>'; };
+    var h='<div class="ibox blue">'+esc(a.resumenTexto||'')+'</div>';
+    var cambios=a.cambios||[];
+    if(cambios.length){ cambios.slice(0,20).forEach(function(c){ h+='<div class="ccard"><div class="cc-h"><b>'+esc(c.nombre)+'</b> <span class="nm">('+esc(c.ticker)+')</span></div>'+((c.senales&&c.senales.length)?('<div class="cc-sen">'+c.senales.map(sen).join('')+'</div>'):'')+((c.campos&&c.campos.length)?('<div class="cc-cam">'+c.campos.map(chip).join('')+'</div>'):'')+'</div>'; }); if(cambios.length>20)h+='<p class="foot">…y '+(cambios.length-20)+' más.</p>'; }
+    else h+='<p class="foot">Sin cambios materiales respecto a la foto anterior.</p>';
+    if(a.nuevas&&a.nuevas.length) h+='<p class="foot">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
+    return h;
+  }
+  function _histInner(hist){
+    if(!hist||!hist.meses||!hist.meses.length) return '';
+    var meses=hist.meses.slice().sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
+    return '<div class="foot" style="margin:0 0 8px">Cada mes queda archivado aquí. Despliega uno para ver sus señales.</div>'
+      +meses.map(function(m){ var t=m.totales||{}; var lista=(m.senaladas||[]).map(function(s){ return '<div style="margin:2px 0 0 8px;font-size:12px"><b>'+esc(s.ticker)+'</b> <span class="nm">'+esc((s.nombre||'').slice(0,22))+'</span> — '+(s.senales||[]).map(esc).join(' · ')+'</div>'; }).join('');
+        return '<details class="hrow"><summary style="cursor:pointer;font-size:12.5px"><b>'+esc((m.fecha||'').slice(0,7))+'</b> · '+(t.conCambios||0)+' cambios · '+(t.conSenal||0)+' con señal <span class="nm">'+esc(m.periodoTexto||'')+'</span></summary>'+(lista?('<div style="margin-top:4px">'+lista+'</div>'):'<div class="foot">Sin señales accionables ese mes.</div>')+'</details>'; }).join('');
+  }
+  function _buzBlk(icon,title,sum,inner,open){ if(!inner) return ''; return '<div class="pos-blk'+(open?' open':'')+'"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
+
   window.renderBuzon=function(){
     var wrap=document.getElementById('buzonWrap'); if(!wrap) return;
-    wrap.innerHTML='<p class="muted">Cargando buzón…</p>';
-    jget('buzon/index.json').then(function(idx){
-      var files=(idx&&idx.ficheros&&idx.ficheros.length)? idx.ficheros
-                 : [{clave:'agenda',archivo:'agenda.json',titulo:'Agenda confirmada'},
-                    {clave:'vigia',archivo:'vigia.json',titulo:'Vigía de informes trimestrales'}];
-      return Promise.all(files.map(function(f){
-        return jget('buzon/'+f.archivo).then(function(data){ return {meta:f,data:data}; });
-      })).then(function(items){
-        // el histórico del radar es complementario (no va en index.json): se carga aparte
-        return jget('buzon/fundamentales-historico.json').then(function(hist){ return {items:items, hist:hist}; });
-      });
-    }).then(function(bundle){
-      var items=bundle.items, radHist=bundle.hist;
-      var out='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px">'
-        +'<span class="muted" style="font-size:12px">📥 Buzón del lunes — lo rellenan las tareas automáticas del método</span>'
-        +'<button id="buzonReload" style="background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:12px;font-weight:600">↻ Refrescar</button></div>';
-      var any=false;
-      (items||[]).forEach(function(it){
-        if(!it.data) return;
-        any=true;
-        if(it.meta.clave==='agenda'){ out+='<div style="margin-bottom:20px">'+agendaHtml(it.data)+'</div>'; }
-        else if(it.meta.clave==='vigia'){ out+='<div style="margin-bottom:20px">'+vigiaHtml(it.data)+'</div>'; }
-        else if(it.meta.clave==='radar'){ out+='<div style="margin-bottom:20px">'+radarHtml(it.data, radHist)+'</div>'; }
-        else {
-          out+='<div style="margin-bottom:20px"><h2>'+esc(it.meta.titulo||it.meta.clave)+'</h2>'
-            +(it.data.resumenTexto?('<p style="line-height:1.5">'+esc(it.data.resumenTexto)+'</p>')
-              :('<pre style="white-space:pre-wrap;font-size:12px">'+esc(JSON.stringify(it.data,null,2))+'</pre>'))+'</div>';
-        }
-      });
-      if(!any){
-        out+='<div style="background:#f8fafc;border:1px dashed var(--line);border-radius:10px;padding:18px;text-align:center;color:var(--muted)">'
-          +'El buzón está vacío por ahora.<br><span style="font-size:12px">Las tareas del lunes (Agenda y Vigía) dejarán aquí las fechas de resultados y dividendos. Se actualiza solo cada lunes.</span></div>';
+    wrap.innerHTML='<div class="muted" style="padding:10px">Cargando buzón…</div>';
+    Promise.all([jget('buzon/index.json'),jget('buzon/agenda.json'),jget('buzon/vigia.json'),jget('buzon/fundamentales-cambios.json'),jget('buzon/fundamentales-historico.json')]).then(function(r){
+      var idx=r[0], ag=r[1], vg=r[2], rad=r[3], hist=r[4];
+      var prox=(vg&&vg.proximos14d)||[], venc=(vg&&vg.vencidos)||[], camb=(rad&&rad.cambios)||[], totEmp=(vg&&vg.totalEmpresas)||0;
+      var conSenal=(rad&&rad.totales&&rad.totales.conSenal!=null)?rad.totales.conSenal:camb.length;
+      var gen=(idx&&idx.actualizado)?fdt(idx.actualizado):'';
+      var top='<div class="buz-top"><div><h2 style="margin:0">📥 Buzón del lunes</h2><div class="sub" style="margin:2px 0 0">Lo rellenan las tareas automáticas del método (Agenda, Vigía, Radar). '+(gen?('Actualizado '+gen+'. '):'')+'Se actualiza cada lunes.</div></div><button id="buzonReload" class="buz-refresh">↻ Refrescar</button></div>';
+      var kpis='<div class="pos-kpis">'
+        +'<div class="k hero"><div class="l">Informes próximos (14 d)</div><div class="v">'+prox.length+'</div><div class="p">resultados trimestrales estimados</div></div>'
+        +'<div class="k"><div class="l">Vencidos sin registrar</div><div class="v'+(venc.length?' neg':'')+'">'+venc.length+'</div><div class="p">informes ya publicados pendientes</div></div>'
+        +'<div class="k"><div class="l">Cambios en el radar</div><div class="v">'+camb.length+'</div><div class="p">'+conSenal+' con señal accionable</div></div>'
+        +'<div class="k"><div class="l">Empresas vigiladas</div><div class="v">'+totEmp+'</div><div class="p">seguimiento del método</div></div>'
+        +'</div>';
+      var body=top+kpis
+        +_buzBlk('📌','Agenda confirmada', ag?(((ag.resultados||[]).length)+' resultados · '+((ag.exDividendos||[]).length)+' ex-dividend'):'', _agendaInner(ag), true)
+        +_buzBlk('🗓️','Vigía de informes trimestrales', vg?('estimación · '+totEmp+' empresas'):'', _vigiaInner(vg), !ag)
+        +_buzBlk('🔎','Radar: qué cambió', rad?(camb.length+' cambios'):'', _radarInner(rad), false)
+        +_buzBlk('🕘','Meses anteriores (radar)', (hist&&hist.meses)?(hist.meses.length+' meses'):'', _histInner(hist), false);
+      if(!_agendaInner(ag)&&!_vigiaInner(vg)&&!_radarInner(rad)&&!_histInner(hist)){
+        body+='<div class="buz-empty">El buzón está vacío por ahora.<br><span style="font-size:12px">Las tareas del lunes (Agenda, Vigía, Radar) dejarán aquí las fechas de resultados, dividendos y cambios de fundamentales. Se actualiza solo cada lunes.</span></div>';
       }
-      wrap.innerHTML=out;
+      wrap.innerHTML=body;
       var rb=document.getElementById('buzonReload'); if(rb) rb.addEventListener('click',window.renderBuzon);
+      if(!wrap._buzBound){ wrap._buzBound=true; wrap.addEventListener('click',function(e){ if(e.target.closest('#buzonReload,summary,a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
     });
   };
 })();
