@@ -73,13 +73,23 @@ function renderPOS(){
   const pc2=x=>(x>=0?'+':'')+(x*100).toFixed(1)+'%';
   const _sh=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="pos" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('pos',k)}</th>`;
   const head='<tr>'+_sh('fecha','Fecha','')+_sh('ticker','Empresa','')+_sh('acc','Acc.')+_sh('pc','P.compra')+_sh('pa','P.actual')+_sh('vc','Valor compra')+_sh('va','Valor actual')+_sh('pl','Plusvalía')+_sh('cotpct','Δ% cotiz')+_sh('div','Div cobrado')+_sh('years','Años')+_sh('cotyr','%Cotiz/año')+_sh('divyr','%Div/año')+_sh('totyr','%Total/año')+'</tr>';
-  function seccion(titulo,arr,totBg){
+  /* KPIs (sobre los lotes en cartera) */
+  const _cart=lots.filter(l=>l.estado==='Cartera'); const kVC=_cart.reduce((s,l)=>s+l.vc,0),kVA=_cart.reduce((s,l)=>s+l.va,0),kPL=_cart.reduce((s,l)=>s+l.pl,0),kDIV=_cart.reduce((s,l)=>s+l.div,0);
+  const kPLpct=kVC?kPL/kVC:0, kTot=kVC?(kPL+kDIV)/kVC:0;
+  const kp=$('#posKpis'); if(kp)kp.innerHTML='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Valor en cartera</div><div class="v">${fmt(kVA)}</div><div class="p">${_cart.length} lotes · coste ${fmt(kVC)}</div></div>`
+    +`<div class="k"><div class="l">Plusvalía</div><div class="v ${kPL>=0?'pos':'neg'}">${kPL>=0?'+':''}${fmt(kPL)}</div><div class="p">${pc2(kPLpct)} sobre coste</div></div>`
+    +`<div class="k"><div class="l">Dividendo cobrado</div><div class="v">${fmt(kDIV)}</div><div class="p">${kVC?(kDIV/kVC*100).toFixed(0)+'% acumulado':''}</div></div>`
+    +`<div class="k"><div class="l">Retorno total</div><div class="v ${kTot>=0?'pos':'neg'}">${pc2(kTot)}</div><div class="p">plusvalía + dividendo</div></div>`
+    +'</div>';
+  window._posOpen=window._posOpen||{Cartera:true,Vendida:false};
+  function seccion(titulo,arr,estadoKey){
     if(!arr.length) return '';
     arr=sortLots(arr);
     let sVC=0,sVA=0,sPL=0,sDIV=0;
     const rows=arr.map(l=>{ sVC+=l.vc; sVA+=l.va; sPL+=l.pl; sDIV+=l.div;
-      return `<tr><td style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
-        `<td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${l.ticker}"><b>${l.ticker}</b></button> <span class="muted" style="font-size:11px">${l.cartera}</span></td>`+
+      return `<tr><td class="l" style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
+        `<td class="l" style="white-space:nowrap"><b class="pos-tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker}</b> <span class="pos-nm">${l.cartera}</span></td>`+
         `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td><td class="num">${fmt(l.pa)}</td>`+
         `<td class="num">${fmt(l.vc)}</td><td class="num">${fmt(l.va)}</td>`+
         `<td class="num ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</td>`+
@@ -90,13 +100,17 @@ function renderPOS(){
         `<td class="num ${l.totYr>=0?'pos':'neg'}"><b>${pc2(l.totYr)}</b></td></tr>`;
     }).join('');
     const totCot=sVC?sPL/sVC:0, totDiv=sVC?sDIV/sVC:0;
-    const sub=`<tr style="font-weight:700;background:${totBg}"><td>TOTAL</td><td class="muted">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td></tr>`;
-    return `<h3 style="margin-top:14px">${titulo} <span class="muted" style="font-weight:400;font-size:12px">· ${arr.length} lotes · valor ${fmt(sVA)} · plusvalía ${sPL>=0?'+':''}${fmt(sPL)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td></tr>`;
+    /* móvil: tarjeta por lote */
+    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>%Cotiz/año</span><b class="${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
+    const op=window._posOpen[estadoKey]?' open':'';
+    return `<div class="pos-blk${op}" data-posblk="${estadoKey}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${titulo}</span><span class="bsum">${arr.length} lotes · valor ${fmt(sVA)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
   }
   let html='';
-  if(filt!=='vendida') html+=seccion('En cartera',lots.filter(l=>l.estado==='Cartera'),'#eafaf0');
-  if(filt!=='cartera') html+=seccion('Vendidas',lots.filter(l=>l.estado==='Vendida'),'#f1f5f9');
+  if(filt!=='vendida') html+=seccion('🟢 En cartera',lots.filter(l=>l.estado==='Cartera'),'Cartera');
+  if(filt!=='cartera') html+=seccion('⚪ Vendidas',lots.filter(l=>l.estado==='Vendida'),'Vendida');
   el.innerHTML= html || '<div class="empty">Sin lotes para mostrar.</div>';
+  if(!el._posBlkBound){ el._posBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-sorttbl]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-posblk'); if(k){window._posOpen=window._posOpen||{};window._posOpen[k]=b.classList.contains('open');} } }); }
 }
 function renderInv(){
   if(!DB.config)DB.config={};
