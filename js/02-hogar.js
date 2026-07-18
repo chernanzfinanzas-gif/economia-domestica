@@ -505,11 +505,13 @@ function _presFicha(c,y,income,open){
   var anualEq=fr==='anual'?imp:(fr==='bianual'?imp/2:imp*12);
   var divNote=fr==='anual'?'(importe anual ÷ 12)':fr==='bianual'?'(importe ÷ 24)':'';
   var perSub=fr==='anual'?fmt(imp)+'/año':fr==='bianual'?fmt(imp)+' cada 2 años':'';
+  var escTag=(!income)?('<span class="par-esc '+(c.esencial?'esc-nec':'esc-pre')+'">'+(c.esencial?'Necesario':'Prescindible')+'</span>'):'';
   var head='<div class="par-h" data-presp="'+c.id+'"><span class="par-arw">▶</span><span class="par-n">'+(c.nombre||'')+'</span>'
-    +'<span class="par-frec '+(isPer?'anual':'')+'">'+_presFrecCap(fr)+'</span>'
+    +'<span class="par-frec '+(isPer?'anual':'')+'">'+_presFrecCap(fr)+'</span>'+escTag
     +(!income&&p.metodoPago?'<span class="par-pago">'+p.metodoPago+'</span>':'')
     +'<span class="par-right"><span class="par-mes">'+fmt(mes)+'/mes</span>'+(isPer?'<div class="par-anual">'+perSub+((!income&&p.renovacion)?' · renov '+(''+p.renovacion).split('-').reverse().join('/'):'')+'</div>':'')+'</span></div>';
   if(!isOpen) return '<div class="par">'+head+'</div>';
+  var clasif=income?'':'<div class="fld"><label>Clasificación</label><div class="fldseg"><button class="'+(c.esencial?'on':'')+'" data-presesc="'+c.id+'|1">Necesario</button><button class="'+(!c.esencial?'on':'')+'" data-presesc="'+c.id+'|0">Prescindible</button></div></div>';
   var extra=income?'':'<div class="fld"><label>Pago (informativo)</label><select data-prespago="'+c.id+'">'+PAGOS.map(function(x){ var sel=((x===p.metodoPago)||(x==='—'&&!p.metodoPago))?' selected':''; return '<option'+sel+'>'+x+'</option>'; }).join('')+'</select></div>'
     +'<div class="fld"><label>Renovación</label><input type="date" value="'+(p.renovacion||'')+'" data-presrenov="'+c.id+'"></div>';
   var form='<div class="par-form">'
@@ -518,8 +520,8 @@ function _presFicha(c,y,income,open){
       +'<button class="'+(fr==='anual'?'on':'')+'" data-presfrec="'+c.id+'|anual">Anual</button>'
       +'<button class="'+(fr==='bianual'?'on':'')+'" data-presfrec="'+c.id+'|bianual">Bianual</button></div></div>'
     +'<div class="fld"><label>Cantidad ('+perLabel+')</label><input type="number" step="0.01" value="'+imp+'" data-prescant="'+c.id+'"></div>'
-    +extra
-    +'<div class="par-calc"><span class="cc">'+(income?'Suma':'Aporta al presupuesto')+': <b>'+fmt(mes)+'/mes</b> · <b>'+fmt(anualEq)+'/año</b> <span class="muted">'+divNote+'</span></span><span class="par-acts"><button class="btn danger sm" data-presdel="'+c.id+'">Eliminar</button></span></div>'
+    +clasif+extra
+    +'<div class="par-calc"><span class="cc">'+(income?'Suma':'Aporta al presupuesto')+': <b>'+fmt(mes)+'/mes</b> · <b>'+fmt(anualEq)+'/año</b> <span class="muted">'+divNote+'</span></span><span class="par-acts"><button class="btn ghost sm" data-presedit="'+c.id+'">Editar ficha</button><button class="btn danger sm" data-presdel="'+c.id+'">Eliminar</button></span></div>'
     +'</div>';
   return '<div class="par open">'+head+form+'</div>';
 }
@@ -555,7 +557,7 @@ function renderPres(){
   var capsHTML=capData.map(function(o){
     var gOpen=!!open[o.g], share=dispMes>0?Math.min(100,o.cm/dispMes*100):0;
     var parts=gOpen?(o.cats.map(function(c){return _presFicha(c,y,false,open);}).join('')+'<button class="par-add" data-presaddpart="'+o.g+'">+ Añadir partida a '+o.g+'</button>'):'';
-    return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+'</div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div><div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
+    return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+' <button class="blk-edit" data-pressec="'+o.g+'" title="Editar o eliminar capítulo">✎</button></div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div><div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
   }).join('');
   host.innerHTML=ingHTML+planHTML+'<div class="subhead">Capítulos de gasto — reparte el disponible</div>'+capsHTML;
 }

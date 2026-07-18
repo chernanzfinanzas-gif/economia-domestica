@@ -60,29 +60,67 @@ function renderAllFull(){ renderRenov(); renderComparador(); renderPanel(); rend
 function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
-function openCatDlg(id){
-  const dlg=$('#catDlg');
+/* Nivel del diálogo: 'seccion' (capítulo) o 'partida' (línea dentro de un capítulo). */
+function setCatNivel(n){
+  const dlg=$('#catDlg'); if(!dlg)return;
+  dlg.classList.toggle('nivel-seccion', n==='seccion');
+  const seg=$('#catNivelSeg'); if(seg){ [...seg.children].forEach(b=>b.classList.toggle('on', b.getAttribute('data-nivel')===n)); }
+  const lbl=$('#catNombreLbl'); if(lbl){ const inp=lbl.querySelector('input'); lbl.firstChild.textContent=(n==='seccion')?'Nombre del capítulo':'Nombre'; }
+}
+/* Abre el diálogo para una SECCIÓN (capítulo). gname vacío = nueva; con valor = editar/renombrar. */
+function openSecDlg(gname){
+  const dlg=$('#catDlg'); if(typeof fillGrupoList==='function')fillGrupoList();
+  $('#catId').value=''; $('#catSecOrig').value=gname||'';
+  $('#catNombre').value=gname||'';
+  $('#catGrupo').value=''; $('#catTipo').value='gasto';
+  $('#catImporte').value=0; $('#catFrec').value='mensual'; $('#catMetodo').value=''; $('#catRenov').value='';
+  if($('#catEsencial'))$('#catEsencial').checked=false;
+  $('#catDlgTitle').textContent=gname?('Editar capítulo · '+gname):'Nuevo capítulo de gasto';
+  $('#catDelete').style.display=gname?'inline-block':'none';
+  setCatNivel('seccion');
+  dlg.showModal();
+}
+function openCatDlg(id,pg,pt){
+  const dlg=$('#catDlg'); if(typeof fillGrupoList==='function')fillGrupoList();
+  $('#catSecOrig').value='';
   if(id){
     const c=catById(id); const p=presFor(id,presYear)||{};
-    $('#catDlgTitle').textContent='Editar categoría · '+presYear;
+    $('#catDlgTitle').textContent='Editar partida · '+presYear;
     $('#catId').value=id; $('#catNombre').value=c.nombre; $('#catGrupo').value=c.grupo; $('#catTipo').value=c.tipo;
     $('#catImporte').value=p.importe||0; $('#catFrec').value=p.frecuencia||'mensual';
     $('#catMetodo').value=p.metodoPago||''; $('#catRenov').value=p.renovacion||'';
     if($('#catEsencial'))$('#catEsencial').checked=!!(c&&c.esencial);
     $('#catDelete').style.display='inline-block';
   } else {
-    $('#catDlgTitle').textContent='Nueva categoría';
-    $('#catId').value=''; $('#catNombre').value=''; $('#catGrupo').value=''; $('#catTipo').value='gasto';
+    $('#catDlgTitle').textContent='Nueva partida';
+    $('#catId').value=''; $('#catNombre').value=''; $('#catGrupo').value=''; $('#catTipo').value='gasto'; if(pg)$('#catGrupo').value=pg; if(pt)$('#catTipo').value=pt;
     $('#catImporte').value=0; $('#catFrec').value='mensual'; $('#catMetodo').value=''; $('#catRenov').value='';
     if($('#catEsencial'))$('#catEsencial').checked=false;
     $('#catDelete').style.display='none';
   }
+  setCatNivel('partida');
   dlg.showModal();
 }
+function _dlgNivel(){ return $('#catDlg').classList.contains('nivel-seccion')?'seccion':'partida'; }
+function _renameGrupo(oldName,newName){
+  DB.categorias.forEach(c=>{ if(c.grupo===oldName)c.grupo=newName; });
+  DB.config=DB.config||{}; if(Array.isArray(DB.config.capitulosExtra)){ DB.config.capitulosExtra=DB.config.capitulosExtra.map(g=>g===oldName?newName:g); }
+}
 function saveCat(){
+  if(_dlgNivel()==='seccion'){
+    const nombre=$('#catNombre').value.trim(); if(!nombre){alert('Pon el nombre del capítulo');return;}
+    const orig=$('#catSecOrig').value;
+    DB.config=DB.config||{}; DB.config.capitulosExtra=DB.config.capitulosExtra||[];
+    const existe=(typeof _presGruposGasto==='function'?_presGruposGasto():[]).some(g=>g.toLowerCase()===nombre.toLowerCase() && g!==orig);
+    if(existe){ alert('Ya existe un capítulo con ese nombre.'); return; }
+    if(orig){ if(orig!==nombre)_renameGrupo(orig,nombre); }
+    else { if(DB.config.capitulosExtra.indexOf(nombre)<0)DB.config.capitulosExtra.push(nombre); }
+    $('#catDlg').close(); fillCatSelects&&fillCatSelects(); fillGrupoList&&fillGrupoList(); renderAll(); scheduleSave(); return;
+  }
   const id=$('#catId').value;
   const nombre=$('#catNombre').value.trim(); if(!nombre){alert('Pon un nombre');return;}
-  const data={grupo:$('#catGrupo').value.trim()||'Otros',nombre,tipo:$('#catTipo').value,esencial:!!($('#catEsencial')&&$('#catEsencial').checked)};
+  const grupo=$('#catGrupo').value.trim()||'Otros';
+  const data={grupo,nombre,tipo:$('#catTipo').value,esencial:!!($('#catEsencial')&&$('#catEsencial').checked)};
   const pdata={importe:num($('#catImporte').value),frecuencia:$('#catFrec').value,metodoPago:$('#catMetodo').value.trim(),renovacion:$('#catRenov').value};
   if(id){
     Object.assign(catById(id),data);
@@ -90,9 +128,25 @@ function saveCat(){
   } else {
     const cid=uid(); DB.categorias.push({id:cid,...data}); DB.presupuesto.push({id:uid(),categoriaId:cid,...pdata,anio:presYear});
   }
+  /* si la partida estrena capítulo, deja de ser "extra vacío" */
+  DB.config=DB.config||{}; if(Array.isArray(DB.config.capitulosExtra))DB.config.capitulosExtra=DB.config.capitulosExtra.filter(g=>g!==grupo);
   $('#catDlg').close(); fillCatSelects(); fillGrupoList(); renderAll(); scheduleSave();
 }
 function deleteCat(){
+  if(_dlgNivel()==='seccion'){
+    const g=$('#catSecOrig').value; if(!g)return;
+    const cats=(DB.categorias||[]).filter(c=>c.grupo===g);
+    if(cats.length){
+      if(!confirm('El capítulo «'+g+'» tiene '+cats.length+' partida(s). Se eliminarán todas junto con sus presupuestos. ¿Continuar?'))return;
+      const ids=cats.map(c=>c.id);
+      DB.categorias=DB.categorias.filter(c=>c.grupo!==g);
+      DB.presupuesto=DB.presupuesto.filter(p=>ids.indexOf(p.categoriaId)<0);
+    } else {
+      if(!confirm('¿Eliminar el capítulo «'+g+'»?'))return;
+    }
+    DB.config=DB.config||{}; if(Array.isArray(DB.config.capitulosExtra))DB.config.capitulosExtra=DB.config.capitulosExtra.filter(x=>x!==g);
+    $('#catDlg').close(); fillCatSelects(); fillGrupoList(); renderAll(); scheduleSave(); return;
+  }
   const id=$('#catId').value; if(!id)return;
   const used=DB.movimientos.some(m=>m.categoriaId===id);
   if(used && !confirm('Esta categoría tiene movimientos asociados. Si la eliminas, esos movimientos quedarán sin categoría. ¿Continuar?'))return;
@@ -101,6 +155,8 @@ function deleteCat(){
   DB.presupuesto=DB.presupuesto.filter(p=>p.categoriaId!==id);
   $('#catDlg').close(); fillCatSelects(); fillGrupoList(); renderAll(); scheduleSave();
 }
+/* Toggle Sección/Partida dentro del diálogo */
+if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ const b=e.target.closest('button[data-nivel]'); if(b)setCatNivel(b.getAttribute('data-nivel')); });
 
 /* ============ Eventos ============ */
 const GROUPS={
@@ -379,7 +435,7 @@ $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
 $('#patList').addEventListener('click',e=>{const b=e.target.closest('[data-delsnap]'); if(b){ const _id=b.dataset.delsnap; const _it=(DB.patrimonio||[]).find(s=>s.id===_id); if(_it)undoableDelete('patrimonio','Registro de patrimonio'+(_it.fecha?(' '+_it.fecha):''),{item:_it},()=>{DB.patrimonio=DB.patrimonio.filter(s=>s.id!==_id);},['renderPat']); }});
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
 $('#btnAddYear').addEventListener('click',addYear);
-if($('#btnAddCap'))$('#btnAddCap').addEventListener('click',function(){ var g=(prompt('Nombre del nuevo capítulo (p. ej. Mascotas):')||'').trim(); if(!g)return; DB.config=DB.config||{}; DB.config.capitulosExtra=DB.config.capitulosExtra||[]; if(DB.config.capitulosExtra.indexOf(g)<0 && !(DB.categorias||[]).some(function(c){return c.grupo===g;})) DB.config.capitulosExtra.push(g); window._presOpen=window._presOpen||{}; window._presOpen[g]=true; if(typeof renderPres==='function')renderPres(); if(typeof scheduleSave==='function')scheduleSave(); });
+if($('#btnAddCap'))$('#btnAddCap').addEventListener('click',function(){ if(typeof openSecDlg==='function')openSecDlg(); else if(typeof openCatDlg==='function')openCatDlg(null); });
 $('#catSave').addEventListener('click',saveCat);
 $('#catDelete').addEventListener('click',deleteCat);
 
@@ -450,7 +506,10 @@ init();
     var t;
     if(t=e.target.closest('[data-presfrec]')){ var a=t.getAttribute('data-presfrec').split('|'); up(a[0],'frecuencia',a[1]); renderPres(); scheduleSave(); return; }
     if(t=e.target.closest('[data-presdel]')){ var id=t.getAttribute('data-presdel'); if(!confirm('¿Eliminar esta partida del presupuesto?'))return; DB.categorias=(DB.categorias||[]).filter(function(c){return c.id!==id;}); DB.presupuesto=(DB.presupuesto||[]).filter(function(p){return p.categoriaId!==id;}); if(typeof fillCatSelects==='function')fillCatSelects(); renderPres(); scheduleSave(); return; }
-    if(t=e.target.closest('[data-presaddpart]')){ var g=t.getAttribute('data-presaddpart'); var nombre=(prompt('Nombre de la nueva partida'+(g==='Ingresos'?' de ingreso':' en '+g)+':')||'').trim(); if(!nombre)return; var tipo=(g==='Ingresos')?'ingreso':'gasto'; var cid=uid(); DB.categorias.push({id:cid,grupo:g,nombre:nombre,tipo:tipo}); DB.presupuesto.push({id:uid(),categoriaId:cid,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:presYear}); window._presOpen=window._presOpen||{}; window._presOpen[g==='Ingresos'?'ing':g]=true; window._presOpen['p:'+cid]=true; if(typeof fillCatSelects==='function')fillCatSelects(); renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presaddpart]')){ var g=t.getAttribute('data-presaddpart'); if(typeof openCatDlg==='function')openCatDlg(null, g, g==='Ingresos'?'ingreso':'gasto'); return; }
+    if(t=e.target.closest('[data-pressec]')){ e.stopPropagation(); if(typeof openSecDlg==='function')openSecDlg(t.getAttribute('data-pressec')); return; }
+    if(t=e.target.closest('[data-presedit]')){ if(typeof openCatDlg==='function')openCatDlg(t.getAttribute('data-presedit')); return; }
+    if(t=e.target.closest('[data-presesc]')){ var a=t.getAttribute('data-presesc').split('|'); var cc=catById(a[0]); if(cc){cc.esencial=(a[1]==='1');} renderPres(); scheduleSave(); return; }
     if(t=e.target.closest('[data-presp]')){ if(e.target.closest('input,button,select'))return; var id=t.getAttribute('data-presp'); window._presOpen=window._presOpen||{}; window._presOpen['p:'+id]=!window._presOpen['p:'+id]; renderPres(); return; }
     if(t=e.target.closest('[data-presi]')){ window._presOpen=window._presOpen||{}; window._presOpen.ing=(window._presOpen.ing===false); renderPres(); return; }
     if(t=e.target.closest('[data-presg]')){ if(e.target.closest('input,button,select'))return; var g=t.getAttribute('data-presg'); window._presOpen=window._presOpen||{}; window._presOpen[g]=!window._presOpen[g]; renderPres(); return; }
