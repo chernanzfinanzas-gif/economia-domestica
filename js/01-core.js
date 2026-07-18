@@ -817,20 +817,29 @@ function renderSalud(){
   var anaSinDoss=Object.keys(anaSet).filter(function(t){ return !dSet.has(t); });
   var huerfN=carteraSin.length+htmlSinJson.length+jsonSinAna.length+anaSinDoss.length;
   var cfC=0,rbS=0; Object.keys(cache).forEach(function(t){ var j=cache[t]; if(!j)return; if(j.confianza&&(''+(j.confianza.nivel||'')).toUpperCase()==='C')cfC++; if(j.robustez&&(''+(j.robustez.nivel||'')).toLowerCase()==='sensible')rbS++; });
-  function card(tit,val,est,det,goto){ var col=est==='ok'?'#16a34a':(est==='warn'?'#d97706':'#dc2626'); var ico=est==='ok'?'✓':(est==='warn'?'⚠':'✕'); return '<div class="card" style="border-left:5px solid '+col+'"><div style="display:flex;align-items:center;gap:8px"><span style="color:'+col+';font-weight:800;font-size:18px">'+ico+'</span><b>'+tit+'</b><div style="flex:1"></div>'+(goto?'<button class="btn ghost sm" onclick="activarVista(\''+goto+'\')">ir →</button>':'')+'</div><div style="font-size:19px;font-weight:800;color:'+col+';margin:4px 0">'+val+'</div><div class="muted" style="font-size:12px">'+det+'</div></div>'; }
-  var cards=[
-    card('Frescura de cotizaciones', staleN===0?'Al día':staleN+' desactualizadas', staleN===0?'ok':(staleN<=2?'warn':'bad'), 'Última fecha del repo: '+(refF||'—')+'. Empresas en cartera con cotización de más de 7 días respecto a esa fecha.', 'posiciones'),
-    card('Antigüedad de dossiers', viejosN===0?'Todos recientes':viejosN+' caducados', viejosN===0?'ok':(viejosN<=2?'warn':'bad'), 'Análisis con dossier de más de 12 meses (conviene reanalizar).', 'hemeroanalisis'),
-    card('Avisos de esquema (JSON)', warnN===0?'Sin avisos':warnN+' avisos', warnN===0?'ok':'warn', 'Campos incorrectos detectados por el validador en los dossiers cargados.', 'hemeroanalisis'),
-    card('Huérfanos y desincronías', huerfN===0?'Nada suelto':huerfN+' incidencias', huerfN===0?'ok':(huerfN<=3?'warn':'bad'), 'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · análisis sin dossier ('+anaSinDoss.length+').', 'hemeroanalisis'),
-    card('Señales del método', (cfC+rbS)===0?'Sin banderas':(cfC+' conf. C · '+rbS+' sensible'), (cfC+rbS)===0?'ok':'warn', 'Empresas con Confianza C (regla dura de no comprar en firme) o Robustez sensible.', 'analisis')
+  var specs=[
+    {tit:'Frescura de cotizaciones', val:staleN===0?'Al día':staleN+' desactualizadas', est:staleN===0?'ok':(staleN<=2?'warn':'bad'), det:'Última fecha del repo: '+(refF||'—')+'. Empresas en cartera con cotización de más de 7 días respecto a esa fecha.', goto:'posiciones'},
+    {tit:'Antigüedad de dossiers', val:viejosN===0?'Todos recientes':viejosN+' caducados', est:viejosN===0?'ok':(viejosN<=2?'warn':'bad'), det:'Análisis con dossier de más de 12 meses (conviene reanalizar).', goto:'hemeroanalisis'},
+    {tit:'Avisos de esquema (JSON)', val:warnN===0?'Sin avisos':warnN+' avisos', est:warnN===0?'ok':'warn', det:'Campos incorrectos detectados por el validador en los dossiers cargados.', goto:'hemeroanalisis'},
+    {tit:'Huérfanos y desincronías', val:huerfN===0?'Nada suelto':huerfN+' incidencias', est:huerfN===0?'ok':(huerfN<=3?'warn':'bad'), det:'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · análisis sin dossier ('+anaSinDoss.length+').', goto:'hemeroanalisis'},
+    {tit:'Señales del método', val:(cfC+rbS)===0?'Sin banderas':(cfC+' conf. C · '+rbS+' sensible'), est:(cfC+rbS)===0?'ok':'warn', det:'Empresas con Confianza C (regla dura de no comprar en firme) o Robustez sensible.', goto:'analisis'}
   ];
-  sec.innerHTML='<h2>Salud del sistema</h2><div class="sub" style="margin-bottom:10px">Estado de calidad del sistema. Los cinco indicadores se calculan en el navegador con lo que la app ya tiene cargado; el bloque de escritorio se lee de <code>salud_estado.json</code> (lo genera <code>generar_salud.py</code> en tu ordenador).</div><div class="cards">'+cards.join('')+'</div><div id="saludDesktop" style="margin-top:14px"></div>';
+  var ICO={ok:'✓',warn:'⚠',bad:'✕'}, ord={ok:0,warn:1,bad:2}, worst='ok';
+  specs.forEach(function(s){ if(ord[s.est]>ord[worst])worst=s.est; });
+  var nbad=specs.filter(function(s){return s.est==='bad';}).length, nwarn=specs.filter(function(s){return s.est==='warn';}).length, nok=specs.filter(function(s){return s.est==='ok';}).length;
+  var scard=function(s){ return '<div class="scard '+s.est+'"><div class="sc-h"><span class="sc-ico">'+ICO[s.est]+'</span><b>'+s.tit+'</b>'+(s.goto?'<button class="sc-go" onclick="activarVista(\''+s.goto+'\')">ir →</button>':'')+'</div><div class="sc-v">'+s.val+'</div><div class="sc-d">'+s.det+'</div></div>'; };
+  var cardHTML=specs.map(scard).join('');
+  var allok=nbad===0&&nwarn===0;
+  var heroTxt=allok?'Todo en orden':((nbad?(nbad+' incidencia'+(nbad>1?'s':'')):'')+((nbad&&nwarn)?' · ':'')+(nwarn?(nwarn+' aviso'+(nwarn>1?'s':'')):''));
+  var heroSub=allok?'los 5 indicadores en verde':(nok+' de 5 indicadores en verde · revisa lo marcado');
+  var hico=allok?'🟢':(nbad?'🔴':'🟠');
+  var hero='<div class="salud-hero '+worst+'"><div class="hico">'+hico+'</div><div><div class="hl">Estado general</div><div class="hv">'+heroTxt+'</div><div class="hp">'+heroSub+'</div></div></div>';
+  sec.innerHTML='<h2>🩺 Salud del sistema</h2><div class="sub" style="margin-bottom:12px">Estado de calidad del sistema. Los cinco indicadores se calculan en el navegador con lo que la app ya tiene cargado; los controles de escritorio se leen de <code>salud_estado.json</code> (lo genera <code>generar_salud.py</code> en tu ordenador).</div>'+hero+'<div class="salud-grid">'+cardHTML+'</div><div id="saludDesktop" style="margin-top:12px"></div>';
   var box=document.getElementById('saludDesktop'); if(!box)return;
   fetch('salud_estado.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
-    if(!j){ box.innerHTML='<div class="card" style="border-left:5px solid #94a3b8"><b>Controles de escritorio</b><div class="muted" style="font-size:12px;margin-top:4px">No hay <code>salud_estado.json</code> en el repo todavía. Ejecuta <code>generar_salud.py</code> en tu ordenador y súbelo para ver aquí el linter completo y la sincronía repo↔carpetas.</div></div>'; return; }
-    function dcard(tit,o){ var ok=o&&o.ok; var col=ok?'#16a34a':'#dc2626'; return '<div class="card" style="border-left:5px solid '+col+'"><div style="display:flex;gap:8px;align-items:center"><span style="color:'+col+';font-weight:800">'+(ok?'✓':'✕')+'</span><b>'+tit+'</b></div><div class="muted" style="font-size:12px;margin-top:4px">'+((o&&o.detalle)||'')+'</div></div>'; }
-    box.innerHTML='<div class="sub" style="margin:6px 0">Controles de escritorio · generado '+(j.generado||'—')+'</div><div class="cards">'+dcard('Linter de dossiers (completo)',j.linter)+dcard('Sincronía repo ↔ carpetas',j.sincronia)+'</div>';
+    if(!j){ box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px">Linter de dossiers y sincronía repo ↔ carpetas.</div><div class="dnote">No hay <code>salud_estado.json</code> en el repo todavía. Ejecuta <code>generar_salud.py</code> en tu ordenador y súbelo para ver aquí el linter completo y la sincronía repo↔carpetas.</div></div>'; return; }
+    function dcard(tit,o){ var ok=o&&o.ok; return '<div class="scard '+(ok?'ok':'bad')+'"><div class="sc-h"><span class="sc-ico">'+(ok?'✓':'✕')+'</span><b>'+tit+'</b></div><div class="sc-d" style="margin-top:4px">'+((o&&o.detalle)||'')+'</div></div>'; }
+    box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px;margin-bottom:8px">generado '+(j.generado||'—')+'</div><div class="salud-grid">'+dcard('Linter de dossiers (completo)',j.linter)+dcard('Sincronía repo ↔ carpetas',j.sincronia)+'</div></div>';
   }).catch(function(){ if(box)box.innerHTML=''; });
 }
 
