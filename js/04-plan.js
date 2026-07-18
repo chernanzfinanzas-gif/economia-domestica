@@ -143,7 +143,7 @@ function renderSimulador(){
   const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
     const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(y>nowY)?`<div class="num" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp" style="width:50px;text-align:center${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
+      const accCell=(y>nowY)?`<div class="num sim-acc" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp sim-accinp" style="text-align:right${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
       const divCell=`<div class="num" style="color:#475569">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div>`;
       let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
@@ -163,7 +163,7 @@ function renderSimulador(){
   const coOptions=tickers.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${grpLbl(t)}</option>`).join('');
   const mrow=(t,y)=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t]; const fut=y>nowY;
     if(!(sh>0)&&!(ss&&ss[y]!=null)&&!(imp>0)&&fut) return '';
-    const accCell=fut?`<b>${sh||'·'}</b>`:`<input type="number" class="anaInp" style="width:64px;text-align:right" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
+    const accCell=fut?`<b>${sh||'·'}</b>`:`<input type="number" class="anaInp" style="width:90px;text-align:right" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
     return `<div class="simrow"><span class="yy">${y}${fut?' <em>prev</em>':''}</span><div class="acc">${accCell}<span class="lbl">acc.</span></div><div class="dv">${divRaw==null?'·':divRaw.toFixed(3)}<span class="lbl">€/acc</span></div><div class="im">${imp>0?fmt(imp):'·'}<span class="lbl">importe</span></div></div>`; };
   const mdetail=(t,i)=>{ const rows=years.map(y=>mrow(t,y)).filter(Boolean).join('');
     return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
