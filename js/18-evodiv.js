@@ -57,7 +57,7 @@ function _evoClean(t){ var s=DB.divData||{}; var T=(t||'').toUpperCase(); var o=
 function _evoSave(t){ _evoClean(t); if(typeof scheduleSave==='function')scheduleSave(); renderEvoDiv(); }
 function _evoHoy(){ try{ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }catch(e){ return ''; } }
 /* Ajusta la altura de #evoApp para llenar el viewport: cabecera y pie fijos, solo la tabla scrollea. */
-function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-4; if(v>170){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
+function _evoFit(){ var h=document.getElementById('evoApp'); if(!h||!h.getBoundingClientRect)return; if(window.innerWidth<=960){ h.style.display=''; h.style.height=''; return; } var top=h.getBoundingClientRect().top; var v=window.innerHeight-top-4; if(v>170){ h.style.display='flex'; h.style.flexDirection='column'; h.style.height=v+'px'; } else { h.style.display=''; h.style.height=''; } }
 /* MIGRACIÓN Excel → app (una sola vez): registra dividendos.json en DB.divData para
    trabajar 100% en la app y poder replicar/exportar. No pisa ediciones existentes. */
 function _evoMigrar(){
@@ -368,12 +368,12 @@ function renderEvoDiv(){
   var pag=rows.filter(function(r){return r.dpaB!=null&&r.dpaB>0;});
   var rpdList=rows.filter(function(r){return r.rpd!=null;});
   var rpdMed=rpdList.length?rpdList.reduce(function(s,r){return s+r.rpd;},0)/rpdList.length:0;
-  var kpi=function(l,v){ return '<div style="background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:2px 8px;font-size:11px;white-space:nowrap"><span class="muted">'+l+':</span> <b>'+v+'</b></div>'; };
-  var kpis='<div style="display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 4px">'
-    +kpi('Empresas', String(rows.length))
-    +kpi('Con dividendo '+_evoYear, String(pag.length))
-    +kpi('RPD media', _evoPf(rpdMed,2)+'%')
-    +kpi(esFuturo?'Crecim.':'Actualizado', esFuturo?(_evoPf(_evoCrecAno(_evoYear),1)+'%/año'):_evoEsc((_evoData.actualizado||'—')))
+  var _actVal = esFuturo?(_evoPf(_evoCrecAno(_evoYear),1)+'%/año'):_evoEsc((_evoData.actualizado||'—'));
+  var kpis='<div class="pos-kpis">'
+    +'<div class="k hero"><div class="l">Con dividendo '+_evoYear+'</div><div class="v">'+pag.length+'</div><div class="p">de '+rows.length+' empresas del universo</div></div>'
+    +'<div class="k"><div class="l">RPD media</div><div class="v">'+_evoPf(rpdMed,2)+'%</div><div class="p">dividendo bruto ÷ cotización</div></div>'
+    +'<div class="k"><div class="l">Empresas</div><div class="v">'+rows.length+'</div><div class="p">cartera · informe · plan · radar</div></div>'
+    +'<div class="k"><div class="l">'+(esFuturo?'Crecimiento':'Actualizado')+'</div><div class="v" style="font-size:15px">'+_actVal+'</div><div class="p">'+(esFuturo?'proyección de este año':'última carga de dividendos')+'</div></div>'
     +'</div>';
 
   /* selector de año (con futuros) + "+ año" + chips de grupo + buscador */
@@ -439,6 +439,22 @@ function renderEvoDiv(){
     return main+det;
   }).join('');
 
+  /* tarjetas para móvil (mismo comportamiento: desplegar → ficha con edición de pagos) */
+  var mobCards=rows.map(function(r){
+    var open=!!_evoOpen[r.t];
+    var rpdTxt=r.rpd!=null?(_evoPf(r.rpd,2)+'%'):'—';
+    var rpdC=r.rpd==null?'#94a3b8':(r.rpd>=5?'#16a34a':(r.rpd>=3.5?'#2563eb':'#475569'));
+    var divM;
+    if(esFuturo){ var ph=(r.auto!=null)?_evoPf(r.auto,4):'—'; divM='<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" style="width:100%;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:3px 5px;font-size:13px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'; }
+    else { divM=(r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—'); }
+    return '<div class="evo-card'+(open?' open':'')+(r.isCartera?' cart':'')+'" data-evocard="'+_evoEsc(r.t)+'" data-fs="'+_evoEsc((r.t+' '+r.nombre).toLowerCase())+'">'
+      +'<div class="ec-h"><div class="ec-tk"><b data-ficha="'+_evoEsc(r.t)+'">'+_evoEsc(r.t)+'</b> <span class="nm">'+_evoEsc((r.nombre||'').slice(0,22))+'</span></div><span class="ec-arw">'+(open?'▾':'▸')+'</span></div>'
+      +'<div class="ec-badge">'+_grpBadge(r)+'</div>'
+      +'<div class="ec-g"><div class="m"><span>'+(esFuturo?'Div. proyectado':'Dividendo bruto')+'</span><b>'+divM+'</b></div><div class="m"><span>RPD</span><b style="color:'+rpdC+'">'+rpdTxt+'</b></div><div class="m"><span>Junta</span><b>'+(_evoFecha(r.junta)||'—')+'</b></div></div>'
+      +(open?('<div class="ec-det">'+_evoDetalleHTML(r)+'</div>'):'')
+      +'</div>';
+  }).join('');
+
   var thDiv = esFuturo ? 'Dividendo proyectado (bruto)' : 'Dividendo total (bruto)';
   var _thS='position:sticky;top:0;background:#fff;z-index:2;box-shadow:inset 0 -1px 0 var(--line)';
   var tabla='<div id="evoScroll" style="overflow:auto;border:1px solid var(--line);border-radius:8px;flex:1 1 auto;min-height:0"><table><thead><tr>'
@@ -455,8 +471,11 @@ function renderEvoDiv(){
       +'Orden: en cartera → con informe → en plan → resto por RPD → sin dividendo. Pulsa una fila para ver el detalle y «✏️ Editar dividendos» para añadir/editar pagos, junta y totales. '
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
 
-  host.innerHTML='<div style="font-size:16px;font-weight:800;color:#1f3d6b;margin-bottom:2px">📅 Evolución del Dividendo</div>'
-    +kpis+toolbar+yearSlider+futuroCtrl+_evoClaveHTML()+tabla+nota;
+  host.innerHTML='<div class="evo-title">📅 Evolución del Dividendo</div>'
+    +kpis+toolbar+yearSlider+futuroCtrl+_evoClaveHTML()
+    +'<div class="pos-desk" style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column">'+tabla+'</div>'
+    +'<div class="pos-mob">'+(mobCards||'<div class="muted" style="font-size:12.5px;padding:8px">Sin empresas con este filtro.</div>')+'</div>'
+    +nota;
 
   /* wiring */
   var ys=document.getElementById('evoYearSel');
@@ -500,7 +519,14 @@ function renderEvoDiv(){
     var t=(tr.getAttribute('data-evorow')||'').toUpperCase(); if(!t)return;
     _evoOpen[t]=!_evoOpen[t]; _evoScrollTo=t; renderEvoDiv();
   }); });
-  if(typeof _wireBuscador==='function'){ _wireBuscador(document.getElementById('evoSearch'), host.querySelectorAll('tbody tr.evo-main[data-fs]'), _evoBusca); }
+  host.querySelectorAll('[data-evocard]').forEach(function(c){ c.addEventListener('click',function(e){
+    if(e.target.closest('[data-ficha]')) return;
+    if(e.target.closest('.ec-det')) return;        /* clics dentro de la ficha no la cierran */
+    if(e.target.closest('input,select,textarea,button,label')) return;
+    var t=(c.getAttribute('data-evocard')||'').toUpperCase(); if(!t)return;
+    _evoOpen[t]=!_evoOpen[t]; renderEvoDiv();
+  }); });
+  if(typeof _wireBuscador==='function'){ _wireBuscador(document.getElementById('evoSearch'), host.querySelectorAll('[data-fs]'), _evoBusca); }
   _evoFit();
   (function(){ var s=document.getElementById('evoScroll'); if(!s)return; void s.scrollHeight; s.scrollTop=_evoPrevScroll; if(_evoScrollTo){ var row=host.querySelector('tr.evo-main[data-evorow="'+_evoScrollTo+'"]'); if(row&&row.scrollIntoView){ try{ row.scrollIntoView({block:'nearest'}); }catch(e){ row.scrollIntoView(); } } _evoScrollTo=null; } })();
   if(!window._evoFitBound){ window._evoFitBound=true; window.addEventListener('resize',_evoFit); }
