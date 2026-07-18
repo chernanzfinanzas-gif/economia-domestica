@@ -454,7 +454,7 @@ function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Ma
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function _pnlSecciones(SEC){
   var META=[['hogar','Hogar'],['cartera','Patrimonio y cartera'],['dividendos','Dividendos'],['accion','Acción'],['mas','Más']];
-  var st=window._panelSecOpen=window._panelSecOpen||{hogar:1,cartera:1,dividendos:1,accion:1,mas:0};
+  var st=window._panelSecOpen=window._panelSecOpen||{hogar:0,cartera:0,dividendos:0,accion:0,mas:0};
   var present=META.filter(function(m){return (SEC[m[0]]||'').trim();});
   if(!present.length) return '';
   var anyOpen=present.some(function(m){return st[m[0]];});

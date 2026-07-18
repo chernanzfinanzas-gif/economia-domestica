@@ -538,7 +538,7 @@ function _presFicha(c,y,income,open){
 }
 function renderPres(){
   var host=$('#presBody'); if(!host) return;
-  var y=presYear, open=window._presOpen=window._presOpen||{ing:true};
+  var y=presYear, open=window._presOpen=window._presOpen||{ing:false};
   var t=$('#presTitle'); if(t)t.textContent='Presupuesto '+y;
   // ---- Ingresos ----
   var ingCats=(DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';});
@@ -771,6 +771,65 @@ function renderPresDesglose(){
   const hasData=ing.length || order.some(g=>g!=='Ingresos'&&catsConDato(g).length);
   el.innerHTML=`<table class="tbl-desglose"><thead>${head}</thead><tbody>${body}</tbody></table>`
     + (hasData?'':`<p class="muted" style="margin-top:8px">Sin conceptos con presupuesto o movimientos en ${year}.</p>`);
+  if(typeof _dgMobileRender==='function') _dgMobileRender(year, realCat, presMens);
+  if(!renderPresDesglose._bound){ renderPresDesglose._bound=true; var _sec=document.getElementById('view-desglose');
+    if(_sec){
+      _sec.addEventListener('click',function(e){
+        var ch=e.target.closest('[data-dgch]'); if(ch){ var g=ch.getAttribute('data-dgch'); window._dgOpen=window._dgOpen||{}; window._dgOpen[g]=!window._dgOpen[g]; var blk=ch.closest('.dg-mblk'); if(blk)blk.classList.toggle('open'); return; }
+        if(e.target.closest('#dgPrev')){ _dgStep(-1); return; }
+        if(e.target.closest('#dgNext')){ _dgStep(1); return; }
+      });
+      _sec.addEventListener('change',function(e){ var t=e.target; if(!t||!t.id)return;
+        if(t.id==='dgYearM'){ var ys=document.getElementById('presDesgloseYear'); if(ys)ys.value=t.value; renderPresDesglose(); return; }
+        if(t.id==='dgMonthSel'){ window._dgMonth=(t.value==='year')?'year':(+t.value); renderPresDesglose(); return; }
+      });
+    }
+  }
+}
+function _dgStep(d){ var seq=[0,1,2,3,4,5,6,7,8,9,10,11,'year']; var m=(typeof window._dgMonth==='undefined')?new Date().getMonth():window._dgMonth; var i=seq.indexOf(m); if(i<0)i=0; i=(i+d+13)%13; window._dgMonth=seq[i]; renderPresDesglose(); }
+function _dgMobileRender(year, realCat, presMens){
+  var host=document.getElementById('dgMobile'); if(!host) return;
+  var MM=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  if(typeof window._dgMonth==='undefined') window._dgMonth=new Date().getMonth();
+  window._dgOpen=window._dgOpen||{};
+  var per=window._dgMonth;
+  var realOf=function(cid,mi){ return (realCat[cid]||[])[mi]||0; };
+  var realYr=function(cid){ var a=realCat[cid]; return a?a.reduce(function(s,v){return s+v;},0):0; };
+  var presOf=function(cid){ return per==='year'?(presMens[cid]||0)*12:(presMens[cid]||0); };
+  var realP=function(cid){ return per==='year'?realYr(cid):realOf(cid,per); };
+  var f2=function(v){ return Math.abs(v)<0.5?'·':fmt(v).replace(/\s?€/,''); };
+  var groups={}; (DB.categorias||[]).forEach(function(c){(groups[c.grupo]=groups[c.grupo]||[]).push(c);});
+  var order=Object.keys(groups).sort(function(a,b){return a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b);});
+  var withData=function(g){ return (groups[g]||[]).filter(function(c){ return (presMens[c.id]||0)>0 || (realCat[c.id]&&realCat[c.id].some(function(v){return Math.abs(v)>0.5;})); }); };
+  var ingC=(DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';}), gasC=(DB.categorias||[]).filter(function(c){return c.tipo!=='ingreso';});
+  var sum=function(cs,fn){return cs.reduce(function(s,c){return s+fn(c);},0);};
+  var iP=sum(ingC,function(c){return presOf(c.id);}), iR=sum(ingC,function(c){return realP(c.id);});
+  var gP=sum(gasC,function(c){return presOf(c.id);}), gR=sum(gasC,function(c){return realP(c.id);});
+  var ahP=iP-gP, ahR=iR-gR;
+  var years={}; (DB.presupuesto||[]).forEach(function(p){years[pAnio(p)]=1;}); (DB.movimientos||[]).forEach(function(m){var y=+(''+(m.fecha||'')).slice(0,4); if(y)years[y]=1;});
+  var yl=Object.keys(years).map(Number).sort(function(a,b){return a-b;});
+  var yopts=yl.map(function(y){return '<option value="'+y+'"'+(y===year?' selected':'')+'>'+y+'</option>';}).join('');
+  var mopts=''; for(var i=0;i<12;i++)mopts+='<option value="'+i+'"'+(per===i?' selected':'')+'>'+MM[i]+'</option>'; mopts+='<option value="year"'+(per==='year'?' selected':'')+'>Año completo</option>';
+  var perLbl=per==='year'?('Año completo '+year):(MM[per]+' '+year);
+  var sumHtml='<div class="dg-msum">'+
+    '<div class="c"><div class="l">Ingresos</div><div class="v">'+f2(iR)+'</div><div class="p">de '+f2(iP)+' prev.</div></div>'+
+    '<div class="c"><div class="l">Gastos</div><div class="v">'+f2(gR)+'</div><div class="p">de '+f2(gP)+' prev.</div></div>'+
+    '<div class="c"><div class="l">Ahorro</div><div class="v '+(ahR>=0?'pos':'neg')+'">'+(ahR>=0?'+':'−')+f2(Math.abs(ahR))+'</div><div class="p">prev. '+(ahP>=0?'+':'−')+f2(Math.abs(ahP))+'</div></div></div>';
+  var chapters=order.map(function(g){ var cs=withData(g); if(!cs.length)return ''; var isIng=g==='Ingresos';
+    var gp=0,gr=0; cs.forEach(function(c){gp+=presOf(c.id);gr+=realP(c.id);});
+    var dvG=isIng?(gr-gp):(gp-gr);
+    var open=!!window._dgOpen[g];
+    var rows=cs.map(function(c){ var p=presOf(c.id), r=realP(c.id); var dv=(c.tipo==='ingreso')?(r-p):(p-r);
+      var dvZero=Math.abs(dv)<0.5; var dvTxt=dvZero?'·':((dv>=0?'+':'−')+f2(Math.abs(dv))); var dvCls=dvZero?'':(dv>=0?'pos':'neg');
+      return '<div class="dg-mrow"><span class="nm">'+_infEsc(c.nombre)+'</span>'+
+        '<span class="v"><span class="k">Pres</span>'+f2(p)+'</span>'+
+        '<span class="v"><span class="k">Real</span>'+f2(r)+'</span>'+
+        '<span class="v dv '+dvCls+'"><span class="k">Desv</span>'+dvTxt+'</span></div>'; }).join('');
+    return '<div class="dg-mblk'+(open?' open':'')+'"><div class="dg-mblk-h" data-dgch="'+_infEsc(g)+'"><span class="arw">▶</span>'+_infEsc(g)+'<span class="bt" style="color:'+(dvG>=0?'#16a34a':'#dc2626')+'">'+f2(gr)+' / '+f2(gp)+'</span></div>'+
+      '<div class="dg-mblk-b">'+rows+'<div class="dg-mrow tot"><span class="nm">Total '+_infEsc(g)+'</span><span class="v">'+f2(gp)+'</span><span class="v">'+f2(gr)+'</span><span class="v dv '+(dvG>=0?'pos':'neg')+'">'+(dvG>=0?'+':'−')+f2(Math.abs(dvG))+'</span></div></div></div>';
+  }).join('');
+  host.innerHTML='<div class="dg-mpager"><select id="dgYearM">'+yopts+'</select><button class="nav" id="dgPrev">‹</button><select id="dgMonthSel">'+mopts+'</select><button class="nav" id="dgNext">›</button></div>'+
+    '<div class="dg-mnote">'+perLbl+' · presupuestado vs real por concepto</div>'+sumHtml+chapters;
 }
 
 /* ============ Patrimonio ============ */

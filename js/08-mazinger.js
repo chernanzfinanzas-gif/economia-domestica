@@ -45,7 +45,7 @@ function _mzCalc(){
   return arr;
 }
 
-function _mzUIState(){ if(!window._mzUI)window._mzUI={add:false,list:true,graf:false}; window._mzRow=window._mzRow||{}; return window._mzUI; }
+function _mzUIState(){ if(!window._mzUI)window._mzUI={add:false,list:false,graf:false}; window._mzRow=window._mzRow||{}; return window._mzUI; }
 function _mzSaveFromForm(){
   var fecha=(document.getElementById('mzFecha').value||'').trim();
   var km=num(document.getElementById('mzKm').value);
