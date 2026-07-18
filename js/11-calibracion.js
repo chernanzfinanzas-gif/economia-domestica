@@ -478,16 +478,13 @@ function renderPanelMetodo(){
   const celRet = v => `<td style="text-align:center;font-weight:700;color:${_calibRetColor(v)}">${_calibMetRet(v)}</td>`;
   const fila = (etq, fn, sub) => `<tr${sub?' style="color:#64748b"':''}><td style="${sub?'padding-left:18px;':'font-weight:600;'}white-space:nowrap">${etq}</td>${['6m','12m','36m'].map(k=>fn(C[k])).join('')}</tr>`;
 
-  const kpis = `<div class="cards" style="margin-bottom:12px">
-    <div class="card"><div class="sub">Análisis registrados (t0)</div><div style="font-size:22px;font-weight:800">${empresas.length}</div></div>
-    <div class="card"><div class="sub">Evaluaciones cerradas</div><div style="font-size:22px;font-weight:800;color:${CALIB_COLOR}">${totalCerradas}</div></div>
-    <div class="card"><div class="sub">Pendientes · provisionales</div><div style="font-size:22px;font-weight:800">${pendientes} · <span style="color:#92400e">${provis}</span></div></div>
-    <div class="card"><div class="sub">Próxima diana</div><div style="font-size:16px;font-weight:800">${proxDiana?(proxDiana+' · '+proxTk):'—'}</div></div>
-  </div>`;
-
-  const tabla = `<div style="overflow:auto"><table>
-    <thead><tr><th>Métrica</th><th style="text-align:center">6 meses</th><th style="text-align:center">12 meses</th><th style="text-align:center">36 meses</th></tr></thead>
-    <tbody>
+  const _kpis='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Evaluaciones cerradas</div><div class="v">${totalCerradas}</div><div class="p">${totalCerradas?'confirmadas':'confirmadas · aún sin datos'}</div></div>`
+    +`<div class="k"><div class="l">Análisis registrados (t0)</div><div class="v">${empresas.length}</div><div class="p">tesis con punto de partida</div></div>`
+    +`<div class="k"><div class="l">Pendientes · provisionales</div><div class="v">${pendientes} · <span style="color:#92400e">${provis}</span></div><div class="p">hitos por evaluar</div></div>`
+    +`<div class="k"><div class="l">Próxima diana</div><div class="v" style="font-size:16px">${proxDiana?(proxDiana+' · '+proxTk):'—'}</div><div class="p">${proxDiana?'primer hito pendiente':'sin hitos pendientes'}</div></div>`
+    +'</div>';
+  const tablaHTML = `<div class="ptable"><table><thead><tr><th class="l">Métrica</th><th>6 meses</th><th>12 meses</th><th>36 meses</th></tr></thead><tbody>
       ${fila('Evaluaciones cerradas', c=>cel(c.n))}
       ${fila('% entró en banda de entrada', c=>cel(_calibMetPct(c.banda)))}
       ${fila('Stops tocados', c=>cel(c.stops))}
@@ -499,33 +496,23 @@ function renderPanelMetodo(){
       ${fila('· decisiones MANTENER', c=>celRet(c.mantener), true)}
       ${fila('· decisiones ESPERAR', c=>celRet(c.esperar), true)}
     </tbody></table></div>`;
-
-  // Detalle de evaluaciones cerradas
-  let det = '';
+  const emptyNote = totalCerradas ? '' : `<div class="mt-empty">Aún no hay evaluaciones <b>cerradas</b>. El marcador se rellena cuando cada tesis cumple su hito (6/12/36 meses desde el análisis) y confirmas la calibración.${proxDiana?(' La próxima diana es <b>'+proxTk+' · '+proxDiana+'</b>.'):''}</div>`;
   const filasDet = [];
   ['6m','12m','36m'].forEach(k => cerr[k].forEach(x => filasDet.push(
-    `<tr><td><b>${x.ticker}</b></td><td>${k}</td><td>${x.decision||'—'}</td>
-     <td style="font-weight:700;color:${_calibRetColor(x.v.retTotal)}">${_calibMetRet(x.v.retTotal)}</td>
-     <td>${_calibVchip(x.v.entroBanda?('banda '+x.v.entroBanda):null, x.v.entroBanda==='SÍ')}</td>
-     <td>${_calibVchip(x.v.tocoStop?('stop '+x.v.tocoStop):null, x.v.tocoStop==='NO')}</td>
-     <td>${_calibVchip(x.v.alcanzoPO?('PO '+x.v.alcanzoPO):null, x.v.alcanzoPO==='SÍ')}</td>
-     <td style="font-size:11px;color:#64748b">${x.info.nota?_calibEsc(x.info.nota):''}</td></tr>`
+    `<tr><td class="l"><b>${x.ticker}</b></td><td>${k}</td><td>${x.decision||'—'}</td><td style="font-weight:700;color:${_calibRetColor(x.v.retTotal)}">${_calibMetRet(x.v.retTotal)}</td><td>${_calibVchip(x.v.entroBanda?('banda '+x.v.entroBanda):null, x.v.entroBanda==='SÍ')}</td><td>${_calibVchip(x.v.tocoStop?('stop '+x.v.tocoStop):null, x.v.tocoStop==='NO')}</td><td>${_calibVchip(x.v.alcanzoPO?('PO '+x.v.alcanzoPO):null, x.v.alcanzoPO==='SÍ')}</td><td class="l" style="font-size:11px;color:#64748b">${x.info.nota?_calibEsc(x.info.nota):''}</td></tr>`
   )));
-  if(filasDet.length) det = `<h3 style="margin-top:18px">Evaluaciones cerradas</h3>
-    <div style="overflow:auto"><table><thead><tr><th>Empresa</th><th>Hito</th><th>Decisión t0</th><th>Retorno total</th><th>Banda</th><th>Stop</th><th>PO</th><th>Nota</th></tr></thead><tbody>${filasDet.join('')}</tbody></table></div>`;
-
-  const guia = `<div class="card" style="margin-top:14px;background:#f8fafc">
-    <div style="font-weight:800;font-size:13px;margin-bottom:6px">Qué corregir del método (cuando haya datos)</div>
-    <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.6;color:#475569">
-      <li>Si COMPRAR no bate a ESPERAR de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li>
-      <li>Si el % que alcanza PO Base es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li>
-      <li>Si hay muchos stops "ruido" (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li>
-      <li>Si casi nunca se "entró en banda" → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li>
-    </ul></div>`;
-
+  const detInner = filasDet.length
+    ? `<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th>Hito</th><th>Decisión t0</th><th>Retorno total</th><th>Banda</th><th>Stop</th><th>PO</th><th class="l">Nota</th></tr></thead><tbody>${filasDet.join('')}</tbody></table></div>`
+    : '<div class="mt-empty">Sin evaluaciones cerradas todavía. Aquí aparecerá cada tesis evaluada: empresa, hito, decisión t0, retorno total, si entró en banda, si tocó stop, si alcanzó PO y una nota.</div>';
+  const guia = `<ul class="mt-guia"><li>Si <b>COMPRAR</b> no bate a <b>ESPERAR</b> de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li><li>Si el % que alcanza <b>PO Base</b> es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li><li>Si hay muchos stops <b>"ruido"</b> (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li><li>Si casi nunca se <b>"entró en banda"</b> → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li></ul>`;
+  const _mblk=(icon,title,sum,inner,open)=>`<div class="pos-blk${open?' open':''}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="blk-pad">${inner}</div></div></div>`;
   sec.innerHTML = `<h2>📐 Panel del Método — ¿cuánto acierta?</h2>
-    <div class="sub" style="margin-bottom:10px">Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuenta las evaluaciones <b>cerradas</b> (confirmadas); se actualiza al confirmar una calibración. Los ${provis>0?('<b>'+provis+'</b> provisionales'):'provisionales'} aún no computan aquí.</div>
-    ${kpis}${tabla}${det}${guia}`;
+    <div class="sub" style="margin-bottom:12px">Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuentan las evaluaciones <b>cerradas</b> (confirmadas)${provis>0?('; los <b>'+provis+'</b> provisionales aún no computan'):''}.</div>
+    <div id="metKpis" style="margin-bottom:14px">${_kpis}</div>`
+    +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, true)
+    +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false)
+    +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false);
+  if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
 }
 
 /* ---------- Eventos delegados ---------- */
