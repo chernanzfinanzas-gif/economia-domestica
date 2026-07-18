@@ -321,6 +321,60 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-presupuesto .par-right{margin-left:auto;text-align:right;flex:0 0 auto}
   #view-presupuesto .par-mes{font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
   #view-presupuesto .par-anual{font-size:10.5px;color:#64748b}
+  /* ===== Análisis del presupuesto (Cumplimiento + Comparativas) ===== */
+  #presAna{margin-top:6px}
+  #presAna .ana-ctl{display:flex;flex-wrap:wrap;gap:10px;align-items:end;padding:14px 16px;background:#f8fafc;border-bottom:1px solid var(--line)}
+  #presAna .ana-ctl .f{display:flex;flex-direction:column;gap:4px}
+  #presAna .ana-ctl label{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:800}
+  #presAna .ana-ctl select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff;font-weight:600;min-height:38px}
+  #presAna .vs{align-self:center;font-weight:800;color:#94a3b8;padding:0 2px 6px}
+  #presAna .ana-sum{padding:14px 16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;border-bottom:1px solid var(--line)}
+  #presAna .sc{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:11px 12px}
+  #presAna .sc .l{font-size:11px;color:var(--muted);font-weight:700}
+  #presAna .sc .v{font-size:17px;font-weight:800;margin-top:3px}
+  #presAna .sc small{font-size:11px;color:var(--muted);font-weight:600}
+  #presAna .bar{height:8px;border-radius:5px;background:#e5e7eb;overflow:hidden;margin-top:8px}
+  #presAna .bar i{display:block;height:100%}
+  #presAna .pos{color:#16a34a}#presAna .neg{color:#dc2626}#presAna .warnc{color:#d97706}#presAna .neu{color:#64748b}
+  #presAna .row{border-bottom:1px solid #f1f5f9}
+  #presAna .rh{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr .7fr;gap:8px;align-items:center;cursor:pointer;padding:10px 16px}
+  #presAna .rh .nm{font-weight:700;display:flex;align-items:center;gap:7px}
+  #presAna .rh .arw{color:#cbd5e1;font-size:11px;transition:transform .15s;width:10px;display:inline-block}
+  #presAna .grp.open>.rh .arw{transform:rotate(90deg)}
+  #presAna .a-num{text-align:right;font-variant-numeric:tabular-nums;font-size:13.5px}
+  #presAna .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11.5px;font-weight:800}
+  #presAna .pill.g{background:#dcfce7;color:#166534}#presAna .pill.a{background:#fef9c3;color:#92400e}#presAna .pill.r{background:#fee2e2;color:#991b1b}
+  #presAna .parts{display:none;background:#fafcff}
+  #presAna .grp.open .parts{display:block}
+  #presAna .part .rh{padding:9px 16px 9px 30px;cursor:default}
+  #presAna .part .nm{font-weight:500;font-size:13px}
+  #presAna .tag{font-size:9.5px;font-weight:800;padding:1px 6px;border-radius:6px;text-transform:uppercase;letter-spacing:.02em}
+  #presAna .tag.nec{background:#e0edff;color:#1e40af}#presAna .tag.pre{background:#f1f5f9;color:#64748b}
+  #presAna .colhead{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr .7fr;gap:8px;padding:8px 16px;background:#f1f5f9;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b}
+  #presAna .colhead span:not(:first-child){text-align:right}
+  #presAna .minihd{padding:11px 16px 7px;font-size:12px;font-weight:800;color:#475569;background:#fbfdff;border-bottom:1px solid var(--line);border-top:1px solid var(--line)}
+  #presAna .cmp .rh,#presAna .cmp .part .rh,#presAna .cmp .colhead,#presAna .cmp .tot{grid-template-columns:1.5fr .8fr .8fr .8fr .8fr .8fr .8fr 1fr}
+  #presAna .cmp .colhead2{display:grid;grid-template-columns:1.5fr 2.4fr 2.4fr 1fr;gap:8px;padding:8px 16px 2px;background:#f1f5f9;font-size:11px;font-weight:800;color:#475569}
+  #presAna .cmp .colhead2 span{text-align:center}#presAna .cmp .colhead2 span:first-child{text-align:left}
+  #presAna .cmp .colhead2 .ya{border-bottom:2px solid #93c5fd}#presAna .cmp .colhead2 .yb{border-bottom:2px solid #6ee7b7}
+  #presAna .tot{display:grid;grid-template-columns:1.6fr .9fr .9fr .9fr .7fr;gap:8px;padding:12px 16px;background:#fffbeb;font-weight:800;border-top:2px solid #fde68a}
+  #presAna .tot span:not(:first-child){text-align:right}
+  #presAna .mcell,#presAna .mcmp{display:none}
+  @media(max-width:640px){
+    #presAna .ana-sum{grid-template-columns:1fr}
+    #presAna .colhead,#presAna .colhead2{display:none}
+    #presAna .rh,#presAna .part .rh,#presAna .tot,#presAna .cmp .rh,#presAna .cmp .part .rh,#presAna .cmp .tot{display:block}
+    #presAna .rh .nm,#presAna .tot>span:first-child{margin-bottom:5px;font-size:14px}
+    #presAna .a-num{display:none!important}
+    #presAna .mcell{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-top:1px dashed #eef2f7}
+    #presAna .mcell>span{color:var(--muted);font-weight:600}
+    #presAna .mcell b{font-weight:800}
+    #presAna .tot .mcell span{color:#92400e}
+    #presAna .mcmp{display:block;margin-top:2px}
+    #presAna .mcmp .mcrow{display:flex;justify-content:space-between;gap:8px;font-size:12px;padding:3px 0;border-top:1px dashed #eef2f7}
+    #presAna .mcmp .mcrow>span{color:var(--muted);font-weight:700;flex:0 0 auto}
+    #presAna .mcmp .mcrow>b{font-weight:600;text-align:right}
+  }
   #view-presupuesto .blk-edit{border:none;background:transparent;color:var(--muted);cursor:pointer;font-size:13px;padding:0 4px;line-height:1;opacity:.55;border-radius:6px}
   #view-presupuesto .blk-edit:hover{opacity:1;background:#eef2ff;color:var(--brand)}
   #view-presupuesto .par-form{padding:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;align-items:end}
@@ -672,6 +726,66 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <button class="btn ghost sm" id="presImportBtn">Importar presupuesto</button>
     </div>
     <div id="presBody"></div>
+
+    <div id="presAna">
+      <div class="subhead">Análisis del presupuesto</div>
+
+      <div class="blk" id="blkCump">
+        <div class="blk-h" data-anablk="blkCump"><span class="blk-arw">▶</span><span class="blk-ic">🎯</span>
+          <div><div class="blk-t">Cumplimiento</div><div class="blk-sub">Lo previsto frente a lo realmente ingresado y gastado</div></div>
+          <div class="blk-right"><div class="blk-amount" id="cumpHeadPct">—</div><div class="blk-mes">del presupuesto usado</div></div>
+        </div>
+        <div class="blk-b">
+          <div class="ana-ctl">
+            <div class="f"><label>Año</label><select id="cumpYear"></select></div>
+            <div class="f"><label>Período</label><select id="cumpPer">
+              <option value="year">Año completo</option>
+              <option value="ytd">Hasta hoy (año en curso)</option>
+              <option value="1">Enero</option><option value="2">Febrero</option><option value="3">Marzo</option><option value="4">Abril</option><option value="5">Mayo</option><option value="6">Junio</option><option value="7">Julio</option><option value="8">Agosto</option><option value="9">Septiembre</option><option value="10">Octubre</option><option value="11">Noviembre</option><option value="12">Diciembre</option>
+            </select></div>
+          </div>
+          <div class="ana-sum" id="cumpSum"></div>
+          <div class="colhead"><span>Concepto</span><span>Previsto</span><span>Real</span><span>Desv.</span><span>Acierto</span></div>
+          <div id="cumpBody"></div>
+        </div>
+      </div>
+
+      <div class="blk cmp" id="blkCmp">
+        <div class="blk-h" data-anablk="blkCmp"><span class="blk-arw">▶</span><span class="blk-ic">⚖️</span>
+          <div><div class="blk-t">Comparativa de presupuestos</div><div class="blk-sub">Compara dos años para decidir el siguiente</div></div>
+          <div class="blk-right"><div class="blk-amount" id="cmpHeadD">—</div><div class="blk-mes">variación del gasto</div></div>
+        </div>
+        <div class="blk-b">
+          <div class="ana-ctl">
+            <div class="f"><label>Presupuesto A</label><select id="cmpA"></select></div>
+            <div class="vs">vs</div>
+            <div class="f"><label>Presupuesto B</label><select id="cmpB"></select></div>
+          </div>
+          <div class="ana-sum" id="cmpSum"></div>
+          <div class="colhead2" id="cmpHead2"></div>
+          <div class="colhead" id="cmpHead"></div>
+          <div id="cmpBody"></div>
+        </div>
+      </div>
+
+      <div class="blk cmp" id="blkCmpI">
+        <div class="blk-h" data-anablk="blkCmpI"><span class="blk-arw">▶</span><span class="blk-ic">💰</span>
+          <div><div class="blk-t">Comparativa de ingresos</div><div class="blk-sub">Compara los ingresos previstos y recibidos entre dos años</div></div>
+          <div class="blk-right"><div class="blk-amount" id="cmpiHeadD">—</div><div class="blk-mes">variación del ingreso</div></div>
+        </div>
+        <div class="blk-b">
+          <div class="ana-ctl">
+            <div class="f"><label>Presupuesto A</label><select id="cmpiA"></select></div>
+            <div class="vs">vs</div>
+            <div class="f"><label>Presupuesto B</label><select id="cmpiB"></select></div>
+          </div>
+          <div class="ana-sum" id="cmpiSum"></div>
+          <div class="colhead2" id="cmpiHead2"></div>
+          <div class="colhead" id="cmpiHead"></div>
+          <div id="cmpiBody"></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section class="view" id="view-desglose">
@@ -1092,7 +1206,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="dlg-f">
       <button type="button" class="btn danger" id="catDelete" style="display:none">Eliminar</button>
       <span style="flex:1"></span>
-      <button value="cancel" class="btn ghost">Cancelar</button>
+      <button value="cancel" formnovalidate class="btn ghost">Cancelar</button>
       <button type="button" class="btn" id="catSave">Guardar</button>
     </div>
   </form>
