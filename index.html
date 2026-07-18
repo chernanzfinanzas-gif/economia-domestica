@@ -1051,6 +1051,69 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-dividendos #divKpis .k .v{font-size:17px}
   #view-dividendos .pos-desk{display:none}#view-dividendos .pos-mob{display:block}
 }
+/* ===== Calendario ===== */
+#view-calendario #calKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-calendario #calKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-calendario #calKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-calendario #calKpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-calendario #calKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-calendario #calKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-calendario #calKpis .k.hero .l,#view-calendario #calKpis .k.hero .p{color:#bbf7d0}
+#view-calendario .cal-mnav{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+#view-calendario .cal-mtitle{font-size:16px;font-weight:800;min-width:100px;text-transform:capitalize}
+#view-calendario .cal-mchips{display:flex;gap:4px;flex-wrap:wrap}
+#view-calendario .calMchip{border:1px solid var(--line);background:#fff;border-radius:8px;padding:4px 8px;font-size:12px;cursor:pointer;color:#475569}
+#view-calendario .calMchip.on{background:var(--brand);color:#fff;border-color:var(--brand);font-weight:700}
+#view-calendario .calMchip.empty{opacity:.5}
+#view-calendario .calMchip .cm-cnt{font-size:9px;opacity:.7;margin-left:2px}
+#view-calendario .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
+#view-calendario .cal-dow{font-size:10px;font-weight:800;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px 0}
+#view-calendario .cal-dow.we{color:#b45309}
+#view-calendario .cal-cell{min-height:92px;border:1px solid var(--line);border-radius:9px;padding:4px 5px;background:#fff;overflow:hidden;cursor:pointer}
+#view-calendario .cal-cell:hover{border-color:var(--brand)}
+#view-calendario .cal-cell.out{background:#fafbfc;opacity:.45;cursor:default}
+#view-calendario .cal-cell.today{border:2px solid var(--brand);background:#eff6ff}
+#view-calendario .cal-cell.sel{border:2px solid #0f172a}
+#view-calendario .cal-cell .cal-dn{font-size:12px;font-weight:700;color:#334155}
+#view-calendario .cal-cell.we .cal-dn{color:#b45309}#view-calendario .cal-cell.today .cal-dn{color:var(--brand)}
+#view-calendario .cal-evp{display:flex;align-items:center;gap:4px;font-size:9.5px;font-weight:700;padding:1px 5px;border-radius:5px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#view-calendario .cal-evp i{width:6px;height:6px;border-radius:50%;flex:none}
+#view-calendario .cal-evp.cart{background:#fffbeb;border:1px solid #fde68a;color:#334155}
+#view-calendario .cal-evp.rad{background:#f3f6fb;border:1px solid #dbe4f5;color:#334155}
+#view-calendario .cal-evp.proy{border-style:dashed;border-color:#7c3aed}#view-calendario .cal-evp.est{border-style:dashed;border-color:#b45309}
+#view-calendario .cal-evp .am{margin-left:auto;color:#166534;font-weight:800;padding-left:4px}
+#view-calendario .cal-more{font-size:9px;color:var(--muted);font-weight:700;margin-top:2px}
+#view-calendario .cal-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:#475569;margin-top:10px}#view-calendario .cal-leg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+#view-calendario .cal-detail{margin-top:12px;border-top:1px dashed var(--line);padding-top:12px}
+#view-calendario .cal-detail h4{margin:0 0 8px;font-size:14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+#view-calendario .cal-drow{display:flex;gap:9px;align-items:flex-start;padding:7px 0;border-bottom:1px solid #f1f5f9}
+#view-calendario .cal-dd{min-width:52px;font-weight:700;color:#334155;font-variant-numeric:tabular-nums;font-size:12.5px}
+#view-calendario .cal-det{color:#475569;font-size:12px}
+#view-calendario .cal-gtag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px}#view-calendario .cal-gtag.cart{background:#fde68a;color:#92400e}#view-calendario .cal-gtag.rad{background:#dbe4f5;color:#1e3a63}
+#view-calendario .tk{font-weight:800;color:var(--brand)}
+#view-calendario .cal-ecard{border:1px solid var(--line);border-radius:11px;padding:9px 12px;margin-bottom:8px;background:#fff;box-shadow:var(--shadow);border-left:4px solid #cbd5e1}
+#view-calendario .cal-ecard.e-cart{border-left-color:#f59e0b}#view-calendario .cal-ecard.e-rad{border-left-color:#93c5fd}#view-calendario .cal-ecard.e-past{opacity:.5}
+#view-calendario .cal-ecard .ec-h{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:5px}
+#view-calendario .cal-ecard .ec-t{font-size:14px;margin-bottom:3px}
+#view-calendario .cal-fdate{white-space:nowrap;font-weight:700;color:#334155;font-variant-numeric:tabular-nums;font-size:12px}
+#view-calendario .cal-lcard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-calendario .cal-lcard.sumc{border:1px solid #bbf7d0;background:#f0fdf4}
+#view-calendario .cal-lh{display:flex;justify-content:space-between;align-items:center;gap:10px}#view-calendario .cal-lh .tk{font-size:16px;font-weight:800;color:var(--ink)}
+#view-calendario .cal-ty{text-align:right;font-size:16px;font-weight:800;color:#166534}#view-calendario .cal-ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#view-calendario .cal-dchips{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+#view-calendario .cal-mchip2{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:7px;padding:3px 7px;font-size:11px;color:#166534}#view-calendario .cal-mchip2 b{color:#065f46}
+#view-calendario .cal-lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}#view-calendario .cal-lg .m{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px}#view-calendario .cal-lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-calendario .cal-lg .m b{font-size:12.5px;font-weight:700}
+#view-calendario .pos-mob{display:none}
+@media(max-width:960px){
+  #view-calendario #calKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-calendario #calKpis .k .v{font-size:17px}
+  #view-calendario .pos-desk{display:none}#view-calendario .pos-mob{display:block}
+  #view-calendario .cal-cell{min-height:52px;padding:2px 3px}
+  #view-calendario .cal-evp{font-size:0;padding:0;border:0;background:transparent!important;display:inline-flex;margin:0 1px}
+  #view-calendario .cal-evp i{width:7px;height:7px}#view-calendario .cal-evp .am{display:none}
+  #view-calendario .cal-more{font-size:8px}
+  #view-calendario .calMchip .cm-cnt{display:none}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2647,10 +2710,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-calendario">
-    <h2>Calendario</h2>
-    <div class="sub" style="margin-bottom:8px">Calendario <b>derivado</b> de tus datos: ex-dividendo, pago de dividendo, junta, resultados e informes trimestrales, con fechas exactas. Solo lectura — las correcciones puntuales se hacen en <b>Evolución del Dividendo</b>. Viaja por los años con ◀ ▶: histórico real, año en curso y proyección desde tu Plan.</div>
+    <h2>📅 Calendario</h2>
+    <div class="sub" style="margin-bottom:10px">Calendario <b>derivado</b> de tus datos: ex-dividendo, pago de dividendo, junta, resultados e informes trimestrales, con fechas exactas. Solo lectura — las correcciones puntuales se hacen en <b>Evolución del Dividendo</b>. Elige año (◀ ▶ o el deslizador) y sub-vista: histórico real, año en curso y proyección desde tu Plan.</div>
     <div id="calBar"></div>
-    <div class="cards" id="calKpis" style="margin-bottom:12px"></div>
+    <div id="calKpis" style="margin-bottom:14px"></div>
     <div id="calBody"></div>
   </section>
 
