@@ -117,36 +117,48 @@ function renderInv(){
   const all=invPositions().filter(p=>p.acciones>0.0001);
   const _fechas=all.map(p=>p.precioFecha).filter(Boolean).sort();
   const refFecha=_fechas.length?_fechas[_fechas.length-1]:'';
-  const fechaBanner=`<div class="muted" style="font-size:12px;margin:2px 0 10px">${refFecha?('Precios al cierre del <b style=\'color:#334155\'>'+ddmmyyyy(refFecha)+'</b>'):'Precios sin fecha de referencia'} · el color de la cotización indica su actualización: <b style="color:#16a34a">al día</b> · <b style="color:#d97706">rezagada</b> · <b style="color:#dc2626">desfasada/sin fecha</b></div>`;
+  const fechaBanner=`<div class="muted" style="font-size:12px;margin:2px 0 12px">${refFecha?('Precios al cierre del <b style=\'color:#334155\'>'+ddmmyyyy(refFecha)+'</b>'):'Precios sin fecha de referencia'} · el color de la cotización indica su actualización: <b style="color:#16a34a">al día</b> · <b style="color:#d97706">rezagada</b> · <b style="color:#dc2626">desfasada/sin fecha</b></div>`;
   const carts=[...new Set(['Propia','Compartida',...invCarteras()])];
   const dl=$('#cartList'); if(dl) dl.innerHTML=carts.map(c=>`<option value="${c}">`).join('');
   const valor=all.reduce((s,p)=>s+p.acciones*p.precioActual,0);
   const coste=all.reduce((s,p)=>s+p.acciones*p.precioCompra,0);
   const pl=valor-coste, plpct=coste?pl/coste*100:0;
   const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
-  $('#invCards').innerHTML=[
-    {l:'Valor total (todas)',v:fmt(valor),cls:'',s:all.length+' posiciones · ambas carteras'},
-    {l:'Coste',v:fmt(coste),cls:'',s:''},
-    {l:'Plusvalía',v:(pl>=0?'+':'')+fmt(pl),cls:pl>=0?'pos':'neg',s:(plpct>=0?'+':'')+plpct.toFixed(1)+'%'},
-    {l:'Dividendos/año (bruto)',v:fmt(divAnual),cls:'',s:(valor?(divAnual/valor*100).toFixed(1):0)+'% RPD'}
-  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div><div class="sub">${c.s}</div></div>`).join('');
+  const _pc=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
+  $('#invCards').innerHTML='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras</div></div>`
+    +`<div class="k"><div class="l">Coste</div><div class="v">${fmt(coste)}</div><div class="p">invertido total</div></div>`
+    +`<div class="k"><div class="l">Plusvalía</div><div class="v ${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${fmt(pl)}</div><div class="p">${_pc(plpct)} sobre coste</div></div>`
+    +`<div class="k"><div class="l">Dividendos/año (bruto)</div><div class="v">${fmt(divAnual)}</div><div class="p">${(valor?(divAnual/valor*100).toFixed(1):0)}% RPD media</div></div>`
+    +'</div>';
   if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; renderInvClosed(); if(typeof renderDividendos==='function')renderDividendos(); return; }
   const byCart={}; all.forEach(p=>{(byCart[p.cartera]=byCart[p.cartera]||[]).push(p);});
   const ordered=Object.keys(byCart).sort((a,b)=>a==='Propia'?-1:b==='Propia'?1:a.localeCompare(b));
-  const _shc=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="cartera" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('cartera',k)}</th>`; const head='<tr>'+_shc('ticker','Ticker','')+_shc('nombre','Nombre','')+_shc('acc','Acc.')+_shc('pc','P.Compra')+_shc('pa','P.Actual')+_shc('valor','Valor')+_shc('pl','Plusvalía')+_shc('plpct','%')+_shc('valor','Peso')+_shc('divacc','Div/acc')+_shc('divano','Div/año')+_shc('rpd','RPD')+_shc('yoc','YoC')+'<th></th></tr>';
+  const _shc=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="cartera" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('cartera',k)}</th>`;
+  const head='<tr>'+_shc('ticker','Ticker','')+_shc('nombre','Nombre','')+_shc('acc','Acc.')+_shc('pc','P.Compra')+_shc('pa','P.Actual')+_shc('valor','Valor')+_shc('pl','Plusvalía')+_shc('plpct','%')+_shc('valor','Peso')+_shc('divacc','Div/acc')+_shc('divano','Div/año')+_shc('rpd','RPD')+_shc('yoc','YoC')+'<th></th></tr>';
+  window._invOpen=window._invOpen||{};
+  ordered.forEach((car,i)=>{ if(window._invOpen[car]===undefined) window._invOpen[car]=(i===0); });
   let html='';
   ordered.forEach(car=>{
     const lst=(_sort['cartera']&&_sort['cartera'].k)?sortApply('cartera',byCart[car],{ticker:p=>p.ticker,nombre:p=>p.nombre,acc:p=>p.acciones,pc:p=>p.precioCompra,pa:p=>p.precioActual,valor:p=>p.acciones*p.precioActual,pl:p=>p.acciones*(p.precioActual-p.precioCompra),plpct:p=>{const c=p.acciones*p.precioCompra;return c?(p.acciones*p.precioActual-c)/c:0;},divacc:p=>p.divAccion,divano:p=>p.acciones*p.divAccion,rpd:p=>p.precioActual?p.divAccion/p.precioActual:0,yoc:p=>p.precioCompra?p.divAccion/p.precioCompra:0}):[...byCart[car]].sort((a,b)=>(b.acciones*b.precioActual)-(a.acciones*a.precioActual));
-    const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC;
+    const sV=lst.reduce((x,p)=>x+p.acciones*p.precioActual,0), sC=lst.reduce((x,p)=>x+p.acciones*p.precioCompra,0), sD=lst.reduce((x,p)=>x+p.acciones*p.divAccion,0), sPL=sV-sC, sPLp=sC?sPL/sC*100:0;
     const rows=lst.map(p=>{
       const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
       const _du=(typeof dossierURL==='function')?dossierURL(p.ticker,((DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===(p.ticker||'').toUpperCase())||{}).dossierUrl):'';
-      return `<tr><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${p.ticker}"><b>${p.ticker}</b></button><br><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px;margin-top:3px">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-top:3px;margin-left:4px" title="Abrir dossier">📄 Dossier</a>`:''}</td><td>${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num" style="color:${precioFreshColor(p.precioFecha,refFecha)};font-weight:600" title="${p.precioFecha?('Cotización del '+ddmmyyyy(p.precioFecha)):'Sin fecha de cotización'}">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right"><button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕</button></td></tr>`;
+      return `<tr><td class="l" style="white-space:nowrap"><b class="pos-tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker}</b></td><td class="l">${p.nombre||''}</td><td class="num">${p.acciones}</td><td class="num">${fmt(p.precioCompra)}</td><td class="num" style="color:${precioFreshColor(p.precioFecha,refFecha)};font-weight:600" title="${p.precioFecha?('Cotización del '+ddmmyyyy(p.precioFecha)):'Sin fecha de cotización'}">${fmt(p.precioActual)}</td><td class="num">${fmt(v)}</td><td class="num ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</td><td class="num ${g>=0?'pos':'neg'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</td><td class="num">${peso.toFixed(1)}%</td><td class="num">${fmt(p.divAccion)}</td><td class="num pos">${fmt(p.acciones*p.divAccion)}</td><td class="num">${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</td><td class="num">${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</td><td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px" title="Añadir operación">+ Op.</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-left:3px" title="Abrir dossier">📄</a>`:''} <button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}" title="Eliminar">✕</button></td></tr>`;
     }).join('');
-    const sub=`<tr style="font-weight:700;background:#f1f5f9"><td>SUBTOTAL</td><td></td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td></td><td></td><td class="num">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
-    html+=`<h3 style="margin-top:18px">Cartera: ${car} <span class="muted" style="font-weight:400;font-size:12px">· ${lst.length} valores · ${fmt(sV)}</span></h3><div style="overflow:auto"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div>`;
+    const sub=`<tr class="pos-tot"><td class="l">SUBTOTAL</td><td class="l pos-nm">${lst.length} valores</td><td></td><td></td><td></td><td class="num">${fmt(sV)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${sPL>=0?'pos':'neg'}">${_pc(sPLp)}</td><td class="num">${(valor?sV/valor*100:0).toFixed(1)}%</td><td></td><td class="num pos">${fmt(sD)}</td><td></td><td></td><td></td></tr>`;
+    // móvil: tarjeta por empresa
+    const mcards=lst.map(p=>{ const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
+      const _du=(typeof dossierURL==='function')?dossierURL(p.ticker,((DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===(p.ticker||'').toUpperCase())||{}).dossierUrl):'';
+      return `<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker} <span class="nm">${p.nombre||''}</span></div><div class="ty ${g>=0?'g':'r'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}<span>plusval.</span></div></div><div class="lc-row"><span class="pl ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</span> <span class="muted">plusvalía</span> · <b>${fmt(v)}</b> <span class="muted">valor · peso ${peso.toFixed(1)}%</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${p.acciones}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(p.precioCompra)}→${fmt(p.precioActual)}</b></div><div class="m"><span>Div/año</span><b class="pos">${fmt(p.acciones*p.divAccion)}</b></div><div class="m"><span>RPD</span><b>${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>YoC</span><b>${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>Div/acc</span><b>${fmt(p.divAccion)}</b></div></div><div class="lc-act"><button class="btn ghost sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener">📄 Dossier</a>`:''}<button class="btn danger sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕ Eliminar</button></div></div>`;
+    }).join('');
+    const op=window._invOpen[car]?' open':'';
+    html+=`<div class="pos-blk${op}" data-invblk="${car}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">Cartera ${car}</span><span class="bsum">${lst.length} valores · valor ${fmt(sV)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
   });
-  $('#invTable').innerHTML=fechaBanner+html;
+  const el=$('#invTable');
+  el.innerHTML=fechaBanner+html;
+  if(!el._invBlkBound){ el._invBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-sorttbl],[data-ops-t],[data-del-t]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-invblk'); if(k){window._invOpen=window._invOpen||{};window._invOpen[k]=b.classList.contains('open');} } }); }
   renderInvClosed();
   if(typeof renderDividendos==='function')renderDividendos();
 }
