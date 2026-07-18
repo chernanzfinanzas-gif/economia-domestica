@@ -34,72 +34,137 @@ function radScore(f,rating){
   return {atr:atr, nota:nota, trampa:trampa};
 }
 
-/* ---- RPD unificada: dividendo anual (Evolución del Dividendo) ÷ precio VIVO ----
-   Misma fuente exacta que la pestaña Radar Dividendo: _radarDiv (DPA del año en vigor
-   vía evoAnioM, con respaldo al último año real) sobre _radarPrecio (precio vivo).
-   Así ambas pestañas muestran SIEMPRE la misma RPD. El DPA anual es el total del año
-   (previsión de principio de año); los extraordinarios NO se filtran aquí. */
-function _radRpdVivo(t){
-  t=(''+(t||'')).toUpperCase();
-  var div=(typeof _radarDiv==='function')?num(_radarDiv(t)):num(((DB.valores||{})[t]||{}).divAccion);
-  var precio=(typeof _radarPrecio==='function')?num(_radarPrecio(t)):num(((DB.valores||{})[t]||{}).precioActual);
-  return (precio>0&&div>0)?(div/precio*100):null;
-}
-
 /* ================= PESTAÑA UNIVERSO ================= */
+/* Colores de arquetipo para las etiquetas */
+var UNI_ARQCOL={FINANCIERAS:"#2563eb",REGULADAS:"#0891b2",CONCESIONAL:"#7c3aed",INDUSTRIAL:"#64748b",COMMODITY:"#b45309",CONSUMO:"#db2777",ESCALABLES:"#0d9488",SALUD:"#16a34a",INMOBILIARIAS:"#9333ea","Sin clasificar":"#94a3b8"};
+window._uniQ=window._uniQ||''; window._uniArq=window._uniArq||''; window._uniSt=window._uniSt||{held:false,ana:false}; window._uniOpen=window._uniOpen||{};
+function _uniStatus(){ var held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
+  return {isHeld:function(t){return held.has((t||'').toUpperCase());}, isAna:function(t){return (typeof _esAnalizada==='function')&&_esAnalizada(t);}}; }
+function _uniStars(r){ if(!r)return '<span style="color:#cbd5e1">—</span>'; var dead=/☠/.test(r); return '<span class="uni-stars'+(dead?' dead':'')+'">'+_radEsc(r)+'</span>'; }
+function _uniAtag(a){ a=a||'Sin clasificar'; return '<span class="uni-atag" style="background:'+(UNI_ARQCOL[a]||'#94a3b8')+'">'+_radEsc(a)+'</span>'; }
+function _uniChip(r){ if(r.held)return '<span class="uni-chip h">En cartera</span>'; if(r.ana)return '<span class="uni-chip a">Analizada</span>'; return '<span style="color:#cbd5e1">·</span>'; }
 function renderUniverso(){
   var sec=document.getElementById('view-universo'); if(!sec)return;
   DB.universo=DB.universo||{};
-  var ks=Object.keys(DB.universo).sort();
-  var arqOpts=function(sel){ return RAD_ARQ.map(function(a){ return '<option'+(a===sel?' selected':'')+'>'+a+'</option>'; }).join(''); };
-  var celdaEdit=function(t,u,key,w){
-    if(key==='arquetipo') return '<td><select class="uInp" data-ut="'+_radEsc(t)+'" data-uf="arquetipo">'+arqOpts(u.arquetipo||'Sin clasificar')+'</select></td>';
-    return '<td><input class="uInp" data-ut="'+_radEsc(t)+'" data-uf="'+key+'" value="'+_radEsc(u[key]||'')+'" style="width:'+w+'px"></td>';
-  };
-  var _uHeld=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
-  var rows=ks.map(function(t){ var u=DB.universo[t]||{};
-    var _bg=(typeof statusRowBg==='function')?statusRowBg(t,_uHeld):'';
-    return '<tr data-fs="'+_radEsc((t+' '+(u.nombre||'')).toLowerCase())+'"'+(_bg?' style="background:'+_bg+'"':'')+'><td><b data-ficha="'+_radEsc(t)+'" style="cursor:pointer;color:var(--brand)">'+_radEsc(t)+'</b></td>'
-      + UNI_FIELDS.map(function(f){ return celdaEdit(t,u,f[0],f[2]||120); }).join('')
-      + '<td class="right"><button class="btn ghost sm" data-udel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
-  }).join('');
-  sec.innerHTML='<h2>Universo — clasificación (Matriz)</h2>'
-    +'<div class="sub" style="margin-bottom:8px">La base de datos de la Matriz, <b>editable</b>. El Radar la usa para el arquetipo y el rating. Impórtala una vez desde <code>matriz.json</code> (lo genera el <code>.bat</code> «Exportar matriz.json») y edítala aquí cuando cambie algo.</div>'
-    +'<div class="toolbar" style="margin-bottom:8px"><button class="btn" id="uImport">Importar matriz.json</button><button class="btn sm" id="uAdd">+ Empresa</button><input type="file" id="uFile" accept="application/json,.json" style="display:none"><input type="search" id="uSearch" placeholder="Buscar nombre o ticker…" style="padding:5px 8px;border:1px solid var(--line);border-radius:6px;font-size:13px;min-width:200px"><span class="muted" id="uStatus"></span></div>'
-    +'<div style="overflow:auto"><table><thead><tr><th>Ticker</th>'+UNI_FIELDS.map(function(f){return '<th>'+f[1]+'</th>';}).join('')+'<th></th></tr></thead><tbody>'
-    +(rows||'<tr><td colspan="'+(UNI_FIELDS.length+2)+'" class="muted" style="padding:10px">Universo vacío. Pulsa «Importar matriz.json».</td></tr>')
-    +'</tbody></table></div>';
+  var S=_uniStatus();
+  var ks=Object.keys(DB.universo);
+  var total=ks.length;
+  var nHeld=ks.filter(function(t){return S.isHeld(t);}).length;
+  var nAna=ks.filter(function(t){return S.isAna(t);}).length;
+  var nSin=ks.filter(function(t){return (DB.universo[t].arquetipo||'Sin clasificar')==='Sin clasificar';}).length;
+  var arqCount={}; ks.forEach(function(t){var a=DB.universo[t].arquetipo||'Sin clasificar';arqCount[a]=(arqCount[a]||0)+1;});
+  var arqOpts=RAD_ARQ.filter(function(a){return arqCount[a];}).map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===window._uniArq?' selected':'')+'>'+_radEsc(a)+' ('+arqCount[a]+')</option>';}).join('');
+  sec.innerHTML=
+    '<h2>Universo — clasificación</h2>'+
+    '<div class="sub" style="margin-bottom:14px">La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos (alta unificada).</div>'+
+    '<div class="uni-k">'+
+      '<div class="c hero"><div class="l">Empresas en el universo</div><div class="v">'+total+'</div><div class="p">clasificadas por arquetipo</div></div>'+
+      '<div class="c"><div class="l">En cartera</div><div class="v g">'+nHeld+'</div><div class="p">con posición abierta</div></div>'+
+      '<div class="c"><div class="l">Analizadas</div><div class="v a">'+nAna+'</div><div class="p">con dossier o tesis</div></div>'+
+      '<div class="c"><div class="l">Sin clasificar</div><div class="v">'+nSin+'</div><div class="p">pendientes de arquetipo</div></div>'+
+    '</div>'+
+    '<div class="uni-tb">'+
+      '<button class="btn ghost sm" id="uImport">⬆ <span class="lbl-full">Importar matriz.json</span><span class="lbl-short">Imp. Json</span></button>'+
+      '<button class="btn sm" id="uAdd">+ Empresa</button>'+
+      '<input type="file" id="uFile" accept="application/json,.json" style="display:none">'+
+      '<input type="search" id="uSearch" placeholder="Buscar…" value="'+_radEsc(window._uniQ)+'">'+
+      '<div class="uni-fgroup"><select id="uArq"><option value="">Todos los arquetipos</option>'+arqOpts+'</select>'+
+        '<button class="uni-fchip'+(window._uniSt.held?' on':'')+'" data-ust="held"><span class="dot"></span>En cartera</button>'+
+        '<button class="uni-fchip'+(window._uniSt.ana?' on':'')+'" data-ust="ana"><span class="dot"></span>Analizada</button></div>'+
+      '<span class="uni-count" id="uCount"></span>'+
+    '</div>'+
+    '<div class="uni-table"><table><thead><tr><th style="width:14px"></th><th>Ticker</th><th>Empresa</th><th>Arquetipo</th><th>Rating</th><th>Actividad principal</th><th>Estado</th></tr></thead><tbody id="uBody"></tbody></table></div>'+
+    '<div class="uni-cards" id="uCards"></div>';
+  _uniRenderList();
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
-  var st=document.getElementById('uStatus'); if(st)st.textContent=ks.length+' empresas';
-  _wireBuscador(document.getElementById('uSearch'), sec.querySelectorAll('tbody tr[data-fs]'), _uniBusca);
-  var imp=document.getElementById('uImport'), file=document.getElementById('uFile');
-  if(imp&&file){ imp.addEventListener('click',function(){ file.click(); }); file.addEventListener('change',function(e){ var f=e.target.files&&e.target.files[0]; if(!f)return; var rd=new FileReader(); rd.onload=function(){ try{ importUniverso(JSON.parse(rd.result)); }catch(err){ alert('matriz.json no válido: '+err); } }; rd.readAsText(f); }); }
-  var add=document.getElementById('uAdd');
-  if(add)add.addEventListener('click',function(){
-    var t=(prompt('Ticker (p.ej. IBE):','')||'').trim().toUpperCase(); if(!t)return;
-    var _ex=DB.universo[t]||{};
-    var nombre=(prompt('Nombre de la empresa:', _ex.nombre||'')||'').trim();
-    var arq=(prompt('Arquetipo (deja vac\u00edo si no lo sabes):', _ex.arquetipo||'')||'').trim();
-    if(!DB.universo[t]){ var _u={}; UNI_KEYS.forEach(function(k){_u[k]='';}); DB.universo[t]=_u; }
-    if(nombre)DB.universo[t].nombre=nombre;
-    DB.universo[t].arquetipo=arq||DB.universo[t].arquetipo||'Sin clasificar';
-    /* Alta unificada: sembrar entrada m\u00ednima en An\u00e1lisis para que aparezca en An\u00e1lisis, Visi\u00f3n, ficha y Radar Dividendo. */
-    DB.analisis=DB.analisis||[];
-    if(!DB.analisis.some(function(a){return (a.ticker||'').toUpperCase()===t;})){
-      var _v=(DB.valores||{})[t]||{};
-      DB.analisis.push({id:uid(),ticker:t,nombre:nombre||_v.nombre||t,cotizacion:num(_v.precioActual)||0,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,decision:'',dossierFecha:'',dossierUrl:'',precioEntrada:0,precioObjetivo:0,divAccion:num(_v.divAccion)||0,notas:''});
-    }
-    /* Alta unificada: crear registro de dividendos para que aparezca en Evoluci\u00f3n del Dividendo. */
-    DB.divData=DB.divData||{};
-    if(!DB.divData[t]){ DB.divData[t]={nombre:nombre||t, paga:false, anios:{}, origenApp:true}; }
-    else if(nombre && !DB.divData[t].nombre){ DB.divData[t].nombre=nombre; }
-    if(typeof saveNow==='function')saveNow(); else if(typeof scheduleSave==='function')scheduleSave();
-    renderUniverso();
-    if(typeof renderAnalisis==='function')renderAnalisis();
-    if(typeof renderVision==='function')renderVision();
-    if(typeof renderRadarDiv==='function')renderRadarDiv();
-  });
+  _uniBind(sec);
 }
+function _uniList(){ var S=_uniStatus(); var q=(window._uniQ||'').toLowerCase().trim(), fa=window._uniArq, wH=window._uniSt.held, wA=window._uniSt.ana;
+  return Object.keys(DB.universo).sort().map(function(t){ var u=DB.universo[t]||{}; return {t:t,u:u,held:S.isHeld(t),ana:S.isAna(t)}; })
+    .filter(function(r){ if(fa&&(r.u.arquetipo||'Sin clasificar')!==fa)return false; if(wH||wA){ if(!((wH&&r.held)||(wA&&r.ana)))return false; } if(q){ if((r.t+' '+(r.u.nombre||'')).toLowerCase().indexOf(q)<0)return false; } return true; }); }
+function _uniDetail(u){ var f=function(k,v,full){ return '<div class="f'+(full?' full':'')+'"><span class="k">'+k+'</span><span class="val">'+(v?_radEsc(v):'—')+'</span></div>'; };
+  return '<div class="uni-dgrid">'+f('Sub-tipo',u.subtipo)+f('Naturaleza',u.naturaleza)+f('Intensidad capital',u.intensidadCapital)+f('Apalancamiento',u.apalancamiento)+f('Actividad principal',u.actividad,true)+f('Justificación',u.justificacion,true)+f('Marco regulatorio',u.marcoRegulatorio,true)+'</div>'; }
+function _uniActs(t){ return '<div class="uni-dacts"><button class="btn sm" data-uedit="'+_radEsc(t)+'">✎ Editar</button><button class="btn danger sm" data-udel="'+_radEsc(t)+'">Eliminar</button></div>'; }
+function _uniRenderList(){
+  if(!document.getElementById('uBody'))return;
+  var list=_uniList();
+  var cnt=document.getElementById('uCount'); if(cnt)cnt.textContent=list.length+' de '+Object.keys(DB.universo).length+' empresas';
+  document.getElementById('uBody').innerHTML=list.map(function(r){ var u=r.u, op=!!window._uniOpen[r.t]; var cls='uni-main'+(r.held?' held':(r.ana?' ana':''))+(op?' open':'');
+    return '<tr class="'+cls+'" data-ut="'+_radEsc(r.t)+'"><td><span class="uni-arw">▶</span></td>'+
+      '<td><b class="uni-tk" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b></td>'+
+      '<td class="uni-nm">'+_radEsc(u.nombre||'')+'</td>'+
+      '<td>'+_uniAtag(u.arquetipo)+'</td>'+
+      '<td>'+_uniStars(u.rating)+'</td>'+
+      '<td class="uni-act">'+_radEsc(u.actividad||'')+'</td>'+
+      '<td>'+_uniChip(r)+'</td></tr>'+
+      '<tr class="uni-act-row"><td colspan="7"><div class="uni-detail">'+_uniDetail(u)+_uniActs(r.t)+'</div></td></tr>';
+  }).join('')||'<tr><td colspan="7" class="muted" style="padding:16px;text-align:center">Sin resultados.</td></tr>';
+  document.getElementById('uCards').innerHTML=list.map(function(r){ var u=r.u, op=!!window._uniOpen[r.t]; var cls='uni-card'+(r.held?' held':(r.ana?' ana':''))+(op?' open':'');
+    return '<div class="'+cls+'" data-ut="'+_radEsc(r.t)+'"><div class="uni-card-h"><b class="uni-tk uni-tkc" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b>'+
+      '<div class="mid"><div class="n">'+_radEsc(u.nombre||'')+'</div><div class="r">'+_uniAtag(u.arquetipo)+'</div></div>'+
+      '<div class="rt"><div>'+_uniStars(u.rating)+'</div><div style="margin-top:3px">'+_uniChip(r)+'</div></div>'+
+      '<span class="uni-arw" style="margin-left:4px">▶</span></div>'+
+      '<div class="uni-card-b">'+_uniDetail(u)+_uniActs(r.t)+'</div></div>';
+  }).join('')||'<div class="muted" style="padding:16px;text-align:center">Sin resultados.</div>';
+}
+function _uniBind(sec){
+  if(renderUniverso._bound)return; renderUniverso._bound=true;
+  sec.addEventListener('input',function(e){ if(e.target&&e.target.id==='uSearch'){ window._uniQ=e.target.value; _uniRenderList(); } });
+  sec.addEventListener('change',function(e){ var t=e.target; if(!t)return;
+    if(t.id==='uArq'){ window._uniArq=t.value; _uniRenderList(); return; }
+    if(t.id==='uFile'){ var f=t.files&&t.files[0]; if(!f)return; var rd=new FileReader(); rd.onload=function(){ try{ importUniverso(JSON.parse(rd.result)); }catch(err){ alert('matriz.json no válido: '+err); } }; rd.readAsText(f); t.value=''; return; } });
+  sec.addEventListener('click',function(e){
+    if(e.target.closest('#uImport')){ var f=document.getElementById('uFile'); if(f)f.click(); return; }
+    if(e.target.closest('#uAdd')){ _uniOpenForm(null); return; }
+    var ch=e.target.closest('.uni-fchip'); if(ch){ var k=ch.getAttribute('data-ust'); window._uniSt[k]=!window._uniSt[k]; _uniRenderList(); ch.classList.toggle('on'); return; }
+    var ed=e.target.closest('[data-uedit]'); if(ed){ e.stopPropagation(); _uniOpenForm(ed.getAttribute('data-uedit')); return; }
+    var dl=e.target.closest('[data-udel]'); if(dl){ e.stopPropagation(); _uniDelete(dl.getAttribute('data-udel')); return; }
+    if(e.target.closest('[data-ficha]'))return;
+    var row=e.target.closest('.uni-main'); if(row){ var rt=row.getAttribute('data-ut'); window._uniOpen[rt]=!window._uniOpen[rt]; _uniRenderList(); return; }
+    var cardh=e.target.closest('.uni-card-h'); if(cardh){ var ct=cardh.parentElement.getAttribute('data-ut'); window._uniOpen[ct]=!window._uniOpen[ct]; _uniRenderList(); return; } });
+}
+function _uniOpenForm(t){
+  var dlg=document.getElementById('uniDlg'); if(!dlg)return;
+  if(!dlg._wired){ dlg._wired=true;
+    var arqSel=document.getElementById('uf_arq'); if(arqSel)arqSel.innerHTML=RAD_ARQ.map(function(a){return '<option>'+a+'</option>';}).join('');
+    var sv=document.getElementById('uniSave'); if(sv)sv.addEventListener('click',function(){ _uniSaveForm(dlg._editing); dlg.close(); }); }
+  var u=t?(DB.universo[t]||{}):{};
+  var g=function(id){return document.getElementById(id);};
+  g('uniDlgTitle').textContent=t?('Editar '+t):'Nueva empresa';
+  g('uf_tk').value=t||''; g('uf_tk').readOnly=!!t;
+  g('uf_nm').value=u.nombre||''; g('uf_arq').value=u.arquetipo||'Sin clasificar'; g('uf_rt').value=u.rating||'';
+  g('uf_st').value=u.subtipo||''; g('uf_na').value=u.naturaleza||''; g('uf_ac').value=u.actividad||''; g('uf_ju').value=u.justificacion||'';
+  g('uf_ic').value=u.intensidadCapital||''; g('uf_ap').value=u.apalancamiento||''; g('uf_mr').value=u.marcoRegulatorio||'';
+  dlg._editing=t||''; dlg.showModal();
+}
+function _uniSaveForm(t){
+  var g=function(id){var el=document.getElementById(id);return el?(''+el.value):'';};
+  var tk=((t||g('uf_tk'))||'').trim().toUpperCase(); if(!tk)return;
+  DB.universo=DB.universo||{};
+  var isNew=!DB.universo[tk];
+  if(isNew){ var _u={}; UNI_KEYS.forEach(function(k){_u[k]='';}); DB.universo[tk]=_u; }
+  var u=DB.universo[tk];
+  u.nombre=g('uf_nm').trim(); u.arquetipo=g('uf_arq')||'Sin clasificar'; u.rating=g('uf_rt');
+  u.subtipo=g('uf_st'); u.naturaleza=g('uf_na'); u.actividad=g('uf_ac'); u.justificacion=g('uf_ju');
+  u.intensidadCapital=g('uf_ic'); u.apalancamiento=g('uf_ap'); u.marcoRegulatorio=g('uf_mr');
+  if(isNew) _uniAltaUnificada(tk,u.nombre);
+  if(typeof saveNow==='function')saveNow(); else if(typeof scheduleSave==='function')scheduleSave();
+  renderUniverso();
+  if(isNew){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderVision==='function')renderVision(); if(typeof renderRadarDiv==='function')renderRadarDiv(); }
+}
+function _uniAltaUnificada(t,nombre){
+  DB.analisis=DB.analisis||[];
+  if(!DB.analisis.some(function(a){return (a.ticker||'').toUpperCase()===t;})){
+    var _v=(DB.valores||{})[t]||{};
+    DB.analisis.push({id:uid(),ticker:t,nombre:nombre||_v.nombre||t,cotizacion:num(_v.precioActual)||0,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,decision:'',dossierFecha:'',dossierUrl:'',precioEntrada:0,precioObjetivo:0,divAccion:num(_v.divAccion)||0,notas:''});
+  }
+  DB.divData=DB.divData||{};
+  if(!DB.divData[t]){ DB.divData[t]={nombre:nombre||t, paga:false, anios:{}, origenApp:true}; }
+  else if(nombre && !DB.divData[t].nombre){ DB.divData[t].nombre=nombre; }
+}
+function _uniDelete(t){ if(!DB.universo||!DB.universo[t])return; var item=DB.universo[t];
+  if(typeof undoableDelete==='function'){ undoableDelete('universo','Empresa '+t+' del universo',{t:t,item:item},function(){ delete DB.universo[t]; },['renderUniverso']); }
+  else { if(!confirm('¿Quitar '+t+' del universo?'))return; delete DB.universo[t]; if(typeof scheduleSave==='function')scheduleSave(); renderUniverso(); } }
 function importUniverso(j){
   DB.universo=DB.universo||{};
   var arr=(j&&j.empresas)||[]; if(!Array.isArray(arr)||!arr.length){ alert('El fichero no tiene lista "empresas".'); return; }
@@ -112,10 +177,7 @@ function importUniverso(j){
   renderUniverso();
   alert('Importado: '+add+' nuevas, '+fill+' campos rellenados. Tus ediciones previas se conservan.');
 }
-document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('uInp'))return; var tk=(t.getAttribute('data-ut')||''), f=t.getAttribute('data-uf'); if(!tk||!f)return; DB.universo=DB.universo||{}; DB.universo[tk]=DB.universo[tk]||{}; DB.universo[tk][f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); });
-document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-udel]'); if(!b)return; var t=b.getAttribute('data-udel'); if(DB.universo&&DB.universo[t]){ var item=DB.universo[t];
-  if(typeof undoableDelete==='function'){ undoableDelete('universo','Empresa '+t+' del universo',{t:t,item:item},function(){ delete DB.universo[t]; },['renderUniverso']); }
-  else { if(!confirm('¿Quitar '+t+' del universo?'))return; delete DB.universo[t]; if(typeof scheduleSave==='function')scheduleSave(); renderUniverso(); } } });
+/* Universo: edición y borrado se gestionan por delegación en _uniBind (ver arriba). */
 
 /* ================= PESTAÑA RADAR ================= */
 var _radFundCache=null, _radSort={k:'atr',dir:-1}, _radArqFilter='';
@@ -139,13 +201,10 @@ function renderRadar(){
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
-  var _evoP=(typeof _evoData!=='undefined'&&_evoData&&_evoData.empresas)?Promise.resolve():((typeof _evoCargar==='function')?_evoCargar():Promise.resolve());
-  Promise.all([_radCargarFund(), _radCambiosCargar(), _evoP]).then(function(_res){ var fund=_res[0];
+  Promise.all([_radCargarFund(), _radCambiosCargar()]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     var cands=[];
-    Object.keys(DB.universo).forEach(function(t){ var f0=fmap[t]; if(!f0)return; var u=DB.universo[t];
-      var f=Object.assign({},f0,{rpd:_radRpdVivo(t)});   /* RPD desde Evolución del Dividendo + precio vivo (alimenta RPD, Atractivo y trampa) */
-      var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
+    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
     if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
     var view=cands.filter(function(c){ return !_radArqFilter||c.arq===_radArqFilter; });
@@ -179,7 +238,7 @@ function renderRadar(){
         +'</tr>';
     }).join('');
     var thead='<tr><th>★</th><th class="num" data-radsk="atr" style="cursor:pointer">Atractivo'+arr('atr')+'</th><th>Empresa</th><th>Arquetipo</th><th class="num" data-radsk="rpd" style="cursor:pointer">RPD'+arr('rpd')+'</th><th class="num">Payout</th><th class="num">ROE</th><th class="num">DN/EBITDA</th><th class="num">PER</th><th class="num">P/BV</th><th class="num">Pos.52s</th><th>Rating</th><th>Nota</th></tr>';
-    var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. <b>RPD</b> = dividendo anual (Evolución del Dividendo) ÷ precio vivo, igual que en Radar Dividendo; el resto de columnas, de <code>fundamentales.json</code>.</div>';
+    var nota='<div class="muted" style="font-size:11px;margin-top:8px">Atractivo (0–100) = 35% Dividendo + 35% Calidad + 30% Valoración. ⚠️ posible trampa de dividendo (RPD alta con payout muy alto, BPA cayendo o dividendo irregular). Filtro grueso para decidir a quién analizar; no es recomendación de compra. Datos de <code>fundamentales.json</code>.</div>';
     sec.innerHTML='<h2>Radar de oportunidades</h2>'+_radCambiosStrip()+kpis+filtro+'<div style="overflow:auto"><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table></div>'+nota;
     if(typeof renderInfoBoxes==='function')renderInfoBoxes();
     var _vb=document.getElementById('radVerBuzon'); if(_vb)_vb.addEventListener('click',function(e){ e.preventDefault(); if(typeof activarVista==='function')activarVista('buzon'); });

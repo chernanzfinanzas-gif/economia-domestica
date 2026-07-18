@@ -767,16 +767,19 @@ function renderPresDesglose(){
   // Montaje: INGRESOS → resumen → gastos (cada capítulo plegable; cerrado por defecto)
   let body='';
   const ing=catsConDato('Ingresos'); if(ing.length){ body+=bandRow('Ingresos'); if(isDk('Ingresos')) body+=ing.map(conceptRows).join(''); }
-  body+=`<tr class="grp-row r-amar dg-band" data-dgdk="__resumen"><td colspan="15"><span class="dg-arw">${isDk('__resumen')?'▼':'▶'}</span> <b>RESUMEN</b></td></tr>`; if(isDk('__resumen')) body+=resumen;
+  body+=`<tr class="grp-row r-amar"><td colspan="15"><b>RESUMEN</b></td></tr>`+resumen;
   order.filter(g=>g!=='Ingresos').forEach(g=>{ const cs=catsConDato(g); if(!cs.length)return; body+=bandRow(g); if(isDk(g)) body+=cs.map(conceptRows).join(''); });
   const head=`<tr><th style="text-align:left">Concepto</th><th></th>${short.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">Total</th></tr>`;
   const hasData=ing.length || order.some(g=>g!=='Ingresos'&&catsConDato(g).length);
   el.innerHTML=`<table class="tbl-desglose"><thead>${head}</thead><tbody>${body}</tbody></table>`
     + (hasData?'':`<p class="muted" style="margin-top:8px">Sin conceptos con presupuesto o movimientos en ${year}.</p>`);
+  var _tgl=document.getElementById('dgToggleAll');
+  if(_tgl){ var _grp={}; DB.categorias.forEach(function(c){_grp[c.grupo]=1;}); var _any=Object.keys(_grp).some(function(g){return window._dgDeskOpen&&window._dgDeskOpen[g];}); _tgl.textContent=_any?'Colapsar todo':'Desplegar todo'; }
   if(typeof _dgMobileRender==='function') _dgMobileRender(year, realCat, presMens);
   if(!renderPresDesglose._bound){ renderPresDesglose._bound=true; var _sec=document.getElementById('view-desglose');
     if(_sec){
       _sec.addEventListener('click',function(e){
+        if(e.target.closest('#dgToggleAll')){ var _g={}; DB.categorias.forEach(function(c){_g[c.grupo]=1;}); var keys=Object.keys(_g); window._dgDeskOpen=window._dgDeskOpen||{}; var anyOpen=keys.some(function(g){return window._dgDeskOpen[g];}); keys.forEach(function(g){ window._dgDeskOpen[g]=!anyOpen; }); renderPresDesglose(); return; }
         var dk=e.target.closest('[data-dgdk]'); if(dk){ var gg=dk.getAttribute('data-dgdk'); window._dgDeskOpen=window._dgDeskOpen||{}; window._dgDeskOpen[gg]=!window._dgDeskOpen[gg]; renderPresDesglose(); return; }
         var ch=e.target.closest('[data-dgch]'); if(ch){ var g=ch.getAttribute('data-dgch'); window._dgOpen=window._dgOpen||{}; window._dgOpen[g]=!window._dgOpen[g]; var blk=ch.closest('.dg-mblk'); if(blk)blk.classList.toggle('open'); return; }
         if(e.target.closest('#dgPrev')){ _dgStep(-1); return; }
@@ -840,7 +843,7 @@ function _dgMobileRender(year, realCat, presMens){
       '<div class="dg-mblk-b">'+rows+'<div class="dg-mrow tot"><span class="nm">Total '+_infEsc(g)+'</span><span class="v">'+f2(gp)+'</span><span class="v">'+f2(gr)+'</span><span class="v dv '+(dvG>=0?'pos':'neg')+'">'+(dvG>=0?'+':'−')+f2(Math.abs(dvG))+'</span></div></div></div>';
   }).join('');
   host.innerHTML='<div class="dg-mpager"><select id="dgYearM">'+yopts+'</select><button class="nav" id="dgPrev">‹</button><select id="dgMonthSel">'+mopts+'</select><button class="nav" id="dgNext">›</button></div>'+
-    '<div class="dg-mnote">'+perLbl+' · presupuestado vs real por concepto</div>'+sumHtml+chapters;
+    '<div class="dg-mnote">'+perLbl+' · <b>PRES</b> = Presupuesto · <b>REAL</b> = Movimientos</div>'+sumHtml+chapters;
 }
 
 /* ============ Patrimonio ============ */
