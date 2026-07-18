@@ -1189,6 +1189,52 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-fiscalidad .pos-desk{display:none}#view-fiscalidad .pos-mob{display:block}
   #view-fiscalidad .fisc-ystrip{grid-template-columns:repeat(3,1fr)}
 }
+/* ===== Caja bróker ===== */
+#view-caja #cajaKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+#view-caja #cajaKpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-caja #cajaKpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-caja #cajaKpis .k .v{font-size:21px;font-weight:800;margin-top:3px}
+#view-caja #cajaKpis .k .v.pos{color:var(--green)}#view-caja #cajaKpis .k .v.neg{color:var(--red)}
+#view-caja #cajaKpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-caja #cajaKpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-caja #cajaKpis .k.hero .l,#view-caja #cajaKpis .k.hero .p{color:#bbf7d0}
+#view-caja .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+#view-caja .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-caja .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-caja .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-caja .pos-blk-h .bt{font-weight:800;font-size:14px}#view-caja .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-caja .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-caja .pos-blk.open .pos-blk-b{display:block}
+#view-caja .blk-pad{padding:14px}
+#view-caja .sub2{color:var(--muted);font-size:12.5px;margin-bottom:10px;line-height:1.5}
+#view-caja .cfgrid{display:flex;flex-wrap:wrap;gap:12px}
+#view-caja .cff{display:flex;flex-direction:column;gap:3px}#view-caja .cff span{font-size:11px;color:var(--muted);font-weight:600}#view-caja .cff input{padding:4px 6px;border:1px solid var(--line);border-radius:6px;font-size:13px}
+#view-caja .caja-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+#view-caja .ptable{overflow:auto;max-height:70vh;border:1px solid var(--line);border-radius:12px}
+#view-caja .ptable table{border-collapse:collapse;width:100%;font-size:12.5px;white-space:nowrap}
+#view-caja .ptable thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
+#view-caja .ptable thead th:nth-child(2),#view-caja .ptable thead th:nth-child(3){text-align:left}#view-caja .ptable thead th.l{text-align:left}
+#view-caja .ptable tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-caja .ptable tbody td.num{text-align:right}
+#view-caja .ptable .anaInp{border:1px solid var(--line);border-radius:5px;padding:2px 4px;font-size:12px}
+#view-caja .cprev{font-size:9px;color:#92400e;background:#fef3c7;padding:0 5px;border-radius:5px;font-weight:700}
+#view-caja .pos-mob{display:none}
+#view-caja .cmcard{background:#fff;border:1px solid var(--line);border-radius:11px;padding:9px 12px;margin-bottom:7px;box-shadow:var(--shadow);border-left:4px solid #e2e8f0}
+#view-caja .cmcard.done{border-left-color:#16a34a;background:#f7fdf9}#view-caja .cmcard.ini{border-left-color:#64748b;background:#f8fafc}#view-caja .cmcard.manual{border-left-color:#f59e0b}
+#view-caja .cm-top{display:flex;align-items:center;gap:9px}
+#view-caja .cm-top .cm-sp{width:14px;flex:none}
+#view-caja .cm-main{flex:1;min-width:0}#view-caja .cm-c{font-weight:700;font-size:13.5px}#view-caja .cm-f{font-size:11px;color:var(--muted);margin-top:1px}
+#view-caja .cm-din{border:1px solid var(--line);border-radius:5px;padding:1px 4px;font-size:11px}
+#view-caja .cm-cin{border:1px solid var(--line);border-radius:5px;padding:3px 5px;font-size:13px;font-weight:600;width:100%}
+#view-caja .cm-amt{text-align:right;font-weight:800;font-size:14px;white-space:nowrap}#view-caja .cm-amt.pos{color:var(--green)}#view-caja .cm-amt span{font-size:10px;color:var(--muted);font-weight:600}
+#view-caja .cm-ain{width:74px;text-align:right;border:1px solid var(--line);border-radius:5px;padding:2px 4px;font-size:13px;font-weight:700}#view-caja .cm-ain.pos{color:#166534}#view-caja .cm-ain.neg{color:#991b1b}
+#view-caja .cm-del{color:#dc2626;flex:none}
+#view-caja .cm-manrow{display:flex;gap:10px;margin-top:8px}#view-caja .cm-ml{font-size:10px;font-weight:700;text-transform:uppercase;display:flex;flex-direction:column;gap:2px;color:var(--muted)}#view-caja .cm-ml.pos{color:#166534}#view-caja .cm-ml.neg{color:#991b1b}
+#view-caja .cm-bot{margin-top:7px;padding-top:6px;border-top:1px solid #f1f5f9;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--muted)}#view-caja .cm-s b{color:var(--ink)}
+#view-caja .pos{color:var(--green)}#view-caja .neg{color:var(--red)}
+@media(max-width:960px){
+  #view-caja #cajaKpis .pos-kpis{grid-template-columns:1fr 1fr}
+  #view-caja #cajaKpis .k .v{font-size:18px}
+  #view-caja .pos-desk{display:none}#view-caja .pos-mob{display:block}
+}
 /* ===== Metas ===== */
 #view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
 #view-metas .mt-explain b{color:#1e40af}
@@ -2832,10 +2878,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-caja">
-    <h2>Caja del bróker</h2>
-    <div class="cards" id="cajaKpis"></div>
-    <div class="sub" style="margin-bottom:6px">Libro de movimientos del bróker (caja combinada). Aportaciones (SAN/R4) y dividendos previstos (netos) se generan automáticamente en su fecha. Tanto las aportaciones como los dividendos «prev» puedes corregirlos con la cifra <b>real</b> (quedan con ✓). Añade compras y extras con «+ Movimiento» (editables/borrables). Verde = entra, rojo = sale.</div>
-    <div id="cajaCfg" style="display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;margin-bottom:10px"></div>
+    <h2>💶 Caja bróker</h2>
+    <div class="sub" style="margin-bottom:10px">Libro de tesorería del bróker: los <b>dividendos previstos</b> de las empresas en cartera y las <b>aportaciones por transferencia</b> (SAN/R4) se generan solos en su fecha; corrígelos con la cifra real y márcalos ejecutados (✓). Añade compras y extras con «+ Movimiento». Verde = entra, rojo = sale.</div>
+    <div id="cajaKpis" style="margin-bottom:14px"></div>
+    <div id="cajaCfg" style="margin-bottom:10px"></div>
     <form class="grid" id="cajaForm" autocomplete="off" style="display:none;background:#fffef0;margin-bottom:10px">
       <label>Fecha<input type="date" id="cajaFecha" required></label>
       <label>Concepto<input type="text" id="cajaConcepto" placeholder="p. ej. Compra 80 VIS" required></label>
@@ -2851,8 +2897,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <button type="button" class="btn ghost" id="cajaFormCancel">Cancelar</button>
       </div>
     </form>
-    <div style="overflow:auto" id="cajaTabla"></div>
-    <div id="cajaPlanRef" style="margin-top:16px"></div>
+    <div id="cajaTabla"></div>
+    <div id="cajaPlanRef" style="margin-top:10px"></div>
   </section>
 
 
