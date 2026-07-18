@@ -377,6 +377,75 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   }
   /* ===== Movimientos rediseñado ===== */
   /* ===== Reembolsables (antes Amalia) ===== */
+  /* ===== Fondo R4 (rediseño) ===== */
+  #view-fondor4 .r4-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+  #view-fondor4 .r4-kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  #view-fondor4 .r4-kpi .l{font-size:11px;color:var(--muted);font-weight:700}
+  #view-fondor4 .r4-kpi .v{font-size:19px;font-weight:800;margin-top:2px}
+  #view-fondor4 .r4-kpi .v.pos{color:var(--green,#16a34a)}#view-fondor4 .r4-kpi .v.neg{color:var(--red,#dc2626)}
+  #view-fondor4 .r4-kpi .s{font-size:10.5px;color:var(--muted);margin-top:2px}
+  #view-fondor4 .blk{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
+  #view-fondor4 .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
+  #view-fondor4 .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
+  #view-fondor4 .blk.open .blk-arw{transform:rotate(90deg)}
+  #view-fondor4 .blk-ic{font-size:20px}
+  #view-fondor4 .blk-t{font-weight:800;font-size:15px}
+  #view-fondor4 .blk-sub{font-size:12px;color:var(--muted);margin-top:1px}
+  #view-fondor4 .blk-right{margin-left:auto;display:flex;align-items:center;gap:10px}
+  #view-fondor4 .blk-b{display:none;border-top:1px solid var(--line)}
+  #view-fondor4 .blk.open .blk-b{display:block}
+  #view-fondor4 .r4-addform{padding:16px}
+  #view-fondor4 .r4-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;width:100%}
+  #view-fondor4 .r4-seg button{border:none;background:#fff;padding:12px 10px;font-size:14px;font-weight:700;color:#64748b;cursor:pointer;flex:1}
+  #view-fondor4 .r4-seg button[data-t="aportacion"].on{background:var(--green,#16a34a);color:#fff}
+  #view-fondor4 .r4-seg button[data-t="retirada"].on{background:var(--red,#dc2626);color:#fff}
+  #view-fondor4 .r4-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+  #view-fondor4 .r4-fld{display:flex;flex-direction:column;gap:5px}
+  #view-fondor4 .r4-fld.full{grid-column:1/-1}
+  #view-fondor4 .r4-fld label{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:800}
+  #view-fondor4 .r4-fld input{padding:11px 12px;border:1px solid var(--line);border-radius:9px;font-size:15px;background:#fff;width:100%}
+  #view-fondor4 .r4-hint{font-size:11px;color:var(--muted);font-weight:600}
+  #view-fondor4 .r4-actions{display:flex;gap:10px;align-items:center;margin-top:2px}
+  #view-fondor4 .r4-big{flex:1;padding:14px;border-radius:11px;background:var(--brand);color:#fff;font-size:16px;font-weight:800;border:none}
+  #view-fondor4 .r4-big:hover{background:var(--brand-d)}
+  #view-fondor4 .r4-ltool{display:flex;gap:10px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  #view-fondor4 .r4-ltool input,#view-fondor4 .r4-ltool select{padding:9px 11px;border:1px solid var(--line);border-radius:9px;font-size:13px;background:#fff}
+  #view-fondor4 .r4-ltool input[type=search]{flex:1;min-width:140px}
+  #view-fondor4 .r4-collbl{padding:8px 16px;background:#f1f5f9;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b;display:grid;grid-template-columns:14px 76px 92px 1fr 104px 104px;gap:10px}
+  #view-fondor4 .r4-collbl span:nth-child(n+4){text-align:right}
+  #view-fondor4 .r4-item{border-top:1px solid #f1f5f9}
+  #view-fondor4 .r4-item:first-child{border-top:none}
+  #view-fondor4 .r4-ih{display:grid;grid-template-columns:14px 76px 92px 1fr 104px 104px;gap:10px;align-items:center;padding:11px 16px;cursor:pointer}
+  #view-fondor4 .r4-arw{color:#cbd5e1;font-size:11px;transition:transform .15s}
+  #view-fondor4 .r4-item.open .r4-arw{transform:rotate(90deg)}
+  #view-fondor4 .r4-fch{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+  #view-fondor4 .r4-tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:11px;font-weight:800}
+  #view-fondor4 .r4-tag.ap{background:#dcfce7;color:#166534}#view-fondor4 .r4-tag.re{background:#fee2e2;color:#991b1b}
+  #view-fondor4 .r4-imp{text-align:right;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+  #view-fondor4 .r4-imp.pos{color:var(--green,#16a34a)}#view-fondor4 .r4-imp.neg{color:var(--red,#dc2626)}
+  #view-fondor4 .r4-n{text-align:right;font-variant-numeric:tabular-nums;font-size:13.5px}
+  #view-fondor4 .r4-meta{display:none}
+  #view-fondor4 .r4-b{display:none;padding:4px 16px 14px 42px;background:#fafcff}
+  #view-fondor4 .r4-item.open .r4-b{display:block}
+  #view-fondor4 .r4-dets{display:grid;grid-template-columns:repeat(4,1fr);gap:9px 16px;margin-bottom:11px}
+  #view-fondor4 .r4-dets .d{font-size:13px}
+  #view-fondor4 .r4-dets .d>span{color:var(--muted);font-weight:800;display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+  #view-fondor4 .r4-dets .pos{color:var(--green,#16a34a)}#view-fondor4 .r4-dets .neg{color:var(--red,#dc2626)}
+  #view-fondor4 .r4-acts{display:flex;gap:8px}
+  #view-fondor4 .r4-acts .btn{padding:8px 14px}
+  @media(max-width:640px){
+    #view-fondor4 .r4-kpis{grid-template-columns:1fr 1fr}
+    #view-fondor4 .r4-fgrid{grid-template-columns:1fr}
+    #view-fondor4 .r4-collbl{display:none}
+    #view-fondor4 .r4-ih{grid-template-columns:1fr auto;gap:3px 10px}
+    #view-fondor4 .r4-arw{display:none}
+    #view-fondor4 .r4-fch{grid-column:1;grid-row:1}
+    #view-fondor4 .r4-imp{grid-column:2;grid-row:1}
+    #view-fondor4 .r4-tp{grid-column:1;grid-row:2;justify-self:start}
+    #view-fondor4 .r4-ih>.r4-n{display:none}
+    #view-fondor4 .r4-meta{display:block;grid-column:1/-1;grid-row:3;font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+    #view-fondor4 .r4-dets{grid-template-columns:1fr 1fr}
+  }
   #view-amalia .blk{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 2px rgba(15,23,42,.04)}
   #view-amalia .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
   #view-amalia .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
@@ -1174,21 +1243,50 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- FONDO R4 (liquidez remunerada) -->
   <section class="view" id="view-fondor4">
     <h2>Fondo R4 <span class="muted" style="font-weight:400;font-size:13px">· Renta 4 Foncuenta · liquidez remunerada</span></h2>
-    <div class="cards" id="r4Cards"></div>
-    <h3>Nuevo movimiento</h3>
-    <form class="grid" id="r4Form" autocomplete="off">
-      <label>Fecha<input type="date" id="r4Fecha"></label>
-      <label>Tipo<select id="r4Tipo"><option value="aportacion">Aportación (+)</option><option value="retirada">Retirada (−)</option></select></label>
-      <label>Importe (€)<input type="number" id="r4Importe" step="0.01" min="0" placeholder="0,00"></label>
-      <label>Valor del fondo tras el mov. (€)<input type="number" id="r4Valor" step="0.01" min="0" placeholder="opcional"></label>
-      <label id="r4NetoWrap" style="display:none">Retención de la retirada (€)<input type="number" id="r4Ret" step="0.01" min="0" placeholder="0,00"><span class="sub" id="r4RetCalc" style="font-weight:400"></span></label>
-      <div class="row-actions">
-        <button type="submit" class="btn" id="r4Add">Añadir</button>
-        <button type="button" class="btn ghost" id="r4ImportBtn">Importar (.json)</button>
+    <div class="r4-kpis" id="r4Cards"></div>
+
+    <div class="blk r4-blk" id="blkR4Add">
+      <div class="blk-h" data-r4blk="blkR4Add"><span class="blk-arw">▶</span><span class="blk-ic">➕</span>
+        <div><div class="blk-t">Nuevo movimiento</div><div class="blk-sub">Aportación o retirada del fondo</div></div>
+        <div class="blk-right"><button type="button" class="btn ghost sm" id="r4ImportBtn" onclick="event.stopPropagation()">Importar .json</button></div>
       </div>
-    </form>
-    <div class="toolbar"><label class="muted">Orden <select id="r4Orden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select></label></div>
-    <div id="r4List" style="overflow:auto"></div>
+      <div class="blk-b"><div class="r4-addform">
+        <form id="r4Form" autocomplete="off">
+          <input type="hidden" id="r4Id">
+          <input type="hidden" id="r4Tipo" value="aportacion">
+          <div class="seg r4-seg" id="r4TipoSeg">
+            <button type="button" data-t="aportacion" class="on">Aportación (+)</button>
+            <button type="button" data-t="retirada">Retirada (−)</button>
+          </div>
+          <div class="r4-fgrid">
+            <div class="r4-fld"><label>Fecha</label><input type="date" id="r4Fecha"></div>
+            <div class="r4-fld"><label>Importe (€)</label><input type="number" id="r4Importe" step="0.01" min="0" placeholder="0,00"></div>
+            <div class="r4-fld full"><label>Valor del fondo tras el mov. (€)</label><input type="number" id="r4Valor" step="0.01" min="0" placeholder="opcional"></div>
+            <div class="r4-fld full" id="r4NetoWrap" style="display:none"><label>Retención de la retirada (€)</label><input type="number" id="r4Ret" step="0.01" min="0" placeholder="0,00"><span class="r4-hint" id="r4RetCalc"></span></div>
+            <div class="r4-actions full">
+              <button type="submit" class="btn r4-big" id="r4Add">Añadir movimiento</button>
+              <button type="button" class="btn ghost" id="r4Cancel" style="display:none">Cancelar</button>
+            </div>
+          </div>
+        </form>
+      </div></div>
+    </div>
+
+    <div class="blk r4-blk open" id="blkR4List">
+      <div class="blk-h" data-r4blk="blkR4List"><span class="blk-arw">▶</span><span class="blk-ic">📒</span>
+        <div><div class="blk-t">Movimientos</div><div class="blk-sub">Toca una fila para ver plusvalía, intereses, editar o borrar</div></div>
+        <div class="blk-right"><span class="blk-sub" id="r4Count"></span></div>
+      </div>
+      <div class="blk-b">
+        <div class="r4-ltool">
+          <input type="search" id="r4Buscar" placeholder="Buscar por fecha…">
+          <select id="r4Ftipo"><option value="">Todos</option><option value="aportacion">Aportaciones</option><option value="retirada">Retiradas</option></select>
+          <select id="r4Orden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select>
+        </div>
+        <div class="r4-collbl"><span></span><span>Fecha</span><span>Tipo</span><span>Importe</span><span>Aportado acum.</span><span>Valor fondo</span></div>
+        <div id="r4List"></div>
+      </div>
+    </div>
   </section>
 
   <!-- INVERSIONES -->
