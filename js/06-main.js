@@ -237,7 +237,7 @@ function activarVista(view){
   $$('#nav button').forEach(x=>x.classList.toggle('active', g ? (x.dataset.group===g) : (x.dataset.view===view)));
   if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
   if(view==='calendario'&&typeof renderCalendario==='function'){ setTimeout(renderCalendario,60); }
-  if(view==='ranking') setTimeout(()=>autoFitTable('rankTabla',7,10),120);
+  if(view==='ranking'&&typeof renderRanking==='function') setTimeout(renderRanking,60);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador'){ window._simSeek=true; setTimeout(()=>autoFitTable('simTabla',7,10),120); }
   if(view==='diversif') window._loteSeek=true;
@@ -539,7 +539,6 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]');
 try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e){}
 $('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
-window.addEventListener('resize',()=>{ const v=$('#view-ranking'); if(v&&v.classList.contains('active')&&typeof autoFitTable==='function') autoFitTable('rankTabla',7,10); });
 /* Calendario reescrito (derivado, solo lectura): listeners propios en 19-calendario.js.
    Se retiran los antiguos de la rejilla manual (#calTabla / #calEventos). */
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ const _id=d.dataset.delcerrada; const _it=(DB.cerradas||[]).find(c=>c.id===_id); if(_it)undoableDelete('cerrada','Posición archivada '+(_it.ticker||''),{item:_it},()=>{ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==_id); },['renderInv','renderDividendos']); } });
