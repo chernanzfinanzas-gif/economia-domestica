@@ -235,7 +235,7 @@ function activarVista(view){
   if(g){ groupCurrent[g]=view; if(sn){ sn.style.display='flex'; sn.innerHTML=GROUPS[g].map(v=>`<button data-sub="${v[0]}"${v[0]===view?' class="active"':''}>${v[1]}</button>`).join(''); } }
   else if(sn){ sn.style.display='none'; sn.innerHTML=''; }
   $$('#nav button').forEach(x=>x.classList.toggle('active', g ? (x.dataset.group===g) : (x.dataset.view===view)));
-  if(view==='dividendos'&&typeof fitDividendos==='function') setTimeout(fitDividendos,120);
+  if(view==='dividendos'&&typeof renderDividendos==='function') setTimeout(renderDividendos,60);
   if(view==='calendario'&&typeof renderCalendario==='function'){ setTimeout(renderCalendario,60); }
   if(view==='ranking'&&typeof renderRanking==='function') setTimeout(renderRanking,60);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
@@ -537,8 +537,7 @@ if($('#btnPapelera'))$('#btnPapelera').addEventListener('click',()=>{ if(typeof 
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ e.preventDefault(); abrirFicha(b.dataset.ficha); } });
 /* Estado inicial de la navegación: grupo Control activo con su subnav visible */
 try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e){}
-$('#divResumenWrap').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
-window.addEventListener('resize',()=>{ const v=$('#view-dividendos'); if(v&&v.classList.contains('active')&&typeof fitDividendos==='function') fitDividendos(); });
+$('#view-dividendos').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 /* Calendario reescrito (derivado, solo lectura): listeners propios en 19-calendario.js.
    Se retiran los antiguos de la rejilla manual (#calTabla / #calEventos). */
 $('#invClosed').addEventListener('click',e=>{ const a=e.target.closest('[data-archive]'); if(a){ archivarCerrada(a.dataset.archive); return; } const d=e.target.closest('[data-delcerrada]'); if(d){ const _id=d.dataset.delcerrada; const _it=(DB.cerradas||[]).find(c=>c.id===_id); if(_it)undoableDelete('cerrada','Posición archivada '+(_it.ticker||''),{item:_it},()=>{ DB.cerradas=(DB.cerradas||[]).filter(c=>c.id!==_id); },['renderInv','renderDividendos']); } });

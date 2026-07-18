@@ -893,20 +893,24 @@ function renderDividendos(){
   const nm=t=>(valores[t]&&valores[t].nombre)?valores[t].nombre:t;
   const totYear={}; years.forEach(y=>{ totYear[y]=cols.reduce((s,t)=>s+(byTY[t][y]||0),0); });
   const grand=cols.reduce((s,t)=>s+totT[t],0);
-  // KPIs
+  // KPIs héroe
   const ultimo=years.filter(y=>totYear[y]>0).slice(-1)[0]||'—';
-  const kpis=[
-    ['Total cobrado (bruto)',fmt(grand)],
-    ['Total neto (−19%)',fmt(grand*0.81)],
-    ['Cobrado '+ultimo, ultimo==='—'?'—':fmt(totYear[ultimo]||0)],
-    ['Empresas que pagan', String(cols.length)]
-  ];
-  $('#divKpis').innerHTML=kpis.map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  // MATRIZ (años desc)
-  let head='<tr><th>Año</th>'+cols.map(t=>`<th class="num" title="${nm(t)}"><span data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</span></th>`).join('')+'<th class="num">TOTAL</th></tr>';
-  let body=''; [...years].reverse().forEach(y=>{ if(!totYear[y])return; const tds=cols.map(t=>{const v=byTY[t][y]||0; return `<td class="num">${v?fmt(v):'·'}</td>`;}).join(''); body+=`<tr><td>${y}</td>${tds}<td class="num" style="font-weight:700">${fmt(totYear[y])}</td></tr>`; });
-  let foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td>${cols.map(t=>`<td class="num">${fmt(totT[t])}</td>`).join('')}<td class="num">${fmt(grand)}</td></tr>`;
-  $('#divMatrixWrap').innerHTML=cols.length?`<table>${head}${body}${foot}</table>`:'<div class="empty">Sin dividendos registrados todavía.</div>';
+  $('#divKpis').innerHTML='<div class="pos-kpis">'
+    +`<div class="k hero"><div class="l">Total cobrado (bruto)</div><div class="v">${fmt(grand)}</div><div class="p">histórico acumulado, en bruto</div></div>`
+    +`<div class="k"><div class="l">Total neto (−19%)</div><div class="v">${fmt(grand*0.81)}</div><div class="p">tras retención del 19%</div></div>`
+    +`<div class="k"><div class="l">Cobrado ${ultimo}</div><div class="v">${ultimo==='—'?'—':fmt(totYear[ultimo]||0)}</div><div class="p">último año con cobros</div></div>`
+    +`<div class="k"><div class="l">Empresas que pagan</div><div class="v">${cols.length}</div><div class="p">reparten dividendo</div></div>`
+    +'</div>';
+  // ---- MATRIZ empresa × año ----
+  const mHead='<tr><th>Año</th>'+cols.map(t=>`<th class="num" title="${nm(t)}"><span class="dtk" data-ficha="${t}" style="cursor:pointer">${t}</span></th>`).join('')+'<th class="num">TOTAL</th></tr>';
+  let mBody=''; [...years].reverse().forEach(y=>{ if(!totYear[y])return; const tds=cols.map(t=>{const v=byTY[t][y]||0; return `<td class="num">${v?fmt(v):'<span class="dot">·</span>'}</td>`;}).join(''); mBody+=`<tr><td class="l"><b>${y}</b></td>${tds}<td class="num tot">${fmt(totYear[y])}</td></tr>`; });
+  const mFoot=`<tr class="d-tot"><td class="l">TOTAL</td>${cols.map(t=>`<td class="num">${fmt(totT[t])}</td>`).join('')}<td class="num">${fmt(grand)}</td></tr>`;
+  const matrizDesk=cols.length?`<div class="ptable"><table><thead>${mHead}</thead><tbody>${mBody}${mFoot}</tbody></table></div>`:'<div class="empty">Sin dividendos registrados todavía.</div>';
+  const matrizMob=[...years].reverse().filter(y=>totYear[y]>0).map(y=>{ const chips=cols.map(t=>{const v=byTY[t][y]||0;return v?`<span class="dchip"><b>${t}</b> ${fmt(v).replace(' €','')}</span>`:'';}).filter(Boolean).join(''); return `<div class="lcard"><div class="lc-h"><div class="tk">${y}</div><div class="ty g">${fmt(totYear[y])}<span>cobrado</span></div></div><div class="dchips">${chips}</div></div>`; }).join('');
+  const matrizBlk=`<div class="d-note">Calculado con tus operaciones y el histórico de dividendos por acción. Importes <b>brutos</b> en €.</div><div class="pos-desk">${matrizDesk}</div><div class="pos-mob">${matrizMob}</div>`;
+  // ---- EVOLUCIÓN (barras neto + retención) ----
+  const yrAsc=[...years].filter(y=>totYear[y]>0).map(y=>({y,bruto:totYear[y]}));
+  const evolBlk=`<div class="d-note">Cada barra es el dividendo cobrado ese año: en verde el <b>neto</b> (lo que te queda) y en ámbar la <b>retención del 19%</b>.</div>${_divBarsSVG(yrAsc)}`;
   // RESUMEN ANUAL
   const compY={},ventY={},costSoldY={};
   const cerrOps=(DB.cerradas||[]).flatMap(c=>(c.ops||[]).map(o=>({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})));
@@ -925,19 +929,43 @@ function renderDividendos(){
     const dev=num((DB.devolucionHacienda||{})[y]||0), imp=divB-divN, totIng=divN+dev, descR=divB-totIng;
     rs.push({y,comp,vent,inv:cumInv,valC:cumCom,divB,divN,dev,imp,totIng,descR,
       rInv:cumInv>0?divB/cumInv:0, rCom:cumCom>0?divB/cumCom:0, rNeta:cumCom>0?totIng/cumCom:0, tasa:divB?descR/divB:0}); });
-  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">%Inv</th><th class="num">Valor compra</th><th class="num">%Compra</th><th class="num">Div bruto</th><th class="num">Div neto</th><th class="num">Dev. Hacienda</th><th class="num">Impuesto</th><th class="num">Total ingresado</th><th class="num">Descuento real</th><th class="num">Rent. neta</th><th class="num">Tasa imp.</th></tr>';
-  const rbody=[...rs].reverse().map(r=>{ const has=r.divB||r.dev; return `<tr><td>${r.y}</td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.inv)}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${fmt(r.valC)}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num"><input type="number" step="0.01" class="anaInp" style="width:78px;text-align:right" data-devhac="${r.y}" value="${r.dev||''}"></td><td class="num">${r.divB?fmt(r.imp):'·'}</td><td class="num pos">${has?fmt(r.totIng):'·'}</td><td class="num ${r.descR<0?'pos':''}">${has?fmt(r.descR):'·'}</td><td class="num">${(r.valC>0&&has)?fmtpct(r.rNeta):'·'}</td><td class="num">${r.divB?fmtpct(r.tasa):'·'}</td></tr>`; }).join('');
-  $('#divResumenWrap').innerHTML=rs.length?`<table>${rhead}${rbody}</table>`:'<div class="empty">Sin operaciones todavía.</div>';
+  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">%Inv</th><th class="num">Valor compra</th><th class="num">%Compra</th><th class="num">Div bruto</th><th class="num">Div neto</th><th class="num devcol">✏️ Dev. Hacienda</th><th class="num">Impuesto</th><th class="num">Total ingresado</th><th class="num">Descuento real</th><th class="num">Rent. neta</th><th class="num">Tasa imp.</th></tr>';
+  const rbody=[...rs].reverse().map(r=>{ const has=r.divB||r.dev; return `<tr><td class="l"><b>${r.y}</b></td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.inv)}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${fmt(r.valC)}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num devcol"><input type="number" step="0.01" class="anaInp devinp" style="width:82px;text-align:right" data-devhac="${r.y}" value="${r.dev||''}" placeholder="añadir"></td><td class="num">${r.divB?fmt(r.imp):'·'}</td><td class="num pos">${has?fmt(r.totIng):'·'}</td><td class="num ${r.descR<0?'pos':''}">${has?fmt(r.descR):'·'}</td><td class="num">${(r.valC>0&&has)?fmtpct(r.rNeta):'·'}</td><td class="num">${r.divB?fmtpct(r.tasa):'·'}</td></tr>`; }).join('');
+  const resumenDesk=rs.length?`<div class="ptable"><table><thead>${rhead}</thead><tbody>${rbody}</tbody></table></div>`:'<div class="empty">Sin operaciones todavía.</div>';
+  const resumenMob=[...rs].reverse().filter(r=>r.divB>0||r.dev).map(r=>`<div class="lcard"><div class="lc-h"><div class="tk">${r.y}</div><div class="ty">${r.divB?fmtpct(r.tasa):'—'}<span>tasa imp.</span></div></div><div class="lg"><div class="m"><span>Div bruto</span><b class="pos">${fmt(r.divB)}</b></div><div class="m"><span>Retención efectuada</span><b>${fmt(r.imp)}</b></div><div class="m dev"><span>✏️ Dev. Hacienda · lo añades tú</span><input type="number" step="0.01" class="anaInp devinp" data-devhac="${r.y}" value="${r.dev||''}" placeholder="añadir cada año"></div><div class="m"><span>Div neto</span><b class="pos">${fmt(r.divN)}</b></div><div class="m"><span>Rent. neta</span><b>${(r.valC>0)?fmtpct(r.rNeta):'—'}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.inv)}</b></div></div></div>`).join('');
+  const resumenBlk=`<div class="d-note">Invertido = acumulado de compras − ventas. Div. neto = bruto − 19% retención. La columna <b>✏️ Dev. Hacienda</b> (resaltada) es <b>el único dato que introduces tú cada año</b>: lo que Hacienda te devuelve o cobra de más en la renta. El resto se calcula solo.</div><div class="pos-desk">${resumenDesk}</div><div class="pos-mob">${resumenMob}</div>`;
   // RESUMEN FISCAL (renta)
   const _fy=[...new Set([...Object.keys(totYear),...Object.keys(ventY)])].filter(y=>(totYear[y]||0)>0||(ventY[y]||0)>0||(costSoldY[y]||0)>0).sort();
-  let _tDB=0,_tRet=0,_tPL=0;
-  const _fbody=[..._fy].reverse().map(y=>{ const db=totYear[y]||0, ret=db*0.19, pl=(ventY[y]||0)-(costSoldY[y]||0), base=db+pl; _tDB+=db; _tRet+=ret; _tPL+=pl; return `<tr><td>${y}</td><td class="num pos">${db?fmt(db):'\u00b7'}</td><td class="num">${db?fmt(ret):'\u00b7'}</td><td class="num ${pl<0?'neg':'pos'}">${((ventY[y]||0)||(costSoldY[y]||0))?fmt(pl):'\u00b7'}</td><td class="num" style="font-weight:600">${fmt(base)}</td></tr>`; }).join('');
-  const _ffoot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${fmt(_tDB)}</td><td class="num">${fmt(_tRet)}</td><td class="num">${fmt(_tPL)}</td><td class="num">${fmt(_tDB+_tPL)}</td></tr>`;
+  let _tDB=0,_tRet=0,_tPL=0; const _fArr=[];
+  [..._fy].reverse().forEach(y=>{ const db=totYear[y]||0, ret=db*0.19, pl=(ventY[y]||0)-(costSoldY[y]||0), base=db+pl; _tDB+=db; _tRet+=ret; _tPL+=pl; _fArr.push({y,db,ret,pl,base,hasPL:((ventY[y]||0)||(costSoldY[y]||0))}); });
+  const _fbody=_fArr.map(r=>`<tr><td class="l"><b>${r.y}</b></td><td class="num pos">${r.db?fmt(r.db):'\u00b7'}</td><td class="num">${r.db?fmt(r.ret):'\u00b7'}</td><td class="num ${r.pl<0?'neg':'pos'}">${r.hasPL?fmt(r.pl):'\u00b7'}</td><td class="num" style="font-weight:600">${fmt(r.base)}</td></tr>`).join('');
+  const _ffoot=`<tr class="d-tot"><td class="l">TOTAL</td><td class="num">${fmt(_tDB)}</td><td class="num">${fmt(_tRet)}</td><td class="num">${fmt(_tPL)}</td><td class="num">${fmt(_tDB+_tPL)}</td></tr>`;
   const _fhead='<tr><th>A\u00f1o</th><th class="num">Dividendos brutos</th><th class="num">Retenci\u00f3n 19%</th><th class="num">Ganancia patrimonial (ventas)</th><th class="num">Base del ahorro</th></tr>';
-  const _fiscalHTML=_fy.length?`<table>${_fhead}${_fbody}${_ffoot}</table><div class="muted" style="font-size:11px;margin-top:4px">Orientativo para la renta: los dividendos son rendimientos del capital mobiliario (retenci\u00f3n del 19%); la ganancia patrimonial es ventas \u2212 coste de lo vendido (precio medio). No incluye comisiones ni p\u00e9rdidas compensables de a\u00f1os anteriores; consulta con tu asesor.</div>`:'<div class="empty">Sin datos fiscales todav\u00eda.</div>';
-  let _fw=document.getElementById('fiscalWrap'); if(!_fw){ const _sec=document.getElementById('view-dividendos'); if(_sec){ const _h=document.createElement('h3'); _h.textContent='Resumen fiscal por a\u00f1o (renta)'; _h.style.marginTop='18px'; _fw=document.createElement('div'); _fw.id='fiscalWrap'; _fw.style.overflow='auto'; _sec.appendChild(_h); _sec.appendChild(_fw); } }
-  if(_fw)_fw.innerHTML=_fiscalHTML;
-  const _vd=$('#view-dividendos'); if(_vd&&_vd.classList.contains('active')) setTimeout(fitDividendos,0);
+  const fiscalDesk=`<div class="ptable"><table><thead>${_fhead}</thead><tbody>${_fbody}${_ffoot}</tbody></table></div>`;
+  const fiscalMob=_fArr.map(r=>`<div class="lcard"><div class="lc-h"><div class="tk">${r.y}</div><div class="ty">${fmt(r.base)}<span>base ahorro</span></div></div><div class="lg"><div class="m"><span>Div. brutos</span><b class="pos">${r.db?fmt(r.db):'\u2014'}</b></div><div class="m"><span>Retenci\u00f3n 19%</span><b>${r.db?fmt(r.ret):'\u2014'}</b></div><div class="m"><span>Gan. patrimonial</span><b class="${r.pl<0?'neg':'pos'}">${r.hasPL?fmt(r.pl):'\u2014'}</b></div><div class="m"><span>Base ahorro</span><b>${fmt(r.base)}</b></div></div></div>`).join('');
+  const fiscalBlk=_fy.length?`<div class="d-note">Orientativo para la renta: dividendos = rendimientos del capital mobiliario (retenci\u00f3n 19%); ganancia patrimonial = ventas \u2212 coste de lo vendido (precio medio). No incluye comisiones ni p\u00e9rdidas compensables de a\u00f1os anteriores. Tambi\u00e9n lo ver\u00e1s en la pesta\u00f1a <b>Fiscalidad</b>.</div><div class="pos-desk">${fiscalDesk}</div><div class="pos-mob">${fiscalMob}</div>`:'';
+  // ---- ensamblar bloques ----
+  const body=$('#divBody'); if(!body)return;
+  window._divBlk=window._divBlk||{matriz:true,evol:false,resumen:false,fiscal:false};
+  const B=(key,icon,title,sum,inner)=>{ const op=window._divBlk[key]?' open':''; return `<div class="pos-blk${op}" data-divblk="${key}"><div class="pos-blk-h"><span class="arw">\u25b6</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="div-pad">${inner}</div></div></div>`; };
+  body.innerHTML=B('matriz','\ud83d\udcc5','Dividendos por empresa y a\u00f1o',cols.length+' empresas \u00b7 '+fmt(grand)+' total',matrizBlk)
+    +B('evol','\ud83d\udcc8','Evoluci\u00f3n del dividendo cobrado',yrAsc.length+' a\u00f1os \u00b7 neto vs retenci\u00f3n',evolBlk)
+    +B('resumen','\ud83d\udcca','Resumen anual de la cartera','compras, ventas, rentabilidad neta y fiscalidad',resumenBlk)
+    +(fiscalBlk?B('fiscal','\ud83e\uddfe','Resumen fiscal por a\u00f1o (renta)','base del ahorro por a\u00f1o',fiscalBlk):'');
+  if(!body._divBlkBound){ body._divBlkBound=true; body.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],input,select,a'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-divblk'); if(k){window._divBlk=window._divBlk||{};window._divBlk[k]=b.classList.contains('open');} } }); }
+}
+function _divBarsSVG(yrAsc){ if(!yrAsc||!yrAsc.length)return '<div class="muted" style="font-size:12px">Sin datos.</div>';
+  const W=760,H=300,pl=48,pr=12,pt=18,pb=40; const plotH=H-pt-pb,plotW=W-pl-pr;
+  const mx=Math.max(...yrAsc.map(d=>d.bruto))*1.08||1; const n=yrAsc.length; const gw=plotW/n, bw=Math.min(34,gw-8);
+  const Y=v=>pt+plotH*(1-v/mx);
+  let g=''; for(let k=0;k<=4;k++){const gv=mx*k/4;g+=`<line x1="${pl}" y1="${Y(gv).toFixed(1)}" x2="${W-pr}" y2="${Y(gv).toFixed(1)}" stroke="#eef2f7"/><text x="${pl-6}" y="${(Y(gv)+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8">${Math.round(gv/1000)}k</text>`;}
+  yrAsc.forEach((d,i)=>{ const x=pl+i*gw+(gw-bw)/2; const yBase=Y(0); const neto=d.bruto*0.81; const yN=Y(neto), yB=Y(d.bruto);
+   g+=`<rect x="${x.toFixed(1)}" y="${yB.toFixed(1)}" width="${bw.toFixed(1)}" height="${(yN-yB).toFixed(1)}" fill="#fbbf24"><title>${d.y} \u00b7 retenci\u00f3n ${fmt(d.bruto*0.19)}</title></rect>`;
+   g+=`<rect x="${x.toFixed(1)}" y="${yN.toFixed(1)}" width="${bw.toFixed(1)}" height="${(yBase-yN).toFixed(1)}" fill="#16a34a"><title>${d.y} \u00b7 neto ${fmt(neto)} \u00b7 bruto ${fmt(d.bruto)}</title></rect>`;
+   if(i%2===0||n<=12)g+=`<text x="${(x+bw/2).toFixed(1)}" y="${H-24}" text-anchor="middle" font-size="9" fill="#64748b">${(''+d.y).slice(2)}</text>`;
+   if(d.bruto>=mx*0.25)g+=`<text x="${(x+bw/2).toFixed(1)}" y="${(yB-4).toFixed(1)}" text-anchor="middle" font-size="8.5" font-weight="700" fill="#334155">${Math.round(d.bruto/1000)}k</text>`;
+  });
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:780px;display:block">${g}</svg><div class="div-barleg"><span><i style="background:#16a34a"></i>Neto (lo que te queda)</span><span><i style="background:#fbbf24"></i>Retenci\u00f3n 19%</span></div>`;
 }
 const MESES_ES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
 function calPrecio(c){ const v=(DB.valores||{})[(c.ticker||'').toUpperCase()]; const p=v&&num(v.precioActual)>0?num(v.precioActual):(c.precio||0); return p; }
