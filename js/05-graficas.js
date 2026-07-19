@@ -415,7 +415,9 @@ function renderIndependencia(){
     +'<div class="ind-row"><span>Coast FIRE (necesario hoy)</span><b>'+eur(F.coast)+'</b></div>'
     +'<div class="ind-row"><span>'+(F.ya?'Ya lo alcanzas':'Te falta')+'</span><b class="'+(F.ya?'pos':'neg')+'">'+(F.ya?'✔':eur(F.falta))+'</b></div>'+(extra||'')+'</div>'; };
   var covExtra='<div class="ind-cov"><b>Cobertura hoy:</b> tu dividendo ('+eur(divAnual)+'/año) ya cubre el <b>'+covDiv.toFixed(0)+'%</b> de tu gasto.<div class="cbar"><i style="width:'+Math.min(100,covDiv)+'%"></i></div></div>';
-  el.innerHTML='<div class="ind-intro"><b class="h">🏖️ ¿Qué es el Coast FIRE?</b>El punto en el que ya tienes <b>suficiente patrimonio invertido</b> para que, <b>sin aportar más</b> y dejándolo crecer solo, llegue a tu <b>número FIRE</b> a la edad objetivo. A partir de ahí solo cubres gastos corrientes: el interés compuesto hace el resto.</div>'
+  window._indepBlk=window._indepBlk||{coast:true,retirada:false};
+  // --- Bloque 1: Coast FIRE (acumulación) ---
+  var coastInner='<div class="ind-intro"><b class="h">🏖️ ¿Qué es el Coast FIRE?</b>El punto en el que ya tienes <b>suficiente patrimonio invertido</b> para que, <b>sin aportar más</b> y dejándolo crecer solo, llegue a tu <b>número FIRE</b> a la edad objetivo. A partir de ahí solo cubres gastos corrientes: el interés compuesto hace el resto.</div>'
     +'<div class="ind-fires">'
     +panel('inv','💰','FIRE por Inversión','vendes un 4% al año (regla del 4%)',FI,'')
     +panel('div','🪙','FIRE por Dividendo','vives del dividendo, sin vender (RPD '+(rpd*100).toFixed(1)+'%)',FD,covExtra)
@@ -424,6 +426,70 @@ function renderIndependencia(){
     +'<div class="k"><div class="l">Tasa de ahorro</div><div class="v">'+(tasaAhorro!=null?tasaAhorro.toFixed(0)+'%':'—')+'</div><div class="p">de tus ingresos netos</div></div>'
     +'<div class="k"><div class="l">Patrimonio actual</div><div class="v">'+eur(patrimonio)+'</div><div class="p">efectivo + invertido</div></div></div>'
     +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (cartera '+(num(c.crecCartera)*100).toFixed(0)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; ajústalo en Proyección. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
+  // --- Bloque 2: D2 · Retirada dinámica (decumulación / sequence risk + guardrails) ---
+  var retiInner='', retiSum='';
+  try{
+    var edadJub=Math.round(num(c.edadFinAportar))||70;
+    var edadFin=Math.round(num(c.edadFin))||90;
+    var ser=(typeof computeProy==='function')?computeProy(c):[];
+    var jubRow=null; for(var _j=0;_j<ser.length;_j++){ if(ser[_j].edad>=edadJub){ jubRow=ser[_j]; break; } }
+    if(!jubRow&&ser.length)jubRow=ser[ser.length-1];
+    var capJub=jubRow?num(jubRow.patrimonio):patrimonio;
+    var jubY=jubRow?jubRow.anio:nowY; var edadJubReal=jubRow?jubRow.edad:edadJub;
+    var yrsRet=Math.max(1,edadFin-edadJubReal);
+    var gastoJub=gastoAnual*Math.pow(1+infla,Math.max(0,jubY-nowY));
+    var mu=num(c.crecCartera)||0.04, sigma=num(c.mcVol)||0.18, sigSrc='estimada '+(sigma*100).toFixed(0)+'%';
+    try{ if(typeof riesgoData==='function'){ var R=riesgoData(renderIndependencia); if(R&&R.ok&&R.volPort>0){ sigma=R.volPort; sigSrc='real de tu cartera ('+(sigma*100).toFixed(0)+'%)'; } else if(R&&R.loading){ sigSrc='estimada '+(sigma*100).toFixed(0)+'% (afinando con tu histórico al cargar cotizaciones…)'; } } }catch(e){}
+    if(!(capJub>0)||!(gastoJub>0)){
+      retiInner='<div class="empty">Necesito tu proyección de patrimonio a la jubilación y tu gasto anual para simular la retirada.</div>';
+    } else {
+      var _run=function(cap,g0,guard,collect){ var M=collect?2500:2000; var ok=0; var paths=collect?[]:null;
+        for(var p=0;p<M;p++){ var bal=cap,g=g0; var row=collect?[bal]:null;
+          for(var y=0;y<yrsRet;y++){ var r=mu+sigma*_mcNormal(); bal=bal*(1+r);
+            if(guard&&bal>0){ var wr=g/bal, wr0=g0/cap; if(wr>wr0*1.2)g=g*0.9; else if(wr<wr0*0.8)g=g*1.1; }
+            bal-=g; g=g*(1+infla); if(bal<0)bal=0; if(collect)row.push(bal); }
+          if(bal>0)ok++; if(collect)paths.push(row); }
+        return {ok:ok/M,paths:paths}; };
+      var fija=_run(capJub,gastoJub,false,true);
+      var guardR=_run(capJub,gastoJub,true,false);
+      var tasaIni=gastoJub/capJub*100;
+      var _okRate=function(rate){ var M=1200,ok=0; for(var p=0;p<M;p++){ var bal=capJub,g=capJub*rate; for(var y=0;y<yrsRet;y++){ var r=mu+sigma*_mcNormal(); bal=bal*(1+r); bal-=g; g=g*(1+infla); if(bal<0)bal=0; } if(bal>0)ok++; } return ok/M; };
+      var lo=0.02,hi=0.10; for(var it=0;it<14;it++){ var mid=(lo+hi)/2; if(_okRate(mid)>=0.90)lo=mid; else hi=mid; } var safe=lo;
+      var npt=yrsRet+1, p10=[],p50=[],p90=[];
+      for(var y=0;y<npt;y++){ var col=fija.paths.map(function(pp){return pp[y];}).sort(function(a,b){return a-b;}); var q=function(f){return col[Math.floor(f*(col.length-1))];}; p10.push(q(0.10)); p50.push(q(0.50)); p90.push(q(0.90)); }
+      var _eurK=function(v){ return Math.abs(v)>=1e6?(v/1e6).toFixed(1).replace('.',',')+'M':(Math.round(v/1000)+'k'); };
+      var _svg=(function(){ var W=680,H=240,pl=46,pr=12,pt=12,pb=26; var pw=W-pl-pr,ph=H-pt-pb;
+        var vmax=Math.max.apply(null,p90.concat([capJub])); if(!(vmax>0))vmax=capJub||1;
+        var X=function(i){return pl+pw*(i/(npt-1));}, Y=function(v){return pt+ph*(1-v/vmax);};
+        var line=function(a){return a.map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1);}).join(' ');};
+        var band=p90.map(function(v,i){return X(i).toFixed(1)+','+Y(v).toFixed(1);}).join(' ')+' '+p10.map(function(v,i){return X(i).toFixed(1)+','+Y(v).toFixed(1);}).reverse().join(' ');
+        var grid=''; for(var k=0;k<=4;k++){ var vv=vmax*k/4, yy=Y(vv); grid+='<line x1="'+pl+'" y1="'+yy.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+yy.toFixed(1)+'" stroke="#eef2f7"/><text x="'+(pl-5)+'" y="'+(yy+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+_eurK(vv)+'</text>'; }
+        var xl='', step=(yrsRet>16?5:3); for(var e=edadJubReal;e<=edadFin;e+=step){ var i=e-edadJubReal; xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+e+'</text>'; }
+        return '<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;display:block">'+grid+xl+'<polygon points="'+band+'" fill="#93c5fd" fill-opacity=".35"/><path d="'+line(p90)+'" fill="none" stroke="#93c5fd" stroke-width="1"/><path d="'+line(p10)+'" fill="none" stroke="#93c5fd" stroke-width="1"/><path d="'+line(p50)+'" fill="none" stroke="#1d4ed8" stroke-width="2"/><line x1="'+pl+'" y1="'+Y(0).toFixed(1)+'" x2="'+(W-pr)+'" y2="'+Y(0).toFixed(1)+'" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="4 3"/><text x="'+(W-pr)+'" y="'+(Y(0)-4).toFixed(1)+'" text-anchor="end" font-size="9" fill="#dc2626">ruina (0 €)</text></svg>';
+      })();
+      retiSum='éxito '+(fija.ok*100).toFixed(0)+'% fijo · '+(guardR.ok*100).toFixed(0)+'% guardrails';
+      retiInner='<div class="d2-intro"><b class="h">📉 El riesgo de secuencia (lo que un «retorno medio» esconde)</b>Al vivir de la cartera, <b>el orden de los años importa muchísimo</b>: si te tocan <b>caídas al principio</b>, vendes con el mercado bajo y el capital se agota, <b>aunque la rentabilidad media a largo plazo sea buena</b>. Simulamos <b>miles de futuros posibles</b> (Monte Carlo) desde tu jubilación ('+edadJubReal+') hasta los '+edadFin+', y contamos en cuántos <b>no te quedas sin dinero</b>.</div>'
+        +'<div class="d2-cmp">'
+        +'<div class="d2-cc bad"><div class="l">Gasto fijo (rígido)</div><div class="v">'+(fija.ok*100).toFixed(0)+'%</div><div class="p">de éxito: sacas '+eur(gastoJub)+'/año pase lo que pase. Con una cartera muy en bolsa (volátil), una mala secuencia te puede hundir.</div></div>'
+        +'<div class="d2-cc good"><div class="l">Con guardrails</div><div class="v">'+(guardR.ok*100).toFixed(0)+'%</div><div class="p">de éxito: si un año va mal, recortas el gasto ~10%; si va bien, lo subes. La flexibilidad lo cambia todo.</div></div>'
+        +'</div>'
+        +'<div class="d2-kpis">'
+        +'<div class="k"><div class="l">Capital al jubilarte ('+jubY+')</div><div class="v">'+eur(capJub)+'</div><div class="p">lo que proyectas tener</div></div>'
+        +'<div class="k"><div class="l">Gasto en jubilación</div><div class="v">'+eur(gastoJub)+'</div><div class="p">tu gasto de hoy con inflación</div></div>'
+        +'<div class="k"><div class="l">Tasa de retirada inicial</div><div class="v">'+tasaIni.toFixed(1)+'%</div><div class="p">gasto ÷ capital</div></div>'
+        +'<div class="k"><div class="l">Tasa segura (90% éxito)</div><div class="v">'+(safe*100).toFixed(1)+'%</div><div class="p">≈ '+eur(capJub*safe)+'/año fijo</div></div>'
+        +'</div>'
+        +'<div class="d2-ct">Cómo evoluciona tu patrimonio en la jubilación (gasto fijo)</div>'
+        +'<div class="d2-cs">Línea azul = escenario mediano · banda = del 10% peor al 10% mejor · línea roja = ruina. Cuantos más caminos toquen el cero antes de los '+edadFin+', más frágil es el plan rígido.</div>'
+        +_svg
+        +'<div class="d2-gr"><b>🛡️ ¿Qué son los «guardrails» (barandillas de Guyton-Klinger)?</b> Una regla de gasto <b>flexible</b>: fijas una tasa de retirada y, cada año, si por una mala racha tu tasa efectiva se dispara (&gt;20% sobre la inicial) <b>recortas el gasto ~10%</b>; si por una buena racha baja mucho (&lt;20%), te <b>das un capricho</b> y lo subes. Con pequeños ajustes evitas quedarte sin dinero en los escenarios malos — por eso el éxito sube tanto. Requiere que puedas <b>apretarte el cinturón</b> algún año.</div>'
+        +'<div class="d2-hyp">⚠️ <b>Hipótesis y cautelas</b>: retorno medio '+(mu*100).toFixed(0)+'%, volatilidad '+(sigma*100).toFixed(0)+'% ('+sigSrc+'), inflación '+(infla*100).toFixed(1)+'%, '+yrsRet+' años de retirada. Se aplica el rendimiento de mercado a todo el patrimonio (simplificación). Las tasas «seguras» clásicas (4–4,7%) vienen de estudios de EE. UU. con carteras 60/40; una cartera muy en bolsa es más volátil, por eso pide más flexibilidad o menos tasa. Orientativo, no es asesoramiento.</div>';
+    }
+  }catch(e){ retiInner='<div class="empty">No se pudo simular la retirada dinámica ('+(e&&e.message||e)+').</div>'; }
+  var IB=function(key,ic,title,sum,inner){ var op=window._indepBlk[key]?' open':''; return '<div class="pos-blk'+op+'" data-indepblk="'+key+'"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+ic+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="ind-pad">'+inner+'</div></div></div>'; };
+  el.innerHTML=IB('coast','🏖️','Coast FIRE — ¿cuándo puedo dejar de aportar?',anosColchon.toFixed(0)+' años de colchón',coastInner)
+    +IB('retirada','📉','Retirada dinámica — ¿cuánto puedo gastar sin quedarme sin dinero?',retiSum,retiInner);
+  if(!el._indepBound){ el._indepBound=true; el.addEventListener('click',function(e){ if(e.target.closest('input,select,button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-indepblk'); if(k){ window._indepBlk=window._indepBlk||{}; window._indepBlk[k]=b.classList.contains('open'); } } }); }
 }
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
 // Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su

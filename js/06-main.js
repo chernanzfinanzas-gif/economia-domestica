@@ -259,7 +259,7 @@ function toggleAllSections(){
   const els=[].slice.call(view.querySelectorAll(SEL)); if(!els.length)return;
   const anyClosed=els.some(b=>!b.classList.contains('open'));
   els.forEach(b=>b.classList.toggle('open',anyClosed));
-  try{ [window._invOpen,window._rankBlk,window._fiscBlk,window._atribBlk,window._btBlk,window._grafBlk,window._riesgoOpen,window._panelSecOpen,window._c5Blk].forEach(o=>{ if(o&&typeof o==='object')Object.keys(o).forEach(k=>{o[k]=anyClosed;}); }); }catch(e){}
+  try{ [window._invOpen,window._rankBlk,window._fiscBlk,window._atribBlk,window._btBlk,window._grafBlk,window._riesgoOpen,window._panelSecOpen,window._c5Blk,window._indepBlk].forEach(o=>{ if(o&&typeof o==='object')Object.keys(o).forEach(k=>{o[k]=anyClosed;}); }); }catch(e){}
   try{ window._proxMosOpen=anyClosed; window._rebP7Open=anyClosed; window._proxNearOpen=anyClosed; }catch(e){}
   const _sa=document.querySelector('#subnav .sn-all'); if(_sa){ _sa.classList.toggle('on',!anyClosed); }
 }
