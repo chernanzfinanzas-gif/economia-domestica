@@ -1,5 +1,5 @@
 {
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "ticker": "EBRO",
  "empresa": "Ebro Foods, S.A.",
  "fecha": "2026-07-14",
@@ -101,6 +101,42 @@
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 8.2,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.65,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -1.7,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

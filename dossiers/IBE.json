@@ -31,7 +31,7 @@
  "bull": "Con bajada de tipos en Europa el descuento de valoración se comprime: el plan €58.000M genera EBITDA creciente en activos regulados y el múltiplo EV/EBITDA se expande de ~9x a ~11x → precio implícito €29–35.",
  "bear": "España recorta la TIR regulada y el BCE mantiene tipos altos: cae el valor del RAB, sube el gasto financiero y aparece riesgo de ampliación dilutiva → precio implícito €11–14.",
  "resumen": "Utility regulada global, moat 77,2/100, Score 67,6 / Rating A. Cotiza a €20,32 con descuento frente a su valor en un escenario de tipos normalizados; los tres miedos del mercado (dilución, tipos, regulación) son monitoreables y no letales. COMPRAR/ACUMULAR en €18–21, PO 12–18m €24–29, stop €14,50.",
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -99,6 +99,43 @@
    "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (sin bruto)"
+  },
+  "altman": {
+   "z": 4.91,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.57,
+   "senal": "sin indicios",
+   "aproximado": [
+    "GMI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.4,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

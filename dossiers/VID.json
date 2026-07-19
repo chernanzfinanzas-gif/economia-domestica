@@ -1,5 +1,5 @@
 {
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
  "fecha": "2026-07-13",
@@ -101,6 +101,42 @@
    "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 8.53,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.89,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.4,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

@@ -31,7 +31,7 @@
  "bull": "Estabilización de ingresos con el digital y la publicidad exterior compensando el declive del lineal, dividendo sostenido y re-rating de la caja neta: convergencia hacia el DCF optimista (~8,5 €).",
  "bear": "Declive acelerado del lineal y/o recesión publicitaria hunden el EBITDA >40%, fuerzan el recorte del dividendo y comprimen el múltiplo a mínimos (~2,5–2,9 €).",
  "resumen": "Atresmedia es un negocio maduro de alta calidad financiera (Rating A, caja neta, gran generación de caja y dividendo atractivo) que lidera un sector en declive estructural con un moat estrecho. A 4,82 € el precio objetivo (5,15 €) ofrece apenas +7% de recorrido frente a un Bear Case del −45%: la asimetría es desfavorable. Decisión: ESPERAR — acción de renta/valor a comprar con paciencia por debajo de ~4,30 €.",
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -100,6 +100,42 @@
    "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 3/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 7.33,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.31,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -4.4,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

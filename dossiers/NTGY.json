@@ -30,7 +30,7 @@
  "bull": "Catalizadores regulatorio (nueva TRF del 6,58%) + bajada de tipos del BCE + claridad accionarial elevan el EBITDA regulado y reducen el descuento de gobernanza, con el dividendo y el BPA creciendo apoyados en las recompras. Precio ~40 € (+39%), probabilidad ~P90.",
  "bear": "Del Pre-Mortem (§8.2): shock regulatorio que recorte la retribución de redes y/o crisis en Latinoamérica, agravado por la erosión del patrimonio. Precio ~21 € (−27%), probabilidad ~P10.",
  "resumen": "Naturgy es un negocio de alta calidad (Rating A, 74,2/100; ROIC 11,1% > WACC 5,0%, spread +6,1 pp; margen EBITDA en máximos del 25,4% y desapalancamiento a DN/EBITDA 2,5x) que cotiza a un precio justo: precio objetivo 32,81 € frente a 28,80 €, con un margen de seguridad de +13,9%. La tesis es de income de calidad —dividendo recuperado a 1,77 € y BPA en máximos (2,17 €) impulsado por las recompras que han reducido las acciones de 1.000 a 930 M— más que de fuerte revalorización. Decisión: MANTENER; la compra resulta atractiva por debajo de ~26 € (MdS > 25%). Moat moderado-ancho (72) anclado en redes reguladas, con el matiz del patrimonio erosionado por la retribución agresiva y el descuento de gobernanza por la estructura accionarial (IFM/Criteria/GIP).",
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -100,6 +100,44 @@
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (sin bruto)"
+  },
+  "altman": {
+   "z": 5.44,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.76,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DSRI",
+    "GMI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -6.3,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

@@ -30,7 +30,7 @@
  "bull": "El combinado se mantiene ~90%, el real se estabiliza y el múltiplo converge hacia 2,0x → 5,0-5,9 € (+20% a +40%).",
  "bear": "Tormenta latinoamericana (divisa + hiperinflación): recorte del dividendo y P/TBV a 1,0x → 2,4-3,0 € (−30% a −40%).",
  "resumen": "Aseguradora de calidad (rating A, el mejor ratio combinado de su grupo 90,2%, RoTE 15,4% sobre un coste de capital ~5-8% y Solvencia II ~210%) cuya calidad ya está reconocida en el precio tras revalorizarse +145%. Cotiza en su valor justo (PO 3,76-4,43 € vs 4,18 €), sin margen de seguridad y con un riesgo-recompensa simétrico. Tesis de RENTA (dividendo ~4,3% bien cubierto), no de revalorización: ESPERAR para abrir posición (entrada atractiva <3,50 €) y MANTENER si ya se está en cartera. Riesgo clave a vigilar: la divisa latinoamericana (real brasileño + ratio combinado).",
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -101,6 +101,12 @@
    "C5 predictores: ninguno → 10/10",
    "Rama FINANCIERA (seguros): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

@@ -1,5 +1,5 @@
 {
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "ticker": "BKT",
  "empresa": "Bankinter, S.A.",
  "fecha": "2026-07-13",
@@ -102,6 +102,12 @@
    "C5 predictores: ninguno → 10/10",
    "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }

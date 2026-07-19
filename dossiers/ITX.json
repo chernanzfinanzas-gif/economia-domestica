@@ -1,5 +1,5 @@
 {
- "schemaVersion": 5,
+ "schemaVersion": 6,
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
  "fecha": "2026-07-12",
@@ -99,6 +99,42 @@
    "C5 predictores B4 (cuantitativos): DN/EBITDA al alza → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 9.0,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.88,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -8.6,
+   "senal": "normal"
+  },
+  "flags": [],
   "calculadoEl": "2026-07-19"
  }
 }
