@@ -754,6 +754,33 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-proxcompra .pgrid .m b{font-size:12.5px;font-weight:700}
 #view-proxcompra .pacts{padding:0 13px 12px;display:flex;gap:8px}
 @media(max-width:960px){#view-proxcompra #proxKpis{grid-template-columns:1fr 1fr}#view-proxcompra .desk{display:none}#view-proxcompra .pcards{display:block}}
+#view-proxcompra .mos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+#view-proxcompra .mos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-proxcompra .mos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-proxcompra .mos-blk.open .mos-blk-h .arw{transform:rotate(90deg)}
+#view-proxcompra .mos-blk-h .bt{font-weight:800;font-size:14px}#view-proxcompra .mos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted)}
+#view-proxcompra .mos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-proxcompra .mos-blk.open .mos-blk-b{display:block}
+#view-proxcompra .mos-pad{padding:14px}
+#view-proxcompra .mos-formula{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.6;color:#334155;margin-bottom:14px}
+#view-proxcompra .mos-formula b.h{display:block;font-size:13px;color:#1f3d6b;margin-bottom:3px}
+#view-proxcompra .mos-formula .eq{background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-weight:700;display:inline-block;margin:4px 0}
+#view-proxcompra .mos-desk{overflow:auto}
+#view-proxcompra .mos-desk table{width:100%;border-collapse:collapse;font-size:13px;white-space:nowrap}
+#view-proxcompra .mos-desk thead th{background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700}
+#view-proxcompra .mos-desk thead th.l{text-align:left}#view-proxcompra .mos-desk thead th.rk{text-align:center}
+#view-proxcompra .mos-desk tbody td{padding:9px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
+#view-proxcompra .mos-desk tbody td.l{text-align:left}#view-proxcompra .mos-desk tbody td.rk{text-align:center;color:#94a3b8;font-weight:700}
+#view-proxcompra .mos-desk tbody tr.mos-over{opacity:.5}
+#view-proxcompra .mos-tk{font-weight:800;color:var(--brand);cursor:pointer}#view-proxcompra .mos-hc{font-size:10px;color:#16a34a;font-weight:700}#view-proxcompra .mos-zc{font-size:10px;color:#16a34a}
+#view-proxcompra .mos-desk td.pos{color:var(--green,#16a34a)}#view-proxcompra .mos-desk td.neg{color:var(--red,#dc2626)}
+#view-proxcompra .mos-rb{color:#fff;border-radius:6px;padding:2px 8px;font-size:11px;font-weight:800}
+#view-proxcompra .mos-idx{min-width:118px}#view-proxcompra .mos-bar{display:inline-block;width:66px;height:8px;background:#eef2f7;border-radius:5px;overflow:hidden;vertical-align:middle;margin-right:7px}#view-proxcompra .mos-bar i{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e)}
+#view-proxcompra .mos-foot{color:var(--muted);font-size:11.5px;margin-top:12px;line-height:1.55}
+#view-proxcompra .mos-mob{display:none}
+#view-proxcompra .mos-card{border:1px solid var(--line);border-radius:12px;padding:11px 12px;margin-bottom:8px}#view-proxcompra .mos-card.mos-over{opacity:.55}
+#view-proxcompra .mos-ch{display:flex;align-items:center;gap:9px}#view-proxcompra .mos-rk{width:22px;height:22px;background:#eef2f7;border-radius:7px;text-align:center;line-height:22px;font-weight:800;font-size:12px;color:#64748b}#view-proxcompra .mos-ctk{font-weight:800;color:var(--brand);font-size:15px;cursor:pointer}#view-proxcompra .mos-cidx{margin-left:auto;font-weight:800;font-size:17px;text-align:right}#view-proxcompra .mos-cidx span{display:block;font-size:9px;color:var(--muted);font-weight:400}
+#view-proxcompra .mos-cbar{height:8px;background:#eef2f7;border-radius:5px;overflow:hidden;margin:8px 0}#view-proxcompra .mos-cbar i{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e)}
+#view-proxcompra .mos-cg{display:grid;grid-template-columns:1fr 1fr;gap:6px}#view-proxcompra .mos-cg .m{background:#f8fafc;border-radius:8px;padding:6px 9px}#view-proxcompra .mos-cg .m span{font-size:9.5px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-proxcompra .mos-cg .m b{font-size:12.5px}#view-proxcompra .mos-cg .m b.pos{color:var(--green,#16a34a)}#view-proxcompra .mos-cg .m b.neg{color:var(--red,#dc2626)}
+@media(max-width:960px){#view-proxcompra .mos-desk{display:none}#view-proxcompra .mos-mob{display:block}}
 /* ===== Proyección ===== */
 #view-proyeccion .secttl{font-size:14px;font-weight:800;margin:18px 0 9px;display:flex;align-items:center;gap:7px}
 #view-proyeccion .blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:6px;box-shadow:var(--shadow);overflow:hidden}
@@ -3258,6 +3285,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="toolbar" style="gap:8px;flex-wrap:wrap;align-items:center"><span class="muted">Año destino del Plan:</span> <input type="number" id="proxYear" class="anaInp" style="width:80px"> <button class="btn sm" id="proxAllPlan">Pasar todo al Plan</button> <button class="btn ghost sm" id="proxRefresh">Recalcular</button></div>
     <div id="proxKpis" class="cards" style="margin-top:10px"></div>
     <div id="proxTabla" style="overflow:auto;margin-top:10px"></div>
+    <div id="proxMos" style="margin-top:16px"></div>
   </section>
   <section class="view" id="view-backtest">
     <h2>🧪 Backtest del método</h2>
