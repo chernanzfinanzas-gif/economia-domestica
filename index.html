@@ -1516,6 +1516,20 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-graficas .graf-kpis .k .v{font-size:18px}
   #view-graficas .graf-grid{grid-template-columns:1fr}
 }
+/* ===== Independencia financiera (D6) ===== */
+#view-independencia .ind-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.6;color:#334155;margin-bottom:14px}#view-independencia .ind-intro b.h{display:block;font-size:13px;color:#1f3d6b;margin-bottom:3px}
+#view-independencia .ind-fires{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+#view-independencia .ind-fp{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:#fff;box-shadow:var(--shadow)}
+#view-independencia .ind-fp.inv{border-top:3px solid #2563eb}#view-independencia .ind-fp.div{border-top:3px solid #16a34a}
+#view-independencia .ind-fph{display:flex;align-items:center;gap:10px;margin-bottom:10px}#view-independencia .ind-fph .ic{font-size:24px}#view-independencia .ind-nm b{font-size:15px;font-weight:800;display:block}#view-independencia .ind-nm span{font-size:11px;color:var(--muted)}
+#view-independencia .ind-pct{margin-left:auto;font-size:22px;font-weight:800;color:#2563eb}#view-independencia .ind-fp.div .ind-pct{color:#16a34a}#view-independencia .ind-pct.ya{color:#16a34a}
+#view-independencia .ind-bar{height:10px;background:#eef2f7;border-radius:6px;overflow:hidden;margin-bottom:12px}#view-independencia .ind-fp.inv .ind-bar i{display:block;height:100%;background:linear-gradient(90deg,#2563eb,#3b82f6)}#view-independencia .ind-fp.div .ind-bar i{display:block;height:100%;background:linear-gradient(90deg,#16a34a,#22c55e)}
+#view-independencia .ind-row{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;padding:4px 0;border-top:1px solid #f4f6fb}#view-independencia .ind-row span{color:var(--muted)}#view-independencia .ind-row b{font-weight:800}#view-independencia .ind-row b.pos{color:var(--green,#16a34a)}#view-independencia .ind-row b.neg{color:var(--red,#dc2626)}
+#view-independencia .ind-cov{margin-top:10px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:9px;padding:8px 10px;font-size:11.5px;color:#166534;line-height:1.5}#view-independencia .ind-cov .cbar{height:7px;background:#dcfce7;border-radius:5px;overflow:hidden;margin-top:5px}#view-independencia .ind-cov .cbar i{display:block;height:100%;background:#16a34a}
+#view-independencia .ind-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+#view-independencia .ind-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 13px;box-shadow:var(--shadow)}#view-independencia .ind-kpis .k .l{font-size:9.5px;color:var(--muted);font-weight:700;text-transform:uppercase}#view-independencia .ind-kpis .k .v{font-size:19px;font-weight:800;margin-top:3px;color:var(--green,#16a34a)}#view-independencia .ind-kpis .k .p{font-size:10px;color:var(--muted);margin-top:2px}
+#view-independencia .ind-hyp{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:9px 12px;font-size:11.5px;color:#92400e;line-height:1.55}#view-independencia .ind-hyp b{color:#78350f}
+@media(max-width:760px){#view-independencia .ind-fires{grid-template-columns:1fr}#view-independencia .ind-kpis{grid-template-columns:1fr}}
 /* ===== Buzón del lunes ===== */
 #view-buzon .buz-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 #view-buzon .buz-top h2{font-size:20px}
@@ -2997,6 +3011,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
           <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div></div>
     <div class="blk" id="blkProyDet"><div class="blk-h" data-proyblk="det"><span class="arw">▶</span><span class="blk-t">📆 Detalle año a año</span><span class="blk-sub">patrimonio, ahorro y reparto (inversión / efectivo) año por año</span></div>
       <div class="blk-b"><div id="proyTabla"></div></div></div>
+  </section>
+  <section class="view" id="view-independencia">
+    <h2>🏖️ Independencia financiera</h2>
+    <div class="sub" style="margin-bottom:12px">¿Cuánto te falta para vivir sin trabajar? Tus hitos hacia la <b>independencia</b>, por las dos vías: vivir <b>vendiendo</b> parte de la cartera (regla del 4%) o vivir <b>del dividendo</b> sin tocar el capital. Los datos salen de tu Proyección y tu cartera.</div>
+    <div id="indepBody"></div>
   </section>
 
   <section class="view" id="view-diversif">
