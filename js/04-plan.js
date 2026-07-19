@@ -475,7 +475,8 @@ function saludFinanciera(){ const clamp=x=>Math.max(0,Math.min(100,x));
   const FE=(typeof fondoEmergencia==='function')?fondoEmergencia():null; const meses=FE?FE.meses:null; const sFondo=meses==null?null:clamp(meses/6*100);
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001); let sDiv=null,topW=null,effN=null;
   if(pos.length){ const tot=pos.reduce((s,p)=>s+p.acciones*num(p.precioActual),0); if(tot>0){ const ws=pos.map(p=>p.acciones*num(p.precioActual)/tot); topW=Math.max(...ws); const hhi=ws.reduce((s,w)=>s+w*w,0); effN=hhi>0?1/hhi:0; const sEff=clamp((effN-2)/8*100); const sTop=clamp((0.40-topW)/0.30*100); sDiv=sEff*0.6+sTop*0.4; } }
-  const CR=(typeof carteraRentabilidad==='function')?carteraRentabilidad():null; const alfa=CR?CR.alfa:null; const sRent=alfa==null?null:clamp(50+alfa/0.05*50);
+  // Rentab. vs índice: igualar al IBEX ya es un buen resultado (baseline 72). Batir +6% → 100; quedarse -6% → ~44. Menos castigo por empatar/quedarse justo por debajo.
+  const CR=(typeof carteraRentabilidad==='function')?carteraRentabilidad():null; const alfa=CR?CR.alfa:null; const sRent=alfa==null?null:clamp(72+alfa/0.06*28);
   const pilares=[{k:'Ahorro',s:sAhorro,d:tasa!=null?(tasa*100).toFixed(0)+'% tasa':'sin datos'},{k:'Fondo emergencia',s:sFondo,d:meses!=null?meses.toFixed(1)+' meses':'sin datos'},{k:'Diversificación',s:sDiv,d:(effN!=null)?(effN.toFixed(1)+' efect. · top '+(topW*100).toFixed(0)+'%'):'sin datos'},{k:'Rentab. vs índice',s:sRent,d:alfa!=null?((alfa>=0?'+':'')+(alfa*100).toFixed(1)+'% alfa'):'sin datos'}];
   const valid=pilares.filter(p=>p.s!=null); const score=valid.length?valid.reduce((s,p)=>s+p.s,0)/valid.length:null;
   return {pilares,score}; }
