@@ -102,6 +102,45 @@ function _pnlDelta(cur,prev,upGood){
   var d=(cur-prev)/Math.abs(prev); var up=d>=0; var good=(up===upGood);
   return '<span class="kdelta '+(good?'up':'dn')+'">'+(up?'▲':'▼')+' '+Math.abs(d*100).toFixed(0)+'%</span>';
 }
+/* ===== P1 · Tasa de ahorro: racha + tendencia (Panel) ===== */
+function renderPanelAhorro(){
+  var el=document.getElementById('panelAhorro'); if(!el)return;
+  var movs=DB.movimientos||[]; var cy=(typeof curYear!=='undefined')?curYear:new Date().getFullYear();
+  // objetivo % derivado del ahorro objetivo anual ÷ ingresos previstos
+  var ingPrev=0; (DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';}).forEach(function(c){ var p=presFor(c.id,cy); if(p)ingPrev+=(typeof mensual==='function'?mensual(p):num(p.importe))*12; });
+  var objE=(typeof _presAhorroObj==='function')?_presAhorroObj(cy):0;
+  var objPct=(objE>0&&ingPrev>0)?(objE/ingPrev*100):null; var objUsed=objPct!=null?objPct:20, objDef=objPct==null;
+  // serie mensual de tasa
+  var bym={}; movs.forEach(function(m){ var k=(''+(m.fecha||'')).slice(0,7); if(k.length!==7)return; bym[k]=bym[k]||{i:0,g:0}; if(m.tipo==='ingreso')bym[k].i+=num(m.importe); else if(m.tipo==='gasto')bym[k].g+=Math.abs(num(m.importe)); });
+  var meses=Object.keys(bym).sort(); if(meses.length<2){ el.innerHTML=''; return; }
+  function tOf(k){ var d=bym[k]; return d&&d.i? (d.i-d.g)/d.i*100 : 0; }
+  var racha=0; for(var i=meses.length-1;i>=0;i--){ if(tOf(meses[i])>=objUsed)racha++; else break; }
+  var last12=meses.slice(-12); var cumpl=last12.filter(function(k){return tOf(k)>=objUsed;}).length;
+  var t12=last12.reduce(function(a,k){return {i:a.i+bym[k].i,g:a.g+bym[k].g};},{i:0,g:0}); var tasa12=t12.i?((t12.i-t12.g)/t12.i*100):0;
+  function med(a){ if(!a.length)return 0; var s=a.slice().sort(function(x,y){return x-y;}); var n=s.length; return n%2? s[(n-1)/2] : (s[n/2-1]+s[n/2])/2; }
+  function medY(y){ return med(meses.filter(function(k){return k.slice(0,4)===(''+y);}).map(tOf)); }
+  var mcur=medY(cy), mprev=medY(cy-1), hasPrev=meses.some(function(k){return k.slice(0,4)===(''+(cy-1));}), yoy=mcur-mprev;
+  // sparkline con línea de objetivo
+  var ML=['','E','F','M','A','M','J','J','A','S','O','N','D'];
+  var vals=last12.map(tOf); var W=520,H=54,pl=4,pr=4,pt=6,pb=14; var pw=W-pl-pr,ph=H-pt-pb;
+  var mn=Math.min.apply(null,vals.concat([objUsed,0])), mx=Math.max.apply(null,vals.concat([objUsed]));
+  var X=function(i){return pl+pw*(vals.length>1?i/(vals.length-1):0.5);}, Y=function(v){return pt+ph*(1-(v-mn)/((mx-mn)||1));};
+  var poly=vals.map(function(v,i){return X(i).toFixed(0)+','+Y(v).toFixed(0);}).join(' ');
+  var dots=vals.map(function(v,i){return '<circle cx="'+X(i).toFixed(0)+'" cy="'+Y(v).toFixed(0)+'" r="2.6" fill="'+(v>=objUsed?'#16a34a':'#dc2626')+'"/>';}).join('');
+  var xlab=last12.map(function(k,i){return '<text x="'+X(i).toFixed(0)+'" y="'+(H-3)+'" text-anchor="middle" font-size="8" fill="#94a3b8">'+ML[+k.slice(5,7)]+'</text>';}).join('');
+  var oY=Y(objUsed).toFixed(0);
+  var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:54px"><line x1="'+pl+'" y1="'+oY+'" x2="'+(W-pr)+'" y2="'+oY+'" stroke="#16a34a" stroke-dasharray="3 3" stroke-width="1"/><text x="'+(W-pr)+'" y="'+(+oY-2)+'" text-anchor="end" font-size="8" fill="#16a34a">obj '+objUsed.toFixed(0)+'%</text><polyline points="'+poly+'" fill="none" stroke="#94a3b8" stroke-width="1.3"/>'+dots+xlab+'</svg>';
+  var k=function(l,v,vcls,p){return '<div class="pah-k"><div class="l">'+l+'</div><div class="v '+(vcls||'')+'">'+v+'</div>'+(p?'<div class="p">'+p+'</div>':'')+'</div>';};
+  el.innerHTML='<div class="pah"><div class="pah-h">🐖 Tasa de ahorro <span class="pah-obj">objetivo '+objUsed.toFixed(0)+'%'+(objDef?' (por defecto)':'')+'</span></div>'
+    +'<div class="pah-kpis">'
+    +k('Tasa a 12 meses',tasa12.toFixed(0)+'%',tasa12>=objUsed?'g':'r','de tus ingresos, últimos 12 m')
+    +k('Racha actual',racha+' '+(racha===1?'mes':'meses'),racha>=3?'g':'','seguidos ≥ objetivo')
+    +k('Típica (mediana)',mcur.toFixed(0)+'%',yoy>=0?'g':'r',hasPrev?((cy-1)+': '+mprev.toFixed(0)+'% ('+(yoy>=0?'+':'')+yoy.toFixed(0)+' pp)'):'mediana mensual '+cy)
+    +k('Meses cumplidos',cumpl+'/'+last12.length,'','de los últimos meses')
+    +'</div><div class="pah-spark">'+svg+'</div>'
+    +(objDef?'<div class="pah-note">Estás usando un objetivo por defecto del <b>20%</b>. Define tu <b>ahorro objetivo</b> anual en Presupuesto y la racha se calculará con tu meta real.</div>':'')
+    +'</div>';
+}
 function renderPanel(){
   const isYear = panelMode==='anio';
   const bm=$('#mModeMes'), ba=$('#mModeAnio'); if(bm)bm.classList.toggle('on',!isYear); if(ba)ba.classList.toggle('on',isYear);
@@ -153,6 +192,7 @@ function renderPanel(){
     +'<div class="k-body"><div class="k-ring" style="--p:'+Math.min(100,budPct)+';--rc:'+budColor+'"><div class="k-ring-in">'+budPct+'%</div></div>'
     +'<div class="k-year">Consumido<br><b>'+fmt(gas)+'</b> de '+fmt(presGasto)+'<br>'+(presGasto>=gas?'<span style="color:var(--green)">quedan '+fmt(presGasto-gas)+'</span>':'<span style="color:var(--red)">excede '+fmt(gas-presGasto)+'</span>')+'</div></div></div>';
   $('#panelCards').innerHTML=kIn+kOut+kSave+kBud;
+  if(typeof renderPanelAhorro==='function')renderPanelAhorro();
   const groups={};
   DB.categorias.filter(c=>c.tipo==='gasto').forEach(c=>{
     const p=presFor(c.id,curYear); const pres=(p?mensual(p):0)*mult;
@@ -616,9 +656,7 @@ function renderPresAna(){
   if(!renderPresAna._bound){ renderPresAna._bound=true; var host=document.getElementById('view-presupuesto');
     if(host){
       host.addEventListener('click',function(e){
-        var sb=e.target.closest('[data-subresolve]'); if(sb){ e.stopPropagation(); _subsResueltas()[sb.getAttribute('data-subresolve')]=true; if(typeof scheduleSave==='function')scheduleSave(); renderSuscripciones(); return; }
-        var so=e.target.closest('[data-subreopen]'); if(so){ e.stopPropagation(); delete _subsResueltas()[so.getAttribute('data-subreopen')]; if(typeof scheduleSave==='function')scheduleSave(); renderSuscripciones(); return; }
-        var stg=e.target.closest('[data-subshowres]'); if(stg){ e.stopPropagation(); window._subsShowRes=!window._subsShowRes; renderSuscripciones(); return; }
+        var sp=e.target.closest('[data-subpaid]'); if(sp){ e.stopPropagation(); _subMarcarPagada(sp.getAttribute('data-subpaid')); renderSuscripciones(); return; }
         var bh=e.target.closest('#presAna [data-anablk]'); if(bh){ var blk=document.getElementById(bh.getAttribute('data-anablk')); if(blk)blk.classList.toggle('open'); return; }
         var gr=e.target.closest('#presAna [data-anagrp]'); if(gr){ var key=gr.getAttribute('data-anagrp'); window._anaOpen=window._anaOpen||{}; window._anaOpen[key]=!window._anaOpen[key]; var grp=gr.closest('.grp'); if(grp)grp.classList.toggle('open'); return; }
       });
@@ -643,16 +681,16 @@ function renderInflacionPersonal(){
   // --- categorías seguidas ---
   var anyFlag=cats.some(function(c){return c.tipo!=='ingreso'&&c.seguirInfla===true;});
   var tracked=cats.filter(function(c){return c.tipo!=='ingreso' && (anyFlag? c.seguirInfla===true : _INFLA_DEFAULT.indexOf(c.nombre)>=0);});
-  // --- años de presupuesto ---
-  var byY={}; pr.forEach(function(p){ byY[pAnio(p)]=1; }); var pyears=Object.keys(byY).map(Number).sort(function(a,b){return a-b;});
-  if(tracked.length===0 || pyears.length<2){ el.innerHTML='<div class="infla-empty">Marca categorías con la casilla <b>«Seguir en inflación»</b> (en cada partida del presupuesto) y ten al menos dos años de presupuesto. Años disponibles: '+(pyears.join(', ')||'ninguno')+'.</div>'; var _h=document.getElementById('inflaHeadD'); if(_h){_h.textContent='—';_h.className='blk-amount';} return; }
-  var calY=new Date().getFullYear();
-  var curY=(pyears.indexOf(calY)>=0)?calY:pyears[pyears.length-1];
-  var prevCand=pyears.filter(function(y){return y<curY;}); var prevY=prevCand.length?prevCand[prevCand.length-1]:pyears[0];
-  var extraYears=pyears.filter(function(y){return y>curY;});
-  // presupuesto anual por categoría/año
-  var cb2={}; pr.forEach(function(p){var cid=p.categoriaId; cb2[cid]=cb2[cid]||{}; cb2[cid][pAnio(p)]=(cb2[cid][pAnio(p)]||0)+anual(p);});
-  function catY(cid,y){ return ((cb2[cid]&&cb2[cid][y])||0)/12; } // mensual (lo que Carlos presupuesta)
+  // --- GASTO REAL: media mensual de cada año (total del año ÷ sus meses con datos) ---
+  function _y(m){return (''+(m.fecha||'')).slice(0,4);} function _mo(m){return +(''+(m.fecha||'')).slice(5,7);}
+  var mByY={}; movs.forEach(function(m){ if(m.tipo!=='gasto')return; var y=_y(m),mo=_mo(m); if(!y||!mo)return; (mByY[y]=mByY[y]||{})[mo]=1; });
+  var yYears=Object.keys(mByY).map(Number).sort(function(a,b){return a-b;});
+  var nMonY={}; yYears.forEach(function(y){ nMonY[y]=Object.keys(mByY[y]).length||12; });
+  if(tracked.length===0 || yYears.length<2){ el.innerHTML='<div class="infla-empty">Marca categorías con la casilla <b>«Seguir en inflación»</b> (en cada partida del presupuesto) y ten al menos dos años de movimientos. Años disponibles: '+(yYears.join(', ')||'ninguno')+'.</div>'; var _h=document.getElementById('inflaHeadD'); if(_h){_h.textContent='—';_h.className='blk-amount';} return; }
+  var curY=yYears[yYears.length-1], prevY=yYears[yYears.length-2]; var extraYears=[];
+  // gasto real por categoría/año
+  var cb2={}; movs.forEach(function(m){ if(m.tipo!=='gasto')return; var cid=m.categoriaId; var y=+_y(m); if(!cid||!y)return; cb2[cid]=cb2[cid]||{}; cb2[cid][y]=(cb2[cid][y]||0)+Math.abs(num(m.importe)); });
+  function catY(cid,y){ return ((cb2[cid]&&cb2[cid][y])||0)/(nMonY[y]||12); } // media mensual real del año
   // agrupar por capítulo
   var grupos=[]; var gmap={}; tracked.forEach(function(c){ if(!gmap[c.grupo]){gmap[c.grupo]={g:c.grupo,cats:[]}; grupos.push(gmap[c.grupo]);} gmap[c.grupo].cats.push(c); });
   grupos.sort(function(a,b){return a.g<b.g?-1:1;});
@@ -701,7 +739,7 @@ function renderInflacionPersonal(){
   // --- KPIs ---
   var hg=homeG?gInfo[homeG]:null;
   var kpis='<div class="infla-kpis">'
-    +'<div class="ik hero"><div class="l">📊 Tu inflación personal</div><div class="v '+cls(GTd)+'">'+pctS(GTd)+'</div><div class="p">presupuesto seguido '+prevY+'→'+curY+': '+eur0(GT[prevY])+' → '+eur0(GT[curY])+'/mes</div></div>'
+    +'<div class="ik hero"><div class="l">📊 Tu inflación personal</div><div class="v '+cls(GTd)+'">'+pctS(GTd)+'</div><div class="p">gasto real medio '+prevY+'→'+curY+': '+eur0(GT[prevY])+' → '+eur0(GT[curY])+'/mes</div></div>'
     +'<div class="ik"><div class="l">🛒 Alimentación</div><div class="v '+cls(aliD.d)+'">'+pctS(aliD.d)+'</div><div class="p">'+eur0(aliD.a)+' → '+eur0(aliD.b)+'/mes</div></div>'
     +(hg?'<div class="ik"><div class="l">🏠 '+homeG+' (fijos)</div><div class="v '+cls(hg.d)+'">'+pctS(hg.d)+'</div><div class="p">'+eur0(hg.a)+' → '+eur0(hg.b)+'/mes</div></div>':'')
     +(hasFuel?'<div class="ik"><div class="l">⛽ Gasolina €/L</div><div class="v '+cls(fuD)+'">'+fu25.toFixed(3).replace('.',',')+'→'+fu26.toFixed(3).replace('.',',')+'</div><div class="p">'+pctS(fuD)+' · precio real ('+fPrev+'→'+fCur+')</div></div>':'')
@@ -717,44 +755,53 @@ function renderInflacionPersonal(){
     probes+='</tbody></table></div>';
   }
   // nota histórica 2019 (referencia manual de Carlos)
-  var A2019=450, H2019=490; var aliNow=aliD.b, homeNow=hg?hg.b:0;
-  var anchor='<div class="infla-anchor">📜 <b>Referencia 2019:</b> Alimentación <b>450 €/mes</b> → hoy ~'+eur0(aliNow)+'/mes ('+pctS(aliNow?(aliNow/A2019-1)*100:0)+')'+(homeNow?'; Hogar <b>490 €/mes</b> → hoy ~'+eur0(homeNow)+'/mes ('+pctS((homeNow/H2019-1)*100)+')':'')+'. La <b>lista de la compra</b> ha subido bastante más que los <b>gastos del hogar</b>.</div>';
+  var A2019=450, H2019=490; var _cmpl=(nMonY[curY]||0)>=12; var aYr=_cmpl?curY:prevY; var aliNow=_cmpl?aliD.b:aliD.a, homeNow=hg?(_cmpl?hg.b:hg.a):0;
+  var anchor='<div class="infla-anchor">📜 <b>Referencia 2019:</b> Alimentación <b>450 €/mes</b> → en '+aYr+' ~'+eur0(aliNow)+'/mes ('+pctS(aliNow?(aliNow/A2019-1)*100:0)+')'+(homeNow?'; Hogar <b>490 €/mes</b> → en '+aYr+' ~'+eur0(homeNow)+'/mes ('+pctS((homeNow/H2019-1)*100)+')':'')+'. La <b>lista de la compra</b> ha subido bastante más que los <b>gastos del hogar</b>. <span style="color:#7c6f9c">('+aYr+' es el último año completo.)</span></div>';
   el.innerHTML=kpis
-    +'<div class="infla-sec"><div class="infla-h">📈 Seguimiento año a año <small>presupuesto mensual (€/mes) de las categorías que sigues</small></div>'
-    +'<div class="infla-intro">Cómo evoluciona lo que <b>presupuestas</b> en cada categoría marcada. En costes fijos y suscripciones el importe ≈ precio (la cantidad no cambia); en Alimentación es tu gasto total (cantidad estable). '+(anyFlag?'Sigues '+tracked.length+' categorías; cámbialas con la casilla «Seguir en inflación».':'Mostrando una selección por defecto — marca la casilla «Seguir en inflación» en las partidas para personalizarla.')+'</div>'
+    +'<div class="infla-sec"><div class="infla-h">📈 Seguimiento año a año <small>gasto real medio mensual de cada año (€/mes)</small></div>'
+    +'<div class="infla-intro">El <b>gasto real medio al mes</b> de cada categoría, año contra año — el total gastado en el año ÷ sus meses ('+prevY+' completo; '+curY+' con '+(nMonY[curY]||12)+' meses hasta la fecha). Te sirve para ver cómo sube de verdad tu coste de vida y <b>presupuestar el año que viene</b>. '+(anyFlag?'Sigues '+tracked.length+' categorías; cámbialas con la casilla «Seguir en inflación».':'Mostrando una selección por defecto — marca la casilla «Seguir en inflación» en las partidas para personalizarla.')+'</div>'
     +mainTbl+anchor+'</div>'
     +probes
-    +'<div class="infla-hyp">⚠️ El seguimiento usa el <b>presupuesto</b> (lo que planificas), no el gasto real, para tener años completos y comparables. Descartado como señal de precio: el ticket de Supermercado/Compras (manda el tamaño del carrito). Cuantos más años acumules, más fina la serie. Orientativo, no es asesoramiento.</div>';
+    +'<div class="infla-hyp">⚠️ Usa <b>gasto real</b>: cada año es su media mensual (total ÷ meses con datos), así '+curY+' (aún incompleto) se compara en €/mes con '+prevY+'. Ojo: los pagos anuales (seguros, IBI) caen en un mes suelto, así que en el corto plazo pueden distorsionar su media; se estabiliza al cerrar el año. Descartado como señal de precio el ticket de Supermercado/Compras. Orientativo.</div>';
   var hd=document.getElementById('inflaHeadD'); if(hd){ hd.textContent=pctS(GTd); hd.className='blk-amount '+(GTd>0.5?'neg':GTd<-0.5?'pos':''); }
 }
-/* ===== P2 · Chequeo de suscripciones (avisos que Carlos marca como pagadas/resueltas) ===== */
+/* ===== P2 · Chequeo de suscripciones (todas, con fecha de renovación; roja=vencida, verde=al día) ===== */
 var _SUBS_RX=/Software|Deporte|Streaming|Suscrip/i, _SUBS_NAMES=['Amazon Prime','Audible','YouTube Premium','Netflix','Spotify','HBO Max','Disney+','Movistar Plus'], _SUBS_EXCL=['Gimnasio'];
-function _subsResueltas(){ DB.config=DB.config||{}; DB.config.subsResueltas=DB.config.subsResueltas||{}; return DB.config.subsResueltas; }
-function susAlertas(){
-  var pr=DB.presupuesto||[], movs=DB.movimientos||[]; var yr=new Date().getFullYear(); var today=new Date(); today.setHours(0,0,0,0); var out=[];
-  pr.filter(function(p){ var c=catById(p.categoriaId); return c&&c.tipo==='gasto'&&(pAnio(p))===yr&&num(p.importe)>0 && _SUBS_EXCL.indexOf(c.nombre)<0 && (_SUBS_RX.test(c.grupo)||_SUBS_NAMES.indexOf(c.nombre)>=0); }).forEach(function(p){
-    var c=catById(p.categoriaId); var mv=movs.filter(function(m){return m.categoriaId===c.id;}).sort(function(a,b){return (''+a.fecha).localeCompare(''+b.fecha);});
-    var last=mv.length?mv[mv.length-1].fecha:null;
-    var mesesSin=last?Math.round((today-new Date(last+'T00:00:00'))/2629800000):999;
-    var anual=(typeof mensual==='function'?mensual(p):num(p.importe))*12;
-    var nd=(typeof proxRenov==='function')?proxRenov(p):null; var dias=nd?Math.round((nd-today)/86400000):null;
-    if(dias!=null&&dias>=0&&dias<=30){ var iso=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0'); out.push({key:c.id+'|prox|'+iso,tipo:'prox',ic:'🔔',cls:'a',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'pagada',txt:'Renueva en '+dias+' día'+(dias===1?'':'s')+' ('+iso.split('-').reverse().join('/')+')'}); }
-    if(mesesSin>=13){ var ftxt=last?('Sin cargo desde hace '+mesesSin+' meses — la presupuestas pero no se cobra. ¿Sigue activa?'):('Nunca se ha cobrado — la presupuestas pero no aparece ningún cargo. ¿Sigue activa?'); out.push({key:c.id+'|fant',tipo:'fant',ic:'👻',cls:'r',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'resuelta',txt:ftxt}); }
-    else if(anual<=20&&mesesSin>=6){ out.push({key:c.id+'|micro',tipo:'micro',ic:'🔍',cls:'a',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'resuelta',txt:'Micro-suscripción ('+Math.round(anual)+' €/año), '+mesesSin+' meses sin cargo. Revisa si la usas.'}); }
+function _subPartida(cid){ var cands=(DB.presupuesto||[]).filter(function(q){return q.categoriaId===cid;}); if(!cands.length)return null; var withR=cands.filter(function(q){return q.renovacion;}); if(withR.length)return withR.sort(function(a,b){return (''+b.renovacion).localeCompare(''+a.renovacion);})[0]; return cands.sort(function(a,b){return pAnio(b)-pAnio(a);})[0]; }
+function _subsList(){
+  var pr=DB.presupuesto||[]; var today=new Date(); today.setHours(0,0,0,0); var seen={}, out=[];
+  pr.forEach(function(p){ var c=catById(p.categoriaId); if(!c||c.tipo!=='gasto')return; if(_SUBS_EXCL.indexOf(c.nombre)>=0)return; if(!(_SUBS_RX.test(c.grupo)||_SUBS_NAMES.indexOf(c.nombre)>=0))return; if(seen[c.id])return; seen[c.id]=1;
+    var use=_subPartida(c.id); if(!use)return;
+    var anual=(typeof mensual==='function'?mensual(use):num(use.importe))*12;
+    var renov=use.renovacion||null; var rd=renov?new Date(renov+'T00:00:00'):null; var dias=rd?Math.round((rd-today)/86400000):null;
+    var estado=renov?(dias<0?'venc':'ok'):'nofecha';
+    out.push({cid:c.id,nombre:c.nombre,grupo:c.grupo,anual:anual,renov:renov,dias:dias,estado:estado});
   });
+  out.sort(function(a,b){ var o={venc:0,ok:1,nofecha:2}; if(o[a.estado]!==o[b.estado])return o[a.estado]-o[b.estado]; if(a.renov&&b.renov)return (''+a.renov).localeCompare(''+b.renov); return b.anual-a.anual; });
   return out;
+}
+function _subMarcarPagada(cid){
+  var p=_subPartida(cid); if(!p||!p.renovacion)return;
+  var f=(p.frecuencia||'').toLowerCase(); var stepM=f==='mensual'?1:(f==='bianual'?24:12);
+  var d=new Date(p.renovacion+'T00:00:00'); var today=new Date(); today.setHours(0,0,0,0); var g=0;
+  do{ d.setMonth(d.getMonth()+stepM); g++; }while(d<=today&&g<600);
+  p.renovacion=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  if(typeof scheduleSave==='function')scheduleSave();
 }
 function renderSuscripciones(){
   var el=document.getElementById('subsBody'); if(!el)return;
-  var res=_subsResueltas(); var all=susAlertas();
-  var pend=all.filter(function(a){return !res[a.key];}), done=all.filter(function(a){return res[a.key];});
-  var showRes=!!window._subsShowRes;
-  var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
-  var head=document.getElementById('subsHeadD'); if(head){ head.textContent=pend.length?String(pend.length):'✓'; head.className='blk-amount '+(pend.length?'neg':'pos'); }
-  if(!all.length){ el.innerHTML='<div class="subs-empty">Sin avisos de suscripciones. Todo en orden.</div>'; return; }
-  var html='<div class="subs-intro">Avisos de tus suscripciones (Software, Deporte y streaming) desde presupuesto + movimientos. Marca <b>Pagada</b> una renovación cuando la abones (reaparecerá el próximo ciclo) o <b>Resuelta</b> una revisión para que no vuelva a salir.</div>';
-  html+= pend.length? pend.map(function(a){ var lbl=a.accion==='pagada'?'✓ Pagada':'✓ Resuelta'; return '<div class="subs-al '+a.cls+'"><span class="ai">'+a.ic+'</span><div class="ab"><b>'+a.nombre+'</b> <span class="ag">'+a.grupo+'</span><div class="at">'+a.txt+'</div></div><div class="ar"><span class="av">'+eur0(a.anual)+'/año</span><button class="subs-btn" data-subresolve="'+a.key+'">'+lbl+'</button></div></div>'; }).join('') : '<div class="subs-ok">✅ No hay avisos pendientes.</div>';
-  if(done.length){ html+='<div class="subs-toggle" data-subshowres="1">'+(showRes?'▾ Ocultar':'▸ Ver')+' resueltas/pagadas ('+done.length+')</div>'; if(showRes)html+=done.map(function(a){ return '<div class="subs-al done"><span class="ai">'+a.ic+'</span><div class="ab"><b>'+a.nombre+'</b> <span class="ag">'+a.grupo+'</span><div class="at">'+a.txt+'</div></div><div class="ar"><button class="subs-btn ghost" data-subreopen="'+a.key+'">Reabrir</button></div></div>'; }).join(''); }
+  var list=_subsList(); var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
+  var venc=list.filter(function(s){return s.estado==='venc';}).length;
+  var head=document.getElementById('subsHeadD'); if(head){ head.textContent=venc?String(venc):'✓'; head.className='blk-amount '+(venc?'neg':'pos'); }
+  if(!list.length){ el.innerHTML='<div class="subs-empty">No tienes suscripciones registradas (grupos Software/Deporte/streaming con partida en el presupuesto).</div>'; return; }
+  var html='<div class="subs-intro">Todas tus suscripciones con su <b>fecha de renovación</b>. En <b style="color:#dc2626">rojo</b> las <b>vencidas</b> (toca pagar); cuando pagues pulsa <b>Marcar pagada</b> y avanzan al siguiente ciclo, quedando en <b style="color:#16a34a">verde</b>. Las sin fecha, ponles una en su partida del presupuesto.</div>';
+  html+=list.map(function(s){
+    var cl=s.estado==='venc'?'r':(s.estado==='ok'?'g':'done'); var ic=s.estado==='venc'?'🔴':(s.estado==='ok'?'🟢':'⚪');
+    var fecha=s.renov?s.renov.split('-').reverse().join('/'):'sin fecha';
+    var est=s.estado==='venc'?('Vencida hace '+(-s.dias)+' día'+(-s.dias===1?'':'s')):(s.estado==='ok'?('Próxima'+(s.dias<=45?' en '+s.dias+' d':'')):'Sin fecha de renovación');
+    var right=s.estado==='venc'?'<button class="subs-btn" data-subpaid="'+s.cid+'">✓ Marcar pagada</button>':(s.estado==='ok'?'<span class="subs-tag g">al día</span>':'<span class="subs-tag">—</span>');
+    return '<div class="subs-al '+cl+'"><span class="ai">'+ic+'</span><div class="ab"><b>'+s.nombre+'</b> <span class="ag">'+s.grupo+'</span><div class="at">'+est+' · renov. '+fecha+'</div></div><div class="ar"><span class="av">'+eur0(s.anual)+'/año</span>'+right+'</div></div>';
+  }).join('');
   el.innerHTML=html;
 }
 function _anaCumpGroups(R,ing,y,per,mf,curY,curMonth){
