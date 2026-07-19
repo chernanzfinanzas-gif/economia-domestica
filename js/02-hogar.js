@@ -674,7 +674,7 @@ function renderInflacionPersonal(){
   var homeG=null; grupos.forEach(function(G){ if(G.cats.length>1 && (!homeG||G.cats.length>gmap[homeG].cats.length))homeG=G.g; });
   var totRow='<tr class="tot"><td class="nm">TOTAL seguido</td><td class="num">'+eur0(GT[prevY])+'</td><td class="num">'+eur0(GT[curY])+'</td>'+extraYears.map(function(y){return '<td class="num fut">'+eur0(GT[y])+'</td>';}).join('')+'<td class="num '+cls(GTd)+'">'+pctS(GTd)+'</td></tr>';
   var thead='<tr><th>Capítulo / categoría</th><th>'+prevY+'</th><th>'+curY+'</th>'+extraYears.map(function(y){return '<th>'+y+'</th>';}).join('')+'<th>Δ '+prevY+'→'+curY+'</th></tr>';
-  var mainTbl='<table class="infla-tbl seg"><thead>'+thead+'</thead><tbody>'+body+totRow+'</tbody></table>';
+  var mainTbl='<table class="infla-tbl infla-seg"><thead>'+thead+'</thead><tbody>'+body+totRow+'</tbody></table>';
   if(!aliD)aliD={a:0,b:0,d:0};
   // --- sondas con datos reales ---
   function yOf(m){return (''+(m.fecha||'')).slice(0,4);} function moOf(m){return +(''+(m.fecha||'')).slice(5,7);}
