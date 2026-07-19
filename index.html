@@ -1354,6 +1354,46 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-informes .inf-genbtn{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none;border-radius:10px;padding:11px 20px;font-size:14px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(22,163,74,.3)}
 @media(max-width:900px){#view-informes .inf-feat{grid-template-columns:1fr}#view-informes .inf-repgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){#view-informes .inf-repgrid{grid-template-columns:1fr}#view-informes .inf-genbtn{padding:11px 14px;font-size:13px}}
+/* ===== Hemerotecas (Informes + Análisis) ===== */
+#view-hemeroteca .hem-kpis,#view-hemeroanalisis .hem-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+#view-hemeroteca .hem-kpis .k,#view-hemeroanalisis .hem-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-hemeroteca .hem-kpis .k .l,#view-hemeroanalisis .hem-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-hemeroteca .hem-kpis .k .v,#view-hemeroanalisis .hem-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-hemeroteca .hem-kpis .k .p,#view-hemeroanalisis .hem-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-hemeroanalisis .hem-kpis .k .v.pos{color:var(--green)}#view-hemeroanalisis .hem-kpis .k .v.neg{color:var(--red)}
+#view-hemeroteca .hem-kpis .k.hero,#view-hemeroanalisis .hem-kpis .k.hero{background:linear-gradient(135deg,#1e3a5f,#2563eb);color:#fff;border:none}
+#view-hemeroteca .hem-kpis .k.hero .l,#view-hemeroteca .hem-kpis .k.hero .p,#view-hemeroanalisis .hem-kpis .k.hero .l,#view-hemeroanalisis .hem-kpis .k.hero .p{color:#bfdbfe}
+#view-hemeroteca .hem-kpis .k.hero .v,#view-hemeroanalisis .hem-kpis .k.hero .v{color:#fff}
+#view-hemeroteca .hem-panel,#view-hemeroanalisis .hem-panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}
+#view-hemeroteca .hem-desk,#view-hemeroanalisis .hem-desk{overflow:auto}
+#view-hemeroteca .hem-desk table,#view-hemeroanalisis .hem-desk table{border-collapse:collapse;width:100%;font-size:12.5px}
+#view-hemeroteca .hem-desk thead th,#view-hemeroanalisis .hem-desk thead th{position:sticky;top:0;background:#f8fafc;text-align:left;font-size:9.5px;text-transform:uppercase;color:var(--muted);padding:9px 12px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2;white-space:nowrap}
+#view-hemeroteca .hem-desk tbody td,#view-hemeroanalisis .hem-desk tbody td{padding:8px 12px;border-bottom:1px solid #f1f5f9}
+#view-hemeroteca .hem-desk tbody tr.yr td{background:#f1f5f9;font-weight:800;font-size:11px;color:#1f3d6b;text-transform:uppercase;letter-spacing:.03em;padding:6px 12px}
+#view-hemeroteca .hem-desk .fn{color:var(--muted);font-size:11px}
+#view-hemeroanalisis .hem-desk table{white-space:nowrap}
+#view-hemeroanalisis .hem-desk th.tkc,#view-hemeroanalisis .hem-desk td.tkc{position:sticky;left:0;background:#fff;z-index:1}
+#view-hemeroanalisis .hem-desk thead th.tkc{z-index:3;background:#f8fafc}
+#view-hemeroanalisis .hem-desk .tk{font-weight:800;color:var(--brand);cursor:pointer}
+#view-hemeroteca .opb,#view-hemeroanalisis .opb{display:inline-block;background:#1E3A5F;color:#fff;text-decoration:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:700;white-space:nowrap}#view-hemeroanalisis .opb{padding:5px 11px;font-size:11.5px}#view-hemeroanalisis .opb.sm{padding:5px 10px}
+#view-hemeroteca .hem-mob,#view-hemeroanalisis .hem-mob{display:none;padding:10px}
+#view-hemeroteca .yhead{font-weight:800;font-size:11px;color:#1f3d6b;text-transform:uppercase;letter-spacing:.03em;margin:12px 2px 6px}
+#view-hemeroteca .hcard{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 12px;margin-bottom:8px;box-shadow:var(--shadow)}
+#view-hemeroteca .hc-l{flex:1;min-width:0}#view-hemeroteca .hc-f{font-weight:800;font-size:14px}#view-hemeroteca .hc-n{font-size:10.5px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#view-hemeroanalisis .hema-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+#view-hemeroanalisis .hema-toolbar label{font-size:12px;color:var(--muted);font-weight:600}#view-hemeroanalisis .hema-toolbar select{padding:7px 10px;border:1px solid var(--line);border-radius:8px;font-size:13px;background:#fff}
+#view-hemeroanalisis .hema-chip{font-size:12px;font-weight:700;border:1px solid var(--line);border-radius:9px;padding:6px 11px;cursor:pointer;background:#fff;color:#475569}#view-hemeroanalisis .hema-chip.on{background:#fef2f2;border-color:#fecaca;color:#b91c1c}
+#view-hemeroanalisis .acard{background:#fff;border:1px solid var(--line);border-left:4px solid #cbd5e1;border-radius:11px;padding:11px 12px;margin-bottom:8px;box-shadow:var(--shadow)}
+#view-hemeroanalisis .acard.warn{border-left-color:var(--red)}
+#view-hemeroanalisis .ac-h{display:flex;justify-content:space-between;align-items:baseline;gap:8px}#view-hemeroanalisis .ac-tk{font-size:15px;font-weight:800;color:var(--brand);cursor:pointer}#view-hemeroanalisis .ac-nm{font-size:10.5px;color:#94a3b8;font-weight:400}#view-hemeroanalisis .ac-dec{font-size:13px;font-weight:800}
+#view-hemeroanalisis .ac-badges{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0}
+#view-hemeroanalisis .ac-foot{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:6px}#view-hemeroanalisis .ac-f{font-size:11.5px}
+@media(max-width:860px){
+  #view-hemeroteca .hem-kpis,#view-hemeroanalisis .hem-kpis{grid-template-columns:1fr 1fr}
+  #view-hemeroteca .hem-kpis .k .v,#view-hemeroanalisis .hem-kpis .k .v{font-size:18px}
+  #view-hemeroteca .hem-desk,#view-hemeroanalisis .hem-desk{display:none}
+  #view-hemeroteca .hem-mob,#view-hemeroanalisis .hem-mob{display:block}
+}
 /* ===== Buzón del lunes ===== */
 #view-buzon .buz-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 #view-buzon .buz-top h2{font-size:20px}
