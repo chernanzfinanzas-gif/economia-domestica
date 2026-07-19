@@ -649,26 +649,22 @@ function _infSemanalBlockHTML(){
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
-  return '<div class="card" style="margin:0 0 14px;border:2px solid #1E3A5F">'
-    +'<div style="font-weight:800;font-size:15px;margin-bottom:4px">🧾 Informe semanal de cartera</div>'
-    +'<div class="muted" style="font-size:12px;margin-bottom:8px">Genera un PDF con la <b>coyuntura</b> y el <b>stress test</b> de todas tus empresas con análisis completo: una portada-resumen y una página por empresa, con los drivers del periodo, semáforos de riesgo y alertas tempranas. Es un filtro grueso de vigilancia, no una recomendación de compra/venta. Se crea con Claude (Cowork) en este ordenador y se archiva en la Hemeroteca.</div>'
-    +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
-    +'<a class="btn" id="infcSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
-    +'</div>'
+  return '<div class="feat">'
+    +'<div class="feat-h"><span class="feat-ic">🧾</span><div><div class="feat-t">Informe semanal de cartera</div>'
+    +'<div class="feat-s">Coyuntura y <b>stress test</b> de todas tus empresas con análisis completo: portada-resumen y una página por empresa, con drivers del periodo, semáforos de riesgo y alertas tempranas. Lo genera Claude (Cowork) en este ordenador y se archiva en la Hemeroteca.</div></div></div>'
+    +'<a class="feat-btn" id="infcSemanalBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
     +'</div>';
 }
 function _infEmpresaBlockHTML(){
   var uni=_infEmpresaUniverse();
   var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
-  return '<div class="card" style="margin:0 0 14px;border:2px solid #1E3A5F">'
-    +'<div style="font-weight:800;font-size:15px;margin-bottom:4px">📄 Informe por empresa</div>'
-    +'<div class="muted" style="font-size:12px;margin-bottom:8px">Escribe el ticker o el nombre de cualquier empresa de tu radar; se te sugieren coincidencias. Genera su informe: veredicto, tesis, tu situacion (si la tienes en cartera) o como va la empresa (si esta pendiente), y la evolucion.</div>'
-    +'<div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">'
-    +'<input id="infcEmpresa" list="infcEmpresaDL" placeholder="Ej.: IBE o Iberdrola…" autocomplete="off" style="flex:1;min-width:240px;padding:8px;border:1px solid var(--line);border-radius:8px">'
+  return '<div class="feat">'
+    +'<div class="feat-h"><span class="feat-ic">📄</span><div><div class="feat-t">Informe por empresa</div>'
+    +'<div class="feat-s">Veredicto, tesis, tu situación (si la tienes en cartera) o cómo va la empresa (si está pendiente) y su evolución. Escribe el ticker o el nombre de cualquier empresa de tu radar.</div></div></div>'
+    +'<div class="feat-form"><input id="infcEmpresa" class="feat-inp" list="infcEmpresaDL" placeholder="Ej.: IBE o Iberdrola…" autocomplete="off">'
     +'<datalist id="infcEmpresaDL">'+opts+'</datalist>'
-    +'<button class="btn" id="infcGenEmpresa">🖨️ Generar informe de la empresa (PDF)</button>'
-    +'</div>'
-    +'<div id="infcEmpresaMsg" class="muted" style="font-size:12px;margin-top:6px"></div>'
+    +'<button class="feat-btn2" id="infcGenEmpresa">🖨️ Generar PDF</button></div>'
+    +'<div id="infcEmpresaMsg" class="muted" style="font-size:12px">'+'</div>'
     +'</div>';
 }
 async function generarInformeEmpresa(){ if(typeof ensureInfLogos==='function')await ensureInfLogos();
@@ -719,43 +715,69 @@ async function generarInformesMulti(){ if(typeof ensureInfLogos==='function')awa
 }
 
 /* ---------- interfaz del centro de informes ---------- */
+var INF_ICON={gastos:'💸',ahorro:'🐖',presupuesto:'📊',interanual:'↔️',recurrentes:'🔁',titular:'👥',comercios:'🏪',amalia:'🧾',combustible:'⛽',patrimonio:'🏦',cartera:'📁',dividendos:'💰',fiscal:'🏛️',rentabilidad:'📈',oportunidades:'🎯',plan:'🗺️',monitor:'🔬',proyeccion:'🔮'};
+var INF_SUB={gastos:'con gráficos',ahorro:'cash-flow mensual',presupuesto:'plan vs real',interanual:'vs año anterior',recurrentes:'suscripciones',titular:'reparto 50%',comercios:'top gasto',amalia:'Amalia',combustible:'Mazinger Z',patrimonio:'efectivo vs invertido',cartera:'posiciones',dividendos:'por empresa',fiscal:'base del ahorro',rentabilidad:'alfa',oportunidades:'watchlist',plan:'compras',monitor:'seguimiento',proyeccion:'jubilación'};
+var INF_AMBICON={Hogar:'🏠','Inversión':'📈'};
+function _infPerLabel(){
+  var v=(document.getElementById('infcPeriodo')||{}).value||'anio';
+  if(v==='mes'){ var m=(document.getElementById('infcMes')||{}).value||''; if(!m)return 'un mes'; var pp=m.split('-'); var mn=(typeof MESES!=='undefined'?MESES[(+pp[1])-1]:pp[1]); return (mn.charAt(0).toUpperCase()+mn.slice(1))+' '+pp[0]; }
+  if(v==='rango'){ var a=(document.getElementById('infcDesde')||{}).value,b=(document.getElementById('infcHasta')||{}).value; return (a&&b)?(ddmmyyyy(a)+' – '+ddmmyyyy(b)):'rango de fechas'; }
+  var y=(document.getElementById('infcAnio')||{}).value||''; return 'Año '+y;
+}
+function _infUpdCount(){
+  var n=document.querySelectorAll('.infcRep:checked').length;
+  var lbl=n+' informe'+(n===1?'':'s')+' seleccionado'+(n===1?'':'s');
+  var c=document.getElementById('infcCount'); if(c)c.innerHTML='<b>'+n+'</b> informe'+(n===1?'':'s')+' · '+_infEsc(_infPerLabel());
+  var b=document.getElementById('infcRepSum'); if(b)b.textContent=lbl;
+}
 function renderInformesCenter(){
   var host=document.getElementById('informesCenter'); if(!host) return;
   if(document.getElementById('infcBuilt')) return;
   var now=new Date(); var ym=now.getFullYear()+'-'+_infPad(now.getMonth()+1);
   var byAmb={}; INF_REPORTS.forEach(function(r){ (byAmb[r.ambito]=byAmb[r.ambito]||[]).push(r); });
   var repsHtml=Object.keys(byAmb).map(function(am){
-    var items=byAmb[am].map(function(r){ return '<label style="display:block;font-size:13px;padding:2px 0"><input type="checkbox" class="infcRep" value="'+r.id+'"'+(r.id==='gastos'?' checked':'')+'> '+_infEsc(r.nombre)+'</label>'; }).join('');
-    return '<div style="margin-bottom:8px"><div style="font-weight:700;font-size:12px;color:#1f3d6b;margin-bottom:2px">'+_infEsc(am)+'</div>'+items+'</div>';
+    var items=byAmb[am].map(function(r){ var on=(r.id==='gastos'); return '<label class="inf-rep'+(on?' on':'')+'"><input type="checkbox" class="infcRep" value="'+r.id+'"'+(on?' checked':'')+'><span class="rp-ic">'+(INF_ICON[r.id]||'📄')+'</span><span class="rp-tx"><b>'+_infEsc(r.nombre.replace(/\s*\(con gráficos\)/,''))+'</b><span>'+_infEsc(INF_SUB[r.id]||'')+'</span></span><span class="rp-ck">✓</span></label>'; }).join('');
+    return '<div class="inf-amb">'+(INF_AMBICON[am]||'')+' '+_infEsc(am)+'</div><div class="inf-repgrid">'+items+'</div>';
   }).join('');
   var groups={}; (DB.categorias||[]).forEach(function(c){ (groups[c.grupo]=groups[c.grupo]||[]).push(c); });
-  var catHtml=Object.keys(groups).sort().map(function(g){ var gs=_infEsc(g); var items=groups[g].map(function(c){ return '<label style="display:block;font-size:11px;padding:1px 0"><input type="checkbox" class="infcCat" value="'+c.id+'"> '+_infEsc(c.nombre)+'</label>'; }).join(''); return '<div style="margin-bottom:4px"><div style="font-weight:700;font-size:11px">'+gs+'</div>'+items+'</div>'; }).join('');
-  var titHtml=(typeof _infTitulares==='function'?_infTitulares():['Carlos','Susana','Dos']).map(function(t){ return '<label style="margin-right:12px;font-size:12px"><input type="checkbox" class="infcTit" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
-  host.innerHTML=_infSemanalBlockHTML()+_infEmpresaBlockHTML()+'<div id="infcBuilt" class="card" style="margin:0 0 14px">'
-    +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px">'
-    +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">1 · Elige informes</div><div class="muted" style="font-size:11px;margin-bottom:6px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml+'</div>'
-    +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">2 · Periodo</div>'
-      +'<label style="display:block;margin-bottom:6px">Periodo<select id="infcPeriodo" style="width:100%"><option value="mes">Mes</option><option value="anio" selected>Año completo</option><option value="rango">Rango de fechas</option></select></label>'
-      +'<label id="infcMesWrap" style="display:none">Mes<input type="month" id="infcMes" value="'+ym+'" style="width:100%"></label>'
-      +'<label id="infcAnioWrap">Año<input type="number" id="infcAnio" value="'+now.getFullYear()+'" step="1" style="width:100%"></label>'
-      +'<label id="infcDesdeWrap" style="display:none">Desde<input type="date" id="infcDesde" style="width:100%"></label>'
-      +'<label id="infcHastaWrap" style="display:none">Hasta<input type="date" id="infcHasta" style="width:100%"></label>'
+  var catHtml=Object.keys(groups).sort().map(function(g){ var gs=_infEsc(g); var items=groups[g].map(function(c){ return '<label class="inf-catchk"><input type="checkbox" class="infcCat" value="'+c.id+'"> '+_infEsc(c.nombre)+'</label>'; }).join(''); return '<div class="inf-catg"><div class="inf-catg-h"><span class="inf-catg-arw">▶</span><b>'+gs+'</b><span class="inf-catg-n">'+groups[g].length+'</span></div><div class="inf-catg-b">'+items+'</div></div>'; }).join('');
+  var titHtml=(typeof _infTitulares==='function'?_infTitulares():['Carlos','Susana','Dos']).map(function(t){ return '<label class="inf-titchk"><input type="checkbox" class="infcTit" value="'+_infEsc(t)+'"> '+_infEsc(t)+'</label>'; }).join('');
+  var perInner=''
+    +'<div class="inf-seg" id="infcSeg"><button type="button" data-p="mes">Mes</button><button type="button" data-p="anio" class="on">Año completo</button><button type="button" data-p="rango">Rango</button></div>'
+    +'<select id="infcPeriodo" style="display:none"><option value="mes">Mes</option><option value="anio" selected>Año completo</option><option value="rango">Rango de fechas</option></select>'
+    +'<div class="inf-perin" id="infcMesWrap" style="display:none"><label>Mes</label><input type="month" id="infcMes" value="'+ym+'"></div>'
+    +'<div class="inf-perin" id="infcAnioWrap"><label>Año</label><input type="number" id="infcAnio" value="'+now.getFullYear()+'" step="1"></div>'
+    +'<div class="inf-perrango"><div class="inf-perin" id="infcDesdeWrap" style="display:none"><label>Desde</label><input type="date" id="infcDesde"></div>'
+    +'<div class="inf-perin" id="infcHastaWrap" style="display:none"><label>Hasta</label><input type="date" id="infcHasta"></div></div>';
+  var filInner=''
+    +'<div class="inf-flrow"><label>Tipo</label><select id="infcTipo"><option value="ambos">Ingresos y gastos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option></select></div>'
+    +'<div class="inf-flrow"><label>Nivel de detalle</label><select id="infcDetalle"><option value="completo">Cada movimiento</option><option value="totales">Solo totales por sección</option></select></div>'
+    +'<div class="inf-fllbl">Titular <span>(vacío = todos)</span></div><div class="inf-titrow">'+titHtml+'</div>'
+    +'<div class="inf-fllbl">Categorías <span>(vacío = todas)</span> <label class="inf-catall"><input type="checkbox" id="infcCatAll"> todas/ninguna</label></div>'
+    +'<div class="inf-catbox">'+catHtml+'</div>';
+  function blk(icon,title,sum,inner,open,id){ return '<div class="pos-blk'+(open?' open':'')+'"'+(id?' id="'+id+'"':'')+'><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
+  host.innerHTML='<div class="inf-feat">'+_infSemanalBlockHTML()+_infEmpresaBlockHTML()+'</div>'
+    +'<div id="infcBuilt">'
+    +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,true)
+    +blk('📅','Periodo','año',perInner,false,'infcBlkPer')
+    +blk('⚙️','Filtros del informe de gastos','tipo · titular · categorías',filInner,false)
     +'</div>'
-    +'<div><div style="font-weight:800;font-size:14px;margin-bottom:6px">3 · Filtros del informe de gastos</div>'
-      +'<label style="display:block;margin-bottom:6px">Tipo<select id="infcTipo" style="width:100%"><option value="ambos">Ingresos y gastos</option><option value="ingreso">Solo ingresos</option><option value="gasto">Solo gastos</option></select></label>'
-      +'<label style="display:block;margin-bottom:6px">Nivel de detalle<select id="infcDetalle" style="width:100%"><option value="completo">Cada movimiento</option><option value="totales">Solo totales por sección</option></select></label>'
-      +'<div style="font-size:11px;font-weight:700;margin:4px 0 2px">Titular <span class="muted" style="font-weight:400">(vacío = todos)</span></div><div>'+titHtml+'</div>'
-      +'<div style="font-size:11px;font-weight:700;margin:6px 0 2px">Categorías <span class="muted" style="font-weight:400">(vacío = todas)</span> <label style="font-weight:400"><input type="checkbox" id="infcCatAll"> todas/ninguna</label></div>'
-      +'<div style="max-height:460px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px">'+catHtml+'</div>'
-    +'</div>'
-    +'</div>'
-    +'<div style="margin-top:12px"><button class="btn" id="infcGen">🖨️ Generar informe (PDF)</button></div>'
-    +'</div>';
+    +'<div class="inf-genbar"><div class="cnt" id="infcCount"><b>1</b> informe · Año '+now.getFullYear()+'</div><button class="inf-genbtn" id="infcGen">🖨️ Generar informe (PDF)</button></div>';
   var pe=document.getElementById('infcPeriodo');
-  pe.addEventListener('change',function(){ var v=this.value; document.getElementById('infcMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infcAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infcDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infcHastaWrap').style.display=v==='rango'?'':'none'; });
-  document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.infcCat').forEach(function(x){x.checked=ck;}); });
+  function _perSwitch(v){ document.getElementById('infcMesWrap').style.display=v==='mes'?'':'none'; document.getElementById('infcAnioWrap').style.display=v==='anio'?'':'none'; document.getElementById('infcDesdeWrap').style.display=v==='rango'?'':'none'; document.getElementById('infcHastaWrap').style.display=v==='rango'?'':'none'; var s=document.querySelector('#infcBlkPer .bsum'); if(s)s.textContent=({mes:'un mes',anio:'año',rango:'rango'})[v]; _infUpdCount(); }
+  pe.addEventListener('change',function(){ _perSwitch(this.value); });
+  host.addEventListener('click',function(e){
+    var rp=e.target.closest('.inf-rep'); if(rp){ var cb=rp.querySelector('.infcRep'); setTimeout(function(){ rp.classList.toggle('on',cb.checked); _infUpdCount(); },0); return; }
+    var sg=e.target.closest('#infcSeg button'); if(sg){ document.querySelectorAll('#infcSeg button').forEach(function(b){b.classList.remove('on');}); sg.classList.add('on'); var p=sg.getAttribute('data-p'); pe.value=p; _perSwitch(p); return; }
+    var ch=e.target.closest('.inf-catg-h'); if(ch){ ch.parentElement.classList.toggle('open'); return; }
+    var cc=e.target.closest('.inf-catchk'); if(cc){ var ci=cc.querySelector('input'); setTimeout(function(){cc.classList.toggle('on',ci.checked);},0); return; }
+    var bh=e.target.closest('.pos-blk-h'); if(bh){ bh.parentElement.classList.toggle('open'); return; }
+  });
+  ['change','input'].forEach(function(ev){ host.addEventListener(ev,function(e){ if(e.target&&(e.target.id==='infcMes'||e.target.id==='infcAnio'||e.target.id==='infcDesde'||e.target.id==='infcHasta'))_infUpdCount(); }); });
+  document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.inf-catchk').forEach(function(l){ l.querySelector('input').checked=ck; l.classList.toggle('on',ck); }); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
   var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ try{ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText('genera el informe semanal de cartera'); }catch(e){} });
   var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
   var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
+  _infUpdCount();
 }
