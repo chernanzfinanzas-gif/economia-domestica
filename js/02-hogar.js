@@ -877,6 +877,8 @@ function renderPat(){
   const pctInv=t.total?t.inv/t.total:0;
   const rendIni=tf.total?(t.total-tf.total)/tf.total:0;
   const rendPrev=prev&&prev.total?(t.total-prev.total)/prev.total:0;
+  let _liqMini='';
+  try{ const _F=(typeof fiscalidadData==='function')?fiscalidadData():null; if(_F&&_F.valorCartera>0){ _liqMini='<div class="ph-mini liq"><div class="l">💧 Neto si liquido acciones</div><div class="v">'+fmt(_F.netoLiq)+'</div><div class="p">tras impuesto '+fmt(_F.impuestoLiq)+'</div></div>'; } }catch(e){}
   if(heroEl)heroEl.innerHTML=
     '<div><div class="ph-l">Patrimonio total</div><div class="ph-amt">'+fmt(t.total)+' €</div><div class="ph-s">al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros</div></div>'+
     '<div class="ph-rend">'+(rendIni>=0?'+':'')+(rendIni*100).toFixed(0)+'% desde el inicio</div>'+
@@ -884,6 +886,7 @@ function renderPat(){
       '<div class="ph-mini"><div class="l">Efectivo</div><div class="v">'+fmt(t.ef)+'</div><div class="p">'+Math.round((1-pctInv)*100)+'%</div></div>'+
       '<div class="ph-mini"><div class="l">Invertido</div><div class="v">'+fmt(t.inv)+'</div><div class="p">'+Math.round(pctInv*100)+'%</div></div>'+
       '<div class="ph-mini"><div class="l">vs anterior</div><div class="v">'+(rendPrev>=0?'+':'')+(rendPrev*100).toFixed(1)+'%</div><div class="p">último registro</div></div>'+
+      _liqMini+
     '</div>';
   const pInv=Math.round(pctInv*100), pEf=100-pInv, oInv=Math.round(obj*100);
   if(repEl)repEl.innerHTML='<div class="pr-l">Reparto efectivo / invertido</div>'+

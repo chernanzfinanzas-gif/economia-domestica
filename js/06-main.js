@@ -232,7 +232,7 @@ function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
   const g=groupOf(view); const sn=$('#subnav');
-  if(g){ groupCurrent[g]=view; if(sn){ sn.style.display='flex'; sn.innerHTML=GROUPS[g].map(v=>`<button data-sub="${v[0]}"${v[0]===view?' class="active"':''}>${v[1]}</button>`).join(''); } }
+  if(g){ groupCurrent[g]=view; if(sn){ sn.style.display='flex'; sn.innerHTML=GROUPS[g].map(v=>`<button data-sub="${v[0]}"${v[0]===view?' class="active"':''}>${v[1]}</button>`).join('')+'<button class="sn-all" data-snall="1" title="Desplegar o plegar todas las secciones de esta pestaña" style="display:none">⤢<span class="sn-all-t"> Todo</span></button>'; } }
   else if(sn){ sn.style.display='none'; sn.innerHTML=''; }
   $$('#nav button').forEach(x=>x.classList.toggle('active', g ? (x.dataset.group===g) : (x.dataset.view===view)));
   if(view==='dividendos'&&typeof renderDividendos==='function') setTimeout(renderDividendos,60);
@@ -245,11 +245,24 @@ function activarVista(view){
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
   if(!renderView(view)) renderAllFull();
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
+  /* Botón «desplegar/plegar todo»: solo si la vista tiene bloques colapsables */
+  if(sn){ const _sa=sn.querySelector('.sn-all'); if(_sa){ const _hb=el&&el.querySelector('.pos-blk,.rz-blk,.mos-blk,.p7blk,.blk,.psec,.inf-catg'); _sa.style.display=_hb?'':'none'; } }
   /* Botón flotante «+»: visible (en móvil) solo si la vista tiene acción de añadir */
   const _fab=$('#fabAdd'); if(_fab) _fab.classList.toggle('fab-hidden', !ADD_ACTIONS[view]);
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
-$('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; activarVista(b.dataset.sub); });
+$('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.snall){ if(typeof toggleAllSections==='function')toggleAllSections(); return; } if(b.dataset.sub)activarVista(b.dataset.sub); });
+/* Despliega/pliega todos los bloques colapsables de la vista activa (manipula el DOM y sincroniza estados) */
+function toggleAllSections(){
+  const view=document.querySelector('.view.active'); if(!view)return;
+  const SEL='.pos-blk,.rz-blk,.mos-blk,.p7blk,.blk,.psec,.inf-catg';
+  const els=[].slice.call(view.querySelectorAll(SEL)); if(!els.length)return;
+  const anyClosed=els.some(b=>!b.classList.contains('open'));
+  els.forEach(b=>b.classList.toggle('open',anyClosed));
+  try{ [window._invOpen,window._rankBlk,window._fiscBlk,window._atribBlk,window._btBlk,window._grafBlk,window._riesgoOpen,window._panelSecOpen,window._c5Blk].forEach(o=>{ if(o&&typeof o==='object')Object.keys(o).forEach(k=>{o[k]=anyClosed;}); }); }catch(e){}
+  try{ window._proxMosOpen=anyClosed; window._rebP7Open=anyClosed; window._proxNearOpen=anyClosed; }catch(e){}
+  const _sa=document.querySelector('#subnav .sn-all'); if(_sa){ _sa.classList.toggle('on',!anyClosed); }
+}
 /* ===== Móvil v2: barra inferior + hoja «Más» + tablas en tarjetas ===== */
 (function(){
   var GC=(typeof groupCurrent!=='undefined')?groupCurrent:{};

@@ -250,7 +250,12 @@ function fiscalidadData(){ const nowY=new Date().getFullYear();
   const gPos=Math.max(0,realGainY); const offset=Math.min(gPos,harvestable);
   const taxSaved=_impuestoAhorro(gPos)-_impuestoAhorro(gPos-offset);
   const impuestoY=_impuestoAhorro(gPos);
-  return {nowY,openLots,realized,realY,latGain,latLoss,realGainY,harvestable,offset,taxSaved,impuestoY};
+  // Liquidación total: impuesto y efectivo neto si vendes toda la cartera hoy
+  const valorCartera=openLots.reduce((s,l)=>s+l.acciones*num(l.precioActual),0);
+  const netLatent=latGain+latLoss;
+  let impuestoLiq=_impuestoAhorro(Math.max(0,realGainY+netLatent))-_impuestoAhorro(Math.max(0,realGainY)); if(impuestoLiq<0)impuestoLiq=0;
+  const netoLiq=valorCartera-impuestoLiq;
+  return {nowY,openLots,realized,realY,latGain,latLoss,realGainY,harvestable,offset,taxSaved,impuestoY,valorCartera,netLatent,impuestoLiq,netoLiq};
 }
 function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=$('#fiscalKpis'); const F=fiscalidadData();
   if(!F.openLots.length&&!F.realized.length){ el.innerHTML='<div class="empty">Sin operaciones registradas. La fiscalidad se calcula a partir de tus compras y ventas (Inversiones).</div>'; if(kp)kp.innerHTML=''; return; }
@@ -291,7 +296,8 @@ function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=
   /* --- ensamblar --- */
   window._fiscBlk=window._fiscBlk||{sim:true,cand:false,real:false};
   const FB=(key,icon,title,sum,inner)=>{ const op=window._fiscBlk[key]?' open':''; return `<div class="pos-blk${op}" data-fiscblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="fisc-pad">${inner}</div></div></div>`; };
-  el.innerHTML=`<div class="sub" style="margin-bottom:12px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas. Tramos del ahorro: 19% / 21% / 23% / 27% / 28%.</div>${harvestBox}`
+  const liqBox=`<div class="fisc-liq"><div class="fl-ic">💧</div><div class="fl-body"><div class="fl-t">Si liquidas toda la cartera hoy</div><div class="fl-flow"><div class="fl-step"><span>Recibes (valor de mercado)</span><b>${fmt(F.valorCartera)}</b></div><div class="fl-op">−</div><div class="fl-step"><span>Impuesto de liquidación</span><b class="neg">${fmt(F.impuestoLiq)}</b></div><div class="fl-op">=</div><div class="fl-step big"><span>Efectivo neto disponible</span><b class="pos">${fmt(F.netoLiq)}</b></div></div><div class="fl-note">Aflorarías <b>${sg(F.netLatent)}</b> de plusvalía latente neta. Es el dinero que tendrías <b>disponible rápido</b> si vendieras todo ahora, ya descontado Hacienda (orientativo, FIFO, tramos del ahorro).</div></div></div>`;
+  el.innerHTML=`<div class="sub" style="margin-bottom:12px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas. Tramos del ahorro: 19% / 21% / 23% / 27% / 28%.</div>${liqBox}${harvestBox}`
     +FB('sim','🧮','Simulador de venta (FIFO)','plusvalía, impuesto y regla de 2 meses',simInner)
     +FB('cand','📉','Candidatos a afloramiento',cand.length+' lotes con minusvalía latente',candBlk)
     +FB('real','🧾','Realizado (últimos 5 años · IRPF)','arrastre de pérdidas · FIFO',realBlk);
@@ -356,7 +362,41 @@ function renderRebalanceo(){
     return `<div class="rcard ${cls}"><div class="rc-h"><div class="tk" data-ficha="${r.t}" style="cursor:pointer">${r.t} <span class="nm">${(r.nombre||'').slice(0,18)}</span></div><div>${estBadge(r)}</div></div><div class="rc-bars"><div class="bl">actual <b>${(r.curW*100).toFixed(1)}%</b></div><div class="bar"><i style="width:${barCur}%;background:#2563eb"></i></div><div class="bl">objetivo <b>${(r.targetW*100).toFixed(1)}%</b></div><div class="bar"><i style="width:${barObj}%;background:#94a3b8"></i></div></div><div class="rc-f"><div class="m"><span>Valor</span><b>${fmt(r.curV)}</b></div><div class="m"><span>Desvío</span><b class="${r.driftPP<0?'pos':(r.driftPP>0?'neg':'')}">${r.driftPP>=0?'+':''}${r.driftPP.toFixed(1)} pp</b></div>${r.aportar>0?`<div class="m hi"><span>Aportar</span><b>${fmt(r.aportar)}</b></div>`:''}</div></div>`; };
   const mobHTML='<div class="rb-mob">'+rows.map(mcard).join('')+'</div>';
   const legendHTML=`<div class="rb-legend"><div class="lt">¿Qué significa cada valor?</div><dl><dt>Valor</dt><dd>Cuánto vale hoy tu posición en esa empresa (acciones × cotización).</dd><dt>% actual</dt><dd>El peso que tiene esa empresa en tu cartera <b>ahora mismo</b> (su valor ÷ valor total).</dd><dt>% objetivo</dt><dd>El peso que <b>tú decidiste</b> en <b>Diversificación</b> (objetivos € normalizados a 100%).</dd><dt>Desvío</dt><dd>Diferencia entre el % actual y el objetivo, en <b>puntos porcentuales (pp)</b>. <b class="neg">+</b> pesa de más (sobreponderada); <b class="pos">−</b> pesa de menos (infraponderada).</dd><dt>Banda</dt><dd>Si el desvío supera ±${band} pp sale <b>fuera de banda</b>: <span class="eb sobre">▲ sobre</span> o <span class="eb infra">▼ infra</span>. Si no, <span class="eb ok">en banda</span> = no tocar.</dd><dt>Aportar €</dt><dd>Cuánto de tu aportación conviene meter ahí para acercarla al objetivo. Solo <b>compra</b>, proporcional al hueco de las infraponderadas fuera de banda.</dd></dl></div>`;
-  el.innerHTML=explainHTML+ctrlHTML+deskHTML+mobHTML+legendHTML;
+  // === P7 · Ajuste con venta consciente de fiscalidad ===
+  var _p7='';
+  try{ var FISC=(typeof fiscalidadData==='function')?fiscalidadData():null;
+    if(FISC&&FISC.openLots){
+      var _lots={}; FISC.openLots.forEach(function(l){ (_lots[l.t]=_lots[l.t]||[]).push(l); });
+      var overR=rows.filter(function(r){return r.driftPP>0.01;}).map(function(r){
+        var exceso=Math.max(0,r.curV-r.targetW*totMV); var pa=(_lots[r.t]&&_lots[r.t][0]&&_lots[r.t][0].precioActual)||0;
+        var sh=pa>0?exceso/pa:0, real=0, sold=0; (_lots[r.t]||[]).forEach(function(l){ if(sh<=1e-6)return; var take=Math.min(sh,l.acciones); real+=(l.precioActual-l.precio)*take; sold+=take; sh-=take; });
+        return {t:r.t,driftPP:r.driftPP,exceso:exceso,soldAcc:Math.round(sold),real:real,effRatio:exceso>0?real/exceso:0}; }).filter(function(x){return x.exceso>0.5;});
+      if(overR.length){
+        overR.sort(function(a,b){return a.effRatio-b.effRatio;});
+        var totRec=overR.reduce(function(s,x){return s+x.exceso;},0), totReal=overR.reduce(function(s,x){return s+x.real;},0);
+        var perdPrevia=Math.max(0,-FISC.realGainY), offsetTot=perdPrevia+FISC.harvestable;
+        var baseImp=Math.max(0,totReal-offsetTot), impuesto=(typeof _impuestoAhorro==='function')?_impuestoAhorro(baseImp):0, tasaEf=totReal>0?impuesto/totReal*100:0;
+        var eCol=function(x){return x<0.15?'#16a34a':(x<0.4?'#d97706':'#dc2626');};
+        var eLbl=function(x){return x.real<0?'compensa (pérdida)':(x.effRatio<0.15?'peaje bajo':(x.effRatio<0.4?'peaje medio':'peaje alto'));};
+        var trs=overR.map(function(x,i){ return '<tr><td class="rk">'+(i+1)+'</td><td class="l"><b class="tk" data-ficha="'+x.t+'">'+x.t+'</b></td><td class="neg">+'+x.driftPP.toFixed(1)+' pp</td><td>'+fmt(x.exceso)+'</td><td>'+x.soldAcc+'</td><td class="'+(x.real>=0?'neg':'pos')+'"><b>'+(x.real>=0?'+':'')+fmt(x.real)+'</b></td><td><span class="p7eff" style="color:'+eCol(x.effRatio)+'">'+(x.effRatio*100).toFixed(0)+'%</span></td><td><span class="p7efb" style="background:'+eCol(x.effRatio)+'">'+eLbl(x)+'</span></td></tr>'; }).join('');
+        var mcards=overR.map(function(x,i){ return '<div class="p7card"><div class="p7ch"><div class="p7rk">'+(i+1)+'</div><div class="p7ctk" data-ficha="'+x.t+'">'+x.t+'</div><span class="p7efb" style="background:'+eCol(x.effRatio)+'">'+eLbl(x)+'</span></div><div class="p7cg"><div class="m"><span>Sobre objetivo</span><b class="neg">+'+x.driftPP.toFixed(1)+' pp</b></div><div class="m"><span>Recortar</span><b>'+fmt(x.exceso)+'</b></div><div class="m"><span>Vender (FIFO)</span><b>'+x.soldAcc+' acc</b></div><div class="m"><span>Plusvalía</span><b class="'+(x.real>=0?'neg':'pos')+'">'+(x.real>=0?'+':'')+fmt(x.real)+'</b></div></div></div>'; }).join('');
+        window._rebP7Open=window._rebP7Open||false;
+        _p7='<div class="p7blk'+(window._rebP7Open?' open':'')+'"><div class="p7blk-h"><span class="arw">▶</span><span class="bt">✂️ Ajuste con venta (consciente de fiscalidad)</span><span class="bsum">'+overR.length+' sobreponderadas · peaje fiscal</span></div><div class="p7blk-b"><div class="p7pad">'
+          +'<div class="p7intro"><b class="h">¿Qué es esto?</b>El rebalanceo de arriba reequilibra <b>solo comprando</b> con dinero nuevo (sin tributar). Si en cambio <b>recortas vendiendo</b> una posición disparada, esa venta <b>aflora plusvalías que tributan</b>. Aquí ves, de tus sobreponderadas, cuánto recortarías para volver al objetivo y el <b>peaje fiscal</b> de cada una (criterio <b>FIFO</b>), de menos a más impuesto.</div>'
+          +'<div class="p7kpis"><div class="k hero"><div class="l">Impuesto si recortas todo</div><div class="v">'+fmt(impuesto)+'</div><div class="p">tasa efectiva '+tasaEf.toFixed(0)+'%</div></div>'
+          +'<div class="k"><div class="l">Total a recortar</div><div class="v">'+fmt(totRec)+'</div><div class="p">para volver a objetivo</div></div>'
+          +'<div class="k"><div class="l">Plusvalía aflorada</div><div class="v neg">+'+fmt(totReal)+'</div><div class="p">ganancia realizada FIFO</div></div>'
+          +'<div class="k"><div class="l">Puedes compensar</div><div class="v pos">'+fmt(offsetTot)+'</div><div class="p">pérdida del año + minusvalías</div></div></div>'
+          +'<div class="p7desk"><table><thead><tr><th class="rk">#</th><th class="l">Empresa</th><th>Sobre obj.</th><th>Recortar</th><th>Vender</th><th>Plusvalía</th><th>Peaje/€</th><th>Nivel</th></tr></thead><tbody>'+trs+'</tbody></table></div>'
+          +'<div class="p7mob">'+mcards+'</div>'
+          +'<div class="p7tip"><b>💡 Lo importante.</b> Recortar tus ganadores grandes dispara la factura (llevan años de plusvalía). <b>Rebalancea primero con dinero nuevo</b> (arriba); si vas a vender, <b>empieza por las de menor peaje</b>. Hasta <b>'+fmt(offsetTot)+'</b> de plusvalía saldría <b>sin tributar</b> (compensas pérdida del año + minusvalías latentes). Y recuerda la <b>regla de los 2 meses</b>: si vendes con pérdida y recompras el mismo valor en menos de 2 meses, esa pérdida no computa.</div>'
+          +'<div class="p7foot">Orientativo, no es asesoramiento fiscal. FIFO = Hacienda vende primero las acciones más antiguas (no eliges lote). Impuesto por tramos del ahorro (19–28%) sobre la base tras compensar.</div>'
+          +'</div></div></div>';
+      }
+    }
+  }catch(e){}
+  el.innerHTML=explainHTML+ctrlHTML+deskHTML+mobHTML+legendHTML+_p7;
+  if(!el._p7Bound){ el._p7Bound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.p7blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); window._rebP7Open=b.classList.contains('open'); } }); }
   if(kp)kp.innerHTML='<div class="rb-kpis">'
     +`<div class="k"><div class="l">Valor cartera</div><div class="v">${fmt(totMV)}</div><div class="p">a precio de mercado hoy</div></div>`
     +`<div class="k"><div class="l">Fuera de banda</div><div class="v ${nFuera?'neg':''}">${nFuera} / ${rows.length}</div><div class="p">se desvían más de ±${band} pp</div></div>`
