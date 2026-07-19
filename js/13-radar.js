@@ -206,6 +206,9 @@ function _radDs(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(functi
 function _radDsCol(b){ return {'Muy seguro':'#16a34a','Seguro':'#4d7c0f','Vigilar':'#d97706','Frágil':'#ea580c','Recorte probable':'#dc2626'}[b]||'#64748b'; }
 function _radDsCell(ds){ if(!ds)return '<span class="muted" style="font-size:11px">—</span>'; var c=_radDsCol(ds.banda); var tip=((ds.banda||'Pte.')+(ds.rama?' ('+ds.rama+')':'')).replace(/"/g,'&quot;'); var lab=(ds.score!=null?ds.score:'n/a'); return '<span title="'+tip+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">'+lab+'</span>'; }
 function _radDsFac(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'Seguro':0.9,'Vigilar':0.6,'Frágil':0.3,'Recorte probable':0.1}; var f=(m[ds.banda]!=null)?m[ds.banda]:(ds.score>=80?1:ds.score>=60?0.9:ds.score>=40?0.6:ds.score>=20?0.3:0.1); if(ds.topeDuro&&ds.topeDuro.activo)f=Math.min(f,0.3); return f; }
+function _radFo(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.forense)return a.forense; if(typeof _tesisCache!=='undefined'&&_tesisCache&&_tesisCache[t]&&_tesisCache[t].forense)return _tesisCache[t].forense; return null; }
+function _radFoVeto(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo')); }
+function _radFoCell(fo){ if(!fo)return '<span class="muted" style="font-size:11px">—</span>'; if(fo.aplica===false)return '<span class="muted" title="Forense: no aplica ('+_radEsc(fo.motivo||'rama financiera')+')" style="cursor:help;font-size:11px">n/a</span>'; if(!fo.aplica)return '<span class="muted" style="font-size:11px">—</span>'; var scores='Piotroski '+(fo.piotroski?fo.piotroski.score:'-')+'/9 · Altman '+(fo.altman?fo.altman.z:'-')+' ('+(fo.altman?fo.altman.zona:'-')+') · Beneish '+(fo.beneish?fo.beneish.m:'-')+((fo.sloan&&fo.sloan.accruals!=null)?' · Sloan '+fo.sloan.accruals+'%':''); var has=fo.flags&&fo.flags.length; if(!has){ return '<span title="'+('Sin alertas forenses · '+scores).replace(/"/g,'&quot;')+'" style="cursor:help;background:#16a34a;color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">✓</span>'; } var v=_radFoVeto(fo); var tip=((v?'VETO forense — ':'Alerta forense — ')+fo.flags.join(' · ')+' · '+scores).replace(/"/g,'&quot;'); return '<span title="'+tip+'" style="cursor:help;background:'+(v?'#991b1b':'#dc2626')+';color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">'+(v?'⚠️ VETO':'⚠️')+'</span>'; }
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return;
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
@@ -228,7 +231,7 @@ function _radBuild(sec){
   var arqOpts='<option value="">Todos los arquetipos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('');
   var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
   sec.innerHTML='<h2>Radar de oportunidades</h2>'+
-    '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»). Datos de <code>fundamentales.json</code>.</div>'+
+    '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
     _radCambiosStrip()+
     '<div class="rad-k">'+
       '<div class="c hero"><div class="l">Universo con datos</div><div class="v">'+cands.length+'</div><div class="p">cruzan con fundamentales</div></div>'+
@@ -245,7 +248,7 @@ function _radBuild(sec){
     '</div>'+
     '<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
-      '<th class="s" data-radsk="rpd">RPD</th><th>Payout</th><th class="s" data-radsk="roe">ROE</th><th>DN/EBITDA</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">Pos.52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg. div.</th><th class="l">Nota</th>'+
+      '<th class="s" data-radsk="rpd">RPD</th><th>Payout</th><th class="s" data-radsk="roe">ROE</th><th>DN/EBITDA</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">Pos.52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg. div.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan) de las ya analizadas: ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">Forense</th><th class="l">Nota</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>';
@@ -279,8 +282,9 @@ function _radRenderList(){
       '<td>'+_rf(f.payout,'%',0)+'</td><td>'+_rf(f.roe,'%',1)+'</td><td>'+_rf(f.dnEbitda,'x',2)+'</td><td>'+_rf(f.per,'',1)+'</td><td>'+_rf(f.pbv,'',2)+'</td><td>'+_rf(f.pos52sem,'%',0)+'</td>'+
       '<td class="l" style="text-align:center">'+_radStars(c.rating)+'</td>'+
       '<td class="l" style="text-align:center">'+_radDsCell(c.ds)+'</td>'+
+      '<td class="l" style="text-align:center">'+_radFoCell(_radFo(c.t))+'</td>'+
       '<td class="l" style="font-size:11px;color:'+(c.trampa?'#b45309':'#94a3b8')+'">'+_radEsc(_radNota(c))+'</td></tr>';
-  }).join('')||'<tr><td colspan="14" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
+  }).join('')||'<tr><td colspan="15" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
   document.getElementById('radCards').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t]; var op=!!window._radOpen[c.t];
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
@@ -296,6 +300,7 @@ function _radRenderList(){
         '<div class="m"><div class="l">P/BV</div><div class="v">'+_rf(f.pbv,'',2)+'</div></div>'+
         '<div class="m"><div class="l">Pos.52s</div><div class="v">'+_rf(f.pos52sem,'%',0)+'</div></div>'+
         (c.ds?'<div class="m"><div class="l">Seg. div.</div><div class="v" style="color:'+_radDsCol(c.ds.banda)+'">'+(c.ds.score!=null?c.ds.score:'n/a')+'</div></div>':'')+
+        (function(){var fo=_radFo(c.t); if(!fo||!fo.aplica)return ''; var has=fo.flags&&fo.flags.length; var v=has&&_radFoVeto(fo); var lab=!has?'✓':(v?'⚠️ VETO':'⚠️'); var col=!has?'#16a34a':(v?'#991b1b':'#dc2626'); return '<div class="m"><div class="l">Forense</div><div class="v" style="color:'+col+'">'+lab+'</div></div>';})()+
       '</div>'+(_radNota(c)?('<div style="margin-top:9px;font-size:12px;color:'+(c.trampa?'#b45309':'#64748b')+'">'+_radEsc(_radNota(c))+'</div>'):'')+'</div></div>';
   }).join('')||'<div style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</div>';
 }
