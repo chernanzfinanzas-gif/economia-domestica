@@ -653,8 +653,10 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   const corrCards=perT.map(t=>{ const peers=perT.filter(o=>o!==t).map(o=>({o,v:R.corrM[t][o]})).sort((x,y)=>y.v-x.v).slice(0,3); const a=avgCorrOf(t);
     return '<div class="rz-pcard"><div class="top"><b data-ficha="'+t+'" class="rz-tk">'+t+'</b><span style="font-size:11px;color:#64748b">corr. media '+(a==null?'—':a.toFixed(2))+'</span></div><div class="facs">'+peers.map(p=>'<span class="rz-pfac" style="background:'+(p.v>=0.6?'#fef2f2':p.v>=0.4?'#fff7ed':'#f0fdf4')+';color:'+corrCol(p.v)+'">'+p.o+' '+p.v.toFixed(2)+'</span>').join('')+'</div></div>'; }).join('');
   // === Concentración del INGRESO por dividendos + income-at-risk ===
+  const _dsOf=t=>{ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&a.dividendSafety)return a.dividendSafety; const c=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null; return (c&&c.dividendSafety)||null; };
+  const _dsCol2=b=>({'Muy seguro':'#16a34a','Seguro':'#4d7c0f','Vigilar':'#d97706','Frágil':'#ea580c','Recorte probable':'#dc2626'}[b]||'#94a3b8');
   const _incAgg={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones<=0.0001)return; const t=(p.ticker||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; const d=p.acciones*num(v.divAccion); if(d>0)_incAgg[t]=(_incAgg[t]||0)+d; });
-  const _incR=Object.keys(_incAgg).map(t=>({t,div:_incAgg[t]})).sort((a,b)=>b.div-a.div);
+  const _incR=Object.keys(_incAgg).map(t=>({t,div:_incAgg[t],ds:_dsOf(t)})).sort((a,b)=>b.div-a.div);
   const _incTot=_incR.reduce((s,x)=>s+x.div,0);
   let ingInner, ingCnt='—';
   if(_incTot<=0){ ingInner='<div class="rz-note">Sin dividendo estimado en las posiciones (falta div/acción en cotizaciones).</div>'; }
@@ -662,6 +664,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
     let _c=0; _incR.forEach(x=>{ x.share=x.div/_incTot; _c+=x.share; x.cum=_c; });
     const _hhi=_incR.reduce((s,x)=>s+x.share*x.share,0), _neff=1/_hhi;
     const _t3=_incR.slice(0,3).reduce((s,x)=>s+x.share,0);
+    const _riskyInc=_incR.reduce((s,x)=>s+((x.ds&&x.ds.score!=null&&x.ds.score<60)?x.div:0),0); const _riskyShare=_incTot>0?_riskyInc/_incTot:0;
     const _lvl=_hhi>=0.18?{t:'alta',c:'#dc2626'}:(_hhi>=0.10?{t:'media',c:'#d97706'}:{t:'baja',c:'#16a34a'});
     const _scn=[1,2,3].filter(k=>k<=_incR.length).map(k=>{ const lost=_incR.slice(0,k).reduce((s,x)=>s+x.div,0)*0.5; return {k,lost,lp:lost/_incTot,rest:_incTot-lost,names:_incR.slice(0,k).map(x=>x.t).join(' + ')}; });
     const pc1=x=>(x*100).toFixed(1)+'%', pc0=x=>(x*100).toFixed(0)+'%'; const iar=_scn[1]||_scn[0];
@@ -671,9 +674,10 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
       +'<div class="im"><div class="l">Top-3 del ingreso</div><div class="v '+(_t3>=0.5?'neg':'')+'">'+pc0(_t3)+'</div><div class="p">'+_incR.slice(0,3).map(x=>x.t).join(' · ')+'</div></div>'
       +'<div class="im"><div class="l">Concentración (HHI)</div><div class="v" style="color:'+_lvl.c+'">'+Math.round(_hhi*10000)+'</div><div class="p">'+_lvl.t+'</div></div>'
       +'<div class="im"><div class="l">Income-at-risk</div><div class="v neg">−'+pc0(iar.lp)+'</div><div class="p">si los '+iar.k+' mayores −50%</div></div>'
+      +'<div class="im"><div class="l">Renta poco fiable</div><div class="v '+(_riskyShare>=0.25?'neg':'')+'" style="color:'+(_riskyShare>=0.25?'#dc2626':(_riskyShare>0?'#d97706':'#16a34a'))+'">'+pc0(_riskyShare)+'</div><div class="p">Dividend Safety &lt; 60</div></div>'
       +'</div>';
     const _mx=_incR[0].share||1;
-    const bars=_incR.map((x,i)=>'<div class="rz-cbar"><div class="tk" data-ficha="'+x.t+'">'+x.t+'</div><div class="trk"><i class="'+(i<3?'top':'')+'" style="width:'+(x.share/_mx*100).toFixed(1)+'%"></i></div><div class="val"><b>'+pc1(x.share)+'</b><span>'+fmt(x.div)+'</span></div><div class="cum">'+pc0(x.cum)+'</div></div>').join('');
+    const bars=_incR.map((x,i)=>'<div class="rz-cbar"><div class="tk" data-ficha="'+x.t+'">'+x.t+(x.ds&&x.ds.score!=null?' <span title="Dividend Safety '+((x.ds.banda||'')).replace(/"/g,'&quot;')+'" style="font-size:9px;font-weight:800;color:'+_dsCol2(x.ds.banda)+'">💧'+x.ds.score+'</span>':'')+'</div><div class="trk"><i class="'+(i<3?'top':'')+'" style="width:'+(x.share/_mx*100).toFixed(1)+'%"></i></div><div class="val"><b>'+pc1(x.share)+'</b><span>'+fmt(x.div)+'</span></div><div class="cum">'+pc0(x.cum)+'</div></div>').join('');
     const scnRows=_scn.map(s=>'<tr><td class="l">Los '+s.k+' mayor'+(s.k>1?'es':'')+' recortan 50% <span class="muted">('+s.names+')</span></td><td class="neg">−'+fmt(s.lost)+'</td><td class="neg">−'+pc1(s.lp)+'</td><td><b>'+fmt(s.rest)+'</b></td></tr>').join('');
     const scnCards=_scn.map(s=>'<div class="rz-icard"><div class="top"><b>Los '+s.k+' mayor'+(s.k>1?'es':'')+' −50%</b><span class="neg" style="font-weight:800">−'+pc1(s.lp)+'</span></div><div style="font-size:11.5px;color:#64748b;margin-top:4px">'+s.names+' · pierdes <b class="neg">−'+fmt(s.lost)+'</b>, quedan <b>'+fmt(s.rest)+'</b></div></div>').join('');
     ingInner=metrics
@@ -686,7 +690,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   el.innerHTML='<div class="sub" style="margin-bottom:12px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · '+R.nDays+' días · '+R.desde+' → '+R.hasta+'. Volatilidad y beta anualizadas.</div>'+
     blk('pos','📊','Por posición',R.tickers.length+' empresas','Peso, volatilidad individual y correlación media de cada empresa con el resto (rojo = se mueve con la cartera).',posDesk+'<div class="rz-mob">'+posCards+'</div>')+
     blk('sec','🏭','Peso por sector',Object.keys(R.secW).length+' sectores','Rojo ≥35% (sobreconcentración) · ámbar ≥25%.',secInner)+
-    blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
+    blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. Marca además la <b>renta poco fiable</b> (Dividend Safety &lt; 60) y el 💧score de seguridad de cada pagador. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
     blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>')+
     blk('factores','🧭','Exposición a factores vs IBEX',(FX&&FX.ok?'perfil de estilo de tu cartera':'—'),'',_factorBlockHTML(FX));
   var _rsec=document.getElementById('view-riesgo');

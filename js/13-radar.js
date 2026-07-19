@@ -17,10 +17,11 @@ var RAD_RATING={AAA:100,AA:90,A:78,BBB:65,BB:52,B:40,CCC:28,CC:18,C:10};
 var RAD_W={div:0.35,cal:0.35,val:0.30}, RAD_RPDTOP=6, RAD_PAYALTO=85, RAD_ROETOP=20;
 function _rclamp(x){ return Math.max(0,Math.min(100,x)); }
 function radRatingScore(r){ if(!r)return null; var t=(''+r).trim().toUpperCase(); if(RAD_RATING[t]!=null)return RAD_RATING[t]; var m=(''+r).match(/★/g)||(''+r).match(/\*/g); var n=m?m.length:0; return n?_rclamp(n*20):null; }
-function radScore(f,rating){
+function radScore(f,rating,ds){
   var rpd=f.rpd, payout=f.payout, flags=f.flags||[]; var sd, nota='';
   if(!rpd){ sd=0; nota='sin dividendo'; }
   else { sd=_rclamp(rpd/RAD_RPDTOP*100); if(payout&&payout>RAD_PAYALTO){ sd*=0.7; nota='payout alto'; } if(flags.some(function(x){return /irregular/i.test(x);})){ sd*=0.6; nota=(nota?nota+' · ':'')+'div irregular'; } }
+  if(ds&&ds.score!=null){ var _sf=_radDsFac(ds); sd=sd*_sf; if(_sf<1)nota=(nota?nota+' · ':'')+'seguridad '+(ds.banda||''); }
   var sroe=(f.roe!=null)?_rclamp(f.roe/RAD_ROETOP*100):50;
   var sdn=(f.dnEbitda==null)?100:_rclamp(100-Math.max(0,f.dnEbitda-2)*25);
   var rs=radRatingScore(rating); var srt=(rs!=null)?rs:60;
@@ -30,7 +31,7 @@ function radScore(f,rating){
   var spos=(f.pos52sem!=null)?_rclamp(100-f.pos52sem):50;
   var sv=(sper+spbv+spos)/3;
   var atr=Math.round((RAD_W.div*sd+RAD_W.cal*sc+RAD_W.val*sv)*10)/10;
-  var trampa=!!(rpd&&rpd>7&&((payout&&payout>90)||(f.crecBpa!=null&&f.crecBpa<0)||flags.some(function(x){return /irregular/i.test(x);})));
+  var trampa=(ds&&ds.score!=null)?!!(ds.score<40||(ds.topeDuro&&ds.topeDuro.activo)):!!(rpd&&rpd>7&&((payout&&payout>90)||(f.crecBpa!=null&&f.crecBpa<0)||flags.some(function(x){return /irregular/i.test(x);})));
   return {atr:atr, nota:nota, trampa:trampa};
 }
 
@@ -201,6 +202,10 @@ function _radAcol(a){ return a>=70?'#16a34a':(a>=55?'#2563eb':'#64748b'); }
 function _radStars(r){ if(!r)return '<span style="color:#cbd5e1">—</span>'; var dead=/☠/.test(r); return '<span class="rad-stars'+(dead?' dead':'')+'">'+_radEsc(r)+'</span>'; }
 function _radAtag(a){ a=a||'Sin clasificar'; var col=(typeof UNI_ARQCOL!=='undefined'&&UNI_ARQCOL[a])||'#94a3b8'; return '<span class="rad-atag" style="background:'+col+'">'+_radEsc(a)+'</span>'; }
 function _radNota(c){ return (c.nota+(c.trampa?(c.nota?', ':'')+'posible trampa':'')).trim(); }
+function _radDs(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.dividendSafety)return a.dividendSafety; if(typeof _tesisCache!=='undefined'&&_tesisCache&&_tesisCache[t]&&_tesisCache[t].dividendSafety)return _tesisCache[t].dividendSafety; return null; }
+function _radDsCol(b){ return {'Muy seguro':'#16a34a','Seguro':'#4d7c0f','Vigilar':'#d97706','Frágil':'#ea580c','Recorte probable':'#dc2626'}[b]||'#64748b'; }
+function _radDsCell(ds){ if(!ds)return '<span class="muted" style="font-size:11px">—</span>'; var c=_radDsCol(ds.banda); var tip=((ds.banda||'Pte.')+(ds.rama?' ('+ds.rama+')':'')).replace(/"/g,'&quot;'); var lab=(ds.score!=null?ds.score:'n/a'); return '<span title="'+tip+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">'+lab+'</span>'; }
+function _radDsFac(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'Seguro':0.9,'Vigilar':0.6,'Frágil':0.3,'Recorte probable':0.1}; var f=(m[ds.banda]!=null)?m[ds.banda]:(ds.score>=80?1:ds.score>=60?0.9:ds.score>=40?0.6:ds.score>=20?0.3:0.1); if(ds.topeDuro&&ds.topeDuro.activo)f=Math.min(f,0.3); return f; }
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return;
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
@@ -209,7 +214,7 @@ function renderRadar(){
   Promise.all([_radCargarFund(), _radCambiosCargar()]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     var cands=[];
-    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var sc=radScore(f,u.rating); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa}); });
+    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst}); });
     _radCands=cands; _radMeta=fund;
     if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     _radBuild(sec);
@@ -223,7 +228,7 @@ function _radBuild(sec){
   var arqOpts='<option value="">Todos los arquetipos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('');
   var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
   sec.innerHTML='<h2>Radar de oportunidades</h2>'+
-    '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. Datos de <code>fundamentales.json</code>.</div>'+
+    '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»). Datos de <code>fundamentales.json</code>.</div>'+
     _radCambiosStrip()+
     '<div class="rad-k">'+
       '<div class="c hero"><div class="l">Universo con datos</div><div class="v">'+cands.length+'</div><div class="p">cruzan con fundamentales</div></div>'+
@@ -240,7 +245,7 @@ function _radBuild(sec){
     '</div>'+
     '<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
-      '<th class="s" data-radsk="rpd">RPD</th><th>Payout</th><th class="s" data-radsk="roe">ROE</th><th>DN/EBITDA</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">Pos.52s</th><th class="l">Rating</th><th class="l">Nota</th>'+
+      '<th class="s" data-radsk="rpd">RPD</th><th>Payout</th><th class="s" data-radsk="roe">ROE</th><th>DN/EBITDA</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">Pos.52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg. div.</th><th class="l">Nota</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>';
@@ -273,8 +278,9 @@ function _radRenderList(){
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
       '<td>'+_rf(f.payout,'%',0)+'</td><td>'+_rf(f.roe,'%',1)+'</td><td>'+_rf(f.dnEbitda,'x',2)+'</td><td>'+_rf(f.per,'',1)+'</td><td>'+_rf(f.pbv,'',2)+'</td><td>'+_rf(f.pos52sem,'%',0)+'</td>'+
       '<td class="l" style="text-align:center">'+_radStars(c.rating)+'</td>'+
+      '<td class="l" style="text-align:center">'+_radDsCell(c.ds)+'</td>'+
       '<td class="l" style="font-size:11px;color:'+(c.trampa?'#b45309':'#94a3b8')+'">'+_radEsc(_radNota(c))+'</td></tr>';
-  }).join('')||'<tr><td colspan="13" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
+  }).join('')||'<tr><td colspan="14" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
   document.getElementById('radCards').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t]; var op=!!window._radOpen[c.t];
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
@@ -289,6 +295,7 @@ function _radRenderList(){
         '<div class="m"><div class="l">PER</div><div class="v">'+_rf(f.per,'',1)+'</div></div>'+
         '<div class="m"><div class="l">P/BV</div><div class="v">'+_rf(f.pbv,'',2)+'</div></div>'+
         '<div class="m"><div class="l">Pos.52s</div><div class="v">'+_rf(f.pos52sem,'%',0)+'</div></div>'+
+        (c.ds?'<div class="m"><div class="l">Seg. div.</div><div class="v" style="color:'+_radDsCol(c.ds.banda)+'">'+(c.ds.score!=null?c.ds.score:'n/a')+'</div></div>':'')+
       '</div>'+(_radNota(c)?('<div style="margin-top:9px;font-size:12px;color:'+(c.trampa?'#b45309':'#64748b')+'">'+_radEsc(_radNota(c))+'</div>'):'')+'</div></div>';
   }).join('')||'<div style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</div>';
 }
