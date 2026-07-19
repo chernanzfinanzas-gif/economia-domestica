@@ -612,9 +612,13 @@ function renderPresAna(){
   _anaFillYears('cmpiA',ys,st.cmpiA); _anaFillYears('cmpiB',ys,st.cmpiB);
   _anaCump(R,curY,curMonth); _anaCmp(R,curY,curMonth,false); _anaCmp(R,curY,curMonth,true);
   if(typeof renderInflacionPersonal==='function'){ try{ renderInflacionPersonal(); }catch(e){ var _ib=document.getElementById('inflaBody'); if(_ib)_ib.innerHTML='<div class="row"><div class="rh"><span class="nm">No se pudo calcular la inflación personal.</span></div></div>'; } }
+  if(typeof renderSuscripciones==='function'){ try{ renderSuscripciones(); }catch(e){ var _sb=document.getElementById('subsBody'); if(_sb)_sb.innerHTML='<div class="subs-empty">No se pudo calcular el chequeo de suscripciones.</div>'; } }
   if(!renderPresAna._bound){ renderPresAna._bound=true; var host=document.getElementById('view-presupuesto');
     if(host){
       host.addEventListener('click',function(e){
+        var sb=e.target.closest('[data-subresolve]'); if(sb){ e.stopPropagation(); _subsResueltas()[sb.getAttribute('data-subresolve')]=true; if(typeof scheduleSave==='function')scheduleSave(); renderSuscripciones(); return; }
+        var so=e.target.closest('[data-subreopen]'); if(so){ e.stopPropagation(); delete _subsResueltas()[so.getAttribute('data-subreopen')]; if(typeof scheduleSave==='function')scheduleSave(); renderSuscripciones(); return; }
+        var stg=e.target.closest('[data-subshowres]'); if(stg){ e.stopPropagation(); window._subsShowRes=!window._subsShowRes; renderSuscripciones(); return; }
         var bh=e.target.closest('#presAna [data-anablk]'); if(bh){ var blk=document.getElementById(bh.getAttribute('data-anablk')); if(blk)blk.classList.toggle('open'); return; }
         var gr=e.target.closest('#presAna [data-anagrp]'); if(gr){ var key=gr.getAttribute('data-anagrp'); window._anaOpen=window._anaOpen||{}; window._anaOpen[key]=!window._anaOpen[key]; var grp=gr.closest('.grp'); if(grp)grp.classList.toggle('open'); return; }
       });
@@ -722,6 +726,36 @@ function renderInflacionPersonal(){
     +probes
     +'<div class="infla-hyp">⚠️ El seguimiento usa el <b>presupuesto</b> (lo que planificas), no el gasto real, para tener años completos y comparables. Descartado como señal de precio: el ticket de Supermercado/Compras (manda el tamaño del carrito). Cuantos más años acumules, más fina la serie. Orientativo, no es asesoramiento.</div>';
   var hd=document.getElementById('inflaHeadD'); if(hd){ hd.textContent=pctS(GTd); hd.className='blk-amount '+(GTd>0.5?'neg':GTd<-0.5?'pos':''); }
+}
+/* ===== P2 · Chequeo de suscripciones (avisos que Carlos marca como pagadas/resueltas) ===== */
+var _SUBS_RX=/Software|Deporte|Streaming|Suscrip/i, _SUBS_NAMES=['Amazon Prime','Audible','YouTube Premium','Netflix','Spotify','HBO Max','Disney+','Movistar Plus'], _SUBS_EXCL=['Gimnasio'];
+function _subsResueltas(){ DB.config=DB.config||{}; DB.config.subsResueltas=DB.config.subsResueltas||{}; return DB.config.subsResueltas; }
+function susAlertas(){
+  var pr=DB.presupuesto||[], movs=DB.movimientos||[]; var yr=new Date().getFullYear(); var today=new Date(); today.setHours(0,0,0,0); var out=[];
+  pr.filter(function(p){ var c=catById(p.categoriaId); return c&&c.tipo==='gasto'&&(pAnio(p))===yr&&num(p.importe)>0 && _SUBS_EXCL.indexOf(c.nombre)<0 && (_SUBS_RX.test(c.grupo)||_SUBS_NAMES.indexOf(c.nombre)>=0); }).forEach(function(p){
+    var c=catById(p.categoriaId); var mv=movs.filter(function(m){return m.categoriaId===c.id;}).sort(function(a,b){return (''+a.fecha).localeCompare(''+b.fecha);});
+    var last=mv.length?mv[mv.length-1].fecha:null;
+    var mesesSin=last?Math.round((today-new Date(last+'T00:00:00'))/2629800000):999;
+    var anual=(typeof mensual==='function'?mensual(p):num(p.importe))*12;
+    var nd=(typeof proxRenov==='function')?proxRenov(p):null; var dias=nd?Math.round((nd-today)/86400000):null;
+    if(dias!=null&&dias>=0&&dias<=30){ var iso=nd.getFullYear()+'-'+String(nd.getMonth()+1).padStart(2,'0')+'-'+String(nd.getDate()).padStart(2,'0'); out.push({key:c.id+'|prox|'+iso,tipo:'prox',ic:'🔔',cls:'a',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'pagada',txt:'Renueva en '+dias+' día'+(dias===1?'':'s')+' ('+iso.split('-').reverse().join('/')+')'}); }
+    if(mesesSin>=13){ var ftxt=last?('Sin cargo desde hace '+mesesSin+' meses — la presupuestas pero no se cobra. ¿Sigue activa?'):('Nunca se ha cobrado — la presupuestas pero no aparece ningún cargo. ¿Sigue activa?'); out.push({key:c.id+'|fant',tipo:'fant',ic:'👻',cls:'r',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'resuelta',txt:ftxt}); }
+    else if(anual<=20&&mesesSin>=6){ out.push({key:c.id+'|micro',tipo:'micro',ic:'🔍',cls:'a',nombre:c.nombre,grupo:c.grupo,anual:anual,accion:'resuelta',txt:'Micro-suscripción ('+Math.round(anual)+' €/año), '+mesesSin+' meses sin cargo. Revisa si la usas.'}); }
+  });
+  return out;
+}
+function renderSuscripciones(){
+  var el=document.getElementById('subsBody'); if(!el)return;
+  var res=_subsResueltas(); var all=susAlertas();
+  var pend=all.filter(function(a){return !res[a.key];}), done=all.filter(function(a){return res[a.key];});
+  var showRes=!!window._subsShowRes;
+  var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
+  var head=document.getElementById('subsHeadD'); if(head){ head.textContent=pend.length?String(pend.length):'✓'; head.className='blk-amount '+(pend.length?'neg':'pos'); }
+  if(!all.length){ el.innerHTML='<div class="subs-empty">Sin avisos de suscripciones. Todo en orden.</div>'; return; }
+  var html='<div class="subs-intro">Avisos de tus suscripciones (Software, Deporte y streaming) desde presupuesto + movimientos. Marca <b>Pagada</b> una renovación cuando la abones (reaparecerá el próximo ciclo) o <b>Resuelta</b> una revisión para que no vuelva a salir.</div>';
+  html+= pend.length? pend.map(function(a){ var lbl=a.accion==='pagada'?'✓ Pagada':'✓ Resuelta'; return '<div class="subs-al '+a.cls+'"><span class="ai">'+a.ic+'</span><div class="ab"><b>'+a.nombre+'</b> <span class="ag">'+a.grupo+'</span><div class="at">'+a.txt+'</div></div><div class="ar"><span class="av">'+eur0(a.anual)+'/año</span><button class="subs-btn" data-subresolve="'+a.key+'">'+lbl+'</button></div></div>'; }).join('') : '<div class="subs-ok">✅ No hay avisos pendientes.</div>';
+  if(done.length){ html+='<div class="subs-toggle" data-subshowres="1">'+(showRes?'▾ Ocultar':'▸ Ver')+' resueltas/pagadas ('+done.length+')</div>'; if(showRes)html+=done.map(function(a){ return '<div class="subs-al done"><span class="ai">'+a.ic+'</span><div class="ab"><b>'+a.nombre+'</b> <span class="ag">'+a.grupo+'</span><div class="at">'+a.txt+'</div></div><div class="ar"><button class="subs-btn ghost" data-subreopen="'+a.key+'">Reabrir</button></div></div>'; }).join(''); }
+  el.innerHTML=html;
 }
 function _anaCumpGroups(R,ing,y,per,mf,curY,curMonth){
   return _anaGruposDe(ing).map(function(g){
