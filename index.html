@@ -597,12 +597,31 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-riesgo .rz-cbar .cum{text-align:right;font-size:11px;color:#94a3b8}
 #view-riesgo .rz-iar-t{font-weight:800;font-size:13px;margin:16px 0 8px}
 #view-riesgo .rz-mob .neg{color:var(--red,#dc2626)}
+#view-riesgo .fx-whatfor{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:12px 14px;margin:12px 0 12px;line-height:1.6;font-size:12.5px;color:#334155}
+#view-riesgo .fx-whatfor b.h{display:block;font-size:13.5px;margin-bottom:4px;color:#1f3d6b}
+#view-riesgo .fx-howread{display:flex;gap:10px;flex-wrap:wrap;background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px;font-size:11.5px;line-height:1.5}
+#view-riesgo .fx-howread .box{flex:1;min-width:170px}#view-riesgo .fx-howread b{color:#334155}
+#view-riesgo .fx-scale{display:flex;gap:0;margin:6px 0 2px}#view-riesgo .fx-scale .seg{flex:1;height:7px}
+#view-riesgo .fx-scale .seg.l2{background:#f59e0b}#view-riesgo .fx-scale .seg.l1{background:#fcd34d}#view-riesgo .fx-scale .seg.z{background:#cbd5e1}#view-riesgo .fx-scale .seg.r1{background:#5eead4}#view-riesgo .fx-scale .seg.r2{background:#0d9488}
+#view-riesgo .fx-scale-lbl{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-top:2px}
+#view-riesgo .fx-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#view-riesgo .fx-c{border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff}
+#view-riesgo .fx-h{display:flex;align-items:center;gap:9px}#view-riesgo .fx-h .ic{font-size:19px}#view-riesgo .fx-h .nm{font-size:14px;font-weight:800}#view-riesgo .fx-h .tilt{margin-left:auto;font-weight:800;font-size:15px;color:#94a3b8}#view-riesgo .fx-h .tilt.pos{color:#0d9488}#view-riesgo .fx-h .tilt.neg{color:#d97706}
+#view-riesgo .fx-sub{font-size:11px;font-weight:700;margin:3px 0 8px}#view-riesgo .fx-sub .muted{font-weight:400}
+#view-riesgo .fx-track{position:relative;height:18px;background:#f8fafc;border-radius:6px;margin-bottom:10px}
+#view-riesgo .fx-zero{position:absolute;left:50%;top:-3px;bottom:-3px;width:2px;background:#94a3b8}
+#view-riesgo .fx-fill{position:absolute;top:3px;bottom:3px;border-radius:5px}#view-riesgo .fx-fill.pos{background:#0d9488}#view-riesgo .fx-fill.neg{background:#d97706}
+#view-riesgo .fx-mide{font-size:11.5px;color:#475569;line-height:1.5;margin-bottom:6px}
+#view-riesgo .fx-int{font-size:12.5px;color:#1f2937;line-height:1.55;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-bottom:8px}
+#view-riesgo .fx-raw{font-size:11px;color:var(--muted)}
+#view-riesgo .fx-warn{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:10px 12px;color:#92400e;font-size:12px;margin-top:14px;line-height:1.55}
 @media(max-width:820px){
   #view-riesgo #riesgoKpis{grid-template-columns:1fr 1fr}
   #view-riesgo .rz-c .v{font-size:20px}
   #view-riesgo .rz-desk{display:none}#view-riesgo .rz-mob{display:block}
   #view-riesgo .rz-imet{grid-template-columns:1fr 1fr}
   #view-riesgo .rz-cbar-h,#view-riesgo .rz-cbar{grid-template-columns:40px 1fr 82px 36px}
+  #view-riesgo .fx-grid{grid-template-columns:1fr}#view-riesgo .fx-howread{flex-direction:column}
 }
 #view-analisis #anaCards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
 #view-analisis .ana-k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
