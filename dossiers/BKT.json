@@ -1,5 +1,5 @@
 {
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "ticker": "BKT",
  "empresa": "Bankinter, S.A.",
  "fecha": "2026-07-13",
@@ -76,5 +76,20 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": false
+ },
+ "dividendSafety": {
+  "score": null,
+  "banda": "No aplica (rama financiera)",
+  "aplica": false,
+  "componentes": {},
+  "shareholderYield": null,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "Empresa FINANCIERA (sin EBITDA ni CAPEX industrial): el Dividend Safety Score industrial NO aplica. Pendiente rama financiera (payout total sostenible + generación de capital CET1/Solvencia II)."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }

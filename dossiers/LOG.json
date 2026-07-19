@@ -29,7 +29,7 @@
  "bull": "La diversificación compensa el tabaco, los tipos se estabilizan altos manteniendo el ingreso financiero y el mercado recalifica a PER ~16x: la acción tendería a 45-50 € (+35-47%).",
  "bear": "Tormenta fiscal-monetaria (recorte de tipos + subida fiscal del tabaco en Francia) → beneficio −20% → recorte del dividendo ~30% → des-rating: 22-25 € (−26 a −35%).",
  "resumen": "Logista es un cuasi-monopolio regulado de distribución, de calidad excepcional (Rating AA, moat ancho, ROIC ~31%, balance de caja neta, dividendo ~6% cubierto por la caja libre), que cotiza cerca de su valor razonable tras re-valorizarse con fuerza. Tesis de RENTA defensiva, no de revalorización: MANTENER para el inversor posicionado; ESPERAR entrada por debajo de 30 €. El punto a vigilar es la sensibilidad del beneficio a los tipos del BCE con un pay-out del ~98%.",
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -75,5 +75,30 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": true
+ },
+ "dividendSafety": {
+  "score": 54,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 16,
+   "C2": 4,
+   "C3": 20,
+   "C4": 5,
+   "C5": 9
+  },
+  "shareholderYield": 7.67,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.60x / FCL 2.02x (3a OE 1.18x) → 16/35",
+   "C2 payout BN ord.: 98% (3a 83%) → 4/15",
+   "C3 balance: DN/EBITDA 0.24x, cob.int 36.4x → 20/20",
+   "C4 trayectoria: 1 recorte(s) en 10a (reciente) · DPA creciente → 5/15",
+   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY → 9/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }

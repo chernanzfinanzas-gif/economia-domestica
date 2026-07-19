@@ -30,7 +30,7 @@
  "bull": "Regulación favorable (nueva tasa de redes del 6,58%) + bajada de tipos del BCE + cumplimiento del Plan 2026-28 elevan el EBITDA y revalorizan los activos regulados, con el dividendo creciendo sobre un beneficio normalizado. Precio ~45 € (+22%), probabilidad ~25%.",
  "bear": "De-rating del múltiplo (el P/BV récord de 4,48x revierte a su media histórica), agravado por presión regulatoria/fiscal y un nuevo shock de precios. Derivado del Pre-Mortem (§8.2). Precio ~23 € (−38%), probabilidad ~30%. Asimetría desfavorable al precio actual de 37 €.",
  "resumen": "Endesa es una compañía de calidad (Rating A, 69,8/100; spread ROIC−WACC +7,5 pp, apalancamiento bajo ~1,9x y coberturas holgadas) cotizando a un precio exigente: precio objetivo 28,65 € frente a 37,01 €, con un margen de seguridad de −22,6%. El mercado ya paga la calidad —P/BV récord de 4,48x, el más alto del sector—, así que no hay margen a los precios actuales. Decisión: ESPERAR; zona de acumulación por debajo de 30 € y compra con margen por debajo de 25 €. Moat moderado (67,8), anclado en la distribución regulada, y management sólido (66,6) con el matiz del control de Enel (~70%).",
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -74,5 +74,30 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": false
+ },
+ "dividendSafety": {
+  "score": 62,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 22,
+   "C2": 4,
+   "C3": 18,
+   "C4": 3,
+   "C5": 15
+  },
+  "shareholderYield": 4.4,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.43x / FCL 1.59x (3a OE 1.60x) → 22/35",
+   "C2 payout BN ord.: 63% (3a 85%) → 4/15",
+   "C3 balance: DN/EBITDA 1.94x, cob.int 10.1x → 18/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }

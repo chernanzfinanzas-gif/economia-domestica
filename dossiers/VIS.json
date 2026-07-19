@@ -30,7 +30,7 @@
  "bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
  "bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
  "resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €).",
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -76,5 +76,30 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": false
+ },
+ "dividendSafety": {
+  "score": 90,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 27,
+   "C2": 13,
+   "C3": 20,
+   "C4": 15,
+   "C5": 15
+  },
+  "shareholderYield": null,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 2.15x / FCL 2.25x (3a OE 1.62x) → 27/35",
+   "C2 payout BN ord.: 32% (3a 44%) → 13/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }

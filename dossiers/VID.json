@@ -1,5 +1,5 @@
 {
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
  "fecha": "2026-07-13",
@@ -77,5 +77,30 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": false
+ },
+ "dividendSafety": {
+  "score": 84,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 19,
+   "C4": 9,
+   "C5": 6
+  },
+  "shareholderYield": 1.66,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 4.98x / FCL 4.00x (3a OE 2.58x) → 35/35",
+   "C2 payout BN ord.: 24% (3a 35%) → 15/15",
+   "C3 balance: DN/EBITDA 0.37x, cob.int 9.9x → 19/20",
+   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }

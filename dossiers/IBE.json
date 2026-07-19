@@ -31,7 +31,7 @@
  "bull": "Con bajada de tipos en Europa el descuento de valoración se comprime: el plan €58.000M genera EBITDA creciente en activos regulados y el múltiplo EV/EBITDA se expande de ~9x a ~11x → precio implícito €29–35.",
  "bear": "España recorta la TIR regulada y el BCE mantiene tipos altos: cae el valor del RAB, sube el gasto financiero y aparece riesgo de ampliación dilutiva → precio implícito €11–14.",
  "resumen": "Utility regulada global, moat 77,2/100, Score 67,6 / Rating A. Cotiza a €20,32 con descuento frente a su valor en un escenario de tipos normalizados; los tres miedos del mercado (dilución, tipos, regulación) son monitoreables y no letales. COMPRAR/ACUMULAR en €18–21, PO 12–18m €24–29, stop €14,50.",
- "schemaVersion": 4,
+ "schemaVersion": 5,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -75,5 +75,30 @@
   ],
   "calculadoEl": "2026-07-15",
   "matizada": false
+ },
+ "dividendSafety": {
+  "score": 89,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 12,
+   "C4": 15,
+   "C5": 12
+  },
+  "shareholderYield": -0.66,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 4.99x / FCL 2.79x (3a OE 6.10x) → 35/35",
+   "C2 payout BN ord.: 20% (3a 20%) → 15/15",
+   "C3 balance parcial → 12/20",
+   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+   "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
  }
 }
