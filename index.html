@@ -1600,6 +1600,39 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-panel .pau-row .pc{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;font-size:11.5px;color:var(--muted)}
 #view-panel .pau-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
 @media(max-width:760px){#view-panel .pau-kpis{grid-template-columns:1fr 1fr}}
+/* P8 · Tablero "Cómo voy" */
+#view-comovoy .cv-hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px 20px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px}
+#view-comovoy .cv-score{text-align:center;min-width:110px}
+#view-comovoy .cv-score .em{font-size:30px}#view-comovoy .cv-score .n{font-size:44px;font-weight:800;line-height:1}#view-comovoy .cv-score .u{font-size:11px;color:var(--muted)}
+#view-comovoy .cv-pillars{flex:1;min-width:260px}
+#view-comovoy .cv-pil{margin:5px 0}#view-comovoy .cv-pil .t{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}#view-comovoy .cv-pil .t .muted{color:var(--muted)}
+#view-comovoy .cv-pbar{height:7px;background:#e2e8f0;border-radius:4px;overflow:hidden}#view-comovoy .cv-pbar i{display:block;height:100%}
+#view-comovoy .cv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+#view-comovoy .cv-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08);cursor:pointer;transition:transform .1s,box-shadow .1s}
+#view-comovoy .cv-card:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.1)}
+#view-comovoy .cv-card .h{font-weight:800;font-size:13px;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+#view-comovoy .cv-card .h .go{margin-left:auto;font-size:11px;color:var(--brand);font-weight:600}
+#view-comovoy .cv-row{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;padding:3px 0;border-top:1px solid #f4f6fb}
+#view-comovoy .cv-row:first-of-type{border-top:0}#view-comovoy .cv-row .l{color:var(--muted)}#view-comovoy .cv-row .v{font-weight:800}
+#view-comovoy .cv-row .v.g{color:var(--green)}#view-comovoy .cv-row .v.r{color:var(--red)}#view-comovoy .cv-row .v.a{color:var(--amber)}
+#view-comovoy .cv-big{font-size:24px;font-weight:800;margin:2px 0}
+@media(max-width:760px){#view-comovoy .cv-cards{grid-template-columns:1fr}}
+/* P5 · Chowder + DGR */
+#view-prevision #evoChowder .chow{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px;overflow:hidden}
+#view-prevision #evoChowder summary{cursor:pointer;padding:12px 15px;font-weight:800;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+#view-prevision #evoChowder summary::-webkit-details-marker{display:none}
+#view-prevision #evoChowder summary .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-prevision #evoChowder details[open] summary .arw{transform:rotate(90deg)}
+#view-prevision #evoChowder summary .bsum{margin-left:auto;font-size:12px;color:var(--muted);font-weight:600}
+#view-prevision #evoChowder .chow-b{border-top:1px solid #f1f5f9;padding:12px 15px}
+#view-prevision #evoChowder .chow-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.55;color:#334155;margin-bottom:10px}
+#view-prevision #evoChowder table{width:100%;border-collapse:collapse;font-size:13px}
+#view-prevision #evoChowder th{text-align:right;font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:700;padding:6px 8px;border-bottom:2px solid var(--line)}#view-prevision #evoChowder th:first-child{text-align:left}
+#view-prevision #evoChowder td{padding:6px 8px;border-bottom:1px solid #f1f5f9}#view-prevision #evoChowder td.num{text-align:right;font-variant-numeric:tabular-nums}#view-prevision #evoChowder td.nm{font-weight:600}
+#view-prevision #evoChowder td.nm .tk{color:var(--brand);cursor:pointer}
+#view-prevision #evoChowder .chpill{display:inline-block;min-width:42px;text-align:center;font-weight:800;border-radius:20px;padding:1px 8px;font-size:12px}
+#view-prevision #evoChowder .chpill.g{background:#dcfce7;color:#166534}#view-prevision #evoChowder .chpill.a{background:#fef3c7;color:#92400e}#view-prevision #evoChowder .chpill.r{background:#fee2e2;color:#991b1b}
+#view-prevision #evoChowder .up{color:var(--green)}#view-prevision #evoChowder .dn{color:var(--red)}
+#view-prevision #evoChowder .chow-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
 #view-presupuesto .subs-al .ai{font-size:18px}#view-presupuesto .subs-al .ab{flex:1;min-width:0}#view-presupuesto .subs-al .ab b{font-size:13px}#view-presupuesto .subs-al .ag{font-size:10px;color:var(--muted)}#view-presupuesto .subs-al .at{font-size:11.5px;color:#475569;line-height:1.4;margin-top:1px}
 #view-presupuesto .subs-al .ar{display:flex;flex-direction:column;align-items:flex-end;gap:4px}#view-presupuesto .subs-al .av{font-weight:800;font-size:12px}
 #view-presupuesto .subs-btn{border:1px solid #16a34a;background:#16a34a;color:#fff;border-radius:8px;padding:5px 10px;font-size:11.5px;font-weight:700;cursor:pointer;white-space:nowrap}
@@ -2774,6 +2807,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="panelDash"></div>
   </section>
 
+  <section class="view" id="view-comovoy">
+    <h2>🧭 Cómo voy</h2>
+    <div class="sub" style="margin-bottom:12px">Tu foto de conjunto en una pantalla: <b>ahorro</b>, <b>patrimonio</b> e <b>inversión</b>, con tu <b>score de salud financiera</b>. Pulsa cualquier tarjeta para ir a su sección.</div>
+    <div id="comovoyBody"></div>
+  </section>
+
   <!-- MOVIMIENTOS -->
   <!-- EL ORIGEN (recreación de la pestaña INI) -->
   <section class="view" id="view-origen">
@@ -3344,6 +3383,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-prevision">
+    <div id="evoChowder"></div>
     <div id="evoApp"></div>
   </section>
 
