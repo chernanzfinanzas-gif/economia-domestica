@@ -141,6 +141,41 @@ function renderPanelAhorro(){
     +(objDef?'<div class="pah-note">Estás usando un objetivo por defecto del <b>20%</b>. Define tu <b>ahorro objetivo</b> anual en Presupuesto y la racha se calculará con tu meta real.</div>':'')
     +'</div>';
 }
+/* ===== H1 · Autonomía de ingresos (Panel) ===== */
+function renderPanelAutonomia(){
+  var el=document.getElementById('panelAutonomia'); if(!el)return;
+  var movs=DB.movimientos||[]; var cm={}; (DB.categorias||[]).forEach(function(c){cm[c.id]=c;});
+  var last=null; movs.forEach(function(m){ if(m.fecha&&(!last||m.fecha>last))last=m.fecha; });
+  if(!last){ el.innerHTML=''; return; }
+  var start=new Date(last+'T00:00:00'); start.setMonth(start.getMonth()-11); start.setDate(1);
+  var startISO=start.getFullYear()+'-'+String(start.getMonth()+1).padStart(2,'0');
+  var PAS=/dividend|interes|interés|alquiler|renta|cup[oó]n/i;
+  var src={}, totIng=0, pas=0;
+  movs.forEach(function(m){ if(m.tipo!=='ingreso'||!m.fecha)return; if(m.fecha.slice(0,7)<startISO)return; var c=cm[m.categoriaId]; var nm=c?c.nombre:'(sin)'; var v=Math.abs(num(m.importe)); src[nm]=src[nm]||{v:0,pas:PAS.test(nm)}; src[nm].v+=v; totIng+=v; if(PAS.test(nm))pas+=v; });
+  if(totIng<=0){ el.innerHTML=''; return; }
+  var srcArr=Object.keys(src).map(function(k){return {k:k,v:src[k].v,pas:src[k].pas,pct:src[k].v/totIng*100};}).sort(function(a,b){return b.v-a.v;});
+  var pasPct=pas/totIng*100, topPct=srcArr[0].pct, topN=srcArr[0].k;
+  var FE=(typeof fondoEmergencia==='function')?fondoEmergencia():null; var meses=(FE&&FE.meses!=null)?FE.meses:null;
+  var gastoAnual=(FE&&FE.gastoMes)?FE.gastoMes*12:0; var covPas=gastoAnual>0?pas/gastoAnual*100:0;
+  var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
+  var mesCls=meses==null?'':(meses<3?'r':(meses<6?'a':'g'));
+  var depCls=topPct>=60?'r':(topPct>=40?'a':'g');
+  var k=function(l,v,vcls,p){return '<div class="pau-k"><div class="l">'+l+'</div><div class="v '+(vcls||'')+'">'+v+'</div>'+(p?'<div class="p">'+p+'</div>':'')+'</div>';};
+  var kpis='<div class="pau-kpis">'
+    +k('Ingreso pasivo',pasPct.toFixed(0)+'%',pasPct>=25?'g':'',eur0(pas)+'/año (dividendos, intereses…)')
+    +k('Dependencia',topPct.toFixed(0)+'%',depCls,'de tu mayor fuente ('+topN+')')
+    +k('Meses de colchón',meses==null?'—':meses.toFixed(1),mesCls,'efectivo ÷ gasto mensual')
+    +k('Cobertura pasiva',covPas.toFixed(0)+'%',covPas>=100?'g':'',eur0(pas)+' de '+eur0(gastoAnual)+' de gasto')
+    +'</div>';
+  var maxV=srcArr[0].v||1;
+  var rows=srcArr.slice(0,7).map(function(s){ var w=(s.v/maxV*100).toFixed(0); var col=s.pas?'linear-gradient(90deg,#16a34a,#22c55e)':'linear-gradient(90deg,#4f46e5,#6366f1)'; return '<div class="pau-row"><div class="nm">'+s.k+'<span class="tag '+(s.pas?'p':'a')+'">'+(s.pas?'pasivo':'activo')+'</span></div><div class="pau-bar"><i style="width:'+w+'%;background:'+col+'"></i></div><div class="pc">'+s.pct.toFixed(0)+'% · '+eur0(s.v)+'</div></div>'; }).join('');
+  el.innerHTML='<div class="pau"><div class="pau-h">🧭 Autonomía de ingresos</div>'
+    +'<div class="pau-sub">Últimos 12 meses. De dónde viene tu dinero, cuánto dependes de una sola fuente y cuánto aguantarías sin ingresos activos.</div>'
+    +kpis
+    +'<div class="pau-src">'+rows+'</div>'
+    +'<div class="pau-note">Cuanto <b>mayor la dependencia</b> de una fuente (p. ej. dos nóminas), más frágil tu autonomía; cuanto <b>más ingreso pasivo y más meses de colchón</b>, más libre eres para decidir. Tu dividendo ya cubre el '+covPas.toFixed(0)+'% de tu gasto.</div>'
+    +'</div>';
+}
 function renderPanel(){
   const isYear = panelMode==='anio';
   const bm=$('#mModeMes'), ba=$('#mModeAnio'); if(bm)bm.classList.toggle('on',!isYear); if(ba)ba.classList.toggle('on',isYear);
@@ -193,6 +228,7 @@ function renderPanel(){
     +'<div class="k-year">Consumido<br><b>'+fmt(gas)+'</b> de '+fmt(presGasto)+'<br>'+(presGasto>=gas?'<span style="color:var(--green)">quedan '+fmt(presGasto-gas)+'</span>':'<span style="color:var(--red)">excede '+fmt(gas-presGasto)+'</span>')+'</div></div></div>';
   $('#panelCards').innerHTML=kIn+kOut+kSave+kBud;
   if(typeof renderPanelAhorro==='function')renderPanelAhorro();
+  if(typeof renderPanelAutonomia==='function')renderPanelAutonomia();
   const groups={};
   DB.categorias.filter(c=>c.tipo==='gasto').forEach(c=>{
     const p=presFor(c.id,curYear); const pres=(p?mensual(p):0)*mult;
