@@ -387,6 +387,44 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
   if(!el._rentaBlkBound){ el._rentaBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],input,select,a'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-rentablk'); if(k){window._rentaBlk=window._rentaBlk||{};window._rentaBlk[k]=b.classList.contains('open');} } }); }
 }
 
+// === D6 · Independencia financiera: Coast FIRE (inversión y dividendo), colchón, tasa de ahorro ===
+function renderIndependencia(){
+  var el=document.getElementById('indepBody'); if(!el)return;
+  if(typeof proyDefaults==='function')proyDefaults();
+  var c=(DB.config&&DB.config.proyeccion)||{}; var nowY=new Date().getFullYear();
+  var snaps=(typeof patSnaps==='function')?patSnaps():[]; var last=snaps.length?snapTot(snaps[snaps.length-1]):null;
+  var patrimonio=last?last.total:(num(c.carteraInicial)+num(c.efectivo));
+  var valorCartera=last?last.inv:num(c.carteraInicial);
+  var ingA=0,gasA=0; (DB.presupuesto||[]).forEach(function(p){ if((typeof pAnio==='function'?pAnio(p):p.anio)!==nowY)return; var cat=(DB.categorias||[]).find(function(x){return x.id===p.categoriaId;}); if(!cat)return; var v=(typeof anual==='function'?anual(p):num(p.importe)*12); if(cat.tipo==='gasto')gasA+=v; else if(cat.tipo==='ingreso')ingA+=v; });
+  var gastoAnual=gasA>0?gasA:num(c.gastoMes)*12;
+  var divAnual=0; try{ (invPositions()||[]).forEach(function(p){ if(p.acciones>0.0001){ var v=(DB.valores||{})[(p.ticker||'').toUpperCase()]||{}; divAnual+=p.acciones*num(v.divAccion); } }); }catch(e){}
+  if(!(divAnual>0))divAnual=num(c.dividendoBruto);
+  if(gastoAnual<=0){ el.innerHTML='<div class="empty">Necesito tu gasto anual (Presupuesto) y la Proyección para calcular la independencia.</div>'; return; }
+  var rpd=valorCartera>0?divAnual/valorCartera:0.04;
+  var infla=num(c.fireInfla)||num(c.inflacionNomina)||0.025;
+  var rReal=(1+num(c.crecCartera))/(1+infla)-1;
+  var edadObj=num(c.edadActual)+(num(c.anioTrasJub)-num(c.anioBase));
+  var n=Math.max(0,num(c.anioTrasJub)-nowY); var growth=Math.pow(1+rReal,n);
+  var eur=function(v){ return fmt(v); };
+  function fireOf(numF){ var coast=growth>0?numF/growth:numF; var prog=coast>0?Math.min(100,patrimonio/coast*100):0; var ya=patrimonio>=coast; return {num:numF,coast:coast,prog:prog,ya:ya,falta:Math.max(0,coast-patrimonio)}; }
+  var FI=fireOf(gastoAnual*25), FD=fireOf(rpd>0?gastoAnual/rpd:gastoAnual*25);
+  var covDiv=divAnual/gastoAnual*100, anosColchon=patrimonio/gastoAnual, tasaAhorro=ingA>0?((ingA-gasA)/ingA*100):null;
+  var panel=function(cls,ic,nm,sub,F,extra){ return '<div class="ind-fp '+cls+'"><div class="ind-fph"><span class="ic">'+ic+'</span><div class="ind-nm"><b>'+nm+'</b><span>'+sub+'</span></div><div class="ind-pct'+(F.ya?' ya':'')+'">'+(F.ya?'✅':F.prog.toFixed(0)+'%')+'</div></div>'
+    +'<div class="ind-bar"><i style="width:'+F.prog+'%"></i></div>'
+    +'<div class="ind-row"><span>Objetivo (número FIRE)</span><b>'+eur(F.num)+'</b></div>'
+    +'<div class="ind-row"><span>Coast FIRE (necesario hoy)</span><b>'+eur(F.coast)+'</b></div>'
+    +'<div class="ind-row"><span>'+(F.ya?'Ya lo alcanzas':'Te falta')+'</span><b class="'+(F.ya?'pos':'neg')+'">'+(F.ya?'✔':eur(F.falta))+'</b></div>'+(extra||'')+'</div>'; };
+  var covExtra='<div class="ind-cov"><b>Cobertura hoy:</b> tu dividendo ('+eur(divAnual)+'/año) ya cubre el <b>'+covDiv.toFixed(0)+'%</b> de tu gasto.<div class="cbar"><i style="width:'+Math.min(100,covDiv)+'%"></i></div></div>';
+  el.innerHTML='<div class="ind-intro"><b class="h">🏖️ ¿Qué es el Coast FIRE?</b>El punto en el que ya tienes <b>suficiente patrimonio invertido</b> para que, <b>sin aportar más</b> y dejándolo crecer solo, llegue a tu <b>número FIRE</b> a la edad objetivo. A partir de ahí solo cubres gastos corrientes: el interés compuesto hace el resto.</div>'
+    +'<div class="ind-fires">'
+    +panel('inv','💰','FIRE por Inversión','vendes un 4% al año (regla del 4%)',FI,'')
+    +panel('div','🪙','FIRE por Dividendo','vives del dividendo, sin vender (RPD '+(rpd*100).toFixed(1)+'%)',FD,covExtra)
+    +'</div>'
+    +'<div class="ind-kpis"><div class="k"><div class="l">Años de colchón</div><div class="v">'+anosColchon.toFixed(1)+' años</div><div class="p">patrimonio ÷ gasto anual ('+eur(gastoAnual)+')</div></div>'
+    +'<div class="k"><div class="l">Tasa de ahorro</div><div class="v">'+(tasaAhorro!=null?tasaAhorro.toFixed(0)+'%':'—')+'</div><div class="p">de tus ingresos netos</div></div>'
+    +'<div class="k"><div class="l">Patrimonio actual</div><div class="v">'+eur(patrimonio)+'</div><div class="p">efectivo + invertido</div></div></div>'
+    +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (cartera '+(num(c.crecCartera)*100).toFixed(0)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; ajústalo en Proyección. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
+}
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
 // Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su
 // crecimiento estimado (CAGR de la trayectoria del plan; fallback histórico; fallback 5%) y gasto con
