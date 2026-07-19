@@ -89,7 +89,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel','renderBuzonPanel'], presupuesto:['renderPres'],
+  panel:['renderPanel','renderBuzonPanel'], comovoy:['renderComoVoy'], presupuesto:['renderPres'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'],
@@ -204,7 +204,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['origen','El Origen'],['panel','Panel'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
+  control:[['origen','El Origen'],['panel','Panel'],['comovoy','Cómo voy'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['radardiv','Radar Dividendo'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra']],
@@ -598,6 +598,7 @@ init();
     if(t=e.target.closest('[data-pressec]')){ e.stopPropagation(); if(typeof openSecDlg==='function')openSecDlg(t.getAttribute('data-pressec')); return; }
     if(t=e.target.closest('[data-presedit]')){ if(typeof openCatDlg==='function')openCatDlg(t.getAttribute('data-presedit')); return; }
     if(t=e.target.closest('[data-presesc]')){ var a=t.getAttribute('data-presesc').split('|'); var cc=catById(a[0]); if(cc){cc.esencial=(a[1]==='1');} renderPres(); scheduleSave(); return; }
+    if(t=e.target.closest('[data-presinfla]')){ var a=t.getAttribute('data-presinfla').split('|'); var cc=catById(a[0]); if(cc){cc.seguirInfla=(a[1]==='1');} renderPres(); scheduleSave(); return; }
     if(t=e.target.closest('[data-presp]')){ if(e.target.closest('input,button,select'))return; var id=t.getAttribute('data-presp'); window._presOpen=window._presOpen||{}; window._presOpen['p:'+id]=!window._presOpen['p:'+id]; renderPres(); return; }
     if(t=e.target.closest('[data-presi]')){ window._presOpen=window._presOpen||{}; window._presOpen.ing=(window._presOpen.ing===false); renderPres(); return; }
     if(t=e.target.closest('[data-presg]')){ if(e.target.closest('input,button,select'))return; var g=t.getAttribute('data-presg'); window._presOpen=window._presOpen||{}; window._presOpen[g]=!window._presOpen[g]; renderPres(); return; }

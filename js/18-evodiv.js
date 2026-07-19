@@ -292,6 +292,47 @@ var EVO_GRUPOS = [
   {k:'sindiv',   lbl:'Sin dividendo'}
 ];
 
+/* ===== P5 · Chowder + DGR 1/3/5/10 + racha (calidad del dividendo de la cartera) ===== */
+function _chowDGR(t,yEnd,n){ var a=(typeof evoDpaBruto==='function')?evoDpaBruto(t,yEnd):null, b=(typeof evoDpaBruto==='function')?evoDpaBruto(t,yEnd-n):null; if(a==null||b==null||b<=0||a<=0)return null; return (Math.pow(a/b,1/n)-1)*100; }
+function renderChowder(){
+  var el=document.getElementById('evoChowder'); if(!el)return;
+  if(!_evoData){ el.innerHTML=''; return; }
+  var held=(typeof _evoHeldSet==='function')?_evoHeldSet():null;
+  if(!held||!held.size){ el.innerHTML=''; return; }
+  var nowY=new Date().getFullYear();
+  var pc=function(v,dec){ return v==null?'—':((v>=0?'+':'')+v.toFixed(dec==null?1:dec)+'%'); };
+  var rows=[];
+  held.forEach(function(t){ t=(t||'').toUpperCase();
+    var yBase=null; for(var y=nowY;y>=nowY-2;y--){ if((typeof evoDpaBruto==='function'?evoDpaBruto(t,y):null)>0){yBase=y;break;} }
+    if(yBase==null)return;
+    var precio=(typeof _evoPrecio==='function')?_evoPrecio(t):0; var dpa=evoDpaBruto(t,yBase);
+    var yld=(precio>0&&dpa>0)?(dpa/precio*100):null;
+    var d1=_chowDGR(t,yBase,1), d3=_chowDGR(t,yBase,3), d5=_chowDGR(t,yBase,5), d10=_chowDGR(t,yBase,10);
+    var a=(typeof evoAnioM==='function')?evoAnioM(t,yBase):null; var racha=(a&&a.racha!=null)?num(a.racha):null;
+    var chow=(yld!=null&&d5!=null)?(yld+d5):null;
+    var nm=((typeof evoEmpresaM==='function'?evoEmpresaM(t):null)||{}).nombre||t;
+    rows.push({t:t,nm:nm,yld:yld,d1:d1,d3:d3,d5:d5,d10:d10,racha:racha,chow:chow,yBase:yBase});
+  });
+  if(!rows.length){ el.innerHTML=''; return; }
+  rows.sort(function(a,b){ return (b.chow==null?-999:b.chow)-(a.chow==null?-999:a.chow); });
+  var chCls=function(v,yld){ if(v==null)return ''; var umbral=(yld!=null&&yld<3)?15:12; return v>=umbral?'g':(v>=umbral-4?'a':'r'); };
+  var body=rows.map(function(r){
+    return '<tr><td class="nm"><span class="tk" data-ficha="'+r.t+'">'+r.t+'</span> <span class="muted" style="font-size:10px">'+r.nm.slice(0,22)+'</span></td>'
+      +'<td class="num">'+(r.yld!=null?r.yld.toFixed(1)+'%':'—')+'</td>'
+      +'<td class="num '+(r.d1>=0?'up':r.d1<0?'dn':'')+'">'+pc(r.d1)+'</td>'
+      +'<td class="num '+(r.d3>=0?'up':r.d3<0?'dn':'')+'">'+pc(r.d3)+'</td>'
+      +'<td class="num '+(r.d5>=0?'up':r.d5<0?'dn':'')+'">'+pc(r.d5)+'</td>'
+      +'<td class="num '+(r.d10>=0?'up':r.d10<0?'dn':'')+'">'+pc(r.d10)+'</td>'
+      +'<td class="num">'+(r.racha!=null?r.racha+' añ'+(r.racha===1?'o':'os'):'—')+'</td>'
+      +'<td class="num"><span class="chpill '+chCls(r.chow,r.yld)+'">'+(r.chow!=null?r.chow.toFixed(0):'—')+'</span></td></tr>';
+  }).join('');
+  el.innerHTML='<details class="chow"><summary><span class="arw">▶</span>🏅 Calidad del dividendo · Chowder + DGR<span class="bsum">'+rows.length+' posiciones · ordenadas por Chowder</span></summary>'
+    +'<div class="chow-b">'
+    +'<div class="chow-intro">El <b>número Chowder</b> = RPD actual + crecimiento del dividendo a 5 años (DGR5). Es un atajo del <b>retorno total esperado</b> de una acción de dividendo: se considera bueno si <b>≥12</b> (o ≥15 si la RPD es baja, &lt;3%). El <b>DGR</b> a 1/3/5/10 años muestra si el crecimiento acelera o se frena, y la <b>racha</b> son los años seguidos subiendo el dividendo.</div>'
+    +'<table><thead><tr><th>Empresa</th><th>RPD</th><th>DGR 1a</th><th>DGR 3a</th><th>DGR 5a</th><th>DGR 10a</th><th>Racha</th><th>Chowder</th></tr></thead><tbody>'+body+'</tbody></table>'
+    +'<div class="chow-note">RPD = dividendo bruto del último año con dato ÷ cotización. DGR = crecimiento anualizado (CAGR) del dividendo bruto por acción. Datos de tu <code>dividendos.json</code>. Orientativo.</div>'
+    +'</div></details>';
+}
 function renderEvoDiv(){
   var sec=document.getElementById('view-prevision'); if(!sec) return;
   var host=document.getElementById('evoApp');
@@ -300,6 +341,7 @@ function renderEvoDiv(){
 
   if(!_evoData){ host.innerHTML='<div class="muted" style="padding:10px">Cargando dividendos.json…</div>'; _evoCargar().then(renderEvoDiv); return; }
   _evoMigrar();   /* Opción B: registra el Excel en la app una sola vez; luego se trabaja aquí. */
+  try{ if(typeof renderChowder==='function')renderChowder(); }catch(e){}
   var empresas=(_evoData.empresas||[]).slice();
   /* Uni\u00f3n con Universo: cualquier empresa de la Matriz a\u00fan no en dividendos.json aparece como Pte. Revisi\u00f3n. */
   (function(){ var _seen={}; empresas.forEach(function(e){ _seen[(e.ticker||'').toUpperCase()]=1; }); var _uni=DB.universo||{}; Object.keys(_uni).forEach(function(t){ t=(t||'').toUpperCase(); if(!t||_seen[t])return; _seen[t]=1; empresas.push({ticker:t,nombre:(_uni[t]||{}).nombre||t,clasificacion:(_uni[t]||{}).arquetipo||'',paga:false,anios:{},nota:'',origenUniverso:true}); }); var _dd=DB.divData||{}; Object.keys(_dd).forEach(function(t){ t=(t||'').toUpperCase(); if(!t||_seen[t])return; _seen[t]=1; empresas.push({ticker:t,nombre:(_dd[t]||{}).nombre||t,clasificacion:'',paga:!!(_dd[t]||{}).paga,anios:{}}); }); })();
