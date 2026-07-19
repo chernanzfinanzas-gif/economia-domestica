@@ -236,10 +236,47 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
   const ydesk=`<div class="ptable"><table><thead>${yhead}</thead><tbody>${yrows}${totRow}</tbody></table></div>`;
   const ymob=porY.map(r=>{ const ef=r.aportacion-r.dividendos; return `<div class="lcard"><div class="lc-h"><div class="tk">${r.anio}</div><div class="ty ${r.crecValor>=0?'g':'r'}">${sg(r.crecValor)}<span>crec. valor</span></div></div><div class="lg"><div class="m"><span>Efectivo nuevo</span><b>${sg(ef)}</b></div><div class="m"><span>Dividendo</span><b class="pos">${sg(r.dividendos)}</b></div><div class="m"><span>Mercado</span><b class="${r.revaloriz>=0?'pos':'neg'}">${sg(r.revaloriz)}</b></div><div class="m"><span>Retorno</span><b class="${r.retorno>=0?'pos':'neg'}">${sg(r.retorno)}</b></div></div></div>`; }).join('');
   const yearBlk=`<div class="atrib-note" style="margin-top:0;margin-bottom:12px">Efectivo (dinero nuevo) + Dividendo (reinvertido) + Mercado = crecimiento del valor de cada año. La suma de «Crec. valor» reconstruye el valor actual de tu cartera.</div><div class="pos-desk">${ydesk}</div><div class="pos-mob">${ymob}</div>`;
-  window._atribBlk=window._atribBlk||{cascada:true,anual:false};
+  // === C5 · Contribución al retorno por posición ===
+  window._c5Per=window._c5Per||'todo';
+  const _c5L={todo:'Desde inicio',ytd:'Año (YTD)','1a':'1 año','3a':'3 años'};
+  const pv0=x=>(x*100).toFixed(0)+'%';
+  const RE=(typeof rentabilidadEmpresas==='function')?rentabilidadEmpresas(renderAtribucion):null;
+  let contribInner, contribSum='—';
+  const _c5seg='<div class="c5-seg">'+Object.keys(_c5L).map(k=>`<button data-c5per="${k}" class="${k===window._c5Per?'on':''}">${_c5L[k]}</button>`).join('')+'</div>';
+  if(!RE||RE.empty){ contribInner=_c5seg+'<div class="atrib-note">Sin posiciones en cartera.</div>'; }
+  else if(RE.loading){ contribInner=_c5seg+'<div class="atrib-note">Cargando cotizaciones del repo… (necesita conexión)</div>'; }
+  else {
+    const per=window._c5Per; const totCoste=RE.rows.reduce((s,r)=>s+r.coste,0)||1;
+    const items=RE.rows.map(r=>{ let ret,eur=null; if(per==='todo'){ ret=r.rentTot; eur=r.pl+r.divCob; } else { ret=(per==='ytd'?r.trYTD:(per==='1a'?r.tr1A:r.tr3A)); }
+      const pp=(per==='todo')?((r.pl+r.divCob)/totCoste*100):(ret==null?null:r.peso*ret*100);
+      return {t:r.t,peso:r.peso,ret,pp,eur}; });
+    const V=items.filter(x=>x.pp!=null).sort((a,b)=>b.pp-a.pp);
+    if(!V.length){ contribInner=_c5seg+'<div class="atrib-note">Ese periodo necesita las cotizaciones del repo (sin conexión ahora). Prueba con «Desde inicio».</div>'; }
+    else {
+      contribSum=V[0].t+' lidera · '+RE.rows.length+' posiciones';
+      const totPP=V.reduce((s,x)=>s+x.pp,0);
+      const maxAbs=Math.max.apply(null,V.map(x=>Math.abs(x.pp)))||1;
+      const top=V.slice(0,3), bot=V.slice(-3).reverse();
+      const spp=x=>(x>=0?'+':'')+x.toFixed(1)+' pp';
+      const detail=x=>(per==='todo')?sg(x.eur):(((x.ret>=0?'+':'')+(x.ret*100).toFixed(1)+'% × '+pv0(x.peso)));
+      const chip=(x,cls)=>`<div class="c5-chip ${cls}"><b class="tk" data-ficha="${x.t}">${x.t}</b><span class="v ${x.pp>=0?'pos':'neg'}">${spp(x.pp)}</span><span class="e">${detail(x)}</span></div>`;
+      const row=x=>{ const w=(Math.abs(x.pp)/maxAbs*50).toFixed(1); const p=x.pp>=0; return `<div class="c5-row"><div class="c5-tk" data-ficha="${x.t}">${x.t}</div><div class="c5-track"><div class="c5-zero"></div>${p?`<div class="c5-fill pos" style="left:50%;width:${w}%"></div>`:`<div class="c5-fill neg" style="right:50%;width:${w}%"></div>`}</div><div class="c5-v ${p?'pos':'neg'}">${spp(x.pp)}</div><div class="c5-e">${detail(x)}</div></div>`; };
+      const totLine=(per==='todo')
+        ? `Retorno total de la cartera (con dividendos): <b class="pos">${(totPP>=0?'+':'')+totPP.toFixed(1)}%</b>. Cada empresa aporta su parte; las contribuciones suman ese total.`
+        : `Rentabilidad de la cartera en el periodo (aprox., suma de contribuciones peso×TR): <b class="${totPP>=0?'pos':'neg'}">${(totPP>=0?'+':'')+totPP.toFixed(1)}%</b>.`;
+      contribInner=_c5seg
+        +`<div class="c5-tot">${totLine}</div>`
+        +`<div class="c5-cols"><div><div class="c5-cap up">▲ Los 3 que más suman</div>${top.map(x=>chip(x,'up')).join('')}</div><div><div class="c5-cap dn">▼ Los 3 que menos aportan</div>${bot.map(x=>chip(x,'dn')).join('')}</div></div>`
+        +`<div class="c5-tlbl">Contribución de cada posición <span class="muted" style="font-weight:400">(en puntos del retorno · ${per==='todo'?'€ de balance':'TR del activo × peso'})</span></div>`
+        +`<div class="c5-head"><span>Empresa</span><span></span><span>Contrib.</span><span>${per==='todo'?'Balance €':'TR × peso'}</span></div>`
+        +V.map(row).join('')
+        +`<div class="atrib-note" style="margin-top:12px">Contribución = ${per==='todo'?'balance de cada posición (valor − coste + dividendos cobrados) sobre el coste total; suman el retorno total':'peso × rentabilidad total-return del activo en el periodo'}. Revela si tu resultado depende de uno o dos nombres (fragilidad) y ayuda a tomar beneficios/rebalancear.</div>`;
+    }
+  }
+  window._atribBlk=window._atribBlk||{cascada:true,contrib:false,anual:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._atribBlk[key]?' open':''; return `<div class="pos-blk${op}" data-atribblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="atrib-pad">${inner}</div></div></div>`; };
-  el.innerHTML=B('cascada','📊','Cascada del periodo',titulo,cascada)+B('anual','📅','Atribución por año',porY.length+' años · '+fmt(tC)+' acumulado',yearBlk);
-  if(!el._atribBlkBound){ el._atribBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('input,select,button,a'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-atribblk'); if(k){window._atribBlk=window._atribBlk||{};window._atribBlk[k]=b.classList.contains('open');} } }); }
+  el.innerHTML=B('cascada','📊','Cascada del periodo',titulo,cascada)+B('contrib','🏅','Contribución al retorno por posición',contribSum,contribInner)+B('anual','📅','Atribución por año',porY.length+' años · '+fmt(tC)+' acumulado',yearBlk);
+  if(!el._atribBlkBound){ el._atribBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-c5per]')){ window._c5Per=e.target.closest('[data-c5per]').getAttribute('data-c5per'); renderAtribucion(); return; } if(e.target.closest('input,select,button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-atribblk'); if(k){window._atribBlk=window._atribBlk||{};window._atribBlk[k]=b.classList.contains('open');} } }); }
 }
 function _atribWaterfall(steps){
   const W=680,H=300,pl=56,pr=16,pt=18,pb=46; const plotH=H-pt-pb,plotW=W-pl-pr;
