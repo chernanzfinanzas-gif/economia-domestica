@@ -77,17 +77,29 @@
   "matizada": false
  },
  "dividendSafety": {
-  "score": null,
-  "banda": "No aplica (rama financiera)",
-  "aplica": false,
-  "componentes": {},
-  "shareholderYield": null,
+  "score": 88,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {
+   "C1": 30,
+   "C2": 25,
+   "C3": 20,
+   "C4": 3,
+   "C5": 10
+  },
+  "shareholderYield": 5.01,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "Empresa FINANCIERA (sin EBITDA ni CAPEX industrial): el Dividend Safety Score industrial NO aplica. Pendiente rama financiera (payout total sostenible + generación de capital CET1/Solvencia II)."
+   "C1 pay-out dividendo (DPA/BPA) 30% → 30/30",
+   "C2 CET1 13.5% → 25/25",
+   "C3 RoTE 16.4% → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores: ninguno → 10/10",
+   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
   ],
   "calculadoEl": "2026-07-19"
  }
