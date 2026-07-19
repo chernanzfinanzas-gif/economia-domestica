@@ -346,18 +346,28 @@ function renderHemeroteca(){
   var sec=document.getElementById('view-hemeroteca'); if(!sec) return;
   var api='https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/informes-semanales';
   var pages='https://chernanzfinanzas-gif.github.io/economia-domestica/informes-semanales/';
-  sec.innerHTML='<h2>Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:10px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con el botón «🧾 Informe semanal (Claude)» del Panel.</div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div>';
+  sec.innerHTML='<h2>🗞️ Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:12px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con «🧾 Informe semanal (Claude)» en el Centro de informes y se abren desde GitHub Pages.</div><div id="hemeroKpis" class="hem-kpis"></div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div>';
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
-  var host=document.getElementById('hemeroSemanal');
+  var host=document.getElementById('hemeroSemanal'); var kp=document.getElementById('hemeroKpis');
   fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;}).then(function(arr){
     if(!Array.isArray(arr))arr=[];
     var pdfs=arr.filter(function(f){return /\.pdf$/i.test(f.name||'');});
     pdfs.sort(function(a,b){ var fa=_hemFecha(a.name), fb=_hemFecha(b.name); return fa<fb?1:(fa>fb?-1:0); }); // más reciente arriba (por fecha del nombre)
-    if(!pdfs.length){ host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Panel y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
-    var rows=pdfs.map(function(f){ var m=(f.name||'').match(/(\d{4})-(\d{2})-(\d{2})/); var fecha=m?(m[3]+'/'+m[2]+'/'+m[1]):(f.name||''); var url=pages+encodeURIComponent(f.name);
-      return '<tr><td><b>'+fecha+'</b></td><td class="muted" style="font-size:11px">'+_hemEsc(f.name||'')+'</td><td class="right"><a class="btn sm" href="'+url+'" target="_blank" rel="noopener" style="text-decoration:none">📄 Abrir PDF</a></td></tr>'; }).join('');
-    host.innerHTML='<div style="overflow:auto"><table style="font-size:13px"><thead><tr><th>Semana</th><th>Archivo</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div><div class="muted" style="font-size:11px;margin-top:6px">'+pdfs.length+' informe(s) · se abren desde GitHub Pages.</div>';
-  }).catch(function(){ host.innerHTML='<div class="muted" style="font-size:13px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
+    if(!pdfs.length){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Centro de informes y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
+    var _dd=function(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[3]+'/'+m[2]+'/'+m[1]):(''+n); };
+    var nowY=String(new Date().getFullYear());
+    var ult=_dd(pdfs[0].name); var esteAno=pdfs.filter(function(f){ return _hemFecha(f.name).slice(0,4)===nowY; }).length;
+    if(kp)kp.innerHTML=''
+      +'<div class="k hero"><div class="l">Informes archivados</div><div class="v">'+pdfs.length+'</div><div class="p">en el repositorio</div></div>'
+      +'<div class="k"><div class="l">Último informe</div><div class="v">'+ult+'</div><div class="p">semana más reciente</div></div>'
+      +'<div class="k"><div class="l">De este año</div><div class="v">'+esteAno+' / '+pdfs.length+'</div><div class="p">'+nowY+'</div></div>'
+      +'<div class="k"><div class="l">Cadencia</div><div class="v">Semanal</div><div class="p">coyuntura + riesgo</div></div>';
+    var byY={}; pdfs.forEach(function(f){ var y=_hemFecha(f.name).slice(0,4); (byY[y]=byY[y]||[]).push(f); });
+    var years=Object.keys(byY).sort().reverse();
+    var deskRows=years.map(function(y){ var n=byY[y].length; return '<tr class="yr"><td colspan="3">'+y+' · '+n+' informe'+(n===1?'':'s')+'</td></tr>'+byY[y].map(function(f){ var url=pages+encodeURIComponent(f.name); return '<tr><td class="l"><b>'+_dd(f.name)+'</b></td><td class="l fn">'+_hemEsc(f.name||'')+'</td><td style="text-align:right"><a class="opb" href="'+url+'" target="_blank" rel="noopener">📄 Abrir PDF</a></td></tr>'; }).join(''); }).join('');
+    var mob=years.map(function(y){ var n=byY[y].length; return '<div class="yhead">'+y+' · '+n+' informe'+(n===1?'':'s')+'</div>'+byY[y].map(function(f){ var url=pages+encodeURIComponent(f.name); return '<div class="hcard"><div class="hc-l"><div class="hc-f">'+_dd(f.name)+'</div><div class="hc-n">'+_hemEsc(f.name||'')+'</div></div><a class="opb" href="'+url+'" target="_blank" rel="noopener">📄 Abrir</a></div>'; }).join(''); }).join('');
+    host.innerHTML='<div class="hem-panel"><div class="hem-desk"><table><thead><tr><th>Semana</th><th>Archivo</th><th style="text-align:right">PDF</th></tr></thead><tbody>'+deskRows+'</tbody></table></div><div class="hem-mob">'+mob+'</div></div><div class="muted" style="font-size:11px;margin-top:6px">'+pdfs.length+' informe(s) · se abren desde GitHub Pages.</div>';
+  }).catch(function(){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
 }
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';

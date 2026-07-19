@@ -778,20 +778,51 @@ function renderHemeroAnalisis(){
     var du=(typeof dossierURL==='function')?dossierURL(t,a.dossierUrl):'';
     return {t:t,nombre:a.nombre||(j&&j.empresa)||t,dec:dec,rating:rating,score:score,fecha:fecha,mm:meses(fecha),cf:cf,rb:rb,du:du};
   });
-  rows.sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
   var caduc=rows.filter(function(r){return r.mm!=null&&r.mm>12;}).length;
-  var trs=rows.map(function(r){
+  var cfCn=rows.filter(function(r){return r.cf==='C';}).length;
+  var comprarN=rows.filter(function(r){return r.dec==='COMPRAR';}).length;
+  var DECORD={COMPRAR:0,MANTENER:1,ESPERAR:2,VENDER:3};
+  var ord=window._hemaOrd||'fecha'; var soloCaduc=!!window._hemaCaduc;
+  var view=rows.slice();
+  if(soloCaduc)view=view.filter(function(r){return r.mm!=null&&r.mm>12;});
+  view.sort(function(a,b){
+    if(ord==='ticker')return a.t.localeCompare(b.t);
+    if(ord==='dec')return (DECORD[a.dec]==null?9:DECORD[a.dec])-(DECORD[b.dec]==null?9:DECORD[b.dec]);
+    if(ord==='cal')return (b.score||0)-(a.score||0);
+    return (b.fecha||'').localeCompare(a.fecha||'');
+  });
+  var bdg=function(txt,col){ return '<span style="background:'+col+';color:#fff;border-radius:6px;padding:2px 8px;font-size:10.5px;font-weight:700;display:inline-block">'+txt+'</span>'; };
+  var trs=view.map(function(r){
     var decC=r.dec?('<b style="color:'+(dc[r.dec]||'#475569')+'">'+r.dec+'</b>'):'<span class="muted">—</span>';
     var fC=r.fecha?('<span style="color:'+(r.mm!=null&&r.mm>12?'#dc2626':'#64748b')+'">'+r.fecha+(r.mm!=null?' · '+r.mm+'m'+(r.mm>12?' ⚠️':''):'')+'</span>'):'<span class="muted">—</span>';
-    var cfC=r.cf?('<span style="background:'+(cfCol[r.cf]||'#64748b')+';color:#fff;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700">'+r.cf+'</span>'):'—';
-    var rbC=r.rb?('<span style="background:'+(rbCol[r.rb]||'#64748b')+';color:#fff;border-radius:5px;padding:1px 6px;font-size:11px;font-weight:700">'+(r.rb==='solida'?'sólida':r.rb)+'</span>'):'—';
-    var docC=r.du?('<a class="btn ghost sm" href="'+r.du+'" target="_blank" rel="noopener">📄 Abrir</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
+    var cfC=r.cf?bdg(r.cf,cfCol[r.cf]||'#64748b'):'—';
+    var rbC=r.rb?bdg(r.rb==='solida'?'sólida':r.rb,rbCol[r.rb]||'#64748b'):'—';
+    var docC=r.du?('<a class="opb" href="'+r.du+'" target="_blank" rel="noopener">📄 Abrir</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
     var cal=(r.rating||'—')+(r.score!=null?' · '+Math.round(r.score):'');
-    return '<tr><td><button class="btn ghost sm" data-ficha="'+r.t+'"><b>'+r.t+'</b></button></td><td>'+_cfgEsc(r.nombre)+'</td><td>'+decC+'</td><td class="num">'+cal+'</td><td>'+fC+'</td><td style="text-align:center">'+cfC+'</td><td style="text-align:center">'+rbC+'</td><td>'+docC+'</td></tr>';
+    return '<tr><td class="l tkc"><b class="tk" data-ficha="'+r.t+'">'+r.t+'</b></td><td class="l">'+_cfgEsc(r.nombre)+'</td><td class="l">'+decC+'</td><td>'+cal+'</td><td class="l">'+fC+'</td><td style="text-align:center">'+cfC+'</td><td style="text-align:center">'+rbC+'</td><td style="text-align:right">'+docC+'</td></tr>';
   }).join('');
-  sec.innerHTML='<h2>Hemeroteca de Análisis</h2>'+
-    '<div class="sub" style="margin-bottom:10px">Todas las empresas con dossier o análisis, del más reciente al más antiguo. <b>'+rows.length+'</b> empresas'+(caduc?(' · <b style="color:#dc2626">'+caduc+' a reanalizar (&gt;12 m)</b>'):'')+'. Pulsa el ticker para abrir su ficha o «Abrir» para el dossier. Necesita conexión para leer los dossiers del repo.</div>'+
-    '<div class="card" style="overflow:auto"><table style="min-width:660px"><thead><tr><th>Ticker</th><th>Empresa</th><th>Decisión</th><th class="num">Calidad</th><th>Análisis</th><th style="text-align:center">Confianza</th><th style="text-align:center">Robustez</th><th>Dossier</th></tr></thead><tbody>'+(trs||'<tr><td colspan="8" class="muted">Sin dossiers cargados todavía (requiere conexión).</td></tr>')+'</tbody></table></div>';
+  var mcards=view.map(function(r){
+    var cal=(r.rating||'—')+(r.score!=null?' · '+Math.round(r.score):'');
+    var docC=r.du?('<a class="opb sm" href="'+r.du+'" target="_blank" rel="noopener">📄 Dossier</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
+    return '<div class="acard'+(r.mm!=null&&r.mm>12?' warn':'')+'"><div class="ac-h"><div class="ac-tk" data-ficha="'+r.t+'">'+r.t+' <span class="ac-nm">'+_cfgEsc(r.nombre)+'</span></div><b class="ac-dec" style="color:'+(dc[r.dec]||'#475569')+'">'+(r.dec||'—')+'</b></div>'
+      +'<div class="ac-badges">'+bdg('Cal '+cal,'#475569')+(r.cf?bdg('Conf. '+r.cf,cfCol[r.cf]||'#64748b'):'')+(r.rb?bdg(r.rb==='solida'?'sólida':r.rb,rbCol[r.rb]||'#64748b'):'')+'</div>'
+      +'<div class="ac-foot"><span class="ac-f" style="color:'+(r.mm!=null&&r.mm>12?'#dc2626':'#64748b')+'">'+(r.fecha?(r.fecha+(r.mm!=null?' · '+r.mm+'m'+(r.mm>12?' ⚠️ reanalizar':''):'')):'—')+'</span>'+docC+'</div></div>';
+  }).join('');
+  var sel=function(v,t){ return '<option value="'+v+'"'+(ord===v?' selected':'')+'>'+t+'</option>'; };
+  var toolbar='<div class="hema-toolbar"><label>Ordenar por</label><select id="hemaOrd">'+sel('fecha','Fecha (reciente)')+sel('ticker','Ticker')+sel('dec','Decisión')+sel('cal','Calidad')+'</select>'
+    +'<span class="hema-chip'+(soloCaduc?' on':'')+'" id="hemaCaduc">⚠️ Solo a reanalizar'+(caduc?(' ('+caduc+')'):'')+'</span></div>';
+  sec.innerHTML='<h2>🗄️ Hemeroteca de Análisis</h2>'+
+    '<div class="sub" style="margin-bottom:12px">Todas las empresas con dossier o análisis. Pulsa el ticker para abrir su ficha o «Abrir» para el dossier. Necesita conexión para leer los dossiers del repo.</div>'+
+    '<div id="hemaKpis" class="hem-kpis">'
+      +'<div class="k hero"><div class="l">Empresas con análisis</div><div class="v">'+rows.length+'</div><div class="p">dossier o análisis guardado</div></div>'
+      +'<div class="k"><div class="l">A reanalizar (&gt;12 m)</div><div class="v '+(caduc?'neg':'')+'">'+caduc+'</div><div class="p">dossier caducado</div></div>'
+      +'<div class="k"><div class="l">Confianza C</div><div class="v '+(cfCn?'neg':'')+'">'+cfCn+'</div><div class="p">no comprar en firme</div></div>'
+      +'<div class="k"><div class="l">Decisión COMPRAR</div><div class="v '+(comprarN?'pos':'')+'">'+comprarN+'</div><div class="p">oportunidad activa</div></div>'
+    +'</div>'+
+    toolbar+
+    '<div class="hem-panel"><div class="hem-desk"><table><thead><tr><th class="tkc">Ticker</th><th>Empresa</th><th>Decisión</th><th>Calidad</th><th>Análisis</th><th style="text-align:center">Confianza</th><th style="text-align:center">Robustez</th><th style="text-align:right">Dossier</th></tr></thead><tbody>'+(trs||'<tr><td colspan="8" class="muted">Sin dossiers cargados todavía (requiere conexión).</td></tr>')+'</tbody></table></div><div class="hem-mob">'+(mcards||'<div class="muted">Sin dossiers cargados todavía (requiere conexión).</div>')+'</div></div>';
+  var _os=document.getElementById('hemaOrd'); if(_os)_os.addEventListener('change',function(){ window._hemaOrd=this.value; renderHemeroAnalisis(); });
+  var _cc=document.getElementById('hemaCaduc'); if(_cc)_cc.addEventListener('click',function(){ window._hemaCaduc=!window._hemaCaduc; renderHemeroAnalisis(); });
 }
 
 /* ===== P4.1 · Cockpit de Salud del sistema ===== */
