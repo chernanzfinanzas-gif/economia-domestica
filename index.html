@@ -1394,6 +1394,31 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-hemeroteca .hem-desk,#view-hemeroanalisis .hem-desk{display:none}
   #view-hemeroteca .hem-mob,#view-hemeroanalisis .hem-mob{display:block}
 }
+/* ===== Gráficas ===== */
+#view-graficas .graf-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+#view-graficas .graf-top h2{margin:0 0 4px}
+#view-graficas .graf-sub{color:var(--muted);font-size:13px;line-height:1.5;max-width:660px}
+#view-graficas .graf-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
+#view-graficas .graf-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#view-graficas .graf-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#view-graficas .graf-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#view-graficas .graf-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#view-graficas .graf-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#view-graficas .graf-kpis .k.hero .l,#view-graficas .graf-kpis .k.hero .p{color:#bbf7d0}#view-graficas .graf-kpis .k.hero .v{color:#fff}
+#view-graficas .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;box-shadow:var(--shadow);overflow:hidden}
+#view-graficas .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
+#view-graficas .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-graficas .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-graficas .pos-blk-h .bt{font-weight:800;font-size:14px}#view-graficas .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+#view-graficas .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-graficas .pos-blk.open .pos-blk-b{display:block}
+#view-graficas .blk-pad{padding:14px}
+#view-graficas .graf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+#view-graficas .graf-big{margin-bottom:12px}
+#view-graficas .graf-grid>*,#view-graficas .graf-big>*{margin:0}
+@media(max-width:860px){
+  #view-graficas .graf-kpis{grid-template-columns:1fr 1fr}
+  #view-graficas .graf-kpis .k .v{font-size:18px}
+  #view-graficas .graf-grid{grid-template-columns:1fr}
+}
 /* ===== Buzón del lunes ===== */
 #view-buzon .buz-top{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px;margin-bottom:12px}
 #view-buzon .buz-top h2{font-size:20px}
@@ -3161,12 +3186,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
 
   <section class="view" id="view-graficas">
-    <h2>Gráficas</h2>
-    <div class="toolbar" style="margin-bottom:10px"><span class="muted">Año:</span> <select id="grafYear" class="anaInp" style="width:90px"></select></div>
-    <h3 style="margin:6px 0">Hogar</h3>
-    <div id="grafHogar"></div>
-    <h3 style="margin:16px 0 6px">Inversión</h3>
-    <div id="grafInv"></div>
+    <div class="graf-top">
+      <div><h2>📊 Gráficas</h2><div class="graf-sub">Análisis visual de tus finanzas. El selector de año afecta a los gráficos de Hogar. Algunos de Inversión usan las cotizaciones del repo, así que necesitan conexión.</div></div>
+      <div class="toolbar" style="margin:0"><span class="muted">Año:</span> <select id="grafYear" class="anaInp" style="width:90px"></select></div>
+    </div>
+    <div id="grafKpis" class="graf-kpis"></div>
+    <div id="grafBody"></div>
   </section>
   <section class="view" id="view-comparador">
     <h2>🆚 Comparador de finalistas</h2>
