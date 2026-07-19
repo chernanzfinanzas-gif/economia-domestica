@@ -514,7 +514,35 @@ function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#b
 }
 // === Vista completa del motor "Próxima compra" ===
 let proxYearSel=null;
-function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; const nowY=new Date().getFullYear();
+// === P6 · Ranking por margen de seguridad: potencial a PO × calidad × RPD ===
+function renderProxMos(){
+  var el=document.getElementById('proxMos'); if(!el)return;
+  var RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+  var held={}; try{ (invPositions()||[]).forEach(function(p){ if(p.acciones>0.0001)held[(p.ticker||'').toUpperCase()]=1; }); }catch(e){}
+  var rows=(DB.analisis||[]).map(function(a){ var t=(a.ticker||'').toUpperCase(); var cot=num(a.cotizacion); var mn=num(a.poMin),mx=num(a.poMax); var po=(mn&&mx)?(mn+mx)/2:(num(a.precioObjetivo)||mx||mn||0);
+    var v=(DB.valores||{})[t]||{}; var da=num(v.divAccion)||num(a.divAccion); var rpd=cot>0?da/cot*100:0; var rating=(a.rating||'').toUpperCase(); var cal=RP[rating]||0; var dec=(a.decision||'').toUpperCase(); var pot=(cot>0&&po>0)?(po/cot-1):null; var entMax=num(a.entMax);
+    return {t:t,cot:cot,po:po,pot:pot,rating:rating,cal:cal,rpd:rpd,dec:dec,entMax:entMax,held:!!held[t],score:(pot!=null?Math.max(0,pot):0)*100*(cal/100)*rpd}; }).filter(function(x){ return x.cot>0&&x.po>0; });
+  window._proxMosOpen=window._proxMosOpen||false;
+  if(!rows.length){ el.innerHTML=''; return; }
+  rows.sort(function(a,b){ return b.score-a.score; });
+  var maxS=Math.max.apply(null,rows.map(function(r){return r.score;}))||1;
+  var potS=function(x){ return x==null?'—':((x>=0?'+':'')+(x*100).toFixed(0)+'%'); };
+  var rateCol=function(r){ return r>=90?'#16a34a':r>=80?'#2563eb':r>=50?'#d97706':'#dc2626'; };
+  var f=function(v){ return fmt(v); };
+  var trs=rows.map(function(r,i){ var w=(r.score/maxS*100).toFixed(1); var enZona=(r.entMax>0&&r.cot<=r.entMax); var over=(r.pot!=null&&r.pot<0);
+    return '<tr class="'+(over?'mos-over':'')+'"><td class="rk">'+(i+1)+'</td><td class="l"><b class="mos-tk" data-ficha="'+r.t+'">'+r.t+'</b>'+(r.held?' <span class="mos-hc">en cartera</span>':'')+(enZona?' <span class="mos-zc">🟢 en zona</span>':'')+'</td><td>'+f(r.cot)+'</td><td>'+f(r.po)+'</td><td class="'+(r.pot>=0?'pos':'neg')+'"><b>'+potS(r.pot)+'</b></td><td style="text-align:center"><span class="mos-rb" style="background:'+rateCol(r.cal)+'">'+(r.rating||'—')+'</span></td><td>'+r.rpd.toFixed(1)+'%</td><td class="mos-idx"><span class="mos-bar"><i style="width:'+w+'%"></i></span><b>'+Math.round(r.score)+'</b></td></tr>';
+  }).join('');
+  var cards=rows.map(function(r,i){ var w=(r.score/maxS*100).toFixed(1); var enZona=(r.entMax>0&&r.cot<=r.entMax); var over=(r.pot!=null&&r.pot<0);
+    return '<div class="mos-card'+(over?' mos-over':'')+'"><div class="mos-ch"><div class="mos-rk">'+(i+1)+'</div><div class="mos-ctk" data-ficha="'+r.t+'">'+r.t+(r.held?' <span class="mos-hc">cartera</span>':'')+(enZona?' <span class="mos-zc">🟢 en zona</span>':'')+'</div><div class="mos-cidx">'+Math.round(r.score)+'<span>índice</span></div></div><div class="mos-cbar"><i style="width:'+w+'%"></i></div><div class="mos-cg"><div class="m"><span>Potencial a PO</span><b class="'+(r.pot>=0?'pos':'neg')+'">'+potS(r.pot)+'</b></div><div class="m"><span>Calidad</span><b style="color:'+rateCol(r.cal)+'">'+(r.rating||'—')+'</b></div><div class="m"><span>RPD</span><b>'+r.rpd.toFixed(1)+'%</b></div><div class="m"><span>Cotiz. → PO</span><b>'+f(r.cot)+' → '+f(r.po)+'</b></div></div></div>';
+  }).join('');
+  var inner='<div class="mos-formula"><b class="h">¿Qué ordena esto?</b>Junta en un número las <b>tres cosas que buscas al comprar</b>: comprar <b>barato</b> (lejos de tu precio objetivo), que sea <b>buena empresa</b> (calidad del dossier) y que <b>pague dividendo</b>.<br><span class="eq">Índice = potencial a PO × calidad × RPD</span><br><span class="muted">Cuanto más alto, más "chollo" según tu método. No es una orden de compra: la decisión final la tomas tú mirando la tesis.</span></div>'
+    +'<div class="mos-desk"><table><thead><tr><th class="rk">#</th><th class="l">Empresa</th><th>Cotización</th><th>PO base</th><th>Potencial</th><th style="text-align:center">Calidad</th><th>RPD</th><th>Índice</th></tr></thead><tbody>'+trs+'</tbody></table></div>'
+    +'<div class="mos-mob">'+cards+'</div>'
+    +'<div class="mos-foot"><b>Potencial a PO</b> = cuánto puede subir hasta tu precio objetivo (media de PO pesimista/optimista). <b>Calidad</b> = rating del método (AAA→C). <b>RPD</b> = dividendo/cotización. Las empresas <b>por encima de su PO</b> salen en gris al final: caras según tu tesis. «🟢 en zona» = cotiza por debajo de tu banda de entrada. Solo salen las que tienen precio objetivo en Análisis.</div>';
+  el.innerHTML='<div class="mos-blk'+(window._proxMosOpen?' open':'')+'"><div class="mos-blk-h"><span class="arw">▶</span><span class="bt">🎯 Ranking por margen de seguridad</span><span class="bsum">'+rows[0].t+' lidera · '+rows.length+' con PO</span></div><div class="mos-blk-b"><div class="mos-pad">'+inner+'</div></div></div>';
+  if(!el._mosBound){ el._mosBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.mos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); window._proxMosOpen=b.classList.contains('open'); } }); }
+}
+function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; if(typeof renderProxMos==='function')renderProxMos(); const nowY=new Date().getFullYear();
   if(proxYearSel==null)proxYearSel=nowY; const yIn=$('#proxYear'); if(yIn&&(yIn.value===''||yIn.value==null))yIn.value=proxYearSel;
   const M=(typeof proximaCompra==='function')?proximaCompra():null; const kp=$('#proxKpis');
   if(!M){ el.innerHTML='<div class="empty">Sin datos de análisis. Rellena cotización, banda de entrada y rating en Análisis.</div>'; if(kp)kp.innerHTML=''; return; }
