@@ -532,7 +532,8 @@ function _presFicha(c,y,income,open){
     +(!income&&p.metodoPago?'<span class="par-pago">'+p.metodoPago+'</span>':'')
     +'<span class="par-right"><span class="par-mes">'+fmt(mes)+'/mes</span>'+(isPer?'<div class="par-anual">'+perSub+((!income&&p.renovacion)?' · renov '+(''+p.renovacion).split('-').reverse().join('/'):'')+'</div>':'')+'</span></div>';
   if(!isOpen) return '<div class="par">'+head+'</div>';
-  var clasif=income?'':'<div class="fld"><label>Clasificación</label><div class="fldseg"><button class="'+(c.esencial?'on':'')+'" data-presesc="'+c.id+'|1">Necesario</button><button class="'+(!c.esencial?'on':'')+'" data-presesc="'+c.id+'|0">Prescindible</button></div></div>';
+  var clasif=income?'':'<div class="fld"><label>Clasificación</label><div class="fldseg"><button class="'+(c.esencial?'on':'')+'" data-presesc="'+c.id+'|1">Necesario</button><button class="'+(!c.esencial?'on':'')+'" data-presesc="'+c.id+'|0">Prescindible</button></div></div>'
+    +'<div class="fld"><label>Seguir en inflación personal</label><div class="fldseg"><button class="'+(c.seguirInfla?'on':'')+'" data-presinfla="'+c.id+'|1">Sí</button><button class="'+(!c.seguirInfla?'on':'')+'" data-presinfla="'+c.id+'|0">No</button></div></div>';
   var extra=income?'':'<div class="fld"><label>Pago (informativo)</label><select data-prespago="'+c.id+'">'+PAGOS.map(function(x){ var sel=((x===p.metodoPago)||(x==='—'&&!p.metodoPago))?' selected':''; return '<option'+sel+'>'+x+'</option>'; }).join('')+'</select></div>'
     +'<div class="fld"><label>Renovación</label><input type="date" value="'+(p.renovacion||'')+'" data-presrenov="'+c.id+'"></div>';
   var form='<div class="par-form">'
@@ -610,6 +611,7 @@ function renderPresAna(){
   _anaFillYears('cmpA',ys,st.cmpA); _anaFillYears('cmpB',ys,st.cmpB);
   _anaFillYears('cmpiA',ys,st.cmpiA); _anaFillYears('cmpiB',ys,st.cmpiB);
   _anaCump(R,curY,curMonth); _anaCmp(R,curY,curMonth,false); _anaCmp(R,curY,curMonth,true);
+  if(typeof renderInflacionPersonal==='function'){ try{ renderInflacionPersonal(); }catch(e){ var _ib=document.getElementById('inflaBody'); if(_ib)_ib.innerHTML='<div class="row"><div class="rh"><span class="nm">No se pudo calcular la inflación personal.</span></div></div>'; } }
   if(!renderPresAna._bound){ renderPresAna._bound=true; var host=document.getElementById('view-presupuesto');
     if(host){
       host.addEventListener('click',function(e){
@@ -619,6 +621,107 @@ function renderPresAna(){
       host.addEventListener('change',function(e){ var t=e.target; if(!t||!t.id)return; var F={cumpYear:1,cumpPer:1,cmpA:1,cmpB:1,cmpiA:1,cmpiB:1}; if(F[t.id]){ window._anaSt=window._anaSt||{}; window._anaSt[t.id]=(t.id==='cumpPer')?t.value:(+t.value); renderPresAna(); } });
     }
   }
+}
+/* ===== D4 · Inflación personal (bloque en Análisis del presupuesto) =====
+   Seguimiento año a año del PRESUPUESTO de las categorías que el usuario marca
+   (casilla "Seguir en inflación"), más dos sondas de precio con datos reales:
+   gasolina €/L (Mazinger Z) y consumición media Bar/Restaurante (ticket medio). */
+var _INFLA_DEFAULT=['Alimentación','Comunidad','Luz','Seguro Casa','IBI / Tasa Basuras','Pepephone','Movistar','Alarma Ring'];
+function renderInflacionPersonal(){
+  var el=document.getElementById('inflaBody'); if(!el)return;
+  var cats=DB.categorias||[], movs=DB.movimientos||[], pr=DB.presupuesto||[]; var cm={}; cats.forEach(function(c){cm[c.id]=c;});
+  var MES=['','ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
+  var eur=function(v){return v.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';};
+  var pctS=function(p){return (p>=0?'+':'')+p.toFixed(1)+'%';};
+  var cls=function(p){return p>0.5?'up':(p<-0.5?'dn':'');};
+  function anual(p){ return (typeof mensual==='function'?mensual(p):num(p.importe))*12; }
+  // --- categorías seguidas ---
+  var anyFlag=cats.some(function(c){return c.tipo!=='ingreso'&&c.seguirInfla===true;});
+  var tracked=cats.filter(function(c){return c.tipo!=='ingreso' && (anyFlag? c.seguirInfla===true : _INFLA_DEFAULT.indexOf(c.nombre)>=0);});
+  // --- años de presupuesto ---
+  var byY={}; pr.forEach(function(p){ byY[pAnio(p)]=1; }); var pyears=Object.keys(byY).map(Number).sort(function(a,b){return a-b;});
+  if(tracked.length===0 || pyears.length<2){ el.innerHTML='<div class="infla-empty">Marca categorías con la casilla <b>«Seguir en inflación»</b> (en cada partida del presupuesto) y ten al menos dos años de presupuesto. Años disponibles: '+(pyears.join(', ')||'ninguno')+'.</div>'; var _h=document.getElementById('inflaHeadD'); if(_h){_h.textContent='—';_h.className='blk-amount';} return; }
+  var calY=new Date().getFullYear();
+  var curY=(pyears.indexOf(calY)>=0)?calY:pyears[pyears.length-1];
+  var prevCand=pyears.filter(function(y){return y<curY;}); var prevY=prevCand.length?prevCand[prevCand.length-1]:pyears[0];
+  var extraYears=pyears.filter(function(y){return y>curY;});
+  // presupuesto anual por categoría/año
+  var cb2={}; pr.forEach(function(p){var cid=p.categoriaId; cb2[cid]=cb2[cid]||{}; cb2[cid][pAnio(p)]=(cb2[cid][pAnio(p)]||0)+anual(p);});
+  function catY(cid,y){ return ((cb2[cid]&&cb2[cid][y])||0)/12; } // mensual (lo que Carlos presupuesta)
+  // agrupar por capítulo
+  var grupos=[]; var gmap={}; tracked.forEach(function(c){ if(!gmap[c.grupo]){gmap[c.grupo]={g:c.grupo,cats:[]}; grupos.push(gmap[c.grupo]);} gmap[c.grupo].cats.push(c); });
+  grupos.sort(function(a,b){return a.g<b.g?-1:1;});
+  var GT={}; [prevY,curY].concat(extraYears).forEach(function(y){GT[y]=0;});
+  var aliD=null, gInfo={};
+  var body='';
+  grupos.forEach(function(G){
+    var gt={}; [prevY,curY].concat(extraYears).forEach(function(y){gt[y]=0;});
+    G.cats.sort(function(a,b){return catY(b.id,curY)-catY(a.id,curY);});
+    var rows=G.cats.map(function(c){ var a=catY(c.id,prevY), b=catY(c.id,curY), d=a?(b/a-1)*100:0; [prevY,curY].concat(extraYears).forEach(function(y){gt[y]+=catY(c.id,y);}); if(c.nombre==='Alimentación')aliD={a:a,b:b,d:d};
+      return '<tr><td class="nm sub">'+c.nombre+'</td><td class="num">'+eur0(a)+'</td><td class="num">'+eur0(b)+'</td>'+extraYears.map(function(y){return '<td class="num fut">'+eur0(catY(c.id,y))+'</td>';}).join('')+'<td class="num '+cls(d)+'">'+(a?pctS(d):'—')+'</td></tr>'; }).join('');
+    var gd=gt[prevY]?(gt[curY]/gt[prevY]-1)*100:0; [prevY,curY].concat(extraYears).forEach(function(y){GT[y]+=gt[y];});
+    gInfo[G.g]={a:gt[prevY],b:gt[curY],d:gd};
+    if(G.cats.length>1){
+      body+='<tr class="grp"><td class="nm">'+G.g+' <small>(suma)</small></td><td class="num">'+eur0(gt[prevY])+'</td><td class="num">'+eur0(gt[curY])+'</td>'+extraYears.map(function(y){return '<td class="num fut">'+eur0(gt[y])+'</td>';}).join('')+'<td class="num '+cls(gd)+'">'+(gt[prevY]?pctS(gd):'—')+'</td></tr>'+rows;
+    } else {
+      var c=G.cats[0], a=catY(c.id,prevY), b=catY(c.id,curY), d=a?(b/a-1)*100:0;
+      body+='<tr><td class="nm">'+c.nombre+'</td><td class="num">'+eur0(a)+'</td><td class="num">'+eur0(b)+'</td>'+extraYears.map(function(y){return '<td class="num fut">'+eur0(catY(c.id,y))+'</td>';}).join('')+'<td class="num '+cls(d)+'">'+(a?pctS(d):'—')+'</td></tr>';
+    }
+  });
+  var GTd=GT[prevY]?(GT[curY]/GT[prevY]-1)*100:0;
+  // grupo fijo del hogar para KPI (el mayor grupo con >1 categoría, típicamente "Casa")
+  var homeG=null; grupos.forEach(function(G){ if(G.cats.length>1 && (!homeG||G.cats.length>gmap[homeG].cats.length))homeG=G.g; });
+  var totRow='<tr class="tot"><td class="nm">TOTAL seguido</td><td class="num">'+eur0(GT[prevY])+'</td><td class="num">'+eur0(GT[curY])+'</td>'+extraYears.map(function(y){return '<td class="num fut">'+eur0(GT[y])+'</td>';}).join('')+'<td class="num '+cls(GTd)+'">'+pctS(GTd)+'</td></tr>';
+  var thead='<tr><th>Capítulo / categoría</th><th>'+prevY+'</th><th>'+curY+'</th>'+extraYears.map(function(y){return '<th>'+y+'</th>';}).join('')+'<th>Δ '+prevY+'→'+curY+'</th></tr>';
+  var mainTbl='<table class="infla-tbl seg"><thead>'+thead+'</thead><tbody>'+body+totRow+'</tbody></table>';
+  if(!aliD)aliD={a:0,b:0,d:0};
+  // --- sondas con datos reales ---
+  function yOf(m){return (''+(m.fecha||'')).slice(0,4);} function moOf(m){return +(''+(m.fecha||'')).slice(5,7);}
+  var myset={}; movs.forEach(function(m){var y=yOf(m); if(y)myset[y]=1;}); var myrs=Object.keys(myset).map(Number).sort(function(a,b){return a-b;});
+  var mcur=myrs.length?myrs[myrs.length-1]:curY, mprev=myrs.length>1?myrs[myrs.length-2]:mcur-1;
+  var mos={}; movs.forEach(function(m){ if(yOf(m)==(''+mcur)){var mo=moOf(m); if(mo)mos[mo]=1;}}); var mk=Object.keys(mos).map(Number); var minMo=mk.length?Math.min.apply(null,mk):1, maxMo=mk.length?Math.max.apply(null,mk):12;
+  // gasolina €/L
+  var cbu=(DB.combustible||[]).filter(function(r){return num(r.litros)>0&&num(r.precio)>0;});
+  var fy={}; cbu.forEach(function(r){var y=(''+r.fecha).slice(0,4); (fy[y]=fy[y]||[]).push(num(r._eurL)||num(r.precio)/num(r.litros));});
+  function avg(a){return a&&a.length?a.reduce(function(s,x){return s+x;},0)/a.length:0;}
+  var fyrs=Object.keys(fy).map(Number).sort(function(a,b){return a-b;});
+  var fCur=fyrs.length?fyrs[fyrs.length-1]:0, fPrev=fyrs.length>1?fyrs[fyrs.length-2]:0;
+  var fu25=fPrev?avg(fy[''+fPrev]):0, fu26=fCur?avg(fy[''+fCur]):0, fuD=fu25?(fu26/fu25-1)*100:0;
+  var hasFuel=fu25>0&&fu26>0;
+  // consumición Bar/Restaurante
+  var CONSUMO=/bar|restaurante|cafeter|pasteler|helader|panader/i;
+  var byCo={}; movs.forEach(function(m){var c=cm[m.categoriaId]; if(!c||c.tipo!=='gasto')return; var y=yOf(m),mo=moOf(m); if(mo<minMo||mo>maxMo)return; if(y!=(''+mcur)&&y!=(''+mprev))return; var co=(m.comercio||'').trim(); if(!CONSUMO.test(co))return; byCo[co]=byCo[co]||{an:0,as:0,bn:0,bs:0}; if(y==(''+mprev)){byCo[co].an++;byCo[co].as+=Math.abs(num(m.importe));} else {byCo[co].bn++;byCo[co].bs+=Math.abs(num(m.importe));}});
+  var coRows=Object.keys(byCo).map(function(k){var d=byCo[k]; var t25=d.an?d.as/d.an:0,t26=d.bn?d.bs/d.bn:0; return {k:k,n25:d.an,n26:d.bn,tk25:t25,tk26:t26,dtk:t25&&t26?(t26/t25-1)*100:0,vol:d.as+d.bs};}).filter(function(r){return r.n25>=8&&r.n26>=6;}).sort(function(a,b){return b.vol-a.vol;});
+  var star=null; coRows.forEach(function(r){if(r.k==='Bar/Restaurante')star=r;}); if(!star)star=coRows[0]||{tk25:0,tk26:0,dtk:0,n25:0,n26:0};
+  // --- KPIs ---
+  var hg=homeG?gInfo[homeG]:null;
+  var kpis='<div class="infla-kpis">'
+    +'<div class="ik hero"><div class="l">📊 Tu inflación personal</div><div class="v '+cls(GTd)+'">'+pctS(GTd)+'</div><div class="p">presupuesto seguido '+prevY+'→'+curY+': '+eur0(GT[prevY])+' → '+eur0(GT[curY])+'/mes</div></div>'
+    +'<div class="ik"><div class="l">🛒 Alimentación</div><div class="v '+cls(aliD.d)+'">'+pctS(aliD.d)+'</div><div class="p">'+eur0(aliD.a)+' → '+eur0(aliD.b)+'/mes</div></div>'
+    +(hg?'<div class="ik"><div class="l">🏠 '+homeG+' (fijos)</div><div class="v '+cls(hg.d)+'">'+pctS(hg.d)+'</div><div class="p">'+eur0(hg.a)+' → '+eur0(hg.b)+'/mes</div></div>':'')
+    +(hasFuel?'<div class="ik"><div class="l">⛽ Gasolina €/L</div><div class="v '+cls(fuD)+'">'+fu25.toFixed(3).replace('.',',')+'→'+fu26.toFixed(3).replace('.',',')+'</div><div class="p">'+pctS(fuD)+' · precio real ('+fPrev+'→'+fCur+')</div></div>':'')
+    +'</div>';
+  // --- sondas HTML ---
+  var probes='';
+  if(hasFuel||coRows.length){
+    probes='<div class="infla-sec"><div class="infla-h">🔎 Sondas de precio con datos reales <small>de tus movimientos</small></div>';
+    probes+='<div class="infla-intro">Complementan el presupuesto con <b>precio real</b>: la gasolina por €/litro (cantidad conocida) y la consumición media de los locales <b>homogéneos y con volumen</b> (bar, pastelería…), que la app selecciona sola. Ventana '+MES[minMo]+'–'+MES[maxMo]+'.</div>';
+    probes+='<table class="infla-tbl"><thead><tr><th>Sonda</th><th>Tickets</th><th>'+mprev+'</th><th>'+mcur+'</th><th>Δ</th></tr></thead><tbody>';
+    if(hasFuel)probes+='<tr><td class="nm">Gasolina €/L <span class="rel ok">precio directo</span></td><td class="num">'+((fy[''+fPrev]||[]).length)+' / '+((fy[''+fCur]||[]).length)+'</td><td class="num">'+fu25.toFixed(3).replace('.',',')+' €</td><td class="num">'+fu26.toFixed(3).replace('.',',')+' €</td><td class="num '+cls(fuD)+'">'+pctS(fuD)+'</td></tr>';
+    coRows.forEach(function(r){ probes+='<tr><td class="nm">'+r.k+' <span class="rel">indicativo</span></td><td class="num">'+r.n25+' / '+r.n26+'</td><td class="num">'+eur(r.tk25)+'</td><td class="num">'+eur(r.tk26)+'</td><td class="num '+cls(r.dtk)+'">'+pctS(r.dtk)+'</td></tr>'; });
+    probes+='</tbody></table></div>';
+  }
+  // nota histórica 2019 (referencia manual de Carlos)
+  var A2019=450, H2019=490; var aliNow=aliD.b, homeNow=hg?hg.b:0;
+  var anchor='<div class="infla-anchor">📜 <b>Referencia 2019:</b> Alimentación <b>450 €/mes</b> → hoy ~'+eur0(aliNow)+'/mes ('+pctS(aliNow?(aliNow/A2019-1)*100:0)+')'+(homeNow?'; Hogar <b>490 €/mes</b> → hoy ~'+eur0(homeNow)+'/mes ('+pctS((homeNow/H2019-1)*100)+')':'')+'. La <b>lista de la compra</b> ha subido bastante más que los <b>gastos del hogar</b>.</div>';
+  el.innerHTML=kpis
+    +'<div class="infla-sec"><div class="infla-h">📈 Seguimiento año a año <small>presupuesto mensual (€/mes) de las categorías que sigues</small></div>'
+    +'<div class="infla-intro">Cómo evoluciona lo que <b>presupuestas</b> en cada categoría marcada. En costes fijos y suscripciones el importe ≈ precio (la cantidad no cambia); en Alimentación es tu gasto total (cantidad estable). '+(anyFlag?'Sigues '+tracked.length+' categorías; cámbialas con la casilla «Seguir en inflación».':'Mostrando una selección por defecto — marca la casilla «Seguir en inflación» en las partidas para personalizarla.')+'</div>'
+    +mainTbl+anchor+'</div>'
+    +probes
+    +'<div class="infla-hyp">⚠️ El seguimiento usa el <b>presupuesto</b> (lo que planificas), no el gasto real, para tener años completos y comparables. Descartado como señal de precio: el ticket de Supermercado/Compras (manda el tamaño del carrito). Cuantos más años acumules, más fina la serie. Orientativo, no es asesoramiento.</div>';
+  var hd=document.getElementById('inflaHeadD'); if(hd){ hd.textContent=pctS(GTd); hd.className='blk-amount '+(GTd>0.5?'neg':GTd<-0.5?'pos':''); }
 }
 function _anaCumpGroups(R,ing,y,per,mf,curY,curMonth){
   return _anaGruposDe(ing).map(function(g){
