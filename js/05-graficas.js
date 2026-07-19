@@ -443,11 +443,89 @@ function riesgoData(reRender){
   const secW={}; usable.forEach(t=>{ const s=(typeof SECTOR!=='undefined'&&SECTOR[t])||'Sin sector'; secW[s]=(secW[s]||0)+W[t]; });
   return {ok:true,tickers:usable,W,volPort,volById,ddMax,beta,corrIbex,corrM,avgCorr,effN,topT,topW,secW,nDays:dates.length,desde:dates[0],hasta:dates[dates.length-1]};
 }
+// === C4 · Exposición a factores de estilo vs IBEX (desde fundamentales.json) ===
+function _factorExpo(reRender){
+  var fund=(typeof _radFundCache!=='undefined')?_radFundCache:undefined;
+  if(fund===null||fund===undefined){ if(typeof _radCargarFund==='function')_radCargarFund().then(function(){ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
+  var emp=(fund&&fund.empresas)||[]; if(!emp.length)return {noData:true};
+  var n0=function(v){ v=num(v); return isFinite(v)?v:null; };
+  var byT={}; emp.forEach(function(e){ var t=(e.ticker||e.symbol||'').toUpperCase().replace('.MC',''); if(t&&!byT[t])byT[t]=e; });
+  var uni=Object.keys(byT).map(function(t){ var e=byT[t]; var per=n0(e.per),pbv=n0(e.pbv),eveb=n0(e.evEbitda),mc=n0(e.marketCap),beta=n0(e.beta);
+    return {t:t, ey:(per>0?1/per:null), by:(pbv>0?1/pbv:null), evy:(eveb>0?1/eveb:null), roe:n0(e.roe), mn:n0(e.margenNeto), dne:n0(e.dnEbitda), cbpa:n0(e.crecBpa), lmc:(mc>0?Math.log(mc):null), nbeta:(beta!=null?-beta:null), rpd:n0(e.rpd), mc:mc }; });
+  function zmap(f){ var vals=uni.map(function(x){return x[f];}).filter(function(v){return v!=null&&isFinite(v);}); var n=vals.length; if(n<3)return null; var m=vals.reduce(function(a,b){return a+b;},0)/n; var sd=Math.sqrt(vals.reduce(function(a,b){return a+(b-m)*(b-m);},0)/n)||1; var z={}; uni.forEach(function(x){ z[x.t]=(x[f]!=null&&isFinite(x[f]))?(x[f]-m)/sd:null; }); return z; }
+  var Z={}; ['ey','by','evy','roe','mn','dne','cbpa','lmc','nbeta','rpd'].forEach(function(f){ Z[f]=zmap(f); });
+  var avg=function(t,keys,signs){ var s=0,c=0; keys.forEach(function(k,i){ var zz=Z[k]&&Z[k][t]; if(zz!=null&&isFinite(zz)){ s+=(signs&&signs[i]===-1?-zz:zz); c++; } }); return c?s/c:null; };
+  var fZ={}; uni.forEach(function(x){ var t=x.t; fZ[t]={ value:avg(t,['ey','by','evy']), quality:avg(t,['roe','mn','dne','cbpa'],[1,1,-1,1]), size:(Z.lmc&&Z.lmc[t]!=null?Z.lmc[t]:null), lowvol:(Z.nbeta&&Z.nbeta[t]!=null?Z.nbeta[t]:null), yield:(Z.rpd&&Z.rpd[t]!=null?Z.rpd[t]:null) }; });
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var pw={},tv=0; pos.forEach(function(p){ var t=(p.ticker||'').toUpperCase(); var v=p.acciones*num(p.precioActual); pw[t]=(pw[t]||0)+v; tv+=v; });
+  var ibx=uni.filter(function(x){return x.mc>0;}).sort(function(a,b){return b.mc-a.mc;}).slice(0,35); var ibxTot=ibx.reduce(function(s,x){return s+x.mc;},0)||1;
+  var iw={}; ibx.forEach(function(x){ iw[x.t]=x.mc/ibxTot; });
+  var wscore=function(W,f){ var s=0,w=0; Object.keys(W).forEach(function(t){ var z=fZ[t]&&fZ[t][f]; if(z!=null&&isFinite(z)){ s+=W[t]*z; w+=W[t]; } }); return w>0?s/w:null; };
+  var FACS=['value','quality','size','lowvol','yield'];
+  var tilts=FACS.map(function(f){ var p=wscore(pw,f),i=wscore(iw,f); return {f:f,p:p,i:i,tilt:(p!=null&&i!=null)?(p-i):null}; });
+  var wraw=function(W,field){ var s=0,w=0; Object.keys(W).forEach(function(t){ var e=byT[t]; var v=e?n0(e[field]):null; if(v!=null){ s+=W[t]*v; w+=W[t]; } }); return w>0?s/w:null; };
+  var medMc=function(W){ var arr=Object.keys(W).map(function(t){return byT[t]?n0(byT[t].marketCap):null;}).filter(function(v){return v!=null;}).sort(function(a,b){return a-b;}); return arr.length?arr[Math.floor(arr.length/2)]:null; };
+  var covered=Object.keys(pw).filter(function(t){return byT[t];});
+  return {ok:true, tilts:tilts, wraw:wraw, medMc:medMc, pw:pw, iw:iw, covered:covered.length, nPos:Object.keys(pw).length, actualizado:(fund&&fund.actualizado)||''};
+}
+function _factorBlockHTML(FX){
+  if(!FX||FX.loading)return '<div class="rz-note">Cargando <code>fundamentales.json</code>… (necesita conexión)</div>';
+  if(FX.noData)return '<div class="rz-note">No hay <code>fundamentales.json</code> en el repo, o está vacío. Ejecuta «Actualizar fundamentales» y súbelo.</div>';
+  if(!FX.covered)return '<div class="rz-note">Ninguna de tus posiciones está en <code>fundamentales.json</code> todavía.</div>';
+  var sig=function(x){ return (x>=0?'+':'')+x.toFixed(1).replace('.',',')+'σ'; };
+  var fuerza=function(a){ a=Math.abs(a); return a>=1?'sesgo fuerte':(a>=0.5?'sesgo moderado':'casi como el IBEX'); };
+  var eur=function(v){ if(v==null)return '—'; if(v>=1e9)return (v/1e9).toFixed(1).replace('.',',')+' B€'; return Math.round(v/1e6).toLocaleString('es-ES')+' M€'; };
+  var pct=function(v,d){ return v==null?'—':v.toFixed(d==null?1:d).replace('.',',')+'%'; };
+  var num1=function(v){ return v==null?'—':v.toFixed(1).replace('.',','); };
+  var META={
+    value:{ic:'💰',nm:'Valor (barato/caro)',mide:'Cómo de barata está tu cartera: cuánto pagas por cada euro de beneficio o de patrimonio (PER, P/B, EV/EBITDA).',
+      up:'Tus empresas están <b>más baratas</b> que la media: mejor margen de seguridad, aunque suelen ser negocios más maduros.', dn:'Tus empresas están <b>más caras</b> que la media: pagas por crecimiento/calidad esperada.',
+      raw:function(FX){ return 'PER '+num1(FX.wraw(FX.pw,'per'))+' · P/B '+num1(FX.wraw(FX.pw,'pbv')); }, rawI:function(FX){ return 'PER '+num1(FX.wraw(FX.iw,'per'))+' · P/B '+num1(FX.wraw(FX.iw,'pbv')); }},
+    quality:{ic:'⭐',nm:'Calidad',mide:'Cómo de buenos son los negocios: rentabilidad (ROE), margen y poca deuda.',
+      up:'Negocios <b>mejores</b> que la media (más rentables y menos endeudados): aporta solidez.', dn:'Calidad <b>por debajo</b> de la media: vigila deuda y rentabilidad.',
+      raw:function(FX){ return 'ROE '+pct(FX.wraw(FX.pw,'roe'))+' · margen '+pct(FX.wraw(FX.pw,'margenNeto')); }, rawI:function(FX){ return 'ROE '+pct(FX.wraw(FX.iw,'roe')); }},
+    size:{ic:'🏛️',nm:'Tamaño',mide:'El tamaño de tus empresas (capitalización). Grandes = consolidadas; pequeñas = más crecimiento y riesgo.',
+      up:'Sesgo a <b>empresas grandes</b> y consolidadas: más estables y líquidas, pero crecen menos.', dn:'Sesgo a <b>empresas pequeñas/medianas</b>: más margen de crecimiento y más riesgo.',
+      raw:function(FX){ return 'mediana '+eur(FX.medMc(FX.pw)); }, rawI:function(FX){ return 'mediana '+eur(FX.medMc(FX.iw)); }},
+    lowvol:{ic:'🛡️',nm:'Baja volatilidad',mide:'Cuánto se mueve tu cartera (vía beta). Baja = sube y baja con más suavidad que el mercado.',
+      up:'Tu cartera se mueve <b>menos</b> que el mercado: tranquila en las caídas, pero se queda atrás en las subidas fuertes.', dn:'Tu cartera se mueve <b>más</b> que el mercado: más nervios en ambas direcciones.',
+      raw:function(FX){ return 'beta '+num1(FX.wraw(FX.pw,'beta')); }, rawI:function(FX){ return 'beta '+num1(FX.wraw(FX.iw,'beta')); }},
+    yield:{ic:'💶',nm:'Dividendo (yield)',mide:'Cuánto dividendo reparte tu cartera respecto a su precio (RPD).',
+      up:'Cobras <b>más dividendo</b> que el mercado — tu estrategia. A cambio, suelen crecer menos y sufren más cuando suben los tipos.', dn:'Cobras <b>menos dividendo</b> que el mercado.',
+      raw:function(FX){ return 'RPD '+pct(FX.wraw(FX.pw,'rpd')); }, rawI:function(FX){ return 'RPD '+pct(FX.wraw(FX.iw,'rpd')); }}
+  };
+  var MAX=2;
+  var cards=FX.tilts.map(function(o){ var m=META[o.f]; if(!m)return ''; if(o.tilt==null)return '<div class="fx-c"><div class="fx-h"><span class="ic">'+m.ic+'</span><b class="nm">'+m.nm+'</b><span class="tilt">—</span></div><div class="fx-mide"><b>Qué mide:</b> '+m.mide+'</div><div class="fx-raw muted">Sin datos suficientes en fundamentales.</div></div>';
+    var pos=o.tilt>=0; var w=(Math.min(Math.abs(o.tilt),MAX)/MAX*50).toFixed(1);
+    return '<div class="fx-c"><div class="fx-h"><span class="ic">'+m.ic+'</span><b class="nm">'+m.nm+'</b><span class="tilt '+(pos?'pos':'neg')+'">'+sig(o.tilt)+'</span></div>'
+      +'<div class="fx-sub">'+(pos?'▲ más que el IBEX':'▼ menos que el IBEX')+' · <span class="muted">'+fuerza(o.tilt)+'</span></div>'
+      +'<div class="fx-track"><div class="fx-zero"></div>'+(pos?'<div class="fx-fill pos" style="left:50%;width:'+w+'%"></div>':'<div class="fx-fill neg" style="right:50%;width:'+w+'%"></div>')+'</div>'
+      +'<div class="fx-mide"><b>Qué mide:</b> '+m.mide+'</div>'
+      +'<div class="fx-int"><b>Lo tuyo:</b> '+(pos?m.up:m.dn)+'</div>'
+      +'<div class="fx-raw">Tu cartera: <b>'+m.raw(FX)+'</b> · IBEX: '+m.rawI(FX)+'</div></div>';
+  }).join('');
+  var tget=function(f){ var o=FX.tilts.find(function(x){return x.f===f;}); return o?o.tilt:null; };
+  var doble=(tget('value')>0&&tget('lowvol')>0&&tget('yield')>0);
+  var whatfor='<div class="fx-whatfor"><b class="h">🧭 ¿Qué es esto y para qué sirve?</b>'
+    +'Tu cartera tiene "estilos" o <b>sesgos</b> aunque no los hayas elegido a propósito (p. ej. muchas eléctricas = mucho dividendo y poca volatilidad, sin quererlo). Esta vista pone <b>número</b> a esos sesgos y los compara con el mercado (el IBEX), para responder a dos preguntas:'
+    +'<br>• <b>¿Mi cartera hace lo que yo creo?</b> (confirma tu estrategia con datos).'
+    +'<br>• <b>¿Estoy doblando la misma apuesta sin darme cuenta?</b> Varios sesgos que apuntan a lo mismo amplifican el riesgo en las malas rachas.'
+    +'<br><span class="muted">No hay un perfil "correcto": es una radiografía para conocerte, no una recomendación de compra o venta.</span></div>';
+  var howread='<div class="fx-howread"><div class="box"><b>Cómo leer el número (σ).</b> Cada sesgo se mide en "desviaciones típicas" respecto al IBEX. En cristiano: <b>0σ</b> = igual que el mercado · <b>±0,5σ</b> = un poco por encima/debajo · <b>±1σ</b> = sesgo claro · <b>±2σ</b> = extremo. El <b>signo</b> dice el lado; el <b>tamaño</b>, la fuerza.'
+    +'<div class="fx-scale"><div class="seg l2"></div><div class="seg l1"></div><div class="seg z"></div><div class="seg r1"></div><div class="seg r2"></div></div><div class="fx-scale-lbl"><span>−2σ menos</span><span>IBEX</span><span>+2σ más</span></div></div>'
+    +'<div class="box"><b>Las barras.</b> La línea gris central es el IBEX. Barra a la <b style="color:#0d9488">derecha (verde)</b> = tienes <b>más</b> de ese factor que el índice; a la <b style="color:#d97706">izquierda (ámbar)</b> = <b>menos</b>. Debajo de cada una te explico qué significa <b>tu</b> resultado.</div></div>';
+  var warn=doble
+    ? '<div class="fx-warn"><b>⚠️ La trampa a vigilar: la doble apuesta.</b> Tienes altos a la vez <b>Valor</b>, <b>Baja volatilidad</b> y <b>Dividendo</b>, que tienden a ser <b>la misma familia</b> de empresas (utilities, defensivas). No es diversificar tres cosas: es <b>triplicar la misma apuesta</b>. Funciona en mercados tranquilos, pero si a esa familia le toca sufrir (p. ej. subidas fuertes de tipos), caen varias a la vez. Mira el <b>conjunto</b> y crúzalo con las correlaciones y los Escenarios.</div>'
+    : '<div class="fx-warn" style="background:#f0f6ff;border-color:#cfe0fb;color:#334155"><b>💡 Interpreta el conjunto.</b> Algunos factores solapan (yield, baja volatilidad y value suelen ir juntos). Mira el perfil completo y crúzalo con las correlaciones y los Escenarios, no cada factor por separado.</div>';
+  var cov=(FX.covered<FX.nPos)?('<div class="muted" style="font-size:11px;margin-top:8px">Calculado con '+FX.covered+' de tus '+FX.nPos+' posiciones (el resto no está en fundamentales.json). IBEX aprox. = 35 mayores por capitalización.</div>'):('<div class="muted" style="font-size:11px;margin-top:8px">IBEX aprox. = 35 mayores por capitalización'+(FX.actualizado?(' · fundamentales '+FX.actualizado):'')+'.</div>');
+  return whatfor+howread+'<div class="fx-grid">'+cards+'</div>'+warn+cov;
+}
 function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#riesgoKpis'); const R=riesgoData(renderRiesgo);
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
-  window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,ingreso:false,corr:false};
+  window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,ingreso:false,corr:false,factores:false};
+  const FX=_factorExpo(renderRiesgo);
   const pv=x=>x==null?'—':(x*100).toFixed(1)+'%';
   const corrCol=v=>v>=0.6?'#dc2626':v>=0.4?'#d97706':'#16a34a';
   const corrBg=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){const c=Math.round(255-x*105);return 'rgb(255,'+c+','+c+')';} const c2=Math.round(255+x*105); return 'rgb('+c2+',255,'+c2+')'; };
@@ -505,7 +583,8 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
     blk('pos','📊','Por posición',R.tickers.length+' empresas','Peso, volatilidad individual y correlación media de cada empresa con el resto (rojo = se mueve con la cartera).',posDesk+'<div class="rz-mob">'+posCards+'</div>')+
     blk('sec','🏭','Peso por sector',Object.keys(R.secW).length+' sectores','Rojo ≥35% (sobreconcentración) · ámbar ≥25%.',secInner)+
     blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
-    blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>');
+    blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>')+
+    blk('factores','🧭','Exposición a factores vs IBEX',(FX&&FX.ok?'perfil de estilo de tu cartera':'—'),'',_factorBlockHTML(FX));
   var _rsec=document.getElementById('view-riesgo');
   if(_rsec && !renderRiesgo._bound){ renderRiesgo._bound=true; _rsec.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.rz-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-rzblk'); window._riesgoOpen[k]=!window._riesgoOpen[k]; h.parentElement.classList.toggle('open'); } }); }
 }
