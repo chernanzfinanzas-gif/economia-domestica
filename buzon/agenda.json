@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-15T14:47:10+02:00",
+  "generadoEl": "2026-07-20T13:23:02+02:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-15",
-  "resumenTexto": "📌 RESULTADOS confirmados (10): Iberdrola 22-07, Naturgy 22-07, Santander 22-07, Bankinter 23-07, Repsol 23-07, Vidrala, S.A. 23-07, Logista 24-07, Mapfre 24-07. 💶 EX-DIVIDEND (2): Vidrala, S.A. 13-07, Ebro Foods 29-09. Sin confirmar por Yahoo: 12 (usan la estimación del Vigía).",
+  "fechaReferencia": "2026-07-20",
+  "resumenTexto": "📌 RESULTADOS confirmados (10): Iberdrola 22-07, Naturgy 22-07, Santander 22-07, Bankinter 23-07, Repsol 23-07, Vidrala, S.A. 23-07, Logista 24-07, Mapfre 24-07. 💶 Ex-dividend (orientativo, 1): Ebro Foods 29-09. Sin fecha de resultados confirmada: 3 (rige la estimación del Vigía).",
   "resultados": [
     {
       "ticker": "IBE",
       "empresa": "Iberdrola",
       "fecha": "2026-07-22",
-      "dias": 7,
+      "dias": 2,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -18,7 +18,7 @@
       "ticker": "NTGY",
       "empresa": "Naturgy",
       "fecha": "2026-07-22",
-      "dias": 7,
+      "dias": 2,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -26,7 +26,7 @@
       "ticker": "SAN",
       "empresa": "Santander",
       "fecha": "2026-07-22",
-      "dias": 7,
+      "dias": 2,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -34,7 +34,7 @@
       "ticker": "BKT",
       "empresa": "Bankinter",
       "fecha": "2026-07-23",
-      "dias": 8,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -42,7 +42,7 @@
       "ticker": "REP",
       "empresa": "Repsol",
       "fecha": "2026-07-23",
-      "dias": 8,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -50,7 +50,7 @@
       "ticker": "VID",
       "empresa": "Vidrala, S.A.",
       "fecha": "2026-07-23",
-      "dias": 8,
+      "dias": 3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -58,7 +58,7 @@
       "ticker": "LOG",
       "empresa": "Logista",
       "fecha": "2026-07-24",
-      "dias": 9,
+      "dias": 4,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -66,15 +66,7 @@
       "ticker": "MAP",
       "empresa": "Mapfre",
       "fecha": "2026-07-24",
-      "dias": 9,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
-      "fecha": "2026-07-24",
-      "dias": 9,
+      "dias": 4,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -82,26 +74,25 @@
       "ticker": "ELE",
       "empresa": "Endesa",
       "fecha": "2026-07-29",
-      "dias": 14,
+      "dias": 9,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "VIS",
+      "empresa": "Viscofan",
+      "fecha": "2026-07-29",
+      "dias": 9,
       "confirmada": true,
       "fuente": "calendar"
     }
   ],
   "exDividendos": [
     {
-      "ticker": "VID",
-      "empresa": "Vidrala, S.A.",
-      "exFecha": "2026-07-13",
-      "dias": -2,
-      "pagoFecha": null,
-      "importe": 0.4687,
-      "fuente": "calendar"
-    },
-    {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
       "exFecha": "2026-09-29",
-      "dias": 76,
+      "dias": 71,
       "pagoFecha": null,
       "importe": 0.23,
       "fuente": "calendar"
@@ -111,62 +102,17 @@
     {
       "ticker": "A3M",
       "empresa": "Atresmedia",
-      "motivo": "Yahoo no confirma resultados ni ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "BKT",
-      "empresa": "Bankinter",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
-      "motivo": "Yahoo no confirma resultados (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "ELE",
-      "empresa": "Endesa",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "IBE",
-      "empresa": "Iberdrola",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
       "ticker": "ITX",
       "empresa": "Inditex",
-      "motivo": "Yahoo no confirma resultados (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "LOG",
-      "empresa": "Logista",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "MAP",
-      "empresa": "Mapfre",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "REP",
-      "empresa": "Repsol",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "SAN",
-      "empresa": "Santander",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
-    },
-    {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
-      "motivo": "Yahoo no confirma ex-dividend (se usa la estimación del Vigía)"
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     }
   ],
   "totalConsultadas": 13,
