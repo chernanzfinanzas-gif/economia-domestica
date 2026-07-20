@@ -1,0 +1,151 @@
+{
+ "schemaVersion": 7,
+ "ticker": "AENA",
+ "empresa": "Aena, S.M.E., S.A.",
+ "fecha": "2026-07-20",
+ "rating": "AA",
+ "score": 75.1,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF + múltiplos históricos (concesional). PO oficial = síntesis ponderada 21,6 € (DCF base 23,1 € + múltiplos 19–22 €); rango DCF 17,2 / 23,1 / 33,0 €.",
+ "poBear": 17.2,
+ "poBase": 21.6,
+ "poBull": 33.0,
+ "entMin": 18.0,
+ "entMax": 22.0,
+ "stop": 15.6,
+ "dpaPrevisto": 1.09,
+ "moat": "ANCHO (79,7): monopolio aeroportuario regulado, activo único e irreplicable; escala eficiente + licencia DORA",
+ "catalizadores": [
+  "DORA III favorable (2026-27)",
+  "Récord de tráfico sostenido",
+  "Bajada de tipos del BCE",
+  "Aumento del dividendo (payout ~80%)"
+ ],
+ "riesgos": [
+  "Shock de tráfico (apalancamiento operativo, −25 a −50%)",
+  "DORA III adverso",
+  "Interferencia política (Enaire 51%)",
+  "Concentración turismo europeo",
+  "Tipos altos / coste de deuda",
+  "Fiscalidad ESG a la aviación"
+ ],
+ "bull": "DORA III favorable + tráfico récord + bajada de tipos expanden el múltiplo y el FCL crece ~6% → 30-33 €.",
+ "bear": "Shock de tráfico o DORA III duro; el apalancamiento operativo hunde EBITDA y dividendo → 14-16 € (−40%).",
+ "resumen": "Aena es una de las mejores infraestructuras cotizadas del mundo (Rating AA, Moat ancho, ROIC 15,3% vs WACC 7,0%, balance sólido), pero a 26,10 € la calidad ya está pagada: cotiza un 17% por encima del valor intrínseco (PO 21,6 €), con Reverse DCF heroico y un bear case asimétrico (−40%) por el apalancamiento operativo. Decisión: ESPERAR; entrada atractiva <22 €. Tenedor: MANTENER.",
+ "confianza": {
+  "score": 88,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+   "2 línea(s) de conciliación ⚠ sin corregir (−10)"
+  ],
+  "sensibleASupuestos": true,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-20"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "matizada": false,
+  "banda": {
+   "p10": 17.2,
+   "p50": 21.6,
+   "p90": 33.0
+  },
+  "sensibilidad": {
+   "poMin": 17.49,
+   "poMax": 33.38,
+   "poBase": 23.0857581151515,
+   "cotizacion": 26.1,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -33.0,
+   "mdsMax": 27.9
+  },
+  "beta": {
+   "capm": 0.76,
+   "ref2": 0.9,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (26.10) cae DENTRO de la banda de PO [17.5–33.4] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "dividendSafety": {
+  "score": 71,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 22,
+   "C2": 7,
+   "C3": 18,
+   "C4": 9,
+   "C5": 15
+  },
+  "shareholderYield": 4.38,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.37x / FCL 1.38x (3a OE 1.59x) → 22/35",
+   "C2 payout BN ord.: 70% (3a 60%) → 7/15",
+   "C3 balance: DN/EBITDA 1.50x, cob.int 11.5x → 18/20",
+   "C4 trayectoria: 1 recorte(s) en 7a · DPA creciente → 9/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 7.19,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.58,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.7,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-20"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 6.0,
+  "gIntrinseco": 3.5,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+  "calculadoEl": "2026-07-20"
+ }
+}
