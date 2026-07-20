@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "meses": [
+    {
+      "mesKey": "2026-07",
+      "fecha": "2026-07-21",
+      "periodoTexto": "desde 2026-07-20 (~1 días)",
+      "resumenTexto": "Radar (desde 2026-07-20 (~1 días)): 0 empresas con cambios.",
+      "totales": {
+        "conCambios": 0,
+        "conSenal": 0,
+        "universo": 102
+      },
+      "senaladas": []
+    }
+  ],
+  "actualizado": "2026-07-21T00:07:33+02:00"
+}
