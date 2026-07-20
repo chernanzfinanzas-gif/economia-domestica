@@ -1,12 +1,11 @@
 {
-  "generadoEl": "2026-07-15T00:08:40+02:00",
+  "generadoEl": "2026-07-20T15:28:31+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-15",
-  "resumenTexto": "🔜 PRÓXIMOS 14 DÍAS: Viscofan 23-07, Atresmedia 24-07, Bankinter 24-07, Ebro Foods 25-07, Endesa 25-07, Iberdrola 25-07, Mapfre 25-07, Naturgy 25-07, Repsol 25-07, Vidrala, S.A. 25-07, Logista 28-07. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-07-20",
+  "resumenTexto": "📅 ESTA SEMANA (11): Viscofan 23-07, Atresmedia 24-07, Bankinter 24-07, Amadeus 25-07, Ebro Foods 25-07, Endesa 25-07, Iberdrola 25-07, Mapfre 25-07, Naturgy 25-07, Repsol 25-07, Vidrala, S.A. 25-07. 🔜 PRÓXIMOS 14 DÍAS: Logista 28-07, Santander 30-07. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [],
-  "estaSemana": [],
-  "proximos14d": [
+  "estaSemana": [
     {
       "ticker": "VIS",
       "empresa": "Viscofan",
@@ -33,6 +32,15 @@
       "fechaEstimada": "2026-07-24",
       "ultimoPeriodo": "2026-Q1",
       "ultimaFecha": "2026-04-23"
+    },
+    {
+      "ticker": "AMS",
+      "empresa": "Amadeus",
+      "periodoEsperado": "2026-Q2",
+      "periodoLabel": "H1",
+      "fechaEstimada": "2026-07-25",
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-05-14"
     },
     {
       "ticker": "EBRO",
@@ -96,7 +104,9 @@
       "fechaEstimada": "2026-07-25",
       "ultimoPeriodo": "2026-Q1",
       "ultimaFecha": "2026-04-25"
-    },
+    }
+  ],
+  "proximos14d": [
     {
       "ticker": "LOG",
       "empresa": "Logista",
@@ -105,6 +115,15 @@
       "fechaEstimada": "2026-07-28",
       "ultimoPeriodo": "2026-Q2",
       "ultimaFecha": "2026-04-30"
+    },
+    {
+      "ticker": "SAN",
+      "empresa": "Santander",
+      "periodoEsperado": "2026-Q2",
+      "periodoLabel": "H1",
+      "fechaEstimada": "2026-07-30",
+      "ultimoPeriodo": "2026-Q1",
+      "ultimaFecha": "2026-04-28"
     }
   ],
   "siguienteEvento": {
@@ -117,5 +136,5 @@
     "ultimaFecha": "2026-04-28"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 13
+  "totalEmpresas": 14
 }
