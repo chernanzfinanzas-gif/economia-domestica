@@ -1,5 +1,5 @@
 {
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "ticker": "EBRO",
  "empresa": "Ebro Foods, S.A.",
  "fecha": "2026-07-14",
@@ -137,6 +137,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -7.8,
+  "gIntrinseco": -0.3,
+  "veredicto": "Pte",
+  "motivo": "Sin g intrínseco positivo con el que comparar: la empresa no está reinvirtiendo para crecer (capital plano o decreciente), así que el veredicto de plausibilidad no aplica.",
   "calculadoEl": "2026-07-19"
  }
 }

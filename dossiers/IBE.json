@@ -31,7 +31,7 @@
  "bull": "Con bajada de tipos en Europa el descuento de valoración se comprime: el plan €58.000M genera EBITDA creciente en activos regulados y el múltiplo EV/EBITDA se expande de ~9x a ~11x → precio implícito €29–35.",
  "bear": "España recorta la TIR regulada y el BCE mantiene tipos altos: cae el valor del RAB, sube el gasto financiero y aparece riesgo de ampliación dilutiva → precio implícito €11–14.",
  "resumen": "Utility regulada global, moat 77,2/100, Score 67,6 / Rating A. Cotiza a €20,32 con descuento frente a su valor en un escenario de tipos normalizados; los tres miedos del mercado (dilución, tipos, regulación) son monitoreables y no letales. COMPRAR/ACUMULAR en €18–21, PO 12–18m €24–29, stop €14,50.",
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -136,6 +136,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 7.6,
+  "gIntrinseco": 6.9,
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
   "calculadoEl": "2026-07-19"
  }
 }

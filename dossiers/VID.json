@@ -1,5 +1,5 @@
 {
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "ticker": "VID",
  "empresa": "Vidrala, S.A.",
  "fecha": "2026-07-13",
@@ -137,6 +137,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 1.6,
+  "gIntrinseco": 7.3,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
   "calculadoEl": "2026-07-19"
  }
 }

@@ -30,7 +30,7 @@
  "bull": "Catalizadores regulatorio (nueva TRF del 6,58%) + bajada de tipos del BCE + claridad accionarial elevan el EBITDA regulado y reducen el descuento de gobernanza, con el dividendo y el BPA creciendo apoyados en las recompras. Precio ~40 € (+39%), probabilidad ~P90.",
  "bear": "Del Pre-Mortem (§8.2): shock regulatorio que recorte la retribución de redes y/o crisis en Latinoamérica, agravado por la erosión del patrimonio. Precio ~21 € (−27%), probabilidad ~P10.",
  "resumen": "Naturgy es un negocio de alta calidad (Rating A, 74,2/100; ROIC 11,1% > WACC 5,0%, spread +6,1 pp; margen EBITDA en máximos del 25,4% y desapalancamiento a DN/EBITDA 2,5x) que cotiza a un precio justo: precio objetivo 32,81 € frente a 28,80 €, con un margen de seguridad de +13,9%. La tesis es de income de calidad —dividendo recuperado a 1,77 € y BPA en máximos (2,17 €) impulsado por las recompras que han reducido las acciones de 1.000 a 930 M— más que de fuerte revalorización. Decisión: MANTENER; la compra resulta atractiva por debajo de ~26 € (MdS > 25%). Moat moderado-ancho (72) anclado en redes reguladas, con el matiz del patrimonio erosionado por la retribución agresiva y el descuento de gobernanza por la estructura accionarial (IFM/Criteria/GIP).",
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -138,6 +138,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -7.2,
+  "gIntrinseco": -1.0,
+  "veredicto": "Pte",
+  "motivo": "Sin g intrínseco positivo con el que comparar: la empresa no está reinvirtiendo para crecer (capital plano o decreciente), así que el veredicto de plausibilidad no aplica.",
   "calculadoEl": "2026-07-19"
  }
 }

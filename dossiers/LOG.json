@@ -29,7 +29,7 @@
  "bull": "La diversificación compensa el tabaco, los tipos se estabilizan altos manteniendo el ingreso financiero y el mercado recalifica a PER ~16x: la acción tendería a 45-50 € (+35-47%).",
  "bear": "Tormenta fiscal-monetaria (recorte de tipos + subida fiscal del tabaco en Francia) → beneficio −20% → recorte del dividendo ~30% → des-rating: 22-25 € (−26 a −35%).",
  "resumen": "Logista es un cuasi-monopolio regulado de distribución, de calidad excepcional (Rating AA, moat ancho, ROIC ~31%, balance de caja neta, dividendo ~6% cubierto por la caja libre), que cotiza cerca de su valor razonable tras re-valorizarse con fuerza. Tesis de RENTA defensiva, no de revalorización: MANTENER para el inversor posicionado; ESPERAR entrada por debajo de 30 €. El punto a vigilar es la sensibilidad del beneficio a los tipos del BCE con un pay-out del ~98%.",
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "confianza": {
   "score": 98,
   "nivel": "A",
@@ -136,6 +136,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 30.0,
+  "gIntrinseco": 6.9,
+  "veredicto": "n.s.",
+  "motivo": "El precio exige un crecimiento extremo (>30%): el FCL de un solo año no es representativo (p.ej. por el float de circulante). Hay que usar un FCL normalizado, no el de un ejercicio.",
   "calculadoEl": "2026-07-19"
  }
 }

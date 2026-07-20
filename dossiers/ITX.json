@@ -1,5 +1,5 @@
 {
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "ticker": "ITX",
  "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
  "fecha": "2026-07-12",
@@ -135,6 +135,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 8.8,
+  "gIntrinseco": 3.6,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
   "calculadoEl": "2026-07-19"
  }
 }

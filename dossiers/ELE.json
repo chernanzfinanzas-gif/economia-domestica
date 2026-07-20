@@ -30,7 +30,7 @@
  "bull": "Regulación favorable (nueva tasa de redes del 6,58%) + bajada de tipos del BCE + cumplimiento del Plan 2026-28 elevan el EBITDA y revalorizan los activos regulados, con el dividendo creciendo sobre un beneficio normalizado. Precio ~45 € (+22%), probabilidad ~25%.",
  "bear": "De-rating del múltiplo (el P/BV récord de 4,48x revierte a su media histórica), agravado por presión regulatoria/fiscal y un nuevo shock de precios. Derivado del Pre-Mortem (§8.2). Precio ~23 € (−38%), probabilidad ~30%. Asimetría desfavorable al precio actual de 37 €.",
  "resumen": "Endesa es una compañía de calidad (Rating A, 69,8/100; spread ROIC−WACC +7,5 pp, apalancamiento bajo ~1,9x y coberturas holgadas) cotizando a un precio exigente: precio objetivo 28,65 € frente a 37,01 €, con un margen de seguridad de −22,6%. El mercado ya paga la calidad —P/BV récord de 4,48x, el más alto del sector—, así que no hay margen a los precios actuales. Decisión: ESPERAR; zona de acumulación por debajo de 30 € y compra con margen por debajo de 25 €. Moat moderado (67,8), anclado en la distribución regulada, y management sólido (66,6) con el matiz del control de Enel (~70%).",
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -136,6 +136,14 @@
    "senal": "normal"
   },
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -2.8,
+  "gIntrinseco": 7.0,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
   "calculadoEl": "2026-07-19"
  }
 }

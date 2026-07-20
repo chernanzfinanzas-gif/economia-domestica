@@ -31,7 +31,7 @@
  "bull": "RoTE >16% sostenido, el coste de capital se comprime y el mercado cierra el descuento de P/BV hacia ~1,8–2,0x con recompras reduciendo acciones → P/TBV justificado ~12,4 €.",
  "bear": "Crisis de crédito y divisa en LatAm: coste del riesgo >2%, recorte de la retribución y de-rating, con compresión del margen por la bajada de tipos → P/TBV pesimista ~7,0 €.",
  "resumen": "Banco de alta calidad (Rating A, 74,3): RoTE 16,4% > CoE, eficiencia 46%, CET1 13,5%, retribución sostenible. Moat moderado (65/100). A 11,35 € no ofrece margen de seguridad: PO central ~8,3 € (−27%) y perfil riesgo/recompensa asimétrico a la baja. ESPERAR; entrada con margen ~7 €, stop previsto ~5,9 €.",
- "schemaVersion": 6,
+ "schemaVersion": 7,
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -107,6 +107,12 @@
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
   "calculadoEl": "2026-07-19"
  }
 }
