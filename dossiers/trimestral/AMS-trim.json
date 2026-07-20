@@ -4,6 +4,606 @@
   "empresa": "Amadeus",
   "revisiones": [
     {
+      "periodo": "2023-Q1",
+      "fecha": "2023-05-05",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ingresos +43% (fuerte rebote post-COVID), EBITDA 509,8 M€ (margen 38,9%), FCF +117%. Recuperación en marcha.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1311.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 509.8
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 38.9
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 354.4
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 262.4
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.58
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 409.5
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 121.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2026
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 272.6
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "6M: ingresos +28%, EBITDA 1.046 M€, beneficio 541 M€, FCF +57%. Deuda bajando a 1,0x.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2692.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1046.1
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 38.9
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 734.7
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 540.7
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.2
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 903.7
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 235.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1870.1
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 482.4
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-11-10",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ingresos +23% hasta 4.087 M€, EBITDA 1.594 M€ (margen 39,0%), FCF +50%. Trayectoria sólida.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 4086.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1593.8
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1125.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 841.9
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.88
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1452.8
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 348
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2121.7
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 940.5
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Año de recuperación total post-COVID: ingresos +21% hasta 5.441 M€, EBITDA 2.022 M€ (margen 37,2%), beneficio 1.118 M€. Deuda neta 0,9x. Refuerza la tesis.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 5441.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2022.1
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 37.2
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1421.7
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 1117.6
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.5
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1952.3
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 450.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2243.5
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 1194.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-05-03",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ingresos +14,1%, EBITDA 582 M€, beneficio 314 M€, reservas +2,8%. Crecimiento sostenido.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1496.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 582
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 38.9
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 422.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 313.9
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.72
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 476.4
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 125.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2460
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 336.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "6M: ingresos +13,4%, EBITDA 1.203 M€ (margen 39,4%), beneficio 650 M€, reservas +2,9%. Refuerza tesis.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3052.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1203
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39.4
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 871.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 650.1
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.49
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1029
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 242.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2594.7
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 530.3
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-11-08",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ingresos +12,6% hasta 4.601 M€, EBITDA 1.806 M€, beneficio 992 M€, reservas +3,4%. Sólido.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 4600.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1806.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39.3
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1314.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 992.1
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.28
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1626.6
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 359.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2511
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 975.2
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Nuevos máximos: ingresos +12,9% hasta 6.142 M€, EBITDA 2.281 M€, beneficio 1.253 M€, pasajeros 2.166 M. Solvencia impecable. Tesis reforzada.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 6141.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2281.5
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 37.1
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1671.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 1253
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.87
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 2166.1
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 471.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2243.5
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 1357.9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-05-09",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ingresos +9,1%, EBITDA 628 M€, beneficio 355 M€, pasajeros 502,7 M. Deuda 0,8x. Tesis intacta.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1632.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 628.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 38.5
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 461.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 355.3
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.8
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 502.7
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 128.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1875.5
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 261.8
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "6M: ingresos +6,8% (+7,6% ctes), EBITDA 1.276 M€ (margen 39,1%). Deuda neta baja a 1.715 M€.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3260
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1276
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39.1
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 938.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 727.4
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.64
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1076.8
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 247.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1715
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 468.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-11-07",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ingresos +6,4% hasta 4.895 M€, EBITDA 1.929 M€ (margen 39,4%), beneficio 1.088 M€. Deuda 0,90x.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 4895.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1928.7
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39.4
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1419.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 1088.2
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.46
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1687.5
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 369.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2219.9
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 955.2
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre FY-2025 (anual completo): récord de ingresos 6.517 M€, EBITDA 2.447 M€ (margen 37,6%), beneficio 1.336 M€, BPA 3,04 €, pasajeros 2.248,6 M, FCF 1.386 M€. Deuda neta 0,9x. Base de la tesis COMPRAR.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 6517
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 2447.5
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 37.6
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 1811.2
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 1335.7
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.04
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 2248.6
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 484.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2241.6
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 1386.3
+        }
+      ]
+    },
+    {
       "periodo": "2026-Q1",
       "fecha": "2026-05-14",
       "semaforoGlobal": "V",
