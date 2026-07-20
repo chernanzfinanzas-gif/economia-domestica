@@ -645,6 +645,17 @@ function buildEmpresa(ctx,tOverride){
   return _infDocWrapKHB('Informe de empresa · '+nombre+' ('+t+')',metas,inner);
 }
 
+function _prepInfSemanal(orden){
+  orden = orden || 'genera el informe semanal de cartera';
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(orden); }
+    else { throw 0; }
+  }catch(e){
+    try{ var ta=document.createElement('textarea'); ta.value=orden; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:-1000px;left:-1000px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }catch(e2){}
+  }
+  try{ if(typeof showToast==='function') showToast('\uD83D\uDCCB Orden copiada. Se abrira Claude con la carpeta del metodo: en el chat, pega con <b>Ctrl+V</b> y pulsa <b>Enter</b> para lanzar el informe.', null, null, 10000); }catch(e){}
+  return true;
+}
 function _infSemanalBlockHTML(){
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
@@ -776,7 +787,7 @@ function renderInformesCenter(){
   ['change','input'].forEach(function(ev){ host.addEventListener(ev,function(e){ if(e.target&&(e.target.id==='infcMes'||e.target.id==='infcAnio'||e.target.id==='infcDesde'||e.target.id==='infcHasta'))_infUpdCount(); }); });
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.inf-catchk').forEach(function(l){ l.querySelector('input').checked=ck; l.classList.toggle('on',ck); }); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
-  var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ try{ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText('genera el informe semanal de cartera'); }catch(e){} });
+  var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('genera el informe semanal de cartera'); });
   var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
   var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
   _infUpdCount();

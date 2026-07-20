@@ -414,7 +414,7 @@ function renderInformeBlock(){
     +'<a class="btn" id="infSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>';
   if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
   var _isb=document.getElementById('infSemanalBtn');
-  if(_isb) _isb.addEventListener('click',function(){ try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(_infOrden); }catch(e){} });
+  if(_isb) _isb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_infOrden); });
 }
 function _hemEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _hemFecha(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[1]+m[2]+m[3]):'00000000'; }
