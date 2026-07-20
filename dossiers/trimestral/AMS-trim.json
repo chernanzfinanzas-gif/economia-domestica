@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "ticker": "AMS",
+  "empresa": "Amadeus",
+  "revisiones": [
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "VERDE. Ingresos +3,1% (+7,9% a tipos constantes), EBITDA +5,3% con margen 39,3%, BPA +3,5%, FCF +4,5%, deuda neta 1,0x. Pasajeros +3,1% (señal nº1 al alza); reservas −0,2% por freno puntual de Oriente Medio, no estructural. Tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1682.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 661.4
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 39.3
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 474.9
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 356.9
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.83
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 518.5
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 128.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2586.0
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 273.6
+        }
+      ]
+    }
+  ]
+}
