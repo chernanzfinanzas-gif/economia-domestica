@@ -1,0 +1,657 @@
+{
+ "schemaVersion": 1,
+ "ticker": "AENA",
+ "empresa": "Aena, S.M.E., S.A.",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "fecha": "2023-04-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "Q1",
+   "resumen": "Arranque de recuperación post-COVID: EBITDA 368,6M (+153%), ingresos 1.026,7M (+34%). DN/EBITDA LTM 2,97x en descenso. Tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 53.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 334.4
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1026.7
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 368.6
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 153.2
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 133.6
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 2.97
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 9.95
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q2",
+   "fecha": "2023-07-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "S1",
+   "resumen": "Semestre sólido: EBITDA 1.170,3M (+49,5%), margen 50,2%, BNA 607,7M. DN/EBITDA baja a 2,89x. Tráfico de verano récord.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 129.4
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 710.7
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2333.2
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1170.3
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 49.5
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 607.7
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 2.89
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 9.95
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q3",
+   "fecha": "2023-10-30",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "9M",
+   "resumen": "9M muy fuertes: EBITDA 2.113,6M (+38,8%), margen 55,9%, BNA 1.139,1M. Desapalancamiento a 2,38x.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 216.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1127.8
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 3779.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2113.6
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 38.8
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 1139.1
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 2.38
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 9.95
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q4",
+   "fecha": "2024-02-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "FY",
+   "resumen": "Recuperación fuerte post-COVID: tráfico récord (283,2M), EBITDA +35% e ingresos +20%. DN/EBITDA baja a 3,1x. Tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 283.2
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1534.5
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 5055.2
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2760.3
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 35.2
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 1630.8
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 2.25
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": 545
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 9.95
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": 0.77
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q1",
+   "fecha": "2024-04-30",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "Q1",
+   "resumen": "Consolidación: EBITDA 581,1M (+57,7%), margen 47,1%, BNA 261,0M. DN/EBITDA 1,79x. Momentum intacto.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 60.8
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 399.2
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1233.0
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 581.1
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 57.7
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 261.0
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.79
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q2",
+   "fecha": "2024-07-30",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "S1",
+   "resumen": "Semestre récord: EBITDA 1.555,3M (+32,9%), margen 56,6%, BNA 808,6M. DN/EBITDA 1,89x.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 144.2
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 834.3
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2746.4
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1555.3
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 32.9
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 808.6
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.89
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q3",
+   "fecha": "2024-10-29",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "9M",
+   "resumen": "9M excelentes: EBITDA 2.663,3M (+26,0%), margen 60,6%, BNA 1.449,8M. DN/EBITDA 1,60x, apalancamiento conservador.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 237.8
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1313.3
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 4396.7
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2663.3
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 26.0
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 1449.8
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.6
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q4",
+   "fecha": "2025-02-26",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "FY",
+   "resumen": "Año de consolidación: tráfico 309,4M, margen EBITDA 58,6%, DN/EBITDA 2,2x. Desapalancamiento y dividendo al alza. Tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 309.4
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1760.0
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 5792.9
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 3394.4
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 23.0
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 1934.2
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.62
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": 737.6
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": 0.98
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q1",
+   "fecha": "2025-04-29",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "Q1",
+   "resumen": "Arranque firme: EBITDA 643,6M (+10,8%), margen 48,6%, BNA 301,3M. DN/EBITDA 1,37x, balance muy sólido.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 63.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 437.7
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1325.6
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 643.6
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 10.8
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 301.3
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.37
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q2",
+   "fecha": "2025-07-29",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "S1",
+   "resumen": "Semestre récord: EBITDA 1.692,3M (+8,8%), margen 56,5%, BNA 893,8M. DN/EBITDA 1,64x. Crecimiento se modera pero positivo.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 150.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 919.0
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2995.9
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1692.3
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 8.8
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 893.8
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.64
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q3",
+   "fecha": "2025-10-28",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "9M",
+   "resumen": "9M de récord: EBITDA 2.882,7M (+8,2%), margen 60,2%, BNA 1.579,4M. DN/EBITDA 1,39x. Encamina FY-2025 récord.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 247.1
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1452.4
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 4785.2
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2882.7
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 8.2
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 1579.4
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.39
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q4",
+   "fecha": "2026-02-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "FY",
+   "resumen": "Récord histórico: tráfico 321,6M, EBITDA 3.661M (58,1%), BNA 2.137M, DN/EBITDA 1,5x. Máxima solidez operativa; la cautela es de precio, no de negocio.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 321.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 1929.7
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 6304.6
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 3660.9
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 7.9
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 2136.7
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.5
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": 720.3
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 10.35
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": 1.09
+    }
+   ]
+  },
+  {
+   "periodo": "2026-Q1",
+   "fecha": "2026-05-14",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "periodoDisplay": "1T",
+   "resumen": "Arranque sólido de 2026: EBITDA +2,7%, BNA +9,3%, pasajeros del Grupo +3,8% (81,3M). DFN baja a 3.621M. Tesis intacta; sin señales del protocolo (S2/S6). Fuente: informe 1T-2026.",
+   "metricas": [
+    {
+     "nombre": "Pax España (M)",
+     "valor": 65.6
+    },
+    {
+     "nombre": "Ingr. Comercial (M€)",
+     "valor": 462.0
+    },
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1479.9
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 661.1
+    },
+    {
+     "nombre": "%Var EBITDA",
+     "valor": 2.7
+    },
+    {
+     "nombre": "BNA (M€)",
+     "valor": 329.4
+    },
+    {
+     "nombre": "DFN/EBITDA (x)",
+     "valor": 1.31
+    },
+    {
+     "nombre": "CapEx (M€)",
+     "valor": null
+    },
+    {
+     "nombre": "IMAAJ (€/pax)",
+     "valor": 11.0
+    },
+    {
+     "nombre": "DPA (€)",
+     "valor": null
+    }
+   ]
+  }
+ ]
+}
