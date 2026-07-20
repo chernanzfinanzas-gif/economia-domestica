@@ -33,12 +33,12 @@
  "bear": "Shock aéreo (pandemia/recesión) o desintermediación estructural por NDC → ~30-35 € (−30/−40%).",
  "resumen": "Compounder de máxima calidad (Rating AA, moat ancho, ROIC 19,8% vs WACC 6,3%) a precio deprimido tras un des-rating (P/E 16x vs 24x histórico, cerca de mínimos de 52 semanas). El Reverse DCF muestra que el mercado descuenta un declive del FCF (−2%/año) para un negocio que crece: expectativas mínimas y binomio rentabilidad/riesgo favorable. COMPRAR, PO ~74 € (+49%), con entrada escalonada (45-55 €) por la ciclicidad y tamaño de posición prudente (stop de tesis ~30 €).",
  "confianza": {
-  "score": 100,
+  "score": 95,
   "nivel": "A",
   "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "1 línea(s) de conciliación ⚠ sin corregir (−5)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
