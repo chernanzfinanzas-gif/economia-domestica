@@ -1,0 +1,153 @@
+{
+ "schemaVersion": 7,
+ "ticker": "PRM",
+ "empresa": "Prim, S.A.",
+ "fecha": "2026-07-20",
+ "rating": "A",
+ "score": 66.5,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF de FCL normalizado (3 escenarios) + múltiplos históricos — SALUD/distribución. PO oficial = síntesis ponderada §6.5 (DCF 45% · múltiplos 55%) ≈ 14,9 €; el DCF base sobre FCL normalizado daría 16,9 € y los múltiplos 12,9 €.",
+ "poBear": 11.8,
+ "poBase": 14.9,
+ "poBull": 20.0,
+ "entMin": 12.0,
+ "entMax": 13.0,
+ "stop": 9.5,
+ "dpaPrevisto": 0.76,
+ "moat": "Estrecho (52/100): escala logística y relaciones establecidas en un nicho fragmentado de distribución sanitaria/ortopédica; sin barrera de patentes.",
+ "catalizadores": [
+  "Normalización del circulante → FCL recurrente visible",
+  "Recuperación y estabilización de márgenes (EBITDA >11%)",
+  "Retribución sostenida (dividendo + prima de emisión, DY ~5,7%)",
+  "Re-rating hacia el múltiplo del sector (PER 13,6× vs 15-20×)",
+  "Adquisición bolt-on acretiva bien integrada"
+ ],
+ "riesgos": [
+  "Dependencia del sector público (~48% ventas al SNS): presión de precios y retrasos de cobro",
+  "Compresión estructural de márgenes (margen neto del 12% al 6,6%)",
+  "Deterioro de fondo de comercio por M&A (goodwill 11,5 M€)",
+  "Iliquidez y descuento de small-cap",
+  "Volatilidad del circulante (FCL negativo en 2019 y 2023)"
+ ],
+ "bull": "Los márgenes se estabilizan y el circulante deja de drenar caja: el FCL recurrente se hace visible, el mercado re-califica a Prim al múltiplo del sector y la retribución (~5,7%) atrae al inversor de rentas → 18-20 €.",
+ "bear": "La presión de precios en la licitación pública y la competencia comprimen el margen bruto por debajo del 46%, el ROIC converge hacia el WACC y, como small-cap ilíquida sin catalizador, el múltiplo se de-rata a PER 8-9× → ~10-12 €.",
+ "resumen": "Prim es un negocio de calidad (Rating A, confianza 98/100) que CREA VALOR (ROIC 12,1% > WACC 6,4%; ROIIC 5A 16,8%), con un balance excepcional (caja neta, cobertura >50×) y sin alertas forenses. Es el 'value + income' de la salud española: barato frente a sus peers y defensivo, con un dividendo atractivo (DY total ~5,7%) aunque A VIGILAR (Dividend Safety 40/100: cobertura plurianual ajustada 0,57× y recortes pasados), no un valor para comprar solo por la renta. Cotiza cerca de su valor justo (PO 14,9 € vs 13,35 €, +12%), con moat ESTRECHO y márgenes modestos/volátiles; el DCF la ve robustamente barata (robustez sólida), pero el PO de síntesis, más conservador, y la fragilidad del FCL normalizado (reverse DCF 'n.s.') dejan poco margen. Veredicto MANTENER; entrada atractiva por debajo de ~13 €.",
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 30.0,
+  "gIntrinseco": 7.8,
+  "veredicto": "n.s.",
+  "motivo": "El precio exige un crecimiento extremo (>30%): el FCL de un solo año no es representativo (p.ej. por el float de circulante). Hay que usar un FCL normalizado, no el de un ejercicio.",
+  "calculadoEl": "2026-07-20"
+ },
+ "confianza": {
+  "score": 98,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-20"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "matizada": true,
+  "banda": {
+   "p10": 11.8,
+   "p50": 14.9,
+   "p90": 20.0
+  },
+  "sensibilidad": {
+   "poMin": 16.2,
+   "poMax": 26.63,
+   "poBase": 20.0180120194964,
+   "cotizacion": 13.35,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 21.4,
+   "mdsMax": 99.5
+  },
+  "beta": {
+   "capm": 0.5,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (13.35) queda por DEBAJO de toda la banda de PO [16.2–26.6] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "dividendSafety": {
+  "score": 40,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 1,
+   "C2": 13,
+   "C3": 20,
+   "C4": 0,
+   "C5": 12
+  },
+  "shareholderYield": null,
+  "topeDuro": {
+   "activo": true,
+   "motivo": "cobertura sobre owner earnings 3a 0.57x < 1,0x"
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 2.62x / FCL 2.27x (3a OE 0.57x) → 1/35",
+   "C2 payout BN ord.: 48% (3a 54%) → 13/15",
+   "C3 balance: DN/EBITDA -0.32x, cob.int 38.5x → 20/20",
+   "C4 trayectoria: 3 recorte(s) en 10a · DPA creciente → 0/15",
+   "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral.",
+   "TOPE DURO aplicado (score 46 → 40): cobertura sobre owner earnings 3a 0.57x < 1,0x"
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 9,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 9.79,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.84,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.1,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-20"
+ }
+}
