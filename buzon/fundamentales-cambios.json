@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "generadoEl": "2026-07-20T21:35:27+02:00",
+  "generadoPor": "fundamentales_cambios.py (GitHub Actions) — comparación mensual de fundamentales.json",
+  "zona": "Europe/Madrid",
+  "fechaReferencia": "2026-07-20",
+  "fechaAnterior": null,
+  "periodoTexto": "primera foto",
+  "resumenTexto": "Primera foto de fundamentales guardada. Los cambios saldrán en la próxima actualización mensual.",
+  "cambios": [],
+  "nuevas": [
+    {
+      "ticker": "A3M",
+      "nombre": "ATRESMEDIA CORPORACION DE MEDIO"
+    },
+    {
+      "ticker": "ACS",
+      "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION"
+    },
+    {
+      "ticker": "ACX",
+      "nombre": "ACERINOX, S.A."
+    },
+    {
+      "ticker": "ADX",
+      "nombre": "AUDAX RENOVABLES, S.A."
+    },
+    {
+      "ticker": "ADZ",
+      "nombre": "ADOLFO DOMINGUEZ, S.A."
+    },
+    {
+      "ticker": "AEDAS",
+      "nombre": "AEDAS HOMES, S.A"
+    },
+    {
+      "ticker": "AENA",
+      "nombre": "AENA, S.M.E., S.A."
+    },
+    {
+      "ticker": "AI",
+      "nombre": "AIRTIFICIAL INTELLIGENCE STRUCT"
+    },
+    {
+      "ticker": "AIR",
+      "nombre": "AIRBUS"
+    },
+    {
+      "ticker": "ALM",
+      "nombre": "ALMIRALL S.A."
+    },
+    {
+      "ticker": "ALNT",
+      "nombre": "ALANTRA PARTNERS, S.A."
+    },
+    {
+      "ticker": "AMP",
+      "nombre": "AMPER, S.A."
+    },
+    {
+      "ticker": "AMS",
+      "nombre": "AMADEUS IT GROUP, S.A."
+    },
+    {
+      "ticker": "ANA",
+      "nombre": "ACCIONA, S.A."
+    },
+    {
+      "ticker": "ANE",
+      "nombre": "CORPORACI...N ACCIONA ENERG...A"
+    },
+    {
+      "ticker": "APAM",
+      "nombre": "APERAM"
+    },
+    {
+      "ticker": "ARM",
+      "nombre": "ARIMA REAL ESTATE SOCIMI, S.A."
+    },
+    {
+      "ticker": "ART",
+      "nombre": "ARTECHE LANTEGI  ELKARTEA, S.A."
+    },
+    {
+      "ticker": "AZK",
+      "nombre": "AZKOYEN, S.A."
+    },
+    {
+      "ticker": "BBVA",
+      "nombre": "BANCO BILBAO VIZCAYA ARGENTARIA"
+    },
+    {
+      "ticker": "BKT",
+      "nombre": "BANKINTER, S.A."
+    },
+    {
+      "ticker": "BKY",
+      "nombre": "BERKELEY ENERGIA LIMITED"
+    },
+    {
+      "ticker": "CABK",
+      "nombre": "CAIXABANK, S.A."
+    },
+    {
+      "ticker": "CAF",
+      "nombre": "CONSTRUCCIONES Y AUXILIAR DE FE"
+    },
+    {
+      "ticker": "CCEP",
+      "nombre": "COCA-COLA EUROPACIFIC PARTNERS "
+    },
+    {
+      "ticker": "CEV",
+      "nombre": "CEV.MC,0P0000A5U9,0"
+    },
+    {
+      "ticker": "CIE",
+      "nombre": "CIE AUTOMOTIVE, S.A."
+    },
+    {
+      "ticker": "CIRSA",
+      "nombre": "CIRSA ENTERPRISES, S.A."
+    },
+    {
+      "ticker": "CLNX",
+      "nombre": "CELLNEX TELECOM, S.A."
+    },
+    {
+      "ticker": "COL",
+      "nombre": "COLONIAL SFL, SOCIMI. S.A."
+    },
+    {
+      "ticker": "COXG",
+      "nombre": "COX ABG GROUP, S.A."
+    },
+    {
+      "ticker": "DIA",
+      "nombre": "DISTRIBUIDORA INTERNACIONAL DE "
+    },
+    {
+      "ticker": "EBRO",
+      "nombre": "EBRO FOODS, S.A."
+    },
+    {
+      "ticker": "ECO",
+      "nombre": "ECO.MC,0P0001021O,0"
+    },
+    {
+      "ticker": "ECR",
+      "nombre": "ERCROS"
+    },
+    {
+      "ticker": "ELE",
+      "nombre": "ENDESA,S.A."
+    },
+    {
+      "ticker": "ENC",
+      "nombre": "ENCE ENERGIA Y CELULOSA, S.A."
+    },
+    {
+      "ticker": "ENG",
+      "nombre": "ENAGAS,S.A."
+    },
+    {
+      "ticker": "ENO",
+      "nombre": "ELECNOR S.A."
+    },
+    {
+      "ticker": "EZE",
+      "nombre": "GRUPO EZENTIS, S.A."
+    },
+    {
+      "ticker": "FAE",
+      "nombre": "FAES FARMA, S.A."
+    },
+    {
+      "ticker": "FCC",
+      "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO"
+    },
+    {
+      "ticker": "FDR",
+      "nombre": "FLUIDRA, S.A."
+    },
+    {
+      "ticker": "FER",
+      "nombre": "FERROVIAL N.V."
+    },
+    {
+      "ticker": "GEST",
+      "nombre": "GESTAMP AUTOMOCION, S.A."
+    },
+    {
+      "ticker": "GIGA",
+      "nombre": "GIGAS HOSTING, S.A."
+    },
+    {
+      "ticker": "GRE",
+      "nombre": "GRENERGY RENOVABLES, S.A."
+    },
+    {
+      "ticker": "GRF",
+      "nombre": "GRIFOLS S.A."
+    },
+    {
+      "ticker": "GSJ",
+      "nombre": "GRUPO EMPRESARIAL SAN JOSE, S.A"
+    },
+    {
+      "ticker": "HOME",
+      "nombre": "NEINOR HOMES, S.A."
+    },
+    {
+      "ticker": "IAG",
+      "nombre": "INTL CONSOLIDATED AIRLINES GROU"
+    },
+    {
+      "ticker": "IBE",
+      "nombre": "ACCIONES IBERDROLA"
+    },
+    {
+      "ticker": "IBG",
+      "nombre": "IBERPAPEL GESTION,S.A."
+    },
+    {
+      "ticker": "IDR",
+      "nombre": "INDRA SISTEMAS S.A., SERIE A"
+    },
+    {
+      "ticker": "ITX",
+      "nombre": "INDUSTRIA DE DISE...O TEXTIL S."
+    },
+    {
+      "ticker": "LDA",
+      "nombre": "LINEA DIRECTA ASEGURADORA, S.A."
+    },
+    {
+      "ticker": "LGT",
+      "nombre": "LINGOTES ESPECIALES, S.A."
+    },
+    {
+      "ticker": "LLN",
+      "nombre": "LLEIDANETWORKS SERVEIS TELEMATI"
+    },
+    {
+      "ticker": "LOG",
+      "nombre": "COMPA...IA DE DISTRIBUCION INTE"
+    },
+    {
+      "ticker": "MAKS",
+      "nombre": "MAKING SCIENCE GROUP, S.A."
+    },
+    {
+      "ticker": "MAP",
+      "nombre": "MAPFRE, S.A."
+    },
+    {
+      "ticker": "MCM",
+      "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A."
+    },
+    {
+      "ticker": "MEL",
+      "nombre": "MELIA HOTELS INTERNATIONAL, S.A"
+    },
+    {
+      "ticker": "MRL",
+      "nombre": "MERLIN PROPERTIES SOCIMI, S.A."
+    },
+    {
+      "ticker": "MTS",
+      "nombre": "ARCELORMITTAL SA"
+    },
+    {
+      "ticker": "MVC",
+      "nombre": "METROVACESA, S.A."
+    },
+    {
+      "ticker": "NEA",
+      "nombre": "NICOLAS CORREA"
+    },
+    {
+      "ticker": "NTGY",
+      "nombre": "NATURGY ENERGY GROUP, S.A."
+    },
+    {
+      "ticker": "NXT",
+      "nombre": "NUEVA EXPRESI...N TEXTIL, S.A."
+    },
+    {
+      "ticker": "NYE",
+      "nombre": "NYESA VALORES CORPORACION S.A."
+    },
+    {
+      "ticker": "OHLA",
+      "nombre": "OBRASCON HUARTE LAIN, S.A."
+    },
+    {
+      "ticker": "OLE",
+      "nombre": "DEOLEO, S.A."
+    },
+    {
+      "ticker": "ORY",
+      "nombre": "ORYZON GENOMICS, S.A."
+    },
+    {
+      "ticker": "PHM",
+      "nombre": "PHARMA MAR, S.A."
+    },
+    {
+      "ticker": "PRM",
+      "nombre": "PRIM, S.A."
+    },
+    {
+      "ticker": "PRS",
+      "nombre": "PROMOTORA DE INFORMACIONES S.A."
+    },
+    {
+      "ticker": "PSG",
+      "nombre": "PROSEGUR"
+    },
+    {
+      "ticker": "PUIG",
+      "nombre": "PUIG BRANDS, S.A. CLASE B"
+    },
+    {
+      "ticker": "PVA",
+      "nombre": "PESCANOVA,S.A."
+    },
+    {
+      "ticker": "R4",
+      "nombre": "RENTA 4 BANCO, S.A."
+    },
+    {
+      "ticker": "RED",
+      "nombre": "REDEIA CORPORACION, S.A."
+    },
+    {
+      "ticker": "REN",
+      "nombre": "RENTA CORPORACION REAL ESTATE, "
+    },
+    {
+      "ticker": "REP",
+      "nombre": "REPSOL,  S.A."
+    },
+    {
+      "ticker": "RIO",
+      "nombre": "BODEGAS RIOJANAS,S.A."
+    },
+    {
+      "ticker": "RJF",
+      "nombre": "LABORATORIO REIG JOFRE, S.A."
+    },
+    {
+      "ticker": "RLIA",
+      "nombre": "REALIA BUSINESS, S.A."
+    },
+    {
+      "ticker": "ROVI",
+      "nombre": "LABORATORIOS FARMACEUTICOS ROVI"
+    },
+    {
+      "ticker": "SAB",
+      "nombre": "BANCO DE SABADELL"
+    },
+    {
+      "ticker": "SAN",
+      "nombre": "BANCO SANTANDER S.A."
+    },
+    {
+      "ticker": "SCYR",
+      "nombre": "SACYR, S.A."
+    },
+    {
+      "ticker": "SEC",
+      "nombre": "SECUOYA  GRUPO DE COMUNICACION,"
+    },
+    {
+      "ticker": "SLR",
+      "nombre": "SOLARIA ENERGIA Y MEDIO AMBIENT"
+    },
+    {
+      "ticker": "TEF",
+      "nombre": "TELEFONICA,S.A."
+    },
+    {
+      "ticker": "TLGO",
+      "nombre": "TALGO, S.A."
+    },
+    {
+      "ticker": "TRE",
+      "nombre": "TECNICAS REUNIDAS S.A."
+    },
+    {
+      "ticker": "TRG",
+      "nombre": "TUBOS REUNIDOS S.A."
+    },
+    {
+      "ticker": "TUB",
+      "nombre": "TUBACEX, S.A."
+    },
+    {
+      "ticker": "UBS",
+      "nombre": "URBAS GRUPO FINANCIERO, S.A."
+    },
+    {
+      "ticker": "UNI",
+      "nombre": "UNICAJA BANCO, S.A."
+    },
+    {
+      "ticker": "VID",
+      "nombre": "VIDRALA, S.A."
+    },
+    {
+      "ticker": "VIS",
+      "nombre": "VISCOFAN, S.A."
+    },
+    {
+      "ticker": "VOC",
+      "nombre": "VOCENTO"
+    }
+  ],
+  "salieron": [],
+  "totales": {
+    "conCambios": 0,
+    "conSenal": 0,
+    "universo": 102
+  }
+}
