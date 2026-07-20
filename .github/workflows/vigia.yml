@@ -8,12 +8,16 @@ on:
   schedule:
     - cron: "15 6 * * 1"   # lunes 06:15 UTC (~08:15 Madrid)
 permissions: { contents: write }
+# Serializa agenda/vigía/fundamentales: nunca pushean a la vez -> sin conflictos en buzon/index.json.
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
 jobs:
   vigia:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - run: python vigia.py
       - name: Commit y push (con reintentos ante colisiones)
@@ -29,6 +33,7 @@ jobs:
             if git pull --rebase --autostash origin main && git push origin main; then
               echo "Push OK en el intento $i"; exit 0
             fi
-            echo "Push rechazado (colisión), reintento $i..."; sleep 5
+            git rebase --abort 2>/dev/null || true
+            echo "Push rechazado, reintento $i..."; sleep 5
           done
           echo "No se pudo hacer push tras 5 intentos"; exit 1
