@@ -1,0 +1,653 @@
+{
+  "schemaVersion": 1,
+  "ticker": "PRM",
+  "empresa": "Prim, S.A.",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-05-12",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ventas +15% (orgánico +13%). Margen bruto 49,1%. EBITDA recurrente 6,62M (8,3M con la plusvalía de la venta de SPA). BNA ~3,2M (est. de BPA). Buen arranque, márgenes al alza.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 54.57
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 15
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 6.62
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 12.1
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": null
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 4.43
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3.2
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "6M consolidado: ventas 108,7M (+9,9%), EBITDA 14,9M (+27,6%), EBIT 10,4M, BNA 8,0M. Fuerte apalancamiento operativo; incluye la plusvalía de SPA.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 108.74
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 9.9
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 14.9
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 13.7
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 27.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 10.41
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 8.01
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "S1"
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-11-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ventas 154,8M (+8,8%), EBITDA 17,7M (+11,2%), margen bruto 49,1% (vs 47,8%). BNA ~9,5M (est.). Recurrentes y no recurrentes se compensan.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 154.8
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 8.8
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 17.7
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 11.4
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 11.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 9.5
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2023: ventas 216,6M (+9,7%), EBITDA 20,0M, BNA 12,67M. DFN +4,2M (aún ligera deuda neta tras la fuerte inversión y M&A de 2022-23).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 216.6
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 9.7
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 48.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 20
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 9.2
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 45.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 13
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 12.67
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": 4.17
+        }
+      ],
+      "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-05-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ventas 56,5M (+3,4%), EBITDA ajustado 6,8M (vs 6,6M recurrente 2023, +2,7%), margen bruto 49,3%. BNA ~3,3M (est.). Amortizaciones al alza por la M&A (Ortoprono).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 56.5
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 6.8
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 12
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 2.7
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 4.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "6M consolidado: ventas 119,7M (+10,1%), BNA 6,77M (−15,5% vs S1-2023, que llevaba plusvalía). EBITDA ~13,2M y EBIT ~7,5M estimados (el semestre no los desglosa en consolidado). Márgenes presionados por amortización de M&A.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 119.69
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 13.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 11
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": -11.4
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 7.5
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 6.767
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": -15.5
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "S1"
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-11-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ventas 169,5M (+9,5%), EBITDA 18,7M (+5,8%), margen bruto 83,2M€ (49,1%). BNA recurrente ~6,4M (BPA recurrente 0,375€). Crecimiento sólido.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 169.5
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 9.5
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 49.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 18.7
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 11
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 5.8
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 6.4
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2024: ventas 233,2M (+7,6%), EBITDA 21,1M (+5,5%), pero BNA 10,92M (−13,8%) por mayores amortizaciones de la M&A. DFN ~0 (posición neutra). Margen neto comprimido → ÁMBAR.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 233.15
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 7.6
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 47.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 21.09
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 9
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 5.5
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 14
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 10.92
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": -13.8
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": -0.36
+        }
+      ],
+      "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-05-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ventas 61,5M (+8,8%), EBITDA 8,5M (+24,9%), EBIT 5,7M, margen bruto 50,3%. BNA ~3,4M (est.). Fuerte recuperación de rentabilidad y mejora de plazos de cobro.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 61.5
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 8.8
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 50.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 8.5
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 13.8
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 24.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 5.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-29",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "6M consolidado: ventas 127,0M (+6,1%), BNA 10,40M (+53,7%). EBITDA ~16,5M y EBIT ~11,0M estimados (semestre no desglosado en consolidado). Recuperación de márgenes.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 127.01
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 6.1
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 50
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 16.5
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 13
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 25
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 11
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 10.399
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": 53.7
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "S1"
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-11-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M: ventas 182,1M (+7,4%), EBITDA 24,5M (+31%), EBIT 16,1M, margen bruto 92,8M€ (51,0%). BNA ~12,2M (est.). Excelente evolución de márgenes.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 182.1
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 7.4
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 51
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 24.5
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 13.5
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 31
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 16.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 12.2
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": null
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "CIERRE 2025 (base del monitor): ventas 251,8M (+8,0%), EBITDA 28,16M (+33,6%), EBIT 20,8M, BNA 16,68M (+52,7%). Margen bruto 50,0%, caja neta 9,1M, DSO ~73 días. Año de recuperación plena de la rentabilidad.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 251.82
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 8
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 50
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 28.16
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 11.2
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": 33.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 20.81
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 16.68
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": 52.7
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": -9.13
+        }
+      ],
+      "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-14",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "3M: ventas 61,8M (+0,2%; ene-feb afectados por huelga sanitaria y climatología), EBITDA 7,4M (−13,8%) por desfase ventas/costes del plan de crecimiento. Margen bruto MEJORA a 50,6%. BNA 3,23M (BPA 0,19€, −32%). Caja ~22M (DFN muy negativa), cash conversion ~94%, DSO ~54 días (−6 días). Caída de EBITDA A VIGILAR (temporal, no estructural).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 61.8
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": 0.2
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 50.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 7.4
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 11.9
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": -13.8
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 4
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3.23
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": null
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": -13
+        }
+      ]
+    }
+  ]
+}
