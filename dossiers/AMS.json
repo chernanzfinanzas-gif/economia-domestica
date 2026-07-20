@@ -1,0 +1,151 @@
+{
+ "schemaVersion": 7,
+ "ticker": "AMS",
+ "empresa": "Amadeus IT Group, S.A.",
+ "fecha": "2026-07-20",
+ "rating": "AA",
+ "score": 82.4,
+ "decision": "COMPRAR",
+ "metodoValoracion": "DCF sobre FCF real (sensibilidad a crecimiento y WACC) + múltiplos históricos — growth/calidad. PO oficial = síntesis Cap. VI ≈74 € (base 78 €, múltiplos ~68 €); bear ~54 €, bull ~110 €. Caveat: la beta 0,58 infla el DCF; con beta sectorial (~1,05) el suelo es ~60 €.",
+ "poBear": 54,
+ "poBase": 74,
+ "poBull": 110,
+ "entMin": 45,
+ "entMax": 55,
+ "stop": 30,
+ "dpaPrevisto": 1.54,
+ "moat": "ANCHO (82/100): costes de cambio (Altéa), efecto de red (GDS) y escala eficiente.",
+ "catalizadores": [
+  "Recuperación del tráfico aéreo (pasajeros y reservas)",
+  "Cierre del descuento de valoración (P/E 16x vs 24x histórico)",
+  "Retribución al accionista (recompras + dividendo, yield 7,5%)",
+  "Nuevas migraciones a Altéa (Air IT Solutions)",
+  "Monetización del NDC vía Nevio"
+ ],
+ "riesgos": [
+  "Desintermediación por NDC (erosión estructural del moat, mitigada con Nevio)",
+  "Shock del tráfico aéreo (cíclico, precedente COVID −61%)",
+  "Disrupción por IA agentic en la distribución de viajes",
+  "Concentración en grandes clientes aéreos",
+  "Deterioro de intangibles (72% del activo)"
+ ],
+ "bull": "Recuperación del tráfico + re-rating a múltiplos históricos + captura del NDC → ~110 € (+120%).",
+ "bear": "Shock aéreo (pandemia/recesión) o desintermediación estructural por NDC → ~30-35 € (−30/−40%).",
+ "resumen": "Compounder de máxima calidad (Rating AA, moat ancho, ROIC 19,8% vs WACC 6,3%) a precio deprimido tras un des-rating (P/E 16x vs 24x histórico, cerca de mínimos de 52 semanas). El Reverse DCF muestra que el mercado descuenta un declive del FCF (−2%/año) para un negocio que crece: expectativas mínimas y binomio rentabilidad/riesgo favorable. COMPRAR, PO ~74 € (+49%), con entrada escalonada (45-55 €) por la ciclicidad y tamaño de posición prudente (stop de tesis ~30 €).",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-20"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "matizada": false,
+  "banda": {
+   "p10": 54,
+   "p50": 74,
+   "p90": 110
+  },
+  "sensibilidad": {
+   "poMin": 58.63,
+   "poMax": 118.64,
+   "poBase": 78.2985052703578,
+   "cotizacion": 49.94,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 17.4,
+   "mdsMax": 137.6
+  },
+  "beta": {
+   "capm": 0.58,
+   "ref2": 1.05,
+   "aviso": "beta CAPM 0.58 vs 2ª ref 1.05: divergencia 0.47 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (49.94) queda por DEBAJO de toda la banda de PO [58.6–118.6] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "beta CAPM 0.58 vs 2ª ref 1.05: divergencia 0.47 > 0.3 → revisar cuál usar en el WACC"
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "dividendSafety": {
+  "score": 88,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 31,
+   "C2": 13,
+   "C3": 20,
+   "C4": 9,
+   "C5": 15
+  },
+  "shareholderYield": 4.47,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 2.48x / FCL 3.48x (3a OE 2.80x) → 31/35",
+   "C2 payout BN ord.: 46% (3a 40%) → 13/15",
+   "C3 balance: DN/EBITDA 0.92x, cob.int 35.3x → 20/20",
+   "C4 trayectoria: 1 recorte(s) en 8a · DPA creciente → 9/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 6.37,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.82,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.4,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-20"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -2.0,
+  "gIntrinseco": 1.9,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "A 49,94 € el precio implica un crecimiento del FCL de −2%/año frente a un g intrínseco autofinanciable de +1,9%: expectativas mínimas, precio poco exigente.",
+  "calculadoEl": "2026-07-20"
+ }
+}
