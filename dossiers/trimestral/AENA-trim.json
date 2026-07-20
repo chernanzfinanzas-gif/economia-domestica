@@ -16,12 +16,20 @@
      "valor": 53.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 41.6
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 334.4
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 1026.7
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 34.3
     },
     {
      "nombre": "EBITDA (M€)",
@@ -40,16 +48,8 @@
      "valor": 2.97
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 9.95
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -66,12 +66,20 @@
      "valor": 129.4
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 23.4
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 710.7
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 2333.2
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 24.1
     },
     {
      "nombre": "EBITDA (M€)",
@@ -90,16 +98,8 @@
      "valor": 2.89
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 9.95
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -116,12 +116,20 @@
      "valor": 216.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 17.6
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1127.8
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 3779.1
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 19.9
     },
     {
      "nombre": "EBITDA (M€)",
@@ -140,16 +148,8 @@
      "valor": 2.38
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 9.95
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -166,12 +166,20 @@
      "valor": 283.2
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 16.2
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1534.5
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 5055.2
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 20.4
     },
     {
      "nombre": "EBITDA (M€)",
@@ -190,16 +198,8 @@
      "valor": 2.25
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": 545
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 9.95
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": 0.77
     }
    ]
   },
@@ -216,12 +216,20 @@
      "valor": 60.8
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 13.4
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 399.2
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 1233.0
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 20.1
     },
     {
      "nombre": "EBITDA (M€)",
@@ -240,16 +248,8 @@
      "valor": 1.79
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -266,12 +266,20 @@
      "valor": 144.2
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 11.4
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 834.3
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 2746.4
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 17.7
     },
     {
      "nombre": "EBITDA (M€)",
@@ -290,16 +298,8 @@
      "valor": 1.89
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -316,12 +316,20 @@
      "valor": 237.8
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 9.8
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1313.3
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 4396.7
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 16.3
     },
     {
      "nombre": "EBITDA (M€)",
@@ -340,16 +348,8 @@
      "valor": 1.6
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -366,12 +366,20 @@
      "valor": 309.4
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 9.3
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1760.0
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 5792.9
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 14.6
     },
     {
      "nombre": "EBITDA (M€)",
@@ -390,16 +398,8 @@
      "valor": 1.62
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": 737.6
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": 0.98
     }
    ]
   },
@@ -416,12 +416,20 @@
      "valor": 63.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 4.6
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 437.7
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 1325.6
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 7.5
     },
     {
      "nombre": "EBITDA (M€)",
@@ -440,16 +448,8 @@
      "valor": 1.37
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -466,12 +466,20 @@
      "valor": 150.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 4.5
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 919.0
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 2995.9
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 9.1
     },
     {
      "nombre": "EBITDA (M€)",
@@ -490,16 +498,8 @@
      "valor": 1.64
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -516,12 +516,20 @@
      "valor": 247.1
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 3.9
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1452.4
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 4785.2
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 8.8
     },
     {
      "nombre": "EBITDA (M€)",
@@ -540,16 +548,8 @@
      "valor": 1.39
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   },
@@ -566,12 +566,20 @@
      "valor": 321.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 3.9
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 1929.7
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 6304.6
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 8.8
     },
     {
      "nombre": "EBITDA (M€)",
@@ -590,16 +598,8 @@
      "valor": 1.5
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": 720.3
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 10.35
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": 1.09
     }
    ]
   },
@@ -616,12 +616,20 @@
      "valor": 65.6
     },
     {
+     "nombre": "%Var Pax",
+     "valor": 3.2
+    },
+    {
      "nombre": "Ingr. Comercial (M€)",
      "valor": 462.0
     },
     {
      "nombre": "Ingresos (M€)",
      "valor": 1479.9
+    },
+    {
+     "nombre": "%Var Ingresos",
+     "valor": 11.6
     },
     {
      "nombre": "EBITDA (M€)",
@@ -640,16 +648,8 @@
      "valor": 1.31
     },
     {
-     "nombre": "CapEx (M€)",
-     "valor": null
-    },
-    {
      "nombre": "IMAAJ (€/pax)",
      "valor": 11.0
-    },
-    {
-     "nombre": "DPA (€)",
-     "valor": null
     }
    ]
   }
