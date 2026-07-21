@@ -851,14 +851,17 @@ function renderSalud(){
   var carteraSin=held.filter(function(t){ return !dSet.has(t) && !anaSet[t]; });
   var htmlSinJson=[]; dSet.forEach(function(t){ if(!jSet.has(t))htmlSinJson.push(t); });
   var jsonSinAna=[]; jSet.forEach(function(t){ if(!anaSet[t])jsonSinAna.push(t); });
-  var anaSinDoss=Object.keys(anaSet).filter(function(t){ return !dSet.has(t); });
+  var colaSet={}; (DB.cola||[]).forEach(function(c){ var t=(c.t||'').toUpperCase(); if(t)colaSet[t]=1; });
+  var _tieneDoss=function(t){ return dSet.has(t) || jSet.has(t) || !!(anaSet[t]&&anaSet[t].dossierFecha); };
+  /* Solo cuentan las empresas AÑADIDAS A COBERTURA (cola) que aún no tienen dossier. */
+  var anaSinDoss=Object.keys(colaSet).filter(function(t){ return !_tieneDoss(t); });
   var huerfN=carteraSin.length+htmlSinJson.length+jsonSinAna.length+anaSinDoss.length;
   var cfC=0,rbS=0; Object.keys(cache).forEach(function(t){ var j=cache[t]; if(!j)return; if(j.confianza&&(''+(j.confianza.nivel||'')).toUpperCase()==='C')cfC++; if(j.robustez&&(''+(j.robustez.nivel||'')).toLowerCase()==='sensible')rbS++; });
   var specs=[
     {tit:'Frescura de cotizaciones', val:staleN===0?'Al día':staleN+' desactualizadas', est:staleN===0?'ok':(staleN<=2?'warn':'bad'), det:'Última fecha del repo: '+(refF||'—')+'. Empresas en cartera con cotización de más de 7 días respecto a esa fecha.', goto:'posiciones'},
     {tit:'Antigüedad de dossiers', val:viejosN===0?'Todos recientes':viejosN+' caducados', est:viejosN===0?'ok':(viejosN<=2?'warn':'bad'), det:'Análisis con dossier de más de 12 meses (conviene reanalizar).', goto:'hemeroanalisis'},
     {tit:'Avisos de esquema (JSON)', val:warnN===0?'Sin avisos':warnN+' avisos', est:warnN===0?'ok':'warn', det:'Campos incorrectos detectados por el validador en los dossiers cargados.', goto:'hemeroanalisis'},
-    {tit:'Huérfanos y desincronías', val:huerfN===0?'Nada suelto':huerfN+' incidencias', est:huerfN===0?'ok':(huerfN<=3?'warn':'bad'), det:'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · análisis sin dossier ('+anaSinDoss.length+').', goto:'hemeroanalisis'},
+    {tit:'Huérfanos y desincronías', val:huerfN===0?'Nada suelto':huerfN+' incidencias', est:huerfN===0?'ok':(huerfN<=3?'warn':'bad'), det:'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · en cobertura sin dossier ('+anaSinDoss.length+').', goto:'hemeroanalisis'},
     {tit:'Señales del método', val:(cfC+rbS)===0?'Sin banderas':(cfC+' conf. C · '+rbS+' sensible'), est:(cfC+rbS)===0?'ok':'warn', det:'Empresas con Confianza C (regla dura de no comprar en firme) o Robustez sensible.', goto:'analisis'}
   ];
   var ICO={ok:'✓',warn:'⚠',bad:'✕'}, ord={ok:0,warn:1,bad:2}, worst='ok';
