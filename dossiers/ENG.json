@@ -1,0 +1,151 @@
+{
+"schemaVersion": 7,
+"ticker": "ENG",
+"empresa": "Enagás, S.A.",
+"fecha": "2026-07-21",
+"rating": "BBB",
+"score": 55.8,
+"decision": "MANTENER",
+"metodoValoracion": "DCF + múltiplos regulados (utility). PO oficial = síntesis ponderada Cap. VI = 17,82 € (DCF base 22,3 € pero muy sensible al WACC bajo de la beta 0,26; se pondera con múltiplos históricos EV/EBITDA, P/E, P/BV y rentabilidad por dividendo). Bear 12,5 € / Bull 22 €.",
+"poBear": 12.5,
+"poBase": 17.82,
+"poBull": 22.0,
+"entMin": 14.0,
+"entMax": 15.0,
+"stop": 12.2,
+"dpaPrevisto": 1.0,
+"moat": "Ancho (78/100): monopolio regulado por ley (TSO gasista de España), barreras de entrada absolutas y el mayor margen EBITDA del sector; PERO sobre un mercado en declive estructural (gas), lo que compromete su durabilidad a largo plazo.",
+"catalizadores": [
+"Circular final CNMC (jul-2026) que confirme la TRF del gas al 6,46% para 2027-2032 (+5/+15%)",
+"Reafirmación/sostenibilidad del dividendo con la nueva retribución (+5/+10%)",
+"Bajada de tipos del BCE: rerating como bond proxy (+3/+8%)",
+"Opcionalidad del hidrógeno (H2 backbone, fondos CEF) a más largo plazo (+5/+10%)"
+],
+"riesgos": [
+"Declive estructural de la demanda de gas (prob. alta, -20/-35%)",
+"Reversión regulatoria si la circular final rebaja la TRF propuesta (prob. baja, -15/-25%)",
+"Recorte adicional del dividendo: no cubierto por FCL desde 2023 (prob. media, -10/-20%)",
+"Deterioro de participadas internacionales / laudo CIADI Perú (prob. media, -5/-15%)",
+"Activos varados si el hidrógeno no reutiliza la red (prob. media, -15/-30%)"
+],
+"bull": "Regulación al alza (TRF 6,46% 2027-2032) + rerating como bond proxy si bajan los tipos + opcionalidad del hidrógeno llevarían la acción a ~22 € (+31%).",
+"bear": "Reversión regulatoria o declive acelerado del gas provocarían un recorte del dividendo y un derating hacia ~12,5 € (-26%); pérdida acotada por el balance sólido.",
+"resumen": "Enagás es un caso de renta con riesgo, mejorado por el catalizador regulatorio. Monopolio gasista regulado con balance sólido (DN/EBITDA 3,6x, cobertura 9,6x) y moat ancho, pero sobre un mercado en declive estructural y con un dividendo (RPD 5,9%) que no se cubre con caja libre desde 2023 (cobertura 0,36x). A un PO de 17,82 € (+6%) no hay margen de seguridad: MANTENER para quien la tiene; ESPERAR por debajo de 15 € para entrar nuevo. No comprar solo por el dividendo.",
+"confianza": {
+"score": 100,
+"nivel": "A",
+"motivos": [
+"sin huecos críticos ni discrepancias abiertas"
+],
+"sensibleASupuestos": false,
+"reglaDura": {
+"bloqueaCompraEnFirme": false,
+"motivo": "",
+"accion": null
+},
+"calculadoEl": "2026-07-21"
+},
+"robustez": {
+"nivel": "solida",
+"sobreviveDecision": true,
+"matizada": true,
+"banda": {
+"p10": 12.5,
+"p50": 17.82,
+"p90": 22.0
+},
+"sensibilidad": {
+"poMin": 16.84,
+"poMax": 39.93,
+"poBase": 26.9418179387717,
+"cotizacion": 16.82,
+"ejeCoste": "WACC",
+"pertCoste": 1.0,
+"pertOtro": 0.5,
+"mdsMin": 0.1,
+"mdsMax": 137.4
+},
+"beta": {
+"capm": 0.26,
+"ref2": null,
+"aviso": "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+},
+"motivos": [
+"la cotización (16.82) queda por DEBAJO de toda la banda de PO [16.8–39.9] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+"beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran",
+"matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+],
+"calculadoEl": "2026-07-21"
+},
+"dividendSafety": {
+"score": 25,
+"banda": "Frágil",
+"componentes": {
+"C1": 0,
+"C2": 0,
+"C3": 8,
+"C4": 5,
+"C5": 12
+},
+"shareholderYield": 8.37,
+"topeDuro": {
+"activo": true,
+"motivo": "cobertura sobre owner earnings 3a 0.82x < 1,0x y payout BN 3a 144% > 100%"
+},
+"motivos": [
+"C1 cobertura dividendo ord.: OE -0.19x / FCL 0.36x (3a OE 0.82x) → 0/35",
+"C2 payout BN ord.: 77% (3a 144%) → 0/15",
+"C3 balance parcial → 8/20",
+"C4 trayectoria: 1 recorte(s) en 10a (reciente) → 5/15",
+"C5 predictores B4 (cuantitativos): EBITDA a la baja YoY → 12/15",
+"C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+],
+"calculadoEl": "2026-07-21"
+},
+"forense": {
+"aplica": true,
+"piotroski": {
+"score": 6,
+"banda": "medio",
+"detalle": {
+"roa_pos": 1,
+"cfo_pos": 1,
+"roa_up": 1,
+"accrual": 0,
+"lever_dn": 1,
+"liquid_up": 0,
+"no_dilu": 0,
+"margin_up": 1,
+"turn_up": 1
+},
+"nota": "margen=bruto"
+},
+"altman": {
+"z": 4.23,
+"zona": "segura"
+},
+"beneish": {
+"m": -2.24,
+"senal": "sin indicios",
+"aproximado": [
+"SGAI"
+]
+},
+"sloan": {
+"accruals": 1.8,
+"senal": "normal"
+},
+"flags": [],
+"veto": false,
+"vetoMotivos": [],
+"calculadoEl": "2026-07-21"
+},
+"reverseDcf": {
+"aplica": true,
+"gImplicito": -3.0,
+"gIntrinseco": null,
+"veredicto": "PLAUSIBLE",
+"motivo": "A la cotización actual el mercado descuenta un FCL en declive de ~-3%/año: no exige crecimiento, ya embebe la contracción estructural del gas. g intrínseco (A7) n.s. por contracción de capital. (Estimación del analista, §6.x del dossier; la herramienta no pudo autocalcularlo por el layout de celdas combinadas de la pestaña Valoración.)",
+"calculadoEl": "2026-07-21"
+}
+}
