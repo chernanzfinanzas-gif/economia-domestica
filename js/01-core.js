@@ -336,6 +336,18 @@ async function cargarTesis(t){ t=(t||'').toUpperCase(); if(!t||_tesisCache[t]!==
   if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t); if(typeof renderComparador==='function'&&typeof cmpSel!=='undefined'&&cmpSel.indexOf(t)>=0)renderComparador(); }
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-imptesis]'); if(!b)return; const t=(b.dataset.imptesis||'').toUpperCase(); if(!_tesisCache[t]){ alert('Resumen del dossier no disponible.'); return; } if(!confirm('¿Actualizar el Análisis de '+t+' con los datos del dossier? Sobrescribe rating, PO, banda de entrada, stop y decisión de esa empresa.'))return; if(importTesis(t)){ if(typeof saveNow==='function')saveNow(); if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderFicha==='function')renderFicha(t); alert('Análisis actualizado desde el dossier.'); } });
 function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase(); if(t&&_dossierSet&&_dossierSet.has(t))return 'dossiers/'+t+'.html'; return ''; }
+
+/* ===== Notas de Revisión Extraordinaria (dossiers/revisiones/[TICKER]/*.html) ===== */
+var _revDirs=null;   /* Set de tickers que tienen carpeta de revisiones en el repo */
+var _revCache={};    /* ticker -> [ {name,fecha,senal,url} ] */
+/* Índice: una sola llamada a la Contents API lista las subcarpetas (tickers con notas). */
+async function cargarRevIndex(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones',{cache:'no-store'}); _revDirs=new Set(); if(r.ok){ const arr=await r.json(); if(Array.isArray(arr))arr.forEach(function(f){ if(f&&f.type==='dir'&&f.name)_revDirs.add((''+f.name).toUpperCase()); }); } if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); }catch(e){ if(!_revDirs)_revDirs=new Set(); } }
+/* Parseo del nombre "AAAA-MM-DD Nota Revisión Extraordinaria [Empresa] (Señal).html" */
+function _revParse(name){ name=(''+(name||'')); var f=(name.match(/(\d{4}-\d{2}-\d{2})/)||[])[1]||''; var s=(name.match(/\(([^)]+)\)\.html$/i)||[])[1]||''; return {fecha:f||name.replace(/\.html$/i,''), senal:s}; }
+/* Notas de un ticker (lazy, cacheado). */
+async function cargarRevisiones(t){ t=(t||'').toUpperCase(); if(_revCache[t])return _revCache[t]; try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones/'+encodeURIComponent(t),{cache:'no-store'}); if(!r.ok){ _revCache[t]=[]; return []; } const arr=await r.json(); if(!Array.isArray(arr)){ _revCache[t]=[]; return []; } const list=arr.filter(function(f){return f&&/\.html$/i.test(f.name||'');}).map(function(f){ var p=_revParse(f.name); return {name:f.name, fecha:p.fecha, senal:p.senal, url:'dossiers/revisiones/'+t+'/'+encodeURIComponent(f.name)}; }); list.sort(function(a,b){ return (''+(b.fecha||'')).localeCompare(''+(a.fecha||'')); }); _revCache[t]=list; return list; }catch(e){ _revCache[t]=[]; return []; } }
+/* HTML de la lista de notas de una empresa (chips fecha + señal, abren en pestaña). */
+function _revListHTML(list){ if(!list||!list.length)return '<span class="muted" style="font-size:11px">Sin notas de revisión en el repo.</span>'; return list.map(function(x){ var esS=/^S\d/i.test(x.senal||''); var col=esS?'#dc2626':'#2563eb'; var esc=(typeof _cfgEsc==='function')?_cfgEsc:function(s){return s;}; return '<a href="'+x.url+'" target="_blank" rel="noopener" style="display:inline-flex;gap:7px;align-items:center;padding:4px 9px;margin:3px 7px 3px 0;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:12px;color:inherit"><span style="background:'+col+';color:#fff;border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700">'+esc(x.senal||'—')+'</span><b>'+esc(x.fecha||'')+'</b> <span style="opacity:.7">📄</span></a>'; }).join(''); }
 const INFO_TXT={
 'view-asignacion':`Reparte tu patrimonio por <b>clases de activo</b> (Efectivo, Renta variable, Renta fija, Inmuebles, Fondos, Oro…) y fija un <b>% objetivo</b> para cada una. La app calcula tu <b>% actual</b>, la <b>desviación</b> respecto al objetivo y lo que tendrías que <b>mover</b> (aportar o reducir) para reequilibrar. Pulsa «Autorrellenar» para partir de tu Efectivo (del Patrimonio) y tu Renta variable (la cartera), y añade el resto con «+ Clase». Si una clase se desvía más de 5 puntos, salta un aviso de rebalanceo en el Panel. Los % objetivo deberían sumar 100.`,
 'view-metas':`Tus objetivos de ahorro con importe y fecha (entrada de casa, coche, jubilación, viaje…). Rellena <b>Objetivo</b>, <b>Fecha</b> y lo que llevas <b>Ahorrado</b> (esto lo actualizas tú). La app calcula el <b>progreso</b>, el <b>aporte mensual necesario</b> para llegar a tiempo (lo que falta ÷ meses hasta la fecha) y, si pones tu <b>Aporte/mes</b> previsto, te dice <b>cuándo llegarías</b> y si vas en camino (verde) o te quedas corto (rojo). Pulsa «+ Meta» para añadir.`,
@@ -759,6 +771,7 @@ document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)r
 function renderHemeroAnalisis(){
   var sec=document.getElementById('view-hemeroanalisis'); if(!sec)return;
   try{ if((!_dossierSet || !_dossierSet.size) && typeof cargarDossiers==='function'){ cargarDossiers().then(function(){ if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); }); } }catch(e){}
+  try{ if(_revDirs===null && typeof cargarRevIndex==='function'){ cargarRevIndex(); } }catch(e){}
   var setT={};
   (DB.analisis||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); if(t)setT[t]=1; });
   try{ if(_dossierSet)_dossierSet.forEach(function(t){setT[t]=1;}); }catch(e){}
@@ -804,14 +817,20 @@ function renderHemeroAnalisis(){
     var docC=r.du?('<a class="opb" href="'+r.du+'" target="_blank" rel="noopener">📄 Abrir</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
     var cal=(r.rating||'—')+(r.score!=null?' · '+Math.round(r.score):'');
     var dsC=_dsCell(r.ds);
-    return '<tr><td class="l tkc"><b class="tk" data-ficha="'+r.t+'">'+r.t+'</b></td><td class="l">'+_cfgEsc(r.nombre)+'</td><td class="l">'+decC+'</td><td>'+cal+'</td><td class="l">'+fC+'</td><td style="text-align:center">'+cfC+'</td><td style="text-align:center">'+rbC+'</td><td style="text-align:center">'+dsC+'</td><td style="text-align:right">'+docC+'</td></tr>';
+    var hasRev=!!(_revDirs&&_revDirs.has(r.t));
+    var cta=hasRev?('<span class="revtog" data-revtoggle="'+r.t+'" data-revctx="d" title="Ver notas de revisión" style="cursor:pointer;color:#2563eb;font-weight:800;margin-right:6px;user-select:none">▸</span>'):'';
+    var fila='<tr><td class="l tkc">'+cta+'<b class="tk" data-ficha="'+r.t+'">'+r.t+'</b></td><td class="l">'+_cfgEsc(r.nombre)+'</td><td class="l">'+decC+'</td><td>'+cal+'</td><td class="l">'+fC+'</td><td style="text-align:center">'+cfC+'</td><td style="text-align:center">'+rbC+'</td><td style="text-align:center">'+dsC+'</td><td style="text-align:right">'+docC+'</td></tr>';
+    if(hasRev)fila+='<tr class="revrow" id="revrow-d-'+r.t+'" style="display:none"><td colspan="9" style="background:rgba(37,99,235,.05);padding:8px 14px"><div style="font-size:10.5px;font-weight:700;color:#2563eb;text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px">Notas de revisión</div><div id="revhost-d-'+r.t+'"></div></td></tr>';
+    return fila;
   }).join('');
   var mcards=view.map(function(r){
     var cal=(r.rating||'—')+(r.score!=null?' · '+Math.round(r.score):'');
     var docC=r.du?('<a class="opb sm" href="'+r.du+'" target="_blank" rel="noopener">📄 Dossier</a>'):'<span class="muted" style="font-size:11px">sin HTML</span>';
+    var hasRev=!!(_revDirs&&_revDirs.has(r.t));
+    var revUI=hasRev?('<div class="revtog" data-revtoggle="'+r.t+'" data-revctx="m" style="cursor:pointer;color:#2563eb;font-weight:700;font-size:11.5px;padding:6px 2px 2px;user-select:none">▸ Notas de revisión</div><div class="revrow" id="revrow-m-'+r.t+'" style="display:none;padding-top:4px"><div id="revhost-m-'+r.t+'"></div></div>'):'';
     return '<div class="acard'+(r.mm!=null&&r.mm>12?' warn':'')+'"><div class="ac-h"><div class="ac-tk" data-ficha="'+r.t+'">'+r.t+' <span class="ac-nm">'+_cfgEsc(r.nombre)+'</span></div><b class="ac-dec" style="color:'+(dc[r.dec]||'#475569')+'">'+(r.dec||'—')+'</b></div>'
       +'<div class="ac-badges">'+bdg('Cal '+cal,'#475569')+(r.cf?bdg('Conf. '+r.cf,cfCol[r.cf]||'#64748b'):'')+(r.rb?bdg(r.rb==='solida'?'sólida':r.rb,rbCol[r.rb]||'#64748b'):'')+(r.ds?bdg('💧 '+(r.ds.score!=null?r.ds.score:'n/a'),_dsCol(r.ds.banda)):'')+'</div>'
-      +'<div class="ac-foot"><span class="ac-f" style="color:'+(r.mm!=null&&r.mm>12?'#dc2626':'#64748b')+'">'+(r.fecha?(r.fecha+(r.mm!=null?' · '+r.mm+'m'+(r.mm>12?' ⚠️ reanalizar':''):'')):'—')+'</span>'+docC+'</div></div>';
+      +'<div class="ac-foot"><span class="ac-f" style="color:'+(r.mm!=null&&r.mm>12?'#dc2626':'#64748b')+'">'+(r.fecha?(r.fecha+(r.mm!=null?' · '+r.mm+'m'+(r.mm>12?' ⚠️ reanalizar':''):'')):'—')+'</span>'+docC+'</div>'+revUI+'</div>';
   }).join('');
   var sel=function(v,t){ return '<option value="'+v+'"'+(ord===v?' selected':'')+'>'+t+'</option>'; };
   var toolbar='<div class="hema-toolbar"><label>Ordenar por</label><select id="hemaOrd">'+sel('fecha','Fecha (reciente)')+sel('ticker','Ticker')+sel('dec','Decisión')+sel('cal','Calidad')+'</select>'
@@ -829,6 +848,7 @@ function renderHemeroAnalisis(){
     '<div class="hem-panel"><div class="hem-desk"><table><thead><tr><th class="tkc">Ticker</th><th>Empresa</th><th>Decisión</th><th>Calidad</th><th>Análisis</th><th style="text-align:center">Confianza</th><th style="text-align:center">Robustez</th><th style="text-align:center" title="Dividend Safety Score 0-100: seguridad del dividendo">Seguridad div.</th><th style="text-align:right">Dossier</th></tr></thead><tbody>'+(trs||'<tr><td colspan="9" class="muted">Sin dossiers cargados todavía (requiere conexión).</td></tr>')+'</tbody></table></div><div class="hem-mob">'+(mcards||'<div class="muted">Sin dossiers cargados todavía (requiere conexión).</div>')+'</div></div>';
   var _os=document.getElementById('hemaOrd'); if(_os)_os.addEventListener('change',function(){ window._hemaOrd=this.value; renderHemeroAnalisis(); });
   var _cc=document.getElementById('hemaCaduc'); if(_cc)_cc.addEventListener('click',function(){ window._hemaCaduc=!window._hemaCaduc; renderHemeroAnalisis(); });
+  if(!sec._revBound){ sec._revBound=true; sec.addEventListener('click',function(e){ var tg=e.target.closest('[data-revtoggle]'); if(!tg)return; var t=tg.getAttribute('data-revtoggle'); var ctx=tg.getAttribute('data-revctx')||'d'; var row=document.getElementById('revrow-'+ctx+'-'+t); if(!row)return; var abierto=row.style.display!=='none'; row.style.display=abierto?'none':''; if(ctx==='m'){ tg.textContent=(abierto?'▸':'▾')+' Notas de revisión'; } else { tg.textContent=abierto?'▸':'▾'; } if(!abierto){ var host=document.getElementById('revhost-'+ctx+'-'+t); if(host && !host._loaded){ host._loaded=true; host.innerHTML='<span class="muted" style="font-size:11px">Cargando…</span>'; cargarRevisiones(t).then(function(list){ host.innerHTML=_revListHTML(list); }); } } }); }
 }
 
 /* ===== P4.1 · Cockpit de Salud del sistema ===== */
