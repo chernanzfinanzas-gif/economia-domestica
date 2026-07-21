@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "FAE",
+  "empresa": "Faes Farma",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2023-04-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque sólido pre-M&A: ingresos +4% y EBITDA +3% (37 M€), margen ~28% y caja neta. Franquicia bilastina sostiene la rentabilidad. Refuerza la calidad (Rating A). Top 3 moléculas +11% (55 M€): franquicia core sólida.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 130
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 4.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 37
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.5
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 27.6
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 21.2
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 55
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 11.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 42.3
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre estable: ingresos 253 M€ (+3%), EBITDA plano 71 M€ (~28%), beneficio 53 M€. Crecimiento orgánico moderado, caja neta. Tesis de calidad intacta. Top 3 moléculas +10% (104 M€).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 253
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 71
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.1
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 0.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 53
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 20.9
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 104
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 10.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 41.1
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-10-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Nueve meses en línea: ingresos 362 M€ (+3%), EBITDA 102 M€ (+1%), BNA 74 M€. Márgenes altos y estables, sin apalancamiento. Top 3 moléculas +10% (142 M€).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 362
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 102
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.2
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 1.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 74
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 20.4
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 142
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 10.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 39.2
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-02-22",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2023 sólido: ingresos 473 M€, EBITDA 118,5 M€ (+0,5%), BNA 91,9 M€, caja neta (DFN −18 M€). Base de calidad que sustenta el Rating A. DPA 0,16 €. Top 3 moléculas 183 M€ (+8%).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 473
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 2.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 122
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 25.8
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 1.2
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 92
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 19.5
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 183
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 8.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 38.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Aceleración: ingresos +7% y EBITDA +10% (41 M€, ~29%), BNA +10%. Mejor momentum con balance saneado. Refuerza la tesis. Top 3 moléculas 58,3 M€ (+5%).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 139.4
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 7.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 41
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 29.4
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 10.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 30.4
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 21.8
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 58.3
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 5.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 41.8
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre fuerte: ingresos 273,6 M€ (+8%), EBITDA 78,5 M€ (+10%), BNA 58,3 M€ (+11%). Crecimiento rentable y caja neta creciente. Top 3 moléculas 111,7 M€ (+7%).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 273.6
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 8.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 78.5
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 28.7
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 10.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 58.3
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 21.3
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 111.7
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 7.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 40.8
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Nueve meses robustos: ingresos 392,9 M€ (+8,5%), EBITDA 109,5 M€ (+7,6%), BNA 79,8 M€. Márgenes ~28% sostenidos, sin deuda. Top 3 moléculas 155,7 M€ (+9,3%): la franquicia core acelera.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 392.9
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 8.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 109.5
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 27.9
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 7.6
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 79.8
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 20.3
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 155.7
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 9.3
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 39.6
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-20",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Mejor año histórico: ingresos 510 M€, EBITDA 124,6 M€ (+5,1%), BNA récord 111,4 M€, caja neta (DFN −51 M€). Máxima calidad antes del M&A. DPA 0,18 €. Top 3 moléculas 200,6 M€ (+8,5%).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 510
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 7.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 128.9
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 25.3
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 5.5
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 111.4
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 21.8
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 200.6
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 8.5
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 39.3
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2025-04-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Inflexión: ingresos +9,7% por integración pero EBITDA reportado −4,1% (39,3 M€) y BNA −6,8%; margen ~26%. EBITDA ajustado +3,0% matiza. Señal mixta de la transición M&A. El Top 3 moléculas sigue fuerte (+14,5%, 66,7 M€): el core va bien, la caída es de one-offs.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 153.0
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 9.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 39.3
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 25.7
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": -4.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 28.4
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 18.6
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 66.7
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 14.5
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 43.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Compresión confirmada: ingresos +12,3% (307,4 M€) pero EBITDA −6,6% (73,3 M€) y BNA −10,5%; margen ~24%. Coste de integrar SIFI/Edol y mayor apalancamiento. Segundo ámbar → S6. El Top 3 moléculas resiste (+15,6%, 127,7 M€): el drenaje es coste de integrar SIFI/Edol.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 307.4
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 73.3
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 23.8
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": -6.6
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 52.2
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 17.0
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 127.7
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 41.5
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Patrón de transición: ingresos +15,5% (454 M€) vía M&A, EBITDA −2,7% (106,5 M€), BNA −7,6%; margen ~23,5%. EBITDA ajustado +3,0%: caída por one-offs. Tercer ámbar, márgenes a recuperar. Top 3 moléculas +15,1% (176,7 M€): fortaleza core intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 454.0
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 15.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 106.5
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 23.5
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": -2.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 73.6
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 16.2
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 176.7
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 15.1
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 38.9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-19",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre del viraje: ingresos 627 M€, EBITDA Investing 112 M€ (−10%; oficial 118 M€), BNA 79,6 M€, salto a deuda neta 303 M€ (DFN/EBITDA 2,70x). Calidad intacta pero apalancada; recuperación del margen = catalizador. DPA 0,128 €. Top 3 moléculas 219,3 M€ (+11%); deuda neta oficial ~267 M€ (~2x EBITDA aj.).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 627
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 23.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 118
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 18.8
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": -8.4
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 79.6
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 12.7
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 219.3
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 11.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 35.0
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2026-04-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Primera señal de recuperación: ingresos +31% (200,1 M€), EBITDA +23% (48,2 M€; +30% ex-reestructuración), BNA +9%; margen ~24% al alza. La integración empieza a entregar; guía leverage <2x. Rompe la racha ámbar y confirma el catalizador de la tesis MANTENER. Top 3 moléculas +7% (68,4 M€); ingresos +10% orgánico.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 200.1
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 31.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 48.2
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 24.1
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 23.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 30.8
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 15.4
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 68.4
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": 7.0
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 34.2
+        }
+      ]
+    }
+  ]
+}
