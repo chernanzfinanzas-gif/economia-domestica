@@ -88,6 +88,8 @@ function renderDiversifComp(){
   H+='<h2>Comparativa de diversificación</h2>';
   H+='<div class="sub" style="margin-bottom:12px">Anclada al <b>coste</b> (el riesgo que decides por cada euro). El <b>valor</b> solo mide el <b>desfase</b> que introduce la revalorización — es un termómetro, no el volante. La foto <b>Objetivo</b> por valor es una <b>hipótesis a precios planos</b> (no se puede predecir).</div>';
 
+  H+=_dvLegend(base);
+
   /* KPIs */
   H+='<div class="dv-k">'+
      _dvKpi('Coste invertido',_dvEur(aHoy.tC),'lo que has puesto')+
@@ -95,6 +97,8 @@ function renderDiversifComp(){
      _dvKpi('Desfase global',desfGlobal.toFixed(1)+' pp',(desfGlobal<5?'contenido':(desfGlobal<10?'moderado':'alto')))+
      _dvKpi('Foto inicial',(base&&base.fecha)?base.fecha:'—','<button class="btn ghost sm" id="dvReset">↻ reiniciar</button>')+
      '</div>';
+
+  H+=_dvEvalBlock(aHoy,aObj);
 
   var esHoyIgualIni=(base&&base.fecha===new Date().toISOString().slice(0,10));
   if(esHoyIgualIni)H+='<div class="dv-note">La foto inicial se ha tomado hoy, así que <b>Inicial y Hoy coinciden</b> de momento. El desfase entre ambas se irá viendo con el tiempo, según el mercado mueva los pesos.</div>';
@@ -113,6 +117,61 @@ function renderDiversifComp(){
 }
 
 function _dvKpi(l,v,p){ return '<div class="dv-c"><div class="dv-l">'+l+'</div><div class="dv-v">'+v+'</div><div class="dv-p">'+p+'</div></div>'; }
+
+/* ---------- cabecera-leyenda: qué es cada estado/columna ---------- */
+function _dvLegend(base){
+  var iniF=(base&&base.fecha)?base.fecha:'—';
+  return '<div class="dv-leg">'+
+    '<div class="dv-lc"><span class="dv-ld" style="background:#64748b"></span><div><b>Inicial</b> · foto guardada ('+iniF+') — el punto desde el que medimos el desfase.</div></div>'+
+    '<div class="dv-lc"><span class="dv-ld" style="background:#1f3d6b"></span><div><b>Hoy</b> · situación actual en vivo.</div></div>'+
+    '<div class="dv-lc"><span class="dv-ld" style="background:#0d9488"></span><div><b>Objetivo (plan)</b> · a dónde te lleva el plan — coste firme, valor* = hipótesis.</div></div>'+
+    '<div class="dv-lk">En cada estado: <b>coste</b> = cómo repartes el dinero (riesgo por euro) · <b>valor</b> = cómo pesa hoy por mercado · <b>Δ</b> = valor − coste (el desfase).</div>'+
+    '</div>';
+}
+
+/* ---------- evaluación: ¿buena o mala diversificación? (por valor) ---------- */
+function _dvEval(agg){
+  if(!agg||!agg.tV)return null;
+  var ws=[], topT='', topW=0;
+  Object.keys(agg.emp).forEach(function(t){ var w=agg.emp[t].valor/agg.tV; if(w>0){ws.push(w); if(w>topW){topW=w;topT=t;}} });
+  var topA='', topAW=0;
+  Object.keys(agg.arq).forEach(function(a){ var w=agg.arq[a].valor/agg.tV; if(w>0&&w>topAW){topAW=w;topA=a;} });
+  ws.sort(function(x,y){return y-x;});
+  var top3=(ws[0]||0)+(ws[1]||0)+(ws[2]||0), n=ws.length;
+  var hhi=ws.reduce(function(s,w){return s+w*w;},0), nef=hhi>0?1/hhi:0;
+  function lv(v,g,a){ return v<=g?0:(v<=a?1:2); }
+  var lMax=lv(topW,0.10,0.15), lArq=lv(topAW,0.30,0.40), lTop3=lv(top3,0.45,0.60), lN=(n>=15?0:(n>=10?1:2));
+  var worst=Math.max(lMax,lArq,lTop3,lN);
+  var LAB=['Bien diversificada','Aceptable','Concentrada'], COL=['#16a34a','#d97706','#dc2626'];
+  return {topT:topT,topW:topW,topA:topA,topAW:topAW,top3:top3,n:n,nef:nef,lMax:lMax,lArq:lArq,lTop3:lTop3,lN:lN,worst:worst,lab:LAB[worst],col:COL[worst]};
+}
+function _dvEvalBlock(aHoy,aObj){
+  var eh=_dvEval(aHoy), eo=_dvEval(aObj);
+  var C=['#16a34a','#d97706','#dc2626'];
+  function mx(l,txt){ return '<span class="dv-mx" style="border-color:'+C[l]+';color:'+C[l]+'">'+txt+'</span>'; }
+  function card(tit,ev,nota){
+    if(!ev)return '';
+    return '<div class="dv-ev">'+
+      '<div class="dv-evh">'+tit+' <span class="dv-evb" style="background:'+ev.col+'">'+ev.lab+'</span></div>'+
+      '<div class="dv-evm">'+
+        mx(ev.lMax,'Máx posición '+(ev.topW*100).toFixed(0)+'% · '+_dvEsc(ev.topT))+
+        mx(ev.lArq,'Máx arquetipo '+(ev.topAW*100).toFixed(0)+'% · '+_dvEsc(ev.topA))+
+        mx(ev.lTop3,'Top-3 '+(ev.top3*100).toFixed(0)+'%')+
+        mx(ev.lN,ev.n+' posiciones')+
+        '<span class="dv-mx" style="border-color:#94a3b8;color:#475569">≈'+ev.nef.toFixed(1)+' efectivas</span>'+
+      '</div>'+
+      (nota?'<div class="dv-evn">'+nota+'</div>':'')+
+      '</div>';
+  }
+  var notaHoy='', notaObj='';
+  if(eh&&eo){
+    if(eh.worst>eo.worst) notaHoy='Concentración <b>transitoria</b>: el plan la corrige →';
+    if(eo.worst<=1) notaObj='Completando el plan, por valor queda '+(eo.worst===0?'<b>bien repartida</b>.':'aceptable.');
+    else notaObj='Aun completando el plan quedaría concentrada — quizá revisar el objetivo.';
+  }
+  return '<div class="dv-evwrap"><div class="dv-evt">¿Buena diversificación?</div><div class="dv-evrow">'+card('Hoy · por valor',eh,notaHoy)+card('Objetivo · proyectado',eo,notaObj)+'</div>'+
+    '<div class="dv-evleg">Umbrales: máx posición ≤10% · máx arquetipo ≤30% · top-3 ≤45% · ≥15 posiciones. «Efectivas» = nº de posiciones equivalentes (1/HHI).</div></div>';
+}
 
 function _dvTabla(titulo, keys, scope, aIni,aHoy,aObj,posObj){
   var head='<tr>'+
@@ -166,8 +225,22 @@ function _dvBind(sec){
     '.dv-table th,.dv-table td{border:1px solid #e6ebf2;padding:6px 8px;text-align:right;white-space:nowrap}',
     '.dv-table th.l,.dv-table td.l{text-align:left}',
     '.dv-table thead th{background:#f1f5f9;color:#334155;font-size:11px;font-weight:700}',
-    '.dv-grp{text-align:center!important;color:#fff!important}',
-    '.dv-gi{background:#64748b}.dv-gh{background:#1f3d6b}.dv-go{background:#0d9488}',
+    '.dv-grp{text-align:center!important;color:#fff!important;font-weight:800!important;letter-spacing:.03em}',
+    '.dv-gi{background:#64748b!important}.dv-gh{background:#1f3d6b!important}.dv-go{background:#0d9488!important}',
+    '.dv-leg{display:flex;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:10px 13px;margin-bottom:12px;font-size:12px;color:#334155}',
+    '.dv-lc{display:flex;align-items:flex-start;gap:6px;flex:1;min-width:200px}',
+    '.dv-ld{width:11px;height:11px;border-radius:3px;flex:none;margin-top:3px}',
+    '.dv-lk{flex-basis:100%;border-top:1px dashed #e2e8f0;padding-top:7px;color:#475569}',
+    '.dv-evwrap{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin-bottom:14px}',
+    '.dv-evt{font-weight:800;color:#1f3d6b;font-size:13px;margin-bottom:9px}',
+    '.dv-evrow{display:flex;gap:10px;flex-wrap:wrap}',
+    '.dv-ev{flex:1;min-width:270px;border:1px solid #eef2f8;border-radius:10px;padding:10px 12px;background:#fafcff}',
+    '.dv-evh{font-weight:700;font-size:12.5px;color:#334155;margin-bottom:8px;display:flex;align-items:center;gap:8px}',
+    '.dv-evb{color:#fff;font-size:11px;font-weight:800;border-radius:20px;padding:2px 10px;text-transform:uppercase;letter-spacing:.02em}',
+    '.dv-evm{display:flex;gap:6px;flex-wrap:wrap}',
+    '.dv-mx{font-size:11px;font-weight:700;border:1.5px solid;border-radius:7px;padding:2px 8px}',
+    '.dv-evn{margin-top:8px;font-size:12px;color:#475569}',
+    '.dv-evleg{margin-top:9px;font-size:10.5px;color:#94a3b8}',
     '.dv-table tbody tr:nth-child(even) td{background:#fafcff}',
     '.dv-hyp{font-style:italic;color:#0f766e}',
     '.dv-tk{cursor:pointer;color:#1f3d6b}.dv-nm{font-size:10.5px;color:#94a3b8}',
