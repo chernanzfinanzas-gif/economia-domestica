@@ -344,7 +344,12 @@ function _emClosed(cerr){
 /* ---------- Descarga de cierres de ejercicio (para la hoja "datos de mercado" del Excel) ---------- */
 function _emCierresBtn(r){
   /* Disponible en todas las fichas del Kanban (para regenerar cualquier Excel al cierre real). */
-  return '<div class="em-cierres" data-emcierres="'+r.t+'" title="Descarga el cierre de cotización de los últimos 10 ejercicios (para pegar en tu Excel: datos de mercado)">📅 Cierres 10 ejercicios</div>';
+  var fx='';
+  try{ var v=(DB.valores||{})[r.t]||{}; if(v.cierreEj)fx='<span class="em-cierrefx" title="Fecha de cierre de ejercicio guardada para esta empresa">cierre '+v.cierreEj+'</span>'; }catch(e){}
+  return '<div class="em-cierresrow">'
+    +'<div class="em-cierres" data-emcierres="'+r.t+'" title="Descarga el cierre de cotización de los últimos 10 ejercicios (para pegar en tu Excel: datos de mercado)">📅 Cierres 10 ejercicios</div>'
+    +fx
+    +'</div>';
 }
 function _emParseDM(str){
   str=(''+str).trim().replace(/[.\-]/g,'/'); var p=str.split('/');
@@ -371,14 +376,17 @@ function _emCierresDescargar(t){ _emCierresModal(_emUp(t)); }
 
 function _emCierresModal(t){
   var prev=document.getElementById('em-cierres-modal'); if(prev)prev.remove();
+  var def='31/12';
+  try{ var _v=(DB.valores||{})[t]||{}; if(_v.cierreEj)def=_v.cierreEj; }catch(e){}
+  var _rec=(def!=='31/12');
   var ov=document.createElement('div'); ov.id='em-cierres-modal'; ov.className='em-cmodal-ov';
   ov.innerHTML=''
     +'<div class="em-cmodal">'
     +  '<div class="em-cmodal-h">📅 Cierres de '+t+'</div>'
     +  '<div class="em-cmodal-b">'
     +    '<label>Día de cierre de ejercicio (DD/MM)</label>'
-    +    '<input id="em-cmodal-date" type="text" value="31/12" inputmode="numeric" autocomplete="off">'
-    +    '<div class="em-cmodal-hint">Descarga el cierre real de ese día en los últimos 10 ejercicios. Al guardar, elige la carpeta (p. ej. la de la empresa); el navegador recordará la última.</div>'
+    +    '<input id="em-cmodal-date" type="text" value="'+def+'" inputmode="numeric" autocomplete="off">'
+    +    '<div class="em-cmodal-hint">Descarga el cierre real de ese día en los últimos 10 ejercicios. La fecha se guarda en la ficha de '+t+' y se recuerda'+(_rec?' (fijada: '+def+')':'')+'. Al guardar el CSV, elige la carpeta de la empresa.</div>'
     +    '<div id="em-cmodal-msg" class="em-cmodal-msg"></div>'
     +  '</div>'
     +  '<div class="em-cmodal-f">'
@@ -402,6 +410,8 @@ async function _emCierresGen(t, fecha, ov){
   var dm=_emParseDM(fecha);
   if(!dm){ setMsg('Fecha no válida. Usa DD/MM (p. ej. 31/12 o 31/01).'); return; }
   var dd=String(dm.d).padStart(2,'0'), mm=String(dm.m).padStart(2,'0');
+  /* Anotar la fecha de cierre en la ficha de la empresa (desplazadas: Inditex 31/01, Logista 30/09). */
+  try{ DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; if(DB.valores[t].cierreEj!==(dd+'/'+mm)){ DB.valores[t].cierreEj=dd+'/'+mm; if(typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
   var nombre='cierres_'+t+'_'+dd+mm+'.csv';
   /* 1) Selector de carpeta AHORA: es lo primero tras el clic en "Descargar", con el gesto de usuario
         aún válido (sin prompt ni await previos que lo invaliden). */
@@ -499,6 +509,9 @@ function _emBind(sec){
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
     '.em-cierres{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:4px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-cierres:hover{background:#e0e7ff}',
+    '.em-cierresrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}',
+    '.em-cierresrow .em-cierres{margin-bottom:0}',
+    '.em-cierrefx{font-size:10px;color:#64748b;font-weight:700;white-space:nowrap}',
     '.em-head{cursor:pointer}',
     '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:2px}',
     '.em-collapsed{padding-bottom:9px}',
