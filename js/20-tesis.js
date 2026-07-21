@@ -338,7 +338,7 @@ var _TZ_RANK={ INVERTIR:0, ESPERAR:1, FUERA:2 };
 /* --------- Vista principal --------- */
 function renderTesisInv(){
   var host=document.getElementById('tesisHost'); if(!host)return;
-  _tzCss();
+  _tzCss(); _tzTopBtn();
   var tickers=_tzUniverso();
   if(!tickers.length){ host.innerHTML='<div class="empty">Aún no hay empresas analizadas. Sube un <b>TICKER.json</b> a <code>dossiers/</code> o rellena Análisis.</div>'; return; }
   /* dispara carga perezosa de tesis para los que falten */
@@ -373,9 +373,39 @@ function renderTesisInv(){
   var detalle=_tzDetalle(sel);
 
   host.innerHTML='<div class="sub" style="margin-bottom:6px">Ficha de decisión: ¿está la empresa en <b>zona de invertir</b>? Semáforo de 3 capas — <b>Calidad</b> (¿vale?) × <b>Precio</b> (¿ahora?) × <b>Renta</b> (¿paga bien?, contextual por arquetipo). La <b>Próxima compra</b> dice cuánto una vez está en verde.</div>'+
-    kpis+toolbar+grid+'<div style="margin-top:12px">'+detalle+'</div>';
+    kpis+toolbar+grid+'<div id="tzDetalle" style="margin-top:12px;scroll-margin-top:12px">'+detalle+'</div>';
 
   _tzBind();
+}
+
+/* En móvil, al seleccionar una empresa baja directo a la ficha grande. */
+function _tzScrollDetalle(){
+  if(typeof window==='undefined')return;
+  if(window.innerWidth>860)return;                 // solo pantallas estrechas (móvil)
+  var d=document.getElementById('tzDetalle'); if(!d)return;
+  setTimeout(function(){ try{ d.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ d.scrollIntoView(); } },60);
+}
+
+/* ¿Está activa la vista Tesis? (en la app: sección .active; en el mock: existe el host) */
+function _tzViewActive(){ var v=(typeof document!=='undefined')&&document.getElementById('view-tesisinv'); if(v)return v.classList.contains('active'); return !!(typeof document!=='undefined'&&document.getElementById('tesisHost')); }
+
+/* Botón flotante ↑ para volver al principio (visible al hacer scroll dentro de la vista). */
+function _tzTopBtn(){
+  if(typeof document==='undefined')return;
+  var btn=document.getElementById('tzTop');
+  if(!btn){
+    btn=document.createElement('button'); btn.id='tzTop'; btn.type='button';
+    btn.setAttribute('aria-label','Subir al principio'); btn.title='Subir al principio'; btn.innerHTML='↑';
+    btn.style.cssText='position:fixed;right:16px;bottom:16px;z-index:70;width:46px;height:46px;border-radius:50%;background:var(--brand,#1d4ed8);color:#fff;border:none;box-shadow:0 3px 12px rgba(0,0,0,.28);font-size:22px;font-weight:700;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0;line-height:1';
+    btn.addEventListener('click',function(){ try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); } });
+    (document.body||document.documentElement).appendChild(btn);
+    var upd=function(){ var y=(window.scrollY||window.pageYOffset||0); btn.style.display=(_tzViewActive()&&y>400)?'flex':'none'; };
+    window.addEventListener('scroll',upd,{passive:true});
+    window.addEventListener('resize',upd);
+    document.addEventListener('click',function(){ setTimeout(upd,0); });   // recalcula al cambiar de pestaña
+    _tzTopBtn._upd=upd;
+  }
+  if(_tzTopBtn._upd)_tzTopBtn._upd();
 }
 
 /* --------- Eventos (delegados, una sola vez) --------- */
@@ -383,7 +413,7 @@ function _tzBind(){
   if(_tzBind._done)return; _tzBind._done=true;
   document.addEventListener('click',function(e){
     var pick=e.target.closest && e.target.closest('[data-tzpick]');
-    if(pick){ window._tesisSel=(pick.getAttribute('data-tzpick')||'').toUpperCase(); renderTesisInv(); return; }
+    if(pick){ window._tesisSel=(pick.getAttribute('data-tzpick')||'').toUpperCase(); renderTesisInv(); _tzScrollDetalle(); return; }
     var fic=e.target.closest && e.target.closest('[data-tzficha]');
     if(fic){ var t=(fic.getAttribute('data-tzficha')||'').toUpperCase(); if(typeof abrirFicha==='function')abrirFicha(t); return; }
   });
