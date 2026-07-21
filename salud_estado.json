@@ -1,11 +1,11 @@
 {
- "generado": "2026-07-20",
+ "generado": "2026-07-21",
  "linter": {
   "ok": true,
-  "detalle": "28 ficheros validados, sin errores."
+  "detalle": "34 ficheros validados, sin errores."
  },
  "sincronia": {
-  "ok": true,
-  "detalle": "RESULTADO: TODO SINCRONIZADO (28 archivos). La app refleja el método."
+  "ok": false,
+  "detalle": "RESULTADO: 32 sincronizados · 2 INCIDENCIA(S) — la app puede"
  }
 }
