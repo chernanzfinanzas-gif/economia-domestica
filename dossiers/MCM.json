@@ -1,0 +1,157 @@
+{
+ "schemaVersion": 7,
+ "ticker": "MCM",
+ "empresa": "Miquel y Costas & Miquel, S.A.",
+ "fecha": "2026-07-20",
+ "rating": "AA",
+ "score": 75.3,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF (calidad) + múltiplos históricos reales — consumo/industrial. PO oficial = síntesis §6.5 (15,7€): 40% DCF base (18,8€; beta sectorial 0,60, FCL normalizado 32M€) + 60% múltiplos históricos REALES (P/E 10,6x, EV/EBITDA 6,2x, P/BV 1,4x, DY 3,2%). Bear 10,5€ / Bull 20€.",
+ "poBear": 10.5,
+ "poBase": 15.7,
+ "poBull": 20.0,
+ "entMin": 11.5,
+ "entMax": 12.5,
+ "stop": 9.7,
+ "dpaPrevisto": 0.49,
+ "moat": "MODERADO (64/100) — oligopolio de nicho en papeles finos, marca Smoking y ventaja de costes; durabilidad amenazada por el declive secular del tabaco, que la diversificación a industriales (Terranova) debe compensar.",
+ "catalizadores": [
+  "Escala de Terranova: los papeles industriales/especiales crecen a doble dígito y compensan el declive del tabaco",
+  "Maduración del CAPEX 2025: la nueva capacidad rinde sobre el WACC y el ROIIC vuelve a positivo",
+  "Normalización de márgenes EBITDA hacia 26-28% si se moderan pulpa y energía",
+  "Retorno de caja: recompras acretivas y dividendo creciente",
+  "Alivio de divisa/aranceles en la exportación (90% de las ventas)"
+ ],
+ "riesgos": [
+  "Declive secular del tabaco (60% de ingresos) sin relevo industrial suficiente",
+  "Concentración de clientes (multinacionales tabaqueras) con alto poder de negociación",
+  "Divisa y aranceles: 90% exportación, exposición al USD",
+  "Ejecución del CAPEX/Terranova: ROIIC 5A negativo, aún sin rendir",
+  "Shock de costes de pulpa/energía no repercutido (como en 2022)"
+ ],
+ "bull": "La diversificación hacia papeles industriales y especiales (Terranova) gana escala y rentabilidad, el margen EBITDA vuelve a 27%+ y el mercado re-rata el negocio hacia ~15x P/E: precio implícito ~20€ (+45%).",
+ "bear": "El declive del tabaco se acelera sin que los industriales lo compensen y el CAPEX no rinde: EBITDA -25/30% y re-rating a la baja hacia ~10,5€ (-24%). La caja neta amortigua y el deterioro sería lento.",
+ "resumen": "Negocio de alta calidad (Rating AA) y balance excepcional (caja neta) a precio razonable. El DCF la ve infravalorada y el reverse DCF confirma un precio poco exigente, pero los múltiplos de beneficio REALES la sitúan cerca de valor razonable (cotiza algo por encima de su P/E histórico). Veredicto MANTENER: PO 15,7€, margen +13%; la compra se vuelve clara por debajo de ~12,5€. La tesis de revalorización depende de que la diversificación fuera del tabaco (Terranova) prospere — el mix de ingresos es la señal nº1.",
+ "confianza": {
+  "score": 93,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+   "1 línea(s) de conciliación ⚠ sin corregir (−5)"
+  ],
+  "sensibleASupuestos": true,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-20"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "matizada": true,
+  "banda": {
+   "p10": 10.5,
+   "p50": 15.7,
+   "p90": 20.0
+  },
+  "sensibilidad": {
+   "poMin": 14.68,
+   "poMax": 26.54,
+   "poBase": 18.7849674728278,
+   "cotizacion": 13.9,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 5.6,
+   "mdsMax": 90.9
+  },
+  "beta": {
+   "capm": 0.15,
+   "ref2": 0.6,
+   "aviso": "beta CAPM 0.15 vs 2ª ref 0.60: divergencia 0.45 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (13.90) queda por DEBAJO de toda la banda de PO [14.7–26.5] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "beta CAPM 0.15 vs 2ª ref 0.60: divergencia 0.45 > 0.3 → revisar cuál usar en el WACC",
+   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "dividendSafety": {
+  "score": 46,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 4,
+   "C2": 13,
+   "C3": 20,
+   "C4": 3,
+   "C5": 6
+  },
+  "shareholderYield": 4.53,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura base 0.75x → 4/35",
+   "C2 payout BN ord.: 41% (3a 39%) → 13/15",
+   "C3 balance: DN/EBITDA 0.19x, cob.int 14.8x → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 8a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, EBITDA a la baja YoY, beneficio neto a la baja YoY → 6/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-20"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 9.98,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.45,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DEPI",
+    "DSRI",
+    "GMI",
+    "SGAI",
+    "SGI"
+   ]
+  },
+  "sloan": {
+   "accruals": -2.1,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-20"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -1.6,
+  "gIntrinseco": 6.4,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-07-20"
+ }
+}
