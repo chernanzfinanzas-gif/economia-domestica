@@ -53,8 +53,6 @@ function etapaDe(t){
   /* pin manual (por debajo de las alarmas). */
   if(pin.etapa) return pin.etapa;
 
-  if(_emCerrada(t)&&!held) return 'Cerrada';
-
   if(held){
     if(_emComprandoAhora(t)) return 'Comprando';
     return 'En cartera';
@@ -67,7 +65,9 @@ function etapaDe(t){
     return 'Analizada';
   }
   if(_emCola(t)) return 'En análisis';
-  if((DB.radarSel||{})[t]) return 'Vigilada';
+  /* ex-cartera (posición cerrada): NO se descarta, vuelve al embudo. Se queda
+     Vigilada (en el radar) para reentrar con nuevos precios/fundamentales. */
+  if((DB.radarSel||{})[t]||_emCerrada(t)) return 'Vigilada';
   return 'Universo';
 }
 
@@ -76,7 +76,7 @@ var _EM_COL={
   'En análisis':'ana','Analizada':'ana','Analizada · esperar':'ana','Analizada · espera precio':'ana',
   'En zona':'plan','Cerca de entrada':'plan',
   'En cartera':'seg','Comprando':'seg','En revisión':'seg',
-  'Cerrada':'cerr','Descartada':'cerr'
+  'Descartada':'cerr'
 };
 function columnaDe(t){ return _EM_COL[etapaDe(t)]||'sel'; }
 
@@ -117,8 +117,8 @@ function accionDe(t){
   if(et==='Analizada · esperar') return A('⏳ Esperar catalizador','analisis');
   if(et==='Analizada') return A('Revisar veredicto','analisis');
   if(et==='En análisis'){ var ci=_emColaInfo(t); return A('📝 Terminar dossier'+(ci.pos?' (cola #'+ci.pos+')':''),'cobertura'); }
-  if(et==='Vigilada') return A('📥 Encolar para análisis','radardiv');
-  if(et==='Cerrada'||et==='Descartada') return A('📓 Post-mortem','monitor');
+  if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radardiv');
+  if(et==='Descartada') return A('📓 Post-mortem / reactivar','monitor');
   return A('','');
 }
 
@@ -233,11 +233,13 @@ function _emAgenda(){
 function _emCard(r,compact){
   var U=r.urg, ac=r.accion;
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
+  var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
   var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+'>'+ac.txt+(ac.goto?'<span class="em-arw">→</span>':'')+'</div>') : '';
   return '<div class="em-card" style="border-left-color:'+_EM_URGCOL[U]+'">'+
     '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+'</div>'+
     '<div class="em-et">'+_emEsc(r.et)+'</div>'+
+    (exBadge?('<div>'+exBadge+'</div>'):'')+
     (pinBadge?('<div>'+pinBadge+'</div>'):'')+
     (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')+
     acc+
@@ -288,8 +290,8 @@ function _emKanban(cols){
 }
 function _emClosed(cerr){
   if(!cerr.length)return '';
-  var names=cerr.map(function(r){ return r.t+(r.et==='Descartada'?' (descartada)':''); }).join(', ');
-  return '<div class="em-closed"><b>Cerradas / Descartadas ('+cerr.length+')</b> — '+_emEsc(names)+' <span style="float:right;color:#d97706">post-mortem → M3 Diario</span></div>';
+  var names=cerr.map(function(r){ return r.t; }).join(', ');
+  return '<div class="em-closed"><b>Descartadas ('+cerr.length+')</b> — '+_emEsc(names)+' · solo lo que descartas a mano; las ex-cartera vuelven al embudo <span style="float:right;color:#d97706">post-mortem → M3</span></div>';
 }
 
 /* ---------- interacción ---------- */
@@ -342,6 +344,7 @@ function _emBind(sec){
     '.em-nm{font-size:11px;color:#64748b;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
     '.em-et{display:inline-block;font-size:10px;font-weight:700;border-radius:20px;padding:1px 8px;background:#eef2f8;color:#1f3d6b;margin-bottom:5px}',
     '.em-pinb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#fef3c7;color:#92400e;margin-bottom:5px}',
+    '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
     '.em-acc{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;border-radius:8px;padding:5px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-acc .em-arw{margin-left:auto;opacity:.55}',
