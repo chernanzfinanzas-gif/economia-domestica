@@ -64,7 +64,7 @@ function renderDiario(){
   var nInval=arr.filter(function(e){return (e.estado||'abierta')==='abierta'&&(e.invalidacion||'').trim();}).length;
 
   var H='<div class="di-wrap">';
-  H+='<h2>Diario de decisiones</h2>';
+  H+='<h2>Mis Decisiones</h2>';
   H+='<div class="sub" style="margin-bottom:12px">Anota <b>por qué</b> decides cada cosa en el momento. La <b>Calibración</b> compara luego contra tu criterio escrito, no contra tu memoria. Lo que escribes: por qué · qué esperas · qué te haría cambiar de idea.</div>';
 
   H+='<div class="di-stats">'+
@@ -134,7 +134,7 @@ function _diTipoProto(dec){ var d=_diUp(dec);
   return 'Mantener'; }
 function diarioDesdeProtocolo(t,decision,precio,fecha,motivo){
   t=_diUp(t); if(!t)return; var tipo=_diTipoProto(decision); if(!tipo)return;
-  try{ if(confirm('Apunte del Protocolo registrado. ¿Anotar la decisión en el Diario?')){ diarioNuevo(t,tipo,{precio:_diNum(precio),fecha:fecha||_diHoy(),porque:motivo||''}); } }catch(e){}
+  try{ if(confirm('Apunte del Protocolo registrado. ¿Anotar la decisión en Mis Decisiones?')){ diarioNuevo(t,tipo,{precio:_diNum(precio),fecha:fecha||_diHoy(),porque:motivo||''}); } }catch(e){}
 }
 /* Oferta al registrar una operación reciente en Cartera (compra/venta). No molesta al
    rellenar histórico: solo salta si la operación es de hace ≤21 días. */
@@ -144,7 +144,7 @@ function diarioOfrecerOp(ticker,tipoOp,precio,acciones,fecha){
   if(isNaN(dd)||dd>21||dd< -2)return;
   try{
     if(tipoOp!=='venta' && typeof checklistPreCompra==='function'){ checklistPreCompra(ticker,_diNum(precio),tipoOp,acciones,f); return; }
-    if(confirm('Operación registrada. ¿Anotar el porqué en el Diario de decisiones?')){ diarioNuevo(ticker,(tipoOp==='venta'?'Vender':'Comprar'),{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:f}); }
+    if(confirm('Operación registrada. ¿Anotar el porqué en Mis Decisiones?')){ diarioNuevo(ticker,(tipoOp==='venta'?'Vender':'Comprar'),{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:f}); }
   }catch(e){}
 }
 /* P2 · Checklist pre-compra (puerta blanda): al registrar una compra evalúa el método y
@@ -185,7 +185,7 @@ function checklistPreCompra(t,precio,tipoOp,acciones,fecha){
     '<div class="di-chk-sub">'+_diEsc(t)+' · '+_diEsc(_diNombre(t).slice(0,26))+' · compra a '+_diEur(precio)+'</div>'+
     '<div class="di-chk-list">'+rows+'</div>'+
     '<div class="di-chk-note">Puerta blanda: no bloquea la compra; anota el porque para dejar constancia.</div>'+
-    '<div class="di-chk-acts"><button class="di-chk-anota" data-chkanota="1">📓 Anotar en el Diario</button><button class="di-chk-close" data-chkclose="1">Cerrar</button></div></div>';
+    '<div class="di-chk-acts"><button class="di-chk-anota" data-chkanota="1">📓 Anotar en Mis Decisiones</button><button class="di-chk-close" data-chkclose="1">Cerrar</button></div></div>';
   document.body.appendChild(ov);
   ov.addEventListener('click',function(e){
     if(e.target===ov||e.target.closest('[data-chkclose]')){ ov.remove(); return; }
@@ -228,7 +228,7 @@ function _diBind(sec){
     var fc=e.target.closest('[data-difilt]'); if(fc){ var a=(fc.getAttribute('data-difilt')||'').split('|'); window._diFilt[a[0]]=(window._diFilt[a[0]]===a[1]?'':a[1]); renderDiario(); return; }
     var cl=e.target.closest('[data-diclose]'); if(cl){ _diSetEstado(cl.getAttribute('data-diclose'),'cerrada'); return; }
     var op=e.target.closest('[data-diopen]'); if(op){ _diSetEstado(op.getAttribute('data-diopen'),'abierta'); return; }
-    var dl=e.target.closest('[data-didel]'); if(dl){ if(confirm('¿Eliminar esta entrada del diario?')){ DB.diario=(DB.diario||[]).filter(function(x){return x.id!==dl.getAttribute('data-didel');}); _diSave(); renderDiario(); } return; }
+    var dl=e.target.closest('[data-didel]'); if(dl){ if(confirm('¿Eliminar esta entrada de Mis Decisiones?')){ DB.diario=(DB.diario||[]).filter(function(x){return x.id!==dl.getAttribute('data-didel');}); _diSave(); renderDiario(); } return; }
     var fi=e.target.closest('[data-ficha]'); if(fi){ var t=fi.getAttribute('data-ficha'); if(typeof abrirFicha==='function')abrirFicha(t); else location.hash='ficha='+t; return; }
   });
   sec.addEventListener('change',function(e){ var em=e.target.closest('#diEmp'); if(em){ var t=_diUp(em.value); var pe=document.getElementById('diPrecio'); if(pe&&t)pe.value=(_diPrecio(t)||'').toString(); _diCtxPrev(t); } });

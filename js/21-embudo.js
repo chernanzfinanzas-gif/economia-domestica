@@ -48,7 +48,7 @@ function _emPorQue(t){
   var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; if(pr)bits.push('<div><b>Próx. revisión:</b> '+pr+'</div>');
   var last=null; (DB.diario||[]).forEach(function(e){ if(_emUp(e.ticker)===t){ if(!last||(e.fecha||'')>(last.fecha||''))last=e; } });
   if(last)bits.push('<div><b>Última decisión:</b> '+_emEsc(last.tipo)+' ('+_emEsc(last.fecha)+')'+(last.porque?' — '+_emEsc((''+last.porque).slice(0,120)):'')+'</div>');
-  else bits.push('<div class="muted"><b>Diario:</b> sin decisión registrada · <span class="em-why-link" data-goto="diario">registrar</span></div>');
+  else bits.push('<div class="muted"><b>Mis Decisiones:</b> sin decisión registrada · <span class="em-why-link" data-goto="diario">registrar</span></div>');
   return bits.join('');
 }
 function _emWhyBlock(r){ var op=(window._emWhy||{})[r.t]; return '<div class="em-why-t" data-emwhy="'+r.t+'">¿por qué la tengo? '+(op?'▴':'▾')+'</div>'+(op?'<div class="em-why">'+_emPorQue(r.t)+'</div>':''); }

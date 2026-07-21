@@ -211,7 +211,7 @@ const GROUPS={
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra'],['tesisinv','Tesis']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
-  tesis:[['monitor','Monitor'],['diario','Diario'],['buzon','Buzón del lunes'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
+  tesis:[['monitor','Monitor'],['buzon','Buzón del lunes'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
