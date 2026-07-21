@@ -234,6 +234,7 @@ function renderEmbudo(){
   H+=_emKanban(cols);
   H+=_emClosed(cols.cerr);
   H+='</div>';
+  H+='<button class="em-collapse-all" type="button" data-emcollapseall="1" title="Cerrar todas las fichas (refrescar la vista)">\u21f2 Cerrar fichas</button>';
   sec.innerHTML=H;
   _emBind(sec);
 }
@@ -272,17 +273,24 @@ function _emCard(r,compact){
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
   var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
-  return '<div class="em-card" style="border-left-color:'+_EM_URGCOL[U]+'">'+
-    '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+'</div>'+
-    '<div class="em-et">'+_emEsc(r.et)+'</div>'+
-    (exBadge?('<div>'+exBadge+'</div>'):'')+
-    (pinBadge?('<div>'+pinBadge+'</div>'):'')+
-    (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')+
-    acc+
-    _emCierresBtn(r)+
-    (r.held?_emWhyBlock(r):'')+
-    _emMover(r)+
-    '</div>';
+  /* Colapsable: en el Kanban las fichas abren mini (nombre+arquetipo+estado) y se
+     expanden al pinchar la cabecera. Las de la banda "Necesita tu acción" (compact) van siempre abiertas. */
+  var expanded = compact ? true : !!(window._emExp && window._emExp[r.t]);
+  var caret = compact ? '' : '<span class="em-caret">'+(expanded?'\u25be':'\u25b8')+'</span>';
+  var head = '<div class="em-head"'+(compact?'':(' data-emtoggle="'+r.t+'"'))+'>'
+    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
+    + '<div class="em-et">'+_emEsc(r.et)+'</div>'
+    + '</div>';
+  var more = expanded ? (''
+    + (exBadge?('<div>'+exBadge+'</div>'):'')
+    + (pinBadge?('<div>'+pinBadge+'</div>'):'')
+    + (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')
+    + acc
+    + _emCierresBtn(r)
+    + (r.held?_emWhyBlock(r):'')
+    + _emMover(r)
+  ) : '';
+  return '<div class="em-card'+(expanded?'':' em-collapsed')+'" style="border-left-color:'+_EM_URGCOL[U]+'">'+head+more+'</div>';
 }
 function _emMetricLine(r){
   var a=r.a, held=r.held;
@@ -359,60 +367,88 @@ async function _emEscribirCSV(handle, nombre, contenido){
   setTimeout(function(){ try{ URL.revokeObjectURL(url); }catch(e){} },1500);
   return true;
 }
-async function _emCierresDescargar(t){
-  t=_emUp(t);
-  var inp=prompt('Cierre de ejercicio de '+t+' — ¿qué día cierra el ejercicio? (DD/MM)\n\nSe descargará la cotización de ese día en los últimos 10 ejercicios, desde el histórico de precios de la app.','31/12');
-  if(inp==null)return;
-  var dm=_emParseDM(inp);
-  if(!dm){ alert('Fecha no válida. Usa el formato DD/MM (p. ej. 31/12 o 31/01).'); return; }
+function _emCierresDescargar(t){ _emCierresModal(_emUp(t)); }
+
+function _emCierresModal(t){
+  var prev=document.getElementById('em-cierres-modal'); if(prev)prev.remove();
+  var ov=document.createElement('div'); ov.id='em-cierres-modal'; ov.className='em-cmodal-ov';
+  ov.innerHTML=''
+    +'<div class="em-cmodal">'
+    +  '<div class="em-cmodal-h">📅 Cierres de '+t+'</div>'
+    +  '<div class="em-cmodal-b">'
+    +    '<label>Día de cierre de ejercicio (DD/MM)</label>'
+    +    '<input id="em-cmodal-date" type="text" value="31/12" inputmode="numeric" autocomplete="off">'
+    +    '<div class="em-cmodal-hint">Descarga el cierre real de ese día en los últimos 10 ejercicios. Al guardar, elige la carpeta (p. ej. la de la empresa); el navegador recordará la última.</div>'
+    +    '<div id="em-cmodal-msg" class="em-cmodal-msg"></div>'
+    +  '</div>'
+    +  '<div class="em-cmodal-f">'
+    +    '<button class="btn ghost sm" id="em-cmodal-cancel" type="button">Cancelar</button>'
+    +    '<button class="btn sm" id="em-cmodal-ok" type="button">Descargar CSV</button>'
+    +  '</div>'
+    +'</div>';
+  document.body.appendChild(ov);
+  var inp=ov.querySelector('#em-cmodal-date');
+  var close=function(){ ov.remove(); };
+  ov.querySelector('#em-cmodal-cancel').addEventListener('click',close);
+  ov.addEventListener('click',function(e){ if(e.target===ov)close(); });
+  ov.querySelector('#em-cmodal-ok').addEventListener('click',function(){ _emCierresGen(t, inp.value, ov); });
+  inp.addEventListener('keydown',function(e){ if(e.key==='Enter')_emCierresGen(t, inp.value, ov); if(e.key==='Escape')close(); });
+  setTimeout(function(){ try{ inp.focus(); inp.select(); }catch(e){} },40);
+}
+
+async function _emCierresGen(t, fecha, ov){
+  var msg=ov?ov.querySelector('#em-cmodal-msg'):null;
+  var setMsg=function(x){ if(msg)msg.textContent=x||''; };
+  var dm=_emParseDM(fecha);
+  if(!dm){ setMsg('Fecha no válida. Usa DD/MM (p. ej. 31/12 o 31/01).'); return; }
   var dd=String(dm.d).padStart(2,'0'), mm=String(dm.m).padStart(2,'0');
   var nombre='cierres_'+t+'_'+dd+mm+'.csv';
-  /* 1) Pedir la carpeta destino AHORA, mientras el clic sigue siendo un "gesto de usuario"
-        válido (antes de cualquier await de red; si no, el navegador rechaza el selector). */
+  /* 1) Selector de carpeta AHORA: es lo primero tras el clic en "Descargar", con el gesto de usuario
+        aún válido (sin prompt ni await previos que lo invaliden). */
   var handle=null;
   if(window.showSaveFilePicker){
     try{
-      handle=await window.showSaveFilePicker({
-        id:'khCierresEjercicio',
-        suggestedName:nombre,
-        types:[{description:'CSV (datos de mercado)',accept:{'text/csv':['.csv']}}]
-      });
+      handle=await window.showSaveFilePicker({ id:'khCierresEjercicio', suggestedName:nombre,
+        types:[{description:'CSV (datos de mercado)',accept:{'text/csv':['.csv']}}] });
     }catch(e){ if(e&&e.name==='AbortError')return; handle=null; /* otro error → descarga clásica */ }
   }
-  /* 2) Cargar la serie de precios y calcular los cierres. */
+  /* 2) Serie de precios + cálculo. */
+  setMsg('Generando…');
   var pj=(typeof _precioCache!=='undefined')?_precioCache[t]:undefined;
   if(pj===undefined){
     try{ var rr=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=rr.ok?await rr.json():null; }catch(e){ pj=null; }
     if(typeof _precioCache!=='undefined')_precioCache[t]=pj;
   }
-  if(!pj||!pj.data||!pj.data.length){ alert('No hay histórico de cotización para '+t+' en precios/ del repo. No puedo generar los cierres.'); return; }
-  if(typeof priceRepoAt!=='function'){ alert('Falta la función priceRepoAt (módulo de gráficas).'); return; }
-  var now=new Date();
-  var cand=new Date(now.getFullYear(),dm.m-1,dm.d);
+  if(!pj||!pj.data||!pj.data.length){ setMsg('No hay histórico de cotización para '+t+' en precios/.'); return; }
+  if(typeof priceRepoAt!=='function'){ setMsg('Falta la función priceRepoAt.'); return; }
+  var now=new Date(); var cand=new Date(now.getFullYear(),dm.m-1,dm.d);
   var lastEx=(cand.getTime()>now.getTime())?(now.getFullYear()-1):now.getFullYear();
   var sep=';';
   var out='﻿Ticker'+sep+'Ejercicio'+sep+'FechaCierre'+sep+'Cierre\n';
   var faltan=0;
   for(var y=lastEx-9;y<=lastEx;y++){
-    /* Etiqueta fiscal del método: cierre tardío (jul-dic) → año del cierre; temprano (ene-jun) → año-1. */
     var lab=(dm.m>=7)?y:(y-1);
     var px=priceRepoAt(t,Date.UTC(y,dm.m-1,dm.d));
     var val=(px>0)?(''+px).replace('.',','):''; if(!(px>0))faltan++;
     out+=t+sep+lab+sep+dd+'/'+mm+'/'+y+sep+val+'\n';
   }
-  /* 3) Escribir en la carpeta elegida (o descargar). */
+  /* 3) Escribir. */
   var okg=await _emEscribirCSV(handle, nombre, out);
-  if(!okg)return;
+  if(!okg){ setMsg('No se pudo guardar el archivo.'); return; }
+  if(ov)ov.remove();
   if(faltan)alert('CSV guardado. Aviso: '+faltan+' ejercicio(s) sin dato en el histórico (quedan en blanco).');
 }
+
 /* ---------- interacción ---------- */
 function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
+    var ca=e.target.closest('[data-emcollapseall]'); if(ca){ window._emExp={}; renderEmbudo(); return; }
     var cz=e.target.closest('[data-emcierres]'); if(cz){ e.preventDefault(); _emCierresDescargar(cz.getAttribute('data-emcierres')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
+    var tg=e.target.closest('[data-emtoggle]'); if(tg){ var tt=_emUp(tg.getAttribute('data-emtoggle')); window._emExp=window._emExp||{}; window._emExp[tt]=!window._emExp[tt]; renderEmbudo(); return; }
     var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
     var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
@@ -463,6 +499,21 @@ function _emBind(sec){
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
     '.em-cierres{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:4px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-cierres:hover{background:#e0e7ff}',
+    '.em-head{cursor:pointer}',
+    '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:2px}',
+    '.em-collapsed{padding-bottom:9px}',
+    '.em-collapse-all{position:fixed;right:18px;bottom:110px;z-index:900;background:#1f3d6b;color:#fff;border:none;border-radius:22px;padding:10px 15px;font-size:12.5px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}',
+    '.em-collapse-all:hover{background:#16305a}',
+    '@media(max-width:560px){.em-collapse-all{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}}',
+    '.em-cmodal-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:9999}',
+    '.em-cmodal{background:#fff;border-radius:14px;width:min(380px,92vw);box-shadow:0 20px 50px rgba(0,0,0,.3);overflow:hidden}',
+    '.em-cmodal-h{background:#1f3d6b;color:#fff;font-weight:800;font-size:14px;padding:12px 16px}',
+    '.em-cmodal-b{padding:14px 16px}',
+    '.em-cmodal-b label{display:block;font-size:12px;color:#475569;font-weight:600;margin-bottom:5px}',
+    '.em-cmodal-b input{width:100%;font-size:15px;border:1px solid #cbd5e1;border-radius:8px;padding:8px 10px;box-sizing:border-box}',
+    '.em-cmodal-hint{font-size:11px;color:#64748b;margin-top:8px;line-height:1.4}',
+    '.em-cmodal-msg{font-size:12px;color:#dc2626;margin-top:8px;min-height:14px}',
+    '.em-cmodal-f{display:flex;justify-content:flex-end;gap:8px;padding:10px 16px 14px}',
     '.em-revedit{cursor:pointer;opacity:.55;font-size:10px}',
     '.em-divrisk{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:8px 12px;font-size:12px;color:#0c4a6e;margin-bottom:12px}',
     '.em-why-t{font-size:11px;color:#2563eb;cursor:pointer;margin:2px 0 4px;font-weight:600}',
