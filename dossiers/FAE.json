@@ -1,0 +1,154 @@
+{
+ "schemaVersion": 7,
+ "ticker": "FAE",
+ "empresa": "Faes Farma, S.A.",
+ "fecha": "2026-07-21",
+ "rating": "A",
+ "score": 69.4,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF a 3 escenarios (arquetipo SALUD/calidad, sensibilidad a WACC y crecimiento) contrastado con múltiplos PER. PO oficial = síntesis 60% DCF · 40% múltiplos = 4,67 € (base). El rango oficial bear/base/bull = 2,90 / 4,67 / 6,80 € corresponde a los escenarios de la Tesis §9.3 (el DCF puro §6.2 daba pesimista 2,90 / base 4,84 / optimista 8,98 €, más agresivo en el extremo alcista).",
+ "poBear": 2.9,
+ "poBase": 4.67,
+ "poBull": 6.8,
+ "entMin": 3.9,
+ "entMax": 4.2,
+ "stop": 2.8,
+ "dpaPrevisto": 0.128,
+ "moat": "Estrecho",
+ "catalizadores": [
+  "Trimestrales 2026 con SIFI/Edol/ISF ya consolidados: confirmarían si el EBITDA de las adquiridas cumple el plan y el margen del grupo se recupera hacia ~20% (Q1-Q3 2026, +10/+20%).",
+  "Declaración del DPA 2025 que clarifique la política de dividendo tras el apalancamiento: DPA ≥ 0,18 € con pay-out ~50% (1S 2026, +3/+8%).",
+  "Senda de desapalancamiento hacia DN/EBITDA < 2x con la caja de las adquiridas y el FCL recurrente (2026-2027, +5/+10%).",
+  "Hitos de pipeline: aprobación de mesalazina 1500 mg y avance de hidroferol semanal y nuevos lanzamientos (2026-2027, +5/+10%).",
+  "Recuperación del ROIIC incremental por encima del WACC, señal de que el capital del M&A empieza a crear valor (2027+, +10/+15%)."
+ ],
+ "riesgos": [
+  "Erosión de la franquicia bilastina por entrada de genéricos al vencer patentes base (patent cliff): principal fuente de EBITDA con dependencia de producto.",
+  "Ejecución e integración del M&A transformacional 2025 (SIFI oftalmología, Edol, ISF nutrición animal): riesgo de sobreprecio, sinergias no materializadas y goodwill (~34,7% del PN).",
+  "Regulación de precios de medicamentos y presión de sistemas públicos de salud sobre márgenes.",
+  "Concentración/dependencia de producto (bilastina) y del pipeline para sostener el crecimiento.",
+  "Coste financiero de la nueva deuda (crédito ~375 M€) que eleva el DN/EBITDA a 2,70x desde caja neta histórica."
+ ],
+ "bull": "La integración de SIFI/Edol/ISF entrega: EBITDA pro-forma supera 145 M€, el margen se recupera y el ROIIC vuelve por encima del WACC, revalorizando el múltiplo hacia ~6,80 € (+56%, P90 ~25%).",
+ "bear": "Derivado del Pre-Mortem: el M&A decepciona, la bilastina se erosiona por genéricos y el desapalancamiento se atasca; el precio cae hacia ~2,90 € (−34%, P10 ~25%).",
+ "resumen": "Faes Farma es un negocio de calidad alta (Rating A, score 69,4) con un moat estrecho (48,5) apoyado en la franquicia bilastina y ahora diversificado a oftalmología y nutrición animal por el M&A de 2025. A 4,365 € el margen de seguridad sobre el PO de 4,67 € es de solo +7% (zona MANTENER 5-15%), insuficiente para comprar en firme pese a la calidad. El Reverse DCF muestra que el precio ya descuenta crecimiento negativo (−3,1% frente al 12% autofinanciable), lo que limita el riesgo bajista y desaconseja vender. Decisión: MANTENER si se posee; para nueva entrada esperar < 4,20 € (MdS ≥ +10%). Señal clave de seguimiento: los trimestrales 2026 que revelen si la integración del M&A cumple el plan.",
+ "confianza": {
+  "score": 90,
+  "nivel": "A",
+  "motivos": [
+   "2 línea(s) de conciliación ⚠ sin corregir (−10)"
+  ],
+  "sensibleASupuestos": true,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-21"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "matizada": false,
+  "banda": {
+   "p10": 2.9,
+   "p50": 4.67,
+   "p90": 6.8
+  },
+  "sensibilidad": {
+   "poMin": 3.81,
+   "poMax": 6.54,
+   "poBase": 4.8411519186261,
+   "cotizacion": 4.365,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -12.7,
+   "mdsMax": 49.8
+  },
+  "beta": {
+   "capm": 0.34,
+   "ref2": 0.9,
+   "aviso": "beta CAPM 0.34 vs 2ª ref 0.90: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (4.37) cae DENTRO de la banda de PO [3.8–6.5] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "beta CAPM 0.34 vs 2ª ref 0.90: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+  ],
+  "calculadoEl": "2026-07-21"
+ },
+ "dividendSafety": {
+  "score": 42,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 7,
+   "C2": 10,
+   "C3": 16,
+   "C4": 3,
+   "C5": 6
+  },
+  "shareholderYield": 3.56,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 0.91x / FCL 1.12x (3a OE 1.94x) → 7/35",
+   "C2 payout BN ord.: 70% (3a 42%) → 10/15",
+   "C3 balance: DN/EBITDA 2.70x, cob.int 2960.7x → 16/20",
+   "C4 trayectoria: 2 recorte(s) en 10a (reciente) · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, EBITDA a la baja YoY, beneficio neto a la baja YoY → 6/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-21"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 2,
+   "banda": "débil",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 0,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 0,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 8.23,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.86,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DSRI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 0.1,
+   "senal": "normal"
+  },
+  "flags": [
+   "Piotroski débil (2/9): fundamentales flojos"
+  ],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-21"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -3.1,
+  "gIntrinseco": 12.0,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-07-21"
+ }
+}
