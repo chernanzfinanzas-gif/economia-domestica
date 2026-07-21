@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "MCM",
+  "empresa": "Miquel y Costas",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-05-12",
+      "periodoDisplay": "1T",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque de la recuperación tras el shock de 2022: EBITDA +27% con márgenes sanos. Tabaco estable, industriales -1,4M€ por parada planificada de máquina en MB (reforma).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 18.8
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 15.7
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-28",
+      "periodoDisplay": "1S",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación firme: EBITDA +? y margen 24,3%. Beneficio 24,3M€. Normalización de costes de pulpa/energía tras 2022.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 167.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 40.7
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 24.3
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 31.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 24.3
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 14.5
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 33.8
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-11-10",
+      "periodoDisplay": "9M",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +31,8% acumulado y margen 23,5%; ingresos -5,9% por normalización de precios. Tabaco +3,6% (precio), industriales -20,8% por la reforma de MB. Recuperación de rentabilidad.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 243.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 57.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 23.5
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 47.5
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-28",
+      "periodoDisplay": "FY",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre de recuperación: EBITDA 74,9M€ (+? ), beneficio 42,7M€, margen 24,2%. Balance de caja neta. Buen año de normalización.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 309.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 74.9
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 24.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 54.9
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 42.7
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 13.8
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 62.7
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-05-10",
+      "periodoDisplay": "1T",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Momentum positivo: EBITDA +14,8% y margen ~26%. Continúa la mejora de rentabilidad.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 82.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 21.6
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 26.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 18
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 14.9
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-26",
+      "periodoDisplay": "1S",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +8,3% y margen 26,9% (expansión), beneficio +10,3%. Tabaco firme, industriales recuperándose tras la reforma. Trimestre que refuerza la tesis.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 164.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 44.1
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 26.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 34.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 26.8
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 16.3
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 36.8
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": -2.1
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 8.4
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": 10.3
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-11-08",
+      "periodoDisplay": "9M",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +7,7% y margen 25,8%; ingresos casi planos. Rentabilidad en su mejor nivel del ciclo.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 239.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 61.6
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 25.8
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 51.9
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": -1.9
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 7.7
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-27",
+      "periodoDisplay": "FY",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Año de pico de rentabilidad: EBITDA 80M€, margen 25,9%, beneficio 48,7M€. Excelente ejecución; base exigente para 2025.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 309.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 80
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 25.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 60.2
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 48.7
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 15.8
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 68.5
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": 0
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 6.8
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": 14.1
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-05-09",
+      "periodoDisplay": "1T",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer trimestre plano-negativo: ingresos +10,1% pero EBITDA -1,8% (margen 23,3%, se comprime desde el pico de 2024). Momentum de rentabilidad se enfría.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 90.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 21.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 23.3
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 17.8
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": 10
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -1.9
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-25",
+      "periodoDisplay": "1S",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA -7,8% y beneficio -9,0% frente al fuerte S1-2024; margen 24,1%. Ingresos +2,6% (tabaco por precio; industriales mixtos). Deterioro de márgenes vs 2024, aún en zona sana.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 168.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 40.6
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 24.1
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 30.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 24.4
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 14.5
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 34.4
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": 2.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -7.9
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": -9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-11-07",
+      "periodoDisplay": "9M",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA -5,5% acumulado, margen 24,2%; ingresos +0,8%. Se confirma la normalización a la baja desde el pico de 2024. Vigilar el mix.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 241
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 58.3
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 24.2
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 49.5
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": 0.8
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -5.4
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "periodoDisplay": "FY",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Año a la baja: EBITDA -5,9% (75,3M€) y beneficio -7,4% (45,1M€) vs el pico de 2024; margen 24,0%. Ingresos +1,5%. Es lo que lleva el Dividend Safety a Vigilar, pero margen y balance intactos.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 313.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 75.3
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 24
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 54.5
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 45.1
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": 14.4
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 65.9
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": 1.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -5.9
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": -7.4
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-08",
+      "periodoDisplay": "1T",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre débil: ingresos -13,5%, EBITDA -14,9%, caja -12,3%. Cae tanto tabaco (-5,8M€) como industriales (-5,4M€), fundamentalmente por la DEBILIDAD DEL DÓLAR (90% exportación). Margen 22,9%, aún >18%. FX, no deterioro estructural; vigilar si persiste.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 78.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 18
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 22.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Mg.neto %",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Cash-flow (M€)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "%Var Ing",
+          "valor": -13.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -15.1
+        },
+        {
+          "nombre": "%Var Bºneto",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    }
+  ]
+}
