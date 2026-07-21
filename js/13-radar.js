@@ -217,7 +217,7 @@ function _radRob(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(funct
 function _radConfCell(cf){ if(!cf)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_CFCOL[cf]||'#64748b'; return '<span title="Confianza del dato: '+cf+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+cf+'</span>'; }
 function _radRobCell(rb){ if(!rb)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_RBCOL[rb]||'#64748b'; var lab=(rb==='solida')?'sól.':(rb==='sensible'?'sens.':(rb==='robusta'?'rob.':rb)); return '<span title="Robustez de la decisión: '+(rb==='solida'?'sólida':rb)+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+lab+'</span>'; }
 /* CSS compacto para que quepan las columnas sin scroll horizontal (una sola vez) */
-function _radCss(){ if(typeof document==='undefined'||document.getElementById('rad-compact-css'))return; var s=document.createElement('style'); s.id='rad-compact-css'; s.textContent='#view-radar .rad-table table{font-size:12px}#view-radar .rad-table thead th{padding:6px 6px;font-size:9.5px;letter-spacing:.01em}#view-radar .rad-table tbody td{padding:5px 6px}'; (document.head||document.documentElement).appendChild(s); }
+function _radCss(){ if(typeof document==='undefined'||document.getElementById('rad-compact-css'))return; var s=document.createElement('style'); s.id='rad-compact-css'; s.textContent='#view-radar .rad-table table{font-size:12px}#view-radar .rad-table thead th{padding:6px 6px;font-size:9.5px;letter-spacing:.01em}#view-radar .rad-table tbody td{padding:5px 6px}.rad-promo-cfg{font-size:11px;color:#475569;display:inline-flex;align-items:center;gap:2px}.rad-pin{width:42px;border:1px solid #e2e8f0;border-radius:6px;padding:2px 3px;font-size:11px;text-align:center}#radPromoPanel{display:flex;flex-direction:column;gap:6px;margin:2px 0 10px}.rad-promo{font-size:11.5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;border-radius:10px}.rad-promo.pr-ana{background:#f5f3ff;border:1px solid #ddd6fe}.rad-promo.pr-vig{background:#eff6ff;border:1px solid #bfdbfe}.rad-pchip{font-size:11px;font-weight:700;border:1px solid #cbd5e1;background:#fff;border-radius:20px;padding:2px 9px;cursor:pointer;color:#334155}'; (document.head||document.documentElement).appendChild(s); }
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
@@ -264,10 +264,10 @@ function _radBuild(sec){
       '<select id="radArq">'+arqOpts+'</select>'+
       '<input type="search" id="radSearch" placeholder="Buscar…" value="'+_radEsc(window._radQ)+'">'+
       '<label class="rad-sortm">Ordenar <select id="radSortSel">'+sortOpts+'</select></label>'+
-      '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+'<span class="rad-fltset" id="radFltSet"><span class="rad-fltl">Filtrar:</span>'+'<button class="rad-flt f-held" data-radflt="held" title="En cartera">Cartera</button>'+'<button class="rad-flt f-ana" data-radflt="ana" title="Analizadas">Análisis</button>'+'<button class="rad-flt f-sel" data-radflt="sel" title="Seleccionadas ★">Atractiva</button>'+'<button class="rad-flt f-pend" data-radflt="pend" title="Pendientes">Pendiente</button></span>'+
+      '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+'<span class="rad-fltset" id="radFltSet"><span class="rad-fltl">Filtrar:</span>'+'<button class="rad-flt f-held" data-radflt="held" title="En cartera">Cartera</button>'+'<button class="rad-flt f-ana" data-radflt="ana" title="Analizadas">Análisis</button>'+'<button class="rad-flt f-sel" data-radflt="sel" title="Seleccionadas ★">Atractiva</button>'+'<button class="rad-flt f-pend" data-radflt="pend" title="Pendientes">Pendiente</button></span>'+'<span class="rad-promo-cfg" title="Umbrales de sugerencia de promoción">Sugerir vigilar ≥<input type="number" id="radPromoVig" class="rad-pin" value="'+_radPromoCfg().vig+'"> · analizar ≥<input type="number" id="radPromoAna" class="rad-pin" value="'+_radPromoCfg().ana+'"> ★★★</span>'+
       '<span class="rad-count" id="radCount"></span>'+
     '</div>'+
-    '<div class="rad-table"><table><thead><tr>'+
+    '<div id="radPromoPanel"></div>'+'<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
       '<th class="s" data-radsk="rpd">RPD</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l">Nota</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
@@ -295,10 +295,16 @@ function _radRenderList(){
   var cnt=document.getElementById('radCount'); if(cnt)cnt.textContent=list.length+' de '+(_radCands||[]).length;
   var LBL={atr:'Atr.',rpd:'RPD',roe:'ROE',per:'PER',pos52sem:'52s'};
   document.querySelectorAll('#view-radar th[data-radsk]').forEach(function(th){ var k=th.getAttribute('data-radsk'); th.textContent=LBL[k]+_radArrow(k); });
+  (function(){ var ph=document.getElementById('radPromoPanel'); if(!ph)return; var sA=[],sV=[];
+    (_radCands||[]).forEach(function(c){ var x=(typeof _radSugerencia==='function')?_radSugerencia(c):null; if(x==='ana')sA.push(c); else if(x==='vig')sV.push(c); });
+    sA.sort(function(a,b){return b.atr-a.atr;}); sV.sort(function(a,b){return b.atr-a.atr;});
+    var chip=function(c,m){ return '<button class="rad-pchip" data-radpromo="'+m+'|'+_radEsc(c.t)+'" title="'+(m==='ana'?'Añadir a la cola de análisis':'Marcar ★ (vigilada)')+'">'+_radEsc(c.t)+' · '+c.atr.toFixed(0)+(m==='ana'?' +':' ★')+'</button>'; };
+    ph.innerHTML=(sA.length?'<div class="rad-promo pr-ana"><b>🟣 Analizar ('+sA.length+')</b> '+sA.map(function(c){return chip(c,'ana');}).join('')+'</div>':'')+
+      (sV.length?'<div class="rad-promo pr-vig"><b>🔵 Vigilar ('+sV.length+')</b> '+sV.slice(0,24).map(function(c){return chip(c,'vig');}).join('')+(sV.length>24?' <span class="muted" style="font-size:10px">+'+(sV.length-24)+'</span>':'')+'</div>':''); })();
   document.getElementById('radBody').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
     var st=sel?'sel':(_held.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':''));
     return '<tr class="'+st+'"><td class="l"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></td>'+
-      '<td class="l rad-atr" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+'</td>'+
+      '<td class="l rad-atr" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+_radSugBadge(c)+'</td>'+
       '<td class="l"><b class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((c.nombre||'').slice(0,18))+'</span></td>'+
       '<td class="l">'+_radAtag(c.arq)+'</td>'+
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
@@ -335,6 +341,7 @@ function _radBind(sec){
   if(renderRadar._bound)return; renderRadar._bound=true;
   sec.addEventListener('input',function(e){ if(e.target&&e.target.id==='radSearch'){ window._radQ=e.target.value; _radRenderList(); } });
   sec.addEventListener('change',function(e){ var t=e.target; if(!t)return;
+    if(t.id==='radPromoVig'||t.id==='radPromoAna'){ DB.config=DB.config||{}; DB.config.radarPromo=DB.config.radarPromo||{}; DB.config.radarPromo[t.id==='radPromoVig'?'vigilar':'analizar']=num(t.value); if(typeof scheduleSave==='function')scheduleSave(); _radRenderList(); return; }
     if(t.id==='radArq'){ _radArqFilter=t.value; _radRenderList(); return; }
     if(t.id==='radSortSel'){ _radSort.k=t.value; _radSort.dir=-1; _radRenderList(); return; }
     if(t.classList&&t.classList.contains('rad-ck')){ var tk=(t.getAttribute('data-radck')||'').toUpperCase(); if(!tk)return; DB.radarSel=DB.radarSel||{}; if(t.checked)DB.radarSel[tk]=true; else delete DB.radarSel[tk]; if(typeof scheduleSave==='function')scheduleSave(); _radRenderList(); return; } });
@@ -343,12 +350,24 @@ function _radBind(sec){
     if(e.target.closest('[data-ficha]'))return;
     var th=e.target.closest('th[data-radsk]'); if(th){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} var ss=document.getElementById('radSortSel'); if(ss)ss.value=_radSort.k; _radRenderList(); return; }
     var _fb=e.target.closest('[data-radflt]'); if(_fb){ var _fk=_fb.getAttribute('data-radflt'); window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false}; window._radFlt[_fk]=!window._radFlt[_fk]; _fb.classList.toggle('on',window._radFlt[_fk]); _radRenderList(); return; }
+    var _pp=e.target.closest('[data-radpromo]'); if(_pp){ var _pa=(_pp.getAttribute('data-radpromo')||'').split('|'); var _pm=_pa[0], _pt=(_pa[1]||'').toUpperCase(); if(_pm==='ana'){ if(typeof colaAdd==='function')colaAdd(_pt); } else { DB.radarSel=DB.radarSel||{}; DB.radarSel[_pt]=true; if(typeof scheduleSave==='function')scheduleSave(); } _radRenderList(); return; }
     if(e.target.closest('#radAddCola')){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(typeof _esAnalizada==='function'&&_esAnalizada(t)){ya++;return;} if(typeof colaAdd==='function'&&colaAdd(t))n++; else ya++; }); alert(n+' añadidas a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'')); return; }
     var h=e.target.closest('.rad-card-h'); if(h){ var t2=h.parentElement.getAttribute('data-t'); window._radOpen[t2]=!window._radOpen[t2]; _radRenderList(); return; } });
 }
 
 
 /* ================= PESTAÑA COBERTURA (plan de análisis) ================= */
+function _radPromoCfg(){ DB.config=DB.config||{}; var p=DB.config.radarPromo||{}; return {vig:(num(p.vigilar)||55), ana:(num(p.analizar)||65), minRat:(num(p.minRating)||60)}; }
+function _radSugerencia(c){ if(!c)return null; var t=(c.t||'').toUpperCase();
+  if(typeof heldTickerSet==='function'&&heldTickerSet().has(t))return null;
+  if(typeof _esAnalizada==='function'&&_esAnalizada(t))return null;
+  if(c.trampa) return null;
+  var cfg=_radPromoCfg(); var enCola=(typeof _colaHas==='function')&&_colaHas(t);
+  var rs=(typeof radRatingScore==='function')?(radRatingScore(c.rating)||0):0;
+  if(!c.trampa && c.atr>=cfg.ana && rs>=cfg.minRat && !enCola) return 'ana';
+  if(c.atr>=cfg.vig && !enCola && !((DB.radarSel||{})[t])) return 'vig';
+  return null; }
+function _radSugBadge(c){ var x=(typeof _radSugerencia==='function')?_radSugerencia(c):null; return x==='ana'?' <span class="rad-sug" title="Sugerida: analizar (Atractivo alto + rating ★★★)">🟣</span>':(x==='vig'?' <span class="rad-sug" title="Sugerida: vigilar">🔵</span>':''); }
 function _colaHas(t){ t=(t||'').toUpperCase(); return (DB.cola||[]).some(function(x){return (x.t||'').toUpperCase()===t;}); }
 function _esAnalizada(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.dossierFecha)return true; if(typeof _tesisSet!=='undefined'&&_tesisSet&&_tesisSet.has&&_tesisSet.has(t))return true; return false; }
 function colaAdd(t){ t=(t||'').toUpperCase(); if(!t)return false; DB.cola=DB.cola||[]; if(_colaHas(t))return false; DB.cola.push({t:t,estado:'pendiente',nota:''}); if(typeof scheduleSave==='function')scheduleSave(); return true; }
