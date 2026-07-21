@@ -187,6 +187,7 @@ function protoApunteForm(sig, ticker){
     dlg.close();
     if(typeof renderPanelDash==='function')renderPanelDash();
     if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    if(typeof diarioDesdeProtocolo==='function') diarioDesdeProtocolo(t,dec,ap.cot,ap.fecha,motivo);
   };
   if(!dlg.open) dlg.showModal();
 }

@@ -123,6 +123,19 @@ function _diColTipo(cfg){ return {'t-comprar':'#16a34a','t-ampliar':'#22c55e','t
 
 /* ---------- formulario ---------- */
 function diarioNuevo(ticker,tipo,opts){ window._diSeed=Object.assign({ticker:_diUp(ticker||''),tipo:tipo||''},opts||{}); if(typeof activarVista==='function')activarVista('diario'); else if(typeof renderDiario==='function')renderDiario(); }
+/* M3 fase2 · enganche del Protocolo: al registrar/resolver un apunte S1–S6 con decisión,
+   ofrece anotar la decisión en el Diario (tipo mapeado, porqué = motivo del apunte). */
+function _diTipoProto(dec){ var d=_diUp(dec);
+  if(d.indexOf('PTE')>=0||d.indexOf('REVIS')>=0) return null;
+  if(d.indexOf('VENDER')>=0) return 'Vender';
+  if(d.indexOf('RECORTAR')>=0) return 'Recortar';
+  if(d.indexOf('SIN CAMBIOS')>=0) return 'Reafirmar';
+  if(d.indexOf('MANTENER')>=0) return 'Mantener';
+  return 'Mantener'; }
+function diarioDesdeProtocolo(t,decision,precio,fecha,motivo){
+  t=_diUp(t); if(!t)return; var tipo=_diTipoProto(decision); if(!tipo)return;
+  try{ if(confirm('Apunte del Protocolo registrado. ¿Anotar la decisión en el Diario?')){ diarioNuevo(t,tipo,{precio:_diNum(precio),fecha:fecha||_diHoy(),porque:motivo||''}); } }catch(e){}
+}
 /* Oferta al registrar una operación reciente en Cartera (compra/venta). No molesta al
    rellenar histórico: solo salta si la operación es de hace ≤21 días. */
 function diarioOfrecerOp(ticker,tipoOp,precio,acciones,fecha){
@@ -197,6 +210,7 @@ function _diOpenForm(ticker,tipo,seed){
     '</div><div class="di-actions"><button class="di-save" id="diSave">Guardar decisión</button><button class="di-cancel" id="diCancel">Cancelar</button></div></div>';
   if(ticker){ var pe=document.getElementById('diPrecio'); if(pe)pe.value=((seed.precio||_diPrecio(ticker))||'').toString();
     if(seed.importe){ var ie=document.getElementById('diImporte'); if(ie)ie.value=Math.round(seed.importe); }
+    if(seed.porque){ var _pq=document.getElementById('diPorque'); if(_pq)_pq.value=seed.porque; }
     _diCtxPrev(ticker); }
   var f=host.querySelector('.di-form'); if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
