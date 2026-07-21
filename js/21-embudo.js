@@ -25,6 +25,11 @@ function _emProtoOpen(t){ t=_emUp(t); return ((DB.protocolo||{})[t]||[]).some(fu
 function _emProtoVenc(t){ t=_emUp(t); var hoy=new Date().toISOString().slice(0,10); return ((DB.protocolo||{})[t]||[]).some(function(a){return a.estado==='abierta'&&a.limite&&a.limite<hoy;}); }
 function _emDsMes(t){ var a=_emAna(t); return (a&&typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; }
 function _emQPend(t){ t=_emUp(t); var c=(DB.cadencia||{})[t]||{}; if(!c.tocaMonitor||!c.nextKey)return false; var m=(DB.monitor||{})[t]||{}; var done=(typeof _revHecha==='function')?_revHecha(m.rev,c.nextKey):!!(m.rev&&m.rev[c.nextKey]); return !done; }
+/* A1 · próxima revisión obligatoria: a.proxRev (editable) o dossierFecha + 12 meses. */
+function _emAddMes(f,n){ if(!f)return null; var d=new Date(f+'T00:00:00'); if(isNaN(d.getTime()))return null; d.setMonth(d.getMonth()+n); return d.toISOString().slice(0,10); }
+function proxRevDe(t){ var a=_emAna(t); if(!a)return null; if(a.proxRev)return a.proxRev; if(a.dossierFecha)return _emAddMes(a.dossierFecha,12); return null; }
+function _emRevVencida(t){ var pr=proxRevDe(t); return !!(pr && pr<=new Date().toISOString().slice(0,10)); }
+function _emRevDias(t){ var pr=proxRevDe(t); if(!pr)return null; return Math.round((new Date(pr+'T00:00:00').getTime()-Date.now())/86400000); }
 /* € pendientes del plan (todos los años). Versión € del objetivo de Diversificación. */
 function _emPlanPendEur(t){ t=_emUp(t); if(typeof _planRem==='function'){ try{ var R=_planRem(t); var s=0; Object.keys(R.rem||{}).forEach(function(y){ s+=_emNum(R.rem[y]); }); return s; }catch(e){} } var pc=(DB.planCompras||{})[t]||{}; var s2=0; Object.keys(pc).forEach(function(y){ s2+=_emNum(pc[y]); }); return s2; }
 /* Próximo año con tramo pendiente > 0. */
@@ -48,7 +53,7 @@ function etapaDe(t){
     if(sen&&sen.tipo==='stop') return 'En revisión';
     if(_emProtoOpen(t))        return 'En revisión';
     if(_emQPend(t))            return 'En revisión';
-    if(_emDsMes(t)!=null&&_emDsMes(t)>12) return 'En revisión';
+    if(_emRevVencida(t)) return 'En revisión';
   }
   /* pin manual (por debajo de las alarmas). */
   if(pin.etapa) return pin.etapa;
@@ -102,7 +107,7 @@ function accionDe(t){
     if(sen&&sen.tipo==='stop') return A('🚨 Resolver stop','analisis',{sig:'S1',ticker:t});
     if(_emProtoOpen(t)) return A('⏰ Cerrar revisión (apunte S)','analisis',{ticker:t});
     if(_emQPend(t)) return A('📊 Revisar resultados','monitor');
-    if(_emDsMes(t)!=null&&_emDsMes(t)>12) return A('📅 Reanalizar (dossier '+_emDsMes(t)+'m)','monitor');
+    if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});
     return A('Revisar','monitor');
   }
   if(et==='En zona') return A('🟢 Comprar — abrir posición','plan');
@@ -118,7 +123,7 @@ function accionDe(t){
   if(et==='Analizada') return A('Revisar veredicto','analisis');
   if(et==='En análisis'){ var ci=_emColaInfo(t); return A('📝 Terminar dossier'+(ci.pos?' (cola #'+ci.pos+')':''),'cobertura'); }
   if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radardiv');
-  if(et==='Descartada') return A('📓 Post-mortem','',{dnuevo:t+'|Descartar'});
+  if(et==='Descartada') return A('📓 Post-mortem / reactivar','monitor');
   return A('','');
 }
 
@@ -235,7 +240,7 @@ function _emCard(r,compact){
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
-  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
+  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+'>'+ac.txt+(ac.goto?'<span class="em-arw">→</span>':'')+'</div>') : '';
   return '<div class="em-card" style="border-left-color:'+_EM_URGCOL[U]+'">'+
     '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+'</div>'+
     '<div class="em-et">'+_emEsc(r.et)+'</div>'+
@@ -254,6 +259,7 @@ function _emMetricLine(r){
     if(r.score!=null)bits.push('Score '+Math.round(r.score));
     if(r.planPend>0)bits.push('plan: faltan <b>'+_emEur(r.planPend)+'</b>'+(_emPlanProxAnio(r.t)?' ('+_emPlanProxAnio(r.t)+')':''));
     else bits.push('plan completo');
+    var _pr=proxRevDe(r.t); if(_pr){ var _rd=_emRevDias(r.t); bits.push('revisión '+_pr+(_rd!=null?(_rd<0?' <b style="color:#dc2626">(vencida)</b>':(_rd<=30?' (en '+_rd+'d)':'')):'')+' <span class="em-revedit" data-emrevedit="'+r.t+'" title="Cambiar fecha de revisión">✎</span>'); }
     return bits.join(' · ');
   }
   var m=[];
@@ -298,8 +304,8 @@ function _emClosed(cerr){
 function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
+    var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
-    var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
     var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
   });
@@ -347,6 +353,7 @@ function _emBind(sec){
     '.em-pinb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#fef3c7;color:#92400e;margin-bottom:5px}',
     '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
+    '.em-revedit{cursor:pointer;opacity:.55;font-size:10px}',
     '.em-acc{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;border-radius:8px;padding:5px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-acc .em-arw{margin-left:auto;opacity:.55}',
     '.em-mov{width:100%;font-size:11px;border:1px solid #e2e8f0;border-radius:7px;padding:3px 5px;color:#475569;background:#fff}',
