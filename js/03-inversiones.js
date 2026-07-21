@@ -191,10 +191,13 @@ function addOp(){
   /* Validador de coherencia: bloquea lo imposible, avisa (y deja seguir) en lo dudoso */
   if(fecha){ const _d=new Date(fecha+'T00:00:00'); const _y=_d.getFullYear(); if(isNaN(_d.getTime())||_y<1990||_y>new Date().getFullYear()+1){ alert('La fecha «'+fecha+'» no parece válida.'); return; } if(_d.getTime()>Date.now()+86400000){ if(!confirm('La fecha '+fecha+' es futura. ¿Registrar la operación igualmente?'))return; } }
   if(tipo==='venta'){ const _sh=(typeof sharesHeldOf==='function')?sharesHeldOf(invOpsTicker,invOpsCartera||'Propia',opEditId):null; if(_sh!=null && n>_sh+1e-6){ if(!confirm('Vas a vender '+n+' acciones, pero en '+invOpsTicker+' ('+(invOpsCartera||'Propia')+') solo constan '+(Math.round(_sh*10000)/10000)+'. ¿Continuar igualmente?'))return; } }
+  const _opEsNueva=!opEditId; const _opT=invOpsTicker;
   if(opEditId){ const o=DB.operaciones.find(x=>x.id===opEditId); if(o){ o.fecha=fecha; o.tipo=tipo; o.acciones=n; o.precio=precio; } opEditEnd(); }
   else { DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio}); }
   $('#opAcc').value=''; $('#opPrecio').value='';
   renderInv(); renderInvOps(); scheduleSave();
+  /* M3: si es una operación NUEVA y reciente, ofrece anotarla en el Diario */
+  if(_opEsNueva && typeof diarioOfrecerOp==='function') diarioOfrecerOp(_opT,tipo,precio,n,fecha);
 }
 function editOp(id){ const o=DB.operaciones.find(x=>x.id===id); if(!o)return; opEditId=id;
   $('#opFecha').value=o.fecha||''; $('#opTipo').value=o.tipo; $('#opAcc').value=o.acciones; $('#opPrecio').value=o.precio;
@@ -222,9 +225,12 @@ function invNuevoValor(){
   { const _iDiv=num($('#invDiv').value); if(_iDiv>0){ const _an=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_an)_an.divAccion=_iDiv; } }  /* sincroniza el DPA con la ficha de Análisis */
   const acc=num($('#invAcc').value);
   const car=($('#invCart').value||'').trim()||'Propia';
-  if(acc>0){ DB.operaciones.push({id:uid(),fecha:$('#invFecha').value||'',ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:num($('#invPC').value)}); }
+  const _pc=num($('#invPC').value), _fe=$('#invFecha').value||'';
+  if(acc>0){ DB.operaciones.push({id:uid(),fecha:_fe,ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:_pc}); }
   $('#invForm').reset(); $('#invExch').value='BME'; $('#invForm').style.display='none';
   renderInv(); scheduleSave(); setInvStatus('Valor añadido: '+t);
+  /* M3: nueva posición con compra → ofrece anotarla en el Diario */
+  if(acc>0 && typeof diarioOfrecerOp==='function') diarioOfrecerOp(t,'compra',_pc,acc,_fe);
 }
 function parseNumES(t){ t=(t||'').toString().replace(/[^\d.,-]/g,''); if(!t)return NaN; if(t.indexOf(',')>=0){ return parseFloat(t.replace(/\./g,'').replace(',','.')); } return parseFloat(t); }
 const NAME2TICK={"FLUIDRASA":"FDR","FLUIDRA":"FDR","CELLNEXTELECOMSA":"CLNX","CELLNEX":"CLNX","MERLINPROPERTIESSOCIMISA":"MRL","MERLINPROPERTIES":"MRL","MERLIN":"MRL","IBERPAPELGESTIONSA":"IBG","IBERPAPEL":"IBG","ORYZONGENOMICSSA":"ORY","ORYZONGENOMICS":"ORY","ORYZON":"ORY","CIRSAENTERPRISESSA":"CIRSA","CIRSA":"CIRSA","IBERDROLASA": "IBE", "BANCOSANTANDERSA": "SAN", "REPSOLSA": "REP", "NATURGYENERGYGROUPSA": "NTGY", "MAPFRESA": "MAP", "ENDESASA": "ELE", "ATRESMEDIA": "A3M", "LOGISTAINTEGRALSA": "LOG", "VISCOFANSA": "VIS", "INDITEX": "ITX", "EBROFOODSSA": "EBRO", "FAESFARMASA": "FAE", "ACS": "ACS", "VIDRALASA": "VID", "AENA": "AENA", "AMADEUSITGROUPSA": "AMS", "REDEIACORPORACION": "RED", "CAIXABANKSA": "CABK", "PRIMSA": "PRM", "BANKINTERSA": "BKT", "RENTA4BANCOSA": "R4", "MIQUELYCOSTAS": "MCM", "SACYRSA": "SCYR", "FCC": "FCC", "ENAGASSA": "ENG", "BBVA": "BBVA", "UNICAJABANCOSA": "UNI", "ACCIONASA": "ANA", "TELEFONICASA": "TEF", "ACERINOXSA": "ACX", "AIRBUS": "AIR", "FERROVIAL": "FER", "ARCELORMITTAL": "MTS", "IAG": "IAG", "INDRA": "IDR", "ACCIONAENERGIA": "ANE", "GRIFOLS": "GRF", "CIEAUTOMOTIVE": "CIE", "ROVI": "ROVI", "INMOBILIARIACOLONIAL": "COL", "ALMIRALL": "ALM", "PUIG": "PUIG", "APERAM": "APAM.AS", "GRENERGYRENOVABLES": "GRE", "TECNICASREUNIDAS": "TRE", "SOLARIA": "SLR", "ELECNOR": "ENO", "CAF": "CAF", "MAKINGSCIENCE": "MAKS", "NEINORHOMES": "HOME", "GESTAMP": "GEST", "MELIAHOTELS": "MEL", "LLEIDANET": "LLN", "REALIA": "RLIA", "CEVASA": "CEV", "METROVACESA": "MVC", "PHARMAMAR": "PHM", "PROSEGUR": "PSG", "ARTECHE": "ART", "ECOENER": "ECO", "LINEADIRECTA": "LDA", "AEDASHOMES": "AEDAS", "COX": "COXG", "AUDAXRENOVABLES": "ADX", "ENCE": "ENC", "INMOBILIARIASANJOSE": "GSJ", "OHLA": "OHLA", "PRISA": "PRS", "GIGASHOSTING": "GIGA", "TUBACEX": "TUB", "AMPER": "AMP", "NEXTIL": "NXT", "TALGO": "TLGO", "ALANTRAPARTNERS": "ALNT", "ERCROS": "ECR", "BERKELEYENERGIA": "BKY", "AZKOYEN": "AZK", "REIGJOFRE": "RJF", "ARIMAREALESTATE": "ARM", "AIRTIFICIAL": "AI", "NICOLASCORREA": "NEA", "DEOLEO": "OLE", "VOCENTO": "VOC", "TUBOSREUNIDOS": "TRG", "LINGOTESESPECIALES": "LGT", "ADOLFODOMINGUEZ": "ADZ", "EZENTIS": "EZE", "RENTACORPORACION": "REN", "BODEGASRIOJANAS": "RIO", "PESCANOVA": "PVA", "COCACOLAEUROPACIFIC": "CCEP", "NYESAVALORES": "NYE", "SECUOYA": "SEC", "URBAS": "UBS"};

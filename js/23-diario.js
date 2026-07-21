@@ -85,7 +85,7 @@ function renderDiario(){
   sec.innerHTML=H;
 
   /* si hay semilla (desde el Kanban), abre el formulario prellenado */
-  if(window._diSeed){ var sd=window._diSeed; window._diSeed=null; _diOpenForm(sd.ticker,sd.tipo); }
+  if(window._diSeed){ var sd=window._diSeed; window._diSeed=null; _diOpenForm(sd.ticker,sd.tipo,sd); }
   _diBind(sec);
 }
 function _diKpi(n,l){ return '<div class="di-st"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>'; }
@@ -122,24 +122,35 @@ function _diCard(e){
 function _diColTipo(cfg){ return {'t-comprar':'#16a34a','t-ampliar':'#22c55e','t-mantener':'#2563eb','t-reafirmar':'#0d9488','t-vender':'#dc2626','t-descartar':'#64748b'}[cfg.cls]||'#1f3d6b'; }
 
 /* ---------- formulario ---------- */
-function diarioNuevo(ticker,tipo){ window._diSeed={ticker:_diUp(ticker||''),tipo:tipo||''}; if(typeof activarVista==='function')activarVista('diario'); else if(typeof renderDiario==='function')renderDiario(); }
+function diarioNuevo(ticker,tipo,opts){ window._diSeed=Object.assign({ticker:_diUp(ticker||''),tipo:tipo||''},opts||{}); if(typeof activarVista==='function')activarVista('diario'); else if(typeof renderDiario==='function')renderDiario(); }
+/* Oferta al registrar una operación reciente en Cartera (compra/venta). No molesta al
+   rellenar histórico: solo salta si la operación es de hace ≤21 días. */
+function diarioOfrecerOp(ticker,tipoOp,precio,acciones,fecha){
+  ticker=_diUp(ticker||''); if(!ticker)return;
+  var f=fecha||_diHoy(); var dd=(Date.now()-new Date(f+'T00:00:00').getTime())/86400000;
+  if(isNaN(dd)||dd>21||dd< -2)return;
+  var tipo=(tipoOp==='venta')?'Vender':'Comprar';
+  try{ if(confirm('Operación registrada. ¿Anotar el porqué en el Diario de decisiones?')){ diarioNuevo(ticker,tipo,{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:f}); } }catch(e){}
+}
 function _diTickers(){ var s={}; (DB.analisis||[]).forEach(function(a){ var t=_diUp(a.ticker); if(t)s[t]=1; }); Object.keys(DB.universo||{}).forEach(function(t){ s[_diUp(t)]=1; }); if(typeof heldTickerSet==='function')heldTickerSet().forEach(function(t){ s[_diUp(t)]=1; }); return Object.keys(s).sort(); }
-function _diOpenForm(ticker,tipo){
+function _diOpenForm(ticker,tipo,seed){
   var host=document.getElementById('diFormHost'); if(!host)return;
-  ticker=_diUp(ticker||''); tipo=tipo||'';
+  ticker=_diUp(ticker||''); tipo=tipo||''; seed=seed||{};
   var opts='<option value="">— elige empresa —</option>'+_diTickers().map(function(t){ return '<option value="'+t+'"'+(t===ticker?' selected':'')+'>'+t+' · '+_diEsc(_diNombre(t).slice(0,22))+'</option>'; }).join('');
   var segs=_DI_TIPOS.map(function(t){ return '<span data-ditipo="'+t.k+'"'+(t.k===tipo?' class="sel"':'')+'>'+t.k+'</span>'; }).join('');
   host.innerHTML='<div class="di-form"><h4>Nueva decisión</h4><div class="di-grid">'+
     '<div class="di-fld"><label>Empresa</label><select class="inp" id="diEmp">'+opts+'</select></div>'+
     '<div class="di-fld"><label>Tipo</label><div class="di-seg" id="diSeg">'+segs+'</div></div>'+
-    '<div class="di-fld"><label>Fecha</label><input class="inp" type="date" id="diFecha" value="'+_diHoy()+'"></div>'+
+    '<div class="di-fld"><label>Fecha</label><input class="inp" type="date" id="diFecha" value="'+(seed.fecha||_diHoy())+'"></div>'+
     '<div class="di-fld"><label>Precio · importe (€)</label><div style="display:flex;gap:6px"><input class="inp" type="number" step="0.01" id="diPrecio" placeholder="precio" style="flex:1"><input class="inp" type="number" step="1" id="diImporte" placeholder="importe" style="flex:1"></div></div>'+
     '<div class="di-fld" style="grid-column:1/-1"><label>Por qué (la tesis en una frase)</label><textarea class="inp" id="diPorque" rows="2" placeholder="Por qué tomo esta decisión…"></textarea></div>'+
     '<div class="di-fld" style="grid-column:1/-1"><label>Espero (catalizador)</label><textarea class="inp" id="diCat" rows="2" placeholder="Qué espero que pase…"></textarea></div>'+
     '<div class="di-fld di-inval" style="grid-column:1/-1"><label>Cambiaría de idea si… (invalidación)</label><textarea class="inp" id="diInval" rows="2" placeholder="Qué me haría replantearme la decisión…" style="background:transparent;border-color:#fed7aa"></textarea></div>'+
     '<div class="di-ctx" id="diCtxPrev">Elige empresa para capturar el contexto (Score, rating, PO, RPD, peso).</div>'+
     '</div><div class="di-actions"><button class="di-save" id="diSave">Guardar decisión</button><button class="di-cancel" id="diCancel">Cancelar</button></div></div>';
-  if(ticker){ var pe=document.getElementById('diPrecio'); if(pe)pe.value=(_diPrecio(ticker)||'').toString(); _diCtxPrev(ticker); }
+  if(ticker){ var pe=document.getElementById('diPrecio'); if(pe)pe.value=((seed.precio||_diPrecio(ticker))||'').toString();
+    if(seed.importe){ var ie=document.getElementById('diImporte'); if(ie)ie.value=Math.round(seed.importe); }
+    _diCtxPrev(ticker); }
   var f=host.querySelector('.di-form'); if(f)f.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 function _diCtxPrev(t){ var el=document.getElementById('diCtxPrev'); if(!el)return; if(!t){ el.textContent='Elige empresa para capturar el contexto.'; return; } var c=_diCtx(t);
