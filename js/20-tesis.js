@@ -396,10 +396,17 @@ function _tzTopBtn(){
   if(!btn){
     btn=document.createElement('button'); btn.id='tzTop'; btn.type='button';
     btn.setAttribute('aria-label','Subir al principio'); btn.title='Subir al principio'; btn.innerHTML='↑';
-    btn.style.cssText='position:fixed;right:16px;bottom:16px;z-index:70;width:46px;height:46px;border-radius:50%;background:var(--brand,#1d4ed8);color:#fff;border:none;box-shadow:0 3px 12px rgba(0,0,0,.28);font-size:22px;font-weight:700;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0;line-height:1';
+    btn.style.cssText='position:fixed;right:16px;bottom:16px;z-index:9998;width:46px;height:46px;border-radius:50%;background:var(--brand,#1d4ed8);color:#fff;border:none;box-shadow:0 3px 12px rgba(0,0,0,.28);font-size:22px;font-weight:700;cursor:pointer;display:none;align-items:center;justify-content:center;padding:0;line-height:1';
     btn.addEventListener('click',function(){ try{ window.scrollTo({top:0,behavior:'smooth'}); }catch(e){ window.scrollTo(0,0); } });
     (document.body||document.documentElement).appendChild(btn);
-    var upd=function(){ var y=(window.scrollY||window.pageYOffset||0); btn.style.display=(_tzViewActive()&&y>400)?'flex':'none'; };
+    var upd=function(){
+      /* colócalo por encima de la barra inferior de pestañas (#botNav) si está visible */
+      var navH=0, nav=document.getElementById('botNav');
+      if(nav){ try{ var r=nav.getBoundingClientRect(); if(getComputedStyle(nav).display!=='none' && r.height>0) navH=r.height; }catch(e){} }
+      btn.style.bottom=(navH?(navH+14):16)+'px';
+      var y=(window.scrollY||window.pageYOffset||0);
+      btn.style.display=(_tzViewActive()&&y>400)?'flex':'none';
+    };
     window.addEventListener('scroll',upd,{passive:true});
     window.addEventListener('resize',upd);
     document.addEventListener('click',function(){ setTimeout(upd,0); });   // recalcula al cambiar de pestaña
