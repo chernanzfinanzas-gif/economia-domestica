@@ -13,7 +13,7 @@ var TESIS_CFG = {
   potMin:    0.15,   // potencial mínimo a PO base para considerar "oportunidad" en zona
   cercaPct:  0.08,   // margen por encima de la entrada que aún cuenta como "cerca"
   dsMin:     60,     // Dividend Safety mínimo para renta "sólida"
-  rpdGate:   3,      // RPD (%) que activa el filtro de renta en cualquier arquetipo
+  rpdGate:   1.5,    // RPD (%) que activa el filtro de renta en cualquier arquetipo
   corteAnios:2,      // un corte de dividendo en los últimos N años penaliza
   ratingApta:    ['AAA','AA','A','BBB'],
   ratingDuda:    ['BB','B'],
