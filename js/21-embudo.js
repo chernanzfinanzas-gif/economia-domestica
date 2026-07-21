@@ -140,12 +140,12 @@ function accionDe(t){
     if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});
     return A('Revisar','monitor');
   }
-  if(et==='En zona') return A('🟢 Comprar — abrir posición','plan');
-  if(et==='Cerca de entrada') return A('🟡 Cerca ('+_emPctOver(cot,eM)+') — preparar compra','plan');
-  if(et==='Comprando') return A('🧩 Ejecutar tramo del plan','caja');
+  if(et==='En zona') return A('🟢 Comprar — abrir posición','inversiones',{comprar:t});
+  if(et==='Cerca de entrada') return A('🟡 Cerca ('+_emPctOver(cot,eM)+') — preparar compra','inversiones',{comprar:t});
+  if(et==='Comprando') return A('🧩 Ejecutar tramo del plan','inversiones',{comprar:t});
   /* Adelantar plan (held con capital pendiente y precio en/cerca de zona) */
   if(held&&_emPlanPendEur(t)>0&&cot>0&&eM>0&&cot<=eM*1.05){
-    return A('🟢 Adelantar plan — faltan '+_emEur(_emPlanPendEur(t)),'caja');
+    return A('🟢 Adelantar plan — faltan '+_emEur(_emPlanPendEur(t)),'inversiones',{comprar:t});
   }
   if(et==='En cartera') return A('✓ En seguimiento','inversiones');
   if(et==='Analizada · espera precio') return A('⏳ Esperar precio ≤ '+_emEur(eM),'analisis');
@@ -233,6 +233,7 @@ function renderEmbudo(){
   H+=_emBand(band);
   H+=_emKanban(cols);
   H+=_emClosed(cols.cerr);
+  H+=_emGlosario();
   H+='</div>';
   H+='<button class="em-collapse-all" type="button" data-emcollapseall="1" title="Cerrar todas las fichas (refrescar la vista)">\u21f2 Cerrar fichas</button>';
   sec.innerHTML=H;
@@ -272,7 +273,7 @@ function _emCard(r,compact){
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
-  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
+  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+(ac.comprar?(' data-comprar="'+ac.comprar+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
   /* Colapsable: en el Kanban las fichas abren mini (nombre+arquetipo+estado) y se
      expanden al pinchar la cabecera. Las de la banda "Necesita tu acción" (compact) van siempre abiertas. */
   var expanded = compact ? true : !!(window._emExp && window._emExp[r.t]);
@@ -446,7 +447,12 @@ async function _emCierresGen(t, fecha, ov){
   var okg=await _emEscribirCSV(handle, nombre, out);
   if(!okg){ setMsg('No se pudo guardar el archivo.'); return; }
   if(ov)ov.remove();
+  if(typeof renderEmbudo==='function'){ try{ renderEmbudo(); }catch(e){} }   /* repintar para que salga la fecha guardada junto al botón */
   if(faltan)alert('CSV guardado. Aviso: '+faltan+' ejercicio(s) sin dato en el histórico (quedan en blanco).');
+}
+
+function _emGlosario(){
+  return '<details class="em-glos"><summary><span class="arw">▸</span>📖 Glosario — qué significa cada frase de las fichas</summary><div class="em-glos-b"><div class="em-gsec">Estados (columna y etiqueta de la ficha)</div><div class="em-grow"><span class="em-gt">Universo</span><span class="em-gd">En tu universo, aún sin marcar. Candidata potencial.</span></div><div class="em-grow"><span class="em-gt">Vigilada</span><span class="em-gd">En el radar, o ex-cartera (cerraste posición). La sigues para reentrar con nuevos precios o fundamentales.</span></div><div class="em-grow"><span class="em-gt">En análisis</span><span class="em-gd">En la cola de análisis; el dossier está en marcha.</span></div><div class="em-grow"><span class="em-gt">Analizada</span><span class="em-gd">Dossier terminado, pero el veredicto NO es COMPRAR ni ESPERAR (MANTENER/VENDER o sin decisión clara): repásalo.</span></div><div class="em-grow"><span class="em-gt">Analizada · esperar</span><span class="em-gd">Dossier terminado con decisión ESPERAR: la tesis es buena, falta un catalizador.</span></div><div class="em-grow"><span class="em-gt">Analizada · espera precio</span><span class="em-gd">Decisión COMPRAR, pero la cotización está por encima de la banda de entrada (+margen): esperas a que baje.</span></div><div class="em-grow"><span class="em-gt">En zona</span><span class="em-gd">COMPRAR y cotización dentro de la banda de entrada (≤ entrada máx.): comprable ya.</span></div><div class="em-grow"><span class="em-gt">Cerca de entrada</span><span class="em-gd">COMPRAR y cotización hasta un 5% por encima de la entrada: casi en precio.</span></div><div class="em-grow"><span class="em-gt">En cartera</span><span class="em-gd">Posición abierta, seguimiento normal.</span></div><div class="em-grow"><span class="em-gt">Comprando</span><span class="em-gd">En cartera con plan de compra pendiente en el año en curso (completando la posición).</span></div><div class="em-grow"><span class="em-gt">En revisión</span><span class="em-gd">Posición con alarma: stop tocado, protocolo abierto, trimestre publicado sin revisar o revisión anual vencida.</span></div><div class="em-grow"><span class="em-gt">Descartada</span><span class="em-gd">La descartaste a mano (pasa a Cerradas).</span></div><div class="em-gsec">Acciones sugeridas (el botón de color)</div><div class="em-grow"><span class="em-gt">🚨 Resolver stop</span><span class="em-gd">El precio tocó el stop de la tesis. Decide (lleva a revisión extraordinaria).</span></div><div class="em-grow"><span class="em-gt">⏰ Cerrar revisión (apunte S)</span><span class="em-gd">Hay un apunte del Protocolo abierto; ciérralo.</span></div><div class="em-grow"><span class="em-gt">📊 Revisar resultados</span><span class="em-gd">Se publicó un trimestre y falta registrarlo en el Monitor.</span></div><div class="em-grow"><span class="em-gt">📅 Revisión pendiente</span><span class="em-gd">La revisión anual de la tesis está vencida.</span></div><div class="em-grow"><span class="em-gt">🟢 Comprar — abrir posición</span><span class="em-gd">En zona de entrada; abre posición. → Cartera (añadir posición).</span></div><div class="em-grow"><span class="em-gt">🟡 Cerca — preparar compra</span><span class="em-gd">A menos de un 5% de la entrada; prepara la compra. → Cartera.</span></div><div class="em-grow"><span class="em-gt">🧩 Ejecutar tramo del plan</span><span class="em-gd">Estás comprando por tramos; ejecuta el tramo planificado. → Cartera.</span></div><div class="em-grow"><span class="em-gt">🟢 Adelantar plan — faltan X€</span><span class="em-gd">Ya en cartera con capital pendiente y precio en/cerca de zona: puedes adelantar compra. → Cartera.</span></div><div class="em-grow"><span class="em-gt">✓ En seguimiento</span><span class="em-gd">En cartera, nada urgente ahora.</span></div><div class="em-grow"><span class="em-gt">⏳ Esperar precio ≤ X</span><span class="em-gd">COMPRAR pero cara; espera a que entre en la banda de precio.</span></div><div class="em-grow"><span class="em-gt">⏳ Esperar catalizador</span><span class="em-gd">Decisión ESPERAR: la tesis vale, esperas el detonante (resultados, un evento, de-risking) antes de actuar. NO es cuestión de precio.</span></div><div class="em-grow"><span class="em-gt">Revisar veredicto</span><span class="em-gd">Analizada sin decisión clara de compra/espera; repasa el veredicto del dossier.</span></div><div class="em-grow"><span class="em-gt">📝 Terminar dossier</span><span class="em-gd">Está en la cola; completa el análisis.</span></div><div class="em-grow"><span class="em-gt">📥 Encolar / ↩ Reevaluar</span><span class="em-gd">Vigilada: mándala a la cola de análisis, o reevalúa si es ex-cartera.</span></div><div class="em-grow"><span class="em-gt">📓 Post-mortem</span><span class="em-gd">Descartada; registra el aprendizaje en Mis Decisiones.</span></div></div></details>';
 }
 
 /* ---------- interacción ---------- */
@@ -460,7 +466,7 @@ function _emBind(sec){
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
     var tg=e.target.closest('[data-emtoggle]'); if(tg){ var tt=_emUp(tg.getAttribute('data-emtoggle')); window._emExp=window._emExp||{}; window._emExp[tt]=!window._emExp[tt]; renderEmbudo(); return; }
     var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
-    var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); return; }
+    var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); if(g.getAttribute('data-comprar')){ setTimeout(function(){ var b=document.getElementById('invAddBtn'); if(b)b.click(); var f=document.getElementById('invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },90); } return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
   });
   sec.addEventListener('change',function(e){
@@ -512,6 +518,17 @@ function _emBind(sec){
     '.em-cierresrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}',
     '.em-cierresrow .em-cierres{margin-bottom:0}',
     '.em-cierrefx{font-size:10px;color:#64748b;font-weight:700;white-space:nowrap}',
+    '.em-glos{margin-top:18px;background:#fff;border:1px solid #e2e8f0;border-radius:12px}',
+    '.em-glos>summary{cursor:pointer;list-style:none;padding:11px 12px;font-weight:800;font-size:13px;color:#1f3d6b}',
+    '.em-glos>summary::-webkit-details-marker{display:none}',
+    '.em-glos>summary .arw{display:inline-block;transition:transform .15s;margin-right:6px;color:#94a3b8}',
+    '.em-glos[open]>summary .arw{transform:rotate(90deg)}',
+    '.em-glos-b{padding:4px 14px 14px}',
+    '.em-gsec{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#64748b;margin:12px 0 6px;border-bottom:1px solid #eef2f7;padding-bottom:3px}',
+    '.em-grow{display:flex;gap:10px;padding:4px 0;font-size:12px;align-items:baseline}',
+    '.em-gt{flex:none;width:200px;font-weight:700;color:#0f172a}',
+    '.em-gd{flex:1;color:#475569;line-height:1.4}',
+    '@media(max-width:560px){.em-grow{flex-direction:column;gap:1px}.em-gt{width:auto}}',
     '.em-head{cursor:pointer}',
     '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:2px}',
     '.em-collapsed{padding-bottom:9px}',
