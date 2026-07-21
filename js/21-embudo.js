@@ -37,6 +37,36 @@ function _emPlanProxAnio(t){ t=_emUp(t); var pend=null; if(typeof _planRem==='fu
 /* ¿tramo del año en curso (o pasado) pendiente? → posición parcial en ejecución. */
 function _emComprandoAhora(t){ var pa=_emPlanProxAnio(t); return pa!=null && pa<=new Date().getFullYear(); }
 function _emPin(t){ t=_emUp(t); return ((DB.embudo||{})[t]||{}); }
+/* G1 · "por qué la tengo" por posición */
+function _emAcc(t){ t=_emUp(t); var s=0; try{ (invPositions()||[]).forEach(function(p){ if(_emUp(p.ticker)===t)s+=_emNum(p.acciones); }); }catch(e){} return s; }
+function _emPorQue(t){
+  t=_emUp(t); var a=_emAna(t)||{}; var bits=[];
+  bits.push('<div><b>Origen:</b> '+(a.dossierFecha?('analizada el '+a.dossierFecha):'sin dossier')+(a.rating?' · rating '+a.rating:'')+(a.decision?' · '+_emEsc(a.decision):'')+'</div>');
+  var J=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+  var tesis=(J&&(J.resumen||J.bull))||''; if(tesis)bits.push('<div><b>Tesis:</b> '+_emEsc((''+tesis).slice(0,180))+'</div>');
+  var eM=_emNum(a.entMax),eMin=_emNum(a.entMin); if(eM>0)bits.push('<div><b>Entrada:</b> '+(eMin>0?(_emEur(eMin)+' – '):'≤ ')+_emEur(eM)+(_emNum(a.stopTesis)>0?' · stop '+_emEur(a.stopTesis):'')+'</div>');
+  var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; if(pr)bits.push('<div><b>Próx. revisión:</b> '+pr+'</div>');
+  var last=null; (DB.diario||[]).forEach(function(e){ if(_emUp(e.ticker)===t){ if(!last||(e.fecha||'')>(last.fecha||''))last=e; } });
+  if(last)bits.push('<div><b>Última decisión:</b> '+_emEsc(last.tipo)+' ('+_emEsc(last.fecha)+')'+(last.porque?' — '+_emEsc((''+last.porque).slice(0,120)):'')+'</div>');
+  else bits.push('<div class="muted"><b>Diario:</b> sin decisión registrada · <span class="em-why-link" data-goto="diario">registrar</span></div>');
+  return bits.join('');
+}
+function _emWhyBlock(r){ var op=(window._emWhy||{})[r.t]; return '<div class="em-why-t" data-emwhy="'+r.t+'">¿por qué la tengo? '+(op?'▴':'▾')+'</div>'+(op?'<div class="em-why">'+_emPorQue(r.t)+'</div>':''); }
+/* G2 · dividendo en riesgo agregado */
+function _emDivAnual(t){ t=_emUp(t); var a=_emAna(t)||{}; var v=(DB.valores||{})[t]||{}; var d=_emNum(a.divAccion)||_emNum(v.divAccion); return _emAcc(t)*d; }
+function _emDivRiesgo(t){ var a=_emAna(t)||{}; var ds=a.dividendSafety; if(!ds||ds.score==null)return null; if(ds.topeDuro&&ds.topeDuro.activo)return true; if(_emNum(ds.score)<60)return true; if(/vigilar|frágil|fragil|recorte/i.test(ds.banda||''))return true; return false; }
+function _emDivRiesgoResumen(){
+  var held=_emHeldSet(); var tot=0, risk=0, sinDato=0, lst=[];
+  held.forEach(function(t){ var dv=_emDivAnual(t); if(dv<=0)return; tot+=dv; var r=_emDivRiesgo(t); if(r===true){ risk+=dv; var ds=(_emAna(t)||{}).dividendSafety||{}; lst.push({t:t,dv:dv,banda:ds.banda||''}); } else if(r===null){ sinDato+=dv; } });
+  lst.sort(function(a,b){return b.dv-a.dv;});
+  return {tot:tot,risk:risk,sinDato:sinDato,pct:tot>0?risk/tot*100:0,lst:lst};
+}
+function _emDivRiesgoStrip(){
+  var R=_emDivRiesgoResumen(); if(R.tot<=0)return '';
+  var col=R.pct<10?'#16a34a':(R.pct<25?'#d97706':'#dc2626');
+  var det=R.lst.length?(' — '+R.lst.map(function(x){return x.t+(x.banda?' ('+_emEsc(x.banda)+')':'');}).join(', ')):' — ninguna en riesgo 👍';
+  return '<div class="em-divrisk">💧 <b>Renta por dividendo</b> '+_emEur(R.tot)+'/año · <b style="color:'+col+'">'+R.pct.toFixed(0)+'% en riesgo</b>'+(R.lst.length?(' ('+R.lst.length+')'):'')+det+(R.sinDato>0?' <span class="muted" style="font-size:10px">· '+_emEur(R.sinDato)+' sin dato de seguridad</span>':'')+'</div>';
+}
 
 /* ---------- 1) etapa derivada ---------- */
 function etapaDe(t){
@@ -123,7 +153,7 @@ function accionDe(t){
   if(et==='Analizada') return A('Revisar veredicto','analisis');
   if(et==='En análisis'){ var ci=_emColaInfo(t); return A('📝 Terminar dossier'+(ci.pos?' (cola #'+ci.pos+')':''),'cobertura'); }
   if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radardiv');
-  if(et==='Descartada') return A('📓 Post-mortem / reactivar','monitor');
+  if(et==='Descartada') return A('📓 Post-mortem','',{dnuevo:t+'|Descartar'});
   return A('','');
 }
 
@@ -198,6 +228,7 @@ function renderEmbudo(){
   H+='<div class="em-wrap">';
   H+=_emKpis(cols);
   H+=_emLegend();
+  H+=_emDivRiesgoStrip();
   H+=_emAgenda();
   H+=_emBand(band);
   H+=_emKanban(cols);
@@ -240,7 +271,7 @@ function _emCard(r,compact){
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
-  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+'>'+ac.txt+(ac.goto?'<span class="em-arw">→</span>':'')+'</div>') : '';
+  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
   return '<div class="em-card" style="border-left-color:'+_EM_URGCOL[U]+'">'+
     '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+'</div>'+
     '<div class="em-et">'+_emEsc(r.et)+'</div>'+
@@ -248,6 +279,7 @@ function _emCard(r,compact){
     (pinBadge?('<div>'+pinBadge+'</div>'):'')+
     (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')+
     acc+
+    (r.held?_emWhyBlock(r):'')+
     _emMover(r)+
     '</div>';
 }
@@ -304,8 +336,10 @@ function _emClosed(cerr){
 function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
+    var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
+    var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
     var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
   });
@@ -354,6 +388,10 @@ function _emBind(sec){
     '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
     '.em-revedit{cursor:pointer;opacity:.55;font-size:10px}',
+    '.em-divrisk{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:8px 12px;font-size:12px;color:#0c4a6e;margin-bottom:12px}',
+    '.em-why-t{font-size:11px;color:#2563eb;cursor:pointer;margin:2px 0 4px;font-weight:600}',
+    '.em-why{background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:8px 10px;font-size:11.5px;color:#334155;margin-bottom:6px;line-height:1.5}',
+    '.em-why div{margin:2px 0}.em-why b{color:#1f3d6b}.em-why-link{color:#2563eb;cursor:pointer;text-decoration:underline}',
     '.em-acc{display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;border-radius:8px;padding:5px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-acc .em-arw{margin-left:auto;opacity:.55}',
     '.em-mov{width:100%;font-size:11px;border:1px solid #e2e8f0;border-radius:7px;padding:3px 5px;color:#475569;background:#fff}',
