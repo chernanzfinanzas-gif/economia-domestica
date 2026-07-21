@@ -223,10 +223,21 @@ function renderRadar(){
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
-  Promise.all([_radCargarFund(), _radCambiosCargar()]).then(function(_res){ var fund=_res[0];
+  Promise.all([_radCargarFund(), _radCambiosCargar(), (typeof _evoCargar==='function'?_evoCargar():Promise.resolve())]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
+    /* RPD unificada con Radar Dividendo: DPA bruto declarado del AÑO EN VIGOR (dividendos.json)
+       ÷ precio vivo, en lugar del trailing-12m de Yahoo (fundamentales.json). El trailing deja
+       huecos que dan RPD=0,0% cuando el pago del año anterior ya salió de la ventana de 365 días
+       y el del año en curso aún no se ha abonado (p. ej. Azkoyen entre pagos). Solo se sustituye
+       para empresas presentes en la base de dividendos; el resto conserva el dato de Yahoo. */
+    var _divTk={}; if(typeof _evoData!=='undefined' && _evoData && _evoData.empresas){ _evoData.empresas.forEach(function(e){ _divTk[(e.ticker||'').toUpperCase()]=1; }); }
     var cands=[];
-    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t]; var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst}); });
+    Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t];
+      if(_divTk[t] && typeof _radarDiv==='function' && typeof _radarPrecio==='function'){
+        var _pp=num(_radarPrecio(t)); if(!(_pp>0))_pp=num(f.precio);
+        if(_pp>0){ var _dd=num(_radarDiv(t)); f.rpd=(_dd>0)?Math.round(_dd/_pp*10000)/100:0; }
+      }
+      var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst}); });
     _radCands=cands; _radMeta=fund;
     if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     _radBuild(sec);
