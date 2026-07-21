@@ -49,17 +49,32 @@ function _tzDivSerie(t){
     /* respaldo: DB.divPorAccion */
     var dp=(DB.divPorAccion||{})[t]||{}; years=Object.keys(dp).sort();
   }
-  var serie=[], prev=null;
+  var serie=[], prev=null, cy=(new Date()).getFullYear();
   years.forEach(function(y){
+    var yr=parseInt(y,10);
     var real=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null;
     if(real==null){ var dp2=(DB.divPorAccion||{})[t]||{}; if(dp2[y]!=null)real=_tzNum(dp2[y]); }
-    var proj=null;
-    if(real==null && typeof evoDpaProyectado==='function') proj=evoDpaProyectado(t,y);
-    var val=(real!=null)?real:proj;
-    if(val==null){ return; }           // sin dato ese año: no se pinta
-    var isCut=(real!=null && _tzNum(real)===0);
+    var esFut=(yr>cy);
+    var val, isProj=false, isCut=false;
+    if(esFut){
+      /* Año FUTURO: solo se pinta si hay previsión real (>0). Un 0/placeholder previsto
+         NO es un corte (el corte es un hecho histórico, no una estimación). */
+      var pr=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null;
+      if(pr==null || !(pr>0)) return;
+      val=_tzNum(pr); isProj=true;
+    } else if(yr===cy){
+      /* Año EN CURSO: si el dividendo aún no está declarado (null o 0) no se pinta ni
+         cuenta como corte (está pendiente). Solo se pinta si ya hay un valor real >0. */
+      if(real==null || _tzNum(real)===0) return;
+      val=_tzNum(real);
+    } else {
+      /* Años pasados CERRADOS: aquí un 0 real sí es un corte de dividendo. */
+      if(real==null) return;
+      val=_tzNum(real);
+      isCut=(val===0);
+    }
     var delta=null; if(prev!=null && prev>0 && val>0) delta=(val-prev)/prev;
-    serie.push({ year:+y, val:_tzNum(val), real:(real!=null), proj:(real==null), cut:isCut, delta:delta, reanuda:false });
+    serie.push({ year:yr, val:val, real:!esFut, proj:isProj, cut:isCut, delta:delta, reanuda:false });
     if(val>0) prev=val;
   });
   /* marcar reanudación (primer año >0 tras un corte) */
@@ -179,7 +194,7 @@ function tesisVeredicto(t){
   var esRenta=(TESIS_ARQ_RENTA.indexOf(arq)>=0) || (rpd!=null && rpd>=TESIS_CFG.rpdGate);
   var Dv=_tzDivSerie(t);
   var corteReciente=false, corteYear=null; var cy=new Date().getFullYear();
-  Dv.cortes.forEach(function(y){ if(cy-y<=TESIS_CFG.corteAnios){ corteReciente=true; corteYear=y; } });
+  Dv.cortes.forEach(function(y){ if(y<=cy && (cy-y)<=TESIS_CFG.corteAnios){ corteReciente=true; corteYear=y; } });
   var dsScore=(ds&&ds.score!=null)?_tzNum(ds.score):null;
   var tope=!!(ds&&ds.topeDuro&&ds.topeDuro.activo);
   var c3, c3txt;
@@ -249,7 +264,9 @@ function _tzCard(V,sel){
       (V.potBase!=null?'<span>Pot. <b style="color:'+(V.potBase>=0?TZ_COL.ok:TZ_COL.bad)+'">'+_tzPct(V.potBase)+'</b></span>':'')+
       (V.rpd!=null?'<span>RPD <b>'+V.rpd.toFixed(1).replace('.',',')+'%</b></span>':'')+
       (V.rating?'<span>'+_tzEsc(V.rating)+'</span>':'')+
-    '</div></div>';
+    '</div>'+
+    (V.precio>0?('<div style="margin-top:8px">'+_tzPriceBar(V)+'</div>'):'')+
+    '</div>';
 }
 
 /* --------- Badges (confianza / DS / forense / reverseDcf / robustez) --------- */
@@ -298,7 +315,15 @@ function _tzDetalle(t){
     '<div><div style="font-weight:700;font-size:12px;color:'+TZ_COL.bad+'">▼ En contra / riesgos</div>'+_tzLista(V.riesgos)+(V.bear?'<div style="font-size:12px;margin-top:6px;color:#334155">'+_tzEsc(V.bear)+'</div>':'')+'</div>'+
     '</div>'+(V.moat?'<div class="muted" style="font-size:11.5px;margin-top:8px"><b>Moat:</b> '+_tzEsc(V.moat)+'</div>':'')+'</div>';
 
-  return head+semaforo+niveles+dividendo+cual;
+  return head+'<div class="tz-3col">'+semaforo+niveles+dividendo+'</div>'+cual;
+}
+
+/* Inyecta (una vez) el CSS del layout de 3 columnas → 1 en móvil */
+function _tzCss(){
+  if(typeof document==='undefined' || document.getElementById('tz-css'))return;
+  var s=document.createElement('style'); s.id='tz-css';
+  s.textContent='.tz-3col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px;align-items:stretch}.tz-3col>.card{margin-top:0!important}@media(max-width:860px){.tz-3col{grid-template-columns:1fr}}';
+  (document.head||document.body||document.documentElement).appendChild(s);
 }
 
 /* --------- Universo de empresas con tesis --------- */
@@ -313,6 +338,7 @@ var _TZ_RANK={ INVERTIR:0, ESPERAR:1, FUERA:2 };
 /* --------- Vista principal --------- */
 function renderTesisInv(){
   var host=document.getElementById('tesisHost'); if(!host)return;
+  _tzCss();
   var tickers=_tzUniverso();
   if(!tickers.length){ host.innerHTML='<div class="empty">Aún no hay empresas analizadas. Sube un <b>TICKER.json</b> a <code>dossiers/</code> o rellena Análisis.</div>'; return; }
   /* dispara carga perezosa de tesis para los que falten */
