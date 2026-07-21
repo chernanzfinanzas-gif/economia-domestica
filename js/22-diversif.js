@@ -130,12 +130,13 @@ function _dvLegend(base){
 }
 
 /* ---------- evaluación: ¿buena o mala diversificación? (por valor) ---------- */
-function _dvEval(agg){
-  if(!agg||!agg.tV)return null;
+function _dvEval(agg,byCoste){
+  if(!agg)return null; var T=byCoste?agg.tC:agg.tV; if(!T)return null;
+  var gv=function(o){ return byCoste?o.coste:o.valor; };
   var ws=[], topT='', topW=0;
-  Object.keys(agg.emp).forEach(function(t){ var w=agg.emp[t].valor/agg.tV; if(w>0){ws.push(w); if(w>topW){topW=w;topT=t;}} });
+  Object.keys(agg.emp).forEach(function(t){ var w=gv(agg.emp[t])/T; if(w>0){ws.push(w); if(w>topW){topW=w;topT=t;}} });
   var topA='', topAW=0;
-  Object.keys(agg.arq).forEach(function(a){ var w=agg.arq[a].valor/agg.tV; if(w>0&&w>topAW){topAW=w;topA=a;} });
+  Object.keys(agg.arq).forEach(function(a){ var w=gv(agg.arq[a])/T; if(w>0&&w>topAW){topAW=w;topA=a;} });
   ws.sort(function(x,y){return y-x;});
   var top3=(ws[0]||0)+(ws[1]||0)+(ws[2]||0), n=ws.length;
   var hhi=ws.reduce(function(s,w){return s+w*w;},0), nef=hhi>0?1/hhi:0;
@@ -146,7 +147,8 @@ function _dvEval(agg){
   return {topT:topT,topW:topW,topA:topA,topAW:topAW,top3:top3,n:n,nef:nef,lMax:lMax,lArq:lArq,lTop3:lTop3,lN:lN,worst:worst,lab:LAB[worst],col:COL[worst]};
 }
 function _dvEvalBlock(aHoy,aObj){
-  var eh=_dvEval(aHoy), eo=_dvEval(aObj);
+  var ehV=_dvEval(aHoy,false), eoV=_dvEval(aObj,false);
+  var ehC=_dvEval(aHoy,true),  eoC=_dvEval(aObj,true);
   var C=['#16a34a','#d97706','#dc2626'];
   function mx(l,txt){ return '<span class="dv-mx" style="border-color:'+C[l]+';color:'+C[l]+'">'+txt+'</span>'; }
   function card(tit,ev,nota){
@@ -164,12 +166,16 @@ function _dvEvalBlock(aHoy,aObj){
       '</div>';
   }
   var notaHoy='', notaObj='';
-  if(eh&&eo){
-    if(eh.worst>eo.worst) notaHoy='Concentración <b>transitoria</b>: el plan la corrige →';
-    if(eo.worst<=1) notaObj='Completando el plan, por valor queda '+(eo.worst===0?'<b>bien repartida</b>.':'aceptable.');
+  if(ehV&&eoV){
+    if(ehV.worst>eoV.worst) notaHoy='Concentración <b>transitoria</b>: el plan la corrige →';
+    if(eoV.worst<=1) notaObj='Completando el plan, por valor queda '+(eoV.worst===0?'<b>bien repartida</b>.':'aceptable.');
     else notaObj='Aun completando el plan quedaría concentrada — quizá revisar el objetivo.';
   }
-  return '<div class="dv-evwrap"><div class="dv-evt">¿Buena diversificación?</div><div class="dv-evrow">'+card('Hoy · por valor',eh,notaHoy)+card('Objetivo · proyectado',eo,notaObj)+'</div>'+
+  return '<div class="dv-evwrap"><div class="dv-evt">¿Buena diversificación?</div>'+
+    '<div class="dv-evsub">Por <b>valor</b> de mercado — el termómetro (cómo pesa hoy de verdad)</div>'+
+    '<div class="dv-evrow">'+card('Hoy · valor',ehV,notaHoy)+card('Objetivo · proyectado (valor)',eoV,notaObj)+'</div>'+
+    '<div class="dv-evsub" style="margin-top:12px">Por <b>coste</b> — tu reparto de riesgo por euro (el ancla del método)</div>'+
+    '<div class="dv-evrow">'+card('Hoy · coste',ehC,'')+card('Objetivo · coste (plan)',eoC,'')+'</div>'+
     '<div class="dv-evleg">Umbrales: máx posición ≤10% · máx arquetipo ≤30% · top-3 ≤45% · ≥15 posiciones. «Efectivas» = nº de posiciones equivalentes (1/HHI).</div></div>';
 }
 
@@ -233,6 +239,7 @@ function _dvBind(sec){
     '.dv-lk{flex-basis:100%;border-top:1px dashed #e2e8f0;padding-top:7px;color:#475569}',
     '.dv-evwrap{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:12px 14px;margin-bottom:14px}',
     '.dv-evt{font-weight:800;color:#1f3d6b;font-size:13px;margin-bottom:9px}',
+    '.dv-evsub{font-size:11.5px;color:#64748b;font-weight:600;margin:0 0 7px}',
     '.dv-evrow{display:flex;gap:10px;flex-wrap:wrap}',
     '.dv-ev{flex:1;min-width:270px;border:1px solid #eef2f8;border-radius:10px;padding:10px 12px;background:#fafcff}',
     '.dv-evh{font-weight:700;font-size:12.5px;color:#334155;margin-bottom:8px;display:flex;align-items:center;gap:8px}',
