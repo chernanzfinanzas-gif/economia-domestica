@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "ACS",
+  "empresa": "ACS",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-05-11",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque sólido: ventas +17,1% y BNA +20%. Estacionalidad típica del 1T.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 8111
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 462
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.7
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 163
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.63
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 71270
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1948
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 17.1
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 15.6
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 20.0
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "1S",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Doble dígito en ventas y BNA; márgenes al alza; deuda neta baja (1.165 M€).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 17033
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 934
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.5
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 385
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.49
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 72484
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1165
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 10.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 14.5
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 16.7
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-11-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "BNA +19,9%; deuda neta muy baja (590 M€) por fuerte caja; cartera creciendo.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 26395
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1425
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.4
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 576
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.22
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 74909
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 590
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 12.8
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 19.9
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-02-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY cierre: ingresos +6,3%, EBITDA rep. 1.909 M€, BNA 780 M€ (+16,8%).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 35739
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1909
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.3
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 780
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": "Pte. Rev."
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1493
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 6.3
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 9.3
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 16.8
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-05-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Crecimiento moderado sobre base comparable exigente; cartera récord 77,9bn; BBB-.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 8706
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 461
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.3
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 177
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.68
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 77917
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1625
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 7.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 5.5
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 9.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "1S",
+      "fecha": "2024-07-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "BN ordinario +11,4%; cartera récord 86,7bn (+15,9%); Thiess eleva algo la deuda.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 18749
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1157
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 416
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.62
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 86693
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1605
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 6.1
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 11.3
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 8.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-11-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Ventas +12,5%, EBITDA +17,9%, BN ord +13,6%; cartera ~25 meses.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 29702
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1679
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.7
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 605
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.36
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 86555
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2400
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 12.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 17.9
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 5.0
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY cierre: ingresos +16,5%, EBITDA rep. +28,6%, BNA 828 M€.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 41636
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 2456
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.9
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 828
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.23
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": "Pte. Rev."
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2923
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 16.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 28.6
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 6.1
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-05-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Salto por Thiess/Dornan y data centers: ventas +35,4%, EBITDA +51,7%; cartera récord.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 11790
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 699
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.9
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 191
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.75
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 90807
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2800
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 35.4
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 51.7
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 8.0
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "1S",
+      "fecha": "2025-07-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +23,9%, BN ord +17%; cartera 89,3bn; asignación de capital 1,06bn.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 24108
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1434
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 5.9
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 450
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.76
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 89342
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2200
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 28.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 23.9
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 8.1
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-11-12",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +32% por data centers; BN ord +19,5%; sube previsión de BN a c.25%.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 36753
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 2217
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 6.0
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 655
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 2.55
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 89274
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2200
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 23.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 32.0
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 8.3
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY récord: ingresos 49.857 M€, EBITDA rep. 3.070 M€, BNA 950 M€, cartera 92.858 M€.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 49857
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 3070
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 950
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.69
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 92858
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3352
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 19.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 25.0
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 14.8
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-05-13",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "BN ordinario +25%; cartera RÉCORD 99,8bn (c.118% data centers); DPA 2025 +20% a 2,4 €.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 12344
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 772
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 6.3
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 232
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 0.8
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 99825
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1472
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 4.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 10.5
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 21.5
+        }
+      ]
+    }
+  ]
+}
