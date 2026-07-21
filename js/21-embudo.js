@@ -335,8 +335,7 @@ function _emClosed(cerr){
 
 /* ---------- Descarga de cierres de ejercicio (para la hoja "datos de mercado" del Excel) ---------- */
 function _emCierresBtn(r){
-  var col=(typeof _EM_COL!=='undefined')?_EM_COL[r.et]:'';
-  if(col!=='sel'&&col!=='ana')return '';
+  /* Disponible en todas las fichas del Kanban (para regenerar cualquier Excel al cierre real). */
   return '<div class="em-cierres" data-emcierres="'+r.t+'" title="Descarga el cierre de cotización de los últimos 10 ejercicios (para pegar en tu Excel: datos de mercado)">📅 Cierres 10 ejercicios</div>';
 }
 function _emParseDM(str){
