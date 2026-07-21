@@ -209,8 +209,17 @@ function _radDsFac(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'
 function _radFo(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.forense)return a.forense; if(typeof _tesisCache!=='undefined'&&_tesisCache&&_tesisCache[t]&&_tesisCache[t].forense)return _tesisCache[t].forense; return null; }
 function _radFoVeto(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo')); }
 function _radFoCell(fo){ if(!fo)return '<span class="muted" style="font-size:11px">—</span>'; if(fo.aplica===false)return '<span class="muted" title="Forense: no aplica ('+_radEsc(fo.motivo||'rama financiera')+')" style="cursor:help;font-size:11px">n/a</span>'; if(!fo.aplica)return '<span class="muted" style="font-size:11px">—</span>'; var scores='Piotroski '+(fo.piotroski?fo.piotroski.score:'-')+'/9 · Altman '+(fo.altman?fo.altman.z:'-')+' ('+(fo.altman?fo.altman.zona:'-')+') · Beneish '+(fo.beneish?fo.beneish.m:'-')+((fo.sloan&&fo.sloan.accruals!=null)?' · Sloan '+fo.sloan.accruals+'%':''); var has=fo.flags&&fo.flags.length; if(!has){ return '<span title="'+('Sin alertas forenses · '+scores).replace(/"/g,'&quot;')+'" style="cursor:help;background:#16a34a;color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">✓</span>'; } var v=_radFoVeto(fo); var tip=((v?'VETO forense — ':'Alerta forense — ')+fo.flags.join(' · ')+' · '+scores).replace(/"/g,'&quot;'); return '<span title="'+tip+'" style="cursor:help;background:'+(v?'#991b1b':'#dc2626')+';color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">'+(v?'⚠️ VETO':'⚠️')+'</span>'; }
+/* === Confianza y Robustez como marcas de color (mismos colores que la Hemeroteca) === */
+var _RAD_CFCOL={A:'#16a34a',B:'#d97706',C:'#dc2626'};
+var _RAD_RBCOL={solida:'#16a34a','sólida':'#16a34a',robusta:'#16a34a',sensible:'#d97706'};
+function _radConf(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); var c=(a&&a.confianza)||(typeof _tesisCache!=='undefined'&&_tesisCache&&_tesisCache[t]&&_tesisCache[t].confianza); if(!c)return ''; return (''+((c&&(c.nivel||c.letra))||c)).toUpperCase(); }
+function _radRob(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); var r=(a&&a.robustez)||(typeof _tesisCache!=='undefined'&&_tesisCache&&_tesisCache[t]&&_tesisCache[t].robustez); if(!r||!r.nivel)return ''; return (''+r.nivel).toLowerCase(); }
+function _radConfCell(cf){ if(!cf)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_CFCOL[cf]||'#64748b'; return '<span title="Confianza del dato: '+cf+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+cf+'</span>'; }
+function _radRobCell(rb){ if(!rb)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_RBCOL[rb]||'#64748b'; var lab=(rb==='solida')?'sól.':(rb==='sensible'?'sens.':(rb==='robusta'?'rob.':rb)); return '<span title="Robustez de la decisión: '+(rb==='solida'?'sólida':rb)+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+lab+'</span>'; }
+/* CSS compacto para que quepan las columnas sin scroll horizontal (una sola vez) */
+function _radCss(){ if(typeof document==='undefined'||document.getElementById('rad-compact-css'))return; var s=document.createElement('style'); s.id='rad-compact-css'; s.textContent='#view-radar .rad-table table{font-size:12px}#view-radar .rad-table thead th{padding:6px 6px;font-size:9.5px;letter-spacing:.01em}#view-radar .rad-table tbody td{padding:5px 6px}'; (document.head||document.documentElement).appendChild(s); }
 function renderRadar(){
-  var sec=document.getElementById('view-radar'); if(!sec)return;
+  var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
@@ -248,7 +257,7 @@ function _radBuild(sec){
     '</div>'+
     '<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
-      '<th class="s" data-radsk="rpd">RPD</th><th>Payout</th><th class="s" data-radsk="roe">ROE</th><th>DN/EBITDA</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">Pos.52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg. div.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan) de las ya analizadas: ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">Forense</th><th class="l">Nota</th>'+
+      '<th class="s" data-radsk="rpd">RPD</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l">Nota</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>';
@@ -270,7 +279,7 @@ function _radRenderList(){
   var list=_radView();
   var _held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
   var cnt=document.getElementById('radCount'); if(cnt)cnt.textContent=list.length+' de '+(_radCands||[]).length;
-  var LBL={atr:'Atractivo',rpd:'RPD',roe:'ROE',per:'PER',pos52sem:'Pos.52s'};
+  var LBL={atr:'Atr.',rpd:'RPD',roe:'ROE',per:'PER',pos52sem:'52s'};
   document.querySelectorAll('#view-radar th[data-radsk]').forEach(function(th){ var k=th.getAttribute('data-radsk'); th.textContent=LBL[k]+_radArrow(k); });
   document.getElementById('radBody').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
     var st=sel?'sel':(_held.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':''));
@@ -283,8 +292,10 @@ function _radRenderList(){
       '<td class="l" style="text-align:center">'+_radStars(c.rating)+'</td>'+
       '<td class="l" style="text-align:center">'+_radDsCell(c.ds)+'</td>'+
       '<td class="l" style="text-align:center">'+_radFoCell(_radFo(c.t))+'</td>'+
+      '<td class="l" style="text-align:center">'+_radConfCell(_radConf(c.t))+'</td>'+
+      '<td class="l" style="text-align:center">'+_radRobCell(_radRob(c.t))+'</td>'+
       '<td class="l" style="font-size:11px;color:'+(c.trampa?'#b45309':'#94a3b8')+'">'+_radEsc(_radNota(c))+'</td></tr>';
-  }).join('')||'<tr><td colspan="15" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
+  }).join('')||'<tr><td colspan="17" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
   document.getElementById('radCards').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t]; var op=!!window._radOpen[c.t];
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
@@ -301,6 +312,8 @@ function _radRenderList(){
         '<div class="m"><div class="l">Pos.52s</div><div class="v">'+_rf(f.pos52sem,'%',0)+'</div></div>'+
         (c.ds?'<div class="m"><div class="l">Seg. div.</div><div class="v" style="color:'+_radDsCol(c.ds.banda)+'">'+(c.ds.score!=null?c.ds.score:'n/a')+'</div></div>':'')+
         (function(){var fo=_radFo(c.t); if(!fo||!fo.aplica)return ''; var has=fo.flags&&fo.flags.length; var v=has&&_radFoVeto(fo); var lab=!has?'✓':(v?'⚠️ VETO':'⚠️'); var col=!has?'#16a34a':(v?'#991b1b':'#dc2626'); return '<div class="m"><div class="l">Forense</div><div class="v" style="color:'+col+'">'+lab+'</div></div>';})()+
+        (function(){var cf=_radConf(c.t); if(!cf)return ''; return '<div class="m"><div class="l">Confianza</div><div class="v" style="color:'+(_RAD_CFCOL[cf]||'#64748b')+'">'+cf+'</div></div>';})()+
+        (function(){var rb=_radRob(c.t); if(!rb)return ''; return '<div class="m"><div class="l">Robustez</div><div class="v" style="color:'+(_RAD_RBCOL[rb]||'#64748b')+'">'+(rb==='solida'?'sólida':rb)+'</div></div>';})()+
       '</div>'+(_radNota(c)?('<div style="margin-top:9px;font-size:12px;color:'+(c.trampa?'#b45309':'#64748b')+'">'+_radEsc(_radNota(c))+'</div>'):'')+'</div></div>';
   }).join('')||'<div style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</div>';
 }
