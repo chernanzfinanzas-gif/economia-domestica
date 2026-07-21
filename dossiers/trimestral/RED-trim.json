@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "RED",
+  "empresa": "Redeia Corporación, S.A.",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque sólido aún con Hispasat en el perímetro: margen 77,7% y apalancamiento bajo (DN/EBITDA LTM ~3,0x). Rdo. del ejercicio (consolidado; el resumen de 2023 no desglosaba el atribuido). Refuerza la base de partida.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 516.9
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 401.8
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 77.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 180.4
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 4435.6
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 2.96
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 154.8
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 1.6
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Deuda neta en mínimos (2,9x) por los fondos de la venta de Hispasat; EBITDA plano (+0,6%) pero solvencia inmejorable. Rdo. atribuido 288,0 M€. Refuerza la tesis de balance robusto.",
+      "periodoDisplay": "S1",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1029.1
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 789.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 76.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 288.0
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 4312.7
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 2.88
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 413.5
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 0.6
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-31",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA estancado (+0,1%) y deuda repuntando a 3,3x con la inversión acelerando: primera señal de la compresión regulatoria que llega en 2024. Rdo. consolidado 535,3 M€. A vigilar.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1548.4
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1183.1
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 76.4
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 535.3
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 4970.6
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.33
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 621.6
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 0.1
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre en base oficial (perímetro completo, incluye Hispasat): margen 73,0% diluido por los ingresos de Hispasat. BNA 689,6 M€ inflado por la plusvalía de la desinversión; DN/EBITDA rep. 3,30x. Solvencia fuerte pero calidad del beneficio con extraordinario: a matizar.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 2064.1
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1507.8
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 73.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 689.6
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 4975.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 996.2
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 539.63
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 1.0
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 1.1
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-30",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "Caída brusca del EBITDA (−15,5% l-f-l) y margen al 74,5%: entra el fondo del ciclo regulatorio (retribución más baja) tras salir Hispasat. Deterioro claro.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 455.7
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 339.6
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 74.5
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 95.4
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 4892.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.38
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 156.0
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.03
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": -15.5
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-31",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "Continúa el retroceso (−13,7%); apalancamiento sube a 3,7x con la inversión al alza. Deterioro sostenido del beneficio operativo.",
+      "periodoDisplay": "S1",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 910.8
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 681.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 74.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 201.0
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5111.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.65
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 456.8
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.03
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": -13.7
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-30",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA −13,4% y DN/EBITDA LTM cruzando 4,0x: el año más flojo del periodo regulatorio, con CAPEX creciente presionando el balance. Deterioro relevante.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1364.6
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1024.0
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 75.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 300.1
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5427.9
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.02
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 671.0
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.03
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": -13.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "Suelo del ciclo: EBITDA −12,4% l-f-l, BNA 368,4 M€ (−47%), DN/EBITDA rep. 4,44x y RECORTE del dividendo 1,00→0,80 €/acc. Confirma el punto de fragilidad del dividendo (Dividend Safety «Vigilar»).",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1594.2
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1210.1
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 75.9
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 368.4
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5369.9
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.44
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 1172.8
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.03
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 0.8
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": -12.4
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Rebote del EBITDA (+4,4% l-f-l) y margen recuperado al 79,1%, pero apalancamiento LTM tensándose a 4,7x con inversión fuerte. Señales mixtas: mejora operativa vs. deuda al alza.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 404.5
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 320.1
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 79.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 137.8
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5577.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.68
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 253.5
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 4.4
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +2,8% y margen 78,3% sostenidos; DN/EBITDA ~4,8x. Recuperación en marcha pero con el balance todavía exigido por el plan inversor. A vigilar.",
+      "periodoDisplay": "S1",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 811.9
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 636.0
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 78.3
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 269.5
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5539.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.76
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 602.7
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 2.8
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-29",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA +3,0% pero DN/EBITDA LTM alcanza ~5,35x (pico del periodo, rozando el umbral de 5,5x) por la inversión disparada (967,5 M€). El apalancamiento manda: zona de alerta pese a la mejora operativa.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1218.1
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 950.9
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 78.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 389.8
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 6083.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 5.35
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 967.5
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 3.0
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación confirmada: EBITDA +4,0%, BNA 505,6 M€ (+37%) y DN/EBITDA rep. 4,35x (normaliza desde el pico de 9M). CAPEX récord (1.626 M€). Dividendo estabilizado en 0,80 €. Base reportada; concilia con la fila FY-2025 (REAL) dentro del ±3%.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 1659.5
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1258.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 75.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 505.6
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5474.2
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.35
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 1626.2
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": 0.8
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 4.0
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer trimestre del nuevo marco retributivo (TRF 6,58%): EBITDA +5,8%, margen 78,8%, FFO +17,6% y DN/EBITDA LTM 4,36x. Confirma la inflexión que sostiene la tesis del catalizador regulatorio. Refuerza.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 429.8
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 338.8
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 78.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 140.3
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5569.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 4.36
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 350.2
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 5.8
+        }
+      ]
+    }
+  ]
+}
