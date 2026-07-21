@@ -245,6 +245,7 @@ function renderRadar(){
 }
 function _radBuild(sec){
   var cands=_radCands, fund=_radMeta;
+  window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false};
   var mejor=cands.slice().sort(function(a,b){return b.atr-a.atr;})[0];
   var trampas=cands.filter(function(c){return c.trampa;}).length;
   var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
@@ -263,7 +264,7 @@ function _radBuild(sec){
       '<select id="radArq">'+arqOpts+'</select>'+
       '<input type="search" id="radSearch" placeholder="Buscar…" value="'+_radEsc(window._radQ)+'">'+
       '<label class="rad-sortm">Ordenar <select id="radSortSel">'+sortOpts+'</select></label>'+
-      '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+
+      '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+'<span class="rad-fltset" id="radFltSet"><span class="rad-fltl">Filtrar:</span>'+'<button class="rad-flt f-held" data-radflt="held" title="En cartera">Cartera</button>'+'<button class="rad-flt f-ana" data-radflt="ana" title="Analizadas">Análisis</button>'+'<button class="rad-flt f-sel" data-radflt="sel" title="Seleccionadas ★">Atractiva</button>'+'<button class="rad-flt f-pend" data-radflt="pend" title="Pendientes">Pendiente</button></span>'+
       '<span class="rad-count" id="radCount"></span>'+
     '</div>'+
     '<div class="rad-table"><table><thead><tr>'+
@@ -280,6 +281,8 @@ function _radBuild(sec){
 function _radView(){
   var q=(window._radQ||'').toLowerCase().trim();
   var list=(_radCands||[]).filter(function(c){ if(_radArqFilter&&c.arq!==_radArqFilter)return false; if(q){ if((c.t+' '+(c.nombre||'')).toLowerCase().indexOf(q)<0)return false; } return true; });
+  var F=window._radFlt||{}; if(F.held||F.ana||F.sel||F.pend){ var _hF=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
+    list=list.filter(function(c){ var st=(DB.radarSel&&DB.radarSel[c.t])?'sel':(_hF.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':'pend')); return F[st]; }); }
   var k=_radSort.k,d=_radSort.dir;
   list.sort(function(a,b){ var av=(k==='atr')?a.atr:(a.f[k]==null?-1e9:a.f[k]); var bv=(k==='atr')?b.atr:(b.f[k]==null?-1e9:b.f[k]); return (av-bv)*d; });
   return list;
@@ -339,6 +342,7 @@ function _radBind(sec){
     if(e.target.closest('.rad-ck'))return;
     if(e.target.closest('[data-ficha]'))return;
     var th=e.target.closest('th[data-radsk]'); if(th){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} var ss=document.getElementById('radSortSel'); if(ss)ss.value=_radSort.k; _radRenderList(); return; }
+    var _fb=e.target.closest('[data-radflt]'); if(_fb){ var _fk=_fb.getAttribute('data-radflt'); window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false}; window._radFlt[_fk]=!window._radFlt[_fk]; _fb.classList.toggle('on',window._radFlt[_fk]); _radRenderList(); return; }
     if(e.target.closest('#radAddCola')){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(typeof _esAnalizada==='function'&&_esAnalizada(t)){ya++;return;} if(typeof colaAdd==='function'&&colaAdd(t))n++; else ya++; }); alert(n+' añadidas a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'')); return; }
     var h=e.target.closest('.rad-card-h'); if(h){ var t2=h.parentElement.getAttribute('data-t'); window._radOpen[t2]=!window._radOpen[t2]; _radRenderList(); return; } });
 }
@@ -599,3 +603,17 @@ function cadAvisos(){
 /* listeners de la cola (reañadidos: se perdieron al reescribir la cadencia) */
 document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });
 document.addEventListener('click',function(e){ var mv=e.target.closest&&e.target.closest('[data-colamove]'); if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|'); var i=+a[0], d=+a[1]; var arr=DB.cola||[]; var j=i+d; if(j>=0&&j<arr.length){ var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } return; } var dl=e.target.closest&&e.target.closest('[data-coladel]'); if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
+
+/* ---- estilos de los filtros multi-color del Radar Op (inyectados una vez) ---- */
+(function _radFltCSS(){ if(typeof document==='undefined'||document.getElementById('rad-flt-css'))return;
+  var st=document.createElement('style'); st.id='rad-flt-css';
+  st.textContent=[
+    '.rad-fltset{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}',
+    '.rad-fltl{font-size:11px;color:#64748b;font-weight:600;margin-right:2px}',
+    '.rad-flt{font-size:11.5px;font-weight:700;border-radius:20px;padding:3px 10px;cursor:pointer;border:1.5px solid transparent}',
+    '.rad-flt.f-held{background:#f0fdf4;color:#166534;border-color:#bbf7d0}.rad-flt.f-held.on{background:#dcfce7;border-color:#16a34a}',
+    '.rad-flt.f-ana{background:#fefce8;color:#854d0e;border-color:#fde68a}.rad-flt.f-ana.on{background:#fef9c3;border-color:#eab308}',
+    '.rad-flt.f-sel{background:#eff6ff;color:#1e40af;border-color:#bfdbfe}.rad-flt.f-sel.on{background:#dbeafe;border-color:#2563eb}',
+    '.rad-flt.f-pend{background:#f8fafc;color:#475569;border-color:#e2e8f0}.rad-flt.f-pend.on{background:#e2e8f0;border-color:#64748b}'
+  ].join('\n'); document.head.appendChild(st);
+})();
