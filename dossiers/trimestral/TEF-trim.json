@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "TEF",
+  "empresa": "Telefónica",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-05-11",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos +6,7% y OIBDA subyacente +2,4%; apalancamiento contenido 2,51x. Arranque del giro operativo.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 10045
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 3145
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 298
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 2320
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 454
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 26443
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.51
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 6.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 2.4
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Crecimiento orgánico rentable; apalancamiento sube a 2,62x por estacionalidad. Señales mixtas.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 20178
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 6306
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 760
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 4326
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 1296
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 27479
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.62
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 3.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.3
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "En línea para cumplir todos los objetivos 2023; desapalancamiento a 2,51x. Refuerza la tesis.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 30499
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 9648
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 1262
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 6437
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 2426
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 26537
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.51
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 2.4
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.3
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-22",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cumple todos los objetivos pero resultado -892M€ por ERE y deterioro VMO2; FCF 4.227M€ cubre el dividendo. Apalancamiento 2,60x.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 40652
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 13121
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 32.3
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": -892
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 4227
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 27349
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 1.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-05-15",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "EBITDA aj. +1,9%; FCF estacionalmente negativo y apalancamiento 2,71x. Operativo bien, deuda alta.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 10140
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 3205
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 532
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 1453
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": -41
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 28482
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.71
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 0.9
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.9
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-31",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Deuda financiera neta máxima del ciclo (29.240M€, 2,78x): roza el umbral de vigilancia de la tesis.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 20395
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 6424
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.5
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 979
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 2748
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 163
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 29240
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.78
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 1.1
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.9
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos -0,3% (primer signo negativo) y EBITDA plano; caja por encima de objetivos. Apalancamiento a 9M no publicado.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 30418
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 9684
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.8
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 989
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 4001
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 1030
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 28748
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": -0.3
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 0.4
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cumple objetivos (ingresos +1,6%, FCF +14,1%, 2,58x) pero 2º año con pérdida (-49M€) por deterioro 4T. Dividendo 0,30€ mantenido.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 41315
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 13276
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 32.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": -49
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 5212
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 2634
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 27161
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.58
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 1.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.2
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-05-14",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Nuevo perímetro y nueva dirección: caídas reportadas -2,9%/-4,2% (orgánico ~plano); margen sube al 32,7%. Apalancamiento 2,67x.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 9221
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 3014
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 32.7
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 427
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 1412
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": -205
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 27049
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.67
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": -2.9
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -4.2
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Efecto perímetro persistente; apalancamiento vuelve a 2,78x. Margen resiliente. Vigilar caja y dividendo.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 18013
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 5867
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 32.6
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 558
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 2580
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 291
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 27609
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.78
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": -3.3
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -4.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-29",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "ALERTA: apalancamiento 2,87x (máximo) y FCF -68% interanual tensionan el dividendo. Se activa señal S2.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 26970
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 8938
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 33.1
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 828
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 3832
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 414
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 28233
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.87
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": -2.8
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -3.6
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-24",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Pérdida histórica -4.318M€ (ERE+Hispam) y RECORTE del dividendo a 0,15€: se materializa el riesgo bajista. EBITDA aj. +2,0%.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 35120
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 11918
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 33.9
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": -4318
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 5081
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 2069
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 26824
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.78
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": -1.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 2.0
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-14",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Giro confirmado: 2º trimestre de crecimiento, margen récord 34,9%, desapalancamiento a 2,72x y dividendo 0,15€ confirmado.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 8127
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 2836
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 34.9
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 482
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 1375
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 333
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 25342
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.72
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 0.4
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 1.3
+        }
+      ]
+    }
+  ]
+}
