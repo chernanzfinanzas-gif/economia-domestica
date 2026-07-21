@@ -1,69 +1,106 @@
 {
-  "schemaVersion": 7,
-  "ticker": "ACS",
-  "empresa": "ACS, S.A.",
-  "fecha": "2026-07-21",
-  "rating": "A",
-  "score": 71.4,
-  "decision": "ESPERAR",
-  "moat": "Estrecho (50,9) — ventaja de escala y reputación, no de pricing power; nicho de data centers da ventaja temporal.",
+ "schemaVersion": 7,
+ "ticker": "ACS",
+ "empresa": "ACS, S.A.",
+ "fecha": "2026-07-21",
+ "rating": "A",
+ "score": 71.4,
+ "decision": "ESPERAR",
+ "moat": "Estrecho (50,9) — ventaja de escala y reputación, no de pricing power; nicho de data centers da ventaja temporal.",
+ "poBear": 66.0,
+ "poBase": 82.0,
+ "poBull": 120.0,
+ "entMin": 80.0,
+ "entMax": 90.0,
+ "stop": 60.0,
+ "dpaPrevisto": 2.4,
+ "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica). PO oficial ≈ 82 €. DCF tres escenarios 76/104/182 €; reverse DCF exige g FCL ~3,7% (exigente).",
+ "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 6,3%, DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO ~82 € (−30%). Veredicto ESPERAR, entrada <90 €.",
+ "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~150-182 €).",
+ "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~60-75 €).",
+ "catalizadores": [
+  "Resultados FY2025 + guía 2026 (feb-2026)",
+  "Nuevas adjudicaciones de data centers de Turner",
+  "Declaración del dividendo 2025 + recompra",
+  "Simplificación societaria (Hochtief/Abertis/Cimic)",
+  "Bajada de tipos"
+ ],
+ "riesgos": [
+  "Concentración en data centers / IA (capex hyperscalers)",
+  "Derating por valoración exigente (P/E 31x)",
+  "Recesión / ciclo de la construcción",
+  "Sobrecostes en mega-proyectos a precio fijo",
+  "Deterioro del fondo de comercio (105% del PN)",
+  "Sucesión de F. Pérez / gobernanza"
+ ],
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-21"
+ },
+ "robustez": {
   "poBear": 66.0,
   "poBase": 82.0,
   "poBull": 120.0,
-  "entMin": 80.0,
-  "entMax": 90.0,
-  "stop": 60.0,
-  "dpaPrevisto": 2.01,
-  "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica). PO oficial ≈ 82 €. DCF tres escenarios 76/104/182 €; reverse DCF exige g FCL ~3,7% (exigente).",
-  "resumen": "Negocio de calidad alta (Rating A, 71,4) a precio exigente: ROIC 12-18% > WACC 6,3%, DN/EBITDA ~1,1x, caja 12.100 M€, dividendo cubierto 5,5x. A 117,60 € cotiza a P/E 31x y P/BV 6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO ~82 € (−30%). Veredicto ESPERAR, entrada <90 €.",
-  "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~150-182 €).",
-  "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~60-75 €).",
-  "catalizadores": [
-    "Resultados FY2025 + guía 2026 (feb-2026)",
-    "Nuevas adjudicaciones de data centers de Turner",
-    "Declaración del dividendo 2025 + recompra",
-    "Simplificación societaria (Hochtief/Abertis/Cimic)",
-    "Bajada de tipos"
-  ],
-  "riesgos": [
-    "Concentración en data centers / IA (capex hyperscalers)",
-    "Derating por valoración exigente (P/E 31x)",
-    "Recesión / ciclo de la construcción",
-    "Sobrecostes en mega-proyectos a precio fijo",
-    "Deterioro del fondo de comercio (105% del PN)",
-    "Sucesión de F. Pérez / gobernanza"
-  ],
-  "confianza": {
-    "score": 53,
-    "nivel": "C",
-    "reglaDura": {
-      "activa": false,
-      "motivo": "La decisión no es COMPRAR; la regla dura de confianza no bloquea."
-    },
-    "huecos": 4
+  "nivel": "sensible",
+  "betaDivergencia": 0.42
+ },
+ "dividendSafety": {
+  "score": 84,
+  "banda": "Muy seguro"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "media",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (contratista, sin margen bruto); F-Score A4"
   },
-  "robustez": {
-    "poBear": 66.0,
-    "poBase": 82.0,
-    "poBull": 120.0,
-    "nivel": "sensible",
-    "betaDivergencia": 0.42
+  "altman": {
+   "z": 4.82,
+   "zona": "segura"
   },
-  "dividendSafety": {
-    "score": 84,
-    "banda": "Muy seguro"
+  "beneish": {
+   "m": -2.6,
+   "senal": "sin indicios",
+   "aproximado": [
+    "GMI",
+    "SGAI"
+   ]
   },
-  "forense": {
-    "piotroski": "5/9",
-    "altmanZ": 4.82,
-    "altman": "Zona segura",
-    "beneish": -2.6,
-    "beneishNota": "Sin indicios",
-    "veto": false
+  "sloan": {
+   "accruals": -4.6,
+   "senal": "normal"
   },
-  "reverseDcf": {
-    "gImplicito": 3.7,
-    "gIntrinseco": -1.2,
-    "veredicto": "Exigente / Heroico"
-  }
+  "flags": [],
+  "calculadoEl": "2026-07-21"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 3.7,
+  "gIntrinseco": -1.2,
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio (117,60 €) exige que el FCL crezca ~3,7% sostenido, muy por encima de lo autofinanciable (g intrínseco n.s., ~−1,2%): la tesis descansa en que la cartera de data centers y las adquisiciones se traduzcan en caja recurrente creciente.",
+  "calculadoEl": "2026-07-21"
+ }
 }
