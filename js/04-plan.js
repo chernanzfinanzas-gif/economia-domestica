@@ -1161,12 +1161,21 @@ function renderMonitor(){
   const plan=new Set((DB.planLote||[]).map(x=>(x||'').toUpperCase()));
   const closed=closedTickerSet();
   const _sigueCotiz=t=>{ const pf=((DB.valores||{})[t]||{}).precioFecha; if(!pf)return true; return (Date.now()-Date.parse(pf)) < 60*86400000; };
-  let tickers=[...new Set([...held,...plan])].filter(Boolean);
-  closed.forEach(t=>{ if(t&&!held.has(t)&&!plan.has(t)&&_sigueCotiz(t)) tickers.push(t); });
-  tickers=[...new Set(tickers)];
+  /* Lista alineada con el Kanban: solo Análisis + Planteamiento + Seguimiento
+     (excluye Selección=Universo/Vigilada y Cerradas). */
+  let tickers;
+  if(typeof _emAllTickers==='function' && typeof columnaDe==='function'){
+    const _MONCOLS={ana:1,plan:1,seg:1};
+    tickers=_emAllTickers().filter(t=>_MONCOLS[columnaDe(t)]);
+  } else {
+    tickers=[...new Set([...held,...plan])].filter(Boolean);
+    closed.forEach(t=>{ if(t&&!held.has(t)&&!plan.has(t)&&_sigueCotiz(t)) tickers.push(t); });
+    tickers=[...new Set(tickers)];
+  }
   const kp=$('#monKpis');
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas (ten posiciones o añade empresas en Diversificación).</div>'; if(kp)kp.innerHTML=''; return; }
-  const _grp=t=> held.has(t)?0:(plan.has(t)?1:2);
+  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas en Análisis, Planteamiento o Seguimiento (revisa el Kanban).</div>'; if(kp)kp.innerHTML=''; return; }
+  const _colOrder={seg:0,plan:1,ana:2};
+  const _grp=t=> (typeof columnaDe==='function' ? (_colOrder[columnaDe(t)]!=null?_colOrder[columnaDe(t)]:3) : (held.has(t)?0:(plan.has(t)?1:2)));
   tickers.sort((a,b)=>_grp(a)-_grp(b)||a.localeCompare(b));
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
   let pendInf=0, dosRe=0, qPend=0;
@@ -1191,7 +1200,7 @@ function renderMonitor(){
   if(kp)kp.innerHTML='<div class="pos-kpis">'
     +`<div class="k hero"><div class="l">Tareas pendientes</div><div class="v">${tareasPend}</div><div class="p">acciones por ejecutar</div></div>`
     +`<div class="k"><div class="l">Revisiones pendientes</div><div class="v"${qPend>0?' style="color:#dc2626"':''}>${qPend}</div><div class="p">trimestres publicados sin revisar</div></div>`
-    +`<div class="k"><div class="l">Empresas en seguimiento</div><div class="v">${tickers.length}</div><div class="p">cartera · plan · cerradas</div></div>`
+    +`<div class="k"><div class="l">Empresas en seguimiento</div><div class="v">${tickers.length}</div><div class="p">Análisis · Planteamiento · Seguimiento</div></div>`
     +`<div class="k"><div class="l">Dossiers a reanalizar</div><div class="v"${dosRe>0?' style="color:#dc2626"':''}>${dosRe}</div><div class="p">antigüedad > 12 meses</div></div>`
     +'</div>';
 }
