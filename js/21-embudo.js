@@ -118,7 +118,7 @@ function accionDe(t){
   if(et==='Analizada') return A('Revisar veredicto','analisis');
   if(et==='En análisis'){ var ci=_emColaInfo(t); return A('📝 Terminar dossier'+(ci.pos?' (cola #'+ci.pos+')':''),'cobertura'); }
   if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radardiv');
-  if(et==='Descartada') return A('📓 Post-mortem / reactivar','monitor');
+  if(et==='Descartada') return A('📓 Post-mortem','',{dnuevo:t+'|Descartar'});
   return A('','');
 }
 
@@ -235,7 +235,7 @@ function _emCard(r,compact){
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
-  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+'>'+ac.txt+(ac.goto?'<span class="em-arw">→</span>':'')+'</div>') : '';
+  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
   return '<div class="em-card" style="border-left-color:'+_EM_URGCOL[U]+'">'+
     '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+'</div>'+
     '<div class="em-et">'+_emEsc(r.et)+'</div>'+
@@ -299,6 +299,7 @@ function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
+    var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
     var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
   });
