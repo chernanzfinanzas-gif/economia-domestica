@@ -1,0 +1,136 @@
+{
+"schemaVersion": 7,
+"ticker": "RED",
+"empresa": "Redeia Corporación, S.A.",
+"fecha": "2026-07-21",
+"rating": "BBB",
+"score": 58.9,
+"decision": "ESPERAR",
+"metodoValoracion": "DCF + múltiplos regulados + DDM (utility). PO oficial = síntesis ponderada 50% múltiplos + 30% DDM + 20% DCF = 14,56 €; bear ~9-11 €, bull ~18-20 €. DCF/DDM infraponderados por hipersensibilidad al WACC (beta 0,45); WACC anclado en la retribución regulada.",
+"poBear": 10.0,
+"poBase": 14.56,
+"poBull": 19.0,
+"entMin": 12.0,
+"entMax": 13.0,
+"stop": 8.5,
+"dpaPrevisto": 0.8,
+"moat": "ANCHO (81,5/100). Monopolio natural y legal: único operador de la red de transporte eléctrico de España, protegido por la Ley del Sector Eléctrico y retribuido por la CNMC. Foso que protege estabilidad, no beneficio en exceso.",
+"catalizadores": [
+"Entrada en vigor de la nueva TRF 6,58% (2026-2031), ya aprobada",
+"Recuperación del beneficio y del FCF en 2026",
+"Superación del pico de CAPEX (intensidad hacia <60%)",
+"Bajadas de tipos del BCE (revalorización como bond proxy)",
+"Cierre del escrutinio del apagón sin sanción material"
+],
+"riesgos": [
+"Recorte de la retribución regulada (TRF) por la CNMC — riesgo nº1",
+"Shock regulatorio extraordinario (claw-back/impuesto)",
+"Nuevo recorte del dividendo",
+"Sobrecoste/retraso del CAPEX récord (ROIIC negativo)",
+"De-rating de múltiplos desde niveles caros",
+"Fallo de red/apagón (reputacional-político)",
+"Politización por control estatal (SEPI ~20%)"
+],
+"bull": "La nueva TRF 6,58% sobre un RAB muy ampliado reactiva beneficio, FCF y dividendo tras el punto bajo del ciclo; re-rating como bond proxy si baja el BCE. Precio implícito ~18-20 €.",
+"bear": "Recorte o shock regulatorio hunde beneficio y dividendo; espiral CAPEX+tipos fuerza ampliación/recorte; de-rating desde múltiplos caros amplifica la caída. Precio implícito ~9-11 € (−40%).",
+"resumen": "Activo de máxima calidad (monopolio natural, foso ancho, balance sólido, forense limpio) en el punto bajo de su ciclo regulatorio, pero a un precio sin margen de seguridad: cotiza caro vs su historia (EV/EBITDA 11x vs 8,5x) y ya descuenta la recuperación de la nueva TRF (Reverse DCF EXIGENTE). PO 14,6 € vs cotización 15,54 € (−6%). Veredicto ESPERAR; entrada atractiva <13 €. El riesgo se concentra al 100% en el regulatorio (CNMC).",
+"confianza": {
+"score": 84,
+"nivel": "A",
+"motivos": [
+"Análisis completo de los 10 bloques",
+"Conciliación ampliada con cuentas oficiales aplicada al Excel (Cap. I)",
+"Sin huecos críticos en valoración o solvencia"
+],
+"sensibleASupuestos": false,
+"reglaDura": {
+"bloqueaCompraEnFirme": false
+},
+"calculadoEl": "2026-07-21"
+},
+"robustez": {
+"nivel": "sensible",
+"sobreviveDecision": true,
+"banda": {
+"p10": 9.0,
+"p50": 14.56,
+"p90": 26.0
+},
+"sensibilidad": {
+"poMin": 9.0,
+"poMax": 26.0,
+"poBase": 14.56,
+"cotizacion": 15.54,
+"ejeCoste": "WACC",
+"pertCoste": 1.0,
+"pertOtro": 0.5,
+"mdsMin": -42.0,
+"mdsMax": 67.0
+},
+"beta": {
+"capm": 0.45,
+"ref2": 0.55,
+"aviso": false
+},
+"motivos": [
+"DCF/DDM hipersensibles al WACC (banda amplia)",
+"La decisión ESPERAR sobrevive porque descansa en múltiplos (caro vs su historia)"
+],
+"calculadoEl": "2026-07-21"
+},
+"dividendSafety": {
+"score": 55,
+"banda": "Vigilar",
+"componentes": {
+"C1": 55,
+"C2": 40,
+"C3": 60,
+"C4": 45,
+"C5": 75
+},
+"shareholderYield": 5.6,
+"topeDuro": {
+"activo": false,
+"motivo": "Owner earnings cubren el dividendo ordinario (1,13x) → excepción A1: el déficit de FCL es capex de crecimiento"
+},
+"motivos": [
+"Cobertura por owner earnings fina (1,13x, cayó a 0,87x en 2024)",
+"Payout sobre beneficio 91%",
+"Dividendo ya recortado (1,00→0,80)",
+"Sin dilución; RPD 5,6%"
+],
+"calculadoEl": "2026-07-21"
+},
+"forense": {
+"aplica": true,
+"piotroski": {
+"score": 7,
+"banda": "fuerte"
+},
+"altman": {
+"z": 4.51,
+"zona": "segura"
+},
+"beneish": {
+"m": -2.6,
+"senal": "sin indicios",
+"aproximado": true
+},
+"sloan": {
+"accruals": -0.03,
+"senal": "conservador"
+},
+"flags": [],
+"veto": false,
+"vetoMotivos": [],
+"calculadoEl": "2026-07-21"
+},
+"reverseDcf": {
+"aplica": true,
+"gImplicito": 3.1,
+"gIntrinseco": 2.2,
+"veredicto": "EXIGENTE",
+"motivo": "El precio (15,54 €) implica un crecimiento del FCL del 3,1%, por encima del 2,2% autofinanciable → expectativas exigentes que restan margen de seguridad.",
+"calculadoEl": "2026-07-21"
+}
+}
