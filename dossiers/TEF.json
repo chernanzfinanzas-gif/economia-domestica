@@ -1,0 +1,154 @@
+{
+ "schemaVersion": 7,
+ "ticker": "TEF",
+ "empresa": "Telefónica, S.A.",
+ "fecha": "2026-07-21",
+ "rating": "BBB",
+ "score": 51,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF de flujo al accionista (FCFE) + múltiplos — teleco apalancada. PO oficial = síntesis Cap. VI 4,14 € (0,45×DCF FCFE base 4,60 + 0,55×múltiplos 3,76). El WACC del CAPM (3,2%) es inservible por la beta 0,29; se usó Ke sectorial 8,2%.",
+ "poBear": 3.01,
+ "poBase": 4.14,
+ "poBull": 5.3,
+ "entMin": 3.0,
+ "entMax": 3.3,
+ "stop": 2.6,
+ "dpaPrevisto": 0.15,
+ "moat": "Estrecho (54,5): escala de incumbente y barreras de entrada altas (espectro, red), pero sin poder de fijación de precios; la portabilidad anula el lock-in y el ROIC ya convergió al coste del capital.",
+ "catalizadores": [
+  "Estabilización de ingresos de servicio y OIBDA-aL en línea con el plan Murtra",
+  "Consolidación in-market en Europa (Alemania/UK)",
+  "Continuación del desapalancamiento (deuda neta −37% desde 2016)",
+  "Bajada de tipos del BCE",
+  "Dividendo (0,15 €) sostenible y cubierto por FCF"
+ ],
+ "riesgos": [
+  "Recorte del dividendo (ya materializado a 0,15 € para 2026)",
+  "Guerra de precios y pérdida de cuota frente a Digi",
+  "Deterioro adicional del fondo de comercio (goodwill > patrimonio atribuible)",
+  "Tipos altos y refinanciación (% deuda fija cayó al 57%)",
+  "Interferencia política/gobernanza (SEPI ~10%, STC)"
+ ],
+ "bull": "Estabilización operativa + consolidación europea + bajada de tipos → re-rating a ~5,3 € (+48%).",
+ "bear": "Nuevo recorte de dividendo + presión de Digi + impairment de goodwill → ~2,4 € (−33%).",
+ "resumen": "Telefónica es una historia de valor, no de calidad: mayor rendimiento por dividendo del sector y expectativas de mercado muy bajas (reverse DCF undemanding), pero balance apalancado (DN/EBITDA ~5x), ROIC (2,2%) por debajo del WACC y dividendo recortado a la mitad (0,15 € en 2026). PO 4,14 € (+15%); la asimetría (bear −33%) y el rating BBB/moat estrecho descartan comprar en firme. MANTENER; entrada disciplinada por debajo de 3,30 €.",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-21"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "matizada": true,
+  "banda": {
+   "p10": 3.01,
+   "p50": 4.14,
+   "p90": 5.3
+  },
+  "sensibilidad": {
+   "poMin": 4.08,
+   "poMax": 5.32,
+   "poBase": 4.6,
+   "cotizacion": 3.588,
+   "ejeCoste": "Ke",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 13.7,
+   "mdsMax": 48.3
+  },
+  "beta": {
+   "capm": 0.29,
+   "ref2": 0.85,
+   "aviso": "beta CAPM 0.29 vs 2ª ref 0.85: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (3.59) queda por DEBAJO de toda la banda de PO [4.1–5.3] bajo Ke±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "beta CAPM 0.29 vs 2ª ref 0.85: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC",
+   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+  ],
+  "calculadoEl": "2026-07-21"
+ },
+ "dividendSafety": {
+  "score": 55,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 35,
+   "C2": null,
+   "C3": 3,
+   "C4": 9,
+   "C5": 0
+  },
+  "shareholderYield": null,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura base 2.52x → 35/35",
+   "C2 payout BN: sin datos → no puntúa",
+   "C3 balance: DN/EBITDA 4.97x, cob.int 1.2x → 3/20",
+   "C4 trayectoria: 1 recorte(s) en 10a → 9/15",
+   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 0/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-21"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 0,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": null,
+   "zona": "Pte. Revisión"
+  },
+  "beneish": {
+   "m": -3.12,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DEPI",
+    "DSRI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -14.4,
+   "senal": "muy conservador"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-21"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -7.4,
+  "gIntrinseco": -3.1,
+  "veredicto": "Pte",
+  "motivo": "Sin g intrínseco positivo con el que comparar: la empresa no está reinvirtiendo para crecer (capital plano o decreciente), así que el veredicto de plausibilidad no aplica.",
+  "calculadoEl": "2026-07-21"
+ }
+}
