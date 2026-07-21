@@ -129,8 +129,55 @@ function diarioOfrecerOp(ticker,tipoOp,precio,acciones,fecha){
   ticker=_diUp(ticker||''); if(!ticker)return;
   var f=fecha||_diHoy(); var dd=(Date.now()-new Date(f+'T00:00:00').getTime())/86400000;
   if(isNaN(dd)||dd>21||dd< -2)return;
-  var tipo=(tipoOp==='venta')?'Vender':'Comprar';
-  try{ if(confirm('Operación registrada. ¿Anotar el porqué en el Diario de decisiones?')){ diarioNuevo(ticker,tipo,{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:f}); } }catch(e){}
+  try{
+    if(tipoOp!=='venta' && typeof checklistPreCompra==='function'){ checklistPreCompra(ticker,_diNum(precio),tipoOp,acciones,f); return; }
+    if(confirm('Operación registrada. ¿Anotar el porqué en el Diario de decisiones?')){ diarioNuevo(ticker,(tipoOp==='venta'?'Vender':'Comprar'),{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:f}); }
+  }catch(e){}
+}
+/* P2 · Checklist pre-compra (puerta blanda): al registrar una compra evalúa el método y
+   marca en rojo lo que se sale (p.ej. fuera de precio de entrada). No bloquea; lleva al Diario. */
+function _diChkCfg(){ DB.config=DB.config||{}; var v=DB.config.checklistMinRating; return {minRating:(v!=null?_diNum(v):78)}; }
+function _diChkEval(t,precio){
+  t=_diUp(t); var a=_diAna(t)||{}; var res=[];
+  var eM=_diNum(a.entMax), dec=_diUp(a.decision), stop=_diNum(a.stopTesis), rating=(a.rating||'').toUpperCase();
+  var mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null;
+  if(!a.dossierFecha && !(typeof _esAnalizada==='function'&&_esAnalizada(t))) res.push({lvl:2,txt:'Sin dossier — no analizada'});
+  else if(mm!=null&&mm>12) res.push({lvl:2,txt:'Dossier caducado (hace '+mm+' meses)'});
+  else res.push({lvl:0,txt:'Dossier vigente'+(mm!=null?' ('+mm+'m)':'')});
+  var rs=(typeof radRatingScore==='function')?(radRatingScore(rating)||0):0; var minR=_diChkCfg().minRating;
+  if(!rating) res.push({lvl:1,txt:'Rating sin definir'});
+  else if(rs>=minR) res.push({lvl:0,txt:'Rating '+rating+' (>= umbral)'});
+  else res.push({lvl:2,txt:'Rating '+rating+' por debajo de tu umbral'});
+  if(precio>0&&eM>0){ var over=(precio/eM-1)*100;
+    if(precio<=eM) res.push({lvl:0,txt:'En zona: '+_diEur(precio)+' <= entrada '+_diEur(eM)});
+    else if(precio<=eM*1.05) res.push({lvl:1,txt:'Cerca: '+_diEur(precio)+' (+'+over.toFixed(0)+'% de la entrada)'});
+    else res.push({lvl:2,txt:'FUERA de zona: '+_diEur(precio)+' (+'+over.toFixed(0)+'% sobre tu entrada '+_diEur(eM)+')'});
+  } else res.push({lvl:1,txt:'Sin banda de entrada definida'});
+  if(stop>0) res.push({lvl:0,txt:'Stop de tesis definido ('+_diEur(stop)+')'});
+  else res.push({lvl:2,txt:'Sin stop de tesis definido'});
+  if(dec==='COMPRAR') res.push({lvl:0,txt:'Decision: COMPRAR'});
+  else if(dec) res.push({lvl:1,txt:'Decision: '+dec+' (no es COMPRAR)'});
+  else res.push({lvl:1,txt:'Sin decision registrada'});
+  return res;
+}
+function checklistPreCompra(t,precio,tipoOp,acciones,fecha){
+  t=_diUp(t); if(!t||typeof document==='undefined')return;
+  var res=_diChkEval(t,precio); var COL=['#16a34a','#d97706','#dc2626'], IC=['✓','!','✗'];
+  var rows=res.map(function(r){ return '<div class="di-chk-row"><span class="di-chk-ic" style="color:'+COL[r.lvl]+'">'+IC[r.lvl]+'</span><span>'+_diEsc(r.txt)+'</span></div>'; }).join('');
+  var nRed=res.filter(function(r){return r.lvl===2;}).length;
+  var head=nRed?('⚠️ '+nRed+' punto'+(nRed>1?'s':'')+' fuera de tu metodo'):'✓ La compra cumple tu metodo';
+  var hc=nRed?'#dc2626':'#16a34a';
+  var ov=document.createElement('div'); ov.className='di-chk-ov';
+  ov.innerHTML='<div class="di-chk-box"><div class="di-chk-h" style="color:'+hc+'">'+head+'</div>'+
+    '<div class="di-chk-sub">'+_diEsc(t)+' · '+_diEsc(_diNombre(t).slice(0,26))+' · compra a '+_diEur(precio)+'</div>'+
+    '<div class="di-chk-list">'+rows+'</div>'+
+    '<div class="di-chk-note">Puerta blanda: no bloquea la compra; anota el porque para dejar constancia.</div>'+
+    '<div class="di-chk-acts"><button class="di-chk-anota" data-chkanota="1">📓 Anotar en el Diario</button><button class="di-chk-close" data-chkclose="1">Cerrar</button></div></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click',function(e){
+    if(e.target===ov||e.target.closest('[data-chkclose]')){ ov.remove(); return; }
+    if(e.target.closest('[data-chkanota]')){ ov.remove(); diarioNuevo(t,(tipoOp==='venta'?'Vender':'Comprar'),{precio:_diNum(precio),importe:_diNum(precio)*_diNum(acciones),fecha:fecha||_diHoy()}); return; }
+  });
 }
 function _diTickers(){ var s={}; (DB.analisis||[]).forEach(function(a){ var t=_diUp(a.ticker); if(t)s[t]=1; }); Object.keys(DB.universo||{}).forEach(function(t){ s[_diUp(t)]=1; }); if(typeof heldTickerSet==='function')heldTickerSet().forEach(function(t){ s[_diUp(t)]=1; }); return Object.keys(s).sort(); }
 function _diOpenForm(ticker,tipo,seed){
@@ -239,7 +286,18 @@ function _diGuardar(){
     '.di-ok{background:#dcfce7;color:#166534;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:700}',
     '.di-bad{background:#fee2e2;color:#991b1b;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:700}',
     '.di-open{background:#e0f2fe;color:#075985;border-radius:20px;padding:1px 9px;font-size:11px;font-weight:700}',
-    '.di-acts{margin-left:auto;display:flex;gap:4px}'
+    '.di-acts{margin-left:auto;display:flex;gap:4px}',
+    '.di-chk-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:99999;padding:16px}',
+    '.di-chk-box{background:#fff;border-radius:16px;max-width:440px;width:100%;padding:18px 20px;box-shadow:0 12px 40px rgba(0,0,0,.3)}',
+    '.di-chk-h{font-size:16px;font-weight:800;margin-bottom:2px}',
+    '.di-chk-sub{font-size:12px;color:#64748b;margin-bottom:12px}',
+    '.di-chk-list{display:flex;flex-direction:column;gap:7px;margin-bottom:10px}',
+    '.di-chk-row{font-size:13px;color:#334155;display:flex;align-items:flex-start;gap:8px}',
+    '.di-chk-ic{font-weight:800;width:14px;text-align:center;flex:none}',
+    '.di-chk-note{font-size:11px;color:#94a3b8;margin-bottom:12px}',
+    '.di-chk-acts{display:flex;gap:8px;justify-content:flex-end}',
+    '.di-chk-anota{background:#16a34a;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-weight:700;font-size:13px;cursor:pointer}',
+    '.di-chk-close{background:#fff;border:1px solid #e2e8f0;border-radius:8px;padding:8px 14px;font-size:13px;color:#475569;cursor:pointer}'
   ].join('\n');
   document.head.appendChild(s);
 })();
