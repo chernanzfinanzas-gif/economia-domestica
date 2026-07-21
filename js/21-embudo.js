@@ -279,6 +279,7 @@ function _emCard(r,compact){
     (pinBadge?('<div>'+pinBadge+'</div>'):'')+
     (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')+
     acc+
+    _emCierresBtn(r)+
     (r.held?_emWhyBlock(r):'')+
     _emMover(r)+
     '</div>';
@@ -332,10 +333,79 @@ function _emClosed(cerr){
   return '<div class="em-closed"><b>Descartadas ('+cerr.length+')</b> — '+_emEsc(names)+' · solo lo que descartas a mano; las ex-cartera vuelven al embudo <span style="float:right;color:#d97706">post-mortem → M3</span></div>';
 }
 
+/* ---------- Descarga de cierres de ejercicio (para la hoja "datos de mercado" del Excel) ---------- */
+function _emCierresBtn(r){
+  var col=(typeof _EM_COL!=='undefined')?_EM_COL[r.et]:'';
+  if(col!=='sel'&&col!=='ana')return '';
+  return '<div class="em-cierres" data-emcierres="'+r.t+'" title="Descarga el cierre de cotización de los últimos 10 ejercicios (para pegar en tu Excel: datos de mercado)">📅 Cierres 10 ejercicios</div>';
+}
+function _emParseDM(str){
+  str=(''+str).trim().replace(/[.\-]/g,'/'); var p=str.split('/');
+  if(p.length<2)return null; var d=parseInt(p[0],10), m=parseInt(p[1],10);
+  if(!(d>=1&&d<=31)||!(m>=1&&m<=12))return null; return {d:d,m:m};
+}
+async function _emGuardarCSV(nombre, contenido){
+  // Si el navegador soporta File System Access (Chromium), deja ELEGIR carpeta destino
+  // (y recuerda la última carpeta usada gracias al id fijo). Si no, descarga normal.
+  if(window.showSaveFilePicker){
+    try{
+      var handle=await window.showSaveFilePicker({
+        id:'khCierresEjercicio',
+        suggestedName:nombre,
+        types:[{description:'CSV (datos de mercado)',accept:{'text/csv':['.csv']}}]
+      });
+      var w=await handle.createWritable();
+      await w.write(new Blob([contenido],{type:'text/csv;charset=utf-8'}));
+      await w.close();
+      return true;
+    }catch(e){
+      if(e&&e.name==='AbortError')return false;   // el usuario canceló el diálogo
+      // cualquier otro fallo: caemos al método clásico de descarga
+    }
+  }
+  var blob=new Blob([contenido],{type:'text/csv;charset=utf-8'});
+  var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download=nombre;
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ try{ URL.revokeObjectURL(url); }catch(e){} },1500);
+  return true;
+}
+async function _emCierresDescargar(t){
+  t=_emUp(t);
+  var inp=prompt('Cierre de ejercicio de '+t+' — ¿qué día cierra el ejercicio? (DD/MM)\n\nSe descargará la cotización de ese día en los últimos 10 ejercicios, desde el histórico de precios de la app.','31/12');
+  if(inp==null)return;
+  var dm=_emParseDM(inp);
+  if(!dm){ alert('Fecha no válida. Usa el formato DD/MM (p. ej. 31/12 o 31/01).'); return; }
+  var pj=(typeof _precioCache!=='undefined')?_precioCache[t]:undefined;
+  if(pj===undefined){
+    try{ var rr=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=rr.ok?await rr.json():null; }catch(e){ pj=null; }
+    if(typeof _precioCache!=='undefined')_precioCache[t]=pj;
+  }
+  if(!pj||!pj.data||!pj.data.length){ alert('No hay histórico de cotización para '+t+' en precios/ del repo. No puedo generar los cierres.'); return; }
+  if(typeof priceRepoAt!=='function'){ alert('Falta la función priceRepoAt (módulo de gráficas).'); return; }
+  var now=new Date();
+  var cand=new Date(now.getFullYear(),dm.m-1,dm.d);
+  var lastEx=(cand.getTime()>now.getTime())?(now.getFullYear()-1):now.getFullYear();
+  var dd=String(dm.d).padStart(2,'0'), mm=String(dm.m).padStart(2,'0');
+  var sep=';';
+  var out='﻿Ticker'+sep+'Ejercicio'+sep+'FechaCierre'+sep+'Cierre\n';
+  var faltan=0;
+  for(var y=lastEx-9;y<=lastEx;y++){
+    var px=priceRepoAt(t,Date.UTC(y,dm.m-1,dm.d));
+    var val=(px>0)?(''+px).replace('.',','):''; if(!(px>0))faltan++;
+    out+=t+sep+y+sep+dd+'/'+mm+'/'+y+sep+val+'\n';
+  }
+  var okg=false;
+  try{ okg=await _emGuardarCSV('cierres_'+t+'_'+dd+mm+'.csv', out); }
+  catch(e){ alert('No se pudo guardar el archivo: '+e.message); return; }
+  if(!okg)return;   // cancelado por el usuario
+  if(faltan)alert('CSV guardado. Aviso: '+faltan+' ejercicio(s) sin dato en el histórico (quedan en blanco).');
+}
+
 /* ---------- interacción ---------- */
 function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
+    var cz=e.target.closest('[data-emcierres]'); if(cz){ e.preventDefault(); _emCierresDescargar(cz.getAttribute('data-emcierres')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
@@ -387,6 +457,8 @@ function _emBind(sec){
     '.em-pinb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#fef3c7;color:#92400e;margin-bottom:5px}',
     '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
+    '.em-cierres{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:4px 8px;cursor:pointer;margin-bottom:6px}',
+    '.em-cierres:hover{background:#e0e7ff}',
     '.em-revedit{cursor:pointer;opacity:.55;font-size:10px}',
     '.em-divrisk{background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:8px 12px;font-size:12px;color:#0c4a6e;margin-bottom:12px}',
     '.em-why-t{font-size:11px;color:#2563eb;cursor:pointer;margin:2px 0 4px;font-weight:600}',
