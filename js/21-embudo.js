@@ -344,24 +344,15 @@ function _emParseDM(str){
   if(p.length<2)return null; var d=parseInt(p[0],10), m=parseInt(p[1],10);
   if(!(d>=1&&d<=31)||!(m>=1&&m<=12))return null; return {d:d,m:m};
 }
-async function _emGuardarCSV(nombre, contenido){
-  // Si el navegador soporta File System Access (Chromium), deja ELEGIR carpeta destino
-  // (y recuerda la última carpeta usada gracias al id fijo). Si no, descarga normal.
-  if(window.showSaveFilePicker){
+async function _emEscribirCSV(handle, nombre, contenido){
+  // handle: FileSystemFileHandle ya elegido por el usuario (o null → descarga clásica)
+  if(handle){
     try{
-      var handle=await window.showSaveFilePicker({
-        id:'khCierresEjercicio',
-        suggestedName:nombre,
-        types:[{description:'CSV (datos de mercado)',accept:{'text/csv':['.csv']}}]
-      });
       var w=await handle.createWritable();
       await w.write(new Blob([contenido],{type:'text/csv;charset=utf-8'}));
       await w.close();
       return true;
-    }catch(e){
-      if(e&&e.name==='AbortError')return false;   // el usuario canceló el diálogo
-      // cualquier otro fallo: caemos al método clásico de descarga
-    }
+    }catch(e){ alert('No se pudo escribir el archivo: '+e.message); return false; }
   }
   var blob=new Blob([contenido],{type:'text/csv;charset=utf-8'});
   var url=URL.createObjectURL(blob); var a=document.createElement('a'); a.href=url; a.download=nombre;
@@ -375,6 +366,21 @@ async function _emCierresDescargar(t){
   if(inp==null)return;
   var dm=_emParseDM(inp);
   if(!dm){ alert('Fecha no válida. Usa el formato DD/MM (p. ej. 31/12 o 31/01).'); return; }
+  var dd=String(dm.d).padStart(2,'0'), mm=String(dm.m).padStart(2,'0');
+  var nombre='cierres_'+t+'_'+dd+mm+'.csv';
+  /* 1) Pedir la carpeta destino AHORA, mientras el clic sigue siendo un "gesto de usuario"
+        válido (antes de cualquier await de red; si no, el navegador rechaza el selector). */
+  var handle=null;
+  if(window.showSaveFilePicker){
+    try{
+      handle=await window.showSaveFilePicker({
+        id:'khCierresEjercicio',
+        suggestedName:nombre,
+        types:[{description:'CSV (datos de mercado)',accept:{'text/csv':['.csv']}}]
+      });
+    }catch(e){ if(e&&e.name==='AbortError')return; handle=null; /* otro error → descarga clásica */ }
+  }
+  /* 2) Cargar la serie de precios y calcular los cierres. */
   var pj=(typeof _precioCache!=='undefined')?_precioCache[t]:undefined;
   if(pj===undefined){
     try{ var rr=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=rr.ok?await rr.json():null; }catch(e){ pj=null; }
@@ -385,22 +391,21 @@ async function _emCierresDescargar(t){
   var now=new Date();
   var cand=new Date(now.getFullYear(),dm.m-1,dm.d);
   var lastEx=(cand.getTime()>now.getTime())?(now.getFullYear()-1):now.getFullYear();
-  var dd=String(dm.d).padStart(2,'0'), mm=String(dm.m).padStart(2,'0');
   var sep=';';
   var out='﻿Ticker'+sep+'Ejercicio'+sep+'FechaCierre'+sep+'Cierre\n';
   var faltan=0;
   for(var y=lastEx-9;y<=lastEx;y++){
+    /* Etiqueta fiscal del método: cierre tardío (jul-dic) → año del cierre; temprano (ene-jun) → año-1. */
+    var lab=(dm.m>=7)?y:(y-1);
     var px=priceRepoAt(t,Date.UTC(y,dm.m-1,dm.d));
     var val=(px>0)?(''+px).replace('.',','):''; if(!(px>0))faltan++;
-    out+=t+sep+y+sep+dd+'/'+mm+'/'+y+sep+val+'\n';
+    out+=t+sep+lab+sep+dd+'/'+mm+'/'+y+sep+val+'\n';
   }
-  var okg=false;
-  try{ okg=await _emGuardarCSV('cierres_'+t+'_'+dd+mm+'.csv', out); }
-  catch(e){ alert('No se pudo guardar el archivo: '+e.message); return; }
-  if(!okg)return;   // cancelado por el usuario
+  /* 3) Escribir en la carpeta elegida (o descargar). */
+  var okg=await _emEscribirCSV(handle, nombre, out);
+  if(!okg)return;
   if(faltan)alert('CSV guardado. Aviso: '+faltan+' ejercicio(s) sin dato en el histórico (quedan en blanco).');
 }
-
 /* ---------- interacción ---------- */
 function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
