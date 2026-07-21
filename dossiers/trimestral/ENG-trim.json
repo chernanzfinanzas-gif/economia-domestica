@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "ENG",
+  "empresa": "Enagás",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3477 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 173.6
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 54.6
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3477
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3166 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 372
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 176.8
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 247.7
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3166
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 87.4
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 7.8
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-10-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3406 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 572
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 258.9
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 405.9
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3406
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 118.8
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 11.9
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-02-20",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: EBITDA 780 M€ (−2,5% YoY), BDI 342 M€ sólido, deuda controlada. Declive estructural gradual; tesis intacta.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 780.3
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 342.5
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 555.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3347
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 121.5
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 16.6
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-04-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3342 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 178.3
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 65.3
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3342
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": 19.6
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3164 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 385.7
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 148
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 332.9
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 3164
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 108.8
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": 3.7
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -16.3
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": 34.4
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 10.5
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-22",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2421 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 572.8
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 233.5
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 508.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2421
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 137.5
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": 0.1
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -9.8
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": 25.2
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 21
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-18",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "ROJO: pérdidas por el deterioro de Tallgrass (BDI −299 M€). EBITDA −2,5% YoY. Evento contable puntual, no operativo; el negocio regulado siguió estable.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 760.7
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": -299.3
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2404
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -2.5
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -187.4
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": "Pte. Revisión"
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-04-29",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2363 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 163.9
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 65.2
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 140.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2363
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 40.9
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": 25.7
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -8.1
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -0.2
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 5.9
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-22",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2299 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 329.3
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 176
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 293.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2299
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 98.4
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": 26
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -14.6
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": 18.9
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": -11.7
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 12.8
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-21",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2347 M€. Sin desviación relevante frente a la tesis de MANTENER.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 505.9
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 262.8
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 463
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2347
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 124.6
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": 39.7
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -11.7
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": -8.9
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 19.7
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-17",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: BDI recuperado a 339 M€ y desapalancamiento (DN 2.475 M€), pero EBITDA sigue en declive (−11% YoY) y el dividendo ya recortado a 1,00 €. Tesis de MANTENER intacta.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 675.7
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 339.1
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 635.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2475
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 161
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": -74.6
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -11.2
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": 213.3
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 25.7
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-04-28",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: EBITDA acumulado −10% YoY (147,6 vs 163,9 M€) por menor retribución; deuda neta estable en 2.456 M€. Segundo ámbar consecutivo tras FY-2025 → activa S6 (mini-revisión de tendencia).",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 147.6
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 56.9
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 122.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2456
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 41.3
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": -26
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -9.9
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -12.7
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": -12.9
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 5
+        }
+      ]
+    }
+  ]
+}
