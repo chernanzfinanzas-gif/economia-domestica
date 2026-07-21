@@ -1,0 +1,188 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ENG · Nota de Revisión Extraordinaria · 9M-2026 (SIMULADO)</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#0078A8;--corp-dark:#003a4d;--corp-light:#33a0c8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Enagás, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Semáforo rojo / dividendo</span>
+        <span class="badge badge-sig">9M-2026 (SIMULADO)</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+        <span class="badge" style="background:#fde68a;color:#78350f">⚠ SIMULACIÓN</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">ENG · BME · IBEX 35<br>Fecha: 2026-07-21<br>Plazo señal: 7 días</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">17,82 €</div><div class="kpi-sub">bear 12,5 / bull 22</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">16,82 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val amber">+6%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Cobertura div.</div><div class="kpi-val red">0,28x</div><div class="kpi-sub">FCL · umbral <0,5x</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p>El monitor 9M-2026 (simulado) asigna <b>semáforo R</b>: la cobertura del dividendo sobre FCL cae a <b>0,28x</b> (umbral VENDER §10.1 &lt;0,5x) y es el <b>tercer periodo consecutivo por debajo de 1,0x</b>. La checklist B4 de predictores de recorte suma 1 predictor duro (payout BN 3a 144% &gt;100%) + 3 blandos, disparando S2 con plazo de 7 días.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p><b>Nota de ejemplo:</b> este documento es una <b>simulación</b> para probar la visualización en la app; los datos son ilustrativos y no constituyen una revisión real de Enagás.</p>
+  <div class="cb-src">Verificación externa: N/A (documento simulado).</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Circulante estacional y calendario de desinversiones</div>
+    <div class="seg-body">Parte de la caída del FCL de 9M viene de una acumulación de circulante y del desfase temporal entre el cobro de desinversiones (GNL Quintero) y el pago del dividendo, que revierte en el Q4. El EBITDA regulado subyacente se mantiene en guía.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">El dividendo no se autofinancia desde 2023</div>
+    <div class="seg-body">El patrón no es de un trimestre: la cobertura sobre owner earnings a 3 años es 0,82x y el payout medio 144%. El pago se sostiene con desinversiones finitas sobre un negocio (gas) en declive estructural. No es ruido: es el riesgo central de la tesis manifestándose.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> mixto con sesgo <b>estructural</b> (confianza media-alta). El trimestre tiene un componente estacional real, pero la insostenibilidad del dividendo con caja propia es estructural y ya conocida por la tesis — no invalida el veredicto, lo confirma.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">Matriz §8.1: el riesgo «recorte adicional del dividendo» (prob. media, −10/−20%) <b>sube a probabilidad alta</b>. El pre-mortem §8.2 de «recorte + derating» no activa aún su señal de salida (no hay anuncio del management). Sin nuevos riesgos fuera de mapa.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">Tesis de <b>renta con riesgo</b> intacta: el Bull (TRF 6,46% + rerating) sigue vivo con la circular CNMC pendiente; el Bear (recorte + derating a 12,5 €) no se ha confirmado. El PO de síntesis §6.5 (17,82 €) aguanta: ya incorpora un dividendo bajo presión.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Dividend Safety (12)</span><span>Recalculado: <span class="pill r">25 · Frágil</span> — cobertura OE 3a 0,82x &lt;1,0x, payout BN 3a 144%. Tope duro activo.</span></div><div class="tool-row"><span class="tool-name">Forense (13)</span><span><span class="pill g">Sin alertas</span> Piotroski 6, Altman Z 4,23 (segura), Beneish −2,24. Sin maquillaje: el deterioro es real, no contable.</span></div><div class="tool-row"><span class="tool-name">Reverse DCF (15)</span><span><span class="pill g">PLAUSIBLE</span> El precio ya descuenta un FCL en declive (~−3%/año): no exige crecimiento. Sin sobreprecio que defender.</span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">«Si descubriera hoy Enagás por primera vez, a 16,82 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la dejaría en watchlist o la descartaría?»</div>
+  <div class="anchor-a"><b>Watchlist, no compra.</b> A 16,82 € el margen sobre el PO (17,82 €) es de solo +6%: insuficiente. La compraría por debajo de <b>15 €</b>, donde la RPD compensa el riesgo del gas y aparece margen de seguridad. La respuesta es coherente con el veredicto vigente: no hay anclaje que corregir.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">El rojo confirma un riesgo ya mapeado y descontado; no cambia la decisión. Se mantiene <b>MANTENER</b> (ESPERAR &lt;15 € para entrada nueva), PO base 17,82 €, banda 14–15 €, stop 12,2 €.</div>
+  <div class="action-line">Acción: Mantener la posición · no ampliar · vigilar la circular CNMC y el anuncio de dividendo del Q4.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b> <span style="color:#94a3b8">documento simulado — sin fuentes externas.</span></div>
+
+<div class="disclaimer">⚠ DOCUMENTO SIMULADO · Nota de Revisión Extraordinaria de EJEMPLO para probar la visualización en la app de Economía Doméstica. Los datos son ilustrativos y NO constituyen una revisión real ni una recomendación. Método de Análisis Financiero KH&Claude.</div>
+
+</div></body></html>
