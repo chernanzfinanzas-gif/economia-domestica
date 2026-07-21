@@ -96,7 +96,7 @@ const VIEW_FNS={
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], buzon:['renderBuzon'], metodo:['renderPanelMetodo'], salud:['renderSalud'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], metas:['renderMetas'], asignacion:['renderAsignacion'],
-  informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], hemeroanalisis:['renderHemeroAnalisis'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo']
+  informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], hemeroanalisis:['renderHemeroAnalisis'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp']
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
@@ -212,7 +212,7 @@ const GROUPS={
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['buzon','Buzón del lunes'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
-  planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas']],
+  planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
 };
