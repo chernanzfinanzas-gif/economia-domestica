@@ -12,11 +12,19 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3477 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 173.6
         },
         {
-          "nombre": "BDI (M€)",
+          "nombre": "EBIT (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "BDI rec. (M€)",
           "valor": 54.6
         },
         {
@@ -28,28 +36,28 @@
           "valor": 3477
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
+          "nombre": "DN/EBITDA aj (x)",
           "valor": "Pte. Revisión"
         },
         {
           "nombre": "FFO/DN (%)",
           "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -7.0
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -62,12 +70,20 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3166 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 372
+          "nombre": "Ingresos (M€)",
+          "valor": 450.4
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 176.8
+          "nombre": "EBITDA (M€)",
+          "valor": 372.0
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 216.4
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 134.6
         },
         {
           "nombre": "FFO (M€)",
@@ -78,28 +94,28 @@
           "valor": 3166
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 87.4
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 4.4
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 7.8
+          "valor": 19.2
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 108.8
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -4.6
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -112,12 +128,20 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3406 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 572
+          "nombre": "Ingresos (M€)",
+          "valor": 672.7
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 258.9
+          "nombre": "EBITDA (M€)",
+          "valor": 572.0
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 334.8
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 216.7
         },
         {
           "nombre": "FFO (M€)",
@@ -128,28 +152,28 @@
           "valor": 3406
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 118.8
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 4.8
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 11.9
+          "valor": 17.1
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 137.5
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -6.9
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -162,12 +186,20 @@
       "resumen": "ÁMBAR: EBITDA 780 M€ (−2,5% YoY), BDI 342 M€ sólido, deuda controlada. Declive estructural gradual; tesis intacta.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 919.6
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 780.3
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 342.5
+          "nombre": "EBIT (M€)",
+          "valor": 456.9
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 300.3
         },
         {
           "nombre": "FFO (M€)",
@@ -178,28 +210,28 @@
           "valor": 3347
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 121.5
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 4.3
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 16.6
+          "valor": 18.7
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 192.5
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -7.3
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ],
       "hechos": [
@@ -226,44 +258,52 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3342 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 220.5
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 178.3
         },
         {
-          "nombre": "BDI (M€)",
+          "nombre": "EBIT (M€)",
+          "valor": 92.9
+        },
+        {
+          "nombre": "BDI rec. (M€)",
           "valor": 65.3
         },
         {
           "nombre": "FFO (M€)",
-          "valor": "Pte. Revisión"
+          "valor": 163.3
         },
         {
           "nombre": "Deuda neta (M€)",
           "valor": 3342
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": 2.7
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": 19.6
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
+          "nombre": "DN/EBITDA aj (x)",
           "valor": "Pte. Revisión"
         },
         {
           "nombre": "FFO/DN (%)",
           "valor": "Pte. Revisión"
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.8
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 40.9
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -4.0
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -276,12 +316,20 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 3164 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 442.5
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 385.7
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 148
+          "nombre": "EBIT (M€)",
+          "valor": 214.3
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 148.0
         },
         {
           "nombre": "FFO (M€)",
@@ -292,28 +340,28 @@
           "valor": 3164
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 108.8
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": 3.7
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -16.3
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": 34.4
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 4.1
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 10.5
+          "valor": 20.2
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.8
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 98.4
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -7.2
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -326,11 +374,19 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2421 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 665.2
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 572.8
         },
         {
-          "nombre": "BDI (M€)",
+          "nombre": "EBIT (M€)",
+          "valor": 323.8
+        },
+        {
+          "nombre": "BDI rec. (M€)",
           "valor": 233.5
         },
         {
@@ -342,28 +398,28 @@
           "valor": 2421
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 137.5
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": 0.1
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -9.8
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": 25.2
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.2
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 21
+          "valor": 27.2
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 124.6
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -8.6
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -376,44 +432,52 @@
       "resumen": "ROJO: pérdidas por el deterioro de Tallgrass (BDI −299 M€). EBITDA −2,5% YoY. Evento contable puntual, no operativo; el negocio regulado siguió estable.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 913.2
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 760.7
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": -299.3
+          "nombre": "EBIT (M€)",
+          "valor": 428.7
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 310.1
         },
         {
           "nombre": "FFO (M€)",
-          "valor": "Pte. Revisión"
+          "valor": 688.8
         },
         {
           "nombre": "Deuda neta (M€)",
           "valor": 2404
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": "Pte. Revisión"
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -2.5
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -187.4
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.3
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": "Pte. Revisión"
+          "valor": 28.7
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 161.0
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": -4.2
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ],
       "hechos": [
@@ -446,11 +510,19 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2363 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 210.1
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 163.9
         },
         {
-          "nombre": "BDI (M€)",
+          "nombre": "EBIT (M€)",
+          "valor": 86.3
+        },
+        {
+          "nombre": "BDI rec. (M€)",
           "valor": 65.2
         },
         {
@@ -462,28 +534,28 @@
           "valor": 2363
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 40.9
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": 25.7
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -8.1
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -0.2
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.3
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 5.9
+          "valor": 28.2
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.3
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 41.3
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -496,12 +568,20 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2299 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 459.6
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 329.3
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 176
+          "nombre": "EBIT (M€)",
+          "valor": 174.7
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 129.8
         },
         {
           "nombre": "FFO (M€)",
@@ -512,28 +592,28 @@
           "valor": 2299
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 98.4
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": 26
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -14.6
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": 18.9
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": -11.7
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.3
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 12.8
+          "valor": 28.3
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 91.2
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 7.6
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -546,44 +626,52 @@
       "resumen": "ÁMBAR: resultados en línea con el declive estructural del gas; deuda neta 2347 M€. Sin desviación relevante frente a la tesis de MANTENER.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 711.2
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 505.9
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 262.8
+          "nombre": "EBIT (M€)",
+          "valor": 275.2
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 206.9
         },
         {
           "nombre": "FFO (M€)",
-          "valor": 463
+          "valor": 463.0
         },
         {
           "nombre": "Deuda neta (M€)",
           "valor": 2347
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 124.6
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": 39.7
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -11.7
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": -8.9
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.4
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 19.7
+          "valor": 27.4
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 117.3
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 6.6
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -596,12 +684,20 @@
       "resumen": "ÁMBAR: BDI recuperado a 339 M€ y desapalancamiento (DN 2.475 M€), pero EBITDA sigue en declive (−11% YoY) y el dividendo ya recortado a 1,00 €. Tesis de MANTENER intacta.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 976.8
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 675.7
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 339.1
+          "nombre": "EBIT (M€)",
+          "valor": 368.1
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 266.3
         },
         {
           "nombre": "FFO (M€)",
@@ -612,28 +708,28 @@
           "valor": 2475
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 161
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": -74.6
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -11.2
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": 213.3
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": "Pte. Revisión"
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.6
         },
         {
           "nombre": "FFO/DN (%)",
           "valor": 25.7
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.1
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 164.0
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 7.4
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ]
     },
@@ -646,11 +742,19 @@
       "resumen": "ÁMBAR: EBITDA acumulado −10% YoY (147,6 vs 163,9 M€) por menor retribución; deuda neta estable en 2.456 M€. Segundo ámbar consecutivo tras FY-2025 → activa S6 (mini-revisión de tendencia).",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 227.4
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 147.6
         },
         {
-          "nombre": "BDI (M€)",
+          "nombre": "EBIT (M€)",
+          "valor": 71.9
+        },
+        {
+          "nombre": "BDI rec. (M€)",
           "valor": 56.9
         },
         {
@@ -662,28 +766,28 @@
           "valor": 2456
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 41.3
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": -26
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -9.9
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -12.7
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": -12.9
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.7
         },
         {
           "nombre": "FFO/DN (%)",
-          "valor": 5
+          "valor": 25.2
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.0
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 37.6
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 4.2
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ],
       "hechos": [
@@ -704,12 +808,20 @@
       "resumen": "ÁMBAR: declive estructural del gas en MODERACIÓN, tesis MANTENER intacta. EBITDA −4,7% (314 M€, vs −14,6% hace un año) y BDI recurrente −8,6% (118,6 M€, en línea con objetivo 235 M€); el BDI reportado (126,9, −27,9%) está distorsionado por +46,3 M€ de plusvalías en el S1-2025. Balance fuerte: deuda neta 2.305 M€, FFO/DN 27,4%, coste 2,0%. Rotación de activos hacia transporte regulado europeo (compra 31,5% de Teréga 573 M€ y 20% de Saggas; venta 40% de Enagás Renovable). El marco 2027-2032 avanza (CNMC→Consejo de Estado). S6: tendencia no adversa, sin escalar a S2. Dividendo 1,00 € estable.",
       "metricas": [
         {
+          "nombre": "Ingresos (M€)",
+          "valor": 464.4
+        },
+        {
           "nombre": "EBITDA (M€)",
           "valor": 314.0
         },
         {
-          "nombre": "BDI (M€)",
-          "valor": 126.9
+          "nombre": "EBIT (M€)",
+          "valor": 162.7
+        },
+        {
+          "nombre": "BDI rec. (M€)",
+          "valor": 118.6
         },
         {
           "nombre": "FFO (M€)",
@@ -720,28 +832,28 @@
           "valor": 2305
         },
         {
-          "nombre": "Div. participadas (M€)",
-          "valor": 96.7
-        },
-        {
-          "nombre": "Inversión neta (M€)",
-          "valor": -5.5
-        },
-        {
-          "nombre": "Var. EBITDA YoY (%)",
-          "valor": -4.7
-        },
-        {
-          "nombre": "Var. BDI YoY (%)",
-          "valor": -27.9
-        },
-        {
-          "nombre": "Var. FFO YoY (%)",
-          "valor": -1.3
+          "nombre": "DN/EBITDA aj (x)",
+          "valor": 3.4
         },
         {
           "nombre": "FFO/DN (%)",
           "valor": 27.4
+        },
+        {
+          "nombre": "Coste deuda (%)",
+          "valor": 2.0
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 96.7
+        },
+        {
+          "nombre": "Demanda gas (%var)",
+          "valor": 0.4
+        },
+        {
+          "nombre": "Disponibilidad (%)",
+          "valor": 100
         }
       ],
       "hechos": [
