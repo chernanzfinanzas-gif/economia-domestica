@@ -277,12 +277,12 @@ function _emCard(r,compact){
   var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+(ac.comprar?(' data-comprar="'+ac.comprar+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
   /* Colapsable: en el Kanban las fichas abren mini (nombre+arquetipo+estado) y se
      expanden al pinchar la cabecera. Las de la banda "Necesita tu acción" (compact) van siempre abiertas. */
-  var expanded = compact ? true : !!(window._emExp && window._emExp[r.t]);
-  var caret = compact ? '' : '<span class="em-caret">'+(expanded?'\u25be':'\u25b8')+'</span>';
+  var expanded = !!(window._emExp && window._emExp[r.t]);
+  var caret = '<span class="em-caret">'+(expanded?'\u25be':'\u25b8')+'</span>';
   var zoneChip = (r.col==='seg' && r.held) ? _emZoneChip(r) : '';
   var distChip = (r.col==='ana') ? _emDistChip(r) : '';
   var _doss=_emDossHref(r); var _dossIco=_doss?('<a class="em-doss" href="'+_doss+'" target="_blank" rel="noopener" title="Abrir dossier de análisis">📄</a>'):'';
-  var head = '<div class="em-head"'+(compact?'':(' data-emtoggle="'+r.t+'"'))+'>'
+  var head = '<div class="em-head" data-emtoggle="'+r.t+'">'
     + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
     + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+zoneChip+distChip+'</div>'
     + '</div>';
