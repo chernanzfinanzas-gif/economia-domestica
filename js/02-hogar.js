@@ -300,9 +300,9 @@ function _infEnsurePrint(){
       /* ===== visibilidad / pagina ===== */
       '#informePrint,#informeRunFoot{display:none}',
       '#informePrint{-webkit-print-color-adjust:exact;print-color-adjust:exact}',
-      '@media print{ body>*:not(#informePrint):not(#informeRunFoot){display:none!important} #informePrint{display:block!important} #informeRunFoot{display:flex!important} @page{margin:13mm 12mm 17mm} }',
+      '@media print{ html,body{background:#fff!important} body>*:not(#informePrint):not(#informeRunFoot){display:none!important} #informePrint{display:block!important} #informeRunFoot{display:flex!important} @page{margin:13mm 12mm 17mm} }',
       /* ===== base ===== */
-      "#informePrint{font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;color:#1f2933;font-size:13px;line-height:1.42;padding:2px}",
+      "#informePrint{font-family:'Helvetica Neue',Arial,Helvetica,sans-serif;color:#1f2933;font-size:13px;line-height:1.42;padding:2px;background:#fff}",
       '#informePrint .muted{color:#6b7280}',
       /* ===== portada dedicada ===== */
       '#informePrint .infCover{page-break-after:always;break-after:page;text-align:center;padding:24mm 6mm 0}',
@@ -324,9 +324,10 @@ function _infEnsurePrint(){
       '#informePrint h3{font-size:13px;margin:11px 0 4px;color:#2E7D42;font-weight:700;break-after:avoid;page-break-after:avoid}',
       /* ===== KPIs / contadores grandes ===== */
       '#informePrint .kpis{display:flex;flex-wrap:wrap;gap:8px;margin:9px 0 12px}',
-      '#informePrint .kpi{flex:1 1 0;min-width:84px;border:1px solid #e0e5ec;border-radius:9px;padding:8px 9px 7px;text-align:center;background:#fbfcfd}',
-      '#informePrint .kpi .l{font-size:9.5px;color:#8a97a6;text-transform:uppercase;letter-spacing:.6px;font-weight:600}',
-      '#informePrint .kpi .v{font-size:22px;font-weight:800;color:#16304e;margin-top:3px;line-height:1.1}',
+      '#informePrint .kpi{flex:1 1 0;min-width:96px;border:1px solid #e0e5ec;border-radius:9px;padding:9px 10px 8px;text-align:center;background:#fbfcfd}',
+      '#informePrint .kpi .l{font-size:9px;color:#8a97a6;text-transform:uppercase;letter-spacing:.5px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}',
+      '#informePrint .kpi .v{font-size:16px;font-weight:800;color:#16304e;margin-top:4px;line-height:1.15;letter-spacing:-.2px}',
+      '#informePrint .kpi .v span{font-size:inherit}',
       /* ===== tablas ===== */
       '#informePrint table{width:100%;border-collapse:collapse;font-size:11.5px;margin:3px 0 10px}',
       '#informePrint th,#informePrint td{border:1px solid #e4e8ee;padding:4px 8px;text-align:left;vertical-align:top}',
