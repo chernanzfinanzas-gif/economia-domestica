@@ -535,6 +535,100 @@
           "valoracion": "Mejora liquidez e indexación de la acción; reduce el descuento por iliquidez."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-22",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2026 VERDE: resuelve el ámbar del S1-2025. EBITDA +4,5% (2.975 M€, récord de un 1S) y beneficio neto +5,9% (1.215 M€); DN/EBITDA baja a 2,2x con deuda neta 11.745 M€ (−572 vs cierre 2025) y FCL neto +729 M€. Margen 29,5%, renovables 8,4 GW. Guía 2026 REVISADA AL ALZA (EBITDA >5.500 M€, BN >2.100). Free float ~46% tras salir CVC y GIP. Rating BBB estable. Tesis income intacta.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 10097
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 2975
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": 29.5
+        },
+        {
+          "nombre": "Rtdo neto M€",
+          "valor": 1215
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 4.5
+        },
+        {
+          "nombre": "Capex M€",
+          "valor": 844
+        },
+        {
+          "nombre": "FFO M€",
+          "valor": 1259
+        },
+        {
+          "nombre": "Deuda neta M€",
+          "valor": 11745
+        },
+        {
+          "nombre": "DN/ EBITDA",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Renov. GW",
+          "valor": 8.4
+        },
+        {
+          "nombre": "BPA €",
+          "valor": 1.31
+        },
+        {
+          "nombre": "Nº acc. M",
+          "valor": 930.4
+        },
+        {
+          "nombre": "Recompra M€",
+          "valor": null
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "impacto": "+",
+          "hecho": "CVC (Rioja, 13,8%) y GIP (11,4%) completan su salida del capital; el free float sube a ~46% (máximo histórico) y Criteria Caixa alcanza el 28,5%.",
+          "valoracion": "Disuelve el overhang que pesaba sobre la acción y mejora la liquidez e indexación; reduce el riesgo de bloques vendedores y refuerza la tesis income."
+        },
+        {
+          "tipo": "Gobierno",
+          "impacto": "+",
+          "hecho": "Elimina la mayoría reforzada del consejo vigente desde 2016 (ahora mayoría simple), reorganiza las comisiones e incorpora a Enrico Letta como consejero independiente.",
+          "valoracion": "Gobernanza más ágil y alineada con mejores prácticas; facilita la ejecución del plan y la supervisión de la inversión."
+        },
+        {
+          "tipo": "Guidance",
+          "impacto": "+",
+          "hecho": "Revisa al alza la previsión 2026: EBITDA superior a 5.500 M€ y beneficio neto superior a 2.100 M€, con deuda neta en el entorno de 13.000 M€.",
+          "valoracion": "Mejora sobre la guía previa (~5.300 EBITDA / ~2.000 BN / ~13.500 deuda); da soporte al semáforo verde y a la visibilidad de resultados."
+        },
+        {
+          "tipo": "Regulatorio",
+          "impacto": "=",
+          "hecho": "La CNMC remitió al Consejo de Estado (29-jun-2026) su propuesta de circular final con la metodología de retribución de la distribución de gas en España para 2027-2032.",
+          "valoracion": "A vigilar en §10.4: es una propuesta, sin impacto cuantificado; podría ajustar la tasa del negocio de redes de gas en el próximo periodo regulatorio."
+        },
+        {
+          "tipo": "Dividendo",
+          "impacto": "+",
+          "hecho": "Aprueba un primer dividendo a cuenta de 2026 de 0,60 €/acción (pago 29-jul-2026); el dividendo total de 2025 quedó en 1,77 €/acción (+10,6%).",
+          "valoracion": "Mantiene la trayectoria de retribución creciente que ancla la tesis de renta, cubierta por el FCL del periodo."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ],
   "schemaVersion": 2
