@@ -19,7 +19,7 @@ var _DF_SHORT={
 'SLR':'Solaria','TLGO':'Talgo','TEF':'Telefónica','TUB':'Tubacex','TRG':'T.Reunidos','TRE':'Técnicas R.','UNI':'Unicaja','UBS':'Urbas','VID':'Vidrala','VIS':'Viscofan','VOC':'Vocento','ARM':'Árima'
 };
 function _dfUp(t){ return (''+(t||'')).toUpperCase(); }
-function _dfNum(x){ return (typeof num==='function')?num(x):(parseFloat((''+x).replace(',','.'))||0); }
+function _dfNum(x){ var t=(''+(x==null?'':x)).trim(); if(t==='')return NaN; if(t.indexOf(',')>=0){ t=t.replace(/\./g,'').replace(',','.'); } return parseFloat(t); }
 function _dfHoriz(){ var h=_dfNum((DB.planLotePeriodo||{}).hasta); return h>0?h:( (new Date().getFullYear())+8 ); }
 function _dfCur(){ return new Date().getFullYear(); }
 function _dfYears(){ var y0=_dfCur(), y1=Math.max(y0, _dfHoriz()); var a=[]; for(var y=y0;y<=y1;y++)a.push(y); return a; }
@@ -32,8 +32,16 @@ function _dfUniverso(){
   try{ Object.keys(DB.divData||{}).forEach(function(t){ s[_dfUp(t)]=1; }); }catch(_){}
   return Object.keys(s);
 }
-/* valor REAL (sin proyección %): dpaBruto de la base. null si no hay dato. */
-function _dfReal(t,y){ try{ return (typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null; }catch(_){ return null; } }
+/* valor a mostrar (sin proyección %): pasado/actual = real; futuro = override anotado o real>0. */
+function _dfReal(t,y){
+  var real=null; try{ real=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null; }catch(_){}
+  if(y>_dfCur()){
+    var ov=null; try{ ov=(typeof _evoOverride==='function')?_evoOverride(t,y):null; }catch(_){}
+    if(ov!=null) return ov;
+    return (real!=null && real>0)?real:null;   /* ignora 0/placeholder en futuro */
+  }
+  return real;
+}
 function _dfFmt(x){ if(x==null)return ''; var s=(Math.round(x*10000)/10000).toString(); return s.replace('.',','); }
 /* Borrador en memoria de lo tecleado (por año → ticker → valor string). */
 var _dfDraft={};
@@ -97,9 +105,14 @@ function _dfVolcar(){
   Object.keys(d).forEach(function(t){
     var raw=(''+d[t]).trim(); if(raw==='') return;
     var v=_dfNum(raw); if(!(v>=0)) return;
-    var prev=_dfReal(t,_dfYear);
-    var ay=_evoEnsure(t,_dfYear); ay.dpaBruto=v; ay.totalPrevisto=true;
-    if(prev==null) nue++; else if(Math.abs(_dfNum(prev)-v)>1e-9) act++;
+    var prev=null; try{ prev=(typeof _evoOverride==='function')?_evoOverride(t,_dfYear):null; }catch(_){}
+    if(prev==null){ var pr2=_dfReal(t,_dfYear); if(pr2!=null)prev=_dfNum(pr2); }
+    /* escribir en AMBAS capas: divOverride (lo lee la vista Evolución) y divData/dpaBruto (lo leen
+       los consumidores vía evoDpaProyectado). Así el valor gana en todos los caminos. */
+    DB.divOverride=DB.divOverride||{}; DB.divOverride[t]=DB.divOverride[t]||{}; DB.divOverride[t][String(_dfYear)]=v;
+    /* limpiar cualquier resto en divData para ese año futuro (así el override manda y no se ensombrece). */
+    try{ var dd=(DB.divData||{})[t]; if(dd&&dd.anios&&dd.anios[String(_dfYear)]){ delete dd.anios[String(_dfYear)].dpaBruto; delete dd.anios[String(_dfYear)].dpaNeto; delete dd.anios[String(_dfYear)].totalPrevisto; } }catch(_){}
+    if(prev==null) nue++; else if(Math.abs(prev-v)>1e-9) act++;
   });
   _dfDraft[y]={};
   if(typeof scheduleSave==='function')scheduleSave();
