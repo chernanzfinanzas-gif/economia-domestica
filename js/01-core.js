@@ -411,6 +411,8 @@ function infHeaderHTML(titulo, subtitulo, logoSrc, imgAttrs){
 }
 
 function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if(typeof renderInfoBoxes==='function')renderInfoBoxes();
+  /* Corrección de nombres de empresa que quedaron como el propio ticker (placeholder). Idempotente. */
+  try{ var _fixN={SAB:'Banco Sabadell, S.A.', DIA:'Distribuidora Internacional de Alimentación, S.A.'}; DB.valores=DB.valores||{}; Object.keys(_fixN).forEach(function(t){ var v=DB.valores[t]; if(v && (!v.nombre || v.nombre===t)){ v.nombre=_fixN[t]; } }); }catch(e){}
   $('#welcome').style.display='none';
   $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
   $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-panel'));
@@ -497,8 +499,26 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   renderAll();
   if(typeof sincronizarCotizaciones==='function') sincronizarCotizaciones();
   if(typeof cargarDossiers==='function') cargarDossiers();
+  /* Consolidación de dividendos: divAccion (dividendo actual) se sincroniza desde dividendos.json,
+     que es la única fuente. Se hace tras cargar dividendos.json (asíncrono). */
+  if(typeof _evoCargar==='function'){ _evoCargar().then(function(){ try{ if(typeof syncDivAccionDeDividendos==='function' && syncDivAccionDeDividendos()>0 && typeof renderAll==='function') renderAll(); }catch(e){} }); }
   const _fm=(location.hash||'').match(/ficha=([^&]+)/);
   if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
+}
+
+/* ---- Consolidación de dividendos: divAccion se deriva de dividendos.json (Evolución del Dividendo) ---- */
+function syncDivAccionDeDividendos(){
+  if(typeof evoDpaProyectado!=='function') return 0;
+  var ny=new Date().getFullYear(), n=0;
+  DB.valores=DB.valores||{};
+  Object.keys(DB.valores).forEach(function(t){
+    var d=evoDpaProyectado(t, ny);   /* dato real del año en curso en dividendos.json (o null si no lo tiene) */
+    if(d==null) return;
+    d=num(d);
+    if(DB.valores[t].divAccion!==d){ DB.valores[t].divAccion=d; n++; }
+  });
+  if(n && typeof scheduleSave==='function') scheduleSave();
+  return n;
 }
 
 /* ---- Estado de una empresa para colorear filas (cartera / analizada) ---- */
