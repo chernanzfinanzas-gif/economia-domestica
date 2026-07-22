@@ -210,14 +210,14 @@ function _emRow(t){
 /* ---------- render ---------- */
 function renderEmbudo(){
   var sec=document.getElementById('view-embudo'); if(!sec)return;
-  DB.embudo=DB.embudo||{};
+  DB.embudo=DB.embudo||{}; _emProxCache=null; _emIdxCache=null; _emVerCache=null; _emEnsureDossiers();
   var rows=_emAllTickers().map(_emRow).filter(Boolean);
   var byT={}; rows.forEach(function(r){ byT[r.t]=r; });
 
   var cols={sel:[],ana:[],plan:[],seg:[],cerr:[]};
   rows.forEach(function(r){ cols[r.col].push(r); });
   var metric={ seg:function(r){return _emPosPeso(r.t);}, plan:function(r){return r.score||0;}, ana:function(r){return r.score||0;}, sel:function(r){return _emAtractivo(r.t);}, cerr:function(r){return 0;} };
-  Object.keys(cols).forEach(function(c){ cols[c].sort(function(x,y){ return (x.urg-y.urg) || (metric[c](y)-metric[c](x)); }); });
+  Object.keys(cols).forEach(function(c){ if(c==='ana'){ cols[c].sort(_emAnaSort); return; } cols[c].sort(function(x,y){ return (x.urg-y.urg) || (metric[c](y)-metric[c](x)); }); });
 
   /* banda: rank asc, luego urgencia, luego score/peso desc */
   var band=rows.filter(function(r){return r.band;}).sort(function(x,y){
@@ -230,6 +230,7 @@ function renderEmbudo(){
   H+=_emLegend();
   H+=_emDivRiesgoStrip();
   H+=_emAgenda();
+  H+=_emCajaKpis();
   H+=_emBand(band);
   H+=_emKanban(cols);
   H+=_emClosed(cols.cerr);
@@ -278,14 +279,21 @@ function _emCard(r,compact){
      expanden al pinchar la cabecera. Las de la banda "Necesita tu acción" (compact) van siempre abiertas. */
   var expanded = compact ? true : !!(window._emExp && window._emExp[r.t]);
   var caret = compact ? '' : '<span class="em-caret">'+(expanded?'\u25be':'\u25b8')+'</span>';
+  var zoneChip = (r.col==='seg' && r.held) ? _emZoneChip(r) : '';
+  var distChip = (r.col==='ana') ? _emDistChip(r) : '';
+  var _doss=_emDossHref(r); var _dossIco=_doss?('<a class="em-doss" href="'+_doss+'" target="_blank" rel="noopener" title="Abrir dossier de análisis">📄</a>'):'';
   var head = '<div class="em-head"'+(compact?'':(' data-emtoggle="'+r.t+'"'))+'>'
-    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'">'+r.t+'</span><span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
-    + '<div class="em-et">'+_emEsc(r.et)+'</div>'
+    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
+    + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+zoneChip+distChip+'</div>'
     + '</div>';
+  var dim = ((r.col==='plan') || (r.col==='seg' && r.planPend>0)) ? _emDimBlock(r) : '';
+  var ref = _emRefBlock(r);
   var more = expanded ? (''
     + (exBadge?('<div>'+exBadge+'</div>'):'')
     + (pinBadge?('<div>'+pinBadge+'</div>'):'')
     + (metricLine?('<div class="em-metric">'+metricLine+'</div>'):'')
+    + ref
+    + dim
     + acc
     + _emCierresBtn(r)
     + (r.held?_emWhyBlock(r):'')
@@ -299,17 +307,19 @@ function _emMetricLine(r){
   if(held){
     var bits=[];
     if(r.score!=null)bits.push('Score '+Math.round(r.score));
+    var _rph=_emRpd(r.t); if(_rph!=null)bits.push('RPD '+_rph.toFixed(1).replace('.',',')+'%');
     if(r.planPend>0)bits.push('plan: faltan <b>'+_emEur(r.planPend)+'</b>'+(_emPlanProxAnio(r.t)?' ('+_emPlanProxAnio(r.t)+')':''));
     else bits.push('plan completo');
     var _pr=proxRevDe(r.t); if(_pr){ var _rd=_emRevDias(r.t); bits.push('revisión '+_pr+(_rd!=null?(_rd<0?' <b style="color:#dc2626">(vencida)</b>':(_rd<=30?' (en '+_rd+'d)':'')):'')+' <span class="em-revedit" data-emrevedit="'+r.t+'" title="Cambiar fecha de revisión">✎</span>'); }
-    return bits.join(' · ');
+    var _pch=_emPotChip(r); return bits.join(' · ')+(_pch?' '+_pch:'');
   }
   var m=[];
   if(r.score!=null)m.push('Score <b>'+Math.round(r.score)+'</b>');
   if(cot>0)m.push('cot '+_emEur(cot));
   if(eM>0)m.push('ent '+_emEur(eM));
+  var _rp=_emRpd(r.t); if(_rp!=null)m.push('RPD '+_rp.toFixed(1).replace('.',',')+'%');
   if(a&&a.decision)m.push(_emEsc(_emUp(a.decision)));
-  return m.join(' · ');
+  var _pch=_emPotChip(r); return m.join(' · ')+(_pch?' '+_pch:'');
 }
 function _emMover(r){
   var opts=[['','Auto'],['Vigilada','Vigilada'],['En análisis','En análisis'],['En zona','Planteamiento'],['Descartada','Descartada']];
@@ -317,6 +327,196 @@ function _emMover(r){
   var o=opts.map(function(x){ return '<option value="'+x[0]+'"'+(x[0]===cur?' selected':'')+'>'+x[1]+'</option>'; }).join('');
   return '<select class="em-mov" data-emmov="'+r.t+'" title="Mover de columna (pin manual)">'+o+'</select>';
 }
+
+/* ---------- Dimensionamiento de compra (Próxima compra dentro del Kanban) ---------- */
+/* Reutiliza proximaCompra() (04-plan.js): caja de hoy + rec €/acciones/prioridad por ticker. */
+var _emProxCache=null;
+function _emProxMap(){
+  if(_emProxCache)return _emProxCache; var m={caja:null,by:{}};
+  try{ if(typeof proximaCompra==='function'){ var M=proximaCompra(); if(M){ m.caja=(M.cajaHoy!=null)?M.cajaHoy:null;
+    (M.items||[]).forEach(function(x){ m.by[x.t]={cot:x.cot,entMax:x.entMax,prio:x.prio,gap:x.gap,rec:null,acc:null,rank:null}; });
+    (M.cand||[]).forEach(function(x,i){ var o=m.by[x.t]||(m.by[x.t]={}); o.cot=x.cot;o.entMax=x.entMax;o.prio=x.prio;o.gap=x.gap;o.rec=x.rec;o.acc=x.acc;o.rank=i+1; });
+  } } }catch(e){}
+  _emProxCache=m; return m;
+}
+/* €/acciones desplegables ahora: min(caja disponible, objetivo) / cotización */
+function _emBuyPlan(r){
+  var P=_emProxMap(), d=P.by[r.t]||{}, a=r.a;
+  var cot=_emNum(a&&a.cotizacion)||_emNum(d.cot), eM=_emNum(a&&a.entMax)||_emNum(d.entMax);
+  var ptePlan=_emPlanPendEur(r.t);
+  var target=r.held?ptePlan:_emNum(d.rec!=null?d.rec:d.gap);
+  var caja=P.caja, cajaKnown=(caja!=null&&caja>=0);
+  var recom=Math.round(cajaKnown?Math.min(caja,(target>0?target:caja)):target);
+  var acc=(cot>0&&recom>0)?Math.floor(recom/cot):0;
+  return {cot:cot,eM:eM,ptePlan:ptePlan,recom:recom,caja:caja,cajaKnown:cajaKnown,acc:acc,
+          rank:d.rank||null, prio:(d.prio!=null)?Math.round(d.prio):null, held:!!r.held};
+}
+/* Termómetro de precio con TODOS los niveles de Análisis: stop · ent.mín · ent · PO− · PO · PO+
+   + punto de cotización. Versión propia del Kanban (no toca el de Tesis/Ficha). */
+function _emBar(V){
+  var precio=V.precio,stop=V.stop,entMin=V.entMin,ent=V.entMax,poMin=V.poMin,pob=V.poBase,pobull=V.poBull;
+  var C=(typeof TZ_COL!=='undefined')?TZ_COL:{ok:'#16a34a',mid:'#d97706',bad:'#dc2626',na:'#94a3b8',blue:'#2563eb'};
+  var pts=[stop,entMin,ent,precio,poMin,pob,pobull].filter(function(x){return x!=null&&x>0;});
+  if(!(precio>0)||pts.length<2)return '';
+  var lo=Math.min.apply(null,pts)*0.97,hi=Math.max.apply(null,pts)*1.03,rng=hi-lo||1;
+  var X=function(v){return ((v-lo)/rng)*100;};
+  var segs='';
+  if(ent>0)segs+='<rect x="0" y="9" width="'+X(ent)+'" height="6" fill="'+C.ok+'" opacity="0.28"/>';
+  if(ent>0&&pob>0)segs+='<rect x="'+X(ent)+'" y="9" width="'+Math.max(0,X(pob)-X(ent))+'" height="6" fill="'+C.mid+'" opacity="0.28"/>';
+  if(pob>0)segs+='<rect x="'+X(pob)+'" y="9" width="'+Math.max(0,100-X(pob))+'" height="6" fill="'+C.bad+'" opacity="0.24"/>';
+  var fm=(typeof _tzFmt==='function')?_tzFmt:function(x){return (typeof fmt==='function')?fmt(x):(''+x);};
+  var mk=function(v,col,lab,up){ if(!(v>0))return ''; var x=X(v); return '<line x1="'+x+'" y1="7" x2="'+x+'" y2="17" stroke="'+col+'" stroke-width="0.8"/>'+
+    '<text x="'+Math.max(2,Math.min(98,x))+'" y="'+(up?5:24)+'" text-anchor="middle" font-size="3" fill="'+col+'">'+lab+'</text>'; };
+  var marks=mk(stop,C.bad,'stop',true)+mk(entMin,C.ok,'ent.mín',false)+mk(ent,C.ok,'ent',true)+mk(poMin,C.blue,'PO−',false)+mk(pob,C.blue,'PO',true)+mk(pobull,'#7c3aed','PO+',false);
+  var px=X(precio); var pcol=(ent>0&&precio<=ent)?C.ok:(pob>0&&precio<=pob?C.mid:C.bad);
+  var dot='<circle cx="'+px+'" cy="12" r="2.4" fill="'+pcol+'" stroke="#fff" stroke-width="0.6"/>'+
+    '<text x="'+Math.max(3,Math.min(97,px))+'" y="30" text-anchor="middle" font-size="3.2" font-weight="700" fill="'+pcol+'">'+fm(precio)+'</text>';
+  return '<svg viewBox="0 0 100 32" style="width:100%;height:auto;max-height:66px" xmlns="http://www.w3.org/2000/svg">'+segs+'<line x1="0" y1="12" x2="100" y2="12" stroke="#cbd5e1" stroke-width="0.4"/>'+marks+dot+'</svg>';
+}
+function _emPriceBar(r){ var a=r.a; if(!a)return '';
+  var precio=_emNum(a.cotizacion)||((typeof _tzPrecio==='function')?_emNum(_tzPrecio(r.t)):0);
+  var entMax=_emNum(a.entMax), entMin=_emNum(a.entMin), stop=_emNum(a.stopTesis), poBull=_emNum(a.poMax), poBear=_emNum(a.poMin);
+  var poBase=_emNum(a.precioObjetivo)||((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||0));
+  if(!(precio>0)||!(entMax>0||poBase>0))return '';
+  var svg=_emBar({precio:precio,stop:stop,entMin:entMin,entMax:entMax,poMin:poBear,poBase:poBase,poBull:poBull});
+  return svg?('<div class="em-pbar">'+svg+'</div>'):'';
+}
+/* --------- Integración de Tesis (semáforo, potencial, dividendo, catalizadores/riesgos) --------- */
+var _emVerCache=null;
+function _emVer(t){ t=_emUp(t); if(!_emVerCache)_emVerCache={}; if(_emVerCache[t]!==undefined)return _emVerCache[t];
+  var V=null; if(typeof tesisVeredicto==='function'){ try{ V=tesisVeredicto(t); }catch(e){} } _emVerCache[t]=V; return V; }
+function _emDossHref(r){ var a=r.a; var u=(typeof dossierURL==='function')?dossierURL(r.t,a&&a.dossierUrl):((a&&a.dossierUrl)||''); return u||''; }
+function _emPot(r){ var a=r.a; if(!a)return null; var cot=_emNum(a.cotizacion); var mn=_emNum(a.poMin),mx=_emNum(a.poMax);
+  var po=(mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0); if(!(cot>0&&po>0))return null; return (po/cot-1)*100; }
+function _emPotChip(r){ var p=_emPot(r); if(p==null)return ''; var pos=p>=0;
+  return '<span class="em-pot'+(pos?'':' neg')+'" title="Potencial hasta tu precio objetivo (PO base)">'+(pos?'+':'')+p.toFixed(0)+'% vs PO</span>'; }
+function _emLuzCol(estado){ var m={APTA:'ok',DUDA:'mid',DESCARTA:'bad',ENZONA:'ok',ZONAFLOJA:'mid',CERCA:'mid',CARA:'bad',STOP:'bad',SINDATO:'na',SOLIDA:'ok',DEBIL:'bad',NA:'na'};
+  var k=m[estado]||'na'; return (typeof TZ_COL!=='undefined'&&TZ_COL[k])||({ok:'#16a34a',mid:'#d97706',bad:'#dc2626',na:'#94a3b8'}[k]); }
+var _EM_VSHORT={INVERTIR:'Invertir',ESPERAR:'Vigilar',FUERA:'Fuera'};
+function _emSemBlock(r){ var V=_emVer(r.t); if(!V)return '';
+  var c1=_emLuzCol(V.c1),c2=_emLuzCol(V.c2),c3=_emLuzCol(V.c3);
+  var vc=(typeof TZ_VCOL!=='undefined'&&TZ_VCOL[V.v])||'#64748b', vl=_EM_VSHORT[V.v]||V.v||'—';
+  return '<div class="em-sem" data-emsem="'+r.t+'" title="Semáforo de decisión — pulsa para ver por qué">'
+    +'<span class="d" style="background:'+c1+'"></span><span class="d" style="background:'+c2+'"></span><span class="d" style="background:'+c3+'"></span>'
+    +'<b style="color:'+vc+'">'+_emEsc(vl)+'</b><span class="i">ⓘ ver semáforo</span></div>'; }
+function _emSemPop(t){ t=_emUp(t); var V=_emVer(t); if(!V)return;
+  var prev=document.getElementById('em-sem-modal'); if(prev)prev.remove();
+  var vc=(typeof TZ_VCOL!=='undefined'&&TZ_VCOL[V.v])||'#0f172a', vl=(typeof TZ_VLBL!=='undefined'&&TZ_VLBL[V.v])||V.v||'';
+  var body=(typeof _tzSubluces==='function')?_tzSubluces(V):'';
+  var ov=document.createElement('div'); ov.id='em-sem-modal'; ov.className='em-modal-ov';
+  ov.innerHTML='<div class="em-modal"><div class="em-modal-h" style="background:'+vc+'">🚦 '+_emEsc(t)+' — '+_emEsc(vl)+'</div><div class="em-modal-b">'+body+(V.frase?'<div class="em-modal-f">'+_emEsc(V.frase)+'</div>':'')+'</div><div class="em-modal-x"><button class="btn ghost sm" data-emsemx="1">Cerrar</button></div></div>';
+  document.body.appendChild(ov);
+  ov.addEventListener('click',function(e){ if(e.target===ov||e.target.closest('[data-emsemx]'))ov.remove(); }); }
+function _emDivBlock(r){ if(typeof _tzDivChart!=='function')return ''; if(_emRpd(r.t)==null)return '';
+  var open=!!(window._emDivOpen&&window._emDivOpen[r.t]);
+  var h='<div class="em-divbtn" data-emdiv="'+r.t+'">💧 Historial del dividendo <span class="arw">'+(open?'▾':'▸')+'</span></div>';
+  if(open){ var c=''; try{ c=_tzDivChart(r.t); }catch(e){} h+='<div class="em-divwrap">'+(c||'<div class="muted" style="font-size:11px">Sin histórico de dividendo.</div>')+'</div>'; }
+  return h; }
+function _emVigBlock(r){ var V=_emVer(r.t); if(!V)return ''; var cats=V.catalizadores||[], ris=V.riesgos||[];
+  if(!cats.length&&!ris.length&&!V.bull&&!V.bear)return '';
+  var open=!!(window._emVigOpen&&window._emVigOpen[r.t]);
+  var h='<div class="em-vigbtn" data-emvig="'+r.t+'">🔍 Vigilar — catalizadores / riesgos <span class="arw">'+(open?'▾':'▸')+'</span></div>';
+  if(open){ var li=function(arr){ if(!arr||!arr.length)return '<div class="muted" style="font-size:10.5px">—</div>';
+      return '<ul>'+arr.slice(0,5).map(function(x){ var s=(typeof x==='string')?x:(x&&(x.titulo||x.texto||x.nombre)||''); return '<li>'+_emEsc(s)+'</li>'; }).join('')+'</ul>'; };
+    h+='<div class="em-vig"><div class="em-vig-c"><div class="h" style="color:#16a34a">▲ Catalizadores</div>'+li(cats)+'</div><div class="em-vig-c"><div class="h" style="color:#dc2626">▼ Riesgos</div>'+li(ris)+'</div></div>'; }
+  return h; }
+function _emEnsureDossiers(){ if(renderEmbudo._dossStarted)return; renderEmbudo._dossStarted=true;
+  if(typeof cargarDossiers!=='function')return;
+  try{ Promise.resolve(cargarDossiers()).then(function(){
+    var js=(typeof _tesisSet!=='undefined'&&_tesisSet)?Array.from(_tesisSet):[];
+    return Promise.all(js.map(function(t){ return (typeof cargarTesis==='function')?Promise.resolve(cargarTesis(t)).catch(function(){}):null; }));
+  }).then(function(){ try{ if(document.getElementById('view-embudo'))renderEmbudo(); }catch(e){} }); }catch(e){} }
+function _emDimBlock(r){
+  var b=_emBuyPlan(r);
+  var accNote=b.cajaKnown?('Caja disponible '+_emEur(b.caja)):'Caja bróker sin configurar (se usa el pendiente en plan)';
+  var cells=''
+    +'<div class="em-dc"><span>Prioridad</span><b>'+(b.rank?('#'+b.rank):(b.prio!=null?b.prio:'—'))+'</b></div>'
+    +'<div class="em-dc"><span>Capital recom.</span><b>'+(b.recom>0?_emEur(b.recom):'—')+'</b></div>'
+    +'<div class="em-dc" title="'+accNote+'"><span>Acc. con caja</span><b>'+(b.acc>0?(b.acc+' acc'):'—')+'</b></div>'
+    +'<div class="em-dc"><span>Pte en plan</span><b>'+(b.ptePlan>0?_emEur(b.ptePlan):'—')+'</b></div>';
+  var btns='<div class="em-dbtns"><button class="btn ghost sm" data-emplan="'+r.t+'" title="Añadir al Plan de compras del año">→ Plan</button> <button class="btn ghost sm" data-emcaja="'+r.t+'" title="Registrar la compra como salida en la Caja bróker (hoy)">→ Caja</button></div>';
+  return '<div class="em-dim">'+cells+'</div>'+btns;
+}
+/* --------- Índice de oportunidad (potencial a PO × calidad × RPD × seguridad del dividendo) ---------
+   Mismo cálculo que el «Ranking por margen de seguridad» de Próxima compra (04-plan.js). Se muestra
+   en TODAS las analizadas, normalizado al máximo del universo → barra + etiqueta alto/medio/bajo. */
+var _EM_RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+function _emDsFac(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'Seguro':0.9,'Vigilar':0.6,'Frágil':0.3,'Recorte probable':0.1}; var f=(m[ds.banda]!=null)?m[ds.banda]:(ds.score>=80?1:ds.score>=60?0.9:ds.score>=40?0.6:ds.score>=20?0.3:0.1); if(ds.topeDuro&&ds.topeDuro.activo)f=Math.min(f,0.3); return f; }
+function _emFoVeto(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo')); }
+function _emFoFac(fo){ if(!fo||!fo.aplica||!fo.flags||!fo.flags.length)return 1; return _emFoVeto(fo)?0.5:0.8; }
+function _emIdxRaw(t){ t=_emUp(t); var a=_emAna(t); if(!a)return null;
+  var cot=_emNum(a.cotizacion), mn=_emNum(a.poMin), mx=_emNum(a.poMax);
+  var po=(mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0);
+  if(!(cot>0&&po>0))return null;
+  var potF=Math.max(0,(po/cot-1));
+  var cal=_EM_RP[_emUp(a.rating)]||0;
+  var v=(DB.valores||{})[t]||{}; var da=_emNum(v.divAccion)||_emNum(a.divAccion); var rpd=cot>0?da/cot*100:0;
+  var _tc=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+  var sf=_emDsFac(a.dividendSafety||(_tc?_tc.dividendSafety:null)||null);
+  var ff=_emFoFac(a.forense||(_tc?_tc.forense:null)||null);
+  return potF*100*(cal/100)*rpd*sf*ff;
+}
+var _emIdxCache=null;
+function _emIdxMap(){ if(_emIdxCache)return _emIdxCache; var by={},max=0;
+  _emAllTickers().forEach(function(t){ var v=_emIdxRaw(t); if(v!=null){ by[t]=v; if(v>max)max=v; } });
+  _emIdxCache={by:by,max:max||1}; return _emIdxCache; }
+function _emIdxChip(r){ var M=_emIdxMap(); var v=M.by[r.t]; if(v==null)return '';
+  var rel=v/M.max, w=Math.max(4,Math.round(rel*100));
+  var q=rel>=0.66?'alto':(rel>=0.33?'medio':'bajo'), qc=rel>=0.66?'#16a34a':(rel>=0.33?'#d97706':'#dc2626');
+  return '<div class="em-idx" title="Índice de oportunidad = potencial a PO × calidad × RPD × seguridad del dividendo. Relativo al mejor del universo.">Índice op. <span class="bar"><i style="width:'+w+'%"></i></span><b>'+Math.round(v)+'</b> · <span class="q" style="color:'+qc+'">'+q+'</span></div>'; }
+/* Distancia por encima del precio de entrada (solo COMPRAR aún fuera de banda). */
+function _emDistEntrada(r){ var a=r.a; if(!a||_emUp(a.decision)!=='COMPRAR')return null;
+  var cot=_emNum(a.cotizacion), eM=_emNum(a.entMax); if(!(cot>0&&eM>0))return null;
+  var over=(cot/eM-1)*100; return over>0.05?over:null; }
+function _emDistChip(r){ var d=_emDistEntrada(r); if(d==null)return '';
+  var cls=d<=10?'d-near':(d<=25?'d-mid':'d-far');
+  return '<span class="em-dist '+cls+'" title="Cotiza un '+d.toFixed(0)+'% por encima de tu banda de entrada">▲ +'+d.toFixed(0)+'% de entrada'+(d>25?' · cara':'')+'</span>'; }
+function _emAnaSort(x,y){ var dx=_emDistEntrada(x), dy=_emDistEntrada(y); var hx=(dx!=null), hy=(dy!=null);
+  if(hx&&hy)return dx-dy; if(hx!==hy)return hx?-1:1; return (y.score||0)-(x.score||0); }
+/* Bloque de referencia (semáforo + índice + termómetro + dividendo + vigilar) para toda analizada. */
+function _emRefBlock(r){ if(!_emAnalizada(r.t))return '';
+  return _emSemBlock(r)+_emIdxChip(r)+_emPriceBar(r)+_emDivBlock(r)+_emVigBlock(r); }
+/* KPIs de la caja del bróker, encima de «Necesita tu acción». */
+function _emCajaKpis(){
+  var caja=(typeof _saldoCajaHoy==='function')?_saldoCajaHoy():null;
+  var hoy=new Date(); hoy.setHours(0,0,0,0);
+  var hoyS=hoy.toISOString().slice(0,10);
+  var lim=new Date(hoy.getTime()+30*86400000); var limS=lim.toISOString().slice(0,10);
+  var div=0,apor=0,otros=0;
+  if(typeof cajaMovs==='function'){ try{ cajaMovs().forEach(function(mv){ var f=(mv.fecha||''); if(f>hoyS&&f<=limS){ var e=_emNum(mv.entra); if(mv.div)div+=e; else if(mv.apor)apor+=e; else otros+=e; } }); }catch(e){} }
+  var ing=div+apor+otros;
+  var yr=(new Date()).getFullYear();
+  var pi=(typeof _planYearInfo==='function')?_planYearInfo(yr):null; var libre=pi?pi.remaining:null;
+  var subIng=(div||apor)?('div. '+_emEur(div)+' · aport. '+_emEur(apor)):'dividendos + aportaciones';
+  return '<div class="em-caja">'
+    +'<div class="em-cajac hero"><div class="l">💶 Caja bróker (hoy)</div><div class="v">'+(caja!=null?_emEur(caja):'sin configurar')+'</div><div class="p">disponible para comprar</div></div>'
+    +'<div class="em-cajac"><div class="l">📈 Ingresos previstos 30 d</div><div class="v'+(ing>0.005?' pos':'')+'">'+(ing>0.005?'+':'')+_emEur(ing)+'</div><div class="p">'+subIng+'</div></div>'
+    +'<div class="em-cajac"><div class="l">🗓️ Presupuesto libre '+yr+'</div><div class="v'+(libre!=null&&libre<0?' neg':'')+'">'+(libre!=null?_emEur(libre):'—')+'</div><div class="p">del Plan de compras</div></div>'
+    +'</div>';
+}
+/* Chip de zona para las de Seguimiento (En cartera): identifica las que pueden adelantarse
+   en el plan. Mismo margen sobre el precio de entrada que usa el embudo/Próxima compra. */
+function _emMargen(){ return (DB.config&&DB.config.embudoMargen!=null)?DB.config.embudoMargen:0.05; }
+function _emRpd(t){ if(typeof _tzRPD==='function'){ try{ var v=_tzRPD(_emUp(t)); if(v!=null)return v; }catch(e){} }
+  var a=_emAna(t), p=_emNum(a&&a.cotizacion), d=_emNum(a&&a.divAccion); return (p>0&&d>0)?(d/p*100):null; }
+function _emZoneChip(r){
+  var a=r.a; var cot=_emNum(a&&a.cotizacion), eM=_emNum(a&&a.entMax); if(!(cot>0&&eM>0))return '';
+  if(_emUp(a&&a.decision)==='VENDER')return '';
+  if(cot<=eM) return '<span class="em-zone z-in">🟢 en zona</span>';
+  var m=_emMargen(); if(cot<=eM*(1+m)){ var over=((cot/eM-1)*100).toFixed(0); return '<span class="em-zone z-near">🟡 cerca de zona +'+over+'%</span>'; }
+  return '';
+}
+function _emToPlan(t){ t=_emUp(t); var add=(typeof proxAddPlan==='function')?proxAddPlan(t):0;
+  if(add>0){ if(typeof toast==='function')toast('Añadido '+_emEur(add)+' al Plan'); }
+  else alert('No hay importe recomendado para el Plan de '+t+' (debe estar en zona de compra y con hueco vs objetivo de cartera).'); }
+function _emToCaja(t){ t=_emUp(t); var P=_emProxMap(), d=P.by[t]||{}, held=_emHeldSet().has(t);
+  var pend=held?_emPlanPendEur(t):_emNum(d.rec!=null?d.rec:d.gap);
+  var caja=P.caja, eur=Math.round((caja!=null&&caja>=0)?Math.min(caja,(pend>0?pend:caja)):pend);
+  if(!(eur>0)){ alert('No hay importe pendiente para registrar en Caja de '+t+'.'); return; }
+  var a=_emAna(t), cot=_emNum(a&&a.cotizacion)||_emNum(d.cot), acc=cot>0?Math.floor(eur/cot):0;
+  if(!confirm('¿Registrar compra de '+(acc?acc+' acc. ':'')+t+' por '+_emEur(eur)+' como salida en la Caja bróker (hoy)?'))return;
+  DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(acc?acc+' ':'')+t,entra:0,sale:eur});
+  if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
 function _emBand(band){
   if(!band.length)return '<div class="em-lane em-lane-empty">⚡ <b>Necesita tu acción</b> — nada pendiente ahora mismo. 👌</div>';
   var cards=band.map(function(r){ return _emCard(r,true); }).join('');
@@ -331,7 +531,8 @@ function _emKanban(cols){
     var vis=(d[0]==='sel')?list.filter(function(r){return r.et!=='Universo';}):list;
     var cards=vis.map(function(r){ return _emCard(r,false); }).join('') || '<div class="em-empty">—</div>';
     var uniStrip=uni.length?('<div class="em-uni" data-emuni="1">Universo — '+uni.length+' empresas sin marcar <span class="em-arw">▾</span></div>'):'';
-    h+='<div class="em-col"><div class="em-colh"><span>'+d[1]+'</span><span class="em-cc">'+vis.length+'</span></div>'+cards+uniStrip+'</div>';
+    var _lbl=d[1]+(d[0]==='ana'?' <span class="em-sort">· cerca→lejos entrada</span>':'');
+    h+='<div class="em-col"><div class="em-colh"><span>'+_lbl+'</span><span class="em-cc">'+vis.length+'</span></div>'+cards+uniStrip+'</div>';
   });
   h+='</div>';
   return h;
@@ -460,7 +661,13 @@ function _emBind(sec){
   if(sec._emBound)return; sec._emBound=true;
   sec.addEventListener('click',function(e){
     var ca=e.target.closest('[data-emcollapseall]'); if(ca){ window._emExp={}; renderEmbudo(); return; }
+    if(e.target.closest('a.em-doss')){ return; } /* enlace al dossier: dejar navegar (nueva pestaña) */
     var cz=e.target.closest('[data-emcierres]'); if(cz){ e.preventDefault(); _emCierresDescargar(cz.getAttribute('data-emcierres')); return; }
+    var esm=e.target.closest('[data-emsem]'); if(esm){ e.preventDefault(); _emSemPop(esm.getAttribute('data-emsem')); return; }
+    var edv=e.target.closest('[data-emdiv]'); if(edv){ var dt=_emUp(edv.getAttribute('data-emdiv')); window._emDivOpen=window._emDivOpen||{}; window._emDivOpen[dt]=!window._emDivOpen[dt]; renderEmbudo(); return; }
+    var evg=e.target.closest('[data-emvig]'); if(evg){ var vt=_emUp(evg.getAttribute('data-emvig')); window._emVigOpen=window._emVigOpen||{}; window._emVigOpen[vt]=!window._emVigOpen[vt]; renderEmbudo(); return; }
+    var ep=e.target.closest('[data-emplan]'); if(ep){ e.preventDefault(); _emToPlan(ep.getAttribute('data-emplan')); return; }
+    var ec=e.target.closest('[data-emcaja]'); if(ec){ e.preventDefault(); _emToCaja(ec.getAttribute('data-emcaja')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
@@ -507,12 +714,64 @@ function _emBind(sec){
     '.em-cc{background:#fff;border:1px solid #e2e8f0;border-radius:20px;font-size:11px;padding:1px 8px;color:#64748b}',
     '.em-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:10px;padding:9px 10px;margin-bottom:9px}',
     '.em-ct{display:flex;align-items:center;gap:7px;margin-bottom:3px}',
-    '.em-tk{font-weight:800;font-size:14px;color:#0f172a;cursor:pointer}',
+    '.em-tk{font-weight:800;font-size:14px;color:#0f172a;cursor:pointer;text-decoration:none;border-bottom:1.5px dotted #94a3b8}',
+    '.em-tk:hover{color:#2563eb;border-bottom-color:#2563eb}',
+    '.em-doss{font-size:13px;text-decoration:none;margin-left:5px;opacity:.85}.em-doss:hover{opacity:1}',
+    '.em-pot{display:inline-block;font-size:10px;font-weight:800;color:#166534;background:#dcfce7;border:1px solid #bbf7d0;border-radius:20px;padding:0 6px;margin-left:3px}',
+    '.em-pot.neg{color:#991b1b;background:#fee2e2;border-color:#fecaca}',
+    '.em-sem{display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:5px 9px;margin:0 0 7px;cursor:pointer;font-size:12px}',
+    '.em-sem .d{width:11px;height:11px;border-radius:50%;flex:none}.em-sem b{margin-left:3px}.em-sem .i{margin-left:auto;font-size:10px;color:#2563eb;font-weight:700}',
+    '.em-divbtn,.em-vigbtn{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;border-radius:8px;padding:4px 9px;cursor:pointer;margin:0 0 7px}',
+    '.em-divbtn{color:#0369a1;background:#eff6ff;border:1px solid #bfdbfe}',
+    '.em-vigbtn{color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe}',
+    '.em-divbtn .arw,.em-vigbtn .arw{margin-left:2px;font-size:9px}',
+    '.em-divwrap{margin:0 0 8px;padding:7px 9px;background:#fbfdff;border:1px solid #eef2f7;border-radius:8px}',
+    '.em-vig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 8px}',
+    '.em-vig-c{background:#fff;border:1px solid #eef2f7;border-radius:8px;padding:6px 8px}',
+    '.em-vig-c .h{font-size:10px;font-weight:800;margin-bottom:3px}',
+    '.em-vig-c ul{margin:0;padding-left:14px;font-size:10.5px;color:#475569;line-height:1.45}',
+    '.em-modal-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px}',
+    '.em-modal{background:#fff;border-radius:14px;width:min(380px,94vw);box-shadow:0 20px 50px rgba(0,0,0,.3);overflow:hidden}',
+    '.em-modal-h{color:#fff;font-weight:800;font-size:14px;padding:12px 16px}',
+    '.em-modal-b{padding:10px 16px}',
+    '.em-modal-f{font-size:11.5px;color:#334155;border-top:1px solid #f1f5f9;padding-top:8px;margin-top:4px;line-height:1.5}',
+    '.em-modal-x{padding:10px 16px 14px;text-align:right}',
     '.em-nm{font-size:11px;color:#64748b;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
     '.em-et{display:inline-block;font-size:10px;font-weight:700;border-radius:20px;padding:1px 8px;background:#eef2f8;color:#1f3d6b;margin-bottom:5px}',
+    '.em-etr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px}',
+    '.em-etr .em-et{margin-bottom:0}',
+    '.em-zone{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;border-radius:20px;padding:1px 8px;text-transform:uppercase;letter-spacing:.02em}',
+    '.em-zone.z-in{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}',
+    '.em-zone.z-near{background:#fef3c7;color:#92400e;border:1px solid #fde68a}',
     '.em-pinb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#fef3c7;color:#92400e;margin-bottom:5px}',
     '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
+    '.em-pbar{margin:2px 0 8px;padding:6px 8px 2px;background:#fbfdff;border:1px solid #eef2f7;border-radius:8px}',
+    '.em-caja{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:2px 0 14px}',
+    '.em-cajac{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:11px 13px;box-shadow:0 1px 2px rgba(15,23,42,.04)}',
+    '.em-cajac.hero{background:linear-gradient(135deg,#0e3a5f,#2563eb);border:none;color:#fff}',
+    '.em-cajac .l{font-size:10px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.03em}',
+    '.em-cajac.hero .l,.em-cajac.hero .p{color:#c7ddff}',
+    '.em-cajac .v{font-size:20px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}',
+    '.em-cajac .v.pos{color:#16a34a}.em-cajac .v.neg{color:#dc2626}.em-cajac.hero .v{color:#fff}',
+    '.em-cajac .p{font-size:10px;color:#64748b;margin-top:2px}',
+    '@media(max-width:700px){.em-caja{grid-template-columns:1fr}}',
+    '.em-idx{display:inline-flex;align-items:center;gap:6px;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:8px;padding:2px 8px;font-size:10.5px;color:#334155;margin:0 0 7px}',
+    '.em-idx b{font-size:12px;color:#0f172a}',
+    '.em-idx .bar{position:relative;display:inline-block;width:40px;height:6px;background:#e2e8f0;border-radius:4px;overflow:hidden}',
+    '.em-idx .bar i{position:absolute;left:0;top:0;height:6px;border-radius:4px;background:linear-gradient(90deg,#2563eb,#16a34a)}',
+    '.em-idx .q{font-weight:700}',
+    '.em-dist{display:inline-flex;align-items:center;gap:3px;font-size:9.5px;font-weight:800;border-radius:20px;padding:1px 7px}',
+    '.em-dist.d-near{background:#fef3c7;color:#92400e;border:1px solid #fde68a}',
+    '.em-dist.d-mid{background:#eef2f8;color:#475569;border:1px solid #e2e8f0}',
+    '.em-dist.d-far{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}',
+    '.em-sort{font-size:9px;color:#94a3b8;font-weight:600;text-transform:none;letter-spacing:0}',
+    '.em-dim{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px;margin-bottom:7px}',
+    '.em-dc{background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:4px 7px}',
+    '.em-dc span{display:block;font-size:8.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.03em}',
+    '.em-dc b{font-size:12px;color:#0f172a;font-variant-numeric:tabular-nums}',
+    '.em-dbtns{display:flex;gap:6px;margin-bottom:6px}',
+    '.em-dbtns .btn{flex:1;text-align:center}',
     '.em-cierres{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:4px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-cierres:hover{background:#e0e7ff}',
     '.em-cierresrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}',
