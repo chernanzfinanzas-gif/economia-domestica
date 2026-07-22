@@ -1,0 +1,152 @@
+{
+ "schemaVersion": 7,
+ "ticker": "AZK",
+ "empresa": "Azkoyen, S.A.",
+ "fecha": "2026-07-22",
+ "rating": "AA",
+ "score": 75.5,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF con beta sectorial — industrial de nicho. PO oficial = síntesis ponderada 60% DCF (beta 2ª ref. 0,90, WACC 8,5%) + 40% múltiplos históricos = 13,28 €. Bear 11,73 € (DCF pesimista), bull 22,79 € (DCF optimista). La beta 0,33 de la Matriz se sustituye por la sectorial (ficha 08) para no sobrevalorar.",
+ "poBear": 11.73,
+ "poBase": 13.28,
+ "poBull": 22.79,
+ "entMin": 10.5,
+ "entMax": 11.5,
+ "stop": 10.5,
+ "dpaPrevisto": 0.4,
+ "moat": "ESTRECHO (51,9). IP en validación de medios de pago y base instalada dan defensa, pero escala reducida frente a competidores globales y disrupción del efectivo limitan la durabilidad.",
+ "catalizadores": [
+  "Pivote a pago digital/cashless (Coges/Vendon) que despeje el riesgo de disrupción del efectivo",
+  "Resultados 2026 con crecimiento de ingresos y márgenes que sostengan el múltiplo",
+  "Nueva retribución al accionista (dividendo/recompra) apoyada en la caja neta",
+  "M&A selectiva y acretiva (tipo Ascaso/Vendon) que amplíe escala",
+  "Corrección de la cotización hacia 11-12 € que reabra margen de entrada"
+ ],
+ "riesgos": [
+  "Declive estructural del efectivo → menos validación de monedas/billetes",
+  "Competencia de players globales mayores (Crane NXT, Glory)",
+  "Nuevo deterioro de fondo de comercio (Coges/Primion, ~46% del PN)",
+  "Ciclicidad del vending y apalancamiento operativo (COVID: ventas −22%)",
+  "Escala reducida y crecimiento orgánico limitado → de-rating del múltiplo"
+ ],
+ "bull": "Si el pivote al pago digital funciona y el crecimiento se acelera con M&A acretiva, el valor converge al DCF optimista (~22,8 €, +60%).",
+ "bear": "Declive acelerado del efectivo o recesión que golpee el vending; en el escenario extremo del pre-mortem, −40/−50% de valor (suelo ~7-9 €).",
+ "resumen": "Azkoyen es un negocio de nicho de alta calidad (Rating AA, caja neta, ROIC 15% muy por encima del WACC, FCF fuerte y gestión disciplinada) pero de foso estrecho y crecimiento limitado. Tras subir +63% desde el cierre 2025, cotiza a 14,20 € sin margen frente al PO de 13,28 €; el Reverse DCF confirma que el precio ya descuenta todo el crecimiento autofinanciable. Veredicto ESPERAR: comprar calidad con margen por debajo de 11,5 €.",
+ "confianza": {
+  "score": 96,
+  "nivel": "A",
+  "motivos": [
+   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-22"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "matizada": false,
+  "banda": {
+   "p10": 11.73,
+   "p50": 13.28,
+   "p90": 22.79
+  },
+  "sensibilidad": {
+   "poMin": 13.34,
+   "poMax": 20.16,
+   "poBase": 15.9826412216699,
+   "cotizacion": 14.2,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -6.0,
+   "mdsMax": 41.9
+  },
+  "beta": {
+   "capm": 0.33,
+   "ref2": 0.9,
+   "aviso": "beta CAPM 0.33 vs 2ª ref 0.90: divergencia 0.57 > 0.3 → revisar cuál usar en el WACC"
+  },
+  "motivos": [
+   "la cotización (14.20) cae DENTRO de la banda de PO [13.3–20.2] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "beta CAPM 0.33 vs 2ª ref 0.90: divergencia 0.57 > 0.3 → revisar cuál usar en el WACC"
+  ],
+  "calculadoEl": "2026-07-22"
+ },
+ "dividendSafety": {
+  "score": 75,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 27,
+   "C2": 13,
+   "C3": 20,
+   "C4": 3,
+   "C5": 12
+  },
+  "shareholderYield": 4.43,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.92x / FCL 2.54x (3a OE 2.57x) → 27/35",
+   "C2 payout BN ord.: 54% (3a 42%) → 13/15",
+   "C3 balance: DN/EBITDA -0.03x, cob.int 30.1x → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): beneficio neto a la baja YoY → 12/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-22"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 8.01,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.67,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DSRI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -3.8,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-22"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 4.5,
+  "gIntrinseco": 4.5,
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
+  "calculadoEl": "2026-07-22"
+ }
+}
