@@ -526,7 +526,7 @@ function renderFicha(t){
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+_fichaTesisBoxes(fichaTicker)+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -620,6 +620,49 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
   document.addEventListener('mousemove',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo; let vx=(e.clientX-_fichaDrag.r.left)*g.W/_fichaDrag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const x0=_fichaDrag.x0; const br=_fichaDrag.svg.querySelector('.fchBrush'); if(br){ br.setAttribute('x',Math.min(x0,vx)); br.setAttribute('width',Math.abs(vx-x0)); } });
   document.addEventListener('mouseup',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo, drag=_fichaDrag; _fichaDrag=null; const br=drag.svg.querySelector('.fchBrush'); if(br)br.style.display='none'; let vx=(e.clientX-drag.r.left)*g.W/drag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const xa=Math.min(drag.x0,vx), xb=Math.max(drag.x0,vx); if(xb-xa<8)return; const px2t=px=>g.t0+(px-g.L)/g.pw*(g.t1-g.t0); fichaZoom={t0:px2t(xa),t1:px2t(xb),ticker:g.ticker}; if(typeof drawFichaChart==='function')drawFichaChart(g.ticker); });
   document.addEventListener('dblclick',e=>{ const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null; if(!svg)return; if(fichaZoom){ fichaZoom=null; if(_fichaGeo&&typeof drawFichaChart==='function')drawFichaChart(_fichaGeo.ticker); } });
+}
+function _fichaTesisCss(){
+  if(document.getElementById('ftb-css'))return;
+  var st=document.createElement('style'); st.id='ftb-css';
+  st.textContent='.ftb-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}.ftb-box{flex:1;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}.ftb-h{font-weight:800;font-size:13px;color:#1f3d6b;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.ftb-rat{background:#eef2f8;color:#1f3d6b;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700}.ftb-dec{color:#fff;border-radius:20px;padding:1px 8px;font-size:10.5px;font-weight:700}.ftb-t{width:100%;font-size:12.5px;border-collapse:collapse}.ftb-t td{padding:3px 0;border-bottom:1px solid #f1f5f9}.ftb-t td.r{text-align:right;color:#334155}.ftb-t td:first-child{color:#64748b}';
+  document.head.appendChild(st);
+}
+function _fichaTesisBoxes(t){
+  t=(t||'').toUpperCase(); _fichaTesisCss();
+  var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;})||{};
+  var v=(DB.valores||{})[t]||{};
+  var price=num(v.precioActual)||num(a.cotizacion)||0;
+  var eur=function(x){ return (x==null||isNaN(num(x)))?'—':(typeof fmt==='function'?fmt(num(x)):(num(x).toFixed(3)+' €')); };
+  var pctv=function(x){ return (x==null||isNaN(x))?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%'); };
+  var pm=null; try{ if(typeof invPositions==='function'){ var pp=invPositions().find(function(q){return (q.ticker||'').toUpperCase()===t && num(q.acciones)>0.0001;}); if(pp){ pm=pp.precioMedio||pp.pm||(pp.coste&&pp.acciones?num(pp.coste)/num(pp.acciones):null); } } }catch(e){}
+  var decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
+  var dec=(a.decision||'').toUpperCase();
+  var r1=[]; r1.push(['Cotización','<b>'+eur(price)+'</b>']);
+  if(num(a.entMin)||num(a.entMax)) r1.push(['Banda entrada', eur(a.entMin)+' – '+eur(a.entMax)+((num(a.entMax)&&price)?' <span class="muted">('+pctv(price/num(a.entMax)-1)+' vs máx)</span>':'')]);
+  if(num(a.poMin)||num(a.poMax)){ var poMid=(num(a.poMin)+num(a.poMax))/2; r1.push(['Precio objetivo', eur(a.poMin)+' – '+eur(a.poMax)+((poMid&&price)?' <span class="muted">('+pctv(poMid/price-1)+')</span>':'')]); }
+  if(num(a.stopTesis)) r1.push(['Stop tesis', eur(a.stopTesis)+(price?' <span class="muted">('+pctv(num(a.stopTesis)/price-1)+')</span>':'')]);
+  if(pm) r1.push(['Precio medio', eur(pm)+((price&&pm)?' <span class="muted">('+pctv(price/pm-1)+')</span>':'')]);
+  var h1='<div class="ftb-h">📈 Precios y niveles'+(a.rating?' <span class="ftb-rat">'+a.rating+'</span>':'')+(dec?' <span class="ftb-dec" style="background:'+(decCol[dec]||'#64748b')+'">'+dec+'</span>':'')+'</div>';
+  var box1='<div class="ftb-box">'+h1+'<table class="ftb-t">'+r1.map(function(r){return '<tr><td>'+r[0]+'</td><td class="r">'+r[1]+'</td></tr>';}).join('')+'</table></div>';
+  var ny=new Date().getFullYear(), ser=[];
+  for(var y=ny-8;y<=ny;y++){ var d=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null; if(d!=null) ser.push([y,num(d)]); }
+  var dpa=num(a.divAccion)||num(v.divAccion)||(ser.length?ser[ser.length-1][1]:0);
+  var rpd=(price>0&&dpa>0)?dpa/price:null;
+  var racha=0; for(var i=ser.length-1;i>0;i--){ if(ser[i][1]>ser[i-1][1]) racha++; else break; }
+  var cagr=null; if(ser.length>=2){ var f0=ser[0][1], fn=ser[ser.length-1][1], nY=ser[ser.length-1][0]-ser[0][0]; if(f0>0&&nY>0) cagr=Math.pow(fn/f0,1/nY)-1; }
+  var spark=''; if(ser.length>=2){ var mn=Math.min.apply(null,ser.map(function(s){return s[1];})), mx=Math.max.apply(null,ser.map(function(s){return s[1];})); var W=120,H=26; var pts=ser.map(function(s,idx){ var x=idx/(ser.length-1)*W; var yy=mx>mn?H-((s[1]-mn)/(mx-mn))*H:H/2; return x.toFixed(1)+','+yy.toFixed(1); }).join(' '); spark='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="display:block"><polyline points="'+pts+'" fill="none" stroke="#16a34a" stroke-width="1.6"/></svg>'; }
+  var safety=(a.dividendSafety!=null&&a.dividendSafety!=='')?num(a.dividendSafety):null;
+  var salud,sColor;
+  if(safety!=null){ salud=(safety>=75?'Sólido':(safety>=60?'Vigilar':(safety>=40?'Frágil':'Recorte'))); sColor=(safety>=75?'#16a34a':(safety>=60?'#d97706':'#dc2626')); }
+  else if(!(dpa>0)){ salud='No paga'; sColor='#64748b'; }
+  else if(cagr!=null){ salud=(cagr>0.02&&racha>=1?'Creciente':(cagr>=0?'Estable':'A la baja')); sColor=(cagr>0.02?'#16a34a':(cagr>=0?'#d97706':'#dc2626')); }
+  else { salud='—'; sColor='#64748b'; }
+  var r2=[]; r2.push(['DPA bruto','<b>'+eur(dpa)+'</b>']);
+  r2.push(['RPD', rpd!=null?('<b>'+(rpd*100).toFixed(2)+'%</b>'):'—']);
+  if(cagr!=null) r2.push(['Crecim. anual', pctv(cagr)+(racha?(' <span class="muted">· racha '+racha+'a</span>'):'')]);
+  var h2='<div class="ftb-h">💶 Dividendo · salud <span class="ftb-dec" style="background:'+sColor+'">'+salud+'</span></div>';
+  var box2='<div class="ftb-box">'+h2+'<table class="ftb-t">'+r2.map(function(r){return '<tr><td>'+r[0]+'</td><td class="r">'+r[1]+'</td></tr>';}).join('')+(spark?('<tr><td>Div. '+ser.length+'a</td><td class="r">'+spark+'</td></tr>'):'')+'</table></div>';
+  return '<div class="ftb-row">'+box1+box2+'</div>';
 }
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
@@ -719,7 +762,7 @@ async function drawFichaChart(t){
   let stopL=''; if(stopV>0){ const y=Y(stopV); stopL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#dc2626" stroke-width="2" opacity="0.95"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="#dc2626">Stop ${stopV.toFixed(2)}</text>`; }
   let poL=''; [['bear',poB,'#dc2626',2],['base',poM,'#2563eb',1.1],['bull',poU,'#16a34a',2]].forEach(it=>{ const v=it[1]; if(v>0){ const y=Y(v); poL+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="${it[2]}" stroke-width="${it[3]}" stroke-dasharray="${it[3]>=2?'7 3':'2 3'}" opacity="0.9"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="${it[2]}">PO ${it[0]} ${v.toFixed(2)}</text>`; } });
   let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
-  const mmk=`<circle cx="${X(data[maxJ][0]).toFixed(1)}" cy="${Y(maxC).toFixed(1)}" r="3" fill="#16a34a"/><text x="${X(data[maxJ][0]).toFixed(1)}" y="${(Y(maxC)-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#16a34a">máx ${maxC.toFixed(2)}</text><circle cx="${X(data[minJ][0]).toFixed(1)}" cy="${Y(minC).toFixed(1)}" r="3" fill="#dc2626"/><text x="${X(data[minJ][0]).toFixed(1)}" y="${(Y(minC)+11).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#dc2626">mín ${minC.toFixed(2)}</text>`;
+  const mmk=`<circle cx="${X(data[maxJ][0]).toFixed(1)}" cy="${Y(maxC).toFixed(1)}" r="3.4" fill="#9333ea"/><text x="${X(data[maxJ][0]).toFixed(1)}" y="${(Y(maxC)-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#9333ea">máx ${maxC.toFixed(2)}</text><circle cx="${X(data[minJ][0]).toFixed(1)}" cy="${Y(minC).toFixed(1)}" r="3.4" fill="#ea580c"/><text x="${X(data[minJ][0]).toFixed(1)}" y="${(Y(minC)+11).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#ea580c">mín ${minC.toFixed(2)}</text>`;
   const last=pts[pts.length-1][1];
   const xs=pts.map(p=>X(p[0])), ys=pts.map(p=>Y(p[1])), prices=pts.map(p=>p[1]);
   const dates=pts.map(p=>_fdy(p[0]));
@@ -729,7 +772,7 @@ async function drawFichaChart(t){
   const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
   const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
   const maLeg=wantMA.map(w=>`<span style="color:${_maCols[w]}">▬</span> MM${w}`).join(' · ');
-  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/><g clip-path="url(#fchClip)">${maPaths}</g>${poL}${stopL}${avgL}${mk}${mmk}${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Periodo: <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · máx ${maxC.toFixed(2)} (${_fd(data[maxJ][0])}) · mín ${minC.toFixed(2)} (${_fd(data[minJ][0])}) · desde máx <b style="color:${ddMax<0?'#dc2626':'#16a34a'}">${ddMax>=0?'+':''}${ddMax.toFixed(1)}%</b><br>Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> P.medio · <span style="color:#2563eb">▬</span> PO · <span style="color:#0ea5e9">▬</span> entrada · <span style="color:#dc2626">▬</span> stop${maLeg?' · '+maLeg:''}</div>`;
+  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/><g clip-path="url(#fchClip)">${maPaths}</g>${poL}${stopL}${avgL}${mk}${mmk}${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Periodo: <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · máx ${maxC.toFixed(2)} (${_fd(data[maxJ][0])}) · mín ${minC.toFixed(2)} (${_fd(data[minJ][0])}) · desde máx <b style="color:${ddMax<0?'#dc2626':'#16a34a'}">${ddMax>=0?'+':''}${ddMax.toFixed(1)}%</b><br>Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> P.medio · <span style="color:#2563eb">▬</span> PO · <span style="color:#0ea5e9">▬</span> entrada · <span style="color:#dc2626">▬</span> stop · <span style="color:#9333ea">●</span> máx · <span style="color:#ea580c">●</span> mín${maLeg?' · '+maLeg:''}</div>`;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
