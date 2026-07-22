@@ -91,7 +91,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
 const VIEW_FNS={
   panel:['renderPanel','renderBuzonPanel'], comovoy:['renderComoVoy'], presupuesto:['renderPres'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
-  universo:['renderUniverso'], radar:['renderRadar'], radardiv:['renderRadarDiv'], cobertura:['renderCobertura'],
+  universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], metodo:['renderPanelMetodo'], salud:['renderSalud'], riesgo:['renderRiesgo'],
@@ -207,7 +207,7 @@ const GROUPS={
   control:[['origen','El Origen'],['panel','Panel'],['comovoy','Cómo voy'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
-  trabajo:[['universo','Universo'],['radardiv','Radar Dividendo'],['radar','Radar Op.'],['cobertura','Cobertura']],
+  trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador'],['proxcompra','Próxima compra'],['tesisinv','Tesis']],
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],

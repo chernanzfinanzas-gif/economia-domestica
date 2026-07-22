@@ -152,7 +152,7 @@ function accionDe(t){
   if(et==='Analizada · esperar') return A('⏳ Esperar catalizador','analisis');
   if(et==='Analizada') return A('Revisar veredicto','analisis');
   if(et==='En análisis'){ var ci=_emColaInfo(t); return A('📝 Terminar dossier'+(ci.pos?' (cola #'+ci.pos+')':''),'cobertura'); }
-  if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radardiv');
+  if(et==='Vigilada') return A(_emCerrada(t)?'↩ Reevaluar — ex-cartera':'📥 Encolar para análisis','radar');
   if(et==='Descartada') return A('📓 Post-mortem','',{dnuevo:t+'|Descartar'});
   return A('','');
 }
