@@ -22,7 +22,13 @@ function _dfUp(t){ return (''+(t||'')).toUpperCase(); }
 function _dfNum(x){ var t=(''+(x==null?'':x)).trim(); if(t==='')return NaN; if(t.indexOf(',')>=0){ t=t.replace(/\./g,'').replace(',','.'); } return parseFloat(t); }
 function _dfHoriz(){ var h=_dfNum((DB.planLotePeriodo||{}).hasta); return h>0?h:( (new Date().getFullYear())+8 ); }
 function _dfCur(){ return new Date().getFullYear(); }
-function _dfYears(){ var y0=_dfCur(), y1=Math.max(y0, _dfHoriz()); var a=[]; for(var y=y0;y<=y1;y++)a.push(y); return a; }
+function _dfYears(){
+  var y1=Math.max(_dfCur(), _dfHoriz());
+  var y0=2011;
+  try{ if(_evoData && _evoData.years && _evoData.years.length){ y0=Math.min.apply(null,_evoData.years.map(Number)); } }catch(_){}
+  if(!(y0>0)) y0=2011;
+  var a=[]; for(var y=y0;y<=y1;y++)a.push(y); return a;
+}
 function _dfShort(t){ t=_dfUp(t); return _DF_SHORT[t] || ((evoEmpresaM&&evoEmpresaM(t)&&evoEmpresaM(t).nombre)?String(evoEmpresaM(t).nombre).split(/[ ,]/)[0]:t); }
 function _dfPaga(t){ try{ var e=(typeof evoEmpresaM==='function')?evoEmpresaM(t):null; return !!(e&&e.paga); }catch(_){ return false; } }
 function _dfUniverso(){
