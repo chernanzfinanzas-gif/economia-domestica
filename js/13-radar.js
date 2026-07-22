@@ -306,7 +306,7 @@ function _radBuild(sec){
   var arqOpts='<option value="">Todos los arquetipos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('');
   var _ry=(typeof _radarYears!=='undefined')?_radarYears:3;
   var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s'],['posN','Pos.'+_ry+'a']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
-  var yearOptsN=[2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_ry?' selected':'')+'>'+y+' años</option>';}).join('');
+  var yearOptsN=[1,2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_ry?' selected':'')+'>'+y+(y===1?' año':' años')+'</option>';}).join('');
   sec.innerHTML='<h2>Radar de oportunidades</h2>'+
     '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
     _radCambiosStrip()+
@@ -320,7 +320,7 @@ function _radBuild(sec){
       '<select id="radArq">'+arqOpts+'</select>'+
       '<input type="search" id="radSearch" placeholder="Buscar…" value="'+_radEsc(window._radQ)+'">'+
       '<label class="rad-sortm">Ordenar <select id="radSortSel">'+sortOpts+'</select></label>'+
-      '<label class="rad-sortm" title="Ventana histórica para la Posición del precio">Rango <select id="radYearsN">'+yearOptsN+'</select></label>'+
+      '<label title="Ventana histórica para la Posición del precio" style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:#64748b">Rango <select id="radYearsN">'+yearOptsN+'</select></label>'+
       '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+'<span class="rad-fltset" id="radFltSet"><span class="rad-fltl">Filtrar:</span>'+'<button class="rad-flt f-held" data-radflt="held" title="En cartera">Cartera</button>'+'<button class="rad-flt f-ana" data-radflt="ana" title="Analizadas">Análisis</button>'+'<button class="rad-flt f-sel" data-radflt="sel" title="Seleccionadas ★">Atractiva</button>'+'<button class="rad-flt f-pend" data-radflt="pend" title="Pendientes">Pendiente</button></span>'+'<span class="rad-promo-cfg" title="Umbrales de sugerencia de promoción">Sugerir vigilar ≥<input type="number" id="radPromoVig" class="rad-pin" value="'+_radPromoCfg().vig+'"> · analizar ≥<input type="number" id="radPromoAna" class="rad-pin" value="'+_radPromoCfg().ana+'"> ★★★</span>'+
       '<span class="rad-count" id="radCount"></span>'+
     '</div>'+
