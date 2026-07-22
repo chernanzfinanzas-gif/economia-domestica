@@ -694,6 +694,82 @@
           "valoracion": "Continuidad en la cúpula; estabilidad de gestión en plena transición estratégica."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-07-22",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR: declive estructural del gas en MODERACIÓN, tesis MANTENER intacta. EBITDA −4,7% (314 M€, vs −14,6% hace un año) y BDI recurrente −8,6% (118,6 M€, en línea con objetivo 235 M€); el BDI reportado (126,9, −27,9%) está distorsionado por +46,3 M€ de plusvalías en el S1-2025. Balance fuerte: deuda neta 2.305 M€, FFO/DN 27,4%, coste 2,0%. Rotación de activos hacia transporte regulado europeo (compra 31,5% de Teréga 573 M€ y 20% de Saggas; venta 40% de Enagás Renovable). El marco 2027-2032 avanza (CNMC→Consejo de Estado). S6: tendencia no adversa, sin escalar a S2. Dividendo 1,00 € estable.",
+      "metricas": [
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 314.0
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 126.9
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 290.1
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2305
+        },
+        {
+          "nombre": "Div. participadas (M€)",
+          "valor": 96.7
+        },
+        {
+          "nombre": "Inversión neta (M€)",
+          "valor": -5.5
+        },
+        {
+          "nombre": "Var. EBITDA YoY (%)",
+          "valor": -4.7
+        },
+        {
+          "nombre": "Var. BDI YoY (%)",
+          "valor": -27.9
+        },
+        {
+          "nombre": "Var. FFO YoY (%)",
+          "valor": -1.3
+        },
+        {
+          "nombre": "FFO/DN (%)",
+          "valor": 27.4
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "impacto": "+",
+          "hecho": "Acuerdo para adquirir el 31,5% de Teréga (operador de transporte y almacenamiento de gas en Francia) a GIC por 573 M€; cierre previsto en el 3T-2026, ya con autorización de la Comisión Europea.",
+          "valoracion": "Añade EBITDA regulado internacional de calidad y diversifica fuera del gas español en declive; refuerza el pivote de la cartera hacia transporte regulado europeo y sostiene la tesis MANTENER."
+        },
+        {
+          "tipo": "Adquisición",
+          "impacto": "+",
+          "hecho": "Acuerdo para comprar a Osaka Gas su 20% de la planta de regasificación de Saggas (Sagunto) por 31 M€, elevando su participación al 92,5%; cierre en 2026.",
+          "valoracion": "Consolida un activo regulado estratégico para la seguridad de suministro; operación pequeña y de bajo riesgo que integrará por consolidación global."
+        },
+        {
+          "tipo": "Desinversión",
+          "impacto": "+",
+          "hecho": "Cierra la venta del 40% de Enagás Renovable a Hy24 por 48 M€, para separar el operador de la red troncal de hidrógeno (HTNO) de la actividad de producción y comercialización.",
+          "valoracion": "Separación regulatoria necesaria para el rol de operador neutral de la red de hidrógeno; aporta ~9,5 M€ de plusvalía al BDI del semestre."
+        },
+        {
+          "tipo": "Regulatorio",
+          "impacto": "+",
+          "hecho": "Avanza el marco regulatorio 2027-2032: la CNMC publicó (26-jun) las propuestas de circulares revisadas de retribución de transporte y regasificación de gas, ahora en análisis del Consejo de Estado; el MITECO abrió consulta sobre almacenamientos subterráneos.",
+          "valoracion": "Es el catalizador central de la tesis: el nuevo marco debería poner suelo a la retribución tras el declive. Avanza según calendario; su aprobación dará la visibilidad de ingresos 2027+ (§10.4)."
+        }
+      ]
     }
   ]
 }
