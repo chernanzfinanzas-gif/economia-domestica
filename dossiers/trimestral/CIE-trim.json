@@ -1,0 +1,657 @@
+{
+  "schemaVersion": 1,
+  "ticker": "CIE",
+  "empresa": "CIE Automotive",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque 2023 con crecimiento a doble dígito: ventas +10,3% y EBITDA +13,8% YoY, margen 17,8% (+0,6pp). Rtdo neto +9,6%. DFN/EBITDA 1,86x, ya mejorando desde 2,34x. Refuerza la tesis de crecimiento rentable.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1008.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 179.3
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 17.8
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 134.3
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.3
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 90
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 113.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.5
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1249
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.86
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2023: ventas +8,1%, EBITDA +14,1%, margen sube a 18,1%. Rtdo neto +11,2%. Desapalancamiento continúa (1,72x). Momentum sólido y expansión de margen: tesis reforzada.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2011.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 363.9
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.1
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 270.1
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.4
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 178.3
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 230.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.6
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1201.4
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.72
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2023: ventas +4,1% (desaceleración esperada tras trimestres fuertes) pero EBITDA +10,1% y margen 18,0%. Conversión 65,5%. Rentabilidad crece por encima de ventas → apalancamiento operativo positivo.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2974.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 536.7
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 397.1
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.3
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 253.5
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 339.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.5
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1217.4
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.73
+        }
+      ]
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre 2023 récord: ventas +3,1%, EBITDA +12,6%, margen 18,0% (máximo histórico), Rtdo neto +6,7%. DFN/EBITDA baja a 1,56x. Año que valida la resiliencia del modelo en un entorno de costes elevado.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 3959.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 713.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 527.7
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.3
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 320.2
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 447.4
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1134.7
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.56
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2024: ventas +2,8%, EBITDA +6,9%, margen récord 18,5% y margen EBIT supera 14% por primera vez (14,1%). Desapalancamiento a 1,49x. La calidad mejora aunque el crecimiento se modera.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1036.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 191.6
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.5
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 146
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.1
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 93
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 121.7
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.8
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1114.5
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.49
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2024: ventas +2,5%, EBITDA +5,0%, margen 18,5% y EBIT récord semestral 14,0%. Conversión 65,8% y DFN/EBITDA 1,45x. Rentabilidad operativa en máximos: tesis intacta.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2062.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 381.9
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.5
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 288.1
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 183.9
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 242.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.8
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1085
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.45
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2024: ventas +1,3% (mercado plano), pero EBITDA +4,2% y margen 18,6%. Deuda sigue cayendo (1,43x). El diferencial margen/ventas confirma la disciplina de precios y costes.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 3012.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 559.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.6
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 419.3
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.9
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 258.8
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 354.9
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 65.8
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1071.9
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.43
+        }
+      ]
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-27",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY-2024: ventas planas (+0,03%) en mercado adverso, EBITDA +2,1%, margen 18,4% y Rtdo neto +1,7%. Conversión mejora a 66,1% y DFN/EBITDA a 1,34x. Crecimiento del beneficio pese a ingresos estancados: apalancamiento operativo y desapalancamiento simultáneos.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 3960.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 727.9
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.4
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 538.4
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.6
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 325.7
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 463.3
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 66.1
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1005.1
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.34
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2025: ventas -2,3% YoY por debilidad del mercado global de vehículo ligero — señal a vigilar en la línea de ingresos. Compensa con margen EBITDA 19,0% (+0,5pp), conversión de caja 68,3% y DFN/EBITDA 1,33x. Ámbar por el retroceso de ventas, no por la rentabilidad.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1012.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 192
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 19
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 146.3
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.4
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 94.1
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 126.1
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 68.3
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 988.7
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.33
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-24",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2025: ventas -3,0% YoY, el punto más débil del año en top-line. Margen 19,0% sostenido, conversión sube a 69,5% y RONA vuelve a superar el 20%. Deuda baja a 1,26x. Se mantiene ámbar: la tesis de margen aguanta pero el volumen exige seguimiento.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2000.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 379.1
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 19
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 286
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.3
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 185.9
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 253.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 69.5
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 940.6
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.26
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "9M-2025: mejora secuencial — ventas -1,3% (vs -3% en S1), EBITDA +0,8% y margen 19,0%. Conversión récord 70,7%, Rtdo neto +2,9%. La recuperación del volumen y la caja excepcional devuelven el semáforo a verde.",
+      "periodoDisplay": "9M",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2974
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 563.6
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 19
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 419.1
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.1
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 266.2
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 383.8
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 70.7
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 996.8
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.32
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "FY-2025 REAL (ancla). Ventas planas (-0,1%) en mercado a la baja, pero EBITDA +2,5% y margen 18,9% (líder sectorial, benchmark peers 12-15%). Conversión de caja récord 70,6% y DFN en mínimo de 6 años (912,8 M€) → DFN/EBITDA 1,18x, muy por debajo del techo 2,0x. El trimestre-año confirma la tesis: defensa de margen + desapalancamiento agresivo pese al ciclo débil de automoción.",
+      "periodoDisplay": "FY",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 3958.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 746.2
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 18.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 542.9
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 13.7
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 335.8
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 506.5
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 70.6
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 912.8
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.18
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-05-07",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Q1-2026: retorno al crecimiento — ventas +3,9% (incl. +5,2% inorgánico), EBITDA +4,4%, margen 19,1% y outperformance +9,1pp sobre un mercado plano. Rtdo neto +2,3%. La DFN sube a 1.053,5 M€ (M&A + estacionalidad del circulante) y DFN/EBITDA a 1,32x, aún holgadamente <1,5x. Verde: crecimiento orgánico e inorgánico con margen de excelencia.",
+      "periodoDisplay": "1T",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1052.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 200.5
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 19.1
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 152
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.4
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 96.3
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 136.4
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 70.5
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 1053.5
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.32
+        }
+      ]
+    }
+  ]
+}
