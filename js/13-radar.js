@@ -217,7 +217,58 @@ function _radRob(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(funct
 function _radConfCell(cf){ if(!cf)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_CFCOL[cf]||'#64748b'; return '<span title="Confianza del dato: '+cf+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+cf+'</span>'; }
 function _radRobCell(rb){ if(!rb)return '<span class="muted" style="font-size:11px">—</span>'; var c=_RAD_RBCOL[rb]||'#64748b'; var lab=(rb==='solida')?'sól.':(rb==='sensible'?'sens.':(rb==='robusta'?'rob.':rb)); return '<span title="Robustez de la decisión: '+(rb==='solida'?'sólida':rb)+'" style="cursor:help;background:'+c+';color:#fff;border-radius:6px;padding:1px 6px;font-size:10px;font-weight:700">'+lab+'</span>'; }
 /* CSS compacto para que quepan las columnas sin scroll horizontal (una sola vez) */
-function _radCss(){ if(typeof document==='undefined'||document.getElementById('rad-compact-css'))return; var s=document.createElement('style'); s.id='rad-compact-css'; s.textContent='#view-radar .rad-table table{font-size:12px}#view-radar .rad-table thead th{padding:6px 6px;font-size:9.5px;letter-spacing:.01em}#view-radar .rad-table tbody td{padding:5px 6px}.rad-promo-cfg{font-size:11px;color:#475569;display:inline-flex;align-items:center;gap:2px}.rad-pin{width:42px;border:1px solid #e2e8f0;border-radius:6px;padding:2px 3px;font-size:11px;text-align:center}#radPromoPanel{display:flex;flex-direction:column;gap:6px;margin:2px 0 10px}.rad-promo{font-size:11.5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;border-radius:10px}.rad-promo.pr-ana{background:#f5f3ff;border:1px solid #ddd6fe}.rad-promo.pr-vig{background:#eff6ff;border:1px solid #bfdbfe}.rad-pchip{font-size:11px;font-weight:700;border:1px solid #cbd5e1;background:#fff;border-radius:20px;padding:2px 9px;cursor:pointer;color:#334155}'; (document.head||document.documentElement).appendChild(s); }
+function _radCss(){ if(typeof document==='undefined'||document.getElementById('rad-compact-css'))return; var s=document.createElement('style'); s.id='rad-compact-css'; s.textContent='#view-radar .rad-table{overflow-x:auto}#view-radar .rad-table table{font-size:11px;width:100%;table-layout:auto}#view-radar .rad-table thead th{padding:4px 4px;font-size:9px;letter-spacing:0}#view-radar .rad-table tbody td{padding:4px 4px}.rad-promo-cfg{font-size:11px;color:#475569;display:inline-flex;align-items:center;gap:2px}.rad-pin{width:42px;border:1px solid #e2e8f0;border-radius:6px;padding:2px 3px;font-size:11px;text-align:center}#radPromoPanel{display:flex;flex-direction:column;gap:6px;margin:2px 0 10px}.rad-promo{font-size:11.5px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:7px 10px;border-radius:10px}.rad-promo.pr-ana{background:#f5f3ff;border:1px solid #ddd6fe}.rad-promo.pr-vig{background:#eff6ff;border:1px solid #bfdbfe}.rad-pchip{font-size:11px;font-weight:700;border:1px solid #cbd5e1;background:#fff;border-radius:20px;padding:2px 9px;cursor:pointer;color:#334155}.rad-alert{border:0;background:none;cursor:pointer;font-size:13px;padding:0;line-height:1}.rad-almodal{position:fixed;inset:0;background:rgba(15,23,42,.35);display:none;align-items:center;justify-content:center;z-index:60}.rad-almodal.on{display:flex}.rad-alcard{background:#fff;border-radius:14px;max-width:430px;width:calc(100% - 40px);box-shadow:0 20px 50px rgba(0,0,0,.25);overflow:hidden;font-size:13px}.rad-alh{padding:12px 16px;font-weight:800}.rad-alb{padding:0 16px 6px}.rad-ali{display:flex;gap:10px;padding:9px 0;border-top:1px solid #f1f5f9}.rad-aldot{flex:0 0 auto;width:9px;height:9px;border-radius:50%;margin-top:5px}.rad-alf{padding:10px 16px 16px;text-align:right}.rad-alf button{border:1px solid #e2e8f0;background:#f8fafc;border-radius:8px;padding:6px 14px;font-weight:700;cursor:pointer}'; (document.head||document.documentElement).appendChild(s); }
+/* Posición del precio actual en el rango de los últimos N años (mismo motor que Radar Dividendo:
+   _radarStats de 09-radardiv). Se guarda en cada candidato para pintar y ordenar. */
+function _radCalcPos(cands){ var y=(typeof _radarYears!=='undefined')?_radarYears:3;
+  (cands||[]).forEach(function(c){ var pr=(typeof _precioActualDe==='function')?_precioActualDe(c.t):0; var st=(typeof _radarStats==='function')?_radarStats(c.t,y,pr):null; c.posSt=st; c.posN=st?st.pos:null; });
+}
+/* Celda compacta que lleva Posición + Nivel: mini-barra con el % y color por nivel
+   (verde=zona baja/barato · ámbar=media · rojo=zona alta/caro). */
+function _radPosCell(st){ if(!st)return '<span class="muted">—</span>'; var pos=st.pos; var col=pos<33?'#16a34a':(pos<66?'#d97706':'#dc2626');
+  return '<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap">'
+    +'<span style="position:relative;display:inline-block;width:32px;height:7px;background:linear-gradient(90deg,#dcfce7,#fef9c3,#fee2e2);border-radius:4px;border:1px solid #e5e7eb"><i style="position:absolute;left:'+pos.toFixed(0)+'%;top:-2px;width:2px;height:11px;background:'+col+';transform:translateX(-1px);border-radius:1px"></i></span>'
+    +'<b style="color:'+col+';font-size:10px">'+pos.toFixed(0)+'</b></span>';
+}
+function _radNivTxt(pos){ return pos<33?'bajo':(pos<66?'medio':'alto'); }
+/* Crecimiento del dividendo: CAGR del DPA bruto (dividendos.json/evoDiv) del último año con dato
+   real a ~5 años antes. -99 = suspendido (último dividendo 0). */
+function _radCrec(t){ if(typeof evoDpaBruto!=='function')return null; var nowY=new Date().getFullYear(); var last=null;
+  for(var y=nowY;y>=nowY-6;y--){ var v=evoDpaBruto(t,y); if(v!=null){ last={y:y,v:num(v)}; break; } }
+  if(!last)return null; var first=null;
+  for(var y2=last.y-5;y2<last.y;y2++){ var v2=evoDpaBruto(t,y2); if(v2!=null&&num(v2)>0){ first={y:y2,v:num(v2)}; break; } }
+  if(!first)return null; var n=last.y-first.y; if(n<=0)return null;
+  if(last.v<=0)return -99; return (Math.pow(last.v/first.v,1/n)-1)*100;
+}
+function _radCrecCell(cr){ if(cr==null)return '<span class="muted">—</span>'; if(cr<=-98)return '<b style="color:#dc2626" title="Dividendo suspendido">✂ 0</b>';
+  var col=cr>=3?'#16a34a':(cr>-1?'#64748b':'#dc2626'); return '<b style="color:'+col+'">'+(cr>=0?'+':'')+cr.toFixed(1).replace('.',',')+'%</b>';
+}
+/* Alertas de una empresa (para la señal ⚠ + su banner emergente). sev: 'r'>'a'>'v'. */
+var _radAlertMap={}; var _RAD_ALSEV={r:0,a:1,v:2}; var _RAD_ALICON={r:'🔴',a:'🟠',v:'🟢'};
+function _radAlertas(c){ var out=[];
+  if(c.trampa)out.push({s:'r',t:'Posible trampa de dividendo',d:'RPD alta con payout/seguridad del dividendo insostenibles: el reparto puede no estar cubierto por el beneficio o la caja.'});
+  if(c.crecDiv!=null){ if(c.crecDiv<=-98)out.push({s:'r',t:'Dividendo suspendido/recortado a 0',d:'El último dividendo bruto es 0: reparto suspendido.'});
+    else if(c.crecDiv<=-1)out.push({s:'r',t:'Dividendo decreciente',d:'Crecimiento del dividendo negativo (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
+    else if(c.crecDiv<1)out.push({s:'a',t:'Dividendo estancado',d:'El dividendo apenas crece (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
+    else if(c.crecDiv>=6)out.push({s:'v',t:'Dividendo creciente',d:'Buen crecimiento del dividendo (CAGR +'+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'}); }
+  if(c.posN!=null){ if(c.posN>=66)out.push({s:'a',t:'Precio en zona alta (caro)',d:'Posición '+c.posN.toFixed(0)+'% del rango de los últimos años; poco margen de entrada.'});
+    else if(c.posN<=33)out.push({s:'v',t:'Precio en zona baja',d:'Posición '+c.posN.toFixed(0)+'% del rango; cerca de mínimos de los últimos años.'}); }
+  var nota=(c.nota||'').trim(); if(nota)out.push({s:'a',t:'Nota',d:nota});
+  return out;
+}
+function _radAlertBadge(c){ var al=_radAlertas(c); _radAlertMap[c.t]=al; if(!al.length)return '<span style="color:#cbd5e1">·</span>';
+  var best=al.reduce(function(m,x){return _RAD_ALSEV[x.s]<_RAD_ALSEV[m]?x.s:m;},'v');
+  return '<button type="button" class="rad-alert" data-radalert="'+_radEsc(c.t)+'" title="'+al.length+' aviso(s) — pulsa para ver">'+_RAD_ALICON[best]+'</button>';
+}
+function _radAlertPop(t){ t=(t||'').toUpperCase(); var al=_radAlertMap[t]||[]; var c=(_radCands||[]).find(function(x){return x.t===t;}); var nm=c?c.nombre:'';
+  var mo=document.getElementById('radAlertModal'); if(!mo){ mo=document.createElement('div'); mo.id='radAlertModal'; mo.className='rad-almodal'; document.body.appendChild(mo);
+    mo.addEventListener('click',function(e){ if(e.target===mo||(e.target.closest&&e.target.closest('[data-radalclose]')))mo.classList.remove('on'); }); }
+  var col={r:'#dc2626',a:'#d97706',v:'#16a34a'};
+  mo.innerHTML='<div class="rad-alcard"><div class="rad-alh">⚠ '+_radEsc(t)+(nm?' · '+_radEsc((''+nm).slice(0,28)):'')+' <span style="color:#94a3b8;font-weight:600;font-size:12px">· '+al.length+' aviso(s)</span></div><div class="rad-alb">'
+    +(al.length?al.map(function(x){return '<div class="rad-ali"><span class="rad-aldot" style="background:'+col[x.s]+'"></span><div><div style="font-weight:700">'+_radEsc(x.t)+'</div><div style="color:#64748b;font-size:12px;margin-top:2px">'+_radEsc(x.d)+'</div></div></div>';}).join(''):'<div class="muted" style="padding:8px 0">Sin avisos.</div>')
+    +'</div><div class="rad-alf"><button type="button" data-radalclose="1">Cerrar</button></div></div>';
+  mo.classList.add('on');
+}
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
@@ -237,10 +288,13 @@ function renderRadar(){
         var _pp=num(_radarPrecio(t)); if(!(_pp>0))_pp=num(f.precio);
         if(_pp>0){ var _dd=num(_radarDiv(t)); f.rpd=(_dd>0)?Math.round(_dd/_pp*10000)/100:0; }
       }
-      var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst}); });
+      var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst,crecDiv:(typeof _radCrec==='function'?_radCrec(t):null)}); });
     _radCands=cands; _radMeta=fund;
     if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
-    _radBuild(sec);
+    /* Carga cotizaciones históricas (para la Posición a N años) y luego construye. */
+    var _faltaP=(typeof _precioCache!=='undefined')?cands.map(function(c){return c.t;}).filter(function(t){return _precioCache[t]===undefined;}):[];
+    if(_faltaP.length){ Promise.all(_faltaP.map(function(t){ return fetch('precios/'+t+'.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_precioCache[t]=j;}).catch(function(){_precioCache[t]=null;}); })).then(function(){ _radCalcPos(cands); _radBuild(sec); }); }
+    else { _radCalcPos(cands); _radBuild(sec); }
   });
 }
 function _radBuild(sec){
@@ -250,7 +304,9 @@ function _radBuild(sec){
   var trampas=cands.filter(function(c){return c.trampa;}).length;
   var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
   var arqOpts='<option value="">Todos los arquetipos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('');
-  var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
+  var _ry=(typeof _radarYears!=='undefined')?_radarYears:3;
+  var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s'],['posN','Pos.'+_ry+'a']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
+  var yearOptsN=[2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_ry?' selected':'')+'>'+y+' años</option>';}).join('');
   sec.innerHTML='<h2>Radar de oportunidades</h2>'+
     '<div class="sub" style="margin-bottom:12px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
     _radCambiosStrip()+
@@ -264,12 +320,13 @@ function _radBuild(sec){
       '<select id="radArq">'+arqOpts+'</select>'+
       '<input type="search" id="radSearch" placeholder="Buscar…" value="'+_radEsc(window._radQ)+'">'+
       '<label class="rad-sortm">Ordenar <select id="radSortSel">'+sortOpts+'</select></label>'+
+      '<label class="rad-sortm" title="Ventana histórica para la Posición del precio">Rango <select id="radYearsN">'+yearOptsN+'</select></label>'+
       '<button class="btn sm" id="radAddCola">➕ Añadir ★ a la cola</button>'+'<span class="rad-fltset" id="radFltSet"><span class="rad-fltl">Filtrar:</span>'+'<button class="rad-flt f-held" data-radflt="held" title="En cartera">Cartera</button>'+'<button class="rad-flt f-ana" data-radflt="ana" title="Analizadas">Análisis</button>'+'<button class="rad-flt f-sel" data-radflt="sel" title="Seleccionadas ★">Atractiva</button>'+'<button class="rad-flt f-pend" data-radflt="pend" title="Pendientes">Pendiente</button></span>'+'<span class="rad-promo-cfg" title="Umbrales de sugerencia de promoción">Sugerir vigilar ≥<input type="number" id="radPromoVig" class="rad-pin" value="'+_radPromoCfg().vig+'"> · analizar ≥<input type="number" id="radPromoAna" class="rad-pin" value="'+_radPromoCfg().ana+'"> ★★★</span>'+
       '<span class="rad-count" id="radCount"></span>'+
     '</div>'+
     '<div id="radPromoPanel"></div>'+'<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
-      '<th class="s" data-radsk="rpd">RPD</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l">Nota</th>'+
+      '<th class="s" data-radsk="rpd">RPD</th><th class="s" data-radsk="crec" title="Crecimiento anualizado del dividendo (CAGR ~5 años)">Crec.Div</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="s" data-radsk="posN" title="Posición del precio en el rango de los últimos '+_ry+' años (verde=zona baja/barato · rojo=zona alta/caro)">Pos.'+_ry+'a</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l" title="Alertas — pulsa la señal para ver el detalle">⚠</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>';
@@ -284,7 +341,8 @@ function _radView(){
   var F=window._radFlt||{}; if(F.held||F.ana||F.sel||F.pend){ var _hF=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
     list=list.filter(function(c){ var st=(DB.radarSel&&DB.radarSel[c.t])?'sel':(_hF.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':'pend')); return F[st]; }); }
   var k=_radSort.k,d=_radSort.dir;
-  list.sort(function(a,b){ var av=(k==='atr')?a.atr:(a.f[k]==null?-1e9:a.f[k]); var bv=(k==='atr')?b.atr:(b.f[k]==null?-1e9:b.f[k]); return (av-bv)*d; });
+  var _gv=function(o){ return (k==='atr')?o.atr:(k==='posN'?(o.posN==null?-1e9:o.posN):(k==='crec'?(o.crecDiv==null?-1e9:o.crecDiv):(o.f[k]==null?-1e9:o.f[k]))); };
+  list.sort(function(a,b){ return (_gv(a)-_gv(b))*d; });
   return list;
 }
 function _radArrow(k){ return _radSort.k===k?(_radSort.dir<0?' ▼':' ▲'):''; }
@@ -293,7 +351,7 @@ function _radRenderList(){
   var list=_radView();
   var _held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
   var cnt=document.getElementById('radCount'); if(cnt)cnt.textContent=list.length+' de '+(_radCands||[]).length;
-  var LBL={atr:'Atr.',rpd:'RPD',roe:'ROE',per:'PER',pos52sem:'52s'};
+  var LBL={atr:'Atr.',rpd:'RPD',crec:'Crec.Div',roe:'ROE',per:'PER',pos52sem:'52s',posN:'Pos.'+((typeof _radarYears!=='undefined')?_radarYears:3)+'a'};
   document.querySelectorAll('#view-radar th[data-radsk]').forEach(function(th){ var k=th.getAttribute('data-radsk'); th.textContent=LBL[k]+_radArrow(k); });
   (function(){ var ph=document.getElementById('radPromoPanel'); if(!ph)return; var sA=[],sV=[];
     (_radCands||[]).forEach(function(c){ var x=(typeof _radSugerencia==='function')?_radSugerencia(c):null; if(x==='ana')sA.push(c); else if(x==='vig')sV.push(c); });
@@ -308,14 +366,16 @@ function _radRenderList(){
       '<td class="l"><b class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((c.nombre||'').slice(0,18))+'</span></td>'+
       '<td class="l">'+_radAtag(c.arq)+'</td>'+
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
+      '<td style="text-align:right">'+_radCrecCell(c.crecDiv)+'</td>'+
       '<td>'+_rf(f.payout,'%',0)+'</td><td>'+_rf(f.roe,'%',1)+'</td><td>'+_rf(f.dnEbitda,'x',2)+'</td><td>'+_rf(f.per,'',1)+'</td><td>'+_rf(f.pbv,'',2)+'</td><td>'+_rf(f.pos52sem,'%',0)+'</td>'+
+      '<td class="l" style="text-align:center">'+_radPosCell(c.posSt)+'</td>'+
       '<td class="l" style="text-align:center">'+_radStars(c.rating)+'</td>'+
       '<td class="l" style="text-align:center">'+_radDsCell(c.ds)+'</td>'+
       '<td class="l" style="text-align:center">'+_radFoCell(_radFo(c.t))+'</td>'+
       '<td class="l" style="text-align:center">'+_radConfCell(_radConf(c.t))+'</td>'+
       '<td class="l" style="text-align:center">'+_radRobCell(_radRob(c.t))+'</td>'+
-      '<td class="l" style="font-size:11px;color:'+(c.trampa?'#b45309':'#94a3b8')+'">'+_radEsc(_radNota(c))+'</td></tr>';
-  }).join('')||'<tr><td colspan="17" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
+      '<td class="l" style="text-align:center">'+_radAlertBadge(c)+'</td></tr>';
+  }).join('')||'<tr><td colspan="19" style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</td></tr>';
   document.getElementById('radCards').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t]; var op=!!window._radOpen[c.t];
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
@@ -324,17 +384,19 @@ function _radRenderList(){
       '<div class="rpd"><div class="v" style="color:'+(f.rpd>=5?'#16a34a':'#475569')+'">'+_rf(f.rpd,'%',1)+'</div><div class="l">RPD</div></div>'+
       '<span class="rad-arw">▶</span></div>'+
       '<div class="rad-card-b"><div class="mgrid">'+
+        '<div class="m"><div class="l">Crec.Div</div><div class="v">'+_radCrecCell(c.crecDiv)+'</div></div>'+
         '<div class="m"><div class="l">Payout</div><div class="v">'+_rf(f.payout,'%',0)+'</div></div>'+
         '<div class="m"><div class="l">ROE</div><div class="v">'+_rf(f.roe,'%',1)+'</div></div>'+
         '<div class="m"><div class="l">DN/EBITDA</div><div class="v">'+_rf(f.dnEbitda,'x',2)+'</div></div>'+
         '<div class="m"><div class="l">PER</div><div class="v">'+_rf(f.per,'',1)+'</div></div>'+
         '<div class="m"><div class="l">P/BV</div><div class="v">'+_rf(f.pbv,'',2)+'</div></div>'+
         '<div class="m"><div class="l">Pos.52s</div><div class="v">'+_rf(f.pos52sem,'%',0)+'</div></div>'+
+        '<div class="m"><div class="l">Pos.'+((typeof _radarYears!=='undefined')?_radarYears:3)+'a</div><div class="v">'+(c.posN!=null?('<span style="color:'+(c.posN<33?'#16a34a':(c.posN<66?'#d97706':'#dc2626'))+'">'+c.posN.toFixed(0)+'% '+_radNivTxt(c.posN)+'</span>'):'—')+'</div></div>'+
         (c.ds?'<div class="m"><div class="l">Seg. div.</div><div class="v" style="color:'+_radDsCol(c.ds.banda)+'">'+(c.ds.score!=null?c.ds.score:'n/a')+'</div></div>':'')+
         (function(){var fo=_radFo(c.t); if(!fo||!fo.aplica)return ''; var has=fo.flags&&fo.flags.length; var v=has&&_radFoVeto(fo); var lab=!has?'✓':(v?'⚠️ VETO':'⚠️'); var col=!has?'#16a34a':(v?'#991b1b':'#dc2626'); return '<div class="m"><div class="l">Forense</div><div class="v" style="color:'+col+'">'+lab+'</div></div>';})()+
         (function(){var cf=_radConf(c.t); if(!cf)return ''; return '<div class="m"><div class="l">Confianza</div><div class="v" style="color:'+(_RAD_CFCOL[cf]||'#64748b')+'">'+cf+'</div></div>';})()+
         (function(){var rb=_radRob(c.t); if(!rb)return ''; return '<div class="m"><div class="l">Robustez</div><div class="v" style="color:'+(_RAD_RBCOL[rb]||'#64748b')+'">'+(rb==='solida'?'sólida':rb)+'</div></div>';})()+
-      '</div>'+(_radNota(c)?('<div style="margin-top:9px;font-size:12px;color:'+(c.trampa?'#b45309':'#64748b')+'">'+_radEsc(_radNota(c))+'</div>'):'')+'</div></div>';
+      '</div>'+(function(){ var al=_radAlertas(c); if(!al.length)return ''; var col={r:'#dc2626',a:'#d97706',v:'#16a34a'}; return '<div style="margin-top:9px;display:flex;flex-direction:column;gap:5px">'+al.map(function(x){return '<div style="display:flex;gap:7px;font-size:12px"><span style="flex:0 0 auto;width:8px;height:8px;border-radius:50%;margin-top:4px;background:'+col[x.s]+'"></span><span><b>'+_radEsc(x.t)+'.</b> <span style="color:#64748b">'+_radEsc(x.d)+'</span></span></div>';}).join('')+'</div>'; })()+'</div></div>';
   }).join('')||'<div style="text-align:center;padding:16px;color:#94a3b8">Sin resultados.</div>';
 }
 function _radBind(sec){
@@ -344,10 +406,12 @@ function _radBind(sec){
     if(t.id==='radPromoVig'||t.id==='radPromoAna'){ DB.config=DB.config||{}; DB.config.radarPromo=DB.config.radarPromo||{}; DB.config.radarPromo[t.id==='radPromoVig'?'vigilar':'analizar']=num(t.value); if(typeof scheduleSave==='function')scheduleSave(); _radRenderList(); return; }
     if(t.id==='radArq'){ _radArqFilter=t.value; _radRenderList(); return; }
     if(t.id==='radSortSel'){ _radSort.k=t.value; _radSort.dir=-1; _radRenderList(); return; }
+    if(t.id==='radYearsN'){ _radarYears=parseInt(t.value,10)||3; if(typeof _radCalcPos==='function'&&_radCands)_radCalcPos(_radCands); _radRenderList(); return; }
     if(t.classList&&t.classList.contains('rad-ck')){ var tk=(t.getAttribute('data-radck')||'').toUpperCase(); if(!tk)return; DB.radarSel=DB.radarSel||{}; if(t.checked)DB.radarSel[tk]=true; else delete DB.radarSel[tk]; if(typeof scheduleSave==='function')scheduleSave(); _radRenderList(); return; } });
   sec.addEventListener('click',function(e){
     if(e.target.closest('.rad-ck'))return;
     if(e.target.closest('[data-ficha]'))return;
+    var _ab=e.target.closest&&e.target.closest('[data-radalert]'); if(_ab){ _radAlertPop(_ab.getAttribute('data-radalert')); return; }
     var th=e.target.closest('th[data-radsk]'); if(th){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} var ss=document.getElementById('radSortSel'); if(ss)ss.value=_radSort.k; _radRenderList(); return; }
     var _fb=e.target.closest('[data-radflt]'); if(_fb){ var _fk=_fb.getAttribute('data-radflt'); window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false}; window._radFlt[_fk]=!window._radFlt[_fk]; _fb.classList.toggle('on',window._radFlt[_fk]); _radRenderList(); return; }
     var _pp=e.target.closest('[data-radpromo]'); if(_pp){ var _pa=(_pp.getAttribute('data-radpromo')||'').split('|'); var _pm=_pa[0], _pt=(_pa[1]||'').toUpperCase(); if(_pm==='ana'){ if(typeof colaAdd==='function')colaAdd(_pt); } else { DB.radarSel=DB.radarSel||{}; DB.radarSel[_pt]=true; if(typeof scheduleSave==='function')scheduleSave(); } _radRenderList(); return; }
