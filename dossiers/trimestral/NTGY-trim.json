@@ -183,6 +183,14 @@
           "nombre": "Recompra M€",
           "valor": null
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Acercamiento de OPA de Taqa sobre Naturgy en 2024, finalmente frustrado (desenlace Pte. Revisión).",
+          "impacto": "=",
+          "valoracion": "Elimina una prima de control potencial a corto plazo; sin cambio en el negocio."
+        }
       ]
     },
     {
@@ -244,6 +252,20 @@
           "nombre": "Recompra M€",
           "valor": -510
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Presentación del Plan Estratégico 2025-2027, con foco en redes reguladas y renovables.",
+          "impacto": "+",
+          "valoracion": "Plan de crecimiento moderado y disciplinado, coherente con la tesis income."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Nueva política de dividendo creciente 2025-2027 condicionada a mantener el rating BBB.",
+          "impacto": "+",
+          "valoracion": "Trayectoria de retribución creciente; ancla la tesis de renta."
+        }
       ]
     },
     {
@@ -304,6 +326,14 @@
         {
           "nombre": "Recompra M€",
           "valor": -2332
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Recompra",
+          "hecho": "Programa de recompra de acciones propias (~2.332 M€), posteriormente recolocadas entre accionistas.",
+          "impacto": "=",
+          "valoracion": "Gestión de liquidez y paz accionarial; efecto neutro sobre el free float final."
         }
       ]
     },
@@ -427,6 +457,14 @@
           "nombre": "Recompra M€",
           "valor": -2580
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "La CNMC eleva la tasa de retribución de la distribución eléctrica al 6,58% para 2026-2031.",
+          "impacto": "+",
+          "valoracion": "Catalizador para el negocio de redes; mejora la visibilidad de ingresos."
+        }
       ]
     },
     {
@@ -488,7 +526,16 @@
           "nombre": "Recompra M€",
           "valor": null
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "BlackRock (vía GIP) vende su 11,2% restante y sale del capital, ampliando el free float.",
+          "impacto": "+",
+          "valoracion": "Mejora liquidez e indexación de la acción; reduce el descuento por iliquidez."
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

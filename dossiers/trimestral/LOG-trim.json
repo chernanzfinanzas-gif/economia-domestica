@@ -49,6 +49,20 @@
           "nombre": "DPA (€)",
           "valor": null
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere el 100% de Carbó Collbatallé (~51 M€), transporte capilar en frío",
+          "impacto": "+",
+          "valoracion": "Diversifica fuera del tabaco reforzando la pata de transporte"
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere el 60% de Transportes El Mosca (>100 M€), larga distancia",
+          "impacto": "+",
+          "valoracion": "Amplía la diversificación en transporte frente al declive del tabaco"
+        }
       ]
     },
     {
@@ -688,5 +702,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

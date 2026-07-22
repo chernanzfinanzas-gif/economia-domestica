@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "CIE",
   "empresa": "CIE Automotive",
   "revisiones": [
@@ -401,6 +401,14 @@
           "nombre": "DFN/EBITDA(*)",
           "valor": 1.34
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Reorganización de la participación en India: reducción del peso de Mahindra y mayor control; MCIE pasa a llamarse CIE Automotive India.",
+          "impacto": "=",
+          "valoracion": "Simplifica la estructura y refuerza el control sobre la plataforma india; neutral para la tesis."
+        }
       ]
     },
     {
@@ -551,6 +559,14 @@
           "nombre": "DFN/EBITDA(*)",
           "valor": 1.32
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Cambio en el consejo: salida del consejero dominical Jacobo Llanza (ago-2025).",
+          "impacto": "=",
+          "valoracion": "Movimiento puntual en el consejo; sin efecto sobre la tesis."
+        }
       ]
     },
     {
@@ -601,6 +617,20 @@
           "nombre": "DFN/EBITDA(*)",
           "valor": 1.18
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Anuncio de compra del Grupo Aludec (~200 M€), componentes decorativos: ~1.300 empleados en 10 plantas europeas y americanas.",
+          "impacto": "+",
+          "valoracion": "M&A acretiva coherente con su ADN consolidador; amplía la cartera agnóstica al tren motriz. A favor."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "Auto-OPA / oferta de recompra de acciones, bien recibida por el mercado.",
+          "impacto": "+",
+          "valoracion": "Retribución al accionista con balance holgado (DN/EBITDA 1,1x); apoya la tesis de normalización. Importe/% exactos Pte. Revisión."
+        }
       ]
     },
     {
@@ -650,6 +680,14 @@
         {
           "nombre": "DFN/EBITDA(*)",
           "valor": 1.32
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Cierre e integración de Aludec: empieza a aportar (contribución inorgánica ~+5,2% a ventas).",
+          "impacto": "+",
+          "valoracion": "Ejecución de la M&A anunciada; confirma la disciplina de asignación de capital."
         }
       ]
     }

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "ENG",
   "empresa": "Enagás",
   "revisiones": [
@@ -201,6 +201,20 @@
           "nombre": "FFO/DN (%)",
           "valor": 16.6
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de GNL Quintero (Chile), participación internacional.",
+          "impacto": "+",
+          "valoracion": "Reduce deuda y concentra recursos en el negocio regulado doméstico y el hidrógeno."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Entrada del 10% en Hanseatic Energy Hub (Stade, Alemania).",
+          "impacto": "=",
+          "valoracion": "Apuesta internacional selectiva ligada a infraestructura de importación/transición."
+        }
       ]
     },
     {
@@ -400,6 +414,26 @@
         {
           "nombre": "FFO/DN (%)",
           "valor": "Pte. Revisión"
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de la participación en Tallgrass Energy (EE.UU.), con deterioro reconocido.",
+          "impacto": "=",
+          "valoracion": "Desapalanca el balance pero cristaliza la destrucción de valor de la aventura de Tallgrass."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Ampliación de la participación en Hanseatic Energy Hub (Stade) del 10% al 15%.",
+          "impacto": "=",
+          "valoracion": "Refuerzo selectivo en un activo de transición energética en Alemania."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Recorte del dividendo por acción (~-43%) para sostener el balance.",
+          "impacto": "-",
+          "valoracion": "Ajuste prudente ante el deterioro, pero rompe la senda de retribución previa."
         }
       ]
     },
@@ -650,6 +684,14 @@
         {
           "nombre": "FFO/DN (%)",
           "valor": 5
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Anuncio de propuesta a la Junta de reelección de Llardén (presidente) y Gonzalo (CEO).",
+          "impacto": "=",
+          "valoracion": "Continuidad en la cúpula; estabilidad de gestión en plena transición estratégica."
         }
       ]
     }

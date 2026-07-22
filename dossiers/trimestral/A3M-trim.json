@@ -539,6 +539,20 @@
           "nombre": "Suscript. Atresplayer (miles)",
           "valor": 700
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra del 75% de Last Lap (organización de eventos) por 17,25 M€.",
+          "impacto": "+",
+          "valoracion": "Diversifica hacia eventos y reduce la dependencia de la publicidad de TV."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Acuerdo de compra de Clear Channel España (publicidad exterior); cierre previsto inicios 2026.",
+          "impacto": "+",
+          "valoracion": "Entrada en publicidad exterior, segmento de mayor crecimiento; catalizador con riesgo de ejecución."
+        }
       ]
     },
     {
@@ -587,6 +601,20 @@
         {
           "nombre": "Suscript. Atresplayer (miles)",
           "valor": 745
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Otros",
+          "hecho": "Ejecuta un plan de bajas incentivadas dentro del eje de eficiencia operativa.",
+          "impacto": "=",
+          "valoracion": "Protege el margen a medio plazo pero refleja la debilidad del ciclo publicitario."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Publica guía 2026: ingresos estables en perímetro y objetivo de margen, con paso a ligera deuda neta por Clear Channel.",
+          "impacto": "=",
+          "valoracion": "Perímetro estable con integración de Clear Channel; abandona la caja neta de forma controlada."
         }
       ]
     },
@@ -639,5 +667,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

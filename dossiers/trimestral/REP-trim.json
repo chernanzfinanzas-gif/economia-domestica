@@ -196,6 +196,14 @@
           "nombre": "RNA Industrial (M€)",
           "valor": 2734
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Gravamen extraordinario a la energía en España, que drena beneficio y caja del sector.",
+          "impacto": "-",
+          "valoracion": "Presión fiscal-regulatoria que resta caja disponible para retribución e inversión."
+        }
       ]
     },
     {
@@ -588,6 +596,20 @@
           "nombre": "RNA Industrial (M€)",
           "valor": 963
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Acuerdo con TotalEnergies UK y operación con Sinopec UK en el Mar del Norte (rotación/JV); importe Pte. Revisión.",
+          "impacto": "+",
+          "valoracion": "Rotación de cartera upstream que cristaliza valor y refuerza la disciplina financiera."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Plan estratégico 2026-2028 (CMD2025) con la retribución al accionista (dividendo + recompras) como prioridad.",
+          "impacto": "+",
+          "valoracion": "Prioriza el retorno total al accionista y la disciplina de inversión; apoya la tesis."
+        }
       ]
     },
     {
@@ -639,5 +661,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

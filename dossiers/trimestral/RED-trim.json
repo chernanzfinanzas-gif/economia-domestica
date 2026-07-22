@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "RED",
   "empresa": "Redeia Corporación, S.A.",
   "revisiones": [
@@ -201,6 +201,14 @@
           "nombre": "%Var EBITDA l-f-l (%)",
           "valor": 1.1
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Otros",
+          "hecho": "Reorganización del holding: la matriz pasa a denominarse Redeia Corporación, agrupando sus cuatro negocios.",
+          "impacto": "=",
+          "valoracion": "Reordenación corporativa bajo marca común; impacto neutro en el negocio."
+        }
       ]
     },
     {
@@ -401,6 +409,20 @@
           "nombre": "%Var EBITDA l-f-l (%)",
           "valor": -12.4
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de Hispasat a Indra (~725 M€) tras el deterioro de 2024; refoco en la red regulada.",
+          "impacto": "=",
+          "valoracion": "Corrige una diversificación fallida pero reconoce destrucción de valor."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Recorte del dividendo por acción, señal de la tensión del punto bajo del ciclo regulatorio.",
+          "impacto": "-",
+          "valoracion": "Debilita el atractivo de renta a corto; refleja un spread regulatorio estrecho."
+        }
       ]
     },
     {
@@ -501,6 +523,14 @@
           "nombre": "%Var EBITDA l-f-l (%)",
           "valor": 2.8
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Apagón masivo en la Península Ibérica (28-abr-2025); Redeia bajo escrutinio como operador del sistema.",
+          "impacto": "-",
+          "valoracion": "Riesgo reputacional y político; posible responsabilidad y sanciones a vigilar."
+        }
       ]
     },
     {
@@ -551,6 +581,14 @@
           "nombre": "%Var EBITDA l-f-l (%)",
           "valor": 3.0
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Anuncio de incremento del plan de inversión en redes del +59% (octubre de 2025).",
+          "impacto": "+",
+          "valoracion": "Amplía la base de activos regulada; motor del crecimiento del RAB y del beneficio."
+        }
       ]
     },
     {
@@ -600,6 +638,20 @@
         {
           "nombre": "%Var EBITDA l-f-l (%)",
           "valor": 4.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Nueva tasa de retribución financiera del transporte del 6,58% para 2026-2031 (CNMC).",
+          "impacto": "+",
+          "valoracion": "Catalizador central: reactiva rentabilidad, flujo de caja y dividendo."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Redeia descarta provisiones y sanciones por el apagón en sus cuentas de 2025, al considerar que cumplió sus obligaciones.",
+          "impacto": "=",
+          "valoracion": "Reduce el sobrecoste latente, pero el dictamen regulatorio final sigue pendiente."
         }
       ]
     },

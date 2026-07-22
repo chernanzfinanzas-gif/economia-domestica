@@ -392,6 +392,20 @@
           "nombre": "Deuda banc. neta (M€)",
           "valor": 146.9
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquisición del 60% de Brasfibra y Master Couros (Brasil), reforzando hidrolizados de colágeno y pet food.",
+          "impacto": "+",
+          "valoracion": "M&A pequeña y acretiva que impulsa los Nuevos Negocios; encaje con management de calidad."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "El Consejo aprueba (dic-2024) un Plan Net Zero para emisiones de alcance 1 y 2 a 2050.",
+          "impacto": "=",
+          "valoracion": "Compromiso de descarbonización de largo plazo; sin efecto material inmediato en la tesis."
+        }
       ]
     },
     {
@@ -588,6 +602,14 @@
           "nombre": "Deuda banc. neta (M€)",
           "valor": 206.1
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquisición del 51% de Pet Mania (Brasil), snacks para mascotas, por 34 M R$.",
+          "impacto": "+",
+          "valoracion": "Refuerza pet food dentro de Nuevos Negocios; operación pequeña y digestible."
+        }
       ]
     },
     {
@@ -637,7 +659,16 @@
           "nombre": "Deuda banc. neta (M€)",
           "valor": 234.4
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Nombramiento de un nuevo consejero independiente (Juan Ignacio Vidarte) en la Junta de 2026.",
+          "impacto": "=",
+          "valoracion": "Renueva el consejo manteniendo la mayoría independiente; neutro para la tesis."
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

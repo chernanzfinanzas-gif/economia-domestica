@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "AMS",
   "empresa": "Amadeus",
   "revisiones": [
@@ -401,6 +401,14 @@
           "nombre": "FCF (M€)",
           "valor": 1357.9
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Contrato",
+          "hecho": "Migración de Vietnam Airlines a la plataforma Altéa (ganancia de cliente Air IT relevante).",
+          "impacto": "+",
+          "valoracion": "Refuerza el negocio Air IT, el segmento de mayor moat por costes de cambio."
+        }
       ]
     },
     {
@@ -600,6 +608,14 @@
         {
           "nombre": "FCF (M€)",
           "valor": 1386.3
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Recompra",
+          "hecho": "Ejecuta un potente programa de recompra de acciones como parte de la retribución al accionista.",
+          "impacto": "+",
+          "valoracion": "Confirma la fuerte generación de caja y el compromiso de retribución tras la recuperación post-COVID."
         }
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "VID",
   "empresa": "Vidrala, S.A.",
   "revisiones": [
@@ -197,6 +197,14 @@
           "nombre": "DN/EBITDA (x)",
           "valor": 1.1
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquisición de Vidroporto (Brasil) como plataforma de crecimiento; importe Pte. Revisión.",
+          "impacto": "+",
+          "valoracion": "Diversifica hacia un mercado en crecimiento manteniendo la disciplina de M&A."
+        }
       ]
     },
     {
@@ -245,6 +253,14 @@
         {
           "nombre": "DN/EBITDA (x)",
           "valor": 1.2
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Plan de sucesión ordenado del CEO: Raúl Gómez sustituye a Gorka Schmitt.",
+          "impacto": "=",
+          "valoracion": "Relevo profesional ordenado; señal de buen gobierno y continuidad estratégica."
         }
       ]
     },
@@ -344,6 +360,14 @@
           "nombre": "DN/EBITDA (x)",
           "valor": 0.7
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de la filial italiana (Corsico) a Verallia por ~230 M€, con plusvalía.",
+          "impacto": "+",
+          "valoracion": "Cristaliza valor, reduce deuda y financia retribución extraordinaria al accionista."
+        }
       ]
     },
     {
@@ -392,6 +416,14 @@
         {
           "nombre": "DN/EBITDA (x)",
           "valor": 0.6
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Dividendo",
+          "hecho": "Reparto de un dividendo extraordinario con la plusvalía de la venta de la filial italiana.",
+          "impacto": "+",
+          "valoracion": "Retorno extraordinario de caja al accionista sin comprometer el balance."
         }
       ]
     },
@@ -588,6 +620,14 @@
         {
           "nombre": "DN/EBITDA (x)",
           "valor": 0.2
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Dividendo",
+          "hecho": "Propuesta de incremento del dividendo para 2026.",
+          "impacto": "+",
+          "valoracion": "Confirma la política de retribución creciente respaldada por la solidez del balance."
         }
       ]
     },

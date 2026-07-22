@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "TEF",
   "empresa": "Telefónica",
   "revisiones": [
@@ -201,6 +201,14 @@
           "nombre": "%Var EBITDA",
           "valor": "Pte. Revisión"
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Entrada de STC (~9,9%) y de la SEPI (~10%) en el capital, configurando un núcleo de accionistas de referencia.",
+          "impacto": "-",
+          "valoracion": "Introduce agendas no puramente financieras (Estado y socio soberano); riesgo de gobernanza."
+        }
       ]
     },
     {
@@ -401,6 +409,14 @@
           "nombre": "%Var EBITDA",
           "valor": 1.2
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Marc Murtra sustituye a José María Álvarez-Pallete como presidente, en un cambio impulsado por la SEPI.",
+          "impacto": "-",
+          "valoracion": "Relevo con fuerte influencia estatal; anticipa un giro de estrategia y de dividendo."
+        }
       ]
     },
     {
@@ -501,6 +517,14 @@
           "nombre": "%Var EBITDA",
           "valor": -4.6
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta acelerada de filiales de Hispam (Argentina, Perú, Colombia, Uruguay y Ecuador).",
+          "impacto": "=",
+          "valoracion": "Simplifica el perímetro y desapalanca, pero con fuerte impacto contable y pérdida de clientes."
+        }
       ]
     },
     {
@@ -600,6 +624,20 @@
         {
           "nombre": "%Var EBITDA",
           "valor": 2.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Nuevo plan estratégico de Murtra hacia una compañía 'más europea', con foco en la consolidación in-market y sin ampliación de capital.",
+          "impacto": "=",
+          "valoracion": "Catalizador central; su ejecución puede cerrar el descuento o activar el bear case."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Recorte del dividendo a la mitad para 2026, sin ampliación de capital, para financiar desapalancamiento e inversión.",
+          "impacto": "-",
+          "valoracion": "Materializa el riesgo de dividendo señalado; debilita la tesis de renta a corto plazo."
         }
       ]
     },

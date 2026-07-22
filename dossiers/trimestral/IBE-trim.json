@@ -196,6 +196,14 @@
           "nombre": "%Var EBITDA",
           "valor": 9
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Cancela la compra de PNM Resources (EE.UU.) al no lograr la aprobación del regulador de Nuevo México",
+          "impacto": "+",
+          "valoracion": "Disciplina de capital: abandona la operación al complicarse el marco regulatorio"
+        }
       ]
     },
     {
@@ -392,6 +400,20 @@
           "nombre": "%Var EBITDA",
           "valor": 16.9
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere el 88% de Electricity North West (RU, ~5.000 M€), distribuidora regulada",
+          "impacto": "+",
+          "valoracion": "Refuerza el foco en redes reguladas de calidad en un país rating A"
+        },
+        {
+          "tipo": "M&A",
+          "hecho": "Compra el 18% restante de Avangrid y toma el control total de su filial estadounidense",
+          "impacto": "+",
+          "valoracion": "Consolida el 100% de la plataforma regulada y renovable en EE.UU."
+        }
       ]
     },
     {
@@ -489,6 +511,14 @@
         {
           "nombre": "%Var EBITDA",
           "valor": -13.8
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Pedro Azagra sustituye a Armando Martínez como consejero delegado (24-jun-2025)",
+          "impacto": "=",
+          "valoracion": "Relevo ordenado de CEO; continuidad bajo la presidencia de Sánchez Galán"
         }
       ]
     },
@@ -588,6 +618,14 @@
           "nombre": "%Var EBITDA",
           "valor": -1.5
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Presenta el plan 2025-2028 (~58.000 M€), centrado en redes y con >70% en EE.UU. y RU",
+          "impacto": "+",
+          "valoracion": "Fija la hoja de ruta inversora y de dividendo creciente que sostiene la tesis"
+        }
       ]
     },
     {
@@ -639,5 +677,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

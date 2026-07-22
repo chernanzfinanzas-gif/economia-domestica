@@ -588,6 +588,26 @@
           "nombre": "Clientes Liberaliz. M",
           "valor": 6.2
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "CNMC (Circular 9/2025) eleva la retribución financiera de distribución del 5,58% al 6,58% para 2026-2031.",
+          "impacto": "+",
+          "valoracion": "Mejora la remuneración del negocio regulado, núcleo del moat y de la inversión futura."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Presentación del Plan Estratégico 2026-2028: inversión bruta ~10,6 mil M€, con más del 50% destinado a Redes.",
+          "impacto": "+",
+          "valoracion": "Refuerza el giro hacia activos regulados y la expansión de la base de activos (RAB)."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Inversiones inorgánicas por ~1.000 M€ en 2025, incluidos 0,6 GW hidráulicos.",
+          "impacto": "+",
+          "valoracion": "Crecimiento selectivo que amplía capacidad sin comprometer el balance."
+        }
       ]
     },
     {
@@ -637,7 +657,22 @@
           "nombre": "Clientes Liberaliz. M",
           "valor": 6.4
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Gianni Vittorio Armani nombrado CEO por unanimidad, en sustitución de José Bogas tras doce años.",
+          "impacto": "=",
+          "valoracion": "Relevo alineado con Enel y su foco en distribución; transición ordenada con Bogas como consejero."
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "Nombramiento de Angela Eliseo (dominical) y Ana Muñoz Merino (independiente) como consejeras.",
+          "impacto": "=",
+          "valoracion": "Renovación ordinaria del consejo; mantiene el equilibrio dominical/independiente."
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

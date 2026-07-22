@@ -366,7 +366,15 @@
           "valor": 11495
         }
       ],
-      "periodoDisplay": "FY"
+      "periodoDisplay": "FY",
+      "hechos": [
+        {
+          "tipo": "Otros",
+          "hecho": "Lanza un plan logístico extraordinario de ~900 M€ (Zaragoza, Lelystad y Valencia)",
+          "impacto": "+",
+          "valoracion": "Amplía capacidad logística para sostener el crecimiento orgánico e integrado"
+        }
+      ]
     },
     {
       "periodo": "2025-Q1",
@@ -596,5 +604,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

@@ -98,6 +98,14 @@
           "nombre": "Solv. II %",
           "valor": 197.3
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Arbitraje favorable a Mapfre por la ruptura de la alianza de bancaseguros con Bankia (tras su fusión con CaixaBank).",
+          "impacto": "+",
+          "valoracion": "Cierra un litigio a favor y libera el canal de distribución; refuerza su posición."
+        }
       ]
     },
     {
@@ -244,6 +252,14 @@
         {
           "nombre": "Solv. II %",
           "valor": 197.7
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Presentación del Plan Estratégico 2024-2026, con objetivos de crecimiento, ROE y ratio combinado.",
+          "impacto": "+",
+          "valoracion": "Hoja de ruta creíble de rentabilidad; ancla la tesis de mejora operativa."
         }
       ]
     },
@@ -441,6 +457,14 @@
           "nombre": "Solv. II %",
           "valor": 205.6
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Revisión al alza de los objetivos del plan (ROE y ratio combinado) en la junta de 2025.",
+          "impacto": "+",
+          "valoracion": "El management supera y eleva sus guías; señal positiva de credibilidad."
+        }
       ]
     },
     {
@@ -637,7 +661,22 @@
           "nombre": "Solv. II %",
           "valor": 205.3
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Reelección de Antonio Huertas como presidente ejecutivo por cuatro años más.",
+          "impacto": "+",
+          "valoracion": "Continuidad de la estrategia y estabilidad en la cúpula; positivo para la tesis."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Aumento del dividendo con cargo a 2025 y compromiso de retribución creciente sostenible.",
+          "impacto": "+",
+          "valoracion": "Refuerza el pilar de renta; dividendo creciente y sostenible."
+        }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

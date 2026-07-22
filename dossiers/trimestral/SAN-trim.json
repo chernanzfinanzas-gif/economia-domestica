@@ -196,6 +196,14 @@
           "nombre": "TNAV/acc (€)",
           "valor": 4.76
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Héctor Grisi asume como consejero delegado (CEO) del grupo desde 2023, junto a la presidenta ejecutiva Ana Botín.",
+          "impacto": "=",
+          "valoracion": "Relevo en la primera ejecutiva; continuidad estratégica bajo la presidencia de Botín."
+        }
       ]
     },
     {
@@ -588,6 +596,14 @@
           "nombre": "TNAV/acc (€)",
           "valor": 5.76
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Acuerdo para adquirir TSB (Reino Unido) a Sabadell por ~3.100 M€, con cierre previsto en Q1-2026.",
+          "impacto": "+",
+          "valoracion": "Refuerza la banca minorista británica en un mercado núcleo con disciplina de capital."
+        }
       ]
     },
     {
@@ -639,5 +655,6 @@
         }
       ]
     }
-  ]
+  ],
+  "schemaVersion": 2
 }

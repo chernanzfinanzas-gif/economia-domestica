@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "BKT",
   "empresa": "Bankinter",
   "revisiones": [
@@ -361,6 +361,14 @@
           "nombre": "Coste del riesgo (%)",
           "valor": 0.39
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Relevo generacional en la cúpula: Dolores Dancausa asume la presidencia y Gloria Ortiz es nombrada CEO, sucediendo a Pedro Guerrero.",
+          "impacto": "=",
+          "valoracion": "Relevo ordenado con continuidad interna; preserva la estabilidad estratégica del banco."
+        }
       ]
     },
     {
@@ -556,6 +564,14 @@
         {
           "nombre": "Coste del riesgo (%)",
           "valor": 0.33
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Plena absorción y fusión de EVO Banco (banco 100% digital) dentro de Bankinter.",
+          "impacto": "+",
+          "valoracion": "Culmina la integración digital y consolida la ventaja de eficiencia y costes."
         }
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "FAE",
   "empresa": "Faes Farma",
   "revisiones": [
@@ -451,6 +451,14 @@
           "nombre": "Peso Top3/Ingr. (%)",
           "valor": 43.6
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "La UE autoriza la nueva planta de Derio (Bizkaia) como laboratorio y centro de producción",
+          "impacto": "+",
+          "valoracion": "Habilita la nueva capacidad industrial y desbloquea el ciclo inversor de Derio"
+        }
       ]
     },
     {
@@ -500,6 +508,32 @@
         {
           "nombre": "Peso Top3/Ingr. (%)",
           "valor": 41.5
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere SIFI (Italia, ~270 M€), su mayor compra histórica, entrando en oftalmología",
+          "impacto": "+",
+          "valoracion": "Crea un tercer pilar de crecimiento y liderazgo en un nicho oftálmico"
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere Edol (Portugal, ~75 M€), reforzando la entrada en oftalmología",
+          "impacto": "+",
+          "valoracion": "Complementa a SIFI y consolida la nueva pata oftalmológica"
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "La Junta de junio ratifica a Eduardo Recoder como nuevo consejero delegado",
+          "impacto": "=",
+          "valoracion": "Relevo de CEO alineado con el giro hacia el M&A y la oftalmología"
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Suscribe un crédito de ~375 M€ para financiar las adquisiciones de oftalmología",
+          "impacto": "=",
+          "valoracion": "Financia el salto de M&A pasando de caja neta a apalancamiento moderado"
         }
       ]
     },
@@ -600,6 +634,26 @@
         {
           "nombre": "Peso Top3/Ingr. (%)",
           "valor": 35.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Integra ISF en nutrición y salud animal (FARM Faes); importe Pte. Revisión",
+          "impacto": "+",
+          "valoracion": "Refuerza la pata de nutrición animal, su área de mayor crecimiento"
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "Incorpora una nueva Chief Scientific Officer para reforzar la organización de I+D",
+          "impacto": "+",
+          "valoracion": "Fortalece la I+D, clave para diversificar más allá de la bilastina"
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Presenta su 'ambición y estrategia a 2030' con la oftalmología como tercer pilar",
+          "impacto": "+",
+          "valoracion": "Da marco estratégico al giro de 2025 y a la creación de valor del M&A"
         }
       ]
     },
