@@ -466,24 +466,9 @@ function _pintarCalendario(analizadas){
   });
   (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
     var c=_cadenciaDe(t);
-    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var esAnual=!!e.tocaAnual;
-      /* Fecha efectiva unificada (manual > agenda > estimación) = la MISMA que usa el Monitor. */
-      var ef=_cbFechaEfectiva(c,false); var dt=_cbToStr(ef.date)||_cbToStr(c.next.date); var conf=!!ef.confirmada;
-      var dias=_cbDias(dt,hoy);
-      /* Etiqueta según la FECHA mostrada (la fecha confirmada puede diferir de la estimación
-         de la cadencia, que ya haya avanzado de trimestre al cargar el -trim.json). */
-      var qLbl=_cbQofDate(c,dt)||c.next.q;
-      var dtYear=(dt&&/^\d{4}/.test(dt))?dt.slice(0,4):String(hoy.getFullYear());
-      var perTok=(_QNUM[qLbl]?dtYear+'-Q'+_QNUM[qLbl]:'');
-      /* Revisado si está marcado a mano O si el -trim.json ya cubre ese periodo. */
-      var doneRep=!!((infDone[t]||{})[dt]) || _cbPeriodoEnTrim(t,perTok);
-      /* Auto-ocultar: informe YA HECHO cuya fecha pasó hace más de _CB_OCULTA_DIAS días. */
-      var _ocultar=doneRep && dias!=null && dias < -_CB_OCULTA_DIAS;
-      if(!_ocultar){
-        var bkt=doneRep?2:((esAnual||(dias!=null&&dias<=0))?0:2);
-        items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[qLbl]||qLbl)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf,editable:true});
-      }
-    }
+    if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var conf=!!c.next.manual;
+      var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
     var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
@@ -494,7 +479,6 @@ function _pintarCalendario(analizadas){
   var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(x){return '<option'+(x===sel?' selected':'')+'>'+x+'</option>';}).join(''); };
   var tipoCol=function(it){ return it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); };
   var diasTxt=function(it){ if(it.tipo==='senal')return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>'; if(it.dias==null)return '<span class="muted">sin fecha</span>'; if(it.dias===0)return '<b style="color:#dc2626">hoy</b>'; if(it.dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-it.dias)+' d</span>'; if(it.dias<=14)return '<span style="color:#b45309;font-weight:600">en '+it.dias+' d</span>'; return 'en '+it.dias+' d'; };
-  var edFecha=function(it){ return it.editable?' <span class="cb-edfecha" data-cbfecha="'+_radEsc(it.t)+'" title="Corregir la fecha del informe (fuente fiable → se marca conf.)" style="cursor:pointer;color:#94a3b8;font-size:11px;user-select:none">✎</span>':''; };
   var estadoCell=function(it){
     if(it.tipo==='analisis') return '<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
     if(it.tipo==='senal') return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>';
@@ -515,7 +499,7 @@ function _pintarCalendario(analizadas){
       rows+='<tr class="'+rowCls(it)+'"><td class="num" style="color:#94a3b8">'+idx+'</td>'+
         '<td><b class="cob-tk">'+_radEsc(it.t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((it.nombre||'').slice(0,20))+'</span></td>'+
         '<td><span style="font-size:11px;font-weight:700;color:'+tipoCol(it)+'">'+_radEsc(it.tipoLbl)+'</span></td>'+
-        '<td style="font-size:12px">'+_cbFechaTxt(it.date)+(it.conf?' <span title="Fecha confirmada" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>':'')+edFecha(it)+'</td>'+
+        '<td style="font-size:12px">'+_cbFechaTxt(it.date)+(it.conf?' <span title="Fecha confirmada" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>':'')+'</td>'+
         '<td style="font-size:12px">'+diasTxt(it)+'</td>'+
         '<td>'+estadoCell(it)+'</td>'+
         '<td style="text-align:center">'+chkFor(it)+'</td></tr>';
@@ -526,7 +510,7 @@ function _pintarCalendario(analizadas){
   BANDS.forEach(function(bd){ var its=items.filter(function(x){return x.bucket===bd[0];}); if(!its.length)return;
     mob+='<div class="cob-mband '+bd[2]+'">'+bd[1]+' · '+its.length+'</div>';
     its.forEach(function(it){
-      var right=it.tipo==='analisis'?('<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>'):('<div style="font-weight:600">'+diasTxt(it)+'</div>'+(it.date?'<div class="muted" style="font-size:11px">'+_cbFechaTxt(it.date)+(it.conf?' <span style="color:#166534;font-weight:700">conf.</span>':'')+edFecha(it)+'</div>':(it.editable?'<div>'+edFecha(it)+'</div>':'')));
+      var right=it.tipo==='analisis'?('<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>'):('<div style="font-weight:600">'+diasTxt(it)+'</div>'+(it.date?'<div class="muted" style="font-size:11px">'+_cbFechaTxt(it.date)+'</div>':''));
       mob+='<div class="cob-card cal '+rowCls(it)+'">'+chkFor(it)+
         '<div class="cmid"><div class="ct"><b class="cob-tk">'+_radEsc(it.t)+'</b> <span style="font-weight:400;font-size:12px;color:#94a3b8">'+_radEsc((it.nombre||'').slice(0,16))+'</span></div>'+
         '<div class="cs"><span style="font-size:11px;font-weight:700;color:'+tipoCol(it)+'">'+_radEsc(it.tipoLbl)+'</span></div></div>'+
@@ -544,29 +528,6 @@ document.addEventListener('change',function(e){ var c=e.target; if(!c.classList|
   else if(tp==='senal'){ DB.cobertura.senal=DB.cobertura.senal||{}; DB.cobertura.senal[t]=DB.cobertura.senal[t]||{}; if(on)DB.cobertura.senal[t][k]={done:true,fecha:_cbHoy()}; else delete DB.cobertura.senal[t][k]; }
   else if(tp==='analisis'){ var it=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===t;}); if(it)it.estado=on?'hecha':'pendiente'; }
   if(typeof scheduleSave==='function')scheduleSave(); if(typeof renderCobertura==='function')renderCobertura();
-});
-/* listener del ✎ para CORREGIR A MANO la fecha del próximo informe (fuente fiable de la
-   empresa). Se guarda en DB.fechasResultados y se trata como CONFIRMADA. La usan por igual
-   Cobertura y el Monitor (vía _cbFechaEfectiva). Vacío = volver a la estimación automática. */
-document.addEventListener('click',function(e){ var ed=e.target.closest&&e.target.closest('[data-cbfecha]'); if(!ed)return;
-  e.stopPropagation();
-  var t=(ed.getAttribute('data-cbfecha')||'').toUpperCase(); if(!t)return;
-  var cur=(((DB.fechasResultados||{})[t])||{}).fecha||'';
-  var val=window.prompt('Fecha del próximo informe de '+t+' (formato AAAA-MM-DD o DD/MM/AAAA).\nDéjalo VACÍO para volver a la estimación automática.', cur);
-  if(val===null)return;
-  val=(''+val).trim();
-  DB.fechasResultados=DB.fechasResultados||{};
-  if(!val){ delete DB.fechasResultados[t]; }
-  else{
-    var iso=null;
-    if(/^\d{4}-\d{2}-\d{2}$/.test(val)) iso=val;
-    else{ var dm=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(val); if(dm) iso=dm[3]+'-'+dm[2]+'-'+dm[1]; }
-    if(!iso || isNaN(new Date(iso+'T00:00:00').getTime())){ window.alert('Fecha no válida. Usa AAAA-MM-DD o DD/MM/AAAA.'); return; }
-    DB.fechasResultados[t]={fecha:iso, confirmada:true, fuente:'manual'};
-  }
-  if(typeof _cadRefreshAll==='function')_cadRefreshAll();
-  if(typeof scheduleSave==='function')scheduleSave();
-  if(typeof renderCobertura==='function')renderCobertura();
 });
 
 /* ---- Cadencia (último/próximo informe desde el monitor -trim.json) ---- */
@@ -597,65 +558,27 @@ function _cadenciaDe(t){
   if(!revs.length)return null;
   var ultimo=revs[revs.length-1];
   var mdByQ={}; revs.forEach(function(r){ var q=_qtoken(r.periodo); if(q&&r.fecha)mdByQ[q]=r.fecha.slice(5); });
+  /* Confirmación MANUAL (Cobertura → DB.cadManual[T][Q]="MM-DD"): sustituye el día-mes que la
+     empresa trae por histórico para ESE trimestre, en el año en curso y en los siguientes, hasta
+     que el usuario confirme otra fecha. Es la fuente única de fechas confirmadas (fuera Yahoo). */
+  var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[(t||'').toUpperCase()]||{}):{};
+  ['Q1','Q2','Q3','Q4'].forEach(function(q){ if(cm[q])mdByQ[q]=cm[q]; });
   var uDate=new Date(ultimo.fecha+'T00:00:00'); var next=null;
   Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
-  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo), mdByQ:mdByQ, t:(t||'').toUpperCase()};
+  if(next)next.manual=!!cm[next.q];
+  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo)};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
-var _QNUM={Q1:1,Q2:2,Q3:3,Q4:4};
-/* Días tras los que un informe YA HECHO y con fecha pasada se oculta del Calendario de
-   Cobertura (para no acumular eventos viejos). Ajustable. */
-var _CB_OCULTA_DIAS=21;
-/* Fecha efectiva del PRÓXIMO informe, con precedencia:
-   (1) corrección MANUAL del operador (DB.fechasResultados[t]) → SIEMPRE "confirmada";
-   (2) fecha CONFIRMADA de la agenda del buzón (Yahoo);
-   (3) estimación estacional de la cadencia (_cadenciaDe).
-   Con guard=true se ignora una fecha manual/agenda ANTERIOR O IGUAL al último informe ya
-   cargado (rezagada de un informe ya hecho) → evita que el Monitor marque "!" de un informe
-   pasado. Devuelve {date:Date|null, confirmada:bool, fuente:'manual'|'agenda'|'estimacion'}. */
-function _cbFechaEfectiva(c, guard){
-  if(!c) return {date:null, confirmada:false, fuente:null};
-  var t=(c.t||'').toUpperCase();
-  var ult=(c.ultimo&&c.ultimo.fecha)?(''+c.ultimo.fecha).slice(0,10):null;
-  var _ok=function(fs){ return (!guard) || (!ult) || (fs>ult); };
-  var man=(DB.fechasResultados||{})[t];
-  if(man && man.fecha){ var ms=(''+man.fecha).slice(0,10); if(_ok(ms)){ var md=new Date(ms+'T00:00:00'); if(!isNaN(md)) return {date:md, confirmada:true, fuente:'manual'}; } }
-  if(typeof _agResultado==='function'){ var ag=_agResultado(t); if(ag && ag.fecha){ var as=(''+ag.fecha).slice(0,10); if(_ok(as)){ var ad=new Date(as+'T00:00:00'); if(!isNaN(ad)) return {date:ad, confirmada:!!ag.confirmada, fuente:'agenda'}; } } }
-  if(c.next) return {date:c.next.date, confirmada:false, fuente:'estimacion'};
-  return {date:null, confirmada:false, fuente:null};
-}
-/* Trimestre (Q1..Q4) al que corresponde una fecha mostrada, según el patrón histórico
-   de publicación de la empresa (mdByQ). Sirve para que la etiqueta del Calendario de
-   Cobertura siga la FECHA REAL del informe (agenda confirmada) y no la estimación de la
-   cadencia, que puede haber avanzado ya al trimestre siguiente al cargar un -trim.json. */
-function _cbQofDate(c,dt){
-  if(!c||!c.mdByQ||!dt)return null; var md=(''+dt).slice(5); if(md.length<5)return null;
-  var target=parseInt(md.slice(0,2),10)*100+parseInt(md.slice(3,5),10); if(isNaN(target))return null;
-  var best=null,bestD=1e9;
-  Object.keys(c.mdByQ).forEach(function(q){ var s=c.mdByQ[q]; if(!s||s.length<5)return; var v=parseInt(s.slice(0,2),10)*100+parseInt(s.slice(3,5),10); if(isNaN(v))return; var dd=Math.abs(v-target); if(dd>600)dd=1200-dd; /* envolvente dic↔ene */ if(dd<bestD){bestD=dd;best=q;} });
-  return best;
-}
-/* ¿El -trim.json de la empresa ya cubre ese periodo canónico (AAAA-Qn)? Si sí, el informe
-   está revisado aunque no se haya marcado la casilla manual de Cobertura. */
-function _cbPeriodoEnTrim(t,perTok){
-  var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!perTok)return false;
-  return d.revisiones.some(function(r){ var pc=(typeof _trimCanon==='function')?_trimCanon(r.periodo):r.periodo; return pc===perTok; });
-}
 function _cadEstado(c,hoy,dossierFecha){
-  /* Fecha efectiva del próximo informe = la MISMA que anuncia Cobertura (manual > agenda >
-     estimación), con guardia para no arrastrar la fecha de un informe ya hecho. */
-  var ef=(typeof _cbFechaEfectiva==='function')?_cbFechaEfectiva(c,true):{date:(c.next?c.next.date:null),confirmada:false};
-  var nd=ef.date;
-  var tocaMonitor=!!(nd && nd<=hoy); var tocaAnual=false;
+  var tocaMonitor=!!(c.next && c.next.date<=hoy); var tocaAnual=false;
   if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dy=(''+(dossierFecha||'')).slice(0,4); var fyY=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dy&&fyY&&fyY>dy)tocaAnual=true; }
-  var qEf=(nd&&typeof _cbQofDate==='function')?_cbQofDate(c,_cbToStr(nd)):null; if(!qEf&&c.next)qEf=c.next.q;
-  var proxLabel=nd?((_QLABEL[qEf]||qEf)+' ~'+_cadFmtD(nd)):'';
+  var proxLabel=c.next?((_QLABEL[c.next.q]||c.next.q)+' ~'+_cadFmtD(c.next.date)):'';
   /* Clave canónica (fiscal AAAA-Qn) del PRÓXIMO informe = el siguiente al último revisado.
      La usan el Monitor, el Panel y la vista Informes para marcar "publicado sin revisar"
      desde la cadencia de los -trim.json (en vez del calendario manual/qPassed). */
   var nextKey=''; try{ if(c.ultimo && typeof _trimCanon==='function'){ var uc=_trimCanon(c.ultimo.periodo); var mm=/^(\d{4})-Q([1-4])$/.exec(uc); if(mm){ var yy=+mm[1], qq=+mm[2]+1; if(qq>4){qq=1;yy++;} nextKey=yy+'-Q'+qq; } } }catch(e){}
-  var nextDate=(nd&&typeof _cbToStr==='function')?_cbToStr(nd):null;
-  return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel,nextKey:nextKey,nextDate:nextDate,conf:!!ef.confirmada,fuenteFecha:ef.fuente};
+  var nextDate=(c.next&&typeof _cbToStr==='function')?_cbToStr(c.next.date):null;
+  return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel,nextKey:nextKey,nextDate:nextDate};
 }
 function _calibCell(t){ if(typeof calibDataFor!=='function')return '—'; var d=calibDataFor(t); if(!d)return '—'; var pend=d.hitos.filter(function(h){return !h.done;}); if(!pend.length)return '<span style="color:#16a34a">✓ completa</span>'; var nx=pend[0]; if(nx.vencida)return '<span style="color:#b45309;font-weight:600">⏳ '+nx.k+' vencida</span>'; return nx.k+(nx.dias!=null?' (en '+nx.dias+'d)':''); }
 function _senalCell(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return '—'; var c=num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||num(a.precioObjetivo); if(c&&st&&c<=st)return '<span style="color:#dc2626;font-weight:700">🚨 stop</span>'; if(c>0&&eH>0&&c<=eH&&!(st&&c<=st))return '<span style="color:#16a34a;font-weight:600">🟢 compra</span>'; if(pmax>0&&c>=pmax)return '<span style="color:#b45309;font-weight:600">🎯 PO</span>'; return '<span class="muted">—</span>'; }
@@ -664,10 +587,15 @@ function _pintarCadencia(analizadas){
   var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{}; var chg=false;
   var data=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t); var inf=_uniInfo(t);
     if(!c){ return {t:t,nombre:inf.nombre,ult:'<span class="muted" style="font-size:11px">sin monitor trimestral</span>',prox:'—',aviso:'',avisoCol:'#94a3b8',cal:cal,sen:sen}; }
-    var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate}; chg=true;
+    var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate,manual:!!(c.next&&c.next.manual)}; chg=true;
     var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
-    var proxTxt=c.next?_radEsc(e.proxLabel):'—';
-    var ag=_agResultado(t); if(ag&&ag.fecha){ var agd=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(!isNaN(agd))proxTxt='<b>'+_cadFmtD(agd)+'</b> <span title="confirmada" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span>'; }
+    var proxTxt='—';
+    if(c.next){ var _nd=e.nextDate||''; var _isM=!!c.next.manual; var _q=c.next.q;
+      proxTxt='<span style="white-space:nowrap"><b>'+_radEsc(_QLABEL[_q]||_q)+'</b> '
+        +'<input type="date" class="cadProx" data-ct="'+_radEsc(t)+'" data-q="'+_radEsc(_q)+'" value="'+_nd+'" title="Confirma la fecha de este informe; sustituye la previsión y fija el mismo día-mes los años siguientes" style="font-size:11px;border:1px solid #cbd5e1;border-radius:6px;padding:1px 4px;'+(_isM?'background:#f0fdf4;border-color:#86efac;':'')+'">'
+        +(_isM?' <span title="Confirmada por ti en Cobertura" style="background:#dcfce7;color:#166534;border-radius:5px;padding:0 5px;font-size:10px;font-weight:700">conf.</span> <button type="button" data-cadclr="'+_radEsc(t)+'|'+_radEsc(_q)+'" title="Quitar tu confirmación y volver a la estimación" style="border:0;background:none;color:#94a3b8;cursor:pointer;font-size:13px;line-height:1;padding:0 2px">×</button>':'')
+        +'</span>';
+    }
     var aviso,avisoCol; if(e.tocaAnual){ aviso='📅 revisión anual'; avisoCol='#dc2626'; } else if(e.tocaMonitor){ aviso='⏳ toca monitor'; avisoCol='#b45309'; } else { aviso='al día'; avisoCol='#94a3b8'; }
     return {t:t,nombre:inf.nombre,ult:ultTxt,prox:proxTxt,aviso:aviso,avisoCol:avisoCol,cal:cal,sen:sen};
   });
@@ -682,26 +610,49 @@ function _pintarCadencia(analizadas){
 var _cadRefrescado=false;
 function _cadRefreshAll(){
   var an=(DB.analisis||[]).filter(function(a){return a.dossierFecha;}); var tk=an.map(function(a){return (a.ticker||'').toUpperCase();}); if(!tk.length)return;
-  /* Espera trimestrales Y agenda del buzón: así DB.cadencia (Monitor/Panel) usa la MISMA
-     fecha confirmada que Cobertura, no solo la estimación estacional. */
-  Promise.all([_cadCargar(tk), (typeof _agCargar==='function'?_agCargar():Promise.resolve())]).then(function(){ var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{};
-    an.forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate,conf:e.conf}; });
+  _cadCargar(tk).then(function(){ var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{};
+    an.forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate,manual:!!(c.next&&c.next.manual)}; });
     if(typeof scheduleSave==='function')scheduleSave(); if(typeof renderPanelDash==='function')renderPanelDash();
   });
 }
 function cadAvisos(){
   var out=[]; var cad=DB.cadencia||{}; var held=(typeof _heldSet!=='undefined'&&_heldSet&&_heldSet.has)?_heldSet:null;
   Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
-  // Próximos resultados con fecha CONFIRMADA (Yahoo · buzón) para analizadas, en ≤10 días
-  if(_agConf){ var hoyA=new Date(); hoyA.setHours(0,0,0,0);
-    (DB.analisis||[]).forEach(function(a){ if(!a.dossierFecha)return; var t=(a.ticker||'').toUpperCase(); var ag=_agResultado(t); if(!ag||!ag.fecha||!ag.confirmada)return;
-      var d=new Date(_cbToStr(ag.fecha)+'T00:00:00'); if(isNaN(d))return; var dias=Math.round((d-hoyA)/86400000);
-      if(dias>=0&&dias<=10) out.push({pri:dias<=3?2:3,cls:'a',goto:'cobertura',tick:t,txt:'📊 <b>'+t+'</b> — resultados '+_cadFmtD(d)+' <span class="muted">(confirmado)</span>'+(dias===0?' · hoy':' · en '+dias+' d')});
-    });
-  } else if(!_agRefrescado){ _agRefrescado=true; try{ _agCargar().then(function(){ if(typeof renderPanelDash==='function')renderPanelDash(); }); }catch(e){} }
+  // Próximos resultados CONFIRMADOS POR TI (Cobertura), en ≤10 días (sustituye a Yahoo)
+  var hoyA=new Date(); hoyA.setHours(0,0,0,0);
+  Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(!c||!c.manual||!c.nextDate||c.tocaMonitor)return;
+    var ds=(typeof _cbToStr==='function')?_cbToStr(c.nextDate):c.nextDate; if(!ds)return;
+    var d=new Date(ds+'T00:00:00'); if(isNaN(d))return; var dias=Math.round((d-hoyA)/86400000);
+    if(dias>=0&&dias<=10) out.push({pri:dias<=3?2:3,cls:'a',goto:'cobertura',tick:t,txt:'📊 <b>'+t+'</b> — resultados '+_cadFmtD(d)+' <span class="muted">(confirmado)</span>'+(dias===0?' · hoy':' · en '+dias+' d')});
+  });
   if(!_cadRefrescado){ _cadRefrescado=true; try{ _cadRefreshAll(); }catch(e){} }
   return out;
 }
+
+/* ---- Confirmación MANUAL de fecha de resultados (Cobertura → DB.cadManual) ----
+   Editar la fecha del "Próximo" la confirma: guarda el día-mes de ese trimestre, que sustituye
+   la estimación por histórico y rige también los años siguientes. El "×" revierte. Refresca
+   cadencia + Calendario de Retorno + Panel. */
+function _cadRefreshCalc(){ var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{};
+  (DB.analisis||[]).filter(function(a){return a.dossierFecha;}).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); if(!c){ delete DB.cadencia[t]; return; } var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate,manual:!!(c.next&&c.next.manual)}; });
+}
+function _cadManualApply(){ if(typeof scheduleSave==='function')scheduleSave(); try{ _cadRefreshCalc(); }catch(e){}
+  if(typeof renderCobertura==='function')renderCobertura();
+  if(typeof renderCalendario==='function')renderCalendario();
+  if(typeof renderPanelDash==='function')renderPanelDash();
+  if(typeof renderMonitor==='function')renderMonitor();
+}
+document.addEventListener('change',function(e){ var el=e.target; if(!el.classList||!el.classList.contains('cadProx'))return;
+  var t=(el.getAttribute('data-ct')||'').toUpperCase(), q=el.getAttribute('data-q'), v=el.value||'';
+  if(!t||!q)return; DB.cadManual=DB.cadManual||{}; DB.cadManual[t]=DB.cadManual[t]||{};
+  if(/^\d{4}-\d{2}-\d{2}$/.test(v)){ DB.cadManual[t][q]=v.slice(5); } else { delete DB.cadManual[t][q]; if(!Object.keys(DB.cadManual[t]).length)delete DB.cadManual[t]; }
+  _cadManualApply();
+});
+document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-cadclr]'); if(!b)return;
+  var a=(b.getAttribute('data-cadclr')||'').split('|'); var t=(a[0]||'').toUpperCase(), q=a[1];
+  if(DB.cadManual&&DB.cadManual[t]){ delete DB.cadManual[t][q]; if(!Object.keys(DB.cadManual[t]).length)delete DB.cadManual[t]; }
+  _cadManualApply();
+});
 
 /* listeners de la cola (reañadidos: se perdieron al reescribir la cadencia) */
 document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });

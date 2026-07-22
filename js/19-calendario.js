@@ -140,6 +140,9 @@ function _calPatronTrim(t){
   var md={};
   d.revisiones.filter(function(r){ return r.fecha; }).slice().sort(function(a,b){ return (a.fecha||'')<(b.fecha||'')?-1:1; })
     .forEach(function(r){ var q=_calQ(r.periodo); if(q && r.fecha) md[q]=(''+r.fecha).slice(5,10); });
+  /* Confirmación MANUAL (Cobertura → DB.cadManual): su día-mes sustituye el del histórico para ese Q. */
+  var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[(t||'').toUpperCase()]||{}):{};
+  ['Q1','Q2','Q3','Q4'].forEach(function(q){ if(cm[q])md[q]=cm[q]; });
   return Object.keys(md).length ? md : null;
 }
 /* ---- informes trimestrales desde -trim.json cuya fecha cae en `year` ---- */
@@ -154,24 +157,15 @@ function _calEvTrim(t, year){
   }
   /* Proyección de la CADENCIA COMPLETA del año (todos los trimestres con patrón), no solo el
      próximo. Solo futuros (fecha>=hoy) y que no estén ya presentados. Así aparecen 9M, FY, etc. */
+  /* Confirmación MANUAL por trimestre (Cobertura): esos Q dejan de ser "estimados". */
+  var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[t]||{}):{};
   var pat=_calPatronTrim(t); var hoy=(typeof _calHoy==='function')?_calHoy():null;
   if(pat){ ['Q1','Q2','Q3','Q4'].forEach(function(q){ var md=pat[q]; if(!md) return;
     var dt=year+'-'+md;
     if(filed[year+'-'+q]) return;
     if(hoy && dt<hoy) return;
-    out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:true, proyectado:false });
+    out.push({ t:t, fecha:dt, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:!cm[q], proyectado:false });
   }); }
-  /* Fecha CONFIRMADA (Yahoo · buzón) del próximo informe: si cae en el año, prevalece con su
-     fecha exacta (el dedup deja esta por delante de la proyección por patrón). */
-  if(typeof _cadenciaDe==='function'){
-    var c=_cadenciaDe(t);
-    if(c && c.next && typeof _agResultado==='function'){
-      var ag=_agResultado(t);
-      if(ag && ag.fecha){ var a2=(typeof _cbToStr==='function')?_cbToStr(ag.fecha):null;
-        if(a2 && a2.slice(0,4)==String(year)){ out.push({ t:t, fecha:a2, tipo:'res', periodo:_calQ(c.next.q), imp:0, sh:0, fuente:'trim', estimado:!ag.confirmada, proyectado:false }); }
-      }
-    }
-  }
   return out;
 }
 

@@ -1075,6 +1075,15 @@ function _revHecha(rev,canon){ if(!rev)return false; if(rev[canon])return true; 
 async function cargarTrimestral(t){ t=(t||'').toUpperCase(); if(!t){return;}
   try{ const r=await fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}); _trimCache[t]=r.ok?await r.json():null; }catch(e){ _trimCache[t]=null; }
   try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ var pc=_trimCanon(rv.periodo); if(pc&&!DB.monitor[t].rev[pc]){ DB.monitor[t].rev[pc]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
+  /* Sincroniza la caché de cadencia (_cadTrim del radar) con lo recién descargado y recalcula
+     DB.cadencia[t]: así registrar un trimestre refresca al instante el "próximo" del Monitor/
+     Cobertura/Calendario y no deja el trimestre siguiente marcado en falso como pendiente. */
+  try{ if(typeof _cadTrim!=='undefined' && _cadTrim){ _cadTrim[t]=_trimCache[t]; }
+    if(typeof _cadenciaDe==='function' && typeof _cadEstado==='function'){ DB.cadencia=DB.cadencia||{}; var _cc=_cadenciaDe(t);
+      if(_cc){ var _hh=new Date(); _hh.setHours(0,0,0,0); var _an=(DB.analisis||[]).find(function(a){return (a.ticker||'').toUpperCase()===t;}); var _ee=_cadEstado(_cc,_hh,_an&&_an.dossierFecha); DB.cadencia[t]={proxLabel:_ee.proxLabel,tocaMonitor:_ee.tocaMonitor,tocaAnual:_ee.tocaAnual,nextKey:_ee.nextKey,nextDate:_ee.nextDate,manual:!!(_cc.next&&_cc.next.manual)}; if(typeof scheduleSave==='function')scheduleSave(); }
+      else delete DB.cadencia[t];
+    }
+  }catch(e){}
   if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t);
 }
 function _trimUnidad(nombre){ var m=(''+(nombre==null?'':nombre)).match(/\(([^()]*)\)\s*$/); return m?m[1].trim():''; }

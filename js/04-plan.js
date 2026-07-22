@@ -1138,7 +1138,17 @@ function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):',
 /* Informe "publicado sin revisar" del trimestre `key` (AAAA-Qn) según la CADENCIA de los
    -trim.json (DB.cadencia): true solo si ese trimestre es el PRÓXIMO informe esperado y su
    fecha ya venció. (Reemplazó al antiguo qPassed del calendario manual, ya eliminado.) */
-function _qPub(t,key){ const c=(DB.cadencia||{})[(t||'').toUpperCase()]||{}; return c.nextKey===key && !!c.tocaMonitor; }
+function _qPub(t,key){ t=(t||'').toUpperCase();
+  /* Cálculo FRESCO desde el -trim.json cargado (evita una DB.cadencia obsoleta cacheada: tras
+     registrar un trimestre, el siguiente NO debe salir como "publicado sin revisar" hasta que de
+     verdad venza su fecha). Si el -trim.json no está cargado, cae a la cadencia guardada. */
+  if(typeof _cadenciaDe==='function' && typeof _cadTrim!=='undefined' && _cadTrim && _cadTrim[t]){
+    const cc=_cadenciaDe(t); if(!cc||!cc.next) return false;
+    const hoy=new Date(); hoy.setHours(0,0,0,0);
+    let nk=''; try{ if(typeof _trimCanon==='function' && cc.ultimo){ const uc=_trimCanon(cc.ultimo.periodo); const mm=/^(\d{4})-Q([1-4])$/.exec(uc); if(mm){ let yy=+mm[1], qq=+mm[2]+1; if(qq>4){qq=1;yy++;} nk=yy+'-Q'+qq; } } }catch(e){}
+    return nk===key && cc.next.date<=hoy;
+  }
+  const c=(DB.cadencia||{})[t]||{}; return c.nextKey===key && !!c.tocaMonitor; }
 function mesesDesde(fechaStr){ if(!fechaStr)return null; const d=new Date(fechaStr+'T00:00:00'); if(isNaN(d.getTime()))return null; const now=new Date(); return (now.getFullYear()-d.getFullYear())*12+(now.getMonth()-d.getMonth()); }
 function renderMonitor(){
   DB.todos=DB.todos||[]; DB.monitor=DB.monitor||{};
@@ -1174,11 +1184,11 @@ function renderMonitor(){
   }
   const kp=$('#monKpis');
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas en Análisis, Planteamiento o Seguimiento (revisa el Kanban).</div>'; if(kp)kp.innerHTML=''; return; }
-  /* Asegura que los -trim.json estén cargados: así una revisión trimestral sale como ✓
-     aunque no se haya abierto la ficha de esa empresa (reutiliza el cargador del Radar). */
-  if(typeof _cadCargar==='function' && typeof _cadTrim!=='undefined'){
-    const _faltaTrim=tickers.filter(t=>_cadTrim[t]===undefined);
-    if(_faltaTrim.length){ _cadCargar(tickers).then(()=>{ if(typeof renderMonitor==='function') renderMonitor(); }); }
+  /* Asegura que los -trim.json estén cargados para que _qPub calcule la cadencia FRESCA
+     (evita el falso "publicado sin revisar" del trimestre siguiente al recién registrado). */
+  if(typeof _cadCargar==='function' && typeof _cadTrim!=='undefined' && _cadTrim){
+    const _faltaCad=tickers.filter(t=>_cadTrim[t]===undefined);
+    if(_faltaCad.length){ try{ _cadCargar(tickers).then(function(){ if(typeof renderMonitor==='function')renderMonitor(); }); }catch(e){} }
   }
   const _colOrder={seg:0,plan:1,ana:2};
   const _grp=t=> (typeof columnaDe==='function' ? (_colOrder[columnaDe(t)]!=null?_colOrder[columnaDe(t)]:3) : (held.has(t)?0:(plan.has(t)?1:2)));
@@ -1193,7 +1203,7 @@ function renderMonitor(){
     const dosOver=(_m!=null&&_m>12); if(dosOver)dosRe++;
     let dosCell; if(!_df){ dosCell='<td class="ctr muted" style="font-size:10px">sin dossier</td>'; } else if(dosOver){ dosCell=`<td class="ctr" style="background:#fee2e2" title="Dossier de ${_df}"><span style="color:#dc2626;font-weight:700">⚠️ ${_m} m</span><div class="muted" style="font-size:9px">reanalizar</div></td>`; } else { dosCell=`<td class="ctr" title="Dossier de ${_df}"><span class="pos">${_m==null?'?':_m+' m'}</span><div class="muted" style="font-size:9px">${_df}</div></td>`; }
     let q, qm=[];
-    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=(((typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key])) || (typeof _cbPeriodoEnTrim==='function' && _cbPeriodoEnTrim(t,key))); const passed=_qPub(t,key); if(passed&&!done)qPend++; const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'<span class="mt-dot">·</span>'); qm.push({qc,key,done,passed}); return `<td class="ctr" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
+    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=(typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key]); const passed=_qPub(t,key); if(passed&&!done)qPend++; const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'<span class="mt-dot">·</span>'); qm.push({qc,key,done,passed}); return `<td class="ctr" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
     else { q='<td colspan="4" class="ctr muted" style="font-size:11px">Falta informe</td>'; }
     const _bg=(typeof statusRowBg==='function')?statusRowBg(t,held):'';
     deskRows.push(`<tr${_bg?` style="background:${_bg}"`:''}><td class="l" style="white-space:nowrap"><b class="mt-tk" data-ficha="${t}">${t}</b> <span class="nm">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada</span>':''}</td><td class="l">${rolInp}</td><td class="ctr">${infCell}</td>${dosCell}${q}</tr>`);
