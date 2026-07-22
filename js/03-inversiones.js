@@ -526,7 +526,7 @@ function renderFicha(t){
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+_fichaTesisBoxes(fichaTicker)+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -620,49 +620,6 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
   document.addEventListener('mousemove',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo; let vx=(e.clientX-_fichaDrag.r.left)*g.W/_fichaDrag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const x0=_fichaDrag.x0; const br=_fichaDrag.svg.querySelector('.fchBrush'); if(br){ br.setAttribute('x',Math.min(x0,vx)); br.setAttribute('width',Math.abs(vx-x0)); } });
   document.addEventListener('mouseup',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo, drag=_fichaDrag; _fichaDrag=null; const br=drag.svg.querySelector('.fchBrush'); if(br)br.style.display='none'; let vx=(e.clientX-drag.r.left)*g.W/drag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const xa=Math.min(drag.x0,vx), xb=Math.max(drag.x0,vx); if(xb-xa<8)return; const px2t=px=>g.t0+(px-g.L)/g.pw*(g.t1-g.t0); fichaZoom={t0:px2t(xa),t1:px2t(xb),ticker:g.ticker}; if(typeof drawFichaChart==='function')drawFichaChart(g.ticker); });
   document.addEventListener('dblclick',e=>{ const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null; if(!svg)return; if(fichaZoom){ fichaZoom=null; if(_fichaGeo&&typeof drawFichaChart==='function')drawFichaChart(_fichaGeo.ticker); } });
-}
-function _fichaTesisCss(){
-  if(document.getElementById('ftb-css'))return;
-  var st=document.createElement('style'); st.id='ftb-css';
-  st.textContent='.ftb-row{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}.ftb-box{flex:1;min-width:240px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px}.ftb-h{font-weight:800;font-size:13px;color:#1f3d6b;margin-bottom:6px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.ftb-rat{background:#eef2f8;color:#1f3d6b;border-radius:20px;padding:1px 8px;font-size:11px;font-weight:700}.ftb-dec{color:#fff;border-radius:20px;padding:1px 8px;font-size:10.5px;font-weight:700}.ftb-t{width:100%;font-size:12.5px;border-collapse:collapse}.ftb-t td{padding:3px 0;border-bottom:1px solid #f1f5f9}.ftb-t td.r{text-align:right;color:#334155}.ftb-t td:first-child{color:#64748b}';
-  document.head.appendChild(st);
-}
-function _fichaTesisBoxes(t){
-  t=(t||'').toUpperCase(); _fichaTesisCss();
-  var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;})||{};
-  var v=(DB.valores||{})[t]||{};
-  var price=num(v.precioActual)||num(a.cotizacion)||0;
-  var eur=function(x){ return (x==null||isNaN(num(x)))?'—':(typeof fmt==='function'?fmt(num(x)):(num(x).toFixed(3)+' €')); };
-  var pctv=function(x){ return (x==null||isNaN(x))?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%'); };
-  var pm=null; try{ if(typeof invPositions==='function'){ var pp=invPositions().find(function(q){return (q.ticker||'').toUpperCase()===t && num(q.acciones)>0.0001;}); if(pp){ pm=pp.precioMedio||pp.pm||(pp.coste&&pp.acciones?num(pp.coste)/num(pp.acciones):null); } } }catch(e){}
-  var decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
-  var dec=(a.decision||'').toUpperCase();
-  var r1=[]; r1.push(['Cotización','<b>'+eur(price)+'</b>']);
-  if(num(a.entMin)||num(a.entMax)) r1.push(['Banda entrada', eur(a.entMin)+' – '+eur(a.entMax)+((num(a.entMax)&&price)?' <span class="muted">('+pctv(price/num(a.entMax)-1)+' vs máx)</span>':'')]);
-  if(num(a.poMin)||num(a.poMax)){ var poMid=(num(a.poMin)+num(a.poMax))/2; r1.push(['Precio objetivo', eur(a.poMin)+' – '+eur(a.poMax)+((poMid&&price)?' <span class="muted">('+pctv(poMid/price-1)+')</span>':'')]); }
-  if(num(a.stopTesis)) r1.push(['Stop tesis', eur(a.stopTesis)+(price?' <span class="muted">('+pctv(num(a.stopTesis)/price-1)+')</span>':'')]);
-  if(pm) r1.push(['Precio medio', eur(pm)+((price&&pm)?' <span class="muted">('+pctv(price/pm-1)+')</span>':'')]);
-  var h1='<div class="ftb-h">📈 Precios y niveles'+(a.rating?' <span class="ftb-rat">'+a.rating+'</span>':'')+(dec?' <span class="ftb-dec" style="background:'+(decCol[dec]||'#64748b')+'">'+dec+'</span>':'')+'</div>';
-  var box1='<div class="ftb-box">'+h1+'<table class="ftb-t">'+r1.map(function(r){return '<tr><td>'+r[0]+'</td><td class="r">'+r[1]+'</td></tr>';}).join('')+'</table></div>';
-  var ny=new Date().getFullYear(), ser=[];
-  for(var y=ny-8;y<=ny;y++){ var d=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null; if(d!=null) ser.push([y,num(d)]); }
-  var dpa=num(a.divAccion)||num(v.divAccion)||(ser.length?ser[ser.length-1][1]:0);
-  var rpd=(price>0&&dpa>0)?dpa/price:null;
-  var racha=0; for(var i=ser.length-1;i>0;i--){ if(ser[i][1]>ser[i-1][1]) racha++; else break; }
-  var cagr=null; if(ser.length>=2){ var f0=ser[0][1], fn=ser[ser.length-1][1], nY=ser[ser.length-1][0]-ser[0][0]; if(f0>0&&nY>0) cagr=Math.pow(fn/f0,1/nY)-1; }
-  var spark=''; if(ser.length>=2){ var mn=Math.min.apply(null,ser.map(function(s){return s[1];})), mx=Math.max.apply(null,ser.map(function(s){return s[1];})); var W=120,H=26; var pts=ser.map(function(s,idx){ var x=idx/(ser.length-1)*W; var yy=mx>mn?H-((s[1]-mn)/(mx-mn))*H:H/2; return x.toFixed(1)+','+yy.toFixed(1); }).join(' '); spark='<svg width="'+W+'" height="'+H+'" viewBox="0 0 '+W+' '+H+'" style="display:block"><polyline points="'+pts+'" fill="none" stroke="#16a34a" stroke-width="1.6"/></svg>'; }
-  var safety=(a.dividendSafety!=null&&a.dividendSafety!=='')?num(a.dividendSafety):null;
-  var salud,sColor;
-  if(safety!=null){ salud=(safety>=75?'Sólido':(safety>=60?'Vigilar':(safety>=40?'Frágil':'Recorte'))); sColor=(safety>=75?'#16a34a':(safety>=60?'#d97706':'#dc2626')); }
-  else if(!(dpa>0)){ salud='No paga'; sColor='#64748b'; }
-  else if(cagr!=null){ salud=(cagr>0.02&&racha>=1?'Creciente':(cagr>=0?'Estable':'A la baja')); sColor=(cagr>0.02?'#16a34a':(cagr>=0?'#d97706':'#dc2626')); }
-  else { salud='—'; sColor='#64748b'; }
-  var r2=[]; r2.push(['DPA bruto','<b>'+eur(dpa)+'</b>']);
-  r2.push(['RPD', rpd!=null?('<b>'+(rpd*100).toFixed(2)+'%</b>'):'—']);
-  if(cagr!=null) r2.push(['Crecim. anual', pctv(cagr)+(racha?(' <span class="muted">· racha '+racha+'a</span>'):'')]);
-  var h2='<div class="ftb-h">💶 Dividendo · salud <span class="ftb-dec" style="background:'+sColor+'">'+salud+'</span></div>';
-  var box2='<div class="ftb-box">'+h2+'<table class="ftb-t">'+r2.map(function(r){return '<tr><td>'+r[0]+'</td><td class="r">'+r[1]+'</td></tr>';}).join('')+(spark?('<tr><td>Div. '+ser.length+'a</td><td class="r">'+spark+'</td></tr>'):'')+'</table></div>';
-  return '<div class="ftb-row">'+box1+box2+'</div>';
 }
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
