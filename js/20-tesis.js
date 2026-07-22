@@ -13,7 +13,7 @@ var TESIS_CFG = {
   potMin:    0.15,   // potencial mínimo a PO base para considerar "oportunidad" en zona
   cercaPct:  0.08,   // margen por encima de la entrada que aún cuenta como "cerca"
   dsMin:     60,     // Dividend Safety mínimo para renta "sólida"
-  rpdGate:   1.5,    // RPD (%) que activa el filtro de renta en cualquier arquetipo
+  rpdGate:   3,      // RPD (%) que activa el filtro de renta en cualquier arquetipo
   corteAnios:2,      // un corte de dividendo en los últimos N años penaliza
   ratingApta:    ['AAA','AA','A','BBB'],
   ratingDuda:    ['BB','B'],
@@ -45,15 +45,10 @@ function _tzMeses(f){ if(!f)return null; if(typeof mesesDesde==='function')retur
 function _tzDivSerie(t){
   t=(t||'').toUpperCase();
   var years=(typeof evoYearsDisponibles==='function')?evoYearsDisponibles():[];
-  if(!years.length){
-    /* respaldo: DB.divPorAccion */
-    var dp=(DB.divPorAccion||{})[t]||{}; years=Object.keys(dp).sort();
-  }
   var serie=[], prev=null, cy=(new Date()).getFullYear();
   years.forEach(function(y){
     var yr=parseInt(y,10);
     var real=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null;
-    if(real==null){ var dp2=(DB.divPorAccion||{})[t]||{}; if(dp2[y]!=null)real=_tzNum(dp2[y]); }
     var esFut=(yr>cy);
     var val, isProj=false, isCut=false;
     if(esFut){

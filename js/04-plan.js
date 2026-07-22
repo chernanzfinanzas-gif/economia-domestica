@@ -159,7 +159,7 @@ function renderSimulador(){
   const grp=t=>held.has(t)?0:(closed.has(t)?1:2);
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
-  const simDpa=(t,y)=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; if(d!=null) return d; const v=(dpa[t]||{})[y]; return v!=null?num(v):null; };
+  const simDpa=(t,y)=>{ return (typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; };
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
   const nmS=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
@@ -227,7 +227,7 @@ function addSimEmpresa(){
   DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
-function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; if(d==null) d=num((dpa[t]||{})[year]||0); tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
+function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
 // === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
 function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
 function _precioActualDe(t){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; let p=num(v.precioActual); if(p>0)return p; const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&num(a.cotizacion)>0)return num(a.cotizacion); if(typeof _precioCache!=='undefined'){ const pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); } return 0; }

@@ -106,7 +106,6 @@ function _calEvDiv(t, year){
   if(year <= _calNowY()) return out;                 /* pasado/vigente sin datos: nada */
   /* MISMA cascada que simDpa del Simulador: evoDpaProyectado y, si falta, DB.divPorAccion */
   var dpa = (typeof evoDpaProyectado==='function') ? evoDpaProyectado(t, year) : null;
-  if(dpa==null){ var _dp=(DB.divPorAccion||{})[(t||'').toUpperCase()]; if(_dp && _dp[year]!=null) dpa=_calNum(_dp[year]); }
   if(!(dpa>0)) return out;
   var base = _calUltimoAnioConPagos(t, year-1);
   if(!base) return out;

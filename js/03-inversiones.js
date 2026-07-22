@@ -584,7 +584,6 @@ document.addEventListener('click',e=>{
   if(!t||!(val>0)) return;
   DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=val;
   const an=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(an) an.divAccion=val;
-  const ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][ny]=val;
   if(typeof saveNow==='function') saveNow();
   if(typeof fichaTicker!=='undefined' && fichaTicker && typeof renderFicha==='function') renderFicha(fichaTicker);
 });
