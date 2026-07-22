@@ -1,0 +1,150 @@
+{
+"schemaVersion": 7,
+"ticker": "CIE",
+"empresa": "Cie Automotive, S.A.",
+"fecha": "2026-07-22",
+"rating": "A",
+"score": 73.3,
+"decision": "COMPRAR",
+"metodoValoracion": "Multiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF con FCL normalizado - ciclica industrial. PO oficial = sintesis Cap. VI (40% DCF + 60% multiplos) = 33,1 EUR; bear 20, bull 42.",
+"poBear": 20.0,
+"poBase": 33.1,
+"poBull": 42.0,
+"entMin": 25.0,
+"entMax": 28.0,
+"stop": 18.3,
+"dpaPrevisto": 0.94,
+"moat": "Estrecho (57/100) - ventaja de costes (footprint low-cost + multi-tecnologia), sin marca ni patentes",
+"catalizadores": [
+"Resultados 2026 resilientes (margen EBITDA >=18%, FCL >250 M EUR)",
+"Re-rating a la media historica (PER 9,2->11,4x; EV/EBITDA 5,3->7x)",
+"Retribucion al accionista (recompra/subida DPA) con DN/EBITDA 1,1x",
+"Nuevo plan estrategico / guidance",
+"Estabilizacion de la produccion global de vehiculos"
+],
+"riesgos": [
+"Ciclicidad de la produccion de vehiculos amplificada por palanca operativa (impacto -20/-35%)",
+"Transicion a vehiculo electrico (perdida de contenido ICE)",
+"Deterioro del fondo de comercio (122% del PN atribuible)",
+"Concentracion de clientes OEM",
+"Exposicion a emergentes (Brasil/India/Mexico)"
+],
+"bull": "Negocio de calidad (ROIC 16% vs WACC 7%) cotizando barato frente a su historia; el re-rating a la media historica de multiplo mas la retribucion al accionista llevan la accion a 42 EUR (+62%).",
+"bear": "Recesion de la produccion global de vehiculos: el EBITDA cae ~20% y el multiplo sigue deprimido -> ~20 EUR (-23%); el balance solido (DN/EBITDA 1,1x, caja 842 M EUR) evita el estres financiero y protege el dividendo.",
+"resumen": "CIE Automotive es un negocio de calidad (Rating A, ROIC 16% vs WACC 7%, dividendo cubierto 3,6x) que cotiza barato frente a su propia historia (PER 9,2x vs mediana 11,4x) y a sus peers, con el mejor margen del sector. La tesis es de NORMALIZACION de multiplo, no de crecimiento: el Reverse DCF muestra que el precio descuenta incluso un decrecimiento del FCL. PO 33,1 EUR (+28% vs 25,9). El freno es la ciclicidad y un moat solo estrecho: COMPRAR con disciplina de entrada (<28 EUR), vigilando la produccion global de vehiculos y el fondo de comercio.",
+"confianza": {
+"score": 90,
+"nivel": "A",
+"motivos": [
+"2 línea(s) de conciliación ⚠ sin corregir (−10)"
+],
+"sensibleASupuestos": true,
+"reglaDura": {
+"bloqueaCompraEnFirme": false,
+"motivo": "",
+"accion": null
+},
+"calculadoEl": "2026-07-22"
+},
+"robustez": {
+"nivel": "solida",
+"sobreviveDecision": true,
+"matizada": false,
+"banda": {
+"p10": 20.0,
+"p50": 33.1,
+"p90": 42.0
+},
+"sensibilidad": {
+"poMin": 29.23,
+"poMax": 50.4,
+"poBase": 37.1439718097156,
+"cotizacion": 25.9,
+"ejeCoste": "WACC",
+"pertCoste": 1.0,
+"pertOtro": 0.5,
+"mdsMin": 12.9,
+"mdsMax": 94.6
+},
+"beta": {
+"capm": 0.86,
+"ref2": 1.15,
+"aviso": null
+},
+"motivos": [
+"la cotización (25.90) queda por DEBAJO de toda la banda de PO [29.2–50.4] bajo WACC±1.0pp/gTV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+],
+"calculadoEl": "2026-07-22"
+},
+"dividendSafety": {
+"score": 91,
+"banda": "Muy seguro",
+"componentes": {
+"C1": 35,
+"C2": 15,
+"C3": 17,
+"C4": 9,
+"C5": 15
+},
+"shareholderYield": 3.78,
+"topeDuro": {
+"activo": false,
+"motivo": ""
+},
+"motivos": [
+"C1 cobertura dividendo ord.: OE 3.67x / FCL 3.56x (3a OE 3.44x) → 35/35",
+"C2 payout BN ord.: 30% (3a 29%) → 15/15",
+"C3 balance: DN/EBITDA 1.11x, cob.int 8.7x → 17/20",
+"C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+"C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+"C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+],
+"calculadoEl": "2026-07-22"
+},
+"forense": {
+"aplica": true,
+"piotroski": {
+"score": 8,
+"banda": "fuerte",
+"detalle": {
+"roa_pos": 1,
+"cfo_pos": 1,
+"roa_up": 1,
+"accrual": 1,
+"lever_dn": 1,
+"liquid_up": 0,
+"no_dilu": 1,
+"margin_up": 1,
+"turn_up": 1
+},
+"nota": "margen=bruto"
+},
+"altman": {
+"z": 4.45,
+"zona": "segura"
+},
+"beneish": {
+"m": -2.73,
+"senal": "sin indicios",
+"aproximado": [
+"SGAI"
+]
+},
+"sloan": {
+"accruals": -3.9,
+"senal": "normal"
+},
+"flags": [],
+"veto": false,
+"vetoMotivos": [],
+"calculadoEl": "2026-07-22"
+},
+"reverseDcf": {
+"aplica": true,
+"gImplicito": -7.3,
+"gIntrinseco": 1.1,
+"veredicto": "PLAUSIBLE",
+"motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+"calculadoEl": "2026-07-22"
+}
+}
