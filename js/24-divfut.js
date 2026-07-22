@@ -30,7 +30,7 @@ function _dfYears(){
   var a=[]; for(var y=y0;y<=y1;y++)a.push(y); return a;
 }
 function _dfShort(t){ t=_dfUp(t); return _DF_SHORT[t] || ((evoEmpresaM&&evoEmpresaM(t)&&evoEmpresaM(t).nombre)?String(evoEmpresaM(t).nombre).split(/[ ,]/)[0]:t); }
-function _dfPaga(t){ try{ var e=(typeof evoEmpresaM==='function')?evoEmpresaM(t):null; return !!(e&&e.paga); }catch(_){ return false; } }
+function _dfPaga(t){ try{ var v=(typeof evoDpaBruto==='function')?evoDpaBruto(t,_dfCur()):null; return _dfNum(v)>0; }catch(_){ return false; } }
 function _dfUniverso(){
   var s={};
   try{ (_evoData&&_evoData.empresas||[]).forEach(function(e){ var t=_dfUp(e.ticker); if(t)s[t]=1; }); }catch(_){}
