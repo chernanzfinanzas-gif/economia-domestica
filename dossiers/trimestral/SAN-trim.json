@@ -1,741 +1,741 @@
 {
- "ticker": "SAN",
- "empresa": "Santander",
- "revisiones": [
-  {
-   "periodo": "2023-Q1",
-   "fecha": "2023-04-25",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "1T'23: BNA 2.571 M€ con RoTE 14,4% (muy por encima del coste de capital). Arranque sólido del ciclo de re-rating; CET1 12,3% y coste del riesgo contenido (1,05%).",
-   "metricas": [
+  "ticker": "SAN",
+  "empresa": "Santander",
+  "revisiones": [
     {
-     "nombre": "M.Intereses (M€)",
-     "valor": 10396
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T'23: BNA 2.571 M€ con RoTE 14,4% (muy por encima del coste de capital). Arranque sólido del ciclo de re-rating; CET1 12,3% y coste del riesgo contenido (1,05%).",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 10396
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 13922
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3043
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2571
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.4
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.05
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.05
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 44.1
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.41
+        }
+      ]
     },
     {
-     "nombre": "M.Bruto (M€)",
-     "valor": 13922
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2T'23: BNA 2.670 M€, RoTE 14,6% al alza. Crecimiento del margen de intereses por tipos altos; morosidad y coste del riesgo estables. Tesis de creación de valor intacta.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 10524
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 14088
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3060
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2670
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.07
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.08
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 44.2
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.57
+        }
+      ]
     },
     {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3043
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3T'23: RoTE mejora al 15,5% y BNA 2.902 M€. El margen de intereses acelera; coste del riesgo sube a 1,13% pero dentro de guía. Buen momentum de rentabilidad.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11219
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 14861
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3119
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2902
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.5
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.13
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.13
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 44.0
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.61
+        }
+      ]
     },
     {
-     "nombre": "BNA (M€)",
-     "valor": 2571
+      "periodo": "2023-Q4",
+      "fecha": "2024-01-31",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "4T'23: cierre con RoTE 15,6% y récord de beneficio anual, pero coste del riesgo sube a 1,18% y CET1 sigue en 12,3%. Señales mixtas: rentabilidad alta, capital y calidad de activos a vigilar.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11122
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 14552
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 2835
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2933
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.14
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.18
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 44.1
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.76
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Héctor Grisi asume como consejero delegado (CEO) del grupo desde 2023, junto a la presidenta ejecutiva Ana Botín.",
+          "impacto": "=",
+          "valoracion": "Relevo en la primera ejecutiva; continuidad estratégica bajo la presidencia de Botín."
+        }
+      ]
     },
     {
-     "nombre": "RoTE (%)",
-     "valor": 14.4
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-30",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "1T'24: coste del riesgo en máximos (1,20%) y RoTE cede al 14,9%; eficiencia mejora al 42,0%. Rentabilidad sólida pero calidad de activos y capital (12,3%) en zona de vigilancia.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11983
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15045
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3240
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2852
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.1
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.2
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 42.0
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.86
+        }
+      ]
     },
     {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2T'24: salto del RoTE al 16,8% y BNA 3.207 M€; morosidad baja a 3,02% y CET1 sube a 12,5%. La rentabilidad se acelera y el capital empieza a construir. Tesis reforzada.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11474
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15670
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3237
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3207
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.8
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.02
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.21
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 43.4
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 4.94
+        }
+      ]
     },
     {
-     "nombre": "NPL (%)",
-     "valor": 3.05
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3T'24: RoTE 16,7% sostenido, BNA 3.250 M€; TNAV/acc supera los 5 €. Coste del riesgo se modera. El banco compone valor tangible por acción de forma consistente.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11225
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15135
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3189
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3250
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.7
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.06
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.18
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 44.4
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.04
+        }
+      ]
     },
     {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.05
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-05",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "4T'24: récord de beneficio anual con RoTE 16,6% y CET1 al 12,8%. Coste del riesgo baja a 1,15% y TNAV/acc 5,24 €. Creación de valor consolidada; capital por encima del objetivo.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11986
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 16026
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3344
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3265
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.8
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3.05
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.15
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 45.6
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.24
+        }
+      ]
     },
     {
-     "nombre": "Eficiencia (%)",
-     "valor": 44.1
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T'25: RoTE 16,6% y BNA 3.402 M€; morosidad baja del 3% y eficiencia mejora al 41,9%. Todos los KPIs de la tesis (rentabilidad, capital, riesgo, eficiencia) en zona favorable.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11378
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15537
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3369
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3402
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.9
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 2.99
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.14
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 41.9
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.46
+        }
+      ]
     },
     {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.41
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2T'25: RoTE 16,9% y CET1 alcanza el 13,0%. Morosidad en mínimos (2,91%) y eficiencia 41,5%. El banco combina rentabilidad récord con fortalecimiento de capital.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 10590
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 14503
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3143
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3431
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 13.0
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 2.91
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.14
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 41.5
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.5
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "3T'25: RoTE 16,9% y BNA 3.504 M€; CET1 13,1% y coste del riesgo 1,13%. Eficiencia líder (41,3%) y TNAV/acc 5,56 €. Trimestre de plena confirmación de la tesis.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 10348
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 14325
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3504
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 13.1
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 2.92
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.13
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 41.3
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.56
+        }
+      ]
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-04",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "4T'25: cierre histórico con RoTE 17,9%, CET1 13,5% y eficiencia 41,2% (la mejor reportada). BNA trimestral 3.764 M€ y TNAV/acc 5,76 €. Creación de valor máxima; capital muy por encima del objetivo.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 10789
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15163
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3650
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3764
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 13.5
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 2.91
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.15
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 41.2
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 5.76
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Acuerdo para adquirir TSB (Reino Unido) a Sabadell por ~3.100 M€, con cierre previsto en Q1-2026.",
+          "impacto": "+",
+          "valoracion": "Refuerza la banca minorista británica en un mercado núcleo con disciplina de capital."
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-28",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "1T'26 ordinario: BNA 3.560 M€ (+12,5% interanual); estatutario 5.455 M€ por la plusvalía de la venta de Polonia (+1.895 M€), que eleva el CET1 a 14,4% (+95 pb). RoTE ordinario 15,2% (estatutario 17,3%) y eficiencia mejora a 42,8%. Comisiones 3.357 M€ y TNAV/acción salta a 6,13 € (+0,37 €). Coste del riesgo 1,14% y NPL 3,00% con leve repunte (vigilar). Anuncio de compra de Webster (~10.300 M€, 7,4% de la capitalización).",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11019
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15140
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3357
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3560
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.2
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 14.4
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 3
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.14
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 42.8
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 6.13
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-22",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "2T'26 ordinario récord: BNA 3.768 M€ (+6% intertrimestral; el acumulado 1S ordinario 7.328 M€, +15% interanual). Estatutario 3.518 M€ (−36% s/1T por la ausencia de la plusvalía de Polonia y −250 M€ de costes de reestructuración de TSB). Integración de TSB desde mayo (−55 pb, CET1 hasta 14,0%). RoTE ordinario 2T 16,0% y eficiencia 42,8%. NPL mejora a 2,93% (desde 3,00%) y coste del riesgo estable en 1,15%; cobertura 64%. Comisiones 3.494 M€ (+4% s/1T) y TNAV/acción 6,32 €. Señal S3: cotización 12,08 € (jun-26) supera el PO de la tesis (~10,2 €) → revisar valoración.",
+      "metricas": [
+        {
+          "nombre": "M.Intereses (M€)",
+          "valor": 11692
+        },
+        {
+          "nombre": "M.Bruto (M€)",
+          "valor": 15682
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 3494
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3768
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.0
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 14.0
+        },
+        {
+          "nombre": "NPL (%)",
+          "valor": 2.93
+        },
+        {
+          "nombre": "Coste riesgo (%)",
+          "valor": 1.15
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 42.8
+        },
+        {
+          "nombre": "TNAV/acc (€)",
+          "valor": 6.32
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Cierre de la compra de TSB (Reino Unido) el 30-abr-2026 por ~3.300 M€ (2.900 M GBP); integrado en Retail & Commercial desde mayo, con -55 pb en el CET1 y 250 M€ de costes de reestructuración en 2T.",
+          "impacto": "+",
+          "valoracion": "Refuerza la banca minorista británica; la dilución de capital es asumible y se absorbió en el trimestre."
+        },
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta del 49% de Santander Bank Polska: plusvalía neta de 1.895 M€ registrada en 1T-2026 (+95 pb CET1), reclasificada como partida no recurrente.",
+          "impacto": "+",
+          "valoracion": "Rotación de capital hacia mercados prioritarios; financia la recompra extraordinaria."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Anuncio (3-feb-2026) de la compra del 100% de Webster Financial (banca minorista y de empresas, EE.UU.); impacto estimado en CET1 de ~-150 pb al completarse.",
+          "impacto": "=",
+          "valoracion": "Amplía la franquicia en EE.UU.; pendiente de aprobaciones y del consumo de capital previsto."
+        },
+        {
+          "tipo": "Remuneración",
+          "hecho": "Dividendo total en efectivo con cargo a 2025 de 24,00 cts/acc (+14%) y 2ª recompra de 5.030 M€ (1.830 ordinaria + 3.200 extraordinaria, ~50% de la plusvalía de Polonia).",
+          "impacto": "+",
+          "valoracion": "Fuerte retorno al accionista (~50% efectivo / 50% recompra) sostenido por el exceso de capital."
+        },
+        {
+          "tipo": "Valoración",
+          "hecho": "La cotización cerró jun-26 en 12,08 € (+27% en el trimestre), por encima del precio objetivo de la tesis (~10,2 €).",
+          "impacto": "-",
+          "valoracion": "Señal S3 (PO alcanzado): revisar Valoración/Tesis (Bloques 6/9) antes de ampliar posición."
+        }
+      ]
     }
-   ]
-  },
-  {
-   "periodo": "2023-Q2",
-   "fecha": "2023-07-26",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "2T'23: BNA 2.670 M€, RoTE 14,6% al alza. Crecimiento del margen de intereses por tipos altos; morosidad y coste del riesgo estables. Tesis de creación de valor intacta.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 10524
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 14088
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3060
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 2670
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 14.6
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.07
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.08
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 44.2
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.57
-    }
-   ]
-  },
-  {
-   "periodo": "2023-Q3",
-   "fecha": "2023-10-25",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "3T'23: RoTE mejora al 15,5% y BNA 2.902 M€. El margen de intereses acelera; coste del riesgo sube a 1,13% pero dentro de guía. Buen momentum de rentabilidad.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11219
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 14861
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3119
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 2902
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 15.5
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.13
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.13
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 44.0
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.61
-    }
-   ]
-  },
-  {
-   "periodo": "2023-Q4",
-   "fecha": "2024-01-31",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "4T'23: cierre con RoTE 15,6% y récord de beneficio anual, pero coste del riesgo sube a 1,18% y CET1 sigue en 12,3%. Señales mixtas: rentabilidad alta, capital y calidad de activos a vigilar.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11122
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 14552
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 2835
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 2933
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 15.6
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.14
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.18
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 44.1
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.76
-    }
-   ],
-   "hechos": [
-    {
-     "tipo": "Gobierno",
-     "hecho": "Héctor Grisi asume como consejero delegado (CEO) del grupo desde 2023, junto a la presidenta ejecutiva Ana Botín.",
-     "impacto": "=",
-     "valoracion": "Relevo en la primera ejecutiva; continuidad estratégica bajo la presidencia de Botín."
-    }
-   ]
-  },
-  {
-   "periodo": "2024-Q1",
-   "fecha": "2024-04-30",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "1T'24: coste del riesgo en máximos (1,20%) y RoTE cede al 14,9%; eficiencia mejora al 42,0%. Rentabilidad sólida pero calidad de activos y capital (12,3%) en zona de vigilancia.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11983
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15045
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3240
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 2852
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 14.9
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.1
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.2
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 42.0
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.86
-    }
-   ]
-  },
-  {
-   "periodo": "2024-Q2",
-   "fecha": "2024-07-24",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "2T'24: salto del RoTE al 16,8% y BNA 3.207 M€; morosidad baja a 3,02% y CET1 sube a 12,5%. La rentabilidad se acelera y el capital empieza a construir. Tesis reforzada.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11474
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15670
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3237
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3207
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.8
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.5
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.02
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.21
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 43.4
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 4.94
-    }
-   ]
-  },
-  {
-   "periodo": "2024-Q3",
-   "fecha": "2024-10-29",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "3T'24: RoTE 16,7% sostenido, BNA 3.250 M€; TNAV/acc supera los 5 €. Coste del riesgo se modera. El banco compone valor tangible por acción de forma consistente.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11225
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15135
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3189
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3250
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.7
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.5
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.06
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.18
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 44.4
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.04
-    }
-   ]
-  },
-  {
-   "periodo": "2024-Q4",
-   "fecha": "2025-02-05",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "4T'24: récord de beneficio anual con RoTE 16,6% y CET1 al 12,8%. Coste del riesgo baja a 1,15% y TNAV/acc 5,24 €. Creación de valor consolidada; capital por encima del objetivo.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11986
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 16026
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3344
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3265
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.6
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.8
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3.05
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.15
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 45.6
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.24
-    }
-   ]
-  },
-  {
-   "periodo": "2025-Q1",
-   "fecha": "2025-04-30",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "1T'25: RoTE 16,6% y BNA 3.402 M€; morosidad baja del 3% y eficiencia mejora al 41,9%. Todos los KPIs de la tesis (rentabilidad, capital, riesgo, eficiencia) en zona favorable.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11378
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15537
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3369
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3402
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.6
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.9
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 2.99
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.14
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 41.9
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.46
-    }
-   ]
-  },
-  {
-   "periodo": "2025-Q2",
-   "fecha": "2025-07-30",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "2T'25: RoTE 16,9% y CET1 alcanza el 13,0%. Morosidad en mínimos (2,91%) y eficiencia 41,5%. El banco combina rentabilidad récord con fortalecimiento de capital.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 10590
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 14503
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3143
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3431
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.9
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 13.0
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 2.91
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.14
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 41.5
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.5
-    }
-   ]
-  },
-  {
-   "periodo": "2025-Q3",
-   "fecha": "2025-10-28",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "3T'25: RoTE 16,9% y BNA 3.504 M€; CET1 13,1% y coste del riesgo 1,13%. Eficiencia líder (41,3%) y TNAV/acc 5,56 €. Trimestre de plena confirmación de la tesis.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 10348
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 14325
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": null
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3504
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.9
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 13.1
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 2.92
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.13
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 41.3
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.56
-    }
-   ]
-  },
-  {
-   "periodo": "2025-Q4",
-   "fecha": "2026-02-04",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "4T'25: cierre histórico con RoTE 17,9%, CET1 13,5% y eficiencia 41,2% (la mejor reportada). BNA trimestral 3.764 M€ y TNAV/acc 5,76 €. Creación de valor máxima; capital muy por encima del objetivo.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 10789
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15163
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3650
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3764
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 17.9
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 13.5
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 2.91
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.15
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 41.2
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 5.76
-    }
-   ],
-   "hechos": [
-    {
-     "tipo": "Adquisición",
-     "hecho": "Acuerdo para adquirir TSB (Reino Unido) a Sabadell por ~3.100 M€, con cierre previsto en Q1-2026.",
-     "impacto": "+",
-     "valoracion": "Refuerza la banca minorista británica en un mercado núcleo con disciplina de capital."
-    }
-   ]
-  },
-  {
-   "periodo": "2026-Q1",
-   "fecha": "2026-04-28",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "1T'26 ordinario: BNA 3.560 M€ (+12,5% interanual); estatutario 5.455 M€ por la plusvalía de la venta de Polonia (+1.895 M€), que eleva el CET1 a 14,4% (+95 pb). RoTE ordinario 15,2% (estatutario 17,3%) y eficiencia mejora a 42,8%. Comisiones 3.357 M€ y TNAV/acción salta a 6,13 € (+0,37 €). Coste del riesgo 1,14% y NPL 3,00% con leve repunte (vigilar). Anuncio de compra de Webster (~10.300 M€, 7,4% de la capitalización).",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11019
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15140
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3357
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3560
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 15.2
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 14.4
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 3
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.14
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 42.8
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 6.13
-    }
-   ]
-  },
-  {
-   "periodo": "2026-Q2",
-   "fecha": "2026-07-21",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "2T'26 ordinario récord: BNA 3.768 M€ (+6% intertrimestral; el acumulado 1S ordinario 7.328 M€, +15% interanual). Estatutario 3.518 M€ (−36% s/1T por la ausencia de la plusvalía de Polonia y −250 M€ de costes de reestructuración de TSB). Integración de TSB desde mayo (−55 pb, CET1 hasta 14,0%). RoTE ordinario 2T 16,0% y eficiencia 42,8%. NPL mejora a 2,93% (desde 3,00%) y coste del riesgo estable en 1,15%; cobertura 64%. Comisiones 3.494 M€ (+4% s/1T) y TNAV/acción 6,32 €. Señal S3: cotización 12,08 € (jun-26) supera el PO de la tesis (~10,2 €) → revisar valoración.",
-   "metricas": [
-    {
-     "nombre": "M.Intereses (M€)",
-     "valor": 11692
-    },
-    {
-     "nombre": "M.Bruto (M€)",
-     "valor": 15682
-    },
-    {
-     "nombre": "Comisiones netas (M€)",
-     "valor": 3494
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 3768
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.0
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 14.0
-    },
-    {
-     "nombre": "NPL (%)",
-     "valor": 2.93
-    },
-    {
-     "nombre": "Coste riesgo (%)",
-     "valor": 1.15
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 42.8
-    },
-    {
-     "nombre": "TNAV/acc (€)",
-     "valor": 6.32
-    }
-   ],
-   "hechos": [
-    {
-     "tipo": "Adquisición",
-     "hecho": "Cierre de la compra de TSB (Reino Unido) el 30-abr-2026 por ~3.300 M€ (2.900 M GBP); integrado en Retail & Commercial desde mayo, con -55 pb en el CET1 y 250 M€ de costes de reestructuración en 2T.",
-     "impacto": "+",
-     "valoracion": "Refuerza la banca minorista británica; la dilución de capital es asumible y se absorbió en el trimestre."
-    },
-    {
-     "tipo": "Desinversión",
-     "hecho": "Venta del 49% de Santander Bank Polska: plusvalía neta de 1.895 M€ registrada en 1T-2026 (+95 pb CET1), reclasificada como partida no recurrente.",
-     "impacto": "+",
-     "valoracion": "Rotación de capital hacia mercados prioritarios; financia la recompra extraordinaria."
-    },
-    {
-     "tipo": "Adquisición",
-     "hecho": "Anuncio (3-feb-2026) de la compra del 100% de Webster Financial (banca minorista y de empresas, EE.UU.); impacto estimado en CET1 de ~-150 pb al completarse.",
-     "impacto": "=",
-     "valoracion": "Amplía la franquicia en EE.UU.; pendiente de aprobaciones y del consumo de capital previsto."
-    },
-    {
-     "tipo": "Remuneración",
-     "hecho": "Dividendo total en efectivo con cargo a 2025 de 24,00 cts/acc (+14%) y 2ª recompra de 5.030 M€ (1.830 ordinaria + 3.200 extraordinaria, ~50% de la plusvalía de Polonia).",
-     "impacto": "+",
-     "valoracion": "Fuerte retorno al accionista (~50% efectivo / 50% recompra) sostenido por el exceso de capital."
-    },
-    {
-     "tipo": "Valoración",
-     "hecho": "La cotización cerró jun-26 en 12,08 € (+27% en el trimestre), por encima del precio objetivo de la tesis (~10,2 €).",
-     "impacto": "-",
-     "valoracion": "Señal S3 (PO alcanzado): revisar Valoración/Tesis (Bloques 6/9) antes de ampliar posición."
-    }
-   ]
-  }
- ],
- "schemaVersion": 2
+  ],
+  "schemaVersion": 2
 }
