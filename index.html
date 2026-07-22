@@ -3325,10 +3325,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Análisis de inversión</h2>
     <div class="cards" id="anaCards"></div>
     <div class="toolbar">
+      <button class="btn" id="anaPasteBtn">Pegar cotizaciones</button>
       <a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>
       <button class="btn sm" id="anaAddBtn">+ Empresa</button>
       <button class="btn danger sm" id="anaClear">Vaciar</button>
       <span class="muted" id="anaStatus"></span>
+    </div>
+    <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
+      <div class="sub" style="margin-bottom:6px">Pega <b>Nombre</b> · <b>Cotización</b> · <b>Dividendo bruto</b> (separados por tabulador), una por línea. La empresa se identifica por el nombre y se actualizan a la vez Análisis e Inversiones.</div>
+      <div class="sub" style="margin-bottom:6px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Cuidado con el dividendo:</b> al pegar, el dividendo bruto se guarda en el <b>año en curso</b> del Histórico/Previsión. No actualices el dividendo de una empresa hasta estar en el año que le corresponde (si no, sobrescribirías el año en curso con un valor que no toca).</div>
+      <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
+      <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
     </div>
     <form class="grid" id="anaForm" autocomplete="off" style="background:#fef9c3;display:none">
       <input type="hidden" id="anaId">
@@ -3547,8 +3554,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-radar"></section>
   <section class="view" id="view-embudo"></section>
   <section class="view" id="view-divcomp"></section>
-  <section class="view" id="view-diario"></section>
-  <section class="view" id="view-divfut"></section>
   <section class="view" id="view-cobertura"></section>
   <section class="view" id="view-metodo"></section>
   <section class="view" id="view-hemeroteca"></section>
@@ -3628,7 +3633,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <script src="js/01-core.js?v=20260720b"></script>
   <script src="js/02-hogar.js?v=20260720b"></script>
-  <script src="js/03-inversiones.js?v=20260720b"></script>
+  <script src="js/03-inversiones.js?v=20260722h"></script>
   <script src="js/04-plan.js?v=20260720b"></script>
   <script src="js/05-graficas.js?v=20260720b"></script>
   <script src="js/07-informes.js?v=20260720b"></script>
@@ -3646,8 +3651,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <script src="js/20-tesis.js?v=20260720b"></script>
   <script src="js/21-embudo.js?v=20260721"></script>
   <script src="js/22-diversif.js?v=20260721"></script>
-  <script src="js/23-diario.js?v=20260721"></script>
-  <script src="js/24-divfut.js?v=20260722"></script>
   <script src="js/06-main.js?v=20260721"></script>
   <script src="js/15-cmdk.js?v=20260720b"></script>
 
