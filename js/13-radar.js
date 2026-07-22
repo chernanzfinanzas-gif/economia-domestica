@@ -469,6 +469,10 @@ function _pintarCalendario(analizadas){
     if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var conf=!!c.next.manual;
       var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
       items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
+    /* Informe recién publicado: se mantiene visible 10 días como confirmación de que está hecho,
+       luego desaparece solo. */
+    if(c&&c.ultimoFecha){ var _ud=_cbDias(c.ultimoFecha,hoy); if(_ud!=null&&_ud<=0&&_ud>=-10){
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:'Informe '+(_QLABEL[c.uq]||c.uq),date:c.ultimoFecha,dias:_ud,bucket:2,done:true,chkType:'informe',chkKey:_cbToStr(c.ultimoFecha),conf:!!c.ultimoManual,recien:true}); } }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
     var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
@@ -478,7 +482,7 @@ function _pintarCalendario(analizadas){
   if(!items.length){ host.innerHTML='<div class="muted" style="font-size:12px;padding:8px 0">No hay empresas en cola ni intervenciones programadas. Marca candidatas con ★ en Radar Op. y añádelas a la cola.</div>'; return; }
   var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(x){return '<option'+(x===sel?' selected':'')+'>'+x+'</option>';}).join(''); };
   var tipoCol=function(it){ return it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); };
-  var diasTxt=function(it){ if(it.tipo==='senal')return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>'; if(it.dias==null)return '<span class="muted">sin fecha</span>'; if(it.dias===0)return '<b style="color:#dc2626">hoy</b>'; if(it.dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-it.dias)+' d</span>'; if(it.dias<=14)return '<span style="color:#b45309;font-weight:600">en '+it.dias+' d</span>'; return 'en '+it.dias+' d'; };
+  var diasTxt=function(it){ if(it.recien)return '<span style="color:#16a34a;font-weight:600">✓ hecho'+(it.dias<0?(' hace '+(-it.dias)+' d'):(it.dias===0?' hoy':''))+'</span>'; if(it.tipo==='senal')return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>'; if(it.dias==null)return '<span class="muted">sin fecha</span>'; if(it.dias===0)return '<b style="color:#dc2626">hoy</b>'; if(it.dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-it.dias)+' d</span>'; if(it.dias<=14)return '<span style="color:#b45309;font-weight:600">en '+it.dias+' d</span>'; return 'en '+it.dias+' d'; };
   var estadoCell=function(it){
     if(it.tipo==='analisis') return '<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
     if(it.tipo==='senal') return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>';
@@ -563,10 +567,14 @@ function _cadenciaDe(t){
      que el usuario confirme otra fecha. Es la fuente única de fechas confirmadas (fuera Yahoo). */
   var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[(t||'').toUpperCase()]||{}):{};
   ['Q1','Q2','Q3','Q4'].forEach(function(q){ if(cm[q])mdByQ[q]=cm[q]; });
-  var uDate=new Date(ultimo.fecha+'T00:00:00'); var next=null;
+  /* La confirmación manual también corrige la fecha del ÚLTIMO informe mostrado (mismo trimestre)
+     y con ella la fecha de partida de la proyección. */
+  var uq=_qtoken(ultimo.periodo);
+  var ultFecha=(cm[uq]&&ultimo.fecha)?(ultimo.fecha.slice(0,4)+'-'+cm[uq]):(ultimo.fecha||'');
+  var uDate=new Date(ultFecha+'T00:00:00'); var next=null;
   Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
   if(next)next.manual=!!cm[next.q];
-  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo)};
+  return {ultimo:ultimo, ultimoFecha:ultFecha, ultimoManual:!!cm[uq], next:next, uq:uq};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
 function _cadEstado(c,hoy,dossierFecha){
@@ -588,7 +596,11 @@ function _pintarCadencia(analizadas){
   var data=analizadas.map(function(a){ var t=(a.ticker||'').toUpperCase(); var c=_cadenciaDe(t); var cal=_calibCell(t), sen=_senalCell(t); var inf=_uniInfo(t);
     if(!c){ return {t:t,nombre:inf.nombre,ult:'<span class="muted" style="font-size:11px">sin monitor trimestral</span>',prox:'—',aviso:'',avisoCol:'#94a3b8',cal:cal,sen:sen}; }
     var e=_cadEstado(c,hoy,a.dossierFecha); DB.cadencia[t]={proxLabel:e.proxLabel,tocaMonitor:e.tocaMonitor,tocaAnual:e.tocaAnual,nextKey:e.nextKey,nextDate:e.nextDate,manual:!!(c.next&&c.next.manual)}; chg=true;
-    var ultTxt=_radEsc((c.ultimo.periodo||''))+' ('+_radEsc(c.ultimo.fecha||'')+')';
+    var _uq=c.uq||_qtoken(c.ultimo.periodo); var _uf=c.ultimoFecha||c.ultimo.fecha||''; var _uM=!!c.ultimoManual;
+    var ultTxt='<span style="white-space:nowrap"><b>'+_radEsc(c.ultimo.periodo||'')+'</b> '
+      +'<input type="date" class="cadProx" data-ct="'+_radEsc(t)+'" data-q="'+_radEsc(_uq)+'" value="'+_uf+'" title="Fecha real de publicación de este informe; corrige el histórico y ajusta la proyección futura de ese trimestre" style="font-size:11px;border:1px solid #cbd5e1;border-radius:6px;padding:1px 4px;'+(_uM?'background:#f0fdf4;border-color:#86efac;':'')+'">'
+      +(_uM?' <button type="button" data-cadclr="'+_radEsc(t)+'|'+_radEsc(_uq)+'" title="Quitar tu corrección y volver a la fecha del informe" style="border:0;background:none;color:#94a3b8;cursor:pointer;font-size:13px;line-height:1;padding:0 2px">×</button>':'')
+      +'</span>';
     var proxTxt='—';
     if(c.next){ var _nd=e.nextDate||''; var _isM=!!c.next.manual; var _q=c.next.q;
       proxTxt='<span style="white-space:nowrap"><b>'+_radEsc(_QLABEL[_q]||_q)+'</b> '

@@ -148,17 +148,19 @@ function _calPatronTrim(t){
 /* ---- informes trimestrales desde -trim.json cuya fecha cae en `year` ---- */
 function _calEvTrim(t, year){
   t=(t||'').toUpperCase(); var out=[]; var filed={};
+  /* Confirmación MANUAL por trimestre (Cobertura → DB.cadManual): corrige la fecha de publicación
+     mostrada del informe registrado y hace que ese Q deje de ser "estimado" en la proyección. */
+  var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[t]||{}):{};
   var d=(typeof _cadTrim!=='undefined' && _cadTrim) ? _cadTrim[t] : null;
   if(d && d.revisiones){
-    d.revisiones.forEach(function(r){ var f=(r.fecha||'').slice(0,10); if(!f) return; var q=_calQ(r.periodo);
+    d.revisiones.forEach(function(r){ var q=_calQ(r.periodo); var f=(r.fecha||'').slice(0,10); if(!f) return;
+      if(cm[q]) f=f.slice(0,4)+'-'+cm[q];
       if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:false, proyectado:false }); }
       filed[f.slice(0,4)+'-'+q]=1;   /* trimestre YA presentado ese año → no proyectarlo encima */
     });
   }
   /* Proyección de la CADENCIA COMPLETA del año (todos los trimestres con patrón), no solo el
      próximo. Solo futuros (fecha>=hoy) y que no estén ya presentados. Así aparecen 9M, FY, etc. */
-  /* Confirmación MANUAL por trimestre (Cobertura): esos Q dejan de ser "estimados". */
-  var cm=(typeof DB!=='undefined'&&DB.cadManual)?(DB.cadManual[t]||{}):{};
   var pat=_calPatronTrim(t); var hoy=(typeof _calHoy==='function')?_calHoy():null;
   if(pat){ ['Q1','Q2','Q3','Q4'].forEach(function(q){ var md=pat[q]; if(!md) return;
     var dt=year+'-'+md;
