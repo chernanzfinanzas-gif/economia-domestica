@@ -969,8 +969,8 @@ function renderPresDesglose(){
     const rColor=(bTot>0&&rTot>0)?` style="color:${ok?'#16a34a':'#dc2626'}"`:'';
     return `<tr class="dg-pres">`+
         `<td rowspan="2" class="dg-name">${c.nombre}${c.tipo==='ingreso'?' <span class="tag in">ing</span>':''}</td>`+
-        `<td class="muted dg-b">Pres.</td>${bTds}<td class="num">${bTot?f2(bTot):'·'}</td></tr>`+
-      `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num"${rColor}><b>${rTot?f2(rTot):'·'}</b></td></tr>`;
+        `<td class="muted dg-b">Pres.</td>${bTds}<td class="num col-tot">${bTot?f2(bTot):'·'}</td></tr>`+
+      `<tr class="dg-real"><td class="muted">Real</td>${rTds}<td class="num col-tot"${rColor}><b>${rTot?f2(rTot):'·'}</b></td></tr>`;
   };
   // Agrupar categorías (Ingresos primero, resto alfabético)
   const groups={};
@@ -981,7 +981,7 @@ function renderPresDesglose(){
   const isDk=g=>!!window._dgDeskOpen[g];
   const bandRow=(g)=>{
     let bp=0,br=0; (groups[g]||[]).forEach(c=>{ bp+=(presMens[c.id]||0)*12; br+=realYear(c.id); });
-    return `<tr class="grp-row dg-band" data-dgdk="${g}"><td colspan="15"><span class="dg-arw">${isDk(g)?'▼':'▶'}</span> ${g} <span class="muted" style="font-weight:400">· Pres. ${fmt(bp)} / Real ${fmt(br)}</span></td></tr>`;
+    return `<tr class="dg-band${g==='Ingresos'?' ing':''}" data-dgdk="${g}"><td colspan="15"><span class="dg-arw">${isDk(g)?'▼':'▶'}</span> ${g} <span class="bmeta">· Pres. ${fmt(bp)} / Real ${fmt(br)}</span></td></tr>`;
   };
   // Bloque resumen (espejo del Excel)
   const ingCats=DB.categorias.filter(c=>c.tipo==='ingreso'), gasCats=DB.categorias.filter(c=>c.tipo==='gasto');
@@ -995,21 +995,34 @@ function renderPresDesglose(){
   const sumRow=(lbl,arr,cls,signo)=>{
     let tds='',tot=0; arr.forEach(v=>{ tot+=v; const neg=signo&&v<0; tds+= (Math.abs(v)<0.005?'<td class="num muted">·</td>':`<td class="num${neg?' dg-neg':''}">${f2(v)}</td>`); });
     const negT=signo&&tot<0;
-    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num${negT?' dg-neg':''}"><b>${f2(tot)}</b></td></tr>`;
+    return `<tr class="${cls}"><td colspan="2"><b>${lbl}</b></td>${tds}<td class="num col-tot${negT?' dg-neg':''}"><b>${f2(tot)}</b></td></tr>`;
   };
   const resumen =
-      sumRow('Total INGRESOS (real)',ingReal,'grp-row r-verde')+
-      sumRow('Ingreso presupuestado',ingPres,'')+
-      sumRow('Gasto presupuestado',gasPres,'')+
-      sumRow('Gasto realizado',gasReal,'')+
-      sumRow('Ahorro presupuestado',ahoPrev,'grp-row',true)+
-      sumRow('Ahorro logrado',ahoLog,'grp-row r-verde',true);
+      sumRow('Total INGRESOS (real)',ingReal,'r-sum strong')+
+      sumRow('Ingreso presupuestado',ingPres,'r-sum')+
+      sumRow('Gasto presupuestado',gasPres,'r-sum')+
+      sumRow('Gasto realizado',gasReal,'r-sum')+
+      sumRow('Ahorro presupuestado',ahoPrev,'r-sum',true)+
+      sumRow('Ahorro logrado',ahoLog,'r-sum strong',true);
+  // Fila de KPIs (mismo componente que el resto de pestañas)
+  (function(){ var kEl=document.getElementById('dgKpis'); if(!kEl) return;
+    var tot=function(a){return a.reduce(function(s,v){return s+v;},0);};
+    var iR=tot(ingReal), iP=tot(ingPres), gR=tot(gasReal), gP=tot(gasPres);
+    var aR=iR-gR, aP=iP-gP;
+    var tR=iR>0?(aR/iR*100):0, tP=iP>0?(aP/iP*100):0;
+    kEl.innerHTML='<div class="pos-kpis">'+
+      '<div class="k"><div class="l">Ingresos (real)</div><div class="v">'+fmt(iR)+'</div><div class="p">Pres. '+fmt(iP)+'</div></div>'+
+      '<div class="k"><div class="l">Gastos (real)</div><div class="v">'+fmt(gR)+'</div><div class="p">Pres. '+fmt(gP)+'</div></div>'+
+      '<div class="k hero"><div class="l">Ahorro logrado</div><div class="v">'+fmt(aR)+'</div><div class="p">Presupuestado '+fmt(aP)+'</div></div>'+
+      '<div class="k"><div class="l">Tasa de ahorro</div><div class="v'+(aR<0?' neg':'')+'">'+tR.toFixed(1)+' %</div><div class="p">Pres. '+tP.toFixed(1)+' %</div></div>'+
+    '</div>';
+  })();
   // Montaje: INGRESOS → resumen → gastos (cada capítulo plegable; cerrado por defecto)
   let body='';
   const ing=catsConDato('Ingresos'); if(ing.length){ body+=bandRow('Ingresos'); if(isDk('Ingresos')) body+=ing.map(conceptRows).join(''); }
-  body+=`<tr class="grp-row r-amar"><td colspan="15"><b>RESUMEN</b></td></tr>`+resumen;
+  body+=`<tr class="r-amar"><td colspan="15"><b>RESUMEN</b></td></tr>`+resumen;
   order.filter(g=>g!=='Ingresos').forEach(g=>{ const cs=catsConDato(g); if(!cs.length)return; body+=bandRow(g); if(isDk(g)) body+=cs.map(conceptRows).join(''); });
-  const head=`<tr><th style="text-align:left">Concepto</th><th></th>${short.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num">Total</th></tr>`;
+  const head=`<tr><th style="text-align:left">Concepto</th><th></th>${short.map(m=>`<th class="num">${m}</th>`).join('')}<th class="num tot">Total</th></tr>`;
   const hasData=ing.length || order.some(g=>g!=='Ingresos'&&catsConDato(g).length);
   el.innerHTML=`<table class="tbl-desglose"><thead>${head}</thead><tbody>${body}</tbody></table>`
     + (hasData?'':`<p class="muted" style="margin-top:8px">Sin conceptos con presupuesto o movimientos en ${year}.</p>`);
