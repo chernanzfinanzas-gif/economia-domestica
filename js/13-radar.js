@@ -468,8 +468,16 @@ function _pintarCalendario(analizadas){
     var c=_cadenciaDe(t);
     if(c&&c.next){ var e=_cadEstado(c,hoy,a.dossierFecha); var dt=_cbToStr(c.next.date); var conf=false;
       var ag=_agResultado(t); if(ag&&ag.fecha){ var ags=_cbToStr(ag.fecha); if(ags){ dt=ags; conf=!!ag.confirmada; } }
-      var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual; var bkt=(esAnual||(dias!=null&&dias<=0))?0:2; var doneRep=!!((infDone[t]||{})[dt]);
-      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[c.next.q]||c.next.q)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
+      var dias=_cbDias(dt,hoy); var esAnual=!!e.tocaAnual;
+      /* Etiqueta según la FECHA mostrada (la agenda confirmada puede diferir de la estimación
+         de la cadencia, que ya haya avanzado de trimestre al cargar el -trim.json). */
+      var qLbl=_cbQofDate(c,dt)||c.next.q;
+      var dtYear=(dt&&/^\d{4}/.test(dt))?dt.slice(0,4):String(hoy.getFullYear());
+      var perTok=(_QNUM[qLbl]?dtYear+'-Q'+_QNUM[qLbl]:'');
+      /* Revisado si está marcado a mano O si el -trim.json ya cubre ese periodo. */
+      var doneRep=!!((infDone[t]||{})[dt]) || _cbPeriodoEnTrim(t,perTok);
+      var bkt=doneRep?2:((esAnual||(dias!=null&&dias<=0))?0:2);
+      items.push({t:t,nombre:inf.nombre,tipo:'informe',tipoLbl:(esAnual?'Revisión anual':'Informe '+(_QLABEL[qLbl]||qLbl)),date:dt,dias:dias,bucket:bkt,done:doneRep,chkType:'informe',chkKey:dt,conf:conf}); }
     var d=(typeof calibDataFor==='function')?calibDataFor(t):null;
     if(d){ var act=_calibActivo(d.hitos,hoy); if(act){ var dc=(act.dias==null?9999:act.dias); items.push({t:t,nombre:inf.nombre,tipo:'calib',tipoLbl:'Calibración '+act.k,date:act.diana,dias:act.dias,bucket:(dc<=0?0:2),done:!!act.done,chkType:'calib',chkKey:act.k}); } }
     var sen=_senalActiva(t); if(sen && !_cbSenalRespondida(t,sen.tipo)){ items.push({t:t,nombre:inf.nombre,tipo:'senal',tipoLbl:'Señal '+sen.lbl,date:null,dias:null,bucket:0,done:!!((senDone[t]||{})[sen.tipo]),chkType:'senal',chkKey:sen.tipo,sev:sen.sev,col:sen.col}); }
@@ -561,9 +569,27 @@ function _cadenciaDe(t){
   var mdByQ={}; revs.forEach(function(r){ var q=_qtoken(r.periodo); if(q&&r.fecha)mdByQ[q]=r.fecha.slice(5); });
   var uDate=new Date(ultimo.fecha+'T00:00:00'); var next=null;
   Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
-  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo)};
+  return {ultimo:ultimo, next:next, uq:_qtoken(ultimo.periodo), mdByQ:mdByQ};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
+var _QNUM={Q1:1,Q2:2,Q3:3,Q4:4};
+/* Trimestre (Q1..Q4) al que corresponde una fecha mostrada, según el patrón histórico
+   de publicación de la empresa (mdByQ). Sirve para que la etiqueta del Calendario de
+   Cobertura siga la FECHA REAL del informe (agenda confirmada) y no la estimación de la
+   cadencia, que puede haber avanzado ya al trimestre siguiente al cargar un -trim.json. */
+function _cbQofDate(c,dt){
+  if(!c||!c.mdByQ||!dt)return null; var md=(''+dt).slice(5); if(md.length<5)return null;
+  var target=parseInt(md.slice(0,2),10)*100+parseInt(md.slice(3,5),10); if(isNaN(target))return null;
+  var best=null,bestD=1e9;
+  Object.keys(c.mdByQ).forEach(function(q){ var s=c.mdByQ[q]; if(!s||s.length<5)return; var v=parseInt(s.slice(0,2),10)*100+parseInt(s.slice(3,5),10); if(isNaN(v))return; var dd=Math.abs(v-target); if(dd>600)dd=1200-dd; /* envolvente dic↔ene */ if(dd<bestD){bestD=dd;best=q;} });
+  return best;
+}
+/* ¿El -trim.json de la empresa ya cubre ese periodo canónico (AAAA-Qn)? Si sí, el informe
+   está revisado aunque no se haya marcado la casilla manual de Cobertura. */
+function _cbPeriodoEnTrim(t,perTok){
+  var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!perTok)return false;
+  return d.revisiones.some(function(r){ var pc=(typeof _trimCanon==='function')?_trimCanon(r.periodo):r.periodo; return pc===perTok; });
+}
 function _cadEstado(c,hoy,dossierFecha){
   var tocaMonitor=!!(c.next && c.next.date<=hoy); var tocaAnual=false;
   if(c.uq==='Q4'){ var fy=new Date((c.ultimo.fecha||'')+'T00:00:00'); var dias=(hoy-fy)/86400000; var dy=(''+(dossierFecha||'')).slice(0,4); var fyY=(''+(c.ultimo.fecha||'')).slice(0,4); if(dias>=0&&dias<160&&dy&&fyY&&fyY>dy)tocaAnual=true; }
