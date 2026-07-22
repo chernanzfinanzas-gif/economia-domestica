@@ -401,13 +401,25 @@ async function ensureInfLogos(){
        var b=await _infFileToDataURL(INF_LOGO_KHB_SRC); if(b && typeof INF_LOGO_KHB!=='undefined') INF_LOGO_KHB=b; }catch(e){}
   _infLogosLoaded=true;
 }
-/* Cabecera unica de informe (sustituye las 3 copias casi identicas) */
-function infHeaderHTML(titulo, subtitulo, logoSrc, imgAttrs){
+/* Portada unica de informe (estilo informe semanal de coyuntura).
+   Firma: infHeaderHTML(titulo, subtitulo, metas[], logoSrc, imgAttrs)
+   - metas: array de lineas HTML que se muestran bajo el titulo (periodo, fecha, filtros...).
+   Devuelve una PORTADA dedicada (.infCover) con salto de pagina: el contenido empieza en la hoja siguiente. */
+function infHeaderHTML(titulo, subtitulo, metas, logoSrc, imgAttrs){
   logoSrc = logoSrc || (typeof INF_LOGO!=='undefined'?INF_LOGO:'');
   subtitulo = (subtitulo==null) ? 'Gestión de Economía Doméstica' : subtitulo;
   imgAttrs = imgAttrs || 'alt="KHB"';
-  var t=(typeof _infEsc==='function')?_infEsc(titulo||''):(titulo||'');
-  return '<div class="infHdr"><img src="'+logoSrc+'" '+imgAttrs+'><div class="tt"><h1>'+t+'</h1><div class="sub">'+subtitulo+'</div></div></div><div class="accent"></div>';
+  var esc=(typeof _infEsc==='function')?_infEsc:function(x){return x==null?'':(''+x);};
+  var t=esc(titulo||'');
+  var arr=(metas&&metas.length)?metas:[];
+  var m=arr.length?('<div class="covMeta">'+arr.map(function(x){return '<div class="metaline">'+x+'</div>';}).join('')+'</div>'):'';
+  return '<div class="infCover">'
+    +'<img src="'+logoSrc+'" '+imgAttrs+'>'
+    +'<h1 class="covTitle">'+t+'</h1>'
+    +'<div class="covSub">'+subtitulo+'</div>'
+    +'<div class="covRule"></div>'
+    +m
+    +'</div>';
 }
 
 function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if(typeof renderInfoBoxes==='function')renderInfoBoxes();

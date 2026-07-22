@@ -11,11 +11,9 @@
 
 /* ---------- utilidades comunes ---------- */
 function _infDocWrap(titulo, metas, inner){
-  var m=(metas||[]).map(function(x){return '<div class="metaline">'+x+'</div>';}).join('');
   return '<div class="infDoc">'
-    +infHeaderHTML(titulo)
-    +m+inner
-    +'<div class="foot"><span>KHB Equity Investment · Informes y Gestión de Carteras</span><span></span></div>'
+    +infHeaderHTML(titulo, null, metas)
+    +'<div class="infBody">'+inner+'</div>'
     +'</div>';
 }
 function _infChartsWrap(arr){ arr=(arr||[]).filter(Boolean); if(!arr.length)return ''; return '<div class="infCharts">'+arr.join('')+'</div>'; }
@@ -459,11 +457,9 @@ function buildCombustible(ctx){
 /* ============ 4.10 INFORME POR EMPRESA (ficha + tesis + situacion + evolucion) ============ */
 var INF_LOGO_KHB='';
 function _infDocWrapKHB(titulo, metas, inner){
-  var m=(metas||[]).map(function(x){return '<div class="metaline">'+x+'</div>';}).join('');
   return '<div class="infDoc">'
-    +infHeaderHTML(titulo, 'KHB Equity Investment · Analisis y Gestion de Carteras', INF_LOGO_KHB, 'alt="KHB Equity Investment" style="height:80px;width:auto;display:block"')
-    +m+inner
-    +'<div class="foot"><span>KHB Equity Investment · Informes y Gestion de Carteras</span><span></span></div>'
+    +infHeaderHTML(titulo, 'KHB Equity Investment · Análisis y Gestión de Carteras', metas, INF_LOGO_KHB, 'alt="KHB Equity Investment"')
+    +'<div class="infBody">'+inner+'</div>'
     +'</div>';
 }
 function _infTrimTabla(t){
