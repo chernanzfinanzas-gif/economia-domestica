@@ -524,9 +524,10 @@ function renderFicha(t){
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
+  const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
@@ -1102,4 +1103,66 @@ function trimCardHTML(d){
     +(last.resumen?'<div class="sub" style="margin-bottom:8px;line-height:1.45">'+_trimEsc(last.resumen)+'</div>':'')
     +(metr?'<div style="overflow:auto"><table><thead><tr><th>Métrica ('+_trimEsc(last.periodo)+')</th><th class="num">Valor'+(prev?' <span class="muted" style="font-weight:400;font-size:11px">(var. vs '+_trimEsc(prev.periodo)+')</span>':'')+'</th></tr></thead><tbody>'+metr+'</tbody></table></div>':'')
     +'</div>';
+}
+/* ===== Hechos relevantes (crónica cualitativa de cada publicación) =====
+   Se nutre del mismo -trim.json ya cargado en _trimCache: cada publicación de revisiones[]
+   puede traer un array hechos:[{tipo, hecho, impacto:'+'|'='|'-', valoracion}]. Se pinta como
+   línea de tiempo (lo más reciente arriba) debajo del Monitor trimestral en la ficha. */
+function _hkChip(tipo){
+  var t=(''+(tipo==null?'':tipo)).trim().toLowerCase();
+  var m={
+    'resultados':['#ecfdf5','#047857'], 'dividendo':['#ecfdf5','#047857'],
+    'adquisición':['#eff6ff','#1d4ed8'], 'adquisicion':['#eff6ff','#1d4ed8'], 'm&a':['#eff6ff','#1d4ed8'],
+    'guidance':['#fffbeb','#b45309'], 'objetivos':['#fffbeb','#b45309'],
+    'gobierno':['#f5f3ff','#6d28d9'], 'gobierno corporativo':['#f5f3ff','#6d28d9'],
+    'contrato':['#f0fdfa','#0f766e'],
+    'regulatorio':['#fef2f2','#b91c1c'], 'márgenes':['#fef2f2','#b91c1c'], 'margenes':['#fef2f2','#b91c1c'], 'márgenes/costes':['#fef2f2','#b91c1c'], 'costes':['#fef2f2','#b91c1c'],
+    'recompra':['#eef2ff','#4338ca']
+  };
+  var c=m[t]||['#f1f5f9','#475569'];
+  return 'background:'+c[0]+';color:'+c[1];
+}
+function _hkImpDot(imp){
+  var s=(''+(imp==null?'':imp)).trim();
+  if(s==='+'||/^(a favor|positivo|pos)$/i.test(s))return '#16a34a';
+  if(s==='-'||s==='−'||/^(en contra|negativo|neg)$/i.test(s))return '#dc2626';
+  return '#94a3b8';
+}
+function hechosCardHTML(d){
+  if(!d||!d.revisiones||!d.revisiones.length)return '';
+  var pubs=d.revisiones.filter(function(r){return r&&r.hechos&&r.hechos.length;});
+  if(!pubs.length)return '';
+  pubs=pubs.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
+  var semCol={V:'#16a34a',A:'#d97706',R:'#dc2626'};
+  var nH=pubs.reduce(function(s,p){return s+p.hechos.length;},0);
+  var bloques=pubs.map(function(p,i){
+    var sc=semCol[(p.semaforoGlobal||'').toUpperCase()]||'#94a3b8';
+    var hh=p.hechos.map(function(h){
+      var dot=_hkImpDot(h.impacto);
+      var chip=h.tipo?'<span style="display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.02em;text-transform:uppercase;padding:2px 7px;border-radius:999px;margin-right:6px;vertical-align:1px;'+_hkChip(h.tipo)+'">'+_trimEsc(h.tipo)+'</span>':'';
+      return '<div style="display:flex;gap:10px;padding:7px 0;border-top:1px solid #f1f5f9">'
+        +'<div style="flex:0 0 auto;width:12px;height:12px;border-radius:50%;margin-top:4px;background:'+dot+'"></div>'
+        +'<div style="flex:1;min-width:0">'
+          +'<div style="font-weight:600">'+chip+_trimEsc(h.hecho)+'</div>'
+          +(h.valoracion?'<div style="color:#64748b;font-size:12.5px;margin-top:2px"><b style="color:#334155">Valoración:</b> '+_trimEsc(h.valoracion)+'</div>':'')
+        +'</div></div>';
+    }).join('');
+    return '<div style="'+(i>0?'border-top:1px dashed #e2e8f0;margin-top:12px;padding-top:12px':'')+'">'
+      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:2px">'
+        +'<span style="width:11px;height:11px;border-radius:3px;display:inline-block;background:'+sc+'"></span>'
+        +'<span style="font-weight:700;font-size:13px">'+_trimEsc(p.periodo)+'</span>'
+        +(p.fecha?'<span class="muted" style="font-size:12px">'+ddmmyyyy(p.fecha)+'</span>':'')
+      +'</div>'+hh+'</div>';
+  }).join('');
+  return '<div class="card" style="margin-top:10px">'
+    +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">'
+      +'<div style="font-weight:800;font-size:15px">🗞️ Hechos relevantes</div>'
+      +'<span class="muted" style="font-size:12px">crónica de lo comunicado por la empresa · '+pubs.length+' publicacion'+(pubs.length===1?'':'es')+' · '+nH+' hecho'+(nH===1?'':'s')+'</span>'
+      +'<div style="flex:1"></div>'
+      +'<div class="muted" style="font-size:11.5px;display:flex;gap:12px;flex-wrap:wrap">'
+        +'<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#16a34a;vertical-align:0"></span> a favor</span>'
+        +'<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#94a3b8;vertical-align:0"></span> neutro</span>'
+        +'<span><span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:#dc2626;vertical-align:0"></span> en contra</span>'
+      +'</div>'
+    +'</div>'+bloques+'</div>';
 }
