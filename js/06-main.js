@@ -496,9 +496,6 @@ $('#opClose').addEventListener('click',()=>{opEditEnd(); invOpsTicker=null; rend
 $('#opCancelEdit').addEventListener('click',()=>{opEditEnd(); $('#opAcc').value=''; $('#opPrecio').value='';});
 $('#invOpsList').addEventListener('click',e=>{const ed=e.target.closest('[data-editop]'),d=e.target.closest('[data-delop]'); if(ed){editOp(ed.dataset.editop);return;} if(d){ const _id=d.dataset.delop; const _it=(DB.operaciones||[]).find(o=>o.id===_id); if(_it){ if(opEditId===_id)opEditEnd(); undoableDelete('operacion',(_it.tipo==='venta'?'Venta ':'Compra ')+_it.acciones+' '+(_it.ticker||'')+' @ '+fmt(num(_it.precio)),{item:_it},()=>{DB.operaciones=DB.operaciones.filter(o=>o.id!==_id);},['renderAll','renderInvOps']); } }});
 $('#invOpsMeta').addEventListener('change',e=>{const t=e.target; if(t.dataset&&t.dataset.meta&&invOpsTicker){ const v=DB.valores[invOpsTicker]=DB.valores[invOpsTicker]||{}; const k=t.dataset.meta; v[k]=(k==='precioActual'||k==='divAccion')?num(t.value):t.value; renderInv(); scheduleSave(); }});
-$('#anaPasteBtn').addEventListener('click',()=>{const p=$('#anaPastePanel'); p.style.display=p.style.display==='none'?'block':'none';});
-$('#anaPasteCancel').addEventListener('click',()=>{$('#anaPastePanel').style.display='none';});
-$('#anaPasteApply').addEventListener('click',aplicarAnaPaste);
 $('#anaAddBtn').addEventListener('click',()=>{const f=$('#anaForm'); f.reset(); $('#anaId').value=''; $('#anaSubmit').textContent='Añadir'; f.style.display=(f.style.display==='none'||!f.style.display)?'grid':'none';});
 $('#anaForm').addEventListener('submit',e=>{e.preventDefault();anaSubmit();});
 $('#anaCancel').addEventListener('click',()=>{$('#anaForm').style.display='none';});

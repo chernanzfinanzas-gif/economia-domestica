@@ -396,29 +396,6 @@ function anaEdit(id){ const a=DB.analisis.find(x=>x.id===id); if(!a)return;
   $('#anaId').value=a.id; $('#anaTicker').value=a.ticker||''; $('#anaNombre').value=a.nombre||''; $('#anaCot').value=a.cotizacion; $('#anaPoMin').value=a.poMin||''; $('#anaPoMax').value=a.poMax||''; $('#anaEntMin').value=a.entMin||''; $('#anaEntMax').value=a.entMax||''; $('#anaRating').value=a.rating||''; $('#anaStop').value=a.stopTesis||''; $('#anaDecision').value=a.decision||''; $('#anaDossierFecha').value=a.dossierFecha||''; $('#anaDossierUrl').value=a.dossierUrl||''; $('#anaDivA').value=a.divAccion; $('#anaNotas').value=a.notas||'';
   $('#anaSubmit').textContent='Guardar'; $('#anaForm').style.display='grid'; window.scrollTo({top:0,behavior:'smooth'}); }
 function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
-function aplicarAnaPaste(){
-  const txt=$('#anaPasteTxt').value||''; if(!txt.trim()){alert('Pega los datos primero.');return;}
-  DB.analisis=DB.analisis||[]; DB.valores=DB.valores||{};
-  const anaByTick={}; DB.analisis.forEach(a=>{ if(a.ticker)anaByTick[a.ticker.toUpperCase()]=a; });
-  let upd=0,add=0,bad=0;
-  txt.split(/\r?\n/).forEach(line=>{ if(!line.trim())return;
-    let cols=line.split('\t'); if(cols.length<2) cols=line.split(/\t|\s{2,}|;/);
-    cols=cols.map(c=>c.trim());
-    const nombre=cols[0]||''; if(!nombre){bad++;return;}
-    const precio=parseNumES(cols[1]||''); const div=parseNumES(cols[2]||'');
-    if(isNaN(precio)&&isNaN(div)){bad++;return;}
-    const t=anaFindTicker(nombre).toUpperCase();
-    const v=DB.valores[t]=DB.valores[t]||{}; v.nombre=nombre;
-    if(!isNaN(precio)){ v.precioActual=precio; v.precioFecha=new Date().toISOString().slice(0,10); v.precioManual=true; }
-    if(!isNaN(div)){ v.divAccion=div; const _ny=new Date().getFullYear(); DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[t]=DB.divPorAccion[t]||{}; DB.divPorAccion[t][_ny]=div; }
-    let a=anaByTick[t];
-    if(a){ if(!isNaN(precio))a.cotizacion=precio; if(!isNaN(div))a.divAccion=div; a.nombre=nombre; upd++; }
-    else { a={id:uid(),ticker:t,nombre:nombre,cotizacion:isNaN(precio)?0:precio,poMin:0,poMax:0,entMin:0,entMax:0,rating:'',stopTesis:0,decision:'',dossierFecha:'',dossierUrl:'',precioEntrada:0,precioObjetivo:0,divAccion:isNaN(div)?0:div,notas:''}; DB.analisis.push(a); anaByTick[t]=a; add++; }
-  });
-  renderAnalisis(); renderInv(); if(typeof renderDividendos==='function')renderDividendos(); if(typeof renderPrevision==='function')renderPrevision(); if(typeof renderSimulador==='function')renderSimulador(); scheduleSave();
-  $('#anaPasteTxt').value=''; $('#anaPastePanel').style.display='none';
-  setAnaStatus('Actualizadas '+upd+', añadidas '+add+(bad?(' · '+bad+' líneas ignoradas'):'')+'.');
-}
 let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={}; let _trimCache={};
 let fichaRange='all';
 let fichaMA={50:false,200:false,1000:false};   // medias móviles activas en la gráfica de la ficha
