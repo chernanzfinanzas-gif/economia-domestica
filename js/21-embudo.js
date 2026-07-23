@@ -568,7 +568,7 @@ function _emCompraDo(t){ t=_emUp(t);
   var eur=acc*pr;
   if(!confirm('¿Registrar compra de '+acc+' '+t+' a '+_emEur(pr)+' = '+_emEur(eur)+' en cartera «'+cart+'»'+(descontar?' y descontar de la caja bróker':'')+'?'))return;
   DB.operaciones=DB.operaciones||[];
-  DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr});
+  DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr,plan:true});
   if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:eur}); }
   _emModalClose();
   if(typeof toast==='function')toast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');

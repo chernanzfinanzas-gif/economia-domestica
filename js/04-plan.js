@@ -97,6 +97,10 @@ function opRealEnAnio(t,year){ const y=String(year);
   return (DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t&&(c.ops||[]).some(o=>(o.fecha||'').slice(0,4)===y));
 }
 function execBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y) e+=num(o.acciones)*num(o.precio); }); return e; }
+/* Compras de EJECUCIÓN DEL PLAN (registradas con el botón Compra del Kanban, marcadas o.plan).
+   Solo estas restan del presupuesto del año; las heredadas/importadas no (Carlos). */
+function planBuyEur(t,year){ const y=String(year); let e=0; (DB.operaciones||[]).forEach(o=>{ if(o.plan&&o.tipo!=='venta'&&(o.ticker||'').toUpperCase()===t&&(o.fecha||'').slice(0,4)===y) e+=num(o.acciones)*num(o.precio); }); return e; }
+function planExecEur(year){ const y=String(year); let e=0; (DB.operaciones||[]).forEach(o=>{ if(o.plan&&o.tipo!=='venta'&&(o.fecha||'').slice(0,4)===y) e+=num(o.acciones)*num(o.precio); }); return e; }
 /* Consumo del plan de un ticker por lo YA COMPRADO, del año más próximo al más lejano.
    Lo comprado del ticker dentro del periodo del plan se descuenta de sus compras previstas
    empezando por la más cercana (aunque se haya comprado en otro año). Devuelve el € que QUEDA
@@ -970,9 +974,11 @@ function _planReparto(){
   var nowY=new Date().getFullYear();
   var dispYear={}, disponible=0;
   try{ if(typeof proyDefaults==='function')proyDefaults(); var ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(function(r){ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
-  var execYear={}; (DB.operaciones||[]).forEach(function(o){ if(o.tipo!=='venta'){ var y=+((o.fecha||'').slice(0,4)); if(y)execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
   var dispFijo=DB.planDispFijo=DB.planDispFijo||{};
-  var dispShown=function(y){ if(y>ycierre)return 0; if(dispFijo[y]!=null&&dispFijo[y]!=='')return num(dispFijo[y]); return (dispYear[y]||0)-(y<=nowY?(execYear[y]||0):0); };
+  /* Presupuesto BRUTO del año (manual o de Proyección) y DISPONIBLE = bruto − compras del plan
+     (Kanban, o.plan) ya ejecutadas ese año. Las compras heredadas no restan (Carlos). */
+  var presBruto=function(y){ return (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0); };
+  var dispShown=function(y){ if(y>ycierre)return 0; return presBruto(y)-(y<=nowY?planExecEur(y):0); };
   var allTk=held.concat(chosen); var TF=totalInv+disponible; var JOYA=0.08;
   var tipoOf=function(t){return pt[t]||'';};
   var nJoya=allTk.filter(function(t){return tipoOf(t)==='joya';}).length;
@@ -998,8 +1004,16 @@ function _planReparto(){
     }
     byYear[y]=usado;
   }
-  var sinCal=0; allTk.forEach(function(t){ sinCal+=Math.max(0,pendA[t]||0); });
-  _planAutoCache={sched:sched, byYear:byYear, sinCalendario:sinCal, ycierre:ycierre, ydesde:ydesde, nowY:nowY, obj:obj, inv:invByT, allTk:allTk};
+  /* SOBRANTE: en vez de dejar "falta", se reparte TODO el pendiente restante aunque exceda el
+     presupuesto (Carlos). Se distribuye proporcional al presupuesto de cada año → los años se pasan
+     y su "sin asignar" queda negativo. sinCal se conserva solo como informativo (excedente total). */
+  var years=[]; for(var yy=y0; yy<=ycierre; yy++)years.push(yy);
+  var totCap=0; years.forEach(function(y){ totCap+=Math.max(0,dispShown(y)); });
+  var exceso=0; allTk.forEach(function(t){ var rem=pendA[t]||0; if(rem>0.5){ exceso+=rem;
+    if(totCap>0){ years.forEach(function(y){ var add=rem*(Math.max(0,dispShown(y))/totCap); sched[t][y]=(sched[t][y]||0)+add; byYear[y]=(byYear[y]||0)+add; }); }
+    else { var ly=years.length?years[years.length-1]:ycierre; sched[t][ly]=(sched[t][ly]||0)+rem; byYear[ly]=(byYear[ly]||0)+rem; }
+    pendA[t]=0; } });
+  _planAutoCache={sched:sched, byYear:byYear, sinCalendario:0, exceso:exceso, ycierre:ycierre, ydesde:ydesde, nowY:nowY, obj:obj, inv:invByT, allTk:allTk};
   return _planAutoCache;
 }
 function renderPlanLote(){
@@ -1031,9 +1045,9 @@ function renderPlanLote(){
   const dispYear={}; let disponible=0;
   try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
   const execYear={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const y=+((o.fecha||'').slice(0,4)); if(y) execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
-  const dispNeto=y=> (dispYear[y]||0) - (y<=nowY?(execYear[y]||0):0);
   const dispFijo=DB.planDispFijo=DB.planDispFijo||{};
-  const dispShown=y=> (y>ycierre)?0:((dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):dispNeto(y));
+  const presBruto=y=> (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0);
+  const dispShown=y=> (y>ycierre)?0:(presBruto(y)-(y<=nowY?planExecEur(y):0)); /* disponible = bruto − compras del plan (Kanban) */
   const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
   const tipoOf=t=>pt[t]||'';
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length; const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
@@ -1059,7 +1073,7 @@ function renderPlanLote(){
   /* FASE 3 · tabla derivada del motor: € del reparto por año (schedY), invertido REAL por año
      (execY, desde operaciones), total planificado del año (autoYear) y suma planificada por empresa. */
   const schedY=(t,y)=> num(((A.sched||{})[t]||{})[y]||0);
-  const execY=(t,y)=> (typeof execBuyEur==='function')?num(execBuyEur(t,y)):0;
+  const execY=(t,y)=> (typeof planBuyEur==='function')?num(planBuyEur(t,y)):0; /* casilla = compras del plan (Kanban) del año */
   const autoYear=y=> num((A.byYear||{})[y]||0);
   const schedSum=t=> yrs.reduce((s,y)=>s+schedY(t,y),0);
   /* ===================== RENDER (rediseño v2) ===================== */
@@ -1080,7 +1094,7 @@ function renderPlanLote(){
   const yrCells=t=>yrs.map(y=>{ const inv=execY(t,y), pin=aYear(t,y), isPin=pin>0.5;
     if(inv>0.5){ return `<td class="yc" title="Invertido real en ${y}: ${fmt(inv)} (suma de tus operaciones)"><div class="num" style="font-weight:800;color:#16a34a">${eurK(inv)}€</div><div class="dlbl" style="color:#16a34a">comprado</div></td>`; }
     return `<td class="yc"><input type="number" step="100" class="anaInp asig" data-asig="${t}|${y}" value="${isPin?Math.round(pin):''}" placeholder="" title="${isPin?('Override manual: '+fmt(pin)+' (borra para volver a la prorrata)'):'Vacío = lo reparte la prorrata (ver panel abajo). Escribe para fijar una compra prevista este año.'}"${isPin?' style="font-weight:700;color:#b45309;background:#fffbeb"':''}></td>`; }).join('');
-  const yrHead=yrs.map(y=>{ const ds=dispShown(y); const pend=ds-autoYear(y); return `<th class="yc" data-loteyear="${y}"><div class="yh">${y}</div><input type="number" data-lotedisp="${y}" value="${Math.round(ds)}" title="Presupuesto de inversión de ${y} (editable; el año en curso ya resta lo invertido)" class="dispinp"><div class="dlbl">presupuesto</div><div class="pend ${pend>0.5?'g':(pend<-0.5?'r':'z')}">${pend>0.5?'+':''}${eurK(pend)} €</div><div class="plbl">sin asignar</div></th>`; }).join('');
+  const yrHead=yrs.map(y=>{ const pb=presBruto(y); const sa=dispShown(y)-autoYear(y); return `<th class="yc" data-loteyear="${y}"><div class="yh">${y}</div><input type="number" data-lotedisp="${y}" value="${Math.round(pb)}" title="Presupuesto bruto de ${y} (editable). Disponible = bruto − compras del plan (Kanban); sin asignar = disponible − reparto (negativo si el reparto excede)." class="dispinp"><div class="dlbl">presupuesto</div><div class="pend ${sa>0.5?'g':(sa<-0.5?'r':'z')}">${sa>0.5?'+':''}${eurK(sa)} €</div><div class="plbl">sin asignar</div></th>`; }).join('');
   const heldSorted=held.slice().sort((a,b)=>invByT[b]-invByT[a]);
   let rows='',n=0;
   heldSorted.forEach(t=>{ n++; rows+=`<tr><td class="num">${n}</td><td><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b><div class="dv-nm">${(nm(t)||'').slice(0,18)}</div></td><td><span class="pill g">Cartera</span></td><td>${tipoSel(t)}</td><td class="num">${fmt(invByT[t])}</td><td class="num">${totalInv?(invByT[t]/totalInv*100).toFixed(1):0}%</td>${objCells(t)}${yrCells(t)}<td></td></tr>`; });
@@ -1089,7 +1103,7 @@ function renderPlanLote(){
   const pendRow='<tr class="pendrow"><td></td><td>Sin asignar</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>'+yrs.map(y=>{ const pend=dispShown(y)-autoYear(y); return `<td class="num yc ${pend<-0.5?'neg':(pend>0.5?'pos':'')}">${fmt(pend)}</td>`; }).join('')+'<td></td></tr>';
   const deskHTML='<div class="dv-desk"><input type="range" id="loteScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años" class="dv-slider"><div class="dtable" id="loteScrollBox"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Estado</th><th>Tipo</th><th class="num">Invertido</th><th class="num">% act</th><th class="num">% obj</th><th class="num">Objetivo €</th><th class="num">A asignar</th><th class="num">Falta</th>'+yrHead+'<th></th></tr></thead><tbody>'+rows+pendRow+'</tbody></table></div></div>';
   /* Pendiente por año (chips) */
-  const pyChip=y=>{ const ds=dispShown(y); const asg=autoYear(y); const pend=ds-asg; const cls=pend>0.5?'g':(pend<-0.5?'r':'z'); return `<div class="pychip ${cls}"><div class="yy">${y}</div><div class="pv2">${eurK(ds)} €</div><div class="pl2">presupuesto</div><div class="pmid">reparto ${eurK(asg)} €</div><div class="pv">${pend>0.5?'+':''}${eurK(pend)} €</div><div class="pl">sin asignar</div></div>`; };
+  const pyChip=y=>{ const pb=presBruto(y); const asg=autoYear(y); const sa=dispShown(y)-asg; const cls=sa>0.5?'g':(sa<-0.5?'r':'z'); return `<div class="pychip ${cls}"><div class="yy">${y}</div><div class="pv2">${eurK(pb)} €</div><div class="pl2">presupuesto</div><div class="pmid">reparto ${eurK(asg)} €</div><div class="pv">${sa>0.5?'+':''}${eurK(sa)} €</div><div class="pl">sin asignar</div></div>`; };
   const pyStripHTML='<div class="pystrip-t">Pendiente por asignar cada año</div><div class="dv-pystrip">'+yrs.map(pyChip).join('')+'</div>';
   /* Móvil: selector de empresa + detalle */
   const allOrder=[...heldSorted, ...chosen];
@@ -1120,7 +1134,7 @@ function renderPlanLote(){
     const rowsC=allTk.filter(t=>asignar(t)>0.5).sort((a,b)=>asignar(b)-asignar(a)).map(t=>{ const s=A.sched[t]||{};
       const parts=yy.filter(y=>s[y]>0.5).map(y=>`<span style="background:#eef2f7;border-radius:6px;padding:1px 6px;font-size:11px;margin:0 4px 3px 0;display:inline-block;white-space:nowrap">${y}: <b>${eurK(s[y])}€</b></span>`).join('');
       return `<div style="display:flex;gap:10px;align-items:baseline;padding:5px 0;border-top:1px solid #f1f5f9;flex-wrap:wrap"><div style="min-width:130px"><b>${t}</b> <span style="color:#94a3b8;font-size:11px">${(nm(t)||'').slice(0,16)}</span></div><div style="min-width:120px;font-size:11.5px;color:#475569">pendiente <b>${fmt(asignar(t))}</b></div><div style="flex:1">${parts||'<span style="color:#94a3b8">—</span>'}</div></div>`; }).join('');
-    const warn=A.sinCalendario>0.5?`<div style="background:#fef3c7;border:1px solid #fde68a;color:#92400e;border-radius:8px;padding:8px 10px;font-size:12px;margin:8px 0">⚠️ Quedan <b>${fmt(A.sinCalendario)}</b> sin encajar hasta ${ycierre}: el pendiente total supera el ahorro previsto del periodo. Amplía el año de cierre o revisa objetivos.</div>`:'';
+    const warn=(A.exceso>0.5)?`<div style="background:#fef3c7;border:1px solid #fde68a;color:#92400e;border-radius:8px;padding:8px 10px;font-size:12px;margin:8px 0">ℹ️ El pendiente supera el ahorro previsto hasta ${ycierre} en <b>${fmt(A.exceso)}</b>: se ha repartido igualmente (los años se pasan de presupuesto y su «sin asignar» queda en negativo). Amplía el año de cierre si quieres holgura.</div>`:'';
     return `<div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)"><div style="font-weight:800;font-size:14px;color:#0369a1;margin-bottom:4px">🤖 Reparto automático <span style="font-weight:400;font-size:11px;color:#64748b">— el pendiente (objetivo − invertido) a prorrata por año, con el ahorro previsto de cada año como tope. <b>Alimenta el simulador.</b> Vivo: cada compra recalcula.</span></div>${pinLine}${warn}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${chips}</div><div>${rowsC||'<div style="color:#94a3b8">Sin pendiente por repartir.</div>'}</div></div>`;
   })();
   el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML+autoPreviewHTML;
