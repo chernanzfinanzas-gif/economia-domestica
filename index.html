@@ -1900,6 +1900,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-simulador .sim-kpis .k.hero .l,#view-simulador .sim-kpis .k.hero .p{color:#bbf7d0}
 #view-simulador .dv-tk{font-weight:800;color:var(--brand)}
 /* ===== Simulador v2: estilo Proyección + real(blanco)/previsión(amarillo) + cabecera/TOTAL/Δ% congelados ===== */
+/* El contenedor exterior #simTabla NO debe hacer scroll (regla antigua) — así .sim-desk es el ÚNICO
+   contenedor de scroll y las filas sticky (cabecera/TOTAL/Δ%) se congelan de verdad. */
+#view-simulador #simTabla{max-height:none;overflow:visible;border:0;padding:0}
 #view-simulador .sim-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:calc(100vh - 250px)}
 #view-simulador .sim-desk table{border-collapse:separate;border-spacing:0;font-size:10.5px;white-space:nowrap;width:auto}
 #view-simulador .sim-desk th,#view-simulador .sim-desk td{border-bottom:1px solid #f1f5f9}
@@ -3491,7 +3494,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. Vista de resultado: las <b>acciones futuras</b> vienen de <b>Diversificación</b> y el <b>dividendo/acción</b> de <b>Evolución Dividendo</b> (aquí solo lectura). Editable solo el pasado/año en curso de acciones.</div>
     <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="simStatus"></span></div>
     <input type="range" id="simScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
-    <div style="overflow:auto" id="simTabla"></div>
+    <div id="simTabla"></div>
   </section>
 
   <section class="view" id="view-plan">
