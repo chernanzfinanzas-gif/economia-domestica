@@ -679,6 +679,76 @@
           "valor": 0.6
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación confirmada: ventas 754,0 M€ vuelven a crecer en reportado (+0,5%; orgánico −3,8% aún negativo por Europa pero mejorando y compensado por Sudamérica). Margen EBITDA récord 29,9% (+110 pb), EBITDA +4,4% y BPA +9,9%. Balance sólido (DN/EBITDA 0,6x) pese al plan inversor y Chile. Guía 2026 reafirmada y remuneración creciente (dividendo +15%, recompra al 3%). Verde.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 754.0
+        },
+        {
+          "nombre": "Var. ventas (%)",
+          "valor": 0.5
+        },
+        {
+          "nombre": "Crec. orgánico (%)",
+          "valor": -3.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 225.5
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 29.9
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 117.4
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 3.36
+        },
+        {
+          "nombre": "Var. BPA (%)",
+          "valor": 9.9
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 252.3
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 0.6
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Dividendo",
+          "hecho": "Pago el 15 de julio del dividendo complementario de 2025 (0,4687 €/acción), un +15% sobre el año anterior; la distribución en efectivo acumulada de 2026 asciende a ~1,7505 €/acción.",
+          "impacto": "+",
+          "valoracion": "Confirma la política de dividendo creciente y sostenible, respaldada por la solidez del balance."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "El Consejo amplía el programa de recompra de acciones hasta el 3% del capital (para amortización), elevando la remuneración total al accionista a más de 150 M€.",
+          "impacto": "+",
+          "valoracion": "Refuerza el retorno de capital y señala la confianza del Consejo en el valor intrínseco, compatible con inversión y expansión."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Reafirma las previsiones 2026: EBITDA superior a 450 M€, crecimiento del beneficio anual de más del 5% y generación de caja libre en torno a 200 M€.",
+          "impacto": "=",
+          "valoracion": "Guía consistente con la inflexión del semestre; el margen récord y Sudamérica dan visibilidad al objetivo."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ]
 }
