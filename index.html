@@ -1899,21 +1899,32 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-simulador .sim-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
 #view-simulador .sim-kpis .k.hero .l,#view-simulador .sim-kpis .k.hero .p{color:#bbf7d0}
 #view-simulador .dv-tk{font-weight:800;color:var(--brand)}
-#view-simulador .sim-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:66vh}
-#view-simulador .sim-desk table{border-collapse:collapse;font-size:11px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;border-radius:0;background:transparent;width:auto}
-#view-simulador .sim-desk thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:11px;color:var(--muted);padding:5px 7px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
-#view-simulador .sim-desk thead th:first-child{text-align:left}
-#view-simulador .sim-desk tbody td{padding:4px 7px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:top}
-#view-simulador .sim-desk tbody td:first-child{text-align:left}
-#view-simulador .sim-desk td:first-child,#view-simulador .sim-desk th:first-child{position:sticky;left:0;z-index:3;background:#fff;box-shadow:6px 0 8px -6px rgba(15,23,42,.18);min-width:56px}
-#view-simulador .sim-desk .sim-accinp{width:100%;min-width:56px;font-size:11px;padding:1px 4px;box-sizing:border-box}
-#view-simulador .sim-desk .sim-acc{min-width:56px;padding-right:2px}
-#view-simulador .sim-desk tbody td{min-width:64px}
-#view-simulador .sim-desk thead th:first-child{z-index:6;background:#f8fafc}
-#view-simulador .sim-desk .simtot td{background:#eef2f7;font-weight:700}
-#view-simulador .sim-desk .simtot td:first-child{background:#eef2f7}
-#view-simulador .sim-desk .simgr td{background:#f8fafc;font-weight:600}
-#view-simulador .sim-desk .simgr td:first-child{background:#f8fafc}
+/* ===== Simulador v2: estilo Proyección + real(blanco)/previsión(amarillo) + cabecera/TOTAL/Δ% congelados ===== */
+#view-simulador .sim-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:calc(100vh - 250px)}
+#view-simulador .sim-desk table{border-collapse:separate;border-spacing:0;font-size:10.5px;white-space:nowrap;width:auto}
+#view-simulador .sim-desk th,#view-simulador .sim-desk td{border-bottom:1px solid #f1f5f9}
+#view-simulador .sim-desk thead th{position:sticky;top:0;z-index:5;height:34px;background:#f8fafc;text-align:center;font-size:9px;text-transform:uppercase;color:var(--muted);padding:5px 7px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
+#view-simulador .sim-desk thead th.prev{background:#fef3c7;color:#92400e}
+#view-simulador .sim-desk thead th .tag{display:block;font-size:7.5px;font-weight:700;letter-spacing:.02em}
+#view-simulador .sim-desk tr.simtot td{position:sticky;top:34px;z-index:4;height:24px;background:#eef2f7;font-weight:800;color:#0f172a;text-align:right;padding:4px 8px;border-bottom:1px solid #dbe3ee;font-variant-numeric:tabular-nums}
+#view-simulador .sim-desk tr.simtot td.prev{background:#faedc9}
+#view-simulador .sim-desk tr.simgr td{position:sticky;top:58px;z-index:4;background:#f8fafc;text-align:right;padding:4px 8px;font-weight:700;font-variant-numeric:tabular-nums;border-bottom:2px solid #e2e8f0}
+#view-simulador .sim-desk tr.simgr td.prev{background:#fdf5df}
+#view-simulador .sim-desk tr.simgr td.pos{color:var(--green)}#view-simulador .sim-desk tr.simgr td.neg{color:var(--red)}
+#view-simulador .sim-desk .emp{position:sticky;left:0;z-index:6;background:#fff;text-align:left;font-weight:800;color:var(--brand);min-width:60px;padding:4px 8px;box-shadow:6px 0 8px -6px rgba(15,23,42,.18)}
+#view-simulador .sim-desk thead th.emp{z-index:8;background:#f8fafc;color:var(--muted)}
+#view-simulador .sim-desk tr.simtot td.emp{z-index:7;background:#eef2f7;color:#0f172a}
+#view-simulador .sim-desk tr.simgr td.emp{z-index:7;background:#f8fafc;color:#334155}
+#view-simulador .sim-desk td.cell{padding:3px 6px;text-align:right;vertical-align:top;font-variant-numeric:tabular-nums;background:#fff;min-width:64px}
+#view-simulador .sim-desk td.cell.prev{background:#fffbeb}
+#view-simulador .sim-desk tbody tr:hover td.cell{background:#f5f9ff}#view-simulador .sim-desk tbody tr:hover td.cell.prev{background:#fef7e0}
+#view-simulador .sim-desk .c-tk{font-size:8px;color:var(--brand);font-weight:700;line-height:1.1}
+#view-simulador .sim-desk .c-acc input{width:52px;text-align:right;font-size:11px;font-weight:700;border:1px solid #cbd5e1;border-radius:5px;padding:1px 3px;background:#fff;font-variant-numeric:tabular-nums;box-sizing:border-box}
+#view-simulador .sim-desk .c-acc .ro{font-weight:700;font-size:11px;color:#334155}
+#view-simulador .sim-desk .c-dl{font-size:8px;color:#94a3b8;font-weight:700;line-height:1.1;margin-top:1px;cursor:pointer}
+#view-simulador .sim-desk .c-dl.conf{color:#16a34a}
+#view-simulador .sim-desk .c-dv{font-size:10px;color:#475569;margin-top:1px}
+#view-simulador .sim-desk .c-im{font-size:11px;font-weight:800;color:#166534;margin-top:1px}
 #view-simulador .sim-mob{display:none}
 #view-simulador .pystrip-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:8px 0 5px}
 #view-simulador .dv-pystrip{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
