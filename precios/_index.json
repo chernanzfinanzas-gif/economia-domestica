@@ -33,8 +33,8 @@
 "ticker": "ADZ",
 "symbol": "ADZ.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "AEDAS",
@@ -117,8 +117,8 @@
 "ticker": "ARM",
 "symbol": "ARM.MC",
 "desde": "2018-10-23",
-"hasta": "2026-07-21",
-"n": 1980
+"hasta": "2026-07-23",
+"n": 1982
 },
 {
 "ticker": "ART",
@@ -180,8 +180,8 @@
 "ticker": "CEV",
 "symbol": "CEV.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-21",
-"n": 3978
+"hasta": "2026-07-22",
+"n": 3979
 },
 {
 "ticker": "CIE",
@@ -320,8 +320,8 @@
 "ticker": "GIGA",
 "symbol": "GIGA.MC",
 "desde": "2015-11-03",
-"hasta": "2026-07-22",
-"n": 2741
+"hasta": "2026-07-23",
+"n": 2742
 },
 {
 "ticker": "GRE",
@@ -376,8 +376,8 @@
 "ticker": "IBG",
 "symbol": "IBG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3977
+"hasta": "2026-07-23",
+"n": 3978
 },
 {
 "ticker": "IDR",
@@ -404,8 +404,8 @@
 "ticker": "LGT",
 "symbol": "LGT.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "LLN",
@@ -439,8 +439,8 @@
 "ticker": "MCM",
 "symbol": "MCM.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "MEL",
@@ -558,15 +558,15 @@
 "ticker": "PVA",
 "symbol": "PVA.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "R4",
 "symbol": "R4.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "RED",
@@ -579,8 +579,8 @@
 "ticker": "REN",
 "symbol": "REN.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3977
+"hasta": "2026-07-23",
+"n": 3978
 },
 {
 "ticker": "REP",
@@ -600,8 +600,8 @@
 "ticker": "RJF",
 "symbol": "RJF.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 },
 {
 "ticker": "RLIA",
@@ -677,8 +677,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-21",
-"n": 3976
+"hasta": "2026-07-22",
+"n": 3977
 },
 {
 "ticker": "TUB",
@@ -691,8 +691,8 @@
 "ticker": "UBS",
 "symbol": "UBS.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-21",
-"n": 3977
+"hasta": "2026-07-22",
+"n": 3978
 },
 {
 "ticker": "UNI",
@@ -719,8 +719,8 @@
 "ticker": "VOC",
 "symbol": "VOC.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-22",
-"n": 3978
+"hasta": "2026-07-23",
+"n": 3979
 }
 ],
 "fallos": []
