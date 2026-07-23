@@ -60,7 +60,9 @@ function _visCalEstim(t){ t=(t||'').toUpperCase();
   var f=null; if(typeof _radFundCache!=='undefined'&&_radFundCache&&_radFundCache.empresas){ f=_radFundCache.empresas.find(function(x){return (''+x.ticker).toUpperCase()===t;}); }
   if(!f)return null;
   var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
-  try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?r.cal:null; }catch(e){ return null; } }
+  /* Tope: una empresa SIN dossier nunca puntúa por encima de «A» estimada (≤79); es una estimación,
+     no debe colarse por encima de tus analizadas AA/AAA reales. */
+  try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?Math.min(79,r.cal):null; }catch(e){ return null; } }
 /* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
    Devuelve ratio (0-1). Cae a divAccion/cotización si el motor de dividendos no está disponible. */
 function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();

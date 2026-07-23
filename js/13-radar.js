@@ -23,7 +23,7 @@ function radScore(f,rating,ds){
   else { sd=_rclamp(rpd/RAD_RPDTOP*100); if(payout&&payout>RAD_PAYALTO){ sd*=0.7; nota='payout alto'; } if(flags.some(function(x){return /irregular/i.test(x);})){ sd*=0.6; nota=(nota?nota+' · ':'')+'div irregular'; } }
   if(ds&&ds.score!=null){ var _sf=_radDsFac(ds); sd=sd*_sf; if(_sf<1)nota=(nota?nota+' · ':'')+'seguridad '+(ds.banda||''); }
   var sroe=(f.roe!=null)?_rclamp(f.roe/RAD_ROETOP*100):50;
-  var sdn=(f.dnEbitda==null)?100:_rclamp(100-Math.max(0,f.dnEbitda-2)*25);
+  var sdn=(f.dnEbitda==null)?50:_rclamp(100-Math.max(0,f.dnEbitda-2)*25); /* dato ausente = neutro (no regala solvencia; los bancos no reportan DN/EBITDA) */
   var rs=radRatingScore(rating); var srt=(rs!=null)?rs:60;
   var sc=0.5*sroe+0.3*sdn+0.2*srt;
   var sper=(f.per&&f.per>0)?_rclamp(100-Math.max(0,f.per-8)*5):50;
