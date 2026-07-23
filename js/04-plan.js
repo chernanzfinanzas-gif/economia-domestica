@@ -1035,8 +1035,10 @@ function renderPlanLote(){
      visibles en Diversificación como elegidas, para que no desaparezcan al vender. */
   DB.planLote=DB.planLote||[];
   Object.keys(DB.planCompras||{}).forEach(t=>{ t=(t||'').toUpperCase(); if(!t||held.includes(t))return; const hasAmt=Object.values(DB.planCompras[t]||{}).some(v=>num(v)>0); if(hasAmt && !DB.planLote.map(x=>(x||'').toUpperCase()).includes(t)) DB.planLote.push(t); });
-  DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i&&!held.includes(t));
-  const chosen=DB.planLote; const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{};
+  /* NO borrar de DB.planLote las que están en cartera: una empresa añadida al plan permanece en la
+     lista hasta que la quites con el ✕. Así, si compras y luego borras la compra, no desaparece. */
+  DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i);
+  const chosen=DB.planLote.filter(t=>!held.includes(t)); const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{};
   const tipoSel=t=>`<select class="anaInp" data-lotetipo="${t}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="mantener"${pt[t]==='mantener'?' selected':''}>Mantener</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option></select>`;
   const anaAll=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))];
   const ana=anaAll.filter(t=>!held.includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b)));
@@ -1118,7 +1120,7 @@ function renderPlanLote(){
     const col=!!window._dvGColl[g];
     rows+=`<tr class="dv2-band ${g==='joya'?'joya':''}${col?' collapsed':''}" data-dvg="${g}"><td colspan="${nCols}"><span class="dv2-arw">▶</span> ${label} <span class="bmeta">· invertido ${eurK(gInv)}€ · objetivo ${eurK(gObj)}€ · a asignar ${eurK(gAsig)}€</span></td></tr>`;
     list.forEach(t=>{ const isNew=!held.includes(t); const pctAct=totalInv?((invByT[t]||0)/totalInv*100):0; const asg=asignar(t); const totPlan=schedSum(t); const totComp=yrs.reduce((s,y)=>s+execY(t,y),0); const ds=col?' style="display:none"':'';
-      const newTag=isNew?(' <span class="dv2-pill">Nueva</span> <button class="dv2-del" data-lotedel="'+chosen.indexOf(t)+'" title="Quitar del plan">✕</button>'):'';
+      const newTag=isNew?(' <span class="dv2-pill">Nueva</span> <button class="dv2-del" data-lotedel="'+t+'" title="Quitar del plan">✕</button>'):'';
       const asgCell=`<td class="num ${asg>0.5?'pos':(asg<-0.5?'neg':'')}">${Math.abs(asg)<0.5?'✓':((asg>0?'+':'−')+eurK(Math.abs(asg))+'€')}</td>`;
       rows+=`<tr class="dv2-plan" data-dvg="${g}"${ds}><td class="dv2-name"><b class="dv-tk" data-ficha="${t}">${t}</b>${newTag}<div class="dv2-co">${(nm(t)||'').slice(0,24)}</div><div class="dv2-tp">${tipoSel(t)}</div></td><td class="num">${invByT[t]?fmt(invByT[t]):'·'}</td><td class="num">${pctAct?pctAct.toFixed(1)+'%':'·'}</td><td class="num">${fmt(objEur(t))}</td>${asgCell}${planYCells(t)}<td class="num col-tot">${totPlan>0.5?(eurK(totPlan)+'€'):'·'}</td></tr>`;
       rows+=`<tr class="dv2-real" data-dvg="${g}"${ds}><td class="dv2-name dv2-rlbl">Real · comprado</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td>${realYCells(t)}<td class="num col-tot">${totComp>0.5?(eurK(totComp)+'€'):'·'}</td></tr>`;
