@@ -660,6 +660,88 @@
           "valor": 440
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Trimestre muy fuerte, todos los KPIs verdes: RNA 2.711 M€ (+135% YoY), BNA reportado 2.201 (+265%) e Industrial 1.683 (vs 235) por el rebote del margen de refino a 12,4 $/bbl (Brent 92,3, +28%). Deuda neta baja a 3.667 (DN/EBITDA LTM ~0,4x), liquidez >10.000 M€, rating estable. A vigilar la normalización del margen tras la prima geopolítica. Verde.",
+      "metricas": [
+        {
+          "nombre": "RNA (M€)",
+          "valor": 2711
+        },
+        {
+          "nombre": "EBITDA CCS (M€)",
+          "valor": 5006
+        },
+        {
+          "nombre": "EBITDA Aj. (M€)",
+          "valor": 6135
+        },
+        {
+          "nombre": "FCO (M€)",
+          "valor": 2977
+        },
+        {
+          "nombre": "Deuda Neta (M€)",
+          "valor": 3667
+        },
+        {
+          "nombre": "Mg. refino ($/bbl)",
+          "valor": 12.4
+        },
+        {
+          "nombre": "Producción (kbep/d)",
+          "valor": 548
+        },
+        {
+          "nombre": "Brent ($/bbl)",
+          "valor": 92.3
+        },
+        {
+          "nombre": "RNA E&P (M€)",
+          "valor": 673
+        },
+        {
+          "nombre": "RNA Industrial (M€)",
+          "valor": 1683
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Acuerdo con TotalEnergies en Reino Unido: crea la Joint Venture 'Neo Next+', que en junio cerró un bono nórdico de 750 M USD al 6,625% (mayor bono nórdico de E&P).",
+          "impacto": "+",
+          "valoracion": "Rotación/consolidación de la cartera upstream en el Mar del Norte con financiación propia; cristaliza valor y refuerza la disciplina de balance. Apoya la tesis."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Mejora del marco operativo en Venezuela: Licencia General 50B de OFAC, acuerdos Repsol-ENI con PDVSA (Cardón IV, Petroquiriquire) y nueva Ley de Hidrocarburos.",
+          "impacto": "+",
+          "valoracion": "Desbloquea y da continuidad a la producción venezolana, aunque con incertidumbre geopolítica y regulatoria alta; potencial al alza si se consolida."
+        },
+        {
+          "tipo": "Desinversión",
+          "hecho": "Rotación de renovables (GBC): venta a Stonepeak del 43% del proyecto Outpost (629 MW, Texas) y acuerdo para desinvertir el 49,99% de una cartera renovable en España.",
+          "impacto": "+",
+          "valoracion": "Modelo de rotación de activos bajos en carbono que libera capital y valida valoraciones; coherente con la disciplina de inversión del plan 2026-2028."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "Retribución creciente: dividendo julio 0,551 €/acc (+7,8%), amortización de ~16 M acciones (350 M€) y nuevo programa de recompra de hasta 500 M€ neto acordado el 22-jul; política de +3% anual y recompras del 30-40% del FCO (2026-2028).",
+          "impacto": "+",
+          "valoracion": "Retorno total al accionista en aumento con caja holgada; refuerza el componente de retribución de la tesis."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Crecimiento upstream: entradas en producción de Pikka (EE.UU.) y Lapa SW (Brasil), descubrimiento onshore en Libia (pozo Kobra-1) y acuerdo de operación unificada del campo I/R en Libia con TotalEnergies, Equinor y OMV.",
+          "impacto": "+",
+          "valoracion": "Nuevos barriles y opcionalidad exploratoria que sostienen la producción (~548 kbep/d) frente a las desinversiones; neutral-positivo para el perfil de reservas."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ],
   "schemaVersion": 2
