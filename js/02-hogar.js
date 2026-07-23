@@ -1265,7 +1265,7 @@ function delCuenta(id){
 function proyDefaults(){
   if(!DB.config)DB.config={};
   const p=DB.config.proyeccion;
-  if(p && p.modeloEvo2){ if(!p.aportaciones)p.aportaciones={}; if(!p.eventos)p.eventos=[]; if(p.anioTrasJub==null)p.anioTrasJub=2039; return; }
+  if(p && p.modeloEvo2){ if(!p.aportaciones)p.aportaciones={}; if(!p.ingresosExtra)p.ingresosExtra={}; if(!p.eventos)p.eventos=[]; if(p.anioTrasJub==null)p.anioTrasJub=2039; return; }
   const yr=new Date().getFullYear();
   const inv=DB.inversiones||[];
   let cartera=0,coste=0,divB=0;
@@ -1282,13 +1282,15 @@ function proyDefaults(){
     efectivo:Math.round(last.ef)||9000, invertidoCoste:Math.round(coste), carteraInicial:Math.round(cartera),
     dividendoBruto:Math.round(divB), nominaMes:Math.round(nominaMes)||5675, gastoMes:Math.round(gastosAnu/12)||3450,
     crecCartera:0.04, crecDividendo:0.025, rpdNuevas:0.05, inflacionNomina:0.025, crecAhorro:0.01, anioTrasJub:2039,
-    aportacionDefault:25000, aportaciones:{}, eventos:[] };
+    aportacionDefault:25000, aportaciones:{}, ingresosExtra:{}, eventos:[] };
   scheduleSave();
 }
 function computeProy(c){
   const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
   const Sof=(anio,edad)=>{const ap=c.aportaciones||{}; if(ap[anio]!=null&&ap[anio]!=='')return num(ap[anio]); return edad<=c.edadFinAportar?num(c.aportacionDefault):0;};
   const Tof=(anio)=>{let t=0,con=''; (c.eventos||[]).forEach(e=>{if(parseInt(e.anio,10)===anio){t+=num(e.importe); con=con?con+', '+(e.concepto||''):(e.concepto||'');}}); return{t,con};};
+  /* Ingresos extra por año (lotería, herencia, otros): tercer origen del ahorro, junto a nóminas y dividendo. */
+  const Xof=(anio)=>{const xp=c.ingresosExtra||{}; return (xp[anio]!=null&&xp[anio]!=='')?num(xp[anio]):0;};
   const gC=1+num(c.crecCartera), gD=1+num(c.crecDividendo), gN=1+num(c.inflacionNomina), gA=1+num(c.crecAhorro), rpdN=num(c.rpdNuevas);
   let Ef=num(c.efectivo), I=num(c.invertidoCoste), C=num(c.carteraInicial), Div=num(c.dividendoBruto), Nom=num(c.nominaMes);
   let AN=(num(c.nominaMes)-num(c.gastoMes))*12; if(AN<0)AN=0;
@@ -1298,7 +1300,7 @@ function computeProy(c){
   const out=[];
   for(let i=0;i<=N;i++){
     const edad=Math.round(c.edadActual)+i, anio=Math.round(c.anioBase)+i;
-    const S=Sof(anio,edad); const ev=Tof(anio); const T=ev.t; const trasJub=anio>=yJub;
+    const S=Sof(anio,edad); const X=Xof(anio); const ev=Tof(anio); const T=ev.t; const trasJub=anio>=yJub;
     if(i>0){
       Nom=Nom*gN; AN=AN*gA;
       Div=Div*gD + prevS*rpdN;
@@ -1306,12 +1308,15 @@ function computeProy(c){
       C=C*gC+prevS;
       Ef=Ef+((anio-1)<yJub?prevR:0)-prevT;
     }
-    const Q=AN+Div; const R=Q-S; const patrim=C+Ef;
-    const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; let dispMes=rentaMes-R/12-S/12; if(trasJub) dispMes=dispMes+R/12;
+    /* Ahorro del año = ahorro de nóminas + dividendo + ingresos extra. El extra va a → Efectivo salvo que subas → Inversión. */
+    const Q=AN+Div+X; const R=Q-S; const patrim=C+Ef;
+    /* «Disponible/mes» = renta − ahorro REGULAR (sin el extra puntual, que no es una renta mensual). */
+    const Rreg=(AN+Div)-S;
+    const dividendoMes=Div/12; const rentaMes=dividendoMes+Nom; let dispMes=rentaMes-Rreg/12-S/12; if(trasJub) dispMes=dispMes+Rreg/12;
     const _cr=anio<yrNow?carteraAtClose(anio):(anio===yrNow?LV:null); const _crv=(_cr!=null&&_cr>0)?_cr:null;
     const _efR=(anio<=yrNow)?efectivoRealAt(anio):null;
     const _patR=(_crv!=null)?(_crv+(_efR!=null?_efR:Ef)):null;
-    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,carteraReal:_crv,patrimonio:patrim,patrimonioReal:_patR,efectivoReal:(_patR!=null?(_efR!=null?_efR:Ef):null),dividendoAnual:Div,dividendoMes,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
+    out.push({anio,edad,trasJub,efectivo:Ef,invertido:I,cartera:C,carteraReal:_crv,patrimonio:patrim,patrimonioReal:_patR,efectivoReal:(_patR!=null?(_efR!=null?_efR:Ef):null),dividendoAnual:Div,dividendoMes,ingresosExtra:X,ahorroTotal:Q,aInversion:S,aEfectivo:R,nominaMes:Nom,rentaMes,disponibleMes:dispMes,gasto:T,gastoCon:ev.con,plusvalia:C-I});
     prevR=R; prevT=T; prevS=S;
   }
   return out;
@@ -1402,17 +1407,19 @@ function renderProy(){
   const _pcls=(real,teor)=>{ if(real==null||!teor||teor<=0)return ''; const r=real/teor; if(r>=1)return 'g'; if(r>=0.95)return 'a'; return 'r'; };
   const yJub=num(c.anioTrasJub)||2039;
   /* ---- ESCRITORIO ---- */
+  /* Formato compacto sin símbolo € (como la tabla de Desglose mensual). */
+  const pf=(v)=>(typeof fmt==='function'?fmt(v).replace(/\s?€/,''):Math.round(num(v)).toLocaleString('es-ES'));
   let drows='',sepDone=false;
   ser.forEach(r=>{
-    if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="14">Tras jubilación (${yJub}) — el ahorro a efectivo pasa a cubrir gastos</td></tr>`; }
+    if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="14">🏖️ Jubilación · ${yJub} — el «→ Efectivo» deja de acumularse y pasa a cubrir gastos (por eso sube el Disponible/mes)</td></tr>`; }
     const pc=_pcls(r.patrimonioReal,r.patrimonio);
-    drows+=`<tr${r.trasJub?' class="tj"':''}><td><b>${r.anio}</b></td><td class="num">${r.edad}</td><td class="num">${fmt(r.efectivo)}</td><td class="num">${fmt(r.invertido)}</td><td class="num">${fmt(r.cartera)}</td><td class="num">${r.carteraReal!=null?fmt(r.carteraReal):'—'}</td><td class="num"><b>${fmt(r.patrimonio)}</b></td><td class="num pr ${pc}">${r.patrimonioReal!=null?fmt(r.patrimonioReal):'—'}</td><td class="num">${fmt(r.dividendoAnual)}</td><td class="num split1"><b>${fmt(r.ahorroTotal)}</b></td><td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td><td class="num split3 ${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</td><td class="num">${fmt(r.disponibleMes)}</td><td>${r.gasto?'<span class="neg">−'+fmt(r.gasto)+'</span> '+(r.gastoCon||''):''}</td></tr>`;
+    drows+=`<tr${r.trasJub?' class="tj"':''}><td><b>${r.anio}</b></td><td class="num" style="color:#475569">${r.edad}</td><td class="num">${pf(r.efectivo)}</td><td class="num">${pf(r.invertido)}</td><td class="num">${pf(r.cartera)}</td><td class="num">${r.carteraReal!=null?pf(r.carteraReal):'·'}</td><td class="num"><b>${pf(r.patrimonio)}</b></td><td class="num pr ${pc}">${r.patrimonioReal!=null?pf(r.patrimonioReal):'·'}</td><td class="num">${pf(r.dividendoAnual)}</td><td class="num extra"><input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></td><td class="num split1"><b>${pf(r.ahorroTotal)}</b></td><td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td><td class="num split3 ${r.aEfectivo>=0?'':'neg'}">${pf(r.aEfectivo)}</td><td class="num">${pf(r.disponibleMes)}</td></tr>`;
   });
-  const dhead=`<tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teór.</th><th class="num">Cartera real</th><th class="num">Patrim. teór.</th><th class="num">Patrim. real</th><th class="num">Div./año</th><th class="num split1">Ahorro/año</th><th class="num split2">→ Inversión</th><th class="num split3">→ Efectivo</th><th class="num">Dispon./mes</th><th>Gasto puntual</th></tr>`;
+  const dhead=`<tr><th>Año</th><th class="num">Edad</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera teór.</th><th class="num">Cartera real</th><th class="num">Patrim. teór.</th><th class="num">Patrim. real</th><th class="num">Div./año</th><th class="num extra">Ingr. Extra</th><th class="num split1">Ahorro/año</th><th class="num split2">→ Inversión</th><th class="num split3">→ Efectivo</th><th class="num">Dispon./mes</th></tr>`;
   const deskHTML=`<div class="proy-desk"><div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Patrimonio real (años ya vividos) vs objetivo teórico: <span class="lg g">≥ objetivo</span> <span class="lg a">95–100%</span> <span class="lg r">por debajo</span></div></div>`;
   /* ---- MÓVIL: fila desplegable por año ---- */
   const mrows=ser.map(r=>{ const pc=_pcls(r.patrimonioReal,r.patrimonio); const rb=r.patrimonioReal!=null?`<span class="rbadge ${pc}">real ${fmt(r.patrimonioReal)}</span>`:''; const op=window._proyYr[r.anio]?' open':'';
-    return `<div class="yr${op}${r.trasJub?' tj':''}" data-yr="${r.anio}"><div class="yr-h"><div class="yy"><b>${r.anio}</b><span>${r.edad} años</span></div><div class="yp">${fmt(r.patrimonio)}${rb}</div><span class="arw">▶</span></div><div class="yr-b"><div class="mg"><div class="m"><span>Efectivo</span><b>${fmt(r.efectivo)}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.invertido)}</b></div><div class="m"><span>Cartera teórica</span><b>${fmt(r.cartera)}</b></div><div class="m"><span>Cartera real</span><b>${r.carteraReal!=null?fmt(r.carteraReal):'—'}</b></div><div class="m"><span>Dividendo/año</span><b>${fmt(r.dividendoAnual)}</b></div><div class="m"><span>Disponible/mes</span><b>${fmt(r.disponibleMes)}</b></div></div><div class="split"><div class="split-t">Reparto del ahorro <b>${fmt(r.ahorroTotal)}</b></div><div class="split-row"><label>→ A inversión<input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></label><div class="split-ef"><span>→ A efectivo ${r.trasJub?'(a gastos)':'('+(r.anio+1)+')'}</span><b class="${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</b></div></div></div>${r.gasto?`<div class="gasto">💸 Gasto puntual ${r.gastoCon||''}: <b class="neg">−${fmt(r.gasto)}</b></div>`:''}</div></div>`;
+    return `<div class="yr${op}${r.trasJub?' tj':''}" data-yr="${r.anio}"><div class="yr-h"><div class="yy"><b>${r.anio}</b><span>${r.edad} años</span></div><div class="yp">${fmt(r.patrimonio)}${rb}</div><span class="arw">▶</span></div><div class="yr-b"><div class="mg"><div class="m"><span>Efectivo</span><b>${fmt(r.efectivo)}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.invertido)}</b></div><div class="m"><span>Cartera teórica</span><b>${fmt(r.cartera)}</b></div><div class="m"><span>Cartera real</span><b>${r.carteraReal!=null?fmt(r.carteraReal):'—'}</b></div><div class="m"><span>Dividendo/año</span><b>${fmt(r.dividendoAnual)}</b></div><div class="m"><span>Disponible/mes</span><b>${fmt(r.disponibleMes)}</b></div></div><div class="split"><div class="split-t">Reparto del ahorro <b>${fmt(r.ahorroTotal)}</b></div><div class="split-row"><label>💶 Ingreso extra<input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></label><label>→ A inversión<input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></label><div class="split-ef"><span>→ A efectivo ${r.trasJub?'(a gastos)':'('+(r.anio+1)+')'}</span><b class="${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</b></div></div></div>${r.gasto?`<div class="gasto">💸 Gasto puntual ${r.gastoCon||''}: <b class="neg">−${fmt(r.gasto)}</b></div>`:''}</div></div>`;
   }).join('');
   const pt=$('#proyTabla'); pt.innerHTML=deskHTML+`<div class="proy-mob">${mrows}</div>`;
   try{ if(typeof renderProyMonteCarlo==='function')renderProyMonteCarlo(); }catch(e){}
