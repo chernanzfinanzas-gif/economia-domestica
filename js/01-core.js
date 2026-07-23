@@ -171,9 +171,10 @@ async function driveSave(force){
   }
   return {ok:true};
 }
-function scheduleSave(){ if(window._demoOn) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
+function scheduleSave(){ if(typeof _planRepartoInval==='function')_planRepartoInval(); if(window._demoOn) return; clearTimeout(saveTimer); saveTimer=setTimeout(saveNow,600); }
 async function saveNow(){
   if(!DB) return;
+  if(typeof _planRepartoInval==='function')_planRepartoInval();
   if(window._demoOn){ setFileStatus('warn','MODO DEMO — sin guardar'); return; }
   setFileStatus('warn','Guardando…');
   try{

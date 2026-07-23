@@ -131,8 +131,12 @@ function _planRem(t){ t=(t||'').toUpperCase(); const pc=(DB.planCompras||{})[t]|
   });
   return {rem:rem, comp:comp, bought:bought, sobra:sobra};
 }
-function planPendShares(t,year){ const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0;
-  const R=_planRem(t); let sh=0; Object.keys(R.rem).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(R.rem[y])/pr); }); return sh; }
+function planPendShares(t,year){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0;
+  /* Fase 2: acciones planificadas = € del calendario de reparto (prorrata + pines) hasta 'year',
+     a precio actual, acumuladas por años. Antes leía DB.planCompras (_planRem); ahora la fuente
+     única es _planReparto(), así el simulador y Diversificación proyectan lo mismo. */
+  const R=(typeof _planReparto==='function')?_planReparto():null; if(!R)return 0;
+  const sc=R.sched[t]||{}; let sh=0; Object.keys(sc).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(sc[y])/pr); }); return sh; }
 function simIsReal(t){ return (DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===t)||(DB.cerradas||[]).some(c=>(c.ticker||'').toUpperCase()===t); }
 function simEffShares(t,year,nowY){ const ss=(DB.simShares||{})[t]; const ov=(ss&&ss[year]!=null); const opAnio=(typeof opRealEnAnio==='function')&&opRealEnAnio(t,year); const pend=(typeof planPendShares==='function')?planPendShares(t,year):0;
   if(year<=nowY){
@@ -930,6 +934,74 @@ function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):'
   const st=$('#loteStatus'); if(st)st.textContent='Añadida '+tk;
 }
 var _planAutoCache=null;
+function _planRepartoInval(){ _planAutoCache=null; }
+/* Vacía TODAS las asignaciones manuales (pines) de DB.planCompras → reparto 100% automático.
+   No toca operaciones reales ni cartera. Las nuevas asignaciones surgen del pendiente vivo al comprar. */
+function planVaciarManual(){
+  var n=0; Object.keys(DB.planCompras||{}).forEach(function(t){ Object.keys(DB.planCompras[t]||{}).forEach(function(y){ if(num(DB.planCompras[t][y])>0)n++; }); });
+  if(!n){ alert('No hay asignaciones manuales que vaciar. El reparto ya es 100% automático.'); return; }
+  if(!confirm('¿Vaciar las '+n+' asignaciones manuales por año?\n\nEl reparto pasa a ser 100% automático (prorrata del pendiente). Cada compra que registres actualizará el pendiente y recalculará el reparto.\n\nNo toca tus operaciones reales ni la cartera. Podrás volver a fijar un año a mano cuando quieras.')) return;
+  DB.planCompras={}; _planRepartoInval();
+  if(typeof saveNow==='function')saveNow();
+  renderPlanLote(); if(typeof renderPlan==='function')renderPlan(); if(typeof renderSimulador==='function')renderSimulador();
+}
+/* ===== MOTOR DE REPARTO (fase 2) — fuente ÚNICA del calendario de compras =====
+   Reparte el pendiente vivo (objetivo − invertido) por años a PRORRATA, con el ahorro previsto de
+   cada año (dispShown) como tope. Los importes manuales de DB.planCompras[t][y] actúan como PINES
+   (override): se reservan primero (consumen pendiente de la empresa y presupuesto del año) y la
+   prorrata reparte solo el resto sobre los años NO pineados. Lo usan la previsualización de
+   Diversificación Y el simulador (planPendShares), así ambos ven lo mismo. Memoizado; se invalida
+   en saveNow(). Devuelve {sched:{t:{y:eur}}, byYear, sinCalendario, ycierre, ydesde, nowY, obj, inv}. */
+function _planReparto(){
+  if(_planAutoCache) return _planAutoCache;
+  DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{};
+  var up=function(t){return (t||'').toUpperCase();};
+  var pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};
+  var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
+  var invByT={}; pos.forEach(function(p){var t=up(p.ticker); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra;});
+  var held=Object.keys(invByT);
+  var totalInv=Object.values(invByT).reduce(function(s,v){return s+v;},0);
+  var planLote=(DB.planLote||[]).map(up);
+  Object.keys(DB.planCompras||{}).forEach(function(t){ t=up(t); if(!t||held.indexOf(t)>=0)return; var hasAmt=Object.values(DB.planCompras[t]||{}).some(function(v){return num(v)>0;}); if(hasAmt && planLote.indexOf(t)<0)planLote.push(t); });
+  var chosen=planLote.filter(function(t,i,arr){return t&&arr.indexOf(t)===i&&held.indexOf(t)<0;});
+  var pt=DB.planTipo=DB.planTipo||{};
+  var ydesde=num(pe.desde), yhasta=num(pe.hasta);
+  var ycierre=num(pe.cierre); if(!ycierre)ycierre=yhasta; ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
+  var nowY=new Date().getFullYear();
+  var dispYear={}, disponible=0;
+  try{ if(typeof proyDefaults==='function')proyDefaults(); var ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(function(r){ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
+  var execYear={}; (DB.operaciones||[]).forEach(function(o){ if(o.tipo!=='venta'){ var y=+((o.fecha||'').slice(0,4)); if(y)execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
+  var dispFijo=DB.planDispFijo=DB.planDispFijo||{};
+  var dispShown=function(y){ if(y>ycierre)return 0; if(dispFijo[y]!=null&&dispFijo[y]!=='')return num(dispFijo[y]); return (dispYear[y]||0)-(y<=nowY?(execYear[y]||0):0); };
+  var allTk=held.concat(chosen); var TF=totalInv+disponible; var JOYA=0.08;
+  var tipoOf=function(t){return pt[t]||'';};
+  var nJoya=allTk.filter(function(t){return tipoOf(t)==='joya';}).length;
+  var nNuc=allTk.filter(function(t){return tipoOf(t)==='nucleo';}).length;
+  var sumFijos=allTk.filter(function(t){return tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo';}).reduce(function(s,t){return s+(invByT[t]||0);},0);
+  var restante=TF>0?(1-JOYA*nJoya-sumFijos/TF):0; var nucPct=nNuc>0?restante/nNuc:0;
+  var objEur=function(t){ var tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  var y0=Math.max(nowY,ydesde);
+  var pin=function(t,y){ var v=((DB.planCompras||{})[t]||{})[y]; return (v!=null&&v!=='')?num(v):null; };
+  var pinSum={}; allTk.forEach(function(t){ var s=0; var m=(DB.planCompras||{})[t]||{}; Object.keys(m).forEach(function(y){ var v=num(m[y]); if(+y>=y0&&+y<=ycierre&&v>0)s+=v; }); pinSum[t]=s; });
+  var obj={}, pendA={}; allTk.forEach(function(t){ obj[t]=objEur(t); pendA[t]=Math.max(0, obj[t]-(invByT[t]||0)-(pinSum[t]||0)); });
+  var sched={}; allTk.forEach(function(t){ sched[t]={}; }); var byYear={};
+  for(var y=y0; y<=ycierre; y++){
+    var pinnedThisYear=0;
+    allTk.forEach(function(t){ var pv=pin(t,y); if(pv!=null&&pv>0){ sched[t][y]=(sched[t][y]||0)+pv; pinnedThisYear+=pv; } });
+    var cap=Math.max(0, dispShown(y)-pinnedThisYear);
+    var elig=allTk.filter(function(t){ return pendA[t]>0.5 && pin(t,y)==null; });
+    var totPend=elig.reduce(function(s,t){return s+pendA[t];},0);
+    var usado=pinnedThisYear;
+    if(cap>0 && totPend>0.5){
+      if(totPend<=cap){ elig.forEach(function(t){ sched[t][y]=(sched[t][y]||0)+pendA[t]; usado+=pendA[t]; pendA[t]=0; }); }
+      else { elig.forEach(function(t){ var a=cap*(pendA[t]/totPend); sched[t][y]=(sched[t][y]||0)+a; usado+=a; pendA[t]=pendA[t]-a; }); }
+    }
+    byYear[y]=usado;
+  }
+  var sinCal=0; allTk.forEach(function(t){ sinCal+=Math.max(0,pendA[t]||0); });
+  _planAutoCache={sched:sched, byYear:byYear, sinCalendario:sinCal, ycierre:ycierre, ydesde:ydesde, nowY:nowY, obj:obj, inv:invByT, allTk:allTk};
+  return _planAutoCache;
+}
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
   const _lotePrevSL=(document.getElementById('loteScrollBox')||{}).scrollLeft||0;
@@ -981,23 +1053,9 @@ function renderPlanLote(){
   /* "Asignado" del año a efectos de presupuesto = lo que QUEDA por comprar (plan − comprado),
      así al ejecutar una compra el año libera cupo y el resto sale con "falta por asignar". */
   const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+remYear(t,y),0); });
-  /* ===== AUTO-REPARTO (fase 1 · previsualización): reparte el pendiente vivo (asignar = objetivo −
-     invertido) por años a PRORRATA, con el ahorro previsto de cada año (dispShown) como tope. Es vivo:
-     al ejecutar una compra sube invByT → baja asignar → se recalcula. NO modifica DB.planCompras. */
-  (function(){ const pend={}; allTk.forEach(t=>{ const p=asignar(t); if(p>0.5)pend[t]=p; });
-    const sched={}; allTk.forEach(t=>{ sched[t]={}; }); const byYear={};
-    for(let y=Math.max(nowY,ydesde); y<=ycierre; y++){
-      let cap=dispShown(y); if(!(cap>0)){ byYear[y]=0; continue; }
-      let totPend=0; allTk.forEach(t=>{ totPend+=Math.max(0,pend[t]||0); });
-      if(totPend<=0.5){ byYear[y]=0; continue; }
-      let usado=0;
-      if(totPend<=cap){ allTk.forEach(t=>{ const p=pend[t]||0; if(p>0.5){ sched[t][y]=p; usado+=p; pend[t]=0; } }); }
-      else { allTk.forEach(t=>{ const p=pend[t]||0; if(p>0.5){ const a=cap*(p/totPend); sched[t][y]=a; usado+=a; pend[t]=p-a; } }); }
-      byYear[y]=usado;
-    }
-    let sinCal=0; allTk.forEach(t=>{ sinCal+=Math.max(0,pend[t]||0); });
-    _planAutoCache={sched:sched, byYear:byYear, sinCalendario:sinCal, ycierre:ycierre};
-  })();
+  /* AUTO-REPARTO: ahora lo calcula el motor único _planReparto() (prorrata + pines manuales),
+     que también alimenta el simulador. La previsualización de abajo lee _planAutoCache. */
+  _planReparto();
   /* ===================== RENDER (rediseño v2) ===================== */
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
   const TIPOL={joya:'Joya 👑',nucleo:'Núcleo',mantener:'Mantener','':'sin clasificar'};
@@ -1043,6 +1101,10 @@ function renderPlanLote(){
   const mobHTML='<div class="dv-mob"><div class="cosel-t">Elige empresa</div><select class="cosel" id="loteCoSel">'+coOptions+'</select><div class="codetails">'+allOrder.map(mdetail).join('')+'</div></div>';
   /* ===== Previsualización del reparto automático (fase 1) ===== */
   const autoPreviewHTML=(function(){ const A=_planAutoCache; if(!A) return '';
+    let nPins=0; Object.keys(DB.planCompras||{}).forEach(t=>{ Object.keys(DB.planCompras[t]||{}).forEach(y=>{ if(num(DB.planCompras[t][y])>0)nPins++; }); });
+    const pinLine=nPins>0
+      ? `<div style="background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:7px 10px;font-size:12px;color:#92400e;margin:8px 0;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span>✋ <b>${nPins}</b> importe${nPins>1?'s':''} fijado${nPins>1?'s':''} a mano (override): esos años/empresas usan tu valor; el resto va a prorrata.</span><button class="btn sm" onclick="planVaciarManual()" title="Borra los importes manuales y deja el reparto 100% automático">🧹 Vaciar y automatizar</button></div>`
+      : `<div style="font-size:11.5px;color:#16a34a;margin:6px 0">✓ Reparto 100% automático. Fija un importe en cualquier casilla de la tabla para forzar un año concreto (override).</div>`;
     const yy=Object.keys(A.byYear).map(Number).sort((a,b)=>a-b);
     const chips=yy.map(y=>{ const cap=dispShown(y); const used=A.byYear[y]||0; const pctU=cap>0?Math.round(used/cap*100):0;
       return `<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:7px 9px;min-width:92px;text-align:center"><div style="font-weight:800;color:#0369a1;font-size:13px">${y}</div><div style="font-weight:800;font-size:14px">${eurK(used)} €</div><div style="font-size:9px;color:#64748b">se invertiría</div><div style="font-size:10px;color:#64748b;margin-top:2px">${pctU}% de ${eurK(cap)}€</div></div>`; }).join('');
@@ -1050,7 +1112,7 @@ function renderPlanLote(){
       const parts=yy.filter(y=>s[y]>0.5).map(y=>`<span style="background:#eef2f7;border-radius:6px;padding:1px 6px;font-size:11px;margin:0 4px 3px 0;display:inline-block;white-space:nowrap">${y}: <b>${eurK(s[y])}€</b></span>`).join('');
       return `<div style="display:flex;gap:10px;align-items:baseline;padding:5px 0;border-top:1px solid #f1f5f9;flex-wrap:wrap"><div style="min-width:130px"><b>${t}</b> <span style="color:#94a3b8;font-size:11px">${(nm(t)||'').slice(0,16)}</span></div><div style="min-width:120px;font-size:11.5px;color:#475569">pendiente <b>${fmt(asignar(t))}</b></div><div style="flex:1">${parts||'<span style="color:#94a3b8">—</span>'}</div></div>`; }).join('');
     const warn=A.sinCalendario>0.5?`<div style="background:#fef3c7;border:1px solid #fde68a;color:#92400e;border-radius:8px;padding:8px 10px;font-size:12px;margin:8px 0">⚠️ Quedan <b>${fmt(A.sinCalendario)}</b> sin encajar hasta ${ycierre}: el pendiente total supera el ahorro previsto del periodo. Amplía el año de cierre o revisa objetivos.</div>`:'';
-    return `<div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)"><div style="font-weight:800;font-size:14px;color:#0369a1;margin-bottom:8px">🤖 Reparto automático <span style="font-weight:400;font-size:11px;color:#64748b">— previsualización: el pendiente (objetivo − invertido) repartido a prorrata por años, con el ahorro previsto de cada año como tope. No cambia nada todavía.</span></div>${warn}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${chips}</div><div>${rowsC||'<div style="color:#94a3b8">Sin pendiente por repartir.</div>'}</div></div>`;
+    return `<div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)"><div style="font-weight:800;font-size:14px;color:#0369a1;margin-bottom:4px">🤖 Reparto automático <span style="font-weight:400;font-size:11px;color:#64748b">— el pendiente (objetivo − invertido) a prorrata por año, con el ahorro previsto de cada año como tope. <b>Alimenta el simulador.</b> Vivo: cada compra recalcula.</span></div>${pinLine}${warn}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${chips}</div><div>${rowsC||'<div style="color:#94a3b8">Sin pendiente por repartir.</div>'}</div></div>`;
   })();
   el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML+autoPreviewHTML;
   /* Banda deslizante ↔ scroll horizontal de la tabla */
