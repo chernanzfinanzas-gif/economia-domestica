@@ -1379,7 +1379,8 @@ function proyColor(real,teor){ if(real==null||!teor||teor<=0)return 'transparent
    Solo años ya empezados (≤ año en curso). El año en curso va parcial ("YTD").
    Fuentes: efectivo ← último snapshot de Patrimonio · cartera ← acciones×cotización real ·
    → Inversión = aportación NETA (compras − ventas − scrip) vía _allOps (incluye DB.cerradas,
-   así resta rotaciones tipo Enagás→Naturgy) · dividendo ← DB.divIngresos por año ·
+   así resta rotaciones tipo Enagás→Naturgy) · dividendo = BRUTO cobrado hasta hoy (DB.dividendos
+   €/acc × acciones en cada pago) — bruto, no neto, porque la retención la devuelve Hacienda ·
    ahorro ← Movimientos (ingresos − gastos). NO calcula «invertido» real (coste vivo) para no
    contar posiciones cerradas: esa celda queda «·». */
 function proyRealAgg(year){
@@ -1394,8 +1395,11 @@ function proyRealAgg(year){
   /* aportación NETA del año (compra +, venta −); scrip a precio 0 no suma */
   var aNeta=0; var ops=(typeof _allOps==='function')?_allOps():[];
   ops.forEach(function(o){ if(!o.fecha)return; if((''+o.fecha).slice(0,4)!==(''+year))return; var eur=num(o.acciones)*num(o.precio); aNeta+=(o.tipo==='venta'?-1:1)*eur; });
-  /* dividendo real del año */
-  var div=0; var di=DB.divIngresos||{}; Object.keys(di).forEach(function(t){ var m=di[t]||{}; var v=(m[year]!=null)?m[year]:m[''+year]; if(v!=null)div+=num(v); });
+  /* dividendo BRUTO cobrado hasta hoy = importe €/acc (bruto) × acciones que tenías en cada pago.
+     Se usa el BRUTO (no el neto) porque la retención te la devuelve Hacienda ≈ íntegra. */
+  var div=0; var todayMs=Date.now(); var DD=DB.dividendos||{};
+  var _shAt=function(T,ms){ var s=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()!==T||!o.fecha)return; var om=Date.parse((''+o.fecha).slice(0,10)+'T00:00:00'); if(isNaN(om)||om>ms)return; s+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); return s; };
+  Object.keys(DD).forEach(function(t){ var T=t.toUpperCase(); (DD[t]||[]).forEach(function(p){ var f=(''+(p.fecha||'')).slice(0,10); if(f.length!==10||f.slice(0,4)!==(''+year))return; var pm=Date.parse(f+'T00:00:00'); if(isNaN(pm)||pm>todayMs)return; var sh=_shAt(T,pm); if(sh>0)div+=num(p.importe)*sh; }); });
   /* ahorro real del año (Movimientos, signo por categoría) */
   var ing=0,gas=0; (DB.movimientos||[]).forEach(function(m){ if((''+(m.fecha||'')).slice(0,4)!==(''+year))return; var c=(typeof catById==='function')?catById(m.categoriaId):null; var tp=c?c.tipo:m.tipo; var sg=(tp&&m.tipo&&m.tipo!==tp)?-1:1; if(tp==='ingreso')ing+=sg*num(m.importe); else if(tp==='gasto')gas+=sg*num(m.importe); });
   var ahorro=ing-gas;
