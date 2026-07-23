@@ -228,7 +228,7 @@ const ADD_ACTIONS={
   diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'posiciones', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
+const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
