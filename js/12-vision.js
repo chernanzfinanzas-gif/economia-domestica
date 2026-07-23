@@ -65,8 +65,20 @@ function _visCalMercado(t){ t=(t||'').toUpperCase();
   if(!f)return null;
   var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
   try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?r.cal:null; }catch(e){ return null; } }
-/* Calidad estimada para NO analizadas: la de mercado con tope 79 → nunca supera «A (est.)». */
-function _visCalEstim(t){ var c=_visCalMercado(t); return (c==null)?null:Math.min(79,c); }
+/* Escala de reserva (borde inferior por letra), SOLO si de esa letra no tienes ninguna analizada. */
+const _VIS_ESTFALL={AAA:82,AA:76,A:70,BBB:56,BB:44,B:32,CCC:22,CC:14,C:8};
+/* Borde INFERIOR (mínimo) del score de tus analizadas por rating → ancla de las estimadas. */
+function _visMinByRating(){ var acc={}; (DB.analisis||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase();
+  var te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t]||{}; var sc=(te.score!=null)?num(te.score):null;
+  var rt=((a.rating||te.rating||'')+'').toUpperCase(); if(sc!=null&&rt){ if(acc[rt]==null||sc<acc[rt])acc[rt]=sc; } }); return acc; }
+/* Estimación de una empresa SIN dossier: letra = rating de tu Matriz (o, si no lo tiene, derivado de
+   la calidad de Radar); score = borde inferior de tus analizadas de esa letra (Carlos). Marca «est.». */
+function _visEstim(t,mins){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{};
+  var rt=((u.rating||'')+'').toUpperCase();
+  if(!rt){ var rc=_visCalMercado(t); if(rc!=null)rt=_visRatingLetra(rc); }
+  if(!rt)return null;
+  var sc=(mins&&mins[rt]!=null)?mins[rt]:(_VIS_ESTFALL[rt]!=null?_VIS_ESTFALL[rt]:null);
+  return (sc==null)?null:{score:sc,rating:rt}; }
 /* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
    Devuelve ratio (0-1). Cae a divAccion/cotización si el motor de dividendos no está disponible. */
 function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();
@@ -78,6 +90,7 @@ function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();
 function visRankData(){
   const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
   const cl=x=>Math.max(0,Math.min(100,x));
+  const minsByRating=_visMinByRating();
   let rows=(DB.analisis||[]).map(a=>{
     const t=(a.ticker||'').toUpperCase();
     const te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t]||{};
@@ -85,10 +98,10 @@ function visRankData(){
     const cot=num(a.cotizacion)||num(v.precioActual);
     const poBase=num(te.poBase)||((num(a.poMin)&&num(a.poMax))?(num(a.poMin)+num(a.poMax))/2:(num(a.poMax)||num(a.poMin)||0));
     let rating=(a.rating||te.rating||'').toUpperCase();
-    /* Calidad: score REAL del dossier; si no, ESTIMADA del subíndice Calidad de Radar; si no, rating-map. */
+    /* Calidad: score REAL del dossier; si no, ESTIMADA en el borde inferior de las analizadas de ese rating; si no, escala fija. */
     const dossierScore=(te&&te.score!=null)?num(te.score):null;
     let score=dossierScore, estCal=false;
-    if(score==null){ const est=_visCalEstim(t); if(est!=null){ score=est; estCal=true; if(!rating)rating=_visRatingLetra(est); }
+    if(score==null){ const e=_visEstim(t,minsByRating); if(e!=null){ score=e.score; estCal=true; if(!rating)rating=e.rating; }
       else if(_VIS_RPTS[rating]!=null){ score=_VIS_RPTS[rating]; } }
     /* Δ vs mercado: cuánto confirma/corrige tu dossier a la calidad que veía Radar (solo analizadas). */
     const estMkt=(dossierScore!=null)?_visCalMercado(t):null;
@@ -108,13 +121,13 @@ function visRankData(){
   var _seen=new Set(rows.map(function(x){return x.t;}));
   var _uni=DB.universo||{};
   Object.keys(_uni).forEach(function(tt){ tt=(tt||'').toUpperCase(); if(!tt||_seen.has(tt))return; var v=(DB.valores||{})[tt]||{}; var cot=num(v.precioActual);
-    var estc=_visCalEstim(tt); var uRat=((_uni[tt]||{}).rating||'').toUpperCase();
-    var score=(estc!=null)?estc:(_VIS_RPTS[uRat]!=null?_VIS_RPTS[uRat]:null);
-    var rat=(estc!=null)?_visRatingLetra(estc):uRat;
+    var e=_visEstim(tt,minsByRating); var uRat=((_uni[tt]||{}).rating||'').toUpperCase();
+    var score=e?e.score:(_VIS_RPTS[uRat]!=null?_VIS_RPTS[uRat]:null);
+    var rat=e?e.rating:uRat; var estc=!!e;
     var rpd=_visRpdViva(tt,cot,num(v.divAccion));
     var calN=(score!=null)?score:50, rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
     var atractivo=(score!=null||rpd!=null)?Math.round(0.45*calN+0.35*50+0.20*rpdN):0; /* sin PO → margen seg. neutro (50) */
-    rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:cot,poBase:0,rating:rat,score:score,estCal:(estc!=null),mds:null,rpd:rpd,meses:null,atractivo:atractivo,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
+    rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:cot,poBase:0,rating:rat,score:score,estCal:estc,mds:null,rpd:rpd,meses:null,atractivo:atractivo,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
   return rows;
 }
 
