@@ -666,6 +666,76 @@
           "valor": 745
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Estabilización en marcha, aún ámbar. Ingresos +2,6% y EBITDA +2,5% (87,1 M€) vuelven a positivo por primera vez desde 2024 y la publicidad audiovisual modera su caída a −1,3% (desde −6,2%), pero el margen (16,8%) sigue <18%, el BNA cae −11,6% YoY y la audiencia baja a 25,4%. Caja neta fuerte (PFN +70,2 M€). 2º ámbar consecutivo → S6, pero la tendencia mejora → seguir en ordinario.",
+      "metricas": [
+        {
+          "nombre": "Ingresos Netos (M€)",
+          "valor": 520.0
+        },
+        {
+          "nombre": "Publicidad Audiov. (M€)",
+          "valor": 386.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 87.1
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 16.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 56.4
+        },
+        {
+          "nombre": "PFN (M€)",
+          "valor": 70.2
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 2.6
+        },
+        {
+          "nombre": "%Var Publi.Audiov.",
+          "valor": -1.3
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 2.5
+        },
+        {
+          "nombre": "Suscript. Atresplayer (miles)",
+          "valor": 760
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "La CNMC autoriza en primera fase la compra de Clear Channel España (publicidad exterior), poniendo fin al procedimiento de control de concentraciones; la integración queda pendiente de cierre.",
+          "impacto": "+",
+          "valoracion": "Hito de la tesis de M&A: diversifica hacia un mercado (exterior) con crecimiento estructural superior a la media y potencial de digitalización; refuerza el relato de valor."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Dividendo extraordinario de 0,21 €/acción (47,3 M€) con cargo a reservas pagado en junio; el eventual dividendo a cuenta de 2026 se decidirá a fin de ejercicio.",
+          "impacto": "=",
+          "valoracion": "Retribución cubierta por la caja del semestre (la PFN sube +12,1 M€ pese al pago), pero el payout sigue estructuralmente alto → vigilar, sin recorte a la vista."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Reafirma la guía 2026: ingresos estables o en ligero crecimiento en perímetro constante, objetivo de margen EBITDA en el entorno del 15% y PFN objetivo ~+90 M€ (deuda ~25 M€ tras el cierre de Clear Channel).",
+          "impacto": "=",
+          "valoracion": "Guía coherente con la estabilización observada; el margen objetivo (~15%) confirma que la rentabilidad se asienta por debajo del histórico (~19%)."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ],
   "schemaVersion": 2
