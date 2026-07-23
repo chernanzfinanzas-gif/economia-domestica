@@ -174,19 +174,20 @@ function renderSimulador(){
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
   const nmS=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
-  const head='<tr><th>Empresa</th>'+years.map(y=>{ const fut=y>nowY; return `<th class="num" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</th>`; }).join('')+'</tr>';
+  /* ===== ESCRITORIO v2 — estilo Proyección: real (blanco) / previsión (amarillo); cabecera + TOTAL € + Δ% congelados ===== */
+  const head='<tr><th class="emp">Empresa</th>'+years.map(y=>{ const fut=y>nowY; const tag=fut?(conf[y]?'confirmado ✓':'previsión'):(y===nowY?'año actual':'real'); return `<th class="yc ${fut?'prev':''}" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}<span class="tag">${tag}</span></th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
-    const cells=years.map(y=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=(y>nowY)?`<div class="num sim-acc" style="font-weight:600">${sh||'·'}</div>`:`<input type="number" class="anaInp sim-accinp" style="text-align:right${(past&&real&&!(ss&&ss[y]!=null))?';color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
+    const cells=years.map(y=>{ const past=y<=nowY; const fut=y>nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
+      const accCell=fut?`<div class="c-acc"><span class="ro">${sh||'·'}</span></div>`:`<div class="c-acc"><input type="number" class="anaInp sim-accinp" style="${(past&&real&&!(ss&&ss[y]!=null))?'color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}"></div>`;
       const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
-      const divCell=`<div class="num" style="color:#475569">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div>`;
-      let impCell; if(divRaw===0&&sh>0) impCell='0,00 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
-      const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const cpv=(y>nowY)&&!cc; return `<td style="${cpv?'background:#fffbeb;':''}"><div style="font-size:8px;color:var(--brand);font-weight:700;line-height:1.1">${t}</div>${accCell}<div data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado" style="font-size:8px;margin-top:1px;line-height:1.1;cursor:pointer;color:${(y>nowY&&cc&&!conf[y])?'#16a34a':'var(--muted)'};font-weight:${(y>nowY&&cc&&!conf[y])?'700':'400'}">div '${String(y).slice(2)}${(y>nowY&&cc&&!conf[y])?' ✓':''}</div>${divCell}<div class="pos" style="font-weight:700;margin-top:1px">${impCell}</div></td>`;
+      let impCell; if(divRaw===0&&sh>0) impCell='0 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
+      const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const dlConf=(y>nowY&&cc&&!conf[y]);
+      return `<td class="cell ${fut?'prev':''}"><div class="c-tk">${t}</div>${accCell}<div class="c-dl ${dlConf?'conf':''}" data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado">div '${String(y).slice(2)}${dlConf?' ✓':''}</div><div class="c-dv">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div><div class="c-im">${impCell}</div></td>`;
     }).join('');
-    return `<tr><td class="sim-emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}</tr>`;
+    return `<tr><td class="emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}</tr>`;
   }).join('');
-  const totRow='<tr class="simtot"><td>TOTAL €</td>'+years.map(y=>`<td class="num">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
-  const grRow='<tr class="simgr grrow"><td>Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td class="num">·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="num ${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
+  const totRow='<tr class="simtot"><td class="emp">TOTAL €</td>'+years.map(y=>`<td class="${y>nowY?'prev':''}">${tot[y]?fmt(tot[y]):'·'}</td>`).join('')+'</tr>';
+  const grRow='<tr class="simgr grrow"><td class="emp">Δ % anual</td>'+years.map((y,i)=>{ if(i===0)return '<td>·</td>'; const pr=tot[years[i-1]]; const g=pr?((tot[y]/pr)-1):null; return `<td class="${y>nowY?'prev ':''}${g!=null?(g>=0?'pos':'neg'):''}">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</td>`; }).join('')+'</tr>';
   const deskHTML=`<div class="sim-desk"><table><thead>${head}</thead><tbody>${totRow}${grRow}${body}</tbody></table></div>`;
   /* Móvil: dividendo por año (chips) + selector de empresa */
   const pyChip=(y,i)=>{ const pr=i>0?tot[years[i-1]]:0; const g=pr?((tot[y]/pr)-1):null; const cls=g==null?'z':(g>=0?'g':'r'); const fut=y>nowY; const cc=conf[y]; return `<div class="pychip ${cls}"${fut?` data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}><div class="yy">${y}${fut?(cc?' ✓':' ·'):''}</div><div class="pv2">${eurK(tot[y]||0)} €</div><div class="pl2">dividendo${fut?' prev.':''}</div><div class="pv">${g==null?'·':(g>=0?'+':'')+(g*100).toFixed(0)+'%'}</div><div class="pl">Δ anual</div></div>`; };
