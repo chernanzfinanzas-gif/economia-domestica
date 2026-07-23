@@ -623,6 +623,70 @@
           "valor": 0.32
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2026 excelente y todo en verde: RoTE 20,36%, eficiencia 34,35%, morosidad en mínimos 1,92% y coste del riesgo 0,33%; CET1 FL 12,71% y cobertura 69,2%. El negocio crece (BNA 605,3 M€ +11,7% YoY, margen bruto 1.603 +7,3%, volúmenes 162.085 +9,6%). Calidad AA intacta; la cautela sigue en la valoración (P/TBV ~2,3x), no en el negocio.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 1160.1
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 1603.0
+        },
+        {
+          "nombre": "Beneficio neto atribuido (M€)",
+          "valor": 605.3
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.36
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 34.35
+        },
+        {
+          "nombre": "CET1 FL (%)",
+          "valor": 12.71
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.92
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.15
+        },
+        {
+          "nombre": "Volúmenes gestionados de clientes (M€)",
+          "valor": 162085
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.33
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Adquiere el 100% de Tulp Hypotheken Holding B.V. (Tulp Group), plataforma neerlandesa de intermediación y financiación hipotecaria, entrando en su quinto país (Países Bajos).",
+          "impacto": "+",
+          "valoracion": "Expansión internacional selectiva en su especialidad (hipotecas), coherente con la política activa de asignación de capital; positiva aunque de tamaño acotado."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "S&P Global sitúa la calificación de Bankinter (A-) con perspectiva positiva; Moody's A1 y DBRS A.",
+          "impacto": "+",
+          "valoracion": "La perspectiva positiva de S&P refuerza el perfil de solvencia y podría abaratar el coste de financiación mayorista."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ]
 }
