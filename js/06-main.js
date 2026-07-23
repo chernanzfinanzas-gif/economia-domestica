@@ -204,7 +204,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['origen','El Origen'],['panel','Panel'],['comovoy','Cómo voy'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
+  control:[['origen','El Origen'],['panel','Panel'],['comovoy','Cómo voy'],['independencia','Independencia'],['metas','Metas'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
@@ -212,7 +212,7 @@ const GROUPS={
   cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['buzon','Buzón del lunes'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
-  planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo'],['metas','Metas']],
+  planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
 };
