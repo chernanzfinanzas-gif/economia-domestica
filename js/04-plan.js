@@ -160,6 +160,9 @@ function renderSimulador(){
   (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); try{ invClosedComputed().forEach(c=>set.add(c.ticker)); }catch(e){}
   Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase()));
   Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase()));
+  /* Empresas que el REPARTO automático planea comprar (Nuevas del plan aún no en cartera): sus acciones
+     planificadas deben proyectarse en el simulador. Antes entraban por DB.planCompras (plan manual). */
+  try{ if(typeof _planReparto==='function'){ const _R=_planReparto(); Object.keys(_R.sched||{}).forEach(function(tk){ const yy=_R.sched[tk]||{}; let s=0; Object.keys(yy).forEach(function(y){ s+=num(yy[y]); }); if(s>0.5) set.add(tk.toUpperCase()); }); } }catch(e){}
   let tickers=[...set].filter(Boolean);
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Ten posiciones en cartera o pulsa «+ Empresa».</div>'; $('#simKpis').innerHTML=''; return; }
   const held=heldTickerSet();
@@ -235,7 +238,7 @@ function addSimEmpresa(){
   DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
-function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
+function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); try{ if(typeof _planReparto==='function'){ const _R=_planReparto(); Object.keys(_R.sched||{}).forEach(function(tk){ const yy=_R.sched[tk]||{}; let s=0; Object.keys(yy).forEach(function(y){ s+=num(yy[y]); }); if(s>0.5) set.add(tk.toUpperCase()); }); } }catch(e){} let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
 // === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
 function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
 function _precioActualDe(t){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; let p=num(v.precioActual); if(p>0)return p; const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&num(a.cotizacion)>0)return num(a.cotizacion); if(typeof _precioCache!=='undefined'){ const pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); } return 0; }
