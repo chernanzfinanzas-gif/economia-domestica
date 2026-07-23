@@ -31,7 +31,13 @@ function proxRevDe(t){ var a=_emAna(t); if(!a)return null; if(a.proxRev)return a
 function _emRevVencida(t){ var pr=proxRevDe(t); return !!(pr && pr<=new Date().toISOString().slice(0,10)); }
 function _emRevDias(t){ var pr=proxRevDe(t); if(!pr)return null; return Math.round((new Date(pr+'T00:00:00').getTime()-Date.now())/86400000); }
 /* € pendientes del plan (todos los años). Versión € del objetivo de Diversificación. */
-function _emPlanPendEur(t){ t=_emUp(t); if(typeof _planRem==='function'){ try{ var R=_planRem(t); var s=0; Object.keys(R.rem||{}).forEach(function(y){ s+=_emNum(R.rem[y]); }); return s; }catch(e){} } var pc=(DB.planCompras||{})[t]||{}; var s2=0; Object.keys(pc).forEach(function(y){ s2+=_emNum(pc[y]); }); return s2; }
+function _emPlanPendEur(t){ t=_emUp(t);
+  /* Pendiente en plan = objetivo − invertido, del MOTOR de reparto (fase 2). Antes leía DB.planCompras
+     (plan manual); al pasar a automático eso quedaba a 0 y las de cartera desaparecían de "Necesita tu
+     acción". Ahora usa el pendiente vivo del reparto; conserva el fallback antiguo por si acaso. */
+  if(typeof _planReparto==='function'){ try{ var A=_planReparto(); if(A&&A.obj&&A.obj[t]!=null){ var p=_emNum(A.obj[t])-_emNum((A.inv||{})[t]); return p>0?p:0; } }catch(e){} }
+  if(typeof _planRem==='function'){ try{ var R=_planRem(t); var s=0; Object.keys(R.rem||{}).forEach(function(y){ s+=_emNum(R.rem[y]); }); return s; }catch(e){} }
+  var pc=(DB.planCompras||{})[t]||{}; var s2=0; Object.keys(pc).forEach(function(y){ s2+=_emNum(pc[y]); }); return s2; }
 /* Próximo año con tramo pendiente > 0. */
 function _emPlanProxAnio(t){ t=_emUp(t); var pend=null; if(typeof _planRem==='function'){ try{ var R=_planRem(t); Object.keys(R.rem||{}).forEach(function(y){ if(_emNum(R.rem[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }catch(e){} } var pc=(DB.planCompras||{})[t]||{}; Object.keys(pc).forEach(function(y){ if(_emNum(pc[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }
 /* ¿tramo del año en curso (o pasado) pendiente? → posición parcial en ejecución. */
@@ -433,7 +439,7 @@ function _emDimBlock(r){
     +'<div class="em-dc"><span>Prioridad</span><b>'+(b.rank?('#'+b.rank):(b.prio!=null?b.prio:'—'))+'</b></div>'
     +'<div class="em-dc"><span>Capital recom.</span><b>'+(b.recom>0?_emEur(b.recom):'—')+'</b></div>'
     +'<div class="em-dc" title="'+accNote+'"><span>Acc. con caja</span><b>'+(b.acc>0?(b.acc+' acc'):'—')+'</b></div>'
-    +'<div class="em-dc"><span>Pte en plan</span><b>'+(b.ptePlan>0?_emEur(b.ptePlan):'—')+'</b></div>';
+    +'<div class="em-dc" title="Lo que queda por invertir para cumplir el plan vigente: objetivo de cartera − invertido."><span>Queda por invertir</span><b>'+(b.ptePlan>0?_emEur(b.ptePlan):'—')+'</b></div>';
   var btns='<div class="em-dbtns"><button class="btn sm" data-emcompra="'+r.t+'" title="Registrar una compra: crea la operación en cartera y (opcional) descuenta la caja bróker. El pendiente y el reparto se recalculan solos.">🛒 Compra</button></div>';
   return '<div class="em-dim">'+cells+'</div>'+btns;
 }
