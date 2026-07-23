@@ -47,9 +47,10 @@ function _emDivPend(t){ t=_emUp(t);
   if(typeof evoAnioM!=='function') return null;
   var today=new Date().toISOString().slice(0,10), nowY=new Date().getFullYear(), best=null;
   [nowY-1, nowY].forEach(function(y){ var a; try{a=evoAnioM(t,y);}catch(e){a=null;} if(!a||!a.pagos)return;
-    a.pagos.forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); if(!ex||ex>today)return;
-      var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return;
-      if(!best || ex>best.exDiv) best={exDiv:ex, pago:(''+(p.pago||'')).slice(0,10), brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key}; });
+    a.pagos.forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); if(!ex||ex>today)return; /* ex-div aún futura → todavía no toca */
+      var pago=(''+(p.pago||'')).slice(0,10); if(pago&&pago<today) return; /* ventana ex-div→pago: pasado el día de pago sale de «Necesita acción» (si no hay fecha de pago, se mantiene hasta anotar) */
+      var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return; /* ya anotado → no repetir (evitaría duplicar el cobro en caja) */
+      if(!best || ex>best.exDiv) best={exDiv:ex, pago:pago, brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key}; });
   });
   return best; }
 function _emFechaCorta(f){ if(!f)return ''; var p=(''+f).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):(''+f); }
