@@ -65,6 +65,13 @@ function _visCalMercado(t){ t=(t||'').toUpperCase();
   if(!f)return null;
   var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
   try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?r.cal:null; }catch(e){ return null; } }
+/* Atractivo COMPLETO de Radar (atr + los 3 pilares div/cal/val) para comparar con el de Visión. */
+function _visRadarFull(t){ t=(t||'').toUpperCase();
+  if(typeof radScore!=='function')return null;
+  var f=null; if(typeof _radFundCache!=='undefined'&&_radFundCache&&_radFundCache.empresas){ f=_radFundCache.empresas.find(function(x){return (''+x.ticker).toUpperCase()===t;}); }
+  if(!f)return null;
+  var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
+  try{ var r=radScore(f,u.rating,ds); return r?{atr:Math.round(r.atr),div:Math.round(r.sdiv),cal:Math.round(r.cal),val:Math.round(r.sval)}:null; }catch(e){ return null; } }
 /* Escala de reserva (borde inferior por letra), SOLO si de esa letra no tienes ninguna analizada. */
 const _VIS_ESTFALL={AAA:82,AA:76,A:70,BBB:56,BB:44,B:32,CCC:22,CC:14,C:8};
 /* Borde INFERIOR (mínimo) del score de tus analizadas por rating → ancla de las estimadas. */
@@ -116,7 +123,9 @@ function visRankData(){
     const mdsN=(mds!=null)?cl(50+mds/0.4*50):50;
     const rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
     const atractivo=Math.round(0.45*calN+0.35*mdsN+0.20*rpdN);
+    const rad=_visRadarFull(t);
     return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, estCal, estMkt, deltaMkt, mds, rpd, meses, atractivo,
+      vCal:Math.round(calN), vMds:Math.round(mdsN), vRpd:Math.round(rpdN), rad:rad, dAtr:(rad?atractivo-rad.atr:null),
       held:held.has(t), decision:(a.decision||te.decision||'').toUpperCase(), tags:visTags(t), stale:(meses!=null&&meses>12)};
   }).filter(x=>x.cot>0 || x.score!=null);
   /* Uni\u00f3n con Universo: empresas de la Matriz a\u00fan no en An\u00e1lisis (Pte. An\u00e1lisis, sin score). */
@@ -129,7 +138,10 @@ function visRankData(){
     var rpd=_visRpdViva(tt,cot,num(v.divAccion));
     var calN=(score!=null)?score:50, rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
     var atractivo=(score!=null||rpd!=null)?Math.round(0.45*calN+0.35*50+0.20*rpdN):0; /* sin PO → margen seg. neutro (50) */
-    rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:cot,poBase:0,rating:rat,score:score,estCal:estc,mds:null,rpd:rpd,meses:null,atractivo:atractivo,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
+    var rad=_visRadarFull(tt);
+    rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:cot,poBase:0,rating:rat,score:score,estCal:estc,mds:null,rpd:rpd,meses:null,atractivo:atractivo,
+      vCal:Math.round(calN),vMds:50,vRpd:Math.round(rpdN),rad:rad,dAtr:(rad?atractivo-rad.atr:null),
+      held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
   return rows;
 }
 
@@ -149,6 +161,41 @@ function _visPct(x){ return x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%')
 function _visDecChip(d){ d=(d||'').toUpperCase(); if(!d)return '<span style="color:#cbd5e1">—</span>'; return '<span class="vis-dec" style="background:'+(_VISDEC[d]||'#64748b')+'">'+d+'</span>'; }
 function _visScoreCol(s){ return s==null?'#94a3b8':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626'); }
 function _visAtrCol(a){ return a>=70?'#16a34a':(a>=55?'#2563eb':'#64748b'); }
+/* Chip compacto Radar→Visión (el "cuánto"): pulsable para abrir el desglose. */
+function _visAtrDelta(x){ if(!x||!x.rad)return '';
+  var d=x.dAtr==null?(x.atractivo-x.rad.atr):x.dAtr;
+  var col=d>2?'#16a34a':(d<-2?'#dc2626':'#64748b'); var ar=d>2?'▲':(d<-2?'▼':'=');
+  return ' <span class="vis-atrd" data-visatr="'+x.t+'" title="Atractivo: Radar '+x.rad.atr+' → Visión '+x.atractivo+'. Pulsa para el desglose." style="cursor:pointer;font-size:9px;font-weight:800;color:'+col+';white-space:nowrap;background:#f1f5f9;border:1px solid #e2e8f0;border-radius:5px;padding:1px 4px">R'+x.rad.atr+' '+ar+Math.abs(d)+'</span>'; }
+/* Barra de un pilar (0-100) con etiqueta y valor. */
+function _visPilar(lbl,val,peso,col){ val=Math.max(0,Math.min(100,val||0));
+  return '<div style="margin:5px 0"><div style="display:flex;justify-content:space-between;font-size:11px;color:#475569"><span>'+lbl+' <span style="color:#94a3b8">·'+peso+'</span></span><b style="color:#0f172a">'+Math.round(val)+'</b></div><div style="height:6px;background:#eef2f7;border-radius:4px;overflow:hidden"><i style="display:block;height:100%;width:'+val+'%;background:'+col+'"></i></div></div>'; }
+/* Ficha emergente (el "por qué"): desglosa Atractivo de Radar vs Visión y explica el sesgo. */
+function _visAtrPop(t){ var x=(window._visRowMap||{})[t]; if(!x||!x.rad)return; var r=x.rad;
+  var d=x.atractivo-r.atr; var sesgo=d>2?('Tu tesis es <b>más positiva</b> que Radar (Radar fue conservador aquí)'):(d<-2?('Radar es <b>más optimista</b> que tu tesis en esta empresa'):('Radar y tu tesis <b>coinciden</b>'));
+  var html=
+    '<div style="padding:14px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">'+x.t+'</b> <span style="color:#94a3b8;font-size:12px">'+_infEscSafe((x.nombre||'').slice(0,26))+'</span></div><span data-visatrx="1" style="cursor:pointer;color:#94a3b8;font-size:18px;line-height:1">✕</span></div>'+
+    '<div style="padding:14px 16px">'+
+      '<div style="font-size:12px;color:#475569;margin-bottom:10px">Por qué el <b>Atractivo</b> difiere entre las dos miradas. Las fórmulas pesan cosas distintas: Radar mira la <b>valoración de mercado</b>; Visión, tu <b>margen a tu precio objetivo</b>.</div>'+
+      '<div style="display:flex;gap:14px;flex-wrap:wrap">'+
+        '<div style="flex:1;min-width:180px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px"><div style="font-weight:800;font-size:12px;color:#475569;margin-bottom:2px">📡 Radar <span style="float:right;font-size:16px;color:'+_visAtrCol(r.atr)+'">'+r.atr+'</span></div>'+
+          _visPilar('Dividendo',r.div,'35%','#0891b2')+_visPilar('Calidad',r.cal,'35%','#7c3aed')+_visPilar('Valoración',r.val,'30%','#b45309')+'</div>'+
+        '<div style="flex:1;min-width:180px;background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:10px"><div style="font-weight:800;font-size:12px;color:#0369a1;margin-bottom:2px">🧭 Visión <span style="float:right;font-size:16px;color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</span></div>'+
+          _visPilar('Calidad',x.vCal,'45%','#7c3aed')+_visPilar('Margen seg.',x.vMds,'35%','#16a34a')+_visPilar('RPD',x.vRpd,'20%','#0891b2')+'</div>'+
+      '</div>'+
+      '<div style="margin-top:12px;background:'+(d>2?'#f0fdf4':(d<-2?'#fef2f2':'#f8fafc'))+';border-radius:8px;padding:9px 11px;font-size:12px;color:#334155">'+(d>2?'▲ +':(d<-2?'▼ ':'= '))+(d>2?d:Math.abs(d))+' puntos · '+sesgo+'.</div>'+
+    '</div>';
+  _visAtrShow(html); }
+function _visAtrShow(html){ var o=document.getElementById('visAtrPopWrap');
+  if(!o){ o=document.createElement('div'); o.id='visAtrPopWrap'; o.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.45);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px';
+    o.addEventListener('click',function(e){ if(e.target===o||e.target.getAttribute('data-visatrx'))o.remove(); }); document.body.appendChild(o); }
+  o.innerHTML='<div style="background:#fff;border-radius:14px;max-width:480px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden">'+html+'</div>'; }
+/* Resumen agregado: ¿tu Radar es en conjunto optimista, pesimista o mixto vs tu tesis? */
+function _visSesgoResumen(rows){ var c=rows.filter(function(r){return r.rad&&!r.pte;}); if(c.length<2)return '';
+  var difs=c.map(function(r){return r.atractivo-r.rad.atr;}); var media=difs.reduce(function(a,b){return a+b;},0)/difs.length;
+  var sube=difs.filter(function(d){return d>2;}).length, baja=difs.filter(function(d){return d<-2;}).length, igual=difs.length-sube-baja;
+  var tono=media>3?'tu Radar es en conjunto <b>pesimista</b> vs tu tesis':(media<-3?'tu Radar es en conjunto <b>optimista</b> vs tu tesis':'Radar y tesis van <b>alineados</b> de media');
+  var mtxt=(media>=0?'+':'')+media.toFixed(0);
+  return '<div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:10px;font-size:12px;color:#334155;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><span>📐 <b>Visión − Radar</b> (media <b>'+mtxt+'</b>): '+tono+'.</span><span style="color:#16a34a;font-weight:700">▲'+sube+'</span><span style="color:#64748b;font-weight:700">='+igual+'</span><span style="color:#dc2626;font-weight:700">▼'+baja+'</span><span style="color:#94a3b8">de '+difs.length+' analizadas</span></div>'; }
 function _visRankDesk(rows){
   var trs=rows.map(function(x,i){ return '<tr class="'+(i===0&&!x.pte?'best':'')+(x.pte?' pte':'')+'">'+
     '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b> <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
@@ -156,15 +203,15 @@ function _visRankDesk(rows){
     '<td style="color:'+_visScoreCol(x.score)+';font-weight:700'+(x.estCal?';font-style:italic':'')+';white-space:nowrap">'+(x.score==null?'—':Math.round(x.score))+((x.deltaMkt!=null&&!x.estCal)?_visDeltaChip(x.deltaMkt):'')+'</td>'+
     '<td class="'+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</td>'+
     '<td>'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</td>'+
-    '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</td>'+
+    '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+';white-space:nowrap">'+x.atractivo+_visAtrDelta(x)+'</td>'+
     '<td style="white-space:nowrap">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' <span title="dossier caducado" style="color:#dc2626">⚠</span>':'')+'</td>'+
     '<td class="l">'+_visDecChip(x.decision)+'</td></tr>';
   }).join('');
-  return '<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+  return _visSesgoResumen(rows)+'<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 }
 function _visRankCards(rows){
   return '<div class="vis-cards">'+rows.map(function(x,i){ return '<div class="vis-card'+(i===0&&!x.pte?' best':'')+(x.pte?' pte':'')+'"><div class="vis-card-h">'+
-    '<div class="score"><div class="n" style="color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</div><div class="l">Atr</div></div>'+
+    '<div class="score"><div class="n" style="color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</div><div class="l">Atr</div>'+(x.rad?'<div style="margin-top:2px">'+_visAtrDelta(x)+'</div>':'')+'</div>'+
     '<div class="mid"><div class="nm">'+x.t+' · '+_infEscSafe((x.nombre||'').slice(0,18))+'</div><div class="s2">'+_visDecChip(x.decision)+' <span style="font-size:11px;color:#94a3b8">'+(x.held?'en cartera':(x.pte?'Pte. Análisis':(x.rating||'')))+'</span></div></div>'+
     '<span class="arw">▶</span></div>'+
     '<div class="vis-card-b"><div class="mgrid">'+
@@ -211,6 +258,7 @@ function renderVision(){
     if(_pr.length)Promise.all(_pr).then(function(){ try{ renderVision(); }catch(e){} }); }
   if(!(DB.analisis||[]).length && !Object.keys(DB.universo||{}).length){ el.innerHTML='<div class="empty">Sin empresas en Análisis todavía.</div>'; return; }
   var rows=visRankData();
+  window._visRowMap={}; rows.forEach(function(r){ window._visRowMap[r.t]=r; });
   var key={atractivo:x=>x.atractivo, mds:x=>(x.mds==null?-9:x.mds), cal:x=>(x.score==null?-9:x.score), rpd:x=>(x.rpd==null?-9:x.rpd), meses:x=>(x.meses==null?-9:x.meses)}[_visSort]||(x=>x.atractivo);
   rows=rows.slice().sort((a,b)=>key(b)-key(a));
   var nAn=rows.filter(function(x){return !x.pte;}).length;
@@ -236,6 +284,7 @@ function renderVision(){
 function _visBind(){
   var sec=document.getElementById('view-vision'); if(!sec||renderVision._bound)return; renderVision._bound=true;
   sec.addEventListener('click',function(e){
+    var ap=e.target.closest('[data-visatr]'); if(ap){ e.stopPropagation(); _visAtrPop(ap.getAttribute('data-visatr')); return; }
     if(e.target.closest('[data-vissort]')||e.target.closest('[data-vistagdel]')||e.target.closest('[data-vistagauto]')||e.target.closest('[data-ficha]')||e.target.closest('select'))return;
     var vc=e.target.closest('.vis-card-h'); if(vc){ vc.parentElement.classList.toggle('open'); return; }
     var h=e.target.closest('.vis-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-vblk'); window._visOpen[k]=!window._visOpen[k]; h.parentElement.classList.toggle('open'); return; }
