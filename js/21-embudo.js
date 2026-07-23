@@ -434,7 +434,7 @@ function _emDimBlock(r){
     +'<div class="em-dc"><span>Capital recom.</span><b>'+(b.recom>0?_emEur(b.recom):'—')+'</b></div>'
     +'<div class="em-dc" title="'+accNote+'"><span>Acc. con caja</span><b>'+(b.acc>0?(b.acc+' acc'):'—')+'</b></div>'
     +'<div class="em-dc"><span>Pte en plan</span><b>'+(b.ptePlan>0?_emEur(b.ptePlan):'—')+'</b></div>';
-  var btns='<div class="em-dbtns"><button class="btn ghost sm" data-emplan="'+r.t+'" title="Añadir al Plan de compras del año">→ Plan</button> <button class="btn ghost sm" data-emcaja="'+r.t+'" title="Registrar la compra como salida en la Caja bróker (hoy)">→ Caja</button></div>';
+  var btns='<div class="em-dbtns"><button class="btn sm" data-emcompra="'+r.t+'" title="Registrar una compra: crea la operación en cartera y (opcional) descuenta la caja bróker. El pendiente y el reparto se recalculan solos.">🛒 Compra</button></div>';
   return '<div class="em-dim">'+cells+'</div>'+btns;
 }
 /* --------- Índice de oportunidad (potencial a PO × calidad × RPD × seguridad del dividendo) ---------
@@ -517,6 +517,57 @@ function _emToCaja(t){ t=_emUp(t); var P=_emProxMap(), d=P.by[t]||{}, held=_emHe
   if(!confirm('¿Registrar compra de '+(acc?acc+' acc. ':'')+t+' por '+_emEur(eur)+' como salida en la Caja bróker (hoy)?'))return;
   DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(acc?acc+' ':'')+t,entra:0,sale:eur});
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
+/* ===== COMPRA desde Kanban (ventana emergente) — fuente única: crea la operación real en
+   DB.operaciones (+ salida de caja opcional). La cartera se actualiza sola, el pendiente baja y
+   el reparto/simulador se recalculan (saveNow invalida la caché). No escribe en DB.planCompras. */
+function _emModal(html){ var o=document.getElementById('emModalWrap');
+  if(!o){ o=document.createElement('div'); o.id='emModalWrap'; o.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:99999;display:flex;align-items:center;justify-content:center;padding:16px';
+    o.addEventListener('click',function(e){ if(e.target===o||e.target.getAttribute('data-emmx'))o.remove(); }); document.body.appendChild(o); }
+  o.innerHTML='<div style="background:#fff;border-radius:14px;max-width:430px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);overflow:hidden">'+html+'</div>'; }
+function _emModalClose(){ var o=document.getElementById('emModalWrap'); if(o)o.remove(); }
+function _emCompraForm(t){ t=_emUp(t);
+  var a=_emAna(t), v=(DB.valores||{})[t]||{};
+  var nombre=(v.nombre||(a&&a.nombre)||t)+'';
+  var precio=_emNum(v.precioActual)||_emNum(a&&a.cotizacion)||0;
+  var P=_emProxMap(), d=(P.by||{})[t]||{}, recEur=_emNum(d.rec!=null?d.rec:d.gap);
+  var accPrefill=(precio>0&&recEur>0)?Math.floor(recEur/precio):'';
+  var today=new Date().toISOString().slice(0,10);
+  var carts=(typeof invCarteras==='function')?invCarteras():['Propia'];
+  if(carts.indexOf('Propia')<0)carts.unshift('Propia');
+  var cajaHoy=P.caja;
+  var cartOpts=carts.map(function(c){return '<option value="'+c+'"'+(c==='Propia'?' selected':'')+'>'+c+'</option>';}).join('');
+  var html=
+    '<div style="padding:14px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">🛒 Compra · '+t+'</b> <span style="color:#94a3b8;font-size:12px">'+nombre.replace(/</g,'&lt;').slice(0,26)+'</span></div><span data-emmx="1" style="cursor:pointer;color:#94a3b8;font-size:18px;line-height:1">✕</span></div>'+
+    '<div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">'+
+      '<label style="font-size:12px;color:#475569">Cartera<select id="emcCart" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px">'+cartOpts+'</select></label>'+
+      '<label style="font-size:12px;color:#475569">Fecha<input type="date" id="emcFecha" value="'+today+'" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+      '<div style="display:flex;gap:10px">'+
+        '<label style="flex:1;font-size:12px;color:#475569">Acciones<input type="number" id="emcAcc" value="'+accPrefill+'" oninput="_emCompraCalc()" min="0" step="1" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+        '<label style="flex:1;font-size:12px;color:#475569">Precio €<input type="number" id="emcPrecio" value="'+(precio||'')+'" oninput="_emCompraCalc()" min="0" step="0.001" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+      '</div>'+
+      '<div style="background:#f8fafc;border-radius:8px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between"><span>Total compra</span><b id="emcTotal">'+_emEur((accPrefill||0)*precio)+'</b></div>'+
+      '<label style="font-size:12px;color:#475569;display:flex;align-items:center;gap:7px"><input type="checkbox" id="emcCaja" checked> Descontar de la caja bróker'+(cajaHoy!=null?' <span style="color:#94a3b8">(hoy '+_emEur(cajaHoy)+')</span>':'')+'</label>'+
+      '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px"><button class="btn ghost sm" data-emmx="1">Cancelar</button><button class="btn sm" onclick="_emCompraDo(\''+t+'\')">Registrar compra</button></div>'+
+    '</div>';
+  _emModal(html); }
+function _emCompraCalc(){ var acc=_emNum((document.getElementById('emcAcc')||{}).value), pr=_emNum((document.getElementById('emcPrecio')||{}).value);
+  var el=document.getElementById('emcTotal'); if(el)el.textContent=_emEur(acc*pr); }
+function _emCompraDo(t){ t=_emUp(t);
+  var cart=((document.getElementById('emcCart')||{}).value||'Propia');
+  var fecha=(document.getElementById('emcFecha')||{}).value||new Date().toISOString().slice(0,10);
+  var acc=_emNum((document.getElementById('emcAcc')||{}).value), pr=_emNum((document.getElementById('emcPrecio')||{}).value);
+  var descontar=!!((document.getElementById('emcCaja')||{}).checked);
+  if(!(acc>0)){ alert('Indica las acciones (> 0).'); return; }
+  if(!(pr>0)){ alert('Indica el precio (> 0).'); return; }
+  var eur=acc*pr;
+  if(!confirm('¿Registrar compra de '+acc+' '+t+' a '+_emEur(pr)+' = '+_emEur(eur)+' en cartera «'+cart+'»'+(descontar?' y descontar de la caja bróker':'')+'?'))return;
+  DB.operaciones=DB.operaciones||[];
+  DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr});
+  if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:eur}); }
+  _emModalClose();
+  if(typeof toast==='function')toast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');
+  if(typeof saveNow==='function')saveNow();
+  if(typeof renderAll==='function')renderAll(); }
 function _emBand(band){
   if(!band.length)return '<div class="em-lane em-lane-empty">⚡ <b>Necesita tu acción</b> — nada pendiente ahora mismo. 👌</div>';
   var cards=band.map(function(r){ return _emCard(r,true); }).join('');
@@ -668,6 +719,7 @@ function _emBind(sec){
     var evg=e.target.closest('[data-emvig]'); if(evg){ var vt=_emUp(evg.getAttribute('data-emvig')); window._emVigOpen=window._emVigOpen||{}; window._emVigOpen[vt]=!window._emVigOpen[vt]; renderEmbudo(); return; }
     var ep=e.target.closest('[data-emplan]'); if(ep){ e.preventDefault(); _emToPlan(ep.getAttribute('data-emplan')); return; }
     var ec=e.target.closest('[data-emcaja]'); if(ec){ e.preventDefault(); _emToCaja(ec.getAttribute('data-emcaja')); return; }
+    var ecp=e.target.closest('[data-emcompra]'); if(ecp){ e.preventDefault(); _emCompraForm(ecp.getAttribute('data-emcompra')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
