@@ -929,6 +929,7 @@ function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):'
   if(typeof renderSimulador==='function')renderSimulador();
   const st=$('#loteStatus'); if(st)st.textContent='Añadida '+tk;
 }
+var _planAutoCache=null;
 function renderPlanLote(){
   const el=$('#loteTabla'); if(!el)return;
   const _lotePrevSL=(document.getElementById('loteScrollBox')||{}).scrollLeft||0;
@@ -980,6 +981,23 @@ function renderPlanLote(){
   /* "Asignado" del año a efectos de presupuesto = lo que QUEDA por comprar (plan − comprado),
      así al ejecutar una compra el año libera cupo y el resto sale con "falta por asignar". */
   const asignYear={}; yrs.forEach(y=>{ asignYear[y]=allTk.reduce((s,t)=>s+remYear(t,y),0); });
+  /* ===== AUTO-REPARTO (fase 1 · previsualización): reparte el pendiente vivo (asignar = objetivo −
+     invertido) por años a PRORRATA, con el ahorro previsto de cada año (dispShown) como tope. Es vivo:
+     al ejecutar una compra sube invByT → baja asignar → se recalcula. NO modifica DB.planCompras. */
+  (function(){ const pend={}; allTk.forEach(t=>{ const p=asignar(t); if(p>0.5)pend[t]=p; });
+    const sched={}; allTk.forEach(t=>{ sched[t]={}; }); const byYear={};
+    for(let y=Math.max(nowY,ydesde); y<=ycierre; y++){
+      let cap=dispShown(y); if(!(cap>0)){ byYear[y]=0; continue; }
+      let totPend=0; allTk.forEach(t=>{ totPend+=Math.max(0,pend[t]||0); });
+      if(totPend<=0.5){ byYear[y]=0; continue; }
+      let usado=0;
+      if(totPend<=cap){ allTk.forEach(t=>{ const p=pend[t]||0; if(p>0.5){ sched[t][y]=p; usado+=p; pend[t]=0; } }); }
+      else { allTk.forEach(t=>{ const p=pend[t]||0; if(p>0.5){ const a=cap*(p/totPend); sched[t][y]=a; usado+=a; pend[t]=p-a; } }); }
+      byYear[y]=usado;
+    }
+    let sinCal=0; allTk.forEach(t=>{ sinCal+=Math.max(0,pend[t]||0); });
+    _planAutoCache={sched:sched, byYear:byYear, sinCalendario:sinCal, ycierre:ycierre};
+  })();
   /* ===================== RENDER (rediseño v2) ===================== */
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
   const TIPOL={joya:'Joya 👑',nucleo:'Núcleo',mantener:'Mantener','':'sin clasificar'};
@@ -1023,7 +1041,18 @@ function renderPlanLote(){
       +`<div class="yrgrid">${yrs.map(y=>{ const plan=aYear(t,y); return `<label class="yg"><span>${y}</span><input type="number" step="100" class="anaInp asig" data-asig="${t}|${y}" value="${plan?Math.round(plan):''}">${yrAnnot(t,y)}</label>`; }).join('')}</div>`
       +`</div>`; };
   const mobHTML='<div class="dv-mob"><div class="cosel-t">Elige empresa</div><select class="cosel" id="loteCoSel">'+coOptions+'</select><div class="codetails">'+allOrder.map(mdetail).join('')+'</div></div>';
-  el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML;
+  /* ===== Previsualización del reparto automático (fase 1) ===== */
+  const autoPreviewHTML=(function(){ const A=_planAutoCache; if(!A) return '';
+    const yy=Object.keys(A.byYear).map(Number).sort((a,b)=>a-b);
+    const chips=yy.map(y=>{ const cap=dispShown(y); const used=A.byYear[y]||0; const pctU=cap>0?Math.round(used/cap*100):0;
+      return `<div style="background:#f0f9ff;border:1px solid #bae6fd;border-radius:10px;padding:7px 9px;min-width:92px;text-align:center"><div style="font-weight:800;color:#0369a1;font-size:13px">${y}</div><div style="font-weight:800;font-size:14px">${eurK(used)} €</div><div style="font-size:9px;color:#64748b">se invertiría</div><div style="font-size:10px;color:#64748b;margin-top:2px">${pctU}% de ${eurK(cap)}€</div></div>`; }).join('');
+    const rowsC=allTk.filter(t=>asignar(t)>0.5).sort((a,b)=>asignar(b)-asignar(a)).map(t=>{ const s=A.sched[t]||{};
+      const parts=yy.filter(y=>s[y]>0.5).map(y=>`<span style="background:#eef2f7;border-radius:6px;padding:1px 6px;font-size:11px;margin:0 4px 3px 0;display:inline-block;white-space:nowrap">${y}: <b>${eurK(s[y])}€</b></span>`).join('');
+      return `<div style="display:flex;gap:10px;align-items:baseline;padding:5px 0;border-top:1px solid #f1f5f9;flex-wrap:wrap"><div style="min-width:130px"><b>${t}</b> <span style="color:#94a3b8;font-size:11px">${(nm(t)||'').slice(0,16)}</span></div><div style="min-width:120px;font-size:11.5px;color:#475569">pendiente <b>${fmt(asignar(t))}</b></div><div style="flex:1">${parts||'<span style="color:#94a3b8">—</span>'}</div></div>`; }).join('');
+    const warn=A.sinCalendario>0.5?`<div style="background:#fef3c7;border:1px solid #fde68a;color:#92400e;border-radius:8px;padding:8px 10px;font-size:12px;margin:8px 0">⚠️ Quedan <b>${fmt(A.sinCalendario)}</b> sin encajar hasta ${ycierre}: el pendiente total supera el ahorro previsto del periodo. Amplía el año de cierre o revisa objetivos.</div>`:'';
+    return `<div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)"><div style="font-weight:800;font-size:14px;color:#0369a1;margin-bottom:8px">🤖 Reparto automático <span style="font-weight:400;font-size:11px;color:#64748b">— previsualización: el pendiente (objetivo − invertido) repartido a prorrata por años, con el ahorro previsto de cada año como tope. No cambia nada todavía.</span></div>${warn}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${chips}</div><div>${rowsC||'<div style="color:#94a3b8">Sin pendiente por repartir.</div>'}</div></div>`;
+  })();
+  el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML+autoPreviewHTML;
   /* Banda deslizante ↔ scroll horizontal de la tabla */
   (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc||!rng)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
