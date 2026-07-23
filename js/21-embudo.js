@@ -436,7 +436,7 @@ function _emSemPop(t){ t=_emUp(t); var V=_emVer(t); if(!V)return;
   ov.addEventListener('click',function(e){ if(e.target===ov||e.target.closest('[data-emsemx]'))ov.remove(); }); }
 function _emDivBlock(r){ if(typeof _tzDivChart!=='function')return ''; if(_emRpd(r.t)==null)return '';
   var open=!!(window._emDivOpen&&window._emDivOpen[r.t]);
-  var h='<div class="em-divbtn" data-emdiv="'+r.t+'">💧 Historial del dividendo <span class="arw">'+(open?'▾':'▸')+'</span></div>';
+  var h='<div class="em-divbtn" data-emdivhist="'+r.t+'">💧 Historial del dividendo <span class="arw">'+(open?'▾':'▸')+'</span></div>';
   if(open){ var c=''; try{ c=_tzDivChart(r.t); }catch(e){} h+='<div class="em-divwrap">'+(c||'<div class="muted" style="font-size:11px">Sin histórico de dividendo.</div>')+'</div>'; }
   return h; }
 function _emVigBlock(r){ var V=_emVer(r.t); if(!V)return ''; var cats=V.catalizadores||[], ris=V.riesgos||[];
@@ -798,7 +798,7 @@ function _emBind(sec){
     if(e.target.closest('a.em-doss')){ return; } /* enlace al dossier: dejar navegar (nueva pestaña) */
     var cz=e.target.closest('[data-emcierres]'); if(cz){ e.preventDefault(); _emCierresDescargar(cz.getAttribute('data-emcierres')); return; }
     var esm=e.target.closest('[data-emsem]'); if(esm){ e.preventDefault(); _emSemPop(esm.getAttribute('data-emsem')); return; }
-    var edv=e.target.closest('[data-emdiv]'); if(edv){ var dt=_emUp(edv.getAttribute('data-emdiv')); window._emDivOpen=window._emDivOpen||{}; window._emDivOpen[dt]=!window._emDivOpen[dt]; renderEmbudo(); return; }
+    var ehd=e.target.closest('[data-emdivhist]'); if(ehd){ var dt=_emUp(ehd.getAttribute('data-emdivhist')); window._emDivOpen=window._emDivOpen||{}; window._emDivOpen[dt]=!window._emDivOpen[dt]; renderEmbudo(); return; }
     var evg=e.target.closest('[data-emvig]'); if(evg){ var vt=_emUp(evg.getAttribute('data-emvig')); window._emVigOpen=window._emVigOpen||{}; window._emVigOpen[vt]=!window._emVigOpen[vt]; renderEmbudo(); return; }
     var ep=e.target.closest('[data-emplan]'); if(ep){ e.preventDefault(); _emToPlan(ep.getAttribute('data-emplan')); return; }
     var ec=e.target.closest('[data-emcaja]'); if(ec){ e.preventDefault(); _emToCaja(ec.getAttribute('data-emcaja')); return; }
