@@ -71,11 +71,12 @@ const _VIS_ESTFALL={AAA:82,AA:76,A:70,BBB:56,BB:44,B:32,CCC:22,CC:14,C:8};
 function _visMinByRating(){ var acc={}; (DB.analisis||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase();
   var te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t]||{}; var sc=(te.score!=null)?num(te.score):null;
   var rt=((a.rating||te.rating||'')+'').toUpperCase(); if(sc!=null&&rt){ if(acc[rt]==null||sc<acc[rt])acc[rt]=sc; } }); return acc; }
-/* Estimación de una empresa SIN dossier: letra = rating de tu Matriz (o, si no lo tiene, derivado de
-   la calidad de Radar); score = borde inferior de tus analizadas de esa letra (Carlos). Marca «est.». */
+/* Estimación de una empresa SIN dossier: letra = rating de tu Matriz SOLO si es una letra válida
+   (AAA…C); si está vacío o es otra cosa (p. ej. estrellas ★★★ de la Matriz), se deriva de la calidad
+   de Radar. score = borde inferior de tus analizadas de esa letra (Carlos). Marca «est.». */
 function _visEstim(t,mins){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{};
   var rt=((u.rating||'')+'').toUpperCase();
-  if(!rt){ var rc=_visCalMercado(t); if(rc!=null)rt=_visRatingLetra(rc); }
+  if(!(rt&&_VIS_ESTFALL[rt]!=null)){ var rc=_visCalMercado(t); rt=(rc!=null)?_visRatingLetra(rc):''; }
   if(!rt)return null;
   var sc=(mins&&mins[rt]!=null)?mins[rt]:(_VIS_ESTFALL[rt]!=null?_VIS_ESTFALL[rt]:null);
   return (sc==null)?null:{score:sc,rating:rt}; }
