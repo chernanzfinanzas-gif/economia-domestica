@@ -1405,6 +1405,18 @@ function proyRealAgg(year){
   var ahorro=ing-gas;
   return {efectivo:efectivo,cartera:cartera,patrimonio:patrimonio,dividendo:div,aInversion:aNeta,aEfectivo:(ahorro-aNeta),ahorro:ahorro,ytd:(year===yrNow)};
 }
+/* ===== FASE 2b — FOTO INICIAL congelada =====
+   Guarda el plan de HOY (computeProy) como línea base fija. La fila Real se compara contra
+   esta foto (el plan original) en vez del pronóstico vivo, que se re-ancla cada año. */
+function proyFijarFotoInicial(){
+  proyDefaults(); var c=DB.config.proyeccion; var ser=computeProy(c); var serie={};
+  ser.forEach(function(r){ serie[r.anio]={patrimonio:r.patrimonio,efectivo:r.efectivo,cartera:r.cartera,invertido:r.invertido,dividendoAnual:r.dividendoAnual,ingresosExtra:r.ingresosExtra,ahorroTotal:r.ahorroTotal,aInversion:r.aInversion,aEfectivo:r.aEfectivo}; });
+  c.fotoInicial={fecha:new Date().toISOString().slice(0,10), serie:serie};
+  if(typeof toast==='function')toast('📸 Foto inicial fijada ('+c.fotoInicial.fecha+')');
+  if(typeof scheduleSave==='function')scheduleSave(); renderProy();
+}
+function proyBorrarFotoInicial(){ if(DB.config&&DB.config.proyeccion&&DB.config.proyeccion.fotoInicial){ delete DB.config.proyeccion.fotoInicial; if(typeof scheduleSave==='function')scheduleSave(); renderProy(); } }
+function _proyFechaCorta(f){ f=(''+(f||'')).slice(0,10); var p=f.split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):f; }
 function proyRefreshBase(c){
   // Ancla de la CARTERA TEORICA = valor de cartera a cierre del 31-dic del ano ANTERIOR al ano base,
   // reconstruido con cotizaciones reales del repo. Es historico y fijo (no se mueve con el mercado).
@@ -1444,15 +1456,27 @@ function renderProy(){
     if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="14">🏖️ Jubilación · ${yJub} — el «→ Efectivo» deja de acumularse y pasa a cubrir gastos (por eso sube el Disponible/mes)</td></tr>`; }
     const pc=_pcls(r.patrimonioReal,r.patrimonio);
     drows+=`<tr${r.trasJub?' class="tj"':''}><td><b>${r.anio}</b></td><td class="num" style="color:#475569">${r.edad}</td><td class="num">${pf(r.efectivo)}</td><td class="num">${pf(r.invertido)}</td><td class="num">${pf(r.cartera)}</td><td class="num">${r.carteraReal!=null?pf(r.carteraReal):'·'}</td><td class="num"><b>${pf(r.patrimonio)}</b></td><td class="num pr ${pc}">${r.patrimonioReal!=null?pf(r.patrimonioReal):'·'}</td><td class="num">${pf(r.dividendoAnual)}</td><td class="num extra"><input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></td><td class="num split1"><b>${pf(r.ahorroTotal)}</b></td><td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td><td class="num split3 ${r.aEfectivo>=0?'':'neg'}">${pf(r.aEfectivo)}</td><td class="num">${pf(r.disponibleMes)}</td></tr>`;
-    /* FASE 2: fila «Real» bajo el año (solo si el interruptor está activo y hay datos reales) */
+    /* FASE 2: filas «Plan ini.» (foto inicial congelada) + «Real», bajo el año con datos reales */
     if(window._proyRealOn){ const R=proyRealAgg(r.anio); if(R){
+      const FI=(c.fotoInicial&&c.fotoInicial.serie)?c.fotoInicial.serie[r.anio]:null;
+      if(FI){
+        drows+=`<tr class="pfi"><td class="pfi-lbl">Plan ini.</td><td></td><td class="num">${pf(FI.efectivo)}</td><td class="num soft">·</td><td class="num">${pf(FI.cartera)}</td><td class="num soft">·</td><td class="num"><b>${pf(FI.patrimonio)}</b></td><td class="num soft">·</td><td class="num">${pf(FI.dividendoAnual)}</td><td class="num soft">·</td><td class="num">${pf(FI.ahorroTotal)}</td><td class="num">${pf(FI.aInversion)}</td><td class="num">${pf(FI.aEfectivo)}</td><td class="num soft">·</td></tr>`;
+      }
+      /* base de comparación: la foto inicial si existe (plan original); si no, el pronóstico vivo */
+      const B=FI?FI:r;
       const _c=(rv,tv)=> (rv==null)?'<td class="num soft">·</td>':`<td class="num ${(tv!=null&&rv>=tv)?'preal-up':(tv!=null?'preal-dn':'')}">${pf(rv)}${R.ytd?'<span class="ytd">·YTD</span>':''}</td>`;
-      drows+=`<tr class="preal"><td class="preal-lbl">Real</td><td></td>${_c(R.efectivo,r.efectivo)}<td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td>${_c(R.dividendo,r.dividendoAnual)}<td class="num soft">·</td>${_c(R.ahorro,r.ahorroTotal)}${_c(R.aInversion,r.aInversion)}${_c(R.aEfectivo,r.aEfectivo)}<td class="num soft">·</td></tr>`;
+      drows+=`<tr class="preal"><td class="preal-lbl">Real</td><td></td>${_c(R.efectivo,B.efectivo)}<td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td>${_c(R.dividendo,B.dividendoAnual)}<td class="num soft">·</td>${_c(R.ahorro,B.ahorroTotal)}${_c(R.aInversion,B.aInversion)}${_c(R.aEfectivo,B.aEfectivo)}<td class="num soft">·</td></tr>`;
     } }
   });
   const dhead=`<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invert.</th><th class="num">Cart.&nbsp;teór.</th><th class="num">Cart.&nbsp;real</th><th class="num">Pat.&nbsp;teór.</th><th class="num">Pat.&nbsp;real</th><th class="num">Div./año</th><th class="num extra">Extra</th><th class="num split1">Ahorro</th><th class="num split2">→&nbsp;Inv.</th><th class="num split3">→&nbsp;Efec.</th><th class="num">Disp./mes</th></tr>`;
   const _rtgl=`<label class="proy-rtgl"><input type="checkbox" id="proyRealTgl"${window._proyRealOn?' checked':''}> Comparar con lo <b>real</b> <span>— añade una fila «Real» bajo cada año (de tus datos)</span></label>`;
-  const deskHTML=`<div class="proy-desk">${_rtgl}<div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Patrimonio real (años ya vividos) vs objetivo teórico: <span class="lg g">≥ objetivo</span> <span class="lg a">95–100%</span> <span class="lg r">por debajo</span>${window._proyRealOn?' · Fila <b>Real</b>: <span class="lg g">≥ pronóstico</span> <span class="lg r">por debajo</span> · «YTD» = año en curso a medias':''}</div></div>`;
+  const _fi=c.fotoInicial;
+  const _fibtn=_fi
+    ? `<span class="proy-fi">📸 Plan inicial: <b>${_proyFechaCorta(_fi.fecha)}</b> <button class="btn ghost sm" id="proyFotoFijar">Actualizar</button> <button class="btn ghost sm" id="proyFotoBorrar" title="Borrar la foto inicial">✕</button></span>`
+    : `<button class="btn sm" id="proyFotoFijar" title="Congela el plan de hoy como línea base para comparar con lo real año a año">📸 Fijar foto inicial</button>`;
+  const _bar=`<div class="proy-cmp">${_rtgl}${_fibtn}</div>`;
+  const _leg2=window._proyRealOn?(' · Fila <b>Real</b> vs '+(_fi?'<b>Plan ini.</b>':'pronóstico')+': <span class="lg g">≥</span> <span class="lg r">por debajo</span> · «YTD» = año en curso a medias'):'';
+  const deskHTML=`<div class="proy-desk">${_bar}<div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Patrimonio real (años ya vividos) vs objetivo teórico: <span class="lg g">≥ objetivo</span> <span class="lg a">95–100%</span> <span class="lg r">por debajo</span>${_leg2}</div></div>`;
   /* ---- MÓVIL: fila desplegable por año ---- */
   const mrows=ser.map(r=>{ const pc=_pcls(r.patrimonioReal,r.patrimonio); const rb=r.patrimonioReal!=null?`<span class="rbadge ${pc}">real ${fmt(r.patrimonioReal)}</span>`:''; const op=window._proyYr[r.anio]?' open':'';
     return `<div class="yr${op}${r.trasJub?' tj':''}" data-yr="${r.anio}"><div class="yr-h"><div class="yy"><b>${r.anio}</b><span>${r.edad} años</span></div><div class="yp">${fmt(r.patrimonio)}${rb}</div><span class="arw">▶</span></div><div class="yr-b"><div class="mg"><div class="m"><span>Efectivo</span><b>${fmt(r.efectivo)}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.invertido)}</b></div><div class="m"><span>Cartera teórica</span><b>${fmt(r.cartera)}</b></div><div class="m"><span>Cartera real</span><b>${r.carteraReal!=null?fmt(r.carteraReal):'—'}</b></div><div class="m"><span>Dividendo/año</span><b>${fmt(r.dividendoAnual)}</b></div><div class="m"><span>Disponible/mes</span><b>${fmt(r.disponibleMes)}</b></div></div><div class="split"><div class="split-t">Reparto del ahorro <b>${fmt(r.ahorroTotal)}</b></div><div class="split-row"><label>💶 Ingreso extra<input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></label><label>→ A inversión<input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></label><div class="split-ef"><span>→ A efectivo ${r.trasJub?'(a gastos)':'('+(r.anio+1)+')'}</span><b class="${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</b></div></div></div>${r.gasto?`<div class="gasto">💸 Gasto puntual ${r.gastoCon||''}: <b class="neg">−${fmt(r.gasto)}</b></div>`:''}</div></div>`;
@@ -1466,6 +1490,9 @@ function renderProy(){
 function _proyWireToggles(){
   var pv=document.getElementById('view-proyeccion'); if(!pv||pv._proyTogBound)return; pv._proyTogBound=true;
   pv.addEventListener('click',function(e){
+    /* Botones de la foto inicial (antes del guard que ignora botones). */
+    if(e.target.closest('#proyFotoFijar')){ var _has=!!(DB.config&&DB.config.proyeccion&&DB.config.proyeccion.fotoInicial); if(!_has || confirm('¿Actualizar la foto inicial con el plan de hoy? Se sustituye la anterior.')){ if(typeof proyFijarFotoInicial==='function')proyFijarFotoInicial(); } return; }
+    if(e.target.closest('#proyFotoBorrar')){ if(confirm('¿Borrar la foto inicial? La fila Real volverá a compararse con el pronóstico vivo.')){ if(typeof proyBorrarFotoInicial==='function')proyBorrarFotoInicial(); } return; }
     if(e.target.closest('input,button,a,label,select'))return;
     var bh=e.target.closest('.blk-h[data-proyblk]');
     if(bh){ var k=bh.getAttribute('data-proyblk'); var b=bh.parentElement; b.classList.toggle('open'); window._proyBlk=window._proyBlk||{}; window._proyBlk[k]=b.classList.contains('open'); return; }
