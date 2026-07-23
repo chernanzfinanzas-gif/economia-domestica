@@ -78,6 +78,7 @@ function _visEstim(t,mins){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]|
   var rt=((u.rating||'')+'').toUpperCase();
   if(!(rt&&_VIS_ESTFALL[rt]!=null)){ var rc=_visCalMercado(t); rt=(rc!=null)?_visRatingLetra(rc):''; }
   if(!rt)return null;
+  if(rt==='AAA'||rt==='AA')rt='A'; /* TOPE «A»: una empresa sin analizar no puede lucir AAA/AA estimado (Carlos) */
   var sc=(mins&&mins[rt]!=null)?mins[rt]:(_VIS_ESTFALL[rt]!=null?_VIS_ESTFALL[rt]:null);
   return (sc==null)?null:{score:sc,rating:rt}; }
 /* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
