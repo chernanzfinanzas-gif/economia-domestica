@@ -49,6 +49,26 @@ function visLoadTesis(cb){
 }
 
 const _VIS_RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+const _VIS_EST=' <span title="Calidad estimada del subíndice de Radar (aún sin dossier); no es tu score de análisis" style="font-size:9px;font-weight:800;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:5px;padding:0 4px;vertical-align:middle">est.</span>';
+/* Umbrales de calidad → letra (para la calidad ESTIMADA de empresas aún sin dossier). */
+function _visRatingLetra(pts){ if(pts==null)return ''; pts=+pts;
+  return pts>=90?'AAA':pts>=80?'AA':pts>=70?'A':pts>=60?'BBB':pts>=45?'BB':pts>=30?'B':pts>=15?'CCC':'CC'; }
+/* Calidad estimada = subíndice CALIDAD de Radar (0,5·ROE+0,3·solvencia+0,2·rating) desde
+   fundamentales.json. Objetiva y disponible para todo el universo aunque no haya dossier. */
+function _visCalEstim(t){ t=(t||'').toUpperCase();
+  if(typeof radScore!=='function')return null;
+  var f=null; if(typeof _radFundCache!=='undefined'&&_radFundCache&&_radFundCache.empresas){ f=_radFundCache.empresas.find(function(x){return (''+x.ticker).toUpperCase()===t;}); }
+  if(!f)return null;
+  var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
+  try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?r.cal:null; }catch(e){ return null; } }
+/* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
+   Devuelve ratio (0-1). Cae a divAccion/cotización si el motor de dividendos no está disponible. */
+function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();
+  if(typeof _radarDiv==='function'&&typeof _radarPrecio==='function'){
+    var pp=num(_radarPrecio(t))||num(cot); var dd=num(_radarDiv(t));
+    if(pp>0&&dd>0)return dd/pp;
+  }
+  return (num(cot)>0&&num(div)>0)?(num(div)/num(cot)):null; }
 function visRankData(){
   const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
   const cl=x=>Math.max(0,Math.min(100,x));
@@ -58,23 +78,34 @@ function visRankData(){
     const v=(DB.valores||{})[t]||{};
     const cot=num(a.cotizacion)||num(v.precioActual);
     const poBase=num(te.poBase)||((num(a.poMin)&&num(a.poMax))?(num(a.poMin)+num(a.poMax))/2:(num(a.poMax)||num(a.poMin)||0));
-    const rating=(a.rating||te.rating||'').toUpperCase();
-    const score=(te&&te.score!=null)?num(te.score):(_VIS_RPTS[rating]!=null?_VIS_RPTS[rating]:null);
+    let rating=(a.rating||te.rating||'').toUpperCase();
+    /* Calidad: score REAL del dossier; si no, ESTIMADA del subíndice Calidad de Radar; si no, rating-map. */
+    const dossierScore=(te&&te.score!=null)?num(te.score):null;
+    let score=dossierScore, estCal=false;
+    if(score==null){ const est=_visCalEstim(t); if(est!=null){ score=est; estCal=true; if(!rating)rating=_visRatingLetra(est); }
+      else if(_VIS_RPTS[rating]!=null){ score=_VIS_RPTS[rating]; } }
     const div=num(a.divAccion)||num(v.divAccion);
     const mds=(cot>0&&poBase>0)?(poBase/cot-1):null;
-    const rpd=(cot>0&&div>0)?(div/cot):null;
+    const rpd=_visRpdViva(t,cot,div);
     const meses=(a.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null;
     const calN=(score!=null)?score:50;
     const mdsN=(mds!=null)?cl(50+mds/0.4*50):50;
     const rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
     const atractivo=Math.round(0.45*calN+0.35*mdsN+0.20*rpdN);
-    return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, mds, rpd, meses, atractivo,
+    return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, estCal, mds, rpd, meses, atractivo,
       held:held.has(t), decision:(a.decision||te.decision||'').toUpperCase(), tags:visTags(t), stale:(meses!=null&&meses>12)};
   }).filter(x=>x.cot>0 || x.score!=null);
   /* Uni\u00f3n con Universo: empresas de la Matriz a\u00fan no en An\u00e1lisis (Pte. An\u00e1lisis, sin score). */
   var _seen=new Set(rows.map(function(x){return x.t;}));
   var _uni=DB.universo||{};
-  Object.keys(_uni).forEach(function(tt){ tt=(tt||'').toUpperCase(); if(!tt||_seen.has(tt))return; var v=(DB.valores||{})[tt]||{}; rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:num(v.precioActual),poBase:0,rating:'',score:null,mds:null,rpd:null,meses:null,atractivo:0,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
+  Object.keys(_uni).forEach(function(tt){ tt=(tt||'').toUpperCase(); if(!tt||_seen.has(tt))return; var v=(DB.valores||{})[tt]||{}; var cot=num(v.precioActual);
+    var estc=_visCalEstim(tt); var uRat=((_uni[tt]||{}).rating||'').toUpperCase();
+    var score=(estc!=null)?estc:(_VIS_RPTS[uRat]!=null?_VIS_RPTS[uRat]:null);
+    var rat=(estc!=null)?_visRatingLetra(estc):uRat;
+    var rpd=_visRpdViva(tt,cot,num(v.divAccion));
+    var calN=(score!=null)?score:50, rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
+    var atractivo=(score!=null||rpd!=null)?Math.round(0.45*calN+0.35*50+0.20*rpdN):0; /* sin PO → margen seg. neutro (50) */
+    rows.push({t:tt,nombre:(_uni[tt]||{}).nombre||tt,cot:cot,poBase:0,rating:rat,score:score,estCal:(estc!=null),mds:null,rpd:rpd,meses:null,atractivo:atractivo,held:held.has(tt),decision:'',tags:[],stale:false,pte:true}); });
   return rows;
 }
 
@@ -97,8 +128,8 @@ function _visAtrCol(a){ return a>=70?'#16a34a':(a>=55?'#2563eb':'#64748b'); }
 function _visRankDesk(rows){
   var trs=rows.map(function(x,i){ return '<tr class="'+(i===0&&!x.pte?'best':'')+(x.pte?' pte':'')+'">'+
     '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b> <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
-    '<td>'+(x.rating||'—')+'</td>'+
-    '<td style="color:'+_visScoreCol(x.score)+';font-weight:700">'+(x.score==null?'—':Math.round(x.score))+'</td>'+
+    '<td style="white-space:nowrap">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</td>'+
+    '<td style="color:'+_visScoreCol(x.score)+';font-weight:700'+(x.estCal?';font-style:italic':'')+'">'+(x.score==null?'—':Math.round(x.score))+'</td>'+
     '<td class="'+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</td>'+
     '<td>'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</td>'+
     '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</td>'+
@@ -113,8 +144,8 @@ function _visRankCards(rows){
     '<div class="mid"><div class="nm">'+x.t+' · '+_infEscSafe((x.nombre||'').slice(0,18))+'</div><div class="s2">'+_visDecChip(x.decision)+' <span style="font-size:11px;color:#94a3b8">'+(x.held?'en cartera':(x.pte?'Pte. Análisis':(x.rating||'')))+'</span></div></div>'+
     '<span class="arw">▶</span></div>'+
     '<div class="vis-card-b"><div class="mgrid">'+
-      '<div class="m"><div class="l">Rating</div><div class="v">'+(x.rating||'—')+'</div></div>'+
-      '<div class="m"><div class="l">Score</div><div class="v" style="color:'+_visScoreCol(x.score)+'">'+(x.score==null?'—':Math.round(x.score))+'</div></div>'+
+      '<div class="m"><div class="l">Rating</div><div class="v">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</div></div>'+
+      '<div class="m"><div class="l">Score</div><div class="v" style="color:'+_visScoreCol(x.score)+(x.estCal?';font-style:italic':'')+'">'+(x.score==null?'—':Math.round(x.score))+'</div></div>'+
       '<div class="m"><div class="l">Margen seg.</div><div class="v '+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</div></div>'+
       '<div class="m"><div class="l">RPD</div><div class="v">'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</div></div>'+
       '<div class="m"><div class="l">Dossier</div><div class="v">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' ⚠':'')+'</div></div>'+
@@ -149,6 +180,11 @@ function renderVision(){
   const el=$('#visBody'); if(!el) return;
   const faltan=(DB.analisis||[]).some(a=>{ const t=(a.ticker||'').toUpperCase(); return t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined); });
   if(faltan) visLoadTesis(renderVision);
+  /* Carga (1 vez) de fundamentales.json + motor de dividendos para la calidad estimada y la RPD viva. */
+  if(!renderVision._extra){ renderVision._extra=true; var _pr=[];
+    if(typeof _radCargarFund==='function')_pr.push(Promise.resolve(_radCargarFund()).catch(function(){}));
+    if(typeof _evoCargar==='function')_pr.push(Promise.resolve(_evoCargar()).catch(function(){}));
+    if(_pr.length)Promise.all(_pr).then(function(){ try{ renderVision(); }catch(e){} }); }
   if(!(DB.analisis||[]).length && !Object.keys(DB.universo||{}).length){ el.innerHTML='<div class="empty">Sin empresas en Análisis todavía.</div>'; return; }
   var rows=visRankData();
   var key={atractivo:x=>x.atractivo, mds:x=>(x.mds==null?-9:x.mds), cal:x=>(x.score==null?-9:x.score), rpd:x=>(x.rpd==null?-9:x.rpd), meses:x=>(x.meses==null?-9:x.meses)}[_visSort]||(x=>x.atractivo);
@@ -167,7 +203,7 @@ function renderVision(){
   el.innerHTML=
     '<div class="sub" style="margin-bottom:14px">Ranking transversal de todas tus empresas por <b>atractivo</b> (calidad + margen de seguridad + RPD) para priorizar qué analizar o comprar, y tu <b>exposición por tema de riesgo</b> en cartera.</div>'+
     kpis+
-    _visBlk('rank','🧭','Ranking de atractivo',nAn+' analizadas','Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). Prioriza qué analizar o actualizar antes; ⚠ marca dossier de más de 12 meses.',_visSortTools(),_visRankDesk(rows)+_visRankCards(rows))+
+    _visBlk('rank','🧭','Ranking de atractivo',nAn+' analizadas','Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). RPD viva (dividendo del año en vigor ÷ precio, misma fuente que Radar). Las que aún no tienes analizadas usan una <b>calidad estimada</b> del subíndice de Radar, marcada «est.». ⚠ marca dossier de más de 12 meses.',_visSortTools(),_visRankDesk(rows)+_visRankCards(rows))+
     _visBlk('expo','🛡️','Exposición por tema de riesgo',ex.rows.length+' temas','% del valor de tu cartera expuesto a cada tema (una empresa puede sumar a varios). Rojo ≥40% · ámbar ≥25%.','',_visExpoHtml(ex))+
     _visBlk('tags','🏷️','Tags de riesgo por empresa',nAn+' empresas','Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). «↻ auto» descarta los cambios manuales de esa empresa.','',_visTagsHtml(rows));
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
