@@ -1376,41 +1376,43 @@ function carteraAtClose(year){
 function efectivoRealAt(year){ var cut=Date.UTC(year,11,31); var snaps=(typeof patSnaps==='function'?patSnaps():[]); var best=null; snaps.forEach(function(s){ if(!s.fecha)return; var sm=Date.parse(s.fecha+'T00:00:00'); if(isNaN(sm)||sm>cut)return; best=s; }); return best?snapTot(best).ef:null; }
 function proyColor(real,teor){ if(real==null||!teor||teor<=0)return 'transparent'; var r=real/teor; if(r>=1)return '#dcfce7'; if(r>=0.95)return '#fef9c3'; return '#fee2e2'; }
 /* ===== FASE 2 — valores REALES del año (de tus datos), para comparar con el pronóstico =====
-   Solo años ya empezados (≤ año en curso). El año en curso va parcial ("YTD").
+   Solo años ya empezados (≤ año en curso). El año en curso va parcial ("YTD"). TODO sale de tu
+   contabilidad, así reconcilia: Nóminas + Dividendo + Extra − Gastos = Ahorro → → Inversión / → Efectivo.
    Fuentes: efectivo ← último snapshot de Patrimonio · cartera ← acciones×cotización real ·
-   → Inversión = aportación NETA (compras − ventas − scrip) vía _allOps (incluye DB.cerradas,
-   así resta rotaciones tipo Enagás→Naturgy) · dividendo = BRUTO cobrado hasta hoy (DB.dividendos
-   €/acc × acciones en cada pago) — bruto, no neto, porque la retención la devuelve Hacienda ·
-   ahorro ← Movimientos (ingresos − gastos). NO calcula «invertido» real (coste vivo) para no
-   contar posiciones cerradas: esa celda queda «·». */
+   invertido = coste inicial + aportación NETA acumulada (compras − ventas, incluye DB.cerradas) ·
+   Movimientos por categoría → nómina (Nómina/Pagas), dividendo (categoría «Dividendos», ya incluye
+   la devolución de Hacienda ≈ bruto), extra (resto de ingresos no presupuestados: intereses, otros),
+   gastos → ahorro=ingresos−gastos y gasto medio/mes · → Inversión = aportación NETA del año. */
 function proyRealAgg(year){
   var yrNow=new Date().getFullYear(); year=+year;
   if(year>yrNow) return null;
-  var cut=Date.UTC(year,11,31);
   var _cart=(year<yrNow)?(typeof carteraAtClose==='function'?carteraAtClose(year):0):(typeof carteraLive==='function'?carteraLive():0);
   var cartera=_cart>0?_cart:null;
   var _ef=(typeof efectivoRealAt==='function')?efectivoRealAt(year):null;
   var efectivo=(_ef!=null)?_ef:null;
   var patrimonio=(cartera!=null)?(cartera+(efectivo!=null?efectivo:0)):null;
-  /* aportación NETA del año (compra +, venta −); scrip a precio 0 no suma */
-  var aNeta=0; var ops=(typeof _allOps==='function')?_allOps():[];
-  ops.forEach(function(o){ if(!o.fecha)return; if((''+o.fecha).slice(0,4)!==(''+year))return; var eur=num(o.acciones)*num(o.precio); aNeta+=(o.tipo==='venta'?-1:1)*eur; });
-  /* dividendo BRUTO cobrado hasta hoy = importe €/acc (bruto) × acciones que tenías en cada pago.
-     Se usa el BRUTO (no el neto) porque la retención te la devuelve Hacienda ≈ íntegra. */
-  var div=0; var todayMs=Date.now(); var DD=DB.dividendos||{};
-  var _shAt=function(T,ms){ var s=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()!==T||!o.fecha)return; var om=Date.parse((''+o.fecha).slice(0,10)+'T00:00:00'); if(isNaN(om)||om>ms)return; s+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); return s; };
-  Object.keys(DD).forEach(function(t){ var T=t.toUpperCase(); (DD[t]||[]).forEach(function(p){ var f=(''+(p.fecha||'')).slice(0,10); if(f.length!==10||f.slice(0,4)!==(''+year))return; var pm=Date.parse(f+'T00:00:00'); if(isNaN(pm)||pm>todayMs)return; var sh=_shAt(T,pm); if(sh>0)div+=num(p.importe)*sh; }); });
-  /* ahorro real del año (Movimientos, signo por categoría) */
-  var ing=0,gas=0; (DB.movimientos||[]).forEach(function(m){ if((''+(m.fecha||'')).slice(0,4)!==(''+year))return; var c=(typeof catById==='function')?catById(m.categoriaId):null; var tp=c?c.tipo:m.tipo; var sg=(tp&&m.tipo&&m.tipo!==tp)?-1:1; if(tp==='ingreso')ing+=sg*num(m.importe); else if(tp==='gasto')gas+=sg*num(m.importe); });
+  /* Movimientos del año por categoría */
+  var nomina=0,divi=0,ing=0,gas=0,meses={};
+  (DB.movimientos||[]).forEach(function(m){ var f=(''+(m.fecha||'')); if(f.slice(0,4)!==(''+year))return; if(f.length>=7)meses[f.slice(0,7)]=1;
+    var c=(typeof catById==='function')?catById(m.categoriaId):null; var tp=c?c.tipo:m.tipo; var nm=((c&&c.nombre)||'').toLowerCase(); var sg=(tp&&m.tipo&&m.tipo!==tp)?-1:1; var v=sg*num(m.importe);
+    if(tp==='ingreso'){ ing+=v; if(nm.indexOf('mina')>=0||nm.indexOf('paga')>=0||nm.indexOf('sueldo')>=0)nomina+=v; else if(nm.indexOf('dividend')>=0)divi+=v; }
+    else if(tp==='gasto'){ gas+=v; } });
+  var extra=ing-nomina-divi;               /* resto de ingresos no presupuestados (intereses, otros) */
   var ahorro=ing-gas;
-  return {efectivo:efectivo,cartera:cartera,patrimonio:patrimonio,dividendo:div,aInversion:aNeta,aEfectivo:(ahorro-aNeta),ahorro:ahorro,ytd:(year===yrNow)};
+  var nMes=Object.keys(meses).length||12; var gastoMes=gas/nMes;
+  /* aportación NETA del año + acumulada desde el año base (para «invertido» real) */
+  var aNeta=0,netAcum=0; var ops=(typeof _allOps==='function')?_allOps():[];
+  var base=(DB.config&&DB.config.proyeccion)?Math.round(num(DB.config.proyeccion.anioBase)):year;
+  ops.forEach(function(o){ if(!o.fecha)return; var yy=(''+o.fecha).slice(0,4); if(!/^\d{4}$/.test(yy))return; var eur=num(o.acciones)*num(o.precio); var s=(o.tipo==='venta'?-1:1); if(yy===(''+year))aNeta+=s*eur; if(+yy>=base&&+yy<=year)netAcum+=s*eur; });
+  var invIni=(DB.config&&DB.config.proyeccion)?num(DB.config.proyeccion.invertidoCoste):0;
+  return {efectivo:efectivo,invertido:invIni+netAcum,cartera:cartera,patrimonio:patrimonio,nomina:nomina,dividendo:divi,extra:extra,ahorro:ahorro,aInversion:aNeta,aEfectivo:(ahorro-aNeta),gastoMes:gastoMes,ytd:(year===yrNow)};
 }
 /* ===== FASE 2b — FOTO INICIAL congelada =====
    Guarda el plan de HOY (computeProy) como línea base fija. La fila Real se compara contra
    esta foto (el plan original) en vez del pronóstico vivo, que se re-ancla cada año. */
 function proyFijarFotoInicial(){
   proyDefaults(); var c=DB.config.proyeccion; var ser=computeProy(c); var serie={};
-  ser.forEach(function(r){ serie[r.anio]={patrimonio:r.patrimonio,efectivo:r.efectivo,cartera:r.cartera,invertido:r.invertido,dividendoAnual:r.dividendoAnual,ingresosExtra:r.ingresosExtra,ahorroTotal:r.ahorroTotal,aInversion:r.aInversion,aEfectivo:r.aEfectivo}; });
+  ser.forEach(function(r){ serie[r.anio]={patrimonio:r.patrimonio,efectivo:r.efectivo,cartera:r.cartera,invertido:r.invertido,nominaMes:r.nominaMes,dividendoAnual:r.dividendoAnual,ingresosExtra:r.ingresosExtra,ahorroTotal:r.ahorroTotal,aInversion:r.aInversion,aEfectivo:r.aEfectivo,disponibleMes:r.disponibleMes}; });
   c.fotoInicial={fecha:new Date().toISOString().slice(0,10), serie:serie};
   if(typeof toast==='function')toast('📸 Foto inicial fijada ('+c.fotoInicial.fecha+')');
   if(typeof scheduleSave==='function')scheduleSave(); renderProy();
@@ -1448,35 +1450,41 @@ function renderProy(){
   window._proyYr=window._proyYr||{};
   const _pcls=(real,teor)=>{ if(real==null||!teor||teor<=0)return ''; const r=real/teor; if(r>=1)return 'g'; if(r>=0.95)return 'a'; return 'r'; };
   const yJub=num(c.anioTrasJub)||2039;
-  /* ---- ESCRITORIO ---- */
+  /* ---- ESCRITORIO — modelo PLAN (foto) / REAL (se cierra el 31-dic) ---- */
   /* Formato compacto sin símbolo € (como la tabla de Desglose mensual). */
   const pf=(v)=>(typeof fmt==='function'?fmt(v).replace(/\s?€/,''):Math.round(num(v)).toLocaleString('es-ES'));
+  const _fi=c.fotoInicial;
+  const yrNow=new Date().getFullYear();
   let drows='',sepDone=false;
   ser.forEach(r=>{
-    if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="14">🏖️ Jubilación · ${yJub} — el «→ Efectivo» deja de acumularse y pasa a cubrir gastos (por eso sube el Disponible/mes)</td></tr>`; }
-    const pc=_pcls(r.patrimonioReal,r.patrimonio);
-    drows+=`<tr${r.trasJub?' class="tj"':''}><td><b>${r.anio}</b></td><td class="num" style="color:#475569">${r.edad}</td><td class="num">${pf(r.efectivo)}</td><td class="num">${pf(r.invertido)}</td><td class="num">${pf(r.cartera)}</td><td class="num">${r.carteraReal!=null?pf(r.carteraReal):'·'}</td><td class="num"><b>${pf(r.patrimonio)}</b></td><td class="num pr ${pc}">${r.patrimonioReal!=null?pf(r.patrimonioReal):'·'}</td><td class="num">${pf(r.dividendoAnual)}</td><td class="num extra"><input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></td><td class="num split1"><b>${pf(r.ahorroTotal)}</b></td><td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td><td class="num split3 ${r.aEfectivo>=0?'':'neg'}">${pf(r.aEfectivo)}</td><td class="num">${pf(r.disponibleMes)}</td></tr>`;
-    /* FASE 2: filas «Plan ini.» (foto inicial congelada) + «Real», bajo el año con datos reales */
-    if(window._proyRealOn){ const R=proyRealAgg(r.anio); if(R){
-      const FI=(c.fotoInicial&&c.fotoInicial.serie)?c.fotoInicial.serie[r.anio]:null;
-      if(FI){
-        drows+=`<tr class="pfi"><td class="pfi-lbl">Plan ini.</td><td></td><td class="num">${pf(FI.efectivo)}</td><td class="num soft">·</td><td class="num">${pf(FI.cartera)}</td><td class="num soft">·</td><td class="num"><b>${pf(FI.patrimonio)}</b></td><td class="num soft">·</td><td class="num">${pf(FI.dividendoAnual)}</td><td class="num soft">·</td><td class="num">${pf(FI.ahorroTotal)}</td><td class="num">${pf(FI.aInversion)}</td><td class="num">${pf(FI.aEfectivo)}</td><td class="num soft">·</td></tr>`;
+    if(r.trasJub&&!sepDone){ sepDone=true; drows+=`<tr class="sepj"><td colspan="13">🏖️ Jubilación · ${yJub} — el «→ Efectivo» deja de acumularse y pasa a cubrir gastos</td></tr>`; }
+    /* Plan: la foto congelada si existe (fija), si no el plan vivo (editable) */
+    const FI=(_fi&&_fi.serie)?_fi.serie[r.anio]:null; const P=FI||r; const fija=!!FI;
+    const nomA=(P.nominaMes||0)*12;
+    const extraCell = fija
+      ? `<td class="num extra">${P.ingresosExtra?pf(P.ingresosExtra):'·'}</td>`
+      : `<td class="num extra"><input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></td>`;
+    const invCell = fija
+      ? `<td class="num split2">${pf(P.aInversion)}</td>`
+      : `<td class="num split2"><input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></td>`;
+    drows+=`<tr class="plan${r.trasJub?' tj':''}"><td><b>${r.anio}</b></td><td class="num" style="color:#475569">${r.edad}</td><td class="num">${pf(P.efectivo)}</td><td class="num">${pf(P.invertido)}</td><td class="num">${pf(P.cartera)}</td><td class="num tot"><b>${pf(P.patrimonio)}</b></td><td class="num">${pf(nomA)}</td><td class="num">${pf(P.dividendoAnual)}</td>${extraCell}<td class="num split1"><b>${pf(P.ahorroTotal)}</b></td>${invCell}<td class="num split3 ${P.aEfectivo>=0?'':'neg'}">${pf(P.aEfectivo)}</td><td class="num gcol">${pf(P.disponibleMes)}</td></tr>`;
+    /* Real: sale de tu contabilidad y compara vs el Plan (P). Años futuros: fila en espera. */
+    { const R=(r.anio<=yrNow)?proyRealAgg(r.anio):null;
+      if(R){
+        const _c=(rv,tv,lowGood)=> (rv==null)?'<td class="num soft">·</td>':`<td class="num ${(tv==null)?'':((lowGood?(rv<=tv):(rv>=tv))?'preal-up':'preal-dn')}">${pf(rv)}${R.ytd?'<span class="ytd">·YTD</span>':''}</td>`;
+        const nomAP=(P.nominaMes||0)*12;
+        drows+=`<tr class="real"><td class="preal-lbl">Real</td><td></td>${_c(R.efectivo,P.efectivo)}${_c(R.invertido,P.invertido)}${_c(R.cartera,P.cartera)}<td class="num tot ${R.patrimonio>=P.patrimonio?'preal-up':'preal-dn'}"><b>${pf(R.patrimonio)}</b>${R.ytd?'<span class="ytd">·YTD</span>':''}</td>${_c(R.nomina,nomAP)}${_c(R.dividendo,P.dividendoAnual)}<td class="num extra ${R.extra>=(P.ingresosExtra||0)?'preal-up':''}">${R.extra?pf(R.extra):'·'}</td>${_c(R.ahorro,P.ahorroTotal)}${_c(R.aInversion,P.aInversion)}${_c(R.aEfectivo,P.aEfectivo)}${_c(R.gastoMes,P.disponibleMes,true)}</tr>`;
+      } else {
+        drows+=`<tr class="real"><td class="preal-lbl">Real</td><td class="pend" colspan="12">— se irá cerrando con tus datos; a 31-dic queda como la foto del año —</td></tr>`;
       }
-      /* base de comparación: la foto inicial si existe (plan original); si no, el pronóstico vivo */
-      const B=FI?FI:r;
-      const _c=(rv,tv)=> (rv==null)?'<td class="num soft">·</td>':`<td class="num ${(tv!=null&&rv>=tv)?'preal-up':(tv!=null?'preal-dn':'')}">${pf(rv)}${R.ytd?'<span class="ytd">·YTD</span>':''}</td>`;
-      drows+=`<tr class="preal"><td class="preal-lbl">Real</td><td></td>${_c(R.efectivo,B.efectivo)}<td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td><td class="num soft">·</td>${_c(R.dividendo,B.dividendoAnual)}<td class="num soft">·</td>${_c(R.ahorro,B.ahorroTotal)}${_c(R.aInversion,B.aInversion)}${_c(R.aEfectivo,B.aEfectivo)}<td class="num soft">·</td></tr>`;
-    } }
+    }
   });
-  const dhead=`<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invert.</th><th class="num">Cart.&nbsp;teór.</th><th class="num">Cart.&nbsp;real</th><th class="num">Pat.&nbsp;teór.</th><th class="num">Pat.&nbsp;real</th><th class="num">Div./año</th><th class="num extra">Extra</th><th class="num split1">Ahorro</th><th class="num split2">→&nbsp;Inv.</th><th class="num split3">→&nbsp;Efec.</th><th class="num">Disp./mes</th></tr>`;
-  const _rtgl=`<label class="proy-rtgl"><input type="checkbox" id="proyRealTgl"${window._proyRealOn?' checked':''}> Comparar con lo <b>real</b> <span>— añade una fila «Real» bajo cada año (de tus datos)</span></label>`;
-  const _fi=c.fotoInicial;
+  const dhead=`<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera</th><th class="num tot">Patrimonio</th><th class="num">Nóminas/año</th><th class="num">Div./año</th><th class="num extra">Extra</th><th class="num split1">Ahorro</th><th class="num split2">→&nbsp;Inv.</th><th class="num split3">→&nbsp;Efec.</th><th class="num gcol">Gasto·mes</th></tr>`;
   const _fibtn=_fi
-    ? `<span class="proy-fi">📸 Plan inicial: <b>${_proyFechaCorta(_fi.fecha)}</b> <button class="btn ghost sm" id="proyFotoFijar">Actualizar</button> <button class="btn ghost sm" id="proyFotoBorrar" title="Borrar la foto inicial">✕</button></span>`
-    : `<button class="btn sm" id="proyFotoFijar" title="Congela el plan de hoy como línea base para comparar con lo real año a año">📸 Fijar foto inicial</button>`;
-  const _bar=`<div class="proy-cmp">${_rtgl}${_fibtn}</div>`;
-  const _leg2=window._proyRealOn?(' · Fila <b>Real</b> vs '+(_fi?'<b>Plan ini.</b>':'pronóstico')+': <span class="lg g">≥</span> <span class="lg r">por debajo</span> · «YTD» = año en curso a medias'):'';
-  const deskHTML=`<div class="proy-desk">${_bar}<div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Patrimonio real (años ya vividos) vs objetivo teórico: <span class="lg g">≥ objetivo</span> <span class="lg a">95–100%</span> <span class="lg r">por debajo</span>${_leg2}</div></div>`;
+    ? `<span class="proy-fi">📸 Plan fijado: <b>${_proyFechaCorta(_fi.fecha)}</b> <button class="btn ghost sm" id="proyFotoFijar">Actualizar</button> <button class="btn ghost sm" id="proyFotoBorrar" title="Borrar la foto (vuelve a plan editable)">✕</button></span>`
+    : `<button class="btn sm" id="proyFotoFijar" title="Congela el plan de hoy como foto fija; a partir de ahí la fila Real compara contra él">📸 Fijar plan (foto)</button>`;
+  const _bar=`<div class="proy-cmp"><span class="proy-hint"><span class="badge b-plan">PLAN</span> foto ${_fi?'fija':'editable'} · <span class="badge b-real">REAL</span> de tus datos, cierra el 31-dic</span>${_fibtn}</div>`;
+  const deskHTML=`<div class="proy-desk">${_bar}<div class="ptable"><table><thead>${dhead}</thead><tbody>${drows}</tbody></table></div><div class="proy-leg">Fila <b>Real</b> vs Plan: <span class="lg g">mejor/≥</span> <span class="lg r">peor/&lt;</span> · en <b>Gasto·mes</b> verde = gastas ≤ lo previsto · «YTD» = año en curso a medias. Reconcilia: Nóminas + Dividendo + Extra − Gastos = Ahorro.</div></div>`;
   /* ---- MÓVIL: fila desplegable por año ---- */
   const mrows=ser.map(r=>{ const pc=_pcls(r.patrimonioReal,r.patrimonio); const rb=r.patrimonioReal!=null?`<span class="rbadge ${pc}">real ${fmt(r.patrimonioReal)}</span>`:''; const op=window._proyYr[r.anio]?' open':'';
     return `<div class="yr${op}${r.trasJub?' tj':''}" data-yr="${r.anio}"><div class="yr-h"><div class="yy"><b>${r.anio}</b><span>${r.edad} años</span></div><div class="yp">${fmt(r.patrimonio)}${rb}</div><span class="arw">▶</span></div><div class="yr-b"><div class="mg"><div class="m"><span>Efectivo</span><b>${fmt(r.efectivo)}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.invertido)}</b></div><div class="m"><span>Cartera teórica</span><b>${fmt(r.cartera)}</b></div><div class="m"><span>Cartera real</span><b>${r.carteraReal!=null?fmt(r.carteraReal):'—'}</b></div><div class="m"><span>Dividendo/año</span><b>${fmt(r.dividendoAnual)}</b></div><div class="m"><span>Disponible/mes</span><b>${fmt(r.disponibleMes)}</b></div></div><div class="split"><div class="split-t">Reparto del ahorro <b>${fmt(r.ahorroTotal)}</b></div><div class="split-row"><label>💶 Ingreso extra<input type="number" step="500" class="extraInput" data-anio="${r.anio}" value="${r.ingresosExtra?Math.round(r.ingresosExtra):''}" placeholder="0"></label><label>→ A inversión<input type="number" step="500" class="aporInput" data-anio="${r.anio}" value="${Math.round(r.aInversion)}"></label><div class="split-ef"><span>→ A efectivo ${r.trasJub?'(a gastos)':'('+(r.anio+1)+')'}</span><b class="${r.aEfectivo>=0?'':'neg'}">${fmt(r.aEfectivo)}</b></div></div></div>${r.gasto?`<div class="gasto">💸 Gasto puntual ${r.gastoCon||''}: <b class="neg">−${fmt(r.gasto)}</b></div>`:''}</div></div>`;
