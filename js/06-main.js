@@ -209,10 +209,10 @@ const GROUPS={
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['riesgo','Riesgo'],['analisis','Análisis'],['comparador','Comparador']],
-  cartera:[['posiciones','Posiciones'],['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
+  cartera:[['inversiones','Cartera'],['rebalanceo','Rebalanceo'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['buzon','Buzón del lunes'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
-  planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['plan','Plan'],['simulador','Simulador'],['rebalanceo','Rebalanceo']],
+  planinv:[['proyeccion','Proyección'],['diversif','Diversificación'],['divcomp','Comparativa Div.'],['simulador','Simulador']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
 };

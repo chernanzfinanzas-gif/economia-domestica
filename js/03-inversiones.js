@@ -112,6 +112,44 @@ function renderPOS(){
   el.innerHTML= html || '<div class="empty">Sin lotes para mostrar.</div>';
   if(!el._posBlkBound){ el._posBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-sorttbl]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-posblk'); if(k){window._posOpen=window._posOpen||{};window._posOpen[k]=b.classList.contains('open');} } }); }
 }
+/* Detalle por lote al final de «Cartera» (funde la antigua pestaña «Posiciones»): todas las
+   posiciones ordenadas cronológicamente, con años y rentabilidad/año. Fuente: posLots(). */
+function renderInvLotes(){
+  const el=$('#invLotes'); if(!el) return;
+  let lots=posLots();
+  lots.forEach(l=>{ l.vc=l.acc*l.pc; l.va=l.acc*l.pa; l.pl=l.va-l.vc; l.cotPct=l.vc?l.pl/l.vc:0; l.divPct=l.vc?l.div/l.vc:0; l.cotYr=l.years>0?l.cotPct/l.years:l.cotPct; l.divYr=l.years>0?l.divPct/l.years:l.divPct; l.totYr=l.cotYr+l.divYr; });
+  const pc2=x=>(x>=0?'+':'')+(x*100).toFixed(1)+'%';
+  const head='<tr><th class="l">Fecha</th><th class="l">Empresa</th><th class="num">Acc.</th><th class="num">P.compra</th><th class="num">P.actual</th><th class="num">Valor compra</th><th class="num">Valor actual</th><th class="num">Plusvalía</th><th class="num">Δ% cotiz</th><th class="num">Div cobrado</th><th class="num">Años</th><th class="num">%Cotiz/año</th><th class="num">%Div/año</th><th class="num">%Total/año</th></tr>';
+  window._invLotesOpen=window._invLotesOpen||{Cartera:true,Vendida:false};
+  function seccion(titulo,arr,estadoKey){
+    if(!arr.length) return '';
+    arr=arr.slice().sort((a,b)=> (a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0)) ); // cronológico (antigua→reciente)
+    let sVC=0,sVA=0,sPL=0,sDIV=0;
+    const rows=arr.map(l=>{ sVC+=l.vc; sVA+=l.va; sPL+=l.pl; sDIV+=l.div;
+      return `<tr><td class="l" style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
+        `<td class="l" style="white-space:nowrap"><b class="pos-tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker}</b> <span class="pos-nm">${l.cartera}</span></td>`+
+        `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td><td class="num">${fmt(l.pa)}</td>`+
+        `<td class="num">${fmt(l.vc)}</td><td class="num">${fmt(l.va)}</td>`+
+        `<td class="num ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</td>`+
+        `<td class="num ${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</td>`+
+        `<td class="num pos">${fmt(l.div)}</td><td class="num">${l.years.toFixed(1)}</td>`+
+        `<td class="num ${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</td>`+
+        `<td class="num pos">${pc2(l.divYr)}</td>`+
+        `<td class="num ${l.totYr>=0?'pos':'neg'}"><b>${pc2(l.totYr)}</b></td></tr>`;
+    }).join('');
+    const totCot=sVC?sPL/sVC:0, totDiv=sVC?sDIV/sVC:0;
+    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td></tr>`;
+    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>Años</span><b>${l.years.toFixed(1)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
+    const op=window._invLotesOpen[estadoKey]?' open':'';
+    return `<div class="pos-blk${op}" data-invlotesblk="${estadoKey}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${titulo}</span><span class="bsum">${arr.length} lotes · valor ${fmt(sVA)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
+  }
+  const cartera=lots.filter(l=>l.estado==='Cartera'), vendidas=lots.filter(l=>l.estado==='Vendida');
+  let html='<div class="secttl" style="margin:24px 0 8px;font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px">🧾 Detalle por lote <span class="muted" style="font-weight:500;font-size:12px">— cada compra con sus años y rentabilidad/año (antes «Posiciones»)</span></div>';
+  html+=seccion('🟢 En cartera',cartera,'Cartera')+seccion('⚪ Vendidas',vendidas,'Vendida');
+  if(!cartera.length && !vendidas.length) html+='<div class="empty" style="padding:14px;color:#94a3b8">Sin lotes.</div>';
+  el.innerHTML=html;
+  if(!el._invLotesBound){ el._invLotesBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-invlotesblk'); if(k){window._invLotesOpen=window._invLotesOpen||{};window._invLotesOpen[k]=b.classList.contains('open');} } }); }
+}
 function renderInv(){
   if(!DB.config)DB.config={};
   const all=invPositions().filter(p=>p.acciones>0.0001);
@@ -131,7 +169,7 @@ function renderInv(){
     +`<div class="k"><div class="l">Plusvalía</div><div class="v ${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${fmt(pl)}</div><div class="p">${_pc(plpct)} sobre coste</div></div>`
     +`<div class="k"><div class="l">Dividendos/año (bruto)</div><div class="v">${fmt(divAnual)}</div><div class="p">${(valor?(divAnual/valor*100).toFixed(1):0)}% RPD media</div></div>`
     +'</div>';
-  if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; renderInvClosed(); if(typeof renderDividendos==='function')renderDividendos(); return; }
+  if(!all.length){ $('#invTable').innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; renderInvClosed(); if(typeof renderInvLotes==='function')renderInvLotes(); if(typeof renderDividendos==='function')renderDividendos(); return; }
   const byCart={}; all.forEach(p=>{(byCart[p.cartera]=byCart[p.cartera]||[]).push(p);});
   const ordered=Object.keys(byCart).sort((a,b)=>a==='Propia'?-1:b==='Propia'?1:a.localeCompare(b));
   const _shc=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="cartera" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('cartera',k)}</th>`;
@@ -160,6 +198,7 @@ function renderInv(){
   el.innerHTML=fechaBanner+html;
   if(!el._invBlkBound){ el._invBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-sorttbl],[data-ops-t],[data-del-t]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-invblk'); if(k){window._invOpen=window._invOpen||{};window._invOpen[k]=b.classList.contains('open');} } }); }
   renderInvClosed();
+  if(typeof renderInvLotes==='function')renderInvLotes();
   if(typeof renderDividendos==='function')renderDividendos();
 }
 function renderInvOps(){
