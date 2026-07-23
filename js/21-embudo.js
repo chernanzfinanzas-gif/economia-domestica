@@ -300,7 +300,7 @@ function _emCard(r,compact){
   var pinBadge=r.pin?('<span class="em-pinb" title="'+_emEsc(motivoPin(r.t))+'">✋ '+_emEsc(motivoPin(r.t))+'</span>'):'';
   var exBadge=(_emCerrada(r.t)&&!r.held&&r.et!=='Descartada')?'<span class="em-exb" title="La tuviste en cartera y cerraste la posición. No está descartada: candidata a reentrar con nuevos precios o mejoras de fundamentales.">↩ ex-cartera</span>':'';
   var metricLine=_emMetricLine(r);
-  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+'"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+(ac.comprar?(' data-comprar="'+ac.comprar+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo)?'<span class="em-arw">→</span>':'')+'</div>') : '';
+  var acc = ac.txt ? ('<div class="em-acc" style="background:'+_EM_URGBG[U]+';color:'+_EM_URGINK[U]+';cursor:pointer"'+(ac.goto?(' data-goto="'+ac.goto+'"'+(ac.sig?' data-sig="'+ac.sig+'"':'')+(ac.ticker?' data-ticker="'+ac.ticker+'"':'')):'')+(ac.dnuevo?(' data-dnuevo="'+ac.dnuevo+'"'):'')+(ac.comprar?(' data-comprar="'+ac.comprar+'"'):'')+(ac.emdiv?(' data-emdiv="'+ac.emdiv+'"'):'')+'>'+ac.txt+((ac.goto||ac.dnuevo||ac.emdiv)?'<span class="em-arw">→</span>':'')+'</div>') : '';
   /* Colapsable: en el Kanban las fichas abren mini (nombre+arquetipo+estado) y se
      expanden al pinchar la cabecera. Las de la banda "Necesita tu acción" (compact) van siempre abiertas. */
   var expanded = !!(window._emExp && window._emExp[r.t]);
@@ -324,7 +324,7 @@ function _emCard(r,compact){
     + _emCierresBtn(r)
     + (r.held?_emWhyBlock(r):'')
     + _emMover(r)
-  ) : '';
+  ) : (compact ? (acc + dim) : '');   /* banda "Necesita tu acción" colapsada: muestra acción + botones (Compra/Dividendo) para actuar sin desplegar */
   return '<div class="em-card'+(expanded?'':' em-collapsed')+'" style="border-left-color:'+_EM_URGCOL[U]+'">'+head+more+'</div>';
 }
 function _emMetricLine(r){

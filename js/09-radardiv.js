@@ -123,7 +123,7 @@ function _raddivBuild(host){
   var baratas=rows.filter(function(r){return r.st&&r.st.pos<=33;}).length;
   var arqCount={}; rows.forEach(function(r){arqCount[r.arq]=(arqCount[r.arq]||0)+1;});
   var arqOpts='<option value="">Todos los arquetipos</option>'+Object.keys(arqCount).sort().map(function(a){return '<option value="'+_infEscSafe(a)+'"'+(a===_radarArq?' selected':'')+'>'+_infEscSafe(a)+' ('+arqCount[a]+')</option>';}).join('');
-  var yearOpts=[2,3,4].map(function(y){return '<option value="'+y+'"'+(y===_radarYears?' selected':'')+'>'+y+' años</option>';}).join('');
+  var yearOpts=[1,2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_radarYears?' selected':'')+'>'+y+(y===1?' año':' años')+'</option>';}).join('');
   var sortOpts=[['rpd','RPD'],['pos','Posición']].map(function(o){return '<option value="'+o[0]+'"'+(_radarSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
   host.innerHTML=
     '<div class="sub" style="margin-bottom:12px">Qué empresas reparten más dividendo (<b>RPD</b>) y a qué <b>nivel de precio</b> están frente a su histórico. La <b>Posición</b> sitúa el precio actual en el rango de los últimos años: <span style="color:#16a34a">verde</span> = cerca del mínimo (barato), <span style="color:#dc2626">roja</span> = cerca del máximo (caro).</div>'+

@@ -167,7 +167,7 @@ function renderSimulador(){
   if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Ten posiciones en cartera o pulsa «+ Empresa».</div>'; $('#simKpis').innerHTML=''; return; }
   const held=heldTickerSet();
   const closed=closedTickerSet();
-  const grp=t=>held.has(t)?0:(closed.has(t)?1:2);
+  const grp=t=>held.has(t)?0:(closed.has(t)?2:1); /* cerradas al final de la tabla (Carlos) */
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
   const simDpa=(t,y)=>{ return (typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; };
