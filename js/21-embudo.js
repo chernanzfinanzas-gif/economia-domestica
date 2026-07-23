@@ -38,6 +38,21 @@ function _emPlanPendEur(t){ t=_emUp(t);
   if(typeof _planReparto==='function'){ try{ var A=_planReparto(); if(A&&A.obj&&A.obj[t]!=null){ var p=_emNum(A.obj[t])-_emNum((A.inv||{})[t]); return p>0?p:0; } }catch(e){} }
   if(typeof _planRem==='function'){ try{ var R=_planRem(t); var s=0; Object.keys(R.rem||{}).forEach(function(y){ s+=_emNum(R.rem[y]); }); return s; }catch(e){} }
   var pc=(DB.planCompras||{})[t]||{}; var s2=0; Object.keys(pc).forEach(function(y){ s2+=_emNum(pc[y]); }); return s2; }
+/* ===== DIVIDENDO PENDIENTE DE ANOTAR (Paso B) =====
+   Empresa EN CARTERA cuyo ex-dividend ya pasó y NO está anotado (DB.divAnotado[ticker|exdiv]).
+   Se queda hasta que lo anotas (aunque el pago llegue semanas después → cubre el scrip de IBE/VIS).
+   Fuente de fechas: dividendos.json vía evoAnioM. Devuelve {exDiv,pago,brutoAcc,tipo,key} o null. */
+function _emDivPend(t){ t=_emUp(t);
+  if(!_emHeldSet().has(t)) return null;
+  if(typeof evoAnioM!=='function') return null;
+  var today=new Date().toISOString().slice(0,10), nowY=new Date().getFullYear(), best=null;
+  [nowY-1, nowY].forEach(function(y){ var a; try{a=evoAnioM(t,y);}catch(e){a=null;} if(!a||!a.pagos)return;
+    a.pagos.forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); if(!ex||ex>today)return;
+      var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return;
+      if(!best || ex>best.exDiv) best={exDiv:ex, pago:(''+(p.pago||'')).slice(0,10), brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key}; });
+  });
+  return best; }
+function _emFechaCorta(f){ if(!f)return ''; var p=(''+f).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):(''+f); }
 /* Próximo año con tramo pendiente > 0. */
 function _emPlanProxAnio(t){ t=_emUp(t); var pend=null; if(typeof _planRem==='function'){ try{ var R=_planRem(t); Object.keys(R.rem||{}).forEach(function(y){ if(_emNum(R.rem[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }catch(e){} } var pc=(DB.planCompras||{})[t]||{}; Object.keys(pc).forEach(function(y){ if(_emNum(pc[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }
 /* ¿tramo del año en curso (o pasado) pendiente? → posición parcial en ejecución. */
@@ -125,6 +140,7 @@ function columnaDe(t){ return _EM_COL[etapaDe(t)]||'sel'; }
 function urgenciaDe(t){
   var et=etapaDe(t), held=_emHeldSet().has(t);
   if(et==='En revisión'){ var sen=_emSenal(t); if((sen&&sen.tipo==='stop')||_emProtoVenc(t)||_emQPend(t))return 0; return 1; }
+  if(held&&_emDivPend(t)) return 1; /* dividendo cobrado por anotar (ex-div pasado) */
   if(et==='En zona'||et==='Cerca de entrada') return 1;
   if(et==='Comprando') return 1;
   if(held&&_emPlanPendEur(t)>0){ var a=_emAna(t),cot=_emNum(a&&a.cotizacion),eM=_emNum(a&&a.entMax); if(cot>0&&eM>0&&cot<=eM*1.05) return 1; }
@@ -146,6 +162,7 @@ function accionDe(t){
     if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});
     return A('Revisar','monitor');
   }
+  if(held){ var _dp=_emDivPend(t); if(_dp) return A('💶 Anota el dividendo (ex-div '+_emFechaCorta(_dp.exDiv)+')','',{emdiv:t}); }
   if(et==='En zona') return A('🟢 Comprar — abrir posición','inversiones',{comprar:t});
   if(et==='Cerca de entrada') return A('🟡 Cerca ('+_emPctOver(cot,eM)+') — preparar compra','inversiones',{comprar:t});
   if(et==='Comprando') return A('🧩 Ejecutar tramo del plan','inversiones',{comprar:t});
@@ -197,14 +214,15 @@ function _emRow(t){
   var et=etapaDe(t), col=columnaDe(t), urg=urgenciaDe(t), held=_emHeldSet().has(t);
   var a=_emAna(t);
   var row={t:t, nombre:_emNombre(t), et:et, col:col, urg:urg, held:held, a:a,
-           score:_emScore(t), planPend:held?_emPlanPendEur(t):0, accion:accionDe(t),
+           score:_emScore(t), planPend:held?_emPlanPendEur(t):0, divPend:held?_emDivPend(t):null, accion:accionDe(t),
            pin:_emPin(t).etapa||null};
-  /* rango de banda: 0 crítico · 1 nueva en zona · 2 adelantar plan · 3 otras acciones */
+  /* rango de banda: 0 crítico · 1 nueva en zona · 2 adelantar plan/dividendo · 3 otras acciones */
   var band=null;
   if(urg<=1){
     var rank=3;
     if(urg===0) rank=0;
     else if(!held&&(et==='En zona'||et==='Cerca de entrada')) rank=1;
+    else if(held&&row.divPend) rank=2;
     else if(held&&/faltan/.test(row.accion.txt)) rank=2;
     else rank=3;
     band={rank:rank};
@@ -216,6 +234,8 @@ function _emRow(t){
 /* ---------- render ---------- */
 function renderEmbudo(){
   var sec=document.getElementById('view-embudo'); if(!sec)return;
+  /* Carga (1 vez) de dividendos.json para las alarmas ex-dividend (Paso B). */
+  if(typeof _evoData==='undefined' || !_evoData){ if(typeof _evoCargar==='function'){ if(!renderEmbudo._divLoad){ renderEmbudo._divLoad=true; Promise.resolve(_evoCargar()).then(function(){ try{ if(document.getElementById('view-embudo'))renderEmbudo(); }catch(e){} }).catch(function(){}); } } }
   DB.embudo=DB.embudo||{}; _emProxCache=null; _emIdxCache=null; _emVerCache=null; _emEnsureDossiers();
   var rows=_emAllTickers().map(_emRow).filter(Boolean);
   var byT={}; rows.forEach(function(r){ byT[r.t]=r; });
@@ -292,7 +312,7 @@ function _emCard(r,compact){
     + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
     + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+zoneChip+distChip+'</div>'
     + '</div>';
-  var dim = ((r.col==='plan') || (r.col==='seg' && r.planPend>0)) ? _emDimBlock(r) : '';
+  var dim = ((r.col==='plan') || (r.col==='seg' && (r.planPend>0 || r.divPend))) ? _emDimBlock(r) : '';
   var ref = _emRefBlock(r);
   var more = expanded ? (''
     + (exBadge?('<div>'+exBadge+'</div>'):'')
@@ -440,7 +460,8 @@ function _emDimBlock(r){
     +'<div class="em-dc"><span>Capital recom.</span><b>'+(b.recom>0?_emEur(b.recom):'—')+'</b></div>'
     +'<div class="em-dc" title="'+accNote+'"><span>Acc. con caja</span><b>'+(b.acc>0?(b.acc+' acc'):'—')+'</b></div>'
     +'<div class="em-dc" title="Lo que queda por invertir para cumplir el plan vigente: objetivo de cartera − invertido."><span>Queda por invertir</span><b>'+(b.ptePlan>0?_emEur(b.ptePlan):'—')+'</b></div>';
-  var btns='<div class="em-dbtns"><button class="btn sm" data-emcompra="'+r.t+'" title="Registrar una compra: crea la operación en cartera y (opcional) descuenta la caja bróker. El pendiente y el reparto se recalculan solos.">🛒 Compra</button></div>';
+  var divBtn=r.held?(' <button class="btn ghost sm" data-emdiv="'+r.t+'" title="Anotar el dividendo cobrado (efectivo o scrip en acciones)">💶 Dividendo'+(r.divPend?' •':'')+'</button>'):'';
+  var btns='<div class="em-dbtns"><button class="btn sm" data-emcompra="'+r.t+'" title="Registrar una compra: crea la operación en cartera y (opcional) descuenta la caja bróker. El pendiente y el reparto se recalculan solos.">🛒 Compra</button>'+divBtn+'</div>';
   return '<div class="em-dim">'+cells+'</div>'+btns;
 }
 /* --------- Índice de oportunidad (potencial a PO × calidad × RPD × seguridad del dividendo) ---------
@@ -572,6 +593,61 @@ function _emCompraDo(t){ t=_emUp(t);
   if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:eur}); }
   _emModalClose();
   if(typeof toast==='function')toast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');
+  if(typeof saveNow==='function')saveNow();
+  if(typeof renderAll==='function')renderAll(); }
+/* ===== DIVIDENDO desde Kanban (Paso B) — ventana emergente. Efectivo: confirma el importe real en la
+   caja (DB.cajaDivReal, sin duplicar con la proyección) + histórico por acción (DB.dividendos). Scrip:
+   crea una operación de compra por las acciones nuevas (suma posición e invertido, sin tocar caja). */
+function _emSharesHeld(t){ t=_emUp(t); var s=0; try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(_emUp(p.ticker)===t)s+=_emNum(p.acciones); }); }catch(e){} return s; }
+function _emDivForm(t){ t=_emUp(t);
+  var dp=_emDivPend(t), v=(DB.valores||{})[t]||{}, a=_emAna(t);
+  var nombre=(v.nombre||(a&&a.nombre)||t)+'';
+  var sh=_emSharesHeld(t), precio=_emNum(v.precioActual)||_emNum(a&&a.cotizacion)||0;
+  var brutoAcc=dp?dp.brutoAcc:0;
+  var netoPre=(brutoAcc>0&&sh>0)?(Math.round(brutoAcc*sh*0.81*100)/100):'';
+  var fecha=(dp&&dp.pago)||new Date().toISOString().slice(0,10);
+  var exInfo=dp?('ex-div '+_emFechaCorta(dp.exDiv)+(dp.tipo?' · '+dp.tipo:'')+(brutoAcc>0?' · '+brutoAcc.toFixed(4)+' €/acc bruto':'')):'sin ex-div pendiente (anotación manual)';
+  var html=
+    '<div style="padding:14px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">💶 Dividendo · '+t+'</b> <span style="color:#94a3b8;font-size:12px">'+nombre.replace(/</g,'&lt;').slice(0,24)+'</span></div><span data-emmx="1" style="cursor:pointer;color:#94a3b8;font-size:18px;line-height:1">✕</span></div>'+
+    '<div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">'+
+      '<div style="font-size:11.5px;color:#64748b">'+exInfo+' · '+sh+' acc. en cartera</div>'+
+      '<div style="display:flex;gap:6px"><label style="flex:1;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;cursor:pointer"><input type="radio" name="emdivt" value="efectivo" checked onclick="_emDivToggle()"> Efectivo</label><label style="flex:1;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;cursor:pointer"><input type="radio" name="emdivt" value="scrip" onclick="_emDivToggle()"> Scrip (acciones)</label></div>'+
+      '<label style="font-size:12px;color:#475569">Fecha de cobro<input type="date" id="emdFecha" value="'+fecha+'" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+      '<div id="emdEfec">'+
+        '<label style="font-size:12px;color:#475569">Importe NETO cobrado (€)<input type="number" id="emdNeto" value="'+netoPre+'" step="0.01" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+        '<div style="font-size:11px;color:#94a3b8;margin-top:3px">Confirma el importe real en la caja bróker (sobre lo ya proyectado, sin duplicar).</div>'+
+      '</div>'+
+      '<div id="emdScrip" style="display:none">'+
+        '<div style="display:flex;gap:10px"><label style="flex:1;font-size:12px;color:#475569">Acciones nuevas<input type="number" id="emdAcc" value="" step="1" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label><label style="flex:1;font-size:12px;color:#475569">Precio ref. €<input type="number" id="emdPrecio" value="'+(precio||'')+'" step="0.001" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label></div>'+
+        '<div style="font-size:11px;color:#94a3b8;margin-top:3px">Crea una posición nueva y suma lo invertido (no toca la caja). Para cuando eliges acciones en vez de vender los derechos.</div>'+
+      '</div>'+
+      '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px"><button class="btn ghost sm" data-emmx="1">Cancelar</button><button class="btn sm" onclick="_emDivDo(\''+t+'\')">Anotar dividendo</button></div>'+
+    '</div>';
+  _emModal(html); }
+function _emDivToggle(){ var s=(document.querySelector('input[name=emdivt]:checked')||{}).value; var ef=document.getElementById('emdEfec'), sc=document.getElementById('emdScrip'); if(ef)ef.style.display=(s==='scrip')?'none':'block'; if(sc)sc.style.display=(s==='scrip')?'block':'none'; }
+function _emDivDo(t){ t=_emUp(t);
+  var dp=_emDivPend(t);
+  var tipo=(document.querySelector('input[name=emdivt]:checked')||{}).value||'efectivo';
+  var fecha=(document.getElementById('emdFecha')||{}).value||new Date().toISOString().slice(0,10);
+  var key=dp?dp.key:(t+'|'+fecha);
+  if(tipo==='scrip'){
+    var acc=_emNum((document.getElementById('emdAcc')||{}).value), pr=_emNum((document.getElementById('emdPrecio')||{}).value);
+    if(!(acc>0)){ alert('Indica las acciones nuevas del scrip (> 0).'); return; }
+    if(!confirm('¿Anotar scrip de '+t+': '+acc+' acciones nuevas a '+_emEur(pr)+' (suma '+_emEur(acc*pr)+' a lo invertido, sin tocar caja)?'))return;
+    DB.operaciones=DB.operaciones||[];
+    DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:'Propia',tipo:'compra',acciones:acc,precio:pr,scrip:true});
+    if(typeof toast==='function')toast('Scrip anotado: +'+acc+' '+t);
+  } else {
+    var neto=_emNum((document.getElementById('emdNeto')||{}).value);
+    if(!(neto>0)){ alert('Indica el importe neto cobrado (> 0).'); return; }
+    DB.cajaDivReal=DB.cajaDivReal||{}; DB.cajaDivFecha=DB.cajaDivFecha||{};
+    var ckey=t+'|'+((dp&&dp.pago)||fecha);
+    DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
+    var sh=_emSharesHeld(t); if(sh>0){ var brutoAcc=Math.round((neto/0.81/sh)*10000)/10000; DB.dividendos=DB.dividendos||{}; DB.dividendos[t]=DB.dividendos[t]||[]; DB.dividendos[t].push({fecha:fecha,importe:brutoAcc,id:'d'+Math.random().toString(36).slice(2,9)}); }
+    if(typeof toast==='function')toast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
+  }
+  DB.divAnotado=DB.divAnotado||{}; DB.divAnotado[key]={tipo:tipo,fecha:fecha};
+  _emModalClose();
   if(typeof saveNow==='function')saveNow();
   if(typeof renderAll==='function')renderAll(); }
 function _emBand(band){
@@ -726,6 +802,7 @@ function _emBind(sec){
     var ep=e.target.closest('[data-emplan]'); if(ep){ e.preventDefault(); _emToPlan(ep.getAttribute('data-emplan')); return; }
     var ec=e.target.closest('[data-emcaja]'); if(ec){ e.preventDefault(); _emToCaja(ec.getAttribute('data-emcaja')); return; }
     var ecp=e.target.closest('[data-emcompra]'); if(ecp){ e.preventDefault(); _emCompraForm(ecp.getAttribute('data-emcompra')); return; }
+    var edv=e.target.closest('[data-emdiv]'); if(edv){ e.preventDefault(); _emDivForm(edv.getAttribute('data-emdiv')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
