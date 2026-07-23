@@ -26,8 +26,12 @@ function _dvPos(){
   });
   return m;
 }
-/* € pendientes del plan por ticker (versión € del objetivo de Diversificación) */
+/* € pendientes del plan por ticker (versión € del objetivo de Diversificación).
+   El objetivo real vive en el motor de reparto automático _planReparto(): pendiente = objetivo € −
+   invertido (hasta el año de cierre, p.ej. 2034). DB.planCompras solo guarda overrides manuales, así
+   que se usa como respaldo. */
 function _dvPlanPend(t){ t=_dvUp(t);
+  if(typeof _planReparto==='function'){ try{ var A=_planReparto(); if(A&&A.obj&&(t in A.obj)){ var pend=_dvNum(A.obj[t])-_dvNum((A.inv||{})[t]||0); return pend>0?pend:0; } }catch(e){} }
   if(typeof _planRem==='function'){ try{ var R=_planRem(t); var s=0; Object.keys(R.rem||{}).forEach(function(y){ s+=_dvNum(R.rem[y]); }); return s; }catch(e){} }
   var pc=(DB.planCompras||{})[t]||{}; var s2=0; Object.keys(pc).forEach(function(y){ s2+=_dvNum(pc[y]); }); return s2;
 }
@@ -71,8 +75,11 @@ function renderDiversifComp(){
   var sec=document.getElementById('view-divcomp'); if(!sec)return;
   var posHoy=_dvPos();
   var base=_dvBase(posHoy);
-  /* universo objetivo = held ∪ tickers con plan pendiente */
+  /* universo objetivo = held ∪ empresas del plan (cartera + elegidas «Nueva») ∪ overrides manuales.
+     Con el reparto automático las empresas del plan salen de _planReparto().allTk y de DB.planLote. */
   var union={}; Object.keys(posHoy).forEach(function(t){ union[t]=1; });
+  if(typeof _planReparto==='function'){ try{ (_planReparto().allTk||[]).forEach(function(t){ union[_dvUp(t)]=1; }); }catch(e){} }
+  (DB.planLote||[]).forEach(function(t){ union[_dvUp(t)]=1; });
   Object.keys(DB.planCompras||{}).forEach(function(t){ if(_dvPlanPend(t)>0)union[_dvUp(t)]=1; });
   var posObj={}; Object.keys(union).forEach(function(t){ var c=(posHoy[t]?posHoy[t].coste:0), v=(posHoy[t]?posHoy[t].valor:0), pp=_dvPlanPend(t); posObj[t]={coste:c+pp,valor:v+pp,pend:pp}; });
 
