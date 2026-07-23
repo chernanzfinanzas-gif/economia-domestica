@@ -1451,8 +1451,8 @@ function renderProy(){
   const _pcls=(real,teor)=>{ if(real==null||!teor||teor<=0)return ''; const r=real/teor; if(r>=1)return 'g'; if(r>=0.95)return 'a'; return 'r'; };
   const yJub=num(c.anioTrasJub)||2039;
   /* ---- ESCRITORIO — modelo PLAN (foto) / REAL (se cierra el 31-dic) ---- */
-  /* Formato compacto sin símbolo € (como la tabla de Desglose mensual). */
-  const pf=(v)=>(typeof fmt==='function'?fmt(v).replace(/\s?€/,''):Math.round(num(v)).toLocaleString('es-ES'));
+  /* Formato compacto: entero redondeado, sin decimales ni € (para que entren las columnas). */
+  const pf=(v)=>Math.round(num(v)).toLocaleString('es-ES');
   const _fi=c.fotoInicial;
   const yrNow=new Date().getFullYear();
   let drows='',sepDone=false;
