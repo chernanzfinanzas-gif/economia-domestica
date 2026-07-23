@@ -975,13 +975,16 @@ function _planReparto(){
   var ydesde=num(pe.desde), yhasta=num(pe.hasta);
   var ycierre=num(pe.cierre); if(!ycierre)ycierre=yhasta; ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
   var nowY=new Date().getFullYear();
-  var dispYear={}, disponible=0;
-  try{ if(typeof proyDefaults==='function')proyDefaults(); var ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(function(r){ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
+  var dispYear={};
+  try{ if(typeof proyDefaults==='function')proyDefaults(); var ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(function(r){ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); } }); }catch(e){}
   var dispFijo=DB.planDispFijo=DB.planDispFijo||{};
   /* Presupuesto BRUTO del año (manual o de Proyección) y DISPONIBLE = bruto − compras del plan
      (Kanban, o.plan) ya ejecutadas ese año. Las compras heredadas no restan (Carlos). */
   var presBruto=function(y){ return (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0); };
   var dispShown=function(y){ if(y>ycierre)return 0; return presBruto(y)-(y<=nowY?planExecEur(y):0); };
+  /* Capital a repartir = SÓLO lo aún disponible cada año (bruto − compras ya ejecutadas),
+     así TF no vuelve a contar lo que ya está en totalInv → "sin asignar" no queda negativo. */
+  var disponible=0; for(var _yd=Math.max(nowY,ydesde); _yd<=ycierre; _yd++){ disponible+=Math.max(0,dispShown(_yd)); }
   var allTk=held.concat(chosen); var TF=totalInv+disponible; var JOYA=0.08;
   var tipoOf=function(t){return pt[t]||'';};
   var nJoya=allTk.filter(function(t){return tipoOf(t)==='joya';}).length;
@@ -1045,12 +1048,14 @@ function renderPlanLote(){
   let ycierre=num(pe.cierre); if(!ycierre){ ycierre=yhasta; pe.cierre=ycierre; if(typeof scheduleSave==='function')scheduleSave(); }
   ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
   const nowY=new Date().getFullYear();
-  const dispYear={}; let disponible=0;
-  try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); disponible+=num(r.aInversion); } }); }catch(e){}
+  const dispYear={};
+  try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); } }); }catch(e){}
   const execYear={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const y=+((o.fecha||'').slice(0,4)); if(y) execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
   const dispFijo=DB.planDispFijo=DB.planDispFijo||{};
   const presBruto=y=> (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0);
   const dispShown=y=> (y>ycierre)?0:(presBruto(y)-(y<=nowY?planExecEur(y):0)); /* disponible = bruto − compras del plan (Kanban) */
+  /* Capital a repartir = SÓLO lo aún disponible cada año, coherente con dispShown (evita el doble conteo de lo ya invertido). */
+  let disponible=0; for(let _yd=Math.max(nowY,ydesde); _yd<=ycierre; _yd++){ disponible+=Math.max(0,dispShown(_yd)); }
   const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
   const tipoOf=t=>pt[t]||'';
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length; const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
