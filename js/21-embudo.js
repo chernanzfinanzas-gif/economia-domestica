@@ -605,7 +605,8 @@ function _emDivForm(t){ t=_emUp(t);
   var nombre=(v.nombre||(a&&a.nombre)||t)+'';
   var sh=_emSharesHeld(t), precio=_emNum(v.precioActual)||_emNum(a&&a.cotizacion)||0;
   var brutoAcc=dp?dp.brutoAcc:0;
-  var netoPre=(brutoAcc>0&&sh>0)?(Math.round(brutoAcc*sh*0.81*100)/100):'';
+  var brutoPre=(brutoAcc>0&&sh>0)?(Math.round(brutoAcc*sh*100)/100):'';
+  var netoPre=(brutoPre!=='')?(Math.round(brutoPre*0.81*100)/100):'';
   var fecha=(dp&&dp.pago)||new Date().toISOString().slice(0,10);
   var exInfo=dp?('ex-div '+_emFechaCorta(dp.exDiv)+(dp.tipo?' · '+dp.tipo:'')+(brutoAcc>0?' · '+brutoAcc.toFixed(4)+' €/acc bruto':'')):'sin ex-div pendiente (anotación manual)';
   var html=
@@ -615,8 +616,9 @@ function _emDivForm(t){ t=_emUp(t);
       '<div style="display:flex;gap:6px"><label style="flex:1;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;cursor:pointer"><input type="radio" name="emdivt" value="efectivo" checked onclick="_emDivToggle()"> Efectivo</label><label style="flex:1;font-size:12px;border:1px solid var(--line);border-radius:8px;padding:6px 8px;cursor:pointer"><input type="radio" name="emdivt" value="scrip" onclick="_emDivToggle()"> Scrip (acciones)</label></div>'+
       '<label style="font-size:12px;color:#475569">Fecha de cobro<input type="date" id="emdFecha" value="'+fecha+'" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
       '<div id="emdEfec">'+
-        '<label style="font-size:12px;color:#475569">Importe NETO cobrado (€)<input type="number" id="emdNeto" value="'+netoPre+'" step="0.01" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
-        '<div style="font-size:11px;color:#94a3b8;margin-top:3px">Confirma el importe real en la caja bróker (sobre lo ya proyectado, sin duplicar).</div>'+
+        '<label style="font-size:12px;color:#475569">Importe BRUTO cobrado (€)<input type="number" id="emdBruto" value="'+brutoPre+'" oninput="_emDivCalc()" step="0.01" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+        '<label style="font-size:12px;color:#475569;display:block;margin-top:6px">Neto (−19% retención) €<input type="number" id="emdNeto" value="'+netoPre+'" step="0.01" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+        '<div style="font-size:11px;color:#94a3b8;margin-top:3px">Introduce el <b>bruto</b>; el neto se calcula quitando el 19% de retención (editable si tu retención difiere). Sobre lo ya proyectado, sin duplicar.</div>'+
       '</div>'+
       '<div id="emdScrip" style="display:none">'+
         '<div style="display:flex;gap:10px"><label style="flex:1;font-size:12px;color:#475569">Acciones nuevas<input type="number" id="emdAcc" value="" step="1" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label><label style="flex:1;font-size:12px;color:#475569">Precio ref. €<input type="number" id="emdPrecio" value="'+(precio||'')+'" step="0.001" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label></div>'+
@@ -626,6 +628,8 @@ function _emDivForm(t){ t=_emUp(t);
     '</div>';
   _emModal(html); }
 function _emDivToggle(){ var s=(document.querySelector('input[name=emdivt]:checked')||{}).value; var ef=document.getElementById('emdEfec'), sc=document.getElementById('emdScrip'); if(ef)ef.style.display=(s==='scrip')?'none':'block'; if(sc)sc.style.display=(s==='scrip')?'block':'none'; }
+/* Neto = bruto − 19% de retención IRPF (se recalcula al teclear el bruto; el usuario puede ajustarlo). */
+function _emDivCalc(){ var b=_emNum((document.getElementById('emdBruto')||{}).value); var n=document.getElementById('emdNeto'); if(n) n.value=(b>0?(Math.round(b*0.81*100)/100):''); }
 function _emDivDo(t){ t=_emUp(t);
   var dp=_emDivPend(t);
   var tipo=(document.querySelector('input[name=emdivt]:checked')||{}).value||'efectivo';
