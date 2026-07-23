@@ -50,19 +50,23 @@ function visLoadTesis(cb){
 
 const _VIS_RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
 const _VIS_EST=' <span title="Calidad estimada del subíndice de Radar (aún sin dossier); no es tu score de análisis" style="font-size:9px;font-weight:800;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:5px;padding:0 4px;vertical-align:middle">est.</span>';
+/* Δ vs mercado: score real del dossier − calidad que veía Radar. ▲ mejoras / ▼ corriges. */
+function _visDeltaChip(d){ if(d==null)return ''; var col=(d>=0)?'#16a34a':'#dc2626';
+  return ' <span title="Tu score del dossier frente a la calidad que veía el mercado (Radar): ▲ tu análisis la confirma al alza · ▼ la corrige a la baja" style="font-size:9px;font-weight:800;color:'+col+';white-space:nowrap">'+(d>=0?'▲':'▼')+Math.abs(d)+'<span style="color:#94a3b8;font-weight:600"> mkt</span></span>'; }
 /* Umbrales de calidad → letra (para la calidad ESTIMADA de empresas aún sin dossier). */
 function _visRatingLetra(pts){ if(pts==null)return ''; pts=+pts;
   return pts>=90?'AAA':pts>=80?'AA':pts>=70?'A':pts>=60?'BBB':pts>=45?'BB':pts>=30?'B':pts>=15?'CCC':'CC'; }
 /* Calidad estimada = subíndice CALIDAD de Radar (0,5·ROE+0,3·solvencia+0,2·rating) desde
    fundamentales.json. Objetiva y disponible para todo el universo aunque no haya dossier. */
-function _visCalEstim(t){ t=(t||'').toUpperCase();
+/* Calidad "de mercado" (subíndice Calidad de Radar, SIN topar). Sirve para el Δ vs mercado. */
+function _visCalMercado(t){ t=(t||'').toUpperCase();
   if(typeof radScore!=='function')return null;
   var f=null; if(typeof _radFundCache!=='undefined'&&_radFundCache&&_radFundCache.empresas){ f=_radFundCache.empresas.find(function(x){return (''+x.ticker).toUpperCase()===t;}); }
   if(!f)return null;
   var u=(DB.universo||{})[t]||{}; var ds=(typeof _radDs==='function')?_radDs(t):null;
-  /* Tope: una empresa SIN dossier nunca puntúa por encima de «A» estimada (≤79); es una estimación,
-     no debe colarse por encima de tus analizadas AA/AAA reales. */
-  try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?Math.min(79,r.cal):null; }catch(e){ return null; } }
+  try{ var r=radScore(f,u.rating,ds); return (r&&r.cal!=null)?r.cal:null; }catch(e){ return null; } }
+/* Calidad estimada para NO analizadas: la de mercado con tope 79 → nunca supera «A (est.)». */
+function _visCalEstim(t){ var c=_visCalMercado(t); return (c==null)?null:Math.min(79,c); }
 /* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
    Devuelve ratio (0-1). Cae a divAccion/cotización si el motor de dividendos no está disponible. */
 function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();
@@ -86,6 +90,9 @@ function visRankData(){
     let score=dossierScore, estCal=false;
     if(score==null){ const est=_visCalEstim(t); if(est!=null){ score=est; estCal=true; if(!rating)rating=_visRatingLetra(est); }
       else if(_VIS_RPTS[rating]!=null){ score=_VIS_RPTS[rating]; } }
+    /* Δ vs mercado: cuánto confirma/corrige tu dossier a la calidad que veía Radar (solo analizadas). */
+    const estMkt=(dossierScore!=null)?_visCalMercado(t):null;
+    const deltaMkt=(dossierScore!=null&&estMkt!=null)?Math.round(dossierScore-estMkt):null;
     const div=num(a.divAccion)||num(v.divAccion);
     const mds=(cot>0&&poBase>0)?(poBase/cot-1):null;
     const rpd=_visRpdViva(t,cot,div);
@@ -94,7 +101,7 @@ function visRankData(){
     const mdsN=(mds!=null)?cl(50+mds/0.4*50):50;
     const rpdN=(rpd!=null)?cl(rpd/0.06*100):0;
     const atractivo=Math.round(0.45*calN+0.35*mdsN+0.20*rpdN);
-    return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, estCal, mds, rpd, meses, atractivo,
+    return {t, nombre:a.nombre||te.empresa||t, cot, poBase, rating, score, estCal, estMkt, deltaMkt, mds, rpd, meses, atractivo,
       held:held.has(t), decision:(a.decision||te.decision||'').toUpperCase(), tags:visTags(t), stale:(meses!=null&&meses>12)};
   }).filter(x=>x.cot>0 || x.score!=null);
   /* Uni\u00f3n con Universo: empresas de la Matriz a\u00fan no en An\u00e1lisis (Pte. An\u00e1lisis, sin score). */
@@ -131,7 +138,7 @@ function _visRankDesk(rows){
   var trs=rows.map(function(x,i){ return '<tr class="'+(i===0&&!x.pte?'best':'')+(x.pte?' pte':'')+'">'+
     '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b> <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
     '<td style="white-space:nowrap">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</td>'+
-    '<td style="color:'+_visScoreCol(x.score)+';font-weight:700'+(x.estCal?';font-style:italic':'')+'">'+(x.score==null?'—':Math.round(x.score))+'</td>'+
+    '<td style="color:'+_visScoreCol(x.score)+';font-weight:700'+(x.estCal?';font-style:italic':'')+';white-space:nowrap">'+(x.score==null?'—':Math.round(x.score))+((x.deltaMkt!=null&&!x.estCal)?_visDeltaChip(x.deltaMkt):'')+'</td>'+
     '<td class="'+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</td>'+
     '<td>'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</td>'+
     '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</td>'+
@@ -147,7 +154,7 @@ function _visRankCards(rows){
     '<span class="arw">▶</span></div>'+
     '<div class="vis-card-b"><div class="mgrid">'+
       '<div class="m"><div class="l">Rating</div><div class="v">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</div></div>'+
-      '<div class="m"><div class="l">Score</div><div class="v" style="color:'+_visScoreCol(x.score)+(x.estCal?';font-style:italic':'')+'">'+(x.score==null?'—':Math.round(x.score))+'</div></div>'+
+      '<div class="m"><div class="l">Score</div><div class="v" style="color:'+_visScoreCol(x.score)+(x.estCal?';font-style:italic':'')+'">'+(x.score==null?'—':Math.round(x.score))+((x.deltaMkt!=null&&!x.estCal)?_visDeltaChip(x.deltaMkt):'')+'</div></div>'+
       '<div class="m"><div class="l">Margen seg.</div><div class="v '+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</div></div>'+
       '<div class="m"><div class="l">RPD</div><div class="v">'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</div></div>'+
       '<div class="m"><div class="l">Dossier</div><div class="v">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' ⚠':'')+'</div></div>'+
