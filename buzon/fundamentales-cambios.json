@@ -1,18 +1,708 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-21T00:07:33+02:00",
+  "generadoEl": "2026-07-23T12:24:20+02:00",
   "generadoPor": "fundamentales_cambios.py (GitHub Actions) — comparación mensual de fundamentales.json",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-21",
+  "fechaReferencia": "2026-07-23",
   "fechaAnterior": "2026-07-20",
-  "periodoTexto": "desde 2026-07-20 (~1 días)",
-  "resumenTexto": "Radar (desde 2026-07-20 (~1 días)): 0 empresas con cambios.",
-  "cambios": [],
+  "periodoTexto": "desde 2026-07-20 (~3 días)",
+  "resumenTexto": "Radar (desde 2026-07-20 (~3 días)): 29 empresas con cambios, 4 con señal accionable. Señales: AZKOYEN, S.A. — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, ⚠️ Payout por encima del 80%, 🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único); METROVACESA, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); TALGO, S.A. — 📊 BPA revisado ▲ (¿resultados nuevos?); ADOLFO DOMINGUEZ, S.A. — 🟢 Más barata que hace un mes.",
+  "cambios": [
+    {
+      "ticker": "AZK",
+      "nombre": "AZKOYEN, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 19.7,
+          "ahora": 16.7,
+          "delta": -3.0,
+          "deltaPct": -15.2,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 2.56,
+          "ahora": 2.17,
+          "delta": -0.39,
+          "deltaPct": -15.2,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 0.0,
+          "ahora": 8.44,
+          "delta": 8.44,
+          "deltaPct": null,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 86.0,
+          "ahora": 55.0,
+          "delta": -31.0,
+          "deltaPct": -36.0,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "rpd",
+          "txt": "💰 RPD cruzó el 5%"
+        },
+        {
+          "tipo": "payout",
+          "txt": "⚠️ Payout por encima del 80%"
+        },
+        {
+          "tipo": "flag",
+          "txt": "🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único)"
+        }
+      ]
+    },
+    {
+      "ticker": "MVC",
+      "nombre": "METROVACESA, S.A.",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 28.7,
+          "ahora": 19.5,
+          "delta": -9.2,
+          "deltaPct": -32.1,
+          "dir": "down",
+          "unidad": ""
+        },
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 18.5,
+          "ahora": 17.6,
+          "delta": -0.9,
+          "deltaPct": -4.9,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 45.0,
+          "ahora": 57.0,
+          "delta": 12.0,
+          "deltaPct": 26.7,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "payout",
+          "label": "Payout",
+          "antes": 531.6,
+          "ahora": 342.4,
+          "delta": -189.2,
+          "deltaPct": -35.6,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": 0.38,
+          "ahora": 0.59,
+          "delta": 0.21,
+          "deltaPct": 55.3,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        },
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "TLGO",
+      "nombre": "TALGO, S.A.",
+      "campos": [
+        {
+          "k": "roe",
+          "label": "ROE",
+          "antes": -49.3,
+          "ahora": -39.2,
+          "delta": 10.1,
+          "deltaPct": 20.5,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "margenNeto",
+          "label": "Margen neto",
+          "antes": -15.8,
+          "ahora": -8.2,
+          "delta": 7.6,
+          "deltaPct": 48.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": 7.5,
+          "ahora": 38.7,
+          "delta": 31.2,
+          "deltaPct": 416.0,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "bpa",
+          "label": "BPA",
+          "antes": -0.79,
+          "ahora": -0.46,
+          "delta": 0.33,
+          "deltaPct": 41.8,
+          "dir": "up",
+          "unidad": ""
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "bpa",
+          "txt": "📊 BPA revisado ▲ (¿resultados nuevos?)"
+        }
+      ]
+    },
+    {
+      "ticker": "ADZ",
+      "nombre": "ADOLFO DOMINGUEZ, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 89.0,
+          "ahora": 78.0,
+          "delta": -11.0,
+          "deltaPct": -12.4,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": [
+        {
+          "tipo": "barata",
+          "txt": "🟢 Más barata que hace un mes"
+        }
+      ]
+    },
+    {
+      "ticker": "IDR",
+      "nombre": "INDRA SISTEMAS S.A., SERIE A",
+      "campos": [
+        {
+          "k": "per",
+          "label": "PER",
+          "antes": 19.4,
+          "ahora": 21.0,
+          "delta": 1.6,
+          "deltaPct": 8.2,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "perFwd",
+          "label": "PER fwd",
+          "antes": 15.4,
+          "ahora": 16.7,
+          "delta": 1.3,
+          "deltaPct": 8.4,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pbv",
+          "label": "P/BV",
+          "antes": 4.75,
+          "ahora": 5.15,
+          "delta": 0.4,
+          "deltaPct": 8.4,
+          "dir": "up",
+          "unidad": ""
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 51.0,
+          "ahora": 64.0,
+          "delta": 13.0,
+          "deltaPct": 25.5,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ENC",
+      "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 33.0,
+          "ahora": 68.0,
+          "delta": 35.0,
+          "deltaPct": 106.1,
+          "dir": "up",
+          "unidad": "%"
+        },
+        {
+          "k": "dnEbitda",
+          "label": "DN/EBITDA",
+          "antes": 9.71,
+          "ahora": 18.05,
+          "delta": 8.34,
+          "deltaPct": 85.9,
+          "dir": "up",
+          "unidad": "x"
+        },
+        {
+          "k": "crecIngresos",
+          "label": "Crec. ingresos",
+          "antes": -17.7,
+          "ahora": -11.4,
+          "delta": 6.3,
+          "deltaPct": 35.6,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "SAB",
+      "nombre": "BANCO DE SABADELL",
+      "campos": [
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 19.98,
+          "ahora": 19.49,
+          "delta": -0.49,
+          "deltaPct": -2.5,
+          "dir": "down",
+          "unidad": "%"
+        },
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 57.0,
+          "ahora": 68.0,
+          "delta": 11.0,
+          "deltaPct": 19.3,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "A3M",
+      "nombre": "ATRESMEDIA CORPORACION DE MEDIO",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 19.0,
+          "ahora": 31.0,
+          "delta": 12.0,
+          "deltaPct": 63.2,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ADX",
+      "nombre": "AUDAX RENOVABLES, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 3.0,
+          "ahora": 12.0,
+          "delta": 9.0,
+          "deltaPct": 300.0,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AEDAS",
+      "nombre": "AEDAS HOMES, S.A",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 42.0,
+          "ahora": 34.0,
+          "delta": -8.0,
+          "deltaPct": -19.0,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AIR",
+      "nombre": "AIRBUS",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 55.0,
+          "ahora": 75.0,
+          "delta": 20.0,
+          "deltaPct": 36.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "AMP",
+      "nombre": "AMPER, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 87.0,
+          "ahora": 78.0,
+          "delta": -9.0,
+          "deltaPct": -10.3,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ANE",
+      "nombre": "CORPORACI...N ACCIONA ENERG...A",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 34.0,
+          "ahora": 45.0,
+          "delta": 11.0,
+          "deltaPct": 32.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "BKY",
+      "nombre": "BERKELEY ENERGIA LIMITED",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 38.0,
+          "ahora": 59.0,
+          "delta": 21.0,
+          "deltaPct": 55.3,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "CEV",
+      "nombre": "CEV.MC,0P0000A5U9,0",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 68.0,
+          "ahora": 88.0,
+          "delta": 20.0,
+          "deltaPct": 29.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ENG",
+      "nombre": "ENAGAS,S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 78.0,
+          "ahora": 90.0,
+          "delta": 12.0,
+          "deltaPct": 15.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ENO",
+      "nombre": "ELECNOR S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 71.0,
+          "ahora": 79.0,
+          "delta": 8.0,
+          "deltaPct": 11.3,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "FAE",
+      "nombre": "FAES FARMA, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 18.0,
+          "ahora": 35.0,
+          "delta": 17.0,
+          "deltaPct": 94.4,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "GRE",
+      "nombre": "GRENERGY RENOVABLES, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 54.0,
+          "ahora": 63.0,
+          "delta": 9.0,
+          "deltaPct": 16.7,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "NTGY",
+      "nombre": "NATURGY ENERGY GROUP, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 79.0,
+          "ahora": 96.0,
+          "delta": 17.0,
+          "deltaPct": 21.5,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "OLE",
+      "nombre": "DEOLEO, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 83.0,
+          "ahora": 93.0,
+          "delta": 10.0,
+          "deltaPct": 12.0,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ORY",
+      "nombre": "ORYZON GENOMICS, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 19.0,
+          "ahora": 29.0,
+          "delta": 10.0,
+          "deltaPct": 52.6,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PHM",
+      "nombre": "PHARMA MAR, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 29.0,
+          "ahora": 38.0,
+          "delta": 9.0,
+          "deltaPct": 31.0,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PSG",
+      "nombre": "PROSEGUR",
+      "campos": [
+        {
+          "k": "rpd",
+          "label": "RPD",
+          "antes": 5.31,
+          "ahora": 5.0,
+          "delta": -0.31,
+          "deltaPct": -5.8,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "PUIG",
+      "nombre": "PUIG BRANDS, S.A. CLASE B",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 65.0,
+          "ahora": 56.0,
+          "delta": -9.0,
+          "deltaPct": -13.8,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "ROVI",
+      "nombre": "LABORATORIOS FARMACEUTICOS ROVI",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 7.0,
+          "ahora": 17.0,
+          "delta": 10.0,
+          "deltaPct": 142.9,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "SCYR",
+      "nombre": "SACYR, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 85.0,
+          "ahora": 95.0,
+          "delta": 10.0,
+          "deltaPct": 11.8,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "TUB",
+      "nombre": "TUBACEX, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 28.0,
+          "ahora": 36.0,
+          "delta": 8.0,
+          "deltaPct": 28.6,
+          "dir": "up",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    },
+    {
+      "ticker": "VID",
+      "nombre": "VIDRALA, S.A.",
+      "campos": [
+        {
+          "k": "pos52sem",
+          "label": "Pos. 52s",
+          "antes": 67.0,
+          "ahora": 59.0,
+          "delta": -8.0,
+          "deltaPct": -11.9,
+          "dir": "down",
+          "unidad": "%"
+        }
+      ],
+      "senales": []
+    }
+  ],
   "nuevas": [],
   "salieron": [],
   "totales": {
-    "conCambios": 0,
-    "conSenal": 0,
+    "conCambios": 29,
+    "conSenal": 4,
     "universo": 102
   }
 }

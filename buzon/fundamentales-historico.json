@@ -3,16 +3,49 @@
   "meses": [
     {
       "mesKey": "2026-07",
-      "fecha": "2026-07-21",
-      "periodoTexto": "desde 2026-07-20 (~1 días)",
-      "resumenTexto": "Radar (desde 2026-07-20 (~1 días)): 0 empresas con cambios.",
+      "fecha": "2026-07-23",
+      "periodoTexto": "desde 2026-07-20 (~3 días)",
+      "resumenTexto": "Radar (desde 2026-07-20 (~3 días)): 29 empresas con cambios, 4 con señal accionable. Señales: AZKOYEN, S.A. — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, ⚠️ Payout por encima del 80%, 🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único); METROVACESA, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); TALGO, S.A. — 📊 BPA revisado ▲ (¿resultados nuevos?); ADOLFO DOMINGUEZ, S.A. — 🟢 Más barata que hace un mes.",
       "totales": {
-        "conCambios": 0,
-        "conSenal": 0,
+        "conCambios": 29,
+        "conSenal": 4,
         "universo": 102
       },
-      "senaladas": []
+      "senaladas": [
+        {
+          "ticker": "AZK",
+          "nombre": "AZKOYEN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "💰 RPD cruzó el 5%",
+            "⚠️ Payout por encima del 80%",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único)"
+          ]
+        },
+        {
+          "ticker": "MVC",
+          "nombre": "METROVACESA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "TLGO",
+          "nombre": "TALGO, S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ADZ",
+          "nombre": "ADOLFO DOMINGUEZ, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        }
+      ]
     }
   ],
-  "actualizado": "2026-07-21T00:07:33+02:00"
+  "actualizado": "2026-07-23T12:24:20+02:00"
 }
