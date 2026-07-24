@@ -917,15 +917,15 @@ function renderSalud(){
   var cfC=0,rbS=0; Object.keys(cache).forEach(function(t){ var j=cache[t]; if(!j)return; if(j.confianza&&(''+(j.confianza.nivel||'')).toUpperCase()==='C')cfC++; if(j.robustez&&(''+(j.robustez.nivel||'')).toLowerCase()==='sensible')rbS++; });
   var specs=[
     {tit:'Frescura de cotizaciones', val:staleN===0?'Al día':staleN+' desactualizadas', est:staleN===0?'ok':(staleN<=2?'warn':'bad'), det:'Última fecha del repo: '+(refF||'—')+'. Empresas en cartera con cotización de más de 7 días respecto a esa fecha.', goto:'posiciones'},
-    {tit:'Antigüedad de dossiers', val:viejosN===0?'Todos recientes':viejosN+' caducados', est:viejosN===0?'ok':(viejosN<=2?'warn':'bad'), det:'Análisis con dossier de más de 12 meses (conviene reanalizar).', goto:'hemeroanalisis'},
-    {tit:'Avisos de esquema (JSON)', val:warnN===0?'Sin avisos':warnN+' avisos', est:warnN===0?'ok':'warn', det:'Campos incorrectos detectados por el validador en los dossiers cargados.', goto:'hemeroanalisis'},
-    {tit:'Huérfanos y desincronías', val:huerfN===0?'Nada suelto':huerfN+' incidencias', est:huerfN===0?'ok':(huerfN<=3?'warn':'bad'), det:'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · en cobertura sin dossier ('+anaSinDoss.length+').', goto:'hemeroanalisis'},
+    {tit:'Antigüedad de dossiers', val:viejosN===0?'Todos recientes':viejosN+' caducados', est:viejosN===0?'ok':(viejosN<=2?'warn':'bad'), det:'Análisis con dossier de más de 12 meses (conviene reanalizar).', goto:'hemero-analisis'},
+    {tit:'Avisos de esquema (JSON)', val:warnN===0?'Sin avisos':warnN+' avisos', est:warnN===0?'ok':'warn', det:'Campos incorrectos detectados por el validador en los dossiers cargados.', goto:'hemero-analisis'},
+    {tit:'Huérfanos y desincronías', val:huerfN===0?'Nada suelto':huerfN+' incidencias', est:huerfN===0?'ok':(huerfN<=3?'warn':'bad'), det:'Cartera sin dossier ('+carteraSin.length+') · HTML sin JSON ('+htmlSinJson.length+') · JSON sin importar ('+jsonSinAna.length+') · en cobertura sin dossier ('+anaSinDoss.length+').', goto:'hemero-analisis'},
     {tit:'Señales del método', val:(cfC+rbS)===0?'Sin banderas':(cfC+' conf. C · '+rbS+' sensible'), est:(cfC+rbS)===0?'ok':'warn', det:'Empresas con Confianza C (regla dura de no comprar en firme) o Robustez sensible.', goto:'analisis'}
   ];
   var ICO={ok:'✓',warn:'⚠',bad:'✕'}, ord={ok:0,warn:1,bad:2}, worst='ok';
   specs.forEach(function(s){ if(ord[s.est]>ord[worst])worst=s.est; });
   var nbad=specs.filter(function(s){return s.est==='bad';}).length, nwarn=specs.filter(function(s){return s.est==='warn';}).length, nok=specs.filter(function(s){return s.est==='ok';}).length;
-  var scard=function(s){ return '<div class="scard '+s.est+'"><div class="sc-h"><span class="sc-ico">'+ICO[s.est]+'</span><b>'+s.tit+'</b>'+(s.goto?'<button class="sc-go" onclick="activarVista(\''+s.goto+'\')">ir →</button>':'')+'</div><div class="sc-v">'+s.val+'</div><div class="sc-d">'+s.det+'</div></div>'; };
+  var scard=function(s){ var _go=s.goto?(s.goto==='hemero-analisis'?'onclick="irHemero(\'analisis\')"':'onclick="activarVista(\''+s.goto+'\')"'):''; return '<div class="scard '+s.est+'"><div class="sc-h"><span class="sc-ico">'+ICO[s.est]+'</span><b>'+s.tit+'</b>'+(s.goto?'<button class="sc-go" '+_go+'>ir →</button>':'')+'</div><div class="sc-v">'+s.val+'</div><div class="sc-d">'+s.det+'</div></div>'; };
   var cardHTML=specs.map(scard).join('');
   var allok=nbad===0&&nwarn===0;
   var heroTxt=allok?'Todo en orden':((nbad?(nbad+' incidencia'+(nbad>1?'s':'')):'')+((nbad&&nwarn)?' · ':'')+(nwarn?(nwarn+' aviso'+(nwarn>1?'s':'')):''));

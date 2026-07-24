@@ -96,7 +96,7 @@ const VIEW_FNS={
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
-  informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], hemeroanalisis:['renderHemeroAnalisis'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
+  informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
@@ -214,7 +214,7 @@ const GROUPS={
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['simulador','Simulador']],
-  informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
+  informes:[['informes','Informes'],['hemero','Hemeroteca']],
   graficas:[['graficas','Gráficas']]
 };
 function groupOf(view){ for(const g in GROUPS){ if(GROUPS[g].some(v=>v[0]===view)) return g; } return null; }
@@ -443,6 +443,16 @@ $('#presYear').addEventListener('change',e=>_presSetYear(e.target.value));
   if(d)d.style.display=(t==='desglose')?'':'none';
   if(t==='desglose'&&typeof renderPresDesglose==='function') renderPresDesglose();
 });}
+// Hemeroteca fundida: subpestañas Informes semanales / Análisis (dossiers)
+function _hemeroShow(t){ t=(t==='analisis')?'analisis':'informes'; window._hemeroTab=t;
+  const hs=$('#hemeroSubtabs'); if(hs)hs.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x.dataset.htab===t));
+  const i=$('#htab-informes'), a=$('#htab-analisis');
+  if(i)i.style.display=(t==='analisis')?'none':''; if(a)a.style.display=(t==='analisis')?'':'none';
+  if(t==='analisis'){ if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); } else { if(typeof renderHemeroteca==='function')renderHemeroteca(); }
+}
+function renderHemero(){ _hemeroShow(window._hemeroTab||'informes'); }
+function irHemero(t){ window._hemeroTab=(t==='analisis')?'analisis':'informes'; if(typeof activarVista==='function')activarVista('hemero'); }
+{const _hs=$('#hemeroSubtabs'); if(_hs) _hs.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; _hemeroShow(b.dataset.htab); });}
 $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);
 if($('#view-patrimonio')) $('#view-patrimonio').addEventListener('click',e=>{ const h=e.target.closest('[data-patblk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-patblk')); if(blk)blk.classList.toggle('open'); });
