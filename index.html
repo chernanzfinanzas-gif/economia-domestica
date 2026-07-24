@@ -2417,6 +2417,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-patrimonio .pat-brk .num{text-align:right;font-variant-numeric:tabular-nums}
   #view-patrimonio .pat-acts{display:flex;gap:8px;margin-top:10px}
   #view-patrimonio .pat-acts .btn{padding:8px 14px}
+  #view-patrimonio .pat-tot .pdelta{font-size:10.5px;font-weight:700;margin-left:6px;white-space:nowrap}
+  #view-patrimonio .pdelta.up{color:#16a34a}#view-patrimonio .pdelta.dn{color:#dc2626}#view-patrimonio .pdelta.eq{color:#94a3b8}
+  #view-patrimonio .pat-cmp{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
+  #view-patrimonio .pat-cmp-t{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b;margin-bottom:8px}
+  #view-patrimonio .pat-cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  #view-patrimonio .pat-cmp-cell{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+  #view-patrimonio .pat-cmp-cell .l{font-size:11px;color:#64748b;font-weight:600;margin-bottom:2px}
+  #view-patrimonio .pat-cmp-cell .v{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums}
+  #view-patrimonio .pat-cmp-cell .v.up{color:#16a34a}#view-patrimonio .pat-cmp-cell .v.dn{color:#dc2626}#view-patrimonio .pat-cmp-cell .v.eq{color:#94a3b8}
   @media(max-width:640px){
     #view-patrimonio .pat-hero{flex-direction:column;align-items:flex-start}
     #view-patrimonio .pat-hero .ph-minis{width:100%}#view-patrimonio .pat-hero .ph-mini{flex:1}
@@ -2427,6 +2436,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     #view-patrimonio .pat-tot{grid-column:2;grid-row:1}
     #view-patrimonio .pat-ih>.pat-n,#view-patrimonio .pat-ih>.pat-pinv{display:none}
     #view-patrimonio .pat-meta{display:block;grid-column:1/-1;grid-row:2;font-size:12px;color:var(--muted);font-weight:600}
+    #view-patrimonio .pat-b{padding-left:16px}
+    #view-patrimonio .pat-cmp-grid{grid-template-columns:1fr}
   }
   #view-fondor4 .r4-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
   #view-fondor4 .r4-kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 1px 2px rgba(15,23,42,.04)}
