@@ -94,7 +94,7 @@ const VIEW_FNS={
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
-  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], metodo:['renderPanelMetodo'], salud:['renderSalud'], riesgo:['renderRiesgo'],
+  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], metas:['renderMetas'], asignacion:['renderAsignacion'],
   informes:['renderInformesCenter'], hemeroteca:['renderHemeroteca'], hemeroanalisis:['renderHemeroAnalisis'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
@@ -212,7 +212,7 @@ const GROUPS={
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
-  tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
+  tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['simulador','Simulador']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
