@@ -1029,7 +1029,7 @@ function renderPresDesglose(){
   var _tgl=document.getElementById('dgToggleAll');
   if(_tgl){ var _grp={}; DB.categorias.forEach(function(c){_grp[c.grupo]=1;}); var _any=Object.keys(_grp).some(function(g){return window._dgDeskOpen&&window._dgDeskOpen[g];}); _tgl.textContent=_any?'Colapsar todo':'Desplegar todo'; }
   if(typeof _dgMobileRender==='function') _dgMobileRender(year, realCat, presMens);
-  if(!renderPresDesglose._bound){ renderPresDesglose._bound=true; var _sec=document.getElementById('view-desglose');
+  if(!renderPresDesglose._bound){ renderPresDesglose._bound=true; var _sec=document.getElementById('view-presupuesto')||document.getElementById('view-desglose');
     if(_sec){
       _sec.addEventListener('click',function(e){
         if(e.target.closest('#dgToggleAll')){ var _g={}; DB.categorias.forEach(function(c){_g[c.grupo]=1;}); var keys=Object.keys(_g); window._dgDeskOpen=window._dgDeskOpen||{}; var anyOpen=keys.some(function(g){return window._dgDeskOpen[g];}); keys.forEach(function(g){ window._dgDeskOpen[g]=!anyOpen; }); renderPresDesglose(); return; }

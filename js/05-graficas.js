@@ -418,7 +418,7 @@ function renderIndependencia(){
     +'<div class="ind-row"><span>Coast FIRE (necesario hoy)</span><b>'+eur(F.coast)+'</b></div>'
     +'<div class="ind-row"><span>'+(F.ya?'Ya lo alcanzas':'Te falta')+'</span><b class="'+(F.ya?'pos':'neg')+'">'+(F.ya?'✔':eur(F.falta))+'</b></div>'+(extra||'')+'</div>'; };
   var covExtra='<div class="ind-cov"><b>Cobertura hoy:</b> tu dividendo ('+eur(divAnual)+'/año) ya cubre el <b>'+covDiv.toFixed(0)+'%</b> de tu gasto.<div class="cbar"><i style="width:'+Math.min(100,covDiv)+'%"></i></div></div>';
-  window._indepBlk=window._indepBlk||{coast:true,retirada:false};
+  window._indepBlk=window._indepBlk||{coast:true,retirada:true};
   // --- Bloque 1: Coast FIRE (acumulación) ---
   var coastInner='<div class="ind-intro"><b class="h">🏖️ ¿Qué es el Coast FIRE?</b>El punto en el que ya tienes <b>suficiente patrimonio invertido</b> para que, <b>sin aportar más</b> y dejándolo crecer solo, llegue a tu <b>número FIRE</b> a la edad objetivo. A partir de ahí solo cubres gastos corrientes: el interés compuesto hace el resto.</div>'
     +'<div class="ind-fires">'
