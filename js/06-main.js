@@ -84,7 +84,6 @@ function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
   wrap.innerHTML=deskHTML+mobHTML;
   if(!wrap._cmpBound){ wrap._cmpBound=true; wrap.addEventListener('click',function(e){ if(e.target.closest('a,button'))return; const h=e.target.closest('.ccard-h'); if(h){ const c=h.parentElement; c.classList.toggle('open'); const t=c.getAttribute('data-cmpc'); if(t){window._cmpOpen=window._cmpOpen||{};window._cmpOpen[t]=c.classList.contains('open');} } }); }
 }
-if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ const t=e.target; if(t&&/^cmp[0-2]$/.test(t.id||'')){ cmpSel[+t.id.slice(3)]=t.value; renderComparador(); } });
 /* ===== Render selectivo: al cambiar datos repinta SOLO la vista activa (mapa vista→funciones).
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
@@ -92,7 +91,7 @@ const VIEW_FNS={
   panel:['renderPanel'], presupuesto:['renderPres','renderMetas'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
-  vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
+  vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
@@ -100,7 +99,7 @@ const VIEW_FNS={
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
-function renderAllFull(){ renderRenov(); renderComparador(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAllFull(){ renderRenov(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario(); renderPrevision(); renderSimulador(); renderPlan(); renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
@@ -208,9 +207,9 @@ const GROUPS={
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
-  eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['analisis','Análisis'],['comparador','Comparador']],
+  eleccion:[['vision','Visión de conjunto'],['analisis','Análisis']],
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
-  reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo']],
+  reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo'],['escenarios','Escenarios']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['simulador','Simulador']],
