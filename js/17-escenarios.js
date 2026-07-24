@@ -87,6 +87,26 @@
      out.push({t,n:a.nombre||t,s}); });
    const seen=new Set(); return out.filter(x=>seen.has(x.t)?false:(seen.add(x.t),true));
  }
+ /* Cartera PREVISTA al cierre del plan = cartera actual + compras del plan ejecutadas hasta el año
+    de cierre (simEffShares), valorada a precio de hoy → aísla el efecto de composición/concentración. */
+ function plannedRows(){
+   if(typeof simEffShares!=='function'||typeof invPositions!=='function')return null;
+   const pe=(typeof DB!=='undefined'&&DB.planLotePeriodo)||{}; const nowY=new Date().getFullYear();
+   const cierre=_num(pe.cierre)||_num(pe.hasta)||(nowY+8);
+   const set=new Set();
+   invPositions().forEach(p=>{ if(_num(p.acciones)>0.0001)set.add((p.ticker||'').toUpperCase()); });
+   Object.keys((typeof DB!=='undefined'&&DB.planCompras)||{}).forEach(t=>set.add(t.toUpperCase()));
+   try{ if(typeof _planReparto==='function'){ const R=_planReparto(); Object.keys(R.sched||{}).forEach(t=>{ let s=0; Object.keys(R.sched[t]||{}).forEach(y=>s+=_num(R.sched[t][y])); if(s>0.5)set.add(t.toUpperCase()); }); } }catch(e){}
+   const rows=[]; let tot=0;
+   set.forEach(T=>{ const v=((DB.valores||{})[T])||{}; const price=_num(v.precioActual); if(price<=0)return; const sh=simEffShares(T,cierre,nowY); const mv=sh*price; if(mv<=0)return; const s=sensFor(T); rows.push({t:T,n:v.nombre||T,mv,dv:sh*_num(v.divAccion),tier:((DB.planTipo&&DB.planTipo[T])||''),s}); tot+=mv; });
+   tot=tot||1; return {cierre,rows:rows.filter(x=>x.s).map(r=>({t:r.t,n:r.n,w:r.mv/tot,dv:r.dv,tier:r.tier,s:r.s}))};
+ }
+ /* KPIs de respuesta de una cartera (rows con {w,dv,s}) al escenario activo. */
+ function _scenRespObj(H){ if(!H||!H.length)return {caida:0,net:0,contra:0,divPct:0,alarma:0,n:0};
+   let net=0,contra=0,alarma=0,caida=0,totDiv=0,divRisk=0; H.forEach(c=>totDiv+=c.dv);
+   H.forEach(c=>{ const i=idx(c.s); net+=c.w*i; if(i<0)contra+=c.w; if(i<=-60)alarma++; caida+=c.w*Math.max(-80,Math.min(40,i*K_CAIDA)); divRisk+=c.dv*Math.max(0,Math.min(1,(-i-30)/40)); });
+   return {caida:Math.round(caida),net:Math.round(net),contra,divPct:totDiv>0?Math.round(divRisk/totDiv*100):0,alarma,n:H.length};
+ }
  function inten(id){ const v=V[id],x=escVal[id]; if(x==null)return 0;
    const i=x>=v.neu?(x-v.neu)/(v.max-v.neu):(x-v.neu)/(v.neu-v.min); return Math.max(-1,Math.min(1,i)); }
  function fmtV(id,x){ const v=V[id]; const sgn=(x>0&&/^(PIB|CONSD|CONSB|BOLSA|LATAM)$/.test(id))?'+':'';
@@ -165,6 +185,21 @@
      cr.map(({c,i})=>'<tr><td><b class="esc-tk">'+c.t+'</b> <span class="esc-mut">'+((c.n||'').slice(0,16))+'</span></td><td class="esc-num" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+';font-weight:700">'+(i>0?'+':'')+i+'</td><td>'+lect(i)+'</td></tr>').join(''); }
    const cm=document.getElementById('escCobMob'); if(cm){ cm.innerHTML=!cr.length?'<div class="esc-mut" style="padding:6px 0">No hay analizadas fuera de la cartera con sensibilidad conocida.</div>':
      cr.map(({c,i})=>'<div class="esc-icard"><div class="esc-idx" style="color:'+(i<0?'#dc2626':i>0?'#16a34a':'#64748b')+'">'+(i>0?'+':'')+i+'</div><div class="esc-imid"><div style="font-weight:700">'+c.t+' <span class="esc-mut" style="font-weight:400">'+((c.n||'').slice(0,16))+'</span></div><div style="margin-top:3px" class="esc-mut">'+lect(i)+'</div></div></div>').join(''); }
+   /* Comparación: cartera ACTUAL vs cartera PREVISTA al cierre del plan */
+   const cmpEl=document.getElementById('escCompare'); if(cmpEl){ const P=plannedRows();
+     if(!P||!P.rows.length){ cmpEl.innerHTML='<div class="esc-mut" style="padding:8px 2px">Define objetivos y compras en <b>Diversificación</b> para calcular la cartera prevista al cierre del plan.</div>'; }
+     else { const A=_scenRespObj(heldRows()), B=_scenRespObj(P.rows);
+       const tag=(mej)=>mej?'<span style="color:#16a34a;font-weight:800">▲ mejora</span>':'<span style="color:#dc2626;font-weight:800">▼ empeora</span>';
+       const row=(lab,a,b,fv,mejFn)=>'<div class="esc-cmp-row"><span class="m">'+lab+'</span><span class="a">'+fv(a)+'</span><span class="b">'+fv(b)+'</span><span class="d">'+((a===b)?'<span class="esc-mut">=</span>':tag(mejFn(a,b)))+'</span></div>';
+       const pcc=x=>(x>0?'+':'')+x+'%', pc=x=>x+'%', sg=x=>(x>0?'+':'')+x;
+       cmpEl.innerHTML='<div class="esc-cmp-row head"><span class="m">Métrica</span><span class="a">Actual</span><span class="b">Prevista '+P.cierre+'</span><span class="d">Plan</span></div>'
+         +row('Caída estimada',A.caida,B.caida,pcc,(a,b)=>b>a)
+         +row('% cartera en contra',Math.round(A.contra*100),Math.round(B.contra*100),pc,(a,b)=>b<a)
+         +row('Dividendo en riesgo',A.divPct,B.divPct,pc,(a,b)=>b<a)
+         +row('Inclinación neta',A.net,B.net,sg,(a,b)=>b>a)
+         +row('Pre-mortems en alarma',A.alarma,B.alarma,x=>String(x),(a,b)=>b<a);
+     }
+   }
  }
  window.renderEscenarios=function(){
    const el=document.getElementById('escBody'); if(!el)return;
@@ -227,6 +262,14 @@
      #view-escenarios .esc-hcard .esc-htop{display:flex;justify-content:space-between;align-items:baseline}
      #view-escenarios .esc-hcard .esc-hfacs{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
      #view-escenarios .esc-hfac{font-size:11px;padding:2px 8px;border-radius:8px;font-weight:600}
+     #view-escenarios .esc-cmp{border:1px solid #e2e8f0;border-radius:10px;overflow:hidden}
+     #view-escenarios .esc-cmp-row{display:grid;grid-template-columns:1.7fr 1fr 1fr 1.1fr;gap:8px;padding:9px 13px;align-items:center;font-size:13px;border-top:1px solid #f1f5f9}
+     #view-escenarios .esc-cmp-row:first-child{border-top:0}
+     #view-escenarios .esc-cmp-row.head{background:#f8fafc;font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b}
+     #view-escenarios .esc-cmp-row .m{font-weight:600;color:#334155}
+     #view-escenarios .esc-cmp-row .a,#view-escenarios .esc-cmp-row .b{text-align:right;font-weight:800;font-variant-numeric:tabular-nums}
+     #view-escenarios .esc-cmp-row .b{color:#1d4ed8}
+     #view-escenarios .esc-cmp-row .d{text-align:right;font-size:11.5px}
      @media(max-width:820px){
        #view-escenarios .esc-slgrid{grid-template-columns:1fr}
        #view-escenarios .esc-rk{grid-template-columns:1fr 1fr}
@@ -241,6 +284,10 @@
    <div class="esc-card"><h3>Respuesta de tu cartera</h3>
      <div class="esc-rk" id="escResp"></div>
      <div id="escNetFoot"></div>
+   </div>
+   <div class="esc-card"><h3>⚖️ Cartera actual vs prevista al cierre del plan</h3>
+     <div class="esc-mut" style="margin-bottom:8px">Cómo responde al <b>mismo escenario</b> tu cartera de <b>hoy</b> frente a la <b>prevista</b> cuando ejecutes el plan (menos concentración por empresa y sector). «Plan» indica si la cartera futura resiste mejor o peor ese riesgo.</div>
+     <div class="esc-cmp" id="escCompare"></div>
    </div>
    ${blk('imp','📊','Impacto por empresa','De más golpeada a más resiliente. ⚠ pre-mortem = tesis que peligra (índice ≤ −60).','<div class="esc-desk"><table id="escImpDesk"><thead><tr><th>Empresa</th><th>Nivel</th><th class="esc-num">Peso</th><th style="width:30%">Impacto</th><th class="esc-num">Índice</th><th>Alarma</th></tr></thead><tbody></tbody></table></div><div class="esc-mob" id="escImpMob"></div>')}
    ${blk('heat','🔥','De dónde viene el golpe','Aporte de cada factor a cada empresa (rojo resta · verde suma). En móvil, los factores que más pesan.','<div class="esc-desk" id="escHeatDesk"></div><div class="esc-mob" id="escHeatMob"></div>')}

@@ -125,16 +125,15 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['panel','Panel'],['independencia','Independencia'],['presupuesto','Presupuesto']],
+  control:[['panel','Panel'],['presupuesto','Presupuesto']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis']],
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
-  reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo'],['escenarios','Escenarios']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
-  planinv:[['proyeccion','Proyección'],['simulador','Simulador']],
+  planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['rebalanceo','Rebalanceo'],['simulador','Simulador'],['divcomp','Comparativa Div.'],['riesgo','Riesgo'],['escenarios','Escenarios']],
   informes:[['informes','Informes'],['hemero','Hemeroteca']],
   graficas:[['graficas','Gráficas']]
 };
@@ -150,7 +149,7 @@ const ADD_ACTIONS={
   diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', reparto:'diversif', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
+const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
