@@ -881,8 +881,8 @@ function _anaCump(R,curY,curMonth){
   var pct=gP?Math.round(gG/gP*100):0, dev=gP-gG, iAci=iP?Math.round(iG/iP*100):0, iDev=iG-iP;
   var head=document.getElementById('cumpHeadPct'); head.textContent=gP?pct+'%':'—'; head.className='blk-amount '+(gP?(gG/gP<=1?'pos':gG/gP<=1.1?'warnc':'neg'):'');
   document.getElementById('cumpSum').innerHTML=
-    _anaSc('Ingresos',fmt(iG)+' € de '+fmt(iP)+' €','acierto '+(iP?iAci+'%':'—')+(iDev>=0?' · +'+fmt(iDev):' · −'+fmt(Math.abs(iDev))))+
-    _anaSc('Gastado real',fmt(gG)+' € de '+fmt(gP)+' €',pct+'% del presupuesto')+
+    _anaSc('Ingresos',fmt(iG)+' de '+fmt(iP),'acierto '+(iP?iAci+'%':'—')+(iDev>=0?' · +'+fmt(iDev):' · −'+fmt(Math.abs(iDev))))+
+    _anaSc('Gastado real',fmt(gG)+' de '+fmt(gP),pct+'% del presupuesto')+
     _anaSc(dev>=0?'Te sobran':'Te has pasado',(dev>=0?'':'−')+fmt(Math.abs(dev))+' €',_anaBar(pct,gP?gG/gP:NaN));
   var totIng='<div class="tot"><span>TOTAL INGRESOS</span>'+_anaCell('Previsto',fmt(iP))+_anaCell('Recibido',fmt(iG))+_anaCell('Desv.',(iDev>=0?'+':'−')+fmt(Math.abs(iDev)),_anaDevCls(iDev))+'<span class="a-num">'+(iP?iAci+'%':'—')+'</span><div class="mcell"><span>Acierto</span><b>'+(iP?iAci+'%':'—')+'</b></div></div>';
   var totGas='<div class="tot"><span>TOTAL GASTOS</span>'+_anaCell('Presup.',fmt(gP))+_anaCell('Gastado',fmt(gG))+_anaCell('Desv.',(dev>=0?'+':'−')+fmt(Math.abs(dev)),_anaDevCls(dev))+'<span class="a-num">'+(gP?pct+'%':'—')+'</span><div class="mcell"><span>%</span><b>'+(gP?pct+'%':'—')+'</b></div></div>';
@@ -907,8 +907,8 @@ function _anaCmp(R,curY,curMonth,ing){
   document.getElementById(ing?'cmpiHead2':'cmpHead2').innerHTML='<span>Sección / partida</span><span class="ya">'+(ing?'Ingresos ':'Presupuesto ')+A+'</span><span class="yb">'+(ing?'Ingresos ':'Presupuesto ')+B+'</span><span>Δ Previsto</span>';
   document.getElementById(ing?'cmpiHead':'cmpHead').innerHTML='<span></span><span>Previsto</span><span>'+lblB+'</span><span>Desv.</span><span>Previsto</span><span>'+lblB+'</span><span>Desv.</span><span>B−A</span>';
   document.getElementById(ing?'cmpiSum':'cmpSum').innerHTML=
-    _anaSc('Previsto',fmt(TA.p)+' € → '+fmt(TB.p)+' €','año '+A+' vs '+B)+
-    _anaSc(ing?'Recibido real':'Gastado real',fmt(TA.g)+' € → '+fmt(TB.g)+' €','lo '+(ing?'recibido':'ejecutado')+' cada año')+
+    _anaSc('Previsto',fmt(TA.p)+' → '+fmt(TB.p),'año '+A+' vs '+B)+
+    _anaSc(ing?'Recibido real':'Gastado real',fmt(TA.g)+' → '+fmt(TB.g),'lo '+(ing?'recibido':'ejecutado')+' cada año')+
     _anaSc('Variación del previsto',(dP>=0?'+':'−')+fmt(Math.abs(dP))+' €',(pcP>=0?'+':'')+pcP+'% respecto a '+A);
   var rowFor=function(nm,a,b,isGrp,key){
     var dp=b.p-a.p, pc=a.p?Math.round((b.p/a.p-1)*100):0, da=dv(a), db=dv(b);
@@ -1194,12 +1194,20 @@ function editSnapshot(id){
   if(b)b.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function resetPatForm(){ renderPatForm(); var rc=$('#patRegCancel'); if(rc)rc.style.display='none'; }
-function _patCmpCell(label, cur, base, hasBase){
-  if(!hasBase) return '<div class="pat-cmp-cell"><div class="l">'+label+'</div><div class="v eq">— primer registro</div></div>';
+// Celda de variación (desktop): % coloreado + € pequeño debajo
+function _patVar(cur, base, hasBase){
+  if(!hasBase) return '<td class="pv"><span class="pv-mut">—</span></td>';
   var d=cur-base; var pct=base>0?(d/base*100):null;
   var cls=d>0.5?'up':(d<-0.5?'dn':'eq'); var arr=d>0.5?'▲':(d<-0.5?'▼':'·');
-  var pctTxt=(pct==null)?'':(' · '+(d>=0?'+':'')+pct.toFixed(1)+'%');
-  return '<div class="pat-cmp-cell"><div class="l">'+label+'</div><div class="v '+cls+'">'+arr+' '+(d>=0?'+':'')+fmt(d)+pctTxt+'</div></div>';
+  var pTxt=(pct==null)?arr:(arr+' '+(d>=0?'+':'')+pct.toFixed(1)+'%');
+  return '<td class="pv '+cls+'"><span class="pv-p">'+pTxt+'</span><span class="pv-e">'+(d>=0?'+':'')+fmt(d)+'</span></td>';
+}
+// Variación (móvil): texto inline
+function _patVarM(cur, base, hasBase){
+  if(!hasBase) return '<span class="eq">—</span>';
+  var d=cur-base; var pct=base>0?(d/base*100):null;
+  var cls=d>0.5?'up':(d<-0.5?'dn':'eq'); var arr=d>0.5?'▲':(d<-0.5?'▼':'·');
+  return '<span class="'+cls+'">'+arr+' '+(d>=0?'+':'')+(pct==null?fmt(d):(pct.toFixed(1)+'%'))+'</span>';
 }
 function renderPatList(){
   const asc=patSnaps().slice();                 // orden cronológico ascendente
@@ -1208,34 +1216,39 @@ function renderPatList(){
   if(!asc.length){ listEl.innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin registros.</div>'; return; }
   const cById=function(id){return (DB.cuentas||[]).find(function(c){return c.id===id;});};
   const tFirst=snapTot(asc[0]);
-  let out='';
+  const head='<thead><tr>'+
+    '<th class="l">Fecha</th>'+
+    '<th class="grp">Efectivo</th><th>vs ant.</th><th>vs inicio</th>'+
+    '<th class="grp">Invertido</th><th>vs ant.</th><th>vs inicio</th>'+
+    '<th class="grp">Total</th><th>vs ant.</th><th>vs inicio</th>'+
+    '<th class="grp">% Inv.</th></tr></thead>';
+  let rows='', cards='';
   for(let i=asc.length-1;i>=0;i--){
     const s=asc[i]; const t=snapTot(s); const pInv=t.total?Math.round(t.inv/t.total*100):0;
     const prev=i>0?asc[i-1]:null; const tPrev=prev?snapTot(prev):null; const isFirst=(i===0);
-    // insignia compacta en la cabecera: total vs registro anterior
-    let hdr='';
-    if(tPrev){ const dd=t.total-tPrev.total; const pc=tPrev.total>0?(dd/tPrev.total*100):null; const hc=dd>0.5?'up':(dd<-0.5?'dn':'eq'); const ar=dd>0.5?'▲':(dd<-0.5?'▼':'·'); hdr=' <small class="pdelta '+hc+'">'+ar+(pc!=null?' '+(dd>=0?'+':'')+pc.toFixed(1)+'%':'')+'</small>'; }
     const brk=(s.lineas||[]).map(function(l){ var c=cById(l.cuentaId); return '<tr><td>'+(c?_infEsc(c.nombre):'—')+'</td><td class="num">'+fmt(num(l.ef))+'</td><td class="num">'+fmt(num(l.inv))+'</td><td class="num">'+fmt(num(l.ef)+num(l.inv))+'</td></tr>'; }).join('');
-    const cmp='<div class="pat-cmp"><div class="pat-cmp-t">📊 Comparativa frente al pasado</div><div class="pat-cmp-grid">'+
-      _patCmpCell('📈 Cartera vs registro anterior', t.inv, tPrev?tPrev.inv:0, !!tPrev)+
-      _patCmpCell('📈 Cartera vs primer registro', t.inv, tFirst.inv, !isFirst)+
-      _patCmpCell('💰 Total vs registro anterior', t.total, tPrev?tPrev.total:0, !!tPrev)+
-      _patCmpCell('💰 Total vs primer registro', t.total, tFirst.total, !isFirst)+
-      '</div></div>';
-    out+='<div class="pat-item"><div class="pat-ih" data-patrow>'+
-      '<span class="pat-arw">▶</span>'+
-      '<span class="pat-fch">'+ddmmyyyy(s.fecha)+'</span>'+
-      '<span class="pat-n">'+fmt(t.ef)+' / '+fmt(t.inv)+'</span>'+
-      '<span class="pat-tot">'+fmt(t.total)+hdr+'</span>'+
-      '<span class="pat-pinv">'+pInv+'%</span>'+
-      '<span class="pat-meta">Efect. '+fmt(t.ef)+' · Invert. '+fmt(t.inv)+' · '+pInv+'% inv.'+(tPrev?(' · Total '+((t.total-tPrev.total)>=0?'▲ +':'▼ ')+fmt(t.total-tPrev.total)+' vs ant.'):'')+'</span>'+
-      '</div><div class="pat-b">'+
-        '<table class="pat-brk"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th></tr></thead><tbody>'+brk+'</tbody></table>'+
-        cmp+
-        '<div class="pat-acts"><button class="btn ghost sm" data-editsnap="'+s.id+'">✎ Editar</button><button class="btn danger sm" data-delsnap="'+s.id+'">🗑 Eliminar</button></div>'+
-      '</div></div>';
+    const acts='<div class="pat-acts"><button class="btn ghost sm" data-editsnap="'+s.id+'">✎ Editar</button><button class="btn danger sm" data-delsnap="'+s.id+'">🗑 Eliminar</button></div>';
+    // ---- fila de tabla (desktop) ----
+    rows+='<tr class="pr-row" data-patrow>'+
+      '<td class="l"><span class="pr-arw">▶</span>'+ddmmyyyy(s.fecha)+'</td>'+
+      '<td class="v grp">'+fmt(t.ef)+'</td>'+_patVar(t.ef, tPrev?tPrev.ef:0, !!tPrev)+_patVar(t.ef, tFirst.ef, !isFirst)+
+      '<td class="v grp">'+fmt(t.inv)+'</td>'+_patVar(t.inv, tPrev?tPrev.inv:0, !!tPrev)+_patVar(t.inv, tFirst.inv, !isFirst)+
+      '<td class="v grp tot">'+fmt(t.total)+'</td>'+_patVar(t.total, tPrev?tPrev.total:0, !!tPrev)+_patVar(t.total, tFirst.total, !isFirst)+
+      '<td class="grp pinv">'+pInv+'%</td>'+
+      '</tr>'+
+      '<tr class="pr-detail"><td colspan="11"><div class="pr-detwrap"><table class="pat-brk"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th></tr></thead><tbody>'+brk+'</tbody></table>'+acts+'</div></td></tr>';
+    // ---- tarjeta (móvil) ----
+    const cell=(lbl,val,cur,base)=>'<div class="prm-cell"><div class="prm-cl"><span class="l">'+lbl+'</span><span class="v">'+fmt(val)+'</span></div><div class="d"><span class="k">ant.</span> '+_patVarM(cur, tPrev?base.p:0, !!tPrev)+' <span class="k">· inicio</span> '+_patVarM(cur, base.f, !isFirst)+'</div></div>';
+    cards+='<div class="prm-card" data-prm><div class="prm-h"><span class="prm-f">▶ '+ddmmyyyy(s.fecha)+'</span><span class="prm-t">'+fmt(t.total)+'</span><span class="prm-pinv">'+pInv+'% inv.</span></div>'+
+      '<div class="prm-grid">'+
+        cell('Efectivo', t.ef, t.ef, {p:tPrev?tPrev.ef:0, f:tFirst.ef})+
+        cell('Invertido', t.inv, t.inv, {p:tPrev?tPrev.inv:0, f:tFirst.inv})+
+        cell('Total', t.total, t.total, {p:tPrev?tPrev.total:0, f:tFirst.total})+
+      '</div>'+
+      '<div class="prm-det"><table class="pat-brk"><thead><tr><th>Cuenta</th><th class="num">Efect.</th><th class="num">Invert.</th><th class="num">Total</th></tr></thead><tbody>'+brk+'</tbody></table>'+acts+'</div>'+
+      '</div>';
   }
-  listEl.innerHTML=out;
+  listEl.innerHTML='<div class="pat-reg-wrap"><table class="pat-reg">'+head+'<tbody>'+rows+'</tbody></table></div><div class="pat-reg-mob">'+cards+'</div>';
 }
 function addSnapshot(){
   const fE=$('#patFecha'); const fecha=fE?fE.value:''; if(!fecha){alert('Pon una fecha');return;}
@@ -1553,7 +1566,7 @@ function renderAmalia(){
   const saldo=tG-tR, settled=Math.abs(saldo)<0.005, n=(DB.amalia||[]).length;
   const hero=$('#amaHero');
   if(hero) hero.innerHTML=
-    '<div><div class="big">'+(settled?'Todo reembolsado':'Pendiente de reembolso')+'</div><div class="amt">'+_amaFmt(saldo)+' €</div>'+
+    '<div><div class="big">'+(settled?'Todo reembolsado':'Pendiente de reembolso')+'</div><div class="amt">'+_amaFmt(saldo)+'</div>'+
     '<div class="st">'+(settled?'no te deben nada ahora mismo':'es lo que aún te deben')+'</div></div>'+
     (settled?'<div class="settled">✓ saldado</div>':'')+
     '<div class="spacer"></div><div class="ama-minis">'+
@@ -1587,7 +1600,7 @@ function renderAmalia(){
       <div class="ama-b">
         <div class="ama-dets">
           <div class="d"><span>Nota</span>${e.nota?_infEsc(e.nota):'—'}</div>
-          <div class="d"><span>Saldo tras el apunte</span>${_amaFmt(salMap[e.id])} €</div>
+          <div class="d"><span>Saldo tras el apunte</span>${_amaFmt(salMap[e.id])}</div>
         </div>
         <div class="ama-acts">
           <button class="btn ghost sm" data-editama="${e.id}">✎ Editar</button>
@@ -1784,7 +1797,7 @@ function renderFondoR4(){
       '<span class="r4-n">'+(val!=null?fmt(val):'—')+'</span>'+
       '<span class="r4-meta">Acum. '+fmt(acum)+' · Valor '+(val!=null?fmt(val):'—')+'</span>'+
       '</div><div class="r4-b"><div class="r4-dets">'+
-        '<div class="d"><span>Plusvalía</span>'+(plus!=null?('<b class="'+(plus>=0?'pos':'neg')+'">'+(plus>=0?'+':'')+fmt(plus)+' €</b>'):'—')+'</div>'+
+        '<div class="d"><span>Plusvalía</span>'+(plus!=null?('<b class="'+(plus>=0?'pos':'neg')+'">'+(plus>=0?'+':'')+fmt(plus)+'</b>'):'—')+'</div>'+
         '<div class="d"><span>Retención</span>'+((e.retencion!=null&&e.retencion!=='')?fmt(num(e.retencion))+' €':'—')+'</div>'+
         '<div class="d"><span>Interés bruto</span>'+((e.bruto!=null&&e.bruto!=='')?fmt(num(e.bruto))+' €':'—')+'</div>'+
         '<div class="d"><span>Interés neto</span>'+((e.neto!=null&&e.neto!=='')?'<b class="pos">'+fmt(num(e.neto))+' €</b>':'—')+'</div>'+
@@ -1801,7 +1814,7 @@ function editFondoR4(id){
   $('#r4Valor').value=(e.valor!=null&&e.valor!=='')?num(e.valor):'';
   setR4Tipo(e.tipo==='retirada'?'retirada':'aportacion');
   if($('#r4Ret')) $('#r4Ret').value=(e.retencion!=null&&e.retencion!=='')?num(e.retencion):'';
-  if($('#r4RetCalc')){ if(e.retencion){ var c=r4DesdeRetencion(e.retencion); $('#r4RetCalc').textContent=' → bruto '+fmt(c.bruto)+' € · neto '+fmt(c.neto)+' €'; } else $('#r4RetCalc').textContent=''; }
+  if($('#r4RetCalc')){ if(e.retencion){ var c=r4DesdeRetencion(e.retencion); $('#r4RetCalc').textContent=' → bruto '+fmt(c.bruto)+' · neto '+fmt(c.neto); } else $('#r4RetCalc').textContent=''; }
   $('#r4Add').textContent='Guardar cambios'; var cc=$('#r4Cancel'); if(cc)cc.style.display='inline-block';
   var b=$('#blkR4Add'); if(b){ b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
 }
@@ -1943,7 +1956,7 @@ function renderOrigen(){
   if(pctCumpl>=1){rumboCls='';rumboTxt='Por delante del plan';}
   else if(pctCumpl>=0.9){rumboCls=' amber';rumboTxt='En línea con el plan';}
   else {rumboCls=' red';rumboTxt='Por detrás del plan';}
-  function eur(v){return fmt(v)+' €';}
+  function eur(v){return fmt(v);}
   function rowE(label,plan,hoy,higherBetter){ var d=hoy-plan; var fav=higherBetter?(d>=0):(d<=0); return '<tr><td>'+label+'</td><td class="num">'+eur(plan)+'</td><td class="num"><b>'+eur(hoy)+'</b></td><td class="num '+(fav?'pos':'neg')+'">'+(d>=0?'+':'')+fmt(d)+'</td></tr>'; }
   function rowP(label,plan,hoy){ var d=hoy-plan; return '<tr><td>'+label+'</td><td class="num">'+plan.toFixed(1)+'%</td><td class="num"><b>'+hoy.toFixed(1)+'%</b></td><td class="num">'+(d>=0?'+':'')+d.toFixed(1)+' pp</td></tr>'; }
   host.innerHTML=

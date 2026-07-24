@@ -304,11 +304,11 @@ if($('#view-proxcompra')){
     const p=e.target.closest('[data-proxplan]'); if(p){ const t=p.dataset.proxplan; const amt=(typeof proxAmount==='function')?proxAmount(t):0; if(amt<=0){ alert('No hay importe recomendado para '+t+'.'); return; }
       const info=(typeof _planYearInfo==='function')?_planYearInfo(_y):{budget:0,planned:0,remaining:0}; let donor=null, donorAmt=0;
       if(info.budget>0 && (info.planned+amt)>info.budget+0.5){ const exceso=(info.planned+amt)-info.budget; const donors=(typeof planDonorsYear==='function')?planDonorsYear(_y,t):[]; const lista=donors.map(d=>d.t+' ('+fmt(d.amt)+')').join(', ');
-        const resp=prompt('Añadir '+fmt(amt)+' € de '+t+' superaría el presupuesto de '+_y+' ('+fmt(info.budget)+' · ya planificado '+fmt(info.planned)+' · te pasarías '+fmt(exceso)+').\n\n¿De qué empresa descuento '+fmt(amt)+' € para reasignar? Escribe el ticker (opciones: '+(lista||'ninguna')+'), o deja vacío para añadir igualmente.', donors[0]?donors[0].t:'');
+        const resp=prompt('Añadir '+fmt(amt)+' de '+t+' superaría el presupuesto de '+_y+' ('+fmt(info.budget)+' · ya planificado '+fmt(info.planned)+' · te pasarías '+fmt(exceso)+').\n\n¿De qué empresa descuento '+fmt(amt)+' para reasignar? Escribe el ticker (opciones: '+(lista||'ninguna')+'), o deja vacío para añadir igualmente.', donors[0]?donors[0].t:'');
         if(resp===null)return; const dt=(resp||'').trim().toUpperCase(); if(dt){ const d=donors.find(x=>x.t===dt); if(!d){ if(!confirm('No encuentro '+dt+' en el Plan de '+_y+'. ¿Añadir sin reasignar?'))return; } else { donor=dt; donorAmt=amt; } } }
-      if(confirm('¿Añadir '+fmt(amt)+' € de '+t+' al Plan de '+_y+(donor?(' descontando '+fmt(donorAmt)+' € de '+donor):'')+'?')){ const a=proxApplyPlan(t,amt,_y,donor,donorAmt); if(a>0)alert('Hecho: +'+fmt(a)+' € en '+t+(donor?(' · −'+fmt(donorAmt)+' € en '+donor):'')+' (Plan '+_y+').'); } return; }
-    const c=e.target.closest('[data-proxcaja]'); if(c){ if(confirm('¿Registrar la compra de '+c.dataset.proxcaja+' como salida en la Caja bróker (hoy)?')){ const a=proxAddCaja(c.dataset.proxcaja); if(a>0)alert('Registrada salida de '+fmt(a)+' € en la Caja.'); } return; }
-    const all=e.target.closest('#proxAllPlan'); if(all){ if(confirm('¿Añadir TODAS las compras sugeridas al Plan del año '+_y+'? (se añaden, no reasignan)')){ const a=proxAddPlan(null,true); const info=(typeof _planYearInfo==='function')?_planYearInfo(_y):null; let extra=''; if(info&&info.budget>0&&info.remaining<-0.5)extra='\n\n⚠️ Te has pasado del presupuesto de '+_y+' en '+fmt(-info.remaining)+' €. Ajusta en la pestaña Plan.'; alert((a>0?('Añadido '+fmt(a)+' € al Plan de '+_y+'.'):'No hay compras sugeridas que añadir.')+extra); } return; }
+      if(confirm('¿Añadir '+fmt(amt)+' de '+t+' al Plan de '+_y+(donor?(' descontando '+fmt(donorAmt)+' de '+donor):'')+'?')){ const a=proxApplyPlan(t,amt,_y,donor,donorAmt); if(a>0)alert('Hecho: +'+fmt(a)+' en '+t+(donor?(' · −'+fmt(donorAmt)+' en '+donor):'')+' (Plan '+_y+').'); } return; }
+    const c=e.target.closest('[data-proxcaja]'); if(c){ if(confirm('¿Registrar la compra de '+c.dataset.proxcaja+' como salida en la Caja bróker (hoy)?')){ const a=proxAddCaja(c.dataset.proxcaja); if(a>0)alert('Registrada salida de '+fmt(a)+' en la Caja.'); } return; }
+    const all=e.target.closest('#proxAllPlan'); if(all){ if(confirm('¿Añadir TODAS las compras sugeridas al Plan del año '+_y+'? (se añaden, no reasignan)')){ const a=proxAddPlan(null,true); const info=(typeof _planYearInfo==='function')?_planYearInfo(_y):null; let extra=''; if(info&&info.budget>0&&info.remaining<-0.5)extra='\n\n⚠️ Te has pasado del presupuesto de '+_y+' en '+fmt(-info.remaining)+'. Ajusta en la pestaña Plan.'; alert((a>0?('Añadido '+fmt(a)+' al Plan de '+_y+'.'):'No hay compras sugeridas que añadir.')+extra); } return; }
     const rf=e.target.closest('#proxRefresh'); if(rf){ if(typeof renderProxCompra==='function')renderProxCompra(); return; } });
   $('#view-proxcompra').addEventListener('change',e=>{ const y=e.target.closest('#proxYear'); if(y){ proxYearSel=+y.value||new Date().getFullYear(); if(typeof renderProxCompra==='function')renderProxCompra(); } });
 }
@@ -459,7 +459,7 @@ if($('#amaFtipo'))$('#amaFtipo').addEventListener('change',renderAmalia);
 if($('#r4Form')) $('#r4Form').addEventListener('submit',e=>{e.preventDefault();addFondoR4();});
 if($('#r4ImportBtn')) $('#r4ImportBtn').addEventListener('click',()=>$('#r4File').click());
 if($('#r4Tipo')) $('#r4Tipo').addEventListener('change',()=>{ const rt=$('#r4NetoWrap'); if(rt) rt.style.display=($('#r4Tipo').value==='retirada'?'':'none'); });
-if($('#r4Ret')) $('#r4Ret').addEventListener('input',()=>{ const el=$('#r4RetCalc'); if(!el)return; const c=r4DesdeRetencion($('#r4Ret').value); el.textContent=(c.retencion>0)?(' → bruto '+fmt(c.bruto)+' € · neto '+fmt(c.neto)+' €'):''; });
+if($('#r4Ret')) $('#r4Ret').addEventListener('input',()=>{ const el=$('#r4RetCalc'); if(!el)return; const c=r4DesdeRetencion($('#r4Ret').value); el.textContent=(c.retencion>0)?(' → bruto '+fmt(c.bruto)+' · neto '+fmt(c.neto)):''; });
 if($('#r4Orden')) $('#r4Orden').addEventListener('change',renderFondoR4);
 if($('#view-fondor4')) $('#view-fondor4').addEventListener('click',e=>{ const h=e.target.closest('[data-r4blk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-r4blk')); if(blk)blk.classList.toggle('open'); });
 if($('#r4TipoSeg')) $('#r4TipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(b&&typeof setR4Tipo==='function')setR4Tipo(b.dataset.t); });
@@ -518,7 +518,8 @@ $('#patImportBtn').addEventListener('click',()=>$('#patFile').click());
 $('#patList').addEventListener('click',e=>{
   const ed=e.target.closest('[data-editsnap]'); if(ed){ if(typeof editSnapshot==='function')editSnapshot(ed.dataset.editsnap); return; }
   const b=e.target.closest('[data-delsnap]'); if(b){ const _id=b.dataset.delsnap; const _it=(DB.patrimonio||[]).find(s=>s.id===_id); if(_it)undoableDelete('patrimonio','Registro de patrimonio'+(_it.fecha?(' '+_it.fecha):''),{item:_it},()=>{DB.patrimonio=DB.patrimonio.filter(s=>s.id!==_id);},['renderPat']); return; }
-  const r=e.target.closest('[data-patrow]'); if(r){ if(e.target.closest('input,button,select,a'))return; const it=r.closest('.pat-item'); if(it)it.classList.toggle('open'); }
+  const r=e.target.closest('[data-patrow]'); if(r){ if(e.target.closest('input,button,select,a'))return; r.classList.toggle('open'); return; }
+  const rm=e.target.closest('[data-prm]'); if(rm){ if(e.target.closest('input,button,select,a'))return; rm.classList.toggle('open'); return; }
 });
 document.addEventListener('change',e=>{ if(e.target&&e.target.id==='patObj'){ DB.config.objetivoReparto=Math.max(0,Math.min(100,num(e.target.value)))/100; renderPat(); scheduleSave(); }});
 $('#btnAddYear').addEventListener('click',addYear);

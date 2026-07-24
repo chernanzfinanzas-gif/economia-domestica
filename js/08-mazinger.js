@@ -79,7 +79,7 @@ function renderMazinger(){
     +_img(MZ_FOTO,'Toyota Corolla','📷 Coche')+'</div>';
 
   var kpi=function(l,v,hl){ return '<div class="mz-kpi'+(hl?' hl':'')+'"><div class="l">'+l+'</div><div class="v">'+v+'</div></div>'; };
-  var kpis='<div class="mz-kpis">'+kpi('Consumo medio',_mzNum(consMedio,2)+' L/100km',1)+kpi('Km recorridos',_mzNum(totKm,0)+' km')+kpi('Litros totales',_mzNum(totLit,2)+' L')+kpi('Gasto total',fmt(gastoTotal)+' €')+kpi('Coste medio',_mzNum(eur100med,2)+' €/100km')+kpi('Precio medio',_mzNum(eurLmed,3)+' €/L')+'</div>';
+  var kpis='<div class="mz-kpis">'+kpi('Consumo medio',_mzNum(consMedio,2)+' L/100km',1)+kpi('Km recorridos',_mzNum(totKm,0)+' km')+kpi('Litros totales',_mzNum(totLit,2)+' L')+kpi('Gasto total',fmt(gastoTotal))+kpi('Coste medio',_mzNum(eur100med,2)+' €/100km')+kpi('Precio medio',_mzNum(eurLmed,3)+' €/L')+'</div>';
 
   var ed=_mzEdit?(DB.combustible||[]).find(function(e){return e.id===_mzEdit;}):null;
   var v=function(x){return x==null?'':x;};
@@ -112,7 +112,7 @@ function renderMazinger(){
       +'<div class="d"><span>€/100km</span>'+(e._eur100!=null?_mzNum(e._eur100,2)+' €':'—')+'</div>'
       +'</div><div class="mz-acts"><button class="btn ghost sm" data-mzedit="'+e.id+'">✎ Editar</button><button class="btn danger sm" data-mzdel="'+e.id+'">🗑 Eliminar</button></div></div></div>';
   }).join('');
-  var totrow=arr.length?'<div class="mz-tot"><span></span><span>TOTALES</span><span>'+arr.length+' repostajes</span><span>'+_mzNum(totKm,0)+' km</span><span>'+_mzNum(consMedio,2)+'</span><span>'+fmt(gastoTotal)+' €</span></div>':'';
+  var totrow=arr.length?'<div class="mz-tot"><span></span><span>TOTALES</span><span>'+arr.length+' repostajes</span><span>'+_mzNum(totKm,0)+' km</span><span>'+_mzNum(consMedio,2)+'</span><span>'+fmt(gastoTotal)+'</span></div>':'';
   var lista=arr.length?('<div class="mz-collbl"><span></span><span>Fecha</span><span>Km coche</span><span>Litros</span><span>L/100km</span><span>Precio</span></div>'+rowsHtml+totrow+'<div class="mz-nota">Método "de lleno a lleno": los litros de cada repostaje cubren los km recorridos desde el anterior. El primer repostaje no entra en la media (no hay tramo previo).</div>'):'<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin repostajes. Añade el primero arriba.</div>';
   var listBlk='<div class="blk mz-blk'+(ui.list?' open':'')+'"><div class="blk-h" data-mzblk="list"><span class="blk-arw">▶</span><span class="blk-ic">⛽</span><div><div class="blk-t">Repostajes</div><div class="blk-sub">Toca una fila para ver el detalle, editar o borrar</div></div><div class="blk-right"><span class="blk-sub">'+arr.length+' repostajes</span></div></div><div class="blk-b">'+lista+'</div></div>';
 
