@@ -531,14 +531,15 @@ function proximaCompra(){ if(typeof cmpScore!=='function')return null;
   return {cajaHoy,capByCash,items,cand,near,recTotal}; }
 // === Backtest del método: agrega las fotos de tesis (DB.tesisHist) y mide aciertos ===
 function backtestData(){ const TH=DB.tesisHist||{}; const dec={COMPRAR:{n:0,ok:0,sum:0,nr:0,esc:0},MANTENER:{n:0,ok:0,sum:0,nr:0,esc:0},ESPERAR:{n:0,ok:0,sum:0,nr:0,esc:0},VENDER:{n:0,ok:0,sum:0,nr:0,esc:0}};
-  const rows=[]; let total=0, okTotal=0, evalTotal=0;
+  const rows=[]; let total=0, okTotal=0, evalTotal=0, _qch=false;
   Object.keys(TH).forEach(t=>{ const T=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===T)||{}; let ahora=num(a.cotizacion); if(!(ahora>0))ahora=num(((DB.valores||{})[T]||{}).precioActual);
-    (TH[t]||[]).forEach(sn=>{ const then=num(sn.cotizacion); const d=(sn.decision||'').toUpperCase(); const rent=(then>0&&ahora>0)?(ahora/then-1):null; total++;
+    (TH[t]||[]).forEach(sn=>{ if(sn&&sn.qScore==null){ var _tj=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[T]:null; if(_tj&&_tj.score!=null&&_tj.score!==''){ sn.qScore=num(_tj.score); _qch=true; } } const then=num(sn.cotizacion); const d=(sn.decision||'').toUpperCase(); const rent=(then>0&&ahora>0)?(ahora/then-1):null; total++;
       let ok=null, esc=false;
       if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER')ok=rent>=0; else if(d==='VENDER')ok=rent<0; else if(d==='ESPERAR'){ esc=rent>0.05; ok=!esc; } }
       if(dec[d]){ dec[d].n++; if(rent!=null){ dec[d].nr++; dec[d].sum+=rent; if(ok)dec[d].ok++; if(esc)dec[d].esc++; } }
       if(rent!=null){ evalTotal++; if(ok)okTotal++; }
       rows.push({t:T,fecha:sn.fecha,decision:d,rating:sn.rating,score:sn.score,qScore:(sn.qScore!=null?num(sn.qScore):null),then,ahora,rent,ok,esc}); }); });
+  if(_qch&&typeof scheduleSave==='function')scheduleSave();
   return {dec,rows,total,okTotal,evalTotal}; }
 async function regenerarFotosDossiers(){
   const st=$('#btStatus'); const say=m=>{ if(st)st.textContent=m; };
