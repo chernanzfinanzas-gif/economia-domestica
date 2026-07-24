@@ -35,7 +35,12 @@ function _calHoy(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMon
 function _calHeld(){ try{ return (typeof heldTickerSet==='function')?heldTickerSet():new Set(); }catch(e){ return new Set(); } }
 function _calPrev(){ var h=_calHeld(); return (DB.planLote||[]).map(function(x){return (x||'').toUpperCase();}).filter(function(t){ return t && !h.has(t); }); }
 function calTickers(){ var out=[]; var h=[]; _calHeld().forEach(function(t){h.push(t);}); h.concat(_calPrev()).forEach(function(t){ if(t && out.indexOf(t)<0) out.push(t); }); return out; }
-function _calGrp(t){ return _calHeld().has((t||'').toUpperCase()) ? 'cartera' : 'prevista'; }
+function _calHasDossier(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); return !!(a && a.dossierFecha); }
+function _calGrp(t){ t=(t||'').toUpperCase(); if(_calHeld().has(t))return 'cartera'; var pl=(DB.planLote||[]).map(function(x){return (x||'').toUpperCase();}); if(pl.indexOf(t)>=0)return 'prevista'; return _calHasDossier(t)?'analizada':'universo'; }
+/* Empresas sin asignar (ni cartera ni plan): con dossier = «Analizadas»; sin dossier = «Universo». */
+function _calNoAsig(pred){ var inCal={}; calTickers().forEach(function(t){ inCal[(t||'').toUpperCase()]=1; }); var out=[]; (DB.analisis||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); if(t && !inCal[t] && pred(a) && out.indexOf(t)<0) out.push(t); }); return out.sort(); }
+function _calDossierAna(){ return _calNoAsig(function(a){ return !!a.dossierFecha; }); }
+function _calUniversoAna(){ return _calNoAsig(function(a){ return !a.dossierFecha; }); }
 
 /* ---- periodo canónico Q1..Q4 desde cualquier token ---- */
 function _calQ(p){
@@ -202,8 +207,12 @@ function calEventosDe(t, year){
 }
 
 /* Todos los eventos (todas las empresas) de un AÑO. */
-function calEventosAnio(year){
-  var out=[]; calTickers().forEach(function(t){ out=out.concat(calEventosDe(t, year)); });
+function calEventosAnio(year, incAna, incUni){
+  var out=[]; var ticks=calTickers().slice(); var extra={};
+  if(incAna){ _calDossierAna().forEach(function(t){ extra[t]=1; }); }
+  if(incUni){ _calUniversoAna().forEach(function(t){ extra[t]=1; }); }
+  Object.keys(extra).forEach(function(t){ if(ticks.indexOf(t)<0)ticks.push(t); });
+  ticks.forEach(function(t){ out=out.concat(calEventosDe(t, year)); });
   return out.sort(function(a,b){ return a.fecha<b.fecha?-1:1; });
 }
 
@@ -388,6 +397,10 @@ function _calBarHTML(ymin,ymax){
       +'<button class="btn sm" id="calHoy" data-calhoy="1" title="Ir al año en curso ('+nowY+')" style="font-weight:700">Hoy</button>'
     +'</div>'
     +'<div style="display:flex;gap:6px;flex-wrap:wrap">'+sub('agenda','Agenda')+sub('mensual','Mensual')+sub('divs','Dividendos €/mes')+'</div>'
+    +'<label class="cal-anatgl" title="Empresas CON dossier (método completo, las de la sección Análisis) que no tienes en cartera ni en el plan de compras." style="display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#3730a3;background:linear-gradient(120deg,#eef2ff,#e0e7ff);border:1px solid #c7d2fe;border-radius:12px;padding:6px 12px;cursor:pointer">'
+      +'<input type="checkbox" id="calShowAna"'+(window._calShowAna?' checked':'')+' style="cursor:pointer;accent-color:#6366f1"> Mostrar analizadas sin asignar</label>'
+    +'<label class="cal-anatgl" title="Resto del UNIVERSO seguido (sin dossier) que no tienes en cartera ni en el plan de compras." style="display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;color:#334155;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:12px;padding:6px 12px;cursor:pointer">'
+      +'<input type="checkbox" id="calShowUni"'+(window._calShowUni?' checked':'')+' style="cursor:pointer;accent-color:#64748b"> Mostrar universo sin asignar</label>'
   +'</div>';
 }
 
@@ -424,17 +437,17 @@ function _calBadge(e){
 function _calAgendaHTML(){
   var y=_calYearSel, nowY=_calNowY(), hoy=_calHoy();
   var empSel=(_calFil.empresa==null?'todas':_calFil.empresa);
-  var ev=calEventosAnio(y).filter(function(e){ return (_calFil.tipo==='todos'||e.tipo===_calFil.tipo)&&(_calFil.ambito==='todas'||e.grp==='cartera')&&(empSel==='todas'||e.t===empSel); });
+  var ev=calEventosAnio(y, window._calShowAna, window._calShowUni).filter(function(e){ return (_calFil.tipo==='todos'||e.tipo===_calFil.tipo)&&(_calFil.ambito==='todas'||e.grp==='cartera')&&(empSel==='todas'||e.t===empSel); });
   var fb=function(v,lbl,key){ return '<button class="btn sm calFbtn'+((_calFil[key==='a'?'ambito':'tipo'])===v?' on':'')+'" data-cal'+key+'="'+v+'" style="'+((_calFil[key==='a'?'ambito':'tipo'])===v?'background:#0f172a;color:#fff;':'')+'font-size:12px">'+lbl+'</button>'; };
   var amb=fb('todas','Cartera + radar','a')+fb('cartera','Solo cartera','a');
   var tip=['todos','exdiv','pago','junta','res'].map(function(x){ return fb(x, x==='todos'?'Todos':_CAL_TT[x],'f'); }).join('');
-  var emps=calTickers().slice().sort();
+  var emps=calTickers().slice(); if(window._calShowAna)emps=emps.concat(_calDossierAna()); if(window._calShowUni)emps=emps.concat(_calUniversoAna()); emps=emps.filter(function(v,i,s){return s.indexOf(v)===i;}).sort();
   var empDD='<select class="calEmpSel" title="Filtrar por empresa" style="font-size:12px;padding:3px 6px;border:1px solid var(--line);border-radius:8px;cursor:pointer"><option value="todas"'+(empSel==='todas'?' selected':'')+'>Todas las empresas</option>'+emps.map(function(t){ return '<option value="'+_calEsc(t)+'"'+(empSel===t?' selected':'')+'>'+_calEsc(t)+(_calHeld().has(t)?'':' · radar')+'</option>'; }).join('')+'</select>';
   var nPas=0;
   var rows=ev.map(function(e){
     var pasado=(y>=nowY)&&(e.fecha<hoy); if(pasado)nPas++;
     var bg=e.grp==='cartera'?'background:#fffbeb':'background:#f6f8fc';
-    var tag=e.grp==='cartera'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#fde68a;color:#92400e">cartera</span>':'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#dbe4f5;color:#1e3a63">radar</span>';
+    var tag=e.grp==='cartera'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#fde68a;color:#92400e">cartera</span>':(e.grp==='analizada'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e0e7ff;color:#3730a3">analizada</span>':(e.grp==='universo'?'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#e2e8f0;color:#334155">universo</span>':'<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:20px;background:#dbe4f5;color:#1e3a63">radar</span>'));
     return '<tr style="'+bg+(pasado?';opacity:.4':'')+'"><td style="white-space:nowrap;font-weight:600;color:#334155;font-variant-numeric:tabular-nums">'+_calFmtF(e.fecha)+(pasado?' <span style="font-size:9px;color:#94a3b8;font-weight:700">✓</span>':'')+'</td>'
       +'<td>'+_calChip(e.tipo,e.periodo)+'</td>'
       +'<td><span data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer;font-weight:700;color:var(--brand)">'+_calEsc(e.t)+'</span> '+tag+_calBadge(e)+' <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,22))+'</span></td>'
@@ -442,7 +455,7 @@ function _calAgendaHTML(){
   }).join('');
   var mob=ev.map(function(e){
     var pasado=(y>=nowY)&&(e.fecha<hoy);
-    var tag=e.grp==='cartera'?'<span class="cal-gtag cart">cartera</span>':'<span class="cal-gtag rad">radar</span>';
+    var tag=e.grp==='cartera'?'<span class="cal-gtag cart">cartera</span>':(e.grp==='analizada'?'<span class="cal-gtag ana">analizada</span>':(e.grp==='universo'?'<span class="cal-gtag uni">universo</span>':'<span class="cal-gtag rad">radar</span>'));
     return '<div class="cal-ecard '+(e.grp==='cartera'?'e-cart':'e-rad')+(pasado?' e-past':'')+'"><div class="ec-h"><span class="cal-fdate">'+_calFmtF(e.fecha)+(pasado?' ✓':'')+'</span>'+_calChip(e.tipo,e.periodo)+tag+_calBadge(e)+'</div><div class="ec-t"><span class="tk" data-ficha="'+_calEsc(e.t)+'" style="cursor:pointer">'+_calEsc(e.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(e.t)||'').slice(0,24))+'</span></div><div class="cal-det">'+_calDetalle(e)+'</div></div>';
   }).join('');
   var notaPas=(nPas&&y===nowY)?(' Los <b>'+nPas+'</b> eventos ya pasados van atenuados (✓) para resaltar lo pendiente.'):'';
@@ -457,7 +470,7 @@ function _calMensualHTML(){
   var y=_calYearSel, nowY=_calNowY();
   if(_calMes==null) _calMes=(y===nowY)?new Date().getMonth():0;
   if(_calMes<0)_calMes=0; if(_calMes>11)_calMes=11;
-  var ev=calEventosAnio(y).filter(function(e){ return e.fecha && (''+e.fecha).slice(0,4)==String(y); });
+  var ev=calEventosAnio(y, window._calShowAna, window._calShowUni).filter(function(e){ return e.fecha && (''+e.fecha).slice(0,4)==String(y); });
   var cnt=[0,0,0,0,0,0,0,0,0,0,0,0]; ev.forEach(function(e){ var m=(+(''+e.fecha).slice(5,7))-1; if(m>=0&&m<12)cnt[m]++; });
   var chips=''; for(var i=0;i<12;i++){ chips+='<button class="calMchip'+(i===_calMes?' on':'')+(cnt[i]?'':' empty')+'" data-calmes="'+i+'">'+_CAL_MES[i]+(cnt[i]?'<span class="cm-cnt">'+cnt[i]+'</span>':'')+'</button>'; }
   var mnav='<div class="cal-mnav"><button class="btn sm calMarw" data-calmd="-1" title="Mes anterior">◀</button><span class="cal-mtitle">'+_CAL_MESL[_calMes]+'</span><button class="btn sm calMarw" data-calmd="1" title="Mes siguiente">▶</button><div class="cal-mchips">'+chips+'</div></div>';
@@ -522,11 +535,34 @@ function _calDivsHTML(){
     return '<div class="cal-lcard"><div class="cal-lh"><div class="tk" data-ficha="'+_calEsc(r.t)+'" style="cursor:pointer">'+_calEsc(r.t)+' <span class="muted" style="font-size:10px">'+_calEsc((_calNombre(r.t)||'').slice(0,16))+'</span></div><div class="cal-ty">'+_calEur(r.total)+'<span>año</span></div></div><div class="cal-dchips">'+chips+'</div></div>';
   }).join('');
   var mobSum='<div class="cal-lcard sumc"><div class="cal-lh"><div class="tk">Resumen '+y+'</div><div class="cal-ty">'+_calEur(d.total)+'<span>neto en caja</span></div></div><div class="cal-lg"><div class="m"><span>Total cobrado</span><b class="pos">'+_calEur(d.netoTotal)+'</b></div><div class="m"><span>Devolucion IRPF (abr)</span><b class="pos">+'+_calEur(d.irpf)+'</b></div></div></div>';
+  function _calPayMonths(t){ var mm=[0,0,0,0,0,0,0,0,0,0,0,0], n=0; calEventosDe(t,y).forEach(function(e){ if(e.tipo==='pago' && (''+e.fecha).slice(0,4)==String(y)){ var m=(+(''+e.fecha).slice(5,7))-1; if(m>=0&&m<12&&!mm[m]){ mm[m]=1; n++; } } }); return {t:t,mm:mm,n:n}; }
+  function _calXSection(tickers,label,col,bg){
+    var arr=tickers.map(_calPayMonths).filter(function(r){return r.n>0;}).sort(function(a,b){return a.t.localeCompare(b.t);});
+    if(!arr.length) return {rows:'',mob:''};
+    var rows='<tr style="background:'+bg+'"><td colspan="14" style="text-align:left;font-weight:800;color:'+col+'">'+label+' &#10005; = mes con pago (no en cartera)</td></tr>'
+      +arr.map(function(r){ return '<tr><td style="text-align:left;white-space:nowrap"><span data-ficha="'+_calEsc(r.t)+'" style="cursor:pointer;font-weight:700;color:'+col+'">'+_calEsc(r.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(r.t)||'').slice(0,18))+'</span></td>'
+        +r.mm.map(function(v){ return v?'<td style="color:'+col+';font-weight:800;text-align:center">&#10005;</td>':'<td class="muted" style="text-align:center">&#183;</td>'; }).join('')
+        +'<td style="text-align:center;font-weight:800;color:'+col+'">'+r.n+'</td></tr>'; }).join('');
+    var mob='<div class="cal-lcard sumc" style="background:'+bg+'"><div class="cal-lh"><div class="tk" style="color:'+col+'">'+label+' &#10005; mes con pago</div></div></div>'
+      +arr.map(function(r){ var chips=r.mm.map(function(v,i){ return v?'<span class="cal-mchip2" style="color:'+col+'"><b>'+_CAL_MES[i]+'</b> &#10005;</span>':''; }).filter(Boolean).join(''); return '<div class="cal-lcard"><div class="cal-lh"><div class="tk" data-ficha="'+_calEsc(r.t)+'" style="cursor:pointer;color:'+col+'">'+_calEsc(r.t)+'</div><div class="cal-ty">'+r.n+'<span>pagos</span></div></div><div class="cal-dchips">'+chips+'</div></div>'; }).join('');
+    return {rows:rows,mob:mob};
+  }
+  var _sA=window._calShowAna?_calXSection(_calDossierAna(),'Analizadas sin asignar (con dossier)','#6366f1','#eef2ff'):{rows:'',mob:''};
+  var _sU=window._calShowUni?_calXSection(_calUniversoAna(),'Universo sin asignar (sin dossier)','#334155','#eef2f7'):{rows:'',mob:''};
+  var anaRows=_sA.rows+_sU.rows;
+  var anaMob=_sA.mob+_sU.mob;
+  var anaNota=(window._calShowAna||window._calShowUni)?' Las empresas <b>sin asignar</b> se marcan con <b>&#10005;</b> en sus meses de pago (no tienes acciones, sin importe): <b style="color:#6366f1">analizadas</b> con dossier, <b style="color:#334155">universo</b> sin dossier.':'';
+  if(false){
+    anaRows=''
+      +[].map(function(r){ return '<tr><td style="text-align:left;white-space:nowrap"><span data-ficha="'+_calEsc(r.t)+'" style="cursor:pointer;font-weight:700;color:#6366f1">'+_calEsc(r.t)+'</span> <span class="muted" style="font-size:11px">'+_calEsc((_calNombre(r.t)||'').slice(0,18))+'</span></td>'
+        +r.mm.map(function(v){ return v?'<td style="color:#6366f1;font-weight:800;text-align:center">&#10005;</td>':'<td class="muted" style="text-align:center">·</td>'; }).join('')
+        +'<td style="text-align:center;font-weight:800;color:#6366f1">'+r.n+'</td></tr>'; }).join('');
+  }
   return '<div class="card cal-divcard"><div class="pos-desk" style="overflow:auto"><table class="calDivt" style="border-collapse:collapse;width:100%">'
     +'<style>.calDivt th,.calDivt td{border:1px solid var(--line);padding:3px 6px;text-align:right;font-size:12px}.calDivt th:first-child,.calDivt td:first-child{text-align:left}</style>'
-    +head+body+totMes+irpfRow+netRow+'</table></div>'
-    +'<div class="pos-mob">'+(mob||'<div class="muted" style="font-size:12.5px;padding:6px">Sin dividendos este ano.</div>')+(d.rows.length?mobSum:'')+'</div>'
-    +'<div class="muted" style="font-size:11px;margin-top:6px">'+nota+' Cada celda = neto de esa empresa ese mes (× 0,81). En abril el IRPF entra como <b>ingreso</b> (devolución de retenciones del año anterior).</div>';
+    +head+body+totMes+irpfRow+netRow+anaRows+'</table></div>'
+    +'<div class="pos-mob">'+(mob||'<div class="muted" style="font-size:12.5px;padding:6px">Sin dividendos este ano.</div>')+(d.rows.length?mobSum:'')+anaMob+'</div>'
+    +'<div class="muted" style="font-size:11px;margin-top:6px">'+nota+' Cada celda = neto de esa empresa ese mes (× 0,81). En abril el IRPF entra como <b>ingreso</b> (devolución de retenciones del año anterior).'+anaNota+'</div>';
 }
 
 /* Cambia solo el número de año y la etiqueta (feedback en vivo del slider, sin reconstruir la barra). */
@@ -559,6 +595,8 @@ function _calInitListeners(){
   document.addEventListener('input', function(e){ var r=e.target; if(!r||r.id!=='calYearRange') return; _calYearSel=_calClampYear(parseInt(r.value,10)||_calNowY()); _calYearNumLive(_calYearSel); });
   document.addEventListener('change', function(e){ var s=e.target; if(!s) return;
     if(s.id==='calYearRange'){ _calYearSel=_calClampYear(parseInt(s.value,10)||_calNowY()); _calBodyRepaint(); return; }
+    if(s.id==='calShowAna'){ window._calShowAna=!!s.checked; _calPaint(); return; }
+    if(s.id==='calShowUni'){ window._calShowUni=!!s.checked; _calPaint(); return; }
     if(s.classList&&s.classList.contains('calEmpSel')){ _calFil.empresa=s.value||'todas'; _calBodyRepaint(); return; }
   });
 }
