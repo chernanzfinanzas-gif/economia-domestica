@@ -290,6 +290,35 @@ function importInv(file){ file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}
   DB.inversiones=arr.map(p=>({id:uid(),ticker:p.ticker||'',nombre:p.nombre||'',acciones:num(p.acciones),precioCompra:num(p.precioCompra),precioActual:num(p.precioActual),divAccion:num(p.divAccion),exchange:p.exchange||'BME',broker:p.broker||''}));
   renderInv(); saveNow(); alert('Importadas '+DB.inversiones.length+' posiciones.'); }); }
 let _anaBusca={q:''};
+function _anaNum(l,v){ return '<div class="ana-num"><div class="l">'+l+'</div><div class="v">'+v+'</div></div>'; }
+// Termómetro de precios: stop · zona de entrada · PO, con el precio actual como punto y chips estratégicos
+function _anaLadder(a){
+  var cot=num(a.cot),stop=num(a.stop),eMin=num(a.entMin),eMax=num(a.entMax),pMed=num(a.poMed),pMax=num(a.poMax);
+  var ok = stop>0&&eMin>0&&eMax>0&&pMed>0&&cot>0 && stop<eMin && eMin<=eMax && eMax<pMed;
+  if(!ok){
+    return '<div class="ana-nums">'+_anaNum('Cotización',cot?fmt(cot):'—')+_anaNum('Stop',stop?fmt(stop):'—')+_anaNum('Entrada',(eMin&&eMax)?fmt(eMin)+'–'+fmt(eMax):'—')+_anaNum('P. objetivo',pMed?fmt(pMed):'—')+'</div>';
+  }
+  var lo=Math.min(stop,cot)*0.97, hi=Math.max(pMax||pMed,cot)*1.03, rng=(hi-lo)||1;
+  var P=function(v){ return Math.max(0,Math.min(100,(v-lo)/rng*100)); };
+  var pot=(a.pot!=null?a.pot*100:(pMed/cot-1)*100), colch=(a.colchon!=null?a.colchon*100:(cot-stop)/cot*100);
+  var inZone=cot>=eMin&&cot<=eMax, stopHit=cot<=stop, below=cot<eMin;
+  var dotCol=stopHit?'#dc2626':(inZone?'#16a34a':(below?'#d97706':'#dc2626'));
+  var s=P(stop),emn=P(eMin),emx=P(eMax),pm=P(pMed);
+  var grad='linear-gradient(90deg,#fecaca 0%,#fecaca '+s+'%,#fde68a '+s+'%,#fde68a '+emn+'%,#bbf7d0 '+emn+'%,#bbf7d0 '+emx+'%,#fef0c7 '+emx+'%,#fef0c7 '+pm+'%,#fbcfe8 '+pm+'%,#fbcfe8 100%)';
+  var tick=function(v,c){ return '<div class="ana-lad-tick" style="left:'+P(v)+'%;background:'+c+'"></div>'; };
+  var estCol=stopHit?'r':(inZone?'g':(below?'a':'r')), estTxt=stopHit?'🚨 Stop':(inZone?'🟢 En zona':(below?'🟡 esperando':'🔴 caro'));
+  return '<div class="ana-lad"><div class="ana-lad-bar" style="background:'+grad+'"></div>'+
+    tick(stop,'#dc2626')+tick(eMin,'#16a34a')+tick(eMax,'#16a34a')+tick(pMed,'#be185d')+
+    '<div class="ana-lad-dot" style="left:'+P(cot)+'%;background:'+dotCol+'"></div>'+
+    '<div class="ana-lad-lbl top" style="left:'+s+'%"><span class="k">Stop</span><span class="v">'+fmt(stop)+'</span></div>'+
+    '<div class="ana-lad-lbl top" style="left:'+emx+'%"><span class="k">Entrada</span><span class="v">'+fmt(eMin)+'–'+fmt(eMax)+'</span></div>'+
+    '<div class="ana-lad-lbl top" style="left:'+pm+'%"><span class="k">P. objetivo</span><span class="v">'+fmt(pMed)+'</span></div>'+
+    '<div class="ana-lad-cur" style="left:'+P(cot)+'%"><div class="p" style="color:'+dotCol+'">'+fmt(cot)+'</div><div class="c">precio actual</div></div>'+
+    '<div class="ana-chip r" style="left:'+s+'%">colchón '+colch.toFixed(0)+'%</div>'+
+    '<div class="ana-chip est '+estCol+'" style="left:'+P(cot)+'%">'+estTxt+'</div>'+
+    '<div class="ana-chip g" style="left:'+pm+'%">Potencial '+(pot>=0?'+':'')+pot.toFixed(0)+'%</div>'+
+    '</div>';
+}
 function renderAnalisis(){
   if(!DB.config)DB.config={};
   const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
@@ -328,7 +357,7 @@ function renderAnalisis(){
     '<div class="ana-k"><div class="l">En zona de compra</div><div class="v '+(enZona?'pos':'')+'">'+enZona+'</div><div class="p">cotiza ≤ banda de entrada</div></div>'+
     '<div class="ana-k hero"><div class="l">Mejor oportunidad ahora</div><div class="v">'+bestT+'</div><div class="p">mejor score en zona</div></div>'+
     '<div class="ana-k"><div class="l">🚨 Stop de tesis alcanzado</div><div class="v '+(stopHits?'neg':'')+'">'+stopHits+'</div><div class="p">requieren decisión</div></div>';
-  if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» o «Pegar cotizaciones».</div>'; return; }
+  if(!list.length){ $('#anaTable').innerHTML='<div class="empty">Sin empresas. Pulsa «+ Empresa» para añadir la primera.</div>'; return; }
   const inp=(id,f,v,w)=>`<input type="number" step="0.0001" class="anaInp" style="width:${w||56}px;text-align:right" data-id="${id}" data-f="${f}" value="${(v!=null&&v!==0)?v:''}">`;
   const rows=list.map(a=>{
     const potcls=a.pot==null?'':(a.pot>=vU?'g':a.pot>=aU?'a':'r');
@@ -349,29 +378,29 @@ function renderAnalisis(){
     let sLbl='',sCol='#64748b';
     if(a.score!=null){ if(a.score>=70){sLbl='Buena';sCol='#16a34a';} else if(a.score>=50){sLbl='Media';sCol='#d97706';} else {sLbl='Mala';sCol='#dc2626';} }
     const _dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dv=(a.decision||'').toUpperCase();
-    const _dopts=['','COMPRAR','MANTENER','ESPERAR','VENDER'].map(o=>`<option value="${o}"${o===_dv?' selected':''}>${o||'—'}</option>`).join('');
     const _du=(typeof dossierURL==='function')?dossierURL(a.ticker,a.dossierUrl):(a.dossierUrl||''); const _dossM=(a.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null;
-    const decCell=`<td style="text-align:center;white-space:nowrap"><select class="anaInp" data-id="${a.id}" data-f="decision" style="font-size:10px;font-weight:700;color:${_dc[_dv]||'#475569'}">${_dopts}</select>${_du?` <a href="${_du}" target="_blank" rel="noopener" title="Abrir dossier${a.dossierFecha?' ('+a.dossierFecha+')':''}" style="text-decoration:none;font-size:14px">📄</a>`:''}${(_dossM!=null)?` <span title="Dossier de ${a.dossierFecha}" style="font-size:9px;color:${_dossM>12?'#dc2626':'#94a3b8'}">${_dossM}m${_dossM>12?'⚠️':''}</span>`:''}</td>`;
-    const star=a.id===bestId?'⭐ ':'';
-    const rowStyle=a.stopHit?' style="background:#fef2f2"':(a.id===bestId?' style="background:#f0fdf4"':'');
-    return `<tr${rowStyle} data-fs="${((a.ticker||'')+' '+(a.nombre||'')).toLowerCase().replace(/"/g,'')}">
-      <td>${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}</td><td>${a.ticker?`<span data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand);text-decoration:underline" title="Abrir ficha">${a.nombre||''}</span>`:(a.nombre||'')}${(function(){var _t=(a.ticker||'').toUpperCase();var _u=(DB.universo&&DB.universo[_t])||{};var _arq=(typeof SECTOR!=='undefined'&&SECTOR[_t])||_u.arquetipo||'';var _sub=(typeof SUBTIPO!=='undefined'&&SUBTIPO[_t])||_u.subtipo||'';return _arq?('<div class="muted" style="font-size:9px" title="'+_sub+'">'+_arq+'</div>'):'';})()}</td>
-      <td style="text-align:center;white-space:nowrap"><div style="font-size:20px;font-weight:800;line-height:1.05;color:${sCol}">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div style="font-size:9px;font-weight:700;color:${sCol};text-transform:uppercase;letter-spacing:.03em">${sLbl}</div>`}</td>
-      ${decCell}
+    const decChip=_dv?`<span class="dec" style="background:${_dc[_dv]||'#64748b'}">${_dv}</span>`:'<span class="muted">—</span>';
+    const dossIco=`${_du?` <a href="${_du}" target="_blank" rel="noopener" title="Abrir dossier${a.dossierFecha?' ('+a.dossierFecha+')':''}" style="text-decoration:none;font-size:13px">📄</a>`:''}${(_dossM!=null)?` <span title="Dossier de ${a.dossierFecha}" style="font-size:9px;color:${_dossM>12?'#dc2626':'#94a3b8'}">${_dossM}m${_dossM>12?'⚠️':''}</span>`:''}`;
+    const star=a.id===bestId?'<span style="color:#f59e0b">⭐</span> ':'';
+    const _arqTxt=(function(){var _t=(a.ticker||'').toUpperCase();var _u=(DB.universo&&DB.universo[_t])||{};var _arq=(typeof SECTOR!=='undefined'&&SECTOR[_t])||_u.arquetipo||'';var _sub=(typeof SUBTIPO!=='undefined'&&SUBTIPO[_t])||_u.subtipo||'';return _arq?('<div class="ana-sub" title="'+_sub+'">'+_arq+'</div>'):'';})();
+    const rMod=a.stopHit?'ana-r-stop':(a.id===bestId?'ana-r-best':'');
+    const poRng=(a.poMin&&a.poMax)?`<div class="ana-sub">${fmt(a.poMin)}–${fmt(a.poMax)}</div>`:'';
+    const entTxt=(a.entMin&&a.entMax)?(fmt(a.entMin)+'–'+fmt(a.entMax)):(a.entMax?('≤'+fmt(a.entMax)):'—');
+    return `<tr class="ana-row ${rMod}" data-anarow data-fs="${((a.ticker||'')+' '+(a.nombre||'')).toLowerCase().replace(/"/g,'')}">
+      <td class="ana-sccell"><span class="ana-rarw">▶</span><div class="ana-score ${scls||'n'}"><div class="n">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div class="l">${sLbl}</div>`}</div></td>
+      <td class="ana-emp">${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}${a.ticker?` <span data-ficha="${a.ticker}" style="cursor:pointer;color:#334155" title="Abrir ficha">· ${a.nombre||''}</span>`:(a.nombre?' · '+a.nombre:'')}${_arqTxt}</td>
+      <td class="ctr">${decChip}${dossIco}</td>
       <td class="num">${fmt(a.cot)}</td>
-      <td class="num">${inp(a.id,'poMin',a.poMin)}</td>
-      <td class="num">${a.poMed?fmt(a.poMed):'—'}</td>
-      <td class="num">${inp(a.id,'poMax',a.poMax)}</td>
-      <td class="num"><span class="pill ${potcls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
-      <td class="num">${inp(a.id,'entMin',a.entMin)}</td>
-      <td class="num">${inp(a.id,'entMax',a.entMax)}</td>
-      <td><span class="pill ${ecls}">${estado}</span></td>
-      <td class="num">${inp(a.id,'stopTesis',a.stop)}</td>
-      <td><span class="pill ${scls2}">${salida}</span></td>
-      <td class="num"><input type="text" class="anaInp" style="width:48px;text-align:center;text-transform:uppercase" data-id="${a.id}" data-f="rating" value="${a.rating||''}"></td>
-      <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr>`;
+      <td class="num"><b>${a.poMed?fmt(a.poMed):'—'}</b>${poRng}</td>
+      <td class="ctr"><span class="pill ${potcls}">${a.pot==null?'—':(a.pot>=0?'+':'')+(a.pot*100).toFixed(1)+'%'}</span></td>
+      <td class="num">${entTxt}</td>
+      <td class="ctr"><span class="pill ${ecls}">${estado}</span></td>
+      <td class="num">${a.stop?fmt(a.stop):'—'}</td>
+      <td class="ctr"><span class="pill ${scls2}">${salida}</span></td>
+      <td class="ctr"><span class="ana-rat">${a.rating||'—'}</span></td>
+      <td class="right"><button class="btn ghost sm" data-anaedit="${a.id}">✎ Editar</button> <button class="btn danger sm" data-anadel="${a.id}">✕</button></td></tr><tr class="ana-det"><td colspan="12"><div class="ana-det-wrap">${_anaLadder(a)}</div></td></tr>`;
   }).join('');
-  var _anaTbl=`<table><thead><tr><th data-sorttbl="analisis" data-sortk="ticker" style="cursor:pointer">Ticker${sortArrow('analisis','ticker')}</th><th>Nombre</th><th class="num" data-sorttbl="analisis" data-sortk="score" style="cursor:pointer">Score${sortArrow('analisis','score')}</th><th>Decisión</th><th class="num" data-sorttbl="analisis" data-sortk="cot" style="cursor:pointer">Cotiz.${sortArrow('analisis','cot')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMin" style="cursor:pointer">PO mín${sortArrow('analisis','poMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMed" style="cursor:pointer">PO med${sortArrow('analisis','poMed')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMax" style="cursor:pointer">PO máx${sortArrow('analisis','poMax')}</th><th class="num" data-sorttbl="analisis" data-sortk="pot" style="cursor:pointer">Potencial${sortArrow('analisis','pot')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMin" style="cursor:pointer">Ent. mín${sortArrow('analisis','entMin')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMax" style="cursor:pointer">Ent. máx${sortArrow('analisis','entMax')}</th><th data-sorttbl="analisis" data-sortk="dist" style="cursor:pointer">Estado entrada${sortArrow('analisis','dist')}</th><th class="num" data-sorttbl="analisis" data-sortk="stop" style="cursor:pointer">Stop tesis${sortArrow('analisis','stop')}</th><th data-sorttbl="analisis" data-sortk="colchon" style="cursor:pointer">Salida${sortArrow('analisis','colchon')}</th><th class="num" data-sorttbl="analisis" data-sortk="rating" style="cursor:pointer">Rating${sortArrow('analisis','rating')}</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
+  var _anaTbl=`<table class="ana-tbl"><thead><tr><th data-sorttbl="analisis" data-sortk="score" style="cursor:pointer">Score${sortArrow('analisis','score')}</th><th data-sorttbl="analisis" data-sortk="ticker" style="cursor:pointer">Empresa${sortArrow('analisis','ticker')}</th><th>Decisión</th><th class="num" data-sorttbl="analisis" data-sortk="cot" style="cursor:pointer">Cotiz.${sortArrow('analisis','cot')}</th><th class="num" data-sorttbl="analisis" data-sortk="poMed" style="cursor:pointer">P. objetivo${sortArrow('analisis','poMed')}</th><th class="num" data-sorttbl="analisis" data-sortk="pot" style="cursor:pointer">Potencial${sortArrow('analisis','pot')}</th><th class="num" data-sorttbl="analisis" data-sortk="entMax" style="cursor:pointer">Entrada${sortArrow('analisis','entMax')}</th><th data-sorttbl="analisis" data-sortk="dist" style="cursor:pointer">Estado${sortArrow('analisis','dist')}</th><th class="num" data-sorttbl="analisis" data-sortk="stop" style="cursor:pointer">Stop${sortArrow('analisis','stop')}</th><th data-sorttbl="analisis" data-sortk="colchon" style="cursor:pointer">Salida${sortArrow('analisis','colchon')}</th><th data-sorttbl="analisis" data-sortk="rating" style="cursor:pointer">Rating${sortArrow('analisis','rating')}</th><th></th></tr></thead><tbody>${rows}</tbody></table>`;
   const _anaCards=list.map(a=>{
     const best=a.id===bestId;
     let e_t='—',e_c='';
@@ -398,7 +427,7 @@ function renderAnalisis(){
       '<div class="acard-h"><div class="sc"><div class="n" style="color:'+sCol+'">'+(a.score==null?'—':a.score.toFixed(0))+'</div><div class="l" style="color:'+sCol+'">'+sLbl+'</div></div>'+
       '<div class="mid"><div class="nm2">'+(best?'⭐ ':'')+(a.ticker||'')+(a.held?' <span class="arq" style="font-weight:400;color:#94a3b8;font-size:10px">en cartera</span>':'')+(_nm?' · '+_nm:'')+'</div><div class="s2">'+_decChip+'<span class="pill '+e_c+'" style="font-size:10px">'+e_t+'</span>'+(s_t!=='—'?'<span class="pill '+s_c+'" style="font-size:10px">'+s_t+'</span>':'')+'</div></div>'+
       '<span class="arw">▶</span></div>'+
-      '<div class="acard-b"><div class="agrid">'+
+      '<div class="acard-b">'+_anaLadder(a)+'<div class="agrid">'+
         '<div class="m"><div class="l">Cotización</div><div class="v">'+fmt(a.cot)+'</div></div>'+
         '<div class="m"><div class="l">Potencial</div><div class="v">'+_potPill+'</div></div>'+
         '<div class="m"><div class="l">Precio objetivo</div><div class="v">'+(a.poMin?fmt(a.poMin):'—')+' – '+(a.poMax?fmt(a.poMax):'—')+'</div></div>'+
@@ -409,7 +438,7 @@ function renderAnalisis(){
   }).join('');
   $('#anaTable').innerHTML='<div class="atable">'+_anaTbl+'</div><div class="acards">'+_anaCards+'</div>';
   var _at=$('#anaTable');
-  if(_at&&!_at._anaCardBound){ _at._anaCardBound=true; _at.addEventListener('click',function(e){ if(e.target.closest('input,select,textarea,button,a,[data-anaedit],[data-anadel]'))return; var h=e.target.closest('.acard-h'); if(h){ h.parentElement.classList.toggle('open'); } }); }
+  if(_at&&!_at._anaCardBound){ _at._anaCardBound=true; _at.addEventListener('click',function(e){ if(e.target.closest('input,select,textarea,button,a,[data-anaedit],[data-anadel]'))return; var h=e.target.closest('.acard-h'); if(h){ h.parentElement.classList.toggle('open'); return; } var rr=e.target.closest('tr.ana-row'); if(rr && !e.target.closest('[data-ficha]')){ rr.classList.toggle('open'); } }); }
   $$("#anaTable select[data-f='decision']").forEach(sel=>{ const _a=(DB.analisis||[]).find(x=>x.id===sel.dataset.id); if(_a)sel.value=(_a.decision||'').toUpperCase(); });
   if(typeof _wireBuscador==='function') _wireBuscador($('#anaSearch'), $$('#anaTable tbody tr[data-fs], #anaTable .acard[data-fs]'), _anaBusca);
 }
@@ -486,12 +515,18 @@ function renderFicha(t){
   let cerr=(DB.cerradas||[]).find(c=>(c.ticker||'').toUpperCase()===fichaTicker);
   if(cerr){ cerr=cerradaCalc(cerr); } else { try{ cerr=invClosedComputed().find(c=>c.ticker===fichaTicker); }catch(e){} }
   const isClosed=!!cerr; const detailed=f.lotes.length>0;
+  // enlace al dossier de inversión de la empresa (analisis + carpeta dossiers/)
+  const _anaEntry=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
+  const _dossU=(typeof dossierURL==='function')?dossierURL(fichaTicker,_anaEntry.dossierUrl):(_anaEntry.dossierUrl||'');
+  const _dossM=(_anaEntry.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_anaEntry.dossierFecha):null;
+  const _dossBtn=_dossU?`<a class="btn" href="${_dossU}" target="_blank" rel="noopener" title="Abrir el dossier de inversión${_anaEntry.dossierFecha?' ('+_anaEntry.dossierFecha+')':''}" style="background:#7c3aed;border:none;color:#fff">📄 Dossier de inversión${(_dossM!=null&&_dossM>12)?' <span style="font-size:10px;opacity:.9">· '+_dossM+'m ⚠️</span>':''}</a>`:'';
   // cabecera + URL externa
   const header=`
    <div class="card" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
      <div><div style="font-size:22px;font-weight:800;color:var(--brand)">${f.t}</div><div class="muted">${f.nombre||''}${(typeof SECTOR!=='undefined'&&SECTOR[fichaTicker])?` · <span style="color:#9a3412;font-weight:600">${SECTOR[fichaTicker]}</span>${(typeof SUBTIPO!=='undefined'&&SUBTIPO[fichaTicker])?` <span class="muted" style="font-size:11px">· ${SUBTIPO[fichaTicker]}</span>`:''}`:''}${isClosed?' · <span style=\"color:#b45309\">Posición cerrada</span>':''}</div></div>
      <div style="flex:1"></div>
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
+     ${_dossBtn}
      <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
      <button class="btn ghost" onclick="cerrarFicha()">Volver</button>
    </div>
