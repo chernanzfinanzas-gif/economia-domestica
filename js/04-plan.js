@@ -33,7 +33,7 @@ function renderRanking(){
   const pieBlk=_pi.length?`<div class="rank-pie">${pieSVG(_pi)}<div class="rank-pieleg">${_pi.map(it=>`<div><span class="dot" style="background:${it.color}"></span>${it.label} <b>${(it.val*100).toFixed(1)}%</b></div>`).join('')}</div></div>`:'<div class="muted">Sin datos de dividendo.</div>';
   // gráfico evolución (el real de la pestaña)
   const evoBlk=(typeof evoChartHTML==='function')?evoChartHTML({id:'evoRank',reRender:renderRanking,ibex:true,ranges:true,head:false,goto:'ranking'}):((typeof aportValorHTML==='function')?aportValorHTML(renderRanking):'');
-  window._rankBlk=window._rankBlk||{tabla:true,tarta:false,evo:false};
+  window._rankBlk=window._rankBlk||{tabla:false,tarta:false,evo:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._rankBlk[key]?' open':''; return `<div class="pos-blk${op}" data-rankblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="rank-pad">${inner}</div></div></div>`; };
   el.innerHTML=B('tabla','🏆','Ranking por dividendo',rows.length+' empresas · div/año '+fmt(T.divAno),tblBlk)
     +B('tarta','🥧','Distribución del dividendo','peso de cada empresa',pieBlk)
@@ -336,7 +336,7 @@ function renderFiscalidad(){ const el=$('#fiscalBody'); if(!el)return; const kp=
   const _stks=Object.keys(_openBy).sort();
   const simInner=`<div class="sub2">Elige empresa y nº de acciones (o «Todas»): verás los lotes FIFO que se venden, la plusvalía/minusvalía realizada, el impuesto o el ahorro fiscal, y la regla de los 2 meses. En España el lote lo fija Hacienda (FIFO), no se elige.</div><div class="toolbar" style="gap:8px"><select id="fsimTk" class="anaInp"><option value="">— empresa —</option>${_stks.map(t=>`<option value="${t}">${t} (${Math.round(_openBy[t]*100)/100} acc.)</option>`).join('')}</select><input type="number" id="fsimQ" class="anaInp" placeholder="nº acciones" style="width:120px"><button class="btn sm" id="fsimAll" title="Rellenar con todas las acciones de la empresa elegida">Todas</button></div><div id="fsimOut" style="margin-top:8px"><div class="muted" style="font-size:12px">Elige una empresa de tu cartera.</div></div>`;
   /* --- ensamblar --- */
-  window._fiscBlk=window._fiscBlk||{sim:true,cand:false,real:false};
+  window._fiscBlk=window._fiscBlk||{sim:false,cand:false,real:false};
   const FB=(key,icon,title,sum,inner)=>{ const op=window._fiscBlk[key]?' open':''; return `<div class="pos-blk${op}" data-fiscblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="fisc-pad">${inner}</div></div></div>`; };
   const liqBox=`<div class="fisc-liq"><div class="fl-ic">💧</div><div class="fl-body"><div class="fl-t">Si liquidas toda la cartera hoy</div><div class="fl-flow"><div class="fl-step"><span>Recibes (valor de mercado)</span><b>${fmt(F.valorCartera)}</b></div><div class="fl-op">−</div><div class="fl-step"><span>Impuesto de liquidación</span><b class="neg">${fmt(F.impuestoLiq)}</b></div><div class="fl-op">=</div><div class="fl-step big"><span>Efectivo neto disponible</span><b class="pos">${fmt(F.netoLiq)}</b></div></div><div class="fl-note">Aflorarías <b>${sg(F.netLatent)}</b> de plusvalía latente neta. Es el dinero que tendrías <b>disponible rápido</b> si vendieras todo ahora, ya descontado Hacienda (orientativo, FIFO, tramos del ahorro).</div></div></div>`;
   el.innerHTML=`<div class="sub" style="margin-bottom:12px">Cálculo <b>orientativo</b> (no es asesoramiento fiscal) con criterio <b>FIFO</b> (el que aplica Hacienda a acciones). Latente = con la cotización actual; realizado = ganancias/pérdidas de tus ventas. Tramos del ahorro: 19% / 21% / 23% / 27% / 28%.</div>${liqBox}${harvestBox}`
@@ -592,7 +592,7 @@ function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#b
     +`<p class="warn-box"><b>Cómo NO engañarte.</b> Con pocas fotos y poco tiempo esto es una <b>tendencia, no una prueba</b>: un mes de precio es casi ruido y la calidad se nota a años, no en semanas. Es un <b>filtro / alerta temprana</b>: no cambies el método por pocas fotos. Su valor crece con el tiempo.</p>`
     +`<p><b>En una frase:</b> la matriz te dice si, cuando das nota alta (buena <i>y</i> barata), el mercado te da la razón.</p>`
     +`</div>`;
-  window._btBlk=window._btBlk||{dec:true,disc:false,det:false,ayuda:false};
+  window._btBlk=window._btBlk||{dec:false,disc:false,det:false,ayuda:false};
   const BB=(key,icon,title,sum,inner)=>{ const op=window._btBlk[key]?' open':''; return `<div class="pos-blk${op}" data-btblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="blk-pad">${inner}</div></div></div>`; };
   el.innerHTML=BB('dec','🎯','Aciertos por decisión','COMPRAR · MANTENER · ESPERAR · VENDER',decInner)
     +BB('disc','🧮','Discriminación de scores','¿tus notas separan lo bueno?',scoreInner)

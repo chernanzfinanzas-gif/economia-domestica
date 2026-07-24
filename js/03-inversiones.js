@@ -82,7 +82,7 @@ function renderPOS(){
     +`<div class="k"><div class="l">Dividendo cobrado</div><div class="v">${fmt(kDIV)}</div><div class="p">${kVC?(kDIV/kVC*100).toFixed(0)+'% acumulado':''}</div></div>`
     +`<div class="k"><div class="l">Retorno total</div><div class="v ${kTot>=0?'pos':'neg'}">${pc2(kTot)}</div><div class="p">plusvalía + dividendo</div></div>`
     +'</div>';
-  window._posOpen=window._posOpen||{Cartera:true,Vendida:false};
+  window._posOpen=window._posOpen||{Cartera:false,Vendida:false};
   function seccion(titulo,arr,estadoKey){
     if(!arr.length) return '';
     arr=sortLots(arr);
@@ -120,7 +120,7 @@ function renderInvLotes(){
   lots.forEach(l=>{ l.vc=l.acc*l.pc; l.va=l.acc*l.pa; l.pl=l.va-l.vc; l.cotPct=l.vc?l.pl/l.vc:0; l.divPct=l.vc?l.div/l.vc:0; l.cotYr=l.years>0?l.cotPct/l.years:l.cotPct; l.divYr=l.years>0?l.divPct/l.years:l.divPct; l.totYr=l.cotYr+l.divYr; });
   const pc2=x=>(x>=0?'+':'')+(x*100).toFixed(1)+'%';
   const head='<tr><th class="l">Fecha</th><th class="l">Empresa</th><th>Acc.</th><th>Valor</th><th>Plusvalía</th><th>Años</th><th>Total/año</th></tr>';
-  window._invLotesOpen=window._invLotesOpen||{Cartera:true,Vendida:false};
+  window._invLotesOpen=window._invLotesOpen||{Cartera:false,Vendida:false};
   function seccion(titulo,arr,estadoKey){
     if(!arr.length) return '';
     arr=arr.slice().sort((a,b)=> (a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0)) ); // cronológico (antigua→reciente)
@@ -175,7 +175,7 @@ function renderInv(){
   const _shc=(k,l,cls)=>`<th class="${cls||''}" data-sorttbl="cartera" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('cartera',k)}</th>`;
   const head='<tr>'+_shc('ticker','Empresa','l')+_shc('acc','Acc.')+_shc('pa','P. actual')+_shc('valor','Valor')+_shc('pl','Plusvalía')+_shc('valor','Peso')+_shc('divano','Div/año')+'<th></th></tr>';
   window._invOpen=window._invOpen||{};
-  ordered.forEach((car,i)=>{ if(window._invOpen[car]===undefined) window._invOpen[car]=(i===0); });
+  ordered.forEach((car,i)=>{ if(window._invOpen[car]===undefined) window._invOpen[car]=false; });
   let html='';
   ordered.forEach(car=>{
     const lst=(_sort['cartera']&&_sort['cartera'].k)?sortApply('cartera',byCart[car],{ticker:p=>p.ticker,nombre:p=>p.nombre,acc:p=>p.acciones,pc:p=>p.precioCompra,pa:p=>p.precioActual,valor:p=>p.acciones*p.precioActual,pl:p=>p.acciones*(p.precioActual-p.precioCompra),plpct:p=>{const c=p.acciones*p.precioCompra;return c?(p.acciones*p.precioActual-c)/c:0;},divacc:p=>p.divAccion,divano:p=>p.acciones*p.divAccion,rpd:p=>p.precioActual?p.divAccion/p.precioActual:0,yoc:p=>p.precioCompra?p.divAccion/p.precioCompra:0}):[...byCart[car]].sort((a,b)=>(b.acciones*b.precioActual)-(a.acciones*a.precioActual));
@@ -1007,7 +1007,7 @@ function renderDividendos(){
   const fiscalBlk=_fy.length?`<div class="d-note">Orientativo para la renta: dividendos = rendimientos del capital mobiliario (retenci\u00f3n 19%); ganancia patrimonial = ventas \u2212 coste de lo vendido (precio medio). No incluye comisiones ni p\u00e9rdidas compensables de a\u00f1os anteriores. Tambi\u00e9n lo ver\u00e1s en la pesta\u00f1a <b>Fiscalidad</b>.</div><div class="pos-desk">${fiscalDesk}</div><div class="pos-mob">${fiscalMob}</div>`:'';
   // ---- ensamblar bloques ----
   const body=$('#divBody'); if(!body)return;
-  window._divBlk=window._divBlk||{matriz:true,evol:false,resumen:false,fiscal:false};
+  window._divBlk=window._divBlk||{matriz:false,evol:false,resumen:false,fiscal:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._divBlk[key]?' open':''; return `<div class="pos-blk${op}" data-divblk="${key}"><div class="pos-blk-h"><span class="arw">\u25b6</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="div-pad">${inner}</div></div></div>`; };
   body.innerHTML=B('matriz','\ud83d\udcc5','Dividendos por empresa y a\u00f1o',cols.length+' empresas \u00b7 '+fmt(grand)+' total',matrizBlk)
     +B('evol','\ud83d\udcc8','Evoluci\u00f3n del dividendo cobrado',yrAsc.length+' a\u00f1os \u00b7 neto vs retenci\u00f3n',evolBlk)

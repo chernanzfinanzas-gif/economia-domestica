@@ -433,7 +433,7 @@ function renderHemeroteca(){
   var api='https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/informes-semanales';
   var pages='https://chernanzfinanzas-gif.github.io/economia-domestica/informes-semanales/';
   sec.innerHTML='<h2>🗞️ Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:12px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con «🧾 Informe semanal (Claude)» en el Centro de informes y se abren desde GitHub Pages.</div>'
-    +'<div class="pos-blk open" data-hemblk="sem"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🗞️ Informes semanales publicados</span><span class="bsum" id="hemSemSum">cargando…</span></div><div class="pos-blk-b"><div class="blk-pad"><div id="hemeroKpis" class="hem-kpis"></div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div></div></div></div>';
+    +'<div class="pos-blk" data-hemblk="sem"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🗞️ Informes semanales publicados</span><span class="bsum" id="hemSemSum">cargando…</span></div><div class="pos-blk-b"><div class="blk-pad"><div id="hemeroKpis" class="hem-kpis"></div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div></div></div></div>';
   if(!sec._hemBlkBound){ sec._hemBlkBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('a,input,select,button'))return; var h=e.target.closest('.pos-blk-h'); if(h){ h.parentElement.classList.toggle('open'); } }); }
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var host=document.getElementById('hemeroSemanal'); var kp=document.getElementById('hemeroKpis');

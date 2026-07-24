@@ -889,7 +889,7 @@ function renderHemeroAnalisis(){
       +'<div class="k"><div class="l">Dividendo a vigilar</div><div class="v '+(dsRiskN?'neg':'')+'">'+dsRiskN+'</div><div class="p">safety &lt; 60</div></div>'
       +'<div class="k"><div class="l">Decisión COMPRAR</div><div class="v '+(comprarN?'pos':'')+'">'+comprarN+'</div><div class="p">oportunidad activa</div></div>'
     +'</div>'+
-    '<div class="pos-blk open" data-hemblk="dos"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🗄️ Lista de dossiers</span><span class="bsum">'+rows.length+' empresa'+(rows.length===1?'':'s')+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+
+    '<div class="pos-blk" data-hemblk="dos"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🗄️ Lista de dossiers</span><span class="bsum">'+rows.length+' empresa'+(rows.length===1?'':'s')+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+
     toolbar+
     '<div class="hem-panel"><div class="hem-desk"><table><thead><tr><th class="tkc">Ticker</th><th>Empresa</th><th>Decisión</th><th>Calidad</th><th>Análisis</th><th style="text-align:center">Confianza</th><th style="text-align:center">Robustez</th><th style="text-align:center" title="Dividend Safety Score 0-100: seguridad del dividendo">Seguridad div.</th><th style="text-align:right">Dossier</th></tr></thead><tbody>'+(trs||'<tr><td colspan="9" class="muted">Sin dossiers cargados todavía (requiere conexión).</td></tr>')+'</tbody></table></div><div class="hem-mob">'+(mcards||'<div class="muted">Sin dossiers cargados todavía (requiere conexión).</div>')+'</div></div></div></div></div>';
   var _os=document.getElementById('hemaOrd'); if(_os)_os.addEventListener('change',function(){ window._hemaOrd=this.value; renderHemeroAnalisis(); });

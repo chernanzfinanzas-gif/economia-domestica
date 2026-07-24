@@ -273,7 +273,7 @@ function renderAtribucion(){ const el=$('#atribBody'); if(!el)return; const kp=$
         +`<div class="atrib-note" style="margin-top:12px">Contribución = ${per==='todo'?'balance de cada posición (valor − coste + dividendos cobrados) sobre el coste total; suman el retorno total':'peso × rentabilidad total-return del activo en el periodo'}. Revela si tu resultado depende de uno o dos nombres (fragilidad) y ayuda a tomar beneficios/rebalancear.</div>`;
     }
   }
-  window._atribBlk=window._atribBlk||{cascada:true,contrib:false,anual:false};
+  window._atribBlk=window._atribBlk||{cascada:false,contrib:false,anual:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._atribBlk[key]?' open':''; return `<div class="pos-blk${op}" data-atribblk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="atrib-pad">${inner}</div></div></div>`; };
   el.innerHTML=B('cascada','📊','Cascada del periodo',titulo,cascada)+B('contrib','🏅','Contribución al retorno por posición',contribSum,contribInner)+B('anual','📅','Atribución por año',porY.length+' años · '+fmt(tC)+' acumulado',yearBlk);
   if(!el._atribBlkBound){ el._atribBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-c5per]')){ window._c5Per=e.target.closest('[data-c5per]').getAttribute('data-c5per'); renderAtribucion(); return; } if(e.target.closest('input,select,button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-atribblk'); if(k){window._atribBlk=window._atribBlk||{};window._atribBlk[k]=b.classList.contains('open');} } }); }
@@ -378,7 +378,7 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
 <div class="meth-item"><div class="meth-h">📈 Rentabilidad total</div><p>Es <b>cuánto ha crecido en total</b> el dinero de esa posición, sumando la subida de la cotización (plusvalía) y <b>todos los dividendos cobrados</b>, sobre lo que te costó:</p><p><span class="meth-f">Rent. total = (Plusvalía + Dividendos cobrados) ÷ Coste</span></p><p><i>Ejemplo:</i> invertiste 10.000 €, hoy la posición vale 13.000 € (plusvalía +3.000 €) y has cobrado 2.000 € de dividendos → (3.000 + 2.000) / 10.000 = <b>+50 %</b>. Es una cifra <b>acumulada</b>, no anual: un +50 % en 2 años es mucho mejor que en 10. Para comparar por tiempo, mira la TIR.</p></div>
 <div class="meth-item"><div class="meth-h">🎯 TIR (tasa interna de retorno · anual)</div><p>Es la <b>rentabilidad anual equivalente</b> de tu dinero <b>teniendo en cuenta cuándo</b> metiste y sacaste cada euro. Trata cada <b>compra</b> como dinero que sale (−), cada <b>dividendo o venta</b> como dinero que entra (+) y el <b>valor actual</b> como si vendieras hoy; busca el porcentaje anual que hace que todo cuadre (es el XIRR de una hoja de cálculo).</p><p>A diferencia de la rentabilidad total, <b>sí pondera el tiempo y el tamaño</b> de cada aportación: es la cifra más honesta para saber <i>«¿a qué % anual ha trabajado mi dinero?»</i>. Una TIR de <b>${CR?pc(CR.xirr):'—'}</b> significa que, en conjunto, tu dinero ha rentado como un depósito imaginario a ese interés anual compuesto.</p></div>
 <div class="meth-item"><div class="meth-h">🏢 TR YTD / 1A / 3A (rendimiento del activo)</div><p>Total-Return de la <b>empresa</b> en el año en curso, último año y últimos 3 años: (precio hoy − precio al inicio + dividendos/acción del periodo) ÷ precio al inicio. Mide cómo se ha comportado <b>la acción</b>, <b>sin importar cuándo entraste tú</b> — sirve para comparar empresas entre sí. TR 3A es <b>acumulado</b> (no anual). Usa las cotizaciones del repositorio.</p></div></div>`;
-  window._rentaBlk=window._rentaBlk||{tabla:true,barras:false,ibex:false,meto:false};
+  window._rentaBlk=window._rentaBlk||{tabla:false,barras:false,ibex:false,meto:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._rentaBlk[key]?' open':''; return `<div class="pos-blk${op}" data-rentablk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="renta-pad">${inner}</div></div></div>`; };
   el.innerHTML=B('tabla','📈','Rentabilidad por empresa',R.rows.length+' posiciones · TIR '+(CR?pc(CR.xirr):'—'),tblBlk)
     +B('barras','📊','Comparativa de rentabilidad','rent. total y TIR por empresa',barBlk)
@@ -418,7 +418,7 @@ function renderIndependencia(){
     +'<div class="ind-row"><span>Coast FIRE (necesario hoy)</span><b>'+eur(F.coast)+'</b></div>'
     +'<div class="ind-row"><span>'+(F.ya?'Ya lo alcanzas':'Te falta')+'</span><b class="'+(F.ya?'pos':'neg')+'">'+(F.ya?'✔':eur(F.falta))+'</b></div>'+(extra||'')+'</div>'; };
   var covExtra='<div class="ind-cov"><b>Cobertura hoy:</b> tu dividendo ('+eur(divAnual)+'/año) ya cubre el <b>'+covDiv.toFixed(0)+'%</b> de tu gasto.<div class="cbar"><i style="width:'+Math.min(100,covDiv)+'%"></i></div></div>';
-  window._indepBlk=window._indepBlk||{coast:true,retirada:true};
+  window._indepBlk=window._indepBlk||{coast:false,retirada:false};
   // --- Bloque 1: Coast FIRE (acumulación) ---
   var coastInner='<div class="ind-intro"><b class="h">🏖️ ¿Qué es el Coast FIRE?</b>El punto en el que ya tienes <b>suficiente patrimonio invertido</b> para que, <b>sin aportar más</b> y dejándolo crecer solo, llegue a tu <b>número FIRE</b> a la edad objetivo. A partir de ahí solo cubres gastos corrientes: el interés compuesto hace el resto.</div>'
     +'<div class="ind-fires">'
@@ -807,7 +807,7 @@ function renderGraficas(){ const el=$('#grafBody'); if(!el)return; const kp=$('#
   const ys=grafYears(); if(grafYear!=='all' && !ys.includes(grafYear))grafYear=ys[0]||new Date().getFullYear();
   const selEl=$('#grafYear'); if(selEl)selEl.innerHTML='<option value="all"'+(grafYear==='all'?' selected':'')+'>Todos</option>'+ys.map(y=>`<option value="${y}"${y===grafYear?' selected':''}>${y}</option>`).join('');
   const Y=grafYear, MES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  window._grafBlk=window._grafBlk||{hogar:true,cartera:false,div:false};
+  window._grafBlk=window._grafBlk||{hogar:false,cartera:false,div:false};
   var _hogarInner='', _carteraInner='', _divInner='', _kAhorro=0,_kTasa=0,_kGasto=0,_kValor=0,_kPl=0,_kDiv=0,_kRpd=0;
   { const isAll=Y==='all'; const yTag=isAll?'Todos':Y; const movs=isAll?(DB.movimientos||[]).filter(m=>m.fecha):(DB.movimientos||[]).filter(m=>m.fecha&&+m.fecha.slice(0,4)===Y); const gasMes=new Array(12).fill(0),ingMes=new Array(12).fill(0);
     movs.forEach(m=>{ const mo=+m.fecha.slice(5,7)-1; if(mo<0||mo>11)return; if(m.tipo==='gasto')gasMes[mo]+=num(m.importe); else if(m.tipo==='ingreso')ingMes[mo]+=num(m.importe); });

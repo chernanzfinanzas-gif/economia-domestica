@@ -656,7 +656,7 @@ function _infSemanalBlockHTML(){
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
-  return '<div class="pos-blk open"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🧾 Informe semanal de cartera</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
+  return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🧾 Informe semanal de cartera</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +'<div class="feat-s" style="margin-bottom:12px">Coyuntura y <b>stress test</b> de todas tus empresas con análisis completo: portada-resumen y una página por empresa, con drivers del periodo, semáforos de riesgo y alertas tempranas. Lo genera Claude (Cowork) en este ordenador y se archiva en la Hemeroteca.</div>'
     +'<a class="feat-btn" id="infcSemanalBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
     +'</div></div></div>';
@@ -664,7 +664,7 @@ function _infSemanalBlockHTML(){
 function _infEmpresaBlockHTML(){
   var uni=_infEmpresaUniverse();
   var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
-  return '<div class="pos-blk open"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📄 Informe por empresa</span><span class="bsum">PDF</span></div><div class="pos-blk-b"><div class="blk-pad">'
+  return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📄 Informe por empresa</span><span class="bsum">PDF</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +'<div class="feat-s" style="margin-bottom:12px">Veredicto, tesis, tu situación (si la tienes en cartera) o cómo va la empresa (si está pendiente) y su evolución. Escribe el ticker o el nombre de cualquier empresa de tu radar.</div>'
     +'<div class="feat-form"><input id="infcEmpresa" class="feat-inp" list="infcEmpresaDL" placeholder="Ej.: IBE o Iberdrola…" autocomplete="off">'
     +'<datalist id="infcEmpresaDL">'+opts+'</datalist>'
@@ -763,7 +763,7 @@ function renderInformesCenter(){
   function blk(icon,title,sum,inner,open,id){ return '<div class="pos-blk'+(open?' open':'')+'"'+(id?' id="'+id+'"':'')+'><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
   host.innerHTML=_infSemanalBlockHTML()+_infEmpresaBlockHTML()
     +'<div id="infcBuilt">'
-    +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,true)
+    +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,false)
     +blk('📅','Periodo','año',perInner,false,'infcBlkPer')
     +blk('⚙️','Filtros del informe de gastos','tipo · titular · categorías',filInner,false)
     +'</div>'

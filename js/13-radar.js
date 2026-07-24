@@ -441,7 +441,7 @@ function _uniInfo(t){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{}; v
 function renderCobertura(){
   var sec=document.getElementById('view-cobertura'); if(!sec)return;
   DB.cola=DB.cola||[]; DB.analisis=DB.analisis||[];
-  window._cobOpen=window._cobOpen||{cal:true,cola:false,cad:false};
+  window._cobOpen=window._cobOpen||{cal:false,cola:false,cad:false};
   var analizadas=DB.analisis.filter(function(a){return a.dossierFecha;});
   var nAnaliz=analizadas.length;
   var nColaPend=DB.cola.filter(function(c){return !_esAnalizada(c.t)&&(c.estado!=='hecha');}).length;
