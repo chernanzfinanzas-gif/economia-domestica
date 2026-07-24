@@ -509,7 +509,7 @@ function renderPanelMetodo(){
   sec.innerHTML = `<h2>📐 Panel del Método — ¿cuánto acierta?</h2>
     <div class="sub" style="margin-bottom:12px">Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuentan las evaluaciones <b>cerradas</b> (confirmadas)${provis>0?('; los <b>'+provis+'</b> provisionales aún no computan'):''}.</div>
     <div id="metKpis" style="margin-bottom:14px">${_kpis}</div>`
-    +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, true)
+    +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, false)
     +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false)
     +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false);
   if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }

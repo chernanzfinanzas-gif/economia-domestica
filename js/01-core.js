@@ -941,7 +941,10 @@ function renderSalud(){
   var heroSub=allok?'los 5 indicadores en verde':(nok+' de 5 indicadores en verde · revisa lo marcado');
   var hico=allok?'🟢':(nbad?'🔴':'🟠');
   var hero='<div class="salud-hero '+worst+'"><div class="hico">'+hico+'</div><div><div class="hl">Estado general</div><div class="hv">'+heroTxt+'</div><div class="hp">'+heroSub+'</div></div></div>';
-  sec.innerHTML='<h2>🩺 Salud del sistema</h2><div class="sub" style="margin-bottom:12px">Estado de calidad del sistema. Los cinco indicadores se calculan en el navegador con lo que la app ya tiene cargado; los controles de escritorio se leen de <code>salud_estado.json</code> (lo genera <code>generar_salud.py</code> en tu ordenador).</div>'+hero+'<div class="salud-grid">'+cardHTML+'</div><div id="saludDesktop" style="margin-top:12px"></div>';
+  sec.innerHTML='<div class="pos-blk" data-saludblk="s"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🩺 Salud del sistema</span><span class="bsum">'+heroTxt+'</span></div><div class="pos-blk-b"><div class="blk-pad">'
+    +'<div class="sub" style="margin-bottom:12px">Estado de calidad del sistema. Los cinco indicadores se calculan en el navegador con lo que la app ya tiene cargado; los controles de escritorio se leen de <code>salud_estado.json</code> (lo genera <code>generar_salud.py</code> en tu ordenador).</div>'+hero+'<div class="salud-grid">'+cardHTML+'</div><div id="saludDesktop" style="margin-top:12px"></div>'
+    +'</div></div></div>';
+  if(!sec._saludBound){ sec._saludBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
   var box=document.getElementById('saludDesktop'); if(!box)return;
   fetch('salud_estado.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j){ box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px">Linter de dossiers y sincronía repo ↔ carpetas.</div><div class="dnote">No hay <code>salud_estado.json</code> en el repo todavía. Ejecuta <code>generar_salud.py</code> en tu ordenador y súbelo para ver aquí el linter completo y la sincronía repo↔carpetas.</div></div>'; return; }

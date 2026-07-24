@@ -175,6 +175,8 @@ function activarVista(view){
 }
 $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.group){ activarVista(groupCurrent[b.dataset.group]); } else if(b.dataset.view){ activarVista(b.dataset.view); } });
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.snall){ if(typeof toggleAllSections==='function')toggleAllSections(); return; } if(b.dataset.sub)activarVista(b.dataset.sub); });
+/* Toggle de las cabeceras colapsables de Asignación (bloques con data-asigblk). */
+document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b||!b.getAttribute('data-asigblk'))return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; b.classList.toggle('open'); });
 /* Despliega/pliega todos los bloques colapsables de la vista activa (manipula el DOM y sincroniza estados) */
 function toggleAllSections(){
   const view=document.querySelector('.view.active'); if(!view)return;
