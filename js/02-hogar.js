@@ -413,7 +413,7 @@ function _infSyncGrp(grp){
 function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
   if(document.getElementById('cotizPanelBtn')) return;
-  var _ref=document.getElementById('panelPeriodo');
+  var _ref=document.getElementById('panelAvisos')||document.getElementById('panelPeriodo');
   var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px';
   // Botón «Informe semanal»: abre Claude (Cowork) en ESTE ordenador, chat nuevo con la carpeta del programa y la orden prerrellenada.
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';

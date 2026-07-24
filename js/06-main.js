@@ -282,7 +282,7 @@ function toggleAllSections(){
   function labelize(host){ if(!host)return; var t=host.querySelector('table'); if(!t)return; var ths=t.querySelectorAll('thead th'); if(!ths.length)return; var heads=[]; for(var i=0;i<ths.length;i++){ heads.push((ths[i].textContent||'').replace(/[▲▼▶▸›>\s]+$/,'').trim()); } var rows=t.querySelectorAll('tbody tr'); for(var r=0;r<rows.length;r++){ var tds=rows[r].children; for(var c=0;c<tds.length;c++){ if(tds[c].hasAttribute('colspan'))continue; tds[c].setAttribute('data-label',heads[c]!==undefined?heads[c]:''); } } }
   CARD_IDS.forEach(function(id){ var el=document.getElementById(id); if(!el)return; el.classList.add('cardify'); labelize(el); if(window.MutationObserver){ new MutationObserver(function(){ labelize(el); }).observe(el,{childList:true,subtree:true}); } });
 })();
-$('#panelDash').addEventListener('click',e=>{
+$('#view-panel').addEventListener('click',e=>{
   const sv=e.target.closest('[data-avseen]'); if(sv){ const k=sv.dataset.avseen; DB.avisosVistos=DB.avisosVistos||{}; if(DB.avisosVistos[k])delete DB.avisosVistos[k]; else DB.avisosVistos[k]=Date.now(); if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); return; }
   const sa=e.target.closest('[data-avseenall]'); if(sa){ DB.avisosVistos=DB.avisosVistos||{}; (sa.dataset.avseenall||'').split('~').forEach(k=>{ if(k)DB.avisosVistos[k]=Date.now(); }); if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); return; }
   const ft=e.target.closest('[data-avtipo]'); if(ft){ window._avFiltro=window._avFiltro||{tipo:'',showSeen:false}; window._avFiltro.tipo=ft.dataset.avtipo||''; if(typeof renderPanelDash==='function')renderPanelDash(); return; }
@@ -582,18 +582,19 @@ init();
 })();
 
 /* Panel · Fase B: plegado de las secciones del dashboard (delegado en #panelDash) */
-(function(){ var host=document.getElementById('panelDash'); if(!host)return;
+(function(){ var host=document.getElementById('view-panel'); if(!host)return;
   function rel(){ if(typeof renderPanelDash==='function') renderPanelDash(); }
   host.addEventListener('click',function(e){
+    var pf=e.target.closest('[data-presufold]'); if(pf){ var pp=document.getElementById('panelPresu'); if(pp)pp.classList.toggle('open'); return; }
     var f=e.target.closest('[data-psfold]'); if(f){ var k=f.getAttribute('data-psfold'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[k]=window._panelSecOpen[k]?0:1; rel(); return; }
-    var a=e.target.closest('[data-psall]'); if(a){ var v=+a.getAttribute('data-psall'); window._panelSecOpen=window._panelSecOpen||{}; ['hogar','cartera','dividendos','accion','mas'].forEach(function(k){window._panelSecOpen[k]=v;}); rel(); return; }
+    var a=e.target.closest('[data-psall]'); if(a){ var v=+a.getAttribute('data-psall'); window._panelSecOpen=window._panelSecOpen||{}; ['hogar','cartera','dividendos','accion'].forEach(function(k){window._panelSecOpen[k]=v;}); rel(); return; }
     var j=e.target.closest('[data-psjump]'); if(j){ var kk=j.getAttribute('data-psjump'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[kk]=1; rel(); setTimeout(function(){ var el=document.querySelector('[data-pssec="'+kk+'"]'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },40); return; }
   });
 })();
 
 /* Panel: plegar Avisos y Seguimiento del presupuesto (flecha en la fila del título) */
 (function(){ var h=document.getElementById('panelBudgetH'); if(h){ h.style.cursor='pointer'; h.addEventListener('click',function(){ var pb=document.getElementById('panelBudget'); if(!pb)return; var open=pb.style.display!=='none'; window._pBudOpen=!open; pb.style.display=open?'none':''; var a=h.querySelector('.pcol-arw'); if(a)a.classList.toggle('open',!open); }); } })();
-(function(){ var host=document.getElementById('panelDash'); if(!host)return; host.addEventListener('click',function(e){ var av=e.target.closest('[data-pavi]'); if(av){ window._pAviOpen=(window._pAviOpen===false); if(typeof renderPanelDash==='function')renderPanelDash(); } }); })();
+(function(){ var host=document.getElementById('view-panel'); if(!host)return; host.addEventListener('click',function(e){ var av=e.target.closest('[data-pavi]'); if(av){ window._pAviOpen=!(window._pAviOpen===true); if(typeof renderPanelDash==='function')renderPanelDash(); } }); })();
 
 /* ===== Presupuesto v2 · cableado (delegado en #view-presupuesto) ===== */
 (function(){ var host=document.getElementById('view-presupuesto'); if(!host)return;

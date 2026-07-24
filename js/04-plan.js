@@ -700,7 +700,7 @@ function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Ma
   DB.planCompras[t]=DB.planCompras[t]||{}; DB.planCompras[t][yr]=num((DB.planCompras[t]||{})[yr]||0)+amt;
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function _pnlSecciones(SEC){
-  var META=[['hogar','Hogar'],['cartera','Patrimonio y cartera'],['dividendos','Dividendos'],['accion','Acción'],['mas','Más']];
+  var META=[['hogar','Hogar'],['cartera','Patrimonio y cartera'],['dividendos','Dividendos'],['accion','Acción']];
   var st=window._panelSecOpen=window._panelSecOpen||{hogar:0,cartera:0,dividendos:0,accion:0,mas:0};
   var present=META.filter(function(m){return (SEC[m[0]]||'').trim();});
   if(!present.length) return '';
@@ -713,7 +713,7 @@ function _pnlSecciones(SEC){
   return '<div class="psec-wrap">'+idx+secs+'</div>';
 }
 function renderPanelDash(){
-  const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let html=''; var SEC={hogar:'',cartera:'',dividendos:'',accion:'',mas:''};
+  const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let avisosHTML='', saludHTML=''; var SEC={hogar:'',cartera:'',dividendos:'',accion:'',mas:''};
   /* El bloque "Próximos eventos" usa el motor derivado (calAgenda→evoAnioM). Si dividendos.json
      aún no está cargado, cárgalo una vez y re-renderiza para pintar las fechas reales. */
   if(typeof _evoCargar==='function' && typeof _evoData!=='undefined' && !_evoData){ try{ _evoCargar().then(function(){ if(typeof renderPanelDash==='function') renderPanelDash(); }); }catch(e){} }
@@ -781,13 +781,13 @@ function renderPanelDash(){
       return `<div style="margin-bottom:6px"><div style="font-size:11px;font-weight:700;color:#94a3b8;margin:4px 0 2px">${_TN[tp]||tp}</div>${its}</div>`;
     }).join('');
     const _allKeys=show.map(x=>x.key).join('~');
-    const _aviOpen=window._pAviOpen!==false;
-    html+=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${_aviOpen?(chips+(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>')):''}</div>`;
+    const _aviOpen=window._pAviOpen===true;
+    avisosHTML=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${_aviOpen?(chips+(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>')):''}</div>`;
   }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;
   // Salud financiera (score compuesto) — al principio del panel
-  if(typeof saludFinanciera==='function'){ try{ const H=saludFinanciera(); if(H.score!=null){ const sc=Math.round(H.score); const col=sc>=70?'#16a34a':(sc>=50?'#d97706':'#dc2626'); const emo=sc>=70?'🟢':(sc>=50?'🟡':'🔴'); const bars=H.pilares.map(p=>{ const s=p.s==null?null:Math.round(p.s); const bc=s==null?'#cbd5e1':(s>=70?'#16a34a':(s>=50?'#d97706':'#dc2626')); return `<div style="margin:3px 0"><div style="display:flex;justify-content:space-between;font-size:11.5px"><span>${p.k}</span><span class="muted">${p.d}${s!=null?' · '+s:''}</span></div><div style="height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden"><div style="height:100%;width:${s==null?0:s}%;background:${bc}"></div></div></div>`; }).join(''); html+=`<div style="margin-top:16px"><h3 style="margin-bottom:6px">Salud financiera</h3><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="font-size:34px;font-weight:800;color:${col};min-width:80px;text-align:center">${emo}<br><span style="font-size:30px">${sc}</span><div class="muted" style="font-size:10px;font-weight:400">/ 100</div></div><div style="flex:1;min-width:240px">${bars}</div></div></div>`; } }catch(e){} }
+  if(typeof saludFinanciera==='function'){ try{ const H=saludFinanciera(); if(H.score!=null){ const sc=Math.round(H.score); const col=sc>=70?'#16a34a':(sc>=50?'#d97706':'#dc2626'); const emo=sc>=70?'🟢':(sc>=50?'🟡':'🔴'); const bars=H.pilares.map(p=>{ const s=p.s==null?null:Math.round(p.s); const bc=s==null?'#cbd5e1':(s>=70?'#16a34a':(s>=50?'#d97706':'#dc2626')); return `<div style="margin:3px 0"><div style="display:flex;justify-content:space-between;font-size:11.5px"><span>${p.k}</span><span class="muted">${p.d}${s!=null?' · '+s:''}</span></div><div style="height:6px;background:#e2e8f0;border-radius:3px;overflow:hidden"><div style="height:100%;width:${s==null?0:s}%;background:${bc}"></div></div></div>`; }).join(''); saludHTML=`<div style="margin-top:16px"><h3 style="margin-bottom:6px">Salud financiera</h3><div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div style="font-size:34px;font-weight:800;color:${col};min-width:80px;text-align:center">${emo}<br><span style="font-size:30px">${sc}</span><div class="muted" style="font-size:10px;font-weight:400">/ 100</div></div><div style="flex:1;min-width:240px">${bars}</div></div></div>`; } }catch(e){} }
   // Evolución de la cartera (coste / valor / valor+dividendos) con tooltip al pasar el ratón — al principio del panel
   if(typeof evoPanelHTML==='function'){ try{ SEC.cartera+=evoPanelHTML(renderPanelDash); }catch(e){} }
   // Rentabilidad real (TIR/XIRR + TWR + alfa vs IBEX)
@@ -858,7 +858,9 @@ function renderPanelDash(){
   // Mini-gráfico dividendos por año
   if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars=''; ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`; });
     if(mx>1) SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
-  el.innerHTML=html+_pnlSecciones(SEC);
+  var _av=document.getElementById('panelAvisos'); if(_av)_av.innerHTML=avisosHTML;
+  var _sa=document.getElementById('panelSalud'); if(_sa)_sa.innerHTML=saludHTML;
+  el.innerHTML=_pnlSecciones(SEC);
 }
 function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(pc[y])/pr); }); return sh; }
 /* Slider de rango horizontal sincronizado con la tabla del Plan (igual que el Simulador):
