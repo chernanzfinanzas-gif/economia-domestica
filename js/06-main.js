@@ -204,7 +204,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['origen','El Origen'],['panel','Panel'],['comovoy','Cómo voy'],['independencia','Independencia'],['metas','Metas'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
+  control:[['panel','Panel'],['comovoy','Cómo voy'],['independencia','Independencia'],['metas','Metas'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
@@ -569,6 +569,7 @@ init();
 (function(){ var cog=document.getElementById('btnCog'), menu=document.getElementById('cogMenu'); if(!cog||!menu)return;
   cog.addEventListener('click',function(e){ e.stopPropagation(); menu.classList.toggle('open'); });
   document.addEventListener('click',function(){ menu.classList.remove('open'); });
+  var bo=document.getElementById('btnOrigen'); if(bo){ bo.addEventListener('click',function(e){ e.stopPropagation(); menu.classList.remove('open'); if(typeof activarVista==='function')activarVista('origen'); }); }
 })();
 
 /* Panel · Fase B: plegado de las secciones del dashboard (delegado en #panelDash) */
