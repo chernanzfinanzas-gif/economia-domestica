@@ -1123,7 +1123,7 @@ function renderPat(){
   let _liqMini='';
   try{ const _F=(typeof fiscalidadData==='function')?fiscalidadData():null; if(_F&&_F.valorCartera>0){ _liqMini='<div class="ph-mini liq"><div class="l">💧 Neto si liquido acciones</div><div class="v">'+fmt(_F.netoLiq)+'</div><div class="p">tras impuesto '+fmt(_F.impuestoLiq)+'</div></div>'; } }catch(e){}
   if(heroEl)heroEl.innerHTML=
-    '<div><div class="ph-l">Patrimonio total</div><div class="ph-amt">'+fmt(t.total)+' €</div><div class="ph-s">al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros</div></div>'+
+    '<div><div class="ph-l">Patrimonio total</div><div class="ph-amt">'+fmt(t.total)+'</div><div class="ph-s">al '+ddmmyyyy(last.fecha)+' · '+snaps.length+' registros</div></div>'+
     '<div class="ph-rend">'+(rendIni>=0?'+':'')+(rendIni*100).toFixed(0)+'% desde el inicio</div>'+
     '<div class="ph-sp"></div><div class="ph-minis">'+
       '<div class="ph-mini"><div class="l">Efectivo</div><div class="v">'+fmt(t.ef)+'</div><div class="p">'+Math.round((1-pctInv)*100)+'%</div></div>'+
@@ -1194,26 +1194,48 @@ function editSnapshot(id){
   if(b)b.scrollIntoView({behavior:'smooth',block:'start'});
 }
 function resetPatForm(){ renderPatForm(); var rc=$('#patRegCancel'); if(rc)rc.style.display='none'; }
+function _patCmpCell(label, cur, base, hasBase){
+  if(!hasBase) return '<div class="pat-cmp-cell"><div class="l">'+label+'</div><div class="v eq">— primer registro</div></div>';
+  var d=cur-base; var pct=base>0?(d/base*100):null;
+  var cls=d>0.5?'up':(d<-0.5?'dn':'eq'); var arr=d>0.5?'▲':(d<-0.5?'▼':'·');
+  var pctTxt=(pct==null)?'':(' · '+(d>=0?'+':'')+pct.toFixed(1)+'%');
+  return '<div class="pat-cmp-cell"><div class="l">'+label+'</div><div class="v '+cls+'">'+arr+' '+(d>=0?'+':'')+fmt(d)+pctTxt+'</div></div>';
+}
 function renderPatList(){
-  const snaps=patSnaps().slice().reverse();
-  const cnt=$('#patCount'); if(cnt)cnt.textContent=snaps.length+' registros';
+  const asc=patSnaps().slice();                 // orden cronológico ascendente
+  const cnt=$('#patCount'); if(cnt)cnt.textContent=asc.length+' registros';
   const listEl=$('#patList'); if(!listEl)return;
-  if(!snaps.length){ listEl.innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin registros.</div>'; return; }
+  if(!asc.length){ listEl.innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin registros.</div>'; return; }
   const cById=function(id){return (DB.cuentas||[]).find(function(c){return c.id===id;});};
-  listEl.innerHTML=snaps.map(function(s){ var t=snapTot(s); var pInv=t.total?Math.round(t.inv/t.total*100):0;
-    var brk=(s.lineas||[]).map(function(l){ var c=cById(l.cuentaId); return '<tr><td>'+(c?_infEsc(c.nombre):'—')+'</td><td class="num">'+fmt(num(l.ef))+' €</td><td class="num">'+fmt(num(l.inv))+' €</td><td class="num">'+fmt(num(l.ef)+num(l.inv))+' €</td></tr>'; }).join('');
-    return '<div class="pat-item"><div class="pat-ih" data-patrow>'+
+  const tFirst=snapTot(asc[0]);
+  let out='';
+  for(let i=asc.length-1;i>=0;i--){
+    const s=asc[i]; const t=snapTot(s); const pInv=t.total?Math.round(t.inv/t.total*100):0;
+    const prev=i>0?asc[i-1]:null; const tPrev=prev?snapTot(prev):null; const isFirst=(i===0);
+    // insignia compacta en la cabecera: total vs registro anterior
+    let hdr='';
+    if(tPrev){ const dd=t.total-tPrev.total; const pc=tPrev.total>0?(dd/tPrev.total*100):null; const hc=dd>0.5?'up':(dd<-0.5?'dn':'eq'); const ar=dd>0.5?'▲':(dd<-0.5?'▼':'·'); hdr=' <small class="pdelta '+hc+'">'+ar+(pc!=null?' '+(dd>=0?'+':'')+pc.toFixed(1)+'%':'')+'</small>'; }
+    const brk=(s.lineas||[]).map(function(l){ var c=cById(l.cuentaId); return '<tr><td>'+(c?_infEsc(c.nombre):'—')+'</td><td class="num">'+fmt(num(l.ef))+'</td><td class="num">'+fmt(num(l.inv))+'</td><td class="num">'+fmt(num(l.ef)+num(l.inv))+'</td></tr>'; }).join('');
+    const cmp='<div class="pat-cmp"><div class="pat-cmp-t">📊 Comparativa frente al pasado</div><div class="pat-cmp-grid">'+
+      _patCmpCell('📈 Cartera vs registro anterior', t.inv, tPrev?tPrev.inv:0, !!tPrev)+
+      _patCmpCell('📈 Cartera vs primer registro', t.inv, tFirst.inv, !isFirst)+
+      _patCmpCell('💰 Total vs registro anterior', t.total, tPrev?tPrev.total:0, !!tPrev)+
+      _patCmpCell('💰 Total vs primer registro', t.total, tFirst.total, !isFirst)+
+      '</div></div>';
+    out+='<div class="pat-item"><div class="pat-ih" data-patrow>'+
       '<span class="pat-arw">▶</span>'+
       '<span class="pat-fch">'+ddmmyyyy(s.fecha)+'</span>'+
       '<span class="pat-n">'+fmt(t.ef)+' / '+fmt(t.inv)+'</span>'+
-      '<span class="pat-tot">'+fmt(t.total)+' €</span>'+
+      '<span class="pat-tot">'+fmt(t.total)+hdr+'</span>'+
       '<span class="pat-pinv">'+pInv+'%</span>'+
-      '<span class="pat-meta">Efect. '+fmt(t.ef)+' · Invert. '+fmt(t.inv)+' · '+pInv+'% inv.</span>'+
+      '<span class="pat-meta">Efect. '+fmt(t.ef)+' · Invert. '+fmt(t.inv)+' · '+pInv+'% inv.'+(tPrev?(' · Total '+((t.total-tPrev.total)>=0?'▲ +':'▼ ')+fmt(t.total-tPrev.total)+' vs ant.'):'')+'</span>'+
       '</div><div class="pat-b">'+
         '<table class="pat-brk"><thead><tr><th>Cuenta</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Total</th></tr></thead><tbody>'+brk+'</tbody></table>'+
+        cmp+
         '<div class="pat-acts"><button class="btn ghost sm" data-editsnap="'+s.id+'">✎ Editar</button><button class="btn danger sm" data-delsnap="'+s.id+'">🗑 Eliminar</button></div>'+
       '</div></div>';
-  }).join('');
+  }
+  listEl.innerHTML=out;
 }
 function addSnapshot(){
   const fE=$('#patFecha'); const fecha=fE?fE.value:''; if(!fecha){alert('Pon una fecha');return;}
