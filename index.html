@@ -1078,6 +1078,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-inversiones .lg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
 #view-inversiones .lg .m{background:#f8fafc;border-radius:8px;padding:6px 8px}#view-inversiones .lg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}#view-inversiones .lg .m b{font-size:12px;font-weight:700}
 #view-inversiones .lc-act{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px;padding-top:9px;border-top:1px solid #f1f5f9}
+#view-inversiones .lcard.invcol{cursor:pointer}
+#view-inversiones .lcard.invcol .invcol-arw{float:right;color:#94a3b8;font-weight:800;font-size:13px;transition:transform .18s;margin-left:6px}
+#view-inversiones .lcard.invcol.open .invcol-arw{transform:rotate(180deg)}
+#view-inversiones .lcard.invcol .lg,#view-inversiones .lcard.invcol .lc-act{display:none}
+#view-inversiones .lcard.invcol.open .lg{display:grid}
+#view-inversiones .lcard.invcol.open .lc-act{display:flex}
 @media(max-width:960px){
   #view-inversiones #invCards .pos-kpis{grid-template-columns:1fr 1fr}
   #view-inversiones #invCards .k .v{font-size:18px}
@@ -2986,9 +2992,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <button data-group="trabajo">Radar</button>
     <button data-group="eleccion">Análisis</button>
     <button data-group="planinv">Plan</button>
-    <button data-group="embudo">Kanban/Kaizen</button>
     <button data-group="cartera">Cartera</button>
     <button data-group="reparto">Reparto y Riesgo</button>
+    <button data-group="embudo">Kanban/Kaizen</button>
     <button data-group="retorno">Retorno</button>
     <button data-group="tesis">Sistema</button>
     <button data-group="informes">Informes</button>
