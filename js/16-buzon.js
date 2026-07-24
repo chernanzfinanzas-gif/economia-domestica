@@ -148,6 +148,15 @@
     return h;
   }
 
+  // Secciones "Radar: qué cambió" + "Meses anteriores" para incrustar AL FINAL de Radar Op.
+  // Reutiliza radarHtml (usa estilos inline + .muted, así que se ve bien fuera del Buzón).
+  window.buzonRadarSecciones=function(hostEl){ if(!hostEl)return;
+    Promise.all([jget('buzon/fundamentales-cambios.json'), jget('buzon/fundamentales-historico.json')]).then(function(r){
+      var rad=r[0], hist=r[1];
+      hostEl.innerHTML=(rad||hist)?radarHtml(rad,hist):'';
+    }).catch(function(){ hostEl.innerHTML=''; });
+  };
+
   // Aviso compacto en el Panel (visible a diario) con acceso rápido al buzón.
   // Los lunes se resalta como recordatorio para "volcar el buzón".
   window.renderBuzonPanel=function(){

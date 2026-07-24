@@ -329,12 +329,12 @@ function _radBuild(sec){
       '<th class="s" data-radsk="rpd">RPD</th><th class="s" data-radsk="crec" title="Crecimiento anualizado del dividendo (CAGR ~5 años)">Crec.Div</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="s" data-radsk="posN" title="Posición del precio en el rango de los últimos '+_ry+' años (verde=zona baja/barato · rojo=zona alta/caro)">Pos.'+_ry+'a</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l" title="Alertas — pulsa la señal para ver el detalle">⚠</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
-    _radCambiosStrip()+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>'+
-    '<div class="sub" style="margin-top:8px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>';
+    '<div class="sub" style="margin-top:8px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
+    '<div id="radBuzonSecs" style="margin-top:18px"></div>';
   _radRenderList();
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
-  var _vb=document.getElementById('radVerBuzon'); if(_vb)_vb.addEventListener('click',function(e){ e.preventDefault(); if(typeof activarVista==='function')activarVista('buzon'); });
+  var _rbs=document.getElementById('radBuzonSecs'); if(_rbs&&typeof buzonRadarSecciones==='function')buzonRadarSecciones(_rbs);
   _radBind(sec);
 }
 function _radView(){
@@ -456,7 +456,7 @@ function renderCobertura(){
   sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'+
     '<div class="sub" style="margin-bottom:14px">Qué empresas has analizado y cuáles tienes en cola. El <b>Calendario</b> reúne lo que toca hacer (análisis en cola, informes que vencen, señales de precio); la <b>Cola</b> la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'+
     kpis+
-    blk('cal','📅','Calendario de cobertura','','Arriba lo que requiere acción ahora (señales de precio y vencidas), luego las pendientes de analizar (tu cola) y las programadas con los días que faltan. Marca ✓ al hacerlo. <span class="muted">El próximo informe se estima desde el monitor trimestral (mismo cálculo que el Buzón del lunes).</span>','<div id="calHost"><div class="muted" style="font-size:12px;padding:8px 0">Preparando calendario…</div></div>')+
+    blk('cal','📅','Calendario de cobertura','','Arriba lo que requiere acción ahora (señales de precio y vencidas), luego las pendientes de analizar (tu cola) y las programadas con los días que faltan. Marca ✓ al hacerlo. <span class="muted">El próximo informe se estima desde el monitor trimestral.</span>','<div id="calHost"><div class="muted" style="font-size:12px;padding:8px 0">Preparando calendario…</div></div>')+
     blk('cola','🗂️','Cola de análisis',nColaPend+' pendientes','Por tu orden de prioridad (▲▼). Se nutre desde Radar Op. con ★.',_cobColaHtml())+
     blk('cad','🔁','Cadencia de las analizadas',nAnaliz+' analizadas','Último y próximo informe estimado, si toca monitor o revisión anual, calibración y señal de precio activa.','<div id="cadHost"><div class="muted" style="font-size:12px;padding:8px 0">Cargando informes trimestrales…</div></div>');
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();

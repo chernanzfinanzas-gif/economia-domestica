@@ -89,7 +89,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel','renderBuzonPanel'], comovoy:['renderComoVoy'], presupuesto:['renderPres'],
+  panel:['renderPanel'], comovoy:['renderComoVoy'], presupuesto:['renderPres'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
@@ -212,7 +212,7 @@ const GROUPS={
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
   reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
-  tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['buzon','Buzón del lunes'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
+  tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['metodo','Panel del Método'],['salud','Salud del sistema'],['backtest','Backtest']],
   planinv:[['proyeccion','Proyección'],['simulador','Simulador']],
   informes:[['informes','Informes'],['hemeroteca','Hemeroteca Informes'],['hemeroanalisis','Hemeroteca Análisis']],
   graficas:[['graficas','Gráficas']]
