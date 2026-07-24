@@ -676,6 +676,70 @@
           "valoracion": "Refuerza el pilar de renta; dividendo creciente y sostenible."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-23",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación confirmada: las primas vuelven a crecer (+1,1%; +0,5% a tipo de cambio constante) tras la caída −2,2% del 1T, disipando la alerta ámbar de FX/LatAm. Combinado No Vida excelente 92,8% (−0,3 pp), ROE 12,5% (13,4% ajustado) y solvencia 206,8% (mar-2026), todos sobre sus umbrales. Resultado local +9,4% (NIIF +8,4%); Iberia 279 (+16,6%) y Mapfre RE 186 (+24,6%) tiran, LATAM 218 (−2,6%) modera pero con combinado 86,1% y Brasil ROE 25,1%. Tesis de renta intacta; sin señales S2/S6/B4.",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 16126.9
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 19007.9
+        },
+        {
+          "nombre": "Rtdo. neto (M€)",
+          "valor": 624.2
+        },
+        {
+          "nombre": "%Var rtdo",
+          "valor": 9.4
+        },
+        {
+          "nombre": "Comb. No Vida %",
+          "valor": 92.8
+        },
+        {
+          "nombre": "ROE %",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Iberia (M€)",
+          "valor": 278.6
+        },
+        {
+          "nombre": "LATAM (M€)",
+          "valor": 217.6
+        },
+        {
+          "nombre": "Mapfre RE (M€)",
+          "valor": 185.6
+        },
+        {
+          "nombre": "Solv. II %",
+          "valor": 206.8
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Anuncio de la compra de Safety Insurance (EE.UU., noreste); cierre previsto en el 1T-2027.",
+          "impacto": "+",
+          "valoracion": "Refuerza el liderazgo en Norteamérica; se estima acretiva (+5% del resultado del Grupo una vez integrada). No altera el veredicto ESPERAR pero mejora el perfil de crecimiento a medio plazo."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Terremotos en Venezuela a finales de junio; estimación conservadora con impacto atribuible máximo de 25 M€.",
+          "impacto": "=",
+          "valoracion": "Siniestro acotado y ya provisionado (reservas en el rango alto); sin efecto material en la tesis."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ],
   "schemaVersion": 2
