@@ -690,6 +690,70 @@
           "valoracion": "Ejecución de la M&A anunciada; confirma la disciplina de asignación de capital."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "S1-2026: crecimiento rentable restaurado — ventas 2.103,8 (+5,2%; incl. +4,8% inorgánico por la compra de Aludec) pese a divisas adversas, con outperformance de +10,3 pp sobre un mercado de producción que cae −1,0%. Márgenes récord y estables (EBITDA 19,1%, EBIT 14,3%), líderes del sector; Rtdo. neto 191,3 (+2,9%). La DFN sube a 962,4 por Aludec pero el apalancamiento sigue bajísimo (1,19x) y la conversión de caja mejora al 71,2%. Todos los KPIs §10.1 en zona REFUERZA. Tesis intacta; sin S2/S6. B4: payout ~33% (0 duros/0 blandos).",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2103.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 401.1
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 19.1
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 300.5
+        },
+        {
+          "nombre": "Mg.EBIT %",
+          "valor": 14.3
+        },
+        {
+          "nombre": "Rtdo.Neto (M€)",
+          "valor": 191.3
+        },
+        {
+          "nombre": "F.C. Operativo (M€)",
+          "valor": 275.1
+        },
+        {
+          "nombre": "% FCO/EBITDA",
+          "valor": 71.2
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 962.4
+        },
+        {
+          "nombre": "DFN/EBITDA(*)",
+          "valor": 1.19
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Toma de control del 100% de Aludec, S.A. por un coste total de 270,6 M€ (valor de empresa 200,0 M€; desembolso inicial 250,6 M€ + 20,0 M€ contingentes); proveedor global de componentes decorativos de plástico y metal con 10 plantas en España, Portugal, México y EE.UU. Fondo de comercio 118,1 M€.",
+          "impacto": "+",
+          "valoracion": "Crecimiento inorgánico disciplinado (aporta el +4,8% de las ventas) que amplía capacidades en componentes decorativos y refuerza Norteamérica; el apalancamiento se mantiene muy bajo (1,19x) pese al desembolso → encaja en la tesis de calidad y creación de valor sin tensionar el balance."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "CIE mantiene el guidance 2026-2027 (crecimiento con integración de nuevas compañías) y fija un objetivo de pay-out del 50% para 2027.",
+          "impacto": "+",
+          "valoracion": "Eleva la retribución objetivo (payout ~33% → 50% en 2027) manteniendo capacidad inversora; mejora el perfil de retorno total sin comprometer la solvencia."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ]
 }
