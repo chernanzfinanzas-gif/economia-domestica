@@ -1630,6 +1630,50 @@ function renderAsignacion(){ const el=$('#asignBody'); if(!el)return; const cs=D
     </tr>`; }).join('');
   el.innerHTML=`<div class="toolbar" style="margin-bottom:8px;gap:8px;flex-wrap:wrap"><button class="btn sm" id="asignAdd">+ Clase</button><button class="btn ghost sm" id="asignAuto">Autorrellenar (Efectivo + R.Variable)</button></div>`+(cs.length?`<div style="overflow:auto"><table style="font-size:12px"><thead><tr><th>Clase de activo</th><th class="num">Actual €</th><th class="num">% actual</th><th class="num">% objetivo</th><th class="num">Desviación</th><th class="num">Objetivo €</th><th class="num">A mover</th><th></th></tr></thead><tbody>${rows}<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${fmt(total)}</td><td class="num">100%</td><td class="num ${Math.abs(totObj-100)<0.5?'':'neg'}">${totObj.toFixed(0)}%</td><td></td><td></td><td></td><td></td></tr></tbody></table></div><div class="sub" style="margin-top:6px">Rellena <b>Actual €</b> y <b>% objetivo</b> de cada clase. "A mover" = objetivo − actual (verde = aportar/comprar en esa clase; rojo = reducir). Desviación en rojo si te alejas más de 5 puntos del objetivo. ${Math.abs(totObj-100)>=0.5?'<b style="color:#dc2626">⚠ Los % objetivo deberían sumar 100 (ahora '+totObj.toFixed(0)+'%).</b>':''}</div>`:'<div class="empty">Sin clases. Pulsa «Autorrellenar» para partir de Efectivo + Renta variable, o «+ Clase» y añade Renta fija, Inmuebles, Fondos, Oro…</div>');
 }
+// === Fotos de asignación: congela el reparto por clase en una fecha para ver la evolución ===
+function _afEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function guardarFotoAsign(){
+  const cs=(DB.asignacion||[]);
+  if(!cs.length || cs.reduce((s,c)=>s+num(c.actual),0)<=0){ if(typeof showToast==='function')showToast('Rellena antes el «Actual €» de tus clases de activo en la tabla de arriba.',null,null,3800); return; }
+  const total=cs.reduce((s,c)=>s+num(c.actual),0);
+  const fecha=new Date().toISOString().slice(0,10);
+  DB.asignacionFotos=(DB.asignacionFotos||[]).filter(f=>f.fecha!==fecha); // una foto por día: reemplaza la de hoy
+  DB.asignacionFotos.push({ id:'af'+Math.random().toString(36).slice(2,9), fecha:fecha, total:total, clases:cs.map(c=>({nombre:(c.nombre||'—'), actual:num(c.actual)})) });
+  if(typeof saveNow==='function')saveNow();
+  renderAsignFotos();
+  if(typeof showToast==='function')showToast('📸 Foto de asignación guardada ('+ddmmyyyy(fecha)+')',null,null,2500);
+}
+function renderAsignFotos(){
+  const el=document.getElementById('asignFotosBody'); if(!el) return;
+  const info=document.getElementById('asignFotoInfo');
+  const fotos=(DB.asignacionFotos=DB.asignacionFotos||[]).slice().sort((a,b)=>(a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0)));
+  if(!fotos.length){ el.innerHTML='<div class="empty" style="padding:22px">Aún no hay fotos. Pulsa «📸 Guardar foto de hoy» para empezar a registrar la evolución de tu asignación.</div>'; if(info)info.textContent=''; return; }
+  // Columnas = nombres de clase; orden según la foto más reciente + extras de fotos antiguas
+  const cols=[]; const seen={};
+  fotos[fotos.length-1].clases.forEach(c=>{ if(!seen[c.nombre]){seen[c.nombre]=1; cols.push(c.nombre);} });
+  fotos.forEach(f=>f.clases.forEach(c=>{ if(!seen[c.nombre]){seen[c.nombre]=1; cols.push(c.nombre);} }));
+  const PAL=['#2563eb','#16a34a','#7c3aed','#d97706','#0891b2','#db2777','#65a30d','#0d9488','#9333ea','#e11d48','#f59e0b','#475569'];
+  const col={}; cols.forEach((n,i)=>col[n]=PAL[i%PAL.length]);
+  const totOf=f=>f.total||f.clases.reduce((s,c)=>s+num(c.actual),0);
+  const pctOf=(f,n)=>{ const t=totOf(f); const c=f.clases.find(x=>x.nombre===n); if(!c)return null; return t>0?num(c.actual)/t*100:0; };
+  const eurOf=(f,n)=>{ const c=f.clases.find(x=>x.nombre===n); return c?num(c.actual):null; };
+  const mix=f=>'<div class="afmix">'+cols.map(n=>{const p=pctOf(f,n);return p?`<i style="width:${p}%;background:${col[n]}"></i>`:'';}).join('')+'</div>';
+  const dlt=(f,prev,n)=>{ if(!prev)return ''; const p=pctOf(f,n),pp=pctOf(prev,n); if(p==null||pp==null)return ''; const d=p-pp; const cls=d>0.05?'up':(d<-0.05?'dn':'eq'); const s=d>0.05?'▲':(d<-0.05?'▼':'·'); return `<span class="afdelta ${cls}">${s} ${d>0?'+':''}${d.toFixed(0)}pp</span>`; };
+  const leg='<div class="afleg">'+cols.map(n=>`<span><i style="background:${col[n]}"></i>${_afEsc(n)}</span>`).join('')+'</div>';
+  const head='<tr><th>Fecha</th>'+cols.map(n=>`<th class="afnum">${_afEsc(n)}</th>`).join('')+'<th class="afnum">Mezcla</th><th class="afnum">Total</th><th></th></tr>';
+  let rows='', mob='';
+  for(let i=fotos.length-1;i>=0;i--){
+    const f=fotos[i], prev=i>0?fotos[i-1]:null, last=i===fotos.length-1;
+    rows+=`<tr class="${last?'aflast':''}"><td class="affecha">${ddmmyyyy(f.fecha)}${last?' <span class="afmini">· última</span>':''}</td>`;
+    cols.forEach(n=>{ const p=pctOf(f,n); if(p==null){ rows+='<td class="afnum afmuted">—</td>'; return; } rows+=`<td class="afnum"><span class="afpct">${p.toFixed(0)}%</span><span class="afeur">${fmt(eurOf(f,n))}</span>${dlt(f,prev,n)}</td>`; });
+    rows+=`<td class="afnum">${mix(f)}</td><td class="afnum aftot">${fmt(totOf(f))}</td><td><button class="btn danger sm" data-asignfotodel="${f.id}">✕</button></td></tr>`;
+    mob+=`<div class="afcard ${last?'aflastp':''}"><div class="afcard-h"><span class="afd">${ddmmyyyy(f.fecha)}</span>${last?'<span class="afmini">última</span>':''}<span class="aft">${fmt(totOf(f))}</span><button class="btn danger sm" data-asignfotodel="${f.id}" style="margin-left:4px">✕</button></div>${mix(f)}`;
+    cols.forEach(n=>{ const p=pctOf(f,n); if(p==null)return; let dt='—',dc='eq'; if(prev){const pp=pctOf(prev,n); if(pp!=null){const d=p-pp; dc=d>0.05?'up':(d<-0.05?'dn':'eq'); dt=`${d>0?'+':''}${d.toFixed(0)}pp`;}} mob+=`<div class="afrow"><span class="afdot" style="background:${col[n]}"></span><span class="afn">${_afEsc(n)}</span><span class="afp">${p.toFixed(0)}%</span><span class="afdl afdelta ${dc}">${dt}</span></div>`; });
+    mob+='</div>';
+  }
+  el.innerHTML=leg+'<div class="afdesk"><table class="aftbl"><thead>'+head+'</thead><tbody>'+rows+'</tbody></table></div><div class="afmob">'+mob+'</div>';
+  if(info)info.textContent=fotos.length+' foto'+(fotos.length>1?'s':'')+' · desde '+ddmmyyyy(fotos[0].fecha);
+}
 // === Metas financieras: objetivo € + fecha → progreso y ahorro mensual necesario ===
 function addMeta(){ DB.metas=DB.metas||[]; DB.metas.push({id:'m'+Math.random().toString(36).slice(2,9),nombre:'Nueva meta',objetivo:0,fecha:'',actual:0,aporte:0}); if(typeof saveNow==='function')saveNow(); renderMetas(); }
 function metaCalc(m){ const now=new Date(); const obj=num(m.objetivo),act=num(m.actual),ap=num(m.aporte); const falta=Math.max(0,obj-act); const prog=obj>0?Math.min(1,act/obj):0;
