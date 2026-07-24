@@ -432,13 +432,16 @@ function renderHemeroteca(){
   var sec=document.getElementById('view-hemeroteca'); if(!sec) return;
   var api='https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/informes-semanales';
   var pages='https://chernanzfinanzas-gif.github.io/economia-domestica/informes-semanales/';
-  sec.innerHTML='<h2>🗞️ Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:12px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con «🧾 Informe semanal (Claude)» en el Centro de informes y se abren desde GitHub Pages.</div><div id="hemeroKpis" class="hem-kpis"></div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div>';
+  sec.innerHTML='<h2>🗞️ Hemeroteca de Informes Semanales</h2><div class="sub" style="margin-bottom:12px">Informes semanales de cartera (coyuntura y riesgo) archivados en el repositorio. Se generan con «🧾 Informe semanal (Claude)» en el Centro de informes y se abren desde GitHub Pages.</div>'
+    +'<div class="pos-blk open" data-hemblk="sem"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🗞️ Informes semanales publicados</span><span class="bsum" id="hemSemSum">cargando…</span></div><div class="pos-blk-b"><div class="blk-pad"><div id="hemeroKpis" class="hem-kpis"></div><div id="hemeroSemanal"><div class="muted" style="font-size:13px">Cargando informes…</div></div></div></div></div>';
+  if(!sec._hemBlkBound){ sec._hemBlkBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('a,input,select,button'))return; var h=e.target.closest('.pos-blk-h'); if(h){ h.parentElement.classList.toggle('open'); } }); }
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var host=document.getElementById('hemeroSemanal'); var kp=document.getElementById('hemeroKpis');
   fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;}).then(function(arr){
     if(!Array.isArray(arr))arr=[];
     var pdfs=arr.filter(function(f){return /\.pdf$/i.test(f.name||'');});
     pdfs.sort(function(a,b){ var fa=_hemFecha(a.name), fb=_hemFecha(b.name); return fa<fb?1:(fa>fb?-1:0); }); // más reciente arriba (por fecha del nombre)
+    var _ss=document.getElementById('hemSemSum'); if(_ss)_ss.textContent=pdfs.length?(pdfs.length+' informe'+(pdfs.length===1?'':'s')):'sin informes';
     if(!pdfs.length){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Centro de informes y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
     var _dd=function(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[3]+'/'+m[2]+'/'+m[1]):(''+n); };
     var nowY=String(new Date().getFullYear());
@@ -453,7 +456,7 @@ function renderHemeroteca(){
     var deskRows=years.map(function(y){ var n=byY[y].length; return '<tr class="yr"><td colspan="3">'+y+' · '+n+' informe'+(n===1?'':'s')+'</td></tr>'+byY[y].map(function(f){ var url=pages+encodeURIComponent(f.name); return '<tr><td class="l"><b>'+_dd(f.name)+'</b></td><td class="l fn">'+_hemEsc(f.name||'')+'</td><td style="text-align:right"><a class="opb" href="'+url+'" target="_blank" rel="noopener">📄 Abrir PDF</a></td></tr>'; }).join(''); }).join('');
     var mob=years.map(function(y){ var n=byY[y].length; return '<div class="yhead">'+y+' · '+n+' informe'+(n===1?'':'s')+'</div>'+byY[y].map(function(f){ var url=pages+encodeURIComponent(f.name); return '<div class="hcard"><div class="hc-l"><div class="hc-f">'+_dd(f.name)+'</div><div class="hc-n">'+_hemEsc(f.name||'')+'</div></div><a class="opb" href="'+url+'" target="_blank" rel="noopener">📄 Abrir</a></div>'; }).join(''); }).join('');
     host.innerHTML='<div class="hem-panel"><div class="hem-desk"><table><thead><tr><th>Semana</th><th>Archivo</th><th style="text-align:right">PDF</th></tr></thead><tbody>'+deskRows+'</tbody></table></div><div class="hem-mob">'+mob+'</div></div><div class="muted" style="font-size:11px;margin-top:6px">'+pdfs.length+' informe(s) · se abren desde GitHub Pages.</div>';
-  }).catch(function(){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
+  }).catch(function(){ if(kp)kp.innerHTML=''; var _ss=document.getElementById('hemSemSum'); if(_ss)_ss.textContent='sin conexión'; host.innerHTML='<div class="muted" style="font-size:13px">No se pudo cargar la lista (sin conexión o límite temporal de la API de GitHub). Reinténtalo en un rato.</div>'; });
 }
 /* ----- MOVIMIENTOS ----- */
 let movTipo='gasto';
