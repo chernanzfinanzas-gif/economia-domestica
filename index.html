@@ -1531,6 +1531,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-informes .pos-blk-h .bt{font-weight:800;font-size:14px}#view-informes .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
 #view-informes .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-informes .pos-blk.open .pos-blk-b{display:block}
 #view-informes .blk-pad{padding:14px}
+/* ── Cabeceras enriquecidas del área de Informes (mismo lenguaje que Gráficas · tema índigo) ── */
+#view-informes .pos-blk,#view-hemeroteca .pos-blk,#view-hemeroanalisis .pos-blk{background:var(--panel);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden}
+#view-informes .pos-blk-h,#view-hemeroteca .pos-blk-h,#view-hemeroanalisis .pos-blk-h{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;border-left:5px solid #6366f1;background:linear-gradient(120deg,#eef2ff,#e0e7ff)}
+#view-informes .pos-blk-h .arw,#view-hemeroteca .pos-blk-h .arw,#view-hemeroanalisis .pos-blk-h .arw{color:#6366f1;font-size:12px;transition:transform .15s;opacity:.85}
+#view-informes .pos-blk.open .pos-blk-h .arw,#view-hemeroteca .pos-blk.open .pos-blk-h .arw,#view-hemeroanalisis .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
+#view-informes .pos-blk-h .bt,#view-hemeroteca .pos-blk-h .bt,#view-hemeroanalisis .pos-blk-h .bt{font-weight:800;font-size:16.5px;letter-spacing:.2px;color:#3730a3}
+#view-informes .pos-blk-h .bsum,#view-hemeroteca .pos-blk-h .bsum,#view-hemeroanalisis .pos-blk-h .bsum{margin-left:auto;font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;white-space:nowrap;text-align:right;color:#3730a3;background:rgba(99,102,241,.15)}
+#view-hemeroteca .pos-blk-b,#view-hemeroanalisis .pos-blk-b{display:none;border-top:1px solid #eef2f6}
+#view-hemeroteca .pos-blk.open .pos-blk-b,#view-hemeroanalisis .pos-blk.open .pos-blk-b{display:block}
+#view-hemeroteca .blk-pad,#view-hemeroanalisis .blk-pad{padding:14px}
 #view-informes .inf-amb{font-weight:800;font-size:12.5px;color:#1f3d6b;margin:2px 0 8px}#view-informes .inf-amb:not(:first-child){margin-top:16px}
 #view-informes .inf-repgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 #view-informes .inf-rep{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:11px;padding:9px 11px;cursor:pointer;position:relative;background:#fff;transition:.12s}
