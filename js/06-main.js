@@ -15,8 +15,9 @@ const VIEW_FNS={
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas','renderAtribucion'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], fiscalidad:['renderFiscalidad'],
-  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'], riesgo:['renderRiesgo'],
-  proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
+  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'],
+  asignacion:['renderPlanLote','renderDiversifComp','renderRebalanceo'], riesgo:['renderRiesgo','renderEscenarios'], independencia:['renderProy','renderIndependencia'],
+  proyeccion:['renderProy'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'], escenarios:['renderEscenarios'],
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
@@ -133,7 +134,7 @@ const GROUPS={
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
-  planinv:[['proyeccion','Proyección'],['independencia','Independencia'],['diversif','Diversificación'],['rebalanceo','Rebalanceo'],['simulador','Simulador'],['divcomp','Comparativa Div.'],['riesgo','Riesgo'],['escenarios','Escenarios']],
+  planinv:[['asignacion','Asignación'],['riesgo','Riesgo'],['simulador','Simulador'],['independencia','Independencia']],
   informes:[['informes','Informes'],['hemero','Hemeroteca']],
   graficas:[['graficas','Gráficas']]
 };
@@ -146,10 +147,10 @@ const ADD_ACTIONS={
   fondor4:()=>{ const b=$('#blkR4Add'); if(b)b.classList.add('open'); const f=$('#r4Form'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   amalia:()=>{ const b=$('#blkAmaAdd'); if(b)b.classList.add('open'); const f=$('#amaForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
   patrimonio:()=>{ const b=$('#blkPatReg'); if(b)b.classList.add('open'); const f=$('#patFormFields'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },
-  diversif:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
+  asignacion:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'proyeccion', informes:'informes', graficas:'graficas'};
+const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'asignacion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
@@ -162,7 +163,7 @@ function activarVista(view){
   if(view==='ranking'&&typeof renderRanking==='function') setTimeout(renderRanking,60);
   if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
   if(view==='simulador'){ window._simSeek=true; setTimeout(()=>autoFitTable('simTabla',7,10),120); }
-  if(view==='diversif') window._loteSeek=true;
+  if(view==='asignacion') window._loteSeek=true;
   if(view==='plan') setTimeout(function(){ if(typeof _planSyncBand==='function')_planSyncBand(); },120);
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
   if(!renderView(view)) renderAllFull();
