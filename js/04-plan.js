@@ -171,18 +171,41 @@ function renderSimulador(){
   tickers.sort((a,b)=>grp(a)-grp(b)||a.localeCompare(b));
   const tot={}; years.forEach(y=>tot[y]=0);
   const simDpa=(t,y)=>{ return (typeof evoDpaProyectado==='function')?evoDpaProyectado(t,y):null; };
-  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=simEffShares(t,y,nowY)*num(simDpa(t,y)||0); }));
+  /* ===== Realidad de dividendos (pasado y año en curso) = lo REALMENTE cobrado por empresa y año.
+     Suma abiertas (DB.dividendos, saltando cerrados) + cerradas.divs + divIngresos, con las acciones
+     a la fecha de cada pago según TODAS las operaciones (_allOps, abiertas+cerradas). Dedup: para un
+     ticker cerrado manda cerradas.divs. El FUTURO (y>nowY) sigue siendo proyección: acciones×DPA. ===== */
+  const _rOps=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
+  const _rClosed={}; (DB.cerradas||[]).forEach(c=>{ _rClosed[(c.ticker||'').toUpperCase()]=1; });
+  const _rOpSet={}; _rOps.forEach(o=>{ _rOpSet[(o.ticker||'').toUpperCase()]=1; });
+  const _rShAt=(t,ms)=>{ let sh=0; _rOps.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
+  const _realImp={}; const _rAdd=(T,y,e)=>{ if(!e)return; (_realImp[T]=_realImp[T]||{}); _realImp[T][y]=(_realImp[T][y]||0)+e; };
+  { const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); if(_rClosed[T])return; (_dvO[t]||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
+    (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
+    const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ const T=(t||'').toUpperCase(); if(_rOpSet[T]||_rClosed[T])return; Object.keys(_dIng[t]||{}).forEach(y=>{ _rAdd(T,+y,num(_dIng[t][y])); }); }); }
+  const simRealImp=(t,y)=>((_realImp[(t||'').toUpperCase()]||{})[y])||0;
+  const simRealSh=(t,y)=>_rShAt((t||'').toUpperCase(), Date.parse(y+'-12-31T00:00:00'));
+  tickers.forEach(t=>years.forEach(y=>{ tot[y]+=(y<=nowY)?simRealImp(t,y):(simEffShares(t,y,nowY)*num(simDpa(t,y)||0)); }));
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
   const nmS=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
   /* ===== ESCRITORIO v2 — estilo Proyección: real (blanco) / previsión (amarillo); cabecera + TOTAL € + Δ% congelados ===== */
   const head='<tr><th class="emp">Empresa</th>'+years.map(y=>{ const fut=y>nowY; const tag=fut?(conf[y]?'confirmado ✓':'previsión'):(y===nowY?'año actual':'real'); return `<th class="yc ${fut?'prev':''}" data-simyear="${y}" ${fut?`data-yhead="${y}" style="cursor:pointer" title="Clic: confirmar/desconfirmar año"`:''}>${y}<span class="tag">${tag}</span></th>`; }).join('')+'</tr>';
   const body=tickers.map(t=>{ const real=simIsReal(t);
-    const cells=years.map(y=>{ const past=y<=nowY; const fut=y>nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t];
-      const accCell=fut?`<div class="c-acc"><span class="ro">${sh||'·'}</span></div>`:`<div class="c-acc"><input type="number" class="anaInp sim-accinp" style="${(past&&real&&!(ss&&ss[y]!=null))?'color:#64748b':''}" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}"></div>`;
-      const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
-      let impCell; if(divRaw===0&&sh>0) impCell='0 <span style="color:#dc2626;font-weight:700">*</span>'; else impCell=imp>0?fmt(imp):'·';
-      const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const dlConf=(y>nowY&&cc&&!conf[y]);
-      return `<td class="cell ${fut?'prev':''}"><div class="c-tk">${t}</div>${accCell}<div class="c-dl ${dlConf?'conf':''}" data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado">div '${String(y).slice(2)}${dlConf?' ✓':''}</div><div class="c-dv">${divRaw==null?'·':divRaw.toFixed(3)}${divStar}</div><div class="c-im">${impCell}</div></td>`;
+    const cells=years.map(y=>{ const fut=y>nowY; let accHTML,divHTML,impCell,dlHTML;
+      if(fut){ const divRaw=simDpa(t,y); const sh=simEffShares(t,y,nowY); const imp=sh*num(divRaw||0);
+        accHTML=`<span class="ro">${sh||'·'}</span>`;
+        const divStar=divRaw===0?'<span style="color:#dc2626;font-weight:700">*</span>':'';
+        divHTML=(divRaw==null?'·':num(divRaw).toFixed(3))+divStar;
+        impCell=(divRaw===0&&sh>0)?'0 <span style="color:#dc2626;font-weight:700">*</span>':(imp>0?fmt(imp):'·');
+        const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const dlConf=(cc&&!conf[y]);
+        dlHTML=`<div class="c-dl ${dlConf?'conf':''}" data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado">div '${String(y).slice(2)}${dlConf?' ✓':''}</div>`;
+      } else { const rImp=simRealImp(t,y); const rSh=simRealSh(t,y); const rDiv=(rSh>0)?rImp/rSh:null;
+        accHTML=`<span class="ro">${rSh||'·'}</span>`;
+        divHTML=(rDiv==null?'·':rDiv.toFixed(3));
+        impCell=rImp>0?fmt(rImp):'·';
+        dlHTML=`<div class="c-dl" style="color:#94a3b8">div '${String(y).slice(2)}</div>`;
+      }
+      return `<td class="cell ${fut?'prev':''}"><div class="c-tk">${t}</div><div class="c-acc">${accHTML}</div>${dlHTML}<div class="c-dv">${divHTML}</div><div class="c-im">${impCell}</div></td>`;
     }).join('');
     return `<tr><td class="emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}</tr>`;
   }).join('');
@@ -196,10 +219,10 @@ function renderSimulador(){
   const selIdx=Math.max(0,tickers.indexOf(window._simCoSel));
   const grpLbl=t=>held.has(t)?'Cartera':(closed.has(t)?'Cerrada':'Plan');
   const coOptions=tickers.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${grpLbl(t)}</option>`).join('');
-  const mrow=(t,y)=>{ const past=y<=nowY; const divRaw=simDpa(t,y); const div=divRaw||0; const sh=simEffShares(t,y,nowY); const imp=sh*div; const ss=(DB.simShares||{})[t]; const fut=y>nowY;
-    if(!(sh>0)&&!(ss&&ss[y]!=null)&&!(imp>0)&&fut) return '';
-    const accCell=fut?`<b>${sh||'·'}</b>`:`<input type="number" class="anaInp" style="width:90px;text-align:right" data-sim="${t}" data-y="${y}" value="${(ss&&ss[y]!=null)?ss[y]:(sh||'')}">`;
-    return `<div class="simrow"><span class="yy">${y}${fut?' <em>prev</em>':''}</span><div class="acc">${accCell}<span class="lbl">acc.</span></div><div class="dv">${divRaw==null?'·':divRaw.toFixed(3)}<span class="lbl">€/acc</span></div><div class="im">${imp>0?fmt(imp):'·'}<span class="lbl">importe</span></div></div>`; };
+  const mrow=(t,y)=>{ const fut=y>nowY; let sh,divTxt,imp;
+    if(fut){ const divRaw=simDpa(t,y); sh=simEffShares(t,y,nowY); imp=sh*num(divRaw||0); divTxt=(divRaw==null?'·':num(divRaw).toFixed(3)); if(!(sh>0)&&!(imp>0)) return ''; }
+    else { const rImp=simRealImp(t,y); const rSh=simRealSh(t,y); sh=rSh; imp=rImp; divTxt=(rSh>0?(rImp/rSh).toFixed(3):'·'); if(!(rSh>0)&&!(imp>0)) return ''; }
+    return `<div class="simrow"><span class="yy">${y}${fut?' <em>prev</em>':''}</span><div class="acc"><b>${sh||'·'}</b><span class="lbl">acc.</span></div><div class="dv">${divTxt}<span class="lbl">€/acc</span></div><div class="im">${imp>0?fmt(imp):'·'}<span class="lbl">importe</span></div></div>`; };
   const mdetail=(t,i)=>{ const rows=years.map(y=>mrow(t,y)).filter(Boolean).join('');
     return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
       +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b> <span class="pill">${grpLbl(t)}</span></div><div class="t2">${(nmS(t)||'').slice(0,28)}</div></div><div class="fh"><b>${fmt(tot2(t))}</b><div class="fl">dividendo ${y1}</div></div></div>`
