@@ -1784,42 +1784,79 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-salud .salud-grid{grid-template-columns:1fr}
 }
 /* ===== Metas ===== */
-#view-metas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
-#view-metas .mt-explain b{color:#1e40af}
-#view-metas .mt-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
-#view-metas .mt-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
-#view-metas .mt-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
-#view-metas .mt-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
-#view-metas .mt-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
-#view-metas .mt-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
-#view-metas .mt-kpis .k.hero .l,#view-metas .mt-kpis .k.hero .p{color:#bbf7d0}
-#view-metas .mt-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow)}
-#view-metas .mt-desk table{width:100%;border-collapse:collapse;font-size:12.5px;overflow:visible;border:none;box-shadow:none;background:transparent}
-#view-metas .mt-desk thead th{background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
-#view-metas .mt-desk thead th:first-child,#view-metas .mt-desk thead th:nth-child(3),#view-metas .mt-desk thead th:nth-child(5),#view-metas .mt-desk thead th:nth-child(9){text-align:left}
-#view-metas .mt-desk tbody td{padding:8px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:middle}
-#view-metas .mt-desk tbody td.l{text-align:left}
-#view-metas .mt-desk .anaInp{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12.5px}
-#view-metas .bar{height:8px;background:#eef2f7;border-radius:20px;overflow:hidden}#view-metas .bar.big{height:11px;margin:9px 0 0}#view-metas .bar i{display:block;height:100%}
-#view-metas .pl{font-size:10px;color:#64748b;margin-top:3px}#view-metas .pl2{font-size:11.5px;color:#64748b;margin-top:7px}
-#view-metas .mt-legend{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
-#view-metas .mt-legend .lt{font-weight:800;font-size:13px;margin-bottom:8px;color:#1e3a8a}
-#view-metas .mt-legend dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:12.5px}
-#view-metas .mt-legend dt{font-weight:800;color:#334155}#view-metas .mt-legend dd{margin:0;color:#475569;line-height:1.45}
-#view-metas .mt-mob{display:none}
-#view-metas .mcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}
-#view-metas .mc-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
-#view-metas .mc-nm{flex:1;font-size:16px;font-weight:800;border:1px solid var(--line);border-radius:7px;padding:6px 8px}
-#view-metas .mg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
-#view-metas .mg .m{display:flex;flex-direction:column;gap:3px;background:#f8fafc;border-radius:8px;padding:7px 9px}
-#view-metas .mg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
-#view-metas .mg .m input{border:1px solid var(--line);border-radius:6px;padding:6px;font-size:14px;font-weight:700;width:100%;box-sizing:border-box}
-#view-metas .mt-info{margin-top:10px;font-size:12px;color:#475569;background:#f8fafc;border-radius:8px;padding:7px 10px}#view-metas .mt-info b{color:#0f172a}
+#blkMetas .mt-explain{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:12px;padding:12px 15px;margin-bottom:14px;font-size:13px;line-height:1.55;color:#334155}
+#blkMetas .mt-explain b{color:#1e40af}
+#blkMetas .mt-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+#blkMetas .mt-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+#blkMetas .mt-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+#blkMetas .mt-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+#blkMetas .mt-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+#blkMetas .mt-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+#blkMetas .mt-kpis .k.hero .l,#blkMetas .mt-kpis .k.hero .p{color:#bbf7d0}
+#blkMetas .mt-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow)}
+#blkMetas .mt-desk table{width:100%;border-collapse:collapse;font-size:12.5px;overflow:visible;border:none;box-shadow:none;background:transparent}
+#blkMetas .mt-desk thead th{background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:8px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
+#blkMetas .mt-desk thead th:first-child,#blkMetas .mt-desk thead th:nth-child(3),#blkMetas .mt-desk thead th:nth-child(5),#blkMetas .mt-desk thead th:nth-child(9){text-align:left}
+#blkMetas .mt-desk tbody td{padding:8px 10px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:middle}
+#blkMetas .mt-desk tbody td.l{text-align:left}
+#blkMetas .mt-desk .anaInp{border:1px solid var(--line);border-radius:6px;padding:4px 6px;font-size:12.5px}
+#blkMetas .bar{height:8px;background:#eef2f7;border-radius:20px;overflow:hidden}#blkMetas .bar.big{height:11px;margin:9px 0 0}#blkMetas .bar i{display:block;height:100%}
+#blkMetas .pl{font-size:10px;color:#64748b;margin-top:3px}#blkMetas .pl2{font-size:11.5px;color:#64748b;margin-top:7px}
+#blkMetas .mt-legend{margin-top:14px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:13px 15px;box-shadow:var(--shadow)}
+#blkMetas .mt-legend .lt{font-weight:800;font-size:13px;margin-bottom:8px;color:#1e3a8a}
+#blkMetas .mt-legend dl{margin:0;display:grid;grid-template-columns:150px 1fr;gap:6px 12px;font-size:12.5px}
+#blkMetas .mt-legend dt{font-weight:800;color:#334155}#blkMetas .mt-legend dd{margin:0;color:#475569;line-height:1.45}
+#blkMetas .mt-mob{display:none}
+#blkMetas .mcard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow)}
+#blkMetas .mc-h{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#blkMetas .mc-nm{flex:1;font-size:16px;font-weight:800;border:1px solid var(--line);border-radius:7px;padding:6px 8px}
+#blkMetas .mg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}
+#blkMetas .mg .m{display:flex;flex-direction:column;gap:3px;background:#f8fafc;border-radius:8px;padding:7px 9px}
+#blkMetas .mg .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase}
+#blkMetas .mg .m input{border:1px solid var(--line);border-radius:6px;padding:6px;font-size:14px;font-weight:700;width:100%;box-sizing:border-box}
+#blkMetas .mt-info{margin-top:10px;font-size:12px;color:#475569;background:#f8fafc;border-radius:8px;padding:7px 10px}#blkMetas .mt-info b{color:#0f172a}
 @media(max-width:900px){
-  #view-metas .mt-kpis{grid-template-columns:1fr}
-  #view-metas .mt-desk{display:none}#view-metas .mt-mob{display:block}
-  #view-metas .mt-legend dl{grid-template-columns:1fr}
+  #blkMetas .mt-kpis{grid-template-columns:1fr}
+  #blkMetas .mt-desk{display:none}#blkMetas .mt-mob{display:block}
+  #blkMetas .mt-legend dl{grid-template-columns:1fr}
 }
+/* ===== Fotos de asignación (dentro de Patrimonio) ===== */
+#view-patrimonio .afsec{margin-top:16px;border-top:1px dashed var(--line);padding-top:12px}
+#view-patrimonio .afsec-t{font-weight:800;font-size:14px;margin-bottom:4px}
+#view-patrimonio .afleg{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:#475569;margin-bottom:8px}
+#view-patrimonio .afleg span{display:inline-flex;align-items:center;gap:5px}
+#view-patrimonio .afleg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+#view-patrimonio .afdesk{overflow:auto;border:1px solid var(--line);border-radius:10px}
+#view-patrimonio .aftbl{border-collapse:separate;border-spacing:0;font-size:12px;min-width:100%}
+#view-patrimonio .aftbl th,#view-patrimonio .aftbl td{padding:7px 9px;border-bottom:1px solid #f1f5f9;white-space:nowrap;text-align:right}
+#view-patrimonio .aftbl thead th{position:sticky;top:0;background:#f8fafc;color:var(--muted);font-weight:700;text-transform:uppercase;font-size:9.5px;border-bottom:1px solid var(--line)}
+#view-patrimonio .aftbl thead th:first-child,#view-patrimonio .aftbl td.affecha{text-align:left}
+#view-patrimonio .aftbl td.affecha{font-weight:700;position:sticky;left:0;background:#fff;border-right:1px solid #eef2f7}
+#view-patrimonio .aftbl thead th:first-child{position:sticky;left:0;z-index:2}
+#view-patrimonio .aftbl td.aftot{font-weight:800;border-left:1px solid var(--line)}
+#view-patrimonio .aftbl tr.aflast td{background:#f0fdf4}
+#view-patrimonio .aftbl tr:last-child td{border-bottom:none}
+#view-patrimonio .afpct{font-weight:700;font-variant-numeric:tabular-nums}
+#view-patrimonio .afeur{display:block;font-size:9px;color:#94a3b8;font-weight:600}
+#view-patrimonio .afnum.afmuted{color:#cbd5e1}
+#view-patrimonio .afdelta{display:block;font-size:9px;font-weight:700}
+#view-patrimonio .afdelta.up{color:var(--green)}#view-patrimonio .afdelta.dn{color:#dc2626}#view-patrimonio .afdelta.eq{color:#94a3b8}
+#view-patrimonio .afmix{display:flex;height:9px;border-radius:5px;overflow:hidden;min-width:110px}
+#view-patrimonio .afmix i{display:block;height:100%}
+#view-patrimonio .afmini{font-size:10px;color:#16a34a;font-weight:700}
+#view-patrimonio .afmob{display:none}
+#view-patrimonio .afcard{border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#view-patrimonio .afcard.aflastp{background:#f0fdf4;border-color:#bbf7d0}
+#view-patrimonio .afcard-h{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+#view-patrimonio .afcard-h .afd{font-weight:800;font-size:13.5px}
+#view-patrimonio .afcard-h .aft{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums}
+#view-patrimonio .afcard .afmix{height:12px;margin-bottom:8px}
+#view-patrimonio .afrow{display:flex;align-items:center;gap:8px;font-size:12px;padding:3px 0}
+#view-patrimonio .afrow .afdot{width:10px;height:10px;border-radius:3px;flex:none}
+#view-patrimonio .afrow .afn{flex:1}
+#view-patrimonio .afrow .afp{font-weight:700;font-variant-numeric:tabular-nums}
+#view-patrimonio .afrow .afdl{min-width:46px;text-align:right}
+@media(max-width:780px){ #view-patrimonio .afdesk{display:none} #view-patrimonio .afmob{display:block} }
 /* ===== Rebalanceo ===== */
 #view-rebalanceo #rebalKpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 #view-rebalanceo .rb-kpis{display:contents}
@@ -3166,6 +3203,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         </div>
         <div class="blk-b"><div id="subsBody"></div></div>
       </div>
+
+      <div class="blk" id="blkMetas">
+        <div class="blk-h" data-anablk="blkMetas"><span class="blk-arw">▶</span><span class="blk-ic">🎯</span>
+          <div><div class="blk-t">Metas de ahorro</div><div class="blk-sub">Objetivos con importe y fecha · cuánto apartar cada mes para llegar a tiempo</div></div>
+        </div>
+        <div class="blk-b"><div id="metasBody"></div></div>
+      </div>
     </div>
     </div>
     <div id="ptab-desglose" style="display:none">
@@ -3227,6 +3271,21 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b">
         <div class="pat-collbl"><span></span><span>Fecha</span><span>Efect. / Invert.</span><span>Total</span><span>% Inv.</span></div>
         <div id="patList"></div>
+      </div>
+    </div>
+
+    <div class="blk pat-blk" id="blkAsign">
+      <div class="blk-h" data-patblk="blkAsign"><span class="blk-arw">▶</span><span class="blk-ic">🥧</span>
+        <div><div class="blk-t">Asignación por clase de activo</div><div class="blk-sub">Tu reparto actual por clase y las fotos de su evolución</div></div>
+      </div>
+      <div class="blk-b">
+        <div id="asignBody" style="margin-top:2px"></div>
+        <div class="afsec">
+          <div class="afsec-t">📸 Fotos de asignación</div>
+          <div class="sub" style="margin-bottom:8px">Guarda una foto del reparto de hoy para ver cómo cambia la mezcla en el tiempo. La flecha compara con la foto anterior (en puntos porcentuales).</div>
+          <div class="toolbar" style="gap:10px;margin-bottom:10px"><button class="btn sm" id="asignFotoSave">📸 Guardar foto de hoy</button><span class="sub" id="asignFotoInfo"></span></div>
+          <div id="asignFotosBody"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -3593,14 +3652,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="bt-sub">Agrega todas las fotos de tesis guardadas y compara la cotización de entonces con la de ahora. Mide si tus decisiones y tus scores (Calidad y Oportunidad) aciertan. Cuantas más fotos guardes con el tiempo, más fiable será.</div>
     <div id="btKpis" style="margin-top:10px"></div>
     <div id="btTabla" style="margin-top:10px"></div>
-  </section>
-  <section class="view" id="view-metas">
-    <h2>🎯 Metas de ahorro</h2>
-    <div id="metasBody"></div>
-  </section>
-  <section class="view" id="view-asignacion">
-    <h2>Asignación por clase de activo</h2>
-    <div id="asignBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-escenarios">
     <h2>🌩️ Escenarios de cartera</h2>
