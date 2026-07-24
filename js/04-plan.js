@@ -730,6 +730,24 @@ function renderPanelDash(){
     else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
   (DB.analisis||[]).forEach(a=>{ const t=(a.ticker||'').toUpperCase(); const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; if(mm!=null&&mm>12) avisos.push({pri:2,cls:'a',goto:'monitor',sig:'S4',tick:t,txt:`📅 <b>${t}</b> — dossier de hace ${mm} meses, reanalizar`}); });
   ((typeof renovList==='function')?renovList(30):[]).forEach(r=>{ const f=r.fecha; const fs=String(f.getDate()).padStart(2,'0')+'/'+String(f.getMonth()+1).padStart(2,'0'); avisos.push({pri:r.dias<=7?1:3,cls:r.dias<=7?'r':'a',goto:'presupuesto',txt:`🔁 ${fs} ${r.nombre} <span class="muted">${fmt(r.importe)}</span> — ${r.dias<0?'vencida':('en '+r.dias+' d')}`}); });
+  /* 📅 Ex-dividendo y pago próximos de la CARTERA: avisa desde 5 días antes (por si hay scrip dividend,
+     elección efectivo/acciones u otra medida). Toma las fechas de la agenda (dividendos.json). */
+  try{ if(typeof calAgenda==='function'){
+    const _agHoy=(typeof _calHoy==='function')?_calHoy():new Date().toISOString().slice(0,10);
+    const _hoyMs=Date.parse(_agHoy+'T00:00:00'); const _diaMs=86400000;
+    (calAgenda(_agHoy,{soloCartera:true})||[]).forEach(e=>{
+      if(e.tipo!=='exdiv'&&e.tipo!=='pago')return;
+      if(!_heldSet.has((e.t||'').toUpperCase()))return;
+      const dm=Date.parse((e.fecha||'').slice(0,10)+'T00:00:00'); if(isNaN(dm))return;
+      const dias=Math.round((dm-_hoyMs)/_diaMs); if(dias<0||dias>5)return;
+      const fs=(typeof ddmmyyyy==='function')?ddmmyyyy(e.fecha):e.fecha;
+      const cuando=dias===0?'hoy':(dias===1?'mañana':('en '+dias+' d'));
+      const est=e.proyectado?' · <span class="muted">fecha estimada</span>':'';
+      const pri=dias<=2?1:2;
+      if(e.tipo==='exdiv'){ const accTxt=(num(e.imp)>0)?(' · '+num(e.imp).toFixed(4)+' €/acc bruto'):''; avisos.push({pri:pri,cls:'a',goto:'calendario',tipo:'agenda',tick:(e.t||'').toUpperCase(),txt:`📅 <b>${e.t}</b> — ex‑dividendo ${fs} (${cuando}): último día con derecho${accTxt}. Revisa si hay <b>scrip</b> (elegir acciones o efectivo) u otra medida${est}`}); }
+      else { const brutoTxt=(num(e.sh)>0&&num(e.imp)>0)?(' · '+fmt(num(e.sh)*num(e.imp))+' bruto'):''; avisos.push({pri:pri,cls:'a',goto:'calendario',tipo:'agenda',tick:(e.t||'').toUpperCase(),txt:`💰 <b>${e.t}</b> — pago de dividendo ${fs} (${cuando})${brutoTxt}${est}`}); }
+    });
+  } }catch(e){}
   /* Aviso "informe publicado sin revisar": AHORA lo genera cadAvisos() (más abajo) desde la
      cadencia de los -trim.json (DB.cadencia.tocaMonitor), no desde el calendario manual/qPassed.
      Así se elimina el falso "Qx publicado" de IBE/NTGY. */
@@ -758,8 +776,8 @@ function renderPanelDash(){
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
-    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',cobertura:'tesis'};
-    const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
+    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',cobertura:'tesis',calendario:'agenda'};
+    const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
     avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
     DB.avisosVistos=DB.avisosVistos||{}; const _vis=DB.avisosVistos;
