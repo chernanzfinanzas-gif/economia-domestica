@@ -92,7 +92,7 @@ const VIEW_FNS={
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
-  posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], atribucion:['renderAtribucion'], fiscalidad:['renderFiscalidad'],
+  posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas','renderAtribucion'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'], riesgo:['renderRiesgo'],
   proyeccion:['renderProy'], independencia:['renderIndependencia'], diversif:['renderPlanLote'], plan:['renderPlan'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
@@ -208,7 +208,7 @@ const GROUPS={
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis']],
-  cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
+  cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
   reparto:[['diversif','Diversificación'],['divcomp','Comparativa Div.'],['rebalanceo','Rebalanceo'],['riesgo','Riesgo'],['escenarios','Escenarios']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
@@ -294,9 +294,9 @@ if($('#view-patrimonio')){
   $('#view-presupuesto').addEventListener('click',e=>{ const a=e.target.closest('#metaAdd'); if(a){ if(typeof addMeta==='function')addMeta(); return; } const d=e.target.closest('[data-metadel]'); if(d){ if(confirm('¿Eliminar esta meta?')){ DB.metas=(DB.metas||[]).filter(x=>x.id!==d.dataset.metadel); saveNow(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderPanel==='function')renderPanel(); } } });
   $('#view-presupuesto').addEventListener('change',e=>{ const t=e.target.closest('[data-meta]'); if(!t)return; const a=t.dataset.meta.split('|'); const m=(DB.metas||[]).find(x=>x.id===a[0]); if(!m)return; const f=a[1]; if(f==='nombre'||f==='fecha')m[f]=t.value; else m[f]=(t.value.trim()===''?0:num(t.value)); saveNow(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderPanel==='function')renderPanel(); });
 }
-if($('#view-atribucion')){
-  $('#view-atribucion').addEventListener('click',e=>{ const b=e.target.closest('[data-atrib]'); if(b){ atribSel.modo=b.dataset.atrib; if(typeof renderAtribucion==='function')renderAtribucion(); return; } const r=e.target.closest('#atribRango'); if(r){ const dd=$('#atribDesde').value,hh=$('#atribHasta').value; if(dd&&hh){ atribSel.modo='rango'; atribSel.desde=dd; atribSel.hasta=hh; if(typeof renderAtribucion==='function')renderAtribucion(); } else alert('Elige fecha de inicio y de fin.'); return; } });
-  $('#view-atribucion').addEventListener('change',e=>{ const y=e.target.closest('#atribAnio'); if(y&&y.value){ atribSel.modo='anio'; atribSel.anio=+y.value; if(typeof renderAtribucion==='function')renderAtribucion(); } });
+if($('#view-rentabilidad')){
+  $('#view-rentabilidad').addEventListener('click',e=>{ const b=e.target.closest('#blkAtrib [data-atrib]'); if(b){ atribSel.modo=b.dataset.atrib; if(typeof renderAtribucion==='function')renderAtribucion(); return; } const r=e.target.closest('#atribRango'); if(r){ const dd=$('#atribDesde').value,hh=$('#atribHasta').value; if(dd&&hh){ atribSel.modo='rango'; atribSel.desde=dd; atribSel.hasta=hh; if(typeof renderAtribucion==='function')renderAtribucion(); } else alert('Elige fecha de inicio y de fin.'); return; } });
+  $('#view-rentabilidad').addEventListener('change',e=>{ const y=e.target.closest('#atribAnio'); if(y&&y.value){ atribSel.modo='anio'; atribSel.anio=+y.value; if(typeof renderAtribucion==='function')renderAtribucion(); } });
 }
 if($('#view-proxcompra')){
   $('#view-proxcompra').addEventListener('click',e=>{ const _y=(typeof proxYearSel!=='undefined'&&proxYearSel)?proxYearSel:new Date().getFullYear();
