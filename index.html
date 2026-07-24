@@ -2984,6 +2984,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 .pos-blk-h .bt,.blk-h .blk-t,.mos-blk-h .bt{font-size:16.5px !important;letter-spacing:.2px !important;font-weight:800 !important;color:#3730a3}
 .pos-blk-h .bsum,.blk-h .blk-sub,.mos-blk-h .bsum{margin-left:auto !important;font-size:12px !important;font-weight:800 !important;padding:4px 12px !important;border-radius:999px !important;white-space:nowrap !important;text-align:right;color:#3730a3;background:rgba(99,102,241,.15)}
 .pos-blk-h .arw,.blk-h .arw,.blk-h .blk-arw,.mos-blk-h .arw{opacity:.85}
+#view-asignacion .pos-blk,#view-salud .pos-blk{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden;margin-bottom:14px}
+#view-asignacion .pos-blk-b,#view-salud .pos-blk-b{display:none;border-top:1px solid #eef2f6}
+#view-asignacion .pos-blk.open .pos-blk-b,#view-salud .pos-blk.open .pos-blk-b{display:block}
+#view-asignacion .blk-pad,#view-salud .blk-pad{padding:14px}
 </style>
 </head>
 <body>
@@ -3497,20 +3501,28 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-asignacion">
     <div class="plan-intro">El <b>plan</b> existe para bajar tu riesgo y la concentración por sectores. Se ejecuta en tres pasos: fijas <b>dónde quieres estar</b>, mides <b>cuánto te desvías hoy</b> y decides <b>qué comprar</b> con tu próxima aportación — sin vender, para no tributar.</div>
 
-    <div class="plan-div"><span class="pd-ic">🧩</span><div><div class="pd-t">1 · Objetivos de compra</div><div class="pd-s">La única hoja donde editas tus compras futuras: clasifica cada empresa y fija cuánto quieres tener en ella</div></div></div>
-    <div id="view-diversif">
-      <div class="sub" style="margin-bottom:8px">Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el <b>€ objetivo</b> por empresa y año y reparte el capital disponible. El resto de secciones leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
-      <div id="loteTabla"></div>
-    </div>
+    <div class="pos-blk" data-asigblk="obj"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🧩 1 · Objetivos de compra</span><span class="bsum">la única hoja editable</span></div>
+      <div class="pos-blk-b"><div class="blk-pad">
+        <div id="view-diversif">
+          <div class="sub" style="margin-bottom:8px">Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el <b>€ objetivo</b> por empresa y año y reparte el capital disponible. El resto de secciones leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
+          <div id="loteTabla"></div>
+        </div>
+      </div></div></div>
 
-    <div class="plan-div"><span class="pd-ic">📐</span><div><div class="pd-t">2 · Desfase actual vs objetivo</div><div class="pd-s">Cómo de lejos está tu cartera de hoy del reparto que quieres, por arquetipo y por empresa</div></div></div>
-    <div id="view-divcomp"></div>
+    <div class="pos-blk" data-asigblk="desf"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📐 2 · Desfase actual vs objetivo</span><span class="bsum">actual vs objetivo</span></div>
+      <div class="pos-blk-b"><div class="blk-pad">
+        <div class="sub" style="margin-bottom:8px">Cómo de lejos está tu cartera de hoy del reparto que quieres, por arquetipo y por empresa.</div>
+        <div id="view-divcomp"></div>
+      </div></div></div>
 
-    <div class="plan-div"><span class="pd-ic">⚖️</span><div><div class="pd-t">3 · Rebalanceo con tu aportación</div><div class="pd-s">Dónde meter el dinero nuevo para acercarte al objetivo sin vender (sin tributar plusvalías)</div></div></div>
-    <div id="view-rebalanceo">
-      <div id="rebalKpis" style="margin-bottom:12px"></div>
-      <div id="rebalBody"></div>
-    </div>
+    <div class="pos-blk" data-asigblk="reb"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚖️ 3 · Rebalanceo con tu aportación</span><span class="bsum">dónde comprar</span></div>
+      <div class="pos-blk-b"><div class="blk-pad">
+        <div class="sub" style="margin-bottom:8px">Dónde meter el dinero nuevo para acercarte al objetivo sin vender (sin tributar plusvalías).</div>
+        <div id="view-rebalanceo">
+          <div id="rebalKpis" style="margin-bottom:12px"></div>
+          <div id="rebalBody"></div>
+        </div>
+      </div></div></div>
   </section>
 
   <!-- AMALIA -->
