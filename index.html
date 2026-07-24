@@ -665,6 +665,59 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-analisis .ana-k .v.pos{color:var(--green)}
 #view-analisis .ana-k .v.neg{color:var(--red)}
 #view-analisis .atable{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+#view-analisis .ana-tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+#view-analisis .ana-tbl thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;letter-spacing:.02em;color:#64748b;font-weight:800;padding:9px 11px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+#view-analisis .ana-tbl thead th:nth-child(2){text-align:left}
+#view-analisis .ana-tbl thead th:first-child,#view-analisis .ana-tbl thead th:nth-child(3),#view-analisis .ana-tbl thead th:nth-child(6),#view-analisis .ana-tbl thead th:nth-child(8),#view-analisis .ana-tbl thead th:nth-child(10),#view-analisis .ana-tbl thead th:nth-child(11){text-align:center}
+#view-analisis .ana-tbl tbody td{padding:8px 11px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:middle}
+#view-analisis .ana-tbl td.ctr,#view-analisis .ana-tbl td.ana-sccell{text-align:center;white-space:nowrap}
+#view-analisis .ana-tbl td.ana-emp{text-align:left;white-space:nowrap;font-weight:700}
+#view-analisis .ana-tbl td.ana-emp b{font-size:14px}
+#view-analisis .ana-tbl td.right{white-space:nowrap}
+#view-analisis .ana-tbl tbody tr:hover td{background:#f8fbff}
+#view-analisis .ana-tbl tbody tr.ana-r-best td{background:#f0fdf4}
+#view-analisis .ana-tbl tbody tr.ana-r-stop td{background:#fef2f2}
+#view-analisis .ana-tbl tbody tr:last-child td{border-bottom:none}
+#view-analisis .ana-score{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;width:46px;height:46px;border-radius:12px;color:#fff}
+#view-analisis .ana-score .n{font-size:18px;font-weight:800;line-height:1}
+#view-analisis .ana-score .l{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.02em;opacity:.95}
+#view-analisis .ana-score.g{background:linear-gradient(135deg,#15803d,#16a34a)}
+#view-analisis .ana-score.a{background:linear-gradient(135deg,#b45309,#d97706)}
+#view-analisis .ana-score.r{background:linear-gradient(135deg,#991b1b,#dc2626)}
+#view-analisis .ana-score.n{background:#94a3b8}
+#view-analisis .ana-sub{font-size:9.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-top:1px}
+#view-analisis .ana-rat{display:inline-block;font-size:11px;font-weight:800;padding:3px 8px;border-radius:8px;background:#f1f5f9;color:#334155}
+#view-analisis .pill{display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px}
+#view-analisis .pill.g{background:#dcfce7;color:#166534}#view-analisis .pill.a{background:#fef3c7;color:#92400e}#view-analisis .pill.r{background:#fee2e2;color:#991b1b}
+#view-analisis .toolbar .btn.green{background:var(--green,#16a34a);color:#fff;border:none}
+#view-analisis .toolbar .btn.slate{background:#334155;color:#fff;border:none}
+#view-analisis .ana-tbl tbody tr.ana-row{cursor:pointer}
+#view-analisis .ana-tbl .ana-rarw{display:inline-block;color:#cbd5e1;font-size:9px;margin-right:5px;transition:transform .15s;vertical-align:middle}
+#view-analisis .ana-tbl tr.ana-row.open .ana-rarw{transform:rotate(90deg)}
+#view-analisis .ana-tbl tr.ana-det{display:none}
+#view-analisis .ana-tbl tr.ana-row.open+tr.ana-det{display:table-row}
+#view-analisis .ana-tbl tr.ana-det>td{background:#fafcff;border-bottom:2px solid #eef2f7;padding:0}
+#view-analisis .ana-det-wrap{padding:6px 18px}
+/* termómetro de precios */
+#view-analisis .ana-lad{position:relative;margin:46px 34px 52px;max-width:660px}
+#view-analisis .ana-lad-bar{height:15px;border-radius:8px}
+#view-analisis .ana-lad-tick{position:absolute;top:-4px;height:23px;width:3px;border-radius:2px;transform:translateX(-50%)}
+#view-analisis .ana-lad-dot{position:absolute;top:7.5px;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);transform:translate(-50%,-50%)}
+#view-analisis .ana-lad-lbl{position:absolute;transform:translateX(-50%);font-size:10px;white-space:nowrap;text-align:center;line-height:1.2}
+#view-analisis .ana-lad-lbl.top{bottom:23px}
+#view-analisis .ana-lad-lbl .k{color:#94a3b8;font-weight:800;text-transform:uppercase;font-size:8px;letter-spacing:.03em;display:block}
+#view-analisis .ana-lad-lbl .v{font-weight:800;font-variant-numeric:tabular-nums}
+#view-analisis .ana-lad-cur{position:absolute;transform:translateX(-50%);text-align:center;top:26px}
+#view-analisis .ana-lad-cur .p{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums}
+#view-analisis .ana-lad-cur .c{font-size:8.5px;color:#94a3b8;font-weight:700}
+#view-analisis .ana-chip{position:absolute;font-size:10px;font-weight:800;padding:3px 8px;border-radius:20px;white-space:nowrap;transform:translateX(-50%)}
+#view-analisis .ana-chip.est{top:-44px}
+#view-analisis .ana-chip:not(.est){bottom:-30px}
+#view-analisis .ana-chip.g{background:#dcfce7;color:#166534}#view-analisis .ana-chip.a{background:#fef3c7;color:#92400e}#view-analisis .ana-chip.r{background:#fee2e2;color:#991b1b}
+#view-analisis .ana-nums{display:flex;gap:20px;flex-wrap:wrap;padding:8px 2px}
+#view-analisis .ana-nums .ana-num .l{font-size:9px;text-transform:uppercase;color:#94a3b8;font-weight:800;letter-spacing:.02em}
+#view-analisis .ana-nums .ana-num .v{font-size:15px;font-weight:800;font-variant-numeric:tabular-nums}
+#view-analisis .acard-b .ana-lad{margin:44px 20px 50px}
 #view-analisis .acards{display:none}
 #view-analisis .acard{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin-bottom:9px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
 #view-analisis .acard.best{border-left:4px solid #22c55e}
@@ -3526,17 +3579,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <h2>Análisis de inversión</h2>
     <div class="cards" id="anaCards"></div>
     <div class="toolbar">
-      <button class="btn" id="anaPasteBtn">Pegar cotizaciones</button>
-      <a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>
-      <button class="btn sm" id="anaAddBtn">+ Empresa</button>
+      <button class="btn" id="anaAddBtn">+ Empresa</button>
+      <a class="btn green" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none" title="Abre GitHub para actualizar las cotizaciones del repositorio (Yahoo)">🔄 Actualizar cotizaciones</a>
       <button class="btn danger sm" id="anaClear">Vaciar</button>
       <span class="muted" id="anaStatus"></span>
-    </div>
-    <div id="anaPastePanel" class="card" style="display:none;margin-bottom:14px">
-      <div class="sub" style="margin-bottom:6px">Pega <b>Nombre</b> · <b>Cotización</b> · <b>Dividendo bruto</b> (separados por tabulador), una por línea. La empresa se identifica por el nombre y se actualizan a la vez Análisis e Inversiones.</div>
-      <div class="sub" style="margin-bottom:6px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Cuidado con el dividendo:</b> al pegar, el dividendo bruto se guarda en el <b>año en curso</b> del Histórico/Previsión. No actualices el dividendo de una empresa hasta estar en el año que le corresponde (si no, sobrescribirías el año en curso con un valor que no toca).</div>
-      <textarea id="anaPasteTxt" rows="6" style="width:100%;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:monospace;font-size:13px"></textarea>
-      <div style="margin-top:8px"><button class="btn" id="anaPasteApply">Aplicar</button> <button class="btn ghost" id="anaPasteCancel">Cerrar</button></div>
     </div>
     <form class="grid" id="anaForm" autocomplete="off" style="background:#fef9c3;display:none">
       <input type="hidden" id="anaId">
