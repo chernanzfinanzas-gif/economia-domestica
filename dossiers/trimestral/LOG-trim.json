@@ -701,6 +701,76 @@
           "valor": null
         }
       ]
+    },
+    {
+      "periodo": "2026-Q3",
+      "fecha": "2026-07-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Inflexión de mejora tras cinco trimestres ámbar: el EBIT Ajustado vuelve a crecer (+3,0%) y el margen sobre Ventas Económicas se expande a 21,5% (+39 pb), con las Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8%, desde −9,9% en el semestre) al desvanecerse el efecto del menor ingreso financiero —el BCE incluso subió tipos +25 pb en junio. Se resuelve la duda del S1: el deterioro operativo no ha continuado. Sigue ámbar porque el BN aún cede en tasa interanual, el margen queda por debajo del 22% y el pay-out ~99% mantiene la presión sobre el dividendo (riesgo clave §8.1). B4: 0 duros/1 blando → vigilar dividendo, sin S2. S6 (2º+ ámbar) → tendencia de MEJORA, seguir en ordinario.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 10165
+        },
+        {
+          "nombre": "Ventas Econ. (M€)",
+          "valor": 1376
+        },
+        {
+          "nombre": "Bº Expl. Aj. (M€)",
+          "valor": 296
+        },
+        {
+          "nombre": "Margen s/VE %",
+          "valor": 21.5
+        },
+        {
+          "nombre": "Bº Explot. (M€)",
+          "valor": 244
+        },
+        {
+          "nombre": "Bº Neto (M€)",
+          "valor": 210
+        },
+        {
+          "nombre": "%var VE",
+          "valor": 1.1
+        },
+        {
+          "nombre": "%var EBIT Aj.",
+          "valor": 3.0
+        },
+        {
+          "nombre": "%var BN",
+          "valor": -1.8
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": null
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Dividendo",
+          "hecho": "El Consejo aprobó (23-jul-2026) un dividendo a cuenta del ejercicio 2026 de 0,58 €/acción (+3,6% vs. el a cuenta anterior), a pagar el 27-ago-2026; reitera el compromiso de dividendo total FY2026 ≥ 2,09 €/acción.",
+          "impacto": "+",
+          "valoracion": "Eleva el dividendo a cuenta y reafirma el suelo de 2,09 €/acc pese al pay-out ~99%; respalda el pilar de renta de la tesis, aunque la cobertura sigue estrecha y a vigilar."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Reafirma la guía FY2026: crecimiento de dígito sencillo medio en el Beneficio de Explotación Ajustado (ex-variación de inventarios) frente a FY2025.",
+          "impacto": "+",
+          "valoracion": "Coherente con el +3,0% de 9M; confirma que la fortaleza operativa persiste y que la presión sobre el beneficio es solo del ingreso financiero, que además empieza a revertir."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Reorganización interna de segmentos: Polonia se integra en Francia e Iberia pasa a incluir Holanda y Bélgica; las cifras de 2025 se reexpresan para comparabilidad.",
+          "impacto": "=",
+          "valoracion": "Cambio de perímetro de reporte sin efecto material en resultados; mejora la comparabilidad entre ejercicios."
+        }
+      ],
+      "periodoDisplay": "9M"
     }
   ],
   "schemaVersion": 2
