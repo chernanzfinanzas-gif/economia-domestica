@@ -306,7 +306,11 @@ function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const
   DB.tesisHist=DB.tesisHist||{}; const arr=DB.tesisHist[t]=DB.tesisHist[t]||[]; const ix=arr.findIndex(x=>x.fecha===fecha); const prev=ix>=0?arr[ix]:null;
   let mot=(motivo||'').trim(); if(prev&&prev.motivo){ mot = mot ? (prev.motivo+' · '+mot) : prev.motivo; }
   const org=origen||(prev&&prev.origen)||'';
-  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion)};
+  /* Score de CALIDAD (Bloque 5) = campo `score` del dossier bridge (_tesisCache[t].score, el «Score 77,1»
+     del Resumen del dossier). Si el dossier no está cargado, conserva el qScore de la foto previa. */
+  const _tj=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+  const _qs=(_tj&&_tj.score!=null&&_tj.score!=='')?num(_tj.score):((prev&&prev.qScore!=null)?prev.qScore:null);
+  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,qScore:_qs,poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion)};
   if(mot)snap.motivo=mot; if(org)snap.origen=org;
   if(ix>=0)arr[ix]=snap; else arr.push(snap); arr.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||'')); }
 /* 5.2.e simetria de registros: todo cambio manual de decision/banda/stop deja rastro (foto + motivo) y recuerda anotarlo en Excel §10.5 */
@@ -332,9 +336,12 @@ function tesisCardHTML(j){ if(!j||typeof j!=='object')return '';
 }
 async function cargarTesis(t){ t=(t||'').toUpperCase(); if(!t||_tesisCache[t]!==undefined)return; _tesisCache[t]=null;
   try{ const r=await fetch('dossiers/'+t+'.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j&&typeof j==='object'){ _tesisCache[t]=j; if(typeof validarTesisJSON==='function')_tesisWarn[t]=validarTesisJSON(j);
+    /* Rellena el Score de Calidad en las fotos históricas que aún no lo tienen (el dossier solo trae el
+       score actual; Calidad es lento, así que sirve de aproximación para el backtest Calidad×Oportunidad). */
+    try{ if(j.score!=null&&j.score!==''&&DB.tesisHist&&DB.tesisHist[t]){ const _qsB=num(j.score); let _ch=false; DB.tesisHist[t].forEach(function(sn){ if(sn&&sn.qScore==null){ sn.qScore=_qsB; _ch=true; } }); if(_ch&&typeof scheduleSave==='function')scheduleSave(); } }catch(_e){}
     const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&j.dividendSafety){ a.dividendSafety=j.dividendSafety; } if(a&&j.forense){ a.forense=j.forense; } if(a&&j.reverseDcf){ a.reverseDcf=j.reverseDcf; } if(a&&j.confianza){ a.confianza=j.confianza; } if(a&&j.robustez){ a.robustez=j.robustez; } const vacia=!a||(!a.rating&&!num(a.poMin)&&!num(a.poMax)&&!a.decision);
     if(vacia&&importTesis(t)){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof scheduleSave==='function')scheduleSave(); } } } }catch(e){}
-  if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t); if(typeof renderComparador==='function'&&typeof cmpSel!=='undefined'&&cmpSel.indexOf(t)>=0)renderComparador(); }
+  if(fichaTicker===t&&typeof renderFicha==='function')renderFicha(t); }
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-imptesis]'); if(!b)return; const t=(b.dataset.imptesis||'').toUpperCase(); if(!_tesisCache[t]){ alert('Resumen del dossier no disponible.'); return; } if(!confirm('¿Actualizar el Análisis de '+t+' con los datos del dossier? Sobrescribe rating, PO, banda de entrada, stop y decisión de esa empresa.'))return; if(importTesis(t)){ if(typeof saveNow==='function')saveNow(); if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderFicha==='function')renderFicha(t); alert('Análisis actualizado desde el dossier.'); } });
 function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase(); if(t&&_dossierSet&&_dossierSet.has(t))return 'dossiers/'+t+'.html'; return ''; }
 

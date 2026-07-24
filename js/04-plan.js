@@ -449,44 +449,6 @@ function dividendosEstado(){ if(typeof simYearTotal!=='function')return null; co
   return {nowY,cobradoYTD,prevAnual,prevYear,dgr,pctCobrado}; }
 // === Score de salud financiera: media de 4 pilares (ahorro, fondo emergencia, diversificación, alfa) ===
 /* ===== P8 · Tablero "Cómo voy" (síntesis ahorro + patrimonio + inversión + salud) ===== */
-function renderComoVoy(){
-  var el=document.getElementById('comovoyBody'); if(!el)return;
-  var eur0=function(v){return Math.round(v).toLocaleString('es-ES')+' €';};
-  var H=(typeof saludFinanciera==='function')?saludFinanciera():null;
-  var FE=(typeof fondoEmergencia==='function')?fondoEmergencia():null;
-  var snaps=(typeof patSnaps==='function')?patSnaps():[]; var last=snaps.length?snapTot(snaps[snaps.length-1]):null;
-  var cov=null; try{ cov=(typeof coberturaDivGastos==='function')?coberturaDivGastos():null; }catch(e){}
-  var CR=null; try{ CR=(typeof carteraRentabilidad==='function')?carteraRentabilidad():null; }catch(e){}
-  var sc=(H&&H.score!=null)?Math.round(H.score):null;
-  var col=sc==null?'#94a3b8':(sc>=70?'#16a34a':(sc>=50?'#d97706':'#dc2626'));
-  var emo=sc==null?'⚪':(sc>=70?'🟢':(sc>=50?'🟡':'🔴'));
-  var pilars=(H&&H.pilares)?H.pilares.map(function(p){ var s=p.s==null?null:Math.round(p.s); var bc=s==null?'#cbd5e1':(s>=70?'#16a34a':(s>=50?'#d97706':'#dc2626')); return '<div class="cv-pil"><div class="t"><span>'+p.k+'</span><span class="muted">'+p.d+(s!=null?' · '+s:'')+'</span></div><div class="cv-pbar"><i style="width:'+(s==null?0:s)+'%;background:'+bc+'"></i></div></div>'; }).join(''):'';
-  var hero='<div class="cv-hero"><div class="cv-score"><div class="em">'+emo+'</div><div class="n" style="color:'+col+'">'+(sc==null?'—':sc)+'</div><div class="u">salud / 100</div></div><div class="cv-pillars">'+pilars+'</div></div>';
-  var row=function(l,v,cls){return '<div class="cv-row"><span class="l">'+l+'</span><span class="v '+(cls||'')+'">'+v+'</span></div>';};
-  var pAh=(H&&H.pilares)?H.pilares.find(function(p){return p.k==='Ahorro';}):null;
-  var cAhorro='<div class="cv-card" data-goto="panel"><div class="h">💰 Ahorro <span class="go">Panel →</span></div>'
-    +row('Tasa de ahorro',pAh&&pAh.d?pAh.d:'—',pAh&&pAh.s>=60?'g':(pAh&&pAh.s<40?'r':'a'))
-    +row('Meses de colchón',(FE&&FE.meses!=null)?FE.meses.toFixed(1):'—',(FE&&FE.meses!=null)?(FE.meses<3?'r':FE.meses<6?'a':'g'):'')
-    +'</div>';
-  var patTot=last?last.total:null;
-  var cPat='<div class="cv-card" data-goto="patrimonio"><div class="h">🏦 Patrimonio <span class="go">Patrimonio →</span></div>'
-    +'<div class="cv-big">'+(patTot!=null?eur0(patTot):'—')+'</div>'
-    +row('Invertido',last?eur0(last.inv):'—')
-    +row('Efectivo',last?eur0(last.ef):'—')
-    +'</div>';
-  var alfa=CR?CR.alfa:null; var twr=CR?CR.twrAnual:null;
-  var cInv='<div class="cv-card" data-goto="rentabilidad"><div class="h">📈 Inversión <span class="go">Rentabilidad →</span></div>'
-    +row('Rentab. anual (TWR)',twr!=null?((twr>=0?'+':'')+(twr*100).toFixed(1)+'%'):'—',twr!=null?(twr>=0?'g':'r'):'')
-    +row('Alfa vs índice',alfa!=null?((alfa>=0?'+':'')+(alfa*100).toFixed(1)+'%'):'—',alfa!=null?(alfa>=0?'g':'r'):'')
-    +'</div>';
-  var cobPct=(cov&&cov.cobertura!=null)?cov.cobertura*100:null;
-  var cDiv='<div class="cv-card" data-goto="independencia"><div class="h">🪙 Independencia <span class="go">Independencia →</span></div>'
-    +row('Dividendo cubre gasto',cobPct!=null?cobPct.toFixed(0)+'%':'—',cobPct!=null?(cobPct>=100?'g':cobPct>=50?'a':''):'')
-    +row('Año de independencia',(cov&&cov.anioIndep)?String(cov.anioIndep):'—')
-    +'</div>';
-  el.innerHTML=hero+'<div class="cv-cards">'+cAhorro+cPat+cInv+cDiv+'</div>';
-  if(!el._cvBound){ el._cvBound=true; el.addEventListener('click',function(e){ var c=e.target.closest('[data-goto]'); if(c&&typeof activarVista==='function')activarVista(c.getAttribute('data-goto')); }); }
-}
 function saludFinanciera(){ const clamp=x=>Math.max(0,Math.min(100,x));
   const gp=(typeof gastoMensualPresu==='function')?gastoMensualPresu():null; const ip=(typeof ingMensualPresu==='function')?ingMensualPresu():null;
   const hoy=Date.now(), y1=hoy-365.25*86400000; let ingR=0,gasR=0; (DB.movimientos||[]).forEach(m=>{ if(m.fecha){ const ms=Date.parse(m.fecha+'T00:00:00'); if(ms>=y1&&ms<=hoy){ if((m.tipo||'')==='ingreso')ingR+=num(m.importe); else if((m.tipo||'')==='gasto')gasR+=num(m.importe); } } });
@@ -833,9 +795,9 @@ function renderPanelDash(){
   // Proyección de cierre de presupuesto (burn-rate)
   if(typeof proyeccionCierre==='function'){ try{ const P=proyeccionCierre(); if(P){ const sg=x=>(x>=0?'+':'')+fmt(x); const over=P.desv>0.5; const cs=[['Proyección cierre '+nowY,fmt(P.proy),over?'neg':'pos','a este ritmo'],['Presupuesto anual',fmt(P.presAnual),'','gasto planificado'],['Desviación',sg(P.desv),over?'neg':'pos',(P.presAnual?((P.desv/P.presAnual*100).toFixed(0)+'%'):'')+(over?' te pasarías':' margen')],['Llevas gastado',fmt(P.realYTD),'',(P.frac*100).toFixed(0)+'% del año · prorrateado '+fmt(P.prorrat)]]; SEC.hogar+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="presupuesto">Cierre de año (a este ritmo) <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cs.map(card).join('')}</div><div class="muted" style="font-size:11px;margin-top:4px">Proyección lineal según tu ritmo de gasto (${(P.frac*100).toFixed(0)}% del año transcurrido). Los gastos anuales grandes (vacaciones, seguros) pueden distorsionarla según cuándo se paguen.</div></div>`; } }catch(e){} }
   // Metas financieras
-  if((DB.metas||[]).length){ try{ const its=(DB.metas||[]).slice(0,6).map(m=>{ const obj=num(m.objetivo),act=num(m.actual); const prog=obj>0?Math.min(1,act/obj):0; const col=prog>=1?'#16a34a':'#2563eb'; return `<div data-goto="metas" style="cursor:pointer;font-size:12px;margin:4px 0"><div style="display:flex;justify-content:space-between"><span>${(m.nombre||'Meta')}${m.fecha?' <span class=\"muted\" style=\"font-size:10px\">'+m.fecha+'</span>':''}</span><span class="muted">${fmt(act)} / ${fmt(obj)} · ${(prog*100).toFixed(0)}%</span></div><div class="bar"><i style="width:${(prog*100).toFixed(0)}%;background:${col}"></i></div></div>`; }).join(''); SEC.hogar+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="metas">Metas <span class="muted" style="font-size:12px">›</span></h3>${its}</div>`; }catch(e){} }
+  if((DB.metas||[]).length){ try{ const its=(DB.metas||[]).slice(0,6).map(m=>{ const obj=num(m.objetivo),act=num(m.actual); const prog=obj>0?Math.min(1,act/obj):0; const col=prog>=1?'#16a34a':'#2563eb'; return `<div data-goto="presupuesto" style="cursor:pointer;font-size:12px;margin:4px 0"><div style="display:flex;justify-content:space-between"><span>${(m.nombre||'Meta')}${m.fecha?' <span class=\"muted\" style=\"font-size:10px\">'+m.fecha+'</span>':''}</span><span class="muted">${fmt(act)} / ${fmt(obj)} · ${(prog*100).toFixed(0)}%</span></div><div class="bar"><i style="width:${(prog*100).toFixed(0)}%;background:${col}"></i></div></div>`; }).join(''); SEC.hogar+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="presupuesto">Metas <span class="muted" style="font-size:12px">›</span></h3>${its}</div>`; }catch(e){} }
   // Asignación por clase de activo
-  if((DB.asignacion||[]).length){ try{ const totA=(DB.asignacion||[]).reduce((s,c)=>s+num(c.actual),0); if(totA>0){ const its=(DB.asignacion||[]).map(c=>{ const act=num(c.actual),obj=num(c.objetivo); const actPct=act/totA*100; const off=obj>0&&Math.abs(actPct-obj)>5; return `<div data-goto="asignacion" style="cursor:pointer;font-size:12px;margin:3px 0"><div style="display:flex;justify-content:space-between"><span>${c.nombre||'Clase'}</span><span class="muted">${actPct.toFixed(0)}%${obj>0?' / obj '+obj.toFixed(0)+'%':''}${off?' <span style=\"color:#dc2626\">⚠</span>':''}</span></div><div class="bar"><i style="width:${Math.min(100,actPct).toFixed(0)}%;background:${off?'#dc2626':'#2563eb'}"></i></div></div>`; }).join(''); SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="asignacion">Asignación de activos <span class="muted" style="font-size:12px">›</span></h3>${its}</div>`; } }catch(e){} }
+  if((DB.asignacion||[]).length){ try{ const totA=(DB.asignacion||[]).reduce((s,c)=>s+num(c.actual),0); if(totA>0){ const its=(DB.asignacion||[]).map(c=>{ const act=num(c.actual),obj=num(c.objetivo); const actPct=act/totA*100; const off=obj>0&&Math.abs(actPct-obj)>5; return `<div data-goto="patrimonio" style="cursor:pointer;font-size:12px;margin:3px 0"><div style="display:flex;justify-content:space-between"><span>${c.nombre||'Clase'}</span><span class="muted">${actPct.toFixed(0)}%${obj>0?' / obj '+obj.toFixed(0)+'%':''}${off?' <span style=\"color:#dc2626\">⚠</span>':''}</span></div><div class="bar"><i style="width:${Math.min(100,actPct).toFixed(0)}%;background:${off?'#dc2626':'#2563eb'}"></i></div></div>`; }).join(''); SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="patrimonio">Asignación de activos <span class="muted" style="font-size:12px">›</span></h3>${its}</div>`; } }catch(e){} }
   // Cartera
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(pos.length){ const cV=pos.reduce((s,p)=>s+p.acciones*p.precioActual,0), cC=pos.reduce((s,p)=>s+p.acciones*p.precioCompra,0), cD=pos.reduce((s,p)=>s+p.acciones*p.divAccion,0), cPL=cV-cC;

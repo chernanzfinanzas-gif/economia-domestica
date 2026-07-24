@@ -1,4 +1,3 @@
-let cmpSel=['','',''];
 function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos)||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15); const RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15}; const cl=x=>Math.max(0,Math.min(100,x));
   const cot=num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMax=num(a.entMax); const rating=(a.rating||'').toUpperCase();
   const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0); const pot=(cot&&poMed)?(poMed/cot-1):null; const dist=(cot&&entMax)?(cot-entMax)/entMax:null;
@@ -7,88 +6,11 @@ function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos
   if(dist!=null){ if(dist<=-0.20)B=100; else if(dist<=0)B=70+(-dist/0.20)*30; else if(dist<=0.25)B=70*(1-dist/0.25); else B=0; }
   if(poMin&&poMax&&poMed){ const amp=(poMax-poMin)/poMed; D=cl((0.60-amp)/0.50*100); } else if(poMed)D=100;
   return (A!=null&&B!=null&&D!=null)?(wA*A+wB*B+wC*C+wD*D):null; }
-function renderComparador(){ const wrap=$('#cmpTabla'); if(!wrap)return;
-  const all=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))].sort();
-  if(cmpSel.every(x=>!x)){ const rk=all.map(t=>{const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); return {t,s:cmpScore(a)};}).filter(x=>x.s!=null).sort((a,b)=>b.s-a.s); cmpSel=[(rk[0]||{}).t||'',(rk[1]||{}).t||'',(rk[2]||{}).t||'']; }
-  [0,1,2].forEach(i=>{ const sel=$('#cmp'+i); if(sel)sel.innerHTML='<option value="">— empresa '+(i+1)+' —</option>'+all.map(t=>`<option value="${t}"${cmpSel[i]===t?' selected':''}>${t}</option>`).join(''); });
-  const cols=cmpSel.filter(Boolean);
-  if(!cols.length){ wrap.innerHTML='<div class="empty">Elige hasta 3 empresas para compararlas.</div>'; return; }
-  cols.forEach(t=>{ if(typeof _tesisCache!=='undefined'&&_tesisCache[t]===undefined&&typeof cargarTesis==='function')cargarTesis(t); });
-  const AA={}; cols.forEach(t=>{ AA[t]=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t)||{}; });
-  const dcol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
-  const sCol=s=>s==null?'#64748b':(s>=70?'#16a34a':s>=50?'#d97706':'#dc2626');
-  const sLbl=s=>s==null?'':(s>=70?'Buena':s>=50?'Media':'Mala');
-  const poMedOf=a=>{const mn=num(a.poMin),mx=num(a.poMax);return (mn&&mx)?(mn+mx)/2:(mx||mn||0);};
-  const potOf=a=>{const c=num(a.cotizacion),md=poMedOf(a);return (c&&md)?(md/c-1):null;};
-  const pctF=p=>p==null?'—':(p>=0?'+':'')+(p*100).toFixed(1)+'%';
-  const bandTxt=a=>{const c=num(a.cotizacion),eM=num(a.entMax);if(!(c&&eM))return fmt(c);const inB=c<=eM,near=c<=eM*1.10;const dot=inB?'🟢':near?'🟡':'🔴';return dot+' '+fmt(c)+' <span class="muted" style="font-size:10px">/ ent '+fmt(eM)+'</span>';};
-  const lst=arr=>Array.isArray(arr)&&arr.length?('<ul class="ql">'+arr.map(x=>`<li>${x}</li>`).join('')+'</ul>'):'<span class="muted">—</span>';
-  const J=t=>(typeof _tesisCache!=='undefined')?_tesisCache[t]:null;
-  const dossCell=(a,t)=>{const u=(typeof dossierURL==='function')?dossierURL(t,a.dossierUrl):''; const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; return (u?`<a href="${u}" target="_blank" rel="noopener">📄 abrir</a>`:'<span class="muted">—</span>')+(mm!=null?` <span class="muted" style="font-size:9px">${mm}m${mm>12?' ⚠️':''}</span>`:'');};
-  /* ---- ESCRITORIO: tabla comparativa ---- */
-  const rowsDef=[
-    ['sec','VALORACIÓN'],
-    ['Score',(a)=>{const sc=cmpScore(a);return sc==null?'—':`<b style="font-size:19px;color:${sCol(sc)}">${sc.toFixed(0)}</b> <span style="font-size:10px;font-weight:700;color:${sCol(sc)}">${sLbl(sc)}</span>`;}],
-    ['Decisión',(a)=>{const d=(a.decision||'').toUpperCase();return d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:'—';}],
-    ['Rating',(a)=>`<b>${a.rating||'—'}</b>`],
-    ['Sub-tipo',(a,j,t)=>(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||'—'],
-    ['Cotización',(a)=>fmt(num(a.cotizacion))],
-    ['PO bear/base/bull',(a)=>{const mn=num(a.poMin),mx=num(a.poMax),md=poMedOf(a);return md?`${fmt(mn)} / <b>${fmt(md)}</b> / ${fmt(mx)}`:'—';}],
-    ['Potencial',(a)=>{const p=potOf(a);return p==null?'—':`<b style="color:${p>=0?'#16a34a':'#dc2626'}">${pctF(p)}</b>`;}],
-    ['Banda entrada',(a)=>{const mn=num(a.entMin),mx=num(a.entMax);return mx?`${fmt(mn)} – ${fmt(mx)}`:'—';}],
-    ['Estado vs banda',(a)=>bandTxt(a)],
-    ['Stop tesis',(a)=>num(a.stopTesis)?fmt(num(a.stopTesis)):'—'],
-    ['RPD',(a)=>{const c=num(a.cotizacion),d=num(a.divAccion);return c?`${(d/c*100).toFixed(2)}%`:'—';}],
-    ['sec','CUALITATIVO — DOSSIER'],
-    ['Moat',(a,j)=>(j&&j.moat)?j.moat:'<span class="muted">—</span>'],
-    ['Catalizadores',(a,j)=>lst(j&&j.catalizadores)],
-    ['Riesgos',(a,j)=>lst(j&&j.riesgos)],
-    ['A favor',(a,j)=>(j&&j.bull)?j.bull:'<span class="muted">—</span>'],
-    ['En contra',(a,j)=>(j&&j.bear)?j.bear:'<span class="muted">—</span>'],
-    ['Dossier',(a,j,t)=>dossCell(a,t)],
-  ];
-  const thead='<tr><th class="rowlbl"></th>'+cols.map(t=>{const a=AA[t],sc=cmpScore(a),d=(a.decision||'').toUpperCase();return `<th><div class="chdr"><div class="ct">${t}</div><div class="csec">${(typeof SECTOR!=='undefined'&&SECTOR[t])||''}</div><div class="cscore" style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}<span>${sLbl(sc)}</span></div>${d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:''}</div></th>`;}).join('')+'</tr>';
-  const tbody=rowsDef.map(r=>{ if(r[0]==='sec')return `<tr class="secrow"><td colspan="${cols.length+1}">${r[1]}</td></tr>`; return `<tr><th class="rowlbl">${r[0]}</th>${cols.map(t=>`<td>${r[1](AA[t],J(t),t)}</td>`).join('')}</tr>`; }).join('');
-  const deskHTML=`<div class="cmp-desk"><table class="cmp"><thead>${thead}</thead><tbody>${tbody}</tbody></table></div>`;
-  /* ---- MÓVIL: comparativa rápida + ficha plegable por empresa ---- */
-  const miniRows=[
-    ['Score',(a)=>{const sc=cmpScore(a);return `<b style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}</b>`;}],
-    ['Rating',(a)=>`<b>${a.rating||'—'}</b>`],
-    ['Decisión',(a)=>{const d=(a.decision||'').toUpperCase();return d?`<span class="cdec sm" style="background:${dcol[d]}">${d.slice(0,4)}</span>`:'—';}],
-    ['Potencial',(a)=>{const p=potOf(a);return `<b style="color:${p>=0?'#16a34a':'#dc2626'}">${pctF(p)}</b>`;}],
-    ['Cotiz. / banda',(a)=>{const c=num(a.cotizacion),eM=num(a.entMax);const dot=(c&&eM)?(c<=eM?'🟢':c<=eM*1.10?'🟡':'🔴'):'';return dot+' '+fmt(c);}],
-  ];
-  const miniTable='<table class="minicmp"><thead><tr><th></th>'+cols.map(t=>`<th style="color:${sCol(cmpScore(AA[t]))}">${t}</th>`).join('')+'</tr></thead><tbody>'+miniRows.map(r=>`<tr><th>${r[0]}</th>${cols.map(t=>`<td>${r[1](AA[t])}</td>`).join('')}</tr>`).join('')+'</tbody></table>';
-  window._cmpOpen=window._cmpOpen||{};
-  const mcard=t=>{const a=AA[t],j=J(t),sc=cmpScore(a),d=(a.decision||'').toUpperCase(),p=potOf(a),op=window._cmpOpen[t]?' open':'';
-    return `<div class="ccard${op}" data-cmpc="${t}"><div class="ccard-h"><div class="ct">${t}</div><div class="cmeta">${(typeof SECTOR!=='undefined'&&SECTOR[t])||''} · ${(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||''}</div><div class="cscore" style="color:${sCol(sc)}">${sc==null?'—':sc.toFixed(0)}<span>${sLbl(sc)}</span></div><span class="arw">▶</span></div>
-    <div class="ccard-b"><div class="ccard-sub">${d?`<span class="cdec" style="background:${dcol[d]}">${d}</span>`:''}<span class="pill">Rating ${a.rating||'—'}</span><span class="pill" style="color:${p>=0?'#166534':'#991b1b'};background:${p>=0?'#dcfce7':'#fee2e2'}">Pot. ${pctF(p)}</span></div>
-    <div class="cgrid">
-      <div class="m"><span>Cotización</span><b>${fmt(num(a.cotizacion))}</b></div>
-      <div class="m"><span>PO base</span><b>${poMedOf(a)?fmt(poMedOf(a)):'—'}</b></div>
-      <div class="m"><span>PO bear/bull</span><b>${num(a.poMin)?fmt(num(a.poMin)):'—'} / ${num(a.poMax)?fmt(num(a.poMax)):'—'}</b></div>
-      <div class="m"><span>Banda entrada</span><b>${num(a.entMax)?fmt(num(a.entMin))+' – '+fmt(num(a.entMax)):'—'}</b></div>
-      <div class="m"><span>Estado</span><b>${bandTxt(a)}</b></div>
-      <div class="m"><span>Stop tesis</span><b>${num(a.stopTesis)?fmt(num(a.stopTesis)):'—'}</b></div>
-      <div class="m"><span>RPD</span><b>${num(a.cotizacion)?(num(a.divAccion)/num(a.cotizacion)*100).toFixed(2)+'%':'—'}</b></div>
-      <div class="m"><span>Dossier</span><b>${dossCell(a,t)}</b></div>
-    </div>
-    <div class="cqual">
-      <div class="q"><span>🏰 Moat</span><p>${(j&&j.moat)||'—'}</p></div>
-      <div class="q"><span>🚀 Catalizadores</span>${lst(j&&j.catalizadores)}</div>
-      <div class="q"><span>⚠️ Riesgos</span>${lst(j&&j.riesgos)}</div>
-      <div class="q"><span>👍 A favor</span><p>${(j&&j.bull)||'—'}</p></div>
-      <div class="q"><span>👎 En contra</span><p>${(j&&j.bear)||'—'}</p></div>
-    </div></div></div>`;};
-  const mobHTML=`<div class="cmp-mob"><div class="cmphdr">Comparativa rápida</div>${miniTable}<div class="cmphdr">Ficha por empresa</div>${cols.map(mcard).join('')}</div>`;
-  wrap.innerHTML=deskHTML+mobHTML;
-  if(!wrap._cmpBound){ wrap._cmpBound=true; wrap.addEventListener('click',function(e){ if(e.target.closest('a,button'))return; const h=e.target.closest('.ccard-h'); if(h){ const c=h.parentElement; c.classList.toggle('open'); const t=c.getAttribute('data-cmpc'); if(t){window._cmpOpen=window._cmpOpen||{};window._cmpOpen[t]=c.classList.contains('open');} } }); }
-}
 /* ===== Render selectivo: al cambiar datos repinta SOLO la vista activa (mapa vista→funciones).
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel'], presupuesto:['renderPres','renderMetas'],
+  panel:['renderPanel'], presupuesto:['renderPres','renderMetas','renderPresDesglose'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
