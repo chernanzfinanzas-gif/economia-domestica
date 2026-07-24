@@ -2417,15 +2417,49 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-patrimonio .pat-brk .num{text-align:right;font-variant-numeric:tabular-nums}
   #view-patrimonio .pat-acts{display:flex;gap:8px;margin-top:10px}
   #view-patrimonio .pat-acts .btn{padding:8px 14px}
-  #view-patrimonio .pat-tot .pdelta{font-size:10.5px;font-weight:700;margin-left:6px;white-space:nowrap}
-  #view-patrimonio .pdelta.up{color:#16a34a}#view-patrimonio .pdelta.dn{color:#dc2626}#view-patrimonio .pdelta.eq{color:#94a3b8}
-  #view-patrimonio .pat-cmp{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px}
-  #view-patrimonio .pat-cmp-t{font-size:10.5px;font-weight:800;text-transform:uppercase;letter-spacing:.03em;color:#64748b;margin-bottom:8px}
-  #view-patrimonio .pat-cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-  #view-patrimonio .pat-cmp-cell{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 11px}
-  #view-patrimonio .pat-cmp-cell .l{font-size:11px;color:#64748b;font-weight:600;margin-bottom:2px}
-  #view-patrimonio .pat-cmp-cell .v{font-size:13.5px;font-weight:800;font-variant-numeric:tabular-nums}
-  #view-patrimonio .pat-cmp-cell .v.up{color:#16a34a}#view-patrimonio .pat-cmp-cell .v.dn{color:#dc2626}#view-patrimonio .pat-cmp-cell .v.eq{color:#94a3b8}
+  /* Registros: tabla plana con variaciones por columna */
+  #view-patrimonio .pat-reg-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+  #view-patrimonio .pat-reg{border-collapse:separate;border-spacing:0;width:100%;font-size:12px;min-width:900px}
+  #view-patrimonio .pat-reg thead th{position:sticky;top:0;background:#f1f5f9;color:#64748b;font-weight:800;text-transform:uppercase;font-size:9px;letter-spacing:.02em;padding:8px 9px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap;z-index:1}
+  #view-patrimonio .pat-reg thead th.l{text-align:left}
+  #view-patrimonio .pat-reg thead th.grp{border-left:1px solid #dbe2ea;color:#334155}
+  #view-patrimonio .pat-reg td{padding:7px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  #view-patrimonio .pat-reg td.l{text-align:left;font-weight:700;color:#334155;cursor:pointer}
+  #view-patrimonio .pat-reg td.grp{border-left:1px solid #eef2f7}
+  #view-patrimonio .pat-reg td.v{font-weight:700}
+  #view-patrimonio .pat-reg td.v.tot{font-weight:800}
+  #view-patrimonio .pat-reg td.pinv{color:#64748b;font-weight:700}
+  #view-patrimonio .pat-reg td.pv .pv-p{font-weight:700;display:block;font-size:11px}
+  #view-patrimonio .pat-reg td.pv .pv-e{font-size:9px;color:#94a3b8;display:block;font-weight:600}
+  #view-patrimonio .pat-reg td.pv.up .pv-p{color:#16a34a}
+  #view-patrimonio .pat-reg td.pv.dn .pv-p{color:#dc2626}
+  #view-patrimonio .pat-reg td.pv.eq .pv-p{color:#94a3b8}
+  #view-patrimonio .pat-reg td.pv .pv-mut{color:#cbd5e1}
+  #view-patrimonio .pat-reg tr.pr-row{cursor:pointer}
+  #view-patrimonio .pat-reg tr.pr-row:hover td{background:#f8fbff}
+  #view-patrimonio .pat-reg .pr-arw{color:#94a3b8;font-size:9px;margin-right:6px;display:inline-block;transition:transform .15s}
+  #view-patrimonio .pat-reg tr.pr-row.open .pr-arw{transform:rotate(90deg)}
+  #view-patrimonio .pat-reg tr.pr-detail{display:none}
+  #view-patrimonio .pat-reg tr.pr-row.open+tr.pr-detail{display:table-row}
+  #view-patrimonio .pat-reg tr.pr-detail>td{background:#fafcff;padding:4px 14px 12px;border-bottom:2px solid #eef2f7}
+  #view-patrimonio .pat-reg .pr-detwrap{max-width:760px}
+  #view-patrimonio .pat-reg-mob{display:none}
+  #view-patrimonio .prm-card{border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+  #view-patrimonio .prm-h{display:flex;align-items:baseline;gap:8px;margin-bottom:9px;cursor:pointer}
+  #view-patrimonio .prm-h .prm-f{font-weight:800;font-size:13px}
+  #view-patrimonio .prm-h .prm-t{margin-left:auto;font-weight:800;font-variant-numeric:tabular-nums;font-size:14px}
+  #view-patrimonio .prm-h .prm-pinv{font-size:11px;color:#64748b;font-weight:700}
+  #view-patrimonio .prm-grid{display:flex;flex-direction:column;gap:7px}
+  #view-patrimonio .prm-cell{background:#f8fafc;border-radius:9px;padding:8px 10px}
+  #view-patrimonio .prm-cell .prm-cl{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+  #view-patrimonio .prm-cell .prm-cl .l{font-size:10px;text-transform:uppercase;color:#64748b;font-weight:800;letter-spacing:.02em}
+  #view-patrimonio .prm-cell .prm-cl .v{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+  #view-patrimonio .prm-cell .d{font-size:11px;font-weight:700;margin-top:3px}
+  #view-patrimonio .prm-cell .d .k{color:#94a3b8;font-weight:600}
+  #view-patrimonio .prm-cell .d .up{color:#16a34a}#view-patrimonio .prm-cell .d .dn{color:#dc2626}#view-patrimonio .prm-cell .d .eq{color:#94a3b8}
+  #view-patrimonio .prm-det{display:none;margin-top:10px}
+  #view-patrimonio .prm-card.open .prm-det{display:block}
+  @media(max-width:900px){ #view-patrimonio .pat-reg-wrap{display:none} #view-patrimonio .pat-reg-mob{display:block} }
   @media(max-width:640px){
     #view-patrimonio .pat-hero{flex-direction:column;align-items:flex-start}
     #view-patrimonio .pat-hero .ph-minis{width:100%}#view-patrimonio .pat-hero .ph-mini{flex:1}
@@ -3280,7 +3314,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <div class="blk-right"><span class="blk-sub" id="patCount"></span></div>
       </div>
       <div class="blk-b">
-        <div class="pat-collbl"><span></span><span>Fecha</span><span>Efect. / Invert.</span><span>Total</span><span>% Inv.</span></div>
         <div id="patList"></div>
       </div>
     </div>
