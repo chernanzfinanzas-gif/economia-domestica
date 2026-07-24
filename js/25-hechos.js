@@ -37,7 +37,16 @@ var _DIA_SEASON_DAYS=75;// ~2,5 meses = "temporada actual"
     '#view-hechos .dia-val b{color:#334155}',
     '#view-hechos .dia-pend{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px 13px;margin:12px 0;font-size:12.5px}',
     '#view-hechos .dia-pend b{color:#9a3412}',
-    '#view-hechos .dia-pt{display:inline-block;background:#fff;border:1px solid #fdba74;color:#9a3412;border-radius:8px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:700;cursor:pointer}'
+    '#view-hechos .dia-pt{display:inline-block;background:#fff;border:1px solid #fdba74;color:#9a3412;border-radius:8px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:700;cursor:pointer}',
+    '#view-hechos .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px}',
+    '#view-hechos .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}',
+    '#view-hechos .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}',
+    '#view-hechos .pos-kpis .k .v{font-size:24px;font-weight:800;margin-top:3px;line-height:1.1}',
+    '#view-hechos .pos-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}',
+    '#view-hechos .pos-kpis .k.hero{background:linear-gradient(135deg,#1e293b,#334155);color:#fff;border:none}',
+    '#view-hechos .pos-kpis .k.hero .l,#view-hechos .pos-kpis .k.hero .p{color:#cbd5e1}',
+    '#view-hechos .pos-kpis .k.hero .v{color:#fff}',
+    '@media(max-width:640px){#view-hechos .pos-kpis{grid-template-columns:1fr 1fr}}'
   ].join('\n'); document.head.appendChild(st);
 })();
 
