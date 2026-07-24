@@ -224,30 +224,32 @@ function calAgenda(desde, opts){
    { neto[12], bruto } (neto = bruto × 0,81). Es lo que cuadra con la
    pestaña Dividendos y su "Resumen anual de la cartera". */
 function _calDivMesReal(year){
-  var neto=new Array(12).fill(0); var bruto=0; var divs=DB.dividendos||{};
-  Object.keys(divs).forEach(function(t){ var T=(t||'').toUpperCase();
-    (divs[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)!=String(year)) return;
-      var sh=_calSharesAt(T, f); var g=sh*_calNum(d.importe); if(!g) return;
-      var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12) neto[m]+=g*0.81; bruto+=g;
-    });
-  });
-  return { neto:neto, bruto:bruto };
+  /* Dividendo REAL cobrado del año: suma la realidad de las fichas — posiciones ABIERTAS
+     (DB.dividendos), CERRADAS (cerradas[].divs) e histórico anual heredado (DB.divIngresos),
+     con acciones a la fecha de cada pago según TODAS las operaciones (_allOps, abiertas+cerradas).
+     Dedup: para un ticker CERRADO manda cerradas[].divs (evita el doble conteo de p. ej. TEF,
+     que aparece también en DB.dividendos). divIngresos solo para tickers sin operaciones. */
+  var neto=new Array(12).fill(0); var bruto=0; var seen={}; var Y=String(year);
+  var ops=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
+  var closed={}; (DB.cerradas||[]).forEach(function(c){ closed[(c.ticker||'').toUpperCase()]=1; });
+  var opSet={}; ops.forEach(function(o){ opSet[(o.ticker||'').toUpperCase()]=1; });
+  var shAt=function(t,f){ var ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return 0; var sh=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()===t){ var om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*_calNum(o.acciones); } }); return sh; };
+  var addPago=function(T,f,imp){ var g=shAt(T,f)*_calNum(imp); if(!g)return; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12)neto[m]+=g*0.81; bruto+=g; seen[T]=1; };
+  var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); if(closed[T])return; (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
+  (DB.cerradas||[]).forEach(function(c){ var T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
+  var dIng=DB.divIngresos||{}; Object.keys(dIng).forEach(function(t){ var T=(t||'').toUpperCase(); if(opSet[T]||closed[T])return; var v=(dIng[t]||{})[Y]; if(v){ var g=_calNum(v); neto[11]+=g*0.81; bruto+=g; seen[T]=1; } });
+  return { neto:neto, bruto:bruto, seen:seen };
 }
 /* Dividendo BRUTO de la cartera en un año.
    Pasado → dividendos realmente cobrados (Resumen Anual).
    Año en curso → cartera real cobrada + previsto de lo PENDIENTE DE EJECUTAR (compras planificadas).
    Futuro → proyección completa (cartera + previstas del radar) × acciones del Plan. */
 function calBrutoCarteraAnio(year){
-  var nowY=_calNowY(); var tot=0; var seen={};
-  if(year <= nowY){                                  /* cartera real cobrada */
-    var divs=DB.dividendos||{};
-    Object.keys(divs).forEach(function(t){ var T=(t||'').toUpperCase(); var s=0;
-      (divs[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)!=String(year)) return; s+=_calSharesAt(T,f)*_calNum(d.importe); });
-      if(s){ seen[T]=1; tot+=s; }
-    });
-  }
-  if(year >= nowY){                                  /* previsto: futuro=todas; año en curso=solo pendientes de ejecutar */
-    calTickers().forEach(function(t){ if(year===nowY && seen[t]) return;
+  var nowY=_calNowY();
+  var R=(year<=nowY)?_calDivMesReal(year):{bruto:0,seen:{}};   /* pasado/en curso: realidad completa (abiertas+cerradas+heredado) */
+  var tot=R.bruto; var seen=R.seen||{};
+  if(year >= nowY){                                  /* previsto: futuro=todas; año en curso=solo lo pendiente aún no cobrado */
+    calTickers().forEach(function(t){ var T=(t||'').toUpperCase(); if(year===nowY && seen[T]) return;
       _calEvDiv(t, year).forEach(function(e){ if(e.tipo==='pago') tot += _calNum(e.sh)*_calNum(e.imp); });
     });
   }
