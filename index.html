@@ -3054,6 +3054,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- PANEL -->
   <section class="view active" id="view-panel">
     <h2 id="panelTitle">Panel</h2>
+    <div id="panelAvisos"></div>
     <div class="toolbar" id="panelPeriodo">
       <button class="btn ghost sm modebtn" id="mModeAnio">Año</button>
       <label class="muted" for="mYear">Periodo</label>
@@ -3063,10 +3064,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
     <div id="panelHero"></div>
     <div class="cards" id="panelCards"></div>
-    <div id="panelAhorro"></div>
-    <div id="panelAutonomia"></div>
-    <h3 id="panelBudgetH">Seguimiento del presupuesto</h3>
-    <div id="panelBudget"></div>
+    <div id="panelSalud"></div>
+    <div class="psec" id="panelPresu" data-pssec="presu" style="margin-top:16px">
+      <div class="psec-h" data-presufold="1"><span class="psec-arw">▶</span><span class="psec-t">Presupuesto</span></div>
+      <div class="psec-b">
+        <div id="panelAhorro"></div>
+        <div id="panelAutonomia"></div>
+        <h3 id="panelBudgetH">Seguimiento del presupuesto</h3>
+        <div id="panelBudget"></div>
+      </div>
+    </div>
     <div id="panelDash"></div>
   </section>
 
