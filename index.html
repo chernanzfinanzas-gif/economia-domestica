@@ -1678,6 +1678,24 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-independencia .pos-blk[data-indepblk="retirada"] .pos-blk-h .bt{color:#1e3a8a}
 #view-independencia .pos-blk[data-indepblk="retirada"] .pos-blk-h .bsum{color:#1e3a8a;background:rgba(59,130,246,.16)}
 #view-independencia .pos-blk[data-indepblk="retirada"] .pos-blk-h .arw{color:#3b82f6}
+/* ── Cabeceras de Proyección enriquecidas al mismo nivel que Coast FIRE / Retirada ── */
+#view-independencia #view-proyeccion .blk{border-radius:16px;margin-bottom:14px}
+#view-independencia #view-proyeccion .blk-h{padding:15px 18px;gap:12px;border-left:5px solid #94a3b8;align-items:center}
+#view-independencia #view-proyeccion .blk-t{font-size:16.5px;letter-spacing:.2px}
+#view-independencia #view-proyeccion .blk-h .arw{font-size:12px;opacity:.85}
+#view-independencia #view-proyeccion .blk-sub{margin-left:auto;font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;white-space:nowrap;text-align:right;color:#475569;background:rgba(100,116,139,.16)}
+#view-independencia .blk-h[data-proyblk="hip"]{background:linear-gradient(120deg,#f8fafc,#eef2f7);border-left-color:#64748b}
+#view-independencia .blk-h[data-proyblk="hip"] .blk-t{color:#334155}#view-independencia .blk-h[data-proyblk="hip"] .arw{color:#64748b}
+#view-independencia .blk-h[data-proyblk="hip"] .blk-sub{color:#334155;background:rgba(100,116,139,.16)}
+#view-independencia .blk-h[data-proyblk="ev"]{background:linear-gradient(120deg,#fff1f2,#ffe4e6);border-left-color:#f43f5e}
+#view-independencia .blk-h[data-proyblk="ev"] .blk-t{color:#9f1239}#view-independencia .blk-h[data-proyblk="ev"] .arw{color:#f43f5e}
+#view-independencia .blk-h[data-proyblk="ev"] .blk-sub{color:#9f1239;background:rgba(244,63,94,.15)}
+#view-independencia .blk-h[data-proyblk="det"]{background:linear-gradient(120deg,#eef2ff,#e0e7ff);border-left-color:#6366f1}
+#view-independencia .blk-h[data-proyblk="det"] .blk-t{color:#3730a3}#view-independencia .blk-h[data-proyblk="det"] .arw{color:#6366f1}
+#view-independencia .blk-h[data-proyblk="det"] .blk-sub{color:#3730a3;background:rgba(99,102,241,.15)}
+#view-independencia .blk-h[data-proyblk="mc"]{background:linear-gradient(120deg,#f5f3ff,#ede9fe);border-left-color:#8b5cf6}
+#view-independencia .blk-h[data-proyblk="mc"] .blk-t{color:#5b21b6}#view-independencia .blk-h[data-proyblk="mc"] .arw{color:#8b5cf6}
+#view-independencia .blk-h[data-proyblk="mc"] .blk-sub{color:#5b21b6;background:rgba(139,92,246,.15)}
 #view-independencia .d2-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.6;color:#334155;margin-bottom:14px}#view-independencia .d2-intro b.h{display:block;font-size:13px;color:#1f3d6b;margin-bottom:3px}
 #view-independencia .d2-cmp{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 #view-independencia .d2-cc{border-radius:14px;padding:15px 16px;color:#fff}
@@ -3416,18 +3434,18 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
     <div class="plan-div"><span class="pd-ic">📈</span><div><div class="pd-t">Proyección de patrimonio</div><div class="pd-s">Modelo año a año hasta la edad final: de tu ahorro total (nóminas − gastos + dividendos + extra) eliges cuánto va a inversión</div></div></div>
     <div id="view-proyeccion">
-    <div class="blk" id="blkProyHip"><div class="blk-h" data-proyblk="hip"><span class="arw">▶</span><span class="blk-t">🧾 Hipótesis Inicial</span><span class="blk-sub">edad, capital, nómina, crecimientos… todo lo que alimenta el modelo</span></div>
+    <div class="blk" id="blkProyHip"><div class="blk-h" data-proyblk="hip"><span class="arw">▶</span><span class="blk-t">🧾 Hipótesis Inicial</span><span class="blk-sub">supuestos del modelo</span></div>
       <div class="blk-b"><div class="patgrid" id="proyParams"></div>
         <div class="sub" style="margin-top:8px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de Patrimonio.</div></div></div>
     <div class="secttl">📊 Resultado de la proyección (escenario base)</div>
     <div id="proyCards" class="proy-kpis" style="margin-bottom:14px"></div>
-    <div class="blk" id="blkProyEv"><div class="blk-h" data-proyblk="ev"><span class="arw">▶</span><span class="blk-t">💸 Eventos puntuales (gastos grandes)</span><span class="blk-sub">restan de un año concreto</span></div>
+    <div class="blk" id="blkProyEv"><div class="blk-h" data-proyblk="ev"><span class="arw">▶</span><span class="blk-t">💸 Eventos puntuales (gastos grandes)</span><span class="blk-sub">gastos puntuales</span></div>
       <div class="blk-b"><div id="proyEventos"></div>
         <div style="margin-top:10px"><button class="btn sm" id="proyAddEvento">+ Evento</button>
           <span class="sub" style="margin-left:8px">Resta un gasto grande en un año (p. ej. Coche 2028, Casa 2030).</span></div></div></div>
-    <div class="blk" id="blkProyDet"><div class="blk-h" data-proyblk="det"><span class="arw">▶</span><span class="blk-t">📆 Detalle año a año</span><span class="blk-sub">patrimonio, ahorro y reparto (inversión / efectivo) año por año</span></div>
+    <div class="blk" id="blkProyDet"><div class="blk-h" data-proyblk="det"><span class="arw">▶</span><span class="blk-t">📆 Detalle año a año</span><span class="blk-sub">año por año</span></div>
       <div class="blk-b"><div id="proyTabla"></div></div></div>
-    <div class="blk" id="blkProyMC"><div class="blk-h" data-proyblk="mc"><span class="arw">▶</span><span class="blk-t">🎲 Proyección con incertidumbre (Monte Carlo)</span><span class="blk-sub">1.000 escenarios · mediana, rango y probabilidad de objetivo</span></div>
+    <div class="blk" id="blkProyMC"><div class="blk-h" data-proyblk="mc"><span class="arw">▶</span><span class="blk-t">🎲 Proyección con incertidumbre (Monte Carlo)</span><span class="blk-sub">1.000 escenarios</span></div>
       <div class="blk-b"><div id="proyMC"></div></div></div>
     </div>
 
@@ -3449,15 +3467,19 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div class="plan-intro">El <b>plan</b> existe para bajar tu riesgo y la concentración por sectores. Se ejecuta en tres pasos: fijas <b>dónde quieres estar</b>, mides <b>cuánto te desvías hoy</b> y decides <b>qué comprar</b> con tu próxima aportación — sin vender, para no tributar.</div>
 
     <div class="plan-div"><span class="pd-ic">🧩</span><div><div class="pd-t">1 · Objetivos de compra</div><div class="pd-s">La única hoja donde editas tus compras futuras: clasifica cada empresa y fija cuánto quieres tener en ella</div></div></div>
-    <div class="sub" style="margin-bottom:8px">Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el <b>€ objetivo</b> por empresa y año y reparte el capital disponible. El resto de secciones leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
-    <div id="loteTabla"></div>
+    <div id="view-diversif">
+      <div class="sub" style="margin-bottom:8px">Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el <b>€ objetivo</b> por empresa y año y reparte el capital disponible. El resto de secciones leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
+      <div id="loteTabla"></div>
+    </div>
 
     <div class="plan-div"><span class="pd-ic">📐</span><div><div class="pd-t">2 · Desfase actual vs objetivo</div><div class="pd-s">Cómo de lejos está tu cartera de hoy del reparto que quieres, por arquetipo y por empresa</div></div></div>
     <div id="view-divcomp"></div>
 
     <div class="plan-div"><span class="pd-ic">⚖️</span><div><div class="pd-t">3 · Rebalanceo con tu aportación</div><div class="pd-s">Dónde meter el dinero nuevo para acercarte al objetivo sin vender (sin tributar plusvalías)</div></div></div>
-    <div id="rebalKpis" style="margin-bottom:12px"></div>
-    <div id="rebalBody"></div>
+    <div id="view-rebalanceo">
+      <div id="rebalKpis" style="margin-bottom:12px"></div>
+      <div id="rebalBody"></div>
+    </div>
   </section>
 
   <!-- AMALIA -->
