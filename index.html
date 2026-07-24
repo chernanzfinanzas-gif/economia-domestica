@@ -3750,8 +3750,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-divcomp"></section>
   <section class="view" id="view-cobertura"></section>
   <section class="view" id="view-estado"><div id="view-metodo"></div><div id="view-salud" style="margin-top:26px;border-top:1px solid var(--line);padding-top:8px"></div></section>
-  <section class="view" id="view-hemeroteca"></section>
-  <section class="view" id="view-hemeroanalisis"></section>
+  <section class="view" id="view-hemero">
+    <div class="subtabs" id="hemeroSubtabs"><button data-htab="informes" class="active">🗞️ Informes semanales</button><button data-htab="analisis">🔬 Análisis (dossiers)</button></div>
+    <div id="htab-informes"><div id="view-hemeroteca"></div></div>
+    <div id="htab-analisis" style="display:none"><div id="view-hemeroanalisis"></div></div>
+  </section>
   <section class="view" id="view-buzon"><div id="buzonWrap"></div></section>
   <section class="view" id="view-diario"></section>
   <section class="view" id="view-divfut"></section>
