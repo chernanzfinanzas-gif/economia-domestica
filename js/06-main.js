@@ -206,7 +206,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 const GROUPS={
   control:[['panel','Panel'],['comovoy','Cómo voy'],['independencia','Independencia'],['metas','Metas'],['presupuesto','Presupuesto'],['asignacion','Asignación']],
   embudo:[['embudo','Kanban/Kaizen']],
-  mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio'],['desglose','Desglose mensual']],
+  mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['escenarios','Escenarios'],['analisis','Análisis'],['comparador','Comparador']],
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad'],['atribucion','Atribución']],
