@@ -1615,6 +1615,21 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-graficas .pos-blk-h{display:flex;align-items:center;gap:9px;padding:12px 15px;cursor:pointer}
 #view-graficas .pos-blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-graficas .pos-blk.open .pos-blk-h .arw{transform:rotate(90deg)}
 #view-graficas .pos-blk-h .bt{font-weight:800;font-size:14px}#view-graficas .pos-blk-h .bsum{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+/* ── Cabeceras de Gráficas enriquecidas (mismo lenguaje que Proyección) ── */
+#view-graficas .pos-blk{border-radius:16px;margin-bottom:14px}
+#view-graficas .pos-blk-h{padding:15px 18px;gap:12px;border-left:5px solid #94a3b8}
+#view-graficas .pos-blk-h .bt{font-size:16.5px;letter-spacing:.2px}
+#view-graficas .pos-blk-h .arw{font-size:12px;opacity:.85}
+#view-graficas .pos-blk-h .bsum{font-size:12px;font-weight:800;padding:4px 12px;border-radius:999px;white-space:nowrap;color:#475569;background:rgba(100,116,139,.16)}
+#view-graficas .pos-blk[data-grafblk="hogar"] .pos-blk-h{background:linear-gradient(120deg,#fffbeb,#fef3c7);border-left-color:#f59e0b}
+#view-graficas .pos-blk[data-grafblk="hogar"] .pos-blk-h .bt{color:#92400e}#view-graficas .pos-blk[data-grafblk="hogar"] .pos-blk-h .arw{color:#f59e0b}
+#view-graficas .pos-blk[data-grafblk="hogar"] .pos-blk-h .bsum{color:#92400e;background:rgba(245,158,11,.18)}
+#view-graficas .pos-blk[data-grafblk="cartera"] .pos-blk-h{background:linear-gradient(120deg,#f0fdfa,#ccfbf1);border-left-color:#0d9488}
+#view-graficas .pos-blk[data-grafblk="cartera"] .pos-blk-h .bt{color:#115e59}#view-graficas .pos-blk[data-grafblk="cartera"] .pos-blk-h .arw{color:#0d9488}
+#view-graficas .pos-blk[data-grafblk="cartera"] .pos-blk-h .bsum{color:#115e59;background:rgba(13,148,136,.16)}
+#view-graficas .pos-blk[data-grafblk="div"] .pos-blk-h{background:linear-gradient(120deg,#f0fdf4,#dcfce7);border-left-color:#16a34a}
+#view-graficas .pos-blk[data-grafblk="div"] .pos-blk-h .bt{color:#166534}#view-graficas .pos-blk[data-grafblk="div"] .pos-blk-h .arw{color:#16a34a}
+#view-graficas .pos-blk[data-grafblk="div"] .pos-blk-h .bsum{color:#166534;background:rgba(22,163,74,.16)}
 #view-graficas .pos-blk-b{display:none;border-top:1px solid #f1f5f9}#view-graficas .pos-blk.open .pos-blk-b{display:block}
 #view-graficas .blk-pad{padding:14px}
 #view-graficas .graf-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
