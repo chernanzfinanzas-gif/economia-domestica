@@ -1638,6 +1638,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-independencia .ind-hero-kpi .big{font-size:34px;font-weight:800;line-height:1;color:#fff}
 #view-independencia .ind-hero-kpi .cap{font-size:10px;color:rgba(255,255,255,.88);margin-top:6px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.35}
 @media(max-width:760px){#view-independencia .ind-hero{padding:16px 18px}#view-independencia .ind-hero-ic{font-size:38px}#view-independencia .ind-hero-txt h2{font-size:21px}#view-independencia .ind-hero-kpi{flex:1;min-width:120px}}
+/* ===== Bandas de las pestañas fusionadas de Plan (Asignación / Riesgo / Independencia) ===== */
+.plan-intro{background:linear-gradient(120deg,#1e293b,#334155);color:#e2e8f0;border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:13px;line-height:1.55}
+.plan-intro b{color:#fff}
+.plan-div{display:flex;align-items:center;gap:12px;margin:26px 0 12px;padding:10px 14px;background:#eef2f7;border:1px solid #dbe3ec;border-left:4px solid #1f3d6b;border-radius:10px}
+.plan-div .pd-ic{font-size:22px;line-height:1}
+.plan-div .pd-t{font-weight:800;font-size:15px;color:#1e293b}
+.plan-div .pd-s{font-size:11.5px;color:#64748b;margin-top:1px;line-height:1.4}
+#view-asignacion #view-divcomp .dv-wrap>h2{display:none}
+#view-asignacion #view-divcomp{margin-top:0}
+#view-riesgo #view-escenarios h2{display:none}
+@media(max-width:760px){.plan-div{margin:20px 0 10px;padding:9px 11px}.plan-div .pd-ic{font-size:19px}.plan-div .pd-t{font-size:14px}}
 #view-independencia .ind-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.6;color:#334155;margin-bottom:14px}#view-independencia .ind-intro b.h{display:block;font-size:13px;color:#1f3d6b;margin-bottom:3px}
 #view-independencia .ind-fires{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 #view-independencia .ind-fp{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:#fff;box-shadow:var(--shadow)}
@@ -3400,9 +3411,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <!-- PROYECCION -->
-  <section class="view" id="view-proyeccion">
-    <h2>📈 Proyección a futuro</h2>
-    <div class="sub" style="margin-bottom:12px">Modelo de patrimonio año a año hasta la edad final. Cada año, de tu <b>ahorro total</b> (nóminas − gastos + dividendos + <b>ingresos extra</b>) eliges cuánto va <b>a inversión</b>; el resto se acumula <b>a efectivo</b> y pasa al año siguiente.</div>
+  <section class="view" id="view-independencia">
+    <div class="plan-intro">Tu <b>hoja de ruta a largo plazo</b>: primero el modelo de patrimonio año a año y, debajo, cuánto te falta para vivir sin trabajar — por venta del 4% o viviendo del dividendo. Todo se alimenta de tu Proyección y tu cartera.</div>
+
+    <div class="plan-div"><span class="pd-ic">📈</span><div><div class="pd-t">Proyección de patrimonio</div><div class="pd-s">Modelo año a año hasta la edad final: de tu ahorro total (nóminas − gastos + dividendos + extra) eliges cuánto va a inversión</div></div></div>
+    <div id="view-proyeccion">
     <div class="blk" id="blkProyHip"><div class="blk-h" data-proyblk="hip"><span class="arw">▶</span><span class="blk-t">🧾 Hipótesis Inicial</span><span class="blk-sub">edad, capital, nómina, crecimientos… todo lo que alimenta el modelo</span></div>
       <div class="blk-b"><div class="patgrid" id="proyParams"></div>
         <div class="sub" style="margin-top:8px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de Patrimonio.</div></div></div>
@@ -3416,8 +3429,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b"><div id="proyTabla"></div></div></div>
     <div class="blk" id="blkProyMC"><div class="blk-h" data-proyblk="mc"><span class="arw">▶</span><span class="blk-t">🎲 Proyección con incertidumbre (Monte Carlo)</span><span class="blk-sub">1.000 escenarios · mediana, rango y probabilidad de objetivo</span></div>
       <div class="blk-b"><div id="proyMC"></div></div></div>
-  </section>
-  <section class="view" id="view-independencia">
+    </div>
+
+    <div class="plan-div"><span class="pd-ic">🏖️</span><div><div class="pd-t">¿Cuándo soy independiente?</div><div class="pd-s">Tus hitos por las dos vías: vivir vendiendo un 4% al año o vivir del dividendo sin tocar el capital</div></div></div>
     <div class="ind-hero">
       <div class="ind-hero-main">
         <span class="ind-hero-ic">🏖️</span>
@@ -3431,14 +3445,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="indepBody"></div>
   </section>
 
-  <section class="view" id="view-diversif">
-    <h2>🧩 Diversificación — plan de compras</h2>
-    <div class="sub" style="margin-bottom:8px">La ÚNICA hoja donde editas tus <b>compras futuras</b> (€ objetivo por empresa y año). Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el objetivo y reparte el capital disponible por años. El Plan y el Simulador leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
-    <div id="loteTabla"></div>
-  </section>
+  <section class="view" id="view-asignacion">
+    <div class="plan-intro">El <b>plan</b> existe para bajar tu riesgo y la concentración por sectores. Se ejecuta en tres pasos: fijas <b>dónde quieres estar</b>, mides <b>cuánto te desvías hoy</b> y decides <b>qué comprar</b> con tu próxima aportación — sin vender, para no tributar.</div>
 
-  <section class="view" id="view-rebalanceo">
-    <h2>⚖️ Rebalanceo por bandas</h2>
+    <div class="plan-div"><span class="pd-ic">🧩</span><div><div class="pd-t">1 · Objetivos de compra</div><div class="pd-s">La única hoja donde editas tus compras futuras: clasifica cada empresa y fija cuánto quieres tener en ella</div></div></div>
+    <div class="sub" style="margin-bottom:8px">Clasifica cada empresa (Joya 👑 / Núcleo / Mantener), fija el <b>€ objetivo</b> por empresa y año y reparte el capital disponible. El resto de secciones leen esto en solo lectura. <span class="muted" id="loteStatus"></span></div>
+    <div id="loteTabla"></div>
+
+    <div class="plan-div"><span class="pd-ic">📐</span><div><div class="pd-t">2 · Desfase actual vs objetivo</div><div class="pd-s">Cómo de lejos está tu cartera de hoy del reparto que quieres, por arquetipo y por empresa</div></div></div>
+    <div id="view-divcomp"></div>
+
+    <div class="plan-div"><span class="pd-ic">⚖️</span><div><div class="pd-t">3 · Rebalanceo con tu aportación</div><div class="pd-s">Dónde meter el dinero nuevo para acercarte al objetivo sin vender (sin tributar plusvalías)</div></div></div>
     <div id="rebalKpis" style="margin-bottom:12px"></div>
     <div id="rebalBody"></div>
   </section>
@@ -3759,15 +3776,17 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="btKpis" style="margin-top:10px"></div>
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
-  <section class="view" id="view-escenarios">
-    <h2>🌩️ Escenarios de cartera</h2>
-    <div class="sub" style="color:#64748b;font-size:13px;margin:2px 0 10px;line-height:1.5">Laboratorio de shocks macro: elige un preset o mueve los factores y mira cómo respondería tu cartera. Sensibilidades calibradas con los informes 2024/25.</div>
-    <div id="escBody"></div>
-  </section>
   <section class="view" id="view-riesgo">
-    <h2>🛡️ Riesgo y diversificación</h2>
+    <div class="plan-intro">Dos miradas al <b>riesgo</b> de tu cartera: su estructura estadística (volatilidad, correlaciones, concentración del ingreso) y cómo respondería ante <b>shocks</b> macro concretos, hoy y en la cartera prevista al cierre del plan.</div>
+
+    <div class="plan-div"><span class="pd-ic">🛡️</span><div><div class="pd-t">Riesgo estructural</div><div class="pd-s">Volatilidad, drawdown, beta, correlaciones, peso por sector y concentración del ingreso por dividendos</div></div></div>
     <div id="riesgoKpis" style="margin-top:10px"></div>
     <div id="riesgoBody" style="margin-top:10px"></div>
+
+    <div class="plan-div"><span class="pd-ic">🌩️</span><div><div class="pd-t">Escenarios de shock</div><div class="pd-s">Elige un preset o mueve los factores y mira la respuesta de tu cartera actual y la prevista al cierre. Sensibilidades calibradas con informes 2024/25</div></div></div>
+    <div id="view-escenarios">
+      <div id="escBody"></div>
+    </div>
   </section>
   <section class="view" id="view-fiscalidad">
     <h2>📋 Fiscalidad</h2>
@@ -3809,7 +3828,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-universo"></section>
   <section class="view" id="view-radar"></section>
   <section class="view" id="view-embudo"></section>
-  <section class="view" id="view-divcomp"></section>
   <section class="view" id="view-cobertura"></section>
   <section class="view" id="view-estado"><div id="view-metodo"></div><div id="view-salud" style="margin-top:26px;border-top:1px solid var(--line);padding-top:8px"></div></section>
   <section class="view" id="view-hemero">
