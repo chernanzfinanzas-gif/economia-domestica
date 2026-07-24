@@ -213,6 +213,13 @@ function renderSimulador(){
     +`<div class="k hero"><div class="l">Previsión ${y1}</div><div class="v">${fmt(tot[y1]||0)}</div><div class="p">dividendo bruto proyectado</div></div>`
     +`<div class="k"><div class="l">Crecimiento ${nowY}→${y1}</div><div class="v">${tot[nowY]?(((tot[y1]/tot[nowY])-1)*100).toFixed(0)+'%':'—'}</div><div class="p">total del periodo</div></div>`
     +'</div>';
+  /* Alto de la tabla = hueco libre bajo la barra fija (cabecera+KPIs+slider), para que su
+     scroll interno congele cabecera/TOTAL/Δ% y la zona de arriba quede siempre visible. */
+  (function(){ var sc=el.querySelector('.sim-desk'); if(!sc)return;
+    var fit=function(){ var s=document.querySelector('#view-simulador .sim-desk'); if(!s)return; var tb=document.querySelector('#view-simulador .sim-topbar'); var navH=100; var tbH=tb?tb.offsetHeight:0; s.style.maxHeight=Math.max(240, window.innerHeight - navH - tbH - 16)+'px'; };
+    setTimeout(fit,60);
+    if(!window._simFitBound){ window._simFitBound=true; window.addEventListener('resize',fit); }
+  })();
   /* Banda deslizante ↔ scroll horizontal (arranque centrado en nowY-2) */
   (function(){ var sc=el.querySelector('.sim-desk'); var rng=document.getElementById('simScroll'); if(!sc)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
