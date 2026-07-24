@@ -409,6 +409,9 @@ function renderIndependencia(){
   function fireOf(numF){ var coast=growth>0?numF/growth:numF; var prog=coast>0?Math.min(100,patrimonio/coast*100):0; var ya=patrimonio>=coast; return {num:numF,coast:coast,prog:prog,ya:ya,falta:Math.max(0,coast-patrimonio)}; }
   var FI=fireOf(gastoAnual*25), FD=fireOf(rpd>0?gastoAnual/rpd:gastoAnual*25);
   var covDiv=divAnual/gastoAnual*100, anosColchon=patrimonio/gastoAnual, tasaAhorro=ingA>0?((ingA-gasA)/ingA*100):null;
+  /* cabecera: titular vivo = cobertura de gastos por dividendo (la esencia de "independencia hoy") */
+  try{ var _hk=document.getElementById('indHeroKpi'); if(_hk){ var _cv=Math.round(covDiv);
+    _hk.innerHTML='<div class="big">'+(_cv>=100?'✅':_cv+'%')+'</div><div class="cap">'+(_cv>=100?'¡vives del dividendo!':'de tus gastos ya cubiertos por dividendo')+'</div>'; } }catch(e){}
   var panel=function(cls,ic,nm,sub,F,extra){ return '<div class="ind-fp '+cls+'"><div class="ind-fph"><span class="ic">'+ic+'</span><div class="ind-nm"><b>'+nm+'</b><span>'+sub+'</span></div><div class="ind-pct'+(F.ya?' ya':'')+'">'+(F.ya?'✅':F.prog.toFixed(0)+'%')+'</div></div>'
     +'<div class="ind-bar"><i style="width:'+F.prog+'%"></i></div>'
     +'<div class="ind-row"><span>Objetivo (número FIRE)</span><b>'+eur(F.num)+'</b></div>'
