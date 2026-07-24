@@ -580,16 +580,18 @@ function renderBacktest(){ const el=$('#btTabla'); if(!el)return; const kp=$('#b
   const dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
   const decRows=['COMPRAR','MANTENER','ESPERAR','VENDER'].map(d=>{ const o=B.dec[d]; if(!o||!o.n)return ''; const avg=o.nr?o.sum/o.nr:null; return `<tr><td class="l"><b style="color:${dc[d]}">${d}</b></td><td>${o.n}</td><td>${o.ok||0}</td><td>${pct(o.ok||0,o.nr||0)}</td><td class="${avg!=null?(avg>=0?'pos':'neg'):''}">${rp(avg)}</td><td>${d==='ESPERAR'?(o.esc||0):'·'}</td></tr>`; }).join('');
   const decInner=`<div class="ptable"><table><thead><tr><th class="l">Decisión</th><th>Fotos</th><th>Aciertos</th><th>% acierto</th><th>Rentab. media</th><th>Escapadas</th></tr></thead><tbody>${decRows}</tbody></table></div>`;
-  const _acc=()=>({n:0,s:0}); const avgA=o=>o.n?rp(o.s/o.n):'—';
+  const _acc=()=>({n:0,s:0,list:[]}); const avgA=o=>o.n?rp(o.s/o.n):'—';
+  const _add=(o,r)=>{ o.n++; o.s+=r.rent; o.list.push({t:r.t,rent:r.rent,fecha:r.fecha}); };
   const oHi=_acc(),oLo=_acc(),qHi=_acc(),qLo=_acc(); const MX={hh:_acc(),hl:_acc(),lh:_acc(),ll:_acc()};
   B.rows.forEach(r=>{ if(r.rent==null)return;
-    if(r.score!=null){ const o=(r.score>=70?oHi:oLo); o.n++; o.s+=r.rent; }
-    if(r.qScore!=null){ const o=(r.qScore>=70?qHi:qLo); o.n++; o.s+=r.rent; }
-    if(r.score!=null&&r.qScore!=null){ const c=(r.qScore>=70?'h':'l')+(r.score>=70?'h':'l'); MX[c].n++; MX[c].s+=r.rent; } });
-  const cM=(o,best)=>`<td class="${o.n?(o.s/o.n>=0?'pos':'neg'):''}" style="text-align:center;${best?'background:#ecfdf5':''}">${o.n?avgA(o):'—'}<div style="font-size:9px;color:#94a3b8;font-weight:400">${o.n} foto${o.n===1?'':'s'}</div></td>`;
+    if(r.score!=null)_add(r.score>=70?oHi:oLo,r);
+    if(r.qScore!=null)_add(r.qScore>=70?qHi:qLo,r);
+    if(r.score!=null&&r.qScore!=null){ const c=(r.qScore>=70?'h':'l')+(r.score>=70?'h':'l'); _add(MX[c],r); } });
+  const _chips=o=>{ if(!o.list.length)return ''; const arr=o.list.slice().sort((a,b)=>b.rent-a.rent); return '<div class="bt-tks">'+arr.map(x=>{ const rr=(x.rent>=0?'+':'')+(x.rent*100).toFixed(0)+'%'; return '<span class="bt-tk '+(x.rent>=0?'p':'n')+'" data-ficha="'+x.t+'" title="'+x.t+' · foto '+(x.fecha||'')+' · '+rr+'">'+x.t+'</span>'; }).join('')+'</div>'; };
+  const cM=(o,best)=>`<td class="${o.n?(o.s/o.n>=0?'pos':'neg'):''}" style="text-align:center;vertical-align:top;${best?'background:#ecfdf5':''}">${o.n?avgA(o):'—'}<div style="font-size:9px;color:#94a3b8;font-weight:400">${o.n} foto${o.n===1?'':'s'}</div>${_chips(o)}</td>`;
   const scoreInner=`<div class="sub2"><b>Discriminación de tus dos scores</b> (rentabilidad media desde la foto hasta hoy):</div>`
     +`<div class="disc"><div>· <b>Calidad</b> (Bloque 5) — ≥70: <b>${avgA(qHi)}</b> (${qHi.n}) · &lt;70: <b>${avgA(qLo)}</b> (${qLo.n})</div><div>· <b>Oportunidad</b> (Score del comparador) — ≥70: <b>${avgA(oHi)}</b> (${oHi.n}) · &lt;70: <b>${avgA(oLo)}</b> (${oLo.n})</div></div>`
-    +`<div class="sub2" style="margin-top:10px"><b>Matriz Calidad × Oportunidad</b> — rentabilidad media por cuadrante:</div>`
+    +`<div class="sub2" style="margin-top:10px"><b>Matriz Calidad × Oportunidad</b> — rentabilidad media por cuadrante <span class="muted" style="font-weight:400">· cada cuadrante lista sus empresas (toca un ticker para abrir su ficha)</span>:</div>`
     +`<div class="ptable"><table><thead><tr><th class="l"></th><th style="text-align:center">Oportunidad ≥70</th><th style="text-align:center">Oportunidad &lt;70</th></tr></thead><tbody><tr><td class="l"><b>Calidad ≥70</b></td>${cM(MX.hh,true)}${cM(MX.hl)}</tr><tr><td class="l"><b>Calidad &lt;70</b></td>${cM(MX.lh)}${cM(MX.ll)}</tr></tbody></table></div>`
     +`<div class="foot">El cuadrante ideal (verde) es <b>Calidad ≥70 + Oportunidad ≥70</b>: buenas empresas compradas cuando además estaban baratas. Si ese rinde más que los demás, tu método completo funciona.</div>`;
   const _mk=r=>{ let m='—',c='#64748b'; const d=r.decision; if(r.rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){m=r.rent>=0?'✓':'✗';c=r.rent>=0?'#16a34a':'#dc2626';} else if(d==='VENDER'){m=r.rent<0?'✓':'✗';c=r.rent<0?'#16a34a':'#dc2626';} else if(d==='ESPERAR'){ if(r.esc){m='se escapó';c='#d97706';} else {m=r.rent<0?'✓':'≈';c=r.rent<0?'#16a34a':'#64748b';} } } return {m,c}; };
