@@ -94,66 +94,93 @@
     return h;
   }
 
-  // ---- Radar: histórico de meses anteriores (fundamentales-historico.json) --
-  function radarHistHtml(hist){
-    if(!hist||!hist.meses||!hist.meses.length) return '';
-    var meses=hist.meses.slice().sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); }); // más reciente primero
-    // el más reciente ya se muestra arriba en detalle; en el histórico van todos, resumidos
-    var filas=meses.map(function(m){
+  // ---- Tarjeta de cambio de una empresa (mes actual) ----
+  function _radBuzChip(c){
+    var col=c.dir==='up'?'#166534':'#b91c1c', bg=c.dir==='up'?'#dcfce7':'#fee2e2', arr=c.dir==='up'?'▲':'▼';
+    var dp=(c.deltaPct!=null)?(' <span style="opacity:.8">'+(c.deltaPct>=0?'+':'')+c.deltaPct+'%</span>'):'';
+    return '<span style="display:inline-block;background:'+bg+';color:'+col+';border-radius:5px;padding:1px 6px;margin:2px 4px 0 0;font-size:11px;white-space:nowrap">'
+      +esc(c.label)+' '+esc(''+c.antes)+esc(c.unidad||'')+'→'+esc(''+c.ahora)+esc(c.unidad||'')+' '+arr+dp+'</span>';
+  }
+  function _radBuzSen(s){ return '<span style="display:inline-block;background:#eef2ff;color:#3730a3;border-radius:5px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:600">'+esc(s.txt)+'</span>'; }
+  function _radBuzCard(c){
+    return '<div style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px">'
+      +'<div style="font-weight:700">'+esc(c.nombre)+' <span class="muted" style="font-weight:400;font-size:12px">('+esc(c.ticker)+')</span></div>'
+      +(c.senales&&c.senales.length?('<div style="margin-top:2px">'+c.senales.map(_radBuzSen).join('')+'</div>'):'')
+      +(c.campos&&c.campos.length?('<div style="margin-top:3px">'+c.campos.map(_radBuzChip).join('')+'</div>'):'')
+      +'</div>';
+  }
+  // ---- Histórico POR MES ----
+  function _radBuzHistMes(hist){
+    var meses=hist.meses.slice().sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
+    return meses.map(function(m){
       var t=(m.totales||{});
       var lista=(m.senaladas||[]).map(function(s){
         return '<div style="margin:2px 0 0 8px;font-size:12px"><b>'+esc(s.ticker)+'</b> <span class="muted">'+esc((s.nombre||'').slice(0,22))+'</span> — '+(s.senales||[]).map(esc).join(' · ')+'</div>';
       }).join('');
       return '<details style="border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:6px">'
-        +'<summary style="cursor:pointer;font-size:12.5px"><b>'+esc((m.fecha||'').slice(0,7))+'</b> · '+(t.conCambios||0)+' cambios · '+(t.conSenal||0)+' con señal'
-        +' <span class="muted">'+esc(m.periodoTexto||'')+'</span></summary>'
+        +'<summary style="cursor:pointer;font-size:12.5px"><b>'+esc((m.fecha||'').slice(0,7))+'</b> · '+(t.conCambios||0)+' cambios · '+(t.conSenal||0)+' con señal <span class="muted">'+esc(m.periodoTexto||'')+'</span></summary>'
         +(lista?('<div style="margin-top:4px">'+lista+'</div>'):'<div class="muted" style="font-size:12px;margin-top:4px">Sin señales accionables ese mes.</div>')
         +'</details>';
     }).join('');
-    return '<div style="margin-top:14px"><h3 style="margin:0 0 6px;font-size:14px">🕘 Meses anteriores</h3>'
-      +'<div class="muted" style="font-size:11px;margin-bottom:6px">Cada mes queda archivado aquí (se guardan los últimos '+meses.length+'). Despliega uno para ver sus señales.</div>'
-      +filas+'</div>';
   }
+  // ---- Histórico POR EMPRESA (línea de tiempo de señales) ----
+  function _radBuzHistEmpresa(hist){
+    var meses=hist.meses.slice().sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
+    var byT={};
+    meses.forEach(function(m){ var mk=(m.fecha||'').slice(0,7);
+      (m.senaladas||[]).forEach(function(s){ var t=esc(s.ticker); if(!byT[t])byT[t]={nombre:(s.nombre||''),items:[]}; byT[t].items.push({mes:mk, senales:(s.senales||[])}); });
+    });
+    var tks=Object.keys(byT).sort(function(a,b){ return byT[b].items.length-byT[a].items.length || a.localeCompare(b); });
+    if(!tks.length) return '<div class="muted" style="font-size:12px">Sin señales archivadas todavía.</div>';
+    return tks.map(function(t){ var o=byT[t];
+      var tl=o.items.map(function(it){ return '<div style="margin:2px 0 0 8px;font-size:12px"><b>'+esc(it.mes)+'</b> — '+(it.senales.length?it.senales.map(esc).join(' · '):'<span class="muted">cambios sin señal</span>')+'</div>'; }).join('');
+      return '<details style="border:1px solid var(--line);border-radius:8px;padding:6px 10px;margin-bottom:6px">'
+        +'<summary style="cursor:pointer;font-size:12.5px"><b>'+t+'</b> <span class="muted">'+esc((o.nombre||'').slice(0,24))+'</span> · '+o.items.length+' mes'+(o.items.length!==1?'es':'')+' con señal</summary>'
+        +'<div style="margin-top:4px">'+tl+'</div></details>';
+    }).join('');
+  }
+  function _radBuzHistContent(hist){ return (window._radHistMode==='empresa')?_radBuzHistEmpresa(hist):_radBuzHistMes(hist); }
 
-  // ---- Radar: qué cambió (fundamentales, mensual) --------------------------
+  // ---- Dos secciones desplegables: "🔎 Radar: qué cambió" (mes actual) + "🕘 Meses anteriores" ----
   function radarHtml(a, hist){
-    if(!a) return (hist?radarHistHtml(hist):'');
-    var chip=function(c){
-      var col=c.dir==='up'?'#166534':'#b91c1c', bg=c.dir==='up'?'#dcfce7':'#fee2e2', arr=c.dir==='up'?'▲':'▼';
-      var dp=(c.deltaPct!=null)?(' <span style="opacity:.8">'+(c.deltaPct>=0?'+':'')+c.deltaPct+'%</span>'):'';
-      return '<span style="display:inline-block;background:'+bg+';color:'+col+';border-radius:5px;padding:1px 6px;margin:2px 4px 0 0;font-size:11px;white-space:nowrap">'
-        +esc(c.label)+' '+esc(''+c.antes)+esc(c.unidad||'')+'→'+esc(''+c.ahora)+esc(c.unidad||'')+' '+arr+dp+'</span>';
-    };
-    var sen=function(s){ return '<span style="display:inline-block;background:#eef2ff;color:#3730a3;border-radius:5px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:600">'+esc(s.txt)+'</span>'; };
     var h='';
-    h+='<div style="display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin:2px 0 10px">'
-      +'<h2 style="margin:0">🔎 Radar: qué cambió</h2>'
-      +'<span class="muted" style="font-size:12px">Fundamentales · '+esc(a.periodoTexto||'')+' · generado '+fdt(a.generadoEl)+'</span></div>';
-    h+='<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13.5px;line-height:1.5">'+esc(a.resumenTexto||'')+'</div>';
-    var cambios=(a.cambios||[]);
-    if(cambios.length){
-      cambios.slice(0,15).forEach(function(c){
-        h+='<div style="border:1px solid var(--line);border-radius:10px;padding:8px 10px;margin-bottom:6px">'
-          +'<div style="font-weight:700">'+esc(c.nombre)+' <span class="muted" style="font-weight:400;font-size:12px">('+esc(c.ticker)+')</span></div>'
-          +(c.senales&&c.senales.length?('<div style="margin-top:2px">'+c.senales.map(sen).join('')+'</div>'):'')
-          +(c.campos&&c.campos.length?('<div style="margin-top:3px">'+c.campos.map(chip).join('')+'</div>'):'')
-          +'</div>';
-      });
-      if(cambios.length>15) h+='<p class="muted" style="font-size:12px">…y '+(cambios.length-15)+' más.</p>';
-    } else {
-      h+='<p class="muted" style="margin:10px 0">Sin cambios materiales respecto a la foto anterior.</p>';
+    var cambios=(a&&a.cambios)||[];
+    var inner1='';
+    if(a){
+      inner1+='<div class="muted" style="font-size:11px;margin-bottom:4px">Fundamentales · '+esc(a.periodoTexto||'')+' · generado '+fdt(a.generadoEl)+'</div>';
+      inner1+='<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:13.5px;line-height:1.5">'+esc(a.resumenTexto||'')+'</div>';
+      if(cambios.length){ cambios.forEach(function(c){ inner1+=_radBuzCard(c); }); }
+      else inner1+='<p class="muted" style="margin:10px 0">Sin cambios materiales respecto a la foto anterior.</p>';
+      if(a.nuevas&&a.nuevas.length) inner1+='<p class="muted" style="font-size:12px;margin-top:6px">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
+    } else inner1+='<p class="muted" style="margin:10px 0">Aún no hay datos de cambios (se generan cada mes por la tarea automática).</p>';
+    var sub1=a?(' <span class="muted" style="font-weight:400;font-size:12px">('+cambios.length+' empresa'+(cambios.length!==1?'s':'')+')</span>'):'';
+    h+='<details open style="border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px;background:#fff">'
+      +'<summary style="cursor:pointer;font-weight:800;font-size:15px;color:#0369a1">🔎 Radar: qué cambió'+sub1+'</summary>'
+      +'<div style="margin-top:8px">'+inner1+'</div></details>';
+    if(hist&&hist.meses&&hist.meses.length){
+      var mode=(window._radHistMode==='empresa')?'empresa':'mes';
+      var tbtn=function(k,lbl){ var on=(mode===k); return '<button data-radhist="'+k+'" style="border:0;border-radius:6px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer;background:'+(on?'#fff':'transparent')+';color:'+(on?'#0369a1':'#64748b')+'">'+lbl+'</button>'; };
+      var tg='<div style="display:inline-flex;gap:4px;margin:2px 0 8px;background:#f1f5f9;border-radius:8px;padding:3px">'+tbtn('mes','Por mes')+tbtn('empresa','Por empresa')+'</div>';
+      h+='<details style="border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff">'
+        +'<summary style="cursor:pointer;font-weight:800;font-size:15px;color:#0369a1">🕘 Meses anteriores <span class="muted" style="font-weight:400;font-size:12px">('+hist.meses.length+' mes'+(hist.meses.length!==1?'es':'')+' archivados)</span></summary>'
+        +'<div style="margin-top:8px">'+tg+'<div id="radHistContent">'+_radBuzHistContent(hist)+'</div></div></details>';
     }
-    if(a.nuevas&&a.nuevas.length) h+='<p class="muted" style="font-size:12px;margin-top:6px">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
-    if(hist) h+=radarHistHtml(hist);
     return h;
   }
 
-  // Secciones "Radar: qué cambió" + "Meses anteriores" para incrustar AL FINAL de Radar Op.
-  // Reutiliza radarHtml (usa estilos inline + .muted, así que se ve bien fuera del Buzón).
+  // Secciones para incrustar AL FINAL de Radar Op. (estilos inline + .muted → se ven bien fuera del Buzón).
+  var _buzRadHist=null;
   window.buzonRadarSecciones=function(hostEl){ if(!hostEl)return;
     Promise.all([jget('buzon/fundamentales-cambios.json'), jget('buzon/fundamentales-historico.json')]).then(function(r){
-      var rad=r[0], hist=r[1];
+      var rad=r[0], hist=r[1]; _buzRadHist=hist;
       hostEl.innerHTML=(rad||hist)?radarHtml(rad,hist):'';
+      if(!hostEl._radHistBound){ hostEl._radHistBound=true;
+        hostEl.addEventListener('click',function(e){ var b=e.target.closest('[data-radhist]'); if(!b)return; e.preventDefault();
+          window._radHistMode=(b.getAttribute('data-radhist')==='empresa')?'empresa':'mes';
+          var cont=hostEl.querySelector('#radHistContent'); if(cont&&_buzRadHist)cont.innerHTML=_radBuzHistContent(_buzRadHist);
+          hostEl.querySelectorAll('[data-radhist]').forEach(function(x){ var on=x.getAttribute('data-radhist')===window._radHistMode; x.style.background=on?'#fff':'transparent'; x.style.color=on?'#0369a1':'#64748b'; });
+        });
+      }
     }).catch(function(){ hostEl.innerHTML=''; });
   };
 
