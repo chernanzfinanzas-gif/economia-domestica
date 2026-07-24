@@ -889,7 +889,7 @@ function _mcBandSVG(years,p10,p50,p90,det,target){
 }
 function renderProyMonteCarlo(){
   const el=document.getElementById('proyMC'); if(!el)return;
-  const _pv=document.getElementById('view-proyeccion'); if(_pv && !_pv.classList.contains('active'))return; /* solo si la pestaña está visible (riesgoData es pesado) */
+  const _pv=document.getElementById('view-proyeccion'); const _pvHost=_pv&&(_pv.closest('.view')||_pv); if(_pvHost && !_pvHost.classList.contains('active'))return; /* solo si la pestaña está visible (riesgoData es pesado) */
   if(typeof computeProy!=='function'||!DB.config||!DB.config.proyeccion){ el.innerHTML='<div class="muted" style="font-size:12px">Configura la Proyección primero.</div>'; return; }
   const c=DB.config.proyeccion; const base=computeProy(c); if(!base||!base.length){ el.innerHTML=''; return; }
   const card=(l,v,cls)=>`<div class="card"><div class="lbl">${l}</div><div class="val ${cls||''}">${v}</div></div>`;
