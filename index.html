@@ -1659,6 +1659,18 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-graficas .graf-grid{grid-template-columns:1fr}
 }
 /* ===== Independencia financiera (D6) ===== */
+#view-independencia .ind-hero{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:linear-gradient(120deg,#065f46 0%,#0e7490 52%,#1d4ed8 100%);border-radius:18px;padding:20px 24px;margin-bottom:16px;box-shadow:0 10px 26px rgba(3,60,47,.22);color:#fff;position:relative;overflow:hidden}
+#view-independencia .ind-hero::before{content:"";position:absolute;right:-30px;top:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);pointer-events:none}
+#view-independencia .ind-hero::after{content:"";position:absolute;left:-40px;bottom:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);pointer-events:none}
+#view-independencia .ind-hero-main{display:flex;align-items:center;gap:16px;flex:1;min-width:280px;position:relative;z-index:1}
+#view-independencia .ind-hero-ic{font-size:46px;line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+#view-independencia .ind-hero-txt h2{margin:0;font-size:25px;font-weight:800;letter-spacing:.2px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15)}
+#view-independencia .ind-hero-txt p{margin:6px 0 0;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.92);max-width:640px}
+#view-independencia .ind-hero-txt p b{color:#fff;font-weight:800}
+#view-independencia .ind-hero-kpi{min-width:158px;text-align:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);border-radius:15px;padding:13px 18px;position:relative;z-index:1}
+#view-independencia .ind-hero-kpi .big{font-size:34px;font-weight:800;line-height:1;color:#fff}
+#view-independencia .ind-hero-kpi .cap{font-size:10px;color:rgba(255,255,255,.88);margin-top:6px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.35}
+@media(max-width:760px){#view-independencia .ind-hero{padding:16px 18px}#view-independencia .ind-hero-ic{font-size:38px}#view-independencia .ind-hero-txt h2{font-size:21px}#view-independencia .ind-hero-kpi{flex:1;min-width:120px}}
 #view-independencia .ind-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.6;color:#334155;margin-bottom:14px}#view-independencia .ind-intro b.h{display:block;font-size:13px;color:#1f3d6b;margin-bottom:3px}
 #view-independencia .ind-fires{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
 #view-independencia .ind-fp{border:1px solid var(--line);border-radius:14px;padding:14px 15px;background:#fff;box-shadow:var(--shadow)}
@@ -3441,8 +3453,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b"><div id="proyMC"></div></div></div>
   </section>
   <section class="view" id="view-independencia">
-    <h2>🏖️ Independencia financiera</h2>
-    <div class="sub" style="margin-bottom:12px">¿Cuánto te falta para vivir sin trabajar? Tus hitos hacia la <b>independencia</b>, por las dos vías: vivir <b>vendiendo</b> parte de la cartera (regla del 4%) o vivir <b>del dividendo</b> sin tocar el capital. Los datos salen de tu Proyección y tu cartera.</div>
+    <div class="ind-hero">
+      <div class="ind-hero-main">
+        <span class="ind-hero-ic">🏖️</span>
+        <div class="ind-hero-txt">
+          <h2>Independencia financiera</h2>
+          <p>¿Cuánto te falta para vivir sin trabajar? Tus hitos por las dos vías: vivir <b>vendiendo</b> un 4% al año (regla del 4%) o vivir <b>del dividendo</b> sin tocar el capital. Todo sale de tu Proyección y tu cartera.</p>
+        </div>
+      </div>
+      <div class="ind-hero-kpi" id="indHeroKpi"></div>
+    </div>
     <div id="indepBody"></div>
   </section>
 
