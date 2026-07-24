@@ -53,7 +53,7 @@ function fillPresYear(){
   const sel=$('#presYear');
   if(sel){ sel.innerHTML=''; ys.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel.appendChild(o);}); sel.value=presYear; }
   const sel2=$('#presDesgloseYear');
-  if(sel2){ const prev=+sel2.value; sel2.innerHTML=''; ys.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel2.appendChild(o);}); sel2.value=(prev&&ys.includes(prev))?prev:presYear; }
+  if(sel2){ sel2.innerHTML=''; ys.forEach(y=>{const o=document.createElement('option');o.value=y;o.textContent=y;sel2.appendChild(o);}); sel2.value=presYear; }
 }
 
 function fillCatSelects(){
@@ -937,8 +937,8 @@ function _anaCmp(R,curY,curMonth,ing){
    Concepto | Tipo | Ene..Dic | Total. Orden: INGRESOS, bloque resumen, gastos. */
 function renderPresDesglose(){
   const el=$('#presDesglose'); if(!el) return;
-  const ysel=$('#presDesgloseYear');
-  const year=(ysel&&+ysel.value) || +presYear || new Date().getFullYear();
+  const year=+presYear || new Date().getFullYear();
+  const ysel=$('#presDesgloseYear'); if(ysel && +ysel.value!==year) ysel.value=year;
   // Realizado por categoría y mes (desde Movimientos)
   const realCat={};
   (DB.movimientos||[]).forEach(m=>{
@@ -1039,7 +1039,7 @@ function renderPresDesglose(){
         if(e.target.closest('#dgNext')){ _dgStep(1); return; }
       });
       _sec.addEventListener('change',function(e){ var t=e.target; if(!t||!t.id)return;
-        if(t.id==='dgYearM'){ var ys=document.getElementById('presDesgloseYear'); if(ys)ys.value=t.value; renderPresDesglose(); return; }
+        if(t.id==='dgYearM'){ presYear=+t.value; if(typeof fillPresYear==='function')fillPresYear(); if(typeof renderPres==='function')renderPres(); renderPresDesglose(); return; }
         if(t.id==='dgMonthSel'){ window._dgMonth=(t.value==='year')?'year':(+t.value); renderPresDesglose(); return; }
       });
     }

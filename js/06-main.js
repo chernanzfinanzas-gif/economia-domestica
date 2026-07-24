@@ -435,8 +435,9 @@ document.addEventListener('click',()=>{ const p=$('#comDDpanel'); if(p) p.classL
 $('#comRegFilter') && $('#comRegFilter').addEventListener('input',()=>renderComReg());
 $('#comRegApply') && $('#comRegApply').addEventListener('click',comRegAsignar);
 $('#comRegRun') && $('#comRegRun').addEventListener('click',()=>{ if(confirm('¿Aplicar las reglas y alias a TODO el histórico de movimientos?')){ aplicarBaseComercio(); renderMovs(); scheduleSave(); } });
-$('#presYear').addEventListener('change',e=>{presYear=+e.target.value;renderPres();});
-{const _dy=$('#presDesgloseYear'); if(_dy) _dy.addEventListener('change',()=>{ if(typeof renderPresDesglose==='function') renderPresDesglose(); });}
+function _presSetYear(y){ presYear=+y; if(typeof fillPresYear==='function')fillPresYear(); renderPres(); if(typeof renderPresDesglose==='function')renderPresDesglose(); }
+$('#presYear').addEventListener('change',e=>_presSetYear(e.target.value));
+{const _dy=$('#presDesgloseYear'); if(_dy) _dy.addEventListener('change',e=>_presSetYear(e.target.value));}
 {const _st=$('#presSubtabs'); if(_st) _st.addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; const t=b.dataset.ptab;
   _st.querySelectorAll('button').forEach(x=>x.classList.toggle('active',x===b));
   const a=$('#ptab-anual'), d=$('#ptab-desglose');
