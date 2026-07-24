@@ -193,57 +193,57 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 .tbl-desglose tr.r-sum td:first-child{font-weight:600}
 .tbl-desglose tr.r-sum.strong td{font-weight:800;background:#fef3c7}
   /* ===== Desglose: columna Concepto fija (escritorio) + vista móvil ===== */
-  #view-desglose .dg-card .dg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
-  #view-desglose .dg-card h2{margin:0;font-size:18px}
-  #view-desglose .dg-card .dg-head .sub{margin-top:4px}
-  #view-desglose .dg-card .dg-toolbar{margin:0}
-  #view-desglose #dgKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
-  #view-desglose #dgKpis .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
-  #view-desglose #dgKpis .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
-  #view-desglose #dgKpis .pos-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
-  #view-desglose #dgKpis .pos-kpis .k .v.neg{color:var(--red)}
-  #view-desglose #dgKpis .pos-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
-  #view-desglose #dgKpis .pos-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
-  #view-desglose #dgKpis .pos-kpis .k.hero .l,#view-desglose #dgKpis .pos-kpis .k.hero .p{color:#bbf7d0}
-  #view-desglose .dg-desktop{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:auto}
-  #view-desglose .dg-desktop>#presDesglose{overflow:visible}
+  #view-presupuesto .dg-card .dg-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  #view-presupuesto .dg-card h2{margin:0;font-size:18px}
+  #view-presupuesto .dg-card .dg-head .sub{margin-top:4px}
+  #view-presupuesto .dg-card .dg-toolbar{margin:0}
+  #view-presupuesto #dgKpis .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+  #view-presupuesto #dgKpis .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
+  #view-presupuesto #dgKpis .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
+  #view-presupuesto #dgKpis .pos-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px}
+  #view-presupuesto #dgKpis .pos-kpis .k .v.neg{color:var(--red)}
+  #view-presupuesto #dgKpis .pos-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
+  #view-presupuesto #dgKpis .pos-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
+  #view-presupuesto #dgKpis .pos-kpis .k.hero .l,#view-presupuesto #dgKpis .pos-kpis .k.hero .p{color:#bbf7d0}
+  #view-presupuesto .dg-desktop{background:#fff;border:1px solid var(--line);border-radius:10px;overflow:auto}
+  #view-presupuesto .dg-desktop>#presDesglose{overflow:visible}
   .tbl-desglose td.dg-name{position:sticky;left:0;z-index:2;box-shadow:1px 0 0 #eef2f7}
   .tbl-desglose tr.dg-band td,.tbl-desglose tr.r-amar td{position:sticky;left:0}
-  #view-desglose .dg-mobile{display:none}
-  #view-desglose .dg-mpager{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:10px}
-  #view-desglose .dg-mpager select{padding:10px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-weight:700;background:#fff}
-  #view-desglose .dg-mpager #dgMonthSel{flex:1;text-align:center}
-  #view-desglose .dg-mpager #dgYearM{flex:0 0 84px}
-  #view-desglose .dg-mpager button.nav{border:1px solid var(--line);background:#fff;border-radius:8px;width:38px;height:40px;font-size:16px;cursor:pointer;color:var(--brand);font-weight:800}
-  #view-desglose .dg-mnote{font-size:12px;color:var(--muted);margin:0 2px 12px}
-  #view-desglose .dg-msum-lbl{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:2px 2px 6px}
-  #view-desglose .dg-msum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
-  #view-desglose .dg-msum.year .c{background:#f8fafc}
-  #view-desglose .dg-msum .c{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 6px;text-align:center}
-  #view-desglose .dg-msum .c .l{font-size:10px;color:var(--muted);font-weight:700}
-  #view-desglose .dg-msum .c .v{font-size:15px;font-weight:800;margin-top:2px}
-  #view-desglose .dg-msum .c .v.pos{color:var(--green,#16a34a)}#view-desglose .dg-msum .c .v.neg{color:var(--red,#dc2626)}
-  #view-desglose .dg-msum .c .p{font-size:9.5px;color:var(--muted)}
-  #view-desglose .dg-mblk{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
-  #view-desglose .dg-mblk-h{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;font-weight:800;font-size:14px}
-  #view-desglose .dg-mblk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}
-  #view-desglose .dg-mblk.open .dg-mblk-h .arw{transform:rotate(90deg)}
-  #view-desglose .dg-mblk-h .bt{margin-left:auto;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
-  #view-desglose .dg-mblk-b{display:none;border-top:1px solid var(--line)}
-  #view-desglose .dg-mblk.open .dg-mblk-b{display:block}
-  #view-desglose .dg-mrow{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:9px 14px;border-top:1px solid #f5f7fa;font-size:13px}
-  #view-desglose .dg-mrow:first-child{border-top:none}
-  #view-desglose .dg-mrow .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-  #view-desglose .dg-mrow .v{text-align:right;font-variant-numeric:tabular-nums;min-width:54px}
-  #view-desglose .dg-mrow .v .k{display:block;font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase}
-  #view-desglose .dg-mrow .dv{font-weight:800}
-  #view-desglose .dg-mrow .dv.pos{color:var(--green,#16a34a)}#view-desglose .dg-mrow .dv.neg{color:var(--red,#dc2626)}
-  #view-desglose .dg-mrow.tot{background:#f8fafc;font-weight:800}
+  #view-presupuesto .dg-mobile{display:none}
+  #view-presupuesto .dg-mpager{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px 10px;margin-bottom:10px}
+  #view-presupuesto .dg-mpager select{padding:10px;border:1px solid var(--line);border-radius:9px;font-size:15px;font-weight:700;background:#fff}
+  #view-presupuesto .dg-mpager #dgMonthSel{flex:1;text-align:center}
+  #view-presupuesto .dg-mpager #dgYearM{flex:0 0 84px}
+  #view-presupuesto .dg-mpager button.nav{border:1px solid var(--line);background:#fff;border-radius:8px;width:38px;height:40px;font-size:16px;cursor:pointer;color:var(--brand);font-weight:800}
+  #view-presupuesto .dg-mnote{font-size:12px;color:var(--muted);margin:0 2px 12px}
+  #view-presupuesto .dg-msum-lbl{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin:2px 2px 6px}
+  #view-presupuesto .dg-msum{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px}
+  #view-presupuesto .dg-msum.year .c{background:#f8fafc}
+  #view-presupuesto .dg-msum .c{background:#fff;border:1px solid var(--line);border-radius:11px;padding:10px 6px;text-align:center}
+  #view-presupuesto .dg-msum .c .l{font-size:10px;color:var(--muted);font-weight:700}
+  #view-presupuesto .dg-msum .c .v{font-size:15px;font-weight:800;margin-top:2px}
+  #view-presupuesto .dg-msum .c .v.pos{color:var(--green,#16a34a)}#view-presupuesto .dg-msum .c .v.neg{color:var(--red,#dc2626)}
+  #view-presupuesto .dg-msum .c .p{font-size:9.5px;color:var(--muted)}
+  #view-presupuesto .dg-mblk{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  #view-presupuesto .dg-mblk-h{display:flex;align-items:center;gap:8px;padding:11px 14px;cursor:pointer;font-weight:800;font-size:14px}
+  #view-presupuesto .dg-mblk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}
+  #view-presupuesto .dg-mblk.open .dg-mblk-h .arw{transform:rotate(90deg)}
+  #view-presupuesto .dg-mblk-h .bt{margin-left:auto;font-size:12.5px;font-weight:800;font-variant-numeric:tabular-nums}
+  #view-presupuesto .dg-mblk-b{display:none;border-top:1px solid var(--line)}
+  #view-presupuesto .dg-mblk.open .dg-mblk-b{display:block}
+  #view-presupuesto .dg-mrow{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;align-items:center;padding:9px 14px;border-top:1px solid #f5f7fa;font-size:13px}
+  #view-presupuesto .dg-mrow:first-child{border-top:none}
+  #view-presupuesto .dg-mrow .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-presupuesto .dg-mrow .v{text-align:right;font-variant-numeric:tabular-nums;min-width:54px}
+  #view-presupuesto .dg-mrow .v .k{display:block;font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase}
+  #view-presupuesto .dg-mrow .dv{font-weight:800}
+  #view-presupuesto .dg-mrow .dv.pos{color:var(--green,#16a34a)}#view-presupuesto .dg-mrow .dv.neg{color:var(--red,#dc2626)}
+  #view-presupuesto .dg-mrow.tot{background:#f8fafc;font-weight:800}
   @media(max-width:640px){
-    #view-desglose .dg-toolbar,#view-desglose .dg-desktop,#view-desglose .dg-desktop-note,#view-desglose #dgKpis{display:none}
-    #view-desglose .dg-mobile{display:block}
-    #view-desglose .dg-card{padding:12px}
-    #view-desglose .dg-card .dg-head{margin-bottom:10px}
+    #view-presupuesto .dg-toolbar,#view-presupuesto .dg-desktop,#view-presupuesto .dg-desktop-note,#view-presupuesto #dgKpis{display:none}
+    #view-presupuesto .dg-mobile{display:block}
+    #view-presupuesto .dg-card{padding:12px}
+    #view-presupuesto .dg-card .dg-head{margin-bottom:10px}
   }
 /* ===== UNIVERSO (rediseño) ===== */
 #view-universo h2{font-size:20px;margin:0 0 4px}
@@ -3081,6 +3081,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- PRESUPUESTO -->
   <section class="view" id="view-presupuesto">
     <h2 id="presTitle">Presupuesto anual</h2>
+    <div class="subtabs" id="presSubtabs"><button data-ptab="anual" class="active">Presupuesto</button><button data-ptab="desglose">Desglose mensual</button></div>
+    <div id="ptab-anual">
     <div class="toolbar" id="presToolbar">
       <label class="muted" for="presYear">Año</label>
       <select id="presYear"></select>
@@ -3165,9 +3167,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <div class="blk-b"><div id="subsBody"></div></div>
       </div>
     </div>
-  </section>
-
-  <section class="view" id="view-desglose">
+    </div>
+    <div id="ptab-desglose" style="display:none">
     <div class="card dg-card">
       <div class="dg-head">
         <div>
@@ -3184,6 +3185,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="sub dg-desktop-note" style="margin:-2px 0 10px">Cada capítulo se despliega al pulsarlo; el <b>RESUMEN</b> queda siempre abierto. <b>PRES</b> = presupuesto de cada partida (pestaña Presupuesto), prorrateado al mes según su frecuencia. <b>REAL</b> = suma de los movimientos de esa categoría y mes (pestaña Movimientos). Importes en €.</div>
       <div class="dg-desktop"><div id="presDesglose" style="overflow:auto"></div></div>
       <div class="dg-mobile" id="dgMobile"></div>
+    </div>
     </div>
   </section>
   <!-- PATRIMONIO -->
