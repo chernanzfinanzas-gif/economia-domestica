@@ -89,7 +89,7 @@ if($('#view-comparador'))$('#view-comparador').addEventListener('change',e=>{ co
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel'], comovoy:['renderComoVoy'], presupuesto:['renderPres','renderMetas'],
+  panel:['renderPanel'], presupuesto:['renderPres','renderMetas'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'], desglose:['renderPresDesglose'], origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], comparador:['renderComparador'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
@@ -204,7 +204,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['panel','Panel'],['comovoy','Cómo voy'],['independencia','Independencia'],['presupuesto','Presupuesto']],
+  control:[['panel','Panel'],['independencia','Independencia'],['presupuesto','Presupuesto']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
