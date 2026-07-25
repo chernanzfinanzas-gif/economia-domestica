@@ -1206,6 +1206,101 @@ function cajaMovs(){ const cfg=DB.cajaConfig||{}; const out=[];
   (DB.cajaMov||[]).forEach(mv=>out.push({fecha:mv.fecha||'',concepto:mv.concepto||'',entra:num(mv.entra||0),sale:num(mv.sale||0),auto:0,id:mv.id}));
   out.sort((a,b)=> (a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0) || (b.auto-a.auto));
   return out; }
+
+/* ────────────────────────────────────────────────────────────────────────────
+   [B7 · 26-jul-2026] PLAN vs CAJA — la conciliación que faltaba.
+   Este bloque EXISTÍA («📊 Compras del Plan (referencia) · ¿cubre la caja tu plan?») pero leía
+   `DB.planCompras`, la tabla MANUAL de compras fijadas. Desde que Diversificación reparte solo,
+   esa tabla está casi vacía, así que el código caía en `if(!_yrs.length){ innerHTML=''; }` y el
+   bloque **no se dibujaba**: el único sitio que ya intentaba comparar caja y plan llevaba tiempo
+   en blanco sin avisar de que lo estaba.
+   Ahora lee las tres cifras vivas y las pone en la misma fila, por año:
+     · PRESUPUESTO del Plan   → planPresupuesto().bruto(y): lo que el hogar destina a invertir.
+     · COMPRAS previstas      → _planReparto().byYear[y]: lo que Diversificación programa gastar.
+     · ENTRA en el bróker     → aportaciones + dividendos + entradas manuales de ese año.
+   Decisión de Carlos: la app NO autorrellena las aportaciones ni topa ninguna recomendación —
+   él fija las transferencias y decide las extraordinarias. Esto solo se lo enseña.
+   ──────────────────────────────────────────────────────────────────────────── */
+function cajaVsPlan(movs, cfg){
+  cfg=cfg||DB.cajaConfig||{};
+  movs=movs||((typeof cajaMovs==='function')?cajaMovs():[]);
+  var P=null, R=null;
+  try{ P=(typeof planPresupuesto==='function')?planPresupuesto():null; }catch(e){}
+  try{ R=(typeof _planReparto==='function')?_planReparto():null; }catch(e){}
+  if(!P) return null;
+  var nowD=new Date(), cuY=nowD.getFullYear();
+  var cajaHasta=num(cfg.hastaY)||(cuY+1);                       /* la caja solo proyecta hasta aquí */
+  var y0=Math.max(P.nowY,P.ydesde), y1=P.ycierre;
+  if(y1<y0) return null;
+  /* entradas del bróker por año, desglosadas */
+  var ent={};
+  movs.forEach(function(mv){ var y=parseInt((mv.fecha||'').slice(0,4),10); if(!(y>=y0&&y<=y1))return;
+    ent[y]=ent[y]||{apor:0,div:0,otras:0,total:0};
+    var e=num(mv.entra); if(!(e>0))return;
+    if(mv.apor) ent[y].apor+=e; else if(mv.div) ent[y].div+=e; else ent[y].otras+=e;
+    ent[y].total+=e;
+  });
+  var saldoHasta=function(ye){ var q=num(cfg.saldoIni||0); movs.forEach(function(mv){ if((mv.fecha||'')<=ye) q+=num(mv.entra)-num(mv.sale); }); return q; };
+  var byYear=(R&&R.byYear)||{};
+  var rows=[], acum=0, sumPres=0, sumEnt=0, sumComp=0;
+  for(var y=y0;y<=y1;y++){
+    var pres=num(P.bruto(y));
+    var comp=num(byYear[y]);
+    var E=ent[y]||{apor:0,div:0,otras:0,total:0};
+    var fuera=(y>cajaHasta);                                    /* la caja no llega a este año */
+    var falta=pres-E.total;                                     /* lo que habría que aportar de más */
+    var cob=(pres>0)?(E.total/pres):null;                       /* cobertura del presupuesto */
+    acum+=comp;
+    rows.push({anio:y, pres:pres, comp:comp, ent:E, fuera:fuera, falta:falta, cob:cob,
+      cajaFin:fuera?null:saldoHasta(y+'-12-31'), tras:fuera?null:(saldoHasta(y+'-12-31')-acum),
+      parcial:(y===cuY)});
+    if(!fuera){ sumPres+=pres; sumEnt+=E.total; sumComp+=comp; }
+  }
+  return {rows:rows, y0:y0, y1:y1, cajaHasta:cajaHasta, cuY:cuY, sumPres:sumPres, sumEnt:sumEnt, sumComp:sumComp,
+          sinReparto:!R};
+}
+function cajaVsPlanHTML(movs,cfg){
+  var D=cajaVsPlan(movs,cfg); if(!D||!D.rows.length) return '';
+  var _p=function(v){ return (typeof fmt==='function')?fmt(v):String(Math.round(v)); };
+  /* semáforo de cobertura: verde ≥85 %, ámbar 60-85 %, rojo <60 %; azul si te pasas >115 % */
+  var sem=function(r){ if(!(r.pres>0)) return {cls:'', ic:'', txt:'—'};
+    var c=r.cob; if(c==null) return {cls:'',ic:'',txt:'—'};
+    if(c>1.15) return {cls:'mt-pos', ic:'🔵', txt:Math.round(c*100)+'%'};
+    if(c>=0.85) return {cls:'mt-pos', ic:'🟢', txt:Math.round(c*100)+'%'};
+    if(c>=0.60) return {cls:'', ic:'🟡', txt:Math.round(c*100)+'%'};
+    return {cls:'mt-neg', ic:'🔴', txt:Math.round(c*100)+'%'};
+  };
+  var det=function(E){ return 'Aportaciones '+_p(E.apor)+' · dividendos '+_p(E.div)+(E.otras?(' · otras entradas '+_p(E.otras)):''); };
+  var rows=D.rows.map(function(r){
+    var s=sem(r);
+    var entTd=r.fuera?'<td class="muted">—</td>':('<td title="'+det(r.ent)+'">'+_p(r.ent.total)+'</td>');
+    var falTd=r.fuera?'<td class="muted">—</td>':('<td class="'+(r.falta>0?'mt-neg':'mt-pos')+'" style="font-weight:700">'+(r.falta>0?('+'+_p(r.falta)):_p(-r.falta))+'</td>');
+    return '<tr><td class="l">'+r.anio+(r.parcial?' <span class="cprev">en curso</span>':'')+'</td>'
+      +'<td>'+_p(r.pres)+'</td><td>'+_p(r.comp)+'</td>'+entTd
+      +'<td class="'+s.cls+'" style="font-weight:700">'+s.ic+' '+s.txt+'</td>'+falTd
+      +(r.fuera?'<td class="muted">—</td>':('<td>'+_p(r.cajaFin)+'</td>'))+'</tr>';
+  }).join('');
+  var mcards=D.rows.map(function(r){ var s=sem(r);
+    return '<div class="cmcard"><div class="cm-top"><span class="cm-sp"></span><div class="cm-main"><div class="cm-c">'+r.anio+(r.parcial?' · en curso':'')+'</div><div class="cm-f">presupuesto '+_p(r.pres)+' · compras '+_p(r.comp)+'</div></div><div class="cm-amt">'+(r.fuera?'—':_p(r.ent.total))+'<span>entra</span></div></div>'
+      +'<div class="cm-bot"><span class="cm-s">'+s.ic+' cobertura <b>'+s.txt+'</b>'+(r.fuera?'':(' · '+(r.falta>0?('faltan <b class="neg">'+_p(r.falta)+'</b>'):('sobran <b class="pos">'+_p(-r.falta)+'</b>'))))+'</span></div></div>';
+  }).join('');
+  var cur=D.rows[0];
+  var res='';
+  if(cur && cur.pres>0){
+    var s0=sem(cur);
+    res='<div class="cvp-res '+(cur.falta>0?'warn':'ok')+'">'+s0.ic+' <b>'+cur.anio+'</b>: el Plan presupuesta <b>'+_p(cur.pres)+'</b> y al bróker entran <b>'+_p(cur.ent.total)+'</b> '
+      +'<span class="muted">('+det(cur.ent).toLowerCase()+')</span>. '
+      +(cur.falta>0 ? ('Faltan <b>'+_p(cur.falta)+'</b> por aportar este año para cubrir el presupuesto.')
+                    : ('Al bróker entra <b>'+_p(-cur.falta)+'</b> más de lo presupuestado.'))+'</div>';
+  }
+  var aviso=(D.cajaHasta<D.y1)?('<div class="sub2" style="margin-top:8px">La caja solo proyecta hasta <b>'+D.cajaHasta+'</b> y el plan llega a <b>'+D.y1+'</b>: los años posteriores salen sin datos de caja. Amplía «Hasta año» en ⚙️ Configuración si los quieres ver.</div>'):'';
+  var nota='<div class="sub2">Las tres cifras del mismo dinero, por año. <b>Presupuesto</b> = lo que el hogar destina a invertir según la Proyección. <b>Compras</b> = lo que Diversificación programa gastar. <b>Entra</b> = aportaciones + dividendos + entradas manuales que llegan a la cuenta del bróker. <b>Cobertura</b> = entra ÷ presupuesto: si va corta, la diferencia es lo que tendrías que aportar de forma extraordinaria. <span class="muted">Los dividendos entran al 81 % (retención); el resto vuelve luego en la declaración, al efectivo del hogar, no al bróker.</span></div>';
+  return '<div class="pos-blk'+(window._cajaBlk&&window._cajaBlk.plan?' open':'')+'" data-cajablk="plan">'
+    +'<div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📊 Plan vs Caja</span><span class="bsum">¿entra en el bróker lo que el plan presupuesta?</span></div>'
+    +'<div class="pos-blk-b"><div class="blk-pad">'+nota+res
+    +'<div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead><tr><th class="l">Año</th><th>Presupuesto Plan</th><th>Compras previstas</th><th>Entra en el bróker</th><th>Cobertura</th><th>Falta aportar</th><th>Caja fin de año</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'
+    +'<div class="pos-mob">'+mcards+'</div>'+aviso+'</div></div></div>';
+}
 function renderCaja(){
   const el=$('#cajaTabla'); if(!el)return; const cfg=DB.cajaConfig=DB.cajaConfig||{};
   /* Los dividendos de la caja salen del motor derivado (dividendos.json). Si aún no está
@@ -1257,15 +1352,7 @@ function renderCaja(){
     +`<div class="k"><div class="l">Saldo mínimo</div><div class="v" style="${isFinite(minS)&&minS<0?'color:#dc2626':''}">${isFinite(minS)?fmt(minS):'—'}</div><div class="p">${(isFinite(minS)&&minF)?('punto más bajo · '+minF):'punto más bajo del periodo'}</div></div>`
     +'</div>';
   const _pre=$('#cajaPlanRef');
-  if(_pre){ const pby={}; Object.keys(DB.planCompras||{}).forEach(t=>Object.keys((DB.planCompras||{})[t]||{}).forEach(y=>{ const v=num(DB.planCompras[t][y]); if(v>0){ pby[y]=pby[y]||{tot:0,det:[]}; pby[y].tot+=v; pby[y].det.push(t+' '+fmt(v)); } }));
-    const _yrs=Object.keys(pby).sort();
-    if(!_yrs.length){ _pre.innerHTML=''; }
-    else { const saldoHasta=ye=>{ let q=num(cfg.saldoIni||0); movs.forEach(mv=>{ if((mv.fecha||'')<=ye) q+=num(mv.entra)-num(mv.sale); }); return q; };
-      let acum=0; const rows=_yrs.map(y=>{ const plan=pby[y].tot; acum+=plan; const cajaFin=saldoHasta(y+'-12-31'); const tras=cajaFin-acum; const cls=tras>=0?'pos':'neg'; const det=(pby[y].det.join(' · ')).replace(/"/g,'');
-        return `<tr><td class="l">${y}</td><td title="${det}">${fmt(plan)}</td><td>${fmt(cajaFin)}</td><td class="${cls==='pos'?'mt-pos':'mt-neg'}" style="font-weight:700">${fmt(tras)}</td></tr>`; }).join('');
-      const mrows=_yrs.map(y=>{ const plan=pby[y].tot; const cajaFin=saldoHasta(y+'-12-31'); return {y,plan,cajaFin}; });
-      let _ac=0; const mcards=mrows.map(m=>{ _ac+=m.plan; const tras=m.cajaFin-_ac; return `<div class="cmcard"><div class="cm-top"><span class="cm-sp"></span><div class="cm-main"><div class="cm-c">${m.y}</div><div class="cm-f">caja fin de año ${fmt(m.cajaFin)}</div></div><div class="cm-amt">${fmt(m.plan)}<span>plan</span></div></div><div class="cm-bot"><span class="cm-s">tras ejecutar plan: <b class="${tras>=0?'pos':'neg'}">${fmt(tras)}</b></span></div></div>`; }).join('');
-      _pre.innerHTML=`<div class="pos-blk${window._cajaBlk.plan?' open':''}" data-cajablk="plan"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📊 Compras del Plan (referencia)</span><span class="bsum">¿cubre la caja tu plan de inversión?</span></div><div class="pos-blk-b"><div class="blk-pad"><div class="sub2">Compara lo que planeas invertir cada año (Plan/Diversificación) con la caja prevista. <b>Tras ejecutar plan</b> = caja a fin de año − plan acumulado: si es negativo (rojo), la caja no cubre el plan.</div><div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead><tr><th class="l">Año</th><th>Plan compras</th><th>Caja fin de año</th><th>Tras ejecutar plan (acum.)</th></tr></thead><tbody>${rows}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div></div>`; } }
+  if(_pre) _pre.innerHTML=cajaVsPlanHTML(movs,cfg);
   const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
 function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
