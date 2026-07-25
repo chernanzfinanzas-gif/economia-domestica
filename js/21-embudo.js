@@ -103,7 +103,10 @@ function etapaDe(t){
   /* Las 4 alarmas SIEMPRE ganan al pin (no ocultar peligros). */
   if(held){
     var sen=_emSenal(t);
-    if(sen&&sen.tipo==='stop') return 'En revisión';
+    /* [B5 · 26-jul-2026] Antes solo escalaba el stop: una posición que alcanzaba su precio objetivo
+       se quedaba «En seguimiento» con urgencia baja, aunque el Panel ya emitía la señal S3. El PO
+       alcanzado obliga a revisar la tesis (¿era de valoración o de renta?), así que sube igual. */
+    if(sen&&(sen.tipo==='stop'||sen.tipo==='po')) return 'En revisión';
     if(_emProtoOpen(t))        return 'En revisión';
     if(_emQPend(t))            return 'En revisión';
     if(_emRevVencida(t)) return 'En revisión';
@@ -164,6 +167,7 @@ function accionDe(t){
   if(et==='En revisión'){
     var sen=_emSenal(t);
     if(sen&&sen.tipo==='stop') return A('🚨 Resolver stop','analisis',{sig:'S1',ticker:t});
+    if(sen&&sen.tipo==='po') return A('🎯 PO alcanzado — revisar y reclasificar la tesis','analisis',{sig:'S3',ticker:t});   /* [B5] */
     if(_emProtoOpen(t)) return A('⏰ Cerrar revisión (apunte S)','analisis',{ticker:t});
     if(_emQPend(t)) return A('📊 Revisar resultados','monitor');
     if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});

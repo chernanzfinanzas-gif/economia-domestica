@@ -170,6 +170,16 @@ function _visAtrDelta(x){ if(!x||!x.rad)return '';
 function _visPilar(lbl,val,peso,col){ val=Math.max(0,Math.min(100,val||0));
   return '<div style="margin:5px 0"><div style="display:flex;justify-content:space-between;font-size:11px;color:#475569"><span>'+lbl+' <span style="color:#94a3b8">·'+peso+'</span></span><b style="color:#0f172a">'+Math.round(val)+'</b></div><div style="height:6px;background:#eef2f7;border-radius:4px;overflow:hidden"><i style="display:block;height:100%;width:'+val+'%;background:'+col+'"></i></div></div>'; }
 /* Ficha emergente (el "por qué"): desglosa Atractivo de Radar vs Visión y explica el sesgo. */
+/* [B8] Botón «→ cola de análisis» de una fila de Visión. Solo aparece si la empresa NO está ya
+   analizada ni en la cola: si ya está, se dice, para no dar una acción que no hace nada. */
+function _visColaBtn(x){
+  var t=(x&&x.t||'').toUpperCase(); if(!t) return '';
+  try{
+    if(typeof _esAnalizada==='function' && _esAnalizada(t)) return '<span class="muted" style="font-size:10px" title="Ya tiene análisis">·</span>';
+    if(typeof _colaHas==='function' && _colaHas(t)) return '<span style="font-size:10px;color:#16a34a" title="Ya está en la cola de análisis">✓ cola</span>';
+  }catch(e){}
+  return '<button class="vis-cola" data-viscola="'+t+'" title="Añadir a la cola de análisis (Cobertura)">★→</button>';
+}
 function _visAtrPop(t){ var x=(window._visRowMap||{})[t]; if(!x||!x.rad)return; var r=x.rad;
   var d=x.atractivo-r.atr; var sesgo=d>2?('Tu tesis es <b>más positiva</b> que Radar (Radar fue conservador aquí)'):(d<-2?('Radar es <b>más optimista</b> que tu tesis en esta empresa'):('Radar y tu tesis <b>coinciden</b>'));
   var html=
@@ -205,9 +215,13 @@ function _visRankDesk(rows){
     '<td>'+(x.rpd==null?'—':(x.rpd*100).toFixed(1)+'%')+'</td>'+
     '<td style="font-weight:800;color:'+_visAtrCol(x.atractivo)+';white-space:nowrap">'+x.atractivo+_visAtrDelta(x)+'</td>'+
     '<td style="white-space:nowrap">'+(x.meses==null?'—':x.meses+'m')+(x.stale?' <span title="dossier caducado" style="color:#dc2626">⚠</span>':'')+'</td>'+
-    '<td class="l">'+_visDecChip(x.decision)+'</td></tr>';
+    '<td class="l">'+_visDecChip(x.decision)+'</td>'+
+    /* [B8 · 26-jul-2026] Visión identificaba candidatas —marca «Pte. Análisis»— y era un callejón
+       sin salida: había que memorizar el ticker e irse a otra pestaña. Ahora encola desde aquí,
+       con el mismo colaAdd() que usa Radar Op. */
+    '<td class="ctr">'+_visColaBtn(x)+'</td></tr>';
   }).join('');
-  return _visSesgoResumen(rows)+'<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+  return _visSesgoResumen(rows)+'<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th><th></th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 }
 function _visRankCards(rows){
   return '<div class="vis-cards">'+rows.map(function(x,i){ return '<div class="vis-card'+(i===0&&!x.pte?' best':'')+(x.pte?' pte':'')+'"><div class="vis-card-h">'+

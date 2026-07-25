@@ -718,7 +718,17 @@ function renderPanelDash(){
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),pMin=num(a.poMin),pMax=num(a.poMax); const pMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((pMin&&pMax)?(pMin+pMax)/2:(pMax||pMin||0)); if(c<=0)return; const t=(a.ticker||'').toUpperCase(); const p=_heldP[t];
     if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
     else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
-  (DB.analisis||[]).forEach(a=>{ const t=(a.ticker||'').toUpperCase(); const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; if(mm!=null&&mm>12) avisos.push({pri:2,cls:'a',goto:'monitor',sig:'S4',tick:t,txt:`📅 <b>${t}</b> — dossier de hace ${mm} meses, reanalizar`}); });
+  /* [B5 · 26-jul-2026] El Panel avisaba con `dossierFecha + 12 meses` ignorando la próxima revisión,
+     mientras el Kanban usa `proxRev || dossierFecha + 12m`. Al fijar una fecha de revisión desde el
+     Kanban, este aviso seguía saltando indefinidamente. Ahora ambos usan el mismo criterio: si hay
+     próxima revisión fijada, manda ella; si no, los 12 meses desde el dossier. */
+  (DB.analisis||[]).forEach(a=>{ const t=(a.ticker||'').toUpperCase();
+    const _pr=(a.proxRev||'').slice(0,10);   /* solo la fecha FIJADA por el usuario; el +12m derivado se trata abajo */
+    const _hoy=new Date().toISOString().slice(0,10);
+    const mm=(typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null;
+    if(_pr){ if(_pr<=_hoy) avisos.push({pri:2,cls:'a',goto:'monitor',sig:'S4',tick:t,txt:`📅 <b>${t}</b> — toca revisión (fijada para el ${(typeof ddmmyyyy==='function')?ddmmyyyy(_pr):_pr})${mm!=null?`, dossier de hace ${mm} meses`:''}`}); }
+    else if(mm!=null&&mm>12) avisos.push({pri:2,cls:'a',goto:'monitor',sig:'S4',tick:t,txt:`📅 <b>${t}</b> — dossier de hace ${mm} meses, reanalizar`});
+  });
   ((typeof renovList==='function')?renovList(30):[]).forEach(r=>{ const f=r.fecha; const fs=String(f.getDate()).padStart(2,'0')+'/'+String(f.getMonth()+1).padStart(2,'0'); avisos.push({pri:r.dias<=7?1:3,cls:r.dias<=7?'r':'a',goto:'presupuesto',txt:`🔁 ${fs} ${r.nombre} <span class="muted">${fmt(r.importe)}</span> — ${r.dias<0?'vencida':('en '+r.dias+' d')}`}); });
   /* 📅 Ex-dividendo y pago próximos de la CARTERA: avisa desde 5 días antes (por si hay scrip dividend,
      elección efectivo/acciones u otra medida). Toma las fechas de la agenda (dividendos.json). */

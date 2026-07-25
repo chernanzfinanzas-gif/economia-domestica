@@ -37,7 +37,7 @@ var _DIA_SEASON_DAYS=75;// ~2,5 meses = "temporada actual"
     '#view-hechos .dia-val b{color:#334155}',
     '#view-hechos .dia-pend{background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:10px 13px;margin:12px 0;font-size:12.5px}',
     '#view-hechos .dia-pend b{color:#9a3412}',
-    '#view-hechos .dia-pt{display:inline-block;background:#fff;border:1px solid #fdba74;color:#9a3412;border-radius:8px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:700;cursor:pointer}',
+    '#view-hechos .dia-pact{border:1px solid #cbd5e1;background:#fff;border-radius:6px;font-size:10.5px;font-weight:700;padding:1px 6px;margin-left:2px;cursor:pointer;color:#334155}.dia-pact:hover{background:#f1f5f9}.dia-pt{display:inline-block;background:#fff;border:1px solid #fdba74;color:#9a3412;border-radius:8px;padding:1px 7px;margin:2px 4px 0 0;font-size:11.5px;font-weight:700;cursor:pointer}',
     '#view-hechos .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:4px}',
     '#view-hechos .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}',
     '#view-hechos .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}',
@@ -125,7 +125,7 @@ function renderHechos(){
       var e=_cadEstado(c,hoy,an.dossierFecha);
       if(e.tocaMonitor){
         var has=(typeof _revHecha==='function')?_revHecha((DB.monitor[t]||{}).rev, e.nextKey):false;
-        if(!has) pendientes.push({t:t, prox:e.proxLabel||''});
+        if(!has) pendientes.push({t:t, prox:e.proxLabel||'', key:e.nextKey||''});   /* [B4] la clave del trimestre, para poder marcarlo procesado */
       }
     }
   });
@@ -155,7 +155,14 @@ function renderHechos(){
   if(pendientes.length || sinDatos.length){
     pend='<div class="dia-pend">';
     if(pendientes.length){ pend+='<div><b>⏳ Falta procesar esta ronda ('+pendientes.length+'):</b> '
-      +pendientes.map(function(p){return '<span class="dia-pt" data-ficha="'+p.t+'" title="Abrir ficha">'+_diaEsc(p.t)+(p.prox?(' · '+_diaEsc(p.prox)):'')+'</span>';}).join('')+'</div>'; }
+      /* [B4 · 26-jul-2026] El panel detectaba el trabajo pendiente y no llevaba a ninguna parte: el
+         único destino era abrir la ficha, así que el aviso se repetía hasta ejecutar la skill fuera
+         de la app. Ahora cada empresa trae sus dos acciones. */
+      +pendientes.map(function(p){ var lbl=_diaEsc(p.t)+(p.prox?(' · '+_diaEsc(p.prox)):'');
+        return '<span class="dia-pt" data-ficha="'+p.t+'" title="Abrir ficha">'+lbl+'</span>'
+          +(p.key?('<button class="dia-pact" data-hechomon="'+_diaEsc(p.t)+'|'+_diaEsc(p.key)+'" title="Marcar '+_diaEsc(p.key)+' como revisado en el Monitor">✓</button>'):'')
+          +'<button class="dia-pact" data-hechogo="'+_diaEsc(p.t)+'" title="Abrir el Monitor">→</button>';
+      }).join(' ')+'</div>'; }
     if(sinDatos.length){ pend+='<div style="margin-top:'+(pendientes.length?'6px':'0')+'"><b>Sin monitor trimestral aún ('+sinDatos.length+'):</b> '
       +sinDatos.map(function(t){return '<span class="dia-pt" data-ficha="'+t+'" title="Abrir ficha">'+_diaEsc(t)+'</span>';}).join('')+'</div>'; }
     pend+='</div>';

@@ -45,6 +45,15 @@ function _uniStatus(){ var held=(typeof heldTickerSet==='function')?heldTickerSe
   return {isHeld:function(t){return held.has((t||'').toUpperCase());}, isAna:function(t){return (typeof _esAnalizada==='function')&&_esAnalizada(t);}}; }
 function _uniStars(r){ if(!r)return '<span style="color:#cbd5e1">—</span>'; var dead=/☠/.test(r); return '<span class="uni-stars'+(dead?' dead':'')+'">'+_radEsc(r)+'</span>'; }
 function _uniAtag(a){ a=a||'Sin clasificar'; return '<span class="uni-atag" style="background:'+(UNI_ARQCOL[a]||'#94a3b8')+'">'+_radEsc(a)+'</span>'; }
+/* [B8 · 26-jul-2026] Botón «→ cola de análisis» de una fila del Universo. Solo para las que aún
+   no están analizadas ni en cola; si ya lo están, se dice en vez de ofrecer una acción inerte. */
+function _uniColaBtn(r){
+  var t=(r&&r.t||'').toUpperCase(); if(!t) return '';
+  if(r&&r.held) return '<span class="muted" style="font-size:10px" title="En cartera">·</span>';
+  if(r&&r.ana)  return '<span class="muted" style="font-size:10px" title="Ya tiene análisis">·</span>';
+  try{ if(typeof _colaHas==='function' && _colaHas(t)) return '<span style="font-size:10px;color:#16a34a" title="Ya está en la cola">✓ cola</span>'; }catch(e){}
+  return '<button class="uni-cola" data-unicola="'+_radEsc(t)+'" title="Añadir a la cola de análisis (Cobertura)">★→</button>';
+}
 function _uniChip(r){ if(r.held)return '<span class="uni-chip h">En cartera</span>'; if(r.ana)return '<span class="uni-chip a">Analizada</span>'; return '<span style="color:#cbd5e1">·</span>'; }
 function renderUniverso(){
   var sec=document.getElementById('view-universo'); if(!sec)return;
@@ -78,7 +87,7 @@ function renderUniverso(){
         '<button class="uni-fchip'+(window._uniSt.ana?' on':'')+'" data-ust="ana"><span class="dot"></span>Analizada</button></div>'+
       '<span class="uni-count" id="uCount"></span>'+
     '</div>'+
-    '<div class="uni-table"><table><thead><tr><th style="width:14px"></th><th>Ticker</th><th>Empresa</th><th>Arquetipo</th><th>Rating</th><th>Actividad principal</th><th>Estado</th></tr></thead><tbody id="uBody"></tbody></table></div>'+
+    '<div class="uni-table"><table><thead><tr><th style="width:14px"></th><th>Ticker</th><th>Empresa</th><th>Arquetipo</th><th>Rating</th><th>Actividad principal</th><th>Estado</th><th></th></tr></thead><tbody id="uBody"></tbody></table></div>'+
     '<div class="uni-cards" id="uCards"></div>';
   _uniRenderList();
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
@@ -101,7 +110,9 @@ function _uniRenderList(){
       '<td>'+_uniAtag(u.arquetipo)+'</td>'+
       '<td>'+_uniStars(u.rating)+'</td>'+
       '<td class="uni-act">'+_radEsc(u.actividad||'')+'</td>'+
-      '<td>'+_uniChip(r)+'</td></tr>'+
+      '<td>'+_uniChip(r)+'</td>'+
+      /* [B8] encolar desde el Universo, sin memorizar el ticker ni cambiar de pestaña */
+      '<td class="ctr">'+_uniColaBtn(r)+'</td></tr>'+
       '<tr class="uni-act-row"><td colspan="7"><div class="uni-detail">'+_uniDetail(u)+_uniActs(r.t)+'</div></td></tr>';
   }).join('')||'<tr><td colspan="7" class="muted" style="padding:16px;text-align:center">Sin resultados.</td></tr>';
   document.getElementById('uCards').innerHTML=list.map(function(r){ var u=r.u, op=!!window._uniOpen[r.t]; var cls='uni-card'+(r.held?' held':(r.ana?' ana':''))+(op?' open':'');
@@ -429,7 +440,13 @@ function _radBind(sec){
     var th=e.target.closest('th[data-radsk]'); if(th){ var k=th.getAttribute('data-radsk'); if(_radSort.k===k)_radSort.dir=-_radSort.dir; else {_radSort.k=k;_radSort.dir=-1;} var ss=document.getElementById('radSortSel'); if(ss)ss.value=_radSort.k; _radRenderList(); return; }
     var _fb=e.target.closest('[data-radflt]'); if(_fb){ var _fk=_fb.getAttribute('data-radflt'); window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false}; window._radFlt[_fk]=!window._radFlt[_fk]; _fb.classList.toggle('on',window._radFlt[_fk]); _radRenderList(); return; }
     var _pp=e.target.closest('[data-radpromo]'); if(_pp){ var _pa=(_pp.getAttribute('data-radpromo')||'').split('|'); var _pm=_pa[0], _pt=(_pa[1]||'').toUpperCase(); if(_pm==='ana'){ if(typeof colaAdd==='function')colaAdd(_pt); } else { DB.radarSel=DB.radarSel||{}; DB.radarSel[_pt]=true; if(typeof scheduleSave==='function')scheduleSave(); } _radRenderList(); return; }
-    if(e.target.closest('#radAddCola')){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(typeof _esAnalizada==='function'&&_esAnalizada(t)){ya++;return;} if(typeof colaAdd==='function'&&colaAdd(t))n++; else ya++; }); alert(n+' añadidas a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'')); return; }
+    if(e.target.closest('#radAddCola')){ var selk=Object.keys(DB.radarSel||{}); var n=0,ya=0; selk.forEach(function(t){ if(typeof _esAnalizada==='function'&&_esAnalizada(t)){ya++;return;} if(typeof colaAdd==='function'&&colaAdd(t))n++; else ya++; });
+      /* [B8 · 26-jul-2026] Era la única transición real del embudo y se resolvía con un alert() que
+         dejaba al usuario donde estaba. Ahora avisa sin bloquear y LLEVA a la cola de Cobertura. */
+      var _msg=n+' añadida'+(n===1?'':'s')+' a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'');
+      if(typeof toast==='function') toast(_msg); else alert(_msg);
+      if(n&&typeof activarVista==='function') activarVista('cobertura');
+      return; }
     var h=e.target.closest('.rad-card-h'); if(h){ var t2=h.parentElement.getAttribute('data-t'); window._radOpen[t2]=!window._radOpen[t2]; _radRenderList(); return; } });
 }
 

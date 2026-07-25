@@ -178,8 +178,11 @@ function activarVista(view){
   if(view==='prevision'){ window._evoTablaOpen=false; window._evoChowOpen=false; }
   if(view==='simulador'){ window._simSeek=true; setTimeout(()=>autoFitTable('simTabla',7,10),120); }
   if(view==='asignacion') window._loteSeek=true;
-  if(view==='diario') window._diListOpen=false;
-  if(view==='hechos') window._diaFeedOpen=false;
+  /* [B4 · 26-jul-2026] Ambas vistas SON su listado —una bitácora y un feed de hechos—, y se abrían
+     plegadas: entrabas y no veías ninguna entrada hasta hacer un clic extra. Ahora se abren
+     desplegadas la primera vez; si el usuario las pliega, se respeta mientras dure la sesión. */
+  if(view==='diario' && window._diListOpen===undefined) window._diListOpen=true;
+  if(view==='hechos' && window._diaFeedOpen===undefined) window._diaFeedOpen=true;
   /* Render selectivo: repinta la vista que se abre (o completo si no está en el mapa) */
   if(!renderView(view)) renderAllFull();
   if(typeof renderInfoBoxes==='function') renderInfoBoxes();
@@ -193,6 +196,37 @@ $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); i
 /* Toggle de las cabeceras colapsables de Asignación (bloques con data-asigblk). */
 document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b||!b.getAttribute('data-asigblk'))return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; b.classList.toggle('open'); });
 /* Toggle de las cabeceras colapsables de Mis Decisiones (data-diblk) y Diario de Hechos (data-diablk). */
+/* [B8 · 26-jul-2026] «→ cola de análisis» desde Visión de conjunto y desde Universo: las dos vistas
+   que identifican candidatas y hasta ahora no podían encolarlas (había que memorizar el ticker e ir
+   a otra pestaña). Mismo colaAdd() que usa Radar Op. */
+document.addEventListener('click',function(e){
+  if(!e.target||!e.target.closest)return;
+  var b=e.target.closest('[data-viscola],[data-unicola]');
+  if(!b)return;
+  var t=((b.dataset.viscola||b.dataset.unicola)||'').toUpperCase(); if(!t)return;
+  if(typeof colaAdd!=='function')return;
+  var ok=colaAdd(t);
+  if(typeof toast==='function') toast(ok?(t+' añadida a la cola de análisis'):(t+' ya estaba en la cola'));
+  if(typeof renderVision==='function')renderVision();
+  if(typeof renderUniverso==='function')renderUniverso();
+  if(ok&&typeof activarVista==='function')activarVista('cobertura');
+});
+/* [B4] acciones del panel de pendientes del Diario de Hechos: marcar el trimestre como revisado
+   en el Monitor, o saltar al Monitor. Cierra el bucle Hechos → Monitor. */
+document.addEventListener('click',function(e){
+  if(!e.target||!e.target.closest)return;
+  var mk=e.target.closest('[data-hechomon]');
+  if(mk){ var p=(mk.dataset.hechomon||'').split('|'), t=p[0], key=p[1];
+    if(t&&key){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{};
+      DB.monitor[t].rev[key]=true;
+      if(typeof saveNow==='function')saveNow();
+      if(typeof toast==='function')toast(t+' · '+key+' marcado como revisado');
+      if(typeof renderHechos==='function')renderHechos();
+      if(typeof renderMonitor==='function')renderMonitor(); }
+    return; }
+  var go=e.target.closest('[data-hechogo]');
+  if(go){ if(typeof activarVista==='function')activarVista('monitor'); return; }
+});
 document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b)return; if(b.getAttribute('data-diblk')){ b.classList.toggle('open'); window._diListOpen=b.classList.contains('open'); } else if(b.getAttribute('data-diablk')){ b.classList.toggle('open'); window._diaFeedOpen=b.classList.contains('open'); } });
 /* Despliega/pliega todos los bloques colapsables de la vista activa (manipula el DOM y sincroniza estados) */
 function toggleAllSections(){
