@@ -175,13 +175,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #divResumenWrap table{font-size:11px} #divResumenWrap th,#divResumenWrap td{padding:2px 5px}
   #rankTabla table{font-size:10px} #rankTabla th,#rankTabla td{padding:1px 3px}
   #prevTabla table{font-size:11px;border-collapse:separate;border-spacing:0} #prevTabla th,#prevTabla td{padding:2px 4px;text-align:center} #prevTabla th:first-child,#prevTabla td:first-child{text-align:left}
-  #planTabla table{font-size:11px;border-collapse:separate;border-spacing:0}
-  #planTabla th,#planTabla td{padding:2px 4px;text-align:center} #planTabla th:first-child,#planTabla td:first-child{text-align:left;position:sticky !important;left:0;background:#fff;z-index:2;box-shadow:2px 0 4px -2px rgba(0,0,0,.25)}
   #simTabla th:first-child,#simTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)} #prevTabla th:first-child,#prevTabla td:first-child{position:sticky;left:0;background:#fff;z-index:2;box-shadow:3px 0 5px -2px rgba(0,0,0,.3)}
-  #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child,#planTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
+  #simTabla table{font-size:10px;border-collapse:separate;border-spacing:0} #simTabla th,#simTabla td{padding:2px 4px;text-align:center;vertical-align:top;border:1px solid #cbd5e1} #simTabla th:first-child,#simTabla td:first-child{text-align:left} #simTabla tbody tr{border-bottom:2px solid #94a3b8} #simTabla input{font-size:9px;padding:1px 1px}   #simTabla thead th:first-child,#prevTabla thead th:first-child{z-index:3} #simTabla .grrow td{font-size:10px} #simTabla .pos,#simTabla .neg{font-size:10px} #simTabla input[type=number],#prevTabla input[type=number]{-moz-appearance:textfield} #simTabla input[type=number]::-webkit-inner-spin-button,#simTabla input[type=number]::-webkit-outer-spin-button,#prevTabla input[type=number]::-webkit-inner-spin-button,#prevTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #simTabla .pos{font-size:10px}
   /* Cabecera de años FIJA al desplazarse: la tabla scrollea internamente y solo se mueve el cuerpo */
-  #simTabla,#planTabla{max-height:calc(100vh - 210px)}
-  #simTabla thead th,#planTabla thead th{position:sticky;top:0;background:#fff;z-index:2}
+  #simTabla{max-height:calc(100vh - 210px)}
+  #simTabla thead th{position:sticky;top:0;background:#fff;z-index:2}
   #calTabla table{font-size:11px} #calTabla th,#calTabla td{padding:2px 4px;text-align:center} #calTabla th:first-child,#calTabla td:first-child{text-align:left} #calTabla input[type=number]{-moz-appearance:textfield} #calTabla input[type=number]::-webkit-inner-spin-button,#calTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0} #cajaTabla table{font-size:11px} #cajaTabla th,#cajaTabla td{padding:3px 6px;text-align:right;border:1px solid #e2e8f0} #cajaTabla th:first-child,#cajaTabla td:first-child,#cajaTabla th:nth-child(2),#cajaTabla td:nth-child(2){text-align:left} #cajaTabla input[type=number]{-moz-appearance:textfield} #cajaTabla input[type=number]::-webkit-inner-spin-button,#cajaTabla input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .evchip{display:inline-block;padding:0 4px;border-radius:4px;font-size:10px;font-weight:700;margin:1px} .ev-div{background:#dcfce7;color:#166534} .ev-res{background:#dbeafe;color:#1e40af} .ev-jun{background:#ede9fe;color:#6b21a8} .ev-otro{background:#f1f5f9;color:#475569}
   #calEventos table{font-size:8px} #calEventos th,#calEventos td{padding:0 1px;text-align:center;border:1px solid #e2e8f0} #calEventos th:first-child,#calEventos td:first-child{text-align:left;white-space:nowrap}
@@ -2284,59 +2282,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-simulador .sim-mob{display:block}
 }
 /* ===== Plan de compras ===== */
-#view-plan .pl-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-#view-plan .pl-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:13px 15px;box-shadow:var(--shadow)}
-#view-plan .pl-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.02em}
-#view-plan .pl-kpis .k .v{font-size:20px;font-weight:800;margin-top:3px}
-#view-plan .pl-kpis .k .v.pos{color:var(--green)}#view-plan .pl-kpis .k .v.neg{color:var(--red)}
-#view-plan .pl-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}
-#view-plan .pl-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}
-#view-plan .pl-kpis .k.hero .l,#view-plan .pl-kpis .k.hero .p{color:#bbf7d0}
-#view-plan .dv-tk{font-weight:800;color:var(--brand)}
-#view-plan .pl-desk{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:auto;box-shadow:var(--shadow);max-height:64vh}
-#view-plan .pl-desk table{border-collapse:collapse;font-size:12px;white-space:nowrap;overflow:visible;border:none;box-shadow:none;border-radius:0;background:transparent;width:auto}
-#view-plan .pl-desk thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:10px;text-transform:uppercase;color:var(--muted);padding:7px 9px;border-bottom:1px solid #e2e8f0;font-weight:700;z-index:2}
-#view-plan .pl-desk thead th:first-child{text-align:left}
-#view-plan .pl-desk tbody td{padding:6px 9px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums}
-#view-plan .pl-desk tbody td:first-child{text-align:left}
-#view-plan .pl-desk td:first-child,#view-plan .pl-desk th:first-child{position:sticky;left:0;z-index:3;background:#fff;box-shadow:6px 0 8px -6px rgba(15,23,42,.18);min-width:70px}
-#view-plan .pl-desk thead th:first-child{z-index:6;background:#f8fafc}
-#view-plan .pl-desk .pl-comp{background:#dcfce7}#view-plan .pl-desk .pl-parc{background:#fff7ed}
-#view-plan .pl-desk .pl-tot td{background:#eef2f7;font-weight:700}
-#view-plan .pl-desk .pl-tot td:first-child{background:#eef2f7}
-#view-plan .pl-desk .pl-pres td{background:#fffbeb}
-#view-plan .pl-desk .pl-pres td:first-child{background:#fffbeb}
-#view-plan .pl-desk .pl-exe td{font-weight:600}
-#view-plan .pl-desk .pl-exe td:first-child{background:#fff}
-#view-plan .pl-mob{display:none}
-#view-plan .pystrip-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:8px 0 5px}
-#view-plan .dv-pystrip{display:flex;gap:7px;overflow-x:auto;padding:2px 2px 8px;-webkit-overflow-scrolling:touch}
-#view-plan .pychip{flex:0 0 auto;min-width:96px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;text-align:center;box-shadow:var(--shadow)}
-#view-plan .pychip .yy{font-size:12px;font-weight:800;color:#1e40af}
-#view-plan .pychip .pv2{font-size:14px;font-weight:800;color:#0f172a;margin-top:3px}
-#view-plan .pychip .pmid{font-size:10px;color:#475569;font-weight:700;margin-top:3px}
-#view-plan .pychip .pl2,#view-plan .pychip .pl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
-#view-plan .pychip .pv{font-size:13px;font-weight:800;margin-top:4px}
-#view-plan .pychip.g{border-color:#bbf7d0}#view-plan .pychip.g .pv{color:var(--green)}
-#view-plan .pychip.r{border-color:#fecaca}#view-plan .pychip.r .pv{color:var(--red)}
-#view-plan .pychip.z .pv{color:#94a3b8}
-#view-plan .cosel-t{font-size:10px;font-weight:800;color:#64748b;text-transform:uppercase;letter-spacing:.03em;margin:10px 0 5px}
-#view-plan .cosel{width:100%;padding:11px 12px;border:1px solid var(--brand);border-radius:11px;font-size:14px;font-weight:700;background:#fff;color:#1e3a8a;box-shadow:var(--shadow);margin-bottom:12px}
-#view-plan .codet{background:#fff;border:1px solid var(--line);border-radius:13px;padding:13px;box-shadow:var(--shadow)}
-#view-plan .codet-h{display:flex;align-items:flex-start;gap:10px;padding-bottom:11px;border-bottom:1px solid #f1f5f9;margin-bottom:6px}
-#view-plan .codet-h .mid{flex:1;min-width:0}#view-plan .codet-h .t1{font-size:16px}#view-plan .codet-h .t2{margin-top:3px;font-size:11px;color:#94a3b8}
-#view-plan .codet-h .fh{text-align:right}#view-plan .codet-h .fh b{font-size:15px}#view-plan .codet-h .fh .fl{font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
-#view-plan .yrgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
-#view-plan .yg2{background:#fafcff;border:1px solid #e5eefb;border-radius:8px;padding:7px 9px}
-#view-plan .yg2 span{font-size:10px;color:#64748b;font-weight:700;display:block}
-#view-plan .yg2 b{font-size:14px;font-weight:800;color:#0f172a}
-#view-plan .yg2 em{display:inline-block;margin-top:3px;font-size:9.5px;font-style:normal;font-weight:700;border-radius:5px;padding:1px 5px}
-#view-plan .yg2 em.ok{color:#166534;background:#dcfce7}#view-plan .yg2 em.parc{color:#b45309;background:#fff7ed}
 @media(max-width:960px){
-  #view-plan .pl-kpis{grid-template-columns:1fr 1fr}
-  #view-plan .pl-kpis .k .v{font-size:18px}
-  #view-plan .pl-desk,#view-plan #planScroll{display:none}
-  #view-plan .pl-mob{display:block}
 }
 /* ===== Diversificación ===== */
 #view-diversif .dv-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:6px}
@@ -4060,15 +4006,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="simTabla"></div>
   </section>
 
-  <section class="view" id="view-plan">
-    <div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">📈</span><div class="vhero-txt"><h2>Plan Multi-anual</h2><p>Vista de <b>solo lectura</b> del plan de compras. Edita las inversiones futuras en <b>Plan → Asignación</b>; aquí solo se consultan.</p></div></div></div>
-    <div id="planKpis" style="margin-bottom:12px"></div>
-    <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
-    <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
-    <div class="toolbar" style="margin-bottom:8px"><span class="muted" id="planStatus"></span></div>
-    <input type="range" id="planScroll" min="0" max="1000" value="0" title="Desliza para moverte por los años (hacia el futuro)" style="width:100%;margin:2px 0 6px;accent-color:#1f3d6b;cursor:pointer">
-    <div style="overflow:auto" id="planTabla"></div>
-  </section>
+  <!-- [A4 · 25-jul-2026] Vista «Plan Multi-anual» retirada: era solo-lectura sobre los pines de DB.planCompras;
+       la matriz empresa×año la pinta Asignación desde el motor único de reparto. -->
 
   <section class="view" id="view-monitor">
     <div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">🧭</span><div class="vhero-txt"><h2>Monitor y Tareas</h2><p>Tu lista de acciones pendientes y el seguimiento del método por empresa: informe de inversión, antigüedad del dossier y revisión trimestral de resultados.</p></div></div></div>
