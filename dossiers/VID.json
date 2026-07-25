@@ -1,150 +1,150 @@
 {
- "schemaVersion": 7,
- "ticker": "VID",
- "empresa": "Vidrala, S.A.",
- "fecha": "2026-07-13",
- "rating": "AA",
- "score": 75.6,
- "decision": "COMPRAR",
- "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER) + DCF de calidad — industrial. PO oficial = síntesis del Cap. VI ≈ 107,3 € (55% DCF ponderado + 45% múltiplos históricos).",
- "poBear": 70.3,
- "poBase": 107.3,
- "poBull": 139.9,
- "entMin": 80.0,
- "entMax": 90.0,
- "stop": 63.5,
- "dpaPrevisto": 1.75,
- "moat": "Moderado (67/100) — ventaja de costes + escala eficiente regional",
- "catalizadores": [
-  "Normalización de márgenes al ~30% en 2026",
-  "Recuperación del volumen orgánico",
-  "Despliegue de la caja (M&A acretiva o retribución extraordinaria)",
-  "Cierre del descuento de múltiplo (EV/EBITDA 7,9x → 9,8x)",
-  "Bajada de tipos del BCE"
- ],
- "riesgos": [
-  "Coste energético (gas/electricidad)",
-  "Recesión / caída de volumen",
-  "Sustitución del vidrio (lata/rPET/cartón)",
-  "Descarbonización (CO2 / CBAM)",
-  "Sobrepago o mala integración en M&A",
-  "Divisa (GBP y BRL)",
-  "Tipos de interés / refinanciación"
- ],
- "bull": "Márgenes 30%+ sostenidos, recuperación de volumen, M&A acretiva y re-rating al múltiplo histórico llevarían la acción a ~140 € (+58%).",
- "bear": "Crisis energética prolongada más guerra de precios comprimirían el margen por debajo del 20% y el valor a ~70 € (−20%), caída acotada por el balance sin deuda.",
- "resumen": "Líder de calidad del vidrio europeo (margen 30%, DN/EBITDA 0,2x, ROIC 14% > WACC 8%) cotizando por debajo de sus múltiplos históricos. PO 107,3 € (+21%). Veredicto COMPRAR/ACUMULAR; convicción plena < 86 €. Riesgo nº1: coste energético.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  "schemaVersion": 8,
+  "ticker": "VID",
+  "empresa": "Vidrala, S.A.",
+  "fecha": "2026-07-13",
+  "rating": "AA",
+  "score": 75.6,
+  "decision": "COMPRAR",
+  "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER) + DCF de calidad — industrial. PO oficial = síntesis del Cap. VI ≈ 107,3 € (55% DCF ponderado + 45% múltiplos históricos).",
+  "poBear": 70.3,
+  "poBase": 107.3,
+  "poBull": 139.9,
+  "entMin": 80.0,
+  "entMax": 90.0,
+  "stop": 63.5,
+  "dpaPrevisto": 1.75,
+  "moat": "Moderado (67/100) — ventaja de costes + escala eficiente regional",
+  "catalizadores": [
+    "Normalización de márgenes al ~30% en 2026",
+    "Recuperación del volumen orgánico",
+    "Despliegue de la caja (M&A acretiva o retribución extraordinaria)",
+    "Cierre del descuento de múltiplo (EV/EBITDA 7,9x → 9,8x)",
+    "Bajada de tipos del BCE"
   ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-07-15"
- },
- "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
-  "banda": {
-   "p10": 70.3,
-   "p50": 107.3,
-   "p90": 139.9
-  },
-  "sensibilidad": {
-   "poMin": 87.9,
-   "poMax": 146.9,
-   "poBase": 109.5,
-   "cotizacion": 88.3,
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -0.5,
-   "mdsMax": 66.4
-  },
-  "beta": {
-   "capm": 0.81,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "la cotización (88.30) cae DENTRO de la banda de PO [87.9–146.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  "riesgos": [
+    "Coste energético (gas/electricidad)",
+    "Recesión / caída de volumen",
+    "Sustitución del vidrio (lata/rPET/cartón)",
+    "Descarbonización (CO2 / CBAM)",
+    "Sobrepago o mala integración en M&A",
+    "Divisa (GBP y BRL)",
+    "Tipos de interés / refinanciación"
   ],
-  "calculadoEl": "2026-07-15",
-  "matizada": false
- },
- "dividendSafety": {
-  "score": 84,
-  "banda": "Muy seguro",
-  "componentes": {
-   "C1": 35,
-   "C2": 15,
-   "C3": 19,
-   "C4": 9,
-   "C5": 6
+  "bull": "Márgenes 30%+ sostenidos, recuperación de volumen, M&A acretiva y re-rating al múltiplo histórico llevarían la acción a ~140 € (+58%).",
+  "bear": "Crisis energética prolongada más guerra de precios comprimirían el margen por debajo del 20% y el valor a ~70 € (−20%), caída acotada por el balance sin deuda.",
+  "resumen": "Líder de calidad del vidrio europeo (margen 30%, DN/EBITDA 0,2x, ROIC 14% > WACC 8%) cotizando por debajo de sus múltiplos históricos. PO 107,3 € (+21%). Veredicto COMPRAR/ACUMULAR; convicción plena < 86 €. Riesgo nº1: coste energético.",
+  "confianza": {
+    "score": 100,
+    "nivel": "A",
+    "motivos": [
+      "conciliación ampliada aún NO ejecutada (ficha 03)"
+    ],
+    "sensibleASupuestos": false,
+    "reglaDura": {
+      "bloqueaCompraEnFirme": false,
+      "motivo": "",
+      "accion": null
+    },
+    "calculadoEl": "2026-07-15"
   },
-  "shareholderYield": 1.66,
-  "topeDuro": {
-   "activo": false,
-   "motivo": ""
+  "robustez": {
+    "nivel": "sensible",
+    "sobreviveDecision": false,
+    "banda": {
+      "p10": 70.3,
+      "p50": 107.3,
+      "p90": 139.9
+    },
+    "sensibilidad": {
+      "poMin": 87.9,
+      "poMax": 146.9,
+      "poBase": 109.5,
+      "cotizacion": 88.3,
+      "ejeCoste": "WACC",
+      "pertCoste": 1.0,
+      "pertOtro": 0.5,
+      "mdsMin": -0.5,
+      "mdsMax": 66.4
+    },
+    "beta": {
+      "capm": 0.81,
+      "ref2": null,
+      "aviso": null
+    },
+    "motivos": [
+      "la cotización (88.30) cae DENTRO de la banda de PO [87.9–146.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+    ],
+    "calculadoEl": "2026-07-15",
+    "matizada": false
   },
-  "motivos": [
-   "C1 cobertura dividendo ord.: OE 4.98x / FCL 4.00x (3a OE 2.58x) → 35/35",
-   "C2 payout BN ord.: 24% (3a 35%) → 15/15",
-   "C3 balance: DN/EBITDA 0.37x, cob.int 9.9x → 19/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-  ],
-  "calculadoEl": "2026-07-19"
- },
- "forense": {
-  "aplica": true,
-  "piotroski": {
-   "score": 7,
-   "banda": "fuerte",
-   "detalle": {
-    "roa_pos": 1,
-    "cfo_pos": 1,
-    "roa_up": 0,
-    "accrual": 1,
-    "lever_dn": 1,
-    "liquid_up": 1,
-    "no_dilu": 1,
-    "margin_up": 1,
-    "turn_up": 0
-   },
-   "nota": "margen=bruto"
+  "dividendSafety": {
+    "score": 84,
+    "banda": "Muy seguro",
+    "componentes": {
+      "C1": 35,
+      "C2": 15,
+      "C3": 19,
+      "C4": 9,
+      "C5": 6
+    },
+    "shareholderYield": 1.66,
+    "topeDuro": {
+      "activo": false,
+      "motivo": ""
+    },
+    "motivos": [
+      "C1 cobertura dividendo ord.: OE 4.98x / FCL 4.00x (3a OE 2.58x) → 35/35",
+      "C2 payout BN ord.: 24% (3a 35%) → 15/15",
+      "C3 balance: DN/EBITDA 0.37x, cob.int 9.9x → 19/20",
+      "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+      "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
+      "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+    ],
+    "calculadoEl": "2026-07-19"
   },
-  "altman": {
-   "z": 8.53,
-   "zona": "segura"
+  "forense": {
+    "aplica": true,
+    "piotroski": {
+      "score": 7,
+      "banda": "fuerte",
+      "detalle": {
+        "roa_pos": 1,
+        "cfo_pos": 1,
+        "roa_up": 0,
+        "accrual": 1,
+        "lever_dn": 1,
+        "liquid_up": 1,
+        "no_dilu": 1,
+        "margin_up": 1,
+        "turn_up": 0
+      },
+      "nota": "margen=bruto"
+    },
+    "altman": {
+      "z": 8.53,
+      "zona": "segura"
+    },
+    "beneish": {
+      "m": -2.89,
+      "senal": "sin indicios",
+      "aproximado": [
+        "SGAI"
+      ]
+    },
+    "sloan": {
+      "accruals": -7.4,
+      "senal": "normal"
+    },
+    "flags": [],
+    "calculadoEl": "2026-07-19"
   },
-  "beneish": {
-   "m": -2.89,
-   "senal": "sin indicios",
-   "aproximado": [
-    "SGAI"
-   ]
-  },
-  "sloan": {
-   "accruals": -7.4,
-   "senal": "normal"
-  },
-  "flags": [],
-  "calculadoEl": "2026-07-19"
- },
- "reverseDcf": {
-  "aplica": true,
-  "gImplicito": 1.6,
-  "gIntrinseco": 7.3,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-19"
- }
+  "reverseDcf": {
+    "aplica": true,
+    "gImplicito": 1.6,
+    "gIntrinseco": 7.3,
+    "veredicto": "PLAUSIBLE",
+    "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+    "calculadoEl": "2026-07-19"
+  }
 }

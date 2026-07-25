@@ -1,149 +1,149 @@
 {
- "ticker": "VIS",
- "empresa": "Viscofan, S.A.",
- "fecha": "2026-07-09",
- "rating": "AA",
- "score": 77.1,
- "decision": "ESPERAR",
- "metodoValoracion": "DCF a dos fases + múltiplos históricos (arquetipo calidad/consumo). PO oficial = síntesis ponderada del Cap. VI (55% DCF + 45% múltiplos) = 47,8 €; bear 25,5 €, bull 65,1 €. WACC normalizado 6,5-8,5% en el DCF (el CAPM con β=0,14 daría un WACC ~4% que dispararía el valor).",
- "poBear": 25.5,
- "poBase": 47.8,
- "poBull": 65.1,
- "entMin": 42.0,
- "entMax": 45.0,
- "stop": 25.0,
- "moat": "Ancho (76/100) — líder mundial, única en las 4 tecnologías; ventaja de costes + intangibles + costes de cambio.",
- "catalizadores": [
-  "Cumplimiento de las guías 2026 (ingresos +5-8%, EBITDA +8-12%, BNA +6-10%)",
-  "Normalización de márgenes hacia el 25% de EBITDA",
-  "Mejora de la conversión de EBITDA a caja libre",
-  "Recuperación de volúmenes de envolturas tras el ajuste de inventarios",
-  "Retribución al accionista creciente (dividendo + recompras)"
- ],
- "riesgos": [
-  "Shock de materias primas y energía sin traslación a precio",
-  "Exposición a divisas emergentes (USD, BRL, CNY)",
-  "Presión de precios en plásticos / Nuevos Negocios",
-  "Debilidad estructural de la demanda de carne procesada",
-  "Ejecución y retorno del CAPEX del plan Beyond25"
- ],
- "bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
- "bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
- "resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €).",
- "schemaVersion": 7,
- "confianza": {
-  "score": 98,
-  "nivel": "A",
-  "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  "ticker": "VIS",
+  "empresa": "Viscofan, S.A.",
+  "fecha": "2026-07-09",
+  "rating": "AA",
+  "score": 77.1,
+  "decision": "ESPERAR",
+  "metodoValoracion": "DCF a dos fases + múltiplos históricos (arquetipo calidad/consumo). PO oficial = síntesis ponderada del Cap. VI (55% DCF + 45% múltiplos) = 47,8 €; bear 25,5 €, bull 65,1 €. WACC normalizado 6,5-8,5% en el DCF (el CAPM con β=0,14 daría un WACC ~4% que dispararía el valor).",
+  "poBear": 25.5,
+  "poBase": 47.8,
+  "poBull": 65.1,
+  "entMin": 42.0,
+  "entMax": 45.0,
+  "stop": 25.0,
+  "moat": "Ancho (76/100) — líder mundial, única en las 4 tecnologías; ventaja de costes + intangibles + costes de cambio.",
+  "catalizadores": [
+    "Cumplimiento de las guías 2026 (ingresos +5-8%, EBITDA +8-12%, BNA +6-10%)",
+    "Normalización de márgenes hacia el 25% de EBITDA",
+    "Mejora de la conversión de EBITDA a caja libre",
+    "Recuperación de volúmenes de envolturas tras el ajuste de inventarios",
+    "Retribución al accionista creciente (dividendo + recompras)"
   ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-07-15"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "banda": {
-   "p10": 25.5,
-   "p50": 47.8,
-   "p90": 65.1
-  },
-  "sensibilidad": {
-   "poMin": 30.6,
-   "poMax": 54.2,
-   "poBase": 39.3,
-   "cotizacion": 57.2,
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -46.5,
-   "mdsMax": -5.2
-  },
-  "beta": {
-   "capm": 0.14,
-   "ref2": null,
-   "aviso": "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
-  },
-  "motivos": [
-   "la cotización (57.20) queda por ENCIMA de toda la banda de PO [30.6–54.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
-   "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+  "riesgos": [
+    "Shock de materias primas y energía sin traslación a precio",
+    "Exposición a divisas emergentes (USD, BRL, CNY)",
+    "Presión de precios en plásticos / Nuevos Negocios",
+    "Debilidad estructural de la demanda de carne procesada",
+    "Ejecución y retorno del CAPEX del plan Beyond25"
   ],
-  "calculadoEl": "2026-07-15",
-  "matizada": false
- },
- "dividendSafety": {
-  "score": 90,
-  "banda": "Muy seguro",
-  "componentes": {
-   "C1": 27,
-   "C2": 13,
-   "C3": 20,
-   "C4": 15,
-   "C5": 15
+  "bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
+  "bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
+  "resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €).",
+  "schemaVersion": 8,
+  "confianza": {
+    "score": 98,
+    "nivel": "A",
+    "motivos": [
+      "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+      "conciliación ampliada aún NO ejecutada (ficha 03)"
+    ],
+    "sensibleASupuestos": false,
+    "reglaDura": {
+      "bloqueaCompraEnFirme": false,
+      "motivo": "",
+      "accion": null
+    },
+    "calculadoEl": "2026-07-15"
   },
-  "shareholderYield": null,
-  "topeDuro": {
-   "activo": false,
-   "motivo": ""
+  "robustez": {
+    "nivel": "solida",
+    "sobreviveDecision": true,
+    "banda": {
+      "p10": 25.5,
+      "p50": 47.8,
+      "p90": 65.1
+    },
+    "sensibilidad": {
+      "poMin": 30.6,
+      "poMax": 54.2,
+      "poBase": 39.3,
+      "cotizacion": 57.2,
+      "ejeCoste": "WACC",
+      "pertCoste": 1.0,
+      "pertOtro": 0.5,
+      "mdsMin": -46.5,
+      "mdsMax": -5.2
+    },
+    "beta": {
+      "capm": 0.14,
+      "ref2": null,
+      "aviso": "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+    },
+    "motivos": [
+      "la cotización (57.20) queda por ENCIMA de toda la banda de PO [30.6–54.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
+      "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+    ],
+    "calculadoEl": "2026-07-15",
+    "matizada": false
   },
-  "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.15x / FCL 2.25x (3a OE 1.62x) → 27/35",
-   "C2 payout BN ord.: 32% (3a 44%) → 13/15",
-   "C3 balance parcial → 20/20",
-   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-  ],
-  "calculadoEl": "2026-07-19"
- },
- "forense": {
-  "aplica": true,
-  "piotroski": {
-   "score": 5,
-   "banda": "medio",
-   "detalle": {
-    "roa_pos": 1,
-    "cfo_pos": 1,
-    "roa_up": 0,
-    "accrual": 1,
-    "lever_dn": 1,
-    "liquid_up": 0,
-    "no_dilu": 0,
-    "margin_up": 0,
-    "turn_up": 1
-   },
-   "nota": "margen=bruto"
+  "dividendSafety": {
+    "score": 90,
+    "banda": "Muy seguro",
+    "componentes": {
+      "C1": 27,
+      "C2": 13,
+      "C3": 20,
+      "C4": 15,
+      "C5": 15
+    },
+    "shareholderYield": null,
+    "topeDuro": {
+      "activo": false,
+      "motivo": ""
+    },
+    "motivos": [
+      "C1 cobertura dividendo ord.: OE 2.15x / FCL 2.25x (3a OE 1.62x) → 27/35",
+      "C2 payout BN ord.: 32% (3a 44%) → 13/15",
+      "C3 balance parcial → 20/20",
+      "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+      "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+      "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+    ],
+    "calculadoEl": "2026-07-19"
   },
-  "altman": {
-   "z": 8.21,
-   "zona": "segura"
+  "forense": {
+    "aplica": true,
+    "piotroski": {
+      "score": 5,
+      "banda": "medio",
+      "detalle": {
+        "roa_pos": 1,
+        "cfo_pos": 1,
+        "roa_up": 0,
+        "accrual": 1,
+        "lever_dn": 1,
+        "liquid_up": 0,
+        "no_dilu": 0,
+        "margin_up": 0,
+        "turn_up": 1
+      },
+      "nota": "margen=bruto"
+    },
+    "altman": {
+      "z": 8.21,
+      "zona": "segura"
+    },
+    "beneish": {
+      "m": -2.46,
+      "senal": "sin indicios",
+      "aproximado": [
+        "SGAI"
+      ]
+    },
+    "sloan": {
+      "accruals": -2.5,
+      "senal": "normal"
+    },
+    "flags": [],
+    "calculadoEl": "2026-07-19"
   },
-  "beneish": {
-   "m": -2.46,
-   "senal": "sin indicios",
-   "aproximado": [
-    "SGAI"
-   ]
-  },
-  "sloan": {
-   "accruals": -2.5,
-   "senal": "normal"
-  },
-  "flags": [],
-  "calculadoEl": "2026-07-19"
- },
- "reverseDcf": {
-  "aplica": true,
-  "gImplicito": -3.8,
-  "gIntrinseco": 7.4,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-19"
- }
+  "reverseDcf": {
+    "aplica": true,
+    "gImplicito": -3.8,
+    "gIntrinseco": 7.4,
+    "veredicto": "PLAUSIBLE",
+    "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+    "calculadoEl": "2026-07-19"
+  }
 }
