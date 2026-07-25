@@ -321,6 +321,7 @@ function _anaLadder(a){
     '</div>';
 }
 function renderAnalisis(){
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   if(!DB.config)DB.config={};
   const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
   const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
@@ -389,7 +390,7 @@ function renderAnalisis(){
     const entTxt=(a.entMin&&a.entMax)?(fmt(a.entMin)+'–'+fmt(a.entMax)):(a.entMax?('≤'+fmt(a.entMax)):'—');
     return `<tr class="ana-row ${rMod}" data-anarow data-fs="${((a.ticker||'')+' '+(a.nombre||'')).toLowerCase().replace(/"/g,'')}">
       <td class="ana-sccell"><span class="ana-rarw">▶</span><div class="ana-score ${scls||'n'}"><div class="n">${a.score==null?'—':a.score.toFixed(0)}</div>${a.score==null?'':`<div class="l">${sLbl}</div>`}</div></td>
-      <td class="ana-emp">${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}${a.ticker?` <span data-ficha="${a.ticker}" style="cursor:pointer;color:#334155" title="Abrir ficha">· ${a.nombre||''}</span>`:(a.nombre?' · '+a.nombre:'')}${_arqTxt}</td>
+      <td class="ana-emp">${star}<b${a.ticker?` data-ficha="${a.ticker}" style="cursor:pointer;color:var(--brand)" title="Abrir ficha"`:''}>${a.ticker||''}</b>${(a.ticker&&typeof alertaCorpBadge==='function')?alertaCorpBadge(a.ticker,true):''}${a.held?' <span class="muted" style="font-size:9px">en cartera</span>':''}${a.ticker?` <span data-ficha="${a.ticker}" style="cursor:pointer;color:#334155" title="Abrir ficha">· ${a.nombre||''}</span>`:(a.nombre?' · '+a.nombre:'')}${_arqTxt}</td>
       <td class="ctr">${decChip}${dossIco}</td>
       <td class="num">${fmt(a.cot)}</td>
       <td class="num"><b>${a.poMed?fmt(a.poMed):'—'}</b>${poRng}</td>

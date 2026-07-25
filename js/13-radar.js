@@ -275,6 +275,7 @@ function _radAlertPop(t){ t=(t||'').toUpperCase(); var al=_radAlertMap[t]||[]; v
 }
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
   var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y detectar posibles trampas de valor.</p></div></div></div>';
   if(!Object.keys(DB.universo).length){ sec.innerHTML=_radVhero+'<div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
@@ -368,7 +369,7 @@ function _radRenderList(){
     var st=sel?'sel':(_held.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':''));
     return '<tr class="'+st+'"><td class="l"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></td>'+
       '<td class="l rad-atr" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+_radSugBadge(c)+'</td>'+
-      '<td class="l"><b class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((c.nombre||'').slice(0,18))+'</span></td>'+
+      '<td class="l"><b class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</b>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(c.t,true):'')+' <span style="font-size:11px;color:#94a3b8">'+_radEsc((c.nombre||'').slice(0,18))+'</span></td>'+
       '<td class="l">'+_radAtag(c.arq)+'</td>'+
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
       '<td style="text-align:right">'+_radCrecCell(c.crecDiv)+'</td>'+
@@ -385,7 +386,7 @@ function _radRenderList(){
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
       '<div class="score"><div class="n" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(0)+'</div><div class="l">Atr'+(c.trampa?' ⚠️':'')+'</div></div>'+
-      '<div class="mid"><div class="nm"><span class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</span> · '+_radEsc((c.nombre||'').slice(0,20))+'</div><div class="sub2">'+_radAtag(c.arq)+' '+_radStars(c.rating)+'</div></div>'+
+      '<div class="mid"><div class="nm"><span class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</span>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(c.t,true):'')+' · '+_radEsc((c.nombre||'').slice(0,20))+'</div><div class="sub2">'+_radAtag(c.arq)+' '+_radStars(c.rating)+'</div></div>'+
       '<div class="rpd"><div class="v" style="color:'+(f.rpd>=5?'#16a34a':'#475569')+'">'+_rf(f.rpd,'%',1)+'</div><div class="l">RPD</div></div>'+
       '<span class="rad-arw">▶</span></div>'+
       '<div class="rad-card-b"><div class="mgrid">'+

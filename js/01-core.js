@@ -312,6 +312,9 @@ function cargarAlertasCorp(){
     .then(function(j){
       _alertasCorp=(j&&j.alertas)||{};
       if(typeof renderUniverso==='function'&&document.getElementById('view-universo'))renderUniverso();
+      if(typeof renderRadar==='function'&&document.getElementById('view-radar'))renderRadar();
+      if(typeof renderAnalisis==='function'&&document.getElementById('view-analisis'))renderAnalisis();
+      if(typeof renderVision==='function'&&document.getElementById('view-vision'))renderVision();
       if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
       return _alertasCorp;
     })

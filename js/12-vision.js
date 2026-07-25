@@ -198,7 +198,7 @@ function _visSesgoResumen(rows){ var c=rows.filter(function(r){return r.rad&&!r.
   return '<div style="background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:10px;font-size:12px;color:#334155;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><span>📐 <b>Visión − Radar</b> (media <b>'+mtxt+'</b>): '+tono+'.</span><span style="color:#16a34a;font-weight:700">▲'+sube+'</span><span style="color:#64748b;font-weight:700">='+igual+'</span><span style="color:#dc2626;font-weight:700">▼'+baja+'</span><span style="color:#94a3b8">de '+difs.length+' analizadas</span></div>'; }
 function _visRankDesk(rows){
   var trs=rows.map(function(x,i){ return '<tr class="'+(i===0&&!x.pte?'best':'')+(x.pte?' pte':'')+'">'+
-    '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b> <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
+    '<td class="l"><b data-ficha="'+x.t+'" class="vis-tk">'+x.t+'</b>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(x.t,true):'')+' <span style="font-size:11px;color:#94a3b8">'+_infEscSafe((x.nombre||'').slice(0,16))+(x.held?' · en cartera':(x.pte?' · Pte. Análisis':''))+'</span></td>'+
     '<td style="white-space:nowrap">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</td>'+
     '<td style="color:'+_visScoreCol(x.score)+';font-weight:700'+(x.estCal?';font-style:italic':'')+';white-space:nowrap">'+(x.score==null?'—':Math.round(x.score))+((x.deltaMkt!=null&&!x.estCal)?_visDeltaChip(x.deltaMkt):'')+'</td>'+
     '<td class="'+(x.mds!=null&&x.mds>=0?'pos':'neg')+'">'+_visPct(x.mds)+'</td>'+
@@ -212,7 +212,7 @@ function _visRankDesk(rows){
 function _visRankCards(rows){
   return '<div class="vis-cards">'+rows.map(function(x,i){ return '<div class="vis-card'+(i===0&&!x.pte?' best':'')+(x.pte?' pte':'')+'"><div class="vis-card-h">'+
     '<div class="score"><div class="n" style="color:'+_visAtrCol(x.atractivo)+'">'+x.atractivo+'</div><div class="l">Atr</div>'+(x.rad?'<div style="margin-top:2px">'+_visAtrDelta(x)+'</div>':'')+'</div>'+
-    '<div class="mid"><div class="nm">'+x.t+' · '+_infEscSafe((x.nombre||'').slice(0,18))+'</div><div class="s2">'+_visDecChip(x.decision)+' <span style="font-size:11px;color:#94a3b8">'+(x.held?'en cartera':(x.pte?'Pte. Análisis':(x.rating||'')))+'</span></div></div>'+
+    '<div class="mid"><div class="nm">'+x.t+(typeof alertaCorpBadge==='function'?alertaCorpBadge(x.t,true):'')+' · '+_infEscSafe((x.nombre||'').slice(0,18))+'</div><div class="s2">'+_visDecChip(x.decision)+' <span style="font-size:11px;color:#94a3b8">'+(x.held?'en cartera':(x.pte?'Pte. Análisis':(x.rating||'')))+'</span></div></div>'+
     '<span class="arw">▶</span></div>'+
     '<div class="vis-card-b"><div class="mgrid">'+
       '<div class="m"><div class="l">Rating</div><div class="v">'+(x.rating||'—')+(x.estCal?_VIS_EST:'')+'</div></div>'+
@@ -249,6 +249,7 @@ function _visSortTools(){
 function _visBlk(key,ic,title,sub,cnt,note,tools,inner){ var op=window._visOpen[key]; return '<div class="vis-blk'+(op?' open':'')+'" data-vblk="'+key+'"><div class="vis-blk-h"><span class="ic">'+ic+'</span><div class="vis-blk-tt"><span class="t">'+title+'</span><span class="sub">'+sub+'</span></div>'+(cnt?'<span class="cnt">'+cnt+'</span>':'')+'<span class="arw">▶</span></div><div class="vis-blk-b">'+(note?'<div class="vis-note">'+note+'</div>':'')+(tools||'')+inner+'</div></div>'; }
 function renderVision(){
   const el=$('#visBody'); if(!el) return;
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   const faltan=(DB.analisis||[]).some(a=>{ const t=(a.ticker||'').toUpperCase(); return t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined); });
   if(faltan) visLoadTesis(renderVision);
   /* Carga (1 vez) de fundamentales.json + motor de dividendos para la calidad estimada y la RPD viva. */
