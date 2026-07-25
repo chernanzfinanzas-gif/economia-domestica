@@ -6,12 +6,46 @@ Actualizador de cotizaciones diarias (Yahoo Finance) para el proyecto Economia D
 - Lee la lista de empresas de  tickers.json  (TICKER -> simbolo Yahoo, p.ej. "IBE":"IBE.MC").
 - Para cada empresa descarga el CIERRE DIARIO (sin ajustar) desde 2011-01-01.
 - Guarda un JSON por empresa en  precios/<TICKER>.json
-- En ejecuciones posteriores SOLO descarga los dias que falten (incremental).
-- Escribe  precios/_index.json  con el resumen y los fallos.
+- VENTANA MOVIL: en ejecuciones posteriores vuelve a pedir los ultimos VENTANA dias
+  y SOBRESCRIBE los cierres ya guardados si Yahoo los ha consolidado con otro valor.
+- Escribe  precios/_index.json  con el resumen, los fallos, las correcciones y los avisos.
 
 Pensado para ejecutarse en un GitHub Action, pero tambien funciona en local:
     pip install yfinance
     python actualizar_cotizaciones.py
+
+--------------------------------------------------------------------------------
+PARCHE 25-07-2026 - "Opcion A": precision del cierre
+--------------------------------------------------------------------------------
+Problema que resuelve:
+  El cierre oficial espanol sale de la SUBASTA DE CIERRE (17:30-17:35 CET). Yahoo
+  publica antes el ultimo cruce de la sesion continua y consolida la subasta horas
+  despues. La version anterior de este script arrancaba en (ultima_fecha + 1 dia) y
+  descartaba al fusionar cualquier fecha ya existente: el PRIMER valor que Yahoo
+  diera para un dia quedaba congelado PARA SIEMPRE, y los pases posteriores del cron
+  ni siquiera pedian datos ("ya al dia"). Caso real: LOG 24-07-2026 quedo en 35,40
+  cuando el cierre oficial fue 35,00, y ninguna reejecucion podia corregirlo.
+
+Que cambia:
+  1) VENTANA MOVIL   - cada pase vuelve a pedir los ultimos VENTANA dias naturales y
+                       SOBRESCRIBE el valor guardado si Yahoo devuelve otro.
+  2) CONFIRMACION T+1- el cierre del dia en curso se marca como provisional (campo
+                       "provisional" en el JSON de la empresa y en _estado.json). Un
+                       pase matinal del dia siguiente lo confirma con el dato ya
+                       consolidado, antes de la apertura de Madrid.
+  3) GUARDA DEL 25%  - si el valor nuevo se aparta mas de UMBRAL_REVISION del guardado,
+                       NO se sobrescribe: se anota en _index.json -> "revisar". Con
+                       auto_adjust=False el cierre bruto no se restablece nunca por un
+                       split, asi que un salto asi es sintoma de dato malo, no de
+                       correccion legitima. Regla del metodo: lo que no se puede
+                       asegurar, no se da por veraz.
+  4) REINTENTOS      - 3 intentos con espera creciente (los pases son ahora 4/dia y
+                       Yahoo limita peticiones desde GitHub).
+
+Lo que NO cambia (compatibilidad con la app):
+  El array "data" sigue siendo [[fecha, cierre], ...] y _ultimos.json sigue siendo
+  {TICKER: [fecha, cierre]}. Los campos nuevos son adicionales; la app los ignora.
+--------------------------------------------------------------------------------
 """
 
 import json, os, sys, time, datetime as dt
@@ -20,6 +54,9 @@ START = "2011-01-01"          # fecha de inicio del historico
 OUTDIR = "precios"            # carpeta de salida (en la raiz del repo)
 DECIMALS = 4                  # decimales del cierre
 PAUSA = 1.0                   # segundos entre empresas (evita limites de Yahoo)
+VENTANA = 10                  # dias naturales que se vuelven a pedir y sobrescribir
+UMBRAL_REVISION = 0.25        # variacion maxima admitida al sobrescribir un cierre
+INTENTOS = 3                  # reintentos por empresa ante error de Yahoo
 
 try:
     import yfinance as yf
@@ -42,10 +79,18 @@ def cargar_existente(path):
         return [], None
 
 
-def descargar(symbol, start):
+def descargar(symbol, start, intentos=INTENTOS):
     """Descarga cierres diarios sin ajustar desde 'start' hasta hoy. Devuelve lista [[fecha, cierre], ...]."""
-    df = yf.download(symbol, start=start, interval="1d",
-                     auto_adjust=False, progress=False, threads=False)
+    df = None
+    for n in range(intentos):
+        try:
+            df = yf.download(symbol, start=start, interval="1d",
+                             auto_adjust=False, progress=False, threads=False)
+            break
+        except Exception:
+            if n == intentos - 1:
+                raise
+            time.sleep(2.0 * (n + 1))   # espera creciente: 2s, 4s
     if df is None or df.empty:
         return []
     # En versiones recientes las columnas pueden venir como MultiIndex
@@ -64,6 +109,33 @@ def descargar(symbol, start):
         except Exception:
             continue
     return out
+
+
+def fusionar(data, nuevos, umbral=UMBRAL_REVISION):
+    """Funde 'nuevos' sobre 'data' SOBRESCRIBIENDO las fechas ya presentes.
+
+    Devuelve (data_ordenada, n_altas, correcciones, sospechosas):
+      - correcciones: [[fecha, viejo, nuevo], ...]  cierres consolidados por Yahoo.
+      - sospechosas : [[fecha, viejo, nuevo], ...]  variacion > umbral -> NO se toca el
+                      valor guardado; se reporta para revision humana.
+    """
+    mapa = {d[0]: d[1] for d in data}
+    altas, correcciones, sospechosas = 0, [], []
+    for fecha, valor in nuevos:
+        if valor is None or valor <= 0:
+            continue                       # nunca machacar con un cero o un nulo
+        viejo = mapa.get(fecha)
+        if viejo is None:
+            mapa[fecha] = valor
+            altas += 1
+        elif viejo != valor:
+            if viejo > 0 and abs(valor - viejo) / viejo > umbral:
+                sospechosas.append([fecha, viejo, valor])
+            else:
+                mapa[fecha] = valor
+                correcciones.append([fecha, viejo, valor])
+    data = sorted(([f, v] for f, v in mapa.items()), key=lambda x: x[0])
+    return data, altas, correcciones, sospechosas
 
 
 IBEXTR_YIELD = 0.04   # yield bruto anual asumido SOLO para el tramo reciente que extiende el IBEXTR real
@@ -166,20 +238,21 @@ def main():
     os.makedirs(outdir, exist_ok=True)
 
     hoy = dt.date.today().isoformat()
-    indice = {"actualizado": hoy, "tickers": [], "fallos": []}
+    # inicio de la ventana movil: todo lo posterior a esta fecha se vuelve a pedir y a sobrescribir
+    desde_ventana = (dt.date.today() - dt.timedelta(days=VENTANA)).isoformat()
+    indice = {"actualizado": hoy, "ventana_dias": VENTANA, "ventana_desde": desde_ventana,
+              "tickers": [], "fallos": [], "corregidos": [], "revisar": []}
+    estado = {}   # ticker -> {"ultima": fecha, "provisional": bool}
 
     for i, (ticker, symbol) in enumerate(sorted(tickers.items()), 1):
         path = os.path.join(outdir, ticker + ".json")
         data, ult = cargar_existente(path)
 
         if ult:
-            # empezar el dia siguiente al ultimo guardado
-            start = (dt.date.fromisoformat(ult) + dt.timedelta(days=1)).isoformat()
-            if start > hoy:
-                print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) ya al dia ({ult})")
-                indice["tickers"].append({"ticker": ticker, "symbol": symbol,
-                                          "desde": data[0][0], "hasta": ult, "n": len(data)})
-                continue
+            # PARCHE: NO se arranca en (ult + 1 dia). Se retrocede hasta el inicio de la
+            # ventana movil para poder RECONSULTAR y CORREGIR los cierres ya guardados.
+            siguiente = (dt.date.fromisoformat(ult) + dt.timedelta(days=1)).isoformat()
+            start = min(siguiente, desde_ventana)
         else:
             start = START
 
@@ -200,23 +273,41 @@ def main():
                 print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) sin novedades")
                 indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                           "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
+                estado[ticker] = {"ultima": data[-1][0], "provisional": data[-1][0] == hoy}
             time.sleep(PAUSA)
             continue
 
-        # fusionar evitando duplicados de fecha
-        existentes = {d[0] for d in data}
-        for fila in nuevos:
-            if fila[0] not in existentes:
-                data.append(fila)
-        data.sort(key=lambda x: x[0])
+        # fusionar SOBRESCRIBIENDO las fechas ya presentes (ver docstring del parche)
+        data, altas, correcciones, sospechosas = fusionar(data, nuevos)
+
+        for fecha, viejo, nuevo in correcciones:
+            print(f"        corregido {ticker} {fecha}: {viejo} -> {nuevo}")
+            indice["corregidos"].append({"ticker": ticker, "fecha": fecha,
+                                         "anterior": viejo, "nuevo": nuevo})
+        for fecha, viejo, nuevo in sospechosas:
+            print(f"        AVISO {ticker} {fecha}: {viejo} -> {nuevo} "
+                  f"(>{UMBRAL_REVISION:.0%}); NO se sobrescribe, queda para revision")
+            indice["revisar"].append({"ticker": ticker, "fecha": fecha,
+                                      "guardado": viejo, "descartado": nuevo,
+                                      "motivo": f"variacion > {UMBRAL_REVISION:.0%}"})
+
+        # El cierre del dia en curso es PROVISIONAL: Yahoo aun puede no haber
+        # consolidado la subasta de cierre. El pase matinal del dia siguiente lo confirma.
+        provisional = data[-1][0] == hoy
 
         with open(path, "w", encoding="utf-8") as f:
             json.dump({"ticker": ticker, "symbol": symbol,
-                       "actualizado": hoy, "data": data}, f, ensure_ascii=False)
+                       "actualizado": hoy,
+                       "provisional": data[-1][0] if provisional else None,
+                       "data": data}, f, ensure_ascii=False)
 
-        print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) +{len(nuevos)} -> {len(data)} ({data[0][0]} .. {data[-1][0]})")
+        marca = " [provisional]" if provisional else ""
+        print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) +{altas} nuevos, "
+              f"{len(correcciones)} corregidos -> {len(data)} "
+              f"({data[0][0]} .. {data[-1][0]}){marca}")
         indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                   "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
+        estado[ticker] = {"ultima": data[-1][0], "provisional": provisional}
         time.sleep(PAUSA)
 
     with open(os.path.join(outdir, "_index.json"), "w", encoding="utf-8") as f:
@@ -243,12 +334,34 @@ def main():
     else:
         print("AVISO: _ultimos.json NO se sobrescribe (0 empresas leidas); se conserva el anterior.")
 
+    # _estado.json: fichero NUEVO y separado (no toca el esquema de _ultimos.json que lee
+    # la app). Dice, por empresa, si su ultimo cierre es definitivo o aun provisional.
+    if estado:
+        with open(os.path.join(outdir, "_estado.json"), "w", encoding="utf-8") as f:
+            json.dump({"actualizado": hoy,
+                       "provisionales": sorted(t for t, e in estado.items() if e["provisional"]),
+                       "empresas": estado}, f, ensure_ascii=False)
+
     _indj = _indj_ultimo()
     if _indj:
         print(f"INDJ.MC valor real de hoy: {_indj}")
     extender_ibextr(outdir, indj_row=_indj)
 
-    print(f"\nHecho. {len(indice['tickers'])} con datos, {len(indice['fallos'])} fallos.")
+    print(f"\nHecho. {len(indice['tickers'])} con datos, {len(indice['fallos'])} fallos, "
+          f"{len(indice['corregidos'])} cierres corregidos, {len(indice['revisar'])} para revision.")
+    if indice["corregidos"]:
+        print("Cierres consolidados por Yahoo en esta pasada:")
+        for c in indice["corregidos"]:
+            print(f"   {c['ticker']} {c['fecha']}: {c['anterior']} -> {c['nuevo']}")
+    if indice["revisar"]:
+        print("PENDIENTE DE REVISION (no se ha sobrescrito nada):")
+        for c in indice["revisar"]:
+            print(f"   {c['ticker']} {c['fecha']}: guardado {c['guardado']}, "
+                  f"descartado {c['descartado']} ({c['motivo']})")
+    prov = sorted(t for t, e in estado.items() if e["provisional"])
+    if prov:
+        print(f"Cierres PROVISIONALES de hoy ({len(prov)}): se confirmaran en el pase "
+              f"matinal de manana.")
     if indice["fallos"]:
         print("Revisa estos simbolos en tickers.json:",
               ", ".join(x["ticker"] for x in indice["fallos"]))
