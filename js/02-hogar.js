@@ -664,6 +664,8 @@ function renderPres(){
   var dispAnio=ingAnio-ahorro, dispMes=dispAnio/12;
   var gastoAnio=gastoMes*12, restMes=dispMes-gastoMes, restAnio=restMes*12;
   var asignadoPct=dispAnio>0?Math.min(100,gastoAnio/dispAnio*100):0, over=restAnio<-0.5;
+  var _phk=$('#presHeroKpi');
+  if(_phk){ _phk.innerHTML='<div class="big" style="color:'+(over?'#fecaca':'#fff')+'">'+(restMes>=0?'':'−')+fmt(Math.abs(restMes))+'<span>/mes</span></div><div class="cap">'+(over?'Te has pasado':'Restante por asignar')+'</div>'; }
   var planHTML='<div class="plan"><div class="plan-row">'
     +'<div class="pcell"><div class="pl">Ingresos previstos</div><div class="pv">'+fmt(ingAnio)+'<small> /año</small></div></div>'
     +'<div class="op">−</div>'
