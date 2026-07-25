@@ -661,6 +661,15 @@ function _infSemanalBlockHTML(){
     +'<a class="feat-btn" id="infcSemanalBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
     +'</div></div></div>';
 }
+function _infAlertasBlockHTML(){
+  var _khCarpeta='C:/Users/carlo/OneDrive/Economia Doméstica/Economía Doméstica';
+  var _infOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen';
+  var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
+  return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚠️ Revisar Alertas / Universo</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
+    +'<div class="feat-s" style="margin-bottom:12px">Barrido de OPAs, concursos de acreedores, suspensiones de cotización, sanciones y litigios en todo tu universo de empresas. Actualiza <code>alertas.json</code>, que alimenta los avisos que ves en Radar/Universo, Kanban y las Fichas.</div>'
+    +'<a class="feat-btn" id="infcAlertasBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>'
+    +'</div></div></div>';
+}
 function _infEmpresaBlockHTML(){
   var uni=_infEmpresaUniverse();
   var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
@@ -761,7 +770,7 @@ function renderInformesCenter(){
     +'<div class="inf-fllbl">Categorías <span>(vacío = todas)</span> <label class="inf-catall"><input type="checkbox" id="infcCatAll"> todas/ninguna</label></div>'
     +'<div class="inf-catbox">'+catHtml+'</div>';
   function blk(icon,title,sum,inner,open,id){ return '<div class="pos-blk'+(open?' open':'')+'"'+(id?' id="'+id+'"':'')+'><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
-  host.innerHTML=_infSemanalBlockHTML()+_infEmpresaBlockHTML()
+  host.innerHTML=_infSemanalBlockHTML()+_infAlertasBlockHTML()+_infEmpresaBlockHTML()
     +'<div id="infcBuilt">'
     +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,false)
     +blk('📅','Periodo','año',perInner,false,'infcBlkPer')
@@ -782,6 +791,7 @@ function renderInformesCenter(){
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.inf-catchk').forEach(function(l){ l.querySelector('input').checked=ck; l.classList.toggle('on',ck); }); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
   var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('genera el informe semanal de cartera'); });
+  var _iab2=document.getElementById('infcAlertasBtn'); if(_iab2)_iab2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen'); });
   var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
   var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
   _infUpdCount();
