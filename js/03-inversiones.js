@@ -854,8 +854,13 @@ function archivarCerrada(ticker){
   DB.cerradas=DB.cerradas||[];
   DB.cerradas.push({id:'c'+Math.random().toString(36).slice(2,9),ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>({fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})),divs:dvs});
   DB.operaciones=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()!==t);
-  if(DB.dividendos&&DB.dividendos[t]){ DB.dividendos[t]=DB.dividendos[t].filter(d=>!((!first||d.fecha>=first)&&(!last||d.fecha<=last))); if(!DB.dividendos[t].length) delete DB.dividendos[t]; }
-  saveNow(); renderInv(); renderDividendos(); alert(t+' archivada como posición cerrada.');
+  /* Los dividendos cobrados NO se borran de DB.dividendos: son histórico fiscal y se declararon en su año.
+     Antes se borraba la ventana compra→venta y quedaban solo en c.divs, así que quitar la posición de
+     archivadas los perdía para siempre. No hay doble conteo: los consumidores que suman c.divs
+     (bola de nieve, cash-flow, calendario €/mes, comparación real del simulador) ya ignoran DB.dividendos
+     de un ticker archivado ("cerradas mandan"), y la matriz de Dividendos y Fiscalidad ponderan por
+     acciones a la fecha de cada pago, de modo que un dividendo fuera del ciclo activo aporta 0 €. */
+  saveNow(); renderInv(); renderDividendos(); alert(t+' archivada como posición cerrada.\nSus dividendos cobrados se conservan en el histórico.');
 }
 function invClosedComputed(){
   const ops=DB.operaciones||[]; const res=[];
