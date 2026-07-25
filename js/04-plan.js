@@ -684,6 +684,16 @@ function renderPanelDash(){
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
+  /* [A9] dividendos sin actualizar: nada recordaba hacerlo, y el paso dependía de la memoria. */
+  try{ const _dp=(typeof divPendientesActualizar==='function')?divPendientesActualizar():null;
+    if(_dp && (_dp.faltaCur.length || _dp.faltaSig.length)){
+      const _lst=a=>a.slice(0,6).join(', ')+(a.length>6?(' y '+(a.length-6)+' más'):'');
+      const _p=[]; if(_dp.faltaCur.length)_p.push('<b>'+_dp.anio+'</b>: '+_lst(_dp.faltaCur));
+      if(_dp.faltaSig.length)_p.push('<b>'+(_dp.anio+1)+'</b>: '+_lst(_dp.faltaSig));
+      avisos.push({pri:_dp.faltaCur.length?2:3, cls:'a', goto:'divfut', tick:'', tipo:'dividendo',
+        txt:'💰 <b>Dividendos sin actualizar</b> — '+_p.join(' · ')+'. Anótalos en Retorno → Actualizar Dividendos.'});
+    }
+  }catch(e){}
   /* [A8] hipótesis de la Proyección desfasada: el presupuesto anual del Plan cuelga de ella. */
   try{ const _vj=(typeof proyHipotesisVieja==='function')?proyHipotesisVieja():null;
        if(_vj) avisos.push({pri:3,cls:'a',goto:'independencia',tick:'',txt:'🧾 <b>Proyección</b> — '+_vj.txt+'. El presupuesto del Plan se calcula con ella: revísala en Proyección → Hipótesis Inicial.'});
@@ -744,7 +754,7 @@ function renderPanelDash(){
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
-    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda'};
+    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda'};
     const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
     avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });

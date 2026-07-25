@@ -423,12 +423,24 @@ function renderEvoDiv(){
   var pag=rows.filter(function(r){return r.dpaB!=null&&r.dpaB>0;});
   var rpdList=rows.filter(function(r){return r.rpd!=null;});
   var rpdMed=rpdList.length?rpdList.reduce(function(s,r){return s+r.rpd;},0)/rpdList.length:0;
-  var _actVal = esFuturo?(_evoPf(_evoCrecAno(_evoYear),1)+'%/año'):_evoEsc((_evoData.actualizado||'—'));
+  /* [A9 · 26-jul-2026] La fecha de última carga se pintaba tal cual y NUNCA se comparaba con hoy:
+     podían pasar meses sin que nada lo indicara. Ahora se muestra la antigüedad y se colorea. */
+  var _actTxt='—', _actSub='última carga de dividendos.json';
+  if(!esFuturo){
+    var _f=(_evoData.actualizado||'').slice(0,10), _ms=_f?Date.parse(_f+'T00:00:00'):NaN;
+    if(!isNaN(_ms)){
+      var _d=Math.floor((Date.now()-_ms)/86400000);
+      var _col=_d>120?'#dc2626':(_d>45?'#d97706':'#16a34a');
+      _actTxt='<span style="color:'+_col+'">'+_evoEsc(_f)+'</span>';
+      _actSub='hace '+_d+' día'+(_d===1?'':'s')+(_d>120?' — conviene refrescar':'');
+    } else { _actTxt=_evoEsc(_evoData.actualizado||'—'); }
+  }
+  var _actVal = esFuturo?(_evoPf(_evoCrecAno(_evoYear),1)+'%/año'):_actTxt;
   var kpis='<div class="pos-kpis">'
     +'<div class="k hero"><div class="l">Con dividendo '+_evoYear+'</div><div class="v">'+pag.length+'</div><div class="p">de '+rows.length+' empresas del universo</div></div>'
     +'<div class="k"><div class="l">RPD media</div><div class="v">'+_evoPf(rpdMed,2)+'%</div><div class="p">dividendo bruto ÷ cotización</div></div>'
     +'<div class="k"><div class="l">Empresas</div><div class="v">'+rows.length+'</div><div class="p">cartera · informe · plan · radar</div></div>'
-    +'<div class="k"><div class="l">'+(esFuturo?'Crecimiento':'Actualizado')+'</div><div class="v" style="font-size:15px">'+_actVal+'</div><div class="p">'+(esFuturo?'proyección de este año':'última carga de dividendos')+'</div></div>'
+    +'<div class="k"><div class="l">'+(esFuturo?'Crecimiento':'Actualizado')+'</div><div class="v" style="font-size:15px">'+_actVal+'</div><div class="p">'+(esFuturo?'proyección de este año':_actSub)+'</div></div>'
     +'</div>';
 
   /* selector de año (con futuros) + "+ año" + chips de grupo + buscador */

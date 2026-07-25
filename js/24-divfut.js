@@ -30,7 +30,31 @@ function _dfYears(){
   var a=[]; for(var y=y0;y<=y1;y++)a.push(y); return a;
 }
 function _dfShort(t){ t=_dfUp(t); return _DF_SHORT[t] || ((evoEmpresaM&&evoEmpresaM(t)&&evoEmpresaM(t).nombre)?String(evoEmpresaM(t).nombre).split(/[ ,]/)[0]:t); }
-function _dfPaga(t){ try{ var v=(typeof evoDpaBruto==='function')?evoDpaBruto(t,_dfCur()):null; return _dfNum(v)>0; }catch(_){ return false; } }
+/* [A9 · 26-jul-2026] «Paga dividendo» miraba SOLO el año en curso, así que de enero a marzo una
+   pagadora cuyo primer pago aún no está cargado caía al bloque «figuran como que no pagan» y
+   desaparecía del contador de pendientes: justo las que hay que actualizar. Ahora basta con que
+   haya pagado en los tres últimos ejercicios o que tenga previsión anotada a futuro. */
+function _dfPaga(t){ try{
+  var cur=_dfCur(), y, v;
+  for(y=cur;y>=cur-2;y--){ v=(typeof evoDpaBruto==='function')?evoDpaBruto(t,y):null; if(_dfNum(v)>0) return true; }
+  for(y=cur+1;y<=cur+2;y++){ v=(typeof _evoOverride==='function')?_evoOverride(t,y):null; if(_dfNum(v)>0) return true; }
+  return false;
+}catch(_){ return false; } }
+/* Empresas EN CARTERA a las que les falta el dividendo del año en curso o la previsión del siguiente.
+   Alimenta el aviso del Panel: hasta ahora nada recordaba actualizar los dividendos. */
+function divPendientesActualizar(){
+  var cur=_dfCur(), out={anio:cur, faltaCur:[], faltaSig:[]};
+  var held; try{ held=(typeof heldTickerSet==='function')?heldTickerSet():new Set(); }catch(_){ return out; }
+  held.forEach(function(t){
+    t=_dfUp(t); if(!_dfPaga(t)) return;                       /* las que no reparten no cuentan */
+    var real=null; try{ real=(typeof evoDpaBruto==='function')?evoDpaBruto(t,cur):null; }catch(_){}
+    if(!(_dfNum(real)>0)) out.faltaCur.push(t);
+    var sig=_dfReal(t,cur+1);
+    if(!(_dfNum(sig)>0)) out.faltaSig.push(t);
+  });
+  out.faltaCur.sort(); out.faltaSig.sort();
+  return out;
+}
 function _dfUniverso(){
   var s={};
   try{ (_evoData&&_evoData.empresas||[]).forEach(function(e){ var t=_dfUp(e.ticker); if(t)s[t]=1; }); }catch(_){}
