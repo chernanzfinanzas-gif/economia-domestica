@@ -891,7 +891,7 @@ function renderInvClosed(){
     const pc=p.acciones?p.coste/p.acciones:0, pv=p.acciones?p.venta/p.acciones:0;
     const neto=p.venta-p.coste+p.dividendos, rent=p.coste?neto/p.coste:0;
     sC+=p.coste; sV+=p.venta; sD+=p.dividendos;
-    const act=p._arch?`<button class="btn red sm" data-delcerrada="${p.id}" title="Quitar de archivadas">✕</button>`:`<button class="btn ghost sm" data-archive="${p.ticker}" title="Archivar permanente">Archivar</button>`;
+    const act=p._arch?`<button class="btn red sm" data-delcerrada="${p.id}" title="Borrar definitivamente: se pierde el ciclo completo (operaciones y dividendos archivados)">✕</button>`:`<button class="btn ghost sm" data-archive="${p.ticker}" title="Archivar permanente">Archivar</button>`;
     return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${fmt(p.coste)}</td><td><b>${fmt(p.venta)}</b></td><td><span class="${neto>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${neto>=0?'+':''}${fmt(neto)}</span></td><td><span class="mt-pill ${rent>=0?'g':'r'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</span></td><td class="l" style="color:#94a3b8;font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td><td class="c">${act}</td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Acciones',p.acciones)}${_mtNum('P. compra',fmt(pc))}${_mtNum('P. venta',fmt(pv))}${_mtNum('Dividendos cobrados',fmt(p.dividendos),'mt-pos')}</div></td></tr>`;
   }).join('');
   const netoT=sV-sC+sD, rentT=sC?netoT/sC:0;
