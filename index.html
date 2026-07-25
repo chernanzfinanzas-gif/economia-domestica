@@ -3711,7 +3711,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="view-proyeccion">
     <div class="blk" id="blkProyHip"><div class="blk-h" data-proyblk="hip"><span class="arw">▶</span><span class="blk-t">🧾 Hipótesis Inicial</span><span class="blk-sub">supuestos del modelo</span></div>
       <div class="blk-b"><div class="patgrid" id="proyParams"></div>
-        <div class="sub" style="margin-top:8px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de Patrimonio.</div></div></div>
+        <div class="sub" style="margin-top:8px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="flex:1;min-width:240px">Ajusta los supuestos; todo se recalcula al instante. El capital inicial se toma de tu último registro de Patrimonio.</span><button class="btn ghost sm" id="btnProyRefrescar" title="Recalcular efectivo, cartera, coste, dividendo, nómina y gasto desde tus datos de hoy (te enseña antes qué cambia)">↻ Refrescar desde mis datos</button></div>
+        <div class="sub" id="proyHipAviso" style="margin-top:6px"></div></div></div>
     <div class="secttl">📊 Resultado de la proyección (escenario base)</div>
     <div id="proyCards" class="proy-kpis" style="margin-bottom:14px"></div>
     <div class="blk" id="blkProyEv"><div class="blk-h" data-proyblk="ev"><span class="arw">▶</span><span class="blk-t">💸 Eventos puntuales (gastos grandes)</span><span class="blk-sub">gastos puntuales</span></div>
