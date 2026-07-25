@@ -190,8 +190,10 @@ function buildDividendos(ctx){
   var chart=(typeof gBars==='function')?gBars('Dividendo bruto por año',years.map(String),[{name:'Dividendo',color:'#16a34a',vals:vals}],{}):'';
   var pos=(typeof invPositions==='function'?invPositions():[]).filter(function(p){return p.acciones>0.0001;});
   var valor=pos.reduce(function(s,p){return s+p.acciones*p.precioActual;},0);
-  var dpa=DB.divPorAccion||{}; var rows='',tDiv=0;
-  var drows=pos.map(function(p){ var t=(p.ticker||'').toUpperCase(); var da=num((dpa[t]||{})[refY]||p.divAccion); var db=p.acciones*da; var v=p.acciones*p.precioActual; var c=p.acciones*p.precioCompra; return {t:t,acc:p.acciones,da:da,db:db,rpd:(v?db/v*100:0),yoc:(c?db/c*100:0)}; });
+  /* [A5] DPA desde la fuente única (motor de dividendos); divAccion del valor como respaldo. */
+  var _dpaR=function(t){ var v=(typeof dpaAnual==='function')?dpaAnual(t,refY):null; return (v==null)?null:num(v); };
+  var rows='',tDiv=0;
+  var drows=pos.map(function(p){ var t=(p.ticker||'').toUpperCase(); var da=num(_dpaR(t)!=null?_dpaR(t):p.divAccion); var db=p.acciones*da; var v=p.acciones*p.precioActual; var c=p.acciones*p.precioCompra; return {t:t,acc:p.acciones,da:da,db:db,rpd:(v?db/v*100:0),yoc:(c?db/c*100:0)}; });
   drows.sort(function(a,b){return b.db-a.db;});
   drows.forEach(function(x){ tDiv+=x.db; rows+='<tr><td><b>'+_infEsc(x.t)+'</b></td><td class="num">'+x.acc+'</td><td class="num">'+fmt(x.da)+'</td><td class="num">'+fmt(x.db)+'</td><td class="num">'+x.rpd.toFixed(1)+'%</td><td class="num">'+x.yoc.toFixed(1)+'%</td></tr>'; });
   rows+='<tr class="tot"><td>TOTAL</td><td class="num"></td><td class="num"></td><td class="num">'+fmt(tDiv)+'</td><td class="num">'+(valor?(tDiv/valor*100).toFixed(1)+'%':'—')+'</td><td class="num"></td></tr>';
@@ -631,7 +633,9 @@ function buildEmpresa(ctx,tOverride){
   }
   inner+='<h2>Informes trimestrales y progreso de la tesis</h2>'+_infTrimTabla(t);
   inner+='<h2>Evolucion</h2>';
-  var dpa=(DB.divPorAccion||{})[t]||{}; var yrs=Object.keys(dpa).filter(function(y){return num(dpa[y])>0;}).sort();
+  /* [A5] antes salía de DB.divPorAccion (sin editor vivo): la gráfica no se pintaba nunca. */
+  var _nyD=new Date().getFullYear(); var dpa={}; for(var _y=_nyD-11;_y<=_nyD;_y++){ var _v=(typeof dpaAnual==='function')?dpaAnual(t,_y,{soloReal:true}):null; if(_v==null) _v=num(((DB.divPorAccion||{})[t]||{})[_y]); if(num(_v)>0) dpa[_y]=num(_v); }
+  var yrs=Object.keys(dpa).sort();
   if(yrs.length>=2&&typeof gBars==='function'){ inner+=_infChartsWrap([gBars('Dividendo por accion por año',yrs,[{name:'Div/accion',color:'#2E7D42',vals:yrs.map(function(y){return num(dpa[y]);})}],{})]); }
   inner+='<h3>Historico de la tesis y su resultado</h3>'+_infTesisHistTabla(t);
   if(esHeld&&f&&f.divYears&&f.divYears.length){

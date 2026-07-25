@@ -55,39 +55,10 @@ function buildFrozen(wrapId,lHead,lBody,rHead,rBody){
   requestAnimationFrame(doSync); setTimeout(doSync,80);
 }
 function maxDataYear(){ let m=0; Object.values(DB.planCompras||{}).forEach(o=>Object.keys(o).forEach(y=>{if(+y>m)m=+y;})); Object.values(DB.divPorAccion||{}).forEach(o=>Object.keys(o).forEach(y=>{if(+y>m)m=+y;})); return m; }
-function renderPrevision(){
-  const el=$('#prevTabla'); if(!el)return;
-  const dpa=DB.divPorAccion=DB.divPorAccion||{};
-  const set=new Set(Object.keys(dpa).map(t=>t.toUpperCase()));
-  (DB.calendario||[]).forEach(c=>{ if(c.ticker)set.add((c.ticker||'').toUpperCase()); });
-  (DB.analisis||[]).forEach(a=>{ if(a.ticker)set.add((a.ticker||'').toUpperCase()); });
-  (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
-  let tickers=[...set].filter(Boolean);
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin empresas. Importa «divporaccion-historico.json» o pulsa «+ Empresa».</div>'; return; }
-  const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
-  const _held=heldTickerSet();
-  const _closed=closedTickerSet();
-  const _grp=t=> _held.has(t)?0:(_closed.has(t)?1:2);
-  const _tot=t=>Object.values(dpa[t]||{}).reduce((s,v)=>s+num(v),0);
-  tickers.sort((x,y)=> _grp(x)-_grp(y) || _tot(y)-_tot(x) || x.localeCompare(y));
-  const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011, y1=Math.max(num(DB.previsionMaxYear)||2030,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
-  const head='<tr><th>Año</th>'+tickers.map(t=>`<th class="num" title="${nm(t)}"><span data-ficha="${t}" style="cursor:pointer;color:var(--brand)">${t}</span></th>`).join('')+'</tr>';
-  const body=[...years].reverse().map(y=>{ const fut=y>nowY; const pv=fut&&!conf[y];
-    const cells=tickers.map(t=>{ const raw=(dpa[t]&&dpa[t][y]!=null)?num(dpa[t][y]):null; const v=(raw==null?'':raw.toFixed(3)); const star=raw===0?'<span style="color:#dc2626;font-weight:700">*</span>':''; const cc=(DB.divConfirmado[t]&&DB.divConfirmado[t][y])||conf[y]; const cpv=fut&&!cc; return `<td style="${cpv?'background:#fffbeb;':''}"><div data-divconf="${t}|${y}" title="Clic: marcar dividendo real confirmado" style="font-size:8px;line-height:1.1;cursor:pointer;color:${(fut&&cc&&!conf[y])?'#16a34a':'var(--muted)'};font-weight:${(fut&&cc&&!conf[y])?'700':'400'}">${t} '${String(y).slice(2)}${(fut&&cc&&!conf[y])?' ✓':''}</div><input type="number" step="0.001" class="anaInp" style="width:52px;text-align:center" data-dpa="${t}" data-y="${y}" value="${v}">${star}</td>`; }).join('');
-    return `<tr><td ${fut?`data-yhead="${y}" style="cursor:pointer;${pv?'background:#fffbeb;':''}" title="Clic: confirmar/desconfirmar TODO el año"`:''}>${y}${fut?(conf[y]?' <span style="color:#16a34a;font-size:9px">✓</span>':' <span class="muted" style="font-size:9px">prev</span>'):''}</td>${cells}</tr>`;
-  }).join('');
-  el.innerHTML=`<table>${head}${body}</table>`;
-  const _v=$('#view-prevision'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('prevTabla',7,11),0);
-}
-
-function addPrevEmpresa(){
-  const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return;
-  const nombre=(prompt('Nombre de la empresa:')||tk).trim();
-  DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
-  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
-  saveNow(); renderPrevision();
-  const st=$('#prevStatus'); if(st)st.textContent='Añadida '+tk;
-}
+/* [A5 · 25-jul-2026] Retiradas renderPrevision() y addPrevEmpresa(): eran el editor de la tabla
+   legacy DB.divPorAccion y llevaban tiempo muertas — su contenedor #prevTabla ya solo existía
+   como CSS, así que la función salía en su primera línea. La matriz viva de DPA es «Evolución del
+   Dividendo» (18-evodiv), y el DPA de un año se pide con dpaAnual(). */
 function realSharesAt(t,year){ const ye=year+'-12-31'; let sh=0;
   (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&(o.fecha||'')<=ye) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); });
   (DB.cerradas||[]).forEach(c=>{ if((c.ticker||'').toUpperCase()===t&&c.ops) c.ops.forEach(o=>{ if((o.fecha||'')<=ye) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); }); });
@@ -154,7 +125,6 @@ function renderSimulador(){
   const el=$('#simTabla'); if(!el)return;
   const _prevSL=(el.querySelector('.sim-desk')||el).scrollLeft||0;
   const nowY=new Date().getFullYear(); const conf=DB.aniosConfirmados||{}; const y0=2011,y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034,nowY+1,maxDataYear()); const years=[]; for(let y=y0;y<=y1;y++)years.push(y);
-  const dpa=DB.divPorAccion||{};
   const set=new Set();
   (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
   (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); try{ invClosedComputed().forEach(c=>set.add(c.ticker)); }catch(e){}
@@ -269,7 +239,7 @@ function addSimEmpresa(){
   DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
   saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
 }
-function simYearTotal(year){ const dpa=DB.divPorAccion||{}; const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); try{ if(typeof _planReparto==='function'){ const _R=_planReparto(); Object.keys(_R.sched||{}).forEach(function(tk){ const yy=_R.sched[tk]||{}; let s=0; Object.keys(yy).forEach(function(y){ s+=num(yy[y]); }); if(s>0.5) set.add(tk.toUpperCase()); }); } }catch(e){} let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
+function simYearTotal(year){ const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); try{ if(typeof _planReparto==='function'){ const _R=_planReparto(); Object.keys(_R.sched||{}).forEach(function(tk){ const yy=_R.sched[tk]||{}; let s=0; Object.keys(yy).forEach(function(y){ s+=num(yy[y]); }); if(s>0.5) set.add(tk.toUpperCase()); }); } }catch(e){} let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
 // === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
 function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
 function _precioActualDe(t){ t=(t||'').toUpperCase(); const v=(DB.valores||{})[t]||{}; let p=num(v.precioActual); if(p>0)return p; const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(a&&num(a.cotizacion)>0)return num(a.cotizacion); if(typeof _precioCache!=='undefined'){ const pj=_precioCache[t]; if(pj&&pj.data&&pj.data.length)return num(pj.data[pj.data.length-1][1]); } return 0; }

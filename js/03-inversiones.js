@@ -908,18 +908,31 @@ function fitDividendos(){ autoFitTable('divMatrixWrap',8,12); autoFitTable('divR
    Señal para empresas en cartera: caída del DPA (histórico o previsto en Evolución Dividendo)
    y, si hay fundamentales.json cargado, payout muy alto con BPA cayendo. Nivel 1=medio, 2=alto. */
 function _divRiesgoScan(){
+  /* [A5 · 25-jul-2026] Antes leía DB.divPorAccion, tabla legacy cuyo único editor (renderPrevision)
+     estaba muerto: la alerta operaba sobre datos congelados. Ahora usa dpaAnual(), la fuente única
+     (dividendos.json + Evolución del Dividendo), y detecta también la suspensión total del dividendo. */
   const nowY=new Date().getFullYear();
   const held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
-  const dpaAll=DB.divPorAccion||{};
+  const _real=(t,y)=>(typeof dpaAnual==='function')?dpaAnual(t,y,{soloReal:true}):null;
+  const _prev=(t,y)=>(typeof dpaAnual==='function')?dpaAnual(t,y):null;
   const fmap={}; try{ if(typeof _radFundCache!=='undefined' && _radFundCache && _radFundCache.empresas){ _radFundCache.empresas.forEach(f=>{ fmap[(''+f.ticker).toUpperCase()]=f; }); } }catch(e){}
   const out=[];
   held.forEach(t=>{
-    const o=dpaAll[t]||{};
-    const ys=Object.keys(o).map(Number).filter(y=>num(o[y])>0).sort((a,b)=>a-b);
     const razones=[]; let nivel=0;
-    if(ys.length>=2){ const last=ys[ys.length-1], prev=ys[ys.length-2]; const vLast=num(o[last]), vPrev=num(o[prev]); if(vLast<vPrev*0.98){ const caida=1-vLast/vPrev; razones.push('DPA '+last+' −'+(caida*100).toFixed(0)+'% vs '+prev); nivel=Math.max(nivel, caida>=0.15?2:1); } }
-    let firmeY=null, firmeV=0; ys.forEach(y=>{ if(y<=nowY){ firmeY=y; firmeV=num(o[y]); } });
-    if(firmeV>0){ [nowY+1,nowY+2].forEach(fy=>{ const v=num(o[fy]); if(v>0 && v<firmeV*0.98){ const c=1-v/firmeV; razones.push('previsión '+fy+' −'+(c*100).toFixed(0)+'% vs '+firmeY); nivel=Math.max(nivel, c>=0.15?2:1); } }); }
+    /* Serie real de los últimos 7 ejercicios. Se conservan los ceros: un dividendo suspendido
+       es el recorte máximo y antes se descartaba por filtrar solo importes > 0. */
+    const serie=[]; for(let y=nowY-6;y<=nowY;y++){ const v=_real(t,y); if(v!=null) serie.push({y,v}); }
+    if(serie.length>=2){
+      const last=serie[serie.length-1], prev=serie[serie.length-2];
+      if(prev.v>0 && !(last.v>0)){ razones.push('DPA '+last.y+' suspendido (0 €)'); nivel=2; }
+      else if(prev.v>0 && last.v<prev.v*0.98){ const caida=1-last.v/prev.v; razones.push('DPA '+last.y+' −'+(caida*100).toFixed(0)+'% vs '+prev.y); nivel=Math.max(nivel, caida>=0.15?2:1); }
+    }
+    /* Previsión de los dos próximos ejercicios contra el último año con dividendo firme.
+       La proyección automática siempre crece, así que esto solo salta si hay un dato o un
+       override que anuncia un recorte. */
+    const conDato=serie.filter(x=>x.v>0); const firme=conDato.length?conDato[conDato.length-1]:null;
+    if(firme){ [nowY+1,nowY+2].forEach(fy=>{ const v=_prev(t,fy); if(v!=null && v>0 && v<firme.v*0.98){ const c=1-v/firme.v; razones.push('previsión '+fy+' −'+(c*100).toFixed(0)+'% vs '+firme.y); nivel=Math.max(nivel, c>=0.15?2:1); } }); }
+    /* Contexto de fundamentales: payout muy alto y beneficio cayendo (sin cambios). */
     const f=fmap[t]; const payoutAlto=!!(f&&f.payout!=null&&f.payout>90); const bpaCae=!!(f&&f.crecBpa!=null&&f.crecBpa<0); const irregular=!!(f&&(f.flags||[]).some(x=>/irregular/i.test(x)));
     if(nivel>0){ if(payoutAlto)razones.push('payout '+Math.round(f.payout)+'%'); if(bpaCae)razones.push('BPA cayendo'); if(irregular)razones.push('div. irregular'); if(payoutAlto&&bpaCae)nivel=2; }
     else if(payoutAlto&&bpaCae){ nivel=1; razones.push('payout '+Math.round(f.payout)+'% + BPA cayendo'); if(irregular)razones.push('div. irregular'); }
@@ -928,6 +941,7 @@ function _divRiesgoScan(){
   out.sort((a,b)=> b.nivel-a.nivel || a.t.localeCompare(b.t));
   return out;
 }
+
 function dividendoAlertas(){ return _divRiesgoScan().map(r=>({pri:r.nivel>=2?1:3, cls:r.nivel>=2?'r':'a', goto:'dividendos', tick:r.t, txt:'✂️ <b>'+r.t+'</b> — posible recorte de dividendo: '+r.razones.join(' · ')})); }
 function _divRiesgoCardHTML(){
   const scan=_divRiesgoScan(); if(!scan.length)return '';

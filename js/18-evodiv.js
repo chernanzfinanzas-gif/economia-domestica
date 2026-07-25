@@ -205,6 +205,18 @@ function evoAnioM(t,year){ t=(t||'').toUpperCase(); year=String(year);
 function evoDpaBruto(t, year){ var a=evoAnioM(t,year); return (a&&a.dpaBruto!=null)?num(a.dpaBruto):null; }
 function evoDpaNeto(t, year){ var a=evoAnioM(t,year); return (a&&a.dpaNeto!=null)?num(a.dpaNeto):null; }
 function evoEmpresa(t){ return evoEmpresaM(t); }
+/* [A5 · 25-jul-2026] FUENTE ÚNICA del DPA por acción de un año para toda la app.
+   Cascada: dato real del motor (dividendos.json + Evolución del Dividendo) → previsión
+   (override del usuario o proyección por crecimiento) → tabla legacy DB.divPorAccion, que
+   ya no tiene editor vivo y solo sobrevive por datos antiguos sin migrar.
+   opts.soloReal = true → no proyecta, solo devuelve dato confirmado (para series históricas). */
+function dpaAnual(t, year, opts){
+  t=(t||'').toUpperCase(); var o=opts||{};
+  if(typeof evoDpaBruto==='function'){ var r=evoDpaBruto(t,year); if(r!=null) return num(r); }
+  if(!o.soloReal && typeof evoDpaProyectado==='function'){ var p=evoDpaProyectado(t,year); if(p!=null) return num(p); }
+  var lg=((DB.divPorAccion||{})[t]||{})[year];
+  return (lg==null||lg==='')?null:num(lg);
+}
 function evoYearsDisponibles(){ return (_evoData&&_evoData.years)?_evoData.years.slice():[]; }
 
 /* --- % de crecimiento y proyección de años futuros --- */
