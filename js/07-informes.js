@@ -769,12 +769,12 @@ function renderInformesCenter(){
     +'<div class="inf-fllbl">Titular <span>(vacío = todos)</span></div><div class="inf-titrow">'+titHtml+'</div>'
     +'<div class="inf-fllbl">Categorías <span>(vacío = todas)</span> <label class="inf-catall"><input type="checkbox" id="infcCatAll"> todas/ninguna</label></div>'
     +'<div class="inf-catbox">'+catHtml+'</div>';
-  function blk(icon,title,sum,inner,open,id){ return '<div class="pos-blk'+(open?' open':'')+'"'+(id?' id="'+id+'"':'')+'><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
+  function blk(icon,title,sum,inner,open,id,key){ return '<div class="pos-blk'+(open?' open':'')+'"'+(id?' id="'+id+'"':'')+(key?' data-infblk="'+key+'"':'')+'><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+icon+' '+title+'</span><span class="bsum">'+sum+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+inner+'</div></div></div>'; }
   host.innerHTML=_infSemanalBlockHTML()+_infAlertasBlockHTML()+_infEmpresaBlockHTML()
     +'<div id="infcBuilt">'
-    +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,false)
-    +blk('📅','Periodo','año',perInner,false,'infcBlkPer')
-    +blk('⚙️','Filtros del informe de gastos','tipo · titular · categorías',filInner,false)
+    +blk('🗂️','Elige informes','<span id="infcRepSum">1 seleccionado</span>','<div class="muted" style="font-size:11.5px;margin-bottom:10px">Marca uno, o varios para combinarlos en un solo PDF.</div>'+repsHtml,false,null,'elige')
+    +blk('📅','Periodo','año',perInner,false,'infcBlkPer','periodo')
+    +blk('⚙️','Filtros del informe de gastos','tipo · titular · categorías',filInner,false,null,'filtros')
     +'</div>'
     +'<div class="inf-genbar"><div class="cnt" id="infcCount"><b>1</b> informe · Año '+now.getFullYear()+'</div><button class="inf-genbtn" id="infcGen">🖨️ Generar informe (PDF)</button></div>';
   var pe=document.getElementById('infcPeriodo');

@@ -177,6 +177,8 @@ $('#nav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!
 $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b)return; if(b.dataset.snall){ if(typeof toggleAllSections==='function')toggleAllSections(); return; } if(b.dataset.sub)activarVista(b.dataset.sub); });
 /* Toggle de las cabeceras colapsables de Asignación (bloques con data-asigblk). */
 document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b||!b.getAttribute('data-asigblk'))return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; b.classList.toggle('open'); });
+/* Toggle de las cabeceras colapsables de Mis Decisiones (data-diblk) y Diario de Hechos (data-diablk). */
+document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b)return; if(b.getAttribute('data-diblk')){ b.classList.toggle('open'); window._diListOpen=b.classList.contains('open'); } else if(b.getAttribute('data-diablk')){ b.classList.toggle('open'); window._diaFeedOpen=b.classList.contains('open'); } });
 /* Despliega/pliega todos los bloques colapsables de la vista activa (manipula el DOM y sincroniza estados) */
 function toggleAllSections(){
   const view=document.querySelector('.view.active'); if(!view)return;

@@ -76,10 +76,12 @@ function renderDiario(){
 
   H+='<div id="diFormHost"></div>';
 
+  var _diOpen=(window._diListOpen!==false);
+  H+='<div class="pos-blk'+(_diOpen?' open':'')+'" data-diblk="lista"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📋 Listado de decisiones</span><span class="bsum">'+vis.length+' de '+nTot+'</span></div><div class="pos-blk-b"><div class="blk-pad">';
   if(!vis.length){ H+='<div class="di-empty">Sin decisiones'+(nTot?' con este filtro':' todavía')+'. Pulsa «+ Nueva decisión» para registrar la primera.</div>'; }
   else { H+=vis.map(_diCard).join(''); }
-
   H+='<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">«Desde entonces» = precio actual − precio de la decisión + dividendos cobrados, sobre el precio de la decisión. El <b>veredicto</b> (✓/✗) aparece al marcar la decisión como <b>cerrada</b>.</div>';
+  H+='</div></div></div>';
   H+='</div>';
   sec.innerHTML=H;
 
