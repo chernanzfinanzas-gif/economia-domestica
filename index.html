@@ -1760,6 +1760,26 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-panel .panel-hero-kpi .big span{font-size:15px;font-weight:700;opacity:.8}
 #view-panel .panel-hero-kpi .cap{font-size:10px;color:rgba(255,255,255,.88);margin-top:6px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.35}
 @media(max-width:760px){#view-panel .panel-hero{padding:14px 16px}#view-panel .panel-hero-ic{font-size:36px}#view-panel .panel-hero-txt h2{font-size:25px}#view-panel .panel-hero-kpi{flex:1;min-width:120px}}
+/* ===== Banner de título — Presupuesto (mismo lenguaje que Panel/Independencia, degradado propio) ===== */
+#view-presupuesto .pres-hero{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:linear-gradient(120deg,#1e3a8a 0%,#4338ca 50%,#7e22ce 100%);border-radius:18px;padding:18px 24px;margin-bottom:16px;box-shadow:0 10px 26px rgba(30,27,75,.22);color:#fff;position:relative;overflow:hidden}
+#view-presupuesto .pres-hero::before{content:"";position:absolute;right:-30px;top:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);pointer-events:none}
+#view-presupuesto .pres-hero::after{content:"";position:absolute;left:-40px;bottom:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);pointer-events:none}
+#view-presupuesto .pres-hero-main{display:flex;align-items:center;gap:16px;flex:1;min-width:280px;position:relative;z-index:1}
+#view-presupuesto .pres-hero-ic{font-size:44px;line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+#view-presupuesto .pres-hero-txt{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+#view-presupuesto .pres-hero-txt h2{margin:0;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-size:34px;font-weight:700;letter-spacing:.2px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.18)}
+#view-presupuesto .pres-hero-txt p{margin:8px 0 0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.92);max-width:640px;flex-basis:100%}
+#view-presupuesto .pres-hero-txt p b{color:#fff;font-weight:800}
+#view-presupuesto .pres-hero-kpi{min-width:150px;text-align:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);border-radius:15px;padding:12px 18px;position:relative;z-index:1}
+#view-presupuesto .pres-hero-kpi .big{font-size:26px;font-weight:800;line-height:1;color:#fff}
+#view-presupuesto .pres-hero-kpi .big span{font-size:13px;font-weight:700;opacity:.8}
+#view-presupuesto .pres-hero-kpi .cap{font-size:10px;color:rgba(255,255,255,.88);margin-top:6px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.35}
+@media(max-width:760px){#view-presupuesto .pres-hero{padding:14px 16px}#view-presupuesto .pres-hero-ic{font-size:36px}#view-presupuesto .pres-hero-txt h2{font-size:25px}#view-presupuesto .pres-hero-kpi{flex:1;min-width:120px}}
+/* ===== Subtabs de Presupuesto como botones-píldora a juego con el banner ===== */
+#view-presupuesto #presSubtabs{display:flex;gap:10px;margin:0 0 16px;border-bottom:none}
+#view-presupuesto #presSubtabs button{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 20px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.05);transition:transform .12s,box-shadow .12s,background .12s,color .12s}
+#view-presupuesto #presSubtabs button:hover:not(.active){background:#f8fafc;color:#4338ca;border-color:#c7d2fe}
+#view-presupuesto #presSubtabs button.active{background:linear-gradient(120deg,#1e3a8a,#4338ca,#7e22ce);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(67,56,202,.3);transform:translateY(-1px)}
 /* ===== Bandas de las pestañas fusionadas de Plan (Asignación / Riesgo / Independencia) ===== */
 .plan-intro{background:linear-gradient(120deg,#1e293b,#334155);color:#e2e8f0;border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:13px;line-height:1.55}
 .plan-intro b{color:#fff}
@@ -3475,7 +3495,16 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- PRESUPUESTO -->
   <section class="view" id="view-presupuesto">
-    <h2 id="presTitle">Presupuesto anual</h2>
+    <div class="pres-hero">
+      <div class="pres-hero-main">
+        <span class="pres-hero-ic">💰</span>
+        <div class="pres-hero-txt">
+          <h2 id="presTitle">Presupuesto</h2>
+          <p>Planifica <b>ingresos</b>, <b>capítulos de gasto</b> y tu <b>objetivo de ahorro</b>, y compáralo con lo realmente gastado en el desglose mensual.</p>
+        </div>
+      </div>
+      <div class="pres-hero-kpi" id="presHeroKpi" title="Gasto disponible al mes, según el planificador"></div>
+    </div>
     <div class="subtabs" id="presSubtabs"><button data-ptab="anual" class="active">Presupuesto</button><button data-ptab="desglose">Desglose mensual</button></div>
     <div id="ptab-anual">
     <div class="toolbar" id="presToolbar">
