@@ -242,6 +242,7 @@ function _emRow(t){
 /* ---------- render ---------- */
 function renderEmbudo(){
   var sec=document.getElementById('view-embudo'); if(!sec)return;
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   /* Carga (1 vez) de dividendos.json para las alarmas ex-dividend (Paso B). */
   if(typeof _evoData==='undefined' || !_evoData){ if(typeof _evoCargar==='function'){ if(!renderEmbudo._divLoad){ renderEmbudo._divLoad=true; Promise.resolve(_evoCargar()).then(function(){ try{ if(document.getElementById('view-embudo'))renderEmbudo(); }catch(e){} }).catch(function(){}); } } }
   DB.embudo=DB.embudo||{}; _emProxCache=null; _emIdxCache=null; _emVerCache=null; _emEnsureDossiers();
@@ -317,7 +318,7 @@ function _emCard(r,compact){
   var distChip = (r.col==='ana') ? _emDistChip(r) : '';
   var _doss=_emDossHref(r); var _dossIco=_doss?('<a class="em-doss" href="'+_doss+'" target="_blank" rel="noopener" title="Abrir dossier de análisis">📄</a>'):'';
   var head = '<div class="em-head" data-emtoggle="'+r.t+'">'
-    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+caret+'</div>'
+    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'')+caret+'</div>'
     + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+zoneChip+distChip+'</div>'
     + '</div>';
   var dim = ((r.col==='plan') || (r.col==='seg' && (r.planPend>0 || r.divPend))) ? _emDimBlock(r) : '';

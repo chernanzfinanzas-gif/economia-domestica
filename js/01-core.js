@@ -300,6 +300,35 @@ async function sincronizarCotizaciones(){
     if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } else if(typeof renderPanelDash==='function'){ renderPanelDash(); }
   }catch(e){}
 }
+/* ===== Alertas corporativas (OPA / concurso / suspensión / sanción / litigio) =====
+   Fuente: alertas.json en la raíz del repo, independiente de si la empresa tiene dossier.
+   Cubre las ~103 empresas del Universo, no solo las analizadas (esas sí tienen Kanban;
+   el resto solo se ve en Universo/Radar y en la Ficha). Se carga una vez y se cachea. */
+var _alertasCorp=null;
+function cargarAlertasCorp(){
+  if(_alertasCorp) return Promise.resolve(_alertasCorp);
+  return fetch('alertas.json',{cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      _alertasCorp=(j&&j.alertas)||{};
+      if(typeof renderUniverso==='function'&&document.getElementById('view-universo'))renderUniverso();
+      if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+      return _alertasCorp;
+    })
+    .catch(function(){ _alertasCorp={}; return _alertasCorp; });
+}
+function alertaCorpDe(t){ t=(t||'').toUpperCase(); return (_alertasCorp||{})[t]||null; }
+var ALERTA_TIPO_ICO={opa:'🤝',concurso:'⚠️',suspension:'⛔',sancion:'⚖️',litigio:'⚖️',otro:'ℹ️'};
+var ALERTA_SEV_COL={alta:{bg:'#fee2e2',bd:'#dc2626',tx:'#991b1b'},media:{bg:'#fef3c7',bd:'#d97706',tx:'#92400e'},baja:{bg:'#e0f2fe',bd:'#0284c7',tx:'#075985'}};
+function alertaCorpBadge(t,compact){
+  var al=alertaCorpDe(t); if(!al)return '';
+  var col=ALERTA_SEV_COL[al.severidad]||ALERTA_SEV_COL.media;
+  var ico=ALERTA_TIPO_ICO[al.tipo]||'ℹ️';
+  var lbl={opa:'OPA',concurso:'Concurso',suspension:'Suspendida',sancion:'Sanción',litigio:'Litigio',otro:'Aviso'}[al.tipo]||'Aviso';
+  if(al.estado==='resuelta')lbl+=' (resuelta)';
+  if(compact) return '<span class="alcorp-b" style="background:'+col.bg+';border-color:'+col.bd+';color:'+col.tx+'" title="'+(''+(al.resumen||'')).replace(/"/g,'&quot;')+'">'+ico+' '+lbl+'</span>';
+  return '<div class="alcorp-banner" data-alcorp="'+_radEsc(t)+'" style="background:'+col.bg+';border-color:'+col.bd+'"><div class="h" style="color:'+col.tx+'">'+ico+' <b>'+lbl+'</b>'+(al.fecha?' · <span class="f">'+al.fecha+'</span>':'')+'</div><div class="r">'+_radEsc(al.resumen||'')+'</div>'+(al.fuente?'<a href="'+al.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')+'</div>';
+}
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);
   const mn=num(a.poMin),mx=num(a.poMax),md=(mn&&mx)?(mn+mx)/2:(mx||mn||0);

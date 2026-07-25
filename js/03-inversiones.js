@@ -507,6 +507,8 @@ function abrirFicha(t){ if(!t)return; const h=document.querySelector('header'); 
 function cerrarFicha(){ const fv=$('#fichaView'); if(fv){ fv.style.display='none'; fv.innerHTML=''; } const h=document.querySelector('header'); if(h)h.style.display=''; const m=$('#main'); if(m)m.style.display=''; fichaTicker=null; document.title='Economía Doméstica'; if(location.hash) history.replaceState(null,'',location.pathname+location.search); }
 function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
+  const _alertaBanner=(typeof alertaCorpBadge==='function')?alertaCorpBadge(fichaTicker,false):'';
   ((DB.dividendos||{})[fichaTicker]||[]).forEach(x=>{ if(!x.id) x.id='d'+Math.random().toString(36).slice(2,9); });
   const f=fichaCalc(fichaTicker);
   const savedUrl=(((DB.valores||{})[fichaTicker]||{}).urlInvesting||'').trim();
@@ -602,7 +604,7 @@ function renderFicha(t){
   const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  $('#fichaView').innerHTML=header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }

@@ -48,6 +48,7 @@ function _uniAtag(a){ a=a||'Sin clasificar'; return '<span class="uni-atag" styl
 function _uniChip(r){ if(r.held)return '<span class="uni-chip h">En cartera</span>'; if(r.ana)return '<span class="uni-chip a">Analizada</span>'; return '<span style="color:#cbd5e1">·</span>'; }
 function renderUniverso(){
   var sec=document.getElementById('view-universo'); if(!sec)return;
+  if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   DB.universo=DB.universo||{};
   var S=_uniStatus();
   var ks=Object.keys(DB.universo);
@@ -55,6 +56,7 @@ function renderUniverso(){
   var nHeld=ks.filter(function(t){return S.isHeld(t);}).length;
   var nAna=ks.filter(function(t){return S.isAna(t);}).length;
   var nSin=ks.filter(function(t){return (DB.universo[t].arquetipo||'Sin clasificar')==='Sin clasificar';}).length;
+  var nAlerta=ks.filter(function(t){ var al=(typeof alertaCorpDe==='function')?alertaCorpDe(t):null; return al&&al.estado!=='resuelta'; }).length;
   var arqCount={}; ks.forEach(function(t){var a=DB.universo[t].arquetipo||'Sin clasificar';arqCount[a]=(arqCount[a]||0)+1;});
   var arqOpts=RAD_ARQ.filter(function(a){return arqCount[a];}).map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===window._uniArq?' selected':'')+'>'+_radEsc(a)+' ('+arqCount[a]+')</option>';}).join('');
   sec.innerHTML=
@@ -65,6 +67,7 @@ function renderUniverso(){
       '<div class="c"><div class="l">En cartera</div><div class="v g">'+nHeld+'</div><div class="p">con posición abierta</div></div>'+
       '<div class="c"><div class="l">Analizadas</div><div class="v a">'+nAna+'</div><div class="p">con dossier o tesis</div></div>'+
       '<div class="c"><div class="l">Sin clasificar</div><div class="v">'+nSin+'</div><div class="p">pendientes de arquetipo</div></div>'+
+      (nAlerta?'<div class="c"><div class="l">⚠️ Con aviso corporativo</div><div class="v" style="color:#dc2626">'+nAlerta+'</div><div class="p">OPA · concurso · suspensión…</div></div>':'')+
     '</div>'+
     '<div class="uni-tb">'+
       '<button class="btn ghost sm" id="uImport">⬆ <span class="lbl-full">Importar matriz.json</span><span class="lbl-short">Imp. Json</span></button>'+
@@ -94,7 +97,7 @@ function _uniRenderList(){
   var cnt=document.getElementById('uCount'); if(cnt)cnt.textContent=list.length+' de '+Object.keys(DB.universo).length+' empresas';
   document.getElementById('uBody').innerHTML=list.map(function(r){ var u=r.u, op=!!window._uniOpen[r.t]; var cls='uni-main'+(r.held?' held':(r.ana?' ana':''))+(op?' open':'');
     return '<tr class="'+cls+'" data-ut="'+_radEsc(r.t)+'"><td><span class="uni-arw">▶</span></td>'+
-      '<td><b class="uni-tk" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b></td>'+
+      '<td><b class="uni-tk" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'')+'</td>'+
       '<td class="uni-nm">'+_radEsc(u.nombre||'')+'</td>'+
       '<td>'+_uniAtag(u.arquetipo)+'</td>'+
       '<td>'+_uniStars(u.rating)+'</td>'+
@@ -103,7 +106,7 @@ function _uniRenderList(){
       '<tr class="uni-act-row"><td colspan="7"><div class="uni-detail">'+_uniDetail(u)+_uniActs(r.t)+'</div></td></tr>';
   }).join('')||'<tr><td colspan="7" class="muted" style="padding:16px;text-align:center">Sin resultados.</td></tr>';
   document.getElementById('uCards').innerHTML=list.map(function(r){ var u=r.u, op=!!window._uniOpen[r.t]; var cls='uni-card'+(r.held?' held':(r.ana?' ana':''))+(op?' open':'');
-    return '<div class="'+cls+'" data-ut="'+_radEsc(r.t)+'"><div class="uni-card-h"><b class="uni-tk uni-tkc" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b>'+
+    return '<div class="'+cls+'" data-ut="'+_radEsc(r.t)+'"><div class="uni-card-h"><b class="uni-tk uni-tkc" data-ficha="'+_radEsc(r.t)+'">'+_radEsc(r.t)+'</b>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'')+
       '<div class="mid"><div class="n">'+_radEsc(u.nombre||'')+'</div><div class="r">'+_uniAtag(u.arquetipo)+'</div></div>'+
       '<div class="rt"><div>'+_uniStars(u.rating)+'</div><div style="margin-top:3px">'+_uniChip(r)+'</div></div>'+
       '<span class="uni-arw" style="margin-left:4px">▶</span></div>'+
