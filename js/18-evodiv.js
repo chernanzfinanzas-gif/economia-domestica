@@ -212,6 +212,10 @@ function evoEmpresa(t){ return evoEmpresaM(t); }
    opts.soloReal = true → no proyecta, solo devuelve dato confirmado (para series históricas). */
 function dpaAnual(t, year, opts){
   t=(t||'').toUpperCase(); var o=opts||{};
+  /* [B6] en años futuros la cascada la resuelve evoDpaProyectado, que respeta el override */
+  if(!o.soloReal && year>new Date().getFullYear() && typeof evoDpaProyectado==='function'){
+    var pf=evoDpaProyectado(t,year); if(pf!=null) return num(pf);
+  }
   if(typeof evoDpaBruto==='function'){ var r=evoDpaBruto(t,year); if(r!=null) return num(r); }
   if(!o.soloReal && typeof evoDpaProyectado==='function'){ var p=evoDpaProyectado(t,year); if(p!=null) return num(p); }
   var lg=((DB.divPorAccion||{})[t]||{})[year];
@@ -242,15 +246,33 @@ function _evoOverride(t,year){
 function evoDpaProyectado(t, year){
   t=(t||'').toUpperCase();
   var ny=new Date().getFullYear(); var esFut=year>ny;
+  /* [B6 · 26-jul-2026] CASCADA ÚNICA DEL DPA, decidida por Carlos: en los años futuros **tu
+     anotación manda**, incluso si dividendos.json ya trae un importe publicado. Antes cada vista
+     elegía distinto —Simulador, Calendario y Caja daban prioridad al dato publicado; Evolución y
+     Actualizar Dividendos, a la anotación—, así que el mismo DPA futuro salía con tres valores.
+     Orden: override del usuario (solo futuros) → dato real → proyección por crecimiento. */
+  if(esFut){ var ovF=_evoOverride(t,year); if(ovF!=null) return ovF; }
   var a=evoAnioM(t,year);
   /* Año vigente/pasado: el valor real manda (aunque sea 0). Futuro: real solo si >0 (ignora placeholders). */
   if(a && a.dpaBruto!=null && (!esFut || num(a.dpaBruto)>0)) return num(a.dpaBruto);
   if(!esFut) return null;   /* vigente/pasado sin dato real: no se proyecta */
-  var ov=_evoOverride(t,year); if(ov!=null) return ov;
   if(year>2100) return null;
   var prev=evoDpaProyectado(t, year-1);
   if(prev==null||!(prev>0)) return null;
   return _evoRound(prev*(1+_evoCrecAno(year)/100),4);
+}
+/* [B6 · 26-jul-2026] Qué se usaría si dejas vacía la casilla de un año futuro, y con qué etiqueta.
+   La cascada es override → publicado en dividendos.json → proyección por crecimiento; el hueco de
+   la casilla tiene que decir la verdad sobre el escalón siguiente, no siempre la proyección. */
+function _b6Fallback(r){
+  if(r.pub!=null) return {txt:_evoPf(r.pub,4), tit:'Ya publicado en dividendos.json: '+_evoPf(r.pub,4)+' €. Si dejas la casilla vacía se usa ese importe. Si escribes aquí, manda tu anotación.'};
+  var a=(r.auto!=null)?_evoPf(r.auto,4):'—';
+  return {txt:a, tit:'Proyección '+_evoPf(_evoCrecAno(_evoYear),1)+'%/año desde '+(_evoYear-1)+': '+a+' €. Escribe para pisarla; vacía la casilla para volver a ella.'};
+}
+/* Marca visible cuando tu anotación desplaza a un importe YA publicado (los dos existen y difieren). */
+function _b6Marca(r){
+  if(r.pubDist==null) return '';
+  return '<span title="dividendos.json publica '+_evoPf(r.pubDist,4)+' € para '+_evoYear+'; manda tu anotación de '+_evoPf(r.ovr,4)+' €. Borra la casilla para volver al dato publicado." style="cursor:help;margin-right:4px;color:#b45309;font-size:12px">⚠</span>';
 }
 /* Proyección automática de un año, IGNORANDO su propio override (para el placeholder de la casilla). */
 function _evoAutoProj(t, year){
@@ -380,7 +402,11 @@ function renderEvoDiv(){
     if(esFuturo){
       ovr=_evoOverride(t,_evoYear);
       auto=_evoAutoProj(t,_evoYear);
-      dpaB=(ovr!=null)?ovr:auto;
+      /* [B6] misma cascada que el resto de la app: override → publicado → proyección.
+         `pub` se guarda aparte para poder señalar cuándo tu anotación desplaza a un dato oficial. */
+      var _aF=evoAnioM(t,_evoYear); var pub=(_aF&&_aF.dpaBruto!=null&&num(_aF.dpaBruto)>0)?num(_aF.dpaBruto):null;
+      dpaB=(ovr!=null)?ovr:((pub!=null)?pub:auto);
+      var _pubDist=(ovr!=null&&pub!=null&&Math.abs(pub-ovr)>0.0001)?pub:null;
     } else {
       dpaB=a?(a.dpaBruto!=null?num(a.dpaBruto):null):null;
     }
@@ -391,7 +417,7 @@ function renderEvoDiv(){
     /* prioridad de orden: cartera(0) informe(1) plan sin informe(2) resto con div por RPD(3) sin div(4) */
     var rank;
     if(isCartera) rank=0; else if(isInforme) rank=1; else if(isPlan) rank=2; else if(paga) rank=3; else rank=4;
-    return {e:em,t:t,a:a,dpaB:dpaB,ovr:ovr,auto:auto,precio:precio,rpd:rpd,paga:paga,
+    return {e:em,t:t,a:a,dpaB:dpaB,ovr:ovr,auto:auto,pub:(typeof pub!=='undefined'?pub:null),pubDist:(typeof _pubDist!=='undefined'?_pubDist:null),precio:precio,rpd:rpd,paga:paga,
       isCartera:isCartera,isInforme:isInforme,isPlan:isPlan,rank:rank,
       junta:a?a.junta:null,nombre:(em&&em.nombre)||e.nombre||t};
   });
@@ -487,8 +513,11 @@ function renderEvoDiv(){
     var rpdCol=r.rpd==null?'#94a3b8':(r.rpd>=5?'#16a34a':(r.rpd>=3.5?'#2563eb':'#475569'));
     var divCell;
     if(esFuturo){
-      var ph=(r.auto!=null)?_evoPf(r.auto,4):'—';
-      divCell='<td class="num"><input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="Proyección: '+ph+' €. Escribe para pisar; vacía para volver a la proyección." style="width:86px;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:2px 5px;font-size:12px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'"></td>';
+      /* [B6] el hueco muestra lo que REALMENTE se usaría si dejas la casilla vacía: el importe ya
+         publicado si lo hay, y solo si no lo hay, la proyección. Antes ponía siempre la proyección,
+         de modo que la fila decía una cosa y el resto de la app usaba otra. */
+      var _fall=_b6Fallback(r), ph=_fall.txt;
+      divCell='<td class="num">'+_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fall.tit+'" style="width:86px;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:2px 5px;font-size:12px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'"></td>';
     } else {
       divCell='<td class="num" style="font-weight:600">'+(r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—')+'</td>';
     }
@@ -512,7 +541,7 @@ function renderEvoDiv(){
     var rpdTxt=r.rpd!=null?(_evoPf(r.rpd,2)+'%'):'—';
     var rpdC=r.rpd==null?'#94a3b8':(r.rpd>=5?'#16a34a':(r.rpd>=3.5?'#2563eb':'#475569'));
     var divM;
-    if(esFuturo){ var ph=(r.auto!=null)?_evoPf(r.auto,4):'—'; divM='<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" style="width:100%;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:3px 5px;font-size:13px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'; }
+    if(esFuturo){ var _fM=_b6Fallback(r), ph=_fM.txt; divM=_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fM.tit+'" style="width:100%;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:3px 5px;font-size:13px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'; }
     else { divM=(r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—'); }
     return '<div class="evo-card'+(open?' open':'')+(r.isCartera?' cart':'')+'" data-evocard="'+_evoEsc(r.t)+'" data-fs="'+_evoEsc((r.t+' '+r.nombre).toLowerCase())+'">'
       +'<div class="ec-h"><div class="ec-tk"><b data-ficha="'+_evoEsc(r.t)+'">'+_evoEsc(r.t)+'</b> <span class="nm">'+_evoEsc((r.nombre||'').slice(0,22))+'</span></div><span class="ec-arw">'+(open?'▾':'▸')+'</span></div>'
@@ -652,7 +681,13 @@ function _evoDetalleHTML(r){
   if(!esFut && _evoEdit[t]) return editBtn+_evoEditHTML(r);
   var a=r.a;
   var notaHTML=(r.e&&r.e.nota)?'<div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:6px;padding:6px 8px;margin-bottom:8px;font-size:12px;color:#9a3412">📝 '+_evoEsc(r.e.nota)+'</div>':'';
-  if(!a){ return editBtn+notaHTML+'<span class="muted" style="font-size:12px">'+((r.dpaB!=null)?('Dividendo <b>estimado</b> '+_evoYear+': <b>'+_evoPf(r.dpaB,4)+' €</b>'+(r.ovr!=null?' (pisado a mano)':' (proyección '+_evoPf(_evoCrecAno(_evoYear),1)+'%/año desde '+(_evoYear-1)+')')+'. Los pagos, la junta y demás se rellenan cuando el año pase a ser el vigente.'):('Sin datos de dividendo para '+_evoYear+'.'+(esFut?'':' Pulsa «✏️ Editar dividendos» para añadirlos a mano.')))+'</span>'; }
+  /* [B6] de dónde sale el importe estimado: anotación tuya / publicado / proyección. Antes solo
+     distinguía «pisado a mano» vs «proyección», y el caso publicado se contaba como proyección. */
+  var _org = (r.ovr!=null)
+      ? (' (anotado por ti'+(r.pubDist!=null?('; dividendos.json publica '+_evoPf(r.pubDist,4)+' € — manda tu anotación'):'')+')')
+      : ((r.pub!=null) ? ' (ya publicado en dividendos.json)'
+                       : (' (proyección '+_evoPf(_evoCrecAno(_evoYear),1)+'%/año desde '+(_evoYear-1)+')'));
+  if(!a){ return editBtn+notaHTML+'<span class="muted" style="font-size:12px">'+((r.dpaB!=null)?('Dividendo <b>estimado</b> '+_evoYear+': <b>'+_evoPf(r.dpaB,4)+' €</b>'+_org+'. Los pagos, la junta y demás se rellenan cuando el año pase a ser el vigente.'):('Sin datos de dividendo para '+_evoYear+'.'+(esFut?'':' Pulsa «✏️ Editar dividendos» para añadirlos a mano.')))+'</span>'; }
   var meta=[];
   if(a.naturaleza) meta.push('Naturaleza: <b>'+_evoEsc(a.naturaleza)+'</b>');
   if(a.nPagos) meta.push('Nº pagos: <b>'+a.nPagos+'</b>');

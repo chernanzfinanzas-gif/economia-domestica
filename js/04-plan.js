@@ -706,6 +706,14 @@ function renderPanelDash(){
         txt:'💰 <b>Dividendos sin actualizar</b> — '+_p.join(' · ')+'. Anótalos en Retorno → Actualizar Dividendos.'});
     }
   }catch(e){}
+  /* [B6 · 26-jul-2026] borrador de dividendos anotado y sin volcar: ahora sobrevive a la recarga,
+     así que hay que recordarlo — si no, quedaría escrito en la pantalla pero sin efecto ninguno. */
+  try{ const _bd=(typeof divBorradorPendiente==='function')?divBorradorPendiente():null;
+    if(_bd && _bd.total){
+      avisos.push({pri:3, cls:'a', goto:'divfut', tick:'', tipo:'dividendo',
+        txt:'📝 <b>Dividendos anotados sin volcar</b> — '+_bd.total+' valor'+(_bd.total===1?'':'es')+' en borrador ('+_bd.anios.map(x=>x.anio+': '+x.n).join(' · ')+'). Hasta que pulses «Volcar a Evolución» no cuentan para nada.'});
+    }
+  }catch(e){}
   /* [A8] hipótesis de la Proyección desfasada: el presupuesto anual del Plan cuelga de ella. */
   try{ const _vj=(typeof proyHipotesisVieja==='function')?proyHipotesisVieja():null;
        if(_vj) avisos.push({pri:3,cls:'a',goto:'independencia',tick:'',txt:'🧾 <b>Proyección</b> — '+_vj.txt+'. El presupuesto del Plan se calcula con ella: revísala en Proyección → Hipótesis Inicial.'});

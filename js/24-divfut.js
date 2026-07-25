@@ -73,10 +73,42 @@ function _dfReal(t,y){
   return real;
 }
 function _dfFmt(x){ if(x==null)return ''; var s=(Math.round(x*10000)/10000).toString(); return s.replace('.',','); }
-/* Borrador en memoria de lo tecleado (por año → ticker → valor string). */
-var _dfDraft={};
-function _dfGetCell(t,y){ y=String(y); if(_dfDraft[y]&&_dfDraft[y][t]!==undefined) return _dfDraft[y][t]; var v=_dfReal(t,y); return v==null?'':_dfFmt(v); }
-function _dfSetDraft(t,y,val){ y=String(y); _dfDraft[y]=_dfDraft[y]||{}; _dfDraft[y][t]=val; }
+/* [B6 · 26-jul-2026] Borrador de lo tecleado (por año → ticker → valor string).
+   ANTES vivía solo en memoria (`var _dfDraft={}`): si recargabas, cerrabas la pestaña o el móvil
+   descartaba la página antes de pulsar «Volcar», todo lo anotado se perdía SIN AVISO. Ahora el
+   borrador se guarda en DB.divDraft (y por tanto en Drive), sobrevive a la recarga y se muestra
+   un contador «N sin volcar» con botón para descartarlo. */
+function _dfDraftAll(){ if(!DB.divDraft || typeof DB.divDraft!=='object') DB.divDraft={}; return DB.divDraft; }
+function _dfDraftYear(y){ var D=_dfDraftAll(); y=String(y); return D[y]||{}; }
+function _dfGetCell(t,y){ var d=_dfDraftYear(y); if(d[t]!==undefined) return d[t]; var v=_dfReal(t,y); return v==null?'':_dfFmt(v); }
+function _dfSetDraft(t,y,val){
+  var D=_dfDraftAll(); y=String(y); D[y]=D[y]||{};
+  var ref=_dfReal(t,_dfNum(y)); ref=(ref==null?'':_dfFmt(ref));
+  if(val===ref){ delete D[y][t]; if(!Object.keys(D[y]).length) delete D[y]; }   /* volver al valor de origen = no es borrador */
+  else D[y][t]=val;
+  _dfSaveDraft();
+}
+var _dfSaveT=null;
+function _dfSaveDraft(){ clearTimeout(_dfSaveT); _dfSaveT=setTimeout(function(){ if(typeof scheduleSave==='function')scheduleSave(); },900); }
+function _dfDraftCount(y){ var d=_dfDraftYear(y), n=0; Object.keys(d).forEach(function(t){ if((''+d[t]).trim()!=='')n++; }); return n; }
+/* [B6] Borradores anotados y sin volcar (todos los años). Alimenta el aviso del Panel: guardar el
+   borrador sin avisar sería peor que perderlo, porque creerías que el dato ya está en el sistema. */
+function divBorradorPendiente(){
+  var out={total:0, anios:[]};
+  try{ var D=_dfDraftAll();
+    Object.keys(D).sort().forEach(function(y){
+      var n=0; Object.keys(D[y]||{}).forEach(function(t){ if((''+D[y][t]).trim()!=='')n++; });
+      if(n){ out.anios.push({anio:y, n:n}); out.total+=n; }
+    });
+  }catch(_){}
+  return out;
+}
+function _dfDescartar(){
+  var y=String(_dfYear), D=_dfDraftAll();
+  if(!D[y] || !Object.keys(D[y]).length) return;
+  if(!confirm('Descartar el borrador de '+y+'? Se perderán '+_dfDraftCount(_dfYear)+' valores anotados y no volcados.')) return;
+  delete D[y]; if(typeof scheduleSave==='function')scheduleSave(); renderDivFut();
+}
 
 var _dfYear=null, _dfQ='';
 function renderDivFut(){
@@ -96,6 +128,7 @@ function renderDivFut(){
   var yopts=years.map(function(y){ var suf=(y<cur?' · pasado':(y===cur?' · actual':'')); return '<option value="'+y+'"'+(y===_dfYear?' selected':'')+'>'+y+suf+'</option>'; }).join('');
   /* contadores (solo las que pagan) para el año foco */
   var ok=0,no=0; pag.forEach(function(r){ (_dfGetCell(r.t,_dfYear)==='')?no++:ok++; });
+  var nBorr=_dfDraftCount(_dfYear);
 
   var H='<div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">✏️</span><div class="vhero-txt"><h2>Actualizar Dividendos</h2><p>Anota el <b>dividendo bruto por acción</b> de los años futuros a medida que se anuncian; al <b>volcar</b>, se escribe en Evolución del Dividendo.</p></div></div></div>';
   H+='<div class="df-wrap">';
@@ -103,23 +136,25 @@ function renderDivFut(){
     +'<span class="df-cb ok">✅ '+ok+' con dato</span><span class="df-cb no">⏳ '+no+' sin dato</span>'
     +'<input type="text" id="dfQ" placeholder="Buscar…" value="'+_dfQ.replace(/"/g,'&quot;')+'">'
     +'<span class="df-sp"></span>'
-    +'<button class="df-vol" id="dfVol"'+(editable?'':' disabled')+'>⤵ Volcar a Evolución</button></div>';
+    +(nBorr?'<span class="df-cb bor" id="dfBor" title="Anotado pero todavía no volcado. Se guarda solo, pero hasta que no pulses «Volcar» no llega a Evolución del Dividendo.">📝 '+nBorr+' sin volcar</span><button class="df-desc" id="dfDesc">Descartar</button>':'')
+    +'<button class="df-vol" id="dfVol"'+(editable&&nBorr?'':' disabled')+'>⤵ Volcar a Evolución</button></div>';
   if(!editable) H+='<div class="df-info">Año '+(_dfYear===cur?'actual':'pasado')+' — informativo (dato real de dividendos.json). Solo se editan los años futuros.</div>';
   H+=_dfGrid(pag, editable, cur);
   H+='<div class="df-sech no">🚫 Figuran como que no pagan <span class="df-pill">'+nop.length+'</span></div>';
   H+=_dfGrid(nop, editable, cur);
-  H+='<div class="df-note">Los futuros salen en blanco (no se muestra la proyección de subida %). Al <b>Volcar</b>, lo anotado se escribe en <b>dividendos.json</b> (previsto), sustituyendo la proyección. Horizonte: '+_dfCur()+'–'+_dfHoriz()+' (Diversificación).</div>';
+  H+='<div class="df-note">Los futuros salen en blanco (no se muestra la proyección de subida %). Lo que teclees queda guardado como <b>borrador</b> (morado) aunque recargues, pero <b>no cuenta para nada</b> hasta que pulses <b>Volcar</b>: ahí se escribe en <b>dividendos.json</b> (previsto) y manda sobre la proyección y sobre el dato publicado. Horizonte: '+_dfCur()+'–'+_dfHoriz()+' (Diversificación).</div>';
   H+='</div>';
   sec.innerHTML=H;
   _dfBind(sec);
 }
 function _dfGrid(list, editable, cur){
-  var h='<div class="df-grid">';
+  var h='<div class="df-grid">', dra=_dfDraftYear(_dfYear);
   list.forEach(function(r){
     var raw=_dfReal(r.t,_dfYear);
     var val=_dfGetCell(r.t,_dfYear);
     var vac=(val==='');
-    var cls='df-gi'+(!r.paga?' no':(editable&&vac?' pend':((!vac)?' real':'')));
+    var esBor=(dra[r.t]!==undefined && (''+dra[r.t]).trim()!=='');   /* [B6] anotado y aún sin volcar */
+    var cls='df-gi'+(!r.paga?' no':(esBor?' bor':(editable&&vac?' pend':((!vac)?' real':''))));
     var ref='';
     var inner='<div class="df-tk" data-dftk="'+r.t+'">'+r.t+'</div><div class="df-nm" title="'+r.s+'">'+r.s+'</div>';
     if(editable){ inner+='<div class="df-in"><input value="'+val+'" placeholder="—" inputmode="decimal" data-dfin="'+r.t+'"></div>'; }
@@ -130,7 +165,7 @@ function _dfGrid(list, editable, cur){
 }
 function _dfVolcar(){
   var cur=_dfCur(); if(!(_dfYear>cur)) return;
-  var y=String(_dfYear); var d=_dfDraft[y]||{}; var nue=0, act=0;
+  var y=String(_dfYear); var d=_dfDraftYear(y); var nue=0, act=0;
   Object.keys(d).forEach(function(t){
     var raw=(''+d[t]).trim(); if(raw==='') return;
     var v=_dfNum(raw); if(!(v>=0)) return;
@@ -143,20 +178,40 @@ function _dfVolcar(){
     try{ var dd=(DB.divData||{})[t]; if(dd&&dd.anios&&dd.anios[String(_dfYear)]){ delete dd.anios[String(_dfYear)].dpaBruto; delete dd.anios[String(_dfYear)].dpaNeto; delete dd.anios[String(_dfYear)].totalPrevisto; } }catch(_){}
     if(prev==null) nue++; else if(Math.abs(prev-v)>1e-9) act++;
   });
-  _dfDraft[y]={};
+  delete _dfDraftAll()[y];                                  /* [B6] el borrador ya está volcado */
   if(typeof scheduleSave==='function')scheduleSave();
   if(typeof toast==='function')toast('Volcado a Evolución '+_dfYear+': '+nue+' nuevos · '+act+' actualizados.');
   renderDivFut();
+}
+/* [B6] refresca el contador «sin volcar» y el botón sin repintar la rejilla (no perder el foco). */
+function _dfRefreshBar(){
+  var n=_dfDraftCount(_dfYear), bar=document.querySelector('#view-divfut .df-bar'); if(!bar) return;
+  var vol=document.getElementById('dfVol'), bor=document.getElementById('dfBor'), des=document.getElementById('dfDesc');
+  if(vol) vol.disabled = !(n && _dfYear>_dfCur());
+  if(n){
+    if(!bor){ bor=document.createElement('span'); bor.id='dfBor'; bor.className='df-cb bor';
+      bor.title='Anotado pero todavía no volcado. Se guarda solo, pero hasta que no pulses «Volcar» no llega a Evolución del Dividendo.';
+      bar.insertBefore(bor, vol||null); }
+    bor.textContent='📝 '+n+' sin volcar';
+    if(!des){ des=document.createElement('button'); des.id='dfDesc'; des.className='df-desc'; des.textContent='Descartar'; bar.insertBefore(des, vol||null); }
+  } else { if(bor)bor.remove(); if(des)des.remove(); }
 }
 function _dfBind(sec){
   if(sec._dfBound) return; sec._dfBound=true;
   sec.addEventListener('change',function(e){ var s=e.target.closest&&e.target.closest('#dfYear'); if(s){ _dfYear=_dfNum(s.value); renderDivFut(); } });
   sec.addEventListener('input',function(e){
     var q=e.target.closest&&e.target.closest('#dfQ'); if(q){ _dfQ=(q.value||'').toLowerCase().trim(); renderDivFut(); var el=document.getElementById('dfQ'); if(el){el.focus(); try{el.setSelectionRange(el.value.length,el.value.length);}catch(_){}} return; }
-    var inp=e.target.closest&&e.target.closest('[data-dfin]'); if(inp){ _dfSetDraft(_dfUp(inp.getAttribute('data-dfin')), _dfYear, inp.value.trim()); var gi=inp.closest('.df-gi'); if(gi&&!gi.classList.contains('no')){ var vac=(inp.value.trim()===''); gi.classList.toggle('pend',vac); gi.classList.toggle('real',!vac); } }
+    var inp=e.target.closest&&e.target.closest('[data-dfin]'); if(inp){
+      var tk=_dfUp(inp.getAttribute('data-dfin')); _dfSetDraft(tk, _dfYear, inp.value.trim());
+      var gi=inp.closest('.df-gi');
+      if(gi&&!gi.classList.contains('no')){ var vac=(inp.value.trim()===''), bor=(_dfDraftYear(_dfYear)[tk]!==undefined && !vac);
+        gi.classList.toggle('pend',vac); gi.classList.toggle('bor',bor); gi.classList.toggle('real',!vac&&!bor); }
+      _dfRefreshBar();                                     /* [B6] mantiene vivo el contador «sin volcar» */
+    }
   });
   sec.addEventListener('click',function(e){
     var v=e.target.closest&&e.target.closest('#dfVol'); if(v){ _dfVolcar(); return; }
+    var d=e.target.closest&&e.target.closest('#dfDesc'); if(d){ _dfDescartar(); return; }
     var tk=e.target.closest&&e.target.closest('[data-dftk]'); if(tk){ if(typeof activarVista==='function')activarVista('prevision'); return; }
   });
 }
@@ -169,6 +224,10 @@ function _dfCss(){
     '.df-yl{font-size:12px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.03em}',
     '.df-bar select{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;font-size:19px;font-weight:800;color:#1f3d6b}',
     '.df-cb{border-radius:20px;padding:5px 11px;font-size:12.5px;font-weight:700}.df-cb.ok{background:#dcfce7;color:#166534}.df-cb.no{background:#fef3c7;color:#92400e}',
+    '.df-cb.bor{background:#ede9fe;color:#5b21b6;border:1px solid #c4b5fd}',
+    '.df-desc{background:#fff;color:#7c3aed;border:1px solid #c4b5fd;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer}',
+    '.df-gi.bor{background:#f5f3ff;border-color:#c4b5fd;box-shadow:inset 3px 0 0 #7c3aed}',
+    '.df-gi.bor .df-in input{border-color:#a78bfa;background:#fff}',
     '.df-sp{flex:1}',
     '.df-bar #dfQ{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;font-size:13px;width:180px;max-width:100%}',
     '.df-vol{background:#1f3d6b;color:#fff;border:none;border-radius:22px;padding:9px 15px;font-size:12.5px;font-weight:800;cursor:pointer}',
