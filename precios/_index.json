@@ -1,5 +1,5 @@
 {
-"actualizado": "2026-07-24",
+"actualizado": "2026-07-25",
 "tickers": [
 {
 "ticker": "A3M",
@@ -642,8 +642,8 @@
 "ticker": "SEC",
 "symbol": "SEC.MC",
 "desde": "2011-07-28",
-"hasta": "2026-07-23",
-"n": 3834
+"hasta": "2026-07-24",
+"n": 3835
 },
 {
 "ticker": "SLR",
@@ -677,8 +677,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-23",
-"n": 3978
+"hasta": "2026-07-24",
+"n": 3979
 },
 {
 "ticker": "TUB",
@@ -691,8 +691,8 @@
 "ticker": "UBS",
 "symbol": "UBS.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-23",
-"n": 3979
+"hasta": "2026-07-24",
+"n": 3980
 },
 {
 "ticker": "UNI",
