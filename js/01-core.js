@@ -620,6 +620,28 @@ function statusRowBg(t,held){ t=(t||'').toUpperCase(); if(!t)return ''; held=hel
 /* ---- Selectores de estado canónicos (única fuente de verdad) ----
    Evitan recomputar a mano estos conjuntos por todo el código (origen de desincronizaciones). */
 /* Conjunto de tickers de posiciones cerradas (archivadas + calculadas). */
+/* [B9 · 26-jul-2026] ¿Este dividendo pertenece al ciclo de una posición ARCHIVADA?
+   La regla «cerradas mandan» —que evita contar dos veces un dividendo que vive a la vez en
+   DB.dividendos y en c.divs— filtraba por TICKER: bastaba con que la empresa estuviera archivada
+   para ignorar TODOS sus dividendos de DB.dividendos. Consecuencia: al recomprar una empresa
+   archivada —justo lo que el archivado promete permitir, «una nueva compra empieza un ciclo nuevo
+   sin mezclar»— los dividendos del ciclo NUEVO desaparecían de la bola de nieve, el cash-flow, el
+   calendario €/mes y la comparación real del simulador.
+   Ahora se filtra por VENTANA: solo se descarta el dividendo cuya fecha cae dentro del ciclo
+   archivado (primera operación → última). Lo de fuera es del ciclo vivo y cuenta. */
+function divEnCicloCerrado(t, fecha){
+  t=(t||'').toUpperCase(); var f=(''+(fecha||'')).slice(0,10); if(!t||!f) return false;
+  var cs=(DB.cerradas||[]); 
+  for(var i=0;i<cs.length;i++){
+    var c=cs[i]; if((c.ticker||'').toUpperCase()!==t) continue;
+    var fs=(c.ops||[]).map(function(o){return (''+(o.fecha||'')).slice(0,10);}).filter(Boolean).sort();
+    var ini=fs.length?fs[0]:(''+(c.fechaCompra||'')).slice(0,10);
+    var fin=fs.length?fs[fs.length-1]:(''+(c.fechaVenta||'')).slice(0,10);
+    if(!ini&&!fin) return true;                 /* archivada sin fechas: se mantiene el criterio antiguo */
+    if((!ini||f>=ini)&&(!fin||f<=fin)) return true;
+  }
+  return false;
+}
 function closedTickerSet(){ var s=new Set(); (DB.cerradas||[]).forEach(function(c){ var t=(c.ticker||'').toUpperCase(); if(t)s.add(t); }); try{ (typeof invClosedComputed==='function'?invClosedComputed():[]).forEach(function(c){ var t=(c.ticker||'').toUpperCase(); if(t)s.add(t); }); }catch(e){} return s; }
 /* Conjunto de tickers con importe planificado (>0) en el Plan. */
 function enPlanTickerSet(){ var s=new Set(); var pc=DB.planCompras||{}; Object.keys(pc).forEach(function(t){ if(Object.values(pc[t]||{}).some(function(v){return num(v)>0;})) s.add((t||'').toUpperCase()); }); return s; }

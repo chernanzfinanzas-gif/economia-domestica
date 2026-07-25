@@ -244,7 +244,7 @@ function _calDivMesReal(year){
   var opSet={}; ops.forEach(function(o){ opSet[(o.ticker||'').toUpperCase()]=1; });
   var shAt=function(t,f){ var ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return 0; var sh=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()===t){ var om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*_calNum(o.acciones); } }); return sh; };
   var addPago=function(T,f,imp){ var g=shAt(T,f)*_calNum(imp); if(!g)return; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12)neto[m]+=g*0.81; bruto+=g; seen[T]=1; };
-  var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); if(closed[T])return; (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
+  var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
   (DB.cerradas||[]).forEach(function(c){ var T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
   var dIng=DB.divIngresos||{}; Object.keys(dIng).forEach(function(t){ var T=(t||'').toUpperCase(); if(opSet[T]||closed[T])return; var v=(dIng[t]||{})[Y]; if(v){ var g=_calNum(v); neto[11]+=g*0.81; bruto+=g; seen[T]=1; } });
   return { neto:neto, bruto:bruto, seen:seen };
