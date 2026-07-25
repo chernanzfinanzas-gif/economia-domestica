@@ -628,6 +628,10 @@ function _factorBlockHTML(FX){
   return whatfor+howread+'<div class="fx-grid">'+cards+'</div>'+warn+cov;
 }
 function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#riesgoKpis'); const R=riesgoData(renderRiesgo);
+  var _rsec0=document.getElementById('view-riesgo');
+  if(_rsec0 && !renderRiesgo._bound){ renderRiesgo._bound=true; _rsec0.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return;
+    var pf=e.target.closest('.pd-h'); if(pf){ var fold=pf.closest('.plan-fold'); if(fold)fold.classList.toggle('open'); return; }
+    var h=e.target.closest('.rz-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-rzblk'); window._riesgoOpen[k]=!window._riesgoOpen[k]; h.parentElement.classList.toggle('open'); } }); }
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
@@ -696,8 +700,6 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
     blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. Marca además la <b>renta poco fiable</b> (Dividend Safety &lt; 60) y el 💧score de seguridad de cada pagador. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
     blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>')+
     blk('factores','🧭','Exposición a factores vs IBEX',(FX&&FX.ok?'perfil de estilo de tu cartera':'—'),'',_factorBlockHTML(FX));
-  var _rsec=document.getElementById('view-riesgo');
-  if(_rsec && !renderRiesgo._bound){ renderRiesgo._bound=true; _rsec.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.rz-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-rzblk'); window._riesgoOpen[k]=!window._riesgoOpen[k]; h.parentElement.classList.toggle('open'); } }); }
 }
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===
 const _evoReg={}; let _evoBound=false;

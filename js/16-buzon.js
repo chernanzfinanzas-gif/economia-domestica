@@ -156,16 +156,16 @@
       else inner1+='<p class="muted" style="margin:10px 0">Sin cambios materiales respecto a la foto anterior.</p>';
       if(a.nuevas&&a.nuevas.length) inner1+='<p class="muted" style="font-size:12px;margin-top:6px">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
     } else inner1+='<p class="muted" style="margin:10px 0">Aún no hay datos de cambios (se generan cada mes por la tarea automática).</p>';
-    var sub1=a?(cambios.length+' empresa'+(cambios.length!==1?'s':'')):'';
+    var cnt1=a?(cambios.length+' empresa'+(cambios.length!==1?'s':'')):'';
     h+='<div class="blk'+(op.nuevo?' open':'')+'" id="radBlkNuevo"><div class="blk-h" data-radblk="nuevo"><span class="blk-arw">▶</span><span class="blk-ic">🔎</span>'
-      +'<div><div class="blk-t">Radar: qué cambió</div><div class="blk-sub">'+sub1+'</div></div></div>'
+      +'<div><div class="blk-t">Radar: qué cambió</div><div class="blk-sub">Cambios de fundamentales frente a la foto anterior'+(cnt1?(' · '+cnt1):'')+'</div></div></div>'
       +'<div class="blk-b">'+inner1+'</div></div>';
     if(hist&&hist.meses&&hist.meses.length){
       var mode=(window._radHistMode==='empresa')?'empresa':'mes';
       var tbtn=function(k,lbl){ var on=(mode===k); return '<button data-radhist="'+k+'" style="border:0;border-radius:6px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer;background:'+(on?'#fff':'transparent')+';color:'+(on?'#86198f':'#64748b')+'">'+lbl+'</button>'; };
       var tg='<div style="display:inline-flex;gap:4px;margin:2px 0 8px;background:#f1f5f9;border-radius:8px;padding:3px">'+tbtn('mes','Por mes')+tbtn('empresa','Por empresa')+'</div>';
       h+='<div class="blk'+(op.hist?' open':'')+'" id="radBlkHist"><div class="blk-h" data-radblk="hist"><span class="blk-arw">▶</span><span class="blk-ic">🕘</span>'
-        +'<div><div class="blk-t">Meses anteriores</div><div class="blk-sub">'+hist.meses.length+' mes'+(hist.meses.length!==1?'es':'')+' archivados</div></div></div>'
+        +'<div><div class="blk-t">Meses anteriores</div><div class="blk-sub">Archivo mensual de señales, por mes o por empresa · '+hist.meses.length+' mes'+(hist.meses.length!==1?'es':'')+'</div></div></div>'
         +'<div class="blk-b">'+tg+'<div id="radHistContent">'+_radBuzHistContent(hist)+'</div></div></div>';
     }
     return h;

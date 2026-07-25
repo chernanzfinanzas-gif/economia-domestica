@@ -235,12 +235,18 @@
      #view-escenarios .esc-k.hero .s{color:#fecaca}#view-escenarios .esc-k.hero.pos .s{color:#bbf7d0}
      #view-escenarios #escNetFoot{color:#64748b;font-size:12px;margin-top:10px}
      #view-escenarios .esc-blk{background:#fff;border:1px solid #e2e8f0;border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-     #view-escenarios .esc-blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none}
+     #view-escenarios .esc-blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;border-left:5px solid #94a3b8}
      #view-escenarios .esc-blk-h .ic{font-size:17px}#view-escenarios .esc-blk-h .t{font-weight:800;font-size:15px}
      #view-escenarios .esc-blk-h .arw{margin-left:auto;color:#94a3b8;font-size:12px;transition:transform .15s}
      #view-escenarios .esc-blk.open .esc-blk-h .arw{transform:rotate(90deg)}
      #view-escenarios .esc-blk-b{display:none;padding:0 16px 16px;border-top:1px solid #e2e8f0}
      #view-escenarios .esc-blk.open .esc-blk-b{display:block}
+     #view-escenarios .esc-blk[data-eblk="imp"] .esc-blk-h{background:linear-gradient(120deg,#fef2f2,#fee2e2);border-left-color:#dc2626}
+     #view-escenarios .esc-blk[data-eblk="imp"] .esc-blk-h .t{color:#991b1b}
+     #view-escenarios .esc-blk[data-eblk="heat"] .esc-blk-h{background:linear-gradient(120deg,#fffbeb,#fef3c7);border-left-color:#f59e0b}
+     #view-escenarios .esc-blk[data-eblk="heat"] .esc-blk-h .t{color:#92400e}
+     #view-escenarios .esc-blk[data-eblk="cob"] .esc-blk-h{background:linear-gradient(120deg,#f0fdfa,#ccfbf1);border-left-color:#0d9488}
+     #view-escenarios .esc-blk[data-eblk="cob"] .esc-blk-h .t{color:#115e59}
      #view-escenarios .esc-note{font-size:12px;color:#64748b;margin:10px 2px 12px;line-height:1.5}
      #view-escenarios table{width:100%;border-collapse:collapse;font-size:12.5px}
      #view-escenarios thead th{color:#64748b;font-weight:700;text-align:left;padding:7px 8px;border-bottom:1px solid #e2e8f0;font-size:10.5px;text-transform:uppercase}

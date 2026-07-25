@@ -246,7 +246,7 @@ function _visSortTools(){
   var mob='<label class="vis-sortm">Ordenar <select id="visSortSel">'+b.map(function(o){return '<option value="'+o[0]+'"'+(_visSort===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('')+'</select></label>';
   return '<div class="vis-tools">'+desk+mob+'</div>';
 }
-function _visBlk(key,ic,title,cnt,note,tools,inner){ var op=window._visOpen[key]; return '<div class="vis-blk'+(op?' open':'')+'" data-vblk="'+key+'"><div class="vis-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div><div class="vis-blk-b">'+(note?'<div class="vis-note">'+note+'</div>':'')+(tools||'')+inner+'</div></div>'; }
+function _visBlk(key,ic,title,sub,cnt,note,tools,inner){ var op=window._visOpen[key]; return '<div class="vis-blk'+(op?' open':'')+'" data-vblk="'+key+'"><div class="vis-blk-h"><span class="ic">'+ic+'</span><div class="vis-blk-tt"><span class="t">'+title+'</span><span class="sub">'+sub+'</span></div>'+(cnt?'<span class="cnt">'+cnt+'</span>':'')+'<span class="arw">▶</span></div><div class="vis-blk-b">'+(note?'<div class="vis-note">'+note+'</div>':'')+(tools||'')+inner+'</div></div>'; }
 function renderVision(){
   const el=$('#visBody'); if(!el) return;
   const faltan=(DB.analisis||[]).some(a=>{ const t=(a.ticker||'').toUpperCase(); return t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined); });
@@ -275,9 +275,9 @@ function renderVision(){
   el.innerHTML=
     '<div class="sub" style="margin-bottom:14px">Ranking transversal de todas tus empresas por <b>atractivo</b> (calidad + margen de seguridad + RPD) para priorizar qué analizar o comprar, y tu <b>exposición por tema de riesgo</b> en cartera.</div>'+
     kpis+
-    _visBlk('rank','🧭','Ranking de atractivo',nAn+' analizadas','Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). RPD viva (dividendo del año en vigor ÷ precio, misma fuente que Radar). Las que aún no tienes analizadas usan una <b>calidad estimada</b> del subíndice de Radar, marcada «est.». ⚠ marca dossier de más de 12 meses.',_visSortTools(),_visRankDesk(rows)+_visRankCards(rows))+
-    _visBlk('expo','🛡️','Exposición por tema de riesgo',ex.rows.length+' temas','% del valor de tu cartera expuesto a cada tema (una empresa puede sumar a varios). Rojo ≥40% · ámbar ≥25%.','',_visExpoHtml(ex))+
-    _visBlk('tags','🏷️','Tags de riesgo por empresa',nAn+' empresas','Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). «↻ auto» descarta los cambios manuales de esa empresa.','',_visTagsHtml(rows));
+    _visBlk('rank','🧭','Ranking de atractivo','Atractivo = Calidad + Margen de seguridad + RPD, normalizados',nAn+' analizadas','Atractivo = 0,45·Calidad + 0,35·Margen de seguridad + 0,20·RPD (normalizados 0-100). RPD viva (dividendo del año en vigor ÷ precio, misma fuente que Radar). Las que aún no tienes analizadas usan una <b>calidad estimada</b> del subíndice de Radar, marcada «est.». ⚠ marca dossier de más de 12 meses.',_visSortTools(),_visRankDesk(rows)+_visRankCards(rows))+
+    _visBlk('expo','🛡️','Exposición por tema de riesgo','% de tu cartera expuesto a cada tema de riesgo',ex.rows.length+' temas','% del valor de tu cartera expuesto a cada tema (una empresa puede sumar a varios). Rojo ≥40% · ámbar ≥25%.','',_visExpoHtml(ex))+
+    _visBlk('tags','🏷️','Tags de riesgo por empresa','Automáticos desde la tesis; añade o quita a mano',nAn+' empresas','Automáticos desde los riesgos[] de cada tesis; puedes añadir (desplegable) o quitar (✕). «↻ auto» descarta los cambios manuales de esa empresa.','',_visTagsHtml(rows));
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   _visBind();
 }
