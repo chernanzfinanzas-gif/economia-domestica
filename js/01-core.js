@@ -288,6 +288,18 @@ async function init(){
 /* ============ Render ============ */
 let curYear, curMonth;
 
+/* Sincroniza DB.valores con precios/_ultimos.json del repo.
+   PARCHE 25-07-2026 — fosilizacion del precio en la misma fecha.
+   La condicion 'gana' era:
+       (!pf) || (fecha>pf) || (fecha===pf && !precioManual && _trasCierre && fecha===_hoy)
+   El ultimo tramo exigia que la fecha entrante fuese HOY. Consecuencia: si el repo
+   corregia el cierre de un dia YA pasado (p.ej. LOG 24-07 de 35,40 a 35,00 tras
+   consolidar Yahoo la subasta), 'gana' daba false y la ficha se quedaba con el valor
+   viejo PARA SIEMPRE. Es el mismo fallo que tenia actualizar_cotizaciones.py, repetido
+   aqui: no se puede corregir un dato de una fecha que ya tienes.
+   Ahora: misma fecha + no manual + el valor REALMENTE cambia -> se acepta la correccion.
+   Sigue respetando v.precioManual (precio puesto a mano) y no reescribe si no hay cambio,
+   para no disparar saveNow()/renderAll() sin motivo. */
 async function sincronizarCotizaciones(){
   try{
     const r=await fetch('precios/_ultimos.json',{cache:'no-store'});
@@ -295,7 +307,7 @@ async function sincronizarCotizaciones(){
     const u=await r.json(); DB.valores=DB.valores||{}; let n=0; let _maxF='';
     const _now=new Date(); const _trasCierre=(_now.getHours()*60+_now.getMinutes())>=(17*60+30); const _hoy=_now.toISOString().slice(0,10);
     const _anaByT={}; (DB.analisis||[]).forEach(a=>{ if(a.ticker)_anaByT[(a.ticker||'').toUpperCase()]=a; });
-    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(fecha&&fecha>_maxF)_maxF=fecha; if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf)||(fecha>pf)||(fecha===pf&&!v.precioManual&&_trasCierre&&fecha===_hoy); if(gana){ v.precioActual=close; v.precioFecha=fecha; v.precioManual=false; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
+    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(fecha&&fecha>_maxF)_maxF=fecha; if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf)||(fecha>pf)||(fecha===pf&&!v.precioManual&&num(v.precioActual)!==close); if(gana){ v.precioActual=close; v.precioFecha=fecha; v.precioManual=false; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
     if(_maxF)window._cotizUltFecha=_maxF;
     if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } else if(typeof renderPanelDash==='function'){ renderPanelDash(); }
   }catch(e){}
