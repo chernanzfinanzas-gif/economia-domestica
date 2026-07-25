@@ -77,10 +77,10 @@ function renderDivFut(){
   H+='<div class="df-wrap">';
   H+='<div class="df-bar"><span class="df-yl">Año</span><select id="dfYear">'+yopts+'</select>'
     +'<span class="df-cb ok">✅ '+ok+' con dato</span><span class="df-cb no">⏳ '+no+' sin dato</span>'
+    +'<input type="text" id="dfQ" placeholder="Buscar…" value="'+_dfQ.replace(/"/g,'&quot;')+'">'
     +'<span class="df-sp"></span>'
     +'<button class="df-vol" id="dfVol"'+(editable?'':' disabled')+'>⤵ Volcar a Evolución</button></div>';
   if(!editable) H+='<div class="df-info">Año '+(_dfYear===cur?'actual':'pasado')+' — informativo (dato real de dividendos.json). Solo se editan los años futuros.</div>';
-  H+='<div class="df-tools"><input type="text" id="dfQ" placeholder="Buscar…" value="'+_dfQ.replace(/"/g,'&quot;')+'"></div>';
   H+='<div class="df-sech">💶 Pagan dividendo <span class="df-pill">'+pag.length+'</span> '
     +'<span class="df-pill" style="background:#dcfce7;color:#166534">✅ '+ok+'</span> <span class="df-pill" style="background:#fef3c7;color:#92400e">⏳ '+no+'</span></div>';
   H+=_dfGrid(pag, editable, cur);
@@ -148,6 +148,7 @@ function _dfCss(){
     '.df-bar select{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;font-size:19px;font-weight:800;color:#1f3d6b}',
     '.df-cb{border-radius:20px;padding:5px 11px;font-size:12.5px;font-weight:700}.df-cb.ok{background:#dcfce7;color:#166534}.df-cb.no{background:#fef3c7;color:#92400e}',
     '.df-sp{flex:1}',
+    '.df-bar #dfQ{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;font-size:13px;width:180px;max-width:100%}',
     '.df-vol{background:#1f3d6b;color:#fff;border:none;border-radius:22px;padding:9px 15px;font-size:12.5px;font-weight:800;cursor:pointer}',
     '.df-vol[disabled]{background:#cbd5e1;cursor:not-allowed}',
     '.df-info{background:#e2e8f0;color:#334155;border-radius:9px;padding:7px 12px;font-size:12px;font-weight:600;margin-bottom:10px}',
@@ -163,7 +164,7 @@ function _dfCss(){
     '.df-gi.pend .df-in input{border-color:#f59e0b;background:#fff}',
     '.df-val{text-align:right;font-size:12px;font-weight:700;color:#475569;padding:4px 2px}.df-val.empty{color:#cbd5e1;font-weight:400}',
     '.df-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:12px;color:#1e3a8a;line-height:1.5;margin-top:12px}',
-    '@media(max-width:560px){.df-bar select{font-size:17px}.df-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}}'
+    '@media(max-width:560px){.df-bar select{font-size:17px}.df-bar #dfQ{width:100%;order:9}.df-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}}'
   ].join('');
   document.head.appendChild(s);
 }

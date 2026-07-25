@@ -161,7 +161,7 @@ function activarVista(view){
   if(view==='dividendos'&&typeof renderDividendos==='function') setTimeout(renderDividendos,60);
   if(view==='calendario'&&typeof renderCalendario==='function'){ setTimeout(renderCalendario,60); }
   if(view==='ranking'&&typeof renderRanking==='function') setTimeout(renderRanking,60);
-  if(view==='prevision') setTimeout(()=>autoFitTable('prevTabla',7,11),120);
+  if(view==='prevision'){ window._evoTablaOpen=false; setTimeout(()=>autoFitTable('prevTabla',7,11),120); }
   if(view==='simulador'){ window._simSeek=true; setTimeout(()=>autoFitTable('simTabla',7,10),120); }
   if(view==='asignacion') window._loteSeek=true;
   if(view==='diario') window._diListOpen=false;
