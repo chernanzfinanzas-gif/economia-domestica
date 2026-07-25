@@ -67,7 +67,8 @@ function _emPorQue(t){
   var J=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
   var tesis=(J&&(J.resumen||J.bull))||''; if(tesis)bits.push('<div><b>Tesis:</b> '+_emEsc((''+tesis).slice(0,180))+'</div>');
   var eM=_emNum(a.entMax),eMin=_emNum(a.entMin); if(eM>0)bits.push('<div><b>Entrada:</b> '+(eMin>0?(_emEur(eMin)+' – '):'≤ ')+_emEur(eM)+(_emNum(a.stopTesis)>0?' · stop '+_emEur(a.stopTesis):'')+'</div>');
-  var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; if(pr)bits.push('<div><b>Próx. revisión:</b> '+pr+'</div>');
+  var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; var rd=(typeof _emRevDias==='function')?_emRevDias(t):null;
+  bits.push('<div><b>Próx. revisión:</b> '+(pr?(pr+(rd!=null?(rd<0?' <b style="color:#dc2626">(vencida)</b>':(rd<=30?' (en '+rd+'d)':'')):'')):'sin fijar')+' <span class="em-revedit" data-emrevedit="'+t+'" title="Cambiar fecha de revisión">✎</span></div>');
   var last=null; (DB.diario||[]).forEach(function(e){ if(_emUp(e.ticker)===t){ if(!last||(e.fecha||'')>(last.fecha||''))last=e; } });
   if(last)bits.push('<div><b>Última decisión:</b> '+_emEsc(last.tipo)+' ('+_emEsc(last.fecha)+')'+(last.porque?' — '+_emEsc((''+last.porque).slice(0,120)):'')+'</div>');
   else bits.push('<div class="muted"><b>Mis Decisiones:</b> sin decisión registrada · <span class="em-why-link" data-goto="diario">registrar</span></div>');
@@ -115,8 +116,13 @@ function etapaDe(t){
     return 'En cartera';
   }
   if(_emAnalizada(t)){
-    if(dec==='COMPRAR'&&cot>0&&entMax>0&&cot<=entMax) return 'En zona';
-    if(dec==='COMPRAR'&&cot>0&&entMax>0&&cot<=entMax*(1+margen)) return 'Cerca de entrada';
+    /* ESPERAR = "compra cuando el precio llegue a tu entrada" (mismo umbral entMax que COMPRAR,
+       ver dossiers: el veredicto ESPERAR siempre incluye "comprar con margen por debajo de X €").
+       Si el precio ya bajó a la zona, se promociona igual que un COMPRAR — no se queda enterrada
+       en "Analizada · esperar" solo porque el analista no ha revisitado el dossier. */
+    var buyGate=(dec==='COMPRAR'||dec==='ESPERAR');
+    if(buyGate&&cot>0&&entMax>0&&cot<=entMax) return 'En zona';
+    if(buyGate&&cot>0&&entMax>0&&cot<=entMax*(1+margen)) return 'Cerca de entrada';
     if(dec==='COMPRAR') return 'Analizada · espera precio';
     if(dec==='ESPERAR') return 'Analizada · esperar';
     return 'Analizada';
@@ -164,8 +170,9 @@ function accionDe(t){
     return A('Revisar','monitor');
   }
   if(held){ var _dp=_emDivPend(t); if(_dp) return A('💶 Anota el dividendo (ex-div '+_emFechaCorta(_dp.exDiv)+')','',{emdiv:t}); }
-  if(et==='En zona') return A('🟢 Comprar — abrir posición','inversiones',{comprar:t});
-  if(et==='Cerca de entrada') return A('🟡 Cerca ('+_emPctOver(cot,eM)+') — preparar compra','inversiones',{comprar:t});
+  var _decZ=_emUp(a&&a.decision);
+  if(et==='En zona'){ if(_decZ==='COMPRAR') return A('🟢 Comprar — abrir posición','inversiones',{comprar:t}); return A('🎯 En tu zona de entrada — revisa el veredicto (ESPERAR)','analisis'); }
+  if(et==='Cerca de entrada'){ var _txtZ='🟡 Cerca ('+_emPctOver(cot,eM)+')'; if(_decZ==='COMPRAR') return A(_txtZ+' — preparar compra','inversiones',{comprar:t}); return A(_txtZ+' de tu entrada (ESPERAR) — revisa el veredicto','analisis'); }
   if(et==='Comprando') return A('🧩 Ejecutar tramo del plan','inversiones',{comprar:t});
   /* Adelantar plan (held con capital pendiente y precio en/cerca de zona) */
   if(held&&_emPlanPendEur(t)>0&&cot>0&&eM>0&&cot<=eM*1.05){
@@ -334,10 +341,9 @@ function _emMetricLine(r){
   if(held){
     var bits=[];
     if(r.score!=null)bits.push('Score '+Math.round(r.score));
+    if(cot>0)bits.push('cot '+_emEur(cot));
+    if(eM>0)bits.push('ent '+_emEur(eM));
     var _rph=_emRpd(r.t); if(_rph!=null)bits.push('RPD '+_rph.toFixed(1).replace('.',',')+'%');
-    if(r.planPend>0)bits.push('plan: faltan <b>'+_emEur(r.planPend)+'</b>'+(_emPlanProxAnio(r.t)?' ('+_emPlanProxAnio(r.t)+')':''));
-    else bits.push('plan completo');
-    var _pr=proxRevDe(r.t); if(_pr){ var _rd=_emRevDias(r.t); bits.push('revisión '+_pr+(_rd!=null?(_rd<0?' <b style="color:#dc2626">(vencida)</b>':(_rd<=30?' (en '+_rd+'d)':'')):'')+' <span class="em-revedit" data-emrevedit="'+r.t+'" title="Cambiar fecha de revisión">✎</span>'); }
     var _pch=_emPotChip(r); return bits.join(' · ')+(_pch?' '+_pch:'');
   }
   var m=[];
