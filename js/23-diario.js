@@ -76,7 +76,7 @@ function renderDiario(){
 
   H+='<div id="diFormHost"></div>';
 
-  var _diOpen=(window._diListOpen!==false);
+  var _diOpen=(window._diListOpen===true);
   H+='<div class="pos-blk'+(_diOpen?' open':'')+'" data-diblk="lista"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📋 Listado de decisiones</span><span class="bsum">'+vis.length+' de '+nTot+'</span></div><div class="pos-blk-b"><div class="blk-pad">';
   if(!vis.length){ H+='<div class="di-empty">Sin decisiones'+(nTot?' con este filtro':' todavía')+'. Pulsa «+ Nueva decisión» para registrar la primera.</div>'; }
   else { H+=vis.map(_diCard).join(''); }

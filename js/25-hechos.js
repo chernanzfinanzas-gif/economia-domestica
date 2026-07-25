@@ -208,7 +208,7 @@ function renderHechos(){
     feed='<div style="margin-top:4px">'+feed+'</div>'+nota;
   }
 
-  var _diaFeedOpen=(window._diaFeedOpen!==false);
+  var _diaFeedOpen=(window._diaFeedOpen===true);
   var feedBlk='<div class="pos-blk'+(_diaFeedOpen?' open':'')+'" data-diablk="feed"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📰 Listado de hechos</span><span class="bsum">'+vis.length+' de '+nH+'</span></div><div class="pos-blk-b"><div class="blk-pad">'+feed+'</div></div></div>';
 
   host.innerHTML=vhero+kpi+flt+flt2+pend+feedBlk;
