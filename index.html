@@ -1751,15 +1751,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-panel .panel-hero-main{display:flex;align-items:center;gap:16px;flex:1;min-width:280px;position:relative;z-index:1}
 #view-panel .panel-hero-ic{font-size:44px;line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
 #view-panel .panel-hero-txt{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-#view-panel .panel-hero-txt h2{margin:0;font-size:24px;font-weight:800;letter-spacing:.2px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15)}
+#view-panel .panel-hero-txt h2{margin:0;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-size:34px;font-weight:700;letter-spacing:.2px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.18)}
 #view-panel .panel-hero-per{font-size:12px;font-weight:700;color:rgba(255,255,255,.92);background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.26);border-radius:999px;padding:3px 11px;white-space:nowrap}
-#view-panel .panel-hero-txt p{margin:6px 0 0;font-size:12.5px;line-height:1.55;color:rgba(255,255,255,.92);max-width:640px;flex-basis:100%}
+#view-panel .panel-hero-txt p{margin:8px 0 0;font-size:13.5px;line-height:1.6;color:rgba(255,255,255,.92);max-width:640px;flex-basis:100%}
 #view-panel .panel-hero-txt p b{color:#fff;font-weight:800}
 #view-panel .panel-hero-kpi{min-width:150px;text-align:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);border-radius:15px;padding:12px 18px;position:relative;z-index:1;cursor:pointer}
 #view-panel .panel-hero-kpi .big{font-size:32px;font-weight:800;line-height:1;color:#fff}
 #view-panel .panel-hero-kpi .big span{font-size:15px;font-weight:700;opacity:.8}
 #view-panel .panel-hero-kpi .cap{font-size:10px;color:rgba(255,255,255,.88);margin-top:6px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.35}
-@media(max-width:760px){#view-panel .panel-hero{padding:14px 16px}#view-panel .panel-hero-ic{font-size:36px}#view-panel .panel-hero-txt h2{font-size:19px}#view-panel .panel-hero-kpi{flex:1;min-width:120px}}
+@media(max-width:760px){#view-panel .panel-hero{padding:14px 16px}#view-panel .panel-hero-ic{font-size:36px}#view-panel .panel-hero-txt h2{font-size:25px}#view-panel .panel-hero-kpi{flex:1;min-width:120px}}
 /* ===== Bandas de las pestañas fusionadas de Plan (Asignación / Riesgo / Independencia) ===== */
 .plan-intro{background:linear-gradient(120deg,#1e293b,#334155);color:#e2e8f0;border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:13px;line-height:1.55}
 .plan-intro b{color:#fff}
@@ -2428,7 +2428,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
 
   /* === Rediseño cuerpo del Panel (Fase A-2) === */
-  #panelTitle{display:none}
+  /* #panelTitle ya no se oculta: ahora vive dentro de .panel-hero como título del banner (ver más abajo) */
   #view-panel .ph{background:linear-gradient(135deg,#1e3a5f 0,#2563eb 100%);color:#fff;border-radius:16px;padding:18px 20px;box-shadow:var(--shadow);display:flex;flex-wrap:wrap;align-items:center;gap:18px;margin:0 0 14px}
   #view-panel .ph-main{flex:1;min-width:190px}
   #view-panel .ph-per{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#bfdbfe;font-weight:700}
