@@ -700,7 +700,7 @@ function _pnlSecciones(SEC){
   var present=META.filter(function(m){return (SEC[m[0]]||'').trim();});
   if(!present.length) return '';
   var secs=present.map(function(m){ var open=st[m[0]];
-    return '<div class="psec'+(open?' open':'')+'" data-pssec="'+m[0]+'"><div class="psec-h" data-psfold="'+m[0]+'"><span class="psec-arw">\u25B6</span><span class="psec-ic">'+m[1]+'</span><span class="psec-t">'+m[2]+'</span></div><div class="psec-b">'+SEC[m[0]]+'</div></div>';
+    return '<div class="psec'+(open?' open':'')+'" data-pssec="'+m[0]+'"><div class="psec-h" data-psfold="'+m[0]+'"><span class="psec-arw">\u25B6</span><span class="psec-t">'+m[1]+' '+m[2]+'</span></div><div class="psec-b">'+SEC[m[0]]+'</div></div>';
   }).join('');
   return '<div class="psec-wrap">'+secs+'</div>';
 }
