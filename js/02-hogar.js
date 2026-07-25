@@ -13,6 +13,12 @@ function addYear(){
   presYear=ty; fillPresYear(); renderPres(); scheduleSave();
 }
 
+/* [B1 · 26-jul-2026] Etiqueta del mes a prueba de arranque. `curMonth` se fija en initPeriod(),
+   que corre después de cargar la base; si algo repinta el Panel antes (o initPeriod falla),
+   MESES[undefined] reventaba con «Cannot read properties of undefined (reading 'replace')» y el
+   Panel entero se quedaba EN BLANCO, avisos incluidos. Detectado al probar B1. */
+function _mesLbl(m){ var i=(m==null||isNaN(m))?new Date().getMonth():((+m%12)+12)%12;
+  var s=(typeof MESES!=='undefined'&&MESES&&MESES[i])?MESES[i]:''; return s?s.replace(/^./,function(c){return c.toUpperCase();}):''; }
 function initPeriod(){
   const now=new Date();
   curYear = curYear || now.getFullYear();
@@ -195,7 +201,7 @@ function renderPanel(){
   const mm=$('#mMonth'); if(mm){ mm.disabled=isYear; mm.style.opacity=isYear?0.45:1; }
   const suf = isYear?'del año':'del mes';
   $('#panelTitle').textContent='Panel';
-  const _pph=$('#panelHeroPer'); if(_pph)_pph.textContent=isYear? (''+curYear) : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear);
+  const _pph=$('#panelHeroPer'); if(_pph)_pph.textContent=isYear? (''+curYear) : (_mesLbl(curMonth)+' '+curYear);
   /* El KPI del banner (#panelHeroKpi) se rellena en renderPanelDash() (js/04-plan.js), con el MISMO
      cálculo de saludFinanciera() que usa la sección "Salud financiera" de más abajo — así los dos
      números nunca pueden desincronizarse (antes se calculaba también aquí, por separado). */
@@ -219,7 +225,7 @@ function renderPanel(){
   const tasaA = ingA>0? (ahoA/ingA*100):0;
   const s12=_pnl12m();
   const yoyHero = (hasPrev&&Math.abs(pAho)>=0.005)? (' · vs '+(curYear-1)+': '+((ahorro-pAho)>=0?'+':'')+(((ahorro-pAho)/Math.abs(pAho))*100).toFixed(0)+'%') : '';
-  const heroPer = isYear? (''+curYear) : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear);
+  const heroPer = isYear? (''+curYear) : (_mesLbl(curMonth)+' '+curYear);
   const ph=$('#panelHero');
   if(ph) ph.innerHTML='<div class="ph"><div class="ph-main"><div class="ph-per">Ahorro · '+heroPer+'</div>'
     +'<div class="ph-big '+(ahorro<0?'ph-neg':'')+'">'+fmt(ahorro)+(ing>0?'<span class="ph-tasa">tasa '+tasa.toFixed(0)+'%</span>':'')+'</div>'

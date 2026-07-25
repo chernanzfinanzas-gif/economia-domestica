@@ -696,6 +696,21 @@ function renderPanelDash(){
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
+  /* [B1 · 26-jul-2026] supuestos rotos del Diario. Es el aviso con más valor del Panel: no sale de
+     un umbral genérico, sino del criterio que TÚ escribiste al decidir. Solo se listan los que aún
+     no has revisado con «Sigo igual». */
+  try{ const _iv=(typeof diarioInvalidaciones==='function')?diarioInvalidaciones():null;
+    if(_iv && _iv.pendientes.length){
+      const _top=_iv.pendientes[0];
+      const _tk=(_top.e.ticker||'').toUpperCase();
+      const _mas=_iv.pendientes.length-1;
+      avisos.push({pri:_top.sev===0?0:2, cls:_top.sev===0?'r':'a', goto:'diario', tick:_tk, sig:(_top.rot[0].sig||''),
+        txt:'📝 <b>'+_tk+'</b> — se rompió el supuesto de tu decisión de '+_top.e.tipo.toLowerCase()+' del '+_top.e.fecha+': '
+            +_top.rot[0].txt.replace(/<[^>]*>/g,'')
+            +(_mas>0?(' <span class="muted">(y '+_mas+' decisión'+(_mas>1?'es':'')+' más con supuestos rotos)</span>'):'')
+            +'. Revísalo en Mis Decisiones.'});
+    }
+  }catch(e){}
   /* [A9] dividendos sin actualizar: nada recordaba hacerlo, y el paso dependía de la memoria. */
   try{ const _dp=(typeof divPendientesActualizar==='function')?divPendientesActualizar():null;
     if(_dp && (_dp.faltaCur.length || _dp.faltaSig.length)){
@@ -784,7 +799,7 @@ function renderPanelDash(){
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
-    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda'};
+    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda',diario:'tesis'};   /* [B1] un supuesto roto es asunto de tesis, no «otros» */
     const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
     avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
