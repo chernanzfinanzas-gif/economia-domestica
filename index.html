@@ -1780,6 +1780,26 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-presupuesto #presSubtabs button{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 20px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.05);transition:transform .12s,box-shadow .12s,background .12s,color .12s}
 #view-presupuesto #presSubtabs button:hover:not(.active){background:#f8fafc;color:#4338ca;border-color:#c7d2fe}
 #view-presupuesto #presSubtabs button.active{background:linear-gradient(120deg,#1e3a8a,#4338ca,#7e22ce);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(67,56,202,.3);transform:translateY(-1px)}
+/* ===== Banner de título genérico reutilizable — Asignación / Riesgo / Independencia / Evolución Dividendo / Kanban / Actualizar Dividendos / Diario de Hechos ===== */
+.vhero{display:flex;align-items:center;gap:18px;flex-wrap:wrap;border-radius:18px;padding:18px 24px;margin-bottom:16px;color:#fff;position:relative;overflow:hidden;box-shadow:0 10px 26px rgba(0,0,0,.2)}
+.vhero::before{content:"";position:absolute;right:-30px;top:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%);pointer-events:none}
+.vhero::after{content:"";position:absolute;left:-40px;bottom:-60px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%);pointer-events:none}
+.vhero-main{display:flex;align-items:center;gap:16px;flex:1;min-width:260px;position:relative;z-index:1}
+.vhero-ic{font-size:40px;line-height:1;filter:drop-shadow(0 3px 5px rgba(0,0,0,.25))}
+.vhero-txt{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.vhero-txt h2{margin:0;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;font-size:27px;font-weight:700;letter-spacing:.2px;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.18)}
+.vhero-txt p{margin:7px 0 0;font-size:12.5px;line-height:1.6;color:rgba(255,255,255,.92);max-width:660px;flex-basis:100%}
+.vhero-txt p b{color:#fff;font-weight:800}
+.vhero-kpi{min-width:130px;text-align:center;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.28);border-radius:15px;padding:11px 16px;position:relative;z-index:1}
+.vhero-kpi .big{font-size:24px;font-weight:800;line-height:1;color:#fff}
+.vhero-kpi .cap{font-size:9.5px;color:rgba(255,255,255,.88);margin-top:5px;text-transform:uppercase;letter-spacing:.03em;font-weight:700;line-height:1.3}
+.vhero.g-teal{background:linear-gradient(120deg,#0f766e 0%,#0891b2 55%,#2563eb 100%)}
+.vhero.g-amber{background:linear-gradient(120deg,#7c2d12 0%,#c2410c 55%,#ea580c 100%)}
+.vhero.g-navy{background:linear-gradient(120deg,#0f172a 0%,#1e3a8a 55%,#0e7490 100%)}
+.vhero.g-green{background:linear-gradient(120deg,#14532d 0%,#166534 55%,#16a34a 100%)}
+.vhero.g-violet{background:linear-gradient(120deg,#4c1d95 0%,#7c3aed 55%,#c026d3 100%)}
+.vhero.g-emerald{background:linear-gradient(120deg,#065f46 0%,#0d9488 55%,#0891b2 100%)}
+@media(max-width:760px){.vhero{padding:14px 16px}.vhero-ic{font-size:32px}.vhero-txt h2{font-size:20px}.vhero-kpi{flex:1;min-width:110px}}
 /* ===== Bandas de las pestañas fusionadas de Plan (Asignación / Riesgo / Independencia) ===== */
 .plan-intro{background:linear-gradient(120deg,#1e293b,#334155);color:#e2e8f0;border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:13px;line-height:1.55}
 .plan-intro b{color:#fff}
@@ -1919,10 +1939,10 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-panel .pau-note{font-size:11px;color:var(--muted);margin-top:8px;line-height:1.5}
 @media(max-width:760px){#view-panel .pau-kpis{grid-template-columns:1fr 1fr}}
 #view-prevision #evoChowder .chow{background:var(--panel);border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:14px;overflow:hidden}
-#view-prevision #evoChowder summary{cursor:pointer;padding:12px 15px;font-weight:800;font-size:14px;list-style:none;display:flex;align-items:center;gap:8px}
+#view-prevision #evoChowder summary{cursor:pointer;padding:13px 16px;font-weight:800;font-size:14.5px;list-style:none;display:flex;align-items:center;gap:9px;background:linear-gradient(120deg,#78350f 0%,#b45309 55%,#d97706 100%);color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.15)}
 #view-prevision #evoChowder summary::-webkit-details-marker{display:none}
-#view-prevision #evoChowder summary .arw{color:#94a3b8;font-size:11px;transition:transform .15s}#view-prevision #evoChowder details[open] summary .arw{transform:rotate(90deg)}
-#view-prevision #evoChowder summary .bsum{margin-left:auto;font-size:12px;color:var(--muted);font-weight:600}
+#view-prevision #evoChowder summary .arw{color:rgba(255,255,255,.8);font-size:11px;transition:transform .15s}#view-prevision #evoChowder details[open] summary .arw{transform:rotate(90deg)}
+#view-prevision #evoChowder summary .bsum{margin-left:auto;font-size:12px;color:rgba(255,255,255,.88);font-weight:700}
 #view-prevision #evoChowder .chow-b{border-top:1px solid #f1f5f9;padding:12px 15px}
 #view-prevision #evoChowder .chow-intro{background:#f0f6ff;border:1px solid #cfe0fb;border-radius:10px;padding:9px 12px;font-size:12px;line-height:1.55;color:#334155;margin-bottom:10px}
 #view-prevision #evoChowder table{width:100%;border-collapse:collapse;font-size:13px}
@@ -3678,7 +3698,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- PROYECCION -->
   <section class="view" id="view-independencia">
-    <div class="plan-intro">Tu <b>hoja de ruta a largo plazo</b>: primero el modelo de patrimonio año a año y, debajo, cuánto te falta para vivir sin trabajar — por venta del 4% o viviendo del dividendo. Todo se alimenta de tu Proyección y tu cartera.</div>
+    <div class="vhero g-navy">
+      <div class="vhero-main">
+        <span class="vhero-ic">🧭</span>
+        <div class="vhero-txt">
+          <h2>Proyección e Independencia</h2>
+          <p>Tu <b>hoja de ruta a largo plazo</b>: primero el modelo de patrimonio año a año y, debajo, cuánto te falta para vivir sin trabajar — por venta del 4% o viviendo del dividendo. Todo se alimenta de tu Proyección y tu cartera.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="plan-div"><span class="pd-ic">📈</span><div><div class="pd-t">Proyección de patrimonio</div><div class="pd-s">Modelo año a año hasta la edad final: de tu ahorro total (nóminas − gastos + dividendos + extra) eliges cuánto va a inversión</div></div></div>
     <div id="view-proyeccion">
@@ -3712,7 +3740,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-asignacion">
-    <div class="plan-intro">El <b>plan</b> existe para bajar tu riesgo y la concentración por sectores. Se ejecuta en tres pasos: fijas <b>dónde quieres estar</b>, mides <b>cuánto te desvías hoy</b> y decides <b>qué comprar</b> con tu próxima aportación — sin vender, para no tributar.</div>
+    <div class="vhero g-teal">
+      <div class="vhero-main">
+        <span class="vhero-ic">🎯</span>
+        <div class="vhero-txt">
+          <h2>Asignación</h2>
+          <p>El <b>plan</b> existe para bajar tu riesgo y la concentración por sectores. Se ejecuta en tres pasos: fijas <b>dónde quieres estar</b>, mides <b>cuánto te desvías hoy</b> y decides <b>qué comprar</b> con tu próxima aportación — sin vender, para no tributar.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="pos-blk" data-asigblk="obj"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🧩 1 · Objetivos de compra</span><span class="bsum">la única hoja editable</span></div>
       <div class="pos-blk-b"><div class="blk-pad">
@@ -3952,6 +3988,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-prevision">
+    <div class="vhero g-green">
+      <div class="vhero-main">
+        <span class="vhero-ic">📈</span>
+        <div class="vhero-txt">
+          <h2>Evolución del Dividendo</h2>
+          <p>El histórico y la previsión de <b>dividendo por acción</b> de cada empresa, año a año, con la <b>calidad</b> del dividendo de tu cartera justo debajo (Chowder + DGR).</p>
+        </div>
+      </div>
+    </div>
     <div id="evoChowder"></div>
     <div id="evoApp"></div>
   </section>
@@ -4055,7 +4100,15 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-riesgo">
-    <div class="plan-intro">Dos miradas al <b>riesgo</b> de tu cartera: su estructura estadística (volatilidad, correlaciones, concentración del ingreso) y cómo respondería ante <b>shocks</b> macro concretos, hoy y en la cartera prevista al cierre del plan.</div>
+    <div class="vhero g-amber">
+      <div class="vhero-main">
+        <span class="vhero-ic">🛡️</span>
+        <div class="vhero-txt">
+          <h2>Riesgo</h2>
+          <p>Dos miradas al <b>riesgo</b> de tu cartera: su estructura estadística (volatilidad, correlaciones, concentración del ingreso) y cómo respondería ante <b>shocks</b> macro concretos, hoy y en la cartera prevista al cierre del plan.</p>
+        </div>
+      </div>
+    </div>
 
     <div class="plan-fold" id="pdRiesgo" data-pdfold="riesgo">
       <div class="plan-div pd-h"><span class="pd-arw">▶</span><span class="pd-ic">🛡️</span><div><div class="pd-t">Riesgo estructural</div><div class="pd-s">Volatilidad, drawdown, beta, correlaciones, peso por sector y concentración del ingreso por dividendos</div></div></div>
