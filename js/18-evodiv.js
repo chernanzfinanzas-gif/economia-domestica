@@ -326,12 +326,13 @@ function renderChowder(){
       +'<td class="num">'+(r.racha!=null?r.racha+' añ'+(r.racha===1?'o':'os'):'—')+'</td>'
       +'<td class="num"><span class="chpill '+chCls(r.chow,r.yld)+'">'+(r.chow!=null?r.chow.toFixed(0):'—')+'</span></td></tr>';
   }).join('');
-  el.innerHTML='<details class="chow"><summary><span class="arw">▶</span>🏅 Calidad del dividendo · Chowder + DGR<span class="bsum">'+rows.length+' posiciones · ordenadas por Chowder</span></summary>'
-    +'<div class="chow-b">'
+  var _chOpen=(window._evoChowOpen!==false);
+  el.innerHTML='<div class="pos-blk'+(_chOpen?' open':'')+'" data-evoblk="chow"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🏅 Calidad del dividendo · Chowder + DGR</span><span class="bsum">'+rows.length+' posiciones · ordenadas por Chowder</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +'<div class="chow-intro">El <b>número Chowder</b> = RPD actual + crecimiento del dividendo a 5 años (DGR5). Es un atajo del <b>retorno total esperado</b> de una acción de dividendo: se considera bueno si <b>≥12</b> (o ≥15 si la RPD es baja, &lt;3%). El <b>DGR</b> a 1/3/5/10 años muestra si el crecimiento acelera o se frena, y la <b>racha</b> son los años seguidos subiendo el dividendo.</div>'
     +'<table><thead><tr><th>Empresa</th><th>RPD</th><th>DGR 1a</th><th>DGR 3a</th><th>DGR 5a</th><th>DGR 10a</th><th>Racha</th><th>Chowder</th></tr></thead><tbody>'+body+'</tbody></table>'
     +'<div class="chow-note">RPD = dividendo bruto del último año con dato ÷ cotización. DGR = crecimiento anualizado (CAGR) del dividendo bruto por acción. Datos de tu <code>dividendos.json</code>. Orientativo.</div>'
-    +'</div></details>';
+    +'</div></div></div>';
+  if(!el._chowBound){ el._chowBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); window._evoChowOpen=b.classList.contains('open'); } }); }
 }
 function renderEvoDiv(){
   var sec=document.getElementById('view-prevision'); if(!sec) return;
@@ -513,13 +514,16 @@ function renderEvoDiv(){
       +'Orden: en cartera → con informe → en plan → resto por RPD → sin dividendo. Pulsa una fila para ver el detalle y «✏️ Editar dividendos» para añadir/editar pagos, junta y totales. '
       +'La <b>app es la base de datos</b>: todo se guarda aquí (Drive). Usa <b>⬇️ Exportar</b> para descargar <code>dividendos.json</code> y regenerar el Excel. No es recomendación de compra.</div>';
 
-  host.innerHTML='<div class="evo-title">📅 Evolución del Dividendo</div>'
+  var _tbOpen=(window._evoTablaOpen!==false);
+  host.innerHTML='<div class="pos-blk'+(_tbOpen?' open':'')+'" data-evoblk="tabla"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📅 Evolución del Dividendo</span><span class="bsum">'+rows.length+' empresas · año '+_evoYear+'</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +kpis+toolbar+yearSlider+futuroCtrl+_evoClaveHTML()
     +'<div class="pos-desk" style="flex:1 1 auto;min-height:0;display:flex;flex-direction:column">'+tabla+'</div>'
     +'<div class="pos-mob">'+(mobCards||'<div class="muted" style="font-size:12.5px;padding:8px">Sin empresas con este filtro.</div>')+'</div>'
-    +nota;
+    +nota
+    +'</div></div></div>';
 
   /* wiring */
+  if(!host._evoBlkBound){ host._evoBlkBound=true; host.addEventListener('click',function(e){ if(e.target.closest('input,select,button,a,[data-ficha],[data-ovr],[data-evogrp],[data-evoedit],[data-dpaga],[data-df],[data-dy],[data-dp],[data-dpadd],[data-dpdel],[data-dyb],[data-dpb],[data-dpsuma],tr.evo-main,[data-evocard]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); window._evoTablaOpen=b.classList.contains('open'); } }); }
   var ys=document.getElementById('evoYearSel');
   if(ys) ys.addEventListener('change',function(){ _evoYear=parseInt(this.value,10)||_evoYear; renderEvoDiv(); });
   var ay=document.getElementById('evoAddYear');

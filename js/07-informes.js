@@ -665,7 +665,7 @@ function _infAlertasBlockHTML(){
   var _khCarpeta='C:/Users/carlo/OneDrive/Economia Doméstica/Economía Doméstica';
   var _infOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
-  return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚠️ Revisar Alertas / Universo</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
+  return '<div class="pos-blk" data-infblk="alertas"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚠️ Revisar Alertas / Universo</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +'<div class="feat-s" style="margin-bottom:12px">Barrido de OPAs, concursos de acreedores, suspensiones de cotización, sanciones y litigios en todo tu universo de empresas. Actualiza <code>alertas.json</code>, que alimenta los avisos que ves en Radar/Universo, Kanban y las Fichas.</div>'
     +'<a class="feat-btn" id="infcAlertasBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>'
     +'</div></div></div>';
@@ -673,7 +673,7 @@ function _infAlertasBlockHTML(){
 function _infEmpresaBlockHTML(){
   var uni=_infEmpresaUniverse();
   var opts=uni.map(function(x){ return '<option value="'+_infEsc(x.t+' — '+(x.nombre||x.t))+'">'; }).join('');
-  return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📄 Informe por empresa</span><span class="bsum">PDF</span></div><div class="pos-blk-b"><div class="blk-pad">'
+  return '<div class="pos-blk" data-infblk="empresa"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📄 Informe por empresa</span><span class="bsum">PDF</span></div><div class="pos-blk-b"><div class="blk-pad">'
     +'<div class="feat-s" style="margin-bottom:12px">Veredicto, tesis, tu situación (si la tienes en cartera) o cómo va la empresa (si está pendiente) y su evolución. Escribe el ticker o el nombre de cualquier empresa de tu radar.</div>'
     +'<div class="feat-form"><input id="infcEmpresa" class="feat-inp" list="infcEmpresaDL" placeholder="Ej.: IBE o Iberdrola…" autocomplete="off">'
     +'<datalist id="infcEmpresaDL">'+opts+'</datalist>'

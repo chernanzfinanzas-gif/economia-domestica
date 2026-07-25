@@ -154,16 +154,16 @@ function _dfCss(){
     '.df-tools{margin-bottom:10px}.df-tools input{border:1px solid #cbd5e1;border-radius:8px;padding:7px 10px;font-size:13px;width:100%;max-width:280px}',
     '.df-sech{font-size:13px;font-weight:800;color:#1f3d6b;margin:12px 2px 8px;display:flex;align-items:center;gap:7px}.df-sech.no{color:#64748b}',
     '.df-pill{background:#e2e8f0;color:#334155;border-radius:20px;padding:2px 9px;font-size:12px;font-weight:700}',
-    '.df-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(138px,1fr));gap:6px}',
-    '.df-gi{background:#fff;border:1px solid var(--line);border-radius:9px;padding:6px 7px}',
+    '.df-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:5px}',
+    '.df-gi{background:#fff;border:1px solid var(--line);border-radius:8px;padding:5px 6px}',
     '.df-gi.pend{background:#fffbeb;border-color:#fde68a}.df-gi.real{box-shadow:inset 3px 0 0 #16a34a}.df-gi.no{background:#f8fafc}',
-    '.df-tk{font-weight:800;font-size:12.5px;line-height:1;color:#1d4ed8;cursor:pointer;text-decoration:underline;text-decoration-color:#bfdbfe}',
-    '.df-nm{font-size:9.5px;color:#64748b;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:1px 0 4px}',
-    '.df-in input{width:100%;border:1px solid #cbd5e1;border-radius:7px;padding:5px 6px;text-align:right;font-size:13px}',
+    '.df-tk{font-weight:800;font-size:11.5px;line-height:1;color:#1d4ed8;cursor:pointer;text-decoration:underline;text-decoration-color:#bfdbfe}',
+    '.df-nm{font-size:9px;color:#64748b;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:1px 0 3px}',
+    '.df-in input{width:100%;border:1px solid #cbd5e1;border-radius:6px;padding:4px 5px;text-align:right;font-size:12px}',
     '.df-gi.pend .df-in input{border-color:#f59e0b;background:#fff}',
-    '.df-val{text-align:right;font-size:13px;font-weight:700;color:#475569;padding:5px 2px}.df-val.empty{color:#cbd5e1;font-weight:400}',
+    '.df-val{text-align:right;font-size:12px;font-weight:700;color:#475569;padding:4px 2px}.df-val.empty{color:#cbd5e1;font-weight:400}',
     '.df-note{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:10px 12px;font-size:12px;color:#1e3a8a;line-height:1.5;margin-top:12px}',
-    '@media(max-width:560px){.df-bar select{font-size:17px}.df-grid{grid-template-columns:repeat(auto-fill,minmax(108px,1fr))}}'
+    '@media(max-width:560px){.df-bar select{font-size:17px}.df-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}}'
   ].join('');
   document.head.appendChild(s);
 }
