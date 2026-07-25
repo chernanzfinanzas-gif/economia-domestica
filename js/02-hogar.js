@@ -419,12 +419,18 @@ function renderInformeBlock(){
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
+  var _appCarpeta='C:/Users/carlo/OneDrive/Economia Doméstica/Economía Doméstica';
+  var _alOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen';
+  var _alHref='claude://cowork/new?folder='+encodeURIComponent(_appCarpeta)+'&q='+encodeURIComponent(_alOrden)+'&prompt='+encodeURIComponent(_alOrden);
   _cbtn.innerHTML='<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml" target="_blank" rel="noopener" style="text-decoration:none;white-space:nowrap" title="Abre GitHub para actualizar las cotizaciones del repositorio">🔄 Actualizar cotizaciones</a>'
     +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;white-space:nowrap" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>'
-    +'<a class="btn" id="infSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>';
+    +'<a class="btn" id="infSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>'
+    +'<a class="btn" id="alertasPanelBtn" href="'+_alHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del repositorio. Al pulsar, la orden de revisión de alertas se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>';
   if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
   var _isb=document.getElementById('infSemanalBtn');
   if(_isb) _isb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_infOrden); });
+  var _alb=document.getElementById('alertasPanelBtn');
+  if(_alb) _alb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_alOrden); });
 }
 function _hemEsc(s){ return (''+s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _hemFecha(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[1]+m[2]+m[3]):'00000000'; }
