@@ -72,6 +72,7 @@ function cargarPreciosRadar(){
 }
 
 function _radarStats(t,years,precio){
+  if(!(num(precio)>0))return null;   /* sin cotización no hay posición: devolver null, nunca pos=0 */
   if(typeof _precioCache==='undefined')return null;
   var pj=_precioCache[(t||'').toUpperCase()]; if(!pj||!pj.data||!pj.data.length)return null;
   var cut=new Date(); cut.setFullYear(cut.getFullYear()-years);

@@ -225,11 +225,14 @@ function _radCss(){ if(typeof document==='undefined'||document.getElementById('r
 /* Posición del precio actual en el rango de los últimos N años (mismo motor que Radar Dividendo:
    _radarStats de 09-radardiv). Se guarda en cada candidato para pintar y ordenar. */
 function _radCalcPos(cands){ var y=(typeof _radarYears!=='undefined')?_radarYears:3;
-  (cands||[]).forEach(function(c){ var pr=(typeof _precioActualDe==='function')?_precioActualDe(c.t):0; var st=(typeof _radarStats==='function')?_radarStats(c.t,y,pr):null; c.posSt=st; c.posN=st?st.pos:null; });
+  (cands||[]).forEach(function(c){ var pr=(typeof _precioActualDe==='function')?_precioActualDe(c.t):0;
+    /* Sin cotización NO se calcula posición: antes entraba pr=0, la posición salía 0% y la empresa
+       aparecía en verde como «zona baja / cerca de mínimos». Ahora queda «—» y ordena al final. */
+    var st=(pr>0&&typeof _radarStats==='function')?_radarStats(c.t,y,pr):null; c.posSt=st; c.posN=st?st.pos:null; c.posSinPrecio=!(pr>0); });
 }
 /* Celda compacta que lleva Posición + Nivel: mini-barra con el % y color por nivel
    (verde=zona baja/barato · ámbar=media · rojo=zona alta/caro). */
-function _radPosCell(st){ if(!st)return '<span class="muted">—</span>'; var pos=st.pos; var col=pos<33?'#16a34a':(pos<66?'#d97706':'#dc2626');
+function _radPosCell(st,c){ if(!st){ var _mot=(c&&c.posSinPrecio)?'Sin cotización: no se puede situar el precio en su rango':'Sin histórico de precios suficiente para el periodo'; return '<span class="muted" title="'+_mot+'">—</span>'; } var pos=st.pos; var col=pos<33?'#16a34a':(pos<66?'#d97706':'#dc2626');
   return '<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap">'
     +'<span style="position:relative;display:inline-block;width:32px;height:7px;background:linear-gradient(90deg,#dcfce7,#fef9c3,#fee2e2);border-radius:4px;border:1px solid #e5e7eb"><i style="position:absolute;left:'+pos.toFixed(0)+'%;top:-2px;width:2px;height:11px;background:'+col+';transform:translateX(-1px);border-radius:1px"></i></span>'
     +'<b style="color:'+col+';font-size:10px">'+pos.toFixed(0)+'</b></span>';
@@ -374,7 +377,7 @@ function _radRenderList(){
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
       '<td style="text-align:right">'+_radCrecCell(c.crecDiv)+'</td>'+
       '<td>'+_rf(f.payout,'%',0)+'</td><td>'+_rf(f.roe,'%',1)+'</td><td>'+_rf(f.dnEbitda,'x',2)+'</td><td>'+_rf(f.per,'',1)+'</td><td>'+_rf(f.pbv,'',2)+'</td><td>'+_rf(f.pos52sem,'%',0)+'</td>'+
-      '<td class="l" style="text-align:center">'+_radPosCell(c.posSt)+'</td>'+
+      '<td class="l" style="text-align:center">'+_radPosCell(c.posSt,c)+'</td>'+
       '<td class="l" style="text-align:center">'+_radStars(c.rating)+'</td>'+
       '<td class="l" style="text-align:center">'+_radDsCell(c.ds)+'</td>'+
       '<td class="l" style="text-align:center">'+_radFoCell(_radFo(c.t))+'</td>'+
