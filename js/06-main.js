@@ -511,8 +511,6 @@ init();
   host.addEventListener('click',function(e){
     var pf=e.target.closest('[data-presufold]'); if(pf){ var pp=document.getElementById('panelPresu'); if(pp)pp.classList.toggle('open'); return; }
     var f=e.target.closest('[data-psfold]'); if(f){ var k=f.getAttribute('data-psfold'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[k]=window._panelSecOpen[k]?0:1; rel(); return; }
-    var a=e.target.closest('[data-psall]'); if(a){ var v=+a.getAttribute('data-psall'); window._panelSecOpen=window._panelSecOpen||{}; ['hogar','cartera','dividendos','accion'].forEach(function(k){window._panelSecOpen[k]=v;}); rel(); return; }
-    var j=e.target.closest('[data-psjump]'); if(j){ var kk=j.getAttribute('data-psjump'); window._panelSecOpen=window._panelSecOpen||{}; window._panelSecOpen[kk]=1; rel(); setTimeout(function(){ var el=document.querySelector('[data-pssec="'+kk+'"]'); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); },40); return; }
   });
 })();
 

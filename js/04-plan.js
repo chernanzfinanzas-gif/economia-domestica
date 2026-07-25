@@ -695,17 +695,14 @@ function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Ma
   DB.planCompras[t]=DB.planCompras[t]||{}; DB.planCompras[t][yr]=num((DB.planCompras[t]||{})[yr]||0)+amt;
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function _pnlSecciones(SEC){
-  var META=[['hogar','Hogar'],['cartera','Patrimonio y cartera'],['dividendos','Dividendos'],['accion','Acción']];
+  var META=[['hogar','🏠','Hogar'],['cartera','📦','Patrimonio y cartera'],['dividendos','💰','Dividendos'],['accion','⚡','Acción']];
   var st=window._panelSecOpen=window._panelSecOpen||{hogar:0,cartera:0,dividendos:0,accion:0,mas:0};
   var present=META.filter(function(m){return (SEC[m[0]]||'').trim();});
   if(!present.length) return '';
-  var anyOpen=present.some(function(m){return st[m[0]];});
-  var idx='<div class="psec-bar"><div class="psec-idx">'+present.map(function(m){return '<a data-psjump="'+m[0]+'">'+m[1]+'</a>';}).join('')
-    +'</div><button class="psec-all" data-psall="'+(anyOpen?0:1)+'">'+(anyOpen?'\u229F Contraer todo':'\u229E Expandir todo')+'</button></div>';
   var secs=present.map(function(m){ var open=st[m[0]];
-    return '<div class="psec'+(open?' open':'')+'" data-pssec="'+m[0]+'"><div class="psec-h" data-psfold="'+m[0]+'"><span class="psec-arw">\u25B6</span><span class="psec-t">'+m[1]+'</span></div><div class="psec-b">'+SEC[m[0]]+'</div></div>';
+    return '<div class="psec'+(open?' open':'')+'" data-pssec="'+m[0]+'"><div class="psec-h" data-psfold="'+m[0]+'"><span class="psec-arw">\u25B6</span><span class="psec-ic">'+m[1]+'</span><span class="psec-t">'+m[2]+'</span></div><div class="psec-b">'+SEC[m[0]]+'</div></div>';
   }).join('');
-  return '<div class="psec-wrap">'+idx+secs+'</div>';
+  return '<div class="psec-wrap">'+secs+'</div>';
 }
 function renderPanelDash(){
   const el=$('#panelDash'); if(!el)return; const nowY=new Date().getFullYear(); let avisosHTML='', saludHTML=''; var SEC={hogar:'',cartera:'',dividendos:'',accion:'',mas:''};
