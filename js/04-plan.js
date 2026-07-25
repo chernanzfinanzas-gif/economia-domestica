@@ -696,6 +696,22 @@ function renderPanelDash(){
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
+  /* [B10 · 26-jul-2026] tesis sin línea base de calibración congelada. Es un aviso que solo sale
+     una vez —en cuanto se congelan, desaparece— pero si no saliera, el error se descubriría el día
+     de la primera diana, con el retorno ya calculado a cero y sin forma de reconstruirlo. */
+  try{ const _sinT0=(DB.analisis||[]).filter(a=>{
+         const t=(a.ticker||'').toUpperCase(); if(!t||!a.dossierFecha) return false;
+         const c=((DB.calibracion||{})[t]||{}).t0;
+         return !(c && num(c.cot0)>0) && !(typeof CALIB_T0_SEED!=='undefined' && CALIB_T0_SEED[t]);
+       }).map(a=>(a.ticker||'').toUpperCase());
+    if(_sinT0.length){
+      avisos.push({pri:2, cls:'a', goto:'estado', tick:'', tipo:'datos',
+        txt:'📐 <b>'+_sinT0.length+' tesis sin línea base de calibración</b> — '+_sinT0.slice(0,8).join(', ')
+            +(_sinT0.length>8?(' y '+(_sinT0.length-8)+' más'):'')
+            +'. Sin ella, al vencer su diana el retorno se mediría contra el precio de ese día y saldría ≈ 0 %. '
+            +'<span data-congelart0="1" style="cursor:pointer;font-size:10px;font-weight:700;color:#0f766e;background:#ccfbf1;border-radius:8px;padding:1px 6px">congelar ahora →</span>'});
+    }
+  }catch(e){}
   /* [B1 · 26-jul-2026] supuestos rotos del Diario. Es el aviso con más valor del Panel: no sale de
      un umbral genérico, sino del criterio que TÚ escribiste al decidir. Solo se listan los que aún
      no has revisado con «Sigo igual». */

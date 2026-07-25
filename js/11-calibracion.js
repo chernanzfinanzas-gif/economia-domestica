@@ -69,23 +69,57 @@ function _calibDiasHasta(diana){
 }
 
 /* ---------- Línea base t0 (congelada, editable) ---------- */
+
+/* [B10 · 26-jul-2026] La foto de tesis más cercana al día del dossier. Es la única memoria que
+   la app guarda del estado de la tesis en t0: `guardarTesisSnap` la escribe al importar. */
+function _calibT0Foto(ticker, dossierFecha){
+  const arr = (((typeof DB!=='undefined'&&DB.tesisHist)||{})[(ticker||'').toUpperCase()]||[])
+    .slice().sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+  if(!arr.length) return null;
+  if(dossierFecha){
+    const exacta = arr.find(x => x.fecha === dossierFecha);
+    if(exacta) return exacta;
+    const previas = arr.filter(x => (x.fecha||'') <= dossierFecha);
+    if(previas.length) return previas[previas.length-1];
+  }
+  return arr[0];        /* todas posteriores: la más antigua es la que más se acerca al t0 */
+}
+
+/* La línea base se busca en cuatro sitios, en este orden — y el ÚLTIMO es el peligroso:
+     1. lo guardado en DB.calibracion[T].t0     → congelada de verdad
+     2. CALIB_T0_SEED                            → la lista fija de doce (histórica)
+     3. la foto de tesis del día del dossier     → [B10] recuperación
+     4. los valores VIVOS de la ficha            → NO es una línea base: es el estado de hoy
+   El caso 4 daba un retorno ≈ 0 % sin avisar, porque `cot0` salía siendo la cotización actual y
+   el bloque del diálogo, al tener un número, se quedaba plegado. Ahora se devuelve además el
+   ORIGEN de cada campo y un flag `congelada`, y el diálogo lo enseña en rojo cuando no lo está. */
 function calibBaseline(ticker){
   ticker = (ticker||'').toUpperCase();
   const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker) || {};
   const stored = ((DB.calibracion||{})[ticker]||{}).t0 || {};
   const seed = CALIB_T0_SEED[ticker] || {};
-  const pick = (k, fallback) => {
-    if(stored[k]!=null && stored[k]!=='') return stored[k];
-    if(seed[k]!=null && seed[k]!=='') return seed[k];
-    return fallback;
+  const foto = _calibT0Foto(ticker, a.dossierFecha);
+  const org = {};
+  const pick = (k, kFoto, fallback) => {
+    if(stored[k]!=null && stored[k]!=='')   { org[k]='guardada'; return stored[k]; }
+    if(seed[k]!=null && seed[k]!=='')       { org[k]='semilla';  return seed[k]; }
+    if(foto && kFoto && foto[kFoto]!=null && foto[kFoto]!=='' && _calibN(foto[kFoto])!==0)
+                                            { org[k]='foto';     return foto[kFoto]; }
+    org[k]='vivo'; return fallback;
   };
-  return {
-    cot0:   _calibN(pick('cot0',   a.cotizacion)),
-    poBase: _calibN(pick('poBase', a.precioObjetivo)),
-    entMax: _calibN(pick('entMax', a.entMax)),
-    stop:   _calibN(pick('stop',   a.stopTesis)),
-    decision: (pick('decision', a.decision)||'').toString().toUpperCase()
+  const base = {
+    cot0:   _calibN(pick('cot0',   'cotizacion', a.cotizacion)),
+    poBase: _calibN(pick('poBase', 'poBase',     a.precioObjetivo)),
+    entMax: _calibN(pick('entMax', 'entMax',     a.entMax)),
+    stop:   _calibN(pick('stop',   'stop',       a.stopTesis)),
+    decision: (pick('decision', 'decision', a.decision)||'').toString().toUpperCase()
   };
+  base.origen = org;
+  /* «Congelada» = el precio y el PO, que son los que mueven el veredicto, NO salen de los
+     valores vivos. La banda y el stop apenas se mueven solos, así que no bloquean el flag. */
+  base.congelada = (org.cot0!=='vivo' && org.poBase!=='vivo');
+  base.fotoFecha = (foto && foto.fecha) || '';
+  return base;
 }
 
 /* ---------- Veredictos calculados (columnas negras del Excel) ---------- */
@@ -269,6 +303,21 @@ function _calibDlg(){
   return dlg;
 }
 
+/* [B10] De dónde sale cada número de la línea base. Un veredicto medido contra una base
+   equivocada es peor que no medir: parece una medición. */
+function _calibOrigenHTML(base){
+  const O={guardada:['#dcfce7','#166534','congelada'],
+           semilla:['#dbeafe','#1e40af','semilla del método'],
+           foto:['#fef3c7','#92400e','foto de tesis'],
+           vivo:['#fee2e2','#991b1b','VALOR DE HOY']};
+  const et={cot0:'cot. t0',poBase:'PO base',entMax:'entrada máx',stop:'stop',decision:'decisión'};
+  const o=base.origen||{};
+  const chips=Object.keys(et).map(k=>{ const c=O[o[k]]||O.vivo;
+    return `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:7px;background:${c[0]};color:${c[1]}">${et[k]}: ${c[2]}</span>`;
+  }).join(' ');
+  return `<div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:9px">${chips}</div>`;
+}
+
 function _calibInp(id,val,ph){ return `<input id="${id}" value="${val==null?'':_calibEsc(val)}" placeholder="${ph||''}" inputmode="decimal" style="width:100%;box-sizing:border-box;font-size:13px;padding:6px 8px;border:1px solid #cbd5e1;border-radius:6px">`; }
 
 /* pinta el panel de veredictos en vivo dentro del modal */
@@ -341,9 +390,14 @@ function showCalib(ticker, hito){
      </div>
      <div style="padding:14px 18px;max-height:74vh;overflow:auto">
 
-       <details style="margin-bottom:12px"${(!_calibIsN(base.cot0)||!_calibIsN(base.poBase))?' open':''}>
-         <summary style="cursor:pointer;font-weight:800;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:.5px">Línea base t0 (congelada · ${d.dossierFecha})</summary>
+       <details style="margin-bottom:12px"${(!_calibIsN(base.cot0)||!_calibIsN(base.poBase)||!base.congelada)?' open':''}>
+         <summary style="cursor:pointer;font-weight:800;font-size:12px;color:${base.congelada?'#64748b':'#b91c1c'};text-transform:uppercase;letter-spacing:.5px">Línea base t0 ${base.congelada?'(congelada · '+d.dossierFecha+')':'⚠ SIN CONGELAR — revísala antes de guardar'}</summary>
          <div style="font-size:11.5px;color:#64748b;margin:6px 0 8px">La foto de la tesis el día del análisis. Contra esto se miden los veredictos. Decisión t0: <b>${base.decision||'—'}</b>.</div>
+         ${base.congelada?'':`<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px 11px;margin-bottom:9px;font-size:11.5px;color:#991b1b;line-height:1.5">
+           <b>⚠ Esta línea base no está congelada.</b> La cotización y el PO que ves abajo son los de <b>hoy</b>, no los del ${d.dossierFecha||'día del análisis'} — así que el retorno saldría ≈ 0&nbsp;% y no significaría nada.
+           Corrige los valores con los del dossier de esa fecha antes de guardar${base.fotoFecha?', o usa la foto de tesis del '+base.fotoFecha:''}.
+         </div>`}
+         ${_calibOrigenHTML(base)}
          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 12px">
            <label style="font-size:11px;color:#475569">Cotización t0 (€)${_calibInp('bCot',base.cot0,'ej. 20,32')}</label>
            <label style="font-size:11px;color:#475569">PO Base (€)${_calibInp('bPo',base.poBase,'ej. 26,50')}</label>

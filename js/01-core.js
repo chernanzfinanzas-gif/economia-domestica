@@ -354,7 +354,11 @@ function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const
      del Resumen del dossier). Si el dossier no está cargado, conserva el qScore de la foto previa. */
   const _tj=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
   const _qs=(_tj&&_tj.score!=null&&_tj.score!=='')?num(_tj.score):((prev&&prev.qScore!=null)?prev.qScore:null);
-  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,qScore:_qs,poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion)};
+  const snap={fecha:fecha,decision:(a.decision||'').toUpperCase(),rating:(a.rating||'').toUpperCase(),score:(typeof cmpScore==='function')?cmpScore(a):null,qScore:_qs,poBear:mn,poBase:md,poBull:mx,cotizacion:num(a.cotizacion),
+    /* [B10] la foto guardaba precio, PO y decisión pero NO la banda ni el stop, que son dos de
+       los cinco campos de la línea base de calibración. Sin ellos, reconstruir una t0 antigua
+       obligaba a coger los valores vivos. */
+    entMax:num(a.entMax), stop:num(a.stopTesis)};
   if(mot)snap.motivo=mot; if(org)snap.origen=org;
   if(ix>=0)arr[ix]=snap; else arr.push(snap); arr.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||'')); }
 /* 5.2.e simetria de registros: todo cambio manual de decision/banda/stop deja rastro (foto + motivo) y recuerda anotarlo en Excel §10.5 */
@@ -389,7 +393,57 @@ function precioDe(a){ if(!a)return 0;
   var pv=num(((DB.valores||{})[t]||{}).precioActual); if(pv>0)return pv;
   return num(a.cotizacion);
 }
-function importTesis(t){ t=(t||'').toUpperCase(); const j=_tesisCache[t]; if(!j)return false; DB.analisis=DB.analisis||[]; let a=DB.analisis.find(x=>(x.ticker||'').toUpperCase()===t); if(!a){ a={id:uid(),ticker:t,nombre:j.empresa||t,cotizacion:num(((DB.valores||{})[t]||{}).precioActual)}; DB.analisis.push(a); } if(j.rating)a.rating=(''+j.rating).toUpperCase(); if(j.decision)a.decision=(''+j.decision).toUpperCase(); if(j.poBear!=null&&j.poBear!=='')a.poMin=num(j.poBear); if(j.poBull!=null&&j.poBull!=='')a.poMax=num(j.poBull); if(j.entMin!=null&&j.entMin!=='')a.entMin=num(j.entMin); if(j.entMax!=null&&j.entMax!=='')a.entMax=num(j.entMax); if(j.stop!=null&&j.stop!=='')a.stopTesis=num(j.stop); if(j.fecha)a.dossierFecha=j.fecha; if(j.dividendSafety)a.dividendSafety=j.dividendSafety;if(j.forense)a.forense=j.forense;if(j.reverseDcf)a.reverseDcf=j.reverseDcf; if(j.confianza)a.confianza=j.confianza; if(j.robustez)a.robustez=j.robustez; if(j.dpaPrevisto!=null&&j.dpaPrevisto!==''){ a.divAccion=num(j.dpaPrevisto); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(j.dpaPrevisto); } if(j.poBase!=null&&j.poBase!=='')a.poBase=num(j.poBase); const pmn=num(a.poMin),pmx=num(a.poMax); const _pb=num(a.poBase); a.precioObjetivo=_pb>0?_pb:((pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0)); a.precioEntrada=num(a.entMax); if(typeof guardarTesisSnap==='function')guardarTesisSnap(t,j.fecha); return true; }
+function importTesis(t){ t=(t||'').toUpperCase(); const j=_tesisCache[t]; if(!j)return false; DB.analisis=DB.analisis||[]; let a=DB.analisis.find(x=>(x.ticker||'').toUpperCase()===t); if(!a){ a={id:uid(),ticker:t,nombre:j.empresa||t,cotizacion:num(((DB.valores||{})[t]||{}).precioActual)}; DB.analisis.push(a); } if(j.rating)a.rating=(''+j.rating).toUpperCase(); if(j.decision)a.decision=(''+j.decision).toUpperCase(); if(j.poBear!=null&&j.poBear!=='')a.poMin=num(j.poBear); if(j.poBull!=null&&j.poBull!=='')a.poMax=num(j.poBull); if(j.entMin!=null&&j.entMin!=='')a.entMin=num(j.entMin); if(j.entMax!=null&&j.entMax!=='')a.entMax=num(j.entMax); if(j.stop!=null&&j.stop!=='')a.stopTesis=num(j.stop); if(j.fecha)a.dossierFecha=j.fecha; if(j.dividendSafety)a.dividendSafety=j.dividendSafety;if(j.forense)a.forense=j.forense;if(j.reverseDcf)a.reverseDcf=j.reverseDcf; if(j.confianza)a.confianza=j.confianza; if(j.robustez)a.robustez=j.robustez; if(j.dpaPrevisto!=null&&j.dpaPrevisto!==''){ a.divAccion=num(j.dpaPrevisto); DB.valores=DB.valores||{}; DB.valores[t]=DB.valores[t]||{}; DB.valores[t].divAccion=num(j.dpaPrevisto); } if(j.poBase!=null&&j.poBase!=='')a.poBase=num(j.poBase); const pmn=num(a.poMin),pmx=num(a.poMax); const _pb=num(a.poBase); a.precioObjetivo=_pb>0?_pb:((pmn&&pmx)?(pmn+pmx)/2:(pmx||pmn||0)); a.precioEntrada=num(a.entMax); if(typeof guardarTesisSnap==='function')guardarTesisSnap(t,j.fecha);
+  if(typeof congelarT0Calib==='function')congelarT0Calib(t,j);   /* [B10] línea base de calibración */
+  return true; }
+
+/* [B10 · 26-jul-2026] CONGELAR LA LÍNEA BASE t0 AL IMPORTAR LA TESIS.
+   El diálogo de calibración buscaba la t0 en tres sitios: lo guardado → una lista FIJA de doce
+   empresas escrita en el código (`CALIB_T0_SEED`) → y, si no estaba en ninguno, **la cotización
+   de hoy**. Como el parque creció de 12 a 24 y la lista se quedó quieta, doce empresas no tenían
+   línea base; al vencer su diana, el diálogo prerrellenaba «Cotización t0» con el precio de ESE
+   día y —por tener un número— el bloque quedaba plegado y no se veía. Resultado: retorno ≈ 0 %
+   en silencio para media cartera, justo el año en que empieza a haber datos.
+   La causa de fondo no era la lista: era que **nadie congelaba la t0 en su momento**. Aquí se
+   congela, al importar, con los números del propio dossier — que es cuando son ciertos. */
+function congelarT0Calib(t, j){
+  t=(t||'').toUpperCase(); if(!t||!j) return false;
+  DB.calibracion=DB.calibracion||{}; DB.calibracion[t]=DB.calibracion[t]||{};
+  if(DB.calibracion[t].t0 && num(DB.calibracion[t].t0.cot0)>0) return false;   /* ya congelada: no se pisa */
+  /* La cotización del día del análisis viene en el bloque `robustez` que calcula robustez.py
+     sobre la matriz §6.3. Si no está, se usa la de hoy: al importar recién publicado el dossier,
+     la diferencia es de días — pero se marca el origen para poder distinguirlo después. */
+  var cot=0, org='robustez';
+  try{ cot=num(((j.robustez||{}).sensibilidad||{}).cotizacion); }catch(e){}
+  if(!(cot>0)){ cot=num(((DB.valores||{})[t]||{}).precioActual); org='precio-import'; }
+  if(!(cot>0)) return false;
+  var pb=num(j.poBase); if(!(pb>0)){ var mn=num(j.poBear),mx=num(j.poBull); pb=(mn&&mx)?(mn+mx)/2:(mx||mn||0); }
+  DB.calibracion[t].t0={ cot0:cot, poBase:pb, entMax:num(j.entMax), stop:num(j.stop),
+    decision:(j.decision||'').toString().toUpperCase(), fecha:j.fecha||'', origen:org };
+  return true; }
+
+/* [B10] Congela la t0 de las empresas que ya estaban importadas antes de esta corrección,
+   recuperándola de la foto de tesis del día del dossier. Devuelve la lista de las arregladas. */
+function congelarT0Pendientes(){
+  var out=[];
+  (DB.analisis||[]).forEach(function(a){
+    var t=(a.ticker||'').toUpperCase(); if(!t) return;
+    var c=(DB.calibracion||{})[t]||{};
+    if(c.t0 && num(c.t0.cot0)>0) return;
+    var j=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+    if(j && congelarT0Calib(t,j)){ out.push(t+' (dossier)'); return; }
+    var foto=(typeof _calibT0Foto==='function')?_calibT0Foto(t,a.dossierFecha):null;
+    if(foto && num(foto.cotizacion)>0){
+      DB.calibracion=DB.calibracion||{}; DB.calibracion[t]=DB.calibracion[t]||{};
+      DB.calibracion[t].t0={ cot0:num(foto.cotizacion), poBase:num(foto.poBase),
+        entMax:num(a.entMax), stop:num(a.stopTesis),
+        decision:(foto.decision||a.decision||'').toString().toUpperCase(),
+        fecha:foto.fecha||a.dossierFecha||'', origen:'foto-tesis' };
+      out.push(t+' (foto '+(foto.fecha||'?')+')');
+    }
+  });
+  if(out.length && typeof scheduleSave==='function')scheduleSave();
+  return out; }
 function validarTesisJSON(j){ const out={warns:[],info:[]}; if(!j||typeof j!=='object'){ out.warns.push('El archivo no es un objeto JSON valido.'); return out; } const SCHEMA_TESIS=8; const _sv=parseFloat((''+(j.schemaVersion!=null?j.schemaVersion:1)).replace(',','.'))||1; if(_sv>SCHEMA_TESIS) out.info.push('Esquema del fichero v'+_sv+' (mas nuevo que el soportado v'+SCHEMA_TESIS+'): la app lee los campos conocidos e ignora los nuevos.'); const KNOWN={schemaVersion:1,ticker:1,empresa:1,fecha:1,rating:1,score:1,decision:1,metodoValoracion:1,poBear:1,poBase:1,poBull:1,entMin:1,entMax:1,stop:1,dpaPrevisto:1,moat:1,catalizadores:1,riesgos:1,bull:1,bear:1,resumen:1,confianza:1,robustez:1,dividendSafety:1,forense:1,reverseDcf:1,cambiosDesdeUltimaRevision:1}; const NUMK=['score','poBear','poBase','poBull','entMin','entMax','stop']; const ARRK=['catalizadores','riesgos']; const REC=['decision','rating','poBear','poBull','fecha']; const norm=x=>(''+x).toLowerCase().replace(/[^a-z0-9]/g,''); Object.keys(j).forEach(k=>{ if(!KNOWN[k]){ let h=''; const nk=norm(k); Object.keys(KNOWN).forEach(kk=>{ if(norm(kk)===nk) h=' (quiza querias "'+kk+'")'; }); (_sv>SCHEMA_TESIS?out.info:out.warns).push('Campo no reconocido: "'+k+'"'+h+' - se ignora.'); } }); NUMK.forEach(k=>{ if(j[k]!=null&&j[k]!==''&&isNaN(parseFloat((''+j[k]).replace(',','.')))) out.warns.push('"'+k+'" deberia ser numerico (valor: '+JSON.stringify(j[k])+').'); }); ARRK.forEach(k=>{ if(j[k]!=null&&!Array.isArray(j[k])) out.warns.push('"'+k+'" deberia ser una lista [] o no se mostrara.'); }); const dec=(j.decision||'').toUpperCase(); if(dec&&['COMPRAR','MANTENER','ESPERAR','VENDER'].indexOf(dec)<0) out.warns.push('decision="'+j.decision+'" no es COMPRAR/MANTENER/ESPERAR/VENDER.'); const b=num(j.poBear),u=num(j.poBull); if(b&&u&&b>u) out.warns.push('poBear ('+b+') es mayor que poBull ('+u+'): puede que esten invertidos.'); REC.forEach(k=>{ if(j[k]==null||j[k]==='') out.info.push('falta "'+k+'"'); }); return out; }
 function tesisCardHTML(j){ if(!j||typeof j!=='object')return '';
   const dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const d=(j.decision||'').toUpperCase(); const _mm=(j.fecha&&typeof mesesDesde==='function')?mesesDesde(j.fecha):null; const _wk=(j.ticker||fichaTicker||'').toUpperCase(); const _w=(typeof _tesisWarn!=='undefined')?_tesisWarn[_wk]:null; const warnHTML=(_w&&((_w.warns&&_w.warns.length)||(_w.info&&_w.info.length)))?`<div style="background:#fff7ed;border:1px solid #fdba74;border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px">${(_w.warns&&_w.warns.length)?'<div style="color:#9a3412;font-weight:700">\u26a0\ufe0f Avisos del JSON del dossier</div><ul style="margin:4px 0 0 16px;padding:0;color:#7c2d12">'+_w.warns.map(x=>'<li>'+x+'</li>').join('')+'</ul>':''}${(_w.info&&_w.info.length)?'<div style="color:#92400e;font-size:11px;margin-top:6px">Campos recomendados: '+_w.info.join(', ')+'.</div>':''}</div>`:'';

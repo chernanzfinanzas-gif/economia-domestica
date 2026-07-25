@@ -196,6 +196,19 @@ $('#subnav').addEventListener('click',e=>{ const b=e.target.closest('button'); i
 /* Toggle de las cabeceras colapsables de Asignación (bloques con data-asigblk). */
 document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return; var h=e.target.closest('.pos-blk-h'); if(!h)return; var b=h.parentElement; if(!b||!b.getAttribute('data-asigblk'))return; if(e.target.closest('input,select,button,a,[data-ficha]'))return; b.classList.toggle('open'); });
 /* Toggle de las cabeceras colapsables de Mis Decisiones (data-diblk) y Diario de Hechos (data-diablk). */
+/* [B10 · 26-jul-2026] «congelar ahora» del aviso de líneas base: recupera la t0 de cada tesis
+   desde el dossier cargado o desde la foto de tesis del día. No inventa nada: si no encuentra
+   ninguna de las dos, deja la empresa fuera y lo dice. */
+document.addEventListener('click',function(e){
+  var b=e.target&&e.target.closest&&e.target.closest('[data-congelart0]'); if(!b)return;
+  if(typeof congelarT0Pendientes!=='function')return;
+  var hechas=congelarT0Pendientes();
+  if(typeof toast==='function') toast(hechas.length
+    ? ('Línea base congelada en '+hechas.length+' tesis: '+hechas.slice(0,4).join(' · ')+(hechas.length>4?'…':''))
+    : 'No se ha podido recuperar ninguna línea base: hace falta el dossier cargado o una foto de tesis.');
+  if(typeof renderPanelDash==='function')renderPanelDash();
+});
+
 /* [B8 · 26-jul-2026] «→ cola de análisis» desde Visión de conjunto y desde Universo: las dos vistas
    que identifican candidatas y hasta ahora no podían encolarlas (había que memorizar el ticker e ir
    a otra pestaña). Mismo colaAdd() que usa Radar Op. */
