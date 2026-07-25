@@ -330,7 +330,7 @@ function renderAnalisis(){
   const cw=DB.config.anaPesos||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15);
   const cl=x=>Math.max(0,Math.min(100,x));
   const held=heldTickerSet();
-  const list=(DB.analisis||[]).map(a=>{
+  let list=(DB.analisis||[]).map(a=>{
     const cot=num(((DB.valores||{})[(a.ticker||'').toUpperCase()]||{}).precioActual)||num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
     const rating=(a.rating||'').toUpperCase();
     const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
