@@ -162,6 +162,81 @@ function calibDataFor(ticker){
   };
 }
 
+/* ════════════════════════════════════════════════════════════════════════════
+   [B2 · 26-jul-2026] LA CALIBRACIÓN LEE EL DIARIO
+   La app te promete, en la cabecera de Mis Decisiones, que «la Calibración compara luego contra
+   tu criterio escrito, no contra tu memoria». No era verdad: la Calibración medía la TESIS
+   (dossier → diana) y agregaba por la decisión congelada de la ficha —COMPRAR/MANTENER/ESPERAR—
+   sin abrir jamás `DB.diario`. Las frases que escribías al decidir no entraban nunca en el
+   marcador, así que el bucle sembrar → medir → aprender se cortaba justo en el último paso.
+   Ahora cada diana cruza con las decisiones que anotaste DENTRO de su tramo (t0 → diana) y mide
+   cada una en su propio horizonte: desde el precio al que decidiste hasta el precio en la diana,
+   dividendos incluidos. Así el marcador responde a la pregunta que importa: ¿tus decisiones,
+   las que escribiste, acertaron — y acertaron más las que llevaban invalidación escrita?
+   ════════════════════════════════════════════════════════════════════════════ */
+
+/* Último cierre ≤ fecha del histórico diario. null si no hay histórico cargado. */
+function _calibPrecioEn(ticker, fecha){
+  ticker=(ticker||'').toUpperCase();
+  const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[ticker]:null;
+  if(!pj||!pj.data||!pj.data.length) return null;
+  let best=null;
+  pj.data.forEach(p=>{ if(Array.isArray(p)&&p[0]&&typeof p[1]==='number'&&p[0]<=fecha){ if(!best||p[0]>best[0]) best=p; } });
+  return best?{precio:best[1], fecha:best[0]}:null;
+}
+/* Dividendos por acción cobrados en la ventana (fecha0, fecha1]. */
+function _calibDivEntre(ticker, f0, f1){
+  ticker=(ticker||'').toUpperCase();
+  return ((DB.dividendos||{})[ticker]||[])
+    .filter(x=>x&&x.fecha&&x.fecha>f0&&x.fecha<=f1)
+    .reduce((s,x)=>s+(_calibN(x.importe)||0),0);
+}
+/* Dirección esperada de cada tipo de decisión del Diario (misma tabla que 23-diario.js). */
+function _calibDirTipo(tipo){
+  try{ if(typeof _diTipoCfg==='function') return _diTipoCfg(tipo).dir; }catch(e){}
+  const t=(tipo||'').toLowerCase();
+  if(t==='vender'||t==='recortar') return 'bear';
+  if(t==='descartar') return 'flat';
+  return 'bull';
+}
+/* Decisiones del Diario que caen dentro del tramo de un hito, medidas EN LA DIANA.
+   `cotDiana` = el número confirmado de la evaluación si existe; si no, el cierre del histórico. */
+function calibDecisionesEnHito(ticker, t0, diana, cotDianaConfirmada){
+  ticker=(ticker||'').toUpperCase();
+  const arr=(DB.diario||[]).filter(e=>(e.ticker||'').toUpperCase()===ticker
+    && (e.fecha||'')>=t0 && (e.fecha||'')<=diana);
+  if(!arr.length) return [];
+  let cot=_calibN(cotDianaConfirmada);
+  let cotFecha=diana;
+  if(!_calibIsN(cot)){ const p=_calibPrecioEn(ticker,diana); if(p){ cot=p.precio; cotFecha=p.fecha; } }
+  return arr.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')).map(e=>{
+    const p0=_calibN(e.precio);
+    let ret=null;
+    if(_calibIsN(cot)&&_calibIsN(p0)&&p0!==0){
+      const dv=_calibDivEntre(ticker, e.fecha, diana);
+      ret=(cot+dv)/p0-1;
+    }
+    const dir=_calibDirTipo(e.tipo);
+    let acierto=null;
+    if(ret!=null){ acierto=(dir==='bull')?(ret>0):(dir==='bear'?(ret<0):(ret<=0.05)); }
+    return { e, dir, ret, acierto, cot, cotFecha,
+      conInval: !!((e.invalidacion||'').trim() || (e.trigs||[]).length) };
+  });
+}
+/* Todas las decisiones evaluadas contra hitos YA CERRADOS. Es la materia prima del marcador. */
+function calibDiarioCerrado(){
+  const out=[];
+  (DB.analisis||[]).forEach(a=>{
+    const d=calibDataFor(a.ticker); if(!d) return;
+    d.hitos.forEach(h=>{
+      if(!h.done || !h.diana) return;
+      calibDecisionesEnHito(d.ticker, d.dossierFecha, h.diana, (h.info||{}).cotDiana)
+        .forEach(x=>out.push(Object.assign({hito:h.k, ticker:d.ticker, diana:h.diana}, x)));
+    });
+  });
+  return out;
+}
+
 /* ---------- Avisos para el Panel (dianas vencidas sin marcar) ---------- */
 function calibAvisos(){
   const out = [];
@@ -216,6 +291,36 @@ function _calibPintaVer(dlg, base){
      </div>`;
 }
 
+/* [B2] Bloque del modal: las decisiones que anotaste en este tramo, con lo que escribiste y
+   cómo salió cada una en la diana. Es lo que convierte «calibrar la tesis» en «calibrar tu
+   criterio»: al confirmar la evaluación estás mirando tus propias frases, no solo el precio. */
+function _calibDiarioModalHTML(ticker, t0, h){
+  const L=calibDecisionesEnHito(ticker, t0, h.diana, (h.info||{}).cotDiana);
+  const cab='<div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px">📓 Tus decisiones en este tramo ('+t0+' → '+h.diana+')</div>';
+  if(!L.length) return cab+'<div style="font-size:11.5px;color:#94a3b8;background:#f8fafc;border:1px dashed #e2e8f0;border-radius:8px;padding:8px 10px">No anotaste ninguna decisión en Mis Decisiones dentro de este tramo. La calibración medirá solo la tesis del dossier.</div>';
+  const filas=L.map(x=>{
+    const e=x.e;
+    const col=x.acierto==null?'#64748b':(x.acierto?'#166534':'#991b1b');
+    const bg =x.acierto==null?'#f1f5f9':(x.acierto?'#dcfce7':'#fee2e2');
+    const ver=x.acierto==null?'sin precio':(x.acierto?'✓ acertó':'✗ falló');
+    return '<div style="border:1px solid #e2e8f0;border-left:3px solid '+col+';border-radius:8px;padding:7px 9px;margin-bottom:6px;background:#fff">'
+      +'<div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;font-size:11.5px">'
+        +'<b style="font-size:12.5px">'+_calibEsc(e.tipo)+'</b>'
+        +'<span style="color:#64748b">'+_calibEsc(e.fecha)+(e.precio?(' · '+_calibFmt(_calibN(e.precio))+' €'):'')+'</span>'
+        +'<div style="flex:1"></div>'
+        +'<span style="font-weight:800;color:'+col+'">'+(x.ret==null?'—':_calibPct(x.ret))+'</span>'
+        +'<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:7px;background:'+bg+';color:'+col+'">'+ver+'</span>'
+      +'</div>'
+      +(e.porque?'<div style="font-size:11.5px;color:#334155;margin-top:4px"><b>Por qué:</b> '+_calibEsc(e.porque)+'</div>':'')
+      +(e.invalidacion?'<div style="font-size:11.5px;color:#9a3412;background:#fff7ed;border-radius:6px;padding:4px 7px;margin-top:4px"><b>Cambiaría de idea si…</b> '+_calibEsc(e.invalidacion)+'</div>'
+                      :'<div style="font-size:11px;color:#94a3b8;margin-top:4px">Sin invalidación escrita.</div>')
+      +'</div>';
+  }).join('');
+  const nOk=L.filter(x=>x.acierto===true).length, nEval=L.filter(x=>x.acierto!=null).length;
+  const res=nEval?('<div style="font-size:11.5px;color:#475569;margin-bottom:6px">'+nOk+' de '+nEval+' acertaron medidas en la diana (desde el precio al que decidiste, dividendos incluidos).</div>'):'';
+  return cab+res+filas;
+}
+
 function showCalib(ticker, hito){
   ticker = (ticker||'').toUpperCase(); hito = (hito||'').toLowerCase();
   const d = calibDataFor(ticker); if(!d) return;
@@ -266,6 +371,8 @@ function showCalib(ticker, hito){
          <div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Veredicto (se calcula solo)</div>
          <div id="cVer"></div>
        </div>
+
+       ${_calibDiarioModalHTML(ticker, d.dossierFecha, h)}
 
        <label style="display:block;margin-top:10px;font-size:11px;color:#475569">Notas (veredicto en una línea)
          <textarea id="calibNota" rows="2" style="width:100%;box-sizing:border-box;margin-top:4px;font-size:13px;padding:6px;border:1px solid #cbd5e1;border-radius:6px">${info.nota?_calibEsc(info.nota):''}</textarea></label>
@@ -445,6 +552,65 @@ function _calibMetPct(x){ return x==null?'—':(x*100).toLocaleString('es-ES',{m
 function _calibMetRet(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%'; }
 function _calibRetColor(x){ return x==null?'#94a3b8':(x>=0?'#166534':'#991b1b'); }
 
+/* [B2] Marcador de las decisiones del Diario evaluadas contra las dianas ya cerradas.
+   Dos cortes: por TIPO de decisión (¿aciertan más tus «Comprar» que tus «Mantener»?) y por si
+   llevaban INVALIDACIÓN escrita (¿escribir el criterio de salida mejora el resultado?). Este
+   segundo corte es el que justifica todo el Diario, y hasta hoy no se medía en ningún sitio. */
+function _calibDiarioPanel(){
+  const L=calibDiarioCerrado();
+  const totalDiario=(DB.diario||[]).length;
+  if(!L.length){
+    const razon = totalDiario
+      ? 'Tienes '+totalDiario+' decisión(es) anotada(s), pero ninguna cae dentro del tramo de una diana ya <b>cerrada</b>. En cuanto confirmes una calibración cuyo tramo las contenga, aparecerán aquí evaluadas.'
+      : 'Aún no has anotado decisiones en <b>Mis Decisiones</b>. Este marcador mide tus decisiones escritas contra lo que hizo el precio hasta la diana.';
+    return {sum:'sin datos todavía', consejo:'',
+      html:'<div class="mt-empty">'+razon+'</div>'};
+  }
+  const evald=L.filter(x=>x.acierto!=null);
+  const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+  const grupo=arr=>({n:arr.length,
+    ok:arr.filter(x=>x.acierto===true).length,
+    pct:arr.length?arr.filter(x=>x.acierto===true).length/arr.length:null,
+    ret:avg(arr.map(x=>x.ret).filter(x=>x!=null))});
+  const tipos={}; evald.forEach(x=>{ const k=x.e.tipo||'—'; (tipos[k]=tipos[k]||[]).push(x); });
+  const con=grupo(evald.filter(x=>x.conInval)), sin=grupo(evald.filter(x=>!x.conInval));
+
+  const cel=v=>'<td style="text-align:center">'+v+'</td>';
+  const celRet=v=>'<td style="text-align:center;font-weight:700;color:'+_calibRetColor(v)+'">'+_calibMetRet(v)+'</td>';
+  const filas=Object.keys(tipos).sort().map(k=>{ const g=grupo(tipos[k]);
+    return '<tr><td class="l" style="font-weight:600">'+_calibEsc(k)+'</td>'+cel(g.n)+cel(_calibMetPct(g.pct))+celRet(g.ret)+'</tr>'; }).join('');
+  const filaInv=(lbl,g)=>'<tr><td class="l"'+(g.n?'':' style="color:#94a3b8"')+'>'+lbl+'</td>'+cel(g.n)+cel(_calibMetPct(g.pct))+celRet(g.ret)+'</tr>';
+
+  const G=grupo(evald);
+  const kpi='<div style="font-size:12.5px;color:#334155;margin-bottom:10px;line-height:1.55">'
+    +'<b>'+G.ok+' de '+G.n+'</b> decisiones anotadas acertaron ('+_calibMetPct(G.pct)+'), con un retorno medio de '
+    +'<b style="color:'+_calibRetColor(G.ret)+'">'+_calibMetRet(G.ret)+'</b> medido desde el precio al que decidiste hasta la diana, dividendos incluidos.'
+    +(L.length>evald.length?(' <span class="muted">('+(L.length-evald.length)+' sin precio de referencia, no computan.)</span>'):'')
+    +'</div>';
+  const t1='<div class="ptable"><table><thead><tr><th class="l">Tipo de decisión</th><th>N</th><th>% acierto</th><th>Retorno medio</th></tr></thead><tbody>'+filas+'</tbody></table></div>';
+  const t2='<div style="font-weight:800;font-size:11px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin:14px 0 6px">¿Escribir la invalidación cambia algo?</div>'
+    +'<div class="ptable"><table><thead><tr><th class="l">Decisiones</th><th>N</th><th>% acierto</th><th>Retorno medio</th></tr></thead><tbody>'
+    +filaInv('Con «cambiaría de idea si…» escrito', con)+filaInv('Sin invalidación escrita', sin)
+    +'</tbody></table></div>';
+
+  /* consejo: solo cuando hay muestra suficiente para que signifique algo */
+  let consejo='';
+  if(con.n>=3 && sin.n>=3 && con.pct!=null && sin.pct!=null){
+    consejo = (con.pct>sin.pct)
+      ? '<li><b>Escribir la invalidación te está saliendo a cuenta</b>: '+_calibMetPct(con.pct)+' de acierto con criterio de salida escrito frente a '+_calibMetPct(sin.pct)+' sin él. Anótala siempre.</li>'
+      : '<li>Las decisiones <b>con</b> invalidación escrita no van mejor ('+_calibMetPct(con.pct)+' vs '+_calibMetPct(sin.pct)+'). Mira si las estás escribiendo demasiado vagas para poder incumplirlas.</li>';
+  }
+  const mejor=Object.keys(tipos).filter(k=>tipos[k].length>=3)
+    .sort((a,b)=>grupo(tipos[b]).pct-grupo(tipos[a]).pct)[0];
+  const peor=Object.keys(tipos).filter(k=>tipos[k].length>=3)
+    .sort((a,b)=>grupo(tipos[a]).pct-grupo(tipos[b]).pct)[0];
+  if(mejor&&peor&&mejor!==peor)
+    consejo+='<li>Tus decisiones de <b>'+_calibEsc(peor)+'</b> ('+_calibMetPct(grupo(tipos[peor]).pct)+') aciertan bastante menos que las de <b>'+_calibEsc(mejor)+'</b> ('+_calibMetPct(grupo(tipos[mejor]).pct)+'): ahí está el sesgo que corregir.</li>';
+
+  const nota='<div class="sub" style="font-size:11px;color:#64748b;margin-top:10px;line-height:1.5">Solo entran decisiones anotadas dentro del tramo de una diana <b>ya confirmada</b> (t0 del dossier → 6/12/36 meses). Cada una se mide en su propio horizonte: desde el precio al que la tomaste hasta la cotización de la diana, sumando los dividendos cobrados en medio. El acierto sigue la dirección del tipo: Comprar/Ampliar/Mantener/Reafirmar aciertan si sube; Recortar/Vender, si baja; Descartar, si no se escapó más de un 5&nbsp;%.</div>';
+  return {sum:G.ok+' de '+G.n+' acertadas', consejo:consejo, html:kpi+t1+t2+nota};
+}
+
 function renderPanelMetodo(){
   const sec = document.getElementById('view-metodo'); if(!sec) return;
   const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
@@ -506,11 +672,13 @@ function renderPanelMetodo(){
   const detInner = filasDet.length
     ? `<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th>Hito</th><th>Decisión t0</th><th>Retorno total</th><th>Banda</th><th>Stop</th><th>PO</th><th class="l">Nota</th></tr></thead><tbody>${filasDet.join('')}</tbody></table></div>`
     : '<div class="mt-empty">Sin evaluaciones cerradas todavía. Aquí aparecerá cada tesis evaluada: empresa, hito, decisión t0, retorno total, si entró en banda, si tocó stop, si alcanzó PO y una nota.</div>';
-  const guia = `<ul class="mt-guia"><li>Si <b>COMPRAR</b> no bate a <b>ESPERAR</b> de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li><li>Si el % que alcanza <b>PO Base</b> es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li><li>Si hay muchos stops <b>"ruido"</b> (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li><li>Si casi nunca se <b>"entró en banda"</b> → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li></ul>`;
+  const DI = _calibDiarioPanel();   /* [B2] marcador de TUS decisiones escritas, no solo de la tesis */
+  const guia = `<ul class="mt-guia">${DI.consejo}<li>Si <b>COMPRAR</b> no bate a <b>ESPERAR</b> de forma sistemática → la señal de decisión no aporta valor: revisar umbrales de MdS que disparan COMPRAR.</li><li>Si el % que alcanza <b>PO Base</b> es bajo y el retorno medio queda muy por debajo → los PO Base pecan de optimistas: recalibrar el DCF/múltiplos.</li><li>Si hay muchos stops <b>"ruido"</b> (saltó y rebotó con tesis intacta) → el colchón 10%·β·q es demasiado ajustado: ampliarlo.</li><li>Si casi nunca se <b>"entró en banda"</b> → las bandas de entrada se fijan demasiado bajas respecto a donde cotiza de verdad.</li></ul>`;
   const _mblk=(icon,title,sum,inner,open,key)=>`<div class="pos-blk${open?' open':''}"${key?` data-metblk="${key}"`:''}><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="blk-pad">${inner}</div></div></div>`;
   sec.innerHTML = `<div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">📐</span><div class="vhero-txt"><h2>Panel del Método</h2><p>Marcador del Método KH&amp;Claude: confronta lo que cada tesis predijo (PO, banda, stop, decisión) con lo que la cotización hizo después, a 6/12/36 meses. Solo cuentan las evaluaciones <b>cerradas</b>${provis>0?('; los <b>'+provis+'</b> provisionales aún no computan'):''}.</p></div></div></div>
     <div id="metKpis" style="margin-bottom:14px">${_kpis}</div>`
     +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, false, 'marcador')
+    +_mblk('📓','Tus decisiones, evaluadas', DI.sum, DI.html, false, 'diario')   /* [B2] */
     +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false, 'cerradas')
     +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir');
   if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }

@@ -227,7 +227,8 @@ function renderDiario(){
   H+='<div class="pos-blk'+(_diOpen?' open':'')+'" data-diblk="lista"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">📋 Listado de decisiones</span><span class="bsum">'+vis.length+' de '+nTot+'</span></div><div class="pos-blk-b"><div class="blk-pad">';
   if(!vis.length){ H+='<div class="di-empty">Sin decisiones'+(nTot?' con este filtro':' todavía')+'. Pulsa «+ Nueva decisión» para registrar la primera.</div>'; }
   else { H+=vis.map(_diCard).join(''); }
-  H+='<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">«Desde entonces» = precio actual − precio de la decisión + dividendos cobrados, sobre el precio de la decisión. El <b>veredicto</b> (✓/✗) aparece al marcar la decisión como <b>cerrada</b>.</div>';
+  H+='<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">«Desde entonces» = precio actual − precio de la decisión + dividendos cobrados, sobre el precio de la decisión. El <b>veredicto</b> (✓/✗) aparece al marcar la decisión como <b>cerrada</b>.<br>'
+    +'Además, cada decisión se mide sola contra las <b>dianas de la Calibración</b> (6/12/36 meses desde el dossier): el resultado agregado —por tipo de decisión y según lleve o no invalidación escrita— está en <span class="di-link" data-dimetodo="1">Panel del Método → 📓 Tus decisiones, evaluadas</span>.</div>';
   H+='</div></div></div>';
   H+='</div>';
   sec.innerHTML=H;
@@ -478,6 +479,7 @@ function _diBind(sec){
     /* [B1] constructor de disparadores */
     var ta=e.target.closest('#diTrigAdd'); if(ta){ _diTrigDraft.push(_diTrigDefault('precio')); _diTrigsPinta(); return; }
     var td=e.target.closest('[data-trigdel]'); if(td){ _diTrigDraft.splice(parseInt(td.getAttribute('data-trigdel'),10),1); _diTrigsPinta(); return; }
+    var mt=e.target.closest('[data-dimetodo]'); if(mt){ if(typeof activarVista==='function')activarVista('estado'); return; }   /* [B2] */
     var fi=e.target.closest('[data-ficha]'); if(fi){ var t=fi.getAttribute('data-ficha'); if(typeof abrirFicha==='function')abrirFicha(t); else location.hash='ficha='+t; return; }
   });
   sec.addEventListener('change',function(e){
@@ -619,7 +621,8 @@ function _diGuardar(){
     '.di-tg.roto{background:#fee2e2;color:#991b1b}',
     '.di-rotmini{font-size:11.5px;border-radius:8px;padding:5px 9px;margin:6px 0;background:#fef3c7;color:#92400e}',
     '.di-rotmini.sv0{background:#fee2e2;color:#991b1b}.di-rotmini.sv1{background:#ffedd5;color:#9a3412}',
-    '.di-rotmini.ackd{background:#f1f5f9;color:#475569}'
+    '.di-rotmini.ackd{background:#f1f5f9;color:#475569}',
+    '.di-link{color:#1d4ed8;font-weight:700;cursor:pointer;text-decoration:underline;text-decoration-color:#bfdbfe}'
   ].join('\n');
   document.head.appendChild(s);
 })();
