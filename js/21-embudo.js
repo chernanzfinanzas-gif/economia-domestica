@@ -260,6 +260,7 @@ function renderEmbudo(){
   }).slice(0,10);
 
   var H='';
+  H+='<div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">🗂️</span><div class="vhero-txt"><h2>Centro de Mando</h2><p>El embudo completo de tu método: <b>selección</b>, <b>análisis</b>, <b>planteamiento</b> y <b>seguimiento</b> de cada empresa, con avisos y alertas priorizados.</p></div></div></div>';
   H+='<div class="em-wrap">';
   H+=_emKpis(cols);
   H+=_emLegend();

@@ -74,12 +74,13 @@ function _diaSet(k,v){
 function renderHechos(){
   var host=document.getElementById('view-hechos'); if(!host)return;
   var tks=_diaCover();
-  if(!tks.length){ host.innerHTML='<div class="empty">Sin empresas en Análisis, Planteamiento o Seguimiento (revisa el Kanban).</div>'; return; }
+  var _diaVhero='<div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">📰</span><div class="vhero-txt"><h2>Diario de Hechos</h2><p>Feed cronológico de los <b>hechos relevantes</b> de cada empresa (resultados, noticias, cambios de rating…), a favor o en contra de la tesis, según los va registrando el Monitor Trimestral.</p></div></div></div>';
+  if(!tks.length){ host.innerHTML=_diaVhero+'<div class="empty">Sin empresas en Análisis, Planteamiento o Seguimiento (revisa el Kanban).</div>'; return; }
 
   /* asegurar que todos los -trim.json estén cargados (reutiliza el cargador del Radar) */
   if(typeof _cadCargar==='function' && typeof _cadTrim!=='undefined'){
     var falta=tks.filter(function(t){return _cadTrim[t]===undefined;});
-    if(falta.length){ host.innerHTML='<div class="muted" style="padding:14px">Cargando hechos de '+tks.length+' empresas…</div>'; _cadCargar(tks).then(function(){ renderHechos(); }); return; }
+    if(falta.length){ host.innerHTML=_diaVhero+'<div class="muted" style="padding:14px">Cargando hechos de '+tks.length+' empresas…</div>'; _cadCargar(tks).then(function(){ renderHechos(); }); return; }
   }
 
   /* recoger todos los hechos */
@@ -130,6 +131,7 @@ function renderHechos(){
   });
 
   /* ---- cabecera / KPIs ---- */
+  var vhero=_diaVhero;
   var kpi='<div class="pos-kpis">'
     +'<div class="k hero"><div class="l">Hechos registrados</div><div class="v">'+nH+'</div><div class="p">en '+Object.keys(conHechos).length+' de '+tks.length+' empresas</div></div>'
     +'<div class="k"><div class="l">A favor</div><div class="v" style="color:#16a34a">'+nPos+'</div><div class="p">impacto positivo en tesis</div></div>'
@@ -195,5 +197,5 @@ function renderHechos(){
     feed='<div style="margin-top:4px">'+feed+'</div>'+nota;
   }
 
-  host.innerHTML=kpi+flt+flt2+pend+feed;
+  host.innerHTML=vhero+kpi+flt+flt2+pend+feed;
 }

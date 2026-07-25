@@ -73,7 +73,8 @@ function renderDivFut(){
   /* contadores (solo las que pagan) para el año foco */
   var ok=0,no=0; pag.forEach(function(r){ (_dfGetCell(r.t,_dfYear)==='')?no++:ok++; });
 
-  var H='<div class="df-wrap">';
+  var H='<div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">✏️</span><div class="vhero-txt"><h2>Actualizar Dividendos</h2><p>Anota el <b>dividendo bruto por acción</b> de los años futuros a medida que se anuncian; al <b>volcar</b>, se escribe en Evolución del Dividendo.</p></div></div></div>';
+  H+='<div class="df-wrap">';
   H+='<div class="df-bar"><span class="df-yl">Año</span><select id="dfYear">'+yopts+'</select>'
     +'<span class="df-cb ok">✅ '+ok+' con dato</span><span class="df-cb no">⏳ '+no+' sin dato</span>'
     +'<span class="df-sp"></span>'
