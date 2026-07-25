@@ -109,8 +109,13 @@ function deleteCat(){
     if(cats.length){
       if(!confirm('El capítulo «'+g+'» tiene '+cats.length+' partida(s). Se eliminarán todas junto con sus presupuestos. ¿Continuar?'))return;
       const ids=cats.map(c=>c.id);
-      DB.categorias=DB.categorias.filter(c=>c.grupo!==g);
-      DB.presupuesto=DB.presupuesto.filter(p=>ids.indexOf(p.categoriaId)<0);
+      /* [A10] con red: el capítulo, sus partidas y sus presupuestos van a la papelera (30 días) */
+      const _pres=(DB.presupuesto||[]).filter(p=>ids.indexOf(p.categoriaId)>=0);
+      const _esExtra=(DB.config&&Array.isArray(DB.config.capitulosExtra)&&DB.config.capitulosExtra.indexOf(g)>=0)?g:'';
+      undoableDelete('capitulo','Capítulo '+g+' ('+cats.length+' partidas)',{items:cats,pres:_pres,extra:_esExtra},function(){
+        DB.categorias=DB.categorias.filter(c=>c.grupo!==g);
+        DB.presupuesto=DB.presupuesto.filter(p=>ids.indexOf(p.categoriaId)<0);
+      },['renderAll','fillCatSelects','fillGrupoList']);
     } else {
       if(!confirm('¿Eliminar el capítulo «'+g+'»?'))return;
     }
@@ -121,8 +126,13 @@ function deleteCat(){
   const used=DB.movimientos.some(m=>m.categoriaId===id);
   if(used && !confirm('Esta categoría tiene movimientos asociados. Si la eliminas, esos movimientos quedarán sin categoría. ¿Continuar?'))return;
   if(!used && !confirm('¿Eliminar esta categoría?'))return;
-  DB.categorias=DB.categorias.filter(c=>c.id!==id);
-  DB.presupuesto=DB.presupuesto.filter(p=>p.categoriaId!==id);
+  /* [A10] la partida y sus presupuestos de todos los años van a la papelera (30 días) */
+  const _cat=(DB.categorias||[]).find(c=>c.id===id);
+  const _presC=(DB.presupuesto||[]).filter(p=>p.categoriaId===id);
+  undoableDelete('categoria','Partida '+((_cat&&_cat.nombre)||id),{item:_cat,pres:_presC},function(){
+    DB.categorias=DB.categorias.filter(c=>c.id!==id);
+    DB.presupuesto=DB.presupuesto.filter(p=>p.categoriaId!==id);
+  },['renderAll','fillCatSelects','fillGrupoList']);
   $('#catDlg').close(); fillCatSelects(); fillGrupoList(); renderAll(); scheduleSave();
 }
 /* Toggle Sección/Partida dentro del diálogo */

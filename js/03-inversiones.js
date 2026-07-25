@@ -99,8 +99,14 @@ function renderPOS(){
         `<td class="num pos">${pc2(l.divYr)}</td>`+
         `<td class="num ${l.totYr>=0?'pos':'neg'}"><b>${pc2(l.totYr)}</b></td></tr>`;
     }).join('');
-    const totCot=sVC?sPL/sVC:0, totDiv=sVC?sDIV/sVC:0;
-    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td></td><td></td><td class="num pos">${pc2(totDiv)}</td><td></td></tr>`;
+    const totCot=sVC?sPL/sVC:0;
+    /* [A10] La fila TOTAL ponía el dividendo ACUMULADO sobre coste bajo la columna «%Div/año»
+       (en un lote de 5 años, la cifra salía ×5) y dejaba «%Cotiz/año» y «%Total/año» vacías.
+       Ahora las tres columnas /año son la media de los lotes ponderada por su valor de compra,
+       y la columna «Años» muestra la antigüedad media con el mismo criterio. */
+    const _pond=k=>sVC?arr.reduce((s2,l)=>s2+num(l[k])*num(l.vc),0)/sVC:0;
+    const totCotYr=_pond('cotYr'), totDivYr=_pond('divYr'), totTotYr=_pond('totYr'), totYears=_pond('years');
+    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td class="num">${totYears.toFixed(1)}</td><td class="num ${totCotYr>=0?'pos':'neg'}">${pc2(totCotYr)}</td><td class="num pos">${pc2(totDivYr)}</td><td class="num ${totTotYr>=0?'pos':'neg'}"><b>${pc2(totTotYr)}</b></td></tr>`;
     /* móvil: tarjeta por lote */
     const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>%Cotiz/año</span><b class="${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
     const op=window._posOpen[estadoKey]?' open':'';
@@ -368,7 +374,7 @@ function renderAnalisis(){
       if(a.entMin&&a.cot<=a.entMin){estado='🟢 Óptimo';ecls='g';}
       else if(a.cot<=a.entMax){estado='🟢 En zona';ecls='g';}
       else if(a.cot<=a.entMax*1.10){estado='🟡 +'+(a.dist*100).toFixed(1)+'%';ecls='a';}
-      else {estado='🔴 −'+((a.cot-a.entMax)/a.cot*100).toFixed(1)+'%';ecls='r';}
+      else {estado='🔴 +'+(a.dist*100).toFixed(1)+'%';ecls='r';}   /* [A10] antes cambiaba de signo Y de base: a +9,9% ponía «+9,9%» y a +10,1% saltaba a «−9,2%» */
     }
     let salida='—',scls2='';
     if(a.stop&&a.cot){
@@ -482,7 +488,11 @@ function fichaCalc(ticker){
   let ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
   let divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
   if(!ops.length){ const _c=(DB.cerradas||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_c&&_c.ops&&_c.ops.length){ ops=_c.ops.slice().sort(invByFecha); if(_c.divs&&_c.divs.length) divs=_c.divs.slice().sort(invByFecha); } }
-  const v=(DB.valores||{})[t]||{}; const precioActual=num(v.precioActual);
+  const v=(DB.valores||{})[t]||{};
+  /* [A10] antes solo miraba DB.valores: una empresa que solo está en Análisis salía a 0,00 €
+     en la ficha mientras la tabla la enseñaba con precio. Misma cascada que precioDe(). */
+  const _anaT=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+  const precioActual=num(v.precioActual)||num(_anaT&&_anaT.cotizacion);
   const compras=ops.filter(o=>o.tipo!=='venta');
   const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),coste=N*P;
     const divShareAfter=divs.filter(x=>x.fecha>o.fecha).reduce((s,x)=>s+num(x.importe),0);
@@ -1011,12 +1021,12 @@ function renderDividendos(){
     cumInv+=comp-vent-divB; cumCom+=comp-cSold;
     const dev=num((DB.devolucionHacienda||{})[y]||0), imp=divB-divN, totIng=divN+dev, descR=divB-totIng;
     rs.push({y,comp,vent,inv:cumInv,valC:cumCom,divB,divN,dev,imp,totIng,descR,
-      rInv:cumInv>0?divB/cumInv:0, rCom:cumCom>0?divB/cumCom:0, rNeta:cumCom>0?totIng/cumCom:0, tasa:divB?descR/divB:0}); });
-  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num">Invertido</th><th class="num">%Inv</th><th class="num">Valor compra</th><th class="num">%Compra</th><th class="num">Div bruto</th><th class="num">Div neto</th><th class="num devcol">✏️ Dev. Hacienda</th><th class="num">Impuesto</th><th class="num">Total ingresado</th><th class="num">Descuento real</th><th class="num">Rent. neta</th><th class="num">Tasa imp.</th></tr>';
-  const rbody=[...rs].reverse().map(r=>{ const has=r.divB||r.dev; return `<tr><td class="l"><b>${r.y}</b></td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.inv)}</td><td class="num">${r.divB?fmtpct(r.rInv):'·'}</td><td class="num">${fmt(r.valC)}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num devcol"><input type="number" step="0.01" class="anaInp devinp" style="width:82px;text-align:right" data-devhac="${r.y}" value="${r.dev||''}" placeholder="añadir"></td><td class="num">${r.divB?fmt(r.imp):'·'}</td><td class="num pos">${has?fmt(r.totIng):'·'}</td><td class="num ${r.descR<0?'pos':''}">${has?fmt(r.descR):'·'}</td><td class="num">${(r.valC>0&&has)?fmtpct(r.rNeta):'·'}</td><td class="num">${r.divB?fmtpct(r.tasa):'·'}</td></tr>`; }).join('');
+      rInv:(cumInv>0&&cumInv>=comp*0.05)?divB/cumInv:null,   /* [A10] sin base razonable, %Inv no se muestra en vez de dispararse */ rCom:cumCom>0?divB/cumCom:0, rNeta:cumCom>0?totIng/cumCom:0, tasa:divB?descR/divB:0}); });
+  const rhead='<tr><th>Año</th><th class="num">Compras</th><th class="num">Ventas</th><th class="num" title="Capital propio que sigue inmovilizado: compras − ventas − dividendos brutos ya cobrados">Invertido neto</th><th class="num" title="Dividendo bruto del año ÷ invertido neto">%Inv</th><th class="num">Valor compra</th><th class="num">%Compra</th><th class="num">Div bruto</th><th class="num">Div neto</th><th class="num devcol">✏️ Dev. Hacienda</th><th class="num">Impuesto</th><th class="num">Total ingresado</th><th class="num">Descuento real</th><th class="num">Rent. neta</th><th class="num">Tasa imp.</th></tr>';
+  const rbody=[...rs].reverse().map(r=>{ const has=r.divB||r.dev; return `<tr><td class="l"><b>${r.y}</b></td><td class="num">${r.comp?fmt(r.comp):'·'}</td><td class="num">${r.vent?fmt(r.vent):'·'}</td><td class="num">${fmt(r.inv)}</td><td class="num">${(r.divB&&r.rInv!=null)?fmtpct(r.rInv):'·'}</td><td class="num">${fmt(r.valC)}</td><td class="num">${r.divB?fmtpct(r.rCom):'·'}</td><td class="num pos">${r.divB?fmt(r.divB):'·'}</td><td class="num pos">${r.divB?fmt(r.divN):'·'}</td><td class="num devcol"><input type="number" step="0.01" class="anaInp devinp" style="width:82px;text-align:right" data-devhac="${r.y}" value="${r.dev||''}" placeholder="añadir"></td><td class="num">${r.divB?fmt(r.imp):'·'}</td><td class="num pos">${has?fmt(r.totIng):'·'}</td><td class="num ${r.descR<0?'pos':''}">${has?fmt(r.descR):'·'}</td><td class="num">${(r.valC>0&&has)?fmtpct(r.rNeta):'·'}</td><td class="num">${r.divB?fmtpct(r.tasa):'·'}</td></tr>`; }).join('');
   const resumenDesk=rs.length?`<div class="ptable"><table><thead>${rhead}</thead><tbody>${rbody}</tbody></table></div>`:'<div class="empty">Sin operaciones todavía.</div>';
   const resumenMob=[...rs].reverse().filter(r=>r.divB>0||r.dev).map(r=>`<div class="lcard"><div class="lc-h"><div class="tk">${r.y}</div><div class="ty">${r.divB?fmtpct(r.tasa):'—'}<span>tasa imp.</span></div></div><div class="lg"><div class="m"><span>Div bruto</span><b class="pos">${fmt(r.divB)}</b></div><div class="m"><span>Retención efectuada</span><b>${fmt(r.imp)}</b></div><div class="m dev"><span>✏️ Dev. Hacienda · lo añades tú</span><input type="number" step="0.01" class="anaInp devinp" data-devhac="${r.y}" value="${r.dev||''}" placeholder="añadir cada año"></div><div class="m"><span>Div neto</span><b class="pos">${fmt(r.divN)}</b></div><div class="m"><span>Rent. neta</span><b>${(r.valC>0)?fmtpct(r.rNeta):'—'}</b></div><div class="m"><span>Invertido</span><b>${fmt(r.inv)}</b></div></div></div>`).join('');
-  const resumenBlk=`<div class="d-note">Invertido = acumulado de compras − ventas. Div. neto = bruto − 19% retención. La columna <b>✏️ Dev. Hacienda</b> (resaltada) es <b>el único dato que introduces tú cada año</b>: lo que Hacienda te devuelve o cobra de más en la renta. El resto se calcula solo.</div><div class="pos-desk">${resumenDesk}</div><div class="pos-mob">${resumenMob}</div>`;
+  const resumenBlk=`<div class="d-note"><b>Invertido neto</b> = compras − ventas − dividendos brutos cobrados: el capital propio que sigue inmovilizado, una vez recuperada parte vía dividendo (por eso <b>%Inv</b> crece con los años y es mayor que la RPD sobre el coste). Div. neto = bruto − 19% retención. La columna <b>✏️ Dev. Hacienda</b> (resaltada) es <b>el único dato que introduces tú cada año</b>: lo que Hacienda te devuelve o cobra de más en la renta. El resto se calcula solo.</div><div class="pos-desk">${resumenDesk}</div><div class="pos-mob">${resumenMob}</div>`;
   // RESUMEN FISCAL (renta)
   const _fy=[...new Set([...Object.keys(totYear),...Object.keys(ventY)])].filter(y=>(totYear[y]||0)>0||(ventY[y]||0)>0||(costSoldY[y]||0)>0).sort();
   let _tDB=0,_tRet=0,_tPL=0; const _fArr=[];

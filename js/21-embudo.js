@@ -654,7 +654,24 @@ function _emDivDo(t){ t=_emUp(t);
     var neto=_emNum((document.getElementById('emdNeto')||{}).value);
     if(!(neto>0)){ alert('Indica el importe neto cobrado (> 0).'); return; }
     DB.cajaDivReal=DB.cajaDivReal||{}; DB.cajaDivFecha=DB.cajaDivFecha||{};
-    var ckey=t+'|'+((dp&&dp.pago)||fecha);
+    /* [A10 · 26-jul-2026] La clave del override de caja debe ser la fecha del EVENTO de pago, que
+       es con la que lo busca cajaMovs(). Con el dividendo pendiente a la vista (dp) ya se usaba.
+       El caso que fallaba es anotarlo TARDE, cuando el pago quedó fuera de la ventana y dp es null:
+       entonces se usaba la fecha tecleada y, si no coincidía con la del evento, el importe real
+       quedaba huérfano y la caja seguía mostrando la proyección. Ahora, sin dp, se busca el pago
+       proyectado más cercano a la fecha indicada (±45 días) y se usa SU fecha como clave. */
+    var _pagoF=(dp&&dp.pago)||'';
+    if(!_pagoF && typeof _calEvDiv==='function'){
+      try{ var _fy=+((fecha||'').slice(0,4)), _best=null, _bd=1e9;
+        [_fy-1,_fy,_fy+1].forEach(function(yy){ if(!yy)return;
+          (_calEvDiv(t,yy)||[]).filter(function(e){return e.tipo==='pago';}).forEach(function(e){
+            var ef=(e.fecha||'').slice(0,10); if(!ef)return;
+            var d=Math.abs((Date.parse(ef)-Date.parse(fecha))/86400000);
+            if(d<_bd){ _bd=d; _best=ef; } }); });
+        if(_best && _bd<=45) _pagoF=_best;
+      }catch(e){}
+    }
+    var ckey=t+'|'+(_pagoF||fecha);
     DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
     var sh=_emSharesHeld(t); if(sh>0){ var brutoAcc=Math.round((neto/0.81/sh)*10000)/10000; DB.dividendos=DB.dividendos||{}; DB.dividendos[t]=DB.dividendos[t]||[]; DB.dividendos[t].push({fecha:fecha,importe:brutoAcc,id:'d'+Math.random().toString(36).slice(2,9)}); }
     if(typeof toast==='function')toast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');

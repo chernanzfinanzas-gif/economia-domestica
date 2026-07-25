@@ -338,11 +338,13 @@ function _calibGuardar(ticker, hito, base, ev, done){
   DB.calibracion[ticker].t0 = {
     cot0:base.cot0, poBase:base.poBase, entMax:base.entMax, stop:base.stop, decision:base.decision
   };
-  // evaluación del hito — done automático si hay cotización en la diana
-  const hayCot = _calibIsN(_calibN(ev.cotDiana));
+  /* [A10 · 26-jul-2026] Antes: done ? (hayCot || !!prev.done || true) : false — el `|| true` anulaba
+     la condición entera, así que las dos primeras comprobaciones no hacían nada y el comentario
+     prometía un automatismo que no existía. `done` lo decide el operador con los botones del
+     diálogo (Guardar = true / Reabrir = false), y eso es lo que manda: se deja explícito. */
   const prev = DB.calibracion[ticker][hito] || {};
   DB.calibracion[ticker][hito] = {
-    done: done ? (hayCot || !!prev.done || true) : false,
+    done: !!done,
     fecha: done ? (prev.fecha || _calibHoy()) : '',
     nota: ev.nota||'',
     cotDiana:ev.cotDiana||'', maxP:ev.maxP||'', minP:ev.minP||'', div:ev.div||'',

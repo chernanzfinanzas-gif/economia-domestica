@@ -657,7 +657,19 @@ function proxAddCaja(t){ if(typeof proximaCompra!=='function')return 0; const M=
   DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(x.acc?x.acc+' ':'')+x.t,entra:0,sale:amt});
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 // === Presupuesto del Plan por año + reasignación ===
-function _planYearInfo(yr){ const b=num((DB.planPresupuesto||{})[yr]||0); let planned=0; const pc=DB.planCompras||{}; Object.keys(pc).forEach(t=>{ planned+=num((pc[t]||{})[yr]||0); }); return {budget:b,planned,remaining:b-planned}; }
+/* [A10 · 26-jul-2026] Leía DB.planPresupuesto y DB.planCompras, las dos tablas del plan manual,
+   que con el auto-reparto están vacías: el KPI «presupuesto libre» del Kanban daba una cifra que no
+   correspondía a nada. Ahora usa las mismas fuentes que la vista Asignación — planPresupuesto() (A7)
+   y el motor de reparto — así que «libre» es exactamente el «Sin asignar» que se ve allí. */
+function _planYearInfo(yr){
+  let budget=0, disp=0;
+  try{ if(typeof planPresupuesto==='function'){ const P=planPresupuesto(); budget=num(P.bruto(yr)); disp=num(P.disp(yr)); } }catch(e){}
+  if(!budget) budget=num((DB.planPresupuesto||{})[yr]||0);   /* respaldo: override manual antiguo */
+  let planned=0;
+  try{ if(typeof _planReparto==='function'){ const A=_planReparto(); planned=num((A&&A.byYear)?A.byYear[yr]:0); } }catch(e){}
+  if(!planned){ const pc=DB.planCompras||{}; Object.keys(pc).forEach(t=>{ planned+=num((pc[t]||{})[yr]||0); }); }
+  return {budget, planned, remaining:(disp||budget)-planned};
+}
 function proxAmount(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; return Math.round(x.rec>0?x.rec:x.gap); }
 function planDonorsYear(yr,exclude){ const pc=DB.planCompras||{}; const ex=(exclude||'').toUpperCase(); return Object.keys(pc).map(t=>({t:t.toUpperCase(),amt:num((pc[t]||{})[yr]||0)})).filter(x=>x.amt>0&&x.t!==ex).sort((a,b)=>b.amt-a.amt); }
 function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Math.round(num(amt)); if(amt<=0)return 0; DB.planCompras=DB.planCompras||{};

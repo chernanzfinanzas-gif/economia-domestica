@@ -293,9 +293,14 @@ function renderRadar(){
     var _divTk={}; if(typeof _evoData!=='undefined' && _evoData && _evoData.empresas){ _evoData.empresas.forEach(function(e){ _divTk[(e.ticker||'').toUpperCase()]=1; }); }
     var cands=[];
     Object.keys(DB.universo).forEach(function(t){ var f=fmap[t]; if(!f)return; var u=DB.universo[t];
+      /* [A10 · 26-jul-2026] Antes hacía `f.rpd = …` sobre el objeto del CACHÉ de fundamentales, que
+         comparte con Visión de conjunto: el mismo ticker mostraba dos «Atractivo» distintos según
+         qué pestaña hubieras abierto antes, y Visión sacaba conclusiones de esa diferencia. Ahora
+         se trabaja sobre una copia y el caché queda intacto. */
       if(_divTk[t] && typeof _radarDiv==='function' && typeof _radarPrecio==='function'){
         var _pp=num(_radarPrecio(t)); if(!(_pp>0))_pp=num(f.precio);
-        if(_pp>0){ var _dd=num(_radarDiv(t)); f.rpd=(_dd>0)?Math.round(_dd/_pp*10000)/100:0; }
+        if(_pp>0){ var _dd=num(_radarDiv(t)); var _rpdV=(_dd>0)?Math.round(_dd/_pp*10000)/100:0;
+          if(_rpdV!==f.rpd){ var _f2={}; for(var _k in f) _f2[_k]=f[_k]; _f2.rpd=_rpdV; f=_f2; } }
       }
       var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst,crecDiv:(typeof _radCrec==='function'?_radCrec(t):null)}); });
     _radCands=cands; _radMeta=fund;

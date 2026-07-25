@@ -40,7 +40,17 @@ var TRASH_RESTORE={
   universo:           function(p){ DB.universo=DB.universo||{}; DB.universo[p.t]=p.item; return ['renderUniverso']; },
   combustible:        function(p){ DB.combustible=DB.combustible||[]; DB.combustible.push(p.item); return ['renderMazinger']; },
   protocolo:          function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=DB.protocolo[p.t]||[]; DB.protocolo[p.t].push(p.item); return ['renderPanelDash']; },
-  dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; }
+  dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
+  /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
+     TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
+  categoria:          function(p){ DB.categorias=DB.categorias||[]; DB.categorias.push(p.item);
+                                   DB.presupuesto=(DB.presupuesto||[]).concat(p.pres||[]);
+                                   return ['renderAll','fillCatSelects','fillGrupoList']; },
+  capitulo:           function(p){ DB.categorias=(DB.categorias||[]).concat(p.items||[]);
+                                   DB.presupuesto=(DB.presupuesto||[]).concat(p.pres||[]);
+                                   if(p.extra){ DB.config=DB.config||{}; DB.config.capitulosExtra=DB.config.capitulosExtra||[];
+                                     if(DB.config.capitulosExtra.indexOf(p.extra)<0) DB.config.capitulosExtra.push(p.extra); }
+                                   return ['renderAll','fillCatSelects','fillGrupoList']; }
 };
 
 function _runRenders(names){
