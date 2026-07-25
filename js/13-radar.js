@@ -60,8 +60,7 @@ function renderUniverso(){
   var arqCount={}; ks.forEach(function(t){var a=DB.universo[t].arquetipo||'Sin clasificar';arqCount[a]=(arqCount[a]||0)+1;});
   var arqOpts=RAD_ARQ.filter(function(a){return arqCount[a];}).map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===window._uniArq?' selected':'')+'>'+_radEsc(a)+' ('+arqCount[a]+')</option>';}).join('');
   sec.innerHTML=
-    '<h2>Universo — clasificación</h2>'+
-    '<div class="sub" style="margin-bottom:14px">La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos (alta unificada).</div>'+
+    '<div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🌐</span><div class="vhero-txt"><h2>Universo</h2><p>La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos.</p></div></div></div>'+
     '<div class="uni-k">'+
       '<div class="c hero"><div class="l">Empresas en el universo</div><div class="v">'+total+'</div><div class="p">clasificadas por arquetipo</div></div>'+
       '<div class="c"><div class="l">En cartera</div><div class="v g">'+nHeld+'</div><div class="p">con posición abierta</div></div>'+
@@ -277,8 +276,9 @@ function _radAlertPop(t){ t=(t||'').toUpperCase(); var al=_radAlertMap[t]||[]; v
 function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
-  if(!Object.keys(DB.universo).length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
-  sec.innerHTML='<h2>Radar de oportunidades</h2><div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
+  var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y detectar posibles trampas de valor.</p></div></div></div>';
+  if(!Object.keys(DB.universo).length){ sec.innerHTML=_radVhero+'<div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
+  sec.innerHTML=_radVhero+'<div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
   Promise.all([_radCargarFund(), _radCambiosCargar(), (typeof _evoCargar==='function'?_evoCargar():Promise.resolve())]).then(function(_res){ var fund=_res[0];
     var fmap={}; (fund.empresas||[]).forEach(function(f){ fmap[(''+f.ticker).toUpperCase()]=f; });
     /* RPD unificada con Radar Dividendo: DPA bruto declarado del AÑO EN VIGOR (dividendos.json)
@@ -295,7 +295,7 @@ function renderRadar(){
       }
       var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst,crecDiv:(typeof _radCrec==='function'?_radCrec(t):null)}); });
     _radCands=cands; _radMeta=fund;
-    if(!cands.length){ sec.innerHTML='<h2>Radar de oportunidades</h2><div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
+    if(!cands.length){ sec.innerHTML=_radVhero+'<div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     /* Carga cotizaciones históricas (para la Posición a N años) y luego construye. */
     var _faltaP=(typeof _precioCache!=='undefined')?cands.map(function(c){return c.t;}).filter(function(t){return _precioCache[t]===undefined;}):[];
     if(_faltaP.length){ Promise.all(_faltaP.map(function(t){ return fetch('precios/'+t+'.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_precioCache[t]=j;}).catch(function(){_precioCache[t]=null;}); })).then(function(){ _radCalcPos(cands); _radBuild(sec); }); }
@@ -312,7 +312,7 @@ function _radBuild(sec){
   var _ry=(typeof _radarYears!=='undefined')?_radarYears:3;
   var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s'],['posN','Pos.'+_ry+'a']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
   var yearOptsN=[1,2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_ry?' selected':'')+'>'+y+(y===1?' año':' años')+'</option>';}).join('');
-  sec.innerHTML='<h2>Radar de oportunidades</h2>'+
+  sec.innerHTML='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y detectar posibles trampas de valor.</p></div></div></div>'+
     '<div class="rad-k">'+
       '<div class="c hero"><div class="l">Universo con datos</div><div class="v">'+cands.length+'</div><div class="p">cruzan con fundamentales</div></div>'+
       '<div class="c"><div class="l">Mejor atractivo</div><div class="v" style="color:#16a34a">'+(mejor?mejor.atr.toFixed(1):'—')+'</div><div class="p">'+(mejor?_radEsc(mejor.t):'')+'</div></div>'+
@@ -456,8 +456,7 @@ function renderCobertura(){
     '<div class="c"><div class="l">Requieren acción</div><div class="v warn" id="cobAccion">·</div><div class="p">señales y vencidas</div></div>'+
   '</div>';
   var blk=function(key,ic,title,sub,cnt,note,inner){ var op=window._cobOpen[key]; return '<div class="cob-blk'+(op?' open':'')+'" data-cblk="'+key+'"><div class="cob-blk-h"><span class="ic">'+ic+'</span><div class="cob-blk-tt"><span class="t">'+title+'</span><span class="sub">'+sub+'</span></div>'+(cnt?'<span class="cnt">'+cnt+'</span>':'')+'<span class="arw">▶</span></div><div class="cob-blk-b">'+(note?'<div class="cob-note">'+note+'</div>':'')+inner+'</div></div>'; };
-  sec.innerHTML='<h2>Cobertura y cola de análisis</h2>'+
-    '<div class="sub" style="margin-bottom:14px">Qué empresas has analizado y cuáles tienes en cola. El <b>Calendario</b> reúne lo que toca hacer (análisis en cola, informes que vencen, señales de precio); la <b>Cola</b> la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★).</div>'+
+  sec.innerHTML='<div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📋</span><div class="vhero-txt"><h2>Cobertura</h2><p>Qué empresas has analizado y cuáles tienes en cola. El <b>Calendario</b> reúne lo que toca hacer; la <b>Cola</b> la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★).</p></div></div></div>'+
     kpis+
     blk('cal','📅','Calendario de cobertura','Qué toca ahora: señales, vencidas, cola y próximos informes','','Arriba lo que requiere acción ahora (señales de precio y vencidas), luego las pendientes de analizar (tu cola) y las programadas con los días que faltan. Marca ✓ al hacerlo. <span class="muted">El próximo informe se estima desde el monitor trimestral.</span>','<div id="calHost"><div class="muted" style="font-size:12px;padding:8px 0">Preparando calendario…</div></div>')+
     blk('cola','🗂️','Cola de análisis','Tu orden de prioridad ▲▼, nutrida desde Radar Op. con ★',nColaPend+' pendientes','Por tu orden de prioridad (▲▼). Se nutre desde Radar Op. con ★.',_cobColaHtml())+

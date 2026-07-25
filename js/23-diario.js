@@ -63,9 +63,8 @@ function renderDiario(){
   /* invalidaciones activas = entradas abiertas con texto de invalidación */
   var nInval=arr.filter(function(e){return (e.estado||'abierta')==='abierta'&&(e.invalidacion||'').trim();}).length;
 
-  var H='<div class="di-wrap">';
-  H+='<h2>Mis Decisiones</h2>';
-  H+='<div class="sub" style="margin-bottom:12px">Anota <b>por qué</b> decides cada cosa en el momento. La <b>Calibración</b> compara luego contra tu criterio escrito, no contra tu memoria. Lo que escribes: por qué · qué esperas · qué te haría cambiar de idea.</div>';
+  var H='<div class="vhero g-rose"><div class="vhero-main"><span class="vhero-ic">📝</span><div class="vhero-txt"><h2>Mis Decisiones</h2><p>Anota <b>por qué</b> decides cada cosa en el momento. La <b>Calibración</b> compara luego contra tu criterio escrito, no contra tu memoria.</p></div></div></div>';
+  H+='<div class="di-wrap">';
 
   H+='<div class="di-stats">'+
     _diKpi(nTot,'Decisiones')+_diKpi(nAb,'Abiertas')+_diKpi(pctAc,'Aciertos (cerradas)')+_diKpi(nInval,'Invalidaciones activas')+

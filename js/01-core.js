@@ -909,7 +909,7 @@ function renderHemeroAnalisis(){
   var sel=function(v,t){ return '<option value="'+v+'"'+(ord===v?' selected':'')+'>'+t+'</option>'; };
   var toolbar='<div class="hema-toolbar"><label>Ordenar por</label><select id="hemaOrd">'+sel('fecha','Fecha (reciente)')+sel('ticker','Ticker')+sel('dec','Decisión')+sel('cal','Calidad')+'</select>'
     +'<span class="hema-chip'+(soloCaduc?' on':'')+'" id="hemaCaduc">⚠️ Solo a reanalizar'+(caduc?(' ('+caduc+')'):'')+'</span></div>';
-  sec.innerHTML='<h2>🗄️ Hemeroteca de Análisis</h2>'+
+  sec.innerHTML=
     '<div class="sub" style="margin-bottom:12px">Todas las empresas con dossier o análisis. Pulsa el ticker para abrir su ficha o «Abrir» para el dossier. Necesita conexión para leer los dossiers del repo.</div>'+
     '<div id="hemaKpis" class="hem-kpis">'
       +'<div class="k hero"><div class="l">Empresas con análisis</div><div class="v">'+rows.length+'</div><div class="p">dossier o análisis guardado</div></div>'
