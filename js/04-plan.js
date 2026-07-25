@@ -882,74 +882,9 @@ function renderPanelDash(){
   el.innerHTML=_pnlSecciones(SEC);
 }
 function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0; const v=(DB.valores||{})[t]; const pr=v&&num(v.precioActual)>0?num(v.precioActual):0; if(!pr)return 0; let sh=0; Object.keys(pc).forEach(y=>{ if(+y<=year) sh+=Math.floor(num(pc[y])/pr); }); return sh; }
-/* Slider de rango horizontal sincronizado con la tabla del Plan (igual que el Simulador):
-   mueve la tabla en horizontal por los años desde cualquier posición; la columna Empresa queda fija. */
-function _planSyncBand(){
-  var sc=document.querySelector('#planTabla .pl-desk')||document.getElementById('planTabla'); var rng=document.getElementById('planScroll'); if(!sc||!rng)return;
-  var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
-  var sync=function(){ var m=maxSL(); rng.style.display=(m>4)?'':'none'; rng.value=(m>0)?Math.round(sc.scrollLeft/m*1000):0; };
-  if(!rng._wired){ rng._wired=true;
-    rng.addEventListener('input',function(){ sc.scrollLeft=maxSL()*(num(rng.value)/1000); });
-    sc.addEventListener('scroll',sync);
-  }
-  sync();
-}
-function renderPlan(){
-  const el=$('#planTabla'); if(!el)return;
-  const pc=DB.planCompras=DB.planCompras||{}; const pr=DB.planPresupuesto=DB.planPresupuesto||{};
-  const nowY=new Date().getFullYear(); const y1=Math.max(num((DB.planLotePeriodo||{}).hasta)||2034, nowY+1, maxDataYear()); const years=[]; for(let y=nowY;y<=y1;y++)years.push(y);
-  const _cierre=num((DB.planLotePeriodo||{}).cierre)||y1;   /* el plan solo reparte capital hasta el año de cierre */
-  /* Presupuesto/año por defecto = disponible de Proyección/Diversificación (mismo criterio que la pestaña Diversificación); el campo del Plan solo lo sobrescribe si lo escribes a mano. */
-  const _dispY={}; try{ if(typeof proyDefaults==='function')proyDefaults(); const _ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; _ser.forEach(r=>{ _dispY[r.anio]=num(r.aInversion); }); }catch(e){}
-  const _execY={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const yy=+((o.fecha||'').slice(0,4)); if(yy)_execY[yy]=(_execY[yy]||0)+num(o.acciones)*num(o.precio); } });
-  const _fijo=DB.planDispFijo||{};
-  const dispShown=y=> (y>_cierre)?0:((_fijo[y]!=null&&_fijo[y]!=='')?num(_fijo[y]):(num(_dispY[y]||0)-(y<=nowY?num(_execY[y]||0):0)));
-  const presShown=y=>(num(pr[y])>0)?num(pr[y]):dispShown(y);
-  const set=new Set(Object.keys(pc).map(t=>t.toUpperCase()));
-  (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase()); });
-  let tickers=[...set].filter(Boolean);
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin plan. Importa «plan-compras.json» o pulsa «+ Empresa».</div>'; $('#planKpis').innerHTML=''; return; }
-  const tt=t=>Object.values(pc[t]||{}).reduce((s,v)=>s+num(v),0);
-  tickers.sort((a,b)=>tt(b)-tt(a)||a.localeCompare(b));
-  const totYear={}; years.forEach(y=>totYear[y]=0);
-  const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
-  const ttOf=t=>years.reduce((s,y)=>s+((pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0),0);
-  const cellMark=(t,y)=>{ const v=(pc[t]&&pc[t][y]!=null)?num(pc[t][y]):0; const exeE=(v>0&&typeof execBuyEur==='function')?execBuyEur(t,+y):0; const comp=(v>0&&exeE>=v-0.005); const parc=(v>0&&exeE>0&&exeE<v-0.005); return {v,comp,parc,exeE}; };
-  const body=tickers.map(t=>{ let rt=0; const cells=years.map(y=>{ const m=cellMark(t,y); rt+=m.v; totYear[y]+=m.v; const cls=m.comp?'pl-comp':(m.parc?'pl-parc':''); const mark=m.comp?' ✓':(m.parc?' ◐':''); return `<td class="num ${cls}"${(m.comp||m.parc)?` title="ejecutado ${fmt(m.exeE)} de ${fmt(m.v)}"`:''}>${m.v?fmt(m.v):'·'}${mark}</td>`; }).join('');
-    return `<tr><td class="pl-emp"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></td>${cells}<td class="num" style="font-weight:700">${rt?fmt(rt):'·'}</td></tr>`; }).join('');
-  const head='<tr><th>Empresa</th>'+years.map(y=>`<th class="num">${y}</th>`).join('')+'<th class="num">Total</th></tr>';
-  const grand=Object.values(totYear).reduce((s,v)=>s+v,0);
-  const totRow='<tr class="pl-tot"><td>Total/año</td>'+years.map(y=>`<td class="num">${totYear[y]?fmt(totYear[y]):'·'}</td>`).join('')+`<td class="num">${fmt(grand)}</td></tr>`;
-  const presRow='<tr class="pl-pres"><td title="Por defecto = lo presupuestado para invertir ese año en Proyección/Diversificación. Escribe un número para fijar uno propio en el Plan.">Presupuesto/año</td>'+years.map(y=>{ const manual=(num(pr[y])>0); const val=manual?pr[y]:Math.round(presShown(y)); return `<td class="num"><input type="number" step="100" class="anaInp" style="width:70px;text-align:center;color:${manual?'#0f172a':'#94a3b8'};font-style:${manual?'normal':'italic'}" data-plpres="${y}" value="${val}" title="${manual?'Fijado a mano en el Plan':'Heredado de Proyección/Diversificación · edítalo para fijar uno propio'}"></td>`; }).join('')+'<td></td></tr>';
-  const exeRow='<tr class="pl-exe"><td title="Presupuesto del año menos lo ya planificado">Por ejecutar</td>'+years.map(y=>{ const dif=presShown(y)-totYear[y]; return `<td class="num ${dif<0?'neg':(dif>0?'pos':'')}">${fmt(dif)}</td>`; }).join('')+'<td></td></tr>';
-  const ejec=[]; tickers.forEach(t=>Object.keys(pc[t]||{}).forEach(y=>{ const plan=num(pc[t][y]); if(plan<=0)return; const exe=(typeof execBuyEur==='function')?execBuyEur(t,+y):0; if(exe<=0)return; const falta=Math.max(0,plan-exe); const comp=exe>=plan-0.005; ejec.push({t,y,plan,exe,falta,comp}); }));
-  const _pendTot=ejec.reduce((s,e)=>s+e.falta,0);
-  const aviso = ejec.length ? `<div class="card" style="margin-top:12px;background:#fff7ed;border:1px solid #fed7aa"><div style="font-weight:700;color:#b45309;margin-bottom:6px">Ejecución del plan (${ejec.length})${_pendTot>0.005?` · faltan ${fmt(_pendTot)}`:''}</div><div class="sub" style="margin-bottom:8px">Compras del plan que ya has empezado. Las <b>parciales</b> siguen contando en el Simulador (real + lo que falta). Cuando una esté <b>completa</b>, quítala del Plan.</div>${ejec.map(e=>`<div style="font-size:13px;margin:4px 0;display:flex;align-items:center;gap:10px"><span>${e.comp?'✅':'🟠'} <b>${e.t}</b> · ${e.y} — ejecutado ${fmt(e.exe)} de ${fmt(e.plan)}${e.comp?' <b style=\"color:#16a34a\">(completa)</b>':` · <b style=\"color:#b45309\">faltan ${fmt(e.falta)}</b>`}</span>${e.comp?`<button class="btn danger sm" data-planexe="${e.t}|${e.y}">Quitar del Plan</button>`:''}</div>`).join('')}</div>` : '';
-  const deskHTML=`<div class="pl-desk"><table><thead>${head}</thead><tbody>${body}${totRow}${presRow}${exeRow}</tbody></table></div>`;
-  /* Móvil: tira por año (presupuesto / planificado / por ejecutar) + selector de empresa */
-  const pyChip=y=>{ const dif=presShown(y)-totYear[y]; const cls=dif>0.5?'g':(dif<-0.5?'r':'z'); return `<div class="pychip ${cls}"><div class="yy">${y}</div><div class="pv2">${eurK(presShown(y))} €</div><div class="pl2">presupuesto</div><div class="pmid">plan ${eurK(totYear[y])} €</div><div class="pv">${dif>0.5?'+':''}${eurK(dif)} €</div><div class="pl">por ejecutar</div></div>`; };
-  const pyStripHTML='<div class="pystrip-t">Presupuesto y ejecución por año</div><div class="dv-pystrip">'+years.map(pyChip).join('')+'</div>';
-  const nm=t=>((DB.valores||{})[t]||{}).nombre||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
-  if(!window._plCoSel || tickers.indexOf(window._plCoSel)<0) window._plCoSel=tickers[0]||'';
-  const selIdx=Math.max(0,tickers.indexOf(window._plCoSel));
-  const coOptions=tickers.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · plan ${eurK(ttOf(t))} €</option>`).join('');
-  const mdetail=(t,i)=>{ const rt=ttOf(t);
-    return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
-      +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b></div><div class="t2">${(nm(t)||'').slice(0,28)}</div></div><div class="fh"><b>${fmt(rt)}</b><div class="fl">plan total</div></div></div>`
-      +`<div class="yrgrid">${years.map(y=>{ const m=cellMark(t,y); if(!m.v) return ''; const badge=m.comp?'<em class="ok">✓ comprado</em>':(m.parc?'<em class="parc">◐ parcial</em>':''); return `<div class="yg2"><span>${y}</span><b>${fmt(m.v)}</b>${badge}</div>`; }).filter(Boolean).join('')||'<div class="muted" style="font-size:12px;padding:6px">Sin compras planificadas.</div>'}</div>`
-      +`</div>`; };
-  const mobHTML='<div class="pl-mob">'+pyStripHTML+'<div class="cosel-t">Ver empresa</div><select class="cosel" id="plCoSel">'+coOptions+'</select><div class="codetails">'+tickers.map(mdetail).join('')+'</div></div>';
-  el.innerHTML=deskHTML+mobHTML+aviso;
-  $('#planKpis').innerHTML='<div class="pl-kpis">'
-    +`<div class="k hero"><div class="l">Plan total</div><div class="v">${fmt(grand)}</div><div class="p">${tickers.length} empresas · ${years[0]}–${years[years.length-1]}</div></div>`
-    +`<div class="k"><div class="l">Plan ${nowY}</div><div class="v">${fmt(totYear[nowY]||0)}</div><div class="p">planificado este año</div></div>`
-    +`<div class="k"><div class="l">Presupuesto ${nowY}</div><div class="v">${fmt(presShown(nowY))}</div><div class="p">disponible ${nowY}</div></div>`
-    +`<div class="k"><div class="l">Por ejecutar ${nowY}</div><div class="v ${(presShown(nowY)-(totYear[nowY]||0))<0?'neg':'pos'}">${fmt(presShown(nowY)-(totYear[nowY]||0))}</div><div class="p">presupuesto − plan</div></div>`
-    +'</div>';
-  if(!el._plCoBound){ el._plCoBound=true; el.addEventListener('change',function(e){ var s=e.target.closest('#plCoSel'); if(!s)return; var i=s.value; var arr=window.__plOrder||[]; window._plCoSel=arr[+i]||window._plCoSel; el.querySelectorAll('.pl-mob .codet').forEach(function(d){ d.style.display=(d.getAttribute('data-coi')===String(i))?'':'none'; }); }); }
-  window.__plOrder=tickers;
-  const _v=$('#view-plan'); if(_v&&_v.classList.contains('active')) setTimeout(_planSyncBand,0);
-}
+/* [A4 · 25-jul-2026] Retirados _planSyncBand y renderPlan (vista «Plan Multi-anual»).
+   Era solo-lectura y se alimentaba de los pines de DB.planCompras con la fórmula antigua de
+   presupuesto; la matriz empresa×año la pinta hoy Asignación desde el motor único _planReparto(). */
 /* Alta única de empresa desde Diversificación: entra en el lote (o ya es cartera),
    crea su entrada en el plan y aparece en Diversificación, Plan y Simulador. */
 function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim();
@@ -959,7 +894,6 @@ function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):'
   if(!held.has(tk)){ DB.planLote=DB.planLote||[]; if(!DB.planLote.map(x=>(x||'').toUpperCase()).includes(tk))DB.planLote.push(tk); }
   saveNow();
   if(typeof renderPlanLote==='function')renderPlanLote();
-  if(typeof renderPlan==='function')renderPlan();
   if(typeof renderSimulador==='function')renderSimulador();
   const st=$('#loteStatus'); if(st)st.textContent='Añadida '+tk;
 }
@@ -973,7 +907,7 @@ function planVaciarManual(){
   if(!confirm('¿Vaciar las '+n+' asignaciones manuales por año?\n\nEl reparto pasa a ser 100% automático (prorrata del pendiente). Cada compra que registres actualizará el pendiente y recalculará el reparto.\n\nNo toca tus operaciones reales ni la cartera. Podrás volver a fijar un año a mano cuando quieras.')) return;
   DB.planCompras={}; _planRepartoInval();
   if(typeof saveNow==='function')saveNow();
-  renderPlanLote(); if(typeof renderPlan==='function')renderPlan(); if(typeof renderSimulador==='function')renderSimulador();
+  renderPlanLote(); if(typeof renderSimulador==='function')renderSimulador();
 }
 /* ===== MOTOR DE REPARTO (fase 2) — fuente ÚNICA del calendario de compras =====
    Reparte el pendiente vivo (objetivo − invertido) por años a PRORRATA, con el ahorro previsto de
