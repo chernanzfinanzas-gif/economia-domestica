@@ -1,9 +1,30 @@
 name: Actualizar cotizaciones
-on: { workflow_dispatch: {}, schedule: [ { cron: "7 18 * * 1-5" }, { cron: "35 20 * * 1-5" }, { cron: "22 22 * * 1-5" } ] }
+# Horas en UTC. Madrid = UTC+2 en verano (CEST) / UTC+1 en invierno (CET).
+# Cierre del mercado continuo: 17:35 CEST = 15:35 UTC (16:35 UTC en invierno).
+#
+#   "7 18 * * 1-5"  -> 20:07 CEST, mismo dia. Da precio del dia a la app, pero
+#                      PROVISIONAL: Yahoo puede no haber consolidado la subasta de cierre.
+#   "35 20 * * 1-5" -> 22:35 CEST. Primer intento de consolidacion.
+#   "22 22 * * 1-5" -> 00:22 CEST. Segundo intento.
+#   "40 5 * * 2-6"  -> 07:40 CEST del dia siguiente, ANTES de la apertura de Madrid (09:00).
+#                      PASE DE CONFIRMACION T+1: es el que fija el cierre definitivo.
+#                      Martes a sabado, para cubrir tambien la sesion del viernes.
+#
+# Con la ventana movil del script, cada pase RECONSULTA los ultimos 10 dias y
+# sobrescribe los cierres que Yahoo haya consolidado con otro valor. Antes del parche
+# los pases 2 y 3 no pedian nada ("ya al dia") y el primer valor quedaba congelado.
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "7 18 * * 1-5"
+    - cron: "35 20 * * 1-5"
+    - cron: "22 22 * * 1-5"
+    - cron: "40 5 * * 2-6"
 permissions: { contents: write }
 jobs:
   actualizar:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
