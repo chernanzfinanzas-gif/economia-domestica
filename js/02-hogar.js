@@ -196,20 +196,9 @@ function renderPanel(){
   const suf = isYear?'del año':'del mes';
   $('#panelTitle').textContent='Panel';
   const _pph=$('#panelHeroPer'); if(_pph)_pph.textContent=isYear? (''+curYear) : (MESES[curMonth].replace(/^./,c=>c.toUpperCase())+' '+curYear);
-  const _phk=$('#panelHeroKpi');
-  if(_phk){
-    if(!_phk._bound){ _phk._bound=true; _phk.addEventListener('click',function(){ const sa=document.getElementById('panelSalud'); if(sa)sa.scrollIntoView({behavior:'smooth',block:'start'}); }); }
-    try{
-      if(typeof saludFinanciera==='function'){
-        const H=saludFinanciera();
-        if(H&&H.score!=null){
-          const sc=Math.round(H.score);
-          const col=sc>=70?'#86efac':(sc>=50?'#fde68a':'#fca5a5');
-          _phk.innerHTML='<div class="big" style="color:'+col+'">'+sc+'<span>/100</span></div><div class="cap">Salud financiera</div>';
-        } else { _phk.innerHTML='<div class="big">—</div><div class="cap">Salud financiera</div>'; }
-      }
-    }catch(e){ _phk.innerHTML='<div class="big">—</div><div class="cap">Salud financiera</div>'; }
-  }
+  /* El KPI del banner (#panelHeroKpi) se rellena en renderPanelDash() (js/04-plan.js), con el MISMO
+     cálculo de saludFinanciera() que usa la sección "Salud financiera" de más abajo — así los dos
+     números nunca pueden desincronizarse (antes se calculaba también aquí, por separado). */
   const _bOpen=window._pBudOpen!==false;
   const bh=$('#panelBudgetH'); if(bh){ bh.innerHTML='<span class="pcol-arw'+(_bOpen?' open':'')+'">▶</span>Seguimiento del presupuesto ('+(isYear?'año':'mes')+')'; bh.classList.add('pcol-h'); }
   const pref = isYear? (''+curYear) : (curYear+'-'+String(curMonth+1).padStart(2,'0'));
