@@ -1799,6 +1799,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 .vhero.g-green{background:linear-gradient(120deg,#14532d 0%,#166534 55%,#16a34a 100%)}
 .vhero.g-violet{background:linear-gradient(120deg,#4c1d95 0%,#7c3aed 55%,#c026d3 100%)}
 .vhero.g-emerald{background:linear-gradient(120deg,#065f46 0%,#0d9488 55%,#0891b2 100%)}
+.vhero.g-rose{background:linear-gradient(120deg,#9d174d 0%,#db2777 55%,#ec4899 100%)}
+.vhero.g-slate{background:linear-gradient(120deg,#1e293b 0%,#334155 55%,#475569 100%)}
+.vhero.g-ocean{background:linear-gradient(120deg,#0c4a6e 0%,#0284c7 55%,#38bdf8 100%)}
 @media(max-width:760px){.vhero{padding:14px 16px}.vhero-ic{font-size:32px}.vhero-txt h2{font-size:20px}.vhero-kpi{flex:1;min-width:110px}}
 /* ===== Bandas de las pestañas fusionadas de Plan (Asignación / Riesgo / Independencia) ===== */
 .plan-intro{background:linear-gradient(120deg,#1e293b,#334155);color:#e2e8f0;border-radius:14px;padding:12px 16px;margin-bottom:14px;font-size:13px;line-height:1.55}
@@ -3346,7 +3349,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- MOVIMIENTOS -->
   <!-- EL ORIGEN (recreación de la pestaña INI) -->
   <section class="view" id="view-origen">
-    <h2>El Origen</h2>
     <div class="or-hero">
       <div class="k">ESTRATEGIA ECONÓMICA 2019 – 2026</div>
       <div class="s">Más ahorro, más rentabilidad, menos gasto</div>
@@ -3430,7 +3432,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-movimientos">
-    <h2>Movimientos</h2>
+    <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">💶</span><div class="vhero-txt"><h2>Movimientos</h2><p>Registra tus <b>gastos e ingresos</b> del día a día y compáralos con el presupuesto de cada categoría.</p></div></div></div>
 
     <div class="blk mv-blk" id="blkMovAdd">
       <div class="blk-h" data-movblk="blkMovAdd"><span class="blk-arw">▶</span><span class="blk-ic">➕</span>
@@ -3641,7 +3643,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
   <!-- PATRIMONIO -->
   <section class="view" id="view-patrimonio">
-    <h2>Patrimonio</h2>
+    <div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">🏛️</span><div class="vhero-txt"><h2>Patrimonio</h2><p>El valor total de lo que tienes: <b>cuentas</b>, <b>inversiones</b> y <b>otros bienes</b>, con su reparto y evolución en el tiempo.</p></div></div></div>
     <div class="pat-hero" id="patCards"></div>
     <div class="pat-rep" id="patReparto"></div>
 
@@ -3708,7 +3710,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div>
     </div>
 
-    <div class="plan-div"><span class="pd-ic">📈</span><div><div class="pd-t">Proyección de patrimonio</div><div class="pd-s">Modelo año a año hasta la edad final: de tu ahorro total (nóminas − gastos + dividendos + extra) eliges cuánto va a inversión</div></div></div>
     <div id="view-proyeccion">
     <div class="blk" id="blkProyHip"><div class="blk-h" data-proyblk="hip"><span class="arw">▶</span><span class="blk-t">🧾 Hipótesis Inicial</span><span class="blk-sub">supuestos del modelo</span></div>
       <div class="blk-b"><div class="patgrid" id="proyParams"></div>
@@ -3725,7 +3726,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b"><div id="proyMC"></div></div></div>
     </div>
 
-    <div class="plan-div"><span class="pd-ic">🏖️</span><div><div class="pd-t">¿Cuándo soy independiente?</div><div class="pd-s">Tus hitos por las dos vías: vivir vendiendo un 4% al año o vivir del dividendo sin tocar el capital</div></div></div>
     <div class="ind-hero">
       <div class="ind-hero-main">
         <span class="ind-hero-ic">🏖️</span>
@@ -3776,7 +3776,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- AMALIA -->
   <section class="view" id="view-amalia">
-    <h2>Reembolsables</h2>
+    <div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🧾</span><div class="vhero-txt"><h2>Reembolsables</h2><p>Gastos adelantados que te debe devolver la empresa: seguimiento y estado de cada reembolso.</p></div></div></div>
     <div id="amaHero" class="ama-hero"></div>
 
     <div class="blk ama-blk" id="blkAmaAdd">
@@ -3825,7 +3825,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- FONDO R4 (liquidez remunerada) -->
   <section class="view" id="view-fondor4">
-    <h2>Fondo R4 <span class="muted" style="font-weight:400;font-size:13px">· Renta 4 Foncuenta · liquidez remunerada</span></h2>
+    <div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">🏦</span><div class="vhero-txt"><h2>Fondo R4</h2><p>Tu liquidez remunerada en <b>Renta 4 Foncuenta</b>: aportaciones, retiradas e intereses generados.</p></div></div></div>
     <div class="r4-kpis" id="r4Cards"></div>
 
     <div class="blk r4-blk" id="blkR4Add">
@@ -3875,8 +3875,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <!-- INVERSIONES -->
   <!-- POSICIONES (POS) -->
   <section class="view" id="view-posiciones">
-    <h2>📌 Posiciones ejecutadas</h2>
-    <div class="sub" style="margin-bottom:10px">Cada compra vista como un <b>lote</b> independiente, con su rentabilidad anualizada (precio + dividendo). Se genera solo desde tus operaciones de Cartera.</div>
+    <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📌</span><div class="vhero-txt"><h2>Posiciones ejecutadas</h2><p>Cada compra vista como un <b>lote</b> independiente, con su rentabilidad anualizada (precio + dividendo). Se genera solo desde tus operaciones de Cartera.</p></div></div></div>
     <div id="posKpis" style="margin-bottom:12px"></div>
     <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ver <select id="posFiltro"><option value="todas">Todas</option><option value="cartera">Solo en cartera</option><option value="vendida">Solo vendidas</option></select></label>
       <label class="muted" style="margin-left:10px">Orden <select id="posOrden"><option value="fecha_desc">Fecha reciente→antigua</option><option value="fecha_asc">Fecha antigua→reciente</option></select></label></div>
@@ -3884,8 +3883,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-inversiones">
-    <h2>💼 Cartera</h2>
-    <div class="sub" style="margin-bottom:10px">Tus posiciones abiertas agrupadas por cartera, con valoración, plusvalía y renta por dividendo. Consolidado por empresa (todos los lotes juntos).</div>
+    <div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">💼</span><div class="vhero-txt"><h2>Cartera</h2><p>Tus posiciones abiertas agrupadas por cartera, con valoración, plusvalía y renta por dividendo. Consolidado por empresa (todos los lotes juntos).</p></div></div></div>
     <div id="invCards" style="margin-bottom:12px"></div>
     <div class="toolbar">
       <button class="btn sm" id="invAddBtn">+ Posición</button>
@@ -3928,11 +3926,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
   <!-- ANALISIS -->
   <section class="view" id="view-vision">
-    <h2>🧭 Visión de conjunto</h2>
+    <div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🧭</span><div class="vhero-txt"><h2>Visión de conjunto</h2><p>Un primer vistazo a toda tu cartera: qué tienes, cómo está repartida y cómo le va.</p></div></div></div>
     <div id="visBody" style="margin-top:10px"></div>
   </section>
   <section class="view" id="view-analisis">
-    <h2>Análisis de inversión</h2>
+    <div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">🔎</span><div class="vhero-txt"><h2>Análisis de inversión</h2><p>Tus fichas de análisis por empresa: rating, precio objetivo y decisión, todo en un mismo sitio.</p></div></div></div>
     <div class="cards" id="anaCards"></div>
     <div class="toolbar">
       <button class="btn" id="anaAddBtn">+ Empresa</button>
@@ -3964,24 +3962,21 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-dividendos">
-    <h2>💰 Dividendos</h2>
-    <div class="sub" style="margin-bottom:10px">Todo lo que ha rentado tu cartera vía dividendos: por empresa y año, en bruto y en neto, con su tratamiento fiscal.</div>
+    <div class="vhero g-green"><div class="vhero-main"><span class="vhero-ic">💰</span><div class="vhero-txt"><h2>Dividendos</h2><p>Todo lo que ha rentado tu cartera vía dividendos: por empresa y año, en bruto y en neto, con su tratamiento fiscal.</p></div></div></div>
     <div id="divRiesgoWrap"></div>
     <div id="divKpis" style="margin-bottom:14px"></div>
     <div id="divBody"></div>
   </section>
 
   <section class="view" id="view-ranking">
-    <h2>🏆 Ranking de cartera por dividendo</h2>
-    <div class="sub" style="margin-bottom:10px">Tus posiciones ordenadas por aportación al dividendo anual. Div/acc es el bruto actual; «Dividendos» es lo cobrado históricamente; Balance y ratios incluyen dividendos.</div>
+    <div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🏆</span><div class="vhero-txt"><h2>Ranking por Dividendo</h2><p>Tus posiciones ordenadas por aportación al dividendo anual. Div/acc es el bruto actual; «Dividendos» es lo cobrado históricamente; Balance y ratios incluyen dividendos.</p></div></div></div>
     <div id="rankKpis" style="margin-bottom:14px"></div>
     <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ordenar empresas por <select id="rankOrden" onchange="rankSetOrden(this.value)"></select></label></div>
     <div id="rankTabla"></div>
   </section>
 
   <section class="view" id="view-calendario">
-    <h2>📅 Calendario</h2>
-    <div class="sub" style="margin-bottom:10px">Calendario <b>derivado</b> de tus datos: ex-dividendo, pago de dividendo, junta, resultados e informes trimestrales, con fechas exactas. Solo lectura — las correcciones puntuales se hacen en <b>Evolución del Dividendo</b>. Elige año (◀ ▶ o el deslizador) y sub-vista: histórico real, año en curso y proyección desde tu Plan.</div>
+    <div class="vhero g-ocean"><div class="vhero-main"><span class="vhero-ic">📅</span><div class="vhero-txt"><h2>Calendario</h2><p>Calendario <b>derivado</b> de tus datos: ex-dividendo, pago, junta, resultados e informes trimestrales, con fechas exactas. Solo lectura — las correcciones se hacen en <b>Evolución del Dividendo</b>.</p></div></div></div>
     <div id="calBar"></div>
     <div id="calKpis" style="margin-bottom:14px"></div>
     <div id="calBody"></div>
@@ -4002,7 +3997,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-simulador">
-    <h2>🔮 Simulador de dividendos</h2>
+    <div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">🔮</span><div class="vhero-txt"><h2>Simulador de Dividendos</h2><p>Proyecta cuánto vas a cobrar de dividendos, año a año y empresa a empresa.</p></div></div></div>
     <div class="sim-topbar">
       <div id="simKpis" style="margin-bottom:10px"></div>
       <div class="sub" style="margin-bottom:6px">Por empresa y año: <b>acciones</b> · <b>dividendo/acción</b> · <b>importe</b>. <b>Pasado y año en curso = dividendo realmente cobrado</b> (de tus fichas; incluye posiciones cerradas). <b>Futuro = proyección</b>: acciones de <b>Diversificación</b> × dividendo/acción de <b>Evolución Dividendo</b>. Solo lectura.</div>
@@ -4013,7 +4008,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-plan">
-    <h2>📈 Plan de compras multi-anual</h2>
+    <div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">📈</span><div class="vhero-txt"><h2>Plan Multi-anual</h2><p>Vista de <b>solo lectura</b> del plan de compras. Edita las inversiones futuras en <b>Plan → Asignación</b>; aquí solo se consultan.</p></div></div></div>
     <div id="planKpis" style="margin-bottom:12px"></div>
     <div class="sub" style="margin-bottom:6px">Vista de <b>solo lectura</b>. Edita las inversiones futuras en <b>Plan → Diversificación</b>; aquí solo se consultan. «Por ejecutar» = presupuesto − planificado.</div>
     <div class="sub" style="margin-bottom:8px;color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 10px">⚠️ <b>Importante:</b> cuando ejecutes una compra y la registres como operación real en Inversiones, <b>borra ese importe del plan</b> (déjalo a 0 o vacío) para que no se cuente dos veces en el Simulador.</div>
@@ -4023,8 +4018,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-monitor">
-    <h2>🧭 Monitor y tareas</h2>
-    <div class="sub" style="margin-bottom:10px">Tu lista de acciones pendientes y el seguimiento del método por empresa: informe de inversión, antigüedad del dossier y revisión trimestral de resultados.</div>
+    <div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">🧭</span><div class="vhero-txt"><h2>Monitor y Tareas</h2><p>Tu lista de acciones pendientes y el seguimiento del método por empresa: informe de inversión, antigüedad del dossier y revisión trimestral de resultados.</p></div></div></div>
     <div id="monKpis" style="margin-bottom:14px"></div>
     <div class="pos-blk" data-monblk="tareas">
       <div class="pos-blk-h"><span class="arw">▶</span><span class="bt">✅ Tareas (ToDo)</span><span class="bsum">acciones pendientes</span></div>
@@ -4049,8 +4043,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </section>
 
   <section class="view" id="view-caja">
-    <h2>💶 Caja bróker</h2>
-    <div class="sub" style="margin-bottom:10px">Libro de tesorería del bróker: los <b>dividendos previstos</b> de las empresas en cartera y las <b>aportaciones por transferencia</b> (SAN/R4) se generan solos en su fecha; corrígelos con la cifra real y márcalos ejecutados (✓). Añade compras y extras con «+ Movimiento». Verde = entra, rojo = sale.</div>
+    <div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">💶</span><div class="vhero-txt"><h2>Caja Bróker</h2><p>Libro de tesorería del bróker: <b>dividendos previstos</b> y <b>aportaciones</b> se generan solos en su fecha; corrígelos con la cifra real y márcalos ejecutados (✓).</p></div></div></div>
     <div id="cajaKpis" style="margin-bottom:14px"></div>
     <div id="cajaCfg" style="margin-bottom:10px"></div>
     <form class="grid" id="cajaForm" autocomplete="off" style="display:none;background:#fffef0;margin-bottom:10px">
@@ -4075,27 +4068,24 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 
 
   <section class="view" id="view-graficas">
-    <div class="graf-top">
-      <div><h2>📊 Gráficas</h2><div class="graf-sub">Análisis visual de tus finanzas. El selector de año afecta a los gráficos de Hogar. Algunos de Inversión usan las cotizaciones del repo, así que necesitan conexión.</div></div>
-      <div class="toolbar" style="margin:0"><span class="muted">Año:</span> <select id="grafYear" class="anaInp" style="width:90px"></select></div>
-    </div>
+    <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📊</span><div class="vhero-txt"><h2>Gráficas</h2><p>Análisis visual de tus finanzas. El selector de año afecta a los gráficos de Hogar. Algunos de Inversión usan las cotizaciones del repo, así que necesitan conexión.</p></div></div></div>
+    <div class="toolbar" style="margin:0 0 10px"><span class="muted">Año:</span> <select id="grafYear" class="anaInp" style="width:90px"></select></div>
     <div id="grafKpis" class="graf-kpis"></div>
     <div id="grafBody"></div>
   </section>
   <section class="view" id="view-proxcompra">
-    <h2>🛒 Próxima mejor compra</h2>
+    <div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🛒</span><div class="vhero-txt"><h2>Próxima Mejor Compra</h2><p>Con tu presupuesto disponible, dónde te conviene más comprar ahora mismo, según tu plan.</p></div></div></div>
     <div class="toolbar" style="gap:8px;flex-wrap:wrap;align-items:center"><span class="muted">Año destino del Plan:</span> <input type="number" id="proxYear" class="anaInp" style="width:80px"> <button class="btn sm" id="proxAllPlan">Pasar todo al Plan</button> <button class="btn ghost sm" id="proxRefresh">Recalcular</button></div>
     <div id="proxKpis" class="cards" style="margin-top:10px"></div>
     <div id="proxTabla" style="overflow:auto;margin-top:10px"></div>
     <div id="proxMos" style="margin-top:16px"></div>
   </section>
   <section class="view" id="view-tesisinv">
-    <h2>🧭 Ficha de Tesis</h2>
+    <div class="vhero g-rose"><div class="vhero-main"><span class="vhero-ic">🧭</span><div class="vhero-txt"><h2>Ficha de Tesis</h2><p>El resumen completo de la tesis de inversión de una empresa: rating, precio objetivo, riesgos y catalizadores.</p></div></div></div>
     <div id="tesisHost"></div>
   </section>
   <section class="view" id="view-backtest">
-    <h2>🧪 Backtest del método</h2>
-    <div class="bt-sub">Agrega todas las fotos de tesis guardadas y compara la cotización de entonces con la de ahora. Mide si tus decisiones y tus scores (Calidad y Oportunidad) aciertan. Cuantas más fotos guardes con el tiempo, más fiable será.</div>
+    <div class="vhero g-violet"><div class="vhero-main"><span class="vhero-ic">🧪</span><div class="vhero-txt"><h2>Backtest del Método</h2><p>Agrega todas las fotos de tesis guardadas y compara la cotización de entonces con la de ahora. Mide si tus decisiones y tus scores aciertan.</p></div></div></div>
     <div id="btKpis" style="margin-top:10px"></div>
     <div id="btTabla" style="margin-top:10px"></div>
   </section>
@@ -4128,14 +4118,12 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
   </section>
   <section class="view" id="view-fiscalidad">
-    <h2>📋 Fiscalidad</h2>
-    <div class="sub" style="margin-bottom:10px">Tu situación fiscal orientativa: plusvalías/minusvalías latentes y realizadas, simulador de venta FIFO y el realizado de los últimos 5 ejercicios para el arrastre de pérdidas en el IRPF.</div>
+    <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📋</span><div class="vhero-txt"><h2>Fiscalidad</h2><p>Tu situación fiscal orientativa: plusvalías/minusvalías latentes y realizadas, simulador de venta FIFO y el arrastre de pérdidas en el IRPF.</p></div></div></div>
     <div id="fiscalKpis" style="margin-bottom:14px"></div>
     <div id="fiscalBody"></div>
   </section>
   <section class="view" id="view-rentabilidad">
-    <h2>📊 Rentabilidad por empresa</h2>
-    <div class="sub" style="margin-bottom:10px">Cómo rinde cada posición: tu rentabilidad real (con tus fechas y dividendos) y el rendimiento del activo (total-return del mercado). Comparado con el IBEX-35.</div>
+    <div class="vhero g-ocean"><div class="vhero-main"><span class="vhero-ic">📊</span><div class="vhero-txt"><h2>Rentabilidad por Empresa</h2><p>Cómo rinde cada posición: tu rentabilidad real (con tus fechas y dividendos) y el rendimiento del activo, comparado con el IBEX-35.</p></div></div></div>
     <div id="rentaKpis" style="margin-bottom:14px"></div>
     <div class="toolbar" style="margin-bottom:10px"><label class="muted">Ordenar empresas por <select id="rentaOrden" onchange="rentaSetOrden(this.value)"></select></label></div>
     <div id="rentaBody"></div>
@@ -4156,12 +4144,11 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     </div>
   </section>
   <section class="view" id="view-informes">
-    <h2>🖨️ Centro de informes</h2>
-    <div class="sub" style="color:#64748b;font-size:13px;margin:2px 0 12px;line-height:1.5">Genera informes en PDF de tu hogar e inversiones. Elige uno o varios para combinarlos en un solo documento, ajusta el periodo y los filtros, y descárgalo.</div>
+    <div class="vhero g-navy"><div class="vhero-main"><span class="vhero-ic">🖨️</span><div class="vhero-txt"><h2>Centro de Informes</h2><p>Genera informes en PDF de tu hogar e inversiones. Elige uno o varios para combinarlos en un solo documento, ajusta el periodo y los filtros, y descárgalo.</p></div></div></div>
     <div id="informesCenter"></div>
   </section>
   <section class="view" id="view-mazinger">
-    <h2>Mazinger Z — Consumo</h2>
+    <div class="vhero g-rose"><div class="vhero-main"><span class="vhero-ic">⛽</span><div class="vhero-txt"><h2>Mazinger Z</h2><p>Registra cada repostaje del coche para calcular el consumo real (L/100km), de lleno a lleno.</p></div></div></div>
     <div id="mzApp"></div>
   </section>
   <section class="view" id="view-universo"></section>
@@ -4170,6 +4157,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   <section class="view" id="view-cobertura"></section>
   <section class="view" id="view-estado"><div id="view-metodo"></div><div id="view-salud" style="margin-top:26px;border-top:1px solid var(--line);padding-top:8px"></div></section>
   <section class="view" id="view-hemero">
+    <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">🗄️</span><div class="vhero-txt"><h2>Hemeroteca</h2><p>Tu archivo histórico: <b>informes semanales</b> de cartera y <b>análisis (dossiers)</b> de cada empresa, generados por el Método.</p></div></div></div>
     <div class="subtabs" id="hemeroSubtabs"><button data-htab="informes" class="active">🗞️ Informes semanales</button><button data-htab="analisis">🔬 Análisis (dossiers)</button></div>
     <div id="htab-informes"><div id="view-hemeroteca"></div></div>
     <div id="htab-analisis" style="display:none"><div id="view-hemeroanalisis"></div></div>
