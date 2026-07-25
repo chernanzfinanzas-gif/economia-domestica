@@ -888,6 +888,33 @@ function planVaciarManual(){
    prorrata reparte solo el resto sobre los años NO pineados. Lo usan la previsualización de
    Diversificación Y el simulador (planPendShares), así ambos ven lo mismo. Memoizado; se invalida
    en saveNow(). Devuelve {sched:{t:{y:eur}}, byYear, sinCalendario, ycierre, ydesde, nowY, obj, inv}. */
+/* [A7 · 25-jul-2026] PRESUPUESTO DEL PLAN POR AÑO — fuente ÚNICA.
+   Antes esta misma fórmula estaba escrita tres veces (vista Plan Multi-anual —ya retirada—,
+   Asignación y el motor de reparto), con variantes: una restaba TODAS las compras del año y otra
+   solo las del plan, y con presupuesto manual una restaba lo ejecutado y la otra no. Resultado:
+   el mismo año podía mostrar dos presupuestos distintos según la pestaña.
+   Devuelve un objeto listo para usar; cada consumidor lo pide UNA vez y luego llama a bruto(y)/disp(y). */
+function planPresupuesto(){
+  const pe=DB.planLotePeriodo=DB.planLotePeriodo||{desde:2026,hasta:2034};   /* mismos valores por defecto que los consumidores */
+  const ydesde=num(pe.desde), yhasta=num(pe.hasta);
+  let ycierre=num(pe.cierre);
+  if(!ycierre){ ycierre=yhasta; pe.cierre=ycierre; if(typeof scheduleSave==='function')scheduleSave(); }
+  ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
+  const nowY=new Date().getFullYear();
+  /* Disponible por año según la Proyección (mismo criterio para todos los consumidores). */
+  const dispYear={};
+  try{ if(typeof proyDefaults==='function')proyDefaults();
+       const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[];
+       ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); } });
+  }catch(e){}
+  const dispFijo=DB.planDispFijo=DB.planDispFijo||{};
+  /* BRUTO: el importe manual del año si lo hay; si no, el de la Proyección.
+     DISPONIBLE: bruto − compras del plan (Kanban) ya ejecutadas ese año. Las compras heredadas
+     no restan (decisión de Carlos). Después del año de cierre no se reparte capital. */
+  const bruto=y=>(dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0);
+  const disp=y=>(y>ycierre)?0:(bruto(y)-(y<=nowY?planExecEur(y):0));
+  return {ydesde,yhasta,ycierre,nowY,dispYear,dispFijo,bruto,disp};
+}
 function _planReparto(){
   if(_planAutoCache) return _planAutoCache;
   DB.planLote=DB.planLote||[]; DB.planCompras=DB.planCompras||{};
@@ -901,16 +928,9 @@ function _planReparto(){
   Object.keys(DB.planCompras||{}).forEach(function(t){ t=up(t); if(!t||held.indexOf(t)>=0)return; var hasAmt=Object.values(DB.planCompras[t]||{}).some(function(v){return num(v)>0;}); if(hasAmt && planLote.indexOf(t)<0)planLote.push(t); });
   var chosen=planLote.filter(function(t,i,arr){return t&&arr.indexOf(t)===i&&held.indexOf(t)<0;});
   var pt=DB.planTipo=DB.planTipo||{};
-  var ydesde=num(pe.desde), yhasta=num(pe.hasta);
-  var ycierre=num(pe.cierre); if(!ycierre)ycierre=yhasta; ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
-  var nowY=new Date().getFullYear();
-  var dispYear={};
-  try{ if(typeof proyDefaults==='function')proyDefaults(); var ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(function(r){ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); } }); }catch(e){}
-  var dispFijo=DB.planDispFijo=DB.planDispFijo||{};
-  /* Presupuesto BRUTO del año (manual o de Proyección) y DISPONIBLE = bruto − compras del plan
-     (Kanban, o.plan) ya ejecutadas ese año. Las compras heredadas no restan (Carlos). */
-  var presBruto=function(y){ return (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0); };
-  var dispShown=function(y){ if(y>ycierre)return 0; return presBruto(y)-(y<=nowY?planExecEur(y):0); };
+  var _P=planPresupuesto();                                   /* [A7] fuente única */
+  var ydesde=_P.ydesde, yhasta=_P.yhasta, ycierre=_P.ycierre, nowY=_P.nowY;
+  var presBruto=_P.bruto, dispShown=_P.disp;
   /* Capital a repartir = SÓLO lo aún disponible cada año (bruto − compras ya ejecutadas),
      así TF no vuelve a contar lo que ya está en totalInv → "sin asignar" no queda negativo. */
   var disponible=0; for(var _yd=Math.max(nowY,ydesde); _yd<=ycierre; _yd++){ disponible+=Math.max(0,dispShown(_yd)); }
@@ -972,19 +992,10 @@ function renderPlanLote(){
   const anaAll=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))];
   const ana=anaAll.filter(t=>!held.includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b)));
   const dl='<datalist id="loteDL">'+ana.filter(t=>!chosen.includes(t)).map(t=>`<option value="${nm(t)} (${t})">`).join('')+'</datalist>';
-  const ydesde=num(pe.desde), yhasta=num(pe.hasta); const yrs=[]; for(let y=ydesde;y<=yhasta;y++)yrs.push(y);
-  /* AÑO DE CIERRE DEL PLAN: hasta aquí se distribuye el capital (disponible/objetivos). Separado
-     del horizonte de VISUALIZACIÓN/proyección (yhasta). Por defecto = yhasta (migración) y luego
-     editable aparte, para poder ampliar la vista sin inflar el capital a repartir. */
-  let ycierre=num(pe.cierre); if(!ycierre){ ycierre=yhasta; pe.cierre=ycierre; if(typeof scheduleSave==='function')scheduleSave(); }
-  ycierre=Math.max(ydesde,Math.min(yhasta,ycierre));
-  const nowY=new Date().getFullYear();
-  const dispYear={};
-  try{ if(typeof proyDefaults==='function')proyDefaults(); const ser=(typeof computeProy==='function')?computeProy(DB.config.proyeccion):[]; ser.forEach(r=>{ if(r.anio>=ydesde&&r.anio<=ycierre){ dispYear[r.anio]=num(r.aInversion); } }); }catch(e){}
-  const execYear={}; (DB.operaciones||[]).forEach(o=>{ if(o.tipo!=='venta'){ const y=+((o.fecha||'').slice(0,4)); if(y) execYear[y]=(execYear[y]||0)+num(o.acciones)*num(o.precio); } });
-  const dispFijo=DB.planDispFijo=DB.planDispFijo||{};
-  const presBruto=y=> (dispFijo[y]!=null&&dispFijo[y]!=='')?num(dispFijo[y]):(dispYear[y]||0);
-  const dispShown=y=> (y>ycierre)?0:(presBruto(y)-(y<=nowY?planExecEur(y):0)); /* disponible = bruto − compras del plan (Kanban) */
+  const _P=planPresupuesto();                                  /* [A7] fuente única */
+  const ydesde=_P.ydesde, yhasta=_P.yhasta; const yrs=[]; for(let y=ydesde;y<=yhasta;y++)yrs.push(y);
+  const ycierre=_P.ycierre, nowY=_P.nowY;
+  const presBruto=_P.bruto, dispShown=_P.disp;
   /* Capital a repartir = SÓLO lo aún disponible cada año, coherente con dispShown (evita el doble conteo de lo ya invertido). */
   let disponible=0; for(let _yd=Math.max(nowY,ydesde); _yd<=ycierre; _yd++){ disponible+=Math.max(0,dispShown(_yd)); }
   const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
