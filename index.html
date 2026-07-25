@@ -2762,7 +2762,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     #view-amalia .ama-sal::before{content:"saldo ";font-size:10px;color:var(--muted);font-weight:600}
     #view-amalia .ama-dets{grid-template-columns:1fr}
   }
-  #view-movimientos .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none}
+  #view-movimientos .blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
+  #view-movimientos .blk-h{display:flex;align-items:center;gap:11px;padding:14px 16px;cursor:pointer;user-select:none;border-left:5px solid #94a3b8}
   #view-movimientos .blk-arw{color:#94a3b8;font-size:12px;transition:transform .15s;width:12px}
   #view-movimientos .blk.open .blk-arw{transform:rotate(90deg)}
   #view-movimientos .blk-ic{font-size:20px}
@@ -2771,6 +2772,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-movimientos .blk-right{margin-left:auto;text-align:right}
   #view-movimientos .blk-b{display:none;border-top:1px solid var(--line)}
   #view-movimientos .blk.open .blk-b{display:block}
+  /* Tres secciones (Añadir/Filtros/Movimientos): cabecera de color propio, mismo lenguaje que Presupuesto */
+  #view-movimientos .blk#blkMovAdd .blk-h{background:linear-gradient(120deg,#f0fdf4,#dcfce7);border-left-color:#16a34a}
+  #view-movimientos .blk#blkMovAdd .blk-t{color:#166534}
+  #view-movimientos .blk#blkMovFilt .blk-h{background:linear-gradient(120deg,#eff6ff,#dbeafe);border-left-color:#2563eb}
+  #view-movimientos .blk#blkMovFilt .blk-t{color:#1e40af}
+  #view-movimientos .blk#blkMovList .blk-h{background:linear-gradient(120deg,#fffbeb,#fef3c7);border-left-color:#f59e0b}
+  #view-movimientos .blk#blkMovList .blk-t{color:#92400e}
   #view-movimientos .mv-count{font-size:12px;font-weight:700}
   #view-movimientos .mv-addform{padding:16px}
   #view-movimientos .mv-seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;width:100%}
