@@ -150,7 +150,7 @@ function tesisVeredicto(t){
   var dec=((a.decision||J.decision||'')+'').toUpperCase();
   var poBear=_tzNum(a.poMin||J.poBear)||null;
   var poBull=_tzNum(a.poMax||J.poBull)||null;
-  var poBase=_tzNum(a.precioObjetivo)|| (J.poBase!=null?_tzNum(J.poBase):null) || ((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||null));
+  var poBase=(J.poBase!=null?_tzNum(J.poBase):null) || ((typeof poBaseDe==='function')?(num(poBaseDe(a))||null):null) || _tzNum(a.precioObjetivo) || ((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||null));   /* [A6] el poBase del dossier manda */
   var entMax=_tzNum(a.entMax||J.entMax)||null;
   var stop=_tzNum(a.stopTesis||J.stop)||null;
   var fo=a.forense||J.forense||null;

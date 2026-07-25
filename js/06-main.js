@@ -1,6 +1,10 @@
 function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos)||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15); const RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15}; const cl=x=>Math.max(0,Math.min(100,x));
-  const cot=num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMax=num(a.entMax); const rating=(a.rating||'').toUpperCase();
-  const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0); const pot=(cot&&poMed)?(poMed/cot-1):null; const dist=(cot&&entMax)?(cot-entMax)/entMax:null;
+  /* [A6] precio vivo y PO base únicos: antes usaba a.cotizacion (que el formulario de Cartera no
+     actualiza) y su propia media bear/bull, así que Ranking, Plan, Próxima compra y Kanban podían
+     puntuar la misma empresa distinto que la tabla de Análisis. */
+  const cot=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion);
+  const poMin=num(a.poMin),poMax=num(a.poMax),entMax=num(a.entMax); const rating=(a.rating||'').toUpperCase();
+  const poMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0)); const pot=(cot&&poMed)?(poMed/cot-1):null; const dist=(cot&&entMax)?(cot-entMax)/entMax:null;
   let A=null,B=null,D=null; const C=(rating&&RP[rating]!=null)?RP[rating]:50;
   if(cot&&poMed)A=(pot<=0?0:cl(pot/0.5*100));
   if(dist!=null){ if(dist<=-0.20)B=100; else if(dist<=0)B=70+(-dist/0.20)*30; else if(dist<=0.25)B=70*(1-dist/0.25); else B=0; }

@@ -411,7 +411,7 @@ function _emBar(V){
 function _emPriceBar(r){ var a=r.a; if(!a)return '';
   var precio=_emNum(a.cotizacion)||((typeof _tzPrecio==='function')?_emNum(_tzPrecio(r.t)):0);
   var entMax=_emNum(a.entMax), entMin=_emNum(a.entMin), stop=_emNum(a.stopTesis), poBull=_emNum(a.poMax), poBear=_emNum(a.poMin);
-  var poBase=_emNum(a.precioObjetivo)||((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||0));
+  var poBase=(typeof poBaseDe==='function')?num(poBaseDe(a)):(_emNum(a.precioObjetivo)||((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||0)));   /* [A6] */
   if(!(precio>0)||!(entMax>0||poBase>0))return '';
   var svg=_emBar({precio:precio,stop:stop,entMin:entMin,entMax:entMax,poMin:poBear,poBase:poBase,poBull:poBull});
   return svg?('<div class="em-pbar">'+svg+'</div>'):'';
@@ -422,7 +422,7 @@ function _emVer(t){ t=_emUp(t); if(!_emVerCache)_emVerCache={}; if(_emVerCache[t
   var V=null; if(typeof tesisVeredicto==='function'){ try{ V=tesisVeredicto(t); }catch(e){} } _emVerCache[t]=V; return V; }
 function _emDossHref(r){ var a=r.a; var u=(typeof dossierURL==='function')?dossierURL(r.t,a&&a.dossierUrl):((a&&a.dossierUrl)||''); return u||''; }
 function _emPot(r){ var a=r.a; if(!a)return null; var cot=_emNum(a.cotizacion); var mn=_emNum(a.poMin),mx=_emNum(a.poMax);
-  var po=(mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0); if(!(cot>0&&po>0))return null; return (po/cot-1)*100; }
+  var po=(typeof poBaseDe==='function')?num(poBaseDe(a)):((mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0)); if(!(cot>0&&po>0))return null; return (po/cot-1)*100; }   /* [A6] */
 function _emPotChip(r){ var p=_emPot(r); if(p==null)return ''; var pos=p>=0;
   return '<span class="em-pot'+(pos?'':' neg')+'" title="Potencial hasta tu precio objetivo (PO base)">'+(pos?'+':'')+p.toFixed(0)+'% vs PO</span>'; }
 function _emLuzCol(estado){ var m={APTA:'ok',DUDA:'mid',DESCARTA:'bad',ENZONA:'ok',ZONAFLOJA:'mid',CERCA:'mid',CARA:'bad',STOP:'bad',SINDATO:'na',SOLIDA:'ok',DEBIL:'bad',NA:'na'};
@@ -482,7 +482,7 @@ function _emFoVeto(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&
 function _emFoFac(fo){ if(!fo||!fo.aplica||!fo.flags||!fo.flags.length)return 1; return _emFoVeto(fo)?0.5:0.8; }
 function _emIdxRaw(t){ t=_emUp(t); var a=_emAna(t); if(!a)return null;
   var cot=_emNum(a.cotizacion), mn=_emNum(a.poMin), mx=_emNum(a.poMax);
-  var po=(mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0);
+  var po=(typeof poBaseDe==='function')?num(poBaseDe(a)):((mn&&mx)?(mn+mx)/2:(_emNum(a.precioObjetivo)||mx||mn||0));   /* [A6] */
   if(!(cot>0&&po>0))return null;
   var potF=Math.max(0,(po/cot-1));
   var cal=_EM_RP[_emUp(a.rating)]||0;

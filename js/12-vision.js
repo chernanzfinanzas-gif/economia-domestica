@@ -105,7 +105,7 @@ function visRankData(){
     const te=(typeof _tesisCache!=='undefined'?_tesisCache:{})[t]||{};
     const v=(DB.valores||{})[t]||{};
     const cot=num(a.cotizacion)||num(v.precioActual);
-    const poBase=num(te.poBase)||((num(a.poMin)&&num(a.poMax))?(num(a.poMin)+num(a.poMax))/2:(num(a.poMax)||num(a.poMin)||0));
+    const poBase=num(te.poBase)||((typeof poBaseDe==='function')?num(poBaseDe(a)):0)||((num(a.poMin)&&num(a.poMax))?(num(a.poMin)+num(a.poMax))/2:(num(a.poMax)||num(a.poMin)||0));   /* [A6] */
     let rating=(a.rating||te.rating||'').toUpperCase();
     /* Calidad: score REAL del dossier; si no, ESTIMADA en el borde inferior de las analizadas de ese rating; si no, escala fija. */
     const dossierScore=(te&&te.score!=null)?num(te.score):null;

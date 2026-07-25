@@ -333,7 +333,7 @@ function renderAnalisis(){
   let list=(DB.analisis||[]).map(a=>{
     const cot=num(((DB.valores||{})[(a.ticker||'').toUpperCase()]||{}).precioActual)||num(a.cotizacion),poMin=num(a.poMin),poMax=num(a.poMax),entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis),dv=num(a.divAccion);
     const rating=(a.rating||'').toUpperCase();
-    const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
+    const poMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0));   /* [A6] PO base único */
     const pot=(cot&&poMed)?(poMed/cot-1):null;
     const dist=(cot&&entMax)?(cot-entMax)/entMax:null;
     const colchon=(cot&&stop)?(cot-stop)/cot:null;

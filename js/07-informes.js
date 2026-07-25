@@ -572,7 +572,7 @@ function buildEmpresa(ctx,tOverride){
   var sub=(typeof SUBTIPO!=='undefined'&&SUBTIPO[t])||'';
   var f=(typeof fichaCalc==='function')?fichaCalc(t):null;
   var cot=num(a.cotizacion)||num(v.precioActual)||(f?f.precioActual:0);
-  var bear=num(a.poMin),bull=num(a.poMax); var base=(bear&&bull)?(bear+bull)/2:(num(a.precioObjetivo)||bull||bear||0);
+  var bear=num(a.poMin),bull=num(a.poMax); var base=(typeof poBaseDe==='function')?num(poBaseDe(a)):((bear&&bull)?(bear+bull)/2:(num(a.precioObjetivo)||bull||bear||0));   /* [A6] */
   var entMin=num(a.entMin),entMax=num(a.entMax),stop=num(a.stopTesis);
   var dec=(a.decision||'').toUpperCase(), rating=(a.rating||'').toUpperCase();
   var dc={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'};
