@@ -142,8 +142,11 @@
   function _radBuzHistContent(hist){ return (window._radHistMode==='empresa')?_radBuzHistEmpresa(hist):_radBuzHistMes(hist); }
 
   // ---- Dos secciones desplegables: "🔎 Radar: qué cambió" (mes actual) + "🕘 Meses anteriores" ----
+  // Mismo lenguaje visual que las cabeceras de Panel/Gráficas: tarjeta .blk con borde de color +
+  // degradado, un color por bloque. Colapsadas por defecto (window._radBlkOpen).
   function radarHtml(a, hist){
     var h='';
+    var op=window._radBlkOpen=window._radBlkOpen||{nuevo:false,hist:false};
     var cambios=(a&&a.cambios)||[];
     var inner1='';
     if(a){
@@ -153,17 +156,17 @@
       else inner1+='<p class="muted" style="margin:10px 0">Sin cambios materiales respecto a la foto anterior.</p>';
       if(a.nuevas&&a.nuevas.length) inner1+='<p class="muted" style="font-size:12px;margin-top:6px">🆕 Nuevas en el universo: '+a.nuevas.map(function(x){return esc(x.ticker);}).join(', ')+'.</p>';
     } else inner1+='<p class="muted" style="margin:10px 0">Aún no hay datos de cambios (se generan cada mes por la tarea automática).</p>';
-    var sub1=a?(' <span class="muted" style="font-weight:400;font-size:12px">('+cambios.length+' empresa'+(cambios.length!==1?'s':'')+')</span>'):'';
-    h+='<details open style="border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin-bottom:12px;background:#fff">'
-      +'<summary style="cursor:pointer;font-weight:800;font-size:15px;color:#0369a1">🔎 Radar: qué cambió'+sub1+'</summary>'
-      +'<div style="margin-top:8px">'+inner1+'</div></details>';
+    var sub1=a?(cambios.length+' empresa'+(cambios.length!==1?'s':'')):'';
+    h+='<div class="blk'+(op.nuevo?' open':'')+'" id="radBlkNuevo"><div class="blk-h" data-radblk="nuevo"><span class="blk-arw">▶</span><span class="blk-ic">🔎</span>'
+      +'<div><div class="blk-t">Radar: qué cambió</div><div class="blk-sub">'+sub1+'</div></div></div>'
+      +'<div class="blk-b">'+inner1+'</div></div>';
     if(hist&&hist.meses&&hist.meses.length){
       var mode=(window._radHistMode==='empresa')?'empresa':'mes';
-      var tbtn=function(k,lbl){ var on=(mode===k); return '<button data-radhist="'+k+'" style="border:0;border-radius:6px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer;background:'+(on?'#fff':'transparent')+';color:'+(on?'#0369a1':'#64748b')+'">'+lbl+'</button>'; };
+      var tbtn=function(k,lbl){ var on=(mode===k); return '<button data-radhist="'+k+'" style="border:0;border-radius:6px;padding:4px 11px;font-size:12px;font-weight:700;cursor:pointer;background:'+(on?'#fff':'transparent')+';color:'+(on?'#86198f':'#64748b')+'">'+lbl+'</button>'; };
       var tg='<div style="display:inline-flex;gap:4px;margin:2px 0 8px;background:#f1f5f9;border-radius:8px;padding:3px">'+tbtn('mes','Por mes')+tbtn('empresa','Por empresa')+'</div>';
-      h+='<details style="border:1px solid var(--line);border-radius:12px;padding:10px 14px;background:#fff">'
-        +'<summary style="cursor:pointer;font-weight:800;font-size:15px;color:#0369a1">🕘 Meses anteriores <span class="muted" style="font-weight:400;font-size:12px">('+hist.meses.length+' mes'+(hist.meses.length!==1?'es':'')+' archivados)</span></summary>'
-        +'<div style="margin-top:8px">'+tg+'<div id="radHistContent">'+_radBuzHistContent(hist)+'</div></div></details>';
+      h+='<div class="blk'+(op.hist?' open':'')+'" id="radBlkHist"><div class="blk-h" data-radblk="hist"><span class="blk-arw">▶</span><span class="blk-ic">🕘</span>'
+        +'<div><div class="blk-t">Meses anteriores</div><div class="blk-sub">'+hist.meses.length+' mes'+(hist.meses.length!==1?'es':'')+' archivados</div></div></div>'
+        +'<div class="blk-b">'+tg+'<div id="radHistContent">'+_radBuzHistContent(hist)+'</div></div></div>';
     }
     return h;
   }
@@ -175,10 +178,12 @@
       var rad=r[0], hist=r[1]; _buzRadHist=hist;
       hostEl.innerHTML=(rad||hist)?radarHtml(rad,hist):'';
       if(!hostEl._radHistBound){ hostEl._radHistBound=true;
-        hostEl.addEventListener('click',function(e){ var b=e.target.closest('[data-radhist]'); if(!b)return; e.preventDefault();
+        hostEl.addEventListener('click',function(e){
+          var rb=e.target.closest('[data-radblk]'); if(rb){ var blk=rb.parentElement; var k=rb.getAttribute('data-radblk'); var op=window._radBlkOpen=window._radBlkOpen||{}; op[k]=!op[k]; blk.classList.toggle('open',op[k]); return; }
+          var b=e.target.closest('[data-radhist]'); if(!b)return; e.preventDefault();
           window._radHistMode=(b.getAttribute('data-radhist')==='empresa')?'empresa':'mes';
           var cont=hostEl.querySelector('#radHistContent'); if(cont&&_buzRadHist)cont.innerHTML=_radBuzHistContent(_buzRadHist);
-          hostEl.querySelectorAll('[data-radhist]').forEach(function(x){ var on=x.getAttribute('data-radhist')===window._radHistMode; x.style.background=on?'#fff':'transparent'; x.style.color=on?'#0369a1':'#64748b'; });
+          hostEl.querySelectorAll('[data-radhist]').forEach(function(x){ var on=x.getAttribute('data-radhist')===window._radHistMode; x.style.background=on?'#fff':'transparent'; x.style.color=on?'#86198f':'#64748b'; });
         });
       }
     }).catch(function(){ hostEl.innerHTML=''; });
