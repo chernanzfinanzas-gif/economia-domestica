@@ -271,6 +271,7 @@ if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
 if($('#loteAdd'))$('#loteAdd').addEventListener('click',addLoteEmpresa);
 if($('#btRegen'))$('#btRegen').addEventListener('click',function(){ if(typeof regenerarFotosDossiers==='function')regenerarFotosDossiers(); });
 /* +Año de Plan retirado: el horizonte se controla en Diversificación */
+if($('#btnProyRefrescar'))$('#btnProyRefrescar').addEventListener('click',function(){ if(typeof proyRefrescarHipotesis==='function')proyRefrescarHipotesis(); });   /* [A8] */
 function addPrevYear(){ DB.previsionMaxYear=(num(DB.previsionMaxYear)||2030)+1; saveNow(); if(typeof renderSimulador==='function')renderSimulador(); if(typeof renderPlan==='function')renderPlan(); }
 function toggleDivConf(t,y){ DB.divConfirmado=DB.divConfirmado||{}; DB.divConfirmado[t]=DB.divConfirmado[t]||{}; if(DB.divConfirmado[t][y]) delete DB.divConfirmado[t][y]; else DB.divConfirmado[t][y]=true; saveNow(); if(typeof renderSimulador==='function')renderSimulador(); }
 function toggleAnioConf(y){ DB.aniosConfirmados=DB.aniosConfirmados||{}; if(DB.aniosConfirmados[y]) delete DB.aniosConfirmados[y]; else DB.aniosConfirmados[y]=true; saveNow(); if(typeof renderSimulador==='function')renderSimulador(); }

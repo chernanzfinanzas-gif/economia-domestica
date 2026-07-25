@@ -1335,6 +1335,73 @@ function proyDefaults(){
     aportacionDefault:25000, aportaciones:{}, ingresosExtra:{}, eventos:[] };
   scheduleSave();
 }
+/* [A8 · 26-jul-2026] La hipótesis de la Proyección se sembraba UNA sola vez (proyDefaults sale
+   por la primera línea si ya existe) y nunca volvía a mirar la realidad. Como computeProy().aInversion
+   es la fuente del presupuesto anual del Plan, el plan de compras podía estar colgando de una foto
+   del hogar de hace meses. Estas dos funciones permiten refrescarla a mano y detectar que está vieja. */
+function proyHipotesisHoy(){
+  const yr=new Date().getFullYear();
+  /* Cartera y coste desde las posiciones VIVAS (antes se leía DB.inversiones, el modelo legacy). */
+  let cartera=0, coste=0, divB=0;
+  try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){
+    if(!(p.acciones>0.0001))return;
+    const t=(p.ticker||'').toUpperCase();
+    cartera+=num(p.acciones)*num(p.precioActual);
+    coste  +=num(p.acciones)*num(p.precioCompra);
+    /* dividendo esperado con la misma fuente única que el resto de la app (A5) */
+    let d=(typeof dpaAnual==='function')?dpaAnual(t,yr):null;
+    if(d==null) d=num(((DB.valores||{})[t]||{}).divAccion);
+    divB+=num(p.acciones)*num(d);
+  }); }catch(e){}
+  const snaps=(typeof patSnaps==='function')?patSnaps():[];
+  const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
+  if(!cartera) cartera=num(last.inv);
+  const byName={}; (DB.categorias||[]).forEach(c=>byName[c.nombre]=c);
+  const mes=n=>{ const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0; };
+  const tit=(typeof perfilTitulares==='function'&&perfilTitulares().length)?perfilTitulares():['Carlos','Susana'];
+  const nominaMes=tit.reduce((a,n)=>a+mes('Nómina '+n),0)+mes('Pagas Extra');
+  let gastosAnu=0; (DB.presupuesto||[]).filter(x=>pAnio(x)===yr).forEach(x=>{ const c=(DB.categorias||[]).find(cc=>cc.id===x.categoriaId); if(c&&c.tipo==='gasto')gastosAnu+=anual(x); });
+  return { anioBase:yr, efectivo:Math.round(num(last.ef)), invertidoCoste:Math.round(coste),
+           carteraInicial:Math.round(cartera), dividendoBruto:Math.round(divB),
+           nominaMes:Math.round(nominaMes), gastoMes:Math.round(gastosAnu/12) };
+}
+/* ¿Está la hipótesis desfasada? Devuelve null si está al día, o el motivo. */
+function proyHipotesisVieja(){
+  const c=(DB.config&&DB.config.proyeccion)||null; if(!c||!c.modeloEvo2) return null;
+  const yr=new Date().getFullYear();
+  if(num(c.anioBase)>0 && num(c.anioBase)<yr) return {tipo:'anio', txt:'la hipótesis es del año '+num(c.anioBase)};
+  const viva=(typeof carteraLive==='function')?carteraLive():0;
+  const base=num(c.carteraInicial);
+  if(viva>0 && base>0){ const d=Math.abs(viva-base)/viva; if(d>0.10) return {tipo:'cartera', txt:'la cartera real difiere un '+Math.round(d*100)+'% de la hipótesis'}; }
+  return null;
+}
+/* Refresca la hipótesis mostrando antes qué cambia exactamente. */
+function proyRefrescarHipotesis(){
+  const c=(DB.config&&DB.config.proyeccion)||null;
+  if(!c||!c.modeloEvo2){ alert('Aún no hay hipótesis que refrescar.'); return; }
+  const h=proyHipotesisHoy();
+  const ETIQ={anioBase:'Año base',efectivo:'Efectivo inicial',invertidoCoste:'Invertido / coste',
+              carteraInicial:'Cartera inicial',dividendoBruto:'Dividendo bruto/año',
+              nominaMes:'Nómina hogar/mes',gastoMes:'Gasto mensual'};
+  /* Si un dato no se puede calcular hoy (p. ej. no hay presupuesto del año en curso, y nómina o gasto
+     saldrían 0), se conserva el valor anterior: refrescar nunca debe vaciar el modelo. */
+  const OMITIDOS=[];
+  ['nominaMes','gastoMes','efectivo','carteraInicial'].forEach(k=>{ if(!(num(h[k])>0) && num(c[k])>0){ h[k]=num(c[k]); OMITIDOS.push(ETIQ[k]); } });
+  const _v=(k,x)=>(k==='anioBase')?String(Math.round(x)):((typeof fmt==='function')?fmt(x):String(x));
+  const cambios=[]; Object.keys(ETIQ).forEach(k=>{ const a=Math.round(num(c[k])), b=Math.round(num(h[k]));
+    if(a!==b) cambios.push(' · '+ETIQ[k]+': '+_v(k,a)+'  →  '+_v(k,b)); });
+  if(!cambios.length){ alert('La hipótesis ya coincide con tus datos actuales: no hay nada que cambiar.'); return; }
+  const _nota=OMITIDOS.length?('\n\nSe conservan sin tocar (hoy no hay dato para calcularlos): '+OMITIDOS.join(', ')+'.'):'';
+  if(!confirm('Refrescar la Hipótesis Inicial con tus datos de hoy.\n\nCambia '+cambios.length+' valor(es):\n'+cambios.join('\n')+_nota+
+              '\n\nNo se tocan los porcentajes de crecimiento, las aportaciones ni los eventos.\n'+
+              'Ojo: el presupuesto anual del Plan se calcula a partir de esto, así que se recalculará.')) return;
+  Object.keys(ETIQ).forEach(k=>{ c[k]=num(h[k]); });
+  if(typeof _planRepartoInval==='function') _planRepartoInval();
+  if(typeof saveNow==='function')saveNow(); else if(typeof scheduleSave==='function')scheduleSave();
+  if(typeof renderProy==='function')renderProy();
+  if(typeof renderAll==='function')renderAll();
+  alert('Hipótesis actualizada con '+cambios.length+' cambio(s).');
+}
 function computeProy(c){
   const N=Math.max(0,Math.round(c.edadFin-c.edadActual));
   const Sof=(anio,edad)=>{const ap=c.aportaciones||{}; if(ap[anio]!=null&&ap[anio]!=='')return num(ap[anio]); return edad<=c.edadFinAportar?num(c.aportacionDefault):0;};
@@ -1393,6 +1460,11 @@ function renderProyParams(c){
     ['crecAhorro','Subida ahorro nóminas %/año',pc(c.crecAhorro),'0.1',1]
   ];
   el.innerHTML=f.map(x=>`<label>${x[1]}<input type="number" step="${x[3]}" data-proy="${x[0]}" data-pct="${x[4]}" value="${x[2]}"></label>`).join('');
+  /* [A8] aviso en la propia vista cuando la hipótesis se ha quedado vieja */
+  const av=$('#proyHipAviso');
+  if(av){ const vj=(typeof proyHipotesisVieja==='function')?proyHipotesisVieja():null;
+    av.innerHTML = vj ? ('<span style="color:#b45309;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:5px 9px;display:inline-block">⚠️ Hipótesis desfasada: '+vj.txt+'. El presupuesto del Plan se calcula con estos valores — pulsa «Refrescar desde mis datos».</span>') : '';
+  }
 }
 function renderProyEventos(c){
   const el=$('#proyEventos'); if(!el) return; const evs=c.eventos||[];

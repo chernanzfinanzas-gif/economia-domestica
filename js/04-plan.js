@@ -684,6 +684,10 @@ function renderPanelDash(){
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
+  /* [A8] hipótesis de la Proyección desfasada: el presupuesto anual del Plan cuelga de ella. */
+  try{ const _vj=(typeof proyHipotesisVieja==='function')?proyHipotesisVieja():null;
+       if(_vj) avisos.push({pri:3,cls:'a',goto:'independencia',tick:'',txt:'🧾 <b>Proyección</b> — '+_vj.txt+'. El presupuesto del Plan se calcula con ella: revísala en Proyección → Hipótesis Inicial.'});
+  }catch(e){}
   /* [A6] las tres señales de precio leen la cotización viva (precioDe) y el PO base único (poBaseDe). */
   const _cotA=a=>(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion);
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),st=num(a.stopTesis); if(c&&st&&c<=st){ const t=(a.ticker||'').toUpperCase(); const p=_heldP[t]; avisos.push({pri:0,cls:'r',goto:'analisis',sig:'S1',tick:t,txt:`🚨 <b>${t}</b> — stop de tesis tocado (${fmt(c)} ≤ ${fmt(st)})${p?` · tienes ${p.acciones} acc., <b>ORDEN DE SALIDA</b>`:' · en vigilancia'}`}); } });
@@ -740,7 +744,7 @@ function renderPanelDash(){
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
-    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',cobertura:'tesis',calendario:'agenda'};
+    const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda'};
     const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
     avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
