@@ -686,6 +686,88 @@
         }
       ],
       "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2026-Q1",
+      "fecha": "2026-04-23",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer no-verde en ocho trimestres, y el motivo es real, no óptico. El margen EBITDA ajustado cae del 23,2% al 22,0% (−1,2 pp) porque el Opex crece un 7,6% a moneda constante frente a un +5,4% de ventas. A nivel reportado el EBITDA cae un 4,8% y el beneficio un 4,6% —primeras caídas desde 2023— por la apreciación del euro, que deja las ventas planas (+0,1%) pese al +5,4% subyacente: es el riesgo de divisa del §8.1 materializándose. Sostienen el ámbar y no el rojo: margen bruto estable en 57,1%, desapalancamiento a 2,6x, guidance mantenido y Tratamiento de Agua +13,3% mientras Residencial cae un 3,0%. Este trimestre NO refleja aún el vencimiento de las coberturas de tipos del 30/06/2026: la primera lectura será 9M-2026.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 564
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 5.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 57.1
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 124
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 46
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1278
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 393
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 47
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 87
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Cierre de la compra de Variopool, especialista en suelos y paredes móviles, con una contribución estimada del 1% a las ventas del Grupo en el año.",
+          "impacto": "+",
+          "valoracion": "Refuerza Piscina Comercial justo cuando ese segmento se desacelera (+1,5% reportado frente al +8,6% de FY-2025). Compra pequeña y coherente con el papel de consolidadora; no mueve el precio objetivo."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Guidance FY 2026 mantenido sin cambios: ventas +3% a +7%, margen EBITDA ajustado 23,3%-24,3% y beneficio neto ajustado por acción +4% a +13%, a tipo de cambio constante.",
+          "impacto": "=",
+          "valoracion": "Que no lo recorten tras un trimestre con el margen en 22,0% es la señal más relevante del informe: la compañía asume que recupera 1,3-2,3 puntos de margen en lo que queda de año vía plan de eficiencia. Es el compromiso a vigilar en 1S-2026; si lo revisan a la baja, el ámbar pasa a rojo."
+        },
+        {
+          "tipo": "Contrato",
+          "hecho": "Lanzamiento en Estados Unidos de la plataforma SaaS PoolTrackr, adquirida en 2025 y probada en Australia.",
+          "impacto": "+",
+          "valoracion": "Entra en el mercado que concentra el 43% de las ventas y donde Fluidra distribuye a través de terceros. Refuerza el vínculo directo con el instalador profesional, que es el pilar de costes de cambio del moat (60/100)."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "La compañía cuantifica la construcción de nuevas piscinas residenciales en sus cinco países principales en 169 mil unidades, frente a una media de 214 mil en 1980-2025 y 208 mil en 2015-2025.",
+          "impacto": "=",
+          "valoracion": "Dato clave para la tesis y de doble lectura. El ciclo de obra nueva sigue en mínimos históricos —un 19% por debajo de su media de 45 años—, lo que confirma que el catalizador principal no ha llegado. Pero también acota el riesgo: la caída ya ha ocurrido, y una simple reversión a la media supondría un +23% de volumen de piscina nueva."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "La compañía formaliza su política de asignación de capital: payout en torno al 50% del beneficio neto ajustado por acción, retornos adicionales si hay exceso de caja y objetivo de operar con un apalancamiento de aproximadamente 2x a medio plazo.",
+          "impacto": "+",
+          "valoracion": "Primera vez que fija un objetivo de apalancamiento explícito. Con 2,6x actuales y bajando, implica que la prioridad seguirá siendo desapalancar antes que repartir — coherente con el Dividend Safety de 68 y con no esperar subidas grandes de dividendo a corto plazo."
+        }
+      ],
+      "periodoDisplay": "1T"
     }
   ]
 }
