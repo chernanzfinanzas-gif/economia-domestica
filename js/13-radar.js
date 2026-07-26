@@ -70,6 +70,20 @@ function renderUniverso(){
   var arqOpts=RAD_ARQ.filter(function(a){return arqCount[a];}).map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===window._uniArq?' selected':'')+'>'+_radEsc(a)+' ('+arqCount[a]+')</option>';}).join('');
   sec.innerHTML=
     '<div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🌐</span><div class="vhero-txt"><h2>Universo</h2><p>La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos.</p></div></div></div>'+
+    /* [B14 · 26-jul-2026] El boton «+ Empresa» crea la ficha SOLO dentro de la app:
+       no toca la Matriz, ni empresas.json, ni tickers.json. Una empresa dada de alta
+       asi no tendra nunca cotizacion automatica ni fundamentales, y por tanto NO
+       aparecera en el Radar (que cruza el universo con fundamentales.json). El alta
+       de verdad empieza en el Excel. Esto lo dice donde se comete el error. */
+    '<div class="uni-aviso">'+
+      '<b>Para añadir una empresa nueva</b> realiza el proceso de '+
+      '<b>Herramientas → 00 - 00 · Añadir empresa al Universo</b> y luego importa '+
+      '<code>matriz.json</code> desde el botón <b>⬆ Importar matriz.json</b> de esta página.'+
+      '<div class="sub2" style="margin-top:4px">El botón <b>+ Empresa</b> es para otra cosa: '+
+      'dar de alta algo que <b>no está en la Matriz</b> (un valor extranjero, un fondo) o '+
+      'corregir la clasificación de una que ya existe. Lo que crees ahí vive sólo en la app: '+
+      'sin cotización automática, sin fundamentales y sin salir en el Radar.</div>'+
+    '</div>'+
     '<div class="uni-k">'+
       '<div class="c hero"><div class="l">Empresas en el universo</div><div class="v">'+total+'</div><div class="p">clasificadas por arquetipo</div></div>'+
       '<div class="c"><div class="l">En cartera</div><div class="v g">'+nHeld+'</div><div class="p">con posición abierta</div></div>'+
@@ -147,6 +161,17 @@ function _uniOpenForm(t){
   var u=t?(DB.universo[t]||{}):{};
   var g=function(id){return document.getElementById(id);};
   g('uniDlgTitle').textContent=t?('Editar '+t):'Nueva empresa';
+  /* [B14] El aviso solo tiene sentido creando: editar la clasificacion aqui es un
+     uso legitimo del formulario. */
+  var _av=document.getElementById('uniDlgAviso');
+  if(!_av){ _av=document.createElement('div'); _av.id='uniDlgAviso'; _av.className='uni-aviso';
+    var _t=document.getElementById('uniDlgTitle');
+    if(_t&&_t.parentNode) _t.parentNode.insertBefore(_av,_t.nextSibling); }
+  if(_av){ _av.style.display = t ? 'none' : '';
+    _av.innerHTML = '<b>¿Es una empresa de la Matriz?</b> Entonces no la crees aquí: '+
+      'sigue <b>Herramientas → 00 - 00 · Añadir empresa al Universo</b> y luego '+
+      '<b>⬆ Importar matriz.json</b>. Lo que crees en este formulario vive sólo en la app '+
+      '— sin cotización automática, sin fundamentales y sin aparecer en el Radar.'; }
   g('uf_tk').value=t||''; g('uf_tk').readOnly=!!t;
   g('uf_nm').value=u.nombre||''; g('uf_arq').value=u.arquetipo||'Sin clasificar'; g('uf_rt').value=u.rating||'';
   g('uf_st').value=u.subtipo||''; g('uf_na').value=u.naturaleza||''; g('uf_ac').value=u.actividad||''; g('uf_ju').value=u.justificacion||'';
