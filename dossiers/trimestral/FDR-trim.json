@@ -1,0 +1,691 @@
+{
+  "schemaVersion": 2,
+  "ticker": "FDR",
+  "empresa": "Fluidra",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "fecha": "2023-04-27",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Primer trimestre del desplome: ventas −16,9% (−17,9% a moneda constante) y EBITDA −28,9% por la corrección de inventario en el canal tras la burbuja. La DN/EBITDA salta a 3,20x, por encima del umbral ámbar del §10.1 (2,50-3,50x) y el peor dato de la serie. Solo el segmento Comercial (+2,1%) y Tratamiento de Agua (−2,3%) aguantan: es la primera evidencia de que el aftermarket amortigua y la obra nueva no.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 554
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -17.9
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 52.1
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 121
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 41
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1478
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 3.2
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 394
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 41
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 82
+        }
+      ],
+      "periodoDisplay": "1T"
+    },
+    {
+      "periodo": "2023-Q2",
+      "fecha": "2023-07-27",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "El deterioro se confirma en el semestre: ventas −18,0% y Residencial −21,0%, mientras Comercial crece un 3,6% a perímetro constante. El margen bruto ya mejora (52,5% frente al 51,1% de 2022) gracias al precio, que es la primera señal de que la caída es de volumen y no de poder de precio. Apalancamiento todavía en 3,00x.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1186
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -18.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 52.5
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 288
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 104
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1300
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 840
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 97
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 172
+        }
+      ],
+      "periodoDisplay": "1S"
+    },
+    {
+      "periodo": "2023-Q3",
+      "fecha": "2023-10-26",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Pasa a ámbar: la deuda neta baja de 1.325 a 1.230 M€ y el ratio a 2,90x, con el margen bruto en 52,4% frente al 51,2% del año anterior. Las ventas siguen cayendo (−16,2% cte.) pero el ritmo se modera respecto al −18,0% del semestre. La caída es severa y sigue, pero la generación de caja y el margen ya no se deterioran.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1623
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -16.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 52.4
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 366
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 108
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1230
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.9
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1139
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 140
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 242
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2023-Q4",
+      "fecha": "2024-02-27",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre del peor año del ciclo con la tesis intacta: ventas −14,2% y beneficio −28,8%, pero margen bruto en 53,2% (+1,9 pp) y deuda neta reducida en 147 M€ hasta 2,60x. Comercial cierra +4,8% y Tratamiento de Agua solo −8,3%, frente al −16,5% de Residencial: el aftermarket hizo exactamente lo que la tesis dice que hace. Ámbar y no rojo porque el balance mejora mientras cae la cuenta de resultados.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2051
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -12.7
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 53.2
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 445
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 114
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1172
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1440
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 181
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 300
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Dividendo",
+          "hecho": "Recorte del dividendo por acción de 0,70 € a 0,55 € con cargo al ejercicio 2023.",
+          "impacto": "-",
+          "valoracion": "Segundo recorte consecutivo desde los 0,85 € de 2021. Confirma que el dividendo de Fluidra es consecuencia del ciclo y no una promesa: es el dato que hunde a 3/15 el componente de trayectoria del Dividend Safety Score."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Puesta en marcha del Programa de Simplificación 2023-2025, con objetivo de 100 M€ de EBITDA ajustado.",
+          "impacto": "+",
+          "valoracion": "La respuesta ortodoxa al ciclo adverso: recortar coste en vez de perseguir volumen. Es el plan que sostiene la recuperación de margen de 2024-2025 y el antecedente que hace creíble el nuevo plan de 120 M€."
+        }
+      ],
+      "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2024-Q1",
+      "fecha": "2024-04-25",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "La caída se frena: −4,8% frente al −16,9% del año anterior, y el margen bruto salta al 54,8% (+2,7 pp) por el Programa de Simplificación. Sigue en ámbar por el apalancamiento estacional de 3,00x —el primer trimestre siempre es el peor— y porque Residencial aún cae un 5,1%. Comercial (+7,6%) y el margen son lo que sostiene.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 527
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -4.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 54.8
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 118
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 37
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1345
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 374
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 44
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 77
+        }
+      ],
+      "periodoDisplay": "1T"
+    },
+    {
+      "periodo": "2024-Q2",
+      "fecha": "2024-07-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer verde de la serie: EBITDA +2,8% con ventas prácticamente planas, margen bruto en 55,9% (+3,4 pp) y deuda neta un 11,5% menor, con el ratio en 2,50x, ya en el umbral verde del §10.1. El beneficio atribuido crece un 7,5%. El negocio ha dejado de caer y la eficiencia está haciendo el trabajo que el volumen no hace.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1171
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": -1.5
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 55.9
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 296
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 112
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1151
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.5
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 834
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 99
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 167
+        }
+      ],
+      "periodoDisplay": "1S"
+    },
+    {
+      "periodo": "2024-Q3",
+      "fecha": "2024-10-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Vuelta al crecimiento: +0,8% de ventas y +5,6% de EBITDA, con el beneficio atribuido +14,1%. La DN/EBITDA baja a 2,30x, seis décimas mejor que un año antes, y el margen bruto se consolida en 55,9%. Los tres segmentos crecen. Es el trimestre que confirma que el suelo de 2023 fue suelo y no escalón.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1637
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 0.9
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 55.9
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 386
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 123
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1069
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.3
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1155
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 143
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 242
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2024-Q4",
+      "fecha": "2025-02-26",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre en la parte alta del guidance: ventas +2,5%, EBITDA ajustado +7,3% y beneficio +21,3%, con crecimiento de volumen por primera vez desde 2021. Margen bruto en 56,6% (+3,4 pp) y apalancamiento en 2,37x. Los cuatro KPIs críticos del §10.1 —margen, EBITDA, deuda y cobertura— mejoran a la vez. Tesis reforzada.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2102
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.6
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 477
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 138
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1132
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.37
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1488
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 185
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 304
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "Jaime Ramírez, procedente de Stanley Black & Decker, sustituye a Bruce Brooks como consejero delegado desde el 1 de junio de 2024.",
+          "impacto": "=",
+          "valoracion": "Relevo de ejecución, no de criterio: Brooks permanece como vocal del Consejo y el ancla familiar y financiera no se mueve. Neutro para la tesis, positivo para el plan de eficiencia."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Cierre de 2024 en la parte alta del guidance, con crecimiento de volumen por primera vez desde 2021.",
+          "impacto": "+",
+          "valoracion": "Primera confirmación de que el suelo de 2023 fue suelo. Refuerza el escenario base del DCF, que solo pide un 4,0% de crecimiento."
+        }
+      ],
+      "periodoDisplay": "FY"
+    },
+    {
+      "periodo": "2025-Q1",
+      "fecha": "2025-04-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Arranque fuerte: +6,9% de ventas (+5,1% a moneda constante), EBITDA ajustado +10,4% y beneficio +29,3%, con el margen bruto en un máximo de 57,3%. El ratio de 2,70x es estacional —el primer trimestre consume circulante— y mejora tres décimas interanuales. Residencial +8,3% es la primera señal real de recuperación del volumen.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 564
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 5.1
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 57.3
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 131
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 48
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1335
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 405
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 47
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 77
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Cierre de la compra del 100% de BAC Pool Systems, fabricante de cubiertas con operaciones en Alemania y Suiza.",
+          "impacto": "+",
+          "valoracion": "Compra de complemento financiada con caja, coherente con el papel de consolidadora en un sector fragmentado. Tamaño no material para el precio objetivo."
+        }
+      ],
+      "periodoDisplay": "1T"
+    },
+    {
+      "periodo": "2025-Q2",
+      "fecha": "2025-07-24",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Semestre sólido con crecimiento en las tres regiones: ventas +4,8%, EBITDA ajustado +6,1% y beneficio +21,1%. La deuda neta baja a 1.116 M€ y el ratio a 2,40x pese a haber financiado la compra de BAC. Comercial acelera al +7,5% y Tratamiento de Agua al +4,2%: el aftermarket crece a la vez que la obra nueva se recupera.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1227
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 5.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.5
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 314
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 136
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1116
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.4
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 873
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 106
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 174
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "Inversión de 100 M$ por el 27% de Aiper, fabricante de robots limpiafondos sin cable, con opción de mayoría condicionada a que alcance 370 M$ de ingresos y ~15% de margen EBITDA.",
+          "impacto": "+",
+          "valoracion": "La operación más relevante del periodo. Compra opcionalidad sobre la disrupción de su propio canal —el robot inalámbrico vendido directo al consumidor— y condiciona el precio del control a que el activo demuestre el resultado. Disciplina de asignación de capital, pero introduce un compromiso futuro de caja no cuantificado."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra del 100% de PoolTrackr, plataforma SaaS de gestión para profesionales de piscina, lanzada en Australia.",
+          "impacto": "+",
+          "valoracion": "Refuerza el vínculo con el instalador profesional, que es el pilar real del moat de costes de cambio (60/100). Impacto en cifras irrelevante a corto."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Capital Markets Day de abril de 2025: objetivos a medio plazo de ventas +6% a +8%, margen EBITDA ajustado >25% y ROCE >17%.",
+          "impacto": "=",
+          "valoracion": "El objetivo de margen queda lejos: 22,9% en 2025 y un guidance 2026 de 23,3-24,3% que ya admite que no se alcanzará. Los objetivos del CMD no sirven como base de proyección; el guidance anual sí."
+        }
+      ],
+      "periodoDisplay": "1S"
+    },
+    {
+      "periodo": "2025-Q3",
+      "fecha": "2025-10-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El mejor trimestre del periodo analizado: ventas +5,3% (+6,6% cte.) con aceleración al +10% en el trimestre estanco, beneficio atribuido +33,0% y DN/EBITDA en 2,10x, el mínimo de la serie. Los gastos de reestructuración caen un 58% al terminar el Programa de Simplificación. El margen bruto cede una décima por mix geográfico y aranceles, y es lo único que conviene vigilar.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1724
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 6.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.1
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 411
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 163
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1034
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.1
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1210
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 156
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 255
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Otros",
+          "hecho": "Reconocidos «Proveedor del Año» por los tres principales distribuidores de EE. UU. por quinto año consecutivo.",
+          "impacto": "+",
+          "valoracion": "Evidencia observable del pilar de intangibles del moat (72/100), el único que puntúa alto. Ganar cuota en un año de mercado plano es la señal más fiable de ventaja competitiva real."
+        }
+      ],
+      "periodoDisplay": "9M"
+    },
+    {
+      "periodo": "2025-Q4",
+      "fecha": "2026-02-25",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre del ejercicio base del análisis, dentro del guidance: ventas +3,9% (+6,1% a moneda constante y perímetro), EBITDA ajustado 501 M€ (+5,0%, margen 22,9%) y beneficio atribuido +27,5%. Deuda neta en 1.087 M€ y ratio en 2,20x pese a financiar cuatro adquisiciones y la fase I de Aiper. El margen bruto se mantiene estable en 56,6% absorbiendo aranceles e inflación. Verde con una reserva: el crecimiento sigue apoyado en precio y eficiencia más que en volumen de obra nueva, y las coberturas de tipos vencieron en junio de 2026.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 2184
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 6.1
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.6
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 501
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 176
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1087
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 1532
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 200
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 321
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Cierre de Powerplastics (Sudáfrica, noviembre) y firma de la compra del 100% de Variopool (diciembre, cierre en 2026), especialista en suelos y paredes móviles para piscina comercial.",
+          "impacto": "+",
+          "valoracion": "Cuatro adquisiciones completadas en el año sin que la deuda neta suba: el ratio cierra en 2,20x. Variopool refuerza el segmento comercial, que crece al 8,6% frente al 3,0% del residencial."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Anuncio del Plan de Eficiencia 2026-2030 con objetivo de 120 M€ de ahorros (75% en margen bruto, 25% en Opex) y ~50 M€ de costes no recurrentes asociados.",
+          "impacto": "+",
+          "valoracion": "Es el catalizador controlable de la tesis: 120 M€ sobre un EBITDA de 501 M€ son un 24% de mejora potencial que no requiere que el ciclo americano gire. Y el Programa de Simplificación anterior se cumplió íntegro."
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "Octava novación del Convenio de Sindicación (4 de diciembre), al aportar las familias fundadoras un 20% del capital a ADBE Partners, S.L.",
+          "impacto": "=",
+          "valoracion": "Reordenación patrimonial de las familias, no cambio de control: el bloque del Consejo sigue en el 54,6%. Confirma vocación de permanencia, y de paso que el minoritario seguirá sin decidir."
+        }
+      ],
+      "periodoDisplay": "FY"
+    }
+  ]
+}
