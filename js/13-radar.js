@@ -79,10 +79,10 @@ function renderUniverso(){
       '<b>Para añadir una empresa nueva</b> realiza el proceso de '+
       '<b>Herramientas → 00 - 00 · Añadir empresa al Universo</b> y luego importa '+
       '<code>matriz.json</code> desde el botón <b>⬆ Importar matriz.json</b> de esta página.'+
-      '<div class="sub2" style="margin-top:4px">El botón <b>+ Empresa</b> es para otra cosa: '+
-      'dar de alta algo que <b>no está en la Matriz</b> (un valor extranjero, un fondo) o '+
-      'corregir la clasificación de una que ya existe. Lo que crees ahí vive sólo en la app: '+
-      'sin cotización automática, sin fundamentales y sin salir en el Radar.</div>'+
+      '<div class="sub2" style="margin-top:4px">Es el <b>único</b> camino de alta: así la empresa '+
+      'entra también en la Matriz, en <code>empresas.json</code> y en <code>tickers.json</code>, '+
+      'que es lo que le da cotización y fundamentales. Para <b>corregir</b> la clasificación de '+
+      'una que ya existe, usa el lápiz de su fila.</div>'+
     '</div>'+
     '<div class="uni-k">'+
       '<div class="c hero"><div class="l">Empresas en el universo</div><div class="v">'+total+'</div><div class="p">clasificadas por arquetipo</div></div>'+
@@ -93,7 +93,6 @@ function renderUniverso(){
     '</div>'+
     '<div class="uni-tb">'+
       '<button class="btn ghost sm" id="uImport">⬆ <span class="lbl-full">Importar matriz.json</span><span class="lbl-short">Imp. Json</span></button>'+
-      '<button class="btn sm" id="uAdd">+ Empresa</button>'+
       '<input type="file" id="uFile" accept="application/json,.json" style="display:none">'+
       '<input type="search" id="uSearch" placeholder="Buscar…" value="'+_radEsc(window._uniQ)+'">'+
       '<div class="uni-fgroup"><select id="uArq"><option value="">Todos los arquetipos</option>'+arqOpts+'</select>'+
@@ -145,7 +144,13 @@ function _uniBind(sec){
     if(t.id==='uFile'){ var f=t.files&&t.files[0]; if(!f)return; var rd=new FileReader(); rd.onload=function(){ try{ importUniverso(JSON.parse(rd.result)); }catch(err){ alert('matriz.json no válido: '+err); } }; rd.readAsText(f); t.value=''; return; } });
   sec.addEventListener('click',function(e){
     if(e.target.closest('#uImport')){ var f=document.getElementById('uFile'); if(f)f.click(); return; }
-    if(e.target.closest('#uAdd')){ _uniOpenForm(null); return; }
+    /* [B14 · 26-jul-2026] El boton «+ Empresa» se retiro. Creaba la ficha SOLO
+       dentro de la app —sin Matriz, sin empresas.json, sin tickers.json— y esa
+       empresa se quedaba sin cotizacion ni fundamentales para siempre; el Bloque 0
+       la rechazaba despues, ya con la basura sembrada en Analisis y en Dividendos.
+       Se comprobo antes de quitarlo: en 102 empresas NUNCA se uso para dar de alta
+       algo ajeno a la Matriz. El alta entra por un solo sitio, y el aviso de la
+       cabecera dice cual. Editar sigue disponible con el lapiz de cada fila. */
     var ch=e.target.closest('.uni-fchip'); if(ch){ var k=ch.getAttribute('data-ust'); window._uniSt[k]=!window._uniSt[k]; _uniRenderList(); ch.classList.toggle('on'); return; }
     var ed=e.target.closest('[data-uedit]'); if(ed){ e.stopPropagation(); _uniOpenForm(ed.getAttribute('data-uedit')); return; }
     var dl=e.target.closest('[data-udel]'); if(dl){ e.stopPropagation(); _uniDelete(dl.getAttribute('data-udel')); return; }
