@@ -261,10 +261,51 @@ function _radCrec(t){ if(typeof evoDpaBruto!=='function')return null; var nowY=n
 function _radCrecCell(cr){ if(cr==null)return '<span class="muted">—</span>'; if(cr<=-98)return '<b style="color:#dc2626" title="Dividendo suspendido">✂ 0</b>';
   var col=cr>=3?'#16a34a':(cr>-1?'#64748b':'#dc2626'); return '<b style="color:'+col+'">'+(cr>=0?'+':'')+cr.toFixed(1).replace('.',',')+'%</b>';
 }
+/* ============================================================================
+   [B12 · 26-jul-2026] TRAMPA DE VALOR. La cabecera del Radar llevaba desde
+   siempre prometiendo «detectar posibles trampas de valor», pero lo único que
+   detectaba era la trampa de DIVIDENDO, y además exigía RPD > 7 % para siquiera
+   mirarla: una empresa con rentabilidad normal no podía recibir el aviso por muy
+   deteriorada que estuviera. Esto es lo que faltaba.
+
+   Una trampa de valor es lo contrario que una oportunidad: parece barata porque
+   ha caído, y ha caído por un motivo. El Atractivo no lo distingue — de hecho
+   PREMIA la caída (el subíndice de posición 52s vale hasta 10 de los 100 puntos).
+   Aquí se cruza «ha caído» con «el negocio se está deteriorando».
+
+   Umbrales calibrados contra las 102 empresas del universo: la puerta 52s ≤ 25
+   deja 30 candidatas, y exigiendo 3 señales de deterioro marcan 8 (el 8 %). Con
+   2 señales marcaba 17 y colaba cosas sanas; con 4, sólo 5 y se escapaban casos
+   claros. Es un filtro grueso: por eso SIEMPRE se enseñan los motivos, para que
+   el que decide seas tú y no el umbral.
+   ============================================================================ */
+var RAD_TV={pos52:25, dn:3.5, roe:8, margen:3, payout:90, minSen:3, altaSen:4};
+function radTrampaValor(f){
+  var vacio={activa:false, nivel:'', motivos:[]};
+  if(!f)return vacio;
+  var n=function(k){ var v=f[k]; return (v==null||v==='')?null:parseFloat(v); };
+  var p=n('pos52sem');
+  if(p==null || p>RAD_TV.pos52) return vacio;      /* puerta: tiene que haber caído */
+  var m=[], pbv=n('pbv');
+  if(pbv!=null&&pbv<0)                     m.push('patrimonio neto negativo');
+  if(n('crecBpa')!=null&&n('crecBpa')<0)   m.push('beneficio a la baja');
+  if(n('crecIngresos')!=null&&n('crecIngresos')<0) m.push('ingresos a la baja');
+  if(n('dnEbitda')!=null&&n('dnEbitda')>RAD_TV.dn) m.push('deuda '+n('dnEbitda').toFixed(2).replace('.',',')+'x EBITDA');
+  if(n('roe')!=null&&n('roe')<RAD_TV.roe)  m.push('ROE '+n('roe').toFixed(1).replace('.',',')+'%');
+  if(n('margenNeto')!=null&&n('margenNeto')<RAD_TV.margen) m.push('margen neto '+n('margenNeto').toFixed(1).replace('.',',')+'%');
+  if(n('payout')!=null&&n('payout')>RAD_TV.payout) m.push('payout '+n('payout').toFixed(0)+'%');
+  if((f.flags||[]).some(function(x){return /irregular/i.test(x);})) m.push('dividendo irregular');
+  if(m.length<RAD_TV.minSen) return vacio;
+  return {activa:true, nivel:(m.length>=RAD_TV.altaSen?'alta':'posible'), motivos:m, pos:p};
+}
 /* Alertas de una empresa (para la señal ⚠ + su banner emergente). sev: 'r'>'a'>'v'. */
 var _radAlertMap={}; var _RAD_ALSEV={r:0,a:1,v:2}; var _RAD_ALICON={r:'🔴',a:'🟠',v:'🟢'};
 function _radAlertas(c){ var out=[];
   if(c.trampa)out.push({s:'r',t:'Posible trampa de dividendo',d:'RPD alta con payout/seguridad del dividendo insostenibles: el reparto puede no estar cubierto por el beneficio o la caja.'});
+  if(c.tv&&c.tv.activa)out.push({s:(c.tv.nivel==='alta'?'r':'a'),
+    t:'Posible trampa de VALOR'+(c.tv.nivel==='alta'?' (alta)':''),
+    d:'Cotiza en el '+c.tv.pos.toFixed(0)+'% inferior de su rango anual —y el Atractivo la premia por eso— pero el negocio se está deteriorando: '
+      +c.tv.motivos.join(', ')+'. Barata no es lo mismo que barata por buen motivo. Filtro grueso: mira los números antes de descartarla.'});
   if(c.crecDiv!=null){ if(c.crecDiv<=-98)out.push({s:'r',t:'Dividendo suspendido/recortado a 0',d:'El último dividendo bruto es 0: reparto suspendido.'});
     else if(c.crecDiv<=-1)out.push({s:'r',t:'Dividendo decreciente',d:'Crecimiento del dividendo negativo (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
     else if(c.crecDiv<1)out.push({s:'a',t:'Dividendo estancado',d:'El dividendo apenas crece (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
@@ -291,7 +332,7 @@ function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
-  var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y detectar posibles trampas de valor.</p></div></div></div>';
+  var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y marcar las dos trampas: la de <b>dividendo</b> (⚠️, reparto sin cubrir) y la de <b>valor</b> (🔻, ha caído y el negocio se deteriora).</p></div></div></div>';
   if(!Object.keys(DB.universo).length){ sec.innerHTML=_radVhero+'<div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML=_radVhero+'<div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
   Promise.all([_radCargarFund(), _radCambiosCargar(), (typeof _evoCargar==='function'?_evoCargar():Promise.resolve())]).then(function(_res){ var fund=_res[0];
@@ -313,7 +354,7 @@ function renderRadar(){
         if(_pp>0){ var _dd=num(_radarDiv(t)); var _rpdV=(_dd>0)?Math.round(_dd/_pp*10000)/100:0;
           if(_rpdV!==f.rpd){ var _f2={}; for(var _k in f) _f2[_k]=f[_k]; _f2.rpd=_rpdV; f=_f2; } }
       }
-      var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst,crecDiv:(typeof _radCrec==='function'?_radCrec(t):null)}); });
+      var _dst=_radDs(t); var sc=radScore(f,u.rating,_dst); cands.push({t:t,nombre:u.nombre||f.nombre||t,arq:u.arquetipo||'Sin clasificar',rating:u.rating||'',f:f,atr:sc.atr,nota:sc.nota,trampa:sc.trampa,ds:_dst,crecDiv:(typeof _radCrec==='function'?_radCrec(t):null), tv:radTrampaValor(f)}); });   /* [B12] */
     _radCands=cands; _radMeta=fund;
     if(!cands.length){ sec.innerHTML=_radVhero+'<div class="empty">No hay cruce entre el universo y <code>fundamentales.json</code>. ¿Está subido <code>fundamentales.json</code> al repo y actualizado? (act. '+_radEsc((fund&&fund.actualizado)||'—')+')</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
     /* Carga cotizaciones históricas (para la Posición a N años) y luego construye. */
@@ -327,16 +368,17 @@ function _radBuild(sec){
   window._radFlt=window._radFlt||{held:false,ana:false,sel:false,pend:false};
   var mejor=cands.slice().sort(function(a,b){return b.atr-a.atr;})[0];
   var trampas=cands.filter(function(c){return c.trampa;}).length;
+  var trampasV=cands.filter(function(c){return c.tv&&c.tv.activa;}).length;   /* [B12] */
   var arqSet={}; cands.forEach(function(c){arqSet[c.arq]=1;}); var arqList=Object.keys(arqSet).sort();
   var arqOpts='<option value="">Todos los arquetipos</option>'+arqList.map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===_radArqFilter?' selected':'')+'>'+_radEsc(a)+'</option>';}).join('');
   var _ry=(typeof _radarYears!=='undefined')?_radarYears:3;
   var sortOpts=[['atr','Atractivo'],['rpd','RPD'],['roe','ROE'],['per','PER'],['pos52sem','Pos.52s'],['posN','Pos.'+_ry+'a']].map(function(o){return '<option value="'+o[0]+'"'+(_radSort.k===o[0]?' selected':'')+'>'+o[1]+'</option>';}).join('');
   var yearOptsN=[1,2,3,4,5].map(function(y){return '<option value="'+y+'"'+(y===_ry?' selected':'')+'>'+y+(y===1?' año':' años')+'</option>';}).join('');
-  sec.innerHTML='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y detectar posibles trampas de valor.</p></div></div></div>'+
+  sec.innerHTML='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y marcar las dos trampas: la de <b>dividendo</b> (⚠️, reparto sin cubrir) y la de <b>valor</b> (🔻, ha caído y el negocio se deteriora).</p></div></div></div>'+
     '<div class="rad-k">'+
       '<div class="c hero"><div class="l">Universo con datos</div><div class="v">'+cands.length+'</div><div class="p">cruzan con fundamentales</div></div>'+
       '<div class="c"><div class="l">Mejor atractivo</div><div class="v" style="color:#16a34a">'+(mejor?mejor.atr.toFixed(1):'—')+'</div><div class="p">'+(mejor?_radEsc(mejor.t):'')+'</div></div>'+
-      '<div class="c"><div class="l">Posibles trampas</div><div class="v" style="color:#b45309">'+trampas+'</div><div class="p">RPD alta con riesgo</div></div>'+
+      '<div class="c"><div class="l">Trampas de dividendo</div><div class="v" style="color:#b45309">'+trampas+'</div><div class="p">RPD alta sin cobertura</div></div>'+'<div class="c"><div class="l">Trampas de valor</div><div class="v" style="color:#b45309">'+trampasV+'</div><div class="p">ha caído y se deteriora</div></div>'+
       '<div class="c"><div class="l">Actualizado</div><div class="v" style="font-size:18px">'+_radEsc((fund&&fund.actualizado)||'—')+'</div><div class="p">último fundamentales.json</div></div>'+
     '</div>'+
     '<div class="rad-tb">'+
@@ -353,7 +395,7 @@ function _radBuild(sec){
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>'+
-    '<div class="sub" style="margin-top:8px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>; ⚠️ marca posible trampa de dividendo. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
+    '<div class="sub" style="margin-top:8px"><b>Atractivo (0–100)</b> = 35% Dividendo + 35% Calidad + 30% Valoración. Cribado grueso para decidir <b>a quién analizar</b>. <b>⚠️</b> = posible trampa de <b>dividendo</b> (RPD alta que el beneficio o la caja no cubren). <b>🔻</b> = posible trampa de <b>valor</b>: cotiza en el cuartil bajo de su rango anual —justo lo que el Atractivo le premia— pero acumula 3 o más señales de deterioro (beneficio o ingresos a la baja, deuda &gt;3,5x, ROE &lt;8 %, margen &lt;3 %, payout &gt;90 %, patrimonio negativo, dividendo irregular). Pasa el ratón por la marca para ver cuáles. En las <b>ya analizadas</b>, el componente Dividendo y la ⚠️ usan el <b>Dividend Safety</b> real (columna «Seg. div.»); la columna «Forense» resume el contraste de cuentas (✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia). Datos de <code>fundamentales.json</code>.</div>'+
     '<div id="radBuzonSecs" style="margin-top:18px"></div>';
   _radRenderList();
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
@@ -387,7 +429,7 @@ function _radRenderList(){
   document.getElementById('radBody').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t];
     var st=sel?'sel':(_held.has(c.t)?'held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?'ana':''));
     return '<tr class="'+st+'"><td class="l"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></td>'+
-      '<td class="l rad-atr" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+_radSugBadge(c)+'</td>'+
+      '<td class="l rad-atr" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(1)+(c.trampa?' ⚠️':'')+((c.tv&&c.tv.activa)?' <span title="Posible trampa de valor: '+_radEsc(c.tv.motivos.join(', '))+'">🔻</span>':'')+_radSugBadge(c)+'</td>'+
       '<td class="l"><b class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</b>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(c.t,true):'')+' <span style="font-size:11px;color:#94a3b8">'+_radEsc((c.nombre||'').slice(0,18))+'</span></td>'+
       '<td class="l">'+_radAtag(c.arq)+'</td>'+
       '<td style="font-weight:700;color:'+(f.rpd>=5?'#16a34a':(f.rpd>=3.5?'#2563eb':'#475569'))+'">'+_rf(f.rpd,'%',2)+'</td>'+
@@ -404,7 +446,7 @@ function _radRenderList(){
   document.getElementById('radCards').innerHTML=list.map(function(c){ var f=c.f; var sel=!!DB.radarSel[c.t]; var op=!!window._radOpen[c.t];
     var st=sel?' sel':(_held.has(c.t)?' held':((typeof _esAnalizada==='function'&&_esAnalizada(c.t))?' ana':''));
     return '<div class="rad-card'+st+(op?' open':'')+'" data-t="'+_radEsc(c.t)+'"><div class="rad-card-h"><div class="cka"><input type="checkbox" class="rad-ck" data-radck="'+_radEsc(c.t)+'"'+(sel?' checked':'')+'></div>'+
-      '<div class="score"><div class="n" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(0)+'</div><div class="l">Atr'+(c.trampa?' ⚠️':'')+'</div></div>'+
+      '<div class="score"><div class="n" style="color:'+_radAcol(c.atr)+'">'+c.atr.toFixed(0)+'</div><div class="l">Atr'+(c.trampa?' ⚠️':'')+((c.tv&&c.tv.activa)?' 🔻':'')+'</div></div>'+
       '<div class="mid"><div class="nm"><span class="rad-tk" data-ficha="'+_radEsc(c.t)+'">'+_radEsc(c.t)+'</span>'+(typeof alertaCorpBadge==='function'?alertaCorpBadge(c.t,true):'')+' · '+_radEsc((c.nombre||'').slice(0,20))+'</div><div class="sub2">'+_radAtag(c.arq)+' '+_radStars(c.rating)+'</div></div>'+
       '<div class="rpd"><div class="v" style="color:'+(f.rpd>=5?'#16a34a':'#475569')+'">'+_rf(f.rpd,'%',1)+'</div><div class="l">RPD</div></div>'+
       '<span class="rad-arw">▶</span></div>'+
