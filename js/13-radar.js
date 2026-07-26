@@ -465,7 +465,39 @@ function _radSugerencia(c){ if(!c)return null; var t=(c.t||'').toUpperCase();
 function _radSugBadge(c){ var x=(typeof _radSugerencia==='function')?_radSugerencia(c):null; return x==='ana'?' <span class="rad-sug" title="Sugerida: analizar (Atractivo alto + rating ★★★)">🟣</span>':(x==='vig'?' <span class="rad-sug" title="Sugerida: vigilar">🔵</span>':''); }
 function _colaHas(t){ t=(t||'').toUpperCase(); return (DB.cola||[]).some(function(x){return (x.t||'').toUpperCase()===t;}); }
 function _esAnalizada(t){ t=(t||'').toUpperCase(); var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(a&&a.dossierFecha)return true; if(typeof _tesisSet!=='undefined'&&_tesisSet&&_tesisSet.has&&_tesisSet.has(t))return true; return false; }
-function colaAdd(t){ t=(t||'').toUpperCase(); if(!t)return false; DB.cola=DB.cola||[]; if(_colaHas(t))return false; DB.cola.push({t:t,estado:'pendiente',nota:''}); if(typeof scheduleSave==='function')scheduleSave(); return true; }
+/* ============================================================================
+   [B11 · 26-jul-2026] La cola de análisis era el único punto del sistema donde
+   una tarea podía morir en silencio: se creaba sin fecha, no envejecía nunca, no
+   llegaba a «vencida», ningún aviso del Panel la miraba, y la lista nunca se
+   vaciaba — a 24 empresas ya arrastraba 15 filas muertas que además contaminaban
+   el orden ▲▼ que la propia pantalla anuncia. Aquí se le da fecha de alta, edad
+   y caducidad, y se separa lo vivo del historial.
+   ============================================================================ */
+var COLA_DIAS_DEF=45;                       /* días en cola antes de considerarla vencida */
+function colaDiasVence(){ var n=(typeof num==='function')?num(((DB.config||{}).colaDias)):parseFloat((DB.config||{}).colaDias); return (n>0)?n:COLA_DIAS_DEF; }
+function _colaHoy(){ var d=new Date(); d.setHours(0,0,0,0); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function _colaViva(c){ return !!c && !_esAnalizada(c.t) && (c.estado!=='hecha'); }
+/* Las entradas anteriores a B11 no tienen alta. No se inventa una fecha pasada:
+   se sella HOY, y sólo en las vivas (las muertas ya no cuentan para nada). */
+function colaSellarAltas(){ var n=0; (DB.cola||[]).forEach(function(c){ if(_colaViva(c) && !c.alta){ c.alta=_colaHoy(); n++; } });
+  if(n && typeof scheduleSave==='function')scheduleSave(); return n; }
+function colaEdad(c){ if(!c||!c.alta)return null; var a=new Date(c.alta+'T00:00:00'); if(isNaN(a))return null;
+  var h=new Date(); h.setHours(0,0,0,0); return Math.round((h-a)/86400000); }
+/* días que faltan para caducar: ≤0 = vencida. null si no hay fecha de alta. */
+function colaDiasRestantes(c){ var e=colaEdad(c); return (e==null)?null:(colaDiasVence()-e); }
+function colaVencidas(){ return (DB.cola||[]).filter(function(c){ if(!_colaViva(c))return false; var d=colaDiasRestantes(c); return d!=null && d<=0; }); }
+function colaAdd(t){ t=(t||'').toUpperCase(); if(!t)return false; DB.cola=DB.cola||[]; if(_colaHas(t))return false; DB.cola.push({t:t,estado:'pendiente',nota:'',alta:_colaHoy()}); if(typeof scheduleSave==='function')scheduleSave(); return true; }
+/* Mueve dentro de la SUBSECUENCIA VIVA: antes ▲ intercambiaba con el vecino del
+   array, que podía ser una analizada, y el clic no hacía nada visible. */
+function colaMover(t,dir){ t=(t||'').toUpperCase(); var arr=DB.cola||[];
+  var i=arr.findIndex(function(x){return (x.t||'').toUpperCase()===t;}); if(i<0)return false;
+  var j=-1; if(dir<0){ for(var k=i-1;k>=0;k--){ if(_colaViva(arr[k])){ j=k; break; } } }
+  else { for(var k2=i+1;k2<arr.length;k2++){ if(_colaViva(arr[k2])){ j=k2; break; } } }
+  if(j<0)return false; var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp;
+  if(typeof scheduleSave==='function')scheduleSave(); return true; }
+function colaLimpiarHechas(){ var antes=(DB.cola||[]).length;
+  DB.cola=(DB.cola||[]).filter(_colaViva);
+  var n=antes-(DB.cola||[]).length; if(n && typeof scheduleSave==='function')scheduleSave(); return n; }
 function _uniInfo(t){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]||{}; var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;})||{}; return {nombre:u.nombre||a.nombre||t, arq:u.arquetipo||''}; }
 function renderCobertura(){
   var sec=document.getElementById('view-cobertura'); if(!sec)return;
@@ -473,11 +505,15 @@ function renderCobertura(){
   window._cobOpen=window._cobOpen||{cal:false,cola:false,cad:false};
   var analizadas=DB.analisis.filter(function(a){return a.dossierFecha;});
   var nAnaliz=analizadas.length;
-  var nColaPend=DB.cola.filter(function(c){return !_esAnalizada(c.t)&&(c.estado!=='hecha');}).length;
+  colaSellarAltas();                                    /* [B11] las entradas viejas empiezan a contar hoy */
+  var _vivas=DB.cola.filter(_colaViva);
+  var nColaPend=_vivas.length;
+  var nColaVenc=colaVencidas().length;                  /* [B11] */
+  var nColaCurso=_vivas.filter(function(c){return c.estado==='en curso';}).length;
   var nUni=Object.keys(DB.universo||{}).length;
   var kpis='<div class="cob-k">'+
     '<div class="c hero"><div class="l">Analizadas</div><div class="v">'+nAnaliz+'</div><div class="p">con dossier</div></div>'+
-    '<div class="c"><div class="l">En cola</div><div class="v">'+nColaPend+'</div><div class="p">pendientes de analizar</div></div>'+
+    '<div class="c"><div class="l">En cola</div><div class="v'+(nColaVenc?' warn':'')+'">'+nColaPend+'</div><div class="p">'+(nColaVenc?('<b style="color:#b45309">'+nColaVenc+' vencida'+(nColaVenc===1?'':'s')+'</b>'):(nColaCurso?(nColaCurso+' en curso'):'pendientes de analizar'))+'</div></div>'+
     '<div class="c"><div class="l">Universo</div><div class="v">'+nUni+'</div><div class="p">empresas clasificadas</div></div>'+
     '<div class="c"><div class="l">Requieren acción</div><div class="v warn" id="cobAccion">·</div><div class="p">señales y vencidas</div></div>'+
   '</div>';
@@ -485,7 +521,7 @@ function renderCobertura(){
   sec.innerHTML='<div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📋</span><div class="vhero-txt"><h2>Cobertura</h2><p>Qué empresas has analizado y cuáles tienes en cola. El <b>Calendario</b> reúne lo que toca hacer; la <b>Cola</b> la ordenas tú (▲▼) y la nutres desde <b>Radar Op.</b> (★).</p></div></div></div>'+
     kpis+
     blk('cal','📅','Calendario de cobertura','Qué toca ahora: señales, vencidas, cola y próximos informes','','Arriba lo que requiere acción ahora (señales de precio y vencidas), luego las pendientes de analizar (tu cola) y las programadas con los días que faltan. Marca ✓ al hacerlo. <span class="muted">El próximo informe se estima desde el monitor trimestral.</span>','<div id="calHost"><div class="muted" style="font-size:12px;padding:8px 0">Preparando calendario…</div></div>')+
-    blk('cola','🗂️','Cola de análisis','Tu orden de prioridad ▲▼, nutrida desde Radar Op. con ★',nColaPend+' pendientes','Por tu orden de prioridad (▲▼). Se nutre desde Radar Op. con ★.',_cobColaHtml())+
+    blk('cola','🗂️','Cola de análisis','Tu orden de prioridad ▲▼, nutrida desde Radar Op. con ★',nColaPend+' pendientes','Por tu orden de prioridad (▲▼). Se nutre desde Radar Op. con ★. Cada entrada guarda su <b>fecha de alta</b> y vence a los <b>'+colaDiasVence()+' días</b>: al vencer sube al Calendario, a «requieren acción». Las ya analizadas se apartan al historial.',_cobColaHtml())+
     blk('cad','🔁','Cadencia de las analizadas','Último/próximo informe, revisión anual y calibración',nAnaliz+' analizadas','Último y próximo informe estimado, si toca monitor o revisión anual, calibración y señal de precio activa.','<div id="cadHost"><div class="muted" style="font-size:12px;padding:8px 0">Cargando informes trimestrales…</div></div>');
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   _cobBind(sec);
@@ -494,23 +530,54 @@ function renderCobertura(){
   else { var h=document.getElementById('cadHost'); if(h)h.innerHTML='<div class="muted" style="font-size:12px;padding:8px 0">Aún no hay empresas analizadas.</div>'; _pintarCalendario([]); }
 }
 function _cobAtag(a){ a=a||'Sin clasificar'; var col=(typeof UNI_ARQCOL!=='undefined'&&UNI_ARQCOL[a])||'#94a3b8'; return a?'<span class="cob-atag" style="background:'+col+'">'+_radEsc(a)+'</span>':''; }
+/* [B11] Edad de una entrada, en texto y con su color. Es la columna que faltaba. */
+function _colaEdadHTML(c){
+  var e=colaEdad(c); if(e==null) return '<span class="muted" style="font-size:11px">sin fecha</span>';
+  var r=colaDiasRestantes(c), tot=colaDiasVence();
+  var txt=(e===0?'hoy':(e===1?'1 día':(e+' días')));
+  if(r<=0) return '<span style="color:#dc2626;font-weight:700;font-size:11px" title="En cola desde hace '+e+' días; el límite son '+tot+'">vencida · '+txt+'</span>';
+  if(r<=Math.max(7,Math.round(tot*0.2))) return '<span style="color:#b45309;font-weight:600;font-size:11px" title="Vence en '+r+' días">'+txt+' · vence en '+r+'</span>';
+  return '<span class="muted" style="font-size:11px" title="Vence en '+r+' días">'+txt+'</span>';
+}
 function _cobColaHtml(){
   var estOpts=function(sel){ return ['pendiente','en curso','hecha'].map(function(e){return '<option'+(e===sel?' selected':'')+'>'+e+'</option>';}).join(''); };
   if(!(DB.cola||[]).length) return '<div class="muted" style="font-size:12px;padding:8px 0">Cola vacía. Marca empresas con ★ en Radar Op. y pulsa «Añadir ★ a la cola».</div>';
-  var filas=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
-    return '<tr'+(anz?' class="done"':'')+'><td class="num" style="color:#94a3b8">'+(i+1)+'</td>'+
-      '<td><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,20))+'</span>'+(anz?' <span class="cob-anz">✓ analizada</span>':'')+'</td>'+
+  var vivas=DB.cola.filter(_colaViva), muertas=DB.cola.filter(function(c){return !_colaViva(c);});
+
+  var fila=function(c,n){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var venc=(colaDiasRestantes(c)!=null&&colaDiasRestantes(c)<=0);
+    return '<tr'+(venc?' class="urgent"':'')+'><td class="num" style="color:#94a3b8">'+n+'</td>'+
+      '<td><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,20))+'</span></td>'+
       '<td>'+_cobAtag(inf.arq)+'</td>'+
+      '<td>'+_colaEdadHTML(c)+'</td>'+
       '<td><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select></td>'+
       '<td><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="width:150px"></td>'+
-      '<td style="white-space:nowrap;text-align:right"><button class="cob-mv" data-colamove="'+i+'|-1" title="Subir">▲</button> <button class="cob-mv" data-colamove="'+i+'|1" title="Bajar">▼</button> <button class="cob-mv del" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
+      '<td style="white-space:nowrap;text-align:right"><button class="cob-mv" data-colamove="'+_radEsc(t)+'|-1" title="Subir">▲</button> <button class="cob-mv" data-colamove="'+_radEsc(t)+'|1" title="Bajar">▼</button> <button class="cob-mv del" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
+  };
+  var cab='<thead><tr><th class="num">#</th><th>Empresa</th><th>Arquetipo</th><th>En cola</th><th>Estado</th><th>Nota</th><th></th></tr></thead>';
+  var vivasHTML = vivas.length
+    ? '<div class="cob-desk"><table>'+cab+'<tbody>'+vivas.map(function(c,i){return fila(c,i+1);}).join('')+'</tbody></table></div>'
+    : '<div class="muted" style="font-size:12px;padding:8px 0">Ninguna pendiente. Marca empresas con ★ en Radar Op. y pulsa «Añadir ★ a la cola».</div>';
+
+  /* Historial: antes se mezclaba con las vivas y falseaba el contador y el orden. */
+  var histHTML='';
+  if(muertas.length){
+    var hf=muertas.map(function(c){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t);
+      return '<tr class="done"><td class="num" style="color:#cbd5e1">·</td>'+
+        '<td><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:11px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,20))+'</span> <span class="cob-anz">✓ analizada</span></td>'+
+        '<td>'+_cobAtag(inf.arq)+'</td><td colspan="3"><span class="muted" style="font-size:11px">'+_radEsc(c.nota||'')+'</span></td>'+
+        '<td style="text-align:right"><button class="cob-mv del" data-coladel="'+_radEsc(t)+'" title="Quitar">✕</button></td></tr>';
+    }).join('');
+    histHTML='<details style="margin-top:10px"><summary style="cursor:pointer;font-size:12px;color:#64748b">'
+      +'Historial · '+muertas.length+' ya analizada'+(muertas.length===1?'':'s')
+      +' <span data-colalimpia="1" style="cursor:pointer;font-size:10px;font-weight:700;color:#0f766e;background:#ccfbf1;border-radius:8px;padding:1px 6px;margin-left:6px">quitar todas →</span></summary>'
+      +'<div class="cob-desk"><table><tbody>'+hf+'</tbody></table></div></details>';
+  }
+
+  var cards=vivas.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t);
+    return '<div class="cob-card cola"><div class="top"><span class="num">'+(i+1)+'</span><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:12px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,16))+'</span> '+_cobAtag(inf.arq)+' '+_colaEdadHTML(c)+'</div>'+
+      '<div class="row2"><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="flex:1"><span class="acts"><button class="cob-mv" data-colamove="'+_radEsc(t)+'|-1">▲</button><button class="cob-mv" data-colamove="'+_radEsc(t)+'|1">▼</button><button class="cob-mv del" data-coladel="'+_radEsc(t)+'">✕</button></span></div></div>';
   }).join('');
-  var desk='<div class="cob-desk"><table><thead><tr><th class="num">#</th><th>Empresa</th><th>Arquetipo</th><th>Estado</th><th>Nota</th><th></th></tr></thead><tbody>'+filas+'</tbody></table></div>';
-  var cards=DB.cola.map(function(c,i){ var t=(c.t||'').toUpperCase(); var inf=_uniInfo(t); var anz=_esAnalizada(t);
-    return '<div class="cob-card cola'+(anz?' done':'')+'"><div class="top"><span class="num">'+(i+1)+'</span><b class="cob-tk">'+_radEsc(t)+'</b> <span style="font-size:12px;color:#94a3b8">'+_radEsc((inf.nombre||'').slice(0,16))+'</span> '+_cobAtag(inf.arq)+(anz?' <span class="cob-anz">✓</span>':'')+'</div>'+
-      '<div class="row2"><select class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="estado">'+estOpts(c.estado||'pendiente')+'</select><input class="colaInp" data-ct="'+_radEsc(t)+'" data-cf="nota" value="'+_radEsc(c.nota||'')+'" placeholder="nota" style="flex:1"><span class="acts"><button class="cob-mv" data-colamove="'+i+'|-1">▲</button><button class="cob-mv" data-colamove="'+i+'|1">▼</button><button class="cob-mv del" data-coladel="'+_radEsc(t)+'">✕</button></span></div></div>';
-  }).join('');
-  return desk+'<div class="cob-mob">'+cards+'</div>';
+  return vivasHTML+'<div class="cob-mob">'+cards+'</div>'+histHTML;
 }
 function _cobBind(sec){
   if(renderCobertura._bound)return; renderCobertura._bound=true;
@@ -555,8 +622,20 @@ function _pintarCalendario(analizadas){
   var hoy=new Date(); hoy.setHours(0,0,0,0);
   var cob=(DB.cobertura||{}); var infDone=cob.informe||{}, senDone=cob.senal||{};
   var items=[];
-  (DB.cola||[]).forEach(function(c,i){ var t=(c.t||'').toUpperCase(); if(!t||_esAnalizada(t))return; var inf=_uniInfo(t);
-    items.push({t:t,nombre:inf.nombre,tipo:'analisis',tipoLbl:'Analizar',date:null,dias:null,bucket:1,ordCola:i,estado:c.estado||'pendiente',done:(c.estado==='hecha')});
+  /* [B11] La cola ya no entra con date/dias en null: se le sintetiza un vencimiento
+     (alta + colaDiasVence) para que fluya por la misma maquinaria que el resto —
+     texto de días, badge de «vencida» y ascenso al bucket 0. */
+  var _ordV=0;
+  (DB.cola||[]).forEach(function(c){ var t=(c.t||'').toUpperCase(); if(!t||!_colaViva(c))return; var inf=_uniInfo(t);
+    var dias=colaDiasRestantes(c), vence=null;
+    if(c.alta){ var v=new Date(c.alta+'T00:00:00'); v.setDate(v.getDate()+colaDiasVence()); if(!isNaN(v)) vence=_cbToStr(v); }
+    var enCurso=(c.estado==='en curso');
+    items.push({t:t,nombre:inf.nombre,tipo:'analisis',
+      tipoLbl:'Analizar'+(enCurso?' · en curso':''),
+      date:vence, dias:dias,
+      bucket:(dias!=null&&dias<=0)?0:1,
+      ordCola:(enCurso?-1000:0)+(_ordV++),      /* lo que ya empezaste, primero */
+      estado:c.estado||'pendiente', done:false});
   });
   (analizadas||[]).forEach(function(a){ var t=(a.ticker||'').toUpperCase(); var inf=_uniInfo(t);
     var c=_cadenciaDe(t);
@@ -578,7 +657,8 @@ function _pintarCalendario(analizadas){
   var tipoCol=function(it){ return it.tipo==='analisis'?'#1f3d6b':(it.tipo==='informe'?'#2563eb':(it.tipo==='calib'?'#0f766e':(it.col||'#b45309'))); };
   var diasTxt=function(it){ if(it.recien)return '<span style="color:#16a34a;font-weight:600">✓ hecho'+(it.dias<0?(' hace '+(-it.dias)+' d'):(it.dias===0?' hoy':''))+'</span>'; if(it.tipo==='senal')return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>'; if(it.dias==null)return '<span class="muted">sin fecha</span>'; if(it.dias===0)return '<b style="color:#dc2626">hoy</b>'; if(it.dias<0)return '<span style="color:#dc2626;font-weight:600">vencida hace '+(-it.dias)+' d</span>'; if(it.dias<=14)return '<span style="color:#b45309;font-weight:600">en '+it.dias+' d</span>'; return 'en '+it.dias+' d'; };
   var estadoCell=function(it){
-    if(it.tipo==='analisis') return '<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
+    if(it.tipo==='analisis') return (it.dias!=null&&it.dias<=0?'<span style="color:#dc2626;font-weight:700;font-size:10px;display:block">vencida</span>':'')
+      +'<select class="colaInp" data-ct="'+_radEsc(it.t)+'" data-cf="estado">'+estOpts(it.estado)+'</select>';
     if(it.tipo==='senal') return '<span style="font-weight:600;color:'+(it.col||'#b45309')+'">acción ahora</span>';
     if(it.done) return '<span style="color:#16a34a;font-weight:600">hecha</span>';
     if(it.dias!=null&&it.dias<0) return '<span style="color:#dc2626;font-weight:600">vencida</span>';
@@ -762,7 +842,18 @@ document.addEventListener('click',function(e){ var b=e.target.closest&&e.target.
 
 /* listeners de la cola (reañadidos: se perdieron al reescribir la cadencia) */
 document.addEventListener('change',function(e){ var t=e.target; if(!t.classList||!t.classList.contains('colaInp'))return; var tk=(t.getAttribute('data-ct')||'').toUpperCase(), f=t.getAttribute('data-cf'); var c=(DB.cola||[]).find(function(x){return (x.t||'').toUpperCase()===tk;}); if(c){ c[f]=t.value; if(typeof scheduleSave==='function')scheduleSave(); } });
-document.addEventListener('click',function(e){ var mv=e.target.closest&&e.target.closest('[data-colamove]'); if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|'); var i=+a[0], d=+a[1]; var arr=DB.cola||[]; var j=i+d; if(j>=0&&j<arr.length){ var tmp=arr[i];arr[i]=arr[j];arr[j]=tmp; if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } return; } var dl=e.target.closest&&e.target.closest('[data-coladel]'); if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
+/* [B11] Mover va por TICKER, no por índice del array: el índice incluía las
+   analizadas y ▲ podía «intercambiar» con una fila muerta sin efecto visible. */
+document.addEventListener('click',function(e){
+  var mv=e.target.closest&&e.target.closest('[data-colamove]');
+  if(mv){ var a=(mv.getAttribute('data-colamove')||'').split('|');
+    if(colaMover(a[0], +a[1])) renderCobertura(); return; }
+  var lp=e.target.closest&&e.target.closest('[data-colalimpia]');
+  if(lp){ var n=colaLimpiarHechas();
+    if(typeof toast==='function')toast(n?(n+' quitada'+(n===1?'':'s')+' del historial'):'No había ninguna que quitar');
+    renderCobertura(); return; }
+  var dl=e.target.closest&&e.target.closest('[data-coladel]');
+  if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });
 
 /* ---- estilos de los filtros multi-color del Radar Op (inyectados una vez) ---- */
 (function _radFltCSS(){ if(typeof document==='undefined'||document.getElementById('rad-flt-css'))return;

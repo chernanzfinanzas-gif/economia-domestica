@@ -712,6 +712,19 @@ function renderPanelDash(){
             +'<span data-congelart0="1" style="cursor:pointer;font-size:10px;font-weight:700;color:#0f766e;background:#ccfbf1;border-radius:8px;padding:1px 6px">congelar ahora →</span>'});
     }
   }catch(e){}
+  /* [B11 · 26-jul-2026] La cola de análisis era el único sitio del sistema donde una tarea podía
+     pudrirse sin que nadie dijera nada: ningún aviso del Panel la miraba. Ahora, cuando una
+     entrada supera su plazo, sale aquí igual que cualquier otra cosa vencida. */
+  try{ if(typeof colaVencidas==='function'){
+      const _cv=colaVencidas().map(c=>(c.t||'').toUpperCase()).filter(Boolean);
+      if(_cv.length){
+        const _lim=(typeof colaDiasVence==='function')?colaDiasVence():45;
+        avisos.push({pri:2, cls:'a', goto:'cobertura', tick:'', tipo:'tesis',
+          txt:'🗂️ <b>'+_cv.length+' en la cola de análisis sin empezar</b> — '+_cv.slice(0,8).join(', ')
+              +(_cv.length>8?(' y '+(_cv.length-8)+' más'):'')
+              +'. Llevan más de '+_lim+' días esperando. Ábrelas o quítalas: una decisión aplazada indefinidamente no es una decisión.'});
+      }
+    } }catch(e){}
   /* [B1 · 26-jul-2026] supuestos rotos del Diario. Es el aviso con más valor del Panel: no sale de
      un umbral genérico, sino del criterio que TÚ escribiste al decidir. Solo se listan los que aún
      no has revisado con «Sigo igual». */
