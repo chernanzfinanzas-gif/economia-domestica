@@ -3019,7 +3019,13 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-movimientos .mv-sub2{font-size:9.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-top:1px}
   #view-movimientos .mv-com{font-size:12px;color:#475569;font-weight:600}
   #view-movimientos .mv-tit{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:8px;background:#f1f5f9;color:#334155;white-space:nowrap}
-  #view-movimientos .mv-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#92400e;margin-left:6px;white-space:nowrap}
+  #view-movimientos .mv-reemb{display:inline-block;background:#ecfeff;border:1px solid #a5f3fc;color:#0e7490;border-radius:6px;
+  padding:0 6px;font-size:10.5px;font-weight:700;margin-left:6px;white-space:nowrap}
+.mv-reemb-fld{margin-top:2px}
+.mv-reemb-lbl{display:flex;align-items:flex-start;gap:8px;font-weight:400;cursor:pointer;line-height:1.45;
+  background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
+.mv-reemb-lbl input{margin-top:3px;flex:none}
+.mv-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#92400e;margin-left:6px;white-space:nowrap}
   /* píldora de categoría, color por GRUPO (paleta del kit de cabeceras) */
   #view-movimientos .mv-cat{display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
   #view-movimientos .mv-cat.g-ing{background:#dcfce7;color:#166534}
@@ -3582,6 +3588,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
             <div class="mv-fld"><label>Comercio (base)</label><input type="text" id="movComercio" placeholder="p. ej. Repsol"></div>
             <div class="mv-fld"><label>Categoría</label><select id="movCat" required></select></div>
             <div class="mv-fld full"><label>Titular</label><select id="movTitular"><option>Dos</option><option>Carlos</option><option>Susana</option></select></div>
+            <div class="mv-fld full mv-reemb-fld"><label class="mv-reemb-lbl"><input type="checkbox" id="movReemb"> <b>Reembolsable</b> <span class="muted">— adelanto que se recupera por transferencia: se apunta aquí para no perderlo de vista, pero <b>no cuenta</b> en gastos ni en ingresos. Su saldo vive en <b>Reembolsables</b>.</span></label></div>
             <div class="mv-actions full">
               <button type="submit" class="btn mv-big" id="movSubmit">Añadir movimiento</button>
               <button type="button" class="btn ghost" id="movCancel" style="display:none">Cancelar</button>
@@ -3946,7 +3953,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="blk-b">
         <div class="ama-ltool">
           <input type="search" id="amaBuscar" placeholder="Buscar concepto o nota…">
-          <select id="amaFtipo"><option value="">Todos</option><option value="gasto">Solo gastos</option><option value="reembolso">Solo reembolsos</option></select>
+          <select id="amaFtipo"><option value="">Todos</option><option value="gasto">Solo adelantos</option><option value="reembolso">Solo reembolsos</option></select>
           <select id="amaOrden"><option value="desc">Reciente → antiguo</option><option value="asc">Antiguo → reciente</option></select>
         </div>
         <div class="ama-collbl"><span></span><span class="l">Fecha</span><span class="l">Concepto</span><span>Tipo</span><span>Importe</span><span>Saldo</span></div>
