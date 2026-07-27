@@ -50,33 +50,33 @@
  },
  "robustez": {
   "nivel": "sensible",
-  "sobreviveDecision": true,
+  "sobreviveDecision": false,
+  "matizada": false,
   "banda": {
-   "p10": 9.0,
+   "p10": 10.0,
    "p50": 14.56,
-   "p90": 26.0
+   "p90": 19.0
   },
   "sensibilidad": {
-   "poMin": 9.0,
-   "poMax": 26.0,
-   "poBase": 14.56,
+   "poMin": 7.92,
+   "poMax": 23.89,
+   "poBase": 13.28,
    "cotizacion": 15.54,
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -42.0,
-   "mdsMax": 67.0
+   "mdsMin": -49.0,
+   "mdsMax": 53.7
   },
   "beta": {
    "capm": 0.45,
    "ref2": 0.55,
-   "aviso": false
+   "aviso": null
   },
   "motivos": [
-   "DCF/DDM hipersensibles al WACC (banda amplia)",
-   "La decisión ESPERAR sobrevive porque descansa en múltiplos (caro vs su historia)"
+   "la cotización (15.54) cae DENTRO de la banda de PO [7.9–23.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
   ],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-07-27"
  },
  "dividendSafety": {
   "score": 55,

@@ -7,17 +7,17 @@
  "score": 71.4,
  "decision": "ESPERAR",
  "moat": "Estrecho (50,9) — ventaja de escala y reputación, no de pricing power; nicho de data centers da ventaja temporal.",
- "poBear": 66.0,
- "poBase": 82.0,
- "poBull": 120.0,
- "entMin": 80.0,
- "entMax": 90.0,
+ "poBear": 55.7,
+ "poBase": 68.8,
+ "poBull": 98.6,
+ "entMin": 69.0,
+ "entMax": 75.0,
  "stop": 60.0,
  "dpaPrevisto": 2.4,
- "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica). PO oficial ≈ 82 €. DCF tres escenarios 76/104/182 €; reverse DCF exige g FCL ~3,7% frente a un g intrínseco de 1,7% (heroico).",
- "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 6,3%, DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO ~82 € (−30%). Veredicto ESPERAR, entrada <90 €.",
- "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~150-182 €).",
- "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~60-75 €).",
+ "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica), descontado con la BETA SECTORIAL de Damodaran (1,05) y no con la del CAPM (0,63): WACC base 8,3%. PO oficial ≈ 69 €. DCF tres escenarios 59/81/131 €; reverse DCF exige g FCL ~3,7% frente a un g intrínseco de 1,7% (heroico). Re-valorado el 27-jul-2026; con la beta del CAPM el PO era 82 €.",
+ "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 8,3% (beta sectorial), DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO ~82 € (−30%). Veredicto ESPERAR, entrada <90 €.",
+ "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~99-131 €).",
+ "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~55-70 €).",
  "catalizadores": [
   "Resultados FY2025 + guía 2026 (feb-2026)",
   "Nuevas adjudicaciones de data centers de Turner",
@@ -45,28 +45,38 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-07-27"
  },
  "robustez": {
-  "nivel": "no calculada",
-  "sobreviveDecision": null,
+  "nivel": "solida",
+  "sobreviveDecision": true,
   "matizada": false,
   "banda": {
-   "p10": 66.0,
-   "p50": 82.0,
-   "p90": 120.0
+   "p10": 55.7,
+   "p50": 68.8,
+   "p90": 98.6
   },
-  "sensibilidad": null,
+  "sensibilidad": {
+   "poMin": 66.41,
+   "poMax": 104.18,
+   "poBase": 81.2535027296034,
+   "cotizacion": 117.6,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -43.5,
+   "mdsMax": -11.4
+  },
   "beta": {
    "capm": 0.63,
    "ref2": 1.05,
    "aviso": "beta CAPM 0.63 vs 2ª ref 1.05: divergencia 0.42 > 0.3 → revisar cuál usar en el WACC"
   },
   "motivos": [
-   "no localizo la matriz de sensibilidad §6.3 en la hoja Valoración",
+   "la cotización (117.60) queda por ENCIMA de toda la banda de PO [66.4–104.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
    "beta CAPM 0.63 vs 2ª ref 1.05: divergencia 0.42 > 0.3 → revisar cuál usar en el WACC"
   ],
-  "calculadoEl": "2026-07-25"
+  "calculadoEl": "2026-07-27"
  },
  "dividendSafety": {
   "score": 84,
@@ -132,7 +142,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.67,
+  "gImplicito": 7.22,
   "gIntrinseco": 1.73,
   "veredicto": "HEROICO",
   "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",

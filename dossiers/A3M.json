@@ -49,20 +49,21 @@
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
+  "matizada": true,
   "banda": {
    "p10": 4.4,
    "p50": 5.15,
    "p90": 8.53
   },
   "sensibilidad": {
-   "poMin": 5.53,
+   "poMin": 5.27,
    "poMax": 6.94,
-   "poBase": 6.31067960795505,
+   "poBase": 5.96247073758182,
    "cotizacion": 4.82,
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 14.7,
+   "mdsMin": 9.3,
    "mdsMax": 44.0
   },
   "beta": {
@@ -71,11 +72,10 @@
    "aviso": null
   },
   "motivos": [
-   "la cotización (4.82) queda por DEBAJO de toda la banda de PO [5.5–6.9] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "la cotización (4.82) queda por DEBAJO de toda la banda de PO [5.3–6.9] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
    "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es ESPERAR — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
   ],
-  "calculadoEl": "2026-07-15",
-  "matizada": true
+  "calculadoEl": "2026-07-27"
  },
  "dividendSafety": {
   "score": 59,
