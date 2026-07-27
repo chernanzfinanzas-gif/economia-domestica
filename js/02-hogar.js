@@ -695,7 +695,7 @@ function renderMovs(){
     const icls=isIng?'ing':(Math.abs(eff)<25?'gas peq':'gas');
     const ilbl=isIng?'ingreso':(Math.abs(eff)<25?'gasto menor':'gasto');
     const gcls=_mvGrpCls(c?c.grupo:'');
-    const st=m.concW?' warn':(m.conc?' ok':'');
+    const st=(m.concW?' warn':(m.conc?' ok':''))+(m.reemb?' reemb':'');
     const ckd=(m.conc&&m.concF)?ddmmyyyy(m.concF).slice(0,5):'';
     const concepto=(m.concepto||'').trim(), detalle=(m.detalle||'').trim();
     const main=concepto||detalle||'—';
