@@ -160,7 +160,7 @@ function renderHechos(){
          de la app. Ahora cada empresa trae sus dos acciones. */
       +pendientes.map(function(p){ var lbl=_diaEsc(p.t)+(p.prox?(' · '+_diaEsc(p.prox)):'');
         return '<span class="dia-pt" data-ficha="'+p.t+'" title="Abrir ficha">'+lbl+'</span>'
-          +(p.key?('<button class="dia-pact" data-hechomon="'+_diaEsc(p.t)+'|'+_diaEsc(p.key)+'" title="Marcar '+_diaEsc(p.key)+' como revisado en el Monitor">✓</button>'):'')
+          +(p.key?('<button class="dia-pact" data-hechomon="'+_diaEsc(p.t)+'|'+_diaEsc(p.key)+'" title="Marcar '+_diaEsc(p.key)+' como REVISADO en el Monitor. Es un visto tuyo, no procesa el trimestre: el \u00a710.3 del Excel sigue vac\u00edo hasta que ejecutes el monitor trimestral">✓</button>'):'')
           +'<button class="dia-pact" data-hechogo="'+_diaEsc(p.t)+'" title="Abrir el Monitor">→</button>';
       }).join(' ')+'</div>'; }
     if(sinDatos.length){ pend+='<div style="margin-top:'+(pendientes.length?'6px':'0')+'"><b>Sin monitor trimestral aún ('+sinDatos.length+'):</b> '
