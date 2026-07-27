@@ -76,6 +76,39 @@ const PROTOCOLO_SENALES = {
 const PROTO_DECISIONES = ['SIN CAMBIOS (justificado)','VENDER','RECORTAR POSICIÓN','MANTENER (stop recalculado)','RE-VALORAR (Bloques 8–9)','PTE. REVISIÓN'];
 
 /* Señales de precio y días de silencio tras registrar su revisión (compartido con el panel). */
+/* ===== Fila para el Excel (§10.5) =====
+   El protocolo obliga al DOBLE REGISTRO: el mismo apunte en la app y en el Excel de la empresa.
+   Hasta ahora eso era teclearlo dos veces, con el riesgo de que la segunda no llegara. Aqui se
+   genera la fila TSV lista para pegar en el registro §10.5, con el mismo patron que el boton
+   «Copiar fila para Excel» de la calibracion ex-post.
+   Columnas del registro: A=Fecha · B=Senal · C=Cotizacion (EUR) · D=Decision · E:N=Motivo. */
+const _PROTO_MES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function _protoFechaExcel(iso){
+  const m = (''+(iso||'')).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? ((+m[3])+'-'+_PROTO_MES[(+m[2])-1]+'-'+m[1]) : (''+(iso||''));
+}
+function _protoFilaExcel(ap){
+  const g = v => (v==null?'':(''+v).replace(/[\t\r\n]+/g,' ').trim());
+  /* Coma decimal: si va con punto, un Excel en espanol lo pega como texto y no como numero. */
+  const cot = (ap.cot==null||ap.cot==='') ? '' : (''+ap.cot).replace('.',',');
+  return [_protoFechaExcel(ap.fecha), g(ap.sig), cot, g(ap.decision), g(ap.motivo)].join('\t');
+}
+function _protoCopiarFila(ap, btn){
+  const fila = _protoFilaExcel(ap);
+  const done = () => { if(btn){ const t=btn.textContent; btn.textContent='✓ Copiada'; setTimeout(()=>{btn.textContent=t;},1500); } };
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(fila).then(done).catch(done); }
+  else { const ta=document.createElement('textarea'); ta.value=fila; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} ta.remove(); done(); }
+  return fila;
+}
+/* Lee el formulario del dialogo tal y como esta ahora, para poder copiar antes de guardar. */
+function _protoLeerForm(dlg, sigPorDefecto, hoy){
+  return { fecha: dlg.querySelector('#paFecha').value || hoy,
+           sig: (dlg.querySelector('#paSig').value || sigPorDefecto || '').toUpperCase(),
+           cot: dlg.querySelector('#paCot').value || '',
+           decision: dlg.querySelector('#paDec').value || '',
+           motivo: (dlg.querySelector('#paMotivo').value || '').trim() };
+}
+
 const PROTO_SIG_PRECIO = {S1:1,S3:1};
 const PROTO_SILENCIO_DIAS = 60;
 
@@ -158,13 +191,15 @@ function protoApunteForm(sig, ticker){
        </div>
        <label style="display:block;margin-top:8px;font-size:12px;color:#475569">Motivo (1–3 líneas: por qué se decide esto)
          <textarea id="paMotivo" rows="3" style="width:100%;box-sizing:border-box;margin-top:4px;font-size:13px;padding:6px;border:1px solid #cbd5e1;border-radius:6px"></textarea></label>
-       <div style="margin-top:8px;font-size:11.5px;color:#78350f;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px">Recuerda el <b>doble registro</b>: apunta lo mismo en el Excel de la empresa (Vigilancia §10.5).</div>
+       <div style="margin-top:8px;font-size:11.5px;color:#78350f;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px">Al guardar, la fila queda <b>copiada en el portapapeles</b>: pégala directamente en el registro §10.5 del Excel (Vigilancia) con Ctrl+V. El <b>doble registro</b> sigue siendo obligatorio — el §10.5 es el que manda.</div>
      </div>
      <div style="padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #e2e8f0">
        <button class="btn ghost sm" id="paBack">← Volver</button>
+       <button class="btn ghost sm" id="paCopy" title="Copia la fila lista para pegar en el registro §10.5 del Excel (Fecha · Señal · Cotización · Decisión · Motivo). Al guardar se copia sola.">📋 Copiar fila para el Excel</button>
        <button class="btn sm" id="paSave" style="background:${p.color};border-color:${p.color}">Guardar apunte</button>
      </div>`;
   dlg.querySelector('#protoX').onclick=()=>dlg.close();
+  dlg.querySelector('#paCopy').onclick=()=>_protoCopiarFila(_protoLeerForm(dlg,sig,hoy), dlg.querySelector('#paCopy'));
   dlg.querySelector('#paBack').onclick=()=>showProtocolo(dlg.querySelector('#paSig').value, '', dlg.querySelector('#paTicker').value);
   dlg.querySelector('#paTicker').onchange=e=>{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===e.target.value); if(a) dlg.querySelector('#paCot').value=num(a.cotizacion)||''; };
   dlg.querySelector('#paSave').onclick=()=>{
@@ -181,6 +216,9 @@ function protoApunteForm(sig, ticker){
       limite:dec==='PTE. REVISIÓN'?(dlg.querySelector('#paLim').value||lim):'',
       motivo:motivo,
       estado:dec==='PTE. REVISIÓN'?'abierta':'resuelta' };
+    /* Se copia la fila ANTES de nada: asi, al cerrar, el portapapeles ya lleva lo que hay
+       que pegar en el §10.5 y el doble registro no depende de acordarse. */
+    try{ _protoCopiarFila(ap); }catch(e){}
     DB.protocolo=DB.protocolo||{}; (DB.protocolo[t]=DB.protocolo[t]||[]).push(ap);
     DB.protocolo[t].sort((x,y)=>(y.fecha||'').localeCompare(x.fecha||''));
     if(typeof saveNow==='function')saveNow();
