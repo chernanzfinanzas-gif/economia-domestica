@@ -180,7 +180,7 @@ function _dfVolcar(){
   });
   delete _dfDraftAll()[y];                                  /* [B6] el borrador ya está volcado */
   if(typeof scheduleSave==='function')scheduleSave();
-  if(typeof toast==='function')toast('Volcado a Evolución '+_dfYear+': '+nue+' nuevos · '+act+' actualizados.');
+  if(typeof showToast==='function')showToast('Volcado a Evolución '+_dfYear+': '+nue+' nuevos · '+act+' actualizados.');
   renderDivFut();
 }
 /* [B6] refresca el contador «sin volcar» y el botón sin repintar la rejilla (no perder el foco). */

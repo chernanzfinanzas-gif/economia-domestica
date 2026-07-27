@@ -516,7 +516,7 @@ function _radBind(sec){
       /* [B8 · 26-jul-2026] Era la única transición real del embudo y se resolvía con un alert() que
          dejaba al usuario donde estaba. Ahora avisa sin bloquear y LLEVA a la cola de Cobertura. */
       var _msg=n+' añadida'+(n===1?'':'s')+' a la cola de análisis'+(ya?' ('+ya+' ya estaban o analizadas)':'');
-      if(typeof toast==='function') toast(_msg); else alert(_msg);
+      if(typeof showToast==='function') showToast(_msg); else alert(_msg);
       if(n&&typeof activarVista==='function') activarVista('cobertura');
       return; }
     var h=e.target.closest('.rad-card-h'); if(h){ var t2=h.parentElement.getAttribute('data-t'); window._radOpen[t2]=!window._radOpen[t2]; _radRenderList(); return; } });
@@ -986,7 +986,7 @@ document.addEventListener('click',function(e){
     if(colaMover(a[0], +a[1])) renderCobertura(); return; }
   var lp=e.target.closest&&e.target.closest('[data-colalimpia]');
   if(lp){ var n=colaLimpiarHechas();
-    if(typeof toast==='function')toast(n?(n+' quitada'+(n===1?'':'s')+' del historial'):'No había ninguna que quitar');
+    if(typeof showToast==='function')showToast(n?(n+' quitada'+(n===1?'':'s')+' del historial'):'No había ninguna que quitar');
     renderCobertura(); return; }
   var dl=e.target.closest&&e.target.closest('[data-coladel]');
   if(dl){ var t=(dl.getAttribute('data-coladel')||'').toUpperCase(); DB.cola=(DB.cola||[]).filter(function(x){return (x.t||'').toUpperCase()!==t;}); if(typeof scheduleSave==='function')scheduleSave(); renderCobertura(); } });

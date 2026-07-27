@@ -1691,7 +1691,7 @@ function proyFijarFotoInicial(){
   proyDefaults(); var c=DB.config.proyeccion; var ser=computeProy(c); var serie={};
   ser.forEach(function(r){ serie[r.anio]={patrimonio:r.patrimonio,efectivo:r.efectivo,cartera:r.cartera,invertido:r.invertido,nominaMes:r.nominaMes,dividendoAnual:r.dividendoAnual,ingresosExtra:r.ingresosExtra,ahorroTotal:r.ahorroTotal,aInversion:r.aInversion,aEfectivo:r.aEfectivo,disponibleMes:r.disponibleMes}; });
   c.fotoInicial={fecha:new Date().toISOString().slice(0,10), serie:serie};
-  if(typeof toast==='function')toast('📸 Foto inicial fijada ('+c.fotoInicial.fecha+')');
+  if(typeof showToast==='function')showToast('📸 Foto inicial fijada ('+c.fotoInicial.fecha+')');
   if(typeof scheduleSave==='function')scheduleSave(); renderProy();
 }
 function proyBorrarFotoInicial(){ if(DB.config&&DB.config.proyeccion&&DB.config.proyeccion.fotoInicial){ delete DB.config.proyeccion.fotoInicial; if(typeof scheduleSave==='function')scheduleSave(); renderProy(); } }

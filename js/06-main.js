@@ -213,7 +213,7 @@ document.addEventListener('click',function(e){
   var b=e.target&&e.target.closest&&e.target.closest('[data-congelart0]'); if(!b)return;
   if(typeof congelarT0Pendientes!=='function')return;
   var hechas=congelarT0Pendientes();
-  if(typeof toast==='function') toast(hechas.length
+  if(typeof showToast==='function') showToast(hechas.length
     ? ('Línea base congelada en '+hechas.length+' tesis: '+hechas.slice(0,4).join(' · ')+(hechas.length>4?'…':''))
     : 'No se ha podido recuperar ninguna línea base: hace falta el dossier cargado o una foto de tesis.');
   if(typeof renderPanelDash==='function')renderPanelDash();
@@ -229,7 +229,7 @@ document.addEventListener('click',function(e){
   var t=((b.dataset.viscola||b.dataset.unicola)||'').toUpperCase(); if(!t)return;
   if(typeof colaAdd!=='function')return;
   var ok=colaAdd(t);
-  if(typeof toast==='function') toast(ok?(t+' añadida a la cola de análisis'):(t+' ya estaba en la cola'));
+  if(typeof showToast==='function') showToast(ok?(t+' añadida a la cola de análisis'):(t+' ya estaba en la cola'));
   if(typeof renderVision==='function')renderVision();
   if(typeof renderUniverso==='function')renderUniverso();
   if(ok&&typeof activarVista==='function')activarVista('cobertura');
@@ -243,7 +243,7 @@ document.addEventListener('click',function(e){
     if(t&&key){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{};
       DB.monitor[t].rev[key]=true;
       if(typeof saveNow==='function')saveNow();
-      if(typeof toast==='function')toast(t+' · '+key+' marcado como revisado');
+      if(typeof showToast==='function')showToast(t+' · '+key+' marcado como revisado');
       if(typeof renderHechos==='function')renderHechos();
       if(typeof renderMonitor==='function')renderMonitor(); }
     return; }

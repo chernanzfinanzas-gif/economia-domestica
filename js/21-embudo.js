@@ -598,7 +598,7 @@ function _emZoneChip(r){
   return '';
 }
 function _emToPlan(t){ t=_emUp(t); var add=(typeof proxAddPlan==='function')?proxAddPlan(t):0;
-  if(add>0){ if(typeof toast==='function')toast('Añadido '+_emEur(add)+' al Plan'); }
+  if(add>0){ if(typeof showToast==='function')showToast('Añadido '+_emEur(add)+' al Plan'); }
   else alert('No hay importe recomendado para el Plan de '+t+' (debe estar en zona de compra y con hueco vs objetivo de cartera).'); }
 function _emToCaja(t){ t=_emUp(t); var P=_emProxMap(), d=P.by[t]||{}, held=_emHeldSet().has(t);
   var pend=held?_emPlanPendEur(t):_emNum(d.rec!=null?d.rec:d.gap);
@@ -656,7 +656,7 @@ function _emCompraDo(t){ t=_emUp(t);
   DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr,plan:true});
   if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:eur}); }
   _emModalClose();
-  if(typeof toast==='function')toast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');
+  if(typeof showToast==='function')showToast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');
   if(typeof saveNow==='function')saveNow();
   if(typeof renderAll==='function')renderAll(); }
 /* ===== DIVIDENDO desde Kanban (Paso B) — ventana emergente. Efectivo: confirma el importe real en la
@@ -704,7 +704,7 @@ function _emDivDo(t){ t=_emUp(t);
     if(!confirm('¿Anotar scrip de '+t+': '+acc+' acciones nuevas a '+_emEur(pr)+' (suma '+_emEur(acc*pr)+' a lo invertido, sin tocar caja)?'))return;
     DB.operaciones=DB.operaciones||[];
     DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:'Propia',tipo:'compra',acciones:acc,precio:pr,scrip:true});
-    if(typeof toast==='function')toast('Scrip anotado: +'+acc+' '+t);
+    if(typeof showToast==='function')showToast('Scrip anotado: +'+acc+' '+t);
   } else {
     var neto=_emNum((document.getElementById('emdNeto')||{}).value);
     if(!(neto>0)){ alert('Indica el importe neto cobrado (> 0).'); return; }
@@ -729,7 +729,7 @@ function _emDivDo(t){ t=_emUp(t);
     var ckey=t+'|'+(_pagoF||fecha);
     DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
     var sh=_emSharesHeld(t); if(sh>0){ var brutoAcc=Math.round((neto/0.81/sh)*10000)/10000; DB.dividendos=DB.dividendos||{}; DB.dividendos[t]=DB.dividendos[t]||[]; DB.dividendos[t].push({fecha:fecha,importe:brutoAcc,id:'d'+Math.random().toString(36).slice(2,9)}); }
-    if(typeof toast==='function')toast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
+    if(typeof showToast==='function')showToast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
   }
   DB.divAnotado=DB.divAnotado||{}; DB.divAnotado[key]={tipo:tipo,fecha:fecha};
   _emModalClose();
