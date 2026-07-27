@@ -1,56 +1,16 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-20T13:23:02+02:00",
+  "generadoEl": "2026-07-27T12:08:07+02:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-20",
-  "resumenTexto": "📌 RESULTADOS confirmados (10): Iberdrola 22-07, Naturgy 22-07, Santander 22-07, Bankinter 23-07, Repsol 23-07, Vidrala, S.A. 23-07, Logista 24-07, Mapfre 24-07. 💶 Ex-dividend (orientativo, 1): Ebro Foods 29-09. Sin fecha de resultados confirmada: 3 (rige la estimación del Vigía).",
+  "fechaReferencia": "2026-07-27",
+  "resumenTexto": "📌 RESULTADOS confirmados (13): CIE Automotive 24-07, Logista 24-07, Mapfre 24-07, ACS 29-07, Aena, S.M.E., S.A. 29-07, Endesa 29-07, Redeia Corporación, S.A. 29-07, Telefónica 29-07. 💶 Ex-dividend (orientativo, 3): Naturgy 27-07, Ebro Foods 29-09, Inditex 29-10. Sin fecha de resultados confirmada: 9 (rige la estimación del Vigía).",
   "resultados": [
     {
-      "ticker": "IBE",
-      "empresa": "Iberdrola",
-      "fecha": "2026-07-22",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
-      "fecha": "2026-07-22",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "SAN",
-      "empresa": "Santander",
-      "fecha": "2026-07-22",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "BKT",
-      "empresa": "Bankinter",
-      "fecha": "2026-07-23",
-      "dias": 3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "REP",
-      "empresa": "Repsol",
-      "fecha": "2026-07-23",
-      "dias": 3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "VID",
-      "empresa": "Vidrala, S.A.",
-      "fecha": "2026-07-23",
-      "dias": 3,
+      "ticker": "CIE",
+      "empresa": "CIE Automotive",
+      "fecha": "2026-07-24",
+      "dias": -3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -58,7 +18,7 @@
       "ticker": "LOG",
       "empresa": "Logista",
       "fecha": "2026-07-24",
-      "dias": 4,
+      "dias": -3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -66,7 +26,23 @@
       "ticker": "MAP",
       "empresa": "Mapfre",
       "fecha": "2026-07-24",
-      "dias": 4,
+      "dias": -3,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "ACS",
+      "empresa": "ACS",
+      "fecha": "2026-07-29",
+      "dias": 2,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "AENA",
+      "empresa": "Aena, S.M.E., S.A.",
+      "fecha": "2026-07-29",
+      "dias": 2,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -74,7 +50,23 @@
       "ticker": "ELE",
       "empresa": "Endesa",
       "fecha": "2026-07-29",
-      "dias": 9,
+      "dias": 2,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "RED",
+      "empresa": "Redeia Corporación, S.A.",
+      "fecha": "2026-07-29",
+      "dias": 2,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "TEF",
+      "empresa": "Telefónica",
+      "fecha": "2026-07-29",
+      "dias": 2,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -82,19 +74,69 @@
       "ticker": "VIS",
       "empresa": "Viscofan",
       "fecha": "2026-07-29",
-      "dias": 9,
+      "dias": 2,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "FAE",
+      "empresa": "Faes Farma",
+      "fecha": "2026-07-30",
+      "dias": 3,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "FDR",
+      "empresa": "Fluidra",
+      "fecha": "2026-07-30",
+      "dias": 3,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "AMS",
+      "empresa": "Amadeus",
+      "fecha": "2026-07-31",
+      "dias": 4,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "ITX",
+      "empresa": "Inditex",
+      "fecha": "2026-09-09",
+      "dias": 44,
       "confirmada": true,
       "fuente": "calendar"
     }
   ],
   "exDividendos": [
     {
+      "ticker": "NTGY",
+      "empresa": "Naturgy",
+      "exFecha": "2026-07-27",
+      "dias": 0,
+      "pagoFecha": null,
+      "importe": 0.6,
+      "fuente": "calendar"
+    },
+    {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
       "exFecha": "2026-09-29",
-      "dias": 71,
+      "dias": 64,
       "pagoFecha": null,
       "importe": 0.23,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "ITX",
+      "empresa": "Inditex",
+      "exFecha": "2026-10-29",
+      "dias": 94,
+      "pagoFecha": null,
+      "importe": 0.875,
       "fuente": "calendar"
     }
   ],
@@ -105,16 +147,46 @@
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
+      "ticker": "AZK",
+      "empresa": "Azkoyen, S.A.",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
-      "ticker": "ITX",
-      "empresa": "Inditex",
+      "ticker": "MCM",
+      "empresa": "Miquel y Costas",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "NTGY",
+      "empresa": "Naturgy",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "PRM",
+      "empresa": "Prim, S.A.",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "REP",
+      "empresa": "Repsol",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "SAN",
+      "empresa": "Santander",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "VID",
+      "empresa": "Vidrala, S.A.",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     }
   ],
-  "totalConsultadas": 13,
+  "totalConsultadas": 25,
   "fallos": []
 }
