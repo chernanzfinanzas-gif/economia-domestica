@@ -310,7 +310,9 @@ function buildOportunidades(ctx){
 
 /* ============ 3.6 COMERCIOS ============ */
 function buildComercios(ctx){
-  var gl=ctx.base.filter(function(m){return m.tipo==='gasto';});
+  /* Los reembolsables quedan fuera: no son gasto tuyo. Este bloque suma importes sin pasar por
+     _movBudget, asi que la exclusion hay que hacerla aqui. */
+  var gl=ctx.base.filter(function(m){return m.tipo==='gasto' && !m.reemb;});
   if(!gl.length)return _infDocWrap('Informe de comercios',[_infEsc(ctx.label)],'<p class="muted">Sin gastos en el periodo.</p>');
   var by={}; gl.forEach(function(m){ var co=(m.comercio||'').trim()||'(sin comercio)'; var o=by[co]=by[co]||{tot:0,n:0}; o.tot+=num(m.importe); o.n++; });
   var arr=Object.keys(by).map(function(k){return {c:k,tot:by[k].tot,n:by[k].n,med:by[k].tot/by[k].n};}).sort(function(a,b){return b.tot-a.tot;});

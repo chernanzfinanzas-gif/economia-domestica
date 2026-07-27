@@ -748,15 +748,28 @@ function editMov(id){
   $('#movComercio').value=m.comercio||''; $('#movDetalle').value=m.detalle||''; $('#movCat').value=m.categoriaId; $('#movTitular').value=m.titular||'Dos';
   $('#movImporte').value=m.importe; setMovTipo(m.tipo);
   var _rk=$('#movReemb'); if(_rk)_rk.checked=!!m.reemb;
+  if(typeof movReembUI==='function')movReembUI();
   $('#movSubmit').textContent='Guardar cambios'; $('#movCancel').style.display='inline-block';
   var _b=document.getElementById('blkMovAdd'); if(_b){ _b.classList.add('open'); _b.scrollIntoView({behavior:'smooth',block:'start'}); } else { window.scrollTo({top:0,behavior:'smooth'}); }
 }
 function resetMovForm(){
   $('#movForm').reset(); $('#movId').value=''; setMovTipo('gasto');
+  if(typeof movReembUI==='function')movReembUI();
   $('#movFecha').value = curYear+'-'+String(curMonth+1).padStart(2,'0')+'-'+String(Math.min(new Date().getDate(),28)).padStart(2,'0');
   $('#movSubmit').textContent='Añadir'; $('#movCancel').style.display='none';
 }
 function setMovTipo(t){ movTipo=t; $$('#movTipoSeg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t)); }
+/* Un reembolsable no se clasifica: al marcarlo desaparecen Comercio, Categoria y Detalle, y la
+   categoria deja de ser obligatoria (si no, un campo oculto y vacio bloquearia el envio). */
+function movReembUI(){
+  var ck=document.getElementById('movReemb'); var on=!!(ck&&ck.checked);
+  ['movComercio','movCat','movDetalle'].forEach(function(id){
+    var el=document.getElementById(id); if(!el)return;
+    var fld=el.closest('.mv-fld'); if(fld)fld.style.display=on?'none':'';
+    if(id==='movCat'){ if(on)el.removeAttribute('required'); else el.setAttribute('required',''); }
+    if(on)el.value='';
+  });
+}
 
 /* ----- PRESUPUESTO ----- */
 /* ===== PRESUPUESTO v2 · planificador (ingresos + ahorro objetivo → disponible; capítulos y fichas) ===== */
@@ -956,7 +969,7 @@ function renderInflacionPersonal(){
   var hasFuel=fu25>0&&fu26>0;
   // consumición Bar/Restaurante
   var CONSUMO=/bar|restaurante|cafeter|pasteler|helader|panader/i;
-  var byCo={}; movs.forEach(function(m){var c=cm[m.categoriaId]; if(!c||c.tipo!=='gasto')return; var y=yOf(m),mo=moOf(m); if(mo<minMo||mo>maxMo)return; if(y!=(''+mcur)&&y!=(''+mprev))return; var co=(m.comercio||'').trim(); if(!CONSUMO.test(co))return; byCo[co]=byCo[co]||{an:0,as:0,bn:0,bs:0}; if(y==(''+mprev)){byCo[co].an++;byCo[co].as+=Math.abs(num(m.importe));} else {byCo[co].bn++;byCo[co].bs+=Math.abs(num(m.importe));}});
+  var byCo={}; movs.forEach(function(m){ if(m.reemb)return; var c=cm[m.categoriaId]; if(!c||c.tipo!=='gasto')return; var y=yOf(m),mo=moOf(m); if(mo<minMo||mo>maxMo)return; if(y!=(''+mcur)&&y!=(''+mprev))return; var co=(m.comercio||'').trim(); if(!CONSUMO.test(co))return; byCo[co]=byCo[co]||{an:0,as:0,bn:0,bs:0}; if(y==(''+mprev)){byCo[co].an++;byCo[co].as+=Math.abs(num(m.importe));} else {byCo[co].bn++;byCo[co].bs+=Math.abs(num(m.importe));}});
   var coRows=Object.keys(byCo).map(function(k){var d=byCo[k]; var t25=d.an?d.as/d.an:0,t26=d.bn?d.bs/d.bn:0; return {k:k,n25:d.an,n26:d.bn,tk25:t25,tk26:t26,dtk:t25&&t26?(t26/t25-1)*100:0,vol:d.as+d.bs};}).filter(function(r){return r.n25>=8&&r.n26>=6;}).sort(function(a,b){return b.vol-a.vol;});
   var star=null; coRows.forEach(function(r){if(r.k==='Bar/Restaurante')star=r;}); if(!star)star=coRows[0]||{tk25:0,tk26:0,dtk:0,n25:0,n26:0};
   // --- KPIs ---
@@ -1837,7 +1850,9 @@ function migrarReembolsables(){
     var esAdel=(e.tipo!=='reembolso');
     var k=(e.fecha||'')+'|'+(Math.round(imp*100)/100);
     var cand=(idx[k]||[]).filter(function(m){ return (m.tipo==='ingreso')!==esAdel; });
-    if(cand.length){ cand[0].reemb=true; if(e.nota&&!cand[0].nota)cand[0].nota=e.nota; marcados++; return; }
+    if(cand.length){ var mm=cand[0]; mm.reemb=true; if(e.nota&&!mm.nota)mm.nota=e.nota;
+      /* un reembolsable no se clasifica: se le quitan comercio, categoria y detalle */
+      mm.comercio=''; mm.detalle=''; mm.categoriaId=''; marcados++; return; }
     DB.movimientos.push({ id:(typeof uid==='function'?uid():'r'+Math.random().toString(36).slice(2,10)),
       fecha:e.fecha, concepto:e.concepto||'Reembolsable', comercio:'', detalle:'',
       categoriaId:'', titular:'Dos', tipo:(esAdel?'gasto':'ingreso'), importe:imp,

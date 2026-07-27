@@ -362,23 +362,30 @@ $('#movForm').addEventListener('submit',e=>{
   let _bas=$('#movComercio').value.trim();
   if(!_bas) _bas = baseComercio(_det) || _det;
   if(!_det) _det = _bas;
+  const _reemb=!!(($('#movReemb')||{}).checked);
+  /* Un reembolsable no se clasifica: no lleva comercio, ni categoria, ni detalle. No es solo
+     limpieza — el informe de Comercios y la sonda de consumicion de la inflacion suman importes
+     SIN pasar por _movBudget, asi que un adelanto clasificado les contaminaria el ticket medio. */
   const mov={
     id:$('#movId').value||uid(),
     fecha:$('#movFecha').value,
     concepto:$('#movConcepto').value.trim(),
-    comercio:_bas,
-    detalle:_det,
-    categoriaId:$('#movCat').value,
+    comercio:_reemb?'':_bas,
+    detalle:_reemb?'':_det,
+    categoriaId:_reemb?'':$('#movCat').value,
     titular:$('#movTitular').value,
     tipo:movTipo,
     importe:num($('#movImporte').value),
-    reemb:!!(($('#movReemb')||{}).checked)
+    reemb:_reemb
   };
   const ex=DB.movimientos.find(x=>x.id===mov.id);
   if(ex) Object.assign(ex,mov); else DB.movimientos.push(mov);
   resetMovForm(); initPeriod(); renderAll(); scheduleSave();
 });
 $('#movCancel').addEventListener('click',resetMovForm);
+(function(){ var _rk=document.getElementById('movReemb');
+  if(_rk){ _rk.addEventListener('change',function(){ if(typeof movReembUI==='function')movReembUI(); });
+           if(typeof movReembUI==='function')movReembUI(); } })();
 /* Bloques plegables de Movimientos (Añadir / Filtros / Lista) */
 if($('#view-movimientos'))$('#view-movimientos').addEventListener('click',e=>{ const h=e.target.closest('[data-movblk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-movblk')); if(blk)blk.classList.toggle('open'); });
 /* Expandir/contraer una fila de movimiento (tabla) o una tarjeta (móvil) */
