@@ -2070,77 +2070,10 @@ function importFondoR4(file){ if(typeof pushSnapshot==='function')pushSnapshot('
       return m; });
     renderFondoR4(); saveNow(); alert('Importados '+DB.easy.length+' movimientos del Fondo R4.'); });
 }
-function renderPresExtras(){
-  const sec=document.getElementById('ptab-anual')||document.getElementById('view-presupuesto'); if(!sec)return;
-  // por si en una carga previa quedaron colgados de la sección (fuera de la pestaña), reubicarlos
-  ['ahorroWrap','varGastoWrap'].forEach(id=>{ const w=document.getElementById(id); if(w && w.parentElement!==sec){ const h=w.previousElementSibling; if(h&&h.tagName==='H3')sec.appendChild(h); sec.appendChild(w); } });
-  DB.config=DB.config||{}; const ah=DB.config.ahorro=DB.config.ahorro||{mensual:0,anual:0,tasa:0};
-  if(!renderPresExtras._bound){ renderPresExtras._bound=true; document.addEventListener('change',function(e){ const t=e.target; if(t&&t.classList&&t.classList.contains('ahorroInp')&&t.dataset.k){ DB.config=DB.config||{}; DB.config.ahorro=DB.config.ahorro||{mensual:0,anual:0,tasa:0}; DB.config.ahorro[t.dataset.k]=num(t.value); if(typeof saveNow==='function')saveNow(); renderPresExtras(); } }); }
-  const now=new Date(); const Y=now.getFullYear(), M=now.getMonth(); const pad=n=>String(n).padStart(2,'0');
-  const curPref=Y+'-'+pad(M+1); const pm=new Date(Y,M-1,1); const prevPref=pm.getFullYear()+'-'+pad(pm.getMonth()+1);
-  const MES=['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
-  // ----- objetivos de ahorro -----
-  let ingM=0,gasM=0,ingY=0,gasY=0;
-  (DB.movimientos||[]).forEach(m=>{ const f=m.fecha||'',v=num(m.importe); if(f.slice(0,4)===String(Y)){ if(m.tipo==='ingreso')ingY+=v; else if(m.tipo==='gasto')gasY+=v; } if(f.slice(0,7)===curPref){ if(m.tipo==='ingreso')ingM+=v; else if(m.tipo==='gasto')gasM+=v; } });
-  const ahM=ingM-gasM, ahY=ingY-gasY; const tM=ingM?ahM/ingM*100:0, tY=ingY?ahY/ingY*100:0;
-  const meta=k=>num(ah[k]);
-  const prog=(val,goal)=>{ const pct=goal>0?Math.max(0,Math.min(100,val/goal*100)):0; const col=goal>0?(val>=goal?'var(--green)':val>=goal*0.6?'var(--amber)':'var(--red)'):'#cbd5e1'; return '<div class="bar" style="height:9px;margin-top:6px"><i style="width:'+pct.toFixed(0)+'%;background:'+col+'"></i></div>'; };
-  const inp=(k,suf)=>`Meta: <input type="number" step="0.01" class="ahorroInp" data-k="${k}" value="${ah[k]||''}" style="width:88px;text-align:right;padding:3px 6px;border:1px solid var(--line);border-radius:6px">${suf||''}`;
-  const card=(titulo,val,goalK)=>{ const g=meta(goalK); const pct=g>0?(val/g*100):0; return `<div class="card"><div class="lbl">${titulo}</div><div class="val ${val>=0?'pos':'neg'}">${fmt(val)}</div><div class="sub">${inp(goalK)} ${g>0?'· '+pct.toFixed(0)+'% de la meta':''}</div>${prog(val,g)}</div>`; };
-  let aw=document.getElementById('ahorroWrap'); if(!aw){ const h=document.createElement('h3'); h.textContent='Objetivos de ahorro'; aw=document.createElement('div'); aw.id='ahorroWrap'; aw.className='cards'; sec.appendChild(h); sec.appendChild(aw); }
-  aw.innerHTML = card('Ahorro este mes ('+MES[M]+' '+Y+')', ahM, 'mensual')
-    + card('Ahorro '+Y+' (acumulado)', ahY, 'anual')
-    + `<div class="card"><div class="lbl">Tasa de ahorro</div><div class="val ${tM>=0?'pos':'neg'}">${tM.toFixed(0)}%<span class="sub" style="font-weight:400"> este mes · ${tY.toFixed(0)}% año</span></div><div class="sub">${inp('tasa','%')}</div>${prog(tM,meta('tasa'))}</div>`;
-  // ----- variación de gasto por categoría -----
-  const ct={},cn={}; (DB.categorias||[]).forEach(c=>{ct[c.id]=c.tipo;cn[c.id]=c.nombre;});
-  const agg={}; (DB.movimientos||[]).forEach(m=>{ if(ct[m.categoriaId]!=='gasto')return; const f=m.fecha||'',v=num(m.importe); const a=agg[m.categoriaId]=agg[m.categoriaId]||{mc:0,mp:0,yc:0,yp:0}; const ym=f.slice(0,7),y4=f.slice(0,4); if(ym===curPref)a.mc+=v; else if(ym===prevPref)a.mp+=v; if(y4===String(Y))a.yc+=v; else if(y4===String(Y-1))a.yp+=v; });
-  const dpc=(cur,prev)=>{ if(prev>0){ const d=(cur/prev-1)*100; return {t:(d>0?'+':'')+d.toFixed(0)+'%', cls:d>0.5?'neg':d<-0.5?'pos':''}; } if(cur>0)return {t:'nuevo',cls:'neg'}; return {t:'·',cls:''}; };
-  const ids=Object.keys(agg).filter(id=>agg[id].mc||agg[id].mp||agg[id].yc||agg[id].yp).sort((a,b)=>agg[b].yc-agg[a].yc);
-  const rows=ids.map(id=>{ const a=agg[id]; const dm=dpc(a.mc,a.mp), dy=dpc(a.yc,a.yp); return `<tr><td>${cn[id]||id}</td><td class="num">${a.mc?fmt(a.mc):'·'}</td><td class="num">${a.mp?fmt(a.mp):'·'}</td><td class="num ${dm.cls}">${dm.t}</td><td class="num">${a.yc?fmt(a.yc):'·'}</td><td class="num">${a.yp?fmt(a.yp):'·'}</td><td class="num ${dy.cls}">${dy.t}</td></tr>`; }).join('');
-  const tot=s=>Object.values(agg).reduce((x,a)=>x+a[s],0); const dmt=dpc(tot('mc'),tot('mp')), dyt=dpc(tot('yc'),tot('yp'));
-  const foot=`<tr style="font-weight:700;background:#eef2f7"><td>TOTAL</td><td class="num">${fmt(tot('mc'))}</td><td class="num">${fmt(tot('mp'))}</td><td class="num ${dmt.cls}">${dmt.t}</td><td class="num">${fmt(tot('yc'))}</td><td class="num">${fmt(tot('yp'))}</td><td class="num ${dyt.cls}">${dyt.t}</td></tr>`;
-  const head=`<tr><th>Categoría</th><th class="num">${MES[M]} ${Y}</th><th class="num">${MES[pm.getMonth()]}</th><th class="num">Δ mes</th><th class="num">${Y}</th><th class="num">${Y-1}</th><th class="num">Δ año</th></tr>`;
-  let vw=document.getElementById('varGastoWrap'); if(!vw){ const h=document.createElement('h3'); h.textContent='Variación de gasto por categoría'; vw=document.createElement('div'); vw.id='varGastoWrap'; vw.style.overflow='auto'; sec.appendChild(h); sec.appendChild(vw); }
-  vw.innerHTML = rows ? `<table>${head}${rows}${foot}</table><div class="muted" style="font-size:11px;margin-top:4px">Δ en rojo = el gasto sube respecto al periodo anterior; en verde = baja. El mes y el año en curso aún están incompletos.</div>` : '<div class="empty">Sin gastos registrados.</div>';
-}
-
-function renderPresAnalisis(){
-  const el=$('#presAnalisis'); if(!el) return;
-  const curY=new Date().getFullYear();
-  const ys=new Set(DB.presupuesto.map(pAnio));
-  DB.movimientos.forEach(m=>ys.add(+m.fecha.slice(0,4)));
-  const years=[...ys].sort((a,b)=>a-b);
-  const groups=[...new Set(DB.categorias.map(c=>c.grupo))].sort((a,b)=> a==='Ingresos'?-1:b==='Ingresos'?1:a.localeCompare(b));
-  const catG={}; DB.categorias.forEach(c=>catG[c.id]=c.grupo);
-  const real={};
-  DB.movimientos.forEach(m=>{ const g=catG[m.categoriaId]; if(!g)return; const y=+m.fecha.slice(0,4); real[g+'|'+y]=(real[g+'|'+y]||0)+num(m.importe); });
-  const pptoFor=(g,y)=>{ let t=0; DB.categorias.filter(c=>c.grupo===g).forEach(c=>{ const p=presFor(c.id,y); if(p)t+=anual(p); }); return t; };
-  let head='<tr><th>Clase</th>';
-  years.forEach((y,yi)=>{ head+=`<th class="num">${y} Ppto</th>`; if(yi>0) head+=`<th class="num">${y} vs ant.</th>`; head+=`<th class="num">${y} Ejecutado${y===curY?' (en curso)':''}</th><th class="num">${y} %</th>`; });
-  head+='</tr>';
-  const ingGroups=new Set(DB.categorias.filter(c=>c.tipo==='ingreso').map(c=>c.grupo));
-  const totals={}; let body='';
-  groups.forEach(g=>{
-    let row=`<tr><td><b>${g}</b></td>`;
-    years.forEach((y,yi)=>{
-      const pp=pptoFor(g,y); const rr=real[g+'|'+y]||0; const pct=pp?Math.round(rr/pp*100):0;
-      const cls= pp? (rr/pp<=1?'g':rr/pp<=1.1?'a':'r') : '';
-      row+=`<td class="num">${pp?fmt(pp):'—'}</td>`;
-      if(yi>0){ const prev=pptoFor(g,years[yi-1]); let cell='—'; if(prev){ const dd=Math.round((pp/prev-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } row+=`<td class="num">${cell}</td>`; }
-      row+=`<td class="num">${rr?fmt(rr):'—'}</td><td class="num">${pp?`<span class="pill ${cls}">${pct}%</span>`:'—'}</td>`;
-      if(!ingGroups.has(g)){ totals[y]=totals[y]||{pp:0,rr:0}; totals[y].pp+=pp; totals[y].rr+=rr; }
-    });
-    body+=row+'</tr>';
-  });
-  let tot='<tr style="font-weight:700;background:#fef9c3;color:#c2410c"><td>TOTAL GASTOS</td>';
-  years.forEach((y,yi)=>{ const o=totals[y]||{pp:0,rr:0}; const pct=o.pp?Math.round(o.rr/o.pp*100):0;
-    tot+=`<td class="num">${fmt(o.pp)}</td>`;
-    if(yi>0){ const op=totals[years[yi-1]]||{pp:0}; let cell='—'; if(op.pp){ const dd=Math.round((o.pp/op.pp-1)*100); cell= dd>0?'subió '+dd+'%':dd<0?'bajó '+Math.abs(dd)+'%':'='; } tot+=`<td class="num">${cell}</td>`; }
-    tot+=`<td class="num">${fmt(o.rr)}</td><td class="num">${o.pp?pct+'%':'—'}</td>`;
-  });
-  tot+='</tr>';
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${body}${tot}</tbody></table>`;
-}
+/* [C8 · 27-jul-2026] Aquí vivían renderPresExtras() y renderPresAnalisis(), 70 líneas que
+   NADIE llamaba y que pintaban sobre contenedores desaparecidos del HTML (#presAnalisis,
+   #ahorroWrap, #varGastoWrap). Eran ruido: al leer el fichero parecían parte del Presupuesto.
+   Se retiran. Si alguna vez vuelven esos bloques, están en el historial de commits. */
 function importPresupuesto(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar presupuesto');
   file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
     const arr=Array.isArray(d)?d:(d.presupuesto||[]); if(!arr.length){alert('El archivo no contiene presupuesto');return;}

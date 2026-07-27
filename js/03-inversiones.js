@@ -330,8 +330,8 @@ function renderAnalisis(){
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   if(!DB.config)DB.config={};
   const vU=(DB.config.anaVerde!=null?DB.config.anaVerde:0.20), aU=(DB.config.anaAmbar!=null?DB.config.anaAmbar:0.05);
-  const ve=$('#anaVerde'); if(ve)ve.value=Math.round(vU*100);
-  const ae=$('#anaAmbar'); if(ae)ae.value=Math.round(aU*100);
+  /* [C8 · 27-jul-2026] Aquí se escribía en #anaVerde y #anaAmbar, dos campos que ya no existen en
+     el HTML: eran dos asignaciones que nunca llegaban a nada. Retiradas. */
   const RPTS=KH_RATING; /* escala única: KH_RATING de 01-core.js [C2 · 27-jul-2026] */
   const cw=DB.config.anaPesos||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15);
   const cl=x=>Math.max(0,Math.min(100,x));

@@ -911,7 +911,10 @@ function _cadRefreshAll(){
 }
 function cadAvisos(){
   var out=[]; var cad=DB.cadencia||{}; var held=(typeof _heldSet!=='undefined'&&_heldSet&&_heldSet.has)?_heldSet:null;
-  Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
+  /* [C8 · 27-jul-2026] Este aviso EXCLUYE a propósito las empresas en cartera (para ellas el
+     trimestre pendiente ya sale en Monitor y Tareas y en Diario de Hechos). No es un olvido, pero
+     el texto no lo decía y se leía como cobertura completa del universo. */
+  Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor (en seguimiento)'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
   // Próximos resultados CONFIRMADOS POR TI (Cobertura), en ≤10 días (sustituye a Yahoo)
   var hoyA=new Date(); hoyA.setHours(0,0,0,0);
   Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(!c||!c.manual||!c.nextDate||c.tocaMonitor)return;

@@ -26,7 +26,10 @@ const VIEW_FNS={
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
 function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
-function renderAllFull(){ renderRenov(); renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario();  renderSimulador();  renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+/* [C8 · 27-jul-2026] renderRenov() se llamaba aquí y salía por la puerta en la primera línea:
+   su contenedor (#presRenov) ya no existe en el HTML. Se quita la llamada; la función sigue en
+   05-graficas.js, marcada como inactiva, por si el bloque de renovaciones vuelve. */
+function renderAllFull(){ renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario();  renderSimulador();  renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
@@ -148,7 +151,11 @@ const GROUPS={
   cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
-  planinv:[['asignacion','Asignación'],['riesgo','Riesgo'],['simulador','Simulador'],['independencia','Independencia']],
+  /* [C8 · 27-jul-2026] «Próxima Mejor Compra» era una vista completa (con su propia cabecera)
+     a la que solo se llegaba pinchando un aviso del Panel: no figuraba en ningún submenú, así
+     que quien no tuviera el aviso no podía abrirla. Va detrás de Asignación, que es su orden
+     natural: primero repartes, luego decides la compra de este mes. */
+  planinv:[['asignacion','Asignación'],['proxcompra','Próxima compra'],['riesgo','Riesgo'],['simulador','Simulador'],['independencia','Independencia']],
   informes:[['informes','Informes'],['hemero','Hemeroteca']],
   graficas:[['graficas','Gráficas']]
 };
