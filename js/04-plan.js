@@ -696,6 +696,11 @@ function renderPanelDash(){
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
+  /* [C6 · 27-jul-2026] Los -trim.json de las empresas analizadas, cargados y repintado al llegar:
+     sin esto el aviso S2 de aquí abajo no tendría de dónde leer el semáforo. */
+  try{ if(typeof khTrimAsegurar==='function')
+    khTrimAsegurar((DB.analisis||[]).map(x=>x.ticker), ()=>{ if(typeof renderPanelDash==='function')renderPanelDash(); });
+  }catch(e){}
   /* [B10 · 26-jul-2026] tesis sin línea base de calibración congelada. Es un aviso que solo sale
      una vez —en cuanto se congelan, desaparece— pero si no saliera, el error se descubriría el día
      de la primera diana, con el retorno ya calculado a cero y sin forma de reconstruirlo. */
@@ -770,6 +775,23 @@ function renderPanelDash(){
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),pMin=num(a.poMin),pMax=num(a.poMax); const pMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((pMin&&pMax)?(pMin+pMax)/2:(pMax||pMin||0)); if(c<=0)return; const t=(a.ticker||'').toUpperCase(); const p=_heldP[t];
     if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
     else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
+  /* [C6 · 27-jul-2026] SEÑAL S2 — semáforo trimestral ROJO o tesis declarada tocada.
+     Faltaba: S2 existía en el badge de la Ficha y en el motor de Mis Decisiones, pero NO en esta
+     bandeja. Quien vaciaba el Panel el lunes y no abría la Ficha se perdía los trimestres rojos,
+     que son justo el aviso más caro de perderse. El silenciador de más abajo la trata como señal
+     no-de-precio: una vez registras el apunte, deja de sonar hasta que cambie la condición. */
+  (DB.analisis||[]).forEach(a=>{ const t=(a.ticker||'').toUpperCase(); if(!t)return;
+    let tr=null; try{ tr=(typeof khTrimUltimo==='function')?khTrimUltimo(t):null; }catch(e){}
+    if(!tr)return;
+    const cuando=tr.periodo||((typeof ddmmyyyy==='function'&&tr.fecha)?ddmmyyyy(tr.fecha):tr.fecha)||'el último trimestre';
+    const dónde=_heldSet.has(t)?' · <b>en cartera</b>':'';
+    if(tr.sem==='R')
+      avisos.push({pri:0,cls:'r',goto:'monitor',sig:'S2',tick:t,
+        txt:`🔴 <b>${t}</b> — semáforo trimestral <b>ROJO</b> en ${cuando}${dónde}: ¿deterioro puntual o estructural? (7 días)`});
+    else if(tr.intacta===false)
+      avisos.push({pri:0,cls:'r',goto:'monitor',sig:'S2',tick:t,
+        txt:`🔴 <b>${t}</b> — la revisión de ${cuando} declara la <b>tesis tocada</b>${dónde}: revísala (7 días)`});
+  });
   /* [B5 · 26-jul-2026] El Panel avisaba con `dossierFecha + 12 meses` ignorando la próxima revisión,
      mientras el Kanban usa `proxRev || dossierFecha + 12m`. Al fijar una fecha de revisión desde el
      Kanban, este aviso seguía saltando indefinidamente. Ahora ambos usan el mismo criterio: si hay

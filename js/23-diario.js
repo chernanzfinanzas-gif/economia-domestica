@@ -82,7 +82,12 @@ var _DI_SEMS=[['R','🔴 rojo'],['A','🟡 ámbar o peor']];
 /* ---- lecturas de "hoy" ---- */
 function _diRatingScore(r){ try{ return (typeof radRatingScore==='function')?radRatingScore(r):null; }catch(e){ return null; } }
 /* último semáforo trimestral publicado (V/A/R) y si la tesis se declaró tocada, con su fecha */
-function _diTrim(t){ t=_diUp(t);
+/* [C5 · 27-jul-2026] Antes leía SOLO _trimCache, que únicamente se llena al abrir la Ficha de esa
+   empresa: un trimestre en rojo no aparecía aquí hasta que la abrías. Ahora usa el lector único
+   (13-radar.js), que mira las dos cachés; y renderDiario se encarga de que estén cargadas. */
+function _diTrim(t){
+  try{ if(typeof khTrimUltimo==='function') return khTrimUltimo(t); }catch(e){}
+  t=_diUp(t);
   var d=null; try{ d=(typeof _trimCache!=='undefined'&&_trimCache)?_trimCache[t]:null; }catch(e){}
   if(!d||!d.revisiones||!d.revisiones.length) return null;
   var revs=d.revisiones.slice().sort(function(a,b){ return (a.fecha||'').localeCompare(b.fecha||''); });
@@ -193,6 +198,12 @@ function diarioInvalidaciones(){
 function renderDiario(){
   var sec=document.getElementById('view-diario'); if(!sec)return;
   DB.diario=DB.diario||[];
+  /* [C5] Carga los -trim.json de las empresas con decisiones abiertas y repinta cuando lleguen:
+     el bloque «⚠️ Supuestos rotos» necesita el último semáforo trimestral para detectar S2. */
+  try{ if(typeof khTrimAsegurar==='function'){
+    var _tks=[]; (DB.diario||[]).forEach(function(e){ if(e && e.estado!=='cerrada' && e.ticker) _tks.push(e.ticker); });
+    khTrimAsegurar(_tks, function(){ if(typeof renderDiario==='function') renderDiario(); });
+  } }catch(e){}
   window._diFilt=window._diFilt||{tipo:'',estado:''};
   var F=window._diFilt;
 

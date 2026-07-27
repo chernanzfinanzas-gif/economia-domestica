@@ -783,6 +783,42 @@ document.addEventListener('change',function(e){ var c=e.target; if(!c.classList|
 /* ---- Cadencia (último/próximo informe desde el monitor -trim.json) ---- */
 var _MESES_R=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 var _cadTrim={};
+
+/* [C5 · 27-jul-2026] LECTOR ÚNICO del último trimestre publicado.
+   Había DOS cachés del mismo -trim.json y cada consumidor leía solo una:
+     · _trimCache (03-inversiones.js) se llena SOLO al abrir la Ficha de esa empresa;
+     · _cadTrim   (este fichero) se llena solo, desde Cobertura, Calendario y Diario de Hechos.
+   Consecuencia: un semáforo trimestral ROJO existía en el sistema pero el motor de supuestos
+   rotos de Mis Decisiones no lo veía hasta que abrieras la Ficha. Ahora todo el que necesite el
+   último trimestre pasa por aquí y mira las dos. */
+function khTrimUltimo(t){
+  t=(t||'').toUpperCase(); if(!t)return null;
+  var d=null;
+  try{ if(typeof _cadTrim!=='undefined'&&_cadTrim&&_cadTrim[t])d=_cadTrim[t]; }catch(e){}
+  if(!d){ try{ if(typeof _trimCache!=='undefined'&&_trimCache&&_trimCache[t])d=_trimCache[t]; }catch(e){} }
+  if(!d||!d.revisiones||!d.revisiones.length)return null;
+  var revs=d.revisiones.slice().sort(function(a,b){ return (a.fecha||'').localeCompare(b.fecha||''); });
+  var last=revs[revs.length-1];
+  return { sem:(last.semaforoGlobal||'').toUpperCase(), intacta:last.tesisSigueIntacta,
+           fecha:last.fecha||'', periodo:last.periodo||'' };
+}
+
+/* [C5] ¿el último trimestre obliga a revisar la tesis? (la condición de la señal S2) */
+function khTrimRojo(t){ var r=khTrimUltimo(t); return !!r && (r.sem==='R' || r.intacta===false); }
+
+/* [C5] Asegura que los -trim.json de esos tickers estén cargados y, cuando lleguen, repinta UNA vez.
+   Sin esto, leer las cachés no basta: si nadie las ha llenado, el rojo sigue sin verse. No hay
+   bucle posible porque _cadCargar deja el valor a null cuando no hay fichero (deja de ser undefined). */
+function khTrimAsegurar(tickers, repintar){
+  try{
+    if(typeof _cadCargar!=='function'||typeof _cadTrim==='undefined'||!_cadTrim)return false;
+    var falta=(tickers||[]).map(function(x){return (x||'').toUpperCase();})
+                           .filter(function(t){ return t && _cadTrim[t]===undefined; });
+    if(!falta.length)return false;
+    _cadCargar(falta).then(function(){ if(typeof repintar==='function')repintar(); });
+    return true;
+  }catch(e){ return false; }
+}
 function _cadFmtD(d){ return d.getDate()+'-'+_MESES_R[d.getMonth()]; }
 function _qtoken(periodo){ var p=(''+periodo).toUpperCase();
   /* normaliza cualquier convención (Q1-Q4 ó semestral S1/9M/FY que usa Inditex) al token canónico Q1/Q2/Q3/Q4 */

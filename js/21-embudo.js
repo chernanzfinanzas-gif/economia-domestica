@@ -24,6 +24,9 @@ function _emSenal(t){ return (typeof _senalActiva==='function')?_senalActiva(t):
 function _emProtoOpen(t){ t=_emUp(t); return ((DB.protocolo||{})[t]||[]).some(function(a){return a.estado==='abierta';}); }
 function _emProtoVenc(t){ t=_emUp(t); var hoy=new Date().toISOString().slice(0,10); return ((DB.protocolo||{})[t]||[]).some(function(a){return a.estado==='abierta'&&a.limite&&a.limite<hoy;}); }
 function _emDsMes(t){ var a=_emAna(t); return (a&&typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; }
+/* [C6 · 27-jul-2026] ¿el último trimestre publicado obliga a revisar la tesis? (condición de S2).
+   Usa el lector único de 13-radar.js, que mira las dos cachés del -trim.json. */
+function _emTrimRojo(t){ try{ return (typeof khTrimRojo==='function') ? khTrimRojo(t) : false; }catch(e){ return false; } }
 function _emQPend(t){ t=_emUp(t); var c=(DB.cadencia||{})[t]||{}; if(!c.tocaMonitor||!c.nextKey)return false; var m=(DB.monitor||{})[t]||{}; var done=(typeof _revHecha==='function')?_revHecha(m.rev,c.nextKey):!!(m.rev&&m.rev[c.nextKey]); return !done; }
 /* A1 · próxima revisión obligatoria: a.proxRev (editable) o dossierFecha + 12 meses. */
 function _emAddMes(f,n){ if(!f)return null; var d=new Date(f+'T00:00:00'); if(isNaN(d.getTime()))return null; d.setMonth(d.getMonth()+n); return d.toISOString().slice(0,10); }
@@ -108,6 +111,10 @@ function etapaDe(t){
        alcanzado obliga a revisar la tesis (¿era de valoración o de renta?), así que sube igual. */
     if(sen&&(sen.tipo==='stop'||sen.tipo==='po')) return 'En revisión';
     if(_emProtoOpen(t))        return 'En revisión';
+    /* [C6 · 27-jul-2026] El semáforo trimestral ROJO no escalaba: la ficha se quedaba «En cartera»
+       con urgencia baja aunque la Ficha ya mostrase el badge «revisar tesis · S2». Ahora sube,
+       igual que el stop y el PO alcanzado. */
+    if(_emTrimRojo(t))         return 'En revisión';
     if(_emQPend(t))            return 'En revisión';
     if(_emRevVencida(t)) return 'En revisión';
   }
@@ -169,6 +176,7 @@ function accionDe(t){
     if(sen&&sen.tipo==='stop') return A('🚨 Resolver stop','analisis',{sig:'S1',ticker:t});
     if(sen&&sen.tipo==='po') return A('🎯 PO alcanzado — revisar y reclasificar la tesis','analisis',{sig:'S3',ticker:t});   /* [B5] */
     if(_emProtoOpen(t)) return A('⏰ Cerrar revisión (apunte S)','analisis',{ticker:t});
+    if(_emTrimRojo(t)) return A('🔴 Trimestre en rojo — ¿puntual o estructural?','monitor',{sig:'S2',ticker:t});   /* [C6] */
     if(_emQPend(t)) return A('📊 Revisar resultados','monitor');
     if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});
     return A('Revisar','monitor');
@@ -245,6 +253,12 @@ function _emRow(t){
 
 /* ---------- render ---------- */
 function renderEmbudo(){
+  /* [C6] Carga los -trim.json de las analizadas y repinta al llegar: sin ellos, _emTrimRojo
+     siempre diría que no y el rojo seguiría sin escalar. */
+  try{ if(typeof khTrimAsegurar==='function')
+    khTrimAsegurar((DB.analisis||[]).map(function(x){return x.ticker;}),
+                   function(){ if(typeof renderEmbudo==='function')renderEmbudo(); });
+  }catch(e){}
   var sec=document.getElementById('view-embudo'); if(!sec)return;
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   /* Carga (1 vez) de dividendos.json para las alarmas ex-dividend (Paso B). */
