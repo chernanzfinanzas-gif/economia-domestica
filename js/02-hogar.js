@@ -112,8 +112,12 @@ function _pnl12m(){
   var out={ing:[],gas:[],aho:[]};
   for(var i=11;i>=0;i--){ var mmn=curMonth-i, yy=curYear; while(mmn<0){mmn+=12;yy--;} var pref=yy+'-'+String(mmn+1).padStart(2,'0');
     var mv=(DB.movimientos||[]).filter(function(x){return (x.fecha||'').indexOf(pref)===0;});
-    var ii=mv.filter(function(x){return x.tipo==='ingreso';}).reduce(function(s,x){return s+num(x.importe);},0);
-    var gg=mv.filter(function(x){return x.tipo==='gasto';}).reduce(function(s,x){return s+num(x.importe);},0);
+    /* [C13 · 27-jul-2026] Sumaba por m.tipo directo, sin mirar el tipo de la CATEGORÍA: era el
+       último sitio del hogar que no regularizaba las devoluciones. Resultado: el punto del mes
+       actual de este sparkline no coincidía con el KPI grande que tiene justo encima —que sí usa
+       _movBudget—, y la diferencia eran exactamente tus reembolsos. Ahora los dos cuentan igual. */
+    var ii=0, gg=0;
+    mv.forEach(function(x){ var b=_movBudget(x); ii+=b.ing||0; gg+=b.gas||0; });
     out.ing.push(ii); out.gas.push(gg); out.aho.push(ii-gg);
   }
   return out;
