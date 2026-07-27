@@ -12,10 +12,10 @@
  "poBull": 98.6,
  "entMin": 69.0,
  "entMax": 75.0,
- "stop": 60.0,
+ "stop": 49.85,
  "dpaPrevisto": 2.4,
  "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica), descontado con la BETA SECTORIAL de Damodaran (1,05) y no con la del CAPM (0,63): WACC base 8,3%. PO oficial ≈ 69 €. DCF tres escenarios 59/81/131 €; reverse DCF exige g FCL ~3,7% frente a un g intrínseco de 1,7% (heroico). Re-valorado el 27-jul-2026; con la beta del CAPM el PO era 82 €.",
- "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 8,3% (beta sectorial), DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO ~82 € (−30%). Veredicto ESPERAR, entrada <90 €.",
+ "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 8,3% (beta sectorial), DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO base 68,80 € (−41%); ni el escenario bull (98,60 €) llega al precio de hoy. Veredicto ESPERAR, entrada <75 € (ideal <69 €), stop de tesis 49,85 €.",
  "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~99-131 €).",
  "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~55-70 €).",
  "catalizadores": [
