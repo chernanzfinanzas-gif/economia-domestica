@@ -48,7 +48,7 @@ function visLoadTesis(cb){
     .then(()=>{ cb&&cb(); });
 }
 
-const _VIS_RPTS={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+const _VIS_RPTS=KH_RATING; /* escala única: KH_RATING de 01-core.js [C2 · 27-jul-2026] */
 const _VIS_EST=' <span title="Calidad estimada del subíndice de Radar (aún sin dossier); no es tu score de análisis" style="font-size:9px;font-weight:800;color:#92400e;background:#fef3c7;border:1px solid #fde68a;border-radius:5px;padding:0 4px;vertical-align:middle">est.</span>';
 /* Δ vs mercado: score real del dossier − calidad que veía Radar. ▲ mejoras / ▼ corriges. */
 function _visDeltaChip(d){ if(d==null)return ''; var col=(d>=0)?'#16a34a':'#dc2626';

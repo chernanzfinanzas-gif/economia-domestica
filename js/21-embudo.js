@@ -480,7 +480,7 @@ function _emDimBlock(r){
 /* --------- Índice de oportunidad (potencial a PO × calidad × RPD × seguridad del dividendo) ---------
    Mismo cálculo que el «Ranking por margen de seguridad» de Próxima compra (04-plan.js). Se muestra
    en TODAS las analizadas, normalizado al máximo del universo → barra + etiqueta alto/medio/bajo. */
-var _EM_RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+var _EM_RP=KH_RATING; /* escala única: KH_RATING de 01-core.js [C2 · 27-jul-2026] */
 function _emDsFac(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'Seguro':0.9,'Vigilar':0.6,'Frágil':0.3,'Recorte probable':0.1}; var f=(m[ds.banda]!=null)?m[ds.banda]:(ds.score>=80?1:ds.score>=60?0.9:ds.score>=40?0.6:ds.score>=20?0.3:0.1); if(ds.topeDuro&&ds.topeDuro.activo)f=Math.min(f,0.3); return f; }
 function _emFoVeto(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo')); }
 function _emFoFac(fo){ if(!fo||!fo.aplica||!fo.flags||!fo.flags.length)return 1; return _emFoVeto(fo)?0.5:0.8; }

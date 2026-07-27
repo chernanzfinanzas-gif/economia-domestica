@@ -9,6 +9,18 @@ const fmt = n => eur.format(n||0);
 const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
 const num = v => { const n = parseFloat(v); return isNaN(n)?0:n; };
 
+/* [C2 · 27-jul-2026] ESCALA ÚNICA rating→número.
+   Convivían dos tablas distintas para la misma pregunta: RAD_RATING (13-radar.js) con A=78,
+   BB=52, B=40… la usaban el Radar, la checklist pre-compra y los disparadores de Mis Decisiones;
+   y una copia con A=80, BB=50, B=35… repetida en Análisis, Plan, Visión, Kanban y cmpScore. La
+   misma empresa puntuaba distinto según quién preguntase.
+   Manda la del Radar porque es la que sostiene decisiones y no solo ordenaciones: el umbral por
+   defecto de la checklist pre-compra es 78, que equivale EXACTAMENTE a rating A. Si se cambiara
+   la escala, ese 78 dejaría de querer decir «A o mejor».
+   Se define aquí (01-core.js es el primero que carga) y el resto la referencia: quien necesite
+   ajustar la escala toca UNA línea. */
+var KH_RATING = {AAA:100, AA:90, A:78, BBB:65, BB:52, B:40, CCC:28, CC:18, C:10};
+
 /* ---- Buscador de empresas por nombre/ticker (filtra filas con data-fs sin recargar la tabla) ---- */
 function _wireBuscador(input, rows, state){
   if(!input) return;

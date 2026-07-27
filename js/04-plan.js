@@ -575,7 +575,7 @@ let proxYearSel=null;
 // === P6 · Ranking por margen de seguridad: potencial a PO × calidad × RPD ===
 function renderProxMos(){
   var el=document.getElementById('proxMos'); if(!el)return;
-  var RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15};
+  var RP=KH_RATING; /* escala única: KH_RATING de 01-core.js [C2 · 27-jul-2026] */
   var _dsCol=function(b){ return {'Muy seguro':'#16a34a','Seguro':'#4d7c0f','Vigilar':'#d97706','Frágil':'#ea580c','Recorte probable':'#dc2626'}[b]||'#64748b'; };
   var _dsFac=function(ds){ if(!ds||ds.score==null)return 1; var m={'Muy seguro':1,'Seguro':0.9,'Vigilar':0.6,'Frágil':0.3,'Recorte probable':0.1}; var f=(m[ds.banda]!=null)?m[ds.banda]:(ds.score>=80?1:ds.score>=60?0.9:ds.score>=40?0.6:ds.score>=20?0.3:0.1); if(ds.topeDuro&&ds.topeDuro.activo)f=Math.min(f,0.3); return f; }; var _foVeto=function(fo){ return !!fo&&fo.aplica&&((fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo')); }; var _foFac=function(fo){ if(!fo||!fo.aplica||!fo.flags||!fo.flags.length)return 1; return _foVeto(fo)?0.5:0.8; };
   var _dsTd=function(r){ if(!r.ds||r.ds.score==null)return '<td style="text-align:center"><span class="muted">—</span></td>'; return '<td style="text-align:center"><span title="'+(((r.ds.banda||'')+' · factor ×'+r.sf)).replace(/"/g,'&quot;')+'" style="background:'+_dsCol(r.ds.banda)+';color:#fff;border-radius:6px;padding:1px 7px;font-size:10.5px;font-weight:700">'+r.ds.score+'</span></td>'; };

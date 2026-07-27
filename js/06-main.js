@@ -1,4 +1,4 @@
-function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos)||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15); const RP={AAA:100,AA:90,A:80,BBB:65,BB:50,B:35,CCC:25,CC:20,C:15}; const cl=x=>Math.max(0,Math.min(100,x));
+function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos)||{}; const wA=(cw.a!=null?cw.a:0.35),wB=(cw.b!=null?cw.b:0.20),wC=(cw.c!=null?cw.c:0.30),wD=(cw.d!=null?cw.d:0.15); const RP=KH_RATING; /* escala única [C2 · 27-jul-2026] */ const cl=x=>Math.max(0,Math.min(100,x));
   /* [A6] precio vivo y PO base únicos: antes usaba a.cotizacion (que el formulario de Cartera no
      actualiza) y su propia media bear/bull, así que Ranking, Plan, Próxima compra y Kanban podían
      puntuar la misma empresa distinto que la tabla de Análisis. */
@@ -630,7 +630,41 @@ init();
   host.addEventListener('click',function(e){
     var t;
     if(t=e.target.closest('[data-presfrec]')){ var a=t.getAttribute('data-presfrec').split('|'); up(a[0],'frecuencia',a[1]); renderPres(); scheduleSave(); return; }
-    if(t=e.target.closest('[data-presdel]')){ var id=t.getAttribute('data-presdel'); if(!confirm('¿Eliminar esta partida del presupuesto?'))return; DB.categorias=(DB.categorias||[]).filter(function(c){return c.id!==id;}); DB.presupuesto=(DB.presupuesto||[]).filter(function(p){return p.categoriaId!==id;}); if(typeof fillCatSelects==='function')fillCatSelects(); renderPres(); scheduleSave(); return; }
+    /* [C1 · 27-jul-2026] El botón «Eliminar» de la ficha de partida borraba la partida y sus
+       presupuestos de TODOS los años en silencio y sin vuelta atrás, mientras que el MISMO borrado
+       hecho desde el diálogo de categorías (deleteCat) sí llevaba red desde [A10]. Era el único
+       borrado del hogar sin papelera, y el más fácil de pulsar sin querer. Ahora los dos caminos
+       hacen exactamente lo mismo: avisan si la partida tiene movimientos asociados y guardan el
+       borrado en la papelera (kind 'categoria', con sus presupuestos de todos los años). */
+    if(t=e.target.closest('[data-presdel]')){
+      var id=t.getAttribute('data-presdel');
+      var _cat=(DB.categorias||[]).find(function(c){ return c.id===id; });
+      if(!_cat)return;
+      var _nom=_cat.nombre||id;
+      var _dias=(typeof TRASH_DAYS!=='undefined')?TRASH_DAYS:30;
+      var _usada=(DB.movimientos||[]).some(function(m){ return m.categoriaId===id; });
+      if(_usada){
+        if(!confirm('La partida «'+_nom+'» tiene movimientos asociados. Si la eliminas, esos movimientos quedarán sin categoría.\n\nSe eliminarán también sus presupuestos de todos los años. Podrás recuperarla desde la Papelera durante '+_dias+' días.\n\n¿Continuar?'))return;
+      } else {
+        if(!confirm('¿Eliminar la partida «'+_nom+'» del presupuesto?\n\nSe eliminarán también sus presupuestos de todos los años. Podrás recuperarla desde la Papelera durante '+_dias+' días.'))return;
+      }
+      var _presC=(DB.presupuesto||[]).filter(function(p){ return p.categoriaId===id; });
+      var _quita=function(){
+        DB.categorias=(DB.categorias||[]).filter(function(c){ return c.id!==id; });
+        DB.presupuesto=(DB.presupuesto||[]).filter(function(p){ return p.categoriaId!==id; });
+      };
+      if(typeof undoableDelete==='function'){
+        undoableDelete('categoria','Partida '+_nom,{item:_cat,pres:_presC},_quita,
+          ['fillCatSelects','fillGrupoList','renderPres','renderPresDesglose','renderAll']);
+      } else {
+        /* red de seguridad: si la papelera no estuviera cargada, el borrado sigue funcionando */
+        _quita();
+        if(typeof fillCatSelects==='function')fillCatSelects();
+        renderPres();
+        scheduleSave();
+      }
+      return;
+    }
     if(t=e.target.closest('[data-presaddpart]')){ var g=t.getAttribute('data-presaddpart'); if(typeof openCatDlg==='function')openCatDlg(null, g, g==='Ingresos'?'ingreso':'gasto'); return; }
     if(t=e.target.closest('[data-pressec]')){ e.stopPropagation(); if(typeof openSecDlg==='function')openSecDlg(t.getAttribute('data-pressec')); return; }
     if(t=e.target.closest('[data-presedit]')){ if(typeof openCatDlg==='function')openCatDlg(t.getAttribute('data-presedit')); return; }

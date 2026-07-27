@@ -13,7 +13,7 @@ var RAD_ARQ=["FINANCIERAS","REGULADAS","CONCESIONAL","INDUSTRIAL","COMMODITY","C
 var UNI_FIELDS=[["nombre","Nombre",150],["arquetipo","Arquetipo",0],["subtipo","Sub-tipo",110],["naturaleza","Naturaleza",110],["rating","Rating",60],["actividad","Actividad principal",170],["justificacion","Justificación",230],["intensidadCapital","Intensidad capital",110],["apalancamiento","Apalancamiento",110],["marcoRegulatorio","Marco regulatorio",130]];
 var UNI_KEYS=UNI_FIELDS.map(function(f){return f[0];});
 var _uniBusca={q:''}, _radBusca={q:''};
-var RAD_RATING={AAA:100,AA:90,A:78,BBB:65,BB:52,B:40,CCC:28,CC:18,C:10};
+var RAD_RATING=KH_RATING; /* escala única: KH_RATING de 01-core.js [C2 · 27-jul-2026] */
 var RAD_W={div:0.35,cal:0.35,val:0.30}, RAD_RPDTOP=6, RAD_PAYALTO=85, RAD_ROETOP=20;
 function _rclamp(x){ return Math.max(0,Math.min(100,x)); }
 function radRatingScore(r){ if(!r)return null; var t=(''+r).trim().toUpperCase(); if(RAD_RATING[t]!=null)return RAD_RATING[t]; var m=(''+r).match(/★/g)||(''+r).match(/\*/g); var n=m?m.length:0; return n?_rclamp(n*20):null; }
