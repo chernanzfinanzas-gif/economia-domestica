@@ -822,7 +822,11 @@ function renderPres(){
 }
 
 /* ============ ANÁLISIS DEL PRESUPUESTO · Cumplimiento + Comparativas ============ */
-function _anaRealMap(){ var r={}; (DB.movimientos||[]).forEach(function(m){ var f=m.fecha||''; var y=+(''+f).slice(0,4),mo=+(''+f).slice(5,7); if(!y||!mo)return; var cid=m.categoriaId; if(!cid)return; (r[cid]=r[cid]||{}); (r[cid][y]=r[cid][y]||{}); r[cid][y][mo]=(r[cid][y][mo]||0)+num(m.importe); }); return r; }
+/* [C9 · 27-jul-2026] Sumaba num(m.importe) a secas, sin mirar m.tipo: una devolución (un ingreso
+   anotado en una partida de gasto) SUMABA en vez de restar. El Panel y el Desglose sí la restaban
+   —usan _movBudget—, así que el mismo mes daba dos cifras distintas según dónde lo miraras. Ahora
+   todos usan la misma regla: si te devuelven 40 € de la luz, ese mes gastaste 40 € menos. */
+function _anaRealMap(){ var r={}; (DB.movimientos||[]).forEach(function(m){ var f=m.fecha||''; var y=+(''+f).slice(0,4),mo=+(''+f).slice(5,7); if(!y||!mo)return; var cid=m.categoriaId; if(!cid)return; (r[cid]=r[cid]||{}); (r[cid][y]=r[cid][y]||{}); var b=_movBudget(m); r[cid][y][mo]=(r[cid][y][mo]||0)+((b.gas||0)+(b.ing||0)); }); return r; }
 function _anaYears(){ var s={}; (DB.presupuesto||[]).forEach(function(p){ s[pAnio(p)]=1; }); (DB.movimientos||[]).forEach(function(m){ var y=+(''+(m.fecha||'')).slice(0,4); if(y)s[y]=1; }); return Object.keys(s).map(Number).sort(function(a,b){return a-b;}); }
 function _anaPresMes(cid,y){ var p=presFor(cid,y); return p?mensual(p):0; }
 function _anaRealFor(R,cid,y,per,curY,curMonth){ var rr=(R[cid]||{})[y]; if(!rr)return 0; var s=0,m; if(per==='year'){for(m=1;m<=12;m++)s+=rr[m]||0;} else if(per==='ytd'){var lim=(y===curY)?curMonth:12;for(m=1;m<=lim;m++)s+=rr[m]||0;} else {s=rr[+per]||0;} return s; }
@@ -885,7 +889,12 @@ function renderInflacionPersonal(){
   if(tracked.length===0 || yYears.length<2){ el.innerHTML='<div class="infla-empty">Marca categorías con la casilla <b>«Seguir en inflación»</b> (en cada partida del presupuesto) y ten al menos dos años de movimientos. Años disponibles: '+(yYears.join(', ')||'ninguno')+'.</div>'; var _h=document.getElementById('inflaHeadD'); if(_h){_h.textContent='—';_h.className='blk-amount';} return; }
   var curY=yYears[yYears.length-1], prevY=yYears[yYears.length-2]; var extraYears=[];
   // gasto real por categoría/año
-  var cb2={}; movs.forEach(function(m){ if(m.tipo!=='gasto')return; var cid=m.categoriaId; var y=+_y(m); if(!cid||!y)return; cb2[cid]=cb2[cid]||{}; cb2[cid][y]=(cb2[cid][y]||0)+Math.abs(num(m.importe)); });
+  /* [C9 · 27-jul-2026] Ignoraba los ingresos anotados en partidas de gasto (las devoluciones), así
+     que la inflación personal se medía sobre un gasto bruto que nunca pagaste. Ahora resta, igual
+     que el Panel, el Desglose y el bloque de Cumplimiento. */
+  var cb2={}; movs.forEach(function(m){ var cid=m.categoriaId; var y=+_y(m); if(!cid||!y)return;
+    var bb=_movBudget(m); var vv=(bb.gas||0)+(bb.ing||0); if(!vv)return;
+    cb2[cid]=cb2[cid]||{}; cb2[cid][y]=(cb2[cid][y]||0)+vv; });
   function catY(cid,y){ return ((cb2[cid]&&cb2[cid][y])||0)/(nMonY[y]||12); } // media mensual real del año
   // agrupar por capítulo
   var grupos=[]; var gmap={}; tracked.forEach(function(c){ if(!gmap[c.grupo]){gmap[c.grupo]={g:c.grupo,cats:[]}; grupos.push(gmap[c.grupo]);} gmap[c.grupo].cats.push(c); });

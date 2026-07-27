@@ -148,7 +148,10 @@ const GROUPS={
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis'],['tesisinv','Ficha de Tesis']],
-  cartera:[['inversiones','Cartera'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
+  /* [C12 · 27-jul-2026] «Posiciones ejecutadas» era una vista completa que se pintaba sola
+     (estaba en VIEW_FNS) pero no figuraba en ningún grupo: no había forma de abrirla desde el
+     menú. Entra detrás de Cartera, que es de donde salen sus datos. */
+  cartera:[['inversiones','Cartera'],['posiciones','Posiciones'],['ranking','Ranking'],['rentabilidad','Rentabilidad']],
   retorno:[['dividendos','Dividendos'],['calendario','Calendario'],['prevision','Evolución del Dividendo'],['divfut','Actualizar Dividendos'],['fiscalidad','Fiscalidad'],['caja','Caja bróker']],
   tesis:[['monitor','Monitor'],['hechos','Diario de Hechos'],['diario','Mis Decisiones'],['estado','Estado del Sistema'],['backtest','Backtest']],
   /* [C8 · 27-jul-2026] «Próxima Mejor Compra» era una vista completa (con su propia cabecera)

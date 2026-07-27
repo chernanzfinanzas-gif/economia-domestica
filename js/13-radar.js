@@ -420,7 +420,7 @@ function _radBuild(sec){
       '<span class="rad-count" id="radCount"></span>'+
     '</div>'+
     '<div id="radPromoPanel"></div>'+'<div class="rad-table"><table><thead><tr>'+
-      '<th class="l">★</th><th class="l s" data-radsk="atr">Atractivo</th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
+      '<th class="l">★</th><th class="l s" data-radsk="atr" title="Atractivo de CRIBA del universo: 35 % dividendo · 35 % calidad · 30 % valoración. Ordena a quién dedicarle un análisis. No es el mismo número que el «Interés» de Visión de conjunto ni que el del Kanban: responden a preguntas distintas. [C11 · 27-jul-2026]">Atractivo <span style="opacity:.55;font-weight:600">· criba</span></th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
       '<th class="s" data-radsk="rpd">RPD</th><th class="s" data-radsk="crec" title="Crecimiento anualizado del dividendo (CAGR ~5 años)">Crec.Div</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="s" data-radsk="posN" title="Posición del precio en el rango de los últimos '+_ry+' años (verde=zona baja/barato · rojo=zona alta/caro)">Pos.'+_ry+'a</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l" title="Alertas — pulsa la señal para ver el detalle">⚠</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
@@ -801,6 +801,24 @@ function khTrimUltimo(t){
   var last=revs[revs.length-1];
   return { sem:(last.semaforoGlobal||'').toUpperCase(), intacta:last.tesisSigueIntacta,
            fecha:last.fecha||'', periodo:last.periodo||'' };
+}
+
+/* [C10 · 27-jul-2026] SEÑAL S6 — dos trimestres consecutivos en ámbar.
+   La app nunca la había disparado: el catálogo la describe y el formulario la ofrece, pero no
+   existía quien la detectara. Se calcula aquí, leyendo la serie de semáforos que el propio
+   -trim.json ya trae. No es duplicar el juicio del método —el color de cada trimestre lo pone él—:
+   la app solo cuenta cuántos ámbares seguidos lleva. Devuelve {n, periodo} o null. */
+function khTrimS6(t){
+  var d=null;
+  try{ if(typeof _cadTrim!=='undefined'&&_cadTrim&&_cadTrim[(t||'').toUpperCase()])d=_cadTrim[(t||'').toUpperCase()]; }catch(e){}
+  if(!d){ try{ if(typeof _trimCache!=='undefined'&&_trimCache&&_trimCache[(t||'').toUpperCase()])d=_trimCache[(t||'').toUpperCase()]; }catch(e){} }
+  if(!d||!d.revisiones||d.revisiones.length<2)return null;
+  var revs=d.revisiones.slice().sort(function(a,b){ return (a.fecha||'').localeCompare(b.fecha||''); });
+  var sem=function(x){ return ((x&&x.semaforoGlobal)||'').toUpperCase(); };
+  var u=revs[revs.length-1];
+  if(sem(u)!=='A' || sem(revs[revs.length-2])!=='A') return null;
+  var n=0; for(var i=revs.length-1;i>=0;i--){ if(sem(revs[i])==='A')n++; else break; }
+  return { n:n, periodo:u.periodo||u.fecha||'' };
 }
 
 /* [C5] ¿el último trimestre obliga a revisar la tesis? (la condición de la señal S2) */

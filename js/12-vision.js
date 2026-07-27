@@ -221,7 +221,7 @@ function _visRankDesk(rows){
        con el mismo colaAdd() que usa Radar Op. */
     '<td class="ctr">'+_visColaBtn(x)+'</td></tr>';
   }).join('');
-  return _visSesgoResumen(rows)+'<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th>Atractivo</th><th>Dossier</th><th class="l">Decisión</th><th></th></tr></thead><tbody>'+trs+'</tbody></table></div>';
+  return _visSesgoResumen(rows)+'<div class="vis-desk"><table><thead><tr><th class="l">Empresa</th><th>Rating</th><th>Score</th><th>Margen seg.</th><th>RPD</th><th title="Interés de CARTERA: mezcla calidad, margen de seguridad y renta de las empresas que ya sigues. No es el Atractivo del Radar (que criba el universo con otra fórmula) ni el del Kanban (que ordena trabajo pendiente). [C11 · 27-jul-2026]">Interés <span style="opacity:.55;font-weight:600">· cartera</span></th><th>Dossier</th><th class="l">Decisión</th><th></th></tr></thead><tbody>'+trs+'</tbody></table></div>';
 }
 function _visRankCards(rows){
   return '<div class="vis-cards">'+rows.map(function(x,i){ return '<div class="vis-card'+(i===0&&!x.pte?' best':'')+(x.pte?' pte':'')+'"><div class="vis-card-h">'+

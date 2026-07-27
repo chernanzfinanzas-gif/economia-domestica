@@ -792,6 +792,17 @@ function renderPanelDash(){
       avisos.push({pri:0,cls:'r',goto:'monitor',sig:'S2',tick:t,
         txt:`🔴 <b>${t}</b> — la revisión de ${cuando} declara la <b>tesis tocada</b>${dónde}: revísala (7 días)`});
   });
+  /* [C10 · 27-jul-2026] SEÑAL S6 — dos trimestres consecutivos en ámbar. No la disparaba nadie:
+     el catálogo la describía y el formulario la ofrecía, pero no había quien la detectase. Se
+     calcula leyendo la serie del -trim.json. Ámbar, no rojo: pide una mini-revisión de tendencia,
+     no un procedimiento de salida. Y solo si NO hay ya un S2 abierto para esa empresa, que manda. */
+  (DB.analisis||[]).forEach(a=>{ const t=(a.ticker||'').toUpperCase(); if(!t)return;
+    let s6=null; try{ s6=(typeof khTrimS6==='function')?khTrimS6(t):null; }catch(e){}
+    if(!s6)return;
+    if(avisos.some(x=>x.tick===t&&x.sig==='S2'))return;
+    avisos.push({pri:2,cls:'a',goto:'monitor',sig:'S6',tick:t,
+      txt:`🟡 <b>${t}</b> — <b>${s6.n} trimestres seguidos en ámbar</b> (hasta ${s6.periodo})${_heldSet.has(t)?' · en cartera':''}: ¿tendencia adversa o ruido estacional?`});
+  });
   /* [B5 · 26-jul-2026] El Panel avisaba con `dossierFecha + 12 meses` ignorando la próxima revisión,
      mientras el Kanban usa `proxRev || dossierFecha + 12m`. Al fijar una fecha de revisión desde el
      Kanban, este aviso seguía saltando indefinidamente. Ahora ambos usan el mismo criterio: si hay

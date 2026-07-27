@@ -296,6 +296,10 @@ function renderEmbudo(){
 }
 
 function _emPosPeso(t){ if(typeof invPositions!=='function')return 0; try{ var ps=invPositions(); var tot=0,mine=0; ps.forEach(function(p){ var v=_emNum(p.acciones)*_emNum(p.precioActual); tot+=v; if(_emUp(p.ticker)===_emUp(t))mine+=v; }); return tot>0?mine/tot:0; }catch(e){ return 0; } }
+/* [C11 · 27-jul-2026] Este NO es el Atractivo del Radar ni el Interés de Visión: aquí solo sirve
+   para ordenar el trabajo pendiente dentro de cada columna del Kanban. Que los tres números no
+   coincidan es correcto — responden a tres preguntas distintas. Se decidió mantener las tres
+   fórmulas y dejarlo claro en pantalla, en vez de unificarlas y perder los matices de cada una. */
 function _emAtractivo(t){ var f=(DB.fundamentales||{})[_emUp(t)]; var a=_emAna(t); if(typeof radScore==='function'&&f){ try{ return radScore(f,a&&a.rating,_emDsMes(t))||0; }catch(e){} } return _emScore(t)||0; }
 
 function _emKpis(cols){
