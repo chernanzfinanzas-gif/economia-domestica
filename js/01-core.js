@@ -375,12 +375,21 @@ function cargarAlertasCorp(){
     .catch(function(){ _alertasCorp=_alertasCorp||{}; return _alertasCorp; });
 }
 function alertaCorpDe(t){ t=(t||'').toUpperCase(); return (_alertasCorp||{})[t]||null; }
-/* Todos los hallazgos vivos de una empresa (vacio si aun se lee el alertas.json viejo). */
+/* Hallazgos VIVOS: solo los `activa`. Un `resuelta` (la OPA acabo) o un `caducada` (el hecho
+   puntual cumplio sus 30 dias) NO son avisos: son historial, y van abajo en su propio bloque.
+   Si aun se esta leyendo el alertas.json viejo, ese no tiene estados y se muestra tal cual. */
 function hallazgosCorpDe(t){
   t=(t||'').toUpperCase();
   var e=(_hallazgosEmp||{})[t];
-  if(e&&e.hallazgos) return e.hallazgos.filter(function(h){ return h&&h.estado!=='resuelta'; });
-  var al=alertaCorpDe(t); return al?[al]:[];
+  if(e&&e.hallazgos) return e.hallazgos.filter(function(h){ return h&&h.estado==='activa'; });
+  var al=alertaCorpDe(t); return (al&&al.estado!=='resuelta')?[al]:[];
+}
+/* Lo que ya no avisa pero conviene poder consultar: cerrado con desenlace o caducado. */
+function historialCorpDe(t){
+  t=(t||'').toUpperCase();
+  var e=(_hallazgosEmp||{})[t]; if(!e||!e.hallazgos) return [];
+  return e.hallazgos.filter(function(h){ return h&&(h.estado==='resuelta'||h.estado==='caducada'); })
+    .slice().sort(function(a,b){ return (''+(b.resueltoEl||b.fecha||'')).localeCompare(''+(a.resueltoEl||a.fecha||'')); });
 }
 function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
 /* El puente guarda la razon social ("Aena, S.M.E., S.A."), pero la orden que va a Claude debe
@@ -486,7 +495,12 @@ function hallazgosAvisos(){
   return out;
 }
 function alertaCorpBadge(t,compact){
-  var lista=hallazgosCorpDe(t); if(!lista.length)return '';
+  var lista=hallazgosCorpDe(t);
+  /* El chip compacto solo habla de lo VIVO: si no hay nada activo, no pinta nada.
+     El banner completo, en cambio, debe seguir mostrandose aunque no quede ningun aviso
+     abierto, porque el historial sigue siendo util (que paso con aquella OPA, cuando caduco
+     aquella multa). Devolver '' aqui dejaba la ficha muda en cuanto todo se cerraba. */
+  if(!lista.length&&(compact||!historialCorpDe(t).length))return '';
   if(compact){
     var al=_hallazgoPrincipal(lista)||lista[0];
     var venc=!!al.plazoVencido;
@@ -507,7 +521,24 @@ function alertaCorpBadge(t,compact){
     if(cob.universo)p.push('barrido del universo: '+cob.universo);
     pie='<div class="muted" style="font-size:10.5px;margin:2px 0 0 2px">Última revisión — '+_radEsc(p.join(' · '))+'</div>';
   }
-  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie;
+  /* Historial: cerrados y caducados, plegado. Es donde acaban la multa de hace dos meses o la
+     OPA que se liquido; sigue consultable sin ocupar sitio ni encender nada. */
+  var hist=historialCorpDe(t), histHTML='';
+  if(hist.length){
+    histHTML='<details style="margin:4px 0 0 2px"><summary style="cursor:pointer;font-size:11px;color:#64748b">'
+      +'Historial de avisos ('+hist.length+')</summary><div style="margin-top:3px">'
+      +hist.map(function(h){
+          var cad=(h.estado==='caducada');
+          return '<div style="font-size:11px;color:#64748b;padding:3px 6px;border-left:2px solid #cbd5e1;margin:2px 0">'
+            +'<b>'+_radEsc(_alcorpEtiqueta(h))+'</b> · '+_radEsc(h.fecha||'')
+            +' · <i>'+(cad?'caducado':'resuelto')+(h.resueltoEl?' el '+_radEsc(h.resueltoEl):'')+'</i>'
+            +'<div>'+_radEsc((h.resumen||'').slice(0,180))+'</div>'
+            +(h.desenlace?'<div style="color:#475569">→ '+_radEsc(h.desenlace)+'</div>':'')
+            +'</div>';
+        }).join('')
+      +'</div></details>';
+  }
+  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+histHTML;
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);
