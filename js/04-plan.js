@@ -856,6 +856,17 @@ function renderPanelDash(){
   try{ if(typeof calibAvisos==='function') calibAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof cadAvisos==='function') cadAvisos().forEach(x=>avisos.push(x)); }catch(e){}
   try{ if(typeof dividendoAlertas==='function') dividendoAlertas().forEach(x=>avisos.push(x)); }catch(e){}
+  /* [27-jul-2026] Hallazgos del puente (hallazgos.json): senales del protocolo con su reloj y su
+     enlace para pedir la Nota, situaciones societarias y coyuntura roja. Se anaden aqui para verlos
+     todos en la bandeja del Panel sin ir ficha por ficha. Se descartan los que ya haya empujado otra
+     fuente para el mismo ticker y senal (p. ej. el S2 que saca el monitor trimestral), para no duplicar. */
+  try{ if(typeof hallazgosAvisos==='function') hallazgosAvisos().forEach(x=>{
+    /* Si otra fuente ya empujo un aviso del mismo ticker y la misma senal (p. ej. el S2 del monitor
+       trimestral), NO se descarta el de hallazgos: se SUSTITUYE al anterior. El de hallazgos es el
+       unico que trae el plazo de 7 dias y el enlace para pedir la Nota, asi que descartarlo dejaba
+       el aviso sin la accion, que es justo lo que hace falta cuando hay una senal abierta. */
+    const _ix=(x.sig&&x.tick)?avisos.findIndex(y=>y.tick===x.tick&&y.sig===x.sig):-1;
+    if(_ix>=0) avisos[_ix]=x; else avisos.push(x); }); }catch(e){}
   /* carga fundamentales.json en segundo plano una vez, para enriquecer la alerta de dividendo (payout/BPA) */
   try{ if(typeof _radFundCache!=='undefined' && _radFundCache===null && typeof _radCargarFund==='function'){ _radCargarFund().then(function(){ if(typeof renderPanelDash==='function')renderPanelDash(); }); } }catch(e){}
   /* Silenciar avisos de señal cuya revisión ya está registrada en la ficha.
@@ -890,7 +901,7 @@ function renderPanelDash(){
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
     const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda',diario:'tesis'};   /* [B1] un supuesto roto es asunto de tesis, no «otros» */
-    const _TN={precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
+    const _TN={hallazgo:'🚨 Hallazgos',precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
     avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
     DB.avisosVistos=DB.avisosVistos||{}; const _vis=DB.avisosVistos;

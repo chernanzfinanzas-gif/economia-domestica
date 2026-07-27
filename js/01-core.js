@@ -438,6 +438,53 @@ function _alcorpBanner(t,h){
     +(h.fuente?'<a href="'+h.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')
     +accion+'</div>';
 }
+/* Los hallazgos de hallazgos.json, convertidos en avisos de la bandeja del Panel.
+   Se engancha igual que protoAvisos/calibAvisos/cadAvisos: renderPanelDash lo llama si existe.
+   Asi el operador ve en un sitio todo lo que hay que mirar, sin ir ficha por ficha.
+   La coyuntura AMBAR no entra: son 13-16 empresas cada lunes y ahogaria el resto. La ROJA si,
+   porque significa que un umbral documentado se ha cruzado. */
+function hallazgosAvisos(){
+  var out=[];
+  if(!_hallazgosEmp) return out;
+  Object.keys(_hallazgosEmp).forEach(function(tk){
+    var e=_hallazgosEmp[tk]||{};
+    (e.hallazgos||[]).forEach(function(h){
+      if(!h||h.estado==='resuelta') return;
+      if(h.tipo==='coyuntura'&&h.severidad!=='alta') return;
+      var nom=_nombreCortoCorp(tk);
+      var ico=ALERTA_TIPO_ICO[h.tipo]||'ℹ️';
+      var et=_alcorpEtiqueta(h);
+      var txt, pri, cls, sig='';
+      if(h.exigeAccion){
+        /* Senal del protocolo: lleva reloj y enlace para pedir la Nota desde aqui mismo. */
+        var dias=h.vencePlazoEl?_diasHasta(h.vencePlazoEl):null;
+        var venc=!!h.plazoVencido||(!h.notaEmitida&&dias!==null&&dias<0);
+        sig=h.codigo||'S2'; pri=0; cls='r';
+        var plazo=h.notaEmitida ? ' · <b>✔ Nota emitida</b>'
+          : (h.vencePlazoEl ? ' · <b>'+(venc?('PLAZO VENCIDO el '+h.vencePlazoEl)
+              :(dias===0?'vence HOY':(dias===1?'vence mañana':'vencen '+dias+' días')))+'</b>' : '');
+        var pedir=h.notaEmitida ? ''
+          : ' · <a href="'+_notaRevHref(tk)+'" style="font-weight:700;text-decoration:underline" '
+            +'title="Abre Claude en la carpeta del método con la orden ya escrita. Al terminar, sube la nota a dossiers/revisiones/'+_radEsc(tk)+'/">📝 pedir Nota</a>';
+        txt='🚨 <b>'+_radEsc(tk)+'</b> — señal <b>'+_radEsc(sig)+'</b> abierta ('+_radEsc(nom)+')'+plazo
+            +'<div style="font-size:11.5px;color:#475569;margin-top:2px">'+_radEsc((h.resumen||'').slice(0,240))+'</div>'+pedir;
+      } else if(h.tipo==='coyuntura'){
+        pri=2; cls='a';
+        txt='🌡️ <b>'+_radEsc(tk)+'</b> — coyuntura en contra ('+_radEsc(nom)+')'
+            +'<div style="font-size:11.5px;color:#475569;margin-top:2px">'+_radEsc((h.resumen||'').slice(0,220))+'</div>';
+      } else {
+        pri=(h.severidad==='alta')?1:((h.severidad==='media')?2:3);
+        cls=(h.severidad==='alta')?'r':'a';
+        txt=ico+' <b>'+_radEsc(tk)+'</b> — '+_radEsc(et)+' ('+_radEsc(nom)+')'
+            +(h.fecha?' · '+_radEsc(h.fecha):'')
+            +'<div style="font-size:11.5px;color:#475569;margin-top:2px">'+_radEsc((h.resumen||'').slice(0,240))+'</div>'
+            +(h.fuente?' · <a href="'+h.fuente+'" target="_blank" rel="noopener" style="text-decoration:underline">fuente ↗</a>':'');
+      }
+      out.push({pri:pri, cls:cls, goto:'analisis', tipo:'hallazgo', tick:tk, sig:sig, txt:txt});
+    });
+  });
+  return out;
+}
 function alertaCorpBadge(t,compact){
   var lista=hallazgosCorpDe(t); if(!lista.length)return '';
   if(compact){
