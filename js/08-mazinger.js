@@ -117,7 +117,11 @@ function renderMazinger(){
   var listBlk='<div class="blk mz-blk'+(ui.list?' open':'')+'"><div class="blk-h" data-mzblk="list"><span class="blk-arw">▶</span><span class="blk-ic">⛽</span><div><div class="blk-t">Repostajes</div><div class="blk-sub">Toca una fila para ver el detalle, editar o borrar</div></div><div class="blk-right"><span class="blk-sub">'+arr.length+' repostajes</span></div></div><div class="blk-b">'+lista+'</div></div>';
 
   var consPts=arr.filter(function(e){return e._cons!=null;});
-  var chart1=(typeof gLine==='function'&&consPts.length)?gLine('Consumo por repostaje (L/100km)',consPts.map(function(e){return ddmmyyyy(e.fecha).slice(0,5);}),consPts.map(function(e){return e._cons;}),{}):'';
+  /* [C16 · 27-jul-2026] Dos arreglos en una línea. (1) El eje y el tooltip rotulaban LITROS como
+     EUROS y redondeados a entero: con consumos entre 4,8 y 7,1 el eje ponía «0€ · 2€ · 4€ · 5€ ·
+     7€» y el tooltip «5,70 €». Ahora se le pasa la unidad. (2) La etiqueta del eje X era dd/mm SIN
+     AÑO, así que al pasar de ejercicio 2025 y 2026 se mezclaban sin poder distinguirlos. */
+  var chart1=(typeof gLine==='function'&&consPts.length)?gLine('Consumo por repostaje (L/100km)',consPts.map(function(e){return ddmmyyyy(e.fecha).slice(0,5)+'/'+String(e.fecha||'').slice(2,4);}),consPts.map(function(e){return e._cons;}),{unit:'L'}):'';
   var byMes={}; arr.forEach(function(e){ var m=(e.fecha||'').slice(0,7); if(m)byMes[m]=(byMes[m]||0)+num(e.precio); });
   var mk=Object.keys(byMes).sort();
   var chart2=(typeof gBars==='function'&&mk.length)?gBars('Gasto en combustible por mes (€)',mk.map(function(m){return m.slice(5)+'/'+m.slice(2,4);}),[{name:'Gasto',color:'#dc2626',vals:mk.map(function(m){return byMes[m];})}],{}):'';

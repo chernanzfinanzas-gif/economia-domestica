@@ -174,7 +174,13 @@ function _visPilar(lbl,val,peso,col){ val=Math.max(0,Math.min(100,val||0));
    analizada ni en la cola: si ya está, se dice, para no dar una acción que no hace nada. */
 function _visColaBtn(x){
   var t=(x&&x.t||'').toUpperCase(); if(!t) return '';
+  /* [C16 · 27-jul-2026] Faltaba el tercer guardia. El mismo botón en Universo se oculta en TRES
+     casos —en cartera, ya analizada y ya en la cola— y aquí solo se comprobaban dos: una empresa
+     que tienes comprada pero sin dossier mostraba ★→ en Visión y · en Universo, invitándote a
+     encolar algo que ya está en tu cartera. El dato estaba a mano: la propia fila lo usa dos líneas
+     más abajo para pintar el rótulo «en cartera». */
   try{
+    if(typeof heldTickerSet==='function' && heldTickerSet().has(t)) return '<span class="muted" style="font-size:10px" title="Ya la tienes en cartera">·</span>';
     if(typeof _esAnalizada==='function' && _esAnalizada(t)) return '<span class="muted" style="font-size:10px" title="Ya tiene análisis">·</span>';
     if(typeof _colaHas==='function' && _colaHas(t)) return '<span style="font-size:10px;color:#16a34a" title="Ya está en la cola de análisis">✓ cola</span>';
   }catch(e){}

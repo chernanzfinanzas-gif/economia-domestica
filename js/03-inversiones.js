@@ -416,7 +416,11 @@ function renderAnalisis(){
       if(a.entMin&&a.cot<=a.entMin){e_t='🟢 Óptimo';e_c='g';}
       else if(a.cot<=a.entMax){e_t='🟢 En zona';e_c='g';}
       else if(a.cot<=a.entMax*1.10){e_t='🟡 +'+(a.dist*100).toFixed(1)+'%';e_c='a';}
-      else {e_t='🔴 −'+((a.cot-a.entMax)/a.cot*100).toFixed(1)+'%';e_c='r';}
+      /* [C16 · 27-jul-2026] Esta rama conservaba la fórmula que [A10] ya había corregido en la
+         tabla: cambiaba el signo Y la base (dividía entre la cotización en vez de entre la entrada
+         máxima). Con cotización 12 € y entrada máxima 10 €, la tabla decía «🔴 +20,0 %» y el móvil
+         «🔴 −16,7 %» para la misma empresa el mismo día. Ahora las dos usan a.dist. */
+      else {e_t='🔴 +'+(a.dist*100).toFixed(1)+'%';e_c='r';}
     }
     let s_t='—',s_c='';
     if(a.stop&&a.cot){

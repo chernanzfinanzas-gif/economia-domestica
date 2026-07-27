@@ -928,14 +928,21 @@ function _cadRefreshAll(){
   });
 }
 function cadAvisos(){
-  var out=[]; var cad=DB.cadencia||{}; var held=(typeof _heldSet!=='undefined'&&_heldSet&&_heldSet.has)?_heldSet:null;
-  /* [C8 · 27-jul-2026] Este aviso EXCLUYE a propósito las empresas en cartera (para ellas el
-     trimestre pendiente ya sale en Monitor y Tareas y en Diario de Hechos). No es un olvido, pero
-     el texto no lo decía y se leía como cobertura completa del universo. */
+  /* [C16 · 27-jul-2026] El filtro de cartera NUNCA se aplicaba. `_heldSet` se declara con const
+     DENTRO de renderPanelDash, y esta función es otra: el ámbito es léxico, no dinámico, así que
+     `typeof _heldSet` daba 'undefined', held quedaba en null y los dos `if(held...)` no se cumplían
+     jamás. Comprobado con la base real: forzando cadencia vencida en una empresa EN cartera, el
+     aviso S5 salía igual. Ahora se usa heldTickerSet(), que sí es global.
+     Cambio de criterio deliberado: el filtro se aplica SOLO a S5. El aviso de «resultados
+     confirmados» mira hacia DELANTE (faltan N días) y es útil precisamente para lo que tienes en
+     cartera; el motivo de excluir S5 —que el trimestre pendiente ya sale en Monitor y en Diario de
+     Hechos— no le aplica. */
+  var out=[]; var cad=DB.cadencia||{};
+  var held=(typeof heldTickerSet==='function')?heldTickerSet():null;
   Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(c&&c.tocaMonitor) out.push({pri:2,cls:'a',goto:'cobertura',sig:'S5',tick:t,txt:'📊 <b>'+t+'</b> — toca monitor (en seguimiento)'+(c.proxLabel?' ('+c.proxLabel+')':'')}); });
   // Próximos resultados CONFIRMADOS POR TI (Cobertura), en ≤10 días (sustituye a Yahoo)
   var hoyA=new Date(); hoyA.setHours(0,0,0,0);
-  Object.keys(cad).forEach(function(t){ if(held&&held.has(t))return; var c=cad[t]; if(!c||!c.manual||!c.nextDate||c.tocaMonitor)return;
+  Object.keys(cad).forEach(function(t){ var c=cad[t]; if(!c||!c.manual||!c.nextDate||c.tocaMonitor)return;
     var ds=(typeof _cbToStr==='function')?_cbToStr(c.nextDate):c.nextDate; if(!ds)return;
     var d=new Date(ds+'T00:00:00'); if(isNaN(d))return; var dias=Math.round((d-hoyA)/86400000);
     if(dias>=0&&dias<=10) out.push({pri:dias<=3?2:3,cls:'a',goto:'cobertura',tick:t,txt:'📊 <b>'+t+'</b> — resultados '+_cadFmtD(d)+' <span class="muted">(confirmado)</span>'+(dias===0?' · hoy':' · en '+dias+' d')});

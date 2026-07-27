@@ -862,14 +862,30 @@ function renderPanelDash(){
      - Apunte ABIERTO → silencia siempre (el registro ya avisa como abierto/vencido).
      - Señales de precio (S1/S3) resueltas → silencio de 60 días desde el último apunte; si la
        condición persiste pasado ese plazo, el aviso vuelve a sonar para forzar re-revisión.
-     - Resto de señales resueltas → silencio permanente hasta que cambie la condición.
-     El apunte del registro (esApunte) nunca se silencia aquí. */
+     - Resto de señales resueltas → callan MIENTRAS no haya un hecho nuevo posterior al apunte.
+     El apunte del registro (esApunte) nunca se silencia aquí.
+
+     [C16 · 27-jul-2026] Antes ese último caso era «silencio permanente» de verdad: la función solo
+     miraba si EXISTÍA un apunte de esa señal, nunca si la condición había vuelto a darse. Es decir,
+     en cuanto registrabas y cerrabas UN apunte de S2 en una empresa, esa señal no volvía a sonar
+     ahí jamás — ni ante un trimestre rojo nuevo y distinto. Justo lo contrario de lo que decía el
+     comentario. Ahora cada señal declara cuál es su «hecho nuevo», con datos que ya están:
+       S2 y S6 → la fecha de la última revisión trimestral publicada
+       S4      → la fecha del dossier
+       S5      → la fecha del próximo informe proyectado
+     Si ese hecho es POSTERIOR al último apunte, la señal vuelve a sonar. Si no, calla. */
   try{ const _PRECIO=(typeof PROTO_SIG_PRECIO!=='undefined')?PROTO_SIG_PRECIO:{S1:1,S3:1}, _DIAS_SIL=(typeof PROTO_SILENCIO_DIAS!=='undefined')?PROTO_SILENCIO_DIAS:60, _hoyMs=Date.now();
+    const _hechoNuevo=(t,sig)=>{ try{
+        if(sig==='S2'||sig==='S6'){ const r=(typeof khTrimUltimo==='function')?khTrimUltimo(t):null; return (r&&r.fecha)?(''+r.fecha).slice(0,10):null; }
+        if(sig==='S4'){ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); return (a&&a.dossierFecha)?(''+a.dossierFecha).slice(0,10):null; }
+        if(sig==='S5'){ const c=(DB.cadencia||{})[t]; const d=c&&((c.next&&c.next.date)||c.nextDate); return d?(''+d).slice(0,10):null; }
+      }catch(e){} return null; };
     const _silenciada=(t,sig)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
-      if(!_PRECIO[sig])return true;
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
-      return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL; };
+      if(_PRECIO[sig]) return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL;
+      const hito=_hechoNuevo(t,sig);
+      return !(hito && hito > ult); };
     for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */

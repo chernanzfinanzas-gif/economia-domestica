@@ -300,7 +300,28 @@ function _emPosPeso(t){ if(typeof invPositions!=='function')return 0; try{ var p
    para ordenar el trabajo pendiente dentro de cada columna del Kanban. Que los tres números no
    coincidan es correcto — responden a tres preguntas distintas. Se decidió mantener las tres
    fórmulas y dejarlo claro en pantalla, en vez de unificarlas y perder los matices de cada una. */
-function _emAtractivo(t){ var f=(DB.fundamentales||{})[_emUp(t)]; var a=_emAna(t); if(typeof radScore==='function'&&f){ try{ return radScore(f,a&&a.rating,_emDsMes(t))||0; }catch(e){} } return _emScore(t)||0; }
+/* [C16 · 27-jul-2026] La columna ① decía ordenarse por el Atractivo del Radar y en realidad SIEMPRE
+   caía al Score, por tres fallos encadenados: (1) leía DB.fundamentales, una clave que no se rellena
+   en ningún punto del código, así que f era undefined siempre; (2) pasaba los MESES desde el dossier
+   donde radScore espera el objeto de Dividend Safety; y (3) radScore devuelve un OBJETO, no un
+   número — el `||0` lo dejaba pasar tal cual y la resta del comparador habría dado NaN, dejando la
+   columna sin ordenar. Los tres se arreglan juntos: se usa la caché del Radar (la misma que ya se
+   descarga para los avisos de dividendo), se pasa _radDs(t) y se lee el campo .atr. Si la caché aún
+   no ha llegado, se conserva el respaldo por Score, que es el comportamiento de siempre. */
+function _emFund(t){ t=_emUp(t);
+  try{ if(typeof _radFundCache!=='undefined' && _radFundCache && _radFundCache.empresas){
+    if(!window._emFundIdx || window._emFundIdxSrc!==_radFundCache){ var ix={};
+      _radFundCache.empresas.forEach(function(e){ var k=((e.ticker||e.t||'')+'').toUpperCase(); if(k)ix[k]=e; });
+      window._emFundIdx=ix; window._emFundIdxSrc=_radFundCache; }
+    return window._emFundIdx[t]||null; } }catch(e){}
+  return null; }
+function _emAtractivo(t){ var f=_emFund(t); var a=_emAna(t);
+  if(typeof radScore==='function'&&f){ try{
+    var r=radScore(f, a&&a.rating, (typeof _radDs==='function')?_radDs(t):null);
+    var v=(r&&typeof r==='object')?num(r.atr):num(r);
+    if(v||v===0) return v;
+  }catch(e){} }
+  return _emScore(t)||0; }
 
 function _emKpis(cols){
   var def=[['sel','① Selección','#0ea5e9'],['ana','② Análisis','#6366f1'],['plan','③ Planteamiento','#16a34a'],['seg','④ Seguimiento','#d97706']];
@@ -321,7 +342,19 @@ function _emAgenda(){
   var hoy=new Date(); hoy.setHours(0,0,0,0);
   var MES={ene:1,feb:2,mar:3,abr:4,may:5,jun:6,jul:7,ago:8,sep:9,oct:10,nov:11,dic:12};
   var out=[];
-  _emHeldSet().forEach(function(t){ var c=(DB.cadencia||{})[t]||{}; if(c.tocaMonitor)return; var lbl=c.proxLabel||''; var m=/(\d{1,2})[- ]?(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/i.exec(lbl); if(!m)return; var f=new Date(hoy.getFullYear(),MES[m[2].toLowerCase()]-1,+m[1]); var dias=Math.round((f-hoy)/86400000); if(dias>=0&&dias<=21) out.push({t:t,lbl:lbl,dias:dias}); });
+  /* [C16 · 27-jul-2026] La agenda reconstruía la fecha parseando la ETIQUETA de texto («Q2 ~15-jul»),
+     que no lleva año, y le pegaba el año en curso. Consecuencia: un informe de enero mirado desde
+     diciembre caía en el pasado y la fila no entraba nunca en la ventana de 0 a 21 días — la agenda
+     se quedaba muda justo en el cambio de año. Y no hacía falta: la cadencia ya guarda la fecha
+     COMPLETA, con su año. Ahora manda esa; el parseo de la etiqueta queda solo como respaldo. */
+  _emHeldSet().forEach(function(t){ var c=(DB.cadencia||{})[t]||{}; if(c.tocaMonitor)return;
+    var lbl=c.proxLabel||''; var f=null;
+    var iso=(c.next&&c.next.date)||c.nextDate||'';
+    if(iso){ var dd=new Date(String(iso).slice(0,10)+'T00:00:00'); if(!isNaN(dd)) f=dd; }
+    if(!f){ var m=/(\d{1,2})[- ]?(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)/i.exec(lbl); if(!m)return;
+      f=new Date(hoy.getFullYear(),MES[m[2].toLowerCase()]-1,+m[1]);
+      if((f-hoy)/86400000 < -180) f=new Date(hoy.getFullYear()+1,MES[m[2].toLowerCase()]-1,+m[1]); }
+    var dias=Math.round((f-hoy)/86400000); if(dias>=0&&dias<=21) out.push({t:t,lbl:lbl,dias:dias}); });
   if(!out.length)return '';
   out.sort(function(a,b){return a.dias-b.dias;});
   var txt=out.map(function(o){ return '<b>'+o.t+'</b> '+_emEsc(o.lbl); }).join(' · ');

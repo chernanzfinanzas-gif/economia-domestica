@@ -578,6 +578,16 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   $('#btnLogout').style.display='inline-block'; var _bb=$('#btnBackup'); if(_bb)_bb.style.display='inline-block'; var _br=$('#btnRestore'); if(_br)_br.style.display='inline-block';
   $$('.view').forEach(v=>v.classList.toggle('active', v.id==='view-panel'));
   $$('#nav button').forEach(b=>b.classList.toggle('active', b.dataset.view==='panel'));
+  /* [C16 · 27-jul-2026] Red de seguridad ANTES de la primera migración que recorre colecciones.
+     El orden estaba mal en dos sitios: esta línea da por hecho que existe DB.presupuesto, y veinte
+     líneas más abajo tres migraciones leían DB.config antes de que nadie lo creara —el
+     `if(!DB.config) DB.config={}` vivía DESPUÉS de ellas—. Restaurar una copia antigua a la que le
+     faltara cualquiera de esas claves cortaba la migración a la mitad, dejaba las cuatro últimas
+     sin aplicar y no avisaba de nada. Ahora todo lo que se recorre se garantiza aquí arriba. */
+  if(!DB.config) DB.config={};
+  DB.presupuesto = DB.presupuesto||[];
+  DB.categorias  = DB.categorias||[];
+  DB.movimientos = DB.movimientos||[];
   // migración: asegurar año en cada entrada de presupuesto
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   DB.patrimonio = DB.patrimonio||[];
@@ -638,7 +648,6 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
     DB.categorias.forEach(c=>{ if(REMAP[c.nombre]) c.grupo=REMAP[c.nombre]; });
     DB.config.estructuraReparto=true; scheduleSave();
   }
-  if(!DB.config) DB.config={};
   if(DB.config.objetivoReparto==null) DB.config.objetivoReparto=0.5;
   if(!DB.config.perfil){ DB.config.perfil={titulares:[{nombre:'Carlos',nomina:2448.64},{nombre:'Susana',nomina:2417.94}],email:'carlos220271@gmail.com'}; }
   if(!DB.config.comercioBaseV1){
