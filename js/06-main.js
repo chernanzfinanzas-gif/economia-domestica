@@ -371,7 +371,8 @@ $('#movForm').addEventListener('submit',e=>{
     categoriaId:$('#movCat').value,
     titular:$('#movTitular').value,
     tipo:movTipo,
-    importe:num($('#movImporte').value)
+    importe:num($('#movImporte').value),
+    reemb:!!(($('#movReemb')||{}).checked)
   };
   const ex=DB.movimientos.find(x=>x.id===mov.id);
   if(ex) Object.assign(ex,mov); else DB.movimientos.push(mov);
@@ -551,7 +552,8 @@ $('#anaClear').addEventListener('click',()=>{ if(confirm('¿Vaciar TODA la lista
 $('#presImportBtn').addEventListener('click',()=>$('#presFile').click());
 $('#amaList').addEventListener('click',e=>{
   const ed=e.target.closest('[data-editama]'); if(ed){ if(typeof editAmalia==='function')editAmalia(ed.dataset.editama); return; }
-  const b=e.target.closest('[data-delama]'); if(b){ const _id=b.dataset.delama; const _it=(DB.amalia||[]).find(x=>x.id===_id); if(_it)undoableDelete('amalia','Apunte reembolsable'+(_it.concepto?(' · '+_it.concepto):''),{item:_it},()=>{DB.amalia=DB.amalia.filter(x=>x.id!==_id);},['renderAmalia']); return; }
+  const b=e.target.closest('[data-delama]'); if(b){ const _id=b.dataset.delama; const _it=(DB.movimientos||[]).find(x=>x.id===_id);
+    if(_it)undoableDelete('movimiento','Apunte reembolsable'+(_it.concepto?(' · '+_it.concepto):''),{item:_it},()=>{DB.movimientos=DB.movimientos.filter(x=>x.id!==_id);},['renderAmalia','renderMovs']); return; }
   const r=e.target.closest('[data-amarow]'); if(r){ if(e.target.closest('input,button,select,a'))return; const it=r.closest('.ama-item'); if(it)it.classList.toggle('open'); }
 });
 $('#proyEventos').addEventListener('click',e=>{const b=e.target.closest('[data-delev]');if(b){DB.config.proyeccion.eventos.splice(+b.dataset.delev,1);renderProy();scheduleSave();}});

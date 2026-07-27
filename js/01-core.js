@@ -592,6 +592,10 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   DB.presupuesto.forEach(p=>{ if(p.anio==null) p.anio=baseYear(); });
   DB.patrimonio = DB.patrimonio||[];
   DB.amalia = DB.amalia||[];
+  /* Reembolsables: el almacen aparte pasa a ser una marca en el movimiento. Se ejecuta una vez
+     (DB.config.migReemb) y NO borra DB.amalia, que queda como copia de seguridad. */
+  try{ if(typeof migrarReembolsables==='function'){ var _mr=migrarReembolsables();
+       if(_mr) console.log('[reembolsables] migrados '+_mr.total+': '+_mr.creados+' nuevos, '+_mr.marcados+' ya existian como movimiento'); } }catch(e){ console.warn('[reembolsables] migracion:',e); }
   DB.inversiones = DB.inversiones||[];
   DB.operaciones = DB.operaciones||[];
   DB.valores = DB.valores||{};

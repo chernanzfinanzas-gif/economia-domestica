@@ -44,7 +44,13 @@ function catById(id){ return DB.categorias.find(c=>c.id===id); }
    devolución que reduce ese gasto, no un ingreso nuevo); simétrico para un gasto en categoría
    de ingreso. Sin categoría → se clasifica por el tipo del movimiento. NO se usa para el saldo
    de cuentas (ese sí cuenta el dinero que entra/sale por su tipo real). */
-function _movBudget(m){ var imp=num(m&&m.importe), tt=m&&m.tipo; var c=catById(m&&m.categoriaId); var ct=c?c.tipo:null;
+function _movBudget(m){
+  /* REEMBOLSABLE: adelanto que se recupera integro por transferencia. Se ve en la lista de
+     Movimientos —para no olvidarlo ni duplicarlo— pero NO computa en ningun total del hogar:
+     ni gasto, ni ingreso, ni tasa de ahorro, ni inflacion personal, ni Cumplimiento. Su suma y
+     su resta viven en la pestana Reembolsables, que es una vista sobre estos mismos apuntes. */
+  if(m && m.reemb) return {ing:0, gas:0};
+  var imp=num(m&&m.importe), tt=m&&m.tipo; var c=catById(m&&m.categoriaId); var ct=c?c.tipo:null;
   if(ct==='gasto') return {ing:0, gas:(tt==='gasto'?imp:(tt==='ingreso'?-imp:0))};
   if(ct==='ingreso') return {ing:(tt==='ingreso'?imp:(tt==='gasto'?-imp:0)), gas:0};
   if(tt==='gasto') return {ing:0, gas:imp};
@@ -513,8 +519,8 @@ var SUGSRC={
   movConcepto:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.concepto;})); },
   movComercio:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.comercio;})); },
   movDetalle:function(){ return _sugUniq((DB.movimientos||[]).map(function(m){return m.detalle;})); },
-  amaConcepto:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.concepto;})); },
-  amaNota:function(){ return _sugUniq((DB.amalia||[]).map(function(e){return e.nota;})); }
+  amaConcepto:function(){ return _sugUniq(((typeof reembMovs==='function')?reembMovs():[]).map(function(e){return e.concepto;})); },
+  amaNota:function(){ return _sugUniq(((typeof reembMovs==='function')?reembMovs():[]).map(function(e){return e.nota;})); }
 };
 function wireSuggest(inp,key,minChars){
   if(!inp||inp._sugWired)return; inp._sugWired=true; var mn=minChars||5;
@@ -694,7 +700,8 @@ function renderMovs(){
     const concepto=(m.concepto||'').trim(), detalle=(m.detalle||'').trim();
     const main=concepto||detalle||'—';
     const sub=(detalle&&detalle.toLowerCase()!==concepto.toLowerCase())?detalle:'';
-    const flag=m.concW?'<span class="mv-flag">⚠ discrepancia</span>':'';
+    const flag=(m.concW?'<span class="mv-flag">⚠ discrepancia</span>':'')
+      +(m.reemb?'<span class="mv-reemb" title="Reembolsable: no cuenta en gastos ni en ingresos. Su saldo está en Reembolsables">↩ reembolsable</span>':'');
     const ckHtml='<span class="mv-ckw"><input type="checkbox" class="mvCk" data-mid="'+m.id+'"'+(m.conc?' checked':'')+' title="Comprobado contra el extracto del banco"><span class="cd">'+ckd+'</span></span>';
     trs+='<tr class="mv-row'+st+'" data-mvid="'+m.id+'" data-movrow>'+
       '<td class="ctr mv-ckcell">'+ckHtml+'</td>'+
@@ -740,6 +747,7 @@ function editMov(id){
   $('#movId').value=m.id; $('#movFecha').value=m.fecha; $('#movConcepto').value=m.concepto||'';
   $('#movComercio').value=m.comercio||''; $('#movDetalle').value=m.detalle||''; $('#movCat').value=m.categoriaId; $('#movTitular').value=m.titular||'Dos';
   $('#movImporte').value=m.importe; setMovTipo(m.tipo);
+  var _rk=$('#movReemb'); if(_rk)_rk.checked=!!m.reemb;
   $('#movSubmit').textContent='Guardar cambios'; $('#movCancel').style.display='inline-block';
   var _b=document.getElementById('blkMovAdd'); if(_b){ _b.classList.add('open'); _b.scrollIntoView({behavior:'smooth',block:'start'}); } else { window.scrollTo({top:0,behavior:'smooth'}); }
 }
@@ -1795,90 +1803,136 @@ function addEvento(){
   DB.config.proyeccion.eventos.push({anio,concepto,importe});
   renderProy(); scheduleSave();
 }
-/* ============ Amalia (reembolsables) ============ */
-function amaliaSorted(){ return [...(DB.amalia||[])].sort((a,b)=> a.fecha<b.fecha?-1:a.fecha>b.fecha?1:0); }
-function amaliaSaldo(){ let s=0; (DB.amalia||[]).forEach(e=>{ s += e.tipo==='gasto'? num(e.importe) : -num(e.importe); }); return s; }
+/* ============ Reembolsables ============ */
+/* Adelantos que se recuperan integros por transferencia. NO son un almacen aparte: son
+   MOVIMIENTOS con la marca `reemb`. Esta vista es solo eso, una vista sobre ellos —por eso no
+   puede haber doble conteo—. El numero que manda es el SALDO PENDIENTE, que es literalmente el
+   importe de la proxima transferencia. Una transferencia salda VARIOS adelantos a la vez, asi que
+   NO se empareja apunte con apunte: se lleva un saldo con signo. */
+function reembMovs(){ return (DB.movimientos||[]).filter(function(m){ return m && m.reemb; }); }
+function _reembEsAdel(m){ return (m&&m.tipo)!=='ingreso'; }   /* gasto = adelanto · ingreso = reembolso */
+function amaliaSorted(){ return reembMovs().slice().sort(function(a,b){ var x=a.fecha||'',y=b.fecha||''; return x<y?-1:x>y?1:0; }); }
+function amaliaSaldo(){ var s=0; reembMovs().forEach(function(m){ s += _reembEsAdel(m)? num(m.importe) : -num(m.importe); }); return s; }
 function _amaFmt(v){ return fmt(Math.abs(num(v))<0.005?0:num(v)); }
 function setAmaTipo(t){ var h=$('#amaTipo'); if(h)h.value=t; $$('#amaTipoSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===t); }); }
+
+/* Migracion unica: los apuntes del almacen antiguo (DB.amalia) pasan a ser movimientos marcados.
+   Si el adelanto YA estaba apuntado como movimiento —mismo dia e mismo importe— no se duplica:
+   se marca el que existe, con lo que ademas deja de inflar el gasto de ese mes.
+   NO destructiva: DB.amalia se conserva como copia. Idempotente por DB.config.migReemb. */
+function migrarReembolsables(){
+  DB.config=DB.config||{};
+  if(DB.config.migReemb) return null;
+  var viejos=DB.amalia||[];
+  DB.movimientos=DB.movimientos||[];
+  var creados=0, marcados=0;
+  var idx={};
+  DB.movimientos.forEach(function(m){
+    if(m.reemb) return;
+    var k=(m.fecha||'')+'|'+(Math.round(num(m.importe)*100)/100);
+    (idx[k]=idx[k]||[]).push(m);
+  });
+  viejos.forEach(function(e){
+    var imp=num(e.importe); if(!e.fecha||!imp) return;
+    var esAdel=(e.tipo!=='reembolso');
+    var k=(e.fecha||'')+'|'+(Math.round(imp*100)/100);
+    var cand=(idx[k]||[]).filter(function(m){ return (m.tipo==='ingreso')!==esAdel; });
+    if(cand.length){ cand[0].reemb=true; if(e.nota&&!cand[0].nota)cand[0].nota=e.nota; marcados++; return; }
+    DB.movimientos.push({ id:(typeof uid==='function'?uid():'r'+Math.random().toString(36).slice(2,10)),
+      fecha:e.fecha, concepto:e.concepto||'Reembolsable', comercio:'', detalle:'',
+      categoriaId:'', titular:'Dos', tipo:(esAdel?'gasto':'ingreso'), importe:imp,
+      reemb:true, nota:e.nota||'' });
+    creados++;
+  });
+  DB.config.migReemb=1;
+  return {creados:creados, marcados:marcados, total:viejos.length};
+}
+
 function renderAmalia(){
   wireAllSuggests();
-  const fE=$('#amaFecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
-  // ---- Hero: saldo pendiente + totales ----
-  let tG=0,tR=0; (DB.amalia||[]).forEach(e=>{ if(e.tipo==='gasto')tG+=num(e.importe); else tR+=num(e.importe); });
-  const saldo=tG-tR, settled=Math.abs(saldo)<0.005, n=(DB.amalia||[]).length;
-  const hero=$('#amaHero');
+  var fE=$('#amaFecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
+  var movs=reembMovs();
+  var tG=0,tR=0; movs.forEach(function(m){ if(_reembEsAdel(m))tG+=num(m.importe); else tR+=num(m.importe); });
+  var saldo=tG-tR, settled=Math.abs(saldo)<0.005, n=movs.length;
+  var hero=$('#amaHero');
   if(hero) hero.innerHTML=
-    '<div><div class="big">'+(settled?'Todo reembolsado':'Pendiente de reembolso')+'</div><div class="amt">'+_amaFmt(saldo)+'</div>'+
-    '<div class="st">'+(settled?'no te deben nada ahora mismo':'es lo que aún te deben')+'</div></div>'+
+    '<div><div class="big">'+(settled?'Nada que transferir':'Próxima transferencia')+'</div><div class="amt">'+_amaFmt(saldo)+'</div>'+
+    '<div class="st">'+(settled?'todo saldado ahora mismo':'es lo que hay que transferir para saldarlo')+'</div></div>'+
     (settled?'<div class="settled">✓ saldado</div>':'')+
     '<div class="spacer"></div><div class="ama-minis">'+
     '<div class="ama-mini"><div class="l">Adelantado</div><div class="v">'+fmt(tG)+'</div></div>'+
     '<div class="ama-mini"><div class="l">Reembolsado</div><div class="v">'+fmt(tR)+'</div></div>'+
     '<div class="ama-mini"><div class="l">Apuntes</div><div class="v">'+n+'</div></div></div>';
-  // ---- Saldo corriente (orden cronológico) ----
-  const chrono=amaliaSorted(); let run=0; const salMap={};
-  chrono.forEach(e=>{ run += e.tipo==='gasto'? num(e.importe):-num(e.importe); salMap[e.id]=run; });
-  // ---- Filtros de la lista ----
-  const txt=(($('#amaBuscar')||{}).value||'').toLowerCase().trim();
-  const ft=(($('#amaFtipo')||{}).value||'');
-  const ord=(($('#amaOrden')||{}).value||'desc');
-  let list=chrono.slice();
-  if(ft) list=list.filter(e=>e.tipo===ft);
-  if(txt) list=list.filter(e=>((e.concepto||'')+' '+(e.nota||'')).toLowerCase().indexOf(txt)>=0);
+  var chrono=amaliaSorted(); var run=0; var salMap={};
+  chrono.forEach(function(m){ run += _reembEsAdel(m)? num(m.importe):-num(m.importe); salMap[m.id]=run; });
+  var txt=(($('#amaBuscar')||{}).value||'').toLowerCase().trim();
+  var ft=(($('#amaFtipo')||{}).value||'');
+  var ord=(($('#amaOrden')||{}).value||'desc');
+  var list=chrono.slice();
+  if(ft) list=list.filter(function(m){ return (_reembEsAdel(m)?'gasto':'reembolso')===ft; });
+  if(txt) list=list.filter(function(m){ return ((m.concepto||'')+' '+(m.nota||'')+' '+(m.detalle||'')).toLowerCase().indexOf(txt)>=0; });
   if(ord==='desc') list=list.reverse();
-  const cnt=$('#amaCount'); if(cnt) cnt.textContent=list.length+' apuntes';
-  if(!list.length){ $('#amaList').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">Sin apuntes con esos filtros.</div>'; return; }
-  $('#amaList').innerHTML=list.map(e=>{
-    const g=e.tipo==='gasto'; const signed=(g?'+':'−')+fmt(e.importe);
-    return `<div class="ama-item" data-amaid="${e.id}">
-      <div class="ama-ih" data-amarow>
-        <span class="ama-arw">▶</span>
-        <span class="ama-fch">${ddmmyyyy(e.fecha)}</span>
-        <span class="ama-main">${_infEsc(e.concepto||'—')}${e.nota?`<small>${_infEsc(e.nota)}</small>`:''}</span>
-        <span class="ama-tp"><span class="ama-tag ${g?'g':'r'}">${g?'Gasto':'Reembolso'}</span></span>
-        <span class="ama-imp ${g?'g':'r'}">${signed}</span>
-        <span class="ama-sal">${_amaFmt(salMap[e.id])}</span>
-      </div>
-      <div class="ama-b">
-        <div class="ama-dets">
-          <div class="d"><span>Nota</span>${e.nota?_infEsc(e.nota):'—'}</div>
-          <div class="d"><span>Saldo tras el apunte</span>${_amaFmt(salMap[e.id])}</div>
-        </div>
-        <div class="ama-acts">
-          <button class="btn ghost sm" data-editama="${e.id}">✎ Editar</button>
-          <button class="btn danger sm" data-delama="${e.id}">🗑 Eliminar</button>
-        </div>
-      </div>
-    </div>`;
+  var cnt=$('#amaCount'); if(cnt) cnt.textContent=list.length+' apuntes';
+  if(!list.length){ $('#amaList').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">'+(n?'Sin apuntes con esos filtros.':'Todavía no hay ningún movimiento marcado como reembolsable. Se marcan en <b>Movimientos</b>, con la casilla del formulario.')+'</div>'; return; }
+  $('#amaList').innerHTML=list.map(function(m){
+    var g=_reembEsAdel(m); var signed=(g?'+':'−')+fmt(m.importe);
+    var nota=(m.nota||m.detalle||'');
+    return '<div class="ama-item" data-amaid="'+m.id+'">'
+      +'<div class="ama-ih" data-amarow>'
+      +'<span class="ama-arw">▶</span>'
+      +'<span class="ama-fch">'+ddmmyyyy(m.fecha)+'</span>'
+      +'<span class="ama-main">'+_infEsc(m.concepto||'—')+(nota?'<small>'+_infEsc(nota)+'</small>':'')+'</span>'
+      +'<span class="ama-tp"><span class="ama-tag '+(g?'g':'r')+'">'+(g?'Adelanto':'Reembolso')+'</span></span>'
+      +'<span class="ama-imp '+(g?'g':'r')+'">'+signed+'</span>'
+      +'<span class="ama-sal">'+_amaFmt(salMap[m.id])+'</span>'
+      +'</div>'
+      +'<div class="ama-b">'
+      +'<div class="ama-dets">'
+      +'<div class="d"><span>Nota</span>'+(nota?_infEsc(nota):'—')+'</div>'
+      +'<div class="d"><span>Saldo tras el apunte</span>'+_amaFmt(salMap[m.id])+'</div>'
+      +'</div>'
+      +'<div class="ama-acts">'
+      +'<button class="btn ghost sm" data-editama="'+m.id+'">✎ Editar</button>'
+      +'<button class="btn danger sm" data-delama="'+m.id+'">🗑 Eliminar</button>'
+      +'</div></div></div>';
   }).join('');
 }
 function resetAmaForm(){
   $('#amaId').value=''; $('#amaConcepto').value=''; $('#amaImporte').value=''; $('#amaNota').value='';
-  setAmaTipo('gasto'); $('#amaAdd').textContent='Añadir apunte'; const c=$('#amaCancel'); if(c)c.style.display='none';
+  setAmaTipo('gasto'); $('#amaAdd').textContent='Añadir apunte'; var c=$('#amaCancel'); if(c)c.style.display='none';
 }
 function editAmalia(id){
-  const e=(DB.amalia||[]).find(x=>x.id===id); if(!e)return;
-  $('#amaId').value=e.id; $('#amaFecha').value=e.fecha||''; $('#amaConcepto').value=e.concepto||'';
-  $('#amaImporte').value=e.importe; $('#amaNota').value=e.nota||''; setAmaTipo(e.tipo==='reembolso'?'reembolso':'gasto');
-  $('#amaAdd').textContent='Guardar cambios'; const c=$('#amaCancel'); if(c)c.style.display='inline-block';
-  const b=$('#blkAmaAdd'); if(b){ b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
+  var m=reembMovs().find(function(x){return x.id===id;}); if(!m)return;
+  $('#amaId').value=m.id; $('#amaFecha').value=m.fecha||''; $('#amaConcepto').value=m.concepto||'';
+  $('#amaImporte').value=m.importe; $('#amaNota').value=m.nota||m.detalle||'';
+  setAmaTipo(_reembEsAdel(m)?'gasto':'reembolso');
+  $('#amaAdd').textContent='Guardar cambios'; var c=$('#amaCancel'); if(c)c.style.display='inline-block';
+  var b=$('#blkAmaAdd'); if(b){ b.classList.add('open'); b.scrollIntoView({behavior:'smooth',block:'start'}); }
 }
+/* El alta rapida de esta pestana crea un MOVIMIENTO marcado: un solo sitio donde viven los datos. */
 function addAmalia(){
-  const fecha=$('#amaFecha').value; if(!fecha){alert('Pon una fecha');return;}
-  const importe=num($('#amaImporte').value); if(!importe){alert('Pon un importe');return;}
-  DB.amalia=DB.amalia||[];
-  const data={fecha,concepto:$('#amaConcepto').value.trim(),tipo:($('#amaTipo').value==='reembolso'?'reembolso':'gasto'),importe,nota:$('#amaNota').value.trim()};
-  const id=$('#amaId').value;
-  if(id){ const ex=DB.amalia.find(x=>x.id===id); if(ex)Object.assign(ex,data); }
-  else { DB.amalia.push({id:uid(),...data}); }
+  var fecha=$('#amaFecha').value; if(!fecha){alert('Pon una fecha');return;}
+  var importe=num($('#amaImporte').value); if(!importe){alert('Pon un importe');return;}
+  var esAdel=($('#amaTipo').value!=='reembolso');
+  DB.movimientos=DB.movimientos||[];
+  var id=$('#amaId').value;
+  var data={ fecha:fecha, concepto:$('#amaConcepto').value.trim()||(esAdel?'Adelanto':'Reembolso'),
+             tipo:(esAdel?'gasto':'ingreso'), importe:importe, nota:$('#amaNota').value.trim(), reemb:true };
+  if(id){ var ex=DB.movimientos.find(function(x){return x.id===id;}); if(ex)Object.assign(ex,data); }
+  else { DB.movimientos.push(Object.assign({id:uid(),comercio:'',detalle:'',categoriaId:'',titular:'Dos'},data)); }
   resetAmaForm();
-  renderAmalia(); scheduleSave();
+  renderAmalia(); if(typeof renderMovs==='function')renderMovs(); scheduleSave();
 }
-function importAmalia(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar Amalia');
-  file.text().then(txt=>{ let d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
-    const arr=Array.isArray(d)?d:(d.amalia||[]); if(!arr.length){alert('El archivo no contiene apuntes');return;}
-    DB.amalia=arr.map(e=>({id:uid(),fecha:e.fecha,concepto:e.concepto||'',tipo:e.tipo==='reembolso'?'reembolso':'gasto',importe:num(e.importe),nota:e.nota||''}));
-    renderAmalia(); saveNow(); alert('Importados '+DB.amalia.length+' apuntes de Amalia.'); });
+function importAmalia(file){ if(typeof pushSnapshot==='function')pushSnapshot('antes de importar reembolsables');
+  file.text().then(function(txt){ var d; try{d=JSON.parse(txt);}catch(e){alert('JSON no válido');return;}
+    var arr=Array.isArray(d)?d:(d.amalia||d.reembolsables||[]); if(!arr.length){alert('El archivo no contiene apuntes');return;}
+    DB.movimientos=(DB.movimientos||[]).filter(function(m){return !m.reemb;});
+    arr.forEach(function(e){ DB.movimientos.push({ id:uid(), fecha:e.fecha, concepto:e.concepto||'Reembolsable',
+      comercio:'', detalle:'', categoriaId:'', titular:'Dos',
+      tipo:(e.tipo==='reembolso'||e.tipo==='ingreso')?'ingreso':'gasto', importe:num(e.importe),
+      reemb:true, nota:e.nota||'' }); });
+    renderAmalia(); if(typeof renderMovs==='function')renderMovs(); saveNow();
+    alert('Importados '+arr.length+' apuntes reembolsables.'); });
 }
 const R4_RET=0.19; // retención fiscal sobre plusvalía (España, primer tramo)
 function r4DesdeRetencion(ret){ ret=num(ret); if(ret<=0) return {retencion:0,bruto:0,neto:0}; const bruto=ret/R4_RET; return {retencion:ret,bruto,neto:bruto-ret}; }

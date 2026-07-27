@@ -350,15 +350,16 @@ function buildTitular(ctx){
 
 /* ============ 3.8 REEMBOLSABLES (AMALIA) ============ */
 function buildAmalia(ctx){
-  var am=(DB.amalia||[]).slice();
-  if(!am.length)return _infDocWrap('Reembolsables (Amalia)',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin movimientos de Amalia.</p>');
-  var saldo=(typeof amaliaSaldo==='function')?amaliaSaldo():am.reduce(function(s,e){return s+(e.tipo==='gasto'?num(e.importe):-num(e.importe));},0);
-  var tGas=0,tReemb=0; am.forEach(function(e){ if(e.tipo==='gasto')tGas+=num(e.importe); else tReemb+=num(e.importe); });
-  var rows=am.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');}).map(function(e){ return '<tr><td>'+(e.fecha?ddmmyyyy(e.fecha):'—')+'</td><td>'+_infEsc(e.concepto)+'</td><td>'+(e.tipo==='gasto'?'Gasto':'Reembolso')+'</td><td>'+_infEsc(e.nota||'')+'</td><td class="num" style="color:'+(e.tipo==='gasto'?'#dc2626':'#16a34a')+'">'+(e.tipo==='gasto'?'+':'−')+fmt(num(e.importe))+'</td></tr>';}).join('');
+  var am=(typeof reembMovs==='function')?reembMovs().slice():(DB.movimientos||[]).filter(function(m){return m&&m.reemb;});
+  var esAdel=function(e){ return (e&&e.tipo)!=='ingreso'; };
+  if(!am.length)return _infDocWrap('Reembolsables',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin apuntes reembolsables.</p>');
+  var tGas=0,tReemb=0; am.forEach(function(e){ if(esAdel(e))tGas+=num(e.importe); else tReemb+=num(e.importe); });
+  var saldo=tGas-tReemb;
+  var rows=am.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');}).map(function(e){ return '<tr><td>'+(e.fecha?ddmmyyyy(e.fecha):'—')+'</td><td>'+_infEsc(e.concepto)+'</td><td>'+(esAdel(e)?'Adelanto':'Reembolso')+'</td><td>'+_infEsc(e.nota||e.detalle||'')+'</td><td class="num" style="color:'+(esAdel(e)?'#dc2626':'#16a34a')+'">'+(esAdel(e)?'+':'−')+fmt(num(e.importe))+'</td></tr>';}).join('');
   var inner='';
-  inner+='<h2>Reembolsables</h2>'+_infKpis([['Pendiente de cobro',fmt(saldo)],['Total gastos',fmt(tGas)],['Total reembolsado',fmt(tReemb)],['Nº movimientos',String(am.length)]]);
-  inner+='<h2>Movimientos</h2><table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Nota</th><th class="num">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>';
-  return _infDocWrap('Reembolsables (Amalia)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
+  inner+='<h2>Reembolsables</h2>'+_infKpis([['Próxima transferencia',fmt(saldo)],['Total adelantado',fmt(tGas)],['Total reembolsado',fmt(tReemb)],['Nº apuntes',String(am.length)]]);
+  inner+='<h2>Apuntes</h2><table><thead><tr><th>Fecha</th><th>Concepto</th><th>Tipo</th><th>Nota</th><th class="num">Importe</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  return _infDocWrap('Reembolsables',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
 /* ============ 4.7 PLAN DE INVERSIÓN ============ */
