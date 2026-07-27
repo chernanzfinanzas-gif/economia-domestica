@@ -143,8 +143,8 @@
   "aplica": true,
   "gImplicito": 5.02,
   "gIntrinseco": -0.29,
-  "veredicto": "Pte",
-  "motivo": "Sin g intrínseco ni ROIIC a 5 años positivos con los que comparar, y el precio exige un 5.02%, por encima del g terminal: no hay ancla con la que emitir un veredicto de plausibilidad.",
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio exige un 5.02% de crecimiento del FCL a una empresa cuyo g intrínseco es NEGATIVO (-0.29% si lo hay): no está reinvirtiendo para crecer, está encogiendo su capital invertido. El 5.02% queda por debajo del ROIC (7.8%), que es el techo teórico —lo que crecería si reinvirtiera todo el NOPAT—, así que no es imposible. Para producirlo tendría que volver a reinvertir —o sacar el crecimiento de margen y precio indefinidamente—, que es lo contrario de lo que hace hoy. No es un dato que falte: es una exigencia real embebida en el precio.",
   "calculadoEl": "2026-07-27"
  }
 }
