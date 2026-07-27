@@ -1,118 +1,118 @@
 {
-  "ticker": "SAN",
-  "empresa": "Banco Santander, S.A.",
-  "fecha": "2026-06-23",
-  "rating": "A",
-  "score": 74.3,
-  "decision": "ESPERAR",
-  "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + RoTE — banca. PO oficial = síntesis Cap. VI ≈8,3 €; escenarios P/TBV justificado: bear ~7,0 €, bull ~12,4 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS).",
-  "poBear": 7.0,
-  "poBase": 8.3,
-  "poBull": 12.4,
-  "entMin": 6.5,
-  "entMax": 7.2,
-  "stop": 5.9,
-  "moat": "Moat moderado (65/100): escala global y diversificación geográfica difíciles de replicar, pero sin barreras anchas; banca minorista competida.",
-  "catalizadores": [
-    "RoTE sostenido > 16%",
-    "Ejecución de recompras acretivas para el BPA/DPA",
-    "Mejora del coste del riesgo en Brasil (normalización)",
-    "Defensa del margen de intereses ante la bajada de tipos del BCE",
-    "Cierre de la brecha de P/BV frente a peers domésticos (BBVA/CaixaBank ~2x)"
+ "ticker": "SAN",
+ "empresa": "Banco Santander, S.A.",
+ "fecha": "2026-06-23",
+ "rating": "A",
+ "score": 74.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + RoTE — banca. PO oficial = síntesis Cap. VI ≈8,3 €; escenarios P/TBV justificado: bear ~7,0 €, bull ~12,4 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS).",
+ "poBear": 7.0,
+ "poBase": 8.3,
+ "poBull": 12.4,
+ "entMin": 6.5,
+ "entMax": 7.2,
+ "stop": 5.9,
+ "moat": "Moat moderado (65/100): escala global y diversificación geográfica difíciles de replicar, pero sin barreras anchas; banca minorista competida.",
+ "catalizadores": [
+  "RoTE sostenido > 16%",
+  "Ejecución de recompras acretivas para el BPA/DPA",
+  "Mejora del coste del riesgo en Brasil (normalización)",
+  "Defensa del margen de intereses ante la bajada de tipos del BCE",
+  "Cierre de la brecha de P/BV frente a peers domésticos (BBVA/CaixaBank ~2x)"
+ ],
+ "riesgos": [
+  "Macro/crédito LatAm: recesión en Brasil/México dispara la morosidad (~40% del beneficio en LatAm)",
+  "Divisa: depreciación de emergentes (BRL/MXN) reduce beneficio y capital en euros",
+  "Tipos: recortes del BCE comprimen el margen de intereses",
+  "Regulatorio: impuesto a la banca en España / mayores requerimientos de capital",
+  "Deterioro sincronizado del crédito global (mayores provisiones)",
+  "Disrupción: neobancos y plataformas de pago erosionan comisiones"
+ ],
+ "bull": "RoTE >16% sostenido, el coste de capital se comprime y el mercado cierra el descuento de P/BV hacia ~1,8–2,0x con recompras reduciendo acciones → P/TBV justificado ~12,4 €.",
+ "bear": "Crisis de crédito y divisa en LatAm: coste del riesgo >2%, recorte de la retribución y de-rating, con compresión del margen por la bajada de tipos → P/TBV pesimista ~7,0 €.",
+ "resumen": "Banco de alta calidad (Rating A, 74,3): RoTE 16,4% > CoE, eficiencia 46%, CET1 13,5%, retribución sostenible. Moat moderado (65/100). A 11,35 € no ofrece margen de seguridad: PO central ~8,3 € (−27%) y perfil riesgo/recompensa asimétrico a la baja. ESPERAR; entrada con margen ~7 €, stop previsto ~5,9 €.",
+ "schemaVersion": 8,
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
   ],
-  "riesgos": [
-    "Macro/crédito LatAm: recesión en Brasil/México dispara la morosidad (~40% del beneficio en LatAm)",
-    "Divisa: depreciación de emergentes (BRL/MXN) reduce beneficio y capital en euros",
-    "Tipos: recortes del BCE comprimen el margen de intereses",
-    "Regulatorio: impuesto a la banca en España / mayores requerimientos de capital",
-    "Deterioro sincronizado del crédito global (mayores provisiones)",
-    "Disrupción: neobancos y plataformas de pago erosionan comisiones"
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-26"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "banda": {
+   "p10": 7.0,
+   "p50": 8.3,
+   "p90": 12.4
+  },
+  "sensibilidad": {
+   "poMin": 8.98,
+   "poMax": 12.36,
+   "poBase": 10.1,
+   "cotizacion": 11.352,
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -20.9,
+   "mdsMax": 8.9
+  },
+  "beta": {
+   "capm": 0.95,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (11.35) cae DENTRO de la banda de PO [9.0–12.4] bajo CoE±1.0pp/RoTE±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
   ],
-  "bull": "RoTE >16% sostenido, el coste de capital se comprime y el mercado cierra el descuento de P/BV hacia ~1,8–2,0x con recompras reduciendo acciones → P/TBV justificado ~12,4 €.",
-  "bear": "Crisis de crédito y divisa en LatAm: coste del riesgo >2%, recorte de la retribución y de-rating, con compresión del margen por la bajada de tipos → P/TBV pesimista ~7,0 €.",
-  "resumen": "Banco de alta calidad (Rating A, 74,3): RoTE 16,4% > CoE, eficiencia 46%, CET1 13,5%, retribución sostenible. Moat moderado (65/100). A 11,35 € no ofrece margen de seguridad: PO central ~8,3 € (−27%) y perfil riesgo/recompensa asimétrico a la baja. ESPERAR; entrada con margen ~7 €, stop previsto ~5,9 €.",
-  "schemaVersion": 8,
-  "confianza": {
-    "score": 100,
-    "nivel": "A",
-    "motivos": [
-      "conciliación ampliada aún NO ejecutada (ficha 03)"
-    ],
-    "sensibleASupuestos": false,
-    "reglaDura": {
-      "bloqueaCompraEnFirme": false,
-      "motivo": "",
-      "accion": null
-    },
-    "calculadoEl": "2026-07-15"
+  "calculadoEl": "2026-07-15",
+  "matizada": false
+ },
+ "dividendSafety": {
+  "score": 88,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {
+   "C1": 30,
+   "C2": 25,
+   "C3": 20,
+   "C4": 3,
+   "C5": 10
   },
-  "robustez": {
-    "nivel": "sensible",
-    "sobreviveDecision": false,
-    "banda": {
-      "p10": 7.0,
-      "p50": 8.3,
-      "p90": 12.4
-    },
-    "sensibilidad": {
-      "poMin": 8.98,
-      "poMax": 12.36,
-      "poBase": 10.1,
-      "cotizacion": 11.352,
-      "ejeCoste": "CoE",
-      "pertCoste": 1.0,
-      "pertOtro": 0.5,
-      "mdsMin": -20.9,
-      "mdsMax": 8.9
-    },
-    "beta": {
-      "capm": 0.95,
-      "ref2": null,
-      "aviso": null
-    },
-    "motivos": [
-      "la cotización (11.35) cae DENTRO de la banda de PO [9.0–12.4] bajo CoE±1.0pp/RoTE±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
-    ],
-    "calculadoEl": "2026-07-15",
-    "matizada": false
+  "shareholderYield": 5.01,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
   },
-  "dividendSafety": {
-    "score": 88,
-    "banda": "Muy seguro",
-    "aplica": true,
-    "rama": "banca",
-    "componentes": {
-      "C1": 30,
-      "C2": 25,
-      "C3": 20,
-      "C4": 3,
-      "C5": 10
-    },
-    "shareholderYield": 5.01,
-    "topeDuro": {
-      "activo": false,
-      "motivo": ""
-    },
-    "motivos": [
-      "C1 pay-out dividendo (DPA/BPA) 30% → 30/30",
-      "C2 CET1 13.5% → 25/25",
-      "C3 RoTE 16.4% → 20/20",
-      "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
-      "C5 predictores: ninguno → 10/10",
-      "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
-    ],
-    "calculadoEl": "2026-07-19"
-  },
-  "forense": {
-    "aplica": false,
-    "motivo": "rama financiera (banca/seguros)",
-    "flags": [],
-    "calculadoEl": "2026-07-19"
-  },
-  "reverseDcf": {
-    "aplica": false,
-    "veredicto": "No aplica",
-    "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-    "calculadoEl": "2026-07-19"
-  }
+  "motivos": [
+   "C1 pay-out dividendo (DPA/BPA) 30% → 30/30",
+   "C2 CET1 13.5% → 25/25",
+   "C3 RoTE 16.4% → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores: ninguno → 10/10",
+   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+  ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+  "calculadoEl": "2026-07-27"
+ }
 }

@@ -1,151 +1,151 @@
 {
-  "ticker": "REP",
-  "empresa": "Repsol, S.A.",
-  "fecha": "2026-06-23",
-  "rating": "A",
-  "score": 66.3,
-  "decision": "ESPERAR",
-  "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF — cíclica. PO oficial = síntesis ponderada ~18,3 €.",
-  "poBear": 14,
-  "poBase": 18,
-  "poBull": 31,
-  "entMin": 14,
-  "entMax": 16,
-  "stop": 11.7,
-  "moat": "Estrecho (46)",
-  "catalizadores": [
-    "Recuperación del margen de refino",
-    "Ejecución del plan de retribución y recompras",
-    "Claridad fiscal (gravamen energético)",
-    "Retornos de la transición energética",
-    "Rotación de cartera / M&A"
+ "ticker": "REP",
+ "empresa": "Repsol, S.A.",
+ "fecha": "2026-06-23",
+ "rating": "A",
+ "score": 66.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF — cíclica. PO oficial = síntesis ponderada ~18,3 €.",
+ "poBear": 14,
+ "poBase": 18,
+ "poBull": 31,
+ "entMin": 14,
+ "entMax": 16,
+ "stop": 11.7,
+ "moat": "Estrecho (46)",
+ "catalizadores": [
+  "Recuperación del margen de refino",
+  "Ejecución del plan de retribución y recompras",
+  "Claridad fiscal (gravamen energético)",
+  "Retornos de la transición energética",
+  "Rotación de cartera / M&A"
+ ],
+ "riesgos": [
+  "Caída sostenida del crudo",
+  "Colapso del margen de refino",
+  "Fiscalidad y regulación climática",
+  "Declive estructural de la demanda de combustibles",
+  "Deterioros de activos",
+  "Insostenibilidad de la retribución",
+  "Exposición geopolítica del upstream"
+ ],
+ "bull": "Si el crudo y el margen de refino se recuperan y se ejecuta el plan de retribución, el valor converge hacia 30-32 € (DCF mid-cycle); el FCL Yield de doble dígito y el dividendo creciente premian la espera.",
+ "bear": "Una recesión con Brent ~45 $/bbl hunde el FCL, fuerza un recorte del dividendo y desencadena un derating hacia 13-15 € (−30/−40%).",
+ "resumen": "Repsol es una integrada financieramente sólida (Rating A, DN/EBITDA 1,3x) y muy generadora de caja (FCL Yield ~9%, dividendo creciente, recompras), pero cíclica, con moat estrecho y un ROIC que no cubre su coste de capital salvo en picos del crudo. A 21,81 € —tras rebotar desde 15,4 €— no ofrece margen de seguridad: el precio objetivo ponderado (~18 €) está un 16% por debajo. Veredicto ESPERAR: buena empresa de caja y dividendo, a comprar con descuento (entrada ≤16 €, stop ~11,7 €).",
+ "schemaVersion": 8,
+ "confianza": {
+  "score": 96,
+  "nivel": "A",
+  "motivos": [
+   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)",
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
   ],
-  "riesgos": [
-    "Caída sostenida del crudo",
-    "Colapso del margen de refino",
-    "Fiscalidad y regulación climática",
-    "Declive estructural de la demanda de combustibles",
-    "Deterioros de activos",
-    "Insostenibilidad de la retribución",
-    "Exposición geopolítica del upstream"
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-26"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "banda": {
+   "p10": 14,
+   "p50": 18,
+   "p90": 31
+  },
+  "sensibilidad": {
+   "poMin": 24.76,
+   "poMax": 46.48,
+   "poBase": 32.4176120300048,
+   "cotizacion": 21.81,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 13.5,
+   "mdsMax": 113.1
+  },
+  "beta": {
+   "capm": null,
+   "ref2": 1.0,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (21.81) queda por DEBAJO de toda la banda de PO [24.8–46.5] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es ESPERAR — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
   ],
-  "bull": "Si el crudo y el margen de refino se recuperan y se ejecuta el plan de retribución, el valor converge hacia 30-32 € (DCF mid-cycle); el FCL Yield de doble dígito y el dividendo creciente premian la espera.",
-  "bear": "Una recesión con Brent ~45 $/bbl hunde el FCL, fuerza un recorte del dividendo y desencadena un derating hacia 13-15 € (−30/−40%).",
-  "resumen": "Repsol es una integrada financieramente sólida (Rating A, DN/EBITDA 1,3x) y muy generadora de caja (FCL Yield ~9%, dividendo creciente, recompras), pero cíclica, con moat estrecho y un ROIC que no cubre su coste de capital salvo en picos del crudo. A 21,81 € —tras rebotar desde 15,4 €— no ofrece margen de seguridad: el precio objetivo ponderado (~18 €) está un 16% por debajo. Veredicto ESPERAR: buena empresa de caja y dividendo, a comprar con descuento (entrada ≤16 €, stop ~11,7 €).",
-  "schemaVersion": 8,
-  "confianza": {
-    "score": 96,
-    "nivel": "A",
-    "motivos": [
-      "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)",
-      "conciliación ampliada aún NO ejecutada (ficha 03)"
-    ],
-    "sensibleASupuestos": false,
-    "reglaDura": {
-      "bloqueaCompraEnFirme": false,
-      "motivo": "",
-      "accion": null
-    },
-    "calculadoEl": "2026-07-15"
+  "calculadoEl": "2026-07-15",
+  "matizada": true
+ },
+ "dividendSafety": {
+  "score": 83,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 10,
+   "C3": 20,
+   "C4": 9,
+   "C5": 9
   },
-  "robustez": {
-    "nivel": "solida",
-    "sobreviveDecision": true,
-    "banda": {
-      "p10": 14,
-      "p50": 18,
-      "p90": 31
-    },
-    "sensibilidad": {
-      "poMin": 24.76,
-      "poMax": 46.48,
-      "poBase": 32.4176120300048,
-      "cotizacion": 21.81,
-      "ejeCoste": "WACC",
-      "pertCoste": 1.0,
-      "pertOtro": 0.5,
-      "mdsMin": 13.5,
-      "mdsMax": 113.1
-    },
-    "beta": {
-      "capm": null,
-      "ref2": 1.0,
-      "aviso": null
-    },
-    "motivos": [
-      "la cotización (21.81) queda por DEBAJO de toda la banda de PO [24.8–46.5] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-      "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es ESPERAR — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
-    ],
-    "calculadoEl": "2026-07-15",
-    "matizada": true
+  "shareholderYield": 2.36,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
   },
-  "dividendSafety": {
-    "score": 83,
-    "banda": "Muy seguro",
-    "componentes": {
-      "C1": 35,
-      "C2": 10,
-      "C3": 20,
-      "C4": 9,
-      "C5": 9
-    },
-    "shareholderYield": 2.36,
-    "topeDuro": {
-      "activo": false,
-      "motivo": ""
-    },
-    "motivos": [
-      "C1 cobertura dividendo ord.: OE 2.79x / FCL 1.35x (3a OE 2.92x) → 35/35",
-      "C2 payout BN ord.: 63% (3a 49%) → 10/15",
-      "C3 balance parcial → 20/20",
-      "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-      "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, buyback NETO negativo (dilución por scrip) → 9/15",
-      "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-    ],
-    "calculadoEl": "2026-07-19"
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 2.79x / FCL 1.35x (3a OE 2.92x) → 35/35",
+   "C2 payout BN ord.: 63% (3a 49%) → 10/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, buyback NETO negativo (dilución por scrip) → 9/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 0,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
   },
-  "forense": {
-    "aplica": true,
-    "piotroski": {
-      "score": 7,
-      "banda": "fuerte",
-      "detalle": {
-        "roa_pos": 1,
-        "cfo_pos": 1,
-        "roa_up": 1,
-        "accrual": 1,
-        "lever_dn": 0,
-        "liquid_up": 1,
-        "no_dilu": 1,
-        "margin_up": 0,
-        "turn_up": 1
-      },
-      "nota": "margen=bruto"
-    },
-    "altman": {
-      "z": 5.38,
-      "zona": "segura"
-    },
-    "beneish": {
-      "m": -2.87,
-      "senal": "sin indicios",
-      "aproximado": [
-        "SGAI"
-      ]
-    },
-    "sloan": {
-      "accruals": -5.7,
-      "senal": "normal"
-    },
-    "flags": [],
-    "calculadoEl": "2026-07-19"
+  "altman": {
+   "z": 5.38,
+   "zona": "segura"
   },
-  "reverseDcf": {
-    "aplica": true,
-    "gImplicito": -4.3,
-    "gIntrinseco": 0.7,
-    "veredicto": "PLAUSIBLE",
-    "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-    "calculadoEl": "2026-07-19"
-  }
+  "beneish": {
+   "m": -2.87,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -5.7,
+   "senal": "normal"
+  },
+  "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -3.47,
+  "gIntrinseco": 0.75,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-07-27"
+ }
 }

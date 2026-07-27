@@ -1,151 +1,151 @@
 {
-"schemaVersion": 8,
-"ticker": "FDR",
-"empresa": "Fluidra, S.A.",
-"fecha": "2026-07-26",
-"rating": "A",
-"score": 62.8,
-"decision": "MANTENER",
-"metodoValoracion": "Síntesis ponderada DCF + múltiplos históricos 10A — industrial cíclica. PO oficial = síntesis §6.5 (25,44 €) con pesos DCF 40 · múltiplos 55 · renta 5 · activos 0, dentro de la banda normada del arquetipo INDUSTRIAL. El bear (13,69 €) NO sale del DCF pesimista solo: es la media de tres anclas independientes —múltiplos en recesión 12,41 €, DCF pesimista 14,14 € y el mínimo real del ciclo ya vivido, el cierre de 2022 en 14,52 €—. El bull (29,73 €) aplica 12,0x EV/EBITDA (por debajo de su media 10A de 12,93x) sobre un EBITDA normalizado de 545 M€.",
-"poBear": 13.69,
-"poBase": 25.44,
-"poBull": 29.73,
-"entMin": 13.69,
-"entMax": 17.11,
-"stop": 12.55,
-"dpaPrevisto": 0.65,
-"moat": "ESTRECHO · 52,8/100. Los activos intangibles son el único pilar sólido (72/100): 1.601 patentes, tres veces las del siguiente competidor, y una marca reconocida cinco años seguidos como «Vendor of the Year» por los distribuidores de EE. UU. La ventaja de costes (55) y la escala eficiente (35) no llegan a foso, y el efecto de red (32) es casi inexistente. Fluidra no es un negocio con foso ancho: es un buen negocio en un sector fragmentado que se está consolidando, y ella es la consolidadora.",
-"catalizadores": [
-"Resultados del 1S 2026 (inminentes): primera lectura del gasto financiero sin las coberturas vencidas el 30/06/2026 y del margen bruto con los aranceles ya aplicados. Impacto ±8 a 12%.",
-"Giro del ciclo de nueva construcción en EE. UU. (12-18 meses): permisos de piscina residencial en positivo interanual dos trimestres seguidos. Es el catalizador que más pesa y el que no controla la empresa. Impacto +15 a +25%.",
-"Renovación de coberturas de tipos o refinanciación del sindicado (0-12 meses): hoy el nocional cubierto es CERO. Impacto +3 a +6%.",
-"Programa de retorno al accionista con el FCL de 2026 (6-12 meses): recompra ≥ 100 M€ o DPA > 0,70 €. El payout sobre FCL del 43% deja sitio. Impacto +5 a +10%.",
-"Dilución de la concentración de cliente (nota de segmentos de las cuentas de 2026): que baje del 20% tras cuatro años subiendo. Impacto +5 a +10%."
-],
-"riesgos": [
-"Concentración de cliente (Media · −20 a −35%): un solo cliente estadounidense concentra el 21,0% de las ventas y sube cuatro años seguidos. Perder la mitad se llevaría el 28% del EBITDA.",
-"Ciclo de nueva construcción en EE. UU. (Alta · −25 a −40%): el 43% de las ventas está en Norteamérica. Ya ocurrió: la acción cayó un 58,8% en 2022 y los resultados un año después.",
-"Deterioro del fondo de comercio (Baja-Media · −10 a −20%): 1.269 M€, el 37,2% del activo, con patrimonio tangible de −319 M€.",
-"Coste de la deuda con la cobertura YA VENCIDA (Alta, en curso · −5 a −10%): los 860,6 M€ de permutas vencieron el 30/06/2026 y fijaban 1,385-2,205% frente a un Euribor 3M del 2,83%.",
-"Aranceles y fricción comercial (Alta · −8 a −15%): 959 M€ de ventas en Norteamérica con buena parte de la fabricación en Europa y Asia."
-],
-"bull": "El ciclo americano gira con la bajada de tipos, el margen EBITDA recupera al 22% y el múltiplo se normaliza a 12,0x —todavía por debajo de su propia media de diez años y de los tres peers—, con la deuda neta bajando a 900 M€. Precio implícito 29,73 €, un +62,5% desde 18,29 €. Probabilidad ≈15%.",
-"bear": "Las ventas caen un 8% con el margen EBITDA en el 19,0% y el múltiplo sin re-rating, la deuda neta sube a 1.180 M€. Tres métodos independientes convergen en 13,69 €: un −25,2% desde hoy. Supera el umbral del −20% que el método exige para comprar, y es la razón por la que un margen del +39,1% no basta. Probabilidad ≈10%.",
-"resumen": "Fluidra es el líder mundial de equipamiento de piscina con el 13% de un mercado de 17.400 M€ y el 60% de su demanda en aftermarket, lo que le pone un suelo que su condición de cíclica no sugiere. Cotiza a 9,7x EV/EBITDA, el múltiplo más bajo de sus cuatro comparables, y paga el mayor dividendo del grupo (3,55%). El precio objetivo de 25,44 € deja un margen del +39,1%, pero la decisión es MANTENER y no COMPRAR: de los cuatro requisitos del método solo uno se cumple con holgura. El escenario bajista razonable implica un −25,2% frente al umbral del −20%, el moat sale ESTRECHO (52,8) y el rating A se sostiene por 0,8 puntos. Por debajo de 17,11 € el requisito del bear se cumple mecánicamente y esto pasa a COMPRAR sin tocar una sola hipótesis.",
-"confianza": {
-"score": 100,
-"nivel": "A",
-"motivos": [
-"conciliación ampliada aún NO ejecutada (ficha 03)"
-],
-"sensibleASupuestos": false,
-"reglaDura": {
-"bloqueaCompraEnFirme": false,
-"motivo": "",
-"accion": null
-},
-"calculadoEl": "2026-07-26"
-},
-"robustez": {
-"nivel": "sensible",
-"sobreviveDecision": false,
-"matizada": false,
-"banda": {
-"p10": 13.69,
-"p50": 25.44,
-"p90": 29.73
-},
-"sensibilidad": {
-"poMin": 17.95,
-"poMax": 34.84,
-"poBase": 23.9928496359,
-"cotizacion": 18.29,
-"ejeCoste": "WACC",
-"pertCoste": 1.0,
-"pertOtro": 0.5,
-"mdsMin": -1.8,
-"mdsMax": 90.5
-},
-"beta": {
-"capm": 0.83,
-"ref2": 1.05,
-"aviso": null
-},
-"motivos": [
-"la cotización (18.29) cae DENTRO de la banda de PO [18.0–34.8] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
-],
-"calculadoEl": "2026-07-26"
-},
-"dividendSafety": {
-"score": 68,
-"banda": "Seguro",
-"componentes": {
-"C1": 27,
-"C2": null,
-"C3": 13,
-"C4": 3,
-"C5": 15
-},
-"shareholderYield": null,
-"topeDuro": {
-"activo": false,
-"motivo": ""
-},
-"motivos": [
-"C1 cobertura dividendo ord.: OE 1.76x / FCL 2.59x (3a OE 1.89x) → 27/35",
-"C2 payout BN: sin datos → no puntúa",
-"C3 balance: DN/EBITDA 2.77x, cob.int 5.8x → 13/20",
-"C4 trayectoria: 2 recorte(s) en 7a · DPA creciente → 3/15",
-"C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-"C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-],
-"calculadoEl": "2026-07-26"
-},
-"forense": {
-"aplica": true,
-"piotroski": {
-"score": 5,
-"banda": "medio",
-"detalle": {
-"roa_pos": 0,
-"cfo_pos": 1,
-"roa_up": 0,
-"accrual": 0,
-"lever_dn": 1,
-"liquid_up": 0,
-"no_dilu": 1,
-"margin_up": 1,
-"turn_up": 1
-},
-"nota": "margen=bruto"
-},
-"altman": {
-"z": null,
-"zona": "Pte. Revisión"
-},
-"beneish": {
-"m": -2.55,
-"senal": "sin indicios",
-"aproximado": [
-"SGAI",
-"TATA"
-]
-},
-"sloan": {
-"accruals": null,
-"senal": "Pte. Revisión"
-},
-"flags": [],
-"veto": false,
-"vetoMotivos": [],
-"calculadoEl": "2026-07-26"
-},
-"reverseDcf": {
-"aplica": true,
-"gImplicito": 1.01,
-"gIntrinseco": -5.11,
-"veredicto": "Pte",
-"motivo": "A 18,29 € el precio solo exige que el FCL crezca un 1,01% anual (invirtiendo el DCF §6.2 sobre el FCL normalizado de 254 M€, WACC 7,18%, g terminal 2,0%); al cierre de 2025, a 23,16 €, exigía el 3,69%. El veredicto de plausibilidad queda Pte. porque el g intrínseco autofinanciable es NEGATIVO (−5,11%): Fluidra devuelve capital en vez de reinvertirlo, así que no hay crecimiento intrínseco positivo con el que contrastar. Valor recalculado a mano: reverse_dcf.py tomó la cotización de cierre de 2025 (23,16 €) en vez de la actual y el FCL real en vez del normalizado, y devolvía 2,7%.",
-"calculadoEl": "2026-07-26"
-}
+ "schemaVersion": 8,
+ "ticker": "FDR",
+ "empresa": "Fluidra, S.A.",
+ "fecha": "2026-07-26",
+ "rating": "A",
+ "score": 62.8,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada DCF + múltiplos históricos 10A — industrial cíclica. PO oficial = síntesis §6.5 (25,44 €) con pesos DCF 40 · múltiplos 55 · renta 5 · activos 0, dentro de la banda normada del arquetipo INDUSTRIAL. El bear (13,69 €) NO sale del DCF pesimista solo: es la media de tres anclas independientes —múltiplos en recesión 12,41 €, DCF pesimista 14,14 € y el mínimo real del ciclo ya vivido, el cierre de 2022 en 14,52 €—. El bull (29,73 €) aplica 12,0x EV/EBITDA (por debajo de su media 10A de 12,93x) sobre un EBITDA normalizado de 545 M€.",
+ "poBear": 13.69,
+ "poBase": 25.44,
+ "poBull": 29.73,
+ "entMin": 13.69,
+ "entMax": 17.11,
+ "stop": 12.55,
+ "dpaPrevisto": 0.65,
+ "moat": "ESTRECHO · 52,8/100. Los activos intangibles son el único pilar sólido (72/100): 1.601 patentes, tres veces las del siguiente competidor, y una marca reconocida cinco años seguidos como «Vendor of the Year» por los distribuidores de EE. UU. La ventaja de costes (55) y la escala eficiente (35) no llegan a foso, y el efecto de red (32) es casi inexistente. Fluidra no es un negocio con foso ancho: es un buen negocio en un sector fragmentado que se está consolidando, y ella es la consolidadora.",
+ "catalizadores": [
+  "Resultados del 1S 2026 (inminentes): primera lectura del gasto financiero sin las coberturas vencidas el 30/06/2026 y del margen bruto con los aranceles ya aplicados. Impacto ±8 a 12%.",
+  "Giro del ciclo de nueva construcción en EE. UU. (12-18 meses): permisos de piscina residencial en positivo interanual dos trimestres seguidos. Es el catalizador que más pesa y el que no controla la empresa. Impacto +15 a +25%.",
+  "Renovación de coberturas de tipos o refinanciación del sindicado (0-12 meses): hoy el nocional cubierto es CERO. Impacto +3 a +6%.",
+  "Programa de retorno al accionista con el FCL de 2026 (6-12 meses): recompra ≥ 100 M€ o DPA > 0,70 €. El payout sobre FCL del 43% deja sitio. Impacto +5 a +10%.",
+  "Dilución de la concentración de cliente (nota de segmentos de las cuentas de 2026): que baje del 20% tras cuatro años subiendo. Impacto +5 a +10%."
+ ],
+ "riesgos": [
+  "Concentración de cliente (Media · −20 a −35%): un solo cliente estadounidense concentra el 21,0% de las ventas y sube cuatro años seguidos. Perder la mitad se llevaría el 28% del EBITDA.",
+  "Ciclo de nueva construcción en EE. UU. (Alta · −25 a −40%): el 43% de las ventas está en Norteamérica. Ya ocurrió: la acción cayó un 58,8% en 2022 y los resultados un año después.",
+  "Deterioro del fondo de comercio (Baja-Media · −10 a −20%): 1.269 M€, el 37,2% del activo, con patrimonio tangible de −319 M€.",
+  "Coste de la deuda con la cobertura YA VENCIDA (Alta, en curso · −5 a −10%): los 860,6 M€ de permutas vencieron el 30/06/2026 y fijaban 1,385-2,205% frente a un Euribor 3M del 2,83%.",
+  "Aranceles y fricción comercial (Alta · −8 a −15%): 959 M€ de ventas en Norteamérica con buena parte de la fabricación en Europa y Asia."
+ ],
+ "bull": "El ciclo americano gira con la bajada de tipos, el margen EBITDA recupera al 22% y el múltiplo se normaliza a 12,0x —todavía por debajo de su propia media de diez años y de los tres peers—, con la deuda neta bajando a 900 M€. Precio implícito 29,73 €, un +62,5% desde 18,29 €. Probabilidad ≈15%.",
+ "bear": "Las ventas caen un 8% con el margen EBITDA en el 19,0% y el múltiplo sin re-rating, la deuda neta sube a 1.180 M€. Tres métodos independientes convergen en 13,69 €: un −25,2% desde hoy. Supera el umbral del −20% que el método exige para comprar, y es la razón por la que un margen del +39,1% no basta. Probabilidad ≈10%.",
+ "resumen": "Fluidra es el líder mundial de equipamiento de piscina con el 13% de un mercado de 17.400 M€ y el 60% de su demanda en aftermarket, lo que le pone un suelo que su condición de cíclica no sugiere. Cotiza a 9,7x EV/EBITDA, el múltiplo más bajo de sus cuatro comparables, y paga el mayor dividendo del grupo (3,55%). El precio objetivo de 25,44 € deja un margen del +39,1%, pero la decisión es MANTENER y no COMPRAR: de los cuatro requisitos del método solo uno se cumple con holgura. El escenario bajista razonable implica un −25,2% frente al umbral del −20%, el moat sale ESTRECHO (52,8) y el rating A se sostiene por 0,8 puntos. Por debajo de 17,11 € el requisito del bear se cumple mecánicamente y esto pasa a COMPRAR sin tocar una sola hipótesis.",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-26"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "matizada": false,
+  "banda": {
+   "p10": 13.69,
+   "p50": 25.44,
+   "p90": 29.73
+  },
+  "sensibilidad": {
+   "poMin": 17.95,
+   "poMax": 34.84,
+   "poBase": 23.9928496359,
+   "cotizacion": 18.29,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -1.8,
+   "mdsMax": 90.5
+  },
+  "beta": {
+   "capm": 0.83,
+   "ref2": 1.05,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (18.29) cae DENTRO de la banda de PO [18.0–34.8] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  ],
+  "calculadoEl": "2026-07-26"
+ },
+ "dividendSafety": {
+  "score": 68,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 27,
+   "C2": null,
+   "C3": 13,
+   "C4": 3,
+   "C5": 15
+  },
+  "shareholderYield": null,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.76x / FCL 2.59x (3a OE 1.89x) → 27/35",
+   "C2 payout BN: sin datos → no puntúa",
+   "C3 balance: DN/EBITDA 2.77x, cob.int 5.8x → 13/20",
+   "C4 trayectoria: 2 recorte(s) en 7a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-26"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 0,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 0,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": null,
+   "zona": "Pte. Revisión"
+  },
+  "beneish": {
+   "m": -2.55,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI",
+    "TATA"
+   ]
+  },
+  "sloan": {
+   "accruals": null,
+   "senal": "Pte. Revisión"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-07-26"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 1.01,
+  "gIntrinseco": -5.11,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El precio solo exige un 1.01% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
+  "calculadoEl": "2026-07-27"
+ }
 }
