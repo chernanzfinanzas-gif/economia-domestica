@@ -427,7 +427,12 @@ function ingMensualPresu(){ const nowY=new Date().getFullYear(); let ing=0,has=f
 function gastoEsencialPresu(){ const nowY=new Date().getFullYear(); let g=0,anyEs=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='gasto'&&c.esencial){ g+=(typeof mensual==='function')?mensual(p):num(p.importe); anyEs=true; } }); return anyEs?g:null; }
 // === Proyección de cierre de presupuesto (burn-rate lineal según el ritmo de gasto) ===
 function proyeccionCierre(){ const nowY=new Date().getFullYear(); const startY=Date.UTC(nowY,0,1), endY=Date.UTC(nowY+1,0,1); const frac=Math.min(1,Math.max(0.02,(Date.now()-startY)/(endY-startY)));
-  let realYTD=0,ingYTD=0; (DB.movimientos||[]).forEach(m=>{ if(!m.fecha||m.fecha.slice(0,4)!==String(nowY))return; if((m.tipo||'')==='gasto')realYTD+=num(m.importe); else if((m.tipo||'')==='ingreso')ingYTD+=num(m.importe); });
+  /* [C15 · 27-jul-2026] Sumaba por m.tipo sin mirar el tipo de la categoría: las devoluciones
+     inflaban a la vez el gasto acumulado y los ingresos, y como la proyección es el gasto del año
+     dividido por la fracción transcurrida, el error se multiplicaba al extrapolar. Con la base real
+     el gasto de 2026 baja 222 € y la proyección a cierre, unos 390 €. Mismo criterio que el resto
+     del hogar: manda el tipo de la CATEGORÍA (_movBudget). */
+  let realYTD=0,ingYTD=0; (DB.movimientos||[]).forEach(m=>{ if(!m.fecha||m.fecha.slice(0,4)!==String(nowY))return; const b=_movBudget(m); realYTD+=b.gas||0; ingYTD+=b.ing||0; });
   const presAnual=(typeof gastoMensualPresu==='function')?((gastoMensualPresu()||0)*12):0;
   if(realYTD<=0||presAnual<=0)return null;
   const proy=realYTD/frac; const desv=proy-presAnual; const prorrat=presAnual*frac;

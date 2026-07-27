@@ -135,8 +135,14 @@ function renderPanelAhorro(){
   var ingPrev=0; (DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';}).forEach(function(c){ var p=presFor(c.id,cy); if(p)ingPrev+=(typeof mensual==='function'?mensual(p):num(p.importe))*12; });
   var objE=(typeof _presAhorroObj==='function')?_presAhorroObj(cy):0;
   var objPct=(objE>0&&ingPrev>0)?(objE/ingPrev*100):null; var objUsed=objPct!=null?objPct:20, objDef=objPct==null;
+  /* [C15 · 27-jul-2026] Sumaba por m.tipo y encima con Math.abs(), así que fallaba DOS veces:
+     una devolución cruzada (ingreso dentro de una categoría de gasto) inflaba ingreso y gasto a la
+     vez, y un gasto apuntado en negativo —la otra forma de anotar un reembolso— se contaba con el
+     signo cambiado, sumando en lugar de restar. En la base real eran 8 devoluciones (746,61 €) y
+     2 gastos negativos (22,01 €). Ahora usa _movBudget, como el hero, el Desglose, Cumplimiento e
+     Inflación personal: el signo lo pone el tipo de la CATEGORÍA, no el del movimiento. */
   // serie mensual de tasa
-  var bym={}; movs.forEach(function(m){ var k=(''+(m.fecha||'')).slice(0,7); if(k.length!==7)return; bym[k]=bym[k]||{i:0,g:0}; if(m.tipo==='ingreso')bym[k].i+=num(m.importe); else if(m.tipo==='gasto')bym[k].g+=Math.abs(num(m.importe)); });
+  var bym={}; movs.forEach(function(m){ var k=(''+(m.fecha||'')).slice(0,7); if(k.length!==7)return; bym[k]=bym[k]||{i:0,g:0}; var b=_movBudget(m); bym[k].i+=b.ing||0; bym[k].g+=b.gas||0; });
   var meses=Object.keys(bym).sort(); if(meses.length<2){ el.innerHTML=''; return; }
   function tOf(k){ var d=bym[k]; return d&&d.i? (d.i-d.g)/d.i*100 : 0; }
   var racha=0; for(var i=meses.length-1;i>=0;i--){ if(tOf(meses[i])>=objUsed)racha++; else break; }
