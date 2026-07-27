@@ -519,7 +519,57 @@ function fichaOpsTabla(t){ const ops=fichaOps(t); if(!ops.length) return '';
   const rows=ops.map(o=>`<tr><td>${o.fecha?ddmmyyyy(o.fecha):'—'}</td><td>${o.tipo==='venta'?'<span class="neg">Venta</span>':'<span class="pos">Compra</span>'}</td><td class="num">${o.acciones}</td><td class="num">${fmt(o.precio)}</td><td class="num">${fmt(o.acciones*o.precio)}</td></tr>`).join('');
   return `<h3 style="margin-top:14px">Operaciones</h3><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Tipo</th><th class="num">Acciones</th><th class="num">Precio</th><th class="num">Importe</th></tr></thead><tbody>${rows}</tbody></table></div>`; }
 function abrirFicha(t){ if(!t)return; const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(t); window.scrollTo({top:0}); }
-function cerrarFicha(){ const fv=$('#fichaView'); if(fv){ fv.style.display='none'; fv.innerHTML=''; } const h=document.querySelector('header'); if(h)h.style.display=''; const m=$('#main'); if(m)m.style.display=''; fichaTicker=null; document.title='Economía Doméstica'; if(location.hash) history.replaceState(null,'',location.pathname+location.search); }
+function cerrarFicha(){ const fv=$('#fichaView'); if(fv){ fv.style.display='none'; fv.innerHTML=''; fv.style.paddingTop=''; } const h=document.querySelector('header'); if(h)h.style.display=''; const m=$('#main'); if(m)m.style.display=''; fichaTicker=null; document.title='Economía Doméstica'; if(location.hash) history.replaceState(null,'',location.pathname+location.search); }
+/* === Barra flotante de la Ficha ===============================================
+   Sustituye al antiguo botón "Volver" del encabezado: queda fija arriba y
+   acompaña al scroll, sin tapar contenido (el contenido baja con padding-top).
+   Incluye el botón doble ↑/↓: principio de la ficha / posiciones y dividendos. */
+const FICHA_DOCK_H=46;                       // alto reservado para la barra (px)
+function _fichaDockHTML(tick,nombre){
+  return `<style>
+   #fichaDock{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:10px;padding:6px 16px;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);transition:box-shadow .18s ease}
+   #fichaDock.on{box-shadow:0 6px 18px rgba(15,23,42,.10)}
+   #fichaDock .fdBack{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 12px;font-weight:700;font-size:13px;line-height:1.1;color:#0f172a;cursor:pointer}
+   #fichaDock .fdBack:hover{background:#eff6ff;border-color:var(--brand);color:var(--brand)}
+   #fichaDock .fdTick{font-weight:800;color:var(--brand);font-size:14px;white-space:nowrap}
+   #fichaDock .fdName{color:#64748b;font-size:12px;max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+   #fichaDock .fdNav{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
+   #fichaDock .fdNav button{border:0;background:#fff;cursor:pointer;padding:5px 11px;font-size:13px;font-weight:700;color:#334155;line-height:1.1;display:inline-flex;align-items:center;gap:6px}
+   #fichaDock .fdNav button+button{border-left:1px solid var(--line)}
+   #fichaDock .fdNav button:hover{background:#eff6ff;color:var(--brand)}
+   @media(max-width:820px){#fichaDock .fdLbl{display:none}}
+   @media(max-width:620px){#fichaDock .fdName{display:none}}
+  </style>
+  <div id="fichaDock">
+    <button type="button" class="fdBack" data-fgo="back" title="Volver al listado (Esc)">‹ Volver</button>
+    <span class="fdTick">${tick}</span><span class="fdName">${nombre||''}</span>
+    <div style="flex:1"></div>
+    <div class="fdNav">
+      <button type="button" data-fgo="top" title="Ir al principio de la ficha">↑<span class="fdLbl">Arriba</span></button>
+      <button type="button" data-fgo="bottom" title="Ir a posiciones y dividendos">↓<span class="fdLbl">Posiciones y dividendos</span></button>
+    </div>
+  </div>`;
+}
+function fichaGoTo(where){
+  if(where==='top'){ window.scrollTo({top:0,behavior:'smooth'}); return; }
+  const el=document.getElementById('fichaPosAncla');
+  if(el){ const y=el.getBoundingClientRect().top+window.pageYOffset-(FICHA_DOCK_H+10); window.scrollTo({top:Math.max(0,y),behavior:'smooth'}); }
+  else window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest&&e.target.closest('#fichaDock [data-fgo]'); if(!b) return;
+  const w=b.dataset.fgo;
+  if(w==='back'){ if(typeof cerrarFicha==='function')cerrarFicha(); return; }
+  fichaGoTo(w);
+});
+window.addEventListener('scroll',()=>{ const d=document.getElementById('fichaDock'); if(d) d.classList.toggle('on',window.pageYOffset>4); },{passive:true});
+document.addEventListener('keydown',e=>{
+  if(e.key!=='Escape') return;
+  const fv=document.getElementById('fichaView'); if(!fv||fv.style.display==='none') return;
+  const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)) return;
+  if(document.querySelector('dialog[open]')||document.getElementById('cmdkOverlay')) return;
+  cerrarFicha();
+});
 function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
@@ -546,7 +596,6 @@ function renderFicha(t){
      <div style="text-align:right"><div class="muted" style="font-size:11px">Precio actual</div><div style="font-size:20px;font-weight:700">${fmt(f.precioActual)}</div></div>
      ${_dossBtn}
      <a class="btn" href="${invUrl}" target="_blank" rel="noopener">${savedUrl?'Ver ficha (investing)':'Buscar en investing.com'}</a>
-     <button class="btn ghost" onclick="cerrarFicha()">Volver</button>
    </div>
    <div class="card" style="margin-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
      <span class="muted" style="font-size:12px;white-space:nowrap">URL ficha externa:</span>
@@ -619,7 +668,10 @@ function renderFicha(t){
   const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker]):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
-  $('#fichaView').innerHTML=header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+mid+divSection;
+  const _fv=$('#fichaView');
+  _fv.innerHTML=_fichaDockHTML(f.t,f.nombre)+header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;
+  _fv.style.paddingTop=FICHA_DOCK_H+'px';                     // el contenido arranca bajo la barra flotante
+  const _dk=document.getElementById('fichaDock'); if(_dk)_dk.classList.toggle('on',window.pageYOffset>4);
   document.title='Ficha '+f.t;
   if(typeof drawFichaChart==='function') drawFichaChart(fichaTicker);
 }
