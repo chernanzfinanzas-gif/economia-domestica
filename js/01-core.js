@@ -375,20 +375,34 @@ function cargarAlertasCorp(){
     .catch(function(){ _alertasCorp=_alertasCorp||{}; return _alertasCorp; });
 }
 function alertaCorpDe(t){ t=(t||'').toUpperCase(); return (_alertasCorp||{})[t]||null; }
+/* ¿Este hallazgo ya no cuenta como aviso? Lo esta si se cerro, o si es un HECHO cuya fecha de
+   caducidad (`caducaEl`, que escribe el helper) ya paso. Se comprueba tambien en el navegador y no
+   solo en el fichero porque el generador corre una vez por semana: sin esto, una multa que cumple
+   sus 30 dias un miercoles seguiria encendida hasta el lunes siguiente. */
+function _hallazgoInactivo(h){
+  if(!h) return true;
+  if(h.estado==='resuelta'||h.estado==='caducada') return true;
+  if(h.naturaleza==='hecho'&&h.caducaEl){
+    var hoy=new Date(); var m=String(hoy.getMonth()+1), d=String(hoy.getDate());
+    var iso=hoy.getFullYear()+'-'+(m.length<2?'0'+m:m)+'-'+(d.length<2?'0'+d:d);
+    if(h.caducaEl<=iso) return true;
+  }
+  return false;
+}
 /* Hallazgos VIVOS: solo los `activa`. Un `resuelta` (la OPA acabo) o un `caducada` (el hecho
    puntual cumplio sus 30 dias) NO son avisos: son historial, y van abajo en su propio bloque.
    Si aun se esta leyendo el alertas.json viejo, ese no tiene estados y se muestra tal cual. */
 function hallazgosCorpDe(t){
   t=(t||'').toUpperCase();
   var e=(_hallazgosEmp||{})[t];
-  if(e&&e.hallazgos) return e.hallazgos.filter(function(h){ return h&&h.estado==='activa'; });
+  if(e&&e.hallazgos) return e.hallazgos.filter(function(h){ return !_hallazgoInactivo(h); });
   var al=alertaCorpDe(t); return (al&&al.estado!=='resuelta')?[al]:[];
 }
 /* Lo que ya no avisa pero conviene poder consultar: cerrado con desenlace o caducado. */
 function historialCorpDe(t){
   t=(t||'').toUpperCase();
   var e=(_hallazgosEmp||{})[t]; if(!e||!e.hallazgos) return [];
-  return e.hallazgos.filter(function(h){ return h&&(h.estado==='resuelta'||h.estado==='caducada'); })
+  return e.hallazgos.filter(function(h){ return h&&_hallazgoInactivo(h); })
     .slice().sort(function(a,b){ return (''+(b.resueltoEl||b.fecha||'')).localeCompare(''+(a.resueltoEl||a.fecha||'')); });
 }
 function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
@@ -421,6 +435,7 @@ function _notaRevHref(t){
 function _alcorpEtiqueta(h){
   var lbl=(h.tipo==='senal'&&h.codigo)?h.codigo:(ALERTA_TIPO_LBL[h.tipo]||'Aviso');
   if(h.estado==='resuelta')lbl+=' (resuelta)';
+  else if(_hallazgoInactivo(h))lbl+=' (caducada)';
   return lbl;
 }
 /* Un hallazgo -> su banner. Los que EXIGEN ACCION llevan reloj y enlace a la Nota. */
@@ -458,7 +473,7 @@ function hallazgosAvisos(){
   Object.keys(_hallazgosEmp).forEach(function(tk){
     var e=_hallazgosEmp[tk]||{};
     (e.hallazgos||[]).forEach(function(h){
-      if(!h||h.estado==='resuelta') return;
+      if(_hallazgoInactivo(h)) return;   /* cerrado o caducado: es historial, no aviso */
       if(h.tipo==='coyuntura'&&h.severidad!=='alta') return;
       var nom=_nombreCortoCorp(tk);
       var ico=ALERTA_TIPO_ICO[h.tipo]||'ℹ️';
