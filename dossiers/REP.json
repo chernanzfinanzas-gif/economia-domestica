@@ -46,7 +46,7 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-07-27"
  },
  "robustez": {
   "nivel": "solida",
@@ -143,7 +143,7 @@
  "reverseDcf": {
   "aplica": true,
   "gImplicito": -3.47,
-  "gIntrinseco": 0.75,
+  "gIntrinseco": 0.84,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
   "calculadoEl": "2026-07-27"
