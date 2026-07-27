@@ -3019,13 +3019,25 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-movimientos .mv-sub2{font-size:9.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-top:1px}
   #view-movimientos .mv-com{font-size:12px;color:#475569;font-weight:600}
   #view-movimientos .mv-tit{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:8px;background:#f1f5f9;color:#334155;white-space:nowrap}
-  #view-movimientos .mv-reemb{display:inline-block;background:#ecfeff;border:1px solid #a5f3fc;color:#0e7490;border-radius:6px;
-  padding:0 6px;font-size:10.5px;font-weight:700;margin-left:6px;white-space:nowrap}
-.mv-reemb-fld{margin-top:2px}
-.mv-reemb-lbl{display:flex;align-items:flex-start;gap:8px;font-weight:400;cursor:pointer;line-height:1.45;
-  background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:9px 11px}
-.mv-reemb-lbl input{margin-top:3px;flex:none}
-.mv-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#92400e;margin-left:6px;white-space:nowrap}
+  #view-movimientos .mv-reemb{display:inline-block;background:#ffedd5;border:1px solid #fb923c;color:#9a3412;border-radius:6px;
+  padding:1px 7px;font-size:10.5px;font-weight:800;margin-left:6px;white-space:nowrap}
+  #view-movimientos tr.mv-row.reemb td{background:#fff7ed}
+  #view-movimientos tr.mv-row.reemb td:first-child{box-shadow:inset 3px 0 0 #fb923c}
+  #view-movimientos .mvc.reemb{background:#fff7ed;border-color:#fdba74}
+#view-movimientos .mv-reemb-fld{grid-column:1/-1;margin-top:2px}
+#view-movimientos .mv-reemb-lbl{display:flex;align-items:flex-start;gap:10px;cursor:pointer;
+  background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:11px 13px;
+  font-size:13.5px;line-height:1.45;color:var(--ink);font-weight:400;text-transform:none;letter-spacing:0}
+#view-movimientos .mv-reemb-lbl:hover{background:#f1f5f9}
+#view-movimientos .mv-reemb-lbl input[type=checkbox]{width:18px;height:18px;min-width:18px;flex:none;
+  margin:1px 0 0;padding:0;border-radius:4px;accent-color:#ea580c;cursor:pointer}
+#view-movimientos .mv-reemb-tx{display:block}
+#view-movimientos .mv-reemb-tx>b{display:block;font-size:14px;font-weight:800;color:var(--ink);
+  text-transform:none;letter-spacing:0;margin-bottom:1px}
+#view-movimientos .mv-reemb-tx small b{font-weight:800;color:#9a3412}
+  #view-movimientos .mv-reemb-tx small{display:block;font-size:12px;color:var(--muted);line-height:1.4;
+  text-transform:none;letter-spacing:0;font-weight:400}
+  #view-movimientos .mv-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#92400e;margin-left:6px;white-space:nowrap}
   /* píldora de categoría, color por GRUPO (paleta del kit de cabeceras) */
   #view-movimientos .mv-cat{display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
   #view-movimientos .mv-cat.g-ing{background:#dcfce7;color:#166534}
@@ -3588,7 +3600,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
             <div class="mv-fld"><label>Comercio (base)</label><input type="text" id="movComercio" placeholder="p. ej. Repsol"></div>
             <div class="mv-fld"><label>Categoría</label><select id="movCat" required></select></div>
             <div class="mv-fld full"><label>Titular</label><select id="movTitular"><option>Dos</option><option>Carlos</option><option>Susana</option></select></div>
-            <div class="mv-fld full mv-reemb-fld"><label class="mv-reemb-lbl"><input type="checkbox" id="movReemb"> <b>Reembolsable</b> <span class="muted">— adelanto que se recupera por transferencia: se apunta aquí para no perderlo de vista, pero <b>no cuenta</b> en gastos ni en ingresos. Su saldo vive en <b>Reembolsables</b>.</span></label></div>
+            <div class="mv-reemb-fld"><label class="mv-reemb-lbl" for="movReemb"><input type="checkbox" id="movReemb"><span class="mv-reemb-tx"><b>Reembolsable</b><small>Adelanto que te van a devolver. Se apunta aquí para no perderlo de vista, pero <b>no cuenta</b> en gastos ni en ingresos: su saldo vive en Reembolsables.</small></span></label></div>
             <div class="mv-actions full">
               <button type="submit" class="btn mv-big" id="movSubmit">Añadir movimiento</button>
               <button type="button" class="btn ghost" id="movCancel" style="display:none">Cancelar</button>
