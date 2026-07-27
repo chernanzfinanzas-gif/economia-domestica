@@ -328,33 +328,139 @@ async function sincronizarCotizaciones(){
    Fuente: alertas.json en la raíz del repo, independiente de si la empresa tiene dossier.
    Cubre las ~103 empresas del Universo, no solo las analizadas (esas sí tienen Kanban;
    el resto solo se ve en Universo/Radar y en la Ficha). Se carga una vez y se cachea. */
-var _alertasCorp=null;
+var _alertasCorp=null;      /* ticker -> aviso PRINCIPAL, en la forma antigua: la esperan 10 sitios */
+var _hallazgosEmp=null;     /* ticker -> {empresa, cobertura, hallazgos:[...]}, la forma nueva completa */
+var KH_CARPETA='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
+var _SEV_ORD={alta:3,media:2,baja:1};
+/* De todos los hallazgos vivos de una empresa, cual representa a la empresa en un chip.
+   Manda primero el que EXIGE ACCION (una senal con plazo pesa mas que una noticia), y a
+   igualdad, el mas severo. */
+function _hallazgoPrincipal(hs){
+  var act=(hs||[]).filter(function(h){ return h&&h.estado!=='resuelta'; });
+  if(!act.length) return null;
+  act=act.slice().sort(function(a,b){
+    var d=(b.exigeAccion?1:0)-(a.exigeAccion?1:0); if(d) return d;
+    return (_SEV_ORD[b.severidad]||0)-(_SEV_ORD[a.severidad]||0);
+  });
+  return act[0];
+}
+function _repintarAvisos(){
+  if(typeof renderUniverso==='function'&&document.getElementById('view-universo'))renderUniverso();
+  if(typeof renderRadar==='function'&&document.getElementById('view-radar'))renderRadar();
+  if(typeof renderAnalisis==='function'&&document.getElementById('view-analisis'))renderAnalisis();
+  if(typeof renderVision==='function'&&document.getElementById('view-vision'))renderVision();
+  if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+}
 function cargarAlertasCorp(){
   if(_alertasCorp) return Promise.resolve(_alertasCorp);
-  return fetch('alertas.json',{cache:'no-store'})
+  return fetch('hallazgos.json',{cache:'no-store'})
     .then(function(r){ return r.ok?r.json():null; })
     .then(function(j){
-      _alertasCorp=(j&&j.alertas)||{};
-      if(typeof renderUniverso==='function'&&document.getElementById('view-universo'))renderUniverso();
-      if(typeof renderRadar==='function'&&document.getElementById('view-radar'))renderRadar();
-      if(typeof renderAnalisis==='function'&&document.getElementById('view-analisis'))renderAnalisis();
-      if(typeof renderVision==='function'&&document.getElementById('view-vision'))renderVision();
-      if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
-      return _alertasCorp;
+      if(!j||!j.empresas) return null;
+      _hallazgosEmp=j.empresas; _alertasCorp={};
+      Object.keys(j.empresas).forEach(function(tk){
+        var p=_hallazgoPrincipal((j.empresas[tk]||{}).hallazgos);
+        if(p) _alertasCorp[(''+tk).toUpperCase()]=p;
+      });
+      return true;
     })
-    .catch(function(){ _alertasCorp={}; return _alertasCorp; });
+    .then(function(ok){
+      if(ok){ _repintarAvisos(); return _alertasCorp; }
+      /* Caida a alertas.json: mientras dure la transicion la app sigue funcionando
+         exactamente igual que antes si hallazgos.json aun no esta publicado. */
+      return fetch('alertas.json',{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(j){ _alertasCorp=(j&&j.alertas)||{}; _hallazgosEmp=null; _repintarAvisos(); return _alertasCorp; });
+    })
+    .catch(function(){ _alertasCorp=_alertasCorp||{}; return _alertasCorp; });
 }
 function alertaCorpDe(t){ t=(t||'').toUpperCase(); return (_alertasCorp||{})[t]||null; }
-var ALERTA_TIPO_ICO={opa:'🤝',concurso:'⚠️',suspension:'⛔',sancion:'⚖️',litigio:'⚖️',otro:'ℹ️'};
+/* Todos los hallazgos vivos de una empresa (vacio si aun se lee el alertas.json viejo). */
+function hallazgosCorpDe(t){
+  t=(t||'').toUpperCase();
+  var e=(_hallazgosEmp||{})[t];
+  if(e&&e.hallazgos) return e.hallazgos.filter(function(h){ return h&&h.estado!=='resuelta'; });
+  var al=alertaCorpDe(t); return al?[al]:[];
+}
+function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
+/* El puente guarda la razon social ("Aena, S.M.E., S.A."), pero la orden que va a Claude debe
+   parecerse al nombre de la CARPETA de la empresa ("Aena"), que es como la busca la skill.
+   Se recortan los sufijos societarios, uno a uno por si van encadenados. */
+function _nombreCortoCorp(t){
+  var n=(''+empresaCorpDe(t)).trim(), prev=null;
+  while(n!==prev){ prev=n; n=n.replace(/[,\s]+(S\.M\.E\.|S\.A\.U\.|S\.A\.|S\.L\.U\.|S\.L\.|SME|SA)\.?$/i,'').trim(); }
+  return n||t;
+}
+var ALERTA_TIPO_ICO={opa:'🤝',concurso:'⚠️',suspension:'⛔',sancion:'⚖️',litigio:'⚖️',exclusion:'📤',senal:'🚨',coyuntura:'🌡️',otro:'ℹ️'};
+var ALERTA_TIPO_LBL={opa:'OPA',concurso:'Concurso',suspension:'Suspendida',sancion:'Sanción',litigio:'Litigio',exclusion:'Exclusión',senal:'Señal',coyuntura:'Coyuntura',otro:'Aviso'};
 var ALERTA_SEV_COL={alta:{bg:'#fee2e2',bd:'#dc2626',tx:'#991b1b'},media:{bg:'#fef3c7',bd:'#d97706',tx:'#92400e'},baja:{bg:'#e0f2fe',bd:'#0284c7',tx:'#075985'}};
+var ALERTA_VENCIDA_COL={bg:'#fee2e2',bd:'#b91c1c',tx:'#7f1d1d'};
+/* Dias que faltan (negativo si ya paso) hasta una fecha AAAA-MM-DD. */
+function _diasHasta(iso){
+  try{
+    var hoy=new Date(); hoy=new Date(hoy.getFullYear(),hoy.getMonth(),hoy.getDate());
+    var p=(''+iso).split('-'); var d=new Date(+p[0],+p[1]-1,+p[2]);
+    return Math.round((d-hoy)/86400000);
+  }catch(e){ return null; }
+}
+/* Abre Claude Cowork en la carpeta del metodo con la orden de la Nota ya escrita.
+   El aviso sabe de que empresa es, asi que el nombre viaja dentro y no hay que teclearlo. */
+function _notaRevHref(t){
+  var q='nota de revisión extraordinaria de '+_nombreCortoCorp(t);
+  return 'claude://cowork/new?folder='+encodeURIComponent(KH_CARPETA)+'&q='+encodeURIComponent(q)+'&prompt='+encodeURIComponent(q);
+}
+function _alcorpEtiqueta(h){
+  var lbl=(h.tipo==='senal'&&h.codigo)?h.codigo:(ALERTA_TIPO_LBL[h.tipo]||'Aviso');
+  if(h.estado==='resuelta')lbl+=' (resuelta)';
+  return lbl;
+}
+/* Un hallazgo -> su banner. Los que EXIGEN ACCION llevan reloj y enlace a la Nota. */
+function _alcorpBanner(t,h){
+  var venc=!!h.plazoVencido, dias=h.vencePlazoEl?_diasHasta(h.vencePlazoEl):null;
+  if(h.exigeAccion&&!h.notaEmitida&&dias!==null&&dias<0)venc=true;
+  var col=venc?ALERTA_VENCIDA_COL:(ALERTA_SEV_COL[h.severidad]||ALERTA_SEV_COL.media);
+  var ico=ALERTA_TIPO_ICO[h.tipo]||'ℹ️';
+  var reloj='';
+  if(h.exigeAccion&&h.vencePlazoEl){
+    reloj=h.notaEmitida
+      ? ' · <span class="f">✔ Nota emitida</span>'
+      : ' · <span class="f"><b>'+(venc?'PLAZO VENCIDO el '+h.vencePlazoEl
+          :(dias===0?'vence HOY':(dias===1?'vence mañana':'vencen '+dias+' días'))
+        )+'</b></span>';
+  }
+  var accion=(h.exigeAccion&&!h.notaEmitida)
+    ? '<a href="'+_notaRevHref(t)+'" class="s" title="Abre Claude en la carpeta del método con la orden ya escrita. Al terminar, sube la nota a dossiers/revisiones/'+_radEsc(t)+'/">📝 Pedir Nota de Revisión (Claude)</a>'
+    : '';
+  return '<div class="alcorp-banner" data-alcorp="'+_radEsc(t)+'" style="background:'+col.bg+';border-color:'+col.bd+'">'
+    +'<div class="h" style="color:'+col.tx+'">'+ico+' <b>'+_radEsc(_alcorpEtiqueta(h))+'</b>'
+    +(h.fecha?' · <span class="f">'+_radEsc(h.fecha)+'</span>':'')+reloj+'</div>'
+    +'<div class="r">'+_radEsc(h.resumen||'')+'</div>'
+    +(h.fuente?'<a href="'+h.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')
+    +accion+'</div>';
+}
 function alertaCorpBadge(t,compact){
-  var al=alertaCorpDe(t); if(!al)return '';
-  var col=ALERTA_SEV_COL[al.severidad]||ALERTA_SEV_COL.media;
-  var ico=ALERTA_TIPO_ICO[al.tipo]||'ℹ️';
-  var lbl={opa:'OPA',concurso:'Concurso',suspension:'Suspendida',sancion:'Sanción',litigio:'Litigio',otro:'Aviso'}[al.tipo]||'Aviso';
-  if(al.estado==='resuelta')lbl+=' (resuelta)';
-  if(compact) return '<span class="alcorp-b" style="background:'+col.bg+';border-color:'+col.bd+';color:'+col.tx+'" title="'+(''+(al.resumen||'')).replace(/"/g,'&quot;')+'">'+ico+' '+lbl+'</span>';
-  return '<div class="alcorp-banner" data-alcorp="'+_radEsc(t)+'" style="background:'+col.bg+';border-color:'+col.bd+'"><div class="h" style="color:'+col.tx+'">'+ico+' <b>'+lbl+'</b>'+(al.fecha?' · <span class="f">'+al.fecha+'</span>':'')+'</div><div class="r">'+_radEsc(al.resumen||'')+'</div>'+(al.fuente?'<a href="'+al.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')+'</div>';
+  var lista=hallazgosCorpDe(t); if(!lista.length)return '';
+  if(compact){
+    var al=_hallazgoPrincipal(lista)||lista[0];
+    var venc=!!al.plazoVencido;
+    var c=venc?ALERTA_VENCIDA_COL:(ALERTA_SEV_COL[al.severidad]||ALERTA_SEV_COL.media);
+    var extra=(lista.length>1)?(' +'+(lista.length-1)):'';
+    return '<span class="alcorp-b" style="background:'+c.bg+';border-color:'+c.bd+';color:'+c.tx+'" title="'
+      +(''+(al.resumen||'')).replace(/"/g,'&quot;')+'">'+(ALERTA_TIPO_ICO[al.tipo]||'ℹ️')+' '+_alcorpEtiqueta(al)+extra+'</span>';
+  }
+  /* Banner completo (Ficha): TODOS los avisos vivos, los que piden accion primero. */
+  var ord=lista.slice().sort(function(a,b){
+    var d=(b.exigeAccion?1:0)-(a.exigeAccion?1:0); if(d) return d;
+    return (_SEV_ORD[b.severidad]||0)-(_SEV_ORD[a.severidad]||0);
+  });
+  var cob=((_hallazgosEmp||{})[(t||'').toUpperCase()]||{}).cobertura||null;
+  var pie='';
+  if(cob&&(cob.semanal||cob.universo)){
+    var p=[]; if(cob.semanal)p.push('informe semanal: '+cob.semanal);
+    if(cob.universo)p.push('barrido del universo: '+cob.universo);
+    pie='<div class="muted" style="font-size:10.5px;margin:2px 0 0 2px">Última revisión — '+_radEsc(p.join(' · '))+'</div>';
+  }
+  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie;
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);

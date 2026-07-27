@@ -677,10 +677,10 @@ function _infSemanalBlockHTML(){
 }
 function _infAlertasBlockHTML(){
   var _khCarpeta='C:/Users/carlo/OneDrive/Economia Doméstica/Economía Doméstica';
-  var _infOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen';
+  var _infOrden='revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza hallazgos.json (raiz del repo) via el helper kh_hallazgos: anade lo nuevo, sella la cobertura del pase universo en cada empresa revisada y marca como resueltas las que ya no apliquen. No reescribas el fichero entero: escribe empresa a empresa';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
   return '<div class="pos-blk" data-infblk="alertas"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚠️ Revisar Alertas / Universo</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
-    +'<div class="feat-s" style="margin-bottom:12px">Barrido de OPAs, concursos de acreedores, suspensiones de cotización, sanciones y litigios en todo tu universo de empresas. Actualiza <code>alertas.json</code>, que alimenta los avisos que ves en Radar/Universo, Kanban y las Fichas.</div>'
+    +'<div class="feat-s" style="margin-bottom:12px">Barrido de OPAs, concursos de acreedores, suspensiones de cotización, sanciones y litigios en todo tu universo de empresas. Actualiza <code>hallazgos.json</code>, que alimenta los avisos que ves en Radar/Universo, Kanban y las Fichas.</div>'
     +'<a class="feat-btn" id="infcAlertasBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>'
     +'</div></div></div>';
 }
@@ -805,7 +805,7 @@ function renderInformesCenter(){
   document.getElementById('infcCatAll').addEventListener('change',function(){ var ck=this.checked; host.querySelectorAll('.inf-catchk').forEach(function(l){ l.querySelector('input').checked=ck; l.classList.toggle('on',ck); }); });
   document.getElementById('infcGen').addEventListener('click',generarInformesMulti);
   var _isb2=document.getElementById('infcSemanalBtn'); if(_isb2)_isb2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('genera el informe semanal de cartera'); });
-  var _iab2=document.getElementById('infcAlertasBtn'); if(_iab2)_iab2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza alertas.json añadiendo lo nuevo y marcando como resueltas las que ya no apliquen'); });
+  var _iab2=document.getElementById('infcAlertasBtn'); if(_iab2)_iab2.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal('revisa alertas y universo: busca noticias recientes de OPAs, concursos de acreedores, suspensiones de cotización, sanciones o litigios relevantes en las empresas de mi universo (tickers.json), y actualiza hallazgos.json (raiz del repo) via el helper kh_hallazgos: anade lo nuevo, sella la cobertura del pase universo en cada empresa revisada y marca como resueltas las que ya no apliquen. No reescribas el fichero entero: escribe empresa a empresa'); });
   var _ge=document.getElementById('infcGenEmpresa'); if(_ge)_ge.addEventListener('click',generarInformeEmpresa);
   var _ie=document.getElementById('infcEmpresa'); if(_ie)_ie.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); generarInformeEmpresa(); } });
   _infUpdCount();
