@@ -370,8 +370,47 @@ $('#movForm').addEventListener('submit',e=>{
 $('#movCancel').addEventListener('click',resetMovForm);
 /* Bloques plegables de Movimientos (Añadir / Filtros / Lista) */
 if($('#view-movimientos'))$('#view-movimientos').addEventListener('click',e=>{ const h=e.target.closest('[data-movblk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-movblk')); if(blk)blk.classList.toggle('open'); });
-/* Expandir/contraer una fila de movimiento */
-$('#movTable').addEventListener('click',e=>{ const r=e.target.closest('[data-movrow]'); if(!r)return; if(e.target.closest('input,button,select,a'))return; const it=r.closest('.mv-item'); if(it)it.classList.toggle('open'); });
+/* Expandir/contraer una fila de movimiento (tabla) o una tarjeta (móvil) */
+$('#movTable').addEventListener('click',e=>{
+  if(e.target.closest('input,button,select,textarea,a,label,.mv-conc-box'))return;
+  const r=e.target.closest('tr.mv-row'); if(r){ r.classList.toggle('open'); return; }
+  const c=e.target.closest('.mvc-h'); if(c){ c.parentElement.classList.toggle('open'); return; }
+  const it=e.target.closest('.mv-item'); if(it)it.classList.toggle('open');   /* lista antigua, por si queda en alguna vista */
+});
+/* ---- Conciliación bancaria: casilla ✓ Banco y marca de discrepancia ---- */
+$('#movTable').addEventListener('change',e=>{
+  const ck=e.target.closest('input.mvCk'), wk=e.target.closest('input.mvWk');
+  if(!ck&&!wk)return;
+  const id=(ck||wk).dataset.mid;
+  const m=(DB.movimientos||[]).find(x=>x.id===id); if(!m)return;
+  if(ck){
+    if(ck.checked){ m.conc=true; m.concF=new Date().toISOString().slice(0,10); delete m.concW; }
+    else { delete m.conc; delete m.concF; }
+  } else {
+    if(wk.checked){ m.concW=true; delete m.conc; delete m.concF; }
+    else { delete m.concW; }
+  }
+  if(!m.concW&&!m.concN) delete m.concN;
+  _mvRefreshFila(id); scheduleSave();
+});
+$('#movTable').addEventListener('change',e=>{
+  const n=e.target.closest('input.mvNota'); if(!n)return;
+  const m=(DB.movimientos||[]).find(x=>x.id===n.dataset.mid); if(!m)return;
+  const v=(n.value||'').trim();
+  if(v) m.concN=v; else delete m.concN;
+  scheduleSave();
+});
+/* Filtro «solo sin comprobar» y marcado masivo de lo visible */
+$('#fltSoloSin') && $('#fltSoloSin').addEventListener('click',()=>{ movSoloSin=!movSoloSin; renderMovs(); });
+$('#movMarcarVis') && $('#movMarcarVis').addEventListener('click',()=>{
+  const ids=(window._mvVisibles||[]).filter(id=>{ const m=(DB.movimientos||[]).find(x=>x.id===id); return m&&!m.conc&&!m.concW; });
+  if(!ids.length){ alert('No hay movimientos pendientes entre los que se están mostrando.'); return; }
+  if(!confirm('¿Marcar como comprobados los '+ids.length+' movimientos pendientes que se están mostrando?\n\nLos marcados con ⚠ discrepancia se dejan como están.'))return;
+  if(typeof pushSnapshot==='function')pushSnapshot('antes de marcar '+ids.length+' movimientos como comprobados');
+  const hoy=new Date().toISOString().slice(0,10);
+  ids.forEach(id=>{ const m=DB.movimientos.find(x=>x.id===id); if(m){ m.conc=true; m.concF=hoy; } });
+  renderMovs(); scheduleSave();
+});
 $('#movTable').addEventListener('click',e=>{
   const ed=e.target.closest('[data-edit]'), de=e.target.closest('[data-del]');
   if(ed) editMov(ed.dataset.edit);
@@ -404,7 +443,7 @@ $('#catDDpanel').addEventListener('change',e=>{
 });
 document.addEventListener('click',()=>{ const p=$('#catDDpanel'); if(p) p.classList.remove('open'); });
 $('#titChips').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; b.classList.toggle('on'); if(b.classList.contains('on'))movFiltTits.add(b.dataset.t); else movFiltTits.delete(b.dataset.t); renderMovs(); });
-$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); movFiltCom.clear(); movFiltDet.clear(); $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
+$('#fltClear').addEventListener('click',()=>{ movFiltCats.clear(); movFiltTits.clear(); movFiltCom.clear(); movFiltDet.clear(); movSoloSin=false; $('#fltText').value='';$('#fltDesde').value='';$('#fltHasta').value='';$('#fltOrden').value='fecha_desc'; $$('#titChips button').forEach(b=>b.classList.remove('on')); renderCatDD(); renderMovs(); });
 $('#comDDbtn') && $('#comDDbtn').addEventListener('click',e=>{e.stopPropagation();$('#comDDpanel').classList.toggle('open');});
 $('#comDDpanel') && $('#comDDpanel').addEventListener('click',e=>e.stopPropagation());
 $('#comDDpanel') && $('#comDDpanel').addEventListener('change',e=>{

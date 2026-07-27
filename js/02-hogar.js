@@ -36,6 +36,8 @@ function initPeriod(){
 let presYear;
 let panelMode='mes';
 let movFiltCats=new Set(), movFiltTits=new Set(), movFiltCom=new Set(), movFiltDet=new Set();
+let movSoloSin=false;              /* filtro «solo sin comprobar» (conciliación bancaria) */
+window._mvVisibles=[];             /* ids mostrados ahora mismo — lo usa «Marcar los visibles» */
 function catById(id){ return DB.categorias.find(c=>c.id===id); }
 /* Efecto de un movimiento en los TOTALES DE PRESUPUESTO (gasto/ingreso del mes), con
    REGULARIZACIÓN: un ingreso dentro de una categoría de GASTO resta del gasto (es una
@@ -523,6 +525,98 @@ function wireAllSuggests(){
   wireSuggest(document.getElementById('amaConcepto'),'amaConcepto');
   wireSuggest(document.getElementById('amaNota'),'amaNota');
 }
+/* ==================================================================
+   MOVIMIENTOS — lenguaje visual de Análisis + conciliación bancaria
+   ------------------------------------------------------------------
+   · Tile de importe con color (ocupa el sitio del «score» de Análisis)
+   · Píldora de categoría coloreada por GRUPO (paleta del kit de cabeceras)
+   · Fila desplegable (mismo patrón que tr.ana-det)
+   · Separador de mes con el neto del mes
+   · Casilla «✓ Banco» + estado ⚠ discrepancia, persistidos en el movimiento:
+       m.conc  = true       comprobado contra el extracto
+       m.concF = 'YYYY-MM-DD'  fecha del cotejo
+       m.concW = true       discrepancia detectada
+       m.concN = 'texto'    nota de la discrepancia
+     Solo se escriben cuando son ciertos/no vacíos, para no engordar el JSON.
+   ================================================================== */
+const MV_MESES=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+const MV_DIAS=['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+/* grupo de categoría → clase de color. Palabras clave primero; si no hay coincidencia,
+   hash estable del nombre para que ese grupo tenga SIEMPRE el mismo color. */
+const MV_GRPKW=[
+  {c:'ing', k:['ingres','nómina','nomina','salario','sueldo','dividend','extra']},
+  {c:'casa',k:['casa','vivienda','hogar','hipotec','alquiler','comunidad','sumin']},
+  {c:'coch',k:['coche','auto','veh','moto']},
+  {c:'tel', k:['internet','teléfono','telefono','móvil','movil','comunicac']},
+  {c:'ali', k:['aliment','superm','comida','mercado']},
+  {c:'fam', k:['familia','hijo','colegio','educa','niñ']},
+  {c:'ocio',k:['ocio','restaur','cultura','cine']},
+  {c:'comp',k:['compra','ropa','regalo']},
+  {c:'tran',k:['transport','tren','bus','taxi','metro']},
+  {c:'dep', k:['deporte','gimnas','salud','médic','medic','farmac']},
+  {c:'vac', k:['vacacion','viaje','turism']},
+  {c:'soft',k:['software','suscrip','tecnolog','banco','seguro','impuesto']}
+];
+const MV_CLS=['ing','casa','coch','tel','ali','fam','ocio','comp','tran','dep','vac','soft'];
+function _mvGrpCls(g){
+  var s=(g||'').toLowerCase(); if(!s) return 'soft';
+  for(var i=0;i<MV_GRPKW.length;i++){ var kk=MV_GRPKW[i].k; for(var j=0;j<kk.length;j++){ if(s.indexOf(kk[j])>=0) return MV_GRPKW[i].c; } }
+  var h=0; for(var n=0;n<s.length;n++) h=(h*31+s.charCodeAt(n))>>>0;
+  return MV_CLS[h%MV_CLS.length];
+}
+function _mvMesLbl(f){ var p=(f||'').split('-'); return (MV_MESES[(+p[1]||1)-1]||'')+' '+(p[0]||''); }
+function _mvDia(f){ try{ return MV_DIAS[new Date(f+'T00:00:00').getDay()]||''; }catch(e){ return ''; } }
+function _mvHoy(){ return new Date().toISOString().slice(0,10); }
+/* Bloque desplegable de una fila (detalle + caja de conciliación) */
+function _mvDetalle(m){
+  var c=catById(m.categoriaId);
+  return '<div class="mv-det-wrap">'+
+    '<div class="mv-dets2">'+
+      '<div class="d"><span>Comercio</span>'+(m.comercio?_infEsc(m.comercio):'—')+'</div>'+
+      '<div class="d"><span>Titular</span>'+_infEsc(m.titular||'—')+'</div>'+
+      '<div class="d"><span>Categoría</span>'+(c?_infEsc((c.grupo?c.grupo+' · ':'')+c.nombre):'—')+'</div>'+
+      '<div class="d"><span>Detalle</span><input class="movDetInp" data-mid="'+m.id+'" value="'+escAttr(m.detalle||'')+'" placeholder="detalle del apunte…"></div>'+
+      '<div class="d full"><span>Acciones</span><div class="mv-acts2">'+
+        '<button class="btn ghost sm" data-edit="'+m.id+'">✎ Editar</button>'+
+        '<button class="btn danger sm" data-del="'+m.id+'">🗑 Eliminar</button></div></div>'+
+    '</div>'+
+    '<div class="mv-conc-box">'+
+      '<div class="t">Conciliación bancaria</div>'+
+      '<label><input type="checkbox" class="mvCk" data-mid="'+m.id+'"'+(m.conc?' checked':'')+'> Cuadra con el extracto</label>'+
+      '<label class="w"><input type="checkbox" class="mvWk" data-mid="'+m.id+'"'+(m.concW?' checked':'')+'> ⚠ Marcar discrepancia</label>'+
+      '<input class="mvNota" data-mid="'+m.id+'" placeholder="Nota de la discrepancia…" value="'+escAttr(m.concN||'')+'">'+
+      (m.conc&&m.concF?'<div class="cf">Comprobado el '+ddmmyyyy(m.concF)+'</div>':'')+
+    '</div>'+
+  '</div>';
+}
+/* Refresca en sitio una fila/tarjeta tras marcar la casilla, SIN repintar toda la lista
+   (así no se cierra el desplegable que el usuario tiene abierto). */
+function _mvRefreshFila(id){
+  var m=(DB.movimientos||[]).find(function(x){return x.id===id;}); if(!m)return;
+  var st=m.concW?'warn':(m.conc?'ok':'');
+  var ckd=(m.conc&&m.concF)?ddmmyyyy(m.concF).slice(0,5):'';
+  $$('#movTable [data-mvid="'+id+'"]').forEach(function(el){
+    el.classList.remove('ok','warn'); if(st)el.classList.add(st);
+    var cd=el.querySelector('.mv-ckw .cd'); if(cd)cd.textContent=ckd;
+    var fl=el.querySelector('.mv-flag'), tx=el.querySelector('.mv-tx');
+    if(m.concW&&!fl&&tx) tx.insertAdjacentHTML('afterend','<span class="mv-flag">⚠ discrepancia</span>');
+    if(!m.concW&&fl) fl.remove();
+  });
+  $$('#movTable input.mvCk[data-mid="'+id+'"]').forEach(function(i){ i.checked=!!m.conc; });
+  $$('#movTable input.mvWk[data-mid="'+id+'"]').forEach(function(i){ i.checked=!!m.concW; });
+  _mvRefreshKPI();
+}
+/* Recalcula solo la tarjeta de conciliación (nº comprobados / barra) */
+function _mvRefreshKPI(){
+  var k=$('#movConcK'); if(!k)return;
+  var ids=window._mvKpiIds||[];
+  var tot=ids.length, ok=0, wr=0;
+  ids.forEach(function(id){ var m=(DB.movimientos||[]).find(function(x){return x.id===id;}); if(!m)return; if(m.conc)ok++; if(m.concW)wr++; });
+  var p=tot?Math.round(ok/tot*100):0;
+  var v=k.querySelector('.val'); if(v)v.textContent=ok+'/'+tot;
+  var s=k.querySelector('.mv-conc-p'); if(s)s.textContent=p+'% comprobado · '+(tot-ok)+' pendientes'+(wr?(' · '+wr+' ⚠'):'');
+  var b=k.querySelector('.mv-conc-bar i'); if(b)b.style.width=p+'%';
+}
 function renderMovs(){
   wireAllSuggests();
   renderComDD(); renderComReg(); ensureDetDD(); renderDetDD(); ensureComercioSelect();
@@ -545,42 +639,78 @@ function renderMovs(){
   });
   const _sMov=_sumBudget(list); const ing=_sMov.ing, gas=_sMov.gas;
   const neto=ing-gas;
-  $('#movCards').innerHTML=[
-    {l:'Ingresos (filtro)',v:fmt(ing),cls:'pos'},
-    {l:'Gastos (filtro)',v:fmt(gas),cls:'neg'},
-    {l:'Resultado neto',v:fmt(neto),cls:neto>=0?'pos':'neg'}
-  ].map(c=>`<div class="card"><div class="lbl">${c.l}</div><div class="val ${c.cls}">${c.v}</div></div>`).join('');
-  $('#movCount').textContent = list.length+' mov.';
-  if(!list.length){ $('#movTable').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">No hay movimientos con los filtros aplicados.</div>'; return; }
-  const rows=list.map(m=>{
+  /* La conciliación se mide sobre TODO lo filtrado; el filtro «solo sin comprobar»
+     afecta únicamente a lo que se pinta, no al contador. */
+  const nTot=list.length, nOK=list.filter(m=>m.conc).length, nWarn=list.filter(m=>m.concW).length;
+  const pOK=nTot?Math.round(nOK/nTot*100):0;
+  window._mvKpiIds=list.map(m=>m.id);
+  $('#movCards').innerHTML=
+    '<div class="card"><div class="lbl">Ingresos (filtro)</div><div class="val pos">'+fmt(ing)+'</div></div>'+
+    '<div class="card"><div class="lbl">Gastos (filtro)</div><div class="val neg">'+fmt(gas)+'</div></div>'+
+    '<div class="card"><div class="lbl">Resultado neto</div><div class="val '+(neto>=0?'pos':'neg')+'">'+fmt(neto)+'</div></div>'+
+    '<div class="card mv-conc-k" id="movConcK"><div class="lbl">Conciliación bancaria</div>'+
+      '<div class="val">'+nOK+'/'+nTot+'</div>'+
+      '<div class="mv-conc-p">'+pOK+'% comprobado · '+(nTot-nOK)+' pendientes'+(nWarn?(' · '+nWarn+' ⚠'):'')+'</div>'+
+      '<div class="mv-conc-bar"><i style="width:'+pOK+'%"></i></div></div>';
+  const vis = movSoloSin ? list.filter(m=>!m.conc) : list;
+  window._mvVisibles=vis.map(m=>m.id);
+  const _ssBtn=$('#fltSoloSin'); if(_ssBtn)_ssBtn.classList.toggle('on',movSoloSin);
+  $('#movCount').textContent = vis.length+' mov.'+(movSoloSin?' sin comprobar':'')+(!movSoloSin&&nTot-nOK?(' · '+(nTot-nOK)+' por comprobar'):'');
+  if(!vis.length){ $('#movTable').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">'+(movSoloSin?'✓ No queda ningún movimiento por comprobar con estos filtros.':'No hay movimientos con los filtros aplicados.')+'</div>'; return; }
+  /* El separador de mes solo tiene sentido si la lista va ordenada por fecha */
+  const porMes = (ord==='fecha_desc'||ord==='fecha_asc');
+  let trs='', cds='', mesAct='';
+  vis.forEach(m=>{
+    if(porMes){
+      const mk=(m.fecha||'').slice(0,7);
+      if(mk!==mesAct){
+        mesAct=mk;
+        const sM=_sumBudget(vis.filter(x=>(x.fecha||'').slice(0,7)===mk));
+        const nt=sM.ing-sM.gas;
+        const ntTxt=(nt>=0?'+':'−')+fmt(Math.abs(nt));
+        trs+='<tr class="mv-mes"><td colspan="8">'+_mvMesLbl(m.fecha)+'<span class="rg '+(nt>=0?'pos':'neg')+'">Neto '+ntTxt+'</span></td></tr>';
+        cds+='<div class="mvc-mes">'+_mvMesLbl(m.fecha)+'<span class="'+(nt>=0?'pos':'neg')+'">Neto '+ntTxt+'</span></div>';
+      }
+    }
     const c=catById(m.categoriaId);
     const isIng=m.tipo==='ingreso';
-    const eff = (isIng? num(m.importe) : -num(m.importe));
-    const signed = (eff>=0?'+':'−')+fmt(Math.abs(eff));
+    const eff=(isIng? num(m.importe) : -num(m.importe));
+    const signed=(eff>=0?'+':'−')+fmt(Math.abs(eff));
+    const icls=isIng?'ing':(Math.abs(eff)<25?'gas peq':'gas');
+    const ilbl=isIng?'ingreso':(Math.abs(eff)<25?'gasto menor':'gasto');
+    const gcls=_mvGrpCls(c?c.grupo:'');
+    const st=m.concW?' warn':(m.conc?' ok':'');
+    const ckd=(m.conc&&m.concF)?ddmmyyyy(m.concF).slice(0,5):'';
     const concepto=(m.concepto||'').trim(), detalle=(m.detalle||'').trim();
-    const main = concepto || detalle || '—';
-    const sub = (detalle && detalle.toLowerCase()!==concepto.toLowerCase()) ? detalle : '';
-    return `<div class="mv-item${isIng?' ing':''}" data-mvid="${m.id}">
-      <div class="mv-h" data-movrow>
-        <span class="mv-arw">▶</span>
-        <span class="mv-fch">${ddmmyyyy(m.fecha)}</span>
-        <span class="mv-main">${_infEsc(main)}${isIng?'<span class="mv-ingb">ingreso</span>':''}${sub?`<small>${_infEsc(sub)}</small>`:''}</span>
-        <span class="mv-catw"><span class="tag">${c?_infEsc(c.nombre):'—'}</span></span>
-        <span class="mv-imp ${eff>=0?'pos':'neg'}">${signed}</span>
-      </div>
-      <div class="mv-b">
-        <div class="mv-dets">
-          <div class="d"><span>Comercio</span>${m.comercio?_infEsc(m.comercio):'—'}</div>
-          <div class="d"><span>Titular</span>${_infEsc(m.titular||'—')}</div>
-        </div>
-        <div class="mv-acts">
-          <button class="btn ghost sm" data-edit="${m.id}">✎ Editar</button>
-          <button class="btn danger sm" data-del="${m.id}">🗑 Eliminar</button>
-        </div>
-      </div>
-    </div>`;
-  }).join('');
-  $('#movTable').innerHTML=rows;
+    const main=concepto||detalle||'—';
+    const sub=(detalle&&detalle.toLowerCase()!==concepto.toLowerCase())?detalle:'';
+    const flag=m.concW?'<span class="mv-flag">⚠ discrepancia</span>':'';
+    const ckHtml='<span class="mv-ckw"><input type="checkbox" class="mvCk" data-mid="'+m.id+'"'+(m.conc?' checked':'')+' title="Comprobado contra el extracto del banco"><span class="cd">'+ckd+'</span></span>';
+    trs+='<tr class="mv-row'+st+'" data-mvid="'+m.id+'" data-movrow>'+
+      '<td class="ctr mv-ckcell">'+ckHtml+'</td>'+
+      '<td class="ctr"><span class="mv-imp2 '+icls+'"><span class="n">'+signed+'</span><span class="l">'+ilbl+'</span></span></td>'+
+      '<td class="lft"><span class="mv-rarw">▶</span><span class="mv-fch2">'+ddmmyyyy(m.fecha)+'<small>'+_mvDia(m.fecha)+'</small></span></td>'+
+      '<td class="lft mv-con"><span class="mv-tx">'+_infEsc(main)+'</span>'+flag+(sub?('<div class="mv-sub2">'+_infEsc(sub)+'</div>'):'')+'</td>'+
+      '<td class="ctr"><span class="mv-cat g-'+gcls+'">'+(c?_infEsc(c.nombre):'—')+'</span></td>'+
+      '<td class="lft mv-com">'+(m.comercio?_infEsc(m.comercio):'—')+'</td>'+
+      '<td class="ctr"><span class="mv-tit">'+_infEsc(m.titular||'—')+'</span></td>'+
+      '<td class="ctr"><button class="btn ghost sm" data-edit="'+m.id+'" title="Editar">✎</button></td>'+
+    '</tr><tr class="mv-det2"><td colspan="8">'+_mvDetalle(m)+'</td></tr>';
+    cds+='<div class="mvc'+st+'" data-mvid="'+m.id+'">'+
+      '<div class="mvc-h" data-movcard>'+ckHtml+
+        '<div class="mid"><div class="nm2"><span class="mv-tx">'+_infEsc(main)+'</span>'+flag+'</div>'+
+        '<div class="s2"><span class="mv-cat g-'+gcls+'">'+(c?_infEsc(c.nombre):'—')+'</span>'+
+        '<span class="mv-tit">'+_infEsc(m.titular||'—')+'</span><span class="fch-s">'+ddmmyyyy(m.fecha)+'</span></div></div>'+
+        '<span class="imp '+(eff>=0?'pos':'neg')+'">'+signed+'</span>'+
+      '</div><div class="mvc-b">'+_mvDetalle(m)+'</div></div>';
+  });
+  $('#movTable').innerHTML=
+    '<div class="mvtable"><table class="mv-tbl2"><thead><tr>'+
+      '<th class="ctr" title="Comprobado contra el extracto del banco">✓ Banco</th>'+
+      '<th class="ctr">Importe</th><th class="lft">Fecha</th><th class="lft">Concepto</th>'+
+      '<th class="ctr">Categoría</th><th class="lft">Comercio</th><th class="ctr">Titular</th><th></th>'+
+    '</tr></thead><tbody>'+trs+'</tbody></table></div>'+
+    '<div class="mvcards">'+cds+'</div>';
 }
 function comBases(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var b=(m.comercio||'').trim(); if(b) s[b]=(s[b]||0)+1; }); return Object.keys(s).sort(function(a,b){return s[b]-s[a]||a.localeCompare(b);}).map(function(k){return {name:k,n:s[k]};}); }
 function renderComDD(){ var p=$('#comDDpanel'); if(!p)return; var bs=comBases(); var html='<label style="font-weight:700"><input type="checkbox" id="comDDall">Todas / ninguna</label>'; bs.forEach(function(b){ var ck=movFiltCom.has(b.name)?'checked':''; html+='<label><input type="checkbox" class="comCk" value="'+b.name.replace(/"/g,'&quot;')+'" '+ck+'>'+_infEsc(b.name)+' <span class="muted">('+b.n+')</span></label>'; }); p.innerHTML=html; var btn=$('#comDDbtn'); if(btn) btn.textContent='Comercio'+(movFiltCom.size?' ('+movFiltCom.size+')':'')+' \u25be'; }
