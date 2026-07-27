@@ -2947,7 +2947,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-movimientos .mv-big:hover{background:var(--brand-d)}
   #view-movimientos .mv-toolbar{padding:14px 16px;margin:0}
   #view-movimientos .mv-summ .card{text-align:center}
-  #view-movimientos #movTable table{display:none}
+  #view-movimientos #movTable table:not(.mv-tbl2){display:none}   /* la lista nueva SÍ es una tabla (.mv-tbl2) */
   #view-movimientos .mv-item{border-top:1px solid #f1f5f9}
   #view-movimientos .mv-item:first-child{border-top:none}
   #view-movimientos .mv-h{display:grid;grid-template-columns:14px 76px 1fr 130px 100px;gap:10px;align-items:center;padding:11px 16px;cursor:pointer}
@@ -2979,6 +2979,118 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
     #view-movimientos .mv-catw{grid-column:1;grid-row:3;margin-top:3px}
     #view-movimientos .mv-b{padding-left:14px}
     #view-movimientos .mv-dets{grid-template-columns:1fr}
+  }
+  /* ===== Movimientos — lista con el lenguaje visual de Análisis ===== */
+  /* tarjeta KPI de conciliación bancaria */
+  #view-movimientos .card.mv-conc-k{background:linear-gradient(135deg,#065f46,#0d9488);border:none;color:#fff}
+  #view-movimientos .card.mv-conc-k .lbl{color:#ccfbf1}
+  #view-movimientos .card.mv-conc-k .val{color:#fff}
+  #view-movimientos .mv-conc-p{font-size:11.5px;color:#ccfbf1;margin-top:2px}
+  #view-movimientos .mv-conc-bar{height:7px;border-radius:99px;background:rgba(255,255,255,.25);margin-top:9px;overflow:hidden}
+  #view-movimientos .mv-conc-bar i{display:block;height:100%;background:#a7f3d0;border-radius:99px;transition:width .2s}
+  #view-movimientos #fltSoloSin.on{background:#0d9488;border-color:#0d9488;color:#fff}
+  /* tabla */
+  #view-movimientos .mvtable{overflow-x:auto}
+  #view-movimientos .mv-tbl2{width:100%;border-collapse:separate;border-spacing:0;font-size:12.5px}
+  #view-movimientos .mv-tbl2 thead th{position:sticky;top:0;background:#f8fafc;text-align:right;font-size:9.5px;text-transform:uppercase;letter-spacing:.02em;color:#64748b;font-weight:800;padding:9px 7px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+  #view-movimientos .mv-tbl2 thead th.lft{text-align:left}
+  #view-movimientos .mv-tbl2 thead th.ctr{text-align:center}
+  #view-movimientos .mv-tbl2 tbody td{padding:8px 7px;border-bottom:1px solid #f1f5f9;text-align:right;font-variant-numeric:tabular-nums;vertical-align:middle}
+  #view-movimientos .mv-tbl2 td.ctr{text-align:center;white-space:nowrap}
+  #view-movimientos .mv-tbl2 td.lft{text-align:left}
+  #view-movimientos .mv-tbl2 tbody tr.mv-row{cursor:pointer}
+  #view-movimientos .mv-tbl2 tbody tr.mv-row:hover td{background:#f8fbff}
+  #view-movimientos .mv-tbl2 tr.mv-mes td{background:#f1f5f9;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#475569;text-align:left;padding:6px 12px;border-bottom:1px solid var(--line)}
+  #view-movimientos .mv-tbl2 tr.mv-mes .rg{float:right;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:0}
+  #view-movimientos .mv-tbl2 tr.mv-mes .rg.pos{color:var(--green)}
+  #view-movimientos .mv-tbl2 tr.mv-mes .rg.neg{color:var(--red)}
+  /* tile de importe (equivalente al score de Análisis) */
+  #view-movimientos .mv-imp2{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;min-width:98px;padding:6px 10px;border-radius:12px;color:#fff}
+  #view-movimientos .mv-imp2 .n{font-size:15px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+  #view-movimientos .mv-imp2 .l{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;opacity:.95;margin-top:2px}
+  #view-movimientos .mv-imp2.ing{background:linear-gradient(135deg,#15803d,#16a34a)}
+  #view-movimientos .mv-imp2.gas{background:linear-gradient(135deg,#b91c1c,#dc2626)}
+  #view-movimientos .mv-imp2.gas.peq{background:linear-gradient(135deg,#64748b,#94a3b8)}
+  #view-movimientos .mv-rarw{display:inline-block;color:#cbd5e1;font-size:9px;margin-right:5px;transition:transform .15s;vertical-align:middle}
+  #view-movimientos tr.mv-row.open .mv-rarw{transform:rotate(90deg)}
+  #view-movimientos .mv-fch2{display:inline-block;font-size:12px;color:#475569;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+  #view-movimientos .mv-fch2 small{display:block;font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  #view-movimientos .mv-tbl2 td.mv-con{text-align:left;font-weight:700;font-size:13.5px;line-height:1.25;max-width:250px;white-space:normal}
+  #view-movimientos .mv-sub2{font-size:9.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-top:1px}
+  #view-movimientos .mv-com{font-size:12px;color:#475569;font-weight:600}
+  #view-movimientos .mv-tit{display:inline-block;font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:8px;background:#f1f5f9;color:#334155;white-space:nowrap}
+  #view-movimientos .mv-flag{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:20px;background:#fef3c7;color:#92400e;margin-left:6px;white-space:nowrap}
+  /* píldora de categoría, color por GRUPO (paleta del kit de cabeceras) */
+  #view-movimientos .mv-cat{display:inline-block;font-size:11px;font-weight:800;padding:3px 9px;border-radius:20px;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
+  #view-movimientos .mv-cat.g-ing{background:#dcfce7;color:#166534}
+  #view-movimientos .mv-cat.g-casa{background:#dbeafe;color:#1e40af}
+  #view-movimientos .mv-cat.g-coch{background:#ffedd5;color:#9a3412}
+  #view-movimientos .mv-cat.g-tel{background:#e0e7ff;color:#3730a3}
+  #view-movimientos .mv-cat.g-ali{background:#fef3c7;color:#92400e}
+  #view-movimientos .mv-cat.g-fam{background:#fce7f3;color:#9d174d}
+  #view-movimientos .mv-cat.g-ocio{background:#ede9fe;color:#5b21b6}
+  #view-movimientos .mv-cat.g-comp{background:#cffafe;color:#155e75}
+  #view-movimientos .mv-cat.g-tran{background:#ccfbf1;color:#115e59}
+  #view-movimientos .mv-cat.g-dep{background:#ecfccb;color:#3f6212}
+  #view-movimientos .mv-cat.g-vac{background:#fae8ff;color:#86198f}
+  #view-movimientos .mv-cat.g-soft{background:#f1f5f9;color:#334155}
+  /* casilla de conciliación */
+  #view-movimientos .mv-ckw{display:inline-flex;flex-direction:column;align-items:center;gap:3px}
+  #view-movimientos .mv-ckw .cd{font-size:8.5px;font-weight:800;color:#0d9488;letter-spacing:.02em;min-height:10px}
+  #view-movimientos input.mvCk,#view-movimientos input.mvWk{appearance:none;-webkit-appearance:none;width:20px;height:20px;border:2px solid #cbd5e1;border-radius:6px;cursor:pointer;position:relative;background:#fff;vertical-align:middle;transition:all .12s;flex:0 0 auto;margin:0}
+  #view-movimientos input.mvCk:hover{border-color:#0d9488}
+  #view-movimientos input.mvCk:checked{background:#0d9488;border-color:#0d9488}
+  #view-movimientos input.mvWk{border-color:#f59e0b}
+  #view-movimientos input.mvWk:checked{background:#f59e0b;border-color:#f59e0b}
+  #view-movimientos input.mvCk:checked::after,#view-movimientos input.mvWk:checked::after{content:"✓";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900}
+  #view-movimientos .mv-tbl2 td.mv-ckcell{border-left:4px solid transparent}
+  #view-movimientos tr.mv-row.ok td.mv-ckcell{border-left-color:#0d9488}
+  #view-movimientos tr.mv-row.ok td{background:#f6fffd}
+  #view-movimientos tr.mv-row.ok:hover td{background:#effffc}
+  #view-movimientos tr.mv-row.warn td.mv-ckcell{border-left-color:#f59e0b}
+  #view-movimientos tr.mv-row.warn td{background:#fffbeb}
+  /* fila desplegable (patrón tr.ana-det) */
+  #view-movimientos tr.mv-det2{display:none}
+  #view-movimientos tr.mv-row.open+tr.mv-det2{display:table-row}
+  #view-movimientos tr.mv-det2>td{background:#fafcff;border-bottom:2px solid #eef2f7;padding:0;text-align:left}
+  #view-movimientos .mv-det-wrap{padding:12px 18px 14px 34px;display:flex;gap:24px;flex-wrap:wrap;align-items:flex-start}
+  #view-movimientos .mv-dets2{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px 22px;flex:1;min-width:280px}
+  #view-movimientos .mv-dets2 .d{font-size:13px;font-weight:700}
+  #view-movimientos .mv-dets2 .d.full{grid-column:1/-1}
+  #view-movimientos .mv-dets2 .d>span{color:var(--muted);font-weight:800;display:block;font-size:10px;text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+  #view-movimientos .mv-dets2 .d input{width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-size:13px;background:#fff;font-weight:500}
+  #view-movimientos .mv-acts2{display:flex;gap:8px;flex-wrap:wrap}
+  #view-movimientos .mv-conc-box{background:#f0fdfa;border:1px solid #99f6e4;border-radius:11px;padding:10px 13px;min-width:240px}
+  #view-movimientos .mv-conc-box .t{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:#115e59;margin-bottom:7px}
+  #view-movimientos .mv-conc-box label{display:flex;gap:8px;align-items:center;font-size:12.5px;font-weight:700;color:#134e4a;margin-bottom:6px;cursor:pointer}
+  #view-movimientos .mv-conc-box label.w{color:#92400e}
+  #view-movimientos .mv-conc-box .mvNota{width:100%;padding:6px 8px;border:1px solid #99f6e4;border-radius:7px;font-size:12px;background:#fff}
+  #view-movimientos .mv-conc-box .cf{font-size:10.5px;color:#0f766e;font-weight:700;margin-top:6px}
+  /* tarjetas (móvil) — patrón .acards de Análisis */
+  #view-movimientos .mvcards{display:none}
+  #view-movimientos .mvc-mes{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:#64748b;margin:14px 2px 8px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  #view-movimientos .mvc-mes span{font-variant-numeric:tabular-nums;letter-spacing:0}
+  #view-movimientos .mvc-mes span.pos{color:var(--green)}
+  #view-movimientos .mvc-mes span.neg{color:var(--red)}
+  #view-movimientos .mvc{background:var(--panel);border:1px solid var(--line);border-left:4px solid transparent;border-radius:12px;margin-bottom:9px;overflow:hidden;box-shadow:var(--shadow)}
+  #view-movimientos .mvc.ok{border-left-color:#0d9488;background:#f6fffd}
+  #view-movimientos .mvc.warn{border-left-color:#f59e0b;background:#fffbeb}
+  #view-movimientos .mvc-h{display:flex;align-items:center;gap:11px;padding:11px 13px;cursor:pointer}
+  #view-movimientos .mvc-h .mid{flex:1;min-width:0}
+  #view-movimientos .mvc-h .nm2{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  #view-movimientos .mvc-h .s2{margin-top:5px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  #view-movimientos .mvc-h .fch-s{font-size:10.5px;color:#94a3b8;font-weight:700}
+  #view-movimientos .mvc-h .imp{font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  #view-movimientos .mvc-h .imp.pos{color:var(--green)}
+  #view-movimientos .mvc-h .imp.neg{color:var(--red)}
+  #view-movimientos .mvc-b{display:none;padding:0 13px 13px;border-top:1px solid #f1f5f9}
+  #view-movimientos .mvc.open .mvc-b{display:block}
+  #view-movimientos .mvc-b .mv-det-wrap{padding:12px 0 0}
+  #view-movimientos .mvc-b .mv-dets2{min-width:0}
+  #view-movimientos .mvc-b .mv-conc-box{min-width:0;width:100%}
+  @media(max-width:900px){
+    #view-movimientos .mvtable{display:none}
+    #view-movimientos .mvcards{display:block}
   }
   /* ===== Mazinger Z — Consumo (rediseño) ===== */
   /* ===== El Origen (rediseño) ===== */
@@ -3504,6 +3616,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
             <button type="button" data-t="Carlos">Carlos</button>
             <button type="button" data-t="Susana">Susana</button>
           </div>
+          <button type="button" class="btn ghost sm" id="fltSoloSin" title="Mostrar solo los movimientos que aún no has cotejado con el extracto del banco">🔍 Solo sin comprobar</button>
+          <button type="button" class="btn sm" id="movMarcarVis" title="Marcar como comprobados todos los movimientos que se están mostrando">✓ Marcar los visibles</button>
           <button type="button" class="btn ghost sm" id="fltClear">Limpiar</button>
         </div>
         <div class="cards mv-summ" id="movCards" style="margin:0 16px 14px"></div>
