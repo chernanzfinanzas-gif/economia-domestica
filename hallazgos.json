@@ -24,6 +24,20 @@
           "exigeAccion": false
         },
         {
+          "id": "soc-opa-2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "opa",
+          "severidad": "baja",
+          "resumen": "Única novedad posterior al 24-jul en los registros de la CNMV: comunicación de «Suspensión temporal del contrato de liquidez» (reg. 42084), consecuencia técnica habitual del anuncio de una OPA. A 27-jul NO consta folleto admitido a trámite, ni mejora de precio, ni informe del consejo de administración, ni autorizaciones de competencia.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-27",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir.aspx?nif=A-31065618",
+          "exigeAccion": false
+        },
+        {
           "id": "coyuntura",
           "tipo": "coyuntura",
           "severidad": "media",
@@ -35,25 +49,11 @@
           "abiertoEl": "2026-07-27",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "soc-opa-2026-07-27",
-          "abiertoEl": "2026-07-27",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "tipo": "opa",
-          "severidad": "baja",
-          "resumen": "Unica novedad posterior al 24-jul: comunicacion de 'Suspension temporal del contrato de liquidez' (reg. 42084), consecuencia tecnica habitual del anuncio de OPA. A 27-jul NO consta folleto admitido a tramite, ni mejora de precio, ni informe del consejo, ni autorizaciones de competencia. Verificado contra los DOS registros de Azkoyen, que devolvieron la entidad correcta.",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-27",
-          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir.aspx?nif=A-31065618",
-          "exigeAccion": false
         }
       ]
     },
     "TUB": {
-      "empresa": "TUB",
+      "empresa": "TUB.MC",
       "cobertura": {},
       "hallazgos": [
         {
@@ -73,7 +73,7 @@
       ]
     },
     "ECR": {
-      "empresa": "ECR",
+      "empresa": "ECR.MC",
       "cobertura": {},
       "hallazgos": [
         {
@@ -84,7 +84,7 @@
           "desenlace": null,
           "tipo": "otro",
           "severidad": "media",
-          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial.",
+          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
           "origen": "alertas.json (migrado)",
           "fecha": "2026-05-01",
           "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271",
@@ -93,7 +93,7 @@
       ]
     },
     "TLGO": {
-      "empresa": "TLGO",
+      "empresa": "TLGO.MC",
       "cobertura": {},
       "hallazgos": [
         {
@@ -104,7 +104,7 @@
           "desenlace": null,
           "tipo": "opa",
           "severidad": "media",
-          "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral.",
+          "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
           "origen": "alertas.json (migrado)",
           "fecha": "2026-02-01",
           "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
@@ -113,7 +113,7 @@
       ]
     },
     "SAB": {
-      "empresa": "SAB",
+      "empresa": "SAB.MC",
       "cobertura": {},
       "hallazgos": [
         {
@@ -146,10 +146,24 @@
           "desenlace": null,
           "tipo": "otro",
           "severidad": "baja",
-          "resumen": "Situación de gobierno corporativo sin resolver: STC subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
+          "resumen": "Situación de gobierno corporativo sin resolver: STC (Saudi Telecom) subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; el Gobierno vigila el equilibrio accionarial; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
           "origen": "alertas.json (migrado)",
           "fecha": "2026-07-05",
           "fuente": "https://www.elespanol.com/invertia/empresas/20260705/moncloa-monitoriza-salida-bbva-telefonica-no-altere-equilibrio-accionarial/1003744309168_0.html",
+          "exigeAccion": false
+        },
+        {
+          "id": "soc-otro-2026-07-01",
+          "abiertoEl": "2026-07-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "BBVA reduce su participación en Telefónica del 5,007% al 1,965%, vendiendo en torno al 3,04% del capital, y deja de figurar como accionista significativo tras casi tres décadas. La participación residual se valoraba en unos 392 M €. BBVA califica la posición como financiera y no estratégica. Altera la composición del núcleo accionarial junto a SEPI, STC y Criteria.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-01",
+          "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
           "exigeAccion": false
         },
         {
@@ -164,20 +178,6 @@
           "abiertoEl": "2026-07-27",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "soc-otro-2026-07-01",
-          "abiertoEl": "2026-07-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "tipo": "otro",
-          "severidad": "media",
-          "resumen": "BBVA reduce su participacion del 5,007% al 1,965% (vende ~3,04% del capital, ~392 M EUR) y deja de figurar como accionista significativo tras casi tres decadas. BBVA la califica de posicion financiera, no estrategica. Altera la composicion del nucleo accionarial junto a SEPI, STC y Criteria.",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-01",
-          "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
-          "exigeAccion": false
         }
       ]
     },
@@ -216,7 +216,7 @@
           "desenlace": null,
           "tipo": "senal",
           "severidad": "alta",
-          "resumen": "Informe semanal 2026-07-27: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variacion tarifaria -0,59% anual frente al +3,82% solicitado, IMAAJ de referencia 11,02 EUR/pax y WACC 7,4% frente al 9% pedido) cruza la senal de alarma del §8.1 R2 y la senal de salida temprana del pre-mortem n2 «Ruptura del marco regulatorio (DORA III duro)». Propuesta preceptiva NO vinculante: decide el Consejo de Ministros antes del 30-sep-2026.",
+          "resumen": "Informe semanal 2026-07-27: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variación tarifaria −0,59% anual frente al +3,82% solicitado, IMAAJ de referencia 11,02 €/pax y WACC 7,4% frente al 9% pedido) cruza la señal de alarma del §8.1 R2 y la señal de salida temprana del pre-mortem nº2 «Ruptura del marco regulatorio (DORA III duro)». Propuesta preceptiva NO vinculante: decide el Consejo de Ministros antes del 30-sep-2026.",
           "origen": "protocolo · estado.json",
           "fecha": "2026-07-27",
           "fuente": null,
@@ -254,7 +254,7 @@
           "desenlace": null,
           "tipo": "senal",
           "severidad": "alta",
-          "resumen": "Informe semanal 2026-07-27: el RPK mundial de IATA cae -3,4% interanual en abril-2026 y -2,2% en mayo-2026 — dos meses consecutivos de caida, que es literalmente la senal de alarma del §8.1 R1 (trafico aereo) y la senal de salida temprana del pre-mortem n1 «Shock aereo global 2.0». Causa: guerra de Oriente Medio; ex-Oriente Medio mayo fue +0,7%.",
+          "resumen": "Informe semanal 2026-07-27: el RPK mundial de IATA cae −3,4% interanual en abril-2026 y −2,2% en mayo-2026 — dos meses consecutivos de caída, que es literalmente la señal de alarma del §8.1 R1 (tráfico aéreo) y la señal de salida temprana del pre-mortem nº1 «Shock aéreo global 2.0». Causa: guerra de Oriente Medio; ex-Oriente Medio, mayo fue +0,7%.",
           "origen": "protocolo · estado.json",
           "fecha": "2026-07-27",
           "fuente": null,
@@ -262,6 +262,20 @@
           "codigo": "S2",
           "vencePlazoEl": "2026-08-03",
           "notaEmitida": false
+        },
+        {
+          "id": "soc-otro-2026-07-23",
+          "abiertoEl": "2026-07-23",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "Formalización del acuerdo vinculante de adquisición de Idemia Public Security y comunicación de su financiación (OIR CNMV reg. 42039). Precio base 1.200 M € más earn-out de hasta 150 M €. Se financia con un préstamo puente sindicado de 1.200 M € a un año, con dos posibles extensiones de seis meses. El anuncio inicial fue el 29-abr-2026 (fuera de ventana); lo nuevo es la formalización y la estructura de financiación. Cierre previsto a mediados de 2027.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-23",
+          "fuente": "https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/",
+          "exigeAccion": false
         },
         {
           "id": "coyuntura",
@@ -275,20 +289,6 @@
           "abiertoEl": "2026-07-27",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "soc-otro-2026-07-23",
-          "abiertoEl": "2026-07-23",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "tipo": "otro",
-          "severidad": "media",
-          "resumen": "Formalizacion del acuerdo vinculante de adquisicion de Idemia Public Security y comunicacion de su financiacion (OIR reg. 42039). Precio base 1.200 M EUR mas earn-out de hasta 150 M EUR. Financiada con prestamo puente sindicado de 1.200 M EUR a un anio, con dos posibles extensiones de seis meses. Anuncio inicial 29/04/2026 (fuera de ventana); lo nuevo es la formalizacion y la estructura de financiacion. Cierre previsto a mediados de 2027.",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-23",
-          "fuente": "https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/",
-          "exigeAccion": false
         }
       ]
     },
@@ -298,6 +298,20 @@
         "semanal": "2026-07-27"
       },
       "hallazgos": [
+        {
+          "id": "soc-otro-2026-07-21",
+          "abiertoEl": "2026-07-21",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "baja",
+          "resumen": "La CNMC autorizó en primera fase la adquisición de Clear Channel España por Atresmedia (OIR reg. 41973). Es una autorización de competencia favorable sobre una operación de toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operación.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-21",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
+          "exigeAccion": false
+        },
         {
           "id": "coyuntura",
           "tipo": "coyuntura",
@@ -310,20 +324,6 @@
           "abiertoEl": "2026-07-27",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "soc-otro-2026-07-21",
-          "abiertoEl": "2026-07-21",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "tipo": "otro",
-          "severidad": "baja",
-          "resumen": "La CNMC autorizo en primera fase la adquisicion de Clear Channel Espania por Atresmedia (OIR reg. 41973). Autorizacion de competencia favorable sobre una toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operacion.",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-21",
-          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
-          "exigeAccion": false
         }
       ]
     },
@@ -383,6 +383,20 @@
       },
       "hallazgos": [
         {
+          "id": "soc-otro-2026-07-22",
+          "abiertoEl": "2026-07-22",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "baja",
+          "resumen": "Junto a los resultados del 1S-2026, acuerdo para elevar su participación en Saggas hasta el control del 92% de la planta regasificadora de Sagunto. Operación societaria de toma de control de un activo participado, no evolución ordinaria. Importe no desglosado en las fuentes consultadas.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-22",
+          "fuente": "https://www.elespanol.com/invertia/empresas/energia/20260722/enagas-gana-millones-junio-enfila-objetivos-anuncia-control-regasificadora-sagunto/1003744329630_0.amp.html",
+          "exigeAccion": false
+        },
+        {
           "id": "coyuntura",
           "tipo": "coyuntura",
           "severidad": "media",
@@ -394,20 +408,6 @@
           "abiertoEl": "2026-07-27",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "soc-otro-2026-07-22",
-          "abiertoEl": "2026-07-22",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "tipo": "otro",
-          "severidad": "baja",
-          "resumen": "Junto a los resultados del 1S26, acuerdo para elevar su participacion en Saggas hasta el control del 92% de la planta regasificadora de Sagunto. Toma de control de un activo participado. Importe no desglosado en las fuentes consultadas.",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-22",
-          "fuente": "https://www.elespanol.com/invertia/empresas/energia/20260722/enagas-gana-millones-junio-enfila-objetivos-anuncia-control-regasificadora-sagunto/1003744329630_0.amp.html",
-          "exigeAccion": false
         }
       ]
     },
@@ -425,7 +425,7 @@
           "desenlace": null,
           "tipo": "sancion",
           "severidad": "baja",
-          "resumen": "La CNMC multa a Energia XXI Comercializadora de Referencia SLU (Grupo Endesa) con 400.000 EUR, reducidos a 320.000 EUR por pago voluntario. Infraccion de la Ley 24/2013 por no diferenciar con claridad la comercializadora regulada de la de mercado libre. Importe inmaterial; relevante como precedente de conducta comercial.",
+          "resumen": "La CNMC multa a Energía XXI Comercializadora de Referencia S.L.U. (Grupo Endesa) con 400.000 €, reducidos a 320.000 € por pago voluntario. Infracción de la Ley 24/2013 del Sector Eléctrico por no diferenciar con claridad la comercializadora regulada de la de mercado libre en contratos y contactos telefónicos. Importe inmaterial; relevante como precedente de conducta comercial.",
           "origen": "barrido societario 2026-07-27",
           "fecha": "2026-07-16",
           "fuente": "https://www.energias-renovables.com/fotovoltaica/la-cnmc-multa-al-grupo-endesa-por-20260716",
@@ -489,7 +489,7 @@
           "desenlace": null,
           "tipo": "litigio",
           "severidad": "baja",
-          "resumen": "La Audiencia Nacional anula la sancion de 25 M EUR que la CNMC impuso por presunta manipulacion de precios del mercado electrico mediante decisiones de generacion hidroelectrica en 2013, aplicando non bis in idem por la absolucion penal firme de enero de 2024. Resolucion FAVORABLE: elimina una contingencia de 13 anios.",
+          "resumen": "La Audiencia Nacional anula la sanción de 25 M € que la CNMC impuso por presunta manipulación de precios del mercado eléctrico mediante decisiones de generación hidroeléctrica en 2013, aplicando el principio non bis in idem por la absolución penal firme de enero de 2024. Resolución favorable: elimina una contingencia de 13 años; importe inmaterial frente al tamaño del grupo.",
           "origen": "barrido societario 2026-07-27",
           "fecha": "2026-07-17",
           "fuente": "https://confilegal.com/20260717-audiencia-nacional-anula-multa-cnmc-iberdrola-manipulacion-precios/",
@@ -525,7 +525,7 @@
           "desenlace": null,
           "tipo": "otro",
           "severidad": "media",
-          "resumen": "Acuerdo para adquirir el 100% de la aseguradora estadounidense Safety Insurance por 1.542 M USD (~1.355 M EUR) en efectivo, para reforzar su posicion en el Noreste de EEUU. Aprobado por unanimidad por ambos consejos; cierre previsto en el 1T-2027. Sin condicion de financiacion: prestamo puente con Citibank y Deutsche Bank.",
+          "resumen": "Acuerdo para adquirir el 100% de la aseguradora estadounidense Safety Insurance por 1.542 M USD (~1.355 M €) en efectivo, para reforzar su posición en el Noreste de EE. UU. Aprobado por unanimidad por ambos consejos; cierre previsto en el 1T-2027. Sin condición de financiación: préstamo puente suscrito con Citibank y Deutsche Bank.",
           "origen": "barrido societario 2026-07-27",
           "fecha": "2026-07-23",
           "fuente": "https://www.merca2.es/2026/07/24/mapfre-compra-safety-insurance-millones-2423347/",
