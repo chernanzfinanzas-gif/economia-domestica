@@ -31,7 +31,7 @@
  ],
  "bull": "La integración de SIFI/Edol/ISF entrega: EBITDA pro-forma supera 145 M€, el margen se recupera y el ROIIC vuelve por encima del WACC, revalorizando el múltiplo hacia ~6,80 € (+56%, P90 ~25%).",
  "bear": "Derivado del Pre-Mortem: el M&A decepciona, la bilastina se erosiona por genéricos y el desapalancamiento se atasca; el precio cae hacia ~2,90 € (−34%, P10 ~25%).",
- "resumen": "Faes Farma es un negocio de calidad alta (Rating A, score 69,4) con un moat estrecho (48,5) apoyado en la franquicia bilastina y ahora diversificado a oftalmología y nutrición animal por el M&A de 2025. A 4,365 € el margen de seguridad sobre el PO de 4,67 € es de solo +7% (zona MANTENER 5-15%), insuficiente para comprar en firme pese a la calidad. El Reverse DCF muestra que el precio ya descuenta crecimiento negativo (−3,1% frente al 12% autofinanciable), lo que limita el riesgo bajista y desaconseja vender. Decisión: MANTENER si se posee; para nueva entrada esperar < 4,20 € (MdS ≥ +10%). Señal clave de seguimiento: los trimestrales 2026 que revelen si la integración del M&A cumple el plan.",
+ "resumen": "Faes Farma es un negocio de calidad alta (Rating A, score 69,4) con un moat estrecho (48,5) apoyado en la franquicia bilastina y ahora diversificado a oftalmología y nutrición animal por el M&A de 2025. A 4,365 € el margen de seguridad sobre el PO de 4,67 € es de solo +7% (zona MANTENER 5-15%), insuficiente para comprar en firme pese a la calidad. El Reverse DCF muestra que el precio solo exige un crecimiento del FCL del 3,5% frente al 11,6% que Faes puede autofinanciar, lo que limita el riesgo bajista y desaconseja vender. Decisión: MANTENER si se posee; para nueva entrada esperar < 4,20 € (MdS ≥ +10%). Señal clave de seguimiento: los trimestrales 2026 que revelen si la integración del M&A cumple el plan.",
  "confianza": {
   "score": 90,
   "nivel": "A",
@@ -44,7 +44,7 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-07-27"
  },
  "robustez": {
   "nivel": "sensible",
@@ -146,7 +146,7 @@
  "reverseDcf": {
   "aplica": true,
   "gImplicito": 3.5,
-  "gIntrinseco": 12.5,
+  "gIntrinseco": 11.6,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
   "calculadoEl": "2026-07-27"
