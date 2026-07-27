@@ -1,0 +1,678 @@
+{
+  "schemaVersion": 1,
+  "generadoEl": "2026-07-27",
+  "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
+  "empresas": {
+    "AZK": {
+      "empresa": "Azkoyen, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-opa-2026-07-24",
+          "abiertoEl": "2026-07-24",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "opa",
+          "severidad": "alta",
+          "resumen": "OPA de Ohmnia/Clerbil (con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) a 10 €/acción en efectivo (244,5 M€), un 12% por debajo del cierre previo al anuncio. Requiere aceptación de más del 50% del capital y autorizaciones de competencia en España y Alemania.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-24",
+          "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/",
+          "exigeAccion": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — la macro no le pone hoy ni un solo viento en contra documentado; el ámbar lo pone el evento corporativo, que gobierna el precio y desactiva la lectura normal de la banda de entrada.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        },
+        {
+          "id": "soc-opa-2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "opa",
+          "severidad": "baja",
+          "resumen": "Unica novedad posterior al 24-jul: comunicacion de 'Suspension temporal del contrato de liquidez' (reg. 42084), consecuencia tecnica habitual del anuncio de OPA. A 27-jul NO consta folleto admitido a tramite, ni mejora de precio, ni informe del consejo, ni autorizaciones de competencia. Verificado contra los DOS registros de Azkoyen, que devolvieron la entidad correcta.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-27",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir.aspx?nif=A-31065618",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "TUB": {
+      "empresa": "TUB",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-concurso-2026-05-05",
+          "abiertoEl": "2026-05-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "concurso",
+          "severidad": "alta",
+          "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-05-05",
+          "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ECR": {
+      "empresa": "ECR",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-otro-2026-05-01",
+          "abiertoEl": "2026-05-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-05-01",
+          "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "TLGO": {
+      "empresa": "TLGO",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-opa-2026-02-01",
+          "abiertoEl": "2026-02-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "opa",
+          "severidad": "media",
+          "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-02-01",
+          "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "SAB": {
+      "empresa": "SAB",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-opa-2026-07-01",
+          "abiertoEl": "2026-07-01",
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-01",
+          "desenlace": "Situación cerrada (heredado de alertas.json).",
+          "tipo": "opa",
+          "severidad": "baja",
+          "resumen": "La OPA hostil de BBVA sobre Banco Sabadell fracasó: solo logró el respaldo de un 25% de los accionistas, muy por debajo del umbral necesario. Situación cerrada.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-01",
+          "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "TEF": {
+      "empresa": "Telefonica, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro-2026-07-05",
+          "abiertoEl": "2026-07-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "baja",
+          "resumen": "Situación de gobierno corporativo sin resolver: STC subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-05",
+          "fuente": "https://www.elespanol.com/invertia/empresas/20260705/moncloa-monitoriza-salida-bbva-telefonica-no-altere-equilibrio-accionarial/1003744309168_0.html",
+          "exigeAccion": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el frente competitivo (el de mayor probabilidad) afloja y el real brasileño juega a favor, pero el giro de tipos del BCE aprieta justo donde el balance es frágil y la consolidación europea, el catalizador de mayor impacto, se aplaza a 2027.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        },
+        {
+          "id": "soc-otro-2026-07-01",
+          "abiertoEl": "2026-07-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "BBVA reduce su participacion del 5,007% al 1,965% (vende ~3,04% del capital, ~392 M EUR) y deja de figurar como accionista significativo tras casi tres decadas. BBVA la califica de posicion financiera, no estrategica. Altera la composicion del nucleo accionarial junto a SEPI, STC y Criteria.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-01",
+          "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ACS": {
+      "empresa": "ACS, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "El motor operativo está en su mejor momento (capex hyperscalers +77%, ninguna alarma cruzada), y precisamente por eso el único frente vivo es el PRECIO: a 114,70 € y P/E 31x, la coyuntura buena ya está pagada dos veces.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "AENA": {
+      "empresa": "Aena, S.M.E., S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "S2-2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "senal",
+          "severidad": "alta",
+          "resumen": "Informe semanal 2026-07-27: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variacion tarifaria -0,59% anual frente al +3,82% solicitado, IMAAJ de referencia 11,02 EUR/pax y WACC 7,4% frente al 9% pedido) cruza la senal de alarma del §8.1 R2 y la senal de salida temprana del pre-mortem n2 «Ruptura del marco regulatorio (DORA III duro)». Propuesta preceptiva NO vinculante: decide el Consejo de Ministros antes del 30-sep-2026.",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-07-27",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S2",
+          "vencePlazoEl": "2026-08-03",
+          "notaEmitida": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "alta",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "El frente regulatorio se ha cruzado —la propuesta de DORA III es exactamente la señal que el análisis pedía vigilar—, con el negocio operativo intacto: tráfico +3,7% y divisa a favor.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "AMS": {
+      "empresa": "Amadeus IT Group, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "S2-2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "senal",
+          "severidad": "alta",
+          "resumen": "Informe semanal 2026-07-27: el RPK mundial de IATA cae -3,4% interanual en abril-2026 y -2,2% en mayo-2026 — dos meses consecutivos de caida, que es literalmente la senal de alarma del §8.1 R1 (trafico aereo) y la senal de salida temprana del pre-mortem n1 «Shock aereo global 2.0». Causa: guerra de Oriente Medio; ex-Oriente Medio mayo fue +0,7%.",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-07-27",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S2",
+          "vencePlazoEl": "2026-08-03",
+          "notaEmitida": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "alta",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "El driver nº1 ha cruzado su señal de alarma. Dos meses consecutivos de caída del RPK mundial es exactamente el umbral que el análisis pedía vigilar — y el mercado no lo está descontando.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        },
+        {
+          "id": "soc-otro-2026-07-23",
+          "abiertoEl": "2026-07-23",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "Formalizacion del acuerdo vinculante de adquisicion de Idemia Public Security y comunicacion de su financiacion (OIR reg. 42039). Precio base 1.200 M EUR mas earn-out de hasta 150 M EUR. Financiada con prestamo puente sindicado de 1.200 M EUR a un anio, con dos posibles extensiones de seis meses. Anuncio inicial 29/04/2026 (fuera de ventana); lo nuevo es la formalizacion y la estructura de financiacion. Cierre previsto a mediados de 2027.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-23",
+          "fuente": "https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "A3M": {
+      "empresa": "Atresmedia Corporacion de Medios de Comunicacion, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Mixto y mejorando: el ciclo publicitario ha girado a positivo y la macro española acompaña —ninguna de las dos patas de la alarma se cumple—, pero la TV crece la mitad que el mercado y el precio ya se ha comido casi todo el recorrido.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        },
+        {
+          "id": "soc-otro-2026-07-21",
+          "abiertoEl": "2026-07-21",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "baja",
+          "resumen": "La CNMC autorizo en primera fase la adquisicion de Clear Channel Espania por Atresmedia (OIR reg. 41973). Autorizacion de competencia favorable sobre una toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operacion.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-21",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "BKT": {
+      "empresa": "Bankinter, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "CIE": {
+      "empresa": "Cie Automotive, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Cuadro mixto y equilibrado: la divisa emergente y el balance juegan a favor, la producción de vehículos tiene sesgo bajista sin cifra que lo cuantifique y los aranceles y la energía cara son ruido de fondo sin umbral cruzado.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "EBRO": {
+      "empresa": "Ebro Foods, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Se ha vuelto mixta. La materia prima ya no es un viento único a favor (trigo abajo, arroz arriba) y el euro se acerca a su umbral sin cruzarlo. Ninguna alarma está activada.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "ENG": {
+      "empresa": "Enagas, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar favorable — los dos riesgos dominantes (demanda de gas y TRF) están lejos de su alarma; el ámbar lo ponen la cobertura del dividendo y el giro de tipos, que desactiva el rerating como bond proxy.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        },
+        {
+          "id": "soc-otro-2026-07-22",
+          "abiertoEl": "2026-07-22",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "baja",
+          "resumen": "Junto a los resultados del 1S26, acuerdo para elevar su participacion en Saggas hasta el control del 92% de la planta regasificadora de Sagunto. Toma de control de un activo participado. Importe no desglosado en las fuentes consultadas.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-22",
+          "fuente": "https://www.elespanol.com/invertia/empresas/energia/20260722/enagas-gana-millones-junio-enfila-objetivos-anuncia-control-regasificadora-sagunto/1003744329630_0.amp.html",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ELE": {
+      "empresa": "Endesa, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-sancion-2026-07-16",
+          "abiertoEl": "2026-07-16",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "sancion",
+          "severidad": "baja",
+          "resumen": "La CNMC multa a Energia XXI Comercializadora de Referencia SLU (Grupo Endesa) con 400.000 EUR, reducidos a 320.000 EUR por pago voluntario. Infraccion de la Ley 24/2013 por no diferenciar con claridad la comercializadora regulada de la de mercado libre. Importe inmaterial; relevante como precedente de conducta comercial.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-16",
+          "fuente": "https://www.energias-renovables.com/fotovoltaica/la-cnmc-multa-al-grupo-endesa-por-20260716",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "FAE": {
+      "empresa": "Faes Farma, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Macro benigna y sin ningún umbral cruzado — pero también sin información: los frentes que deciden la tesis de Faes son de empresa y se leen en los trimestrales de 2026.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "FDR": {
+      "empresa": "Fluidra, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Cuatro frentes ámbar a la vez, ninguno cruzado — y tres de ellos se resuelven en semanas con el 1S 2026.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "IBE": {
+      "empresa": "Iberdrola, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-litigio-2026-07-17",
+          "abiertoEl": "2026-07-17",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "litigio",
+          "severidad": "baja",
+          "resumen": "La Audiencia Nacional anula la sancion de 25 M EUR que la CNMC impuso por presunta manipulacion de precios del mercado electrico mediante decisiones de generacion hidroelectrica en 2013, aplicando non bis in idem por la absolucion penal firme de enero de 2024. Resolucion FAVORABLE: elimina una contingencia de 13 anios.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-17",
+          "fuente": "https://confilegal.com/20260717-audiencia-nacional-anula-multa-cnmc-iberdrola-manipulacion-precios/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ITX": {
+      "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "LOG": {
+      "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "MAP": {
+      "empresa": "Mapfre, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro-2026-07-23",
+          "abiertoEl": "2026-07-23",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "tipo": "otro",
+          "severidad": "media",
+          "resumen": "Acuerdo para adquirir el 100% de la aseguradora estadounidense Safety Insurance por 1.542 M USD (~1.355 M EUR) en efectivo, para reforzar su posicion en el Noreste de EEUU. Aprobado por unanimidad por ambos consejos; cierre previsto en el 1T-2027. Sin condicion de financiacion: prestamo puente con Citibank y Deutsche Bank.",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-23",
+          "fuente": "https://www.merca2.es/2026/07/24/mapfre-compra-safety-insurance-millones-2423347/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "MCM": {
+      "empresa": "Miquel y Costas & Miquel, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "alta",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Rojo en el frente exterior — la señal de alarma del §8.1 R3 está CRUZADA por los aranceles del 15%, con divisa en contra y energía tensionada al mismo tiempo; pero ningún detonante del §8.2 lo está y el margen sigue muy por encima del umbral.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "NTGY": {
+      "empresa": "Naturgy",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — se mantiene, pero recompuesto. El TTF está aún más tensionado que hace una semana (+73,1% interanual) con la pata de traslación a tarifa sin verificar, y la circular de redes de gas sigue sin firmar; en el otro platillo, tres novedades favorables que la semana pasada no estaban: pool a 98 €/MWh, demanda de gas plana (+0,4%) e IVPEE en retirada.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "PRM": {
+      "empresa": "Prim, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "RED": {
+      "empresa": "Redeia Corporación, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el riesgo regulatorio dominante queda resuelto a favor (TRF 6,58% aprobada), pero el riesgo se ha desplazado al PRECIO: cotiza caro frente a su historia en un IBEX +35,3% y con la TIR del bono al alza.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "REP": {
+      "empresa": "Repsol, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "SAN": {
+      "empresa": "Banco Santander, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": []
+    },
+    "VID": {
+      "empresa": "Vidrala, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el gas cruza su primera pata y ahí se queda: el margen récord del S1 (29,9%) deja la alarma del driver nº1 sin su segunda pata, y la caída a 86,00 € mete a la acción dentro de la banda de entrada.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    },
+    "VIS": {
+      "empresa": "Viscofan, S.A.",
+      "cobertura": {
+        "semanal": "2026-07-27"
+      },
+      "hallazgos": [
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el gas cumple la primera pata del driver energético y ahí se detiene, mientras la divisa gira claramente a favor (BRL +12,15%) y el arancel del 15% entra sin tocar ningún umbral propio de la empresa.",
+          "origen": "informe-semanal 2026-07-27",
+          "fecha": "2026-07-27",
+          "abiertoEl": "2026-07-27",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ]
+    }
+  },
+  "resumen": {
+    "empresasConHallazgo": 22,
+    "hallazgosActivos": 31,
+    "porTipo": {
+      "opa": 3,
+      "coyuntura": 16,
+      "concurso": 1,
+      "otro": 7,
+      "senal": 2,
+      "sancion": 1,
+      "litigio": 1
+    },
+    "exigenAccion": 2,
+    "conPlazoVencido": 0
+  }
+}
