@@ -1,0 +1,149 @@
+{
+ "ticker": "ELE",
+ "empresa": "Endesa",
+ "fecha": "2026-06-23",
+ "rating": "A",
+ "score": 69.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF a 10 años (peso 35%) + múltiplos históricos 10A (peso 65%). El precio objetivo es la media ponderada de ambos métodos: DCF base 38,8 € y precio por múltiplos 23,2 €.",
+ "poBear": 23,
+ "poBase": 28.65,
+ "poBull": 45,
+ "entMin": 25,
+ "entMax": 30,
+ "stop": 21.7,
+ "moat": 67.8,
+ "catalizadores": [
+  "Nueva retribución de redes: la tasa de la CNMC sube del 5,58% al 6,58% para 2026-31, elevando el EBITDA regulado de distribución.",
+  "Plan Estratégico 2026-28: mayor CAPEX en redes y renovables, con guía de EBITDA y beneficio al alza.",
+  "Bajada de tipos del BCE: revaloriza los activos regulados de larga duración y abarata el coste de la deuda.",
+  "Confirmación del suelo del dividendo: DPA ≥ 1,5 € con un pay-out sostenible (70-80%)."
+ ],
+ "riesgos": [
+  "Revisión a la baja del marco retributivo de redes por la CNMC (regulatorio, impacto alto).",
+  "Control mayoritario de Enel (~70%): conflicto potencial con el free float minoritario (gobernanza).",
+  "Volatilidad de los precios mayoristas y del pool eléctrico (mercado).",
+  "Intervención política o nuevo gravamen energético (político-fiscal).",
+  "Ejecución del plan inversor con CAPEX creciente (operativo).",
+  "De-rating del múltiplo: P/BV récord de 4,48x, el más alto del sector, vulnerable a revertir a su media histórica."
+ ],
+ "bull": "Regulación favorable (nueva tasa de redes del 6,58%) + bajada de tipos del BCE + cumplimiento del Plan 2026-28 elevan el EBITDA y revalorizan los activos regulados, con el dividendo creciendo sobre un beneficio normalizado. Precio ~45 € (+22%), probabilidad ~25%.",
+ "bear": "De-rating del múltiplo (el P/BV récord de 4,48x revierte a su media histórica), agravado por presión regulatoria/fiscal y un nuevo shock de precios. Derivado del Pre-Mortem (§8.2). Precio ~23 € (−38%), probabilidad ~30%. Asimetría desfavorable al precio actual de 37 €.",
+ "resumen": "Endesa es una compañía de calidad (Rating A, 69,8/100; spread ROIC−WACC +7,5 pp, apalancamiento bajo ~1,9x y coberturas holgadas) cotizando a un precio exigente: precio objetivo 28,65 € frente a 37,01 €, con un margen de seguridad de −22,6%. El mercado ya paga la calidad —P/BV récord de 4,48x, el más alto del sector—, así que no hay margen a los precios actuales. Decisión: ESPERAR; zona de acumulación por debajo de 30 € y compra con margen por debajo de 25 €. Moat moderado (67,8), anclado en la distribución regulada, y management sólido (66,6) con el matiz del control de Enel (~70%).",
+ "schemaVersion": 8,
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-07-26"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "matizada": false,
+  "banda": {
+   "p10": 23,
+   "p50": 28.65,
+   "p90": 45
+  },
+  "sensibilidad": {
+   "poMin": 27.88,
+   "poMax": 60.39,
+   "poBase": 38.7958255551691,
+   "cotizacion": 37.01,
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -24.7,
+   "mdsMax": 63.2
+  },
+  "beta": {
+   "capm": 0.58,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "la cotización (37.01) cae DENTRO de la banda de PO [27.9–60.4] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+  ],
+  "calculadoEl": "2026-07-27"
+ },
+ "dividendSafety": {
+  "score": 62,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 22,
+   "C2": 4,
+   "C3": 18,
+   "C4": 3,
+   "C5": 15
+  },
+  "shareholderYield": 4.4,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.43x / FCL 1.59x (3a OE 1.60x) → 22/35",
+   "C2 payout BN ord.: 63% (3a 85%) → 4/15",
+   "C3 balance: DN/EBITDA 1.94x, cob.int 10.1x → 18/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-07-19"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (sin bruto)"
+  },
+  "altman": {
+   "z": 4.75,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.71,
+   "senal": "sin indicios",
+   "aproximado": [
+    "DSRI",
+    "GMI",
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -5.0,
+   "senal": "normal"
+  },
+  "flags": [],
+  "calculadoEl": "2026-07-19"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 0.4,
+  "gIntrinseco": 7.02,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-07-27"
+ }
+}
