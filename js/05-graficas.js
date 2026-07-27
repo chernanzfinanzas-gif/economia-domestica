@@ -70,8 +70,23 @@ function gLine(title,labels,vals,opt){ opt=opt||{}; const W=Math.max(340,labels.
   const mn=Math.min(0,...vals.map(num)),mx=Math.max(1,...vals.map(num)),rng=(mx-mn)||1,plotH=H-padB-padT,plotW=W-padL-12;
   const X=i=>padL+(labels.length>1?i*plotW/(labels.length-1):plotW/2), Yf=v=>padT+plotH-((num(v)-mn)/rng)*plotH;
   const pts=vals.map((v,i)=>`${X(i).toFixed(1)},${Yf(v).toFixed(1)}`).join(' ');
-  const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Yf(v).toFixed(1)}" r="2.5" fill="${opt.color||'#2563eb'}"><title>${gEsc(labels[i])}: ${opt.pct?num(v).toFixed(1)+'%':fmt(v)}</title></circle>`).join('');
-  const xlab=labels.map((lb,i)=>`<text x="${X(i).toFixed(1)}" y="${H-7}" font-size="11" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`).join('');
+  /* [C17] El <title> nativo del punto seguía rotulando en EUROS aunque C16 ya hubiera puesto la
+     unidad en el eje y en el tooltip interactivo: al pasar el ratón sobre un punto de consumo salía
+     «5,70 €». Se le pasa la misma unidad. */
+  const _fmtV=v=>opt.unit?gUnitLbl(num(v),opt.unit):(opt.pct?num(v).toFixed(1)+'%':fmt(v));
+  const dots=vals.map((v,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Yf(v).toFixed(1)}" r="2.5" fill="${opt.color||'#2563eb'}"><title>${gEsc(labels[i])}: ${_fmtV(v)}</title></circle>`).join('');
+  /* [C17 · 27-jul-2026] Las etiquetas del eje X se pintaban TODAS, sin mirar si cabían. Con 19
+     repostajes la separación es de ~31 px y una fecha «15/03/26» ocupa ~50: se solapaban hasta ser
+     ilegibles. (Con «15/03» ya iban justas; al añadir el año en C16 se rompió del todo.) Ahora se
+     calcula el paso a partir del ancho real de la etiqueta más larga y se pinta una de cada N,
+     mostrando siempre la última. No se pierde nada: el tooltip sigue dando la fecha exacta de
+     cualquier punto. Genérico, así que arregla también cualquier otra gráfica con muchos puntos. */
+  const _lbAncho=labels.reduce((m,l)=>Math.max(m,(''+l).length),0)*6.2+8;
+  const _lbSep=labels.length>1?plotW/(labels.length-1):plotW;
+  const _lbPaso=Math.max(1,Math.ceil(_lbAncho/Math.max(1,_lbSep)));
+  const _lbUlt=labels.length-1;
+  const xlab=labels.map((lb,i)=>{ const pinta=(i%_lbPaso===0)||(i===_lbUlt&&(_lbUlt%_lbPaso!==0)&&(_lbUlt-Math.floor(_lbUlt/_lbPaso)*_lbPaso)>=_lbPaso*0.6);
+    return pinta?`<text x="${X(i).toFixed(1)}" y="${H-7}" font-size="11" text-anchor="middle" fill="#64748b">${gEsc(lb)}</text>`:''; }).join('');
   const _gt=_gtRegister(labels,[{name:'',color:opt.color||'#2563eb',vals}],{W,padL,padT,plotH,plotW,mn,rng,pct:!!opt.pct,unit:opt.unit||''});
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="overflow-x:auto"><div style="position:relative"><svg class="gtSvg" data-gt="${_gt.id}" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" preserveAspectRatio="xMidYMid meet">${gYAxis(mn,mx,padL,padT,plotH,W,opt.pct,opt.unit)}<line x1="${padL}" y1="${Yf(0).toFixed(1)}" x2="${W-12}" y2="${Yf(0).toFixed(1)}" stroke="#cbd5e1" stroke-dasharray="2 2"/>${_gt.guide}<polyline points="${pts}" fill="none" stroke="${opt.color||'#2563eb'}" stroke-width="2"/>${dots}${_gt.dots}${xlab}</svg>${_gt.tip}</div></div></div>`; }
 function gStack(title,labels,sA,sB,names){ const n=labels.length,W=Math.max(340,n*20+50),H=280,padL=46,padB=30,padT=10;
