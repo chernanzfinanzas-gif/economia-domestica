@@ -437,7 +437,10 @@ function renderAnalisis(){
     const _nm=(a.nombre||'');
     return '<div class="acard'+(a.stopHit?' stop':(best?' best':''))+'" data-fs="'+((a.ticker||'')+' '+(a.nombre||'')).toLowerCase().replace(/"/g,'')+'">'+
       '<div class="acard-h"><div class="sc"><div class="n" style="color:'+sCol+'">'+(a.score==null?'—':a.score.toFixed(0))+'</div><div class="l" style="color:'+sCol+'">'+sLbl+'</div></div>'+
-      '<div class="mid"><div class="nm2">'+(best?'⭐ ':'')+(a.ticker||'')+(a.held?' <span class="arq" style="font-weight:400;color:#94a3b8;font-size:10px">en cartera</span>':'')+(_nm?' · '+_nm:'')+'</div><div class="s2">'+_decChip+'<span class="pill '+e_c+'" style="font-size:10px">'+e_t+'</span>'+(s_t!=='—'?'<span class="pill '+s_c+'" style="font-size:10px">'+s_t+'</span>':'')+'</div></div>'+
+      /* [27-jul-2026] En móvil faltaban el chip de señal corporativa y el enlace a la ficha:
+         la tarjeta enseñaba el ticker como texto muerto y sin avisos. Ahora replica la fila
+         de escritorio: <b data-ficha> + alertaCorpBadge() compacto. */
+      '<div class="mid"><div class="nm2">'+(best?'⭐ ':'')+(a.ticker?'<b class="ana-tkm" data-ficha="'+a.ticker+'" style="color:var(--brand);cursor:pointer" title="Abrir ficha de '+a.ticker+'">'+a.ticker+'</b>':'')+((a.ticker&&typeof alertaCorpBadge==='function')?alertaCorpBadge(a.ticker,true):'')+(a.held?' <span class="arq" style="font-weight:400;color:#94a3b8;font-size:10px">en cartera</span>':'')+(_nm?(a.ticker?' · <span data-ficha="'+a.ticker+'" style="cursor:pointer">'+_nm+'</span>':' · '+_nm):'')+'</div><div class="s2">'+_decChip+'<span class="pill '+e_c+'" style="font-size:10px">'+e_t+'</span>'+(s_t!=='—'?'<span class="pill '+s_c+'" style="font-size:10px">'+s_t+'</span>':'')+'</div></div>'+
       '<span class="arw">▶</span></div>'+
       '<div class="acard-b">'+_anaLadder(a)+'<div class="agrid">'+
         '<div class="m"><div class="l">Cotización</div><div class="v">'+fmt(a.cot)+'</div></div>'+
@@ -450,7 +453,7 @@ function renderAnalisis(){
   }).join('');
   $('#anaTable').innerHTML='<div class="atable">'+_anaTbl+'</div><div class="acards">'+_anaCards+'</div>';
   var _at=$('#anaTable');
-  if(_at&&!_at._anaCardBound){ _at._anaCardBound=true; _at.addEventListener('click',function(e){ if(e.target.closest('input,select,textarea,button,a,[data-anaedit],[data-anadel]'))return; var h=e.target.closest('.acard-h'); if(h){ h.parentElement.classList.toggle('open'); return; } var rr=e.target.closest('tr.ana-row'); if(rr && !e.target.closest('[data-ficha]')){ rr.classList.toggle('open'); } }); }
+  if(_at&&!_at._anaCardBound){ _at._anaCardBound=true; _at.addEventListener('click',function(e){ if(e.target.closest('input,select,textarea,button,a,[data-anaedit],[data-anadel],[data-ficha]'))return; var h=e.target.closest('.acard-h'); if(h){ h.parentElement.classList.toggle('open'); return; } var rr=e.target.closest('tr.ana-row'); if(rr && !e.target.closest('[data-ficha]')){ rr.classList.toggle('open'); } }); }
   $$("#anaTable select[data-f='decision']").forEach(sel=>{ const _a=(DB.analisis||[]).find(x=>x.id===sel.dataset.id); if(_a)sel.value=(_a.decision||'').toUpperCase(); });
   if(typeof _wireBuscador==='function') _wireBuscador($('#anaSearch'), $$('#anaTable tbody tr[data-fs], #anaTable .acard[data-fs]'), _anaBusca);
 }
@@ -525,25 +528,41 @@ function cerrarFicha(){ const fv=$('#fichaView'); if(fv){ fv.style.display='none
    acompaña al scroll, sin tapar contenido (el contenido baja con padding-top).
    Incluye el botón doble ↑/↓: principio de la ficha / posiciones y dividendos. */
 const FICHA_DOCK_H=46;                       // alto reservado para la barra (px)
-function _fichaDockHTML(tick,nombre){
+function _fichaDockHTML(tick,nombre,x){
+  x=x||{};
+  const cot=(x.precio!=null&&typeof fmt==='function')?fmt(x.precio):'';
+  const decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}[x.dec]||'#64748b';
+  const decHTML=x.dec?`<span class="fdDec" style="background:${decCol}" title="Decisión del análisis">${x.dec}</span>`:'';
+  const cotHTML=cot?`<span class="fdCot" title="Precio actual">${cot}</span>`:'';
+  const dossHTML=x.doss
+    ? `<a class="fdDoss" href="${x.doss}" target="_blank" rel="noopener" title="Abrir el dossier de inversión${x.dossFecha?' ('+x.dossFecha+')':''}">📄<span class="fdLbl">Dossier</span>${(x.dossM!=null&&x.dossM>12)?' <span style="font-size:9px">'+x.dossM+'m ⚠️</span>':''}</a>`
+    : '';
   return `<style>
    #fichaDock{position:fixed;top:0;left:0;right:0;z-index:120;display:flex;align-items:center;gap:10px;padding:6px 16px;background:rgba(255,255,255,.97);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);transition:box-shadow .18s ease}
    #fichaDock.on{box-shadow:0 6px 18px rgba(15,23,42,.10)}
    #fichaDock .fdBack{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:5px 12px;font-weight:700;font-size:13px;line-height:1.1;color:#0f172a;cursor:pointer}
    #fichaDock .fdBack:hover{background:#eff6ff;border-color:var(--brand);color:var(--brand)}
    #fichaDock .fdTick{font-weight:800;color:var(--brand);font-size:14px;white-space:nowrap}
-   #fichaDock .fdName{color:#64748b;font-size:12px;max-width:34vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+   #fichaDock .fdName{color:#64748b;font-size:12px;max-width:26vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+   #fichaDock .fdCot{font-weight:700;font-size:13px;color:#0f172a;white-space:nowrap}
+   #fichaDock .fdDec{display:inline-block;color:#fff;font-weight:800;font-size:10px;letter-spacing:.3px;border-radius:6px;padding:3px 7px;white-space:nowrap}
+   #fichaDock .fdDoss{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:9px;padding:4px 10px;font-size:12px;font-weight:700;color:#7c3aed;text-decoration:none;white-space:nowrap}
+   #fichaDock .fdDoss:hover{background:#f5f3ff;border-color:#7c3aed}
+   #fichaDock .fdSep{width:1px;height:20px;background:var(--line)}
    #fichaDock .fdNav{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#fff}
    #fichaDock .fdNav button{border:0;background:#fff;cursor:pointer;padding:5px 11px;font-size:13px;font-weight:700;color:#334155;line-height:1.1;display:inline-flex;align-items:center;gap:6px}
    #fichaDock .fdNav button+button{border-left:1px solid var(--line)}
    #fichaDock .fdNav button:hover{background:#eff6ff;color:var(--brand)}
-   @media(max-width:820px){#fichaDock .fdLbl{display:none}}
-   @media(max-width:620px){#fichaDock .fdName{display:none}}
+   @media(max-width:980px){#fichaDock .fdLbl{display:none}#fichaDock .fdName{display:none}}
+   @media(max-width:700px){#fichaDock{gap:6px;padding:6px 10px}#fichaDock .fdBack{padding:5px 9px}#fichaDock .fdSep{display:none}}
+   @media(max-width:380px){#fichaDock .fdBack span{display:none}#fichaDock .fdCot{display:none}}
   </style>
   <div id="fichaDock">
-    <button type="button" class="fdBack" data-fgo="back" title="Volver al listado (Esc)">‹ Volver</button>
-    <span class="fdTick">${tick}</span><span class="fdName">${nombre||''}</span>
+    <button type="button" class="fdBack" data-fgo="back" title="Volver al listado (Esc)">‹<span> Volver</span></button>
+    <span class="fdTick" data-fgo="top" style="cursor:pointer">${tick}</span><span class="fdName">${nombre||''}</span>
+    ${cotHTML}${decHTML}
     <div style="flex:1"></div>
+    ${dossHTML}${dossHTML?'<span class="fdSep"></span>':''}
     <div class="fdNav">
       <button type="button" data-fgo="top" title="Ir al principio de la ficha">↑<span class="fdLbl">Arriba</span></button>
       <button type="button" data-fgo="bottom" title="Ir a posiciones y dividendos">↓<span class="fdLbl">Posiciones y dividendos</span></button>
@@ -669,7 +688,7 @@ function renderFicha(t){
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
   const _fv=$('#fichaView');
-  _fv.innerHTML=_fichaDockHTML(f.t,f.nombre)+header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;
+  _fv.innerHTML=_fichaDockHTML(f.t,f.nombre,{precio:f.precioActual,dec:_dec,doss:_duF,dossFecha:_ana.dossierFecha,dossM:_mmV})+header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;
   _fv.style.paddingTop=FICHA_DOCK_H+'px';                     // el contenido arranca bajo la barra flotante
   const _dk=document.getElementById('fichaDock'); if(_dk)_dk.classList.toggle('on',window.pageYOffset>4);
   document.title='Ficha '+f.t;
