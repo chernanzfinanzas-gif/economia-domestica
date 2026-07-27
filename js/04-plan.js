@@ -677,7 +677,14 @@ function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Ma
   DB.planCompras[t]=DB.planCompras[t]||{}; DB.planCompras[t][yr]=num((DB.planCompras[t]||{})[yr]||0)+amt;
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 function _pnlSecciones(SEC){
-  var META=[['hogar','🏠','Hogar'],['cartera','📦','Patrimonio y cartera'],['dividendos','💰','Dividendos'],['accion','⚡','Acción']];
+  /* [C14 · 27-jul-2026] Faltaba 'mas' en esta tabla. renderPanelDash declara SEC.mas, cinco bloques
+     escriben en él (Asignación de activos, Próximos eventos, Tareas pendientes, Dividendos por año
+     y De dónde viene tu crecimiento) y aquí se descartaba en silencio: con la base real eso eran
+     21.361 caracteres de HTML construidos y tirados en cada repintado, más que las cuatro secciones
+     visibles juntas. Que era olvido y no decisión lo dice el resto del código: _panelSecOpen ya
+     reservaba la clave mas, el plegado por data-psfold es genérico y el «plegar todo» de 06-main la
+     recorre. Se pinta plegada como las demás. */
+  var META=[['hogar','🏠','Hogar'],['cartera','📦','Patrimonio y cartera'],['dividendos','💰','Dividendos'],['accion','⚡','Acción'],['mas','➕','Más']];
   var st=window._panelSecOpen=window._panelSecOpen||{hogar:0,cartera:0,dividendos:0,accion:0,mas:0};
   var present=META.filter(function(m){return (SEC[m[0]]||'').trim();});
   if(!present.length) return '';
