@@ -955,7 +955,7 @@ function renderPanelDash(){
     SEC.cartera+=block('Cartera','inversiones',[['Valor',fmt(cV),'','coste '+fmt(cC)],['Plusvalía',(cPL>=0?'+':'')+fmt(cPL),cPL>=0?'pos':'neg',(cC?(cPL/cC*100).toFixed(1):0)+'%'],['Máximo histórico',fmt(cMax),'',cMaxSub],['YoC',(cC?(cD/cC*100).toFixed(1):0)+'%','pos']]); }
   // Dividendos
   if(typeof simYearTotal==='function'){ const y1=nowY+1, y2=nowY+2; const dN=simYearTotal(nowY), d1=simYearTotal(y1), d2=simYearTotal(y2), cr=dN?((d1/dN)-1):0;
-    SEC.dividendos+=block('Dividendos','dividendos',[['Cobrado '+nowY,fmt(dN)],['Previsión '+y1,fmt(d1)],['Previsión '+y2,fmt(d2)],['Crecimiento '+nowY+'→'+y1,(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
+    SEC.dividendos+=block('Dividendos','dividendos',[['Estimado '+nowY,fmt(dN)],['Previsión '+y1,fmt(d1)],['Previsión '+y2,fmt(d2)],['Crecimiento '+nowY+'→'+y1,(cr>=0?'+':'')+(cr*100).toFixed(0)+'%',cr>=0?'pos':'neg']]); }
   // Estado de resultados de dividendos (cobrado real vs previsto + DGR)
   if(typeof dividendosEstado==='function'){ try{ const DE=dividendosEstado(); if(DE&&(DE.prevAnual>0||DE.cobradoYTD>0)){ const pc=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(0)+'%'); const cs=[['Cobrado real '+nowY,fmt(DE.cobradoYTD),'pos',DE.pctCobrado!=null?((DE.pctCobrado*100).toFixed(0)+'% del previsto'):'bruto'],['Previsto '+nowY,fmt(DE.prevAnual),'','bruto anual'],['Crecimiento (DGR)',pc(DE.dgr),(DE.dgr!=null&&DE.dgr>=0)?'pos':'neg','vs '+(nowY-1)],['Cobrado '+(nowY-1),fmt(DE.prevYear),'','bruto']]; SEC.dividendos+=block('Dividendos · cobrado vs previsto','dividendos',cs); } }catch(e){} }
   // Independencia: cobertura de gastos por dividendos (FIRE)

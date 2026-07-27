@@ -645,7 +645,14 @@ function buildEmpresa(ctx,tOverride){
   return _infDocWrapKHB('Informe de empresa · '+nombre+' ('+t+')',metas,inner);
 }
 
-function _prepInfSemanal(orden){
+/* [C18 · 27-jul-2026] Este toast lo comparten el boton del informe semanal y el de Alertas, y decia
+   siempre «se abrira Claude con la carpeta del metodo» y «para lanzar el informe». Para Alertas era falso
+   por partida doble: abre la carpeta de Economia Domestica y lanza la revision de alertas. El mensaje
+   viaja ahora con el orden. */
+function _prepInfSemanal(orden, ctx){
+  ctx = ctx || {};
+  var _carpeta = ctx.carpeta || 'del método';
+  var _tarea   = ctx.tarea   || 'el informe';
   orden = orden || 'genera el informe semanal de cartera';
   try{
     if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(orden); }
@@ -653,7 +660,7 @@ function _prepInfSemanal(orden){
   }catch(e){
     try{ var ta=document.createElement('textarea'); ta.value=orden; ta.setAttribute('readonly',''); ta.style.cssText='position:fixed;top:-1000px;left:-1000px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); }catch(e2){}
   }
-  try{ if(typeof showToast==='function') showToast('\uD83D\uDCCB Orden copiada. Se abrira Claude con la carpeta del metodo: en el chat, pega con <b>Ctrl+V</b> y pulsa <b>Enter</b> para lanzar el informe.', null, null, 10000); }catch(e){}
+  try{ if(typeof showToast==='function') showToast('\uD83D\uDCCB Orden copiada. Se abrirá Claude con la carpeta '+_carpeta+': en el chat, pega con <b>Ctrl+V</b> y pulsa <b>Enter</b> para lanzar '+_tarea+'.', null, null, 10000); }catch(e){}
   return true;
 }
 function _infSemanalBlockHTML(){

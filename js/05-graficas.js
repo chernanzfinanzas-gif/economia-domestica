@@ -1,3 +1,17 @@
+/* [C18 · 27-jul-2026] La inflacion FIRE se leia de DOS sitios distintos: el bloque de Coast FIRE
+   la buscaba en DB.config.proyeccion.fireInfla y el de FIRE por dividendo en la raiz DB.config.fireInfla.
+   Rellenar una NO afectaba al otro bloque y los dos caian al 2,5 % por separado, asi que la app mostraba
+   dos anios de independencia calculados con supuestos distintos sin decirlo. Un unico punto de lectura. */
+function fireInflaPct(){
+  var p=(typeof DB!=='undefined'&&DB.config&&DB.config.proyeccion)||{};
+  var raiz=(typeof DB!=='undefined'&&DB.config)||{};
+  var v=null;
+  if(p.fireInfla!=null) v=p.fireInfla;
+  else if(raiz.fireInfla!=null) v=raiz.fireInfla;
+  else if(p.inflacionNomina!=null) v=p.inflacionNomina;
+  v=(typeof num==='function')?num(v):parseFloat(v);
+  return (v!=null&&isFinite(v)&&v>0)?v:0.025;
+}
 let grafYear=new Date().getFullYear(); let _objCache={};
 const GRAF_COLS=['#2563eb','#16a34a','#d97706','#dc2626','#7c3aed','#0891b2','#db2777','#65a30d','#ea580c','#0d9488','#9333ea','#475569'];
 const SECTOR={"IBE": "REGULADAS", "SAN": "FINANCIERAS", "REP": "COMMODITY", "MAP": "FINANCIERAS", "ELE": "REGULADAS", "A3M": "CONSUMO", "VIS": "CONSUMO", "ITX": "INDUSTRIAL", "EBRO": "CONSUMO", "FAE": "SALUD", "ACS": "INDUSTRIAL", "VID": "INDUSTRIAL", "AENA": "CONCESIONAL", "CABK": "FINANCIERAS", "PRM": "SALUD", "BKT": "FINANCIERAS", "R4": "FINANCIERAS", "MCM": "CONSUMO", "SCYR": "CONCESIONAL", "FCC": "CONCESIONAL", "ENG": "REGULADAS", "BBVA": "FINANCIERAS", "ANA": "CONCESIONAL", "TEF": "ESCALABLES", "ACX": "COMMODITY", "AIR": "INDUSTRIAL", "FER": "CONCESIONAL", "MTS": "COMMODITY", "IAG": "CONSUMO", "IDR": "ESCALABLES", "ANE": "CONCESIONAL", "GRF": "SALUD", "CIE": "INDUSTRIAL", "ROVI": "SALUD", "COL": "INMOBILIARIAS", "ALM": "SALUD", "PUIG": "CONSUMO", "APAM.AS": "COMMODITY", "GRE": "CONCESIONAL", "TRE": "INDUSTRIAL", "SLR": "CONCESIONAL", "ENO": "CONCESIONAL", "CAF": "INDUSTRIAL", "MAKS": "ESCALABLES", "HOME": "INMOBILIARIAS", "GEST": "INDUSTRIAL", "MEL": "CONSUMO", "LLN": "ESCALABLES", "RLIA": "INMOBILIARIAS", "CEV": "INMOBILIARIAS", "MVC": "INMOBILIARIAS", "PHM": "SALUD", "PSG": "ESCALABLES", "ART": "INDUSTRIAL", "ECO": "CONCESIONAL", "LDA": "FINANCIERAS", "AEDAS": "INMOBILIARIAS", "COXG": "CONCESIONAL", "ADX": "CONCESIONAL", "ENC": "COMMODITY", "GSJ": "INDUSTRIAL", "OHLA": "INDUSTRIAL", "PRS": "CONSUMO", "GIGA": "ESCALABLES", "TUB": "INDUSTRIAL", "AMP": "ESCALABLES", "NXT": "INDUSTRIAL", "TLGO": "INDUSTRIAL", "ALNT": "FINANCIERAS", "ECR": "COMMODITY", "BKY": "COMMODITY", "AZK": "INDUSTRIAL", "RJF": "SALUD", "ARM": "INMOBILIARIAS", "AI": "INDUSTRIAL", "NEA": "INDUSTRIAL", "OLE": "CONSUMO", "VOC": "CONSUMO", "TRG": "INDUSTRIAL", "LGT": "INDUSTRIAL", "ADZ": "CONSUMO", "EZE": "ESCALABLES", "REN": "INMOBILIARIAS", "RIO": "CONSUMO", "PVA": "CONSUMO", "CCEP": "CONSUMO", "NYE": "INMOBILIARIAS", "SEC": "CONSUMO", "UBS": "INDUSTRIAL", "NTGY": "REGULADAS", "LOG": "CONSUMO", "AMS": "ESCALABLES", "RED": "REGULADAS", "UNI": "FINANCIERAS", "FDR": "INDUSTRIAL", "CLNX": "CONCESIONAL", "MRL": "INMOBILIARIAS", "IBG": "COMMODITY", "ORY": "SALUD", "CIRSA": "CONSUMO"};
@@ -421,7 +435,7 @@ function renderIndependencia(){
   if(!(divAnual>0))divAnual=num(c.dividendoBruto);
   if(gastoAnual<=0){ el.innerHTML='<div class="empty">Necesito tu gasto anual (Presupuesto) y la Proyección para calcular la independencia.</div>'; return; }
   var rpd=valorCartera>0?divAnual/valorCartera:0.04;
-  var infla=num(c.fireInfla)||num(c.inflacionNomina)||0.025;
+  var infla=fireInflaPct();
   var rReal=(1+num(c.crecCartera))/(1+infla)-1;
   var edadObj=num(c.edadActual)+(num(c.anioTrasJub)-num(c.anioBase));
   var n=Math.max(0,num(c.anioTrasJub)-nowY); var growth=Math.pow(1+rReal,n);
@@ -448,7 +462,7 @@ function renderIndependencia(){
     +'<div class="ind-kpis"><div class="k"><div class="l">Años de colchón</div><div class="v">'+anosColchon.toFixed(1)+' años</div><div class="p">patrimonio ÷ gasto anual ('+eur(gastoAnual)+')</div></div>'
     +'<div class="k"><div class="l">Tasa de ahorro</div><div class="v">'+(tasaAhorro!=null?tasaAhorro.toFixed(0)+'%':'—')+'</div><div class="p">de tus ingresos netos</div></div>'
     +'<div class="k"><div class="l">Patrimonio actual</div><div class="v">'+eur(patrimonio)+'</div><div class="p">efectivo + invertido</div></div></div>'
-    +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (cartera '+(num(c.crecCartera)*100).toFixed(0)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; ajústalo en Proyección. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
+    +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (cartera '+(num(c.crecCartera)*100).toFixed(0)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; la volatilidad y la inflación FIRE no tienen campo: se editan en el fichero de datos. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
   // --- Bloque 2: D2 · Retirada dinámica (decumulación / sequence risk + guardrails) ---
   var retiInner='', retiSum='';
   try{
@@ -517,7 +531,7 @@ function renderIndependencia(){
 // === Cobertura de gastos por dividendos (independencia financiera / FIRE) ===
 // Dividendo BRUTO (simYearTotal) vs GASTO REAL (movimientos últimos 12m). Proyecta dividendo con su
 // crecimiento estimado (CAGR de la trayectoria del plan; fallback histórico; fallback 5%) y gasto con
-// inflación (DB.config.fireInfla o 2,5%) hasta el cruce → año de independencia.
+// inflación (fireInflaPct(): proyeccion.fireInfla → raíz → inflacionNomina → 2,5%) hasta el cruce → año de independencia.
 function coberturaDivGastos(){ if(typeof simYearTotal!=='function')return null; const nowY=new Date().getFullYear();
   const gp=(typeof gastoMensualPresu==='function')?gastoMensualPresu():null; let gastoReal;
   if(gp!=null&&gp>0){ gastoReal=gp*12; }
@@ -530,7 +544,7 @@ function coberturaDivGastos(){ if(typeof simYearTotal!=='function')return null; 
   let gDiv=cagr(divNow,divLast,lastY-nowY);
   if(gDiv==null){ let a=null,ay=null; for(let Y=nowY-6;Y<nowY;Y++){ const v=num(simYearTotal(Y)); if(v>0){a=v;ay=Y;break;} } gDiv=(a!=null&&divNow>0&&(nowY-ay)>0)?cagr(a,divNow,nowY-ay):0.05; }
   if(gDiv==null||!isFinite(gDiv))gDiv=0.05; gDiv=Math.max(-0.3,Math.min(gDiv,0.4));
-  const infla=(DB.config&&DB.config.fireInfla!=null)?num(DB.config.fireInfla):0.025;
+  const infla=fireInflaPct();
   let anioIndep=null; const fullY=[],fullDiv=[],fullGasto=[];
   for(let Y=nowY;Y<=nowY+60;Y++){ let dv; if(Y<=lastY){ dv=num(simYearTotal(Y)); if(!(dv>0))dv=divLast*Math.pow(1+gDiv,Y-lastY); } else dv=divLast*Math.pow(1+gDiv,Y-lastY); const gs=gastoReal*Math.pow(1+infla,Y-nowY); fullY.push(Y);fullDiv.push(dv);fullGasto.push(gs); if(anioIndep==null&&dv>=gs)anioIndep=Y; }
   const chartEnd=anioIndep?Math.min(anioIndep+2,nowY+60):(nowY+15);
