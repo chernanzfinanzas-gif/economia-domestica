@@ -835,14 +835,33 @@
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": [],
+      "hallazgos": [
+        {
+          "id": "S3-2026-07-11",
+          "abiertoEl": "2026-07-11",
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-28",
+          "desenlace": "Señal abierta el 11-jul-2026 (cotización de referencia 12,14 €); el apunte de ese día —«mantenemos la posición por dividendo»— hablaba de la POSICIÓN, no de la tesis, y no se emitió Nota. AJUSTA PO. La subida está parcialmente sostenida: el TNAV/acción crece de 5,76 € (FY-2025) a 6,32 € (1S-2026, publicado el 22-jul) y el RoTE lleva cinco trimestres por encima del 15% del supuesto base (1S-2026: 15,6%; CET1 14,0%; eficiencia 42,8%; NPL 2,93%). Pero el múltiplo ha corrido más que el valor: cotiza a 1,90x TNAV frente al 1,63x del escenario base, y despejando P/TBV=(RoTE−g)/(CoE−g) el precio exige un RoTE sostenible del 17,2%, por encima incluso del escenario optimista (16,5%). La tesis no está rota: está CUMPLIDA — el bull case (~12,5 €) y el catalizador del cierre de la brecha de valoración ya están en el precio. PO recalculado actualizando SOLO el TNAV, sin tocar hipótesis ni los pesos 70/30: 8,25 → 8,92 € (poBear 7,65 · poBull 13,61 · entrada 7,02-7,78). STOP SIN CAMBIOS en 5,90 €: deriva del pre-mortem, no del valor contable. Veredicto ESPERAR sin cambio (margen −25,7% sobre 12,01 €). Bloque 8: el riesgo nº7 cruza su alarma (TSB −55 pb de CET1 > umbral 50 pb) pero está ABSORBIDO — el CET1 sube de 13,5% a 14,0%; queda vigilado. Los tres pre-mortem, lejos. Anti-anclaje: watchlist, no compraría a 1,90x TNAV. PENDIENTE para la Actualización Anual: el peso del 30% de los múltiplos históricos (0,7x TNAV, el descuento de 2020-22) resta 1,5 € al objetivo; sin él el PO sería 10,45 €. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Banco Santander (S3).html",
+          "resumen": "PO base alcanzado: cotización 12,14 € ≥ PO 8,30 €",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-07-11",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "vencePlazoEl": "2026-07-18",
+          "notaEmitida": true
+        }
+      ],
       "revisiones": [
         {
-          "fecha": "11-jul-2026",
+          "fecha": "28-jul-2026",
           "senal": "S3",
-          "cot": "12,14",
-          "decision": "REAFIRMAR",
-          "motivo": "MANTENEMOS LA POSICIÓN POR DIVIDENDO, NO HACE FALTA VENDER"
+          "cot": "12,01",
+          "decision": "AJUSTA PO",
+          "motivo": "Señal abierta el 11-jul-2026 (cotización de referencia 12,14 €); el apunte de ese día —«mantenemos la posición por dividendo»— hablaba de la POSICIÓN, no de la tesis, y no se emitió Nota. AJUSTA PO. La subida está parcialmente sostenida: el TNAV/acción crece de 5,76 € (FY-2025) a 6,32 € (1S-2026, publicado el 22-jul) y el RoTE lleva cinco trimestres por encima del 15% del supuesto base (1S-2026: 15,6%; CET1 14,0%; eficiencia 42,8%; NPL 2,93%). Pero el múltiplo ha corrido más que el valor: cotiza a 1,90x TNAV frente al 1,63x del escenario base, y despejando P/TBV=(RoTE−g)/(CoE−g) el precio exige un RoTE sostenible del 17,2%, por encima incluso del escenario optimista (16,5%). La tesis no está rota: está CUMPLIDA — el bull case (~12,5 €) y el catalizador del cierre de la brecha de valoración ya están en el precio. PO recalculado actualizando SOLO el TNAV, sin tocar hipótesis ni los pesos 70/30: 8,25 → 8,92 € (poBear 7,65 · poBull 13,61 · entrada 7,02-7,78). STOP SIN CAMBIOS en 5,90 €: deriva del pre-mortem, no del valor contable. Veredicto ESPERAR sin cambio (margen −25,7% sobre 12,01 €). Bloque 8: el riesgo nº7 cruza su alarma (TSB −55 pb de CET1 > umbral 50 pb) pero está ABSORBIDO — el CET1 sube de 13,5% a 14,0%; queda vigilado. Los tres pre-mortem, lejos. Anti-anclaje: watchlist, no compraría a 1,90x TNAV. PENDIENTE para la Actualización Anual: el peso del 30% de los múltiplos históricos (0,7x TNAV, el descuento de 2020-22) resta 1,5 € al objetivo; sin él el PO sería 10,45 €. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Banco Santander (S3).html"
         }
       ],
       "revisionesEl": "2026-07-28",
