@@ -87,19 +87,54 @@ function _protoFechaExcel(iso){
   const m = (''+(iso||'')).match(/^(\d{4})-(\d{2})-(\d{2})$/);
   return m ? ((+m[3])+'-'+_PROTO_MES[(+m[2])-1]+'-'+m[1]) : (''+(iso||''));
 }
+/* [28-jul-2026 · POR QUE LA COPIA VA EN DOS PASOS]
+   La columna Motivo del §10.5 no es una celda: es **E:N combinada**. Al pegar de golpe las cinco
+   columnas, la quinta cae DENTRO de la combinacion sin cubrirla entera y Excel lo rechaza con
+   «no se puede cambiar parte de una celda combinada». No es un fallo del portapapeles ni del
+   Excel: es que un rango de 5 columnas y una combinacion de 10 no encajan.
+
+   Se resuelve partiendo la copia: primero las CUATRO columnas simples —Fecha, Senal, Cotizacion,
+   Decision— que se pegan en A de una vez; despues el motivo SOLO, que se pega en E, y un valor
+   suelto sobre el ancla de una celda combinada si lo admite.
+
+   No se toca la plantilla del Excel: la combinacion E:N esta ahi para que el motivo se lea de
+   corrido, y desmontarla por comodidad de pegado estropearia lo que se ve. */
 function _protoFilaExcel(ap){
   const g = v => (v==null?'':(''+v).replace(/[\t\r\n]+/g,' ').trim());
   /* Coma decimal: si va con punto, un Excel en espanol lo pega como texto y no como numero. */
   const cot = (ap.cot==null||ap.cot==='') ? '' : (''+ap.cot).replace('.',',');
-  return [_protoFechaExcel(ap.fecha), g(ap.sig), cot, g(ap.decision), g(ap.motivo)].join('\t');
+  return [_protoFechaExcel(ap.fecha), g(ap.sig), cot, g(ap.decision)].join('\t');
 }
+function _protoMotivoExcel(ap){
+  return (ap.motivo==null?'':(''+ap.motivo).replace(/[\t\r\n]+/g,' ').trim());
+}
+function _protoAlPortapapeles(txt, cb){
+  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(cb).catch(cb); return; }
+  const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select();
+  try{document.execCommand('copy');}catch(e){} ta.remove(); cb&&cb();
+}
+/* Alterna entre los dos pasos. El propio boton dice en cual esta, para no tener que recordarlo. */
 function _protoCopiarFila(ap, btn){
-  const fila = _protoFilaExcel(ap);
-  const done = () => { if(btn){ const t=btn.textContent; btn.textContent='✓ Copiada'; setTimeout(()=>{btn.textContent=t;},1500); } };
-  if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(fila).then(done).catch(done); }
-  else { const ta=document.createElement('textarea'); ta.value=fila; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');}catch(e){} ta.remove(); done(); }
-  return fila;
+  const paso = (btn && btn.dataset.pcpaso==='2') ? 2 : 1;
+  const txt  = (paso===1) ? _protoFilaExcel(ap) : _protoMotivoExcel(ap);
+  _protoAlPortapapeles(txt, function(){
+    if(!btn)return;
+    if(paso===1){
+      btn.dataset.pcpaso='2';
+      btn.textContent=(btn.id==='paCopy')?'📋 2/2 · ahora el Motivo':'📋 2/2';
+      btn.title='Copiadas las cuatro primeras columnas: pégalas en la celda de la Fecha (columna A). '
+              + 'Ahora pulsa otra vez para copiar el Motivo y pégalo en su celda de la columna E.';
+    }else{
+      btn.dataset.pcpaso='1';
+      btn.textContent='✓ 2/2';
+      btn.title='Motivo copiado. Pégalo en la celda combinada de la columna E.';
+      var _orig=(btn.id==='paCopy')?'📋 1/2 Fecha·Señal·Cotiz.·Decisión':'📋';
+      setTimeout(function(){ btn.textContent=_orig; btn.title=_PROTO_TIT_COPIA; },2200);
+    }
+  });
+  return txt;
 }
+var _PROTO_TIT_COPIA='Copiar la fila para el §10.5 en dos pasos: 1) Fecha·Señal·Cotización·Decisión → se pega en la columna A; 2) el Motivo → se pega en la columna E, que está combinada y no admite pegado en bloque.';
 /* Lee el formulario del dialogo tal y como esta ahora, para poder copiar antes de guardar. */
 function _protoLeerForm(dlg, sigPorDefecto, hoy){
   return { fecha: dlg.querySelector('#paFecha').value || hoy,
@@ -195,7 +230,7 @@ function protoApunteForm(sig, ticker){
      </div>
      <div style="padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #e2e8f0">
        <button class="btn ghost sm" id="paBack">← Volver</button>
-       <button class="btn ghost sm" id="paCopy" title="Copia la fila lista para pegar en el registro §10.5 del Excel (Fecha · Señal · Cotización · Decisión · Motivo). Al guardar se copia sola.">📋 Copiar fila para el Excel</button>
+       <button class="btn ghost sm" id="paCopy" data-pcpaso="1" title="Copia para el §10.5 en dos pasos, porque la columna Motivo es una celda combinada y no admite pegado en bloque. 1) las cuatro primeras columnas → se pegan en la Fecha (columna A). 2) el Motivo → se pega en la columna E.">📋 1/2 Fecha·Señal·Cotiz.·Decisión</button>
        <button class="btn sm" id="paSave" style="background:${p.color};border-color:${p.color}">Guardar apunte</button>
      </div>`;
   dlg.querySelector('#protoX').onclick=()=>dlg.close();
@@ -218,6 +253,9 @@ function protoApunteForm(sig, ticker){
       estado:dec==='PTE. REVISIÓN'?'abierta':'resuelta' };
     /* Se copia la fila ANTES de nada: asi, al cerrar, el portapapeles ya lleva lo que hay
        que pegar en el §10.5 y el doble registro no depende de acordarse. */
+    /* La copia automatica al guardar solo puede dejar UNA cosa en el portapapeles: deja las
+       cuatro columnas simples, que es lo que se pega primero. El motivo se copia con el boton
+       de la fila cuando toque — y el aviso lo dice, para no dejarlo a medias sin avisar. */
     try{ _protoCopiarFila(ap); }catch(e){}
     DB.protocolo=DB.protocolo||{}; (DB.protocolo[t]=DB.protocolo[t]||[]).push(ap);
     DB.protocolo[t].sort((x,y)=>(y.fecha||'').localeCompare(x.fecha||''));
@@ -267,7 +305,7 @@ function protoRegHTML(t){
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
       <td>${chip}${silChip}</td>
       <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
-      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" title="Copiar la fila para pegarla en el §10.5 del Excel (Fecha · Señal · Cotización · Decisión · Motivo)">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
+      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" data-pcpaso="1" title="${_PROTO_TIT_COPIA}">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
     </tr>`;
   }).join('');
   const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Ninguno pendiente de pasar al Excel. Los borradores se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
