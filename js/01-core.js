@@ -382,11 +382,13 @@ function alertaCorpDe(t){ t=(t||'').toUpperCase(); return (_alertasCorp||{})[t]|
 function _hallazgoInactivo(h){
   if(!h) return true;
   if(h.estado==='resuelta'||h.estado==='caducada') return true;
-  if(h.naturaleza==='hecho'&&h.caducaEl){
-    var hoy=new Date(); var m=String(hoy.getMonth()+1), d=String(hoy.getDate());
-    var iso=hoy.getFullYear()+'-'+(m.length<2?'0'+m:m)+'-'+(d.length<2?'0'+d:d);
-    if(h.caducaEl<=iso) return true;
-  }
+  var hoy=new Date(), _m=String(hoy.getMonth()+1), _d=String(hoy.getDate());
+  var iso=hoy.getFullYear()+'-'+(_m.length<2?'0'+_m:_m)+'-'+(_d.length<2?'0'+_d:_d);
+  if(h.naturaleza==='hecho'&&h.caducaEl&&h.caducaEl<=iso) return true;
+  /* Un ESTADO (la coyuntura) dice como sopla el viento HOY. Si nadie lo ha refrescado en dos
+     ciclos semanales, ya no habla de hoy: deja de mostrarse en vez de mentir con una lectura
+     vieja. Pasa si se deja de cubrir una empresa o si un lunes no se genera el informe. */
+  if(h.naturaleza==='estado'&&h.vigenteHasta&&h.vigenteHasta<=iso) return true;
   return false;
 }
 /* Hallazgos VIVOS: solo los `activa`. Un `resuelta` (la OPA acabo) o un `caducada` (el hecho
@@ -402,7 +404,10 @@ function hallazgosCorpDe(t){
 function historialCorpDe(t){
   t=(t||'').toUpperCase();
   var e=(_hallazgosEmp||{})[t]; if(!e||!e.hallazgos) return [];
-  return e.hallazgos.filter(function(h){ return h&&_hallazgoInactivo(h); })
+  return e.hallazgos.filter(function(h){
+      /* La coyuntura no entra en el historial: solo hay una por empresa y un veredicto
+         caducado no cuenta nada que merezca guardarse. El historial es de sucesos. */
+      return h&&h.tipo!=='coyuntura'&&_hallazgoInactivo(h); })
     .slice().sort(function(a,b){ return (''+(b.resueltoEl||b.fecha||'')).localeCompare(''+(a.resueltoEl||a.fecha||'')); });
 }
 function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
