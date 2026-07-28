@@ -232,9 +232,9 @@
         {
           "id": "S2-2026-07-27",
           "abiertoEl": "2026-07-27",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-28",
+          "desenlace": "REAFIRMAR TESIS. La propuesta de la CNMC del 4-jun-2026 (tarifa −0,59% anual frente al +3,82% pedido, IMAAJ 11,02 €/pax frente a los 12,69 € que aprobó el Consejo de Aena el 17-feb, WACC 7,4% frente al 9%) cruza el §8.1 R2, la señal de salida del pre-mortem nº2 y el red flag nº2 del §10.4. Pero la CADENA del pre-mortem se rompe en su segundo eslabón: con el tráfico que la propia CNMC proyecta (+2,2% anual, 366,7 M pax en 2031, por encima del 1,3% de Aena), el ingreso aeronáutico sigue creciendo (~+1,6%/año) en vez de estancarse. Magnitud del §8.1 R2 (−10/−25%), no del §8.2 (−40/−50%). La propuesta no es vinculante: decide el Consejo de Ministros antes del 30-sep-2026. Sin cambios: ESPERAR, PO 21,6 €, banda 18-22 €, stop 15,6 €; no se toca el AENA.json. La decisión vigente ya era no entrar y el riesgo estaba escrito en cuatro sitios del expediente. Acción: no entrar por encima de 22 €; (a) 29-jul resultados 1S — coste medio de deuda frente al 4% del §8.1 R5; (b) antes del 30-sep, Consejo de Ministros — si confirma, re-valorar el Bloque VI (AJUSTA PO con datos nuevos); si suaviza, catalizador §9.1. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Aena (S2).html",
           "resumen": "Informe semanal 2026-07-27: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variación tarifaria −0,59% anual frente al +3,82% solicitado, IMAAJ de referencia 11,02 €/pax y WACC 7,4% frente al 9% pedido) cruza la señal de alarma del §8.1 R2 y la señal de salida temprana del pre-mortem nº2 «Ruptura del marco regulatorio (DORA III duro)». Propuesta preceptiva NO vinculante: decide el Consejo de Ministros antes del 30-sep-2026.",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -245,7 +245,7 @@
           "exigeAccion": true,
           "codigo": "S2",
           "vencePlazoEl": "2026-08-03",
-          "notaEmitida": false
+          "notaEmitida": true
         },
         {
           "id": "coyuntura",
@@ -265,11 +265,11 @@
       ],
       "revisiones": [
         {
-          "fecha": "27-jul-2026",
+          "fecha": "28-jul-2026",
           "senal": "S2",
           "cot": "26,7",
-          "decision": "ABIERTA",
-          "motivo": "Informe semanal 27-jul-2026: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variación tarifaria −0,59% anual frente al +3,82% solicitado, IMAAJ 11,02 €/pax y WACC 7,4% frente al 9%) cruza la señal de alarma del §8.1 R2 y la de salida temprana del pre-mortem nº2. Decisión: NO actuar aún. La propuesta es preceptiva pero NO vinculante y el escenario no está consumado; el punto que resuelve es el acuerdo del Consejo de Ministros, antes del 30-sep-2026. Se evalúa con el monitor del 1S-2026 y, en todo caso, se emite Nota de Revisión Extraordinaria antes de esa fecha."
+          "decision": "REAFIRMAR",
+          "motivo": "Señal abierta el 27-jul-2026 (cotización de referencia 26,7). REAFIRMAR TESIS. La propuesta de la CNMC del 4-jun-2026 (tarifa −0,59% anual frente al +3,82% pedido, IMAAJ 11,02 €/pax frente a los 12,69 € que aprobó el Consejo de Aena el 17-feb, WACC 7,4% frente al 9%) cruza el §8.1 R2, la señal de salida del pre-mortem nº2 y el red flag nº2 del §10.4. Pero la CADENA del pre-mortem se rompe en su segundo eslabón: con el tráfico que la propia CNMC proyecta (+2,2% anual, 366,7 M pax en 2031, por encima del 1,3% de Aena), el ingreso aeronáutico sigue creciendo (~+1,6%/año) en vez de estancarse. Magnitud del §8.1 R2 (−10/−25%), no del §8.2 (−40/−50%). La propuesta no es vinculante: decide el Consejo de Ministros antes del 30-sep-2026. Sin cambios: ESPERAR, PO 21,6 €, banda 18-22 €, stop 15,6 €; no se toca el AENA.json. La decisión vigente ya era no entrar y el riesgo estaba escrito en cuatro sitios del expediente. Acción: no entrar por encima de 22 €; (a) 29-jul resultados 1S — coste medio de deuda frente al 4% del §8.1 R5; (b) antes del 30-sep, Consejo de Ministros — si confirma, re-valorar el Bloque VI (AJUSTA PO con datos nuevos); si suaviza, catalizador §9.1. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Aena (S2).html"
         }
       ],
       "revisionesEl": "2026-07-28",
@@ -387,6 +387,13 @@
           "cot": "4,77",
           "decision": "REAFIRMAR",
           "motivo": "2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1)."
+        },
+        {
+          "fecha": "27-jul-2026",
+          "senal": "S6",
+          "cot": "5,08",
+          "decision": "REAFIRMAR",
+          "motivo": "La empresa está en vigilancia por un 2025 flojo con un plan de jubilaciones anticipadas de plantilla. En 2026 tiene que empezar a remontar"
         }
       ],
       "revisionesEl": "2026-07-28",
@@ -671,6 +678,13 @@
           "cot": "Pte, Revisión",
           "decision": "REAFIRMAR",
           "motivo": "S6 (2º+ ámbar consecutivo). El 9M-2026 confirma una INFLEXIÓN de mejora: EBIT Ajustado +3,0% (vs −3,5% en el S1), margen s/VE +39 pb a 21,5% y Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8% vs −9,9%). El deterioro operativo del semestre NO ha continuado y el BCE sube tipos (+25 pb en junio). Tendencia adversa NO confirmada → efecto de tipos en reversión, seguir en ordinario. Vigilar el dividendo (pay-out ~99%)."
+        },
+        {
+          "fecha": "27-jul-2026",
+          "senal": "S3",
+          "cot": "36",
+          "decision": "REAFIRMAR",
+          "motivo": "Es una tesis de renta, comprada para cobrar dividendo. No se amplia posición hasta alcanzar precios de entrada de la tesis"
         }
       ],
       "revisionesEl": "2026-07-28",
@@ -889,19 +903,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 29,
+    "hallazgosActivos": 28,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
       "concurso": 1,
       "otro": 7,
-      "senal": 1,
       "sancion": 1,
       "litigio": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 8,
+    "situacionesAbiertas": 7,
     "hechosCaducadosHoy": 0
   }
 }
