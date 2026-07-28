@@ -783,10 +783,18 @@ function renderPanelDash(){
   const _cotA=a=>(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion);
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),st=num(a.stopTesis); if(c&&st&&c<=st){ const t=(a.ticker||'').toUpperCase(); const p=_heldP[t]; avisos.push({pri:0,cls:'r',goto:'analisis',sig:'S1',tick:t,txt:`🚨 <b>${t}</b> — stop de tesis tocado (${fmt(c)} ≤ ${fmt(st)})${p?` · tienes ${p.acciones} acc., <b>ORDEN DE SALIDA</b>`:' · en vigilancia'}`}); } });
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),eH=num(a.entMax),st=num(a.stopTesis); const dec=(a.decision||'').toUpperCase(); if(c>0&&eH>0&&c<=eH&&!(st&&c<=st)){ const t=(a.ticker||'').toUpperCase(); const decTag=dec?` · ${dec.toLowerCase()}`:''; avisos.push({pri:dec==='COMPRAR'?1:2,cls:'a',goto:'analisis',txt:`🟢 <b>${t}</b> — en zona de compra (${fmt(c)} ≤ entrada ${fmt(eH)})${decTag}${_heldP[t]?' · ya en cartera':''}`}); } });
-  // 🎯 PO alcanzado (señal de revisión/venta): cotización ≥ PO máximo (bull); aviso suave si ≥ PO base
+  /* 🎯 PO alcanzado. SOLO el cruce del PO MÁXIMO (bull) es señal S3 y puede abrir apunte.
+     El cruce del PO base queda como aviso suave e INFORMATIVO: lleva `noApunte`, así que se
+     pinta sin el badge «S3 📋» y pulsarlo no abre el procedimiento — solo lleva a Análisis.
+     [28-jul-2026] Medido sobre las 25: doce estaban por encima de su PO base, con mediana
+     −0,8%. Es el estado normal de una cartera cuyas tesis funcionan en un mercado alcista;
+     una señal con plazo que se abre en la mitad de las posiciones deja de significar nada.
+     Conserva `sig` y `tick` A PROPÓSITO: son lo que usa `_silenciada` para callar el aviso
+     cuando ya hay un apunte S3 vivo o resuelto hace menos de 60 días. Quitarle `sig` haría
+     que reapareciera al día siguiente de revisarla, que es el fallo contrario. */
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),pMin=num(a.poMin),pMax=num(a.poMax); const pMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((pMin&&pMax)?(pMin+pMax)/2:(pMax||pMin||0)); if(c<=0)return; const t=(a.ticker||'').toUpperCase(); const p=_heldP[t];
     if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
-    else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
+    else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,noApunte:1,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
   /* [C6 · 27-jul-2026] SEÑAL S2 — semáforo trimestral ROJO o tesis declarada tocada.
      Faltaba: S2 existía en el badge de la Ficha y en el motor de Mis Decisiones, pero NO en esta
      bandeja. Quien vaciaba el Panel el lunes y no abría la Ficha se perdía los trimestres rojos,
@@ -919,7 +927,7 @@ function renderPanelDash(){
       +'</div>';
     const grupos={}; show.forEach(x=>{ (grupos[x.tipo]=grupos[x.tipo]||[]).push(x); });
     const _itav=Object.keys(grupos).map(tp=>{
-      const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${x.sig?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${x.sig?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
+      const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${(x.sig&&!x.noApunte)?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${(x.sig&&!x.noApunte)?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
       return `<div style="margin-bottom:6px"><div style="font-size:11px;font-weight:700;color:#94a3b8;margin:4px 0 2px">${_TN[tp]||tp}</div>${its}</div>`;
     }).join('');
     const _allKeys=show.map(x=>x.key).join('~');
