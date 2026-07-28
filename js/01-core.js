@@ -451,8 +451,13 @@ function _notaRevHref(t){
   var q='nota de revisión extraordinaria de '+_nombreCortoCorp(t);
   return 'claude://cowork/new?folder='+encodeURIComponent(KH_CARPETA)+'&q='+encodeURIComponent(q)+'&prompt='+encodeURIComponent(q);
 }
+/* La etiqueta SIN el sufijo de estado. En la linea de tiempo el estado va en su propia
+   pastilla, asi que repetirlo en el titulo ("S2 (resuelta)  RESUELTO") era ruido. */
+function _alcorpEtiquetaBase(h){
+  return (h.tipo==='senal'&&h.codigo)?h.codigo:(ALERTA_TIPO_LBL[h.tipo]||'Aviso');
+}
 function _alcorpEtiqueta(h){
-  var lbl=(h.tipo==='senal'&&h.codigo)?h.codigo:(ALERTA_TIPO_LBL[h.tipo]||'Aviso');
+  var lbl=_alcorpEtiquetaBase(h);
   if(h.estado==='resuelta')lbl+=' (resuelta)';
   else if(_hallazgoInactivo(h))lbl+=' (caducada)';
   return lbl;
@@ -530,28 +535,131 @@ function hallazgosAvisos(){
   });
   return out;
 }
-/* [28-jul-2026] Cuarto bloque del banner de la Ficha: acceso al DOCUMENTO de las Notas de
-   Revision Extraordinaria. El DESENLACE de la nota ya vivia en «Historial de avisos»; lo que
-   faltaba era poder ABRIR la nota sin salir a Hemeroteca, que era el unico sitio que las
-   listaba. Estabas en la ficha de Aena, leias que la S2 se cerro con tal decision, y para leer
-   la nota entera tenias que irte a otra pantalla.
-   Carga diferida a proposito: listar las notas de una empresa es una llamada a la Contents API
-   de GitHub (60/hora sin autenticar) y la Ficha se abre muchas veces al dia. Solo se pide
-   cuando despliegas el bloque. */
+/* [28-jul-2026 · v2] HISTORIAL Y NOTAS, EN UNA SOLA LINEA DE TIEMPO.
+   La v1 de esta manana dejo dos desplegables separados —«Historial de avisos» y «Notas de
+   revision»— y no habia forma de saber que nota cerro que aviso: leias «S2 resuelta» en uno y
+   «S2 · 28-jul» en el otro, y el vinculo estaba solo en tu cabeza. Ahora es UN bloque
+   cronologico donde cada aviso cerrado lleva SU nota enganchada debajo, y las notas que no
+   responden a ninguna senal —las discrecionales— entran como entradas propias en la misma linea.
+   El enganche se resuelve al ABRIR el bloque, no al pintarlo: listar las notas de una empresa es
+   una llamada a la Contents API de GitHub (60/hora sin autenticar) y la Ficha se abre muchas
+   veces al dia. */
 var _revIdxPedido=false;
-function _notasRevBloque(t){
+function _ensureHistCSS(){
+  if(document.getElementById('kh-hist-css'))return;
+  var st=document.createElement('style'); st.id='kh-hist-css';
+  st.textContent=[
+   '.khh{margin:7px 0 0 2px;border:1px solid var(--line);border-radius:10px;background:#fff;overflow:hidden}',
+   '.khh>summary{cursor:pointer;list-style:none;padding:7px 11px;font-size:11.5px;font-weight:700;color:#475569;background:#f8fafc;display:flex;align-items:center;gap:7px}',
+   '.khh>summary::-webkit-details-marker{display:none}',
+   '.khh>summary::before{content:"\\25B8";font-size:11px;color:#94a3b8;display:inline-block;transition:transform .15s}',
+   '.khh[open]>summary::before{transform:rotate(90deg)}',
+   '.khh>summary:hover{background:#f1f5f9}',
+   '.khh-n{margin-left:auto;font-weight:600;color:#94a3b8;font-size:10.5px}',
+   '.khh-body{padding:11px 13px 12px;position:relative}',
+   '.khh-body::before{content:"";position:absolute;left:20px;top:14px;bottom:15px;width:2px;background:linear-gradient(#e2e8f0,#f8fafc)}',
+   '.khh-it{position:relative;padding:0 0 13px 23px}',
+   '.khh-it:last-child{padding-bottom:0}',
+   '.khh-it::before{content:"";position:absolute;left:4px;top:4px;width:9px;height:9px;border-radius:50%;background:#cbd5e1;border:2px solid #fff;box-shadow:0 0 0 1.5px #cbd5e1}',
+   '.khh-it.ok::before{background:#22c55e;box-shadow:0 0 0 1.5px #86efac}',
+   '.khh-it.nota::before{background:#2563eb;box-shadow:0 0 0 1.5px #bfdbfe}',
+   '.khh-h{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}',
+   '.khh-t{font-size:12px;font-weight:800;color:#334155}',
+   '.khh-p{font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;padding:1px 7px;border-radius:20px}',
+   '.khh-p.ok{background:#dcfce7;color:#166534}',
+   '.khh-p.cad{background:#f1f5f9;color:#64748b}',
+   '.khh-p.nota{background:#dbeafe;color:#1d4ed8}',
+   '.khh-d{margin-left:auto;font-size:10.5px;color:#94a3b8;white-space:nowrap}',
+   '.khh-r{font-size:11.5px;line-height:1.55;color:#64748b;margin-top:3px}',
+   '.khh-x{font-size:11.5px;line-height:1.55;color:#334155;margin-top:5px;padding:6px 9px;background:#f8fafc;border-left:2px solid #94a3b8;border-radius:0 6px 6px 0}',
+   '.khh-a{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:10.5px;font-weight:700;color:#1d4ed8;text-decoration:none;border:1px solid #bfdbfe;background:#eff6ff;padding:4px 10px;border-radius:7px}',
+   '.khh-a:hover{background:#dbeafe;border-color:#93c5fd}',
+   '.khh-w{font-size:11px;color:#94a3b8;font-style:italic}'
+  ].join('');
+  document.head.appendChild(st);
+}
+/* Recorta por PALABRA, no por caracter. Cortar a los 240 exactos dejaba frases partidas a
+   media palabra («...la senal de salida temprana d»), que parece un fichero corrupto. */
+function _histCorta(txt,n){
+  txt=(''+(txt||'')).trim(); if(txt.length<=n) return txt;
+  var c=txt.slice(0,n), i=c.lastIndexOf(' ');
+  return (i>n*0.6 ? c.slice(0,i) : c).replace(/[\s,;.:\u2014-]+$/,'')+'\u2026';
+}
+/* Una entrada de la linea de tiempo a partir de un hallazgo cerrado o caducado. */
+function _histItem(h){
+  var cad=(h.estado==='caducada'), cls=cad?'cad':'ok';
+  var f=(h.resueltoEl||h.fecha||'');
+  var esSenal=!!(h.tipo==='senal'&&h.codigo);
+  return '<div class="khh-it '+cls+'" data-f="'+_radEsc(f)+'"'
+    +(esSenal?(' data-khhlink="'+_radEsc(h.codigo)+'|'+_radEsc(h.abiertoEl||h.fecha||'')+'"'):'')+'>'
+    +'<div class="khh-h"><span class="khh-t">'+(ALERTA_TIPO_ICO[h.tipo]||'\u2139\ufe0f')+' '
+      +_radEsc(_alcorpEtiquetaBase(h))+'</span>'
+    +'<span class="khh-p '+cls+'">'+(cad?'Caducado':'Resuelto')+'</span>'
+    +'<span class="khh-d">'+_radEsc(_fechaCorta(f))+'</span></div>'
+    +'<div class="khh-r">'+_radEsc(_histCorta(h.resumen,240))+'</div>'
+    +(h.desenlace?'<div class="khh-x">\u2192 '+_radEsc(h.desenlace)+'</div>':'')
+    +(esSenal?'<div data-khhslot></div>':'')
+    +'</div>';
+}
+function _histBloque(t){
   t=(t||'').toUpperCase(); if(!t) return '';
-  /* El indice de tickers CON notas lo cargaba solo la Hemeroteca. Si no habias pasado por ella
-     en esta sesion, aqui valdria null y el bloque no se pintaria nunca. Lo pedimos tambien
-     desde aqui, una sola vez; al llegar, cargarRevIndex() repinta la ficha abierta. */
-  if(_revDirs===null){
-    if(!_revIdxPedido && typeof cargarRevIndex==='function'){ _revIdxPedido=true; cargarRevIndex(); }
-    return '';
+  /* El indice de tickers CON notas lo cargaba solo la Hemeroteca. Si no has pasado por ella en
+     esta sesion valdria null y el bloque no se pintaria nunca. Se pide tambien desde aqui, una
+     sola vez; al llegar, cargarRevIndex() repinta la ficha abierta. */
+  if(_revDirs===null && !_revIdxPedido && typeof cargarRevIndex==='function'){
+    _revIdxPedido=true; cargarRevIndex();
   }
-  if(!_revDirs.has(t)) return '';
-  return '<details class="revficha" data-revficha="'+_radEsc(t)+'" style="margin:4px 0 0 2px">'
-    +'<summary style="cursor:pointer;font-size:11px;color:#2563eb;font-weight:700">\ud83d\udcc4 Notas de revisi\u00f3n</summary>'
-    +'<div id="revhost-f-'+_radEsc(t)+'" style="margin-top:3px"></div></details>';
+  var hist=historialCorpDe(t), hayNotas=!!(_revDirs&&_revDirs.has(t));
+  if(!hist.length && !hayNotas) return '';
+  _ensureHistCSS();
+  var n=hist.length;
+  var cnt=hayNotas ? (n? n+' + notas' : 'notas') : (n===1?'1 entrada':n+' entradas');
+  return '<details class="khh" data-khh="'+_radEsc(t)+'">'
+    +'<summary>Historial y notas de revisi\u00f3n<span class="khh-n" data-khhn>'+cnt+'</span></summary>'
+    +'<div class="khh-body" id="khh-'+_radEsc(t)+'">'
+      +(n? hist.map(_histItem).join('') : '<div class="khh-w">Sin avisos cerrados; solo notas de revisi\u00f3n.</div>')
+    +'</div></details>';
+}
+/* Engancha cada nota con el aviso que cerro, y anade las que no cierran ninguno. */
+function _histEnganchar(host,list){
+  var usadas={};
+  Array.prototype.forEach.call(host.querySelectorAll('[data-khhlink]'),function(it){
+    var p=(it.getAttribute('data-khhlink')||'').split('|');
+    var cod=(p[0]||'').toUpperCase(), desde=p[1]||'';
+    var mism=list.filter(function(x){ return (''+(x.senal||'')).toUpperCase()===cod && !usadas[x.name]; });
+    if(!mism.length) return;
+    /* `list` viene de mas NUEVA a mas VIEJA. La que cerro la senal es la mas ANTIGUA de las
+       posteriores a su apertura; sin fecha de apertura, la mas reciente. */
+    var cand;
+    if(desde){ var post=mism.filter(function(x){ return (''+(x.fecha||''))>=desde; });
+               cand=post.length?post[post.length-1]:mism[0]; }
+    else     { cand=mism[0]; }
+    usadas[cand.name]=1;
+    var slot=it.querySelector('[data-khhslot]'); if(!slot)return;
+    slot.innerHTML='<a class="khh-a" href="'+cand.url+'" target="_blank" rel="noopener">'
+      +'\ud83d\udcc4 Abrir la Nota de Revisi\u00f3n \u00b7 '+_radEsc(_fechaCorta(cand.fecha))+'</a>';
+  });
+  list.filter(function(x){ return !usadas[x.name]; }).forEach(function(x){
+    var esD=/^disc/i.test(x.senal||'');
+    var d=document.createElement('div');
+    d.className='khh-it nota'; d.setAttribute('data-f', x.fecha||'');
+    d.innerHTML='<div class="khh-h"><span class="khh-t">\ud83d\udcc4 '
+        +(esD?'Revisi\u00f3n discrecional':('Nota de revisi\u00f3n'+(x.senal?' \u00b7 '+_radEsc(x.senal):'')))+'</span>'
+      +'<span class="khh-p nota">Nota</span>'
+      +'<span class="khh-d">'+_radEsc(_fechaCorta(x.fecha))+'</span></div>'
+      +'<div class="khh-r">'+(esD
+          ?'Revisi\u00f3n iniciada por el analista, sin se\u00f1al previa del protocolo.'
+          :'Nota emitida sin aviso asociado en el puente.')+'</div>'
+      +'<a class="khh-a" href="'+x.url+'" target="_blank" rel="noopener">\ud83d\udcc4 Abrir la nota</a>';
+    host.appendChild(d);
+  });
+  var vacio=host.querySelector('.khh-w'); if(vacio) vacio.remove();
+  /* Reordenar: las notas sueltas se anaden al final y romperian la cronologia. */
+  var its=Array.prototype.slice.call(host.querySelectorAll('.khh-it'));
+  its.sort(function(a,b){ return (''+b.getAttribute('data-f')).localeCompare(''+a.getAttribute('data-f')); });
+  its.forEach(function(x){ host.appendChild(x); });
+  var sm=host.parentElement&&host.parentElement.querySelector('[data-khhn]');
+  if(sm) sm.textContent = its.length===1 ? '1 entrada' : (its.length+' entradas');
 }
 function alertaCorpBadge(t,compact){
   var lista=hallazgosCorpDe(t);
@@ -559,7 +667,8 @@ function alertaCorpBadge(t,compact){
      El banner completo, en cambio, debe seguir mostrandose aunque no quede ningun aviso
      abierto, porque el historial sigue siendo util (que paso con aquella OPA, cuando caduco
      aquella multa). Devolver '' aqui dejaba la ficha muda en cuanto todo se cerraba. */
-  if(!lista.length&&(compact||!historialCorpDe(t).length))return '';
+  if(!lista.length&&(compact||(!historialCorpDe(t).length
+      && !(_revDirs&&_revDirs.has((t||'').toUpperCase())))))return '';
   if(compact){
     var al=_hallazgoPrincipal(lista)||lista[0];
     var venc=!!al.plazoVencido;
@@ -580,24 +689,7 @@ function alertaCorpBadge(t,compact){
     if(cob.universo)p.push('barrido del universo: '+cob.universo);
     pie='<div class="muted" style="font-size:10.5px;margin:2px 0 0 2px">Última revisión — '+_radEsc(p.join(' · '))+'</div>';
   }
-  /* Historial: cerrados y caducados, plegado. Es donde acaban la multa de hace dos meses o la
-     OPA que se liquido; sigue consultable sin ocupar sitio ni encender nada. */
-  var hist=historialCorpDe(t), histHTML='';
-  if(hist.length){
-    histHTML='<details style="margin:4px 0 0 2px"><summary style="cursor:pointer;font-size:11px;color:#64748b">'
-      +'Historial de avisos ('+hist.length+')</summary><div style="margin-top:3px">'
-      +hist.map(function(h){
-          var cad=(h.estado==='caducada');
-          return '<div style="font-size:11px;color:#64748b;padding:3px 6px;border-left:2px solid #cbd5e1;margin:2px 0">'
-            +'<b>'+_radEsc(_alcorpEtiqueta(h))+'</b> · '+_radEsc(h.fecha||'')
-            +' · <i>'+(cad?'caducado':'resuelto')+(h.resueltoEl?' el '+_radEsc(h.resueltoEl):'')+'</i>'
-            +'<div>'+_radEsc((h.resumen||'').slice(0,180))+'</div>'
-            +(h.desenlace?'<div style="color:#475569">→ '+_radEsc(h.desenlace)+'</div>':'')
-            +'</div>';
-        }).join('')
-      +'</div></details>';
-  }
-  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+histHTML+_notasRevBloque(t);
+  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+_histBloque(t);
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);
@@ -729,17 +821,17 @@ function _revParse(name){ name=(''+(name||'')); var f=(name.match(/(\d{4}-\d{2}-
 async function cargarRevisiones(t){ t=(t||'').toUpperCase(); if(_revCache[t])return _revCache[t]; try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones/'+encodeURIComponent(t),{cache:'no-store'}); if(!r.ok){ _revCache[t]=[]; return []; } const arr=await r.json(); if(!Array.isArray(arr)){ _revCache[t]=[]; return []; } const list=arr.filter(function(f){return f&&/\.html$/i.test(f.name||'');}).map(function(f){ var p=_revParse(f.name); return {name:f.name, fecha:p.fecha, senal:p.senal, url:'dossiers/revisiones/'+t+'/'+encodeURIComponent(f.name)}; }); list.sort(function(a,b){ return (''+(b.fecha||'')).localeCompare(''+(a.fecha||'')); }); _revCache[t]=list; return list; }catch(e){ _revCache[t]=[]; return []; } }
 /* HTML de la lista de notas de una empresa (chips fecha + señal, abren en pestaña). */
 function _revListHTML(list){ if(!list||!list.length)return '<span class="muted" style="font-size:11px">Sin notas de revisión en el repo.</span>'; return list.map(function(x){ var esS=/^S\d/i.test(x.senal||''); var col=esS?'#dc2626':'#2563eb'; var esc=(typeof _cfgEsc==='function')?_cfgEsc:function(s){return s;}; return '<a href="'+x.url+'" target="_blank" rel="noopener" style="display:inline-flex;gap:7px;align-items:center;padding:4px 9px;margin:3px 7px 3px 0;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:12px;color:inherit"><span style="background:'+col+';color:#fff;border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700">'+esc(x.senal||'—')+'</span><b>'+esc(x.fecha||'')+'</b> <span style="opacity:.7">📄</span></a>'; }).join(''); }
-/* [28-jul-2026] Apertura diferida del bloque de notas de la Ficha.
+/* [28-jul-2026] Apertura diferida de la linea de tiempo de la Ficha.
    Se escucha el CLICK en el <summary> y NO el evento `toggle` del <details>: `toggle` no
    burbujea, asi que una delegacion en document no lo veria nunca. Al pulsar, `open` todavia
    tiene el valor viejo, de modo que open===false significa «se esta abriendo». */
 document.addEventListener('click',function(e){
-  var sm=(e.target&&e.target.closest)?e.target.closest('details.revficha>summary'):null; if(!sm)return;
+  var sm=(e.target&&e.target.closest)?e.target.closest('details.khh>summary'):null; if(!sm)return;
   var d=sm.parentElement; if(!d||d.open)return;
-  var t=(d.getAttribute('data-revficha')||'').toUpperCase(); if(!t)return;
-  var host=document.getElementById('revhost-f-'+t); if(!host||host._loaded)return;
-  host._loaded=true; host.innerHTML='<span class="muted" style="font-size:11px">Cargando\u2026</span>';
-  cargarRevisiones(t).then(function(list){ host.innerHTML=_revListHTML(list); });
+  var t=(d.getAttribute('data-khh')||'').toUpperCase(); if(!t)return;
+  var host=document.getElementById('khh-'+t); if(!host||host._loaded)return;
+  host._loaded=true;
+  cargarRevisiones(t).then(function(list){ _histEnganchar(host,list||[]); });
 });
 /* [28-jul-2026] «✔ Nota emitida» abre LA nota de ESA senal.
    La URL no se puede resolver al pintar el aviso: haria falta una llamada a GitHub por empresa
