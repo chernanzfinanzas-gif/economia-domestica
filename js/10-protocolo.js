@@ -73,7 +73,22 @@ const PROTOCOLO_SENALES = {
   }
 };
 
-const PROTO_DECISIONES = ['SIN CAMBIOS (justificado)','VENDER','RECORTAR POSICIÓN','MANTENER (stop recalculado)','RE-VALORAR (Bloques 8–9)','PTE. REVISIÓN'];
+/* [28-jul-2026] LAS CUATRO DEL METODO, NI UNA MAS.
+   Este desplegable ofrecia un vocabulario propio —«SIN CAMBIOS (justificado)», «RECORTAR
+   POSICION», «RE-VALORAR»— que no coincidia con ninguna de las cuatro etiquetas del §10.5.
+   Resultado: cada apunte creado desde la app entraba en el registro con una decision que el
+   validador rechaza. Era la CAUSA RAIZ del desorden: se podian normalizar los apuntes viejos
+   cuantas veces se quisiera, que la app seguiria produciendo los nuevos mal.
+   `PTE. REVISIÓN` se queda porque no es una decision, es «aun no he decidido, recuerdamelo el
+   dia X» — y al copiar la fila se traduce a `ABIERTA`, que es como lo llama el §10.5. */
+const PROTO_DECISIONES = ['REAFIRMAR','AJUSTA PO','REBAJA','VENDE','PTE. REVISIÓN'];
+const PROTO_DEC_AYUDA = {
+  'REAFIRMAR':'la tesis aguanta; no cambia nada (un no-cambio justificado también es una decisión)',
+  'AJUSTA PO':'la tesis vive, pero se mueven PO, banda de entrada o stop',
+  'REBAJA':'baja el veredicto (de COMPRAR a MANTENER, de MANTENER a ESPERAR…)',
+  'VENDE':'la tesis está rota',
+  'PTE. REVISIÓN':'aún no hay decisión; queda abierta con fecha límite → en el §10.5 va como ABIERTA'
+};
 
 /* Señales de precio y días de silencio tras registrar su revisión (compartido con el panel). */
 /* ===== Fila para el Excel (§10.5) =====
@@ -103,10 +118,23 @@ function _protoFilaExcel(ap){
   const g = v => (v==null?'':(''+v).replace(/[\t\r\n]+/g,' ').trim());
   /* Coma decimal: si va con punto, un Excel en espanol lo pega como texto y no como numero. */
   const cot = (ap.cot==null||ap.cot==='') ? '' : (''+ap.cot).replace('.',',');
-  return [_protoFechaExcel(ap.fecha), g(ap.sig), cot, g(ap.decision)].join('\t');
+  /* El §10.5 no conoce «PTE. REVISIÓN»: su estado transitorio se llama ABIERTA, y es el que la
+     Nota sobrescribe al cerrar la señal. Se traduce aquí para que lo que se pega ya sea correcto. */
+  let dec = g(ap.decision);
+  if(dec.toUpperCase().indexOf('PTE')===0) dec='ABIERTA';
+  return [_protoFechaExcel(ap.fecha), g(ap.sig), cot, dec].join('\t');
 }
+/* El Motivo vive en `E:N` COMBINADA — diez columnas. Copiarlo a secas deja en el portapapeles un
+   rango de 1 columna, y Excel se queja de que «no tiene el mismo tamaño que su selección» porque
+   la selección son las diez de la combinación.
+   La solución es que el portapapeles tenga EXACTAMENTE ese tamaño: el motivo seguido de nueve
+   tabuladores. Entonces el rango pegado es E:N, coincide con la combinación, y entra sin diálogo.
+   Si algún libro tuviera otra anchura de combinación, el modo edición (doble clic en la celda y
+   pegar dentro) sigue funcionando siempre — por eso el aviso lo sigue diciendo. */
+var PROTO_MOTIVO_COLS = 10;          /* E..N */
 function _protoMotivoExcel(ap){
-  return (ap.motivo==null?'':(''+ap.motivo).replace(/[\t\r\n]+/g,' ').trim());
+  var m=(ap.motivo==null?'':(''+ap.motivo).replace(/[\t\r\n]+/g,' ').trim());
+  return m + new Array(PROTO_MOTIVO_COLS).join('\t');   /* 9 tabuladores -> 10 columnas */
 }
 function _protoAlPortapapeles(txt, cb){
   if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(cb).catch(cb); return; }
@@ -123,18 +151,22 @@ function _protoCopiarFila(ap, btn){
       btn.dataset.pcpaso='2';
       btn.textContent=(btn.id==='paCopy')?'📋 2/2 · ahora el Motivo':'📋 2/2';
       btn.title='Copiadas las cuatro primeras columnas: pégalas en la celda de la Fecha (columna A). '
-              + 'Ahora pulsa otra vez para copiar el Motivo y pégalo en su celda de la columna E.';
+              + 'Ahora pulsa otra vez para copiar el Motivo, que se pega en su celda de la columna E.';
     }else{
       btn.dataset.pcpaso='1';
       btn.textContent='✓ 2/2';
-      btn.title='Motivo copiado. Pégalo en la celda combinada de la columna E.';
+      btn.title='Motivo copiado con el ancho exacto de la celda combinada (E:N). Clic en su celda y pega. '
+              + 'Si aun así se queja, doble clic (o F2) y pega dentro.';
       var _orig=(btn.id==='paCopy')?'📋 1/2 Fecha·Señal·Cotiz.·Decisión':'📋';
       setTimeout(function(){ btn.textContent=_orig; btn.title=_PROTO_TIT_COPIA; },2200);
     }
   });
   return txt;
 }
-var _PROTO_TIT_COPIA='Copiar la fila para el §10.5 en dos pasos: 1) Fecha·Señal·Cotización·Decisión → se pega en la columna A; 2) el Motivo → se pega en la columna E, que está combinada y no admite pegado en bloque.';
+var _PROTO_TIT_COPIA='Copiar la fila para el §10.5 en dos pasos. '
+  +'1) Fecha·Señal·Cotización·Decisión → clic en la celda de la Fecha (columna A) y pegar. '
+  +'2) el Motivo → clic en su celda y pegar; se copia con el ancho exacto de la combinación E:N, así que entra sin avisos. '
+  +'Si algún libro se quejara, doble clic (o F2) y pegar dentro: en modo edición entra siempre.';
 /* Lee el formulario del dialogo tal y como esta ahora, para poder copiar antes de guardar. */
 function _protoLeerForm(dlg, sigPorDefecto, hoy){
   return { fecha: dlg.querySelector('#paFecha').value || hoy,
@@ -221,7 +253,8 @@ function protoApunteForm(sig, ticker){
          <label>Señal<select id="paSig" class="anaInp">${optS}</select></label>
          <label>Fecha<input type="date" id="paFecha" value="${hoy}"></label>
          <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre}"></label>
-         <label>Decisión<select id="paDec" class="anaInp">${optD}</select></label>
+         <label>Decisión<select id="paDec" class="anaInp">${optD}</select>
+           <span id="paDecAyuda" style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"></span></label>
          <label id="paLimWrap">Fecha límite (si Pte.)<input type="date" id="paLim" value="${lim}"></label>
        </div>
        <label style="display:block;margin-top:8px;font-size:12px;color:#475569">Motivo (1–3 líneas: por qué se decide esto)
@@ -234,6 +267,11 @@ function protoApunteForm(sig, ticker){
        <button class="btn sm" id="paSave" style="background:${p.color};border-color:${p.color}">Guardar apunte</button>
      </div>`;
   dlg.querySelector('#protoX').onclick=()=>dlg.close();
+  /* Las cuatro etiquetas son terse a proposito —van a una celda del Excel—, asi que debajo se
+     explica en una linea que significa la elegida. Sin esto habria que saberselas de memoria. */
+  const _pdSel=dlg.querySelector('#paDec'), _pdAyu=dlg.querySelector('#paDecAyuda');
+  const _pdPinta=()=>{ if(_pdAyu)_pdAyu.textContent=PROTO_DEC_AYUDA[_pdSel.value]||''; };
+  if(_pdSel){ _pdSel.addEventListener('change',_pdPinta); _pdPinta(); }
   dlg.querySelector('#paCopy').onclick=()=>_protoCopiarFila(_protoLeerForm(dlg,sig,hoy), dlg.querySelector('#paCopy'));
   dlg.querySelector('#paBack').onclick=()=>showProtocolo(dlg.querySelector('#paSig').value, '', dlg.querySelector('#paTicker').value);
   dlg.querySelector('#paTicker').onchange=e=>{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===e.target.value); if(a) dlg.querySelector('#paCot').value=num(a.cotizacion)||''; };
@@ -317,7 +355,11 @@ function protoRegHTML(t){
     </div>
     ${_protoZonaExcel(t)}
     ${nSubidos?`<div class="sub" style="margin:8px 0 0;color:#166534">✓ ${nSubidos} borrador${nSubidos===1?'':'es'} ya ${nSubidos===1?'está':'están'} en el §10.5 y ${nSubidos===1?'aparece':'aparecen'} arriba. <button class="btn ghost sm" data-protolimpiar="${t}" style="margin-left:6px">Limpiar de aquí</button></div>`:''}
-    <div class="sub" style="margin:10px 0 6px"><b>✏️ Borradores sin pasar al Excel.</b> Se escriben aquí, se copia la fila y se pega en el §10.5. Cuando el puente los recoja, subirán al bloque de arriba solos.</div>
+    <div class="sub" style="margin:10px 0 6px"><b>✏️ Borradores sin pasar al Excel.</b> Se escriben aquí, se copia la fila con <b>📋</b> y se pega en el §10.5. Cuando el puente los recoja, subirán al bloque de arriba solos.</div>
+    <div class="sub" style="margin:-2px 0 8px;font-size:11.5px;color:#64748b;background:#f8fafc;border-left:3px solid #cbd5e1;border-radius:0 6px 6px 0;padding:6px 9px">
+      <b>Cómo se pega:</b> el <b>📋</b> copia en dos pasos. <b>1)</b> las cuatro columnas simples → clic en la celda de la <b>Fecha</b> y pegar. <b>2)</b> el <b>Motivo</b> → clic en su celda y pegar.
+      <span style="opacity:.8">El motivo se copia con el ancho exacto de la celda combinada <code>E:N</code>, así que entra sin avisos. Si algún libro se quejara, <b>doble clic</b> en la celda (o <code>F2</code>) y pegar <b>dentro</b>: en modo edición entra siempre.</span>
+    </div>
     <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
   </div>`;
 }
