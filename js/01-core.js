@@ -610,13 +610,6 @@ function _ensureHistCSS(){
   ].join('');
   document.head.appendChild(st);
 }
-/* Recorta por PALABRA, no por caracter. Cortar a los 240 exactos dejaba frases partidas a
-   media palabra («...la senal de salida temprana d»), que parece un fichero corrupto. */
-function _histCorta(txt,n){
-  txt=(''+(txt||'')).trim(); if(txt.length<=n) return txt;
-  var c=txt.slice(0,n), i=c.lastIndexOf(' ');
-  return (i>n*0.6 ? c.slice(0,i) : c).replace(/[\s,;.:\u2014-]+$/,'')+'\u2026';
-}
 /* Una entrada de la linea de tiempo a partir de un hallazgo cerrado o caducado. */
 function _histItem(h){
   var cad=(h.estado==='caducada'), cls=cad?'cad':'ok';
@@ -628,8 +621,13 @@ function _histItem(h){
       +_radEsc(_alcorpEtiquetaBase(h))+'</span>'
     +'<span class="khh-p '+cls+'">'+(cad?'Caducado':'Resuelto')+'</span>'
     +'<span class="khh-d">'+_radEsc(_fechaCorta(f))+'</span></div>'
-    +'<div class="khh-r">'+_radEsc(_histCorta(h.resumen,240))+'</div>'
+    /* [28-jul-2026] El resumen va ENTERO. Se recortaba a 240 caracteres para que el bloque no
+       creciera, pero el historial es justamente donde se va a LEER lo que paso: obligar a abrir
+       otra cosa para terminar la frase es lo contrario de lo que hace falta aqui. */
+    +'<div class="khh-r">'+_radEsc(h.resumen||'')+'</div>'
     +(h.desenlace?'<div class="khh-x">\u2192 '+_radEsc(h.desenlace)+'</div>':'')
+    +(h.fuente?'<a class="khh-a" href="'+h.fuente+'" target="_blank" rel="noopener" '
+        +'style="border-color:#e2e8f0;background:#f8fafc;color:#475569">\ud83d\udd17 Fuente original \u2197</a>':'')
     +(esSenal?'<div data-khhslot></div>':'')
     +'</div>';
 }
