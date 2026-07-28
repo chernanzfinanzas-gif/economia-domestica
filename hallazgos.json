@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-27",
+  "generadoEl": "2026-07-28",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "AZK": {
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -36,9 +36,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — la macro no le pone hoy ni un solo viento en contra documentado; el ámbar lo pone el evento corporativo, que gobierna el precio y desactiva la lectura normal de la banda de entrada.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -131,7 +132,7 @@
     "TEF": {
       "empresa": "Telefonica, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -150,20 +151,6 @@
           "exigeAccion": false
         },
         {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar — el frente competitivo (el de mayor probabilidad) afloja y el real brasileño juega a favor, pero el giro de tipos del BCE aprieta justo donde el balance es frágil y la consolidación europea, el catalizador de mayor impacto, se aplaza a 2027.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
-          "resueltoEl": null,
-          "desenlace": null
-        },
-        {
           "id": "soc-otro-2026-07-01",
           "abiertoEl": "2026-07-01",
           "estado": "activa",
@@ -178,13 +165,28 @@
           "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
           "exigeAccion": false,
           "caducaEl": "2026-07-31"
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el frente competitivo (el de mayor probabilidad) afloja y el real brasileño juega a favor, pero el giro de tipos del BCE aprieta justo donde el balance es frágil y la consolidación europea, el catalizador de mayor impacto, se aplaza a 2027.",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ]
     },
     "ACS": {
       "empresa": "ACS, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -195,9 +197,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "El motor operativo está en su mejor momento (capex hyperscalers +77%, ninguna alarma cruzada), y precisamente por eso el único frente vivo es el PRECIO: a 114,70 € y P/E 31x, la coyuntura buena ya está pagada dos veces.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -206,7 +209,7 @@
     "AENA": {
       "empresa": "Aena, S.M.E., S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -235,9 +238,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "El frente regulatorio se ha cruzado —la propuesta de DORA III es exactamente la señal que el análisis pedía vigilar—, con el negocio operativo intacto: tráfico +3,7% y divisa a favor.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -246,7 +250,7 @@
     "AMS": {
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -268,20 +272,6 @@
           "notaEmitida": false
         },
         {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "alta",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "El driver nº1 ha cruzado su señal de alarma. Dos meses consecutivos de caída del RPK mundial es exactamente el umbral que el análisis pedía vigilar — y el mercado no lo está descontando.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
-          "resueltoEl": null,
-          "desenlace": null
-        },
-        {
           "id": "soc-otro",
           "abiertoEl": "2026-07-23",
           "estado": "activa",
@@ -295,29 +285,30 @@
           "fecha": "2026-07-23",
           "fuente": "https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/",
           "exigeAccion": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "alta",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "El driver nº1 ha cruzado su señal de alarma. Dos meses consecutivos de caída del RPK mundial es exactamente el umbral que el análisis pedía vigilar — y el mercado no lo está descontando.",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ]
     },
     "A3M": {
       "empresa": "Atresmedia Corporacion de Medios de Comunicacion, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Mixto y mejorando: el ciclo publicitario ha girado a positivo y la macro española acompaña —ninguna de las dos patas de la alarma se cumple—, pero la TV crece la mitad que el mercado y el precio ya se ha comido casi todo el recorrido.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
-          "resueltoEl": null,
-          "desenlace": null
-        },
         {
           "id": "soc-otro-2026-07-21",
           "abiertoEl": "2026-07-21",
@@ -333,20 +324,35 @@
           "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
           "exigeAccion": false,
           "caducaEl": "2026-08-20"
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Mixto y mejorando: el ciclo publicitario ha girado a positivo y la macro española acompaña —ninguna de las dos patas de la alarma se cumple—, pero la TV crece la mitad que el mercado y el precio ya se ha comido casi todo el recorrido.",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ]
     },
     "BKT": {
       "empresa": "Bankinter, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "CIE": {
       "empresa": "Cie Automotive, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -357,9 +363,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Cuadro mixto y equilibrado: la divisa emergente y el balance juegan a favor, la producción de vehículos tiene sesgo bajista sin cifra que lo cuantifique y los aranceles y la energía cara son ruido de fondo sin umbral cruzado.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -368,7 +375,7 @@
     "EBRO": {
       "empresa": "Ebro Foods, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -379,9 +386,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Se ha vuelto mixta. La materia prima ya no es un viento único a favor (trigo abajo, arroz arriba) y el euro se acerca a su umbral sin cruzarlo. Ninguna alarma está activada.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -390,23 +398,9 @@
     "ENG": {
       "empresa": "Enagas, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar favorable — los dos riesgos dominantes (demanda de gas y TRF) están lejos de su alarma; el ámbar lo ponen la cobertura del dividendo y el giro de tipos, que desactiva el rerating como bond proxy.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
-          "resueltoEl": null,
-          "desenlace": null
-        },
         {
           "id": "soc-otro-2026-07-22",
           "abiertoEl": "2026-07-22",
@@ -422,13 +416,28 @@
           "fuente": "https://www.elespanol.com/invertia/empresas/energia/20260722/enagas-gana-millones-junio-enfila-objetivos-anuncia-control-regasificadora-sagunto/1003744329630_0.amp.html",
           "exigeAccion": false,
           "caducaEl": "2026-08-21"
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar favorable — los dos riesgos dominantes (demanda de gas y TRF) están lejos de su alarma; el ámbar lo ponen la cobertura del dividendo y el giro de tipos, que desactiva el rerating como bond proxy.",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ]
     },
     "ELE": {
       "empresa": "Endesa, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -452,7 +461,7 @@
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -463,9 +472,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Macro benigna y sin ningún umbral cruzado — pero también sin información: los frentes que deciden la tesis de Faes son de empresa y se leen en los trimestrales de 2026.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -474,7 +484,7 @@
     "FDR": {
       "empresa": "Fluidra, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -485,9 +495,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Cuatro frentes ámbar a la vez, ninguno cruzado — y tres de ellos se resuelven en semanas con el 1S 2026.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -496,7 +507,7 @@
     "IBE": {
       "empresa": "Iberdrola, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -520,21 +531,21 @@
     "ITX": {
       "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "LOG": {
       "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "MAP": {
       "empresa": "Mapfre, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -557,7 +568,7 @@
     "MCM": {
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -568,9 +579,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Rojo en el frente exterior — la señal de alarma del §8.1 R3 está CRUZADA por los aranceles del 15%, con divisa en contra y energía tensionada al mismo tiempo; pero ningún detonante del §8.2 lo está y el margen sigue muy por encima del umbral.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -579,7 +591,7 @@
     "NTGY": {
       "empresa": "Naturgy",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -590,9 +602,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — se mantiene, pero recompuesto. El TTF está aún más tensionado que hace una semana (+73,1% interanual) con la pata de traslación a tarifa sin verificar, y la circular de redes de gas sigue sin firmar; en el otro platillo, tres novedades favorables que la semana pasada no estaban: pool a 98 €/MWh, demanda de gas plana (+0,4%) e IVPEE en retirada.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -601,14 +614,14 @@
     "PRM": {
       "empresa": "Prim, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "RED": {
       "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -619,9 +632,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — el riesgo regulatorio dominante queda resuelto a favor (TRF 6,58% aprobada), pero el riesgo se ha desplazado al PRECIO: cotiza caro frente a su historia en un IBEX +35,3% y con la TIR del bono al alza.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -630,21 +644,21 @@
     "REP": {
       "empresa": "Repsol, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "SAN": {
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": []
     },
     "VID": {
       "empresa": "Vidrala, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -655,9 +669,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — el gas cruza su primera pata y ahí se queda: el margen récord del S1 (29,9%) deja la alarma del driver nº1 sin su segunda pata, y la caída a 86,00 € mete a la acción dentro de la banda de entrada.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -666,7 +681,7 @@
     "VIS": {
       "empresa": "Viscofan, S.A.",
       "cobertura": {
-        "semanal": "2026-07-27"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
@@ -677,9 +692,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — el gas cumple la primera pata del driver energético y ahí se detiene, mientras la divisa gira claramente a favor (BRL +12,15%) y el arancel del 15% entra sin tocar ningún umbral propio de la empresa.",
-          "origen": "informe-semanal 2026-07-27",
-          "fecha": "2026-07-27",
-          "abiertoEl": "2026-07-27",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
         }
