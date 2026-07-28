@@ -1329,30 +1329,40 @@ function _fichaPlegables(){
     card.classList.toggle('plg-off', !abierto);
     card._plg=1;
   });
-  /* [28-jul-2026] Barra de plegar/desplegar todo. Con seis paneles y memoria persistente, sin
-     esto la unica forma de volver al estado inicial es plegarlos de uno en uno — y si algun dia
-     un titulo cambia y con el su clave, no habria manera de reiniciarlo. */
+  /* [28-jul-2026] Boton FLOTANTE de plegar/desplegar todo. Abajo a la derecha y levantado 84 px
+     para no quedar debajo de la barra inferior de la app en el movil. Alterna segun el estado:
+     si hay algo abierto ofrece plegar; si esta todo plegado, desplegar. Vive dentro de
+     #fichaPlegables, asi que desaparece solo al salir de la Ficha. */
   var _plgH=[].slice.call(host.querySelectorAll('.plg-h'));
-  if(_plgH.length>1 && !host._plgBar){
-    host._plgBar=1;
-    var bar=document.createElement('div');
-    bar.id='plgBar';
-    bar.style.cssText='display:flex;justify-content:flex-end;align-items:center;gap:9px;font-size:11.5px;margin:0 2px 7px';
-    bar.innerHTML='<a href="#" data-plgall="0" style="color:#94a3b8;text-decoration:none" title="Plegar los '+_plgH.length+' paneles">\u25B8 plegar todo</a>'
-      +'<span style="color:#e2e8f0">|</span>'
-      +'<a href="#" data-plgall="1" style="color:#94a3b8;text-decoration:none" title="Desplegar los '+_plgH.length+' paneles">\u25BE desplegar todo</a>';
-    host.insertBefore(bar, host.firstChild);
-    bar.addEventListener('click', function(e){
-      var a=e.target.closest('[data-plgall]'); if(!a)return;
-      e.preventDefault();
-      var abrir=a.getAttribute('data-plgall')==='1', est=_plgEstado();
+  if(_plgH.length>1 && !host._plgFab){
+    host._plgFab=1;
+    var fab=document.createElement('button');
+    fab.id='plgFab'; fab.type='button';
+    fab.style.cssText='position:fixed;right:14px;bottom:84px;z-index:60;background:#2563eb;color:#fff;'
+      +'border:0;border-radius:999px;padding:10px 16px;font-size:12.5px;font-weight:700;cursor:pointer;'
+      +'box-shadow:0 4px 14px rgba(37,99,235,.38);letter-spacing:.01em';
+    var _plgSync=function(){
+      var abiertos=[].slice.call(host.querySelectorAll('.plg-h')).filter(function(h){
+        return !h.parentElement.classList.contains('plg-off'); }).length;
+      fab.setAttribute('data-abrir', abiertos ? '0' : '1');
+      fab.innerHTML = abiertos ? '\u25B8 Plegar todo' : '\u25BE Desplegar todo';
+      fab.title = abiertos ? ('Plegar los '+_plgH.length+' paneles de la ficha')
+                           : ('Desplegar los '+_plgH.length+' paneles de la ficha');
+    };
+    fab.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      var abrir=(fab.getAttribute('data-abrir')==='1'), est=_plgEstado();
       [].slice.call(host.querySelectorAll('.plg-h')).forEach(function(h){
         var cl=h.getAttribute('data-plg'); if(!cl)return;
         est[cl]=abrir;
         h.parentElement.classList.toggle('plg-off', !abrir);
       });
+      _plgSync();
       if(typeof scheduleSave==='function')scheduleSave();
     });
+    host.appendChild(fab);
+    host._plgSync=_plgSync;
+    _plgSync();
   }
   if(!host._plgBound){
     host._plgBound=true;
@@ -1364,6 +1374,7 @@ function _fichaPlegables(){
       var cerrar=!card.classList.contains('plg-off');
       card.classList.toggle('plg-off', cerrar);
       _plgEstado()[cl]=!cerrar;
+      if(host._plgSync)host._plgSync();
       if(typeof scheduleSave==='function')scheduleSave();
     });
   }
