@@ -410,6 +410,23 @@ function historialCorpDe(t){
       return h&&h.tipo!=='coyuntura'&&_hallazgoInactivo(h); })
     .slice().sort(function(a,b){ return (''+(b.resueltoEl||b.fecha||'')).localeCompare(''+(a.resueltoEl||a.fecha||'')); });
 }
+/* [28-jul-2026] El §10.5 del Excel, proyectado por el puente. Devuelve
+   {filas, el, frescas}: `frescas=false` significa que el generador NO pudo abrir el libro
+   —abierto en Excel— y lo que se enseña es la foto de la vez anterior. Distinguirlo importa:
+   «no hay revisiones» y «no he podido mirar» no son lo mismo. */
+function revisionesCorpDe(t){
+  var e=(_hallazgosEmp||{})[(t||'').toUpperCase()]||{};
+  return {filas:(e.revisiones||[]), el:e.revisionesEl||null, frescas:e.revisionesFrescas!==false};
+}
+/* Clave para casar un borrador de la app con el apunte ya registrado en el Excel: fecha
+   normalizada + codigo de senal. Es lo unico que ambos lados comparten con seguridad. */
+function claveRev(fecha, senal){
+  var f=(''+(fecha||'')).trim().toLowerCase();
+  var m=f.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if(m){ var M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+         f=(+m[3])+'-'+M[(+m[2])-1]+'-'+m[1]; }
+  return f+'|'+(''+(senal||'')).trim().toUpperCase().replace(/\.$/,'');
+}
 function empresaCorpDe(t){ t=(t||'').toUpperCase(); return ((_hallazgosEmp||{})[t]||{}).empresa||t; }
 /* El puente guarda la razon social ("Aena, S.M.E., S.A."), pero la orden que va a Claude debe
    parecerse al nombre de la CARPETA de la empresa ("Aena"), que es como la busca la skill.

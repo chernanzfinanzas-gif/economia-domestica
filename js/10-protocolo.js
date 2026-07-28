@@ -238,7 +238,15 @@ function protoRegHTML(t){
   // Apunte más reciente por señal (el que gobierna el silencio del panel) y señales con apunte abierto.
   const _ultPorSig={}, _abiertaPorSig={};
   arr.forEach(a=>{ if(!a.sig)return; if(!_ultPorSig[a.sig]||(a.fecha||'')>(_ultPorSig[a.sig].fecha||''))_ultPorSig[a.sig]=a; if(a.estado==='abierta')_abiertaPorSig[a.sig]=true; });
-  const rows=arr.map(a=>{
+  /* [28-jul-2026] Un borrador cuya fila ya está pegada en el Excel no se enseña dos veces:
+     sube al bloque de arriba y desaparece de aquí. Ese salto ES la confirmación de que la
+     pegaste bien, que era justo lo que no había forma de saber. */
+  const yaEnExcel = (typeof revisionesCorpDe==='function' && typeof claveRev==='function')
+    ? new Set(revisionesCorpDe(t).filas.map(x=>claveRev(x.fecha,x.senal))) : new Set();
+  const arrTodos = arr;
+  const arrPend  = arr.filter(a=>!yaEnExcel.has(claveRev(a.fecha,a.sig)));
+  const nSubidos = arrTodos.length - arrPend.length;
+  const rows=arrPend.map(a=>{
     const p=PROTOCOLO_SENALES[a.sig]||{color:'#64748b',icono:'📋'};
     const vencido=a.estado==='abierta'&&a.limite&&a.limite<hoy;
     // Cuenta atrás del silencio (solo señales de precio resueltas que gobiernan y sin apunte abierto de esa señal).
@@ -262,16 +270,52 @@ function protoRegHTML(t){
       <td class="right" style="white-space:nowrap">${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
     </tr>`;
   }).join('');
-  const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Sin apuntes. Se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
+  const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Ninguno pendiente de pasar al Excel. Los borradores se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
   return `<div class="card" style="margin-top:10px">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
       <div style="font-weight:800;font-size:15px">📋 Registro de revisiones (señales S1–S6)</div>
       <div style="flex:1"></div>
       <button class="btn ghost sm" data-protoadd="${t}">+ Apunte</button>
     </div>
-    <div class="sub" style="margin-bottom:6px">Espejo del §10.5 del Excel: toda señal evaluada deja apunte, incluso si la decisión es no actuar. Pulsa la señal para releer su procedimiento.</div>
+    ${_protoZonaExcel(t)}
+    ${nSubidos?`<div class="sub" style="margin:8px 0 0;color:#166534">✓ ${nSubidos} borrador${nSubidos===1?'':'es'} ya ${nSubidos===1?'está':'están'} en el §10.5 y ${nSubidos===1?'aparece':'aparecen'} arriba. <button class="btn ghost sm" data-protolimpiar="${t}" style="margin-left:6px">Limpiar de aquí</button></div>`:''}
+    <div class="sub" style="margin:10px 0 6px"><b>✏️ Borradores sin pasar al Excel.</b> Se escriben aquí, se copia la fila y se pega en el §10.5. Cuando el puente los recoja, subirán al bloque de arriba solos.</div>
     <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
   </div>`;
+}
+
+/* ---------- Zona 1: lo que YA está registrado en el §10.5 del Excel ----------
+   [28-jul-2026] Hasta hoy esta tarjeta decía ser «espejo del §10.5» y enseñaba únicamente lo
+   que el usuario hubiera tecleado en la app (`DB.protocolo`, que vive en el navegador). El
+   Excel tenía 14 apuntes y once de ellos no habían pasado nunca por `estado.json` —fueron
+   señales abiertas y cerradas en el mismo acto por el monitor—, así que ningún camino los
+   traía. Ahora el puente proyecta el §10.5 entero y esta zona es el espejo que decía ser.
+   SOLO LECTURA: el §10.5 manda; para cambiar algo se cambia allí. */
+function _protoZonaExcel(t){
+  if(typeof revisionesCorpDe!=='function') return '';
+  const r = revisionesCorpDe(t);
+  if(!r.filas.length && r.frescas) return '';
+  const stale = !r.frescas
+    ? `<div class="sub" style="color:#b45309;margin:2px 0 6px">⚠ El libro de Excel estaba abierto en el último pase: esto es la foto anterior${r.el?' ('+_protoEsc(r.el)+')':''}. Ciérralo y vuelve a generar el puente.</div>` : '';
+  const filas = r.filas.map(a=>{
+    const p = PROTOCOLO_SENALES[(a.senal||'').toUpperCase()]||{color:'#64748b',icono:'📋'};
+    const abierta = (''+(a.decision||'')).trim().toUpperCase()==='ABIERTA';
+    const chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:${abierta?'#fef3c7':'#dcfce7'};color:${abierta?'#92400e':'#166534'}">${abierta?'ABIERTA':'CERRADA'}</span>`;
+    return `<tr>
+      <td style="white-space:nowrap">${_protoEsc(a.fecha||'—')}</td>
+      <td style="white-space:nowrap;font-weight:700;color:${p.color}">${p.icono} ${_protoEsc(a.senal||'—')}</td>
+      <td class="num">${_protoEsc(a.cot||'—')}</td>
+      <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
+      <td>${chip}</td>
+      <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
+    </tr>`;
+  }).join('');
+  const cuerpo = filas || '<tr><td colspan="6" class="muted" style="font-size:12px">Sin apuntes en el §10.5 de este libro.</td></tr>';
+  return `<div class="sub" style="margin:2px 0 6px"><b>📗 Registrado en el §10.5 del Excel.</b> Solo lectura — el Excel manda${r.el?' · leído el '+_protoEsc(r.el):''}.</div>
+    ${stale}
+    <div style="overflow:auto;border:1px solid var(--line);border-radius:9px">
+      <table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th></tr></thead><tbody>${cuerpo}</tbody></table>
+    </div>`;
 }
 
 /* ---------- Avisos de apuntes abiertos (para el Panel) ---------- */
@@ -294,6 +338,26 @@ document.addEventListener('click',e=>{
   if(add){ protoApunteForm('', add.dataset.protoadd); return; }
   const sg=e.target.closest&&e.target.closest('[data-protosig]');
   if(sg){ const a=(sg.dataset.protosig||'').split('|'); showProtocolo(a[0],'',a[1]); return; }
+  /* [28-jul-2026] Borra los borradores que YA están pegados en el §10.5. No borra nada que no
+     esté confirmado en el Excel: la clave es fecha + señal, y sale de lo que publica el puente.
+     Si el puente no ha corrido todavía, aquí no hay nada que limpiar y el botón ni aparece. */
+  const lp=e.target.closest&&e.target.closest('[data-protolimpiar]');
+  if(lp){
+    const t=(lp.dataset.protolimpiar||'').toUpperCase();
+    const enExcel=new Set(revisionesCorpDe(t).filas.map(x=>claveRev(x.fecha,x.senal)));
+    const antes=((DB.protocolo||{})[t]||[]);
+    const quedan=antes.filter(a=>!enExcel.has(claveRev(a.fecha,a.sig)));
+    const n=antes.length-quedan.length;
+    if(!n) return;
+    if(!confirm('Se van a quitar '+n+' borrador'+(n===1?'':'es')+' de la app.\n\n'
+        +(n===1?'Ya está':'Ya están')+' en el §10.5 del Excel, que es el registro que manda; '
+        +'aquí solo era'+(n===1?'':'n')+' el paso intermedio. No se toca el Excel.'))return;
+    DB.protocolo[t]=quedan;
+    if(typeof saveNow==='function')saveNow();
+    if(typeof renderPanelDash==='function')renderPanelDash();
+    if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    return;
+  }
   const rs=e.target.closest&&e.target.closest('[data-protoresolve]');
   if(rs){ const a=(rs.dataset.protoresolve||'').split('|'); const arr=(DB.protocolo||{})[a[0]]||[]; const ap=arr.find(x=>x.id===a[1]);
     if(ap){ const m=prompt('Desenlace (se añade al motivo):',''); if(m===null)return; ap.estado='resuelta'; if(m.trim())ap.motivo=(ap.motivo?ap.motivo+' → ':'')+m.trim(); ap.resuelto=_protoHoy();
