@@ -77,7 +77,7 @@ function renderUniverso(){
        de verdad empieza en el Excel. Esto lo dice donde se comete el error. */
     '<div class="uni-aviso">'+
       '<b>Para añadir una empresa nueva</b> realiza el proceso de '+
-      '<b>Herramientas → 00 - 00 · Añadir empresa al Universo</b> y luego importa '+
+      '<b>Herramientas → 00 - 01 - Añadir empresa al Universo</b> y luego importa '+
       '<code>matriz.json</code> desde el botón <b>⬆ Importar matriz.json</b> de esta página.'+
       '<div class="sub2" style="margin-top:4px">Es el <b>único</b> camino de alta: así la empresa '+
       'entra también en la Matriz, en <code>empresas.json</code> y en <code>tickers.json</code>, '+
@@ -174,7 +174,7 @@ function _uniOpenForm(t){
     if(_t&&_t.parentNode) _t.parentNode.insertBefore(_av,_t.nextSibling); }
   if(_av){ _av.style.display = t ? 'none' : '';
     _av.innerHTML = '<b>¿Es una empresa de la Matriz?</b> Entonces no la crees aquí: '+
-      'sigue <b>Herramientas → 00 - 00 · Añadir empresa al Universo</b> y luego '+
+      'sigue <b>Herramientas → 00 - 01 - Añadir empresa al Universo</b> y luego '+
       '<b>⬆ Importar matriz.json</b>. Lo que crees en este formulario vive sólo en la app '+
       '— sin cotización automática, sin fundamentales y sin aparecer en el Radar.'; }
   g('uf_tk').value=t||''; g('uf_tk').readOnly=!!t;
