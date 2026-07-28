@@ -466,7 +466,7 @@ function _alcorpBanner(t,h){
   var reloj='';
   if(h.exigeAccion&&h.vencePlazoEl){
     reloj=h.notaEmitida
-      ? ' · <span class="f">✔ Nota emitida</span>'
+      ? ' · <span class="f"><a href="#" data-revopen="'+_radEsc(t)+'|'+_radEsc(h.codigo||'')+'|'+_radEsc(h.abiertoEl||h.fecha||'')+'" style="font-weight:700;text-decoration:underline;color:inherit" title="Abrir la Nota de Revisi\u00f3n que cerr\u00f3 esta se\u00f1al">✔ Nota emitida \ud83d\udcc4</a></span>'
       : ' · <span class="f"><b>'+(venc?'PLAZO VENCIDO el '+h.vencePlazoEl
           :(dias===0?'vence HOY':(dias===1?'vence mañana':'vencen '+dias+' días'))
         )+'</b></span>';
@@ -505,7 +505,7 @@ function hallazgosAvisos(){
         var dias=h.vencePlazoEl?_diasHasta(h.vencePlazoEl):null;
         var venc=!!h.plazoVencido||(!h.notaEmitida&&dias!==null&&dias<0);
         sig=h.codigo||'S2'; pri=0; cls='r';
-        var plazo=h.notaEmitida ? ' · <b>✔ Nota emitida</b>'
+        var plazo=h.notaEmitida ? ' · <b><a href="#" data-revopen="'+_radEsc(tk)+'|'+_radEsc(h.codigo||'')+'|'+_radEsc(h.abiertoEl||h.fecha||'')+'" style="text-decoration:underline;color:inherit" title="Abrir la Nota de Revisi\u00f3n que cerr\u00f3 esta se\u00f1al">✔ Nota emitida \ud83d\udcc4</a></b>'
           : (h.vencePlazoEl ? ' · <b>'+(venc?('PLAZO VENCIDO el '+h.vencePlazoEl)
               :(dias===0?'vence HOY':(dias===1?'vence mañana':'vencen '+dias+' días')))+'</b>' : '');
         var pedir=h.notaEmitida ? ''
@@ -529,6 +529,29 @@ function hallazgosAvisos(){
     });
   });
   return out;
+}
+/* [28-jul-2026] Cuarto bloque del banner de la Ficha: acceso al DOCUMENTO de las Notas de
+   Revision Extraordinaria. El DESENLACE de la nota ya vivia en «Historial de avisos»; lo que
+   faltaba era poder ABRIR la nota sin salir a Hemeroteca, que era el unico sitio que las
+   listaba. Estabas en la ficha de Aena, leias que la S2 se cerro con tal decision, y para leer
+   la nota entera tenias que irte a otra pantalla.
+   Carga diferida a proposito: listar las notas de una empresa es una llamada a la Contents API
+   de GitHub (60/hora sin autenticar) y la Ficha se abre muchas veces al dia. Solo se pide
+   cuando despliegas el bloque. */
+var _revIdxPedido=false;
+function _notasRevBloque(t){
+  t=(t||'').toUpperCase(); if(!t) return '';
+  /* El indice de tickers CON notas lo cargaba solo la Hemeroteca. Si no habias pasado por ella
+     en esta sesion, aqui valdria null y el bloque no se pintaria nunca. Lo pedimos tambien
+     desde aqui, una sola vez; al llegar, cargarRevIndex() repinta la ficha abierta. */
+  if(_revDirs===null){
+    if(!_revIdxPedido && typeof cargarRevIndex==='function'){ _revIdxPedido=true; cargarRevIndex(); }
+    return '';
+  }
+  if(!_revDirs.has(t)) return '';
+  return '<details class="revficha" data-revficha="'+_radEsc(t)+'" style="margin:4px 0 0 2px">'
+    +'<summary style="cursor:pointer;font-size:11px;color:#2563eb;font-weight:700">\ud83d\udcc4 Notas de revisi\u00f3n</summary>'
+    +'<div id="revhost-f-'+_radEsc(t)+'" style="margin-top:3px"></div></details>';
 }
 function alertaCorpBadge(t,compact){
   var lista=hallazgosCorpDe(t);
@@ -574,7 +597,7 @@ function alertaCorpBadge(t,compact){
         }).join('')
       +'</div></details>';
   }
-  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+histHTML;
+  return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+histHTML+_notasRevBloque(t);
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);
@@ -699,13 +722,62 @@ function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase();
 var _revDirs=null;   /* Set de tickers que tienen carpeta de revisiones en el repo */
 var _revCache={};    /* ticker -> [ {name,fecha,senal,url} ] */
 /* Índice: una sola llamada a la Contents API lista las subcarpetas (tickers con notas). */
-async function cargarRevIndex(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones',{cache:'no-store'}); _revDirs=new Set(); if(r.ok){ const arr=await r.json(); if(Array.isArray(arr))arr.forEach(function(f){ if(f&&f.type==='dir'&&f.name)_revDirs.add((''+f.name).toUpperCase()); }); } if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); }catch(e){ if(!_revDirs)_revDirs=new Set(); } }
+async function cargarRevIndex(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones',{cache:'no-store'}); _revDirs=new Set(); if(r.ok){ const arr=await r.json(); if(Array.isArray(arr))arr.forEach(function(f){ if(f&&f.type==='dir'&&f.name)_revDirs.add((''+f.name).toUpperCase()); }); } if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); /* [28-jul-2026] Y la Ficha, que ahora tambien depende de este indice para decidir si    pinta su bloque de notas. Sin esto, abrir una ficha antes que la Hemeroteca dejaba el    bloque invisible hasta recargar. No hay bucle: al volver, _revDirs ya no es null. */ try{ if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e2){} }catch(e){ if(!_revDirs)_revDirs=new Set(); } }
 /* Parseo del nombre "AAAA-MM-DD Nota Revisión Extraordinaria [Empresa] (Señal).html" */
 function _revParse(name){ name=(''+(name||'')); var f=(name.match(/(\d{4}-\d{2}-\d{2})/)||[])[1]||''; var s=(name.match(/\(([^)]+)\)\.html$/i)||[])[1]||''; return {fecha:f||name.replace(/\.html$/i,''), senal:s}; }
 /* Notas de un ticker (lazy, cacheado). */
 async function cargarRevisiones(t){ t=(t||'').toUpperCase(); if(_revCache[t])return _revCache[t]; try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones/'+encodeURIComponent(t),{cache:'no-store'}); if(!r.ok){ _revCache[t]=[]; return []; } const arr=await r.json(); if(!Array.isArray(arr)){ _revCache[t]=[]; return []; } const list=arr.filter(function(f){return f&&/\.html$/i.test(f.name||'');}).map(function(f){ var p=_revParse(f.name); return {name:f.name, fecha:p.fecha, senal:p.senal, url:'dossiers/revisiones/'+t+'/'+encodeURIComponent(f.name)}; }); list.sort(function(a,b){ return (''+(b.fecha||'')).localeCompare(''+(a.fecha||'')); }); _revCache[t]=list; return list; }catch(e){ _revCache[t]=[]; return []; } }
 /* HTML de la lista de notas de una empresa (chips fecha + señal, abren en pestaña). */
 function _revListHTML(list){ if(!list||!list.length)return '<span class="muted" style="font-size:11px">Sin notas de revisión en el repo.</span>'; return list.map(function(x){ var esS=/^S\d/i.test(x.senal||''); var col=esS?'#dc2626':'#2563eb'; var esc=(typeof _cfgEsc==='function')?_cfgEsc:function(s){return s;}; return '<a href="'+x.url+'" target="_blank" rel="noopener" style="display:inline-flex;gap:7px;align-items:center;padding:4px 9px;margin:3px 7px 3px 0;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:12px;color:inherit"><span style="background:'+col+';color:#fff;border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700">'+esc(x.senal||'—')+'</span><b>'+esc(x.fecha||'')+'</b> <span style="opacity:.7">📄</span></a>'; }).join(''); }
+/* [28-jul-2026] Apertura diferida del bloque de notas de la Ficha.
+   Se escucha el CLICK en el <summary> y NO el evento `toggle` del <details>: `toggle` no
+   burbujea, asi que una delegacion en document no lo veria nunca. Al pulsar, `open` todavia
+   tiene el valor viejo, de modo que open===false significa «se esta abriendo». */
+document.addEventListener('click',function(e){
+  var sm=(e.target&&e.target.closest)?e.target.closest('details.revficha>summary'):null; if(!sm)return;
+  var d=sm.parentElement; if(!d||d.open)return;
+  var t=(d.getAttribute('data-revficha')||'').toUpperCase(); if(!t)return;
+  var host=document.getElementById('revhost-f-'+t); if(!host||host._loaded)return;
+  host._loaded=true; host.innerHTML='<span class="muted" style="font-size:11px">Cargando\u2026</span>';
+  cargarRevisiones(t).then(function(list){ host.innerHTML=_revListHTML(list); });
+});
+/* [28-jul-2026] «✔ Nota emitida» abre LA nota de ESA senal.
+   La URL no se puede resolver al pintar el aviso: haria falta una llamada a GitHub por empresa
+   en cada render. Se resuelve al pulsar, con la lista ya cacheada por ticker.
+   EMPAREJADO: de las notas con el mismo codigo (S2, S6...), la mas ANTIGUA de las posteriores a
+   la apertura de la senal — es la que la cerro. Una empresa con dos S2 en meses distintos queda
+   bien resuelta; el codigo a secas no las distinguiria.
+   Si no hay ninguna, se dice: la nota se emitio pero falta subirla al repo. */
+document.addEventListener('click',function(e){
+  var a=(e.target&&e.target.closest)?e.target.closest('[data-revopen]'):null; if(!a)return;
+  e.preventDefault(); e.stopPropagation();
+  var p=(a.getAttribute('data-revopen')||'').split('|');
+  var t=(p[0]||'').toUpperCase(), cod=(p[1]||'').toUpperCase(), desde=p[2]||'';
+  cargarRevisiones(t).then(function(list){
+    if(!list||!list.length){
+      alert('La Nota de Revisi\u00f3n de '+t+' todav\u00eda no est\u00e1 en el repo.\n\nEst\u00e1 marcada como emitida, pero falta copiarla a dossiers/revisiones/'+t+'/ y hacer push.');
+      return;
+    }
+    var mismas=list.filter(function(x){ return (''+(x.senal||'')).toUpperCase()===cod; });
+    if(!mismas.length){
+      /* `notaEmitida` se marca porque el generador ENCONTRO un fichero con ese codigo, asi que
+         llegar aqui significa que el repo y el puente discrepan. Abrir la nota mas reciente
+         «por si acaso» seria ensenar el documento de otra senal como si fuera este: mejor
+         decirlo. */
+      alert('No hay ninguna Nota de Revisi\u00f3n de '+t+' para la se\u00f1al '+cod+'.\n\nEn el repo hay: '
+            +list.map(function(x){return (x.senal||'?')+' \u00b7 '+(x.fecha||'?');}).join(', ')
+            +'.\n\nRevisa el nombre del fichero: la se\u00f1al se lee del «(S2)» final.');
+      return;
+    }
+    /* `list` viene ordenada de mas NUEVA a mas VIEJA. La que cerro la senal es la mas ANTIGUA
+       de las posteriores a su apertura; sin fecha de apertura, la mas reciente. */
+    var cand;
+    if(desde){ var post=mismas.filter(function(x){ return (''+(x.fecha||''))>=desde; });
+               cand=post.length?post[post.length-1]:mismas[0]; }
+    else     { cand=mismas[0]; }
+    window.open(cand.url,'_blank','noopener');
+  });
+});
 /* [C12 · 27-jul-2026] Retiradas las ayudas de view-metas, view-atribucion, view-comparador, view-radardiv: sus vistas ya no
    existen en el HTML, así que ninguna podía mostrarse nunca. Los bloques que describían viven
    hoy dentro de otras pantallas (Metas en Presupuesto, Atribución en Rentabilidad); si alguna
