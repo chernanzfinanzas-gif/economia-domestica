@@ -267,7 +267,7 @@ function protoRegHTML(t){
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
       <td>${chip}${silChip}</td>
       <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
-      <td class="right" style="white-space:nowrap">${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
+      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" title="Copiar la fila para pegarla en el §10.5 del Excel (Fecha · Señal · Cotización · Decisión · Motivo)">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
     </tr>`;
   }).join('');
   const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Ninguno pendiente de pasar al Excel. Los borradores se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
@@ -356,6 +356,17 @@ document.addEventListener('click',e=>{
     if(typeof saveNow==='function')saveNow();
     if(typeof renderPanelDash==='function')renderPanelDash();
     if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    return;
+  }
+  /* [28-jul-2026] Copiar la fila de un borrador YA guardado. Antes solo se podia copiar en el
+     momento de crearlo, desde el dialogo: si cerrabas sin pegar, o querias volver a pegarla, no
+     habia forma de recuperarla sin reescribirla a mano. */
+  const cp=e.target.closest&&e.target.closest('[data-protocopiar]');
+  if(cp){
+    const a=(cp.dataset.protocopiar||'').split('|');
+    const ap=((DB.protocolo||{})[a[0]]||[]).find(x=>x.id===a[1]);
+    if(!ap)return;
+    _protoCopiarFila(ap, cp);
     return;
   }
   const rs=e.target.closest&&e.target.closest('[data-protoresolve]');
