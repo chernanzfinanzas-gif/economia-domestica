@@ -453,6 +453,28 @@ function _notaRevHref(t){
 }
 /* La etiqueta SIN el sufijo de estado. En la linea de tiempo el estado va en su propia
    pastilla, asi que repetirlo en el titulo ("S2 (resuelta)  RESUELTO") era ruido. */
+/* [28-jul-2026] Igual que _notaRevHref, pero para una revision DISCRECIONAL: la que se hace
+   sin que haya saltado ninguna señal. La diferencia que importa es que **lleva el motivo
+   dentro**. La skill dice que citar el hecho es la forma mas util de dispararla —«revisar
+   Repsol por la ampliacion de capital»— porque le ahorra a la sesion nueva adivinar que es lo
+   que quieres repasar; y aqui el motivo ya lo sabe el propio aviso, asi que viaja con el.
+   Se recorta a 220 caracteres por palabra: el motivo va dentro de una URL, y una frase entera
+   de cuatro lineas no aporta mas que la primera. */
+function _notaRevDiscHref(t, motivo){
+  var m=(''+(motivo||'')).replace(/\s+/g,' ').trim();
+  if(m.length>220){ var c=m.slice(0,220), i=c.lastIndexOf(' '); m=(i>140?c.slice(0,i):c)+'\u2026'; }
+  var q='revisi\u00f3n discrecional de '+_nombreCortoCorp(t)+(m?' \u2014 motivo: '+m:'');
+  return 'claude://cowork/new?folder='+encodeURIComponent(KH_CARPETA)+'&q='+encodeURIComponent(q)+'&prompt='+encodeURIComponent(q);
+}
+/* Enlace discreto, para los avisos que NO son señal del protocolo: la coyuntura de la semana,
+   una OPA, una sancion. Ninguno de ellos abre plazo ni obliga a nada — pero cualquiera puede
+   ser motivo suficiente para querer repasar la tesis, y hasta ahora no habia desde donde. */
+function _discLink(t, motivo, txt){
+  return '<a href="'+_notaRevDiscHref(t, motivo)+'" class="s" style="font-weight:600;opacity:.8" '
+    +'title="Abre Claude con una revisi\u00f3n discrecional de esta empresa y este motivo ya escritos. '
+    +'No hay se\u00f1al que cerrar: el apunte ir\u00e1 al \u00a710.5 con \u00abDisc.\u00bb">'
+    +'\ud83d\udd0d '+(txt||'pedir revisi\u00f3n discrecional')+'</a>';
+}
 function _alcorpEtiquetaBase(h){
   return (h.tipo==='senal'&&h.codigo)?h.codigo:(ALERTA_TIPO_LBL[h.tipo]||'Aviso');
 }
@@ -479,6 +501,14 @@ function _alcorpBanner(t,h){
   var accion=(h.exigeAccion&&!h.notaEmitida)
     ? '<a href="'+_notaRevHref(t)+'" class="s" title="Abre Claude en la carpeta del método con la orden ya escrita. Al terminar, sube la nota a dossiers/revisiones/'+_radEsc(t)+'/">📝 Pedir Nota de Revisión (Claude)</a>'
     : '';
+  /* Los avisos que NO son señal del protocolo llevan el enlace discrecional. Una señal ya tiene
+     el suyo —la Nota reactiva— y ofrecer las dos cosas a la vez solo confundiria cual toca. */
+  if(h.tipo!=='senal' && !h.exigeAccion){
+    /* El motivo lleva delante QUE clase de aviso es. Sin ello llegaba «motivo: El driver nº1
+       ha cruzado...» y la sesion nueva no sabia si eso era una coyuntura, una OPA o una multa. */
+    var _mot=_alcorpEtiquetaBase(h)+(h.resumen?': '+h.resumen:'');
+    accion+=(accion?' <span style="opacity:.35">·</span> ':'')+_discLink(t,_mot);
+  }
   return '<div class="alcorp-banner" data-alcorp="'+_radEsc(t)+'" style="background:'+col.bg+';border-color:'+col.bd+'">'
     +'<div class="h" style="color:'+col.tx+'">'+ico+' <b>'+_radEsc(_alcorpEtiqueta(h))+'</b>'
     +(h.fecha?' · <span class="f">'+_radEsc(_fechaCorta(h.fecha))
@@ -486,6 +516,8 @@ function _alcorpBanner(t,h){
         +'</span>':'')+reloj+'</div>'
     +'<div class="r">'+_radEsc(h.resumen||'')+'</div>'
     +(h.fuente?'<a href="'+h.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')
+    /* Dos enlaces .s seguidos son inline-block y se pegan: «Fuente ↗🔍 pedir revisión». */
+    +((h.fuente&&accion)?'<span style="display:inline-block;width:13px"></span>':'')
     +accion+'</div>';
 }
 /* Los hallazgos de hallazgos.json, convertidos en avisos de la bandeja del Panel.

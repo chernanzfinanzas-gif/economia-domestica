@@ -684,7 +684,7 @@ function renderFicha(t){
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
-  const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker]):'';
+  const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker],fichaTicker):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
   const _fv=$('#fichaView');
@@ -1322,8 +1322,12 @@ function _hkImpDot(imp){
   if(s==='-'||s==='−'||/^(en contra|negativo|neg)$/i.test(s))return '#dc2626';
   return '#94a3b8';
 }
-function hechosCardHTML(d){
+function hechosCardHTML(d,t){
   if(!d||!d.revisiones||!d.revisiones.length)return '';
+  /* El ticker no viajaba hasta aqui; hace falta para el enlace de revision discrecional.
+     Parametro opcional: si no llega, se cae a fichaTicker y, si tampoco, no se pinta enlace. */
+  var _tkH=((t||(typeof fichaTicker!=='undefined'?fichaTicker:''))||'').toUpperCase();
+  if(_tkH && typeof _notaRevDiscHref!=='function') _tkH='';
   var pubs=d.revisiones.filter(function(r){return r&&r.hechos&&r.hechos.length;});
   if(!pubs.length)return '';
   pubs=pubs.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
@@ -1339,6 +1343,10 @@ function hechosCardHTML(d){
         +'<div style="flex:1;min-width:0">'
           +'<div style="font-weight:600">'+chip+_trimEsc(h.hecho)+'</div>'
           +(h.valoracion?'<div style="color:#64748b;font-size:12.5px;margin-top:2px"><b style="color:#334155">Valoración:</b> '+_trimEsc(h.valoracion)+'</div>':'')
+          /* [28-jul-2026] Cada hecho puede ser motivo de una revision discrecional, y el motivo
+             ya esta escrito aqui: viaja dentro del enlace para que la sesion nueva sepa que es
+             lo que se quiere repasar. Discreto a proposito: se usa poco. */
+          +(_tkH?'<div style="margin-top:3px"><a href="'+_notaRevDiscHref(_tkH,(h.tipo?h.tipo+': ':'')+h.hecho+(p.periodo?' ('+p.periodo+')':''))+'" style="font-size:11px;font-weight:600;color:#1d4ed8;text-decoration:none;opacity:.75" title="Abre Claude con una revisión discrecional de esta empresa por ESTE hecho">🔍 revisar la tesis por esto</a></div>':'')
         +'</div></div>';
     }).join('');
     return '<div style="'+(i>0?'border-top:1px dashed #e2e8f0;margin-top:12px;padding-top:12px':'')+'">'
