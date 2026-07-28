@@ -317,7 +317,12 @@ function _tzDetalle(t){
 function tzFichaBoxes(t){
   t=(t||'').toUpperCase();
   if(typeof _tzCss==='function')_tzCss();
-  var V=(typeof tesisVeredicto==='function')?tesisVeredicto(t):null; if(!V) return '';
+  var V=(typeof tesisVeredicto==='function')?tesisVeredicto(t):null;
+  /* [27-jul-2026] Antes: sin veredicto (empresa sin ficha de Análisis ni dossier) se devolvía ''
+     y desaparecían LAS DOS cajas de la Ficha, incluida «Historia y salud del dividendo», que no
+     necesita veredicto ninguno: le basta el ticker. Ahora el dividendo se pinta siempre. */
+  var _divSolo='<div class="card"><div style="font-weight:700;font-size:13px;margin-bottom:4px">Historia y salud del dividendo</div>'+_tzDivChart(t)+'</div>';
+  if(!V) return '<div class="tz-fbx tz-fbx1">'+_divSolo+'</div>';
   var niveles='<div class="card"><div style="font-weight:700;font-size:13px;margin-bottom:6px">Precio y niveles</div>'+_tzPriceBar(V)+
     '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-top:8px">'+
     [['Cotización',_tzFmt(V.precio)],['Entrada máx',V.entMax?_tzFmt(V.entMax):'—'],['PO bear',V.poBear?_tzFmt(V.poBear):'—'],['PO base',V.poBase?_tzFmt(V.poBase):'—'],['PO bull',V.poBull?_tzFmt(V.poBull):'—'],['Stop',V.stop?_tzFmt(V.stop):'—'],['Potencial a PO',V.potBase!=null?_tzPct(V.potBase):'—'],['RPD',V.rpd!=null?(V.rpd.toFixed(1).replace('.',',')+'%'):'—']]
@@ -329,7 +334,7 @@ function tzFichaBoxes(t){
 function _tzCss(){
   if(typeof document==='undefined' || document.getElementById('tz-css'))return;
   var s=document.createElement('style'); s.id='tz-css';
-  s.textContent='.tz-3col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px;align-items:stretch}.tz-3col>.card{margin-top:0!important}@media(max-width:860px){.tz-3col{grid-template-columns:1fr}}.tz-fbx{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;align-items:stretch}.tz-fbx>.card{margin-top:0!important}@media(max-width:760px){.tz-fbx{grid-template-columns:1fr}}';
+  s.textContent='.tz-3col{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px;align-items:stretch}.tz-3col>.card{margin-top:0!important}@media(max-width:860px){.tz-3col{grid-template-columns:1fr}}.tz-fbx{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;align-items:stretch}.tz-fbx1{grid-template-columns:1fr}.tz-fbx>.card{margin-top:0!important}@media(max-width:760px){.tz-fbx{grid-template-columns:1fr}}';
   (document.head||document.body||document.documentElement).appendChild(s);
 }
 
