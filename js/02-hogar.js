@@ -442,7 +442,7 @@ function renderInformeBlock(){
   var sec=document.getElementById('view-panel'); if(!sec) return;
   if(document.getElementById('cotizPanelBtn')) return;
   var _ref=document.getElementById('panelAvisos')||document.getElementById('panelPeriodo');
-  var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin:2px 0 12px';
+  var _cbtn=document.createElement('div'); _cbtn.id='cotizPanelBtn'; _cbtn.style.cssText='display:flex;flex-wrap:wrap;gap:8px;margin:0';
   // Botón «Informe semanal»: abre Claude (Cowork) en ESTE ordenador, chat nuevo con la carpeta del programa y la orden prerrellenada.
   var _khCarpeta='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude';
   var _infOrden='genera el informe semanal de cartera';
@@ -454,7 +454,13 @@ function renderInformeBlock(){
     +'<a class="btn" href="https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/fundamentales.yml" target="_blank" rel="noopener" style="text-decoration:none;white-space:nowrap" title="Abre GitHub para actualizar los fundamentales del radar (Run workflow). Basta cada 3-12 meses.">📊 Actualizar fundamentales</a>'
     +'<a class="btn" id="infSemanalBtn" href="'+_infHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Informe semanal (Claude)</a>'
     +'<a class="btn" id="alertasPanelBtn" href="'+_alHref+'" style="text-decoration:none;white-space:nowrap" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del repositorio. Al pulsar, la orden de revisión de alertas se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">⚠️ Revisar Alertas / Universo (Claude)</a>';
-  if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cbtn,_ref); else sec.insertBefore(_cbtn,sec.firstChild);
+  // Aviso: el precio intradia/cierre desde Excel NO se actualiza con estos botones (no va por el repo).
+  var _cwrap=document.createElement('div'); _cwrap.id='cotizPanelWrap'; _cwrap.style.cssText='margin:2px 0 12px';
+  var _cnota=document.createElement('div'); _cnota.className='sub'; _cnota.id='cotizPanelNota';
+  _cnota.style.cssText='font-size:12px;margin:0 0 6px;line-height:1.45';
+  _cnota.innerHTML='\u{1F4C8} Para actualizar <b>cotizaciones desde Excel</b>, ejecuta la herramienta <b>\u00AB05 - 01 - Precios desde Excel\u00BB</b> y luego c\u00E1rgalas en la app desde <b>Ajustes \u203A \u{1F4C8} Precios desde Excel</b>.';
+  _cwrap.appendChild(_cnota); _cwrap.appendChild(_cbtn);
+  if(_ref&&_ref.parentNode===sec)sec.insertBefore(_cwrap,_ref); else sec.insertBefore(_cwrap,sec.firstChild);
   var _isb=document.getElementById('infSemanalBtn');
   if(_isb) _isb.addEventListener('click',function(){ if(typeof _prepInfSemanal==='function')_prepInfSemanal(_infOrden,{carpeta:'del método',tarea:'el informe semanal'}); });
   var _alb=document.getElementById('alertasPanelBtn');
