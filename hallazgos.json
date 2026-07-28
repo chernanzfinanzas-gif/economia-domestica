@@ -19,9 +19,9 @@
           "tipo": "opa",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-27",
-          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir.aspx?nif=A-31065618",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-24",
+          "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/",
           "exigeAccion": false,
           "ultimaNovedad": {
             "fecha": "2026-07-27",
@@ -43,7 +43,10 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "TUB": {
       "empresa": "TUB.MC",
@@ -130,7 +133,7 @@
       ]
     },
     "TEF": {
-      "empresa": "Telefonica, S.A.",
+      "empresa": "Telefónica, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -181,7 +184,10 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "ACS": {
       "empresa": "ACS, S.A.",
@@ -204,7 +210,18 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "27-jul-2026",
+          "senal": "Disc.",
+          "cot": "117,6",
+          "decision": "AJUSTA PO",
+          "motivo": "Re-valoración con la beta SECTORIAL 1,05 (decisión del operador) en vez de la del CAPM 0,63. El stop pasa a calcularse con la regla §8.7 —10% × β × q sobre el suelo del Bear— que antes no se había aplicado: los 60 € eran el suelo del Bear a pelo. No es un ajuste al precio: ACS cotiza a 117,60 €, muy por encima de todo el rango. · [Decisión original: «Stop 60,00 → 49,85 €»]"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "AENA": {
       "empresa": "Aena, S.M.E., S.A.",
@@ -245,7 +262,18 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "27-jul-2026",
+          "senal": "S2",
+          "cot": "26,7",
+          "decision": "ABIERTA",
+          "motivo": "Informe semanal 27-jul-2026: la propuesta de la CNMC del 4-jun-2026 para el DORA III 2027-31 (variación tarifaria −0,59% anual frente al +3,82% solicitado, IMAAJ 11,02 €/pax y WACC 7,4% frente al 9%) cruza la señal de alarma del §8.1 R2 y la de salida temprana del pre-mortem nº2. Decisión: NO actuar aún. La propuesta es preceptiva pero NO vinculante y el escenario no está consumado; el punto que resuelve es el acuerdo del Consejo de Ministros, antes del 30-sep-2026. Se evalúa con el monitor del 1S-2026 y, en todo caso, se emite Nota de Revisión Extraordinaria antes de esa fecha."
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "AMS": {
       "empresa": "Amadeus IT Group, S.A.",
@@ -301,10 +329,21 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "28-jul-2026",
+          "senal": "S2",
+          "cot": "49,73",
+          "decision": "REAFIRMAR",
+          "motivo": "Señal abierta el 27-jul-2026 por el informe semanal (cotización de referencia 49,73 €). REAFIRMAR TESIS. El gatillo (RPK mundial IATA −3,4% abr-2026 y −2,2% may-2026) es un PROXY sectorial, no la métrica del umbral: ex-Oriente Medio la demanda creció los dos meses (+1,2% y +0,7%) y la región que causa la caída ya remonta (−46,6% → −28,4%). La métrica propia crece (pasajeros embarcados Q1-2026: 518,5 M, +3,1%), el guidance 2026 sigue intacto y la cadena de consecuencias del pre-mortem nº1 no ha empezado. Sin cambios: COMPRAR, PO 74 €, banda 45-55 €, stop 30 €; no se toca el AMS.json. Acción: no ejecutar el siguiente escalón de entrada hasta el Q2/1S-2026 del 31-jul-2026, que da a la vez la métrica literal del §8.1-R2 y el 2º trimestre de reservas del §8.1-R1 (Q1-2026: 128,0 M, −0,2%, primera pata de dos). Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Amadeus (S2).html"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "A3M": {
-      "empresa": "Atresmedia Corporacion de Medios de Comunicacion, S.A.",
+      "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -340,14 +379,28 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "23-jul-2026",
+          "senal": "S6",
+          "cot": "4,77",
+          "decision": "REAFIRMAR",
+          "motivo": "2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1)."
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "BKT": {
       "empresa": "Bankinter, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "CIE": {
       "empresa": "Cie Automotive, S.A.",
@@ -370,7 +423,10 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "EBRO": {
       "empresa": "Ebro Foods, S.A.",
@@ -393,10 +449,13 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "ENG": {
-      "empresa": "Enagas, S.A.",
+      "empresa": "Enagás, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -432,10 +491,21 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "22-jul-2026",
+          "senal": "S6",
+          "cot": "12,7",
+          "decision": "REAFIRMAR",
+          "motivo": "3er ámbar consecutivo (S1-2026). Tendencia NO adversa: el declive del EBITDA se MODERA (−4,7% vs −14,6% hace un año), el BDI recurrente (118,6 M€) va en línea con el objetivo 235 M€, el balance está en zona REFUERZA (DN 2.305 M€, FFO/DN 27,4%, coste 2,0%) y el catalizador 2027-2032 avanza (circulares CNMC → Consejo de Estado) + rotación de activos (Teréga). Es el declive estructural ESPERADO de la tesis MANTENER, no un deterioro; sin escalar a S2. Vigilar dividendo (1,00 € estable, cobertura por caja). · [Decisión original: «Seguir en ordinario (no escalar)»]"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "ELE": {
-      "empresa": "Endesa, S.A.",
+      "empresa": "Endesa",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -456,7 +526,10 @@
           "exigeAccion": false,
           "caducaEl": "2026-08-15"
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "FAE": {
       "empresa": "Faes Farma, S.A.",
@@ -479,7 +552,18 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "21-jul-2026",
+          "senal": "S6",
+          "cot": "4,365",
+          "decision": "REAFIRMAR",
+          "motivo": "Dos trimestres ámbar consecutivos en 2025 (Q1-S1-9M): margen y EBITDA reportados a la baja por la integración de SIFI/Edol/ISF. Tendencia adversa de márgenes CONFIRMADA pero explicada por el M&A ya recogido en la tesis (no deterioro nuevo). Q1-2026 rompe la racha al alza (EBITDA +23%). Ruido de transición → seguir vigilando la recuperación del margen; no se eleva a S2. · [Decisión original: «Seguir en ordinario (MANTENER)»]"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "FDR": {
       "empresa": "Fluidra, S.A.",
@@ -502,7 +586,32 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "26-jul-2026",
+          "senal": "Disc.",
+          "cot": "18,29",
+          "decision": "REAFIRMAR",
+          "motivo": "Cierre del Bloque 9: primera fijación de las seis celdas canónicas (PO 13,69 / 25,44 / 29,73 · entrada 13,69–17,11 · stop 12,55). MANTENER porque el bear implica −25,2% frente al umbral de −20% y el moat sale ESTRECHO, pese a un margen del +39,1%."
+        },
+        {
+          "fecha": "26-jul-2026",
+          "senal": "S2",
+          "cot": "18,29",
+          "decision": "REAFIRMAR",
+          "motivo": "Volcado histórico del §10.3 (12 periodos, 2023-2025). Se activaron RETROSPECTIVAMENTE S2 en Q1 y S1 de 2023 (semáforo ROJO por la corrección de inventario del canal) y S6 en 9M-2023 → Q1-2024 (tres ámbares seguidos). Ambas quedan cerradas por los hechos: la empresa desapalancó de 3,20x a 2,20x y recuperó el margen bruto del 52,1% al 56,6%. En el último periodo revisado (FY-2025) el semáforo es VERDE y no hay ninguna señal activa. Predictores de recorte de dividendo (B4): 0 duros y 0 blandos — sin apunte."
+        },
+        {
+          "fecha": "26-jul-2026",
+          "senal": "Disc.",
+          "cot": "18,29",
+          "decision": "REAFIRMAR",
+          "motivo": "Revisión 2026-Q1: semáforo ÁMBAR, primer no-verde en ocho trimestres. NO se activa S2 (el semáforo no es ROJO y la tesis sigue intacta) ni S6 (el periodo anterior, 2025-Q4, fue VERDE; harían falta dos ámbares seguidos). Se deja apunte porque el método pide registrar también los no-cambios: el margen EBITDA ajustado ha caído 1,2 pp (23,2% → 22,0%) por Opex creciendo más que las ventas, y el efecto divisa deja plano el reportado. Predictores de recorte de dividendo (B4): 0 duros y 0 blandos — DN/EBITDA baja a 2,6x, payout y coberturas holgados. SI 2026-Q2 VUELVE A SALIR ÁMBAR, SE ACTIVA S6 y toca mini-revisión de tendencia. Decisión, PO, banda y stop sin tocar."
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "IBE": {
       "empresa": "Iberdrola, S.A.",
@@ -526,21 +635,46 @@
           "exigeAccion": false,
           "caducaEl": "2026-08-16"
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "ITX": {
       "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [
+        {
+          "fecha": "12-jul-2026",
+          "senal": "S3",
+          "cot": "54,96",
+          "decision": "REAFIRMAR",
+          "motivo": "ES UNA POSICIÓN NO ABIERTA, ESTOY ESPERANDO A ALCANZAR LOS PRECIOS DE ENTRADA"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "LOG": {
       "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [
+        {
+          "fecha": "23-jul-2026",
+          "senal": "S6",
+          "cot": "Pte, Revisión",
+          "decision": "REAFIRMAR",
+          "motivo": "S6 (2º+ ámbar consecutivo). El 9M-2026 confirma una INFLEXIÓN de mejora: EBIT Ajustado +3,0% (vs −3,5% en el S1), margen s/VE +39 pb a 21,5% y Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8% vs −9,9%). El deterioro operativo del semestre NO ha continuado y el BCE sube tipos (+25 pb en junio). Tendencia adversa NO confirmada → efecto de tipos en reversión, seguir en ordinario. Vigilar el dividendo (pay-out ~99%)."
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "MAP": {
       "empresa": "Mapfre, S.A.",
@@ -563,7 +697,10 @@
           "fuente": "https://www.merca2.es/2026/07/24/mapfre-compra-safety-insurance-millones-2423347/",
           "exigeAccion": false
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "MCM": {
       "empresa": "Miquel y Costas & Miquel, S.A.",
@@ -586,7 +723,18 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [
+        {
+          "fecha": "21-jul-2026",
+          "senal": "S6",
+          "cot": "14,13",
+          "decision": "REAFIRMAR",
+          "motivo": "Cinco periodos consecutivos en ÁMBAR (Q1-2025→Q1-2026): EBITDA acumulado -6% a -8% y beneficio a la baja. Mini-revisión de tendencia (S6): el deterioro es NORMALIZACIÓN tras el pico de márgenes 2024 + efecto divisa (debilidad del USD sobre el ~90% de exportación), NO daño estructural del negocio de papel de fumar. Ingresos estables ~314 M€, caja neta intacta, márgenes aún en zona alta (EBITDA 22-24%). Se mantiene MANTENER (PO 15,7€); vigilar que el EBITDA no perfore <70 M€ ni el margen <22% de forma sostenida (pasaría a revisión de tesis). · [Decisión original: «MANTENER (tesis intacta)»]"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "NTGY": {
       "empresa": "Naturgy",
@@ -609,14 +757,28 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "PRM": {
       "empresa": "Prim, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [
+        {
+          "fecha": "20-jul-2026",
+          "senal": "Disc.",
+          "cot": "13,35",
+          "decision": "REAFIRMAR",
+          "motivo": "Backfill del monitor con 13 trimestres (2023Q1–2026Q1). Sin semáforo ROJO. Dos ámbar (FY-2024 y Q1-2026) NO consecutivos → no se dispara S6. Tesis intacta (MANTENER). · [Señal original anotada: «S5→S6?»; el propio motivo concluye que S6 NO se dispara]"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "RED": {
       "empresa": "Redeia Corporación, S.A.",
@@ -639,21 +801,38 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "REP": {
       "empresa": "Repsol, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "SAN": {
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": []
+      "hallazgos": [],
+      "revisiones": [
+        {
+          "fecha": "11-jul-2026",
+          "senal": "S3",
+          "cot": "12,14",
+          "decision": "REAFIRMAR",
+          "motivo": "MANTENEMOS LA POSICIÓN POR DIVIDENDO, NO HACE FALTA VENDER"
+        }
+      ],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "VID": {
       "empresa": "Vidrala, S.A.",
@@ -676,7 +855,10 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     },
     "VIS": {
       "empresa": "Viscofan, S.A.",
@@ -699,7 +881,10 @@
           "resueltoEl": null,
           "desenlace": null
         }
-      ]
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-28",
+      "revisionesFrescas": true
     }
   },
   "resumen": {
