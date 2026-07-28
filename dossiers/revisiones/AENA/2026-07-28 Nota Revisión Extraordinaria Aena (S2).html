@@ -1,0 +1,176 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AENA · Nota de Revisión Extraordinaria · Gatillo: propuesta CNMC · DORA III 2027-31</title>
+<style>
+:root{--corp:#699004;--corp-dark:#4A6310;--corp-light:#f2fce0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Aena, S.M.E., S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Tesis en revisión</span>
+        <span class="badge badge-sig">Gatillo: propuesta CNMC · DORA III 2027-31</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">AENA · Bolsa de Madrid (AENA.MC)<br>Fecha: 28 de julio de 2026<br>Plazo señal: 7 días — vence el 3-ago-2026</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">ESPERAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">21,6 €</div><div class="kpi-sub">bear 17,2 · bull 33,0</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">26,70 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">−19,1%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">IMAAJ 2027-31</div><div class="kpi-val amber">11,02 €</div><div class="kpi-sub">propone la CNMC · Aena pedía 12,69</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p>El informe semanal del <b>27-jul-2026</b> abrió una <b>S2</b> sobre Aena con la cotización de referencia en <b>26,70 €</b> (Matriz Bolsa Española, cierre del 24/07/2026). El gatillo es la <b>propuesta de la CNMC del 4-jun-2026</b> para el <b>DORA III 2027-31</b>: variación tarifaria de <b>−0,59% anual</b> frente al <b>+3,82%</b> que solicitaba Aena, IMAAJ de referencia <b>11,02 €/pax</b> y <b>WACC regulatorio del 7,4%</b> frente al 9% pedido. <br><br>Eso es, palabra por palabra, la «señal de alarma monitoreable» del <b>§8.1 R2</b> —«propuesta CNMC/DORA III con IMAAJ o factor K a la baja (previsible 2026, 12-18 meses antes de aplicar)»— y la «señal de salida temprana» del <b>pre-mortem nº2 del §8.2</b>, «Ruptura del marco regulatorio (DORA III duro)» (probabilidad ~10%, impacto −40 a −50%). Y activa además el <b>red flag nº2 del §10.4</b>, cuyo texto es literalmente «Propuesta de DORA III con recorte tarifario (IMAAJ/factor K adverso)». <br><br><b>Es la señal más anticipada de todo el expediente de Aena</b>, y el propio §8.2 lo dice: «la revisión del DORA III da 12-18 meses de aviso — es la señal accionable más anticipada». El sistema hizo exactamente lo que se diseñó para hacer.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>La propuesta está verificada y su alcance es mayor de lo que recogía el expediente. La CNMC no solo baja la tarifa: <b>revisa las tres hipótesis del modelo de Aena a la vez</b>. <b>(1) Tarifa:</b> −0,59% anual frente al +3,82% solicitado. <b>(2) Costes:</b> recorta la previsión de gastos operativos en <b>741,5 M€</b>, argumentando que el crecimiento de costes de Aena excedía al del tráfico. <b>(3) WACC:</b> 7,4% frente al 9%, «alineándolo con la práctica regulatoria europea». Aena había pedido <b>12.900 M€ de inversión</b> hasta 2031, de los que 9.990 M€ regulada. <br><br><b>Y una cuarta revisión que juega a favor y conviene no pasar por alto:</b> la CNMC <b>eleva</b> la previsión de tráfico, del <b>1,3% anual que estimaba Aena al 2,2%</b>, hasta <b>366,7 M de pasajeros en 2031</b>. El regulador está usando un escenario de demanda <i>más optimista</i> que el de la propia compañía — y esa cifra supera el catalizador del §9.1 («pasajeros España &gt;330 M anuales»). <br><br><b>Carácter y calendario:</b> el informe <b>no es vinculante</b>. El texto definitivo lo aprueba el <b>Consejo de Ministros antes del 30-sep-2026</b>. Las aerolíneas aplaudieron la posición de la CNMC; Aena se limitó a señalar que el proceso continúa. <br><br><b>Los analistas están divididos, y no todos a la baja.</b> Deutsche Bank es el más negativo y el único que cuantifica: los ingresos regulados y el EBIT acumulado 2027-31 podrían caer <b>~1.500 M€</b>, con un flujo de caja libre hasta un <b>25% inferior</b>. Jefferies lo lee en positivo: «elimina parte de la incertidumbre regulatoria» y fija «un suelo razonable para las tarifas». Banco Sabadell, «negativa pero dentro de lo razonable». Y Renta 4 <b>reitera sobreponderar con precio objetivo de 30,20 €</b>, sin cambios, porque «la propuesta de la CNMC está más alineada con nuestras expectativas que las posiciones defendidas por Aena y por las aerolíneas». Ninguna de esas cifras entra en el modelo: el PO sigue saliendo del Bloque VI y la cotización, solo de la Matriz.</p>
+  <div class="cb-src">Fuentes: resolución y notas sobre la propuesta de la CNMC (4-jun-2026) recogidas por Aviación Digital, Ecobolsa/Bolsamanía y Renta 4; datos de tráfico de Aena. Enlaces al pie.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">La cadena del pre-mortem se rompe en su segundo eslabón: los ingresos aeronáuticos no se estancan.</div>
+    <div class="seg-body"><b>1 · El pre-mortem nº2 exige una cadena, y no se cumple entera.</b> Su texto es: «IMAAJ congelado/reducido → <b>ingresos aeronáuticos estancados</b> con CAPEX creciente → ROIC converge al WACC → el múltiplo se comprime». El primer eslabón está puesto. El segundo, no: con la tarifa a −0,59% anual y el tráfico a <b>+2,2% anual</b> —la previsión de la propia CNMC—, el ingreso aeronáutico <b>crece en torno a un +1,6% anual</b>. Menos de lo que Aena quería, pero no estancado. Un escenario de −40/−50% necesita que ese eslabón se cumpla.<br><br><b>2 · La propuesta está en el punto medio del regateo, no en el extremo.</b> Aena pedía <b>+3,82%</b>; las aerolíneas, <b>−4,9%</b>; la CNMC propone <b>−0,59%</b>. Eso es casi exactamente el punto medio, y es el comportamiento de un árbitro. El detonante que el §8.2 describe es un «<b>recorte tarifario populista</b> (anti-inflación/turismo)»; lo que hay es un regulador técnico que también ha subido la previsión de tráfico y ha alineado el WACC con la práctica europea.<br><br><b>3 · El IMAAJ propuesto no baja en nivel: se queda plano.</b> Hoy es <b>11,00 €/pax</b> (2026) y la propuesta parte de <b>11,02 €/pax</b>. Lo que se recorta es la <i>senda</i> frente a lo pedido, no el punto de partida.<br><br><b>4 · El negocio operativo está intacto y es el riesgo nº1, no el nº2.</b> <b>156,24 M de pasajeros</b> hasta junio, <b>+3,7%</b> interanual; junio, 31,6 M (+3,8%). El umbral del §8.1 R1 es una <i>caída</i> sostenida &gt;10%: hoy el dato va del signo contrario, con casi 14 puntos de holgura antes de llegar siquiera a plano. Y detrás hay <b>13 trimestres consecutivos en VERDE</b> en el §10.3, sin un solo ámbar.<br><br><b>5 · El análisis ya lo tenía escrito, y por eso su veredicto ya era ESPERAR.</b> El §9.1 lista el DORA III como catalizador de «doble filo» con impacto <b>±ALTO</b> y trigger «propuesta CNMC/DORA III publicada»; el §8.1 lo tiene como riesgo nº2; el §8.2 como pre-mortem nº2; el §10.4 como red flag nº2. Y el Bloque VI concluyó: «un retroceso de precio o <b>un DORA III generoso</b> mejorarían el caso». El caso base <b>nunca asumió</b> un DORA III generoso.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">La brecha es real, grande, y el precio no la descuenta.</div>
+    <div class="seg-body"><b>1 · Puesta al lado de lo que Aena pedía, la rebaja es del −13%.</b> El monitor del Q1-2026 dejó escrito que el Consejo de Aena aprobó el 17-feb-2026 una propuesta de <b>IMAP 10,92 → 12,69 €/pax</b>. La CNMC responde con <b>11,02 €/pax</b>. Son <b>−13,2% en el nivel de tarifa por pasajero</b> frente a lo solicitado, y ~20 puntos de brecha compuesta en el nivel tarifario de 2031. No es un matiz.<br><br><b>2 · El único que ha puesto cifras al daño lo cifra alto.</b> Deutsche Bank: ingresos regulados y EBIT acumulado 2027-31 <b>−1.500 M€</b>, flujo de caja libre hasta <b>−25%</b>. Aunque sea el extremo pesimista del rango de analistas, es del orden de magnitud del §8.1 R2 (−10 a −25% del valor).<br><br><b>3 · El WACC regulatorio deja 40 puntos básicos sobre el WACC de la tesis.</b> El 7,4% propuesto apenas supera el <b>7,0%</b> con el que está valorada Aena. Con <b>12.900 M€ de inversión</b> pedidos hasta 2031 sobre una base de activos creciente, ése es exactamente el mecanismo del pre-mortem: el <b>ROIC (15,3%)</b> converge hacia el WACC. Este eslabón sí opera, y opera despacio y sin ruido.<br><br><b>4 · Quien decide es el accionista de control.</b> Enaire tiene el <b>51%</b> y el DORA lo aprueba el Consejo de Ministros. El §8.1 R3 (interferencia política) y el R2 (regulatorio) han dejado de ser dos apuestas independientes: son la misma, y el que la resuelve no es neutral.<br><br><b>5 · Y el precio no descuenta nada de esto.</b> El Reverse DCF ya calificaba de <b>HEROICO</b> el precio de hoy —g implícito <b>5,97%</b> frente a un g autofinanciable del <b>3,53%</b>—, la robustez de la decisión es <b>SENSIBLE</b>, y la acción <b>subió</b> desde el cierre del Bloque IX mientras el regulador proponía recortarle el techo de ingresos del próximo quinquenio.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico: ESTRUCTURAL en su naturaleza, pero de la magnitud del §8.1 R2 (−10 a −25%), no de la del pre-mortem §8.2 (−40 a −50%) — confianza media-alta.</b> Un marco tarifario de cinco años no es un one-off: lo que se apruebe condiciona 2027-31, y eso es estructural por definición. Pero <b>la cadena que llevaba al escenario severo se rompe en su segundo eslabón</b>: con el tráfico que la propia CNMC proyecta (+2,2% anual), el ingreso aeronáutico sigue creciendo en vez de estancarse. Lo que hay sobre la mesa es <b>menos crecimiento del esperado</b>, no la destrucción del negocio. <b>Y una reserva que no se puede cerrar aquí:</b> la propuesta no es vinculante y quien la aprueba —el Consejo de Ministros— responde al accionista que controla el 51%. El escenario está <b>disparado, no consumado</b>.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>R2 · Regulatorio — DORA III</b> (Media / −10 a −25%). <b>MATERIALIZADO en su señal de alarma.</b> El riesgo estaba mapeado con el umbral exacto y con 12-18 meses de anticipación, tal como el expediente prometía. <b>Probabilidad: sube</b> —de «previsible 2026» a «propuesto y en trámite»—. <b>Impacto: sin cambio</b>, dentro del rango −10/−25% ya documentado.<br><br><b>§10.4 · Red flag nº2 ACTIVADO.</b> Su texto —«Propuesta de DORA III con recorte tarifario (IMAAJ/factor K adverso)»— se ha cumplido literalmente. La acción que el propio §10.5 asigna a un red flag confirmado es <b>«Revisión extraordinaria (señal S2)»</b>: es esta nota. El método no dice vender ante un red flag; dice revisar, y eso es lo que se está haciendo.<br><br><b>§8.2 · Pre-mortem nº2.</b> Señal de salida temprana <b>disparada</b>; cadena de consecuencias <b>iniciada solo en su primer eslabón</b>. Faltan los ingresos estancados, la convergencia ROIC-WACC y la compresión del múltiplo — y el detonante descrito («recorte populista») no describe lo que ha hecho la CNMC.<br><br><b>R1 · Shock de tráfico</b> (el riesgo mayor de Aena, −25/−50%): <b>dormido</b>, +3,7% i.a. <b>R5 · Tipos:</b> una pata de dos —vencimientos a refinanciar con el ciclo de bajadas terminado—; la otra, coste medio de deuda &gt;4%, se comprueba con los resultados. <b>R3 · Político:</b> ya no es independiente del R2. <b>R7 · Real brasileño:</b> a favor (+12,15% en 2026).</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>Bull case</b> (~30-33 €): <b>tocado, no muerto</b>. Exigía «DORA III favorable + tráfico récord + bajada de tipos». La primera pata se aleja y la tercera también (BCE con subida descontada en septiembre); la del tráfico sigue viva. El bull queda a expensas de que el Consejo de Ministros suavice la propuesta.<br><br><b>Base</b> (~21,6 €): <b>intacto por ahora</b>. El caso base nunca asumió un DORA III generoso —el Bloque VI lo dice: «un DORA III generoso <i>mejoraría</i> el caso»—, así que la propuesta adversa no lo invalida. Sí lo presiona: si el Consejo confirma el −0,59% y el WACC 7,4%, el PO habrá que rehacerlo con la senda real, y bajará.<br><br><b>Bear</b> (14-16 €): <b>no se está materializando</b>. Requiere «shock de tráfico o DORA III duro» con el apalancamiento operativo hundiendo EBITDA y dividendo. El tráfico crece, el Dividend Safety está en <b>71/100 «Seguro»</b> sin tope duro, y el DORA propuesto no congela el IMAAJ.<br><br><b>§9.3 · Precio objetivo: NO SE TOCA hoy.</b> Cambiar el PO exigiría re-valorar el Bloque VI, y el dato que lo permitiría —la senda tarifaria definitiva— no existe hasta el Consejo de Ministros. Moverlo ahora sería anticipar una decisión política. PO 21,6 €, bear 17,2 €, bull 33,0 €, banda de entrada 18–22 € y stop 15,6 €: <b>todo igual</b>.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><div class="tool-name">Forense (H13)</div><div><span class="pill g">No re-ejecutado — el gatillo es regulatorio</span> Regla dura: solo la herramienta pertinente al gatillo. El vigente (20-jul-2026) es de los mejores de la cartera: <b>Piotroski 8/9 «fuerte»</b>, Altman Z 7,19 «segura», Beneish −2,58 «sin indicios», Sloan −3,7 «normal». Sin flags, sin veto. La calidad contable de Aena no está en cuestión.</div></div><div class="tool-row"><div class="tool-name">Reverse DCF (H15)</div><div><span class="pill a">Re-mirado — es el que mide el precio</span> Vigente (27-jul-2026) y sin necesidad de recalcular para lo que aporta: <b>HEROICO</b>, g implícito <b>5,97%</b> frente a un g autofinanciable del <b>3,53%</b>. El precio ya exigía 1,7× el crecimiento que la empresa puede pagarse <b>antes</b> de que el regulador propusiera recortarle el techo. Es el dato que más pesa en la sección ④.</div></div><div class="tool-row"><div class="tool-name">Robustez (H9)</div><div><span class="pill a">Vigente — SENSIBLE</span> La cotización cae <b>dentro</b> de la banda de PO [17,5–33,4 €] bajo WACC ±1,0 pp: la decisión depende del supuesto de coste de capital. Con el regulador fijando un WACC permitido del 7,4% frente al 7,0% de la tesis, esa sensibilidad deja de ser teórica.</div></div><div class="tool-row"><div class="tool-name">Dividend Safety (H12)</div><div><span class="pill g">No re-ejecutado — no hay gatillo de dividendo</span> Vigente (20-jul-2026): <b>71/100, «Seguro»</b>, sin tope duro. Cobertura 1,37x sobre BN ordinario y 1,38x sobre FCL, DN/EBITDA 1,50x. Relevante porque el pre-mortem nº2 no termina en suspensión del dividendo, pero el nº1 sí: hoy no hay indicio de ninguno de los dos.</div></div><div class="tool-row"><div class="tool-name">§8.1, §8.2 y §10.4</div><div><span class="pill r">SÍ re-chequeados — es lo que el gatillo toca</span> Matriz de riesgos, pre-mortem y red flags revisados uno a uno arriba. Es la herramienta pertinente a esta señal, y la única que se ha vuelto a pasar entera.</div></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">«Si descubriera hoy Aena por primera vez, a 26,70 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?»</div>
+  <div class="anchor-a"><b>Watchlist, y con el listón donde ya está.</b> No la compraría, y la razón no es el DORA III: es que a 26,70 € el precio está un <b>23,6% por encima del PO de síntesis (21,6 €)</b> y un <b>21,4% por encima del techo de la banda de entrada (22 €)</b>. Haría falta una caída del −17,6% solo para volver a mirarla. Eso ya era cierto antes de la propuesta de la CNMC.<br><br><b>Y aquí la prueba anti-anclaje funciona al revés de lo habitual, que es lo interesante:</b> lo cómodo sería dejar que la mala noticia regulatoria justifique un cambio de veredicto — «ha salido algo malo, luego hay que hacer algo». Pero el veredicto ya era ESPERAR, y ESPERAR es exactamente lo que corresponde. <b>El riesgo que se ha materializado estaba escrito en cuatro sitios del expediente</b> (§8.1 R2, §8.2 nº2, §9.1 y §10.4 red flag nº2) y su decisión ya reflejaba esa incertidumbre. Un análisis que anticipó el riesgo y decidió no entrar no tiene que cambiar de opinión cuando el riesgo aparece: tiene que comprobar que la magnitud es la prevista. Y lo es.<br><br><b>Lo que sí obliga a decir en voz alta:</b> la calidad de Aena no está en discusión —moat ANCHO (79,7), monopolio irreplicable, Piotroski 8/9, ROIC 15,3% frente a WACC 7,0%—. Es de las mejores infraestructuras cotizadas que existen. <b>El problema es el precio, y sigue siéndolo.</b> Confundir «gran empresa» con «buena inversión» a este precio es justamente el sesgo que el §10.5 de Aena enumera entre los que hay que evitar.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">Veredicto <b>ESPERAR</b>, PO base <b>21,6 €</b> (bear 17,2 · bull 33,0), banda de entrada <b>18–22 €</b> y stop <b>15,6 €</b>: <b>sin cambios</b>. No se toca el <code>AENA.json</code>.<br><br>El riesgo regulatorio se ha materializado <b>exactamente donde el análisis dijo que lo haría y con la antelación que prometía</b>, y su magnitud es la del §8.1 R2, no la del pre-mortem. La decisión vigente ya era no entrar. <b>Un no-cambio justificado también es una decisión, y ésta lo es: la tesis no se reafirma a pesar de la noticia, se reafirma porque la noticia estaba prevista.</b></div>
+  <div class="action-line">Acción: mantener <b>ESPERAR</b>; no entrar por encima de 22 €. Y dos fechas escritas, para no decidirlas en caliente: <b>(a) mañana, 29-jul-2026</b>, resultados del 1S — dan el tráfico frente al umbral del §8.1 R1 y, sobre todo, <b>el coste medio de la deuda frente al 4%</b> del §8.1 R5, que es la pata que faltaba por confirmar; <b>(b) antes del 30-sep-2026</b>, acuerdo del Consejo de Ministros: si <b>confirma</b> el −0,59% y el WACC 7,4%, hay que <b>re-valorar el Bloque VI</b> con la senda real —el PO bajará y eso sí será un AJUSTA PO con datos nuevos—; si lo <b>suaviza</b>, se activa el catalizador del §9.1 con impacto ±ALTO. Mientras tanto, ninguna cifra se mueve.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>Aviación Digital · «La CNMC enfría el DORA III de Aena con una rebaja tarifaria hasta 2031» — tarifa −0,59%, WACC 7,4%, tráfico +2,2%/año hasta 366,7 M pax en 2031, recorte de opex 741,5 M€, inversión pedida 12.900 M€ (9.990 M€ regulada) — <a href="https://aviaciondigital.com/cnmc-aena-dora-iii-tarifas-aeroportuarias/" target="_blank" rel="noopener">https://aviaciondigital.com/cnmc-aena-dora-iii-tarifas-aeroportuarias/</a></li><li>Ecobolsa · «La propuesta de la CNMC para DORA III divide a los analistas sobre el impacto en Aena» — Deutsche Bank (−1.500 M€ de EBIT acumulado 2027-31, FCL hasta −25%), Jefferies (positiva), Banco Sabadell; carácter no vinculante y texto definitivo antes de finales de septiembre de 2026 — <a href="https://www.ecobolsa.com/noticias/la-propuesta-de-la-cnmc-para-el-dora-iii-divide-a-los-analistas-sobre-el-impacto-en-aena.html" target="_blank" rel="noopener">https://www.ecobolsa.com/noticias/la-propuesta-de-la-cnmc-para-el-dora-iii-divide-a-los-analistas-sobre-el-impacto-en-aena.html</a></li><li>Renta 4 · «La propuesta de la CNMC para DORA III, ligeramente por debajo de nuestras previsiones, pero mejora visibilidad» — reitera sobreponderar, PO 30,20 €; Aena pedía +3,8%, las aerolíneas −4,9% — <a href="https://www.r4.com/articulos-y-analisis/ideas/aena-la-propuesta-de-la-cnmc-para-dora-iii-ligeramente-por-debajo-de-nuestras-previsiones" target="_blank" rel="noopener">https://www.r4.com/articulos-y-analisis/ideas/aena-la-propuesta-de-la-cnmc-para-dora-iii-ligeramente-por-debajo-de-nuestras-previsiones</a></li><li>Economía 3 · «Aena supera los 156 millones de pasajeros en España hasta junio» — 156,24 M pax ene-jun 2026, +3,7% i.a. — <a href="https://economia3.com/2026/07/14/758125-aena-supera-los-156-millones-de-pasajeros-en-espana-hasta-junio-de-2026/" target="_blank" rel="noopener">https://economia3.com/2026/07/14/758125-aena-supera-los-156-millones-de-pasajeros-en-espana-hasta-junio-de-2026/</a></li><li>Forbes España · «Los aeropuertos de Aena rozan los 37 millones de pasajeros en junio, con un alza del 3,5%» — <a href="https://forbes.es/forbestravel/979381/los-aeropuertos-de-aena-rozan-los-37-millones-de-pasajeros-en-junio-con-un-alza-del-35/" target="_blank" rel="noopener">https://forbes.es/forbestravel/979381/los-aeropuertos-de-aena-rozan-los-37-millones-de-pasajeros-en-junio-con-un-alza-del-35/</a></li><li>PC Bolsa · calendario de resultados del 2T-2026 — «Miércoles, 29 de julio: AENA, CaixaBank, Endesa, Redeia, Telefónica o ACS» — <a href="https://pcbolsa.com/Noticia/13681/Dias-de-presentacion-de-resultados-de-empresas-espanolas-en-el-segundo-trimestre-de-2026" target="_blank" rel="noopener">https://pcbolsa.com/Noticia/13681/Dias-de-presentacion-de-resultados-de-empresas-espanolas-en-el-segundo-trimestre-de-2026</a></li></ul><div style="margin-top:7px">Fuentes internas (método): Excel <i>Datos Financieros Aena.xlsx</i> —§6 Valoración, §8.1, §8.2, §9.1–§9.4, §10.1, §10.3, §10.4, §10.5—; <i>AENA.json</i> (tesis vigente, 20-jul-2026); <i>AENA-trim.json</i> (13 trimestres, todos en verde); <i>Coyuntura y Stress Test - Aena.md</i> (27-jul-2026); Matriz Bolsa Española v2 (cotización 26,70 €, cierre 24/07/2026). <b>La cotización procede siempre de la Matriz, nunca de internet.</b> El dato de la propuesta de Aena (IMAP 10,92 → 12,69 €/pax, aprobada por su Consejo el 17-feb-2026) procede de la «Valoración del analista» del §10.3 para el Q1-2026.</div></div>
+
+<div class="disclaimer">Documento de uso personal del Método KH&amp;Claude. No es asesoramiento financiero ni una recomendación de compra o venta: es el registro del razonamiento con el que se ha evaluado una señal del Protocolo de Revisión Extraordinaria (S1–S6). Las cifras proceden del Excel de análisis, del puente <code>AENA.json</code> y de las fuentes públicas citadas sobre la propuesta de la CNMC; la cotización, exclusivamente de la Matriz Bolsa Española. Las valoraciones de terceros (Deutsche Bank, Jefferies, Renta 4, Banco Sabadell) se citan como contexto de mercado y <b>no entran en el modelo</b>. Lo que no se ha podido verificar va dicho como tal y no se ha rellenado por lógica. El apunte de cierre de esta señal queda registrado en el §10.5 de la pestaña Vigilancia, en <code>estado.json</code> y en <code>hallazgos.json</code>. · Nota emitida el 28 de julio de 2026.</div>
+
+</div></body></html>
