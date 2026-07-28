@@ -111,6 +111,32 @@ function renderHechos(){
       });
     });
   });
+  /* [28-jul-2026] Los hechos societarios que trae el puente (OPA, sancion, litigio, concurso,
+     exclusion, otros) son de la MISMA naturaleza que los que teclea el monitor trimestral:
+     cosas que la empresa ha comunicado. Hasta hoy solo se veian en la Ficha de cada empresa,
+     una a una, y esta cronica se los perdia.
+     NO entran la coyuntura ni las senales: no son hechos comunicados por la empresa, son
+     lecturas y reacciones del metodo. Meterlas convertiria la cronica en un cajon. */
+  if(typeof _hallazgosEmp!=='undefined' && _hallazgosEmp){
+    var FUERA={coyuntura:1, senal:1};
+    var LBL=(typeof ALERTA_TIPO_LBL!=='undefined')?ALERTA_TIPO_LBL:{};
+    tks.forEach(function(t){
+      var e=_hallazgosEmp[t]; if(!e||!e.hallazgos)return;
+      e.hallazgos.forEach(function(h){
+        if(!h||FUERA[h.tipo])return;
+        var cerrado=(h.estado==='resuelta'||h.estado==='caducada');
+        conHechos[t]=1; nH++; nNeu++;
+        var tp=LBL[h.tipo]||'Otros'; tiposSet[tp]=1;
+        items.push({t:t, nombre:_diaNombre(t), periodo:'', periodoDisplay:'societario',
+          fecha:(h.fecha||h.abiertoEl||''), tipo:tp,
+          hecho:(h.resumen||''), impacto:'=',
+          valoracion:(h.desenlace? ('Desenlace: '+h.desenlace)
+                     : (cerrado?'Cerrado sin desenlace escrito.'
+                              :'Situación abierta; sigue en la Ficha con su aviso.')),
+          fuente:(h.fuente||'')});
+      });
+    });
+  }
   items.sort(function(a,b){ return (b.fecha||'').localeCompare(a.fecha||''); });
 
   /* pendientes de esta ronda (cadencia propia de cada empresa → Inditex/Logista OK) + sin datos */

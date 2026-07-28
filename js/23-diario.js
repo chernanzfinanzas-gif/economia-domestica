@@ -338,13 +338,89 @@ function _diColTipo(cfg){ return {'t-comprar':'#16a34a','t-ampliar':'#22c55e','t
 function diarioNuevo(ticker,tipo,opts){ window._diSeed=Object.assign({ticker:_diUp(ticker||''),tipo:tipo||''},opts||{}); if(typeof activarVista==='function')activarVista('diario'); else if(typeof renderDiario==='function')renderDiario(); }
 /* M3 fase2 · enganche del Protocolo: al registrar/resolver un apunte S1–S6 con decisión,
    ofrece anotar la decisión en el Diario (tipo mapeado, porqué = motivo del apunte). */
-function _diTipoProto(dec){ var d=_diUp(dec);
+/* [28-jul-2026] Este mapeo era anterior a las cuatro etiquetas del metodo y fallaba en tres:
+   buscaba la cadena 'VENDER' y la etiqueta es 'VENDE', asi que **una decision de vender se
+   anotaba como Mantener**. Igual 'REBAJA'. Nunca habia saltado porque hasta hoy nadie escribia
+   esas etiquetas desde la app. Ahora las cuatro van primero y con coincidencia exacta. */
+function _diTipoProto(dec){ var d=_diUp(dec).trim();
+  if(d==='REAFIRMAR') return 'Reafirmar';
+  if(d==='AJUSTA PO') return 'Mantener';     /* la tesis vive; se mueven las cifras */
+  if(d==='REBAJA')    return 'Recortar';
+  if(d==='VENDE')     return 'Vender';
+  if(d==='ABIERTA')   return null;           /* una senal recien abierta no ha decidido nada */
   if(d.indexOf('PTE')>=0||d.indexOf('REVIS')>=0) return null;
   if(d.indexOf('VENDER')>=0) return 'Vender';
   if(d.indexOf('RECORTAR')>=0) return 'Recortar';
   if(d.indexOf('SIN CAMBIOS')>=0) return 'Reafirmar';
   if(d.indexOf('MANTENER')>=0) return 'Mantener';
   return 'Mantener'; }
+/* ===== Importar del §10.5 lo que merece estar aqui  ·  [28-jul-2026] =====
+   Mis Decisiones solo se llenaba desde la app, y preguntando: si el apunte lo escribia el metodo
+   en el Excel —como la Nota de Amadeus del 28-jul— aqui no aparecia nunca.
+
+   Pero NO entra todo. Esta vista tiene disparadores y deteccion de invalidacion: un apunte de
+   «seguir en ordinario» del monitor no lleva disparadores, no puede invalidarse nunca, y once de
+   los catorce apuntes que habia eran de ese tipo. Meterlos diluye justo lo que la hace util.
+
+   Entra lo que tuvo DELIBERACION detras o lo que CAMBIO algo:
+     · la senal tiene Nota de Revision emitida (`notaEmitida` en el puente), o
+     · la decision es AJUSTA PO / REBAJA / VENDE.
+   Lo demas se queda en el §10.5, que es su sitio, y se ve en la Ficha. */
+var DI_105_CAMBIAN = {'AJUSTA PO':1, 'REBAJA':1, 'VENDE':1};
+
+function _di105ConNota(tk, senal){
+  /* ¿hay una senal de ese codigo con Nota emitida en el puente? */
+  if(typeof revisionesCorpDe!=='function' || typeof _hallazgosEmp==='undefined')return false;
+  var e=(_hallazgosEmp||{})[_diUp(tk)]||{};
+  return (e.hallazgos||[]).some(function(h){
+    return h && h.tipo==='senal' && h.notaEmitida
+        && _diUp(h.codigo)===_diUp(senal).replace(/\.$/,'');
+  });
+}
+function _di105Clave(tk, a){ return _diUp(tk)+'|'+(a.fecha||'')+'|'+_diUp(a.senal); }
+
+function diarioImportar105(){
+  if(typeof revisionesCorpDe!=='function' || typeof _hallazgosEmp==='undefined' || !_hallazgosEmp)return 0;
+  DB.diario=DB.diario||[];
+  var ya={};
+  DB.diario.forEach(function(e){ if(e && e.origen105) ya[e.origen105]=1; });
+  var n=0;
+  Object.keys(_hallazgosEmp).forEach(function(tk){
+    var filas=((_hallazgosEmp[tk]||{}).revisiones)||[];
+    filas.forEach(function(a){
+      if(!a || !a.senal || !a.decision)return;
+      var dec=_diUp(a.decision).trim();
+      if(!(DI_105_CAMBIAN[dec] || _di105ConNota(tk, a.senal)))return;
+      var tipo=_diTipoProto(a.decision); if(!tipo)return;
+      var cl=_di105Clave(tk, a); if(ya[cl])return;
+      ya[cl]=1; n++;
+      DB.diario.push({
+        id:'d105'+Math.random().toString(36).slice(2,9),
+        fecha:_di105Fecha(a.fecha), ticker:_diUp(tk), tipo:tipo,
+        precio:_diNum((''+(a.cot||'')).replace(',','.'))||_diPrecio(tk),
+        importe:0,
+        porque:(a.motivo||''),
+        catalizador:'',
+        /* La condicion de invalidacion no se inventa: el §10.5 no la lleva. Se deja vacia y la
+           entrada vive sin disparadores, que es honesto — no fingir un seguimiento que no hay. */
+        invalidacion:'',
+        trigs:[], ctx:_diCtx(tk), estado:'abierta',
+        origen105:cl, senal105:(a.senal||'')
+      });
+    });
+  });
+  if(n && typeof scheduleSave==='function')scheduleSave();
+  return n;
+}
+/* El §10.5 guarda «28-jul-2026»; el diario ordena por ISO. */
+var _DI_MES={ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'};
+function _di105Fecha(f){
+  var m=(''+(f||'')).trim().toLowerCase().match(/^(\d{1,2})-([a-z]{3})-(\d{4})$/);
+  if(!m)return (''+(f||'')).slice(0,10)||_diHoy();
+  var mm=_DI_MES[m[2]]; if(!mm)return _diHoy();
+  return m[3]+'-'+mm+'-'+(m[1].length<2?'0'+m[1]:m[1]);
+}
+
 function diarioDesdeProtocolo(t,decision,precio,fecha,motivo){
   t=_diUp(t); if(!t)return; var tipo=_diTipoProto(decision); if(!tipo)return;
   try{ if(confirm('Apunte del Protocolo registrado. ¿Anotar la decisión en Mis Decisiones?')){ diarioNuevo(t,tipo,{precio:_diNum(precio),fecha:fecha||_diHoy(),porque:motivo||''}); } }catch(e){}

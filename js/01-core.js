@@ -365,7 +365,16 @@ function cargarAlertasCorp(){
       return true;
     })
     .then(function(ok){
-      if(ok){ _repintarAvisos(); return _alertasCorp; }
+      if(ok){
+        /* [28-jul-2026] Con el puente ya cargado, Mis Decisiones se pone al dia con el §10.5
+           sin preguntar. Es idempotente: cada apunte lleva su clave `origen105` y no se
+           duplica por mucho que se recargue. */
+        try{ if(typeof diarioImportar105==='function'){
+          var _n=diarioImportar105();
+          if(_n && typeof renderDiario==='function' && document.getElementById('view-diario')) renderDiario();
+        } }catch(e){}
+        _repintarAvisos(); return _alertasCorp;
+      }
       /* Caida a alertas.json: mientras dure la transicion la app sigue funcionando
          exactamente igual que antes si hallazgos.json aun no esta publicado. */
       return fetch('alertas.json',{cache:'no-store'})
