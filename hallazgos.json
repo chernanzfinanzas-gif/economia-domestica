@@ -256,9 +256,9 @@
         {
           "id": "S2-2026-07-27",
           "abiertoEl": "2026-07-27",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-28",
+          "desenlace": "REAFIRMAR TESIS. El gatillo (RPK mundial IATA −3,4% abr-2026 y −2,2% may-2026) es un PROXY sectorial, no la métrica del umbral: ex-Oriente Medio la demanda creció los dos meses (+1,2% y +0,7%) y la región que causa la caída ya remonta (−46,6% → −28,4%). La métrica propia crece (pasajeros embarcados Q1-2026: 518,5 M, +3,1%), el guidance 2026 sigue intacto y la cadena de consecuencias del pre-mortem nº1 no ha empezado. Sin cambios: COMPRAR, PO 74 €, banda 45-55 €, stop 30 €; no se toca el AMS.json. Acción: no ejecutar el siguiente escalón de entrada hasta el Q2/1S-2026 del 31-jul-2026, que da a la vez la métrica literal del §8.1-R2 y el 2º trimestre de reservas del §8.1-R1 (Q1-2026: 128,0 M, −0,2%, primera pata de dos). Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Amadeus (S2).html",
           "resumen": "Informe semanal 2026-07-27: el RPK mundial de IATA cae −3,4% interanual en abril-2026 y −2,2% en mayo-2026 — dos meses consecutivos de caída, que es literalmente la señal de alarma del §8.1 R1 (tráfico aéreo) y la señal de salida temprana del pre-mortem nº1 «Shock aéreo global 2.0». Causa: guerra de Oriente Medio; ex-Oriente Medio, mayo fue +0,7%.",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -269,7 +269,7 @@
           "exigeAccion": true,
           "codigo": "S2",
           "vencePlazoEl": "2026-08-03",
-          "notaEmitida": false
+          "notaEmitida": true
         },
         {
           "id": "soc-otro",
@@ -704,19 +704,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 30,
+    "hallazgosActivos": 29,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
       "concurso": 1,
       "otro": 7,
-      "senal": 2,
+      "senal": 1,
       "sancion": 1,
       "litigio": 1
     },
-    "exigenAccion": 2,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 9,
+    "situacionesAbiertas": 8,
     "hechosCaducadosHoy": 0
   }
 }
