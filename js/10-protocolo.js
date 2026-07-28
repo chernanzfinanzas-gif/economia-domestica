@@ -129,8 +129,14 @@ function _protoFilaExcel(ap){
    la selección son las diez de la combinación.
    La solución es que el portapapeles tenga EXACTAMENTE ese tamaño: el motivo seguido de nueve
    tabuladores. Entonces el rango pegado es E:N, coincide con la combinación, y entra sin diálogo.
-   Si algún libro tuviera otra anchura de combinación, el modo edición (doble clic en la celda y
-   pegar dentro) sigue funcionando siempre — por eso el aviso lo sigue diciendo. */
+
+   [28-jul-2026 · EL PRECIO DE ESTO, MEDIDO] Pegar diez celdas sobre la combinación **la separa**:
+   hay que volver a combinar E:N en cada apunte. Se comprobó sobre un caso real (Logista, fila 95)
+   que la combinación rehecha conserva relleno `FFFFF2CC`, los cuatro bordes, el ajuste de texto,
+   la fuente y los bordes de F..N; solo cambia la alineación vertical, que es cosmética. Carlos
+   prefiere recombinar antes que el diálogo, así que se queda.
+   La vía que NO separa nada es el modo edición: doble clic en la celda (o F2) y pegar DENTRO —
+   escribes en la celda en vez de pegar un rango sobre ella. Las dos están dichas en la tarjeta. */
 var PROTO_MOTIVO_COLS = 10;          /* E..N */
 function _protoMotivoExcel(ap){
   var m=(ap.motivo==null?'':(''+ap.motivo).replace(/[\t\r\n]+/g,' ').trim());
@@ -155,8 +161,9 @@ function _protoCopiarFila(ap, btn){
     }else{
       btn.dataset.pcpaso='1';
       btn.textContent='✓ 2/2';
-      btn.title='Motivo copiado con el ancho exacto de la celda combinada (E:N). Clic en su celda y pega. '
-              + 'Si aun así se queja, doble clic (o F2) y pega dentro.';
+      btn.title='Motivo copiado con el ancho exacto de la combinación E:N. Clic en su celda y pega — sin avisos, '
+              + 'pero Excel separa la combinación y hay que rehacerla. Si prefieres no recombinar: doble clic (o F2) '
+              + 'y pega dentro, que no la toca.';
       var _orig=(btn.id==='paCopy')?'📋 1/2 Fecha·Señal·Cotiz.·Decisión':'📋';
       setTimeout(function(){ btn.textContent=_orig; btn.title=_PROTO_TIT_COPIA; },2200);
     }
@@ -252,7 +259,8 @@ function protoApunteForm(sig, ticker){
          <label>Empresa<select id="paTicker" class="anaInp">${optT||'<option value="">—</option>'}</select></label>
          <label>Señal<select id="paSig" class="anaInp">${optS}</select></label>
          <label>Fecha<input type="date" id="paFecha" value="${hoy}"></label>
-         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre}"></label>
+         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre}">
+           <span style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4">Precio de la <b>app</b>, el de hoy. Es el que manda en un apunte que nace aquí — <span title="S1 stop tocado · S3 precio objetivo alcanzado">S1 y S3 son señales de precio</span> y las detecta la app, no el método. Los apuntes que escribe el método llevan el de la <b>Matriz</b>.</span></label>
          <label>Decisión<select id="paDec" class="anaInp">${optD}</select>
            <span id="paDecAyuda" style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"></span></label>
          <label id="paLimWrap">Fecha límite (si Pte.)<input type="date" id="paLim" value="${lim}"></label>
@@ -358,7 +366,8 @@ function protoRegHTML(t){
     <div class="sub" style="margin:10px 0 6px"><b>✏️ Borradores sin pasar al Excel.</b> Se escriben aquí, se copia la fila con <b>📋</b> y se pega en el §10.5. Cuando el puente los recoja, subirán al bloque de arriba solos.</div>
     <div class="sub" style="margin:-2px 0 8px;font-size:11.5px;color:#64748b;background:#f8fafc;border-left:3px solid #cbd5e1;border-radius:0 6px 6px 0;padding:6px 9px">
       <b>Cómo se pega:</b> el <b>📋</b> copia en dos pasos. <b>1)</b> las cuatro columnas simples → clic en la celda de la <b>Fecha</b> y pegar. <b>2)</b> el <b>Motivo</b> → clic en su celda y pegar.
-      <span style="opacity:.8">El motivo se copia con el ancho exacto de la celda combinada <code>E:N</code>, así que entra sin avisos. Si algún libro se quejara, <b>doble clic</b> en la celda (o <code>F2</code>) y pegar <b>dentro</b>: en modo edición entra siempre.</span>
+      <span style="opacity:.8">El motivo se copia con el ancho exacto de la celda combinada <code>E:N</code>, así que entra sin avisos — pero al pegar diez celdas sobre ella <b>Excel la separa</b>: hay que <b>volver a combinar E:N</b> después. Comprobado que la combinación rehecha conserva relleno, bordes y ajuste de texto.<br>
+      La alternativa, si prefieres no recombinar: <b>doble clic</b> en la celda (o <code>F2</code>) y pegar <b>dentro</b>. En modo edición no se separa nada, porque escribes en la celda en vez de pegar un rango sobre ella.</span>
     </div>
     <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
   </div>`;
