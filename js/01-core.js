@@ -431,6 +431,20 @@ function _diasHasta(iso){
     return Math.round((d-hoy)/86400000);
   }catch(e){ return null; }
 }
+/* Fecha legible: 2026-08-15 -> 15-ago-2026. Mismo formato que el §10.5 del Excel. */
+var _MES_CORTO=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+function _fechaCorta(iso){
+  var m=(''+(iso||'')).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? ((+m[3])+'-'+_MES_CORTO[(+m[2])-1]+'-'+m[1]) : (''+(iso||''));
+}
+/* Cuando caduca este aviso, si es que caduca. Una SITUACION no lleva nada: vive hasta que
+   alguien la cierra, y poner "caduca: —" solo seria ruido. Las senales tampoco, porque ya
+   muestran su propio reloj de plazo unas lineas mas abajo. */
+function _caducidadTxt(h){
+  if(h.naturaleza==='hecho'&&h.caducaEl)   return 'caduca: '+_fechaCorta(h.caducaEl);
+  if(h.naturaleza==='estado'&&h.vigenteHasta) return 'caduca: '+_fechaCorta(h.vigenteHasta);
+  return '';
+}
 /* Abre Claude Cowork en la carpeta del metodo con la orden de la Nota ya escrita.
    El aviso sabe de que empresa es, asi que el nombre viaja dentro y no hay que teclearlo. */
 function _notaRevHref(t){
@@ -462,7 +476,9 @@ function _alcorpBanner(t,h){
     : '';
   return '<div class="alcorp-banner" data-alcorp="'+_radEsc(t)+'" style="background:'+col.bg+';border-color:'+col.bd+'">'
     +'<div class="h" style="color:'+col.tx+'">'+ico+' <b>'+_radEsc(_alcorpEtiqueta(h))+'</b>'
-    +(h.fecha?' · <span class="f">'+_radEsc(h.fecha)+'</span>':'')+reloj+'</div>'
+    +(h.fecha?' · <span class="f">'+_radEsc(_fechaCorta(h.fecha))
+        +(_caducidadTxt(h)?' <span style="opacity:.75">('+_radEsc(_caducidadTxt(h))+')</span>':'')
+        +'</span>':'')+reloj+'</div>'
     +'<div class="r">'+_radEsc(h.resumen||'')+'</div>'
     +(h.fuente?'<a href="'+h.fuente+'" target="_blank" rel="noopener" class="s">Fuente ↗</a>':'')
     +accion+'</div>';
