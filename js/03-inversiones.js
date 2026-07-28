@@ -592,14 +592,6 @@ document.addEventListener('keydown',e=>{
 function renderFicha(t){
   fichaTicker=(t||'').toUpperCase();
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
-  /* [27-jul-2026] «Historia y salud del dividendo» se dibuja con dividendos.json (_evoData). Si la
-     ficha se abre antes de que ese fichero (medio mega) haya bajado, la caja salía vacía con el
-     «Sin histórico de dividendo», mientras la Ficha de Tesis —que se pinta después— sí lo tenía.
-     Mismo patrón que el Panel y el Kanban: se carga y se repinta la ficha una vez. */
-  if(typeof _evoData!=='undefined' && !_evoData && typeof _evoCargar==='function' && !renderFicha._evoLoad){
-    renderFicha._evoLoad=true;
-    try{ Promise.resolve(_evoCargar()).then(function(){ if(fichaTicker) renderFicha(fichaTicker); }).catch(function(){}); }catch(e){}
-  }
   const _alertaBanner=(typeof alertaCorpBadge==='function')?alertaCorpBadge(fichaTicker,false):'';
   ((DB.dividendos||{})[fichaTicker]||[]).forEach(x=>{ if(!x.id) x.id='d'+Math.random().toString(36).slice(2,9); });
   const f=fichaCalc(fichaTicker);
@@ -692,11 +684,28 @@ function renderFicha(t){
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
-  const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker]):'';
+  /* [27-jul-2026] «Historia y salud del dividendo» se dibuja con dividendos.json (_evoData). Si la
+     ficha se abre antes de que ese fichero (medio mega) haya bajado, la caja salía vacía con el
+     «Sin histórico de dividendo», mientras la Ficha de Tesis —que se pinta después— sí lo tenía.
+     Mismo patrón que el Panel y el Kanban: se carga y se repinta la ficha una vez. */
+  if(typeof _evoData!=='undefined' && !_evoData && typeof _evoCargar==='function' && !renderFicha._evoLoad){
+    renderFicha._evoLoad=true;
+    try{ Promise.resolve(_evoCargar()).then(function(){ if(fichaTicker) renderFicha(fichaTicker); }).catch(function(){}); }catch(e){}
+  }
+  const hechosCard=(typeof hechosCardHTML==='function')?hechosCardHTML(_trimCache[fichaTicker],fichaTicker):'';
   const protoCard=(typeof protoRegHTML==='function')?protoRegHTML(fichaTicker):'';
   const calibCard=(typeof calibFichaHTML==='function')?calibFichaHTML(fichaTicker):'';
   const _fv=$('#fichaView');
-  _fv.innerHTML=_fichaDockHTML(f.t,f.nombre,{precio:f.precioActual,dec:_dec,doss:_duF,dossFecha:_ana.dossierFecha,dossM:_mmV})+header+_alertaBanner+(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard+((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')+chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;
+  /* [28-jul-2026] El rango plegable va acotado por un contenedor propio en vez de por posicion:
+     asi el plegador sabe exactamente donde empieza y donde acaba, y anadir una tarjeta nueva
+     mas abajo (grafico, historico, lotes, dividendos) no la convierte en plegable sin querer. */
+  _fv.innerHTML=_fichaDockHTML(f.t,f.nombre,{precio:f.precioActual,dec:_dec,doss:_duF,dossFecha:_ana.dossierFecha,dossM:_mmV})+header+_alertaBanner
+    +'<div id="fichaPlegables">'
+      +(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard
+      +((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')
+    +'</div>'
+    +chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;
+  if(typeof _fichaPlegables==='function')_fichaPlegables();
   _fv.style.paddingTop=FICHA_DOCK_H+'px';                     // el contenido arranca bajo la barra flotante
   const _dk=document.getElementById('fichaDock'); if(_dk)_dk.classList.toggle('on',window.pageYOffset>4);
   document.title='Ficha '+f.t;
@@ -1257,6 +1266,84 @@ function _fiscalPorAnio(){
 }
 
 
+/* ===== Paneles plegables de la Ficha  ·  [28-jul-2026] =====
+   La Ficha habia crecido hasta seis tarjetas seguidas antes de llegar al precio, y entrar a
+   mirar la banda de entrada obligaba a bajar por todo el expediente. Ahora las del rango
+   «Resumen del dossier … Precio y niveles» se pliegan.
+
+   Se hace en una PASADA sobre el DOM ya pintado, no tocando las seis funciones que generan las
+   tarjetas: todas comparten la misma forma —un `.card` cuyo primer hijo es la fila de titulo—,
+   asi que el plegador la usa de tirador y envuelve el resto. Una tarjeta nueva que respete esa
+   forma se vuelve plegable sola, sin tocar nada aqui.
+
+   El estado se guarda en DB (no en el navegador) para que viaje con el resto de los datos:
+   pliegas el Monitor una vez y sigue plegado manana, en todas las fichas y en cualquier equipo. */
+var PLG_ABIERTO_POR_DEFECTO = {'precio-y-niveles':1};
+
+function _plgClave(txt){
+  var t=(''+(txt||''));
+  try{ t=t.normalize('NFD').replace(/[\u0300-\u036f]/g,''); }catch(e){}
+  return t.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase().slice(0,44);
+}
+function _plgCss(){
+  if(document.getElementById('plg-css'))return;
+  var st=document.createElement('style'); st.id='plg-css';
+  st.textContent=[
+   '.plg-h{cursor:pointer;user-select:none;display:flex;align-items:center;gap:8px}',
+   '.plg-h:hover{opacity:.72}',
+   '.plg-h::before{content:"\\25BE";font-size:11px;color:#94a3b8;flex:0 0 auto;transition:transform .15s}',
+   '.plg-off>.plg-h::before{transform:rotate(-90deg)}',
+   '.plg-off>.plg-b{display:none}',
+   '.plg-off>.plg-h{margin-bottom:0!important}'
+  ].join('');
+  document.head.appendChild(st);
+}
+function _plgEstado(){ DB.plegablesFicha=DB.plegablesFicha||{}; return DB.plegablesFicha; }
+
+function _fichaPlegables(){
+  var host=document.getElementById('fichaPlegables'); if(!host)return;
+  _plgCss();
+  var est=_plgEstado();
+  var cards=[].slice.call(host.querySelectorAll('.card'));
+  cards.forEach(function(card){
+    if(card._plg)return;
+    var h=card.firstElementChild;
+    /* La tarjeta de veredicto no tiene fila de titulo (empieza con un <span>): plegarla no
+       significaria nada, y su contenido es una sola linea. Se deja fuera. */
+    if(!h || h.tagName!=='DIV')return;
+    /* El titulo es el PRIMER hijo de la fila, no la fila entera: al lado del titulo van el
+       veredicto, el semaforo o un boton, y meterlos en la clave la haria cambiar cada vez que
+       cambiase el veredicto — el panel se abriria solo, como si nunca lo hubieras plegado. */
+    var titulo=((h.firstElementChild ? h.firstElementChild.textContent : h.textContent)||'').trim();
+    if(!titulo)return;
+    var cl=_plgClave(titulo); if(!cl)return;
+    /* Envolver TODO lo que va detras del titulo. Se MUEVEN los nodos, no se clonan, para no
+       perder los listeners que ya tengan los botones de dentro. */
+    var body=document.createElement('div'); body.className='plg-b';
+    while(h.nextSibling) body.appendChild(h.nextSibling);
+    card.appendChild(body);
+    h.classList.add('plg-h');
+    h.setAttribute('data-plg', cl);
+    h.setAttribute('title','Pulsa para plegar o desplegar este panel');
+    var abierto = (est[cl]!==undefined) ? !!est[cl] : !!PLG_ABIERTO_POR_DEFECTO[cl];
+    card.classList.toggle('plg-off', !abierto);
+    card._plg=1;
+  });
+  if(!host._plgBound){
+    host._plgBound=true;
+    host.addEventListener('click',function(e){
+      /* Un clic en un enlace o un boton de la fila de titulo NO debe plegar el panel. */
+      if(e.target.closest('a,button,input,select,[data-ficha]'))return;
+      var h=e.target.closest('.plg-h'); if(!h||!host.contains(h))return;
+      var card=h.parentElement, cl=h.getAttribute('data-plg');
+      var cerrar=!card.classList.contains('plg-off');
+      card.classList.toggle('plg-off', cerrar);
+      _plgEstado()[cl]=!cerrar;
+      if(typeof scheduleSave==='function')scheduleSave();
+    });
+  }
+}
+
 /* ===== Monitor trimestral (puente dossiers/trimestral/[TICKER]-trim.json) ===== */
 function _trimEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function _trimFmt(v){ if(typeof v==='number'){ try{ return new Intl.NumberFormat('es-ES',{maximumFractionDigits:2}).format(v); }catch(e){ return ''+v; } } return v==null?'':(''+v); }
@@ -1330,8 +1417,12 @@ function _hkImpDot(imp){
   if(s==='-'||s==='−'||/^(en contra|negativo|neg)$/i.test(s))return '#dc2626';
   return '#94a3b8';
 }
-function hechosCardHTML(d){
+function hechosCardHTML(d,t){
   if(!d||!d.revisiones||!d.revisiones.length)return '';
+  /* El ticker no viajaba hasta aqui; hace falta para el enlace de revision discrecional.
+     Parametro opcional: si no llega, se cae a fichaTicker y, si tampoco, no se pinta enlace. */
+  var _tkH=((t||(typeof fichaTicker!=='undefined'?fichaTicker:''))||'').toUpperCase();
+  if(_tkH && typeof _notaRevDiscHref!=='function') _tkH='';
   var pubs=d.revisiones.filter(function(r){return r&&r.hechos&&r.hechos.length;});
   if(!pubs.length)return '';
   pubs=pubs.slice().sort(function(a,b){return (b.fecha||'').localeCompare(a.fecha||'');});
@@ -1347,6 +1438,10 @@ function hechosCardHTML(d){
         +'<div style="flex:1;min-width:0">'
           +'<div style="font-weight:600">'+chip+_trimEsc(h.hecho)+'</div>'
           +(h.valoracion?'<div style="color:#64748b;font-size:12.5px;margin-top:2px"><b style="color:#334155">Valoración:</b> '+_trimEsc(h.valoracion)+'</div>':'')
+          /* [28-jul-2026] Cada hecho puede ser motivo de una revision discrecional, y el motivo
+             ya esta escrito aqui: viaja dentro del enlace para que la sesion nueva sepa que es
+             lo que se quiere repasar. Discreto a proposito: se usa poco. */
+          +(_tkH?'<div style="margin-top:3px"><a href="'+_notaRevDiscHref(_tkH,(h.tipo?h.tipo+': ':'')+h.hecho+(p.periodo?' ('+p.periodo+')':''))+'" style="font-size:11px;font-weight:600;color:#1d4ed8;text-decoration:none;opacity:.75" title="Abre Claude con una revisión discrecional de esta empresa por ESTE hecho">🔍 revisar la tesis por esto</a></div>':'')
         +'</div></div>';
     }).join('');
     return '<div style="'+(i>0?'border-top:1px dashed #e2e8f0;margin-top:12px;padding-top:12px':'')+'">'
