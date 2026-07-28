@@ -4,7 +4,7 @@
  "empresa": "Fluidra, S.A.",
  "fecha": "2026-07-26",
  "rating": "A",
- "score": 62.8,
+ "score": 62.1,
  "decision": "MANTENER",
  "metodoValoracion": "Síntesis ponderada DCF + múltiplos históricos 10A — industrial cíclica. PO oficial = síntesis §6.5 (25,44 €) con pesos DCF 40 · múltiplos 55 · renta 5 · activos 0, dentro de la banda normada del arquetipo INDUSTRIAL. El bear (13,69 €) NO sale del DCF pesimista solo: es la media de tres anclas independientes —múltiplos en recesión 12,41 €, DCF pesimista 14,14 € y el mínimo real del ciclo ya vivido, el cierre de 2022 en 14,52 €—. El bull (29,73 €) aplica 12,0x EV/EBITDA (por debajo de su media 10A de 12,93x) sobre un EBITDA normalizado de 545 M€.",
  "poBear": 13.69,
@@ -147,5 +147,6 @@
   "veredicto": "PLAUSIBLE",
   "motivo": "El precio solo exige un 1.01% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
   "calculadoEl": "2026-07-27"
- }
+ },
+ "cambiosDesdeUltimaRevision": "Corrección del moat (28-jul-2026): el «Moat competitivo» del §5.3 estaba puntuado 68 de una sola pasada frente al 52,8 que da la descomposición del §7.1 en los cinco tipos de moat. Manda la descomposición. §5.3 67,4 → 63,6 · score global 62,8 → 62,1. El rating sigue siendo A pero por 0,07 puntos sobre el umbral de 62,0, no por 0,8. Sin cambios en PO, banda de entrada, stop ni decisión."
 }
