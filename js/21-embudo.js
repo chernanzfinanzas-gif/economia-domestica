@@ -252,6 +252,41 @@ function _emRow(t){
 }
 
 /* ---------- render ---------- */
+/* [29-jul-2026] La banda «Necesita tu acción» es una tira con scroll horizontal
+   (.em-lanecards, display:flex + overflow:auto). Cada clic en una ficha llama a
+   renderEmbudo(), que rehace la sección entera con `sec.innerHTML = H`: eso destruye
+   los contenedores y con ellos su scrollLeft, así que la tira volvía al principio y
+   la ficha recién desplegada se salía de pantalla justo al desplegarla. Había que
+   volver a buscarla a mano cada vez.
+   Se guarda la posición de cada tira antes de repintar y se restaura después; y si el
+   repintado viene de desplegar una ficha concreta, además se la trae a la vista.
+   Solo se toca el scroll HORIZONTAL de las tiras: la página no se mueve. */
+function _emScrollGuardar(sec){
+  var m=[];
+  try{
+    var l=sec.querySelectorAll('.em-lanecards');
+    for(var i=0;i<l.length;i++) m.push(l[i].scrollLeft||0);
+  }catch(e){}
+  return m;
+}
+function _emScrollRestaurar(sec,m,foco){
+  try{
+    var l=sec.querySelectorAll('.em-lanecards');
+    /* Se restaura por posición. Si el número de tiras ha cambiado (una banda que se
+       vacía y desaparece), no se fuerza nada: mejor quedarse a cero que saltar a una
+       posición que ya no significa lo mismo. */
+    if(m && m.length===l.length){ for(var i=0;i<l.length;i++){ if(m[i]) l[i].scrollLeft=m[i]; } }
+    if(!foco) return;
+    var h=sec.querySelector('[data-emtoggle="'+foco+'"]'); if(!h) return;
+    var card=(h.closest?h.closest('.em-card'):null)||h.parentNode; if(!card) return;
+    var lane=card.parentNode;
+    if(!lane||!lane.className||lane.className.indexOf('em-lanecards')<0) return;
+    var x0=card.offsetLeft, x1=x0+card.offsetWidth, vis=lane.clientWidth;
+    if(card.offsetWidth>=vis) lane.scrollLeft=x0-8;            /* más ancha que la tira: al menos su inicio */
+    else if(x0<lane.scrollLeft) lane.scrollLeft=Math.max(0,x0-8);
+    else if(x1>lane.scrollLeft+vis) lane.scrollLeft=x1-vis+8;
+  }catch(e){}
+}
 function renderEmbudo(){
   /* [C6] Carga los -trim.json de las analizadas y repinta al llegar: sin ellos, _emTrimRojo
      siempre diría que no y el rojo seguiría sin escalar. */
@@ -291,8 +326,10 @@ function renderEmbudo(){
   H+=_emGlosario();
   H+='</div>';
   H+='<button class="em-collapse-all" type="button" data-emcollapseall="1" title="Cerrar todas las fichas (refrescar la vista)">\u21f2 Cerrar fichas</button>';
+  var _emSc=_emScrollGuardar(sec);
   sec.innerHTML=H;
   _emBind(sec);
+  _emScrollRestaurar(sec,_emSc,window._emFoco); window._emFoco=null;
 }
 
 function _emPosPeso(t){ if(typeof invPositions!=='function')return 0; try{ var ps=invPositions(); var tot=0,mine=0; ps.forEach(function(p){ var v=_emNum(p.acciones)*_emNum(p.precioActual); tot+=v; if(_emUp(p.ticker)===_emUp(t))mine+=v; }); return tot>0?mine/tot:0; }catch(e){ return 0; } }
@@ -891,7 +928,7 @@ function _emBind(sec){
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
-    var tg=e.target.closest('[data-emtoggle]'); if(tg){ var tt=_emUp(tg.getAttribute('data-emtoggle')); window._emExp=window._emExp||{}; window._emExp[tt]=!window._emExp[tt]; renderEmbudo(); return; }
+    var tg=e.target.closest('[data-emtoggle]'); if(tg){ var tt=_emUp(tg.getAttribute('data-emtoggle')); window._emExp=window._emExp||{}; window._emExp[tt]=!window._emExp[tt]; window._emFoco=tg.getAttribute('data-emtoggle'); renderEmbudo(); return; }
     var dn=e.target.closest('[data-dnuevo]'); if(dn){ var dp=(dn.getAttribute('data-dnuevo')||'').split('|'); if(typeof diarioNuevo==='function')diarioNuevo(dp[0],dp[1]||''); return; }
     var g=e.target.closest('[data-goto]'); if(g){ var goto=g.dataset.goto; if(g.dataset.sig&&typeof showProtocolo==='function'){ showProtocolo(g.dataset.sig,goto,g.dataset.ticker||''); return; } if(typeof activarVista==='function')activarVista(goto); if(g.getAttribute('data-comprar')){ setTimeout(function(){ var b=document.getElementById('invAddBtn'); if(b)b.click(); var f=document.getElementById('invForm'); if(f)f.scrollIntoView({behavior:'smooth',block:'start'}); },90); } return; }
     var u=e.target.closest('[data-emuni]'); if(u){ u.classList.toggle('open'); return; }
