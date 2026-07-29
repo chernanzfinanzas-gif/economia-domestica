@@ -1,0 +1,247 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AZKOYEN · Nota de Revisión Extraordinaria · Gatillo: semáforo ROJO 1S-2026</title>
+<style>
+:root{--corp:#b0182b;--corp-dark:#7d1020;--corp-light:#fdeaec}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b20;border-radius:10px;padding:13px 17px;margin-bottom:14px}
+.ok-box{background:#f2fbf5;border:1px solid #9ad4b0;border-left:5px solid #2f9e5e;border-radius:10px;padding:13px 17px;margin-bottom:12px}
+.bad-box{background:#fdf2f3;border:1px solid #e8a9b0;border-left:5px solid #c0392b;border-radius:10px;padding:13px 17px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.grid2{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:6px 0 4px}
+th{background:var(--corp-dark);color:#fff;padding:6px 8px;text-align:left;font-weight:700;font-size:11px}
+td{padding:5px 8px;border-bottom:1px solid #edf1f5}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+tr.tot td{font-weight:800;background:#f4f6fa;border-top:2px solid #cbd5e1}
+.pos{color:#16803c;font-weight:700}.neg{color:#c0392b;font-weight:700}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill-v{background:#c6efce;color:#14532d}.pill-a{background:#ffeb9c;color:#713f12}.pill-r{background:#ffc7ce;color:#7f1d1d}
+.foot{font-size:10.5px;color:#64748b;margin-top:1.4rem;border-top:1px solid #e2e8f0;padding-top:9px;line-height:1.7}
+ul.bt{margin:.2rem 0 .7rem 1.1rem}ul.bt li{font-size:12.5px;line-height:1.7;color:#2d3748;margin-bottom:5px}
+.dec{background:linear-gradient(135deg,var(--corp-dark),var(--corp));color:#fff;border-radius:12px;padding:18px 22px;margin-top:10px}
+.dec h3{font-size:19px;margin-bottom:8px}
+.dec p{font-size:12.5px;line-height:1.75;color:rgba(255,255,255,.94);margin-bottom:8px;text-align:justify}
+.dec b{color:#ffd9a0}
+</style></head><body><div class="wrap">
+<div class="header"><div class="header-top"><div class="header-left">
+<div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+<div class="company-name">Azkoyen, S.A.</div>
+<div class="badges">
+ <span class="badge badge-alert">S2 · Tesis en revisión</span>
+ <span class="badge badge-sig">Gatillo: semáforo ROJO 1S-2026</span>
+ <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+ <span class="badge badge-soft">OPA viva a 10 €</span>
+</div></div>
+<div class="header-right"><div class="hr-firm">Carlos HB &amp; Claude IA</div>
+<div class="hr-meta">AZK · Bolsa de Madrid (AZK.MC)<br>Fecha: 29 de julio de 2026<br>Plazo señal: 7 días — vence el 5-ago-2026</div></div></div>
+<div class="kpi-grid">
+ <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val amber">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+ <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">ESPERAR</div><div class="kpi-sub">otro motivo · ver §⑤</div></div>
+ <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">13,28 €</div><div class="kpi-sub">sin cambios · bear 11,73 · bull 22,79</div></div>
+ <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">10,55 €</div><div class="kpi-sub">29-jul · OPA a 10,00 €</div></div>
+ <div class="kpi"><div class="kpi-label">Margen explotación</div><div class="kpi-val red">9,6%</div><div class="kpi-sub">1S-2025: 12,7%</div></div>
+ <div class="kpi"><div class="kpi-label">Margen bruto</div><div class="kpi-val green">66,1%</div><div class="kpi-sub">alarma §8.1 R2: &lt; 60%</div></div>
+</div></div>
+<div class="section-title">① Qué disparó la señal S2</div>
+<div class="trigger-box"><p class="bt">El monitor trimestral del <b>1S-2026</b>, cerrado el 29-jul-2026, puso el
+semáforo del §10.3 en <b>ROJO</b> por primera vez en toda la serie. El motivo no es una caída de ventas —los ingresos son
+récord, <b>108,91 M€, +6,2%</b>— sino que el <b>resultado de explotación cae un 19,3%</b> (12,98 → 10,47 M€) y el margen
+se hunde de <b>12,7% a 9,6%</b>, con el beneficio atribuible un <b>−20,4%</b>. Es apalancamiento operativo en negativo:
+se vende más y se gana menos.</p>
+<p class="bt">La pregunta que abre el protocolo, y que esta nota tiene que cerrar en 7 días, es exactamente esta:
+<b>¿la compresión de márgenes es puntual o estructural?</b> Y hay una razón para no despacharla: el 24-jul-2026 Ohmnia
+Electronics lanzó una <b>OPA a 10 €/acción</b>, un 25% por debajo del precio objetivo de 13,28 €. Si el deterioro es
+estructural, el PO deja de ser el listón; si es puntual, aceptar 10 € sería regalar valor.</p></div>
+<div class="card"><div class="card-title">El margen del semestre en su serie</div>
+<table><thead><tr><th>Periodo</th><th class="n">Ingresos (M€)</th><th class="n">Rtdo. expl. (M€)</th>
+<th class="n">Margen expl.</th><th class="n">Bº atrib. (M€)</th><th>Semáforo</th></tr></thead><tbody>
+<tr><td>S1-2023</td><td class="n">99,56</td><td class="n">12,96</td><td class="n">13,0%</td><td class="n">8,86</td><td><span class="pill pill-v">Verde</span></td></tr>
+<tr><td>S1-2024</td><td class="n">100,46</td><td class="n">12,24</td><td class="n">12,2%</td><td class="n">8,46</td><td><span class="pill pill-a">Ámbar</span></td></tr>
+<tr><td>S1-2025</td><td class="n">102,53</td><td class="n">12,98</td><td class="n">12,7%</td><td class="n">9,11</td><td><span class="pill pill-v">Verde</span></td></tr>
+<tr class="tot"><td>S1-2026</td><td class="n">108,91</td><td class="n">10,47</td><td class="n neg">9,6%</td><td class="n">7,25</td><td><span class="pill pill-r">Rojo</span></td></tr>
+</tbody></table>
+<p class="bt" style="font-size:12px;margin-top:4px">Cuatro semestres en una banda de 12,2–13,0% y una salida por abajo de
+más de tres puntos. No es ruido de redondeo: es el mayor retroceso de margen de la serie que registra el expediente.</p></div>
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<p class="bt">La respuesta corta es que <b>el margen no se ha perdido donde el expediente temía que se perdiera</b>.
+El §8.1 y el §8.2 de Azkoyen vigilan dos cosas: que el efectivo se desplome (y con él el segmento de medios de pago) y que
+el margen bruto se hunda por debajo del 60% por presión competitiva. <b>Ninguna de las dos ha pasado.</b> Lo que ha pasado
+es más prosaico y, según cómo se mire, más difícil de arreglar: los <b>costes fijos crecen al doble que los ingresos</b>.</p>
+<div class="card"><div class="card-title">Puente del resultado de explotación · 1S-2025 → 1S-2026 (miles €)</div>
+<table><thead><tr><th>Concepto</th><th class="n">1S-2026</th><th class="n">1S-2025</th><th class="n">Variación</th><th class="n">%</th></tr></thead><tbody>
+<tr><td>Importe neto de la cifra de negocios</td><td class="n">108.913</td><td class="n">102.534</td><td class="n pos">+6.379</td><td class="n pos">+6,2%</td></tr>
+<tr><td>Margen bruto <i>(INCN + existencias + trabajos − aprovisionamientos)</i></td><td class="n">71.969</td><td class="n">68.948</td><td class="n pos">+3.021</td><td class="n pos">+4,4%</td></tr>
+<tr><td>&nbsp;&nbsp;<i>margen bruto sobre ventas</i></td><td class="n">66,1%</td><td class="n">67,2%</td><td class="n">−1,2 pp</td><td class="n">—</td></tr>
+<tr><td>Otros ingresos de explotación</td><td class="n">1.682</td><td class="n">1.550</td><td class="n pos">+132</td><td class="n">+8,5%</td></tr>
+<tr><td><b>Gastos de personal</b></td><td class="n">−40.581</td><td class="n">−36.675</td><td class="n neg">−3.906</td><td class="n neg">+10,7%</td></tr>
+<tr><td><b>Otros gastos de explotación</b></td><td class="n">−18.264</td><td class="n">−16.147</td><td class="n neg">−2.117</td><td class="n neg">+13,1%</td></tr>
+<tr><td>Amortización</td><td class="n">−4.369</td><td class="n">−4.737</td><td class="n pos">+368</td><td class="n">−7,8%</td></tr>
+<tr><td>Otros / enajenaciones / subvenciones</td><td class="n">34</td><td class="n">40</td><td class="n">−6</td><td class="n">—</td></tr>
+<tr class="tot"><td>RESULTADO DE EXPLOTACIÓN</td><td class="n">10.471</td><td class="n">12.979</td><td class="n neg">−2.508</td><td class="n neg">−19,3%</td></tr>
+</tbody></table>
+<p class="bt" style="font-size:12px;margin-top:6px">Léase de arriba abajo: <b>el margen bruto APORTA +3,0 M€</b>. Todo el
+retroceso —y más— lo producen dos líneas de coste fijo: personal <b>+3,9 M€</b> y otros gastos de explotación
+<b>+2,1 M€</b>. Con los ingresos creciendo al 6,2%, esas dos partidas crecen al <b>10,7%</b> y al <b>13,1%</b>.</p></div>
+<div class="card"><div class="card-title">El coste de personal, por dentro</div>
+<table><thead><tr><th>Métrica</th><th class="n">1S-2026</th><th class="n">1S-2025</th><th class="n">Variación</th></tr></thead><tbody>
+<tr><td>Gasto de personal (miles €)</td><td class="n">40.581</td><td class="n">36.675</td><td class="n neg">+10,7%</td></tr>
+<tr><td>Plantilla media (nº)</td><td class="n">1.022</td><td class="n">987</td><td class="n">+3,5%</td></tr>
+<tr class="tot"><td>Coste por empleado (miles €/semestre)</td><td class="n">39,71</td><td class="n">37,16</td><td class="n neg">+6,9%</td></tr>
+<tr><td>Ingresos por empleado (miles €/semestre)</td><td class="n">106,6</td><td class="n">103,9</td><td class="n pos">+2,6%</td></tr>
+</tbody></table>
+<p class="bt" style="font-size:12px;margin-top:6px">Este es el dato incómodo. Si el sobrecoste fuera <b>volumen</b>
+—las 35 personas más, la integración de primion AG— se arreglaría solo al madurar la adquisición. Pero la plantilla sube
+un 3,5% y el gasto un 10,7%: <b>el coste por empleado sube un 6,9% mientras el ingreso por empleado sube un 2,6%</b>.
+Dos tercios largos del problema son <b>precio, no volumen</b>. Eso no revierte con el calendario.</p></div>
+<div class="card"><div class="card-title">Por segmentos · resultado antes de impuestos (miles €)</div>
+<table><thead><tr><th>Segmento</th><th class="n">Ingresos 1S-26</th><th class="n">Ingresos 1S-25</th><th class="n">Δ ingresos</th>
+<th class="n">Rtdo. 1S-26</th><th class="n">Rtdo. 1S-25</th><th class="n">Δ rtdo.</th></tr></thead><tbody>
+<tr><td><b>Payment Technologies</b></td><td class="n">44.706</td><td class="n">37.161</td><td class="n pos">+20,3%</td><td class="n">12.461</td><td class="n">10.329</td><td class="n pos">+2.132</td></tr>
+<tr><td><b>Vending Systems</b></td><td class="n">27.568</td><td class="n">30.455</td><td class="n neg">−9,5%</td><td class="n neg">−1.527</td><td class="n">835</td><td class="n neg">−2.362</td></tr>
+<tr><td><b>Time &amp; Security</b></td><td class="n">36.639</td><td class="n">34.918</td><td class="n pos">+4,9%</td><td class="n">128</td><td class="n">1.145</td><td class="n neg">−1.017</td></tr>
+<tr><td>Unidad Corporativa (holding, nuevo)</td><td class="n">—</td><td class="n">—</td><td class="n">—</td><td class="n neg">−944</td><td class="n">—</td><td class="n neg">−944</td></tr>
+<tr class="tot"><td>TOTAL</td><td class="n">108.913</td><td class="n">102.534</td><td class="n pos">+6,2%</td><td class="n">10.118</td><td class="n">12.309</td><td class="n neg">−2.191</td></tr>
+</tbody></table>
+<p class="bt" style="font-size:12px;margin-top:6px"><b>Aviso de comparabilidad:</b> la «Unidad Corporativa» nace en 2026 tras
+la modificación del objeto social. Los costes de holding que antes se repartían entre los tres segmentos ahora se agrupan
+aquí, así que <b>los resultados POR SEGMENTO de 1S-2025 no son estrictamente comparables</b>. El total consolidado sí lo es,
+y es el que manda.</p></div>
+<div class="grid2">
+<div class="ok-box"><div class="card-title">✓ Argumentos de que es PUNTUAL</div>
+<ul class="bt">
+<li><b>El margen bruto aguanta en 66,1%</b> (67,2% hace un año), muy por encima del umbral del 60% que el §8.1 R2 fija como
+alarma. No hay guerra de precios ni shock de aprovisionamientos: los materiales suben un 6,5%, en línea con las ventas.</li>
+<li><b>Payment crece +20,3% con el margen intacto</b> (27,9% frente a 27,8%). El segmento que soporta el riesgo estructural
+de toda la tesis —el declive del efectivo— es justamente el que tira. La cadena del pre-mortem nº1 no ha empezado siquiera.</li>
+<li><b>Ruido contable identificable:</b> la nueva Unidad Corporativa (−0,9 M€) es reclasificación, no coste nuevo; y
+primion AG se integra el 16-mar-2026, aportando ~3,5 meses de costes contra una fracción de ingresos.</li>
+<li><b>El balance no se ha movido:</b> caja neta bancaria de 19,6 M€ y flujo de caja de explotación de 14,7 M€. El riesgo
+de pérdida permanente sigue siendo bajo, que es lo que decía el §8.2.</li>
+</ul></div>
+<div class="bad-box"><div class="card-title">✗ Argumentos de que es ESTRUCTURAL</div>
+<ul class="bt">
+<li><b>Es coste fijo, y sube al doble que los ingresos.</b> Personal +10,7% y otros gastos +13,1% contra ventas +6,2%.
+Un semestre malo no mueve esas dos líneas: son estructura.</li>
+<li><b>El coste por empleado sube un 6,9%</b> con la plantilla solo un 3,5% arriba. Es precio del factor trabajo, no
+integración: no se corrige con el tiempo, se corrige con precios de venta o con productividad.</li>
+<li><b>Vending entra en pérdidas</b> (−1,5 M€ desde +0,8) con ingresos −9,5%. Es literalmente la primera pata de la señal
+del §8.1 R4 y del pre-mortem nº3.</li>
+<li><b>Time &amp; Security crece un 4,9% y gana un 89% menos</b> (1.145 → 128 mil €). Un segmento que vende más y gana
+casi nada es exactamente el síntoma que describe el R5: escala insuficiente para absorber estructura.</li>
+</ul></div></div>
+<p class="bt"><b>Veredicto del diagnóstico: MIXTO, con el peso del lado estructural — pero no es el deterioro que
+rompe esta tesis.</b> Hay una parte puntual acotada y medible (reclasificación del holding, integración de primion) que
+puede valer en torno a 1 M€ de los 2,5 M€ perdidos. El resto es estructura de costes creciendo por encima de la capacidad
+de repercutirla, y eso no se deshace en el 2S. Ahora bien: el expediente de Azkoyen nunca sostuvo la tesis sobre la
+expansión de márgenes, sino sobre <b>calidad de balance a un precio con margen de seguridad</b>. Lo que este semestre
+compromete no es la calidad del negocio —caja neta, ROIC, Payment creciendo a doble dígito— sino el
+<b>catalizador nº2 del §9.1</b>, que pedía «ingresos &gt; 220 M€ y margen EBITDA ≥ 15% en FY-2026». Con 9,6% de margen de
+explotación al ecuador del año, ese catalizador está en serio riesgo de fallar.</p>
+<div class="section-title">③ Re-chequeo de los bloques afectados (§8.1, §8.2, §9.1, §10.4)</div>
+<div class="card"><table><thead><tr><th>Referencia</th><th>Señal de alarma que fija el expediente</th><th>Lectura 1S-2026</th><th>Estado</th></tr></thead><tbody>
+<tr><td><b>§8.1 R1</b> Disrupción tecnológica</td><td>Caída sostenida (2-3 trim.) de ingresos de Payment</td><td>Payment <b>+20,3%</b>, margen estable</td><td><span class="pill pill-v">No cruzada</span></td></tr>
+<tr><td><b>§8.1 R2</b> Competitivo/operativo</td><td>Margen bruto &lt; 60% de forma sostenida</td><td><b>66,1%</b> (−1,2 pp)</td><td><span class="pill pill-v">No cruzada</span></td></tr>
+<tr><td><b>§8.1 R3</b> Contable</td><td>Impairment adicional de goodwill</td><td>Sin deterioros en el semestre</td><td><span class="pill pill-v">No cruzada</span></td></tr>
+<tr><td><b>§8.1 R4</b> Macroeconómico</td><td>Ingresos de vending negativos 2 trimestres</td><td>Vending <b>−9,5%</b> — primera pata puesta; Azkoyen reporta por semestres, falta el 2S</td><td><span class="pill pill-a">Parcial</span></td></tr>
+<tr><td><b>§8.1 R5</b> Estructural (prob. ALTA)</td><td>Crecimiento &lt; 3% varios años; contracción del PER hacia ~11x</td><td>Ingresos +6,2%; el múltiplo se comprime con la caída del precio (−26% desde los 14,20 € del dossier), que es el mecanismo que describe el riesgo</td><td><span class="pill pill-a">En curso</span></td></tr>
+<tr><td><b>§8.1 R6</b> Gobernanza / M&amp;A</td><td>M&amp;A grande fuera del core + salto de deuda neta</td><td>primion AG por 2,3 M€, dentro del core</td><td><span class="pill pill-v">No cruzada</span></td></tr>
+<tr><td><b>§8.2 nº1</b> El efectivo se desploma</td><td>Payment −2/3 trimestres + recorte de guidance</td><td>Payment creciendo a doble dígito</td><td><span class="pill pill-v">Cadena sin iniciar</span></td></tr>
+<tr><td><b>§8.2 nº2</b> M&amp;A destructiva</td><td>Compra cara fuera del core + salto de deuda</td><td>No aplica</td><td><span class="pill pill-v">Cadena sin iniciar</span></td></tr>
+<tr><td><b>§8.2 nº3</b> Recesión + guerra de precios</td><td>Vending negativo 2 trim. <b>Y</b> margen bruto &lt; 60%</td><td>Primera condición parcial; <b>la segunda no se cumple</b></td><td><span class="pill pill-a">Rota en su 2ª condición</span></td></tr>
+<tr><td><b>§9.1 catalizador nº2</b></td><td>Ingresos &gt; 220 M€ y margen EBITDA ≥ 15% en FY-2026</td><td>Ingresos en camino; <b>margen muy por debajo</b></td><td><span class="pill pill-r">En riesgo de fallar</span></td></tr>
+<tr><td><b>§10.4</b> Profit warning / vending &gt; −15%</td><td>Caída de ingresos de vending superior al 15%</td><td>−9,5%: por debajo del umbral</td><td><span class="pill pill-a">No cruzada, cerca</span></td></tr>
+<tr><td><b>§10.4</b> Cotización &lt; 11,5 €</td><td>Zona de entrada con margen</td><td><b>10,55 €</b> — cruzada, pero ver §④</td><td><span class="pill pill-r">Cruzada</span></td></tr>
+</tbody></table></div>
+<p class="bt"><b>Lo que sale de este cuadro es la clave de la nota:</b> ninguno de los tres pre-mortem tiene su cadena
+en marcha, y el que más se le parece —el nº3— se rompe justo en su segunda condición, porque el margen bruto está en 66,1%
+y no por debajo del 60%. El daño está en la estructura de costes, que es un riesgo que el expediente identificó
+(<b>R5, probabilidad ALTA</b>) pero para el que <b>no fijó una señal de alarma cuantificada</b>. Es un hueco del propio
+método, no un fallo de la vigilancia: la señal de R5 habla del múltiplo y del crecimiento de ingresos, no del crecimiento
+de los costes fijos.</p>
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="trigger-box"><p class="bt">El §10.5 tiene una regla que hoy dispara sola: <b>«Entrada: cot &lt; 11,5 € —
+comprar si tesis y confianza intactas: calidad AA con margen de seguridad»</b>. La cotización es 10,55 €. La regla dice
+comprar. <b>Y hay que no hacerlo</b>, por dos motivos que la propia regla contempla en su letra pequeña.</p>
+<p class="bt"><b>Primero: la condición «tesis y confianza intactas» no se cumple hoy.</b> Es lo que esta misma nota acaba
+de examinar, y la respuesta es que hay un deterioro estructural de costes sin cuantificar y un catalizador del §9.1 en
+riesgo de fallar. La regla no dice «comprar si el precio baja»; dice comprar si baja <i>y</i> la tesis está intacta.</p>
+<p class="bt"><b>Segundo, y más importante: 10,55 € no es un precio de mercado.</b> Es un precio anclado a la OPA de
+Ohmnia a <b>10,00 €</b>, viva desde el 24-jul y calificada de amistosa por el Consejo el 28-jul. Mientras la oferta siga
+en pie, la cotización tiene un <b>suelo blando</b> —nadie vende muy por debajo de 10 €— y un <b>techo duro</b>: para
+capturar el recorrido hasta 13,28 € haría falta que la OPA fracase o que alguien mejore el precio. Comprar a 10,55 €
+esperando el PO es apostar por el fracaso de una operación amistosa, que es una apuesta distinta de la tesis de
+inversión que hay escrita en el expediente.</p>
+<p class="bt">Conviene además mirar el orden de los acontecimientos, porque invita a un relato falso: la acción cayó de
+<b>14,20 € a 12,10 € el 22-jul</b>, es decir <b>antes</b> del anuncio de la OPA, y siguió bajando hasta 11,40 € el día 24.
+La OPA se anunció sobre ese precio ya castigado, un 12% por debajo. No es que la OPA haya hundido la cotización: la
+cotización venía cayendo y la OPA llegó después. Quien lea «la OPA infravalora la empresa» debería sostenerlo con la
+valoración, no con el gráfico.</p>
+<p class="bt" style="margin-bottom:0"><b>Sesgo detectado y neutralizado:</b> el §10.5 avisa de «no anclar la decisión al
+precio de compra». Aquí el ancla es otra, y más sutil: <b>anclarse al PO de 13,28 € como si fuera alcanzable</b> cuando
+existe una oferta en efectivo a 10 € que gobierna el precio. El PO sigue siendo la medida del valor; ha dejado de ser
+la medida del recorrido.</p></div>
+<div class="section-title">⑤ Decisión</div>
+<div class="dec"><h3>REAFIRMAR TESIS con matiz · ESPERAR · PO 13,28 € sin cambios</h3>
+<p><b>La tesis no está rota, pero el motivo del ESPERAR ha cambiado.</b> Hasta hoy se esperaba <i>por precio</i>: un
+negocio de calidad AA cotizando por encima de su valor tras subir un 63%. Hoy se espera <i>por dos incógnitas abiertas</i>:
+si la estructura de costes vuelve a su sitio, y qué pasa con la OPA. Ninguna se resuelve comprando ahora.</p>
+<p><b>Por qué no se rompe:</b> ninguno de los tres pre-mortem del §8.2 tiene su cadena en marcha; el margen bruto se
+mantiene en 66,1%, muy lejos del 60% que marca la alarma; Payment —el segmento sobre el que pesa el riesgo estructural
+de toda la tesis— crece un 20,3% con el margen intacto; y el balance sigue blindado, con caja neta bancaria de 19,6 M€.
+La calidad del negocio no es lo que está en cuestión.</p>
+<p><b>Qué sí se registra como deterioro:</b> el <b>catalizador nº2 del §9.1</b> («ingresos &gt; 220 M€ y margen EBITDA
+≥ 15% en FY-2026») pasa a <b>en riesgo de fallar</b>. Y queda anotado que el §8.1 R5 —el riesgo de probabilidad ALTA del
+expediente— <b>carece de señal de alarma cuantificada</b> sobre costes; la propuesta es añadirla en la Actualización
+Anual: «gastos de personal + otros gastos de explotación creciendo más de 3 pp por encima de los ingresos en dos
+periodos consecutivos».</p>
+<p><b>Sin cambios en los números:</b> PO 13,28 € (bear 11,73 · bull 22,79), banda de entrada 10,50-11,50 €, decisión
+ESPERAR. No se toca el <code>AZK.json</code>. Un semestre no revaloriza una empresa; y revisar el PO en pleno periodo de
+aceptación de una OPA sería exactamente el tipo de anclaje que el §10.5 prohíbe.</p>
+<p><b>Acción concreta:</b> <b>no acudir todavía a la OPA y no comprar en la banda de entrada.</b> La banda queda
+suspendida mientras la oferta esté viva — el precio no lo pone el mercado. Revisar cuando ocurra lo primero de:
+(1) el <b>folleto de la OPA</b> con el informe del Consejo y las condiciones definitivas; (2) el <b>2S-2026</b>, que dirá
+si el coste por empleado sigue subiendo al 7% y si Vending encadena su segundo periodo negativo —eso sí completaría la
+señal del §8.1 R4—; (3) una <b>oferta competidora o una mejora de precio</b>; (4) el desenlace de las autorizaciones de
+competencia en España y Alemania.</p>
+<p style="margin-bottom:0"><b>Sobre la marca de tesis:</b> el monitor del 1S-2026 dejó
+<code>tesisSigueIntacta = false</code> al cerrar en rojo. Tras este análisis se devuelve a <b>true</b>: lo que ha fallado
+es un catalizador y un supuesto de costes, no la tesis. El semáforo del §10.3 se mantiene en <b>ROJO</b> —el margen del
+semestre es el que es— y esa es la señal que debe seguir viéndose.</p></div>
+<div class="foot"><b>Fuentes.</b> Informe Financiero Semestral 1S-2026 de Azkoyen, S.A. remitido a la CNMV
+(fecha de cierre 30/06/2026): cuenta de pérdidas y ganancias consolidada, plantilla media y desglose por segmentos.
+Serie de precios de la Matriz Bolsa Española (cierre del 29-jul-2026: 10,55 €). Hechos societarios del barrido del
+28-jul-2026: OPA de Ohmnia Electronics (24-jul-2026), adquisición de primion AG (16-mar-2026), dividendo de
+1,00 €/acción pagado el 24-jul-2026.<br>
+<b>Método.</b> Nota emitida bajo el Protocolo de Revisión Extraordinaria, señal <b>S2</b> (semáforo trimestral en ROJO),
+abierta el 29-jul-2026 con plazo de 7 días. Re-ejecutados los Bloques 8 (§8.1 matriz de riesgos y §8.2 pre-mortem) y 9
+(§9.1 catalizadores, §9.3 precio objetivo) y aplicado el protocolo anti-anclaje del §10.5. Los importes proceden del
+informe remitido al regulador; no se ha estimado ninguna cifra. Carlos HB &amp; Claude IA · 29 de julio de 2026.</div>
+</div></body></html>
