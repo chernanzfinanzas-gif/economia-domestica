@@ -380,6 +380,82 @@
           "valoracion": "Devolución puntual del exceso de caja; NO es un dividendo ordinario recurrente (payout 141%, RPD 11,5%). RPD normalizada ~4-6%."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-28",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ingresos récord (108,9 M€, +6,2%) y Payment +20,3%, pero el margen de explotación cae de 12,7% a 9,6% y el Bº −20,4%: apalancamiento operativo negativo y sin deterioro puntual que lo explique. Vending entra en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security cae a 0,1 M€. Balance sano (caja neta bancaria 19,6 M€, FCO 14,7 M€), aunque con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado en julio. Rojo por deterioro de márgenes → S2 abierta (7 días).",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 108.91
+        },
+        {
+          "nombre": "Crec. ingresos YoY (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "Ingresos Payment (M€) ⚙",
+          "valor": 44.71
+        },
+        {
+          "nombre": "Rtdo. explotación (M€)",
+          "valor": 10.47
+        },
+        {
+          "nombre": "Margen explotación (%)",
+          "valor": 9.6
+        },
+        {
+          "nombre": "Bº atribuible (M€)",
+          "valor": 7.25
+        },
+        {
+          "nombre": "Crec. Bº YoY (%)",
+          "valor": -20.4
+        },
+        {
+          "nombre": "Deuda neta bancaria (M€)",
+          "valor": -19.64
+        },
+        {
+          "nombre": "Plantilla media (nº) ⚙",
+          "valor": 1022
+        },
+        {
+          "nombre": "DN banc./EBIT (x)",
+          "valor": -0.94
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Gobierno",
+          "hecho": "OPA voluntaria de Ohmnia Electronics (Clerbil/Jainaga, con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) sobre el 100% del capital a 10 €/acción en efectivo, anunciada el 24-jul-2026; el Consejo la calificó de amistosa el 28-jul-2026 tras dar acceso a due diligence en junio. Condicionada a más del 50% de aceptación y a competencia en España y Alemania.",
+          "impacto": "-",
+          "valoracion": "El precio queda un 25% por debajo del PO de 13,28 € y por debajo de tu banda de entrada (10,50-11,50 €). El evento gobierna la cotización: desactiva la lectura normal del red flag «cotización < 11,5 € = zona de entrada». No cambio el PO por la OPA, pero sí condiciona la decisión ESPERAR: la oferta pone un suelo blando y un techo duro mientras siga viva."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra del 100% de primion AG (Tuggen, Suiza) por 2,07 MCHF (~2,3 M€) a través de la filial alemana primion Technology GmbH; cierre efectivo el 16-mar-2026.",
+          "impacto": "+",
+          "valoracion": "Operación pequeña y de encaje claro: refuerza Time & Security en Suiza, que es justamente el segmento hoy más débil en resultado. Irrelevante para el PO por tamaño; aporta algo de coste de integración al semestre."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Dividendo total de 1,00 €/acción (24,4 M€) aprobado el 9-jun-2026 y pagado el 24-jul-2026, íntegramente con cargo a reservas. El año anterior fueron 0,38 €/acción con cargo a resultados.",
+          "impacto": "=",
+          "valoracion": "Devuelve exceso de caja, pero excede el beneficio de 2025 (payout ~141%) y coincide con la emisión de 30 M€ de deuda nueva: pro-forma post-pago el balance queda en deuda neta bancaria de ~+4,8 M€, no en caja neta. NO es renta recurrente — la ordinaria ronda 0,40 €. Checklist B4: 1 predictor blando (b3, caída sostenida de BN) → «vigilar dividendo», sin S2 por esta vía."
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "Tras la modificación del objeto social derivada de la segregación de VPS, el grupo reporta desde 2026 un nuevo segmento «Unidad Corporativa» (holding), con −0,9 M€ de resultado en el semestre.",
+          "impacto": "=",
+          "valoracion": "Reclasificación contable: los costes de holding dejan de repartirse entre segmentos. Explica una parte del retroceso del resultado POR SEGMENTO, pero no del consolidado — el deterioro de margen del grupo es real."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ]
 }
