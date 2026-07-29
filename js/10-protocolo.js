@@ -236,8 +236,15 @@ function showProtocolo(sig, goto, ticker){
 }
 
 /* ---------- Formulario de apunte ---------- */
-function protoApunteForm(sig, ticker){
+function protoApunteForm(sig, ticker, editarId){
+  /* [29-jul-2026] El registro se podía crear y borrar, pero NO editar. Corregir la fecha de un
+     apunte —lo que hace falta para que empareje con su fila del §10.5, que casa por fecha+señal—
+     obligaba a borrarlo y volver a teclear el motivo entero. Ahora `editarId` abre el mismo
+     formulario relleno y al guardar REEMPLAZA ese apunte en vez de añadir otro. */
   sig=(sig||'').toUpperCase(); ticker=(ticker||'').toUpperCase();
+  var _ed=null;
+  if(editarId){ _ed=(((DB.protocolo||{})[ticker])||[]).find(function(x){ return x.id===editarId; })||null;
+    if(_ed){ sig=(_ed.sig||sig||'').toUpperCase(); } }
   const dlg=_protoDlg();
   const p=PROTOCOLO_SENALES[sig]||{color:'#334155',icono:'📋',titulo:'Apunte',dias:7};
   const hoy=_protoHoy();
@@ -245,12 +252,15 @@ function protoApunteForm(sig, ticker){
   const empresas=(DB.analisis||[]).slice().sort((a,b)=>(a.ticker||'').localeCompare(b.ticker||''));
   const optT=empresas.map(a=>{ const t=(a.ticker||'').toUpperCase(); return `<option value="${t}"${t===ticker?' selected':''}>${t}${a.nombre?' — '+_protoEsc(a.nombre):''}</option>`; }).join('');
   const optS=Object.keys(PROTOCOLO_SENALES).map(s=>`<option value="${s}"${s===sig?' selected':''}>${s} — ${PROTOCOLO_SENALES[s].titulo}</option>`).join('');
-  const optD=PROTO_DECISIONES.map(d=>`<option value="${d}">${d}</option>`).join('');
+  const _decPre=(editarId&&(((DB.protocolo||{})[ticker])||[]).find(x=>x.id===editarId)||{}).decision||'';
+  const optD=PROTO_DECISIONES.map(d=>`<option value="${d}"${d===_decPre?' selected':''}>${d}</option>`).join('');
   const cotPre=(function(){ const a=empresas.find(x=>(x.ticker||'').toUpperCase()===ticker); return a?num(a.cotizacion)||'':''; })();
+  const _val=(k,def)=>(_ed&&_ed[k]!=null&&_ed[k]!=='')?_ed[k]:def;
+  const fechaPre=_val('fecha',hoy), cotPre2=_val('cot',cotPre), limPre=_val('limite',lim), motPre=_val('motivo','');
   dlg.innerHTML =
     `<div style="background:${p.color};color:#fff;padding:14px 18px;display:flex;align-items:center;gap:10px">
        <span style="font-size:22px">📝</span>
-       <div style="flex:1"><div style="font-weight:800;font-size:16px">Registrar apunte — señal ${sig}</div>
+       <div style="flex:1"><div style="font-weight:800;font-size:16px">${_ed?'Editar apunte':'Registrar apunte'} — señal ${sig}</div>
        <div style="font-size:12px;opacity:.9">Espejo del registro §10.5 del Excel · el cambio se decide en el método</div></div>
        <button id="protoX" style="background:none;border:none;color:#fff;font-size:20px;cursor:pointer;line-height:1">✕</button>
      </div>
@@ -258,21 +268,21 @@ function protoApunteForm(sig, ticker){
        <div class="patgrid">
          <label>Empresa<select id="paTicker" class="anaInp">${optT||'<option value="">—</option>'}</select></label>
          <label>Señal<select id="paSig" class="anaInp">${optS}</select></label>
-         <label>Fecha<input type="date" id="paFecha" value="${hoy}"></label>
-         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre}">
+         <label>Fecha<input type="date" id="paFecha" value="${fechaPre}"></label>
+         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre2}">
            <span style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"><b>Convención (29-jul-2026): el ÚLTIMO CIERRE CONOCIDO al escribir el apunte</b>, no el cierre del día. Si lo escribes con el mercado abierto, el último cierre es el de la sesión anterior — y ese es el precio que de verdad tenías delante al decidir. La app ya lo rellena así. <span title="S1 stop tocado · S3 precio objetivo alcanzado">S1 y S3 son señales de precio</span> y las detecta la app; los apuntes que escribe el método llevan el mismo criterio, con el precio de la <b>Matriz</b>. Esta cifra no es decorativa: es la vara con la que después se mide si la decisión acertó.</span></label>
          <label>Decisión<select id="paDec" class="anaInp">${optD}</select>
            <span id="paDecAyuda" style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"></span></label>
-         <label id="paLimWrap">Fecha límite (si Pte.)<input type="date" id="paLim" value="${lim}"></label>
+         <label id="paLimWrap">Fecha límite (si Pte.)<input type="date" id="paLim" value="${limPre}"></label>
        </div>
        <label style="display:block;margin-top:8px;font-size:12px;color:#475569">Motivo (1–3 líneas: por qué se decide esto)
-         <textarea id="paMotivo" rows="3" style="width:100%;box-sizing:border-box;margin-top:4px;font-size:13px;padding:6px;border:1px solid #cbd5e1;border-radius:6px"></textarea></label>
+         <textarea id="paMotivo" rows="3" style="width:100%;box-sizing:border-box;margin-top:4px;font-size:13px;padding:6px;border:1px solid #cbd5e1;border-radius:6px">${_protoEsc(motPre)}</textarea></label>
        <div style="margin-top:8px;font-size:11.5px;color:#78350f;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px">Al guardar, la fila queda <b>copiada en el portapapeles</b>: pégala directamente en el registro §10.5 del Excel (Vigilancia) con Ctrl+V. El <b>doble registro</b> sigue siendo obligatorio — el §10.5 es el que manda.</div>
      </div>
      <div style="padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #e2e8f0">
        <button class="btn ghost sm" id="paBack">← Volver</button>
        <button class="btn ghost sm" id="paCopy" data-pcpaso="1" title="Copia para el §10.5 en dos pasos, porque la columna Motivo es una celda combinada y no admite pegado en bloque. 1) las cuatro primeras columnas → se pegan en la Fecha (columna A). 2) el Motivo → se pega en la columna E.">📋 1/2 Fecha·Señal·Cotiz.·Decisión</button>
-       <button class="btn sm" id="paSave" style="background:${p.color};border-color:${p.color}">Guardar apunte</button>
+       <button class="btn sm" id="paSave" style="background:${p.color};border-color:${p.color}">${_ed?'Guardar cambios':'Guardar apunte'}</button>
      </div>`;
   dlg.querySelector('#protoX').onclick=()=>dlg.close();
   /* Las cuatro etiquetas son terse a proposito —van a una celda del Excel—, asi que debajo se
@@ -303,7 +313,13 @@ function protoApunteForm(sig, ticker){
        cuatro columnas simples, que es lo que se pega primero. El motivo se copia con el boton
        de la fila cuando toque — y el aviso lo dice, para no dejarlo a medias sin avisar. */
     try{ _protoCopiarFila(ap); }catch(e){}
-    DB.protocolo=DB.protocolo||{}; (DB.protocolo[t]=DB.protocolo[t]||[]).push(ap);
+    DB.protocolo=DB.protocolo||{}; DB.protocolo[t]=DB.protocolo[t]||[];
+    if(_ed){ ap.id=_ed.id;
+      /* Si al editar se cambia de empresa, el apunte se va con ella y no queda un duplicado atrás. */
+      Object.keys(DB.protocolo).forEach(function(k){ DB.protocolo[k]=(DB.protocolo[k]||[]).filter(function(x){ return x.id!==_ed.id; }); });
+      DB.protocolo[t]=DB.protocolo[t]||[];
+    }
+    DB.protocolo[t].push(ap);
     DB.protocolo[t].sort((x,y)=>(y.fecha||'').localeCompare(x.fecha||''));
     if(typeof saveNow==='function')saveNow();
     dlg.close();
@@ -351,7 +367,7 @@ function protoRegHTML(t){
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
       <td>${chip}${silChip}</td>
       <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
-      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" data-pcpaso="1" title="${_PROTO_TIT_COPIA}">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
+      <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" data-pcpaso="1" title="${_PROTO_TIT_COPIA}">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protoedit="${t}|${a.id}" title="Editar el apunte (fecha, cotización, decisión o motivo)">✏️</button><button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
     </tr>`;
   }).join('');
   const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Ninguno pendiente de pasar al Excel. Los borradores se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
@@ -462,6 +478,8 @@ document.addEventListener('click',e=>{
   if(rs){ const a=(rs.dataset.protoresolve||'').split('|'); const arr=(DB.protocolo||{})[a[0]]||[]; const ap=arr.find(x=>x.id===a[1]);
     if(ap){ const m=prompt('Desenlace (se añade al motivo):',''); if(m===null)return; ap.estado='resuelta'; if(m.trim())ap.motivo=(ap.motivo?ap.motivo+' → ':'')+m.trim(); ap.resuelto=_protoHoy();
       if(typeof saveNow==='function')saveNow(); if(typeof renderPanelDash==='function')renderPanelDash(); if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } return; }
+  const ed=e.target.closest&&e.target.closest('[data-protoedit]');
+  if(ed){ const a=(ed.dataset.protoedit||'').split('|'); protoApunteForm('', a[0], a[1]); return; }
   const del=e.target.closest&&e.target.closest('[data-protodel]');
   if(del){ const a=(del.dataset.protodel||'').split('|'); if(DB.protocolo&&DB.protocolo[a[0]]){ const _it=(DB.protocolo[a[0]]||[]).find(x=>x.id===a[1]); if(!_it)return;
     if(typeof undoableDelete==='function'){ undoableDelete('protocolo','Apunte de protocolo '+a[0],{t:a[0],item:_it},()=>{ DB.protocolo[a[0]]=DB.protocolo[a[0]].filter(x=>x.id!==a[1]); },['renderPanelDash']); }
