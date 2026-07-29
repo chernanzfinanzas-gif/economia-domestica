@@ -10,14 +10,6 @@
    "fecha": "2026-07-24",
    "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/"
   },
-  "TUB": {
-   "tipo": "concurso",
-   "severidad": "alta",
-   "estado": "activa",
-   "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
-   "fecha": "2026-05-05",
-   "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/"
-  },
   "ECR": {
    "tipo": "otro",
    "severidad": "media",
@@ -25,14 +17,6 @@
    "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
    "fecha": "2026-05-01",
    "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271"
-  },
-  "TLGO": {
-   "tipo": "opa",
-   "severidad": "media",
-   "estado": "activa",
-   "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
-   "fecha": "2026-02-01",
-   "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005"
   },
   "SAB": {
    "tipo": "opa",
@@ -49,6 +33,22 @@
    "resumen": "Situación de gobierno corporativo sin resolver: STC (Saudi Telecom) subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; el Gobierno vigila el equilibrio accionarial; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
    "fecha": "2026-07-05",
    "fuente": "https://www.elespanol.com/invertia/empresas/20260705/moncloa-monitoriza-salida-bbva-telefonica-no-altere-equilibrio-accionarial/1003744309168_0.html"
+  },
+  "TLGO": {
+   "tipo": "opa",
+   "severidad": "media",
+   "estado": "activa",
+   "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
+   "fecha": "2026-02-01",
+   "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005"
+  },
+  "TRG": {
+   "tipo": "concurso",
+   "severidad": "alta",
+   "estado": "activa",
+   "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
+   "fecha": "2026-05-05",
+   "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/"
   }
  }
 }

@@ -3,30 +3,27 @@
   "generadoEl": "2026-07-29",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
-    "AZK": {
-      "empresa": "Azkoyen",
+    "A3M": {
+      "empresa": "Atresmedia",
       "cobertura": {
-        "semanal": "2026-07-29"
+        "semanal": "2026-07-28"
       },
       "hallazgos": [
         {
-          "id": "soc-opa",
-          "abiertoEl": "2026-07-24",
+          "id": "soc-otro-2026-07-21",
+          "abiertoEl": "2026-07-21",
           "estado": "activa",
           "resueltoEl": null,
           "desenlace": null,
-          "resumen": "OPA de Ohmnia/Clerbil (con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) a 10 €/acción en efectivo (244,5 M€), un 12% por debajo del cierre previo al anuncio. Requiere aceptación de más del 50% del capital y autorizaciones de competencia en España y Alemania.",
-          "tipo": "opa",
-          "naturaleza": "situacion",
-          "severidad": "alta",
-          "origen": "monitor-trimestral 2026-Q2",
-          "fecha": "2026-07-29",
-          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-31065618",
+          "resumen": "La CNMC autorizó en primera fase la adquisición de Clear Channel España por Atresmedia (OIR reg. 41973). Es una autorización de competencia favorable sobre una operación de toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operación.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-21",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
           "exigeAccion": false,
-          "ultimaNovedad": {
-            "fecha": "2026-07-29",
-            "texto": "Novedad 28-jul-2026: el Consejo de Administración de Azkoyen ha calificado la oferta de AMISTOSA. Azkoyen y Ohmnia firmaron acuerdo de confidencialidad el 30-mar-2026 y la compañía dio acceso a due diligence legal y financiera durante junio. Asesor legal J&A Garrigues; nombrará asesor financiero independiente. El informe opinativo del Consejo se emitirá en los 10 días siguientes al inicio del plazo de aceptación, una vez la CNMV autorice la oferta. El precio de 10 € se reducirá por cualquier distribución posterior al anuncio, pero NO por el dividendo de 1,00 € anunciado el 9-jun y pagado el 24-jul."
-          }
+          "caducaEl": "2026-08-20"
         },
         {
           "id": "coyuntura",
@@ -35,7 +32,7 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Ámbar — la macro no le pone hoy ni un solo viento en contra documentado; el ámbar lo pone el evento corporativo, que gobierna el precio y desactiva la lectura normal de la banda de entrada.",
+          "resumen": "Mixto y mejorando: el ciclo publicitario ha girado a positivo y la macro española acompaña —ninguna de las dos patas de la alarma se cumple—, pero la TV crece la mitad que el mercado y el precio ya se ha comido casi todo el recorrido.",
           "origen": "informe-semanal 2026-07-28",
           "fecha": "2026-07-28",
           "abiertoEl": "2026-07-28",
@@ -44,185 +41,52 @@
           "desenlace": null
         },
         {
-          "id": "S2-2026-07-29",
+          "id": "S6-2026-07-29",
           "abiertoEl": "2026-07-29",
           "estado": "resuelta",
           "resueltoEl": "2026-07-29",
-          "desenlace": "REAFIRMAR TESIS (con matiz). Nota emitida: Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html. El ROJO es real pero NO es el deterioro que rompe esta tesis: el margen bruto aguanta en 66,1% (67,2% hace un año), muy por encima del 60% que marca la alarma del §8.1 R2, y Payment —el segmento que soporta el riesgo estructural del expediente— crece +20,3% con el margen intacto (27,9%), así que la cadena del pre-mortem nº1 ni ha empezado. Todo el retroceso está en coste fijo: personal +10,7% (+3,9 M€) y otros gastos +13,1% (+2,1 M€) contra ingresos +6,2%; el margen bruto APORTA +3,0 M€. Y no es volumen: la plantilla sube 3,5% pero el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. Diagnóstico MIXTO con peso estructural (~1 M€ de los 2,5 es reclasificación del holding e integración de primion). Consecuencias: el catalizador nº2 del §9.1 (ingresos >220 M€ y margen EBITDA ≥15% en FY-2026) pasa a EN RIESGO DE FALLAR; el §8.1 R5 se queda sin señal cuantificada de costes y se propone añadirla en la Actualización Anual. ANTI-ANCLAJE: la regla «entrada si cot <11,5 €» dispara a 10,55 €, y NO se ejecuta — falla su condición «tesis y confianza intactas» y, sobre todo, 10,55 € no es precio de mercado sino precio anclado a la OPA de Ohmnia a 10 €, que pone suelo blando y techo duro. Ojo al orden: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio del 24-jul. Sin cambios: ESPERAR, PO 13,28 €, banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, no se toca el AZK.json. Revisar con lo primero de: folleto de la OPA, 2S-2026 (si Vending encadena el 2º periodo negativo se completaría la señal del §8.1 R4), oferta competidora, o las autorizaciones de competencia.",
-          "resumen": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €.",
+          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (23-jul-2026, cotización 4,77 €): «2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1)». Segundo apunte del 27-jul-2026 (cotización 5,08 €) en la misma línea. La señal que abrió el detector el 29-jul-2026 es la MISMA racha, ya resuelta: no había periodo nuevo que evaluar.",
+          "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
           "tipo": "senal",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "monitor-trimestral 2026-Q2",
+          "origen": "auditoría S2/S6 del 29-jul-2026",
           "fecha": "2026-07-29",
           "fuente": null,
           "exigeAccion": false,
-          "codigo": "S2",
+          "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
           "notaEmitida": true,
-          "nota": "Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html"
+          "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización 4,77 €)"
         }
       ],
       "revisiones": [
         {
-          "fila": 93,
-          "fecha": "29-jul-2026",
-          "senal": "S2",
-          "cot": 10.8,
-          "decision": "ABIERTA → RESUELTA 29-jul",
-          "motivo": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €."
-        },
-        {
-          "fila": 94,
-          "fecha": "29-jul-2026",
-          "senal": "S2",
-          "cot": 10.55,
+          "fila": 86,
+          "fecha": "23-jul-2026",
+          "senal": "S6",
+          "cot": 4.94,
           "decision": "REAFIRMAR",
-          "motivo": "REAFIRMAR TESIS (con matiz). Nota emitida: Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html. El ROJO es real pero NO es el deterioro que rompe esta tesis: el margen bruto aguanta en 66,1% (67,2% hace un año), muy por encima del 60% que marca la alarma del §8.1 R2, y Payment —el segmento que soporta el riesgo estructural del expediente— crece +20,3% con el margen intacto (27,9%), así que la cadena del pre-mortem nº1 ni ha empezado. Todo el retroceso está en coste fijo: personal +10,7% (+3,9 M€) y otros gastos +13,1% (+2,1 M€) contra ingresos +6,2%; el margen bruto APORTA +3,0 M€. Y no es volumen: la plantilla sube 3,5% pero el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. Diagnóstico MIXTO con peso estructural (~1 M€ de los 2,5 es reclasificación del holding e integración de primion). Consecuencias: el catalizador nº2 del §9.1 (ingresos >220 M€ y margen EBITDA ≥15% en FY-2026) pasa a EN RIESGO DE FALLAR; el §8.1 R5 se queda sin señal cuantificada de costes y se propone añadirla en la Actualización Anual. ANTI-ANCLAJE: la regla «entrada si cot <11,5 €» dispara a 10,55 €, y NO se ejecuta — falla su condición «tesis y confianza intactas» y, sobre todo, 10,55 € no es precio de mercado sino precio anclado a la OPA de Ohmnia a 10 €, que pone suelo blando y techo duro. Ojo al orden: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio del 24-jul. Sin cambios: ESPERAR, PO 13,28 €, banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, no se toca el AZK.json. Revisar con lo primero de: folleto de la OPA, 2S-2026 (si Vending encadena el 2º periodo negativo se completaría la señal del §8.1 R4), oferta competidora, o las autorizaciones de competencia."
-        }
-      ],
-      "revisionesEl": "2026-07-29",
-      "revisionesFrescas": true
-    },
-    "TUB": {
-      "empresa": "TUB.MC",
-      "cobertura": {},
-      "hallazgos": [
-        {
-          "id": "soc-concurso",
-          "abiertoEl": "2026-05-05",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
-          "tipo": "concurso",
-          "naturaleza": "situacion",
-          "severidad": "alta",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-05-05",
-          "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/",
-          "exigeAccion": false
-        }
-      ]
-    },
-    "ECR": {
-      "empresa": "ECR.MC",
-      "cobertura": {},
-      "hallazgos": [
-        {
-          "id": "soc-otro",
-          "abiertoEl": "2026-05-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
-          "tipo": "otro",
-          "naturaleza": "situacion",
-          "severidad": "media",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-05-01",
-          "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271",
-          "exigeAccion": false
-        }
-      ]
-    },
-    "TLGO": {
-      "empresa": "TLGO.MC",
-      "cobertura": {},
-      "hallazgos": [
-        {
-          "id": "soc-opa",
-          "abiertoEl": "2026-02-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
-          "tipo": "opa",
-          "naturaleza": "situacion",
-          "severidad": "media",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-02-01",
-          "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
-          "exigeAccion": false
-        }
-      ]
-    },
-    "SAB": {
-      "empresa": "SAB.MC",
-      "cobertura": {},
-      "hallazgos": [
-        {
-          "id": "soc-opa",
-          "abiertoEl": "2026-07-01",
-          "estado": "resuelta",
-          "resueltoEl": "2026-07-01",
-          "desenlace": "Situación cerrada (heredado de alertas.json).",
-          "resumen": "La OPA hostil de BBVA sobre Banco Sabadell fracasó: solo logró el respaldo de un 25% de los accionistas, muy por debajo del umbral necesario. Situación cerrada — ya no hay amenaza de absorción sobre Sabadell.",
-          "tipo": "opa",
-          "naturaleza": "situacion",
-          "severidad": "baja",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-07-01",
-          "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html",
-          "exigeAccion": false
-        }
-      ]
-    },
-    "TEF": {
-      "empresa": "Telefónica",
-      "cobertura": {
-        "semanal": "2026-07-29"
-      },
-      "hallazgos": [
-        {
-          "id": "soc-otro",
-          "abiertoEl": "2026-07-05",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "Situación de gobierno corporativo sin resolver: STC (Saudi Telecom) subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; el Gobierno vigila el equilibrio accionarial; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
-          "tipo": "otro",
-          "naturaleza": "situacion",
-          "severidad": "baja",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-07-05",
-          "fuente": "https://www.elespanol.com/invertia/empresas/20260705/moncloa-monitoriza-salida-bbva-telefonica-no-altere-equilibrio-accionarial/1003744309168_0.html",
-          "exigeAccion": false
+          "motivo": "2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1). · [Cotización corregida el 29-jul-2026: el apunte decía 4,77 € y no es el cierre del día (4,94 €) ni el anterior (4,84 €); se pone el cierre oficial de esa fecha, 4.94 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
         },
         {
-          "id": "soc-otro-2026-07-01",
-          "abiertoEl": "2026-07-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "BBVA reduce su participación en Telefónica del 5,007% al 1,965%, vendiendo en torno al 3,04% del capital, y deja de figurar como accionista significativo tras casi tres décadas. La participación residual se valoraba en unos 392 M €. BBVA califica la posición como financiera y no estratégica. Altera la composición del núcleo accionarial junto a SEPI, STC y Criteria.",
-          "tipo": "otro",
-          "naturaleza": "hecho",
-          "severidad": "media",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-01",
-          "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
-          "exigeAccion": false,
-          "caducaEl": "2026-07-31"
+          "fila": 87,
+          "fecha": "27-jul-2026",
+          "senal": "S6",
+          "cot": 5.08,
+          "decision": "REAFIRMAR",
+          "motivo": "La empresa está en vigilancia por un 2025 flojo con un plan de jubilaciones anticipadas de plantilla. En 2026 tiene que empezar a remontar"
         },
         {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar — el frente competitivo (el de mayor probabilidad) afloja y el real brasileño juega a favor, pero el giro de tipos del BCE aprieta justo donde el balance es frágil y la consolidación europea, el catalizador de mayor impacto, se aplaza a 2027.",
-          "origen": "informe-semanal 2026-07-28",
-          "fecha": "2026-07-28",
-          "abiertoEl": "2026-07-28",
-          "vigenteHasta": "2026-08-02",
-          "resueltoEl": null,
-          "desenlace": null
+          "fila": 88,
+          "fecha": "29-jul-2026",
+          "senal": "S3",
+          "cot": 5.26,
+          "decision": "REAFIRMAR",
+          "motivo": "Precio objetivo alcanzado (5,21 € frente a un PO base de 5,15 €) Y supuesto roto de la decisión de REAFIRMAR del 27-jul. Las dos cosas son el mismo hecho: aquel día la app calculaba el PO como la media de bear y bull (6,46 €) y mostraba un potencial del +23%; con el PO real del dossier el potencial es −1%. De los 21 puntos que cayó el Score, 16 son esa corrección — no un deterioro del negocio. AL CONTRARIO: el 1S-2026 es el primer semestre en positivo desde 2024 (ingresos 520 M€ +2,6%, EBITDA 87,1 M€ +2,5%, margen recuperado a 16,8% desde el 8,4% de FY-2025, la publicidad audiovisual moderando su caída a −1,3% desde −6,2%, caja neta 70,2 M€ y Atresplayer en 760.000 suscriptores, récord). Lo que aún no gira es el beneficio: BNA 56,4 M€, −11,6%. DECISIÓN: REAFIRMAR ESPERAR, y con más razón que antes — cambia el motivo, no el veredicto: de «poco recorrido (+7%)» a «sin recorrido (−1%)». El precio ha subido un 9% en siete sesiones (4,79 € el 20-jul) y ha rebasado el objetivo; la entrada del dossier sigue siendo <4,30 €, un 21% por debajo. No se toca el PO (5,15 €) ni el A3M.json: un semestre bueno no revaloriza, y el dossier es del 9-jul. VIGILAR: que el BNA acompañe al EBITDA en el 2S y que la publicidad confirme el giro. Ver también la nota añadida hoy al red flag de dividendo del §10.4."
         }
       ],
-      "revisiones": [],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
@@ -407,27 +271,30 @@
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
-    "A3M": {
-      "empresa": "Atresmedia",
+    "AZK": {
+      "empresa": "Azkoyen",
       "cobertura": {
-        "semanal": "2026-07-28"
+        "semanal": "2026-07-29"
       },
       "hallazgos": [
         {
-          "id": "soc-otro-2026-07-21",
-          "abiertoEl": "2026-07-21",
+          "id": "soc-opa",
+          "abiertoEl": "2026-07-24",
           "estado": "activa",
           "resueltoEl": null,
           "desenlace": null,
-          "resumen": "La CNMC autorizó en primera fase la adquisición de Clear Channel España por Atresmedia (OIR reg. 41973). Es una autorización de competencia favorable sobre una operación de toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operación.",
-          "tipo": "otro",
-          "naturaleza": "hecho",
-          "severidad": "baja",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-21",
-          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271&lang=en",
+          "resumen": "OPA de Ohmnia/Clerbil (con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) a 10 €/acción en efectivo (244,5 M€), un 12% por debajo del cierre previo al anuncio. Requiere aceptación de más del 50% del capital y autorizaciones de competencia en España y Alemania.",
+          "tipo": "opa",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-07-29",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-31065618",
           "exigeAccion": false,
-          "caducaEl": "2026-08-20"
+          "ultimaNovedad": {
+            "fecha": "2026-07-29",
+            "texto": "Novedad 28-jul-2026: el Consejo de Administración de Azkoyen ha calificado la oferta de AMISTOSA. Azkoyen y Ohmnia firmaron acuerdo de confidencialidad el 30-mar-2026 y la compañía dio acceso a due diligence legal y financiera durante junio. Asesor legal J&A Garrigues; nombrará asesor financiero independiente. El informe opinativo del Consejo se emitirá en los 10 días siguientes al inicio del plazo de aceptación, una vez la CNMV autorice la oferta. El precio de 10 € se reducirá por cualquier distribución posterior al anuncio, pero NO por el dividendo de 1,00 € anunciado el 9-jun y pagado el 24-jul."
+          }
         },
         {
           "id": "coyuntura",
@@ -436,7 +303,7 @@
           "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Mixto y mejorando: el ciclo publicitario ha girado a positivo y la macro española acompaña —ninguna de las dos patas de la alarma se cumple—, pero la TV crece la mitad que el mercado y el precio ya se ha comido casi todo el recorrido.",
+          "resumen": "Ámbar — la macro no le pone hoy ni un solo viento en contra documentado; el ámbar lo pone el evento corporativo, que gobierna el precio y desactiva la lectura normal de la banda de entrada.",
           "origen": "informe-semanal 2026-07-28",
           "fecha": "2026-07-28",
           "abiertoEl": "2026-07-28",
@@ -445,50 +312,42 @@
           "desenlace": null
         },
         {
-          "id": "S6-2026-07-29",
+          "id": "S2-2026-07-29",
           "abiertoEl": "2026-07-29",
           "estado": "resuelta",
           "resueltoEl": "2026-07-29",
-          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (23-jul-2026, cotización 4,77 €): «2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1)». Segundo apunte del 27-jul-2026 (cotización 5,08 €) en la misma línea. La señal que abrió el detector el 29-jul-2026 es la MISMA racha, ya resuelta: no había periodo nuevo que evaluar.",
-          "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "desenlace": "REAFIRMAR TESIS (con matiz). Nota emitida: Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html. El ROJO es real pero NO es el deterioro que rompe esta tesis: el margen bruto aguanta en 66,1% (67,2% hace un año), muy por encima del 60% que marca la alarma del §8.1 R2, y Payment —el segmento que soporta el riesgo estructural del expediente— crece +20,3% con el margen intacto (27,9%), así que la cadena del pre-mortem nº1 ni ha empezado. Todo el retroceso está en coste fijo: personal +10,7% (+3,9 M€) y otros gastos +13,1% (+2,1 M€) contra ingresos +6,2%; el margen bruto APORTA +3,0 M€. Y no es volumen: la plantilla sube 3,5% pero el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. Diagnóstico MIXTO con peso estructural (~1 M€ de los 2,5 es reclasificación del holding e integración de primion). Consecuencias: el catalizador nº2 del §9.1 (ingresos >220 M€ y margen EBITDA ≥15% en FY-2026) pasa a EN RIESGO DE FALLAR; el §8.1 R5 se queda sin señal cuantificada de costes y se propone añadirla en la Actualización Anual. ANTI-ANCLAJE: la regla «entrada si cot <11,5 €» dispara a 10,55 €, y NO se ejecuta — falla su condición «tesis y confianza intactas» y, sobre todo, 10,55 € no es precio de mercado sino precio anclado a la OPA de Ohmnia a 10 €, que pone suelo blando y techo duro. Ojo al orden: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio del 24-jul. Sin cambios: ESPERAR, PO 13,28 €, banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, no se toca el AZK.json. Revisar con lo primero de: folleto de la OPA, 2S-2026 (si Vending encadena el 2º periodo negativo se completaría la señal del §8.1 R4), oferta competidora, o las autorizaciones de competencia.",
+          "resumen": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €.",
           "tipo": "senal",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "auditoría S2/S6 del 29-jul-2026",
+          "origen": "monitor-trimestral 2026-Q2",
           "fecha": "2026-07-29",
           "fuente": null,
           "exigeAccion": false,
-          "codigo": "S6",
+          "codigo": "S2",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
           "notaEmitida": true,
-          "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización 4,77 €)"
+          "nota": "Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html"
         }
       ],
       "revisiones": [
         {
-          "fila": 86,
-          "fecha": "23-jul-2026",
-          "senal": "S6",
-          "cot": 4.94,
-          "decision": "REAFIRMAR",
-          "motivo": "2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1). · [Cotización corregida el 29-jul-2026: el apunte decía 4,77 € y no es el cierre del día (4,94 €) ni el anterior (4,84 €); se pone el cierre oficial de esa fecha, 4.94 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
-        },
-        {
-          "fila": 87,
-          "fecha": "27-jul-2026",
-          "senal": "S6",
-          "cot": 5.08,
-          "decision": "REAFIRMAR",
-          "motivo": "La empresa está en vigilancia por un 2025 flojo con un plan de jubilaciones anticipadas de plantilla. En 2026 tiene que empezar a remontar"
-        },
-        {
-          "fila": 88,
+          "fila": 93,
           "fecha": "29-jul-2026",
-          "senal": "S3",
-          "cot": 5.26,
+          "senal": "S2",
+          "cot": 10.8,
+          "decision": "ABIERTA → RESUELTA 29-jul",
+          "motivo": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €."
+        },
+        {
+          "fila": 94,
+          "fecha": "29-jul-2026",
+          "senal": "S2",
+          "cot": 10.55,
           "decision": "REAFIRMAR",
-          "motivo": "Precio objetivo alcanzado (5,21 € frente a un PO base de 5,15 €) Y supuesto roto de la decisión de REAFIRMAR del 27-jul. Las dos cosas son el mismo hecho: aquel día la app calculaba el PO como la media de bear y bull (6,46 €) y mostraba un potencial del +23%; con el PO real del dossier el potencial es −1%. De los 21 puntos que cayó el Score, 16 son esa corrección — no un deterioro del negocio. AL CONTRARIO: el 1S-2026 es el primer semestre en positivo desde 2024 (ingresos 520 M€ +2,6%, EBITDA 87,1 M€ +2,5%, margen recuperado a 16,8% desde el 8,4% de FY-2025, la publicidad audiovisual moderando su caída a −1,3% desde −6,2%, caja neta 70,2 M€ y Atresplayer en 760.000 suscriptores, récord). Lo que aún no gira es el beneficio: BNA 56,4 M€, −11,6%. DECISIÓN: REAFIRMAR ESPERAR, y con más razón que antes — cambia el motivo, no el veredicto: de «poco recorrido (+7%)» a «sin recorrido (−1%)». El precio ha subido un 9% en siete sesiones (4,79 € el 20-jul) y ha rebasado el objetivo; la entrada del dossier sigue siendo <4,30 €, un 21% por debajo. No se toca el PO (5,15 €) ni el A3M.json: un semestre bueno no revaloriza, y el dossier es del 9-jul. VIGILAR: que el BNA acompañe al EBITDA en el 2S y que la publicidad confirme el giro. Ver también la nota añadida hoy al red flag de dividendo del §10.4."
+          "motivo": "REAFIRMAR TESIS (con matiz). Nota emitida: Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html. El ROJO es real pero NO es el deterioro que rompe esta tesis: el margen bruto aguanta en 66,1% (67,2% hace un año), muy por encima del 60% que marca la alarma del §8.1 R2, y Payment —el segmento que soporta el riesgo estructural del expediente— crece +20,3% con el margen intacto (27,9%), así que la cadena del pre-mortem nº1 ni ha empezado. Todo el retroceso está en coste fijo: personal +10,7% (+3,9 M€) y otros gastos +13,1% (+2,1 M€) contra ingresos +6,2%; el margen bruto APORTA +3,0 M€. Y no es volumen: la plantilla sube 3,5% pero el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. Diagnóstico MIXTO con peso estructural (~1 M€ de los 2,5 es reclasificación del holding e integración de primion). Consecuencias: el catalizador nº2 del §9.1 (ingresos >220 M€ y margen EBITDA ≥15% en FY-2026) pasa a EN RIESGO DE FALLAR; el §8.1 R5 se queda sin señal cuantificada de costes y se propone añadirla en la Actualización Anual. ANTI-ANCLAJE: la regla «entrada si cot <11,5 €» dispara a 10,55 €, y NO se ejecuta — falla su condición «tesis y confianza intactas» y, sobre todo, 10,55 € no es precio de mercado sino precio anclado a la OPA de Ohmnia a 10 €, que pone suelo blando y techo duro. Ojo al orden: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio del 24-jul. Sin cambios: ESPERAR, PO 13,28 €, banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, no se toca el AZK.json. Revisar con lo primero de: folleto de la OPA, 2S-2026 (si Vending encadena el 2º periodo negativo se completaría la señal del §8.1 R4), oferta competidora, o las autorizaciones de competencia."
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -522,7 +381,7 @@
       "revisionesFrescas": true
     },
     "CIE": {
-      "empresa": "CIE",
+      "empresa": "Cie Automotive",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -578,6 +437,63 @@
           "cot": 18.16,
           "decision": "REAFIRMAR",
           "motivo": "No se revisa porque es una empresa en estudio para invertir. Se comprará cuando esté en el abanico de entrada"
+        }
+      ],
+      "revisionesEl": "2026-07-29",
+      "revisionesFrescas": true
+    },
+    "ECR": {
+      "empresa": "Ercros",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-05-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-05-01",
+          "fuente": "https://es.investing.com/news/global-filings/ercros-anuncia-planes-de-exclusion-de-bolsa-tras-perdidas-de-136-millones-93CH-3664271",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ELE": {
+      "empresa": "Endesa",
+      "cobertura": {
+        "semanal": "2026-07-29"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-sancion-2026-07-16",
+          "abiertoEl": "2026-07-16",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "La CNMC multa a Energía XXI Comercializadora de Referencia S.L.U. (Grupo Endesa) con 400.000 €, reducidos a 320.000 € por pago voluntario. Infracción de la Ley 24/2013 del Sector Eléctrico por no diferenciar con claridad la comercializadora regulada de la de mercado libre en contratos y contactos telefónicos. Importe inmaterial; relevante como precedente de conducta comercial.",
+          "tipo": "sancion",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-16",
+          "fuente": "https://www.energias-renovables.com/fotovoltaica/la-cnmc-multa-al-grupo-endesa-por-20260716",
+          "exigeAccion": false,
+          "caducaEl": "2026-08-15"
+        }
+      ],
+      "revisiones": [
+        {
+          "fila": 93,
+          "fecha": "11-jul-2026",
+          "senal": "S3",
+          "cot": 38.73,
+          "decision": "REAFIRMAR",
+          "motivo": "Es una tesis de renta. Endesa es una empresa que no crecerá que sigue en cartera por la renta que genera, que al precio de venta da una buena rentabilidad"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -657,42 +573,6 @@
           "cot": 17.35,
           "decision": "REAFIRMAR",
           "motivo": "Empresa a la espera de alcanzar el precio de entrada para valorar abrirla de nuevo. No necesario valorar la tesis de nuevo"
-        }
-      ],
-      "revisionesEl": "2026-07-29",
-      "revisionesFrescas": true
-    },
-    "ELE": {
-      "empresa": "Endesa",
-      "cobertura": {
-        "semanal": "2026-07-29"
-      },
-      "hallazgos": [
-        {
-          "id": "soc-sancion-2026-07-16",
-          "abiertoEl": "2026-07-16",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "La CNMC multa a Energía XXI Comercializadora de Referencia S.L.U. (Grupo Endesa) con 400.000 €, reducidos a 320.000 € por pago voluntario. Infracción de la Ley 24/2013 del Sector Eléctrico por no diferenciar con claridad la comercializadora regulada de la de mercado libre en contratos y contactos telefónicos. Importe inmaterial; relevante como precedente de conducta comercial.",
-          "tipo": "sancion",
-          "naturaleza": "hecho",
-          "severidad": "baja",
-          "origen": "barrido societario 2026-07-27",
-          "fecha": "2026-07-16",
-          "fuente": "https://www.energias-renovables.com/fotovoltaica/la-cnmc-multa-al-grupo-endesa-por-20260716",
-          "exigeAccion": false,
-          "caducaEl": "2026-08-15"
-        }
-      ],
-      "revisiones": [
-        {
-          "fila": 93,
-          "fecha": "11-jul-2026",
-          "senal": "S3",
-          "cot": 38.73,
-          "decision": "REAFIRMAR",
-          "motivo": "Es una tesis de renta. Endesa es una empresa que no crecerá que sigue en cartera por la renta que genera, que al precio de venta da una buena rentabilidad"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -1106,6 +986,27 @@
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
+    "SAB": {
+      "empresa": "Banco Sabadell",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-opa",
+          "abiertoEl": "2026-07-01",
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-01",
+          "desenlace": "Situación cerrada (heredado de alertas.json).",
+          "resumen": "La OPA hostil de BBVA sobre Banco Sabadell fracasó: solo logró el respaldo de un 25% de los accionistas, muy por debajo del umbral necesario. Situación cerrada — ya no hay amenaza de absorción sobre Sabadell.",
+          "tipo": "opa",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-01",
+          "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html",
+          "exigeAccion": false
+        }
+      ]
+    },
     "SAN": {
       "empresa": "Banco Santander",
       "cobertura": {
@@ -1143,6 +1044,105 @@
       ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
+    },
+    "TEF": {
+      "empresa": "Telefónica",
+      "cobertura": {
+        "semanal": "2026-07-29"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-07-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Situación de gobierno corporativo sin resolver: STC (Saudi Telecom) subió su participación al 9,9% con autorización del Gobierno; BBVA ha ido diluyendo su ~3%; el Gobierno vigila el equilibrio accionarial; sigue abierta la pregunta de si SEPI+CriteriaCaixa+STC actuando en concierto deberían lanzar una OPA obligatoria.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "baja",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-07-05",
+          "fuente": "https://www.elespanol.com/invertia/empresas/20260705/moncloa-monitoriza-salida-bbva-telefonica-no-altere-equilibrio-accionarial/1003744309168_0.html",
+          "exigeAccion": false
+        },
+        {
+          "id": "soc-otro-2026-07-01",
+          "abiertoEl": "2026-07-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "BBVA reduce su participación en Telefónica del 5,007% al 1,965%, vendiendo en torno al 3,04% del capital, y deja de figurar como accionista significativo tras casi tres décadas. La participación residual se valoraba en unos 392 M €. BBVA califica la posición como financiera y no estratégica. Altera la composición del núcleo accionarial junto a SEPI, STC y Criteria.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "media",
+          "origen": "barrido societario 2026-07-27",
+          "fecha": "2026-07-01",
+          "fuente": "https://es.benzinga.com/news/spain/stocks/acciones-telefonica-bbva-reduce-participacion-accionista-significativo-010726/",
+          "exigeAccion": false,
+          "caducaEl": "2026-07-31"
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar — el frente competitivo (el de mayor probabilidad) afloja y el real brasileño juega a favor, pero el giro de tipos del BCE aprieta justo donde el balance es frágil y la consolidación europea, el catalizador de mayor impacto, se aplaza a 2027.",
+          "origen": "informe-semanal 2026-07-28",
+          "fecha": "2026-07-28",
+          "abiertoEl": "2026-07-28",
+          "vigenteHasta": "2026-08-02",
+          "resueltoEl": null,
+          "desenlace": null
+        }
+      ],
+      "revisiones": [],
+      "revisionesEl": "2026-07-29",
+      "revisionesFrescas": true
+    },
+    "TLGO": {
+      "empresa": "Talgo",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-opa",
+          "abiertoEl": "2026-02-01",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
+          "tipo": "opa",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-02-01",
+          "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "TRG": {
+      "empresa": "Tubos Reunidos",
+      "cobertura": {},
+      "hallazgos": [
+        {
+          "id": "soc-concurso",
+          "abiertoEl": "2026-05-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Tubos Reunidos solicitó concurso voluntario de acreedores el 4-5 de mayo de 2026 por insolvencia inminente; la CNMV suspendió su cotización de inmediato y sigue suspendida. En julio recibió diez ofertas de compra; queda pendiente en los tribunales el préstamo de la SEPI.",
+          "tipo": "concurso",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "alertas.json (migrado)",
+          "fecha": "2026-05-05",
+          "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/",
+          "exigeAccion": false
+        }
+      ]
     },
     "VID": {
       "empresa": "Vidrala",
@@ -1211,12 +1211,12 @@
     "empresasConHallazgo": 22,
     "hallazgosActivos": 29,
     "porTipo": {
-      "opa": 2,
-      "coyuntura": 16,
-      "concurso": 1,
       "otro": 7,
+      "coyuntura": 16,
+      "opa": 2,
       "sancion": 2,
-      "litigio": 1
+      "litigio": 1,
+      "concurso": 1
     },
     "exigenAccion": 0,
     "conPlazoVencido": 0,
