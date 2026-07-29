@@ -503,6 +503,14 @@
       "revisiones": [
         {
           "fila": 93,
+          "fecha": "29-jul-2026",
+          "senal": "S3",
+          "cot": 15.56,
+          "decision": "REAFIRMAR",
+          "motivo": "Cruce del PO BULL, no del base: 15,56 € ≥ 15,50 €. Es un hecho distinto del apunte del 13-jul (15,40 €, por debajo del bull) y por eso se registra aparte. El bull del dossier es «RoTE >16%, el NIM resiste y el mercado sostiene el premium de P/TBV»: el mercado ya paga entero el escenario optimista. La cautela es ROBUSTA, no una opinión: con el CoE movido ±1pp la banda de PO queda en 10,43-14,37 € y la cotización está POR ENCIMA de todo el rango. Queda un input pendiente —la beta CAPM 0,04 es anómala y no hay 2ª referencia registrada—, pero corregirla solo puede EMPEORAR el veredicto: más beta es más CoE, menos P/TBV justificado y menos PO. DECISIÓN: no hay posición que recortar y no se abre a 2,3x TBV; se mantiene ESPERAR y el valor sigue en el radar para una corrección hacia la banda 7,85-8,55 €. · [Pendiente: añadir beta sectorial/Damodaran y recalcular el PO, como se hizo en ACS el 27-jul.]"
+        },
+        {
+          "fila": 94,
           "fecha": "13-jul-2026",
           "senal": "S3",
           "cot": 15.4,
