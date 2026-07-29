@@ -254,9 +254,9 @@
           "fila": 94,
           "fecha": "29-jul-2026",
           "senal": "Disc.",
-          "cot": 108.9,
+          "cot": 107.8,
           "decision": "AJUSTA BANDA",
-          "motivo": "Banda de entrada recolocada de 69,00-75,00 € a 52,50-57,50 €. Estaba POR ENCIMA del PO base (68,80 €): comprar dentro de ella era pagar hasta un 9% por encima del propio precio objetivo. Se aplica la regla que siguen las otras 24 fichas del parque —entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas medidas sobre las 20 fichas coherentes—, redondeando siempre A LA BAJA para no ensanchar la zona de compra. La banda nueva sitúa el punto de compra en torno al escenario bear (55,70 €), que es donde corresponde con un reverse DCF HEROICO y un P/E de 31x. NO cambia la valoración: PO bear/base/bull siguen en 55,70 / 68,80 / 98,60 €, y el stop de tesis en 49,85 €. · [Cotización del apunte: último cierre verificado, 108,90 € del 27-jul-2026; la serie de precios de la app termina el 17-jul-2026 y no hay cierre posterior comprobable.]"
+          "motivo": "Banda de entrada recolocada de 69,00-75,00 € a 52,50-57,50 €. Estaba POR ENCIMA del PO base (68,80 €): comprar dentro de ella era pagar hasta un 9% por encima del propio precio objetivo. Se aplica la regla que siguen las otras 24 fichas del parque —entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas medidas sobre las 20 fichas coherentes—, redondeando siempre A LA BAJA para no ensanchar la zona de compra. La banda nueva sitúa el punto de compra en torno al escenario bear (55,70 €), que es donde corresponde con un reverse DCF HEROICO y un P/E de 31x. NO cambia la valoración: PO bear/base/bull siguen en 55,70 / 68,80 / 98,60 €, y el stop de tesis en 49,85 €. · [Cotización: 107,80 €, cierre del 29-jul-2026 según precios/_ultimos.json del repo, que es la misma cifra que muestra el Panel. Corregido el mismo día: el apunte se escribió primero con 108,90 € porque miré la carpeta LOCAL de Cotizaciones, que es solo el área de preparación y estaba parada en el 17-jul; la serie del repo se actualiza a diario de forma programada.]"
         },
         {
           "fila": 95,
