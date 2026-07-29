@@ -397,6 +397,25 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "auditoría S2/S6 del 29-jul-2026",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -516,6 +535,25 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "auditoría S2/S6 del 29-jul-2026",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -689,7 +727,27 @@
       "cobertura": {
         "semanal": "2026-07-28"
       },
-      "hallazgos": [],
+      "hallazgos": [
+        {
+          "id": "S6-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "6 ámbares consecutivos hasta 2026-Q3 (anterior: 2026-Q2)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "auditoría S2/S6 del 29-jul-2026",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
+        }
+      ],
       "revisiones": [
         {
           "fecha": "23-jul-2026",
@@ -755,6 +813,25 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "5 ámbares consecutivos hasta 2026-Q1 (anterior: 2025-Q4)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "auditoría S2/S6 del 29-jul-2026",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -970,20 +1047,20 @@
     }
   },
   "resumen": {
-    "empresasConHallazgo": 22,
-    "hallazgosActivos": 31,
+    "empresasConHallazgo": 23,
+    "hallazgosActivos": 35,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
-      "senal": 1,
+      "senal": 5,
       "concurso": 1,
       "otro": 8,
       "sancion": 2,
       "litigio": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 5,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 10,
+    "situacionesAbiertas": 14,
     "hechosCaducadosHoy": 0
   }
 }
