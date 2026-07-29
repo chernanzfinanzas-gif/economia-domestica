@@ -182,8 +182,8 @@
 "ticker": "CEV",
 "symbol": "CEV.MC",
 "desde": "2011-01-03",
-"hasta": "2026-07-28",
-"n": 3983
+"hasta": "2026-07-29",
+"n": 3984
 },
 {
 "ticker": "CIE",
@@ -730,512 +730,524 @@
 {
 "ticker": "A3M",
 "fecha": "2026-07-29",
-"anterior": 5.21,
-"nuevo": 5.25
+"anterior": 5.25,
+"nuevo": 5.27
 },
 {
 "ticker": "ACS",
 "fecha": "2026-07-29",
-"anterior": 105.3,
-"nuevo": 107.8
+"anterior": 107.8,
+"nuevo": 106.1
 },
 {
 "ticker": "ACX",
 "fecha": "2026-07-29",
-"anterior": 17.74,
-"nuevo": 17.66
+"anterior": 17.66,
+"nuevo": 17.36
 },
 {
 "ticker": "ADX",
 "fecha": "2026-07-29",
-"anterior": 1.22,
-"nuevo": 1.212
+"anterior": 1.212,
+"nuevo": 1.2
 },
 {
 "ticker": "AEDAS",
 "fecha": "2026-07-29",
-"anterior": 21.3,
-"nuevo": 21.85
+"anterior": 21.85,
+"nuevo": 21.45
 },
 {
 "ticker": "AENA",
 "fecha": "2026-07-29",
-"anterior": 26.1,
-"nuevo": 26.32
+"anterior": 26.32,
+"nuevo": 26.28
 },
 {
 "ticker": "AI",
 "fecha": "2026-07-29",
-"anterior": 0.0912,
-"nuevo": 0.0926
+"anterior": 0.0926,
+"nuevo": 0.0914
+},
+{
+"ticker": "AIR",
+"fecha": "2026-07-29",
+"anterior": 210.35,
+"nuevo": 209.45
 },
 {
 "ticker": "ALM",
 "fecha": "2026-07-29",
-"anterior": 11.56,
-"nuevo": 11.52
+"anterior": 11.52,
+"nuevo": 11.46
 },
 {
 "ticker": "ALNT",
 "fecha": "2026-07-29",
-"anterior": 10.2,
-"nuevo": 10.15
+"anterior": 10.15,
+"nuevo": 10.2
 },
 {
 "ticker": "AMP",
 "fecha": "2026-07-29",
-"anterior": 4.63,
-"nuevo": 4.652
+"anterior": 4.652,
+"nuevo": 4.644
 },
 {
 "ticker": "AMS",
 "fecha": "2026-07-29",
-"anterior": 53.28,
-"nuevo": 53.26
+"anterior": 53.26,
+"nuevo": 53.84
 },
 {
 "ticker": "ANA",
 "fecha": "2026-07-29",
-"anterior": 248.0,
-"nuevo": 245.6
+"anterior": 245.6,
+"nuevo": 243.0
 },
 {
 "ticker": "ANE",
 "fecha": "2026-07-29",
-"anterior": 22.18,
-"nuevo": 21.82
+"anterior": 21.82,
+"nuevo": 21.72
+},
+{
+"ticker": "APAM",
+"fecha": "2026-07-29",
+"anterior": 47.8,
+"nuevo": 47.12
 },
 {
 "ticker": "ART",
 "fecha": "2026-07-29",
-"anterior": 29.6,
-"nuevo": 28.6
+"anterior": 28.6,
+"nuevo": 27.8
 },
 {
 "ticker": "AZK",
 "fecha": "2026-07-29",
-"anterior": 10.55,
-"nuevo": 10.85
+"anterior": 10.85,
+"nuevo": 10.7
 },
 {
 "ticker": "BBVA",
 "fecha": "2026-07-29",
-"anterior": 22.92,
-"nuevo": 22.79
+"anterior": 22.79,
+"nuevo": 22.82
 },
 {
 "ticker": "BKT",
 "fecha": "2026-07-29",
-"anterior": 15.55,
-"nuevo": 15.56
+"anterior": 15.56,
+"nuevo": 15.62
 },
 {
 "ticker": "BKY",
 "fecha": "2026-07-29",
-"anterior": 0.3,
-"nuevo": 0.293
+"anterior": 0.293,
+"nuevo": 0.288
 },
 {
 "ticker": "CABK",
 "fecha": "2026-07-29",
-"anterior": 12.34,
-"nuevo": 12.375
+"anterior": 12.375,
+"nuevo": 12.255
 },
 {
 "ticker": "CAF",
 "fecha": "2026-07-29",
-"anterior": 60.6,
-"nuevo": 61.2
+"anterior": 61.2,
+"nuevo": 61.3
 },
 {
 "ticker": "CIE",
 "fecha": "2026-07-29",
-"anterior": 26.3,
-"nuevo": 26.15
+"anterior": 26.15,
+"nuevo": 26.1
 },
 {
 "ticker": "CIRSA",
 "fecha": "2026-07-29",
-"anterior": 13.52,
-"nuevo": 13.5
+"anterior": 13.5,
+"nuevo": 13.4
+},
+{
+"ticker": "CLNX",
+"fecha": "2026-07-29",
+"anterior": 26.94,
+"nuevo": 27.05
 },
 {
 "ticker": "COL",
 "fecha": "2026-07-29",
-"anterior": 5.61,
-"nuevo": 5.615
+"anterior": 5.615,
+"nuevo": 5.635
 },
 {
 "ticker": "DIA",
 "fecha": "2026-07-29",
-"anterior": 41.5,
-"nuevo": 41.8
+"anterior": 41.8,
+"nuevo": 42.05
 },
 {
 "ticker": "EBRO",
 "fecha": "2026-07-29",
-"anterior": 18.18,
-"nuevo": 18.26
-},
-{
-"ticker": "ECR",
-"fecha": "2026-07-29",
-"anterior": 3.48,
-"nuevo": 3.485
+"anterior": 18.26,
+"nuevo": 18.2
 },
 {
 "ticker": "ELE",
 "fecha": "2026-07-29",
-"anterior": 41.02,
-"nuevo": 41.71
+"anterior": 41.71,
+"nuevo": 41.58
 },
 {
 "ticker": "ENC",
 "fecha": "2026-07-29",
-"anterior": 2.604,
-"nuevo": 2.584
+"anterior": 2.584,
+"nuevo": 2.59
 },
 {
 "ticker": "ENG",
 "fecha": "2026-07-29",
-"anterior": 17.27,
-"nuevo": 17.21
+"anterior": 17.21,
+"nuevo": 17.15
 },
 {
 "ticker": "ENO",
 "fecha": "2026-07-29",
-"anterior": 33.3,
-"nuevo": 34.55
+"anterior": 34.55,
+"nuevo": 34.1
 },
 {
 "ticker": "EZE",
 "fecha": "2026-07-29",
-"anterior": 0.0654,
-"nuevo": 0.0651
+"anterior": 0.0651,
+"nuevo": 0.065
 },
 {
 "ticker": "FAE",
 "fecha": "2026-07-29",
-"anterior": 4.585,
-"nuevo": 4.62
+"anterior": 4.62,
+"nuevo": 4.64
 },
 {
 "ticker": "FCC",
 "fecha": "2026-07-29",
-"anterior": 11.66,
-"nuevo": 11.6
+"anterior": 11.6,
+"nuevo": 11.54
 },
 {
 "ticker": "FDR",
 "fecha": "2026-07-29",
-"anterior": 18.87,
-"nuevo": 19.1
+"anterior": 19.1,
+"nuevo": 19.13
 },
 {
 "ticker": "FER",
 "fecha": "2026-07-29",
-"anterior": 54.8,
-"nuevo": 54.86
+"anterior": 54.86,
+"nuevo": 55.3
 },
 {
 "ticker": "GEST",
 "fecha": "2026-07-29",
-"anterior": 2.835,
-"nuevo": 2.865
-},
-{
-"ticker": "GIGA",
-"fecha": "2026-07-29",
-"anterior": 3.11,
-"nuevo": 3.2
+"anterior": 2.865,
+"nuevo": 2.835
 },
 {
 "ticker": "GRE",
 "fecha": "2026-07-29",
-"anterior": 91.5,
-"nuevo": 89.0
+"anterior": 89.0,
+"nuevo": 88.3
 },
 {
 "ticker": "GRF",
 "fecha": "2026-07-29",
-"anterior": 10.59,
-"nuevo": 10.79
+"anterior": 10.79,
+"nuevo": 10.355
 },
 {
 "ticker": "GSJ",
 "fecha": "2026-07-29",
-"anterior": 7.92,
-"nuevo": 7.97
+"anterior": 7.97,
+"nuevo": 7.95
 },
 {
 "ticker": "HOME",
 "fecha": "2026-07-29",
-"anterior": 15.89,
-"nuevo": 15.6
+"anterior": 15.6,
+"nuevo": 15.73
 },
 {
 "ticker": "IAG",
 "fecha": "2026-07-29",
-"anterior": 5.124,
-"nuevo": 5.076
+"anterior": 5.076,
+"nuevo": 5.054
 },
 {
 "ticker": "IBE",
 "fecha": "2026-07-29",
-"anterior": 20.8,
-"nuevo": 20.86
+"anterior": 20.86,
+"nuevo": 20.61
 },
 {
 "ticker": "IBEX",
 "fecha": "2026-07-29",
-"anterior": 19468.1992,
-"nuevo": 19478.9004
+"anterior": 19478.9004,
+"nuevo": 19412.6992
 },
 {
 "ticker": "IBG",
 "fecha": "2026-07-29",
-"anterior": 18.5,
-"nuevo": 18.55
+"anterior": 18.55,
+"nuevo": 18.5
 },
 {
 "ticker": "IDR",
 "fecha": "2026-07-29",
-"anterior": 57.76,
-"nuevo": 56.8
+"anterior": 56.8,
+"nuevo": 55.96
 },
 {
 "ticker": "ITX",
 "fecha": "2026-07-29",
-"anterior": 56.4,
-"nuevo": 56.08
+"anterior": 56.08,
+"nuevo": 56.46
 },
 {
 "ticker": "LDA",
 "fecha": "2026-07-29",
-"anterior": 1.252,
-"nuevo": 1.25
+"anterior": 1.25,
+"nuevo": 1.254
+},
+{
+"ticker": "LGT",
+"fecha": "2026-07-29",
+"anterior": 5.66,
+"nuevo": 5.76
 },
 {
 "ticker": "LLN",
 "fecha": "2026-07-29",
-"anterior": 1.36,
-"nuevo": 1.29
+"anterior": 1.29,
+"nuevo": 1.31
 },
 {
 "ticker": "LOG",
 "fecha": "2026-07-29",
-"anterior": 36.84,
-"nuevo": 37.16
+"anterior": 37.16,
+"nuevo": 37.56
+},
+{
+"ticker": "MAKS",
+"fecha": "2026-07-29",
+"anterior": 6.7,
+"nuevo": 6.75
 },
 {
 "ticker": "MAP",
 "fecha": "2026-07-29",
-"anterior": 4.336,
-"nuevo": 4.358
+"anterior": 4.358,
+"nuevo": 4.37
 },
 {
 "ticker": "MEL",
 "fecha": "2026-07-29",
-"anterior": 10.47,
-"nuevo": 10.48
+"anterior": 10.48,
+"nuevo": 10.47
 },
 {
 "ticker": "MRL",
 "fecha": "2026-07-29",
-"anterior": 14.53,
-"nuevo": 14.56
+"anterior": 14.56,
+"nuevo": 14.5
 },
 {
 "ticker": "MTS",
 "fecha": "2026-07-29",
-"anterior": 59.0,
-"nuevo": 58.84
+"anterior": 58.84,
+"nuevo": 57.78
 },
 {
 "ticker": "MVC",
 "fecha": "2026-07-29",
-"anterior": 10.86,
-"nuevo": 10.92
+"anterior": 10.92,
+"nuevo": 10.88
 },
 {
 "ticker": "NTGY",
 "fecha": "2026-07-29",
-"anterior": 29.4,
-"nuevo": 29.36
+"anterior": 29.36,
+"nuevo": 29.3
+},
+{
+"ticker": "NXT",
+"fecha": "2026-07-29",
+"anterior": 1.054,
+"nuevo": 1.05
 },
 {
 "ticker": "NYE",
 "fecha": "2026-07-29",
-"anterior": 0.0033,
-"nuevo": 0.0032
+"anterior": 0.0032,
+"nuevo": 0.004
 },
 {
 "ticker": "OHLA",
 "fecha": "2026-07-29",
-"anterior": 0.4246,
-"nuevo": 0.4278
+"anterior": 0.4278,
+"nuevo": 0.4232
 },
 {
 "ticker": "OLE",
 "fecha": "2026-07-29",
-"anterior": 0.341,
-"nuevo": 0.344
+"anterior": 0.344,
+"nuevo": 0.338
 },
 {
 "ticker": "ORY",
 "fecha": "2026-07-29",
-"anterior": 2.912,
-"nuevo": 2.91
-},
-{
-"ticker": "PHM",
-"fecha": "2026-07-29",
-"anterior": 78.8,
-"nuevo": 81.0
-},
-{
-"ticker": "PRM",
-"fecha": "2026-07-29",
-"anterior": 13.1,
-"nuevo": 13.25
+"anterior": 2.91,
+"nuevo": 2.898
 },
 {
 "ticker": "PRS",
 "fecha": "2026-07-29",
-"anterior": 3.03,
-"nuevo": 3.0
+"anterior": 3.0,
+"nuevo": 2.998
 },
 {
 "ticker": "PSG",
 "fecha": "2026-07-29",
-"anterior": 3.28,
-"nuevo": 3.29
+"anterior": 3.29,
+"nuevo": 3.3
 },
 {
 "ticker": "PUIG",
 "fecha": "2026-07-29",
-"anterior": 16.55,
-"nuevo": 16.42
+"anterior": 16.42,
+"nuevo": 16.37
 },
 {
 "ticker": "PVA",
 "fecha": "2026-07-29",
-"anterior": 0.245,
-"nuevo": 0.239
+"anterior": 0.239,
+"nuevo": 0.244
 },
 {
 "ticker": "R4",
 "fecha": "2026-07-29",
-"anterior": 19.5,
-"nuevo": 19.3
+"anterior": 19.3,
+"nuevo": 19.45
 },
 {
 "ticker": "RED",
 "fecha": "2026-07-29",
-"anterior": 15.33,
-"nuevo": 15.5
+"anterior": 15.5,
+"nuevo": 15.46
 },
 {
 "ticker": "REN",
 "fecha": "2026-07-29",
-"anterior": 0.716,
-"nuevo": 0.724
+"anterior": 0.724,
+"nuevo": 0.722
 },
 {
 "ticker": "REP",
 "fecha": "2026-07-29",
-"anterior": 25.77,
-"nuevo": 26.35
-},
-{
-"ticker": "RIO",
-"fecha": "2026-07-29",
-"anterior": 0.94,
-"nuevo": 0.91
+"anterior": 26.35,
+"nuevo": 26.28
 },
 {
 "ticker": "RJF",
 "fecha": "2026-07-29",
-"anterior": 2.73,
-"nuevo": 2.7
+"anterior": 2.7,
+"nuevo": 2.68
+},
+{
+"ticker": "RLIA",
+"fecha": "2026-07-29",
+"anterior": 1.025,
+"nuevo": 1.05
 },
 {
 "ticker": "ROVI",
 "fecha": "2026-07-29",
-"anterior": 59.65,
-"nuevo": 60.05
+"anterior": 60.05,
+"nuevo": 59.55
 },
 {
 "ticker": "SAB",
 "fecha": "2026-07-29",
-"anterior": 3.233,
-"nuevo": 3.228
+"anterior": 3.228,
+"nuevo": 3.234
 },
 {
 "ticker": "SAN",
 "fecha": "2026-07-29",
-"anterior": 12.02,
-"nuevo": 12.01
+"anterior": 12.01,
+"nuevo": 11.952
 },
 {
 "ticker": "SCYR",
 "fecha": "2026-07-29",
-"anterior": 4.62,
-"nuevo": 4.6
+"anterior": 4.6,
+"nuevo": 4.574
 },
 {
 "ticker": "SLR",
 "fecha": "2026-07-29",
-"anterior": 17.08,
-"nuevo": 16.685
+"anterior": 16.685,
+"nuevo": 16.525
 },
 {
 "ticker": "TEF",
 "fecha": "2026-07-29",
-"anterior": 3.737,
-"nuevo": 3.669
+"anterior": 3.669,
+"nuevo": 3.665
 },
 {
 "ticker": "TLGO",
 "fecha": "2026-07-29",
-"anterior": 2.76,
-"nuevo": 2.74
+"anterior": 2.74,
+"nuevo": 2.73
 },
 {
 "ticker": "TRE",
 "fecha": "2026-07-29",
-"anterior": 27.6,
-"nuevo": 27.68
+"anterior": 27.68,
+"nuevo": 27.4
 },
 {
 "ticker": "TUB",
 "fecha": "2026-07-29",
-"anterior": 3.09,
-"nuevo": 3.05
+"anterior": 3.05,
+"nuevo": 3.025
 },
 {
 "ticker": "UNI",
 "fecha": "2026-07-29",
-"anterior": 3.208,
-"nuevo": 3.198
+"anterior": 3.198,
+"nuevo": 3.18
 },
 {
 "ticker": "VID",
 "fecha": "2026-07-29",
-"anterior": 90.3,
-"nuevo": 90.4
+"anterior": 90.4,
+"nuevo": 89.9
 },
 {
 "ticker": "VIS",
 "fecha": "2026-07-29",
-"anterior": 56.0,
-"nuevo": 56.5
+"anterior": 56.5,
+"nuevo": 56.3
 },
 {
 "ticker": "VOC",
 "fecha": "2026-07-29",
-"anterior": 0.8,
-"nuevo": 0.79
+"anterior": 0.79,
+"nuevo": 0.83
 }
 ],
 "revisar": []
