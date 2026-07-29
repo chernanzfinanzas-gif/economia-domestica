@@ -125,7 +125,7 @@ function _tzPriceBar(V){
      grande, ocupando el ancho de la tarjeta. */
   if(typeof khEscalera!=='function') return '<div class="muted" style="font-size:12px;padding:6px 0">Faltan precio o niveles (banda de entrada / PO / stop) en Análisis.</div>';
   var html=khEscalera({precio:V.precio, stop:V.stop, entMin:V.entMin, entMax:V.entMax,
-                       poBase:V.poBase, poBear:V.poBear, poBull:V.poBull}, {grande:true});
+                       poBase:V.poBase, poBear:V.poBear, poBull:V.poBull}, {grande:true, compacto:true});
   return html || '<div class="muted" style="font-size:12px;padding:6px 0">Faltan precio o niveles (banda de entrada / PO / stop) en Análisis.</div>';
 }
 

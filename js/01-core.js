@@ -950,67 +950,87 @@ function khEscalera(V, opts){
   if(!(cot>0)) return '';
   if(!(eMax>0 || pBase>0 || stop>0)) return '';
   var grande = !!opts.grande;
+  /* [29-jul-2026 · COMPACTO] La escalera se diseñó para el ancho de Análisis. Metida en una
+     tarjeta del Kanban (225 px) o en el panel de la Ficha de Tesis, las etiquetas de stop,
+     entrada y PO base —colocadas en porcentaje— se montaban unas encima de otras y el chip de
+     estado se comía las tres. En compacto se queda lo que NO se puede deducir mirando: los dos
+     extremos de la horquilla y el precio. El resto sigue ahí como marcas de color, con el valor
+     en el `title`, y el estado no se rotula porque el color del punto ya lo dice. */
+  var compacto = !!opts.compacto;
   var H  = grande?19:15, TICK=grande?28:23, TOP=grande?4:-1;
 
-  /* Eje: todos los niveles conocidos entran, para que ninguno quede aplastado
-     contra un borde — que era lo que pasaba con un precio por debajo del bear. */
   var pts=[cot,stop,eMin,eMax,pBase,pBear,pBull].filter(function(v){ return v>0; });
   var lo=Math.min.apply(null,pts)*0.97, hi=Math.max.apply(null,pts)*1.03, rng=(hi-lo)||1;
   var P=function(v){ return Math.max(0,Math.min(100,(v-lo)/rng*100)); };
 
   var COL={stop:'#dc2626',ent:'#16a34a',po:'#be185d',bear:'#b45309',bull:'#7c3aed'};
-  /* Los cortes del degradado se ORDENAN. Si la banda de entrada está por encima
-     del PO —el caso de ACS— sin esto el degradado se invierte y no pinta nada. */
   var s=P(stop), emn=P(eMin), emx=P(eMax), pm=P(pBase);
   var cortes=[s,emn,emx,pm].slice(); for(var i=1;i<cortes.length;i++){ if(cortes[i]<cortes[i-1])cortes[i]=cortes[i-1]; }
   s=cortes[0]; emn=cortes[1]; emx=cortes[2]; pm=cortes[3];
   var grad='linear-gradient(90deg,#fecaca 0%,#fecaca '+s+'%,#fde68a '+s+'%,#fde68a '+emn+'%,'
           +'#bbf7d0 '+emn+'%,#bbf7d0 '+emx+'%,#fef0c7 '+emx+'%,#fef0c7 '+pm+'%,#fbcfe8 '+pm+'%,#fbcfe8 100%)';
 
-  var tick=function(v,c,fino){ if(!(v>0))return '';
-    return '<div style="position:absolute;top:'+(fino?(TOP+3):TOP)+'px;height:'+(fino?(TICK-6):TICK)+'px;width:'
-      +(fino?2:3)+'px;border-radius:2px;transform:translateX(-50%);left:'+P(v)+'%;background:'+c+(fino?';opacity:.75':'')+'"></div>'; };
-  var lbl=function(v,c,k,alto){ if(!(v>0))return '';
-    return '<div style="position:absolute;transform:translateX(-50%);text-align:center;line-height:1.2;white-space:nowrap;'
+  var tick=function(v,c,fino,tit){ if(!(v>0))return '';
+    return '<div title="'+(tit||'')+' '+F(v)+'" style="position:absolute;top:'+(fino?(TOP+3):TOP)+'px;height:'
+      +(fino?(TICK-6):TICK)+'px;width:'+(fino?2:3)+'px;border-radius:2px;transform:translateX(-50%);left:'
+      +P(v)+'%;background:'+c+(fino?';opacity:.75':'')+'"></div>'; };
+  var lbl=function(v,c,k,alto,soloValor){ if(!(v>0))return '';
+    return '<div style="position:absolute;transform:translateX(-50%);text-align:center;line-height:1.15;white-space:nowrap;'
       +'left:'+P(v)+'%;bottom:'+alto+'px;color:'+(c||'#0f172a')+'">'
-      +'<span style="display:block;font-size:8px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;opacity:.8">'+k+'</span>'
-      +'<span style="font-size:'+(grande?11:10)+'px;font-weight:800;font-variant-numeric:tabular-nums">'+F(v)+'</span></div>'; };
+      +(soloValor?'':'<span style="display:block;font-size:8px;font-weight:800;letter-spacing:.03em;text-transform:uppercase;opacity:.8">'+k+'</span>')
+      +'<span style="font-size:'+(grande?11:9.5)+'px;font-weight:800;font-variant-numeric:tabular-nums">'+F(v)+'</span></div>'; };
 
   var enZona=(eMin>0&&eMax>0&&cot>=eMin&&cot<=eMax), stopHit=(stop>0&&cot<=stop), bajo=(eMin>0&&cot<eMin);
   var dotCol=stopHit?COL.stop:(enZona?COL.ent:(bajo?'#d97706':COL.stop));
-  var estTxt=stopHit?'🚨 Stop':(enZona?'🟢 En zona':(bajo?'🟡 esperando':'🔴 caro'));
-  var estBg =stopHit?'#fee2e2':(enZona?'#dcfce7':(bajo?'#fef3c7':'#fee2e2'));
-  var estFg =stopHit?'#991b1b':(enZona?'#166534':(bajo?'#92400e':'#991b1b'));
   var pot=(V.pot!=null)?n(V.pot)*100:((pBase>0)?(pBase/cot-1)*100:null);
   var colch=(V.colchon!=null)?n(V.colchon)*100:((stop>0)?(cot-stop)/cot*100:null);
   var fueraArriba=(pBull>0&&cot>pBull), fueraAbajo=(pBear>0&&cot<pBear);
 
-  var chip=function(x,bg,fg,txt){ return '<div style="position:absolute;bottom:'+(grande?-34:-30)+'px;left:'+x+'%;'
-     +'transform:translateX(-50%);font-size:'+(grande?11:10)+'px;font-weight:800;padding:3px 8px;border-radius:20px;'
-     +'white-space:nowrap;background:'+bg+';color:'+fg+'">'+txt+'</div>'; };
+  var chip=function(x,bg,fg,txt,abajo){ return '<div style="position:absolute;bottom:'+abajo+'px;left:'+x+'%;'
+     +'transform:translateX(-50%);font-size:'+(grande?11:9.5)+'px;font-weight:800;padding:'+(compacto?'2px 7px':'3px 8px')
+     +';border-radius:20px;white-space:nowrap;background:'+bg+';color:'+fg+'">'+txt+'</div>'; };
+  var yChips=(grande?-34:-30);
   var chips='';
-  if(colch!=null) chips+=chip(s,'#fee2e2','#991b1b','colchón '+colch.toFixed(0)+'%');
-  if(pot!=null)   chips+=chip(pm,'#dcfce7','#166534','Potencial '+(pot>=0?'+':'')+pot.toFixed(0)+'%');
-  /* El aviso de horquilla se ancla al EXTREMO que se ha rebasado, no al precio:
-     junto al precio se solapaba con su etiqueta. */
-  if(fueraArriba) chips+=chip(Math.min(96,P(pBull)),COL.bull,'#fff','por encima del PO bull');
-  else if(fueraAbajo) chips+=chip(Math.max(6,P(pBear)),COL.bear,'#fff','por debajo del PO bear');
+  if(!compacto){
+    if(colch!=null) chips+=chip(s,'#fee2e2','#991b1b','colchón '+colch.toFixed(0)+'%',yChips);
+    if(pot!=null)   chips+=chip(pm,'#dcfce7','#166534','Potencial '+(pot>=0?'+':'')+pot.toFixed(0)+'%',yChips);
+  }
+  /* El aviso de horquilla SÍ se queda en compacto: es lo único de aquí que no se ve a simple
+     vista, y en la tarjeta va debajo del todo para no pisar el precio. */
+  var yAviso = compacto ? (grande?-40:-36) : yChips;
+  if(fueraArriba) chips+=chip(Math.min(94,P(pBull)),COL.bull,'#fff','por encima del PO bull',yAviso);
+  else if(fueraAbajo) chips+=chip(Math.max(8,P(pBear)),COL.bear,'#fff','por debajo del PO bear',yAviso);
 
-  return '<div style="position:relative;margin:'+(grande?'62px 34px 62px':'52px 30px 56px')+'">'
+  var estado='';
+  if(!compacto){
+    var estTxt=stopHit?'🚨 Stop':(enZona?'🟢 En zona':(bajo?'🟡 esperando':'🔴 caro'));
+    var estBg =stopHit?'#fee2e2':(enZona?'#dcfce7':(bajo?'#fef3c7':'#fee2e2'));
+    var estFg =stopHit?'#991b1b':(enZona?'#166534':(bajo?'#92400e':'#991b1b'));
+    estado='<div style="position:absolute;top:-'+(grande?46:42)+'px;left:'+P(cot)+'%;transform:translateX(-50%);font-size:'
+      +(grande?11:10)+'px;font-weight:800;padding:3px 8px;border-radius:20px;white-space:nowrap;background:'+estBg
+      +';color:'+estFg+'">'+estTxt+'</div>';
+  }
+
+  /* Etiquetas de arriba. En compacto solo los dos extremos, que están lejos entre sí y no chocan. */
+  var etiquetas = compacto
+    ? (lbl(pBear,COL.bear,'PO bear',TICK+3,false)+lbl(pBull,COL.bull,'PO bull',TICK+3,false))
+    : (lbl(stop,COL.stop,'Stop',TICK+3)+lbl(eMax,COL.ent,'Entrada',TICK+3)+lbl(pBase,COL.po,'P. objetivo',TICK+3)
+       +lbl(pBear,COL.bear,'PO bear',TICK+25)+lbl(pBull,COL.bull,'PO bull',TICK+25));
+
+  var margen = compacto ? (grande?'40px 16px 44px':'34px 14px 38px')
+                        : (grande?'62px 34px 62px':'52px 30px 56px');
+  return '<div style="position:relative;margin:'+margen+'">'
     +'<div style="height:'+H+'px;border-radius:8px;background:'+grad+'"></div>'
-    +tick(pBear,COL.bear,1)+tick(pBull,COL.bull,1)
-    +tick(stop,COL.stop)+tick(eMin,COL.ent)+tick(eMax,COL.ent)+tick(pBase,COL.po)
-    +lbl(stop,COL.stop,'Stop',TICK+3)+lbl(eMax,COL.ent,'Entrada',TICK+3)+lbl(pBase,COL.po,'P. objetivo',TICK+3)
-    +lbl(pBear,COL.bear,'PO bear',TICK+25)+lbl(pBull,COL.bull,'PO bull',TICK+25)
+    +tick(pBear,COL.bear,1,'PO bear')+tick(pBull,COL.bull,1,'PO bull')
+    +tick(stop,COL.stop,0,'Stop')+tick(eMin,COL.ent,0,'Entrada mín.')+tick(eMax,COL.ent,0,'Entrada máx.')+tick(pBase,COL.po,0,'P. objetivo')
+    +etiquetas
     +'<div style="position:absolute;top:'+((H/2)-(grande?11:9))+'px;left:'+P(cot)+'%;width:'+(grande?22:18)+'px;height:'
       +(grande?22:18)+'px;border-radius:50%;border:3px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.3);'
       +'transform:translateX(-50%);background:'+dotCol+'"></div>'
     +'<div style="position:absolute;top:'+(H+11)+'px;left:'+P(cot)+'%;transform:translateX(-50%);text-align:center;white-space:nowrap">'
-      +'<div style="font-size:'+(grande?15:13)+'px;font-weight:800;font-variant-numeric:tabular-nums;color:'+dotCol+'">'+F(cot)+'</div>'
-      +'<div style="font-size:8.5px;color:#94a3b8;font-weight:700">precio actual</div></div>'
-    +'<div style="position:absolute;top:-'+(grande?46:42)+'px;left:'+P(cot)+'%;transform:translateX(-50%);font-size:'
-      +(grande?11:10)+'px;font-weight:800;padding:3px 8px;border-radius:20px;white-space:nowrap;background:'+estBg+';color:'+estFg+'">'+estTxt+'</div>'
-    +chips
+      +'<div style="font-size:'+(grande?15:12.5)+'px;font-weight:800;font-variant-numeric:tabular-nums;color:'+dotCol+'">'+F(cot)+'</div>'
+      +(compacto?'':'<div style="font-size:8.5px;color:#94a3b8;font-weight:700">precio actual</div>')+'</div>'
+    +estado+chips
     +'</div>';
 }
 function precioDe(a){ if(!a)return 0;

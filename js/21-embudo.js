@@ -486,7 +486,7 @@ function _emBar(V){
      otro nombre en cada pantalla. */
   if(typeof khEscalera!=='function') return '';
   return khEscalera({precio:V.precio, stop:V.stop, entMin:V.entMin, entMax:V.entMax,
-                     poBase:V.poBase, poBear:V.poMin, poBull:V.poBull});
+                     poBase:V.poBase, poBear:V.poMin, poBull:V.poBull}, {compacto:true});
 }
 function _emPriceBar(r){ var a=r.a; if(!a)return '';
   var precio=_emNum(a.cotizacion)||((typeof _tzPrecio==='function')?_emNum(_tzPrecio(r.t)):0);
