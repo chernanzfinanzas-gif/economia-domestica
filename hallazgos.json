@@ -816,7 +816,7 @@
     "RED": {
       "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
-        "semanal": "2026-07-28"
+        "semanal": "2026-07-29"
       },
       "hallazgos": [
         {
@@ -833,6 +833,36 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "soc-sancion-cnmc-apagon",
+          "abiertoEl": "2026-04-17",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "La CNMC incoó el 17-abr-2026 expediente sancionador contra Red Eléctrica, en su condición de operador del sistema, en el marco de las investigaciones del apagón del 28-abr-2025. Plazo de resolución 18 meses (art. 79 LSE). Red Eléctrica presentó alegaciones el 11-may-2026 defendiendo defectos de forma y la ausencia de infracción. La CNMC ha reconocido públicamente que los eventuales incumplimientos no pueden afirmarse como causa del incidente, de origen multifactorial, y el Panel de Expertos Europeos concluyó el 20-mar-2026 que no hay incumplimiento ni conducta atribuible a Red Eléctrica. Los administradores NO han registrado provisión alguna a 30-jun-2026. Red flag §10.4.",
+          "tipo": "sancion",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-04-17",
+          "fuente": null,
+          "exigeAccion": false
+        },
+        {
+          "id": "soc-downgrade-rating-2026",
+          "abiertoEl": "2026-03-11",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Rebaja de rating crediticio a largo plazo de A− a BBB+, con perspectiva estable, por Fitch (27-feb-2026) y por S&P (11-mar-2026); S&P resolvió con ello su CreditWatch negativo de 26-jun-2025. Motivo declarado por ambas: el mayor esfuerzo inversor del Plan Estratégico, que deteriora transitoriamente los ratios crediticios; siguen valorando el perfil de riesgo de negocio como excelente. Red flag §10.4 (acción: revisar solvencia, Bloque 2).",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-03-11",
+          "fuente": null,
+          "exigeAccion": false
         }
       ],
       "revisiones": [],
@@ -941,19 +971,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 29,
+    "hallazgosActivos": 31,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
       "senal": 1,
       "concurso": 1,
-      "otro": 7,
-      "sancion": 1,
+      "otro": 8,
+      "sancion": 2,
       "litigio": 1
     },
     "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 8,
+    "situacionesAbiertas": 10,
     "hechosCaducadosHoy": 0
   }
 }
