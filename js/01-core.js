@@ -740,9 +740,15 @@ function alertaCorpBadge(t,compact){
   });
   var cob=((_hallazgosEmp||{})[(t||'').toUpperCase()]||{}).cobertura||null;
   var pie='';
-  if(cob&&(cob.semanal||cob.universo)){
-    var p=[]; if(cob.semanal)p.push('informe semanal: '+cob.semanal);
-    if(cob.universo)p.push('barrido del universo: '+cob.universo);
+  /* [29-jul-2026] El pie solo pintaba 'semanal' y 'universo'. El generador SI sella
+     'trimestral' desde monitor-trimestral, pero ese sello no llegaba nunca a la pantalla:
+     una empresa recien monitorizada se veia igual de vieja que una que nadie ha abierto
+     desde el ultimo informe semanal. Cualquier pase que selle cobertura se pinta ya. */
+  var _COB_ET={semanal:'informe semanal', universo:'barrido del universo', trimestral:'monitor trimestral', anual:'actualizacion anual'};
+  if(cob&&Object.keys(cob).some(function(k){return !!cob[k];})){
+    var p=[];
+    Object.keys(_COB_ET).forEach(function(k){ if(cob[k])p.push(_COB_ET[k]+': '+cob[k]); });
+    Object.keys(cob).forEach(function(k){ if(cob[k]&&!_COB_ET[k])p.push(k+': '+cob[k]); });
     pie='<div class="muted" style="font-size:10.5px;margin:2px 0 0 2px">Última revisión — '+_radEsc(p.join(' · '))+'</div>';
   }
   return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+_histBloque(t);
