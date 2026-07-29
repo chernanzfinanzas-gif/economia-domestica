@@ -9,8 +9,8 @@
  "poBear": 23,
  "poBase": 28.65,
  "poBull": 45,
- "entMin": 25,
- "entMax": 30,
+ "entMin": 22.0,
+ "entMax": 24.0,
  "stop": 21.7,
  "moat": 67.8,
  "catalizadores": [
@@ -145,5 +145,6 @@
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
   "calculadoEl": "2026-07-27"
- }
+ },
+ "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 25,00-30,00 €, POR ENCIMA del PO base (28,65 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 22,00-24,00 €, margen de seguridad del 23% al 16%. No cambia la valoración: PO bear/base/bull siguen igual."
 }

@@ -10,8 +10,8 @@
  "poBear": 34.5,
  "poBase": 44.5,
  "poBull": 59.3,
- "entMin": 40.0,
- "entMax": 46.0,
+ "entMin": 34.0,
+ "entMax": 37.0,
  "stop": 30.8,
  "dpaPrevisto": 1.75,
  "moat": "Ancho (75/100) — ventaja de coste/velocidad del modelo vertical integrado + marca Zara",
@@ -144,5 +144,6 @@
   "veredicto": "HEROICO",
   "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
   "calculadoEl": "2026-07-27"
- }
+ },
+ "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 40,00-46,00 €, POR ENCIMA del PO base (44,50 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 34,00-37,00 €, margen de seguridad del 24% al 17%. No cambia la valoración: PO bear/base/bull siguen igual."
 }
