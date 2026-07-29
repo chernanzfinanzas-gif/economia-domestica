@@ -252,6 +252,14 @@
       "revisiones": [
         {
           "fila": 94,
+          "fecha": "29-jul-2026",
+          "senal": "Disc.",
+          "cot": 108.9,
+          "decision": "AJUSTA BANDA",
+          "motivo": "Banda de entrada recolocada de 69,00-75,00 € a 52,50-57,50 €. Estaba POR ENCIMA del PO base (68,80 €): comprar dentro de ella era pagar hasta un 9% por encima del propio precio objetivo. Se aplica la regla que siguen las otras 24 fichas del parque —entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas medidas sobre las 20 fichas coherentes—, redondeando siempre A LA BAJA para no ensanchar la zona de compra. La banda nueva sitúa el punto de compra en torno al escenario bear (55,70 €), que es donde corresponde con un reverse DCF HEROICO y un P/E de 31x. NO cambia la valoración: PO bear/base/bull siguen en 55,70 / 68,80 / 98,60 €, y el stop de tesis en 49,85 €. · [Cotización del apunte: último cierre verificado, 108,90 € del 27-jul-2026; la serie de precios de la app termina el 17-jul-2026 y no hay cierre posterior comprobable.]"
+        },
+        {
+          "fila": 95,
           "fecha": "27-jul-2026",
           "senal": "Disc.",
           "cot": 108.9,
@@ -259,7 +267,7 @@
           "motivo": "Re-valoración con la beta SECTORIAL 1,05 (decisión del operador) en vez de la del CAPM 0,63. El stop pasa a calcularse con la regla §8.7 —10% × β × q sobre el suelo del Bear— que antes no se había aplicado: los 60 € eran el suelo del Bear a pelo. No es un ajuste al precio: ACS cotiza a 117,60 €, muy por encima de todo el rango. · [Decisión original: «Stop 60,00 → 49,85 €»] · [Cotización corregida el 29-jul-2026: el apunte decía 117,60 € y ese valor no aparece en toda la serie de cotizaciones; se pone el cierre oficial de esa fecha, 108.90 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
         },
         {
-          "fila": 95,
+          "fila": 96,
           "fecha": "22-jul-2026",
           "senal": "S3",
           "cot": 117.1,
