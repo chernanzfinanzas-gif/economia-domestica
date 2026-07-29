@@ -45,6 +45,10 @@
         {
           "nombre": "Volúmenes gestionados de clientes (M€)",
           "valor": 114122
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": "Pte. Revisión"
         }
       ]
     },
@@ -84,8 +88,16 @@
           "valor": 2.22
         },
         {
+          "nombre": "Cobertura (%)",
+          "valor": 66.34
+        },
+        {
           "nombre": "Volúmenes gestionados de clientes (M€)",
           "valor": 119139
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.38
         }
       ]
     },
@@ -131,6 +143,10 @@
         {
           "nombre": "Volúmenes gestionados de clientes (M€)",
           "valor": 119844
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.38
         }
       ]
     },
@@ -176,6 +192,10 @@
         {
           "nombre": "Volúmenes gestionados de clientes (M€)",
           "valor": 125512
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.39
         }
       ]
     },
@@ -215,8 +235,16 @@
           "valor": 2.23
         },
         {
+          "nombre": "Cobertura (%)",
+          "valor": 64.11
+        },
+        {
           "nombre": "Volúmenes gestionados de clientes (M€)",
           "valor": 129232
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.39
         }
       ]
     },
@@ -254,6 +282,10 @@
         {
           "nombre": "Morosidad (%)",
           "valor": 2.17
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 67.91
         },
         {
           "nombre": "Volúmenes gestionados de clientes (M€)",
