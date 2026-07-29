@@ -23,7 +23,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 19.5
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -72,7 +72,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 18.9
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -121,7 +121,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 17.5
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -170,7 +170,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 14.8
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -219,7 +219,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 19.5
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -268,7 +268,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 23.2
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -317,7 +317,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 24.6
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -366,7 +366,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 24.8
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -415,7 +415,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 24.3
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -464,7 +464,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 24.9
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -513,7 +513,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 26.5
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -562,7 +562,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 26.9
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -631,7 +631,7 @@
         },
         {
           "nombre": "Mg EBITDA%",
-          "valor": null
+          "valor": 28.0
         },
         {
           "nombre": "Rtdo Ord. Neto M€",
@@ -672,6 +672,88 @@
           "valoracion": "Renovación ordinaria del consejo; mantiene el equilibrio dominical/independiente."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El mejor semestre de la serie: EBITDA 3.240 M€ (+20%), margen 29,5%, Resultado Ordinario Neto 1.480 M€ (+42%) y BPA 1,44 € (+46%), con el EBITDA regulado acercándose al 50% del total. Suben la guía: el objetivo de BPA 2026 pasa de 2,4 €/acc a >2,4 €/acc. Solvencia holgadísima (DN/EBITDA 1,6x, CFO/DN 38%) y recompra de 2.000 M€ ya ejecutada por encima del 50%. Matices: el semestre incluye efectos no recurrentes positivos (~80 M€ de intereses de demora), los ingresos solo suben +1% —todo el crecimiento es margen— y la capacidad renovable se ha parado (+128 MW). Verde.",
+      "metricas": [
+        {
+          "nombre": "Ingresos M€",
+          "valor": 10995
+        },
+        {
+          "nombre": "EBITDA M€",
+          "valor": 3240
+        },
+        {
+          "nombre": "RAB M€",
+          "valor": 11400
+        },
+        {
+          "nombre": "Mg EBITDA%",
+          "valor": 29.5
+        },
+        {
+          "nombre": "Rtdo Ord. Neto M€",
+          "valor": 1480
+        },
+        {
+          "nombre": "Producción  Total TWh",
+          "valor": 32.7
+        },
+        {
+          "nombre": "Capacidad total MW",
+          "valor": 22744
+        },
+        {
+          "nombre": "Ventas elec TWh",
+          "valor": 35
+        },
+        {
+          "nombre": "Capacidad Renov. GW",
+          "valor": 11.4
+        },
+        {
+          "nombre": "Clientes Liberaliz. M",
+          "valor": 6.3
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Mejora de la previsión de BPA para 2026: el objetivo pasa de 2,4 €/acción a «>2,4 €/acción», respaldado por el resultado del primer semestre y por la ejecución del programa de recompra. El resto de objetivos del plan se mantiene.",
+          "impacto": "+",
+          "valoracion": "Subida de guía a mitad de año con el ~60% del objetivo anual ya cubierto: es la señal más fuerte del semestre. La propia compañía matiza que el 1S incluye efectos no recurrentes positivos, así que la mejora no es íntegramente recurrente. No cambia el PO de 28,65 €, que sigue por debajo de la cotización: la tesis no es de fundamentales, es de precio."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "Programa de recompra de acciones de 2.000 M€ ejecutado por encima del 50% (1,1 mil M€) a 30-jun-2026; sexto tramo de 500 M€ abierto del 15-jul-2026 al 27-nov-2026. La remuneración total al accionista del semestre asciende a 1,2 mil M€.",
+          "impacto": "+",
+          "valoracion": "Es lo que explica que el BPA crezca +46% frente al +42% del RON: la recompra es acretiva y el KPI §10.1 de número de acciones queda en zona REFUERZA («estable o a la baja»). En una compañía controlada al ~70% por Enel, además, la recompra concentra: conviene seguir el free float."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Dividendo complementario de 2025 de 1,084 €/acción pagado el 10-jul-2026, hasta un DPA total de 1,584 € con cargo a 2025. La política 2026-2028 fija un dividendo ordinario mínimo del 70% del beneficio ordinario neto atribuido.",
+          "impacto": "+",
+          "valoracion": "Checklist B4: 0 predictores duros y 0 blandos — el dividendo está en la mejor situación de toda la serie. Payout ordinario 70%, dentro de la banda REFUERZA del §10.1 (65-80%), cobertura sobre owner earnings 1,43x y sobre FCL 1,59x, y ninguna agencia en revisión negativa. Sin apunte en §10.4."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Aceleración del capex con Redes como foco: la inversión en Redes crece +38% interanual y el RAB pasa de 11,3 a 11,4 mil M€. En paralelo, la capacidad renovable instalada sube solo 128 MW en el semestre (de 11,3 a 11,4 GW), todo fotovoltaica.",
+          "impacto": "=",
+          "valoracion": "Es una reasignación deliberada de capital hacia el negocio regulado, y por eso el EBITDA gana visibilidad. El coste es el otro lado: el KPI §10.1 de capacidad renovable pide >+0,5 GW/año para reforzar y por debajo de +0,3 GW/año debilita — a este ritmo el objetivo propio de 13,2 GW en 2028 no se alcanza. Único KPI del watchlist en banda débil; vigilar que no pase de pausa a estancamiento."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "S&P mantiene el rating en BBB con perspectiva POSITIVA (17-mar-2026); Moody's en Baa1 estable (20-may-2026) y Fitch en BBB+ estable (19-may-2026).",
+          "impacto": "+",
+          "valoracion": "Ninguna agencia en revisión negativa y una con sesgo de mejora: el red flag §10.4 de «rebaja de rating» no solo no se activa, apunta en dirección contraria. Refuerza el margen de maniobra para sostener a la vez capex, recompra y dividendo."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ],
   "schemaVersion": 2
