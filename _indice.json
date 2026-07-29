@@ -1,0 +1,77 @@
+{
+ "dossiers": [
+  "A3M",
+  "ACS",
+  "AENA",
+  "AMS",
+  "AZK",
+  "BKT",
+  "CIE",
+  "EBRO",
+  "ELE",
+  "ENG",
+  "FAE",
+  "FDR",
+  "IBE",
+  "ITX",
+  "LOG",
+  "MAP",
+  "MCM",
+  "NTGY",
+  "PRM",
+  "RED",
+  "REP",
+  "SAN",
+  "TEF",
+  "VID",
+  "VIS"
+ ],
+ "informes": [
+  "Informe Semanal de Cartera - 2026-07-13.pdf",
+  "Informe Semanal de Cartera - 2026-07-14.pdf",
+  "Informe Semanal de Cartera - 2026-07-20.pdf",
+  "Informe Semanal de Cartera - 2026-07-27.pdf"
+ ],
+ "revisiones": {
+  "AENA": [
+   "2026-07-28 Nota Revisión Extraordinaria Aena (S2).html"
+  ],
+  "AMS": [
+   "2026-07-28 Nota Revisión Extraordinaria Amadeus (S2).html"
+  ],
+  "AZK": [
+   "2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html"
+  ],
+  "SAN": [
+   "2026-07-28 Nota Revisión Extraordinaria Banco Santander (S3).html"
+  ]
+ },
+ "schemaVersion": 1,
+ "tesis": [
+  "A3M",
+  "ACS",
+  "AENA",
+  "AMS",
+  "AZK",
+  "BKT",
+  "CIE",
+  "EBRO",
+  "ELE",
+  "ENG",
+  "FAE",
+  "FDR",
+  "IBE",
+  "ITX",
+  "LOG",
+  "MAP",
+  "MCM",
+  "NTGY",
+  "PRM",
+  "RED",
+  "REP",
+  "SAN",
+  "TEF",
+  "VID",
+  "VIS"
+ ]
+}

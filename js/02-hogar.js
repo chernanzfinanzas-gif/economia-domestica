@@ -477,9 +477,20 @@ function renderHemeroteca(){
   if(!sec._hemBlkBound){ sec._hemBlkBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('a,input,select,button'))return; var h=e.target.closest('.pos-blk-h'); if(h){ h.parentElement.classList.toggle('open'); } }); }
   if(typeof renderInfoBoxes==='function')renderInfoBoxes();
   var host=document.getElementById('hemeroSemanal'); var kp=document.getElementById('hemeroKpis');
-  fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;}).then(function(arr){
+  /* [30-jul-2026 · FASE 3] Antes esto era la cuarta llamada a la API pública de GitHub
+     (60 peticiones/hora por IP). Ahora se lee del índice publicado —una sola petición
+     compartida con los otros tres sitios— y la API queda solo como respaldo, para que
+     un repo sin `_indice.json` siga funcionando igual. Al agotarse la cuota, esta lista
+     se quedaba vacía sin decir nada: parecía que no había informes archivados. */
+  var _hemLista = (typeof khIndice==='function')
+    ? khIndice().then(function(idx){ return (idx&&idx.informes)?idx.informes.map(function(n){return {name:n};}):null; })
+    : Promise.resolve(null);
+  _hemLista.then(function(pre){
+    if(pre) return pre;
+    return fetch(api,{cache:'no-store',headers:{'Accept':'application/vnd.github+json'}}).then(function(r){return r.ok?r.json():null;});
+  }).then(function(arr){
     if(!Array.isArray(arr))arr=[];
-    var pdfs=arr.filter(function(f){return /\.pdf$/i.test(f.name||'');});
+    var pdfs=arr.filter(function(f){return /\.pdf$/i.test((f&&f.name)||'');});
     pdfs.sort(function(a,b){ var fa=_hemFecha(a.name), fb=_hemFecha(b.name); return fa<fb?1:(fa>fb?-1:0); }); // más reciente arriba (por fecha del nombre)
     var _ss=document.getElementById('hemSemSum'); if(_ss)_ss.textContent=pdfs.length?(pdfs.length+' informe'+(pdfs.length===1?'':'s')):'sin informes';
     if(!pdfs.length){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Centro de informes y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }

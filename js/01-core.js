@@ -753,7 +753,35 @@ function alertaCorpBadge(t,compact){
   }
   return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+_histBloque(t);
 }
-async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
+/* ═══════════════════════ [30-jul-2026 · FASE 3] ÍNDICE PUBLICADO ═══════════════════════
+   La app listaba carpetas del repo con la API PÚBLICA de GitHub: 60 peticiones/hora por
+   IP, y 3+N por carga (una por empresa con notas). Al agotarse la cuota, el código
+   —`if(!r.ok)return;`— se lo tragaba EN SILENCIO: los botones de dossier desaparecían y
+   las notas dejaban de salir en la Ficha. Indistinguible de «no está publicado». El
+   29-jul-2026 me llevó a concluir que los dossiers no estaban en el repo cuando sí
+   estaban, y a escribirlo en un informe.
+   `publicar.py` genera ahora `_indice.json` en la raíz del repo en cada publicación, a
+   partir del manifiesto real, y lo mantiene al día aunque algo se suba por la web.
+   Aquí se pide PRIMERO ese fichero —estático, sin cuota, y una sola petición para los
+   cuatro sitios que antes llamaban a la API— y solo se cae a la API si no existe, para
+   que un repo sin índice siga funcionando igual que antes.
+   ═════════════════════════════════════════════════════════════════════════════════════ */
+var _KH_IDX_URL='_indice.json';
+var _khIdxProm=null;
+function khIndice(){
+  if(_khIdxProm) return _khIdxProm;
+  /* el `?v=` es necesario: el índice cambia en cada publicación y el CDN de Pages
+     serviría el viejo durante minutos. */
+  _khIdxProm = fetch(_KH_IDX_URL+'?v='+Date.now(),{cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(d){ return (d&&typeof d==='object'&&(d.dossiers||d.tesis||d.revisiones||d.informes))?d:null; })
+    .catch(function(){ return null; });
+  return _khIdxProm;
+}
+/* Para forzar una relectura tras publicar sin recargar la app. */
+function khIndiceOlvidar(){ _khIdxProm=null; }
+
+async function cargarDossiers(){ try{ let set=new Set(), jset=new Set(); const idx=await khIndice(); if(idx){ (idx.dossiers||[]).forEach(function(t){ set.add((''+t).toUpperCase()); }); (idx.tesis||[]).forEach(function(t){ jset.add((''+t).toUpperCase()); }); } else { const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); } _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
 /* ===========================================================================
    [29-jul-2026]  REPARACIÓN DE LAS FOTOS ANTIGUAS DE TESIS
    ---------------------------------------------------------------------------
@@ -1168,11 +1196,11 @@ function dossierURL(t,manual){ if(manual)return manual; t=(t||'').toUpperCase();
 var _revDirs=null;   /* Set de tickers que tienen carpeta de revisiones en el repo */
 var _revCache={};    /* ticker -> [ {name,fecha,senal,url} ] */
 /* Índice: una sola llamada a la Contents API lista las subcarpetas (tickers con notas). */
-async function cargarRevIndex(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones',{cache:'no-store'}); _revDirs=new Set(); if(r.ok){ const arr=await r.json(); if(Array.isArray(arr))arr.forEach(function(f){ if(f&&f.type==='dir'&&f.name)_revDirs.add((''+f.name).toUpperCase()); }); } if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); /* [28-jul-2026] Y la Ficha, que ahora tambien depende de este indice para decidir si    pinta su bloque de notas. Sin esto, abrir una ficha antes que la Hemeroteca dejaba el    bloque invisible hasta recargar. No hay bucle: al volver, _revDirs ya no es null. */ try{ if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e2){} }catch(e){ if(!_revDirs)_revDirs=new Set(); } }
+async function cargarRevIndex(){ try{ const idx=await khIndice(); if(idx&&idx.revisiones){ _revDirs=new Set(Object.keys(idx.revisiones).map(function(k){return (''+k).toUpperCase();})); } else { const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones',{cache:'no-store'}); _revDirs=new Set(); if(r.ok){ const arr=await r.json(); if(Array.isArray(arr))arr.forEach(function(f){ if(f&&f.type==='dir'&&f.name)_revDirs.add((''+f.name).toUpperCase()); }); } } if(typeof renderHemeroAnalisis==='function')renderHemeroAnalisis(); /* [28-jul-2026] Y la Ficha, que ahora tambien depende de este indice para decidir si    pinta su bloque de notas. Sin esto, abrir una ficha antes que la Hemeroteca dejaba el    bloque invisible hasta recargar. No hay bucle: al volver, _revDirs ya no es null. */ try{ if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); }catch(e2){} }catch(e){ if(!_revDirs)_revDirs=new Set(); } }
 /* Parseo del nombre "AAAA-MM-DD Nota Revisión Extraordinaria [Empresa] (Señal).html" */
 function _revParse(name){ name=(''+(name||'')); var f=(name.match(/(\d{4}-\d{2}-\d{2})/)||[])[1]||''; var s=(name.match(/\(([^)]+)\)\.html$/i)||[])[1]||''; return {fecha:f||name.replace(/\.html$/i,''), senal:s}; }
 /* Notas de un ticker (lazy, cacheado). */
-async function cargarRevisiones(t){ t=(t||'').toUpperCase(); if(_revCache[t])return _revCache[t]; try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones/'+encodeURIComponent(t),{cache:'no-store'}); if(!r.ok){ _revCache[t]=[]; return []; } const arr=await r.json(); if(!Array.isArray(arr)){ _revCache[t]=[]; return []; } const list=arr.filter(function(f){return f&&/\.html$/i.test(f.name||'');}).map(function(f){ var p=_revParse(f.name); return {name:f.name, fecha:p.fecha, senal:p.senal, url:'dossiers/revisiones/'+t+'/'+encodeURIComponent(f.name)}; }); list.sort(function(a,b){ return (''+(b.fecha||'')).localeCompare(''+(a.fecha||'')); }); _revCache[t]=list; return list; }catch(e){ _revCache[t]=[]; return []; } }
+async function cargarRevisiones(t){ t=(t||'').toUpperCase(); if(_revCache[t])return _revCache[t]; try{ let nombres=null; const idx=await khIndice(); if(idx&&idx.revisiones) nombres=(idx.revisiones[t]||[]); if(nombres===null){ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers/revisiones/'+encodeURIComponent(t),{cache:'no-store'}); if(!r.ok){ _revCache[t]=[]; return []; } const arr=await r.json(); if(!Array.isArray(arr)){ _revCache[t]=[]; return []; } nombres=arr.map(function(f){return (f&&f.name)||'';}); } const list=nombres.filter(function(n){return /\.html$/i.test(n);}).map(function(n){ var pp=_revParse(n); return {name:n, fecha:pp.fecha, senal:pp.senal, url:'dossiers/revisiones/'+t+'/'+encodeURIComponent(n)}; }); list.sort(function(a,b){ return (''+(b.fecha||'')).localeCompare(''+(a.fecha||'')); }); _revCache[t]=list; return list; }catch(e){ _revCache[t]=[]; return []; } }
 /* HTML de la lista de notas de una empresa (chips fecha + señal, abren en pestaña). */
 function _revListHTML(list){ if(!list||!list.length)return '<span class="muted" style="font-size:11px">Sin notas de revisión en el repo.</span>'; return list.map(function(x){ var esS=/^S\d/i.test(x.senal||''); var col=esS?'#dc2626':'#2563eb'; var esc=(typeof _cfgEsc==='function')?_cfgEsc:function(s){return s;}; return '<a href="'+x.url+'" target="_blank" rel="noopener" style="display:inline-flex;gap:7px;align-items:center;padding:4px 9px;margin:3px 7px 3px 0;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-size:12px;color:inherit"><span style="background:'+col+';color:#fff;border-radius:5px;padding:1px 7px;font-size:10px;font-weight:700">'+esc(x.senal||'—')+'</span><b>'+esc(x.fecha||'')+'</b> <span style="opacity:.7">📄</span></a>'; }).join(''); }
 /* [28-jul-2026] Apertura diferida de la linea de tiempo de la Ficha.
