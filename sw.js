@@ -1,4 +1,4 @@
-// Service worker de Economia Domestica  (v2 - network-only, sin cache).
+// Service worker de Economia Domestica  (v3 - network-only, sin cache - 20260720).
 // Habilita la instalacion como app (PWA) y, ademas, fuerza que TODOS los
 // archivos propios de la app se carguen siempre desde la red (cache:'no-store').
 // Asi la app instalada se autoactualiza: en cuanto subes una version nueva al
