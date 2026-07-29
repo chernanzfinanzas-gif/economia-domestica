@@ -748,6 +748,88 @@ function alertaCorpBadge(t,compact){
   return ord.map(function(h){ return _alcorpBanner(t,h); }).join('')+pie+_histBloque(t);
 }
 async function cargarDossiers(){ try{ const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; const set=new Set(); const jset=new Set(); arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
+/* ===========================================================================
+   [29-jul-2026]  REPARACIÓN DE LAS FOTOS ANTIGUAS DE TESIS
+   ---------------------------------------------------------------------------
+   Hasta el 28-jul la foto guardaba como «PO base» la MEDIA de bear y bull. No es
+   el precio objetivo de nadie: siempre sale sesgada hacia arriba porque el bull
+   está más lejos que el bear. Las 26 fotos del histórico nacieron así, y una foto
+   mal hecha no es un error de pantalla: es la vara con la que después se mide si
+   la decisión acertó.
+
+   El PO verdadero de cada foto NO se deduce ni se estima: se lee del dossier que
+   estaba vigente ese día, recuperado del historial del repositorio. Y la llave
+   para casar foto con revisión NO es la fecha, es la HORQUILLA (bear|bull), que
+   es lo que la foto guarda de aquel dossier. Importa: ACS lleva fecha 2026-07-21
+   en las dos versiones, pero el 27-jul se revaloró en el sitio (82,00 -> 68,80).
+   Por fecha se le habría puesto a la foto un PO que aún no existía; por horquilla
+   (66|120) sale 82,00, que es lo que valía el día de la foto.
+
+   Las 27 horquillas de la tabla son únicas: ninguna apunta a dos PO distintos, así
+   que la correspondencia es exacta y no hay nada que elegir. Lo que no case con
+   ninguna se queda como está y se marca «Pte. Revisión» — no se inventa un PO.
+   =========================================================================== */
+const PO_FOTOS_TABLA={
+  A3M:{'4.4|8.53':5.15},
+  ACS:{'55.7|98.6':68.8,'66|120':82},
+  AENA:{'17.2|33':21.6},
+  AMS:{'54|110':74},
+  AZK:{'11.73|22.79':13.28},
+  BKT:{'8.1|15.5':10.2},
+  CIE:{'20|42':33.1},
+  EBRO:{'9.86|22.55':17.05},
+  ELE:{'23|45':28.65},
+  ENG:{'12.5|22':17.82},
+  FAE:{'2.9|6.8':4.67},
+  FDR:{'13.69|29.73':25.44},
+  IBE:{'12.5|32':26.5},
+  ITX:{'34.5|59.3':44.5},
+  LOG:{'24|47':34},
+  MAP:{'3.15|5.89':4.43},
+  MCM:{'10.5|20':15.7},
+  NTGY:{'21|40':32.81},
+  PRM:{'11.8|20':14.9},
+  RED:{'10|19':14.56},
+  REP:{'14|31':18},
+  SAN:{'7.65|13.61':8.92,'7|12.4':8.3},
+  TEF:{'3.01|5.3':4.14},
+  VID:{'70.3|139.9':107.3},
+  VIS:{'25.5|65.1':47.8}
+};
+function _poHqKey(br,bu){ br=num(br); bu=num(bu); return (br>0&&bu>0)?(String(br)+'|'+String(bu)):''; }
+/* PO real de una foto: dossier vivo si la horquilla coincide, si no la tabla histórica. 0 = no consta. */
+function poRealFoto(t,sn){
+  t=(t||'').toUpperCase(); if(!sn) return 0;
+  const k=_poHqKey(sn.poBear,sn.poBull); if(!k) return 0;
+  const J=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
+  if(J && _poHqKey(J.poBear,J.poBull)===k && num(J.poBase)>0) return num(J.poBase);
+  const d=PO_FOTOS_TABLA[t]; if(d && num(d[k])>0) return num(d[k]);
+  return 0;
+}
+/* Idempotente: solo escribe cuando hay un PO autorizado y difiere del guardado.
+   Conserva el valor viejo en `poBaseAnt` — corregir no es borrar el rastro. */
+function repararFotosPO(){
+  const H=DB.tesisHist||{}; let n=0, pte=0;
+  Object.keys(H).forEach(function(t){
+    (H[t]||[]).forEach(function(sn){
+      if(!sn) return;
+      const real=poRealFoto(t,sn);
+      if(real>0){
+        if(!(Math.abs(num(sn.poBase)-real)<0.005)){
+          if(sn.poBaseAnt==null) sn.poBaseAnt=num(sn.poBase);
+          sn.poBase=real; sn.poFuente='dossier'; delete sn.poRev; n++;
+        } else if(!sn.poFuente){ sn.poFuente='dossier'; }
+      } else {
+        /* Sin dossier que lo respalde. Solo se marca si el valor guardado ES la media,
+           que es la huella del fallo; una ficha hecha a mano no se toca ni se señala. */
+        const br=num(sn.poBear), bu=num(sn.poBull);
+        if(br>0&&bu>0&&Math.abs(num(sn.poBase)-(br+bu)/2)<0.005&&sn.poRev!=='Pte. Revisión'){ sn.poRev='Pte. Revisión'; pte++; }
+      }
+    });
+  });
+  if(n||pte){ try{ if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
+  return {corregidas:n, pendientes:pte};
+}
 function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(!a)return; fecha=fecha||new Date().toISOString().slice(0,10);
   /* [28-jul-2026] El PO base de la foto sale del campo `poBase` que `importTesis` ya copia del
      dossier a la fila de Analisis. Antes se calculaba como la MEDIA de bear y bull, que no es el
@@ -755,7 +837,10 @@ function guardarTesisSnap(t,fecha,motivo,origen){ t=(t||'').toUpperCase(); const
      sale mas alto porque el bull esta mas lejos que el bear. La media queda solo de respaldo,
      para empresas analizadas a mano que no tienen dossier. */
   const mn=num(a.poMin),mx=num(a.poMax);
-  const _pbA=num(a.poBase);
+  /* [29-jul-2026] Se pregunta a `poBaseDe`, que consulta PRIMERO el dossier. Leer `a.poBase` a
+     secas dejaba pasar el caso Iberdrola: el registro no tenía ese campo y la foto volvía a
+     nacer con la media. Una foto es un dato histórico; si nace mal, ya no hay quien lo sepa. */
+  const _pbA=(typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.poBase);
   const md=(_pbA>0)?_pbA:((mn&&mx)?(mn+mx)/2:(mx||mn||0));
   DB.tesisHist=DB.tesisHist||{}; const arr=DB.tesisHist[t]=DB.tesisHist[t]||[]; const ix=arr.findIndex(x=>x.fecha===fecha); const prev=ix>=0?arr[ix]:null;
   let mot=(motivo||'').trim(); if(prev&&prev.motivo){ mot = mot ? (prev.motivo+' · '+mot) : prev.motivo; }
@@ -778,7 +863,7 @@ function tesisHistHTML(t){ t=(t||'').toUpperCase(); const arr=((DB.tesisHist||{}
   let rows='';
   arr.forEach(sn=>{ const then=num(sn.cotizacion); const rent=(then&&ahora)?(ahora/then-1):null; const d=(sn.decision||'').toUpperCase(); let mk='—',mc='#64748b';
     if(rent!=null){ if(d==='COMPRAR'||d==='MANTENER'){ mk=rent>=0?'✓ acertada':'✗ a la baja'; mc=rent>=0?'#16a34a':'#dc2626'; } else if(d==='VENDER'){ mk=rent<0?'✓ acertada':'✗ subió'; mc=rent<0?'#16a34a':'#dc2626'; } else if(d==='ESPERAR'){ if(rent>0.05){mk='se escapó +'+(rent*100).toFixed(0)+'%';mc='#d97706';} else if(rent<0){mk='✓ bien esperado';mc='#16a34a';} else {mk='neutral';mc='#64748b';} } }
-    rows+=`<tr><td>${sn.fecha||'—'}${sn.origen==='app'?' <span title="'+String(sn.motivo||'ajuste en app').replace(/"/g,'&quot;')+'" style="cursor:help">📝</span>':''}</td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${sn.rating||'—'}${sn.score!=null?' · '+Math.round(sn.score):''}</td><td class="num">${sn.poBase!=null&&sn.poBase!==0?fmt(sn.poBase):'—'}</td><td class="num">${then?fmt(then):'—'}</td><td class="num ${rent!=null?(rent>=0?'pos':'neg'):''}">${rent==null?'—':(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td style="color:${mc};font-size:11px;white-space:nowrap">${mk}</td><td class="right"><button class="btn ghost sm" data-deltesissnap="${t}|${sn.fecha}" title="Borrar foto">✕</button></td></tr>`; });
+    rows+=`<tr><td>${sn.fecha||'—'}${sn.origen==='app'?' <span title="'+String(sn.motivo||'ajuste en app').replace(/"/g,'&quot;')+'" style="cursor:help">📝</span>':''}</td><td><b style="color:${dc[d]||'#475569'}">${d||'—'}</b></td><td class="num">${sn.rating||'—'}${sn.score!=null?' · '+Math.round(sn.score):''}</td><td class="num">${sn.poBase!=null&&sn.poBase!==0?fmt(sn.poBase):'—'}${sn.poRev?' <span title="No hay dossier que respalde este PO: el valor guardado era la media de bear y bull." style="color:#d97706;font-size:10px;cursor:help">Pte. Rev.</span>':(sn.poBaseAnt!=null?' <span title="Corregido el 29-jul-2026: la foto guardaba '+fmt(sn.poBaseAnt)+' (media de bear y bull). Este es el PO base del dossier vigente ese día." style="color:#64748b;font-size:10px;cursor:help">✎</span>':'')}</td><td class="num">${then?fmt(then):'—'}</td><td class="num ${rent!=null?(rent>=0?'pos':'neg'):''}">${rent==null?'—':(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</td><td style="color:${mc};font-size:11px;white-space:nowrap">${mk}</td><td class="right"><button class="btn ghost sm" data-deltesissnap="${t}|${sn.fecha}" title="Borrar foto">✕</button></td></tr>`; });
   const body=rows||'<tr><td colspan="8" class="muted" style="font-size:12px">Aún no hay fotos de la tesis. Se guardan al actualizar desde el dossier o con «+ Guardar foto».</td></tr>';
   return `<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><div style="font-weight:800;font-size:15px">Histórico de tesis y resultado</div><div style="flex:1"></div><button class="btn ghost sm" data-savetesis="${t}">+ Guardar foto</button></div><div class="sub" style="margin-bottom:6px">Cada foto compara la cotización de entonces con la de ahora (${fmt(ahora)}) para ver si la decisión acertó.</div><div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Decisión</th><th class="num">Rating·Score</th><th class="num">PO base</th><th class="num">Cotiz. entonces</th><th class="num">Rentab. desde</th><th>Resultado</th><th></th></tr></thead><tbody>${body}</tbody></table></div></div>`; }
 document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closest('[data-savetesis]'); if(!b)return; if(typeof guardarTesisSnap==='function')guardarTesisSnap(b.dataset.savetesis); if(typeof saveNow==='function')saveNow(); if(typeof renderFicha==='function'&&fichaTicker)renderFicha(fichaTicker); });
@@ -876,7 +961,7 @@ function tesisCardHTML(j){ if(!j||typeof j!=='object')return '';
   return `<div class="card" style="margin-top:10px"><div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px"><div style="font-weight:800;font-size:16px">Resumen del dossier</div>${d?`<span style="font-weight:800;color:${dc[d]||'#475569'}">${d}</span>`:''}${j.rating?` <span style="font-size:12px">Calidad <b>${j.rating}</b></span>`:''}${(j.score!=null&&j.score!=='')?` <span style="font-size:12px">Score <b>${j.score}</b></span>`:''}${(()=>{const cf=j.confianza;if(!cf)return '';const nv=(cf.nivel||'').toUpperCase();const col={A:'#16a34a',B:'#d97706',C:'#dc2626'}[nv]||'#64748b';const tip=((cf.motivos||[]).join(' · ')||'').replace(/"/g,'&quot;');const lock=(cf.reglaDura&&cf.reglaDura.bloqueaCompraEnFirme)?' 🔒':'';return ` <span title="${tip}" style="cursor:help;font-size:12px;background:${col};color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">Confianza ${nv}${cf.score!=null?' · '+cf.score:''}${lock}</span>`;})()}${(()=>{const rb=j.robustez;if(!rb||!rb.nivel)return '';const nv=(''+rb.nivel).toLowerCase();const col={solida:'#16a34a',sensible:'#d97706'}[nv]||'#64748b';const lbl={solida:'sólida',sensible:'sensible'}[nv]||nv;const expl='Robustez de la decisión: mide si el veredicto (comprar/esperar) sobrevive al mover el coste de capital (WACC/CoE) ±1pp y el crecimiento (g/RoTE) ±0,5pp. SÓLIDA = la cotización queda FUERA de la banda de precio objetivo, así que la decisión no cambia dentro de ese rango de supuestos. SENSIBLE = la cotización cae DENTRO de la banda, así que la decisión depende del supuesto de descuento/crecimiento que elijas.';const tip=(expl+((rb.motivos&&rb.motivos.length)?'  —  '+rb.motivos.join(' · '):'')).replace(/"/g,'&quot;');return ` <span title="${tip}" style="cursor:help;font-size:12px;background:${col};color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">Robustez ${lbl}${rb.matizada?' · matizada ⚠':''}</span>`;})()}${(()=>{const ds=j.dividendSafety;if(!ds)return '';const col={'Muy seguro':'#16a34a','Seguro':'#4d7c0f','Vigilar':'#d97706','Frágil':'#ea580c','Recorte probable':'#dc2626'}[ds.banda]||'#64748b';const tip=('Seguridad del dividendo: '+(ds.banda||'Pte.')+(ds.rama?' · rama '+ds.rama:'')+(ds.topeDuro&&ds.topeDuro.activo?' · TOPE DURO: '+ds.topeDuro.motivo:'')+((ds.motivos&&ds.motivos.length)?'  —  '+ds.motivos.slice(0,4).join(' · '):'')).replace(/"/g,'&quot;');const lab=(ds.score!=null?ds.score:'n/a');return ` <span title="${tip}" style="cursor:help;font-size:12px;background:${col};color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">💧 Dividendo ${lab}${ds.banda?' · '+ds.banda:''}</span>`;})()}${j.fecha?` <span style="font-size:11px;color:${(_mm!=null&&_mm>12)?'#dc2626':'#64748b'}">${j.fecha}${_mm!=null?' · hace '+_mm+' m'+(_mm>12?' ⚠️ reanalizar':''):''}</span>`:''}<div style="flex:1"></div>${_du?`<a class="btn sm" href="${_du}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:''}<button class="btn ghost sm" data-imptesis="${(j.ticker||fichaTicker||'').toUpperCase()}">Actualizar Análisis desde dossier</button>${(()=>{const fo=j.forense;if(!fo)return '';if(fo.aplica===false)return ` <span title="Forense: no aplica (${(fo.motivo||'rama financiera')})" style="cursor:help;font-size:12px;background:#64748b;color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">\ud83d\udee1 Forense \u00b7 No aplica</span>`;if(!fo.aplica)return '';const sc=`Piotroski ${fo.piotroski?fo.piotroski.score:'-'}/9 \u00b7 Altman ${fo.altman?fo.altman.z:'-'} (${fo.altman?fo.altman.zona:'-'}) \u00b7 Beneish ${fo.beneish?fo.beneish.m:'-'}`;const has=fo.flags&&fo.flags.length;if(!has){const tip=('Sin alertas forenses: todos los chequeos autom\u00e1ticos en zona buena.\n\n'+sc).replace(/"/g,'&quot;');return ` <span title="${tip}" style="cursor:help;font-size:12px;background:#16a34a;color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">\ud83d\udee1 Forense \u00b7 Sin alertas</span>`;}const veto=(fo.veto===true)||(fo.beneish&&(''+fo.beneish.senal).indexOf('manipulaci')>=0)||(fo.altman&&fo.altman.zona==='riesgo');const tip=((veto?'VETO: no procede COMPRAR en firme hasta investigarlo.\n\n':'')+fo.flags.join('\n\u2022 ')+'\n\n'+sc).replace(/"/g,'&quot;');return ` <span title="\u2022 ${tip}" style="cursor:help;font-size:12px;background:${veto?'#991b1b':'#dc2626'};color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">${veto?'\ud83d\udd12 ':'\u26a0\ufe0f '}Forense \u00b7 Alerta</span>`;})()}${(()=>{const rd=j.reverseDcf;if(!rd)return '';const v=(rd.veredicto||'');const M={'PLAUSIBLE':'#16a34a','EXIGENTE':'#d97706','HEROICO':'#dc2626'};const ap=!!M[v];const col=M[v]||'#64748b';const nom=ap?('Reverse DCF \u00b7 '+v.charAt(0)+v.slice(1).toLowerCase()):('Reverse DCF \u00b7 '+(v==='No aplica'?'No aplica':'n/d'));const tip=((ap?('El precio descuenta un crecimiento del FCL del '+rd.gImplicito+'% frente al '+(rd.gIntrinseco!=null?rd.gIntrinseco+'%':'n/d')+' autofinanciable (g intr\u00ednseco, A7).\n\n'):'')+(rd.motivo||'')).replace(/"/g,'&quot;');return ` <span title="${tip}" style="cursor:help;font-size:12px;background:${col};color:#fff;border-radius:6px;padding:1px 7px;font-weight:700">\ud83d\udcc8 ${nom}</span>`;})()}</div>${warnHTML}${(()=>{const cf=j.confianza;if(cf&&cf.reglaDura&&cf.reglaDura.accion)return `<div style="background:#fef2f2;border:1px solid #fecaca;border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px;color:#991b1b"><b>🔒 Confianza ${(cf.nivel||'').toUpperCase()}:</b> ${cf.reglaDura.accion}</div>`;return '';})()}${(()=>{const ds=j.dividendSafety;if(!ds||ds.score==null)return '';const risky=(ds.score<60)||(ds.topeDuro&&ds.topeDuro.activo);if(!risky)return '';const grave=ds.score<40||(ds.topeDuro&&ds.topeDuro.activo);const col=grave?'#991b1b':'#9a3412';const bg=grave?'#fef2f2':'#fff7ed';const bd=grave?'#fecaca':'#fed7aa';const acc=grave?'no lo cuentes como renta estable; entra solo si hay tesis de valor.':'peso reducido y seguimiento en el monitor trimestral.';return `<div style="background:${bg};border:1px solid ${bd};border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px;color:${col}"><b>💧 Seguridad del dividendo ${ds.banda} (${ds.score}/100)${(ds.topeDuro&&ds.topeDuro.activo)?' · TOPE DURO':''}:</b> si tu tesis se apoya en la renta, no compres solo por el dividendo — ${acc}</div>`;})()}${j.cambiosDesdeUltimaRevision?`<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:8px;margin-bottom:8px;font-size:12px;color:#1e3a8a"><b>🔄 Desde la última revisión:</b> ${j.cambiosDesdeUltimaRevision}</div>`:''}${j.resumen?`<div style="margin-bottom:8px">${j.resumen}</div>`:''}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px">${po('PO bear',j.poBear,'#fee2e2')}${po('PO base',j.poBase,'#e0f2fe')}${po('PO bull',j.poBull,'#dcfce7')}</div>${(()=>{const rb=j.robustez,s=rb&&rb.sensibilidad;if(!s||s.poMin==null)return '';const ec=s.ejeCoste||'coste capital';return `<div class="muted" style="font-size:11px;margin-bottom:6px">Banda ${ec}±${s.pertCoste}pp: PO ${s.poMin}–${s.poMax} €${s.mdsMin!=null?` · MdS ${s.mdsMin}%…${s.mdsMax}%`:''}${s.cotizacion!=null?` · cotización ${s.cotizacion} €`:''}</div>`;})()}${j.metodoValoracion?`<div class="muted" style="font-size:11px;margin-bottom:6px">Método de valoración: ${j.metodoValoracion}</div>`:''}${(j.dividendSafety&&j.dividendSafety.shareholderYield!=null)?`<div class="muted" style="font-size:11px;margin-bottom:6px">Shareholder yield: ${j.dividendSafety.shareholderYield}%${j.dividendSafety.rama?' · rama '+j.dividendSafety.rama:''}</div>`:''}${j.moat?`<div style="margin:4px 0"><b>Moat:</b> ${j.moat}</div>`:''}<div style="display:flex;gap:14px;flex-wrap:wrap"><div style="flex:1;min-width:200px"><b style="color:#16a34a">Catalizadores</b>${lst(j.catalizadores)}</div><div style="flex:1;min-width:200px"><b style="color:#dc2626">Riesgos</b>${lst(j.riesgos)}</div></div>${(j.bull||j.bear)?`<div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:8px">${j.bull?`<div style="flex:1;min-width:200px;background:#f0fdf4;border-radius:8px;padding:8px"><b style="color:#16a34a">A favor</b><div>${j.bull}</div></div>`:''}${j.bear?`<div style="flex:1;min-width:200px;background:#fef2f2;border-radius:8px;padding:8px"><b style="color:#dc2626">En contra</b><div>${j.bear}</div></div>`:''}</div>`:''}</div>`;
 }
 async function cargarTesis(t){ t=(t||'').toUpperCase(); if(!t||_tesisCache[t]!==undefined)return; _tesisCache[t]=null;
-  try{ const r=await fetch('dossiers/'+t+'.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j&&typeof j==='object'){ _tesisCache[t]=j; if(typeof validarTesisJSON==='function')_tesisWarn[t]=validarTesisJSON(j);
+  try{ const r=await fetch('dossiers/'+t+'.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j&&typeof j==='object'){ _tesisCache[t]=j; if(typeof validarTesisJSON==='function')_tesisWarn[t]=validarTesisJSON(j); try{ if(typeof repararFotosPO==='function') repararFotosPO(); }catch(_e0){}
     /* Rellena el Score de Calidad en las fotos históricas que aún no lo tienen (el dossier solo trae el
        score actual; Calidad es lento, así que sirve de aproximación para el backtest Calidad×Oportunidad). */
     try{ if(j.score!=null&&j.score!==''&&DB.tesisHist&&DB.tesisHist[t]){ const _qsB=num(j.score); let _ch=false; DB.tesisHist[t].forEach(function(sn){ if(sn&&sn.qScore==null){ sn.qScore=_qsB; _ch=true; } }); if(_ch&&typeof scheduleSave==='function')scheduleSave(); } }catch(_e){}
@@ -1099,6 +1184,10 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   DB.todos = DB.todos||[];
   DB.monitor = DB.monitor||{};
   DB.tesisHist = DB.tesisHist||{};
+  /* [29-jul-2026] Repasa las fotos con la tabla histórica. Se vuelve a llamar al cargar cada
+     dossier (ver `cargarTesis`), porque el dossier vivo cubre las fotos nacidas después de
+     esta versión, que la tabla no puede conocer. */
+  try{ if(typeof repararFotosPO==='function') repararFotosPO(); }catch(e){}
   DB.protocolo = DB.protocolo||{};
   DB.calibracion = DB.calibracion||{};
   DB.riesgoTags = DB.riesgoTags||{};

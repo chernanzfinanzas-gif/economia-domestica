@@ -898,7 +898,7 @@ async function drawFichaChart(t){
   let pts=idxs.map(i=>data[i]);
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
   let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
-  const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0); const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
+  const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(typeof poBaseDe==='function')?num(poBaseDe(_an)):((num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0));  /* [29-jul-2026] la linea del PO en el grafico era la media bear/bull: Iberdrola la pintaba en 22,25 en vez de 26,50 */ const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
   const ops=(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
   ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); [entL,entH,stopV].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } });
