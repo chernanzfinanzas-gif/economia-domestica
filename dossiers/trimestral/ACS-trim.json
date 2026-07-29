@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "ticker": "ACS",
   "empresa": "ACS",
   "revisiones": [
@@ -652,6 +652,88 @@
           "valor": 21.5
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El mejor semestre de la serie: ventas 26.168 M€ (+8,5%), EBITDA 1.618 M€ (+12,8%) con el margen en 6,2% (+24 pb), beneficio neto 510 M€ (+13,3%) y BPA 1,95 €. Cartera récord de 105.856 M€ (+18,5%) y, sobre todo, el balance da la vuelta: de 2.202 M€ de deuda neta a 1.006 M€ de CAJA NETA, 3.208 M€ de mejora en doce meses. S&P subió el rating a BBB el 28-jul. Verde sin matices en lo operativo; el problema está en el precio, que cotiza por encima del PO bull con una S3 abierta desde el 22-jul.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 26168
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 1618
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "BNA atrib. (M€)",
+          "valor": 510
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.95
+        },
+        {
+          "nombre": "Cartera (M€)",
+          "valor": 105856
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": -1006
+        },
+        {
+          "nombre": "%Var Ventas",
+          "valor": 8.5
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 12.8
+        },
+        {
+          "nombre": "%Var BNA",
+          "valor": 13.3
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "S&P mejoró el 28-jul-2026 la calificación crediticia de ACS a BBB, con subida también para HOCHTIEF y CIMIC. Motivos citados: un perfil empresarial y unos indicadores de solvencia más sólidos y una estructura corporativa simplificada.",
+          "impacto": "+",
+          "valoracion": "Es la imagen invertida del caso Redeia de esta mañana: allí el rating bajó por invertir, aquí sube por desapalancar y simplificar. Abarata la financiación justo cuando el grupo entra en un ciclo inversor de centros de datos. No mueve el PO por sí solo, pero refuerza el pilar de balance de la tesis."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "La posición financiera pasa a caja neta de 1.006 M€ frente a 2.202 M€ de deuda neta un año antes: 3.208 M€ de mejora, apoyada en el flujo de caja operativo LTM y en una colocación acelerada de 1.700 M€.",
+          "impacto": "+",
+          "valoracion": "El §10.1 pide deuda neta <4.000 M€ y ya no hay deuda que medir. Conviene retener que 1.700 M€ de esa mejora son una colocación, no caja generada: la parte operativa es real pero menor que el titular. Aun así, el DN/EBITDA queda en negativo contra un umbral de <2,0x."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Abertis adquirió la participación restante del 48,8% en Atlandes (A-63), corredor de 104 km en el suroeste de Francia con concesión hasta 2051, y obtuvo una extensión de 19,5 años en FARAC (México).",
+          "impacto": "+",
+          "valoracion": "Alarga la vida media de la cartera concesional, que es el activo cuyo valor terminal más pesa en la valoración de Abertis. Coherente con la tesis; no cambia el PO en este trimestre."
+        },
+        {
+          "tipo": "Desinversión",
+          "hecho": "CIMIC vendió el 50% de UGL Transport y compró la participación minoritaria de Thiess. La cartera de CIMIC queda en 23.747 M€ (+11,6%; +12% ajustada por la desinversión) y su deuda neta se reduce a 945 M€, 1.206 M€ menos.",
+          "impacto": "=",
+          "valoracion": "Rotación de cartera, no crecimiento: el +18,5% de cartera del Grupo baja al +21% comparable precisamente al ajustar por esta venta. Simplifica la estructura, que es uno de los motivos que S&P cita para la mejora de rating."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Inversión en proyectos de centros de datos por 746 M€ en los últimos doce meses, de los que 497 M€ corresponden al primer semestre de 2026, incluido el desarrollo de Waterford y la comercialización de 140 MW en Dallas Fort Worth.",
+          "impacto": "+",
+          "valoracion": "Es el motor de crecimiento nuevo y explica buena parte del salto de cartera. A vigilar en próximos trimestres: es CAPEX intensivo y de retorno diferido, el mismo patrón que en Redeia acabó costando el rating — aquí de momento convive con caja neta."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ]
 }
