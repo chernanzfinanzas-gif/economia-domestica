@@ -64,6 +64,9 @@ function _diVer(e){
    Lo que se rompe NO se cierra solo: se te enseña junto a lo que escribiste, y decides tú.
    Con «Sigo igual» se archiva ese estado (`e.ack`) y deja de gritar hasta que se rompa algo
    NUEVO — si no, el aviso se volvería ruido de fondo en una semana.
+   [29-jul-2026] «Algo nuevo» se decide por la CLAVE de cada rotura y por cuánto ha empeorado,
+   no por el texto del aviso. Ver el bloque de `diarioRoturas`: hasta hoy bastaba con que el
+   precio se moviera un céntimo para que el aviso volviera a saltar.
    ════════════════════════════════════════════════════════════════════════════ */
 
 /* ---- disparadores explícitos: catálogo de campos y operadores ---- */
@@ -139,56 +142,108 @@ function _diTrigTxt(tr){ var c=_diCampoCfg(tr.campo); if(!c)return '';
 /* ---- el motor: qué se ha roto en una decisión abierta ---- */
 var _DI_SCORE_CAIDA=12;      /* puntos de Score que consideramos una caída de verdad */
 var _DI_RPD_CAIDA=0.25;      /* −25 % de RPD ≈ recorte de dividendo */
+var _DI_PRECIO_PASO=0.10;    /* [29-jul-2026] otro 10 % más allá del umbral ya es otra situación */
+
+/* [29-jul-2026 · POR QUÉ «SIGO IGUAL» NO CALLABA]
+   La huella con la que se archivaba el aviso se construía con el TEXTO que se ve en pantalla,
+   y ese texto lleva dentro el número de hoy: «Alcanzó el precio objetivo máximo: 106,10 € ≥
+   98,60 €». Bastaba que el precio se moviera un céntimo para que la huella cambiase y la app
+   creyera que se había roto otra cosa distinta. Con cuatro pases de cotizaciones al día,
+   «Sigo igual» duraba hasta el cierre siguiente. Afectaba a cinco de los nueve tipos de rotura
+   —po, stop, score, rpd, revision— y a los disparadores numéricos; los tres que sí callaban
+   (decision, rating, trimestre) son justo los únicos con texto estable.
+
+   Cada rotura lleva ahora dos datos que no se pintan pero gobiernan el silenciado:
+     · clave — QUÉ se ha roto, nombrado por el lado ESTABLE de la comparación: el PO, el stop,
+       el disparador que escribiste, el periodo del trimestre. Nunca la cotización de hoy.
+     · niv   — cuánto ha empeorado, en pasos enteros. 0 al romperse; sube al completarse otro
+       tramo entero (12 puntos de Score, 25 % de RPD, 10 % de precio). Así el aviso vuelve
+       cuando la cosa empeora de verdad, que era la intención original. */
+function _diPaso(x){ return (isFinite(x)&&x>0)?Math.floor(x):0; }
+/* Cuánto se ha pasado del umbral que escribiste, en pasos del 10 %. Los disparadores no
+   numéricos (rating, decisión, semáforo) no tienen magnitud: siempre 0. */
+function _diTrigNiv(tr,H){
+  var c=_diCampoCfg(tr&&tr.campo); if(!c||c.tipo!=='num'||!H) return 0;
+  var act=(tr.campo==='precio')?H.precio:(tr.campo==='score'?H.score:H.rpd);
+  var lim=_diNum(tr.valor);
+  if(act==null||lim==null||!isFinite(lim)||lim===0) return 0;
+  return _diPaso(Math.abs(act-lim)/Math.abs(lim)/_DI_PRECIO_PASO);
+}
 function diarioRoturas(e){
   var out=[]; if(!e) return out;
   var t=_diUp(e.ticker); var H=_diHoyCtx(t); var C=e.ctx||{};
-  var push=function(sev,tipo,txt,sig){ out.push({sev:sev,tipo:tipo,txt:txt,sig:sig||''}); };
+  var push=function(sev,tipo,txt,sig,clave,niv){ out.push({sev:sev,tipo:tipo,txt:txt,sig:sig||'',clave:clave||tipo,niv:niv||0}); };
 
   /* 1 · disparadores explícitos (los que tú escribiste) */
-  (e.trigs||[]).forEach(function(tr){ var r=_diTrigRoto(tr,H); if(r) push(0,'trigger',r); });
+  (e.trigs||[]).forEach(function(tr){ var r=_diTrigRoto(tr,H); if(!r) return;
+    push(0,'trigger',r,'','trigger:'+tr.campo+tr.op+tr.valor,_diTrigNiv(tr,H)); });
 
   /* 2 · deriva del contexto capturado al decidir */
   if(C.decision && H.decision && _diUp(C.decision)!==_diUp(H.decision)){
     var peor=(_diUp(H.decision)==='VENDER');
-    push(peor?0:1,'decision','La decisión de la ficha pasó de <b>'+_diEsc(C.decision)+'</b> a <b>'+_diEsc(H.decision)+'</b>');
+    push(peor?0:1,'decision','La decisión de la ficha pasó de <b>'+_diEsc(C.decision)+'</b> a <b>'+_diEsc(H.decision)+'</b>','',
+         'decision:'+_diUp(C.decision)+'>'+_diUp(H.decision),0);
   }
   if(C.rating && H.rating && C.rating!==H.rating){
     var s0=_diRatingScore(C.rating), s1=_diRatingScore(H.rating);
-    if(s0!=null&&s1!=null&&s1<s0) push(1,'rating','El rating bajó de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>');
-    else if(s0==null||s1==null||s1!==s0) push(2,'rating','El rating cambió de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>');
+    var clR='rating:'+C.rating+'>'+H.rating;
+    if(s0!=null&&s1!=null&&s1<s0) push(1,'rating','El rating bajó de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>','',clR,0);
+    else if(s0==null||s1==null||s1!==s0) push(2,'rating','El rating cambió de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>','',clR,0);
   }
   if(C.score!=null && H.score!=null && (C.score-H.score)>=_DI_SCORE_CAIDA)
-    push(1,'score','El Score cayó '+Math.round(C.score-H.score)+' puntos ('+Math.round(C.score)+' → '+Math.round(H.score)+')');
+    push(1,'score','El Score cayó '+Math.round(C.score-H.score)+' puntos ('+Math.round(C.score)+' → '+Math.round(H.score)+')','',
+         'score',_diPaso((C.score-H.score)/_DI_SCORE_CAIDA));
   if(C.rpd!=null && H.rpd!=null && C.rpd>0 && (C.rpd-H.rpd)/C.rpd>=_DI_RPD_CAIDA && H.rpd<C.rpd)
-    push(1,'rpd','La RPD cayó de '+C.rpd.toFixed(1)+'% a '+H.rpd.toFixed(1)+'% — ¿recorte de dividendo?');
+    push(1,'rpd','La RPD cayó de '+C.rpd.toFixed(1)+'% a '+H.rpd.toFixed(1)+'% — ¿recorte de dividendo?','',
+         'rpd',_diPaso(((C.rpd-H.rpd)/C.rpd)/_DI_RPD_CAIDA));
 
   /* 3 · señales vivas del protocolo */
-  if(H.stop>0 && H.precio>0 && H.precio<=H.stop) push(0,'stop','Stop de tesis tocado: '+_diEur(H.precio)+' ≤ '+_diEur(H.stop),'S1');
-  else if(H.poMax>0 && H.precio>=H.poMax) push(1,'po','Alcanzó el precio objetivo máximo: '+_diEur(H.precio)+' ≥ '+_diEur(H.poMax),'S3');
+  if(H.stop>0 && H.precio>0 && H.precio<=H.stop)
+    push(0,'stop','Stop de tesis tocado: '+_diEur(H.precio)+' ≤ '+_diEur(H.stop),'S1',
+         'stop:'+H.stop,_diPaso(((H.stop-H.precio)/H.stop)/_DI_PRECIO_PASO));
+  else if(H.poMax>0 && H.precio>=H.poMax)
+    push(1,'po','Alcanzó el precio objetivo máximo: '+_diEur(H.precio)+' ≥ '+_diEur(H.poMax),'S3',
+         'po:'+H.poMax,_diPaso(((H.precio-H.poMax)/H.poMax)/_DI_PRECIO_PASO));
   if(H.trim){
     var trFecha=(H.trim.fecha||'');
     if(trFecha>=(e.fecha||'')){                     /* solo lo publicado DESPUÉS de decidir */
-      if(H.trim.sem==='R') push(0,'trimestre','Semáforo trimestral <b>ROJO</b> en '+_diEsc(H.trim.periodo),'S2');
-      else if(H.trim.intacta===false) push(0,'trimestre','La revisión de '+_diEsc(H.trim.periodo)+' declara la <b>tesis tocada</b>','S2');
+      if(H.trim.sem==='R') push(0,'trimestre','Semáforo trimestral <b>ROJO</b> en '+_diEsc(H.trim.periodo),'S2','trimestre:'+H.trim.periodo+':R',0);
+      else if(H.trim.intacta===false) push(0,'trimestre','La revisión de '+_diEsc(H.trim.periodo)+' declara la <b>tesis tocada</b>','S2','trimestre:'+H.trim.periodo+':T',0);
     }
   }
-  /* 4 · caducidad: la decisión se apoya en un dossier que ya no vale (mismo criterio que B5) */
+  /* 4 · caducidad: la decisión se apoya en un dossier que ya no vale (mismo criterio que B5)
+     La clave lleva la FECHA, no los meses transcurridos: que el dossier cumpla un mes más no
+     es información nueva; que fijes otra fecha de revisión, o publiques otro dossier, sí. */
   var hoy=_diHoy();
   var mm=null; try{ mm=(typeof mesesDesde==='function')?mesesDesde(H.dossierFecha):null; }catch(_){}
-  if(H.proxRev){ if(H.proxRev<=hoy) push(2,'revision','Tocaba revisión el '+H.proxRev+' y sigue pendiente','S4'); }
-  else if(mm!=null&&mm>12) push(2,'revision','El dossier en el que se apoya tiene '+mm+' meses','S4');
+  if(H.proxRev){ if(H.proxRev<=hoy) push(2,'revision','Tocaba revisión el '+H.proxRev+' y sigue pendiente','S4','revision:'+H.proxRev,0); }
+  else if(mm!=null&&mm>12) push(2,'revision','El dossier en el que se apoya tiene '+mm+' meses','S4','revision:dossier:'+(H.dossierFecha||''),0);
 
   out.sort(function(a,b){ return a.sev-b.sev; });
   return out;
 }
-/* Huella del estado roto: sirve para que «Sigo igual» silencie ESTO y no lo que venga después. */
-function _diHuella(rot){ return (rot||[]).map(function(r){ return r.tipo+':'+(r.txt||'').replace(/<[^>]*>/g,'').slice(0,60); }).sort().join('|'); }
+/* Huella del estado roto: sirve para que «Sigo igual» silencie ESTO y no lo que venga después.
+   [29-jul-2026] Se construye con la CLAVE de cada rotura, no con su texto. */
+function _diHuella(rot){ return (rot||[]).map(function(r){ return r.clave||r.tipo; }).sort().join('|'); }
+/* Cuánto había empeorado cada cosa en el momento en que dijiste «Sigo igual». */
+function _diNiveles(rot){ var m={}; (rot||[]).forEach(function(r){ var k=r.clave||r.tipo, n=r.niv||0; if(m[k]==null||n>m[k])m[k]=n; }); return m; }
+/* ¿Sigue valiendo el «Sigo igual» archivado? Vale si NINGUNA de las roturas de hoy es nueva y
+   NINGUNA ha empeorado un tramo entero desde entonces. Que una rotura desaparezca no reabre el
+   aviso: menos cosas rotas no es una novedad que haya que mirar.
+   Los `ack` guardados antes del 29-jul-2026 no llevan `niveles`: se dan por caducados una sola
+   vez, para que el primer clic ya guarde el formato bueno. */
+function _diAckVale(e,rot){
+  var a=e&&e.ack; if(!a||!a.niveles) return null;
+  var ok=(rot||[]).every(function(r){ var prev=a.niveles[r.clave||r.tipo];
+    return prev!=null && (r.niv||0)<=prev; });
+  return ok?a:null;
+}
 /* Todas las decisiones abiertas con algún supuesto roto. `pendientes` = las no reconocidas aún. */
 function diarioInvalidaciones(){
   var res=[]; (DB.diario||[]).forEach(function(e){
     if((e.estado||'abierta')!=='abierta') return;
     var rot=diarioRoturas(e); if(!rot.length) return;
-    var h=_diHuella(rot); var ack=(e.ack&&e.ack.huella===h)?e.ack:null;
+    var h=_diHuella(rot); var ack=_diAckVale(e,rot);
     res.push({e:e, rot:rot, huella:h, ack:ack, sev:rot[0].sev});
   });
   res.sort(function(a,b){ return a.sev-b.sev || ((b.e.fecha||'').localeCompare(a.e.fecha||'')); });
@@ -269,7 +324,7 @@ function _diInvalHTML(INV){
       +(e.invalidacion?'<div class="di-inv"><b>Escribiste:</b> «'+_diEsc(e.invalidacion)+'»</div>'
                       :'<div class="di-inv vacia">No escribiste condición de invalidación en esta decisión. La vigilancia automática es lo único que la cubre.</div>')
       +'<div class="di-rot"><b>Lo que ha cambiado:</b><ul>'+lis+'</ul></div>'
-      +(x.ack?('<div class="di-ackn">✔ Revisado el '+_diEsc(x.ack.fecha)+' — «sigo igual». Volverá a avisar si cambia algo más.</div>'):'')
+      +(x.ack?('<div class="di-ackn">✔ Revisado el '+_diEsc(x.ack.fecha)+' — «sigo igual». Volverá a avisar si se rompe algo nuevo o si esto empeora de verdad; el vaivén diario del precio ya no lo reabre.</div>'):'')
       +'<div class="di-aacts">'
         +(x.ack?'':'<button class="btn ghost sm" data-diack="'+e.id+'">Sigo igual</button>')
         +'<button class="btn ghost sm" data-dinueva="'+e.id+'">Anotar decisión nueva</button>'
@@ -326,7 +381,7 @@ function _diTrigsChips(e){
   }
   if(abierta && rot.length){
     var S=_DI_SEVCFG[rot[0].sev]||_DI_SEVCFG[2];
-    var ack=(e.ack&&e.ack.huella===_diHuella(rot));
+    var ack=!!_diAckVale(e,rot);
     out+='<div class="di-rotmini '+S.cls+(ack?' ackd':'')+'">'+S.ic+' <b>'+rot.length+'</b> supuesto'+(rot.length>1?'s':'')+' roto'+(rot.length>1?'s':'')
       +(ack?(' · revisado el '+_diEsc(e.ack.fecha)):'')+' — '+_diEsc(rot[0].txt.replace(/<[^>]*>/g,''))+(rot.length>1?' …':'')+'</div>';
   }
@@ -582,7 +637,7 @@ function _diBind(sec){
 function _diAck(id){
   var e=(DB.diario||[]).find(function(x){return x.id===id;}); if(!e)return;
   var rot=diarioRoturas(e); if(!rot.length)return;
-  e.ack={huella:_diHuella(rot), fecha:_diHoy()};
+  e.ack={huella:_diHuella(rot), niveles:_diNiveles(rot), fecha:_diHoy()};
   _diSave(); renderDiario();
 }
 function _diSetEstado(id,est){ var e=(DB.diario||[]).find(function(x){return x.id===id;}); if(e){ e.estado=est; _diSave(); renderDiario(); } }
