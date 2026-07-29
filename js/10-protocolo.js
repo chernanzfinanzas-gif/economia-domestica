@@ -220,7 +220,7 @@ function showProtocolo(sig, goto, ticker){
        <div style="font-weight:800;font-size:12px;color:#64748b;text-transform:uppercase;letter-spacing:.5px;margin:10px 0 4px">Procedimiento</div>
        ${pasos}
        <div style="margin-top:12px;padding:9px 11px;background:#f8fafc;border-left:3px solid ${p.color};border-radius:6px;font-size:12px;color:#475569"><b>Regla:</b> ${p.nota}</div>
-       <div style="margin-top:8px;padding:9px 11px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;font-size:12px;color:#78350f">📝 <b>Doble registro obligatorio</b> (aunque decidas no actuar): apunte en Excel Vigilancia §10.5 — <span style="font-family:monospace">[fecha] · ${sig} · [cotización] · [decisión] · [motivo]</span> — y el mismo apunte aquí con «Registrar apunte».</div>
+       <div style="margin-top:8px;padding:9px 11px;background:#fffbeb;border:1px solid #fde68a;border-radius:6px;font-size:12px;color:#78350f">📝 <b>Doble registro obligatorio</b> (aunque decidas no actuar): apunte en Excel Vigilancia §10.5 — <span style="font-family:monospace">[fecha] · ${sig} · [cotización] · [decisión] · [motivo]</span> — la <b>cotización es el último cierre conocido</b> al escribirlo — y el mismo apunte aquí con «Registrar apunte».</div>
      </div>
      <div style="padding:10px 18px 14px;display:flex;gap:8px;justify-content:flex-end;border-top:1px solid #e2e8f0;flex-wrap:wrap">
        <button class="btn sm" id="protoReg" style="background:${p.color};border-color:${p.color}">📝 Registrar apunte</button>
@@ -260,7 +260,7 @@ function protoApunteForm(sig, ticker){
          <label>Señal<select id="paSig" class="anaInp">${optS}</select></label>
          <label>Fecha<input type="date" id="paFecha" value="${hoy}"></label>
          <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre}">
-           <span style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4">Precio de la <b>app</b>, el de hoy. Es el que manda en un apunte que nace aquí — <span title="S1 stop tocado · S3 precio objetivo alcanzado">S1 y S3 son señales de precio</span> y las detecta la app, no el método. Los apuntes que escribe el método llevan el de la <b>Matriz</b>.</span></label>
+           <span style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"><b>Convención (29-jul-2026): el ÚLTIMO CIERRE CONOCIDO al escribir el apunte</b>, no el cierre del día. Si lo escribes con el mercado abierto, el último cierre es el de la sesión anterior — y ese es el precio que de verdad tenías delante al decidir. La app ya lo rellena así. <span title="S1 stop tocado · S3 precio objetivo alcanzado">S1 y S3 son señales de precio</span> y las detecta la app; los apuntes que escribe el método llevan el mismo criterio, con el precio de la <b>Matriz</b>. Esta cifra no es decorativa: es la vara con la que después se mide si la decisión acertó.</span></label>
          <label>Decisión<select id="paDec" class="anaInp">${optD}</select>
            <span id="paDecAyuda" style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"></span></label>
          <label id="paLimWrap">Fecha límite (si Pte.)<input type="date" id="paLim" value="${lim}"></label>
