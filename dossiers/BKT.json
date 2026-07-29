@@ -67,13 +67,24 @@
    "mdsMax": -6.7
   },
   "beta": {
-   "capm": 0.04,
-   "ref2": null,
-   "aviso": "beta CAPM 0.04 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "metodo": "5 años móviles, retornos semanales vs IBEX, series del propio método",
+   "valor": 1.06,
+   "rango10a": [
+    0.89,
+    1.21
+   ],
+   "anterior": 0.04,
+   "pares5a": {
+    "CABK": 1.07,
+    "SAB": 1.33,
+    "BBVA": 1.46,
+    "SAN": 1.56
+   },
+   "calculadoEl": "2026-07-29",
+   "nota": "No alimenta el PO: el Bloque VI usa CoE de referencia 11/10/9%. El Ke del §3.5 con esta beta da 9,32% en 2025, que respalda ese 10%."
   },
   "motivos": [
-   "la cotización (15.39) queda por ENCIMA de toda la banda de PO [10.4–14.4] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
-   "beta CAPM 0.04 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "la cotización (15.39) queda por ENCIMA de toda la banda de PO [10.4–14.4] → sobrevalorada en todo el rango; la cautela es ROBUSTA"
   ],
   "calculadoEl": "2026-07-27"
  },
@@ -116,5 +127,5 @@
   "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
   "calculadoEl": "2026-07-27"
  },
- "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 9,00-11,00 €, POR ENCIMA del PO base (10,20 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 7,85-8,55 €, margen de seguridad del 23% al 16%. No cambia la valoración: PO bear/base/bull siguen igual. · [29-jul-2026] S3 registrada: la cotización cruzó el PO BULL (15,56 € ≥ 15,50 €), no solo el base. Decisión REAFIRMAR — no hay posición y no se abre a 2,3x TBV. La cautela es robusta: con el CoE ±1pp la banda de PO queda en 10,43-14,37 € y el precio está por encima de todo el rango. PENDIENTE de la próxima revisión: la beta CAPM registrada es 0,04, fuera del rango 0,3-2,0 y sin 2ª referencia; hay que añadir la beta sectorial/Damodaran y recalcular el PO, como se hizo en ACS el 27-jul. Corregirla solo puede BAJAR el PO (más beta → más CoE → menos P/TBV justificado), así que no cambia el veredicto, pero sí el número."
+ "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 9,00-11,00 €, POR ENCIMA del PO base (10,20 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 7,85-8,55 €, margen de seguridad del 23% al 16%. No cambia la valoración: PO bear/base/bull siguen igual. · [29-jul-2026] S3 registrada: la cotización cruzó el PO BULL (15,56 € ≥ 15,50 €), no solo el base. Decisión REAFIRMAR — no hay posición y no se abre a 2,3x TBV. La cautela es robusta: con el CoE ±1pp la banda de PO queda en 10,43-14,37 € y el precio está por encima de todo el rango. BETA RESUELTA el 29-jul-2026: la beta registrada (CAPM 0,04) era errónea; recalculada desde las series del método —retornos semanales, ventana móvil de 5 años contra el IBEX— da 1,06, y entre 0,89 y 1,21 en la última década (pares a 5 años: CABK 1,07, SAB 1,33, BBVA 1,46, SAN 1,56). Corregida en la fila 25 del §3.5. NO cambia el precio objetivo: el Bloque VI valora por P/TBV justificado = (RoTE−g)/(CoE−g) con un CoE de referencia de banca europea de 11/10/9% por escenario, y la beta no entra en esa fórmula — el PO final sigue en 10,17 €, verificado tras el recálculo. Lo que aporta es una confirmación: con la beta buena el Ke del CAPM de 2025 sale 9,32%, muy cerca del 10% que la valoración venía asumiendo."
 }
