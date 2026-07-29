@@ -690,6 +690,88 @@
           "valor": 1.3
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-29",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Tercer trimestre consecutivo de crecimiento, margen EBITDA aj. récord (35,2%), desapalancamiento a 2,68x y guía de OpCFaL revisada AL ALZA (>2% → >3%). Pero los ingresos van a +0,4% constante frente a un objetivo de +1,5-2,5%, el FCF de continuadas cae −35,1% (944 M€, 31% de la guía anual) con el FCF total en negativo, la cobertura de intereses baja a 2,15x y Alemania se contrae con fuerza. El atribuido es una pérdida de −338 M€ por las salidas de Hispam. Ámbar: el giro es real, la caja va por detrás.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 16392
+        },
+        {
+          "nombre": "EBITDA aj. (M€)",
+          "valor": 5768
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 35.2
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 954
+        },
+        {
+          "nombre": "OpCFaL (M€)",
+          "valor": 2654
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 944
+        },
+        {
+          "nombre": "Deuda Fin. Neta (M€)",
+          "valor": 25278
+        },
+        {
+          "nombre": "DFN/EBITDAaL (x)",
+          "valor": 2.68
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 1.7
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 3.8
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Salida de Hispam prácticamente completada: desconsolidación de T. Colombia (5-feb-26) y T. Móviles Chile (10-feb-26) y venta de T. México cerrada el 7-abr-26, sujeta a ciertas condiciones incluidas autorizaciones regulatorias. Todas reportadas como operaciones en discontinuación desde el 1-ene-26, con 2025 restatado.",
+          "impacto": "+",
+          "valoracion": "Ejecuta el eje del plan Transform & Grow: aporta 2.614 M€ de desinversiones netas que explican la caída de 1.546 M€ de la deuda neta en el semestre. El precio es contable: −812 M€ de discontinuadas dejan el atribuido en −338 M€ (BPA −0,09 €). No cambia el PO de 4,14 €; sí obliga a comparar contra bases restatadas — el 1S-25 pasa de 18.013 a 16.112 M€ de ingresos."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Revisión AL ALZA del objetivo 2026 de crecimiento del OpCFaL ajustado, de «por encima del 2%» a «por encima del 3%» interanual constante. El resto de objetivos 2026 se mantiene sin cambios.",
+          "impacto": "+",
+          "valoracion": "Primera subida de guía del equipo de Murtra: señal de credibilidad y de que el apalancamiento operativo funciona. Matiz que no hay que perder: la mejora viene de EFICIENCIA, no de crecimiento — los ingresos van a +0,4% cte. frente a un objetivo de +1,5-2,5%. He actualizado la fila FY-2026 (GUÍA) del §10.3."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Confirmado el dividendo de 2026 de 0,15 €/acción en efectivo, pagadero en junio de 2027. El segundo tramo del dividendo de 2025 (0,15 €) se pagó el 18-jun-2026. Para 2027-28 la retribución se vinculará a un payout del 40-60% del flujo de caja libre base para dividendos.",
+          "impacto": "=",
+          "valoracion": "Confirma el nivel ya recortado e incorporado a la tesis (dpaPrevisto 0,15 €). El paso a un payout sobre CAJA es sano: elimina el ancla del beneficio contable, que en esta compañía lleva dos ejercicios en negativo por saneamientos. Checklist B4: 0 predictores duros / 2 blandos (b2 cobertura de intereses 2,15x; b3 Bº ajustado −21,0% YoY sostenido) → «vigilar dividendo», sin S2. Rating estable en las tres agencias (Baa3/BBB/BBB−), así que b6 no se activa."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Programa de reestructuración de empleados en Alemania, con 265 M€ de costes registrados en 2T-26.",
+          "impacto": "=",
+          "valoracion": "Coste hoy a cambio de margen mañana: Alemania ya mejora margen +1,4 pp pese a caer los ingresos −11,1%. Es el mismo patrón del ERE de España de 2023-24. A vigilar que el ahorro aparezca en 2S-26, como promete la compañía, porque de ahí sale buena parte de la guía subida de OpCFaL."
+        },
+        {
+          "tipo": "Contrato",
+          "hecho": "Nuevo acuerdo de OMV con Monzo en VMO2, ampliando el negocio mayorista en Reino Unido.",
+          "impacto": "+",
+          "valoracion": "Marginal en cifras, pero sostiene el pilar mayorista de VMO2, cuya aportación por puesta en equivalencia sigue siendo negativa (−243 M€ en el semestre) y es una de las patas flojas de la tesis."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ]
 }
