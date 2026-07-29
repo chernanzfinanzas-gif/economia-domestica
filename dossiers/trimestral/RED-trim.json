@@ -704,6 +704,94 @@
           "valor": 5.8
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-29",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "El mejor semestre del ciclo en operativa —ingresos +7,1%, EBITDA +5,8%, BNA +4,0%, FFO +15,6%— empujado por la nueva TRF del 6,58%, que es el catalizador central de la tesis. Pero el desapalancamiento a 3,87x es en buena parte contable (híbrido verde de 500 M€ que NIIF trata como patrimonio; ex-híbrido ~4,25x), el FCL sigue negativo (~−111 M€) con el CAPEX aún subiendo, y hay dos red flags del §10.4 vivos: la rebaja de rating a BBB+ por Fitch y S&P y el expediente sancionador de la CNMC por el apagón, sin provisión registrada. Ámbar.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 869.2
+        },
+        {
+          "nombre": "EBITDA rep. (M€)",
+          "valor": 672.6
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 77.4
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 280.4
+        },
+        {
+          "nombre": "DFN (M€)",
+          "valor": 5009.4
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.87
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 657.1
+        },
+        {
+          "nombre": "Nº acciones (M)",
+          "valor": 540.49
+        },
+        {
+          "nombre": "DPA (€)",
+          "valor": "—"
+        },
+        {
+          "nombre": "%Var EBITDA l-f-l (%)",
+          "valor": 5.8
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "La CNMC incoó el 17-abr-2026 expediente sancionador contra Red Eléctrica como operador del sistema por el apagón del 28-abr-2025; plazo de resolución de 18 meses. La compañía alegó el 11-may-2026 y no ha registrado provisión alguna a 30-jun-2026, apoyada en el informe final del Panel de Expertos Europeos (20-mar-2026), que no atribuye incumplimiento ni conducta causante a Red Eléctrica.",
+          "impacto": "-",
+          "valoracion": "Red flag §10.4 («expediente sancionador de la CNMC») ACTIVADO y hasta ahora no registrado. El respaldo del Panel Europeo es fuerte y justifica no provisionar, pero es un riesgo abierto y sin cuantificar hasta finales de 2027, y por sí solo impide el verde. No cambio el PO de 14,6 €; si llegara a cuantificarse una sanción material, toca revisar Bloques 8-9."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Rebaja del rating a largo plazo de A− a BBB+ con perspectiva estable por Fitch (27-feb-2026) y S&P (11-mar-2026); S&P resolvió así su CreditWatch negativo de junio de 2025. Ambas agencias lo atribuyen al mayor esfuerzo inversor del plan y mantienen la valoración de perfil de riesgo de negocio «excelente».",
+          "impacto": "-",
+          "valoracion": "Red flag §10.4 («downgrade de rating crediticio») ACTIVADO, también sin registrar hasta hoy. La acción que pide la ficha es revisar la solvencia (Bloque 2): sigue siendo investment grade y el motivo es inversión, no deterioro, pero encarece la financiación justo en el pico de CAPEX. Único predictor blando activo de la checklist B4 (b6)."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Emisión el 15-abr-2026 de un instrumento híbrido verde —obligaciones perpetuas subordinadas bajo el European Green Bond Standard— por 500 M€, cupón fijo 4,375% hasta la primera revisión (27-abr-2032), destinado a financiar la actividad del TSO en España. La demanda superó los 3.000 M€.",
+          "impacto": "=",
+          "valoracion": "CLAVE PARA LEER EL RATIO: bajo NIIF el híbrido es patrimonio, así que reduce la DFN sin reducir la deuda económica, y su cupón no pasa por «gastos financieros». Ex-híbrido, la DFN sería ~5.509 M€ y el ratio ~4,25x en lugar de 3,87x. La demanda de 6x confirma acceso al mercado, pero la mejora del apalancamiento de este semestre NO debe leerse como desapalancamiento operativo."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "El 1-jul-2026 se hizo efectivo el dividendo complementario de 2025 de 0,60 €/acción, con lo que el total con cargo a 2025 asciende a 0,80 €/acción, en línea con el Plan Estratégico.",
+          "impacto": "=",
+          "valoracion": "Sin novedad: confirma el 0,80 € ya recortado en 2024 desde 1,00 €. Pagado el 1-jul, después del cierre, así que no aparece en la caja del semestre. Checklist B4: H1 no se activa porque la cobertura sobre owner earnings sigue por encima de 1,0x (1,13x, margen fino) aunque sobre FCL sea <1,0x, y H2 tampoco (payout ~85% sobre BNA). 0 duros / 1 blando → vigilar dividendo, sin S2."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "El Consejo de Ministros aprobó el 28-jul-2026, con posterioridad al cierre, una tercera Modificación de Aspectos Puntuales de la Planificación 2021-2026 por 615 M€, junto al aumento del límite de inversión en redes necesario para aprobar la nueva Planificación 2025-2030.",
+          "impacto": "+",
+          "valoracion": "Amplía la base de activos regulada futura, que es de donde sale el crecimiento del RAB y, con la TRF al 6,58%, del beneficio regulado. Es la cara buena del mismo plan inversor que ha costado el rating: más CAPEX hoy a cambio de más RAB mañana."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "A cierre de junio de 2026 queda pendiente la devolución al sistema de unos 535 M€, al seguir siendo provisionales las tarifas de transporte de 2024, 2025 y 2026 (resolución de la CNMC de 26-feb-2026 sobre la retribución de 2023).",
+          "impacto": "-",
+          "valoracion": "No está dentro de la DFN de 5.009 M€ pero es una salida de caja comprometida equivalente a más del 10% de esa deuda. Al leer el ratio de apalancamiento conviene tenerlo presente junto con el efecto del híbrido: entre ambos, la foto de solvencia real es sensiblemente peor que el 3,87x reportado."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ]
 }
