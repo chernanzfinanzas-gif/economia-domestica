@@ -148,9 +148,45 @@ function tesisVeredicto(t){
   var precio=_tzPrecio(t);
   var rating=((a.rating||J.rating||'')+'').toUpperCase();
   var dec=((a.decision||J.decision||'')+'').toUpperCase();
-  var poBear=_tzNum(a.poMin||J.poBear)||null;
-  var poBull=_tzNum(a.poMax||J.poBull)||null;
-  var poBase=(J.poBase!=null?_tzNum(J.poBase):null) || ((typeof poBaseDe==='function')?(num(poBaseDe(a))||null):null) || _tzNum(a.precioObjetivo) || ((poBear&&poBull)?(poBear+poBull)/2:(poBull||poBear||null));   /* [A6] el poBase del dossier manda */
+  /* --- PO: una sola fuente para los tres, y NUNCA una media ------------------
+     [29-jul-2026] Antes esto tenía dos defectos que se combinaban mal.
+
+     1) El último recurso era `(poBear+poBull)/2`. Santander enseñaba 10,63 €
+        —que es exactamente (7,65+13,61)/2— mientras su dossier decía 8,92 €.
+        Un PO promediado no es un precio objetivo: es la media de dos escenarios
+        que el analista construyó por separado. Y se pintaba SIN NINGUNA MARCA,
+        así que mirando la tarjeta no había forma de saber si el número lo había
+        calculado el análisis o se lo había inventado la app.
+
+     2) Los tres PO venían de fuentes con prioridad OPUESTA: bear y bull
+        preferían `a` (el registro de la app) y base prefería `J` (el dossier).
+        Bastaba con que `J` no estuviera aún en caché —se carga por fetch— para
+        que base cayera a la media de un bear/bull que podían ser los antiguos.
+        Condición de carrera: el mismo ticker podía dar un PO distinto según
+        cuándo se renderizara.
+
+     Ahora el trío sale ENTERO del dossier o ENTERO del registro, y si no hay
+     poBase se queda a null. La Capa 2 ya sabe decir «falta banda de entrada /
+     PO»; decirlo es correcto, rellenarlo con aritmética no. */
+  var poBear=null, poBull=null, poBase=null, poFuente='';
+  if(J && J.poBase!=null && _tzNum(J.poBase)>0){
+    poBase=_tzNum(J.poBase)||null;
+    poBear=_tzNum(J.poBear)||null;
+    poBull=_tzNum(J.poBull)||null;
+    poFuente='dossier';
+  } else {
+    var _pb=((typeof poBaseDe==='function')?(num(poBaseDe(a))||null):null) || _tzNum(a.precioObjetivo) || null;
+    if(_pb>0){
+      poBase=_pb;
+      poBear=_tzNum(a.poMin)||_tzNum(J.poBear)||null;
+      poBull=_tzNum(a.poMax)||_tzNum(J.poBull)||null;
+      poFuente='analisis';
+    } else {
+      /* Sin poBase no hay PO. Se conservan bear/bull solo por si hay que pintarlos. */
+      poBear=_tzNum(a.poMin||J.poBear)||null;
+      poBull=_tzNum(a.poMax||J.poBull)||null;
+    }
+  }
   var entMax=_tzNum(a.entMax||J.entMax)||null;
   var stop=_tzNum(a.stopTesis||J.stop)||null;
   var fo=a.forense||J.forense||null;
@@ -199,16 +235,54 @@ function tesisVeredicto(t){
     c3txt=tope?'dividendo no cubierto por caja':(corteReciente?('cortó el dividendo en '+corteYear):('safety bajo ('+(dsScore!=null?dsScore:'n/a')+')'));
   } else { c3='SOLIDA'; c3txt='dividendo fiable'+(dsScore!=null?(' (safety '+dsScore+')'):''); }
 
+  /* --- Techo del veredicto: la DECISIÓN del análisis y las SEÑALES abiertas ---
+     [29-jul-2026] Este motor recalculaba el veredicto desde cero y solo miraba
+     `decision` para descartar un VENDER. Con Azkoyen quedó a la vista lo que eso
+     permite: dossier en ESPERAR, semáforo ROJO en el 1S-2026 y señal S2 abierta,
+     y aun así las tres capas daban APTA + ENZONA + SOLIDA => INVERTIR. Peor
+     todavía, estaba «en zona» por la OPA a 10 €, que es justo la caída que el
+     §10.5 de esa empresa manda NO leer como oportunidad.
+
+     El Kanban ya lo hacía bien («en tu zona de entrada — revisa el veredicto»).
+     Eran dos motores con dos criterios, y el de la Ficha era el permisivo.
+
+     Regla: las tres capas siguen midiendo lo que miden, pero no pueden ASCENDER
+     por encima de lo que el análisis ya decidió. Una decisión ESPERAR/MANTENER
+     y una señal viva con plazo son techos, no matices. Nunca degradan por debajo
+     de ESPERAR: para eso están el stop y el veto forense. */
+  var bloqueos=[];
+  if(dec==='ESPERAR'||dec==='MANTENER') bloqueos.push('el análisis dice '+dec.toLowerCase());
+  var senales=[];
+  try{
+    if(typeof hallazgosCorpDe==='function'){
+      senales=(hallazgosCorpDe(t)||[]).filter(function(h){
+        return h && h.exigeAccion && (h.tipo==='senal'||h.codigo);
+      });
+    }
+  }catch(e){ senales=[]; }
+  if(senales.length){
+    var cods=senales.map(function(h){ return h.codigo||'señal'; });
+    bloqueos.push('señal '+cods.join('/')+' abierta sin resolver');
+  }
+
   /* Veredicto combinado */
   var v;
   if(c1==='DESCARTA' || c2==='STOP') v='FUERA';
   else if(c2==='ENZONA' && c1==='APTA' && (c3==='SOLIDA'||c3==='NA')) v='INVERTIR';
   else v='ESPERAR';
+  if(v==='INVERTIR' && bloqueos.length) v='ESPERAR';
 
   /* Frase */
   var frase;
   if(v==='INVERTIR') frase='Empresa de '+c1txt+', '+c2txt+' y '+c3txt+'. Candidata de compra según tu método.';
   else if(v==='FUERA') frase='Fuera: '+(c1==='DESCARTA'?c1r.join('; '):c2txt)+'. No es momento de invertir.';
+  else if(bloqueos.length && c2==='ENZONA' && c1==='APTA'){
+    /* Caso Azkoyen: cumple las tres capas pero hay un techo. Decirlo tal cual,
+       porque si no la frase suena a «casi lo cumple» y aquí el que no cumple es
+       el precio... es el expediente. */
+    frase='Cumple precio y calidad ('+c2txt+'), pero '+bloqueos.join(' y ')+
+          '. No es candidata de compra hasta resolverlo.';
+  }
   else {
     var motivo=[];
     if(c2==='CARA') motivo.push('está cara ('+c2txt+')');
@@ -216,10 +290,12 @@ function tesisVeredicto(t){
     else if(c2==='SINDATO') motivo.push(c2txt);
     if(c1==='DUDA') motivo.push('con salvedades ('+c1r.join('; ')+')');
     if(c3==='DEBIL') motivo.push('renta débil: '+c3txt);
+    bloqueos.forEach(function(b){ motivo.push(b); });
     frase='Buena base, pero '+(motivo.join(' y ')||'aún no cumple todas las condiciones')+'. '+((c2==='CERCA'||c2==='ZONAFLOJA'||c2==='CARA')&&entMax?('Esperar a ≤ '+_tzFmt(entMax)+'.'):'Vigilar.');
   }
 
   return { t:t, nombre:_tzNombre(t), arq:arq, precio:precio, rating:rating, dec:dec,
+    poFuente:poFuente, bloqueos:bloqueos, senales:senales,
     poBear:poBear, poBase:poBase, poBull:poBull, entMax:entMax, stop:stop, potBase:potBase,
     fo:fo, ds:ds, dsScore:dsScore, rdcf:rdcf, conf:conf, rpd:rpd, esRenta:esRenta,
     robustez:J.robustez||null, moat:J.moat||a.moat||null, dossierFecha:a.dossierFecha||J.fecha||null,
