@@ -782,7 +782,22 @@ function renderPanelDash(){
   /* [A6] las tres señales de precio leen la cotización viva (precioDe) y el PO base único (poBaseDe). */
   const _cotA=a=>(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion);
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),st=num(a.stopTesis); if(c&&st&&c<=st){ const t=(a.ticker||'').toUpperCase(); const p=_heldP[t]; avisos.push({pri:0,cls:'r',goto:'analisis',sig:'S1',tick:t,txt:`🚨 <b>${t}</b> — stop de tesis tocado (${fmt(c)} ≤ ${fmt(st)})${p?` · tienes ${p.acciones} acc., <b>ORDEN DE SALIDA</b>`:' · en vigilancia'}`}); } });
-  (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),eH=num(a.entMax),st=num(a.stopTesis); const dec=(a.decision||'').toUpperCase(); if(c>0&&eH>0&&c<=eH&&!(st&&c<=st)){ const t=(a.ticker||'').toUpperCase(); const decTag=dec?` · ${dec.toLowerCase()}`:''; avisos.push({pri:dec==='COMPRAR'?1:2,cls:'a',goto:'analisis',txt:`🟢 <b>${t}</b> — en zona de compra (${fmt(c)} ≤ entrada ${fmt(eH)})${decTag}${_heldP[t]?' · ya en cartera':''}`}); } });
+  /* [29-jul-2026] «En zona de compra» es una condición de PRECIO, y hay motivos que la invalidan
+     sin mover el precio: una OPA viva —el caso de Azkoyen, cuya cotización la gobierna la oferta de
+     Ohmnia a 10 €—, una señal del protocolo sin resolver, o simplemente que el análisis diga
+     ESPERAR. La Ficha de Tesis ya lo tenía en cuenta y degradaba el veredicto; el Panel seguía
+     diciendo «en zona de compra» tan tranquilo. Ahora los dos preguntan a `khBloqueosCompra`, que
+     es la lista única de esos motivos. El aviso no se oculta —el precio SÍ ha entrado en la banda,
+     y eso es información— pero se dice en verde o en ámbar según se pueda comprar o no. */
+  (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),eH=num(a.entMax),st=num(a.stopTesis); const dec=(a.decision||'').toUpperCase(); if(c>0&&eH>0&&c<=eH&&!(st&&c<=st)){ const t=(a.ticker||'').toUpperCase();
+    const _bl=(typeof khBloqueosCompra==='function')?(khBloqueosCompra(t,a)||[]):[];
+    if(_bl.length){
+      const _por=_bl.map(b=>b.txt).join(' · ');
+      avisos.push({pri:2,cls:'a',goto:'analisis',txt:`🟡 <b>${t}</b> — en la banda de entrada (${fmt(c)} ≤ ${fmt(eH)}) pero <b>no comprar</b>: ${_por}${_heldP[t]?' · ya en cartera':''}`});
+    } else {
+      const decTag=dec?` · ${dec.toLowerCase()}`:'';
+      avisos.push({pri:dec==='COMPRAR'?1:2,cls:'a',goto:'analisis',txt:`🟢 <b>${t}</b> — en zona de compra (${fmt(c)} ≤ entrada ${fmt(eH)})${decTag}${_heldP[t]?' · ya en cartera':''}`});
+    } } });
   /* 🎯 PO alcanzado. SOLO el cruce del PO MÁXIMO (bull) es señal S3 y puede abrir apunte.
      El cruce del PO base queda como aviso suave e INFORMATIVO: lleva `noApunte`, así que se
      pinta sin el badge «S3 📋» y pulsarlo no abre el procedimiento — solo lleva a Análisis.

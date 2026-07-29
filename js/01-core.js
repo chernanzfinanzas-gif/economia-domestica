@@ -941,6 +941,47 @@ function poBaseDe(a){ if(!a)return 0;
      anclado a la x de la cotización, justo encima de «precio actual». Ahora va en
      la fila de chips de abajo y separado.
    =========================================================================== */
+/* ===========================================================================
+   [29-jul-2026]  POR QUÉ NO COMPRAR AUNQUE EL PRECIO ESTÉ EN LA BANDA
+   ---------------------------------------------------------------------------
+   «Estar en zona de entrada» es una condición de PRECIO, y hay motivos que la
+   invalidan sin mover el precio ni un céntimo. El caso que lo destapó es
+   Azkoyen: con la OPA de Ohmnia a 10 €/acción viva, su cotización dejó de ser un
+   precio de mercado —tiene suelo blando y techo duro— así que la lectura normal
+   de «10,55 € ≤ banda 11,50 €» no significa lo que parece. Eso quedó escrito en
+   la Nota de Revisión Extraordinaria del 29-jul y en la Ficha de Tesis, que ya
+   degradaba el veredicto a ESPERAR. Pero el Panel seguía diciendo «en zona de
+   compra» como si nada.
+   Esta función es la lista ÚNICA de esos motivos. La usan la Ficha de Tesis y el
+   Panel, para que no vuelvan a decir cosas distintas del mismo hecho. */
+function khBloqueosCompra(t, a){
+  t=(t||'').toUpperCase();
+  var out=[];
+  if(!a){ try{ a=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===t; }); }catch(e){} }
+  var dec=((a&&a.decision)||'').toUpperCase();
+  if(dec==='VENDER')        out.push({tipo:'decision', txt:'el análisis dice VENDER'});
+  else if(dec==='ESPERAR')  out.push({tipo:'decision', txt:'el análisis dice ESPERAR'});
+  else if(dec==='MANTENER') out.push({tipo:'decision', txt:'el análisis dice MANTENER (no ampliar)'});
+  try{
+    if(typeof hallazgosCorpDe==='function'){
+      var vistos={};
+      (hallazgosCorpDe(t)||[]).forEach(function(h){
+        if(!h) return;
+        var e=(h.estado||'').toLowerCase();
+        if(e==='resuelta'||e==='cerrada'||h.resueltoEl) return;   /* lo cerrado no bloquea */
+        if(h.tipo==='opa'){
+          if(vistos.opa) return; vistos.opa=1;
+          out.push({tipo:'opa', txt:'OPA en curso: el precio lo gobierna la oferta, no el mercado'});
+        } else if(h.exigeAccion && (h.tipo==='senal'||h.codigo)){
+          var c=h.codigo||'señal';
+          if(vistos[c]) return; vistos[c]=1;
+          out.push({tipo:'senal', codigo:h.codigo||'', txt:'señal '+c+' abierta sin resolver'});
+        }
+      });
+    }
+  }catch(e){}
+  return out;
+}
 function khEscalera(V, opts){
   opts = opts || {};
   var n = function(x){ return (typeof num==='function')?num(x):(parseFloat(x)||0); };

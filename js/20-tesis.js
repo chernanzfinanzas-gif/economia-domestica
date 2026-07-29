@@ -239,27 +239,13 @@ function tesisVeredicto(t){
      por encima de lo que el análisis ya decidió. Una decisión ESPERAR/MANTENER
      y una señal viva con plazo son techos, no matices. Nunca degradan por debajo
      de ESPERAR: para eso están el stop y el veto forense. */
-  var bloqueos=[];
-  if(dec==='ESPERAR'||dec==='MANTENER') bloqueos.push('el análisis dice '+dec.toLowerCase());
-  var senales=[];
-  try{
-    if(typeof hallazgosCorpDe==='function'){
-      senales=(hallazgosCorpDe(t)||[]).filter(function(h){
-        /* [29-jul-2026] Faltaba mirar `estado`. Una señal RESUELTA conserva
-           `exigeAccion:true` en hallazgos.json —así está la S2 cerrada de Aena— así que
-           este filtro la seguía contando y degradaba el veredicto a ESPERAR para siempre.
-           Bloquea lo que sigue ABIERTO, no lo que ya se resolvió. */
-        if(!h || !h.exigeAccion) return false;
-        if(!(h.tipo==='senal'||h.codigo)) return false;
-        var _e=(h.estado||'').toLowerCase();
-        return !(_e==='resuelta'||_e==='cerrada'||h.resueltoEl);
-      });
-    }
-  }catch(e){ senales=[]; }
-  if(senales.length){
-    var cods=senales.map(function(h){ return h.codigo||'señal'; });
-    bloqueos.push('señal '+cods.join('/')+' abierta sin resolver');
-  }
+  /* [29-jul-2026] La lista de motivos para no comprar se ha sacado a `khBloqueosCompra`
+     (01-core.js) porque el Panel necesita exactamente la misma: decir «en zona de compra» allí
+     mientras aquí el veredicto es ESPERAR era el mismo hecho contado de dos maneras. Aquí solo
+     se traduce a la frase del veredicto. */
+  var _bl=(typeof khBloqueosCompra==='function')?(khBloqueosCompra(t,a)||[]):[];
+  var bloqueos=_bl.map(function(b){ return b.txt; });
+  var senales=_bl.filter(function(b){ return b.tipo==='senal'; });
 
   /* Veredicto combinado */
   var v;
