@@ -256,7 +256,14 @@ function tesisVeredicto(t){
   try{
     if(typeof hallazgosCorpDe==='function'){
       senales=(hallazgosCorpDe(t)||[]).filter(function(h){
-        return h && h.exigeAccion && (h.tipo==='senal'||h.codigo);
+        /* [29-jul-2026] Faltaba mirar `estado`. Una señal RESUELTA conserva
+           `exigeAccion:true` en hallazgos.json —así está la S2 cerrada de Aena— así que
+           este filtro la seguía contando y degradaba el veredicto a ESPERAR para siempre.
+           Bloquea lo que sigue ABIERTO, no lo que ya se resolvió. */
+        if(!h || !h.exigeAccion) return false;
+        if(!(h.tipo==='senal'||h.codigo)) return false;
+        var _e=(h.estado||'').toLowerCase();
+        return !(_e==='resuelta'||_e==='cerrada'||h.resueltoEl);
       });
     }
   }catch(e){ senales=[]; }
