@@ -793,8 +793,21 @@ document.addEventListener('click',e=>{ const b=e.target.closest&&e.target.closes
       diarias y el módulo de Excel; a.cotizacion queda de respaldo (el formulario de Cartera
       escribe en DB.valores sin tocarlo, y ahí es donde ambos se separaban). */
 function poBaseDe(a){ if(!a)return 0;
+  /* [29-jul-2026] EL DOSSIER MANDA, por encima de lo que haya guardado el registro.
+     Caso Iberdrola: la Ficha enseñaba 26,50 € (el poBase del dossier) y Análisis 22,25 €,
+     que es exactamente (12,50+32)/2. El registro de DB.analisis no tenía `poBase` —nunca se
+     reimportó tras el arreglo [A6]— y arrastraba un `precioObjetivo` con la media antigua,
+     que aquí ganaba por ir antes en la cadena. Dos vistas, dos precios objetivo.
+     Leyendo primero el dossier, todas las vistas cuadran sin migrar nada: el registro puede
+     estar sucio, pero deja de mandar. */
+  var _t=(a.ticker||'').toUpperCase();
+  var _J=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[_t]:null;
+  if(_J&&_J.poBase!=null&&num(_J.poBase)>0) return num(_J.poBase);
   var pb=num(a.poBase); if(pb>0)return pb;
   var po=num(a.precioObjetivo); if(po>0)return po;
+  /* Último recurso SOLO para fichas hechas a mano, que únicamente tienen la horquilla.
+     No es un precio objetivo: es la media de dos escenarios. Si la empresa tiene dossier,
+     este punto no se alcanza nunca. */
   var mn=num(a.poMin), mx=num(a.poMax);
   return (mn&&mx)?(mn+mx)/2:(mx||mn||0);
 }

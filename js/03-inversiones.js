@@ -461,8 +461,23 @@ function anaSubmit(){
   const id=$('#anaId').value||uid();
   const poMin=num($('#anaPoMin').value), poMax=num($('#anaPoMax').value);
   const entMin=num($('#anaEntMin').value), entMax=num($('#anaEntMax').value);
-  const poMed=(poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0);
+  /* [29-jul-2026] Antes esto era `(poMin+poMax)/2` a secas y se guardaba en
+     `precioObjetivo`: cada vez que se editaba y guardaba una ficha desde Análisis se
+     MACHACABA el precio objetivo con la media de la horquilla, aunque el dossier tuviera
+     su propio poBase. No era un residuo histórico, era un generador activo del problema.
+     Ahora se respeta la misma jerarquía que `poBaseDe`: dossier → poBase guardado → y la
+     media solo para fichas manuales, que es el único caso en que no hay nada mejor. */
+  const _tkA=$('#anaTicker').value.trim().toUpperCase();
+  const _exA=(DB.analisis||[]).find(x=>x.id===id);
+  const _JA=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[_tkA]:null;
+  const _poDoss = (_JA&&_JA.poBase!=null&&num(_JA.poBase)>0) ? num(_JA.poBase) : 0;
+  const _poPrev = num(_exA&&_exA.poBase)>0 ? num(_exA.poBase) : 0;
+  const poMed = _poDoss || _poPrev || ((poMin&&poMax)?(poMin+poMax)/2:(poMax||poMin||0));
   const a={id,ticker:$('#anaTicker').value.trim().toUpperCase(),nombre:$('#anaNombre').value.trim(),cotizacion:num($('#anaCot').value),poMin,poMax,entMin,entMax,rating:($('#anaRating').value||'').trim().toUpperCase(),stopTesis:num($('#anaStop').value),decision:($('#anaDecision').value||'').toUpperCase(),dossierFecha:$('#anaDossierFecha').value||'',dossierUrl:($('#anaDossierUrl').value||'').trim(),divAccion:num($('#anaDivA').value),notas:$('#anaNotas').value.trim(),precioObjetivo:poMed,precioEntrada:entMax};
+  /* Se persiste `poBase` SOLO si viene de una fuente real (dossier o el propio registro).
+     Si es la media de la horquilla no se guarda: guardarla la convertiría en dato
+     autorizado y volvería a mandar sobre el dossier en la siguiente lectura. */
+  if(_poDoss||_poPrev) a.poBase=_poDoss||_poPrev;
   if(!a.ticker&&!a.nombre){alert('Pon al menos ticker o nombre.');return;}
   DB.analisis=DB.analisis||[];
   const ex=DB.analisis.find(x=>x.id===id);
