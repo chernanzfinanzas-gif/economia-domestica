@@ -668,6 +668,82 @@
           "valoracion": "Continuidad de gestión con historial sólido de cara al DORA III y a las reformas de Barajas y El Prat."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-29",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El mejor semestre de la serie: ingresos 3.299,6 M€ (+10,1%), EBITDA 1.798,9 M€ (+6,3%) y beneficio neto 1.002,0 M€ (+12,1%), con 156,2 M pax en la red española (+3,7%). Todos los KPIs con umbral del §10.1 en zona REFUERZA salvo la deuda neta, que sube de 5.509 a 6.724 M€ por la compra de Augusta (340 M€) y el dividendo (1.646,4 M€), no por deterioro: el apalancamiento queda en 1,73x contra un umbral de 2,5x. A vigilar el margen EBITDA (56,5% → 54,5%), el EBITDA internacional (−3,8%) y la propia guía de tráfico 2026, rebajada a «alrededor del 3%» con avisos de visibilidad limitada en el 2S. Verde.",
+      "metricas": [
+        {
+          "nombre": "Pax España (M)",
+          "valor": 156.2
+        },
+        {
+          "nombre": "%Var Pax",
+          "valor": 3.7
+        },
+        {
+          "nombre": "Ingr. Comercial (M€)",
+          "valor": 983.9
+        },
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3299.6
+        },
+        {
+          "nombre": "%Var Ingresos",
+          "valor": 10.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1798.9
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": 6.3
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1002.0
+        },
+        {
+          "nombre": "DFN/EBITDA (x)",
+          "valor": 1.73
+        },
+        {
+          "nombre": "IMAAJ (€/pax)",
+          "valor": 11.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "El DORA III sigue en tramitación: la CNMC emitió el 26-may-2026 su informe no vinculante de supervisión y control, y el DORA definitivo debe aprobarlo el Consejo de Ministros antes del 30-sep-2026.",
+          "impacto": "=",
+          "valoracion": "Sin novedad respecto a la S2 abierta el 27-jul y cerrada el 28-jul con REAFIRMAR: el calendario es el mismo que ya se analizó y sigue sin ser vinculante. Es el riesgo §8.1 R2 y el pre-mortem nº2, y sigue siendo la señal accionable más anticipada del expediente. Nada que cambiar en el PO de 21,6 €."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "El 7-may-2026 Aena completó la compra del 51% de la sociedad holding Augusta, propietaria de los aeropuertos de Leeds Bradford y Newcastle, por 340,0 M€. La inversión total del semestre asciende a 916,3 M€, de los que 576,3 M€ son infraestructura aeroportuaria.",
+          "impacto": "=",
+          "valoracion": "Explica la mayor parte de la subida de la deuda neta del Grupo (5.509 → 6.724 M€) junto con el dividendo. Es M&A dentro del core y de tamaño moderado —no cruza el red flag del §10.4 «M&A grande fuera del core»— pero eleva el peso del internacional justo cuando su EBITDA cae un 3,8%. Vigilar que la integración no diluya margen."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Aena estima que el crecimiento del tráfico en 2026 se situará «alrededor del 3%» respecto a 2025, por debajo del +3,7% registrado en el semestre, citando visibilidad limitada en el segundo semestre: conflicto de Oriente Medio, fin de coberturas de combustible y debilidad del factor de ocupación frente a los asientos ofertados.",
+          "impacto": "-",
+          "valoracion": "Es una moderación, no un profit warning: implica un 2S en torno al +2,3%. El §10.1 pide «tráfico España crece» y seguiría cumpliéndose. Conviene retenerlo porque el catalizador §9.1 («pasajeros España >330 M anuales») depende justo de este tramo, y porque el DORA III de la CNMC proyecta +2,2% anual — la compañía se acerca a la previsión del regulador, no al revés."
+        },
+        {
+          "tipo": "Contrato",
+          "hecho": "Adjudicación de dos derechos de superficie para los primeros desarrollos hoteleros de la red en España: a Barceló en A.S. Madrid-Barajas y a Momentum (Hyatt) en J.T. Barcelona-El Prat. Las RMGA adjudicadas en el semestre suponen aumentos del 82% y 83% en tiendas para 2027 y 2028, y del 11% y 37% en restauración.",
+          "impacto": "+",
+          "valoracion": "Es la pata comercial de la tesis, la que no depende del regulador. Los saltos de RMGA comprometidas para 2027-28 dan visibilidad a los ingresos comerciales por encima del tráfico, y los servicios inmobiliarios (+15,0%) empiezan a aportar. No mueve el PO hoy, pero es lo que sostiene el margen si el DORA III aprieta la tarifa."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ]
 }
