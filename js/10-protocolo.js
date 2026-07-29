@@ -197,6 +197,44 @@ function _protoDlg(){
   }
   return dlg;
 }
+/* [29-jul-2026] EL CAMPO DE COTIZACIÓN PONÍA EL PRECIO EN VIVO, NO UN CIERRE.
+   El formulario rellenaba `paCot` con `a.cotizacion` —la última cotización sincronizada, que a
+   media sesión es un precio intradía—. Al pegar la fila en el §10.5, el registro se quedaba con
+   un número que no es el cierre de ningún día. En el repaso del 29-jul-2026, de 29 apuntes del
+   parque había SEIS así, y uno de ellos (Inditex, 12-jul) llevaba precio de un DOMINGO.
+   Ahora se rellena con el último cierre de `precios/[TICKER].json`, que es la misma serie que
+   usa el gráfico de la Ficha, y se dice de qué día es debajo del campo. */
+function _protoUltimoCierre(t){
+  t=(t||'').toUpperCase(); if(!t) return null;
+  try{
+    var pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[t]:null;
+    var d=pj&&pj.data;
+    if(d&&d.length){ var u=d[d.length-1]; return {fecha:(''+u[0]).slice(0,10), precio:num(u[1])}; }
+  }catch(e){}
+  return null;
+}
+/* Rellena el campo con el último cierre. Si la serie aún no está en memoria, la trae y lo pone
+   al llegar — pero NUNCA pisa un valor que el usuario haya tecleado (marca `data-auto`). */
+function _protoPonerCierre(dlg, t){
+  if(!dlg) return;
+  var inp=dlg.querySelector('#paCot'), ayu=dlg.querySelector('#paCotDia');
+  if(!inp) return;
+  var pinta=function(c){
+    if(!c||!(c.precio>0)) return;
+    if(inp.dataset.auto!=='1') return;               // el usuario ya lo ha tocado: no se toca
+    inp.value=c.precio;
+    if(ayu) ayu.textContent='último cierre disponible: '+((typeof ddmmyyyy==='function')?ddmmyyyy(c.fecha):c.fecha);
+  };
+  var c=_protoUltimoCierre(t);
+  if(c){ pinta(c); return; }
+  try{
+    if(typeof _precioCache==='undefined') return;
+    fetch('precios/'+(t||'').toUpperCase()+'.json',{cache:'no-store'})
+      .then(function(r){ return r.ok?r.json():null; })
+      .then(function(j){ _precioCache[(t||'').toUpperCase()]=j; pinta(_protoUltimoCierre(t)); })
+      .catch(function(){});
+  }catch(e){}
+}
 function _protoHoy(){ return new Date().toISOString().slice(0,10); }
 function _protoEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
@@ -269,7 +307,8 @@ function protoApunteForm(sig, ticker, editarId){
          <label>Empresa<select id="paTicker" class="anaInp">${optT||'<option value="">—</option>'}</select></label>
          <label>Señal<select id="paSig" class="anaInp">${optS}</select></label>
          <label>Fecha<input type="date" id="paFecha" value="${fechaPre}"></label>
-         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre2}">
+         <label>Cotización (€)<input type="number" step="0.001" id="paCot" value="${cotPre2}" data-auto="1" oninput="this.dataset.auto='0'">
+           <span id="paCotDia" style="display:block;margin-top:2px;font-size:10.5px;color:#94a3b8;font-weight:700"></span>
            <span style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"><b>Convención (29-jul-2026): el ÚLTIMO CIERRE CONOCIDO al escribir el apunte</b>, no el cierre del día. Si lo escribes con el mercado abierto, el último cierre es el de la sesión anterior — y ese es el precio que de verdad tenías delante al decidir. La app ya lo rellena así. <span title="S1 stop tocado · S3 precio objetivo alcanzado">S1 y S3 son señales de precio</span> y las detecta la app; los apuntes que escribe el método llevan el mismo criterio, con el precio de la <b>Matriz</b>. Esta cifra no es decorativa: es la vara con la que después se mide si la decisión acertó.</span></label>
          <label>Decisión<select id="paDec" class="anaInp">${optD}</select>
            <span id="paDecAyuda" style="display:block;margin-top:3px;font-size:11px;color:#64748b;line-height:1.4"></span></label>
@@ -292,7 +331,15 @@ function protoApunteForm(sig, ticker, editarId){
   if(_pdSel){ _pdSel.addEventListener('change',_pdPinta); _pdPinta(); }
   dlg.querySelector('#paCopy').onclick=()=>_protoCopiarFila(_protoLeerForm(dlg,sig,hoy), dlg.querySelector('#paCopy'));
   dlg.querySelector('#paBack').onclick=()=>showProtocolo(dlg.querySelector('#paSig').value, '', dlg.querySelector('#paTicker').value);
-  dlg.querySelector('#paTicker').onchange=e=>{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===e.target.value); if(a) dlg.querySelector('#paCot').value=num(a.cotizacion)||''; };
+  dlg.querySelector('#paTicker').onchange=e=>{ const _t=(e.target.value||'').toUpperCase();
+    const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===_t);
+    const _i=dlg.querySelector('#paCot'); _i.dataset.auto='1';           /* cambia la empresa: vuelve a mandar el automático */
+    if(a) _i.value=num(a.cotizacion)||'';
+    _protoPonerCierre(dlg,_t); };
+  /* Al abrir: si es un apunte NUEVO, el campo lo manda el último cierre; si se está EDITANDO uno
+     ya escrito, se respeta lo que tenga guardado. */
+  if(_ed){ const _i0=dlg.querySelector('#paCot'); if(_i0) _i0.dataset.auto='0'; }
+  else { _protoPonerCierre(dlg, ticker); }
   dlg.querySelector('#paSave').onclick=()=>{
     const t=(dlg.querySelector('#paTicker').value||'').toUpperCase();
     if(!t){ alert('Elige una empresa'); return; }
