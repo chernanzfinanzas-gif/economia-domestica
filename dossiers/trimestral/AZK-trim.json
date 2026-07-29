@@ -1,461 +1,462 @@
 {
-  "schemaVersion": 2,
-  "ticker": "AZK",
-  "empresa": "Azkoyen, S.A.",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "AZK",
+ "empresa": "Azkoyen, S.A.",
+ "revisiones": [
+  {
+   "periodo": "2023-Q2",
+   "fecha": "2023-07-28",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Fuerte crecimiento (+28% ingresos, +34% Bº) por la integración de Ascaso/Vendon; Payment 31,8 M€ y desapalancamiento en marcha. Refuerza la tesis (parte del salto es inorgánico).",
+   "metricas": [
     {
-      "periodo": "2023-Q2",
-      "fecha": "2023-07-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Fuerte crecimiento (+28% ingresos, +34% Bº) por la integración de Ascaso/Vendon; Payment 31,8 M€ y desapalancamiento en marcha. Refuerza la tesis (parte del salto es inorgánico).",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 99.56
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 27.9
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 31.81
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.96
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 13.0
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 8.86
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 34.3
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 22.96
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 937
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.89
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos +28% y Bº +34% en el semestre por la integración de Ascaso y Vendon (compradas en 2022).",
-          "impacto": "+",
-          "valoracion": "Confirma la acreción de las adquisiciones; refuerza la tesis de crecimiento por M&A."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo ordinario pagado el 21/07/2023.",
-          "impacto": "=",
-          "valoracion": "Retribución modesta; el grueso de la caja se destina a desapalancar tras la compra de 2022."
-        }
-      ]
+     "nombre": "Ingresos (M€)",
+     "valor": 99.56
     },
     {
-      "periodo": "2023-Q4",
-      "fecha": "2024-02-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Año récord: ingresos +12,7%, Bº +16,3%; el segmento Payment (clave) crece +22%. Deuda neta bancaria 20,6 M€. Tesis de calidad intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 192.47
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 12.7
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 62.69
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 23.05
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.0
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 17.34
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 16.3
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 20.64
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 947
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.9
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Año récord: ingresos 192 M€ (+12,7%) y Bº 17,3 M€ (+16,3%); segmento Payment +22%.",
-          "impacto": "+",
-          "valoracion": "Ejecución sólida; el segmento clave (Payment) acelera. Tesis intacta, sin cambio de PO."
-        }
-      ]
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 27.9
     },
     {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-26",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Semestre plano: ingresos +0,9% y Bº −4,5%. Payment sigue creciendo (+12%) pero el conjunto se frena tras el impulso inorgánico. Señal mixta; a vigilar el momentum.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 100.46
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 0.9
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 35.72
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.24
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.2
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 8.46
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -4.5
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 8.61
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 985
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.35
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Semestre plano: ingresos +0,9% y Bº −4,5% frente a un 1S-2023 muy fuerte.",
-          "impacto": "-",
-          "valoracion": "Desaceleración tras el impulso inorgánico; Payment sigue creciendo. Ámbar, sin cambio de PO."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo pagado el 05/07/2024.",
-          "impacto": "=",
-          "valoracion": "Política de retribución mantenida."
-        }
-      ]
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 31.81
     },
     {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-27",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "El año cerró bien pese al flojo 1S: ingresos +3,4%, Bº +7,3%, Payment +10%; deuda bancaria casi cero (caja neta). Recuperación confirmada.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 199.05
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 3.4
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 68.86
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 25.89
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 13.0
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 18.6
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 7.3
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 0.65
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 984
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.03
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos +3,4% y Bº +7,3%, recuperando el flojo 1S; CFO récord ~37 M€.",
-          "impacto": "+",
-          "valoracion": "Recuperación confirmada; la fuerte generación de caja devuelve el balance a caja neta."
-        }
-      ]
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 12.96
     },
     {
-      "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Crecimiento sólido (+2,1% ingresos, +7,7% Bº), Payment +4% y desapalancamiento continuo (DN bancaria 7,1 M€). Tesis reforzada.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 102.53
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 2.1
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 37.16
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.98
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.7
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 9.11
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 7.7
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 7.07
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 987
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.27
-        }
-      ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Crecimiento sólido: ingresos +2,1% y Bº +7,7%; deuda neta bancaria 7,1 M€.",
-          "impacto": "+",
-          "valoracion": "Momentum recuperado y desapalancamiento continuo. Tesis reforzada."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo pagado el 20/06/2025.",
-          "impacto": "=",
-          "valoracion": "Retribución mantenida."
-        }
-      ]
+     "nombre": "Margen explotación (%)",
+     "valor": 13.0
     },
     {
-      "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos récord (211 M€, +6%) y Payment +13,5% (mitiga el riesgo de disrupción del efectivo), pero Bº −6,9% por un deterioro puntual de 2,75 M€; caja neta bancaria. Dividendo extraordinario 1,00 € y segregación de VPS a filial. Ámbar por el retroceso puntual del beneficio.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 211.07
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 6.0
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 78.17
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 25.6
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.1
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 17.32
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -6.9
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": -8.04
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 999
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": -0.31
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos récord 211 M€ (+6%) y Payment +13,5%, con Bº −6,9% por un deterioro de fondo de comercio de 2,75 M€.",
-          "impacto": "=",
-          "valoracion": "El retroceso del beneficio es puntual (no monetario) y el segmento crítico (Payment) crece a doble dígito, mitigando el riesgo de disrupción. No cambia el PO 13,28 €."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Segregación parcial del negocio de Vending & Payment Solutions (VPS) a Azkoyen Vending & Payment Solutions, S.L.U. (filial 100%), escriturada en octubre de 2025.",
-          "impacto": "=",
-          "valoracion": "Reorganización societaria (estructura holding); no cambia el perímetro económico, pero aporta flexibilidad estratégica futura."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo extraordinario de 1,00 €/acc (con cargo a resultados y reservas).",
-          "impacto": "+",
-          "valoracion": "Devolución puntual del exceso de caja; NO es un dividendo ordinario recurrente (payout 141%, RPD 11,5%). RPD normalizada ~4-6%."
-        }
-      ]
+     "nombre": "Bº atribuible (M€)",
+     "valor": 8.86
     },
     {
-      "periodo": "2026-Q2",
-      "fecha": "2026-07-28",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Ingresos récord (108,9 M€, +6,2%) y Payment +20,3%, pero el margen de explotación cae de 12,7% a 9,6% y el Bº −20,4%: apalancamiento operativo negativo y sin deterioro puntual que lo explique. Vending entra en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security cae a 0,1 M€. Balance sano (caja neta bancaria 19,6 M€, FCO 14,7 M€), aunque con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado en julio. Rojo por deterioro de márgenes → S2 abierta (7 días).",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 108.91
-        },
-        {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 6.2
-        },
-        {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 44.71
-        },
-        {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 10.47
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 9.6
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 7.25
-        },
-        {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -20.4
-        },
-        {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": -19.64
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 1022
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": -0.94
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "OPA voluntaria de Ohmnia Electronics (Clerbil/Jainaga, con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) sobre el 100% del capital a 10 €/acción en efectivo, anunciada el 24-jul-2026; el Consejo la calificó de amistosa el 28-jul-2026 tras dar acceso a due diligence en junio. Condicionada a más del 50% de aceptación y a competencia en España y Alemania.",
-          "impacto": "-",
-          "valoracion": "El precio queda un 25% por debajo del PO de 13,28 € y por debajo de tu banda de entrada (10,50-11,50 €). El evento gobierna la cotización: desactiva la lectura normal del red flag «cotización < 11,5 € = zona de entrada». No cambio el PO por la OPA, pero sí condiciona la decisión ESPERAR: la oferta pone un suelo blando y un techo duro mientras siga viva."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Compra del 100% de primion AG (Tuggen, Suiza) por 2,07 MCHF (~2,3 M€) a través de la filial alemana primion Technology GmbH; cierre efectivo el 16-mar-2026.",
-          "impacto": "+",
-          "valoracion": "Operación pequeña y de encaje claro: refuerza Time & Security en Suiza, que es justamente el segmento hoy más débil en resultado. Irrelevante para el PO por tamaño; aporta algo de coste de integración al semestre."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo total de 1,00 €/acción (24,4 M€) aprobado el 9-jun-2026 y pagado el 24-jul-2026, íntegramente con cargo a reservas. El año anterior fueron 0,38 €/acción con cargo a resultados.",
-          "impacto": "=",
-          "valoracion": "Devuelve exceso de caja, pero excede el beneficio de 2025 (payout ~141%) y coincide con la emisión de 30 M€ de deuda nueva: pro-forma post-pago el balance queda en deuda neta bancaria de ~+4,8 M€, no en caja neta. NO es renta recurrente — la ordinaria ronda 0,40 €. Checklist B4: 1 predictor blando (b3, caída sostenida de BN) → «vigilar dividendo», sin S2 por esta vía."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Tras la modificación del objeto social derivada de la segregación de VPS, el grupo reporta desde 2026 un nuevo segmento «Unidad Corporativa» (holding), con −0,9 M€ de resultado en el semestre.",
-          "impacto": "=",
-          "valoracion": "Reclasificación contable: los costes de holding dejan de repartirse entre segmentos. Explica una parte del retroceso del resultado POR SEGMENTO, pero no del consolidado — el deterioro de margen del grupo es real."
-        }
-      ],
-      "periodoDisplay": "1S"
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": 34.3
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": 22.96
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 937
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": 0.89
     }
-  ]
+   ],
+   "periodoDisplay": "1S",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Ingresos +28% y Bº +34% en el semestre por la integración de Ascaso y Vendon (compradas en 2022).",
+     "impacto": "+",
+     "valoracion": "Confirma la acreción de las adquisiciones; refuerza la tesis de crecimiento por M&A."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo ordinario pagado el 21/07/2023.",
+     "impacto": "=",
+     "valoracion": "Retribución modesta; el grueso de la caja se destina a desapalancar tras la compra de 2022."
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q4",
+   "fecha": "2024-02-28",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Año récord: ingresos +12,7%, Bº +16,3%; el segmento Payment (clave) crece +22%. Deuda neta bancaria 20,6 M€. Tesis de calidad intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 192.47
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 12.7
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 62.69
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 23.05
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 12.0
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 17.34
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": 16.3
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": 20.64
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 947
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": 0.9
+    }
+   ],
+   "periodoDisplay": "FY",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Año récord: ingresos 192 M€ (+12,7%) y Bº 17,3 M€ (+16,3%); segmento Payment +22%.",
+     "impacto": "+",
+     "valoracion": "Ejecución sólida; el segmento clave (Payment) acelera. Tesis intacta, sin cambio de PO."
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q2",
+   "fecha": "2024-07-26",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Semestre plano: ingresos +0,9% y Bº −4,5%. Payment sigue creciendo (+12%) pero el conjunto se frena tras el impulso inorgánico. Señal mixta; a vigilar el momentum.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 100.46
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 0.9
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 35.72
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 12.24
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 12.2
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 8.46
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": -4.5
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": 8.61
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 985
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": 0.35
+    }
+   ],
+   "periodoDisplay": "1S",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Semestre plano: ingresos +0,9% y Bº −4,5% frente a un 1S-2023 muy fuerte.",
+     "impacto": "-",
+     "valoracion": "Desaceleración tras el impulso inorgánico; Payment sigue creciendo. Ámbar, sin cambio de PO."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo pagado el 05/07/2024.",
+     "impacto": "=",
+     "valoracion": "Política de retribución mantenida."
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q4",
+   "fecha": "2025-02-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "El año cerró bien pese al flojo 1S: ingresos +3,4%, Bº +7,3%, Payment +10%; deuda bancaria casi cero (caja neta). Recuperación confirmada.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 199.05
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 3.4
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 68.86
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 25.89
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 13.0
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 18.6
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": 7.3
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": 0.65
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 984
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": 0.03
+    }
+   ],
+   "periodoDisplay": "FY",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Ingresos +3,4% y Bº +7,3%, recuperando el flojo 1S; CFO récord ~37 M€.",
+     "impacto": "+",
+     "valoracion": "Recuperación confirmada; la fuerte generación de caja devuelve el balance a caja neta."
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q2",
+   "fecha": "2025-07-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Crecimiento sólido (+2,1% ingresos, +7,7% Bº), Payment +4% y desapalancamiento continuo (DN bancaria 7,1 M€). Tesis reforzada.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 102.53
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 2.1
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 37.16
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 12.98
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 12.7
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 9.11
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": 7.7
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": 7.07
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 987
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": 0.27
+    }
+   ],
+   "periodoDisplay": "1S",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Crecimiento sólido: ingresos +2,1% y Bº +7,7%; deuda neta bancaria 7,1 M€.",
+     "impacto": "+",
+     "valoracion": "Momentum recuperado y desapalancamiento continuo. Tesis reforzada."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo pagado el 20/06/2025.",
+     "impacto": "=",
+     "valoracion": "Retribución mantenida."
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q4",
+   "fecha": "2026-02-26",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos récord (211 M€, +6%) y Payment +13,5% (mitiga el riesgo de disrupción del efectivo), pero Bº −6,9% por un deterioro puntual de 2,75 M€; caja neta bancaria. Dividendo extraordinario 1,00 € y segregación de VPS a filial. Ámbar por el retroceso puntual del beneficio.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 211.07
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 78.17
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 25.6
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 12.1
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 17.32
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": -6.9
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": -8.04
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 999
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": -0.31
+    }
+   ],
+   "periodoDisplay": "FY",
+   "hechos": [
+    {
+     "tipo": "Resultados",
+     "hecho": "Ingresos récord 211 M€ (+6%) y Payment +13,5%, con Bº −6,9% por un deterioro de fondo de comercio de 2,75 M€.",
+     "impacto": "=",
+     "valoracion": "El retroceso del beneficio es puntual (no monetario) y el segmento crítico (Payment) crece a doble dígito, mitigando el riesgo de disrupción. No cambia el PO 13,28 €."
+    },
+    {
+     "tipo": "Gobierno",
+     "hecho": "Segregación parcial del negocio de Vending & Payment Solutions (VPS) a Azkoyen Vending & Payment Solutions, S.L.U. (filial 100%), escriturada en octubre de 2025.",
+     "impacto": "=",
+     "valoracion": "Reorganización societaria (estructura holding); no cambia el perímetro económico, pero aporta flexibilidad estratégica futura."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo extraordinario de 1,00 €/acc (con cargo a resultados y reservas).",
+     "impacto": "+",
+     "valoracion": "Devolución puntual del exceso de caja; NO es un dividendo ordinario recurrente (payout 141%, RPD 11,5%). RPD normalizada ~4-6%."
+    }
+   ]
+  },
+  {
+   "periodo": "2026-Q2",
+   "fecha": "2026-07-28",
+   "semaforoGlobal": "R",
+   "tesisSigueIntacta": true,
+   "resumen": "Ingresos récord (108,9 M€, +6,2%) y Payment +20,3%, pero el margen de explotación cae de 12,7% a 9,6% y el Bº −20,4%: apalancamiento operativo negativo y sin deterioro puntual que lo explique. Vending entra en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security cae a 0,1 M€. Balance sano (caja neta bancaria 19,6 M€, FCO 14,7 M€), aunque con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado en julio. Rojo por deterioro de márgenes → S2 abierta (7 días).",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 108.91
+    },
+    {
+     "nombre": "Crec. ingresos YoY (%)",
+     "valor": 6.2
+    },
+    {
+     "nombre": "Ingresos Payment (M€) ⚙",
+     "valor": 44.71
+    },
+    {
+     "nombre": "Rtdo. explotación (M€)",
+     "valor": 10.47
+    },
+    {
+     "nombre": "Margen explotación (%)",
+     "valor": 9.6
+    },
+    {
+     "nombre": "Bº atribuible (M€)",
+     "valor": 7.25
+    },
+    {
+     "nombre": "Crec. Bº YoY (%)",
+     "valor": -20.4
+    },
+    {
+     "nombre": "Deuda neta bancaria (M€)",
+     "valor": -19.64
+    },
+    {
+     "nombre": "Plantilla media (nº) ⚙",
+     "valor": 1022
+    },
+    {
+     "nombre": "DN banc./EBIT (x)",
+     "valor": -0.94
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Gobierno",
+     "hecho": "OPA voluntaria de Ohmnia Electronics (Clerbil/Jainaga, con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) sobre el 100% del capital a 10 €/acción en efectivo, anunciada el 24-jul-2026; el Consejo la calificó de amistosa el 28-jul-2026 tras dar acceso a due diligence en junio. Condicionada a más del 50% de aceptación y a competencia en España y Alemania.",
+     "impacto": "-",
+     "valoracion": "El precio queda un 25% por debajo del PO de 13,28 € y por debajo de tu banda de entrada (10,50-11,50 €). El evento gobierna la cotización: desactiva la lectura normal del red flag «cotización < 11,5 € = zona de entrada». No cambio el PO por la OPA, pero sí condiciona la decisión ESPERAR: la oferta pone un suelo blando y un techo duro mientras siga viva."
+    },
+    {
+     "tipo": "Adquisición",
+     "hecho": "Compra del 100% de primion AG (Tuggen, Suiza) por 2,07 MCHF (~2,3 M€) a través de la filial alemana primion Technology GmbH; cierre efectivo el 16-mar-2026.",
+     "impacto": "+",
+     "valoracion": "Operación pequeña y de encaje claro: refuerza Time & Security en Suiza, que es justamente el segmento hoy más débil en resultado. Irrelevante para el PO por tamaño; aporta algo de coste de integración al semestre."
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo total de 1,00 €/acción (24,4 M€) aprobado el 9-jun-2026 y pagado el 24-jul-2026, íntegramente con cargo a reservas. El año anterior fueron 0,38 €/acción con cargo a resultados.",
+     "impacto": "=",
+     "valoracion": "Devuelve exceso de caja, pero excede el beneficio de 2025 (payout ~141%) y coincide con la emisión de 30 M€ de deuda nueva: pro-forma post-pago el balance queda en deuda neta bancaria de ~+4,8 M€, no en caja neta. NO es renta recurrente — la ordinaria ronda 0,40 €. Checklist B4: 1 predictor blando (b3, caída sostenida de BN) → «vigilar dividendo», sin S2 por esta vía."
+    },
+    {
+     "tipo": "Gobierno",
+     "hecho": "Tras la modificación del objeto social derivada de la segregación de VPS, el grupo reporta desde 2026 un nuevo segmento «Unidad Corporativa» (holding), con −0,9 M€ de resultado en el semestre.",
+     "impacto": "=",
+     "valoracion": "Reclasificación contable: los costes de holding dejan de repartirse entre segmentos. Explica una parte del retroceso del resultado POR SEGMENTO, pero no del consolidado — el deterioro de margen del grupo es real."
+    }
+   ],
+   "periodoDisplay": "1S",
+   "notaS2": "Resuelta el 29-jul-2026 (Nota de Revisión Extraordinaria S2). El semáforo se mantiene en ROJO —el margen del semestre es el que es— pero la tesis NO está rota: margen bruto 66,1% (alarma §8.1 R2 en 60%) y Payment +20,3% con margen estable, así que ningún pre-mortem del §8.2 tiene su cadena en marcha. El daño es estructura de costes: personal +10,7% y otros gastos +13,1% frente a ingresos +6,2%, con el coste por empleado subiendo 6,9% y la plantilla solo 3,5%. Consecuencia registrada: el catalizador nº2 del §9.1 pasa a «en riesgo de fallar». ESPERAR, PO 13,28 € sin cambios; la banda de entrada queda SUSPENDIDA mientras viva la OPA de Ohmnia a 10 €."
+  }
+ ]
 }
