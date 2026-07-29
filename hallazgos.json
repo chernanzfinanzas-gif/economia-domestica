@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-28",
+  "generadoEl": "2026-07-29",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "AZK": {
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
-        "semanal": "2026-07-28"
+        "semanal": "2026-07-29"
       },
       "hallazgos": [
         {
@@ -19,13 +19,13 @@
           "tipo": "opa",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-07-24",
-          "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-07-29",
+          "fuente": "https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-31065618",
           "exigeAccion": false,
           "ultimaNovedad": {
-            "fecha": "2026-07-27",
-            "texto": "Única novedad posterior al 24-jul en los registros de la CNMV: comunicación de «Suspensión temporal del contrato de liquidez» (reg. 42084), consecuencia técnica habitual del anuncio de una OPA. A 27-jul NO consta folleto admitido a trámite, ni mejora de precio, ni informe del consejo de administración, ni autorizaciones de competencia."
+            "fecha": "2026-07-29",
+            "texto": "Novedad 28-jul-2026: el Consejo de Administración de Azkoyen ha calificado la oferta de AMISTOSA. Azkoyen y Ohmnia firmaron acuerdo de confidencialidad el 30-mar-2026 y la compañía dio acceso a due diligence legal y financiera durante junio. Asesor legal J&A Garrigues; nombrará asesor financiero independiente. El informe opinativo del Consejo se emitirá en los 10 días siguientes al inicio del plazo de aceptación, una vez la CNMV autorice la oferta. El precio de 10 € se reducirá por cualquier distribución posterior al anuncio, pero NO por el dividendo de 1,00 € anunciado el 9-jun y pagado el 24-jul."
           }
         },
         {
@@ -42,6 +42,25 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S2-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €.",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S2",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
         }
       ],
       "revisiones": [],
@@ -922,18 +941,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 28,
+    "hallazgosActivos": 29,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
+      "senal": 1,
       "concurso": 1,
       "otro": 7,
       "sancion": 1,
       "litigio": 1
     },
-    "exigenAccion": 0,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 7,
+    "situacionesAbiertas": 8,
     "hechosCaducadosHoy": 0
   }
 }
