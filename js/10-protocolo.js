@@ -238,8 +238,12 @@ function _protoPonerCierre(dlg, t){
 function _protoHoy(){ return new Date().toISOString().slice(0,10); }
 function _protoEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 
-function showProtocolo(sig, goto, ticker){
+function showProtocolo(sig, goto, ticker, nivel){
+  /* [29-jul-2026] `nivel` dice QUÉ umbral se cruzó ('bull' o 'base'). Viaja hasta el apunte para
+     que el silenciador del Panel pueda distinguirlos: un apunte del PO base no puede callar el
+     aviso de haber cruzado el PO bull. Ver el comentario en `_silenciada` (04-plan.js). */
   sig=(sig||'').toUpperCase(); ticker=(ticker||'').toUpperCase();
+  window._protoNivel=(nivel||'')||null;
   const p = PROTOCOLO_SENALES[sig];
   if(!p) return;
   const dlg=_protoDlg();
@@ -267,14 +271,14 @@ function showProtocolo(sig, goto, ticker){
      </div>`;
   dlg.querySelector('#protoX').onclick = () => dlg.close();
   dlg.querySelector('#protoClose').onclick = () => dlg.close();
-  dlg.querySelector('#protoReg').onclick = () => protoApunteForm(sig, ticker);
+  dlg.querySelector('#protoReg').onclick = () => protoApunteForm(sig, ticker, null, window._protoNivel||'');
   const g = dlg.querySelector('#protoGoto');
   if(g) g.onclick = () => { dlg.close(); if(typeof activarVista==='function') activarVista(goto); };
   dlg.showModal();
 }
 
 /* ---------- Formulario de apunte ---------- */
-function protoApunteForm(sig, ticker, editarId){
+function protoApunteForm(sig, ticker, editarId, nivel){
   /* [29-jul-2026] El registro se podía crear y borrar, pero NO editar. Corregir la fecha de un
      apunte —lo que hace falta para que empareje con su fila del §10.5, que casa por fecha+señal—
      obligaba a borrarlo y volver a teclear el motivo entero. Ahora `editarId` abre el mismo
@@ -354,6 +358,10 @@ function protoApunteForm(sig, ticker, editarId){
       limite:dec==='PTE. REVISIÓN'?(dlg.querySelector('#paLim').value||lim):'',
       motivo:motivo,
       estado:dec==='PTE. REVISIÓN'?'abierta':'resuelta' };
+    /* Nivel del umbral cruzado. Al EDITAR se conserva el que ya tenía; si no consta, no se
+       inventa: los apuntes sin nivel se leen como 'base', que es lo que eran. */
+    var _niv=(_ed&&_ed.nivel)||nivel||window._protoNivel||'';
+    if(_niv) ap.nivel=_niv;
     /* Se copia la fila ANTES de nada: asi, al cerrar, el portapapeles ya lleva lo que hay
        que pegar en el §10.5 y el doble registro no depende de acordarse. */
     /* La copia automatica al guardar solo puede dejar UNA cosa en el portapapeles: deja las

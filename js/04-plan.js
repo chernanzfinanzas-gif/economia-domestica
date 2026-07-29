@@ -793,8 +793,8 @@ function renderPanelDash(){
      cuando ya hay un apunte S3 vivo o resuelto hace menos de 60 días. Quitarle `sig` haría
      que reapareciera al día siguiente de revisarla, que es el fallo contrario. */
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),pMin=num(a.poMin),pMax=num(a.poMax); const pMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((pMin&&pMax)?(pMin+pMax)/2:(pMax||pMin||0)); if(c<=0)return; const t=(a.ticker||'').toUpperCase(); const p=_heldP[t];
-    if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
-    else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',tick:t,noApunte:1,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
+    if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',nivel:'bull',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
+    else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',nivel:'base',tick:t,noApunte:1,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
   /* [C6 · 27-jul-2026] SEÑAL S2 — semáforo trimestral ROJO o tesis declarada tocada.
      Faltaba: S2 existía en el badge de la Ficha y en el motor de Mis Decisiones, pero NO en esta
      bandeja. Quien vaciaba el Panel el lunes y no abría la Ficha se perdía los trimestres rojos,
@@ -899,13 +899,24 @@ function renderPanelDash(){
         if(sig==='S4'){ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); return (a&&a.dossierFecha)?(''+a.dossierFecha).slice(0,10):null; }
         if(sig==='S5'){ const c=(DB.cadencia||{})[t]; const d=c&&((c.next&&c.next.date)||c.nextDate); return d?(''+d).slice(0,10):null; }
       }catch(e){} return null; };
-    const _silenciada=(t,sig)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig); if(!arr.length)return false;
+    /* [29-jul-2026] El silencio de 60 días de S3 no distinguía QUÉ umbral se había cruzado, y eso
+       tapaba el aviso que más importa. Caso real: Bankinter cruzó su PO bull (15,55 ≥ 15,50) el
+       29-jul y el Panel no dijo nada, porque el 13-jul había un apunte S3 hecho cuando cruzó el PO
+       BASE — un aviso suave, de otra magnitud. Cruzar el escenario optimista es un hecho distinto
+       («el mercado ya descuenta el bull», §10.5) y no puede callarlo una revisión del base.
+       Ahora el apunte guarda el `nivel` que lo motivó: un apunte de 'base' NO silencia un aviso de
+       'bull'; uno de 'bull' sí silencia el de 'base', porque revisar arriba cubre lo de abajo.
+       Los apuntes viejos no llevan `nivel`: se tratan como 'base', que es literalmente lo que
+       eran — los diez del repaso del 29-jul cruzaban el base, ninguno el bull. */
+    const _nivOK=(ap,nivel)=>{ if(!nivel) return true; const an=ap.nivel||'base';
+      return (nivel==='bull') ? (an==='bull') : true; };
+    const _silenciada=(t,sig,nivel)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
       if(_PRECIO[sig]) return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL;
       const hito=_hechoNuevo(t,sig);
       return !(hito && hito > ult); };
-    for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig)) avisos.splice(i,1); } }catch(e){}
+    for(let i=avisos.length-1;i>=0;i--){ const x=avisos[i]; if(x.sig&&x.tick&&!x.esApunte&&_silenciada(x.tick,x.sig,x.nivel)) avisos.splice(i,1); } }catch(e){}
   if(avisos.length){ avisos.sort((a,b)=>a.pri-b.pri);
     /* Centro de alertas: tipo (por destino), clave estable para «visto», filtros y agrupación */
     const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda',diario:'tesis'};   /* [B1] un supuesto roto es asunto de tesis, no «otros» */
@@ -927,7 +938,7 @@ function renderPanelDash(){
       +'</div>';
     const grupos={}; show.forEach(x=>{ (grupos[x.tipo]=grupos[x.tipo]||[]).push(x); });
     const _itav=Object.keys(grupos).map(tp=>{
-      const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${(x.sig&&!x.noApunte)?` data-sig="${x.sig}" data-ticker="${x.tick||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${(x.sig&&!x.noApunte)?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
+      const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${(x.sig&&!x.noApunte)?` data-sig="${x.sig}" data-ticker="${x.tick||''}" data-nivel="${x.nivel||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${(x.sig&&!x.noApunte)?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
       return `<div style="margin-bottom:6px"><div style="font-size:11px;font-weight:700;color:#94a3b8;margin:4px 0 2px">${_TN[tp]||tp}</div>${its}</div>`;
     }).join('');
     const _allKeys=show.map(x=>x.key).join('~');
