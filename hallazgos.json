@@ -401,9 +401,9 @@
         {
           "id": "S6-2026-07-29",
           "abiertoEl": "2026-07-29",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (23-jul-2026, cotización 4,77 €): «2º ámbar consecutivo (continúa la serie desde Q1-2025). S6 de tendencia: ingresos +2,6% y EBITDA +2,5% vuelven a positivo, la publicidad audiovisual modera su caída a −1,3% y el margen recupera a 16,8%; PFN +70,2 M€. Tendencia que MEJORA, no adversa → no escalar a S2. Vigilar dividendo (payout estructural alto, pero cubierto por caja este semestre; PFN sube +12,1)». Segundo apunte del 27-jul-2026 (cotización 5,08 €) en la misma línea. La señal que abrió el detector el 29-jul-2026 es la MISMA racha, ya resuelta: no había periodo nuevo que evaluar.",
           "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -411,11 +411,12 @@
           "origen": "auditoría S2/S6 del 29-jul-2026",
           "fecha": "2026-07-29",
           "fuente": null,
-          "exigeAccion": true,
+          "exigeAccion": false,
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true,
+          "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización 4,77 €)"
         }
       ],
       "revisiones": [
@@ -539,9 +540,9 @@
         {
           "id": "S6-2026-07-29",
           "abiertoEl": "2026-07-29",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (22-jul-2026, cotización 12,70 €): «3er ámbar consecutivo (S1-2026). Tendencia NO adversa: el declive del EBITDA se MODERA (−4,7% vs −14,6% hace un año), el BDI recurrente (118,6 M€) va en línea con el objetivo 235 M€, el balance está en zona REFUERZA (DN 2.305 M€, FFO/DN 27,4%, coste 2,0%) y el catalizador 2027-2032 avanza (circulares CNMC → Consejo de Estado) + rotación de activos (Teréga). Es el declive estructural ESPERADO de la tesis MANTENER, no un deterioro; sin escalar a S2. Vigilar dividendo (1,00 € estable, cobertura por caja)». Observación de método, no de la empresa: el §10.3 de Enagás lleva en ámbar desde Q1-2023 salvo el ROJO de FY-2024. El umbral «EBITDA APM > 700 M€» del §10.1 se fijó cuando el EBITDA era 780 M€ (FY-2023) y hoy la compañía opera en 620-676; mientras no se recalibre en la Actualización Anual, el ámbar de Enagás no discrimina nada y S6 seguirá saltando en cada periodo nuevo.",
           "resumen": "6 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -549,11 +550,12 @@
           "origen": "auditoría S2/S6 del 29-jul-2026",
           "fecha": "2026-07-29",
           "fuente": null,
-          "exigeAccion": true,
+          "exigeAccion": false,
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true,
+          "nota": "§10.5 del libro · apunte del 2026-07-22 (cotización 12,70 €)"
         }
       ],
       "revisiones": [
@@ -731,9 +733,9 @@
         {
           "id": "S6-2026-07-29",
           "abiertoEl": "2026-07-29",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (23-jul-2026): «S6 (2º+ ámbar consecutivo). El 9M-2026 confirma una INFLEXIÓN de mejora: EBIT Ajustado +3,0% (vs −3,5% en el S1), margen s/VE +39 pb a 21,5% y Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8% vs −9,9%). El deterioro operativo del semestre NO ha continuado y el BCE sube tipos (+25 pb en junio). Tendencia adversa NO confirmada → efecto de tipos en reversión, seguir en ordinario. Vigilar el dividendo (pay-out ~99%)». Queda anotado para la Actualización Anual: el DPA del §10.1 baja de 2,09 € (FY-2024) a 2,01 € (FY-2025) — el umbral de ese KPI es «creciente» refuerza / «plano» debilita, y una BAJADA no tiene banda asignada.",
           "resumen": "6 ámbares consecutivos hasta 2026-Q3 (anterior: 2026-Q2)",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -741,11 +743,12 @@
           "origen": "auditoría S2/S6 del 29-jul-2026",
           "fecha": "2026-07-29",
           "fuente": null,
-          "exigeAccion": true,
+          "exigeAccion": false,
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true,
+          "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización Pte. Revisión)"
         }
       ],
       "revisiones": [
@@ -817,9 +820,9 @@
         {
           "id": "S6-2026-07-29",
           "abiertoEl": "2026-07-29",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (21-jul-2026, cotización 14,13 €): «Cinco periodos consecutivos en ÁMBAR (Q1-2025→Q1-2026): EBITDA acumulado −6% a −8% y beneficio a la baja. Mini-revisión de tendencia (S6): el deterioro es NORMALIZACIÓN tras el pico de márgenes 2024 + efecto divisa (debilidad del USD sobre el ~90% de exportación), NO daño estructural del negocio de papel de fumar. Ingresos estables ~314 M€, caja neta intacta, márgenes aún en zona alta (EBITDA 22-24%). Se mantiene MANTENER (PO 15,7 €); vigilar que el EBITDA no perfore <70 M€ ni el margen <22% de forma sostenida (pasaría a revisión de tesis)». Aviso vivo: el Q1-2026 ya trae ingresos −13,5% y margen EBITDA 22,9%, el mínimo de toda la serie y a 0,9 pp de esa línea roja. El 1S-2026 se publica el 2-sep-2026 y es el dato que decide si esto sigue siendo normalización.",
           "resumen": "5 ámbares consecutivos hasta 2026-Q1 (anterior: 2025-Q4)",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -827,11 +830,12 @@
           "origen": "auditoría S2/S6 del 29-jul-2026",
           "fecha": "2026-07-29",
           "fuente": null,
-          "exigeAccion": true,
+          "exigeAccion": false,
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true,
+          "nota": "§10.5 del libro · apunte del 2026-07-21 (cotización 14,13 €)"
         }
       ],
       "revisiones": [
@@ -1047,20 +1051,20 @@
     }
   },
   "resumen": {
-    "empresasConHallazgo": 23,
-    "hallazgosActivos": 35,
+    "empresasConHallazgo": 22,
+    "hallazgosActivos": 31,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
-      "senal": 5,
+      "senal": 1,
       "concurso": 1,
       "otro": 8,
       "sancion": 2,
       "litigio": 1
     },
-    "exigenAccion": 5,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 14,
+    "situacionesAbiertas": 10,
     "hechosCaducadosHoy": 0
   }
 }
