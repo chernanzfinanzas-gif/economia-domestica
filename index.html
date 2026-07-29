@@ -1053,6 +1053,44 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-posiciones #posKpis .k .v{font-size:18px}
   #view-posiciones .pos-desk{display:none}#view-posiciones .pos-mob{display:block}
 }
+/* ===== [29-jul-2026] Vistas MÓVIL de la Ficha y del registro de revisiones =====
+   Mismo patrón que Posiciones/Cartera/Ranking: se emiten las dos vistas y manda el CSS a
+   960px. En escritorio no cambia nada; en móvil, donde la regla global convierte las tablas
+   en un scroll horizontal, cada fila pasa a leerse en dos alturas. */
+#fichaView .fk-mob{display:none}
+#fichaView .fk-card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:9px;box-shadow:var(--shadow)}
+#fichaView .fk-card.fk-tot{background:#f8fafc;border-color:#cbd5e1}
+#fichaView .fk-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+#fichaView .fk-h .tk{font-size:14px;font-weight:800;color:var(--brand)}
+#fichaView .fk-h .tk .nm{font-size:10px;color:#94a3b8;font-weight:400;display:block;margin-top:2px}
+#fichaView .fk-h .ty{text-align:right;font-size:17px;font-weight:800;white-space:nowrap}
+#fichaView .fk-h .ty.g{color:var(--green)}#fichaView .fk-h .ty.r{color:var(--red)}
+#fichaView .fk-h .ty span{display:block;font-size:8px;color:#94a3b8;text-transform:uppercase;font-weight:700}
+#fichaView .fk-g{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:9px}
+#fichaView .fk-g .m{background:#f8fafc;border-radius:8px;padding:6px 8px;min-width:0}
+#fichaView .fk-g .m span{font-size:9px;color:var(--muted);font-weight:700;text-transform:uppercase;display:block}
+#fichaView .fk-g .m b{font-size:12.5px;font-weight:700;word-break:break-word}
+/* El año manda: cabecera consolidada arriba, pagos colgando debajo. */
+#fichaView .fk-year{border:1px solid var(--line);border-radius:12px;margin-bottom:11px;overflow:hidden;background:#fff;box-shadow:var(--shadow)}
+#fichaView .fk-y-h{background:#eef2f7;border-bottom:2px solid #cbd5e1;padding:9px 12px}
+#fichaView .fk-y-h .yy{font-size:19px;font-weight:800;line-height:1}
+#fichaView .fk-y-g{margin-top:8px}
+#fichaView .fk-y-g .m{background:#fff}
+#fichaView .fk-y-b{padding:8px 10px}
+#fichaView .fk-pago{display:grid;grid-template-columns:auto 1fr auto;gap:6px;align-items:center;padding:6px 0;border-bottom:1px solid #f1f5f9}
+#fichaView .fk-pago:last-child{border-bottom:0}
+#fichaView .fk-pago input.anaInp{width:100%;min-width:0}
+#fichaView .fk-pago .fk-imp{text-align:right}
+#fichaView .fk-pago .fk-pago-x{grid-column:1/-1;font-size:11px;color:var(--muted);margin-top:1px}
+/* Registro de revisiones: en escritorio la columna «Motivo»; en móvil, su propia fila. */
+.rev-mot-mob{display:none}
+@media(max-width:960px){
+  #fichaView .fk-desk{display:none}
+  #fichaView .fk-mob{display:block}
+  .rev-mot-desk{display:none}
+  .rev-mot-mob{display:table-row}
+}
+
 /* ===== Cartera (inversiones) ===== */
 #view-inversiones #invCards .pos-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 #view-inversiones #invCards .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow)}
@@ -4380,32 +4418,32 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   </form>
 </dialog>
 
-  <script src="js/01-core.js?v=20260728b"></script>
-  <script src="js/02-hogar.js?v=20260728b"></script>
-  <script src="js/03-inversiones.js?v=20260728b"></script>
-  <script src="js/04-plan.js?v=20260728b"></script>
-  <script src="js/05-graficas.js?v=20260728b"></script>
-  <script src="js/07-informes.js?v=20260728b"></script>
-  <script src="js/08-mazinger.js?v=20260728b"></script>
-  <script src="js/09-radardiv.js?v=20260728b"></script>
-  <script src="js/10-protocolo.js?v=20260728b"></script>
-  <script src="js/11-calibracion.js?v=20260728b"></script>
-  <script src="js/12-vision.js?v=20260728b"></script>
-  <script src="js/13-radar.js?v=20260728b"></script>
-  <script src="js/14-papelera.js?v=20260728b"></script>
-  <script src="js/16-buzon.js?v=20260728b"></script>
-  <script src="js/17-escenarios.js?v=20260728b"></script>
-  <script src="js/18-evodiv.js?v=20260728b"></script>
-  <script src="js/19-calendario.js?v=20260728b"></script>
-  <script src="js/20-tesis.js?v=20260728b"></script>
-  <script src="js/21-embudo.js?v=20260728b"></script>
-  <script src="js/22-diversif.js?v=20260728b"></script>
-  <script src="js/23-diario.js?v=20260728b"></script>
-  <script src="js/24-divfut.js?v=20260728b"></script>
-  <script src="js/25-hechos.js?v=20260728b"></script>
-<script src="js/26-excelprecios.js?v=20260728b"></script>
-  <script src="js/06-main.js?v=20260728b"></script>
-  <script src="js/15-cmdk.js?v=20260728b"></script>
+  <script src="js/01-core.js?v=20260728c"></script>
+  <script src="js/02-hogar.js?v=20260728c"></script>
+  <script src="js/03-inversiones.js?v=20260728c"></script>
+  <script src="js/04-plan.js?v=20260728c"></script>
+  <script src="js/05-graficas.js?v=20260728c"></script>
+  <script src="js/07-informes.js?v=20260728c"></script>
+  <script src="js/08-mazinger.js?v=20260728c"></script>
+  <script src="js/09-radardiv.js?v=20260728c"></script>
+  <script src="js/10-protocolo.js?v=20260728c"></script>
+  <script src="js/11-calibracion.js?v=20260728c"></script>
+  <script src="js/12-vision.js?v=20260728c"></script>
+  <script src="js/13-radar.js?v=20260728c"></script>
+  <script src="js/14-papelera.js?v=20260728c"></script>
+  <script src="js/16-buzon.js?v=20260728c"></script>
+  <script src="js/17-escenarios.js?v=20260728c"></script>
+  <script src="js/18-evodiv.js?v=20260728c"></script>
+  <script src="js/19-calendario.js?v=20260728c"></script>
+  <script src="js/20-tesis.js?v=20260728c"></script>
+  <script src="js/21-embudo.js?v=20260728c"></script>
+  <script src="js/22-diversif.js?v=20260728c"></script>
+  <script src="js/23-diario.js?v=20260728c"></script>
+  <script src="js/24-divfut.js?v=20260728c"></script>
+  <script src="js/25-hechos.js?v=20260728c"></script>
+<script src="js/26-excelprecios.js?v=20260728c"></script>
+  <script src="js/06-main.js?v=20260728c"></script>
+  <script src="js/15-cmdk.js?v=20260728c"></script>
 
 <script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}</script>
 </body>
