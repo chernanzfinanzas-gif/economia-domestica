@@ -293,7 +293,15 @@ function protoApunteForm(sig, ticker, editarId, nivel){
   const lim=(function(){ const d=new Date(); d.setDate(d.getDate()+(p.dias||7)); return d.toISOString().slice(0,10); })();
   const empresas=(DB.analisis||[]).slice().sort((a,b)=>(a.ticker||'').localeCompare(b.ticker||''));
   const optT=empresas.map(a=>{ const t=(a.ticker||'').toUpperCase(); return `<option value="${t}"${t===ticker?' selected':''}>${t}${a.nombre?' — '+_protoEsc(a.nombre):''}</option>`; }).join('');
-  const optS=Object.keys(PROTOCOLO_SENALES).map(s=>`<option value="${s}"${s===sig?' selected':''}>${s} — ${PROTOCOLO_SENALES[s].titulo}</option>`).join('');
+  /* [29-jul-2026] «+ Apunte» abre el formulario SIN señal, y el desplegable se quedaba en la
+     primera del catálogo: S1, «stop de tesis alcanzado». Es la más alarmante de las seis y la que
+     peores consecuencias tiene equivocada — plazo de 48 h en vez de 7 días, y sobre todo una clave
+     `fecha|señal` que NO empareja con la fila del §10.5, así que el apunte se queda como pendiente
+     para siempre. Pasó con Atresmedia el 29-jul: un S3 registrado como S1.
+     Ahora, cuando no viene señal de contexto, la primera opción es un hueco que obliga a elegir. */
+  const _sinSig=!sig || !PROTOCOLO_SENALES[sig];
+  const optS=(_sinSig?'<option value="" selected>— elige la señal —</option>':'')
+    +Object.keys(PROTOCOLO_SENALES).map(s=>`<option value="${s}"${s===sig?' selected':''}>${s} — ${PROTOCOLO_SENALES[s].titulo}</option>`).join('');
   const _decPre=(editarId&&(((DB.protocolo||{})[ticker])||[]).find(x=>x.id===editarId)||{}).decision||'';
   const optD=PROTO_DECISIONES.map(d=>`<option value="${d}"${d===_decPre?' selected':''}>${d}</option>`).join('');
   const cotPre=(function(){ const a=empresas.find(x=>(x.ticker||'').toUpperCase()===ticker); return a?num(a.cotizacion)||'':''; })();
@@ -347,6 +355,8 @@ function protoApunteForm(sig, ticker, editarId, nivel){
   dlg.querySelector('#paSave').onclick=()=>{
     const t=(dlg.querySelector('#paTicker').value||'').toUpperCase();
     if(!t){ alert('Elige una empresa'); return; }
+    const _sg=(dlg.querySelector('#paSig').value||'').toUpperCase();
+    if(!_sg||!PROTOCOLO_SENALES[_sg]){ alert('Elige la señal (S1-S6). Es la mitad de la clave con la que el apunte empareja con su fila del §10.5: si se equivoca, se queda como pendiente para siempre.'); return; }
     const dec=dlg.querySelector('#paDec').value;
     const motivo=dlg.querySelector('#paMotivo').value.trim();
     if(!motivo){ alert('El motivo es obligatorio (es la defensa anti-anclaje).'); return; }
