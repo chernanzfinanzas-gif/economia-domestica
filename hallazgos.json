@@ -933,9 +933,9 @@
         {
           "id": "soc-downgrade-rating-2026",
           "abiertoEl": "2026-03-11",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR TESIS. Bloque 2 revisado — resultado en la nueva §2.7 de la hoja «Solvencia Financiera» del libro. El DN/EBITDA reportado MEJORA de 4,35x (FY-2025) a 3,87x (1S-2026, EBITDA LTM 1.294,9 M€), lo contrario de lo que decía el veredicto anual §2.6. Pero la mejora es contable: la deuda reportada baja 464,8 M€ mientras el híbrido verde de 500 M€ (perpetuas subordinadas del 15-abr-2026, cupón 4,375%) entra como patrimonio bajo NIIF. Ex-híbrido el ratio es 4,25x; sumando los 535 M€ pendientes de devolver al sistema por las tarifas de transporte 2024-2026 aún provisionales, 4,67x — por encima del umbral de 4,5x del §10.1, ÁMBAR. La deuda económica no ha bajado este semestre: ha cambiado de sitio en el balance. NO ROMPE LA TESIS: la rebaja es por INVERSIÓN y no por deterioro (ambas agencias mantienen el perfil de negocio «excelente»), sigue siendo grado de inversión con dos escalones de margen, la TRF del 6,58% para 2026-31 ya está aprobada, la demanda de 3.000 M€ sobre una emisión de 500 confirma acceso holgado al mercado y la deuda sigue blindada (85% a tipo fijo, coste ~2,2%, vida media 5,4 años). El riesgo de la tesis no es la solvencia: es el dividendo con FCL negativo por cuarto año (~−111 M€ en el semestre) y el CAPEX aún subiendo. Sin cambios: PO 14,56 €, no se toca el RED.json. El semáforo de apalancamiento del §2.2 se mantiene en ÁMBAR. VIGILAR por este orden: (1) una SEGUNDA emisión híbrida en 12 meses sería la confirmación de que el plan no se autofinancia; (2) el calendario de devolución de los 535 M€; (3) que el FCL vuelva a positivo al hacer techo el CAPEX; (4) una revisión de perspectiva a negativa desde BBB+. PENDIENTE DE DATO: FFO/Deuda neta y la cobertura de intereses del semestre quedan «Pte. Revisión» — sin el desglose del informe no se pueden cerrar, y son justamente las dos métricas con las que calibran S&P y Fitch. Entran en la Actualización Anual.",
           "resumen": "Rebaja de rating crediticio a largo plazo de A− a BBB+, con perspectiva estable, por Fitch (27-feb-2026) y por S&P (11-mar-2026); S&P resolvió con ello su CreditWatch negativo de 26-jun-2025. Motivo declarado por ambas: el mayor esfuerzo inversor del Plan Estratégico, que deteriora transitoriamente los ratios crediticios; siguen valorando el perfil de riesgo de negocio como excelente. Red flag §10.4 (acción: revisar solvencia, Bloque 2).",
           "tipo": "otro",
           "naturaleza": "situacion",
@@ -943,7 +943,8 @@
           "origen": "monitor-trimestral 2026-Q2",
           "fecha": "2026-03-11",
           "fuente": null,
-          "exigeAccion": false
+          "exigeAccion": false,
+          "nota": "§2.7 de «Solvencia Financiera» + apunte del §10.5 (29-jul-2026)"
         }
       ],
       "revisiones": [],
@@ -1052,19 +1053,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 31,
+    "hallazgosActivos": 30,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
       "senal": 1,
       "concurso": 1,
-      "otro": 8,
+      "otro": 7,
       "sancion": 2,
       "litigio": 1
     },
     "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 10,
+    "situacionesAbiertas": 9,
     "hechosCaducadosHoy": 0
   }
 }
