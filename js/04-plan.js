@@ -925,7 +925,26 @@ function renderPanelDash(){
        eran — los diez del repaso del 29-jul cruzaban el base, ninguno el bull. */
     const _nivOK=(ap,nivel)=>{ if(!nivel) return true; const an=ap.nivel||'base';
       return (nivel==='bull') ? (an==='bull') : true; };
-    const _silenciada=(t,sig,nivel)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)); if(!arr.length)return false;
+    /* [29-jul-2026] El silenciador solo miraba los apuntes de la APP (DB.protocolo), y el método
+       dice literalmente que manda el §10.5 del Excel. Un apunte registrado a mano en el libro y
+       nunca tecleado en la app era invisible aquí: el aviso seguía pidiendo una revisión ya hecha.
+       Caso real: ACS tiene en su §10.5 la fila del 22-jul-2026 «S3 · 117,10 € · REAFIRMAR», y aun
+       así el Panel reclamaba la S3 el 29-jul. Es el fallo simétrico del de Bankinter: allí se
+       callaba de más, aquí se gritaba de más — los dos por leer una sola de las dos fuentes.
+       El nivel de una fila del Excel no está escrito: se DEDUCE de su cotización contra el PO bull
+       vigente. Si el apunte se hizo por encima del bull, revisó el bull. */
+    const _f105=f=>{ const s=(''+(f||'')).trim().toLowerCase();
+      const m=s.match(/^(\d{1,2})[-\/\s]([a-záéíóú]{3})[a-záéíóú.]*[-\/\s](\d{4})/);
+      if(m){ const M={ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'};
+        const mm=M[m[2]]; if(mm) return m[3]+'-'+mm+'-'+('0'+m[1]).slice(-2); }
+      const i=s.match(/^(\d{4})-(\d{2})-(\d{2})/); return i?i[0]:''; };
+    const _ap105=(t,sig,nivel)=>{ if(typeof revisionesCorpDe!=='function')return [];
+      let _bull=0; try{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); _bull=a?num(a.poMax):0; }catch(e){}
+      let filas=[]; try{ filas=revisionesCorpDe(t).filas||[]; }catch(e){ return []; }
+      return filas.filter(r=>{ if(((''+(r.senal||'')).toUpperCase().trim())!==sig) return false;
+          const c=num(r.cot); return _nivOK({nivel:((_bull>0&&c>=_bull)?'bull':'base')},nivel); })
+        .map(r=>({fecha:_f105(r.fecha),estado:'',origen:'§10.5'})).filter(r=>r.fecha); };
+    const _silenciada=(t,sig,nivel)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)).concat(_ap105(t,sig,nivel)); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
       if(_PRECIO[sig]) return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL;
