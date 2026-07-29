@@ -256,6 +256,14 @@
           "cot": 108.9,
           "decision": "AJUSTA PO",
           "motivo": "Re-valoración con la beta SECTORIAL 1,05 (decisión del operador) en vez de la del CAPM 0,63. El stop pasa a calcularse con la regla §8.7 —10% × β × q sobre el suelo del Bear— que antes no se había aplicado: los 60 € eran el suelo del Bear a pelo. No es un ajuste al precio: ACS cotiza a 117,60 €, muy por encima de todo el rango. · [Decisión original: «Stop 60,00 → 49,85 €»] · [Cotización corregida el 29-jul-2026: el apunte decía 117,60 € y ese valor no aparece en toda la serie de cotizaciones; se pone el cierre oficial de esa fecha, 108.90 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
+        },
+        {
+          "fila": 95,
+          "fecha": "22-jul-2026",
+          "senal": "S3",
+          "cot": 117.1,
+          "decision": "REAFIRMAR",
+          "motivo": "Empresa en vigilancia. No se abre posición fuera de zona de entrada"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -309,6 +317,14 @@
           "cot": 26.7,
           "decision": "REAFIRMAR",
           "motivo": "Señal abierta el 27-jul-2026 (cotización de referencia 26,7). REAFIRMAR TESIS. La propuesta de la CNMC del 4-jun-2026 (tarifa −0,59% anual frente al +3,82% pedido, IMAAJ 11,02 €/pax frente a los 12,69 € que aprobó el Consejo de Aena el 17-feb, WACC 7,4% frente al 9%) cruza el §8.1 R2, la señal de salida del pre-mortem nº2 y el red flag nº2 del §10.4. Pero la CADENA del pre-mortem se rompe en su segundo eslabón: con el tráfico que la propia CNMC proyecta (+2,2% anual, 366,7 M pax en 2031, por encima del 1,3% de Aena), el ingreso aeronáutico sigue creciendo (~+1,6%/año) en vez de estancarse. Magnitud del §8.1 R2 (−10/−25%), no del §8.2 (−40/−50%). La propuesta no es vinculante: decide el Consejo de Ministros antes del 30-sep-2026. Sin cambios: ESPERAR, PO 21,6 €, banda 18-22 €, stop 15,6 €; no se toca el AENA.json. La decisión vigente ya era no entrar y el riesgo estaba escrito en cuatro sitios del expediente. Acción: no entrar por encima de 22 €; (a) 29-jul resultados 1S — coste medio de deuda frente al 4% del §8.1 R5; (b) antes del 30-sep, Consejo de Ministros — si confirma, re-valorar el Bloque VI (AJUSTA PO con datos nuevos); si suaviza, catalizador §9.1. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Aena (S2).html"
+        },
+        {
+          "fila": 95,
+          "fecha": "21-jul-2026",
+          "senal": "S3",
+          "cot": 26.1,
+          "decision": "REAFIRMAR",
+          "motivo": "No es una tesis de valoración, es tesis de renta. además es una posición no abierta. No hay cambio de valoración"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -467,7 +483,16 @@
         "semanal": "2026-07-28"
       },
       "hallazgos": [],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 93,
+          "fecha": "13-jul-2026",
+          "senal": "S3",
+          "cot": 15.4,
+          "decision": "REAFIRMAR",
+          "motivo": "Es una acción que no está en cartera, a estos precios no voy a comprar. Espero que entre en zona de entrada"
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
@@ -519,12 +544,21 @@
           "desenlace": null
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 95,
+          "fecha": "15-jul-2026",
+          "senal": "S3",
+          "cot": 18.16,
+          "decision": "REAFIRMAR",
+          "motivo": "No se revisa porque es una empresa en estudio para invertir. Se comprará cuando esté en el abanico de entrada"
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
     "ENG": {
-      "empresa": "Enagas",
+      "empresa": "Enagás",
       "cobertura": {
         "semanal": "2026-07-28"
       },
@@ -589,6 +623,14 @@
           "cot": 17.45,
           "decision": "REAFIRMAR",
           "motivo": "3er ámbar consecutivo (S1-2026). Tendencia NO adversa: el declive del EBITDA se MODERA (−4,7% vs −14,6% hace un año), el BDI recurrente (118,6 M€) va en línea con el objetivo 235 M€, el balance está en zona REFUERZA (DN 2.305 M€, FFO/DN 27,4%, coste 2,0%) y el catalizador 2027-2032 avanza (circulares CNMC → Consejo de Estado) + rotación de activos (Teréga). Es el declive estructural ESPERADO de la tesis MANTENER, no un deterioro; sin escalar a S2. Vigilar dividendo (1,00 € estable, cobertura por caja). · [Decisión original: «Seguir en ordinario (no escalar)»] · [Cotización corregida el 29-jul-2026: el apunte decía 12,70 € y no corresponde a ningún cierre desde marzo de 2025; se pone el cierre oficial de esa fecha, 17.45 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
+        },
+        {
+          "fila": 98,
+          "fecha": "23-jul-2026",
+          "senal": "S3",
+          "cot": 17.35,
+          "decision": "REAFIRMAR",
+          "motivo": "Empresa a la espera de alcanzar el precio de entrada para valorar abrirla de nuevo. No necesario valorar la tesis de nuevo"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -617,7 +659,16 @@
           "caducaEl": "2026-08-15"
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 93,
+          "fecha": "11-jul-2026",
+          "senal": "S3",
+          "cot": 38.73,
+          "decision": "REAFIRMAR",
+          "motivo": "Es una tesis de renta. Endesa es una empresa que no crecerá que sigue en cartera por la renta que genera, que al precio de venta da una buena rentabilidad"
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
@@ -823,7 +874,16 @@
           "exigeAccion": false
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 93,
+          "fecha": "22-jul-2026",
+          "senal": "S3",
+          "cot": 4.56,
+          "decision": "REAFIRMAR",
+          "motivo": "Tesis de Renta. Mantener y seguir comprando. Finalizar posición si entra en zona de entrada."
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
@@ -985,9 +1045,17 @@
           "fila": 96,
           "fecha": "29-jul-2026",
           "senal": "§10.4",
-          "cot": "Pte. Revisión",
+          "cot": 15.33,
           "decision": "REAFIRMAR",
-          "motivo": "Revisión del Bloque 2 (solvencia) exigida por el red flag §10.4 tras la rebaja de A− a BBB+ (Fitch 27-feb, S&P 11-mar-2026). Resultado en la nueva §2.7 de «Solvencia Financiera»: el DN/EBITDA reportado mejora a 3,87x, pero ex-híbrido verde (500 M€, patrimonio bajo NIIF) es 4,25x y sumando los 535 M€ pendientes de devolver al sistema, 4,67x — por encima del umbral de 4,5x, ÁMBAR. La deuda económica no ha bajado: ha cambiado de sitio en el balance. Sigue siendo grado de inversión y la rebaja es por inversión, no por deterioro; el riesgo de la tesis es el dividendo con FCL negativo (4º año), no la solvencia. Sin tocar PO (14,56 €) ni RED.json. Vigilar una segunda emisión híbrida en 12 meses. FFO/DN y cobertura de intereses del semestre quedan Pte. Revisión: sin desglose no se pueden cerrar."
+          "motivo": "Revisión del Bloque 2 (solvencia) exigida por el red flag §10.4 tras la rebaja de A− a BBB+ (Fitch 27-feb, S&P 11-mar-2026). Resultado en la nueva §2.7 de «Solvencia Financiera»: el DN/EBITDA reportado mejora a 3,87x, pero ex-híbrido verde (500 M€, patrimonio bajo NIIF) es 4,25x y sumando los 535 M€ pendientes de devolver al sistema, 4,67x — por encima del umbral de 4,5x, ÁMBAR. La deuda económica no ha bajado: ha cambiado de sitio en el balance. Sigue siendo grado de inversión y la rebaja es por inversión, no por deterioro; el riesgo de la tesis es el dividendo con FCL negativo (4º año), no la solvencia. Sin tocar PO (14,56 €) ni RED.json. Vigilar una segunda emisión híbrida en 12 meses. FFO/DN y cobertura de intereses del semestre quedan Pte. Revisión: sin desglose no se pueden cerrar. · [Cotización rellenada el 29-jul-2026: el apunte quedó en «Pte. Revisión»; se pone el cierre de esa fecha, 15,33 € (Matriz Bolsa Española).]"
+        },
+        {
+          "fila": 97,
+          "fecha": "22-jul-2026",
+          "senal": "S3",
+          "cot": 15.63,
+          "decision": "REAFIRMAR",
+          "motivo": "No estoy invertido, es una posición en estudio en la que no se entra sin estar en zona de entrada"
         }
       ],
       "revisionesEl": "2026-07-29",
@@ -999,7 +1067,16 @@
         "semanal": "2026-07-28"
       },
       "hallazgos": [],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 87,
+          "fecha": "11-jul-2026",
+          "senal": "S3",
+          "cot": 23.45,
+          "decision": "REAFIRMAR",
+          "motivo": "Tesis de Renta. La rentabilidad del dividendo indica no vender salvo deterioro de fundamentales."
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     },
@@ -1089,7 +1166,16 @@
           "desenlace": null
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fila": 96,
+          "fecha": "11-jul-2026",
+          "senal": "S3",
+          "cot": 56.4,
+          "decision": "REAFIRMAR",
+          "motivo": "Es una tesis de Renta por lo que al ser el dividendo aceptable no implica salida la llegada a un precio objetivo"
+        }
+      ],
       "revisionesEl": "2026-07-29",
       "revisionesFrescas": true
     }
