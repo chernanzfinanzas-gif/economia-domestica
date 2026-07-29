@@ -1,665 +1,753 @@
 {
-  "schemaVersion": 2,
-  "ticker": "EBRO",
-  "empresa": "Ebro Foods",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "EBRO",
+ "empresa": "Ebro Foods",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "fecha": "2023-04-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Q1-2023: márgenes firmes (EBITDA-A 11.9%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "fecha": "2023-04-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Q1-2023: márgenes firmes (EBITDA-A 11.9%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 810.2
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 96.3
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 11.9
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 71.7
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 43.8
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 5.4
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 23.4
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 743.9
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 10.7
-        }
-      ],
-      "periodoDisplay": "1T"
+     "nombre": "Ingresos (M€)",
+     "valor": 810.2
     },
     {
-      "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "S1-2023: márgenes firmes (EBITDA-A 12.5%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 1557.9
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 194.8
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 12.5
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 145.3
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 93.1
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.0
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 41.8
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 778.5
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 15.2
-        }
-      ],
-      "periodoDisplay": "S1"
+     "nombre": "EBITDA-A (M€)",
+     "valor": 96.3
     },
     {
-      "periodo": "2023-Q3",
-      "fecha": "2023-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "9M-2023: márgenes firmes (EBITDA-A 12.3%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 2306.8
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 284.4
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 12.3
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 208.8
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 140.1
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.1
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 64.7
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 588.2
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 16.1
-        }
-      ],
-      "periodoDisplay": "9M"
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 11.9
     },
     {
-      "periodo": "2023-Q4",
-      "fecha": "2024-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "FY-2023: márgenes firmes (EBITDA-A 12.6%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3084.5
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 387.2
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 12.6
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 284.3
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 187.0
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.1
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 86.3
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 570.4
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 15.7
-        }
-      ],
-      "periodoDisplay": "FY"
+     "nombre": "EBIT-A (M€)",
+     "valor": 71.7
     },
     {
-      "periodo": "2024-Q1",
-      "fecha": "2024-04-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Q1-2024: márgenes firmes (EBITDA-A 13.6%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 806.6
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 109.7
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.6
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 83.7
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 53.7
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.7
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 25.4
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 507.0
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 13.9
-        }
-      ],
-      "periodoDisplay": "1T"
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 43.8
     },
     {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "S1-2024: márgenes firmes (EBITDA-A 13.3%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 1580.1
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 210.5
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 158.2
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 108.9
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.9
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 47.9
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 572.5
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 8.1
-        }
-      ],
-      "periodoDisplay": "S1"
+     "nombre": "Mg.neto (%)",
+     "valor": 5.4
     },
     {
-      "periodo": "2024-Q3",
-      "fecha": "2024-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "9M-2024: márgenes firmes (EBITDA-A 13.1%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 2346.8
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 308.0
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.1
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 228.6
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 169.2
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 7.2
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 72.7
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 511.4
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 8.3
-        }
-      ],
-      "periodoDisplay": "9M"
+     "nombre": "Publicidad (M€)",
+     "valor": 23.4
     },
     {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "FY-2024: márgenes firmes (EBITDA-A 13.2%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3140.5
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 413.1
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.2
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 304.8
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 207.9
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.6
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 94.7
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 593.2
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 6.7
-        }
-      ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Cambios en el consejo de administración y en varias comisiones, comunicados en noviembre de 2024.",
-          "impacto": "=",
-          "valoracion": "Recomposición del consejo bajo control familiar estable; sin cambio de rumbo aparente."
-        }
-      ]
+     "nombre": "Deuda Neta (M€)",
+     "valor": 743.9
     },
     {
-      "periodo": "2025-Q1",
-      "fecha": "2025-04-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Q1-2025: márgenes firmes (EBITDA-A 14.2%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 792.0
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 112.1
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 14.2
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 84.8
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 50.3
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.4
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 599.3
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 2.2
-        }
-      ],
-      "periodoDisplay": "1T"
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
     },
     {
-      "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "S1-2025: márgenes firmes (EBITDA-A 13.9%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 1533.4
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 212.9
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.9
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 157.7
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 97.0
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.3
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 48.2
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 675.8
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 1.1
-        }
-      ],
-      "periodoDisplay": "S1"
-    },
-    {
-      "periodo": "2025-Q3",
-      "fecha": "2025-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "9M-2025: márgenes firmes (EBITDA-A 13.7%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 2276.0
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 311.5
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.7
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 228.1
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 154.3
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 6.8
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 72.3
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 578.5
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 1.1
-        }
-      ],
-      "periodoDisplay": "9M"
-    },
-    {
-      "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "FY-2025: márgenes firmes (EBITDA-A 14.0%), EBIT-A y beneficio en línea; tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 3013.6
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 420.7
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 14.0
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 307.2
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 214.9
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 7.1
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 92.3
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 529.4
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": 1.8
-        }
-      ],
-      "periodoDisplay": "FY"
-    },
-    {
-      "periodo": "2026-Q1",
-      "fecha": "2026-04-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "1T-2026: EBITDA-A −10,8% interanual (100 M€) y margen 13,2%, por comparación exigente y divisa. Primer trimestre de presión — señal temprana a vigilar.",
-      "metricas": [
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 755.5
-        },
-        {
-          "nombre": "EBITDA-A (M€)",
-          "valor": 100.0
-        },
-        {
-          "nombre": "Mg.EBITDA-A (%)",
-          "valor": 13.2
-        },
-        {
-          "nombre": "EBIT-A (M€)",
-          "valor": 72.3
-        },
-        {
-          "nombre": "Bº Neto atrib. (M€)",
-          "valor": 52.9
-        },
-        {
-          "nombre": "Mg.neto (%)",
-          "valor": 7.0
-        },
-        {
-          "nombre": "Publicidad (M€)",
-          "valor": 26.1
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 459.9
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 153.9
-        },
-        {
-          "nombre": "%Var EBITDA-A YoY",
-          "valor": -10.8
-        }
-      ],
-      "periodoDisplay": "1T"
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 10.7
     }
-  ]
+   ],
+   "periodoDisplay": "1T"
+  },
+  {
+   "periodo": "2023-Q2",
+   "fecha": "2023-07-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "S1-2023: márgenes firmes (EBITDA-A 12.5%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1557.9
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 194.8
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 12.5
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 145.3
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 93.1
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.0
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 41.8
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 778.5
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 15.2
+    }
+   ],
+   "periodoDisplay": "S1"
+  },
+  {
+   "periodo": "2023-Q3",
+   "fecha": "2023-10-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "9M-2023: márgenes firmes (EBITDA-A 12.3%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2306.8
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 284.4
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 12.3
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 208.8
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 140.1
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.1
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 64.7
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 588.2
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 16.1
+    }
+   ],
+   "periodoDisplay": "9M"
+  },
+  {
+   "periodo": "2023-Q4",
+   "fecha": "2024-02-26",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "FY-2023: márgenes firmes (EBITDA-A 12.6%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 3084.5
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 387.2
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 12.6
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 284.3
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 187.0
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.1
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 86.3
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 570.4
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 15.7
+    }
+   ],
+   "periodoDisplay": "FY"
+  },
+  {
+   "periodo": "2024-Q1",
+   "fecha": "2024-04-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Q1-2024: márgenes firmes (EBITDA-A 13.6%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 806.6
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 109.7
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.6
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 83.7
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 53.7
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.7
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 25.4
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 507.0
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 13.9
+    }
+   ],
+   "periodoDisplay": "1T"
+  },
+  {
+   "periodo": "2024-Q2",
+   "fecha": "2024-07-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "S1-2024: márgenes firmes (EBITDA-A 13.3%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1580.1
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 210.5
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.3
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 158.2
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 108.9
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.9
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 47.9
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 572.5
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 8.1
+    }
+   ],
+   "periodoDisplay": "S1"
+  },
+  {
+   "periodo": "2024-Q3",
+   "fecha": "2024-10-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "9M-2024: márgenes firmes (EBITDA-A 13.1%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2346.8
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 308.0
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.1
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 228.6
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 169.2
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 7.2
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 72.7
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 511.4
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 8.3
+    }
+   ],
+   "periodoDisplay": "9M"
+  },
+  {
+   "periodo": "2024-Q4",
+   "fecha": "2025-02-26",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "FY-2024: márgenes firmes (EBITDA-A 13.2%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 3140.5
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 413.1
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.2
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 304.8
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 207.9
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.6
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 94.7
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 593.2
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 6.7
+    }
+   ],
+   "periodoDisplay": "FY",
+   "hechos": [
+    {
+     "tipo": "Gobierno",
+     "hecho": "Cambios en el consejo de administración y en varias comisiones, comunicados en noviembre de 2024.",
+     "impacto": "=",
+     "valoracion": "Recomposición del consejo bajo control familiar estable; sin cambio de rumbo aparente."
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q1",
+   "fecha": "2025-04-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Q1-2025: márgenes firmes (EBITDA-A 14.2%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 792.0
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 112.1
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 14.2
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 84.8
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 50.3
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.4
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 26.2
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 599.3
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 2.2
+    }
+   ],
+   "periodoDisplay": "1T"
+  },
+  {
+   "periodo": "2025-Q2",
+   "fecha": "2025-07-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "S1-2025: márgenes firmes (EBITDA-A 13.9%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1533.4
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 212.9
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.9
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 157.7
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 97.0
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.3
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 48.2
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 675.8
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 1.1
+    }
+   ],
+   "periodoDisplay": "S1"
+  },
+  {
+   "periodo": "2025-Q3",
+   "fecha": "2025-10-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "9M-2025: márgenes firmes (EBITDA-A 13.7%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 2276.0
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 311.5
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.7
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 228.1
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 154.3
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 6.8
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 72.3
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 578.5
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 1.1
+    }
+   ],
+   "periodoDisplay": "9M"
+  },
+  {
+   "periodo": "2025-Q4",
+   "fecha": "2026-02-26",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "FY-2025: márgenes firmes (EBITDA-A 14.0%), EBIT-A y beneficio en línea; tesis intacta.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 3013.6
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 420.7
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 14.0
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 307.2
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 214.9
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 7.1
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 92.3
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 529.4
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": 1.8
+    }
+   ],
+   "periodoDisplay": "FY"
+  },
+  {
+   "periodo": "2026-Q1",
+   "fecha": "2026-04-25",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "1T-2026: EBITDA-A −10,8% interanual (100 M€) y margen 13,2%, por comparación exigente y divisa. Primer trimestre de presión — señal temprana a vigilar.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 755.5
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 100.0
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.2
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 72.3
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 52.9
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 7.0
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 26.1
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 459.9
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": -10.8
+    }
+   ],
+   "periodoDisplay": "1T"
+  },
+  {
+   "periodo": "2026-Q2",
+   "fecha": "2026-07-29",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "1S-2026: EBITDA-A −4,7% (202,9 M€) con inflexión en el 2T (estanco +2,1% frente a −10,8% del 1T). Margen 13,7%, beneficio neto récord de un semestre 103,9 M€ (+7,1%) y deuda neta en mínimo de la serie (472,4 M€, 1,3x). El punto débil es Pasta: EBITDA-A −15,6% y margen 15,7%→12,6%.",
+   "metricas": [
+    {
+     "nombre": "Ingresos (M€)",
+     "valor": 1476.3
+    },
+    {
+     "nombre": "EBITDA-A (M€)",
+     "valor": 202.9
+    },
+    {
+     "nombre": "Mg.EBITDA-A (%)",
+     "valor": 13.7
+    },
+    {
+     "nombre": "EBIT-A (M€)",
+     "valor": 146.3
+    },
+    {
+     "nombre": "Bº Neto atrib. (M€)",
+     "valor": 103.9
+    },
+    {
+     "nombre": "Mg.neto (%)",
+     "valor": 7.0
+    },
+    {
+     "nombre": "Publicidad (M€)",
+     "valor": 47.1
+    },
+    {
+     "nombre": "Deuda Neta (M€)",
+     "valor": 472.4
+    },
+    {
+     "nombre": "Nº Acc (M)",
+     "valor": 153.9
+    },
+    {
+     "nombre": "%Var EBITDA-A YoY",
+     "valor": -4.7
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Operativo",
+     "hecho": "Pasta: EBITDA-A −15,6% hasta 43,7 M€ y margen del 15,7% al 12,6%, por los problemas de producción de la implantación de SAP HANA en Garofalo, el dólar (1,08→1,17) y el mayor coste del transporte en contenedores a EE. UU.",
+     "impacto": "-",
+     "valoracion": "Es el deterioro real del semestre. SAP HANA y divisa son transitorios; los aranceles antidumping del 7% de Garofalo, no. A confirmar en 9M-2026."
+    },
+    {
+     "tipo": "Operativo",
+     "hecho": "Arroz: ventas −4,5% hasta 1.133,5 M€ por bajada de precio al consumidor tras el desplome de la materia prima, pero margen EBITDA-A al alza del 14,3% al 14,8% y EBITDA-A casi plano (−1,4%).",
+     "impacto": "=",
+     "valoracion": "La división grande absorbe el ciclo bajo del arroz sin perder rentabilidad: confirma el poder de precio de las marcas (Herba, Tilda, Riviana)."
+    },
+    {
+     "tipo": "Balance",
+     "hecho": "Deuda neta 472,4 M€ (−30,1% interanual, −57 M€ en el semestre), 1,3x EBITDA-A y apalancamiento DN/FF.PP. del 20,0%. Los puts con minoritarios (166 M€) y la NIIF 16 (44,0 M€) están fuera de esa cifra.",
+     "impacto": "+",
+     "valoracion": "Mínimo de toda la serie del §10.3 y zona REFUERZA del §10.1 (<550 M€). Da margen para el crecimiento inorgánico que la compañía anuncia."
+    },
+    {
+     "tipo": "Inversión",
+     "hecho": "CAPEX de 61,1 M€ en el semestre (Garofalo y Ebrofrost Alemania) y compra el 1 de julio de una planta en Saint Charles (Misuri) para pasta fresca rellena de Bertagni, con 40 M€ de inversión inicial y capacidad para triplicar producción.",
+     "impacto": "+",
+     "valoracion": "Producción local en EE. UU. es la respuesta estructural al doble problema de dólar y aranceles que hoy castiga a Pasta."
+    },
+    {
+     "tipo": "Extraordinario",
+     "hecho": "Riviana prevé recuperar 13 M USD pagados por aranceles anulados; Garofalo ha reducido el arancel antidumping al 7% y sigue recurriendo.",
+     "impacto": "+",
+     "valoracion": "Cobro probable pero sin fecha ni importe cerrado: no se anticipa en las métricas del §10.3."
+    },
+    {
+     "tipo": "Divisa",
+     "hecho": "Efecto traslacional del tipo de cambio: −34,7 M€ en ventas y −5,5 M€ en EBITDA-A del semestre. Ex-divisa el EBITDA-A caería −2,1% en vez de −4,7%.",
+     "impacto": "-",
+     "valoracion": "Coincide con el Red Flag §10.4 «apreciación fuerte del euro (EUR/USD >1,20)»: hoy 1,17, cerca del umbral. Vigilar en 9M-2026."
+    }
+   ],
+   "periodoDisplay": "1S"
+  }
+ ]
 }
