@@ -118,6 +118,89 @@ function renderPOS(){
   el.innerHTML= html || '<div class="empty">Sin lotes para mostrar.</div>';
   if(!el._posBlkBound){ el._posBlkBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-sorttbl]'))return; var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-posblk'); if(k){window._posOpen=window._posOpen||{};window._posOpen[k]=b.classList.contains('open');} } }); }
 }
+/* ═══════════ Ficha · versiones MÓVIL de Lotes e Histórico de dividendos ═══════════
+   [29-jul-2026] Petición del operador. En la Ficha, «Lotes» son 10 columnas y el histórico de
+   dividendos 8, con inputs de fecha e importe dentro. En móvil la regla global
+   `.view table{white-space:nowrap;overflow-x:auto}` las convierte en un scroll horizontal:
+   los datos están, pero no se leen sin arrastrar.
+
+   La solución es la misma que el resto de la app ya usa (`.pos-desk` / `.pos-mob` en
+   Posiciones, Cartera, Ranking y Rentabilidad): se emiten LAS DOS vistas y manda el CSS a
+   960px. Aquí las clases son `.fk-desk` y `.fk-mob`, dentro de `#fichaView`.
+
+   El formato es de DOS FILAS: arriba lo que identifica la fila y su cifra de cabecera; debajo,
+   el resto de datos en una rejilla de dos columnas. Y en dividendos, el AÑO manda: cada año es
+   un bloque con sus datos consolidados —lo que ya vivía en la celda con `rowspan`— y los pagos
+   individuales colgando debajo. Los inputs se conservan tal cual: `data-edf` y `data-edi`
+   siguen siendo los mismos, así que editar desde el móvil funciona sin tocar los manejadores. */
+function _fkMet(etq, val, cls){
+  return '<div class="m"><span>'+etq+'</span><b'+(cls?' class="'+cls+'"':'')+'>'+val+'</b></div>';
+}
+function _fkLotesMob(lotes, tt){
+  if(!lotes || !lotes.length) return '';
+  var sg=function(x){ return x>=0?'pos':'neg'; };
+  var cards=lotes.map(function(l){
+    return '<div class="fk-card">'
+      + '<div class="fk-h"><div class="tk">'+(l.fecha?ddmmyyyy(l.fecha):'—')+'<span class="nm">'+(l.cartera||'')+'</span></div>'
+      + '<div class="ty '+(l.rentTotal>=0?'g':'r')+'">'+fmtpct(l.rentTotal)+'<span>rent. total</span></div></div>'
+      + '<div class="fk-g">'
+      + _fkMet('Acciones', l.N)
+      + _fkMet('Precio', fmt(l.P))
+      + _fkMet('Coste', fmt(l.coste))
+      + _fkMet('Valor', fmt(l.valor))
+      + _fkMet('Div. cobrado', fmt(l.divCobrado), 'pos')
+      + _fkMet('Precio neto', fmt(l.precioNeto))
+      + _fkMet('Plusvalía', (l.balance>=0?'+':'')+fmt(l.balance), sg(l.balance))
+      + '</div></div>';
+  }).join('');
+  var tot = tt ? ('<div class="fk-card fk-tot">'
+      + '<div class="fk-h"><div class="tk">TOTAL<span class="nm">'+lotes.length+' lote'+(lotes.length===1?'':'s')+'</span></div>'
+      + '<div class="ty '+(tt.rentTotal>=0?'g':'r')+'">'+fmtpct(tt.rentTotal)+'<span>rent. total</span></div></div>'
+      + '<div class="fk-g">'
+      + _fkMet('Acciones', tt.N)
+      + _fkMet('Precio medio', fmt(tt.precioMedio))
+      + _fkMet('Coste', fmt(tt.coste))
+      + _fkMet('Valor', fmt(tt.valor))
+      + _fkMet('Div. cobrado', fmt(tt.div), 'pos')
+      + _fkMet('Precio neto', fmt(tt.netoMedio))
+      + _fkMet('Plusvalía', (tt.balance>=0?'+':'')+fmt(tt.balance), sg(tt.balance))
+      + '</div></div>') : '';
+  return cards+tot;
+}
+/* `detallado` = la posición tiene lotes, así que hay acciones y precio medio por pago.
+   Sin lotes solo existe el dividendo por acción, y se enseña únicamente eso: la alternativa
+   sería pintar celdas vacías, que es peor que no pintarlas. */
+function _fkDivMob(divYears, rendByYear, detallado){
+  if(!divYears || !divYears.length)
+    return '<div class="empty" style="padding:12px">Sin dividendos registrados. Añade uno arriba.</div>';
+  return divYears.map(function(g){
+    var prev = rendByYear ? rendByYear[String((+g.year)-1)] : null;
+    var vs = '';
+    if(prev!=null && isFinite(prev) && prev!==0){
+      var vv=(g.rend-prev)/Math.abs(prev);
+      vs = _fkMet('vs año ant.', fmtpct(vv), vv>=0?'pos':'neg');
+    }
+    var pagos = [].concat(g.rows).reverse().map(function(r){
+      return '<div class="fk-pago">'
+        + '<input type="date" class="anaInp" data-edf="'+r.id+'" value="'+(r.fecha||'')+'">'
+        + '<input type="number" step="0.0001" class="anaInp fk-imp" data-edi="'+r.id+'" value="'+(r.divShare!=null?r.divShare:'')+'">'
+        + '<button class="btn danger sm" data-deldiv="'+r.id+'">✕</button>'
+        + (detallado ? ('<div class="fk-pago-x">'+r.acc+' acc. · medio '+fmt(r.precioMedio)
+              +' · bruto <b>'+fmt(r.importe)+'</b> · neto '+fmt(r.importe*0.81)+'</div>') : '')
+        + '</div>';
+    }).join('');
+    return '<div class="fk-year">'
+      + '<div class="fk-y-h"><div class="yy">'+g.year+'</div>'
+      + '<div class="fk-g fk-y-g">'
+      + _fkMet('Div/acción año', fmt(g.divShareSum))
+      + (detallado ? _fkMet('Yield on cost', fmtpct(g.rend), g.rend>=0?'pos':'neg') : '')
+      + vs
+      + _fkMet('Pagos', g.rows.length)
+      + '</div></div>'
+      + '<div class="fk-y-b">'+pagos+'</div></div>';
+  }).join('');
+}
+
 /* Detalle por lote al final de «Cartera» (funde la antigua pestaña «Posiciones»): todas las
    posiciones ordenadas cronológicamente, con años y rentabilidad/año. Fuente: posLots(). */
 function renderInvLotes(){
@@ -651,7 +734,8 @@ function renderFicha(t){
        <div class="card"><div class="lbl">Peso en la cartera</div><div class="val">${fmtpct(_peso)}</div><div class="sub">valor ÷ cartera total</div></div>
      </div>
      <h3>Lotes</h3>
-     <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
+     <div class="fk-desk" style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Cartera</th><th class="num">Acc.</th><th class="num">Precio</th><th class="num">Coste</th><th class="num">Div. cobrado</th><th class="num">Precio neto</th><th class="num">Valor</th><th class="num">Plusvalía</th><th class="num">Rent. total</th></tr></thead><tbody>${lotRows}${f.lotes.length?totRow:''}</tbody></table></div>
+     <div class="fk-mob">${_fkLotesMob(f.lotes, tt)}</div>
      ${f.lotes.length?'':'<div class="empty">Sin lotes en cartera (empresa solo en seguimiento).</div>'}`;
   }
   // dividendos
@@ -659,10 +743,12 @@ function renderFicha(t){
   let divTable;
   if(detailed){
     let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap;padding:6px 8px"><div style="display:grid;grid-template-columns:auto auto;gap:4px 16px"><div><div style="font-size:15px">${g.year}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Div/acción</div><div>${fmt(g.divShareSum)}</div></div><div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return '<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="muted">—</div>'; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</div></div></td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
-    divTable=`<div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+    divTable=`<div class="fk-desk" style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>
+      <div class="fk-mob">${_fkDivMob(f.divYears, rendByYear, true)}</div>`;
   } else {
     let divBodyS=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBodyS+='<tr>'; if(i===0){ divBodyS+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción año</div><div>${fmt(g.divShareSum)}</div></td>`; } divBodyS+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
-    divTable=`<div class="sub" style="margin-bottom:6px">Posición sin lotes detallados: se muestra el dividendo por acción registrado.</div><div style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th></th></tr></thead><tbody>${divBodyS||'<tr><td colspan="4" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>`;
+    divTable=`<div class="sub" style="margin-bottom:6px">Posición sin lotes detallados: se muestra el dividendo por acción registrado.</div><div class="fk-desk" style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th></th></tr></thead><tbody>${divBodyS||'<tr><td colspan="4" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>
+      <div class="fk-mob">${_fkDivMob(f.divYears, rendByYear, false)}</div>`;
   }
   const divSection=`<h3>Histórico de dividendos</h3>${(typeof dpaCheckHTML==='function')?dpaCheckHTML(fichaTicker):''}
    <div class="card" style="margin-bottom:10px"><div class="patgrid">

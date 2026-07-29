@@ -431,9 +431,9 @@ function protoRegHTML(t){
       <td class="num">${a.cot!=null&&a.cot!==0?fmt(a.cot):'—'}</td>
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
       <td>${chip}${silChip}</td>
-      <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
+      ${_protoMotivoTD(a.motivo)}
       <td class="right" style="white-space:nowrap"><button class="btn ghost sm" data-protocopiar="${t}|${a.id}" data-pcpaso="1" title="${_PROTO_TIT_COPIA}">📋</button>${a.estado==='abierta'?`<button class="btn ghost sm" data-protoresolve="${t}|${a.id}" title="Marcar resuelta">✓</button>`:''}<button class="btn ghost sm" data-protoedit="${t}|${a.id}" title="Editar el apunte (fecha, cotización, decisión o motivo)">✏️</button><button class="btn ghost sm" data-protodel="${t}|${a.id}" title="Borrar apunte">✕</button></td>
-    </tr>`;
+    </tr>${_protoMotivoTR(a.motivo, 7, p.color, vencido)}`;
   }).join('');
   const body=rows||'<tr><td colspan="7" class="muted" style="font-size:12px">Ninguno pendiente de pasar al Excel. Los borradores se crean desde los avisos del Panel («Registrar apunte») o con «+ Apunte».</td></tr>';
   return `<div class="card" style="margin-top:10px">
@@ -450,8 +450,43 @@ function protoRegHTML(t){
       <span style="opacity:.8">El motivo se copia con el ancho exacto de la celda combinada <code>E:N</code>, así que entra sin avisos — pero al pegar diez celdas sobre ella <b>Excel la separa</b>: hay que <b>volver a combinar E:N</b> después. Comprobado que la combinación rehecha conserva relleno, bordes y ajuste de texto.<br>
       La alternativa, si prefieres no recombinar: <b>doble clic</b> en la celda (o <code>F2</code>) y pegar <b>dentro</b>. En modo edición no se separa nada, porque escribes en la celda en vez de pegar un rango sobre ella.</span>
     </div>
-    <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
+    <div style="overflow:auto"><table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th class="rev-mot-desk">Motivo</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
   </div>`;
+}
+
+/* ---------- El motivo, en su propia fila ----------------------------------------
+   [29-jul-2026] Petición del operador: «la ficha de cada revisión se abre mucho por estar en
+   fila». Tenía razón y el motivo era literal — el motivo iba como sexta COLUMNA, así que un
+   texto de dos mil caracteres (los apuntes del §10.5 los tienen) estiraba la tabla a lo ancho
+   y las cinco columnas de datos quedaban espachurradas.
+
+   Ahora cada apunte ocupa DOS filas: los cinco datos arriba, en columnas estrechas que ya no
+   compiten con nada, y el motivo debajo a todo el ancho. La segunda fila va sin borde superior
+   y con una barra del color de la señal a la izquierda, para que se lea como continuación de
+   la de arriba y no como un apunte suelto; y la primera fila de cada apunte lleva el borde de
+   separación, que es lo que vuelve a distinguir un apunte del siguiente.
+
+   Un motivo vacío NO genera segunda fila: una fila en blanco a todo el ancho sería peor que el
+   problema que se está arreglando. */
+var _PROTO_TR_SEP = ' style="border-top:2px solid var(--line)"';
+/* [29-jul-2026 · rectificado el mismo día] Nació aplicándose SIEMPRE. El operador precisó que
+   es un arreglo para MÓVIL: en escritorio la tabla de seis columnas cabe y se lee de un vistazo,
+   y partir cada apunte en dos filas allí solo alarga la lista. Así que ahora se emiten las dos
+   cosas —la columna «Motivo» de siempre y esta fila— y decide el CSS a 960px, que es el mismo
+   patrón `.desk` / `.mob` que ya usan Posiciones, Cartera, Ranking y Rentabilidad.
+   El `colspan` va con el total de columnas INCLUYENDO la que el móvil oculta: el navegador lo
+   recorta al número real, y así no hay dos números que mantener sincronizados. */
+function _protoMotivoTD(motivo){
+  return '<td class="rev-mot-desk" style="font-size:11.5px;line-height:1.4">'+_protoEsc(motivo||'')+'</td>';
+}
+function _protoMotivoTR(motivo, cols, color, resaltado){
+  var m = (motivo==null?'':String(motivo)).trim();
+  if(!m) return '';
+  var bg = resaltado ? '#fef2f2' : '#f8fafc';
+  return '<tr class="rev-mot-mob" style="background:'+bg+'"><td colspan="'+cols+'" style="border-top:0;padding:2px 10px 9px 10px">'
+       + '<div style="border-left:3px solid '+(color||'#cbd5e1')+';border-radius:0 6px 6px 0;padding:5px 10px;'
+       + 'font-size:11.5px;line-height:1.5;color:#475569;white-space:pre-wrap">'
+       + _protoEsc(m) + '</div></td></tr>';
 }
 
 /* ---------- Zona 1: lo que YA está registrado en el §10.5 del Excel ----------
@@ -471,20 +506,25 @@ function _protoZonaExcel(t){
     const p = PROTOCOLO_SENALES[(a.senal||'').toUpperCase()]||{color:'#64748b',icono:'📋'};
     const abierta = (''+(a.decision||'')).trim().toUpperCase()==='ABIERTA';
     const chip = `<span style="font-size:10px;font-weight:700;padding:1px 7px;border-radius:8px;background:${abierta?'#fef3c7':'#dcfce7'};color:${abierta?'#92400e':'#166534'}">${abierta?'ABIERTA':'CERRADA'}</span>`;
-    return `<tr>
+    /* [29-jul-2026] El motivo baja a UNA SEGUNDA FILA a todo el ancho, bajo los cinco datos.
+       Compartiendo fila con ellos, un motivo de dos mil caracteres —los del §10.5 lo son—
+       estiraba la tabla a lo ancho y dejaba las cinco columnas de datos aplastadas contra el
+       margen. Aquí manda el texto, no la rejilla. `_PROTO_MOTIVO_TD` mantiene las dos zonas
+       del registro con la misma pinta. */
+    return `<tr${_PROTO_TR_SEP}>
       <td style="white-space:nowrap">${_protoEsc(a.fecha||'—')}</td>
       <td style="white-space:nowrap;font-weight:700;color:${p.color}">${p.icono} ${_protoEsc(a.senal||'—')}</td>
       <td class="num">${_protoEsc(a.cot||'—')}</td>
       <td style="font-weight:600;white-space:nowrap">${_protoEsc(a.decision||'—')}</td>
       <td>${chip}</td>
-      <td style="font-size:11.5px;line-height:1.4">${_protoEsc(a.motivo||'')}</td>
-    </tr>`;
+      ${_protoMotivoTD(a.motivo)}
+    </tr>${_protoMotivoTR(a.motivo, 6, p.color)}`;
   }).join('');
   const cuerpo = filas || '<tr><td colspan="6" class="muted" style="font-size:12px">Sin apuntes en el §10.5 de este libro.</td></tr>';
   return `<div class="sub" style="margin:2px 0 6px"><b>📗 Registrado en el §10.5 del Excel.</b> Solo lectura — el Excel manda${r.el?' · leído el '+_protoEsc(r.el):''}.</div>
     ${stale}
     <div style="overflow:auto;border:1px solid var(--line);border-radius:9px">
-      <table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th>Motivo</th></tr></thead><tbody>${cuerpo}</tbody></table>
+      <table><thead><tr><th>Fecha</th><th>Señal</th><th class="num">Cotiz.</th><th>Decisión</th><th>Estado</th><th class="rev-mot-desk">Motivo</th></tr></thead><tbody>${cuerpo}</tbody></table>
     </div>`;
 }
 
