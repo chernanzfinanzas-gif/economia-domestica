@@ -120,24 +120,13 @@ function _tzDivChart(t){
 
 /* --------- Termómetro de precio --------- */
 function _tzPriceBar(V){
-  var precio=V.precio, stop=V.stop, ent=V.entMax, pob=V.poBase, pobull=V.poBull;
-  var pts=[stop,ent,precio,pob,pobull].filter(function(x){return x!=null&&x>0;});
-  if(!(precio>0)||pts.length<2) return '<div class="muted" style="font-size:12px;padding:6px 0">Faltan precio o niveles (banda de entrada / PO / stop) en Análisis.</div>';
-  var lo=Math.min.apply(null,pts)*0.97, hi=Math.max.apply(null,pts)*1.03, rng=hi-lo||1;
-  var X=function(v){ return ((v-lo)/rng)*100; };
-  var W=100, segs='';
-  /* zonas: ≤ent verde, ent..PO ámbar, >PO rojo (sobre el eje) */
-  if(ent>0) segs+='<rect x="0" y="9" width="'+X(ent)+'" height="6" fill="'+TZ_COL.ok+'" opacity="0.28"/>';
-  if(ent>0&&pob>0) segs+='<rect x="'+X(ent)+'" y="9" width="'+Math.max(0,X(pob)-X(ent))+'" height="6" fill="'+TZ_COL.mid+'" opacity="0.28"/>';
-  if(pob>0) segs+='<rect x="'+X(pob)+'" y="9" width="'+Math.max(0,100-X(pob))+'" height="6" fill="'+TZ_COL.bad+'" opacity="0.24"/>';
-  var mk=function(v,col,lab,up){ if(!(v>0))return ''; var x=X(v); return '<line x1="'+x+'" y1="7" x2="'+x+'" y2="17" stroke="'+col+'" stroke-width="0.8"/>'+
-     '<text x="'+Math.max(2,Math.min(98,x))+'" y="'+(up?5:24)+'" text-anchor="middle" font-size="3.2" fill="'+col+'">'+lab+'</text>'; };
-  var marks=mk(stop,TZ_COL.bad,'stop',true)+mk(ent,TZ_COL.ok,'entrada',false)+mk(pob,TZ_COL.blue,'PO',true)+mk(pobull,'#7c3aed','PO+',false);
-  var px=X(precio); var pcol=(ent>0&&precio<=ent)?TZ_COL.ok:(pob>0&&precio<=pob?TZ_COL.mid:TZ_COL.bad);
-  var dot='<circle cx="'+px+'" cy="12" r="2.4" fill="'+pcol+'" stroke="#fff" stroke-width="0.6"/>'+
-          '<text x="'+Math.max(3,Math.min(97,px))+'" y="30" text-anchor="middle" font-size="3.4" font-weight="700" fill="'+pcol+'">'+_tzFmt(precio)+'</text>';
-  return '<svg viewBox="0 0 100 32" style="width:100%;height:auto;max-height:64px" xmlns="http://www.w3.org/2000/svg">'+segs+
-         '<line x1="0" y1="12" x2="100" y2="12" stroke="#cbd5e1" stroke-width="0.4"/>'+marks+dot+'</svg>';
+  /* [29-jul-2026] Antes era un SVG propio de 100x32 con etiquetas «PO−»/«PO+» que no
+     coincidían con las de Análisis. Ahora es la misma escalera compartida, en tamaño
+     grande, ocupando el ancho de la tarjeta. */
+  if(typeof khEscalera!=='function') return '<div class="muted" style="font-size:12px;padding:6px 0">Faltan precio o niveles (banda de entrada / PO / stop) en Análisis.</div>';
+  var html=khEscalera({precio:V.precio, stop:V.stop, entMin:V.entMin, entMax:V.entMax,
+                       poBase:V.poBase, poBear:V.poBear, poBull:V.poBull}, {grande:true});
+  return html || '<div class="muted" style="font-size:12px;padding:6px 0">Faltan precio o niveles (banda de entrada / PO / stop) en Análisis.</div>';
 }
 
 /* --------- Motor de veredicto (3 capas) --------- */

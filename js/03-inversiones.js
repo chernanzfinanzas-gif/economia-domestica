@@ -300,55 +300,17 @@ let _anaBusca={q:''};
 function _anaNum(l,v){ return '<div class="ana-num"><div class="l">'+l+'</div><div class="v">'+v+'</div></div>'; }
 // Termómetro de precios: stop · zona de entrada · PO, con el precio actual como punto y chips estratégicos
 function _anaLadder(a){
-  var cot=num(a.cot),stop=num(a.stop),eMin=num(a.entMin),eMax=num(a.entMax),pMed=num(a.poMed),pMax=num(a.poMax);
-  /* [29-jul-2026] El termómetro pintaba stop, banda de entrada y PO base, pero NO los dos extremos
-     de la horquilla, que están un renglón más arriba en la propia fila («54,00 €–110,00 €»). Sin
-     ellos no se ve lo único que esos dos números sirven para ver: si el precio se ha ido POR ENCIMA
-     del escenario optimista —donde ya no queda tesis, solo momento— o POR DEBAJO del pesimista,
-     donde el mercado descuenta algo que la valoración no recoge. */
-  var pBear=num(a.poMin), pBull=pMax;
-  var ok = stop>0&&eMin>0&&eMax>0&&pMed>0&&cot>0 && stop<eMin && eMin<=eMax && eMax<pMed;
-  if(!ok){
-    return '<div class="ana-nums">'+_anaNum('Cotización',cot?fmt(cot):'—')+_anaNum('Stop',stop?fmt(stop):'—')+_anaNum('Entrada',(eMin&&eMax)?fmt(eMin)+'–'+fmt(eMax):'—')+_anaNum('P. objetivo',pMed?fmt(pMed):'—')+'</div>';
-  }
-  /* El bear entra en el mínimo del eje: si cotiza por debajo de él, hay que poder verlo fuera
-     de la banda, no aplastado contra el borde. */
-  var _lo=Math.min(stop,cot); if(pBear>0)_lo=Math.min(_lo,pBear);
-  var lo=_lo*0.97, hi=Math.max(pMax||pMed,cot)*1.03, rng=(hi-lo)||1;
-  var P=function(v){ return Math.max(0,Math.min(100,(v-lo)/rng*100)); };
-  var pot=(a.pot!=null?a.pot*100:(pMed/cot-1)*100), colch=(a.colchon!=null?a.colchon*100:(cot-stop)/cot*100);
-  var inZone=cot>=eMin&&cot<=eMax, stopHit=cot<=stop, below=cot<eMin;
-  var dotCol=stopHit?'#dc2626':(inZone?'#16a34a':(below?'#d97706':'#dc2626'));
-  var s=P(stop),emn=P(eMin),emx=P(eMax),pm=P(pMed);
-  var grad='linear-gradient(90deg,#fecaca 0%,#fecaca '+s+'%,#fde68a '+s+'%,#fde68a '+emn+'%,#bbf7d0 '+emn+'%,#bbf7d0 '+emx+'%,#fef0c7 '+emx+'%,#fef0c7 '+pm+'%,#fbcfe8 '+pm+'%,#fbcfe8 100%)';
-  var tick=function(v,c){ return '<div class="ana-lad-tick" style="left:'+P(v)+'%;background:'+c+'"></div>'; };
-  var estCol=stopHit?'r':(inZone?'g':(below?'a':'r')), estTxt=stopHit?'🚨 Stop':(inZone?'🟢 En zona':(below?'🟡 esperando':'🔴 caro'));
-  /* Marcas de la horquilla: más finas y en otro color, para que se lean como el CONTEXTO del PO
-     base y no como un nivel de decisión más. El bull en violeta, igual que el «PO+» del
-     termómetro de la Ficha de Tesis, para que la misma cosa se llame igual en las dos pantallas. */
-  var COL_BEAR='#b45309', COL_BULL='#7c3aed';
-  var tickH=function(v,c){ return (v>0)?('<div class="ana-lad-tick" style="left:'+P(v)+'%;background:'+c+';width:2px;top:-1px;height:17px;opacity:.75"></div>'):''; };
-  var lblH=function(v,c,k){ return (v>0)?('<div class="ana-lad-lbl" style="left:'+P(v)+'%;bottom:40px;color:'+c+'"><span class="k" style="color:'+c+';opacity:.85">'+k+'</span><span class="v">'+fmt(v)+'</span></div>'):''; };
-  /* Los dos casos que justifican pintarlos. Fuera de la horquilla el PO base deja de ser una
-     referencia útil: por arriba no queda recorrido de tesis, por abajo el precio dice algo que la
-     valoración no dice. */
-  var fueraArriba=(pBull>0&&cot>pBull), fueraAbajo=(pBear>0&&cot<pBear);
-  var avisoHq = fueraArriba
-      ? '<div class="ana-chip" style="left:'+P(cot)+'%;top:44px;background:'+COL_BULL+';color:#fff">por encima del PO bull</div>'
-      : (fueraAbajo ? '<div class="ana-chip" style="left:'+P(cot)+'%;top:44px;background:'+COL_BEAR+';color:#fff">por debajo del PO bear</div>' : '');
-  return '<div class="ana-lad"><div class="ana-lad-bar" style="background:'+grad+'"></div>'+
-    tickH(pBear,COL_BEAR)+tickH(pBull,COL_BULL)+
-    tick(stop,'#dc2626')+tick(eMin,'#16a34a')+tick(eMax,'#16a34a')+tick(pMed,'#be185d')+
-    lblH(pBear,COL_BEAR,'PO bear')+lblH(pBull,COL_BULL,'PO bull')+avisoHq+
-    '<div class="ana-lad-dot" style="left:'+P(cot)+'%;background:'+dotCol+'"></div>'+
-    '<div class="ana-lad-lbl top" style="left:'+s+'%"><span class="k">Stop</span><span class="v">'+fmt(stop)+'</span></div>'+
-    '<div class="ana-lad-lbl top" style="left:'+emx+'%"><span class="k">Entrada</span><span class="v">'+fmt(eMin)+'–'+fmt(eMax)+'</span></div>'+
-    '<div class="ana-lad-lbl top" style="left:'+pm+'%"><span class="k">P. objetivo</span><span class="v">'+fmt(pMed)+'</span></div>'+
-    '<div class="ana-lad-cur" style="left:'+P(cot)+'%"><div class="p" style="color:'+dotCol+'">'+fmt(cot)+'</div><div class="c">precio actual</div></div>'+
-    '<div class="ana-chip r" style="left:'+s+'%">colchón '+colch.toFixed(0)+'%</div>'+
-    '<div class="ana-chip est '+estCol+'" style="left:'+P(cot)+'%">'+estTxt+'</div>'+
-    '<div class="ana-chip g" style="left:'+pm+'%">Potencial '+(pot>=0?'+':'')+pot.toFixed(0)+'%</div>'+
-    '</div>';
+  /* [29-jul-2026] Delegado en `khEscalera` (01-core.js), que es la MISMA escalera que
+     pintan ahora la Ficha de Tesis y el Kanban. Aquí solo se traducen los nombres de
+     campo de la fila de Análisis y se conserva el respaldo de números por si la
+     empresa no tiene ni precio ni niveles. */
+  var cot=num(a.cot),stop=num(a.stop),eMin=num(a.entMin),eMax=num(a.entMax),pMed=num(a.poMed);
+  var html=(typeof khEscalera==='function') ? khEscalera({
+      precio:cot, stop:stop, entMin:eMin, entMax:eMax,
+      poBase:pMed, poBear:num(a.poMin), poBull:num(a.poMax),
+      pot:a.pot, colchon:a.colchon}) : '';
+  if(html) return html;
+  return '<div class="ana-nums">'+_anaNum('Cotización',cot?fmt(cot):'—')+_anaNum('Stop',stop?fmt(stop):'—')+_anaNum('Entrada',(eMin&&eMax)?fmt(eMin)+'–'+fmt(eMax):'—')+_anaNum('P. objetivo',pMed?fmt(pMed):'—')+'</div>';
 }
 function renderAnalisis(){
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();

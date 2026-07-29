@@ -481,24 +481,12 @@ function _emBuyPlan(r){
 /* Termómetro de precio con TODOS los niveles de Análisis: stop · ent.mín · ent · PO− · PO · PO+
    + punto de cotización. Versión propia del Kanban (no toca el de Tesis/Ficha). */
 function _emBar(V){
-  var precio=V.precio,stop=V.stop,entMin=V.entMin,ent=V.entMax,poMin=V.poMin,pob=V.poBase,pobull=V.poBull;
-  var C=(typeof TZ_COL!=='undefined')?TZ_COL:{ok:'#16a34a',mid:'#d97706',bad:'#dc2626',na:'#94a3b8',blue:'#2563eb'};
-  var pts=[stop,entMin,ent,precio,poMin,pob,pobull].filter(function(x){return x!=null&&x>0;});
-  if(!(precio>0)||pts.length<2)return '';
-  var lo=Math.min.apply(null,pts)*0.97,hi=Math.max.apply(null,pts)*1.03,rng=hi-lo||1;
-  var X=function(v){return ((v-lo)/rng)*100;};
-  var segs='';
-  if(ent>0)segs+='<rect x="0" y="9" width="'+X(ent)+'" height="6" fill="'+C.ok+'" opacity="0.28"/>';
-  if(ent>0&&pob>0)segs+='<rect x="'+X(ent)+'" y="9" width="'+Math.max(0,X(pob)-X(ent))+'" height="6" fill="'+C.mid+'" opacity="0.28"/>';
-  if(pob>0)segs+='<rect x="'+X(pob)+'" y="9" width="'+Math.max(0,100-X(pob))+'" height="6" fill="'+C.bad+'" opacity="0.24"/>';
-  var fm=(typeof _tzFmt==='function')?_tzFmt:function(x){return (typeof fmt==='function')?fmt(x):(''+x);};
-  var mk=function(v,col,lab,up){ if(!(v>0))return ''; var x=X(v); return '<line x1="'+x+'" y1="7" x2="'+x+'" y2="17" stroke="'+col+'" stroke-width="0.8"/>'+
-    '<text x="'+Math.max(2,Math.min(98,x))+'" y="'+(up?5:24)+'" text-anchor="middle" font-size="3" fill="'+col+'">'+lab+'</text>'; };
-  var marks=mk(stop,C.bad,'stop',true)+mk(entMin,C.ok,'ent.mín',false)+mk(ent,C.ok,'ent',true)+mk(poMin,C.blue,'PO−',false)+mk(pob,C.blue,'PO',true)+mk(pobull,'#7c3aed','PO+',false);
-  var px=X(precio); var pcol=(ent>0&&precio<=ent)?C.ok:(pob>0&&precio<=pob?C.mid:C.bad);
-  var dot='<circle cx="'+px+'" cy="12" r="2.4" fill="'+pcol+'" stroke="#fff" stroke-width="0.6"/>'+
-    '<text x="'+Math.max(3,Math.min(97,px))+'" y="30" text-anchor="middle" font-size="3.2" font-weight="700" fill="'+pcol+'">'+fm(precio)+'</text>';
-  return '<svg viewBox="0 0 100 32" style="width:100%;height:auto;max-height:66px" xmlns="http://www.w3.org/2000/svg">'+segs+'<line x1="0" y1="12" x2="100" y2="12" stroke="#cbd5e1" stroke-width="0.4"/>'+marks+dot+'</svg>';
+  /* [29-jul-2026] Misma escalera que Análisis y Ficha de Tesis (khEscalera, 01-core.js).
+     El SVG anterior llamaba «PO−» al bear y «PO+» al bull; eran los mismos niveles con
+     otro nombre en cada pantalla. */
+  if(typeof khEscalera!=='function') return '';
+  return khEscalera({precio:V.precio, stop:V.stop, entMin:V.entMin, entMax:V.entMax,
+                     poBase:V.poBase, poBear:V.poMin, poBull:V.poBull});
 }
 function _emPriceBar(r){ var a=r.a; if(!a)return '';
   var precio=_emNum(a.cotizacion)||((typeof _tzPrecio==='function')?_emNum(_tzPrecio(r.t)):0);
