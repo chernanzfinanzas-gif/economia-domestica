@@ -46,9 +46,9 @@
         {
           "id": "S2-2026-07-29",
           "abiertoEl": "2026-07-29",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-29",
+          "desenlace": "REAFIRMAR TESIS (con matiz). Nota emitida: Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html. El ROJO es real pero NO es el deterioro que rompe esta tesis: el margen bruto aguanta en 66,1% (67,2% hace un año), muy por encima del 60% que marca la alarma del §8.1 R2, y Payment —el segmento que soporta el riesgo estructural del expediente— crece +20,3% con el margen intacto (27,9%), así que la cadena del pre-mortem nº1 ni ha empezado. Todo el retroceso está en coste fijo: personal +10,7% (+3,9 M€) y otros gastos +13,1% (+2,1 M€) contra ingresos +6,2%; el margen bruto APORTA +3,0 M€. Y no es volumen: la plantilla sube 3,5% pero el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. Diagnóstico MIXTO con peso estructural (~1 M€ de los 2,5 es reclasificación del holding e integración de primion). Consecuencias: el catalizador nº2 del §9.1 (ingresos >220 M€ y margen EBITDA ≥15% en FY-2026) pasa a EN RIESGO DE FALLAR; el §8.1 R5 se queda sin señal cuantificada de costes y se propone añadirla en la Actualización Anual. ANTI-ANCLAJE: la regla «entrada si cot <11,5 €» dispara a 10,55 €, y NO se ejecuta — falla su condición «tesis y confianza intactas» y, sobre todo, 10,55 € no es precio de mercado sino precio anclado a la OPA de Ohmnia a 10 €, que pone suelo blando y techo duro. Ojo al orden: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio del 24-jul. Sin cambios: ESPERAR, PO 13,28 €, banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, no se toca el AZK.json. Revisar con lo primero de: folleto de la OPA, 2S-2026 (si Vending encadena el 2º periodo negativo se completaría la señal del §8.1 R4), oferta competidora, o las autorizaciones de competencia.",
           "resumen": "Semáforo ROJO en 1S-2026: margen de explotación 12,7%→9,6% y Bº −20,4% CON ingresos +6,2% (apalancamiento operativo negativo), sin deterioro puntual que lo explique — Vending en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security en 0,1 M€; solo Payment tira (+20,3%). Balance sano (caja neta 19,6 M€) pero con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado el 24-jul. A resolver en 7 días: ¿la compresión de márgenes es puntual o estructural? Crítico porque hay OPA viva de Ohmnia a 10 €/acc, un 25% bajo el PO de 13,28 €.",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -56,11 +56,12 @@
           "origen": "monitor-trimestral 2026-Q2",
           "fecha": "2026-07-29",
           "fuente": null,
-          "exigeAccion": true,
+          "exigeAccion": false,
           "codigo": "S2",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true,
+          "nota": "Revisiones/2026-07-29 Nota Revisión Extraordinaria Azkoyen (S2).html"
         }
       ],
       "revisiones": [],
@@ -1053,19 +1054,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 30,
+    "hallazgosActivos": 29,
     "porTipo": {
       "opa": 2,
       "coyuntura": 16,
-      "senal": 1,
       "concurso": 1,
       "otro": 7,
       "sancion": 2,
       "litigio": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 9,
+    "situacionesAbiertas": 8,
     "hechosCaducadosHoy": 0
   }
 }
