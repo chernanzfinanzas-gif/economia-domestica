@@ -43,16 +43,31 @@ function _dfPaga(t){ try{
 /* Empresas EN CARTERA a las que les falta el dividendo del año en curso o la previsión del siguiente.
    Alimenta el aviso del Panel: hasta ahora nada recordaba actualizar los dividendos. */
 function divPendientesActualizar(){
-  var cur=_dfCur(), out={anio:cur, faltaCur:[], faltaSig:[]};
+  var cur=_dfCur(), out={anio:cur, faltaCur:[], faltaSig:[], proyectados:[]};
   var held; try{ held=(typeof heldTickerSet==='function')?heldTickerSet():new Set(); }catch(_){ return out; }
   held.forEach(function(t){
     t=_dfUp(t); if(!_dfPaga(t)) return;                       /* las que no reparten no cuentan */
     var real=null; try{ real=(typeof evoDpaBruto==='function')?evoDpaBruto(t,cur):null; }catch(_){}
     if(!(_dfNum(real)>0)) out.faltaCur.push(t);
+    /* [29-jul-2026] El año SIGUIENTE no es un hueco si la proyección lo cubre.
+       `_dfReal` ignora la proyección por crecimiento A PROPÓSITO: es la regla de PINTADO de la
+       rejilla, donde un futuro proyectado debe salir en blanco para que se distinga de un dato
+       anotado. Pero esa regla se coló como criterio del AVISO, y entonces el Panel reclamaba a
+       mano justo lo que la cascada ya resuelve sola.
+       La cascada decidida es: override del usuario → dato publicado → año anterior × (1+%),
+       con 4% por defecto (`_evoCrecAno`). Mientras ese último escalón dé un número, el dividendo
+       del año siguiente NO está sin actualizar: está PROYECTADO, que es el comportamiento pedido.
+       Solo se avisa si no hay NI dato NI proyección — ahí falta información de verdad, y suele
+       ser porque la empresa no tiene ningún año anterior con importe.
+       El año EN CURSO se sigue exigiendo real: ahí un 4% supuesto no vale. */
     var sig=_dfReal(t,cur+1);
-    if(!(_dfNum(sig)>0)) out.faltaSig.push(t);
+    if(!(_dfNum(sig)>0)){
+      var proy=null; try{ proy=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,cur+1):null; }catch(_){}
+      if(!(_dfNum(proy)>0)) out.faltaSig.push(t);
+      else out.proyectados.push(t);
+    }
   });
-  out.faltaCur.sort(); out.faltaSig.sort();
+  out.faltaCur.sort(); out.faltaSig.sort(); out.proyectados.sort();
   return out;
 }
 function _dfUniverso(){
