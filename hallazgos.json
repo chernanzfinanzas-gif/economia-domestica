@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-29",
+  "generadoEl": "2026-07-30",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -581,7 +581,7 @@
     "FAE": {
       "empresa": "Faes Farma",
       "cobertura": {
-        "semanal": "2026-07-28"
+        "semanal": "2026-07-30"
       },
       "hallazgos": [
         {

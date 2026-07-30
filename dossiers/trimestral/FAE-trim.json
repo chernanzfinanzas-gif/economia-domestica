@@ -706,6 +706,94 @@
           "valor": 34.2
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Recuperación confirmada: ingresos 391,5 M€ (+27,3%; orgánico ~+7% est. ex-oftalmología) y EBITDA 90,8 M€ (+23,8%; +28% sin los 3,2 M€ de reestructuración de SIFI) encadenan el segundo trimestre de crecimiento tras cuatro periodos de caída en 2025. Margen EBITDA de vuelta al 23,2% (umbral REFUERZA >22% del §10.1), margen bruto 68,9%, beneficio otra vez al alza (57,0 M€, +9,2%) y deuda neta a la baja (261,4 M€; DN/EBITDA 1,83x sobre EBITDA LTM de 143 M€, dentro del objetivo <2x). Guías 2026 reafirmadas. A vigilar: margen neto aún comprimido (14,6%, −2,4 pp) por la amortización del perímetro y el coste financiero; primer retroceso del top 3 de moléculas (−0,8%) por el fin de la protección de bilastina en Japón; y un FCF semestral de solo 18,9 M€ por −50,7 M€ de circulante (integración de SIFI y existencias del traslado a Derio), estacional pero a confirmar en 9M.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 391.5
+        },
+        {
+          "nombre": "%Var Ingr. (%)",
+          "valor": 27.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 90.8
+        },
+        {
+          "nombre": "Mg. EBITDA (%)",
+          "valor": 23.2
+        },
+        {
+          "nombre": "%Var EBITDA (%)",
+          "valor": 23.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 57.0
+        },
+        {
+          "nombre": "Mg. neto (%)",
+          "valor": 14.6
+        },
+        {
+          "nombre": "Top 3 moléc. (M€)",
+          "valor": 125.9
+        },
+        {
+          "nombre": "%Var Top 3 (%)",
+          "valor": -0.8
+        },
+        {
+          "nombre": "Peso Top3/Ingr. (%)",
+          "valor": 32.2
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Guías 2026 reafirmadas tras el semestre: ingresos +17%/+19% sobre los 627 M€ de 2025, EBITDA +28%/+31% sobre los 118 M€ de 2025 y deuda neta por debajo de 2x EBITDA.",
+          "impacto": "+",
+          "valoracion": "Reafirmar la guía con el semestre ya cerrado y por encima del ritmo implícito en la banda de ingresos da credibilidad al plan de integración. No modifica el PO de 4,67 €: el escenario base del DCF ya descontaba la normalización del margen en 2026."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Fin de la protección de bilastina en Japón, con lanzamiento de genéricos —incluido el autogenérico propio—. La licencia de bilastina cae un 12% en el semestre.",
+          "impacto": "-",
+          "valoracion": "Es el riesgo central de la tesis y llega en el calendario previsto, no antes. El grupo lo absorbe sin que el conjunto de licencias se desplome (−9%) y con el peso del top 3 bajando a 32,2%: la dependencia de molécula se reduce por crecimiento del resto, que era exactamente lo que el Bloque 7 pedía ver. No activa red flag."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Aprobación del reembolso de Akantior en Italia y aprobación en Europa de Mesalazina 1500 mg comprimidos.",
+          "impacto": "+",
+          "valoracion": "Akantior reembolsado en Italia convierte el activo estrella de SIFI en ingreso recurrente en su mercado natural y es la primera validación de precio de la adquisición. Sostiene la hipótesis de sinergias del caso base."
+        },
+        {
+          "tipo": "Contrato",
+          "hecho": "Acuerdo con Dongkook Pharmaceutical (1 de julio, posterior al cierre del semestre) para comercializar en Latinoamérica una licencia para el tratamiento de la hiperplasia benigna de próstata.",
+          "impacto": "+",
+          "valoracion": "Refuerza la pata de crecimiento orgánico que mejor está funcionando (LATAM, +19%) sin consumir balance. Aportación no material en 2026; se vigilará su despliegue."
+        },
+        {
+          "tipo": "M&A",
+          "hecho": "Integración de SIFI y Edol en plazo: finalizada la fusión de SIFI Ibérica y en curso la de SIFI México, con 3,2 M€ de costes de reestructuración organizativa asumidos en el primer trimestre. SIFI aporta más de 54 M€ al semestre.",
+          "impacto": "+",
+          "valoracion": "La aportación de SIFI y el avance de las fusiones societarias despejan el riesgo de ejecución que el Bloque 8 marcaba como principal. El coste de reestructuración es no recurrente: sin él, el EBITDA crecería +28% en vez de +24%."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Traslado de la actividad productiva a Derio avanzando según lo planificado; finalización del reclutamiento del ensayo clínico pivotal de eficacia de Mesalazina Gránulos.",
+          "impacto": "=",
+          "valoracion": "El traslado es la causa reconocida del aumento de existencias que lastra el circulante del semestre: es coste de transición con contrapartida en eficiencia futura, no deterioro. El pivotal de Mesalazina Gránulos entra en la fase que decide su valor."
+        }
+      ],
+      "periodoDisplay": "S1"
     }
   ]
 }
