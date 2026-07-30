@@ -768,6 +768,94 @@
         }
       ],
       "periodoDisplay": "1T"
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Vuelve al verde y desactiva el ámbar del 1T. A tipo de cambio constante —la base de la guía— las ventas crecen 4,9% (1.258 M€) y el EBITDA ajustado 5,7% (321 M€): el beneficio crece por encima de las ventas y el margen se sostiene en 25,5% (25,6% un año antes), con el margen bruto clavado en 56,5%. El resultado atribuido cae a 126 M€ (−7,1%), pero es contable y no operativo: los gastos de reestructuración, M&A e integración pasan de 14 a 35 M€ —22,8 M€ de indemnizaciones del plan de eficiencia, más el cierre de plantas en China y EE.UU. y de un centro de I+D en Francia— y el beneficio neto ajustado sube a 175 M€ (+7,1% cte. FX). Sigue el desapalancamiento: deuda neta 1.101 M€ frente a 1.116 M€ y ratio 2,20x frente a 2,30x, dentro del REFUERZA (<2,50x) del §10.1, con el flujo de explotación saltando de 31 a 81 M€. Guía FY-2026 mantenida sin cambios y recompra de 40 M€ anunciada. A vigilar: Comercial es el único segmento que se contrae (−2,8% cte. FX acumulado, −9,7% en el 2T estanco) y la deuda neta absoluta sigue en la banda DEBILITA del §10.1.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 1258
+        },
+        {
+          "nombre": "Crec. ventas cte. FX (%)",
+          "valor": 4.9
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.5
+        },
+        {
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 321
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 126
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 1101
+        },
+        {
+          "nombre": "DN / LTM EBITDA aj. (x)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Vtas. Residencial (M€)",
+          "valor": 887
+        },
+        {
+          "nombre": "Vtas. Comercial (M€)",
+          "valor": 106
+        },
+        {
+          "nombre": "Vtas. Trat. Agua Resid. (M€)",
+          "valor": 192
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Guía FY-2026 mantenida sin cambios, toda a tipo de cambio constante: ventas +3% a +7%, margen EBITDA ajustado 23,3%-24,3% y beneficio neto ajustado por acción +4% a +13%.",
+          "impacto": "+",
+          "valoracion": "Reafirmarla con el semestre cerrado y las ventas creciendo 4,9% cte. FX deja el año dentro de la banda sin necesidad de una segunda mitad heroica. No mueve el PO base de 25,44 €: el escenario central del DCF ya trabajaba con este rango."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "Lanzamiento de un programa de recompra de acciones por 40 M€, presentado como refuerzo de la retribución al accionista y uso atractivo del capital a los niveles actuales de cotización.",
+          "impacto": "+",
+          "valoracion": "Es la primera recompra desde el análisis y llega con la cotización en 18-19 € frente a un PO base de 25,44 €: comprar por debajo del valor intrínseco crea valor. Mejora el shareholder yield sin tensar el balance, con el ratio en 2,20x. Añade además un argumento al score de asignación de capital del §7.2, que estaba en 55/100."
+        },
+        {
+          "tipo": "Gobierno",
+          "hecho": "Relevo en la dirección financiera: Xavier Tintoré figura como CFSO actual y Juan Graham como CFSO entrante en la presentación de resultados.",
+          "impacto": "=",
+          "valoracion": "Un cambio de CFO en plena ejecución del plan de eficiencia y con las coberturas de tipo venciendo el 30/06/2026 merece seguimiento, no alarma: es una sucesión anunciada y ordenada, no una salida abrupta. A vigilar que no venga acompañado de cambios de criterio contable ni de revisiones de la política de capital."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Variopool (Países Bajos, suelos y paredes móviles) completada en el semestre por 8,5 M€ netos de caja y 20,6 M€ de fondo de comercio; firmada la compra de Hydrapro en Francia; el cierre de Riaan Pool Group se espera en el 3T.",
+          "impacto": "+",
+          "valoracion": "Tres operaciones pequeñas y de encaje claro en el negocio principal. Ninguna se acerca al umbral de red flag del §10.4 —12x EV/EBITDA o más de 1,0x de apalancamiento añadido—, así que no obligan a revisar la asignación de capital. Suman perímetro sin comprometer el desapalancamiento."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Plan de eficiencia con 22,8 M€ de indemnizaciones por despido registrados en el semestre (2,9 M€ un año antes), cierre de plantas productivas en China y Estados Unidos y de un centro de I+D en Francia. La compañía cifra en unos 15 M€ los ahorros ya generados en el ejercicio.",
+          "impacto": "=",
+          "valoracion": "Es caja que sale este año a cambio de estructura de costes más ligera después. Explica por sí solo la caída del resultado reportado, y por eso el semáforo se ancla en el beneficio ajustado. Lo que hay que comprobar en el 9M es que los ahorros aparezcan en el opex: la guía de la propia empresa es que el opex crezca en torno al 3,5% en el año a FX constante."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "El 23 de marzo de 2026 se extendió el vencimiento de la línea de crédito revolving de la financiación sindicada hasta enero de 2029.",
+          "impacto": "+",
+          "valoracion": "Alarga el colchón de liquidez justo antes del vencimiento de las permutas de tipo el 30/06/2026, que el §10.4 marca como el riesgo con fecha ya conocida. No elimina el encarecimiento del cupón, pero quita del calendario el riesgo de refinanciación."
+        }
+      ],
+      "periodoDisplay": "1S"
     }
   ]
 }
