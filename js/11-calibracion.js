@@ -736,11 +736,15 @@ function _calibComposicionPanel(){
   const pc = v => (typeof v==='number' && !isNaN(v))
     ? '<span style="color:'+(v<0?'#b45309':'#0f766e')+'">'+(v>=0?'+':'')+(v*100).toFixed(1)+'%</span>' : '—';
   const R = meta.resumen||{};
-  const kpi = '<div class="pos-kpis" style="margin-bottom:12px">'
-    +'<div class="k"><div class="l">Con composición</div><div class="v">'+(R.conComposicion||0)+' de '+(R.filas||0)+'</div><div class="p">el resto: su JSON dejó de ser la foto de t0</div></div>'
-    +'<div class="k"><div class="l">Recorte de síntesis</div><div class="v">'+(typeof R.recorteMediano==='number'?((R.recorteMediano*100).toFixed(1)+'%'):'—')+'</div><div class="p">mediana · PO publicado vs DCF crudo</div></div>'
-    +'<div class="k"><div class="l">Desfase de beta</div><div class="v">'+n(R.desfaseBetaMediano,3)+'</div><div class="p">mediana · barrido menos la usada</div></div>'
-    +'<div class="k"><div class="l">Puente generado</div><div class="v" style="font-size:16px">'+_calibEsc(meta.generadoEl||'—')+'</div><div class="p">Sincronizar calibración</div></div>'
+  const _k = (l,v,p) => '<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:11px 13px">'
+    +'<div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#64748b">'+l+'</div>'
+    +'<div style="font-size:20px;font-weight:800;color:#0f172a;margin-top:3px">'+v+'</div>'
+    +'<div style="font-size:11px;color:#64748b;margin-top:2px;line-height:1.35">'+p+'</div></div>';
+  const kpi = '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:14px">'
+    +_k('Con composición', (R.conComposicion||0)+' de '+(R.filas||0), 'el resto: su JSON dejó de ser la foto de t0')
+    +_k('Recorte de síntesis', (typeof R.recorteMediano==='number'?((R.recorteMediano*100).toFixed(1)+'%'):'—'), 'mediana · PO publicado vs DCF crudo')
+    +_k('Desfase de beta', n(R.desfaseBetaMediano,3), 'mediana · barrido menos la usada')
+    +_k('Puente generado', _calibEsc(meta.generadoEl||'—'), 'lo escribe «Sincronizar calibración»')
     +'</div>';
   const tr = filas.map(f => '<tr>'
     +'<td class="l"><b>'+_calibEsc(f.ticker)+'</b></td>'
