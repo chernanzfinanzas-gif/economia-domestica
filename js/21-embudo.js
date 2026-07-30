@@ -252,6 +252,9 @@ function _emRow(t){
 }
 
 /* ---------- render ---------- */
+/* [30-jul-2026] La banda ya NO tiene scroll horizontal: .em-lanecards es una rejilla que
+   baja de fila (ver CSS). Las dos funciones de abajo se quedan como red de seguridad —
+   con scrollWidth === clientWidth no hacen nada— por si algún día vuelve a haber tira. */
 /* [29-jul-2026] La banda «Necesita tu acción» es una tira con scroll horizontal
    (.em-lanecards, display:flex + overflow:auto). Cada clic en una ficha llama a
    renderEmbudo(), que rehace la sección entera con `sec.innerHTML = H`: eso destruye
@@ -410,9 +413,19 @@ function _emCard(r,compact){
   var zoneChip = (r.col==='seg' && r.held) ? _emZoneChip(r) : '';
   var distChip = (r.col==='ana') ? _emDistChip(r) : '';
   var _doss=_emDossHref(r); var _dossIco=_doss?('<a class="em-doss" href="'+_doss+'" target="_blank" rel="noopener" title="Abrir dossier de análisis">📄</a>'):'';
+  /* [30-jul-2026] Encaje del tablero. Las etiquetas (arquetipo y aviso corporativo) son
+     píldoras con white-space:nowrap. Mientras vivían en la misma fila que el ticker y el
+     nombre (.em-ct, un flex SIN wrap), el ancho mínimo de la ficha era la suma de todas
+     ellas (~300px). Como .em-kanban usaba `repeat(4,1fr)` —y 1fr es minmax(auto,1fr), que
+     no baja del min-content—, las columnas se estiraban por encima del ancho de `main` y
+     la cuarta (Seguimiento) se salía de la pantalla.
+     Ahora las píldoras bajan a la fila de etiquetas (.em-etr), que sí hace wrap: la
+     cabecera queda «TICKER 📄 nombre … ▸» y el mínimo de la ficha cae a ~100px. */
+  var arqChip=_emArqChip(r.t);
+  var alcChip=(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'');
   var head = '<div class="em-head" data-emtoggle="'+r.t+'">'
-    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+_emArqChip(r.t)+(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'')+caret+'</div>'
-    + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+zoneChip+distChip+'</div>'
+    + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+caret+'</div>'
+    + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+arqChip+alcChip+zoneChip+distChip+'</div>'
     + '</div>';
   var dim = ((r.col==='plan') || (r.col==='seg' && (r.planPend>0 || r.divPend))) ? _emDimBlock(r) : '';
   var ref = _emRefBlock(r);
@@ -937,7 +950,7 @@ function _emBind(sec){
   if(document.getElementById('em-css'))return;
   var s=document.createElement('style'); s.id='em-css';
   s.textContent=[
-    '.em-wrap{--u0:#dc2626;--u1:#d97706;--u2:#2563eb;--u3:#16a34a}',
+    '.em-wrap{--u0:#dc2626;--u1:#d97706;--u2:#2563eb;--u3:#16a34a;min-width:0;max-width:100%}',
     '.em-strip{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 12px}',
     '.em-pill{flex:1;min-width:120px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:8px 11px}',
     '.em-pn{font-size:20px;font-weight:800;color:#1f3d6b;line-height:1}',
@@ -949,17 +962,23 @@ function _emBind(sec){
     '.em-lane{background:#fff8f4;border:1px solid #fed7aa;border-radius:12px;padding:12px 13px;margin-bottom:16px}',
     '.em-lane-empty{background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-size:13px}',
     '.em-lane h4{margin:0 0 9px;font-size:13px;color:#9a3412;text-transform:uppercase;letter-spacing:.04em}',
-    '.em-lanecards{display:flex;gap:10px;overflow:auto;padding-bottom:4px}',
-    '.em-lanecards .em-card{min-width:225px}',
-    '.em-kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}',
-    '@media(max-width:900px){.em-kanban{grid-template-columns:1fr 1fr}}',
-    '@media(max-width:560px){.em-kanban{grid-template-columns:1fr}}',
-    '.em-col{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:9px}',
+    /* [30-jul-2026] La tira de «Necesita tu acción» era un flex con scroll horizontal:
+       las fichas se cortaban por la mitad en los bordes y había que arrastrar para verlas.
+       Ahora es una rejilla que reparte el ancho disponible y baja de fila cuando no caben:
+       todo queda a la vista sin scroll lateral. */
+    '.em-lanecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;align-items:stretch}',
+    '.em-lanecards .em-card{min-width:0;margin-bottom:0}',
+    /* minmax(0,1fr) y no 1fr: 1fr equivale a minmax(auto,1fr) y no deja que la columna
+       baje de su min-content, que es lo que desbordaba el tablero a la derecha. */
+    '.em-kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}',
+    '@media(max-width:900px){.em-kanban{grid-template-columns:repeat(2,minmax(0,1fr))}}',
+    '@media(max-width:560px){.em-kanban{grid-template-columns:minmax(0,1fr)}}',
+    '.em-col{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:9px;min-width:0}',
     '.em-colh{display:flex;align-items:center;justify-content:space-between;margin:2px 4px 9px;font-weight:800;font-size:12.5px;color:#1f3d6b;text-transform:uppercase;letter-spacing:.03em}',
     '.em-cc{background:#fff;border:1px solid #e2e8f0;border-radius:20px;font-size:11px;padding:1px 8px;color:#64748b}',
-    '.em-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:10px;padding:9px 10px;margin-bottom:9px}',
-    '.em-ct{display:flex;align-items:center;gap:7px;margin-bottom:3px}',
-    '.em-tk{font-weight:800;font-size:14px;color:#0f172a;cursor:pointer;text-decoration:none;border-bottom:1.5px dotted #94a3b8}',
+    '.em-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:10px;padding:9px 10px;margin-bottom:9px;min-width:0}',
+    '.em-ct{display:flex;align-items:center;gap:7px;margin-bottom:3px;min-width:0}',
+    '.em-tk{font-weight:800;font-size:14px;color:#0f172a;cursor:pointer;text-decoration:none;border-bottom:1.5px dotted #94a3b8;flex:none}',
     '.em-tk:hover{color:#2563eb;border-bottom-color:#2563eb}',
     '.em-doss{font-size:13px;text-decoration:none;margin-left:5px;opacity:.85}.em-doss:hover{opacity:1}',
     '.em-pot{display:inline-block;font-size:10px;font-weight:800;color:#166534;background:#dcfce7;border:1px solid #bbf7d0;border-radius:20px;padding:0 6px;margin-left:3px}',
@@ -971,7 +990,7 @@ function _emBind(sec){
     '.em-vigbtn{color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe}',
     '.em-divbtn .arw,.em-vigbtn .arw{margin-left:2px;font-size:9px}',
     '.em-divwrap{margin:0 0 8px;padding:7px 9px;background:#fbfdff;border:1px solid #eef2f7;border-radius:8px}',
-    '.em-vig{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0 0 8px}',
+    '.em-vig{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0 0 8px}',
     '.em-vig-c{background:#fff;border:1px solid #eef2f7;border-radius:8px;padding:6px 8px}',
     '.em-vig-c .h{font-size:10px;font-weight:800;margin-bottom:3px}',
     '.em-vig-c ul{margin:0;padding-left:14px;font-size:10.5px;color:#475569;line-height:1.45}',
@@ -981,10 +1000,11 @@ function _emBind(sec){
     '.em-modal-b{padding:10px 16px}',
     '.em-modal-f{font-size:11.5px;color:#334155;border-top:1px solid #f1f5f9;padding-top:8px;margin-top:4px;line-height:1.5}',
     '.em-modal-x{padding:10px 16px 14px;text-align:right}',
-    '.em-nm{font-size:11px;color:#64748b;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
+    '.em-nm{font-size:11px;color:#64748b;flex:1 1 0;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
     '.em-et{display:inline-block;font-size:10px;font-weight:700;border-radius:20px;padding:1px 8px;background:#eef2f8;color:#1f3d6b;margin-bottom:5px}',
-    '.em-etr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px}',
+    '.em-etr{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-bottom:5px;min-width:0}',
     '.em-etr .em-et{margin-bottom:0}',
+    '.em-etr .alcorp-b{margin-left:0}',   /* la píldora de aviso trae margin-left:6px de su uso en línea; aquí manda el gap */
     '.em-zone{display:inline-flex;align-items:center;gap:4px;font-size:9.5px;font-weight:800;border-radius:20px;padding:1px 8px;text-transform:uppercase;letter-spacing:.02em}',
     '.em-zone.z-in{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}',
     '.em-zone.z-near{background:#fef3c7;color:#92400e;border:1px solid #fde68a}',
@@ -992,7 +1012,7 @@ function _emBind(sec){
     '.em-exb{display:inline-block;font-size:9.5px;font-weight:700;border-radius:20px;padding:1px 7px;background:#e0e7ff;color:#3730a3;margin-bottom:5px}',
     '.em-metric{font-size:11.5px;color:#475569;margin-bottom:6px}',
     '.em-pbar{margin:2px 0 8px;padding:6px 8px 2px;background:#fbfdff;border:1px solid #eef2f7;border-radius:8px}',
-    '.em-caja{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:2px 0 14px}',
+    '.em-caja{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:2px 0 14px}',
     '.em-cajac{background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:11px 13px;box-shadow:0 1px 2px rgba(15,23,42,.04)}',
     '.em-cajac.hero{background:linear-gradient(135deg,#0e3a5f,#2563eb);border:none;color:#fff}',
     '.em-cajac .l{font-size:10px;color:#64748b;font-weight:700;text-transform:uppercase;letter-spacing:.03em}',
@@ -1011,12 +1031,12 @@ function _emBind(sec){
     '.em-dist.d-mid{background:#eef2f8;color:#475569;border:1px solid #e2e8f0}',
     '.em-dist.d-far{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}',
     '.em-sort{font-size:9px;color:#94a3b8;font-weight:600;text-transform:none;letter-spacing:0}',
-    '.em-dim{display:grid;grid-template-columns:1fr 1fr;gap:5px 6px;margin-bottom:7px}',
-    '.em-dc{background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:4px 7px}',
+    '.em-dim{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:5px 6px;margin-bottom:7px}',
+    '.em-dc{background:#f8fafc;border:1px solid #eef2f7;border-radius:8px;padding:4px 7px;min-width:0;overflow-wrap:anywhere}',
     '.em-dc span{display:block;font-size:8.5px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.03em}',
     '.em-dc b{font-size:12px;color:#0f172a;font-variant-numeric:tabular-nums}',
-    '.em-dbtns{display:flex;gap:6px;margin-bottom:6px}',
-    '.em-dbtns .btn{flex:1;text-align:center}',
+    '.em-dbtns{display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap}',
+    '.em-dbtns .btn{flex:1 1 96px;min-width:0;text-align:center}',
     '.em-cierres{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#3730a3;background:#eef2ff;border:1px solid #c7d2fe;border-radius:8px;padding:4px 8px;cursor:pointer;margin-bottom:6px}',
     '.em-cierres:hover{background:#e0e7ff}',
     '.em-cierresrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}',
@@ -1034,7 +1054,7 @@ function _emBind(sec){
     '.em-gd{flex:1;color:#475569;line-height:1.4}',
     '@media(max-width:560px){.em-grow{flex-direction:column;gap:1px}.em-gt{width:auto}}',
     '.em-head{cursor:pointer}',
-    '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:2px}',
+    '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:auto;padding-left:2px}',
     '.em-collapsed{padding-bottom:9px}',
     '.em-collapse-all{position:fixed;right:18px;bottom:110px;z-index:900;background:#1f3d6b;color:#fff;border:none;border-radius:22px;padding:10px 15px;font-size:12.5px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}',
     '.em-collapse-all:hover{background:#16305a}',
