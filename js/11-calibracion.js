@@ -36,6 +36,56 @@ const CALIB_T0_SEED = {
   VID:{cot0:88.3,  poBase:107.3, entMax:90,  stop:63.5, decision:'COMPRAR'}
 };
 
+/* ===== El puente `calibracion.json` [30-jul-2026] ==========================
+   CALIB_T0_SEED es una lista ESCRITA A MANO con doce de las veinticinco empresas,
+   y con el PO de cuando se escribio. Es el mismo problema que ya mordio con
+   `kh_filas` duplicado en trece skills y con `empresas.json`: dos copias de la
+   misma verdad divergen, y la que se queda vieja no avisa de nada.
+
+   `calibracion.json` lo escribe `sincronizar_calibracion.py` desde el Excel de
+   calibracion, que es la fuente unica del t0. Ademas trae lo que esta app NO
+   puede calcular: la COMPOSICION del PO -DCF crudo, recorte de sintesis, banda,
+   robustez, g implicito, veto forense- y el desfase de beta.
+
+   Entra en la cadena de prioridad JUSTO DEBAJO de lo que tu hayas guardado a
+   mano: `guardada > puente > semilla > foto > vivo`. Nunca pisa una confirmacion
+   tuya; solo sustituye a la lista fija.
+   Si el fichero no esta -repo sin publicar aun-, todo sigue como antes. */
+let CALIB_PUENTE = {};      /* TICKER -> [fila, ...] ordenadas por fecha */
+let CALIB_PUENTE_META = null;
+
+async function calibCargarPuente(){
+  try{
+    const r = await fetch('calibracion.json', {cache:'no-store'});
+    if(!r.ok) return;
+    const d = await r.json();
+    const ix = {};
+    (d.t0||[]).forEach(f => {
+      const t = (f.ticker||'').toUpperCase();
+      if(!t) return;
+      (ix[t] = ix[t] || []).push(f);
+    });
+    Object.keys(ix).forEach(t => ix[t].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||'')));
+    CALIB_PUENTE = ix;
+    CALIB_PUENTE_META = {generadoEl:d.generadoEl, resumen:d.resumen||{}, sesgo:d.sesgo||null};
+    if(typeof renderPanelMetodo==='function') renderPanelMetodo();
+  }catch(e){ /* sin puente se sigue igual que antes: no es una condicion */ }
+}
+document.addEventListener('DOMContentLoaded', calibCargarPuente);
+if(document.readyState!=='loading') calibCargarPuente();
+
+/* La fila del puente que corresponde al t0 de esa empresa. Misma regla que
+   `_calibT0Foto`: la ultima que no sea posterior a la fecha del dossier. */
+function calibPuenteDe(ticker, dossierFecha){
+  const arr = CALIB_PUENTE[(ticker||'').toUpperCase()] || [];
+  if(!arr.length) return null;
+  if(dossierFecha){
+    const previas = arr.filter(x => (x.fecha||'') <= dossierFecha);
+    if(previas.length) return previas[previas.length-1];
+  }
+  return arr[0];
+}
+
 function _calibHoy(){ return new Date().toISOString().slice(0,10); }
 function _calibEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 /* número tolerante: acepta '1.234,56' o '1234.56' o number; '' -> null */
@@ -98,10 +148,12 @@ function calibBaseline(ticker){
   const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker) || {};
   const stored = ((DB.calibracion||{})[ticker]||{}).t0 || {};
   const seed = CALIB_T0_SEED[ticker] || {};
+  const pte  = calibPuenteDe(ticker, a.dossierFecha) || {};
   const foto = _calibT0Foto(ticker, a.dossierFecha);
   const org = {};
   const pick = (k, kFoto, fallback) => {
     if(stored[k]!=null && stored[k]!=='')   { org[k]='guardada'; return stored[k]; }
+    if(pte[k]!=null && pte[k]!=='')         { org[k]='puente';   return pte[k]; }
     if(seed[k]!=null && seed[k]!=='')       { org[k]='semilla';  return seed[k]; }
     if(foto && kFoto && foto[kFoto]!=null && foto[kFoto]!=='' && _calibN(foto[kFoto])!==0)
                                             { org[k]='foto';     return foto[kFoto]; }
@@ -665,6 +717,57 @@ function _calibDiarioPanel(){
   return {sum:G.ok+' de '+G.n+' acertadas', consejo:consejo, html:kpi+t1+t2+nota};
 }
 
+
+/* ===== Bloque «De qué está hecho el PO» [30-jul-2026] =====================
+   Lo que esta app no puede calcular y el metodo si: el DCF crudo antes de
+   ponderarlo con multiplos, y cuanto se recorto al sintetizar. Es la diferencia
+   entre saber que el PO fallo y saber QUE PARTE del metodo fallo.
+   Y al lado, el desfase de beta: si el error del DCF viene del modelo o de un
+   input malo. Una celda vacia significa «no se sabe», nunca cero. */
+function _calibComposicionPanel(){
+  const meta = CALIB_PUENTE_META;
+  if(!meta) return null;
+  const filas = [];
+  Object.keys(CALIB_PUENTE).forEach(t => CALIB_PUENTE[t].forEach(f => filas.push(f)));
+  if(!filas.length) return null;
+  filas.sort((a,b) => (a.fecha||'').localeCompare(b.fecha||''));
+  const n = (v,d) => (typeof v==='number' && !isNaN(v))
+    ? v.toLocaleString('es-ES',{minimumFractionDigits:d,maximumFractionDigits:d}) : '—';
+  const pc = v => (typeof v==='number' && !isNaN(v))
+    ? '<span style="color:'+(v<0?'#b45309':'#0f766e')+'">'+(v>=0?'+':'')+(v*100).toFixed(1)+'%</span>' : '—';
+  const R = meta.resumen||{};
+  const kpi = '<div class="pos-kpis" style="margin-bottom:12px">'
+    +'<div class="k"><div class="l">Con composición</div><div class="v">'+(R.conComposicion||0)+' de '+(R.filas||0)+'</div><div class="p">el resto: su JSON dejó de ser la foto de t0</div></div>'
+    +'<div class="k"><div class="l">Recorte de síntesis</div><div class="v">'+(typeof R.recorteMediano==='number'?((R.recorteMediano*100).toFixed(1)+'%'):'—')+'</div><div class="p">mediana · PO publicado vs DCF crudo</div></div>'
+    +'<div class="k"><div class="l">Desfase de beta</div><div class="v">'+n(R.desfaseBetaMediano,3)+'</div><div class="p">mediana · barrido menos la usada</div></div>'
+    +'<div class="k"><div class="l">Puente generado</div><div class="v" style="font-size:16px">'+_calibEsc(meta.generadoEl||'—')+'</div><div class="p">Sincronizar calibración</div></div>'
+    +'</div>';
+  const tr = filas.map(f => '<tr>'
+    +'<td class="l"><b>'+_calibEsc(f.ticker)+'</b></td>'
+    +'<td style="font-size:11px;color:#64748b">'+_calibEsc((f.fecha||'').slice(0,10))+'</td>'
+    +'<td>'+n(f.poBase,2)+' €</td>'
+    +'<td>'+(typeof f.dcf==='number'? n(f.dcf,2)+' €' : '—')+'</td>'
+    +'<td style="font-weight:700">'+pc(f.recorteSintesis)+'</td>'
+    +'<td style="font-size:11.5px">'+_calibEsc(f.robustez||'—')+'</td>'
+    +'<td>'+n(f.beta,2)+'</td>'
+    +'<td>'+n(f.betaReferencia,3)+'</td>'
+    +'<td style="font-weight:700;color:'+((typeof f.desfaseBeta==='number'&&Math.abs(f.desfaseBeta)>0.35)?'#b45309':'#475569')+'">'
+      +(typeof f.desfaseBeta==='number'?((f.desfaseBeta>=0?'+':'')+f.desfaseBeta.toFixed(3)):'—')+'</td>'
+    +'</tr>').join('');
+  const tabla = '<div class="ptable"><table><thead><tr>'
+    +'<th class="l">Empresa</th><th>t0</th><th>PO base</th><th>PO por DCF crudo</th>'
+    +'<th>Recorte de síntesis</th><th>Robustez t0</th><th>Beta usada</th><th>Beta ref.</th><th>Desfase</th>'
+    +'</tr></thead><tbody>'+tr+'</tbody></table></div>';
+  const nota = '<div class="mt-empty" style="margin:12px 0 0">'
+    +'<b>Cómo se lee.</b> El <b>recorte de síntesis</b> es cuánto se apartó el PO que publicaste del DCF crudo '
+    +'al ponderarlo con múltiplos: negativo, te recortaste a ti mismo. El <b>desfase de beta</b> es cuánto se '
+    +'aparta la beta que usó el análisis de la del barrido de <code>betas.json</code>; una beta baja da un WACC '
+    +'bajo y un WACC bajo da un DCF alto. En la cosecha de enero se cruzan las dos columnas contra el error real '
+    +'del PO, y ahí se sabrá si el sesgo viene del método o de un input. '
+    +'<b>Una celda vacía dice «no se sabe», nunca cero.</b></div>';
+  return {sum: (R.conComposicion||0)+' de '+(R.filas||0)+' con composición', html: kpi+tabla+nota};
+}
+
 function renderPanelMetodo(){
   const sec = document.getElementById('view-metodo'); if(!sec) return;
   const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
@@ -734,7 +837,9 @@ function renderPanelMetodo(){
     +_mblk('📊','Marcador por horizonte','6 · 12 · 36 meses', emptyNote+tablaHTML, false, 'marcador')
     +_mblk('📓','Tus decisiones, evaluadas', DI.sum, DI.html, false, 'diario')   /* [B2] */
     +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false, 'cerradas')
-    +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir');
+    +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir')
+    +(function(){ const C=_calibComposicionPanel();
+        return C ? _mblk('🧩','De qué está hecho el PO', C.sum, C.html, false, 'composicion') : ''; })();
   if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
 }
 
