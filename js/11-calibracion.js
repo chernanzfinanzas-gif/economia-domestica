@@ -773,47 +773,126 @@ function _calibComposicionPanel(){
 }
 
 /* ---------- El espejo del analista (propuesta 4, 31-jul-2026) ----------
-   La otra mitad de la pregunta que contesta este Panel. El marcador dice si el
-   metodo ACIERTA; esto dice COMO DECIDE. Ninguna de estas cifras es sobre las
+   La otra mitad de la pregunta que contesta este Panel. El marcador de arriba dice
+   si el metodo ACIERTA; esto dice COMO DECIDE. Ninguna de estas cifras es sobre las
    empresas: todas son sobre quien decide, y por eso incomodan.
-   Se calcula EN EL LADO DEL METODO (kh_espejo.py) y viaja dentro de
-   calibracion.json: la app no puede leer los 25 libros. */
+   Se calcula EN EL LADO DEL METODO (kh_espejo.py) y viaja dentro de calibracion.json:
+   la app no puede abrir los 25 libros. */
+
+/* Las senales tienen FAMILIA: unas las dispara el precio y otras el negocio. Es la
+   distincion que da sentido al bloque 2, asi que manda tambien en el color y en el
+   ORDEN de la barra: con los segmentos mezclados se veian dos azules separados por
+   un gris y no se leia el grupo. */
+var _ESP_FAM = {S1:'precio', S3:'precio', S2:'negocio', S4:'negocio', S5:'negocio', S6:'negocio'};
+function _espFam(c){ return _ESP_FAM[(c||'').toUpperCase()] || 'otras'; }
+function _espColor(clave){
+  const c = (clave||'').toUpperCase();
+  if(c==='V'||c==='VERDE')  return 'var(--green)';
+  if(c==='A'||c==='ÁMBAR'||c==='AMBAR') return 'var(--amber)';
+  if(c==='R'||c==='ROJO')   return 'var(--red)';
+  /* Las cuatro decisiones del metodo, de menos a mas grave: se leen por color
+     igual que un semaforo, que es como se leen en el §10.5. */
+  if(c==='REAFIRMAR')  return '#0f766e';
+  if(c==='ABIERTA')    return '#cbd5e1';
+  if(c.indexOf('AJUSTA')===0) return '#d97706';
+  if(c==='REBAJA')     return '#ea580c';
+  if(c==='VENDE')      return 'var(--red)';
+  const f = _espFam(c);
+  if(f==='precio')  return '#7c3aed';
+  if(f==='negocio') return '#0369a1';
+  return '#cbd5e1';
+}
+function _espPct(n){
+  return _calibIsN(n) ? n.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%' : '—';
+}
+/* Barra apilada + leyenda: una distribucion se lee de un vistazo y en una tabla no. */
+function _espBarra(items, colorDe){
+  if(!items || !items.length) return '';
+  const seg = items.map(x =>
+    `<span title="${_calibEsc(x.nombre||x.clave)}: ${x.n}" style="flex:${Math.max(x.pct,0.9)};background:${colorDe(x.clave)}"></span>`).join('');
+  const leg = items.map(x =>
+    `<span class="esp-lg"><i style="background:${colorDe(x.clave)}"></i>${_calibEsc(x.nombre||x.clave)}`
+    +` <b>${x.n}</b> <em>${_espPct(x.pct)}</em></span>`).join('');
+  return `<div class="esp-bar">${seg}</div><div class="esp-leg">${leg}</div>`;
+}
+function _espKpi(l,v,p,tono){
+  return `<div class="esp-k${tono?' '+tono:''}"><div class="l">${l}</div><div class="v">${v}</div><div class="p">${p}</div></div>`;
+}
+function _espNota(t){ return `<p class="esp-nota">${t}</p>`; }
+function _espH(n,t){ return `<div class="esp-h"><span class="esp-n">${n}</span>${t}</div>`; }
+
 function _calibEspejoPanel(){
   const E = CALIB_PUENTE_META && CALIB_PUENTE_META.espejo;
   if(!E) return null;
-  const pct = n => _calibIsN(n) ? n.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%' : '—';
-  const tabla = (cols, filas) =>
-    `<div class="ptable"><table><thead><tr>${cols.map((c,i)=>`<th${i?'':' class="l"'}>${c}</th>`).join('')}</tr></thead><tbody>${filas}</tbody></table></div>`;
-  const reparto = arr => arr.map(x =>
-    `<tr><td class="l"><b>${_calibEsc(x.nombre||x.clave)}</b></td><td style="text-align:center">${x.n}</td><td style="text-align:center">${pct(x.pct)}</td></tr>`).join('');
+  const dec = E.decisiones||{reparto:[]}, sen = E.senales||{reparto:[]},
+        sem = E.semaforo||{reparto:[]},   lat = E.latencia||{},
+        rac = (E.rachas||[]).filter(x=>x.verdesSeguidos>0);
+  const top  = (dec.reparto||[])[0] || {clave:'—',pct:null,n:0};
+  const rojo = (sem.reparto||[]).find(x=>x.clave==='R') || {pct:null,n:0};
+  const totLat = (lat.medibles||0) + (lat.sinFechaDeApertura||0);
+  const orden = {precio:0, negocio:1, otras:2};
+  const senOrd = (sen.reparto||[]).slice().sort((a,b) =>
+    (orden[_espFam(a.clave)] - orden[_espFam(b.clave)]) || (b.n - a.n));
 
-  const dec = E.decisiones || {reparto:[]}, sen = E.senales || {reparto:[]},
-        sem = E.semaforo || {reparto:[]}, lat = E.latencia || {}, rac = (E.rachas||[]).filter(x=>x.verdesSeguidos>0);
-  const top = (dec.reparto||[])[0];
-  const sum = top ? `${pct(top.pct)} ${_calibEsc(top.clave)} · ${pct(sen.pctDePrecio)} de las señales las dispara el precio` : 'sin datos';
+  const kpis = `<div class="esp-kpis">`
+    + _espKpi('La decisión de siempre', _espPct(top.pct),
+              `${top.n} de ${dec.total||0} Notas acaban en <b>${_calibEsc(top.clave)}</b>`,
+              (_calibIsN(top.pct)&&top.pct>=80)?'warn':'')
+    + _espKpi('Señales disparadas por el precio', _espPct(sen.pctDePrecio),
+              `S1 y S3 · el resto nace del negocio`,
+              (_calibIsN(sen.pctDePrecio)&&sen.pctDePrecio>=50)?'warn':'')
+    + _espKpi('Trimestres en rojo', _espPct(rojo.pct),
+              `${rojo.n} de ${sem.total||0} trimestres registrados`)
+    + _espKpi('Plazo medible', `${lat.medibles||0}<span class="sub"> / ${totLat}</span>`,
+              lat.mediana!=null ? `mediana <b>${lat.mediana} día(s)</b> · máximo ${lat.maximo}` : 'aún sin medida')
+    + `</div>`;
 
-  const latHTML = lat.medibles
-    ? `<p class="mt-nota">Mediana <b>${lat.mediana} día(s)</b> hasta el cierre, máximo <b>${lat.maximo}</b>. Medible en <b>${lat.medibles}</b> de ${lat.medibles+ (lat.sinFechaDeApertura||0)} apuntes: los demás se cerraron antes de que el registro guardara la fecha de apertura, y <b>no se reconstruyen</b> — inventarlos sería justo el sesgo que esto viene a cazar.</p>`
-    : `<p class="mt-nota">Todavía no hay ningún apunte con fecha de apertura registrada, así que el plazo de las S2 (7 días) no se puede medir.</p>`;
+  const rachaMax = rac.length ? rac[0].verdesSeguidos : 1;
+  const filasRac = rac.map(x => {
+    const limpia = x.verdesSeguidos >= x.trimestres;     /* ni un solo ámbar en toda la serie */
+    const w = Math.round(100*x.verdesSeguidos/rachaMax);
+    return `<tr${limpia?' class="esp-full"':''}><td class="l"><b>${_calibEsc(x.empresa)}</b>`
+      +(limpia?' <span class="esp-chip">sin un solo ámbar</span>':'')+`</td>`
+      +`<td class="l" style="width:46%"><span class="esp-mini"><i style="width:${w}%"></i></span></td>`
+      +`<td><b>${x.verdesSeguidos}</b></td><td class="esp-dim">${x.trimestres}</td></tr>`;
+  }).join('');
 
   const html =
-     `<p class="mt-nota">Datos de los <b>${E.libros}</b> libros a ${_calibEsc(E.generadoEl)}. No hay ningún dato nuevo: son los del §10.5 y el §10.3, que hasta ahora solo se leían de uno en uno. Un sesgo no se ve en una decisión, se ve en la distribución de cien.</p>`
-    +`<h4 class="mt-h">1 · ¿En qué acaban las Notas?</h4>`
-    + tabla(['Decisión','n','%'], reparto(dec.reparto||[]))
-    +`<p class="mt-nota">Si casi todas son <b>REAFIRMAR</b>, o el método es extraordinario o hay sesgo de confirmación. Las dos hipótesis se separan con el marcador de arriba: mirando qué hizo el precio después.</p>`
-    +`<h4 class="mt-h">2 · ¿Qué señales se abren?</h4>`
-    + tabla(['Señal','n','%'], reparto(sen.reparto||[]))
-    +`<p class="mt-nota">El <b>${pct(sen.pctDePrecio)}</b> las dispara la <b>cotización</b> (S1 y S3), no el negocio. Un método que solo reacciona al precio no está vigilando la tesis, está vigilando el mercado.</p>`
-    +`<h4 class="mt-h">3 · Reparto del semáforo trimestral</h4>`
-    + tabla(['Semáforo','n','%'], reparto(sem.reparto||[]))
-    +`<p class="mt-nota">Un método que nunca pone rojos no está midiendo nada. Uno que los pone siempre, tampoco.</p>`
-    +`<h4 class="mt-h">4 · ¿Cuánto tarda una señal en cerrarse?</h4>` + latHTML
-    +`<h4 class="mt-h">5 · Trimestres seguidos en verde</h4>`
+     `<div class="esp-intro">Datos de los <b>${E.libros}</b> libros a ${_calibEsc(E.generadoEl)}. No hay ningún dato nuevo: `
+    +`son los del §10.5 y el §10.3, que hasta ahora solo se leían de uno en uno. `
+    +`<b>Un sesgo no se ve en una decisión, se ve en la distribución de cien.</b></div>`
+    + kpis
+    + _espH(1,'¿En qué acaban las Notas?')
+    + _espBarra(dec.reparto||[], _espColor)
+    + _espNota(`Si casi todas son <b>REAFIRMAR</b>, o el método es extraordinario o hay <b>sesgo de confirmación</b>. `
+              +`Las dos hipótesis se separan con el marcador de arriba: mirando qué hizo el precio después.`)
+    + _espH(2,'¿Qué señales se abren?')
+    + `<div class="esp-fam"><span><i style="background:#7c3aed"></i>las dispara el precio</span>`
+    + `<span><i style="background:#0369a1"></i>las dispara el negocio</span>`
+    + `<span><i style="background:#cbd5e1"></i>otras</span></div>`
+    + _espBarra(senOrd, _espColor)
+    + _espNota(`El <b>${_espPct(sen.pctDePrecio)}</b> las dispara la <b>cotización</b>, no el negocio. Un método que solo `
+              +`reacciona al precio no está vigilando la tesis: está vigilando el mercado.`)
+    + _espH(3,'Reparto del semáforo trimestral')
+    + _espBarra(sem.reparto||[], _espColor)
+    + _espNota(`Un método que <b>nunca pone rojos</b> no está midiendo nada. Uno que los pone siempre, tampoco.`)
+    + _espH(4,'¿Cuánto tarda una señal en cerrarse?')
+    + (totLat
+        ? _espBarra([{clave:'ok',nombre:'Con fecha de apertura',n:lat.medibles||0,pct:100*(lat.medibles||0)/totLat},
+                     {clave:'no',nombre:'Sin ella',n:lat.sinFechaDeApertura||0,pct:100*(lat.sinFechaDeApertura||0)/totLat}],
+                    c => c==='ok' ? '#0f766e' : '#cbd5e1')
+        : '')
+    + _espNota(`El plazo de una <b>S2</b> es de 7 días. Solo son medibles los apuntes cerrados con el helper, que guarda `
+              +`la fecha de apertura dentro del motivo (regla del 28-jul-2026). Los anteriores <b>no se reconstruyen</b>: `
+              +`inventarlos sería exactamente el sesgo que esta página viene a cazar.`)
+    + _espH(5,'Trimestres seguidos en verde')
     + (rac.length
-        ? tabla(['Empresa','Verdes seguidos','Trimestres'],
-            rac.map(x=>`<tr><td class="l"><b>${_calibEsc(x.empresa)}</b></td><td style="text-align:center">${x.verdesSeguidos}</td><td style="text-align:center">${x.trimestres}</td></tr>`).join(''))
+        ? `<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th class="l">Racha</th><th>Verdes</th><th>Trim.</th></tr></thead><tbody>${filasRac}</tbody></table></div>`
         : '<div class="mt-empty">Ninguna empresa encadena verdes ahora mismo.</div>')
-    +`<p class="mt-nota">Una racha larga puede ser <b>calidad</b>… o <b>falta de atención</b>. El dato no lo distingue; la pregunta es si has mirado esa empresa con el mismo cuidado que las que sí dan ámbares.</p>`;
+    + _espNota(`Una racha larga puede ser <b>calidad</b>… o <b>falta de atención</b>. El dato no lo distingue; `
+              +`la pregunta es si has mirado esas empresas con el mismo cuidado que las que sí dan ámbares.`);
+
+  const sum = `${_espPct(top.pct)} ${_calibEsc(top.clave)} · ${_espPct(sen.pctDePrecio)} por precio`;
   return {sum, html};
 }
 
