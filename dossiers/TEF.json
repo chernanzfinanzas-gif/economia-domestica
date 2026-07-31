@@ -149,6 +149,21 @@
   "gIntrinseco": -3.03,
   "veredicto": "PLAUSIBLE",
   "motivo": "El precio solo exige un -1.20% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-07-27",
+  "entradas": {
+   "fcl": 1550,
+   "wacc": 8.2,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 5636.69,
+   "deudaNeta": 0.0,
+   "modo": "CAP",
+   "precioBase": 3.588,
+   "validado": true,
+   "desviacion": -0.004,
+   "gBase": -1.204,
+   "congeladoEl": "2026-07-31",
+   "fechaBase": "2026-07-27"
+  }
  }
 }

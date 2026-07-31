@@ -144,6 +144,21 @@
   "gIntrinseco": 7.38,
   "veredicto": "EXIGENTE",
   "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-07-27",
+  "entradas": {
+   "fcl": 95.58,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 45.66,
+   "deudaNeta": 253.53,
+   "modo": "EV",
+   "precioBase": 57.2,
+   "validado": true,
+   "desviacion": -0.002,
+   "gBase": 9.398,
+   "congeladoEl": "2026-07-31",
+   "fechaBase": "2026-07-27"
+  }
  }
 }

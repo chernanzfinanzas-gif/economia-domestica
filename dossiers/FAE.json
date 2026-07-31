@@ -149,6 +149,21 @@
   "gIntrinseco": 11.6,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-07-27",
+  "entradas": {
+   "fcl": 75,
+   "wacc": 7.0,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 311.26,
+   "deudaNeta": 303.22,
+   "modo": "EV",
+   "precioBase": 4.365,
+   "validado": true,
+   "desviacion": 0.002,
+   "gBase": 3.502,
+   "congeladoEl": "2026-07-31",
+   "fechaBase": "2026-07-27"
+  }
  }
 }

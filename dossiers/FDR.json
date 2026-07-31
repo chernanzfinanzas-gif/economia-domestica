@@ -146,7 +146,22 @@
   "gIntrinseco": -5.11,
   "veredicto": "PLAUSIBLE",
   "motivo": "El precio solo exige un 1.01% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-07-27",
+  "entradas": {
+   "fcl": 254,
+   "wacc": 7.18,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 189.86,
+   "deudaNeta": 1103.44,
+   "modo": "EV",
+   "precioBase": 18.29,
+   "validado": true,
+   "desviacion": -0.001,
+   "gBase": 1.009,
+   "congeladoEl": "2026-07-31",
+   "fechaBase": "2026-07-27"
+  }
  },
  "cambiosDesdeUltimaRevision": "Corrección del moat (28-jul-2026): el «Moat competitivo» del §5.3 estaba puntuado 68 de una sola pasada frente al 52,8 que da la descomposición del §7.1 en los cinco tipos de moat. Manda la descomposición. §5.3 67,4 → 63,6 · score global 62,8 → 62,1. El rating sigue siendo A pero por 0,07 puntos sobre el umbral de 62,0, no por 0,8. Sin cambios en PO, banda de entrada, stop ni decisión."
 }
