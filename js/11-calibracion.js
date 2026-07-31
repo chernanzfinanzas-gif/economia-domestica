@@ -67,7 +67,7 @@ async function calibCargarPuente(){
     });
     Object.keys(ix).forEach(t => ix[t].sort((a,b) => (a.fecha||'').localeCompare(b.fecha||'')));
     CALIB_PUENTE = ix;
-    CALIB_PUENTE_META = {generadoEl:d.generadoEl, resumen:d.resumen||{}, sesgo:d.sesgo||null};
+    CALIB_PUENTE_META = {generadoEl:d.generadoEl, resumen:d.resumen||{}, sesgo:d.sesgo||null, espejo:d.espejo||null};
     if(typeof renderPanelMetodo==='function') renderPanelMetodo();
   }catch(e){ /* sin puente se sigue igual que antes: no es una condicion */ }
 }
@@ -772,6 +772,51 @@ function _calibComposicionPanel(){
   return {sum: (R.conComposicion||0)+' de '+(R.filas||0)+' con composición', html: kpi+tabla+nota};
 }
 
+/* ---------- El espejo del analista (propuesta 4, 31-jul-2026) ----------
+   La otra mitad de la pregunta que contesta este Panel. El marcador dice si el
+   metodo ACIERTA; esto dice COMO DECIDE. Ninguna de estas cifras es sobre las
+   empresas: todas son sobre quien decide, y por eso incomodan.
+   Se calcula EN EL LADO DEL METODO (kh_espejo.py) y viaja dentro de
+   calibracion.json: la app no puede leer los 25 libros. */
+function _calibEspejoPanel(){
+  const E = CALIB_PUENTE_META && CALIB_PUENTE_META.espejo;
+  if(!E) return null;
+  const pct = n => _calibIsN(n) ? n.toLocaleString('es-ES',{minimumFractionDigits:1,maximumFractionDigits:1})+'%' : '—';
+  const tabla = (cols, filas) =>
+    `<div class="ptable"><table><thead><tr>${cols.map((c,i)=>`<th${i?'':' class="l"'}>${c}</th>`).join('')}</tr></thead><tbody>${filas}</tbody></table></div>`;
+  const reparto = arr => arr.map(x =>
+    `<tr><td class="l"><b>${_calibEsc(x.nombre||x.clave)}</b></td><td style="text-align:center">${x.n}</td><td style="text-align:center">${pct(x.pct)}</td></tr>`).join('');
+
+  const dec = E.decisiones || {reparto:[]}, sen = E.senales || {reparto:[]},
+        sem = E.semaforo || {reparto:[]}, lat = E.latencia || {}, rac = (E.rachas||[]).filter(x=>x.verdesSeguidos>0);
+  const top = (dec.reparto||[])[0];
+  const sum = top ? `${pct(top.pct)} ${_calibEsc(top.clave)} · ${pct(sen.pctDePrecio)} de las señales las dispara el precio` : 'sin datos';
+
+  const latHTML = lat.medibles
+    ? `<p class="mt-nota">Mediana <b>${lat.mediana} día(s)</b> hasta el cierre, máximo <b>${lat.maximo}</b>. Medible en <b>${lat.medibles}</b> de ${lat.medibles+ (lat.sinFechaDeApertura||0)} apuntes: los demás se cerraron antes de que el registro guardara la fecha de apertura, y <b>no se reconstruyen</b> — inventarlos sería justo el sesgo que esto viene a cazar.</p>`
+    : `<p class="mt-nota">Todavía no hay ningún apunte con fecha de apertura registrada, así que el plazo de las S2 (7 días) no se puede medir.</p>`;
+
+  const html =
+     `<p class="mt-nota">Datos de los <b>${E.libros}</b> libros a ${_calibEsc(E.generadoEl)}. No hay ningún dato nuevo: son los del §10.5 y el §10.3, que hasta ahora solo se leían de uno en uno. Un sesgo no se ve en una decisión, se ve en la distribución de cien.</p>`
+    +`<h4 class="mt-h">1 · ¿En qué acaban las Notas?</h4>`
+    + tabla(['Decisión','n','%'], reparto(dec.reparto||[]))
+    +`<p class="mt-nota">Si casi todas son <b>REAFIRMAR</b>, o el método es extraordinario o hay sesgo de confirmación. Las dos hipótesis se separan con el marcador de arriba: mirando qué hizo el precio después.</p>`
+    +`<h4 class="mt-h">2 · ¿Qué señales se abren?</h4>`
+    + tabla(['Señal','n','%'], reparto(sen.reparto||[]))
+    +`<p class="mt-nota">El <b>${pct(sen.pctDePrecio)}</b> las dispara la <b>cotización</b> (S1 y S3), no el negocio. Un método que solo reacciona al precio no está vigilando la tesis, está vigilando el mercado.</p>`
+    +`<h4 class="mt-h">3 · Reparto del semáforo trimestral</h4>`
+    + tabla(['Semáforo','n','%'], reparto(sem.reparto||[]))
+    +`<p class="mt-nota">Un método que nunca pone rojos no está midiendo nada. Uno que los pone siempre, tampoco.</p>`
+    +`<h4 class="mt-h">4 · ¿Cuánto tarda una señal en cerrarse?</h4>` + latHTML
+    +`<h4 class="mt-h">5 · Trimestres seguidos en verde</h4>`
+    + (rac.length
+        ? tabla(['Empresa','Verdes seguidos','Trimestres'],
+            rac.map(x=>`<tr><td class="l"><b>${_calibEsc(x.empresa)}</b></td><td style="text-align:center">${x.verdesSeguidos}</td><td style="text-align:center">${x.trimestres}</td></tr>`).join(''))
+        : '<div class="mt-empty">Ninguna empresa encadena verdes ahora mismo.</div>')
+    +`<p class="mt-nota">Una racha larga puede ser <b>calidad</b>… o <b>falta de atención</b>. El dato no lo distingue; la pregunta es si has mirado esa empresa con el mismo cuidado que las que sí dan ámbares.</p>`;
+  return {sum, html};
+}
+
 function renderPanelMetodo(){
   const sec = document.getElementById('view-metodo'); if(!sec) return;
   const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
@@ -843,7 +888,9 @@ function renderPanelMetodo(){
     +_mblk('📋','Evaluaciones cerradas','detalle empresa a empresa', detInner, false, 'cerradas')
     +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir')
     +(function(){ const C=_calibComposicionPanel();
-        return C ? _mblk('🧩','De qué está hecho el PO', C.sum, C.html, false, 'composicion') : ''; })();
+        return C ? _mblk('🧩','De qué está hecho el PO', C.sum, C.html, false, 'composicion') : ''; })()
+    +(function(){ const E=_calibEspejoPanel();
+        return E ? _mblk('🪞','El espejo del analista', E.sum, E.html, false, 'espejo') : ''; })();
   if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }
 }
 

@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-07-30",
+ "generadoEl": "2026-07-31",
  "fuenteDeVerdad": "Calibración Ex-Post - Método KH&Claude.xlsx · hoja «Registro t0»",
  "nota": "La composición del PO (dcf, recorteSintesis, banda, robustez, gImplicito…) solo existe en el lado del método: la app no puede calcularla. Las filas sin ella son aquellas cuyo [TICKER].json dejó de ser la foto de t0 — vacío significa «no se sabe», nunca cero.",
  "t0": [
@@ -961,5 +961,254 @@
   "recorteMediano": -0.09999999999999998,
   "desfaseBetaMediano": 0.07200000000000001
  },
- "sesgo": null
+ "sesgo": null,
+ "espejo": {
+  "generadoEl": "2026-07-31",
+  "libros": 25,
+  "decisiones": {
+   "total": 32,
+   "reparto": [
+    {
+     "clave": "REAFIRMAR",
+     "n": 29,
+     "pct": 90.6
+    },
+    {
+     "clave": "AJUSTA PO",
+     "n": 2,
+     "pct": 6.2
+    },
+    {
+     "clave": "AJUSTA BANDA",
+     "n": 1,
+     "pct": 3.1
+    }
+   ]
+  },
+  "senales": {
+   "total": 32,
+   "dePrecio": 15,
+   "pctDePrecio": 46.9,
+   "reparto": [
+    {
+     "clave": "S3",
+     "n": 15,
+     "pct": 46.9
+    },
+    {
+     "clave": "S6",
+     "n": 6,
+     "pct": 18.8
+    },
+    {
+     "clave": "DISC",
+     "n": 5,
+     "pct": 15.6
+    },
+    {
+     "clave": "S2",
+     "n": 5,
+     "pct": 15.6
+    },
+    {
+     "clave": "§10.4",
+     "n": 1,
+     "pct": 3.1
+    }
+   ]
+  },
+  "semaforo": {
+   "total": 334,
+   "reparto": [
+    {
+     "clave": "V",
+     "nombre": "VERDE",
+     "n": 212,
+     "pct": 63.5
+    },
+    {
+     "clave": "A",
+     "nombre": "ÁMBAR",
+     "n": 110,
+     "pct": 32.9
+    },
+    {
+     "clave": "R",
+     "nombre": "ROJO",
+     "n": 12,
+     "pct": 3.6
+    }
+   ]
+  },
+  "latencia": {
+   "medibles": 5,
+   "sinFechaDeApertura": 27,
+   "mediana": 1,
+   "maximo": 17,
+   "detalle": [
+    {
+     "empresa": "Santander",
+     "senal": "S3",
+     "dias": 17,
+     "abierta": "2026-07-11",
+     "cerrada": "2026-07-28"
+    },
+    {
+     "empresa": "Aena",
+     "senal": "S2",
+     "dias": 1,
+     "abierta": "2026-07-27",
+     "cerrada": "2026-07-28"
+    },
+    {
+     "empresa": "Amadeus",
+     "senal": "S2",
+     "dias": 1,
+     "abierta": "2026-07-27",
+     "cerrada": "2026-07-28"
+    },
+    {
+     "empresa": "Amadeus",
+     "senal": "S2",
+     "dias": 0,
+     "abierta": "2026-07-31",
+     "cerrada": "2026-07-31"
+    },
+    {
+     "empresa": "Azkoyen",
+     "senal": "S2",
+     "dias": 0,
+     "abierta": "2026-07-29",
+     "cerrada": "2026-07-29"
+    }
+   ]
+  },
+  "rachas": [
+   {
+    "empresa": "ACS",
+    "verdesSeguidos": 14,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Aena",
+    "verdesSeguidos": 14,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Bankinter",
+    "verdesSeguidos": 13,
+    "trimestres": 13
+   },
+   {
+    "empresa": "Endesa",
+    "verdesSeguidos": 8,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Santander",
+    "verdesSeguidos": 5,
+    "trimestres": 14
+   },
+   {
+    "empresa": "CIE",
+    "verdesSeguidos": 4,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Iberdrola",
+    "verdesSeguidos": 4,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Naturgy",
+    "verdesSeguidos": 4,
+    "trimestres": 9
+   },
+   {
+    "empresa": "Vidrala",
+    "verdesSeguidos": 3,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Faes Farma",
+    "verdesSeguidos": 2,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Inditex",
+    "verdesSeguidos": 2,
+    "trimestres": 13
+   },
+   {
+    "empresa": "Repsol",
+    "verdesSeguidos": 2,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Ebro Foods",
+    "verdesSeguidos": 1,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Fluidra",
+    "verdesSeguidos": 1,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Mapfre",
+    "verdesSeguidos": 1,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Amadeus",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Atresmedia",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Azkoyen",
+    "verdesSeguidos": 0,
+    "trimestres": 7
+   },
+   {
+    "empresa": "Enagas",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Logista",
+    "verdesSeguidos": 0,
+    "trimestres": 15
+   },
+   {
+    "empresa": "Miquel y Costas",
+    "verdesSeguidos": 0,
+    "trimestres": 13
+   },
+   {
+    "empresa": "Prim",
+    "verdesSeguidos": 0,
+    "trimestres": 12
+   },
+   {
+    "empresa": "Redeia",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Telefónica",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Viscofan",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   }
+  ]
+ }
 }
