@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-30",
+  "generadoEl": "2026-07-31",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -206,7 +206,7 @@
     "AMS": {
       "empresa": "Amadeus",
       "cobertura": {
-        "semanal": "2026-07-28"
+        "semanal": "2026-07-31"
       },
       "hallazgos": [
         {
@@ -256,6 +256,25 @@
           "vigenteHasta": "2026-08-02",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S2-2026-07-31",
+          "abiertoEl": "2026-07-31",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Guidance moderado por Oriente Medio + señal nº1 (pasajeros) negativa en el 2T y reservas −7,6%: determinar si es shock puntual o techo de crecimiento.",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-07-31",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S2",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-07",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -1069,9 +1088,9 @@
         {
           "id": "soc-otro-2026-07-01",
           "abiertoEl": "2026-07-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-07-31",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "BBVA reduce su participación en Telefónica del 5,007% al 1,965%, vendiendo en torno al 3,04% del capital, y deja de figurar como accionista significativo tras casi tres décadas. La participación residual se valoraba en unos 392 M €. BBVA califica la posición como financiera y no estratégica. Altera la composición del núcleo accionarial junto a SEPI, STC y Criteria.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -1211,16 +1230,17 @@
     "empresasConHallazgo": 22,
     "hallazgosActivos": 29,
     "porTipo": {
-      "otro": 7,
+      "otro": 6,
       "coyuntura": 16,
+      "senal": 1,
       "opa": 2,
       "sancion": 2,
       "litigio": 1,
       "concurso": 1
     },
-    "exigenAccion": 0,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 8,
-    "hechosCaducadosHoy": 0
+    "situacionesAbiertas": 9,
+    "hechosCaducadosHoy": 1
   }
 }

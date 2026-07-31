@@ -667,6 +667,94 @@
           "valor": 273.6
         }
       ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-31",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR. Semestre de dos velocidades: el 1T sostiene la serie y el 2T se da la vuelta. Margen EBITDA 40,0% (récord), ingresos +5,1% y EBIT ajustado +4,9% a tipos constantes, ingresos por reserva +5,1% cte y DN/EBITDA 1,0x. Pero la compañía MODERA sus previsiones de crecimiento por Oriente Medio (red flag §10.4 → S2, 7 días), el beneficio neto cae 3,7%, las reservas −3,7% en el semestre y −7,6% en el 2T, y la señal nº1 (pasajeros) se pone en negativo en el trimestre (−0,6%) con el semestre aún en +1,1%.",
+      "periodoDisplay": "1S",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 3334.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1334.3
+        },
+        {
+          "nombre": "Mg.EBITDA (%)",
+          "valor": 40.0
+        },
+        {
+          "nombre": "Bº explot. (M€)",
+          "valor": 943.2
+        },
+        {
+          "nombre": "Bº neto (M€)",
+          "valor": 700.2
+        },
+        {
+          "nombre": "BPA (€)",
+          "valor": 1.65
+        },
+        {
+          "nombre": "Pasajeros (M)",
+          "valor": 1089.1
+        },
+        {
+          "nombre": "Reservas (M)",
+          "valor": 238.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2577.5
+        },
+        {
+          "nombre": "FCF (M€)",
+          "valor": 472.2
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "impacto": "-",
+          "hecho": "La compañía modera sus previsiones de crecimiento para 2026 por el impacto de la situación geopolítica en Oriente Medio sobre el tráfico aéreo mundial. El informe no publica las cifras nuevas.",
+          "valoracion": "Primer guidance rebajado de la serie. Dispara el red flag §10.4 y la S2 abierta el 31-jul. No mueve el PO (74 €) mientras el margen y el precio por reserva aguanten, pero obliga a determinar en 7 días si es el shock de Oriente Medio o un techo de crecimiento."
+        },
+        {
+          "tipo": "Recompra",
+          "impacto": "+",
+          "hecho": "El 19 de junio se completó el programa de recompra de 500 M€ (9.816.086 acciones, 2,3% del capital). El 30 de junio se amortizaron 18.927.909 acciones de los programas de 2025.",
+          "valoracion": "Explica la subida de 436 M€ de la deuda neta sin que haya tensión alguna: DN/EBITDA sigue en 1,0x. Y es la razón de que el BPA suba (+0,3%) con el beneficio cayendo (−3,7%)."
+        },
+        {
+          "tipo": "Contrato",
+          "impacto": "+",
+          "hecho": "Nuevos contratos de Altéa: un grupo aéreo de más de 40 millones de pasajeros/año, British Airways para Altéa NDC, y All Nippon Airways completa su migración total a Altéa PSS.",
+          "valoracion": "Responde directamente al pre-mortem de desintermediación NDC: la aerolínea que lidera NDC lo adopta DENTRO de Amadeus. Refuerza el moat de Soluciones Tecnológicas, el segmento que más crece (+8,7% cte)."
+        },
+        {
+          "tipo": "Adquisición",
+          "impacto": "=",
+          "hecho": "Adquisición de SkyLink; los flujos de M&A del semestre ascienden a 50,5 M€.",
+          "valoracion": "Tamaño irrelevante frente a la capitalización: no activa el red flag §10.4 de M&A grande (>10%)."
+        },
+        {
+          "tipo": "Otros",
+          "impacto": "=",
+          "hecho": "Emisión de bonos a cinco años por 500 M€ al 3,75% (13 de mayo). A 30 de junio, el 93% de la deuda con intereses está a tipo fijo.",
+          "valoracion": "Acota el driver `bono_10a` de la ficha de Coyuntura: con el 93% a tipo fijo, una subida del bono a 10 años apenas toca el coste de la deuda en el corto plazo."
+        },
+        {
+          "tipo": "Dividendo",
+          "impacto": "=",
+          "hecho": "Dividendo bruto total con cargo a 2025 de 1,54 €/acción (pay-out del 50%); complementario de 1,01 € pagado el 3 de julio.",
+          "valoracion": "Confirma el DPA previsto de la tesis (1,54 €). Checklist B4 sin ningún predictor activo: 0 duros, 0 blandos."
+        }
+      ]
     }
   ]
 }
