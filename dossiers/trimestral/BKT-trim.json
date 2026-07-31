@@ -661,7 +661,7 @@
       "fecha": "2026-07-23",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2026 excelente y todo en verde: RoTE 20,36%, eficiencia 34,35%, morosidad en mínimos 1,92% y coste del riesgo 0,33%; CET1 FL 12,71% y cobertura 69,2%. El negocio crece (BNA 605,3 M€ +11,7% YoY, margen bruto 1.603 +7,3%, volúmenes 162.085 +9,6%). Calidad AA intacta; la cautela sigue en la valoración (P/TBV ~2,3x), no en el negocio.",
+      "resumen": "S1-2026 excelente y todo en verde: RoTE 20,36%, eficiencia 34,35%, morosidad en mínimos 1,92% y coste del riesgo 0,33%; CET1 FL 12,71% y cobertura 69,2%. El negocio crece (BNA 605,3 M€ +11,7% YoY, margen bruto 1.603 +7,3%, volúmenes 162.085 +9,6%). Calidad AA intacta; la cautela sigue en la valoración (P/TBV 2,08x sobre un valor tangible de 7,04 €/acción), no en el negocio.",
       "metricas": [
         {
           "nombre": "Margen de intereses (M€)",
@@ -716,6 +716,30 @@
           "hecho": "S&P Global sitúa la calificación de Bankinter (A-) con perspectiva positiva; Moody's A1 y DBRS A.",
           "impacto": "+",
           "valoracion": "La perspectiva positiva de S&P refuerza el perfil de solvencia y podría abaratar el coste de financiación mayorista."
+        },
+        {
+          "tipo": "Resultados",
+          "hecho": "23 M€ de las comisiones del segundo trimestre corresponden a la comisión de éxito de los vehículos de Helia (inversión alternativa). Excluido el extraordinario, las comisiones netas crecen +12% en lugar de +23%.",
+          "impacto": "=",
+          "valoracion": "No cambia el verde ni la tesis, pero sí la lectura del crecimiento: ~16 M€ después de impuestos, en torno a 2,7 puntos del BNA, no son recurrentes. Ex-extraordinario el beneficio crecería ~+9% en vez de +11,7%."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "En el stress test de la EBA, Bankinter registra el menor impacto de CET1 en el escenario adverso entre los bancos cotizados de la eurozona: −56 pbs, frente a −162/−282 pbs de los cinco comparables españoles. Su requerimiento de Pilar II (P2R, 1,50%) es el cuarto más bajo de 110 entidades europeas.",
+          "impacto": "+",
+          "valoracion": "Es la prueba externa del Rating AA del método: la calidad del activo y la resiliencia de capital dejan de ser una opinión del analista y pasan a estar cuantificadas por el supervisor frente a comparables. Refuerza la parte de la tesis que sostiene el premium de valoración."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Bankinter Investment tiene además pendientes de autorización dos operaciones anunciadas en el primer trimestre: la integración de su gestora con Plenium Partners SGEIC y la toma de participación en la francesa Access Capital Partners.",
+          "impacto": "+",
+          "valoracion": "Amplían la escala del negocio de inversión alternativa —el de mayor crecimiento en comisiones (TCAC 20-25 del 12%)— y le dan proyección europea. Tamaño acotado y sin consumo relevante de capital."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Bankinter no publica guidance cuantitativo anual (ni de RoTE, ni de margen, ni de beneficio); ni el informe de resultados ni la presentación del 1S26 incluyen objetivos numéricos para 2026.",
+          "impacto": "=",
+          "valoracion": "Dejar constancia para el §10.3: la ausencia de guía no es un olvido de la revisión. En su lugar el seguimiento se ancla en los umbrales propios del §10.1 y en el red flag «profit warning / recorte de guidance de RoTE», que aquí solo puede dispararse por deterioro observado, no por revisión de objetivo publicado."
         }
       ],
       "periodoDisplay": "S1"
