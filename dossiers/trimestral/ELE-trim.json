@@ -724,9 +724,9 @@
       "hechos": [
         {
           "tipo": "Guidance",
-          "hecho": "Mejora de la previsión de BPA para 2026: el objetivo pasa de 2,4 €/acción a «>2,4 €/acción», respaldado por el resultado del primer semestre y por la ejecución del programa de recompra. El resto de objetivos del plan se mantiene.",
+          "hecho": "Plan Estratégico 2026-2028, presentado el 24-feb-2026 y confirmado en el informe financiero semestral («sin desviaciones significativas respecto de las previsiones establecidas»): inversión bruta de 10,6 Bn€ (+10% sobre el plan anterior), más del 50% destinado a Redes (+40%), renovables −20%, ~85% del EBITDA regulado o contratado y ~5% de TACC de crecimiento del BPA. NOTA DE TRAZABILIDAD: el objetivo de BPA 2026 de «2,4 €/acción» que figuraba antes en este registro NO aparece en el informe financiero semestral —cero apariciones en 314 páginas—, así que queda como Pte. Revisión hasta localizar su fuente, presumiblemente la presentación del Plan del 24-feb-2026.",
           "impacto": "+",
-          "valoracion": "Subida de guía a mitad de año con el ~60% del objetivo anual ya cubierto: es la señal más fuerte del semestre. La propia compañía matiza que el 1S incluye efectos no recurrentes positivos, así que la mejora no es íntegramente recurrente. No cambia el PO de 28,65 €, que sigue por debajo de la cotización: la tesis no es de fundamentales, es de precio."
+          "valoracion": "El plan se confirma sin desviaciones y el perfil de riesgo mejora (~85% del EBITDA regulado o contratado), que es justo lo que sostiene el verde. Lo que no se sostiene con este documento es la cifra concreta de BPA que el registro daba por buena: conviene trazarla antes de seguir apoyándose en ella. El programa de recompra sí queda bien recogido en su propio hecho (2.000 M€ de marco, sexto tramo de 500 M€ desde el 15-jul-2026)."
         },
         {
           "tipo": "Recompra",
@@ -751,6 +751,24 @@
           "hecho": "S&P mantiene el rating en BBB con perspectiva POSITIVA (17-mar-2026); Moody's en Baa1 estable (20-may-2026) y Fitch en BBB+ estable (19-may-2026).",
           "impacto": "+",
           "valoracion": "Ninguna agencia en revisión negativa y una con sesgo de mejora: el red flag §10.4 de «rebaja de rating» no solo no se activa, apunta en dirección contraria. Refuerza el margen de maniobra para sostener a la vez capex, recompra y dividendo."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "El Real Decreto-ley 18/2026, de 29 de junio, establece la eliminación progresiva del IVPEE, que desaparecerá por completo en 2028.",
+          "impacto": "+",
+          "valoracion": "Retirada de un impuesto que gravaba directamente la generación: mejora estructuralmente el margen del negocio liberalizado a partir de 2027-2028 sin que Endesa tenga que hacer nada."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Auto del Tribunal Supremo de 29-abr-2026 sobre la retribución de la transición nuclear y del carbón (TNP) del periodo 2020-2022, con 81 M€ de intereses de demora.",
+          "impacto": "+",
+          "valoracion": "Entrada no recurrente que resuelve a favor un contencioso de tres ejercicios. No cambia el negocio, pero sí aligera el litigio regulatorio pendiente."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra del 100% de Energía Colectiva, S.L.U. el 30-ene-2026, con más de 360.000 clientes y una salida de caja de 71 M€.",
+          "impacto": "+",
+          "valoracion": "Operación pequeña y de encaje directo: compra cartera de clientes en el negocio liberalizado, que es donde la tesis pide crecer. Irrelevante para el balance por tamaño."
         }
       ],
       "periodoDisplay": "1S"

@@ -743,9 +743,21 @@
         },
         {
           "tipo": "Guidance",
-          "hecho": "Reafirma las previsiones 2026: EBITDA superior a 450 M€, crecimiento del beneficio anual de más del 5% y generación de caja libre en torno a 200 M€.",
+          "hecho": "Reafirma las previsiones 2026: EBITDA superior a 450 M€, crecimiento del beneficio anual de más del 5% y generación de caja libre en torno a 200 M€. Precisión sobre la guía reiterada: el documento guía crecimiento del BENEFICIO POR ACCIÓN superior al 5% (no del beneficio absoluto), y el flujo de caja libre de ~200 M€ es «underlying», es decir, excluyendo costes de reestructuración. EBITDA >450 M€ se confirma. Tipos de cambio asumidos: EUR/GBP 0,87, EUR/BRL 6,10, EUR/CLP 1.040.",
           "impacto": "=",
           "valoracion": "Guía consistente con la inflexión del semestre; el margen récord y Sudamérica dan visibilidad al objetivo."
+        },
+        {
+          "tipo": "Remuneración",
+          "hecho": "Retribución al accionista de 2026 desglosada: 62 M€ en dividendos en efectivo (+15% interanual, tras la ampliación liberada de noviembre de 2025) y 90 M€ de recompra, ampliada hasta un máximo del 3% del capital para su amortización.",
+          "impacto": "+",
+          "valoracion": "152 M€ de retribución total con una deuda neta de 252,3 M€ y un apalancamiento de 0,6x: es holgadamente financiable. La recompra con amortización mejora el BPA, que es justo la magnitud sobre la que guía la compañía."
+        },
+        {
+          "tipo": "Operativo",
+          "hecho": "Mix por regiones en el semestre (1S25 → 1S26): Sudamérica ventas 123 → 141 y EBITDA 42 → 53; Europa 383 → 364 y 117 → 114; Reino Unido e Irlanda 281 → 250 y 63 → 59. El segundo trimestre aislado mejora: ventas 396 (−2,4%) y EBITDA 115 (+5,9%), frente a un primer trimestre de −6,0% y −3,0%.",
+          "impacto": "=",
+          "valoracion": "Dato clave para leer el semestre: todo el crecimiento viene de Sudamérica (EBITDA +26%), mientras Europa y Reino Unido ceden. Y el 2T ya mejora sobre el 1T, lo que apunta a que el suelo del ciclo europeo puede estar cerca."
         }
       ],
       "periodoDisplay": "S1"

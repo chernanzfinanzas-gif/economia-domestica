@@ -728,7 +728,7 @@
       "hechos": [
         {
           "tipo": "Adquisición",
-          "hecho": "Anuncio de la compra de Safety Insurance (EE.UU., noreste); cierre previsto en el 1T-2027.",
+          "hecho": "Anuncio de la compra de Safety Insurance (EE.UU., noreste); cierre previsto en el 1T-2027. Cifras de la operación: 105 $/acción, 1,54 Bn$ (~1,35 Bn€), PER implícito ~10,5x, con sinergias de costes de más de 30 M$/año y de capital de más de 140 M$, costes de reestructuración de 40 M$, un aumento esperado del resultado neto del Grupo superior al 5% en tres años y cierre previsto en el 1T-2027.",
           "impacto": "+",
           "valoracion": "Refuerza el liderazgo en Norteamérica; se estima acretiva (+5% del resultado del Grupo una vez integrada). No altera el veredicto ESPERAR pero mejora el perfil de crecimiento a medio plazo."
         },
@@ -737,6 +737,24 @@
           "hecho": "Terremotos en Venezuela a finales de junio; estimación conservadora con impacto atribuible máximo de 25 M€.",
           "impacto": "=",
           "valoracion": "Siniestro acotado y ya provisionado (reservas en el rango alto); sin efecto material en la tesis."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Mapfre NO publica objetivos numéricos para 2026 en este documento: no hay guía de ROE, ratio combinado, crecimiento de primas, payout ni solvencia. La única afirmación prospectiva es que «el plan estratégico continúa avanzando» y que hay «optimismo prudente para el segundo semestre del año».",
+          "impacto": "=",
+          "valoracion": "Se deja constancia para que la ausencia de guía en el §10.3 no se lea como un descuido de la revisión: la compañía sencillamente no la da. El seguimiento se ancla, por tanto, en los umbrales propios del §10.1."
+        },
+        {
+          "tipo": "Financiación",
+          "hecho": "Financiación de la compra de Safety: 700 M€ de deuda Tier 2 más 500 M€ sénior y deuda bancaria. Impacto estimado de ≈−10 puntos porcentuales en Solvencia II y ≈+7 puntos en apalancamiento. La deuda total sube a 2.905 M€ (+10,8%), el apalancamiento al 21,4% (+0,7 pp) y los gastos financieros a 63,2 M€ desde 49,4 M€.",
+          "impacto": "-",
+          "valoracion": "Es el coste real de la operación y el punto a vigilar: diez puntos de Solvencia II es una mordida seria sobre el 206,8% actual, aunque deja el ratio holgado. Los gastos financieros ya suben un 28% y seguirán subiendo en 2027."
+        },
+        {
+          "tipo": "Operativo",
+          "hecho": "EMEA entra en pérdidas: −4,6 M€ frente a +3,3 M€ del año anterior, con Italia en −14 M€ por refuerzo de reservas y un impacto de −14 M€ por hiperinflación en Turquía. En siniestralidad catastrófica: tormentas en Portugal y España y inundaciones en el sur de Turquía, con las reservas en el rango alto y 2 puntos de impacto en el combinado de Mapfre RE.",
+          "impacto": "-",
+          "valoracion": "El deterioro está concentrado y localizado —Italia y Turquía—, no es sistémico, y el grupo lo absorbe sin salirse del verde. Pero son dos focos que conviene seguir trimestre a trimestre, sobre todo el refuerzo de reservas italiano, que rara vez es de una sola vez."
         }
       ],
       "periodoDisplay": "S1"

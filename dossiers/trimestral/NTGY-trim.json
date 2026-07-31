@@ -612,7 +612,7 @@
         {
           "tipo": "Guidance",
           "impacto": "+",
-          "hecho": "Revisa al alza la previsión 2026: EBITDA superior a 5.500 M€ y beneficio neto superior a 2.100 M€, con deuda neta en el entorno de 13.000 M€.",
+          "hecho": "Revisa al alza la previsión 2026: EBITDA superior a 5.500 M€ y beneficio neto superior a 2.100 M€, con deuda neta en el entorno de 13.000 M€. Precisión sobre la guía previa: el documento indica que el objetivo anterior de beneficio neto era «superior a 1,9 Bn€» (los ~2,0 Bn€ eran el consenso de mercado, no la guía). Añade además un DPS mínimo de 1,80 €/acción —ajustable por autocartera, un 0,9% del capital—, con una rentabilidad por dividendo del 6,3% y un primer dividendo a cuenta de 0,60 €/acción el 29-jul-2026.",
           "valoracion": "Mejora sobre la guía previa (~5.300 EBITDA / ~2.000 BN / ~13.500 deuda); da soporte al semáforo verde y a la visibilidad de resultados."
         },
         {
@@ -626,6 +626,18 @@
           "impacto": "+",
           "hecho": "Aprueba un primer dividendo a cuenta de 2026 de 0,60 €/acción (pago 29-jul-2026); el dividendo total de 2025 quedó en 1,77 €/acción (+10,6%).",
           "valoracion": "Mantiene la trayectoria de retribución creciente que ancla la tesis de renta, cubierta por el FCL del periodo."
+        },
+        {
+          "tipo": "Balance",
+          "hecho": "Un pago único a Sonatrach elevará la deuda neta en unos 400 M€ durante el segundo semestre de 2026. La compañía cifra su capacidad de balance en 10.000-12.000 M€ manteniendo el rating BBB, con un FFO/DN según S&P del 30% frente al umbral del 18% exigido para BBB.",
+          "impacto": "=",
+          "valoracion": "El pago a Sonatrach explica por qué el objetivo de deuda neta ~13,0 Bn€ está por encima de los 11.745 M€ actuales: no es deterioro, es un desembolso conocido. La holgura de 12 puntos sobre el umbral BBB es la que sostiene la capacidad de compra de 10-12 Bn€."
+        },
+        {
+          "tipo": "Inversión",
+          "hecho": "Crecimiento renovable de +1,0 GW en 2026 (+360 MW en el primer semestre y 630 MW en el segundo) y +2,1 GW en 2027-2030, de los que 1,2 GW son baterías. En centros de datos: 900 MW en desarrollo y 2 GW de cartera; concurso de ciclo combinado de 400 MW en Puerto Rico previsto para el verano de 2026.",
+          "impacto": "+",
+          "valoracion": "Da contenido concreto a la «nueva fase» que anuncia la compañía: el crecimiento no es solo inorgánico, y los centros de datos abren una vía de demanda contratada a largo plazo que hoy no está en la valoración."
         }
       ],
       "periodoDisplay": "S1"

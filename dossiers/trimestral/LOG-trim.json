@@ -700,6 +700,20 @@
           "nombre": "DPA (€)",
           "valor": null
         }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de Logista Publicaciones en negociación tras la aprobación de la CNMC, con un deterioro registrado de 1 M€.",
+          "impacto": "=",
+          "valoracion": "Salida de un negocio pequeño y en declive estructural. Impacto irrelevante en cifras; relevante como señal de foco en las líneas que sí crecen."
+        },
+        {
+          "tipo": "Resultados",
+          "hecho": "Detalle del semestre (oct-2025 a mar-2026): el beneficio sobre la variación de inventario (BVI) cae a 32 M€ desde 46 M€ y los costes de reestructuración suben a 5 M€ desde 2 M€. El flujo de caja libre normalizado es de 157 M€ (63% del EBITDA) y el BPA baja a 1,03 € desde 1,14 €. El saldo medio de la línea de crédito sube a 1.928 M€ desde 1.747 M€, a un tipo del 2,48% más 0,75%.",
+          "impacto": "=",
+          "valoracion": "Los 14 M€ menos de BVI explican por sí solos buena parte de la caída del beneficio: es efecto precio del inventario de tabaco, no deterioro operativo. La caída del ingreso financiero por la bajada de tipos es el otro factor, y ese sí es estructural mientras el BCE no vuelva a subir."
+        }
       ]
     },
     {

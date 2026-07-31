@@ -789,6 +789,30 @@
           "hecho": "A cierre de junio de 2026 queda pendiente la devolución al sistema de unos 535 M€, al seguir siendo provisionales las tarifas de transporte de 2024, 2025 y 2026 (resolución de la CNMC de 26-feb-2026 sobre la retribución de 2023).",
           "impacto": "-",
           "valoracion": "No está dentro de la DFN de 5.009 M€ pero es una salida de caja comprometida equivalente a más del 10% de esa deuda. Al leer el ratio de apalancamiento conviene tenerlo presente junto con el efecto del híbrido: entre ambos, la foto de solvencia real es sensiblemente peor que el 3,87x reportado."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Confirma las perspectivas 2026, en línea con el Plan Estratégico 2026-2029: EBITDA >1.250 M€ (que el cambio de vida útil regulatoria de las repotenciaciones sitúa en ~1.300 M€), margen EBITDA >73%, beneficio neto >510 M€, deuda neta ~6.000 M€, DPA +2% e inversiones del TSO de 1.500 M€.",
+          "impacto": "=",
+          "valoracion": "El semestre va encaminado (EBITDA 672,6 y BNA 280,4), pero conviene leer el EBITDA objetivo con cuidado: los ~1.300 M€ incorporan el efecto contable de las repotenciaciones, no más negocio. Sobre la base comparable el objetivo sigue siendo el >1.250 M€."
+        },
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Actualización de los parámetros retributivos 2026-2028 y cambio de la vida útil regulatoria de las repotenciaciones de 40 a 8 años con efecto desde 2022: aporta +24 M€ en el semestre, de los que +18 M€ son no recurrentes.",
+          "impacto": "=",
+          "valoracion": "Explica buena parte de la mejora reportada del EBITDA: excluido el efecto, el crecimiento comparable es del orden del +2% y no del +5,8% reportado. Es el matiz que sostiene el ámbar pese a unas cifras que parecen buenas."
+        },
+        {
+          "tipo": "Inversión",
+          "hecho": "Encargo de la central de bombeo de Güímar (Tenerife), 200 MW, con una inversión superior a 1.000 M€.",
+          "impacto": "+",
+          "valoracion": "Proyecto regulado de gran tamaño que amplía la base de activos y da visibilidad de inversión más allá del periodo regulatorio actual. Refuerza el pilar de crecimiento del TSO."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Cobro de 154 M€ de fondos del PRTR y de 158 M€ de subvenciones por rentas de congestión de la interconexión Francia-España.",
+          "impacto": "+",
+          "valoracion": "312 M€ de entradas que financian el plan inversor sin deuda ni dilución, y que ayudan a explicar la caída de la deuda neta a 5.009 M€ desde los 5.474 M€ de diciembre."
         }
       ],
       "periodoDisplay": "S1"

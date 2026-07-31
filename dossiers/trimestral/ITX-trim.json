@@ -576,7 +576,7 @@
         },
         {
           "nombre": "Ventas cc (%)",
-          "valor": null
+          "valor": 8.8
         },
         {
           "nombre": "Margen bruto (%)",
@@ -601,6 +601,26 @@
         {
           "nombre": "PFN / Caja neta (M€)",
           "valor": 10796
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "Guía para el ejercicio 2026: margen bruto estable con una banda de ±50 puntos básicos, inversión ordinaria de ~2.300 M€, crecimiento del espacio bruto en torno al +5% con contribución positiva del espacio, e impacto de divisa esperado de −1% en las ventas del año. No publica objetivo de crecimiento de ventas a tipo constante.",
+          "impacto": "=",
+          "valoracion": "Guía continuista y coherente con el trimestre: el margen bruto del 61,2% está dentro de la banda y el capex ordinario se mantiene en el entorno habitual. Que no haya objetivo de ventas es lo normal en Inditex y no debe leerse como una omisión."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Dividendo de 1,75 €/acción con cargo a 2025, en dos pagos de 0,875 € (4-may-2026 y 2-nov-2026).",
+          "impacto": "+",
+          "valoracion": "Retribución cubierta con holgura por la caja neta y por el beneficio del ejercicio; no compromete la capacidad inversora ni el objetivo de espacio."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Trading update del segundo trimestre: las ventas en tienda y online a tipo de cambio constante crecen un +11,5% entre el 1 de mayo y el 1 de junio de 2026.",
+          "impacto": "+",
+          "valoracion": "Señal adelantada de que la reaceleración del primer trimestre continúa, y con más fuerza. Es el dato que más sostiene el verde de cara a la próxima revisión."
         }
       ]
     }

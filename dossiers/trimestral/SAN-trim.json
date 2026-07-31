@@ -5,9 +5,9 @@
     {
       "periodo": "2023-Q1",
       "fecha": "2023-04-25",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T'23: BNA 2.571 M€ con RoTE 14,4% (muy por encima del coste de capital). Arranque sólido del ciclo de re-rating; CET1 12,3% y coste del riesgo contenido (1,05%).",
+      "resumen": "1T'23: margen de intereses 10.396 M€ y margen bruto 13.922; BNA 2.571 M€ con RoTE del 14,4%, justo por encima del 14% que marca la zona de refuerzo. Arranque del ciclo de re-rating por tipos altos, pero con el CET1 en 12,2% y la morosidad en 3,05%, ambos en banda de vigilancia. Ámbar: la rentabilidad acompaña, el capital y la calidad de activos todavía no.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
@@ -31,7 +31,7 @@
         },
         {
           "nombre": "CET1 (%)",
-          "valor": 12.3
+          "valor": 12.2
         },
         {
           "nombre": "NPL (%)",
@@ -54,33 +54,33 @@
     {
       "periodo": "2023-Q2",
       "fecha": "2023-07-26",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "2T'23: BNA 2.670 M€, RoTE 14,6% al alza. Crecimiento del margen de intereses por tipos altos; morosidad y coste del riesgo estables. Tesis de creación de valor intacta.",
+      "resumen": "1S'23 acumulado: margen de intereses 20.920 M€, margen bruto 28.010 y BNA 5.241 M€, con RoTE del 14,5%. El margen crece con fuerza por los tipos, pero la eficiencia sigue en 44,2%, el CET1 no se mueve del 12,2% y la morosidad sube a 3,07%. Ámbar: la rentabilidad acompaña, el capital no construye.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 10524
+          "valor": 20920
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 14088
+          "valor": 28010
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3060
+          "valor": 6103
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 2670
+          "valor": 5241
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 14.6
+          "valor": 14.5
         },
         {
           "nombre": "CET1 (%)",
-          "valor": 12.3
+          "valor": 12.2
         },
         {
           "nombre": "NPL (%)",
@@ -103,29 +103,29 @@
     {
       "periodo": "2023-Q3",
       "fecha": "2023-10-25",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "3T'23: RoTE mejora al 15,5% y BNA 2.902 M€. El margen de intereses acelera; coste del riesgo sube a 1,13% pero dentro de guía. Buen momentum de rentabilidad.",
+      "resumen": "9M'23 acumulado: margen de intereses 32.139 M€ y BNA 8.143 M€, con el RoTE al alza hasta el 14,8%. Pero el coste del riesgo sube a 1,13% y la morosidad a 3,13%, y el CET1 apenas mejora al 12,3%. Ámbar: buen momentum de rentabilidad con la calidad de activos deslizándose.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11219
+          "valor": 32139
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 14861
+          "valor": 42871
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3119
+          "valor": 9222
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 2902
+          "valor": 8143
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 15.5
+          "valor": 14.8
         },
         {
           "nombre": "CET1 (%)",
@@ -154,27 +154,27 @@
       "fecha": "2024-01-31",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "4T'23: cierre con RoTE 15,6% y récord de beneficio anual, pero coste del riesgo sube a 1,18% y CET1 sigue en 12,3%. Señales mixtas: rentabilidad alta, capital y calidad de activos a vigilar.",
+      "resumen": "FY'23: récord de beneficio anual — BNA 11.076 M€ sobre un margen bruto de 57.423 M€, con RoTE del 15,1%. El coste del riesgo cierra en 1,18%, la morosidad en 3,14% y el CET1 sigue en 12,3%, por debajo del 13% objetivo, con la eficiencia en 44,1%. Ámbar: rentabilidad alta, capital y calidad de activos por detrás.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11122
+          "valor": 43261
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 14552
+          "valor": 57423
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 2835
+          "valor": 12057
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 2933
+          "valor": 11076
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 15.6
+          "valor": 15.1
         },
         {
           "nombre": "CET1 (%)",
@@ -211,7 +211,7 @@
       "fecha": "2024-04-30",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T'24: coste del riesgo en máximos (1,20%) y RoTE cede al 14,9%; eficiencia mejora al 42,0%. Rentabilidad sólida pero calidad de activos y capital (12,3%) en zona de vigilancia.",
+      "resumen": "1T'24: margen de intereses 11.983 M€ (+15,3% interanual) y BNA 2.852 M€, con RoTE del 14,9%. La eficiencia mejora al 42,6%, pero el coste del riesgo toca máximos de la serie en 1,20% y el CET1 sigue clavado en 12,3%. Ámbar: rentabilidad sólida con calidad de activos y capital en zona de vigilancia.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
@@ -247,7 +247,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 42.0
+          "valor": 42.6
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -258,29 +258,29 @@
     {
       "periodo": "2024-Q2",
       "fecha": "2024-07-24",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "2T'24: salto del RoTE al 16,8% y BNA 3.207 M€; morosidad baja a 3,02% y CET1 sube a 12,5%. La rentabilidad se acelera y el capital empieza a construir. Tesis reforzada.",
+      "resumen": "1S'24 acumulado: margen de intereses 23.457 M€ y BNA 6.059 M€ (+15,6% interanual), con el RoTE saltando al 15,9%. La morosidad baja al 3,02%, el CET1 sube al 12,5% y la eficiencia mejora al 41,6%. Ámbar que se acerca al verde: mejora todo salvo el coste del riesgo (1,21%).",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11474
+          "valor": 23457
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 15670
+          "valor": 30715
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3237
+          "valor": 6477
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3207
+          "valor": 6059
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.8
+          "valor": 15.9
         },
         {
           "nombre": "CET1 (%)",
@@ -296,7 +296,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 43.4
+          "valor": 41.6
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -307,29 +307,29 @@
     {
       "periodo": "2024-Q3",
       "fecha": "2024-10-29",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "3T'24: RoTE 16,7% sostenido, BNA 3.250 M€; TNAV/acc supera los 5 €. Coste del riesgo se modera. El banco compone valor tangible por acción de forma consistente.",
+      "resumen": "9M'24 acumulado: BNA 9.309 M€ y RoTE del 16,2%, con el TNAV por acción superando los 5 €. El coste del riesgo se modera al 1,18% y la eficiencia se asienta en 41,7%, pero el CET1 se queda en 12,5%. Ámbar: composición de valor tangible consistente, capital todavía por debajo del 13%.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11225
+          "valor": 34682
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 15135
+          "valor": 45850
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3189
+          "valor": 9666
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3250
+          "valor": 9309
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.7
+          "valor": 16.2
         },
         {
           "nombre": "CET1 (%)",
@@ -345,7 +345,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 44.4
+          "valor": 41.7
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -356,29 +356,29 @@
     {
       "periodo": "2024-Q4",
       "fecha": "2025-02-05",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "4T'24: récord de beneficio anual con RoTE 16,6% y CET1 al 12,8%. Coste del riesgo baja a 1,15% y TNAV/acc 5,24 €. Creación de valor consolidada; capital por encima del objetivo.",
+      "resumen": "FY'24: nuevo récord — BNA 12.574 M€ (+13,5%) sobre un margen bruto de 61.876 M€, con RoTE del 16,3%. El coste del riesgo baja al 1,15%, la eficiencia al 41,8% y el CET1 sube al 12,8%, ya muy cerca del objetivo; TNAV por acción 5,24 €. Ámbar por poco: solo falta que el capital cruce el 13%.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11986
+          "valor": 46668
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 16026
+          "valor": 61876
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3344
+          "valor": 13010
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3265
+          "valor": 12574
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.6
+          "valor": 16.3
         },
         {
           "nombre": "CET1 (%)",
@@ -394,7 +394,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 45.6
+          "valor": 41.8
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -405,9 +405,9 @@
     {
       "periodo": "2025-Q1",
       "fecha": "2025-04-30",
-      "semaforoGlobal": "V",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T'25: RoTE 16,6% y BNA 3.402 M€; morosidad baja del 3% y eficiencia mejora al 41,9%. Todos los KPIs de la tesis (rentabilidad, capital, riesgo, eficiencia) en zona favorable.",
+      "resumen": "1T'25: BNA 3.402 M€ y RoTE del 16,6%; la morosidad baja del 3% (2,99%) por primera vez en la serie y el CET1 alcanza el 12,9%, con la eficiencia en 41,8%. Ámbar al filo del verde: los cuatro pilares de la tesis —rentabilidad, capital, riesgo y eficiencia— apuntan por fin en la misma dirección.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
@@ -443,7 +443,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 41.9
+          "valor": 41.8
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -456,27 +456,27 @@
       "fecha": "2025-07-30",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "2T'25: RoTE 16,9% y CET1 alcanza el 13,0%. Morosidad en mínimos (2,91%) y eficiencia 41,5%. El banco combina rentabilidad récord con fortalecimiento de capital.",
+      "resumen": "1S'25 acumulado: BNA 6.833 M€ (+12,8% interanual) con RoTE del 16,7%; el CET1 cruza por fin el 13,0% y la morosidad marca mínimos en 2,91%, con la eficiencia en 41,5%. VERDE: es el semestre en el que el capital alcanza el objetivo y deja de ser el freno de la tesis.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 10590
+          "valor": 22716
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 14503
+          "valor": 31010
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3143
+          "valor": 6342
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3431
+          "valor": 6833
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.9
+          "valor": 16.7
         },
         {
           "nombre": "CET1 (%)",
@@ -505,27 +505,27 @@
       "fecha": "2025-10-28",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "3T'25: RoTE 16,9% y BNA 3.504 M€; CET1 13,1% y coste del riesgo 1,13%. Eficiencia líder (41,3%) y TNAV/acc 5,56 €. Trimestre de plena confirmación de la tesis.",
+      "resumen": "9M'25 acumulado: BNA 10.337 M€ y RoTE del 16,8%; CET1 13,1%, coste del riesgo 1,13% y eficiencia líder del sector (41,3%), con el TNAV por acción en 5,56 €. Verde de plena confirmación, con los cuatro KPIs de la tesis en zona de refuerzo.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 10348
+          "valor": 33816
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 14325
+          "valor": 46277
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": null
+          "valor": 9501
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3504
+          "valor": 10337
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.9
+          "valor": 16.8
         },
         {
           "nombre": "CET1 (%)",
@@ -554,27 +554,27 @@
       "fecha": "2026-02-04",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "4T'25: cierre histórico con RoTE 17,9%, CET1 13,5% y eficiencia 41,2% (la mejor reportada). BNA trimestral 3.764 M€ y TNAV/acc 5,76 €. Creación de valor máxima; capital muy por encima del objetivo.",
+      "resumen": "FY'25: cierre histórico — BNA 14.101 M€ sobre un margen bruto de 59.353 M€, con RoTE del 16,4% y CET1 al 13,5%, muy por encima del objetivo. Morosidad 2,91%, coste del riesgo 1,15% y TNAV por acción 5,76 €. Verde. PENDIENTE DE VERIFICAR: la eficiencia del año figura en 46,3% frente al 41,3% del acumulado a 9M; el salto no cuadra con la serie y no se ha tocado a la espera de contrastarlo con el informe anual.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 10789
+          "valor": 43063
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 15163
+          "valor": 59353
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3650
+          "valor": 12976
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3764
+          "valor": 14101
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 17.9
+          "valor": 16.4
         },
         {
           "nombre": "CET1 (%)",
@@ -590,7 +590,7 @@
         },
         {
           "nombre": "Eficiencia (%)",
-          "valor": 41.2
+          "valor": 46.3
         },
         {
           "nombre": "TNAV/acc (€)",
@@ -611,7 +611,7 @@
       "fecha": "2026-04-28",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "1T'26 ordinario: BNA 3.560 M€ (+12,5% interanual); estatutario 5.455 M€ por la plusvalía de la venta de Polonia (+1.895 M€), que eleva el CET1 a 14,4% (+95 pb). RoTE ordinario 15,2% (estatutario 17,3%) y eficiencia mejora a 42,8%. Comisiones 3.357 M€ y TNAV/acción salta a 6,13 € (+0,37 €). Coste del riesgo 1,14% y NPL 3,00% con leve repunte (vigilar). Anuncio de compra de Webster (~10.300 M€, 7,4% de la capitalización).",
+      "resumen": "1T'26: BNA ordinario 3.560 M€ (+12,5% interanual); el estatutario sube a 5.455 M€ por la plusvalía de la venta de Polonia (+1.895 M€), que eleva el CET1 al 14,4% (+95 pb). RoTE 15,2% y eficiencia 42,8%; comisiones 3.357 M€ y TNAV por acción 6,13 € (+0,37 €). Coste del riesgo 1,14% y morosidad 3,00%, con un leve repunte a vigilar. Anuncio de compra de Webster (~10.300 M€, un 7,4% de la capitalización). Verde.",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
@@ -660,27 +660,27 @@
       "fecha": "2026-07-22",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "2T'26 ordinario récord: BNA 3.768 M€ (+6% intertrimestral; el acumulado 1S ordinario 7.328 M€, +15% interanual). Estatutario 3.518 M€ (−36% s/1T por la ausencia de la plusvalía de Polonia y −250 M€ de costes de reestructuración de TSB). Integración de TSB desde mayo (−55 pb, CET1 hasta 14,0%). RoTE ordinario 2T 16,0% y eficiencia 42,8%. NPL mejora a 2,93% (desde 3,00%) y coste del riesgo estable en 1,15%; cobertura 64%. Comisiones 3.494 M€ (+4% s/1T) y TNAV/acción 6,32 €. Señal S3: cotización 12,08 € (jun-26) supera el PO de la tesis (~10,2 €) → revisar valoración.",
+      "resumen": "1S'26 acumulado: margen de intereses 22.711 M€ (+7%), margen bruto 30.822 y BNA ordinario 7.328 M€ (+15% interanual); el estatutario asciende a 8.973 M€ (+31%), con 1.645 M€ de partidas no recurrentes. RoTE 15,6% y eficiencia 42,8%. La integración de TSB desde mayo resta 55 pb y deja el CET1 en 14,0%; la morosidad mejora al 2,93% y el coste del riesgo se mantiene en 1,15%, con el TNAV por acción en 6,32 €. Verde, con la cautela en la valoración: señal S3 abierta al superar la cotización (12,08 € en junio) el precio objetivo de la tesis (~10,2 €).",
       "metricas": [
         {
           "nombre": "M.Intereses (M€)",
-          "valor": 11692
+          "valor": 22711
         },
         {
           "nombre": "M.Bruto (M€)",
-          "valor": 15682
+          "valor": 30822
         },
         {
           "nombre": "Comisiones netas (M€)",
-          "valor": 3494
+          "valor": 6851
         },
         {
           "nombre": "BNA (M€)",
-          "valor": 3768
+          "valor": 7328
         },
         {
           "nombre": "RoTE (%)",
-          "valor": 16.0
+          "valor": 15.6
         },
         {
           "nombre": "CET1 (%)",
@@ -733,6 +733,30 @@
           "hecho": "La cotización cerró jun-26 en 12,08 € (+27% en el trimestre), por encima del precio objetivo de la tesis (~10,2 €).",
           "impacto": "-",
           "valoracion": "Señal S3 (PO alcanzado): revisar Valoración/Tesis (Bloques 6/9) antes de ampliar posición."
+        },
+        {
+          "tipo": "Guidance",
+          "hecho": "Confirma los seis objetivos de 2026 («en buen camino para alcanzar todos nuestros objetivos»), en euros constantes y excluyendo Polonia, TSB y Webster: ingresos creciendo «un dígito medio» (1S +5%), costes «bajando» (−2%), beneficio ordinario por encima de los 14,1 Bn€ de 2025 (1S 7,3 Bn€), CET1 del 12,8-13%, TNAV por acción más dividendos «al menos a doble dígito» (+19%) y payout de ~50%, mitad en efectivo y mitad en recompras. Mantiene los objetivos del Investor Day 2028: beneficio >20 Bn€, RoTE >20%, eficiencia ~36% y CET1 ~13%.",
+          "impacto": "+",
+          "valoracion": "Todos los objetivos van cumplidos o por delante a mitad de año, y el CET1 del 14,0% deja margen incluso descontando el impacto de Webster (~−150 pb) previsto para diciembre. La guía no es el riesgo de esta tesis."
+        },
+        {
+          "tipo": "Remuneración",
+          "hecho": "El BCE aprueba una recompra de 1,8 Bn€ con cargo a los resultados del primer semestre; con ella quedan ejecutados unos 9 de los 10 Bn€ comprometidos para 2025-2026.",
+          "impacto": "+",
+          "valoracion": "El programa se cumple casi en su totalidad y a buen ritmo. Con la acción cotizando por encima del valor tangible, la recompra es menos acretiva que hace dos años, pero mantiene la disciplina de reparto anunciada."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "La integración de TSB aportará sinergias de costes de al menos 400 M£ en run-rate a 2028.",
+          "impacto": "+",
+          "valoracion": "Pone cifra al encaje industrial de la operación británica y explica parte del compromiso de eficiencia del ~36% para 2028."
+        },
+        {
+          "tipo": "Resultados",
+          "hecho": "El beneficio atribuido estatutario del semestre asciende a 8.973 M€ (+31%), con 1.645 M€ de partidas no recurrentes. La calidad crediticia mejora al excluir Argentina: coste del riesgo del 1,07% y morosidad del 2,88%, frente al 1,15% y 2,93% reportados.",
+          "impacto": "=",
+          "valoracion": "Dos matices de lectura: el +31% del atribuido no es comparable (lleva 1.645 M€ de extraordinarios) y la morosidad reportada está algo tensada por Argentina. Ninguno cambia el verde."
         }
       ]
     }
