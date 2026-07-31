@@ -658,7 +658,7 @@
       "fecha": "2026-07-29",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "El mejor semestre de la serie: ventas 26.168 M€ (+8,5%), EBITDA 1.618 M€ (+12,8%) con el margen en 6,2% (+24 pb), beneficio neto 510 M€ (+13,3%) y BPA 1,95 €. Cartera récord de 105.856 M€ (+18,5%) y, sobre todo, el balance da la vuelta: de 2.202 M€ de deuda neta a 1.006 M€ de CAJA NETA, 3.208 M€ de mejora en doce meses. S&P subió el rating a BBB el 28-jul. Verde sin matices en lo operativo; el problema está en el precio, que cotiza por encima del PO bull con una S3 abierta desde el 22-jul.",
+      "resumen": "El mejor semestre de la serie: ventas 26.168 M€ (+8,5%), EBITDA 1.618 M€ (+12,8%) con el margen en 6,2% (+24 pb), beneficio neto 510 M€ (+13,3%) y BPA 1,95 €. Cartera récord de 105.856 M€ (+18,5%) y, sobre todo, el balance da la vuelta: de 2.202 M€ de deuda neta a 1.006 M€ de CAJA NETA, 3.208 M€ de mejora en doce meses. S&P subió el rating a BBB el 28-jul. Verde sin matices en lo operativo; el problema está en el precio, que cotiza por encima del PO bull con una S3 abierta desde el 22-jul. GUIDANCE (solo en la presentación del 29-jul, no en el informe): la compañía ELEVA su objetivo de crecimiento del BN Ordinario 2026 del +20-25% al +30-35%, hasta c. 1.110-1.155 M€ —por encima del >900 M€ que el §10.1 marca como REFUERZA—, y Turner sube su previsión de BAI operativo a 1.400-1.460 M$. Y el crecimiento a tipos constantes, que el informe tampoco da: ventas +12,0% FX-adj. frente al +8,5% reportado, y EBITDA +14,2% frente al +12,8%. El semáforo se mantiene en VERDE: estos datos lo refuerzan, no lo cambian.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
@@ -702,6 +702,12 @@
         }
       ],
       "hechos": [
+        {
+          "tipo": "Guidance",
+          "impacto": "+",
+          "hecho": "ACS ELEVA su objetivo anual: el crecimiento del Beneficio Neto Ordinario 2026 pasa de «+20-25%» a «+30-35%», hasta c. 1.110-1.155 M€. Por separado, Turner sube su previsión de BAI operativo a 1.400-1.460 M$. Ambos datos están en la presentación de resultados del 29-jul; el informe de resultados no los recoge.",
+          "valoracion": "Es una subida de guía, no un recorte, y se puede cruzar con tu propio umbral: el §10.1 pide un beneficio neto >900 M€ para REFORZAR la tesis, y el objetivo que la compañía fija ahora (1.110-1.155 M€) queda cómodamente por encima. Refuerza el verde del semestre y sostiene el PO sin tocarlo. Ojo al matiz de definición: el objetivo es sobre BN ORDINARIO, mientras que la métrica del §10.3 es el BNA atribuible reportado — no son la misma magnitud y no deben cruzarse sin decirlo."
+        },
         {
           "tipo": "Regulatorio",
           "hecho": "S&P mejoró el 28-jul-2026 la calificación crediticia de ACS a BBB, con subida también para HOCHTIEF y CIMIC. Motivos citados: un perfil empresarial y unos indicadores de solvencia más sólidos y una estructura corporativa simplificada.",
