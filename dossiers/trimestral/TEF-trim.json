@@ -696,7 +696,7 @@
       "fecha": "2026-07-29",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Tercer trimestre consecutivo de crecimiento, margen EBITDA aj. récord (35,2%), desapalancamiento a 2,68x y guía de OpCFaL revisada AL ALZA (>2% → >3%). Pero los ingresos van a +0,4% constante frente a un objetivo de +1,5-2,5%, el FCF de continuadas cae −35,1% (944 M€, 31% de la guía anual) con el FCF total en negativo, la cobertura de intereses baja a 2,15x y Alemania se contrae con fuerza. El atribuido es una pérdida de −338 M€ por las salidas de Hispam. Ámbar: el giro es real, la caja va por detrás.",
+      "resumen": "Tercer trimestre consecutivo de crecimiento, margen EBITDA aj. récord (35,2%), desapalancamiento a 2,68x y guía de OpCFaL revisada AL ALZA (>2% → >3%). Pero los ingresos van a +0,4% constante frente a un objetivo de +1,5-2,5%, el FCF de continuadas cae −35,1% (944 M€, 31% de la guía anual) con el FCF total en negativo, la cobertura de intereses baja a 2,15x y Alemania se contrae con fuerza. El atribuido es una pérdida de −338 M€ (operaciones continuadas +614, discontinuación −821) por las salidas de Hispam; el beneficio neto AJUSTADO de continuadas, que la compañía titula aparte, es de 954 M€ (−21,0%). Ámbar: el giro es real, la caja va por detrás.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
@@ -712,7 +712,7 @@
         },
         {
           "nombre": "Bº neto (M€)",
-          "valor": 954
+          "valor": -338
         },
         {
           "nombre": "OpCFaL (M€)",
@@ -781,6 +781,12 @@
           "hecho": "Alemania: además de los 265 M€ ya registrados, el plan de 2026 contempla ~1.100 bajas voluntarias y el cierre de ~60 tiendas propias.",
           "impacto": "-",
           "valoracion": "Pone dimensión al ajuste alemán: no es solo una provisión, es una reducción de capacidad comercial. Confirma que la contracción de Alemania es estructural y no un mal trimestre."
+        },
+        {
+          "tipo": "Resultados",
+          "hecho": "Cuenta de resultados del semestre (estados financieros intermedios): operaciones continuadas +614 M€, operaciones en discontinuación −821 M€, resultado del periodo −207 M€, atribuido a los accionistas de la dominante −338 M€ (+474 de continuadas y −812 de discontinuadas) y +132 M€ a minoritarios. El «beneficio neto ajustado de operaciones continuadas» que titula el informe de resultados son 954 M€ (−21,0%).",
+          "impacto": "=",
+          "valoracion": "Las dos cifras son reales y miden cosas distintas, y confundirlas es lo que tenía el §10.3 diciendo una cosa y su propio resumen la contraria. El −338 es el resultado del accionista y es el que sigue la serie; el 954 mide el negocio que se queda, ya sin Hispam, y cae un 21%. Ninguna de las dos sostiene sola la lectura del semestre: la primera está distorsionada por la salida y la segunda la ignora."
         }
       ],
       "periodoDisplay": "1S"
