@@ -329,6 +329,8 @@ function _tzBadges(V){
   if(V.ds && typeof _radDsCell==='function') b.push('💧 '+_radDsCell(V.ds));
   if(V.fo && typeof _radFoCell==='function') b.push('🔬 '+_radFoCell(V.fo));
   if(V.rdcf && V.rdcf.veredicto) b.push('<span title="Reverse DCF: crecimiento implícito en el precio" style="background:#1e3a8a;color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700">📈 '+_tzEsc(V.rdcf.veredicto)+'</span>');
+  /* [31-jul-2026] El g implicito de HOY, junto al veredicto del dossier. Ver 27-derivag.js. */
+  if(V.t){ try{ var _dg=(typeof dgInsignia==='function')?dgInsignia(V.t):''; if(_dg) b.push(_dg.trim()); }catch(_e){} }
   if(V.robustez && (V.robustez.veredicto||V.robustez.robusta!=null)) b.push('<span title="Robustez de la decisión ante ±sensibilidad" style="background:#0f766e;color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700">🛡️ '+_tzEsc(V.robustez.veredicto||(V.robustez.robusta?'robusta':'sensible'))+'</span>');
   return b.length?('<div style="display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-top:8px">'+b.join('')+'</div>'):'';
 }
