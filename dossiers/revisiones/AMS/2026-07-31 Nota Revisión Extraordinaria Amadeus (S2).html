@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMS · Nota de Revisión Extraordinaria · S1-2026 · 2026-Q2</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#0070C0;--corp-dark:#00457A;--corp-light:#E8F2FB}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Amadeus IT Group, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Revisión Extraordinaria</span>
+        <span class="badge badge-sig">S1-2026 · 2026-Q2</span>
+        <span class="badge badge-soft">Veredicto vigente: COMPRAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">AMS · BME · IBEX 35<br>Fecha: 31 de julio de 2026<br>Plazo señal: 7 días — vence el 7-ago-2026</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">COMPRAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">COMPRAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">74 €</div><div class="kpi-sub">bear 54 · bull 110</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">53,78 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+37,6%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">g implícito hoy</div><div class="kpi-val green">−1,07%</div><div class="kpi-sub">el precio aún descuenta decrecimiento</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p>El semáforo del S1-2026 se cerró en <b>ÁMBAR</b> y con él saltó un red flag del §10.4: <b>«profit warning o guidance rebajado»</b>, cuya acción prescrita es un monitor extraordinario en 7 días. El gatillo tiene tres patas y conviene separarlas. Primera, la compañía revisa a la baja su previsión de crecimiento para 2026 por la situación geopolítica en Oriente Medio. Segunda, la <b>SEÑAL Nº1 del §10.1 —pasajeros embarcados— cruzó a negativo en el segundo trimestre estanco (−0,6%)</b>, la primera vez fuera del periodo COVID, aunque el semestre cierre todavía en +1,1%. Y tercera, las reservas cedieron un 3,7% en el semestre y un <b>7,6% en el trimestre</b>, frente al −4% que esperaba el consenso. Se suma un cuarto elemento que no es gatillo pero sí contexto: es la <b>segunda señal S2 en cinco días</b>. La anterior se abrió el 27-jul por los RPK de IATA y se reafirmó el 28 con el argumento de que aquel dato era un proxy sectorial y no la métrica propia de Amadeus. Esta se abre ya con los datos de la empresa encima de la mesa, y por eso exige una respuesta distinta a la de hace cuatro días.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>El hecho está corroborado en la <b>fuente primaria</b>: la lámina «2026 Outlook» de la presentación de resultados publicada por la propia Amadeus el 31-jul-2026 detalla el antes y el después. El supuesto de crecimiento del tráfico aéreo global baja de <b>+4,5% a +2%</b>, siguiendo la revisión de IATA (de +4,4% en su informe de diciembre de 2025 a <b>+1,9%</b> en el «2026 Global Outlook for Air Transport» del 7 de junio de 2026). Con ese supuesto, los ingresos del Grupo pasan de «dígito alto» a «dígito medio-alto» y el BPA ajustado diluido de «dos dígitos bajos» a «dígito alto a dos dígitos bajos», ambos a tipos constantes. <b>Lo que la lámina marca literalmente como «Unchanged»:</b> el margen de EBIT ajustado, el flujo de caja libre ajustado (1.350–1.450 M€), el CAPEX (10–12% de los ingresos), Air IT Solutions y Hospitality &amp; Other Solutions. El único segmento revisado es <b>Distribución Aérea</b>, y solo su extremo bajo: de «dígito medio-alto» a «dígito bajo-medio». La propia compañía lo enuncia así: <i>«la evolución más lenta del tráfico aéreo lleva a una revisión de nuestro outlook, específicamente del extremo bajo de nuestro rango para Distribución Aérea»</i>, y añade que provee <i>«un rango revisado más amplio de lo habitual»</i> por prudencia ante la incertidumbre. La prensa financiera recogió el mismo movimiento y el mercado lo premió: la acción <b>subió un 2%</b> en la sesión, con el EBITDA del trimestre batiendo el consenso en un ~3% por mejores márgenes en todos los segmentos.</p>
+  <div class="cb-src">Fuente primaria: <i>2026 Q2 Presentación de Resultados Amadeus (ENG)</i>, lámina «2026 Outlook», pág. 16 · <i>Informe de Resultados del primer semestre de 2026</i>, cerrado el 30 de junio. Corroboración secundaria en prensa financiera (enlaces al pie).</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El recorte está acotado a un segmento y a su extremo bajo, y la caja no se toca.</div>
+    <div class="seg-body">El supuesto de tráfico aéreo se ha partido por la mitad —de +4,5% a +2%— y con esa hipótesis reducida a menos de la mitad la compañía <b>mantiene sin cambios el margen de EBIT, el objetivo de caja de 1.350–1.450 M€, el CAPEX y los dos segmentos que no dependen del tráfico</b>. Esa asimetría es el diagnóstico: si el problema fuera del negocio, el margen y la caja se moverían con el volumen, y no lo hacen. Lo confirma la mecánica del semestre: las reservas caen un 3,7% pero <b>el ingreso por reserva crece un 5,1% a tipos constantes</b> — se pierde volumen, no poder de fijación de precios, que es exactamente lo que la tesis compró. El margen EBITDA marca <b>récord de toda la serie con un 40,0%</b> (+0,9 pp) y los márgenes batieron el consenso en todos los segmentos. La causa está identificada y es geográfica: Oriente Medio y África, que pesa un 8,3% de los pasajeros, cae un 10,3% en el semestre; y el propio informe señala que la disrupción se moderó tras alcanzar su punto álgido en marzo. La caja del semestre (472,2 M€, +0,8%) extrapola a ~1.397 M€ con la estacionalidad de 2025 — dentro del rango que la compañía mantiene.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">La señal nº1 cruzó a la baja y el volumen fue peor de lo que nadie esperaba.</div>
+    <div class="seg-body">Los <b>pasajeros embarcados —la señal nº1 del §10.1— entraron en negativo en el trimestre (−0,6%)</b>, la primera vez fuera del COVID. Y las reservas cayeron un <b>7,6% en el trimestre frente al −4% del consenso</b>: el deterioro de volumen fue más rápido de lo que el mercado y esta casa creíamos hace cuatro días, cuando se reafirmó la S2 anterior. El <b>beneficio neto reportado cae un 3,7%</b>, el primer retroceso de la serie que se sigue desde 2023, y el §10.1 pide «récord/crece» para reforzar. Es también la <b>primera revisión a la baja del outlook</b> desde que se cubre la empresa, y baja el suelo de las dos magnitudes guiadas. Y un matiz que impide atribuirlo todo a Oriente Medio: <b>Norteamérica cae un 4,7% en pasajeros</b> en el semestre y un 8,2% en el trimestre, con las reservas también en negativo. El shock tiene un epicentro claro, pero no está confinado a él.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Diagnóstico: PUNTUAL, con confianza alta.</b> Lo que decide no es que el outlook se haya revisado —eso es un hecho—, sino <b>qué se ha revisado y qué no</b>. Con el supuesto de tráfico reducido a menos de la mitad, la compañía mantiene intactos el margen, la caja, el CAPEX y los dos segmentos ajenos al volumen aéreo, y recorta únicamente el extremo bajo de un segmento. Eso es la definición de un <b>shock de volumen absorbido por un negocio diversificado</b>, no un techo de crecimiento. El matiz honesto: el deterioro fue más profundo de lo previsto y no está confinado a Oriente Medio, así que la confianza es alta en el diagnóstico y no en la magnitud. Queda una hipótesis <b>ahora medible</b>: el guidance descansa sobre un +2% de tráfico global. Si el tráfico real se queda por debajo, el siguiente recorte ya no será geopolítica — será el negocio.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>El riesgo estaba mapeado.</b> El pre-mortem nº1, «Shock aéreo global 2.0» (prob. 8%, impacto ≤−50%), tiene por detonante literal <i>«pandemia/geopolítica que colapsa el tráfico»</i>, y el driver `trafico_aereo` de la ficha de Coyuntura fija su umbral de alarma en <i>«caída interanual 2 meses seguidos»</i>: <b>IATA lo cruzó en abril y mayo</b>. El umbral está cruzado y por eso la señal es legítima. Ahora bien, <b>la cadena de consecuencias del pre-mortem no ha progresado</b>: el tráfico se ha frenado, no colapsado (IATA sigue en +1,9% positivo), y los efectos de segundo orden que el escenario describe —compresión de márgenes y de caja— no aparecen; al contrario, ambos mejoran. Se mantiene la probabilidad sin elevarla.<br><br><b>Y dos riesgos mapeados retroceden.</b> El pre-mortem nº2, «Desintermediación estructural NDC» (prob. 10%), se mueve en dirección contraria a la temida: <b>British Airways adopta Altéa NDC</b>, All Nippon Airways completa su migración total a Altéa PSS y un grupo aéreo de más de 40 M de pasajeros/año firma Altéa. La aerolínea que lidera el NDC lo está adoptando <i>dentro</i> de Amadeus. El nº3, «Disrupción IA agentic» (prob. 7%), recibe la primera respuesta pública de la compañía: lanzamiento de la Travel Advertising Platform y posicionamiento explícito como «orquestador neutral en un ecosistema de viajes con IA» — una intención, todavía no un resultado, pero convierte un riesgo que se vigilaba desde fuera en algo medible por ejecución.<br><br><b>Un apunte nuevo para la matriz:</b> la adquisición de IPS (Idemia Public Security), con contrato firmado y cierre previsto a mediados de 2027, supone un máximo de 1.350 M€ — un <b>5,8% de la capitalización</b>, por debajo del umbral del 10% del red flag de «M&amp;A grande», así que no dispara nada. Pero es la mayor operación de la tesis y se financia con un préstamo puente: vigilar precio pagado contra ROIC y el efecto sobre una deuda neta que hoy está en un cómodo 1,0x.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>El Bull case sigue vivo y el Bear no se ha activado.</b> El caso bajista de la tesis es explícito: <i>«shock aéreo (pandemia/recesión) o desintermediación estructural por NDC → ~30-35 €»</i>. De los dos detonantes, el primero se ha materializado en versión atenuada —un frenazo, no un colapso, y absorbido sin tocar margen ni caja— y el segundo se está moviendo en sentido opuesto. Ninguno de los dos sostiene hoy el escenario de 30-35 €.<br><br><b>El precio objetivo aguanta.</b> El PO de 74 € sale de una síntesis del Bloque VI —DCF sobre FCF real más múltiplos históricos— construida sobre la capacidad de generación de caja del negocio, no sobre el crecimiento de un segmento. Lo que el outlook ha revisado es el ritmo de Distribución Aérea; el objetivo de flujo de caja libre de la propia compañía <b>no se ha tocado</b>, y es esa magnitud la que alimenta la valoración. <b>No procede mover PO, banda de entrada ni stop</b>, y moverlos por la cotización estaría prohibido por el §10.5. Los catalizadores de la tesis siguen en pie: recuperación del tráfico (aplazada, no cancelada), cierre del descuento de valoración, retribución al accionista —500 M€ de recompra ya ejecutados y 1,54 € de dividendo— y monetización del NDC vía Nevio, que este trimestre ha dado su primera prueba visible.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class='tool-row'><span class='tool-name'>Reverse DCF (15)</span><span class='pill g'>OK</span><span><b>La herramienta pertinente al gatillo.</b> El precio exige hoy un <b>−1,07%</b> de crecimiento del FCL (era −2,01% el 20-jul, a 49,94 €). Sigue siendo <b>negativo</b>: el mercado continúa descontando que la caja de Amadeus decrezca, para una compañía cuyo propio guidance —ya recortado— prevé crecer a dígito medio-alto. Veredicto <b>PLAUSIBLE</b>, sin cambios. La banda se ha estrechado 0,9 pp desde el análisis, que es mucho menos de lo que un guidance rebajado haría temer.</span></div><div class='tool-row'><span class='tool-name'>Dividend Safety (12)</span><span class='pill g'>OK</span><span>Score <b>88 · «Muy seguro»</b>. Checklist B4 de predictores de recorte: <b>0 duros, 0 blandos</b>. El dividendo con cargo a 2025 quedó fijado en 1,54 € (pay-out del 50%), el complementario de 1,01 € se pagó el 3 de julio y el objetivo de flujo de caja libre no se ha tocado en el outlook revisado.</span></div><div class='tool-row'><span class='tool-name'>Forense (13)</span><span class='pill g'>OK</span><span>Sin alertas y <b>sin veto</b> en la última ejecución (Piotroski/Altman/Beneish/Sloan). Nada en este trimestre —márgenes en récord, caja creciendo, sin deterioros anunciados— sugiere que haya que reejecutarlo antes de la actualización anual.</span></div><div class='tool-row'><span class='tool-name'>Robustez (02-02)</span><span class='pill g'>OK</span><span>Decisión <b>sólida</b>: sobrevive a mover el coste de capital ±1 pp y el crecimiento ±0,5 pp, con la cotización fuera de la banda de precio objetivo resultante (58,6–118,6 €). El veredicto no depende del supuesto elegido.</span></div><div class='tool-row'><span class='tool-name'>ROIIC (14)</span><span class='pill a'>n/a</span><span>No re-ejecutado: el gatillo es de <b>volumen y guidance</b>, no de reinversión ni de creación de valor incremental. Se re-ejecutará en la actualización anual, como toca.</span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">«Si descubriera hoy Amadeus por primera vez, a 53,78 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la dejaría en watchlist, o la descartaría?»</div>
+  <div class="anchor-a"><b>La compraría.</b> A 53,78 € el valor está <b>dentro de la banda de entrada de la propia tesis (45–55 €)</b>, con un 37,6% de margen hasta el PO base y un reverse DCF que sigue exigiendo <b>decrecimiento</b> del flujo de caja libre a una compañía que, incluso con el guidance recortado, va a crecer a dígito medio-alto. Un negocio de rating AA con moat ancho, ROIC del 19,8% frente a un WACC del 6,3%, margen EBITDA en máximos históricos, deuda a 1,0x y forense sin una sola alerta no se descarta porque un trimestre pierda volumen por un conflicto geopolítico.<br><br><b>Lo incómodo, que también toca decirlo:</b> el mercado ha hecho hoy esta misma lectura —la acción subió un 2% con el guidance recortado, porque el margen pesó más que el volumen—, así que esta nota <b>no está descubriendo una discrepancia</b>: está confirmando que el argumento sigue en pie. Y hay un sesgo que vigilar: es la segunda vez en cinco días que se reafirma esta tesis, y reafirmar dos veces seguidas es precisamente la forma en que la convicción se convierte en anclaje. La defensa contra eso no es dudar por dudar, es haber escrito el criterio <b>antes</b> de ver los datos —cosa que se hizo— y haber dejado por escrito qué lo rompería: si el tráfico real se queda por debajo del +2%, o si el recorte alcanza el margen, la caja o Soluciones Tecnológicas, la respuesta cambia. Ese es el compromiso que esta nota deja firmado.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">El deterioro es de <b>volumen</b>, está acotado a Distribución Aérea y a su extremo bajo, y la compañía mantiene sin cambios margen, caja, CAPEX y los dos segmentos ajenos al tráfico. La tesis —un peaje de calidad sobre el viaje, no una apuesta por el número de pasajeros— <b>sigue intacta</b>. Se mantienen veredicto <b>COMPRAR</b>, PO base <b>74 €</b> (bear 54 / bull 110), banda de entrada <b>45–55 €</b> y stop de tesis <b>30 €</b>. No se modifica ningún campo del <code>AMS.json</code>.</div>
+  <div class="action-line">Acción: mantener. La cotización (53,78 €) está dentro de la banda de entrada, así que ampliar posición sigue siendo coherente con la tesis. Vigilancia específica hasta el 3T: el tráfico aéreo global real contra el supuesto de +2% de la compañía, el margen de EBIT ajustado y el crecimiento de Soluciones Tecnológicas.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>Amadeus IT Group — <i>Resultados del primer semestre de 2026</i> y <i>2026 Q2 Results Presentation</i>, lámina «2026 Outlook» (documentos del emisor, 31-jul-2026).</li><li>IATA — <i>Global Outlook</i> (dic-2025) y <i>2026 Global Outlook for Air Transport</i> (7-jun-2026), citados por Amadeus como base de su supuesto de tráfico.</li><li>Investing.com — «Amadeus rises as strong margins outweigh trimmed 2026 outlook»: <a href='https://www.investing.com/news/earnings/amadeus-rises-as-strong-margins-outweigh-trimmed-2026-outlook-4826954'>investing.com/news/earnings/amadeus-rises-as-strong-margins-outweigh-trimmed-2026-outlook-4826954</a></li><li>Libertad Digital — «Amadeus gana 700 millones hasta junio, un 3,7% menos»: <a href='https://www.libertaddigital.com/libremercado/negocios/2026-07-31/amadeus-gana-700-millones-hasta-junio-un-3-7-por-ciento-menos-7443924/'>libertaddigital.com/libremercado/negocios/2026-07-31/amadeus-gana-700-millones-hasta-junio-un-3-7-por-ciento-menos</a></li></ul></div>
+
+<div class="disclaimer">Documento de trabajo del Método de Análisis Financiero KH&amp;Claude. No es una recomendación de inversión ni un informe de análisis regulado: es el registro de una decisión propia, con sus datos y su razonamiento a la vista para poder ser juzgada después. Toda cifra procede del Excel de análisis, del informe y la presentación de resultados del emisor o de las fuentes citadas; la cotización, únicamente de la Matriz Bolsa Española. Lo que no ha podido determinarse se marca «Pte. Revisión» en lugar de estimarse. Esta nota cierra la señal S2 abierta el 31-jul-2026 y su desenlace queda registrado en el §10.5 del libro de Vigilancia, en <code>estado.json</code> y en el puente <code>hallazgos.json</code>. Carlos HB &amp; Claude IA · 31 de julio de 2026.</div>
+
+</div></body></html>

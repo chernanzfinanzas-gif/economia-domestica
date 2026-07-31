@@ -673,7 +673,7 @@
       "fecha": "2026-07-31",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "ÁMBAR. Semestre de dos velocidades: el 1T sostiene la serie y el 2T se da la vuelta. Margen EBITDA 40,0% (récord), ingresos +5,1% y EBIT ajustado +4,9% a tipos constantes, ingresos por reserva +5,1% cte y DN/EBITDA 1,0x. Pero la compañía MODERA sus previsiones de crecimiento por Oriente Medio (red flag §10.4 → S2, 7 días), el beneficio neto cae 3,7%, las reservas −3,7% en el semestre y −7,6% en el 2T, y la señal nº1 (pasajeros) se pone en negativo en el trimestre (−0,6%) con el semestre aún en +1,1%.",
+      "resumen": "ÁMBAR. Semestre de dos velocidades: el 1T sostiene la serie y el 2T se da la vuelta. Margen EBITDA 40,0% (récord), ingresos +5,1% y EBIT ajustado +4,9% a tipos constantes, ingresos por reserva +5,1% cte y DN/EBITDA 1,0x. En contra: beneficio neto −3,7%, reservas −3,7% en el semestre y −7,6% en el 2T, y la señal nº1 (pasajeros) en negativo en el trimestre (−0,6%). El outlook 2026 se revisa a la baja SOLO en Distribución Aérea y solo en su extremo bajo, con el supuesto de tráfico aéreo partido por la mitad (+4,5% → +2%): margen, FCF, CAPEX y los dos segmentos no aéreos quedan SIN CAMBIOS. Shock de volumen acotado, no techo de crecimiento.",
       "periodoDisplay": "1S",
       "metricas": [
         {
@@ -721,8 +721,8 @@
         {
           "tipo": "Guidance",
           "impacto": "-",
-          "hecho": "La compañía modera sus previsiones de crecimiento para 2026 por el impacto de la situación geopolítica en Oriente Medio sobre el tráfico aéreo mundial. El informe no publica las cifras nuevas.",
-          "valoracion": "Primer guidance rebajado de la serie. Dispara el red flag §10.4 y la S2 abierta el 31-jul. No mueve el PO (74 €) mientras el margen y el precio por reserva aguanten, pero obliga a determinar en 7 días si es el shock de Oriente Medio o un techo de crecimiento."
+          "hecho": "Revisión del outlook 2026 (presentación de resultados, lámina «2026 Outlook»): el supuesto de tráfico aéreo global baja de +4,5% a +2% siguiendo a IATA (de +4,4% en dic-2025 a +1,9% el 7-jun-2026). Ingresos del Grupo pasan de «dígito alto» a «dígito medio-alto» y el BPA ajustado diluido de «dos dígitos bajos» a «dígito alto a dos dígitos bajos», ambos a tipos constantes. SIN CAMBIOS: margen de EBIT ajustado, FCF ajustado (1.350-1.450 M€), CAPEX (10-12% de ingresos), Air IT Solutions y Hospitality & Other Solutions. El único segmento revisado es Distribución Aérea, y solo el extremo bajo del rango: de «dígito medio-alto» a «dígito bajo-medio».",
+          "valoracion": "El recorte es de VOLUMEN y está acotado a un solo segmento. Con el supuesto de tráfico partido por la mitad, la compañía mantiene sin tocar margen, caja, CAPEX y los dos segmentos que no dependen del tráfico: eso es un shock absorbido por un negocio diversificado, no un techo de crecimiento. Es lo que resuelve la S2 abierta el 31-jul en REAFIRMAR. El PO (74 €) no se mueve. Queda una hipótesis ahora medible: si el tráfico real se queda por debajo del +2%, el siguiente recorte ya no será geopolítica."
         },
         {
           "tipo": "Recompra",
@@ -753,6 +753,18 @@
           "impacto": "=",
           "hecho": "Dividendo bruto total con cargo a 2025 de 1,54 €/acción (pay-out del 50%); complementario de 1,01 € pagado el 3 de julio.",
           "valoracion": "Confirma el DPA previsto de la tesis (1,54 €). Checklist B4 sin ningún predictor activo: 0 duros, 0 blandos."
+        },
+        {
+          "tipo": "M&A",
+          "impacto": "=",
+          "hecho": "Adquisición de IPS (Idemia Public Security): contrato de compraventa firmado, con cierre previsto para mediados de 2027. Precio base 1.200 M€ más earn-out de hasta 150 M€, financiado con un préstamo puente sindicado a un año.",
+          "valoracion": "1.350 M€ como máximo sobre una capitalización de ~23.200 M€ son un 5,8%: por debajo del umbral del 10% del red flag §10.4 de «M&A grande», así que no dispara nada. Pero es la operación más grande de la tesis y su cierre queda a dos años vista: vigilar el precio pagado contra el ROIC y el efecto del puente sobre la deuda neta, que hoy está en un cómodo 1,0x."
+        },
+        {
+          "tipo": "Otros",
+          "impacto": "+",
+          "hecho": "Lanzamiento de la Amadeus Travel Advertising Platform y posicionamiento explícito de la compañía como «orquestador neutral en un ecosistema de viajes habilitado por IA».",
+          "valoracion": "Primera respuesta pública al driver `ia_agentic` y al pre-mortem nº3 (plataformas de IA capturan la distribución, prob. 7%, impacto ≤−50%). No cambia el juicio todavía —es una intención, no un resultado— pero convierte un riesgo que se vigilaba desde fuera en algo que ahora se puede medir por lo que la empresa ejecute."
         }
       ]
     }

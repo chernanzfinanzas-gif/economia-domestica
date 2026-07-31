@@ -260,9 +260,9 @@
         {
           "id": "S2-2026-07-31",
           "abiertoEl": "2026-07-31",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-07-31",
+          "desenlace": "REAFIRMAR TESIS. El recorte del outlook 2026 está acotado a Distribución Aérea y a su extremo bajo (de «dígito medio-alto» a «dígito bajo-medio»), con el supuesto de tráfico aéreo global bajando de +4,5% a +2% en línea con IATA (+4,4% → +1,9%). La compañía mantiene SIN CAMBIOS el margen de EBIT ajustado, el FCF (1.350-1.450 M€), el CAPEX y los dos segmentos ajenos al tráfico. Es un shock de VOLUMEN absorbido por un negocio diversificado, no un techo de crecimiento: las reservas caen 3,7% pero el ingreso por reserva crece 5,1% cte y el margen EBITDA marca récord (40,0%). El pre-mortem nº1 cruzó su umbral (IATA negativo en abril y mayo) pero su cadena no ha progresado; el nº2 (desintermediación NDC) retrocede — British Airways adopta Altéa NDC. Reverse DCF: el precio aún exige −1,07% de crecimiento del FCL, PLAUSIBLE. B4 0 duros/0 blandos. Sin cambios en veredicto (COMPRAR), PO 74 €, banda 45-55 € ni stop 30 €; no se toca el AMS.json. Vigilancia hasta el 3T: el tráfico real contra el supuesto de +2%, el margen de EBIT y Soluciones Tecnológicas.",
           "resumen": "Guidance moderado por Oriente Medio + señal nº1 (pasajeros) negativa en el 2T y reservas −7,6%: determinar si es shock puntual o techo de crecimiento.",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -274,7 +274,7 @@
           "codigo": "S2",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-07",
-          "notaEmitida": false
+          "notaEmitida": true
         }
       ],
       "revisiones": [
@@ -1228,19 +1228,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 22,
-    "hallazgosActivos": 29,
+    "hallazgosActivos": 28,
     "porTipo": {
       "otro": 6,
       "coyuntura": 16,
-      "senal": 1,
       "opa": 2,
       "sancion": 2,
       "litigio": 1,
       "concurso": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 9,
-    "hechosCaducadosHoy": 1
+    "situacionesAbiertas": 8,
+    "hechosCaducadosHoy": 0
   }
 }
