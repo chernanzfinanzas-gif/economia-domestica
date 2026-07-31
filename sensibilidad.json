@@ -1,0 +1,807 @@
+{
+ "schemaVersion": 1,
+ "generadoEl": "2026-07-31",
+ "fuenteDeVerdad": "drivers[] de Empresas/*/Coyuntura y Stress Test - *.md",
+ "nota": "Vacio = la ficha no lo determina. NUNCA es un cero implicito.",
+ "factores": [
+  "BOLSA",
+  "TIPOS",
+  "CRED",
+  "PIB",
+  "CONSD",
+  "CONSB",
+  "LATAM",
+  "EUR",
+  "BRENT",
+  "GAS",
+  "REG"
+ ],
+ "matriz": {
+  "ACS": {
+   "BOLSA": 2,
+   "TIPOS": -1
+  },
+  "AENA": {
+   "CONSD": 2,
+   "TIPOS": -1,
+   "LATAM": 2
+  },
+  "AMS": {
+   "CONSD": 2,
+   "TIPOS": -1,
+   "EUR": -1
+  },
+  "A3M": {
+   "PIB": 1
+  },
+  "AZK": {
+   "TIPOS": -1,
+   "PIB": 1,
+   "BOLSA": 1,
+   "EUR": -1
+  },
+  "BKT": {
+   "TIPOS": 2,
+   "CRED": -2
+  },
+  "CIE": {
+   "LATAM": 2,
+   "GAS": -1
+  },
+  "EBRO": {
+   "EUR": -1
+  },
+  "ENG": {
+   "GAS": -1,
+   "TIPOS": -1
+  },
+  "ELE": {
+   "REG": 2,
+   "GAS": 2,
+   "TIPOS": -2
+  },
+  "FAE": {
+   "TIPOS": -1,
+   "LATAM": 2
+  },
+  "FDR": {
+   "GAS": -2,
+   "EUR": -1
+  },
+  "IBE": {
+   "TIPOS": -2,
+   "EUR": -1,
+   "GAS": 1
+  },
+  "ITX": {
+   "EUR": -1,
+   "CONSD": 1,
+   "BOLSA": 2
+  },
+  "LOG": {
+   "TIPOS": 2
+  },
+  "MAP": {
+   "LATAM": 2,
+   "TIPOS": -1,
+   "PIB": 1,
+   "BOLSA": 2
+  },
+  "MCM": {
+   "GAS": -1
+  },
+  "NTGY": {
+   "GAS": 1,
+   "LATAM": 2,
+   "TIPOS": -1
+  },
+  "RED": {
+   "REG": 2,
+   "BOLSA": 1
+  },
+  "REP": {
+   "BRENT": 2,
+   "REG": 1,
+   "EUR": -1
+  },
+  "SAN": {
+   "CRED": -2,
+   "LATAM": 2,
+   "TIPOS": 2
+  },
+  "TEF": {
+   "TIPOS": -1,
+   "LATAM": 2
+  },
+  "VID": {
+   "GAS": -2,
+   "PIB": 1,
+   "EUR": -1,
+   "TIPOS": -1,
+   "BOLSA": 1
+  },
+  "VIS": {
+   "GAS": -1,
+   "LATAM": 2,
+   "CONSD": 1
+  }
+ },
+ "sinFactor": [
+  {
+   "tk": "ACS",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio (105% del PN atribuible)"
+  },
+  {
+   "tk": "ACS",
+   "familia": "GOBERNANZA",
+   "id": "sucesion_gobernanza",
+   "variable": "Sucesion de F. Perez / gobernanza"
+  },
+  {
+   "tk": "AMS",
+   "familia": "COMPETENCIA",
+   "id": "ia_agentic",
+   "variable": "Disrupcion IA agentic"
+  },
+  {
+   "tk": "A3M",
+   "familia": "BALANCE",
+   "id": "cobertura_dividendo",
+   "variable": "Payout s/FCL"
+  },
+  {
+   "tk": "A3M",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulacion",
+   "variable": "Minutaje/tasa RTVE/competencia"
+  },
+  {
+   "tk": "A3M",
+   "familia": "GOBERNANZA",
+   "id": "ma_gobernanza",
+   "variable": "Fondo de comercio/PN + integracion Clear Channel"
+  },
+  {
+   "tk": "AZK",
+   "familia": "COMPETENCIA",
+   "id": "competencia_global",
+   "variable": "Presion de precios de Crane NXT/Glory"
+  },
+  {
+   "tk": "AZK",
+   "familia": "BALANCE",
+   "id": "asignacion_capital",
+   "variable": "M&A fuera del core"
+  },
+  {
+   "tk": "BKT",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulatorio",
+   "variable": "Impuesto banca / requerimientos capital"
+  },
+  {
+   "tk": "BKT",
+   "familia": "COMPETENCIA",
+   "id": "fintech",
+   "variable": "Fintech / neobancos"
+  },
+  {
+   "tk": "BKT",
+   "familia": "BALANCE",
+   "id": "rote_cet1_recompras",
+   "variable": "RoTE / CET1 / recompras"
+  },
+  {
+   "tk": "CIE",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio (1.765 M EUR, 122% del PN atribuible)"
+  },
+  {
+   "tk": "CIE",
+   "familia": "BALANCE",
+   "id": "apalancamiento_trough",
+   "variable": "DN/EBITDA y cobertura de intereses"
+  },
+  {
+   "tk": "CIE",
+   "familia": "GEOPOLITICA",
+   "id": "aranceles_ue_eeuu",
+   "variable": "Aranceles EE.UU.-UE (15% desde 1-jul-2026)"
+  },
+  {
+   "tk": "EBRO",
+   "familia": "BALANCE",
+   "id": "conversion_fcl",
+   "variable": "Conversion EBITDA->FCL / dividendo"
+  },
+  {
+   "tk": "ENG",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "demanda_gas",
+   "variable": "Demanda de gas en España"
+  },
+  {
+   "tk": "ENG",
+   "familia": "BALANCE",
+   "id": "cobertura_dividendo",
+   "variable": "Cobertura del dividendo por FCL"
+  },
+  {
+   "tk": "ELE",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza_enel",
+   "variable": "Control accionarial de Enel"
+  },
+  {
+   "tk": "FAE",
+   "familia": "COMPETENCIA",
+   "id": "bilastina-genericos",
+   "variable": "Ventas de bilastina / entrada de genéricos"
+  },
+  {
+   "tk": "FAE",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio 258 M€ (34,7% del PN) / test de deterioro"
+  },
+  {
+   "tk": "FAE",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulacion-precios",
+   "variable": "Precios de referencia y reembolso de medicamentos (ES/UE)"
+  },
+  {
+   "tk": "FAE",
+   "familia": "BALANCE",
+   "id": "dividendo",
+   "variable": "DPA y pay-out sobre FCL"
+  },
+  {
+   "tk": "FDR",
+   "familia": "BALANCE",
+   "id": "coste-deuda",
+   "variable": "Euribor / gasto financiero sin cobertura (860,6 M€ vencidos 30/06/2026)"
+  },
+  {
+   "tk": "FDR",
+   "familia": "GEOPOLITICA",
+   "id": "aranceles",
+   "variable": "Arancel EE.UU.-UE (15% desde 1-jul-2026)"
+  },
+  {
+   "tk": "FDR",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio 1.269 M€ (37,2% del activo) / WACC del test"
+  },
+  {
+   "tk": "FDR",
+   "familia": "BALANCE",
+   "id": "ma-ejecucion",
+   "variable": "Múltiplo de adquisición / deuda neta incremental"
+  },
+  {
+   "tk": "FDR",
+   "familia": "BALANCE",
+   "id": "gobernanza",
+   "variable": "Votos a la Política de Remuneraciones / permanencia de Rhône Capital"
+  },
+  {
+   "tk": "IBE",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulacion",
+   "variable": "Tasa retribucion redes (CNMC/Ofgem)"
+  },
+  {
+   "tk": "IBE",
+   "familia": "BALANCE",
+   "id": "dilucion",
+   "variable": "Ampliaciones de capital"
+  },
+  {
+   "tk": "IBE",
+   "familia": "CONTABLE",
+   "id": "impairments",
+   "variable": "Fondo de comercio / intangibles"
+  },
+  {
+   "tk": "ITX",
+   "familia": "COMPETENCIA",
+   "id": "ultra_fast_fashion",
+   "variable": "Disrupcion Shein/Temu"
+  },
+  {
+   "tk": "ITX",
+   "familia": "GOBERNANZA",
+   "id": "ciclo_consumo",
+   "variable": "Consumo discrecional Europa/Americas"
+  },
+  {
+   "tk": "ITX",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza_sucesion",
+   "variable": "Concentracion familia Ortega / sucesion"
+  },
+  {
+   "tk": "LOG",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "declive_tabaco",
+   "variable": "Volumenes de tabaco"
+  },
+  {
+   "tk": "LOG",
+   "familia": "BALANCE",
+   "id": "cobertura_dividendo",
+   "variable": "Pay-out sobre FCL"
+  },
+  {
+   "tk": "LOG",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza_imperial",
+   "variable": "Control Imperial Brands 50,01% + tesoreria"
+  },
+  {
+   "tk": "LOG",
+   "familia": "GOBERNANZA",
+   "id": "recesion_sur_europa",
+   "variable": "PIB/consumo Sur de Europa"
+  },
+  {
+   "tk": "MAP",
+   "familia": "COMPETENCIA",
+   "id": "competencia_autos",
+   "variable": "Combinado Autos"
+  },
+  {
+   "tk": "MAP",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulatorio",
+   "variable": "Solvencia II / fiscalidad"
+  },
+  {
+   "tk": "MAP",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza",
+   "variable": "Control Fundacion Mapfre"
+  },
+  {
+   "tk": "MAP",
+   "familia": "REG_NO_ENERGIA",
+   "id": "solvencia_combinado",
+   "variable": "Solvencia II / combinado / RoTE"
+  },
+  {
+   "tk": "MCM",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "declive_tabaco",
+   "variable": "Volumenes mundiales de cigarrillos"
+  },
+  {
+   "tk": "MCM",
+   "familia": "GEOPOLITICA",
+   "id": "divisa_aranceles",
+   "variable": "EUR/USD y aranceles EEUU-UE"
+  },
+  {
+   "tk": "MCM",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulacion_tabaco",
+   "variable": "Fiscalidad y regulacion antitabaco UE (TED)"
+  },
+  {
+   "tk": "NTGY",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulacion_redes",
+   "variable": "TRF redes gas+electricidad (CNMC)"
+  },
+  {
+   "tk": "NTGY",
+   "familia": "BALANCE",
+   "id": "cobertura_fcl",
+   "variable": "Cobertura FCL/dividendo"
+  },
+  {
+   "tk": "NTGY",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza",
+   "variable": "Estructura accionarial"
+  },
+  {
+   "tk": "NTGY",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "declive_gas",
+   "variable": "Demanda estructural de gas"
+  },
+  {
+   "tk": "NTGY",
+   "familia": "CONTABLE",
+   "id": "impairments",
+   "variable": "Deterioros contables (UGEs)"
+  },
+  {
+   "tk": "PRM",
+   "familia": "BALANCE",
+   "id": "iliquidez_smallcap",
+   "variable": "Liquidez del valor y descuento de small-cap"
+  },
+  {
+   "tk": "PRM",
+   "familia": "REG_NO_ENERGIA",
+   "id": "mdr_ivdr",
+   "variable": "Regulacion de producto sanitario europea"
+  },
+  {
+   "tk": "PRM",
+   "familia": "CONTABLE",
+   "id": "ma_goodwill",
+   "variable": "M&A y fondo de comercio"
+  },
+  {
+   "tk": "PRM",
+   "familia": "BALANCE",
+   "id": "retribucion",
+   "variable": "Dividendo + prima de emision (DY ~5,7%)"
+  },
+  {
+   "tk": "RED",
+   "familia": "REG_NO_ENERGIA",
+   "id": "tipos_spread",
+   "variable": "Coste de la deuda y spread regulatorio"
+  },
+  {
+   "tk": "RED",
+   "familia": "BALANCE",
+   "id": "cobertura_dividendo",
+   "variable": "Cobertura del dividendo por owner earnings"
+  },
+  {
+   "tk": "RED",
+   "familia": "REG_NO_ENERGIA",
+   "id": "shock_regulatorio_extra",
+   "variable": "Claw-back o gravamen extraordinario al sector"
+  },
+  {
+   "tk": "RED",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza_sepi",
+   "variable": "Gobernanza / SEPI (~20%)"
+  },
+  {
+   "tk": "REP",
+   "familia": "BALANCE",
+   "id": "cobertura_fcl",
+   "variable": "Payout s/FCL"
+  },
+  {
+   "tk": "REP",
+   "familia": "GEOPOLITICA",
+   "id": "geopolitica",
+   "variable": "Geopolitica upstream"
+  },
+  {
+   "tk": "REP",
+   "familia": "BALANCE",
+   "id": "capital_transicion",
+   "variable": "DN/EBITDA + ROIC bajo carbono"
+  },
+  {
+   "tk": "SAN",
+   "familia": "REG_NO_ENERGIA",
+   "id": "regulatorio",
+   "variable": "Impuesto banca / SREP-Basilea"
+  },
+  {
+   "tk": "SAN",
+   "familia": "CONTABLE",
+   "id": "credito_global",
+   "variable": "Deterioro credito global"
+  },
+  {
+   "tk": "SAN",
+   "familia": "COMPETENCIA",
+   "id": "fintech",
+   "variable": "Disrupcion fintech/neobancos"
+  },
+  {
+   "tk": "SAN",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza",
+   "variable": "M&A / gobernanza"
+  },
+  {
+   "tk": "SAN",
+   "familia": "GEOPOLITICA",
+   "id": "geopolitico",
+   "variable": "Geopolitica mercados clave"
+  },
+  {
+   "tk": "SAN",
+   "familia": "BALANCE",
+   "id": "rote_cet1",
+   "variable": "RoTE / CET1 / recompras"
+  },
+  {
+   "tk": "TEF",
+   "familia": "COMPETENCIA",
+   "id": "competencia_espania",
+   "variable": "Presion competitiva en Espania (Digi, MasOrange)"
+  },
+  {
+   "tk": "TEF",
+   "familia": "BALANCE",
+   "id": "cobertura_dividendo",
+   "variable": "Cobertura del dividendo por FCF apalancado"
+  },
+  {
+   "tk": "TEF",
+   "familia": "REG_NO_ENERGIA",
+   "id": "consolidacion_ue",
+   "variable": "Consolidacion in-market en Europa"
+  },
+  {
+   "tk": "TEF",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Deterioro del fondo de comercio"
+  },
+  {
+   "tk": "TEF",
+   "familia": "GOBERNANZA",
+   "id": "gobernanza",
+   "variable": "Interferencia politica / gobernanza (SEPI ~10%, STC)"
+  },
+  {
+   "tk": "VID",
+   "familia": "BALANCE",
+   "id": "ma_apalancamiento",
+   "variable": "Sobrepago / M&A"
+  },
+  {
+   "tk": "VIS",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "demanda_carne_procesada",
+   "variable": "Demanda estructural carne procesada"
+  }
+ ],
+ "idiosincraticos": [
+  {
+   "tk": "ACS",
+   "id": "capex_hyperscalers",
+   "variable": "CAPEX hyperscalers en data centers / adjudicaciones Turner"
+  },
+  {
+   "tk": "ACS",
+   "id": "ciclo_construccion",
+   "variable": "Actividad constructora EE.UU. / ciclo"
+  },
+  {
+   "tk": "ACS",
+   "id": "sobrecostes_proyectos",
+   "variable": "Ejecucion de mega-proyectos a precio fijo"
+  },
+  {
+   "tk": "AENA",
+   "id": "dora_iii",
+   "variable": "IMAAJ / factor K DORA III 2027-31"
+  },
+  {
+   "tk": "AENA",
+   "id": "politico_enaire",
+   "variable": "Interferencia politica (Enaire 51%)"
+  },
+  {
+   "tk": "AENA",
+   "id": "fiscalidad_esg",
+   "variable": "Fiscalidad UE a la aviacion"
+  },
+  {
+   "tk": "AMS",
+   "id": "ndc",
+   "variable": "Desintermediacion NDC"
+  },
+  {
+   "tk": "AMS",
+   "id": "cliente_aereo",
+   "variable": "Concentracion / perdida gran cliente aereo"
+  },
+  {
+   "tk": "A3M",
+   "id": "trasvase_digital",
+   "variable": "Trasvase TV lineal a digital/CTV"
+  },
+  {
+   "tk": "A3M",
+   "id": "inversion_publicitaria_tv",
+   "variable": "Inversion publicitaria TV Espana"
+  },
+  {
+   "tk": "A3M",
+   "id": "costes_contenido",
+   "variable": "Consumo de programas/ingresos"
+  },
+  {
+   "tk": "A3M",
+   "id": "monetizacion_digital",
+   "variable": "Ingresos digitales Atresplayer"
+  },
+  {
+   "tk": "AZK",
+   "id": "correccion_precio",
+   "variable": "Cotizacion frente al PO"
+  },
+  {
+   "tk": "BKT",
+   "id": "concentracion_espana",
+   "variable": "Concentracion geografica Espana"
+  },
+  {
+   "tk": "BKT",
+   "id": "ejecucion_internacional",
+   "variable": "Ejecucion Avant/EVO (Irlanda)"
+  },
+  {
+   "tk": "CIE",
+   "id": "produccion_vehiculos",
+   "variable": "Produccion global de vehiculos (S&P Global Mobility/LMC)"
+  },
+  {
+   "tk": "CIE",
+   "id": "transicion_ev",
+   "variable": "Contenido por vehiculo / nominaciones EV"
+  },
+  {
+   "tk": "CIE",
+   "id": "poder_oem",
+   "variable": "Concentracion de clientes OEM"
+  },
+  {
+   "tk": "EBRO",
+   "id": "materia_prima",
+   "variable": "Arroz / trigo duro"
+  },
+  {
+   "tk": "EBRO",
+   "id": "marca_blanca",
+   "variable": "Marca blanca / distribucion"
+  },
+  {
+   "tk": "EBRO",
+   "id": "habitos_consumo",
+   "variable": "Habitos de consumo (low-carb / GLP-1)"
+  },
+  {
+   "tk": "ENG",
+   "id": "hidrogeno_varados",
+   "variable": "H2 backbone / activos varados"
+  },
+  {
+   "tk": "ENG",
+   "id": "participadas_intl",
+   "variable": "Participadas internacionales (TGP-Peru, TAP, Tallgrass)"
+  },
+  {
+   "tk": "ELE",
+   "id": "hidraulicidad",
+   "variable": "Hidraulicidad / generacion propia"
+  },
+  {
+   "tk": "FAE",
+   "id": "integracion-ma",
+   "variable": "EBITDA de SIFI/Edol/ISF frente al plan"
+  },
+  {
+   "tk": "FAE",
+   "id": "dependencia-producto",
+   "variable": "% de ventas de bilastina / lanzamientos del pipeline"
+  },
+  {
+   "tk": "FDR",
+   "id": "concentracion-cliente",
+   "variable": "Peso del mayor cliente en ventas (21,0%)"
+  },
+  {
+   "tk": "IBE",
+   "id": "capex_plan",
+   "variable": "Ejecucion CAPEX Plan 2025-2028"
+  },
+  {
+   "tk": "IBE",
+   "id": "ira_eeuu",
+   "variable": "Riesgo politico EEUU (IRA/Avangrid)"
+  },
+  {
+   "tk": "ITX",
+   "id": "algodon",
+   "variable": "Coste materia prima textil (algodon)"
+  },
+  {
+   "tk": "ITX",
+   "id": "correccion_hacia_po",
+   "variable": "Cotizacion vs precio objetivo"
+  },
+  {
+   "tk": "LOG",
+   "id": "fiscalidad_tabaco",
+   "variable": "Impuestos especiales tabaco UE/ES/FR/IT"
+  },
+  {
+   "tk": "LOG",
+   "id": "diversificacion",
+   "variable": "M&A transporte/Pharma/conveniencia"
+  },
+  {
+   "tk": "MAP",
+   "id": "catastrofes",
+   "variable": "Combinado No Vida / catastrofes"
+  },
+  {
+   "tk": "MCM",
+   "id": "ejecucion_terranova",
+   "variable": "ROIC/ROIIC de la nueva capacidad e ingresos industriales"
+  },
+  {
+   "tk": "MCM",
+   "id": "concentracion_clientes",
+   "variable": "Poder de negociacion de las multinacionales tabaqueras"
+  },
+  {
+   "tk": "PRM",
+   "id": "licitacion_publica",
+   "variable": "Presupuesto y licitacion sanitaria publica (48% ventas SNS)"
+  },
+  {
+   "tk": "PRM",
+   "id": "compresion_margenes",
+   "variable": "Margen bruto y margen EBITDA"
+  },
+  {
+   "tk": "PRM",
+   "id": "circulante",
+   "variable": "Ciclo de conversion de caja (CCC) y CFO"
+  },
+  {
+   "tk": "RED",
+   "id": "capex_rab",
+   "variable": "Ejecucion del CAPEX record (~1.400 M EUR/anio)"
+  },
+  {
+   "tk": "RED",
+   "id": "apagon_escrutinio",
+   "variable": "Escrutinio del apagon de abril-2025"
+  },
+  {
+   "tk": "REP",
+   "id": "demanda_fosil",
+   "variable": "Demanda fosil"
+  },
+  {
+   "tk": "TEF",
+   "id": "capex",
+   "variable": "Intensidad de CAPEX / obsolescencia"
+  },
+  {
+   "tk": "VID",
+   "id": "sustitucion_vidrio",
+   "variable": "Sustitucion del vidrio (lata/rPET/carton)"
+  },
+  {
+   "tk": "VID",
+   "id": "descarbonizacion",
+   "variable": "CO2 / CBAM"
+  },
+  {
+   "tk": "VIS",
+   "id": "materias_primas",
+   "variable": "Pieles/colageno/celulosa"
+  },
+  {
+   "tk": "VIS",
+   "id": "guias_2026",
+   "variable": "Cumplimiento guia ingresos/EBITDA/BN"
+  }
+ ],
+ "sinDeterminar": []
+}

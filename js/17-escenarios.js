@@ -1,9 +1,13 @@
 /* ===== 17-escenarios.js — Escenarios de cartera (ficha 14) =====
    Laboratorio de shocks macro: 11 factores en valores reales, presets históricos
    + aleatorio, respuesta de la cartera (6 KPIs), mapa de calor empresa×factor y
-   coberturas. Lee pesos y dividendos EN VIVO del DB; la matriz de sensibilidades
-   está calibrada (informes 2024/25) y las empresas no listadas heredan de su
-   arquetipo (DB.universo). ================================================== */
+   coberturas. Lee pesos y dividendos EN VIVO del DB.
+
+   [31-jul-2026] La sensibilidad ya no se escribe aquí. Manda `sensibilidad.json`,
+   derivado de los `drivers[]` de las fichas de Coyuntura — el Bloque 8 de cada
+   empresa. Debajo siguen la matriz calibrada 2024/25 y el arquetipo, para los
+   factores que la ficha no determina. Cadena: ficha > calibrada > arquetipo.
+   ========================================================================= */
 (function(){
  const VARS=[
   {id:'BOLSA',lab:'Bolsa / IBEX (var. anual)',min:-55,neu:0,max:35,u:'%',d:0},
@@ -64,13 +68,66 @@
   {re:/consumo|retail|escalable/, s:{BOLSA:1,TIPOS:1,CRED:0,PIB:1,CONSD:2,CONSB:0,EUR:-1,LATAM:1,BRENT:0,GAS:0,REG:0}},
   {re:/inmobil/, s:{BOLSA:1,TIPOS:-2,CRED:-2,PIB:1,CONSD:0,CONSB:0,EUR:0,LATAM:0,BRENT:0,GAS:0,REG:0}}
  ];
+
+ /* ===== El puente `sensibilidad.json` [31-jul-2026] ========================
+    `SENS` es una matriz empresa×factor escrita a mano, calibrada de informes
+    2024/25, con TRECE de las veinticinco empresas. Las otras doce se simulaban
+    con la media de su arquetipo teniendo ya sus seis drivers propios escritos,
+    con signo y magnitud, en su ficha de Coyuntura. Dos opiniones sobre lo mismo,
+    escritas por separado: el mismo problema que `kh_filas` en trece skills.
+
+    `sensibilidad.json` lo escribe `derivar_sensibilidad.py` desde esas fichas,
+    que las reescribe el informe semanal — o sea que llega al día. Una empresa
+    nueva entra sola: se analiza, nace su ficha con `factor` y `sensibilidad`,
+    y aparece aquí sin que nadie se acuerde de nada.
+
+    LO QUE NO HACE, Y ES LO IMPORTANTE: la matriz derivada tiene HUECOS. Un
+    hueco significa «la ficha no lo dice», no «no le afecta». Por eso NO
+    sustituye a la fila entera: se superpone celda a celda. Donde la ficha
+    habla, manda la ficha; donde calla, se queda lo que ya había. Rellenar el
+    hueco con un cero sería afirmar algo que nadie ha afirmado.
+    Si el fichero no está —repo sin publicar aún—, todo sigue como antes. */
+ let SENS_FICHA={}, SENS_FICHA_META=null; const _sensMemo={};
+ async function escCargarFichas(){
+   try{
+     const r=await fetch('sensibilidad.json',{cache:'no-store'});
+     if(!r.ok)return;
+     const d=await r.json();
+     if(!d||!d.matriz)return;
+     SENS_FICHA=d.matriz;
+     SENS_FICHA_META={generadoEl:d.generadoEl||'',
+       empresas:Object.keys(d.matriz).length,
+       sinFactor:(d.sinFactor||[]).length,
+       idio:(d.idiosincraticos||[]).length,
+       nodet:(d.sinDeterminar||[]).length};
+     for(const k in _sensMemo) delete _sensMemo[k];
+     if(document.getElementById('escHeatDesk')) escRender();
+   }catch(e){ /* sin puente se sigue igual que antes: no es una condición */ }
+ }
+ document.addEventListener('DOMContentLoaded',escCargarFichas);
+ if(document.readyState!=='loading') escCargarFichas();
+
  const SCALE=7.5, K_CAIDA=0.75;
  let escVal=null; // valores reales actuales por factor
 
  function _num(x){ return (typeof num==='function')?num(x):(parseFloat(x)||0); }
- function sensFor(t){ t=(t||'').toUpperCase(); if(SENS[t])return SENS[t];
-   const arq=(((typeof DB!=='undefined'&&DB.universo&&DB.universo[t]&&DB.universo[t].arquetipo)||'')+'').toLowerCase();
-   for(const a of ARQ){ if(a.re.test(arq))return a.s; } return null; }
+ /* Cadena: ficha > calibrada a mano > arquetipo. La ficha se SUPERPONE, no
+    sustituye: sus huecos no son ceros. `_ficha` guarda de qué celdas viene, para
+    poder enseñarlo en el mapa de calor — un número sin procedencia no se audita. */
+ function sensFor(t){ t=(t||'').toUpperCase(); if(!t)return null;
+   if(_sensMemo[t]!==undefined) return _sensMemo[t];
+   let base=SENS[t]||null, orig=base?'calibrada':null;
+   if(!base){
+     const arq=(((typeof DB!=='undefined'&&DB.universo&&DB.universo[t]&&DB.universo[t].arquetipo)||'')+'').toLowerCase();
+     for(const a of ARQ){ if(a.re.test(arq)){ base=a.s; orig='arquetipo'; break; } }
+   }
+   const fic=SENS_FICHA[t];
+   if(!fic) return (_sensMemo[t]=base);
+   const out=Object.assign({},base||{}), de=[];
+   for(const k in fic){ if(V[k]&&typeof fic[k]==='number'){ out[k]=fic[k]; de.push(k); } }
+   if(!de.length) return (_sensMemo[t]=base);
+   out._ficha=de; out._origen=orig?('ficha + '+orig):'ficha';
+   return (_sensMemo[t]=out); }
  function heldRows(){
    const agg={};
    const pos=(typeof invPositions==='function')?invPositions():[];
@@ -116,9 +173,33 @@
    if(i>=1){const a=Math.min(1,i/100);return `rgb(${Math.round(90+(1-a)*140)},180,${Math.round(90+(1-a)*100)})`;} return '#cbd5e1'; }
  function bar(i){ const w=Math.abs(i)/2,side=i<0?`right:50%;width:${w}%`:`left:50%;width:${w}%`;
    return `<div class="esc-bar"><div class="esc-mid"></div><div class="esc-fill" style="${side};background:${colFor(i)}"></div></div>`; }
- function heatCell(x){ if(Math.abs(x)<0.05)return '<td style="text-align:center;color:#cbd5e1">·</td>';
+ function heatCell(x,deFicha){
+   const mk=deFicha?' box-shadow:inset 0 0 0 1.5px rgba(15,23,42,.45);':'';
+   const ti=deFicha?' title="Del Bloque 8 de su ficha de Coyuntura"':'';
+   if(Math.abs(x)<0.05)return `<td style="text-align:center;color:#cbd5e1;${mk}"${ti}>·</td>`;
    const a=Math.min(1,Math.abs(x)/1.6); const bg=x<0?`rgba(220,38,38,${(0.12+a*0.6).toFixed(2)})`:`rgba(22,163,74,${(0.12+a*0.6).toFixed(2)})`;
-   return `<td style="text-align:center;background:${bg};font-weight:600;color:${a>0.62?'#fff':'#0f172a'}">${x>0?'+':''}${x.toFixed(1)}</td>`; }
+   return `<td style="text-align:center;background:${bg};${mk}font-weight:600;color:${a>0.62?'#fff':'#0f172a'}"${ti}>${x>0?'+':''}${x.toFixed(1)}</td>`; }
+
+ /* El pie del mapa de calor. Sin esto, las celdas de la ficha y las heredadas del
+    arquetipo se leerían igual, y no se puede auditar un número cuya procedencia no
+    se ve. Dice también lo que el laboratorio NO simula: es un hueco conocido, no
+    un riesgo inexistente. */
+ function _escProcedencia(H){
+   const M=SENS_FICHA_META;
+   if(!M) return '<div class="esc-mut" style="margin-top:8px">Sensibilidades de la matriz calibrada 2024/25 y de los arquetipos. El puente <code>sensibilidad.json</code> aún no está publicado: cuando lo esté, las celdas que salgan del Bloque 8 de cada ficha aparecerán recuadradas.</div>';
+   const conFicha=H.filter(c=>(c.s._ficha||[]).length).length;
+   return '<div class="esc-mut" style="margin-top:8px;line-height:1.5">'
+     +'<b>Las celdas recuadradas salen del Bloque 8</b> de la ficha de Coyuntura de cada empresa '
+     +'(<code>sensibilidad.json</code>, '+(M.generadoEl||'sin fecha')+' · '+M.empresas+' empresas). '
+     +conFicha+' de las '+H.length+' de tu cartera tienen alguna. El resto se hereda de la matriz '
+     +'calibrada 2024/25 o del arquetipo: <b>la ficha no dice nada de ese factor</b>, y un cero aquí '
+     +'no es un juicio suyo.<br>'
+     +'Fuera de este mapa quedan <b>'+M.sinFactor+' drivers</b> en familias que este laboratorio no '
+     +'sabe simular (balance y dividendo, gobernanza, competencia, contabilidad, regulación no '
+     +'energética, geopolítica, declive estructural de la demanda) y <b>'+M.idio+' idiosincráticos</b>, '
+     +'que ninguna simulación macro va a capturar nunca'
+     +(M.nodet?(' · '+M.nodet+' celdas sin determinar'):'')+'.</div>';
+ }
 
  function escRenderSliders(){
    const box=document.getElementById('escSliders'); if(!box)return; box.innerHTML='';
@@ -174,8 +255,9 @@
    /* Mapa de calor */
    const heat=document.getElementById('escHeatDesk');
    if(heat){ let h='<table class="esc-heat"><thead><tr><th style="text-align:left">Empresa</th>'+VARS.map(v=>'<th class="esc-num" title="'+v.lab+'">'+v.id+'</th>').join('')+'<th class="esc-num">Índice</th></tr></thead><tbody>';
-     H.forEach(c=>{ h+='<tr><td style="text-align:left"><b class="esc-tk">'+c.t+'</b></td>'+VARS.map(v=>heatCell((c.s[v.id]||0)*inten(v.id))).join('')+'<td class="esc-num" style="font-weight:700;color:'+(idx(c.s)<0?'#dc2626':'#16a34a')+'">'+(idx(c.s)>0?'+':'')+idx(c.s)+'</td></tr>'; });
-     h+='</tbody></table>'; heat.innerHTML=h; }
+     H.forEach(c=>{ const fic=c.s._ficha||[];
+       h+='<tr><td style="text-align:left"><b class="esc-tk">'+c.t+'</b></td>'+VARS.map(v=>heatCell((c.s[v.id]||0)*inten(v.id),fic.indexOf(v.id)>=0)).join('')+'<td class="esc-num" style="font-weight:700;color:'+(idx(c.s)<0?'#dc2626':'#16a34a')+'">'+(idx(c.s)>0?'+':'')+idx(c.s)+'</td></tr>'; });
+     h+='</tbody></table>'+_escProcedencia(H); heat.innerHTML=h; }
    const hm=document.getElementById('escHeatMob'); if(hm){ hm.innerHTML=H.map(c=>{ var facs=VARS.map(v=>({id:v.id,x:(c.s[v.id]||0)*inten(v.id)})).filter(f=>Math.abs(f.x)>=0.05).sort((a,b)=>Math.abs(b.x)-Math.abs(a.x)).slice(0,4); var i=idx(c.s);
      return '<div class="esc-hcard"><div class="esc-htop"><b class="esc-tk">'+c.t+'</b><span style="font-weight:800;color:'+(i<0?'#dc2626':'#16a34a')+'">Índice '+(i>0?'+':'')+i+'</span></div><div class="esc-hfacs">'+(facs.length?facs.map(f=>'<span class="esc-hfac" style="background:'+(f.x<0?'#fef2f2':'#f0fdf4')+';color:'+(f.x<0?'#dc2626':'#16a34a')+'">'+f.id+' '+(f.x>0?'+':'')+f.x.toFixed(1)+'</span>').join(''):'<span class="esc-mut">sin factores relevantes</span>')+'</div></div>'; }).join(''); }
    /* Coberturas */
