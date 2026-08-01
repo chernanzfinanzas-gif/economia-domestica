@@ -45,7 +45,425 @@
           ]
         }
       ]
+    },
+    {
+      "mesKey": "2026-08",
+      "fecha": "2026-08-01",
+      "periodoTexto": "desde 2026-07-23 (~9 días)",
+      "resumenTexto": "Radar (desde 2026-07-23 (~9 días)): 84 empresas con cambios, 54 con señal accionable. Señales: RENTA CORPORACION REAL ESTATE,  — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▼ (¿resultados nuevos?), 🚩 Nueva alerta: BPA<=0 (payout/PER no fiables); ENAGAS,S.A. — 🟢 Más barata que hace un mes, ⚠️ Payout por encima del 80%, 📊 BPA revisado ▼ (¿resultados nuevos?); ACCIONA, S.A. — 🟢 Más barata que hace un mes, ⚠️ Payout por encima del 80%, 📊 BPA revisado ▼ (¿resultados nuevos?); ELECNOR S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); REPSOL,  S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); AIRBUS — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); APERAM — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); ENDESA,S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?).",
+      "totales": {
+        "conCambios": 84,
+        "conSenal": 54,
+        "universo": 102
+      },
+      "senaladas": [
+        {
+          "ticker": "REN",
+          "nombre": "RENTA CORPORACION REAL ESTATE, ",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: BPA<=0 (payout/PER no fiables)"
+          ]
+        },
+        {
+          "ticker": "ENG",
+          "nombre": "ENAGAS,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "⚠️ Payout por encima del 80%",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ANA",
+          "nombre": "ACCIONA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "⚠️ Payout por encima del 80%",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ENO",
+          "nombre": "ELECNOR S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "REP",
+          "nombre": "REPSOL,  S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "AIR",
+          "nombre": "AIRBUS",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "APAM",
+          "nombre": "APERAM",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ELE",
+          "nombre": "ENDESA,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "LDA",
+          "nombre": "LINEA DIRECTA ASEGURADORA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ROVI",
+          "nombre": "LABORATORIOS FARMACEUTICOS ROVI",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "AZK",
+          "nombre": "AZKOYEN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SCYR",
+          "nombre": "SACYR, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "TRE",
+          "nombre": "TECNICAS REUNIDAS S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ACX",
+          "nombre": "ACERINOX, S.A.",
+          "senales": [
+            "⚠️ Payout por encima del 80%",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ALM",
+          "nombre": "ALMIRALL S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CIRSA",
+          "nombre": "CIRSA ENTERPRISES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ENC",
+          "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "PSG",
+          "nombre": "PROSEGUR",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "R4",
+          "nombre": "RENTA 4 BANCO, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "ART",
+          "nombre": "ARTECHE LANTEGI  ELKARTEA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "OLE",
+          "nombre": "DEOLEO, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "RJF",
+          "nombre": "LABORATORIO REIG JOFRE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "PVA",
+          "nombre": "PESCANOVA,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "A3M",
+          "nombre": "ATRESMEDIA CORPORACION DE MEDIO",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "FER",
+          "nombre": "FERROVIAL N.V.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "MTS",
+          "nombre": "ARCELORMITTAL SA",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CEV",
+          "nombre": "CEV.MC,0P0000A5U9,0",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MRL",
+          "nombre": "MERLIN PROPERTIES SOCIMI, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "TUB",
+          "nombre": "TUBACEX, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "AMP",
+          "nombre": "AMPER, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CAF",
+          "nombre": "CONSTRUCCIONES Y AUXILIAR DE FE",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "GRE",
+          "nombre": "GRENERGY RENOVABLES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "IBG",
+          "nombre": "IBERPAPEL GESTION,S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "PHM",
+          "nombre": "PHARMA MAR, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "PRS",
+          "nombre": "PROMOTORA DE INFORMACIONES S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SAB",
+          "nombre": "BANCO DE SABADELL",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SLR",
+          "nombre": "SOLARIA ENERGIA Y MEDIO AMBIENT",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ALNT",
+          "nombre": "ALANTRA PARTNERS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CABK",
+          "nombre": "CAIXABANK, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "GRF",
+          "nombre": "GRIFOLS S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "MAP",
+          "nombre": "MAPFRE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "NTGY",
+          "nombre": "NATURGY ENERGY GROUP, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ANE",
+          "nombre": "CORPORACI...N ACCIONA ENERG...A",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "IAG",
+          "nombre": "INTL CONSOLIDATED AIRLINES GROU",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "AEDAS",
+          "nombre": "AEDAS HOMES, S.A",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "COXG",
+          "nombre": "COX ABG GROUP, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "DIA",
+          "nombre": "DISTRIBUIDORA INTERNACIONAL DE ",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ECR",
+          "nombre": "ERCROS",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "FAE",
+          "nombre": "FAES FARMA, S.A.",
+          "senales": [
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "FCC",
+          "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MCM",
+          "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "OHLA",
+          "nombre": "OBRASCON HUARTE LAIN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "TEF",
+          "nombre": "TELEFONICA,S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "VOC",
+          "nombre": "VOCENTO",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        }
+      ]
     }
   ],
-  "actualizado": "2026-07-23T12:24:20+02:00"
+  "actualizado": "2026-08-01T13:09:05+02:00"
 }
