@@ -1,104 +1,16 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-07-27T12:08:07+02:00",
+  "generadoEl": "2026-08-03T12:04:43+02:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-27",
-  "resumenTexto": "📌 RESULTADOS confirmados (13): CIE Automotive 24-07, Logista 24-07, Mapfre 24-07, ACS 29-07, Aena, S.M.E., S.A. 29-07, Endesa 29-07, Redeia Corporación, S.A. 29-07, Telefónica 29-07. 💶 Ex-dividend (orientativo, 3): Naturgy 27-07, Ebro Foods 29-09, Inditex 29-10. Sin fecha de resultados confirmada: 9 (rige la estimación del Vigía).",
+  "fechaReferencia": "2026-08-03",
+  "resumenTexto": "📌 RESULTADOS confirmados (2): Amadeus 31-07, Inditex 09-09. 💶 Ex-dividend (orientativo, 2): Ebro Foods 29-09, Inditex 29-10. Sin fecha de resultados confirmada: 9 (rige la estimación del Vigía).",
   "resultados": [
-    {
-      "ticker": "CIE",
-      "empresa": "CIE Automotive",
-      "fecha": "2026-07-24",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "LOG",
-      "empresa": "Logista",
-      "fecha": "2026-07-24",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "MAP",
-      "empresa": "Mapfre",
-      "fecha": "2026-07-24",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "ACS",
-      "empresa": "ACS",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "AENA",
-      "empresa": "Aena, S.M.E., S.A.",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "ELE",
-      "empresa": "Endesa",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "RED",
-      "empresa": "Redeia Corporación, S.A.",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "TEF",
-      "empresa": "Telefónica",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
-      "fecha": "2026-07-29",
-      "dias": 2,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "FAE",
-      "empresa": "Faes Farma",
-      "fecha": "2026-07-30",
-      "dias": 3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
-    {
-      "ticker": "FDR",
-      "empresa": "Fluidra",
-      "fecha": "2026-07-30",
-      "dias": 3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
     {
       "ticker": "AMS",
       "empresa": "Amadeus",
       "fecha": "2026-07-31",
-      "dias": 4,
+      "dias": -3,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -106,26 +18,17 @@
       "ticker": "ITX",
       "empresa": "Inditex",
       "fecha": "2026-09-09",
-      "dias": 44,
+      "dias": 37,
       "confirmada": true,
       "fuente": "calendar"
     }
   ],
   "exDividendos": [
     {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
-      "exFecha": "2026-07-27",
-      "dias": 0,
-      "pagoFecha": null,
-      "importe": 0.6,
-      "fuente": "calendar"
-    },
-    {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
       "exFecha": "2026-09-29",
-      "dias": 64,
+      "dias": 57,
       "pagoFecha": null,
       "importe": 0.23,
       "fuente": "calendar"
@@ -134,7 +37,7 @@
       "ticker": "ITX",
       "empresa": "Inditex",
       "exFecha": "2026-10-29",
-      "dias": 94,
+      "dias": 87,
       "pagoFecha": null,
       "importe": 0.875,
       "fuente": "calendar"
@@ -147,6 +50,11 @@
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
+      "ticker": "ACS",
+      "empresa": "ACS",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
       "ticker": "AZK",
       "empresa": "Azkoyen, S.A.",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
@@ -154,6 +62,11 @@
     {
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "LOG",
+      "empresa": "Logista",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
@@ -172,18 +85,8 @@
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
-      "ticker": "REP",
-      "empresa": "Repsol",
-      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
-    },
-    {
-      "ticker": "SAN",
-      "empresa": "Santander",
-      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
-    },
-    {
-      "ticker": "VID",
-      "empresa": "Vidrala, S.A.",
+      "ticker": "TEF",
+      "empresa": "Telefónica",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     }
   ],
