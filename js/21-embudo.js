@@ -328,8 +328,7 @@ function renderEmbudo(){
   H+=_emKanban(cols);
   H+=_emClosed(cols.cerr);
   H+=_emGlosario();
-  H+='</div>';
-  H+='<button class="em-collapse-all" type="button" data-emcollapseall="1" title="Cerrar todas las fichas (refrescar la vista)">\u21f2 Cerrar fichas</button>';
+  H+='</div>';   /* el bot\u00f3n \u00abCerrar fichas\u00bb ya no va suelto aqu\u00ed: vive en la cabecera de la banda (_emBand) */
   var _emSc=_emScrollGuardar(sec);
   sec.innerHTML=H;
   _emBind(sec);
@@ -774,10 +773,18 @@ function _emDivDo(t){ t=_emUp(t);
   _emModalClose();
   if(typeof saveNow==='function')saveNow();
   if(typeof renderAll==='function')renderAll(); }
+/* [03-ago-2026] El botón «Cerrar fichas» era `position:fixed` abajo a la derecha. Mientras el
+   tablero se salía de la pantalla daba igual, pero desde que encaja (ver el CSS de .em-kanban)
+   se plantaba encima de las fichas de la columna ④ Seguimiento. Ahora vive aquí, en la cabecera
+   de la banda: no tapa nada y se encuentra antes que un botón flotante. Va en las dos variantes
+   —con urgentes y sin ellas— porque las fichas del tablero se pueden desplegar igualmente. */
+function _emCollapseBtn(){
+  return '<button class="em-collapse-all" type="button" data-emcollapseall="1" title="Cerrar todas las fichas desplegadas (refresca la vista)">⇲ Cerrar fichas</button>';
+}
 function _emBand(band){
-  if(!band.length)return '<div class="em-lane em-lane-empty">⚡ <b>Necesita tu acción</b> — nada pendiente ahora mismo. 👌</div>';
+  if(!band.length)return '<div class="em-lane em-lane-empty"><span>⚡ <b>Necesita tu acción</b> — nada pendiente ahora mismo. 👌</span>'+_emCollapseBtn()+'</div>';
   var cards=band.map(function(r){ return _emCard(r,true); }).join('');
-  return '<div class="em-lane"><h4>⚡ Necesita tu acción ('+band.length+')</h4><div class="em-lanecards">'+cards+'</div></div>';
+  return '<div class="em-lane"><h4><span>⚡ Necesita tu acción ('+band.length+')</span>'+_emCollapseBtn()+'</h4><div class="em-lanecards">'+cards+'</div></div>';
 }
 function _emKanban(cols){
   var def=[['sel','① Selección'],['ana','② Análisis'],['plan','③ Planteamiento'],['seg','④ Seguimiento']];
@@ -961,8 +968,10 @@ function _emBind(sec){
     '.em-agenda{background:#eff6ff;border:1px solid #bfdbfe;border-radius:10px;padding:9px 12px;font-size:12.5px;color:#1e3a8a;margin-bottom:12px;cursor:pointer}',
     '.em-agenda .em-arw{float:right;opacity:.6}',
     '.em-lane{background:#fff8f4;border:1px solid #fed7aa;border-radius:12px;padding:12px 13px;margin-bottom:16px}',
-    '.em-lane-empty{background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-size:13px}',
-    '.em-lane h4{margin:0 0 9px;font-size:13px;color:#9a3412;text-transform:uppercase;letter-spacing:.04em}',
+    '.em-lane-empty{background:#f0fdf4;border-color:#bbf7d0;color:#166534;font-size:13px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}',
+    '.em-lane-empty>span{flex:1 1 auto;min-width:0}',
+    '.em-lane h4{margin:0 0 9px;font-size:13px;color:#9a3412;text-transform:uppercase;letter-spacing:.04em;display:flex;align-items:center;gap:10px;flex-wrap:wrap}',
+    '.em-lane h4>span{flex:1 1 auto;min-width:0}',
     /* [30-jul-2026] La tira de «Necesita tu acción» era un flex con scroll horizontal:
        las fichas se cortaban por la mitad en los bordes y había que arrastrar para verlas.
        En pantalla ancha ahora es una rejilla que reparte el ancho y baja de fila: todo a la
@@ -1066,9 +1075,11 @@ function _emBind(sec){
     '.em-head{cursor:pointer}',
     '.em-caret{color:#94a3b8;font-size:10px;flex:none;margin-left:auto;padding-left:2px}',
     '.em-collapsed{padding-bottom:9px}',
-    '.em-collapse-all{position:fixed;right:18px;bottom:110px;z-index:900;background:#1f3d6b;color:#fff;border:none;border-radius:22px;padding:10px 15px;font-size:12.5px;font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}',
+    /* Botón en la cabecera de la banda, ya no flotante (tapaba la columna ④). Necesita anular
+       el text-transform y el letter-spacing que hereda del h4 de la banda. */
+    '.em-collapse-all{flex:none;background:#1f3d6b;color:#fff;border:none;border-radius:20px;padding:6px 13px;font-size:11.5px;font-weight:700;line-height:1.35;cursor:pointer;white-space:nowrap;text-transform:none;letter-spacing:0;font-family:inherit}',
     '.em-collapse-all:hover{background:#16305a}',
-    '@media(max-width:560px){.em-collapse-all{bottom:calc(env(safe-area-inset-bottom,0px) + 150px)}}',
+    '.em-collapse-all:focus-visible{outline:2px solid #2563eb;outline-offset:2px}',
     '.em-cmodal-ov{position:fixed;inset:0;background:rgba(15,23,42,.45);display:flex;align-items:center;justify-content:center;z-index:9999}',
     '.em-cmodal{background:#fff;border-radius:14px;width:min(380px,92vw);box-shadow:0 20px 50px rgba(0,0,0,.3);overflow:hidden}',
     '.em-cmodal-h{background:#1f3d6b;color:#fff;font-weight:800;font-size:14px;padding:12px 16px}',
