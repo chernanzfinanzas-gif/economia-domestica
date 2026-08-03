@@ -603,6 +603,17 @@ if($('#btnPapelera'))$('#btnPapelera').addEventListener('click',()=>{ if(typeof 
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ e.preventDefault(); abrirFicha(b.dataset.ficha); } });
 /* Estado inicial de la navegación: grupo Control activo con su subnav visible */
 try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e){}
+/* [30-jul-2026] Arranque en una vista concreta: index.html?v=embudo (también #v=embudo).
+   Lo usan los accesos directos del icono de la app instalada (manifest → "shortcuts"):
+   clic derecho en el icono de la barra de tareas → Panel / Kanban / Movimientos / Cartera.
+   Si el nombre no corresponde a ninguna vista, no hace nada y se queda en el Panel. */
+try{
+  var _vIni=/[?&#]v=([a-z0-9_-]+)/i.exec(location.search+location.hash);
+  if(_vIni){
+    var _vName=_vIni[1].toLowerCase();
+    if(document.getElementById('view-'+_vName) && typeof activarVista==='function') activarVista(_vName);
+  }
+}catch(e){}
 $('#view-dividendos').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 /* Calendario reescrito (derivado, solo lectura): listeners propios en 19-calendario.js.
    Se retiran los antiguos de la rejilla manual (#calTabla / #calEventos). */

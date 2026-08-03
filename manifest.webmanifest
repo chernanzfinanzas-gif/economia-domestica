@@ -2,12 +2,15 @@
   "name": "Economía Doméstica",
   "short_name": "Economía",
   "description": "Gestión de economía doméstica e inversiones",
+  "lang": "es-ES",
+  "dir": "ltr",
   "start_url": ".",
   "scope": ".",
   "display": "standalone",
   "orientation": "any",
   "background_color": "#f4f6fb",
   "theme_color": "#1f3d6b",
+  "categories": ["finance", "productivity"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -20,6 +23,36 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Panel",
+      "short_name": "Panel",
+      "description": "Abrir directamente el panel de control",
+      "url": "./?v=panel",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Kanban/Kaizen",
+      "short_name": "Kanban",
+      "description": "Abrir directamente el tablero del embudo de inversión",
+      "url": "./?v=embudo",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Movimientos",
+      "short_name": "Movimientos",
+      "description": "Abrir directamente el registro de movimientos",
+      "url": "./?v=movimientos",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
+    },
+    {
+      "name": "Cartera",
+      "short_name": "Cartera",
+      "description": "Abrir directamente la cartera de inversiones",
+      "url": "./?v=inversiones",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192", "type": "image/png" }]
     }
   ]
 }

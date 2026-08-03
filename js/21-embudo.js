@@ -252,9 +252,10 @@ function _emRow(t){
 }
 
 /* ---------- render ---------- */
-/* [30-jul-2026] La banda ya NO tiene scroll horizontal: .em-lanecards es una rejilla que
-   baja de fila (ver CSS). Las dos funciones de abajo se quedan como red de seguridad —
-   con scrollWidth === clientWidth no hacen nada— por si algún día vuelve a haber tira. */
+/* [30-jul-2026] En pantalla ancha la banda ya NO tiene scroll horizontal: .em-lanecards es una
+   rejilla que baja de fila (ver CSS), así que las dos funciones de abajo no hacen nada ahí
+   (scrollWidth === clientWidth). En móvil (<560px) sigue siendo una tira deslizable con
+   scroll-snap, y ahí siguen haciendo su trabajo: no se pueden borrar. */
 /* [29-jul-2026] La banda «Necesita tu acción» es una tira con scroll horizontal
    (.em-lanecards, display:flex + overflow:auto). Cada clic en una ficha llama a
    renderEmbudo(), que rehace la sección entera con `sec.innerHTML = H`: eso destruye
@@ -964,10 +965,19 @@ function _emBind(sec){
     '.em-lane h4{margin:0 0 9px;font-size:13px;color:#9a3412;text-transform:uppercase;letter-spacing:.04em}',
     /* [30-jul-2026] La tira de «Necesita tu acción» era un flex con scroll horizontal:
        las fichas se cortaban por la mitad en los bordes y había que arrastrar para verlas.
-       Ahora es una rejilla que reparte el ancho disponible y baja de fila cuando no caben:
-       todo queda a la vista sin scroll lateral. */
+       En pantalla ancha ahora es una rejilla que reparte el ancho y baja de fila: todo a la
+       vista, sin scroll lateral.
+       En el MÓVIL no: ahí no cabe más de una ficha a lo ancho, así que la rejilla degenera en
+       una pila —medido a 390px con 5 urgentes: la banda pasaba de 262px a 1164px de alto y el
+       tablero se iba a 1431px, pantalla y media de scroll antes de llegar a él—. Por debajo de
+       560px se vuelve a la tira, pero con scroll-snap: cada gesto encaja una ficha entera en
+       pantalla, que era el defecto original (fichas cortadas por la mitad en los bordes). */
     '.em-lanecards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;align-items:stretch}',
     '.em-lanecards .em-card{min-width:0;margin-bottom:0}',
+    '@media(max-width:560px){',
+    '  .em-lanecards{display:flex;grid-template-columns:none;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}',
+    '  .em-lanecards .em-card{flex:0 0 88%;scroll-snap-align:start}',
+    '}',
     /* minmax(0,1fr) y no 1fr: 1fr equivale a minmax(auto,1fr) y no deja que la columna
        baje de su min-content, que es lo que desbordaba el tablero a la derecha. */
     '.em-kanban{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}',
