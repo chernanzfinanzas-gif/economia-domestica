@@ -335,9 +335,9 @@
           "tipo": "opa",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-07-24",
-          "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/",
+          "origen": "barrido societario 2026-08-03",
+          "fecha": "2026-07-28",
+          "fuente": "registro (OIR CNMV n 42131) + emisor + prensa",
           "exigeAccion": false,
           "ultimaNovedad": {
             "fecha": "2026-07-28",
@@ -510,7 +510,7 @@
       ]
     },
     "ELE": {
-      "empresa": "Endesa",
+      "empresa": "Endesa, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -560,7 +560,7 @@
       "revisionesFrescas": true
     },
     "ENG": {
-      "empresa": "Enagás, S.A.",
+      "empresa": "Enagas, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -778,7 +778,7 @@
       "revisionesFrescas": true
     },
     "LOG": {
-      "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
+      "empresa": "Compania de Distribucion Integral Logista Holdings, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -927,7 +927,7 @@
       "revisionesFrescas": true
     },
     "NTGY": {
-      "empresa": "Naturgy",
+      "empresa": "Naturgy Energy Group, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -968,7 +968,7 @@
       "revisionesFrescas": true
     },
     "PRM": {
-      "empresa": "Prim",
+      "empresa": "Prim, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -992,21 +992,21 @@
         {
           "id": "S6-2026-08-04",
           "abiertoEl": "2026-08-04",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-08-04",
+          "desenlace": "REAFIRMAR: desfase temporal de inversion, no tendencia adversa confirmada. El EBITDA (-18,4%) y el BNA (-35,1%) caen por gastos -personal +6,9%, amortizaciones +8,0% del Plan Estrategico- con ventas planas y sin aportacion aun de las adquisiciones de 2026. Ninguna senal de alarma del 8.1 activada (Mg.EBITDA 12,1% vs <9%; Mg.Bruto 51,3% vs <47%) ni cadena del 8.2 en curso; balance en su mejor momento (caja neta +6,2 M EUR, CFO 14,6 M EUR +76%, conversion 96%) y forense sin veto. NO se escala a S2 y no se toca ninguna cifra: PO base 14,90, banda 12,00-13,00, stop 9,50. CONDICION ESCRITA: si en el 9M-2026 (1) el EBITDA sigue cayendo a doble digito con las compras ya consolidadas, (2) el margen neto sigue bajo el 6% -hoy 5,4%, primera vez que cruza la condicion del pre-mortem n3- o (3) el payout sobre beneficio supera el 100% -hoy ~99%, predictor duro H2 de B4-, se trata como S2. Vigilar ademas el importe de Impulseo y Physioacademie (pre-mortem n2) y el FCL del ejercicio, hoy Pte. Revision. Nota: Revisiones/2026-08-04 Nota Revision Extraordinaria Prim (S6).html",
           "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
           "tipo": "senal",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "monitor-trimestral 2026-Q2",
+          "origen": "protocolo · estado.json",
           "fecha": "2026-08-04",
           "fuente": null,
           "exigeAccion": true,
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-11",
-          "notaEmitida": false
+          "notaEmitida": true
         }
       ],
       "revisiones": [
@@ -1016,13 +1016,20 @@
           "cot": "13,25",
           "decision": "REAFIRMAR",
           "motivo": "Backfill del monitor con 13 trimestres (2023Q1–2026Q1). Sin semáforo ROJO. Dos ámbar (FY-2024 y Q1-2026) NO consecutivos → no se dispara S6. Tesis intacta (MANTENER). · [Señal original anotada: «S5→S6?»; el propio motivo concluye que S6 NO se dispara] · [Cotización normalizada el 29-jul-2026: el apunte traía 13,35 €, que es el precio en vivo que rellena el formulario de la app, no un cierre. Se pone el cierre que correspondía a esa fecha, 13.25 € (Matriz Bolsa Española).]"
+        },
+        {
+          "fecha": "4-ago-2026",
+          "senal": "S6",
+          "cot": "13,3",
+          "decision": "REAFIRMAR",
+          "motivo": "Señal abierta el 4-ago-2026 (cotización de referencia 13,3). REAFIRMAR: desfase temporal de inversion, no tendencia adversa confirmada. El EBITDA (-18,4%) y el BNA (-35,1%) caen por gastos -personal +6,9%, amortizaciones +8,0% del Plan Estrategico- con ventas planas y sin aportacion aun de las adquisiciones de 2026. Ninguna senal de alarma del 8.1 activada (Mg.EBITDA 12,1% vs <9%; Mg.Bruto 51,3% vs <47%) ni cadena del 8.2 en curso; balance en su mejor momento (caja neta +6,2 M EUR, CFO 14,6 M EUR +76%, conversion 96%) y forense sin veto. NO se escala a S2 y no se toca ninguna cifra: PO base 14,90, banda 12,00-13,00, stop 9,50. CONDICION ESCRITA: si en el 9M-2026 (1) el EBITDA sigue cayendo a doble digito con las compras ya consolidadas, (2) el margen neto sigue bajo el 6% -hoy 5,4%, primera vez que cruza la condicion del pre-mortem n3- o (3) el payout sobre beneficio supera el 100% -hoy ~99%, predictor duro H2 de B4-, se trata como S2. Vigilar ademas el importe de Impulseo y Physioacademie (pre-mortem n2) y el FCL del ejercicio, hoy Pte. Revision. Nota: Revisiones/2026-08-04 Nota Revision Extraordinaria Prim (S6).html"
         }
       ],
       "revisionesEl": "2026-08-04",
       "revisionesFrescas": true
     },
     "RED": {
-      "empresa": "Redeia Corporación, S.A.",
+      "empresa": "Redeia Corporacion, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -1216,7 +1223,7 @@
       "revisionesFrescas": true
     },
     "TEF": {
-      "empresa": "Telefónica, S.A.",
+      "empresa": "Telefonica, S.A.",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -1394,19 +1401,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 24,
-    "hallazgosActivos": 39,
+    "hallazgosActivos": 38,
     "porTipo": {
       "otro": 16,
       "coyuntura": 14,
       "opa": 3,
       "sancion": 3,
       "litigio": 1,
-      "senal": 1,
       "concurso": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 18,
+    "situacionesAbiertas": 17,
     "hechosCaducadosHoy": 0
   }
 }

@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRM · Nota de Revisión Extraordinaria · 1S-2026 · 2º ámbar consecutivo</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#00567A;--corp-dark:#003a53;--corp-light:#e8f4fa}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S6</div>
+      <div class="company-name">Prim, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S6 · Dos trimestres consecutivos en ámbar</span>
+        <span class="badge badge-sig">1S-2026 · 2º ámbar consecutivo</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">PRM · PRM.MC · Bolsa de Madrid · Mercado Continuo<br>Fecha: 4 de agosto de 2026<br>Plazo señal: con el 2º ámbar · abierta el 4-ago, vence el 11-ago</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">14,90 €</div><div class="kpi-sub">sin cambio · dossier 20-jul</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">13,30 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+12,0%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Margen neto</div><div class="kpi-val amber">5,4%</div><div class="kpi-sub">bajo el 6% del pre-mortem nº3 por primera vez</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S6</div>
+  <p>El <b>31 de julio de 2026</b> Prim registró en la CNMV su informe financiero del primer semestre (nreg <b>2026109193</b>). Al volcarlo hoy en el §10.3, el semáforo del <b>1S-2026</b> sale <b>ÁMBAR</b>, y el periodo anterior —2026-Q1, del 14-may— también fue ámbar. Ese es el gatillo literal de la S6: <i>dos trimestres consecutivos en ámbar</i>, que el Protocolo trata como una <b>mini-revisión de tendencia</b> con el propio 2º ámbar como plazo.<br><br>Las cifras que lo producen: ventas <b>125,77 M€ (−1,0%)</b> —el primer semestre en negativo de toda la serie del monitor—, EBITDA <b>15,21 M€ (−18,4%)</b>, EBIT <b>9,17 M€ (−29,7%)</b> y BNA <b>6,75 M€ (−35,1%)</b>, con un BPA de 0,40 € frente a 0,61 €. En el Q1 el EBITDA ya caía un 13,8%: la caída no se estabiliza, se acelera.<br><br>Y una precisión que esta Nota deja fijada porque afectaba a la comparación: hasta hoy el EBITDA y el EBIT del 1S-2025 del §10.3 eran <b>estimaciones</b> (16,5 y 11,0 M€), porque del semestre solo se tenía el Anexo I de la CNMV, que no los desglosa. El registro de este año trae por primera vez el Anexo completo con los estados consolidados y su columna comparativa: los reales son <b>18,65 y 13,05 M€</b>. Corregida la base, la caída del EBITDA es del <b>−18,4%</b> y no del −7,8% que habría salido cruzando un real contra un estimado.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ok">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p><b>La S6 no la dispara un hecho externo</b>, sino la propia serie del monitor, así que no hay nada que corroborar en registros públicos: el dato es el informe. Sí queda corroborado, del mismo documento, el movimiento societario del periodo: el <b>19 de julio de 2026</b> se formalizó la adquisición del <b>100% de las francesas Impulseo, SAS y Physioacademie, SAS</b> (nota 29, hechos posteriores al cierre), primera entrada societaria del Grupo en Francia. <b>Sin importe publicado → Pte. Revisión</b> de su efecto en el PO. Y el 1-ene-2026 se integró la rama de actividad de Ortopedia San Marcos por 100.000 € (nota 25.1.1), operación menor.</p>
+  <div class="cb-src">CNMV · Información Financiera Intermedia, registro nº 2026109193 (31-jul-2026) — Anexo del informe financiero semestral, notas 25.1.1, 29 y 30.1.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Argumentos de que es un DESFASE TEMPORAL</div>
+    <div class="seg-body"><ul><li><b>El deterioro es de gastos, no de actividad.</b> Con las ventas prácticamente planas, el EBITDA cae por <b>gastos de personal +6,9%</b> y <b>amortizaciones +8,0%</b>, vinculadas al plan de inversiones del Plan Estratégico. Si el negocio se estuviera rompiendo, la caída empezaría en la línea de arriba.</li><li><b>Las adquisiciones de 2026 no aportan un euro al semestre.</b> La propia compañía lo dice: su contribución se incorpora <b>a partir del segundo semestre</b>. Y las francesas ni siquiera estaban en el perímetro — se cerraron el 19-jul, tres semanas después del cierre. El semestre soporta el coste de una estructura cuyo ingreso todavía no ha llegado.</li><li><b>El balance va en dirección exactamente contraria al deterioro.</b> Caja neta de <b>+6,2 M€</b> frente a una <b>deuda neta de 7,7 M€</b> hace un año; efectivo 20,9 M€ frente a 9,4 M€; y flujo de explotación de <b>14,6 M€ frente a 8,3 M€ (+76%)</b>, con una conversión CFO/EBITDA del <b>96%</b>. Una compresión estructural no financia un vuelco de 14 M€ en la posición neta.</li><li><b>Ninguna señal de alarma del §8.1 está activada</b>, y menos la del riesgo dominante. El riesgo nº2 pide «margen EBITDA &lt;9% dos trimestres seguidos; margen bruto &lt;47%»: hoy son <b>12,1%</b> y <b>51,3%</b>. El riesgo nº1 pide una caída del margen bruto &gt;2 pp: ha caído <b>0,5 pp</b>. El nº5 pide CFO negativo: es el mejor de la serie.</li><li><b>El forense no ve deterioro de calidad.</b> Piotroski <b>9/9</b> (banda fuerte), Altman Z <b>9,79</b> (zona segura), Beneish M <b>−2,84</b> (sin indicios de maquillaje).</li><li><b>El segmento que cae lo hace contra una base sucia.</b> Movilidad y Cuidados de la Salud baja a 59,4 M€ influido por ventas <i>no recurrentes</i> de una licitación registradas en el 1S-2025; Tecnologías Médicas se mantiene estable en 65,0 M€. La internacional crece <b>+4,4%</b> hasta 11,94 M€, con la UE al <b>+9,5%</b>.</li></ul></div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-body"><ul><li><b>Es el segundo periodo consecutivo de caída y va a peor:</b> EBITDA −13,8% en el Q1, <b>−18,4%</b> en el semestre. La hipótesis del «desfase» exige que esto toque suelo en el 3T; si no lo hace, deja de ser desfase.</li><li><b>El margen neto cae al 5,4%</b> y cruza por <b>primera vez</b> el 6% que el pre-mortem nº3 («trampa de valor / de-rating») fija como una de sus dos condiciones de salida. La otra —PER &lt;10× sostenido— está lejísimos, pero una de las dos ya no lo está.</li><li><b>La trayectoria encaja con el riesgo nº2, que el §8.1 califica de probabilidad ALTA:</b> margen neto del ~12% en 2016 → 6,6% en el dossier → <b>5,4%</b> hoy. Ese riesgo no describe un trimestre malo, describe justamente esta pendiente.</li><li><b>El dividendo se queda sin colchón.</b> Con el BNA de los últimos doce meses en ~13,0 M€, el BPA TTM baja a ~<b>0,76 €</b> — el mismo número que el <b>DPA previsto de 0,76 €</b>. El payout sobre beneficio se pone en el <b>~99%</b>. Y el Dividend Safety del dossier ya estaba en <b>40/100 «Vigilar»</b> con <b>tope duro</b> aplicado por cobertura sobre <i>owner earnings</i> a 3 años de <b>0,57×</b>. La retribución del ~5,7% es un pilar declarado de la tesis y un catalizador del expediente.</li><li><b>La concentración no se ha movido.</b> La internacional crece, pero desde 11,94 M€: más del 90% del negocio sigue en el mismo mercado, con ~48% de las ventas al SNS.</li></ul></div>
+  </div>
+</div>
+<div class="diag-verdict"><b>DESFASE TEMPORAL DE INVERSIÓN — con una excepción que hay que separar y no diluir: el dividendo.</b> La caída del EBITDA y del BNA es de gastos, no de actividad, y el balance mejora con fuerza en la dirección contraria: eso no es la firma de una compresión estructural, y ninguna de las señales de alarma que el propio expediente escribió para detectarla se ha encendido. Pero el margen neto ha cruzado el 6% del pre-mortem nº3 y el payout sobre beneficio TTM se ha puesto en el ~99%: eso no es desfase, es aritmética, y toca un pilar declarado de la tesis. <b>Confianza alta</b> sobre el diagnóstico operativo —está anclado en umbrales escritos de antemano y en el flujo de caja, que es difícil de disfrazar—; <b>confianza media</b> sobre el dividendo, porque depende de un FCL anual que todavía no existe: el semestre no lo desglosa y el CAPEX del ejercicio está en pleno plan de inversiones. <b>Pte. Revisión</b> hasta el 9M-2026.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card ok">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Matriz §8.1 — ningún riesgo ha subido de probabilidad ni de impacto, y ninguna señal de alarma se ha activado.</b> El nº1 (dependencia del SNS) pide caída del margen bruto &gt;2 pp: 0,5 pp. El nº2 (compresión de márgenes, prob. ALTA) pide margen EBITDA &lt;9% dos trimestres seguidos o margen bruto &lt;47%: 12,1% y 51,3%. El nº3 (deterioro de fondo de comercio) pide impairment: no lo hay, y el goodwill sube apenas 46 miles por la rama de San Marcos. El nº5 (circulante) pide CFO negativo o CCC &gt;230 días: el CFO es el mejor de la serie. <b>El nº2 sí merece una nota:</b> no está activado por sus umbrales, pero el margen neto —que no es su umbral pero sí su mecanismo— ha bajado al 5,4%. Es la primera vez que el riesgo de probabilidad ALTA del expediente deja una huella visible sin llegar a disparar.<br><br><b>Pre-mortem §8.2 — ninguna cadena en curso.</b> El nº1 «Tijera pública» pide <i>dos</i> trimestres con margen bruto &lt;46% y descenso del canal público: el margen bruto está en 51,3%. El nº2 «M&amp;A que sale cara» pide una adquisición &gt;20% de la capitalización o un salto de deuda: las compras del periodo son de 100.000 € y las francesas no tienen importe publicado, pero la posición pasó a caja neta, no a deuda — <b>este es el escenario a vigilar cuando se publique el precio de Impulseo y Physioacademie</b>. El nº3 «Trampa de valor» pide PER &lt;10× sostenido <i>y</i> margen neto &lt;6%: la segunda condición se cumple desde hoy; la primera no, y por un motivo incómodo que se trata en §4.</div>
+  </div>
+  <div class="seg-card ok">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>Bull case — vivo, pero con el reloj corriendo.</b> Dice: «los márgenes se estabilizan y el circulante deja de drenar caja: el FCL recurrente se hace visible… → 18-20 €». La <b>segunda mitad ya ha ocurrido</b> —CFO 14,6 M€ (+76%), conversión 96%, caja neta—; la primera, la estabilización de márgenes, es precisamente lo que este semestre <b>no</b> ha entregado. El bull sigue en pie porque su motor de caja funciona, pero necesita que el 3T confirme el suelo del margen.<br><br><b>Bear case — no se está materializando.</b> Pide «margen bruto por debajo del 46%» y «de-rating a PER 8-9×». El margen bruto está en 51,3% y el PER, lejos de contraerse, se ha <i>expandido</i>. El bear describe un mercado que castiga; lo que hay es un mercado que no se ha movido.<br><br><b>PO §9.3 — aguanta, no se toca.</b> El PO base de 14,90 € (bear 11,80 · bull 20,00) se sostiene sobre una síntesis de DCF y múltiplos que este semestre no invalida: la caída es de gastos de un plan de inversión con retorno esperado, no de deterioro del activo. La prueba de robustez del 27-jul situaba la banda de PO en 14,1–21,3 € bajo WACC ±1,0 pp y g ±0,5 pp, con la cotización por debajo de todo el rango. <b>Bajar el PO hoy sería anclarlo al precio, que es justo lo que prohíbe el §10.5.</b> Se revisa con el 9M-2026, con el margen del 3T y el importe de las adquisiciones francesas sobre la mesa.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <tr><td><b>Dividend Safety Score (H12)</b></td><td>Pertinente: el gatillo toca el BNA y la retribución es pilar de la tesis.</td><td>40/100 «Vigilar», con <b>tope duro</b> por cobertura sobre owner earnings 3a de 0,57×. Sin recalcular: el semestre no desglosa FCL ni owner earnings. <b>Pte. Revisión</b> al 9M.</td></tr><tr><td><b>Checklist B4 · predictores de recorte</b></td><td>Pertinente, por el payout TTM.</td><td><b>0 duros, 1 blando</b> (b3: BNA con caída YoY sostenida). H2 (payout &gt;100%) <i>no</i> activado: ~99%. Umbral de S2 (≥1 duro o ≥3 blandos) <b>no alcanzado</b>. Se queda en «vigilar dividendo» en el §10.4.</td></tr><tr><td><b>Forense (H13)</b></td><td>Chequeo de control ante dos ámbares seguidos.</td><td>Piotroski 9/9 · Altman Z 9,79 · Beneish M −2,84. <b>Sin veto.</b> Calculado sobre FY-2025; el semestre no lo contradice (accruals sanos: CFO 14,6 M€ &gt; BNA 6,75 M€).</td></tr><tr><td><b>Reverse DCF (H15)</b></td><td>No pertinente: el gatillo no es de valoración ni hay PO alcanzado.</td><td>No re-ejecutado. El PO no se toca en esta Nota.</td></tr>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Prim por primera vez, a 13,30 €, ¿la compraría?</div>
+  <div class="anchor-a"><b>No hoy — y el expediente ya lo decía antes de esta señal.</b> La banda de entrada es 12,00–13,00 € y la cotización está <i>por encima</i>: comprar a 13,30 € es comprar fuera de banda. Pero la pregunta que esta Nota tiene que responder no es si ampliaría, sino si <b>vendería</b>. Y con caja neta, forense impecable, ninguna señal de salida del §8.2 activada y un margen de seguridad del +12% al PO base, la respuesta honesta es <b>no</b>.<br><br>Lo que sí ha cambiado, y conviene decirlo sin adornos porque juega en contra de la posición: el <b>PER TTM se ha ido a ~17,4×</b> (13,30 € sobre un BPA TTM de ~0,76 €) frente al 13,6× que registraba el dossier. El precio no ha acompañado a la caída del beneficio, así que <b>la acción está más cara que hace un año sin que la tesis haya mejorado</b>. Eso es un argumento sólido para <b>no ampliar</b> mientras el margen no gire — no para salir de una compañía con el balance en su mejor momento de la serie.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">MANTENER · sin tocar ninguna cifra</div>
+  <div class="action-line">Acción: <b>No se toca nada:</b> PO base 14,90 € (bear 11,80 · bull 20,00), banda de entrada 12,00–13,00 € y stop de tesis en 9,50 €. No se regenera el <code>PRM.json</code>. La decisión oficial sigue siendo <b>MANTENER</b>, y la cotización está fuera de la banda de entrada, así que tampoco hay compra que plantear.<br><br><b>Desenlace de la S6, en la línea que pide el Protocolo:</b> <i>desfase temporal de inversión, no tendencia adversa confirmada → seguir en ordinario</i>. No se escala a S2.<br><br><b>Y una condición escrita, para que la próxima revisión no empiece de cero.</b> Esta reafirmación se apoya en que el 2S revierte. Si en el <b>9M-2026</b> (previsto ~nov-2026) se da <i>cualquiera</i> de estas tres, la S6 deja de ser mini-revisión y se trata como <b>S2</b>: (1) el EBITDA sigue cayendo a doble dígito con las adquisiciones ya consolidadas; (2) el margen neto sigue por debajo del 6%, con lo que serían dos periodos y el pre-mortem nº3 pasaría a tener su condición de márgenes cumplida de forma sostenida; o (3) el payout sobre beneficio supera el 100% — predictor <b>duro H2</b> de la checklist B4, que dispara S2 por sí solo aunque el semáforo sea verde. <b>Vigilancia añadida hasta entonces:</b> el importe de Impulseo y Physioacademie cuando se publique (pre-mortem nº2) y el FCL del ejercicio, hoy <b>Pte. Revisión</b>.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>CNMV · Información Financiera Intermedia, registro nº <b>2026109193</b> (31-jul-2026), 1S-2026 de PRIM, S.A. — «Informe semestral» (Anexo I) y «Anexo del informe financiero semestral», del que salen todas las cifras de esta Nota (estados consolidados intermedios, resumen ejecutivo, notas 25.1.1, 29 y 30.1): <a href='https://www.cnmv.es/portal/consultas/ifi/listaifi?nif=A28165587&amp;lang=es'>cnmv.es · IFI de PRIM, S.A.</a></li><li>Comparativa 1S-2025 (EBITDA 18,65 M€ · EBIT 13,05 M€ · deuda neta 7,7 M€): columna comparativa del mismo documento, que es la primera vez que el semestre la publica desglosada.</li><li>Umbrales, riesgos y pre-mortem: §10.1, §8.1 y §8.2 de <code>Datos Financieros Prim.xlsx</code>. Tesis, PO y bandas: §9.2–§9.4 y <code>PRM.json</code> del dossier del 20-jul-2026.</li><li>Cotización <b>13,30 €</b> (cierre 03/08/2026): Matriz Bolsa Española v2. La cotización de la acción sale siempre de la Matriz, nunca de internet.</li><li>El XBRL del registro (taxonomía IPP) existe y está enlazado en la ficha de la CNMV, pero se sirve comprimido; las cifras se han tomado del documento, no de él.</li></ul></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria emitida bajo el Protocolo de Revisión Extraordinaria del Método de Análisis Financiero KH&amp;Claude, señal <b>S6 · dos trimestres consecutivos en ámbar</b>, abierta el 4-ago-2026 con el registro del 1S-2026 en el §10.3 y cerrada con esta Nota el mismo día, dentro de plazo. El desenlace queda registrado en los tres sitios donde vive la señal: el §10.5 de la pestaña Vigilancia del Excel, <code>estado.json</code> y <code>hallazgos.json</code>. Orden de autoridad, invariable: §10.5 &gt; estado.json &gt; hallazgos.json. Este documento es un análisis para uso propio, no una recomendación de compra o venta, y no constituye asesoramiento financiero. Las cifras proceden del Excel del método y del informe financiero semestral registrado en la CNMV; lo que no se ha podido determinar se marca expresamente como «Pte. Revisión». Quien lo lea debe formarse su propio juicio. · Carlos HB &amp; Claude IA · 4-ago-2026.</div>
+
+</div></body></html>
