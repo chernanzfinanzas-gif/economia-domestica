@@ -938,11 +938,34 @@ function renderPanelDash(){
       if(m){ const M={ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'};
         const mm=M[m[2]]; if(mm) return m[3]+'-'+mm+'-'+('0'+m[1]).slice(-2); }
       const i=s.match(/^(\d{4})-(\d{2})-(\d{2})/); return i?i[0]:''; };
+    /* [4-ago-2026] DOS fallos en la lectura del §10.5, destapados por la S1 de Azkoyen del 3-ago.
+       (1) DECIMAL ESPAÑOL. La cotización llega del puente como TEXTO ('15,56') y `num` es
+           parseFloat, que se para en la coma: num('15,56') = 15. Con la cotización truncada,
+           TODAS las filas se deducían de nivel 'base', así que la corrección del 29-jul —«un
+           apunte de base no silencia un aviso de bull»— no estaba funcionando en ninguna
+           empresa. Bankinter seguía avisando de su cruce del bull por ESTE error, no por aquel
+           arreglo: sus dos filas (15,56 y 15,4) se leían como 15 y se caían del filtro.
+       (2) LA DECISIÓN SE TIRABA. `kh_105.abrir()` escribe la fila con decisión `ABIERTA` —es la
+           marca de «señal abierta, sin resolver»— y aquí contaba igual que un REAFIRMAR. O sea:
+           el apunte que ABRE la señal era lo que la borraba del Panel. El método es explícito en
+           que la Nota es lo ÚNICO que cierra una señal; mientras la decisión sea ABIERTA no hay
+           revisión hecha y el aviso tiene que seguir sonando.
+       Se descarta por lista NEGRA (ABIERTA o vacío), no por lista blanca de las cuatro
+       decisiones canónicas: el §10.5 real tiene decisiones fuera del vocabulario —ACS lleva un
+       «AJUSTA BANDA» del 29-jul— y una lista blanca las trataría como señales sin resolver,
+       resucitando avisos ya contestados. */
+    const _numES=v=>{ if(typeof v==='number') return isNaN(v)?0:v;
+      const s=(''+(v==null?'':v)).trim().replace(/[^\d,.\-]/g,'');
+      const norm=(s.indexOf(',')>=0) ? s.replace(/\./g,'').replace(',','.') : s;   /* 1.234,56 -> 1234.56 */
+      const n=parseFloat(norm); return isNaN(n)?0:n; };
+    const _resuelta105=r=>{ const d=(''+(r.decision||'')).toUpperCase().trim();
+      return !!d && d!=='ABIERTA'; };
     const _ap105=(t,sig,nivel)=>{ if(typeof revisionesCorpDe!=='function')return [];
       let _bull=0; try{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); _bull=a?num(a.poMax):0; }catch(e){}
       let filas=[]; try{ filas=revisionesCorpDe(t).filas||[]; }catch(e){ return []; }
       return filas.filter(r=>{ if(((''+(r.senal||'')).toUpperCase().trim())!==sig) return false;
-          const c=num(r.cot); return _nivOK({nivel:((_bull>0&&c>=_bull)?'bull':'base')},nivel); })
+          if(!_resuelta105(r)) return false;
+          const c=_numES(r.cot); return _nivOK({nivel:((_bull>0&&c>=_bull)?'bull':'base')},nivel); })
         .map(r=>({fecha:_f105(r.fecha),estado:'',origen:'§10.5'})).filter(r=>r.fecha); };
     const _silenciada=(t,sig,nivel)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)).concat(_ap105(t,sig,nivel)); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
