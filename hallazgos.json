@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-08-03",
+  "generadoEl": "2026-08-04",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -367,9 +367,9 @@
         {
           "id": "S1-2026-08-03",
           "abiertoEl": "2026-08-03",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-08-04",
+          "desenlace": "Señal abierta el 03-ago-2026 (cotización de referencia 10,30 €). REAFIRMAR TESIS. El stop de 10,50 € se perforó un 1,9%, pero por un precio que NO informa sobre la tesis: con la OPA en efectivo de Ohmnia a 10,00 €/acción viva desde el 24-jul (IP n3303) y calificada de amistosa por el Consejo el 28-jul (OIR n42131), la cotización expresa la probabilidad de que la oferta prospere —suelo blando en 10 €, techo duro—, no el valor del negocio. Cronología que desmiente el relato fácil: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio. Ninguna de las tres señales de salida del §8.2 está activada: pre-mortem n1 va en dirección contraria (Payment 44,71 M€, +20,3%), n2 sin detonante, n3 con UNA pata de dos (Vending −9,5% un solo periodo; margen bruto 66,1% frente al umbral de 60%). Aplica la fila del §10.5 «Pérdida >20% SIN deterioro de fundamentales → MANTENER: es ruido de precio, no de valor». El deterioro de márgenes del 1S-2026 es real (margen explotación 12,7→9,6%, Bº −20,4%) pero YA se juzgó el 29-jul y no hay dato nuevo hasta el 9M-2026. SIN CAMBIOS: PO 13,28 € (bear 11,73 · bull 22,79), banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, y STOP EN 10,50 € SIN MOVER —rebajarlo hoy, con el precio pegado a él, es lo que el §10.5 prohíbe expresamente—. No se toca el AZK.json. Acción: ninguna; no hay posición, así que el stop es un umbral de watchlist, no una orden ejecutable, y no se compra dentro de la banda mientras la oferta esté viva. DOS HUECOS DEL EXPEDIENTE detectados y anotados para la Actualización Anual: (1) el §9.3 fija entMin = stop = 10,50 €, de modo que no hay precio de compra dentro de la banda que no esté a un tick del nivel que declara la tesis rota — error de construcción, no opinión sobre el precio de hoy; (2) ninguno de los 8 riesgos del §8.1 ni de los 3 pre-mortem contempla una OPA o un cambio de control, que es justamente lo que hoy gobierna la cotización. Re-evaluar con lo primero de: solicitud de autorización de Ohmnia ante la CNMV (vence ~24-ago), folleto, mejora de precio, contraopa, o el 9M-2026. Nota: Revisiones/2026-08-04 Nota Revisión Extraordinaria Azkoyen (S1).html",
           "resumen": "Deteccion de precio 2026-08-03 (informe semanal): STOP DE TESIS TOCADO — cotizacion 10,30 EUR <= stop 10,50 EUR (Matriz, cierre 03/08/2026). Plazo 48 h. Contexto imprescindible: el precio esta anclado a la OPA de Ohmnia a 10,00 EUR/accion (anuncio previo 24-jul-2026, IP CNMV n3303; el consejo la califica de AMISTOSA el 28-jul, OIR n42131), no a un deterioro del negocio; a 3-ago no consta solicitud de autorizacion presentada (plazo hasta ~24-ago), ni folleto, ni plazo de aceptacion abierto, ni contraopa. La S2 del 29-jul (semaforo ROJO del 1S-2026) se cerro ese mismo dia con Nota REAFIRMAR y NO se reabre: esto es una senal de PRECIO distinta. La Nota debe decidir si el stop de 10,50 EUR sigue siendo operativo mientras viva una oferta que pone suelo blando en 10,00 EUR y techo duro, o si procede suspenderlo como ya se suspendio la banda de entrada 10,50-11,50 EUR en el apunte del 29-jul.",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -381,7 +381,7 @@
           "codigo": "S1",
           "plazoDias": 2,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": false
+          "notaEmitida": true
         },
         {
           "id": "coyuntura",
@@ -1375,19 +1375,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 24,
-    "hallazgosActivos": 39,
+    "hallazgosActivos": 38,
     "porTipo": {
       "otro": 16,
       "coyuntura": 14,
       "opa": 3,
-      "senal": 1,
       "sancion": 3,
       "litigio": 1,
       "concurso": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 18,
+    "situacionesAbiertas": 17,
     "hechosCaducadosHoy": 0
   }
 }

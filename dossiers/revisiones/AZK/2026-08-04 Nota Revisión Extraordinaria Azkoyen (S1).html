@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AZK · Nota de Revisión Extraordinaria · 1S-2026 · OPA en curso</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#b0182b;--corp-dark:#7d1020;--corp-light:#fdeaec}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S1</div>
+      <div class="company-name">Azkoyen, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S1 · Stop de tesis alcanzado</span>
+        <span class="badge badge-sig">1S-2026 · OPA en curso</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">AZK · Bolsa de Madrid · Mercado Continuo<br>Fecha: 4 de agosto de 2026<br>Plazo señal: 48 h · abierta el 3-ago, vence el 5-ago</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">ESPERAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">13,28 €</div><div class="kpi-sub">sin cambio · dossier 22-jul</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">10,30 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+28,9%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Stop de tesis</div><div class="kpi-val red">10,50 €</div><div class="kpi-sub">perforado un 1,9%</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S1</div>
+  <p>El <b>3 de agosto de 2026</b>, con el cierre de la Matriz, la cotización de Azkoyen quedó en <b>10,30 €</b>, por debajo del <b>stop de tesis de 10,50 €</b> fijado en el §9.3 del dossier del 22-jul. Es una perforación del <b>1,9%</b>, la primera desde que existe el stop. La detectó la Herramienta <i>05 - 03 · Detectar señales S1 y S3 · precio</i> dentro del pase semanal, y quedó registrada el mismo día en el §10.5 del Excel y en <code>estado.json</code> con la decisión en <code>ABIERTA</code>. El plazo del Protocolo para una S1 es de <b>48 horas</b> —el más corto de las seis señales— y vence el <b>5 de agosto</b>. La pregunta que obliga a responder es la del Protocolo: <b>¿la tesis está rota, o es ruido?</b> Y hay una circunstancia que la condiciona entera: <b>Azkoyen está bajo una OPA en efectivo a 10,00 €/acción</b>, viva desde el 24 de julio.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>El hecho que gobierna la cotización está <b>corroborado en fuente de registro</b>, no en prensa. Ohmnia Electronics —vehículo de Clerbil (José Antonio Jainaga) con Fundación BBK, Kutxabank y el Instituto Vasco de Finanzas— formuló <b>anuncio previo de OPA voluntaria sobre el 100% del capital a 10,00 €/acción en efectivo</b> (244,5 M€) el <b>24-jul-2026</b>, comunicación de Información Privilegiada <b>nº 3303</b> de la CNMV. El <b>28-jul</b> el Consejo de Azkoyen la calificó de <b>amistosa</b>, comunicación de Otra Información Relevante <b>nº 42131</b>. En el chequeo societario del <b>3-ago-2026</b>, con consulta filtrada por fechas y nombre de entidad verificado, la situación era: <b>solo anuncio previo</b>. No consta solicitud de autorización presentada ante la CNMV —Ohmnia dispone de un mes desde el anuncio previo, plazo que vence hacia el <b>24-ago-2026</b>—, no hay folleto publicado, no hay plazo de aceptación abierto, y <b>no hay contraopa ni mejora de precio</b>. La oferta está condicionada a una aceptación superior al 50% del capital y a las autorizaciones de competencia en España y Alemania. El precio se reduce por cualquier distribución salvo el dividendo ordinario y extraordinario de 1 €/acción anunciado el 9-jun. <b>Nota de alcance:</b> esta corroboración es la del chequeo del 3-ago; hoy no se ha podido repetir la consulta en vivo, de modo que cualquier hecho posterior al 3-ago queda <b>Pte. Revisión</b>.</p>
+  <div class="cb-src">Fuentes de registro: CNMV · Información Privilegiada nº 3303 (24-jul-2026) y Otra Información Relevante nº 42131 (28-jul-2026). Cotización: Matriz Bolsa Española, cierre 03/08/2026 — nunca de internet.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El precio que perforó el stop no es un precio de mercado: es el precio de una oferta.</div>
+    <div class="seg-body">Un stop de tesis es un dispositivo que presupone que la cotización <b>informa</b> sobre el negocio. Con una OPA en efectivo viva a 10,00 €, deja de hacerlo: el precio pasa a expresar la probabilidad de que la oferta prospere, con un <b>suelo blando</b> —nadie vende muy por debajo de 10 €— y un <b>techo duro</b> —nadie paga muy por encima salvo que espere una mejora—. Los 10,30 € de ayer son eso: 30 céntimos sobre la oferta.<br><br>La cronología lo refuerza y desmiente el relato fácil: la acción cayó de <b>14,20 € a 12,10 € el 22-jul</b>, es decir <b>antes</b> del anuncio, y siguió hasta 11,40 € el día 24. La OPA se formuló <b>sobre un precio ya castigado</b>, un 12% por debajo. No es que la oferta hundiera la cotización.<br><br>Y los fundamentales que romperían la tesis no están: <b>margen bruto 66,1%</b> frente a la alarma del §8.1 R2 en el 60%; <b>Payment Technologies 44,71 M€, +20,3%</b> —exactamente lo contrario de la señal de salida del pre-mortem nº1—; <b>caja neta bancaria 19,6 M€</b>; FCO 14,7 M€; ROIC 15,2% con un spread de +9,9 pp sobre el WACC. El §10.5 tiene una fila para esto: <i>«Pérdida &gt; 20% SIN deterioro de fundamentales → MANTENER; es ruido de precio, no de valor»</i>.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Pero el 1S-2026 fue rojo de verdad, y ese deterioro sigue sin cuantificar.</div>
+    <div class="seg-body">No se puede vender el argumento anterior sin decir esto: el semestre <b>es</b> malo. El margen de explotación cae de <b>12,7% a 9,6%</b> y el beneficio atribuible <b>−20,4%</b> con los ingresos <b>+6,2%</b> — apalancamiento operativo en contra, sin un cargo puntual que lo explique. <b>Vending entra en pérdidas</b> (−1,5 M€, ingresos −9,5%) y Time &amp; Security queda en 0,1 M€.<br><br>La Nota del 29-jul ya lo diagnosticó como <b>MIXTO con peso estructural</b>: el retroceso está en coste fijo —personal +10,7%, otros gastos +13,1%— y el coste por empleado sube 6,9% frente a un ingreso por empleado de +2,6%. De ahí salió que el catalizador nº2 del §9.1 (ingresos &gt;220 M€ y margen EBITDA ≥15% en FY-2026) pasara a <b>EN RIESGO DE FALLAR</b>.<br><br>También avanza, por la vía del precio, el riesgo §8.1 R5 —el de probabilidad <b>Alta</b>—: la contracción del múltiplo hacia su media histórica. Lo que no avanza es su otra pata, el crecimiento de ingresos por debajo del 3%: hoy es +6,2%.<br><br><b>Nada de esto es información nueva desde el 29-jul.</b> El dato que lo cerraría —el margen del 9M-2026— aún no existe: <b>Pte. Revisión</b>.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto del diagnóstico: RUIDO DE PRECIO, sobre un deterioro operativo real ya evaluado.</b> El stop se ha perforado por un precio que no informa sobre la tesis, y la perforación es del 1,9% sobre un nivel que la oferta de 10,00 € hace prácticamente inevitable rozar. El deterioro de márgenes es real, pero <b>ya se juzgó el 29-jul</b> y no ha empeorado porque no hay dato nuevo. <b>Confianza alta</b> sobre la naturaleza del precio —es un hecho verificable en registro—; <b>confianza media</b> sobre el margen, que espera al 9M-2026. Lo que <b>no</b> se sostiene es la lectura contraria: que el stop tocado pruebe que la tesis está rota. Ninguna de las tres señales de salida del §8.2 se ha activado.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Los tres pre-mortem, sin detonar.</b> El nº1 <i>(el efectivo se desploma)</i> pide Payment a la baja 2-3 trimestres seguidos más recorte de guidance: Payment crece <b>+20,3%</b>, va en dirección contraria. El nº2 <i>(M&amp;A destructiva)</i> no tiene detonante. El nº3 <i>(recesión + guerra de precios)</i> pide ingresos de vending negativos dos trimestres <b>y</b> margen bruto por debajo del 60%: hay <b>una pata puesta</b> —Vending −9,5%, primer periodo— y la otra lejos —66,1% frente a 60%—. <b>Ámbar, no rojo</b>; la segunda lectura de vending llega con el 9M-2026.<br><br><b>Hueco detectado en la matriz, y hay que decirlo:</b> ninguno de los <b>8 riesgos del §8.1</b> ni de los 3 pre-mortem contempla una <b>OPA o un cambio de control</b>. El riesgo que hoy gobierna la cotización, fija su techo y suspende la banda de entrada <b>no está mapeado en el Bloque 8</b>. No es un fallo de la vigilancia —la matriz se escribió antes de la oferta—, es un hueco del expediente que hay que cerrar.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>La tesis vive, pero su aritmética está escrita sobre otro mundo.</b> El §9.3 se construyó con la acción a <b>14,20 €</b> y un margen de seguridad de <b>−6,4%</b>: el precio superaba al valor. A 10,30 € el margen es <b>+28,9%</b> y la cotización está, por primera vez, <b>por debajo del propio escenario bear</b> (11,73 €).<br><br>Y aquí está la condición que el Bloque 9 <b>no</b> tiene escrita: el PO de 13,28 € y el bull de 22,79 € <b>solo son alcanzables si la OPA fracasa o si alguien mejora el precio</b>. Mientras la oferta viva y sea amistosa, el recorrido teórico hasta el PO no es capturable comprando en mercado. El Bloque 9 valora un negocio; hoy la cotización valora una operación.<br><br><b>Defecto de construcción detectado en el §9.3:</b> el <b>suelo de la banda de entrada y el stop de tesis son el mismo número, 10,50 €</b>. La banda dice «compra entre 10,50 y 11,50» y el stop dice «por debajo de 10,50 la tesis está rota». No existe ningún precio de compra dentro de la banda que no esté a un tick del nivel que declara la tesis rota. Eso no es una opinión sobre Azkoyen ni depende de la cotización de hoy: es un error de construcción.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Reverse DCF</span><span><span class="pill g">PLAUSIBLE, y más</span> &nbsp;El dossier lo calculó a 14,20 €: g implícito <b>2,29%</b> frente a un g intrínseco autofinanciable de <b>4,47%</b>. A 10,30 € el precio exige <b>menos</b> crecimiento todavía, así que el veredicto solo puede reforzarse. <b>El valor exacto recalculado queda Pte. Revisión</b>: no se re-ejecuta el modelo dentro del plazo de 48 h de una S1, y la dirección basta para esta decisión.</span></div><div class="tool-row"><span class="tool-name">Forense</span><span><span class="pill g">Sin veto</span> &nbsp;Piotroski <b>7/9</b> (fuerte), Altman Z <b>8,01</b> (zona segura). No bloquea nada. <b>Matiz honesto:</b> son las cifras del FY-2025; el 1S-2026 no se ha pasado por el forense y el gatillo de hoy es de precio, no de calidad contable.</span></div><div class="tool-row"><span class="tool-name">Dividend Safety</span><span><span class="pill a">75 · Seguro, con vigilancia</span> &nbsp;Shareholder yield 4,43%, sin tope duro. Pero en julio se pagaron <b>24,4 M€ de dividendo</b> y entraron <b>30 M€ de deuda nueva</b> — ya anotado el 29-jul. La caja neta bancaria aguanta en 19,6 M€.</span></div><div class="tool-row"><span class="tool-name">ROIIC</span><span><span class="pill g">No aplica al gatillo</span> &nbsp;El spread ROIC−WACC es <b>+9,9 pp</b> (FY-2025). La señal es de precio; no se re-ejecuta.</span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">«Si descubriera hoy Azkoyen por primera vez, a 10,30 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?»</div>
+  <div class="anchor-a"><b>Watchlist. Y el sesgo a neutralizar hoy es el contrario del habitual.</b><br><br>En frío, los números invitan a comprar: calidad AA, caja neta, ROIC 15,2%, y un precio que por primera vez está <b>por debajo del escenario bear</b> del propio DCF. El §10.5 tiene la regla escrita —<i>«Entrada: cot &lt; 11,5 € — comprar si tesis y confianza intactas»</i>— y lleva disparada desde el 29-jul. <b>Sigue sin ejecutarse</b>, por las dos razones de aquella Nota, hoy más firmes: la condición «tesis y confianza intactas» no se cumple mientras el deterioro de costes siga sin cuantificar, y sobre todo <b>comprar a 10,30 € esperando 13,28 € es apostar a que una OPA amistosa fracase o se mejore</b>. Eso es arbitraje de fusiones, no la tesis de inversión que hay escrita en el expediente. Son dos apuestas distintas y solo una está analizada.<br><br>No hay aquí apego a una posición, porque <b>no hay posición</b>. El ancla es otra y más sutil: leer <i>«barato»</i> donde lo que hay es <i>«tomado»</i>.<br><br><b>Y una observación sobre el propio protocolo.</b> Las siete filas del §10.5 hablan del PO alcanzado, del bear case, de un red flag, de una pérdida &gt;20%, de una ganancia &gt;50%, del dividendo y de la entrada por debajo de 11,5 €. <b>Ninguna habla de un stop tocado</b> — el stop vive en el §9.3, fuera del protocolo anti-anclaje. Y la fila que sí encaja con lo de hoy dice <b>MANTENER</b>, lo contrario que el stop. El expediente se contradice consigo mismo, y conviene que quede escrito.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">No se toca <b>ninguna</b> cifra: PO 13,28 € (bear 11,73 · bull 22,79), banda de entrada 10,50–11,50 € —que sigue <b>SUSPENDIDA</b> desde el 29-jul mientras viva la oferta— y <b>stop de tesis en 10,50 €, sin mover</b>. Suspender o rebajar el stop hoy, con una señal abierta y el precio pegado a él, es exactamente lo que prohíbe el §10.5: <i>«no bajar el stop porque el precio se ha movido; solo tras re-valoración con datos nuevos»</i>. No hay datos nuevos: hay una oferta. No se toca el <code>AZK.json</code>.</div>
+  <div class="action-line">Acción: ninguna hoy. No hay posición que vender, de modo que el stop no es una orden ejecutable sino un umbral de watchlist; y no se compra dentro de la banda mientras la oferta esté viva. Re-evaluar con lo primero que llegue: solicitud de autorización de Ohmnia ante la CNMV (vence ~24-ago), folleto, mejora de precio, contraopa, o el 9M-2026.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>CNMV · Información Privilegiada nº 3303 — anuncio previo de OPA de Ohmnia Electronics sobre Azkoyen (24-jul-2026): <a href='https://www.cnmv.es/portal/informacion-privilegiada/resultado-ip?nif=A-31065618&amp;lang=es'>cnmv.es · Información Privilegiada AZK</a></li><li>CNMV · Otra Información Relevante nº 42131 — el Consejo califica la oferta de amistosa (28-jul-2026): <a href='https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-31065618&amp;fechaDesde=27/07/2026&amp;fechaHasta=03/08/2026&amp;lang=es'>cnmv.es · Otra Información Relevante AZK</a></li><li>CNMV · Otra Información Relevante nº 42156 — informe financiero semestral 1S-2026 (29-jul-2026).</li><li>Cotización 10,30 € (cierre 03/08/2026): Matriz Bolsa Española v2 · <code>precios-excel.json</code>, sesión 2026-08-03. La cotización de la acción sale siempre de la Matriz, nunca de internet.</li></ul></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria emitida bajo el Protocolo de Revisión Extraordinaria del Método de Análisis Financiero KH&amp;Claude, señal <b>S1 · stop de tesis alcanzado</b>, abierta el 3-ago-2026 y cerrada con esta Nota el 4-ago-2026 dentro del plazo de 48 h. El desenlace queda registrado en los tres sitios donde vive la señal: el §10.5 de la pestaña Vigilancia del Excel, <code>estado.json</code> y <code>hallazgos.json</code>. Orden de autoridad, invariable: §10.5 &gt; estado.json &gt; hallazgos.json. Este documento es un análisis para uso propio, no una recomendación de compra o venta, y no constituye asesoramiento financiero. Las cifras proceden del Excel del método, del informe financiero semestral de la compañía y de los registros públicos de la CNMV; lo que no se ha podido verificar se marca expresamente como «Pte. Revisión». Quien lo lea debe formarse su propio juicio. · Carlos HB &amp; Claude IA · 4-ago-2026.</div>
+
+</div></body></html>
