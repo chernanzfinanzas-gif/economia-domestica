@@ -968,7 +968,7 @@
       "revisionesFrescas": true
     },
     "PRM": {
-      "empresa": "Prim, S.A.",
+      "empresa": "Prim",
       "cobertura": {
         "semanal": "2026-08-04"
       },
@@ -988,6 +988,25 @@
           "fuente": "emisor + registro (OIR CNMV n 42311)",
           "exigeAccion": false,
           "caducaEl": "2026-09-02"
+        },
+        {
+          "id": "S6-2026-08-04",
+          "abiertoEl": "2026-08-04",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-08-04",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-11",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -1375,18 +1394,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 24,
-    "hallazgosActivos": 38,
+    "hallazgosActivos": 39,
     "porTipo": {
       "otro": 16,
       "coyuntura": 14,
       "opa": 3,
       "sancion": 3,
       "litigio": 1,
+      "senal": 1,
       "concurso": 1
     },
-    "exigenAccion": 0,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 17,
+    "situacionesAbiertas": 18,
     "hechosCaducadosHoy": 0
   }
 }

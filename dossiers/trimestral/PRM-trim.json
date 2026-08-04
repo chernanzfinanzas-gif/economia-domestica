@@ -471,7 +471,7 @@
       "fecha": "2025-07-29",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "6M consolidado: ventas 127,0M (+6,1%), BNA 10,40M (+53,7%). EBITDA ~16,5M y EBIT ~11,0M estimados (semestre no desglosado en consolidado). Recuperación de márgenes.",
+      "resumen": "6M consolidado: ventas 127,0M (+6,1%), BNA 10,40M (+53,7%). EBITDA ~16,5M y EBIT ~11,0M estimados (semestre no desglosado en consolidado). Recuperación de márgenes. [4-ago-2026] EBITDA, Mg.EBITDA, EBIT y DFN corregidos con las cifras reales de la comparativa 2025 publicada en el informe semestral de 2026 (antes eran estimaciones).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
@@ -483,15 +483,15 @@
         },
         {
           "nombre": "Mg.Bruto %",
-          "valor": 50
+          "valor": 51.8
         },
         {
           "nombre": "EBITDA (M€)",
-          "valor": 16.5
+          "valor": 18.65
         },
         {
           "nombre": "Mg.EBITDA %",
-          "valor": 13
+          "valor": 14.7
         },
         {
           "nombre": "Crec.EBITDA %",
@@ -499,7 +499,7 @@
         },
         {
           "nombre": "EBIT (M€)",
-          "valor": 11
+          "valor": 13.05
         },
         {
           "nombre": "BNA (M€)",
@@ -511,7 +511,7 @@
         },
         {
           "nombre": "DFN/caja (M€)",
-          "valor": null
+          "valor": 7.7
         }
       ],
       "periodoDisplay": "S1"
@@ -662,6 +662,70 @@
         {
           "nombre": "DFN/caja (M€)",
           "valor": -13
+        }
+      ]
+    },
+    {
+      "periodo": "2026-Q2",
+      "fecha": "2026-07-31",
+      "periodoDisplay": "1S",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "6M-2026: ventas 125,77 M€ (−1,0%), EBITDA 15,21 M€ (−18,4%), EBIT 9,17 M€, BNA 6,75 M€ (−35,1%), BPA 0,40 €. Ámbar: el deterioro es de gastos (personal +6,9%, amortizaciones +8,0% por la inversión del Plan Estratégico), no de actividad; margen bruto 51,3% muy por encima del red flag del 46%, y el balance mejora con fuerza — caja neta +6,2 M€ frente a deuda neta de 7,7 M€, y flujo de explotación 14,6 M€ (+76%). Segundo ámbar consecutivo → S6.",
+      "metricas": [
+        {
+          "nombre": "Ventas (M€)",
+          "valor": 125.77
+        },
+        {
+          "nombre": "Crec.Vtas %",
+          "valor": -1.0
+        },
+        {
+          "nombre": "Mg.Bruto %",
+          "valor": 51.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 15.21
+        },
+        {
+          "nombre": "Mg.EBITDA %",
+          "valor": 12.1
+        },
+        {
+          "nombre": "Crec.EBITDA %",
+          "valor": -18.4
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 9.17
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 6.75
+        },
+        {
+          "nombre": "Crec.BNA %",
+          "valor": -35.1
+        },
+        {
+          "nombre": "DFN/caja (M€)",
+          "valor": -6.2
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "M&A",
+          "hecho": "El 1-ene-2026 se integra la rama de actividad de Ortopedia San Marcos (León), adquirida por Establecimientos Ortopédicos Prim por 100.000 €, con nuevo fondo de comercio (nota 25.1.1).",
+          "impacto": "=",
+          "valoracion": "Operación menor, de consolidación del canal ortopédico. No mueve la tesis ni el PO."
+        },
+        {
+          "tipo": "Adquisición",
+          "hecho": "Hecho posterior al cierre: el 19-jul-2026 se formaliza la adquisición del 100% de las francesas Impulseo, SAS y Physioacademie, SAS (nota 29).",
+          "impacto": "+",
+          "valoracion": "Primera entrada societaria en Francia; encaja con la internacionalización, que crece +4,4% hasta 11,94 M€ con la UE al +9,5%. Aporta desde el 2S-2026, así que parte del desfase ventas/costes del semestre debería revertir. Sin importe publicado: Pte. Revisión del efecto en PO."
         }
       ]
     }
