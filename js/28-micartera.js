@@ -142,23 +142,35 @@ function _mcPosiciones(){
 /* --------------------------------------------------------------------------
    Bloque 2 · cerca de entrada (NO en cartera)
    -------------------------------------------------------------------------- */
+/* [06-ago-2026] Antes esto era un filtro: solo salían las que el Kanban situaba «En zona» o
+   «Cerca de entrada». Con el mercado alto eso deja la lista VACÍA justo cuando más falta hace
+   mirarla, y no es la pregunta que uno se hace: la pregunta es «de lo que no tengo, ¿qué es lo
+   más cercano a comprable ahora mismo?», aunque la respuesta esté un 12% por encima de la banda.
+   Así que ya no se filtra por etapa: se ordenan TODAS las analizadas que no están en cartera por
+   distancia a su precio de entrada y se enseñan las 8 primeras. La etapa del Kanban se sigue
+   trayendo si está disponible, pero como información, no como criterio.
+   Única exclusión: las VENDER. Una empresa cuyo propio análisis dice vender no pinta nada en una
+   lista de la compra, por barata que esté; para eso está el protocolo de salida. */
+var _MC_CERCA_N=8;
 function _mcCercaEntrada(){
-  if(typeof etapaDe!=='function') return null;          /* sin el Kanban no se inventa la etapa */
   const held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
   const out=[];
   (DB.analisis||[]).forEach(function(a){
     const t=_mcUp(a.ticker); if(!t||held.has(t))return;
-    let et=''; try{ et=etapaDe(t); }catch(e){ return; }
-    if(et!=='En zona'&&et!=='Cerca de entrada')return;
+    const dec=_mcUp(a.decision); if(dec==='VENDER')return;
     const eM=_mcNum(a.entMax), eMin=_mcNum(a.entMin), cot=_mcCot(t);
-    if(!(eM>0)||!(cot>0))return;
+    if(!(eM>0)||!(cot>0))return;                       /* sin banda o sin precio no hay distancia */
+    let et=''; if(typeof etapaDe==='function'){ try{ et=etapaDe(t); }catch(e){} }
     out.push({ticker:t, nombre:_mcNombre(t), etapa:et, cot:cot, entMax:eM, entMin:eMin,
               po:_mcNum((typeof poBaseDe==='function')?poBaseDe(a):a.poMax),
-              decision:_mcUp(a.decision),
+              decision:dec,
               /* negativo = ya está por debajo de la entrada (dentro de zona) */
               gap:(cot-eM)/eM*100});
   });
-  return out.sort(function(x,y){ return x.gap-y.gap; });
+  out.sort(function(x,y){ return x.gap-y.gap; });
+  const top=out.slice(0,_MC_CERCA_N);
+  top.total=out.length;                                 /* para poder decir «8 de 21» sin recontar */
+  return top;
 }
 
 /* --------------------------------------------------------------------------
@@ -243,22 +255,25 @@ function renderMiCartera(){
   /* ---- cerca de entrada ---- */
   const C=_mcCercaEntrada();
   let cerca='';
-  if(C===null){
-    cerca='<div class="empty">No puedo calcular las etapas del Kanban en este momento.</div>';
-  } else if(!C.length){
-    cerca='<div class="mc-vacio">Ninguna empresa analizada está en zona de entrada ahora mismo. '
-      +'Aquí aparecerán en cuanto el precio se acerque a su banda de compra.</div>';
+  if(!C||!C.length){
+    cerca='<div class="mc-vacio">No hay ninguna empresa analizada fuera de cartera con banda de '
+      +'entrada y precio. Aquí saldrán ordenadas por lo cerca que estén de poder comprarse.</div>';
   } else {
     cerca='<div class="mc-list">'+C.map(function(c){
       const dentro=c.gap<=0; const sc=_mcSelloDe(c.ticker);
+      const m=(typeof _emMargen==='function')?_emMargen():0.05;
+      /* Tres niveles, no dos: ahora la lista llega hasta las que están MUY por encima y meter
+         un +18% en el mismo amarillo que un +1,5% engañaba a simple vista. */
       const chip=dentro
         ? '<span class="mc-chip in">🟢 en zona</span>'
-        : '<span class="mc-chip near">🟡 a '+_mcPct(c.gap,1).replace('+','')+'</span>';
+        : (c.gap<=m*100
+            ? '<span class="mc-chip near">🟡 a '+_mcPct(c.gap,1).replace('+','')+'</span>'
+            : '<span class="mc-chip far">🟠 a '+_mcPct(c.gap,1).replace('+','')+'</span>');
       const barra=(function(){
-        /* Escala visual: 0% = precio de entrada, +margen = borde derecho. */
-        const m=(typeof _emMargen==='function')?_emMargen():0.05;
-        const p=Math.max(0,Math.min(1,(c.gap/100+m)/(2*m)));
-        return '<div class="mc-bar"><i style="left:'+(p*100).toFixed(1)+'%"></i></div>';
+        /* Escala: borde izquierdo −margen, borde derecho +3×margen. La entrada queda al 25% y
+           marcada con una raya, para que se vea de un vistazo quién la ha cruzado y quién no. */
+        const p=Math.max(0,Math.min(1,(c.gap/100+m)/(4*m)));
+        return '<div class="mc-bar"><u></u><i style="left:'+(p*100).toFixed(1)+'%"></i></div>';
       })();
       return '<div class="mc-row cerca" data-ficha="'+c.ticker+'" title="Abrir la ficha de '+_mcEsc(c.nombre)+'">'
         +'<div class="mc-l">'
@@ -271,7 +286,7 @@ function renderMiCartera(){
         +  '<div class="mc-cot">'+_mcEur(c.cot)+'</div>'
         +  '<div class="mc-cuando '+sc.tipo+'" title="'+_mcEsc(sc.det)+'">'+_mcEsc(sc.txt)+'</div>'
         +  '<div class="mc-dia muted">entrada ≤ <b>'+_mcEur(c.entMax)+'</b></div>'
-        +  '<div class="mc-pl '+(dentro?'pos':'neg')+'">'+(dentro?'ya comprable':'faltan '+_mcEur(c.cot-c.entMax))+'</div>'
+        +  '<div class="mc-pl '+(dentro?'pos':'neg')+'">'+(dentro?'ya comprable':'sobra '+_mcEur(c.cot-c.entMax))+'</div>'
         +'</div>'
         +'</div>';
     }).join('')+'</div>';
@@ -279,7 +294,10 @@ function renderMiCartera(){
 
   el.innerHTML=kpis
     +'<div class="mc-h">Posiciones</div>'+lista
-    +'<div class="mc-h">Cerca de entrada <span class="mc-h-s">las que aún no tienes</span></div>'+cerca;
+    +'<div class="mc-h">Cerca de entrada <span class="mc-h-s">'
+    +  ((C&&C.total>C.length)?('las '+C.length+' más próximas de '+C.total+' analizadas que aún no tienes')
+                             :'ordenadas por lo cerca que están de su precio de entrada')
+    +'</span></div>'+cerca;
 
   if(!el._mcBound){
     el._mcBound=true;
@@ -359,8 +377,10 @@ function _mcCSS(){
     '#view-micartera .mc-chip{font-size:10px;font-weight:800;border-radius:20px;padding:1px 8px}',
     '#view-micartera .mc-chip.in{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}',
     '#view-micartera .mc-chip.near{background:#fef3c7;color:#92400e;border:1px solid #fde68a}',
-    '#view-micartera .mc-bar{position:relative;height:5px;background:linear-gradient(90deg,#bbf7d0,#fde68a);',
+    '#view-micartera .mc-chip.far{background:#ffedd5;color:#9a3412;border:1px solid #fed7aa}',
+    '#view-micartera .mc-bar{position:relative;height:5px;background:linear-gradient(90deg,#bbf7d0 0%,#fde68a 25%,#fed7aa 100%);',
     '  border-radius:4px;margin-top:7px;max-width:230px}',
+    '#view-micartera .mc-bar u{position:absolute;left:25%;top:-2px;width:1px;height:9px;background:#64748b;opacity:.7}',
     '#view-micartera .mc-bar i{position:absolute;top:-3px;width:3px;height:11px;background:#0f172a;border-radius:2px;transform:translateX(-1px)}',
     '#view-micartera .mc-leyenda{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.5}',
     '#view-micartera .mc-vacio{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:12px;',
