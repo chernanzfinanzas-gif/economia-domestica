@@ -568,8 +568,79 @@ let fichaRange='all';
 let fichaMA={50:false,200:false,1000:false};   // medias móviles activas en la gráfica de la ficha
 let fichaVsIbex=false;                          // modo comparativa vs IBEX (rebase a 100)
 let fichaZoom=null;                             // zoom por arrastre {t0,t1,ticker} o null
+let fichaConDiv=false;                          // línea fina de cotización CON DIVIDENDO
+let fichaDivMet='tr';                           // 'tr' = reinvertido (retorno total) · 'sum' = suma simple
+let fichaSoloCot=false;                         // modo limpio: solo las dos cotizaciones
 let _fichaGeo=null, _fichaDrag=null, _fichaPrefsLoaded=false;
-function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={ma:{50:!!fichaMA[50],200:!!fichaMA[200],1000:!!fichaMA[1000]},vsIbex:!!fichaVsIbex,range:fichaRange}; if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
+function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={ma:{50:!!fichaMA[50],200:!!fichaMA[200],1000:!!fichaMA[1000]},vsIbex:!!fichaVsIbex,range:fichaRange,conDiv:!!fichaConDiv,divMet:fichaDivMet,soloCot:!!fichaSoloCot}; if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
+/* ===== Cotización CON DIVIDENDO ==========================================================
+   Los cierres de precios/*.json son BRUTOS (yfinance con auto_adjust=False): el día ex-dividendo
+   el precio cae por el importe repartido y ahí se queda para siempre. La línea «c/div» devuelve
+   ese dinero al gráfico:
+     · 'tr'  (reinvertido) — cada dividendo compra más acciones al cierre del día ex. Es el
+             criterio de los índices Total Return, y el único que captura el efecto compuesto.
+     · 'sum' (suma simple) — el dividendo se acumula encima del precio, sin reinvertir.
+   Fuente de los pagos: dividendos.json (_evoIndex), importe BRUTO —antes de retención—, el mismo
+   fichero que alimenta Evolución del Dividendo. Se excluyen los pagos marcados «previsto»
+   (anunciados y aún no abonados: todavía no han movido ninguna cotización).
+   Las dos variantes arrancan valiendo EXACTAMENTE el precio del primer día visible: lo que se lee
+   es la divergencia DENTRO del tramo, no un nivel absoluto. Cambiar de rango o hacer zoom mueve
+   el ancla, y con él la separación entre las dos líneas. */
+const _FICHA_DIVCOL='#db2777';      /* reinvertido — el tono fuerte */
+const _FICHA_SUMCOL='#f472b6';      /* suma simple — el mismo color, más claro: mismo concepto, menos efecto */
+function _fichaPagosDiv(t){
+  t=(t||'').toUpperCase();
+  const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[t]:null;
+  if(!reg||!reg.anios) return [];
+  const out=[];
+  Object.keys(reg.anios).forEach(y=>{
+    const a=reg.anios[y]||{};
+    (a.pagos||[]).forEach(p=>{
+      if(!p||(p.tipo||'')==='previsto') return;
+      const imp=num(p.bruto); if(!(imp>0)) return;
+      const f=p.exDiv||p.pago; if(!f) return;
+      const ms=Date.parse((''+f).slice(0,10)+'T00:00:00'); if(isNaN(ms)) return;
+      out.push({ms:ms,imp:imp});
+    });
+  });
+  out.sort((a,b)=>a.ms-b.ms);
+  return out;
+}
+/* Serie con dividendo alineada punto a punto con `data` ([ms,cierre] del tramo visible).
+   Devuelve {vals,nPagos,sumImp} o null si en el tramo visible no hay ningún pago. */
+function _fichaSerieDiv(data,pagos,met){
+  if(!data||data.length<2||!pagos||!pagos.length) return null;
+  const t0=data[0][0], t1=data[data.length-1][0];
+  const ps=pagos.filter(p=>p.ms>t0&&p.ms<=t1);
+  if(!ps.length) return null;
+  const vals=new Array(data.length); let k=0, mult=1, acum=0, sum=0;
+  for(let i=0;i<data.length;i++){
+    const ms=data[i][0], px=data[i][1];
+    while(k<ps.length&&ps[k].ms<=ms){
+      if(met==='sum') acum+=ps[k].imp;
+      else if(px>0) mult*=(1+ps[k].imp/px);        // reinversión al cierre del día ex (ya caído)
+      sum+=ps[k].imp; k++;
+    }
+    vals[i]=(met==='sum')?(px+acum):(px*mult);
+  }
+  return {vals:vals,nPagos:ps.length,sumImp:sum};
+}
+/* Los tres botones de la línea c/div. Aparecen y desaparecen con el estado, así que se repintan
+   solos (sin re-render de la ficha entera) desde el manejador de 06-main.js. */
+function _fichaDivBtnsHTML(){
+  const M=fichaDivMet, lbl=(M==='sum')?'Σ suma':(M==='both'?'↻+Σ ambas':'↻ reinv.');
+  const tit=(M==='sum')
+    ? 'Suma simple: el dividendo se acumula encima del precio, sin reinvertir. Pulsa para ver las DOS a la vez.'
+    : (M==='both'
+      ? 'Las dos líneas a la vez: la clara es la suma simple, la fuerte la reinvertida. La distancia entre ellas es el interés compuesto. Pulsa para volver a reinvertido.'
+      : 'Reinvertido: cada dividendo compra más acciones al cierre del día ex (retorno total). Pulsa para pasar a suma simple.');
+  let h=`<button type="button" data-fcondiv="1"${fichaConDiv?' class="on"':''} style="font-size:11px;padding:2px 6px" title="Añade la cotización CON DIVIDENDO (línea fina): lo que valdría la acción si el dividendo bruto no se hubiera repartido. Arranca igualada al precio al inicio del tramo visible.">c/div</button>`;
+  if(fichaConDiv){
+    h+=`<button type="button" data-fdivmet="1" style="font-size:11px;padding:2px 6px" title="${tit}">${lbl}</button>`;
+    h+=`<button type="button" data-fsolocot="1"${fichaSoloCot?' class="on"':''} style="font-size:11px;padding:2px 6px" title="Deja solo las cotizaciones: sin PO, ni banda de entrada, ni stop, ni precio medio, ni máx/mín, ni medias móviles.">solo cotiz.</button>`;
+  }
+  return h;
+}
 // Botón del selector de rango: caja diferenciada, 2 líneas (plazo + % del plazo); al seleccionar, "crece".
 function _fichaRangeBtn(key,lbl,vt,vc,sel){ return `<button type="button" data-frange="${key}" style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:3px 9px;min-width:46px;border:1px solid ${sel?'var(--brand)':'var(--line)'};border-radius:8px;background:${sel?'#eff6ff':'#fff'};cursor:pointer;transition:transform .12s ease;transform:${sel?'scale(1.12)':'none'};${sel?'box-shadow:0 1px 5px rgba(37,99,235,.18);':''}"><span style="font-weight:700;font-size:12px;color:${sel?'var(--brand)':'inherit'}">${lbl}</span><span style="font-size:10.5px;font-weight:700;color:${vc}">${vt}</span></button>`; }
 const _precioCache={};
@@ -756,13 +827,13 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>${divTable}`;
-  try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(typeof gp.vsIbex==='boolean')fichaVsIbex=gp.vsIbex; if(gp.range)fichaRange=gp.range; } } }catch(e){}
+  try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(typeof gp.vsIbex==='boolean')fichaVsIbex=gp.vsIbex; if(gp.range)fichaRange=gp.range; if(typeof gp.conDiv==='boolean')fichaConDiv=gp.conDiv; if(gp.divMet==='tr'||gp.divMet==='sum'||gp.divMet==='both')fichaDivMet=gp.divMet; if(typeof gp.soloCot==='boolean')fichaSoloCot=gp.soloCot; } } }catch(e){}
   const _ranges=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']];
   const rangeBtns=_ranges.map(r=>_fichaRangeBtn(r[0],r[1],'·','#94a3b8',fichaRange===r[0])).join('');
   const maBtns=[[50,'MM50'],[200,'MM200'],[1000,'MM1000']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''} style="font-size:11px;padding:2px 6px">${m[1]}</button>`).join('');
   const ibexBtn=`<button type="button" data-fibex="1"${fichaVsIbex?' class="on"':''} style="font-size:11px;padding:2px 6px">vs IBEX</button>`;
   const chartCard=`<div class="card" style="margin-top:10px">`
-    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="width:26px"></div><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
+    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="width:26px"></div><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div><div class="seg" id="fchDiv">${_fichaDivBtnsHTML()}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
     +`<div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
@@ -879,6 +950,9 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
         h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">Cotización:</span> <b>${fmt(price)}</b></div>`;
         if(D.avg>0){ const dv=(price-D.avg)/D.avg*100; h+=`<div style="color:#cbd5e1;margin-top:1px">vs P.medio: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }
         if(D.ref){ const R=D.ref; const rr=(lbl,v)=>{ if(!(v>0))return ''; const dv=(price-v)/v*100; return `<div style="color:#cbd5e1;margin-top:1px">vs ${lbl}: <b style="color:${dv>=0?'#4ade80':'#f87171'}">${dv>=0?'+':''}${dv.toFixed(1)}%</b></div>`; }; h+=rr('entrada',R.entH)+rr('PO base',R.poM)+rr('stop',R.stop); }
+        const _rd=(arr,col,et)=>{ if(!arr)return ''; const dv=num(arr[bi]); if(!(dv>0))return ''; const ex=price>0?(dv-price)/price*100:0;
+          return `<div style="margin-top:2px"><span style="color:${col}">${et}:</span> <b>${fmt(dv)}</b> <span style="color:#4ade80">+${ex.toFixed(1)}%</span></div>`; };
+        h+=_rd(D.divSum,D.sumCol||'#f472b6','Con div. Σ suma')+_rd(D.div,D.divCol||'#db2777','Con div. ↻ reinv.');
         if(D.ma){ [50,200,1000].forEach(function(w){ const arr=D.ma[w]; if(!arr)return; const mv=arr[bi]; if(mv==null)return; const cc=(D.maCols&&D.maCols[w])||'#93c5fd'; h+=`<div style="margin-top:1px"><span style="color:${cc}">MM${w}:</span> <b>${fmt(mv)}</b></div>`; }); }
       }
       tip.innerHTML=h; const left=gx*r.width/D.W; tip.style.left=Math.max(64,Math.min(r.width-64,left))+'px'; tip.style.top='4px'; tip.style.display=''; }
@@ -893,6 +967,13 @@ async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
   const setVar=h=>{ const v=document.getElementById('fchVar'); if(v)v.innerHTML=h||''; };
   const setZoom=h=>{ const z=document.getElementById('fchZoom'); if(z)z.innerHTML=h||''; };
+  /* «solo cotizaciones» solo tiene sentido con la línea c/div encendida y fuera del modo IBEX. */
+  const solo=!!(fichaConDiv&&fichaSoloCot&&!fichaVsIbex);
+  /* dividendos.json pesa medio mega y se carga aparte: si aún no está, se pide y se repinta. */
+  if(fichaConDiv&&typeof _evoData!=='undefined'&&!_evoData&&typeof _evoCargar==='function'&&!drawFichaChart._divLoad){
+    drawFichaChart._divLoad=true;
+    try{ Promise.resolve(_evoCargar()).then(function(){ if(fichaTicker)drawFichaChart(fichaTicker); }).catch(function(){}); }catch(e){}
+  }
   let pj=_precioCache[t];
   if(pj===undefined){ try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; } _precioCache[t]=pj; }
   if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; setVar(''); setZoom(''); return; }
@@ -900,7 +981,7 @@ async function drawFichaChart(t){
   if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; setVar(''); return; }
   const lastT=dataFull[dataFull.length-1][0];
   const _rollMA=function(arr,w){ const out=new Array(arr.length).fill(null); let s=0; for(let i=0;i<arr.length;i++){ s+=arr[i][1]; if(i>=w)s-=arr[i-w][1]; if(i>=w-1)out[i]=s/w; } return out; };
-  const wantMA=fichaVsIbex?[]:[50,200,1000].filter(w=>fichaMA[w]);
+  const wantMA=(fichaVsIbex||solo)?[]:[50,200,1000].filter(w=>fichaMA[w]);
   const maFull={}; wantMA.forEach(w=>{ maFull[w]=_rollMA(dataFull,w); });
   // ventana visible: el zoom por arrastre manda sobre el preset
   const zoom=(fichaZoom&&fichaZoom.ticker===t)?fichaZoom:null;
@@ -962,7 +1043,7 @@ async function drawFichaChart(t){
     const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
     const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
     const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
-    el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${base100}${guide}<g clip-path="url(#fchClip)"><path d="${ip}" fill="none" stroke="#94a3b8" stroke-width="1.4"/><path d="${sp}" fill="none" stroke="var(--brand)" stroke-width="1.8"/></g>${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px"><b style="color:var(--brand)">▬</b> ${t} · <b style="color:#94a3b8">▬</b> IBEX (base 100 al inicio) · rel: <b style="color:${relCol}">${rel>=0?'+':''}${rel.toFixed(1)} pp</b> · ${t} <span style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</span> · arrastra para zoom, doble clic reinicia · medias y niveles ocultos en este modo</div>`;
+    el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${base100}${guide}<g clip-path="url(#fchClip)"><path d="${ip}" fill="none" stroke="#94a3b8" stroke-width="1.4"/><path d="${sp}" fill="none" stroke="var(--brand)" stroke-width="1.8"/></g>${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px"><b style="color:var(--brand)">▬</b> ${t} · <b style="color:#94a3b8">▬</b> IBEX (base 100 al inicio) · rel: <b style="color:${relCol}">${rel>=0?'+':''}${rel.toFixed(1)} pp</b> · ${t} <span style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</span> · arrastra para zoom, doble clic reinicia · medias, niveles y c/div ocultos en este modo</div>`;
     return;
   }
 
@@ -971,9 +1052,19 @@ async function drawFichaChart(t){
   const poss=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.ticker===t&&p.acciones>0.0001);
   let acc=0,cost=0; poss.forEach(p=>{acc+=p.acciones;cost+=p.acciones*p.precioCompra;}); const avg=acc?cost/acc:0;
   const _an=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===(t||'').toUpperCase())||{}; const poB=num(_an.poMin),poU=num(_an.poMax),poM=(typeof poBaseDe==='function')?num(poBaseDe(_an)):((num(_an.poMin)&&num(_an.poMax))?(num(_an.poMin)+num(_an.poMax))/2:(num(_an.poMax)||num(_an.poMin)||0));  /* [29-jul-2026] la linea del PO en el grafico era la media bear/bull: Iberdrola la pintaba en 22,25 en vez de 26,50 */ const entL=num(_an.entMin),entH=num(_an.entMax),stopV=num(_an.stopTesis);
-  const ops=(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
+  const ops=solo?[]:(typeof fichaOps==='function'?fichaOps(t):[]).filter(o=>o.fecha&&Date.parse(o.fecha)>=t0&&Date.parse(o.fecha)<=t1).map(o=>({x:Date.parse(o.fecha),p:o.precio,venta:o.tipo==='venta'}));
+  /* Cotización CON DIVIDENDO: se calcula sobre TODOS los días del tramo (no sobre la muestra),
+     y luego se muestrea con los mismos índices que el precio para que ambas líneas casen. */
+  const _pagosDiv=fichaConDiv?_fichaPagosDiv(t):[];
+  const _quiereTR=fichaConDiv&&(fichaDivMet==='tr'||fichaDivMet==='both');
+  const _quiereSU=fichaConDiv&&(fichaDivMet==='sum'||fichaDivMet==='both');
+  const divTR=_quiereTR?_fichaSerieDiv(data,_pagosDiv,'tr'):null;
+  const divSU=_quiereSU?_fichaSerieDiv(data,_pagosDiv,'sum'):null;
+  const divS=divTR||divSU;                       /* la que manda para el resumen y el «hay algo» */
   let lo=Math.min(...pts.map(p=>p[1])), hi=Math.max(...pts.map(p=>p[1]));
-  ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } }); if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); [entL,entH,stopV].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } });
+  [divTR,divSU].forEach(S=>{ if(S)idxs.forEach(i=>{ const v=S.vals[i]; if(v<lo)lo=v; if(v>hi)hi=v; }); });
+  ops.forEach(o=>{ if(o.p){ if(o.p<lo)lo=o.p; if(o.p>hi)hi=o.p; } });
+  if(!solo){ if(avg){ if(avg<lo)lo=avg; if(avg>hi)hi=avg; } [poB,poM,poU].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); [entL,entH,stopV].forEach(v=>{ if(v>0){ if(v<lo)lo=v; if(v>hi)hi=v; } }); }
   const pad=(hi-lo)*0.06||1; lo-=pad; hi+=pad;
   const Y=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
   let path=''; pts.forEach((p,i)=>{ path+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Y(p[1]).toFixed(1)+' '; });
@@ -981,23 +1072,54 @@ async function drawFichaChart(t){
   let maPaths=''; wantMA.forEach(w=>{ const arr=maVis[w]; let dstr='',started=false; idxs.forEach(i=>{ const v=arr[i]; if(v==null)return; dstr+=(started?'L':'M')+X(data[i][0]).toFixed(1)+','+Y(v).toFixed(1)+' '; started=true; }); if(dstr)maPaths+=`<path d="${dstr}" fill="none" stroke="${_maCols[w]}" stroke-width="1.3" opacity="0.9"/>`; });
   let grid=''; const NY=4; for(let i=0;i<=NY;i++){ const v=lo+(hi-lo)*i/NY, y=Y(v); grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${v.toFixed(2)}</text>`; }
   let xl=''; const yA=new Date(t0).getFullYear(), yB=new Date(t1).getFullYear(); const sY=Math.ceil((yB-yA+1)/8)||1; for(let y=yA;y<=yB;y+=sY){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts); xl+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
+  /* La línea c/div va MÁS FINA que el precio (1,1 frente a 1,6) y en un color propio: es un
+     acompañante de la cotización, no un nivel de decisión. Recortada por el clip como las medias. */
+  const _dpath=(S,col)=>{ if(!S)return ''; let ds=''; idxs.forEach((i,k)=>{ ds+=(k?'L':'M')+X(data[i][0]).toFixed(1)+','+Y(S.vals[i]).toFixed(1)+' '; });
+    return `<path d="${ds}" fill="none" stroke="${col}" stroke-width="1.1" opacity="0.95"/>`; };
+  /* La suma simple va DEBAJO de la reinvertida (siempre vale menos): se dibuja primero. */
+  const _dps=_dpath(divSU,_FICHA_SUMCOL)+_dpath(divTR,_FICHA_DIVCOL);
+  const divPath=_dps?`<g clip-path="url(#fchClip)">${_dps}</g>`:'';
   let avgL=''; if(avg){ const y=Y(avg); avgL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#7c3aed" stroke-width="1.2" stroke-dasharray="5 3"/><text x="${W-R}" y="${(y-3).toFixed(1)}" text-anchor="end" font-size="9" fill="#7c3aed">P.medio ${avg.toFixed(2)}</text>`; }
   let poBand=''; if(poB>0&&poU>0){ const yTop=Y(Math.max(poB,poU)), yBot=Y(Math.min(poB,poU)); poBand=`<rect x="${L}" y="${yTop.toFixed(1)}" width="${pw.toFixed(1)}" height="${(yBot-yTop).toFixed(1)}" fill="#16a34a" opacity="0.10"/>`; }
   let entBand=''; if(entL>0&&entH>0){ const yTop=Y(Math.max(entL,entH)), yBot=Y(Math.min(entL,entH)); entBand=`<rect x="${L}" y="${yTop.toFixed(1)}" width="${pw.toFixed(1)}" height="${(yBot-yTop).toFixed(1)}" fill="#0ea5e9" opacity="0.12"/>`; }
   let stopL=''; if(stopV>0){ const y=Y(stopV); stopL=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#dc2626" stroke-width="2" opacity="0.95"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="#dc2626">Stop ${stopV.toFixed(2)}</text>`; }
   let poL=''; [['bear',poB,'#dc2626',2],['base',poM,'#2563eb',1.1],['bull',poU,'#16a34a',2]].forEach(it=>{ const v=it[1]; if(v>0){ const y=Y(v); poL+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="${it[2]}" stroke-width="${it[3]}" stroke-dasharray="${it[3]>=2?'7 3':'2 3'}" opacity="0.9"/><text x="${L+3}" y="${(y-2).toFixed(1)}" font-size="9" fill="${it[2]}">PO ${it[0]} ${v.toFixed(2)}</text>`; } });
   let mk=''; ops.forEach(o=>{ if(!o.p)return; mk+=`<circle cx="${X(o.x).toFixed(1)}" cy="${Y(o.p).toFixed(1)}" r="4" fill="${o.venta?'#dc2626':'#16a34a'}" stroke="#fff" stroke-width="1"><title>${o.venta?'Venta':'Compra'} ${new Date(o.x).toISOString().slice(0,10)} @ ${o.p.toFixed(3)}</title></circle>`; });
-  const mmk=`<circle cx="${X(data[maxJ][0]).toFixed(1)}" cy="${Y(maxC).toFixed(1)}" r="3.4" fill="#9333ea"/><text x="${X(data[maxJ][0]).toFixed(1)}" y="${(Y(maxC)-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#9333ea">máx ${maxC.toFixed(2)}</text><circle cx="${X(data[minJ][0]).toFixed(1)}" cy="${Y(minC).toFixed(1)}" r="3.4" fill="#ea580c"/><text x="${X(data[minJ][0]).toFixed(1)}" y="${(Y(minC)+11).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#ea580c">mín ${minC.toFixed(2)}</text>`;
+  if(solo){ avgL=''; poBand=''; entBand=''; stopL=''; poL=''; mk=''; }   /* modo limpio: solo las dos cotizaciones */
+  const mmk=solo?'':`<circle cx="${X(data[maxJ][0]).toFixed(1)}" cy="${Y(maxC).toFixed(1)}" r="3.4" fill="#9333ea"/><text x="${X(data[maxJ][0]).toFixed(1)}" y="${(Y(maxC)-5).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#9333ea">máx ${maxC.toFixed(2)}</text><circle cx="${X(data[minJ][0]).toFixed(1)}" cy="${Y(minC).toFixed(1)}" r="3.4" fill="#ea580c"/><text x="${X(data[minJ][0]).toFixed(1)}" y="${(Y(minC)+11).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#ea580c">mín ${minC.toFixed(2)}</text>`;
   const last=pts[pts.length-1][1];
   const xs=pts.map(p=>X(p[0])), ys=pts.map(p=>Y(p[1])), prices=pts.map(p=>p[1]);
   const dates=pts.map(p=>_fdy(p[0]));
   const maSampled={}; wantMA.forEach(w=>{ maSampled[w]=idxs.map(i=>maVis[w][i]); });
-  _fichaHov={mode:'price',W,xs,ys,prices,dates,avg,ma:maSampled,maCols:_maCols,ref:{entH:entH,poM:poM,poU:poU,poB:poB,stop:stopV}}; _fichaBindHover();
+  const divSampled=divTR?idxs.map(i=>divTR.vals[i]):null;
+  const sumSampled=divSU?idxs.map(i=>divSU.vals[i]):null;
+  _fichaHov={mode:'price',W,xs,ys,prices,dates,avg:(solo?0:avg),ma:maSampled,maCols:_maCols,ref:(solo?null:{entH:entH,poM:poM,poU:poU,poB:poB,stop:stopV}),div:divSampled,divSum:sumSampled,divCol:_FICHA_DIVCOL,sumCol:_FICHA_SUMCOL}; _fichaBindHover();
   const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
   const hoverDot=`<circle class="fchDot" r="4" fill="var(--brand)" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
   const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
   const maLeg=wantMA.map(w=>`<span style="color:${_maCols[w]}">▬</span> MM${w}`).join(' · ');
-  el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${entBand}${poBand}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/><g clip-path="url(#fchClip)">${maPaths}</g>${poL}${stopL}${avgL}${mk}${mmk}${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">Periodo: <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · máx ${maxC.toFixed(2)} (${_fd(data[maxJ][0])}) · mín ${minC.toFixed(2)} (${_fd(data[minJ][0])}) · desde máx <b style="color:${ddMax<0?'#dc2626':'#16a34a'}">${ddMax>=0?'+':''}${ddMax.toFixed(1)}%</b><br>Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> P.medio · <span style="color:#2563eb">▬</span> PO · <span style="color:#0ea5e9">▬</span> entrada · <span style="color:#dc2626">▬</span> stop · <span style="color:#9333ea">●</span> máx · <span style="color:#ea580c">●</span> mín${maLeg?' · '+maLeg:''}</div>`;
+  /* Resumen de la(s) línea(s) c/div: qué añade el dividendo en ESTE tramo y con qué criterio. */
+  let divLeg='', divNota='';
+  if(fichaConDiv){
+    const _r=S=>{ const a=S.vals[0], b=S.vals[S.vals.length-1]; return a>0?(b-a)/a*100:0; };
+    const _n=v=>`<b style="color:${v>=0?'#16a34a':'#dc2626'}">${v>=0?'+':''}${v.toFixed(1)}%</b>`;
+    if(divTR&&divSU){
+      divLeg=` · <span style="color:${_FICHA_SUMCOL}">▬</span> c/div Σ · <span style="color:${_FICHA_DIVCOL}">▬</span> c/div ↻`;
+      divNota=`<br><b>Con dividendo</b> (bruto), frente a <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> del precio: <span style="color:${_FICHA_SUMCOL}">▬</span> Σ suma simple ${_n(_r(divSU))} · <span style="color:${_FICHA_DIVCOL}">▬</span> ↻ reinvertido ${_n(_r(divTR))} — la distancia entre las dos, <b>${(_r(divTR)-_r(divSU)).toFixed(1)} pp</b>, es el interés compuesto · ${divTR.nPagos} pago${divTR.nPagos===1?'':'s'} y ${fmt(divTR.sumImp)} €/acción · igualadas al precio el ${_fdy(data[0][0])}`;
+    } else if(divS){
+      const _es=!!divSU, _c=_es?_FICHA_SUMCOL:_FICHA_DIVCOL;
+      divLeg=` · <span style="color:${_c}">▬</span> c/div`;
+      divNota=`<br><span style="color:${_c}">▬</span> <b>Con dividendo</b> (${_es?'suma simple':'reinvertido'}, bruto): ${_n(_r(divS))} en el tramo, frente a <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> del precio · ${divS.nPagos} pago${divS.nPagos===1?'':'s'} y ${fmt(divS.sumImp)} €/acción · igualada al precio el ${_fdy(data[0][0])}`;
+    } else {
+      divNota=`<br><span style="color:${_FICHA_DIVCOL}">▬</span> Con dividendo: ${(typeof _evoData!=='undefined'&&!_evoData)?'cargando dividendos.json…':'sin pagos registrados en este tramo (dividendos.json)'}`;
+    }
+  }
+  const _svg=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xl}${entBand}${poBand}${divPath}<path d="${path}" fill="none" stroke="var(--brand)" stroke-width="1.6"/><g clip-path="url(#fchClip)">${maPaths}</g>${poL}${stopL}${avgL}${mk}${mmk}${brush}${hoverDot}</svg>${tip}</div>`;
+  /* El pie del gráfico: en «solo cotizaciones» sobra el inventario de niveles, que ya no se pinta. */
+  const _pie = solo
+    ? `<div class="muted" style="font-size:11px;margin-top:2px"><b style="color:var(--brand)">▬</b> ${t} sin dividendo · ${(divTR&&divSU)?`<b style="color:${_FICHA_SUMCOL}">▬</b> con div. Σ · <b style="color:${_FICHA_DIVCOL}">▬</b> con div. ↻`:`<b style="color:${divSU?_FICHA_SUMCOL:_FICHA_DIVCOL}">▬</b> ${t} con dividendo`} · periodo <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia${divNota}</div>`
+    : `<div class="muted" style="font-size:11px;margin-top:2px">Periodo: <b style="color:${vcol}">${varPct>=0?'+':''}${varPct.toFixed(1)}%</b> · máx ${maxC.toFixed(2)} (${_fd(data[maxJ][0])}) · mín ${minC.toFixed(2)} (${_fd(data[minJ][0])}) · desde máx <b style="color:${ddMax<0?'#dc2626':'#16a34a'}">${ddMax>=0?'+':''}${ddMax.toFixed(1)}%</b><br>Último cierre ${last.toFixed(2)} (${pj.data[pj.data.length-1][0]}) · arrastra para zoom, doble clic reinicia · <span style="color:#16a34a">●</span> compra · <span style="color:#dc2626">●</span> venta · <span style="color:#7c3aed">▬</span> P.medio · <span style="color:#2563eb">▬</span> PO · <span style="color:#0ea5e9">▬</span> entrada · <span style="color:#dc2626">▬</span> stop · <span style="color:#9333ea">●</span> máx · <span style="color:#ea580c">●</span> mín${maLeg?' · '+maLeg:''}${divLeg}${divNota}</div>`;
+  el.innerHTML=_svg+_pie;
 }
 function validarUrlInv(){
   const u=($('#finvUrl').value||'').trim();
