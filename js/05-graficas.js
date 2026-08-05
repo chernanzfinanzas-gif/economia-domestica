@@ -360,14 +360,24 @@ function rentabilidadEmpresas(reRender){
   return {ok:true,rows,totVal}; }
 const _RENTA_ORD=[['rentTot','Rentabilidad total'],['xirr','TIR (anual)'],['peso','Peso en cartera'],['valor','Valor'],['pl','Plusvalía'],['tr1A','TR 1 año']];
 function rentaSetOrden(k){ if(!k)return; window._rentaOrd=k; renderRentabEmpresas(); }
-function _rentaVsIbexSVG(d){ if(!d||!d.ok||!d.hayIbex)return ''; const L=d.labels||[],V=d.valdiv||[],I=d.ibexVal||[]; const n=L.length; if(n<2)return '';
+/* [05-ago-2026] Tercera línea: la cartera SIN los dividendos cobrados (d.valor, que carteraEvolData
+   ya devuelve). Las otras dos llevan el dividendo dentro —la tuya el cobrado, el IBEX el del índice
+   TR—, así que el hueco entre la verde fuerte y la verde clara es, en euros, exactamente lo que has
+   cobrado en dividendos. Sin ella no había forma de ver cuánto de lo ganado es renta y cuánto precio. */
+function _rentaVsIbexSVG(d){ if(!d||!d.ok||!d.hayIbex)return ''; const L=d.labels||[],V=d.valdiv||[],I=d.ibexVal||[],SD=d.valor||[]; const n=L.length; if(n<2)return '';
   const step=Math.max(1,Math.ceil(n/160)); const idx=[]; for(let i=0;i<n;i+=step)idx.push(i); if(idx[idx.length-1]!==n-1)idx.push(n-1);
-  const W=680,H=250,pl=54,pr=14,pt=14,pb=26; let mx=0; idx.forEach(i=>{ mx=Math.max(mx,num(V[i]),num(I[i])); }); mx=mx*1.05||1;
+  const W=680,H=250,pl=54,pr=14,pt=14,pb=26; let mx=0; idx.forEach(i=>{ mx=Math.max(mx,num(V[i]),num(I[i])); }); mx=mx*1.05||1;   /* la línea sin dividendos siempre va por debajo de V: no cambia la escala */
   const X=k=>pl+(W-pl-pr)*k/(idx.length-1), Y=v=>pt+(H-pt-pb)*(1-num(v)/mx);
   const path=arr=>idx.map((i,k)=>(k?'L':'M')+X(k).toFixed(1)+','+Y(arr[i]).toFixed(1)).join(' ');
   let grid=''; for(let g=0;g<=4;g++){ const gv=mx*g/4; grid+=`<line x1="${pl}" y1="${Y(gv).toFixed(1)}" x2="${W-pr}" y2="${Y(gv).toFixed(1)}" stroke="#eef2f7"/><text x="${pl-6}" y="${(Y(gv)+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#94a3b8">${Math.round(gv/1000)}k</text>`; }
   let xl=''; const yrs={}; idx.forEach((i,k)=>{ const y=(L[i]||'').slice(0,4); if(!yrs[y]){yrs[y]=1; if(+y%2===0)xl+=`<text x="${X(k).toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#94a3b8">${y}</text>`;} });
-  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:700px;display:block">${grid}<path d="${path(I)}" fill="none" stroke="#f59e0b" stroke-width="2.4" stroke-dasharray="6 4"/><path d="${path(V)}" fill="none" stroke="#16a34a" stroke-width="2.4"/>${xl}</svg><div class="cmp-leg"><span><i style="background:#16a34a"></i>Tu cartera (valor + dividendos)</span><span><i style="background:#f59e0b"></i>Si el mismo dinero fuera al IBEX-35 TR</span></div>`;
+  const _ap=d.aport||[]; const apF=num(_ap[n-1]), vdF=num(V[n-1]), vF=num(SD[n-1]);
+  const divF=vdF-vF, gan=vdF-apF;
+  const _e=x=>(typeof fmt==='function')?fmt(x):Math.round(x).toLocaleString('es-ES');
+  const nota=(gan>0&&divF>0)
+    ? `<div class="cmp-divnote">De los <b>${_e(gan)}</b> que llevas ganados sobre lo aportado, <b style="color:#16a34a">${_e(divF)}</b> son <b>dividendos cobrados</b> — el <b>${(divF/gan*100).toFixed(0)}%</b>. El resto lo ha puesto la cotización.</div>`
+    : (divF>0?`<div class="cmp-divnote">Dividendos cobrados hasta hoy: <b style="color:#16a34a">${_e(divF)}</b>.</div>`:'');
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:700px;display:block">${grid}<path d="${path(I)}" fill="none" stroke="#f59e0b" stroke-width="2.4" stroke-dasharray="6 4"/><path d="${path(SD)}" fill="none" stroke="#86c99b" stroke-width="1.4"/><path d="${path(V)}" fill="none" stroke="#16a34a" stroke-width="2.4"/>${xl}</svg><div class="cmp-leg"><span><i style="background:#16a34a"></i>Tu cartera (valor + dividendos)</span><span><i style="background:#86c99b"></i>Tu cartera SIN los dividendos</span><span><i style="background:#f59e0b"></i>Si el mismo dinero fuera al IBEX-35 TR</span></div>${nota}`;
 }
 function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const kp=$('#rentaKpis'); const R=rentabilidadEmpresas(renderRentabEmpresas);
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }

@@ -566,13 +566,14 @@ function setAnaStatus(t){ const e=$('#anaStatus'); if(e)e.textContent=t; }
 let fichaTicker=null; let _dossierSet=null; let _tesisSet=null; let _tesisCache={}; let _tesisWarn={}; let _trimCache={};
 let fichaRange='all';
 let fichaMA={50:false,200:false,1000:false};   // medias móviles activas en la gráfica de la ficha
-let fichaVsIbex=false;                          // modo comparativa vs IBEX (rebase a 100)
+let fichaVista='precio';                        // vista del gráfico: precio · ibex · rpd · dd · roll
+let fichaRollN=5;                               // años de la ventana de la rentabilidad móvil
 let fichaZoom=null;                             // zoom por arrastre {t0,t1,ticker} o null
 let fichaConDiv=false;                          // línea fina de cotización CON DIVIDENDO
 let fichaDivMet='tr';                           // 'tr' = reinvertido (retorno total) · 'sum' = suma simple
 let fichaSoloCot=false;                         // modo limpio: solo las dos cotizaciones
 let _fichaGeo=null, _fichaDrag=null, _fichaPrefsLoaded=false;
-function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={ma:{50:!!fichaMA[50],200:!!fichaMA[200],1000:!!fichaMA[1000]},vsIbex:!!fichaVsIbex,range:fichaRange,conDiv:!!fichaConDiv,divMet:fichaDivMet,soloCot:!!fichaSoloCot}; if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
+function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={ma:{50:!!fichaMA[50],200:!!fichaMA[200],1000:!!fichaMA[1000]},vista:fichaVista,rollN:fichaRollN,range:fichaRange,conDiv:!!fichaConDiv,divMet:fichaDivMet,soloCot:!!fichaSoloCot}; if(typeof scheduleSave==='function')scheduleSave(); }catch(e){} }
 /* ===== Cotización CON DIVIDENDO ==========================================================
    Los cierres de precios/*.json son BRUTOS (yfinance con auto_adjust=False): el día ex-dividendo
    el precio cae por el importe repartido y ahí se queda para siempre. La línea «c/div» devuelve
@@ -624,6 +625,24 @@ function _fichaSerieDiv(data,pagos,met){
     vals[i]=(met==='sum')?(px+acum):(px*mult);
   }
   return {vals:vals,nPagos:ps.length,sumImp:sum};
+}
+/* ===== Vistas del gráfico de la Ficha =====================================================
+   Una sola tarjeta con cinco lecturas del mismo histórico, en vez de cinco tarjetas apiladas:
+   la Ficha no crece y el rango, el zoom por arrastre y el tooltip se reaprovechan tal cual. */
+const _FICHA_VISTAS=[
+  ['precio','Precio','Cotización con sus niveles: PO, banda de entrada, stop, precio medio y máx/mín'],
+  ['ibex','vs IBEX','La empresa y el IBEX rebasados a 100 al inicio del tramo'],
+  ['rpd','RPD','Rentabilidad por dividendo día a día: DPA bruto declarado del año ÷ cierre. Sitúa la RENTA en su propia historia, como el Radar sitúa el precio en su rango'],
+  ['dd','Bajo el agua','Cuánto está por debajo de su máximo anterior, cada día: la caída peor, la de hoy y cuánto duró la travesía más larga'],
+  ['roll','Móvil','Lo que sacó, anualizado, quien compró ese día y aguantó N años reinvirtiendo el dividendo'],
+];
+const _FICHA_VISTA_TIT={precio:'Cotización',ibex:'Cotización vs IBEX',rpd:'Rentabilidad por dividendo histórica',dd:'Bajo el agua (caída desde máximos)',roll:'Rentabilidad móvil'};
+/* Botones que dependen de la vista: medias y c/div solo en «Precio», ventana solo en «Móvil». */
+function _fichaModBtnsHTML(){
+  if(fichaVista==='roll') return [3,5,10].map(n=>`<button type="button" data-froll="${n}"${fichaRollN===n?' class="on"':''} style="font-size:11px;padding:2px 7px" title="Ventana de la rentabilidad móvil">${n} años</button>`).join('');
+  if(fichaVista!=='precio') return '';
+  return [[50,'MM50'],[200,'MM200'],[1000,'MM1000']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''} style="font-size:11px;padding:2px 6px">${m[1]}</button>`).join('')
+    +_fichaDivBtnsHTML();
 }
 /* Los tres botones de la línea c/div. Aparecen y desaparecen con el estado, así que se repintan
    solos (sin re-render de la ficha entera) desde el manejador de 06-main.js. */
@@ -827,13 +846,12 @@ function renderFicha(t){
      <label>Dividendo/acción (€)<input type="number" step="0.0001" id="fdivImp"></label>
      <div class="row-actions" style="align-self:end"><button class="btn" id="fdivAdd">Añadir dividendo</button></div>
    </div></div>${divTable}`;
-  try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(typeof gp.vsIbex==='boolean')fichaVsIbex=gp.vsIbex; if(gp.range)fichaRange=gp.range; if(typeof gp.conDiv==='boolean')fichaConDiv=gp.conDiv; if(gp.divMet==='tr'||gp.divMet==='sum'||gp.divMet==='both')fichaDivMet=gp.divMet; if(typeof gp.soloCot==='boolean')fichaSoloCot=gp.soloCot; } } }catch(e){}
+  try{ if(!_fichaPrefsLoaded){ _fichaPrefsLoaded=true; const gp=(DB.config&&DB.config.fichaGraf); if(gp){ if(gp.ma)fichaMA={50:!!gp.ma[50],200:!!gp.ma[200],1000:!!gp.ma[1000]}; if(gp.vista)fichaVista=gp.vista; else if(gp.vsIbex===true)fichaVista='ibex';   /* preferencia antigua */ if([3,5,10].indexOf(+gp.rollN)>=0)fichaRollN=+gp.rollN; if(gp.range)fichaRange=gp.range; if(typeof gp.conDiv==='boolean')fichaConDiv=gp.conDiv; if(gp.divMet==='tr'||gp.divMet==='sum'||gp.divMet==='both')fichaDivMet=gp.divMet; if(typeof gp.soloCot==='boolean')fichaSoloCot=gp.soloCot; } } }catch(e){}
   const _ranges=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']];
   const rangeBtns=_ranges.map(r=>_fichaRangeBtn(r[0],r[1],'·','#94a3b8',fichaRange===r[0])).join('');
-  const maBtns=[[50,'MM50'],[200,'MM200'],[1000,'MM1000']].map(m=>`<button type="button" data-fma="${m[0]}"${fichaMA[m[0]]?' class="on"':''} style="font-size:11px;padding:2px 6px">${m[1]}</button>`).join('');
-  const ibexBtn=`<button type="button" data-fibex="1"${fichaVsIbex?' class="on"':''} style="font-size:11px;padding:2px 6px">vs IBEX</button>`;
+  const vistaBtns=_FICHA_VISTAS.map(v=>`<button type="button" data-fvista="${v[0]}"${fichaVista===v[0]?' class="on"':''} style="font-size:11px;padding:2px 7px" title="${v[2]}">${v[1]}</button>`).join('');
   const chartCard=`<div class="card" style="margin-top:10px">`
-    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700">Cotización</div><div style="width:26px"></div><div class="seg" id="fchMA">${maBtns}</div><div class="seg" id="fchIbex">${ibexBtn}</div><div class="seg" id="fchDiv">${_fichaDivBtnsHTML()}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
+    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700" id="fchTit">${_FICHA_VISTA_TIT[fichaVista]||'Cotización'}</div><div style="width:14px"></div><div class="seg" id="fchVista">${vistaBtns}</div><div class="seg" id="fchMod">${_fichaModBtnsHTML()}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
     +`<div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
@@ -943,7 +961,11 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
     const dot=svg.querySelector('.fchDot'); if(dot){ dot.setAttribute('cx',gx); dot.setAttribute('cy',gy); dot.style.display=''; }
     const wrap=svg.parentNode; const tip=wrap?wrap.querySelector('.fchTip'):null;
     if(tip){ let h='';
-      if(D.mode==='ibex'){ const ds=D.dates[bi], sv=D.sVals[bi], iv=D.iVals[bi], rel=sv-iv;
+      if(D.mode==='gen'){                       /* RPD · bajo el agua · rentabilidad móvil */
+        const v=D.vals[bi];
+        h=`<div style="font-weight:700;margin-bottom:2px">${D.dates[bi]}</div><div><span style="color:${D.col}">${D.etiq}:</span> <b>${(v>=0?'':'')+v.toFixed(2)}${D.sufijo}</b></div>`;
+        if(D.ref) h+=`<div style="color:#cbd5e1;margin-top:1px">mediana ${D.ref.med.toFixed(2)}${D.sufijo} · normal ${D.ref.p20.toFixed(2)}–${D.ref.p80.toFixed(2)}${D.sufijo}</div>`;
+      } else if(D.mode==='ibex'){ const ds=D.dates[bi], sv=D.sVals[bi], iv=D.iVals[bi], rel=sv-iv;
         h=`<div style="font-weight:700;margin-bottom:2px">${ds}</div><div><span style="color:#93c5fd">${_fichaGeo?_fichaGeo.ticker:''}:</span> <b>${sv.toFixed(1)}</b></div><div style="color:#cbd5e1">IBEX: <b>${iv.toFixed(1)}</b></div><div style="margin-top:1px">rel: <b style="color:${rel>=0?'#4ade80':'#f87171'}">${rel>=0?'+':''}${rel.toFixed(1)} pp</b></div>`;
       } else {
         const price=num(D.prices[bi]); const ds=D.dates[bi];
@@ -963,14 +985,56 @@ function _fichaBindHover(){ if(_fichaHovBound)return; _fichaHovBound=true;
   document.addEventListener('mouseup',e=>{ if(!_fichaDrag||!_fichaGeo)return; const g=_fichaGeo, drag=_fichaDrag; _fichaDrag=null; const br=drag.svg.querySelector('.fchBrush'); if(br)br.style.display='none'; let vx=(e.clientX-drag.r.left)*g.W/drag.r.width; vx=Math.max(g.L,Math.min(g.L+g.pw,vx)); const xa=Math.min(drag.x0,vx), xb=Math.max(drag.x0,vx); if(xb-xa<8)return; const px2t=px=>g.t0+(px-g.L)/g.pw*(g.t1-g.t0); fichaZoom={t0:px2t(xa),t1:px2t(xb),ticker:g.ticker}; if(typeof drawFichaChart==='function')drawFichaChart(g.ticker); });
   document.addEventListener('dblclick',e=>{ const svg=(e.target&&e.target.closest)?e.target.closest('.fichaSvg'):null; if(!svg)return; if(fichaZoom){ fichaZoom=null; if(_fichaGeo&&typeof drawFichaChart==='function')drawFichaChart(_fichaGeo.ticker); } });
 }
+/* ===== Series de las vistas derivadas ======================================================
+   Las tres se calculan sobre el histórico ENTERO y solo después se recorta el tramo visible:
+   así cambiar de rango o hacer zoom cambia lo que se ve, nunca lo que se mide.
+     · 'rpd'  — DPA bruto DECLARADO del año ÷ cierre de cada día. Es la misma definición de RPD que
+                ya usa el Radar Dividendo. A propósito NO se usa la suma móvil de 12 meses: con
+                fechas ex-div que se mueven unos días de un año a otro, una ventana de 365 días
+                llega a coger TRES pagos y dibuja picos que no existen (a Enagás le pasa en
+                diciembre de 2024, con un falso 17%).
+     · 'dd'   — caída desde el máximo anterior. El máximo se arrastra desde el PRIMER día del
+                histórico: si se reiniciara con el zoom, un tramo alcista diría «0%» estando la
+                acción un 40% por debajo de su máximo real.
+     · 'roll' — lo que sacó, ANUALIZADO, quien compró ese día y aguantó N años reinvirtiendo el
+                dividendo bruto. La línea acaba N años antes que el precio, y eso es honesto: de
+                ahí a hoy todavía no se sabe. */
+function _fichaSerieVista(vista,t,full){
+  if(!full||full.length<40) return null;
+  if(vista==='dd'){
+    let mx=-Infinity;
+    const v=full.map(p=>{ if(p[1]>mx)mx=p[1]; return mx>0?(p[1]-mx)/mx*100:0; });
+    return {vals:v,fmtY:x=>x.toFixed(0)+'%',col:'#dc2626',area:true,techo0:true};
+  }
+  if(vista==='rpd'){
+    const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[(t||'').toUpperCase()]:null;
+    if(!reg||!reg.anios) return null;
+    const dpa={}; Object.keys(reg.anios).forEach(y=>{ const q=num((reg.anios[y]||{}).dpaBruto); if(q>0)dpa[y]=q; });
+    const v=full.map(p=>{ const q=dpa[new Date(p[0]).getUTCFullYear()]; return (q>0&&p[1]>0)?q/p[1]*100:null; });
+    if(v.filter(x=>x!=null).length<60) return null;
+    return {vals:v,fmtY:x=>x.toFixed(1)+'%',col:'#0891b2',banda:true};
+  }
+  if(vista==='roll'){
+    const ps=_fichaPagosDiv(t), n=full.length;
+    const tr=new Array(n); let k=0,m=1;
+    for(let i=0;i<n;i++){ const px=full[i][1]; while(k<ps.length&&ps[k].ms<=full[i][0]){ if(px>0)m*=(1+ps[k].imp/px); k++; } tr[i]=px*m; }
+    const dias=fichaRollN*365.25*86400000, v=new Array(n).fill(null); let j=0;
+    for(let i=0;i<n;i++){ if(j<i)j=i; const obj=full[i][0]+dias;
+      while(j<n&&full[j][0]<obj)j++; if(j>=n)break;
+      if(tr[i]>0)v[i]=(Math.pow(tr[j]/tr[i],1/fichaRollN)-1)*100; }
+    if(v.filter(x=>x!=null).length<60) return null;
+    return {vals:v,fmtY:x=>(x>=0?'+':'')+x.toFixed(0)+'%',col:'#7c3aed',cero:true};
+  }
+  return null;
+}
 async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
   const setVar=h=>{ const v=document.getElementById('fchVar'); if(v)v.innerHTML=h||''; };
   const setZoom=h=>{ const z=document.getElementById('fchZoom'); if(z)z.innerHTML=h||''; };
   /* «solo cotizaciones» solo tiene sentido con la línea c/div encendida y fuera del modo IBEX. */
-  const solo=!!(fichaConDiv&&fichaSoloCot&&!fichaVsIbex);
+  const solo=!!(fichaConDiv&&fichaSoloCot&&fichaVista==='precio');
   /* dividendos.json pesa medio mega y se carga aparte: si aún no está, se pide y se repinta. */
-  if(fichaConDiv&&typeof _evoData!=='undefined'&&!_evoData&&typeof _evoCargar==='function'&&!drawFichaChart._divLoad){
+  if((fichaConDiv||fichaVista==='rpd'||fichaVista==='roll')&&typeof _evoData!=='undefined'&&!_evoData&&typeof _evoCargar==='function'&&!drawFichaChart._divLoad){
     drawFichaChart._divLoad=true;
     try{ Promise.resolve(_evoCargar()).then(function(){ if(fichaTicker)drawFichaChart(fichaTicker); }).catch(function(){}); }catch(e){}
   }
@@ -981,7 +1045,7 @@ async function drawFichaChart(t){
   if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; setVar(''); return; }
   const lastT=dataFull[dataFull.length-1][0];
   const _rollMA=function(arr,w){ const out=new Array(arr.length).fill(null); let s=0; for(let i=0;i<arr.length;i++){ s+=arr[i][1]; if(i>=w)s-=arr[i-w][1]; if(i>=w-1)out[i]=s/w; } return out; };
-  const wantMA=(fichaVsIbex||solo)?[]:[50,200,1000].filter(w=>fichaMA[w]);
+  const wantMA=(fichaVista!=='precio'||solo)?[]:[50,200,1000].filter(w=>fichaMA[w]);
   const maFull={}; wantMA.forEach(w=>{ maFull[w]=_rollMA(dataFull,w); });
   // ventana visible: el zoom por arrastre manda sobre el preset
   const zoom=(fichaZoom&&fichaZoom.ticker===t)?fichaZoom:null;
@@ -1017,8 +1081,83 @@ async function drawFichaChart(t){
   const brush=`<rect class="fchBrush" x="0" y="${Tp}" width="0" height="${ph.toFixed(1)}" fill="#2563eb" opacity="0.12" style="display:none"/>`;
   const clip=`<clipPath id="fchClip"><rect x="${L}" y="${Tp}" width="${pw.toFixed(1)}" height="${ph.toFixed(1)}"/></clipPath>`;
 
+  // ===== VISTAS DERIVADAS (RPD · bajo el agua · rentabilidad móvil) =====
+  if(fichaVista==='rpd'||fichaVista==='dd'||fichaVista==='roll'){
+    const S=_fichaSerieVista(fichaVista,t,dataFull);
+    const _falta={rpd:'Sin DPA declarado en <code>dividendos.json</code> para '+t+': esta vista necesita el dividendo anual.',
+                  dd:'Sin histórico suficiente para calcular las caídas.',
+                  roll:'No hay '+fichaRollN+' años de histórico con dividendo para '+t+'.'};
+    if(!S){ el.innerHTML='<div class="muted" style="font-size:12px">'+((typeof _evoData!=='undefined'&&!_evoData&&fichaVista!=='dd')?'Cargando dividendos.json…':_falta[fichaVista])+'</div>'; setVar(''); return; }
+    const vis=S.vals.slice(startIdx,endIdx+1);
+    const pv=[]; idxs.forEach(i=>{ if(vis[i]!=null)pv.push([data[i][0],vis[i]]); });
+    if(pv.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">En este tramo no hay dato para esta vista'+(fichaVista==='roll'?' (la ventana de '+fichaRollN+' años no cabe: amplía el rango)':'')+'.</div>'; setVar(''); return; }
+    const todos=S.vals.filter(x=>x!=null).slice().sort((a,b)=>a-b);
+    const q=f=>todos[Math.floor(f*(todos.length-1))];
+    const med=q(0.5), p20=q(0.20), p80=q(0.80);
+    const ult=(function(){ for(let i=S.vals.length-1;i>=0;i--) if(S.vals[i]!=null) return S.vals[i]; return null; })();
+    const hoyVis=pv[pv.length-1][1];
+    let lo=Math.min(...pv.map(p=>p[1])), hi=Math.max(...pv.map(p=>p[1]));
+    if(S.banda){ lo=Math.min(lo,p20); hi=Math.max(hi,p80); }
+    if(S.techo0){ hi=0; }
+    if(S.cero){ lo=Math.min(lo,0); hi=Math.max(hi,0); }
+    const pad=(hi-lo)*0.07||1; lo-=pad; if(!S.techo0)hi+=pad;
+    const Yv=v=>Tp+(1-(v-lo)/((hi-lo)||1))*ph;
+    let grid=''; const NYv=4;
+    for(let i=0;i<=NYv;i++){ const v=lo+(hi-lo)*i/NYv, y=Yv(v);
+      grid+=`<line x1="${L}" y1="${y.toFixed(1)}" x2="${W-R}" y2="${y.toFixed(1)}" stroke="#e2e8f0"/><text x="${L-5}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">${S.fmtY(v)}</text>`; }
+    let xlv=''; const yA2=new Date(t0).getFullYear(), yB2=new Date(t1).getFullYear(), sY2=Math.ceil((yB2-yA2+1)/8)||1;
+    for(let y=yA2;y<=yB2;y+=sY2){ const ts=Date.parse(y+'-01-01'); if(ts<t0||ts>t1)continue; const x=X(ts);
+      xlv+=`<line x1="${x.toFixed(1)}" y1="${Tp}" x2="${x.toFixed(1)}" y2="${Tp+ph}" stroke="#f1f5f9"/><text x="${x.toFixed(1)}" y="${H-8}" text-anchor="middle" font-size="9" fill="#64748b">${y}</text>`; }
+    let extra='';
+    if(S.banda){                                   /* rango normal de TODA su historia, no del tramo */
+      extra+=`<rect x="${L}" y="${Yv(p80).toFixed(1)}" width="${pw.toFixed(1)}" height="${Math.abs(Yv(p20)-Yv(p80)).toFixed(1)}" fill="#16a34a" opacity="0.09"/>`;
+      extra+=`<line x1="${L}" y1="${Yv(med).toFixed(1)}" x2="${W-R}" y2="${Yv(med).toFixed(1)}" stroke="#64748b" stroke-width="1.2" stroke-dasharray="5 3"/><text x="${W-R}" y="${(Yv(med)-3).toFixed(1)}" text-anchor="end" font-size="9" fill="#64748b">mediana ${med.toFixed(2)}%</text>`;
+    }
+    if(S.cero) extra+=`<line x1="${L}" y1="${Yv(0).toFixed(1)}" x2="${W-R}" y2="${Yv(0).toFixed(1)}" stroke="#0f172a" stroke-width="1"/>`;
+    if(S.techo0&&lo<-50) extra+=`<line x1="${L}" y1="${Yv(-50).toFixed(1)}" x2="${W-R}" y2="${Yv(-50).toFixed(1)}" stroke="#dc2626" stroke-width="1" stroke-dasharray="4 3" opacity="0.8"/><text x="${L+3}" y="${(Yv(-50)-2).toFixed(1)}" font-size="9" fill="#dc2626">−50% · el escenario del pre-mortem</text>`;
+    let dstr=''; pv.forEach((p,i)=>{ dstr+=(i?'L':'M')+X(p[0]).toFixed(1)+','+Yv(p[1]).toFixed(1)+' '; });
+    let area='';
+    if(S.area){ let a='M'+X(pv[0][0]).toFixed(1)+','+Yv(0).toFixed(1)+' '; pv.forEach(p=>{ a+='L'+X(p[0]).toFixed(1)+','+Yv(p[1]).toFixed(1)+' '; }); a+='L'+X(pv[pv.length-1][0]).toFixed(1)+','+Yv(0).toFixed(1)+' Z';
+      area=`<path d="${a}" fill="${S.col}" opacity="0.11"/>`; }
+    /* «Móvil»: la zona sin dato son los últimos N años, donde el plazo aún no se ha cumplido. */
+    let zonaN='';
+    if(fichaVista==='roll'){ const xf=X(pv[pv.length-1][0]);
+      if(xf<L+pw-6) zonaN=`<rect x="${xf.toFixed(1)}" y="${Tp}" width="${(L+pw-xf).toFixed(1)}" height="${ph.toFixed(1)}" fill="#94a3b8" opacity="0.10"/><text x="${(xf+(L+pw-xf)/2).toFixed(1)}" y="${(Tp+12).toFixed(1)}" text-anchor="middle" font-size="8.5" fill="#64748b">aún sin ${fichaRollN} años cumplidos</text>`; }
+    const dot=`<circle cx="${X(pv[pv.length-1][0]).toFixed(1)}" cy="${Yv(hoyVis).toFixed(1)}" r="4" fill="${S.col}" stroke="#fff" stroke-width="1.5"/>`;
+    const xs2=pv.map(p=>X(p[0])), ys2=pv.map(p=>Yv(p[1]));
+    _fichaHov={mode:'gen',W,xs:xs2,ys:ys2,dates:pv.map(p=>_fdy(p[0])),vals:pv.map(p=>p[1]),
+      etiq:{rpd:'RPD',dd:'Desde su máximo',roll:'A '+fichaRollN+' años (anual)'}[fichaVista],
+      sufijo:'%',col:S.col,ref:(S.banda?{med:med,p20:p20,p80:p80}:null)};
+    _fichaBindHover();
+    const guide=`<line class="fchGuide" x1="0" x2="0" y1="${Tp}" y2="${(Tp+ph).toFixed(1)}" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4 3" style="display:none"/>`;
+    const hoverDot=`<circle class="fchDot" r="4" fill="${S.col}" stroke="#fff" stroke-width="1.5" style="display:none"/>`;
+    const tip=`<div class="fchTip" style="display:none;position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.35;padding:6px 9px;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.25);z-index:20;white-space:nowrap;transform:translateX(-50%)"></div>`;
+    /* --- el pie: lo que hay que leer, ya masticado --- */
+    let pie='';
+    if(fichaVista==='rpd'){
+      const pct=Math.round(todos.filter(x=>x<ult).length/todos.length*100);
+      const lect=pct>=70?'<b style="color:#16a34a">paga más que de costumbre</b> — barata en renta':(pct<=30?'<b style="color:#dc2626">paga menos que de costumbre</b> — cara en renta':'en su nivel normal');
+      pie=`RPD hoy <b style="color:${S.col}">${ult.toFixed(2)}%</b> · mediana histórica ${med.toFixed(2)}% · su rango normal (P20–P80) va de ${p20.toFixed(2)}% a ${p80.toFixed(2)}% · está en el <b>percentil ${pct}</b> de su propia historia: ${lect}`
+        +`<br><span class="muted">DPA bruto declarado de cada año ÷ cierre de cada día, la misma RPD del Radar Dividendo. La banda y la mediana son de TODO el histórico, no del tramo que ves.</span>`;
+    } else if(fichaVista==='dd'){
+      let peor=0,pj=0; S.vals.forEach((v,i)=>{ if(v<peor){peor=v;pj=i;} });
+      let ini=null,dur=0,durIni=0;
+      S.vals.forEach((v,i)=>{ const ms=dataFull[i][0]; if(v<-1&&ini===null)ini=ms; if(v>=-0.0001&&ini!==null){ const dd=(ms-ini)/86400000; if(dd>dur){dur=dd;durIni=ini;} ini=null; } });
+      if(ini!==null){ const dd=(dataFull[dataFull.length-1][0]-ini)/86400000; if(dd>dur){dur=dd;durIni=ini;} }
+      pie=`Hoy <b style="color:${ult<-20?'#dc2626':'#0f172a'}">${ult.toFixed(1)}%</b> por debajo de su máximo · la peor caída fue <b style="color:#dc2626">${peor.toFixed(1)}%</b> (${_fdy(dataFull[pj][0])}) · la travesía más larga sin volver a máximos duró <b>${(dur/365).toFixed(1)} años</b>${durIni?' (desde '+_fdy(durIni)+')':''}`
+        +`<br><span class="muted">Evidencia histórica para el escenario de −50% del Bloque 8 y para el stop de tesis. El máximo se arrastra desde el primer día del histórico, no desde el tramo visible.</span>`;
+    } else {
+      const neg=todos.filter(x=>x<0).length/todos.length*100;
+      pie=`Quien compró hoy hace ${fichaRollN} años lleva <b style="color:${S.col}">${(ult>=0?'+':'')+ult.toFixed(1)}%</b> anual · mediana de todos los días de entrada <b>${(med>=0?'+':'')+med.toFixed(1)}%</b> · perdió dinero el <b>${neg.toFixed(0)}%</b> de los días · peor ${(todos[0]>=0?'+':'')+todos[0].toFixed(1)}% · mejor ${(todos[todos.length-1]>=0?'+':'')+todos[todos.length-1].toFixed(1)}%`
+        +`<br><span class="muted">Rentabilidad ANUALIZADA a ${fichaRollN} años con el dividendo bruto reinvertido, para cada día de entrada del pasado. Munición para el protocolo anti-anclaje: dice con datos cuántos puntos de entrada acabaron en pérdida.</span>`;
+    }
+    setVar(''); setZoom(zoom?`<span style="background:#eef2ff;color:#3730a3;border-radius:6px;padding:2px 8px;font-size:11px">🔍 ${_fdy(data[0][0])}–${_fdy(data[data.length-1][0])} <b data-fzreset="1" style="cursor:pointer" title="Reiniciar zoom">✕</b></span>`:'');
+    el.innerHTML=`<div style="position:relative"><svg class="fichaSvg" viewBox="0 0 ${W} ${H}" style="width:100%;height:auto;display:block;cursor:crosshair" xmlns="http://www.w3.org/2000/svg"><defs>${clip}</defs>${grid}${xlv}${zonaN}${extra}<g clip-path="url(#fchClip)">${area}<path d="${dstr}" fill="none" stroke="${S.col}" stroke-width="1.5"/></g>${dot}${guide}${brush}${hoverDot}</svg>${tip}</div><div class="muted" style="font-size:11px;margin-top:2px">${pie}</div>`;
+    return;
+  }
+
   // ===== MODO vs IBEX (ambos rebasados a base 100 al inicio del tramo) =====
-  if(fichaVsIbex){
+  if(fichaVista==='ibex'){
     let ij=_precioCache['__IBEX__'];
     if(ij===undefined){ try{ const r=await fetch('precios/IBEX.json',{cache:'no-store'}); ij=r.ok?await r.json():null; }catch(e){ ij=null; } _precioCache['__IBEX__']=ij; }
     if(!ij||!ij.data||!ij.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos del IBEX (¿precios/IBEX.json en el repo?).</div>'; return; }
