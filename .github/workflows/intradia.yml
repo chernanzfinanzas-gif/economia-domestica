@@ -1,0 +1,57 @@
+name: Intradia (cartera)
+# Precio de la sesion en curso para las empresas con dossier -> intradia.json (raiz).
+# NO toca precios/*.json: eso es el historico de cierres y lo lleva cotizaciones.yml.
+#
+# Horas en UTC. El cron de GitHub no entiende de horario de verano, asi que aqui se
+# abre una ventana AMPLIA (06:00-16:59 UTC = 08:00-18:59 CEST / 07:00-17:59 CET) y es
+# el script el que decide si el continuo espanol esta abierto (09:00-17:45 de Madrid).
+# Los pases que caen fuera salen en dos segundos sin pedir nada a Yahoo.
+#
+# Y un aviso para el yo del futuro: el cron de la capa gratuita NO es puntual. Se
+# retrasa entre 5 y 15 minutos con frecuencia y de vez en cuando se salta un pase.
+# Sumado a los 15 de retraso de Yahoo, el dato de la app tiene entre 15 y 40 minutos.
+# Es lo que hay sin pagar el dato en tiempo real a BME, y para seguir la cartera sobra.
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0,20,40 6-16 * * 1-5"
+permissions: { contents: write }
+
+# Si un pase se solapa con el anterior (Yahoo lento), se cancela el viejo: mas vale
+# perder un pase que dejar dos commits peleandose por el mismo fichero.
+concurrency:
+  group: intradia
+  cancel-in-progress: true
+
+jobs:
+  intradia:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Instalar dependencias
+        run: pip install --quiet yfinance
+      - name: Actualizar intradia.json
+        run: python actualizar_intradia.py --salida intradia.json
+        # En el REPO el script vive en la raíz, igual que actualizar_cotizaciones.py.
+        # La carpeta "Cotizaciones (para GitHub)" es la copia de trabajo local.
+      - name: Publicar si ha cambiado
+        run: |
+          if [ -z "$(git status --porcelain intradia.json)" ]; then
+            echo "Sin cambios: no hay commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add intradia.json
+          git commit -m "Intradia: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # El historico de cierres se publica desde otro workflow: si ha entrado algo
+          # entre medias, se rebasa en vez de fallar el pase.
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep 5
+          done
+          echo "No he podido publicar tras 3 intentos."
+          exit 1
