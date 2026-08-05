@@ -324,6 +324,78 @@ async function sincronizarCotizaciones(){
     if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } else if(typeof renderPanelDash==='function'){ renderPanelDash(); }
   }catch(e){}
 }
+/* ===== Precio INTRADÍA (intradia.json) =========================================
+   Segunda fuente de precio, para ver la cartera moverse durante la sesión. La escribe
+   un workflow ligero del repo cada 20 minutos con las empresas que tienen dossier.
+
+   Tres reglas que la hacen segura:
+   1) NO toca `precios/*.json`: el histórico de cierres es de sincronizarCotizaciones().
+      Aquí solo se pisa `DB.valores[t].precioActual` en memoria, marcado como provisional.
+   2) Solo se aplica si el fichero es de HOY. Un intradia.json rancio —el pase falló, o
+      es sábado— no debe pintar el precio del jueves como si fuera de ahora.
+   3) Respeta `precioManual`, igual que la sincronización de cierres.
+
+   Se autocorrige sola: cuando el pase de después del cierre publica el cierre real,
+   `_ultimos.json` trae la MISMA fecha con OTRO valor, y la regla de sincronizarCotizaciones()
+   («misma fecha + no manual + el valor cambia → acepta la corrección») lo sustituye.
+   Por eso esta función se llama DESPUÉS: durante la sesión manda el intradía; al día
+   siguiente, el cierre. */
+var _intradia=null;                 /* {sesion,hora,retrasoMin,datos:{TICKER:{p,var,cierreAnt}}} */
+async function sincronizarIntradia(){
+  try{
+    const r=await fetch('intradia.json',{cache:'no-store'});
+    if(!r.ok) return 0;
+    const j=await r.json();
+    if(!j||!j.datos) return 0;
+    const hoy=new Date(); const _hoy=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
+    if(j.sesion!==_hoy){ _intradia=null; return 0; }        /* regla 2: rancio, no se usa */
+    DB.valores=DB.valores||{};
+    const _anaByT={}; (DB.analisis||[]).forEach(a=>{ if(a.ticker)_anaByT[(a.ticker||'').toUpperCase()]=a; });
+    let n=0;
+    Object.keys(j.datos).forEach(t=>{
+      const fila=j.datos[t]; const p=num(fila&&fila.p); if(!(p>0))return;
+      const v=DB.valores[t]=DB.valores[t]||{};
+      if(v.precioManual)return;                              /* regla 3 */
+      if(num(v.precioActual)===p && v.precioFecha===j.sesion)return;
+      v.precioActual=p; v.precioFecha=j.sesion; v.precioProvisional=true;
+      const _a=_anaByT[t]; if(_a)_a.cotizacion=p;
+      n++;
+    });
+    _intradia=j; window._intradia=j;
+    /* NO se llama a saveNow(): un precio provisional no merece grabarse en el archivo.
+       Si el usuario toca cualquier cosa, se guardará con el resto; y si no, mañana
+       el cierre real lo sustituye. */
+    if(n&&typeof renderAll==='function')renderAll();
+    if(n&&typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    return n;
+  }catch(e){ return 0; }
+}
+/* Refresco mientras la app está abierta. Solo si la pestaña está VISIBLE: no tiene
+   sentido pedir precios a una pestaña que lleva tres horas de fondo, y así no se gasta
+   batería ni se molesta al servidor. El propio sincronizarIntradia() sale solo si el
+   fichero no es de hoy, así que fuera de sesión esto es un fetch de 200 bytes. */
+(function _intradiaTimer(){
+  if(window._intradiaTimerOn)return; window._intradiaTimerOn=true;
+  setInterval(function(){
+    try{
+      if(document.visibilityState!=='visible')return;
+      if(typeof sincronizarIntradia==='function')sincronizarIntradia();
+    }catch(e){}
+  }, 5*60*1000);
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'&&typeof sincronizarIntradia==='function')sincronizarIntradia();
+  });
+})();
+/* Chapa para enseñar de dónde viene el precio. La usa quien quiera pintarla. */
+function intradiaSello(){
+  const j=(typeof _intradia!=='undefined')?_intradia:null;
+  if(!j||!j.hora) return '';
+  return '<span title="Precio de la sesión en curso, no es un cierre. La fuente lo sirve con retraso y el pase no es puntual." '
+    +'style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#3730a3;background:#eef2ff;'
+    +'border:1px solid #c7d2fe;border-radius:20px;padding:1px 8px">● intradía '+j.hora
+    +(j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+'</span>';
+}
+
 /* ===== Alertas corporativas (OPA / concurso / suspensión / sanción / litigio) =====
    Fuente: alertas.json en la raíz del repo, independiente de si la empresa tiene dossier.
    Cubre las ~103 empresas del Universo, no solo las analizadas (esas sí tienen Kanban;
@@ -1445,7 +1517,9 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   fillGrupoList();
   fillPresYear();
   renderAll();
-  if(typeof sincronizarCotizaciones==='function') sincronizarCotizaciones();
+  if(typeof sincronizarCotizaciones==='function') Promise.resolve(sincronizarCotizaciones())
+    .then(function(){ if(typeof sincronizarIntradia==='function') return sincronizarIntradia(); })
+    .catch(function(){});   /* el intradía va DESPUÉS: durante la sesión manda él, al cerrar manda el cierre */
   if(typeof cargarDossiers==='function') cargarDossiers();
   /* Consolidación de dividendos: divAccion (dividendo actual) se sincroniza desde dividendos.json,
      que es la única fuente. Se hace tras cargar dividendos.json (asíncrono). */
@@ -1714,6 +1788,7 @@ async function _demoLoadFromGitHub(){
     try{ if(typeof cargarTesis==='function'){ await cargarTesis(t); if(_tesisCache && _tesisCache[t] && typeof importTesis==='function') importTesis(t); } }catch(e){}
   }
   try{ if(typeof sincronizarCotizaciones==='function') await sincronizarCotizaciones(); }catch(e){}
+  try{ if(typeof sincronizarIntradia==='function') await sincronizarIntradia(); }catch(e){}
 }
 
 async function toggleDemo(){

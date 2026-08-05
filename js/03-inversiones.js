@@ -253,7 +253,7 @@ function renderInv(){
   const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
   const _pc=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
   $('#invCards').innerHTML='<div class="pos-kpis">'
-    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras</div></div>`
+    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras${(typeof intradiaSello==='function'&&intradiaSello())?(' &middot; '+intradiaSello()):''}</div></div>`
     +`<div class="k"><div class="l">Coste</div><div class="v">${fmt(coste)}</div><div class="p">invertido total</div></div>`
     +`<div class="k"><div class="l">Plusvalía</div><div class="v ${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${fmt(pl)}</div><div class="p">${_pc(plpct)} sobre coste</div></div>`
     +`<div class="k"><div class="l">Dividendos/año (bruto)</div><div class="v">${fmt(divAnual)}</div><div class="p">${(valor?(divAnual/valor*100).toFixed(1):0)}% RPD media</div></div>`

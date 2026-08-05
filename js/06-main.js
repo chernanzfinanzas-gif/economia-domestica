@@ -14,7 +14,7 @@ function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos
    Las vistas ocultas se repintan al abrirlas (activarVista). Con red de seguridad: si una vista
    no está en el mapa, cae al render completo. ===== */
 const VIEW_FNS={
-  panel:['renderPanel'], presupuesto:['renderPres','renderMetas','renderPresDesglose'],
+  micartera:['renderMiCartera'], panel:['renderPanel'], presupuesto:['renderPres','renderMetas','renderPresDesglose'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'],  origen:['renderOrigen'],
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
@@ -143,7 +143,7 @@ if($('#catNivelSeg'))$('#catNivelSeg').addEventListener('click',function(e){ con
 
 /* ============ Eventos ============ */
 const GROUPS={
-  control:[['panel','Panel'],['presupuesto','Presupuesto']],
+  control:[['micartera','Mi Cartera'],['panel','Panel'],['presupuesto','Presupuesto']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
   trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
@@ -174,7 +174,7 @@ const ADD_ACTIONS={
   asignacion:()=>{ if(typeof addLoteEmpresa==='function')addLoteEmpresa(); }
 };
 if($('#fabAdd'))$('#fabAdd').addEventListener('click',()=>{ const fn=ADD_ACTIONS[_activeViewId()]; if(fn)try{ fn(); }catch(e){} });
-const groupCurrent={embudo:'embudo', control:'panel', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'asignacion', informes:'informes', graficas:'graficas'};
+const groupCurrent={embudo:'embudo', control:'micartera', mov:'movimientos', trabajo:'radar', eleccion:'analisis', cartera:'inversiones', retorno:'dividendos', tesis:'monitor', planinv:'asignacion', informes:'informes', graficas:'graficas'};
 function activarVista(view){
   $$('.view').forEach(v=>v.classList.remove('active'));
   const el=$('#view-'+view); if(el)el.classList.add('active');
@@ -602,7 +602,22 @@ if($('#btnRestore'))$('#btnRestore').addEventListener('click',()=>bkf.click());
 if($('#btnPapelera'))$('#btnPapelera').addEventListener('click',()=>{ if(typeof openPapelera==='function')openPapelera(); });
 document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]'); if(b){ e.preventDefault(); abrirFicha(b.dataset.ficha); } });
 /* Estado inicial de la navegación: grupo Control activo con su subnav visible */
-try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e){}
+/* [05-ago-2026] Vista de arranque. En el MOVIL se abre «Mi Cartera»: el 90% de las
+   veces que se saca el telefono es para mirar como va la cartera, y el Panel —que es
+   un cuadro de mando de la economia domestica entera— obliga a un clic mas. En el
+   ORDENADOR se sigue abriendo el Panel, que es donde se trabaja.
+   El corte es por ANCHO, no por «user agent»: un movil en horizontal o una tablet con
+   teclado se comportan como ordenador, que es lo razonable. Se puede fijar a mano en
+   DB.config.vistaInicio ('micartera' | 'panel') si algun dia molesta. */
+try{
+  var _vi=(DB.config&&DB.config.vistaInicio)||'';
+  if(!_vi){
+    var _movil=false;
+    try{ _movil=window.matchMedia('(max-width:820px)').matches; }catch(e){ _movil=(window.innerWidth||9999)<=820; }
+    _vi=_movil?'micartera':'panel';
+  }
+  if(typeof activarVista==='function') activarVista(_vi);
+}catch(e){ try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e2){} }
 /* [30-jul-2026] Arranque en una vista concreta: index.html?v=embudo (también #v=embudo).
    Lo usan los accesos directos del icono de la app instalada (manifest → "shortcuts"):
    clic derecho en el icono de la barra de tareas → Panel / Kanban / Movimientos / Cartera.
