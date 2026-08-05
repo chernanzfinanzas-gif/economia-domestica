@@ -27,7 +27,7 @@
 function _mcNum(x){ return (typeof num==='function')?num(x):(isNaN(parseFloat(x))?0:parseFloat(x)); }
 function _mcUp(x){ return (x||'').toString().toUpperCase(); }
 function _mcEur(x){ return (typeof fmt==='function')?fmt(x):(_mcNum(x).toFixed(2)+' €'); }
-function _mcPct(x,d){ d=(d==null)?2:d; return (x>=0?'+':'')+x.toFixed(d)+'%'; }
+function _mcPct(x,d){ d=(d==null)?2:d; return (x>=0?'+':'')+x.toFixed(d).replace('.',',')+'%'; }
 /* El precio MEDIO de compra pide más decimales que un importe: 3,5742 € no es 3,57 €,
    y sobre 6.549 acciones esa diferencia son 29 €. Hasta 4 decimales, sin ceros de relleno. */
 function _mcPrecio(x){
@@ -49,10 +49,30 @@ function _mcCot(t){
   const a=_mcAna(t); return _mcNum(a&&a.cotizacion);
 }
 /* Cierre anterior, SOLO si el intradía de hoy lo trae. Sin él no hay variación del día. */
+/* Con qué cierre se compara para saber «cómo va el día». Dos fuentes, por orden:
+     1) el intradía, que trae el cierre de ayer pegado al precio vivo;
+     2) el histórico de cierres (precios/*.json), que permite enseñar la variación de la
+        ÚLTIMA SESIÓN CERRADA cuando el pase intradía todavía no ha corrido.
+   Sin la segunda, la columna se quedaba en «sin dato de hoy» todo el fin de semana y
+   hasta las 09:20 de cada mañana, que es justo cuando uno abre la cartera para ver qué
+   tal fue ayer. Devuelve {ant, viva, sesion} o null si no hay con qué comparar: nunca
+   una variación inventada. */
 function _mcCierreAnt(t){
+  t=_mcUp(t);
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
-  if(!j||!j.datos)return 0;
-  const f=j.datos[_mcUp(t)]; return _mcNum(f&&f.cierreAnt);
+  if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].cierreAnt)>0)
+    return {ant:_mcNum(j.datos[t].cierreAnt), viva:true, sesion:j.sesion||''};
+  const f=((DB.valores||{})[t]||{}).precioFecha||'';
+  if(!f)return null;                                   /* sin saber de cuándo es, no se compara */
+  const pj=(typeof _precioCache!=='undefined')?_precioCache[t]:null;
+  if(!pj||!pj.data)return null;
+  const d=pj.data;
+  for(let i=d.length-1;i>=0;i--){                       /* el último cierre ANTERIOR a esa fecha */
+    const fe=d[i][0], px=_mcNum(d[i][1]);
+    if(!(px>0)||!fe||fe>=f)continue;
+    return {ant:px, viva:false, sesion:f};
+  }
+  return null;
 }
 
 /* De cuándo es el precio que se está enseñando. Es la pregunta que más se hace uno
@@ -64,14 +84,19 @@ function _mcSelloDe(t){
   if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&j.hora)
     return {tipo:'intradia', txt:'hoy '+j.hora, det:'precio de la sesión en curso'+(j.retrasoMin?(', con '+j.retrasoMin+' min de retraso'):'')};
   const v=(DB.valores||{})[t]||{};
-  if(v.precioManual&&v.precioFecha) return {tipo:'manual', txt:'manual '+_mcFecha(v.precioFecha), det:'precio puesto a mano'};
+  /* precioManual=true lo pone SOLO la importación del Excel con captura de cierre
+     (26-excelprecios.js). No es «un precio escrito a ojo»: es el cierre oficial de la
+     subasta, que precisamente por serlo se blinda contra el pase provisional de Yahoo.
+     Llamarlo «manual» invitaba a desconfiar de un dato que es el mejor que hay. */
+  if(v.precioManual&&v.precioFecha) return {tipo:'oficial', txt:'cierre oficial '+_mcFecha(v.precioFecha,true), det:'cierre oficial de la subasta, importado del Excel'};
   if(v.precioFecha) return {tipo:'cierre', txt:'cierre '+_mcFecha(v.precioFecha), det:'último cierre consolidado'};
   return {tipo:'?', txt:'sin fecha', det:'no consta de cuándo es este precio'};
 }
-function _mcFecha(iso){
+function _mcFecha(iso,corta){
   if(!iso)return '';
-  if(typeof ddmmyyyy==='function'){ try{ return ddmmyyyy(iso); }catch(e){} }
   const p=String(iso).slice(0,10).split('-');
+  if(corta&&p.length===3)return p[2]+'/'+p[1]+'/'+p[0].slice(2);   /* en la fila el sitio es oro */
+  if(typeof ddmmyyyy==='function'){ try{ return ddmmyyyy(iso); }catch(e){} }
   return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):String(iso);
 }
 /* Resumen para la cabecera: de cuándo son los precios del conjunto. */
@@ -103,12 +128,13 @@ function _mcPosiciones(){
     m.carteras[p.cartera||'Propia']=true;
   });
   return Object.keys(map).map(function(t){
-    const m=map[t], pm=m.acc?m.cost/m.acc:0, cot=_mcCot(t), ant=_mcCierreAnt(t);
+    const m=map[t], pm=m.acc?m.cost/m.acc:0, cot=_mcCot(t), ca=_mcCierreAnt(t);
     const valor=m.acc*cot, coste=m.acc*pm;
     const o={ticker:t, nombre:_mcNombre(t), acc:m.acc, pmedio:pm, cot:cot,
              valor:valor, coste:coste, pl:valor-coste, plPct:coste>0?(valor-coste)/coste*100:0,
              carteras:Object.keys(m.carteras).sort()};
-    if(ant>0&&cot>0){ o.diaPct=(cot-ant)/ant*100; o.diaEur=m.acc*(cot-ant); }
+    if(ca&&ca.ant>0&&cot>0){ o.diaPct=(cot-ca.ant)/ca.ant*100; o.diaEur=m.acc*(cot-ca.ant);
+                             o.diaViva=!!ca.viva; o.diaSesion=ca.sesion; }
     return o;
   }).sort(function(a,b){ return b.valor-a.valor; });
 }
@@ -138,16 +164,29 @@ function _mcCercaEntrada(){
 /* --------------------------------------------------------------------------
    Render
    -------------------------------------------------------------------------- */
+var _mcPreciosPedidos=false;
 function renderMiCartera(){
   const el=document.getElementById('mcBody'); if(!el)return;
   _mcCSS();
   const P=_mcPosiciones();
+  /* El histórico de cierres se pide UNA vez y en diferido: la vista se pinta ya con lo
+     que hay y se repinta sola cuando llega. Así la variación de la última sesión no
+     cuesta un segundo de pantalla en blanco al abrir la app. */
+  if(!_mcPreciosPedidos && typeof cargarPreciosCartera==='function' && P.some(function(p){ return p.diaEur==null; })){
+    _mcPreciosPedidos=true;
+    try{ cargarPreciosCartera().then(function(){ renderMiCartera(); }); }catch(e){}
+  }
   const valor=P.reduce(function(s,p){ return s+p.valor; },0);
   const coste=P.reduce(function(s,p){ return s+p.coste; },0);
   const pl=valor-coste, plPct=coste>0?pl/coste*100:0;
   const conDia=P.filter(function(p){ return p.diaEur!=null; });
+  const vivas=conDia.filter(function(p){ return p.diaViva; }).length;
   const diaEur=conDia.reduce(function(s,p){ return s+p.diaEur; },0);
   const diaPct=(valor-diaEur)>0?diaEur/(valor-diaEur)*100:0;
+  /* Si el pase intradía no ha corrido, la casilla no se queda muda: enseña la última
+     sesión cerrada, que es la tendencia con la que uno llega por la mañana. */
+  const diaTit=vivas?'Hoy':'Última sesión';
+  const diaSes=(!vivas&&conDia.length)?_mcFecha(conDia[0].diaSesion,true):'';
   const selloG=_mcSelloGlobal(P.map(function(p){ return p.ticker; }));
 
   /* ---- KPIs ---- */
@@ -155,17 +194,19 @@ function renderMiCartera(){
     +'<div class="k hero"><div class="l">Valor de la cartera</div><div class="v">'+_mcEur(valor)+'</div>'
     +'<div class="p">'+P.length+' '+(P.length===1?'empresa':'empresas')+' · ambas carteras</div></div>';
   if(conDia.length){
-    kpis+='<div class="k"><div class="l">Hoy</div><div class="v '+(diaEur>=0?'pos':'neg')+'">'
+    kpis+='<div class="k"><div class="l">'+diaTit+(diaSes?(' <span class="mc-ses">'+diaSes+'</span>'):'')
+      +'</div><div class="v '+(diaEur>=0?'pos':'neg')+'">'
       +(diaEur>=0?'+':'')+_mcEur(diaEur)+'</div><div class="p">'+_mcPct(diaPct)
-      +(conDia.length<P.length?(' · '+conDia.length+' de '+P.length+' con dato'):'')+'</div></div>';
+      +(conDia.length<P.length?(' · '+conDia.length+' de '+P.length+' con dato'):'')
+      +(vivas?'':' · aún sin precio de hoy')+'</div></div>';
   } else {
-    kpis+='<div class="k"><div class="l">Hoy</div><div class="v muted" style="font-size:16px">sin datos de hoy</div>'
-      +'<div class="p">fuera de sesión o el pase intradía aún no ha corrido</div></div>';
+    kpis+='<div class="k"><div class="l">Última sesión</div><div class="v muted" style="font-size:16px">sin variación</div>'
+      +'<div class="p">no tengo el cierre anterior con el que comparar</div></div>';
   }
   kpis+='<div class="k"><div class="l">Plusvalía</div><div class="v '+(pl>=0?'pos':'neg')+'">'
       +(pl>=0?'+':'')+_mcEur(pl)+'</div><div class="p">'+_mcPct(plPct,1)+' sobre un coste de '+_mcEur(coste)+'</div></div>';
   kpis+='</div>';
-  if(P.length) kpis+='<div class="mc-fuente '+selloG.cls+'"><span class="d"></span>'+selloG.txt+'</div>';
+  if(P.length) kpis+='<div class="mc-fuente '+selloG.cls+'"><span class="d"></span><span class="mc-fuente-t">'+selloG.txt+'</span></div>';
 
   /* ---- posiciones ---- */
   let lista='';
@@ -175,8 +216,8 @@ function renderMiCartera(){
     lista=P.map(function(p){
       const dia=(p.diaEur!=null)
         ? '<div class="mc-dia '+(p.diaEur>=0?'pos':'neg')+'">'+(p.diaEur>=0?'+':'')+_mcEur(p.diaEur)
-          +' <span>('+_mcPct(p.diaPct)+')</span></div>'
-        : '<div class="mc-dia muted">— <span>sin dato de hoy</span></div>';
+          +' <span>('+_mcPct(p.diaPct)+')'+(p.diaViva?'':(' · '+_mcFecha(p.diaSesion,true)))+'</span></div>'
+        : '<div class="mc-dia muted">— <span>sin cierre con el que comparar</span></div>';
       const compartida=(p.carteras.length>1)||(p.carteras[0]&&p.carteras[0]!=='Propia');
       const sp=_mcSelloDe(p.ticker);
       return '<div class="mc-row" data-ficha="'+p.ticker+'" title="Abrir la ficha de '+_mcEsc(p.nombre)+'">'
@@ -260,18 +301,37 @@ function _mcCSS(){
   if(document.getElementById('mc-css'))return;
   const s=document.createElement('style'); s.id='mc-css';
   s.textContent=[
-    '#view-micartera .mc-kpis{grid-template-columns:repeat(3,minmax(0,1fr))}',
-    '@media(max-width:760px){#view-micartera .mc-kpis{grid-template-columns:minmax(0,1fr);gap:8px}}',
+    /* OJO: en la app NO existe una regla suelta para `.pos-kpis`. Cada vista la declara
+       con su propio prefijo (`#view-posiciones #posKpis .pos-kpis{...}`), asi que la clase
+       sola no pinta NADA: los KPIs salian como texto corrido. Se replica aqui el bloque
+       canonico de #view-posiciones, que es el que da el cuadro blanco con sombra y la
+       tarjeta verde del total. */
+    '#view-micartera .pos-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}',
+    '#view-micartera .pos-kpis .k{background:var(--panel);border:1px solid var(--line);border-radius:14px;',
+    '  padding:14px 16px;box-shadow:var(--shadow);min-width:0}',
+    '#view-micartera .pos-kpis .k .l{font-size:10.5px;color:var(--muted);font-weight:700;',
+    '  text-transform:uppercase;letter-spacing:.02em}',
+    '#view-micartera .pos-kpis .k .v{font-size:22px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums}',
+    '#view-micartera .pos-kpis .k .v.pos{color:var(--green)}',
+    '#view-micartera .pos-kpis .k .v.neg{color:var(--red)}',
+    '#view-micartera .pos-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}',
+    '#view-micartera .pos-kpis .k.hero{background:linear-gradient(135deg,#166534,#16a34a);color:#fff;border:none}',
+    '#view-micartera .pos-kpis .k.hero .l,#view-micartera .pos-kpis .k.hero .p{color:#bbf7d0}',
+    '#view-micartera .pos-kpis .k.hero .v{color:#fff}',
+    '#view-micartera .mc-ses{font-weight:800;color:#94a3b8;letter-spacing:0}',
+    '@media(max-width:760px){#view-micartera .pos-kpis{grid-template-columns:minmax(0,1fr);gap:8px}',
+    '  #view-micartera .pos-kpis .k .v{font-size:20px}}',
     '#view-micartera .mc-fuente{display:flex;align-items:center;gap:8px;font-size:12px;color:#334155;',
     '  border-radius:10px;padding:8px 12px;margin:-4px 0 16px}',
     '#view-micartera .mc-fuente .d{width:8px;height:8px;border-radius:50%;flex:none}',
+    '#view-micartera .mc-fuente-t{flex:1 1 auto;line-height:1.45}',
     '#view-micartera .mc-fuente.viva{background:#eef2ff;border:1px solid #c7d2fe}',
     '#view-micartera .mc-fuente.viva .d{background:#4f46e5}',
     '#view-micartera .mc-fuente.cierre{background:#f8fafc;border:1px solid var(--line)}',
     '#view-micartera .mc-fuente.cierre .d{background:#94a3b8}',
     '#view-micartera .mc-cuando{font-size:10px;font-weight:700;color:#94a3b8;margin-top:1px;letter-spacing:.01em}',
     '#view-micartera .mc-cuando.intradia{color:#4f46e5}',
-    '#view-micartera .mc-cuando.manual{color:#b45309}',
+    '#view-micartera .mc-cuando.oficial{color:#0f766e}',
     '#view-micartera .mc-h{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;',
     '  color:var(--muted);margin:22px 0 8px;display:flex;align-items:baseline;gap:8px}',
     '#view-micartera .mc-h-s{font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;opacity:.8}',

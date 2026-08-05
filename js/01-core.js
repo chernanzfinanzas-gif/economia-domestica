@@ -355,9 +355,16 @@ async function sincronizarIntradia(){
     Object.keys(j.datos).forEach(t=>{
       const fila=j.datos[t]; const p=num(fila&&fila.p); if(!(p>0))return;
       const v=DB.valores[t]=DB.valores[t]||{};
-      if(v.precioManual)return;                              /* regla 3 */
+      /* regla 3: un precio a mano manda sobre el intradia, pero SOLO el de su propia
+         sesion. La importacion de Excel del cierre oficial marca precioManual=true; si
+         no se comprobara la fecha, el cierre de ayer bloquearia el intradia de hoy hasta
+         que Yahoo publicara un cierre mas nuevo: un dia entero sin dato vivo. */
+      if(v.precioManual && v.precioFecha===j.sesion)return;
       if(num(v.precioActual)===p && v.precioFecha===j.sesion)return;
-      v.precioActual=p; v.precioFecha=j.sesion; v.precioProvisional=true;
+      /* al relevar un manual de una sesion anterior hay que soltar la marca: si no, el
+         pase de las 09:20 seria el unico del dia (los siguientes se verian bloqueados
+         por su propio precioFecha). Es lo mismo que hace sincronizarCotizaciones(). */
+      v.precioActual=p; v.precioFecha=j.sesion; v.precioProvisional=true; v.precioManual=false;
       const _a=_anaByT[t]; if(_a)_a.cotizacion=p;
       n++;
     });
@@ -1517,6 +1524,11 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   fillGrupoList();
   fillPresYear();
   renderAll();
+  /* [06-ago-2026] La vista de arranque se decide en UN sitio (vistaArranque, 06-main.js) y se
+     aplica AQUÍ, que es el último momento en que se toca: la línea de arriba del todo de esta
+     función pone «view-panel» a pelo, y como afterLoad() corre después del arranque de
+     06-main.js, era ella la que mandaba siempre. De ahí que el móvil abriera en el Panel. */
+  try{ if(typeof vistaArranque==='function' && typeof activarVista==='function') activarVista(vistaArranque()); }catch(e){}
   if(typeof sincronizarCotizaciones==='function') Promise.resolve(sincronizarCotizaciones())
     .then(function(){ if(typeof sincronizarIntradia==='function') return sincronizarIntradia(); })
     .catch(function(){});   /* el intradía va DESPUÉS: durante la sesión manda él, al cerrar manda el cierre */

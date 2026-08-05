@@ -609,26 +609,31 @@ document.addEventListener('click',e=>{ const b=e.target.closest('[data-ficha]');
    El corte es por ANCHO, no por «user agent»: un movil en horizontal o una tablet con
    teclado se comportan como ordenador, que es lo razonable. Se puede fijar a mano en
    DB.config.vistaInicio ('micartera' | 'panel') si algun dia molesta. */
-try{
-  var _vi=(DB.config&&DB.config.vistaInicio)||'';
-  if(!_vi){
-    var _movil=false;
-    try{ _movil=window.matchMedia('(max-width:820px)').matches; }catch(e){ _movil=(window.innerWidth||9999)<=820; }
-    _vi=_movil?'micartera':'panel';
-  }
-  if(typeof activarVista==='function') activarVista(_vi);
-}catch(e){ try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e2){} }
-/* [30-jul-2026] Arranque en una vista concreta: index.html?v=embudo (también #v=embudo).
-   Lo usan los accesos directos del icono de la app instalada (manifest → "shortcuts"):
-   clic derecho en el icono de la barra de tareas → Panel / Kanban / Movimientos / Cartera.
-   Si el nombre no corresponde a ninguna vista, no hace nada y se queda en el Panel. */
-try{
-  var _vIni=/[?&#]v=([a-z0-9_-]+)/i.exec(location.search+location.hash);
-  if(_vIni){
-    var _vName=_vIni[1].toLowerCase();
-    if(document.getElementById('view-'+_vName) && typeof activarVista==='function') activarVista(_vName);
-  }
-}catch(e){}
+/* [30-jul-2026] Un acceso directo puede pedir una vista concreta: index.html?v=embudo
+   (también #v=embudo). Lo usan los iconos del manifest → "shortcuts".
+   [06-ago-2026] Las dos decisiones —el acceso directo y el ancho— se juntan aquí, en UNA
+   función, porque hay dos momentos que necesitan la respuesta: este arranque (que corre
+   con DB todavía vacía) y afterLoad(), cuando los datos ya han bajado de Drive. Antes
+   afterLoad() forzaba el Panel a pelo y se comía la elección hecha aquí: en el móvil la
+   app abría en Mi Cartera durante medio segundo y saltaba al Panel al cargar. */
+function vistaArranque(){
+  try{
+    var m=/[?&#]v=([a-z0-9_-]+)/i.exec(location.search+location.hash);
+    if(m && document.getElementById('view-'+m[1].toLowerCase())) return m[1].toLowerCase();
+  }catch(e){}
+  try{
+    var fija=(typeof DB!=='undefined'&&DB.config&&DB.config.vistaInicio)||'';   /* se puede fijar a mano */
+    if(fija && document.getElementById('view-'+fija)) return fija;
+  }catch(e){}
+  /* El corte es por ANCHO, no por «user agent»: un móvil en horizontal o una tablet con
+     teclado se comportan como ordenador, que es lo razonable. En el móvil se abre «Mi
+     Cartera» porque el 90% de las veces que uno saca el teléfono es para mirar eso. */
+  var movil=false;
+  try{ movil=window.matchMedia('(max-width:820px)').matches; }catch(e){ movil=(window.innerWidth||9999)<=820; }
+  return (movil && document.getElementById('view-micartera'))?'micartera':'panel';
+}
+try{ if(typeof activarVista==='function') activarVista(vistaArranque()); }
+catch(e){ try{ if(typeof activarVista==='function') activarVista('panel'); }catch(e2){} }
 $('#view-dividendos').addEventListener('change',e=>{ const d=e.target.closest('[data-devhac]'); if(d){ DB.devolucionHacienda=DB.devolucionHacienda||{}; const v=num(d.value); if(v) DB.devolucionHacienda[d.dataset.devhac]=v; else delete DB.devolucionHacienda[d.dataset.devhac]; saveNow(); renderDividendos(); } });
 /* Calendario reescrito (derivado, solo lectura): listeners propios en 19-calendario.js.
    Se retiran los antiguos de la rejilla manual (#calTabla / #calEventos). */
