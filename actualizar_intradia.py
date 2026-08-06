@@ -63,7 +63,14 @@ PAUSA         = 0.7     # segundos entre empresas (Yahoo limita desde GitHub)
 # viene marcada 00:00 y un dato congelado es indistinguible de uno vivo — asi estuvimos
 # ciegos toda la manana del 06-ago-2026, sirviendo el precio de las 09:25 hasta las 15:00.
 ESCALERA      = [("5m", "5d"), ("15m", "5d"), ("1m", "2d")]
-EDAD_MAX_MIN  = 20      # una barra mas vieja que esto NO es un precio vivo: se descarta
+# 35 y no 20. Yahoo sirve el continuo espanol con 15 minutos de retraso, y la barra va
+# etiquetada con el INICIO de su intervalo: una barra de 5m marcada 14:50 aparece a las
+# 15:07 con 17 minutos de "edad" siendo perfectamente buena. Con el tope en 20 se
+# rechazaban datos legitimos por cinco minutos de margen. Y no hace falta apretar: lo que
+# esto tiene que cazar son las respuestas rancias de verdad, que el 06-ago-2026 traian
+# barras de hace 420 minutos. Contra un fallo doce veces mayor que el umbral, un umbral
+# holgado corta igual y no genera falsos positivos.
+EDAD_MAX_MIN  = 35
 INTENTOS      = 2
 APERTURA      = (9, 0)
 CIERRE        = (17, 45)   # 17:35 + margen para la subasta de cierre
@@ -234,6 +241,7 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
     import yfinance as yf
     hoy_iso = hoy_iso or ahora_madrid().strftime("%Y-%m-%d")
     ult = None
+    porque = []          # un renglon por peldano: sin esto el registro solo cuenta el ultimo
     for interval, period in ESCALERA:
         for i in range(intentos):
             try:
@@ -244,16 +252,18 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
                 if p and p > 0:
                     return p, c, hora
                 if edad is None:
-                    ult = "%s/%s: sin barra de hoy" % (interval, period)
+                    ult = "%s/%s sin barra de hoy" % (interval, period)
                 else:
-                    ult = "%s/%s: barra de hace %d min (max %d)" % (
-                        interval, period, int(edad), EDAD_MAX_MIN)
+                    ult = "%s/%s barra de hace %d min" % (interval, period, int(edad))
+                porque.append(ult)
                 break          # rancia o vacia: no insistir con la MISMA clave de cache,
                                # que devolveria lo mismo. Se salta al siguiente peldano.
             except Exception as e:
-                ult = "%s/%s: %s" % (interval, period, str(e)[:60])
+                ult = "%s/%s %s" % (interval, period, str(e)[:50])
                 time.sleep(1.5 * (i + 1))
-    raise RuntimeError(ult or "desconocido")
+        else:
+            porque.append(ult)
+    raise RuntimeError("(max %d min) " % EDAD_MAX_MIN + " | ".join(porque or [ult or "desconocido"]))
 
 
 # Marcador del unico motivo GRAVE de no escribir. Los demas ("mercado cerrado", "sin
