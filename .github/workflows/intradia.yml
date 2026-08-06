@@ -39,20 +39,43 @@ jobs:
         run: python actualizar_intradia.py --salida intradia.json
         # En el REPO el script vive en la raíz, igual que actualizar_cotizaciones.py.
         # La carpeta "Cotizaciones (para GitHub)" es la copia de trabajo local.
-      - name: Publicar si ha cambiado
+      - name: Publicar intradia.json en la rama `datos`
         run: |
-          if [ -z "$(git status --porcelain intradia.json)" ]; then
+          test -f intradia.json || { echo "No se ha escrito nada: nada que publicar."; exit 0; }
+          # POR QUE UNA RAMA APARTE (06-ago-2026):
+          # Cuando esto commiteaba en `main`, CADA pase disparaba un despliegue completo de
+          # GitHub Pages (entre 1 y 6 minutos), y hasta que ese despliegue terminaba la app
+          # seguia sirviendo el intradia ANTERIOR. Al retraso de 15 min de la fuente y al del
+          # cron se le sumaba el del despliegue: el dato "vivo" llegaba con media hora encima.
+          # Y de paso se comia el presupuesto de ~10 construcciones/hora de Pages, que es
+          # compartido con las publicaciones de la app.
+          # Pages solo construye desde `main`, asi que escribiendo en `datos` no se entera.
+          # La app lee el fichero de raw.githubusercontent.com, que sirve el commit en segundos
+          # sin construir nada.
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          cp intradia.json "$RUNNER_TEMP/intradia.json"
+          # Clon aparte y minimo: asi no se toca el arbol de `main` que hay en el runner y no
+          # hay forma de arrastrar por accidente un fichero de la app a la rama de datos.
+          mkdir -p "$RUNNER_TEMP/pub" && cd "$RUNNER_TEMP/pub"
+          git init -q
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git fetch -q --depth=1 origin datos 2>/dev/null; then
+            git checkout -q -b datos FETCH_HEAD
+          else
+            echo "La rama datos no existe todavia: se crea ahora."
+            git checkout -q -b datos
+          fi
+          cp "$RUNNER_TEMP/intradia.json" intradia.json
+          git add intradia.json
+          if git diff --cached --quiet; then
             echo "Sin cambios: no hay commit."
             exit 0
           fi
-          git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add intradia.json
-          git commit -m "Intradia: $(date -u '+%Y-%m-%d %H:%M UTC')"
-          # El historico de cierres se publica desde otro workflow: si ha entrado algo
-          # entre medias, se rebasa en vez de fallar el pase.
+          git commit -q -m "Intradia: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # Nadie mas escribe en `datos`, asi que no hay carrera que rebasar.
           for i in 1 2 3; do
-            git pull --rebase --autostash && git push && exit 0
+            git push -q origin datos && { echo "Publicado en datos."; exit 0; }
             sleep 5
           done
           echo "No he podido publicar tras 3 intentos."

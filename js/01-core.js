@@ -343,8 +343,20 @@ async function sincronizarCotizaciones(){
 var _intradia=null;                 /* {sesion,hora,retrasoMin,datos:{TICKER:{p,var,cierreAnt}}} */
 async function sincronizarIntradia(){
   try{
-    const r=await fetch('intradia.json',{cache:'no-store'});
-    if(!r.ok) return 0;
+    /* [06-ago-2026] Se lee de raw.githubusercontent, NO de la propia app.
+       El fichero lo escribe el workflow en la rama `datos`, y raw lo sirve a los pocos
+       segundos del commit. Si se leyera de aquí (GitHub Pages) habría que esperar a que
+       Pages reconstruyera el sitio entero —de 1 a 6 minutos— antes de ver un precio que
+       ya está publicado: al retraso de la fuente se le sumaba el del despliegue.
+       El `?t=` es contra la caché de la CDN de raw; el `cache:'no-store'`, contra la del
+       navegador. Y si raw no contesta (sin red, o un día que GitHub lo capa), se cae a la
+       ruta de siempre: un intradia.json que no sea de HOY se descarta más abajo, así que
+       el peor caso es quedarse sin dato, nunca enseñar uno viejo. */
+    const _RAW_INTRADIA='https://raw.githubusercontent.com/chernanzfinanzas-gif/economia-domestica/datos/intradia.json';
+    let r=null;
+    try{ r=await fetch(_RAW_INTRADIA+'?t='+Date.now(),{cache:'no-store'}); }catch(e){ r=null; }
+    if(!r||!r.ok){ try{ r=await fetch('intradia.json',{cache:'no-store'}); }catch(e){ return 0; } }
+    if(!r||!r.ok) return 0;
     const j=await r.json();
     if(!j||!j.datos) return 0;
     const hoy=new Date(); const _hoy=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
