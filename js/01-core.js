@@ -319,7 +319,7 @@ async function sincronizarCotizaciones(){
     const u=await r.json(); DB.valores=DB.valores||{}; let n=0; let _maxF='';
     const _now=new Date(); const _trasCierre=(_now.getHours()*60+_now.getMinutes())>=(17*60+30); const _hoy=_now.toISOString().slice(0,10);
     const _anaByT={}; (DB.analisis||[]).forEach(a=>{ if(a.ticker)_anaByT[(a.ticker||'').toUpperCase()]=a; });
-    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(fecha&&fecha>_maxF)_maxF=fecha; if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf)||(fecha>pf)||(fecha===pf&&!v.precioManual&&num(v.precioActual)!==close); if(gana){ v.precioActual=close; v.precioFecha=fecha; v.precioManual=false; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
+    Object.keys(u).forEach(t=>{ const fila=u[t]; if(!fila)return; const fecha=fila[0], close=num(fila[1]); if(fecha&&fecha>_maxF)_maxF=fecha; if(!fecha||!(close>0))return; const v=DB.valores[t]=DB.valores[t]||{}; const pf=v.precioFecha||''; const gana=(!pf)||(fecha>pf)||(fecha===pf&&!v.precioManual&&num(v.precioActual)!==close); if(gana){ v.precioActual=close; v.precioFecha=fecha; v.precioManual=false; v.precioISO=null; const _a=_anaByT[t]; if(_a)_a.cotizacion=close; n++; } });
     if(_maxF)window._cotizUltFecha=_maxF;
     if(n){ saveNow(); if(typeof renderAll==='function')renderAll(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); } else if(typeof renderPanelDash==='function'){ renderPanelDash(); }
   }catch(e){}
@@ -378,7 +378,21 @@ async function sincronizarIntradia(){
       /* al relevar un manual de una sesion anterior hay que soltar la marca: si no, el
          pase de las 09:20 seria el unico del dia (los siguientes se verian bloqueados
          por su propio precioFecha). Es lo mismo que hace sincronizarCotizaciones(). */
+      /* [06-ago-2026] LA MATRIZ MANDA SALVO PRUEBA DE FRESCURA.
+         Una captura de Excel en modo intradia se deja relevar por diseno (26-excelprecios
+         lo dice: «Yahoo lo releva»), y la premisa era que Yahoo viene mas fresco. El
+         06-ago-2026 se vio que no: Yahoo servia barras de hace 420 minutos y pisaba una
+         captura de la Matriz de hace treinta segundos. Ahora tiene que demostrarlo — si
+         no trae `datoISO`, o su barra no es posterior al sello de la captura, no toca
+         nada. Esto NO afecta al cierre oficial de la noche: ese lo aplica
+         sincronizarCotizaciones(), que va por fecha de sesion y no mira esto. */
+      if(v.precioISO){
+        const _yb=j.datoISO?Date.parse(j.datoISO):NaN;
+        const _ex=Date.parse(v.precioISO);
+        if(!(_yb>_ex))return;
+      }
       v.precioActual=p; v.precioFecha=j.sesion; v.precioProvisional=true; v.precioManual=false;
+      v.precioISO=null;                 /* ya no es un precio de la Matriz */
       const _a=_anaByT[t]; if(_a)_a.cotizacion=p;
       n++;
     });

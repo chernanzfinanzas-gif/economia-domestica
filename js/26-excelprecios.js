@@ -123,6 +123,11 @@
       v.precioActual = p;
       v.precioFecha = sesion;
       v.precioManual = definitivo;     // cierre -> blindado; intradia -> Yahoo lo releva
+      /* [06-ago-2026] Sello de CUANDO se capturo. Sin el, el pase intradia de Yahoo
+         relevaba una captura de Excel de hace treinta segundos con una barra de hace
+         siete horas: paso ese dia, con la serie del mercado espanol congelada desde las
+         09:25. Con el sello, Yahoo solo puede pisarla si demuestra ser mas reciente. */
+      v.precioISO = new Date().toISOString();
       var a = ana[t]; if (a) a.cotizacion = p;
       res.ok++;
     });
