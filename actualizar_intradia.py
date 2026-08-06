@@ -70,7 +70,19 @@ ESCALERA      = [("5m", "5d"), ("15m", "5d"), ("1m", "2d")]
 # esto tiene que cazar son las respuestas rancias de verdad, que el 06-ago-2026 traian
 # barras de hace 420 minutos. Contra un fallo doce veces mayor que el umbral, un umbral
 # holgado corta igual y no genera falsos positivos.
-EDAD_MAX_MIN  = 35
+EDAD_MAX_MIN  = 35      # una barra mas nueva que esto es, sin discusion, un precio vivo
+# ── EL COHORTE (06-ago-2026, por la tarde) ───────────────────────────────────
+# Con el umbral solo, EBRO, MCM y PRM fallaban en TODAS las pasadas. No estaban rancias:
+# son iliquidas y no habian cruzado una operacion en una hora. Se vio comparando dos
+# pasadas separadas 6 minutos: sus edades crecian exactamente 6 (39->45, 59->65, 57->63)
+# mientras las otras 22 se quedaban en 15-20. Una fuente muerta envejece a TODOS por igual
+# —a las 16:24 las 25 marcaban 420 minutos—; una accion que no negocia envejece sola.
+# El valor suelto no puede distinguir las dos cosas. El conjunto si.
+#
+# Asi que la frescura se juzga por la MEDIANA del grupo: si la mediana esta dentro del
+# umbral, la fuente esta viva y a la iliquida se le acepta su ultima operacion, porque ESE
+# es su precio. Si la mediana esta fuera, se rechaza todo.
+EDAD_ILIQUIDA_MAX = 240  # con la fuente viva, hasta 4h sin negociar sigue siendo su precio
 INTENTOS      = 2
 APERTURA      = (9, 0)
 CIERRE        = (17, 45)   # 17:35 + margen para la subasta de cierre
@@ -215,8 +227,7 @@ def _lee_intradia(barras, hoy_iso, ahora=None):
         edad = (ahora - ts.astimezone(ahora.tzinfo)).total_seconds() / 60.0
     except Exception:
         edad = None
-    if edad is not None and edad > EDAD_MAX_MIN:
-        return None, None, None, edad
+    # Ya no se descarta aqui: quien decide es construir(), que ve el grupo entero.
     anterior = ayer[-1][1] if ayer else None
     # ISO con desfase, no "HH:MM": la app lo pasa por Date.parse() sin tener que
     # reconstruir la hora de Madrid desde un navegador que puede estar en otro huso.
@@ -241,29 +252,34 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
     import yfinance as yf
     hoy_iso = hoy_iso or ahora_madrid().strftime("%Y-%m-%d")
     ult = None
-    porque = []          # un renglon por peldano: sin esto el registro solo cuenta el ultimo
+    porque = []
+    mejor = None          # (edad, precio, anterior, iso) de la barra mas fresca hallada
     for interval, period in ESCALERA:
         for i in range(intentos):
             try:
-                h = yf.Ticker(symbol).history(period=period, interval=interval,
-                                              auto_adjust=False)
-                barras = [(ix, row["Close"]) for ix, row in h.iterrows()]
+                hh = yf.Ticker(symbol).history(period=period, interval=interval,
+                                               auto_adjust=False)
+                barras = [(ix, row["Close"]) for ix, row in hh.iterrows()]
                 p, c, hora, edad = _lee_intradia(barras, hoy_iso)
-                if p and p > 0:
-                    return p, c, hora
-                if edad is None:
-                    ult = "%s/%s sin barra de hoy" % (interval, period)
+                if p and p > 0 and edad is not None:
+                    if mejor is None or edad < mejor[0]:
+                        mejor = (edad, p, c, hora)
+                    if edad <= EDAD_MAX_MIN:
+                        return p, c, hora, edad     # fresca sin discusion: no se sigue
+                    porque.append("%s/%s %d min" % (interval, period, int(edad)))
                 else:
-                    ult = "%s/%s barra de hace %d min" % (interval, period, int(edad))
-                porque.append(ult)
-                break          # rancia o vacia: no insistir con la MISMA clave de cache,
-                               # que devolveria lo mismo. Se salta al siguiente peldano.
+                    porque.append("%s/%s sin barra de hoy" % (interval, period))
+                break        # misma clave de cache: reintentar da lo mismo. Siguiente peldano.
             except Exception as e:
                 ult = "%s/%s %s" % (interval, period, str(e)[:50])
                 time.sleep(1.5 * (i + 1))
         else:
-            porque.append(ult)
-    raise RuntimeError("(max %d min) " % EDAD_MAX_MIN + " | ".join(porque or [ult or "desconocido"]))
+            porque.append(ult or "?")
+    if mejor is not None:
+        # Nada fresco, pero SI hay barra de hoy. Se devuelve la mas reciente con su edad
+        # y que decida el cohorte: puede ser una iliquida perfectamente sana.
+        return mejor[1], mejor[2], mejor[3], mejor[0]
+    raise RuntimeError(" | ".join(porque or [ult or "desconocido"]))
 
 
 # Marcador del unico motivo GRAVE de no escribir. Los demas ("mercado cerrado", "sin
@@ -295,6 +311,7 @@ def construir(base, forzar=False, getter=None, reloj=None):
 
     getter = getter or precio_de
     datos, fallos = {}, []
+    crudo = {}               # lo que trajo cada empresa, ANTES de que el cohorte decida
     barras_iso = {}          # ticker -> ISO de su barra, para el sello del documento
     for i, tk in enumerate(lista, 1):
         sym = mapa[tk]
@@ -305,6 +322,7 @@ def construir(base, forzar=False, getter=None, reloj=None):
             _r = getter(sym)
             p, ant = _r[0], _r[1]
             barra = _r[2] if len(_r) > 2 else None
+            edad = _r[3] if len(_r) > 3 else None
         except Exception as e:
             print("[%d/%d] %s (%s) ERROR: %s" % (i, len(lista), tk, sym, e))
             fallos.append(tk)
@@ -317,11 +335,41 @@ def construir(base, forzar=False, getter=None, reloj=None):
         if barra:
             fila["barra"] = barra[11:16]   # "HH:MM" para pintar; el ISO va en el documento
             barras_iso[tk] = barra
-        datos[tk] = fila
+        if edad is not None:
+            fila["edadMin"] = int(edad)
+        crudo[tk] = fila
         print("[%d/%d] %s (%s) %s%s%s" % (i, len(lista), tk, sym, fila["p"],
                                           ("  %+.2f%%" % fila["var"]) if "var" in fila else "",
-                                          ("  barra %s" % barra[11:16]) if barra else "  barra ?"))
+                                          ("  barra %s (%d min)" % (barra[11:16], int(edad)))
+                                          if (barra and edad is not None) else
+                                          (("  barra %s" % barra[11:16]) if barra else "  barra ?")))
         time.sleep(PAUSA)
+
+    # ── EL COHORTE DECIDE ────────────────────────────────────────────────────
+    # Una fuente muerta envejece a TODOS por igual; una accion que no negocia envejece
+    # sola. Por eso la frescura se juzga por la mediana del grupo y no valor a valor.
+    edades = sorted(f["edadMin"] for f in crudo.values() if "edadMin" in f)
+    mediana = edades[len(edades) // 2] if edades else None
+    viva = (mediana is not None and mediana <= EDAD_MAX_MIN)
+    if edades:
+        print("Cohorte: mediana %d min sobre %d valores -> fuente %s"
+              % (mediana, len(edades), "VIVA" if viva else "RANCIA"))
+    for tk in lista:
+        fila = crudo.get(tk)
+        if fila is None:
+            continue
+        e = fila.get("edadMin")
+        if e is None or e <= EDAD_MAX_MIN:
+            fila.pop("edadMin", None)
+            datos[tk] = fila
+        elif viva and e <= EDAD_ILIQUIDA_MAX:
+            fila["iliquida"] = True
+            datos[tk] = fila
+            print("   %s: %d min sin negociar, pero la fuente esta viva -> se acepta" % (tk, e))
+        else:
+            fallos.append(tk)
+            print("   %s: %d min y la fuente %s -> fuera"
+                  % (tk, e, "viva pero es demasiado" if viva else "rancia"))
 
     if not datos:
         return None, "%s (%d fallos): no se escribe nada" % (MOTIVO_SIN_PRECIOS, len(fallos))
@@ -329,7 +377,7 @@ def construir(base, forzar=False, getter=None, reloj=None):
     # `hora` es cuando paso el robot; `datoHora`, de cuando es el precio. Son cosas
     # distintas y confundirlas nos costo el 06-ago-2026: el sello avanzaba cada 5 minutos
     # mientras el precio llevaba congelado desde las 09:25. La app debe ensenar la segunda.
-    _isos = sorted(barras_iso.values())
+    _isos = sorted(v for k, v in barras_iso.items() if k in datos)
     return {
         "schemaVersion": 2,
         "sesion": t.strftime("%Y-%m-%d"),
