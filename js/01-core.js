@@ -361,6 +361,8 @@ async function sincronizarIntradia(){
     if(!j||!j.datos) return 0;
     const hoy=new Date(); const _hoy=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
     if(j.sesion!==_hoy){ _intradia=null; return 0; }        /* regla 2: rancio, no se usa */
+    /* Con qué sello se pintó la última vez. Ver abajo por qué hace falta. */
+    const _selloAntes=(_intradia&&_intradia.hora)||'';
     DB.valores=DB.valores||{};
     const _anaByT={}; (DB.analisis||[]).forEach(a=>{ if(a.ticker)_anaByT[(a.ticker||'').toUpperCase()]=a; });
     let n=0;
@@ -384,8 +386,16 @@ async function sincronizarIntradia(){
     /* NO se llama a saveNow(): un precio provisional no merece grabarse en el archivo.
        Si el usuario toca cualquier cosa, se guardará con el resto; y si no, mañana
        el cierre real lo sustituye. */
-    if(n&&typeof renderAll==='function')renderAll();
-    if(n&&typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    /* [06-ago-2026] Esto repintaba SOLO si había cambiado algún precio (`if(n)`), y eso
+       dejaba un caso muerto que se vio en Mi Cartera: `sincronizarCotizaciones()` corre
+       ANTES y ya trae en _ultimos.json el precio de la sesión en curso —el pase de cierres
+       también se ejecuta con el mercado abierto—, así que cuando llegaba el intradía los
+       precios ya coincidían, n valía 0 y no se repintaba nada. Pero sí había cambiado algo:
+       `_intradia` pasó de no existir a existir, y de eso depende que cada fila diga
+       «cierre 06/08» o «hoy 11:48». Ahora también se repinta cuando cambia el SELLO. */
+    const _hayQuePintar = n>0 || _selloAntes!==(j.hora||'');
+    if(_hayQuePintar&&typeof renderAll==='function')renderAll();
+    if(_hayQuePintar&&typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
     return n;
   }catch(e){ return 0; }
 }
