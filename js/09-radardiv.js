@@ -26,13 +26,14 @@ function _radarPrecio(t){
    todavía se recurre al último real conocido, para no descartar a un pagador cuyo
    dato del año aún no está en la base. (La ventana de años del RANGO de precio, que sí
    usa 3+ años, es aparte: _radarStats.) */
+/* [06-ago-2026] La implementación se ha mudado a dpaDeclarado() en 01-core.js, que es
+   ahora LA definición de la app; aquí solo queda el envoltorio que el radar espera, con
+   su convenio de 0 (el radar filtra por `div>0`, así que null y 0 declarado son lo mismo
+   para él: empresa que no reparte). */
 function _radarDiv(t){
-  if(typeof evoDpaBruto!=='function')return 0;
-  var y=new Date().getFullYear();
-  var a=(typeof evoAnioM==='function')?evoAnioM(t,y):null;
-  if(a && a.dpaBruto!=null) return num(a.dpaBruto);   /* año en vigor declarado (incl. 0) */
-  for(var k=1;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }  /* sin fila del año: último real */
-  return 0;
+  if(typeof dpaDeclarado!=='function')return 0;
+  var d=dpaDeclarado(t);
+  return (d==null)?0:num(d);
 }
 function _radarUnionUniverso(out,seen){ var uni=DB.universo||{}; Object.keys(uni).forEach(function(t){ t=(t||'').toUpperCase(); if(!t||seen[t])return; var v=(DB.valores||{})[t]||{}; var precio=_radarPrecio(t); var div=_radarDiv(t); if(!(precio>0))return; if(_radarSoloDiv && !(div>0))return; seen[t]=1; out.push({t:t,nombre:(uni[t]||{}).nombre||v.nombre||t,precio:precio,div:div,manual:!!v.precioManual,fecha:v.precioFecha||''}); }); }
 function _radarUniverso(){

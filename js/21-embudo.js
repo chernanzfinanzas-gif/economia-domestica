@@ -579,7 +579,12 @@ function _emIdxRaw(t){ t=_emUp(t); var a=_emAna(t); if(!a)return null;
   if(!(cot>0&&po>0))return null;
   var potF=Math.max(0,(po/cot-1));
   var cal=_EM_RP[_emUp(a.rating)]||0;
-  var v=(DB.valores||{})[t]||{}; var da=_emNum(v.divAccion)||_emNum(a.divAccion); var rpd=cot>0?da/cot*100:0;
+  /* [06-ago-2026] Misma regla que la RPD de la ficha: el declarado de dividendos.json manda.
+     `v.divAccion` ya se sincroniza con él, pero `a.divAccion` (el previsto del dossier) no, y
+     era el que entraba en cuanto la empresa no estaba en DB.valores. */
+  var _dd=(typeof dpaDeclarado==='function')?dpaDeclarado(t):null;
+  var v=(DB.valores||{})[t]||{}; var da=(_dd!=null)?num(_dd):(_emNum(v.divAccion)||_emNum(a.divAccion));
+  var rpd=cot>0?da/cot*100:0;
   var _tc=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
   var sf=_emDsFac(a.dividendSafety||(_tc?_tc.dividendSafety:null)||null);
   var ff=_emFoFac(a.forense||(_tc?_tc.forense:null)||null);

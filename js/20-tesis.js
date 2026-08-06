@@ -37,7 +37,15 @@ function _tzTesis(t){ return (typeof _tesisCache!=='undefined'&&_tesisCache&&_te
 function _tzArq(t){ var u=(DB.universo||{})[t]||{}; return (u.arquetipo||'').toUpperCase(); }
 function _tzNombre(t){ var a=_tzAna(t); if(a&&a.nombre)return a.nombre; var u=(DB.universo||{})[t]||{}; return u.nombre||t; }
 function _tzPrecio(t){ var v=(DB.valores||{})[t]||{}; var p=_tzNum(v.precioActual); if(p>0)return p; var a=_tzAna(t); return a?_tzNum(a.cotizacion):0; }
-function _tzRPD(t){ var p=_tzPrecio(t); var a=_tzAna(t); var d=a?_tzNum(a.divAccion):0; if(!(d>0)){ var v=(DB.valores||{})[t]||{}; d=_tzNum(v.divAccion); } return (p>0&&d>0)?(d/p*100):null; }
+/* [06-ago-2026] Esto miraba PRIMERO `DB.analisis[].divAccion` —el dpaPrevisto que se copió
+   del dossier al dar de alta la ficha y que no vuelve a tocar nadie—, así que el Kanban se
+   quedaba congelado en el dividendo del alta mientras el resto de la app avanzaba: PRM,
+   5,7% aquí contra 3,7% en Visión de conjunto. Ahora manda el DECLARADO; el previsto solo
+   entra si la empresa no está en dividendos.json. */
+function _tzRPD(t){ t=(t||'').toUpperCase(); var p=_tzPrecio(t);
+  var d=(typeof dpaDeclarado==='function')?dpaDeclarado(t):null;
+  if(d==null){ var a=_tzAna(t); d=a?_tzNum(a.divAccion):0; if(!(d>0)){ var v=(DB.valores||{})[t]||{}; d=_tzNum(v.divAccion); } }
+  return (p>0&&d>0)?(d/p*100):null; }
 function _tzConf(J){ if(!J)return null; var c=J.confianza; if(c==null)return null; if(typeof c==='string')return c.toUpperCase(); return (c.letra||c.nivel||c.grado||c.rating||null); }
 function _tzMeses(f){ if(!f)return null; if(typeof mesesDesde==='function')return mesesDesde(f); var d=new Date(f+'T00:00:00'); if(isNaN(d))return null; return Math.round((Date.now()-d.getTime())/2629800000); }
 

@@ -90,12 +90,15 @@ function _visEstim(t,mins){ t=(t||'').toUpperCase(); var u=(DB.universo||{})[t]|
   return (sc==null)?null:{score:sc,rating:rt}; }
 /* RPD viva unificada con Radar: DPA bruto del año en vigor (dividendos.json) ÷ precio vivo.
    Devuelve ratio (0-1). Cae a divAccion/cotización si el motor de dividendos no está disponible. */
+/* Devuelve FRACCIÓN (0,0366), no porcentaje: quien pinta ya multiplica por 100.
+   [06-ago-2026] Antes, si el año en curso traía un 0 declarado, el `if(dd>0)` dejaba
+   caer el cálculo al `div` de reserva y salía la RPD del año pasado en una empresa que
+   había suspendido el dividendo. Ahora el declarado manda aunque sea 0. */
 function _visRpdViva(t,cot,div){ t=(t||'').toUpperCase();
-  if(typeof _radarDiv==='function'&&typeof _radarPrecio==='function'){
-    var pp=num(_radarPrecio(t))||num(cot); var dd=num(_radarDiv(t));
-    if(pp>0&&dd>0)return dd/pp;
-  }
-  return (num(cot)>0&&num(div)>0)?(num(div)/num(cot)):null; }
+  var pp=(typeof _radarPrecio==='function'?num(_radarPrecio(t)):0)||num(cot);
+  var dd=(typeof dpaDeclarado==='function')?dpaDeclarado(t):null;
+  if(dd==null)dd=num(div);                     /* fuera de dividendos.json: lo que haya */
+  return (pp>0&&dd>0)?(dd/pp):null; }
 function visRankData(){
   const held=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001)held.add((p.ticker||'').toUpperCase()); }); }catch(e){}
   const cl=x=>Math.max(0,Math.min(100,x));

@@ -1540,6 +1540,41 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
 }
 
+/* ===== RPD · LA ÚNICA definición de la app ================================
+   [06-ago-2026 · decisión de Carlos] La rentabilidad por dividendo se calcula SIEMPRE
+   con el DPA bruto DECLARADO del año en curso en dividendos.json, que es la base que él
+   mantiene al día. El `dpaPrevisto` del dossier NO es fuente para esto: es una estimación
+   de la tesis y se queda vieja sin que nadie se entere.
+   El caso que lo destapó: PRM arrastraba 0,76 € en la ficha de análisis frente a los
+   0,489 € declarados de 2026 (0,13 + 0,22 + 0,139) → el Kanban decía 5,7% y la Visión de
+   conjunto 3,7% del MISMO valor y con el MISMO precio. La serie real de PRM es
+   0,447 (2024) · 0,469 (2025) · 0,489 (2026): el 0,76 no se parece a ningún ejercicio.
+
+   Reglas:
+   · Si el año en curso tiene fila DECLARADA, esa manda —aunque sea 0—. Un 0 declarado es
+     un dato (dividendo suspendido), no un hueco: la RPD es «—», no la del año pasado.
+   · Si el año en curso no tiene fila, se usa el último ejercicio real de los 3 anteriores.
+   · Si la empresa no está en dividendos.json, devuelve null y cada vista decide. Nunca
+     se inventa un dividendo. */
+function dpaDeclarado(t){
+  t=(t||'').toUpperCase(); if(!t)return null;
+  if(typeof evoAnioM!=='function'||typeof evoDpaBruto!=='function')return null;
+  var y=new Date().getFullYear();
+  var a=evoAnioM(t,y);
+  if(a && a.dpaBruto!=null) return num(a.dpaBruto);      /* declarado del año en vigor, incl. 0 */
+  for(var k=1;k<4;k++){ var d=num(evoDpaBruto(t,y-k)); if(d>0)return d; }
+  return null;                                            /* fuera de la base de dividendos */
+}
+/* RPD en PORCENTAJE, o null si no hay con qué calcularla. */
+function rpdDeclarada(t,precio){
+  t=(t||'').toUpperCase();
+  var p=num(precio);
+  if(!(p>0)){ p=num(((DB.valores||{})[t]||{}).precioActual); }
+  if(!(p>0)&&typeof _precioActualDe==='function'){ p=num(_precioActualDe(t)); }
+  var d=dpaDeclarado(t);
+  return (p>0&&d!=null&&d>0)?(d/p*100):null;
+}
+
 /* ---- Consolidación de dividendos: divAccion se deriva de dividendos.json (Evolución del Dividendo) ---- */
 function syncDivAccionDeDividendos(){
   if(typeof evoDpaProyectado!=='function') return 0;

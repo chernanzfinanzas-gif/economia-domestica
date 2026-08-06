@@ -164,6 +164,12 @@ function _mcCercaEntrada(){
     out.push({ticker:t, nombre:_mcNombre(t), etapa:et, cot:cot, entMax:eM, entMin:eMin,
               po:_mcNum((typeof poBaseDe==='function')?poBaseDe(a):a.poMax),
               decision:dec,
+              /* [06-ago-2026] La RPD entra en la lista de la compra porque cambia lo que duele
+                 pagar un poco caro: un +8% sobre la banda con un 5,5% de renta se digiere; con
+                 un 1,8%, no. Es la RPD ÚNICA de la app (dpaDeclarado ÷ cotización), no el
+                 previsto del dossier. Si la empresa no está en dividendos.json, va null y la
+                 fila lo dice: no se rellena con nada. */
+              rpd:(typeof rpdDeclarada==='function')?rpdDeclarada(t,cot):null,
               /* negativo = ya está por debajo de la entrada (dentro de zona) */
               gap:(cot-eM)/eM*100});
   });
@@ -279,7 +285,11 @@ function renderMiCartera(){
         +'<div class="mc-l">'
         +  '<div class="mc-nom">'+_mcEsc(c.nombre)+' '+chip+'</div>'
         +  '<div class="mc-sub">BME · <b>'+c.ticker+'</b> · '+_mcEsc(c.decision||'—')
-        +    (c.po>0?(' · PO '+_mcEur(c.po)):'')+'</div>'
+        +    (c.po>0?(' · PO '+_mcEur(c.po)):'')
+        +    ' · <span class="mc-rpd'+(c.rpd==null?' nd':'')+'" title="'
+        +      (c.rpd==null?'Esta empresa no está en la base de dividendos'
+                          :'Dividendo bruto declarado del año en curso ÷ cotización')+'">RPD '
+        +      (c.rpd==null?'—':(c.rpd.toFixed(1).replace('.',',')+'%'))+'</span></div>'
         +  barra
         +'</div>'
         +'<div class="mc-r">'
@@ -365,6 +375,8 @@ function _mcCSS(){
     '  display:flex;align-items:center;gap:7px;flex-wrap:wrap}',
     '#view-micartera .mc-sub{font-size:11.5px;color:var(--muted);margin-top:2px}',
     '#view-micartera .mc-sub b{color:#475569}',
+    '#view-micartera .mc-rpd{font-weight:800;color:#0f766e}',
+    '#view-micartera .mc-rpd.nd{font-weight:600;color:#cbd5e1}',
     '#view-micartera .mc-cart{font-size:9.5px;font-weight:700;background:#eef2ff;color:#3730a3;',
     '  border:1px solid #c7d2fe;border-radius:20px;padding:1px 7px}',
     '#view-micartera .mc-cot{font-size:19px;font-weight:800;color:#0f172a;font-variant-numeric:tabular-nums;line-height:1.2}',
