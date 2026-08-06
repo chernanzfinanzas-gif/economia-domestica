@@ -14,7 +14,9 @@ name: Intradia (cartera)
 on:
   workflow_dispatch: {}
   schedule:
-    - cron: "0,20,40 6-16 * * 1-5"
+    # Nada de minutos redondos: el :00 es el minuto mas congestionado de GitHub y es
+    # donde mas pases se caen. Mismo ritmo de 20 min, corrido a un hueco tranquilo.
+    - cron: "6,26,46 6-16 * * 1-5"
 permissions: { contents: write }
 
 # Si un pase se solapa con el anterior (Yahoo lento), se cancela el viejo: mas vale

@@ -186,6 +186,14 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
     raise RuntimeError(ult or "desconocido")
 
 
+# Marcador del unico motivo GRAVE de no escribir. Los demas ("mercado cerrado", "sin
+# dossiers") son "no tocaba" y salen en verde; este significa que el pase SI tocaba y
+# volvio con las manos vacias -> tiene que salir en ROJO en Actions. El 06-ago-2026
+# estuvimos horas creyendo que el cron no disparaba cuando en realidad disparaba y no
+# escribia: un pase mudo y verde es indistinguible de un pase que no existe.
+MOTIVO_SIN_PRECIOS = "ningun precio obtenido"
+
+
 def construir(base, forzar=False, getter=None, reloj=None):
     """Devuelve (dict a escribir, motivo) o (None, motivo) si no toca escribir.
     `getter` y `reloj` se inyectan en las pruebas."""
@@ -226,7 +234,7 @@ def construir(base, forzar=False, getter=None, reloj=None):
         time.sleep(PAUSA)
 
     if not datos:
-        return None, "ningun precio obtenido (%d fallos): no se escribe nada" % len(fallos)
+        return None, "%s (%d fallos): no se escribe nada" % (MOTIVO_SIN_PRECIOS, len(fallos))
 
     return {
         "schemaVersion": 1,
@@ -255,6 +263,9 @@ def main():
     doc, motivo = construir(base, forzar=forzar)
     if not doc:
         print("No se escribe: %s" % motivo)
+        if motivo.startswith(MOTIVO_SIN_PRECIOS):
+            print("ERROR: el mercado estaba abierto y no he traido un solo precio.")
+            return 1              # que se vea ROJO en Actions: esto no es normal
         return 0                      # no es un fallo: es que no tocaba
     tmp = salida + ".tmp"
     with open(tmp, "w", encoding="utf-8") as f:

@@ -430,7 +430,10 @@ function intradiaEdadMin(){
 }
 /* Un pase cada 20 min más el retraso habitual del cron: por debajo de 30 no hay nada que
    contar. Por encima, algo se ha atascado y hay que decirlo. */
-var INTRADIA_VIEJO_MIN=30;
+/* Con pases cada 20 min y un cron que se retrasa entre 5 y 15, el hueco sano maximo
+   entre dos sellos es ~35 min. A 30 el ambar saltaba en dias normales y dejaba de
+   avisar de nada; a 40 solo se enciende cuando se ha perdido un pase de verdad. */
+var INTRADIA_VIEJO_MIN=40;
 function intradiaViejo(){ const m=intradiaEdadMin(); return m!=null && m>INTRADIA_VIEJO_MIN; }
 
 /* Chapa para enseñar de dónde viene el precio. La usa quien quiera pintarla. */
