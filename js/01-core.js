@@ -471,6 +471,15 @@ function _hallazgoPrincipal(hs){
   return act[0];
 }
 function _repintarAvisos(){
+  /* [06-ago-2026] EL PANEL FALTABA AQUI, y es donde vive la caja de Avisos.
+     hallazgos.json llega DESPUES del primer pintado, asi que la cabecera se quedaba
+     con la cuenta vieja —«Avisos (12)»— y solo al desplegar, que fuerza un repintado,
+     salia la buena: «Avisos (8)». Se veia en los propios chips: aparecia la categoria
+     Hallazgos entera, que antes no estaba, y «ver vistos» pasaba de 1 a 26 porque 25
+     avisos ya acusados ni siquiera existian todavia cuando se conto.
+     Mismo patron que el sello de intradia de esta manana: pintar una vez y no volver
+     a mirar. El guardia es #panelDash porque es lo que renderPanelDash exige. */
+  if(typeof renderPanelDash==='function'&&document.getElementById('panelDash'))renderPanelDash();
   if(typeof renderUniverso==='function'&&document.getElementById('view-universo'))renderUniverso();
   if(typeof renderRadar==='function'&&document.getElementById('view-radar'))renderRadar();
   if(typeof renderAnalisis==='function'&&document.getElementById('view-analisis'))renderAnalisis();
