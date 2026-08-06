@@ -79,6 +79,53 @@ def cargar_existente(path):
         return [], None
 
 
+try:
+    from zoneinfo import ZoneInfo
+    _MADRID = ZoneInfo("Europe/Madrid")
+except Exception:
+    _MADRID = None
+
+CONSOLIDADO = (19, 0)   # hora de Madrid a partir de la cual la sesion del dia se da por cerrada
+
+
+def _ahora_madrid():
+    """Hora de Madrid. El runner va en UTC, asi que NO vale datetime.now() a secas: si falta
+    tzdata se calcula el desfase CET/CEST por la regla de la UE (ultimo domingo de marzo y de
+    octubre a las 01:00 UTC). Mismo criterio que actualizar_intradia.py."""
+    if _MADRID:
+        return dt.datetime.now(_MADRID)
+    u = dt.datetime.now(dt.timezone.utc)
+    def _ultimo_domingo(a, m):
+        d = dt.date(a, m, 31)
+        return d - dt.timedelta(days=(d.weekday() + 1) % 7)
+    ini = dt.datetime.combine(_ultimo_domingo(u.year, 3), dt.time(1, 0))
+    fin = dt.datetime.combine(_ultimo_domingo(u.year, 10), dt.time(1, 0))
+    off = 2 if ini <= u.replace(tzinfo=None) < fin else 1
+    return u.astimezone(dt.timezone(dt.timedelta(hours=off)))
+
+
+def solo_sesiones_cerradas(filas, ahora=None):
+    """Quita la barra del DIA EN CURSO mientras la sesion no haya cerrado.
+
+    [06-ago-2026] Este fichero es el HISTORICO DE CIERRES y de el beben las graficas, el TWR,
+    el alfa, la calibracion y el rango de 52 semanas. Yahoo, con el mercado abierto, devuelve
+    tambien la barra del dia sin terminar, y hasta hoy se escribia como si fuera un cierre:
+    `"SAN": ["2026-08-06", 12.964]` era en realidad el precio de las 10:48. Se corregia sola por
+    la noche, pero durante toda la sesion la serie de cierres llevaba dentro un provisional sin
+    que nada lo dijera. El precio vivo tiene su propio canal —intradia.json— que ademas lo marca
+    como provisional; aqui solo entran sesiones cerradas.
+
+    A partir de las 19:00 de Madrid (CONSOLIDADO) la barra del dia SI entra: la subasta de cierre
+    acaba a las 17:35 y Yahoo la consolida mucho antes de esa hora. Los pases nocturnos que ya
+    existian (21:49, 23:47) siguen trayendo el valor definitivo y `fusionar()` lo sobrescribe.
+    """
+    t = ahora or _ahora_madrid()
+    if (t.hour, t.minute) >= CONSOLIDADO:
+        return filas
+    hoy = t.strftime("%Y-%m-%d")
+    return [f for f in filas if f[0] != hoy]
+
+
 def descargar(symbol, start, intentos=INTENTOS):
     """Descarga cierres diarios sin ajustar desde 'start' hasta hoy. Devuelve lista [[fecha, cierre], ...]."""
     df = None
@@ -108,7 +155,7 @@ def descargar(symbol, start, intentos=INTENTOS):
             out.append([fecha.strftime("%Y-%m-%d"), round(float(valor), DECIMALS)])
         except Exception:
             continue
-    return out
+    return solo_sesiones_cerradas(out)   # el dia en curso NO entra en el historico de cierres
 
 
 def fusionar(data, nuevos, umbral=UMBRAL_REVISION):

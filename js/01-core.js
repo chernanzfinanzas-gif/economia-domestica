@@ -415,14 +415,36 @@ async function sincronizarIntradia(){
     if(document.visibilityState==='visible'&&typeof sincronizarIntradia==='function')sincronizarIntradia();
   });
 })();
+/* Cuántos minutos hace que se escribió el intradía que tenemos cargado, o null.
+   [06-ago-2026] Hace falta porque la app solo repregunta cada 5 min y SOLO si su pestaña está
+   visible: basta irse a otra pestaña un rato para que el sello se quede viejo mientras sigue
+   diciendo «hoy 10:11» tan tranquilo. Se mide sobre `actualizado`, que trae la hora con su
+   huso (…+02:00), no sobre `hora`, que es texto suelto y se rompería en otro país. */
+function intradiaEdadMin(){
+  const j=(typeof _intradia!=='undefined')?_intradia:null;
+  if(!j||!j.actualizado) return null;
+  const ms=Date.parse(j.actualizado);
+  if(isNaN(ms)) return null;
+  const m=Math.round((Date.now()-ms)/60000);
+  return (m<0)?0:m;                        /* relojes desajustados: nunca un negativo */
+}
+/* Un pase cada 20 min más el retraso habitual del cron: por debajo de 30 no hay nada que
+   contar. Por encima, algo se ha atascado y hay que decirlo. */
+var INTRADIA_VIEJO_MIN=30;
+function intradiaViejo(){ const m=intradiaEdadMin(); return m!=null && m>INTRADIA_VIEJO_MIN; }
+
 /* Chapa para enseñar de dónde viene el precio. La usa quien quiera pintarla. */
 function intradiaSello(){
   const j=(typeof _intradia!=='undefined')?_intradia:null;
   if(!j||!j.hora) return '';
-  return '<span title="Precio de la sesión en curso, no es un cierre. La fuente lo sirve con retraso y el pase no es puntual." '
-    +'style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#3730a3;background:#eef2ff;'
-    +'border:1px solid #c7d2fe;border-radius:20px;padding:1px 8px">● intradía '+j.hora
-    +(j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+'</span>';
+  const m=intradiaEdadMin(), viejo=intradiaViejo();
+  const col=viejo?{t:'#92400e',f:'#fef3c7',b:'#fde68a'}:{t:'#3730a3',f:'#eef2ff',b:'#c7d2fe'};
+  return '<span title="'+(viejo
+      ? 'Este precio es el del último pase que pudo leer la app. Cambia de pestaña o recarga para forzar uno nuevo.'
+      : 'Precio de la sesión en curso, no es un cierre. La fuente lo sirve con retraso y el pase no es puntual.')+'" '
+    +'style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:'+col.t+';background:'+col.f+';'
+    +'border:1px solid '+col.b+';border-radius:20px;padding:1px 8px">● intradía '+j.hora
+    +(viejo?(' · hace '+m+' min'):(j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):''))+'</span>';
 }
 
 /* ===== Alertas corporativas (OPA / concurso / suspensión / sanción / litigio) =====

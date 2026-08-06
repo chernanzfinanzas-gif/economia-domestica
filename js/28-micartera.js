@@ -81,8 +81,17 @@ function _mcCierreAnt(t){
 function _mcSelloDe(t){
   t=_mcUp(t);
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
-  if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&j.hora)
-    return {tipo:'intradia', txt:'hoy '+j.hora, det:'precio de la sesión en curso'+(j.retrasoMin?(', con '+j.retrasoMin+' min de retraso'):'')};
+  if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&j.hora){
+    /* Si el dato se ha quedado rezagado —la app solo repregunta con la pestaña visible— hay que
+       decirlo. Enseñar «hoy 10:11» a las 10:48 sin más es lo contrario de lo que esta columna
+       vino a resolver. */
+    const _m=(typeof intradiaEdadMin==='function')?intradiaEdadMin():null;
+    const _v=(typeof intradiaViejo==='function')&&intradiaViejo();
+    return {tipo:_v?'intradia viejo':'intradia',
+            txt:'hoy '+j.hora+(_v?(' · hace '+_m+' min'):''),
+            det:_v?'el último pase que ha podido leer la app; cambia de pestaña o recarga para forzar uno nuevo'
+                  :('precio de la sesión en curso'+(j.retrasoMin?(', con '+j.retrasoMin+' min de retraso'):''))};
+  }
   const v=(DB.valores||{})[t]||{};
   /* precioManual=true lo pone SOLO la importación del Excel con captura de cierre
      (26-excelprecios.js). No es «un precio escrito a ojo»: es el cierre oficial de la
@@ -105,8 +114,15 @@ function _mcSelloGlobal(tickers){
   tickers.forEach(function(t){ const s=_mcSelloDe(t); c[s.tipo]=(c[s.tipo]||0)+1; if(!det)det=s.det; });
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
   const n=tickers.length;
-  if(c.intradia===n&&j) return {cls:'viva', txt:'Cotizaciones de <b>hoy '+j.hora+'</b>'+(j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+' · provisionales, no son cierres'};
-  if(c.intradia&&j)     return {cls:'viva', txt:'<b>'+c.intradia+' de '+n+'</b> con precio de hoy '+j.hora+(j.retrasoMin?(' (retraso '+j.retrasoMin+' min)'):'')+'; el resto, último cierre'};
+  /* el conteo por tipo distingue 'intradia' de 'intradia viejo': se suman los dos */
+  const _vivas=(c.intradia||0)+(c['intradia viejo']||0);
+  const _m=(typeof intradiaEdadMin==='function')?intradiaEdadMin():null;
+  const _viejo=(typeof intradiaViejo==='function')&&intradiaViejo();
+  const _edad=' · <b>hace '+_m+' min</b>, cambia de pestaña o recarga';
+  if(_vivas===n&&j) return {cls:_viejo?'vieja':'viva', txt:'Cotizaciones de <b>hoy '+j.hora+'</b>'
+    +(_viejo?_edad:((j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+' · provisionales, no son cierres'))};
+  if(_vivas&&j)     return {cls:_viejo?'vieja':'viva', txt:'<b>'+_vivas+' de '+n+'</b> con precio de hoy '+j.hora
+    +(_viejo?_edad:((j.retrasoMin?(' (retraso '+j.retrasoMin+' min)'):'')+'; el resto, último cierre'))};
   /* sin intradía: la fecha del cierre más reciente que tengamos */
   let f=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioFecha&&v.precioFecha>f)f=v.precioFecha; });
   if(f) return {cls:'cierre', txt:'Cotizaciones del <b>cierre del '+_mcFecha(f)+'</b> · el pase intradía no ha corrido hoy'};
@@ -183,6 +199,9 @@ function _mcCercaEntrada(){
    Render
    -------------------------------------------------------------------------- */
 var _mcPreciosPedidos=false;
+var _MC_URL_ACTIONS='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/intradia.yml';
+var _mcAviso='';          /* resultado del último «Actualizar», para poder contarlo */
+var _mcRefrescando=false;
 function renderMiCartera(){
   const el=document.getElementById('mcBody'); if(!el)return;
   _mcCSS();
@@ -224,7 +243,23 @@ function renderMiCartera(){
   kpis+='<div class="k"><div class="l">Plusvalía</div><div class="v '+(pl>=0?'pos':'neg')+'">'
       +(pl>=0?'+':'')+_mcEur(pl)+'</div><div class="p">'+_mcPct(plPct,1)+' sobre un coste de '+_mcEur(coste)+'</div></div>';
   kpis+='</div>';
-  if(P.length) kpis+='<div class="mc-fuente '+selloG.cls+'"><span class="d"></span><span class="mc-fuente-t">'+selloG.txt+'</span></div>';
+  /* Botón de refresco. NO lanza el pase en GitHub —eso exigiría un token con permiso de
+     Actions dentro de un repo PÚBLICO, es decir, regalárselo a cualquiera—: vuelve a pedir
+     `intradia.json`. Que es justo lo que hace falta el 90% de las veces, porque el pase suele
+     haber corrido ya y lo que está viejo es lo que la app tiene cargado: solo repregunta cada
+     5 minutos y únicamente con la pestaña visible. En el móvil, además, no hay .bat que valga. */
+  if(P.length) kpis+='<div class="mc-fuente '+selloG.cls+'"><span class="d"></span>'
+    +'<span class="mc-fuente-t">'+selloG.txt+'</span>'
+    +'<button class="mc-refr" data-mcrefr="1"'+(_mcRefrescando?' disabled':'')+'>'
+    +(_mcRefrescando?'…':'↻ Actualizar')+'</button>'
+    /* Y el enlace para FORZAR un pase nuevo. No se puede disparar desde aquí —haría falta un
+       token con permiso de Actions dentro de un repo público—, pero la página de GitHub sí
+       funciona en el móvil y ahí ya estás identificado: es el mismo camino que usa Carlos para
+       las cotizaciones. Un clic aquí y otro en «Run workflow» allí. */
+    +'<a class="mc-refr mc-gh" href="'+_MC_URL_ACTIONS+'" target="_blank" rel="noopener"'
+    +' title="Abre GitHub para lanzar un pase nuevo: allí, botón «Run workflow»">⟳ Forzar pase</a>'
+    +'</div>'
+    +(_mcAviso?('<div class="mc-aviso">'+_mcAviso+'</div>'):'');
 
   /* ---- posiciones ---- */
   let lista='';
@@ -312,12 +347,32 @@ function renderMiCartera(){
   if(!el._mcBound){
     el._mcBound=true;
     el.addEventListener('click',function(e){
+      if(e.target.closest('[data-mcrefr]')){ _mcRefrescar(); return; }
       const f=e.target.closest('[data-ficha]'); if(!f)return;
       const t=f.getAttribute('data-ficha');
       if(typeof abrirFicha==='function'){ abrirFicha(t); return; }
       if(typeof activarVista==='function') activarVista('inversiones');
     });
   }
+}
+
+/* Vuelve a pedir el intradía y cuenta qué ha pasado, en lugar de dejar al usuario
+   adivinando si el botón ha hecho algo. Tres desenlaces y los tres se dicen. */
+function _mcRefrescar(){
+  if(_mcRefrescando)return;
+  if(typeof sincronizarIntradia!=='function'){ _mcAviso='Esta versión de la app no trae el intradía.'; renderMiCartera(); return; }
+  _mcRefrescando=true; _mcAviso=''; renderMiCartera();
+  const _antes=(typeof _intradia!=='undefined'&&_intradia&&_intradia.hora)||'';
+  Promise.resolve(sincronizarIntradia()).then(function(n){
+    const j=(typeof _intradia!=='undefined')?_intradia:null;
+    if(!j||!j.hora)        _mcAviso='No hay pase de hoy todavía. El siguiente entra a los minutos :00, :20 o :40.';
+    else if(j.hora!==_antes) _mcAviso='Actualizado con el pase de las '+j.hora+'.';
+    else                   _mcAviso='Ya tenías el último pase, el de las '+j.hora+'. El siguiente entra a los minutos :00, :20 o :40.';
+  }).catch(function(){
+    _mcAviso='No he podido conectar. ¿Sin cobertura?';
+  }).then(function(){
+    _mcRefrescando=false; renderMiCartera();
+  });
 }
 
 /* --------------------------------------------------------------------------
@@ -353,12 +408,21 @@ function _mcCSS(){
     '  border-radius:10px;padding:8px 12px;margin:-4px 0 16px}',
     '#view-micartera .mc-fuente .d{width:8px;height:8px;border-radius:50%;flex:none}',
     '#view-micartera .mc-fuente-t{flex:1 1 auto;line-height:1.45}',
+    '#view-micartera .mc-refr{flex:none;font-size:11px;font-weight:700;border-radius:20px;cursor:pointer;',
+    '  padding:3px 10px;background:#fff;border:1px solid var(--line);color:#334155}',
+    '#view-micartera .mc-refr:hover{background:#f1f5f9}',
+    '#view-micartera .mc-refr[disabled]{opacity:.55;cursor:default}',
+    '#view-micartera .mc-gh{text-decoration:none;display:inline-block}',
+    '#view-micartera .mc-aviso{font-size:11.5px;color:var(--muted);margin:-10px 0 16px;padding:0 4px}',
     '#view-micartera .mc-fuente.viva{background:#eef2ff;border:1px solid #c7d2fe}',
     '#view-micartera .mc-fuente.viva .d{background:#4f46e5}',
+    '#view-micartera .mc-fuente.vieja{background:#fef3c7;border:1px solid #fde68a;color:#92400e}',
+    '#view-micartera .mc-fuente.vieja .d{background:#d97706}',
     '#view-micartera .mc-fuente.cierre{background:#f8fafc;border:1px solid var(--line)}',
     '#view-micartera .mc-fuente.cierre .d{background:#94a3b8}',
     '#view-micartera .mc-cuando{font-size:10px;font-weight:700;color:#94a3b8;margin-top:1px;letter-spacing:.01em}',
     '#view-micartera .mc-cuando.intradia{color:#4f46e5}',
+    '#view-micartera .mc-cuando.viejo{color:#b45309}',
     '#view-micartera .mc-cuando.oficial{color:#0f766e}',
     '#view-micartera .mc-h{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;',
     '  color:var(--muted);margin:22px 0 8px;display:flex;align-items:baseline;gap:8px}',
