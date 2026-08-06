@@ -17,7 +17,19 @@ Se lanza a mano desde Actions (sonda-intervalos.yml). Ejecutarla DOS veces separ
 import sys
 from datetime import datetime, timezone, timedelta
 
-TICKERS = ["IBE.MC", "SAN.MC", "ITX.MC"]
+# [06-ago-2026, 2a version] Se anaden TESTIGOS de fuera del mercado espanol.
+# La 1a sonda mostro que la serie intradia de las .MC se corta a las 09:25 CEST,
+# 25 minutos despues de abrir. Eso admite dos explicaciones muy distintas:
+#   (a) Yahoo tiene rota HOY la serie de BME  -> se arregla solo, o cambiamos de fuente
+#   (b) Yahoo sirve datos degradados a las IP de centro de datos -> desde GitHub no
+#       hay intradia posible por esta via, y da igual el intervalo que pidamos.
+# Un valor de OTRA bolsa lo distingue: si el DAX o Apple SI traen barras recientes
+# desde este mismo runner, es (a). Si tambien se cortan, es (b).
+TICKERS = ["IBE.MC", "SAN.MC", "ITX.MC",   # las nuestras
+           "^IBEX",                        # el indice del mismo mercado
+           "^GDAXI",                       # otra bolsa europea, misma hora de sesion
+           "AAPL"]                         # EE.UU.: aun no ha abierto, pero su preapertura
+                                           # y su ultima sesion dicen si el canal funciona
 PRUEBAS = [("1d", "5d"), ("15m", "2d"), ("5m", "1d"), ("1m", "1d")]
 
 
