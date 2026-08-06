@@ -58,8 +58,36 @@ except Exception:                                   # py<3.9 o sin tzdata
     MADRID = None
 
 
+def _ultimo_domingo(anio, mes):
+    d = dt.date(anio, mes, 31)
+    return d - dt.timedelta(days=(d.weekday() + 1) % 7)
+
+
+def _es_verano_ue(u):
+    """Regla del horario de verano de la UE, aplicada sobre una hora UTC: entra el ultimo
+    domingo de marzo a las 01:00 UTC y sale el ultimo domingo de octubre a las 01:00 UTC."""
+    ini = dt.datetime.combine(_ultimo_domingo(u.year, 3), dt.time(1, 0))
+    fin = dt.datetime.combine(_ultimo_domingo(u.year, 10), dt.time(1, 0))
+    return ini <= u.replace(tzinfo=None) < fin
+
+
 def ahora_madrid():
-    return dt.datetime.now(MADRID) if MADRID else dt.datetime.now()
+    """Hora de Madrid, SIEMPRE.
+
+    [06-ago-2026] El fallback de aqui abajo era `dt.datetime.now()` a secas, y eso no es
+    "por si acaso": es un error silencioso. Si ZoneInfo no esta disponible, el reloj del
+    runner de GitHub es UTC, asi que las 10:25 de Madrid se leian como 08:25, la guardia
+    horaria decidia "mercado cerrado" y el pase salia EN VERDE sin escribir nada. Un dia
+    entero de silencio perfecto. Ahora, si falta la base de zonas horarias, se calcula el
+    desfase de Madrid a mano (CET/CEST por la regla de la UE) en vez de fingir que la hora
+    local ya es la buena. El .yml ademas instala `tzdata`, con lo que esta rama no deberia
+    entrar nunca; sigue aqui por si el runner cambia de imagen."""
+    if MADRID:
+        return dt.datetime.now(MADRID)
+    u = dt.datetime.now(dt.timezone.utc)
+    offset = 2 if _es_verano_ue(u) else 1
+    tz = dt.timezone(dt.timedelta(hours=offset), "CEST" if offset == 2 else "CET")
+    return u.astimezone(tz)
 
 
 def mercado_abierto(t=None):
@@ -220,7 +248,10 @@ def main():
         salida = args[args.index("--salida") + 1]
     base = os.path.dirname(os.path.abspath(salida)) or "."
 
-    print("=== Intradia (%s) ===" % ahora_madrid().strftime("%Y-%m-%d %H:%M %Z"))
+    _t = ahora_madrid()
+    print("=== Intradia (%s) ===" % _t.strftime("%Y-%m-%d %H:%M %Z"))
+    print("    zona horaria: %s" % ("ZoneInfo Europe/Madrid" if MADRID
+          else "SIN tzdata -> desfase calculado a mano (%s)" % _t.tzname()))
     doc, motivo = construir(base, forzar=forzar)
     if not doc:
         print("No se escribe: %s" % motivo)

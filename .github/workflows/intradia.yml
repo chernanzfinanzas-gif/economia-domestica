@@ -32,7 +32,9 @@ jobs:
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
       - name: Instalar dependencias
-        run: pip install --quiet yfinance
+        # tzdata NO es opcional: sin ella ZoneInfo('Europe/Madrid') falla, el script lee
+        # la hora del runner (UTC) y la guardia horaria da 'mercado cerrado' toda la manana.
+        run: pip install --quiet yfinance tzdata
       - name: Actualizar intradia.json
         run: python actualizar_intradia.py --salida intradia.json
         # En el REPO el script vive en la raíz, igual que actualizar_cotizaciones.py.
