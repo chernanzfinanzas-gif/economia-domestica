@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRM · Nota de Revisión Extraordinaria · Revisión documental · FY2025</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#00A0E0;--corp-dark:#00567A;--corp-light:#4FC3F7}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo Disc.</div>
+      <div class="company-name">Prim, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">Disc. · Revisión discrecional</span>
+        <span class="badge badge-sig">Revisión documental · FY2025</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">PRM · Bolsa de Madrid · PRM.MC<br>Fecha: 6 de agosto de 2026<br>Plazo señal: —  (revisión discrecional, sin plazo de protocolo)</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">14,9 €</div><div class="kpi-sub">sin cambio (DCF 45% · múlt. 55%)</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">13,40 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val amber">+11,2%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">RPD real</div><div class="kpi-val amber">3,65%</div><div class="kpi-sub">el dossier decía 5,7%</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Motivo de la revisión discrecional</div>
+  <p>No hay señal S1–S6 abierta: esta revisión la inicia el analista tras un hallazgo documental. Al unificar la definición de rentabilidad por dividendo en la app de Economía Doméstica se detectó que dos vistas daban cifras distintas para la misma empresa y el mismo precio: 5,7% en el Kanban y 3,7% en Visión de conjunto. El rastro llevó al puente <code>PRM.json</code>, cuyo campo <code>dpaPrevisto</code> vale <b>0,76 €</b>, frente a los <b>0,489 €</b> de dividendo bruto declarado que figuran en <code>dividendos.json</code> para 2026 (0,13 + 0,22 + 0,139). La diferencia no era un criterio distinto sino un concepto añadido: el dossier atribuye a Prim una «devolución de prima de emisión» que elevaría la retribución total hasta un <b>DY ~5,7%</b>, y con ese dato construye el catalizador nº3 (§9.1) y el argumento comparativo frente a los peers. La revisión comprueba si esa devolución de prima existe.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Comprobado directamente contra las <b>Cuentas Anuales Consolidadas auditadas</b> de Prim, S.A. que ya obran en <code>Empresas/Prim/Informes/</code> — no hizo falta fuente externa. La nota 15.2 «Prima de emisión» del ejercicio 2025 dice literalmente: <i>«No se han producido movimientos en la prima de emisión durante los ejercicios 2025 ni 2024»</i>. La misma nota en las cuentas de 2016 repite la frase para 2016 y 2015. El saldo de la partida es <b>1.227.059,19 €</b> y es <b>idéntico en los dos extremos del período</b>: una devolución lo habría reducido de forma permanente, luego la prima <b>no se ha repartido en diez años</b>. Tres cifras rematan el asunto: con 17.036.578 acciones, la prima ENTERA equivale a <b>0,072 €/acción</b> —ni una cuarta parte de los 0,27 € que harían falta para ir de 0,49 a 0,76—; el dividendo con cargo a 2025 aprobado por el Consejo es de <b>9.000.000 €</b>, es decir <b>0,528 €/acción</b> brutos; y repartir 0,76 €/acción exigiría 12,95 M€, <b>más que el beneficio íntegro de la sociedad dominante</b> (12,82 M€).</p>
+  <div class="cb-src">Fuente: Cuentas Anuales Consolidadas Prim 2025, notas 15.1 Capital Social, 15.2 Prima de emisión y 15.4 Distribución del resultado (págs. 87–88) · Cuentas Anuales Consolidadas Prim 2016, nota 15.8. Cotización: Matriz Bolsa Española v2 (13,40 €). Ningún dato de esta nota procede de internet.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El negocio no ha cambiado: el error es documental</div>
+    <div class="seg-body">Nada de lo que sostiene la valoración se mueve. El PO de 14,9 € sale de una síntesis ponderada (DCF de FCL normalizado 45% · múltiplos 55%) en la que <b>el dividendo no entra como variable</b>: no hay descuento de dividendos. El Rating A (66,5), el moat estrecho (52), el ROIC 12,1% sobre un WACC del 6,4%, el ROIIC a 5 años del 16,8% y la caja neta (DN/EBITDA −0,32×) siguen exactamente donde estaban.<br><br>Y el error <b>no contaminó la extracción</b>, que es lo importante para la fiabilidad del modelo: el Excel nunca afirmó la prima. La fila §4.2 «Dividendo especial / prima de emisión» está en <i>Pte. Revisión</i> los diez años —es decir, se dejó honestamente sin rellenar—, el §10.1 vigila «Dividendo por acción (€) = 0,47» y la pestaña Valoración anota <i>«DPA ordinario 0,4691 € — excluye devolución de prima»</i>. La invención entró al redactar el dossier, aguas abajo del modelo, y no arrastró ninguna cifra contable.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Pero se cae un pilar de la tesis, y no uno menor</div>
+    <div class="seg-body">El 5,7% no es una errata aislada en un campo del JSON: <b>está en cuatro sitios y sostiene un argumento</b>. Es el catalizador nº3 del §9.1 («Retribución sostenida … soporte de valoración y un imán para el inversor de rentas»), encabeza la ficha en el §9.2 del Excel («Caja neta · DY ~5,7%»), sustenta la comparativa («en un sector donde los peers rinden 1-3%, Prim ofrece la mejor combinación de renta y precio») y remata la conclusión del §9.4 («quien ya la tenga en cartera <b>por renta</b> y calidad → MANTENER»).<br><br>Con la cifra real la ventaja se reduce a la mitad: <b>3,65%</b> sobre la cotización de la Matriz. Sigue por encima de los peers, pero deja de ser el diferencial que justificaba tolerar un margen de seguridad de solo +11%. Y no viaja solo: el propio dossier ya calculaba un <b>Dividend Safety de 40/100, banda «Vigilar»</b>, con <b>tope duro</b> aplicado por cobertura sobre owner earnings a 3 años de <b>0,57×</b> y un C4 de <b>0/15 por tres recortes del dividendo en diez años</b>. Llamar «retribución sostenida» y «dividendo seguro» a eso era ya generoso con 5,7%; con 3,65% es insostenible.</div>
+  </div>
+</div>
+<div class="diag-verdict">VEREDICTO — <b>PUNTUAL en el negocio, ESTRUCTURAL en la tesis de renta.</b> Confianza <b>alta</b>: no es una diferencia de criterio contable ni un desfase de fechas, es un hecho comprobado contra las cuentas auditadas de los dos extremos de la serie. Prim vale hoy lo que valía ayer; lo que no vale es la razón por la que la tesis decía que un inversor de rentas debía quedarse.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Sin riesgo nuevo materializado.</b> Ninguno de los cinco riesgos del §8.1 se ha activado por este hallazgo: la dependencia del SNS (~48% de ventas), la compresión de márgenes, el goodwill de 11,5 M€, la iliquidez de small-cap y la volatilidad del circulante están donde estaban. Tampoco ha arrancado ningún pre-mortem del §8.2: el bear case («trampa de valor + tijera pública», margen bruto sostenido &lt;46%) exige un deterioro operativo que no se ha producido — el margen bruto FY2025 es 49,97%, por encima del umbral REFUERZA del §10.1.<br><br>Sí queda una observación de método: el §10.4 vigila «Recorte o suspensión del dividendo ordinario» como red flag, y el §10.5 recoge «Dividendo ordinario recortado → revisar la tesis de renta; recalcular el retorno esperado». Ese mecanismo estaba bien diseñado y bien puesto. Lo que falló no fue la vigilancia del dividendo, sino que la narrativa del dossier añadió por su cuenta un componente que nadie estaba vigilando porque no existía.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>Tesis matizada, no rota.</b> El Bull case (normalización de márgenes y del circulante → FCL recurrente visible → re-rating a 18–20 €) no depende del dividendo y sigue intacto. El Bear case tampoco cambia. El PO de 14,9 € y la banda de entrada &lt;13 € <b>no se tocan</b>: no hay dato nuevo que re-valore el negocio, y moverlos aquí sería exactamente el anclaje que el §10.5 prohíbe.<br><br>Lo que sí queda tocado es <b>uno de los cinco catalizadores del §9.1 y el argumento de renta del §9.4</b>. El catalizador nº3 debe reescribirse con la cifra real y perder el adjetivo «sostenida»: un dividendo con tres recortes en diez años y cobertura trienal sobre owner earnings de 0,57× no es una retribución sostenida, es una retribución a vigilar — que es justo lo que ya decía el Dividend Safety y lo que el resto del dossier no recogió. De cinco catalizadores quedan cuatro y medio, y el que se degrada era el único que ofrecía retorno mientras se espera a que los otros se materialicen.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><b>Dividend Safety (H12)</b> — <b>NO se recalcula, y no hacía falta.</b> El score de 40/100 «Vigilar» ya estaba computado sobre el <b>dividendo ordinario</b> (C1 cobertura 1/35, C2 payout BN 13/15, C3 balance 20/20, C4 trayectoria 0/15, C5 predictores 12/15, con tope duro por cobertura OE 3a 0,57×). La herramienta nunca creyó en la prima de emisión: fue la única pieza del método que dio la cifra correcta desde el principio. Este hallazgo no la empeora; la <b>confirma</b>, y elimina la contradicción de tener un 40/100 «Vigilar» conviviendo con un catalizador de «retribución sostenida».</div><div class="tool-row"><b>Checklist B4 de predictores de recorte</b> — recontada: <b>0 duros / 1 blando</b> (buyback neto negativo por dilución de scrip, C5). Sin cambio respecto al dossier.</div><div class="tool-row"><b>Reverse DCF (H15)</b> — <b>no se re-ejecuta</b>: el gatillo no es de valoración. Se deja constancia de una discrepancia previa a resolver por otra vía: el <code>PRM.json</code> registra g implícito 2,17% vs g intrínseco 7,86% → <i>PLAUSIBLE</i>, mientras el §9.3 del Excel dice «Reverse DCF n.s. — FCL base no representativo». Método y puente no dicen lo mismo. No afecta a esta decisión, pero es una costura abierta y queda anotada.</div><div class="tool-row"><b>Forense (H13)</b> y <b>ROIIC (H14)</b> — no aplican: el gatillo no es de calidad contable ni de reinversión. Sin re-ejecutar, conforme a la regla de re-chequear solo la herramienta pertinente.</div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Prim por primera vez, a 13,40 €, sin poseerla y sin conocer mi precio de compra —y sabiendo que renta un 3,65% y no un 5,7%—, ¿la compraría, la dejaría en watchlist o la descartaría?</div>
+  <div class="anchor-a"><b>Watchlist, no compra.</b> Y conviene notar que esa respuesta <b>no cambia</b> por el hallazgo: ya era la respuesta con 5,7%, porque el freno nunca fue la renta sino el margen de seguridad. A 13,40 € el PO de 14,9 € deja un +11,2%, por debajo del 15% que el método exige para COMPRAR en firme, y la banda de entrada está fijada en &lt;13 €. La calidad es real (Rating A, ROIC&gt;WACC, caja neta) y el precio no es caro (PER 13,6×), pero no hay descuento suficiente.<br><br>Lo que sí cambia es el <b>coste de esperar</b>. La tesis asumía que, mientras se materializan los otros catalizadores, el accionista cobraba un 5,7% por la espera. Cobra un 3,65%, de un dividendo con banda «Vigilar». Eso no invierte la decisión, pero sí <b>estrecha el margen de error</b>: si los márgenes no normalizan, la compensación por seguir dentro es la mitad de la que decía el dossier. Descartarla sería excesivo — el negocio no se ha deteriorado y no hay red flag activo.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Se reafirma <b>MANTENER</b> con PO 14,9 €, banda de entrada &lt;13 € y stop 9,5 € <b>sin cambios</b>: ningún dato nuevo re-valora el negocio y moverlos sería anclaje. Pero la reafirmación va <b>condicionada a una corrección documental obligatoria</b>, sin la cual la tesis seguiría afirmando algo que no es cierto.</div>
+  <div class="action-line">Acción: Mantener la posición. <b>Corregir cuatro puntos antes de dar la revisión por cerrada:</b> (1) <code>PRM.json</code> → <code>dpaPrevisto</code> de 0,76 a <b>0,489 €</b> (bruto declarado 2026, la serie que se mantiene al día en <code>dividendos.json</code>); (2) catalizador nº3 del §9.1 → reescribir como «Dividendo ordinario ~0,49 €/acc (DY 3,65%), <b>a vigilar</b>: Dividend Safety 40/100, tres recortes en diez años», y retirar la mención a la prima de emisión; (3) §9.2 y §9.4 del Excel → quitar «DY ~5,7%» y matizar «dividendo seguro»; (4) rellenar la fila §4.2 «Dividendo especial / prima de emisión» con <b>0,00 € en los diez ejercicios</b> — ya no es «Pte. Revisión», es un dato comprobado. Regenerar dossier y subir al repo.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>Cuentas Anuales Consolidadas Prim, S.A. 2025 — notas 15.1, 15.2 y 15.4 (documento local: <code>Empresas/Prim/Informes/2025 Cuentas Anuales Consolidadas Prim.pdf</code>)</li><li>Cuentas Anuales Consolidadas Prim, S.A. 2016 — nota 15.8 (documento local: <code>Empresas/Prim/Informes/2016 Cuentas Anuales Consolidadas Prim.pdf</code>)</li><li>Matriz Bolsa Española v2 — cotización de referencia 13,40 €</li></ul><p style="margin-top:6px">No se ha consultado ninguna fuente de internet: el hecho se ha corroborado contra los documentos oficiales que ya estaban descargados, conforme a la regla R34 («el dato oficial manda»).</p></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria · Método de Análisis Financiero KH&amp;Claude · modo <b>discrecional</b> (sin señal S1–S6 abierta). Documento de análisis para uso propio; no es una recomendación de inversión. Cotización de referencia tomada de la Matriz Bolsa Española v2, nunca de internet. Cierre de la revisión registrado en el §10.5 de la pestaña Vigilancia con señal «Disc.». Prim · 6 de agosto de 2026.</div>
+
+</div></body></html>
