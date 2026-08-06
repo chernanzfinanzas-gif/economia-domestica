@@ -422,18 +422,27 @@ async function sincronizarIntradia(){
    huso (…+02:00), no sobre `hora`, que es texto suelto y se rompería en otro país. */
 function intradiaEdadMin(){
   const j=(typeof _intradia!=='undefined')?_intradia:null;
-  if(!j||!j.actualizado) return null;
-  const ms=Date.parse(j.actualizado);
+  if(!j) return null;
+  /* [06-ago-2026] LA EDAD ES LA DEL DATO, NO LA DEL ROBOT.
+     `actualizado` dice cuando paso el pase; `datoISO`, de cuando es el precio. Todo el
+     06-ago-2026 el sello avanzo cada cinco minutos mientras el precio llevaba congelado
+     desde las 09:25, porque Yahoo servia una respuesta rancia y la barra diaria no trae
+     hora con la que notarlo. Se mide `datoISO` y se cae a `actualizado` solo con ficheros
+     antiguos (schemaVersion 1), que no lo traen. */
+  const sello=j.datoISO||j.actualizado;
+  if(!sello) return null;
+  const ms=Date.parse(sello);
   if(isNaN(ms)) return null;
   const m=Math.round((Date.now()-ms)/60000);
   return (m<0)?0:m;                        /* relojes desajustados: nunca un negativo */
 }
-/* Un pase cada 20 min más el retraso habitual del cron: por debajo de 30 no hay nada que
-   contar. Por encima, algo se ha atascado y hay que decirlo. */
-/* Con pases cada 20 min y un cron que se retrasa entre 5 y 15, el hueco sano maximo
-   entre dos sellos es ~35 min. A 30 el ambar saltaba en dias normales y dejaba de
-   avisar de nada; a 40 solo se enciende cuando se ha perdido un pase de verdad. */
-var INTRADIA_VIEJO_MIN=40;
+/* [06-ago-2026] Recalibrado sobre la EDAD DEL DATO, que es lo que ahora se mide.
+   Se suman: los 15 min de retraso con que Yahoo sirve el continuo espanol, los 20 que
+   como mucho tolera el propio pase antes de descartar una barra (EDAD_MAX_MIN), y los
+   hasta ~11 que pueden pasar entre que el robot escribe y la app repregunta (pasadas
+   cada 5m30s + temporizador de la app cada 5 min). Da unos 31 en el peor caso sano.
+   A 35 el ambar significa lo que dice: el precio que estas mirando ya no vale. */
+var INTRADIA_VIEJO_MIN=35;
 function intradiaViejo(){ const m=intradiaEdadMin(); return m!=null && m>INTRADIA_VIEJO_MIN; }
 
 /* Chapa para enseñar de dónde viene el precio. La usa quien quiera pintarla. */
@@ -443,10 +452,10 @@ function intradiaSello(){
   const m=intradiaEdadMin(), viejo=intradiaViejo();
   const col=viejo?{t:'#92400e',f:'#fef3c7',b:'#fde68a'}:{t:'#3730a3',f:'#eef2ff',b:'#c7d2fe'};
   return '<span title="'+(viejo
-      ? 'Este precio es el del último pase que pudo leer la app. Cambia de pestaña o recarga para forzar uno nuevo.'
-      : 'Precio de la sesión en curso, no es un cierre. La fuente lo sirve con retraso y el pase no es puntual.')+'" '
+      ? 'Este precio ya no vale: la hora que ves es la de la última barra que trajo la fuente, y tiene '+m+' minutos. Cambia de pestaña o recarga para forzar un pase nuevo.'
+      : 'Hora de la barra de mercado de la que sale este precio, no la del pase. Es la sesión en curso, no un cierre, y la fuente lo sirve con unos 15 minutos de retraso.')+'" '
     +'style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:'+col.t+';background:'+col.f+';'
-    +'border:1px solid '+col.b+';border-radius:20px;padding:1px 8px">● intradía '+j.hora
+    +'border:1px solid '+col.b+';border-radius:20px;padding:1px 8px">● intradía '+(j.datoHora||j.hora)
     +(viejo?(' · hace '+m+' min'):(j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):''))+'</span>';
 }
 

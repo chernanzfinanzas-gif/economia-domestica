@@ -46,6 +46,24 @@ import json, os, sys, time, datetime as dt
 
 RETRASO_MIN   = 15      # lo que anuncia Yahoo para el continuo espanol
 PAUSA         = 0.7     # segundos entre empresas (Yahoo limita desde GitHub)
+
+# ── LA ESCALERA (06-ago-2026) ────────────────────────────────────────────────
+# Yahoo cachea POR PETICION: cada (simbolo, intervalo, periodo) es una clave distinta,
+# y algunas se quedan clavadas horas mientras sus vecinas responden al dia. Medido con
+# sonda_intervalos.py a las 15:07 CEST del 06-ago-2026, en UNA SOLA ejecucion:
+#     IBE.MC   15m/2d -> 20,83  barra 14:45  (fresca)
+#     IBE.MC   5m/1d  -> 20,71  barra 09:25  (rancia, 5h 40m)
+#     ^IBEX    15m/2d -> ...    barra 09:15  (rancia)   <- justo al reves
+#     ^IBEX    5m/1d  -> ...    barra 14:50  (fresca)
+# No hay intervalo bueno. Lo que si se puede es PREGUNTAR VARIAS VECES por claves
+# distintas y quedarse con la primera que venga fresca; que las tres salgan rancias a la
+# vez es mucho menos probable que una.
+#
+# Y sobre todo: se pide intervalo INTRADIA porque la barra trae hora. La barra diaria
+# viene marcada 00:00 y un dato congelado es indistinguible de uno vivo — asi estuvimos
+# ciegos toda la manana del 06-ago-2026, sirviendo el precio de las 09:25 hasta las 15:00.
+ESCALERA      = [("5m", "5d"), ("15m", "5d"), ("1m", "2d")]
+EDAD_MAX_MIN  = 20      # una barra mas vieja que esto NO es un precio vivo: se descarta
 INTENTOS      = 2
 APERTURA      = (9, 0)
 CIERRE        = (17, 45)   # 17:35 + margen para la subasta de cierre
@@ -158,31 +176,83 @@ def _lee_historico(filas, hoy_iso):
     return precio, anterior
 
 
-def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
-    """Ultimo precio conocido y cierre anterior. Devuelve (precio, cierre_ant).
+def _lee_intradia(barras, hoy_iso, ahora=None):
+    """De las barras INTRADIA saca (precio, cierre_ant, hora_barra, edad_min).
 
-    [06-ago-2026] ESTO USABA `Ticker(...).fast_info` Y NO ESCRIBIO NUNCA UN SOLO PASE.
-    fast_info tira del endpoint de *quotes* de Yahoo, que exige "crumb" y bloquea las IP de
-    centro de datos: desde un runner de GitHub devuelve 401/429 para TODOS los simbolos, con
-    lo que fallaban los 25 y el script salia en verde sin escribir ("ningun precio").
-    Se pasa al endpoint de *chart* —`Ticker.history()`—, que es exactamente el que lleva
-    meses funcionando en actualizar_cotizaciones.py (`yf.download`) desde este mismo repo.
-    Una peticion por empresa, sin autenticacion y sin crumb.
+    `barras` = [(datetime_con_tz, cierre), ...] en orden ascendente, tal como las da
+    yfinance. Devuelve (None, None, None, edad) si la ultima barra de HOY es demasiado
+    vieja, y (None, None, None, None) si directamente no hay barra de hoy.
+
+    El cierre anterior es el de la ULTIMA barra de la sesion previa. No es exactamente el
+    cierre oficial (le falta la subasta), pero aqui solo sirve para pintar la variacion
+    del dia; el cierre oficial lo lleva la Matriz, que es quien manda.
+    """
+    ahora = ahora or ahora_madrid()
+    hoy, ayer = [], []
+    for ts, c in barras:
+        try:
+            c = float(c)
+        except (TypeError, ValueError):
+            continue
+        if not (c > 0):
+            continue
+        try:
+            dia = ts.strftime("%Y-%m-%d")
+        except Exception:
+            continue
+        (hoy if dia == hoy_iso else ayer).append((ts, c))
+    if not hoy:
+        return None, None, None, None
+    ts, precio = hoy[-1]
+    try:
+        edad = (ahora - ts.astimezone(ahora.tzinfo)).total_seconds() / 60.0
+    except Exception:
+        edad = None
+    if edad is not None and edad > EDAD_MAX_MIN:
+        return None, None, None, edad
+    anterior = ayer[-1][1] if ayer else None
+    # ISO con desfase, no "HH:MM": la app lo pasa por Date.parse() sin tener que
+    # reconstruir la hora de Madrid desde un navegador que puede estar en otro huso.
+    try:
+        hora = ts.astimezone(ahora.tzinfo).isoformat(timespec="seconds")
+    except Exception:
+        hora = None
+    return precio, anterior, hora, edad
+
+
+def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
+    """(precio, cierre_ant, hora_barra). Lanza RuntimeError si nada viene fresco.
+
+    [06-ago-2026] ESTO USABA `fast_info` Y NO ESCRIBIO NUNCA UN SOLO PASE: tira del
+    endpoint de *quotes*, que exige crumb y bloquea las IP de centro de datos (401/429
+    para los 25 simbolos). Se paso al de *chart*, que si funciona desde el runner.
+    Pero se pedia `interval="1d"`, y ahi vino el segundo enganno: la barra diaria no
+    lleva hora, asi que cuando Yahoo servia una respuesta de su cache rancia NO HABIA
+    FORMA DE SABERLO. El 06-ago-2026 la app enseno el precio de las 09:25 hasta las 15:00
+    creyendolo vivo. Ahora se piden barras intradia, que traen hora, y se comprueba.
     """
     import yfinance as yf
     hoy_iso = hoy_iso or ahora_madrid().strftime("%Y-%m-%d")
     ult = None
-    for i in range(intentos):
-        try:
-            h = yf.Ticker(symbol).history(period="5d", interval="1d", auto_adjust=False)
-            filas = [(ix.strftime("%Y-%m-%d"), row["Close"]) for ix, row in h.iterrows()]
-            p, c = _lee_historico(filas, hoy_iso)
-            if p and p > 0:
-                return p, c
-            ult = "sin barra de hoy (ultima: %s)" % (filas[-1][0] if filas else "sin datos")
-        except Exception as e:
-            ult = str(e)[:80]
-        time.sleep(1.5 * (i + 1))
+    for interval, period in ESCALERA:
+        for i in range(intentos):
+            try:
+                h = yf.Ticker(symbol).history(period=period, interval=interval,
+                                              auto_adjust=False)
+                barras = [(ix, row["Close"]) for ix, row in h.iterrows()]
+                p, c, hora, edad = _lee_intradia(barras, hoy_iso)
+                if p and p > 0:
+                    return p, c, hora
+                if edad is None:
+                    ult = "%s/%s: sin barra de hoy" % (interval, period)
+                else:
+                    ult = "%s/%s: barra de hace %d min (max %d)" % (
+                        interval, period, int(edad), EDAD_MAX_MIN)
+                break          # rancia o vacia: no insistir con la MISMA clave de cache,
+                               # que devolveria lo mismo. Se salta al siguiente peldano.
+            except Exception as e:
+                ult = "%s/%s: %s" % (interval, period, str(e)[:60])
+                time.sleep(1.5 * (i + 1))
     raise RuntimeError(ult or "desconocido")
 
 
@@ -215,10 +285,16 @@ def construir(base, forzar=False, getter=None, reloj=None):
 
     getter = getter or precio_de
     datos, fallos = {}, []
+    barras_iso = {}          # ticker -> ISO de su barra, para el sello del documento
     for i, tk in enumerate(lista, 1):
         sym = mapa[tk]
         try:
-            p, ant = getter(sym)
+            # El getter devuelve (precio, cierre_ant, hora_barra). Se acepta tambien la
+            # forma antigua de dos valores para no atar las pruebas a la longitud de la
+            # tupla: lo que se prueba es el comportamiento, no la firma.
+            _r = getter(sym)
+            p, ant = _r[0], _r[1]
+            barra = _r[2] if len(_r) > 2 else None
         except Exception as e:
             print("[%d/%d] %s (%s) ERROR: %s" % (i, len(lista), tk, sym, e))
             fallos.append(tk)
@@ -228,24 +304,35 @@ def construir(base, forzar=False, getter=None, reloj=None):
         if ant and float(ant) > 0:
             fila["cierreAnt"] = round(float(ant), 4)
             fila["var"] = round((float(p) - float(ant)) / float(ant) * 100, 2)
+        if barra:
+            fila["barra"] = barra[11:16]   # "HH:MM" para pintar; el ISO va en el documento
+            barras_iso[tk] = barra
         datos[tk] = fila
-        print("[%d/%d] %s (%s) %s%s" % (i, len(lista), tk, sym, fila["p"],
-                                        ("  %+.2f%%" % fila["var"]) if "var" in fila else ""))
+        print("[%d/%d] %s (%s) %s%s%s" % (i, len(lista), tk, sym, fila["p"],
+                                          ("  %+.2f%%" % fila["var"]) if "var" in fila else "",
+                                          ("  barra %s" % barra[11:16]) if barra else "  barra ?"))
         time.sleep(PAUSA)
 
     if not datos:
         return None, "%s (%d fallos): no se escribe nada" % (MOTIVO_SIN_PRECIOS, len(fallos))
 
+    # `hora` es cuando paso el robot; `datoHora`, de cuando es el precio. Son cosas
+    # distintas y confundirlas nos costo el 06-ago-2026: el sello avanzaba cada 5 minutos
+    # mientras el precio llevaba congelado desde las 09:25. La app debe ensenar la segunda.
+    _isos = sorted(barras_iso.values())
     return {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "sesion": t.strftime("%Y-%m-%d"),
         "actualizado": t.isoformat(timespec="seconds"),
         "hora": t.strftime("%H:%M"),
+        "datoISO": _isos[-1] if _isos else None,      # de cuando es el precio
+        "datoHora": _isos[-1][11:16] if _isos else None,
         "retrasoMin": RETRASO_MIN,
         "provisional": True,
         "datos": datos,
         "fallos": fallos,
-    }, "%d precios, %d fallos" % (len(datos), len(fallos))
+    }, "%d precios, %d fallos%s" % (len(datos), len(fallos),
+                                    (", dato de las %s" % _isos[-1][11:16]) if _isos else "")
 
 
 def main():
