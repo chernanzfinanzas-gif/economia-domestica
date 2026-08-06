@@ -1,0 +1,22 @@
+name: Sonda de intervalos (a mano)
+# Diagnostico puntual del 06-ago-2026: averiguar si el chart de Yahoo devuelve un precio
+# que se mueva durante la sesion, y con que intervalo. NO tiene `schedule` a proposito:
+# solo se lanza a mano. Se puede borrar cuando la duda este resuelta.
+#
+# Como se usa: lanzarla, esperar 10-15 minutos, lanzarla otra vez y comparar los dos
+# registros. Si el valor de `1d` es identico y el de `5m` ha cambiado, ya sabemos por
+# donde reescribir el pase.
+on:
+  workflow_dispatch: {}
+permissions: { contents: read }
+
+jobs:
+  sonda:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - run: pip install --quiet yfinance tzdata
+      - run: python sonda_intervalos.py
