@@ -103,18 +103,55 @@ def tickers_con_dossier(base):
     return out
 
 
-def precio_de(symbol, intentos=INTENTOS):
-    """Ultimo precio conocido y cierre anterior. Devuelve (precio, cierre_ant) o (None, None)."""
+def _lee_historico(filas, hoy_iso):
+    """De las barras diarias del chart de Yahoo saca (precio_de_hoy, cierre_anterior).
+
+    `filas` = [(fecha_iso, cierre), ...] en orden ascendente. Durante la sesion, la ULTIMA
+    barra es la del dia en curso y su "cierre" es el precio vivo; la anterior es el cierre
+    oficial de ayer, que es justo lo que hace falta para la variacion del dia.
+
+    Si la ultima barra NO es de hoy, devuelve (None, None): aun no ha empezado a cotizar o
+    es festivo. Antes que dar el cierre de ayer haciendolo pasar por precio de hoy, nada.
+    """
+    limpio = []
+    for f, c in filas:
+        try:
+            c = float(c)
+        except (TypeError, ValueError):
+            continue
+        if c > 0 and f:
+            limpio.append((f, c))
+    if not limpio:
+        return None, None
+    if limpio[-1][0] != hoy_iso:
+        return None, None
+    precio = limpio[-1][1]
+    anterior = limpio[-2][1] if len(limpio) > 1 else None
+    return precio, anterior
+
+
+def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
+    """Ultimo precio conocido y cierre anterior. Devuelve (precio, cierre_ant).
+
+    [06-ago-2026] ESTO USABA `Ticker(...).fast_info` Y NO ESCRIBIO NUNCA UN SOLO PASE.
+    fast_info tira del endpoint de *quotes* de Yahoo, que exige "crumb" y bloquea las IP de
+    centro de datos: desde un runner de GitHub devuelve 401/429 para TODOS los simbolos, con
+    lo que fallaban los 25 y el script salia en verde sin escribir ("ningun precio").
+    Se pasa al endpoint de *chart* —`Ticker.history()`—, que es exactamente el que lleva
+    meses funcionando en actualizar_cotizaciones.py (`yf.download`) desde este mismo repo.
+    Una peticion por empresa, sin autenticacion y sin crumb.
+    """
     import yfinance as yf
+    hoy_iso = hoy_iso or ahora_madrid().strftime("%Y-%m-%d")
     ult = None
     for i in range(intentos):
         try:
-            fi = yf.Ticker(symbol).fast_info
-            p = fi.get("lastPrice") or fi.get("last_price")
-            c = fi.get("previousClose") or fi.get("previous_close")
-            if p and float(p) > 0:
-                return float(p), (float(c) if c else None)
-            ult = "sin lastPrice"
+            h = yf.Ticker(symbol).history(period="5d", interval="1d", auto_adjust=False)
+            filas = [(ix.strftime("%Y-%m-%d"), row["Close"]) for ix, row in h.iterrows()]
+            p, c = _lee_historico(filas, hoy_iso)
+            if p and p > 0:
+                return p, c
+            ult = "sin barra de hoy (ultima: %s)" % (filas[-1][0] if filas else "sin datos")
         except Exception as e:
             ult = str(e)[:80]
         time.sleep(1.5 * (i + 1))
