@@ -726,25 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "IAG",
-"fecha": "2026-08-06",
-"anterior": 5.208,
-"nuevo": 5.202
-},
-{
-"ticker": "IBE",
-"fecha": "2026-08-06",
-"anterior": 20.71,
-"nuevo": 20.72
-},
-{
-"ticker": "ITX",
-"fecha": "2026-08-06",
-"anterior": 59.18,
-"nuevo": 58.8
-}
-],
+"corregidos": [],
 "revisar": []
 }
