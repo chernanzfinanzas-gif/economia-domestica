@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-08-06",
+"actualizado": "2026-08-07",
 "ventana_dias": 10,
-"ventana_desde": "2026-07-27",
+"ventana_desde": "2026-07-28",
 "tickers": [
 {
 "ticker": "A3M",
@@ -182,8 +182,8 @@
 "ticker": "CEV",
 "symbol": "CEV.MC",
 "desde": "2011-01-03",
-"hasta": "2026-08-04",
-"n": 3988
+"hasta": "2026-08-05",
+"n": 3989
 },
 {
 "ticker": "CIE",
@@ -644,8 +644,8 @@
 "ticker": "SEC",
 "symbol": "SEC.MC",
 "desde": "2011-07-28",
-"hasta": "2026-08-04",
-"n": 3842
+"hasta": "2026-08-05",
+"n": 3843
 },
 {
 "ticker": "SLR",
@@ -679,8 +679,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-08-04",
-"n": 3986
+"hasta": "2026-08-05",
+"n": 3987
 },
 {
 "ticker": "TUB",
@@ -693,8 +693,8 @@
 "ticker": "UBS",
 "symbol": "UBS.MC",
 "desde": "2011-01-03",
-"hasta": "2026-08-04",
-"n": 3987
+"hasta": "2026-08-05",
+"n": 3988
 },
 {
 "ticker": "UNI",
@@ -726,6 +726,25 @@
 }
 ],
 "fallos": [],
-"corregidos": [],
+"corregidos": [
+{
+"ticker": "IAG",
+"fecha": "2026-08-06",
+"anterior": 5.208,
+"nuevo": 5.202
+},
+{
+"ticker": "IBE",
+"fecha": "2026-08-06",
+"anterior": 20.71,
+"nuevo": 20.72
+},
+{
+"ticker": "ITX",
+"fecha": "2026-08-06",
+"anterior": 59.18,
+"nuevo": 58.8
+}
+],
 "revisar": []
 }
