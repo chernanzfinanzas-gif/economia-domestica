@@ -90,6 +90,34 @@ def leer_confirmado(path):
         return None
 
 
+def semilla_confirmado(data):
+    """Semilla de `confirmadoHasta` para ficheros del esquema viejo, que no la traen.
+
+    [07-ago-2026] Sin semilla, un fichero sin la marca da TODA su historia por no
+    confirmada: 3.989 fechas en el caso de SAN. Seria cierto en lo formal —nadie ha
+    registrado esas confirmaciones— e inutil en la practica: engorda `_estado.json`, que
+    baja la app, y ahoga el unico aviso que importa entre miles de fechas viejas que
+    llevan meses reconsultadas por la ventana movil.
+
+    Se da por confirmado todo MENOS la ultima fila, que es la unica que puede haberse
+    escrito con la sesion abierta. Es deliberadamente conservador: prefiere un aviso de
+    mas el dia de la migracion a bendecir un cierre que nadie ha releido.
+    """
+    return data[-2][0] if len(data) >= 2 else None
+
+
+MAX_SIN_CONFIRMAR = 30   # lo que se lista; mas que esto no es un aviso, es un vertido
+
+
+def sin_confirmar(data, conf):
+    """Fechas del fichero posteriores a `conf`, acotadas para no inundar _estado.json."""
+    if conf is None:
+        pend = [f for f, _ in data]
+    else:
+        pend = [f for f, _ in data if f > conf]
+    return pend[-MAX_SIN_CONFIRMAR:]
+
+
 def confirmado_hasta(nuevos, previo, hoy):
     """Fecha hasta la que los cierres se dan por CONFIRMADOS. Nunca retrocede.
 
@@ -359,8 +387,8 @@ def main():
                 print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) sin novedades")
                 indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                           "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
-                _conf = leer_confirmado(path)
-                _sc = [f for f, _ in data if _conf is None or f > _conf]
+                _conf = leer_confirmado(path) or semilla_confirmado(data)
+                _sc = sin_confirmar(data, _conf)
                 estado[ticker] = {"ultima": data[-1][0], "provisional": bool(_sc),
                                   "confirmadoHasta": _conf, "sinConfirmar": _sc}
             time.sleep(PAUSA)
@@ -383,25 +411,25 @@ def main():
         # El cierre del dia en curso es PROVISIONAL: Yahoo aun puede no haber
         # consolidado la subasta de cierre. Lo confirma un pase de un dia POSTERIOR, y
         # hasta que ese pase ocurra de verdad la fila sigue marcada (ver confirmado_hasta).
-        conf = confirmado_hasta(nuevos, leer_confirmado(path), hoy)
-        sin_confirmar = [f for f, _ in data if conf is None or f > conf]
-        provisional = bool(sin_confirmar)
+        conf = confirmado_hasta(nuevos, leer_confirmado(path) or semilla_confirmado(data), hoy)
+        pendientes = sin_confirmar(data, conf)
+        provisional = bool(pendientes)
 
         with open(path, "w", encoding="utf-8") as f:
             json.dump({"ticker": ticker, "symbol": symbol,
                        "actualizado": hoy,
                        "confirmadoHasta": conf,
-                       "provisional": sin_confirmar[0] if sin_confirmar else None,
+                       "provisional": pendientes[0] if pendientes else None,
                        "data": data}, f, ensure_ascii=False)
 
-        marca = (" [sin confirmar: " + ", ".join(sin_confirmar) + "]") if provisional else ""
+        marca = (" [sin confirmar: " + ", ".join(pendientes) + "]") if provisional else ""
         print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) +{altas} nuevos, "
               f"{len(correcciones)} corregidos -> {len(data)} "
               f"({data[0][0]} .. {data[-1][0]}){marca}")
         indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                   "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
         estado[ticker] = {"ultima": data[-1][0], "provisional": provisional,
-                          "confirmadoHasta": conf, "sinConfirmar": sin_confirmar}
+                          "confirmadoHasta": conf, "sinConfirmar": pendientes}
         time.sleep(PAUSA)
 
     with open(os.path.join(outdir, "_index.json"), "w", encoding="utf-8") as f:
@@ -430,6 +458,7 @@ def main():
 
     # _estado.json: fichero NUEVO y separado (no toca el esquema de _ultimos.json que lee
     # la app). Dice, por empresa, si su ultimo cierre es definitivo o aun provisional.
+    rezagados = []
     if estado:
         # REZAGADOS: cierres de sesiones YA TERMINADAS que siguen sin confirmar. Es el caso
         # peligroso -- un precio intradia disfrazado de cierre -- y hasta el 07-ago-2026 no
@@ -466,10 +495,22 @@ def main():
         for c in indice["revisar"]:
             print(f"   {c['ticker']} {c['fecha']}: guardado {c['guardado']}, "
                   f"descartado {c['descartado']} ({c['motivo']})")
-    prov = sorted(t for t, e in estado.items() if e["provisional"])
-    if prov:
-        print(f"Cierres PROVISIONALES de hoy ({len(prov)}): se confirmaran en el pase "
-              f"matinal de manana.")
+    # [07-ago-2026] Este resumen decia "PROVISIONALES de hoy" contando TODO lo no confirmado.
+    # Desde que `provisional` incluye sesiones ya cerradas sin releer, mezclarlas seria decir
+    # "de hoy" sobre un cierre de la semana pasada. Se separan, y los rezagados van con nombre:
+    # con 103 empresas, "1 provisional" no dice cual y no se puede mirar.
+    prov_hoy = sorted(t for t, e in estado.items()
+                      if (e.get("sinConfirmar") or []) == [hoy])
+    if prov_hoy:
+        print(f"Cierres PROVISIONALES de hoy ({len(prov_hoy)}): {', '.join(prov_hoy)}. "
+              f"Se confirman en el pase matinal de manana.")
+    otros = sorted(t for t, e in estado.items()
+                   if e["provisional"] and t not in prov_hoy and t not in rezagados)
+    if otros:
+        print(f"Sin confirmar por otro motivo ({len(otros)}): {', '.join(otros)}.")
+    if rezagados:
+        print(f"SIN CONFIRMAR de sesiones YA CERRADAS ({len(rezagados)}): "
+              f"{', '.join(rezagados)}. Lanza otro pase.")
     if indice["fallos"]:
         print("Revisa estos simbolos en tickers.json:",
               ", ".join(x["ticker"] for x in indice["fallos"]))
