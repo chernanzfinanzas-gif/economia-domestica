@@ -125,9 +125,16 @@ function _mcSelloGlobal(tickers){
   const _m=(typeof intradiaEdadMin==='function')?intradiaEdadMin():null;
   const _viejo=(typeof intradiaViejo==='function')&&intradiaViejo();
   const _edad=' · <b>hace '+_m+' min</b>, cambia de pestaña o recarga';
-  if(_vivas===n&&j) return {cls:_viejo?'vieja':'viva', txt:'Cotizaciones de <b>hoy '+j.hora+'</b>'
+  /* [07-ago-2026] LA HORA QUE SE ENSENA ES LA DE LA BARRA, NO LA DEL PASE.
+     Esta banda se quedo leyendo `j.hora` —cuando corrio el robot— cuando todo lo demas ya
+     media `datoHora` —de cuando es el precio—. Se vio en una captura del 7-ago: la banda
+     decia «hoy 15:58» y las filas de debajo «hoy 15:40», 18 minutos de diferencia. Suelen
+     parecerse, y por eso paso desapercibido; el dia que la fuente se congele es cuando la
+     banda mentiria, que es justo el dia que importa. Es el mismo fallo del 6-ago, en el
+     unico sitio donde no se habia corregido. */
+  if(_vivas===n&&j) return {cls:_viejo?'vieja':'viva', txt:'Cotizaciones de <b>hoy '+(j.datoHora||j.hora)+'</b>'
     +(_viejo?_edad:((j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+' · provisionales, no son cierres'))};
-  if(_vivas&&j)     return {cls:_viejo?'vieja':'viva', txt:'<b>'+_vivas+' de '+n+'</b> con precio de hoy '+j.hora
+  if(_vivas&&j)     return {cls:_viejo?'vieja':'viva', txt:'<b>'+_vivas+' de '+n+'</b> con precio de hoy '+(j.datoHora||j.hora)
     +(_viejo?_edad:((j.retrasoMin?(' (retraso '+j.retrasoMin+' min)'):'')+'; el resto, último cierre'))};
   /* [06-ago-2026] El cierre oficial del Excel es el MEJOR dato del dia, no la ausencia de
      uno. Sin esta rama caia en «el pase intradia no ha corrido hoy», que ademas de sonar a
@@ -140,6 +147,74 @@ function _mcSelloGlobal(tickers){
   let f=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioFecha&&v.precioFecha>f)f=v.precioFecha; });
   if(f) return {cls:'cierre', txt:'Cotizaciones del <b>cierre del '+_mcFecha(f)+'</b> · el pase intradía no ha corrido hoy'};
   return {cls:'cierre', txt:'Sin fecha en las cotizaciones'};
+}
+
+/* --------------------------------------------------------------------------
+   Máximo histórico de la cartera — FASE 1: por cierres diarios (07-ago-2026)
+   --------------------------------------------------------------------------
+   No se calcula nada nuevo: `carteraEvolData()` (05-graficas.js) YA construye la serie
+   DIARIA del valor de la cartera desde la primera operación, y lo hace bien en lo que
+   más fácil es equivocarse: valora cada día con las acciones que había ESE día, y
+   arrastra el último cierre conocido cuando a un valor le falta la sesión. Calcularlo
+   aparte habría sido reescribir esa trampa con otro nombre y con más sitios donde fallar.
+   Aquí solo se recorre esa serie y se busca el máximo.
+
+   Su último punto usa el precio VIVO de `DB.valores` cuando es más nuevo que el último
+   cierre del repo, así que el intradía de hoy entra en la comparación: si la cartera está
+   marcando máximo ahora mismo, se dice.
+
+   Lo que este máximo NO es: no es el máximo intradía. Entre cierre y cierre la cartera
+   pudo valer más y aquí no se ve. Eso es la Fase 2 y necesita archivar la serie de
+   5 minutos, que hoy se descarga y se tira.
+   -------------------------------------------------------------------------- */
+var _MC_MAX_MIN_DIAS=5;          /* con menos sesiones, «máximo histórico» no significa nada */
+/* Valores en cartera cuyo `precios/<T>.json` no está en el repo. Importa decirlo: sin su
+   histórico, `carteraEvolData` los valora al precio de compra, y entonces el máximo sale
+   CORTO. Callarlo sería enseñar un número redondo que no se sostiene. */
+function _mcSinHistorico(){
+  if(typeof _allOps!=='function'||typeof _precioCache==='undefined') return [];
+  const held=[];
+  _allOps().forEach(function(o){ const t=_mcUp(o.ticker); if(t&&held.indexOf(t)<0)held.push(t); });
+  return held.filter(function(t){
+    const pj=_precioCache[t];
+    return pj!==undefined && (!pj||!pj.data||!pj.data.length);
+  });
+}
+function _mcMaximo(){
+  if(typeof carteraEvolData!=='function') return null;
+  let ev=null;
+  /* el callback es el mismo patrón que ya usa la vista: se pinta con lo que hay y se
+     repinta sola cuando llegan los cierres del repo */
+  try{ ev=carteraEvolData(function(){ if(typeof renderMiCartera==='function')renderMiCartera(); }); }catch(e){ return null; }
+  if(!ev) return null;
+  if(ev.loading) return {loading:true};
+  if(!ev.ok||!ev.valor||ev.valor.length<_MC_MAX_MIN_DIAS) return null;
+  let mx=-Infinity, mi=-1;
+  for(let i=0;i<ev.valor.length;i++){ const v=_mcNum(ev.valor[i]); if(v>mx){ mx=v; mi=i; } }
+  if(mi<0||!(mx>0)) return null;
+  const fechas=ev.dates||ev.labels||[];
+  return {valor:mx, fecha:fechas[mi]||'', enMaximo:(mi===ev.valor.length-1),
+          dias:ev.valor.length, desde:fechas[0]||'', sinHist:_mcSinHistorico()};
+}
+function _mcMaxHTML(valorHoy){
+  const m=_mcMaximo();
+  if(!m) return '';
+  if(m.loading) return '<div class="mc-max cargando">Calculando el máximo de la cartera…</div>';
+  /* «en máximos» se decide con un margen de medio céntimo: el último punto de la serie y
+     el valor del cuadro verde se calculan por caminos distintos y pueden diferir en el
+     redondeo. Sin el margen, el día que estás en máximo saldría «un 0,0% por debajo». */
+  const enMax=m.enMaximo||(valorHoy>=m.valor-0.005);
+  const dist=(m.valor>0)?((m.valor-valorHoy)/m.valor*100):0;
+  let txt='<b>Máximo de la cartera: '+_mcEur(m.valor)+'</b>';
+  txt+= enMax
+      ? ' · <b>estás en máximos</b>'
+      : (' · '+_mcFecha(m.fecha)+' · estás un <b>'+dist.toFixed(1).replace('.',',')+'%</b> por debajo');
+  txt+='<span class="mc-max-pie">por cierres diarios desde '+_mcFecha(m.desde)
+      +'; no incluye lo que la cartera pudo valer dentro de cada sesión</span>';
+  if(m.sinHist.length) txt+='<span class="mc-max-ojo">'+m.sinHist.length+' '
+      +(m.sinHist.length===1?'valor':'valores')+' sin histórico de cierres en el repo ('
+      +m.sinHist.join(', ')+'): el máximo puede quedarse corto</span>';
+  return '<div class="mc-max">'+txt+'</div>';
 }
 
 /* --------------------------------------------------------------------------
@@ -272,6 +347,7 @@ function renderMiCartera(){
     +'<a class="mc-refr mc-gh" href="'+_MC_URL_ACTIONS+'" target="_blank" rel="noopener"'
     +' title="Abre GitHub para lanzar un pase nuevo: allí, botón «Run workflow»">⟳ Forzar pase</a>'
     +'</div>'
+    +_mcMaxHTML(valor)
     +(_mcAviso?('<div class="mc-aviso">'+_mcAviso+'</div>'):'');
 
   /* ---- posiciones ---- */
@@ -426,6 +502,11 @@ function _mcCSS(){
     '#view-micartera .mc-refr:hover{background:#f1f5f9}',
     '#view-micartera .mc-refr[disabled]{opacity:.55;cursor:default}',
     '#view-micartera .mc-gh{text-decoration:none;display:inline-block}',
+    '#view-micartera .mc-max{font-size:12px;color:#334155;background:#f8fafc;border:1px solid var(--line);',
+    '  border-radius:10px;padding:8px 12px;margin:-8px 0 16px;line-height:1.5}',
+    '#view-micartera .mc-max.cargando{color:var(--muted)}',
+    '#view-micartera .mc-max-pie{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}',
+    '#view-micartera .mc-max-ojo{display:block;font-size:10.5px;color:#b45309;margin-top:2px}',
     '#view-micartera .mc-aviso{font-size:11.5px;color:var(--muted);margin:-10px 0 16px;padding:0 4px}',
     '#view-micartera .mc-fuente.viva{background:#eef2ff;border:1px solid #c7d2fe}',
     '#view-micartera .mc-fuente.viva .d{background:#4f46e5}',
