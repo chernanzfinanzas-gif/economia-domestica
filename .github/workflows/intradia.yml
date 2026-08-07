@@ -29,12 +29,25 @@ name: Intradia (cartera)
 # fuente, la app pasa de ensenar precios de hace 15-40 min a 15-20 min.
 # ============================================================================
 on:
-  workflow_dispatch: {}
-  schedule:
-    # Una vez por hora y en minuto impar, lejos del :00 congestionado.
-    # 07-16 UTC = 09:03-18:xx CEST / 08:03-17:xx CET. El script se guarda solo
-    # de la hora: fuera del continuo espanol sale en dos segundos sin escribir.
-    - cron: "3 7-16 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      minutos:
+        description: "Minutos de cobertura (una pasada cada 5). 300 = 5 horas."
+        required: false
+        default: "300"
+
+# ── SIN `schedule`, Y ES DELIBERADO (07-ago-2026) ────────────────────────────
+# Medido el 7-ago con GitHub funcionando con normalidad: de los ticks de las 09:03,
+# 10:03 y 11:03 solo entro uno, y con 16 minutos de retraso. El 6-ago, con el servicio
+# degradado, entrego 2 de unas 30 y una llego con dos horas de retraso.
+#
+# Un cron que entrega un tercio no es un reloj, es una loteria. Y con ejecuciones
+# largas era ademas ACTIVAMENTE DANINO: cualquier tick que entrase cancelaria las
+# cinco horas de cobertura para sustituirlas por 52 minutos.
+#
+# El reloj pasa al movil, que si cumple los horarios: un atajo lo dispara a las 09:00
+# y el operador pulsa el boton entre las 13:00 y las 14:00. Dos ejecuciones de 300
+# minutos cubren la sesion entera, y la segunda cancela a la primera sin dejar hueco.
 permissions: { contents: write }
 
 concurrency:
@@ -44,8 +57,9 @@ concurrency:
 jobs:
   intradia:
     runs-on: ubuntu-latest
-    # 58 y no 60: hay que morir ANTES de que entre el relevo, no a la vez.
-    timeout-minutes: 58
+    # El tope duro de GitHub son 360 minutos por trabajo. Se deja margen para el
+    # checkout, el pip install y la ultima pasada: el bucle se limita a 330.
+    timeout-minutes: 340
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -77,7 +91,11 @@ jobs:
             git checkout -q -b datos
           fi
 
-      - name: Pasadas cada 5 minutos durante ~52 minutos
+      - name: Pasadas cada 5 minutos durante el tiempo pedido
+        env:
+          # Por `env` y NO interpolado en el shell: lo que llega de fuera no se mete
+          # nunca directamente en una linea de comandos.
+          MINUTOS: ${{ inputs.minutos }}
         # ¡OJO CON `set -e`! GitHub ejecuta los `run:` con `bash -e`, asi que
         # CUALQUIER orden que devuelva distinto de cero mata el paso entero.
         # Eso incluye un `[ prueba ] && accion` cuya prueba salga falsa, que es
@@ -88,7 +106,12 @@ jobs:
         run: |
           set -u
           INTERVALO=300
-          FIN=$(( $(date +%s) + 52*60 ))
+          MIN="${MINUTOS:-300}"
+          case "$MIN" in ''|*[!0-9]*) MIN=300 ;; esac      # basura -> valor por defecto
+          [ "$MIN" -lt 5 ]   && MIN=5
+          [ "$MIN" -gt 330 ] && MIN=330                    # tope de GitHub: 360 por trabajo
+          echo "Cobertura pedida: $MIN minutos (una pasada cada $((INTERVALO/60)))."
+          FIN=$(( $(date +%s) + MIN*60 ))
           n=0; escritos=0; mudos=0
           while : ; do
             n=$(( n + 1 ))
@@ -132,7 +155,7 @@ jobs:
             fi
             sleep "$INTERVALO"
           done
-          echo "Resumen: $n pasadas, $escritos con datos, $mudos mudas."
+          echo "Resumen: $n pasadas en $MIN min, $escritos con datos, $mudos mudas."
           # Que la hora entera se haya ido en blanco con el mercado abierto no
           # puede salir en verde: es exactamente lo que no vimos venir.
           if [ "$escritos" -eq 0 ] && [ "$mudos" -gt 0 ]; then
