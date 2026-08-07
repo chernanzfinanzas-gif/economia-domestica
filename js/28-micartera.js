@@ -80,25 +80,31 @@ function _mcCierreAnt(t){
    repartida entre dos sitios. Devuelve {txt, tipo:'intradia'|'cierre'|'?'}.  */
 function _mcSelloDe(t){
   t=_mcUp(t);
+  const v0=(DB.valores||{})[t]||{};
+  /* [06-ago-2026] EL ORDEN IMPORTA, Y ESTABA AL REVES.
+     Antes se miraba PRIMERO si el fichero de intradia traia el ticker, y se ponia su
+     etiqueta aunque ese precio no se hubiera llegado a aplicar. Resultado: con una captura
+     de cierre del Excel blindada (precioManual), la app ensenaba los precios buenos del
+     Excel rotulados «hoy 17:41 · hace 81 min», que es la hora del pase de Yahoo. La
+     etiqueta no pertenecia al numero que etiquetaba.
+     Ahora manda el ORIGEN DEL PRECIO QUE SE ESTA ENSENANDO: si es cierre oficial, se dice;
+     y para reclamar la etiqueta de intradia hace falta ademas `precioProvisional`, que es
+     la marca que deja sincronizarIntradia() cuando de verdad aplica su precio. */
+  if(v0.precioManual&&v0.precioFecha) return {tipo:'oficial', txt:'cierre oficial '+_mcFecha(v0.precioFecha,true), det:'cierre oficial de la subasta, importado del Excel'};
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
-  if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&j.hora){
+  if(v0.precioProvisional&&j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&(j.datoHora||j.hora)){
     /* Si el dato se ha quedado rezagado —la app solo repregunta con la pestaña visible— hay que
        decirlo. Enseñar «hoy 10:11» a las 10:48 sin más es lo contrario de lo que esta columna
        vino a resolver. */
     const _m=(typeof intradiaEdadMin==='function')?intradiaEdadMin():null;
     const _v=(typeof intradiaViejo==='function')&&intradiaViejo();
     return {tipo:_v?'intradia viejo':'intradia',
-            txt:'hoy '+j.hora+(_v?(' · hace '+_m+' min'):''),
+            /* la hora de la BARRA si la hay; la del pase solo con ficheros antiguos */
+            txt:'hoy '+(j.datoHora||j.hora)+(_v?(' · hace '+_m+' min'):''),
             det:_v?'el último pase que ha podido leer la app; cambia de pestaña o recarga para forzar uno nuevo'
                   :('precio de la sesión en curso'+(j.retrasoMin?(', con '+j.retrasoMin+' min de retraso'):''))};
   }
-  const v=(DB.valores||{})[t]||{};
-  /* precioManual=true lo pone SOLO la importación del Excel con captura de cierre
-     (26-excelprecios.js). No es «un precio escrito a ojo»: es el cierre oficial de la
-     subasta, que precisamente por serlo se blinda contra el pase provisional de Yahoo.
-     Llamarlo «manual» invitaba a desconfiar de un dato que es el mejor que hay. */
-  if(v.precioManual&&v.precioFecha) return {tipo:'oficial', txt:'cierre oficial '+_mcFecha(v.precioFecha,true), det:'cierre oficial de la subasta, importado del Excel'};
-  if(v.precioFecha) return {tipo:'cierre', txt:'cierre '+_mcFecha(v.precioFecha), det:'último cierre consolidado'};
+  if(v0.precioFecha) return {tipo:'cierre', txt:'cierre '+_mcFecha(v0.precioFecha), det:'último cierre consolidado'};
   return {tipo:'?', txt:'sin fecha', det:'no consta de cuándo es este precio'};
 }
 function _mcFecha(iso,corta){
@@ -123,7 +129,14 @@ function _mcSelloGlobal(tickers){
     +(_viejo?_edad:((j.retrasoMin?(' · retraso '+j.retrasoMin+' min'):'')+' · provisionales, no son cierres'))};
   if(_vivas&&j)     return {cls:_viejo?'vieja':'viva', txt:'<b>'+_vivas+' de '+n+'</b> con precio de hoy '+j.hora
     +(_viejo?_edad:((j.retrasoMin?(' (retraso '+j.retrasoMin+' min)'):'')+'; el resto, último cierre'))};
-  /* sin intradía: la fecha del cierre más reciente que tengamos */
+  /* [06-ago-2026] El cierre oficial del Excel es el MEJOR dato del dia, no la ausencia de
+     uno. Sin esta rama caia en «el pase intradia no ha corrido hoy», que ademas de sonar a
+     carencia era falso: el pase habia corrido, y su precio quedo descartado a proposito por
+     ser peor. */
+  let fo=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioManual&&v.precioFecha&&v.precioFecha>fo)fo=v.precioFecha; });
+  if((c.oficial||0)===n&&fo) return {cls:'cierre', txt:'Cotizaciones del <b>cierre oficial del '+_mcFecha(fo)+'</b> · importadas de la Matriz'};
+  if((c.oficial||0)&&fo)     return {cls:'cierre', txt:'<b>'+c.oficial+' de '+n+'</b> con el cierre oficial del '+_mcFecha(fo)+' (Matriz); el resto, último cierre conocido'};
+  /* sin intradía ni cierre oficial: la fecha del cierre más reciente que tengamos */
   let f=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioFecha&&v.precioFecha>f)f=v.precioFecha; });
   if(f) return {cls:'cierre', txt:'Cotizaciones del <b>cierre del '+_mcFecha(f)+'</b> · el pase intradía no ha corrido hoy'};
   return {cls:'cierre', txt:'Sin fecha en las cotizaciones'};

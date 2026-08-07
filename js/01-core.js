@@ -374,7 +374,15 @@ async function sincronizarIntradia(){
          no se comprobara la fecha, el cierre de ayer bloquearia el intradia de hoy hasta
          que Yahoo publicara un cierre mas nuevo: un dia entero sin dato vivo. */
       if(v.precioManual && v.precioFecha===j.sesion)return;
-      if(num(v.precioActual)===p && v.precioFecha===j.sesion)return;
+      if(num(v.precioActual)===p && v.precioFecha===j.sesion){
+        /* [06-ago-2026] El precio ya coincide —normalmente porque _ultimos.json ya traia el
+           de la sesion en curso— asi que no hay nada que cambiar. Pero SI hay que marcarlo
+           como provisional: es el precio de la sesion en curso lo pusiera quien lo pusiera,
+           y sin esa marca `intradiaEnUso()` no reconoceria como suyo un precio que lo es, y
+           la chapa desapareceria de una vista que si esta enseñando el dato del intradia. */
+        v.precioProvisional=true;
+        return;
+      }
       /* al relevar un manual de una sesion anterior hay que soltar la marca: si no, el
          pase de las 09:20 seria el unico del dia (los siguientes se verian bloqueados
          por su propio precioFecha). Es lo mismo que hace sincronizarCotizaciones(). */
@@ -460,9 +468,23 @@ var INTRADIA_VIEJO_MIN=35;
 function intradiaViejo(){ const m=intradiaEdadMin(); return m!=null && m>INTRADIA_VIEJO_MIN; }
 
 /* Chapa para enseñar de dónde viene el precio. La usa quien quiera pintarla. */
+/* [06-ago-2026] ¿Hay ALGUN precio en pantalla que venga de verdad del intradía?
+   La chapa se pintaba siempre que existiera un intradia.json cargado, aunque sus precios
+   no se hubieran aplicado. Con una captura de cierre del Excel blindada, la app enseñaba
+   los precios buenos rotulados «intradía 17:25». `precioProvisional` es la marca que deja
+   sincronizarIntradia() cuando aplica de verdad: si no hay ninguna, no hay nada que sellar. */
+function intradiaEnUso(){
+  const j=(typeof _intradia!=='undefined')?_intradia:null;
+  if(!j||!j.sesion) return false;
+  const V=(typeof DB!=='undefined'&&DB.valores)||{};
+  return Object.keys(V).some(function(t){
+    const v=V[t]||{}; return v.precioProvisional&&v.precioFecha===j.sesion;
+  });
+}
 function intradiaSello(){
   const j=(typeof _intradia!=='undefined')?_intradia:null;
   if(!j||!j.hora) return '';
+  if(!intradiaEnUso()) return '';      /* nadie está enseñando un precio de este fichero */
   const m=intradiaEdadMin(), viejo=intradiaViejo();
   const col=viejo?{t:'#92400e',f:'#fef3c7',b:'#fde68a'}:{t:'#3730a3',f:'#eef2ff',b:'#c7d2fe'};
   return '<span title="'+(viejo
