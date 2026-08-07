@@ -79,6 +79,33 @@ def cargar_existente(path):
         return [], None
 
 
+# [07-ago-2026] SIMBOLOS REUTILIZADOS.
+# Yahoo sirve bajo `ENER.MC` una serie que arranca el 10-ene-2014 a 1,20 EUR, pero Ecoener
+# DEBUTO EN BOLSA el 5-may-2021 a 5,90 EUR (OPV; el primer dia cayo un 15%). El tramo
+# anterior pertenece a otra sociedad que ocupo ese ticker: no es un error de precio, es otra
+# empresa. Y no se puede detectar por el valor —1,20 EUR es un precio perfectamente
+# plausible—, asi que la unica frontera fiable es la FECHA del debut.
+#
+# Se descubrio el 07-ago-2026 al corregir el simbolo de ECO (estaba en `ECO.MC`, que Yahoo ya
+# no sirve). La fusion no dio ni una correccion sobre las 3.194 fechas previas, o sea que el
+# fichero llevaba ese mismo lastre desde siempre: siete anos de otra empresa dentro del
+# grafico de la Ficha, del rango de 52 semanas y de cualquier calculo que mire lejos.
+#
+# Anadir aqui cualquier ticker cuyo simbolo haya tenido un ocupante anterior, con la fecha de
+# su primera sesion REAL.
+PRIMERA_SESION = {
+    "ECO": "2021-05-05",   # Ecoener (ENER.MC): debut en bolsa. Lo anterior no es suyo.
+}
+
+
+def recortar_prehistoria(ticker, filas):
+    """Quita del historico las sesiones anteriores a la primera sesion real del valor."""
+    desde = PRIMERA_SESION.get(ticker)
+    if not desde:
+        return filas
+    return [r for r in filas if r[0] >= desde]
+
+
 def leer_confirmado(path):
     """Devuelve el `confirmadoHasta` guardado en el JSON, o None si no lo trae."""
     if not os.path.exists(path):
@@ -361,6 +388,12 @@ def main():
     for i, (ticker, symbol) in enumerate(sorted(tickers.items()), 1):
         path = os.path.join(outdir, ticker + ".json")
         data, ult = cargar_existente(path)
+        _n0 = len(data)
+        data = recortar_prehistoria(ticker, data)
+        if len(data) != _n0:
+            print(f"        {ticker}: recortadas {_n0 - len(data)} sesiones anteriores a "
+                  f"{PRIMERA_SESION[ticker]} (simbolo reutilizado)")
+        ult = data[-1][0] if data else None
 
         if ult:
             # PARCHE: NO se arranca en (ult + 1 dia). Se retrocede hasta el inicio de la
@@ -396,6 +429,7 @@ def main():
 
         # fusionar SOBRESCRIBIENDO las fechas ya presentes (ver docstring del parche)
         data, altas, correcciones, sospechosas = fusionar(data, nuevos)
+        data = recortar_prehistoria(ticker, data)   # la descarga vuelve a traer el tramo ajeno
 
         for fecha, viejo, nuevo in correcciones:
             print(f"        corregido {ticker} {fecha}: {viejo} -> {nuevo}")
