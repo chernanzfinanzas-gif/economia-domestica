@@ -196,6 +196,52 @@ function _mcMaximo(){
   return {valor:mx, fecha:fechas[mi]||'', enMaximo:(mi===ev.valor.length-1),
           dias:ev.valor.length, desde:fechas[0]||'', sinHist:_mcSinHistorico()};
 }
+/* --------------------------------------------------------------------------
+   Cierres sin confirmar (07-ago-2026)
+   --------------------------------------------------------------------------
+   `precios/_estado.json` dice, empresa a empresa, hasta qué fecha están CONFIRMADOS sus
+   cierres: confirmado = un pase de un día posterior a esa sesión ha vuelto a leerlo. Los
+   que faltan son sesiones ya terminadas cuyo precio pudo escribirse con el mercado
+   abierto — un intradía disfrazado de cierre.
+
+   Nació de un caso real: la fila del 06-ago-2026 se escribió a las 10:48, los pases de la
+   noche no se entregaron, y a la mañana siguiente la app enseñaba un máximo de cartera
+   687 € por encima del real sin que nada lo insinuara. Lo cazó Carlos cuadrando a mano
+   contra su Matriz. Esto es para que la próxima vez lo diga la pantalla.
+
+   Si el fichero no existe (repos aún sin actualizar) no se dice nada: ausencia de dato no
+   es un aviso.
+   -------------------------------------------------------------------------- */
+var _mcEstadoPedido=false, _mcEstadoCierres=null;
+function _mcRezagados(tickers){
+  if(!_mcEstadoPedido){
+    _mcEstadoPedido=true;
+    try{
+      fetch('precios/_estado.json',{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .then(function(j){ _mcEstadoCierres=j||null; if(typeof renderMiCartera==='function')renderMiCartera(); })
+        .catch(function(){});
+    }catch(e){}
+    return [];
+  }
+  const j=_mcEstadoCierres;
+  if(!j||!j.rezagados||!j.rezagados.length) return [];
+  const enCartera={}; (tickers||[]).forEach(function(t){ enCartera[_mcUp(t)]=1; });
+  return j.rezagados.filter(function(t){ return enCartera[_mcUp(t)]; }).map(_mcUp);
+}
+function _mcCierresHTML(tickers){
+  const r=_mcRezagados(tickers);
+  if(!r.length) return '';
+  const emp=(_mcEstadoCierres&&_mcEstadoCierres.empresas)||{};
+  /* la fecha más antigua sin confirmar, que es la que hay que mirar */
+  let f='';
+  r.forEach(function(t){ const sc=(emp[t]||{}).sinConfirmar||[]; sc.forEach(function(d){ if(!f||d<f)f=d; }); });
+  return '<div class="mc-max ojo">⚠ <b>'+r.length+' '+(r.length===1?'valor':'valores')
+    +' con el cierre sin confirmar</b>'+(f?(' desde el '+_mcFecha(f)):'')+' ('+r.join(', ')+')'
+    +'<span class="mc-max-pie">Un pase de cotizaciones no se entregó a su hora, así que ese precio '
+    +'puede ser de mitad de sesión y no un cierre. Lanza el pase de <b>Cotizaciones</b> en GitHub '
+    +'y vuelve a cargar.</span></div>';
+}
 function _mcMaxHTML(valorHoy){
   const m=_mcMaximo();
   if(!m) return '';
@@ -348,6 +394,7 @@ function renderMiCartera(){
     +' title="Abre GitHub para lanzar un pase nuevo: allí, botón «Run workflow»">⟳ Forzar pase</a>'
     +'</div>'
     +_mcMaxHTML(valor)
+    +_mcCierresHTML(P.map(function(p){ return p.ticker; }))
     +(_mcAviso?('<div class="mc-aviso">'+_mcAviso+'</div>'):'');
 
   /* ---- posiciones ---- */
@@ -505,6 +552,7 @@ function _mcCSS(){
     '#view-micartera .mc-max{font-size:12px;color:#334155;background:#f8fafc;border:1px solid var(--line);',
     '  border-radius:10px;padding:8px 12px;margin:-8px 0 16px;line-height:1.5}',
     '#view-micartera .mc-max.cargando{color:var(--muted)}',
+    '#view-micartera .mc-max.ojo{background:#fffbeb;border-color:#fde68a;color:#92400e}',
     '#view-micartera .mc-max-pie{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}',
     '#view-micartera .mc-max-ojo{display:block;font-size:10.5px;color:#b45309;margin-top:2px}',
     '#view-micartera .mc-aviso{font-size:11.5px;color:var(--muted);margin:-10px 0 16px;padding:0 4px}',

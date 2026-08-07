@@ -79,6 +79,45 @@ def cargar_existente(path):
         return [], None
 
 
+def leer_confirmado(path):
+    """Devuelve el `confirmadoHasta` guardado en el JSON, o None si no lo trae."""
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f).get("confirmadoHasta")
+    except Exception:
+        return None
+
+
+def confirmado_hasta(nuevos, previo, hoy):
+    """Fecha hasta la que los cierres se dan por CONFIRMADOS. Nunca retrocede.
+
+    [07-ago-2026] POR QUE NO BASTA CON «no es hoy».
+    Hasta hoy, `provisional` se recalculaba en cada pase como «la ultima fila es la de
+    hoy». Eso da por definitivo, en cuanto cambia el dia, cualquier cierre escrito la
+    vispera -- lo haya vuelto a leer alguien o no. Y el 06-ago-2026 no lo leyo nadie: la
+    fila entera se escribio a las 10:48 con el mercado abierto, los pases de la noche no
+    se entregaron (GitHub no asignaba runners ese dia) y a la manana siguiente el fichero
+    presentaba nueve precios intradia como cierres, sin una sola marca. El descuadre lo
+    encontro Carlos a mano, comparando con su Matriz.
+
+    La regla honesta es otra: un cierre esta confirmado cuando un pase que corre en un DIA
+    POSTERIOR a esa sesion vuelve a leerlo. Con la sesion terminada y el dia cambiado,
+    Yahoo ya sirve la subasta de cierre; se comprobo el 07-ago contra fuente independiente
+    que 9 de los 10 ultimos cierres de SAN coincidian al milesimo y solo fallaba el 06/08,
+    que es justo el que nadie habia releido.
+
+    No se confirma por repeticion dentro del mismo dia: cuando la fuente sirve una
+    respuesta congelada, repetir la pregunta devuelve el mismo error dos veces.
+    """
+    candidatas = [f for f, _ in nuevos if f < hoy]
+    ultima = max(candidatas) if candidatas else None
+    if previo and (ultima is None or previo > ultima):
+        return previo
+    return ultima
+
+
 try:
     from zoneinfo import ZoneInfo
     _MADRID = ZoneInfo("Europe/Madrid")
@@ -320,7 +359,10 @@ def main():
                 print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) sin novedades")
                 indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                           "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
-                estado[ticker] = {"ultima": data[-1][0], "provisional": data[-1][0] == hoy}
+                _conf = leer_confirmado(path)
+                _sc = [f for f, _ in data if _conf is None or f > _conf]
+                estado[ticker] = {"ultima": data[-1][0], "provisional": bool(_sc),
+                                  "confirmadoHasta": _conf, "sinConfirmar": _sc}
             time.sleep(PAUSA)
             continue
 
@@ -339,22 +381,27 @@ def main():
                                       "motivo": f"variacion > {UMBRAL_REVISION:.0%}"})
 
         # El cierre del dia en curso es PROVISIONAL: Yahoo aun puede no haber
-        # consolidado la subasta de cierre. El pase matinal del dia siguiente lo confirma.
-        provisional = data[-1][0] == hoy
+        # consolidado la subasta de cierre. Lo confirma un pase de un dia POSTERIOR, y
+        # hasta que ese pase ocurra de verdad la fila sigue marcada (ver confirmado_hasta).
+        conf = confirmado_hasta(nuevos, leer_confirmado(path), hoy)
+        sin_confirmar = [f for f, _ in data if conf is None or f > conf]
+        provisional = bool(sin_confirmar)
 
         with open(path, "w", encoding="utf-8") as f:
             json.dump({"ticker": ticker, "symbol": symbol,
                        "actualizado": hoy,
-                       "provisional": data[-1][0] if provisional else None,
+                       "confirmadoHasta": conf,
+                       "provisional": sin_confirmar[0] if sin_confirmar else None,
                        "data": data}, f, ensure_ascii=False)
 
-        marca = " [provisional]" if provisional else ""
+        marca = (" [sin confirmar: " + ", ".join(sin_confirmar) + "]") if provisional else ""
         print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) +{altas} nuevos, "
               f"{len(correcciones)} corregidos -> {len(data)} "
               f"({data[0][0]} .. {data[-1][0]}){marca}")
         indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                   "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
-        estado[ticker] = {"ultima": data[-1][0], "provisional": provisional}
+        estado[ticker] = {"ultima": data[-1][0], "provisional": provisional,
+                          "confirmadoHasta": conf, "sinConfirmar": sin_confirmar}
         time.sleep(PAUSA)
 
     with open(os.path.join(outdir, "_index.json"), "w", encoding="utf-8") as f:
@@ -384,10 +431,24 @@ def main():
     # _estado.json: fichero NUEVO y separado (no toca el esquema de _ultimos.json que lee
     # la app). Dice, por empresa, si su ultimo cierre es definitivo o aun provisional.
     if estado:
+        # REZAGADOS: cierres de sesiones YA TERMINADAS que siguen sin confirmar. Es el caso
+        # peligroso -- un precio intradia disfrazado de cierre -- y hasta el 07-ago-2026 no
+        # se distinguia de un cierre bueno. Los del dia en curso no cuentan: esos son
+        # provisionales por definicion y se confirman manana.
+        rezagados = sorted(t for t, e in estado.items()
+                           if any(f < hoy for f in (e.get("sinConfirmar") or [])))
         with open(os.path.join(outdir, "_estado.json"), "w", encoding="utf-8") as f:
             json.dump({"actualizado": hoy,
                        "provisionales": sorted(t for t, e in estado.items() if e["provisional"]),
+                       "rezagados": rezagados,
                        "empresas": estado}, f, ensure_ascii=False)
+        if rezagados:
+            print(f"::warning::{len(rezagados)} empresas con cierres de sesiones ya cerradas "
+                  f"SIN CONFIRMAR: {', '.join(rezagados[:12])}"
+                  f"{' ...' if len(rezagados) > 12 else ''}. "
+                  f"Un pase no se entrego a su hora y esos precios pueden ser intradia.")
+        else:
+            print("Cierres: todos confirmados por un pase posterior a su sesion.")
 
     _indj = _indj_ultimo()
     if _indj:
