@@ -1,24 +1,48 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-08-03T12:04:43+02:00",
+  "generadoEl": "2026-08-10T10:03:04+02:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-08-03",
-  "resumenTexto": "📌 RESULTADOS confirmados (2): Amadeus 31-07, Inditex 09-09. 💶 Ex-dividend (orientativo, 2): Ebro Foods 29-09, Inditex 29-10. Sin fecha de resultados confirmada: 9 (rige la estimación del Vigía).",
+  "fechaReferencia": "2026-08-10",
+  "resumenTexto": "📌 RESULTADOS confirmados (5): Inditex 09-09, Enagás 20-10, Iberdrola 21-10, Bankinter 22-10, Viscofan 22-10. 💶 Ex-dividend (orientativo, 2): Ebro Foods 29-09, Inditex 29-10. Sin fecha de resultados confirmada: 10 (rige la estimación del Vigía).",
   "resultados": [
-    {
-      "ticker": "AMS",
-      "empresa": "Amadeus",
-      "fecha": "2026-07-31",
-      "dias": -3,
-      "confirmada": true,
-      "fuente": "calendar"
-    },
     {
       "ticker": "ITX",
       "empresa": "Inditex",
       "fecha": "2026-09-09",
-      "dias": 37,
+      "dias": 30,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "ENG",
+      "empresa": "Enagás",
+      "fecha": "2026-10-20",
+      "dias": 71,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "IBE",
+      "empresa": "Iberdrola",
+      "fecha": "2026-10-21",
+      "dias": 72,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "BKT",
+      "empresa": "Bankinter",
+      "fecha": "2026-10-22",
+      "dias": 73,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "VIS",
+      "empresa": "Viscofan",
+      "fecha": "2026-10-22",
+      "dias": 73,
       "confirmada": true,
       "fuente": "calendar"
     }
@@ -28,7 +52,7 @@
       "ticker": "EBRO",
       "empresa": "Ebro Foods",
       "exFecha": "2026-09-29",
-      "dias": 57,
+      "dias": 50,
       "pagoFecha": null,
       "importe": 0.23,
       "fuente": "calendar"
@@ -37,7 +61,7 @@
       "ticker": "ITX",
       "empresa": "Inditex",
       "exFecha": "2026-10-29",
-      "dias": 87,
+      "dias": 80,
       "pagoFecha": null,
       "importe": 0.875,
       "fuente": "calendar"
@@ -52,6 +76,11 @@
     {
       "ticker": "ACS",
       "empresa": "ACS",
+      "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
+    },
+    {
+      "ticker": "AMS",
+      "empresa": "Amadeus",
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     },
     {
