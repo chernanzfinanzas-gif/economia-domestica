@@ -967,7 +967,27 @@ function renderPanelDash(){
           if(!_resuelta105(r)) return false;
           const c=_numES(r.cot); return _nivOK({nivel:((_bull>0&&c>=_bull)?'bull':'base')},nivel); })
         .map(r=>({fecha:_f105(r.fecha),estado:'',origen:'§10.5'})).filter(r=>r.fecha); };
-    const _silenciada=(t,sig,nivel)=>{ const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)).concat(_ap105(t,sig,nivel)); if(!arr.length)return false;
+    /* [10-ago-2026] UNA FILA `ABIERTA` EN EL §10.5 GANA A CUALQUIER SILENCIO ANTERIOR.
+       El arreglo del 4-ago dejó de contar la fila `ABIERTA` como revisión hecha —correcto—, pero
+       se quedó a medias: un apunte RESUELTO *anterior* seguía callando el aviso. Caso real: ACS
+       abrió una S3 el 10-ago (109,10 € ≥ PO bull 98,60 €) y el Panel no dijo nada, porque su §10.5
+       tenía la fila del 22-jul «S3 · 117,10 € · REAFIRMAR», dentro de los 60 días de silencio de las
+       señales de precio. Y esa fila se había decidido contra un PO ANTERIOR: el 27-jul un apunte
+       AJUSTA PO re-valoró con beta sectorial y el 29-jul se recolocó la banda. El Panel no puede
+       saberlo, porque deduce el nivel comparando una cotización vieja contra el PO bull de HOY.
+       El método es explícito: la Nota es lo ÚNICO que cierra una señal. Mientras haya una fila
+       ABIERTA la señal no está resuelta y el aviso tiene que sonar, tenga la edad que tenga el
+       apunte anterior. Se mira solo `ABIERTA` literal, no «decisión vacía»: una fila a medio
+       escribir no debe resucitar avisos ya contestados.
+       Nota: esto NO toca el `estado==='abierta'` de DB.protocolo unas líneas más abajo, que es
+       otra cosa —un borrador del operador en la app— y sigue silenciando como hasta ahora.
+       Si los dos discrepan manda el §10.5, como en todo el método. */
+    const _abierta105=(t,sig)=>{ if(typeof revisionesCorpDe!=='function')return false;
+      let filas=[]; try{ filas=revisionesCorpDe(t).filas||[]; }catch(e){ return false; }
+      return filas.some(r=>((''+(r.senal||'')).toUpperCase().trim())===sig
+                        && (''+(r.decision||'')).toUpperCase().trim()==='ABIERTA'); };
+    const _silenciada=(t,sig,nivel)=>{ if(_abierta105(t,sig))return false;
+      const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)).concat(_ap105(t,sig,nivel)); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
       if(_PRECIO[sig]) return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL;
