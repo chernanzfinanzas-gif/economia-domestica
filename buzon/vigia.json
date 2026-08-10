@@ -1,140 +1,32 @@
 {
-  "generadoEl": "2026-07-20T15:28:31+02:00",
+  "generadoEl": "2026-08-10T10:03:17+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-07-20",
-  "resumenTexto": "📅 ESTA SEMANA (11): Viscofan 23-07, Atresmedia 24-07, Bankinter 24-07, Amadeus 25-07, Ebro Foods 25-07, Endesa 25-07, Iberdrola 25-07, Mapfre 25-07, Naturgy 25-07, Repsol 25-07, Vidrala, S.A. 25-07. 🔜 PRÓXIMOS 14 DÍAS: Logista 28-07, Santander 30-07. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
-  "vencidos": [],
-  "estaSemana": [
+  "fechaReferencia": "2026-08-10",
+  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +16d). Nada en 14 días. Siguiente: Inditex ~10-09 (H1). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [
     {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-23",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    },
-    {
-      "ticker": "A3M",
-      "empresa": "Atresmedia",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-24",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-23"
-    },
-    {
-      "ticker": "BKT",
-      "empresa": "Bankinter",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-24",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-23"
-    },
-    {
-      "ticker": "AMS",
-      "empresa": "Amadeus",
+      "ticker": "MCM",
+      "empresa": "Miquel y Costas",
       "periodoEsperado": "2026-Q2",
       "periodoLabel": "H1",
       "fechaEstimada": "2026-07-25",
       "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-05-14"
-    },
-    {
-      "ticker": "EBRO",
-      "empresa": "Ebro Foods",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-25"
-    },
-    {
-      "ticker": "ELE",
-      "empresa": "Endesa",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    },
-    {
-      "ticker": "IBE",
-      "empresa": "Iberdrola",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    },
-    {
-      "ticker": "MAP",
-      "empresa": "Mapfre",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    },
-    {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-25"
-    },
-    {
-      "ticker": "REP",
-      "empresa": "Repsol",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    },
-    {
-      "ticker": "VID",
-      "empresa": "Vidrala, S.A.",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-25"
+      "ultimaFecha": "2026-05-08",
+      "diasVencido": 16
     }
   ],
-  "proximos14d": [
-    {
-      "ticker": "LOG",
-      "empresa": "Logista",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-07-28",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-04-30"
-    },
-    {
-      "ticker": "SAN",
-      "empresa": "Santander",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-30",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-04-28"
-    }
-  ],
+  "estaSemana": [],
+  "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "VIS",
-    "empresa": "Viscofan",
+    "ticker": "ITX",
+    "empresa": "Inditex",
     "periodoEsperado": "2026-Q2",
     "periodoLabel": "H1",
-    "fechaEstimada": "2026-07-23",
+    "fechaEstimada": "2026-09-10",
     "ultimoPeriodo": "2026-Q1",
-    "ultimaFecha": "2026-04-28"
+    "ultimaFecha": "2026-06-10"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 14
+  "totalEmpresas": 25
 }
