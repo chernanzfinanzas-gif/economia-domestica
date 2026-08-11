@@ -236,11 +236,19 @@ function _mcCierresHTML(tickers){
   /* la fecha más antigua sin confirmar, que es la que hay que mirar */
   let f='';
   r.forEach(function(t){ const sc=(emp[t]||{}).sinConfirmar||[]; sc.forEach(function(d){ if(!f||d<f)f=d; }); });
-  return '<div class="mc-max ojo">⚠ <b>'+r.length+' '+(r.length===1?'valor':'valores')
-    +' con el cierre sin confirmar</b>'+(f?(' desde el '+_mcFecha(f)):'')+' ('+r.join(', ')+')'
-    +'<span class="mc-max-pie">Un pase de cotizaciones no se entregó a su hora, así que ese precio '
-    +'puede ser de mitad de sesión y no un cierre. Lanza el pase de <b>Cotizaciones</b> en GitHub '
-    +'y vuelve a cargar.</span></div>';
+  return '<div class="mc-max ojo">⚠ <b>El histórico de cierres tiene '+r.length+' '
+    +(r.length===1?'valor':'valores')+' sin confirmar</b>'+(f?(' desde el '+_mcFecha(f)):'')
+    +' ('+r.join(', ')+')'
+    /* [11-ago-2026] EL AVISO TIENE QUE DECIR SOBRE QUE NUMERO AVISA.
+       La primera versión decía «el cierre sin confirmar» a secas, y Carlos preguntó lo
+       correcto: el precio que él sube del Excel ES el cierre oficial tras la subasta, así
+       que ¿de qué se le está avisando? De otra cosa: del histórico del repo, que no es el
+       precio de la tarjeta. Avisar sin decir a qué afecta es la misma falta que el sello
+       que enseñaba la hora del robot: una etiqueta que no pertenece a su número. */
+    +'<span class="mc-max-pie"><b>No afecta al precio que ves</b> si lo importaste del Excel: '
+    +'ese es el cierre oficial tras la subasta. Afecta al <b>máximo de la cartera</b> de aquí '
+    +'arriba y a los gráficos de cada Ficha, que salen del histórico del repositorio. '
+    +'Lanza el pase de <b>Actualizar cotizaciones</b> en GitHub y pulsa ↻ Actualizar.</span></div>';
 }
 function _mcMaxHTML(valorHoy){
   const m=_mcMaximo();
@@ -497,6 +505,11 @@ function renderMiCartera(){
 function _mcRefrescar(){
   if(_mcRefrescando)return;
   if(typeof sincronizarIntradia!=='function'){ _mcAviso='Esta versión de la app no trae el intradía.'; renderMiCartera(); return; }
+  /* [11-ago-2026] El estado de los cierres se pedía UNA vez por carga de página, así que
+     lanzar el pase en GitHub y volver a la pestaña dejaba el aviso encendido aunque ya
+     estuviera resuelto. Se pide de nuevo en cada refresco manual, que es justo cuando el
+     usuario acaba de hacer algo para arreglarlo. */
+  _mcEstadoPedido=false; _mcEstadoCierres=null;
   _mcRefrescando=true; _mcAviso=''; renderMiCartera();
   const _antes=(typeof _intradia!=='undefined'&&_intradia&&_intradia.hora)||'';
   Promise.resolve(sincronizarIntradia()).then(function(n){
