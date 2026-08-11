@@ -171,11 +171,27 @@ var _MC_MAX_MIN_DIAS=5;          /* con menos sesiones, «máximo histórico» n
 /* Valores en cartera cuyo `precios/<T>.json` no está en el repo. Importa decirlo: sin su
    histórico, `carteraEvolData` los valora al precio de compra, y entonces el máximo sale
    CORTO. Callarlo sería enseñar un número redondo que no se sostiene. */
-function _mcSinHistorico(){
+function _mcSinHistorico(fechaMax){
   if(typeof _allOps!=='function'||typeof _precioCache==='undefined') return [];
-  const held=[];
-  _allOps().forEach(function(o){ const t=_mcUp(o.ticker); if(t&&held.indexOf(t)<0)held.push(t); });
-  return held.filter(function(t){
+  /* [11-ago-2026] SOLO LOS QUE TENÍAS EL DÍA DEL MÁXIMO.
+     La primera versión miraba todos los tickers que han pasado alguna vez por la cartera, e
+     incluía las posiciones ya cerradas. Resultado: avisaba de BME —excluida de bolsa en 2020,
+     cuyo histórico no va a existir nunca— sobre un máximo del 06-ago-2026, cuando BME hacía
+     seis años que no estaba. Un aviso que no se puede resolver y que no afecta al número es
+     ruido, y el ruido acaba enseñando a ignorar los avisos que sí importan.
+     Lo que de verdad puede dejar el máximo corto es un valor SIN cierres que estuviera en la
+     cartera EL DÍA del máximo. Eso es lo que se mira. */
+  const dms=fechaMax?Date.parse(fechaMax+'T00:00:00'):Date.now();
+  const ops=_allOps();
+  const acc={};
+  ops.forEach(function(o){
+    const t=_mcUp(o.ticker); if(!t) return;
+    const om=Date.parse((o.fecha||'')+'T00:00:00');
+    if(isNaN(om)||om>dms) return;
+    acc[t]=(acc[t]||0)+((o.tipo==='venta')?-1:1)*_mcNum(o.acciones);
+  });
+  return Object.keys(acc).filter(function(t){
+    if(!(acc[t]>0.0001)) return false;            /* no estaba en cartera ese día */
     const pj=_precioCache[t];
     return pj!==undefined && (!pj||!pj.data||!pj.data.length);
   });
@@ -194,7 +210,7 @@ function _mcMaximo(){
   if(mi<0||!(mx>0)) return null;
   const fechas=ev.dates||ev.labels||[];
   return {valor:mx, fecha:fechas[mi]||'', enMaximo:(mi===ev.valor.length-1),
-          dias:ev.valor.length, desde:fechas[0]||'', sinHist:_mcSinHistorico()};
+          dias:ev.valor.length, desde:fechas[0]||'', sinHist:_mcSinHistorico(fechas[mi]||'')};
 }
 /* --------------------------------------------------------------------------
    Cierres sin confirmar (07-ago-2026)

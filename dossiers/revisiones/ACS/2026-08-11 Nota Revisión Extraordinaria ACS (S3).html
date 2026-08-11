@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACS · Nota de Revisión Extraordinaria · Precio · cierre 10-ago-2026</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#00376D;--corp-dark:#00284f;--corp-light:#e6eef6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 62%,var(--corp-light) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.82)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.72)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.72);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.7);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S3</div>
+      <div class="company-name">ACS, Actividades de Construcción y Servicios</div>
+      <div class="badges">
+        <span class="badge badge-alert">S3 · Precio objetivo alcanzado</span>
+        <span class="badge badge-sig">Precio · cierre 10-ago-2026</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <img class="header-logo" src="data:image/png;base64,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" alt="ACS"><div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">ACS · BME · Mercado Continuo<br>Fecha: 11-ago-2026<br>Plazo señal: 7 días — abierta 10-ago, vence 17-ago</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">ESPERAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">68,80 €</div><div class="kpi-sub">sin cambio · dossier 21-jul</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">109,10 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">−36,9%</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Reverse DCF</div><div class="kpi-val red">HEROICO</div><div class="kpi-sub">g impl. 6,20% · 3,6×</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S3</div>
+  <p>El detector de precio del informe semanal abrió una <b>S3</b> el <b>10-ago-2026</b>: a <b>109,10 €</b> (Matriz, cierre 10/08/2026) ACS cotiza <b>+10,6% por encima de su PO bull (98,60 €)</b> y <b>+58,6% sobre el PO base (68,80 €)</b>. Es el evento que el propio §10.4 tipifica como red flag —«Cotización ≥ PO base; al alza ≥ PO bull → Señal S3: revisar decisión (tesis de valoración)»—, y el §10.5 lo traduce en obligación: «PO base alcanzado: NO comprar; si se posee, evaluar toma de beneficios parcial».<br><br><b>Por qué se reabrió una señal que ya tenía apunte.</b> El §10.5 registraba una S3 del <b>22-jul-2026</b> (cotización 117,10 €, decisión REAFIRMAR), pero esa decisión <b>se tomó contra un precio objetivo que ya no existe</b>: el <b>27-jul</b> un apunte <i>AJUSTA PO</i> re-valoró con la beta sectorial 1,05 en vez de la del CAPM (0,63), y el <b>29-jul</b> otro apunte <i>AJUSTA BANDA</i> recolocó la entrada a 52,50–57,50 €. El umbral vigente —el PO bull de 98,60 €— <b>no se ha juzgado nunca</b>. Esta Nota lo juzga. El dossier es del 21-jul-2026, de hace tres semanas: <b>no es una S4 encubierta</b> y no procede actualizar la valoración por caducidad.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Esta señal la dispara el <b>precio</b>, no un hecho societario, de modo que lo que hay que corroborar es justamente <b>la ausencia de un hecho que lo explique</b>. El chequeo societario del informe semanal del 10-ago no encontró nada en la ventana 3–10 de agosto: la única comunicación de ACS a la CNMV fue la del <b>4-ago (autocartera)</b>, mecánica ordinaria del programa de recompra, y la web corporativa solo recoge la apertura del puente Gordie Howe (3-ago), entrega de proyecto. No hay adjudicación, ni M&amp;A, ni guía revisada, ni hecho relevante que justifique el nivel del precio. <b>Lo que sube es el múltiplo, no una noticia.</b><br><br><b>Pte. Revisión:</b> el listado de «Otra Información Relevante» de la web de ACS no sirvió su contenido al consultarlo hoy, y el buscador por NIF de la CNMV viene fallando de forma sistemática (devuelve la entidad de la consulta anterior). Por tanto <b>no puedo afirmar que no exista una comunicación del 11-ago</b>: solo que no he encontrado ninguna. La cotización de referencia es la del <b>cierre del 10-ago</b>, porque la sesión del 11 aún no había cerrado al emitir esta Nota; el precio sale siempre de la Matriz, nunca de internet.</p>
+  <div class="cb-src">Fuentes: registro de la CNMV y sala de prensa de Grupo ACS · chequeo societario del Informe Semanal de Cartera 2026-08-10 (ventana 3–10 ago).</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El precio se ha desbocado; el valor no se ha movido.</div>
+    <div class="seg-body">La valoración es <b>reciente y robusta</b>: dossier del 21-jul y re-valoración del 27-jul. La prueba de robustez perturbando WACC ±1 pp y g<sub>TV</sub> ±0,5 pp mueve el PO entre <b>66,41 y 104,18 €</b>: la cotización de 109,10 € queda <b>por encima de TODO el rango</b>, no solo del punto central. El <b>Reverse DCF re-ejecutado hoy</b> con las mismas entradas congeladas y solo el precio nuevo da un <b>g implícito del 6,20%</b> frente a un g intrínseco autofinanciable del <b>1,73%</b> — <b>3,6×</b>, veredicto <b>HEROICO</b>. Los múltiplos siguen en <b>P/E 31x y P/BV 6,3x</b> contra medias propias de 12,4x/1,8x y un Vinci a 14x. Y parte del movimiento es beta de mercado, no ACS: el IBEX cerró la semana en <b>máximos históricos (20.176 pts, +2,0% semanal, ≈+16,7% YTD)</b>.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">El PO no ha digerido el 1S-2026, y hay un punto material y verificable.</div>
+    <div class="seg-body"><b>El dossier es del 21-jul y los resultados del 1S-2026 se publicaron el 29-jul</b>: el PO vigente no los incorpora. Y el semestre fue el mejor de la serie —ventas 26.168 M€ (+8,5%; +12,0% ajustado por divisa), EBITDA 1.618 M€ (+12,8%) con el margen subiendo a 6,2%, BNA 510 M€ (+13,3%) y <b>cartera récord 105.856 M€</b>—. Sobre todo, un dato de balance que sí entra directo en el DCF: <b>la deuda neta pasa de 3.352 M€ (cierre 2025, la cifra con la que está calculado el descuento) a una CAJA NETA de 1.006 M€</b>. Además el driver nº1 va en dirección contraria a su alarma: el capex agregado de los hyperscalers para 2026 sube a ~725–732.500 M$ (+79% i.a.) <b>sin un solo recorte real de guidance</b>. Y una parte del hueco entre precio y PO no es un hecho de mercado sino <b>una decisión de método</b>: la beta sectorial 1,05 elegida el 27-jul frente a la del CAPM (0,63) es lo que bajó el PO.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico: el exceso de precio es REAL, pero el PO tiene un punto genuinamente desactualizado — y aun corrigiéndolo la conclusión no cambia.</b> Confianza <b>alta</b>. El giro de la deuda neta son, mecánicamente, <b>+16,93 €/acción</b> sobre cualquier PO del DCF (4.358 M€ entre 257,46 M de acciones): llevaría el PO base de 68,80 a <b>85,73 €</b> — y la cotización seguiría un <b>27,3% por encima</b>. Ahora bien, aplicarlo hoy sería el error exacto que prohíbe el §10.5, y la propia serie del §10.3 lo demuestra: la deuda neta de ACS es <b>estacional</b> —S1-2025 2.200 M€ → FY-2025 3.352 M€—, así que la caja neta de junio no es la cifra estructural que va al descuento. El detalle que lo vuelve una trampa: con ese ajuste el PO bull pasaría a <b>115,53 €</b> y <b>la S3 dejaría de estar disparada</b>. Ajustar el modelo hasta que la alarma se apague es precisamente lo que esta Nota no puede hacer.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Ningún riesgo del §8.1 se ha materializado y ningún pre-mortem del §8.2 ha detonado.</b> <b>R1 · concentración en data centers</b> (media, −20/−35%): su alarma exige caída de adjudicaciones de Turner 2-3 trimestres seguidos <i>más</i> recortes de guidance de los hyperscalers; hoy ocurre lo contrario y la cartera marca récord. La pata de adjudicaciones de Turner es dato de empresa → <b>Pte. Revisión</b>. <b>R3 · derating por valoración exigente</b> (ALTA, −25/−45%) es el riesgo vivo y el que esta señal pone sobre la mesa: sus tres gatillos literales —revisión a la baja del BPA, rotación fuera de <i>growth</i>, incumplimiento de guidance— <b>siguen sin documentarse</b>, de modo que la alarma no está cruzada; pero la <b>exposición</b> a ese riesgo crece con cada euro de subida. R5 (fondo de comercio al 105% del PN atribuible) sin impairment; R6 (sucesión) sin hecho. El pre-mortem nº1, el de −50%, está más lejos que en julio.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>La tesis sigue viva y el Bear case no se está materializando.</b> El §9.2 describe un <b>bull case de ~98,6–131 €</b>: la cotización de 109,10 € cae <b>dentro</b> de ese rango, en su tramo bajo. Conviene decirlo con precisión, porque es el matiz de esta S3: el <b>PO bull de 98,60 € es el escenario alto de la SÍNTESIS</b> (40% múltiplos + 60% DCF), mientras los 131 € son el <b>DCF optimista puro</b>, antes de mezclarlo con unos múltiplos que hoy penalizan. No son la misma magnitud, y el umbral canónico del método es el primero. La asimetría del §9.2 se mantiene <b>desfavorable</b>: el bear case (55,7–70 €) implica −36% a −49% desde aquí, muy por encima del umbral de −20% del método, mientras el recorrido al alza depende de que el ciclo de IA siga. <b>El PO aguanta con las cifras nuevas</b> salvo por el punto de la deuda neta, que se difiere al cierre anual.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Reverse DCF</span><span>Re-ejecutado con las entradas congeladas el 31-jul (FCL 1.500 M€, WACC 8,3%, g<sub>TV</sub> 2,0%, 257,46 M acc., DN 3.352,4 M€, modo EV) cambiando <b>solo el precio</b>: g implícito <b>6,20%</b> (era 7,22% a 117,60 €) frente a un g intrínseco de <b>1,73%</b> → <b>3,6×</b>. La bajada no es una mejora del negocio: es que el precio está un 7,2% por debajo de la base congelada. <span class="pill r">HEROICO</span></span></div><div class="tool-row"><span class="tool-name">Robustez</span><span>PO entre <b>66,41 y 104,18 €</b> perturbando WACC ±1 pp y g<sub>TV</sub> ±0,5 pp; la cotización supera <b>todo</b> el rango. La cautela no depende de una hipótesis concreta. <span class="pill g">SÓLIDA</span></span></div><div class="tool-row"><span class="tool-name">Forense</span><span>Piotroski <b>5/9</b> (banda media, F-Score A4), Altman <b>Z 4,82</b> (zona segura), Beneish <b>M −2,6</b> (sin indicios). <b>Sin veto</b>: nada bloquea la tesis por calidad contable — el problema de ACS no es el negocio. <span class="pill g">SIN VETO</span></span></div><div class="tool-row"><span class="tool-name">Dividend Safety</span><span>Score <b>84/100</b>, banda «Muy seguro»; cobertura del dividendo 4,94x sobre resultado ordinario y 5,48x sobre FCL. No es el gatillo, pero descarta que la S3 encubra un problema de retribución. <span class="pill g">84</span></span></div><div class="tool-row"><span class="tool-name">Actualización anual</span><span><b>No procede</b>: el dossier tiene 3 semanas. Esto es una S3, no una S4 por PO caducado. <span class="pill g">N/A</span></span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">«Si descubriera hoy ACS por primera vez, a 109,10 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist o la descartaría?»</div>
+  <div class="anchor-a"><b>Watchlist. No la compraría.</b> Pagaría 31 veces beneficios y 6,3 veces valor en libros por una constructora —negocio de márgenes finos, 6,2% de EBITDA— cuyo crecimiento depende de que cuatro compañías sigan gastando en centros de datos. La respuesta no cambia por conocer el precio de entrada, y aquí eso es fácil de sostener por una razón que conviene escribir: <b>no hay posición</b>. El §10.5 del 22-jul lo deja registrado —«empresa en vigilancia, no se abre posición fuera de zona de entrada»—, así que no hay plusvalía latente que defender ni pérdida que negar.<br><br><b>El sesgo real de este caso no es el anclaje: es el FOMO.</b> Ver la acción un 58,6% por encima del PO invita a rebajar la exigencia —a subir el PO «porque el mercado sabrá algo», o a estrenar posición «con poco» para no quedarse fuera—. La banda de entrada (52,50–57,50 €) implica esperar una caída del <b>−47,3% al −52,3%</b> desde aquí, y hay que decirlo sin adornos: <b>es perfectamente posible que ese precio no vuelva</b>. Eso no convierte la disciplina en error. Una tesis que exige un precio que quizá no llegue tiene un coste de oportunidad real, y la respuesta honesta es asumirlo, no reescribir el umbral.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">El veredicto <b>ESPERAR</b> se mantiene, y con él todas las cifras: PO bear/base/bull <b>55,70 / 68,80 / 98,60 €</b>, banda de entrada <b>52,50–57,50 €</b> y stop de tesis <b>49,85 €</b>. <b>Nada se mueve.</b> La S3 obligaba a decidir, no a actuar: la decisión es que el mercado paga hoy más de lo que ACS vale en el escenario alto de su propia síntesis, y que eso no es motivo para comprar ni —al no haber posición— para vender. El único punto del modelo que está genuinamente desactualizado, el giro de la deuda neta, se <b>difiere al cierre FY-2026</b>, porque aplicarlo con una cifra semestral estacionalmente favorable apagaría la alarma en vez de contestarla.</div>
+  <div class="action-line">Acción: ninguna sobre la cartera — no hay posición. Se mantiene en vigilancia y NO se compra por encima de 57,50 €. Re-evaluar con el 9M-2026 (octubre) y, en firme, con la Actualización Anual FY-2026.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>Cifras del 1S-2026, cartera, deuda neta y serie trimestral: Excel del método, §10.3 Monitor Trimestral (ACS · pestaña Vigilancia) e informe financiero semestral de la compañía, publicado el 29-jul-2026.</li><li>PO, banda, stop, robustez, Reverse DCF y forense: <code>ACS.json</code> (schemaVersion 8, 21-jul-2026) y pestañas Valoración, Due Diligence Riesgos y Tesis de Inversión del Excel.</li><li>Cotización 109,10 € (cierre 10/08/2026): Matriz Bolsa Española v2 · <code>precios-excel.json</code>, sesión 2026-08-10. Nunca de internet.</li><li>Capex de los hyperscalers 2026 (~725–732.500 M$, +79% i.a., sin recortes de guidance) e IBEX 35 en máximos (20.176 pts): panel macro del Informe Semanal de Cartera de 10-ago-2026, con sus fuentes citadas (<a href='https://www.uncoveralpha.com/p/amazon-google-microsoft-meta-q2-earnings'>UncoverAlpha</a>, <a href='https://www.cnbc.com/2026/07/28/hyperscalers-face-higher-capex-scrutiny-after-alphabet-report-panned.html'>CNBC</a>, <a href='https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/el-ibex-35-culmina-una-semana-de-pleno-de-maximos-n-941661'>Estrategias de Inversión</a>).</li><li>Ausencia de hechos societarios en la ventana 3–10 ago y comunicación de autocartera del 4-ago: <a href='https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-28004885&amp;lang=en'>CNMV · Otra Información Relevante (ACS)</a> y <a href='https://www.grupoacs.com/accionistas-e-inversores/comunicaciones-cnmv/otra-informacion-relevante/'>sala de comunicaciones de Grupo ACS</a> (listado no servido al consultarlo el 11-ago → Pte. Revisión).</li></ul></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria emitida bajo el Protocolo de Revisión Extraordinaria del Método de Análisis Financiero KH&amp;Claude, señal <b>S3 · precio objetivo alcanzado</b>, abierta el 10-ago-2026 por el detector de precio del informe semanal y cerrada con esta Nota el 11-ago-2026, dentro del plazo de 7 días. El desenlace queda registrado en los tres sitios donde vive la señal: el §10.5 de la pestaña Vigilancia del Excel, <code>estado.json</code> y <code>hallazgos.json</code>. Orden de autoridad, invariable: §10.5 &gt; estado.json &gt; hallazgos.json. <b>Dos huecos del expediente detectados en esta revisión y pendientes de corrección:</b> (1) las celdas canónicas del §9.3-bis del Excel siguen diciendo entrada 69,00–75,00 € cuando el apunte del 29-jul recolocó la banda a 52,50–57,50 € —si se regenera el dossier sin corregirlas, la banda revertiría—; (2) la deuda neta que alimenta el DCF (3.352,4 M€, cierre 2025) quedará obsoleta con el FY-2026. Este documento es un análisis para uso propio, no una recomendación de compra o venta, y no constituye asesoramiento financiero. Lo que no se ha podido verificar se marca expresamente como «Pte. Revisión». Quien lo lea debe formarse su propio juicio. · Carlos HB &amp; Claude IA · 11-ago-2026.</div>
+
+</div></body></html>
