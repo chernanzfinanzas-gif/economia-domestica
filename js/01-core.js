@@ -2117,7 +2117,7 @@ function renderSalud(){
   fetch('salud_estado.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
     if(!j){ box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px">Linter de dossiers y sincronía repo ↔ carpetas.</div><div class="dnote">No hay <code>salud_estado.json</code> en el repo todavía. Ejecuta <code>generar_salud.py</code> en tu ordenador y súbelo para ver aquí el linter completo y la sincronía repo↔carpetas.</div></div>'; return; }
     function dcard(tit,o){ var ok=o&&o.ok; return '<div class="scard '+(ok?'ok':'bad')+'"><div class="sc-h"><span class="sc-ico">'+(ok?'✓':'✕')+'</span><b>'+tit+'</b></div><div class="sc-d" style="margin-top:4px">'+((o&&o.detalle)||'')+'</div></div>'; }
-    box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px;margin-bottom:8px">generado '+(j.generado||'—')+'</div><div class="salud-grid">'+dcard('Linter de dossiers (completo)',j.linter)+dcard('Sincronía repo ↔ carpetas',j.sincronia)+'</div></div>';
+    box.innerHTML='<div class="dsec"><div class="dsec-t">🖥️ Controles de escritorio</div><div class="muted" style="font-size:12px;margin-bottom:8px">generado '+(j.generado||'—')+'</div><div class="salud-grid">'+dcard('Linter de dossiers (completo)',j.linter)+dcard('Sincronía repo ↔ carpetas',j.sincronia)+(j.formulas?dcard('Caché de fórmulas de los Excel',j.formulas):'')+'</div></div>';
   }).catch(function(){ if(box)box.innerHTML=''; });
 }
 

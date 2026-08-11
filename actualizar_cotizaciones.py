@@ -456,7 +456,13 @@ def main():
                        "provisional": pendientes[0] if pendientes else None,
                        "data": data}, f, ensure_ascii=False)
 
-        marca = (" [sin confirmar: " + ", ".join(pendientes) + "]") if provisional else ""
+        # [11-ago-2026] Cuando algo se queda sin confirmar, se dice TAMBIEN que trajo la
+        # descarga. Sin eso no se puede distinguir "la fuente no sirve esa sesion" de "la
+        # logica de confirmacion falla", y las dos veces que lo he razonado sin este dato me
+        # he equivocado.
+        _rango = (nuevos[0][0] + ".." + nuevos[-1][0]) if nuevos else "nada"
+        marca = (" [sin confirmar: " + ", ".join(pendientes)
+                 + "; la descarga trajo " + _rango + "]") if provisional else ""
         print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) +{altas} nuevos, "
               f"{len(correcciones)} corregidos -> {len(data)} "
               f"({data[0][0]} .. {data[-1][0]}){marca}")
