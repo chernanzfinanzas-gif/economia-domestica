@@ -262,6 +262,25 @@ function renderInvLotes(){
   if(!el._invLotesBound){ el._invLotesBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],a,button'))return; var rr=e.target.closest('tr.mt-row'); if(rr){ rr.classList.toggle('open'); return; } var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-invlotesblk'); if(k){window._invLotesOpen=window._invLotesOpen||{};window._invLotesOpen[k]=b.classList.contains('open');} } }); }
 }
 function _mtNum(l,v,cls){ return '<div class="n"><div class="l">'+l+'</div><div class="v '+(cls||'')+'">'+v+'</div></div>'; }
+/* [11-ago-2026] LA CHAPA TIENE QUE DESCRIBIR EL PRECIO QUE SE ESTA ENSENANDO.
+   Esta vista llamaba a `intradiaSello()` a secas, que solo mira si HAY algun precio
+   provisional en toda la app. Resultado, cazado por Carlos: tras importar el cierre oficial
+   del Excel, Mi Cartera decia bien «cierre oficial del 11/08, importadas de la Matriz» y
+   Cartera seguia rotulando «intradía 17:25 · hace 318 min» sobre los MISMOS numeros. Dos
+   pantallas contando cosas distintas del mismo dato.
+
+   Es la tercera vez que aparece el mismo fallo —el sello del 6-ago, la banda del 7-ago y
+   esta—: una etiqueta que no pertenece al numero que etiqueta. Aqui se resuelve delegando en
+   `_mcSelloGlobal()`, que ya decide entre intradía, cierre oficial y cierre antiguo mirando
+   el ORIGEN de cada precio, y que tiene sus propias pruebas. Una sola cuenta para las dos
+   vistas: si algun dia cambia el criterio, cambia en las dos o en ninguna. */
+function _invSello(posiciones){
+  if(typeof _mcSelloGlobal!=='function') return '';
+  try{
+    const s=_mcSelloGlobal((posiciones||[]).map(function(p){ return p.ticker; }));
+    return s&&s.txt ? (' &middot; '+s.txt) : '';
+  }catch(e){ return ''; }
+}
 function renderInv(){
   if(!DB.config)DB.config={};
   /* [11-ago-2026] La cache del neto medio se vacia en CADA repintado. Sin esto, apuntar un
@@ -281,7 +300,7 @@ function renderInv(){
   const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
   const _pc=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
   $('#invCards').innerHTML='<div class="pos-kpis">'
-    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras${(typeof intradiaSello==='function'&&intradiaSello())?(' &middot; '+intradiaSello()):''}</div></div>`
+    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras${_invSello(all)}</div></div>`
     +`<div class="k"><div class="l">Coste</div><div class="v">${fmt(coste)}</div><div class="p">invertido total</div></div>`
     +`<div class="k"><div class="l">Plusvalía</div><div class="v ${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${fmt(pl)}</div><div class="p">${_pc(plpct)} sobre coste</div></div>`
     +`<div class="k"><div class="l">Dividendos/año (bruto)</div><div class="v">${fmt(divAnual)}</div><div class="p">${(valor?(divAnual/valor*100).toFixed(1):0)}% RPD media</div></div>`
