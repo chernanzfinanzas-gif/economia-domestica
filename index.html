@@ -3370,6 +3370,40 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-presupuesto .par-esc.esc-nec{background:#dcfce7;color:#166534}
   #view-presupuesto .par-esc.esc-pre{background:#f1f5f9;color:#64748b}
 
+  /* ===== [P·REV · ago-2026] Marca visual de «partida revisada» =====================
+     Tres niveles de lectura, de más fino a más grueso: filete verde/gris en la partida,
+     contador en la cabecera del capítulo y recuento del año en la barra de herramientas. */
+  #view-presupuesto .pres-revchip{font-size:10.5px;font-weight:800;border-radius:999px;padding:3px 10px;white-space:nowrap;flex:0 0 auto;background:#f1f5f9;color:#64748b;border:1px solid #e2e8f0}
+  #view-presupuesto .pres-revchip.n{background:#f1f5f9;color:#64748b;border-color:#e2e8f0}
+  #view-presupuesto .pres-revchip.a{background:#fef3c7;color:#92400e;border-color:#fde68a}
+  #view-presupuesto .pres-revchip.g{background:#dcfce7;color:#166534;border-color:#bbf7d0}
+  #view-presupuesto .pres-revchip.big{font-size:12px;padding:6px 13px;margin-left:auto}
+  #view-presupuesto .pres-revchip.big b{font-variant-numeric:tabular-nums}
+  #view-presupuesto .pres-revall{margin-left:8px;border:1px solid #bbf7d0;background:#f0fdf4;color:#166534;border-radius:8px;padding:4px 9px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+  #view-presupuesto .pres-revall:hover{background:#dcfce7;border-color:#86efac}
+  #view-presupuesto .par{border-left:4px solid transparent}
+  #view-presupuesto .par.rev-pend{border-left-color:#cbd5e1;background:#fcfdfe}
+  #view-presupuesto .par.rev-ok{border-left-color:#16a34a}
+  #view-presupuesto .par-revq{width:22px;height:22px;border-radius:999px;border:1px solid var(--line);background:#fff;color:#cbd5e1;font-size:12px;font-weight:800;line-height:1;cursor:pointer;flex:0 0 auto;padding:0;display:flex;align-items:center;justify-content:center}
+  #view-presupuesto .par-revq:hover{border-color:#16a34a;color:#16a34a;background:#f0fdf4}
+  #view-presupuesto .par-revq.on{background:#16a34a;border-color:#16a34a;color:#fff}
+  #view-presupuesto .pres-revbtn{background:#16a34a;border:1px solid #16a34a;color:#fff}
+  #view-presupuesto .pres-revbtn:hover{background:#15803d}
+  #view-presupuesto .pres-ref{font-size:11px;margin-top:5px;font-weight:600}
+  #view-presupuesto .pres-ref .pref{display:inline-block;border-radius:6px;padding:2px 7px;line-height:1.4}
+  #view-presupuesto .pres-ref .pref.eq{background:#f1f5f9;color:#475569}
+  #view-presupuesto .pres-ref .pref.up{background:#fee2e2;color:#991b1b}
+  #view-presupuesto .pres-ref .pref.dn{background:#dcfce7;color:#166534}
+  #view-presupuesto .pres-ref .pref.new{background:#eff6ff;color:#1e40af}
+  #view-presupuesto .pres-revfilt{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:10px;padding:9px 13px;font-size:12px;font-weight:600;margin-bottom:12px}
+  #view-presupuesto .pres-revdone{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:12px;padding:18px;font-size:13.5px;font-weight:700;text-align:center}
+  #view-presupuesto #presRevFilter.on{background:var(--brand);color:#fff;border-color:var(--brand)}
+  #view-presupuesto #presRevFilter:disabled{opacity:.45;cursor:default}
+  @media(max-width:760px){
+    #view-presupuesto .pres-revchip.big{margin-left:0;order:9}
+    #view-presupuesto .pres-revall{font-size:10px;padding:3px 7px}
+  }
+
 /* ===== Formato uniforme (enriquecido) de TODAS las cabeceras colapsables · como Gráficas/Informes ===== */
 .pos-blk,.blk,.mos-blk{border-radius:16px !important}
 .pos-blk-h,.blk-h,.mos-blk-h{padding:15px 18px !important;gap:12px !important;align-items:center !important;border-left-width:5px !important;border-left-style:solid !important;border-left-color:#6366f1;background:linear-gradient(120deg,#eef2ff,#e0e7ff)}
@@ -3760,6 +3794,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <button class="btn ghost sm" id="btnAddYear">+ Año</button>
       <button class="btn sm" id="btnAddCap">+ Añadir capítulo</button>
       <button class="btn ghost sm" id="presImportBtn">Importar presupuesto</button>
+      <span class="pres-revchip big" id="presRevChip"></span>
+      <button class="btn ghost sm" id="presRevFilter" title="Deja a la vista solo las partidas que aún no has revisado y abre los capítulos donde quedan">Solo pendientes</button>
+      <button class="btn ghost sm" id="presRevReset" title="Vuelve a dejar todo el año por repasar. No cambia ningún importe.">Reiniciar revisión</button>
     </div>
     <div id="presBody"></div>
 

@@ -687,9 +687,42 @@ init();
 
 /* ===== Presupuesto v2 · cableado (delegado en #view-presupuesto) ===== */
 (function(){ var host=document.getElementById('view-presupuesto'); if(!host)return;
-  function up(catId,field,value){ var p=presFor(catId,presYear); if(!p){ p={id:uid(),categoriaId:catId,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:presYear}; DB.presupuesto.push(p); } p[field]=value; }
+  function up(catId,field,value){ var p=presFor(catId,presYear); if(!p){ p={id:uid(),categoriaId:catId,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:presYear}; DB.presupuesto.push(p); } p[field]=value;
+    /* [P·REV] La mitad automática del marcado: si tocas el importe o la frecuencia es que ya has
+       mirado la partida, así que se marca sola. El pago y la renovación NO cuentan: son datos
+       administrativos que puedes corregir sin haber decidido nada sobre la cifra. */
+    if((field==='importe'||field==='frecuencia')&&typeof _presHoyISO==='function') p.rev=_presHoyISO();
+  }
+  function _presCatsDe(g){
+    return (g==='__ing')
+      ? (DB.categorias||[]).filter(function(c){ return c.tipo==='ingreso'; })
+      : (DB.categorias||[]).filter(function(c){ return c.tipo!=='ingreso' && c.grupo===g; });
+  }
   host.addEventListener('click',function(e){
     var t;
+    /* [P·REV] Estos tres van los PRIMEROS: viven dentro de cabeceras que al pulsarlas pliegan
+       el bloque, y así el ✓ no despliega el capítulo de rebote. */
+    if(t=e.target.closest('[data-presrev]')){
+      e.stopPropagation();
+      var ar=t.getAttribute('data-presrev').split('|');
+      _presSetRev(ar[0],presYear,ar[1]==='1'); renderPres(); scheduleSave(); return;
+    }
+    if(t=e.target.closest('[data-presrevcap]')){
+      e.stopPropagation();
+      var gg=t.getAttribute('data-presrevcap');
+      var pend=_presCatsDe(gg).filter(function(c){ return !_presIsRev(c.id,presYear); });
+      if(!pend.length)return;
+      var _don=(gg==='__ing')?'de Ingresos':'de «'+gg+'»';
+      if(!confirm('¿Dar por revisadas las '+pend.length+' partidas '+_don+' que quedan?\n\nNo se cambia ningún importe: solo se marcan como miradas y conformes.'))return;
+      pend.forEach(function(c){ _presSetRev(c.id,presYear,true); });
+      renderPres(); scheduleSave(); return;
+    }
+    if(t=e.target.closest('#presRevFilter')){ window._presSoloPend=!window._presSoloPend; renderPres(); return; }
+    if(t=e.target.closest('#presRevReset')){
+      if(!confirm('¿Quitar la marca de revisada a TODAS las partidas de '+presYear+'?\n\nNo se toca ningún importe: el presupuesto se queda como está, solo vuelve a quedar entero por repasar.'))return;
+      (DB.presupuesto||[]).forEach(function(p){ if(pAnio(p)===presYear) delete p.rev; });
+      window._presSoloPend=false; renderPres(); scheduleSave(); return;
+    }
     if(t=e.target.closest('[data-presfrec]')){ var a=t.getAttribute('data-presfrec').split('|'); up(a[0],'frecuencia',a[1]); renderPres(); scheduleSave(); return; }
     /* [C1 · 27-jul-2026] El botón «Eliminar» de la ficha de partida borraba la partida y sus
        presupuestos de TODOS los años en silencio y sin vuelta atrás, mientras que el MISMO borrado

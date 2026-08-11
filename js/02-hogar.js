@@ -11,6 +11,10 @@ function addYear(){
     DB.presupuesto.push({id:uid(),categoriaId:p.categoriaId,importe:p.importe,frecuencia:p.frecuencia,metodoPago:p.metodoPago,renovacion:p.renovacion,anio:ty});
   });
   presYear=ty; fillPresYear(); renderPres(); scheduleSave();
+  /* [P·REV] A propósito NO se copia el campo `rev` de las filas de origen: el presupuesto
+     nuevo nace con todas las partidas SIN revisar, que es justo lo que hace útil la marca. */
+  var _n=DB.presupuesto.filter(function(p){return pAnio(p)===ty;}).length;
+  if(typeof showToast==='function')showToast('Presupuesto '+ty+' creado copiando '+src+' · '+_n+' partidas sin revisar');
 }
 
 /* [B1 · 26-jul-2026] Etiqueta del mes a prueba de arranque. `curMonth` se fija en initPeriod(),
@@ -799,6 +803,55 @@ function _presGruposGasto(){
   ((DB.config&&DB.config.capitulosExtra)||[]).forEach(function(g){ if(set.indexOf(g)<0) set.push(g); });
   return set;
 }
+/* ===== [P·REV · ago-2026] Marca de «partida revisada» ==================================
+   Qué resuelve: addYear() crea el presupuesto del año nuevo COPIANDO el anterior entero
+   (importe, frecuencia, pago y renovación). El resultado es visualmente idéntico a un
+   presupuesto ya trabajado, así que no había forma de saber si un importe está ahí porque
+   lo has revisado o porque nadie lo ha tocado desde el año pasado.
+   Modelo: campo `rev` (fecha ISO del día de la revisión) en la fila de DB.presupuesto.
+   Esas filas ya son por año, así que la marca es por año sin tocar el modelo de datos.
+   addYear NO copia `rev` (mira la lista de campos que copia) → el año nuevo nace en gris.
+   Marcado híbrido: cambiar importe o frecuencia marca sola la partida (cableado en
+   06-main.js, función up()); las que siguen igual necesitan el ✓ manual, porque si no se
+   quedarían grises para siempre y el indicador no serviría de nada.
+   Lo que NO se guarda: nada por capítulo ni por año. El estado del capítulo y el del año
+   se DERIVAN contando partidas, para que no haya dos verdades que puedan discrepar. */
+function _presHoyISO(){ var d=new Date(); return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2); }
+function _presFechaCorta(iso){ return iso?(''+iso).slice(0,10).split('-').reverse().join('/'):''; }
+function _presRowFor(cid,y){
+  var p=presFor(cid,y);
+  if(!p){ p={id:uid(),categoriaId:cid,importe:0,frecuencia:'mensual',metodoPago:'',renovacion:'',anio:y}; DB.presupuesto.push(p); }
+  return p;
+}
+function _presIsRev(cid,y){ var p=presFor(cid,y); return !!(p&&p.rev); }
+function _presSetRev(cid,y,on){ var p=_presRowFor(cid,y); if(on){ p.rev=_presHoyISO(); } else { delete p.rev; } }
+/* Recuento de una lista de categorías: {tot, rev, pend, pct} */
+function _presRevStats(cats,y){
+  var tot=cats.length, rev=0;
+  cats.forEach(function(c){ if(_presIsRev(c.id,y))rev++; });
+  return {tot:tot, rev:rev, pend:tot-rev, pct:tot?Math.round(rev/tot*100):0};
+}
+/* Estado de color derivado: n = nada revisado · a = a medias · g = completo */
+function _presRevCls(st){ return !st.tot?'g':(st.rev===0?'n':(st.pend===0?'g':'a')); }
+function _presRevChip(st,lbl){
+  if(!st.tot) return '';
+  var cls=_presRevCls(st);
+  var txt=st.pend===0?('✓ '+(lbl||'todo revisado')):(st.rev+'/'+st.tot+' revisadas');
+  return '<span class="pres-revchip '+cls+'" title="'+st.rev+' de '+st.tot+' partidas revisadas en este presupuesto">'+txt+'</span>';
+}
+/* Referencia del año anterior, en euros/mes para que la comparación sea a prueba de
+   frecuencias (una partida anual y otra mensual se comparan igual de bien). */
+function _presPrevRef(c,y){
+  var pa=presFor(c.id,y-1);
+  if(!pa) return '<span class="pref new">Partida nueva · sin dato en '+(y-1)+'</span>';
+  var ant=_presMesOf(pa), act=_presMesOf(presFor(c.id,y));
+  if(!ant) return '<span class="pref new">'+(y-1)+': sin importe</span>';
+  var d=act-ant, pc=d/ant*100;
+  var eq=Math.abs(pc)<0.05;
+  var cls=eq?'eq':(d>0?'up':'dn'), sig=d>0?'+':(d<0?'−':'');
+  var v=eq?'sin cambio':(sig+fmt(Math.abs(d))+'/mes · '+sig+Math.abs(pc).toFixed(1).replace('.',',')+'%');
+  return '<span class="pref '+cls+'">'+(y-1)+': '+fmt(ant)+'/mes → '+v+'</span>';
+}
 function _presFicha(c,y,income,open){
   var PAGOS=['—','Recibo','Tarjeta','Efectivo','Nómina','Domiciliado'];
   var p=presFor(c.id,y)||{importe:0,frecuencia:'mensual',metodoPago:'',renovacion:''};
@@ -808,12 +861,20 @@ function _presFicha(c,y,income,open){
   var anualEq=fr==='anual'?imp:(fr==='bianual'?imp/2:imp*12);
   var divNote=fr==='anual'?'(importe anual ÷ 12)':fr==='bianual'?'(importe ÷ 24)':'';
   var perSub=fr==='anual'?fmt(imp)+'/año':fr==='bianual'?fmt(imp)+' cada 2 años':'';
+  var isRev=!!p.rev, revF=_presFechaCorta(p.rev), revCls=isRev?'rev-ok':'rev-pend';
+  var revDot=isRev
+    ?'<button class="par-revq on" data-presrev="'+c.id+'|0" title="Revisada el '+revF+'. Pulsa para quitar la marca">✓</button>'
+    :'<button class="par-revq" data-presrev="'+c.id+'|1" title="Marcar como revisada: la he mirado y se queda como está">✓</button>';
+  var revBtn=isRev
+    ?'<button class="btn ghost sm" data-presrev="'+c.id+'|0" title="Quitar la marca de revisada">✓ Revisada el '+revF+'</button>'
+    :'<button class="btn sm pres-revbtn" data-presrev="'+c.id+'|1" title="Dejarla como está y darla por revisada">✓ Marcar revisada</button>';
   var escTag=(!income)?('<span class="par-esc '+(c.esencial?'esc-nec':'esc-pre')+'">'+(c.esencial?'Necesario':'Prescindible')+'</span>'):'';
   var head='<div class="par-h" data-presp="'+c.id+'"><span class="par-arw">▶</span><span class="par-n">'+(c.nombre||'')+'</span>'
     +'<span class="par-frec '+(isPer?'anual':'')+'">'+_presFrecCap(fr)+'</span>'+escTag
     +(!income&&p.metodoPago?'<span class="par-pago">'+p.metodoPago+'</span>':'')
+    +revDot
     +'<span class="par-right"><span class="par-mes">'+fmt(mes)+'/mes</span>'+(isPer?'<div class="par-anual">'+perSub+((!income&&p.renovacion)?' · renov '+(''+p.renovacion).split('-').reverse().join('/'):'')+'</div>':'')+'</span></div>';
-  if(!isOpen) return '<div class="par">'+head+'</div>';
+  if(!isOpen) return '<div class="par '+revCls+'">'+head+'</div>';
   var clasif=income?'':'<div class="fld"><label>Clasificación</label><div class="fldseg"><button class="'+(c.esencial?'on':'')+'" data-presesc="'+c.id+'|1">Necesario</button><button class="'+(!c.esencial?'on':'')+'" data-presesc="'+c.id+'|0">Prescindible</button></div></div>'
     +'<div class="fld"><label>Seguir en inflación personal</label><div class="fldseg"><button class="'+(c.seguirInfla?'on':'')+'" data-presinfla="'+c.id+'|1">Sí</button><button class="'+(!c.seguirInfla?'on':'')+'" data-presinfla="'+c.id+'|0">No</button></div></div>';
   var extra=income?'':'<div class="fld"><label>Pago (informativo)</label><select data-prespago="'+c.id+'">'+PAGOS.map(function(x){ var sel=((x===p.metodoPago)||(x==='—'&&!p.metodoPago))?' selected':''; return '<option'+sel+'>'+x+'</option>'; }).join('')+'</select></div>'
@@ -823,22 +884,27 @@ function _presFicha(c,y,income,open){
       +'<button class="'+(fr==='mensual'?'on':'')+'" data-presfrec="'+c.id+'|mensual">Mensual</button>'
       +'<button class="'+(fr==='anual'?'on':'')+'" data-presfrec="'+c.id+'|anual">Anual</button>'
       +'<button class="'+(fr==='bianual'?'on':'')+'" data-presfrec="'+c.id+'|bianual">Bianual</button></div></div>'
-    +'<div class="fld"><label>Cantidad ('+perLabel+')</label><input type="number" step="0.01" value="'+imp+'" data-prescant="'+c.id+'"></div>'
+    +'<div class="fld"><label>Cantidad ('+perLabel+')</label><input type="number" step="0.01" value="'+imp+'" data-prescant="'+c.id+'"><div class="pres-ref">'+_presPrevRef(c,y)+'</div></div>'
     +clasif+extra
-    +'<div class="par-calc"><span class="cc">'+(income?'Suma':'Aporta al presupuesto')+': <b>'+fmt(mes)+'/mes</b> · <b>'+fmt(anualEq)+'/año</b> <span class="muted">'+divNote+'</span></span><span class="par-acts"><button class="btn ghost sm" data-presedit="'+c.id+'">Editar ficha</button><button class="btn danger sm" data-presdel="'+c.id+'">Eliminar</button></span></div>'
+    +'<div class="par-calc"><span class="cc">'+(income?'Suma':'Aporta al presupuesto')+': <b>'+fmt(mes)+'/mes</b> · <b>'+fmt(anualEq)+'/año</b> <span class="muted">'+divNote+'</span></span><span class="par-acts">'+revBtn+'<button class="btn ghost sm" data-presedit="'+c.id+'">Editar ficha</button><button class="btn danger sm" data-presdel="'+c.id+'">Eliminar</button></span></div>'
     +'</div>';
-  return '<div class="par open">'+head+form+'</div>';
+  return '<div class="par open '+revCls+'">'+head+form+'</div>';
 }
 function renderPres(){
   var host=$('#presBody'); if(!host) return;
   var y=presYear, open=window._presOpen=window._presOpen||{ing:false};
   var t=$('#presTitle'); if(t)t.textContent='Presupuesto '+y;
+  /* [P·REV] «Solo pendientes» es el modo repaso: esconde lo revisado y abre lo que falta,
+     para poder cerrar un presupuesto nuevo sin ir capítulo por capítulo buscando huecos. */
+  var soloPend=!!window._presSoloPend;
   // ---- Ingresos ----
   var ingCats=(DB.categorias||[]).filter(function(c){return c.tipo==='ingreso';});
   var ingMes=ingCats.reduce(function(s,c){return s+_presMesOf(presFor(c.id,y));},0), ingAnio=ingMes*12;
-  var ingOpen=open.ing!==false;
-  var ingLines=ingCats.map(function(c){return _presFicha(c,y,true,open);}).join('')+'<button class="par-add" data-presaddpart="Ingresos">+ Añadir ingreso</button>';
-  var ingHTML='<div class="blk '+(ingOpen?'open':'')+'"><div class="blk-h" data-presi="ing"><span class="blk-arw">▶</span><span class="blk-ic">💰</span><div><div class="blk-t">Ingresos previstos</div><div class="blk-sub">'+ingCats.length+' partidas · mete la cifra mensual o la anual</div></div><div class="blk-right"><div class="blk-amount pos">'+fmt(ingAnio)+'</div><div class="blk-mes">'+fmt(ingMes)+'/mes</div></div></div><div class="blk-b">'+ingLines+'</div></div>';
+  var ingSt=_presRevStats(ingCats,y);
+  var ingOpen=soloPend?(ingSt.pend>0):(open.ing!==false);
+  var ingShow=soloPend?ingCats.filter(function(c){return !_presIsRev(c.id,y);}):ingCats;
+  var ingLines=ingShow.map(function(c){return _presFicha(c,y,true,open);}).join('')+(soloPend?'':'<button class="par-add" data-presaddpart="Ingresos">+ Añadir ingreso</button>');
+  var ingHTML=(soloPend&&!ingSt.pend)?'':'<div class="blk '+(ingOpen?'open':'')+'"><div class="blk-h" data-presi="ing"><span class="blk-arw">▶</span><span class="blk-ic">💰</span><div><div class="blk-t">Ingresos previstos</div><div class="blk-sub">'+ingCats.length+' partidas · mete la cifra mensual o la anual</div></div>'+_presRevChip(ingSt)+(ingSt.pend?'<button class="pres-revall" data-presrevcap="__ing" title="Dar por revisadas las '+ingSt.pend+' partidas de ingresos que quedan, sin cambiarles nada">✓ Dar por revisadas ('+ingSt.pend+')</button>':'')+'<div class="blk-right"><div class="blk-amount pos">'+fmt(ingAnio)+'</div><div class="blk-mes">'+fmt(ingMes)+'/mes</div></div></div><div class="blk-b">'+ingLines+'</div></div>';
   // ---- Capítulos de gasto + totales ----
   var grupos=_presGruposGasto();
   var gastoMes=0;
@@ -861,11 +927,29 @@ function renderPres(){
     +'<div style="font-size:11px;color:#dbeafe;margin-top:5px">Asignado en capítulos: '+fmt(gastoMes)+'/mes ('+asignadoPct.toFixed(0)+'%)</div></div>'
     +'<div class="pb-rest"><div class="pb-l">'+(over?'Te has pasado':'Restante por asignar')+'</div><div class="rv" style="color:'+(over?'#fecaca':'#bbf7d0')+'">'+(restMes>=0?'':'−')+fmt(Math.abs(restMes))+'<small style="font-size:12px;color:#dbeafe"> /mes</small></div></div></div></div>';
   var capsHTML=capData.map(function(o){
-    var gOpen=!!open[o.g], share=dispMes>0?Math.min(100,o.cm/dispMes*100):0;
-    var parts=gOpen?(o.cats.map(function(c){return _presFicha(c,y,false,open);}).join('')+'<button class="par-add" data-presaddpart="'+o.g+'">+ Añadir partida a '+o.g+'</button>'):'';
-    return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+' <button class="blk-edit" data-pressec="'+o.g+'" title="Editar o eliminar capítulo">✎</button></div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div><div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
+    var st=_presRevStats(o.cats,y);
+    if(soloPend&&!st.pend)return '';
+    var gOpen=soloPend?true:!!open[o.g], share=dispMes>0?Math.min(100,o.cm/dispMes*100):0;
+    var lista=soloPend?o.cats.filter(function(c){return !_presIsRev(c.id,y);}):o.cats;
+    var parts=gOpen?(lista.map(function(c){return _presFicha(c,y,false,open);}).join('')+(soloPend?'':'<button class="par-add" data-presaddpart="'+o.g+'">+ Añadir partida a '+o.g+'</button>')):'';
+    return '<div class="blk '+(gOpen?'open':'')+'"><div class="blk-h" data-presg="'+o.g+'"><span class="blk-arw">▶</span><span class="blk-ic">'+_presIcon(o.g)+'</span><div><div class="blk-t">'+o.g+' <button class="blk-edit" data-pressec="'+o.g+'" title="Editar o eliminar capítulo">✎</button></div><div class="blk-sub">'+o.cats.length+' partidas · '+share.toFixed(0)+'% del disponible</div></div>'+_presRevChip(st)+(st.pend?'<button class="pres-revall" data-presrevcap="'+o.g+'" title="Dar por revisadas las '+st.pend+' partidas que quedan en '+o.g+', dejándolas como están">✓ Dar por revisadas ('+st.pend+')</button>':'')+'<div class="blk-right"><div class="blk-amount">'+fmt(o.cm*12)+'</div><div class="blk-mes">'+fmt(o.cm)+'/mes</div></div></div><div class="blk-barwrap"><div class="blk-bar"><i style="width:'+share.toFixed(0)+'%;background:var(--brand)"></i></div></div><div class="blk-b">'+parts+'</div></div>';
   }).join('');
-  host.innerHTML=ingHTML+planHTML+'<div class="subhead">Capítulos de gasto — reparte el disponible</div>'+capsHTML;
+  /* Recuento del año = ingresos + todas las partidas de gasto. Se deriva aquí, no se guarda. */
+  var todas=ingCats.concat(capData.reduce(function(a,o){return a.concat(o.cats);},[]));
+  var stAll=_presRevStats(todas,y);
+  var _rc=$('#presRevChip');
+  if(_rc){
+    _rc.className='pres-revchip big '+_presRevCls(stAll);
+    _rc.innerHTML=stAll.pend===0
+      ? '✓ Presupuesto '+y+' revisado entero ('+stAll.tot+' partidas)'
+      : 'Revisión '+y+': <b>'+stAll.rev+'/'+stAll.tot+'</b> ('+stAll.pct+'%) · faltan '+stAll.pend;
+    _rc.title='Una partida cuenta como revisada cuando cambias su importe o su frecuencia, o cuando la marcas con el ✓ porque se queda igual. Al crear un año nuevo todas vuelven a estar sin revisar.';
+  }
+  var _rf=$('#presRevFilter');
+  if(_rf){ _rf.classList.toggle('on',soloPend); _rf.textContent=soloPend?'Ver todas':'Solo pendientes ('+stAll.pend+')'; _rf.disabled=(!soloPend&&!stAll.pend); }
+  var vacio=(soloPend&&!stAll.pend)?'<div class="pres-revdone">✓ No queda ninguna partida por revisar en '+y+'. Quita el filtro para ver el presupuesto completo.</div>':'';
+  var aviso=soloPend?'<div class="pres-revfilt">Filtro activo: solo se ven las <b>'+stAll.pend+'</b> partidas sin revisar. Los capítulos ya cerrados están ocultos.</div>':'';
+  host.innerHTML=aviso+ingHTML+(soloPend?'':planHTML)+(soloPend?'':'<div class="subhead">Capítulos de gasto — reparte el disponible</div>')+capsHTML+vacio;
   if(typeof renderPresAna==='function')renderPresAna();
 }
 
