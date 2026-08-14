@@ -1062,7 +1062,7 @@ function _khCSS(){
 .kh-graf svg{cursor:crosshair}
 .kh-graf{position:relative}
 .kh-graf svg{display:block;width:100%;height:auto;touch-action:none}
-.kh-tip{position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s;z-index:5}
+.kh-tip{position:absolute;pointer-events:none;background:rgba(15,23,42,.94);color:#fff;font-size:11.5px;line-height:1.5;padding:7px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s,left .12s;z-index:5;max-width:70%}
 .kh-tip b{color:#fff}
 .kh-tip .kh-tip-c{color:#93c5fd}
 .kh-graf .kh-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#475569;margin-top:8px}
@@ -1191,9 +1191,17 @@ function khGrafLinea(cont, cfg){
       pt2.setAttribute('cx',x); pt2.setAttribute('cy',y); pt2.style.opacity=1;
       tip.innerHTML=(cfg.tip?cfg.tip(i):(xs[i]+'<br><b>'+eur(ys[i])+'</b>'));
       tip.style.opacity=1;
-      const px=x*q.r.width/W, py=y*q.r.height/H, tw=tip.offsetWidth||140;
-      tip.style.left=Math.max(2,Math.min(q.r.width-tw-2,px-tw/2))+'px';
-      tip.style.top=Math.max(2,py-tip.offsetHeight-12)+'px';
+      /* [14-ago-2026] EL CARTEL SE APARTA, NO PERSIGUE AL CURSOR.
+         Antes iba pegado encima del punto y tapaba justo lo que ibas a mirar: la linea,
+         el punto y los marcadores de compra vecinos. Ahora se ancla ARRIBA y en la
+         esquina CONTRARIA a donde esta el raton, asi que nunca cubre el tramo que estas
+         examinando. Se mueve solo cuando cruzas la mitad del grafico -no en cada pixel-,
+         que ademas se lee mucho mas tranquilo. */
+      const px=x*q.r.width/W, tw=tip.offsetWidth||150;
+      const margen=Math.max(8, pl*q.r.width/W + 6);   /* respeta las cifras del eje */
+      const izquierda=(px < q.r.width/2);
+      tip.style.left=(izquierda ? Math.max(2,q.r.width-tw-8) : margen)+'px';
+      tip.style.top='6px';
       if(arrastre&&brush){ const a=Math.min(arrastre.vx,q.vx), b=Math.max(arrastre.vx,q.vx);
         brush.setAttribute('x',Math.max(pl,a)); brush.setAttribute('width',Math.max(0,Math.min(W-pr,b)-Math.max(pl,a)));
         brush.style.display=''; }
