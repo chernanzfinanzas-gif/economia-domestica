@@ -355,9 +355,24 @@ function rentabilidadEmpresas(reRender){
     const xirr=(typeof _xirr==='function')?_xirr(cf):null;
     const prNow=pa>0?pa:((typeof priceAtFB==='function')?priceAtFB(t,nowMs):0);
     const trOf=(msStart)=>{ const p0=(typeof priceAtFB==='function')?priceAtFB(t,msStart):0; if(!(p0>0)||!(prNow>0))return null; let divS=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(dm>=msStart&&dm<=nowMs)divS+=num(dd.importe); } }); return (prNow-p0+divS)/p0; };
-    return {t,acc,pa,coste,valor,pl,plPct:coste>0?pl/coste:null,divCob,rentTot,xirr,peso:totVal>0?valor/totVal:0,trYTD:trOf(msYTD),tr1A:trOf(msY1),tr3A:trOf(msY3)};
+    return {t,acc,pa,coste,valor,pl,plPct:coste>0?pl/coste:null,divCob,balance:pl+divCob,rentTot,xirr,peso:totVal>0?valor/totVal:0,trYTD:trOf(msYTD),tr1A:trOf(msY1),tr3A:trOf(msY3)};
   }).sort((a,b)=>b.peso-a.peso);
   return {ok:true,rows,totVal}; }
+/* [14-ago-2026] LOS TOTALES, EN UNA FUNCION APARTE Y SIN DOM.
+   La fila TOTAL de la tabla, la tarjeta TOTAL del movil y la prueba automatica leen
+   de aqui: un solo numero, tres sitios donde se ensena. Si cada uno lo sumara por su
+   cuenta acabarian discrepando, que es como empiezan los cuadres que no cuadran.
+   Ojo con la rentabilidad total del conjunto: NO es la media de las rentabilidades
+   de cada empresa, es el balance total sobre el coste total -una posicion de 50.000
+   pesa mil veces mas que una de 50-. Y el TIR de la cartera tampoco se suma: lo
+   calcula `carteraRentabilidad()` con todos los flujos juntos. */
+function _rentaTotales(rows){
+  const R=rows||[]; let coste=0,valor=0,pl=0,divCob=0;
+  R.forEach(function(r){ coste+=num(r.coste); valor+=num(r.valor); pl+=num(r.pl); divCob+=num(r.divCob); });
+  const balance=pl+divCob;
+  return {n:R.length,coste:coste,valor:valor,pl:pl,divCob:divCob,balance:balance,
+          plPct:coste>0?pl/coste:null, rentTot:coste>0?balance/coste:null};
+}
 const _RENTA_ORD=[['rentTot','Rentabilidad total'],['xirr','TIR (anual)'],['peso','Peso en cartera'],['valor','Valor'],['pl','Plusvalía'],['tr1A','TR 1 año']];
 function rentaSetOrden(k){ if(!k)return; window._rentaOrd=k; renderRentabEmpresas(); }
 /* [05-ago-2026] Tercera línea: la cartera SIN los dividendos cobrados (d.valor, que carteraEvolData
@@ -398,11 +413,19 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
   const selOpts=_RENTA_ORD.map(o=>`<option value="${o[0]}"${o[0]===ordK?' selected':''}>${o[1]}</option>`).join('');
   const rk=$('#rentaOrden'); if(rk)rk.innerHTML=selOpts;
   // tabla
-  const head='<tr><th class="l">Empresa</th><th>Peso</th><th>Valor</th><th>Plusvalía</th><th>Rent. total</th><th>TIR</th></tr>';
-  const body=rows.map(r=>`<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="renta-tk" data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b> <span style="font-weight:600;color:#334155;font-size:11px">${nm(r.t)}</span></td><td>${(r.peso*100).toFixed(1)}%</td><td><b>${fmt(r.valor)}</b></td><td><span class="${r.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.pl>=0?'+':'')+fmt(r.pl)}</span> <span class="mt-pill ${r.pl>=0?'g':'r'}">${pc(r.plPct)}</span></td><td><span class="mt-pill ${(r.rentTot!=null&&r.rentTot>=0)?'g':'r'}">${pc(r.rentTot)}</span></td><td><span class="mt-pill ${(r.xirr!=null&&r.xirr>=0)?'g':'r'}">${pc(r.xirr)}</span></td></tr><tr class="mt-det"><td colspan="6"><div class="mt-nums">${_mtNum('Div. cobrado',fmt(r.divCob),'mt-pos')}${_mtNum('TR YTD',pc(r.trYTD),(r.trYTD||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 1A',pc(r.tr1A),(r.tr1A||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 3A',pc(r.tr3A),(r.tr3A||0)>=0?'mt-pos':'mt-neg')}</div></td></tr>`).join('');
-  const tblDesk=`<div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div></div>`;
-  const mcards=rows.map(r=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${r.t}" style="cursor:pointer">${r.t} <span class="nm">${nm(r.t)}</span></div><div class="ty ${(r.rentTot||0)>=0?'g':'r'}">${pc(r.rentTot)}<span>rent. total</span></div></div><div class="lc-row"><span class="pl ${r.pl>=0?'pos':'neg'}">${r.pl>=0?'+':''}${fmt(r.pl)}</span> <span class="muted">plusvalía</span> · TIR <b class="${(r.xirr||0)>=0?'pos':'neg'}">${pc(r.xirr)}</b> · peso <b>${(r.peso*100).toFixed(1)}%</b></div><div class="lg"><div class="m"><span>Valor</span><b>${fmt(r.valor)}</b></div><div class="m"><span>Div. cobrado</span><b class="pos">${fmt(r.divCob)}</b></div><div class="m"><span>TR YTD</span><b class="${(r.trYTD||0)>=0?'pos':'neg'}">${pc(r.trYTD)}</b></div><div class="m"><span>TR 1A</span><b class="${(r.tr1A||0)>=0?'pos':'neg'}">${pc(r.tr1A)}</b></div><div class="m"><span>TR 3A</span><b class="${(r.tr3A||0)>=0?'pos':'neg'}">${pc(r.tr3A)}</b></div><div class="m"><span>Plusv. %</span><b class="${r.pl>=0?'pos':'neg'}">${pc(r.plPct)}</b></div></div></div>`).join('');
-  const tblBlk=tblDesk+`<div class="pos-mob">${mcards}</div>`;
+  const T=_rentaTotales(R.rows);
+  const head='<tr><th class="l">Empresa</th><th>Peso</th><th>Valor</th><th>Plusvalía</th><th>Plusv.+Div.</th><th>Rent. total</th><th>TIR</th></tr>';
+  /* [14-ago-2026] La fila TOTAL va SIEMPRE la primera y no se despliega: es el resumen
+     de la tabla, no una posicion mas. Por eso no lleva la clase `mt-row` -que es la que
+     el listener usa para abrir el detalle- ni fila `mt-det` debajo. */
+  const totRow=`<tr class="mt-tot" style="background:#f1f5f9"><td class="emp" style="font-weight:800">TOTAL <span style="font-weight:600;color:#64748b;font-size:11px">${T.n} posiciones</span></td><td style="font-weight:700">100.0%</td><td><b>${fmt(T.valor)}</b></td><td><span class="${T.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(T.pl>=0?'+':'')+fmt(T.pl)}</span> <span class="mt-pill ${T.pl>=0?'g':'r'}">${pc(T.plPct)}</span></td><td><span class="${T.balance>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(T.balance>=0?'+':'')+fmt(T.balance)}</span></td><td><span class="mt-pill ${(T.rentTot!=null&&T.rentTot>=0)?'g':'r'}">${pc(T.rentTot)}</span></td><td><span class="mt-pill ${(CR&&CR.xirr!=null&&CR.xirr>=0)?'g':'r'}">${CR?pc(CR.xirr):'—'}</span></td></tr>`;
+  const body=rows.map(r=>`<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="renta-tk" data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b> <span style="font-weight:600;color:#334155;font-size:11px">${nm(r.t)}</span></td><td>${(r.peso*100).toFixed(1)}%</td><td><b>${fmt(r.valor)}</b></td><td><span class="${r.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.pl>=0?'+':'')+fmt(r.pl)}</span> <span class="mt-pill ${r.pl>=0?'g':'r'}">${pc(r.plPct)}</span></td><td><span class="${r.balance>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.balance>=0?'+':'')+fmt(r.balance)}</span></td><td><span class="mt-pill ${(r.rentTot!=null&&r.rentTot>=0)?'g':'r'}">${pc(r.rentTot)}</span></td><td><span class="mt-pill ${(r.xirr!=null&&r.xirr>=0)?'g':'r'}">${pc(r.xirr)}</span></td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Div. cobrado',fmt(r.divCob),'mt-pos')}${_mtNum('TR YTD',pc(r.trYTD),(r.trYTD||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 1A',pc(r.tr1A),(r.tr1A||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 3A',pc(r.tr3A),(r.tr3A||0)>=0?'mt-pos':'mt-neg')}</div></td></tr>`).join('');
+  const tblDesk=`<div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${totRow}${body}</tbody></table></div></div>`;
+  const mcards=rows.map(r=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${r.t}" style="cursor:pointer">${r.t} <span class="nm">${nm(r.t)}</span></div><div class="ty ${(r.rentTot||0)>=0?'g':'r'}">${pc(r.rentTot)}<span>rent. total</span></div></div><div class="lc-row"><span class="pl ${r.pl>=0?'pos':'neg'}">${r.pl>=0?'+':''}${fmt(r.pl)}</span> <span class="muted">plusvalía</span> · TIR <b class="${(r.xirr||0)>=0?'pos':'neg'}">${pc(r.xirr)}</b> · peso <b>${(r.peso*100).toFixed(1)}%</b></div><div class="lg"><div class="m"><span>Valor</span><b>${fmt(r.valor)}</b></div><div class="m"><span>Div. cobrado</span><b class="pos">${fmt(r.divCob)}</b></div><div class="m"><span>Plusv.+Div.</span><b class="${r.balance>=0?'pos':'neg'}">${(r.balance>=0?'+':'')+fmt(r.balance)}</b></div><div class="m"><span>TR YTD</span><b class="${(r.trYTD||0)>=0?'pos':'neg'}">${pc(r.trYTD)}</b></div><div class="m"><span>TR 1A</span><b class="${(r.tr1A||0)>=0?'pos':'neg'}">${pc(r.tr1A)}</b></div><div class="m"><span>TR 3A</span><b class="${(r.tr3A||0)>=0?'pos':'neg'}">${pc(r.tr3A)}</b></div><div class="m"><span>Plusv. %</span><b class="${r.pl>=0?'pos':'neg'}">${pc(r.plPct)}</b></div></div></div>`).join('');
+  /* [14-ago-2026] La misma fila TOTAL, en formato tarjeta, para que el movil ensene lo
+   mismo que el escritorio. Sale de `T`, no de una suma repetida aqui. */
+  const totCard=`<div class="lcard" style="background:#f1f5f9"><div class="lc-h"><div class="tk" style="font-weight:800">TOTAL <span class="nm">${T.n} posiciones</span></div><div class="ty ${(T.rentTot||0)>=0?'g':'r'}">${pc(T.rentTot)}<span>rent. total</span></div></div><div class="lc-row"><span class="pl ${T.pl>=0?'pos':'neg'}">${T.pl>=0?'+':''}${fmt(T.pl)}</span> <span class="muted">plusvalía</span> · TIR <b class="${(CR&&CR.xirr!=null&&CR.xirr>=0)?'pos':'neg'}">${CR?pc(CR.xirr):'—'}</b></div><div class="lg"><div class="m"><span>Valor</span><b>${fmt(T.valor)}</b></div><div class="m"><span>Div. cobrado</span><b class="pos">${fmt(T.divCob)}</b></div><div class="m"><span>Plusv.+Div.</span><b class="${T.balance>=0?'pos':'neg'}">${(T.balance>=0?'+':'')+fmt(T.balance)}</b></div><div class="m"><span>Coste</span><b>${fmt(T.coste)}</b></div></div></div>`;
+  const tblBlk=tblDesk+`<div class="pos-mob">${totCard}${mcards}</div>`;
   // comparativa barras
   const bsort=R.rows.slice().sort((a,b)=>(b.rentTot==null?-1e18:b.rentTot)-(a.rentTot==null?-1e18:a.rentTot));
   const maxAbs=Math.max(...bsort.map(r=>Math.abs(r.rentTot||0)))||1;
