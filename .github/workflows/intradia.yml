@@ -117,12 +117,20 @@ jobs:
             n=$(( n + 1 ))
             echo "::group::Pasada $n  ($(date -u '+%H:%M:%S') UTC)"
             rc=0
-            python actualizar_intradia.py --salida intradia.json || rc=$?
+            # [14-ago-2026] --series apunta DIRECTAMENTE al clon de la rama `datos`.
+            # Tiene que ser ahi y no en el area de trabajo: el script fusiona lo nuevo
+            # con lo ya guardado, y lo guardado esta en esa rama. Escribirlo aparte y
+            # copiarlo despues perderia el historico en cada pasada.
+            python actualizar_intradia.py --salida intradia.json --series "$RUNNER_TEMP/pub/series" || rc=$?
             if [ "$rc" -eq 0 ] && [ -f intradia.json ]; then
               cp intradia.json "$RUNNER_TEMP/pub/intradia.json"
               (
                 cd "$RUNNER_TEMP/pub"
                 git add intradia.json
+                # La carpeta puede no existir todavia (primera vez, o una pasada en la
+                # que aun no tocaba escribir la serie). Con `if`, que `bash -e` mata el
+                # paso entero ante cualquier orden que devuelva distinto de cero.
+                if [ -d series ]; then git add series; fi
                 if git diff --cached --quiet; then
                   echo "Sin cambios: no hay commit."
                 else

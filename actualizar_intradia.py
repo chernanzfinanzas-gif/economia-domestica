@@ -88,6 +88,23 @@ APERTURA      = (9, 0)
 CIERRE        = (17, 45)   # 17:35 + margen para la subasta de cierre
 SALIDA        = "intradia.json"
 
+# ── EL ARCHIVO DE LA SERIE DE 5 MINUTOS (14-ago-2026) ────────────────────────
+# Cada pase se baja ~390 barras de 5 minutos por empresa y usaba SOLO la ultima. El
+# resto se tiraba, y Yahoo no las guarda: solo sirve los ultimos 5 dias. Cada dia sin
+# archivar es un dia de intradia que no se puede recuperar jamas.
+#
+# Se guarda un fichero por empresa (`series/TICKER.json`) con las ultimas ~10 sesiones,
+# agrupadas por dia y con la hora en "HH:MM" en vez del ISO completo: la fecha ya la
+# lleva el grupo, repetirla 100 veces por dia solo engorda la rama.
+#
+# NO se escribe en cada pase. Reescribir 25 ficheros cada 5 minutos multiplica por doce
+# el peso de la rama `datos` sin que la forma de la curva cambie por esperar. La punta
+# viva sigue viniendo de intradia.json, que si se refresca cada 5 minutos. El pase
+# imprime los bytes que escribe para poder ajustar esto con una medida y no a ojo.
+SERIES_DIR        = "series"
+SERIES_SESIONES   = 10     # sesiones que se conservan (Yahoo solo sirve 5 por descarga)
+SERIES_CADA_MIN   = 55     # minimo entre escrituras: una vez por hora, no cada pase
+
 try:
     from zoneinfo import ZoneInfo
     MADRID = ZoneInfo("Europe/Madrid")
@@ -254,18 +271,22 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
     ult = None
     porque = []
     mejor = None          # (edad, precio, anterior, iso) de la barra mas fresca hallada
+    b5m = None            # [14-ago-2026] las barras de 5m enteras, para archivarlas
     for interval, period in ESCALERA:
         for i in range(intentos):
             try:
                 hh = yf.Ticker(symbol).history(period=period, interval=interval,
                                                auto_adjust=False)
                 barras = [(ix, row["Close"]) for ix, row in hh.iterrows()]
+                if interval == "5m" and barras:
+                    b5m = barras          # se guardan aunque el peldano salga rancio:
+                                          # para el archivo valen igual, llevan su hora
                 p, c, hora, edad = _lee_intradia(barras, hoy_iso)
                 if p and p > 0 and edad is not None:
                     if mejor is None or edad < mejor[0]:
                         mejor = (edad, p, c, hora)
                     if edad <= EDAD_MAX_MIN:
-                        return p, c, hora, edad     # fresca sin discusion: no se sigue
+                        return p, c, hora, edad, b5m   # fresca sin discusion: no se sigue
                     porque.append("%s/%s %d min" % (interval, period, int(edad)))
                 else:
                     porque.append("%s/%s sin barra de hoy" % (interval, period))
@@ -278,8 +299,75 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
     if mejor is not None:
         # Nada fresco, pero SI hay barra de hoy. Se devuelve la mas reciente con su edad
         # y que decida el cohorte: puede ser una iliquida perfectamente sana.
-        return mejor[1], mejor[2], mejor[3], mejor[0]
+        return mejor[1], mejor[2], mejor[3], mejor[0], b5m
     raise RuntimeError(" | ".join(porque or [ult or "desconocido"]))
+
+
+# ── EL ARCHIVO: funciones puras, para poder probarlas sin red y sin disco ────
+def barras_por_dia(barras, tz=None):
+    """[(timestamp, cierre), ...] -> {"AAAA-MM-DD": [["HH:MM", precio], ...]}.
+
+    Se descarta lo que no sea un numero positivo y se ordena por hora. Si dos barras
+    caen en el mismo minuto -puede pasar al cambiar de peldano- manda la ultima, que
+    es la mas reciente."""
+    out = {}
+    for ts, c in (barras or []):
+        try:
+            c = float(c)
+        except (TypeError, ValueError):
+            continue
+        if not (c > 0):
+            continue
+        try:
+            t = ts.astimezone(tz) if tz is not None else ts
+            dia = t.strftime("%Y-%m-%d")
+            hhmm = t.strftime("%H:%M")
+        except Exception:
+            continue
+        out.setdefault(dia, {})[hhmm] = round(c, 4)
+    return {d: [[h, v[h]] for h in sorted(v)] for d, v in out.items()}
+
+
+def fusionar_serie(previo, nuevas, max_sesiones=SERIES_SESIONES):
+    """Mezcla lo guardado con lo recien descargado y recorta a las ultimas sesiones.
+
+    Misma disciplina que los cierres diarios: la descarga trae 5 dias enteros y se
+    escribe ENCIMA de lo que hubiera, asi que un hueco de varios dias se rellena solo
+    en la primera pasada que vuelva a correr. Lo anterior al tope se descarta: el
+    historico largo vive en precios/, no aqui.
+
+    `previo` y `nuevas` son {"AAAA-MM-DD": [["HH:MM", precio], ...]}."""
+    dias = {}
+    for fuente in (previo or {}, nuevas or {}):
+        for d, filas in (fuente or {}).items():
+            if not isinstance(filas, list):
+                continue
+            m = dias.setdefault(d, {})
+            for f in filas:
+                try:
+                    h, v = f[0], float(f[1])
+                except (TypeError, ValueError, IndexError):
+                    continue
+                if v > 0:
+                    m[h] = round(v, 4)
+    ordenados = sorted(dias)[-max_sesiones:] if max_sesiones else sorted(dias)
+    return {d: [[h, dias[d][h]] for h in sorted(dias[d])] for d in ordenados}
+
+
+def toca_archivar(escrito_iso, ahora, cada_min=SERIES_CADA_MIN):
+    """True si desde la ultima escritura ha pasado el intervalo. Sin marca previa,
+    siempre toca: la primera pasada tras montarlo tiene que escribir."""
+    if not escrito_iso:
+        return True
+    try:
+        prev = dt.datetime.fromisoformat(str(escrito_iso))
+    except Exception:
+        return True
+    try:
+        delta = (ahora - prev).total_seconds() / 60.0
+    except TypeError:            # uno con tz y otro sin ella: no se compara, se escribe
+        return True
+    return delta >= cada_min or delta < 0    # reloj hacia atras -> se escribe igual
 
 
 # Marcador del unico motivo GRAVE de no escribir. Los demas ("mercado cerrado", "sin
@@ -290,9 +378,15 @@ def precio_de(symbol, intentos=INTENTOS, hoy_iso=None):
 MOTIVO_SIN_PRECIOS = "ningun precio obtenido"
 
 
-def construir(base, forzar=False, getter=None, reloj=None):
+def construir(base, forzar=False, getter=None, reloj=None, series=None):
     """Devuelve (dict a escribir, motivo) o (None, motivo) si no toca escribir.
-    `getter` y `reloj` se inyectan en las pruebas."""
+    `getter` y `reloj` se inyectan en las pruebas.
+
+    [14-ago-2026] `series` es un diccionario OPCIONAL que se rellena con las barras de
+    5 minutos de cada empresa. Va como parametro de salida y no como tercer valor de
+    retorno a proposito: cambiar la aridad obligaria a tocar todas las pruebas que ya
+    desempaquetan dos, y una firma que se rompe al anadir una funcion nueva invita a
+    no anadirla."""
     t = reloj() if reloj else ahora_madrid()
     if not forzar and not mercado_abierto(t):
         return None, "mercado cerrado (%s)" % t.strftime("%a %H:%M")
@@ -323,6 +417,7 @@ def construir(base, forzar=False, getter=None, reloj=None):
             p, ant = _r[0], _r[1]
             barra = _r[2] if len(_r) > 2 else None
             edad = _r[3] if len(_r) > 3 else None
+            b5m = _r[4] if len(_r) > 4 else None
         except Exception as e:
             print("[%d/%d] %s (%s) ERROR: %s" % (i, len(lista), tk, sym, e))
             fallos.append(tk)
@@ -338,6 +433,8 @@ def construir(base, forzar=False, getter=None, reloj=None):
         if edad is not None:
             fila["edadMin"] = int(edad)
         crudo[tk] = fila
+        if series is not None and b5m:
+            series[tk] = b5m
         print("[%d/%d] %s (%s) %s%s%s" % (i, len(lista), tk, sym, fila["p"],
                                           ("  %+.2f%%" % fila["var"]) if "var" in fila else "",
                                           ("  barra %s (%d min)" % (barra[11:16], int(edad)))
@@ -393,6 +490,57 @@ def construir(base, forzar=False, getter=None, reloj=None):
                                     (", dato de las %s" % _isos[-1][11:16]) if _isos else "")
 
 
+def archivar_series(dirserie, series, ahora, tz=None, max_sesiones=SERIES_SESIONES,
+                    cada_min=SERIES_CADA_MIN, forzar=False):
+    """Escribe/actualiza `series/TICKER.json`. Devuelve (n_ficheros, bytes, motivo).
+
+    El estado -cuando se escribio por ultima vez- vive en `series/_estado.json`, junto a
+    los datos: si algun dia se borra la carpeta entera se pierden los dos a la vez y la
+    siguiente pasada la reconstruye. Un estado que sobrevive a sus datos miente."""
+    if not series:
+        return 0, 0, "sin barras que archivar"
+    est_ruta = os.path.join(dirserie, "_estado.json")
+    estado = {}
+    if os.path.exists(est_ruta):
+        try:
+            estado = json.load(open(est_ruta, encoding="utf-8")) or {}
+        except Exception:
+            estado = {}
+    if not forzar and not toca_archivar(estado.get("escrito"), ahora, cada_min):
+        return 0, 0, "aun no toca (se escribe cada %d min)" % cada_min
+
+    os.makedirs(dirserie, exist_ok=True)
+    n, total = 0, 0
+    for tk in sorted(series):
+        nuevas = barras_por_dia(series[tk], tz)
+        if not nuevas:
+            continue
+        ruta = os.path.join(dirserie, "%s.json" % tk)
+        previo = {}
+        if os.path.exists(ruta):
+            try:
+                previo = (json.load(open(ruta, encoding="utf-8")) or {}).get("dias") or {}
+            except Exception:
+                previo = {}
+        dias = fusionar_serie(previo, nuevas, max_sesiones)
+        doc = {"schemaVersion": 1, "ticker": tk, "zona": "Europe/Madrid",
+               "actualizado": ahora.isoformat(timespec="seconds"), "dias": dias}
+        tmp = ruta + ".tmp"
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
+        os.replace(tmp, ruta)      # atomica, como intradia.json
+        n += 1
+        total += os.path.getsize(ruta)
+
+    estado["escrito"] = ahora.isoformat(timespec="seconds")
+    estado["sesiones"] = max_sesiones
+    tmp = est_ruta + ".tmp"
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(estado, f, ensure_ascii=False, separators=(",", ":"))
+    os.replace(tmp, est_ruta)
+    return n, total, "escritas %d series (%.1f KB en total)" % (n, total / 1024.0)
+
+
 def main():
     args = sys.argv[1:]
     forzar = "--forzar" in args
@@ -400,12 +548,21 @@ def main():
     if "--salida" in args:
         salida = args[args.index("--salida") + 1]
     base = os.path.dirname(os.path.abspath(salida)) or "."
+    # La rama `datos` se clona aparte en el runner, asi que la carpeta de series puede
+    # no estar junto a intradia.json: hay que poder apuntarla a mano. Y ahi es donde
+    # esta lo YA guardado, que es con lo que hay que fusionar.
+    dirserie = os.path.join(base, SERIES_DIR)
+    if "--series" in args:
+        dirserie = os.path.abspath(args[args.index("--series") + 1])
+    sin_series = "--sin-series" in args
+    forzar_series = "--forzar-series" in args
 
     _t = ahora_madrid()
     print("=== Intradia (%s) ===" % _t.strftime("%Y-%m-%d %H:%M %Z"))
     print("    zona horaria: %s" % ("ZoneInfo Europe/Madrid" if MADRID
           else "SIN tzdata -> desfase calculado a mano (%s)" % _t.tzname()))
-    doc, motivo = construir(base, forzar=forzar)
+    _series = {} if not sin_series else None
+    doc, motivo = construir(base, forzar=forzar, series=_series)
     if not doc:
         print("No se escribe: %s" % motivo)
         if motivo.startswith(MOTIVO_SIN_PRECIOS):
@@ -417,6 +574,17 @@ def main():
         json.dump(doc, f, ensure_ascii=False, separators=(",", ":"))
     os.replace(tmp, salida)           # escritura atomica: la app nunca lee un json a medias
     print("Escrito %s -> %s" % (salida, motivo))
+
+    # El archivo de la serie va DESPUES y no puede tumbar el pase: intradia.json ya esta
+    # escrito y es lo que la app necesita para funcionar. Si esto falla, se dice y se
+    # sigue -- un extra que rompe lo principal deja de ser un extra.
+    if _series is not None:
+        try:
+            n, bytes_, mot = archivar_series(dirserie, _series, _t, tz=_t.tzinfo,
+                                             forzar=forzar_series)
+            print("Series de 5 min: %s" % mot)
+        except Exception as e:
+            print("Series de 5 min: NO se han podido archivar (%s)" % str(e)[:120])
     return 0
 
 
