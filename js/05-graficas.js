@@ -1029,3 +1029,186 @@ function renderProyMonteCarlo(){
   el.innerHTML=_intro+kb+ctrl+_mcBandSVG(years,p10,p50,p90,det,target)+legend+`<div class="mc-note">${M} simulaciones. Rendimiento medio anual ${(mu*100).toFixed(1)}% (tu «revalorización de cartera» de la Hipótesis Inicial) y volatilidad ${sigmaSrc}. La banda azul es el 80% central de escenarios (p10–p90), la línea azul la mediana (p50) y la gris discontinua tu escenario base. Incluye tus aportaciones anuales y el efectivo previsto. Es una simulación estadística, <b>no una garantía</b>.</div>`;
   { const _o=document.getElementById('mcObjetivo'); if(_o)_o.addEventListener('change',()=>{ DB.config.proyeccion.mcObjetivo=Math.max(0,num(_o.value)); if(typeof scheduleSave==='function')scheduleSave(); renderProyMonteCarlo(); }); }
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   MODAL Y MOTOR DE DIBUJO COMPARTIDOS  ·  14-ago-2026
+   ══════════════════════════════════════════════════════════════════════════
+   Los dos graficos pedidos -la evolucion de la cartera y el 1S/1M por empresa-
+   necesitan lo mismo: una ventana emergente con X, una linea, ejes, y un tooltip
+   que siga al raton. Se hacen SEGUIDOS y sobre una sola pieza a proposito: dos
+   motores de dibujo separados acaban dibujando distinto el mismo dato, y ese es
+   el fallo que mas caro sale de encontrar (nos paso esta semana con el sello de
+   la hora, con la RPD y con el dividendo de las dos carteras).
+
+   El CSS se inyecta desde aqui, con su id, para no tener que tocar index.html.
+   Misma tecnica que usa la vista Mi Cartera con `mc-css`.                     */
+function _khCSS(){
+  if(document.getElementById('kh-graf-css'))return;
+  const st=document.createElement('style'); st.id='kh-graf-css';
+  st.textContent=`
+#kh-modal{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:16px}
+#kh-modal .kh-fondo{position:absolute;inset:0;background:rgba(15,23,42,.55)}
+#kh-modal .kh-caja{position:relative;background:#fff;border-radius:14px;box-shadow:0 18px 50px rgba(0,0,0,.28);max-width:860px;width:100%;max-height:92vh;overflow:auto}
+#kh-modal .kh-h{display:flex;align-items:flex-start;gap:12px;padding:14px 16px 8px;border-bottom:1px solid #e2e8f0}
+#kh-modal .kh-t{font-weight:800;font-size:15px;color:#0f172a;flex:1}
+#kh-modal .kh-t small{display:block;font-weight:600;font-size:11.5px;color:#64748b;margin-top:2px}
+#kh-modal .kh-x{border:1px solid #e2e8f0;background:#f8fafc;border-radius:8px;width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer;color:#475569;flex:none}
+#kh-modal .kh-x:hover{background:#fee2e2;border-color:#fecaca;color:#b91c1c}
+#kh-modal .kh-b{padding:12px 16px 16px}
+.kh-graf{position:relative}
+.kh-graf svg{display:block;width:100%;height:auto;touch-action:none}
+.kh-tip{position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s;z-index:5}
+.kh-tip b{color:#fff}
+.kh-tip .kh-tip-c{color:#93c5fd}
+.kh-graf .kh-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#475569;margin-top:8px}
+.kh-graf .kh-leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+@media(max-width:600px){#kh-modal{padding:8px}#kh-modal .kh-b{padding:8px 10px 12px}}
+`;
+  document.head.appendChild(st);
+}
+
+/* Abre la ventana y devuelve el elemento donde pintar. Cierra con la X, pulsando
+   fuera y con Escape: tres salidas, porque una sola se falla. */
+function khModal(titulo, sub){
+  _khCSS();
+  khModalCerrar();
+  const m=document.createElement('div'); m.id='kh-modal';
+  m.innerHTML='<div class="kh-fondo" data-khcerrar="1"></div>'
+    +'<div class="kh-caja" role="dialog" aria-modal="true"><div class="kh-h">'
+    +'<div class="kh-t">'+(titulo||'')+(sub?('<small>'+sub+'</small>'):'')+'</div>'
+    +'<button class="kh-x" data-khcerrar="1" title="Cerrar (Esc)" aria-label="Cerrar">✕</button>'
+    +'</div><div class="kh-b"></div></div>';
+  document.body.appendChild(m);
+  m.addEventListener('click',function(e){ if(e.target.closest('[data-khcerrar]'))khModalCerrar(); });
+  if(!window._khEsc){ window._khEsc=function(e){ if(e.key==='Escape')khModalCerrar(); };
+    document.addEventListener('keydown',window._khEsc); }
+  return m.querySelector('.kh-b');
+}
+function khModalCerrar(){ const m=document.getElementById('kh-modal'); if(m)m.remove(); }
+
+/* Dibuja una linea con eje, tooltip al pasar el raton y marcadores opcionales.
+   cfg = { xs:[etiqueta,...], ys:[numero,...], marcas:{indice:'texto'},
+           color, fmtY, tip:(i)=>'html', leyenda:[{c,t}], alto }
+   Los indices mandan: el eje X es regular -un punto por sesion- igual que el
+   resto de graficos de la app. Asi una racha de festivos no abre un hueco.      */
+function khGrafLinea(cont, cfg){
+  if(!cont)return;
+  const xs=cfg.xs||[], ys=(cfg.ys||[]).map(v=>num(v)), n=Math.min(xs.length,ys.length);
+  if(n<2){ cont.innerHTML='<div class="empty">No hay suficientes datos para dibujar.</div>'; return; }
+  const W=760,H=cfg.alto||320,pl=66,pr=14,pt=14,pb=28;
+  let mx=0; for(let i=0;i<n;i++) if(ys[i]>mx)mx=ys[i];
+  mx=mx*1.06||1;
+  const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):0), Y=v=>pt+(H-pt-pb)*(1-num(v)/mx);
+  const eur=cfg.fmtY||(v=>(typeof fmt==='function')?fmt(v):String(Math.round(v)));
+  let grid='';
+  for(let g=0;g<=4;g++){ const gv=mx*g/4; const y=Y(gv);
+    grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
+        +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
+  let d=''; for(let i=0;i<n;i++) d+=(i?'L':'M')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
+  /* etiquetas del eje X: se reparten 6 como mucho, sin repetir */
+  let xl=''; const paso=Math.max(1,Math.ceil(n/6));
+  for(let i=0;i<n;i+=paso){ xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>'; }
+  let mk=''; const marcas=cfg.marcas||{};
+  Object.keys(marcas).forEach(function(k){ const i=+k; if(!(i>=0&&i<n))return;
+    mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="3.6" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
+  const col=cfg.color||'#16a34a';
+  cont.innerHTML='<div class="kh-graf">'
+    +'<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
+    +grid+'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
+    +mk
+    +'<line class="kh-cur" x1="0" y1="'+pt+'" x2="0" y2="'+(H-pb)+'" stroke="#94a3b8" stroke-dasharray="3 3" style="opacity:0"/>'
+    +'<circle class="kh-pt" r="4" fill="'+col+'" stroke="#fff" stroke-width="2" style="opacity:0"/>'
+    +xl+'</svg><div class="kh-tip"></div>'
+    +((cfg.leyenda&&cfg.leyenda.length)?('<div class="kh-leg">'+cfg.leyenda.map(l=>'<span><i style="background:'+l.c+'"></i>'+l.t+'</span>').join('')+'</div>'):'')
+    +'</div>';
+  const wrap=cont.querySelector('.kh-graf'), svg=wrap.querySelector('svg');
+  const cur=svg.querySelector('.kh-cur'), pt2=svg.querySelector('.kh-pt'), tip=wrap.querySelector('.kh-tip');
+  function mover(ev){
+    const r=svg.getBoundingClientRect(); if(!r.width)return;
+    const cx=(ev.touches&&ev.touches[0]?ev.touches[0].clientX:ev.clientX)-r.left;
+    const vx=cx*W/r.width;                       /* de pixeles a coordenadas del viewBox */
+    let i=Math.round((vx-pl)/((W-pl-pr)||1)*(n-1));
+    if(i<0)i=0; if(i>n-1)i=n-1;
+    const x=X(i), y=Y(ys[i]);
+    cur.setAttribute('x1',x); cur.setAttribute('x2',x); cur.style.opacity=1;
+    pt2.setAttribute('cx',x); pt2.setAttribute('cy',y); pt2.style.opacity=1;
+    tip.innerHTML=(cfg.tip?cfg.tip(i):(xs[i]+'<br><b>'+eur(ys[i])+'</b>'));
+    tip.style.opacity=1;
+    const px=x*r.width/W, py=y*r.height/H;
+    const tw=tip.offsetWidth||140;
+    tip.style.left=Math.max(2,Math.min(r.width-tw-2,px-tw/2))+'px';
+    tip.style.top=Math.max(2,py-tip.offsetHeight-12)+'px';
+  }
+  function fuera(){ cur.style.opacity=0; pt2.style.opacity=0; tip.style.opacity=0; }
+  svg.addEventListener('mousemove',mover);
+  svg.addEventListener('mouseleave',fuera);
+  svg.addEventListener('touchstart',mover,{passive:true});
+  svg.addEventListener('touchmove',mover,{passive:true});
+  svg.addEventListener('touchend',fuera);
+}
+
+/* ── Ventana de evolución de la cartera (14-ago-2026) ──────────────────────
+   Se abre desde el cuadro verde «Valor de la cartera» de Mi Cartera.
+
+   El motor de datos YA EXISTÍA: `carteraEvolData()` valora cada fecha con las
+   acciones de ESE día, arrastra el último cierre conocido cuando falta una sesión
+   y usa el precio vivo en el último punto. Lo único nuevo es la ventana, los
+   marcadores de compra y el tooltip.
+
+   Decisión de diseño que conviene no revertir: los importes de compra NO van en un
+   segundo eje. Una compra de 20.000 € junto a una cartera de 380.000 se ve plana o
+   descuadra la escala. Van como punto sobre la línea y el importe en el tooltip. */
+function _khIdxDeFecha(labels, f){
+  /* primer índice cuya sesión es >= la fecha pedida; -1 si la fecha es posterior
+     a todo (una compra de hoy antes de que haya sesión cerrada, p.ej.) */
+  for(let i=0;i<labels.length;i++) if(labels[i]>=f) return i;
+  return labels.length?labels.length-1:-1;
+}
+function _khComprasPorDia(){
+  const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o&&o.fecha&&o.tipo!=='venta');
+  const m={};
+  ops.forEach(function(o){
+    const f=(o.fecha||'').slice(0,10); if(!f)return;
+    const acc=num(o.acciones), pr=num(o.precio);
+    (m[f]=m[f]||[]).push({t:(o.ticker||'').toUpperCase(), acc:acc, pr:pr, eur:acc*pr});
+  });
+  return m;
+}
+function mcAbrirGrafCartera(){
+  const d=(typeof carteraEvolData==='function')?carteraEvolData(mcAbrirGrafCartera):null;
+  const cont=khModal('Evolución de la cartera',
+                     'Valor día a día desde la primera operación · los puntos son días de compra');
+  if(!cont)return;
+  if(!d||d.empty){ cont.innerHTML='<div class="empty">Todavía no hay operaciones registradas.</div>'; return; }
+  if(d.loading){ cont.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; return; }
+
+  const labels=d.labels||[], ys=d.valor||[];
+  const compras=_khComprasPorDia();
+  const marcas={};
+  const porIdx={};
+  Object.keys(compras).forEach(function(f){
+    const i=_khIdxDeFecha(labels,f); if(i<0)return;
+    marcas[i]=1;
+    (porIdx[i]=porIdx[i]||[]).push.apply(porIdx[i],compras[f]);
+  });
+  const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
+  const eur=v=>(typeof fmt==='function')?fmt(v):String(Math.round(v));
+
+  khGrafLinea(cont,{
+    xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
+    fmtX:iso=>String(iso).slice(0,4),
+    tip:function(i){
+      let h='<b>'+eur(ys[i])+'</b><br>'+dd(labels[i]);
+      const c=porIdx[i];
+      if(c&&c.length){
+        h+='<br><span class="kh-tip-c">'+(c.length===1?'Compra':(c.length+' compras'))+'</span>';
+        c.slice(0,6).forEach(function(x){
+          h+='<br>· '+x.t+' — '+x.acc+' × '+eur(x.pr)+' = <b>'+eur(x.eur)+'</b>';
+        });
+        if(c.length>6) h+='<br>· … y '+(c.length-6)+' más';
+      }
+      return h;
+    },
+    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},{c:'#b45309',t:'Día con compra (pasa el ratón para ver cuál)'}]
+  });
+}

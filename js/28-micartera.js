@@ -386,8 +386,13 @@ function renderMiCartera(){
 
   /* ---- KPIs ---- */
   let kpis='<div class="pos-kpis mc-kpis">'
-    +'<div class="k hero"><div class="l">Valor de la cartera</div><div class="v">'+_mcEur(valor)+'</div>'
-    +'<div class="p">'+P.length+' '+(P.length===1?'empresa':'empresas')+' · ambas carteras</div></div>';
+    /* [14-ago-2026] El cuadro verde abre la ventana de evolucion de la cartera. Se
+       marca como boton de verdad -role, tabindex y cursor- para que tambien se pueda
+       abrir con el teclado: un div que solo responde al raton deja fuera a quien navega
+       tabulando, y no cuesta nada hacerlo bien. */
+    +'<div class="k hero" data-mcgraf="1" role="button" tabindex="0" title="Ver la evolución de la cartera" style="cursor:pointer">'
+    +'<div class="l">Valor de la cartera</div><div class="v">'+_mcEur(valor)+'</div>'
+    +'<div class="p">'+P.length+' '+(P.length===1?'empresa':'empresas')+' · ambas carteras · <b>ver evolución ↗</b></div></div>';
   if(conDia.length){
     kpis+='<div class="k"><div class="l">'+diaTit+(diaSes?(' <span class="mc-ses">'+diaSes+'</span>'):'')
       +'</div><div class="v '+(diaEur>=0?'pos':'neg')+'">'
@@ -508,10 +513,20 @@ function renderMiCartera(){
     el._mcBound=true;
     el.addEventListener('click',function(e){
       if(e.target.closest('[data-mcrefr]')){ _mcRefrescar(); return; }
+      if(e.target.closest('[data-mcgraf]')){
+        if(typeof mcAbrirGrafCartera==='function') mcAbrirGrafCartera();
+        return;
+      }
       const f=e.target.closest('[data-ficha]'); if(!f)return;
       const t=f.getAttribute('data-ficha');
       if(typeof abrirFicha==='function'){ abrirFicha(t); return; }
       if(typeof activarVista==='function') activarVista('inversiones');
+    });
+    el.addEventListener('keydown',function(e){
+      if(e.key!=='Enter'&&e.key!==' ')return;
+      const g=e.target.closest('[data-mcgraf]'); if(!g)return;
+      e.preventDefault();
+      if(typeof mcAbrirGrafCartera==='function') mcAbrirGrafCartera();
     });
   }
 }
