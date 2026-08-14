@@ -1060,6 +1060,12 @@ function _khCSS(){
 .kh-graf .kh-unzoom{border:1px solid #93c5fd;background:#fff;color:#1d4ed8;border-radius:6px;font-size:11px;padding:2px 8px;cursor:pointer;font-weight:600}
 .kh-graf .kh-unzoom:hover{background:#dbeafe}
 .kh-graf svg{cursor:crosshair}
+.kh-rangos{display:flex;gap:6px;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.kh-rb{border:1px solid #cbd5e1;background:#fff;color:#475569;border-radius:8px;font-size:12px;font-weight:600;padding:4px 12px;cursor:pointer}
+.kh-rb:hover{background:#f1f5f9}
+.kh-rb.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
+.kh-ficha{margin-left:auto;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
+.kh-ficha:hover{text-decoration:underline}
 .kh-graf{position:relative}
 .kh-graf svg{display:block;width:100%;height:auto;touch-action:none}
 .kh-tip{position:absolute;pointer-events:none;background:rgba(15,23,42,.94);color:#fff;font-size:11.5px;line-height:1.5;padding:7px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s,left .12s;z-index:5;max-width:70%}
@@ -1296,4 +1302,85 @@ function mcAbrirGrafCartera(){
     },
     leyenda:[{c:'#16a34a',t:'Valor de la cartera'},{c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
   });
+}
+
+/* ── Gráfico 1S/1M por empresa (14-ago-2026) ───────────────────────────────
+   Se abre al pulsar la tarjeta de una empresa en Mi Cartera. Y por eso el TICKER
+   pasa a ser el enlace a la Ficha: si la tarjeta entera abriera la Ficha, como
+   hasta hoy, no quedaría sitio para el gráfico. Dos destinos, dos zonas de clic.
+
+   Capa 1 (esta): cierres diarios de `precios/TICKER.json`, que la app ya se baja
+   para la cartera — no hay ninguna descarga nueva. El último punto es el precio
+   vivo de hoy cuando lo hay.
+   Capa 2 (pendiente): las barras de 5 minutos, cuando el archivado lleve días
+   corriendo. Se enchufa aquí sin tocar nada de lo de arriba.                    */
+const _KH_RANGOS=[['1s','1 semana',7],['1m','1 mes',31]];
+let _khRangoValor='1m';
+
+function _khSerieValor(t, dias){
+  t=(t||'').toUpperCase();
+  const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[t]:null;
+  const filas=(pj&&pj.data)?pj.data:[];
+  if(!filas.length) return null;
+  const corte=new Date(Date.now()-dias*86400000);
+  const cISO=corte.getFullYear()+'-'+String(corte.getMonth()+1).padStart(2,'0')+'-'+String(corte.getDate()).padStart(2,'0');
+  const xs=[],ys=[];
+  for(let i=0;i<filas.length;i++){
+    const f=filas[i]; if(!f||f.length<2)continue;
+    if(String(f[0])<cISO)continue;
+    const v=num(f[1]); if(!(v>0))continue;
+    xs.push(String(f[0])); ys.push(v);
+  }
+  /* El precio vivo de hoy: solo si es MAS reciente que el ultimo cierre guardado.
+     Si `precios/` ya trae la sesion de hoy -porque se subio el cierre del Excel-,
+     se sustituye el valor, no se anade un punto duplicado con la misma fecha. */
+  const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
+  const lp=num(v0.precioActual), lf=(v0.precioFecha||'');
+  if(lp>0&&lf){
+    if(!xs.length||lf>xs[xs.length-1]){ xs.push(lf); ys.push(lp); }
+    else if(lf===xs[xs.length-1]){ ys[ys.length-1]=lp; }
+  }
+  return xs.length?{xs:xs,ys:ys}:null;
+}
+
+function mcAbrirGrafValor(t){
+  t=(t||'').toUpperCase(); if(!t)return;
+  const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
+  const nom=v0.nombre||t;
+  const sello=(typeof _mcSelloDe==='function')?_mcSelloDe(t):null;
+  const cont=khModal(nom+' <span style="color:#64748b;font-weight:700">· '+t+'</span>',
+                     'Cotización de cierre'+(sello?(' · último precio: '+String(sello.txt).replace(/<[^>]+>/g,'')):''));
+  if(!cont)return;
+  cont.innerHTML='<div class="kh-rangos"></div><div class="kh-hueco"></div>';
+  const barra=cont.querySelector('.kh-rangos'), hueco=cont.querySelector('.kh-hueco');
+
+  function pinta(){
+    barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+(r[0]===_khRangoValor?' on':'')+'" data-khr="'+r[0]+'">'+r[1]+'</button>').join('')
+      +'<a class="kh-ficha" href="#" data-khficha="'+t+'">Ver la ficha de '+t+' ↗</a>';
+    const cfg=_KH_RANGOS.find(r=>r[0]===_khRangoValor)||_KH_RANGOS[1];
+    const s=_khSerieValor(t,cfg[2]);
+    if(!s||s.xs.length<2){
+      hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cotizaciones de '+t+' en este tramo. '
+        +'Prueba con 1 mes, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
+      return;
+    }
+    const prec=x=>(Math.round(num(x)*10000)/10000).toFixed(2)+' €';
+    const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):iso; };
+    const ini=s.ys[0], fin=s.ys[s.ys.length-1];
+    const varPct=(ini>0)?((fin-ini)/ini*100):null;
+    khGrafLinea(hueco,{
+      xs:s.xs, ys:s.ys, color:'#2563eb', alto:300,
+      fmtX:dd, fmtEje:prec, fmtY:prec,
+      tip:i=>'<b>'+prec(s.ys[i])+'</b><br>'+dd(s.xs[i])+'/'+String(s.xs[i]).slice(0,4),
+      leyenda:[{c:'#2563eb',t:'Cierre diario'+(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))}]
+    });
+  }
+  barra.addEventListener('click',function(e){
+    const b=e.target.closest('[data-khr]');
+    if(b){ _khRangoValor=b.getAttribute('data-khr'); pinta(); return; }
+    const f=e.target.closest('[data-khficha]');
+    if(f){ e.preventDefault(); khModalCerrar();
+      if(typeof abrirFicha==='function') abrirFicha(f.getAttribute('data-khficha')); }
+  });
+  pinta();
 }

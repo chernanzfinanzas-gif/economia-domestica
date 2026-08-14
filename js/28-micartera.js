@@ -438,11 +438,17 @@ function renderMiCartera(){
         : '<div class="mc-dia muted">— <span>sin cierre con el que comparar</span></div>';
       const compartida=(p.carteras.length>1)||(p.carteras[0]&&p.carteras[0]!=='Propia');
       const sp=_mcSelloDe(p.ticker);
-      return '<div class="mc-row" data-ficha="'+p.ticker+'" title="Abrir la ficha de '+_mcEsc(p.nombre)+'">'
+      /* [14-ago-2026] LA TARJETA ABRE EL GRAFICO; EL TICKER, LA FICHA.
+         Hasta hoy la tarjeta entera llevaba a la Ficha. Al meter el grafico habia que
+         elegir: dos destinos no caben en la misma zona de clic. Se decidio asi porque
+         mirando la cartera lo que se quiere ver de un vistazo es COMO VA, no el dossier
+         entero; y el ticker, que ya estaba escrito ahi, se convierte en la puerta a la
+         Ficha con su subrayado y su color de enlace para que se vea que lo es. */
+      return '<div class="mc-row" data-mcgrafv="'+p.ticker+'" title="Ver el gráfico de '+_mcEsc(p.nombre)+'">'
         +'<div class="mc-l">'
         +  '<div class="mc-nom">'+_mcEsc(p.nombre)
         +    (compartida?'<span class="mc-cart">'+_mcEsc(p.carteras.join(' + '))+'</span>':'')+'</div>'
-        +  '<div class="mc-sub">BME · <b>'+p.ticker+'</b></div>'
+        +  '<div class="mc-sub">BME · <b class="mc-tk" data-ficha="'+p.ticker+'" title="Abrir la ficha de '+_mcEsc(p.nombre)+'">'+p.ticker+'</b></div>'
         +  '<div class="mc-sub">Compra '+(Math.round(p.acc*10000)/10000)+' @ '+_mcPrecio(p.pmedio)+'</div>'
         +'</div>'
         +'<div class="mc-r">'
@@ -517,10 +523,20 @@ function renderMiCartera(){
         if(typeof mcAbrirGrafCartera==='function') mcAbrirGrafCartera();
         return;
       }
-      const f=e.target.closest('[data-ficha]'); if(!f)return;
-      const t=f.getAttribute('data-ficha');
-      if(typeof abrirFicha==='function'){ abrirFicha(t); return; }
-      if(typeof activarVista==='function') activarVista('inversiones');
+      /* El ticker se mira ANTES que la tarjeta: esta dentro de ella, y si ganara la
+         tarjeta el enlace a la Ficha no llegaria a dispararse nunca. */
+      const f=e.target.closest('[data-ficha]');
+      if(f){
+        const t=f.getAttribute('data-ficha');
+        if(typeof abrirFicha==='function'){ abrirFicha(t); return; }
+        if(typeof activarVista==='function') activarVista('inversiones');
+        return;
+      }
+      const g=e.target.closest('[data-mcgrafv]');
+      if(g){
+        if(typeof mcAbrirGrafValor==='function') mcAbrirGrafValor(g.getAttribute('data-mcgrafv'));
+        return;
+      }
     });
     el.addEventListener('keydown',function(e){
       if(e.key!=='Enter'&&e.key!==' ')return;
@@ -606,6 +622,8 @@ function _mcCSS(){
     '#view-micartera .mc-fuente.vieja .d{background:#d97706}',
     '#view-micartera .mc-fuente.cierre{background:#f8fafc;border:1px solid var(--line)}',
     '#view-micartera .mc-fuente.cierre .d{background:#94a3b8}',
+    '#view-micartera .mc-tk{color:var(--brand);cursor:pointer;text-decoration:underline;text-underline-offset:2px}',
+    '#view-micartera .mc-row{cursor:pointer}',
     '#view-micartera .mc-cuando{font-size:10px;font-weight:700;color:#94a3b8;margin-top:1px;letter-spacing:.01em}',
     '#view-micartera .mc-cuando.intradia{color:#4f46e5}',
     '#view-micartera .mc-cuando.viejo{color:#b45309}',
