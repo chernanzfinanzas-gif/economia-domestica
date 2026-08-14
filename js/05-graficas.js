@@ -345,8 +345,28 @@ function rentabilidadEmpresas(reRender){
   const dvO=DB.dividendos||{}; const nowMs=Date.now(); const nowY=new Date().getFullYear();
   const msY1=nowMs-365.25*86400000, msY3=nowMs-3*365.25*86400000, msYTD=Date.UTC(nowY,0,1);
   const totVal=pos.reduce((s,p)=>s+p.acciones*num(p.precioActual),0);
-  const rows=pos.map(p=>{ const t=(p.ticker||'').toUpperCase(); const acc=p.acciones, pa=num(p.precioActual);
-    const coste=acc*num(p.precioCompra), valor=acc*pa, pl=valor-coste;
+  /* [14-ago-2026] UNA FILA POR EMPRESA, NO POR CARTERA. ESTE ERA UN FALLO DE VERDAD.
+     `invPositions()` devuelve una fila por pareja (cartera, ticker), asi que una empresa
+     que esta en Propia y en Compartida salia DOS veces. Y el dividendo cobrado no se
+     reparte por cartera: `sharesAt()` suma TODAS las acciones que tenias ese dia, mires
+     la fila que mires. Resultado, con 1.000 acciones desde 2011 y 200 heredadas en
+     feb-2026: a las 200 se les atribuian los dividendos de 2024 y 2025 -que jamas
+     cobraron- y ademas el conjunto contaba el dividendo DOS VECES.
+     Lo destapo la columna «Plusv.+Div.» al poner el importe en euros y sumarlo: en
+     porcentaje el error se camuflaba, en euros no habia donde esconderlo.
+     Se consolida por ticker antes de calcular nada. El dividendo se cuenta una sola vez,
+     que es como se cobro. Es ademas lo que dice el titulo de la vista -«por Empresa»- y
+     lo que ya hacia Mi Cartera; tener dos vistas contando distinto era el problema. */
+  const _porT={};
+  pos.forEach(p=>{ const tk=(p.ticker||'').toUpperCase(); if(!tk)return;
+    const a=num(p.acciones), m=_porT[tk]=_porT[tk]||{t:tk,acc:0,coste:0,pa:0,carteras:[]};
+    m.acc+=a; m.coste+=a*num(p.precioCompra);
+    const _pa=num(p.precioActual); if(_pa>0)m.pa=_pa;
+    if(p.cartera&&m.carteras.indexOf(p.cartera)<0)m.carteras.push(p.cartera);
+  });
+  const rows=Object.keys(_porT).map(_k=>{ const _m=_porT[_k];
+    const t=_m.t; const acc=_m.acc, pa=_m.pa;
+    const coste=_m.coste, valor=acc*pa, pl=valor-coste;
     let divCob=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm))divCob+=sharesAt(t,dm)*num(dd.importe); } });
     const rentTot=coste>0?(pl+divCob)/coste:null;
     const cf=[]; (opsByT[t]||[]).forEach(o=>{ const ms=Date.parse(o.fecha+'T00:00:00'); if(isNaN(ms))return; const eur=num(o.acciones)*num(o.precio); if(!eur)return; cf.push({t:ms,a:(o.tipo==='venta'?eur:-eur)}); });
@@ -355,7 +375,7 @@ function rentabilidadEmpresas(reRender){
     const xirr=(typeof _xirr==='function')?_xirr(cf):null;
     const prNow=pa>0?pa:((typeof priceAtFB==='function')?priceAtFB(t,nowMs):0);
     const trOf=(msStart)=>{ const p0=(typeof priceAtFB==='function')?priceAtFB(t,msStart):0; if(!(p0>0)||!(prNow>0))return null; let divS=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(dm>=msStart&&dm<=nowMs)divS+=num(dd.importe); } }); return (prNow-p0+divS)/p0; };
-    return {t,acc,pa,coste,valor,pl,plPct:coste>0?pl/coste:null,divCob,balance:pl+divCob,rentTot,xirr,peso:totVal>0?valor/totVal:0,trYTD:trOf(msYTD),tr1A:trOf(msY1),tr3A:trOf(msY3)};
+    return {t,acc,pa,coste,valor,pl,plPct:coste>0?pl/coste:null,divCob,balance:pl+divCob,rentTot,xirr,carteras:_m.carteras,peso:totVal>0?valor/totVal:0,trYTD:trOf(msYTD),tr1A:trOf(msY1),tr3A:trOf(msY3)};
   }).sort((a,b)=>b.peso-a.peso);
   return {ok:true,rows,totVal}; }
 /* [14-ago-2026] LOS TOTALES, EN UNA FUNCION APARTE Y SIN DOM.
@@ -419,7 +439,7 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
      de la tabla, no una posicion mas. Por eso no lleva la clase `mt-row` -que es la que
      el listener usa para abrir el detalle- ni fila `mt-det` debajo. */
   const totRow=`<tr class="mt-tot" style="background:#f1f5f9"><td class="emp" style="font-weight:800">TOTAL <span style="font-weight:600;color:#64748b;font-size:11px">${T.n} posiciones</span></td><td style="font-weight:700">100.0%</td><td><b>${fmt(T.valor)}</b></td><td><span class="${T.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(T.pl>=0?'+':'')+fmt(T.pl)}</span> <span class="mt-pill ${T.pl>=0?'g':'r'}">${pc(T.plPct)}</span></td><td><span class="${T.balance>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(T.balance>=0?'+':'')+fmt(T.balance)}</span></td><td><span class="mt-pill ${(T.rentTot!=null&&T.rentTot>=0)?'g':'r'}">${pc(T.rentTot)}</span></td><td><span class="mt-pill ${(CR&&CR.xirr!=null&&CR.xirr>=0)?'g':'r'}">${CR?pc(CR.xirr):'—'}</span></td></tr>`;
-  const body=rows.map(r=>`<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="renta-tk" data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b> <span style="font-weight:600;color:#334155;font-size:11px">${nm(r.t)}</span></td><td>${(r.peso*100).toFixed(1)}%</td><td><b>${fmt(r.valor)}</b></td><td><span class="${r.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.pl>=0?'+':'')+fmt(r.pl)}</span> <span class="mt-pill ${r.pl>=0?'g':'r'}">${pc(r.plPct)}</span></td><td><span class="${r.balance>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.balance>=0?'+':'')+fmt(r.balance)}</span></td><td><span class="mt-pill ${(r.rentTot!=null&&r.rentTot>=0)?'g':'r'}">${pc(r.rentTot)}</span></td><td><span class="mt-pill ${(r.xirr!=null&&r.xirr>=0)?'g':'r'}">${pc(r.xirr)}</span></td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Div. cobrado',fmt(r.divCob),'mt-pos')}${_mtNum('TR YTD',pc(r.trYTD),(r.trYTD||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 1A',pc(r.tr1A),(r.tr1A||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 3A',pc(r.tr3A),(r.tr3A||0)>=0?'mt-pos':'mt-neg')}</div></td></tr>`).join('');
+  const body=rows.map(r=>`<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="renta-tk" data-ficha="${r.t}" style="cursor:pointer;color:var(--brand)">${r.t}</b> <span style="font-weight:600;color:#334155;font-size:11px">${nm(r.t)}</span>${(r.carteras&&r.carteras.length>1)?' <span class="mt-pill" style="background:#e0e7ff;color:#3730a3" title="'+r.carteras.join(' + ')+'">2 carteras</span>':''}</td><td>${(r.peso*100).toFixed(1)}%</td><td><b>${fmt(r.valor)}</b></td><td><span class="${r.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.pl>=0?'+':'')+fmt(r.pl)}</span> <span class="mt-pill ${r.pl>=0?'g':'r'}">${pc(r.plPct)}</span></td><td><span class="${r.balance>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${(r.balance>=0?'+':'')+fmt(r.balance)}</span></td><td><span class="mt-pill ${(r.rentTot!=null&&r.rentTot>=0)?'g':'r'}">${pc(r.rentTot)}</span></td><td><span class="mt-pill ${(r.xirr!=null&&r.xirr>=0)?'g':'r'}">${pc(r.xirr)}</span></td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Div. cobrado',fmt(r.divCob),'mt-pos')}${_mtNum('TR YTD',pc(r.trYTD),(r.trYTD||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 1A',pc(r.tr1A),(r.tr1A||0)>=0?'mt-pos':'mt-neg')}${_mtNum('TR 3A',pc(r.tr3A),(r.tr3A||0)>=0?'mt-pos':'mt-neg')}</div></td></tr>`).join('');
   const tblDesk=`<div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${totRow}${body}</tbody></table></div></div>`;
   const mcards=rows.map(r=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${r.t}" style="cursor:pointer">${r.t} <span class="nm">${nm(r.t)}</span></div><div class="ty ${(r.rentTot||0)>=0?'g':'r'}">${pc(r.rentTot)}<span>rent. total</span></div></div><div class="lc-row"><span class="pl ${r.pl>=0?'pos':'neg'}">${r.pl>=0?'+':''}${fmt(r.pl)}</span> <span class="muted">plusvalía</span> · TIR <b class="${(r.xirr||0)>=0?'pos':'neg'}">${pc(r.xirr)}</b> · peso <b>${(r.peso*100).toFixed(1)}%</b></div><div class="lg"><div class="m"><span>Valor</span><b>${fmt(r.valor)}</b></div><div class="m"><span>Div. cobrado</span><b class="pos">${fmt(r.divCob)}</b></div><div class="m"><span>Plusv.+Div.</span><b class="${r.balance>=0?'pos':'neg'}">${(r.balance>=0?'+':'')+fmt(r.balance)}</b></div><div class="m"><span>TR YTD</span><b class="${(r.trYTD||0)>=0?'pos':'neg'}">${pc(r.trYTD)}</b></div><div class="m"><span>TR 1A</span><b class="${(r.tr1A||0)>=0?'pos':'neg'}">${pc(r.tr1A)}</b></div><div class="m"><span>TR 3A</span><b class="${(r.tr3A||0)>=0?'pos':'neg'}">${pc(r.tr3A)}</b></div><div class="m"><span>Plusv. %</span><b class="${r.pl>=0?'pos':'neg'}">${pc(r.plPct)}</b></div></div></div>`).join('');
   /* [14-ago-2026] La misma fila TOTAL, en formato tarjeta, para que el movil ensene lo
