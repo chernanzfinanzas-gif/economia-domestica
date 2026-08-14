@@ -1055,6 +1055,11 @@ function _khCSS(){
 #kh-modal .kh-x{border:1px solid #e2e8f0;background:#f8fafc;border-radius:8px;width:30px;height:30px;font-size:16px;line-height:1;cursor:pointer;color:#475569;flex:none}
 #kh-modal .kh-x:hover{background:#fee2e2;border-color:#fecaca;color:#b91c1c}
 #kh-modal .kh-b{padding:12px 16px 16px}
+.kh-graf .kh-zoom{font-size:11px;color:#334155;margin-top:8px;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:5px 9px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kh-graf .kh-zoom-off{background:#f8fafc;border-color:#e2e8f0;color:#64748b}
+.kh-graf .kh-unzoom{border:1px solid #93c5fd;background:#fff;color:#1d4ed8;border-radius:6px;font-size:11px;padding:2px 8px;cursor:pointer;font-weight:600}
+.kh-graf .kh-unzoom:hover{background:#dbeafe}
+.kh-graf svg{cursor:crosshair}
 .kh-graf{position:relative}
 .kh-graf svg{display:block;width:100%;height:auto;touch-action:none}
 .kh-tip{position:absolute;pointer-events:none;background:#0f172a;color:#fff;font-size:11.5px;line-height:1.45;padding:6px 9px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s;z-index:5}
@@ -1119,57 +1124,104 @@ function khGrafLinea(cont, cfg){
   if(!cont)return;
   const xs=cfg.xs||[], ys=(cfg.ys||[]).map(v=>num(v)), n=Math.min(xs.length,ys.length);
   if(n<2){ cont.innerHTML='<div class="empty">No hay suficientes datos para dibujar.</div>'; return; }
-  const W=760,H=cfg.alto||320,pl=66,pr=14,pt=14,pb=28;
-  let mx=0; for(let i=0;i<n;i++) if(ys[i]>mx)mx=ys[i];
-  mx=mx*1.06||1;
-  const X=i=>pl+(W-pl-pr)*(n>1?i/(n-1):0), Y=v=>pt+(H-pt-pb)*(1-num(v)/mx);
+  const W=760,H=cfg.alto||320,pl=66,pr=14,pt=14,pb=28, anchoPx=W-pl-pr;
   const eur=cfg.fmtY||(v=>(typeof fmt==='function')?fmt(v):String(Math.round(v)));
-  let grid='';
-  for(let g=0;g<=4;g++){ const gv=mx*g/4; const y=Y(gv);
-    grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
-        +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
-  let d=''; for(let i=0;i<n;i++) d+=(i?'L':'M')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
-  /* etiquetas del eje X: se reparten 6 como mucho, sin repetir */
-  let xl=''; const paso=Math.max(1,Math.ceil(n/6));
-  for(let i=0;i<n;i+=paso){ xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>'; }
-  let mk=''; const marcas=cfg.marcas||{}; const idxMarcas=[];
-  Object.keys(marcas).forEach(function(k){ const i=+k; if(!(i>=0&&i<n))return;
-    idxMarcas.push(i);
-    mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="4" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
-  idxMarcas.sort(function(a,b){ return a-b; });
-  const col=cfg.color||'#16a34a';
-  cont.innerHTML='<div class="kh-graf">'
-    +'<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
-    +grid+'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
-    +mk
-    +'<line class="kh-cur" x1="0" y1="'+pt+'" x2="0" y2="'+(H-pb)+'" stroke="#94a3b8" stroke-dasharray="3 3" style="opacity:0"/>'
-    +'<circle class="kh-pt" r="4" fill="'+col+'" stroke="#fff" stroke-width="2" style="opacity:0"/>'
-    +xl+'</svg><div class="kh-tip"></div>'
-    +((cfg.leyenda&&cfg.leyenda.length)?('<div class="kh-leg">'+cfg.leyenda.map(l=>'<span><i style="background:'+l.c+'"></i>'+l.t+'</span>').join('')+'</div>'):'')
-    +'</div>';
-  const wrap=cont.querySelector('.kh-graf'), svg=wrap.querySelector('svg');
-  const cur=svg.querySelector('.kh-cur'), pt2=svg.querySelector('.kh-pt'), tip=wrap.querySelector('.kh-tip');
-  function mover(ev){
-    const r=svg.getBoundingClientRect(); if(!r.width)return;
-    const cx=(ev.touches&&ev.touches[0]?ev.touches[0].clientX:ev.clientX)-r.left;
-    const vx=cx*W/r.width;                       /* de pixeles a coordenadas del viewBox */
-    const i=_khIndiceEn(vx,n,pl,W-pl-pr,idxMarcas,cfg.imanPx==null?9:cfg.imanPx);
-    const x=X(i), y=Y(ys[i]);
-    cur.setAttribute('x1',x); cur.setAttribute('x2',x); cur.style.opacity=1;
-    pt2.setAttribute('cx',x); pt2.setAttribute('cy',y); pt2.style.opacity=1;
-    tip.innerHTML=(cfg.tip?cfg.tip(i):(xs[i]+'<br><b>'+eur(ys[i])+'</b>'));
-    tip.style.opacity=1;
-    const px=x*r.width/W, py=y*r.height/H;
-    const tw=tip.offsetWidth||140;
-    tip.style.left=Math.max(2,Math.min(r.width-tw-2,px-tw/2))+'px';
-    tip.style.top=Math.max(2,py-tip.offsetHeight-12)+'px';
+  const marcas=cfg.marcas||{};
+  const todasMarcas=Object.keys(marcas).map(k=>+k).filter(i=>i>=0&&i<n).sort((a,b)=>a-b);
+
+  /* [14-ago-2026] ZOOM POR ARRASTRE. Mismo gesto que el grafico de cotizacion de la Ficha
+     -arrastrar para acercar, doble clic para volver- porque dos gestos distintos para lo
+     mismo dentro de la misma app se olvidan los dos. Hace falta de verdad: con 15 anios de
+     sesiones, el ultimo ano ocupa un 7% del ancho y ahi es donde estan casi todas las
+     compras. `z0`/`z1` son indices sobre la serie COMPLETA; lo que se dibuja es el tramo,
+     pero el tooltip sigue hablando en indices globales para no tener que traducir en cada
+     sitio que consuma el dato. */
+  let z0=0, z1=n-1;
+  cont.innerHTML='<div class="kh-graf"></div>';
+  const wrap=cont.querySelector('.kh-graf');
+
+  function pinta(){
+    const m=z1-z0+1;
+    let mx=0; for(let i=z0;i<=z1;i++) if(ys[i]>mx)mx=ys[i];
+    mx=mx*1.06||1;
+    const X=i=>pl+anchoPx*(m>1?(i-z0)/(m-1):0), Y=v=>pt+(H-pt-pb)*(1-num(v)/mx);
+    let grid='';
+    for(let g=0;g<=4;g++){ const gv=mx*g/4, y=Y(gv);
+      grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
+          +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
+    let d=''; for(let i=z0;i<=z1;i++) d+=(i===z0?'M':'L')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
+    let xl=''; const paso=Math.max(1,Math.ceil(m/6));
+    for(let i=z0;i<=z1;i+=paso) xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>';
+    const visibles=todasMarcas.filter(i=>i>=z0&&i<=z1);
+    let mk=''; visibles.forEach(function(i){
+      mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="4" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
+    const col=cfg.color||'#16a34a';
+    const zoomInfo=(z0>0||z1<n-1)
+      ? '<div class="kh-zoom">🔍 '+(cfg.fmtX?cfg.fmtX(xs[z0]):xs[z0])+' → '+(cfg.fmtX?cfg.fmtX(xs[z1]):xs[z1])
+        +' · '+m+' de '+n+' sesiones <button class="kh-unzoom" type="button">volver a todo</button></div>'
+      : '<div class="kh-zoom kh-zoom-off">Arrastra sobre el gráfico para acercar una zona · doble clic para volver</div>';
+    wrap.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
+      +grid
+      +'<rect class="kh-brush" x="0" y="'+pt+'" width="0" height="'+(H-pt-pb)+'" fill="#3b82f6" opacity=".14" style="display:none"/>'
+      +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
+      +mk
+      +'<line class="kh-cur" x1="0" y1="'+pt+'" x2="0" y2="'+(H-pb)+'" stroke="#94a3b8" stroke-dasharray="3 3" style="opacity:0"/>'
+      +'<circle class="kh-pt" r="4" fill="'+col+'" stroke="#fff" stroke-width="2" style="opacity:0"/>'
+      +xl+'</svg><div class="kh-tip"></div>'
+      +zoomInfo
+      +((cfg.leyenda&&cfg.leyenda.length)?('<div class="kh-leg">'+cfg.leyenda.map(l=>'<span><i style="background:'+l.c+'"></i>'+l.t+'</span>').join('')+'</div>'):'');
+    enlaza(X,Y,visibles,m);
   }
-  function fuera(){ cur.style.opacity=0; pt2.style.opacity=0; tip.style.opacity=0; }
-  svg.addEventListener('mousemove',mover);
-  svg.addEventListener('mouseleave',fuera);
-  svg.addEventListener('touchstart',mover,{passive:true});
-  svg.addEventListener('touchmove',mover,{passive:true});
-  svg.addEventListener('touchend',fuera);
+
+  function enlaza(X,Y,visibles,m){
+    const svg=wrap.querySelector('svg'), cur=svg.querySelector('.kh-cur'),
+          pt2=svg.querySelector('.kh-pt'), tip=wrap.querySelector('.kh-tip'),
+          brush=svg.querySelector('.kh-brush');
+    let arrastre=null;
+    const vxDe=ev=>{ const r=svg.getBoundingClientRect(); if(!r.width)return null;
+      const cx=(ev.touches&&ev.touches[0]?ev.touches[0].clientX:ev.clientX)-r.left;
+      return {vx:cx*W/r.width, r:r}; };
+    function mover(ev){
+      const q=vxDe(ev); if(!q)return;
+      /* el iman trabaja en coordenadas locales del tramo visible */
+      const iLocal=_khIndiceEn(q.vx,m,pl,anchoPx,visibles.map(i=>i-z0),cfg.imanPx==null?9:cfg.imanPx);
+      const i=z0+iLocal;
+      const x=X(i), y=Y(ys[i]);
+      cur.setAttribute('x1',x); cur.setAttribute('x2',x); cur.style.opacity=1;
+      pt2.setAttribute('cx',x); pt2.setAttribute('cy',y); pt2.style.opacity=1;
+      tip.innerHTML=(cfg.tip?cfg.tip(i):(xs[i]+'<br><b>'+eur(ys[i])+'</b>'));
+      tip.style.opacity=1;
+      const px=x*q.r.width/W, py=y*q.r.height/H, tw=tip.offsetWidth||140;
+      tip.style.left=Math.max(2,Math.min(q.r.width-tw-2,px-tw/2))+'px';
+      tip.style.top=Math.max(2,py-tip.offsetHeight-12)+'px';
+      if(arrastre&&brush){ const a=Math.min(arrastre.vx,q.vx), b=Math.max(arrastre.vx,q.vx);
+        brush.setAttribute('x',Math.max(pl,a)); brush.setAttribute('width',Math.max(0,Math.min(W-pr,b)-Math.max(pl,a)));
+        brush.style.display=''; }
+    }
+    function fuera(){ cur.style.opacity=0; pt2.style.opacity=0; tip.style.opacity=0; }
+    svg.addEventListener('mousemove',mover);
+    svg.addEventListener('mouseleave',fuera);
+    svg.addEventListener('touchstart',mover,{passive:true});
+    svg.addEventListener('touchmove',mover,{passive:true});
+    svg.addEventListener('touchend',fuera);
+    svg.addEventListener('mousedown',function(ev){ const q=vxDe(ev); if(!q)return; arrastre=q; ev.preventDefault(); });
+    svg.addEventListener('mouseup',function(ev){
+      if(!arrastre)return; const q=vxDe(ev); const a=arrastre; arrastre=null;
+      if(brush)brush.style.display='none';
+      if(!q)return;
+      /* menos de 8 px es un clic, no un arrastre: no se hace zoom sin querer */
+      if(Math.abs(q.vx-a.vx)<8)return;
+      const iA=z0+_khIndiceEn(Math.min(a.vx,q.vx),m,pl,anchoPx,[],0);
+      const iB=z0+_khIndiceEn(Math.max(a.vx,q.vx),m,pl,anchoPx,[],0);
+      if(iB-iA<1)return;                 /* un tramo de un solo punto no se puede dibujar */
+      z0=iA; z1=iB; pinta();
+    });
+    svg.addEventListener('dblclick',function(){ if(z0===0&&z1===n-1)return; z0=0; z1=n-1; pinta(); });
+    const btn=wrap.querySelector('.kh-unzoom');
+    if(btn)btn.addEventListener('click',function(){ z0=0; z1=n-1; pinta(); });
+  }
+
+  pinta();
 }
 
 /* ── Ventana de evolución de la cartera (14-ago-2026) ──────────────────────
