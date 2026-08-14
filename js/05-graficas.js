@@ -1091,6 +1091,30 @@ function khModalCerrar(){ const m=document.getElementById('kh-modal'); if(m)m.re
            color, fmtY, tip:(i)=>'html', leyenda:[{c,t}], alto }
    Los indices mandan: el eje X es regular -un punto por sesion- igual que el
    resto de graficos de la app. Asi una racha de festivos no abre un hueco.      */
+/* [14-ago-2026] EL IMAN DE LOS MARCADORES, Y POR QUE HACE FALTA.
+   La evolucion de la cartera tiene una sesion por dia desde 2011: casi 3.700 puntos en
+   el ancho de la ventana, o sea 0,2 pixeles por dia. Enganchar el tooltip al dia mas
+   cercano al cursor -que es lo normal- dejaba los dias de compra INALCANZABLES: habia
+   que acertar en una fraccion de pixel. El dato estaba, pero no habia forma de verlo.
+   Asi que si el cursor pasa cerca de un marcador, manda el marcador. Se saca a funcion
+   aparte para poder probarlo sin raton ni navegador. */
+function _khIndiceEn(vx, n, pl, ancho, marcasIdx, tol){
+  let i = Math.round((vx - pl) / (ancho || 1) * (n - 1));
+  if(!(i >= 0)) i = 0;
+  if(i > n - 1) i = n - 1;
+  if(marcasIdx && marcasIdx.length){
+    let mejor = -1, dist = Infinity;
+    for(let k = 0; k < marcasIdx.length; k++){
+      const mi = marcasIdx[k];
+      if(!(mi >= 0 && mi <= n - 1)) continue;
+      const mx = pl + ancho * (n > 1 ? mi / (n - 1) : 0);
+      const d = Math.abs(vx - mx);
+      if(d < dist){ dist = d; mejor = mi; }
+    }
+    if(mejor >= 0 && dist <= (tol == null ? 9 : tol)) return mejor;
+  }
+  return i;
+}
 function khGrafLinea(cont, cfg){
   if(!cont)return;
   const xs=cfg.xs||[], ys=(cfg.ys||[]).map(v=>num(v)), n=Math.min(xs.length,ys.length);
@@ -1108,9 +1132,11 @@ function khGrafLinea(cont, cfg){
   /* etiquetas del eje X: se reparten 6 como mucho, sin repetir */
   let xl=''; const paso=Math.max(1,Math.ceil(n/6));
   for(let i=0;i<n;i+=paso){ xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>'; }
-  let mk=''; const marcas=cfg.marcas||{};
+  let mk=''; const marcas=cfg.marcas||{}; const idxMarcas=[];
   Object.keys(marcas).forEach(function(k){ const i=+k; if(!(i>=0&&i<n))return;
-    mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="3.6" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
+    idxMarcas.push(i);
+    mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="4" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
+  idxMarcas.sort(function(a,b){ return a-b; });
   const col=cfg.color||'#16a34a';
   cont.innerHTML='<div class="kh-graf">'
     +'<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
@@ -1127,8 +1153,7 @@ function khGrafLinea(cont, cfg){
     const r=svg.getBoundingClientRect(); if(!r.width)return;
     const cx=(ev.touches&&ev.touches[0]?ev.touches[0].clientX:ev.clientX)-r.left;
     const vx=cx*W/r.width;                       /* de pixeles a coordenadas del viewBox */
-    let i=Math.round((vx-pl)/((W-pl-pr)||1)*(n-1));
-    if(i<0)i=0; if(i>n-1)i=n-1;
+    const i=_khIndiceEn(vx,n,pl,W-pl-pr,idxMarcas,cfg.imanPx==null?9:cfg.imanPx);
     const x=X(i), y=Y(ys[i]);
     cur.setAttribute('x1',x); cur.setAttribute('x2',x); cur.style.opacity=1;
     pt2.setAttribute('cx',x); pt2.setAttribute('cy',y); pt2.style.opacity=1;
@@ -1209,6 +1234,6 @@ function mcAbrirGrafCartera(){
       }
       return h;
     },
-    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},{c:'#b45309',t:'Día con compra (pasa el ratón para ver cuál)'}]
+    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},{c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
   });
 }
