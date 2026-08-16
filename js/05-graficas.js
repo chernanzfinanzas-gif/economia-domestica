@@ -1314,7 +1314,12 @@ function mcAbrirGrafCartera(){
    vivo de hoy cuando lo hay.
    Capa 2 (pendiente): las barras de 5 minutos, cuando el archivado lleve días
    corriendo. Se enchufa aquí sin tocar nada de lo de arriba.                    */
-const _KH_RANGOS=[['1s','1 semana',7],['1m','1 mes',31]];
+/* [14-ago-2026] «2 semanas» esta puesto a medida del archivo: se guardan 10 SESIONES,
+   que son exactamente dos semanas de bolsa. Asi el rango cubre todo el detalle de 5
+   minutos que va a existir y ni un dia mas -pedir mas seria pedir un detalle que no
+   esta-. Se piden 16 dias de calendario porque en 14 caben dos fines de semana y se
+   quedarian nueve sesiones. */
+const _KH_RANGOS=[['1s','1 semana',8],['2s','2 semanas',16],['1m','1 mes',31]];
 let _khRangoValor='1m';
 
 function _khSerieValor(t, dias){
