@@ -362,9 +362,15 @@ async function sincronizarIntradia(){
        mientras el workflow publicaba sin un solo fallo (25 precios, dato de las 17:00).
        «No ha corrido» y «no me lo he podido bajar» son cosas distintas, igual que
        «sin hechos» y «Pte. Revision».
-       El activo de release va PRIMERO: lo sirve otro CDN, sin ese estrangulador. */
+       [REVERTIDO EL MISMO DIA] Se probo a poner delante un activo de RELEASE —otro CDN, sin
+       ese estrangulador— y se quito enseguida: esa release NO EXISTE todavia, porque falta el
+       `gh release upload` en `intradia.yml`. La URL habria dado 404 en CADA sondeo, anadiendo
+       un viaje inutil antes de caer a raw. Lo cazo `_pruebas/test_intradia_app.js` ANTES de
+       publicar, que es exactamente para lo que esta. Cuando se decida el canal con GitHub sano
+       se anade la release Y se actualiza esa prueba a la vez: cambiar la cadena sin cambiar el
+       test es cambiarla a ciegas. Lo que SI se queda es el rastro del fallo, que es lo que hoy
+       falto. */
     const _FUENTES_INTRADIA=[
-      'https://github.com/chernanzfinanzas-gif/economia-domestica/releases/latest/download/intradia.json',
       'https://raw.githubusercontent.com/chernanzfinanzas-gif/economia-domestica/datos/intradia.json',
       'intradia.json'
     ];
@@ -373,7 +379,12 @@ async function sincronizarIntradia(){
       const _u=_FUENTES_INTRADIA[_i];
       const _quien=(_u.indexOf('//')<0)?'local':_u.split('/')[2];
       try{
-        const _rr=await fetch(_u+(_u.indexOf('?')<0?'?t=':'&t=')+Date.now(),{cache:'no-store'});
+        /* El `?t=` es contra la cache de la CDN, asi que solo tiene sentido en las fuentes
+           REMOTAS. En la ruta local basta `cache:'no-store'`, y ensuciarla con el parametro
+           cambia la peticion sin ganar nada. Lo dice el comentario de arriba desde el 06-ago
+           y lo comprueba `_pruebas/test_intradia_app.js`. */
+        const _remota=_u.indexOf('//')>=0;
+        const _rr=await fetch(_remota?(_u+(_u.indexOf('?')<0?'?t=':'&t=')+Date.now()):_u,{cache:'no-store'});
         if(_rr&&_rr.ok){ r=_rr; break; }
         _fallos.push(_quien+' '+(_rr?_rr.status:'sin respuesta'));
       }catch(e){ _fallos.push(_quien+' '+((e&&e.message)||'error de red')); }
