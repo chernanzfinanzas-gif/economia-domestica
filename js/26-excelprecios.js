@@ -127,7 +127,18 @@
          relevaba una captura de Excel de hace treinta segundos con una barra de hace
          siete horas: paso ese dia, con la serie del mercado espanol congelada desde las
          09:25. Con el sello, Yahoo solo puede pisarla si demuestra ser mas reciente. */
-      v.precioISO = new Date().toISOString();
+      /* [17-ago-2026] ...pero se sellaba con `new Date()`, que es CUANDO SE PULSA EL
+         BOTON, no de cuando es el DATO. Una captura cuyos precios son de las 11:22,
+         cargada en la app a las 16:00, se presentaba como fresca de las 16:00 y
+         bloqueaba TODAS las barras del intradia hasta el dia siguiente, porque
+         01-core.js solo deja pisar si `j.datoISO > v.precioISO`. Sintoma: "la cartera
+         tiene cotizacion de cierre y el intradia no ha corrido hoy" CON el workflow
+         publicando bien (25 precios, dato de las 17:00, "Publicado en datos").
+         `selloUTC` es la hora de la ultima operacion, leida del richData del .xlsx:
+         asi se compara hora-del-dato contra hora-del-dato y la proteccion del 06-ago
+         sigue intacta -- una captura de hace 30 segundos le sigue ganando a una barra
+         de hace siete horas. El `||` es para ficheros viejos sin sello. */
+      v.precioISO = doc.selloUTC || new Date().toISOString();
       var a = ana[t]; if (a) a.cotizacion = p;
       res.ok++;
     });

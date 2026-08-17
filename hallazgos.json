@@ -42,7 +42,7 @@
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": true,
+          "notaEmitida": false,
           "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización 4,77 €)"
         },
         {
@@ -378,11 +378,11 @@
           "severidad": "alta",
           "origen": "barrido societario 2026-08-17",
           "fecha": "2026-08-17",
-          "fuente": "prensa economica y regional (El Economista, OCU, Navarra Capital); OIR de la CNMV verificada; Informacion Privilegiada NO verificable esta semana (timeout)",
+          "fuente": "CNMV VERIFICADA en sus dos ramas: Informacion Privilegiada (nif=A-31065618, entidad devuelta AZKOYEN, S.A.) y listado oficial de OPAs; mas prensa economica y regional",
           "exigeAccion": false,
           "ultimaNovedad": {
             "fecha": "2026-08-17",
-            "texto": "OPA de Ohmnia Electronics sobre el 100% de Azkoyen a 10,00 EUR/accion en efectivo (~244 M EUR), condicionada a aceptacion superior al 50%, VIVA y SIN RESOLVER. Anuncio previo 24-jul-2026 (IP CNMV n 3303); el consejo la califica de AMISTOSA el 28-jul (OIR n 42131). Fase a 17-ago-2026: SIGUE EN ANUNCIO PREVIO. No consta solicitud de autorizacion a la CNMV, ni folleto, ni plazo de aceptacion abierto. Ohmnia tenia hasta ~24-ago para solicitarla: quedan unos siete dias y ese es el hecho vigilable de la semana. La accion cierra a 10,10 EUR, POR ENCIMA de la oferta: la OPA actua como TECHO, no como prima -- el mercado no la da por buena a ese precio o descuenta una mejora. AVISO DE COBERTURA: la Informacion Privilegiada de la CNMV, que es justo la rama donde aterrizaria un hito, quedo en Pte. Revision por timeout, asi que el 'sin novedades entre el 10 y el 17 de agosto' no esta confirmado contra el registro."
+            "texto": "OPA de Ohmnia Electronics sobre el 100% de Azkoyen a 10,00 EUR/accion en efectivo (~244,5 M EUR), condicionada a aceptacion superior al 50% y a autorizaciones de competencia en Espana y Alemania, VIVA y SIN RESOLVER. Anuncio previo 24-jul-2026 (IP CNMV n 3303); el consejo la califica de AMISTOSA el 28-jul (OIR n 42131). ESTADO A 17-AGO-2026, VERIFICADO CONTRA EL REGISTRO (ya NO es Pte. Revision): el listado oficial de OPAs de la CNMV situa a Azkoyen en el bloque ANUNCIADAS, no en Autorizadas. No consta solicitud de autorizacion presentada, no hay folleto y no hay plazo de aceptacion abierto -- y no puede abrirse antes de la autorizacion. El registro de Informacion Privilegiada NO tiene ninguna comunicacion entre el 10 y el 17 de agosto: la ultima es la propia n 3303 del 24-jul. Ohmnia tenia hasta ~24-ago para solicitar la autorizacion: quedan unos siete dias y ese es el hecho vigilable. La accion cotiza a 10,10 EUR, POR ENCIMA de la oferta: la OPA actua como TECHO, no como prima -- el mercado no la da por buena a ese precio o descuenta una mejora."
           }
         },
         {
@@ -431,7 +431,7 @@
           "severidad": "alta",
           "estado": "activa",
           "exigeAccion": false,
-          "resumen": "Rojo de situación corporativa, no de negocio: la OPA de Ohmnia a 10,00 € sigue en ANUNCIO PREVIO a siete días de que venza el plazo (~24-ago), la acción cotiza a 10,10 € —sobre la oferta y un 3,8% bajo el stop— y la Información Privilegiada de la CNMV no se pudo verificar. Los fundamentales siguen del lado bueno de sus umbrales (margen bruto 66,1%, Payment +20,3%).",
+          "resumen": "Rojo de situación corporativa, no de negocio: la OPA de Ohmnia a 10,00 € sigue en ANUNCIO PREVIO a siete días de que venza el plazo (~24-ago), la acción cotiza a 10,10 € —sobre la oferta y un 3,8% bajo el stop— y el registro de la CNMV confirma que no ha habido ningún hito. Los fundamentales siguen del lado bueno de sus umbrales (margen bruto 66,1%, Payment +20,3%).",
           "origen": "informe-semanal 2026-08-17",
           "fecha": "2026-08-17",
           "abiertoEl": "2026-08-17",
@@ -464,7 +464,27 @@
       "cobertura": {
         "semanal": "2026-08-17"
       },
-      "hallazgos": [],
+      "hallazgos": [
+        {
+          "id": "S3-2026-07-29",
+          "abiertoEl": "2026-07-29",
+          "estado": "resuelta",
+          "resueltoEl": "2026-08-17",
+          "desenlace": "REAFIRMAR. Cerrada el mismo dia con el apunte que ya existe en el registro del §10.5 del libro (29-jul-2026, cotizacion 15,56 EUR): el bull del dossier es «RoTE >16%, el NIM resiste y el mercado sostiene el premium de P/TBV», de modo que el mercado ya paga entero el escenario optimista. La cautela es ROBUSTA, no una opinion: con el CoE movido +-1 pp la banda de PO queda en 10,43-14,37 EUR y la cotizacion esta POR ENCIMA de todo el rango. NO hay posicion que recortar y no se abre a 2,3x TBV: se mantiene ESPERAR y el valor sigue en el radar para una correccion hacia la banda 7,85-8,55 EUR. SIN Nota de Revision Extraordinaria: se cerro con el apunte del §10.5, que es donde vive la decision. REGISTRO RETROACTIVO (17-ago-2026): esta entrada no existia en estado.json, solo en el §10.5, asi que el detector de precio la sacaba como «nueva» todos los lunes. Se anota aqui con sus fechas reales para cerrar ese hueco; el §10.5 manda y no se ha tocado.",
+          "resumen": "Deteccion de precio 2026-07-29 (registrada retroactivamente el 17-ago-2026): PO ALCANZADO — cotizacion 15,56 EUR >= PO bull 15,50 EUR. Es un hecho distinto del apunte del 13-jul (15,40 EUR, por debajo del bull, cruce del PO base) y por eso se registra aparte. Dossier de 2026-07-13: reciente, no procede tratarla como S4 por PO caducado.",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-07-29",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-05",
+          "notaEmitida": false
+        }
+      ],
       "revisiones": [
         {
           "fecha": "29-jul-2026",
@@ -639,7 +659,7 @@
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": true,
+          "notaEmitida": false,
           "nota": "§10.5 del libro · apunte del 2026-07-22 (cotización 12,70 €)"
         },
         {
@@ -821,13 +841,25 @@
           "tipo": "sancion",
           "naturaleza": "situacion",
           "severidad": "media",
-          "origen": "barrido societario 2026-08-10",
+          "origen": "revision discrecional 2026-08-17 (verificado contra CNMC y CNMV)",
           "fecha": "2026-04-23",
-          "fuente": "registro publico (CNMC, expedientes SNC/DE/074/26, SNC/DE/080/26 y SNC/DE/090/26)",
-          "exigeAccion": false
+          "fuente": "CNMC, fichas de expediente SNC/DE/047/26 y SNC/DE/074/26 y notas de prensa de 17 y 24-abr-2026; CNMV, Informacion Privilegiada de IBERDROLA, S.A.",
+          "exigeAccion": false,
+          "ultimaNovedad": {
+            "fecha": "2026-04-23",
+            "texto": "AL MENOS DIECIOCHO expedientes sancionadores de la CNMC por el incidente electrico del 28-abr-2025, INCOADOS, en fase inicial, plazo maximo 18 meses y SIN RESOLVER: diecisiete por el art. 65.8 LSE (infracciones GRAVES) mas el SNC/DE/047/26 por el art. 64.37 (MUY GRAVE, reduccion de produccion nuclear sin autorizacion). Contra CUATRO sociedades: Iberdrola S.A., Iberdrola Espana S.A.U., Iberdrola Generacion S.A.U. e Iberdrola Generacion Nuclear S.A.U. NINGUNO tiene importe: no hay propuesta de resolucion. A favor y ya resuelto: la Audiencia Nacional anulo una multa de 25 M EUR el 8-jun-2026 (firmeza: Pte. Revision). DIMENSIONADO en la revision discrecional del 17-ago-2026: con el techo de bandas del art. 67 LSE el maximo teorico son 162 M EUR = 0,12% de la capitalizacion y 0,024 EUR/accion; por el importe es irrelevante para la valoracion. Lo que si importa es la posicion ante el regulador que fija la retribucion (driver n1 de la tesis, con la TRF 2026-2031 impugnada por la propia Iberdrola). Queda abierta la lectura del tope del 10% de la cifra de negocios (~4.555 M EUR), que multiplicaria el techo por 28: Pte. Revision. HUECO DEL EXPEDIENTE: ningun riesgo del 8.1 ni Red Flag del 10.4 mide este frente, asi que no tiene umbral -pendiente de abrir la fila."
+          }
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fecha": "17-ago-2026",
+          "senal": "Disc.",
+          "cot": "20,17",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. Revision DISCRECIONAL (no habia senal abierta), motivada por el aviso de sancion de la app y, sobre todo, por su anotacion de que NINGUN driver del 8.1 mide el riesgo sancionador administrativo. Verificado contra la CNMC: el aviso se quedaba corto y mezclaba categorias. No son TRES expedientes sino AL MENOS DIECIOCHO -17 por el art. 65.8 LSE (graves) mas el SNC/DE/047/26 por el art. 64.37 (muy grave, produccion nuclear)- y no contra dos sociedades sino contra CUATRO. Correcciones: un expediente '65.8' es GRAVE por definicion (el art. 64 tipifica las muy graves); el apagon fue el 28-abr-2025, no el 27-abr-2026; y la sentencia de la Audiencia Nacional que anulo la multa de 25 M EUR es del 8-jun-2026, no del 13-jul (firmeza: Pte. Revision). TODOS los expedientes estan INCOADOS, sin propuesta de resolucion y SIN IMPORTE. Dimensionado: aplicando el techo de bandas del art. 67 (17 x 6,0 + 1 x 60) el maximo teorico son 162 M EUR = 0,12% de la capitalizacion (134.760 M EUR), 2,58% del BNA FY2025 y 0,024 EUR/accion, el 0,38% del hueco de la cotizacion al PO base. Por el importe es IRRELEVANTE para la valoracion. Lo que si importa y no se cuantifica: la posicion ante el regulador que fija la retribucion -driver n1 de la tesis, sensibilidad +2- con la TRF 2026-2031 aprobada en 6,58% e impugnada por la propia Iberdrola. Y queda abierta una lectura del art. 67 (tope del 10% de la cifra de negocios = ~4.555 M EUR, x28 el techo de bandas) cuya aplicabilidad es Pte. Revision. Ningun KPI del 10.1 en zona VENDER, ningun Red Flag del 10.4 disparado, ningun pre-mortem del 8.2 en curso, monitor Q2-2026 VERDE con tesis intacta. DECISION: REAFIRMAR, sin tocar veredicto, PO, banda ni stop. ACCION DE METODO: abrir fila de riesgo sancionador en el 8.1 con umbral propio (propuesta de resolucion con importe agregado > 500 M EUR, o resolucion firme por muy grave), y vigilar la PROPUESTA DE RESOLUCION -no la incoacion-, que es cuando aparece la primera cuantia."
+        }
+      ],
       "revisionesEl": "2026-08-17",
       "revisionesFrescas": true
     },
@@ -872,7 +904,7 @@
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": true,
+          "notaEmitida": false,
           "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización Pte. Revisión)"
         },
         {
@@ -982,7 +1014,7 @@
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-05",
-          "notaEmitida": true,
+          "notaEmitida": false,
           "nota": "§10.5 del libro · apunte del 2026-07-21 (cotización 14,13 €)"
         },
         {
@@ -1035,21 +1067,6 @@
           "exigeAccion": false
         },
         {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar: overhang societario nuevo —~1.000 M€ provisionados por litigios y CERO por el apagón, con expediente de la CNMC vivo—, almacenamiento europeo en el mínimo de la serie (~60%) con el TTF al alza, y la TRF del gas convertida en un reloj de 45 días sin dictamen. Ningún umbral cruzado; el pool (157,35 €/MWh) hace de contrapeso.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
-          "resueltoEl": null,
-          "desenlace": null
-        },
-        {
           "id": "soc-litigio",
           "abiertoEl": "2026-08-13",
           "estado": "activa",
@@ -1063,6 +1080,21 @@
           "fecha": "2026-08-13",
           "fuente": "prensa economica (CapitalMadrid) sobre las cuentas del 1S-2026 publicadas el 22-jul; capa CNMV en Pte. Revision -> tope severidad media, se fija en baja",
           "exigeAccion": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar: overhang societario nuevo —~1.000 M€ provisionados por litigios y CERO por el apagón, con expediente de la CNMC vivo—, almacenamiento europeo en el mínimo de la serie (~60%) con el TTF al alza, y la TRF del gas convertida en un reloj de 45 días sin dictamen. Ningún umbral cruzado; el pool (157,35 €/MWh) hace de contrapeso.",
+          "origen": "informe-semanal 2026-08-17",
+          "fecha": "2026-08-17",
+          "abiertoEl": "2026-08-17",
+          "vigenteHasta": "2026-08-22",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ],
       "revisiones": [],
@@ -1209,21 +1241,6 @@
           }
         },
         {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar, mismo esqueleto y un frente nuevo: la mediación CNMC–RTE toca la retribución reconocida —la variable de la tesis— pero se salda parcialmente a favor de REE y sin cuantía; y el respiro de tipos se deshace (10A +8,4 pb, Euribor 12M +3,4 pb, BCE al 98% para septiembre), con el spread frente a la TRF estrechándose otra vez a 293 pb.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
-          "resueltoEl": null,
-          "desenlace": null
-        },
-        {
           "id": "soc-otro",
           "abiertoEl": "2026-08-12",
           "estado": "activa",
@@ -1237,6 +1254,21 @@
           "fecha": "2026-08-12",
           "fuente": "prensa economica (Merca2), sobre documento de la CNMC de 20-jul-2026; sin confirmacion del emisor -> tope severidad media",
           "exigeAccion": false
+        },
+        {
+          "id": "coyuntura",
+          "tipo": "coyuntura",
+          "naturaleza": "estado",
+          "severidad": "media",
+          "estado": "activa",
+          "exigeAccion": false,
+          "resumen": "Ámbar, mismo esqueleto y un frente nuevo: la mediación CNMC–RTE toca la retribución reconocida —la variable de la tesis— pero se salda parcialmente a favor de REE y sin cuantía; y el respiro de tipos se deshace (10A +8,4 pb, Euribor 12M +3,4 pb, BCE al 98% para septiembre), con el spread frente a la TRF estrechándose otra vez a 293 pb.",
+          "origen": "informe-semanal 2026-08-17",
+          "fecha": "2026-08-17",
+          "abiertoEl": "2026-08-17",
+          "vigenteHasta": "2026-08-22",
+          "resueltoEl": null,
+          "desenlace": null
         }
       ],
       "revisiones": [
@@ -1603,6 +1635,6 @@
     "exigenAccion": 0,
     "conPlazoVencido": 0,
     "situacionesAbiertas": 21,
-    "hechosCaducadosHoy": 2
+    "hechosCaducadosHoy": 0
   }
 }

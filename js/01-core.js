@@ -352,11 +352,38 @@ async function sincronizarIntradia(){
        navegador. Y si raw no contesta (sin red, o un día que GitHub lo capa), se cae a la
        ruta de siempre: un intradia.json que no sea de HOY se descarta más abajo, así que
        el peor caso es quedarse sin dato, nunca enseñar uno viejo. */
-    const _RAW_INTRADIA='https://raw.githubusercontent.com/chernanzfinanzas-gif/economia-domestica/datos/intradia.json';
-    let r=null;
-    try{ r=await fetch(_RAW_INTRADIA+'?t='+Date.now(),{cache:'no-store'}); }catch(e){ r=null; }
-    if(!r||!r.ok){ try{ r=await fetch('intradia.json',{cache:'no-store'}); }catch(e){ return 0; } }
-    if(!r||!r.ok) return 0;
+    /* [17-ago-2026] CADENA DE FUENTES, Y EL FALLO DEJA RASTRO.
+       El comentario de arriba preveia «un dia que GitHub lo cape» y se caia a
+       `intradia.json` de Pages... que NO EXISTE: el fichero vive en la rama `datos`, no
+       en main. La red de seguridad era imaginaria. El 17-ago-2026 raw empezo a devolver
+       429 —su estrangulador anti-scraping: el fichero cambia cada 5 min y se pide con
+       `?t=`, o sea origen siempre— y el relativo, 404. Fallaban las dos, la funcion salia
+       por `return 0` EN SILENCIO, y la app dijo «el intradia no ha corrido» durante horas
+       mientras el workflow publicaba sin un solo fallo (25 precios, dato de las 17:00).
+       «No ha corrido» y «no me lo he podido bajar» son cosas distintas, igual que
+       «sin hechos» y «Pte. Revision».
+       El activo de release va PRIMERO: lo sirve otro CDN, sin ese estrangulador. */
+    const _FUENTES_INTRADIA=[
+      'https://github.com/chernanzfinanzas-gif/economia-domestica/releases/latest/download/intradia.json',
+      'https://raw.githubusercontent.com/chernanzfinanzas-gif/economia-domestica/datos/intradia.json',
+      'intradia.json'
+    ];
+    let r=null; const _fallos=[];
+    for(let _i=0;_i<_FUENTES_INTRADIA.length;_i++){
+      const _u=_FUENTES_INTRADIA[_i];
+      const _quien=(_u.indexOf('//')<0)?'local':_u.split('/')[2];
+      try{
+        const _rr=await fetch(_u+(_u.indexOf('?')<0?'?t=':'&t=')+Date.now(),{cache:'no-store'});
+        if(_rr&&_rr.ok){ r=_rr; break; }
+        _fallos.push(_quien+' '+(_rr?_rr.status:'sin respuesta'));
+      }catch(e){ _fallos.push(_quien+' '+((e&&e.message)||'error de red')); }
+    }
+    if(!r){
+      /* Se guarda el PORQUE, para que la chapa pueda decirlo en vez de callarse. */
+      window._intradiaFallo={cuando:Date.now(), motivo:_fallos.join(' · ')};
+      return 0;
+    }
+    window._intradiaFallo=null;
     const j=await r.json();
     if(!j||!j.datos) return 0;
     const hoy=new Date(); const _hoy=hoy.getFullYear()+'-'+String(hoy.getMonth()+1).padStart(2,'0')+'-'+String(hoy.getDate()).padStart(2,'0');
@@ -483,6 +510,15 @@ function intradiaEnUso(){
 }
 function intradiaSello(){
   const j=(typeof _intradia!=='undefined')?_intradia:null;
+  /* [17-ago-2026] Si el fichero no se ha podido DESCARGAR, se dice. Antes se devolvia ''
+     y la ausencia de chapa se leia como «hoy no hay intradia» — que es justo lo que no era. */
+  const _f=(typeof window!=='undefined')&&window._intradiaFallo;
+  if(!j&&_f){
+    const _m=String(_f.motivo||'').replace(/"/g,'');
+    return '<span title="La app no ha podido descargar intradia.json. El robot puede estar publicando con normalidad: esto es un fallo de DESCARGA, no de generacion. Detalle: '+_m+'" '
+      +'style="display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:700;color:#92400e;background:#fef3c7;'
+      +'border:1px solid #fde68a;border-radius:20px;padding:1px 8px">● intradia NO descargado · '+(_m.split(' · ')[0]||'sin detalle')+'</span>';
+  }
   if(!j||!j.hora) return '';
   if(!intradiaEnUso()) return '';      /* nadie está enseñando un precio de este fichero */
   const m=intradiaEdadMin(), viejo=intradiaViejo();
