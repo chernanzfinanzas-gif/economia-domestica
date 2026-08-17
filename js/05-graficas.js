@@ -1157,10 +1157,38 @@ function khGrafLinea(cont, cfg){
      salgan con cuatro decimales. Margen del 8% arriba y abajo para que la línea
      no roce los bordes, con un suelo de margen para el caso raro de una serie
      totalmente plana, que si no daría rango 0 y división por cero. */
-  function _khPasoBonito(x){
-    if(!(x>0)) return 1;
-    const e=Math.pow(10,Math.floor(Math.log10(x))), r=x/e;
-    return (r<=1?1:(r<=2?2:(r<=5?5:10)))*e;
+  /* Escoge el paso de la rejilla. La lista de pasos admisibles es más larga que el
+     1-2-5-10 de manual a propósito: con 1-2-5, un recorrido de 4,49 € obliga a saltar
+     al paso 2 y el eje se va de 8 a 16, con lo que la línea vuelve a ocupar la mitad
+     de lo que podría. Con 1,5 disponible el eje queda 9-15 y se aprovecha un 64%.
+     Se prueba de menor a mayor y gana el PRIMERO que cubre el tramo en 4 franjas,
+     que son las que dibuja la rejilla. */
+  const _KH_PASOS=[1,1.5,2,2.5,3,4,5,6,8];
+  function _khEje(lo,hi,fmt){
+    const span=(hi-lo)||Math.abs(hi)*0.02||1;
+    let e=Math.pow(10,Math.floor(Math.log10(span/4)));
+    for(let k=0;k<5;k++,e*=10){
+      for(let j=0;j<_KH_PASOS.length;j++){
+        const p=_KH_PASOS[j]*e;
+        const a=Math.floor(lo/p)*p, b=Math.ceil(hi/p)*p;
+        if(!(b>a) || Math.round((b-a)/p)>4) continue;
+        /* Segundo filtro, y no es un capricho: en «1 semana» el recorrido puede ser de
+           dos céntimos, y con un paso más fino que el céntimo la rejilla salía rotulada
+           «10,03 · 10,03 · 10,02 · 10,01 · 10,01» —dos parejas de etiquetas idénticas a
+           distinta altura—, que parece un fallo de la app. Como el formateador lo pone
+           quien llama, aquí no se puede saber cuántos decimales enseña: se rotula y se
+           mira. Si dos etiquetas salen iguales, el paso se descarta y se prueba el
+           siguiente, más grueso. */
+        if(fmt){
+          const et={};
+          let repe=false;
+          for(let g=0;g<=4;g++){ const s=String(fmt(a+(b-a)*g/4)); if(et[s]){repe=true;break;} et[s]=1; }
+          if(repe) continue;
+        }
+        return {mn:a,mx:b};
+      }
+    }
+    return {mn:lo,mx:hi>lo?hi:lo+1};
   }
   function pinta(){
     const m=z1-z0+1;
@@ -1171,10 +1199,8 @@ function khGrafLinea(cont, cfg){
       if(!isFinite(mn)||!isFinite(mx)){ mn=0; mx=1; }
       const rango=mx-mn;
       const margen=rango>0?rango*0.08:(Math.abs(mx)*0.01||1);
-      const paso=_khPasoBonito((rango+2*margen)/4);
-      mn=Math.floor((mn-margen)/paso)*paso;
-      mx=Math.ceil((mx+margen)/paso)*paso;
-      if(mx<=mn) mx=mn+paso;
+      const eje=_khEje(mn-margen, mx+margen, cfg.fmtEje);
+      mn=eje.mn; mx=eje.mx;
     } else {
       for(let i=z0;i<=z1;i++) if(ys[i]>mx)mx=ys[i];
       mx=mx*1.06||1;
@@ -1191,6 +1217,33 @@ function khGrafLinea(cont, cfg){
     const visibles=todasMarcas.filter(i=>i>=z0&&i<=z1);
     let mk=''; visibles.forEach(function(i){
       mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="4" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
+    /* [17-ago-2026] MÁXIMO Y MÍNIMO DEL TRAMO, con su valor escrito.
+       Se calculan sobre lo que se está VIENDO, no sobre la serie entera: si se
+       hace zoom, los dos puntos se recolocan al tramo nuevo, que es lo que uno
+       espera al acercar. En negro y no en verde/rojo a propósito: en una
+       cotización, «más alto» no significa «mejor» —depende de si se compra o se
+       vende— y colorearlos insinuaría una lectura que el gráfico no hace.
+       Se distinguen de las marcas de compra por la forma: aquí punto relleno,
+       allí anillo hueco. */
+    let ext='';
+    if(cfg.extremos){
+      let iH=z0, iL=z0;
+      for(let i=z0;i<=z1;i++){ if(ys[i]>ys[iH])iH=i; if(ys[i]<ys[iL])iL=i; }
+      const _pinta=function(i,cual){
+        const x=X(i), y=Y(ys[i]);
+        /* La etiqueta se aparta del borde: pegada al techo o al suelo del dibujo
+           se saldría del viewBox y no se leería. */
+        const ty=Math.max(pt+9,Math.min(H-pb-3, y+(cual==='max'?-9:17)));
+        let anc='middle', tx=x;
+        if(x<pl+44){ anc='start'; tx=pl+1; }
+        else if(x>W-pr-44){ anc='end'; tx=W-pr-1; }
+        const v=cfg.fmtY?cfg.fmtY(ys[i]):String(ys[i]);
+        return '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.6" fill="#0f172a" stroke="#fff" stroke-width="1.4"/>'
+             + '<text x="'+tx.toFixed(1)+'" y="'+ty.toFixed(1)+'" text-anchor="'+anc+'" font-size="10" font-weight="700" fill="#0f172a">'
+             + (cual==='max'?'máx ':'mín ')+v+'</text>';
+      };
+      ext=_pinta(iH,'max')+(iL!==iH?_pinta(iL,'min'):'');
+    }
     const col=cfg.color||'#16a34a';
     const zoomInfo=(z0>0||z1<n-1)
       ? '<div class="kh-zoom">🔍 '+(cfg.fmtX?cfg.fmtX(xs[z0]):xs[z0])+' → '+(cfg.fmtX?cfg.fmtX(xs[z1]):xs[z1])
@@ -1201,6 +1254,7 @@ function khGrafLinea(cont, cfg){
       +'<rect class="kh-brush" x="0" y="'+pt+'" width="0" height="'+(H-pt-pb)+'" fill="#3b82f6" opacity=".14" style="display:none"/>'
       +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
       +mk
+      +ext
       +'<line class="kh-cur" x1="0" y1="'+pt+'" x2="0" y2="'+(H-pb)+'" stroke="#94a3b8" stroke-dasharray="3 3" style="opacity:0"/>'
       +'<circle class="kh-pt" r="4" fill="'+col+'" stroke="#fff" stroke-width="2" style="opacity:0"/>'
       +xl+'</svg><div class="kh-tip"></div>'
@@ -1349,7 +1403,12 @@ function mcAbrirGrafCartera(){
    minutos que va a existir y ni un dia mas -pedir mas seria pedir un detalle que no
    esta-. Se piden 16 dias de calendario porque en 14 caben dos fines de semana y se
    quedarian nueve sesiones. */
-const _KH_RANGOS=[['1s','1 semana',8],['2s','2 semanas',16],['1m','1 mes',31]];
+/* [17-ago-2026] «1 año» son 366 días de calendario, no 252 sesiones: el corte se hace
+   por FECHA sobre el archivo de cierres, así que hay que pedir calendario. Sirve para
+   leer de un vistazo el máximo y el mínimo de 52 semanas, que es la referencia con la
+   que se mira si un precio está caro o barato dentro de su propio año. El archivo de
+   `precios/` guarda desde 2011, o sea que el dato está: solo faltaba pedirlo. */
+const _KH_RANGOS=[['1s','1 semana',8],['2s','2 semanas',16],['1m','1 mes',31],['1a','1 año',366]];
 let _khRangoValor='1m';
 
 function _khSerieValor(t, dias){
@@ -1396,22 +1455,32 @@ function mcAbrirGrafValor(t){
     const s=_khSerieValor(t,cfg[2]);
     if(!s||s.xs.length<2){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cotizaciones de '+t+' en este tramo. '
-        +'Prueba con 1 mes, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
+        +'Prueba con 1 mes o 1 año, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
       return;
     }
     const prec=x=>(Math.round(num(x)*10000)/10000).toFixed(2)+' €';
     const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):iso; };
     const ini=s.ys[0], fin=s.ys[s.ys.length-1];
     const varPct=(ini>0)?((fin-ini)/ini*100):null;
+    /* Máximo y mínimo del tramo completo, con su fecha, para la leyenda. Los puntos
+       del dibujo los recalcula `khGrafLinea` sobre lo que se ve, así que al hacer
+       zoom pueden discrepar: por eso la leyenda dice de qué periodo habla. */
+    let iH=0, iL=0;
+    for(let i=0;i<s.ys.length;i++){ if(s.ys[i]>s.ys[iH])iH=i; if(s.ys[i]<s.ys[iL])iL=i; }
+    const rec=(_khRangoValor==='1a')?'52 semanas':cfg[1];
+    const anio=x=>dd(x)+'/'+String(x).slice(2,4);
     khGrafLinea(hueco,{
       /* Una cotización NO se lee contra el cero: se lee contra sí misma. Ver la
          nota de `khGrafLinea`. El gráfico del valor de la cartera sí conserva el
          cero, y por eso esto es una opción y no el comportamiento por defecto. */
-      baseCero:false,
+      baseCero:false, extremos:true,
       xs:s.xs, ys:s.ys, color:'#2563eb', alto:300,
       fmtX:dd, fmtEje:prec, fmtY:prec,
       tip:i=>'<b>'+prec(s.ys[i])+'</b><br>'+dd(s.xs[i])+'/'+String(s.xs[i]).slice(0,4),
-      leyenda:[{c:'#2563eb',t:'Cierre diario'+(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))}]
+      leyenda:[
+        {c:'#2563eb',t:'Cierre diario'+(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
+        {c:'#0f172a',t:'Máx '+prec(s.ys[iH])+' ('+anio(s.xs[iH])+') · Mín '+prec(s.ys[iL])+' ('+anio(s.xs[iL])+') · '+rec}
+      ]
     });
   }
   barra.addEventListener('click',function(e){
