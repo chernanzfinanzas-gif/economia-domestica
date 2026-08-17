@@ -1146,13 +1146,43 @@ function khGrafLinea(cont, cfg){
   cont.innerHTML='<div class="kh-graf"></div>';
   const wrap=cont.querySelector('.kh-graf');
 
+  /* [17-ago-2026] EL EJE VERTICAL NO SIEMPRE DEBE ARRANCAR EN CERO.
+     El eje iba SIEMPRE de 0 al máximo. Para el valor de la cartera está bien
+     —el cero significa algo y recortar la escala exageraría los vaivenes— pero
+     es inservible para una cotización a una semana: una acción de 10 € que se
+     mueve entre 10,00 y 10,20 ocupaba un 2% del alto del gráfico y salía una
+     raya plana. El movimiento estaba; no se veía.
+     Con `baseCero:false` el eje se ajusta al tramo VISIBLE —se recalcula también
+     al hacer zoom— y se redondea a un paso «bonito» para que las etiquetas no
+     salgan con cuatro decimales. Margen del 8% arriba y abajo para que la línea
+     no roce los bordes, con un suelo de margen para el caso raro de una serie
+     totalmente plana, que si no daría rango 0 y división por cero. */
+  function _khPasoBonito(x){
+    if(!(x>0)) return 1;
+    const e=Math.pow(10,Math.floor(Math.log10(x))), r=x/e;
+    return (r<=1?1:(r<=2?2:(r<=5?5:10)))*e;
+  }
   function pinta(){
     const m=z1-z0+1;
-    let mx=0; for(let i=z0;i<=z1;i++) if(ys[i]>mx)mx=ys[i];
-    mx=mx*1.06||1;
-    const X=i=>pl+anchoPx*(m>1?(i-z0)/(m-1):0), Y=v=>pt+(H-pt-pb)*(1-num(v)/mx);
+    let mn=0, mx=0;
+    if(cfg.baseCero===false){
+      mn=Infinity; mx=-Infinity;
+      for(let i=z0;i<=z1;i++){ const v=num(ys[i]); if(v<mn)mn=v; if(v>mx)mx=v; }
+      if(!isFinite(mn)||!isFinite(mx)){ mn=0; mx=1; }
+      const rango=mx-mn;
+      const margen=rango>0?rango*0.08:(Math.abs(mx)*0.01||1);
+      const paso=_khPasoBonito((rango+2*margen)/4);
+      mn=Math.floor((mn-margen)/paso)*paso;
+      mx=Math.ceil((mx+margen)/paso)*paso;
+      if(mx<=mn) mx=mn+paso;
+    } else {
+      for(let i=z0;i<=z1;i++) if(ys[i]>mx)mx=ys[i];
+      mx=mx*1.06||1;
+    }
+    const _amp=(mx-mn)||1;
+    const X=i=>pl+anchoPx*(m>1?(i-z0)/(m-1):0), Y=v=>pt+(H-pt-pb)*(1-(num(v)-mn)/_amp);
     let grid='';
-    for(let g=0;g<=4;g++){ const gv=mx*g/4, y=Y(gv);
+    for(let g=0;g<=4;g++){ const gv=mn+_amp*g/4, y=Y(gv);
       grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
           +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
     let d=''; for(let i=z0;i<=z1;i++) d+=(i===z0?'M':'L')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
@@ -1374,6 +1404,10 @@ function mcAbrirGrafValor(t){
     const ini=s.ys[0], fin=s.ys[s.ys.length-1];
     const varPct=(ini>0)?((fin-ini)/ini*100):null;
     khGrafLinea(hueco,{
+      /* Una cotización NO se lee contra el cero: se lee contra sí misma. Ver la
+         nota de `khGrafLinea`. El gráfico del valor de la cartera sí conserva el
+         cero, y por eso esto es una opción y no el comportamiento por defecto. */
+      baseCero:false,
       xs:s.xs, ys:s.ys, color:'#2563eb', alto:300,
       fmtX:dd, fmtEje:prec, fmtY:prec,
       tip:i=>'<b>'+prec(s.ys[i])+'</b><br>'+dd(s.xs[i])+'/'+String(s.xs[i]).slice(0,4),
