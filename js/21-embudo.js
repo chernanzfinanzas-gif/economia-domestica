@@ -105,6 +105,22 @@ function _emDivRiesgoStrip(){
 }
 
 /* ---------- 1) etapa derivada ---------- */
+/* [18-ago-2026] EL CHIP DE LA BANDA, EN LA CABECERA.
+   La primera version metia el motivo en `_emPorQue`, que vive dentro del desplegable
+   «¿por que la tengo?» y ADEMAS solo se pinta si la empresa esta en cartera (`r.held`).
+   O sea: en Azkoyen -analizada, sin posicion, que es justo el caso- no se veia en ningun
+   sitio. Ocultar el «comprable» sin decir por que no arregla nada; solo cambia una frase
+   equivocada por un silencio. El chip va en la fila de etiquetas, que se ve siempre, este
+   la ficha desplegada o no. */
+function _emBandaChip(t){
+  if(typeof khBandaEstado!=='function') return '';
+  var b=khBandaEstado(t);
+  if(!b || b.estado==='vigente') return '';
+  var susp=(b.estado==='suspendida');
+  var tit=(b.txt||'')+(b.desde?(' (desde '+b.desde+')'):'')+(b.porque?('\n\n'+b.porque):'');
+  return '<span class="em-banda '+(susp?'b-susp':'b-cuar')+'" title="'+_emEsc(tit)+'">'
+    +(susp?'⛔ banda suspendida':'⚠ banda en cuarentena')+'</span>';
+}
 function etapaDe(t){
   t=_emUp(t);
   var pin=_emPin(t);
@@ -455,9 +471,10 @@ function _emCard(r,compact){
      cabecera queda «TICKER 📄 nombre … ▸» y el mínimo de la ficha cae a ~100px. */
   var arqChip=_emArqChip(r.t);
   var alcChip=(typeof alertaCorpBadge==='function'?alertaCorpBadge(r.t,true):'');
+  var bandaChip=_emBandaChip(r.t);
   var head = '<div class="em-head" data-emtoggle="'+r.t+'">'
     + '<div class="em-ct"><span class="em-tk" data-ficha="'+r.t+'" title="Abrir ficha de '+r.t+'">'+r.t+'</span>'+_dossIco+'<span class="em-nm">'+_emEsc(r.nombre).slice(0,22)+'</span>'+caret+'</div>'
-    + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+arqChip+alcChip+zoneChip+distChip+'</div>'
+    + '<div class="em-etr"><span class="em-et">'+_emEsc(r.et)+'</span>'+arqChip+alcChip+bandaChip+zoneChip+distChip+'</div>'
     + '</div>';
   var dim = ((r.col==='plan') || (r.col==='seg' && (r.planPend>0 || r.divPend))) ? _emDimBlock(r) : '';
   var ref = _emRefBlock(r);
@@ -469,7 +486,7 @@ function _emCard(r,compact){
     + dim
     + acc
     + _emCierresBtn(r)
-    + (r.held?_emWhyBlock(r):'')
+    + _emWhyBlock(r)
     + _emMover(r)
   ) : (compact ? (acc + dim) : '');   /* banda "Necesita tu acción" colapsada: muestra acción + botones (Compra/Dividendo) para actuar sin desplegar */
   return '<div class="em-card'+(expanded?'':' em-collapsed')+'" style="border-left-color:'+_EM_URGCOL[U]+'">'+head+more+'</div>';
@@ -1032,6 +1049,9 @@ function _emBind(sec){
     '.em-col{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:9px;min-width:0}',
     '.em-colh{display:flex;align-items:center;justify-content:space-between;margin:2px 4px 9px;font-weight:800;font-size:12.5px;color:#1f3d6b;text-transform:uppercase;letter-spacing:.03em}',
     '.em-cc{background:#fff;border:1px solid #e2e8f0;border-radius:20px;font-size:11px;padding:1px 8px;color:#64748b}',
+    '.em-banda{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:999px;white-space:nowrap;cursor:help}',
+    '.em-banda.b-susp{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}',
+    '.em-banda.b-cuar{background:#fffbeb;color:#b45309;border:1px solid #fde68a}',
     '.em-card{background:#fff;border:1px solid #e2e8f0;border-left:4px solid #16a34a;border-radius:10px;padding:9px 10px;margin-bottom:9px;min-width:0}',
     '.em-ct{display:flex;align-items:center;gap:7px;margin-bottom:3px;min-width:0}',
     '.em-tk{font-weight:800;font-size:14px;color:#0f172a;cursor:pointer;text-decoration:none;border-bottom:1.5px dotted #94a3b8;flex:none}',
