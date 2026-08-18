@@ -668,7 +668,15 @@ function _cbDiasTxt(dias){ if(dias==null)return '<span class="muted">sin fecha</
 /* diana de calibración "activa": la de mayor fecha ya alcanzada; si ninguna, la más próxima */
 function _calibActivo(hitos,hoy){ if(!hitos||!hitos.length)return null; var withD=hitos.filter(function(h){return h.diana;}); if(!withD.length)return null; var reached=withD.filter(function(h){return new Date(h.diana+'T00:00:00')<=hoy;}); if(reached.length){ reached.sort(function(a,b){return a.diana<b.diana?1:-1;}); return reached[0]; } var up=withD.slice().sort(function(a,b){return a.diana<b.diana?-1:1;}); return up[0]; }
 /* señal de precio activa de una empresa (stop/compra/PO), sin fecha */
-function _senalActiva(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===(t||'').toUpperCase();}); if(!a)return null; var c=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||((typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.precioObjetivo));   /* [A6] */ if(c&&st&&c<=st)return {tipo:'stop',lbl:'🚨 stop',col:'#dc2626',sev:0}; if(c>0&&eH>0&&c<=eH)return {tipo:'compra',lbl:'🟢 compra',col:'#16a34a',sev:1}; if(pmax>0&&c>=pmax)return {tipo:'po',lbl:'🎯 PO',col:'#b45309',sev:2}; return null; }
+/* [18-ago-2026] TERCER SITIO QUE LEIA EL PRECIO SIN PREGUNTAR.
+   Las tres senales de esta funcion -stop, compra, PO- son LECTURAS DE PRECIO, y con el
+   precio intervenido no significan lo que dicen. El 18-ago Azkoyen encabezaba el Calendario
+   de Cobertura con «Señal 🚨 stop · accion ahora» por cotizar a 10,05 EUR bajo un stop de
+   10,50, cuando esos 10,05 los pone la OPA de Ohmnia. Una tarea falsa en la lista de lo
+   urgente es peor que ninguna: ensena a no fiarse de la lista.
+   Ya se tapo en el Kanban (`etapaDe`) y en la Ficha de Tesis; esta era la tercera puerta, y
+   la unica que ademas alimenta el «requieren accion». Misma lista unica, `khBandaEstado`. */
+function _senalActiva(t){ if(typeof khBandaEstado==='function' && khBandaEstado(t).estado==='suspendida') return null; var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===(t||'').toUpperCase();}); if(!a)return null; var c=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||((typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.precioObjetivo));   /* [A6] */ if(c&&st&&c<=st)return {tipo:'stop',lbl:'🚨 stop',col:'#dc2626',sev:0}; if(c>0&&eH>0&&c<=eH)return {tipo:'compra',lbl:'🟢 compra',col:'#16a34a',sev:1}; if(pmax>0&&c>=pmax)return {tipo:'po',lbl:'🎯 PO',col:'#b45309',sev:2}; return null; }
 /* ¿La señal de precio ya está RESPONDIDA en la ficha? Mismo criterio que el Panel
    (04-plan `_silenciada`): mira los apuntes del protocolo (DB.protocolo[t]) de la señal
    equivalente (stop→S1, PO→S3). Silencia si hay apunte ABIERTO, o si la última revisión
@@ -889,7 +897,10 @@ function _cadEstado(c,hoy,dossierFecha){
   return {tocaMonitor:tocaMonitor,tocaAnual:tocaAnual,proxLabel:proxLabel,nextKey:nextKey,nextDate:nextDate};
 }
 function _calibCell(t){ if(typeof calibDataFor!=='function')return '—'; var d=calibDataFor(t); if(!d)return '—'; var pend=d.hitos.filter(function(h){return !h.done;}); if(!pend.length)return '<span style="color:#16a34a">✓ completa</span>'; var nx=pend[0]; if(nx.vencida)return '<span style="color:#b45309;font-weight:600">⏳ '+nx.k+' vencida</span>'; return nx.k+(nx.dias!=null?' (en '+nx.dias+'d)':''); }
-function _senalCell(t){ var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return '—'; var c=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||((typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.precioObjetivo));   /* [A6] */ if(c&&st&&c<=st)return '<span style="color:#dc2626;font-weight:700">🚨 stop</span>'; if(c>0&&eH>0&&c<=eH&&!(st&&c<=st))return '<span style="color:#16a34a;font-weight:600">🟢 compra</span>'; if(pmax>0&&c>=pmax)return '<span style="color:#b45309;font-weight:600">🎯 PO</span>'; return '<span class="muted">—</span>'; }
+/* La columna de la tabla de cadencia. Aqui NO se calla: donde la Cobertura quita una tarea
+   falsa, la tabla explica por que esa empresa no tiene senal. Un guion diria «no pasa nada»,
+   y lo que pasa es que el precio no se puede leer. */
+function _senalCell(t){ if(typeof khBandaEstado==='function'){ var _b=khBandaEstado(t); if(_b.estado==='suspendida') return '<span style="color:#b91c1c;font-weight:700" title="'+_radEsc(_b.txt||'')+'">⛔ precio intervenido</span>'; } var a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return '—'; var c=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion),st=num(a.stopTesis),eH=num(a.entMax),pmax=num(a.poMax)||((typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.precioObjetivo));   /* [A6] */ if(c&&st&&c<=st)return '<span style="color:#dc2626;font-weight:700">🚨 stop</span>'; if(c>0&&eH>0&&c<=eH&&!(st&&c<=st))return '<span style="color:#16a34a;font-weight:600">🟢 compra</span>'; if(pmax>0&&c>=pmax)return '<span style="color:#b45309;font-weight:600">🎯 PO</span>'; return '<span class="muted">—</span>'; }
 function _pintarCadencia(analizadas){
   var host=document.getElementById('cadHost'); if(!host)return;
   var hoy=new Date(); hoy.setHours(0,0,0,0); DB.cadencia=DB.cadencia||{}; var chg=false;

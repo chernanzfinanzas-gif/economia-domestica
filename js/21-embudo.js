@@ -78,7 +78,7 @@ function _emPorQue(t){
   }
   /* El motivo, siempre: esconder el «comprable» sin decir por que crea la pregunta siguiente. */
   if(_bs.estado!=='vigente') bits.push('<div style="color:'+(_bs.estado==='suspendida'?'#dc2626':'#b45309')
-    +'"><b>'+(_bs.estado==='suspendida'?'Sin zona de entrada:':'Ojo:')+'</b> '+_emEsc(_bs.txt)
+    +'"><b>'+(_bs.estado==='suspendida'?(eM>0?'Sin zona de entrada:':'Precio intervenido:'):'Ojo:')+'</b> '+_emEsc(_bs.txt)
     +(_bs.desde?(' <span class="muted">(desde '+_emEsc(_bs.desde)+')</span>'):'')+'</div>');
   var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; var rd=(typeof _emRevDias==='function')?_emRevDias(t):null;
   bits.push('<div><b>Próx. revisión:</b> '+(pr?(pr+(rd!=null?(rd<0?' <b style="color:#dc2626">(vencida)</b>':(rd<=30?' (en '+rd+'d)':'')):'')):'sin fijar')+' <span class="em-revedit" data-emrevedit="'+t+'" title="Cambiar fecha de revisión">✎</span></div>');
@@ -117,11 +117,20 @@ function _emBandaChip(t){
   var b=khBandaEstado(t);
   if(!b || b.estado==='vigente') return '';
   var susp=(b.estado==='suspendida');
+  /* [18-ago-2026] LA PALABRA TIENE QUE CABER EN EL CASO. Tubos Reunidos tiene el precio
+     intervenido -suspendida por la CNMV- pero NO esta analizada: no hay dossier, ni banda,
+     ni stop. Decirle «banda suspendida» promete una banda que no existe, y una etiqueta que
+     promete de mas es la misma falta que una que calla. Con banda se habla de la banda; sin
+     banda se habla de lo que sí hay: el precio. */
+  var hayBanda=_emNum((_emAna(t)||{}).entMax)>0;
   var tit=(b.txt||'')+(b.desde?(' (desde '+b.desde+')'):'')+(b.porque?('\n\n'+b.porque):'')
+        +(hayBanda?'':'\n\nSin análisis: esta empresa no tiene banda de entrada.')
         +(b.manual?'\n\nPuesta A MANO por ti.':'')
         +(b.manualIgnorado?('\n\nOJO: '+b.manualIgnorado):'');
+  var txt=susp ? (hayBanda?'⛔ banda suspendida':'⛔ precio intervenido')
+               : (hayBanda?'⚠ banda en cuarentena':'⚠ tesis en revisión');
   return '<span class="em-banda '+(susp?'b-susp':'b-cuar')+'" title="'+_emEsc(tit)+'">'
-    +(susp?'⛔ banda suspendida':'⚠ banda en cuarentena')+(b.manual?' ✋':'')+'</span>';
+    +txt+(b.manual?' ✋':'')+'</span>';
 }
 /* El interruptor. Vive en `DB.bandaManual`, no en hallazgos.json: ese fichero lo reescribe
    entera la skill del informe semanal, y lo que tu pones a mano tiene que sobrevivir a eso.
