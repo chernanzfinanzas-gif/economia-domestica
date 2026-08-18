@@ -1305,12 +1305,37 @@ function khTesisEnRevision(t){
 function khBandaEstado(t, a){
   t=(t||'').toUpperCase();
   if(!a){ try{ a=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===t; }); }catch(e){} }
+  var man=null; try{ man=((DB&&DB.bandaManual)||{})[t]||null; }catch(e){}
   var iv=khPrecioIntervenido(t);
+
+  /* [18-ago-2026] EL INTERRUPTOR MANUAL, Y POR QUE NO PUEDE CON TODO.
+     Las reglas leen `hallazgos.json`; el analista ve cosas que ahi no estan todavia. Por eso
+     puede SUSPENDER a mano cuando quiera. Pero LEVANTAR es otra cosa: si el fichero dice que
+     hay una OPA sobre la empresa -verificada contra el registro de la CNMV- un clic no puede
+     hacerla desaparecer de la pantalla. Si ese hecho esta mal, lo que se corrige es el
+     hallazgo, que es donde vive. Lo unico que se puede levantar a mano es el bloqueo por
+     PRUDENCIA -«hay un hecho sin clasificar»-, porque ahi la app esta reconociendo que no
+     sabe, y quien sabe eres tu.
+     Un intento de levantar algo que no se puede no se traga en silencio: se devuelve en
+     `manualIgnorado` para que la pantalla pueda decirlo. */
+  var ignorado=null;
+  if(man&&man.estado==='vigente'){
+    if(iv&&iv.motivo==='sin-clasificar'){ iv=null; }
+    else if(iv){ ignorado='hay un hecho verificado en hallazgos.json: la suspensión no se puede levantar desde aquí'; }
+  }
   if(iv) return {estado:'suspendida', motivo:iv.motivo, txt:iv.txt, desde:iv.desde,
-                 porque:iv.porque, motivos:[iv.txt]};
+                 porque:iv.porque, motivos:[iv.txt], manual:false, manualIgnorado:ignorado};
+  if(man&&man.estado==='suspendida'){
+    return {estado:'suspendida', motivo:'manual',
+            txt:man.motivo||'suspendida a mano por el analista',
+            desde:man.desde||'', porque:man.porque||'', motivos:[man.motivo||'suspendida a mano'],
+            manual:true, manualIgnorado:null};
+  }
   var m=khTesisEnRevision(t);
-  if(m.length) return {estado:'cuarentena', txt:m[0], motivos:m, desde:''};
-  return {estado:'vigente', txt:'', motivos:[], desde:''};
+  if(m.length) return {estado:'cuarentena', txt:m[0], motivos:m, desde:'',
+                       manual:false, manualIgnorado:ignorado};
+  return {estado:'vigente', txt:'', motivos:[], desde:'',
+          manual:!!(man&&man.estado==='vigente'), manualIgnorado:ignorado};
 }
 
 /* Compatibilidad: la Ficha de Tesis y el Panel siguen pidiendo la lista de motivos para

@@ -117,10 +117,34 @@ function _emBandaChip(t){
   var b=khBandaEstado(t);
   if(!b || b.estado==='vigente') return '';
   var susp=(b.estado==='suspendida');
-  var tit=(b.txt||'')+(b.desde?(' (desde '+b.desde+')'):'')+(b.porque?('\n\n'+b.porque):'');
+  var tit=(b.txt||'')+(b.desde?(' (desde '+b.desde+')'):'')+(b.porque?('\n\n'+b.porque):'')
+        +(b.manual?'\n\nPuesta A MANO por ti.':'')
+        +(b.manualIgnorado?('\n\nOJO: '+b.manualIgnorado):'');
   return '<span class="em-banda '+(susp?'b-susp':'b-cuar')+'" title="'+_emEsc(tit)+'">'
-    +(susp?'⛔ banda suspendida':'⚠ banda en cuarentena')+'</span>';
+    +(susp?'⛔ banda suspendida':'⚠ banda en cuarentena')+(b.manual?' ✋':'')+'</span>';
 }
+/* El interruptor. Vive en `DB.bandaManual`, no en hallazgos.json: ese fichero lo reescribe
+   entera la skill del informe semanal, y lo que tu pones a mano tiene que sobrevivir a eso.
+   Mismo patron que los pines de etapa (`DB.embudo`). Se guarda con FECHA y MOTIVO: dentro de
+   tres meses hay que poder saber quien lo puso y por que. */
+function _emBandaCtl(r){
+  if(typeof khBandaEstado!=='function') return '';
+  var t=r.t, b=khBandaEstado(t);
+  var man=null; try{ man=((DB.bandaManual)||{})[t]||null; }catch(e){}
+  var bot=[];
+  if(man) bot.push('<button class="em-bbtn" data-embanda="'+t+'" data-embandaop="quitar">Quitar mi marca</button>');
+  if(!man || man.estado!=='suspendida')
+    bot.push('<button class="em-bbtn" data-embanda="'+t+'" data-embandaop="suspender">Suspender la banda a mano</button>');
+  /* Levantar solo se ofrece donde de verdad se puede: el bloqueo por prudencia. */
+  if(b.estado==='suspendida' && b.motivo==='sin-clasificar' && (!man||man.estado!=='vigente'))
+    bot.push('<button class="em-bbtn" data-embanda="'+t+'" data-embandaop="levantar">Doy por buena la lectura del precio</button>');
+  if(!bot.length) return '';
+  var pie='';
+  if(man) pie='<div class="em-bpie">✋ Marca tuya del '+_emEsc(man.desde||'')+(man.motivo?(' — '+_emEsc(man.motivo)):'')+'</div>';
+  if(b.manualIgnorado) pie+='<div class="em-bpie" style="color:#b91c1c">Tu marca NO se ha aplicado: '+_emEsc(b.manualIgnorado)+'</div>';
+  return '<div class="em-banda-ctl">'+bot.join('')+pie+'</div>';
+}
+
 function etapaDe(t){
   t=_emUp(t);
   var pin=_emPin(t);
@@ -487,6 +511,7 @@ function _emCard(r,compact){
     + acc
     + _emCierresBtn(r)
     + _emWhyBlock(r)
+    + _emBandaCtl(r)
     + _emMover(r)
   ) : (compact ? (acc + dim) : '');   /* banda "Necesita tu acción" colapsada: muestra acción + botones (Compra/Dividendo) para actuar sin desplegar */
   return '<div class="em-card'+(expanded?'':' em-collapsed')+'" style="border-left-color:'+_EM_URGCOL[U]+'">'+head+more+'</div>';
@@ -989,6 +1014,24 @@ function _emBind(sec){
     var ecp=e.target.closest('[data-emcompra]'); if(ecp){ e.preventDefault(); _emCompraForm(ecp.getAttribute('data-emcompra')); return; }
     var edv=e.target.closest('[data-emdiv]'); if(edv){ e.preventDefault(); _emDivForm(edv.getAttribute('data-emdiv')); return; }
     var w=e.target.closest('[data-emwhy]'); if(w){ var wt=_emUp(w.getAttribute('data-emwhy')); window._emWhy=window._emWhy||{}; window._emWhy[wt]=!window._emWhy[wt]; renderEmbudo(); return; }
+    var bb=e.target.closest('[data-embanda]');
+    if(bb){
+      var bt=_emUp(bb.getAttribute('data-embanda')), op=bb.getAttribute('data-embandaop');
+      DB.bandaManual=DB.bandaManual||{};
+      var hoyISO=new Date().toISOString().slice(0,10);
+      if(op==='quitar'){ delete DB.bandaManual[bt]; }
+      else if(op==='suspender'){
+        var mot=prompt('¿Por qué suspendes la banda de '+bt+'?\n\nQuedará escrito con la fecha de hoy. '
+          +'Esto NO sustituye a hallazgos.json: es tu marca, y la puedes quitar cuando quieras.','');
+        if(mot===null) return;
+        DB.bandaManual[bt]={estado:'suspendida', motivo:(mot||'').trim()||'suspendida a mano', desde:hoyISO};
+      } else if(op==='levantar'){
+        DB.bandaManual[bt]={estado:'vigente', motivo:'doy por buena la lectura del precio', desde:hoyISO};
+      }
+      if(typeof scheduleSave==='function') scheduleSave();
+      if(typeof renderEmbudo==='function') renderEmbudo();
+      return;
+    }
     var re=e.target.closest('[data-emrevedit]'); if(re){ var rt=_emUp(re.getAttribute('data-emrevedit')); var a=_emAna(rt); if(a){ var cur=proxRevDe(rt)||''; var v=prompt('Próxima revisión de '+rt+' (AAAA-MM-DD).\nVacío = automático (dossier + 12 meses).', cur); if(v!==null){ v=(v||'').trim(); if(v)a.proxRev=v; else delete a.proxRev; if(typeof scheduleSave==='function')scheduleSave(); renderEmbudo(); } } return; }
     var f=e.target.closest('[data-ficha]'); if(f){ var tk=f.getAttribute('data-ficha'); if(typeof abrirFicha==='function'){abrirFicha(tk);return;} if(typeof renderFicha==='function'){location.hash='ficha='+tk;} return; }
     var tg=e.target.closest('[data-emtoggle]'); if(tg){ var tt=_emUp(tg.getAttribute('data-emtoggle')); window._emExp=window._emExp||{}; window._emExp[tt]=!window._emExp[tt]; window._emFoco=tg.getAttribute('data-emtoggle'); renderEmbudo(); return; }
@@ -1049,6 +1092,11 @@ function _emBind(sec){
     '.em-col{background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:9px;min-width:0}',
     '.em-colh{display:flex;align-items:center;justify-content:space-between;margin:2px 4px 9px;font-weight:800;font-size:12.5px;color:#1f3d6b;text-transform:uppercase;letter-spacing:.03em}',
     '.em-cc{background:#fff;border:1px solid #e2e8f0;border-radius:20px;font-size:11px;padding:1px 8px;color:#64748b}',
+    '.em-banda-ctl{margin-top:6px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}',
+    '.em-bbtn{font-size:10.5px;padding:2px 8px;border-radius:999px;border:1px solid #cbd5e1;',
+    '  background:#fff;color:#334155;cursor:pointer}',
+    '.em-bbtn:hover{background:#f1f5f9}',
+    '.em-bpie{flex-basis:100%;font-size:10px;color:#64748b;margin-top:2px}',
     '.em-banda{display:inline-block;font-size:10px;font-weight:800;padding:1px 7px;border-radius:999px;white-space:nowrap;cursor:help}',
     '.em-banda.b-susp{background:#fef2f2;color:#b91c1c;border:1px solid #fecaca}',
     '.em-banda.b-cuar{background:#fffbeb;color:#b45309;border:1px solid #fde68a}',
