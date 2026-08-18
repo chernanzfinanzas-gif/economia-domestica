@@ -348,12 +348,47 @@ function _mcAccionesEn(fecha){
    serie de 5 minutos: se les da un precio plano durante toda la sesión, que es lo único
    honesto que se puede hacer, y la sesión queda marcada como PARCIAL. */
 function _mcCierreEn(t, fecha){
-  const pj=(typeof _precioCache!=='undefined')?_precioCache[_mcUp(t)]:null;
+  t=_mcUp(t);
+  /* [18-ago-2026] PARA LA SESIÓN DE HOY, EL PRECIO VIVO ES MEJOR QUE UN CIERRE DE AYER.
+     Carlos: «si no tiene dato intradía, que se quede con el valor anterior; degradaría
+     menos que no contar nada». El fondo es correcto, el mecanismo no: arrastrar la sesión
+     ANTERIOR ancla el valor al precio de ayer, y eso está más lejos de la verdad que su
+     cierre de hoy — se pierde la forma dentro del día, pero no el nivel.
+     Donde sí lo hacíamos peor es HOY: buscando «el cierre» de una sesión que aún no ha
+     cerrado, se caía al de ayer... teniendo su precio vivo en `intradia.json`, refrescado
+     cada cinco minutos. Ese sí es el dato bueno, y es el que se usa ahora. */
+  const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
+  const vivo=_mcNum(v0.precioActual);
+  if(vivo>0 && (v0.precioFecha||'')===fecha) return vivo;
+  const pj=(typeof _precioCache!=='undefined')?_precioCache[t]:null;
   const d=(pj&&pj.data)?pj.data:null;
   if(!d||!d.length) return 0;
   let v=0;
   for(let i=0;i<d.length;i++){ if(d[i][0]<=fecha) v=_mcNum(d[i][1]); else break; }
   return v;
+}
+
+/* EL CIERRE OFICIAL DE ESA FECHA, o 0 si no lo hay. Estricto a propósito: aquí NO vale
+   «el último cierre anterior» ni el precio vivo. Es la diferencia entre un dato y un
+   apaño, y de ella depende que no se dibuje un punto que no existe.
+   [18-ago-2026] Lo que Carlos vio en la gráfica: un acantilado vertical al final del
+   último día, cayendo justo al mínimo. Ese punto era el «cierre» de HOY calculado con
+   `_mcCierreEn`, que para hoy usa el precio vivo y, si no lo tiene, se cae al cierre de
+   AYER. Con la app abierta antes del pase intradía, los nueve valores se caían a la vez
+   y el punto valía exactamente la cartera al cierre de ayer -377.907,43 €- clavado al
+   final de hoy. Un número real, en el sitio equivocado: la sesión de hoy no ha cerrado.
+   Regla: el punto de cierre solo se pinta cuando el cierre de ESE día ya está en el
+   histórico. Hoy aparecerá esta noche, cuando el pase lo escriba, y no antes. */
+function _mcCierreOficial(t, fecha){
+  t=_mcUp(t);
+  const pj=(typeof _precioCache!=='undefined')?_precioCache[t]:null;
+  const d=(pj&&pj.data)?pj.data:null;
+  if(!d||!d.length) return 0;
+  for(let i=d.length-1;i>=0;i--){
+    if(d[i][0]===fecha) return _mcNum(d[i][1]);
+    if(d[i][0]<fecha) return 0;                 /* ordenado: ya no puede aparecer */
+  }
+  return 0;
 }
 
 /* La cartera valorada INSTANTE A INSTANTE dentro de una sesión. Función pura: se le dan
@@ -401,11 +436,12 @@ function _mcIntraSesion(fecha, series, acc){
      SUBASTA, que es posterior: si el valor de la cartera hace su máximo en la subasta, el
      recorrido de barras no lo ve y el máximo intradía queda POR DEBAJO del de cierres, que
      es una contradicción en sus propios términos —el cierre ocurrió dentro de la sesión—.
-     Se añade un punto final con el cierre oficial de cada valor. Si a alguno le falta el
-     cierre de ese día no se añade nada: no se inventa media cartera para cuadrar un número. */
+     Se añade un punto final con el cierre oficial de cada valor EN ESA FECHA. Si a alguno
+     le falta, no se añade nada: no se inventa media cartera para cuadrar un número. Y por
+     eso la sesión en curso no lleva punto de cierre: todavía no ha cerrado. */
   let cierre=0, completo=true;
   tks.forEach(function(t){
-    const c=_mcCierreEn(t,fecha);
+    const c=_mcCierreOficial(t,fecha);          /* el cierre de ESE día, o nada */
     if(!(c>0)) completo=false; else cierre+=acc[t]*c;
   });
   if(completo && cierre>0){ rejilla.push('cierre'); valores.push(cierre); }
