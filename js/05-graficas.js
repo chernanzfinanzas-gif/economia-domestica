@@ -1445,7 +1445,12 @@ function mcAbrirGrafCartera(){
       baseCero:false, extremos:true, sesiones:s.sesiones,
       xs:s.xs, ys:s.ys, color:'#16a34a', alto:330,
       fmtX:hhmm, fmtEje:eur, fmtY:eur,
-      linea: MI?{v:MI.v, txt:'máximo intradía '+eur(MI.v)}:null,
+      /* La fecha va EN la etiqueta a propósito. El máximo sale de `DB.maxIntra`, que guarda
+         todas las sesiones registradas, mientras que el dibujo solo enseña las que quedan en
+         el archivo. En cuanto la ventana ruede, la raya seguirá marcando un máximo de un día
+         que ya no aparece en el eje: sin la fecha, el punto negro «máx» del tramo visible y
+         la raya se leerían como el mismo dato, y son dos cosas distintas. */
+      linea: MI?{v:MI.v, txt:'máximo intradía '+eur(MI.v)+' · '+dd(MI.f)}:null,
       tip:i=>'<b>'+eur(s.ys[i])+'</b><br>'+dd(s.xs[i])+' · '+hhmm(s.xs[i]),
       leyenda:leg
     });
@@ -1471,7 +1476,7 @@ function mcAbrirGrafCartera(){
   const _MI=maxIntra();
   khGrafLinea(hueco,{
     xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
-    linea:_MI?{v:_MI.v, txt:'máximo intradía '+eur(_MI.v)}:null,
+    linea:_MI?{v:_MI.v, txt:'máximo intradía '+eur(_MI.v)+' · '+dd(_MI.f)}:null,
     fmtX:iso=>String(iso).slice(0,4),
     tip:function(i){
       let h='<b>'+eur(ys[i])+'</b><br>'+dd(labels[i]);
