@@ -383,7 +383,10 @@
           "ultimaNovedad": {
             "fecha": "2026-08-17",
             "texto": "OPA de Ohmnia Electronics sobre el 100% de Azkoyen a 10,00 EUR/accion en efectivo (~244,5 M EUR), condicionada a aceptacion superior al 50% y a autorizaciones de competencia en Espana y Alemania, VIVA y SIN RESOLVER. Anuncio previo 24-jul-2026 (IP CNMV n 3303); el consejo la califica de AMISTOSA el 28-jul (OIR n 42131). ESTADO A 17-AGO-2026, VERIFICADO CONTRA EL REGISTRO (ya NO es Pte. Revision): el listado oficial de OPAs de la CNMV situa a Azkoyen en el bloque ANUNCIADAS, no en Autorizadas. No consta solicitud de autorizacion presentada, no hay folleto y no hay plazo de aceptacion abierto -- y no puede abrirse antes de la autorizacion. El registro de Informacion Privilegiada NO tiene ninguna comunicacion entre el 10 y el 17 de agosto: la ultima es la propia n 3303 del 24-jul. Ohmnia tenia hasta ~24-ago para solicitar la autorizacion: quedan unos siete dias y ese es el hecho vigilable. La accion cotiza a 10,10 EUR, POR ENCIMA de la oferta: la OPA actua como TECHO, no como prima -- el mercado no la da por buena a ese precio o descuenta una mejora."
-          }
+          },
+          "precioIntervenido": "opa-sobre-la-empresa",
+          "precioIntervenidoPorque": "OPA de Ohmnia Electronics sobre el 100% del capital a 10,00 EUR/accion. La oferta pone TECHO al precio: la cotizacion deja de ser precio de mercado.",
+          "precioIntervenidoDesde": "2026-07-24"
         },
         {
           "id": "S2-2026-07-29",
@@ -1398,7 +1401,9 @@
           "origen": "barrido societario 2026-08-03",
           "fecha": "2026-07-30",
           "fuente": "emisor + registro (OIR CNMV n 42254)",
-          "exigeAccion": false
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "La OPA la lanza Santander SOBRE su filial brasilena; no es una oferta sobre Santander. Su cotizacion NO esta intervenida: es riesgo de dilucion (~1,1% del capital), no un techo."
         },
         {
           "id": "soc-otro",
@@ -1534,7 +1539,9 @@
           "origen": "alertas.json (migrado)",
           "fecha": "2026-02-01",
           "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
-          "exigeAccion": false
+          "exigeAccion": false,
+          "precioIntervenido": null,
+          "precioIntervenidoPorque": "Controversia sobre si los minoritarios deberian recibir una OPA obligatoria tras el cambio de control. NO hay oferta viva: el precio es de mercado."
         }
       ]
     },
@@ -1555,7 +1562,10 @@
           "origen": "alertas.json (migrado)",
           "fecha": "2026-05-05",
           "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/",
-          "exigeAccion": false
+          "exigeAccion": false,
+          "precioIntervenido": "suspension-cnmv",
+          "precioIntervenidoPorque": "Cotizacion SUSPENDIDA por la CNMV desde el 4-may-2026 (concurso voluntario). El historico repite el ultimo cruce: no hay precio, hay un fosil.",
+          "precioIntervenidoDesde": "2026-05-04"
         }
       ]
     },

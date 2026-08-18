@@ -1215,6 +1215,106 @@ function poBaseDe(a){ if(!a)return 0;
    compra» como si nada.
    Esta función es la lista ÚNICA de esos motivos. La usan la Ficha de Tesis y el
    Panel, para que no vuelvan a decir cosas distintas del mismo hecho. */
+/* [18-ago-2026] EL PRECIO INTERVENIDO, Y POR QUE NO BASTA CON MIRAR EL `tipo`.
+   ---------------------------------------------------------------------------
+   La version anterior bloqueaba por `tipo === 'opa'` a secas. Al repasar las cuatro OPAs
+   vivas del 17-ago se vio que esa regla acierta la mitad de las veces:
+
+     · AZKOYEN  — OPA de Ohmnia SOBRE Azkoyen. Techo duro: el precio no es de mercado.
+     · SANTANDER— OPA de canje lanzada POR Santander sobre su filial brasilena. Su precio
+                  NO esta intervenido; es riesgo de dilucion (~1,1% del capital). Y la app
+                  le estaba suspendiendo la banda.
+     · TALGO    — controversia sobre si DEBERIA haber OPA obligatoria. No hay oferta viva.
+     · T.REUNIDOS — ni OPA ni nada: cotizacion SUSPENDIDA por la CNMV desde el 4-may. Ahi
+                  no hay precio en absoluto -el historico lleva 75 sesiones repitiendo el
+                  ultimo cruce- y la regla del `tipo` no lo veia.
+
+   Ningun patron sobre la prosa distingue «OPA sobre nosotros» de «OPA nuestra». Quien lo
+   sabe es el analista, en el pase semanal, asi que ahora lo ESCRIBE: campo
+   `precioIntervenido` en hallazgos.json. Ausente NO es lo mismo que `null`: `null`
+   significa mirado y no lo esta; ausente significa que nadie lo ha mirado, y ahi -solo en
+   los tipos que pueden intervenir el precio- se peca de prudente y se bloquea diciendolo.
+   --------------------------------------------------------------------------- */
+var KH_INTERVENIDO={
+  'opa-sobre-la-empresa'  :'OPA en curso sobre la empresa: el precio lo gobierna la oferta, no el mercado',
+  'suspension-cnmv'       :'cotización suspendida por la CNMV: no hay precio de mercado',
+  'canje-con-ecuacion-fija':'canje con ecuación fija: el precio sigue al del otro valor',
+  'exclusion-de-bolsa'    :'exclusión de bolsa en curso: el precio lo fija la operación'
+};
+var KH_TIPOS_QUE_PUEDEN_INTERVENIR={opa:1, concurso:1, exclusion:1};
+
+function _khHallazgosVivos(t){
+  if(typeof hallazgosCorpDe!=='function') return [];
+  var l=[];
+  try{
+    (hallazgosCorpDe(t)||[]).forEach(function(h){
+      if(!h) return;
+      var e=(h.estado||'').toLowerCase();
+      if(e==='resuelta'||e==='cerrada'||e==='caducada'||h.resueltoEl) return;
+      l.push(h);
+    });
+  }catch(e){}
+  return l;
+}
+
+/* {motivo, txt, desde} si el precio esta intervenido; null si es leible. */
+function khPrecioIntervenido(t){
+  t=(t||'').toUpperCase();
+  var r=null;
+  _khHallazgosVivos(t).forEach(function(h){
+    if(r) return;
+    if(h.precioIntervenido){
+      r={motivo:h.precioIntervenido,
+         txt:KH_INTERVENIDO[h.precioIntervenido]||('precio intervenido ('+h.precioIntervenido+')'),
+         desde:h.precioIntervenidoDesde||h.abiertoEl||h.fecha||'',
+         porque:h.precioIntervenidoPorque||''};
+    } else if(!('precioIntervenido' in h) && KH_TIPOS_QUE_PUEDEN_INTERVENIR[h.tipo]){
+      /* Nadie lo ha clasificado. No se da por bueno el precio: se dice que falta mirarlo. */
+      r={motivo:'sin-clasificar',
+         txt:'hay un hecho de tipo «'+h.tipo+'» sin clasificar: falta decir si interviene el precio',
+         desde:h.abiertoEl||h.fecha||'', porque:''};
+    }
+  });
+  return r;
+}
+
+/* La tesis esta bajo revision: el precio es leible, pero la banda y el PO contra los que
+   se compara salen de un analisis que esta en duda. No es lo mismo que no poder leer el
+   precio, y por eso son dos estados distintos y no uno. */
+function khTesisEnRevision(t){
+  t=(t||'').toUpperCase();
+  var m=[];
+  try{
+    var ap=((DB&&DB.protocolo)||{})[t]||[];
+    if(ap.some(function(x){ return x&&x.estado==='abierta'; })) m.push('hay un apunte del Protocolo abierto');
+  }catch(e){}
+  _khHallazgosVivos(t).forEach(function(h){
+    if(h.tipo==='senal'||h.codigo) m.push('señal '+(h.codigo||'S')+' abierta sin resolver');
+  });
+  try{ if(typeof khTrimRojo==='function' && khTrimRojo(t)) m.push('el último trimestre publicado está en rojo'); }catch(e){}
+  /* `_emRevVencida` vive en 21-embudo.js, que carga despues. Se pregunta por si esta. */
+  try{ if(typeof _emRevVencida==='function' && _emRevVencida(t)) m.push('la revisión anual de la tesis está vencida'); }catch(e){}
+  return m;
+}
+
+/* LA LISTA UNICA. Tres estados, no dos:
+     vigente     — la banda vale.
+     cuarentena  — el precio es leible; la referencia esta en revision (ambar).
+     suspendida  — el precio no es leible: no hay «zona de entrada» NI stop (rojo).
+   La suspension manda sobre la cuarentena. */
+function khBandaEstado(t, a){
+  t=(t||'').toUpperCase();
+  if(!a){ try{ a=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===t; }); }catch(e){} }
+  var iv=khPrecioIntervenido(t);
+  if(iv) return {estado:'suspendida', motivo:iv.motivo, txt:iv.txt, desde:iv.desde,
+                 porque:iv.porque, motivos:[iv.txt]};
+  var m=khTesisEnRevision(t);
+  if(m.length) return {estado:'cuarentena', txt:m[0], motivos:m, desde:''};
+  return {estado:'vigente', txt:'', motivos:[], desde:''};
+}
+
+/* Compatibilidad: la Ficha de Tesis y el Panel siguen pidiendo la lista de motivos para
+   NO comprar. Ahora se arma sobre `khBandaEstado`, para que no vuelvan a ser dos criterios. */
 function khBloqueosCompra(t, a){
   t=(t||'').toUpperCase();
   var out=[];
@@ -1223,25 +1323,33 @@ function khBloqueosCompra(t, a){
   if(dec==='VENDER')        out.push({tipo:'decision', txt:'el análisis dice VENDER'});
   else if(dec==='ESPERAR')  out.push({tipo:'decision', txt:'el análisis dice ESPERAR'});
   else if(dec==='MANTENER') out.push({tipo:'decision', txt:'el análisis dice MANTENER (no ampliar)'});
-  try{
-    if(typeof hallazgosCorpDe==='function'){
-      var vistos={};
-      (hallazgosCorpDe(t)||[]).forEach(function(h){
-        if(!h) return;
-        var e=(h.estado||'').toLowerCase();
-        if(e==='resuelta'||e==='cerrada'||h.resueltoEl) return;   /* lo cerrado no bloquea */
-        if(h.tipo==='opa'){
-          if(vistos.opa) return; vistos.opa=1;
-          out.push({tipo:'opa', txt:'OPA en curso: el precio lo gobierna la oferta, no el mercado'});
-        } else if(h.exigeAccion && (h.tipo==='senal'||h.codigo)){
-          var c=h.codigo||'señal';
-          if(vistos[c]) return; vistos[c]=1;
-          out.push({tipo:'senal', codigo:h.codigo||'', txt:'señal '+c+' abierta sin resolver'});
-        }
-      });
-    }
-  }catch(e){}
+  var b=khBandaEstado(t,a);
+  if(b.estado==='suspendida') out.push({tipo:'intervenido', motivo:b.motivo, txt:b.txt});
+  else if(b.estado==='cuarentena') b.motivos.forEach(function(x){ out.push({tipo:'senal', txt:x}); });
   return out;
+}
+
+/* EL STOP DE TESIS. Ya no exige tener posicion: que el precio pierda el suelo de la
+   valoracion es una noticia sobre la TESIS, tengas acciones o no. Lo que si exige es que
+   el precio signifique algo: con la banda suspendida, el stop tampoco vale. Los 10,05 EUR
+   de Azkoyen no son un stop roto, son el precio de la oferta -y es justo la caida que su
+   §10.5 manda no leer como senal-; y el de Tubos Reunidos se calcularia sobre un precio
+   congelado en mayo. */
+function khStopRoto(t, a){
+  t=(t||'').toUpperCase();
+  if(!a){ try{ a=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===t; }); }catch(e){} }
+  if(!a) return null;
+  var n=function(x){ return (typeof num==='function')?num(x):(parseFloat(x)||0); };
+  /* El precio vivo manda sobre el del analisis, igual que en la Ficha de Tesis: si no,
+     el Kanban y la Ficha dirian cosas distintas del mismo stop. */
+  var viv=0; try{ viv=n(((((DB&&DB.valores)||{})[t])||{}).precioActual); }catch(e){}
+  var stop=n(a.stopTesis), cot=viv>0?viv:n(a.cotizacion);
+  if(!(stop>0)||!(cot>0)||cot>stop) return null;
+  var b=khBandaEstado(t,a);
+  if(b.estado==='suspendida') return null;
+  return {stop:stop, cotizacion:cot,
+          pct:((cot-stop)/stop*100),
+          enCartera:(typeof _emHeldSet==='function')?_emHeldSet().has(t):null};
 }
 function khEscalera(V, opts){
   opts = opts || {};

@@ -69,7 +69,17 @@ function _emPorQue(t){
   bits.push('<div><b>Origen:</b> '+(a.dossierFecha?('analizada el '+a.dossierFecha):'sin dossier')+(a.rating?' · rating '+a.rating:'')+(a.decision?' · '+_emEsc(a.decision):'')+'</div>');
   var J=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null;
   var tesis=(J&&(J.resumen||J.bull))||''; if(tesis)bits.push('<div><b>Tesis:</b> '+_emEsc((''+tesis).slice(0,180))+'</div>');
-  var eM=_emNum(a.entMax),eMin=_emNum(a.entMin); if(eM>0)bits.push('<div><b>Entrada:</b> '+(eMin>0?(_emEur(eMin)+' – '):'≤ ')+_emEur(eM)+(_emNum(a.stopTesis)>0?' · stop '+_emEur(a.stopTesis):'')+'</div>');
+  var eM=_emNum(a.entMax),eMin=_emNum(a.entMin);
+  var _bs=(typeof khBandaEstado==='function')?khBandaEstado(t,a):{estado:'vigente'};
+  if(eM>0){
+    var _et=(_bs.estado==='suspendida')?' <b style="color:#dc2626">· BANDA SUSPENDIDA</b>'
+           :((_bs.estado==='cuarentena')?' <b style="color:#b45309">· banda en cuarentena</b>':'');
+    bits.push('<div><b>Entrada:</b> '+(eMin>0?(_emEur(eMin)+' – '):'≤ ')+_emEur(eM)+(_emNum(a.stopTesis)>0?' · stop '+_emEur(a.stopTesis):'')+_et+'</div>');
+  }
+  /* El motivo, siempre: esconder el «comprable» sin decir por que crea la pregunta siguiente. */
+  if(_bs.estado!=='vigente') bits.push('<div style="color:'+(_bs.estado==='suspendida'?'#dc2626':'#b45309')
+    +'"><b>'+(_bs.estado==='suspendida'?'Sin zona de entrada:':'Ojo:')+'</b> '+_emEsc(_bs.txt)
+    +(_bs.desde?(' <span class="muted">(desde '+_emEsc(_bs.desde)+')</span>'):'')+'</div>');
   var pr=(typeof proxRevDe==='function')?proxRevDe(t):null; var rd=(typeof _emRevDias==='function')?_emRevDias(t):null;
   bits.push('<div><b>Próx. revisión:</b> '+(pr?(pr+(rd!=null?(rd<0?' <b style="color:#dc2626">(vencida)</b>':(rd<=30?' (en '+rd+'d)':'')):'')):'sin fijar')+' <span class="em-revedit" data-emrevedit="'+t+'" title="Cambiar fecha de revisión">✎</span></div>');
   var last=null; (DB.diario||[]).forEach(function(e){ if(_emUp(e.ticker)===t){ if(!last||(e.fecha||'')>(last.fecha||''))last=e; } });
@@ -103,6 +113,15 @@ function etapaDe(t){
   var dec=_emUp(a&&a.decision), cot=_emNum(a&&a.cotizacion), entMax=_emNum(a&&a.entMax);
   var margen=(DB.config&&DB.config.embudoMargen!=null)?DB.config.embudoMargen:0.05;
 
+  /* [18-ago-2026] EL STOP DE TESIS YA NO EXIGE TENER POSICION.
+     Estaba dentro del `if(held)` con las otras tres alarmas, y eso lo dejaba mudo justo
+     donde mas falta hace: en una analizada que aun no has comprado, perder el suelo de la
+     valoracion es una noticia sobre la TESIS -el precio dice que el mercado no se cree tu
+     numero-, no sobre una posicion que no tienes. Azkoyen cerro a 10,05 EUR con stop en
+     10,50 y el panel callo.
+     `khStopRoto` (01-core.js) es quien decide, y no dispara cuando el precio esta
+     intervenido: los 10,05 de Azkoyen son el precio de la OPA, no un stop roto. */
+  if(typeof khStopRoto==='function' && khStopRoto(t)) return 'En revisión';
   /* Las 4 alarmas SIEMPRE ganan al pin (no ocultar peligros). */
   if(held){
     var sen=_emSenal(t);
@@ -131,6 +150,13 @@ function etapaDe(t){
        Si el precio ya bajó a la zona, se promociona igual que un COMPRAR — no se queda enterrada
        en "Analizada · esperar" solo porque el analista no ha revisitado el dossier. */
     var buyGate=(dec==='COMPRAR'||dec==='ESPERAR');
+    /* [18-ago-2026] «En zona» es una condicion de PRECIO, y hay situaciones que la
+       invalidan sin mover el precio un centimo. Con la banda SUSPENDIDA no existe zona de
+       entrada que valer: la empresa cae al estado que le toca por su veredicto, y el
+       motivo se enseña en la tarjeta. Se consulta la lista UNICA de 01-core.js, que es la
+       misma que usa la Ficha de Tesis -eran dos motores con dos criterios y el del Kanban
+       era el que no miraba-. */
+    if(typeof khBandaEstado==='function' && khBandaEstado(t,a).estado==='suspendida') buyGate=false;
     if(buyGate&&cot>0&&entMax>0&&cot<=entMax) return 'En zona';
     if(buyGate&&cot>0&&entMax>0&&cot<=entMax*(1+margen)) return 'Cerca de entrada';
     if(dec==='COMPRAR') return 'Analizada · espera precio';
@@ -156,7 +182,9 @@ function columnaDe(t){ return _EM_COL[etapaDe(t)]||'sel'; }
 /* ---------- 2) urgencia (0 crítico … 3 ok) ---------- */
 function urgenciaDe(t){
   var et=etapaDe(t), held=_emHeldSet().has(t);
-  if(et==='En revisión'){ var sen=_emSenal(t); if((sen&&sen.tipo==='stop')||_emProtoVenc(t)||_emQPend(t))return 0; return 1; }
+  if(et==='En revisión'){
+    if(typeof khStopRoto==='function' && khStopRoto(t)) return 0;   /* rojo, tengas o no acciones */
+    var sen=_emSenal(t); if((sen&&sen.tipo==='stop')||_emProtoVenc(t)||_emQPend(t))return 0; return 1; }
   if(held&&_emDivPend(t)) return 1; /* dividendo cobrado por anotar (ex-div pasado) */
   if(et==='En zona'||et==='Cerca de entrada') return 1;
   if(et==='Comprando') return 1;
@@ -173,6 +201,10 @@ function accionDe(t){
   function A(txt,goto,extra){ return Object.assign({txt:txt,goto:goto||'',urg:U},extra||{}); }
   if(et==='En revisión'){
     var sen=_emSenal(t);
+    var _sr=(typeof khStopRoto==='function')?khStopRoto(t):null;
+    if(_sr) return A('🚨 Stop de tesis roto — '+_emEur(_sr.cotizacion)+' bajo '+_emEur(_sr.stop)
+                     +(_sr.enCartera?'':' (sin posición: revisa la tesis)'),
+                     'analisis',{sig:'S1',ticker:t});
     if(sen&&sen.tipo==='stop') return A('🚨 Resolver stop','analisis',{sig:'S1',ticker:t});
     if(sen&&sen.tipo==='po') return A('🎯 PO alcanzado — revisar y reclasificar la tesis','analisis',{sig:'S3',ticker:t});   /* [B5] */
     if(_emProtoOpen(t)) return A('⏰ Cerrar revisión (apunte S)','analisis',{ticker:t});

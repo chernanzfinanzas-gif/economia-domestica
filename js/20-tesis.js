@@ -210,7 +210,14 @@ function tesisVeredicto(t){
 
   /* Capa 2 — Precio */
   var c2, c2txt;
-  if(!(precio>0)){ c2='SINDATO'; c2txt='falta cotización'; }
+  /* [18-ago-2026] EL PRECIO INTERVENIDO SE LEE ANTES QUE EL STOP, y esto NO es un detalle
+     de orden. Azkoyen cotiza a 10,05 EUR con stop en 10,50: leído a secas, «stop tocado» y
+     veredicto FUERA. Pero esos 10,05 los pone la OPA de Ohmnia, no el mercado, y es justo
+     la caída que su §10.5 manda no leer como señal. Con el precio intervenido no hay
+     lectura de precio: ni en zona, ni cerca, ni stop. Se dice y se para. */
+  var _bi=(typeof khBandaEstado==='function')?khBandaEstado(t,a):{estado:'vigente'};
+  if(_bi.estado==='suspendida'){ c2='INTERVENIDO'; c2txt=_bi.txt||'el precio no es de mercado'; }
+  else if(!(precio>0)){ c2='SINDATO'; c2txt='falta cotización'; }
   else if(stop && precio<=stop){ c2='STOP'; c2txt='stop tocado ('+_tzFmt(stop)+')'; }
   else if(entMax && precio<=entMax){ c2=(potBase!=null&&potBase>=TESIS_CFG.potMin)?'ENZONA':'ZONAFLOJA'; c2txt=(c2==='ENZONA')?('en zona (≤ '+_tzFmt(entMax)+', '+_tzPct(potBase)+' a PO)'):('en zona pero poco recorrido ('+_tzPct(potBase)+')'); }
   else if(entMax && precio<=entMax*(1+TESIS_CFG.cercaPct)){ c2='CERCA'; c2txt='cerca de la entrada ('+_tzFmt(entMax)+')'; }
@@ -284,7 +291,23 @@ function tesisVeredicto(t){
     frase='Buena base, pero '+(motivo.join(' y ')||'aún no cumple todas las condiciones')+'. '+((c2==='CERCA'||c2==='ZONAFLOJA'||c2==='CARA')&&entMax?('Esperar a ≤ '+_tzFmt(entMax)+'.'):'Vigilar.');
   }
 
-  return { t:t, nombre:_tzNombre(t), arq:arq, precio:precio, rating:rating, dec:dec,
+  /* Aviso ROJO de cabecera. Dos cosas distintas y nunca a la vez: o el precio no se puede
+     leer, o se lee y ha perdido el suelo de la valoración. */
+  var alerta=null;
+  if(_bi.estado==='suspendida'){
+    alerta={cls:'int', txt:'BANDA DE ENTRADA SUSPENDIDA — '+(_bi.txt||'')
+      +(_bi.desde?(' (desde '+_bi.desde+')'):'')
+      +'. Mientras dure, ni la banda ni el stop son señales válidas.'
+      +(_bi.porque?(' '+_bi.porque):'')};
+  } else {
+    var _sr=(typeof khStopRoto==='function')?khStopRoto(t,a):null;
+    if(_sr) alerta={cls:'stop', txt:'STOP DE TESIS ROTO — cotiza a '+_tzFmt(_sr.cotizacion)
+      +', por debajo de tu stop de '+_tzFmt(_sr.stop)+' ('+_tzPct(_sr.pct/100)+')'
+      +(_sr.enCartera===false?'. No tienes posición, pero el suelo de tu valoración ha saltado igual: toca revisar la tesis.'
+                             :'. Abre revisión extraordinaria (S1).')};
+  }
+
+  return { t:t, nombre:_tzNombre(t), arq:arq, precio:precio, rating:rating, dec:dec, alerta:alerta,
     poFuente:poFuente, bloqueos:bloqueos, senales:senales,
     poBear:poBear, poBase:poBase, poBull:poBull, entMax:entMax, stop:stop, potBase:potBase,
     fo:fo, ds:ds, dsScore:dsScore, rdcf:rdcf, conf:conf, rpd:rpd, esRenta:esRenta,
@@ -297,6 +320,7 @@ function tesisVeredicto(t){
 function _tzLuz(estado){
   var m={ APTA:['ok','Apta'], DUDA:['mid','Con salvedades'], DESCARTA:['bad','Descartada'],
           ENZONA:['ok','En zona'], ZONAFLOJA:['mid','Zona (flojo)'], CERCA:['mid','Cerca'], CARA:['bad','Cara'], STOP:['bad','Stop'], SINDATO:['na','Sin dato'],
+          INTERVENIDO:['bad','Precio intervenido'],
           SOLIDA:['ok','Sólida'], DEBIL:['bad','Débil'], NA:['na','No aplica'] };
   var e=m[estado]||['na',estado]; return { col:TZ_COL[e[0]], lbl:e[1] };
 }
@@ -360,6 +384,8 @@ function _tzDetalle(t){
     '<div style="flex:1"></div>'+
     '<div style="text-align:right"><div style="font-size:20px;font-weight:900;color:'+vcol+'">'+TZ_VLBL[V.v]+'</div>'+
     '<button class="btn ghost sm" data-tzficha="'+_tzEsc(V.t)+'" style="margin-top:4px">Abrir ficha completa →</button></div></div>'+
+    (V.alerta?('<div style="margin-top:9px;padding:8px 11px;border-radius:8px;font-size:12.5px;font-weight:700;'
+       +'background:#fef2f2;border:1px solid #fecaca;color:#b91c1c">⛔ '+_tzEsc(V.alerta.txt)+'</div>'):'')+
     '<div style="font-size:13px;margin-top:8px;color:#1e293b">'+_tzEsc(V.frase)+'</div>'+_tzBadges(V)+'</div>';
 
   var semaforo='<div class="card" style="margin-top:10px"><div style="font-weight:700;font-size:13px;margin-bottom:2px">Semáforo de decisión</div>'+_tzSubluces(V)+
