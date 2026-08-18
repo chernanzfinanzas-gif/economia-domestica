@@ -751,10 +751,15 @@ function renderMiCartera(){
         const p=Math.max(0,Math.min(1,(c.gap/100+m)/(4*m)));
         return '<div class="mc-bar"><u></u><i style="left:'+(p*100).toFixed(1)+'%"></i></div>';
       })();
-      return '<div class="mc-row cerca" data-ficha="'+c.ticker+'" title="Abrir la ficha de '+_mcEsc(c.nombre)+'">'
+      /* [18-ago-2026] AQUI TAMBIEN SE ABRE EL GRAFICO. Las tarjetas de «Posiciones» llevan
+         al grafico desde el 14-ago y el ticker a la Ficha; estas se habian quedado con el
+         reparto viejo -toda la tarjeta a la Ficha- y no habia forma de ver la evolucion de
+         una empresa que aun no tienes, que es justo de la que quieres saber si esta cara.
+         Mismo criterio en los dos bloques: tarjeta -> grafico, ticker -> Ficha. */
+      return '<div class="mc-row cerca" data-mcgrafv="'+c.ticker+'" title="Ver el gráfico de '+_mcEsc(c.nombre)+'">'
         +'<div class="mc-l">'
         +  '<div class="mc-nom">'+_mcEsc(c.nombre)+' '+chip+'</div>'
-        +  '<div class="mc-sub">BME · <b>'+c.ticker+'</b> · '+_mcEsc(c.decision||'—')
+        +  '<div class="mc-sub">BME · <b class="mc-tk" data-ficha="'+c.ticker+'" title="Abrir la ficha de '+_mcEsc(c.nombre)+'">'+c.ticker+'</b> · '+_mcEsc(c.decision||'—')
         +    (c.po>0?(' · PO '+_mcEur(c.po)):'')
         +    ' · <span class="mc-rpd'+(c.rpd==null?' nd':'')+'" title="'
         +      (c.rpd==null?'Esta empresa no está en la base de dividendos'
