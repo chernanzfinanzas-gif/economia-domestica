@@ -279,12 +279,174 @@ function _mcMaxHTML(valorHoy){
   txt+= enMax
       ? ' · <b>estás en máximos</b>'
       : (' · '+_mcFecha(m.fecha)+' · estás un <b>'+dist.toFixed(1).replace('.',',')+'%</b> por debajo');
-  txt+='<span class="mc-max-pie">por cierres diarios desde '+_mcFecha(m.desde)
-      +'; no incluye lo que la cartera pudo valer dentro de cada sesión</span>';
+  txt+='<span class="mc-max-pie">por cierres diarios desde '+_mcFecha(m.desde)+'</span>';
   if(m.sinHist.length) txt+='<span class="mc-max-ojo">'+m.sinHist.length+' '
       +(m.sinHist.length===1?'valor':'valores')+' sin histórico de cierres en el repo ('
       +m.sinHist.join(', ')+'): el máximo puede quedarse corto</span>';
+  /* [18-ago-2026] Segunda línea: el máximo DENTRO de la sesión. Va debajo y en menor,
+     porque el de cierres sigue siendo la cifra de referencia -arranca en tu primera
+     operación- y este solo puede mirar lo registrado. Mezclarlos en un renglón sería
+     poner dos números de distinta profundidad histórica a la misma altura. */
+  const mi=_mcMaxIntradia();
+  if(mi){
+    let it='<b>Máximo intradía: '+_mcEur(mi.valor)+'</b> · '+_mcFecha(mi.fecha)+' a las '+mi.hora;
+    it+='<span class="mc-max-pie">dentro de la sesión, con las acciones de cada día · '
+      +'registrado desde el '+_mcFecha(mi.desde)+' ('+mi.sesiones+' '
+      +(mi.sesiones===1?'sesión':'sesiones')+'), que es cuando empezó a archivarse el detalle '
+      +'de 5 minutos</span>';
+    if(mi.sinSerie.length) it+='<span class="mc-max-ojo">sin detalle de 5 minutos: '
+      +mi.sinSerie.join(', ')+' (se valoran a su cierre del día, así que el máximo intradía '
+      +'puede quedarse corto)</span>';
+    txt+='<span class="mc-max-intra">'+it+'</span>';
+  }
   return '<div class="mc-max">'+txt+'</div>';
+}
+
+/* --------------------------------------------------------------------------
+   Máximo de la cartera — FASE 2: DENTRO de la sesión (18-ago-2026)
+   --------------------------------------------------------------------------
+   La Fase 1 dice, ahí arriba, lo que le falta: «no incluye lo que la cartera pudo valer
+   dentro de cada sesión». Ya se puede. `actualizar_intradia.py` archiva desde el 14-ago
+   la serie de 5 minutos de cada empresa (`datos/series/TICKER.json`) y las nueve que hay
+   en cartera la tienen.
+
+   TRES COSAS QUE ES FÁCIL HACER MAL Y AQUÍ NO SE HACEN:
+
+   1) El máximo intradía de la CARTERA no es la suma de los máximos de cada valor. Cada
+      uno hace su máximo a una hora distinta, y sumarlos daría una cartera que no existió
+      en ningún instante. Se construye la rejilla de horas de la sesión, se valora la
+      cartera ENTERA en cada instante y se busca el máximo de esa serie.
+
+   2) Se valora con las acciones que había ESE día, igual que la Fase 1. Valorar el pasado
+      con la cartera de hoy infla los días anteriores a cualquier compra.
+
+   3) El archivo es una VENTANA MÓVIL de 10 sesiones: lo que sale por detrás se borra y no
+      vuelve. Por eso cada máximo diario que se calcula se GUARDA en `DB.maxIntra`, una
+      línea por sesión. Como la ventana cubre dos semanas de bolsa, abriendo la app una vez
+      cada quince días el registro queda completo; y lo guardado ya no depende del archivo.
+      De ahí que hoy el dato arranque en el 11-ago y no en tu primera operación: antes de
+      esa fecha el detalle no existe y no se puede inventar.
+   -------------------------------------------------------------------------- */
+var _mcSeriesPedidas=false, _mcSeries=null;
+
+/* Acciones de cada valor a una fecha dada. Mismo criterio que `_mcSinHistorico`. */
+function _mcAccionesEn(fecha){
+  const acc={};
+  if(typeof _allOps!=='function') return acc;
+  const lim=Date.parse(fecha+'T23:59:59');
+  _allOps().forEach(function(o){
+    const t=_mcUp(o.ticker); if(!t) return;
+    const om=Date.parse((o.fecha||'')+'T00:00:00');
+    if(isNaN(om)||om>lim) return;
+    acc[t]=(acc[t]||0)+((o.tipo==='venta')?-1:1)*_mcNum(o.acciones);
+  });
+  Object.keys(acc).forEach(function(t){ if(!(acc[t]>0.0001)) delete acc[t]; });
+  return acc;
+}
+
+/* El cierre de un valor en una fecha (o el último anterior). Para los que no tengan
+   serie de 5 minutos: se les da un precio plano durante toda la sesión, que es lo único
+   honesto que se puede hacer, y la sesión queda marcada como PARCIAL. */
+function _mcCierreEn(t, fecha){
+  const pj=(typeof _precioCache!=='undefined')?_precioCache[_mcUp(t)]:null;
+  const d=(pj&&pj.data)?pj.data:null;
+  if(!d||!d.length) return 0;
+  let v=0;
+  for(let i=0;i<d.length;i++){ if(d[i][0]<=fecha) v=_mcNum(d[i][1]); else break; }
+  return v;
+}
+
+/* Máximo de la cartera DENTRO de una sesión. Función pura: se le dan las series ya
+   descargadas. Devuelve {valor, hora, parcial, sinSerie:[...]} o null. */
+function _mcMaxIntraSesion(fecha, series, acc){
+  const tks=Object.keys(acc||{});
+  if(!tks.length) return null;
+  const barras={}, sinSerie=[];
+  let horas={};
+  tks.forEach(function(t){
+    const ser=series?series[t]:null;
+    const b=(ser&&ser.dias)?ser.dias[fecha]:null;
+    if(b&&b.length){
+      const m={}; b.forEach(function(x){ if(x&&x.length>1&&_mcNum(x[1])>0){ m[x[0]]=_mcNum(x[1]); horas[x[0]]=1; } });
+      if(Object.keys(m).length){ barras[t]=m; return; }
+    }
+    sinSerie.push(t);
+  });
+  if(!Object.keys(barras).length) return null;     /* ni una serie: no hay sesión que mirar */
+  const rejilla=Object.keys(horas).sort();
+  /* Precio plano de los que no tienen barras */
+  let base=0;
+  sinSerie.forEach(function(t){ base+=acc[t]*_mcCierreEn(t,fecha); });
+  /* Arrastre: antes de su primera barra, cada valor vale su primera barra (la apertura).
+     Un hueco a media sesión mantiene el último precio conocido, que es justo lo que hace
+     el mercado: sin cruce, el precio no se mueve. */
+  const ultimo={};
+  tks.forEach(function(t){ if(barras[t]) ultimo[t]=barras[t][Object.keys(barras[t]).sort()[0]]; });
+  let mx=-Infinity, hmx='';
+  for(let i=0;i<rejilla.length;i++){
+    const h=rejilla[i];
+    let v=base;
+    for(let k=0;k<tks.length;k++){
+      const t=tks[k]; if(!barras[t]) continue;
+      if(barras[t][h]!=null) ultimo[t]=barras[t][h];
+      v+=acc[t]*ultimo[t];
+    }
+    if(v>mx){ mx=v; hmx=h; }
+  }
+  if(!(mx>0)) return null;
+  return {valor:mx, hora:hmx, parcial:sinSerie.length>0, sinSerie:sinSerie};
+}
+
+/* Recorre las sesiones que haya en el archivo y las vuelca en DB.maxIntra. Idempotente:
+   recalcular una sesión da lo mismo, así que se puede repasar la ventana entera cada vez
+   sin miedo -y conviene, porque si editas una operación vieja el número se corrige solo-. */
+function _mcVolcarIntra(series){
+  if(!DB) return false;
+  const reg=DB.maxIntra||(DB.maxIntra={});
+  const fechas={};
+  Object.keys(series||{}).forEach(function(t){
+    const d=(series[t]&&series[t].dias)?series[t].dias:{};
+    Object.keys(d).forEach(function(f){ fechas[f]=1; });
+  });
+  let cambios=0;
+  Object.keys(fechas).sort().forEach(function(f){
+    const r=_mcMaxIntraSesion(f, series, _mcAccionesEn(f));
+    if(!r) return;
+    const v=Math.round(r.valor*100)/100;
+    const antes=reg[f];
+    if(!antes || antes.v!==v || antes.h!==r.hora){
+      reg[f]={v:v, h:r.hora}; if(r.parcial) reg[f].p=1; else delete reg[f].p;
+      cambios++;
+    }
+  });
+  return cambios>0;
+}
+
+/* Lo que se pinta: el máximo de TODO lo registrado, no solo de la ventana. */
+function _mcMaxIntradia(){
+  const tks=Object.keys(_mcAccionesEn(new Date().toISOString().slice(0,10)));
+  if(!_mcSeriesPedidas){
+    _mcSeriesPedidas=true;
+    if(typeof khCargarSerie5!=='function' || !tks.length) return null;
+    Promise.all(tks.map(function(t){ return khCargarSerie5(t).then(function(j){ return [t,j]; }); }))
+      .then(function(pares){
+        const ser={}; pares.forEach(function(p){ if(p[1]) ser[p[0]]=p[1]; });
+        _mcSeries=ser;
+        const hubo=_mcVolcarIntra(ser);
+        if(hubo && typeof saveNow==='function'){ try{ saveNow(); }catch(e){} }
+        if(typeof renderMiCartera==='function') renderMiCartera();
+      })
+      .catch(function(){});
+    return null;
+  }
+  const reg=(DB&&DB.maxIntra)||{};
+  const fechas=Object.keys(reg).sort();
+  if(!fechas.length) return null;
+  let mf='';
+  fechas.forEach(function(f){ if(!mf || reg[f].v>reg[mf].v) mf=f; });
+  const faltan=tks.filter(function(t){ return !_mcSeries || !_mcSeries[t]; });
+  return {valor:reg[mf].v, fecha:mf, hora:reg[mf].h, parcial:!!reg[mf].p,
+          desde:fechas[0], sesiones:fechas.length, sinSerie:faltan};
 }
 
 /* --------------------------------------------------------------------------
@@ -615,6 +777,10 @@ function _mcCSS(){
     '#view-micartera .mc-max.ojo{background:#fffbeb;border-color:#fde68a;color:#92400e}',
     '#view-micartera .mc-max-pie{display:block;font-size:10.5px;color:var(--muted);margin-top:2px}',
     '#view-micartera .mc-max-ojo{display:block;font-size:10.5px;color:#b45309;margin-top:2px}',
+    /* [18-ago-2026] El máximo intradía va separado del de cierres por una línea fina: son
+       dos medidas con distinta profundidad histórica y no deben leerse como una sola. */
+    '#view-micartera .mc-max-intra{display:block;margin-top:7px;padding-top:6px;',
+    'border-top:1px dashed var(--line)}',
     '#view-micartera .mc-aviso{font-size:11.5px;color:var(--muted);margin:-10px 0 16px;padding:0 4px}',
     '#view-micartera .mc-fuente.viva{background:#eef2ff;border:1px solid #c7d2fe}',
     '#view-micartera .mc-fuente.viva .d{background:#4f46e5}',
