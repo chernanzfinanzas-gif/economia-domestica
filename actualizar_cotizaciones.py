@@ -233,12 +233,35 @@ def solo_sesiones_cerradas(filas, ahora=None):
     return [f for f in filas if f[0] != hoy]
 
 
-def descargar(symbol, start, intentos=INTENTOS):
-    """Descarga cierres diarios sin ajustar desde 'start' hasta hoy. Devuelve lista [[fecha, cierre], ...]."""
+def fin_descarga(hoy):
+    """El `end` que hay que pedirle a Yahoo para que la ultima sesion CERRADA entre.
+
+    [18-ago-2026] Aqui estaba el fallo que dejaba 95 cierres sin confirmar. `yf.download`
+    sin `end` usa por defecto la fecha de HOY DEL RUNNER (UTC) y el rango de Yahoo es
+    ABIERTO POR LA DERECHA: [start, end). Los dos pases de la noche -22:35 y 00:22 de
+    Madrid- corren a las 20:35 y 22:22 UTC del MISMO dia, asi que pedian [.., 17-ago) y
+    la descarga se paraba en el 14. Se veia en el log:
+
+        AZK +0 nuevos -> 3996 (2011-01-03 .. 2026-08-17)
+        [sin confirmar: 2026-08-17; la descarga trajo 2026-08-10..2026-08-14]
+
+    El fichero YA tenia el 17 -lo trajo el pase de las 20:07- pero la relectura que debia
+    confirmarlo no lo volvia a pedir, y `confirmado_hasta()` no puede confirmar lo que no
+    ha leido. Hacia lo correcto con datos incompletos.
+    Pidiendo `end = manana` en hora de Madrid, la sesion de hoy entra; y si aun no ha
+    cerrado la sigue quitando `solo_sesiones_cerradas()`, que es quien debe decidir eso."""
+    return (dt.date.fromisoformat(hoy) + dt.timedelta(days=1)).isoformat()
+
+
+def descargar(symbol, start, intentos=INTENTOS, fin=None):
+    """Descarga cierres diarios sin ajustar entre 'start' y 'fin' (exclusivo, como Yahoo).
+
+    'fin' NO es opcional en la practica: sin el, Yahoo corta en la fecha UTC del runner.
+    Se deja con valor por defecto solo para no romper llamadas antiguas."""
     df = None
     for n in range(intentos):
         try:
-            df = yf.download(symbol, start=start, interval="1d",
+            df = yf.download(symbol, start=start, end=fin, interval="1d",
                              auto_adjust=False, progress=False, threads=False)
             break
         except Exception:
@@ -298,7 +321,10 @@ def _indj_ultimo(dias=15):
     # Yahoo no da historico de INDJ.MC (IBEX 35 con Dividendos) pero SI su valor del dia.
     # Devuelve [fecha, valor] mas reciente, o None.
     try:
-        filas = descargar("INDJ.MC", (dt.date.today() - dt.timedelta(days=dias)).isoformat())
+        _hoy = hoy_bolsa()
+        filas = descargar("INDJ.MC",
+                          (dt.date.fromisoformat(_hoy) - dt.timedelta(days=dias)).isoformat(),
+                          fin=fin_descarga(_hoy))
     except Exception as e:
         print(f"INDJ.MC no disponible ({str(e)[:50]})")
         return None
@@ -417,7 +443,7 @@ def main():
             start = START
 
         try:
-            nuevos = descargar(symbol, start)
+            nuevos = descargar(symbol, start, fin=fin_descarga(hoy))
         except Exception as e:
             print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) ERROR: {e}")
             indice["fallos"].append({"ticker": ticker, "symbol": symbol, "error": str(e)})
