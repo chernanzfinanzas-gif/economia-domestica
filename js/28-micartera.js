@@ -395,6 +395,20 @@ function _mcIntraSesion(fecha, series, acc){
     valores.push(v);
   }
   if(!valores.length) return null;
+  /* [18-ago-2026] EL CIERRE TAMBIÉN ES UN INSTANTE DE LA SESIÓN.
+     Carlos: «que el máximo intradía sea menor que el máximo de la cartera no tiene sentido».
+     Y no lo tiene. El archivo de 5 minutos acaba a las 17:25 y el cierre oficial sale de la
+     SUBASTA, que es posterior: si el valor de la cartera hace su máximo en la subasta, el
+     recorrido de barras no lo ve y el máximo intradía queda POR DEBAJO del de cierres, que
+     es una contradicción en sus propios términos —el cierre ocurrió dentro de la sesión—.
+     Se añade un punto final con el cierre oficial de cada valor. Si a alguno le falta el
+     cierre de ese día no se añade nada: no se inventa media cartera para cuadrar un número. */
+  let cierre=0, completo=true;
+  tks.forEach(function(t){
+    const c=_mcCierreEn(t,fecha);
+    if(!(c>0)) completo=false; else cierre+=acc[t]*c;
+  });
+  if(completo && cierre>0){ rejilla.push('cierre'); valores.push(cierre); }
   return {horas:rejilla, valores:valores, parcial:sinSerie.length>0, sinSerie:sinSerie};
 }
 
@@ -454,7 +468,19 @@ function _mcVolcarIntra(series){
     if(!r) return;
     const v=Math.round(r.valor*100)/100;
     const antes=reg[f];
-    if(!antes || antes.v!==v || antes.h!==r.hora){
+    /* [18-ago-2026] UNA MEDIDA PARCIAL NO PISA A UNA COMPLETA.
+       Esto es lo que de verdad dolio el 18-ago: al no cargar la serie de Santander, el
+       recalculo salio PARCIAL -SAN valorado a su cierre plano- y sobrescribio los maximos
+       buenos ya guardados. El registro existe justamente para no depender del archivo ni
+       de que hoy la red vaya bien; si un tropiezo puede rebajarlo, no sirve para nada.
+       Reglas: una parcial nunca sustituye a una completa; entre dos parciales gana la
+       mayor, porque una parcial es siempre una COTA INFERIOR del maximo real; y entre dos
+       completas manda la nueva, que puede estar corrigiendo una operacion editada. */
+    if(antes){
+      if(r.parcial && !antes.p) return;                    /* no degradar */
+      if(r.parcial && antes.p && v<=antes.v) return;        /* parcial peor: no baja */
+    }
+    if(!antes || antes.v!==v || antes.h!==r.hora || !!antes.p!==!!r.parcial){
       reg[f]={v:v, h:r.hora}; if(r.parcial) reg[f].p=1; else delete reg[f].p;
       cambios++;
     }

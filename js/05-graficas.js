@@ -1545,15 +1545,28 @@ function khCargarSerie5(t){
   t=(t||'').toUpperCase();
   if(!t) return Promise.resolve(null);
   if(_khSerie5Cache[t]!==undefined) return Promise.resolve(_khSerie5Cache[t]);
-  let i=0;
+  /* [18-ago-2026] UN FALLO DE RED NO SE CACHEA COMO SI FUERA UN «NO EXISTE».
+     La primera version guardaba `null` en cuanto algo fallaba, y ese null se quedaba para
+     toda la sesion. El 18-ago le paso a SANTANDER —la posicion mas grande— por un tropiezo
+     de red: su serie estaba perfectamente en el repo, pero la app la dio por inexistente,
+     valoro SAN a su cierre plano toda la sesion y el maximo intradia de la cartera bajo de
+     380.923 a 380.454. Se distingue por eso: un 404 es un «no existe» de verdad -esa
+     empresa no esta entre las 25- y se cachea; cualquier otra cosa es un tropiezo y se
+     reintenta a la siguiente. */
+  let i=0, hubo404=false, huboFallo=false;
   function intenta(){
-    if(i>=_KH_S5_FUENTES.length){ _khSerie5Cache[t]=null; return Promise.resolve(null); }
+    if(i>=_KH_S5_FUENTES.length){
+      if(hubo404 && !huboFallo) _khSerie5Cache[t]=null;   /* no existe: no se vuelve a pedir */
+      return Promise.resolve(null);
+    }
     const u=_KH_S5_FUENTES[i++]+t+'.json';
     const remota=u.indexOf('//')>=0;
     return fetch(remota?(u+'?t='+Date.now()):u,{cache:'no-store'})
-      .then(r=>(r&&r.ok)?r.json():null)
+      .then(r=>{ if(r&&r.ok) return r.json();
+                 if(r&&r.status===404) hubo404=true; else huboFallo=true;
+                 return null; })
       .then(j=>{ if(j&&j.dias){ _khSerie5Cache[t]=j; return j; } return intenta(); })
-      .catch(()=>intenta());
+      .catch(()=>{ huboFallo=true; return intenta(); });
   }
   return intenta();
 }
