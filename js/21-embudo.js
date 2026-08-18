@@ -178,7 +178,15 @@ function etapaDe(t){
     if(_emRevVencida(t)) return 'En revisión';
   }
   /* pin manual (por debajo de las alarmas). */
-  if(pin.etapa) return pin.etapa;
+  /* [18-ago-2026] …y por debajo de la banda suspendida, cuando el pin es a Planteamiento.
+     El pin puede mover una empresa a la columna que quieras, pero «Planteamiento» es
+     internamente «En zona», y ese camino se resolvia ANTES de comprobar la banda: fijando
+     Azkoyen ahi volvia a salir «🎯 En tu zona de entrada» con la OPA viva. Es el mismo
+     patron que arreglamos esta manana -dos caminos al mismo estado y solo uno consultaba
+     la lista-, asi que se tapa igual. El pin sigue valiendo para todo lo demas. */
+  if(pin.etapa==='En zona' && typeof khBandaEstado==='function'
+     && khBandaEstado(t,a).estado==='suspendida'){ /* se ignora: sigue el calculo normal */ }
+  else if(pin.etapa) return pin.etapa;
 
   if(held){
     if(_emComprandoAhora(t)) return 'Comprando';
@@ -676,7 +684,11 @@ function _emIdxChip(r){ var M=_emIdxMap(); var v=M.by[r.t]; if(v==null)return ''
 function _emDistEntrada(r){ var a=r.a; if(!a||_emUp(a.decision)!=='COMPRAR')return null;
   var cot=_emNum(a.cotizacion), eM=_emNum(a.entMax); if(!(cot>0&&eM>0))return null;
   var over=(cot/eM-1)*100; return over>0.05?over:null; }
-function _emDistChip(r){ var d=_emDistEntrada(r); if(d==null)return '';
+function _emDistChip(r){
+  /* «+18% de tu entrada» calculado sobre un precio intervenido es aritmética sobre un
+     número que no es un precio. En Tubos Reunidos serían 0,1438 € repetidos desde mayo. */
+  if(typeof khBandaEstado==='function' && khBandaEstado(r.t).estado==='suspendida') return '';
+  var d=_emDistEntrada(r); if(d==null)return '';
   var cls=d<=10?'d-near':(d<=25?'d-mid':'d-far');
   return '<span class="em-dist '+cls+'" title="Cotiza un '+d.toFixed(0)+'% por encima de tu banda de entrada">▲ +'+d.toFixed(0)+'% de entrada'+(d>25?' · cara':'')+'</span>'; }
 function _emAnaSort(x,y){ var dx=_emDistEntrada(x), dy=_emDistEntrada(y); var hx=(dx!=null), hy=(dy!=null);
@@ -709,6 +721,8 @@ function _emRpd(t){ if(typeof _tzRPD==='function'){ try{ var v=_tzRPD(_emUp(t));
   var a=_emAna(t), p=_emNum(a&&a.cotizacion), d=_emNum(a&&a.divAccion); return (p>0&&d>0)?(d/p*100):null; }
 function _emZoneChip(r){
   var a=r.a; var cot=_emNum(a&&a.cotizacion), eM=_emNum(a&&a.entMax); if(!(cot>0&&eM>0))return '';
+  /* Con la banda suspendida no hay «en zona» que enseñar: ese chip es una lectura de precio. */
+  if(typeof khBandaEstado==='function' && khBandaEstado(r.t).estado==='suspendida') return '';
   if(_emUp(a&&a.decision)==='VENDER')return '';
   if(cot<=eM) return '<span class="em-zone z-in">🟢 en zona</span>';
   var m=_emMargen(); if(cot<=eM*(1+m)){ var over=((cot/eM-1)*100).toFixed(0); return '<span class="em-zone z-near">🟡 cerca de zona +'+over+'%</span>'; }
