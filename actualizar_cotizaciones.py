@@ -198,6 +198,19 @@ def _ahora_madrid():
     return u.astimezone(dt.timezone(dt.timedelta(hours=off)))
 
 
+def hoy_bolsa(ahora=None):
+    """El dia de HOY segun el reloj de Madrid, que es el del mercado del que hablamos.
+
+    [18-ago-2026] Aqui habia un `dt.date.today()` a secas y eso es la fecha del RUNNER,
+    que va en UTC. Consecuencia concreta: el pase de las 00:22 de Madrid corre a las
+    22:22 UTC del dia ANTERIOR, asi que para el script todavia era la vispera y
+    `confirmado_hasta()` no podia dar por confirmada la sesion que acababa de cerrar
+    -- exige un pase de un DIA POSTERIOR y, en UTC, ese pase no lo era. El segundo
+    intento de consolidacion era estructuralmente incapaz de consolidar nada.
+    El resto del fichero ya usaba `_ahora_madrid()`; era este el que iba por libre."""
+    return (ahora or _ahora_madrid()).strftime("%Y-%m-%d")
+
+
 def solo_sesiones_cerradas(filas, ahora=None):
     """Quita la barra del DIA EN CURSO mientras la sesion no haya cerrado.
 
@@ -378,9 +391,9 @@ def main():
     outdir = os.path.join(base, OUTDIR)
     os.makedirs(outdir, exist_ok=True)
 
-    hoy = dt.date.today().isoformat()
+    hoy = hoy_bolsa()
     # inicio de la ventana movil: todo lo posterior a esta fecha se vuelve a pedir y a sobrescribir
-    desde_ventana = (dt.date.today() - dt.timedelta(days=VENTANA)).isoformat()
+    desde_ventana = (dt.date.fromisoformat(hoy) - dt.timedelta(days=VENTANA)).isoformat()
     indice = {"actualizado": hoy, "ventana_dias": VENTANA, "ventana_desde": desde_ventana,
               "tickers": [], "fallos": [], "corregidos": [], "revisar": []}
     estado = {}   # ticker -> {"ultima": fecha, "provisional": bool}
