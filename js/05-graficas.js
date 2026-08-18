@@ -1212,8 +1212,25 @@ function khGrafLinea(cont, cfg){
       grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
           +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
     let d=''; for(let i=z0;i<=z1;i++) d+=(i===z0?'M':'L')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
-    let xl=''; const paso=Math.max(1,Math.ceil(m/6));
-    for(let i=z0;i<=z1;i+=paso) xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>';
+    /* [18-ago-2026] SEPARADORES DE SESION, para el detalle de 5 minutos.
+       Con varias sesiones pegadas -que es como se leen las cotizaciones: sin los huecos
+       de la noche, que ocupan dos tercios del reloj y no cuentan nada- hace falta decir
+       donde acaba un dia y empieza el siguiente. Si no, el salto de precio nocturno
+       parece un movimiento de la sesion. Se dibuja una linea fina en cada apertura y la
+       fecha va ahi, en vez de repartir etiquetas cada N puntos: la referencia util es
+       «esto es el martes», no «esto es el punto 240». */
+    let xl='', cortes='';
+    const _ses=(cfg.sesiones||[]).filter(x=>x.i>z0&&x.i<=z1);
+    if((cfg.sesiones||[]).length>1){
+      const _vis=(cfg.sesiones||[]).filter(x=>x.i>=z0&&x.i<=z1);
+      _vis.forEach(function(x){
+        xl+='<text x="'+X(x.i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+x.txt+'</text>'; });
+      _ses.forEach(function(x){
+        cortes+='<line x1="'+X(x.i).toFixed(1)+'" y1="'+pt+'" x2="'+X(x.i).toFixed(1)+'" y2="'+(H-pb)+'" stroke="#dbe3ec" stroke-dasharray="2 3"/>'; });
+    } else {
+      const paso=Math.max(1,Math.ceil(m/6));
+      for(let i=z0;i<=z1;i+=paso) xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>';
+    }
     const visibles=todasMarcas.filter(i=>i>=z0&&i<=z1);
     let mk=''; visibles.forEach(function(i){
       mk+='<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(ys[i]).toFixed(1)+'" r="4" fill="#fff" stroke="'+(cfg.colorMarca||'#b45309')+'" stroke-width="2"/>'; });
@@ -1251,6 +1268,7 @@ function khGrafLinea(cont, cfg){
       : '<div class="kh-zoom kh-zoom-off">Arrastra sobre el gráfico para acercar una zona · doble clic para volver</div>';
     wrap.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
       +grid
+      +cortes
       +'<rect class="kh-brush" x="0" y="'+pt+'" width="0" height="'+(H-pt-pb)+'" fill="#3b82f6" opacity=".14" style="display:none"/>'
       +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
       +mk
@@ -1409,6 +1427,62 @@ function mcAbrirGrafCartera(){
    que se mira si un precio está caro o barato dentro de su propio año. El archivo de
    `precios/` guarda desde 2011, o sea que el dato está: solo faltaba pedirlo. */
 const _KH_RANGOS=[['1s','1 semana',8],['2s','2 semanas',16],['1m','1 mes',31],['1a','1 año',366]];
+/* [18-ago-2026] EL DETALLE DE 5 MINUTOS. `actualizar_intradia.py` viene archivando desde
+   el 14-ago un fichero por empresa con las ultimas 10 sesiones a barras de 5 minutos
+   -unas 102 por sesion, de 09:00 a 17:25-. Se recogia y no lo leia nadie.
+   Vive en la rama `datos` del repo, NO en la raiz de la web, asi que la ruta relativa que
+   usa `precios/` no sirve: hay que ir a raw, con la misma cadena y la misma regla que el
+   intradia de 01-core.js -el `?t=` solo en las fuentes REMOTAS, porque es contra la cache
+   de la CDN y en la local no gana nada-.
+   Solo existe para las 25 empresas con analisis completo; para el resto la respuesta es un
+   404 legitimo y los rangos cortos siguen pintando cierres diarios. */
+const _khSerie5Cache={};
+const _KH_S5_FUENTES=[
+  'https://raw.githubusercontent.com/chernanzfinanzas-gif/economia-domestica/datos/series/',
+  'series/'
+];
+/* Sesiones de 5 minutos que cubre cada rango corto. Diez es lo que guarda el archivo. */
+const _KH_S5_SESIONES={'1s':5,'2s':10};
+
+function khCargarSerie5(t){
+  t=(t||'').toUpperCase();
+  if(!t) return Promise.resolve(null);
+  if(_khSerie5Cache[t]!==undefined) return Promise.resolve(_khSerie5Cache[t]);
+  let i=0;
+  function intenta(){
+    if(i>=_KH_S5_FUENTES.length){ _khSerie5Cache[t]=null; return Promise.resolve(null); }
+    const u=_KH_S5_FUENTES[i++]+t+'.json';
+    const remota=u.indexOf('//')>=0;
+    return fetch(remota?(u+'?t='+Date.now()):u,{cache:'no-store'})
+      .then(r=>(r&&r.ok)?r.json():null)
+      .then(j=>{ if(j&&j.dias){ _khSerie5Cache[t]=j; return j; } return intenta(); })
+      .catch(()=>intenta());
+  }
+  return intenta();
+}
+
+function _khDDMM(iso){ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):iso; }
+
+/* Funcion PURA: se le da el fichero ya leido y devuelve lo que hay que pintar. Separada
+   de la descarga a proposito, para poder probarla sin red. */
+function khTramo5(serie, sesiones){
+  if(!serie || !serie.dias) return null;
+  const fechas=Object.keys(serie.dias).sort().slice(-Math.max(1, sesiones||1));
+  const xs=[], ys=[], ses=[];
+  fechas.forEach(function(f){
+    const barras=serie.dias[f]||[], ini=xs.length;
+    for(let k=0;k<barras.length;k++){
+      const b=barras[k]; if(!b||b.length<2) continue;
+      const v=num(b[1]); if(!(v>0)) continue;
+      xs.push(f+' '+b[0]); ys.push(v);
+    }
+    /* La sesion solo cuenta si ha aportado algo: un dia festivo viene con la lista vacia
+       y no debe dejar ni separador ni etiqueta. */
+    if(xs.length>ini) ses.push({i:ini, txt:_khDDMM(f)});
+  });
+  return xs.length>1 ? {xs:xs, ys:ys, sesiones:ses, nSesiones:ses.length} : null;
+}
+
 let _khRangoValor='1m';
 
 function _khSerieValor(t, dias){
@@ -1452,7 +1526,21 @@ function mcAbrirGrafValor(t){
     barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+(r[0]===_khRangoValor?' on':'')+'" data-khr="'+r[0]+'">'+r[1]+'</button>').join('')
       +'<a class="kh-ficha" href="#" data-khficha="'+t+'">Ver la ficha de '+t+' ↗</a>';
     const cfg=_KH_RANGOS.find(r=>r[0]===_khRangoValor)||_KH_RANGOS[1];
-    const s=_khSerieValor(t,cfg[2]);
+
+    /* [18-ago-2026] Los dos rangos cortos se leen con el DETALLE DE 5 MINUTOS cuando lo
+       hay. Antes «1 semana» eran cinco puntos -cinco cierres- y no se podia ver nada
+       dentro de la semana; ahora son unas 500 barras. «1 mes» y «1 año» siguen con
+       cierres diarios: ahi el intradia ni cabe ni aporta.
+       Solo las 25 con analisis completo tienen serie; para el resto se cae a cierres y
+       se DICE, en vez de enseñar cinco puntos sin explicar por que. */
+    const quiere5=_KH_S5_SESIONES[_khRangoValor]>0;
+    if(quiere5 && _khSerie5Cache[t]===undefined){
+      hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando el detalle de 5 minutos de '+t+'…</div>';
+      khCargarSerie5(t).then(function(){ if(document.body.contains(hueco)) pinta(); });
+      return;
+    }
+    const s5=quiere5 ? khTramo5(_khSerie5Cache[t], _KH_S5_SESIONES[_khRangoValor]) : null;
+    const s = s5 || _khSerieValor(t,cfg[2]);
     if(!s||s.xs.length<2){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cotizaciones de '+t+' en este tramo. '
         +'Prueba con 1 mes o 1 año, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
@@ -1460,6 +1548,7 @@ function mcAbrirGrafValor(t){
     }
     const prec=x=>(Math.round(num(x)*10000)/10000).toFixed(2)+' €';
     const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):iso; };
+    const hhmm=x=>String(x).slice(11,16);
     const ini=s.ys[0], fin=s.ys[s.ys.length-1];
     const varPct=(ini>0)?((fin-ini)/ini*100):null;
     /* Máximo y mínimo del tramo completo, con su fecha, para la leyenda. Los puntos
@@ -1467,22 +1556,31 @@ function mcAbrirGrafValor(t){
        zoom pueden discrepar: por eso la leyenda dice de qué periodo habla. */
     let iH=0, iL=0;
     for(let i=0;i<s.ys.length;i++){ if(s.ys[i]>s.ys[iH])iH=i; if(s.ys[i]<s.ys[iL])iL=i; }
-    const rec=(_khRangoValor==='1a')?'52 semanas':cfg[1];
+    const rec=s5 ? (s5.nSesiones+(s5.nSesiones===1?' sesión':' sesiones'))
+                 : ((_khRangoValor==='1a')?'52 semanas':cfg[1]);
     const anio=x=>dd(x)+'/'+String(x).slice(2,4);
+    const cuando=x=>s5 ? (dd(x)+' '+hhmm(x)) : (dd(x)+'/'+String(x).slice(2,4));
+    const _leyenda=[
+      {c:'#2563eb',t:(s5?'Cotización cada 5 minutos':'Cierre diario')
+                  +(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
+      {c:'#0f172a',t:'Máx '+prec(s.ys[iH])+' ('+cuando(s.xs[iH])+') · Mín '+prec(s.ys[iL])+' ('+cuando(s.xs[iL])+') · '+rec}
+    ];
+    if(quiere5 && !s5) _leyenda.push({c:'#94a3b8', t:'Sin detalle de 5 minutos para '+t+': se dibujan cierres diarios'});
     khGrafLinea(hueco,{
       /* Una cotización NO se lee contra el cero: se lee contra sí misma. Ver la
          nota de `khGrafLinea`. El gráfico del valor de la cartera sí conserva el
          cero, y por eso esto es una opción y no el comportamiento por defecto. */
       baseCero:false, extremos:true,
+      sesiones: s5 ? s5.sesiones : null,
       xs:s.xs, ys:s.ys, color:'#2563eb', alto:300,
-      fmtX:dd, fmtEje:prec, fmtY:prec,
-      tip:i=>'<b>'+prec(s.ys[i])+'</b><br>'+dd(s.xs[i])+'/'+String(s.xs[i]).slice(0,4),
-      leyenda:[
-        {c:'#2563eb',t:'Cierre diario'+(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
-        {c:'#0f172a',t:'Máx '+prec(s.ys[iH])+' ('+anio(s.xs[iH])+') · Mín '+prec(s.ys[iL])+' ('+anio(s.xs[iL])+') · '+rec}
-      ]
+      fmtX: s5 ? hhmm : dd, fmtEje:prec, fmtY:prec,
+      tip:i=>'<b>'+prec(s.ys[i])+'</b><br>'+(s5?(dd(s.xs[i])+' · '+hhmm(s.xs[i])):(dd(s.xs[i])+'/'+String(s.xs[i]).slice(0,4))),
+      leyenda:_leyenda
     });
   }
+  /* Se pide ya, aunque el rango por defecto sea «1 mes»: si luego pulsa «1 semana» el
+     fichero suele estar, y no se ve el «Cargando…». */
+  khCargarSerie5(t);
   barra.addEventListener('click',function(e){
     const b=e.target.closest('[data-khr]');
     if(b){ _khRangoValor=b.getAttribute('data-khr'); pinta(); return; }
