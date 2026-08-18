@@ -1261,6 +1261,22 @@ function khGrafLinea(cont, cfg){
       };
       ext=_pinta(iH,'max')+(iL!==iH?_pinta(iL,'min'):'');
     }
+    /* [18-ago-2026] LINEA DE REFERENCIA HORIZONTAL. Se pide con `linea:{v,txt}` y sirve
+       para lo que Carlos queria ver de un vistazo: cuanto falta para el maximo. Se dibuja
+       aunque quede fuera del eje -entonces se pega al borde y la etiqueta lo dice-, porque
+       «esta por encima de lo que se ve» tambien es informacion. */
+    let ref='';
+    if(cfg.linea && isFinite(num(cfg.linea.v))){
+      const lv=num(cfg.linea.v);
+      const fuera=(lv>mx)?1:((lv<mn)?-1:0);
+      const ly=Y(fuera>0?mx:(fuera<0?mn:lv));
+      const lc=cfg.linea.color||'#b45309';
+      ref='<line x1="'+pl+'" y1="'+ly.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+ly.toFixed(1)+'" '
+        + 'stroke="'+lc+'" stroke-width="1.4" stroke-dasharray="6 4"'+(fuera?' opacity=".6"':'')+'/>'
+        + '<text x="'+(W-pr-3)+'" y="'+(ly+(fuera>0?11:-4)).toFixed(1)+'" text-anchor="end" '
+        + 'font-size="9.5" font-weight="700" fill="'+lc+'">'
+        + (cfg.linea.txt||'')+(fuera>0?' ↑ fuera del tramo':(fuera<0?' ↓ fuera del tramo':''))+'</text>';
+    }
     const col=cfg.color||'#16a34a';
     const zoomInfo=(z0>0||z1<n-1)
       ? '<div class="kh-zoom">🔍 '+(cfg.fmtX?cfg.fmtX(xs[z0]):xs[z0])+' → '+(cfg.fmtX?cfg.fmtX(xs[z1]):xs[z1])
@@ -1269,6 +1285,7 @@ function khGrafLinea(cont, cfg){
     wrap.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
       +grid
       +cortes
+      +ref
       +'<rect class="kh-brush" x="0" y="'+pt+'" width="0" height="'+(H-pt-pb)+'" fill="#3b82f6" opacity=".14" style="display:none"/>'
       +'<path d="'+d+'" fill="none" stroke="'+col+'" stroke-width="2.2" stroke-linejoin="round"/>'
       +mk
@@ -1367,13 +1384,77 @@ function _khComprasPorDia(){
   });
   return m;
 }
+/* [18-ago-2026] Dos vistas de lo mismo, con el mismo boton que el grafico por empresa:
+   TODO (cierres diarios desde la primera operacion) y las ULTIMAS SESIONES con el detalle
+   de 5 minutos. La segunda existe desde que `mcSerieIntraCartera()` sabe valorar la cartera
+   instante a instante; hoy son 6 sesiones y seran 10 cuando el archivo se llene. */
+let _khVistaCartera='todo';
+
 function mcAbrirGrafCartera(){
-  const d=(typeof carteraEvolData==='function')?carteraEvolData(mcAbrirGrafCartera):null;
   const cont=khModal('Evolución de la cartera',
-                     'Valor día a día desde la primera operación · los puntos son días de compra');
+                     'Valor de la cartera · los puntos son días de compra');
   if(!cont)return;
-  if(!d||d.empty){ cont.innerHTML='<div class="empty">Todavía no hay operaciones registradas.</div>'; return; }
-  if(d.loading){ cont.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; return; }
+  cont.innerHTML='<div class="kh-rangos"></div><div class="kh-hueco"></div>';
+  const barra=cont.querySelector('.kh-rangos'), hueco=cont.querySelector('.kh-hueco');
+  const VISTAS=[['todo','Desde el principio'],['intra','Últimas sesiones (5 min)']];
+
+  /* El maximo intradia registrado: la linea contra la que se mide «cuanto falta». Sale de
+     `DB.maxIntra`, que 28-micartera.js va acumulando sesion a sesion. */
+  function maxIntra(){
+    try{
+      const reg=(DB&&DB.maxIntra)||{}; const fs=Object.keys(reg);
+      if(!fs.length) return null;
+      let mf=fs[0]; fs.forEach(function(f){ if(reg[f].v>reg[mf].v) mf=f; });
+      return {v:reg[mf].v, f:mf, h:reg[mf].h};
+    }catch(e){ return null; }
+  }
+
+  function pinta(){
+    barra.innerHTML=VISTAS.map(v=>'<button type="button" class="kh-rb'+(v[0]===_khVistaCartera?' on':'')
+      +'" data-khr="'+v[0]+'">'+v[1]+'</button>').join('');
+    if(_khVistaCartera==='intra'){ pintaIntra(); return; }
+    pintaTodo();
+  }
+
+  function pintaIntra(){
+    const s=(typeof mcSerieIntraCartera==='function')?mcSerieIntraCartera():null;
+    if(!s){
+      hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando el detalle de 5 minutos…<br>'
+        +'Si no aparece, es que las empresas de la cartera todavía no tienen serie archivada '
+        +'(<b>datos/series/</b> del repo, rama <b>datos</b>).</div>';
+      if(typeof khCargarSerie5==='function'){
+        setTimeout(function(){ if(document.body.contains(hueco)&&_khVistaCartera==='intra') pinta(); }, 1200);
+      }
+      return;
+    }
+    const eur=v=>(typeof fmt==='function')?fmt(v):String(Math.round(v));
+    const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):iso; };
+    const hhmm=x=>String(x).slice(11,16);
+    const MI=maxIntra();
+    const ini=s.ys[0], fin=s.ys[s.ys.length-1];
+    const varPct=(ini>0)?((fin-ini)/ini*100):null;
+    const leg=[{c:'#16a34a',t:'Cartera cada 5 minutos'+(varPct==null?'':(' · '+(varPct>=0?'+':'')+varPct.toFixed(2)+'% en el tramo'))}];
+    if(MI){
+      const dist=(MI.v>0)?((MI.v-fin)/MI.v*100):0;
+      leg.push({c:'#b45309', t:'Máximo intradía '+eur(MI.v)+' ('+dd(MI.f)+' '+MI.h+') · '
+        +(dist<=0.005?'estás en máximos':('estás un '+dist.toFixed(2).replace('.',',')+'% por debajo'))});
+    }
+    if(s.parcial) leg.push({c:'#94a3b8', t:'Sin detalle de 5 minutos: '+s.sinSerie.join(', ')
+      +' (valorados a su cierre del día)'});
+    khGrafLinea(hueco,{
+      baseCero:false, extremos:true, sesiones:s.sesiones,
+      xs:s.xs, ys:s.ys, color:'#16a34a', alto:330,
+      fmtX:hhmm, fmtEje:eur, fmtY:eur,
+      linea: MI?{v:MI.v, txt:'máximo intradía '+eur(MI.v)}:null,
+      tip:i=>'<b>'+eur(s.ys[i])+'</b><br>'+dd(s.xs[i])+' · '+hhmm(s.xs[i]),
+      leyenda:leg
+    });
+  }
+
+  function pintaTodo(){
+  const d=(typeof carteraEvolData==='function')?carteraEvolData(pinta):null;
+  if(!d||d.empty){ hueco.innerHTML='<div class="empty">Todavía no hay operaciones registradas.</div>'; return; }
+  if(d.loading){ hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; return; }
 
   const labels=d.labels||[], ys=d.valor||[];
   const compras=_khComprasPorDia();
@@ -1387,8 +1468,10 @@ function mcAbrirGrafCartera(){
   const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
   const eur=v=>(typeof fmt==='function')?fmt(v):String(Math.round(v));
 
-  khGrafLinea(cont,{
+  const _MI=maxIntra();
+  khGrafLinea(hueco,{
     xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
+    linea:_MI?{v:_MI.v, txt:'máximo intradía '+eur(_MI.v)}:null,
     fmtX:iso=>String(iso).slice(0,4),
     tip:function(i){
       let h='<b>'+eur(ys[i])+'</b><br>'+dd(labels[i]);
@@ -1402,8 +1485,17 @@ function mcAbrirGrafCartera(){
       }
       return h;
     },
-    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},{c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
+    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},
+             {c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
+             .concat(_MI?[{c:'#b45309',t:'La raya de puntos es el máximo intradía registrado: '+eur(_MI.v)}]:[])
   });
+  }
+
+  barra.addEventListener('click',function(e){
+    const b=e.target.closest('[data-khr]');
+    if(b){ _khVistaCartera=b.getAttribute('data-khr'); pinta(); }
+  });
+  pinta();
 }
 
 /* ── Gráfico 1S/1M por empresa (14-ago-2026) ───────────────────────────────

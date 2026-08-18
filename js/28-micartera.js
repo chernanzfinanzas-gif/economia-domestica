@@ -356,9 +356,10 @@ function _mcCierreEn(t, fecha){
   return v;
 }
 
-/* Máximo de la cartera DENTRO de una sesión. Función pura: se le dan las series ya
-   descargadas. Devuelve {valor, hora, parcial, sinSerie:[...]} o null. */
-function _mcMaxIntraSesion(fecha, series, acc){
+/* La cartera valorada INSTANTE A INSTANTE dentro de una sesión. Función pura: se le dan
+   las series ya descargadas. Devuelve {horas:[], valores:[], parcial, sinSerie:[...]} o null.
+   De aquí salen las dos cosas: el máximo del día y la línea que se dibuja. */
+function _mcIntraSesion(fecha, series, acc){
   const tks=Object.keys(acc||{});
   if(!tks.length) return null;
   const barras={}, sinSerie=[];
@@ -382,7 +383,7 @@ function _mcMaxIntraSesion(fecha, series, acc){
      el mercado: sin cruce, el precio no se mueve. */
   const ultimo={};
   tks.forEach(function(t){ if(barras[t]) ultimo[t]=barras[t][Object.keys(barras[t]).sort()[0]]; });
-  let mx=-Infinity, hmx='';
+  const valores=[];
   for(let i=0;i<rejilla.length;i++){
     const h=rejilla[i];
     let v=base;
@@ -391,10 +392,49 @@ function _mcMaxIntraSesion(fecha, series, acc){
       if(barras[t][h]!=null) ultimo[t]=barras[t][h];
       v+=acc[t]*ultimo[t];
     }
-    if(v>mx){ mx=v; hmx=h; }
+    valores.push(v);
   }
+  if(!valores.length) return null;
+  return {horas:rejilla, valores:valores, parcial:sinSerie.length>0, sinSerie:sinSerie};
+}
+
+/* Máximo de esa sesión. Envoltorio delgado sobre la serie: un solo cálculo, dos usos. */
+function _mcMaxIntraSesion(fecha, series, acc){
+  const r=_mcIntraSesion(fecha, series, acc);
+  if(!r) return null;
+  let mx=-Infinity, hmx='';
+  for(let i=0;i<r.valores.length;i++){ if(r.valores[i]>mx){ mx=r.valores[i]; hmx=r.horas[i]; } }
   if(!(mx>0)) return null;
-  return {valor:mx, hora:hmx, parcial:sinSerie.length>0, sinSerie:sinSerie};
+  return {valor:mx, hora:hmx, parcial:r.parcial, sinSerie:r.sinSerie};
+}
+
+/* LA SERIE ENTERA, para pintarla: todas las sesiones archivadas, una detrás de otra y sin
+   los huecos de la noche, en el mismo formato que come `khGrafLinea` -mismo criterio que
+   el gráfico por empresa, para que las dos se lean igual-. Devuelve null mientras las
+   series no estén descargadas; quien llama repinta cuando lleguen. */
+function mcSerieIntraCartera(){
+  const hoy=new Date().toISOString().slice(0,10);
+  const tks=Object.keys(_mcAccionesEn(hoy));
+  if(!tks.length) return null;
+  if(!_mcSeriesPedidas){ _mcMaxIntradia(); return null; }   /* dispara la descarga */
+  const ser=_mcSeries; if(!ser) return null;
+  const fechas={};
+  Object.keys(ser).forEach(function(t){
+    const d=(ser[t]&&ser[t].dias)?ser[t].dias:{};
+    Object.keys(d).forEach(function(f){ fechas[f]=1; });
+  });
+  const orden=Object.keys(fechas).sort();
+  if(!orden.length) return null;
+  const xs=[], ys=[], ses=[]; let parcial=false; const sin={};
+  orden.forEach(function(f){
+    const r=_mcIntraSesion(f, ser, _mcAccionesEn(f));
+    if(!r) return;
+    ses.push({i:xs.length, txt:_mcFecha(f,true)});
+    for(let i=0;i<r.horas.length;i++){ xs.push(f+' '+r.horas[i]); ys.push(r.valores[i]); }
+    if(r.parcial){ parcial=true; (r.sinSerie||[]).forEach(function(t){ sin[t]=1; }); }
+  });
+  return xs.length>1 ? {xs:xs, ys:ys, sesiones:ses, nSesiones:ses.length,
+                        parcial:parcial, sinSerie:Object.keys(sin)} : null;
 }
 
 /* Recorre las sesiones que haya en el archivo y las vuelca en DB.maxIntra. Idempotente:
