@@ -1,0 +1,1802 @@
+{
+ "schemaVersion": 1,
+ "generadoEl": "2026-08-20",
+ "metodo": {
+  "formula": "Cov(r_accion, r_indice) / Var(r_indice)",
+  "frecuencia": "semanal (ultimo dia cotizado de cada semana ISO)",
+  "ventanas": {
+   "5a": "5 anos moviles",
+   "2a": "2 anos moviles"
+  },
+  "indice": "IBEX",
+  "hasta": "2026-08-19",
+  "desfaseHabiles": 1,
+  "forzado": false,
+  "minObservaciones": 40,
+  "rangoPlausible": [
+   0.2,
+   2.5
+  ],
+  "nota": "Sin ajuste de Blume y sin desapalancar: la beta cruda es el dato; apalancarla o suavizarla es decision del Bloque VI, no de la fuente."
+ },
+ "resumen": {
+  "tickers": 103,
+  "conBeta": 100,
+  "sinAvisos": 54
+ },
+ "betas": {
+  "A3M": {
+   "5a": {
+    "beta": 0.676,
+    "n": 261,
+    "r2": 0.223,
+    "planos": 1.5
+   },
+   "2a": {
+    "beta": 0.55,
+    "n": 104,
+    "r2": 0.161,
+    "planos": 2.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ACS": {
+   "5a": {
+    "beta": 0.852,
+    "n": 261,
+    "r2": 0.325,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 1.007,
+    "n": 104,
+    "r2": 0.319,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ACX": {
+   "5a": {
+    "beta": 0.919,
+    "n": 261,
+    "r2": 0.26,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 1.059,
+    "n": 104,
+    "r2": 0.293,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ADX": {
+   "5a": {
+    "beta": 0.975,
+    "n": 261,
+    "r2": 0.171,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.396,
+    "n": 104,
+    "r2": 0.067,
+    "planos": 1.0
+   },
+   "avisos": [
+    "la beta a 2 anos (0.40) se aparta de la de 5 (0.97): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ADZ": {
+   "5a": {
+    "beta": 0.14,
+    "n": 261,
+    "r2": 0.007,
+    "planos": 9.6
+   },
+   "2a": {
+    "beta": 0.177,
+    "n": 104,
+    "r2": 0.015,
+    "planos": 9.6
+   },
+   "avisos": [
+    "beta 0.14 fuera del rango plausible 0.2-2.5",
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AEDAS": {
+   "5a": {
+    "beta": 0.541,
+    "n": 261,
+    "r2": 0.104,
+    "planos": 3.8
+   },
+   "2a": {
+    "beta": 0.396,
+    "n": 104,
+    "r2": 0.064,
+    "planos": 6.7
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AENA": {
+   "5a": {
+    "beta": 0.9,
+    "n": 261,
+    "r2": 0.408,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.746,
+    "n": 104,
+    "r2": 0.335,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AI": {
+   "5a": {
+    "beta": 0.798,
+    "n": 261,
+    "r2": 0.081,
+    "planos": 4.6
+   },
+   "2a": {
+    "beta": 0.712,
+    "n": 104,
+    "r2": 0.096,
+    "planos": 2.9
+   },
+   "avisos": [
+    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AIR": {
+   "5a": {
+    "beta": 0.919,
+    "n": 261,
+    "r2": 0.3,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 1.0,
+    "n": 104,
+    "r2": 0.303,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ALM": {
+   "5a": {
+    "beta": 0.46,
+    "n": 261,
+    "r2": 0.078,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.641,
+    "n": 104,
+    "r2": 0.159,
+    "planos": 0.0
+   },
+   "avisos": [
+    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ALNT": {
+   "5a": {
+    "beta": 0.343,
+    "n": 261,
+    "r2": 0.059,
+    "planos": 6.5
+   },
+   "2a": {
+    "beta": 0.283,
+    "n": 104,
+    "r2": 0.04,
+    "planos": 3.8
+   },
+   "avisos": [
+    "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AMP": {
+   "5a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.2070 a 5.1810 el 2026-07-20: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "2a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.2070 a 5.1810 el 2026-07-20: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "avisos": [
+    "salto de 0.2070 a 5.1810 el 2026-07-20: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AMS": {
+   "5a": {
+    "beta": 0.953,
+    "n": 261,
+    "r2": 0.354,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.826,
+    "n": 104,
+    "r2": 0.239,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ANA": {
+   "5a": {
+    "beta": 0.95,
+    "n": 261,
+    "r2": 0.24,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.13,
+    "n": 104,
+    "r2": 0.257,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ANE": {
+   "5a": {
+    "beta": 0.684,
+    "n": 261,
+    "r2": 0.141,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 0.786,
+    "n": 104,
+    "r2": 0.184,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "APAM.AS": {
+   "5a": {
+    "beta": 1.072,
+    "n": 256,
+    "r2": 0.214,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.137,
+    "n": 99,
+    "r2": 0.201,
+    "planos": 2.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-07-15"
+  },
+  "APAM": {
+   "5a": {
+    "beta": 1.08,
+    "n": 261,
+    "r2": 0.213,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.16,
+    "n": 104,
+    "r2": 0.201,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ARM": {
+   "5a": {
+    "beta": 0.184,
+    "n": 261,
+    "r2": 0.007,
+    "planos": 32.2
+   },
+   "2a": {
+    "beta": 0.194,
+    "n": 104,
+    "r2": 0.007,
+    "planos": 57.7
+   },
+   "avisos": [
+    "beta 0.18 fuera del rango plausible 0.2-2.5",
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "32% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+   ],
+   "ultimoCierre": "2026-08-18"
+  },
+  "ART": {
+   "5a": {
+    "beta": 0.258,
+    "n": 261,
+    "r2": 0.012,
+    "planos": 10.3
+   },
+   "2a": {
+    "beta": 0.318,
+    "n": 104,
+    "r2": 0.01,
+    "planos": 6.7
+   },
+   "avisos": [
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "AZK": {
+   "5a": {
+    "beta": 0.316,
+    "n": 261,
+    "r2": 0.044,
+    "planos": 5.4
+   },
+   "2a": {
+    "beta": 0.296,
+    "n": 104,
+    "r2": 0.036,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "BBVA": {
+   "5a": {
+    "beta": 1.457,
+    "n": 261,
+    "r2": 0.607,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 1.333,
+    "n": 104,
+    "r2": 0.585,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "BKT": {
+   "5a": {
+    "beta": 1.063,
+    "n": 261,
+    "r2": 0.33,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 1.063,
+    "n": 104,
+    "r2": 0.452,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "BKY": {
+   "5a": {
+    "beta": 1.041,
+    "n": 261,
+    "r2": 0.07,
+    "planos": 1.5
+   },
+   "2a": {
+    "beta": 0.457,
+    "n": 104,
+    "r2": 0.03,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "la beta a 2 anos (0.46) se aparta de la de 5 (1.04): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CABK": {
+   "5a": {
+    "beta": 1.07,
+    "n": 261,
+    "r2": 0.34,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 1.111,
+    "n": 104,
+    "r2": 0.443,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CAF": {
+   "5a": {
+    "beta": 0.845,
+    "n": 261,
+    "r2": 0.279,
+    "planos": 2.3
+   },
+   "2a": {
+    "beta": 0.663,
+    "n": 104,
+    "r2": 0.173,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CCEP": {
+   "5a": {
+    "beta": 0.422,
+    "n": 261,
+    "r2": 0.102,
+    "planos": 2.3
+   },
+   "2a": {
+    "beta": 0.29,
+    "n": 104,
+    "r2": 0.044,
+    "planos": 2.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CEV": {
+   "5a": {
+    "beta": -0.018,
+    "n": 261,
+    "r2": 0.0,
+    "planos": 61.7
+   },
+   "2a": {
+    "beta": -0.086,
+    "n": 104,
+    "r2": 0.001,
+    "planos": 41.3
+   },
+   "avisos": [
+    "beta -0.02 fuera del rango plausible 0.2-2.5",
+    "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "62% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+   ],
+   "ultimoCierre": "2026-08-18"
+  },
+  "CIE": {
+   "5a": {
+    "beta": 0.779,
+    "n": 261,
+    "r2": 0.259,
+    "planos": 1.5
+   },
+   "2a": {
+    "beta": 0.669,
+    "n": 104,
+    "r2": 0.209,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CIRSA": {
+   "5a": {
+    "beta": 0.31,
+    "n": 58,
+    "r2": 0.038,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.31,
+    "n": 58,
+    "r2": 0.038,
+    "planos": 0.0
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "CLNX": {
+   "5a": {
+    "beta": 0.784,
+    "n": 261,
+    "r2": 0.166,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 0.705,
+    "n": 104,
+    "r2": 0.15,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "COL": {
+   "5a": {
+    "beta": 0.952,
+    "n": 261,
+    "r2": 0.372,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.764,
+    "n": 104,
+    "r2": 0.332,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "COXG": {
+   "5a": {
+    "beta": -0.075,
+    "n": 89,
+    "r2": 0.001,
+    "planos": 3.4
+   },
+   "2a": {
+    "beta": -0.075,
+    "n": 89,
+    "r2": 0.001,
+    "planos": 3.4
+   },
+   "avisos": [
+    "beta -0.07 fuera del rango plausible 0.2-2.5",
+    "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "DIA": {
+   "5a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.0167 a 17.2000 el 2025-02-03: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "2a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.0167 a 17.2000 el 2025-02-03: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "avisos": [
+    "salto de 0.0167 a 17.2000 el 2025-02-03: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "EBRO": {
+   "5a": {
+    "beta": 0.089,
+    "n": 261,
+    "r2": 0.014,
+    "planos": 3.4
+   },
+   "2a": {
+    "beta": 0.069,
+    "n": 104,
+    "r2": 0.011,
+    "planos": 1.9
+   },
+   "avisos": [
+    "beta 0.09 fuera del rango plausible 0.2-2.5",
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ECO": {
+   "5a": {
+    "beta": 0.267,
+    "n": 261,
+    "r2": 0.02,
+    "planos": 5.7
+   },
+   "2a": {
+    "beta": -0.007,
+    "n": 104,
+    "r2": 0.0,
+    "planos": 5.8
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ECR": {
+   "5a": {
+    "beta": 0.538,
+    "n": 261,
+    "r2": 0.072,
+    "planos": 6.5
+   },
+   "2a": {
+    "beta": 0.152,
+    "n": 104,
+    "r2": 0.007,
+    "planos": 10.6
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "la beta a 2 anos (0.15) se aparta de la de 5 (0.54): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ELE": {
+   "5a": {
+    "beta": 0.578,
+    "n": 261,
+    "r2": 0.18,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.472,
+    "n": 104,
+    "r2": 0.137,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ENC": {
+   "5a": {
+    "beta": 0.717,
+    "n": 261,
+    "r2": 0.125,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.527,
+    "n": 104,
+    "r2": 0.096,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ENG": {
+   "5a": {
+    "beta": 0.401,
+    "n": 261,
+    "r2": 0.101,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.197,
+    "n": 104,
+    "r2": 0.022,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ENO": {
+   "5a": {
+    "beta": 0.745,
+    "n": 261,
+    "r2": 0.149,
+    "planos": 4.6
+   },
+   "2a": {
+    "beta": 0.874,
+    "n": 104,
+    "r2": 0.106,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "EZE": {
+   "5a": {
+    "beta": 0.741,
+    "n": 261,
+    "r2": 0.022,
+    "planos": 26.8
+   },
+   "2a": {
+    "beta": 0.565,
+    "n": 104,
+    "r2": 0.042,
+    "planos": 2.9
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "27% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "FAE": {
+   "5a": {
+    "beta": 0.476,
+    "n": 261,
+    "r2": 0.128,
+    "planos": 4.2
+   },
+   "2a": {
+    "beta": 0.457,
+    "n": 104,
+    "r2": 0.095,
+    "planos": 3.8
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "FCC": {
+   "5a": {
+    "beta": 0.872,
+    "n": 261,
+    "r2": 0.204,
+    "planos": 3.8
+   },
+   "2a": {
+    "beta": 1.078,
+    "n": 104,
+    "r2": 0.262,
+    "planos": 3.8
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "FDR": {
+   "5a": {
+    "beta": 0.917,
+    "n": 261,
+    "r2": 0.181,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.99,
+    "n": 104,
+    "r2": 0.285,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "FER": {
+   "5a": {
+    "beta": 0.78,
+    "n": 261,
+    "r2": 0.382,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.95,
+    "n": 104,
+    "r2": 0.478,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "GEST": {
+   "5a": {
+    "beta": 0.852,
+    "n": 261,
+    "r2": 0.217,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.584,
+    "n": 104,
+    "r2": 0.121,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "GIGA": {
+   "5a": {
+    "beta": 0.232,
+    "n": 261,
+    "r2": 0.015,
+    "planos": 9.2
+   },
+   "2a": {
+    "beta": 0.282,
+    "n": 104,
+    "r2": 0.02,
+    "planos": 10.6
+   },
+   "avisos": [
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "GRE": {
+   "5a": {
+    "beta": 0.642,
+    "n": 261,
+    "r2": 0.057,
+    "planos": 1.5
+   },
+   "2a": {
+    "beta": 0.216,
+    "n": 104,
+    "r2": 0.006,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "la beta a 2 anos (0.22) se aparta de la de 5 (0.64): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "GRF": {
+   "5a": {
+    "beta": 0.976,
+    "n": 261,
+    "r2": 0.119,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.785,
+    "n": 104,
+    "r2": 0.124,
+    "planos": 2.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "GSJ": {
+   "5a": {
+    "beta": 0.696,
+    "n": 261,
+    "r2": 0.173,
+    "planos": 5.0
+   },
+   "2a": {
+    "beta": 0.89,
+    "n": 104,
+    "r2": 0.247,
+    "planos": 3.8
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "HOME": {
+   "5a": {
+    "beta": 0.445,
+    "n": 261,
+    "r2": 0.078,
+    "planos": 3.1
+   },
+   "2a": {
+    "beta": 0.466,
+    "n": 104,
+    "r2": 0.071,
+    "planos": 5.8
+   },
+   "avisos": [
+    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "IAG": {
+   "5a": {
+    "beta": 1.456,
+    "n": 261,
+    "r2": 0.377,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.334,
+    "n": 104,
+    "r2": 0.318,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "IBE": {
+   "5a": {
+    "beta": 0.639,
+    "n": 261,
+    "r2": 0.269,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.429,
+    "n": 104,
+    "r2": 0.17,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "IBG": {
+   "5a": {
+    "beta": 0.328,
+    "n": 261,
+    "r2": 0.083,
+    "planos": 9.2
+   },
+   "2a": {
+    "beta": 0.292,
+    "n": 104,
+    "r2": 0.088,
+    "planos": 9.6
+   },
+   "avisos": [
+    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "IDR": {
+   "5a": {
+    "beta": 0.8,
+    "n": 261,
+    "r2": 0.123,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 0.87,
+    "n": 104,
+    "r2": 0.09,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ITX": {
+   "5a": {
+    "beta": 1.067,
+    "n": 261,
+    "r2": 0.433,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.211,
+    "n": 104,
+    "r2": 0.462,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "LDA": {
+   "5a": {
+    "beta": 0.525,
+    "n": 261,
+    "r2": 0.121,
+    "planos": 2.3
+   },
+   "2a": {
+    "beta": 0.641,
+    "n": 104,
+    "r2": 0.16,
+    "planos": 2.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "LGT": {
+   "5a": {
+    "beta": 0.256,
+    "n": 261,
+    "r2": 0.025,
+    "planos": 10.3
+   },
+   "2a": {
+    "beta": 0.097,
+    "n": 104,
+    "r2": 0.007,
+    "planos": 15.4
+   },
+   "avisos": [
+    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "LLN": {
+   "5a": {
+    "beta": 0.749,
+    "n": 261,
+    "r2": 0.045,
+    "planos": 3.8
+   },
+   "2a": {
+    "beta": 0.684,
+    "n": 104,
+    "r2": 0.062,
+    "planos": 4.8
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "LOG": {
+   "5a": {
+    "beta": 0.473,
+    "n": 261,
+    "r2": 0.186,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.373,
+    "n": 104,
+    "r2": 0.105,
+    "planos": 1.9
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MAKS": {
+   "5a": {
+    "beta": 0.28,
+    "n": 261,
+    "r2": 0.021,
+    "planos": 13.4
+   },
+   "2a": {
+    "beta": 0.016,
+    "n": 104,
+    "r2": 0.0,
+    "planos": 16.3
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MAP": {
+   "5a": {
+    "beta": 0.843,
+    "n": 261,
+    "r2": 0.398,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 0.881,
+    "n": 104,
+    "r2": 0.365,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MCM": {
+   "5a": {
+    "beta": 0.219,
+    "n": 261,
+    "r2": 0.037,
+    "planos": 7.7
+   },
+   "2a": {
+    "beta": 0.215,
+    "n": 104,
+    "r2": 0.054,
+    "planos": 11.5
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MEL": {
+   "5a": {
+    "beta": 1.117,
+    "n": 261,
+    "r2": 0.312,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.777,
+    "n": 104,
+    "r2": 0.239,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MRL": {
+   "5a": {
+    "beta": 0.871,
+    "n": 261,
+    "r2": 0.339,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.723,
+    "n": 104,
+    "r2": 0.272,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MTS": {
+   "5a": {
+    "beta": 1.141,
+    "n": 261,
+    "r2": 0.271,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.25,
+    "n": 104,
+    "r2": 0.294,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "MVC": {
+   "5a": {
+    "beta": 0.494,
+    "n": 261,
+    "r2": 0.074,
+    "planos": 3.4
+   },
+   "2a": {
+    "beta": 0.544,
+    "n": 104,
+    "r2": 0.068,
+    "planos": 3.8
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "NEA": {
+   "5a": {
+    "beta": 0.362,
+    "n": 261,
+    "r2": 0.068,
+    "planos": 9.2
+   },
+   "2a": {
+    "beta": 0.211,
+    "n": 104,
+    "r2": 0.019,
+    "planos": 5.8
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "NTGY": {
+   "5a": {
+    "beta": 0.467,
+    "n": 261,
+    "r2": 0.106,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.263,
+    "n": 104,
+    "r2": 0.051,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "NXT": {
+   "5a": {
+    "beta": 0.277,
+    "n": 261,
+    "r2": 0.012,
+    "planos": 3.8
+   },
+   "2a": {
+    "beta": 0.546,
+    "n": 104,
+    "r2": 0.047,
+    "planos": 2.9
+   },
+   "avisos": [
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "NYE": {
+   "5a": {
+    "beta": 1.609,
+    "n": 261,
+    "r2": 0.065,
+    "planos": 20.3
+   },
+   "2a": {
+    "beta": 2.047,
+    "n": 104,
+    "r2": 0.046,
+    "planos": 17.3
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "20% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA",
+    "la beta a 2 anos (2.05) se aparta de la de 5 (1.61): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "OHLA": {
+   "5a": {
+    "beta": 0.912,
+    "n": 261,
+    "r2": 0.111,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.831,
+    "n": 104,
+    "r2": 0.068,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "OLE": {
+   "5a": {
+    "beta": 0.63,
+    "n": 261,
+    "r2": 0.066,
+    "planos": 5.4
+   },
+   "2a": {
+    "beta": 0.321,
+    "n": 104,
+    "r2": 0.013,
+    "planos": 4.8
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ORY": {
+   "5a": {
+    "beta": 0.634,
+    "n": 261,
+    "r2": 0.039,
+    "planos": 1.9
+   },
+   "2a": {
+    "beta": 0.576,
+    "n": 104,
+    "r2": 0.017,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PHM": {
+   "5a": {
+    "beta": 0.672,
+    "n": 261,
+    "r2": 0.067,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.571,
+    "n": 104,
+    "r2": 0.034,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PRM": {
+   "5a": {
+    "beta": 0.334,
+    "n": 261,
+    "r2": 0.083,
+    "planos": 10.0
+   },
+   "2a": {
+    "beta": 0.268,
+    "n": 104,
+    "r2": 0.069,
+    "planos": 16.3
+   },
+   "avisos": [
+    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PRS": {
+   "5a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.3000 a 3.0000 el 2026-07-10: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "2a": {
+    "beta": null,
+    "n": null,
+    "r2": null,
+    "planos": null,
+    "motivo": "salto de 0.3000 a 3.0000 el 2026-07-10: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   },
+   "avisos": [
+    "salto de 0.3000 a 3.0000 el 2026-07-10: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PSG": {
+   "5a": {
+    "beta": 0.791,
+    "n": 261,
+    "r2": 0.178,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.523,
+    "n": 104,
+    "r2": 0.072,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PUIG": {
+   "5a": {
+    "beta": 0.428,
+    "n": 120,
+    "r2": 0.049,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.441,
+    "n": 104,
+    "r2": 0.049,
+    "planos": 0.0
+   },
+   "avisos": [
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "PVA": {
+   "5a": {
+    "beta": 0.531,
+    "n": 261,
+    "r2": 0.027,
+    "planos": 10.0
+   },
+   "2a": {
+    "beta": 0.385,
+    "n": 104,
+    "r2": 0.047,
+    "planos": 14.4
+   },
+   "avisos": [
+    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "R4": {
+   "5a": {
+    "beta": 0.134,
+    "n": 261,
+    "r2": 0.02,
+    "planos": 19.2
+   },
+   "2a": {
+    "beta": 0.187,
+    "n": 104,
+    "r2": 0.022,
+    "planos": 14.4
+   },
+   "avisos": [
+    "beta 0.13 fuera del rango plausible 0.2-2.5",
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "RED": {
+   "5a": {
+    "beta": 0.354,
+    "n": 261,
+    "r2": 0.111,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.315,
+    "n": 104,
+    "r2": 0.079,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "REN": {
+   "5a": {
+    "beta": 0.521,
+    "n": 261,
+    "r2": 0.087,
+    "planos": 5.7
+   },
+   "2a": {
+    "beta": 0.428,
+    "n": 104,
+    "r2": 0.083,
+    "planos": 3.8
+   },
+   "avisos": [
+    "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "REP": {
+   "5a": {
+    "beta": 0.429,
+    "n": 261,
+    "r2": 0.056,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.152,
+    "n": 104,
+    "r2": 0.005,
+    "planos": 0.0
+   },
+   "avisos": [
+    "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "RIO": {
+   "5a": {
+    "beta": 0.123,
+    "n": 261,
+    "r2": 0.005,
+    "planos": 12.6
+   },
+   "2a": {
+    "beta": 0.194,
+    "n": 104,
+    "r2": 0.009,
+    "planos": 9.6
+   },
+   "avisos": [
+    "beta 0.12 fuera del rango plausible 0.2-2.5",
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "RJF": {
+   "5a": {
+    "beta": 0.511,
+    "n": 261,
+    "r2": 0.102,
+    "planos": 5.4
+   },
+   "2a": {
+    "beta": 0.374,
+    "n": 104,
+    "r2": 0.07,
+    "planos": 3.8
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "RLIA": {
+   "5a": {
+    "beta": 0.016,
+    "n": 261,
+    "r2": 0.0,
+    "planos": 14.6
+   },
+   "2a": {
+    "beta": -0.051,
+    "n": 104,
+    "r2": 0.003,
+    "planos": 1.9
+   },
+   "avisos": [
+    "beta 0.02 fuera del rango plausible 0.2-2.5",
+    "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "ROVI": {
+   "5a": {
+    "beta": 0.443,
+    "n": 261,
+    "r2": 0.046,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 0.582,
+    "n": 104,
+    "r2": 0.065,
+    "planos": 1.9
+   },
+   "avisos": [
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "SAB": {
+   "5a": {
+    "beta": 1.338,
+    "n": 261,
+    "r2": 0.314,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 1.134,
+    "n": 104,
+    "r2": 0.367,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "SAN": {
+   "5a": {
+    "beta": 1.557,
+    "n": 261,
+    "r2": 0.667,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 1.616,
+    "n": 104,
+    "r2": 0.753,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "SCYR": {
+   "5a": {
+    "beta": 0.942,
+    "n": 261,
+    "r2": 0.426,
+    "planos": 0.8
+   },
+   "2a": {
+    "beta": 0.976,
+    "n": 104,
+    "r2": 0.489,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "SEC": {
+   "5a": {
+    "beta": -0.361,
+    "n": 261,
+    "r2": 0.005,
+    "planos": 86.2
+   },
+   "2a": {
+    "beta": -1.112,
+    "n": 104,
+    "r2": 0.017,
+    "planos": 73.1
+   },
+   "avisos": [
+    "beta -0.36 fuera del rango plausible 0.2-2.5",
+    "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "86% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA",
+    "la beta a 2 anos (-1.11) se aparta de la de 5 (-0.36): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "SLR": {
+   "5a": {
+    "beta": 0.608,
+    "n": 261,
+    "r2": 0.052,
+    "planos": 0.4
+   },
+   "2a": {
+    "beta": 0.233,
+    "n": 104,
+    "r2": 0.007,
+    "planos": 1.0
+   },
+   "avisos": [
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "la beta a 2 anos (0.23) se aparta de la de 5 (0.61): riesgo cambiando"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "TEF": {
+   "5a": {
+    "beta": 0.653,
+    "n": 261,
+    "r2": 0.192,
+    "planos": 0.0
+   },
+   "2a": {
+    "beta": 0.472,
+    "n": 104,
+    "r2": 0.097,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "TLGO": {
+   "5a": {
+    "beta": 0.71,
+    "n": 261,
+    "r2": 0.149,
+    "planos": 2.7
+   },
+   "2a": {
+    "beta": 0.499,
+    "n": 104,
+    "r2": 0.084,
+    "planos": 3.8
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "TRE": {
+   "5a": {
+    "beta": 1.266,
+    "n": 261,
+    "r2": 0.216,
+    "planos": 1.5
+   },
+   "2a": {
+    "beta": 1.475,
+    "n": 104,
+    "r2": 0.294,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "TRG": {
+   "5a": {
+    "beta": 0.63,
+    "n": 261,
+    "r2": 0.024,
+    "planos": 6.5
+   },
+   "2a": {
+    "beta": 0.782,
+    "n": 104,
+    "r2": 0.078,
+    "planos": 15.4
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-18"
+  },
+  "TUB": {
+   "5a": {
+    "beta": 0.853,
+    "n": 261,
+    "r2": 0.182,
+    "planos": 1.9
+   },
+   "2a": {
+    "beta": 1.072,
+    "n": 104,
+    "r2": 0.256,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "UBS": {
+   "5a": {
+    "beta": 0.486,
+    "n": 261,
+    "r2": 0.045,
+    "planos": 34.1
+   },
+   "2a": {
+    "beta": 0.286,
+    "n": 104,
+    "r2": 0.063,
+    "planos": 76.0
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "34% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+   ],
+   "ultimoCierre": "2026-08-18"
+  },
+  "UNI": {
+   "5a": {
+    "beta": 1.177,
+    "n": 261,
+    "r2": 0.346,
+    "planos": 1.1
+   },
+   "2a": {
+    "beta": 1.171,
+    "n": 104,
+    "r2": 0.457,
+    "planos": 1.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "VID": {
+   "5a": {
+    "beta": 0.745,
+    "n": 261,
+    "r2": 0.244,
+    "planos": 2.3
+   },
+   "2a": {
+    "beta": 0.692,
+    "n": 104,
+    "r2": 0.246,
+    "planos": 0.0
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-08-19"
+  },
+  "VIS": {
+   "5a": {
+    "beta": 0.22,
+    "n": 261,
+    "r2": 0.045,
+    "planos": 2.3
+   },
+   "2a": {
+    "beta": 0.121,
+    "n": 104,
+    "r2": 0.015,
+    "planos": 2.9
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  },
+  "VOC": {
+   "5a": {
+    "beta": 0.27,
+    "n": 261,
+    "r2": 0.02,
+    "planos": 3.8
+   },
+   "2a": {
+    "beta": 0.118,
+    "n": 104,
+    "r2": 0.005,
+    "planos": 5.8
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-08-19"
+  }
+ }
+}
