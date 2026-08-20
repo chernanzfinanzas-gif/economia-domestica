@@ -636,6 +636,20 @@ function _fichaSavePrefs(){ try{ DB.config=DB.config||{}; DB.config.fichaGraf={m
    el ancla, y con él la separación entre las dos líneas. */
 const _FICHA_DIVCOL='#db2777';      /* reinvertido — el tono fuerte */
 const _FICHA_SUMCOL='#f472b6';      /* suma simple — el mismo color, más claro: mismo concepto, menos efecto */
+/* [20-ago-2026] DESDE CUANDO HAY DIVIDENDO, Y POR QUE HAY QUE PREGUNTARLO.
+   `dividendos.json` empieza en 2011. Hasta hoy daba igual: `precios/` tambien empezaba ahi,
+   asi que las dos fuentes cuadraban. Al remontar los precios a ~2000 (ver el backfill del
+   20-ago) han quedado descuadradas, y las vistas que necesitan el dividendo tienen once anios
+   por delante sin dato. Esto devuelve el 1 de enero del primer anio que el fichero dice cubrir
+   -no la fecha del primer pago: el fichero cubre el anio entero, y anclarlo al primer pago
+   dejaria fuera una compra de enero por un dividendo que se paga en julio-. */
+function _fichaDivDesde(t){
+  const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[(t||'').toUpperCase()]:null;
+  if(!reg||!reg.anios) return null;
+  const ys=Object.keys(reg.anios).map(Number).filter(y=>y>1900);
+  if(!ys.length) return null;
+  return Date.UTC(Math.min.apply(null,ys),0,1);
+}
 function _fichaPagosDiv(t){
   t=(t||'').toUpperCase();
   const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[t]:null;
@@ -898,7 +912,7 @@ function renderFicha(t){
   const rangeBtns=_ranges.map(r=>_fichaRangeBtn(r[0],r[1],'·','#94a3b8',fichaRange===r[0])).join('');
   const vistaBtns=_FICHA_VISTAS.map(v=>`<button type="button" data-fvista="${v[0]}"${fichaVista===v[0]?' class="on"':''} style="font-size:11px;padding:2px 7px" title="${v[2]}">${v[1]}</button>`).join('');
   const chartCard=`<div class="card" style="margin-top:10px">`
-    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700" id="fchTit">${_FICHA_VISTA_TIT[fichaVista]||'Cotización'}</div><div style="width:14px"></div><div class="seg" id="fchVista">${vistaBtns}</div><div class="seg" id="fchMod">${_fichaModBtnsHTML()}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
+    +`<div style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:6px"><div style="font-weight:700" id="fchTit">${_FICHA_VISTA_TIT[fichaVista]||'Cotización'}</div><span id="fchNota" style="font-size:11px;color:#64748b"></span><div style="width:14px"></div><div class="seg" id="fchVista">${vistaBtns}</div><div class="seg" id="fchMod">${_fichaModBtnsHTML()}</div><span id="fchZoom"></span><span id="fchVar"></span><div style="flex:1"></div><div id="fchRange" style="display:flex;gap:5px;align-items:center">${rangeBtns}</div></div>`
     +`<div id="fichaChart" style="min-height:180px">Cargando cotización…</div></div>`;
   const _ana=(DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===fichaTicker)||{};
   const _decCol={COMPRAR:'#16a34a',MANTENER:'#2563eb',ESPERAR:'#d97706',VENDER:'#dc2626'}; const _dec=(_ana.decision||'').toUpperCase(); const _duF=(typeof dossierURL==='function')?dossierURL(fichaTicker,_ana.dossierUrl):(_ana.dossierUrl||''); const _mmV=(_ana.dossierFecha&&typeof mesesDesde==='function')?mesesDesde(_ana.dossierFecha):null;
@@ -1065,8 +1079,18 @@ function _fichaSerieVista(vista,t,full){
     const ps=_fichaPagosDiv(t), n=full.length;
     const tr=new Array(n); let k=0,m=1;
     for(let i=0;i<n;i++){ const px=full[i][1]; while(k<ps.length&&ps[k].ms<=full[i][0]){ if(px>0)m*=(1+ps[k].imp/px); k++; } tr[i]=px*m; }
+    /* [20-ago-2026] SIN DIVIDENDO NO HAY NUMERO. Esta vista promete «lo que sacó quien compró
+       ese día REINVIRTIENDO el dividendo». Antes de 2011 no hay pagos en el fichero, asi que el
+       factor de reinversion se quedaba en 1 y salia la rentabilidad del precio pelado, sin
+       avisar: con IBE, una ventana de 5 anios desde enero de 2005 daba +7,80%/anio tanto «con
+       dividendo» como sin el, cuando la accion valia 4,62 EUR y repartia del orden de 0,30 -unos
+       6,5 puntos de RPD al anio que no se contaban-. Un hueco se ve; un numero plausible y falso,
+       no. Asi que las ventanas que empiezan antes de que el fichero cubra, no se calculan. */
+    const desdeDiv=_fichaDivDesde(t);
     const dias=fichaRollN*365.25*86400000, v=new Array(n).fill(null); let j=0;
-    for(let i=0;i<n;i++){ if(j<i)j=i; const obj=full[i][0]+dias;
+    for(let i=0;i<n;i++){ if(j<i)j=i;
+      if(desdeDiv!=null&&full[i][0]<desdeDiv) continue;
+      const obj=full[i][0]+dias;
       while(j<n&&full[j][0]<obj)j++; if(j>=n)break;
       if(tr[i]>0)v[i]=(Math.pow(tr[j]/tr[i],1/fichaRollN)-1)*100; }
     if(v.filter(x=>x!=null).length<60) return null;
@@ -1078,6 +1102,8 @@ async function drawFichaChart(t){
   const el=$('#fichaChart'); if(!el)return;
   const setVar=h=>{ const v=document.getElementById('fchVar'); if(v)v.innerHTML=h||''; };
   const setZoom=h=>{ const z=document.getElementById('fchZoom'); if(z)z.innerHTML=h||''; };
+  const setNota=h=>{ const n=document.getElementById('fchNota'); if(n)n.innerHTML=h||''; };
+  setNota('');
   /* «solo cotizaciones» solo tiene sentido con la línea c/div encendida y fuera del modo IBEX. */
   const solo=!!(fichaConDiv&&fichaSoloCot&&fichaVista==='precio');
   /* dividendos.json pesa medio mega y se carga aparte: si aún no está, se pide y se repinta. */
@@ -1099,6 +1125,24 @@ async function drawFichaChart(t){
   let startIdx=0, endIdx=dataFull.length-1;
   if(zoom){ while(startIdx<dataFull.length&&dataFull[startIdx][0]<zoom.t0)startIdx++; while(endIdx>0&&dataFull[endIdx][0]>zoom.t1)endIdx--; if(endIdx<startIdx)endIdx=startIdx; }
   else { const _days={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827}[fichaRange]; if(_days){ const cut=lastT-_days*86400000; while(startIdx<dataFull.length&&dataFull[startIdx][0]<cut)startIdx++; } }
+  /* [20-ago-2026] EL EJE ARRANCA DONDE ARRANCA EL DATO, Y SE DICE.
+     RPD y Movil no tienen valor antes de 2011 (ahi acaba `dividendos.json`), asi que con el
+     historico remontado a 2000 la linea se apelotonaba en la mitad derecha y el resto era un
+     vacio sin explicar. Se recorta el tramo al primer dia CON dato... pero se escribe en la
+     cabecera, porque un recorte mudo hace que «Max» signifique 2000 en Precio y 2011 en RPD sin
+     que nada lo diga, y dentro de seis meses eso es una trampa. Con zoom a mano no se toca: si
+     el usuario ha elegido un tramo, manda el suyo. */
+  let _svFull=null, _svDesde=null;
+  if(fichaVista==='rpd'||fichaVista==='dd'||fichaVista==='roll'){
+    _svFull=_fichaSerieVista(fichaVista,t,dataFull);
+    if(_svFull&&fichaVista!=='dd'){
+      let i=0; while(i<dataFull.length&&_svFull.vals[i]==null)i++;
+      if(i<dataFull.length){
+        _svDesde=dataFull[i][0];
+        if(!zoom&&startIdx<i&&i<=endIdx-30) startIdx=i;
+      }
+    }
+  }
   const data=dataFull.slice(startIdx,endIdx+1);
   if(data.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Pocos datos en este tramo. Amplía el rango o reinicia el zoom (doble clic).</div>'; setVar(''); return; }
   const maVis={}; wantMA.forEach(w=>{ maVis[w]=maFull[w].slice(startIdx,endIdx+1); });
@@ -1114,6 +1158,12 @@ async function drawFichaChart(t){
   // Botones de rango a dos líneas: etiqueta + variación de ESE plazo
   const _daysMap={'1s':7,'1m':31,'3m':92,'1a':366,'5a':1827};
   const _rangeVar=key=>{ const d=_daysMap[key]; let si=0; if(d){ const cut=lastT-d*86400000; while(si<dataFull.length&&dataFull[si][0]<cut)si++; } if(si>=dataFull.length-1)return null; const f=dataFull[si][1]; return f>0?(dataFull[dataFull.length-1][1]-f)/f*100:null; };
+  /* La linea c/div tiene el mismo desajuste en pequeno: entre 2000 y 2011 va pegada al precio
+     porque no hay pagos que sumar, asi que la separacion final se queda corta. Se dice. */
+  if(fichaConDiv&&fichaVista==='precio'){
+    const _dd=_fichaDivDesde(t);
+    if(_dd!=null&&data[0][0]<_dd) setNota('c\u002Fdiv desde '+new Date(_dd).getUTCFullYear()+' \u00b7 antes no hay pagos en el fichero');
+  }
   const _rb=[['1s','1S'],['1m','1M'],['3m','3M'],['1a','1A'],['5a','5A'],['all','Máx']].map(r=>{ const vp=_rangeVar(r[0]); const vc=(vp==null)?'#94a3b8':(vp>=0?'#16a34a':'#dc2626'); const vt=(vp==null)?'—':((vp>=0?'+':'')+vp.toFixed(1)+'%'); return _fichaRangeBtn(r[0],r[1],vt,vc,(fichaRange===r[0]&&!zoom)); }).join('');
   const _rc=document.getElementById('fchRange'); if(_rc)_rc.innerHTML=_rb;
   // El % del periodo ya sale en cada botón; con zoom (sin botón) va junto al chip, en el medio.
@@ -1130,11 +1180,14 @@ async function drawFichaChart(t){
 
   // ===== VISTAS DERIVADAS (RPD · bajo el agua · rentabilidad móvil) =====
   if(fichaVista==='rpd'||fichaVista==='dd'||fichaVista==='roll'){
-    const S=_fichaSerieVista(fichaVista,t,dataFull);
+    const S=_svFull;   /* ya calculada arriba, para poder recortar el eje antes de dibujar */
     const _falta={rpd:'Sin DPA declarado en <code>dividendos.json</code> para '+t+': esta vista necesita el dividendo anual.',
                   dd:'Sin histórico suficiente para calcular las caídas.',
                   roll:'No hay '+fichaRollN+' años de histórico con dividendo para '+t+'.'};
     if(!S){ el.innerHTML='<div class="muted" style="font-size:12px">'+((typeof _evoData!=='undefined'&&!_evoData&&fichaVista!=='dd')?'Cargando dividendos.json…':_falta[fichaVista])+'</div>'; setVar(''); return; }
+    if(_svDesde!=null&&(fichaVista==='rpd'||fichaVista==='roll')){
+      setNota('desde '+new Date(_svDesde).getUTCFullYear()+' · el dividendo no llega m\u00e1s atr\u00e1s');
+    }
     const vis=S.vals.slice(startIdx,endIdx+1);
     const pv=[]; idxs.forEach(i=>{ if(vis[i]!=null)pv.push([data[i][0],vis[i]]); });
     if(pv.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">En este tramo no hay dato para esta vista'+(fichaVista==='roll'?' (la ventana de '+fichaRollN+' años no cabe: amplía el rango)':'')+'.</div>'; setVar(''); return; }
