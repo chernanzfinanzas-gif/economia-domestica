@@ -383,7 +383,14 @@ function _tzDetalle(t){
     '<div class="muted" style="font-size:11px">'+_tzEsc(V.arq||'Sin arquetipo')+(V.dossierFecha?(' · análisis '+_tzEsc(V.dossierFecha)+(mm!=null?(' ('+mm+'m'+(mm>12?' ⚠️':'')+')'):'')):'')+'</div></div>'+
     '<div style="flex:1"></div>'+
     '<div style="text-align:right"><div style="font-size:20px;font-weight:900;color:'+vcol+'">'+TZ_VLBL[V.v]+'</div>'+
-    '<button class="btn ghost sm" data-tzficha="'+_tzEsc(V.t)+'" style="margin-top:4px">Abrir ficha completa →</button></div></div>'+
+    /* [20-ago-2026] El grafico, al lado de la ficha y ANTES que ella. Mirando la tesis lo
+       primero que se pregunta uno es «¿y como va?», y hasta hoy la unica respuesta estaba a
+       dos vistas de distancia. Es un modal: se mira y se cierra sin perder la empresa
+       seleccionada ni el scroll del detalle. */
+    '<div style="margin-top:4px;display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">'+
+    '<button class="btn ghost sm" data-khgraf="'+_tzEsc(V.t)+'" title="Ver la cotización de '+_tzEsc(V.t)+' sin salir de Tesis">📈 Gráfico</button>'+
+    '<button class="btn ghost sm" data-tzficha="'+_tzEsc(V.t)+'">Abrir ficha completa →</button>'+
+    '</div></div></div>'+
     (V.alerta?('<div style="margin-top:9px;padding:8px 11px;border-radius:8px;font-size:12.5px;font-weight:700;'
        +'background:#fef2f2;border:1px solid #fecaca;color:#b91c1c">⛔ '+_tzEsc(V.alerta.txt)+'</div>'):'')+
     '<div style="font-size:13px;margin-top:8px;color:#1e293b">'+_tzEsc(V.frase)+'</div>'+_tzBadges(V)+'</div>';

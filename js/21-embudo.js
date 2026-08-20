@@ -914,7 +914,14 @@ function _emCierresBtn(r){
   /* Disponible en todas las fichas del Kanban (para regenerar cualquier Excel al cierre real). */
   var fx='';
   try{ var v=(DB.valores||{})[r.t]||{}; if(v.cierreEj)fx='<span class="em-cierrefx" title="Fecha de cierre de ejercicio guardada para esta empresa">cierre '+v.cierreEj+'</span>'; }catch(e){}
+  /* [20-ago-2026] EL GRAFICO VA AQUI, NO EN LA CABECERA.
+     La tentacion era ponerlo junto al ticker, arriba. Pero la cabecera es `.em-ct`, un flex
+     SIN wrap: cada pildora que se le anade sube el min-content de la ficha y es exactamente
+     lo que en julio saco el tablero por la derecha de la pantalla (ver kanban-encaje).
+     En la fila de cierres, que ya hace wrap y solo existe con la tarjeta desplegada, no
+     puede romper nada. */
   return '<div class="em-cierresrow">'
+    +'<div class="em-graf" data-khgraf="'+r.t+'" title="Ver la cotización de '+r.t+' sin salir del tablero">📈 Gráfico</div>'
     +'<div class="em-cierres" data-emcierres="'+r.t+'" title="Descarga el cierre de cotización de los últimos 10 ejercicios (para pegar en tu Excel: datos de mercado)">📅 Cierres 10 ejercicios</div>'
     +fx
     +'</div>';
@@ -1188,6 +1195,8 @@ function _emBind(sec){
     '.em-cierres:hover{background:#e0e7ff}',
     '.em-cierresrow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}',
     '.em-cierresrow .em-cierres{margin-bottom:0}',
+    '.em-graf{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;border-radius:8px;padding:4px 8px;cursor:pointer}',
+    '.em-graf:hover{background:#dbeafe}',
     '.em-cierrefx{font-size:10px;color:#64748b;font-weight:700;white-space:nowrap}',
     '.em-glos{margin-top:18px;background:#fff;border:1px solid #e2e8f0;border-radius:12px}',
     '.em-glos>summary{cursor:pointer;list-style:none;padding:11px 12px;font-weight:800;font-size:13px;color:#1f3d6b}',

@@ -1073,7 +1073,13 @@ function _khCSS(){
 .kh-tip .kh-tip-c{color:#93c5fd}
 .kh-graf .kh-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#475569;margin-top:8px}
 .kh-graf .kh-leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
-@media(max-width:600px){#kh-modal{padding:8px}#kh-modal .kh-b{padding:8px 10px 12px}}
+@media(max-width:600px){#kh-modal{padding:8px}#kh-modal .kh-b{padding:8px 10px 12px}
+/* Siete botones de rango tienen que caber en UNA fila de 360px: 7x~40px = 280px. Y el
+   enlace a la ficha baja a su propia linea -con margin-left:auto se comia el hueco del
+   septimo boton y volvia a partir la barra en tres filas-. */
+.kh-rangos{gap:4px}
+.kh-rb{padding:4px 8px;font-size:11.5px;border-radius:7px}
+.kh-ficha{margin-left:0;order:9;flex-basis:100%;margin-top:4px}}
 `;
   document.head.appendChild(st);
 }
@@ -1523,7 +1529,15 @@ function mcAbrirGrafCartera(){
    leer de un vistazo el máximo y el mínimo de 52 semanas, que es la referencia con la
    que se mira si un precio está caro o barato dentro de su propio año. El archivo de
    `precios/` guarda desde 2011, o sea que el dato está: solo faltaba pedirlo. */
-const _KH_RANGOS=[['1s','1 semana',8],['2s','2 semanas',16],['1m','1 mes',31],['1a','1 año',366]];
+/* [20-ago-2026] SIETE RANGOS, Y LA ETIQUETA VA POR DUPLICADO.
+   Cada entrada es [clave, etiqueta corta, dias de calendario, etiqueta larga]. La corta es
+   la del boton -en el movil siete botones con «2 semanas» escrito entero se parten en tres
+   filas- y la larga es la que se lee en la leyenda, donde si hay sitio y «5A» a secas no
+   dice nada. Se usan las MISMAS abreviaturas que el grafico de la Ficha (1S/1M/3M/1A/5A/Max)
+   para no tener dos graficos de la misma app hablando idiomas distintos.
+   «Max» lleva 0 dias A PROPOSITO: es la senal de «no recortes», no un numero grande. Ver
+   `_khSerieValor`, donde un Infinity daria una fecha invalida y vaciaria la serie entera. */
+const _KH_RANGOS=[['1s','1S',8,'1 semana'],['2s','2S',16,'2 semanas'],['1m','1M',31,'1 mes'],['3m','3M',92,'3 meses'],['1a','1A',366,'1 año'],['5a','5A',1827,'5 años'],['max','Máx',0,'todo el histórico']];
 /* [18-ago-2026] EL DETALLE DE 5 MINUTOS. `actualizar_intradia.py` viene archivando desde
    el 14-ago un fichero por empresa con las ultimas 10 sesiones a barras de 5 minutos
    -unas 102 por sesion, de 09:00 a 17:25-. Se recogia y no lo leia nadie.
@@ -1553,9 +1567,20 @@ function khCargarSerie5(t){
      380.923 a 380.454. Se distingue por eso: un 404 es un «no existe» de verdad -esa
      empresa no esta entre las 25- y se cachea; cualquier otra cosa es un tropiezo y se
      reintenta a la siguiente. */
-  let i=0, hubo404=false, huboFallo=false;
+  /* [18-ago-2026 · segunda pasada] Y ADEMAS SE REINTENTA UNA VEZ.
+     Arreglado lo del cache, el 18-ago fallo SANTANDER en una carga y VISCOFAN en la
+     siguiente, las dos con su serie perfectamente publicada. Que caiga uno DISTINTO cada
+     vez no es mala suerte: son nueve descargas lanzadas a la vez contra el mismo servidor y
+     alguna se queda por el camino. Un reintento con medio segundo de espera resuelve el
+     tropiezo sin serializar las nueve, que seria pagar lentitud siempre por un fallo que es
+     ocasional. El 404 no se reintenta: esa empresa no esta y no va a aparecer. */
+  let i=0, hubo404=false, huboFallo=false, reintentos=1;
   function intenta(){
     if(i>=_KH_S5_FUENTES.length){
+      if(huboFallo && reintentos>0){
+        reintentos--; i=0; huboFallo=false;
+        return new Promise(res=>setTimeout(res,500)).then(intenta);
+      }
       if(hubo404 && !huboFallo) _khSerie5Cache[t]=null;   /* no existe: no se vuelve a pedir */
       return Promise.resolve(null);
     }
@@ -1595,17 +1620,45 @@ function khTramo5(serie, sesiones){
 
 let _khRangoValor='1m';
 
+/* [20-ago-2026] DIEZMADO DE LOS TRAMOS LARGOS.
+   «Max» son ~4.000 cierres y el dibujo mide 760 px de ancho: mas de ~1.500 puntos no pintan
+   un solo pixel nuevo, pero si obligan al navegador a rehacer un polyline de 4.000 vertices
+   en cada gesto de zoom, que es donde se nota en el movil.
+   Se conservan SIEMPRE el primero, el ultimo y los indices del maximo y del minimo. Sin esa
+   salvaguarda el diezmado se comeria justo los picos -lo unico que se mira a cinco anios- y
+   la leyenda de «Max/Min del tramo» daria una cifra que no esta en el dibujo. */
+const _KH_MAXPTS=1500;
+function _khDiezmar(xs, ys){
+  const n=Math.min(xs.length, ys.length);
+  if(n<=_KH_MAXPTS) return {xs:xs, ys:ys};
+  let iH=0, iL=0;
+  for(let i=1;i<n;i++){ if(ys[i]>ys[iH])iH=i; if(ys[i]<ys[iL])iL=i; }
+  const paso=Math.ceil(n/_KH_MAXPTS), keep=new Uint8Array(n);
+  for(let i=0;i<n;i+=paso) keep[i]=1;
+  keep[0]=1; keep[n-1]=1; keep[iH]=1; keep[iL]=1;
+  const rx=[], ry=[];
+  for(let i=0;i<n;i++) if(keep[i]){ rx.push(xs[i]); ry.push(ys[i]); }
+  return {xs:rx, ys:ry};
+}
+
 function _khSerieValor(t, dias){
   t=(t||'').toUpperCase();
   const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[t]:null;
   const filas=(pj&&pj.data)?pj.data:[];
   if(!filas.length) return null;
-  const corte=new Date(Date.now()-dias*86400000);
-  const cISO=corte.getFullYear()+'-'+String(corte.getMonth()+1).padStart(2,'0')+'-'+String(corte.getDate()).padStart(2,'0');
-  const xs=[],ys=[];
+  /* dias=0 -> «Max»: no se recorta nada. OJO: aqui NO vale un Infinity ni un numero
+     enorme «por si acaso» -Date.now()-Infinity da Invalid Date, el corte sale
+     'NaN-NaN-NaN' y como los digitos ordenan por debajo de la 'N' se descartarian
+     TODAS las filas: grafico vacio sin un solo error en consola-. */
+  let cISO='';
+  if(dias>0){
+    const corte=new Date(Date.now()-dias*86400000);
+    cISO=corte.getFullYear()+'-'+String(corte.getMonth()+1).padStart(2,'0')+'-'+String(corte.getDate()).padStart(2,'0');
+  }
+  let xs=[],ys=[];
   for(let i=0;i<filas.length;i++){
     const f=filas[i]; if(!f||f.length<2)continue;
-    if(String(f[0])<cISO)continue;
+    if(cISO&&String(f[0])<cISO)continue;
     const v=num(f[1]); if(!(v>0))continue;
     xs.push(String(f[0])); ys.push(v);
   }
@@ -1618,13 +1671,20 @@ function _khSerieValor(t, dias){
     if(!xs.length||lf>xs[xs.length-1]){ xs.push(lf); ys.push(lp); }
     else if(lf===xs[xs.length-1]){ ys[ys.length-1]=lp; }
   }
-  return xs.length?{xs:xs,ys:ys}:null;
+  if(!xs.length) return null;
+  const d=_khDiezmar(xs,ys);
+  return {xs:d.xs, ys:d.ys, nBrutos:xs.length, diezmado:d.xs.length<xs.length};
 }
 
 function mcAbrirGrafValor(t){
   t=(t||'').toUpperCase(); if(!t)return;
   const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
-  const nom=v0.nombre||t;
+  /* [20-ago-2026] El nombre salia SIEMPRE de DB.valores, que solo tiene lo que esta o
+     estuvo en cartera. Desde Tesis o el Kanban se abre el grafico de empresas que aun no
+     has comprado y el titulo quedaba en el ticker pelado: se cae a Analisis. */
+  let nom=v0.nombre||'';
+  if(!nom){ try{ const _a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_a&&_a.nombre)nom=_a.nombre; }catch(e){} }
+  if(!nom)nom=t;
   const sello=(typeof _mcSelloDe==='function')?_mcSelloDe(t):null;
   const cont=khModal(nom+' <span style="color:#64748b;font-weight:700">· '+t+'</span>',
                      'Cotización de cierre'+(sello?(' · último precio: '+String(sello.txt).replace(/<[^>]+>/g,'')):''));
@@ -1633,9 +1693,24 @@ function mcAbrirGrafValor(t){
   const barra=cont.querySelector('.kh-rangos'), hueco=cont.querySelector('.kh-hueco');
 
   function pinta(){
-    barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+(r[0]===_khRangoValor?' on':'')+'" data-khr="'+r[0]+'">'+r[1]+'</button>').join('')
+    barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+(r[0]===_khRangoValor?' on':'')+'" data-khr="'+r[0]+'" title="'+r[3]+'">'+r[1]+'</button>').join('')
       +'<a class="kh-ficha" href="#" data-khficha="'+t+'">Ver la ficha de '+t+' ↗</a>';
-    const cfg=_KH_RANGOS.find(r=>r[0]===_khRangoValor)||_KH_RANGOS[1];
+    const cfg=_KH_RANGOS.find(r=>r[0]===_khRangoValor)||_KH_RANGOS[2];   /* el de reserva es «1M», no el segundo de la lista */
+
+    /* [20-ago-2026] LOS CIERRES SE PIDEN AQUI SI NO ESTAN.
+       `_khSerieValor` lee de `_precioCache` y devuelve null si ese ticker no se ha pedido
+       nunca. En Mi Cartera venian precargados (`cargarPreciosCartera`), pero desde Tesis o
+       el Kanban no los pide nadie y el grafico salia con «Sin cotizaciones en este tramo»:
+       el dato estaba en el repo, no en memoria, y el mensaje culpaba al tramo. Con esto el
+       boton se puede soltar en cualquier vista sin precargar nada antes. */
+    if(typeof _precioCache!=='undefined' && _precioCache[t]===undefined){
+      hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando los cierres de '+t+'…</div>';
+      fetch('precios/'+t+'.json',{cache:'no-store'})
+        .then(function(r){ return r.ok?r.json():null; })
+        .catch(function(){ return null; })
+        .then(function(j){ _precioCache[t]=j; if(document.body.contains(hueco)) pinta(); });
+      return;
+    }
 
     /* [18-ago-2026] Los dos rangos cortos se leen con el DETALLE DE 5 MINUTOS cuando lo
        hay. Antes «1 semana» eran cinco puntos -cinco cierres- y no se podia ver nada
@@ -1653,7 +1728,7 @@ function mcAbrirGrafValor(t){
     const s = s5 || _khSerieValor(t,cfg[2]);
     if(!s||s.xs.length<2){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cotizaciones de '+t+' en este tramo. '
-        +'Prueba con 1 mes o 1 año, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
+        +'Prueba con <b>Máx</b>, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
       return;
     }
     const prec=x=>(Math.round(num(x)*10000)/10000).toFixed(2)+' €';
@@ -1667,15 +1742,26 @@ function mcAbrirGrafValor(t){
     let iH=0, iL=0;
     for(let i=0;i<s.ys.length;i++){ if(s.ys[i]>s.ys[iH])iH=i; if(s.ys[i]<s.ys[iL])iL=i; }
     const rec=s5 ? (s5.nSesiones+(s5.nSesiones===1?' sesión':' sesiones'))
-                 : ((_khRangoValor==='1a')?'52 semanas':cfg[1]);
+                 : ((_khRangoValor==='1a')?'52 semanas':cfg[3]);
     const anio=x=>dd(x)+'/'+String(x).slice(2,4);
     const cuando=x=>s5 ? (dd(x)+' '+hhmm(x)) : (dd(x)+'/'+String(x).slice(2,4));
     const _leyenda=[
       {c:'#2563eb',t:(s5?'Cotización cada 5 minutos':'Cierre diario')
-                  +(varPct==null?'':(' · '+cfg[1]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
+                  +(varPct==null?'':(' · '+cfg[3]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
       {c:'#0f172a',t:'Máx '+prec(s.ys[iH])+' ('+cuando(s.xs[iH])+') · Mín '+prec(s.ys[iL])+' ('+cuando(s.xs[iL])+') · '+rec}
     ];
     if(quiere5 && !s5) _leyenda.push({c:'#94a3b8', t:'Sin detalle de 5 minutos para '+t+': se dibujan cierres diarios'});
+    /* [20-ago-2026] A CINCO ANIOS EL DIVIDENDO YA NO ES UN DETALLE.
+       Los cierres de `precios/` son BRUTOS (auto_adjust=False): el dia ex-dividendo el
+       precio cae por el importe repartido y ahi se queda. A un mes es ruido; a cinco anios
+       o al maximo, una ENG o una MAP salen planas o cayendo cuando su retorno total fue
+       claramente positivo, y eso ya no es un matiz: es leer el grafico al reves. El modal
+       no tiene la linea «c/div» -esa vive en el grafico de la Ficha-, asi que como minimo
+       se dice, en vez de dejar que la lectura equivocada pase por buena. */
+    if(_khRangoValor==='5a'||_khRangoValor==='max'){
+      _leyenda.push({c:'#db2777', t:'Cierres brutos, SIN dividendo: a este plazo una empresa de renta parece plana aunque su retorno total no lo sea. La línea «c/div» está en el gráfico de la Ficha.'});
+    }
+    if(s.diezmado) _leyenda.push({c:'#cbd5e1', t:'Dibujo aligerado: '+s.xs.length+' puntos de '+s.nBrutos+' sesiones (se conservan el máximo, el mínimo y los extremos del tramo)'});
     khGrafLinea(hueco,{
       /* Una cotización NO se lee contra el cero: se lee contra sí misma. Ver la
          nota de `khGrafLinea`. El gráfico del valor de la cartera sí conserva el
@@ -1699,4 +1785,24 @@ function mcAbrirGrafValor(t){
       if(typeof abrirFicha==='function') abrirFicha(f.getAttribute('data-khficha')); }
   });
   pinta();
+}
+
+/* [20-ago-2026] UN SOLO ENGANCHE PARA TODA LA APP.
+   `mcAbrirGrafValor` se llama asi por donde nacio, pero no pertenece a Mi Cartera: abre un
+   modal, y un modal no es de ninguna vista. En vez de repetir un manejador en cada sitio
+   que quiera el boton -Tesis, Kanban, y manana Radar o Universo-, se escucha UNA vez en
+   `document` y cualquier vista se apunta poniendo `data-khgraf="TICKER"` en el elemento.
+   Anadir el grafico a una pestana nueva pasa a ser un atributo, no codigo.
+   El stopPropagation es por el Kanban: alli el boton vive dentro de una tarjeta que tiene
+   sus propios clics (desplegar, mover de columna) y no queremos disparar los dos. */
+if(typeof document!=='undefined' && !window._khGrafBound){
+  window._khGrafBound=true;
+  document.addEventListener('click',function(e){
+    const b=(e.target&&e.target.closest)?e.target.closest('[data-khgraf]'):null;
+    if(!b)return;
+    const t=(b.getAttribute('data-khgraf')||'').toUpperCase();
+    if(!t)return;
+    e.preventDefault(); e.stopPropagation();
+    if(typeof mcAbrirGrafValor==='function') mcAbrirGrafValor(t);
+  });
 }
