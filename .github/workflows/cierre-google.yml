@@ -85,11 +85,18 @@ jobs:
         run: |
           set -e
           cd _datos
-          if git diff --quiet -- cierre-google.json 2>/dev/null; then
+          # [20-ago-2026] `git add` PRIMERO, y la comparacion contra el INDICE.
+          # La primera version preguntaba `git diff --quiet -- fichero` antes de anadirlo,
+          # y `git diff` no ve los ficheros que todavia no estan en el repositorio: en la
+          # PRIMERA ejecucion -la unica que crea el fichero- no encontraba diferencia
+          # alguna, decidia que no habia nada que publicar y salia con exito. El Action
+          # entero en verde y el fichero sin subir. Una guarda que se traga justo el caso
+          # para el que existe es peor que no tenerla: no falla, miente.
+          git add cierre-google.json
+          if git diff --cached --quiet; then
             echo "Sin cambios: no publico."
             exit 0
           fi
-          git add cierre-google.json
           git commit -q -m "cierre-google: $(date -u +%Y-%m-%dT%H:%MZ)"
           # [copiado de intradia.yml, 17-ago] EL PUSH TIENE QUE SOBREVIVIR A UNA COLISION.
           # El dato puede estar bien bajado y perderse en el ultimo metro solo por no
