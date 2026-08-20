@@ -122,8 +122,25 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #fabAdd{position:fixed;right:16px;bottom:18px;z-index:9998;width:56px;height:56px;border-radius:50%;border:none;background:var(--brand);color:#fff;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);display:none;align-items:center;justify-content:center}
   .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
   .seg button{border:none;background:#fff;padding:8px 12px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+  /* [20-ago-2026] EL SELECCIONADO NO SE VEIA.
+     `.seg` marca el boton activo con la clase `on`, y hasta hoy las UNICAS reglas que la
+     pintaban eran las dos de abajo, que solo valen para el formulario de Movimientos
+     (data-t=gasto / data-t=ingreso). En los demas segmentados la clase se ponia bien y no
+     cambiaba nada en pantalla: el grafico de la Ficha -Precio, vs IBEX, RPD, Bajo el agua,
+     Movil, y las medias moviles- y el Ingreso/Gasto de Caja (data-t=entra / data-t=sale,
+     que tampoco casan con las reglas de abajo). Lo caza Carlos mirando Iberdrola.
+     Esta regla generica es el estado por defecto; lo de abajo sigue mandando donde toca. */
+  .seg button.on{background:var(--brand);color:#fff}
   .seg button.on[data-t=gasto]{background:var(--red-bg);color:var(--red)}
   .seg button.on[data-t=ingreso]{background:var(--green-bg);color:var(--green)}
+  /* Las medias y la linea c/div se encienden con SU color, el mismo con el que se dibujan
+     en el grafico (_maCols y _FICHA_DIVCOL en 03-inversiones.js). Asi el boton dice cual
+     es cual sin necesidad de leyenda: si enciendes MM200 y sale una linea naranja, no hay
+     que adivinar de quien es. Si alli se cambia un color, cambiarlo aqui. */
+  #fchMod button.on[data-fma="50"]{background:#0891b2}
+  #fchMod button.on[data-fma="200"]{background:#ea580c}
+  #fchMod button.on[data-fma="1000"]{background:#475569}
+  #fchMod button.on[data-fcondiv]{background:#db2777}
   .empty{text-align:center;color:var(--muted);padding:40px;background:var(--panel);border:1px dashed var(--line);border-radius:12px}
   .welcome{max-width:560px;margin:60px auto;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:34px;box-shadow:var(--shadow)}
   .welcome h1{color:var(--brand);margin:0 0 6px} .welcome p{color:var(--muted);line-height:1.5}
