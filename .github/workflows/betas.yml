@@ -1,0 +1,65 @@
+name: Calcular betas
+# SEMANAL (sábado 07:00 UTC) + manual.
+#
+# POR QUE EN LA NUBE Y NO EN EL PC  ·  [20-ago-2026]
+# --------------------------------------------------
+# `calcular_betas.py` nacio leyendo la carpeta local `Cotizaciones (para GitHub)/precios/`,
+# que en su dia era la fuente. Dejo de serlo cuando los precios pasaron a producirse aqui,
+# en Actions, cuatro veces al dia. Nadie sincronizaba el espejo local de vuelta, asi que se
+# quedo congelado el 17-jul-2026 sin que se notara: el 20-ago seguia con 105 ficheros cuyo
+# ultimo cierre era el 17-jul, 33 dias atras.
+#
+# Y `betas.json` decia `generadoEl: 2026-07-29` con `hasta: 2026-07-17`. Doce dias de
+# desfase que solo se ven abriendo el fichero y leyendo la clave correcta. El peligro no es
+# la beta vieja: es que **una beta vieja no se distingue de una nueva al mirarla**. Sale un
+# numero con tres decimales, plausible, y entra en el CAPM de los 25 libros sin chirriar.
+#
+# Calculandolo aqui, donde el dato ya esta, el espejo local desaparece del problema: no
+# puede quedarse viejo porque deja de existir. El metodo se descarga un unico fichero de
+# ~30 KB cuando lo necesita.
+#
+# CADENCIA. Semanal basta y sobra: la beta es a 5 anos con retornos semanales y se mueve
+# despacio. Sabado 07:00 UTC va DESPUES del pase de confirmacion T+1 del viernes
+# ("40 5 * * 2-6" = sabado 05:40 UTC), asi que la semana entra siempre cerrada y confirmada.
+on:
+  schedule:
+    - cron: "0 7 * * 6"
+  workflow_dispatch: {}
+permissions: { contents: write }
+# Mismo grupo que cotizaciones/agenda/vigia/fundamentales: nunca dos push a `main` a la vez.
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
+jobs:
+  betas:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      # SIN pip install, y no es un descuido: calcular_betas.py usa solo la libreria
+      # estandar (argparse, datetime, json, os, sys). Una herramienta que no depende de
+      # nadie no se cae el dia que un tercero publique una version mayor.
+      - name: Calcular betas (semanal, 5a y 2a, vs IBEX)
+        run: python calcular_betas.py --precios precios --salida betas.json --indice IBEX
+      # NO se pasa --aunque-este-vieja. Si la serie del repo esta vieja, lo que se ha roto
+      # es el pipeline de precios, y este job DEBE fallar en rojo en vez de publicar una
+      # beta caducada con fecha de hoy. La guarda son 5 dias habiles.
+      - name: Commit y push (con reintentos ante colisiones)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add betas.json
+          if git diff --staged --quiet; then
+            echo "Sin cambios en betas.json"; exit 0
+          fi
+          git commit -m "Betas del universo"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "Push OK en el intento $i"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "Push rechazado, reintento $i..."; sleep 5
+          done
+          echo "No se pudo hacer push tras 5 intentos"; exit 1
