@@ -1,0 +1,106 @@
+name: Cierre desde Google
+# ============================================================================
+#  Publica `cierre-google.json` en la rama `datos` con el cierre de la subasta
+#  que la hoja «Cierres KH» captura por su cuenta.               [20-ago-2026]
+#
+#  POR QUE NO BASTA CON YAHOO
+#  El pase de las 20:07 es PROVISIONAL y el cierre definitivo no queda fijado
+#  hasta el T+1 de las 07:40 del dia siguiente. Google tiene la subasta a las
+#  17:36. Medido el 20-ago sobre las 102 del universo: el cierre de Google es
+#  el mismo numero que el de Yahoo, redondeado a 2 decimales, en 101 de 102.
+#
+#  HORAS (en UTC; Madrid es UTC+2 en verano y UTC+1 en invierno)
+#    "50 16 * * 1-5" -> 18:50 CEST. La buena en VERANO.
+#    "50 17 * * 1-5" -> 18:50 CET.  La buena en INVIERNO.
+#  Se lanzan las dos todo el año a proposito: la que cae fuera de hora no
+#  encuentra el bloque de control y publica lo mismo, o no publica nada. Es mas
+#  barato que un cron que hay que acordarse de cambiar dos veces al año --y que
+#  el dia que se olvide fallara en silencio.
+#
+#  POR QUE A LAS 18:50 Y NO A LAS 18:15
+#  La hoja captura DOS veces: `cierre` a las 17:55-18:10 y `control` a las
+#  18:30-18:45. A las 18:50 estan las dos, asi que el fichero sale con el precio
+#  Y con la comparacion que dice si la hora temprana aguanta. Sigue siendo una
+#  hora antes del primer pase de Yahoo.
+#
+#  QUE NO HACE
+#  NO toca `precios/*.json`. Ese es el historico de CIERRES y su duenio es
+#  `actualizar_cotizaciones.py`. Aqui solo se produce un fichero que la app
+#  aplica a `DB.valores[t].precioActual`, igual que el de Excel.
+# ============================================================================
+on:
+  schedule:
+    - cron: "50 16 * * 1-5"
+    - cron: "50 17 * * 1-5"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+# Mismo grupo que cotizaciones/agenda/vigia/fundamentales: lo que serializa es lo
+# unico que importa, que dos Actions no empujen a la vez.
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+        # Sin `pip install`: el script es de biblioteca estandar. Una dependencia
+        # menos es un motivo menos de fallo a las siete de la tarde.
+
+      - name: Preparar el clon de la rama `datos`
+        run: |
+          set -e
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          rm -rf _datos && mkdir _datos && cd _datos
+          git init -q
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git fetch -q --depth=1 origin datos 2>/dev/null; then
+            git checkout -q -b datos FETCH_HEAD
+          else
+            echo "La rama datos no existe todavia: se crea ahora."
+            git checkout -q -b datos
+          fi
+
+      - name: Leer la hoja y escribir el fichero
+        env:
+          HOJA_GOOGLE_CSV: ${{ secrets.HOJA_GOOGLE_CSV }}
+        run: |
+          set -e
+          if [ -z "$HOJA_GOOGLE_CSV" ]; then
+            echo "::error::Falta el secreto HOJA_GOOGLE_CSV (la URL del CSV publicado de la hoja)."
+            exit 1
+          fi
+          python cierre_google.py --tickers tickers.json --salida _datos/cierre-google.json
+
+      - name: Publicar
+        run: |
+          set -e
+          cd _datos
+          if git diff --quiet -- cierre-google.json 2>/dev/null; then
+            echo "Sin cambios: no publico."
+            exit 0
+          fi
+          git add cierre-google.json
+          git commit -q -m "cierre-google: $(date -u +%Y-%m-%dT%H:%MZ)"
+          # [copiado de intradia.yml, 17-ago] EL PUSH TIENE QUE SOBREVIVIR A UNA COLISION.
+          # El dato puede estar bien bajado y perderse en el ultimo metro solo por no
+          # reintentar: paso el 17-ago con el pase de las 22:35 de cotizaciones.
+          for i in 1 2 3; do
+            if git push -q origin datos; then echo "Publicado en datos."; exit 0; fi
+            echo "Push rechazado (intento $i): rehago sobre origin/datos."
+            git fetch -q --depth=1 origin datos && git reset -q --soft FETCH_HEAD || true
+            git add cierre-google.json
+            git commit -q -m "cierre-google: $(date -u +%Y-%m-%dT%H:%MZ)" || true
+            sleep 5
+          done
+          echo "::error::No he podido publicar despues de 3 intentos."
+          exit 1
