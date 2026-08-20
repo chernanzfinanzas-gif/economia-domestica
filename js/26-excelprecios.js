@@ -169,7 +169,12 @@
     var s = ('' + (doc.sesion || '')).slice(0, 10);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return;
     D.excelCierres = D.excelCierres || {};
-    D.excelCierres[s] = { sesion: s, sello: doc.selloMadrid || '', precios: doc.precios || {}, revisado: false };
+    /* [20-ago-2026] `precision` viaja con el testigo. Ver `comparar()`: sin ella, una
+       fuente de 2 decimales marcaria diferencia todos los dias por el redondeo. */
+    D.excelCierres[s] = { sesion: s, sello: doc.selloMadrid || doc.selloUTC || '',
+                          precios: doc.precios || {}, revisado: false,
+                          precision: (typeof doc.precisionEur === 'number') ? doc.precisionEur : 0,
+                          fuente: doc.fuente || 'Excel' };
     // poda
     var hoy = _hoy();
     Object.keys(D.excelCierres).forEach(function (k) {
@@ -190,7 +195,17 @@
       if (fecha !== testigo.sesion) return;      // Yahoo ya va por otra sesion: fuera de ventana
       if (!(y > 0) || !(e > 0)) return;
       out.comparados++;
-      if (Math.abs(y - e) / e > TOLERANCIA) out.difs.push({ ticker: t, excel: e, yahoo: y, pct: (y - e) / e * 100 });
+      /* [20-ago-2026] LA TOLERANCIA TIENE QUE CONOCER LA PRECISION DE LA FUENTE.
+         Excel sirve 3-4 decimales y con el 0,05% fijo bastaba. Google sirve DOS, o sea
+         +-0,005 EUR: por debajo de 10 EUR ese redondeo se salta el 0,05% el solo, y el
+         testigo marcaria diferencia todos los dias en los mismos valores -por una
+         imprecision conocida, no por un error-. Un aviso que salta siempre se acaba
+         ignorando, y entonces deja de avisar del que importa.
+         Con `max(0,05%, precision/precio)` el aviso vuelve a significar algo: solo salta
+         cuando Yahoo y la fuente discrepan MAS de lo que el redondeo puede explicar. */
+      var tol = TOLERANCIA;
+      if (testigo.precision > 0) tol = Math.max(tol, testigo.precision / e);
+      if (Math.abs(y - e) / e > tol) out.difs.push({ ticker: t, excel: e, yahoo: y, pct: (y - e) / e * 100, tol: tol });
     });
     out.difs.sort(function (a, b) { return Math.abs(b.pct) - Math.abs(a.pct); });
     return out;
@@ -240,6 +255,70 @@
         return informes;
       })
       .catch(function () { return null; });
+  }
+
+  /* ============================================================
+     CIERRE DESDE GOOGLE — el mismo camino, pero sin tener que estar delante
+     ------------------------------------------------------------
+     [20-ago-2026] La hoja «Cierres KH» captura la subasta por su cuenta y un Action
+     publica `cierre-google.json` en la rama `datos` a las 18:50, una hora antes del
+     primer pase de Yahoo -que ademas es PROVISIONAL hasta el T+1 de las 07:40-.
+
+     Este fichero trae la MISMA forma que `precios-excel.json`, asi que no hay modulo
+     nuevo: entra por `aplicar()` y deja su testigo como el de Excel. Lo unico que cambia
+     es quien lo trae: antes lo abrias tu, ahora se baja solo.
+
+     Medido el 20-ago sobre las 102 del universo: el cierre de Google es el mismo numero
+     que el de Yahoo, redondeado a 2 decimales, en 101 de 102. Lo que Google no puede dar
+     -lo rancio, lo que no cubre y lo que el redondeo estropea- lo descarta el Action
+     DICIENDOLO, y esas empresas esperan al T+1 de Yahoo.
+
+     SOLO SE APLICA SI EL FICHERO ES DE HOY. Su unico trabajo es adelantar el cierre unas
+     horas; cualquier otro dia Yahoo ya lo ha confirmado y manda el historico. Aplicar un
+     fichero de ayer no adelanta nada y ensucia `precioManual`. */
+  var URL_GOOGLE = 'https://raw.githubusercontent.com/chernanzfinanzas-gif/' +
+                   'economia-domestica/datos/cierre-google.json';
+
+  function sincronizarGoogle() {
+    if (typeof fetch !== 'function') return Promise.resolve(null);
+    if (typeof window !== 'undefined' && window._demoOn) return Promise.resolve(null);
+    var hoy = _hoy();
+    return fetch(URL_GOOGLE + '?t=' + Date.now(), { cache: 'no-store' })
+      .then(function (r) {
+        if (!r || !r.ok) {
+          /* «No ha corrido» y «no me lo he podido bajar» son cosas distintas: se guarda
+             el porque, igual que hace el intradia desde el 17-ago. */
+          try { window._cierreGoogleFallo = { cuando: Date.now(), motivo: r ? ('HTTP ' + r.status) : 'sin respuesta' }; } catch (e) {}
+          return null;
+        }
+        return r.json();
+      })
+      .then(function (doc) {
+        if (!doc || !doc.precios) return null;
+        if (('' + doc.sesion).slice(0, 10) !== hoy) return null;   // no es de hoy: manda Yahoo
+        var res = aplicar(doc);
+        if (res.motivo || !res.ok) return res;
+        _guardarTestigo(doc, (typeof DB !== 'undefined') ? DB : null);
+        try { if (typeof saveNow === 'function') saveNow(); } catch (e) {}
+        try { if (typeof renderAll === 'function') renderAll(); } catch (e) {}
+        var msg = '📈 ' + res.ok + ' cierres de Google aplicados · ' +
+                  res.sesion.split('-').reverse().join('/');
+        if (res.descartados) msg += ' · ' + res.descartados + ' descartados';
+        _aviso(msg, 6000);
+        if (res.descartados) {
+          try {
+            console.warn('[Cierre Google] Descartados por el Action, con su motivo:');
+            (doc.descartados || []).forEach(function (d) {
+              console.warn('   ' + d.ticker + ' — ' + d.motivo);
+            });
+          } catch (e) {}
+        }
+        return res;
+      })
+      .catch(function (e) {
+        try { window._cierreGoogleFallo = { cuando: Date.now(), motivo: (e && e.message) || 'error de red' }; } catch (_) {}
+        return null;
+      });
   }
 
   /* --------------------------- lectura del fichero ---------------------- */
@@ -357,8 +436,15 @@
   if (typeof document !== 'undefined') {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', _montar);
     else _montar();
-    /* Conciliacion diferida: se deja arrancar a la app y sincronizar con Yahoo primero. */
-    setTimeout(function () { try { verificar(); } catch (e) {} }, 6000);
+    /* Diferido: se deja arrancar a la app y sincronizar con Yahoo primero. Google va
+       ANTES que la conciliacion para que el testigo de hoy quede guardado antes de que
+       `verificar()` mire los dias anteriores. */
+    setTimeout(function () {
+      Promise.resolve()
+        .then(function () { return sincronizarGoogle(); })
+        .catch(function () { return null; })
+        .then(function () { try { verificar(); } catch (e) {} });
+    }, 6000);
   }
 
   /* expuesto para pruebas y para la paleta de comandos */
@@ -366,6 +452,9 @@
     window.abrirPreciosExcel = abrir;
     window.verificarCierresExcel = verificar;
     window._khExcelAplicar = aplicar;
+    window.sincronizarCierreGoogle = sincronizarGoogle;
   }
-  if (typeof module !== 'undefined' && module.exports) module.exports = { aplicar: aplicar, comparar: comparar };
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = { aplicar: aplicar, comparar: comparar, sincronizarGoogle: sincronizarGoogle };
+  }
 })();
