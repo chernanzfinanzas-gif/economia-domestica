@@ -90,7 +90,8 @@ function _mcSelloDe(t){
      Ahora manda el ORIGEN DEL PRECIO QUE SE ESTA ENSENANDO: si es cierre oficial, se dice;
      y para reclamar la etiqueta de intradia hace falta ademas `precioProvisional`, que es
      la marca que deja sincronizarIntradia() cuando de verdad aplica su precio. */
-  if(v0.precioManual&&v0.precioFecha) return {tipo:'oficial', txt:'cierre oficial '+_mcFecha(v0.precioFecha,true), det:'cierre oficial de la subasta, importado del Excel'};
+  if(v0.precioManual&&v0.precioFecha) return {tipo:'oficial', txt:'cierre oficial '+_mcFecha(v0.precioFecha,true),
+    det:'cierre oficial de la subasta'+(v0.precioFuente?', desde '+v0.precioFuente:'')};
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
   if(v0.precioProvisional&&j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].p)>0&&(j.datoHora||j.hora)){
     /* Si el dato se ha quedado rezagado —la app solo repregunta con la pestaña visible— hay que
@@ -140,9 +141,22 @@ function _mcSelloGlobal(tickers){
      uno. Sin esta rama caia en «el pase intradia no ha corrido hoy», que ademas de sonar a
      carencia era falso: el pase habia corrido, y su precio quedo descartado a proposito por
      ser peor. */
-  let fo=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioManual&&v.precioFecha&&v.precioFecha>fo)fo=v.precioFecha; });
-  if((c.oficial||0)===n&&fo) return {cls:'cierre', txt:'Cotizaciones del <b>cierre oficial del '+_mcFecha(fo)+'</b> · importadas de la Matriz'};
-  if((c.oficial||0)&&fo)     return {cls:'cierre', txt:'<b>'+c.oficial+' de '+n+'</b> con el cierre oficial del '+_mcFecha(fo)+' (Matriz); el resto, último cierre conocido'};
+  /* [20-ago-2026] LA PROCEDENCIA SE LEE, NO SE SUPONE.
+     Aqui ponia «importadas de la Matriz» fijo, para cualquier precio blindado. Pero
+     `precioManual=true` lo pone SOLO `aplicar()` de 26-excelprecios.js: primero para el
+     Excel (06-ago) y desde hoy tambien para Google. La etiqueta llevaba equivocada desde
+     que existe el puente de Excel, y no salto nadie porque un texto que suena razonable no
+     se comprueba. Ahora cada precio trae `precioFuente` y la banda lo lee.
+     Si el dato es viejo y no la trae, se calla en vez de inventarse un origen: ya sabemos
+     como acaban las etiquetas que rellenan huecos por su cuenta. */
+  let fo=''; const _fu={};
+  tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{};
+    if(v.precioManual&&v.precioFecha){ if(v.precioFecha>fo)fo=v.precioFecha; if(v.precioFuente)_fu[v.precioFuente]=1; } });
+  const _fuentes=Object.keys(_fu);
+  const _deQuien=_fuentes.length===1?(' · desde <b>'+_fuentes[0]+'</b>')
+                :(_fuentes.length>1?(' · desde '+_fuentes.join(' y ')):'');
+  if((c.oficial||0)===n&&fo) return {cls:'cierre', txt:'Cotizaciones del <b>cierre oficial del '+_mcFecha(fo)+'</b>'+_deQuien};
+  if((c.oficial||0)&&fo)     return {cls:'cierre', txt:'<b>'+c.oficial+' de '+n+'</b> con el cierre oficial del '+_mcFecha(fo)+_deQuien+'; el resto, último cierre conocido'};
   /* sin intradía ni cierre oficial: la fecha del cierre más reciente que tengamos */
   let f=''; tickers.forEach(function(t){ const v=(DB.valores||{})[_mcUp(t)]||{}; if(v.precioFecha&&v.precioFecha>f)f=v.precioFecha; });
   if(f) return {cls:'cierre', txt:'Cotizaciones del <b>cierre del '+_mcFecha(f)+'</b> · el pase intradía no ha corrido hoy'};

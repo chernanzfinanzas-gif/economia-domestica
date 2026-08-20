@@ -84,6 +84,21 @@
 
   /* ---------------------------- utilidades ------------------------------ */
   function _n(v) { return (typeof num === 'function') ? num(v) : (parseFloat(v) || 0); }
+
+  /* [20-ago-2026] DE DONDE VIENE EL PRECIO, EN CORTO.
+     Mi Cartera decia «importadas de la Matriz» para CUALQUIER precio blindado, porque la
+     unica condicion que miraba era `precioManual`. Y `precioManual=true` solo lo pone esta
+     funcion: primero para el Excel (06-ago) y ahora tambien para Google. O sea que la
+     etiqueta lleva mintiendo desde que existe el puente de Excel, y nadie lo noto porque
+     un texto que suena razonable no se comprueba.
+     La cura es que el dato traiga su procedencia y la banda la lea, en vez de suponerla. */
+  function _fuenteCorta(f) {
+    var s = ('' + (f || '')).toLowerCase();
+    if (s.indexOf('google') >= 0) return 'Google Finance';
+    if (s.indexOf('excel')  >= 0) return 'Excel';
+    if (s.indexOf('matriz') >= 0) return 'la Matriz';
+    return '';
+  }
   function _hoy() { return new Date().toISOString().slice(0, 10); }
   function _aviso(msg, ms) {
     if (typeof showToast === 'function') { try { showToast(msg, null, null, ms || 4200); return; } catch (e) {} }
@@ -108,6 +123,8 @@
        de Yahoo de esa misma noche no lo pise. Un intradia no: debe dejarse relevar. */
     var definitivo = (res.tipo === 'cierre');
     res.definitivo = definitivo;
+    var fuente = _fuenteCorta(doc.fuente);
+    res.fuente = fuente;
 
     D.valores = D.valores || {};
     var ana = {};
@@ -123,6 +140,7 @@
       v.precioActual = p;
       v.precioFecha = sesion;
       v.precioManual = definitivo;     // cierre -> blindado; intradia -> Yahoo lo releva
+      v.precioFuente = fuente;         // para que la banda no tenga que adivinarlo
       /* [06-ago-2026] Sello de CUANDO se capturo. Sin el, el pase intradia de Yahoo
          relevaba una captura de Excel de hace treinta segundos con una barra de hace
          siete horas: paso ese dia, con la serie del mercado espanol congelada desde las
@@ -455,6 +473,7 @@
     window.sincronizarCierreGoogle = sincronizarGoogle;
   }
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { aplicar: aplicar, comparar: comparar, sincronizarGoogle: sincronizarGoogle };
+    module.exports = { aplicar: aplicar, comparar: comparar, sincronizarGoogle: sincronizarGoogle,
+                      fuenteCorta: _fuenteCorta };
   }
 })();
