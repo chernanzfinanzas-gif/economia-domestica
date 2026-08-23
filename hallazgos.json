@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-08-17",
+  "generadoEl": "2026-08-23",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -12,9 +12,9 @@
         {
           "id": "soc-otro-2026-07-21",
           "abiertoEl": "2026-07-21",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-08-23",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "La CNMC autorizó en primera fase la adquisición de Clear Channel España por Atresmedia (OIR reg. 41973). Es una autorización de competencia favorable sobre una operación de toma de control, no un expediente sancionador. Despeja el principal riesgo regulatorio de la operación.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -520,8 +520,8 @@
     "EBRO": {
       "empresa": "Ebro Foods, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17",
-        "trimestral": "2026-07-29"
+        "semanal": "2026-08-23",
+        "trimestral": "2026-08-23"
       },
       "hallazgos": [
         {
@@ -538,6 +538,25 @@
           "vigenteHasta": "2026-08-22",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-08-23",
+          "abiertoEl": "2026-08-23",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "4 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q2",
+          "fecha": "2026-08-23",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-08-30",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -632,9 +651,9 @@
         {
           "id": "soc-otro-2026-07-22",
           "abiertoEl": "2026-07-22",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-08-23",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "Junto a los resultados del 1S-2026, acuerdo para elevar su participación en Saggas hasta el control del 92% de la planta regasificadora de Sagunto. Operación societaria de toma de control de un activo participado, no evolución ordinaria. Importe no desglosado en las fuentes consultadas.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -1633,18 +1652,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 25,
-    "hallazgosActivos": 45,
+    "hallazgosActivos": 44,
     "porTipo": {
-      "otro": 19,
       "sancion": 3,
       "coyuntura": 17,
+      "otro": 17,
       "opa": 3,
+      "senal": 1,
       "litigio": 2,
       "concurso": 1
     },
-    "exigenAccion": 0,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 21,
-    "hechosCaducadosHoy": 0
+    "situacionesAbiertas": 22,
+    "hechosCaducadosHoy": 2
   }
 }
