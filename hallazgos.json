@@ -542,9 +542,9 @@
         {
           "id": "S6-2026-08-23",
           "abiertoEl": "2026-08-23",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-08-23",
+          "desenlace": "Sin apunte de apertura previo. Cuatro trimestres consecutivos en ÁMBAR hasta S1-2026, sobre el MISMO KPI: las ventas caen seis lecturas seguidas desde Q1-2025 (la racha de semáforo se queda en cuatro sólo porque S1-2025 fue ROJO y el detector corta al encontrarlo). Diagnóstico: PUNTUAL en su mayor parte, con componente estructural acotado, confianza MEDIA. A favor: margen bruto en 48,9 %, máximo de la década y rama REFUERZA del §10.1; el deterioro de 2026 está concentrado en la PASTA, con una causa temporal (SAP HANA en Garofalo) y otra ya atacada con inversión (planta de Saint Charles, 40 M€, 1-jul-2026), mientras el margen del ARROZ sube a 14,8 %, por encima del consolidado; y la deuda neta que provocó el ROJO de S1-2025 está en 472,4 M€, mínimo de la serie. En contra: el arancel es permanente (antidumping del 7 % en Garofalo, recurrido pero pagándose) y son tres años seguidos de caída de ventas. Re-chequeo §8.1: sólo el riesgo nº1 (Político) activado; §8.2: ningún pre-mortem con señal de salida disparada, aunque el nº2 tiene el detonante en curso. §9: tesis viva, el PO no se mueve. Anti-anclaje: a 18,30 € NO se compraría (margen de seguridad −16,0 %), que es lo que ya dice ESPERAR. ESCALADA FECHADA al 9M-2026 del 28-oct-2026: se abre S2 si el CCC supera 190 días —está en 173,7 y sube ~16 al año— o si el margen EBITDA-A de la pasta no recupera desde el 12,6 % del 1S26. Nota: Revisiones/2026-08-23 Nota Revisión Extraordinaria Ebro Foods (S6).html",
           "resumen": "4 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
           "tipo": "senal",
           "naturaleza": "situacion",
@@ -556,19 +556,19 @@
           "codigo": "S6",
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-30",
-          "notaEmitida": false
+          "notaEmitida": true
         }
       ],
       "revisiones": [
         {
-          "fecha": "15-jul-2026",
-          "senal": "S3",
-          "cot": "18,16",
+          "fecha": "23-ago-2026",
+          "senal": "S6",
+          "cot": 18.3,
           "decision": "REAFIRMAR",
-          "motivo": "No se revisa porque es una empresa en estudio para invertir. Se comprará cuando esté en el abanico de entrada"
+          "motivo": "Sin apunte de apertura previo. Cuatro trimestres consecutivos en ÁMBAR hasta S1-2026, sobre el MISMO KPI: las ventas caen seis lecturas seguidas desde Q1-2025 (la racha de semáforo se queda en cuatro sólo porque S1-2025 fue ROJO y el detector corta al encontrarlo). Diagnóstico: PUNTUAL en su mayor parte, con componente estructural acotado, confianza MEDIA. A favor: margen bruto en 48,9 %, máximo de la década y rama REFUERZA del §10.1; el deterioro de 2026 está concentrado en la PASTA, con una causa temporal (SAP HANA en Garofalo) y otra ya atacada con inversión (planta de Saint Charles, 40 M€, 1-jul-2026), mientras el margen del ARROZ sube a 14,8 %, por encima del consolidado; y la deuda neta que provocó el ROJO de S1-2025 está en 472,4 M€, mínimo de la serie. En contra: el arancel es permanente (antidumping del 7 % en Garofalo, recurrido pero pagándose) y son tres años seguidos de caída de ventas. Re-chequeo §8.1: sólo el riesgo nº1 (Político) activado; §8.2: ningún pre-mortem con señal de salida disparada, aunque el nº2 tiene el detonante en curso. §9: tesis viva, el PO no se mueve. Anti-anclaje: a 18,30 € NO se compraría (margen de seguridad −16,0 %), que es lo que ya dice ESPERAR. ESCALADA FECHADA al 9M-2026 del 28-oct-2026: se abre S2 si el CCC supera 190 días —está en 173,7 y sube ~16 al año— o si el margen EBITDA-A de la pasta no recupera desde el 12,6 % del 1S26. Nota: Revisiones/2026-08-23 Nota Revisión Extraordinaria Ebro Foods (S6).html"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-23",
       "revisionesFrescas": true
     },
     "ECR": {
@@ -1652,19 +1652,18 @@
   },
   "resumen": {
     "empresasConHallazgo": 25,
-    "hallazgosActivos": 44,
+    "hallazgosActivos": 43,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 17,
       "otro": 17,
       "opa": 3,
-      "senal": 1,
       "litigio": 2,
       "concurso": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 22,
-    "hechosCaducadosHoy": 2
+    "situacionesAbiertas": 21,
+    "hechosCaducadosHoy": 0
   }
 }

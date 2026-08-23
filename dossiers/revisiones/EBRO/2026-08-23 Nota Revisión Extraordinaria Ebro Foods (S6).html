@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EBRO · Nota de Revisión Extraordinaria · S1-2026 (2026-Q2)</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:005A20;--corp-dark:004016;--corp-light:E8F5EC}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S6</div>
+      <div class="company-name">Ebro Foods</div>
+      <div class="badges">
+        <span class="badge badge-alert">S6 · S6 · Racha de ámbares</span>
+        <span class="badge badge-sig">S1-2026 (2026-Q2)</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">EBRO · BME<br>Fecha: 23 de agosto de 2026<br>Plazo señal: 7 días · abierta el 23-ago, vence el 30-ago</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">ESPERAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">15,37 €</div><div class="kpi-sub">bear 12,71 · bull 19,97 €</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">18,30 €, cierre del 21/08/2026 · sin confirmar</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">-16,0 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">CCC · ciclo de caja</div><div class="kpi-val amber">173,7 d</div><div class="kpi-sub">umbral VENDER &gt; 190 d — a 16,3 días</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① ① Qué disparó la señal</div>
+  <p><b>S6 · cuatro trimestres consecutivos en ÁMBAR</b> hasta S1-2026 (9M-2025 · FY-2025 · Q1-2026 · S1-2026). La señal la abrió el monitor trimestral el 23-ago-2026 al emitir el puente <code>EBRO-trim.json</code>, y el §10.5 la define así: «<i>dos ámbares seguidos en el mismo KPI no son ruido. Si se confirma, escala a S2</i>».<br><br><b>El KPI es el mismo, y la racha es más larga que la del semáforo.</b> Las ventas caen <b>seis lecturas consecutivas</b> —−1,8 % · −3,0 % · −3,0 % · −4,0 % · −4,6 %, y en 1S26 el tercer año seguido a la baja—, o sea desde Q1-2025. La cuenta de ámbares se queda en cuatro sólo porque S1-2025 fue ROJO y el detector corta la racha al encontrarlo; un rojo es peor que un ámbar, no un respiro. El KPI del §10.1 que gobierna esto —«Ingresos totales: crecen &gt;3 % refuerza / planos ±0-3 % debilita»— lleva seis periodos por debajo incluso de la rama débil.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Los hechos que sostienen el diagnóstico salen de los <b>informes de resultados de la propia Ebro</b> (1T26 y 1S26), no de prensa: la implantación de SAP HANA en Garofalo, el antidumping del 7 % recurrido, el EUR/USD de 1,08 a 1,17, y la compra el 1-jul de la planta de Saint Charles (Missouri) por 40 M€. No se ha buscado corroboración externa adicional porque ninguno es un hecho de mercado no publicado por la compañía: los cuatro están en sus informes.</p>
+  <div class="cb-src">Informes de Resultados 1T-2026 y 1S-2026 de Ebro Foods (Informes/Trimestrales/).</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Es de TAMAÑO, no de calidad — y reversible</div>
+    <div class="seg-body"><b>El margen bruto está en el máximo de la década: 48,9 %</b>, dentro de la rama REFUERZA del §10.1 (≥ 48 %), y viniendo de 43,1 % en 2022-2023. Una empresa que estuviera perdiendo la batalla competitiva no expande margen cinco puntos mientras le caen las ventas: la caída es de precio repercutido a la baja por materia prima barata, no de posición.<br><br><b>El deterioro de 2026 está concentrado en la PASTA y tiene tres causas nombradas, una de ellas temporal:</b> los problemas de producción de la implantación de SAP HANA en Garofalo, el EUR/USD de 1,08 a 1,17 y el sobrecoste de contenedores. Mientras tanto <b>el margen del ARROZ sube a 14,8 %, por encima del consolidado (13,7 %)</b>. La mitad grande del negocio va bien.<br><br><b>El balance revirtió por completo.</b> La deuda neta que provocó el ROJO de S1-2025 —675,8 M€, 76 por encima del umbral de 600— está hoy en <b>472,4 M€, el mínimo de la serie</b>, con apalancamiento del 20,0 % y DN/EBITDA-A de 1,26x. El pico fue estacional, como dijo el 9M-2025.<br><br><b>Y la respuesta a lo estructural ya está comprada:</b> la planta de Saint Charles (Missouri, 1-jul-2026, 40 M€) hace desaparecer de golpe las dos causas permanentes del problema de la pasta —arancel y dólar— produciendo en destino. No aporta nada al P&amp;L de 2026, pero cambia el final de la película.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Lo que sí es permanente, y lo que se acerca</div>
+    <div class="seg-body"><b>El arancel es estructural y la compañía lo admite.</b> Garofalo logró rebajar el antidumping al 7 %, pero lo recurre y <i>mientras no haya resolución firme sigue pagándolo</i>; la Administración tampoco devolverá lo ya abonado. En FY-2025 la propia Ebro cuantificó 2,5 M€ en Garofalo y 1,6 M€ en Bertagni. «Rebajado» se lee como buena noticia y no lo es: un 7 % indefinido es coste permanente sobre la división que peor va.<br><br><b>Tres años consecutivos de caída de ventas no son un efecto base.</b> 2024, 2025 y 2026 en curso. Aunque el margen compense, una empresa que factura menos cada año durante tres años tiene un problema de demanda o de mix, y es lo que sostiene el ESPERAR del §9.4.<br><br><b>Y el dato que más pesa: el CCC.</b> 140,4 días (2023) → 160,0 (2024) → <b>173,7 (2025)</b>. Sube unos 16 días por año y el umbral de VENDER del §10.1 está en <b>190</b>: a este ritmo se cruza en el FY-2026. Es a la vez la señal de alarma del riesgo nº2 del §8.1 —el de mayor impacto, −15 a −25 %— y la del pre-mortem nº1. No está activada hoy; está a 16,3 días.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>PUNTUAL en su mayor parte, con un componente estructural acotado y creciente. Confianza MEDIA.</b> El deterioro es de tamaño y no de calidad —margen bruto en máximo de década, margen del arroz por encima del consolidado, deuda en mínimo de serie— y su parte aguda está concentrada en la pasta, con una causa explícitamente temporal (SAP HANA) y otra ya atacada con inversión (Saint Charles). Lo estructural —arancel permanente y circulante creciente— es real pero no ha cruzado ninguna señal de salida. <b>La confianza no puede ser alta porque el dato que lo resuelve no existe todavía: el 9M-2026, que se publica el 28-oct-2026.</b></div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Uno de los ocho riesgos activado; ningún pre-mortem con señal de salida.</b><br>• <b>nº1 Político (Alta, −8 a −15 %) — ACTIVADO.</b> Su alarma es «nuevo tramo arancelario sobre pasta o arroz». Ha habido varios: pasta seca 1→15 %, fresca 6,6→15 %, Jazmine 1→19 %, basmati hasta 50 % y luego 25 %, y el antidumping del 7 % en Garofalo.<br>• <b>nº2 Operativo (Alta, −15 a −25 %) — NO activado, a 16,3 días.</b> CCC 173,7 vs 190; FCL +148,8 M€, positivo. Es el riesgo de mayor impacto del libro y el que más se acerca.<br>• <b>nº3 Divisa (Alta) — NO activado.</b> El USD se deprecia 7,7 % interanual sostenido dos trimestres; el umbral es 10 %.<br>• <b>nº4 Competitivo y nº5 Gobernanza — NO activados, y alejándose:</b> margen bruto 48,9 % (alarma &lt; 45 %) y payout sobre FCL 78,1 % (alarma &gt; 100 % dos años).<br>• <b>nº6, 7 y 8 — sin novedad.</b> El SAP HANA de Garofalo <i>no</i> es el riesgo de ciberseguridad: es una implantación, no un incidente, y contarlo ahí sería inflar el recuento.<br>• <b>Pre-mortem nº2 «el arancel se vuelve estructural»: el detonante está EN CURSO, la señal de salida NO.</b> La señal es pérdida de cuota en el retail de EE.UU. en dos lecturas IRI seguidas, y Riviana mantiene ventas y gana distribución. La cadena empezó y el aviso temprano no ha sonado — que es exactamente lo que el pre-mortem existe para distinguir.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>Tesis viva. Ni el Bull ni el Bear se han materializado, y el PO no se mueve.</b><br>• <b>Bull case</b> («la conversión de EBITDA a caja vuelve a su media; disparador FCL &gt; 200 M€»): no se está cumpliendo —FCL 148,8 M€, conversión 36,6 %, rama DEBILITA del §10.1— pero sigue vivo, porque el CAPEX de ampliación que lo deprime es finito y la compañía fechó su descenso.<br>• <b>Bear case</b> («el CCC pasa de 174 a más de 210, el FCL se vuelve insuficiente, la cobertura del dividendo cae bajo 1,0x y se recorta el reparto»): <b>su primer eslabón está avanzando</b> —el CCC— y los demás no: cobertura 1,28x sobre FCL y 1,49x sobre owner earnings.<br>• <b>El PO no se toca.</b> El 1S26 no altera el FCL normalizado (media plurianual) ni el WACC, que son los que lo fijan. Mover el PO por un semestre sería re-valorar con un dato que no entra en el modelo.<br>• <b>Checklist B4 de dividendo (Paso 5-ter):</b> 0 duros · 1 blando (b3, EBITDA-A cayendo dos periodos) · 1 no evaluable (b6, Ebro no tiene rating de agencia). Desenlace <b>VIGILAR, sin S2</b>.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <tr><td><b>Ninguna re-ejecutada</b></td><td>El gatillo de S6 es una racha de semáforo, no un deterioro de calidad contable, de reinversión ni de valoración. Re-correr Forense, ROIIC o Reverse DCF por un semestre sería teatro: sus entradas son anuales y no han cambiado desde el dossier del 23-ago.</td></tr><tr><td>Dividend Safety (B1)</td><td>Sí consultado, por ser Ebro posición de renta: <b>70/100, banda «Seguro»</b>, con C4 (trayectoria: 2 recortes en 10 años) como componente más débil. Coherente con la checklist B4 de arriba.</td></tr><tr><td>Contraste de varas <span class='tag'>F93</span></td><td>La cobertura de intereses del dossier (23,1x) está medida sobre <b>EBITDA</b> y la de la checklist B4 (17,4x) sobre <b>EBIT</b>. Las dos son ciertas y no son la misma; ambas holgadísimas. Queda anotado para que nadie las cruce creyendo que una está mal.</td></tr>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Ebro Foods por primera vez, a 18,30 €, cierre del 21/08/2026 · sin confirmar, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la dejaría en watchlist, o la descartaría?</div>
+  <div class="anchor-a"><b>Watchlist. No la compraría a este precio.</b> El precio objetivo base es 15,37 € y la cotización está en 18,30 €: <b>margen de seguridad −16,0 %</b>, y por encima de toda la banda de sensibilidad de la síntesis (14,69–16,53 €). Se paga por encima de lo que el modelo dice que vale, aunque siga por debajo del escenario bull (19,97 €), razón por la que <b>no</b> se abre además una S3.<br><br><b>La honestidad obliga a decir una cosa incómoda:</b> esta respuesta coincide con el veredicto vigente (ESPERAR), así que la prueba anti-anclaje <i>no ha tenido que corregir nada</i>. Eso hace esta Nota fácil de firmar, y una Nota fácil es donde un protocolo se convierte en sello de goma. Se deja escrito que el riesgo se pensó: la decisión de abajo no es cómoda porque convenga, sino porque los ocho riesgos y los tres pre-mortem se han recorrido uno a uno y sólo uno está activado.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box ok">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">Sin cambios en veredicto, PO, banda de entrada ni stop</div>
+  <div class="action-line">Acción: <b>Mantener ESPERAR. No comprar a 18,30 €.</b> No se toca el <code>EBRO.json</code>: no cambian <code>decision</code>, <code>poBase/poBear/poBull</code>, <code>entMin/entMax</code> ni <code>stop</code>, así que no hay que regenerar el dossier.<br><br><b>Escalada fechada — esto es lo accionable de la Nota.</b> El <b>28-oct-2026</b> se publica el 9M-2026. Dos cosas lo convierten en S2, y las dos son comprobables sin juicio:<br>① <b>Si el CCC supera 190 días</b> — está en 173,7 y sube ~16 al año. Activa a la vez la alarma del riesgo nº2 del §8.1 y la del pre-mortem nº1.<br>② <b>Si el margen EBITDA-A de la división de pasta no recupera</b> desde el 12,6 % del 1S26. Con el SAP HANA ya absorbido, un margen que siga hundido deja de poder atribuirse al ERP y pasa a ser deterioro competitivo — que es otra tesis.<br><br>Si cualquiera de las dos se cumple, esta REAFIRMACIÓN caduca y se abre S2 con revisión completa de los Bloques 8 y 9.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b></div>
+
+<div class="disclaimer">Documento de análisis propio, sin valor de recomendación de inversión. Método de Análisis Financiero KH&amp;Claude · Nota de Revisión Extraordinaria.</div>
+
+</div></body></html>
