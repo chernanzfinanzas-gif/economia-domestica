@@ -51,6 +51,13 @@ import os
 import sys
 
 VENTANAS = {"5a": 5, "2a": 2}
+
+# [21-ago-2026] Umbral por debajo del cual la beta cruda NO se usa como coste de capital.
+# 0,20 no es un numero sagrado: es donde el indice deja de explicar lo bastante como para
+# que el punto estimado aguante una conclusion de creacion de valor. En el universo de la
+# Matriz solo 3 de las 16 empresas de CONSUMO lo pasan.
+R2_MINIMO = 0.20
+BLUME_W = 0.67
 MIN_OBS = 40                 # por debajo de esto no se publica beta
 RANGO_PLAUSIBLE = (0.2, 2.5)  # fuera de aqui se marca para revision humana
 
@@ -157,10 +164,28 @@ def beta(pa, pb, desde, hasta):
         return {"beta": None, "n": n, "r2": None, "planos": None,
                 "motivo": "solo %d semanas con cotizacion en la ventana (minimo %d)" % (n, MIN_OBS)}
     b, r2 = regresion(ra, rb)
+    # [21-ago-2026 · piloto Ebro] Junto a la beta CRUDA se publica la de Blume y un
+    # veredicto `usable`. Motivo: Ebro mide 0,089 con R2 0,014, y no es un fallo de
+    # medicion -mensual, 10a, 15a y la correccion de Dimson por contratacion delgada dan
+    # entre 0,08 y 0,25 sobre 26 anos de precios-. El indice no explica a esa empresa. El
+    # fichero traia el aviso desde el primer dia y NADIE DECIDIA QUE HACER CON EL: el
+    # metodo acababa metiendo la mediana del arquetipo, que en CONSUMO es la mediana de 16
+    # betas de las que 13 llevan ese mismo aviso. Un numero calculado sobre ruido.
+    #
+    # Blume: 0,67 x beta + 0,33. Encoge hacia 1 en proporcion al error de estimacion. Es
+    # una CONVENCION, no una medicion, y por eso viaja etiquetada y aparte de la cruda.
+    usable = r2 is not None and r2 >= R2_MINIMO
     return {"beta": round(b, 3) if b is not None else None,
             "n": n,
             "r2": round(r2, 3) if r2 is not None else None,
-            "planos": round(100.0 * planos / n, 1)}
+            "planos": round(100.0 * planos / n, 1),
+            "blume": round(BLUME_W * b + (1 - BLUME_W), 3) if b is not None else None,
+            "usable": bool(usable),
+            "recomendada": (round(b, 3) if usable else
+                            (round(BLUME_W * b + (1 - BLUME_W), 3) if b is not None else None)),
+            "origen": ("cruda: R2 %.3f >= %.2f" % (r2, R2_MINIMO)) if usable else
+                      ("Blume 0,67xB+0,33: R2 %s < %.2f, la cruda no es informativa"
+                       % (("%.3f" % r2) if r2 is not None else "n/d", R2_MINIMO))}
 
 
 def avisos(res5, res2):
@@ -172,6 +197,10 @@ def avisos(res5, res2):
         return out
     if not (RANGO_PLAUSIBLE[0] <= b <= RANGO_PLAUSIBLE[1]):
         out.append("beta %.2f fuera del rango plausible %.1f-%.1f" % (b, *RANGO_PLAUSIBLE))
+    if res5.get("r2") is not None and R2_MINIMO > res5["r2"] >= 0.10:
+        out.append("R2 %.2f < %.2f: la beta cruda NO se usa como coste de capital; usa "
+                   "`recomendada` (Blume) y DECLARA el origen en el libro"
+                   % (res5["r2"], R2_MINIMO))
     if res5.get("r2") is not None and res5["r2"] < 0.10:
         out.append("R2 %.2f: el indice explica muy poco de su movimiento; la beta es poco informativa"
                    % res5["r2"])
