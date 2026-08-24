@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-08-24",
+"actualizado": "2026-08-25",
 "ventana_dias": 10,
-"ventana_desde": "2026-08-14",
+"ventana_desde": "2026-08-15",
 "tickers": [
 {
 "ticker": "A3M",
@@ -679,8 +679,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-08-20",
-"n": 3998
+"hasta": "2026-08-21",
+"n": 3999
 },
 {
 "ticker": "TUB",
