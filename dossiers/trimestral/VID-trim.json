@@ -1,766 +1,782 @@
 {
-  "schemaVersion": 2,
-  "ticker": "VID",
-  "empresa": "Vidrala, S.A.",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "VID",
+ "empresa": "Vidrala, S.A.",
+ "revolcado": {
+  "fecha": "2026-08-24",
+  "motivo": "la empresa se ha vuelto a analizar con el método nuevo (piloto Vidrala). Las diez métricas son las congeladas en estado.json por la decisión M8-bis; el fichero anterior está en VID-trim.json.antes-revolcado-20260824 y se ha usado SOLO como referencia de fechas.",
+  "definicionEBITDA": "la TITULADA por la empresa (excluye partidas no recurrentes cuando ella las excluye). En FY-2025 son 441,0 y BPA 6,24; los estatutarios del libro son 427,38 y 5,95.",
+  "coberturaSegmentos": "11/14 — el anexo por segmentos no existe en Q1, S1 y 9M de 2023. Es el ÚNICO hueco declarado del re-volcado, y es el que el operador aceptó al fijar las métricas: la empresa no lo publica, no hay sustituto por segmento y las tres filas dicen «no publicado por la empresa».",
+  "senales": "NO se disparan señales S2 ni S6 con estos semáforos. S2 y S6 existen para avisar de un deterioro que ESTÁ ocurriendo; estos catorce períodos ya están vividos y su desenlace está dentro del análisis de 2025. Los colores son un juicio emitido HOY sobre el pasado, no lo que un analista concluyó entonces, y así se declara. Decisión del operador, 24-ago-2026.",
+  "semaforo": "razonado contra los umbrales del §10.1 y SOLO contra ellos. En un período acumulado las únicas varas sin escala son el Margen EBITDA (>28 % refuerza · 25-28 % debilita) y el DN/EBITDA (<1,0x refuerza · 1,0-2,5x debilita); las de nivel —ingresos, EBITDA, BNA, BPA, FCL, deuda neta— son ANUALES y solo se aplican en las filas FY. Resultado: 7 ámbar (todo 2023 y los tres interinos de 2024, por margen y apalancamiento) y 7 verdes (desde FY-2024, cuando el margen cruza el 28 % y se queda).",
+  "correccion": "24-ago-2026: la primera versión de este re-volcado daba 13 ámbar y 1 verde. Estaba MAL. Se había usado «la variación orgánica sigue negativa» como criterio de color, y eso NO es una vara del §10.1: era un corte inventado después de ver el dato, que es justo lo que el método prohíbe. Lo detectó el operador al comparar con el informe anterior. Seis períodos (Q1/S1/9M/FY-2025 y Q1/S1-2026) pasan de ámbar a verde. La orgánica se sigue publicando en la fila que le corresponde y se comenta en el resumen: informa, pero no decide el color.",
+  "sustitucionMetrica": "P8(b) · «Flujo de caja libre (M€)» → «Deuda neta (M€)». El FCL quedaba vacío en 11 de 14 períodos, y eso no es un hueco declarado sino una métrica mal elegida: la regla obliga a buscar en los informes de ESTA empresa una magnitud del mismo tipo que sí se pueda rellenar. La deuda neta se publica en los 14, es de la que el propio Anexo II define el FCL y tiene vara en el §10.1. Los tres informes que sí titulan generación de caja (9M-2023: 89,6 · 9M-2025: 155,2 · FY-2025: 200,1) la conservan en la nota del período. El congelado del Bloque 10 declaraba para el FCL una cobertura de 14/14 que nunca se verificó y era falsa."
+ },
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "fecha": "2023-04-25",
+   "origen": "revolcado",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "fecha": "2023-04-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Arranque muy fuerte: ventas +35% y EBITDA récord por el traspaso de la inflación energética a precio; deuda 0,9x. La var. de BPA es engañosa (base 2022 casi nula).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 377.9
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 35.5
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 38.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 100.7
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 26.6
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 58.6
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 1.91
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 7819.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 315.7
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.9
-        }
-      ]
+     "nombre": "Ventas (M€)",
+     "valor": 377.9
     },
     {
-      "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Crecimiento sólido (+22%), margen 27,1% y desapalancamiento a 0,8x.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 794.8
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 22.1
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 23.9
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 215.2
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 27.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 128.7
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 4.19
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 131.6
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 283.8
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.8
-        }
-      ]
+     "nombre": "EBITDA (M€)",
+     "valor": 100.7
     },
     {
-      "periodo": "2023-Q3",
-      "fecha": "2023-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas +17% y deuda neta 209 M€ (0,5x). Tesis intacta.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1194.1
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 17.4
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 18.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 315.6
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 26.4
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 184.6
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 6.01
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 138.2
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 208.9
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.5
-        }
-      ]
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 26.65
     },
     {
-      "periodo": "2023-Q4",
-      "fecha": "2024-02-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cierre +15% pero Vidroporto eleva el apalancamiento a 1,1x proforma y el margen baja a 25,3%. Digestión de M&A.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1558.8
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 15.8
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 15.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 393.7
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 25.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 233.4
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 7.23
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 53.5
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 472.2
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.1
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Adquisición de Vidroporto (Brasil) como plataforma de crecimiento; importe Pte. Revisión.",
-          "impacto": "+",
-          "valoracion": "Diversifica hacia un mercado en crecimiento manteniendo la disciplina de M&A."
-        }
-      ]
+     "nombre": "BPA (€)",
+     "valor": 1.91
     },
     {
-      "periodo": "2024-Q1",
-      "fecha": "2024-04-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Margen en contracción (26,2%), apalancamiento alto (1,2x) y orgánico débil. Señales mixtas.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 419.4
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 11.0
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 1.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 109.8
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 52.8
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 1.64
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -9.8
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 529.7
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.2
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Plan de sucesión ordenado del CEO: Raúl Gómez sustituye a Gorka Schmitt.",
-          "impacto": "=",
-          "valoracion": "Relevo profesional ordenado; señal de buen gobierno y continuidad estratégica."
-        }
-      ]
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.9
     },
     {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Estabilización: margen 27,1% y deuda 1,0x, pero orgánico plano. Vigilar volumen.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 830.4
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 4.5
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 0.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 225.0
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 27.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 120.8
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 3.75
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -6.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 433.4
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 1.0
-        }
-      ]
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 38.3,
+     "nota": "a tipo de cambio constante (la empresa NO publica variación orgánica en este período)"
     },
     {
-      "periodo": "2024-Q3",
-      "fecha": "2024-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Mejora: orgánico +4,3%, margen 27,8% y desapalancamiento a 0,7x.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1216.4
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 1.9
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 0.9
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 337.7
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 27.8
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 232.1
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 7.22
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 26.2
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 299.1
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.7
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Venta de la filial italiana (Corsico) a Verallia por ~230 M€, con plusvalía.",
-          "impacto": "+",
-          "valoracion": "Cristaliza valor, reduce deuda y financia retribución extraordinaria al accionista."
-        }
-      ]
+     "nombre": "Deuda neta (M€)",
+     "valor": 315.7,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
     },
     {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Año sólido: margen 28,6%, deuda 0,6x y venta de Italia que cristaliza valor.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1588.3
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 1.9
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": 0.2
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 454.0
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 28.6
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 298.3
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 8.85
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 28.5
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 248.3
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.6
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "Reparto de un dividendo extraordinario con la plusvalía de la venta de la filial italiana.",
-          "impacto": "+",
-          "valoracion": "Retorno extraordinario de caja al accionista sin comprometer el balance."
-        }
-      ]
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
     },
     {
-      "periodo": "2025-Q1",
-      "fecha": "2025-04-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Normalización de precios: ventas -11%, pero margen sube a 28,1% y apalancamiento cae a 0,7x. Top-line a vigilar.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 372.5
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": -11.2
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -6.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 104.6
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 28.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 47.6
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 1.42
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -9.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 289.2
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.7
-        }
-      ]
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
     },
     {
-      "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Contracción de ventas (-9,7%) por precio, compensada por margen récord (28,8%) y deuda 0,5x.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 750.1
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": -9.7
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -6.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 216.1
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 28.8
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 107.8
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 3.22
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -10.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 214.8
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.5
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q3",
-      "fecha": "2025-10-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Ventas -7,6% pero orgánico mejora a -5,1% y margen 29,3%; deuda en mínimos (0,3x).",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1124.4
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": -7.6
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -5.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 328.9
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 29.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 165.2
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 4.93
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -2.4
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 150.3
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.3
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q4",
-      "fecha": "2026-02-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Normalización digerida: margen récord 30,1%, deuda 0,2x y FCF 200 M€. La caída es precio, no deterioro. Tesis vigente.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 1465.2
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": -7.8
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -5.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 441.0
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 30.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 219.6
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 6.24
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": -26.0
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 105.3
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.2
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "Propuesta de incremento del dividendo para 2026.",
-          "impacto": "+",
-          "valoracion": "Confirma la política de retribución creciente respaldada por la solidez del balance."
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q1",
-      "fecha": "2026-04-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Inflexión: beneficio +13% y BPA +13,3%, margen 28,3%. Apalancamiento sube a 0,6x por la compra de Chile (75 M€). Recuperación en marcha.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 367.5
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": -1.3
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -4.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 104.0
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 28.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 53.7
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 1.53
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 13.3
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 273.1
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.6
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q2",
-      "fecha": "2026-07-23",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Recuperación confirmada: ventas 754,0 M€ vuelven a crecer en reportado (+0,5%; orgánico −3,8% aún negativo por Europa pero mejorando y compensado por Sudamérica). Margen EBITDA récord 29,9% (+110 pb), EBITDA +4,4% y BPA +9,9%. Balance sólido (DN/EBITDA 0,6x) pese al plan inversor y Chile. Guía 2026 reafirmada y remuneración creciente (dividendo +15%, recompra al 3%). Verde.",
-      "metricas": [
-        {
-          "nombre": "Ventas (M€)",
-          "valor": 754.0
-        },
-        {
-          "nombre": "Var. ventas (%)",
-          "valor": 0.5
-        },
-        {
-          "nombre": "Crec. orgánico (%)",
-          "valor": -3.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 225.5
-        },
-        {
-          "nombre": "Mg. EBITDA (%)",
-          "valor": 29.9
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 117.4
-        },
-        {
-          "nombre": "BPA (€)",
-          "valor": 3.36
-        },
-        {
-          "nombre": "Var. BPA (%)",
-          "valor": 9.9
-        },
-        {
-          "nombre": "Deuda neta (M€)",
-          "valor": 252.3
-        },
-        {
-          "nombre": "DN/EBITDA (x)",
-          "valor": 0.6
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "Pago el 15 de julio del dividendo complementario de 2025 (0,4687 €/acción), un +15% sobre el año anterior; la distribución en efectivo acumulada de 2026 asciende a ~1,7505 €/acción.",
-          "impacto": "+",
-          "valoracion": "Confirma la política de dividendo creciente y sostenible, respaldada por la solidez del balance."
-        },
-        {
-          "tipo": "Recompra",
-          "hecho": "El Consejo amplía el programa de recompra de acciones hasta el 3% del capital (para amortización), elevando la remuneración total al accionista a más de 150 M€.",
-          "impacto": "+",
-          "valoracion": "Refuerza el retorno de capital y señala la confianza del Consejo en el valor intrínseco, compatible con inversión y expansión."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Reafirma las previsiones 2026: EBITDA superior a 450 M€, crecimiento del beneficio anual de más del 5% y generación de caja libre en torno a 200 M€. Precisión sobre la guía reiterada: el documento guía crecimiento del BENEFICIO POR ACCIÓN superior al 5% (no del beneficio absoluto), y el flujo de caja libre de ~200 M€ es «underlying», es decir, excluyendo costes de reestructuración. EBITDA >450 M€ se confirma. Tipos de cambio asumidos: EUR/GBP 0,87, EUR/BRL 6,10, EUR/CLP 1.040.",
-          "impacto": "=",
-          "valoracion": "Guía consistente con la inflexión del semestre; el margen récord y Sudamérica dan visibilidad al objetivo."
-        },
-        {
-          "tipo": "Remuneración",
-          "hecho": "Retribución al accionista de 2026 desglosada: 62 M€ en dividendos en efectivo (+15% interanual, tras la ampliación liberada de noviembre de 2025) y 90 M€ de recompra, ampliada hasta un máximo del 3% del capital para su amortización.",
-          "impacto": "+",
-          "valoracion": "152 M€ de retribución total con una deuda neta de 252,3 M€ y un apalancamiento de 0,6x: es holgadamente financiable. La recompra con amortización mejora el BPA, que es justo la magnitud sobre la que guía la compañía."
-        },
-        {
-          "tipo": "Operativo",
-          "hecho": "Mix por regiones en el semestre (1S25 → 1S26): Sudamérica ventas 123 → 141 y EBITDA 42 → 53; Europa 383 → 364 y 117 → 114; Reino Unido e Irlanda 281 → 250 y 63 → 59. El segundo trimestre aislado mejora: ventas 396 (−2,4%) y EBITDA 115 (+5,9%), frente a un primer trimestre de −6,0% y −3,0%.",
-          "impacto": "=",
-          "valoracion": "Dato clave para leer el semestre: todo el crecimiento viene de Sudamérica (EBITDA +26%), mientras Europa y Reino Unido ceden. Y el 2T ya mejora sobre el 1T, lo que apunta a que el suelo del ciclo europeo puede estar cerca."
-        }
-      ],
-      "periodoDisplay": "S1"
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
     }
-  ]
+   ],
+   "nota": "El anexo por segmentos no existe todavía. La 4ª columna es «constant currency», no orgánica.",
+   "etiqueta": "Q1-2023",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen del 26,6 %: banda que DEBILITA (25-28 %). Deuda 0,9x, refuerza. Sube con fuerza desde el desastre energético de 2022 —EBITDA ×4,3— pero el margen aún no ha vuelto al 28 %. Ámbar por el margen, no por el balance."
+  },
+  {
+   "periodo": "2023-Q2",
+   "fecha": "2023-07-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 794.8
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 215.2
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 27.08
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 4.19
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.8
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 23.9,
+     "nota": "a tipo de cambio constante (la empresa NO publica variación orgánica en este período)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 283.8,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    }
+   ],
+   "nota": "Ídem. EPS ajustado por la liberada de diciembre de 2022.",
+   "etiqueta": "S1-2023",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "27,1 % de margen, sigue por debajo del 28 %. Deuda 0,8x, refuerza. Recuperando. La variación es a tipo de cambio constante, no orgánica: la empresa no publica orgánica en 2023."
+  },
+  {
+   "periodo": "2023-Q3",
+   "fecha": "2023-10-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1194.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 315.6
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 26.43
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 6.01
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.5
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 18.6,
+     "nota": "a tipo de cambio constante (la empresa NO publica variación orgánica en este período)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 208.9,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—. Este informe SÍ titula generación de caja: 89.6 M€."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": null,
+     "nota": "no publicado por la empresa: los informes interinos de 2023 no desglosan las ventas por región; el anexo por segmentos aparece por primera vez en el FY-2023"
+    }
+   ],
+   "nota": "Primer período con generación de caja titulada.",
+   "etiqueta": "9M-2023",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "26,4 %, por debajo del semestre. Deuda 0,5x, el mínimo del año, refuerza. Primera generación de caja titulada: 89,6 M€. El margen manda el color."
+  },
+  {
+   "periodo": "2023-Q4",
+   "fecha": "2024-02-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1558.8
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 393.7
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 25.26
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 7.23
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 1.1
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 15.3,
+     "nota": "a tipo de cambio constante y perímetro comparable"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 472.2,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 799.4
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 609.0
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 158.6
+    }
+   ],
+   "nota": "⚠ Brasil es PRO-FORMA: Vidroporto consolida desde el 1-dic-2023, así que 158,6 no entra en las ventas. Italia (131,3) sigue en perímetro y no es una de las diez. Los segmentos NO suman las ventas.",
+   "etiqueta": "FY-2023",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "25,3 % de margen —el suelo de la banda que debilita— y deuda 1,1x, que entra en el tramo 1,0-2,5x y también debilita. Además el EBITDA (393,7) cae en la banda 380-420 que debilita. Tres varas en ámbar; los ingresos (1.558,8) y el BPA (7,23) refuerzan. Es el año de Vidroporto: la compra está pagada y el desapalancamiento empieza al siguiente."
+  },
+  {
+   "periodo": "2024-Q1",
+   "fecha": "2024-04-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 419.4
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 109.8
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 26.18
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 1.64
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 1.2
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 1.4,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 529.7,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 196.3
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 149.7
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 56.4
+    }
+   ],
+   "nota": "Italia 17,0 fuera de las diez: 196,3+149,7+56,4+17,0 = 419,4 ✓",
+   "etiqueta": "Q1-2024",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "26,2 % de margen y 1,2x de deuda: las dos varas en banda de debilitar, por la digestión de Vidroporto. Primera orgánica publicada, +1,4 %."
+  },
+  {
+   "periodo": "2024-Q2",
+   "fecha": "2024-07-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 830.4
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 225.0
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 27.1
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 3.75
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 1.0
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 0.7,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 433.4,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 399.8
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 311.5
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 102.1
+    }
+   ],
+   "nota": "Con Italia 17,0: suma 830,4 ✓. Las cifras de 2023 se reexpresaron por la venta de Italia.",
+   "etiqueta": "S1-2024",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "27,1 % y 1,0x justo en la frontera. Mejora en las dos pero ninguna cruza al verde."
+  },
+  {
+   "periodo": "2024-Q3",
+   "fecha": "2024-10-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1216.4
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 337.7
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 27.76
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 7.22
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.7
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 0.9,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 299.1,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 576.3
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 473.9
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 149.2
+    }
+   ],
+   "nota": "Con Italia 17,0: suma 1.216,4 ✓",
+   "etiqueta": "9M-2024",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "27,8 % de margen, a dos décimas del 28 %. Deuda 0,7x, que ya refuerza. Ámbar solo por el margen, y por muy poco."
+  },
+  {
+   "periodo": "2024-Q4",
+   "fecha": "2025-02-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1588.3
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 454.0
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 28.58
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 8.85
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.6
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": 0.2,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 248.3,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 740.1
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 631.8
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 199.4
+    }
+   ],
+   "nota": "Con Italia 17,0: suma 1.588,3 ✓. Italia sale del perímetro (discontinuada desde 1-mar-2024).",
+   "etiqueta": "FY-2024",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Las cinco varas del §10.1 en refuerza a la vez: margen 28,6 % (>28), deuda 0,6x (<1,0), ingresos 1.588,3 (>1.450), EBITDA 454,0 (≥420) y BPA 8,85 (>5,50). El mejor cierre de la serie, con Vidroporto digerido en un ejercicio."
+  },
+  {
+   "periodo": "2025-Q1",
+   "fecha": "2025-04-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 372.5
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 104.6
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 28.08
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 1.42
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.7
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -6.6,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 289.2,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 188.2
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 137.5
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 46.8
+    }
+   ],
+   "nota": "188,2+137,5+46,8 = 372,5 ✓ — primer período en que los tres segmentos suman las ventas.",
+   "etiqueta": "Q1-2025",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen 28,1 % y deuda 0,7x: las dos varas aplicables a un período acumulado, en refuerza. Las ventas caen un 11,2 % reportado y un 6,6 % orgánico —es el primer trimestre del destocking— pero el §10.1 NO tiene umbral de crecimiento orgánico y su umbral de ingresos es anual: no procede aplicarlo a un trimestre."
+  },
+  {
+   "periodo": "2025-Q2",
+   "fecha": "2025-07-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 750.1
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 216.1
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 28.81
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 3.22
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.5
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -6.7,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 214.8,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 382.7
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 280.6
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 86.8
+    }
+   ],
+   "nota": "suma 750,1 ✓",
+   "etiqueta": "S1-2025",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "28,8 % de margen y 0,5x de deuda, las dos refuerzan. La orgánica de −6,7 % es la peor de la serie y describe bien lo que pasa —la empresa defiende precio a costa de volumen, que es la respuesta a la sobrecapacidad del §8.1— pero no es una vara del §10.1 y no puede decidir el color."
+  },
+  {
+   "periodo": "2025-Q3",
+   "fecha": "2025-10-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1124.4
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 328.9
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 29.25
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 4.93
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.3
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -5.1,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 150.3,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—. Este informe SÍ titula generación de caja: 155.2 M€."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 562.7
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 436.0
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 125.8
+    }
+   ],
+   "nota": "suma 1.124,5 ≈ 1.124,4 ✓",
+   "etiqueta": "9M-2025",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "29,3 % y 0,3x. Generación de caja de 155,2 M€. La orgánica mejora a −5,1 %."
+  },
+  {
+   "periodo": "2025-Q4",
+   "fecha": "2026-02-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 1465.2
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 441.0
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 30.1
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 6.24
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.2
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -5.4,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 105.3,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—. Este informe SÍ titula generación de caja: 200.1 M€."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 713.5
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 573.9
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 177.8
+    }
+   ],
+   "nota": "suma 1.465,2 ✓. EBITDA y BPA EXCLUYEN 13,7 M€ de reestructuración: los estatutarios son 427,38 y 5,95.",
+   "etiqueta": "FY-2025",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Las cinco varas en refuerza: margen 30,1 % —máximo de la década—, deuda 0,2x, ingresos 1.465,2 (>1.450), EBITDA 441,0 (≥420) y BPA 6,24 (>5,50). Ojo al umbral de ingresos: debilita si CAEN DOS EJERCICIOS SEGUIDOS, y no es el caso —1.558,8 → 1.588,3 sube → 1.465,2 baja—: una sola caída. Es el año base del análisis."
+  },
+  {
+   "periodo": "2026-Q1",
+   "fecha": "2026-04-25",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 367.5
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 104.0
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 28.3
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 1.53
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.6
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -4.7,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 273.1,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 174.5
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 119.5
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 73.4
+    }
+   ],
+   "nota": "⚠ QUIEBRE: «Brasil» pasa a «South America (2025 proforma)» al entrar Chile. 174,5+119,5+73,4 = 367,4 ≈ 367,5 ✓",
+   "etiqueta": "Q1-2026",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "28,3 % de margen y 0,6x de deuda. La caída reportada se reduce al 1,3 % y la orgánica a −4,7 %: el destocking se está agotando, que es el catalizador nº 1 del §9.1."
+  },
+  {
+   "periodo": "2026-Q2",
+   "fecha": "2026-07-23",
+   "origen": "revolcado",
+   "metricas": [
+    {
+     "nombre": "Ventas (M€)",
+     "valor": 754.0
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 225.5
+    },
+    {
+     "nombre": "Mg. EBITDA (%)",
+     "valor": 29.91
+    },
+    {
+     "nombre": "BPA (€)",
+     "valor": 3.36
+    },
+    {
+     "nombre": "Deuda / EBITDA (x)",
+     "valor": 0.6
+    },
+    {
+     "nombre": "Var. orgánica de ventas (%)",
+     "valor": -3.8,
+     "nota": "orgánica (tipo de cambio constante y perímetro comparable)"
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 252.3,
+     "nota": "cifra titulada en el informe. SUSTITUYE al FCL por la regla P8(b): el FCL solo se titula en 3 de los 14 informes y no es derivable —ningún interino publica estado de flujos ni CAPEX—."
+    },
+    {
+     "nombre": "Ventas Península Ibérica y resto de Europa (M€)",
+     "valor": 363.6
+    },
+    {
+     "nombre": "Ventas Reino Unido e Irlanda (M€)",
+     "valor": 249.8
+    },
+    {
+     "nombre": "Ventas Sudamérica (M€)",
+     "valor": 140.6
+    }
+   ],
+   "nota": "Informe en español. Sudamérica proforma con Chile. 363,6+249,8+140,6 = 754,0 ✓",
+   "etiqueta": "S1-2026",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "29,9 % de margen y 0,6x. Ventas reportadas +0,5 %, la primera variación positiva desde 2024. La orgánica sigue en −3,8 %, así que la mejora viene de perímetro (Chile) y no de volumen propio — información relevante, pero no una vara del §10.1."
+  }
+ ]
 }
