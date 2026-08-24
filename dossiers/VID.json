@@ -1,168 +1,183 @@
 {
-"schemaVersion": 8,
-"ticker": "VID",
-"empresa": "Vidrala, S.A.",
-"fecha": "2026-08-24",
-"rating": "AA",
-"score": 75.7,
-"decision": "COMPRAR",
-"metodoValoracion": "Síntesis ponderada de nueve métodos — DCF 45 % (pesimista 10 · base 25 · optimista 10) + múltiplos históricos de diez años 50 % (EV/EBITDA 15 · EV/EBIT 10 · PER 10 · P/BV 5 · P/FCL 10) + renta 5 % (dividend yield). Arquetipo INDUSTRIAL cíclica. PO oficial = el de esa síntesis (§6.5) = 106,42 €; el DCF base por sí solo daría 96,90 €.",
-"poBear": 85.29,
-"poBase": 106.42,
-"poBull": 123.57,
-"entMin": 85.29,
-"entMax": 92.54,
-"stop": 37.5,
-"dpaPrevisto": 1.6997,
-"moat": "MOAT ESTRECHO (48,1/100). El vidrio no viaja más de ~300 km, así que el foso es geográfico: escala eficiente 75 y ventaja de costes 60 —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—. Intangibles 25 y costes de cambio 35: el producto no admite marca. El efecto de red se declara N/A y su peso se reparte.",
-"catalizadores": [
-"Fin del destocking y vuelta al crecimiento de volumen (S1-2026, +9 a +16 % del PO)",
-"Vidroporto a plena capacidad (FY-2026, +2 a +5 %)",
-"Normalización del CAPEX tras el ciclo inversor (FY-2026, +5 a +11 %)",
-"Retribución: complementario y amortización de autocartera (AGM 2027, +1 a +3 %)"
-],
-"riesgos": [
-"Sobrecapacidad y guerra de precios en Europa — probabilidad ALTA, −20 a −44 % del PO",
-"Coste de la energía (gas y electricidad) — media, −25 a −45 %",
-"Sustitución del vidrio por lata, PET y cartón — media, −19 a −37 %",
-"Concentración de clientes y renegociación de contratos — media, −11 a −25 %",
-"Recesión y caída del consumo de bebida envasada — media, −18 a −34 %",
-"Traslación de libra y real brasileño — media, −7 a −18 %",
-"Descarbonización obligatoria del horno (ETS) — media, −5 a −18 %",
-"Interrupción de sistemas o de suministro — media, −4 a −22 %"
-],
-"bull": "Fin del destocking en su extremo alto —margen +2 pp y volumen +4 %— con Vidroporto a plena capacidad dentro. Sin expansión de múltiplos: los del §6.5 ya son las medias de diez años.",
-"bear": "El riesgo dominante en su versión suave: sobrecapacidad y guerra de precios llevan el margen EBITDA del 29,2 % al 25,2 %, que seguiría siendo el mejor de los tres comparables. Es un mal año, no una catástrofe: 85,29 €, un 5,3 % por debajo de la cotización.",
-"resumen": "Vidrala es el fabricante de envase de vidrio más rentable de su sector europeo —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—, con el balance casi sin deuda (0,25x EBITDA), un ROIC del 14,6 % muy por encima de su coste de capital del 7,7 %, y cotiza un 18 % por debajo de lo que valen sus propios múltiplos de diez años. Se compra la rentabilidad de un negocio de escala regional en un mal año del ciclo, no una historia de crecimiento. Lo que hay que creerse es una sola cosa: que el margen aguanta — cuatro puntos de margen EBITDA se llevan el 19,9 % del precio objetivo.",
-"confianza": {
-"score": 98,
-"nivel": "A",
-"motivos": [
-"1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-"conciliación ampliada aún NO ejecutada (ficha 03)"
-],
-"sensibleASupuestos": false,
-"reglaDura": {
-"bloqueaCompraEnFirme": false,
-"motivo": "",
-"accion": null
-},
-"calculadoEl": "2026-08-24"
-},
-"robustez": {
-"nivel": "solida",
-"sobreviveDecision": true,
-"matizada": false,
-"banda": {
-"p10": 85.29,
-"p50": 106.42,
-"p90": 123.57
-},
-"sensibilidad": {
-"sobre": "sintesis",
-"regla": "F100",
-"poMin": 101.78,
-"poMax": 114.27,
-"poBase": 106.42,
-"cotizacion": 90.1,
-"cotizacionBase": "cierre: Cotización cierre 2025",
-"componente": "DCF Base",
-"pesoPerturbado": 0.25,
-"componentesIntactos": 8,
-"dcf": {
-"poMin": 78.34,
-"poMax": 128.3,
-"poBase": 96.9014639282105
-},
-"ejeCoste": "WACC",
-"pertCoste": 1.0,
-"pertOtro": 0.5,
-"mdsMin": 13.0,
-"mdsMax": 26.8
-},
-"beta": {
-"capm": 0.744,
-"ref2": null,
-"aviso": null
-},
-"motivos": [
-"QUÉ SE HA PERTURBADO: solo «DCF Base» (25 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 75 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-"la cotización (90.10) queda por DEBAJO de toda la banda del precio objetivo de síntesis [101.78–114.27] → infravalorada en todo el rango; decisión de compra ROBUSTA",
-"para contraste, el DCF puro (§6.3) se mueve en [78.34–128.30] € alrededor de 96.90 €: es la sensibilidad del MODELO, no la del precio objetivo",
-"la robustez se juzga contra la BASE PUBLICADA («Cotización cierre 2025» = 90.10 €), no contra un precio de hoy: este libro no declara cotización actual [F129/F148]",
-"ojo al leerlo junto a la banda de escenarios [85.29–123.57] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
-],
-"calculadoEl": "2026-08-24"
-},
-"dividendSafety": {
-"score": 89,
-"banda": "Muy seguro",
-"componentes": {
-"C1": 35,
-"C2": 15,
-"C3": 18,
-"C4": 15,
-"C5": 6
-},
-"shareholderYield": 1.68,
-"topeDuro": {
-"activo": false,
-"motivo": ""
-},
-"motivos": [
-"C1 cobertura dividendo ord.: OE 4.84x / FCL 3.89x (3a OE 2.55x) → 35/35",
-"C2 payout BN ord.: 25% (3a 36%) → 15/15",
-"C3 balance parcial → 18/20",
-"C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
-"C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
-"C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-],
-"calculadoEl": "2026-08-24"
-},
-"forense": {
-"aplica": true,
-"piotroski": {
-"score": 6,
-"banda": "medio",
-"detalle": {
-"roa_pos": 1,
-"cfo_pos": 1,
-"roa_up": 0,
-"accrual": 1,
-"lever_dn": 1,
-"liquid_up": 1,
-"no_dilu": 0,
-"margin_up": 1,
-"turn_up": 0
-},
-"nota": "margen=bruto"
-},
-"altman": {
-"z": 8.53,
-"zona": "segura"
-},
-"beneish": {
-"m": -2.86,
-"senal": "sin indicios",
-"aproximado": [
-"SGAI"
-]
-},
-"sloan": {
-"accruals": -7.4,
-"senal": "normal"
-},
-"flags": [],
-"veto": false,
-"vetoMotivos": [],
-"calculadoEl": "2026-08-24"
-},
-"reverseDcf": {
-"aplica": true,
-"gImplicito": 3.05,
-"gIntrinseco": 6.73,
-"veredicto": "PLAUSIBLE",
-"motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-"calculadoEl": "2026-08-24"
-}
+ "schemaVersion": 8,
+ "ticker": "VID",
+ "empresa": "Vidrala, S.A.",
+ "fecha": "2026-08-24",
+ "rating": "AA",
+ "score": 75.7,
+ "decision": "COMPRAR",
+ "metodoValoracion": "Síntesis ponderada de nueve métodos — DCF 45 % (pesimista 10 · base 25 · optimista 10) + múltiplos históricos de diez años 50 % (EV/EBITDA 15 · EV/EBIT 10 · PER 10 · P/BV 5 · P/FCL 10) + renta 5 % (dividend yield). Arquetipo INDUSTRIAL cíclica. PO oficial = el de esa síntesis (§6.5) = 106,42 €; el DCF base por sí solo daría 96,90 €.",
+ "poBear": 85.29,
+ "poBase": 106.42,
+ "poBull": 123.57,
+ "entMin": 85.29,
+ "entMax": 92.54,
+ "stop": 37.5,
+ "dpaPrevisto": 1.6997,
+ "moat": "MOAT ESTRECHO (48,1/100). El vidrio no viaja más de ~300 km, así que el foso es geográfico: escala eficiente 75 y ventaja de costes 60 —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—. Intangibles 25 y costes de cambio 35: el producto no admite marca. El efecto de red se declara N/A y su peso se reparte.",
+ "catalizadores": [
+  "Fin del destocking y vuelta al crecimiento de volumen (S1-2026, +9 a +16 % del PO)",
+  "Vidroporto a plena capacidad (FY-2026, +2 a +5 %)",
+  "Normalización del CAPEX tras el ciclo inversor (FY-2026, +5 a +11 %)",
+  "Retribución: complementario y amortización de autocartera (AGM 2027, +1 a +3 %)"
+ ],
+ "riesgos": [
+  "Sobrecapacidad y guerra de precios en Europa — probabilidad ALTA, −20 a −44 % del PO",
+  "Coste de la energía (gas y electricidad) — media, −25 a −45 %",
+  "Sustitución del vidrio por lata, PET y cartón — media, −19 a −37 %",
+  "Concentración de clientes y renegociación de contratos — media, −11 a −25 %",
+  "Recesión y caída del consumo de bebida envasada — media, −18 a −34 %",
+  "Traslación de libra y real brasileño — media, −7 a −18 %",
+  "Descarbonización obligatoria del horno (ETS) — media, −5 a −18 %",
+  "Interrupción de sistemas o de suministro — media, −4 a −22 %"
+ ],
+ "bull": "Fin del destocking en su extremo alto —margen +2 pp y volumen +4 %— con Vidroporto a plena capacidad dentro. Sin expansión de múltiplos: los del §6.5 ya son las medias de diez años.",
+ "bear": "El riesgo dominante en su versión suave: sobrecapacidad y guerra de precios llevan el margen EBITDA del 29,2 % al 25,2 %, que seguiría siendo el mejor de los tres comparables. Es un mal año, no una catástrofe: 85,29 €, un 5,3 % por debajo de la cotización.",
+ "resumen": "Vidrala es el fabricante de envase de vidrio más rentable de su sector europeo —29,2 % de margen EBITDA contra 20,8 % de Verallia y 19,0 % de O-I—, con el balance casi sin deuda (0,25x EBITDA), un ROIC del 14,6 % muy por encima de su coste de capital del 7,7 %, y cotiza un 18 % por debajo de lo que valen sus propios múltiplos de diez años. Se compra la rentabilidad de un negocio de escala regional en un mal año del ciclo, no una historia de crecimiento. Lo que hay que creerse es una sola cosa: que el margen aguanta — cuatro puntos de margen EBITDA se llevan el 19,9 % del precio objetivo.",
+ "confianza": {
+  "score": 98,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+   "conciliación ampliada aún NO ejecutada (ficha 03)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-08-24"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "matizada": false,
+  "banda": {
+   "p10": 85.29,
+   "p50": 106.42,
+   "p90": 123.57
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 101.78,
+   "poMax": 114.27,
+   "poBase": 106.42,
+   "cotizacion": 90.1,
+   "cotizacionBase": "cierre: Cotización cierre 2025",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.25,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 78.34,
+    "poMax": 128.3,
+    "poBase": 96.9014639282105
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 13.0,
+   "mdsMax": 26.8
+  },
+  "beta": {
+   "capm": 0.744,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (25 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 75 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (90.10) queda por DEBAJO de toda la banda del precio objetivo de síntesis [101.78–114.27] → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "para contraste, el DCF puro (§6.3) se mueve en [78.34–128.30] € alrededor de 96.90 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "la robustez se juzga contra la BASE PUBLICADA («Cotización cierre 2025» = 90.10 €), no contra un precio de hoy: este libro no declara cotización actual [F129/F148]",
+   "ojo al leerlo junto a la banda de escenarios [85.29–123.57] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
+  ],
+  "calculadoEl": "2026-08-24"
+ },
+ "dividendSafety": {
+  "score": 89,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 18,
+   "C4": 15,
+   "C5": 6
+  },
+  "shareholderYield": 1.68,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 4.84x / FCL 3.89x (3a OE 2.55x) → 35/35",
+   "C2 payout BN ord.: 25% (3a 36%) → 15/15",
+   "C3 balance parcial → 18/20",
+   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-08-24"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 8.53,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.86,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -7.4,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-08-24"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 3.05,
+  "gIntrinseco": 6.73,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-08-24",
+  "entradas": {
+   "fcl": 174.53,
+   "wacc": 7.72,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 35.18,
+   "deudaNeta": 105.26,
+   "modo": "EV",
+   "precioBase": 90.1,
+   "validado": true,
+   "desviacion": 0.004,
+   "gBase": 3.054,
+   "congeladoEl": "2026-08-24",
+   "fechaBase": "2026-08-24"
+  }
+ }
 }
