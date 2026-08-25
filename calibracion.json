@@ -976,10 +976,10 @@
    "colchonStop": null,
    "recorridoStop": null,
    "dcf": 8.46406546484056,
-   "recorteSintesis": null,
+   "recorteSintesis": 0.8159122308123035,
    "bandaP10": 12.71,
    "bandaP90": 19.97,
-   "robustez": "solida · sobrevive",
+   "robustez": "solida",
    "gImplicito": 0.1022,
    "veredictoRdcf": "HEROICO",
    "confianza": "A · 100",
@@ -987,7 +987,7 @@
    "dividendSafety": 70,
    "betaReferencia": 0.088,
    "desfaseBeta": -0.302,
-   "ajustesN": null,
+   "ajustesN": 0,
    "ajusteFecha": null,
    "ajusteDecision": null,
    "ajustePo": null
@@ -1013,8 +1013,8 @@
    "riesgoBear": null,
    "colchonStop": null,
    "recorridoStop": null,
-   "dcf": 106.42,
-   "recorteSintesis": 0,
+   "dcf": 96.9014639282105,
+   "recorteSintesis": 0.09822902241024245,
    "bandaP10": 85.29,
    "bandaP90": 123.57,
    "robustez": "solida",
@@ -1051,8 +1051,8 @@
    "riesgoBear": null,
    "colchonStop": null,
    "recorridoStop": null,
-   "dcf": 37.45,
-   "recorteSintesis": 0,
+   "dcf": 38.0436974470045,
+   "recorteSintesis": -0.0156056715526014,
    "bandaP10": 28.14,
    "bandaP90": 46.24,
    "robustez": "solida",
@@ -1137,19 +1137,19 @@
    ]
   },
   "semaforo": {
-   "total": 334,
+   "total": 335,
    "reparto": [
     {
      "clave": "V",
      "nombre": "VERDE",
-     "n": 199,
-     "pct": 59.6
+     "n": 200,
+     "pct": 59.7
     },
     {
      "clave": "A",
      "nombre": "ÁMBAR",
      "n": 122,
-     "pct": 36.5
+     "pct": 36.4
     },
     {
      "clave": "R",
@@ -1255,6 +1255,11 @@
     "trimestres": 14
    },
    {
+    "empresa": "CIE",
+    "verdesSeguidos": 4,
+    "trimestres": 14
+   },
+   {
     "empresa": "Iberdrola",
     "verdesSeguidos": 4,
     "trimestres": 14
@@ -1263,11 +1268,6 @@
     "empresa": "Naturgy",
     "verdesSeguidos": 4,
     "trimestres": 9
-   },
-   {
-    "empresa": "CIE",
-    "verdesSeguidos": 3,
-    "trimestres": 13
    },
    {
     "empresa": "Faes Farma",

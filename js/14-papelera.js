@@ -46,6 +46,7 @@ var TRASH_RESTORE={
                                    if(DB.planLote.map(function(x){return (x||'').toUpperCase();}).indexOf(p.t)<0)DB.planLote.push(p.t);
                                    if(p.tipo){ DB.planTipo=DB.planTipo||{}; DB.planTipo[p.t]=p.tipo; }
                                    if(p.compras&&Object.keys(p.compras).length){ DB.planCompras=DB.planCompras||{}; DB.planCompras[p.t]=p.compras; }
+                                   if(p.sim&&Object.keys(p.sim).length){ DB.simShares=DB.simShares||{}; DB.simShares[p.t]=p.sim; }
                                    try{ if(typeof _planRepartoInval==='function')_planRepartoInval(); }catch(e){}
                                    return ['renderPlanLote','renderSimulador']; },
   dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },

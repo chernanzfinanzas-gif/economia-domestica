@@ -1172,19 +1172,27 @@ function dvBajaEmpresa(tk){
   const tipo=(DB.planTipo||{})[tk]||'';
   const compras=Object.assign({},(DB.planCompras||{})[tk]||{});
   const nPin=Object.keys(compras).filter(y=>num(compras[y])>0).length;
+  /* El Simulador arma su lista con Object.keys(DB.simShares) (línea ~131), al margen del plan: si la
+     proyección manual de acciones se queda atrás, el ticker sigue saliendo allí — y encima etiquetado
+     «Plan», que ya no es verdad. Se va con la baja y vuelve con el deshacer. */
+  const sim=Object.assign({},(DB.simShares||{})[tk]||{});
+  const nSim=Object.keys(sim).filter(y=>num(sim[y])>0).length;
   const TL={joya:'Joya 👑',nucleo:'Núcleo',mantener:'Mantener','':'sin clasificar'};
-  const det=[TL[tipo]||tipo].concat(nPin?[nPin+' importe'+(nPin===1?'':'s')+' fijado'+(nPin===1?'':'s')+' a mano']:[]).join(' · ');
+  const det=[TL[tipo]||tipo]
+    .concat(nPin?[nPin+' importe'+(nPin===1?'':'s')+' fijado'+(nPin===1?'':'s')+' a mano']:[])
+    .concat(nSim?[nSim+' año'+(nSim===1?'':'s')+' de acciones proyectadas en el Simulador']:[]).join(' · ');
   if(!confirm('¿Sacar '+tk+' del plan de Diversificación?\n\nSe pierde: '+det+'.\n'
     +'No toca tu cartera, ni las operaciones, ni el análisis.\nPodrás deshacerlo desde el aviso o la Papelera.'))return;
   const quitar=function(){
     DB.planLote=(DB.planLote||[]).filter(x=>(x||'').toUpperCase()!==tk);
     if(DB.planTipo)delete DB.planTipo[tk];
     if(DB.planCompras)delete DB.planCompras[tk];   /* imprescindible: si queda, la fila se reinyecta sola */
+    if(DB.simShares&&Object.keys(sim).length)delete DB.simShares[tk];   /* si no, reaparece en el Simulador como «Plan» */
     _planRepartoInval();
     if(typeof saveNow==='function')saveNow();
   };
   if(typeof undoableDelete==='function')
-    undoableDelete('plan_empresa', tk+' — fuera del plan', {t:tk,tipo:tipo,compras:compras}, quitar, ['renderPlanLote','renderSimulador']);
+    undoableDelete('plan_empresa', tk+' — fuera del plan', {t:tk,tipo:tipo,compras:compras,sim:sim}, quitar, ['renderPlanLote','renderSimulador']);
   else { quitar(); renderPlanLote(); if(typeof renderSimulador==='function')renderSimulador(); }
 }
 function _dvAltaClose(){ const o=document.getElementById('dvAltaWrap'); if(o)o.remove(); window._dvAlta=null; }
@@ -1582,10 +1590,10 @@ function renderPlanLote(){
   if(!window._loteCoSel || allOrder.indexOf(window._loteCoSel)<0) window._loteCoSel=allOrder[0]||'';
   const selIdx=Math.max(0, allOrder.indexOf(window._loteCoSel));
   const faltaShort=t=>{ const f=asignar(t)-schedSum(t); return Math.abs(f)<0.5?'✓ repartido':(f>0?'falta '+eurK(f)+'€':'sobra '+eurK(-f)+'€'); };
-  const coOptions=allOrder.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${(TIPOL[tipoOf(t)]||'').replace(' 👑','')} · ${held.includes(t)?'Cartera':'Nueva'} · ${faltaShort(t)}</option>`).join('');
+  const coOptions=allOrder.map((t,i)=>`<option value="${i}"${i===selIdx?' selected':''}>${t} · ${(TIPOL[tipoOf(t)]||'').replace(' 👑','')} · ${held.includes(t)?'Cartera':'Sin comprar'} · ${faltaShort(t)}</option>`).join('');
   const tipoBadge=t=>{ const o=TIPOB[tipoOf(t)]||TIPOB['']; return `<span class="tbadge" style="color:${o[0]};background:${o[1]}">${TIPOL[tipoOf(t)]}</span>`; };
   const faltaTxt=t=>{ const f=asignar(t)-schedSum(t); return Math.abs(f)<0.5?'<span class="ok2">✓ repartido</span>':(f>0?'<span class="fw2">falta '+fmt(f)+'</span>':'<span class="fn2">sobra '+fmt(-f)+'</span>'); };
-  const mdetail=(t,i)=>{ const estPill=held.includes(t)?'<span class="pill g">Cartera</span>':'<span class="pill b">Nueva</span>';
+  const mdetail=(t,i)=>{ const estPill=held.includes(t)?'<span class="pill g">Cartera</span>':'<span class="pill b">Sin comprar</span>';  /* misma etiqueta que la fila de escritorio */
     return `<div class="codet" data-coi="${i}"${i!==selIdx?' style="display:none"':''}>`
       +`<div class="codet-h"><div class="mid"><div class="t1"><b class="dv-tk" data-ficha="${t}" style="cursor:pointer">${t}</b> ${tipoBadge(t)} ${estPill}</div><div class="t2">${(nm(t)||'').slice(0,28)}</div></div><div class="fh">${faltaTxt(t)}<div class="fl">pendiente</div></div></div>`
       +`<div class="drow"><span>Clasificación</span>${tipoSel(t)}</div>`
