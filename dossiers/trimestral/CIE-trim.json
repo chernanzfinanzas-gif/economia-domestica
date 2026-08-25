@@ -1,765 +1,787 @@
 {
   "schemaVersion": 2,
   "ticker": "CIE",
-  "empresa": "CIE Automotive",
+  "empresa": "CIE Automotive, S.A.",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-27",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Arranque 2023 con crecimiento a doble dígito: ventas +10,3% y EBITDA +13,8% YoY, margen 17,8% (+0,6pp). Rtdo neto +9,6%. DFN/EBITDA 1,86x, ya mejorando desde 2,34x. Refuerza la tesis de crecimiento rentable.",
+      "fecha": "2023-04-25",
       "periodoDisplay": "1T",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR por la vara de la TESIS, no por la del arquetipo. El margen EBITDA del 17,8 % cae en la banda ámbar del §10.1 (17,0-18,5 %) aunque sube 0,6 pp interanual, y el EBIT del 13,3 % ya está en verde. La operativa acompaña: +3,8 pp de outperformance sobre un mercado que crecía al 5,7 %. Lo que pesa es el apalancamiento: DFN/EBITDA ajustada de 1,86x, todavía lejos del <1,00x que el §10.1 pide para verde.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 3.8
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 5.7
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 9.5
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 1008.1
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 179.3
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 17.8
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 134.3
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.3
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 90
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 113.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.5
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1249
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.86
         }
       ]
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-27",
-      "semaforoGlobal": "V",
+      "fecha": "2023-07-17",
+      "periodoDisplay": "S1",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2023: ventas +8,1%, EBITDA +14,1%, margen sube a 18,1%. Rtdo neto +11,2%. Desapalancamiento continúa (1,72x). Momentum sólido y expansión de margen: tesis reforzada.",
-      "periodoDisplay": "1S",
+      "resumen": "El margen sigue mejorando (18,1 %, +1,0 pp interanual) pero LA OPERATIVA SE DA LA VUELTA: el mercado creció un 11,2 % y CIE un 9,3 % a tipo de cambio constante, es decir −1,9 pp de outperformance. Es la primera vez en la serie que crece por debajo del mercado, y en el rebote post-COVID: con la producción mundial recuperando volumen, CIE no captura toda la subida. Ámbar, y por el motivo correcto — el margen va bien y lo que falla es el volumen.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": -1.9
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 11.2
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 9.3
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2011.1
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 363.9
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.1
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 270.1
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.4
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 178.3
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 230.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.6
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1201.4
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.72
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra de Iber-Oleff Brasil (2 de mayo de 2023), renombrada CIE Salto, por 17,3 M€.",
+          "impacto": "=",
+          "valoracion": "Primera compra tras dos años sin ninguna combinación de negocio (2021 y 2022). Tamaño pequeño y del mismo negocio —plástico—: no mueve la tesis, pero marca el reinicio del motor que define a esta compañía."
         }
       ]
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "9M-2023: ventas +4,1% (desaceleración esperada tras trimestres fuertes) pero EBITDA +10,1% y margen 18,0%. Conversión 65,5%. Rentabilidad crece por encima de ventas → apalancamiento operativo positivo.",
+      "fecha": "2023-10-18",
       "periodoDisplay": "9M",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Segundo periodo por debajo del mercado (−1,5 pp) y el margen se estabiliza en el 18,0 %, dentro de la banda ámbar del §10.1. La caja aguanta en el 65,5 % del EBITDA, que es el nivel de toda la serie 2023. El apalancamiento deja de bajar (1,73x frente a 1,72x en junio). Nada roto, pero tres trimestres seguidos sin alcanzar el verde de la tesis en ninguna de las dos varas que la definen.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": -1.5
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 8.5
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 7
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2974.5
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 536.7
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 397.1
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.3
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 253.5
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 339.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.5
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1217.4
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.73
         }
       ]
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Cierre 2023 récord: ventas +3,1%, EBITDA +12,6%, margen 18,0% (máximo histórico), Rtdo neto +6,7%. DFN/EBITDA baja a 1,56x. Año que valida la resiliencia del modelo en un entorno de costes elevado.",
+      "fecha": "2024-02-26",
       "periodoDisplay": "FY",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cierre con el margen EBITDA en el 18,0 %, +1,5 pp sobre 2022, y el EBIT en el 13,3 %: la mejora del año es de margen, no de volumen. La brecha con el mercado se cierra casi del todo (−0,3 pp) pero la cifra de CIE incluye 3 puntos de ajuste por el passthrough de precios a la baja que la propia compañía declara: sin ese ajuste el crecimiento comparable habría sido claramente inferior al del mercado. El desapalancamiento sí avanza: 1,56x desde 1,86x en marzo.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": -0.3
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 9.4
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 9.1
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 3959.5
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 713.2
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 527.7
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.3
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 320.2
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 447.4
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1134.7
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.56
         }
       ]
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-04-25",
+      "fecha": "2024-05-03",
+      "periodoDisplay": "1T",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Q1-2024: ventas +2,8%, EBITDA +6,9%, margen récord 18,5% y margen EBIT supera 14% por primera vez (14,1%). Desapalancamiento a 1,49x. La calidad mejora aunque el crecimiento se modera.",
-      "periodoDisplay": "1T",
+      "resumen": "VERDE, y las dos varas a la vez. El margen EBITDA alcanza el 18,5 % —el corte exacto del verde en el §10.1— y el EBIT supera el 14 % por primera vez en la serie. Y el signo operativo se invierte: con el mercado CAYENDO un 0,8 %, CIE crece un 3,6 % a tipo constante, +4,5 pp de outperformance. Ésa es la prueba que el método pide para creerse un moat — ganar cuota cuando el mercado se encoge—, y aquí está medida por IHS, no por la compañía.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 4.5
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -0.8
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 3.6
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 1036.3
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 191.6
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.5
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 146
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.1
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 93
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 121.7
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.8
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1114.5
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.49
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Compra de AKT Plásticos (26 de marzo de 2024) por 33,4 M€: 19,0 de enterprise value y 14,4 de deuda asumida.",
+          "impacto": "=",
+          "valoracion": "Segunda compra pequeña en dos años. La deuda asumida es casi la mitad del precio, lo que conviene anotar en una empresa cuyo fondo de comercio ya es el 122 % del patrimonio; a este tamaño no mueve el DFN/EBITDA, que sigue bajando."
         }
       ]
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
+      "fecha": "2024-07-17",
+      "periodoDisplay": "S1",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2024: ventas +2,5%, EBITDA +5,0%, margen 18,5% y EBIT récord semestral 14,0%. Conversión 65,8% y DFN/EBITDA 1,45x. Rentabilidad operativa en máximos: tesis intacta.",
-      "periodoDisplay": "1S",
+      "resumen": "Se confirma el trimestre anterior: margen EBITDA en el 18,5 % y EBIT en el 14,0 %, los dos en verde, con +3,3 pp de outperformance sobre un mercado plano. La conversión de caja se mantiene clavada en el 65,8 % del EBITDA por segundo periodo, que es lo que hace creíble el desapalancamiento: 1,45x, mínimo de la serie hasta la fecha. Sin ninguna métrica en zona de alerta.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -0.2
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 3.1
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2062.2
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 381.9
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.5
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 288.1
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 183.9
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 242.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.8
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1085
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.45
         }
       ]
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
+      "fecha": "2024-10-22",
+      "periodoDisplay": "9M",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2024: ventas +1,3% (mercado plano), pero EBITDA +4,2% y margen 18,6%. Deuda sigue cayendo (1,43x). El diferencial margen/ventas confirma la disciplina de precios y costes.",
-      "periodoDisplay": "9M",
+      "resumen": "El margen EBITDA marca el 18,6 %, máximo de la serie hasta ese momento, y la outperformance sube a +3,9 pp con el mercado cayendo un 1,6 %. Un matiz que conviene anotar: el crecimiento de CIE se desacelera trimestre a trimestre (3,6 % → 3,1 % → 2,3 %) aunque la brecha con el mercado se mantenga, porque el mercado se desacelera más deprisa. La ventaja es relativa y el volumen absoluto se está aplanando: es el aviso que 2025 confirmará.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 3.9
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -1.6
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 2.3
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 3012.5
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 559.2
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.6
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 419.3
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.9
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 258.8
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 354.9
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 65.8
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1071.9
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.43
         }
       ]
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-02-27",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "FY-2024: ventas planas (+0,03%) en mercado adverso, EBITDA +2,1%, margen 18,4% y Rtdo neto +1,7%. Conversión mejora a 66,1% y DFN/EBITDA a 1,34x. Crecimiento del beneficio pese a ingresos estancados: apalancamiento operativo y desapalancamiento simultáneos.",
+      "fecha": "2025-02-20",
       "periodoDisplay": "FY",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "ÁMBAR por una décima, y merece explicarse. El margen EBITDA cierra en el 18,4 %, justo por debajo del 18,5 % que el §10.1 exige para verde, tras haber estado en 18,5-18,6 % los tres trimestres anteriores: el cuarto trimestre estanco fue más flojo. Las ventas quedan planas (+0,03 % en el libro anual) y el crecimiento a tipo constante baja al 1,1 %. Lo que sostiene el periodo es la caja (66,1 % del EBITDA, máximo de la serie) y el apalancamiento en 1,34x. Y el dato de contexto: es el año en que el Plan 2021-2025 se pone el objetivo de superar el 19 % de margen y no lo alcanza.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -1.1
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 1.1
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 3960.6
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 727.9
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.4
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 538.4
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.6
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 325.7
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 463.3
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 66.1
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1005.1
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.34
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Reorganización de la participación en India: reducción del peso de Mahindra y mayor control; MCIE pasa a llamarse CIE Automotive India.",
-          "impacto": "=",
-          "valoracion": "Simplifica la estructura y refuerza el control sobre la plataforma india; neutral para la tesis."
         }
       ]
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-04-24",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Q1-2025: ventas -2,3% YoY por debilidad del mercado global de vehículo ligero — señal a vigilar en la línea de ingresos. Compensa con margen EBITDA 19,0% (+0,5pp), conversión de caja 68,3% y DFN/EBITDA 1,33x. Ámbar por el retroceso de ventas, no por la rentabilidad.",
+      "fecha": "2025-05-07",
       "periodoDisplay": "1T",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "El margen EBITDA rompe por primera vez el 19,0 % y el EBIT vuelve al 14,4 %: las dos varas en verde con holgura. La caja da un salto al 68,3 % del EBITDA desde el 65,8 % de todo 2024. Pero la operativa se estrecha: CIE cae un 2,0 % a tipo constante y solo bate al mercado por +0,4 pp, la menor ventaja de la serie desde 2023. Verde por márgenes y caja, con el volumen en observación.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 0.4
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -2.4
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": -2
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 1012.9
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 192
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 19
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 146.3
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.4
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 94.1
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 126.1
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 68.3
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 988.7
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.33
         }
       ]
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-24",
+      "fecha": "2025-07-17",
+      "periodoDisplay": "S1",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2025: ventas -3,0% YoY, el punto más débil del año en top-line. Margen 19,0% sostenido, conversión sube a 69,5% y RONA vuelve a superar el 20%. Deuda baja a 1,26x. Se mantiene ámbar: la tesis de margen aguanta pero el volumen exige seguimiento.",
-      "periodoDisplay": "1S",
+      "resumen": "ÁMBAR, y por LA señal que este análisis declara única. El margen aguanta en el 19,0 % y la caja mejora al 69,5 %, pero CIE cae un 0,7 % a tipo constante frente a un mercado que cae un 0,3 %: −0,4 pp, POR DEBAJO del mercado por primera vez desde 2023. El §9.1 fija el disparador del catalizador principal en «outperformance ≥ +4 pp dos trimestres seguidos»; aquí es negativa. No es deterioro de márgenes —que es lo que rompería la tesis— sino de volumen, y por eso ámbar y no rojo. La deuda sigue bajando: 1,26x.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": -0.4
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -0.3
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": -0.7
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2000.1
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 379.1
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 19
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 286
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.3
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 185.9
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 253.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 69.5
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 940.6
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.26
         }
       ]
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-23",
+      "fecha": "2025-10-22",
+      "periodoDisplay": "9M",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2025: mejora secuencial — ventas -1,3% (vs -3% en S1), EBITDA +0,8% y margen 19,0%. Conversión récord 70,7%, Rtdo neto +2,9%. La recuperación del volumen y la caja excepcional devuelven el semáforo a verde.",
-      "periodoDisplay": "9M",
+      "resumen": "Se corrige el ámbar del semestre: la outperformance vuelve a positivo (+0,9 pp) con el mercado ya en crecimiento (+1,0 %), y el margen EBITDA se mantiene en el 19,0 % por tercer periodo consecutivo. La conversión de caja supera el 70 % del EBITDA por primera vez en la serie. El DFN/EBITDA sube una décima (1,32x desde 1,26x) por el pago de dividendos y las operaciones con acciones propias del periodo —152,0 M€—, no por deterioro operativo.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 0.9
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 1
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 1.9
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2974
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 563.6
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 19
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 419.1
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.1
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 266.2
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 383.8
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 70.7
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 996.8
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.32
         }
       ],
       "hechos": [
         {
-          "tipo": "Gobierno",
-          "hecho": "Cambio en el consejo: salida del consejero dominical Jacobo Llanza (ago-2025).",
+          "tipo": "Adquisición",
+          "hecho": "Dos compras en el trimestre: Engrecon (Brasil, 1 de agosto de 2025) por 15,8 M€ y Weidplas Brasil (2 de septiembre de 2025), renombrada CIE Autometal Piracicaba, por 64,4 M€.",
           "impacto": "=",
-          "valoracion": "Movimiento puntual en el consejo; sin efecto sobre la tesis."
+          "valoracion": "El ritmo comprador se acelera: dos operaciones en un trimestre, las dos en Brasil y las dos en plástico. Suman 80,2 M€ y todavía no mueven el apalancamiento. Es la antesala de Aludec, y por eso importa verlas juntas."
         }
       ]
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
+      "fecha": "2026-02-18",
+      "periodoDisplay": "FY",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2025 REAL (ancla). Ventas planas (-0,1%) en mercado a la baja, pero EBITDA +2,5% y margen 18,9% (líder sectorial, benchmark peers 12-15%). Conversión de caja récord 70,6% y DFN en mínimo de 6 años (912,8 M€) → DFN/EBITDA 1,18x, muy por debajo del techo 2,0x. El trimestre-año confirma la tesis: defensa de margen + desapalancamiento agresivo pese al ciclo débil de automoción.",
-      "periodoDisplay": "FY",
+      "resumen": "Cierre del ejercicio analizado. Es la referencia contra la que se lee todo lo de abajo.  ·  QUÉ DEUDA SE USA EN ESTA COLUMNA, y hay que decirlo: el DFN/EBITDA de todas las filas es el AJUSTADO QUE PUBLICA LA COMPAÑÍA —deuda financiera neta corregida más el 50 % de la JV china SAMAP, sobre EBITDA de los doce últimos meses—, que en FY-2025 son 899,2 M€ y 1,18x. El libro, en su §2.2, usa la deuda financiera neta del balance sobre EBITDA oficial: 912,8 M€ y 1,22x. Ninguna de las dos está mal y no se mezclan; sin esta nota, una revisión futura cruzaría las dos y vería un deterioro que no existe.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 1.7
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 2.1
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 3.8
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 3958.3
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 746.2
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 18.9
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 542.9
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 13.7
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 335.8
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 506.5
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 70.6
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 912.8
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.18
         }
       ],
       "hechos": [
         {
-          "tipo": "Adquisición",
-          "hecho": "Anuncio de compra del Grupo Aludec (~200 M€), componentes decorativos: ~1.300 empleados en 10 plantas europeas y americanas.",
-          "impacto": "+",
-          "valoracion": "M&A acretiva coherente con su ADN consolidador; amplía la cartera agnóstica al tren motriz. A favor."
+          "tipo": "M&A",
+          "hecho": "Acuerdo para la compra de Grupo Aludec, anunciado el 17 de diciembre de 2025: ~200 M€ de enterprise value y diez plantas (ocho en Europa y dos en Norteamérica). A 31-12-2025 NO forma parte del perímetro de consolidación.",
+          "impacto": "=",
+          "valoracion": "El hecho más relevante del ejercicio y NO está en ninguna cifra del cierre: la valoración del dossier sale de un balance que no la incluye. Derivado sobre el §6.5: pagada con deuda y sin aportar nada, −2,91 % del precio objetivo; aportando el margen de CIE sobre unos 200 M€ de ventas, +5,29 %. Y pone a prueba el compromiso de bajar de 0,70x en 2027: con ella el DFN/EBITDA va a ~1,49x."
         },
         {
-          "tipo": "Recompra",
-          "hecho": "Auto-OPA / oferta de recompra de acciones, bien recibida por el mercado.",
+          "tipo": "Guidance",
+          "hecho": "La compañía cierra el Plan Estratégico 2021-2025 declarando cumplidos sus cinco compromisos operativos.",
           "impacto": "+",
-          "valoracion": "Retribución al accionista con balance holgado (DN/EBITDA 1,1x); apoya la tesis de normalización. Importe/% exactos Pte. Revisión."
+          "valoracion": "Cuatro de los cinco están cumplidos con holgura y son comprobables (25 pp de outperformance frente a ≈20, CAPEX de 1.058 M€ frente a ≈1.000, caja operativa del 66,9 % del EBITDA frente a ≈65 %). El quinto no: «superar el 19 % de margen EBITDA en 2025» cerró en 18,9 % y aparece marcado como alcanzado. Buen historial, con una décima autoconcedida que conviene recordar al leer el próximo cuadro de cumplimiento."
         }
       ]
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-05-07",
+      "fecha": "2026-05-08",
+      "periodoDisplay": "1T",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Q1-2026: retorno al crecimiento — ventas +3,9% (incl. +5,2% inorgánico), EBITDA +4,4%, margen 19,1% y outperformance +9,1pp sobre un mercado plano. Rtdo neto +2,3%. La DFN sube a 1.053,5 M€ (M&A + estacionalidad del circulante) y DFN/EBITDA a 1,32x, aún holgadamente <1,5x. Verde: crecimiento orgánico e inorgánico con margen de excelencia.",
-      "periodoDisplay": "1T",
+      "resumen": "El mejor trimestre de la serie en las dos varas: margen EBITDA del 19,1 % y EBIT del 14,4 %, con +9,1 pp de outperformance sobre un mercado que crece un 1,3 %. Pero hay que leer la letra pequeña: de ese +10,4 % de crecimiento a tipo constante, 5,2 puntos son INORGÁNICOS. El orgánico ronda el +5,2 %, que sigue siendo muy superior al mercado. Y el otro efecto de esa compra ya se ve aquí: el DFN/EBITDA sube de 1,18x a 1,32x y la deuda financiera neta de 912,8 a 1.053,5 M€. Es el red flag del §10.4 disparándose POR UNA COMPRA CONOCIDA —Grupo Aludec—, no por una sorpresa.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 9.1
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": 1.3
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 10.4
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 1052.3
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 200.5
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 19.1
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 152
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.4
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 96.3
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 136.4
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 70.5
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 1053.5
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.32
         }
       ],
       "hechos": [
         {
-          "tipo": "Adquisición",
-          "hecho": "Cierre e integración de Aludec: empieza a aportar (contribución inorgánica ~+5,2% a ventas).",
+          "tipo": "Guidance",
+          "hecho": "Publicación del Guidance 2026-2027: crecer por encima del mercado en dígito medio-bajo, foco en la integración de las nuevas compañías, más de 1.000 M€ de flujo de caja operativo acumulado en los dos años y DFN/EBITDA por debajo de 0,70x a cierre de 2027.",
           "impacto": "+",
-          "valoracion": "Ejecución de la M&A anunciada; confirma la disciplina de asignación de capital."
+          "valoracion": "Es el catalizador de mayor impacto del §9.1 (+10,97 % del precio objetivo si se cumple con el margen intacto) y ahora tiene cifras contra las que contrastar cada trimestre. El compromiso de apalancamiento es el que más tensión tiene: con Aludec dentro, exige reducir unos 550 M€ de deuda neta en dos ejercicios."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "Nueva política de remuneración: pay-out del 42 % en 2026 y del 50 % en 2027, desde el 33 % de 2025.",
+          "impacto": "+",
+          "valoracion": "Catalizador de DEMANDA, no de valor: solo una de las nueve patas del §6.5 usa el dividendo y pesa 5 sobre 100, así que la derivación da +1,16 % del precio objetivo. Lo que cambia es el tipo de inversor que puede comprar la acción. Y compite por la misma caja que el desapalancamiento."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "La deuda financiera neta sube de 912,8 a 1.053,5 M€ y el DFN/EBITDA ajustado de 1,18x a 1,32x.",
+          "impacto": "-",
+          "valoracion": "Dispara el red flag del §10.4 «que la deuda neta suba sin que suba el EBITDA», pero por una compra CONOCIDA —Aludec— y no por una sorpresa. Es exactamente el caso que el dossier anticipó: hay que distinguirlo de un deterioro real, y la vigilancia es que el EBITDA aportado aparezca en los trimestres siguientes."
         }
       ]
     },
     {
       "periodo": "2026-Q2",
-      "fecha": "2026-07-24",
+      "fecha": "2026-07-20",
+      "periodoDisplay": "S1",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2026: crecimiento rentable restaurado — ventas 2.103,8 (+5,2%; incl. +4,8% inorgánico por la compra de Aludec) pese a divisas adversas, con outperformance de +10,3 pp sobre un mercado de producción que cae −1,0%. Márgenes récord y estables (EBITDA 19,1%, EBIT 14,3%), líderes del sector; Rtdo. neto 191,3 (+2,9%). La DFN sube a 962,4 por Aludec pero el apalancamiento sigue bajísimo (1,19x) y la conversión de caja mejora al 71,2%. Todos los KPIs §10.1 en zona REFUERZA. Tesis intacta; sin S2/S6. B4: payout ~33% (0 duros/0 blandos).",
+      "resumen": "El semestre que el dossier cita en su capítulo del moat: +10,3 pp de outperformance con la producción mundial CAYENDO un 1,0 %, y el margen EBITDA en el 19,1 % por segundo periodo. De los +9,3 pp de crecimiento a tipo constante, 4,8 son inorgánicos: el orgánico ronda el +4,5 %, por encima del disparador de +4 pp que el §9.1 fija para el catalizador principal. La caja marca máximo de la serie (71,2 % del EBITDA) y el apalancamiento vuelve a 1,19x tras el pico de marzo. Verde en todo lo que la tesis vigila.",
+      "origen": "revolcado",
       "metricas": [
+        {
+          "nombre": "Outperformance vs mercado (p.p.)",
+          "valor": 10.3
+        },
+        {
+          "nombre": "Crecimiento del mercado IHS (%)",
+          "valor": -1
+        },
+        {
+          "nombre": "Crecimiento CIE, tc constante (%)",
+          "valor": 9.3
+        },
         {
           "nombre": "Ventas (M€)",
           "valor": 2103.8
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 401.1
-        },
-        {
-          "nombre": "Mg.EBITDA %",
+          "nombre": "Margen EBITDA (%)",
           "valor": 19.1
         },
         {
-          "nombre": "EBIT (M€)",
-          "valor": 300.5
-        },
-        {
-          "nombre": "Mg.EBIT %",
+          "nombre": "Margen EBIT (%)",
           "valor": 14.3
         },
         {
-          "nombre": "Rtdo.Neto (M€)",
+          "nombre": "Resultado neto (M€)",
           "valor": 191.3
         },
         {
-          "nombre": "F.C. Operativo (M€)",
+          "nombre": "Caja operativa (M€)",
           "valor": 275.1
         },
         {
-          "nombre": "% FCO/EBITDA",
+          "nombre": "Caja operativa / EBITDA (%)",
           "valor": 71.2
         },
         {
-          "nombre": "DFN (M€)",
-          "valor": 962.4
-        },
-        {
-          "nombre": "DFN/EBITDA(*)",
+          "nombre": "DFN / EBITDA (x)",
           "valor": 1.19
         }
       ],
       "hechos": [
         {
-          "tipo": "Adquisición",
-          "hecho": "Toma de control del 100% de Aludec, S.A. por un coste total de 270,6 M€ (valor de empresa 200,0 M€; desembolso inicial 250,6 M€ + 20,0 M€ contingentes); proveedor global de componentes decorativos de plástico y metal con 10 plantas en España, Portugal, México y EE.UU. Fondo de comercio 118,1 M€.",
-          "impacto": "+",
-          "valoracion": "Crecimiento inorgánico disciplinado (aporta el +4,8% de las ventas) que amplía capacidades en componentes decorativos y refuerza Norteamérica; el apalancamiento se mantiene muy bajo (1,19x) pese al desembolso → encaja en la tesis de calidad y creación de valor sin tensionar el balance."
-        },
-        {
           "tipo": "Guidance",
-          "hecho": "CIE mantiene el guidance 2026-2027 con seis compromisos: (1) outperformance orgánico de un dígito medio-bajo a moneda constante; (2) mantener los márgenes operativos alcanzados en 2025; (3) más de 1.000 M€ de flujo de caja operativo acumulado en 2026-2027, con una conversión del 65% del EBITDA en F.C.O.; (4) pay-out del 42% en 2026 y del 50% en 2027; (5) crecimiento inorgánico focalizado en integrar las compañías adquiridas; y (6) DFN/EBITDA por debajo de 0,7x a cierre de 2027, objetivo calculado manteniendo el pay-out en el 33%.",
+          "hecho": "La compañía mantiene sin cambios el Guidance 2026-2027 en la publicación del primer semestre.",
           "impacto": "+",
-          "valoracion": "Eleva la retribución en dos escalones (33% → 42% en 2026 → 50% en 2027) sin renunciar a la capacidad inversora, y el semestre cumple la guía con holgura: outperformance +10,3 pp frente al «dígito medio-bajo» comprometido y conversión de caja 71,2% frente al 65% objetivo. La letra pequeña a vigilar es la sexta: el <0,7x de 2027 asume pay-out del 33%, así que con el 42/50% el desapalancamiento será más lento de lo que sugiere el titular. No compromete la solvencia (hoy 1,19x sobre un techo de 2,0x), pero conviene no dar el <0,7x por descontado."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "La acción cerró el semestre en 26,7 €, frente a 29,8 € en diciembre de 2025, con un precio objetivo medio de consenso de 35,4 € y varios analistas acercándose a 40 €.",
-          "impacto": "=",
-          "valoracion": "Deja constancia de la desconexión entre cotización y fundamentales que el propio informe subraya. Dato de contexto para el §10.5 (anti-anclaje): no es motivo por sí solo ni para comprar ni para vender."
+          "valoracion": "Un guidance mantenido con la producción mundial cayendo un 1,0 % es información: el §10.4 vigila la revisión a la baja como red flag, y no se ha producido. La outperformance de +10,3 pp respalda que el compromiso de crecimiento es alcanzable."
         }
-      ],
-      "periodoDisplay": "S1"
+      ]
     }
   ]
 }

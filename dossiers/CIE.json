@@ -1,80 +1,96 @@
 {
  "schemaVersion": 8,
  "ticker": "CIE",
- "empresa": "Cie Automotive, S.A.",
- "fecha": "2026-07-22",
+ "empresa": "CIE Automotive, S.A.",
+ "fecha": "2026-08-25",
  "rating": "A",
- "score": 73.3,
+ "score": 73.6,
  "decision": "COMPRAR",
- "metodoValoracion": "Multiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF con FCL normalizado - ciclica industrial. PO oficial = sintesis Cap. VI (40% DCF + 60% multiplos) = 33,1 EUR; bear 20, bull 42.",
- "poBear": 20.0,
- "poBase": 33.1,
- "poBull": 42.0,
- "entMin": 25.0,
- "entMax": 28.0,
- "stop": 18.3,
- "dpaPrevisto": 0.94,
- "moat": "Estrecho (57/100) - ventaja de costes (footprint low-cost + multi-tecnologia), sin marca ni patentes",
+ "metodoValoracion": "Síntesis ponderada de nueve métodos — industrial cíclica. 40 % DCF a tres escenarios, 55 % múltiplos históricos de diez años (EV/EBITDA, EV/EBIT, PER, P/BV, P/FCL) y 5 % renta. PO oficial = §6.5 = 37,45 €. El P/TBV no entra: el patrimonio tangible es negativo los diez ejercicios. El DCF base por sí solo daría 38,04 €.",
+ "poBear": 28.14,
+ "poBase": 37.45,
+ "poBull": 46.24,
+ "entMin": 28.14,
+ "entMax": 32.57,
+ "stop": 12.3,
+ "dpaPrevisto": 1.18,
+ "moat": "50,7 — ESTRECHO. Un solo pilar: la ventaja de costes (72/100). Intangibles 38, escala eficiente 32, costes de cambio 55; el efecto de red no existe en la categoría y va N/A con motivo. Margen EBIT del 13,72 % contra el 4,7-10,1 % de sus comparables europeos.",
  "catalizadores": [
-  "Resultados 2026 resilientes (margen EBITDA >=18%, FCL >250 M EUR)",
-  "Re-rating a la media historica (PER 9,2->11,4x; EV/EBITDA 5,3->7x)",
-  "Retribucion al accionista (recompra/subida DPA) con DN/EBITDA 1,1x",
-  "Nuevo plan estrategico / guidance",
-  "Estabilizacion de la produccion global de vehiculos"
+  "Guidance 2026-2027 cumplido con el margen intacto: +10,97 % → 41,56 €",
+  "Cierre parcial del de-rating del sector: +8,11 % → 40,49 €",
+  "Desapalancamiento hasta DFN/EBITDA < 0,70x a cierre de 2027: +3,64 % → 38,82 €",
+  "Subida del pay-out al 42 % (2026) y al 50 % (2027): +1,16 % → 37,89 €",
+  "Interés corporativo sobre el activo: no derivable, se paga sobre la cotización"
  ],
  "riesgos": [
-  "Ciclicidad de la produccion de vehiculos amplificada por palanca operativa (impacto -20/-35%)",
-  "Transicion a vehiculo electrico (perdida de contenido ICE)",
-  "Deterioro del fondo de comercio (122% del PN atribuible)",
-  "Concentracion de clientes OEM",
-  "Exposicion a emergentes (Brasil/India/Mexico)"
+  "El ciclo: la demanda es la producción mundial de vehículos (−25 a −53 %)",
+  "Electrificación: cambia el contenido por vehículo (−21 a −50 %)",
+  "Concentración de clientes: los OEM pactan bajadas anuales de precio (−9 a −22 %)",
+  "M&A: la integración de las compras nuevas, con Aludec ya anunciada (−7 a −20 %)",
+  "Divisa: produce fuera del euro y consolida en euros (−8 a −16 %)",
+  "De-rating: el múltiplo se comprime con el negocio creciendo (−8 a −13 %)",
+  "Fondo de comercio: 1.764,6 M€, el 122 % del patrimonio atribuible (−2 a −11 %)"
  ],
- "bull": "Negocio de calidad (ROIC 16% vs WACC 7%) cotizando barato frente a su historia; el re-rating a la media historica de multiplo mas la retribucion al accionista llevan la accion a 42 EUR (+62%).",
- "bear": "Recesion de la produccion global de vehiculos: el EBITDA cae ~20% y el multiplo sigue deprimido -> ~20 EUR (-23%); el balance solido (DN/EBITDA 1,1x, caja 842 M EUR) evita el estres financiero y protege el dividendo.",
- "resumen": "CIE Automotive es un negocio de calidad (Rating A, ROIC 16% vs WACC 7%, dividendo cubierto 3,6x) que cotiza barato frente a su propia historia (PER 9,2x vs mediana 11,4x) y a sus peers, con el mejor margen del sector. La tesis es de NORMALIZACION de multiplo, no de crecimiento: el Reverse DCF muestra que el precio descuenta incluso un decrecimiento del FCL. PO 33,1 EUR (+28% vs 25,9). El freno es la ciclicidad y un moat solo estrecho: COMPRAR con disciplina de entrada (<28 EUR), vigilando la produccion global de vehiculos y el fondo de comercio.",
+ "bull": "46,24 €. Acumula los tres catalizadores que el modelo sabe medir —ingresos +4 %, margen EBITDA +0,5 pp, múltiplos +15 % y deuda neta −250 M€—. Exigente pero no heroico: pide que la compañía cumpla su propio guidance y que el sector recupere un tercio del múltiplo perdido en diez años.",
+ "bear": "28,14 €. Se perturba el §6.5 con el riesgo dominante del §8.1 —el ciclo— en su extremo SUAVE: ingresos −8 % y margen EBITDA −1,5 pp. Un −24,9 % sobre el precio objetivo y un −13,6 % desde la entrada máxima. El precedente está en la propia serie: en 2020 el spread ROIC−WACC se quedó en +0,94 pp sin cruzar el cero.",
+ "resumen": "CIE es un fabricante de componentes de automoción que gana el doble de margen EBIT que la mayoría de sus comparables europeos (13,72 % contra 4,7-10,1 %), cotiza a 25,85 € cuando la síntesis de nueve métodos dice 37,45, y el mercado le descuenta un crecimiento implícito del −3,7 %: ni siquiera la inflación. Se compra la brecha entre lo que el negocio produce y lo que el precio supone. El punto que hay que saber antes de comprar: la calidad y el precio cuelgan de LA MISMA variable —el margen EBITDA—, así que «moat presente» y «margen amplio» no son dos apoyos independientes sino una sola apuesta contada dos veces. Veredicto COMPRAR en firme, con sizing por debajo de lo que sugeriría un rating A.",
  "confianza": {
   "score": 90,
   "nivel": "A",
   "motivos": [
-   "2 línea(s) de conciliación ⚠ sin corregir (−10)"
+   "5 dato(s) secundario(s) en 'Pte. Revisión' (−10)"
   ],
-  "sensibleASupuestos": true,
+  "sensibleASupuestos": false,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-08-25"
  },
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
   "matizada": false,
   "banda": {
-   "p10": 20.0,
-   "p50": 33.1,
-   "p90": 42.0
+   "p10": 28.14,
+   "p50": 37.45,
+   "p90": 46.24
   },
   "sensibilidad": {
-   "poMin": 29.23,
-   "poMax": 50.4,
-   "poBase": 37.1439718097156,
-   "cotizacion": 25.9,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 36.19,
+   "poMax": 39.94,
+   "poBase": 37.45,
+   "cotizacion": 25.85,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.2,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 31.7,
+    "poMax": 50.47,
+    "poBase": 38.0436974470045
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 12.9,
-   "mdsMax": 94.6
+   "mdsMin": 40.0,
+   "mdsMax": 54.5
   },
   "beta": {
-   "capm": 0.86,
-   "ref2": 1.15,
-   "aviso": null
+   "capm": 0.779,
+   "ref2": 1.2174,
+   "aviso": "beta CAPM 0.78 vs 2ª ref 1.22: divergencia 0.44 > 0.3 → revisar cuál usar en el WACC"
   },
   "motivos": [
-   "la cotización (25.90) queda por DEBAJO de toda la banda de PO [29.2–50.4] bajo WACC±1.0pp/gTV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (25.85) queda por DEBAJO de toda la banda del precio objetivo de síntesis [36.19–39.94] → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "para contraste, el DCF puro (§6.3) se mueve en [31.70–50.47] € alrededor de 38.04 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "beta CAPM 0.78 vs 2ª ref 1.22: divergencia 0.44 > 0.3 → revisar cuál usar en el WACC"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-08-25"
  },
  "dividendSafety": {
   "score": 91,
@@ -93,13 +109,13 @@
   },
   "motivos": [
    "C1 cobertura dividendo ord.: OE 3.67x / FCL 3.56x (3a OE 3.44x) → 35/35",
-   "C2 payout BN ord.: 30% (3a 29%) → 15/15",
-   "C3 balance: DN/EBITDA 1.11x, cob.int 8.7x → 17/20",
+   "C2 payout BN ord.: 33% (3a 32%) → 15/15",
+   "C3 balance: DN/EBITDA 1.22x, cob.int 8.7x → 17/20",
    "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-22"
+  "calculadoEl": "2026-08-25"
  },
  "forense": {
   "aplica": true,
@@ -124,42 +140,27 @@
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.73,
+   "m": -2.76,
    "senal": "sin indicios",
    "aproximado": [
     "SGAI"
    ]
   },
   "sloan": {
-   "accruals": -3.9,
+   "accruals": -4.5,
    "senal": "normal"
   },
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-22"
+  "calculadoEl": "2026-08-25"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -3.4,
-  "gIntrinseco": 1.09,
+  "gImplicito": -3.66,
+  "gIntrinseco": 1.33,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
-  "entradas": {
-   "fcl": 300,
-   "wacc": 7.3,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 119.19,
-   "deudaNeta": 822.81,
-   "modo": "EV",
-   "precioBase": 25.9,
-   "validado": true,
-   "desviacion": 0.003,
-   "gBase": -3.397,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
-  }
+  "calculadoEl": "2026-08-25"
  }
 }
