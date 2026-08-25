@@ -1113,18 +1113,252 @@ function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0
 /* [A4 · 25-jul-2026] Retirados _planSyncBand y renderPlan (vista «Plan Multi-anual»).
    Era solo-lectura y se alimentaba de los pines de DB.planCompras con la fórmula antigua de
    presupuesto; la matriz empresa×año la pinta hoy Asignación desde el motor único _planReparto(). */
-/* Alta única de empresa desde Diversificación: entra en el lote (o ya es cartera),
-   crea su entrada en el plan y aparece en Diversificación, Plan y Simulador. */
-function addLoteEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; const nombre=(prompt('Nombre:')||tk).trim();
-  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
+/* ===== ALTA DE EMPRESA EN EL PLAN — modal validado (25-ago-2026) =====
+   Sustituye a los dos prompt() ciegos, que no validaban nada: un ticker mal escrito creaba una fila
+   huérfana en Diversificación (sin cotización, sin dossier, sin ficha) y ensuciaba DB.valores.
+   Ahora se elige de la lista de empresas ANALIZADAS que aún no están en el plan, se decide el tipo
+   en el mismo paso y se ve el impacto en el reparto ANTES de aceptar.
+   «Mantener» NO se ofrece en el alta: es la categoría de una empresa YA en cartera cuyo objetivo se
+   congela en su coste actual (no tiene calidad para seguir creciendo). En una empresa nueva el
+   objetivo sería 0 € y no recibiría un euro del plan. Por eso el desplegable de la fila también la
+   deshabilita mientras el invertido de esa empresa sea 0. */
+
+/* Parámetros del reparto para un conjunto de empresas — el mismo cálculo que _planReparto()/
+   renderPlanLote, pero admitiendo una empresa HIPOTÉTICA (extraTk/extraTipo) para previsualizar. */
+function _planParams(extraTk, extraTipo){
+  const up=t=>(t||'').toUpperCase();
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  const invByT={}; pos.forEach(p=>{const t=up(p.ticker); invByT[t]=(invByT[t]||0)+p.acciones*p.precioCompra;});
+  const held=Object.keys(invByT);
+  const totalInv=held.reduce((s,t)=>s+invByT[t],0);
+  const planLote=(DB.planLote||[]).map(up);
+  Object.keys(DB.planCompras||{}).forEach(t=>{ t=up(t); if(!t||held.indexOf(t)>=0)return; const hasAmt=Object.values(DB.planCompras[t]||{}).some(v=>num(v)>0); if(hasAmt&&planLote.indexOf(t)<0)planLote.push(t); });
+  const chosen=planLote.filter((t,i,arr)=>t&&arr.indexOf(t)===i&&held.indexOf(t)<0);
+  const pt=Object.assign({},DB.planTipo||{});
+  let allTk=held.concat(chosen);
+  if(extraTk){ extraTk=up(extraTk); if(allTk.indexOf(extraTk)<0)allTk=allTk.concat([extraTk]); pt[extraTk]=extraTipo||''; }
+  const _P=planPresupuesto();
+  let disponible=0; for(let y=Math.max(_P.nowY,_P.ydesde); y<=_P.ycierre; y++) disponible+=Math.max(0,_P.disp(y));
+  const TF=totalInv+disponible, JOYA=0.08;
+  const tipoOf=t=>pt[t]||'';
+  const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length;
+  const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
+  const nMant=allTk.filter(t=>tipoOf(t)==='mantener').length;
+  const nSin=allTk.length-nJoya-nNuc-nMant;
+  const sumFijos=allTk.filter(t=>tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo').reduce((s,t)=>s+(invByT[t]||0),0);
+  const nucPct=nNuc>0?((1-JOYA*nJoya-(TF?sumFijos/TF:0))/nNuc):0;
+  const objEur=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  let pend=0, sobre=0; const sobreTk=[];
+  allTk.forEach(t=>{ const g=objEur(t)-(invByT[t]||0); if(g>0.5)pend+=g; else if(g<-0.5){ sobre+=-g; sobreTk.push(t); } });
+  return {allTk,invByT,held,totalInv,disponible,TF,JOYA,nJoya,nNuc,nMant,nSin,nucPct,objEur,tipoOf,pend,sobre,sobreTk,ycierre:_P.ycierre};
+}
+
+/* ===== BAJA DE UNA EMPRESA DEL PLAN (25-ago-2026) =====
+   La ✕ solo sacaba el ticker de DB.planLote y dejaba atrás su categoría (planTipo) y los importes
+   fijados a mano por año (planCompras). Como renderPlanLote/_planReparto REINYECTAN en planLote
+   cualquier ticker con importe > 0 —para que una empresa no desaparezca al vender—, la baja de una
+   empresa con un año fijado a mano no hacía nada: se borraba y volvía en el mismo repintado.
+   Ahora la baja limpia las tres cosas, avisa de lo que se pierde y va a la Papelera (deshacer).
+   Una empresa EN CARTERA no se da de baja: su salida del reparto es pasarla a «Mantener», que
+   congela su objetivo en el coste ya invertido y libera su cuota para el resto del núcleo. */
+function dvBajaEmpresa(tk){
+  tk=(tk||'').trim().toUpperCase(); if(!tk)return;
+  if(heldTickerSet().has(tk)){
+    alert(tk+' está en cartera, así que no sale del plan: el plan refleja lo que tienes.\n\n'
+      +'Si ya no quieres que crezca, pásala a «Mantener» en el desplegable de su fila. Congela su '
+      +'objetivo en lo ya invertido y reparte su cuota entre el resto del núcleo. Es reversible.');
+    return;
+  }
+  const tipo=(DB.planTipo||{})[tk]||'';
+  const compras=Object.assign({},(DB.planCompras||{})[tk]||{});
+  const nPin=Object.keys(compras).filter(y=>num(compras[y])>0).length;
+  const TL={joya:'Joya 👑',nucleo:'Núcleo',mantener:'Mantener','':'sin clasificar'};
+  const det=[TL[tipo]||tipo].concat(nPin?[nPin+' importe'+(nPin===1?'':'s')+' fijado'+(nPin===1?'':'s')+' a mano']:[]).join(' · ');
+  if(!confirm('¿Sacar '+tk+' del plan de Diversificación?\n\nSe pierde: '+det+'.\n'
+    +'No toca tu cartera, ni las operaciones, ni el análisis.\nPodrás deshacerlo desde el aviso o la Papelera.'))return;
+  const quitar=function(){
+    DB.planLote=(DB.planLote||[]).filter(x=>(x||'').toUpperCase()!==tk);
+    if(DB.planTipo)delete DB.planTipo[tk];
+    if(DB.planCompras)delete DB.planCompras[tk];   /* imprescindible: si queda, la fila se reinyecta sola */
+    _planRepartoInval();
+    if(typeof saveNow==='function')saveNow();
+  };
+  if(typeof undoableDelete==='function')
+    undoableDelete('plan_empresa', tk+' — fuera del plan', {t:tk,tipo:tipo,compras:compras}, quitar, ['renderPlanLote','renderSimulador']);
+  else { quitar(); renderPlanLote(); if(typeof renderSimulador==='function')renderSimulador(); }
+}
+function _dvAltaClose(){ const o=document.getElementById('dvAltaWrap'); if(o)o.remove(); window._dvAlta=null; }
+function addLoteEmpresa(){ _dvAltaAbrir(); }
+
+/* Candidatas = empresas del universo (DB.analisis) que aún NO están en el plan ni en cartera. */
+function _dvAltaCands(){
+  const P=_planParams(); const ya={}; P.allTk.forEach(t=>{ya[t]=1;});
+  const seen={}, out=[];
+  (DB.analisis||[]).forEach(a=>{
+    const t=(a.ticker||'').toUpperCase(); if(!t||ya[t]||seen[t])return; seen[t]=1;
+    const v=(DB.valores||{})[t]||{};
+    const cot=num(v.precioActual)||num(a.cotizacion)||0;
+    const eMin=num(a.entMin), eMax=num(a.entMax)||num(a.precioEntrada);
+    const nomRaw=(v.nombre||a.nombre||t)+'';
+    /* Nombre de pantalla: fuera las coletillas societarias, que empujan el nombre real fuera de la fila. */
+    const nom=nomRaw.replace(/[,\s]+(SOCIEDAD\s+AN[OÓ]NIMA|S\.?\s?A\.?(\s?U\.?)?|S\.?A\.?U\.?)\s*$/i,'').trim()||nomRaw;
+    const full=!!((a.decision||'')||(a.dossierFecha||''));
+    out.push({t, nom, nomRaw, rating:(a.rating||''), dec:(a.decision||''), cot, eMin, eMax, full,
+              enPrecio:(cot>0&&eMax>0)?(cot<=eMax):null, dos:(a.dossierFecha||'')});
+  });
+  /* Sin búsqueda, arriba las que tienen análisis cerrado (decisión o dossier): son las accionables. */
+  out.sort((a,b)=>(a.full===b.full)?(a.nom||'').localeCompare(b.nom||''):(a.full?-1:1));
+  return out;
+}
+/* Puntuación de la búsqueda: el ticker manda sobre el nombre y el prefijo sobre el «contiene».
+   Sin esto, teclear «cie» sacaba media bolsa española: «soCIEdad anónima» contiene la cadena. */
+function _dvAltaScore(c,q){
+  if(!q)return 0;
+  const t=c.t, n=(c.nom||'').toUpperCase();
+  if(t===q)return 0;
+  if(t.indexOf(q)===0)return 1;
+  if(n.indexOf(q)===0)return 2;
+  if(t.indexOf(q)>=0)return 3;
+  const pal=n.split(/[^A-ZÁÉÍÓÚÑ0-9]+/).some(w=>w.indexOf(q)===0);
+  if(pal)return 4;
+  if(n.indexOf(q)>=0)return 5;
+  return -1;
+}
+const _DVA_DECOL={'COMPRAR':['#065f46','#d1fae5'],'MANTENER':['#1e40af','#dbeafe'],'ESPERAR':['#92400e','#fef3c7'],'VENDER':['#991b1b','#fee2e2']};
+function _dvaEsc(s){ return (s==null?'':''+s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function _dvAltaAbrir(){
+  window._dvAlta={q:'',tk:'',tipo:'nucleo',forzar:false};
+  let o=document.getElementById('dvAltaWrap');
+  if(o)o.remove();
+  o=document.createElement('div'); o.id='dvAltaWrap';
+  o.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:99999;display:flex;align-items:flex-start;justify-content:center;padding:24px 14px;overflow:auto';
+  o.innerHTML='<div style="background:#fff;border-radius:14px;width:min(640px,100%);box-shadow:0 20px 60px rgba(0,0,0,.32);overflow:hidden">'
+    +'<div style="padding:13px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center">'
+      +'<b style="font-size:15px">➕ Añadir empresa al plan</b>'
+      +'<span data-dvax="1" style="cursor:pointer;color:#94a3b8;font-size:19px;line-height:1">✕</span></div>'
+    +'<div style="padding:12px 16px 4px"><input data-dvaq="1" placeholder="Busca por ticker o nombre… (p. ej. CIE)" '
+      +'style="width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:14px"></div>'
+    +'<div id="dvaList" style="max-height:238px;overflow:auto;margin:6px 10px;border:1px solid #eef2f7;border-radius:10px"></div>'
+    +'<div id="dvaTipo" style="padding:4px 16px 0"></div>'
+    +'<div id="dvaPrev" style="padding:10px 16px 0"></div>'
+    +'<div style="padding:14px 16px;display:flex;justify-content:flex-end;gap:8px;border-top:1px solid #eef2f7;margin-top:12px">'
+      +'<button class="btn ghost sm" data-dvax="1">Cancelar</button>'
+      +'<button class="btn sm" id="dvaOk" data-dvaok="1">Añadir al plan</button></div></div>';
+  o.addEventListener('click',e=>{
+    if(e.target===o||e.target.closest('[data-dvax]')){ _dvAltaClose(); return; }
+    const r=e.target.closest('[data-dvatk]'); if(r){ window._dvAlta.tk=r.getAttribute('data-dvatk'); window._dvAlta.forzar=false; _dvAltaPaint(); return; }
+    const b=e.target.closest('[data-dvatipo]'); if(b){ window._dvAlta.tipo=b.getAttribute('data-dvatipo'); _dvAltaPaint(); return; }
+    const f=e.target.closest('[data-dvaforz]'); if(f){ e.preventDefault(); window._dvAlta.forzar=true; window._dvAlta.tk=(window._dvAlta.q||'').trim().toUpperCase(); _dvAltaPaint(); return; }
+    if(e.target.closest('[data-dvaok]')) _dvAltaGuardar();
+  });
+  o.addEventListener('input',e=>{ if(e.target.closest('[data-dvaq]')){ window._dvAlta.q=e.target.value; window._dvAlta.forzar=false; window._dvAlta.tk=''; _dvAltaPaint(); } });
+  o.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){ _dvAltaClose(); return; }
+    if(e.key!=='Enter'||!window._dvAlta)return;
+    e.preventDefault();
+    if(window._dvAlta.tk){ _dvAltaGuardar(); return; }
+    const first=o.querySelector('[data-dvatk]');            /* Enter sin selección = elegir la primera */
+    if(first){ window._dvAlta.tk=first.getAttribute('data-dvatk'); _dvAltaPaint(); }
+  });
+  document.body.appendChild(o);
+  _dvAltaPaint();
+  setTimeout(()=>{ const i=o.querySelector('[data-dvaq]'); if(i)i.focus(); },30);
+}
+
+function _dvAltaPaint(){
+  const S=window._dvAlta; if(!S)return;
+  const q=(S.q||'').trim().toUpperCase();
+  const cands=_dvAltaCands();
+  let lista=cands;
+  if(q){ lista=cands.map(c=>({c,s:_dvAltaScore(c,q)})).filter(x=>x.s>=0)
+           .sort((a,b)=>(a.s-b.s)||(a.c.full===b.c.full?0:(a.c.full?-1:1))||(a.c.nom||'').localeCompare(b.c.nom||''))
+           .map(x=>x.c); }
+  /* Lista */
+  const L=document.getElementById('dvaList');
+  if(L){
+    if(!lista.length){
+      const P=_planParams(); const yaEsta=q&&P.allTk.indexOf(q)>=0;
+      L.innerHTML='<div style="padding:16px;font-size:12.5px;color:#64748b;line-height:1.6">'
+        +(yaEsta?('<b>'+_dvaEsc(q)+'</b> ya está en el plan.')
+                :('Ninguna empresa de tu universo coincide con <b>'+_dvaEsc(S.q||'')+'</b>.'
+                  +(q?'<br><a href="#" data-dvaforz="1" style="color:#b45309;font-weight:700">Añadir «'+_dvaEsc(q)+'» igualmente</a> — quedará sin cotización ni dossier hasta que la analices.':'')))
+        +'</div>';
+    } else {
+      L.innerHTML=lista.map(c=>{
+        const sel=S.tk===c.t;
+        const dc=_DVA_DECOL[(c.dec||'').toUpperCase()]||['#475569','#f1f5f9'];
+        const zona=c.enPrecio===null?'':(c.enPrecio
+          ?'<span style="color:#065f46;background:#d1fae5;border-radius:6px;padding:1px 6px;font-weight:700">en precio</span>'
+          :'<span style="color:#92400e;background:#fef3c7;border-radius:6px;padding:1px 6px;font-weight:700">fuera de banda</span>');
+        return '<div data-dvatk="'+c.t+'" style="display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;border-bottom:1px solid #f6f8fb;'
+          +(sel?'background:#eef4ff':'')+'">'
+          +'<b style="min-width:56px;font-size:12.5px;color:#1f3d6b">'+c.t+'</b>'
+          +'<span style="flex:1;min-width:0;font-size:12px;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+_dvaEsc((c.nom||'').slice(0,34))+'</span>'
+          +(c.rating?'<span style="font-size:11px;font-weight:800;color:#1f3d6b">'+_dvaEsc(c.rating)+'</span>':'')
+          +(c.dec?'<span style="font-size:10.5px;color:'+dc[0]+';background:'+dc[1]+';border-radius:6px;padding:1px 6px;font-weight:700">'+_dvaEsc(c.dec)+'</span>':'')
+          +'<span style="font-size:11px;color:#64748b;min-width:56px;text-align:right">'+(c.cot?c.cot.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €':'—')+'</span>'
+          +'<span style="font-size:10.5px;min-width:88px;text-align:right">'+zona+'</span>'
+          +(sel?'<span style="color:#1d4ed8;font-weight:800">✓</span>':'<span style="color:#cbd5e1">›</span>')
+          +'</div>';
+      }).join('');
+    }
+  }
+  /* Tipo */
+  const T=document.getElementById('dvaTipo');
+  if(T){
+    const bt=(v,lab,col)=>'<button data-dvatipo="'+v+'" style="flex:1;padding:8px;border-radius:9px;font-size:12.5px;font-weight:700;cursor:pointer;border:2px solid '+(S.tipo===v?col:'#e2e8f0')+';background:'+(S.tipo===v?col+'14':'#fff')+';color:'+(S.tipo===v?col:'#64748b')+'">'+lab+'</button>';
+    T.innerHTML='<div style="font-size:11.5px;color:#64748b;font-weight:700;margin:8px 0 5px">CATEGORÍA</div>'
+      +'<div style="display:flex;gap:8px">'+bt('joya','👑 Joya · 8 % fijo','#7c3aed')+bt('nucleo','⬢ Núcleo · a partes iguales','#1e40af')+'</div>'
+      +'<div style="font-size:11px;color:#94a3b8;margin-top:5px;line-height:1.5">«Mantener» no se puede elegir aquí: congela el objetivo en el coste ya invertido, así que en una empresa nueva sería 0 € y no recibiría capital. Se activa sola en el desplegable de la fila cuando la empresa entre en cartera.</div>';
+  }
+  /* Vista previa del reparto */
+  const V=document.getElementById('dvaPrev');
+  const ok=document.getElementById('dvaOk');
+  if(ok){ ok.disabled=!S.tk; ok.style.opacity=S.tk?'1':'.45'; ok.style.cursor=S.tk?'pointer':'not-allowed'; }
+  if(V){
+    if(!S.tk){ V.innerHTML='<div style="font-size:12px;color:#94a3b8;padding:8px 0">Elige una empresa para ver cómo queda el reparto.</div>'; return; }
+    const A=_planParams(), B=_planParams(S.tk,S.tipo);
+    const dNuc=(B.nucPct*B.TF)-(A.nucPct*A.TF);
+    const nuevas=B.sobreTk.filter(t=>A.sobreTk.indexOf(t)<0);
+    const exceso=B.pend-B.disponible;
+    let h='<div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.75">'
+      +'<div style="font-weight:800;color:#1f3d6b;margin-bottom:4px">Cómo queda el reparto</div>'
+      +'<div>Empresas en el plan: '+A.allTk.length+' → <b>'+B.allTk.length+'</b> · joyas '+A.nJoya+'→'+B.nJoya+' · núcleo '+A.nNuc+'→'+B.nNuc+'</div>'
+      +'<div>Objetivo de <b>'+S.tk+'</b>: <b>'+fmt(B.objEur(S.tk))+'</b>'+((B.invByT[S.tk]||0)>0.5?'':' (todo pendiente de comprar)')+'</div>';
+    if(B.nNuc>0) h+='<div>Objetivo de cada Núcleo: '+fmt(A.nucPct*A.TF)+' → <b>'+fmt(B.nucPct*B.TF)+'</b>'
+      +(Math.abs(dNuc)>0.5?' <span style="color:'+(dNuc<0?'#b91c1c':'#065f46')+';font-weight:700">('+(dNuc>0?'+':'−')+fmt(Math.abs(dNuc))+' c/u)</span>':'')+'</div>';
+    if(B.nJoya>0) h+='<div>Cada Joya sigue en el 8 %: <b>'+fmt(B.JOYA*B.TF)+'</b></div>';
+    h+='</div>';
+    if(exceso>0.5) h+='<div style="margin-top:8px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;font-size:12px;color:#92400e;line-height:1.6">'
+      +'⚠️ El pendiente total pasa a <b>'+fmt(B.pend)+'</b> y supera en <b>'+fmt(exceso)+'</b> el ahorro previsto hasta '+B.ycierre+' ('+fmt(B.disponible)+'). El motor repartirá el exceso igualmente y la fila «Sin asignar» saldrá en rojo.</div>';
+    if(nuevas.length) h+='<div style="margin-top:8px;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:9px 12px;font-size:12px;color:#991b1b;line-height:1.6">'
+      +'🔻 Quedan por encima de su objetivo: <b>'+nuevas.join(', ')+'</b>. No recibirán más capital; valora pasarlas a «Mantener» para liberar cupo.</div>';
+    V.innerHTML=h;
+  }
+}
+
+function _dvAltaGuardar(){
+  const S=window._dvAlta||{}; const tk=(S.tk||'').trim().toUpperCase(); if(!tk)return;
+  if(!/^[A-Z0-9._-]{1,12}$/.test(tk)){ alert('Ticker no válido: '+tk); return; }
+  const P=_planParams();
+  if(P.allTk.indexOf(tk)>=0){ alert(tk+' ya está en el plan.'); return; }
+  const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===tk);
+  if(!a&&!S.forzar){ alert('«'+tk+'» no está en tu universo de análisis.'); return; }
+  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{};
+  if(!DB.valores[tk].nombre)DB.valores[tk].nombre=(a&&a.nombre)||tk;
   DB.planCompras=DB.planCompras||{}; DB.planCompras[tk]=DB.planCompras[tk]||{};
+  DB.planTipo=DB.planTipo||{}; DB.planTipo[tk]=(S.tipo==='joya')?'joya':'nucleo';
   const held=heldTickerSet();
   if(!held.has(tk)){ DB.planLote=DB.planLote||[]; if(!DB.planLote.map(x=>(x||'').toUpperCase()).includes(tk))DB.planLote.push(tk); }
   saveNow();
+  _dvAltaClose();
   if(typeof renderPlanLote==='function')renderPlanLote();
   if(typeof renderSimulador==='function')renderSimulador();
   const st=$('#loteStatus'); if(st)st.textContent='Añadida '+tk;
+  if(typeof showToast==='function')showToast(tk+' añadida al plan como '+(DB.planTipo[tk]==='joya'?'Joya 👑':'Núcleo'));
 }
+
 var _planAutoCache=null;
 function _planRepartoInval(){ _planAutoCache=null; }
 /* Vacía TODAS las asignaciones manuales (pines) de DB.planCompras → reparto 100% automático.
@@ -1244,7 +1478,12 @@ function renderPlanLote(){
      lista hasta que la quites con el ✕. Así, si compras y luego borras la compra, no desaparece. */
   DB.planLote=DB.planLote.map(t=>(t||'').toUpperCase()).filter((t,i,arr)=>t&&arr.indexOf(t)===i);
   const chosen=DB.planLote.filter(t=>!held.includes(t)); const total=held.length+chosen.length; const pt=DB.planTipo=DB.planTipo||{};
-  const tipoSel=t=>`<select class="anaInp" data-lotetipo="${t}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="mantener"${pt[t]==='mantener'?' selected':''}>Mantener</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option></select>`;
+  /* [25-ago-2026] «Mantener» congela el objetivo en el coste YA invertido: en una empresa que aún no
+     está en cartera eso es un objetivo de 0 € y no recibiría un euro del plan. Se deshabilita mientras
+     el invertido sea 0 (salvo que ya estuviera marcada así, para no perder el valor guardado). */
+  const tipoSel=t=>{ const enCart=(invByT[t]||0)>0.5, esMant=pt[t]==='mantener';
+    const optMant=`<option value="mantener"${esMant?' selected':''}${(enCart||esMant)?'':' disabled'}>Mantener${(enCart||esMant)?'':' — solo en cartera'}</option>`;
+    return `<select class="anaInp" data-lotetipo="${t}" title="${(enCart||esMant)?'':'«Mantener» solo aplica a empresas ya en cartera: congela su objetivo en el coste invertido.'}"><option value="">— sin clasificar —</option><option value="joya"${pt[t]==='joya'?' selected':''}>Joya 👑</option><option value="nucleo"${pt[t]==='nucleo'?' selected':''}>Núcleo</option>${optMant}</select>`; };
   const anaAll=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))];
   const ana=anaAll.filter(t=>!held.includes(t)).sort((a,b)=>nm(a).localeCompare(nm(b)));
   const dl='<datalist id="loteDL">'+ana.filter(t=>!chosen.includes(t)).map(t=>`<option value="${nm(t)} (${t})">`).join('')+'</datalist>';
@@ -1257,6 +1496,7 @@ function renderPlanLote(){
   const allTk=[...held,...chosen]; const TF=totalInv+disponible; const JOYA=0.08;
   const tipoOf=t=>pt[t]||'';
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length; const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
+  const nMant=allTk.filter(t=>tipoOf(t)==='mantener').length; const nSin=allTk.length-nJoya-nNuc-nMant;
   const sumFijos=allTk.filter(t=>tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo').reduce((s,t)=>s+(invByT[t]||0),0);
   const restante=TF>0?(1-JOYA*nJoya-sumFijos/TF):0; const nucPct=nNuc>0?restante/nNuc:0;
   const objPct=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA; if(tp==='nucleo')return nucPct; return TF?(invByT[t]||0)/TF:0; };
@@ -1292,7 +1532,7 @@ function renderPlanLote(){
     +`<div class="k"><div class="l">Capital final total</div><div class="v">${fmt(TF)}</div><div class="p">invertido + disponible</div></div>`
     +`<div class="k hero"><div class="l">Capital a asignar</div><div class="v">${fmt(totAsignarPos)}</div><div class="p">${nNuc?('núcleo '+(nucPct*100).toFixed(1)+'% c/u · '):''}${nJoya} joyas</div></div>`
     +'</div>';
-  const toolbarHTML=`<div class="toolbar dv-tb" style="margin:12px 0 8px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se reparte el capital disponible (${fmt(disponible)})." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte hasta aquí</span> <span class="muted" style="font-size:11.5px;margin-left:auto"><b>${total}/20</b> · ${nJoya} joyas</span> <button class="btn sm" onclick="addLoteEmpresa()" title="Añadir empresa">+ Empresa</button></div>`;
+  const toolbarHTML=`<div class="toolbar dv-tb" style="margin:12px 0 8px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se reparte el capital disponible (${fmt(disponible)})." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte hasta aquí</span> <span class="muted" style="font-size:11.5px;margin-left:auto"><b>${total} empresa${total===1?'':'s'}</b> · ${nJoya} joya${nJoya===1?'':'s'} · ${nNuc} núcleo · ${nMant} mantener${nSin?` · <span style="color:#b45309;font-weight:700">${nSin} sin clasificar</span>`:''}</span> <button class="btn sm" onclick="addLoteEmpresa()" title="Añadir empresa">+ Empresa</button></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:150px">`;
   const objCells=t=>{ const fa=asignar(t)-schedSum(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700" title="No cabe en el plan hasta '+ycierre+'">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
   /* Celda por año = COMPRAS REALES de ese año (execBuyEur, suma de operaciones). Si un año no tiene
@@ -1316,9 +1556,14 @@ function renderPlanLote(){
     const col=!!window._dvGColl[g];
     rows+=`<tr class="dv2-band ${g==='joya'?'joya':''}${col?' collapsed':''}" data-dvg="${g}"><td colspan="${nCols}"><span class="dv2-arw">▶</span> ${label} <span class="bmeta">· invertido ${eurK(gInv)}€ · objetivo ${eurK(gObj)}€ · a asignar ${eurK(gAsig)}€</span></td></tr>`;
     list.forEach(t=>{ const isNew=!held.includes(t); const pctAct=totalInv?((invByT[t]||0)/totalInv*100):0; const asg=asignar(t); const totPlan=schedSum(t); const totComp=yrs.reduce((s,y)=>s+execY(t,y),0); const ds=col?' style="display:none"':'';
-      const newTag=isNew?(' <span class="dv2-pill">Nueva</span> <button class="dv2-del" data-lotedel="'+t+'" title="Quitar del plan">✕</button>'):'';
+      /* «Nueva» decía otra cosa de la que significaba: salía en TODA empresa fuera de cartera,
+         llevara un día o un año en el plan. Lo que marca es que aún no se ha comprado. */
+      const newTag=isNew?(' <span class="dv2-pill">Sin comprar</span> <button class="dv2-del" data-lotedel="'+t+'" title="Sacar del plan">✕</button>'):'';
+      /* Objetivo 0 € sin nada invertido = la fila no recibe capital. Pasa con «— sin clasificar —»,
+         que sigue siendo elegible y hace lo mismo que «Mantener» en una empresa sin comprar. */
+      const cero=(objEur(t)<0.5&&(invByT[t]||0)<0.5)?' <span class="dv2-pill" style="background:#fef3c7;color:#92400e" title="Con objetivo 0 € esta empresa no entra en el reparto: clasifícala como Joya o Núcleo, o sácala del plan.">objetivo 0 €</span>':'';
       const asgCell=`<td class="num ${asg>0.5?'pos':(asg<-0.5?'neg':'')}">${Math.abs(asg)<0.5?'✓':((asg>0?'+':'−')+eurK(Math.abs(asg))+'€')}</td>`;
-      rows+=`<tr class="dv2-plan" data-dvg="${g}"${ds}><td class="dv2-name"><b class="dv-tk" data-ficha="${t}">${t}</b>${newTag}<div class="dv2-co">${(nm(t)||'').slice(0,24)}</div><div class="dv2-tp">${tipoSel(t)}</div></td><td class="num">${invByT[t]?fmt(invByT[t]):'·'}</td><td class="num">${pctAct?pctAct.toFixed(1)+'%':'·'}</td><td class="num">${fmt(objEur(t))}</td>${asgCell}${planYCells(t)}<td class="num col-tot">${totPlan>0.5?(eurK(totPlan)+'€'):'·'}</td></tr>`;
+      rows+=`<tr class="dv2-plan" data-dvg="${g}"${ds}><td class="dv2-name"><b class="dv-tk" data-ficha="${t}">${t}</b>${newTag}${cero}<div class="dv2-co">${(nm(t)||'').slice(0,24)}</div><div class="dv2-tp">${tipoSel(t)}</div></td><td class="num">${invByT[t]?fmt(invByT[t]):'·'}</td><td class="num">${pctAct?pctAct.toFixed(1)+'%':'·'}</td><td class="num">${fmt(objEur(t))}</td>${asgCell}${planYCells(t)}<td class="num col-tot">${totPlan>0.5?(eurK(totPlan)+'€'):'·'}</td></tr>`;
       rows+=`<tr class="dv2-real" data-dvg="${g}"${ds}><td class="dv2-name dv2-rlbl">Real · comprado</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td>${realYCells(t)}<td class="num col-tot">${totComp>0.5?(eurK(totComp)+'€'):'·'}</td></tr>`;
     });
   });

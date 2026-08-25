@@ -40,6 +40,14 @@ var TRASH_RESTORE={
   universo:           function(p){ DB.universo=DB.universo||{}; DB.universo[p.t]=p.item; return ['renderUniverso']; },
   combustible:        function(p){ DB.combustible=DB.combustible||[]; DB.combustible.push(p.item); return ['renderMazinger']; },
   protocolo:          function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=DB.protocolo[p.t]||[]; DB.protocolo[p.t].push(p.item); return ['renderPanelDash']; },
+  /* [25-ago-2026] Baja de una empresa del plan de Diversificación: además de la fila se llevaba su
+     categoría y los importes fijados a mano por año. Se restauran las tres cosas juntas. */
+  plan_empresa:       function(p){ DB.planLote=DB.planLote||[];
+                                   if(DB.planLote.map(function(x){return (x||'').toUpperCase();}).indexOf(p.t)<0)DB.planLote.push(p.t);
+                                   if(p.tipo){ DB.planTipo=DB.planTipo||{}; DB.planTipo[p.t]=p.tipo; }
+                                   if(p.compras&&Object.keys(p.compras).length){ DB.planCompras=DB.planCompras||{}; DB.planCompras[p.t]=p.compras; }
+                                   try{ if(typeof _planRepartoInval==='function')_planRepartoInval(); }catch(e){}
+                                   return ['renderPlanLote','renderSimulador']; },
   dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
   /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
      TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
