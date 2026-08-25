@@ -502,7 +502,8 @@ $('#patAdd').addEventListener('click',addSnapshot);
 $('#patAddCuenta').addEventListener('click',addCuenta);
 if($('#view-patrimonio')) $('#view-patrimonio').addEventListener('click',e=>{ const h=e.target.closest('[data-patblk]'); if(!h)return; const blk=document.getElementById(h.getAttribute('data-patblk')); if(blk)blk.classList.toggle('open'); });
 if($('#patRegCancel')) $('#patRegCancel').addEventListener('click',()=>{ if(typeof resetPatForm==='function')resetPatForm(); });
-$('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-delcuenta]');if(b)delCuenta(b.dataset.delcuenta);});
+$('#patCuentas').addEventListener('click',e=>{const b=e.target.closest('[data-delcuenta]');if(b){delCuenta(b.dataset.delcuenta);return;}
+  const r=e.target.closest('[data-reactcuenta]');if(r&&typeof reactivarCuenta==='function')reactivarCuenta(r.dataset.reactcuenta);});
 $('#proyAddEvento').addEventListener('click',addEvento);
 $('#amaForm').addEventListener('submit',e=>{e.preventDefault();addAmalia();});
 $('#amaImportBtn').addEventListener('click',()=>$('#amaFile').click());

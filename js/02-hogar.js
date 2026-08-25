@@ -1468,7 +1468,10 @@ function renderPatForm(){
   const el=$('#patFormFields'); if(!el) return;
   const today=new Date().toISOString().slice(0,10);
   let html='<div class="pat-fld"><label>Fecha</label><input type="date" id="patFecha" value="'+today+'"></div>';
-  (DB.cuentas||[]).forEach(function(c){
+  /* [25-ago-2026] Las cuentas ARCHIVADAS (c.baja) no piden importe en las fotos nuevas: ya no se usan,
+     pero su histórico sigue intacto en DB.patrimonio. Archivar es la salida no destructiva de una
+     cuenta con pasado; borrar solo tiene sentido en una cuenta creada por error. */
+  (DB.cuentas||[]).filter(function(c){return !c.baja;}).forEach(function(c){
     html+='<div class="pat-fld acc"><div class="an">'+_infEsc(c.nombre)+'</div><div class="prow">'+
       '<div><label>Efectivo</label><input type="number" step="0.01" class="patEf" data-c="'+c.id+'" placeholder="0"></div>'+
       '<div><label>Invertido</label><input type="number" step="0.01" class="patInv" data-c="'+c.id+'" placeholder="0"></div></div></div>';
@@ -1545,7 +1548,9 @@ function renderPatList(){
 function addSnapshot(){
   const fE=$('#patFecha'); const fecha=fE?fE.value:''; if(!fecha){alert('Pon una fecha');return;}
   const efs=$$('.patEf'), invs=$$('.patInv');
-  const lineas=DB.cuentas.map(c=>{
+  /* Solo las cuentas activas: a una archivada no se le escribe una línea a 0, que se leería como
+     «esa cuenta cayó a cero» en vez de «esa cuenta ya no se sigue». */
+  const lineas=DB.cuentas.filter(c=>!c.baja).map(c=>{
     const ef=num((efs.find(i=>i.dataset.c===c.id)||{}).value);
     const inv=num((invs.find(i=>i.dataset.c===c.id)||{}).value);
     return {cuentaId:c.id, ef, inv};
@@ -1571,22 +1576,106 @@ function importPatrimonio(file){ if(typeof pushSnapshot==='function')pushSnapsho
 function renderPatCuentas(){
   const el=$('#patCuentas'); if(!el) return;
   if(!(DB.cuentas||[]).length){ el.innerHTML='<span class="muted">No hay cuentas todavía.</span>'; return; }
-  el.innerHTML=DB.cuentas.map(function(c){ return '<span class="pat-ctag">'+_infEsc(c.nombre)+'<button data-delcuenta="'+c.id+'" title="Borrar cuenta">✕</button></span>'; }).join('');
+  const act=DB.cuentas.filter(function(c){return !c.baja;}), arc=DB.cuentas.filter(function(c){return !!c.baja;});
+  let h=act.map(function(c){ return '<span class="pat-ctag">'+_infEsc(c.nombre)+'<button data-delcuenta="'+c.id+'" title="Archivar o borrar esta cuenta">✕</button></span>'; }).join('');
+  if(arc.length) h+='<span class="muted" style="font-size:11.5px;margin:0 4px 0 8px;align-self:center">archivadas:</span>'
+    +arc.map(function(c){ return '<span class="pat-ctag" style="background:#f1f5f9;color:#64748b" title="Archivada: no pide importe en las fotos nuevas, pero conserva su histórico">'
+      +_infEsc(c.nombre)+'<button data-reactcuenta="'+c.id+'" title="Volver a usar esta cuenta" style="color:#2563eb;font-weight:800">↻</button></span>'; }).join('');
+  el.innerHTML=h;
 }
 function addCuenta(){
   const n=prompt('Nombre de la nueva cuenta (p. ej. Bankinter):'); if(n===null) return;
   const nombre=n.trim(); if(!nombre) return;
-  if(DB.cuentas.some(c=>c.nombre.toLowerCase()===nombre.toLowerCase())){ alert('Ya existe una cuenta con ese nombre.'); return; }
+  const dup=DB.cuentas.find(c=>c.nombre.toLowerCase()===nombre.toLowerCase());
+  if(dup){
+    if(dup.baja){ if(confirm('«'+dup.nombre+'» ya existe, archivada.\n\n¿Volver a usarla? Recupera su histórico y vuelve a pedirte importe en las fotos nuevas.')){ reactivarCuenta(dup.id); } return; }
+    alert('Ya existe una cuenta con ese nombre.'); return;
+  }
   DB.cuentas.push({id:uid(),nombre,tipo:'banco',naturaleza:'efectivo',saldoInicial:0});
   renderPat(); scheduleSave();
 }
+/* ===== BAJA DE UNA CUENTA (25-ago-2026) =====
+   Antes, la ✕ hacía dos cosas en un clic y solo avisaba de una: quitaba la cuenta de DB.cuentas Y
+   arrancaba su línea de TODOS los registros de DB.patrimonio. Con 84 fotos desde 2019, borrar la
+   cuenta del bróker reescribía siete años de patrimonio hacia abajo — sin decir cuántos registros
+   tocaba y sin ninguna vuelta atrás (no pasaba por undoableDelete).
+   Ahora: ARCHIVAR es la salida por defecto de una cuenta con histórico (deja de pedir importe en las
+   fotos nuevas, el pasado queda intacto) y BORRAR es la opción secundaria, con las cifras delante y
+   con deshacer desde la Papelera. */
+function _patCuentaUso(id){
+  let regs=0, prim='', ult='', ultImp=0;
+  patSnaps().forEach(function(s){
+    const l=(s.lineas||[]).find(function(x){return x.cuentaId===id;});
+    if(!l)return;
+    const v=num(l.ef)+num(l.inv);
+    regs++; if(!prim)prim=s.fecha; ult=s.fecha; ultImp=v;
+  });
+  return {regs:regs, prim:prim, ult:ult, ultImp:ultImp};
+}
+function reactivarCuenta(id){
+  const c=(DB.cuentas||[]).find(function(x){return x.id===id;}); if(!c)return;
+  delete c.baja; renderPat(); if(typeof saveNow==='function')saveNow();
+  if(typeof showToast==='function')showToast('↻ «'+c.nombre+'» vuelve a estar activa');
+}
+function _patCtaClose(){ const o=document.getElementById('patCtaWrap'); if(o)o.remove(); }
 function delCuenta(id){
-  const c=DB.cuentas.find(x=>x.id===id); if(!c) return;
-  const used=(DB.patrimonio||[]).some(s=>(s.lineas||[]).some(l=>l.cuentaId===id && (num(l.ef)||num(l.inv))));
-  if(!confirm('¿Eliminar la cuenta "'+c.nombre+'"?'+(used?' Tiene importes en registros de patrimonio que se quitarán.':''))) return;
-  DB.cuentas=DB.cuentas.filter(x=>x.id!==id);
-  (DB.patrimonio||[]).forEach(s=>{ s.lineas=(s.lineas||[]).filter(l=>l.cuentaId!==id); });
-  renderPat(); scheduleSave();
+  const c=(DB.cuentas||[]).find(function(x){return x.id===id;}); if(!c) return;
+  const U=_patCuentaUso(id);
+  const totUlt=(function(){ const sn=patSnaps(); return sn.length?snapTot(sn[sn.length-1]).total:0; })();
+  _patCtaClose();
+  const o=document.createElement('div'); o.id='patCtaWrap';
+  o.style.cssText='position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px';
+  const cifras=U.regs
+    ? '<div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.8">'
+        +'<div>Aparece en <b>'+U.regs+' registro'+(U.regs===1?'':'s')+'</b> de patrimonio, del <b>'+ddmmyyyy(U.prim)+'</b> al <b>'+ddmmyyyy(U.ult)+'</b>.</div>'
+        +'<div>En el último figuraban <b>'+fmt(U.ultImp)+'</b>'
+        +(totUlt>0?(' — el patrimonio de esa fecha pasaría de '+fmt(totUlt)+' a <b>'+fmt(totUlt-U.ultImp)+'</b>'):'')+'.</div></div>'
+    : '<div style="font-size:12.5px;color:#64748b;line-height:1.7">No tiene ningún importe registrado: no hay histórico que perder.</div>';
+  const btnArch=U.regs
+    ? '<button class="btn sm" data-patarch="1" style="width:100%;padding:9px">📥 Archivar — conserva el histórico</button>'
+      +'<div style="font-size:11px;color:#94a3b8;margin:5px 0 12px;line-height:1.5">Deja de pedirte importe en las fotos nuevas y sale en gris bajo «archivadas», con un ↻ para volver a usarla. Los '+U.regs+' registros antiguos siguen contando.</div>'
+    : '';
+  o.innerHTML='<div style="background:#fff;border-radius:14px;width:min(470px,100%);box-shadow:0 20px 60px rgba(0,0,0,.32);overflow:hidden">'
+    +'<div style="padding:13px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center">'
+      +'<b style="font-size:15px">Quitar la cuenta «'+_infEsc(c.nombre)+'»</b>'
+      +'<span data-patx="1" style="cursor:pointer;color:#94a3b8;font-size:19px;line-height:1">✕</span></div>'
+    +'<div style="padding:14px 16px">'+cifras+'<div style="height:12px"></div>'+btnArch
+    +'<button class="btn ghost sm" data-patdel="1" style="width:100%;padding:9px;color:#b91c1c;border-color:#fecaca">🗑️ Borrar la cuenta'
+      +(U.regs?(' y sus '+U.regs+' línea'+(U.regs===1?'':'s')+' del histórico'):'')+'</button>'
+    +'<div style="font-size:11px;color:#94a3b8;margin-top:5px;line-height:1.5">'
+      +(U.regs?'Reescribe el patrimonio de esas fechas. Podrás deshacerlo desde el aviso o la Papelera.':'Podrás deshacerlo desde el aviso o la Papelera.')+'</div></div>'
+    +'<div style="padding:12px 16px;text-align:right;border-top:1px solid #eef2f7"><button class="btn ghost sm" data-patx="1">Cancelar</button></div></div>';
+  o.addEventListener('click',function(e){
+    if(e.target===o||e.target.closest('[data-patx]')){ _patCtaClose(); return; }
+    if(e.target.closest('[data-patarch]')){ _patCtaClose(); _patArchivarCuenta(id); return; }
+    if(e.target.closest('[data-patdel]')){ _patCtaClose(); _patBorrarCuenta(id); return; }
+  });
+  o.addEventListener('keydown',function(e){ if(e.key==='Escape')_patCtaClose(); });
+  document.body.appendChild(o);
+}
+function _patArchivarCuenta(id){
+  const c=(DB.cuentas||[]).find(function(x){return x.id===id;}); if(!c)return;
+  c.baja=true; renderPat(); if(typeof saveNow==='function')saveNow();
+  if(typeof showToast==='function')showToast('📥 «'+c.nombre+'» archivada — histórico intacto','Deshacer',function(){ reactivarCuenta(id); });
+}
+function _patBorrarCuenta(id){
+  const c=(DB.cuentas||[]).find(function(x){return x.id===id;}); if(!c)return;
+  const U=_patCuentaUso(id);
+  /* El payload guarda la posición exacta: qué línea vivía en qué registro de patrimonio. */
+  const lineas=[];
+  (DB.patrimonio||[]).forEach(function(s){
+    (s.lineas||[]).forEach(function(l){ if(l.cuentaId===id) lineas.push({snap:s.id, fecha:s.fecha, linea:Object.assign({},l)}); });
+  });
+  const idx=(DB.cuentas||[]).findIndex(function(x){return x.id===id;});
+  const quitar=function(){
+    DB.cuentas=(DB.cuentas||[]).filter(function(x){return x.id!==id;});
+    (DB.patrimonio||[]).forEach(function(s){ s.lineas=(s.lineas||[]).filter(function(l){return l.cuentaId!==id;}); });
+    if(typeof saveNow==='function')saveNow();
+  };
+  const label=c.nombre+(U.regs?(' — cuenta y '+U.regs+' línea'+(U.regs===1?'':'s')+' de patrimonio'):' — cuenta');
+  if(typeof undoableDelete==='function')
+    undoableDelete('cuenta', label, {cuenta:Object.assign({},c), idx:idx, lineas:lineas}, quitar, ['renderPat']);
+  else { quitar(); renderPat(); }
 }
 /* ============ Proyección (modelo KH&Claude) ============ */
 function proyDefaults(){

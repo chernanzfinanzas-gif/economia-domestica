@@ -49,6 +49,17 @@ var TRASH_RESTORE={
                                    if(p.sim&&Object.keys(p.sim).length){ DB.simShares=DB.simShares||{}; DB.simShares[p.t]=p.sim; }
                                    try{ if(typeof _planRepartoInval==='function')_planRepartoInval(); }catch(e){}
                                    return ['renderPlanLote','renderSimulador']; },
+  /* [25-ago-2026] Borrar una cuenta arrastraba su línea de TODOS los registros de patrimonio (7 años
+     de histórico) sin vuelta atrás. Se restaura la cuenta en su posición y cada línea en SU registro. */
+  cuenta:             function(p){ DB.cuentas=DB.cuentas||[];
+                                   if(!DB.cuentas.some(function(x){return x.id===p.cuenta.id;})){
+                                     if(p.idx>=0&&p.idx<=DB.cuentas.length)DB.cuentas.splice(p.idx,0,p.cuenta); else DB.cuentas.push(p.cuenta); }
+                                   (p.lineas||[]).forEach(function(e){
+                                     var s=(DB.patrimonio||[]).find(function(x){return x.id===e.snap;})
+                                        || (DB.patrimonio||[]).find(function(x){return x.fecha===e.fecha;});
+                                     if(!s)return; s.lineas=s.lineas||[];
+                                     if(!s.lineas.some(function(l){return l.cuentaId===e.linea.cuentaId;})) s.lineas.push(e.linea); });
+                                   return ['renderPat']; },
   dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
   /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
      TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
