@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-07-31",
+ "generadoEl": "2026-08-24",
  "fuenteDeVerdad": "Calibración Ex-Post - Método KH&Claude.xlsx · hoja «Registro t0»",
  "nota": "La composición del PO (dcf, recorteSintesis, banda, robustez, gImplicito…) solo existe en el lado del método: la app no puede calcularla. Las filas sin ella son aquellas cuyo [TICKER].json dejó de ser la foto de t0 — vacío significa «no se sabe», nunca cero.",
  "t0": [
@@ -35,8 +35,8 @@
    "confianza": "A · 100",
    "vetoForense": "n.a.",
    "dividendSafety": 94,
-   "betaReferencia": 0.854,
-   "desfaseBeta": 0.594,
+   "betaReferencia": 0.843,
+   "desfaseBeta": 0.583,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -73,8 +73,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 62,
-   "betaReferencia": 0.58,
-   "desfaseBeta": 0,
+   "betaReferencia": 0.578,
+   "desfaseBeta": -0.002000000000000002,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -111,8 +111,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 89,
-   "betaReferencia": 0.634,
-   "desfaseBeta": 0.05400000000000005,
+   "betaReferencia": 0.639,
+   "desfaseBeta": 0.05900000000000005,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -149,8 +149,8 @@
    "confianza": "A · 98",
    "vetoForense": "NO",
    "dividendSafety": 76,
-   "betaReferencia": 0.468,
-   "desfaseBeta": 0.01800000000000002,
+   "betaReferencia": 0.467,
+   "desfaseBeta": 0.01700000000000002,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -187,8 +187,8 @@
    "confianza": "A · 96",
    "vetoForense": "NO",
    "dividendSafety": 83,
-   "betaReferencia": 0.446,
-   "desfaseBeta": -0.554,
+   "betaReferencia": 0.429,
+   "desfaseBeta": -0.571,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -263,8 +263,8 @@
    "confianza": "A · 98",
    "vetoForense": "NO",
    "dividendSafety": 54,
-   "betaReferencia": 0.468,
-   "desfaseBeta": -0.001999999999999946,
+   "betaReferencia": 0.473,
+   "desfaseBeta": 0.003000000000000003,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -339,8 +339,8 @@
    "confianza": "A · 98",
    "vetoForense": "NO",
    "dividendSafety": 90,
-   "betaReferencia": 0.229,
-   "desfaseBeta": 0.089,
+   "betaReferencia": 0.22,
+   "desfaseBeta": 0.07999999999999999,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -377,8 +377,8 @@
    "confianza": "A · 96",
    "vetoForense": "NO",
    "dividendSafety": 58,
-   "betaReferencia": 1.07,
-   "desfaseBeta": 0.17,
+   "betaReferencia": 1.067,
+   "desfaseBeta": 0.1669999999999999,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -415,8 +415,8 @@
    "confianza": "A · 100",
    "vetoForense": "n.a.",
    "dividendSafety": 83,
-   "betaReferencia": 1.06,
-   "desfaseBeta": 1.02,
+   "betaReferencia": 1.063,
+   "desfaseBeta": 1.023,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -453,8 +453,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 84,
-   "betaReferencia": 0.75,
-   "desfaseBeta": -0.06000000000000005,
+   "betaReferencia": 0.745,
+   "desfaseBeta": -0.06500000000000006,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -491,8 +491,8 @@
    "confianza": "A · 94",
    "vetoForense": "NO",
    "dividendSafety": 88,
-   "betaReferencia": 0.092,
-   "desfaseBeta": -0.058,
+   "betaReferencia": 0.089,
+   "desfaseBeta": -0.061,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -529,8 +529,8 @@
    "confianza": "A · 88",
    "vetoForense": "NO",
    "dividendSafety": 71,
-   "betaReferencia": 0.907,
-   "desfaseBeta": 0.147,
+   "betaReferencia": 0.9,
+   "desfaseBeta": 0.14,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -567,8 +567,8 @@
    "confianza": "A · 95",
    "vetoForense": "NO",
    "dividendSafety": 88,
-   "betaReferencia": 0.939,
-   "desfaseBeta": 0.359,
+   "betaReferencia": 0.953,
+   "desfaseBeta": 0.373,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -605,8 +605,8 @@
    "confianza": "A · 93",
    "vetoForense": "NO",
    "dividendSafety": 46,
-   "betaReferencia": 0.222,
-   "desfaseBeta": 0.07200000000000001,
+   "betaReferencia": 0.219,
+   "desfaseBeta": 0.069,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -643,12 +643,12 @@
    "confianza": "A · 98",
    "vetoForense": "NO",
    "dividendSafety": 40,
-   "betaReferencia": 0.344,
-   "desfaseBeta": -0.156,
+   "betaReferencia": 0.334,
+   "desfaseBeta": -0.166,
    "ajustesN": null,
    "ajusteFecha": null,
-   "ajusteDecision": null,
-   "ajustePo": null
+   "ajusteDecision": "MANTENER",
+   "ajustePo": 14.9
   },
   {
    "ticker": "ACS",
@@ -681,8 +681,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 84,
-   "betaReferencia": 0.867,
-   "desfaseBeta": 0.237,
+   "betaReferencia": 0.852,
+   "desfaseBeta": 0.222,
    "ajustesN": 0,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -719,8 +719,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 25,
-   "betaReferencia": 0.398,
-   "desfaseBeta": 0.138,
+   "betaReferencia": 0.401,
+   "desfaseBeta": 0.141,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -757,8 +757,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 42,
-   "betaReferencia": 0.472,
-   "desfaseBeta": 0.132,
+   "betaReferencia": 0.476,
+   "desfaseBeta": 0.136,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -795,8 +795,8 @@
    "confianza": "A · 84",
    "vetoForense": "NO",
    "dividendSafety": 55,
-   "betaReferencia": 0.353,
-   "desfaseBeta": -0.09700000000000003,
+   "betaReferencia": 0.354,
+   "desfaseBeta": -0.09600000000000003,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -833,8 +833,8 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 55,
-   "betaReferencia": 0.662,
-   "desfaseBeta": 0.3720000000000001,
+   "betaReferencia": 0.653,
+   "desfaseBeta": 0.363,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -871,8 +871,8 @@
    "confianza": "A · 96",
    "vetoForense": "NO",
    "dividendSafety": 75,
-   "betaReferencia": 0.36,
-   "desfaseBeta": 0.02999999999999997,
+   "betaReferencia": 0.316,
+   "desfaseBeta": -0.01400000000000001,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -909,8 +909,8 @@
    "confianza": "A · 90",
    "vetoForense": "NO",
    "dividendSafety": 91,
-   "betaReferencia": 0.788,
-   "desfaseBeta": -0.07199999999999995,
+   "betaReferencia": 0.779,
+   "desfaseBeta": -0.08099999999999996,
    "ajustesN": null,
    "ajusteFecha": null,
    "ajusteDecision": null,
@@ -947,102 +947,183 @@
    "confianza": "A · 100",
    "vetoForense": "NO",
    "dividendSafety": 68,
-   "betaReferencia": 0.914,
-   "desfaseBeta": 0.08400000000000007,
+   "betaReferencia": 0.917,
+   "desfaseBeta": 0.08700000000000008,
    "ajustesN": null,
+   "ajusteFecha": null,
+   "ajusteDecision": null,
+   "ajustePo": null
+  },
+  {
+   "ticker": "EBRO",
+   "empresa": "Ebro Foods, S.A.",
+   "arquetipo": "CONSUMO · Alimentación (Defensivo)",
+   "fecha": "2026-08-23",
+   "decision": "ESPERAR",
+   "rating": "A",
+   "score": 63.25,
+   "cot0": 18.3,
+   "poBear": 12.71,
+   "poBase": 15.37,
+   "poBull": 19.97,
+   "entMin": 12.71,
+   "entMax": 13.36,
+   "stop": 7.38,
+   "beta": 0.39,
+   "mdsBase": null,
+   "potencialBull": null,
+   "riesgoBear": null,
+   "colchonStop": null,
+   "recorridoStop": null,
+   "dcf": 8.46406546484056,
+   "recorteSintesis": null,
+   "bandaP10": 12.71,
+   "bandaP90": 19.97,
+   "robustez": "solida · sobrevive",
+   "gImplicito": 0.1022,
+   "veredictoRdcf": "HEROICO",
+   "confianza": "A · 100",
+   "vetoForense": "NO",
+   "dividendSafety": 70,
+   "betaReferencia": 0.089,
+   "desfaseBeta": -0.301,
+   "ajustesN": null,
+   "ajusteFecha": null,
+   "ajusteDecision": null,
+   "ajustePo": null
+  },
+  {
+   "ticker": "VID",
+   "empresa": "Vidrala, S.A.",
+   "arquetipo": "Industrial · Envases de Vidrio",
+   "fecha": "2026-08-24",
+   "decision": "COMPRAR",
+   "rating": "AA",
+   "score": 75.7,
+   "cot0": 90,
+   "poBear": 85.29,
+   "poBase": 106.42,
+   "poBull": 123.57,
+   "entMin": 85.29,
+   "entMax": 92.54,
+   "stop": 37.5,
+   "beta": 0.744,
+   "mdsBase": null,
+   "potencialBull": null,
+   "riesgoBear": null,
+   "colchonStop": null,
+   "recorridoStop": null,
+   "dcf": 106.42,
+   "recorteSintesis": 0,
+   "bandaP10": 85.29,
+   "bandaP90": 123.57,
+   "robustez": "solida",
+   "gImplicito": 0.0305,
+   "veredictoRdcf": "PLAUSIBLE",
+   "confianza": "A · 98",
+   "vetoForense": "NO",
+   "dividendSafety": 89,
+   "betaReferencia": 0.745,
+   "desfaseBeta": 0.001000000000000001,
+   "ajustesN": 0,
    "ajusteFecha": null,
    "ajusteDecision": null,
    "ajustePo": null
   }
  ],
  "resumen": {
-  "filas": 25,
-  "conComposicion": 24,
+  "filas": 27,
+  "conComposicion": 26,
   "recorteMediano": -0.09999999999999998,
-  "desfaseBetaMediano": 0.07200000000000001
+  "desfaseBetaMediano": 0.05900000000000005
  },
  "sesgo": null,
  "espejo": {
-  "generadoEl": "2026-07-31",
+  "generadoEl": "2026-08-24",
   "libros": 25,
   "decisiones": {
-   "total": 32,
+   "total": 37,
    "reparto": [
     {
      "clave": "REAFIRMAR",
-     "n": 29,
-     "pct": 90.6
+     "n": 34,
+     "pct": 91.9
     },
     {
      "clave": "AJUSTA PO",
      "n": 2,
-     "pct": 6.2
+     "pct": 5.4
     },
     {
      "clave": "AJUSTA BANDA",
      "n": 1,
-     "pct": 3.1
+     "pct": 2.7
     }
    ]
   },
   "senales": {
-   "total": 32,
-   "dePrecio": 15,
-   "pctDePrecio": 46.9,
+   "total": 37,
+   "dePrecio": 16,
+   "pctDePrecio": 43.2,
    "reparto": [
     {
      "clave": "S3",
      "n": 15,
-     "pct": 46.9
+     "pct": 40.5
     },
     {
      "clave": "S6",
-     "n": 6,
-     "pct": 18.8
+     "n": 8,
+     "pct": 21.6
     },
     {
      "clave": "DISC",
-     "n": 5,
-     "pct": 15.6
+     "n": 7,
+     "pct": 18.9
     },
     {
      "clave": "S2",
      "n": 5,
-     "pct": 15.6
+     "pct": 13.5
+    },
+    {
+     "clave": "S1",
+     "n": 1,
+     "pct": 2.7
     },
     {
      "clave": "§10.4",
      "n": 1,
-     "pct": 3.1
+     "pct": 2.7
     }
    ]
   },
   "semaforo": {
-   "total": 334,
+   "total": 335,
    "reparto": [
     {
      "clave": "V",
      "nombre": "VERDE",
-     "n": 212,
-     "pct": 63.5
+     "n": 204,
+     "pct": 60.9
     },
     {
      "clave": "A",
      "nombre": "ÁMBAR",
-     "n": 110,
-     "pct": 32.9
+     "n": 118,
+     "pct": 35.2
     },
     {
      "clave": "R",
      "nombre": "ROJO",
-     "n": 12,
-     "pct": 3.6
+     "n": 13,
+     "pct": 3.9
     }
    ]
   },
   "latencia": {
-   "medibles": 5,
-   "sinFechaDeApertura": 27,
+   "medibles": 8,
+   "sinFechaDeApertura": 29,
    "mediana": 1,
    "maximo": 17,
    "detalle": [
@@ -1052,6 +1133,13 @@
      "dias": 17,
      "abierta": "2026-07-11",
      "cerrada": "2026-07-28"
+    },
+    {
+     "empresa": "ACS",
+     "senal": "S3",
+     "dias": 1,
+     "abierta": "2026-08-10",
+     "cerrada": "2026-08-11"
     },
     {
      "empresa": "Aena",
@@ -1068,6 +1156,13 @@
      "cerrada": "2026-07-28"
     },
     {
+     "empresa": "Azkoyen",
+     "senal": "S1",
+     "dias": 1,
+     "abierta": "2026-08-03",
+     "cerrada": "2026-08-04"
+    },
+    {
      "empresa": "Amadeus",
      "senal": "S2",
      "dias": 0,
@@ -1080,6 +1175,13 @@
      "dias": 0,
      "abierta": "2026-07-29",
      "cerrada": "2026-07-29"
+    },
+    {
+     "empresa": "Prim",
+     "senal": "S6",
+     "dias": 0,
+     "abierta": "2026-08-04",
+     "cerrada": "2026-08-04"
     }
    ]
   },
@@ -1105,6 +1207,11 @@
     "trimestres": 14
    },
    {
+    "empresa": "Vidrala",
+    "verdesSeguidos": 7,
+    "trimestres": 14
+   },
+   {
     "empresa": "Santander",
     "verdesSeguidos": 5,
     "trimestres": 14
@@ -1125,11 +1232,6 @@
     "trimestres": 9
    },
    {
-    "empresa": "Vidrala",
-    "verdesSeguidos": 3,
-    "trimestres": 14
-   },
-   {
     "empresa": "Faes Farma",
     "verdesSeguidos": 2,
     "trimestres": 14
@@ -1142,11 +1244,6 @@
    {
     "empresa": "Repsol",
     "verdesSeguidos": 2,
-    "trimestres": 14
-   },
-   {
-    "empresa": "Ebro Foods",
-    "verdesSeguidos": 1,
     "trimestres": 14
    },
    {
@@ -1175,6 +1272,11 @@
     "trimestres": 7
    },
    {
+    "empresa": "Ebro Foods",
+    "verdesSeguidos": 0,
+    "trimestres": 14
+   },
+   {
     "empresa": "Enagas",
     "verdesSeguidos": 0,
     "trimestres": 14
@@ -1192,7 +1294,7 @@
    {
     "empresa": "Prim",
     "verdesSeguidos": 0,
-    "trimestres": 12
+    "trimestres": 13
    },
    {
     "empresa": "Redeia",
