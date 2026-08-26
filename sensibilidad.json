@@ -69,6 +69,12 @@
   "FDR": {
    "EUR": -1
   },
+  "IBE": {
+   "REG": 2,
+   "TIPOS": -2,
+   "BOLSA": 1,
+   "EUR": -2
+  },
   "ITX": {
    "EUR": -1,
    "CONSD": 1,
@@ -314,6 +320,18 @@
    "familia": "BALANCE",
    "id": "gobernanza",
    "variable": "Votos a la Política de Remuneraciones / permanencia de Rhône Capital"
+  },
+  {
+   "tk": "IBE",
+   "familia": "GOBERNANZA",
+   "id": "litigios_ayudas_estado",
+   "variable": "ScottishPower contra el HMRC (vista en la Corte Suprema el 18-may-2026), litigios de Brasil y expediente del articulo 12.5 TRLIS"
+  },
+  {
+   "tk": "IBE",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio 8.389 M EUR y otros intangibles 13.386 M EUR sobre un patrimonio atribuible de 50.068 M EUR"
   },
   {
    "tk": "ITX",
@@ -696,6 +714,16 @@
    "variable": "Peso del mayor cliente en ventas (21,0%)"
   },
   {
+   "tk": "IBE",
+   "id": "ejecucion_plan",
+   "variable": "Ejecucion del plan inversor 2025-2028 (~58.000 M EUR brutos) sobre un spread ROIC-WACC de +0,79 pp"
+  },
+  {
+   "tk": "IBE",
+   "id": "ciberseguridad",
+   "variable": "Continuidad de sistemas en infraestructura critica de cuatro paises"
+  },
+  {
    "tk": "ITX",
    "id": "algodon",
    "variable": "Coste materia prima textil (algodon)"
@@ -802,6 +830,12 @@
    "tk": "ELE",
    "factor": "REG",
    "id": "capex_redes",
+   "motivo": "sin `sensibilidad` revisada (pasa aplicar_asignacion.py)"
+  },
+  {
+   "tk": "IBE",
+   "factor": "REG",
+   "id": "base_activos_regulada",
    "motivo": "sin `sensibilidad` revisada (pasa aplicar_asignacion.py)"
   },
   {
