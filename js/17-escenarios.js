@@ -40,6 +40,78 @@
     desc:'El mejor escenario posible — crecimiento, paz y bonanza: bolsa en máximos (+25%), crecimiento fuerte (PIB +4%, consumo disparado), crédito barato y abundante, tipos sanos, euro estable, emergentes fuertes, energía barata (Brent 70 $, gas 20 €) y regulación favorable. Casi todo suma.'},
   normal:{BOLSA:0,TIPOS:2,CRED:1.0,PIB:1.5,CONSD:1,CONSB:1,EUR:1.15,LATAM:0,BRENT:75,GAS:25,REG:6.25,desc:'Todo en su nivel normal: ningún factor aprieta.'}
  };
+ /* ===== Preset «Hoy» — los sliders en el sitio donde está el mundo de verdad =====
+    [26-ago-2026] Los ocho presets de arriba son del pasado y ninguno decía DÓNDE ESTAMOS. Peor: la
+    pestaña arrancaba en Lehman, así que la primera foto de la cartera era una crisis de 2008 que
+    nadie había pedido. «Hoy» se calcula de `macro.json` en cada carga y es el escenario de arranque.
+
+    Puente PROPIO, memoizado: 29-coyuntura.js también lee `macro.json`, pero este fichero va dentro
+    de un IIFE y sus variables no se ven fuera — y al revés tampoco. Colgarse de la variable de otro
+    módulo es la avería que ya costó el bloque de exposición en blanco de Riesgo.
+
+    Dos reglas heredadas, que aquí valen doble:
+      · Un factor sin dato NO se inventa: se queda en su valor normal y el chip DICE cuál es. Un
+        neutro silencioso se leería como una medición, que es justo el error del 0 en las posiciones
+        sin cotización.
+      · Un valor real fuera del recorrido del slider se recorta al tope, y también se dice. */
+ var _escMacro=null, _escMacroEl='';
+ /* Qué factores están en su valor normal por falta de dato, no por medición. Lo pinta el slider:
+    decirlo solo en el texto del chip deja tres barras indistinguibles de las ocho reales. */
+ var _escSinDato=null;
+ function _escMacroCargar(){
+   if(_escMacro) return Promise.resolve(_escMacro);
+   return fetch('macro.json',{cache:'no-store'})
+     .then(function(r){ return r.ok?r.json():null; })
+     .then(function(j){ _escMacro=(j&&j.ind)?j.ind:{}; _escMacroEl=(j&&j.generadoEl)||''; return _escMacro; })
+     .catch(function(){ _escMacro={}; return _escMacro; });
+ }
+ function _escEsc(x){ return (x==null?'':''+x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
+ /* Distancia comparable entre factores con unidades distintas: qué fracción del recorrido ha
+    andado el factor desde su valor normal hacia el extremo de ESE lado. Así un Brent en dólares y
+    una prima de riesgo en puntos se pueden comparar; medirlo en crudo solo compara escalas. */
+ function _escTension(id,x){
+   const v=V[id]; if(!v)return 0;
+   const r=(x>v.neu)?(v.max-v.neu):(v.neu-v.min);
+   return r>0?((x-v.neu)/r):0;
+ }
+ function _escHoy(){
+   if(!_escMacro) return null;
+   const val={}, nom={}, fuera=[];
+   Object.keys(_escMacro).forEach(function(k){
+     const o=_escMacro[k]; if(!o||!o.slider)return;
+     /* `sliderV` solo existe cuando la unidad del slider no es la del indicador (la prima de riesgo
+        viene en pb y el slider la quiere en %). Si no está, manda el valor propio. */
+     const raw=(o.sliderV!=null)?o.sliderV:o.v;
+     if(raw==null||o.estado==='pte')return;
+     const V0=V[o.slider]; if(!V0)return;
+     const x=num(raw), c=Math.max(V0.min,Math.min(V0.max,x));
+     if(Math.abs(c-x)>1e-9) fuera.push(V0.lab);
+     val[o.slider]=c; nom[o.slider]=o.n||k;
+   });
+   const reales=Object.keys(val);
+   if(!reales.length) return null;
+   const falta=[];
+   VARS.forEach(function(v){ if(val[v.id]==null){ val[v.id]=PRESETS.normal[v.id]; falta.push(v.lab); } });
+   /* El factor más alejado de lo normal, medido en recorrido propio de cada slider. */
+   let top=null;
+   reales.forEach(function(id){ const t=_escTension(id,val[id]);
+     if(top===null||Math.abs(t)>Math.abs(top.t)) top={id:id,t:t}; });
+   const P=Object.assign({},val);
+   let d='<b>Hoy'+(_escMacroEl?(' · datos del '+((typeof ddmmyyyy==='function')?ddmmyyyy(_escMacroEl):_escMacroEl)):'')+'</b> — '
+        +reales.length+' de '+VARS.length+' factores con dato real del informe.';
+   if(top){
+     const v=V[top.id], x=val[top.id];
+     d+=' <span class="esc-top">Más lejos de lo normal: <b>'+_escEsc(v.lab)+'</b> en '+fmtV(top.id,x)
+       +' frente a '+fmtV(top.id,v.neu)+' normal — '+Math.round(Math.abs(top.t)*100)+' % del camino hacia su extremo '
+       +(top.t>0?'alto':'bajo')+'.</span>';
+   }
+   P._falta=VARS.filter(v=>nom[v.id]==null).map(v=>v.id);
+   if(falta.length) d+=' <span class="esc-falta">Sin dato y por tanto en su valor normal, no medido: '+_escEsc(falta.join(', '))+'.</span>';
+   if(fuera.length) d+=' <span class="esc-falta">Fuera del recorrido del slider y recortado al tope: '+_escEsc(fuera.join(', '))+'.</span>';
+   P.desc=d;
+   return P;
+ }
+
  /* Matriz calibrada (informes 2024/25). Score = efecto si el factor SUBE, −2..+2. */
  const SENS={
   IBE:{BOLSA:1,TIPOS:-1,CRED:-1,PIB:0,CONSD:0,CONSB:0,EUR:-1,LATAM:1,BRENT:0,GAS:0,REG:1},
@@ -205,7 +277,8 @@
    const box=document.getElementById('escSliders'); if(!box)return; box.innerHTML='';
    VARS.forEach(v=>{ const zfn=(v.neu-v.min)/(v.max-v.min)*100, zf=zfn.toFixed(1), ztx=zfn<12?'0':zfn>88?'-100%':'-50%';
      const d=document.createElement('div'); d.className='esc-sl';
-     d.innerHTML=`<div class="esc-lab"><span>${v.lab}</span><span class="esc-val" id="escv_${v.id}">${fmtV(v.id,escVal[v.id])}</span></div>
+     const _sd=(_escSinDato&&_escSinDato.indexOf(v.id)>=0)?'<span class="esc-sindato" title="No hay dato en macro.json: el slider se queda en su valor normal, que no es una medición">SIN DATO</span>':'';
+     d.innerHTML=`<div class="esc-lab"><span>${v.lab}${_sd}</span><span class="esc-val" id="escv_${v.id}">${fmtV(v.id,escVal[v.id])}</span></div>
        <div class="esc-track"><div class="esc-zero" style="left:${zf}%"></div><div class="esc-zlbl" style="left:${zf}%;transform:translateX(${ztx})">${fmtV(v.id,v.neu)}</div>
        <input type="range" min="0" max="1000" step="1" value="${Math.round((escVal[v.id]-v.min)/(v.max-v.min)*1000)}" data-v="${v.id}"></div>
        <div class="esc-ends"><span>${fmtV(v.id,v.min)}</span><span>${fmtV(v.id,v.max)}</span></div>`;
@@ -216,11 +289,15 @@
      document.querySelectorAll('#escChips [data-preset]').forEach(c=>c.classList.remove('on')); escRender(); }));
  }
  function escApplyPreset(p){
-   if(p==='aleatorio'){ VARS.forEach(v=>{ const r=(V[v.id].max-V[v.id].min); escVal[v.id]=V[v.id].min+Math.random()*r; });
-     document.getElementById('escPresetDesc').textContent='🎲 Escenario aleatorio — púlsalo otra vez para generar otro y descubrir combinaciones inesperadas.';
+   if(p==='hoy'){ const H=_escHoy(); if(!H)return;
+     VARS.forEach(v=>escVal[v.id]=H[v.id]); _escSinDato=H._falta||[];
+     document.getElementById('escPresetDesc').innerHTML=H.desc;
      escRenderSliders(); escRender(); return; }
-   const P=PRESETS[p]; if(!P)return; VARS.forEach(v=>escVal[v.id]=P[v.id]);
-   document.getElementById('escPresetDesc').textContent=P.desc||''; escRenderSliders(); escRender();
+   if(p==='aleatorio'){ _escSinDato=null; VARS.forEach(v=>{ const r=(V[v.id].max-V[v.id].min); escVal[v.id]=V[v.id].min+Math.random()*r; });
+     document.getElementById('escPresetDesc').innerHTML='🎲 Escenario aleatorio — púlsalo otra vez para generar otro y descubrir combinaciones inesperadas.';
+     escRenderSliders(); escRender(); return; }
+   const P=PRESETS[p]; if(!P)return; VARS.forEach(v=>escVal[v.id]=P[v.id]); _escSinDato=null;
+   document.getElementById('escPresetDesc').innerHTML=_escEsc(P.desc||''); escRenderSliders(); escRender();
  }
   function _escKpi(l,v,c,sub,hero){ var cls='esc-k'+(hero?(' hero'+(c==='#16a34a'?' pos':'')):''); return '<div class="'+cls+'"><div class="l">'+l+'</div><div class="v" style="'+(hero?'':'color:'+c)+'">'+v+'</div><div class="s">'+(sub||'')+'</div></div>'; }
  function escRender(){
@@ -236,7 +313,12 @@
    const dmg=(negSum<0&&topD&&topD.c<0)?Math.round(topD.c/negSum*100):0;
    const g=document.getElementById('escResp');
    if(g)g.innerHTML=
-     _escKpi('Caída estimada de la cartera',(caida>0?'+':'')+caida+'%',caida<0?'#dc2626':'#16a34a','orientativa',true)+
+     /* [26-ago-2026] La etiqueta decía «Caída estimada» pasara lo que pasara: con un escenario
+        benigno se leía «Caída estimada +24 %», que es una frase que se contradice a sí misma. Antes
+        casi no se veía porque la pestaña arrancaba en Lehman y ahí siempre caía; con «Hoy» de
+        arranque, el caso normal es justo el otro. La etiqueta sigue al signo. */
+     _escKpi(caida<0?'Caída estimada de la cartera':(caida>0?'Subida estimada de la cartera':'Efecto estimado en la cartera'),
+             (caida>0?'+':'')+caida+'%',caida<0?'#dc2626':'#16a34a','orientativa',true)+
      _escKpi('Inclinación neta',(net>0?'+':'')+net,net<0?'#dc2626':net>0?'#16a34a':'#64748b','índice −100…+100')+
      _escKpi('% cartera en contra',Math.round(contra*100)+'%',contra>0.5?'#dc2626':'#d97706','del valor')+
      _escKpi('Dividendo en riesgo',divPct+'%',divPct>=30?'#dc2626':divPct>=10?'#d97706':'#16a34a','de tus '+Math.round(totDiv).toLocaleString('es')+' €/año')+
@@ -285,9 +367,15 @@
  }
  window.renderEscenarios=function(){
    const el=document.getElementById('escBody'); if(!el)return;
-   if(escVal===null){ escVal={}; VARS.forEach(v=>escVal[v.id]=PRESETS.lehman[v.id]); }
+   /* [26-ago-2026] Arrancaba en Lehman: la primera foto de la cartera era una crisis de 2008. Ahora
+      abre en «Hoy». Mientras `macro.json` viaja, y si no llega nunca, el arranque es «Todo normal»
+      — nunca una crisis que el usuario no ha pedido. */
+   if(_escMacro===null&&!renderEscenarios._macroPedido){ renderEscenarios._macroPedido=true;
+     _escMacroCargar().then(function(){ try{ renderEscenarios(); }catch(e){} }); }
+   const HOY=_escHoy();
+   if(escVal===null){ escVal={}; VARS.forEach(v=>escVal[v.id]=(HOY?HOY:PRESETS.normal)[v.id]); }
    window._escOpen=window._escOpen||{imp:false,heat:false,cob:false};
-   const chips=[['lehman','Lehman 2008'],['covid','COVID 2020'],['guerra','Guerra energética 2022'],['recesion','Recesión clásica'],['materias','Escasez de materias primas'],['favorable','Expansión favorable'],['bonanza','☀️ Bonanza (mejor caso)'],['aleatorio','🎲 Aleatorio'],['normal','Todo normal']];
+   const chips=(HOY?[['hoy','📍 Hoy']]:[]).concat([['lehman','Lehman 2008'],['covid','COVID 2020'],['guerra','Guerra energética 2022'],['recesion','Recesión clásica'],['materias','Escasez de materias primas'],['favorable','Expansión favorable'],['bonanza','☀️ Bonanza (mejor caso)'],['aleatorio','🎲 Aleatorio'],['normal','Todo normal']]);
    const blk=(key,ic,title,note,inner)=>{ var op=window._escOpen[key]; return '<div class="esc-blk'+(op?' open':'')+'" data-eblk="'+key+'"><div class="esc-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="arw">▶</span></div><div class="esc-blk-b">'+(note?'<div class="esc-note">'+note+'</div>':'')+inner+'</div></div>'; };
    el.innerHTML=`
    <style>
@@ -297,7 +385,12 @@
      #view-escenarios .esc-chips{display:flex;gap:6px;flex-wrap:wrap;margin:2px 0 8px}
      #view-escenarios .esc-chip{border:1px solid #e2e8f0;border-radius:20px;padding:5px 12px;font-size:12px;cursor:pointer;background:#fff;font-weight:600}
      #view-escenarios .esc-chip.on{background:#1f3864;color:#fff;border-color:#1f3864}
-     #view-escenarios #escPresetDesc{color:#64748b;font-size:12px;margin:2px 0 8px;line-height:1.5}
+     #view-escenarios #escPresetDesc{color:#64748b;font-size:12px;margin:2px 0 8px;line-height:1.55}
+     #view-escenarios #escPresetDesc .esc-top{display:block;margin-top:4px;color:#0f766e}
+     #view-escenarios #escPresetDesc .esc-falta{display:block;margin-top:3px;color:#92400e}
+     #view-escenarios .esc-chip[data-preset="hoy"]{border-color:#0d9488;color:#0f766e}
+     #view-escenarios .esc-chip[data-preset="hoy"].on{background:#0f766e;border-color:#0f766e;color:#fff}
+     #view-escenarios .esc-sindato{font-weight:700;color:#92400e;background:#fef3c7;border-radius:20px;padding:0 6px;font-size:9.5px;margin-left:5px;vertical-align:middle}
      #view-escenarios .esc-slgrid{display:grid;grid-template-columns:1fr 1fr;gap:6px 22px;margin-top:6px}
      #view-escenarios .esc-sl .esc-lab{display:flex;justify-content:space-between;align-items:baseline;font-size:11px;margin-bottom:0}
      #view-escenarios .esc-val{font-weight:800;font-variant-numeric:tabular-nums}
@@ -385,6 +478,6 @@
      document.querySelectorAll('#escChips [data-preset]').forEach(x=>x.classList.remove('on')); c.classList.add('on'); escApplyPreset(c.dataset.preset); }));
    var _sec=document.getElementById('view-escenarios');
    if(_sec && !renderEscenarios._bound){ renderEscenarios._bound=true; _sec.addEventListener('click',function(e){ var h=e.target.closest('.esc-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-eblk'); window._escOpen[k]=!window._escOpen[k]; h.parentElement.classList.toggle('open'); } }); }
-   escApplyPreset('lehman');
+   escApplyPreset(HOY?'hoy':'normal');
  };
 })();
