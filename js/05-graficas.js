@@ -772,14 +772,29 @@ function _factorBlockHTML(FX){
    casi cubierto (28,5 % a favor contra 48,1 % en contra), así que una subida del BCE le afecta menos de
    lo que sugiere el titular.
    Lee la MISMA variable que Escenarios (SENS_FICHA), así que no añade puente ni petición de red. */
+/* [27-ago-2026 · fix] `sensibilidad.json` lo carga también 17-escenarios.js, pero ese fichero está
+   ENVUELTO EN UN IIFE —(function(){…})() en las líneas 11 y 390—, así que su SENS_FICHA es privada y
+   desde aquí `typeof SENS_FICHA` da 'undefined' SIEMPRE. El bloque caía a «falta el fichero» aunque el
+   fichero estuviera publicado. Riesgo carga su propia copia con el patrón de puente de la app
+   (memoizado, `cache:'no-store'`, fallo silencioso a vacío y repintado cuando llega). Dos fetch del
+   mismo JSON son más baratos que un acoplamiento entre módulos que no se ve venir. */
+let _rzSens=null, _rzSensEl='';
+function _rzSensCargar(){
+  if(_rzSens) return Promise.resolve(_rzSens);
+  return fetch('sensibilidad.json',{cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){ _rzSens=(j&&j.matriz)?j.matriz:{}; _rzSensEl=(j&&j.generadoEl)||''; return _rzSens; })
+    .catch(function(){ _rzSens={}; return _rzSens; });
+}
 const RZ_FACT={BOLSA:'Bolsa / IBEX', TIPOS:'Tipos BCE', CRED:'Prima de riesgo', PIB:'PIB España',
   CONSD:'Consumo discrecional', CONSB:'Consumo defensivo', LATAM:'Divisas LatAm', EUR:'EUR/USD',
   BRENT:'Brent', GAS:'Gas TTF', REG:'Regulación energética'};
 function _rzExpoData(){
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(!pos.length)return null;
-  const M=(typeof SENS_FICHA!=='undefined')?SENS_FICHA:null;
-  if(!M||!Object.keys(M).length)return {sinPuente:true};
+  if(_rzSens===null)return {cargando:true};
+  const M=_rzSens;
+  if(!Object.keys(M).length)return {sinPuente:true};
   const val={}; let tot=0;
   pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); const v=p.acciones*num(p.precioActual); val[t]=(val[t]||0)+v; tot+=v; });
   if(!(tot>0))return null;
@@ -797,10 +812,11 @@ function _rzExpoData(){
   filas.sort((a,b)=>Math.abs(b.net)-Math.abs(a.net));
   return {filas:filas, cubierto:cubierto/tot, nPos:pos.length, nCub:Object.keys(val).filter(t=>M[t]).length};
 }
-function _rzExpoCnt(){ const E=_rzExpoData(); if(!E||E.sinPuente)return 'sin datos'; return E.filas.length+' factores'; }
+function _rzExpoCnt(){ const E=_rzExpoData(); if(!E||E.sinPuente)return 'sin datos'; if(E.cargando)return '…'; return E.filas.length+' factores'; }
 function _rzExpoHTML(){
   const E=_rzExpoData();
   if(!E)return '';
+  if(E.cargando)return '<div class="rz-note">Cargando <code>sensibilidad.json</code>…</div>';
   if(E.sinPuente)return '<div class="rz-note">Falta <code>sensibilidad.json</code> en el repo: es el fichero que el informe semanal genera con los drivers de cada ficha. Sin él este bloque no puede calcularse.</div>';
   const pc=x=>(x*100).toFixed(1)+'%';
   const barra=r=>{
@@ -823,7 +839,8 @@ function _rzExpoHTML(){
   return (nota?'<div class="rz-note">'+nota+'</div>':'')
     +'<div class="rz-xwrap">'+filas+'</div>'
     +'<div class="rz-xleg"><span><i class="pro"></i>gana si el factor sube</span><span><i class="con"></i>pierde si sube</span><span>la longitud es el peso de tu dinero</span></div>'
-    +(E.nCub<E.nPos?('<div class="rz-note" style="margin-top:8px">Calculado con '+E.nCub+' de tus '+E.nPos+' posiciones ('+pc(E.cubierto)+' del valor): el resto no tiene ficha de sensibilidad todavía.</div>'):'');
+    +(E.nCub<E.nPos?('<div class="rz-note" style="margin-top:8px">Calculado con '+E.nCub+' de tus '+E.nPos+' posiciones ('+pc(E.cubierto)+' del valor): el resto no tiene ficha de sensibilidad todavía.</div>'):'')
+    +(_rzSensEl?('<div class="rz-note" style="margin-top:8px">Sensibilidades del informe del <b>'+ddmmyyyy(_rzSensEl)+'</b>.</div>'):'');
 }
 function _rzVs(mio, idx, labBien, labMal, uni, mayorEsMejor){
   if(idx==null||!isFinite(idx)) return 'sin referencia del IBEX';
@@ -868,10 +885,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
   window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,ingreso:false,corr:false,factores:false,expo:false};
-  /* sensibilidad.json lo carga 17-escenarios.js al arrancar; si aún no ha llegado, se pide y se repinta. */
-  if(typeof SENS_FICHA!=='undefined'&&!Object.keys(SENS_FICHA||{}).length&&typeof escCargarFichas==='function'&&!renderRiesgo._sensPedido){
-    renderRiesgo._sensPedido=true; try{ escCargarFichas().then(function(){ renderRiesgo(); }); }catch(e){}
-  }
+  if(_rzSens===null&&!renderRiesgo._sensPedido){ renderRiesgo._sensPedido=true; _rzSensCargar().then(function(){ renderRiesgo(); }); }
   const FX=_factorExpo(renderRiesgo);
   const pv=x=>x==null?'—':(x*100).toFixed(1)+'%';
   const corrCol=v=>v>=0.6?'#dc2626':v>=0.4?'#d97706':'#16a34a';
