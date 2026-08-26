@@ -1,0 +1,67 @@
+name: Coyuntura de mercado
+# DIARIO (06:00 UTC, martes a sabado) + manual.
+#
+# QUE ESCRIBE  ·  [26-ago-2026]
+# -----------------------------
+# `macro-mercado.json`, con la MISMA forma que `macro.json`. La app funde los dos al leer y
+# este pisa al del informe solo donde trae dato, porque es mas fresco (diario contra semanal).
+# Donde calla, manda el informe.
+#
+# POR QUE HACE FALTA. `macro.json` lo escribe el pase macro del informe semanal, y entre
+# informe e informe pasan dias. El IBEX, el VIX, el oro y las divisas no aguantan una semana.
+# Y el peligro no es el dato viejo: es que **un dato viejo no se distingue de uno nuevo al
+# mirarlo**. Es literalmente la averia de `betas.json` del 20-ago, donde una beta calculada
+# sobre un espejo congelado 33 dias seguia saliendo con tres decimales, plausible.
+#
+# CADENCIA. Un pase por la manana basta: a las 06:00 UTC (08:00 CEST) los mercados de la
+# vispera estan cerrados y consolidados, y el dato esta puesto antes de abrir la app.
+# Martes a sabado cubre las sesiones de lunes a viernes; el lunes por la manana el fichero
+# sigue teniendo el cierre del viernes, que es el ultimo que existe.
+on:
+  schedule:
+    - cron: "0 6 * * 2-6"
+  workflow_dispatch: {}
+permissions: { contents: write }
+# Mismo grupo que cotizaciones/betas/agenda/vigia/fundamentales: nunca dos push a `main` a la vez.
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
+jobs:
+  macro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      # Mismo tope que cotizaciones.yml: el dia que yfinance publique una version mayor, este
+      # pase no se cae solo. Es el unico salto que rompe la API de verdad.
+      - run: pip install "yfinance<2"
+      # El IBEX NO se descarga: sale de `precios/IBEX.json`, que ya esta en este checkout y lo
+      # refresca `actualizar_cotizaciones.py` cuatro veces al dia con pase de confirmacion T+1.
+      # Un segundo espejo del mismo dato es un espejo que puede quedarse viejo.
+      - name: Coyuntura de mercado (diaria)
+        run: python macro_mercado.py --salida macro-mercado.json --precios precios
+      # El script sale en ROJO si caen mas de la mitad de los indicadores, y en ese caso no
+      # escribe nada: preferimos ver el workflow fallar a publicar media foto con fecha de hoy
+      # encima de una entera de ayer. Por eso este paso no lleva `continue-on-error`.
+      - name: Commit y push (con reintentos ante colisiones)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add macro-mercado.json
+          if git diff --staged --quiet; then
+            echo "Sin cambios en macro-mercado.json"; exit 0
+          fi
+          git commit -m "Coyuntura de mercado del dia"
+          # El `concurrency` de arriba NO cubre las publicaciones hechas desde el PC con el
+          # buzon, que entran en `main` desde fuera de Actions. El reintento es la proteccion
+          # de verdad; el grupo es el extra. Mismo bucle que cotizaciones/betas/agenda.
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "Push OK en el intento $i"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "Push rechazado, reintento $i..."; sleep 5
+          done
+          echo "No se pudo hacer push tras 5 intentos"; exit 1

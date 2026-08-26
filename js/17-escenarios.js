@@ -54,16 +54,30 @@
         neutro silencioso se leería como una medición, que es justo el error del 0 en las posiciones
         sin cotización.
       · Un valor real fuera del recorrido del slider se recorta al tope, y también se dice. */
- var _escMacro=null, _escMacroEl='';
+ var _escMacro=null, _escMacroEl='', _escMktEl='';
  /* Qué factores están en su valor normal por falta de dato, no por medición. Lo pinta el slider:
     decirlo solo en el texto del chip deja tres barras indistinguibles de las ocho reales. */
  var _escSinDato=null;
+ /* [26-ago-2026] Son DOS ficheros, no uno. `macro.json` lo escribe el pase macro del informe
+    semanal; `macro-mercado.json` lo escribe un workflow diario. Se funden con la misma regla que
+    en Coyuntura: el de mercado pisa al del informe SOLO donde trae dato, porque es más fresco;
+    donde calla, manda el informe. Leyendo solo el semanal, LatAm seguía con la chapa «SIN DATO»
+    teniendo ya el dato en el repo. */
  function _escMacroCargar(){
    if(_escMacro) return Promise.resolve(_escMacro);
-   return fetch('macro.json',{cache:'no-store'})
-     .then(function(r){ return r.ok?r.json():null; })
-     .then(function(j){ _escMacro=(j&&j.ind)?j.ind:{}; _escMacroEl=(j&&j.generadoEl)||''; return _escMacro; })
-     .catch(function(){ _escMacro={}; return _escMacro; });
+   const uno=function(f){ return fetch(f,{cache:'no-store'})
+     .then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
+   return Promise.all([uno('macro.json'),uno('macro-mercado.json')]).then(function(a){
+     const inf=a[0]||{}, mkt=a[1]||{};
+     _escMacroEl=inf.generadoEl||''; _escMktEl=mkt.generadoEl||'';
+     const out={};
+     const meter=function(src){ const I=(src&&src.ind)||{}; Object.keys(I).forEach(function(k){
+       const o=I[k]; if(!o)return;
+       if(out[k]&&(o.v==null||o.estado==='pte'))return;   /* un pte nunca borra un dato bueno */
+       out[k]=o; }); };
+     meter(inf); meter(mkt);
+     _escMacro=out; return _escMacro;
+   });
  }
  function _escEsc(x){ return (x==null?'':''+x).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
  /* Distancia comparable entre factores con unidades distintas: qué fracción del recorrido ha
@@ -97,8 +111,12 @@
    reales.forEach(function(id){ const t=_escTension(id,val[id]);
      if(top===null||Math.abs(t)>Math.abs(top.t)) top={id:id,t:t}; });
    const P=Object.assign({},val);
-   let d='<b>Hoy'+(_escMacroEl?(' · datos del '+((typeof ddmmyyyy==='function')?ddmmyyyy(_escMacroEl):_escMacroEl)):'')+'</b> — '
-        +reales.length+' de '+VARS.length+' factores con dato real del informe.';
+   const _f=function(x){ return (typeof ddmmyyyy==='function')?ddmmyyyy(x):x; };
+   /* Las dos fechas a la vista: el mercado va por delante del informe, y conviene ver cuál de los
+      dos relojes está poniendo los números. Una sola fecha ocultaría que hay dos. */
+   const fuentes=[]; if(_escMktEl)fuentes.push('mercado del '+_f(_escMktEl)); if(_escMacroEl)fuentes.push('informe del '+_f(_escMacroEl));
+   let d='<b>Hoy'+(fuentes.length?(' · '+fuentes.join(' + ')):'')+'</b> — '
+        +reales.length+' de '+VARS.length+' factores con dato real.';
    if(top){
      const v=V[top.id], x=val[top.id];
      d+=' <span class="esc-top">Más lejos de lo normal: <b>'+_escEsc(v.lab)+'</b> en '+fmtV(top.id,x)

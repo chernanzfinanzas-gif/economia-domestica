@@ -65,12 +65,17 @@ function _coyDelta(o){
 }
 function _coyEsc(s){ return (s==null?'':''+s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
-/* Edad del dato. Regla 2: a partir de 14 días el panel lo dice en alto. */
+/* Edad del dato. Regla 2: a partir de 14 días el panel lo dice en alto.
+   [26-ago-2026] Hay DOS relojes, y enseñar solo uno miente en las dos direcciones: con el
+   fichero diario en marcha, decir «datos del 14-ago» envejece el IBEX y el VIX que son de hoy;
+   y al revés, poner solo la fecha del diario haría pasar por fresco el IPC del informe. Cada
+   tarjeta ya dice su fuente («auto» = mercado); la cabecera dice las dos fechas, y el aviso de
+   antigüedad se refiere a lo que SOLO trae el informe, que es lo que de verdad envejece. */
 function _coyEdad(){
   const f=(_macroInf&&_macroInf.generadoEl)||'';
-  if(!f) return {f:'',dias:null};
-  const d=Math.round((Date.now()-Date.parse(f+'T00:00:00'))/86400000);
-  return {f:f,dias:isFinite(d)?d:null};
+  const m=(_macroMkt&&_macroMkt.generadoEl)||'';
+  const dias=f?Math.round((Date.now()-Date.parse(f+'T00:00:00'))/86400000):null;
+  return {f:f,m:m,dias:(dias!=null&&isFinite(dias))?dias:null};
 }
 
 /* ===== Bloque «Tu dividendo contra el bono» =====
@@ -185,10 +190,12 @@ function renderCoyuntura(){
   const cab='<div class="coy-head">'
     +'<div class="coy-sub">Contexto de mercado de los factores que mueven <b>tu</b> cartera. '
     +'Las flechas no llevan color a propósito: el mismo dato es ingreso para unas empresas y coste para otras.</div>'
-    +(E.f?('<div class="coy-edad'+(viejo?' viejo':'')+'">'
-      +(viejo?'⚠️ ':'')+'Datos del informe del <b>'+ddmmyyyy(E.f)+'</b>'
-      +(E.dias!=null?(' · hace '+E.dias+' día'+(E.dias===1?'':'s')):'')
-      +(viejo?' — conviene lanzar el pase macro antes de fiarte de estos niveles.':'')+'</div>'):'')
+    +((E.f||E.m)?('<div class="coy-edad'+(viejo?' viejo':'')+'">'
+      +(viejo?'⚠️ ':'')
+      +(E.m?('Mercado del <b>'+ddmmyyyy(E.m)+'</b>'+(E.f?' · ':'')):'')
+      +(E.f?('informe del <b>'+ddmmyyyy(E.f)+'</b>'
+             +(E.dias!=null?(' · hace '+E.dias+' día'+(E.dias===1?'':'s')):'')):'')
+      +(viejo?(' — lo que solo trae el informe (IPC, PIB, WACC, afiliación…) lleva ese tiempo sin refrescarse: conviene lanzar el pase macro antes de fiarte de esos niveles.'):'')+'</div>'):'')
     +'</div>';
 
   const bonoO=I['bono_10a_es'];
