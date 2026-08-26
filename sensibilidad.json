@@ -43,6 +43,16 @@
    "TIPOS": 2,
    "CRED": -2
   },
+  "CIE": {
+   "CONSD": 2,
+   "LATAM": 2,
+   "BOLSA": 1
+  },
+  "EBRO": {
+   "EUR": -2,
+   "BOLSA": 1,
+   "CONSB": 2
+  },
   "ENG": {
    "REG": 2,
    "TIPOS": -1
@@ -184,6 +194,48 @@
    "familia": "BALANCE",
    "id": "rote_cet1_recompras",
    "variable": "RoTE / CET1 / recompras"
+  },
+  {
+   "tk": "CIE",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "electrificacion_contenido",
+   "variable": "Contenido por vehiculo / adjudicaciones en plataformas nuevas"
+  },
+  {
+   "tk": "CIE",
+   "familia": "COMPETENCIA",
+   "id": "margen_oem",
+   "variable": "Concentracion de clientes OEM / bajada de precio pactada contra productividad"
+  },
+  {
+   "tk": "CIE",
+   "familia": "CONTABLE",
+   "id": "goodwill",
+   "variable": "Fondo de comercio 1.764,6 M EUR (122% del patrimonio atribuible)"
+  },
+  {
+   "tk": "CIE",
+   "familia": "BALANCE",
+   "id": "guidance_payout",
+   "variable": "Guidance 2026-2027 a moneda constante y pay-out creciente (42% en 2026, 50% en 2027)"
+  },
+  {
+   "tk": "EBRO",
+   "familia": "GEOPOLITICA",
+   "id": "aranceles_eeuu",
+   "variable": "Aranceles de EE.UU. sobre pasta y arroz importados"
+  },
+  {
+   "tk": "EBRO",
+   "familia": "COMPETENCIA",
+   "id": "marca_distribuidor",
+   "variable": "Avance de la marca de distribuidor en las categorias de Ebro"
+  },
+  {
+   "tk": "EBRO",
+   "familia": "GOBERNANZA",
+   "id": "bloque_control",
+   "variable": "Bloque de control del 68,7% orientado al dividendo (Alba, Damm, SEPI, Hercalianz, Tradifin, ECIV, Comenge)"
   },
   {
    "tk": "ENG",
@@ -599,6 +651,21 @@
    "variable": "Ejecucion Avant/EVO (Irlanda)"
   },
   {
+   "tk": "CIE",
+   "id": "ma_integracion",
+   "variable": "Integracion de las compras nuevas / DFN-EBITDA"
+  },
+  {
+   "tk": "EBRO",
+   "id": "circulante_arroz",
+   "variable": "Ciclo de circulante del arroz (CCC de 106,2 dias en 2016 a 173,7 en 2025)"
+  },
+  {
+   "tk": "EBRO",
+   "id": "ciberseguridad",
+   "variable": "Ciberataque o caida prolongada de sistemas criticos (grupo multiplanta con ERP central)"
+  },
+  {
    "tk": "ENG",
    "id": "hidrogeno_varados",
    "variable": "H2 backbone / activos varados"
@@ -725,6 +792,12 @@
   }
  ],
  "sinDeterminar": [
+  {
+   "tk": "EBRO",
+   "factor": "REG",
+   "id": "contencioso_cnmc",
+   "motivo": "sin `sensibilidad` revisada (pasa aplicar_asignacion.py)"
+  },
   {
    "tk": "ELE",
    "factor": "REG",
