@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-08-23",
+  "generadoEl": "2026-08-26",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -68,10 +68,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar por la razón de fondo, no por un titular: el InfoAdex del 1S-2026 confirma que el deterioro del driver nº1 es ESTRUCTURAL —el mercado crece un +4,7% mientras la TV lineal cae un −2,8% y los dos operadores pierden ingresos en absoluto, Atresmedia −1,8% y Mediaset −4,1%—. Ningún umbral cruzado: 3,2 pp al detonante y PIB en +2,7%. Los expedientes de la CNMC siguen vivos, sin hito ni importe.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -99,13 +99,13 @@
           "motivo": "Precio objetivo alcanzado (5,21 € frente a un PO base de 5,15 €) Y supuesto roto de la decisión de REAFIRMAR del 27-jul. Las dos cosas son el mismo hecho: aquel día la app calculaba el PO como la media de bear y bull (6,46 €) y mostraba un potencial del +23%; con el PO real del dossier el potencial es −1%. De los 21 puntos que cayó el Score, 16 son esa corrección — no un deterioro del negocio. AL CONTRARIO: el 1S-2026 es el primer semestre en positivo desde 2024 (ingresos 520 M€ +2,6%, EBITDA 87,1 M€ +2,5%, margen recuperado a 16,8% desde el 8,4% de FY-2025, la publicidad audiovisual moderando su caída a −1,3% desde −6,2%, caja neta 70,2 M€ y Atresplayer en 760.000 suscriptores, récord). Lo que aún no gira es el beneficio: BNA 56,4 M€, −11,6%. DECISIÓN: REAFIRMAR ESPERAR, y con más razón que antes — cambia el motivo, no el veredicto: de «poco recorrido (+7%)» a «sin recorrido (−1%)». El precio ha subido un 9% en siete sesiones (4,79 € el 20-jul) y ha rebasado el objetivo; la entrada del dossier sigue siendo <4,30 €, un 21% por debajo. No se toca el PO (5,15 €) ni el A3M.json: un semestre bueno no revaloriza, y el dossier es del 9-jul. VIGILAR: que el BNA acompañe al EBITDA en el 2S y que la publicidad confirme el giro. Ver también la nota añadida hoy al red flag de dividendo del §10.4."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "ACS": {
       "empresa": "ACS, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17",
+        "semanal": "2026-08-26",
         "trimestral": "2026-07-29"
       },
       "hallazgos": [
@@ -142,21 +142,6 @@
           "plazoDias": 7,
           "vencePlazoEl": "2026-08-17",
           "notaEmitida": true
-        },
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "El motor sube (capex 2026 a 720.000–745.000 M$, con Amazon elevado a ~220.000), pero el mercado empieza a cobrar por subirlo —ya castigó a Alphabet en julio— y la curva europea se gira en contra: ninguna alarma cruzada y la S3 ya cerrada el 11-ago.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
-          "resueltoEl": null,
-          "desenlace": null
         }
       ],
       "revisiones": [
@@ -189,13 +174,13 @@
           "motivo": "Senal abierta el 10-ago-2026 (cotizacion de referencia 109,10 EUR, cierre 10/08). REAFIRMAR TESIS. Nota emitida: Revisiones/2026-08-11 Nota Revision Extraordinaria ACS (S3).html. Se reabrio porque la S3 del 22-jul (117,10 EUR, REAFIRMAR) se decidio contra un PO anterior, revisado el 27-jul (AJUSTA PO, beta sectorial 1,05) y el 29-jul (AJUSTA BANDA); el PO bull vigente de 98,60 EUR nunca se habia juzgado. DIAGNOSTICO: el exceso de precio es REAL — Reverse DCF re-ejecutado con las entradas congeladas del 31-jul cambiando solo el precio da g implicito 6,20% frente a un g intrinseco de 1,73% (3,6x, HEROICO), y la robustez situa el PO entre 66,41 y 104,18 EUR, con la cotizacion por encima de TODO el rango. Ningun riesgo del 8.1 se ha materializado y ningun pre-mortem del 8.2 ha detonado: el driver n1 (capex de los hyperscalers, ~725-732.500 M USD en 2026, +79% i.a. sin recortes de guidance) va en direccion contraria a su alarma, y los tres gatillos del 8.1 R3 siguen sin documentarse. PERO el PO tiene un punto genuinamente desactualizado: el dossier es del 21-jul y el 1S-2026 se publico el 29-jul, con la deuda neta pasando de 3.352 M EUR (cierre 2025, la cifra que alimenta el DCF) a una CAJA NETA de 1.006 M EUR. Mecanicamente son +16,93 EUR/accion (4.358,4 M EUR / 257,46 M acc.): el PO base iria a 85,73 EUR y la cotizacion seguiria un 27,3% por encima. NO SE APLICA HOY, y el motivo es de metodo: la deuda neta de ACS es estacional (S1-2025 2.200 -> FY-2025 3.352, serie del 10.3), asi que la caja de junio no es la cifra estructural que va al descuento; ademas, con ese ajuste el PO bull pasaria a 115,53 EUR y la S3 DEJARIA DE ESTAR DISPARADA — ajustar el modelo hasta que la alarma se apague es justo lo que prohibe el 10.5. Se difiere a la Actualizacion Anual FY-2026. ANTI-ANCLAJE: a 109,10 EUR no se compraria (31x beneficios, 6,3x libros, margen EBITDA 6,2%); no hay posicion, asi que el sesgo de este caso no es el anclaje sino el FOMO — la banda 52,50-57,50 EUR exige una caida del 47,3%-52,3% y puede que ese precio no vuelva, lo que es un coste de oportunidad asumido, no un motivo para reescribir el umbral. SIN CAMBIOS: PO bear/base/bull 55,70 / 68,80 / 98,60 EUR, banda 52,50-57,50 EUR y stop 49,85 EUR, todos sin mover; no se toca el ACS.json. Accion: ninguna sobre la cartera (no hay posicion); vigilancia y no comprar por encima de 57,50 EUR. DOS HUECOS DEL EXPEDIENTE anotados: (1) las celdas canonicas del 9.3-bis siguen diciendo entrada 69,00-75,00 EUR pese al apunte del 29-jul que la recoloco a 52,50-57,50 EUR — si se regenera el dossier sin corregirlas, la banda revertiria; (2) la deuda neta del DCF quedara obsoleta con el FY-2026. Re-evaluar con el 9M-2026 (octubre) y, en firme, con la Actualizacion Anual."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "AENA": {
       "empresa": "Aena, S.M.E., S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -220,14 +205,14 @@
           "id": "coyuntura",
           "tipo": "coyuntura",
           "naturaleza": "estado",
-          "severidad": "alta",
+          "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Rojo regulatorio y cada vez más solitario: el DORA III sigue siendo PROPUESTA sin movimiento a 44 días del 30-sep, mientras julio da 40,9 M pax (+4,9%) y España firma récord con 34,4 M.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -248,13 +233,13 @@
           "motivo": "No es una tesis de valoración, es tesis de renta. además es una posición no abierta. No hay cambio de valoración"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "AMS": {
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -329,14 +314,14 @@
           "id": "coyuntura",
           "tipo": "coyuntura",
           "naturaleza": "estado",
-          "severidad": "alta",
+          "severidad": "media",
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Rojo por ESTADO —guía del 31-jul vigente y RPK de julio sin publicar— y el único alivio se deshace: el Brent vuelve a 88,55 $, Ormuz no se confirma y el desglose de IATA enseña que lo que cae es justo la mezcla global de Amadeus.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -357,13 +342,13 @@
           "motivo": "Señal abierta el 31-jul-2026 (cotización de referencia 53,78). REAFIRMAR TESIS. El recorte del outlook 2026 está acotado a Distribución Aérea y a su extremo bajo (de «dígito medio-alto» a «dígito bajo-medio»), con el supuesto de tráfico aéreo global bajando de +4,5% a +2% en línea con IATA (+4,4% → +1,9%). La compañía mantiene SIN CAMBIOS el margen de EBIT ajustado, el FCF (1.350-1.450 M€), el CAPEX y los dos segmentos ajenos al tráfico. Es un shock de VOLUMEN absorbido por un negocio diversificado, no un techo de crecimiento: las reservas caen 3,7% pero el ingreso por reserva crece 5,1% cte y el margen EBITDA marca récord (40,0%). El pre-mortem nº1 cruzó su umbral (IATA negativo en abril y mayo) pero su cadena no ha progresado; el nº2 (desintermediación NDC) retrocede — British Airways adopta Altéa NDC. Reverse DCF: el precio aún exige −1,07% de crecimiento del FCL, PLAUSIBLE. B4 0 duros/0 blandos. Sin cambios en veredicto (COMPRAR), PO 74 €, banda 45-55 € ni stop 30 €; no se toca el AMS.json. Vigilancia hasta el 3T: el tráfico real contra el supuesto de +2%, el margen de EBIT y Soluciones Tecnológicas."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "AZK": {
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -376,13 +361,13 @@
           "tipo": "opa",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "barrido societario 2026-08-17",
-          "fecha": "2026-08-17",
-          "fuente": "CNMV VERIFICADA en sus dos ramas: Informacion Privilegiada (nif=A-31065618, entidad devuelta AZKOYEN, S.A.) y listado oficial de OPAs; mas prensa economica y regional",
+          "origen": "https://www.cnmv.es/portal/consultas/folletos/listaopas?fechaDesde=&fechaHasta=",
+          "fecha": "2026-08-24",
+          "fuente": null,
           "exigeAccion": false,
           "ultimaNovedad": {
-            "fecha": "2026-08-17",
-            "texto": "OPA de Ohmnia Electronics sobre el 100% de Azkoyen a 10,00 EUR/accion en efectivo (~244,5 M EUR), condicionada a aceptacion superior al 50% y a autorizaciones de competencia en Espana y Alemania, VIVA y SIN RESOLVER. Anuncio previo 24-jul-2026 (IP CNMV n 3303); el consejo la califica de AMISTOSA el 28-jul (OIR n 42131). ESTADO A 17-AGO-2026, VERIFICADO CONTRA EL REGISTRO (ya NO es Pte. Revision): el listado oficial de OPAs de la CNMV situa a Azkoyen en el bloque ANUNCIADAS, no en Autorizadas. No consta solicitud de autorizacion presentada, no hay folleto y no hay plazo de aceptacion abierto -- y no puede abrirse antes de la autorizacion. El registro de Informacion Privilegiada NO tiene ninguna comunicacion entre el 10 y el 17 de agosto: la ultima es la propia n 3303 del 24-jul. Ohmnia tenia hasta ~24-ago para solicitar la autorizacion: quedan unos siete dias y ese es el hecho vigilable. La accion cotiza a 10,10 EUR, POR ENCIMA de la oferta: la OPA actua como TECHO, no como prima -- el mercado no la da por buena a ese precio o descuenta una mejora."
+            "fecha": "2026-08-24",
+            "texto": "Ohmnia Electronics solicito a la CNMV el 24-ago-2026 la autorizacion de la OPA anunciada el 24-jul sobre el 100% de Azkoyen a 10 EUR/accion en efectivo (~244,5 M EUR). Voluntaria y amistosa -el consejo la califico asi el 28-jul- y el oferente declara que NO pretende excluirla de bolsa. En el registro de OPAs sigue como «Anunciada»: la autorizacion esta pendiente. La oferta es SOBRE Azkoyen, asi que los 10 EUR actuan como TECHO y la cotizacion deja de ser precio de mercado."
           },
           "precioIntervenido": "opa-sobre-la-empresa",
           "precioIntervenidoPorque": "OPA de Ohmnia Electronics sobre el 100% del capital a 10,00 EUR/accion. La oferta pone TECHO al precio: la cotizacion deja de ser precio de mercado.",
@@ -435,10 +420,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Rojo de situación corporativa, no de negocio: la OPA de Ohmnia a 10,00 € sigue en ANUNCIO PREVIO a siete días de que venza el plazo (~24-ago), la acción cotiza a 10,10 € —sobre la oferta y un 3,8% bajo el stop— y el registro de la CNMV confirma que no ha habido ningún hito. Los fundamentales siguen del lado bueno de sus umbrales (margen bruto 66,1%, Payment +20,3%).",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -459,13 +444,13 @@
           "motivo": "Señal abierta el 03-ago-2026 (cotización de referencia 10,30 €). REAFIRMAR TESIS. El stop de 10,50 € se perforó un 1,9%, pero por un precio que NO informa sobre la tesis: con la OPA en efectivo de Ohmnia a 10,00 €/acción viva desde el 24-jul (IP n3303) y calificada de amistosa por el Consejo el 28-jul (OIR n42131), la cotización expresa la probabilidad de que la oferta prospere —suelo blando en 10 €, techo duro—, no el valor del negocio. Cronología que desmiente el relato fácil: la acción cayó de 14,20 a 12,10 € el 22-jul, ANTES del anuncio. Ninguna de las tres señales de salida del §8.2 está activada: pre-mortem n1 va en dirección contraria (Payment 44,71 M€, +20,3%), n2 sin detonante, n3 con UNA pata de dos (Vending −9,5% un solo periodo; margen bruto 66,1% frente al umbral de 60%). Aplica la fila del §10.5 «Pérdida >20% SIN deterioro de fundamentales → MANTENER: es ruido de precio, no de valor». El deterioro de márgenes del 1S-2026 es real (margen explotación 12,7→9,6%, Bº −20,4%) pero YA se juzgó el 29-jul y no hay dato nuevo hasta el 9M-2026. SIN CAMBIOS: PO 13,28 € (bear 11,73 · bull 22,79), banda 10,50-11,50 € SUSPENDIDA mientras viva la oferta, y STOP EN 10,50 € SIN MOVER —rebajarlo hoy, con el precio pegado a él, es lo que el §10.5 prohíbe expresamente—. No se toca el AZK.json. Acción: ninguna; no hay posición, así que el stop es un umbral de watchlist, no una orden ejecutable, y no se compra dentro de la banda mientras la oferta esté viva. DOS HUECOS DEL EXPEDIENTE detectados y anotados para la Actualización Anual: (1) el §9.3 fija entMin = stop = 10,50 €, de modo que no hay precio de compra dentro de la banda que no esté a un tick del nivel que declara la tesis rota — error de construcción, no opinión sobre el precio de hoy; (2) ninguno de los 8 riesgos del §8.1 ni de los 3 pre-mortem contempla una OPA o un cambio de control, que es justamente lo que hoy gobierna la cotización. Re-evaluar con lo primero de: solicitud de autorización de Ohmnia ante la CNMV (vence ~24-ago), folleto, mejora de precio, contraopa, o el 9M-2026. Nota: Revisiones/2026-08-04 Nota Revisión Extraordinaria Azkoyen (S1).html"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "BKT": {
       "empresa": "Bankinter, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -504,17 +489,17 @@
           "motivo": "Es una acción que no está en cartera, a estos precios no voy a comprar. Espero que entre en zona de entrada"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "CIE": {
-      "empresa": "Cie Automotive, S.A.",
+      "empresa": "CIE Automotive, S.A.",
       "cobertura": {
         "semanal": "2026-08-17"
       },
       "hallazgos": [],
       "revisiones": [],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "EBRO": {
@@ -563,12 +548,12 @@
         {
           "fecha": "23-ago-2026",
           "senal": "S6",
-          "cot": 18.3,
+          "cot": "18,3",
           "decision": "REAFIRMAR",
           "motivo": "Sin apunte de apertura previo. Cuatro trimestres consecutivos en ÁMBAR hasta S1-2026, sobre el MISMO KPI: las ventas caen seis lecturas seguidas desde Q1-2025 (la racha de semáforo se queda en cuatro sólo porque S1-2025 fue ROJO y el detector corta al encontrarlo). Diagnóstico: PUNTUAL en su mayor parte, con componente estructural acotado, confianza MEDIA. A favor: margen bruto en 48,9 %, máximo de la década y rama REFUERZA del §10.1; el deterioro de 2026 está concentrado en la PASTA, con una causa temporal (SAP HANA en Garofalo) y otra ya atacada con inversión (planta de Saint Charles, 40 M€, 1-jul-2026), mientras el margen del ARROZ sube a 14,8 %, por encima del consolidado; y la deuda neta que provocó el ROJO de S1-2025 está en 472,4 M€, mínimo de la serie. En contra: el arancel es permanente (antidumping del 7 % en Garofalo, recurrido pero pagándose) y son tres años seguidos de caída de ventas. Re-chequeo §8.1: sólo el riesgo nº1 (Político) activado; §8.2: ningún pre-mortem con señal de salida disparada, aunque el nº2 tiene el detonante en curso. §9: tesis viva, el PO no se mueve. Anti-anclaje: a 18,30 € NO se compraría (margen de seguridad −16,0 %), que es lo que ya dice ESPERAR. ESCALADA FECHADA al 9M-2026 del 28-oct-2026: se abre S2 si el CCC supera 190 días —está en 173,7 y sube ~16 al año— o si el margen EBITDA-A de la pasta no recupera desde el 12,6 % del 1S26. Nota: Revisiones/2026-08-23 Nota Revisión Extraordinaria Ebro Foods (S6).html"
         }
       ],
-      "revisionesEl": "2026-08-23",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "ECR": {
@@ -595,7 +580,7 @@
     "ELE": {
       "empresa": "Endesa",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -639,13 +624,13 @@
           "motivo": "Es una tesis de renta. Endesa es una empresa que no crecerá que sigue en cartera por la renta que genera, que al precio de venta da una buena rentabilidad"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "ENG": {
       "empresa": "Enagás, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -707,10 +692,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar favorable, sin cambio de composición: los dos riesgos dominantes siguen lejos de su alarma —la TRF viva es del 6,46%, 96 pb sobre el gatillo, y el titular del \"+4,7%\" no es la tasa—, pero el expediente entra en sus últimos 45 días sin dictamen del Consejo de Estado; el ámbar lo mantienen la cobertura del dividendo (dos de tres patas) y un coste del dinero que vuelve a tensarse con el BCE al ",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -731,13 +716,13 @@
           "motivo": "Empresa a la espera de alcanzar el precio de entrada para valorar abrirla de nuevo. No necesario valorar la tesis de nuevo"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -748,10 +733,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — se sostiene el del 10-ago con otro motivo: el alivio de tipos se vuelve viento en contra (Euríbor 12M +3,4 pb, BCE al 98% para el 10-sep, +14 pp) y el bloque Latam se parte en dos (real el peor del panel, peso el mejor). Nada cruza umbral: la orden de precios 2026 sigue sin BOE y el R6 va con una pata de tres. Se corrige el consumo (+0,5%, no +2,4%) y se cierra la laguna societaria: sin he",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -765,13 +750,13 @@
           "motivo": "Dos trimestres ámbar consecutivos en 2025 (Q1-S1-9M): margen y EBITDA reportados a la baja por la integración de SIFI/Edol/ISF. Tendencia adversa de márgenes CONFIRMADA pero explicada por el M&A ya recogido en la tesis (no deterioro nuevo). Q1-2026 rompe la racha al alza (EBITDA +23%). Ruido de transición → seguir vigilando la recuperación del margen; no se eleva a S2. · [Decisión original: «Seguir en ordinario (MANTENER)»]"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "FDR": {
       "empresa": "Fluidra, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -797,10 +782,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "La demanda toca suelo sin rebotar —permisos −34,7% en 2025, ya solo un dígito bajo en 2026, con el aftermarket aguantando— y el coste de la deuda se gira en contra: el Euríbor devuelve la mitad del respiro y el BCE pasa del 84% al 98% sobre 860,6 M€ sin cobertura.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -828,7 +813,7 @@
           "motivo": "Revisión 2026-Q1: semáforo ÁMBAR, primer no-verde en ocho trimestres. NO se activa S2 (el semáforo no es ROJO y la tesis sigue intacta) ni S6 (el periodo anterior, 2025-Q4, fue VERDE; harían falta dos ámbares seguidos). Se deja apunte porque el método pide registrar también los no-cambios: el margen EBITDA ajustado ha caído 1,2 pp (23,2% → 22,0%) por Opex creciendo más que las ventas, y el efecto divisa deja plano el reportado. Predictores de recorte de dividendo (B4): 0 duros y 0 blandos — DN/EBITDA baja a 2,6x, payout y coberturas holgados. SI 2026-Q2 VUELVE A SALIR ÁMBAR, SE ACTIVA S6 y toca mini-revisión de tendencia. Decisión, PO, banda y stop sin tocar."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "IBE": {
@@ -888,7 +873,7 @@
     "ITX": {
       "empresa": "Industria de Diseño Textil, S.A. (Inditex)",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [],
       "revisiones": [
@@ -900,13 +885,13 @@
           "motivo": "ES UNA POSICIÓN NO ABIERTA, ESTOY ESPERANDO A ALCANZAR LOS PRECIOS DE ENTRADA · [Cotización normalizada el 29-jul-2026: el apunte traía 54,96 € (el 12-jul fue domingo), que es el precio en vivo que rellena el formulario de la app, no un cierre. Se pone el cierre que correspondía a esa fecha, 55.72 € (Matriz Bolsa Española).]"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "LOG": {
       "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -961,13 +946,13 @@
           "motivo": "Es una tesis de renta, comprada para cobrar dividendo. No se amplia posición hasta alcanzar precios de entrada de la tesis"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "MAP": {
       "empresa": "Mapfre, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -984,21 +969,6 @@
           "fecha": "2026-07-23",
           "fuente": "https://www.merca2.es/2026/07/24/mapfre-compra-safety-insurance-millones-2423347/",
           "exigeAccion": false
-        },
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar por acumulación, no por umbral: ningún pre-mortem se acerca a su detonante, pero los DOS drivers de sensibilidad +2 se giran a la vez —real −1,89%, el peor del panel y segunda semana seguida; IBEX −0,10%, primera negativa en un mes—, con el IPC revisado al alza al 3,6%. El colchón sigue intacto: combinado 92,8% (>97%) y Solvencia II 206,8%.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
-          "resueltoEl": null,
-          "desenlace": null
         }
       ],
       "revisiones": [
@@ -1010,13 +980,13 @@
           "motivo": "Tesis de Renta. Mantener y seguir comprando. Finalizar posición si entra en zona de entrada."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "MCM": {
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1047,10 +1017,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar, igual que la semana pasada pero más tensado por la energía: el pool escala (media de 30 días en 121,50 €/MWh sobre el julio devengado de 104,75) por causa europea y menos reversible, la pulpa sigue sin precio público, el euro deja de empujar y la Directiva del Tabaco sigue bloqueada en Consejo por Chipre. Ninguna pata nueva cruzada y 4,9 pp de colchón de margen.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1064,13 +1034,13 @@
           "motivo": "Cinco periodos consecutivos en ÁMBAR (Q1-2025→Q1-2026): EBITDA acumulado -6% a -8% y beneficio a la baja. Mini-revisión de tendencia (S6): el deterioro es NORMALIZACIÓN tras el pico de márgenes 2024 + efecto divisa (debilidad del USD sobre el ~90% de exportación), NO daño estructural del negocio de papel de fumar. Ingresos estables ~314 M€, caja neta intacta, márgenes aún en zona alta (EBITDA 22-24%). Se mantiene MANTENER (PO 15,7€); vigilar que el EBITDA no perfore <70 M€ ni el margen <22% de forma sostenida (pasaría a revisión de tesis). · [Decisión original: «MANTENER (tesis intacta)»] · [Cotización corregida el 29-jul-2026: el apunte decía 14,13 € y ese valor no se da desde 2017; se pone el cierre oficial de esa fecha, 13.75 € (Matriz Bolsa Española). La cotización del apunte es la vara con la que después se mide si la decisión acertó.]"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "NTGY": {
-      "empresa": "Naturgy Energy Group, S.A.",
+      "empresa": "Naturgy",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1102,31 +1072,16 @@
           "fecha": "2026-08-13",
           "fuente": "prensa economica (CapitalMadrid) sobre las cuentas del 1S-2026 publicadas el 22-jul; capa CNMV en Pte. Revision -> tope severidad media, se fija en baja",
           "exigeAccion": false
-        },
-        {
-          "id": "coyuntura",
-          "tipo": "coyuntura",
-          "naturaleza": "estado",
-          "severidad": "media",
-          "estado": "activa",
-          "exigeAccion": false,
-          "resumen": "Ámbar: overhang societario nuevo —~1.000 M€ provisionados por litigios y CERO por el apagón, con expediente de la CNMC vivo—, almacenamiento europeo en el mínimo de la serie (~60%) con el TTF al alza, y la TRF del gas convertida en un reloj de 45 días sin dictamen. Ningún umbral cruzado; el pool (157,35 €/MWh) hace de contrapeso.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
-          "resueltoEl": null,
-          "desenlace": null
         }
       ],
       "revisiones": [],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "PRM": {
       "empresa": "Prim, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1172,10 +1127,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — baja desde verde por dirección, no por umbral: los dos factores exógenos de la ficha giran en contra a la vez (bono ES 10A 3,65%, +8,4 pb, y BCE al 98% el 10-sep estrechan el atractivo relativo del DY ~5,7%; el IBEX cae −0,10%, primera semana negativa en un mes, y quita viento de cola al múltiplo de la small cap). Lo que decide la tesis conserva colchón: margen bruto 50,6% y EBITDA 11,9% f",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1203,13 +1158,13 @@
           "motivo": "Sin apunte de apertura previo. Revision discrecional del analista (sin senal S1-S6). Hallazgo: el dossier atribuia a Prim una devolucion de prima de emision y cifraba la retribucion total en DY ~5,7% (dpaPrevisto 0,76 EUR). Las Cuentas Anuales Consolidadas auditadas lo desmienten: nota 15.2, 'no se han producido movimientos en la prima de emision' en 2015-2016 ni en 2024-2025, con saldo constante de 1.227.059,19 EUR (0,072 EUR/accion, la partida entera). La RPD real es 3,65% sobre 13,40 EUR. REAFIRMAR MANTENER: PO 14,9, banda <13 y stop 9,5 SIN cambios, porque la valoracion (DCF+multiplos) no usa el dividendo y ningun dato nuevo re-valora el negocio. Condicionada a corregir: dpaPrevisto a 0,489; catalizador n3 del 9.1 reescrito sin la prima y marcado 'a vigilar' (Dividend Safety 40/100, 3 recortes en 10 anios); retirar 'DY ~5,7%' del 9.2 y matizar 'dividendo seguro' del 9.4; y rellenar la fila 4.2 'Dividendo especial / prima de emision' con 0,00 en los diez ejercicios (ya no es Pte. Revision)."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "RED": {
-      "empresa": "Redeia Corporacion, S.A.",
+      "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1285,10 +1240,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar, mismo esqueleto y un frente nuevo: la mediación CNMC–RTE toca la retribución reconocida —la variable de la tesis— pero se salda parcialmente a favor de REE y sin cuantía; y el respiro de tipos se deshace (10A +8,4 pb, Euribor 12M +3,4 pb, BCE al 98% para septiembre), con el spread frente a la TRF estrechándose otra vez a 293 pb.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1309,13 +1264,13 @@
           "motivo": "No estoy invertido, es una posición en estudio en la que no se entra sin estar en zona de entrada"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "REP": {
       "empresa": "Repsol, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1359,7 +1314,7 @@
           "motivo": "Tesis de Renta. La rentabilidad del dividendo indica no vender salvo deterioro de fundamentales."
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "SAB": {
@@ -1386,7 +1341,7 @@
     "SAN": {
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1465,13 +1420,13 @@
           "motivo": "Señal abierta el 11-jul-2026 (cotización de referencia 12,14 €); el apunte de ese día —«mantenemos la posición por dividendo»— hablaba de la POSICIÓN, no de la tesis, y no se emitió Nota. AJUSTA PO. La subida está parcialmente sostenida: el TNAV/acción crece de 5,76 € (FY-2025) a 6,32 € (1S-2026, publicado el 22-jul) y el RoTE lleva cinco trimestres por encima del 15% del supuesto base (1S-2026: 15,6%; CET1 14,0%; eficiencia 42,8%; NPL 2,93%). Pero el múltiplo ha corrido más que el valor: cotiza a 1,90x TNAV frente al 1,63x del escenario base, y despejando P/TBV=(RoTE−g)/(CoE−g) el precio exige un RoTE sostenible del 17,2%, por encima incluso del escenario optimista (16,5%). La tesis no está rota: está CUMPLIDA — el bull case (~12,5 €) y el catalizador del cierre de la brecha de valoración ya están en el precio. PO recalculado actualizando SOLO el TNAV, sin tocar hipótesis ni los pesos 70/30: 8,25 → 8,92 € (poBear 7,65 · poBull 13,61 · entrada 7,02-7,78). STOP SIN CAMBIOS en 5,90 €: deriva del pre-mortem, no del valor contable. Veredicto ESPERAR sin cambio (margen −25,7% sobre 12,01 €). Bloque 8: el riesgo nº7 cruza su alarma (TSB −55 pb de CET1 > umbral 50 pb) pero está ABSORBIDO — el CET1 sube de 13,5% a 14,0%; queda vigilado. Los tres pre-mortem, lejos. Anti-anclaje: watchlist, no compraría a 1,90x TNAV. PENDIENTE para la Actualización Anual: el peso del 30% de los múltiplos históricos (0,7x TNAV, el descuento de 2020-22) resta 1,5 € al objetivo; sin él el PO sería 10,45 €. Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Banco Santander (S3).html · [Cotización normalizada el 29-jul-2026: el apunte traía 12,01 €, que es el precio en vivo que rellena el formulario de la app, no un cierre. Se pone el cierre de esa fecha, 12,24 € (Matriz Bolsa Española).]"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "TEF": {
       "empresa": "Telefónica, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1529,16 +1484,16 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar que se endurece: la tregua financiera se ha borrado entera (10A 3,65%, +8,4 pb; BCE al 98% para el 10-sep) y el real firma la peor caída del panel (EUR/BRL +1,89%). Nada cruza umbral —cobertura 2,52× y guidance subido— y dos drivers siguen en Pte. Revisión.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
       ],
       "revisiones": [],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "TLGO": {
@@ -1591,7 +1546,7 @@
     "VID": {
       "empresa": "Vidrala, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17"
+        "semanal": "2026-08-26"
       },
       "hallazgos": [
         {
@@ -1602,22 +1557,22 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — el complejo energético europeo ESCALA (TTF 61,98 €/MWh, un +24,0% sobre el umbral de la primera pata; MIBGAS +7,63%; pool con media de 30 días en 121,50 €/MWh y almacenamiento europeo en mínimos históricos), pero se cruza UNA sola de las dos patas del §8.1 R1: la del margen es dato de empresa hasta el 9M-2026, en octubre. El CO2 se ALEJA de su umbral.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
       ],
       "revisiones": [],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     },
     "VIS": {
       "empresa": "Viscofan, S.A.",
       "cobertura": {
-        "semanal": "2026-08-17",
+        "semanal": "2026-08-26",
         "trimestral": "2026-07-29"
       },
       "hallazgos": [
@@ -1629,10 +1584,10 @@
           "estado": "activa",
           "exigeAccion": false,
           "resumen": "Ámbar — el complejo energético europeo ESCALA (TTF 61,98 €/MWh, MIBGAS +7,63%, pool con media de 30 días en 121,50 y almacenamiento UE en el mínimo histórico de la serie) y el real se deprecia por segunda semana y más rápido (+1,89%), pero ningún umbral del §8.1 se cruza y la segunda pata de la alarma energética no tiene dato nuevo hasta octubre.",
-          "origen": "informe-semanal 2026-08-17",
-          "fecha": "2026-08-17",
-          "abiertoEl": "2026-08-17",
-          "vigenteHasta": "2026-08-22",
+          "origen": "informe-semanal 2026-08-26",
+          "fecha": "2026-08-26",
+          "abiertoEl": "2026-08-26",
+          "vigenteHasta": "2026-08-31",
           "resueltoEl": null,
           "desenlace": null
         }
@@ -1646,16 +1601,16 @@
           "motivo": "Es una tesis de Renta por lo que al ser el dividendo aceptable no implica salida la llegada a un precio objetivo"
         }
       ],
-      "revisionesEl": "2026-08-17",
+      "revisionesEl": "2026-08-26",
       "revisionesFrescas": true
     }
   },
   "resumen": {
     "empresasConHallazgo": 25,
-    "hallazgosActivos": 43,
+    "hallazgosActivos": 40,
     "porTipo": {
       "sancion": 3,
-      "coyuntura": 17,
+      "coyuntura": 14,
       "otro": 17,
       "opa": 3,
       "litigio": 2,
