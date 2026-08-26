@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-07-31",
+ "generadoEl": "2026-08-26",
  "fuenteDeVerdad": "drivers[] de Empresas/*/Coyuntura y Stress Test - *.md",
  "nota": "Vacio = la ficha no lo determina. NUNCA es un cero implicito.",
  "factores": [
@@ -35,7 +35,6 @@
    "PIB": 1
   },
   "AZK": {
-   "TIPOS": -1,
    "PIB": 1,
    "BOLSA": 1,
    "EUR": -1
@@ -44,15 +43,8 @@
    "TIPOS": 2,
    "CRED": -2
   },
-  "CIE": {
-   "LATAM": 2,
-   "GAS": -1
-  },
-  "EBRO": {
-   "EUR": -1
-  },
   "ENG": {
-   "GAS": -1,
+   "REG": 2,
    "TIPOS": -1
   },
   "ELE": {
@@ -65,13 +57,7 @@
    "LATAM": 2
   },
   "FDR": {
-   "GAS": -2,
    "EUR": -1
-  },
-  "IBE": {
-   "TIPOS": -2,
-   "EUR": -1,
-   "GAS": 1
   },
   "ITX": {
    "EUR": -1,
@@ -116,14 +102,14 @@
   "VID": {
    "GAS": -2,
    "PIB": 1,
-   "EUR": -1,
+   "LATAM": 1,
    "TIPOS": -1,
    "BOLSA": 1
   },
   "VIS": {
    "GAS": -1,
    "LATAM": 2,
-   "CONSD": 1
+   "CONSB": 1
   }
  },
  "sinFactor": [
@@ -165,6 +151,12 @@
   },
   {
    "tk": "AZK",
+   "familia": "DEMANDA_ESTRUCTURAL",
+   "id": "declive_efectivo",
+   "variable": "Uso del efectivo en punto de venta (BCE SPACE)"
+  },
+  {
+   "tk": "AZK",
    "familia": "COMPETENCIA",
    "id": "competencia_global",
    "variable": "Presion de precios de Crane NXT/Glory"
@@ -192,30 +184,6 @@
    "familia": "BALANCE",
    "id": "rote_cet1_recompras",
    "variable": "RoTE / CET1 / recompras"
-  },
-  {
-   "tk": "CIE",
-   "familia": "CONTABLE",
-   "id": "goodwill",
-   "variable": "Fondo de comercio (1.765 M EUR, 122% del PN atribuible)"
-  },
-  {
-   "tk": "CIE",
-   "familia": "BALANCE",
-   "id": "apalancamiento_trough",
-   "variable": "DN/EBITDA y cobertura de intereses"
-  },
-  {
-   "tk": "CIE",
-   "familia": "GEOPOLITICA",
-   "id": "aranceles_ue_eeuu",
-   "variable": "Aranceles EE.UU.-UE (15% desde 1-jul-2026)"
-  },
-  {
-   "tk": "EBRO",
-   "familia": "BALANCE",
-   "id": "conversion_fcl",
-   "variable": "Conversion EBITDA->FCL / dividendo"
   },
   {
    "tk": "ENG",
@@ -261,6 +229,12 @@
   },
   {
    "tk": "FDR",
+   "familia": "CICLO_VIVIENDA_US",
+   "id": "ciclo-eeuu",
+   "variable": "Permisos de piscina residencial EE.UU. / guidance Pool Corp / hipoteca 30A"
+  },
+  {
+   "tk": "FDR",
    "familia": "BALANCE",
    "id": "coste-deuda",
    "variable": "Euribor / gasto financiero sin cobertura (860,6 M€ vencidos 30/06/2026)"
@@ -288,24 +262,6 @@
    "familia": "BALANCE",
    "id": "gobernanza",
    "variable": "Votos a la Política de Remuneraciones / permanencia de Rhône Capital"
-  },
-  {
-   "tk": "IBE",
-   "familia": "REG_NO_ENERGIA",
-   "id": "regulacion",
-   "variable": "Tasa retribucion redes (CNMC/Ofgem)"
-  },
-  {
-   "tk": "IBE",
-   "familia": "BALANCE",
-   "id": "dilucion",
-   "variable": "Ampliaciones de capital"
-  },
-  {
-   "tk": "IBE",
-   "familia": "CONTABLE",
-   "id": "impairments",
-   "variable": "Fondo de comercio / intangibles"
   },
   {
    "tk": "ITX",
@@ -643,36 +599,6 @@
    "variable": "Ejecucion Avant/EVO (Irlanda)"
   },
   {
-   "tk": "CIE",
-   "id": "produccion_vehiculos",
-   "variable": "Produccion global de vehiculos (S&P Global Mobility/LMC)"
-  },
-  {
-   "tk": "CIE",
-   "id": "transicion_ev",
-   "variable": "Contenido por vehiculo / nominaciones EV"
-  },
-  {
-   "tk": "CIE",
-   "id": "poder_oem",
-   "variable": "Concentracion de clientes OEM"
-  },
-  {
-   "tk": "EBRO",
-   "id": "materia_prima",
-   "variable": "Arroz / trigo duro"
-  },
-  {
-   "tk": "EBRO",
-   "id": "marca_blanca",
-   "variable": "Marca blanca / distribucion"
-  },
-  {
-   "tk": "EBRO",
-   "id": "habitos_consumo",
-   "variable": "Habitos de consumo (low-carb / GLP-1)"
-  },
-  {
    "tk": "ENG",
    "id": "hidrogeno_varados",
    "variable": "H2 backbone / activos varados"
@@ -701,16 +627,6 @@
    "tk": "FDR",
    "id": "concentracion-cliente",
    "variable": "Peso del mayor cliente en ventas (21,0%)"
-  },
-  {
-   "tk": "IBE",
-   "id": "capex_plan",
-   "variable": "Ejecucion CAPEX Plan 2025-2028"
-  },
-  {
-   "tk": "IBE",
-   "id": "ira_eeuu",
-   "variable": "Riesgo politico EEUU (IRA/Avangrid)"
   },
   {
    "tk": "ITX",
@@ -799,9 +715,27 @@
   },
   {
    "tk": "VIS",
+   "id": "plasticos_nuevos_negocios",
+   "variable": "Precios plasticos/Nuevos Negocios"
+  },
+  {
+   "tk": "VIS",
    "id": "guias_2026",
    "variable": "Cumplimiento guia ingresos/EBITDA/BN"
   }
  ],
- "sinDeterminar": []
+ "sinDeterminar": [
+  {
+   "tk": "ELE",
+   "factor": "REG",
+   "id": "capex_redes",
+   "motivo": "sin `sensibilidad` revisada (pasa aplicar_asignacion.py)"
+  },
+  {
+   "tk": "VIS",
+   "factor": "LATAM",
+   "id": "ejecucion_beyond25",
+   "motivo": "sin `sensibilidad` revisada (pasa aplicar_asignacion.py)"
+  }
+ ]
 }
