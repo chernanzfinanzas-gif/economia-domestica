@@ -4300,7 +4300,7 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
           <label>Fecha límite<input type="date" id="todoFecha"></label>
           <label>Descripción<input type="text" id="todoDesc" placeholder="p. ej. Rotar Enagás → Naturgy" required></label>
           <label>Razonamiento<input type="text" id="todoRazon" placeholder="por qué"></label>
-          <label>Empresa (opcional)<input type="text" id="todoTicker" placeholder="TICKER" style="text-transform:uppercase"></label>
+          <label>Empresa (opcional)<input type="text" id="todoTicker" list="todoTickerDL" placeholder="Escribe o elige…" autocomplete="off"><datalist id="todoTickerDL"></datalist></label>
           <div class="row-actions"><button type="submit" class="btn">Añadir tarea</button> <button type="button" class="btn ghost" id="todoDelDone">Borrar completadas</button></div>
         </form>
         <div id="todoTabla"></div>

@@ -1838,15 +1838,33 @@ function mesesDesde(fechaStr){ if(!fechaStr)return null; const d=new Date(fechaS
 function renderMonitor(){
   DB.todos=DB.todos||[]; DB.monitor=DB.monitor||{};
   const hoy=new Date().toISOString().slice(0,10);
+  /* [27-ago-2026] El campo «Empresa (opcional)» de una tarea era texto libre: se guardaba tal cual y
+     luego se pintaba como data-ficha, así que un ticker mal escrito abría una ficha vacía. Se llena
+     aquí la lista de sugerencias con el universo, en el mismo formato «Nombre (TICKER)» que ya usa
+     Diversificación, para que _loteTk() pueda resolverla en el submit. */
+  const _tdl=$('#todoTickerDL');
+  if(_tdl){
+    const _nm=t=>(((DB.valores||{})[t]||{}).nombre)||(((DB.analisis||[]).find(a=>(a.ticker||'').toUpperCase()===t)||{}).nombre)||t;
+    const _uni=[...new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(Boolean))].sort((a,b)=>_nm(a).localeCompare(_nm(b)));
+    _tdl.innerHTML=_uni.map(t=>`<option value="${_nm(t)} (${t})">`).join('');
+  }
+  /* Y el chip de empresa solo se pinta como enlace a la ficha si el ticker EXISTE; si no, sale como
+     texto tachado con el motivo, para que las tareas ya guardadas con un ticker malo se vean. */
+  const _tkOk=t=>{ t=(t||'').toUpperCase(); if(!t)return false;
+    if((DB.analisis||[]).some(a=>(a.ticker||'').toUpperCase()===t))return true;
+    const _v=(DB.valores||{})[t]; return !!(_v&&_v.nombre);   /* mismo criterio que el submit */ };
+  const _tkChip=t=>{ if(!t)return ''; return _tkOk(t)
+    ? `<button class="btn ghost sm" data-ficha="${t}">${t}</button>`
+    : `<span title="«${t}» no está en tu universo: no hay ficha que abrir. Edita la tarea para corregirlo." style="font-size:11px;color:#b45309;background:#fef3c7;border-radius:20px;padding:1px 6px;font-weight:700">${t} ⚠</span>`; };
   const todos=DB.todos.slice().sort((a,b)=>(a.hecho?1:0)-(b.hecho?1:0)||((a.fecha||'9999').localeCompare(b.fecha||'9999')));
   const tareasPend=todos.filter(x=>!x.hecho).length;
   const te=$('#todoTabla');
   if(te){
     if(!todos.length){ te.innerHTML='<div class="empty">Sin tareas. Añade una arriba.</div>'; }
     else{
-      const rows=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<tr class="${x.hecho?'mt-done':''}" style="${venc?'background:#fee2e2':''}"><td class="ctr"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}></td><td class="l" style="white-space:nowrap">${x.fecha?ddmmyyyy(x.fecha):'—'}</td><td class="l"><b>${(x.desc||'').replace(/</g,'&lt;')}</b></td><td class="l muted">${(x.razon||'').replace(/</g,'&lt;')}</td><td class="l">${x.ticker?`<button class="btn ghost sm" data-ficha="${x.ticker}">${x.ticker}</button>`:''}</td><td class="ctr"><button class="btn ghost sm" data-tododel="${x.id}" title="Eliminar">✕</button></td></tr>`; }).join('');
+      const rows=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<tr class="${x.hecho?'mt-done':''}" style="${venc?'background:#fee2e2':''}"><td class="ctr"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}></td><td class="l" style="white-space:nowrap">${x.fecha?ddmmyyyy(x.fecha):'—'}</td><td class="l"><b>${(x.desc||'').replace(/</g,'&lt;')}</b></td><td class="l muted">${(x.razon||'').replace(/</g,'&lt;')}</td><td class="l">${_tkChip(x.ticker)}</td><td class="ctr"><button class="btn ghost sm" data-tododel="${x.id}" title="Eliminar">✕</button></td></tr>`; }).join('');
       const desk=`<div class="pos-desk"><div class="ptable"><table><thead><tr><th class="ctr">✓</th><th class="l">Fecha</th><th class="l">Descripción</th><th class="l">Razonamiento</th><th class="l">Empresa</th><th></th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
-      const mob=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<div class="mt-tcard ${x.hecho?'done':(venc?'venc':'')}"><div class="mt-th"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}><div class="mt-tmain"><div class="mt-td">${(x.desc||'').replace(/</g,'&lt;')}</div><div class="mt-tf">${x.fecha?ddmmyyyy(x.fecha):'sin fecha'}${x.ticker?(' · <button class="btn ghost sm" data-ficha="'+x.ticker+'">'+x.ticker+'</button>'):''}</div></div><button class="btn ghost sm" data-tododel="${x.id}">✕</button></div>${x.razon?('<div class="mt-tr">'+(x.razon||'').replace(/</g,'&lt;')+'</div>'):''}</div>`; }).join('');
+      const mob=todos.map(x=>{ const venc=x.fecha&&!x.hecho&&x.fecha<hoy; return `<div class="mt-tcard ${x.hecho?'done':(venc?'venc':'')}"><div class="mt-th"><input type="checkbox" data-todone="${x.id}" ${x.hecho?'checked':''}><div class="mt-tmain"><div class="mt-td">${(x.desc||'').replace(/</g,'&lt;')}</div><div class="mt-tf">${x.fecha?ddmmyyyy(x.fecha):'sin fecha'}${x.ticker?(' · '+_tkChip(x.ticker)):''}</div></div><button class="btn ghost sm" data-tododel="${x.id}">✕</button></div>${x.razon?('<div class="mt-tr">'+(x.razon||'').replace(/</g,'&lt;')+'</div>'):''}</div>`; }).join('');
       te.innerHTML=desk+`<div class="pos-mob">${mob}</div>`;
     }
   }

@@ -342,7 +342,20 @@ let cajaTipo='';
 if($('#cajaTipoSeg'))$('#cajaTipoSeg').addEventListener('click',e=>{ const b=e.target.closest('button[data-t]'); if(!b)return; cajaTipo=b.dataset.t; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.toggle('on',x===b)); });
 if($('#cajaForm'))$('#cajaForm').addEventListener('submit',e=>{ e.preventDefault(); const f=$('#cajaFecha').value; const c=($('#cajaConcepto').value||'').trim(); const imp=num($('#cajaImporte').value); if(!f||!imp){ alert('Pon fecha e importe.'); return; } if(!cajaTipo){ alert('Elige el tipo: Ingreso o Gasto.'); return; } DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:f,concepto:c,entra:cajaTipo==='entra'?imp:0,sale:cajaTipo==='sale'?imp:0}); saveNow(); $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); renderCaja(); });
 if($('#cajaFormCancel'))$('#cajaFormCancel').addEventListener('click',()=>{ $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); });
-if($('#todoForm'))$('#todoForm').addEventListener('submit',e=>{ e.preventDefault(); const desc=($('#todoDesc').value||'').trim(); if(!desc){ alert('Pon una descripción.'); return; } DB.todos=DB.todos||[]; DB.todos.push({id:'t'+Math.random().toString(36).slice(2,9),fecha:$('#todoFecha').value,desc,razon:($('#todoRazon').value||'').trim(),ticker:($('#todoTicker').value||'').trim().toUpperCase(),hecho:false}); saveNow(); $('#todoForm').reset(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
+/* [27-ago-2026] El ticker de la tarea se valida contra el universo con _loteTk(), que además resuelve
+   el formato «Nombre (TICKER)» de la lista de sugerencias. Si no lo reconoce no se guarda a ciegas:
+   se ofrece guardar la tarea SIN empresa, que es mejor que un botón que abre una ficha vacía. */
+if($('#todoForm'))$('#todoForm').addEventListener('submit',e=>{ e.preventDefault(); const desc=($('#todoDesc').value||'').trim(); if(!desc){ alert('Pon una descripción.'); return; }
+  const _tkRaw=($('#todoTicker').value||'').trim(); let _tk='';
+  if(_tkRaw){
+    _tk=_loteTk(_tkRaw);
+    /* _loteTk solo mira DB.analisis; se acepta también un ticker que ya tenga ficha en DB.valores
+       (p. ej. una posición heredada), para no rechazar algo que la app sí sabe pintar. */
+    if(!_tk){ const _u=_tkRaw.toUpperCase(); const _v=(DB.valores||{})[_u]; if(_v&&_v.nombre) _tk=_u; }
+    /* Se exige `nombre` para que no cuelen los índices de referencia: la entrada de IBEX en DB.valores
+       solo tiene precio, y una tarea etiquetada «IBEX» abriría una ficha de empresa que no existe. */
+    if(!_tk){ if(!confirm('«'+_tkRaw+'» no está en tu universo de análisis.\n\n¿Guardar la tarea sin empresa asociada? (Aceptar guarda solo la tarea; Cancelar te deja corregirlo.)')) return; }
+  } DB.todos=DB.todos||[]; DB.todos.push({id:'t'+Math.random().toString(36).slice(2,9),fecha:$('#todoFecha').value,desc,razon:($('#todoRazon').value||'').trim(),ticker:_tk,hecho:false}); saveNow(); $('#todoForm').reset(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
 if($('#todoDelDone'))$('#todoDelDone').addEventListener('click',()=>{
   const hechas=(DB.todos||[]).filter(x=>x.hecho); if(!hechas.length){ alert('No hay tareas completadas que borrar.'); return; }
   if(!confirm('¿Borrar las '+hechas.length+' tarea'+(hechas.length===1?'':'s')+' completada'+(hechas.length===1?'':'s')+'?'))return;
