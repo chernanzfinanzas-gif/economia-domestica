@@ -1123,6 +1123,52 @@ function planSharesAt(t,year){ const pc=(DB.planCompras||{})[t]; if(!pc)return 0
 
 /* Parámetros del reparto para un conjunto de empresas — el mismo cálculo que _planReparto()/
    renderPlanLote, pero admitiendo una empresa HIPOTÉTICA (extraTk/extraTipo) para previsualizar. */
+/* ===== OBJETIVOS DEL REPARTO — FUENTE ÚNICA, con CONGELADO AUTOMÁTICO (27-ago-2026) =====
+   La fórmula del objetivo estaba escrita tres veces (aquí, en _planReparto y en renderPlanLote). Ahora
+   vive solo aquí, y de paso resuelve el descuadre que salía al crecer el número de empresas:
+
+   El motor reparte `max(0, objetivo − invertido)`. Los pendientes NEGATIVOS —las empresas que ya están
+   por encima de su objetivo— se descartaban del reparto pero su exceso seguía contando como capital
+   reasignable, así que el plan prometía gastar dos veces el mismo euro. Con 26 empresas eran 15.662 €:
+   exactamente el capital atrapado en SAN, REP, IBE, MAP y NTGY. Ese dinero está invertido y no vuelve
+   (Carlos no va a vender para comprar otra), así que no se puede repartir.
+
+   Solución: una empresa que se pasa de su objetivo se CONGELA en su coste real — que es justo lo que
+   significa «Mantener» — y su cuota se redistribuye entre las demás. Es un estado DERIVADO: no se
+   escribe en DB.planTipo, así que la clasificación que hizo Carlos sigue diciendo lo que él decidió
+   sobre la calidad de la empresa, y el día que la cartera crezca y deje de pasarse, se descongela sola.
+
+   Es iterativo porque congelar baja el objetivo de las demás y eso puede pasar a otra por encima.
+   Converge siempre: cada ronda solo AÑADE al conjunto congelado, que está acotado por el nº de empresas.
+   Con los datos reales converge en 2 rondas incluso forzando 40 empresas y 6 joyas.
+
+   Devuelve objEur (con el congelado aplicado), objTeorico (sin él, para poder enseñar el exceso),
+   nucPct, el conjunto congelado y los recuentos ya descontando congeladas. */
+function _planObjetivos(allTk, tipoOf, invByT, TF){
+  const JOYA=0.08;
+  const congel=new Set();
+  let nucPct=0, nJoyaL=0, nNucL=0;
+  const objDe=(t,pct,cong)=>{ if(cong.has(t))return invByT[t]||0;
+    const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return pct*TF; return invByT[t]||0; };
+  for(let ronda=0; ronda<12; ronda++){
+    nJoyaL=allTk.filter(t=>tipoOf(t)==='joya'&&!congel.has(t)).length;
+    const nucL=allTk.filter(t=>tipoOf(t)==='nucleo'&&!congel.has(t));
+    nNucL=nucL.length;
+    /* Fijos = mantener, sin clasificar Y congeladas: todas valen su coste y no crecen. */
+    const fij=allTk.filter(t=>congel.has(t)||(tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo'))
+                   .reduce((a,t)=>a+(invByT[t]||0),0);
+    nucPct=nNucL>0?((1-JOYA*nJoyaL-(TF?fij/TF:0))/nNucL):0;
+    const nuevos=allTk.filter(t=>!congel.has(t)&&(tipoOf(t)==='joya'||tipoOf(t)==='nucleo')
+                                 &&(objDe(t,nucPct,congel)-(invByT[t]||0)<-0.5));
+    if(!nuevos.length)break;
+    nuevos.forEach(t=>congel.add(t));
+  }
+  const objEur=t=>objDe(t,nucPct,congel);
+  /* Lo que le tocaría si no estuviera congelada — sirve para enseñar cuánto se pasa. */
+  const objTeorico=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  return {JOYA, nucPct, objEur, objTeorico, congel, nJoya:nJoyaL, nNuc:nNucL};
+}
+
 function _planParams(extraTk, extraTipo){
   const up=t=>(t||'').toUpperCase();
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
@@ -1139,16 +1185,18 @@ function _planParams(extraTk, extraTipo){
   let disponible=0; for(let y=Math.max(_P.nowY,_P.ydesde); y<=_P.ycierre; y++) disponible+=Math.max(0,_P.disp(y));
   const TF=totalInv+disponible, JOYA=0.08;
   const tipoOf=t=>pt[t]||'';
+  const O=_planObjetivos(allTk,tipoOf,invByT,TF);
+  const nucPct=O.nucPct, objEur=O.objEur, congel=O.congel;
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length;
   const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
   const nMant=allTk.filter(t=>tipoOf(t)==='mantener').length;
   const nSin=allTk.length-nJoya-nNuc-nMant;
-  const sumFijos=allTk.filter(t=>tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo').reduce((s,t)=>s+(invByT[t]||0),0);
-  const nucPct=nNuc>0?((1-JOYA*nJoya-(TF?sumFijos/TF:0))/nNuc):0;
-  const objEur=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  /* Tras el congelado ya nada queda por encima de su objetivo: `sobre` es el capital atrapado en las
+     congeladas, y `pend` cuadra con el disponible. */
   let pend=0, sobre=0; const sobreTk=[];
-  allTk.forEach(t=>{ const g=objEur(t)-(invByT[t]||0); if(g>0.5)pend+=g; else if(g<-0.5){ sobre+=-g; sobreTk.push(t); } });
-  return {allTk,invByT,held,totalInv,disponible,TF,JOYA,nJoya,nNuc,nMant,nSin,nucPct,objEur,tipoOf,pend,sobre,sobreTk,ycierre:_P.ycierre};
+  allTk.forEach(t=>{ const g=objEur(t)-(invByT[t]||0); if(g>0.5)pend+=g;
+    if(congel.has(t)){ const ex=(invByT[t]||0)-O.objTeorico(t); if(ex>0.5){ sobre+=ex; sobreTk.push(t); } } });
+  return {allTk,invByT,held,totalInv,disponible,TF,JOYA,nJoya,nNuc,nMant,nSin,nucPct,objEur,objTeorico:O.objTeorico,congel,tipoOf,pend,sobre,sobreTk,ycierre:_P.ycierre};
 }
 
 /* ===== BAJA DE UNA EMPRESA DEL PLAN (25-ago-2026) =====
@@ -1338,8 +1386,8 @@ function _dvAltaPaint(){
     h+='</div>';
     if(exceso>0.5) h+='<div style="margin-top:8px;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:9px 12px;font-size:12px;color:#92400e;line-height:1.6">'
       +'⚠️ El pendiente total pasa a <b>'+fmt(B.pend)+'</b> y supera en <b>'+fmt(exceso)+'</b> el ahorro previsto hasta '+B.ycierre+' ('+fmt(B.disponible)+'). El motor repartirá el exceso igualmente y la fila «Sin asignar» saldrá en rojo.</div>';
-    if(nuevas.length) h+='<div style="margin-top:8px;background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:9px 12px;font-size:12px;color:#991b1b;line-height:1.6">'
-      +'🔻 Quedan por encima de su objetivo: <b>'+nuevas.join(', ')+'</b>. No recibirán más capital; valora pasarlas a «Mantener» para liberar cupo.</div>';
+    if(nuevas.length) h+='<div style="margin-top:8px;background:#eef2ff;border:1px solid #c7d2fe;border-radius:10px;padding:9px 12px;font-size:12px;color:#3730a3;line-height:1.6">'
+      +'🧊 Se congelan en su coste: <b>'+nuevas.join(', ')+'</b>. Ya tienen más invertido de lo que les tocaría con el objetivo nuevo, así que dejan de recibir capital y su cupo pasa al resto. Su categoría no cambia y se descongelan solas cuando la cartera crezca.</div>';
     V.innerHTML=h;
   }
 }
@@ -1432,11 +1480,8 @@ function _planReparto(){
   var disponible=0; for(var _yd=Math.max(nowY,ydesde); _yd<=ycierre; _yd++){ disponible+=Math.max(0,dispShown(_yd)); }
   var allTk=held.concat(chosen); var TF=totalInv+disponible; var JOYA=0.08;
   var tipoOf=function(t){return pt[t]||'';};
-  var nJoya=allTk.filter(function(t){return tipoOf(t)==='joya';}).length;
-  var nNuc=allTk.filter(function(t){return tipoOf(t)==='nucleo';}).length;
-  var sumFijos=allTk.filter(function(t){return tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo';}).reduce(function(s,t){return s+(invByT[t]||0);},0);
-  var restante=TF>0?(1-JOYA*nJoya-sumFijos/TF):0; var nucPct=nNuc>0?restante/nNuc:0;
-  var objEur=function(t){ var tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  var _O=_planObjetivos(allTk,tipoOf,invByT,TF);        /* incluye el congelado de las sobreponderadas */
+  var nucPct=_O.nucPct, objEur=_O.objEur, congel=_O.congel;
   var y0=Math.max(nowY,ydesde);
   var pin=function(t,y){ var v=((DB.planCompras||{})[t]||{})[y]; return (v!=null&&v!=='')?num(v):null; };
   var pinSum={}; allTk.forEach(function(t){ var s=0; var m=(DB.planCompras||{})[t]||{}; Object.keys(m).forEach(function(y){ var v=num(m[y]); if(+y>=y0&&+y<=ycierre&&v>0)s+=v; }); pinSum[t]=s; });
@@ -1464,7 +1509,7 @@ function _planReparto(){
     if(totCap>0){ years.forEach(function(y){ var add=rem*(Math.max(0,dispShown(y))/totCap); sched[t][y]=(sched[t][y]||0)+add; byYear[y]=(byYear[y]||0)+add; }); }
     else { var ly=years.length?years[years.length-1]:ycierre; sched[t][ly]=(sched[t][ly]||0)+rem; byYear[ly]=(byYear[ly]||0)+rem; }
     pendA[t]=0; } });
-  _planAutoCache={sched:sched, byYear:byYear, sinCalendario:0, exceso:exceso, ycierre:ycierre, ydesde:ydesde, nowY:nowY, obj:obj, inv:invByT, allTk:allTk};
+  _planAutoCache={sched:sched, byYear:byYear, sinCalendario:0, exceso:exceso, ycierre:ycierre, ydesde:ydesde, nowY:nowY, obj:obj, inv:invByT, allTk:allTk, congel:congel, nucPct:nucPct};
   return _planAutoCache;
 }
 function renderPlanLote(){
@@ -1503,10 +1548,11 @@ function renderPlanLote(){
   const tipoOf=t=>pt[t]||'';
   const nJoya=allTk.filter(t=>tipoOf(t)==='joya').length; const nNuc=allTk.filter(t=>tipoOf(t)==='nucleo').length;
   const nMant=allTk.filter(t=>tipoOf(t)==='mantener').length; const nSin=allTk.length-nJoya-nNuc-nMant;
-  const sumFijos=allTk.filter(t=>tipoOf(t)!=='joya'&&tipoOf(t)!=='nucleo').reduce((s,t)=>s+(invByT[t]||0),0);
-  const restante=TF>0?(1-JOYA*nJoya-sumFijos/TF):0; const nucPct=nNuc>0?restante/nNuc:0;
-  const objPct=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA; if(tp==='nucleo')return nucPct; return TF?(invByT[t]||0)/TF:0; };
-  const objEur=t=>{ const tp=tipoOf(t); if(tp==='joya')return JOYA*TF; if(tp==='nucleo')return nucPct*TF; return invByT[t]||0; };
+  const _O=_planObjetivos(allTk,tipoOf,invByT,TF);      /* fuente única, con el congelado ya aplicado */
+  const nucPct=_O.nucPct, objEur=_O.objEur, congel=_O.congel;
+  const objPct=t=>TF?objEur(t)/TF:0;
+  /* Exceso de una congelada = lo que tiene invertido por encima de lo que le tocaría. */
+  const excesoDe=t=>congel.has(t)?Math.max(0,(invByT[t]||0)-_O.objTeorico(t)):0;
   _objCache={}; allTk.forEach(t=>{ _objCache[t]={real:invByT[t]||0,obj:objEur(t)}; });
   const asignar=t=>objEur(t)-(invByT[t]||0);
   const totAsignarPos=allTk.reduce((s,t)=>s+Math.max(0,asignar(t)),0);
@@ -1536,8 +1582,13 @@ function renderPlanLote(){
     +`<div class="k"><div class="l">Invertido total</div><div class="v">${fmt(totalInv)}</div><div class="p">${held.length} en cartera</div></div>`
     +`<div class="k"><div class="l">Disponible a repartir</div><div class="v">${fmt(disponible)}</div><div class="p">${ydesde}–${ycierre}</div></div>`
     +`<div class="k"><div class="l">Capital final total</div><div class="v">${fmt(TF)}</div><div class="p">invertido + disponible</div></div>`
-    +`<div class="k hero"><div class="l">Capital a asignar</div><div class="v">${fmt(totAsignarPos)}</div><div class="p">${nNuc?('núcleo '+(nucPct*100).toFixed(1)+'% c/u · '):''}${nJoya} joyas</div></div>`
+    +`<div class="k hero"><div class="l">Capital a asignar</div><div class="v">${fmt(totAsignarPos)}</div><div class="p">${nNuc?('núcleo '+(nucPct*100).toFixed(1)+'% c/u · '):''}${nJoya} joyas${congel.size?(' · <b style="color:#3730a3">'+congel.size+' congelada'+(congel.size===1?'':'s')+'</b>'):''}</div></div>`
     +'</div>';
+  const congelHTML=congel.size?('<div style="background:#eef2ff;border:1px solid #c7d2fe;border-radius:9px;padding:8px 11px;font-size:11.5px;color:#3730a3;line-height:1.6;margin:10px 0 0">'
+    +'🧊 <b>'+congel.size+' empresa'+(congel.size===1?'':'s')+' congelada'+(congel.size===1?'':'s')+' en su coste</b>: '
+    +[...congel].map(t=>t+' (+'+eurK(excesoDe(t))+'€)').join(', ')
+    +'. Ya tiene'+(congel.size===1?'':'n')+' más invertido de lo que le'+(congel.size===1?'':'s')+' tocaría, y ese dinero no se puede reasignar sin vender. '
+    +'Su cupo se reparte entre las demás y su categoría no se toca: se descongela'+(congel.size===1?'':'n')+' sola'+(congel.size===1?'':'s')+' cuando la cartera crezca.</div>'):'';
   const toolbarHTML=`<div class="toolbar dv-tb" style="margin:12px 0 8px;font-size:13px;align-items:center;flex-wrap:wrap;gap:6px"><span style="font-weight:700;color:#1f3d6b">Ver:</span> <input type="number" step="1" data-loteyr="desde" value="${ydesde}" title="Primer año" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span style="font-weight:600">a</span> <input type="number" step="1" data-loteyr="hasta" value="${yhasta}" title="Último año visible / proyección" style="width:60px;padding:3px 5px;font-size:13px;border:1px solid var(--line);border-radius:6px"> <span class="muted" style="font-size:11px">visualización</span> <span style="width:1px;height:16px;background:var(--line)"></span> <span style="font-weight:700;color:#b45309">Cierre plan:</span> <input type="number" step="1" data-loteyr="cierre" value="${ycierre}" title="Hasta aquí se reparte el capital disponible (${fmt(disponible)})." style="width:60px;padding:3px 5px;font-size:13px;border:1px solid #fdba74;border-radius:6px;background:#fffbeb"> <span class="muted" style="font-size:11px">reparte hasta aquí</span> <span class="muted" style="font-size:11.5px;margin-left:auto"><b>${total} empresa${total===1?'':'s'}</b> · ${nJoya} joya${nJoya===1?'':'s'} · ${nNuc} núcleo · ${nMant} mantener${nSin?` · <span style="color:#b45309;font-weight:700">${nSin} sin clasificar</span>`:''}</span> <button class="btn sm" onclick="addLoteEmpresa()" title="Añadir empresa">+ Empresa</button></div>`;
   const optInput=(attr,val)=>`<input list="loteDL" class="anaInp" ${attr} value="${val}" placeholder="Escribe o elige…" style="min-width:150px">`;
   const objCells=t=>{ const fa=asignar(t)-schedSum(t); const faC=Math.abs(fa)<0.5?'<span class="pos" style="font-weight:700">✓</span>':(fa>0?('<span style="color:#b45309;font-weight:700" title="No cabe en el plan hasta '+ycierre+'">'+fmt(fa)+'</span>'):('<span class="neg" style="font-weight:700">'+fmt(fa)+'</span>')); return `<td class="num">${(objPct(t)*100).toFixed(1)}%</td><td class="num">${fmt(objEur(t))}</td><td class="num ${asignar(t)>0.5?'pos':(asignar(t)<-0.5?'neg':'')}">${Math.abs(asignar(t))<0.5?'·':((asignar(t)>0?'+':'−')+fmt(Math.abs(asignar(t))))}</td><td class="num">${faC}</td>`; };
@@ -1567,9 +1618,13 @@ function renderPlanLote(){
       const newTag=isNew?(' <span class="dv2-pill">Sin comprar</span> <button class="dv2-del" data-lotedel="'+t+'" title="Sacar del plan">✕</button>'):'';
       /* Objetivo 0 € sin nada invertido = la fila no recibe capital. Pasa con «— sin clasificar —»,
          que sigue siendo elegible y hace lo mismo que «Mantener» en una empresa sin comprar. */
+      /* Congelada: el objetivo pasa a ser su coste porque ya se pasa de lo que le tocaría. No es un
+         castigo ni una reclasificación — su categoría no se toca y se descongela sola al crecer TF. */
+      const _ex=excesoDe(t);
+      const cong=_ex>0.5?` <span class="dv2-pill" style="background:#e0e7ff;color:#3730a3" title="Ya tiene ${fmt(invByT[t]||0)} invertidos y le tocarían ${fmt(_O.objTeorico(t))}: se pasa ${fmt(_ex)}. Su objetivo queda congelado en el coste y ese cupo se reparte entre las demás. Se descongela sola cuando la cartera crezca.">congelada · +${eurK(_ex)}€</span>`:'';
       const cero=(objEur(t)<0.5&&(invByT[t]||0)<0.5)?' <span class="dv2-pill" style="background:#fef3c7;color:#92400e" title="Con objetivo 0 € esta empresa no entra en el reparto: clasifícala como Joya o Núcleo, o sácala del plan.">objetivo 0 €</span>':'';
       const asgCell=`<td class="num ${asg>0.5?'pos':(asg<-0.5?'neg':'')}">${Math.abs(asg)<0.5?'✓':((asg>0?'+':'−')+eurK(Math.abs(asg))+'€')}</td>`;
-      rows+=`<tr class="dv2-plan" data-dvg="${g}"${ds}><td class="dv2-name"><b class="dv-tk" data-ficha="${t}">${t}</b>${newTag}${cero}<div class="dv2-co">${(nm(t)||'').slice(0,24)}</div><div class="dv2-tp">${tipoSel(t)}</div></td><td class="num">${invByT[t]?fmt(invByT[t]):'·'}</td><td class="num">${pctAct?pctAct.toFixed(1)+'%':'·'}</td><td class="num">${fmt(objEur(t))}</td>${asgCell}${planYCells(t)}<td class="num col-tot">${totPlan>0.5?(eurK(totPlan)+'€'):'·'}</td></tr>`;
+      rows+=`<tr class="dv2-plan" data-dvg="${g}"${ds}><td class="dv2-name"><b class="dv-tk" data-ficha="${t}">${t}</b>${newTag}${cong}${cero}<div class="dv2-co">${(nm(t)||'').slice(0,24)}</div><div class="dv2-tp">${tipoSel(t)}</div></td><td class="num">${invByT[t]?fmt(invByT[t]):'·'}</td><td class="num">${pctAct?pctAct.toFixed(1)+'%':'·'}</td><td class="num">${fmt(objEur(t))}</td>${asgCell}${planYCells(t)}<td class="num col-tot">${totPlan>0.5?(eurK(totPlan)+'€'):'·'}</td></tr>`;
       rows+=`<tr class="dv2-real" data-dvg="${g}"${ds}><td class="dv2-name dv2-rlbl">Real · comprado</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td><td class="num dv2-z">·</td>${realYCells(t)}<td class="num col-tot">${totComp>0.5?(eurK(totComp)+'€'):'·'}</td></tr>`;
     });
   });
@@ -1616,7 +1671,7 @@ function renderPlanLote(){
     const _arOpen=!!window._autoRepOpen;
     return `<div style="margin-top:18px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow)"><div data-autorep-tgl style="cursor:pointer;font-weight:800;font-size:14px;color:#0369a1;margin-bottom:4px;display:flex;align-items:baseline;gap:6px"><span class="arChev" style="font-size:11px;color:#0369a1;transform:rotate(${_arOpen?90:0}deg);transition:transform .15s">▸</span><span>🤖 Reparto automático</span><span style="font-weight:400;font-size:11px;color:#64748b">— el pendiente (objetivo − invertido) a prorrata por año, con el ahorro previsto de cada año como tope. <b>Alimenta el simulador.</b> ${_arOpen?'Vivo: cada compra recalcula.':'<i>Clic para ver el detalle por empresa.</i>'}</span></div>${pinLine}${warn}<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">${chips}</div><div class="arDetail" style="display:${_arOpen?'block':'none'}">${rowsC||'<div style="color:#94a3b8">Sin pendiente por repartir.</div>'}</div></div>`;
   })();
-  el.innerHTML=kpisHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML+autoPreviewHTML;
+  el.innerHTML=kpisHTML+congelHTML+toolbarHTML+dl+pyStripHTML+deskHTML+mobHTML+autoPreviewHTML;
   /* Banda deslizante ↔ scroll horizontal de la tabla */
   (function(){ var sc=document.getElementById('loteScrollBox'); var rng=document.getElementById('loteScroll'); if(!sc||!rng)return;
     var maxSL=function(){ return Math.max(0, sc.scrollWidth - sc.clientWidth); };
