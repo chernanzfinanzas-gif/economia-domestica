@@ -2000,7 +2000,10 @@ function _proyWireToggles(){
 try{ _proyWireToggles(); }catch(e){}
 function addEvento(){
   const a=prompt('Año del gasto (p. ej. 2030):'); if(a===null) return; const anio=parseInt(a,10); if(!anio) return;
-  const concepto=prompt('Concepto (p. ej. Casa):')||'';
+  /* [27-ago-2026] `||''` se tragaba el Cancelar: seguías y quedaba un gasto futuro SIN etiqueta en la
+     proyección — sabes que hay 30.000 € en 2031 pero no de qué. Cancelar aborta como en los otros dos
+     prompts; dejarlo en blanco a propósito sigue valiendo. */
+  const _c=prompt('Concepto (p. ej. Casa):'); if(_c===null) return; const concepto=_c.trim();
   const im=prompt('Importe (€):'); const importe=num(im); if(!importe) return;
   DB.config.proyeccion.eventos=DB.config.proyeccion.eventos||[];
   DB.config.proyeccion.eventos.push({anio,concepto,importe});
