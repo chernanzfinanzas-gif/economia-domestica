@@ -1,0 +1,89 @@
+{
+ "schemaVersion": 1,
+ "generadoEl": "2026-08-26",
+ "fuente": "mercado-diario",
+ "nota": "Escrito por macro_mercado.py (GitHub Actions, un pase diario). Misma forma que macro.json: la app funde los dos y este pisa al del informe solo donde trae dato. Un indicador que falla no aparece; nunca se escribe 0 ni un valor a medias.",
+ "ind": {
+  "ibex": {
+   "n": "IBEX 35",
+   "grupo": "bolsa",
+   "v": 20056.6,
+   "u": "puntos",
+   "f": "2026-08-25",
+   "d": -0.21,
+   "dU": "%",
+   "dPer": "sesión",
+   "src": "precios/IBEX.json (serie propia)",
+   "slider": "BOLSA",
+   "sliderV": 31.4,
+   "nota": "+31,4 % en 12 meses (alimenta el escenario) · +15,9 % en lo que va de año"
+  },
+  "vix": {
+   "n": "VIX · volatilidad implícita",
+   "grupo": "otros",
+   "v": 15.66,
+   "f": "2026-08-26",
+   "d": 1.36,
+   "dU": "%",
+   "dPer": "sesión",
+   "src": "yahoo · ^VIX",
+   "u": "puntos",
+   "nota": "Por debajo de 20 el mercado está tranquilo; por encima de 30, hay pánico",
+   "url": "https://www.cboe.com/tradable_products/vix/"
+  },
+  "oro": {
+   "n": "Oro",
+   "grupo": "otros",
+   "v": 4674.0,
+   "f": "2026-08-26",
+   "d": 0.77,
+   "dU": "%",
+   "dPer": "sesión",
+   "src": "yahoo · GC=F",
+   "u": "$/oz",
+   "nota": "Refugio: sube cuando el mercado desconfía de los tipos reales o de la moneda"
+  },
+  "brent": {
+   "n": "Brent",
+   "grupo": "energia",
+   "v": 85.44,
+   "f": "2026-08-26",
+   "d": -3.54,
+   "dU": "%",
+   "dPer": "sesión",
+   "src": "yahoo · BZ=F",
+   "u": "$/bbl",
+   "slider": "BRENT"
+  },
+  "eur_usd": {
+   "n": "EUR/USD",
+   "grupo": "divisas",
+   "v": 1.167,
+   "f": "2026-08-26",
+   "d": 0.01,
+   "dU": "%",
+   "dPer": "sesión",
+   "src": "yahoo · EURUSD=X",
+   "slider": "EUR"
+  },
+  "latam_cesta": {
+   "n": "Cesta LatAm (fuerza)",
+   "grupo": "divisas",
+   "v": 10.6,
+   "u": "%",
+   "f": "2026-08-26",
+   "slider": "LATAM",
+   "sliderV": 10.6,
+   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL +4,4 % · MXN +9,0 % · CLP +6,7 % · COP +22,3 %. ARS excluido: su tipo mide política cambiaria, no mercado",
+   "src": "yahoo · EURBRL=X, EURMXN=X, EURCLP=X, EURCOP=X"
+  },
+  "treasury_10a": {
+   "n": "Treasury 10A EE.UU.",
+   "grupo": "otros",
+   "v": 4.64,
+   "u": "%",
+   "f": "2026-08-25",
+   "src": "yahoo · ^TNX"
+  }
+ }
+}
