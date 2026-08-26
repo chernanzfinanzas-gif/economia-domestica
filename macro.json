@@ -1,8 +1,8 @@
 {
  "schemaVersion": 1,
  "generadoEl": "2026-08-14",
- "fuente": "informe-semanal",
- "nota": "Escrito a mano a partir del Informe Semanal del 14-ago-2026 como fichero de REFERENCIA: el skill debe generar exactamente esta forma. Un dato que no se puede determinar es v:null + estado:\"pte\", nunca 0.",
+ "fuente": "informe-semanal (14-ago) · alineado al contrato de pase-macro el 26-ago",
+ "nota": "Los 18 indicadores del contrato de `pase-macro`. Los 7 de mercado (ibex, vix, oro, brent, eur_usd, latam_cesta, treasury_10a) salieron de aquí el 26-ago: los escribe el workflow diario en macro-mercado.json y la app funde los dos. Cada indicador lleva `caduca`, los días que aguanta ESE dato: la app avisa del que más se haya pasado de SU plazo, no del más antiguo en bruto.",
  "ind": {
   "bce_deposito": {
    "n": "BCE · facilidad de depósito",
@@ -48,8 +48,8 @@
    "d": 8.4,
    "dU": "pb",
    "dPer": "semana",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/spain/government-bond-yield"
+   "src": "euribor.com.es",
+   "url": "https://www.euribor.com.es/"
   },
   "bund_10a": {
    "n": "Bund 10A Alemania",
@@ -60,8 +60,8 @@
    "d": 8.7,
    "dU": "pb",
    "dPer": "semana",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/germany/government-bond-yield"
+   "src": "euribor.com.es",
+   "url": "https://www.euribor.com.es/"
   },
   "prima_riesgo": {
    "n": "Prima de riesgo",
@@ -85,20 +85,8 @@
    "nota": "Periodo regulatorio 2026-2031: cambia por periodo, no semanalmente",
    "src": "cnmc.es",
    "url": "https://www.cnmc.es/",
-   "slider": "REG"
-  },
-  "brent": {
-   "n": "Brent",
-   "grupo": "energia",
-   "v": 88.55,
-   "u": "$/bbl",
-   "f": "2026-08-14",
-   "d": 0.94,
-   "dU": "%",
-   "dPer": "semana",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/commodity/brent-crude-oil",
-   "slider": "BRENT"
+   "slider": "REG",
+   "caduca": 400
   },
   "gas_ttf": {
    "n": "Gas TTF",
@@ -123,20 +111,6 @@
    "src": "omie.es",
    "url": "https://www.omie.es/"
   },
-  "ibex": {
-   "n": "IBEX 35",
-   "grupo": "bolsa",
-   "v": 20156.6,
-   "u": "puntos",
-   "f": "2026-08-14",
-   "d": -0.1,
-   "dU": "%",
-   "dPer": "semana",
-   "nota": "+16,5 % en el año",
-   "src": "estrategiasdeinversion.com",
-   "slider": "BOLSA",
-   "sliderV": 16.5
-  },
   "ipc": {
    "n": "IPC España",
    "grupo": "inflacion",
@@ -145,7 +119,8 @@
    "f": "2026-08-14",
    "nota": "subyacente 3,0 % · revisado al alza desde 3,5 %",
    "src": "ine.es",
-   "url": "https://www.ine.es/"
+   "url": "https://www.ine.es/",
+   "caduca": 45
   },
   "pib": {
    "n": "PIB España",
@@ -156,7 +131,8 @@
    "nota": "2T-2026",
    "src": "ine.es",
    "url": "https://www.ine.es/",
-   "slider": "PIB"
+   "slider": "PIB",
+   "caduca": 120
   },
   "ventas_minoristas": {
    "n": "Ventas minoristas",
@@ -166,7 +142,8 @@
    "f": "2026-08-14",
    "nota": "junio · precios constantes CVEC",
    "src": "ine.es",
-   "url": "https://www.ine.es/"
+   "url": "https://www.ine.es/",
+   "caduca": 45
   },
   "consumo_discrecional": {
    "n": "Consumo discrecional",
@@ -174,7 +151,10 @@
    "v": null,
    "estado": "pte",
    "nota": "ICM del INE, rama NO alimentación: aún no lo pide el pase macro",
-   "slider": "CONSD"
+   "slider": "CONSD",
+   "caduca": 45,
+   "src": "ine.es",
+   "url": "https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176900"
   },
   "consumo_defensivo": {
    "n": "Consumo defensivo",
@@ -182,18 +162,10 @@
    "v": null,
    "estado": "pte",
    "nota": "ICM del INE, rama alimentación: aún no lo pide el pase macro",
-   "slider": "CONSB"
-  },
-  "eur_usd": {
-   "n": "EUR/USD",
-   "grupo": "divisas",
-   "v": 1.1555,
-   "f": "2026-08-14",
-   "d": 0.61,
-   "dU": "%",
-   "dPer": "semana",
-   "src": "ecb.europa.eu",
-   "slider": "EUR"
+   "slider": "CONSB",
+   "caduca": 45,
+   "src": "ine.es",
+   "url": "https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176900"
   },
   "eur_brl": {
    "n": "EUR/BRL",
@@ -202,26 +174,6 @@
    "f": "2026-08-14",
    "src": "ecb.europa.eu"
   },
-  "latam_cesta": {
-   "n": "Cesta LatAm (fuerza)",
-   "grupo": "divisas",
-   "v": null,
-   "estado": "pte",
-   "nota": "BRL+MXN+CLP+COP a partes iguales, 12 meses, signo invertido. ARS excluido. Lo calcula el workflow: las fichas dan variación semanal y el slider pide anual",
-   "slider": "LATAM"
-  },
-  "treasury_10a": {
-   "n": "Treasury 10A EE.UU.",
-   "grupo": "otros",
-   "v": 4.68,
-   "u": "%",
-   "f": "2026-08-14",
-   "d": -4,
-   "dU": "pb",
-   "dPer": "semana",
-   "src": "home.treasury.gov",
-   "url": "https://home.treasury.gov/resource-center/"
-  },
   "fed": {
    "n": "Fed · tipo oficial",
    "grupo": "otros",
@@ -229,7 +181,8 @@
    "u": "%",
    "f": "2026-08-14",
    "nota": "rango 3,50–3,75 % · reunión el 15-16 sep",
-   "src": "federalreserve.gov"
+   "src": "federalreserve.gov",
+   "caduca": 60
   },
   "hipoteca_30a_us": {
    "n": "Hipoteca 30A EE.UU.",
@@ -240,7 +193,7 @@
    "d": -2,
    "dU": "pb",
    "dPer": "semana",
-   "src": "freddiemac.com"
+   "src": "freddiemac.gcs-web.com"
   },
   "afiliacion": {
    "n": "Afiliación Seguridad Social",
@@ -249,38 +202,9 @@
    "u": "personas",
    "f": "2026-08-14",
    "nota": "récord · julio",
-   "src": "ine.es",
-   "url": "https://www.ine.es/"
-  },
-  "vix": {
-   "n": "VIX · volatilidad implícita",
-   "grupo": "otros",
-   "v": null,
-   "estado": "pte",
-   "u": "puntos",
-   "d": null,
-   "dU": "",
-   "dPer": "",
-   "nota": "El «índice del miedo»: por debajo de 20 el mercado está tranquilo, por encima de 30 hay pánico",
-   "src": "cboe.com",
-   "url": "https://www.cboe.com/tradable_products/vix/",
-   "slider": null,
-   "sliderV": null
-  },
-  "oro": {
-   "n": "Oro",
-   "grupo": "otros",
-   "v": null,
-   "estado": "pte",
-   "u": "$/oz",
-   "d": null,
-   "dU": "",
-   "dPer": "",
-   "nota": "Refugio: sube cuando el mercado desconfía de los tipos reales o de la moneda",
-   "src": "tradingeconomics.com",
-   "url": "https://tradingeconomics.com/commodity/gold",
-   "slider": null,
-   "sliderV": null
+   "src": "seg-social.es",
+   "url": "https://www.seg-social.es/wps/portal/wss/internet/EstadisticasPresupuestosEstudios",
+   "caduca": 45
   }
  }
 }
