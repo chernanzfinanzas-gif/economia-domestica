@@ -1873,6 +1873,33 @@ function syncDivAccionDeDividendos(){
 
 /* ---- Estado de una empresa para colorear filas (cartera / analizada) ---- */
 /* Devuelve el Set de tickers con posición abierta en cartera. */
+/* ===== PRECIO ACTUAL — FUENTE ÚNICA (25-ago-2026) =====
+   Convivían tres formas distintas de contestar «¿a cuánto cotiza X?»: la Ficha (03-inversiones ~737)
+   probaba DB.valores y caía a DB.analisis[].cotizacion; el Kanban y Fiscalidad usaban la cadena de
+   tres niveles de _precioActualDe (04-plan.js); y Cartera (invPositions/posLots) leía
+   `num(v.precioActual)` A SECAS. Cuando esa casilla faltaba —una empresa recién dada de alta y
+   comprada antes de la sincronización diaria— el 0 entraba en la aritmética y la posición salía a
+   −100,00 % exacto, comiéndose todo su coste en los KPI de cabecera, mientras la Ficha de esa misma
+   empresa mostraba su precio sin problema. La ausencia de dato no puede convertirse en una medición.
+   La cadena vive aquí y la usan todos:
+     1) DB.valores[t].precioActual   (sincronización diaria / precio puesto a mano)
+     2) DB.analisis[t].cotizacion    (la del análisis)
+     3) último cierre de precios/TICKER.json, si ya está en _precioCache
+   Devuelve {p, src}: src='' cuando no hay ningún precio, y entonces quien pinta debe poner «—», no 0. */
+function precioActualInfo(t){
+  t=(t||'').toUpperCase();
+  const v=(DB.valores||{})[t]||{};
+  let p=num(v.precioActual); if(p>0)return {p:p, src:'valores', fecha:v.precioFecha||''};
+  const a=(DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;});
+  if(a&&num(a.cotizacion)>0)return {p:num(a.cotizacion), src:'analisis', fecha:''};
+  if(typeof _precioCache!=='undefined'){
+    const pj=_precioCache[t];
+    if(pj&&pj.data&&pj.data.length){ const fila=pj.data[pj.data.length-1]; if(num(fila[1])>0)return {p:num(fila[1]), src:'repo', fecha:fila[0]||''}; }
+  }
+  return {p:0, src:'', fecha:''};
+}
+function _precioActualDe(t){ return precioActualInfo(t).p; }
+const PRECIO_SRC={valores:'', analisis:'precio del análisis (aún sin cierre sincronizado)', repo:'último cierre del histórico del repo', '':'sin cotización'};
 function heldTickerSet(){ var s=new Set(); try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(num(p.acciones)>0.0001) s.add((p.ticker||'').toUpperCase()); }); }catch(e){} return s; }
 /* Fondo de fila: verde claro = en cartera; amarillo claro = analizada pero no comprada; '' = ninguno.
    Se le puede pasar un Set ya calculado (held) para no recomputarlo en cada fila. */

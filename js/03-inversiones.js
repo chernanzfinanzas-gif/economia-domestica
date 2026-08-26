@@ -10,12 +10,31 @@ function invPositions(){
     if(o.tipo==='venta'){ const avg=m.acc?m.cost/m.acc:0; m.acc-=n; if(m.acc<0)m.acc=0; m.cost=m.acc*avg; }
     else { m.acc+=n; m.cost+=n*pr; }
   });
+  /* [25-ago-2026] El precio sale de la cadena única de 01-core.js, no de `num(v.precioActual)` a
+     secas: si esa casilla faltaba, el 0 se propagaba a la aritmética y la posición salía a −100,00 %
+     exacto. Sin ningún precio (`sinPrecio`) se VALORA AL COSTE — hipótesis neutra: vale lo que pagué
+     hasta que sepa más — y quien pinta muestra «—», nunca un 0 disfrazado de medición. */
   const out=[]; Object.keys(map).forEach(k=>{ const m=map[k]; const v=(DB.valores&&DB.valores[m.ticker])||{};
-    out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:m.acc?m.cost/m.acc:0,precioActual:num(v.precioActual),precioFecha:v.precioFecha||'',divAccion:num(v.divAccion),broker:v.broker||''});
+    const _pc=m.acc?m.cost/m.acc:0; const _pi=precioActualInfo(m.ticker); const _sin=!(_pi.p>0);
+    out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:_pc,
+      precioActual:_sin?_pc:_pi.p, sinPrecio:_sin, precioSrc:_pi.src,
+      precioFecha:(_pi.src==='valores'?(v.precioFecha||''):(_pi.fecha||'')),
+      divAccion:num(v.divAccion),broker:v.broker||''});
   });
   return out;
 }
 function setInvStatus(t){ const e=$('#invStatus'); if(e)e.textContent=t; }
+/* Aviso de cabecera: cuántas posiciones se están valorando al coste por no tener cotización.
+   Sin esto, valorar al coste sería otra media verdad silenciosa — una posición podría pasarse meses
+   así (el caso de un ticker que la sincronización diaria nunca toca) sin que nada lo diga. */
+function _invSinPrecioChip(all){
+  const sp=(all||[]).filter(function(p){return p.sinPrecio;});
+  if(!sp.length)return '';
+  const c=sp.reduce(function(s,p){return s+p.acciones*p.precioCompra;},0);
+  return ' <span style="display:inline-block;background:#fef3c7;color:#92400e;border-radius:20px;padding:1px 7px;font-size:10px;font-weight:800;vertical-align:middle" '
+    +'title="'+sp.map(function(p){return p.ticker;}).join(', ')+' — sin cotización en DB.valores, en el análisis ni en el histórico del repo. Se valoran al coste hasta que llegue un precio.">'
+    +sp.length+' sin cotización · al coste '+fmt(c)+'</span>';
+}
 function _daysBetween(a,b){ if(!a||!b)return null; var da=Date.parse(a+'T00:00:00'), db=Date.parse(b+'T00:00:00'); if(isNaN(da)||isNaN(db))return null; return Math.round((da-db)/86400000); }
 function precioFreshColor(pf,ref){ if(!pf)return '#dc2626'; var d=_daysBetween(ref,pf); if(d==null)return '#dc2626'; if(d<=0)return '#16a34a'; if(d<=4)return '#d97706'; return '#dc2626'; }
 function _posDivCobrado(divArr,sinceFecha,acc){ let s=0; (divArr||[]).forEach(d=>{ if((d.fecha||'')>=(sinceFecha||'')) s+=acc*num(d.importe); }); return s; }
@@ -51,7 +70,8 @@ function posLots(){
   (DB.operaciones||[]).forEach(o=>{
     if(o.tipo==='venta') return; const t=(o.ticker||'').toUpperCase(); if(!openT.has(t)) return;
     const v=(DB.valores&&DB.valores[t])||{}; const acc=num(o.acciones); if(acc<=0) return;
-    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:num(o.precio),pa:num(v.precioActual),
+    const _pl=precioActualInfo(t); const _paL=(_pl.p>0)?_pl.p:num(o.precio);   /* sin cotización: al coste del lote */
+    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:num(o.precio),pa:_paL,sinPrecio:!(_pl.p>0),
       div:_posDivCobrado((DB.dividendos||{})[t],o.fecha,acc),years:_posYears(o.fecha,hoy),estado:'Cartera',fechaFin:hoy});
   });
   // --- lotes cerrados: archivados (DB.cerradas) ---
@@ -300,7 +320,7 @@ function renderInv(){
   const divAnual=all.reduce((s,p)=>s+p.acciones*p.divAccion,0);
   const _pc=x=>(x>=0?'+':'')+x.toFixed(1)+'%';
   $('#invCards').innerHTML='<div class="pos-kpis">'
-    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras${_invSello(all)}</div></div>`
+    +`<div class="k hero"><div class="l">Valor total</div><div class="v">${fmt(valor)}</div><div class="p">${all.length} posiciones · ambas carteras${_invSello(all)}${_invSinPrecioChip(all)}</div></div>`
     +`<div class="k"><div class="l">Coste</div><div class="v">${fmt(coste)}</div><div class="p">invertido total</div></div>`
     +`<div class="k"><div class="l">Plusvalía</div><div class="v ${pl>=0?'pos':'neg'}">${pl>=0?'+':''}${fmt(pl)}</div><div class="p">${_pc(plpct)} sobre coste</div></div>`
     +`<div class="k"><div class="l">Dividendos/año (bruto)</div><div class="v">${fmt(divAnual)}</div><div class="p">${(valor?(divAnual/valor*100).toFixed(1):0)}% RPD media</div></div>`
@@ -320,13 +340,22 @@ function renderInv(){
       const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
       const _du=(typeof dossierURL==='function')?dossierURL(p.ticker,((DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===(p.ticker||'').toUpperCase())||{}).dossierUrl):'';
       const plCls=g>=0?'g':'r';
-      return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="pos-tk" data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${p.acciones}</td><td style="color:${precioFreshColor(p.precioFecha,refFecha)};font-weight:600" title="${p.precioFecha?('Cotización del '+ddmmyyyy(p.precioFecha)):'Sin fecha de cotización'}">${fmt(p.precioActual)}</td><td><b>${fmt(v)}</b></td><td><span class="${g>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${g>=0?'+':''}${fmt(g)}</span> <span class="mt-pill ${plCls}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</span></td><td>${peso.toFixed(1)}%</td><td class="mt-pos">${fmt(p.acciones*p.divAccion)}</td><td class="c"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px" title="Añadir operación">+ Op.</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-left:3px" title="Abrir dossier">📄</a>`:''} <button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}" title="Eliminar">✕</button></td></tr><tr class="mt-det"><td colspan="8"><div class="mt-nums">${_mtNum('P. compra',fmt(p.precioCompra))}${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':_mtNum('P. neto medio',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('Div/acción',fmt(p.divAccion))}${_mtNum('Div/año',fmt(p.acciones*p.divAccion),'mt-pos')}${_mtNum('RPD',p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—')}${_mtNum('YoC (yield on cost)',p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—')}</div></td></tr>`;
+      /* Sin cotización no se pinta un número: ni precio, ni plusvalía, ni porcentaje. */
+      const _paTd=p.sinPrecio
+        ? `<td style="color:#b45309;font-weight:700" title="Sin cotización en DB.valores, en el análisis ni en precios/${p.ticker}.json. La posición se valora al coste.">— <span style="font-size:9px;font-weight:800;background:#fef3c7;border-radius:20px;padding:1px 5px">sin cotización</span></td>`
+        : `<td style="color:${precioFreshColor(p.precioFecha,refFecha)};font-weight:600" title="${p.precioFecha?('Cotización del '+ddmmyyyy(p.precioFecha)+(p.precioSrc&&p.precioSrc!=='valores'?(' · '+PRECIO_SRC[p.precioSrc]):'')):'Sin fecha de cotización'}">${fmt(p.precioActual)}</td>`;
+      const _plTd=p.sinPrecio
+        ? '<td class="muted" title="No se puede calcular sin cotización">—'
+        : `<td><span class="${g>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${g>=0?'+':''}${fmt(g)}</span> <span class="mt-pill ${plCls}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</span>`;
+      return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="pos-tk" data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${p.acciones}</td>${_paTd}<td><b>${fmt(v)}</b></td>${_plTd}</td><td>${peso.toFixed(1)}%</td><td class="mt-pos">${fmt(p.acciones*p.divAccion)}</td><td class="c"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px" title="Añadir operación">+ Op.</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-left:3px" title="Abrir dossier">📄</a>`:''} <button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}" title="Eliminar">✕</button></td></tr><tr class="mt-det"><td colspan="8"><div class="mt-nums">${_mtNum('P. compra',fmt(p.precioCompra))}${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':_mtNum('P. neto medio',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('Div/acción',fmt(p.divAccion))}${_mtNum('Div/año',fmt(p.acciones*p.divAccion),'mt-pos')}${_mtNum('RPD',p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—')}${_mtNum('YoC (yield on cost)',p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—')}</div></td></tr>`;
     }).join('');
     const sub=`<tr class="mt-sub"><td class="l">SUBTOTAL · ${lst.length} valores</td><td></td><td></td><td><b>${fmt(sV)}</b></td><td class="${sPL>=0?'mt-pos':'mt-neg'}">${sPL>=0?'+':''}${fmt(sPL)} <span style="font-weight:700">(${_pc(sPLp)})</span></td><td>${(valor?sV/valor*100:0).toFixed(1)}%</td><td class="mt-pos">${fmt(sD)}</td><td></td></tr>`;
     // móvil: tarjeta por empresa
     const mcards=lst.map(p=>{ const v=p.acciones*p.precioActual, c=p.acciones*p.precioCompra, g=v-c, gp=c?g/c*100:0, peso=valor?v/valor*100:0;
       const _du=(typeof dossierURL==='function')?dossierURL(p.ticker,((DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===(p.ticker||'').toUpperCase())||{}).dossierUrl):'';
-      return `<div class="lcard invcol"><div class="lc-h"><div class="tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker} <span class="nm">${p.nombre||''}</span></div><div class="ty ${g>=0?'g':'r'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}<span>plusval.</span></div></div><div class="lc-row"><span class="pl ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</span> <span class="muted">plusvalía</span> · <b>${fmt(v)}</b> <span class="muted">valor · peso ${peso.toFixed(1)}%</span><span class="invcol-arw">▾</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${p.acciones}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(p.precioCompra)}→${fmt(p.precioActual)}</b></div>${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':'<div class="m"><span>P. neto medio</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Div/año</span><b class="pos">${fmt(p.acciones*p.divAccion)}</b></div><div class="m"><span>RPD</span><b>${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>YoC</span><b>${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>Div/acc</span><b>${fmt(p.divAccion)}</b></div></div><div class="lc-act"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener">📄 Dossier</a>`:''}<button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕ Eliminar</button></div></div>`;
+      const _tyM=p.sinPrecio?'<div class="ty" style="color:#92400e">—<span>sin cotización</span></div>':`<div class="ty ${g>=0?'g':'r'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}<span>plusval.</span></div>`;
+      const _plM=p.sinPrecio?'<span class="muted">plusvalía —</span> · <b>'+fmt(v)+'</b> <span class="muted">al coste</span>':`<span class="pl ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</span> <span class="muted">plusvalía</span> · <b>${fmt(v)}</b> <span class="muted">valor</span>`;
+      return `<div class="lcard invcol"><div class="lc-h"><div class="tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker} <span class="nm">${p.nombre||''}</span></div>${_tyM}</div><div class="lc-row">${_plM} <span class="muted">· peso ${peso.toFixed(1)}%</span><span class="invcol-arw">▾</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${p.acciones}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(p.precioCompra)}→${fmt(p.precioActual)}</b></div>${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':'<div class="m"><span>P. neto medio</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Div/año</span><b class="pos">${fmt(p.acciones*p.divAccion)}</b></div><div class="m"><span>RPD</span><b>${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>YoC</span><b>${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>Div/acc</span><b>${fmt(p.divAccion)}</b></div></div><div class="lc-act"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener">📄 Dossier</a>`:''}<button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕ Eliminar</button></div></div>`;
     }).join('');
     const op=window._invOpen[car]?' open':'';
     html+=`<div class="pos-blk${op}" data-invblk="${car}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">Cartera ${car}</span><span class="bsum">${lst.length} valores · valor ${fmt(sV)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
