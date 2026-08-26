@@ -56,8 +56,29 @@ except ImportError:
 # --------------------------------------------------------------------------- #
 #  Descarga
 # --------------------------------------------------------------------------- #
+def solo_dias_cerrados(filas):
+    """Quita la barra del DIA EN CURSO. La misma leccion que `actualizar_cotizaciones.py`
+    aprendio el 06-ago-2026, aqui otra vez.
+
+    [26-ago-2026] El primer run manual salio a las 09:47 UTC y cinco de los siete indicadores
+    se fecharon HOY: con el mercado abierto Yahoo devuelve tambien la barra del dia sin
+    terminar, y se escribia como si fuera un cierre. El Brent salio "85,44 $ ▼ -3,54 % sesion"
+    cuando ese -3,54 % era en realidad "lo que va de manana", no una sesion. Peor: el campo `f`
+    lo fechaba hoy, o sea que un provisional iba firmado como cierre.
+
+    La regla es la simple y siempre honesta: aqui solo entran dias TERMINADOS. Estos
+    instrumentos cierran a horas distintas -VIX y oro en Nueva York, IBEX en Madrid, las
+    divisas nunca-, asi que no existe una hora de corte comun que valga para todos; lo unico
+    que vale para todos es "ayer ya acabo". Con el pase de las 06:00 UTC es ademas lo que se
+    quiere: los mercados de la vispera, cerrados y consolidados."""
+    hoy = dt.date.today().isoformat()
+    return [f for f in filas if f[0] < hoy]
+
+
 def serie(symbol, dias=DIAS_HISTORICO, intentos=INTENTOS):
-    """Devuelve [(fecha 'YYYY-MM-DD', cierre float), ...] ordenada, o [] si no hay."""
+    """Devuelve [(fecha 'YYYY-MM-DD', cierre float), ...] ordenada, o [] si no hay.
+
+    Sin la barra del dia en curso: ver `solo_dias_cerrados`."""
     fin = dt.date.today() + dt.timedelta(days=1)      # 'end' de Yahoo es exclusivo
     ini = dt.date.today() - dt.timedelta(days=dias)
     df = None
@@ -86,7 +107,7 @@ def serie(symbol, dias=DIAS_HISTORICO, intentos=INTENTOS):
             out.append((fecha.strftime("%Y-%m-%d"), float(valor)))
         except Exception:
             continue
-    return out
+    return solo_dias_cerrados(out)
 
 
 def desde_repo(ticker, dir_precios=DIR_PRECIOS):
@@ -218,7 +239,7 @@ def ind_latam():
 
     ARS queda fuera: con control de cambios y varios tipos oficiales, su variacion no mide
     mercado, mide politica cambiaria, y arrastraria la cesta ella sola."""
-    partes, detalle = [], []
+    partes, detalle, fechas = [], [], []
     for sym, nom in PARES_LATAM:
         s = serie(sym)
         time.sleep(PAUSA)
@@ -228,13 +249,14 @@ def ind_latam():
         a = var_pct(s, 365)
         if a is None:
             continue
+        fechas.append(s[-1][0])
         partes.append(-a)                       # <-- la inversion del signo
         detalle.append(("%s %+.1f %%" % (nom, -a)).replace(".", ","))
     if len(partes) < 3:
         return None, "latam: solo %d de 4 pares con dato anual" % len(partes)
     fuerza = sum(partes) / len(partes)
     return {"n": "Cesta LatAm (fuerza)", "grupo": "divisas", "v": red(fuerza, 1), "u": "%",
-            "f": dt.date.today().isoformat(), "slider": "LATAM", "sliderV": red(fuerza, 1),
+            "f": min(fechas), "slider": "LATAM", "sliderV": red(fuerza, 1),
             "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). "
                     + " · ".join(detalle) + ". ARS excluido: su tipo mide política cambiaria, no mercado",
             "src": "yahoo · " + ", ".join(p[0] for p in PARES_LATAM)}, None

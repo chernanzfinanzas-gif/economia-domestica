@@ -73,7 +73,14 @@ function _coyEsc(s){ return (s==null?'':''+s).replace(/[&<>"]/g,c=>({'&':'&amp;'
    antigüedad se refiere a lo que SOLO trae el informe, que es lo que de verdad envejece. */
 function _coyEdad(){
   const f=(_macroInf&&_macroInf.generadoEl)||'';
-  const m=(_macroMkt&&_macroMkt.generadoEl)||'';
+  /* [26-ago-2026] La fecha del bloque de mercado NO es su `generadoEl`: ese es cuándo se lanzó
+     el pase, y el pase de las 06:00 publica los cierres de la VÍSPERA. Poner la fecha de
+     generación rejuvenecía el dato un día entero — la misma clase de mentira, más pequeña, que
+     el intradía firmado como cierre. Se usa el cierre más reciente que trae el fichero. */
+  let m='';
+  const MI=(_macroMkt&&_macroMkt.ind)||{};
+  Object.keys(MI).forEach(function(k){ const x=MI[k]; if(x&&x.f&&x.f>m)m=x.f; });
+  if(!m) m=(_macroMkt&&_macroMkt.generadoEl)||'';
   const dias=f?Math.round((Date.now()-Date.parse(f+'T00:00:00'))/86400000):null;
   return {f:f,m:m,dias:(dias!=null&&isFinite(dias))?dias:null};
 }

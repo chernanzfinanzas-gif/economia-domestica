@@ -69,7 +69,12 @@
      .then(function(r){ return r.ok?r.json():null; }).catch(function(){ return null; }); };
    return Promise.all([uno('macro.json'),uno('macro-mercado.json')]).then(function(a){
      const inf=a[0]||{}, mkt=a[1]||{};
-     _escMacroEl=inf.generadoEl||''; _escMktEl=mkt.generadoEl||'';
+     _escMacroEl=inf.generadoEl||'';
+     /* Misma corrección que en Coyuntura: la fecha del mercado es la del cierre más reciente que
+        trae el fichero, no la de generación. El pase de las 06:00 publica cierres de ayer. */
+     _escMktEl=''; const MI=(mkt&&mkt.ind)||{};
+     Object.keys(MI).forEach(function(k){ const x=MI[k]; if(x&&x.f&&x.f>_escMktEl)_escMktEl=x.f; });
+     if(!_escMktEl) _escMktEl=mkt.generadoEl||'';
      const out={};
      const meter=function(src){ const I=(src&&src.ind)||{}; Object.keys(I).forEach(function(k){
        const o=I[k]; if(!o)return;
