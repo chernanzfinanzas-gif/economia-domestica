@@ -20,7 +20,7 @@ const VIEW_FNS={
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas','renderAtribucion'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'],
-  asignacion:['renderPlanLote','renderDiversifComp','renderRebalanceo'], riesgo:['renderRiesgo','renderEscenarios'], independencia:['renderProy','renderIndependencia'],
+  asignacion:['renderPlanLote','renderDiversifComp','renderRebalanceo'], riesgo:['renderRiesgo','renderEscenarios'], coyuntura:['renderCoyuntura'], independencia:['renderProy','renderIndependencia'],
   proyeccion:['renderProy'], diversif:['renderPlanLote'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
@@ -158,7 +158,7 @@ const GROUPS={
      a la que solo se llegaba pinchando un aviso del Panel: no figuraba en ningún submenú, así
      que quien no tuviera el aviso no podía abrirla. Va detrás de Asignación, que es su orden
      natural: primero repartes, luego decides la compra de este mes. */
-  planinv:[['asignacion','Asignación'],['proxcompra','Próxima compra'],['riesgo','Riesgo'],['simulador','Simulador'],['independencia','Independencia']],
+  planinv:[['asignacion','Asignación'],['proxcompra','Próxima compra'],['riesgo','Riesgo'],['coyuntura','Coyuntura'],['simulador','Simulador'],['independencia','Independencia']],
   informes:[['informes','Informes'],['hemero','Hemeroteca']],
   graficas:[['graficas','Gráficas']]
 };
