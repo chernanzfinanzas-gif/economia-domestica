@@ -562,9 +562,13 @@ document.addEventListener('click',e=>{
     if(!confirm('Se van a quitar '+n+' borrador'+(n===1?'':'es')+' de la app.\n\n'
         +(n===1?'Ya está':'Ya están')+' en el §10.5 del Excel, que es el registro que manda; '
         +'aquí solo era'+(n===1?'':'n')+' el paso intermedio. No se toca el Excel.'))return;
-    DB.protocolo[t]=quedan;
-    if(typeof saveNow==='function')saveNow();
-    if(typeof renderPanelDash==='function')renderPanelDash();
+    /* [26-ago-2026] El borrado INDIVIDUAL de esta misma vista ya iba por undoableDelete; este de lote
+       no, y era el más gordo de los dos. Se guarda el array completo anterior: restaurar así devuelve
+       también el orden, sin tener que reinsertar apunte a apunte. */
+    var _quitar=function(){ DB.protocolo[t]=quedan; if(typeof saveNow==='function')saveNow(); };
+    if(typeof undoableDelete==='function')
+      undoableDelete('protocolo_lote', n+' borrador'+(n===1?'':'es')+' de protocolo · '+t, {t:t, antes:antes.slice()}, _quitar, ['renderPanelDash']);
+    else { _quitar(); if(typeof renderPanelDash==='function')renderPanelDash(); }
     if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
     return;
   }

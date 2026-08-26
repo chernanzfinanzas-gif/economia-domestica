@@ -611,7 +611,18 @@ function _diBind(sec){
     var fc=e.target.closest('[data-difilt]'); if(fc){ var a=(fc.getAttribute('data-difilt')||'').split('|'); window._diFilt[a[0]]=(window._diFilt[a[0]]===a[1]?'':a[1]); renderDiario(); return; }
     var cl=e.target.closest('[data-diclose]'); if(cl){ _diSetEstado(cl.getAttribute('data-diclose'),'cerrada'); return; }
     var op=e.target.closest('[data-diopen]'); if(op){ _diSetEstado(op.getAttribute('data-diopen'),'abierta'); return; }
-    var dl=e.target.closest('[data-didel]'); if(dl){ if(confirm('¿Eliminar esta entrada de Mis Decisiones?')){ DB.diario=(DB.diario||[]).filter(function(x){return x.id!==dl.getAttribute('data-didel');}); _diSave(); renderDiario(); } return; }
+    /* [26-ago-2026] Antes: confirm genérico y borrado sin red. Lo que se pierde es el PORQUÉ de una
+       decisión de inversión —la materia prima de la Calibración—, así que va a la Papelera como todo
+       lo demás, y la etiqueta dice cuál es para poder reconocerla en la lista. */
+    var dl=e.target.closest('[data-didel]'); if(dl){
+      var _did=dl.getAttribute('data-didel');
+      var _ix=(DB.diario||[]).findIndex(function(x){return x.id===_did;}); if(_ix<0)return;
+      var _en=DB.diario[_ix];
+      var _lbl='Decisión '+(_en.ticker||'')+(_en.fecha?(' · '+_en.fecha):'')+(_en.veredicto?(' · '+_en.veredicto):'');
+      var _quitar=function(){ DB.diario=(DB.diario||[]).filter(function(x){return x.id!==_did;}); _diSave(); };
+      if(typeof undoableDelete==='function') undoableDelete('diario', _lbl, {item:_en, idx:_ix}, _quitar, ['renderDiario']);
+      else { if(confirm('¿Eliminar esta entrada de Mis Decisiones?')){ _quitar(); renderDiario(); } }
+      return; }
     /* [B1] acciones del bloque de supuestos rotos */
     var ak=e.target.closest('[data-diack]'); if(ak){ _diAck(ak.getAttribute('data-diack')); return; }
     var nv=e.target.closest('[data-dinueva]'); if(nv){ var en=(DB.diario||[]).find(function(x){return x.id===nv.getAttribute('data-dinueva');});

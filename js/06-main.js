@@ -325,9 +325,23 @@ if($('#cajaTipoSeg'))$('#cajaTipoSeg').addEventListener('click',e=>{ const b=e.t
 if($('#cajaForm'))$('#cajaForm').addEventListener('submit',e=>{ e.preventDefault(); const f=$('#cajaFecha').value; const c=($('#cajaConcepto').value||'').trim(); const imp=num($('#cajaImporte').value); if(!f||!imp){ alert('Pon fecha e importe.'); return; } if(!cajaTipo){ alert('Elige el tipo: Ingreso o Gasto.'); return; } DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:f,concepto:c,entra:cajaTipo==='entra'?imp:0,sale:cajaTipo==='sale'?imp:0}); saveNow(); $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); renderCaja(); });
 if($('#cajaFormCancel'))$('#cajaFormCancel').addEventListener('click',()=>{ $('#cajaForm').reset(); $('#cajaForm').style.display='none'; cajaTipo=''; [...$('#cajaTipoSeg').children].forEach(x=>x.classList.remove('on')); });
 if($('#todoForm'))$('#todoForm').addEventListener('submit',e=>{ e.preventDefault(); const desc=($('#todoDesc').value||'').trim(); if(!desc){ alert('Pon una descripción.'); return; } DB.todos=DB.todos||[]; DB.todos.push({id:'t'+Math.random().toString(36).slice(2,9),fecha:$('#todoFecha').value,desc,razon:($('#todoRazon').value||'').trim(),ticker:($('#todoTicker').value||'').trim().toUpperCase(),hecho:false}); saveNow(); $('#todoForm').reset(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
-if($('#todoDelDone'))$('#todoDelDone').addEventListener('click',()=>{ if(!confirm('¿Borrar todas las tareas completadas?'))return; DB.todos=(DB.todos||[]).filter(x=>!x.hecho); saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); });
+if($('#todoDelDone'))$('#todoDelDone').addEventListener('click',()=>{
+  const hechas=(DB.todos||[]).filter(x=>x.hecho); if(!hechas.length){ alert('No hay tareas completadas que borrar.'); return; }
+  if(!confirm('¿Borrar las '+hechas.length+' tarea'+(hechas.length===1?'':'s')+' completada'+(hechas.length===1?'':'s')+'?'))return;
+  const _q=()=>{ DB.todos=(DB.todos||[]).filter(x=>!x.hecho); saveNow(); };
+  if(typeof undoableDelete==='function') undoableDelete('todos_hechos', hechas.length+' tarea'+(hechas.length===1?'':'s')+' completada'+(hechas.length===1?'':'s'), {items:hechas}, _q, ['renderMonitor','renderPanel']);
+  else { _q(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); }
+});
 if($('#view-monitor'))$('#view-monitor').addEventListener('change',e=>{ const c=e.target.closest('[data-todone]'); if(c){ const x=(DB.todos||[]).find(z=>z.id===c.dataset.todone); if(x){ x.hecho=c.checked; x.fechaHecho=c.checked?new Date().toISOString().slice(0,10):''; saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); } return; } const r=e.target.closest('[data-mon]'); if(r){ const a=r.dataset.mon.split('|'); DB.monitor[a[0]]=DB.monitor[a[0]]||{}; DB.monitor[a[0]].rol=r.value; saveNow(); return; } });
-if($('#view-monitor'))$('#view-monitor').addEventListener('click',e=>{ const d=e.target.closest('[data-tododel]'); if(d){ DB.todos=(DB.todos||[]).filter(x=>x.id!==d.dataset.tododel); saveNow(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); return; }
+/* [26-ago-2026] Era el único borrado de la app con CERO fricción: ni confirm ni deshacer. Ahora pasa
+   por la Papelera con su toast, que es menos molesto que un confirm y además recuperable. */
+if($('#view-monitor'))$('#view-monitor').addEventListener('click',e=>{ const d=e.target.closest('[data-tododel]'); if(d){
+    const _tid=d.dataset.tododel; const _ix=(DB.todos||[]).findIndex(x=>x.id===_tid); if(_ix<0)return;
+    const _t=DB.todos[_ix]; const _lbl='Tarea: '+((_t.texto||_t.txt||_t.titulo||'sin título')+'').slice(0,48);
+    const _q=()=>{ DB.todos=(DB.todos||[]).filter(x=>x.id!==_tid); saveNow(); };
+    if(typeof undoableDelete==='function') undoableDelete('todo', _lbl, {item:_t, idx:_ix}, _q, ['renderMonitor','renderPanel']);
+    else { _q(); renderMonitor(); if(typeof renderPanel==='function')renderPanel(); }
+    return; }
   { const h=e.target.closest('#view-monitor .pos-blk-h'); if(h && !e.target.closest('input,select,button,label,[data-ficha]')){ h.parentElement.classList.toggle('open'); return; } }
   const inf=e.target.closest('[data-moninf]'); if(inf){ const t=inf.dataset.moninf; DB.monitor[t]=DB.monitor[t]||{}; const m=DB.monitor[t]; m.informe=!m.informe; m.informeFecha=m.informe?new Date().toISOString().slice(0,10):''; saveNow(); renderMonitor(); return; } const rv=e.target.closest('[data-monrev]'); if(rv){ const a=rv.dataset.monrev.split('|'); const t=a[0],key=a[1]; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; if(DB.monitor[t].rev[key])delete DB.monitor[t].rev[key]; else DB.monitor[t].rev[key]=true; saveNow(); renderMonitor(); return; } });
 function _loteTk(v){ const m=(v||'').match(/\(([^)]+)\)\s*$/); let tk=m?m[1]:(v||''); tk=tk.trim().toUpperCase(); const all=new Set((DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase())); return all.has(tk)?tk:''; }
@@ -339,7 +353,8 @@ $('#loteTabla').addEventListener('click',e=>{ const d=e.target.closest('[data-lo
   if(_tk&&isNaN(+_tk)){ if(typeof dvBajaEmpresa==='function')dvBajaEmpresa(_tk); return; }
   DB.planLote.splice(+_tk,1); saveNow(); renderPlanLote(); });
 $('#loteTabla').addEventListener('change',e=>{ const tp=e.target.closest('[data-lotetipo]'); if(tp){ DB.planTipo=DB.planTipo||{}; if(tp.value)DB.planTipo[tp.dataset.lotetipo]=tp.value; else delete DB.planTipo[tp.dataset.lotetipo]; saveNow(); renderPlanLote(); } });
-if($('#evAdd'))$('#evAdd').addEventListener('click',addEventoEmpresa);
+/* [26-ago-2026] Retirado el listener de #evAdd: ese id no existe en index.html, así que el guard
+   `if(...)` nunca enganchaba nada y addEventoEmpresa era inalcanzable. Las dos cosas, fuera. */
 if($('#loteAdd'))$('#loteAdd').addEventListener('click',addLoteEmpresa);
 if($('#btRegen'))$('#btRegen').addEventListener('click',function(){ if(typeof regenerarFotosDossiers==='function')regenerarFotosDossiers(); });
 /* +Año de Plan retirado: el horizonte se controla en Diversificación */

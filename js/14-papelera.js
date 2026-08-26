@@ -60,6 +60,27 @@ var TRASH_RESTORE={
                                      if(!s)return; s.lineas=s.lineas||[];
                                      if(!s.lineas.some(function(l){return l.cuentaId===e.linea.cuentaId;})) s.lineas.push(e.linea); });
                                    return ['renderPat']; },
+  /* [26-ago-2026] Cuatro borrados que no tenían red — y el de lote de protocolo, que sí la tenía en su
+     versión individual pero no en la masiva. Todos guardan el índice o el array completo para que
+     restaurar devuelva también la POSICIÓN, no solo el dato. */
+  diario:             function(p){ DB.diario=DB.diario||[];
+                                   if(p.idx>=0&&p.idx<=DB.diario.length)DB.diario.splice(p.idx,0,p.item); else DB.diario.push(p.item);
+                                   return ['renderDiario','renderPanelDash']; },
+  todo:               function(p){ DB.todos=DB.todos||[];
+                                   if(p.idx>=0&&p.idx<=DB.todos.length)DB.todos.splice(p.idx,0,p.item); else DB.todos.push(p.item);
+                                   return ['renderMonitor','renderPanel']; },
+  todos_hechos:       function(p){ DB.todos=(DB.todos||[]).concat(p.items||[]); return ['renderMonitor','renderPanel']; },
+  /* Archivar una posición cerrada movía las operaciones a DB.cerradas con menos campos y no había
+     «desarchivar». Se guardan las operaciones ORIGINALES: deshacer devuelve la posición tal cual. */
+  archivado:          function(p){ DB.cerradas=(DB.cerradas||[]).filter(function(c){return c.id!==p.cid;});
+                                   DB.operaciones=(DB.operaciones||[]).concat(p.ops||[]);
+                                   return ['renderInv','renderInvOps','renderDividendos','renderAll']; },
+  protocolo_lote:     function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=p.antes||[]; return ['renderPanelDash']; },
+  /* Resto huérfano de DB.valores (un ticker mal escrito de los prompts antiguos). */
+  valor_huerfano:     function(p){ DB.valores=DB.valores||{}; DB.valores[p.t]=p.item;
+                                   if(p.dpa){ DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[p.t]=p.dpa; }
+                                   if(typeof renderPapelera==='function')renderPapelera();
+                                   return []; },
   dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
   /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
      TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
@@ -122,16 +143,70 @@ function openPapelera(){
   ov.innerHTML='<div style="background:#fff;border-radius:14px;max-width:580px;width:100%;max-height:82vh;overflow:auto;padding:18px 20px;box-shadow:0 14px 44px rgba(0,0,0,.32)"><div id="papeleraBody"></div></div>';
   renderPapelera();
 }
+/* ===== RESTOS EN DB.valores (26-ago-2026) =====
+   Los prompts de alta antiguos aceptaban cualquier texto como ticker. Lo que quedó son claves que no
+   corresponden a ninguna empresa que la app conozca: en los datos de Carlos, `IBERDROLA, S.A.` (de
+   teclear el nombre donde iba el ticker) y `APAM.AS` (el mismo Aperam con el sufijo de Yahoo, con OTRO
+   precio y OTRO dividendo que el de APAM). Hoy son inertes, pero son dos verdades para una empresa.
+   Se listan, no se borran solos: IBEX/IBEXTR son referencias legítimas y puede haber altas manuales
+   deliberadas. Cada baja va por la Papelera. */
+var _PAP_BENCH={IBEX:1,IBEXTR:1,SP500:1,EUROSTOXX:1};
+function papValoresHuerfanos(){
+  var val=DB.valores||{}; var vivos={};
+  var up=function(t){return (t||'').toUpperCase();};
+  (DB.analisis||[]).forEach(function(a){ vivos[up(a.ticker)]=1; });
+  (DB.operaciones||[]).forEach(function(o){ vivos[up(o.ticker)]=1; });
+  (DB.cerradas||[]).forEach(function(c){ vivos[up(c.ticker)]=1; });
+  (DB.planLote||[]).forEach(function(t){ vivos[up(t)]=1; });
+  ['planTipo','planCompras','simShares','eventos','monitor','dividendos','protocolo','universo','divPorAccion'].forEach(function(k){
+    Object.keys(DB[k]||{}).forEach(function(t){ if(k!=='divPorAccion')vivos[up(t)]=1; });
+  });
+  var out=[];
+  Object.keys(val).forEach(function(t){
+    var T=up(t); if(vivos[T]||_PAP_BENCH[T])return;
+    var v=val[t]||{}; var campos=Object.keys(v);
+    out.push({t:t, campos:campos, precio:(typeof num==='function'?num(v.precioActual):parseFloat(v.precioActual)||0),
+              nombre:v.nombre||'', dpa:((DB.divPorAccion||{})[t]||null)});
+  });
+  return out;
+}
+function papBorrarHuerfano(t){
+  var v=(DB.valores||{})[t]; if(v===undefined)return;
+  var dpa=(DB.divPorAccion||{})[t]||null;
+  var quitar=function(){ delete DB.valores[t]; if(dpa&&DB.divPorAccion)delete DB.divPorAccion[t]; if(typeof saveNow==='function')saveNow(); };
+  if(typeof undoableDelete==='function')
+    undoableDelete('valor_huerfano','Resto en DB.valores: '+t, {t:t, item:v, dpa:dpa}, quitar, []);
+  else quitar();
+  renderPapelera();
+}
+function _papHuerfanosHTML(){
+  var h=papValoresHuerfanos(); if(!h.length)return '';
+  var rows=h.map(function(x){
+    var det=[]; if(x.nombre)det.push(_papEsc(x.nombre));
+    if(x.precio>0)det.push((typeof fmt==='function')?fmt(x.precio):(x.precio+' €'));
+    if(x.dpa)det.push('con dividendo por acción');
+    if(!det.length)det.push(x.campos.length?('solo '+x.campos.join(', ')):'vacía');
+    return '<tr><td><b>'+_papEsc(x.t)+'</b></td><td class="muted" style="font-size:11px">'+det.join(' · ')
+      +'</td><td class="right"><button class="btn ghost sm" data-paphuer="'+_papEsc(x.t)+'">Quitar</button></td></tr>';
+  }).join('');
+  return '<div style="margin-top:16px;border-top:1px solid #eef2f7;padding-top:10px">'
+    +'<div style="font-weight:800;font-size:13px;margin-bottom:4px">🧹 Restos en la tabla de valores</div>'
+    +'<div class="muted" style="font-size:11.5px;margin-bottom:6px;line-height:1.6">'+h.length+' clave'+(h.length===1?'':'s')
+    +' de <code>DB.valores</code> que no corresponden a ninguna empresa de tu universo, cartera, plan ni seguimiento — '
+    +'restos de los antiguos formularios de alta que aceptaban cualquier texto como ticker. '
+    +'No estorban, pero pueden duplicar el precio o el dividendo de una empresa que ya tienes. Se puede deshacer.</div>'
+    +'<table style="width:100%"><tbody>'+rows+'</tbody></table></div>';
+}
 function renderPapelera(){
   var el=document.getElementById('papeleraBody'); if(!el)return;
   _trashPurge();
   var items=DB.papelera||[];
   var snap=_snapSectionHTML();
   var head='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><h2 style="margin:0;font-size:18px">🗑️ Papelera</h2><button class="btn ghost sm" data-papclose="1">Cerrar</button></div>';
-  if(!items.length){ el.innerHTML=head+'<div class="muted" style="padding:10px">Vacía. Aquí quedan los últimos elementos borrados ('+TRASH_DAYS+' días) por si quieres recuperarlos.</div>'+snap; return; }
+  if(!items.length){ el.innerHTML=head+'<div class="muted" style="padding:10px">Vacía. Aquí quedan los últimos elementos borrados ('+TRASH_DAYS+' días) por si quieres recuperarlos.</div>'+_papHuerfanosHTML()+snap; return; }
   var fmtWhen=function(ms){ try{ var d=new Date(ms); return d.toLocaleDateString('es-ES')+' '+d.toLocaleTimeString('es-ES',{hour:'2-digit',minute:'2-digit'}); }catch(e){ return ''; } };
   var rows=items.map(function(e){ return '<tr><td>'+_papEsc(e.label)+'</td><td class="muted" style="font-size:11px;white-space:nowrap">'+fmtWhen(e.when)+'</td><td class="right" style="white-space:nowrap"><button class="btn sm" data-restore="'+e.id+'">Restaurar</button> <button class="btn ghost sm" data-purge="'+e.id+'" title="Borrar definitivamente">✕</button></td></tr>'; }).join('');
-  el.innerHTML=head+'<div class="sub" style="margin-bottom:8px">'+items.length+' elemento(s). Se guardan '+TRASH_DAYS+' días o hasta '+TRASH_MAX+' como máximo.</div><div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div><div style="margin-top:12px;text-align:right"><button class="btn danger sm" data-papvaciar="1">Vaciar papelera</button></div>'+snap;
+  el.innerHTML=head+'<div class="sub" style="margin-bottom:8px">'+items.length+' elemento(s). Se guardan '+TRASH_DAYS+' días o hasta '+TRASH_MAX+' como máximo.</div><div style="overflow:auto"><table style="width:100%"><tbody>'+rows+'</tbody></table></div><div style="margin-top:12px;text-align:right"><button class="btn danger sm" data-papvaciar="1">Vaciar papelera</button></div>'+_papHuerfanosHTML()+snap;
 }
 
 /* ===== Puntos de restauración (snapshot completo en localStorage) =====
@@ -178,6 +253,7 @@ function restoreSnapshot(when){
 document.addEventListener('click',function(e){
   if(!e.target||!e.target.closest)return;
   var r=e.target.closest('[data-restore]'); if(r){ restoreTrash(r.getAttribute('data-restore')); return; }
+  var hu=e.target.closest('[data-paphuer]'); if(hu){ papBorrarHuerfano(hu.getAttribute('data-paphuer')); return; }
   var p=e.target.closest('[data-purge]'); if(p){ var id=p.getAttribute('data-purge'); DB.papelera=(DB.papelera||[]).filter(function(x){return x.id!==id;}); _papSave(); renderPapelera(); return; }
   var sr=e.target.closest('[data-snaprestore]'); if(sr){ restoreSnapshot(+sr.getAttribute('data-snaprestore')); return; }
   if(e.target.closest('[data-snapmake]')){ pushSnapshot('punto manual'); showToast('💾 Punto de restauración creado', null, null, 2500); renderPapelera(); return; }

@@ -1426,20 +1426,31 @@ function archivarCerrada(ticker){
   const buys=ops.filter(o=>o.tipo!=='venta'), sells=ops.filter(o=>o.tipo==='venta');
   const bSh=buys.reduce((s,o)=>s+num(o.acciones),0), sSh=sells.reduce((s,o)=>s+num(o.acciones),0);
   if(!(sSh>0.0001 && Math.abs(bSh-sSh)<0.0001)){ alert(t+' no está cerrada (acciones ≠ 0).'); return; }
-  if(!confirm('¿Archivar '+t+' como posición cerrada permanente?\nSe quitará de operaciones activas; una nueva compra empezará un ciclo nuevo sin mezclar.')) return;
+  if(!confirm('¿Archivar '+t+' como posición cerrada permanente?\n\nSus '+ops.length+' operaciones salen de la cartera activa y pasan al histórico de cerradas; una nueva compra empezará un ciclo nuevo sin mezclar.\nLos dividendos cobrados se conservan. Podrás deshacerlo desde el aviso o la Papelera.')) return;
   const first=buys.map(o=>o.fecha).filter(Boolean).sort()[0]||''; const last=sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||'';
   const dvs=((DB.dividendos||{})[t]||[]).filter(d=>(!first||d.fecha>=first)&&(!last||d.fecha<=last)).map(d=>({fecha:d.fecha,importe:num(d.importe)}));
   const v=(DB.valores||{})[t]||{};
   DB.cerradas=DB.cerradas||[];
-  DB.cerradas.push({id:'c'+Math.random().toString(36).slice(2,9),ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>({fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})),divs:dvs});
-  DB.operaciones=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()!==t);
+  /* [26-ago-2026] Archivar mueve las operaciones a DB.cerradas con MENOS campos (se pierden id, broker,
+     notas…) y no existe «desarchivar»: restaurar la entrada de cerradas desde la Papelera no repoblaba
+     DB.operaciones. Ahora la operación entera va a la Papelera con las operaciones ORIGINALES intactas,
+     así que deshacer devuelve la posición tal cual estaba. */
+  const _cid='c'+Math.random().toString(36).slice(2,9);
+  const _opsOrig=ops.map(o=>Object.assign({},o));
+  const _archivar=function(){
+    DB.cerradas.push({id:_cid,ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>({fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})),divs:dvs});
+    DB.operaciones=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()!==t);
+  };
+  if(typeof undoableDelete==='function')
+    undoableDelete('archivado', t+' archivada — '+_opsOrig.length+' operacion'+(_opsOrig.length===1?'':'es'), {cid:_cid, ops:_opsOrig}, _archivar, ['renderInv','renderDividendos']);
+  else _archivar();
   /* Los dividendos cobrados NO se borran de DB.dividendos: son histórico fiscal y se declararon en su año.
      Antes se borraba la ventana compra→venta y quedaban solo en c.divs, así que quitar la posición de
      archivadas los perdía para siempre. No hay doble conteo: los consumidores que suman c.divs
      (bola de nieve, cash-flow, calendario €/mes, comparación real del simulador) ya ignoran DB.dividendos
      de un ticker archivado ("cerradas mandan"), y la matriz de Dividendos y Fiscalidad ponderan por
      acciones a la fecha de cada pago, de modo que un dividendo fuera del ciclo activo aporta 0 €. */
-  saveNow(); renderInv(); renderDividendos(); alert(t+' archivada como posición cerrada.\nSus dividendos cobrados se conservan en el histórico.');
+  saveNow(); renderInv(); renderDividendos();
 }
 function invClosedComputed(){
   const ops=DB.operaciones||[]; const res=[];
@@ -1659,7 +1670,10 @@ function renderEventos(){
   }).join('');
   el.innerHTML=`<table><thead>${h1}${h2}</thead><tbody>${body}</tbody></table>`;
 }
-function addEventoEmpresa(){ const tk=(prompt('Ticker de la empresa (p. ej. SAN):')||'').trim().toUpperCase(); if(!tk)return; DB.eventos=DB.eventos||{}; DB.eventos[tk]=DB.eventos[tk]||[]; DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; saveNow(); renderEventos(); }
+/* [26-ago-2026] Retirada `addEventoEmpresa()`: un prompt() de ticker sin validar que creaba
+   DB.eventos[tk] y DB.valores[tk]. Inalcanzable — se enganchaba a #evAdd, que no existe en index.html,
+   y el `if($('#evAdd'))` de 06-main.js se tragaba el fallo en silencio. Tampoco hace falta:
+   renderEventos lista Object.keys(DB.eventos) ∪ heldTickerSet(), así que toda empresa en cartera sale sola. */
 function calDivBruto(c){ const t=(c.ticker||'').toUpperCase(); const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0) return num(v.divAccion); if(c.divNeto) return num(c.divNeto)/0.81; return 0; }
 function renderCalendario(){
   const el=$('#calTabla'); if(!el)return;

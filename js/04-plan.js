@@ -231,14 +231,10 @@ function renderSimulador(){
   window.__simOrder=tickers;
 }
 
-function addSimEmpresa(){
-  const tk=(prompt('Ticker de la empresa nueva:')||'').trim().toUpperCase(); if(!tk)return;
-  const nombre=(prompt('Nombre:')||tk).trim();
-  DB.simShares=DB.simShares||{}; DB.simShares[tk]=DB.simShares[tk]||{};
-  DB.valores=DB.valores||{}; DB.valores[tk]=DB.valores[tk]||{}; if(nombre)DB.valores[tk].nombre=nombre;
-  DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[tk]=DB.divPorAccion[tk]||{};
-  saveNow(); renderSimulador(); const st=$('#simStatus'); if(st)st.textContent='Añadida '+tk;
-}
+/* [26-ago-2026] Retirada `addSimEmpresa()`: dos prompt() sin validar (ticker + nombre) que escribían
+   en DB.simShares, DB.valores y DB.divPorAccion. Era CÓDIGO MUERTO — ningún botón la llamaba en toda la
+   historia del repo — y además ya no hace falta: renderSimulador arma su lista con cartera + cerradas +
+   simShares + planCompras + el reparto, así que una empresa entra al entrar en el Plan. */
 function simYearTotal(year){ const nowY=new Date().getFullYear(); const set=new Set(); (typeof invPositions==='function'?invPositions():[]).forEach(p=>{if(p.acciones>0.0001)set.add((p.ticker||'').toUpperCase());}); (DB.cerradas||[]).forEach(c=>set.add((c.ticker||'').toUpperCase())); Object.keys(DB.simShares||{}).forEach(t=>set.add(t.toUpperCase())); Object.keys(DB.planCompras||{}).forEach(t=>set.add(t.toUpperCase())); try{ if(typeof _planReparto==='function'){ const _R=_planReparto(); Object.keys(_R.sched||{}).forEach(function(tk){ const yy=_R.sched[tk]||{}; let s=0; Object.keys(yy).forEach(function(y){ s+=num(yy[y]); }); if(s>0.5) set.add(tk.toUpperCase()); }); } }catch(e){} let tot=0; set.forEach(t=>{ let d=(typeof evoDpaProyectado==='function')?evoDpaProyectado(t,year):null; tot+=simEffShares(t,year,nowY)*num(d); }); return tot; }
 // === Fiscalidad FIFO: latente por lote, realizado del año, impuesto del ahorro y regla de los 2 meses ===
 function _impuestoAhorro(base){ base=num(base); if(base<=0)return 0; const tr=[[6000,0.19],[50000,0.21],[200000,0.23],[300000,0.27],[Infinity,0.28]]; let tax=0,prev=0; for(let i=0;i<tr.length;i++){ const cap=tr[i][0],rate=tr[i][1]; if(base>prev){ const amt=Math.min(base,cap)-prev; tax+=amt*rate; prev=cap; } else break; } return tax; }
@@ -1822,7 +1818,8 @@ function renderCaja(){
   if(_pre) _pre.innerHTML=cajaVsPlanHTML(movs,cfg);
   const b=$('#cajaAddBtn'); if(b)b.onclick=()=>{ const f=$('#cajaForm'); if(!f)return; const show=f.style.display==='none'; f.style.display=show?'grid':'none'; if(show){ const d=$('#cajaFecha'); if(d&&!d.value)d.value=new Date().toISOString().slice(0,10); cajaTipo=''; const sg=$('#cajaTipoSeg'); if(sg)[...sg.children].forEach(x=>x.classList.remove('on')); } };
 }
-function addCajaMov(){ const fecha=(prompt('Fecha del movimiento (AAAA-MM-DD):', new Date().toISOString().slice(0,10))||'').trim(); if(!fecha)return; const concepto=(prompt('Concepto (p. ej. Compra 80 VIS):')||'').trim(); const imps=prompt('Importe en € (positivo = entra, negativo = sale):','0'); if(imps==null)return; const imp=num(imps); DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha,concepto,entra:imp>=0?imp:0,sale:imp<0?-imp:0}); saveNow(); renderCaja(); }
+/* [26-ago-2026] Retirada `addCajaMov()`: tres prompt() encadenados, sin llamador. La Caja bróker usa
+   el formulario real #cajaForm / #cajaAddBtn. */
 /* Informe "publicado sin revisar" del trimestre `key` (AAAA-Qn) según la CADENCIA de los
    -trim.json (DB.cadencia): true solo si ese trimestre es el PRÓXIMO informe esperado y su
    fecha ya venció. (Reemplazó al antiguo qPassed del calendario manual, ya eliminado.) */
