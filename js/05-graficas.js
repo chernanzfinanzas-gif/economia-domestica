@@ -611,13 +611,42 @@ function riesgoData(reRender){
   const tickers=[...new Set(pos.map(p=>(p.ticker||'').toUpperCase()))];
   const need=[...new Set([...tickers,'IBEX'])]; const falta=need.filter(t=>_precioCache[t]===undefined);
   if(falta.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
-  const usable=tickers.filter(t=>{ const pj=_precioCache[t]; return pj&&pj.data&&pj.data.length>30; });
-  if(usable.length<1)return {noData:true};
+  /* [26-ago-2026] Antes, lo que no tenía histórico se caía de `usable` y AQUÍ SE ACABABA LA HISTORIA:
+     los pesos se renormalizaban al 100 % entre las supervivientes y el panel entero —volatilidad,
+     drawdown, beta, correlaciones, Nº efectivo, concentración, sector— describía una cartera que no
+     era la del usuario, sin decirlo. Y la que se cae es justo la que menos se conoce (recién salida a
+     bolsa, ilíquida): la que más riesgo aporta era la única invisible en la pestaña de riesgo.
+     Ahora se sigue calculando con lo que hay, pero se DEVUELVE quién falta, por qué y cuánto pesa. */
+  const _valAll={}; let _totAll=0;
+  pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); const v=p.acciones*num(p.precioActual); _valAll[t]=(_valAll[t]||0)+v; _totAll+=v; });
+  const _omit=((DB.config&&DB.config.riesgoOmitir)||'').toUpperCase();
+  const _conSerie=tickers.filter(t=>{ const pj=_precioCache[t]; return pj&&pj.data&&pj.data.length>30; });
+  const usable=_conSerie.filter(t=>t!==_omit);
+  const excl=tickers.filter(t=>usable.indexOf(t)<0).map(t=>{
+    const pj=_precioCache[t]; const n=(pj&&pj.data&&pj.data.length)||0;
+    return {t:t, n:n, w:_totAll>0?((_valAll[t]||0)/_totAll):0,
+      motivo:(t===_omit&&_conSerie.indexOf(t)>=0)?'apartada por ti para alargar la ventana'
+             :(n?('histórico corto: '+n+' sesión'+(n===1?'':'es')):'sin histórico en el repo')};
+  });
+  if(usable.length<1)return {noData:true, excl:excl, nPos:tickers.length};
   const maps={}; usable.forEach(t=>{ const m={}; _precioCache[t].data.forEach(r=>{ m[r[0]]=num(r[1]); }); maps[t]=m; });
   const ibexData=_precioCache['IBEX']&&_precioCache['IBEX'].data; const ibexMap={}; if(ibexData)ibexData.forEach(r=>ibexMap[r[0]]=num(r[1]));
-  let dates=Object.keys(maps[usable[0]]); usable.slice(1).forEach(t=>{ const mm=maps[t]; dates=dates.filter(d=>mm[d]!=null); }); dates.sort();
-  const N=520; if(dates.length>N)dates=dates.slice(dates.length-N);
-  if(dates.length<20)return {noData:true};
+  const N=520;
+  /* La ventana es la INTERSECCIÓN de fechas: una serie corta no se excluye, pero recorta el periodo
+     de TODAS. Se identifica cuál manda (la de arranque más tardío) y cuánto se ganaría sin ella, para
+     poder decirlo y ofrecer el cambio en vez de encoger el análisis en silencio. */
+  const _inter=list=>{ if(!list.length)return []; let d=Object.keys(maps[list[0]]); list.slice(1).forEach(t=>{ const mm=maps[t]; d=d.filter(x=>mm[x]!=null); }); d.sort(); return d; };
+  let dates=_inter(usable);
+  let ventana=null;
+  if(dates.length<N && usable.length>1){
+    const first={}; usable.forEach(t=>{ const k=Object.keys(maps[t]); k.sort(); first[t]=k[0]||''; });
+    const culpable=usable.slice().sort((a,b)=>(first[b]||'').localeCompare(first[a]||''))[0];
+    const sinEl=_inter(usable.filter(t=>t!==culpable));
+    const nSin=Math.min(N, sinEl.length);
+    if(nSin>dates.length+20) ventana={corto:culpable, desdeCorto:first[culpable], nSin:nSin};
+  }
+  if(dates.length>N)dates=dates.slice(dates.length-N);
+  if(dates.length<20)return {noData:true, excl:excl, nPos:tickers.length};
   let totV=0; const valById={}; pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); if(usable.includes(t)){ const v=p.acciones*num(p.precioActual); valById[t]=(valById[t]||0)+v; totV+=v; } });
   const W={}; usable.forEach(t=>W[t]=totV>0?(valById[t]||0)/totV:0);
   const ret={}; usable.forEach(t=>{ const arr=[]; for(let i=1;i<dates.length;i++){ const p0=maps[t][dates[i-1]],p1=maps[t][dates[i]]; arr.push(p0>0?(p1/p0-1):0); } ret[t]=arr; });
@@ -635,7 +664,8 @@ function riesgoData(reRender){
   let cs=0,cc=0; for(let i=0;i<usable.length;i++)for(let j=i+1;j<usable.length;j++){ cs+=corrM[usable[i]][usable[j]]; cc++; } const avgCorr=cc?cs/cc:null;
   let hhi=0; usable.forEach(t=>hhi+=W[t]*W[t]); const effN=hhi>0?1/hhi:0; const topT=usable.slice().sort((a,b)=>W[b]-W[a])[0]; const topW=topT?W[topT]:0;
   const secW={}; usable.forEach(t=>{ const s=(typeof SECTOR!=='undefined'&&SECTOR[t])||'Sin sector'; secW[s]=(secW[s]||0)+W[t]; });
-  return {ok:true,tickers:usable,W,volPort,volById,ddMax,beta,corrIbex,corrM,avgCorr,effN,topT,topW,secW,nDays:dates.length,desde:dates[0],hasta:dates[dates.length-1]};
+  return {ok:true,tickers:usable,W,volPort,volById,ddMax,beta,corrIbex,corrM,avgCorr,effN,topT,topW,secW,nDays:dates.length,desde:dates[0],hasta:dates[dates.length-1],
+          excl:excl, nPos:tickers.length, exclW:excl.reduce((s2,e)=>s2+e.w,0), ventana:ventana, omitido:_omit||''};
 }
 // === C4 · Exposición a factores de estilo vs IBEX (desde fundamentales.json) ===
 function _factorExpo(reRender){
@@ -714,9 +744,38 @@ function _factorBlockHTML(FX){
   var cov=(FX.covered<FX.nPos)?('<div class="muted" style="font-size:11px;margin-top:8px">Calculado con '+FX.covered+' de tus '+FX.nPos+' posiciones (el resto no está en fundamentales.json). IBEX aprox. = 35 mayores por capitalización.</div>'):('<div class="muted" style="font-size:11px;margin-top:8px">IBEX aprox. = 35 mayores por capitalización'+(FX.actualizado?(' · fundamentales '+FX.actualizado):'')+'.</div>');
   return whatfor+howread+'<div class="fx-grid">'+cards+'</div>'+warn+cov;
 }
+/* Aviso de cobertura del panel de Riesgo — mismo papel que la nota «Calculado con X de tus Y
+   posiciones» que ya lleva la tarjeta de factores unas líneas más abajo. Dos cosas que antes se
+   callaban: qué posiciones no entran en el cálculo (y cuánto pesan) y por qué la ventana es corta. */
+function _rzCobertura(R){
+  let h='';
+  const ex=(R.excl||[]).filter(e=>e.motivo.indexOf('apartada')<0);
+  const om=(R.excl||[]).filter(e=>e.motivo.indexOf('apartada')>=0);
+  if(ex.length){
+    h+='<div class="rz-cov" style="background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:8px 11px;font-size:11.5px;color:#92400e;line-height:1.6;margin-bottom:10px">'
+      +'⚠️ Calculado con <b>'+R.tickers.length+' de tus '+R.nPos+' posiciones</b>. Fuera: '
+      +ex.map(e=>'<b>'+e.t+'</b> ('+e.motivo+')').join(', ')
+      +' — <b>'+(R.exclW*100).toFixed(1)+'%</b> de la cartera. Los pesos de abajo están repartidos solo entre las '+R.tickers.length+' analizadas.</div>';
+  }
+  if(om.length){
+    h+='<div class="rz-cov" style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:9px;padding:8px 11px;font-size:11.5px;color:#1e40af;line-height:1.6;margin-bottom:10px">'
+      +'Apartaste '+om.map(e=>'<b>'+e.t+'</b> ('+(e.w*100).toFixed(1)+'% de la cartera)').join(', ')+' para alargar la ventana a '+R.nDays+' sesiones — sus pesos no entran en el cálculo. '
+      +'<a href="#" data-rzomit="" style="font-weight:700;color:#1d4ed8">Volver a incluirla</a></div>';
+  }
+  if(R.ventana){
+    h+='<div class="rz-cov" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:9px;padding:8px 11px;font-size:11.5px;color:#475569;line-height:1.6;margin-bottom:10px">'
+      +'📏 La ventana se queda en <b>'+R.nDays+' sesiones</b> porque <b>'+R.ventana.corto+'</b> solo cotiza desde el '+ddmmyyyy(R.ventana.desdeCorto)+', '
+      +'y el periodo es el común a todas. Sin ella serían <b>'+R.ventana.nSin+'</b> — un tramo más largo incluye caídas que esta ventana no ve. '
+      +'<a href="#" data-rzomit="'+R.ventana.corto+'" style="font-weight:700;color:#1d4ed8">Calcular sin '+R.ventana.corto+'</a></div>';
+  }
+  return h;
+}
 function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#riesgoKpis'); const R=riesgoData(renderRiesgo);
   var _rsec0=document.getElementById('view-riesgo');
   if(_rsec0 && !renderRiesgo._bound){ renderRiesgo._bound=true; _rsec0.addEventListener('click',function(e){ if(e.target.closest('[data-ficha]'))return;
+    var om=e.target.closest('[data-rzomit]');
+    if(om){ e.preventDefault(); DB.config=DB.config||{}; DB.config.riesgoOmitir=om.getAttribute('data-rzomit')||'';
+            if(typeof saveNow==='function')saveNow(); renderRiesgo(); return; }
     var pf=e.target.closest('.pd-h'); if(pf){ var fold=pf.closest('.plan-fold'); if(fold)fold.classList.toggle('open'); return; }
     var h=e.target.closest('.rz-blk-h'); if(h){ var k=h.parentElement.getAttribute('data-rzblk'); window._riesgoOpen[k]=!window._riesgoOpen[k]; h.parentElement.classList.toggle('open'); } }); }
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
@@ -733,7 +792,8 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
     '<div class="rz-c"><div class="l">Drawdown máximo</div><div class="v neg">'+pv(R.ddMax)+'</div><div class="p">peor caída del periodo</div></div>'+
     '<div class="rz-c"><div class="l">Beta vs IBEX</div><div class="v">'+(R.beta==null?'—':R.beta.toFixed(2))+'</div><div class="p">'+(R.beta==null?'':(R.beta>1?'más que el mercado':'menos que el mercado'))+'</div></div>'+
     '<div class="rz-c"><div class="l">Correlación media</div><div class="v '+(R.avgCorr!=null&&R.avgCorr<0.5?'pos':(R.avgCorr>=0.7?'neg':''))+'">'+(R.avgCorr==null?'—':R.avgCorr.toFixed(2))+'</div><div class="p">'+(R.avgCorr!=null&&R.avgCorr<0.5?'diversifica bien':'poco diversificada')+'</div></div>'+
-    '<div class="rz-c"><div class="l">Nº efectivo posiciones</div><div class="v">'+R.effN.toFixed(1)+' / '+R.tickers.length+'</div><div class="p">diversificación real</div></div>'+
+    '<div class="rz-c"><div class="l">Nº efectivo posiciones</div><div class="v">'+R.effN.toFixed(1)+' / '+R.tickers.length+'</div><div class="p">'
+      +((R.nPos&&R.nPos>R.tickers.length)?('<b style="color:#b45309">analizadas · tienes '+R.nPos+'</b>'):'diversificación real')+'</div></div>'+
     '<div class="rz-c"><div class="l">Concentración top</div><div class="v '+(R.topW>=0.35?'neg':'')+'">'+R.topT+' '+pv(R.topW)+'</div><div class="p">mayor posición</div></div>';
   const perT=R.tickers.slice().sort((a,b)=>R.W[b]-R.W[a]);
   const trows=perT.map(t=>{ const a=avgCorrOf(t); return '<tr><td class="l"><b data-ficha="'+t+'" class="rz-tk">'+t+'</b></td><td>'+pv(R.W[t])+'</td><td>'+pv(R.volById[t])+'</td><td style="color:'+(a==null?'#64748b':corrCol(a))+';font-weight:600">'+(a==null?'—':a.toFixed(2))+'</td></tr>'; }).join('');
@@ -781,7 +841,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
       +'<div class="rz-mob">'+scnCards+'</div>';
   }
   const blk=(key,ic,title,cnt,note,inner)=>{ const op=window._riesgoOpen[key]; return '<div class="rz-blk'+(op?' open':'')+'" data-rzblk="'+key+'"><div class="rz-blk-h"><span class="ic">'+ic+'</span><span class="t">'+title+'</span><span class="cnt">'+cnt+'</span><span class="arw">▶</span></div><div class="rz-blk-b">'+(note?'<div class="rz-note">'+note+'</div>':'')+inner+'</div></div>'; };
-  el.innerHTML='<div class="sub" style="margin-bottom:12px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · '+R.nDays+' días · '+R.desde+' → '+R.hasta+'. Volatilidad y beta anualizadas.</div>'+
+  el.innerHTML='<div class="sub" style="margin-bottom:12px">Riesgo de tu cartera <b>actual</b> (pesos de hoy) con las cotizaciones diarias del repo · '+R.nDays+' días · '+R.desde+' → '+R.hasta+'. Volatilidad y beta anualizadas.</div>'+_rzCobertura(R)+
     blk('pos','📊','Por posición',R.tickers.length+' empresas','Peso, volatilidad individual y correlación media de cada empresa con el resto (rojo = se mueve con la cartera).',posDesk+'<div class="rz-mob">'+posCards+'</div>')+
     blk('sec','🏭','Peso por sector',Object.keys(R.secW).length+' sectores','Rojo ≥35% (sobreconcentración) · ámbar ≥25%.',secInner)+
     blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. Marca además la <b>renta poco fiable</b> (Dividend Safety &lt; 60) y el 💧score de seguridad de cada pagador. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
