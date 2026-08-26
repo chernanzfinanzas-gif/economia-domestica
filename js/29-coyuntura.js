@@ -81,8 +81,33 @@ function _coyEdad(){
   const MI=(_macroMkt&&_macroMkt.ind)||{};
   Object.keys(MI).forEach(function(k){ const x=MI[k]; if(x&&x.f&&x.f>m)m=x.f; });
   if(!m) m=(_macroMkt&&_macroMkt.generadoEl)||'';
-  const dias=f?Math.round((Date.now()-Date.parse(f+'T00:00:00'))/86400000):null;
-  return {f:f,m:m,dias:(dias!=null&&isFinite(dias))?dias:null};
+  /* [26-ago-2026 · fase F] El aviso de antigüedad ya NO mira `generadoEl` del informe, y esta es
+     la razón: desde que el pase macro FUSIONA sobre el fichero anterior, `macro.json` deja de ser
+     una foto de un instante y pasa a ser una colcha de retales. Un pase de hoy que no consiguió
+     refrescar el IPC deja dentro un IPC de hace tres semanas, y `generadoEl` diría «hoy». Sería el
+     mismo fallo que el de esta mañana con el fichero de mercado, girado del revés: allí una fecha
+     vieja envejecía datos frescos, aquí una fecha nueva rejuvenecería datos viejos.
+     Manda el dato MÁS VIEJO que haya dentro, y además se dice CUÁL es: un aviso que nombra al
+     culpable se puede arreglar; uno genérico solo se puede ignorar. */
+  /* Y no todos los datos caducan al mismo ritmo. El WACC de la CNMC es del periodo regulatorio
+     2026-2031 y el IPC se publica una vez al mes: avisar de que «llevan 32 días» es ruido, y un
+     aviso que salta siempre deja de leerse. Es la misma regla que el informe semanal aplica a los
+     expedientes regulatorios: «un expediente sin novedades no es un dato que caduque en siete
+     días». Cada indicador puede traer su propio plazo en `caduca` (días); sin él, 14.
+     Se avisa del que MÁS se ha pasado de SU plazo, no del más antiguo en bruto. */
+  let vf='', vn='', vd=null, peor=null;
+  const II=(_macroInf&&_macroInf.ind)||{};
+  const hoy=Date.now();
+  Object.keys(II).forEach(function(k){ const x=II[k];
+    if(!x||x.v==null||x.estado==='pte'||!x.f)return;      /* un hueco declarado no envejece: no hay dato */
+    const d=Math.round((hoy-Date.parse(x.f+'T00:00:00'))/86400000);
+    if(!isFinite(d))return;
+    if(!vf||x.f<vf){ vf=x.f; vn=x.n||k; vd=d; }
+    const lim=(typeof x.caduca==='number'&&x.caduca>0)?x.caduca:14;
+    const exceso=d-lim;
+    if(exceso>0&&(peor===null||exceso>peor.exceso)) peor={n:x.n||k, f:x.f, dias:d, exceso:exceso};
+  });
+  return {f:f, m:m, viejoF:vf, viejoN:vn, dias:vd, caducado:peor};
 }
 
 /* ===== Bloque «Tu dividendo contra el bono» =====
@@ -193,16 +218,20 @@ function renderCoyuntura(){
     return;
   }
   const E=_coyEdad();
-  const viejo=E.dias!=null&&E.dias>14;
+  const viejo=!!E.caducado;
   const cab='<div class="coy-head">'
     +'<div class="coy-sub">Contexto de mercado de los factores que mueven <b>tu</b> cartera. '
     +'Las flechas no llevan color a propósito: el mismo dato es ingreso para unas empresas y coste para otras.</div>'
     +((E.f||E.m)?('<div class="coy-edad'+(viejo?' viejo':'')+'">'
       +(viejo?'⚠️ ':'')
       +(E.m?('Mercado del <b>'+ddmmyyyy(E.m)+'</b>'+(E.f?' · ':'')):'')
-      +(E.f?('informe del <b>'+ddmmyyyy(E.f)+'</b>'
-             +(E.dias!=null?(' · hace '+E.dias+' día'+(E.dias===1?'':'s')):'')):'')
-      +(viejo?(' — lo que solo trae el informe (IPC, PIB, WACC, afiliación…) lleva ese tiempo sin refrescarse: conviene lanzar el pase macro antes de fiarte de esos niveles.'):'')+'</div>'):'')
+      +(E.f?('pase macro del <b>'+ddmmyyyy(E.f)+'</b>'):'')
+      +(E.viejoF?(' · el dato más antiguo'+(E.viejoN?(' ('+_coyEsc(E.viejoN)+')'):'')
+                  +' es del <b>'+ddmmyyyy(E.viejoF)+'</b>'
+                  +(E.dias!=null?(', hace '+E.dias+' día'+(E.dias===1?'':'s')):'')):'')
+      +(viejo?(' — <b>'+_coyEsc(E.caducado.n)+'</b> debería haberse refrescado hace '
+               +E.caducado.exceso+' día'+(E.caducado.exceso===1?'':'s')+': lanza el pase macro.'):'')
+      +'</div>'):'')
     +'</div>';
 
   const bonoO=I['bono_10a_es'];
