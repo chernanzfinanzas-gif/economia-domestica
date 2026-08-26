@@ -1,355 +1,378 @@
 {
+  "schemaVersion": 2,
   "ticker": "IBE",
-  "empresa": "Iberdrola",
+  "empresa": "Iberdrola, S.A.",
+  "revolcado": {
+    "fecha": "2026-08-26",
+    "motivo": "primer volcado del monitor de Iberdrola con el método reconstruido. No había IBE-trim.json previo ni local ni publicado: los catorce periodos se han leído uno a uno de sus informes de resultados.",
+    "definiciones": "las cifras son las que PUBLICA LA EMPRESA, no las del §10.2 (que vienen de la fuente del Bloque 1). En el cierre de 2025: EBITDA 16.592 aquí contra 14.700 allí; base de activos 50.900 aquí (el RAB real) contra 95.141 allí (inmovilizado material neto, declarado como sustituto en la propia hoja).",
+    "senales": "NO se abren S2 ni S6 con estos semáforos, y los cuatro ámbares seguidos de 2023 lo dispararían si se leyeran como vigilancia viva. No lo son: son catorce periodos ya vividos cuyo desenlace está dentro del análisis de 2025. Es el mismo criterio que el operador fijó en Vidrala el 24-ago-2026.",
+    "reexpresion": "los dos periodos de 2026 comparan contra una base de 2025 REEXPRESADA sin México (1T: 4.503,2 contra los 4.643,0 publicados entonces; 1S: 8.026,4 contra 8.286,9). Está marcado en la nota de cada uno.",
+    "metricas": "DIEZ columnas: 8 financieras + 2 operativas (EBITDA de Redes y base de activos regulados), sin dividendo por acción ni número de acciones, que se vigilan en el monitor anual con serie de diez años. Decisión del operador 26-ago-2026. El MARGEN EBITDA entra porque el red flag del §10.4 declara la señal única de la tesis en trimestres —«cede dos trimestres seguidos con el volumen plano»— y esta tabla no llevaba el dato que la mide [F279]."
+  },
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-28",
-      "semaforoGlobal": "V",
+      "fecha": "2023-04-26",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +37.7% YoY. Rec. déficit tarifa SVT R.Unido. DFN/EBITDA LTM 3.05x. FFO/DFN 25.3%. DPA: acuenta 2022 €0,18/acc.",
+      "resumen": "Margen EBITDA 26,3 % —dentro de la banda 25-30 % que el §10.1 marca como DEBILITA— y apalancamiento 3,08x, ya por encima del corte de 3,0x. Los dos ejes con vara propia debilitan a la vez. El EBITDA sube un 37,7 % contra un 1T-2022 hundido por el coste de la energía: es recuperación de base, no mejora.",
+      "periodoDisplay": "1T",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 15460.6
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 4064.5
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 26.3
-        },
-        {
-          "nombre": "BNA",
-          "valor": 1485.4
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 43722
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.05
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 1755.4
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6446.4
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.18
         },
         {
           "nombre": "%Var EBITDA",
           "valor": 37.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1485.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 44191.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.08
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 1755.4
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 1659.0
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 39200.0
         }
       ]
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
+      "fecha": "2023-07-26",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +17.3% YoY. DFN +3.6% por esfuerzo inversor (wind offshore UK). DPA: complementario 2022 €0,347/acc. DFN/EBITDA LTM 3.16x.",
+      "resumen": "Margen 28,8 % y apalancamiento 3,19x: los dos siguen en la banda de debilitar. La deuda neta sube 1.569 M EUR en el trimestre mientras el EBITDA acumulado crece menos que ella.",
+      "periodoDisplay": "1S",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 26263.2
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 7560.7
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 28.8
-        },
-        {
-          "nombre": "BNA",
-          "valor": 2520.7
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 45290
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.16
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 4554.9
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6446.4
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.347
         },
         {
           "nombre": "%Var EBITDA",
           "valor": 17.3
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2520.7
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 45760.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.19
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 4554.9
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 3127.1
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 39200.0
         }
       ]
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-24",
-      "semaforoGlobal": "V",
+      "fecha": "2023-10-26",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +13.2% YoY. Plan inv.+17%. DFN/EBITDA LTM 3.31x. Recompra acciones: 6.350M acc. DPA: acuenta 2023 €0,202/acc.",
+      "resumen": "Margen 29,0 %, a un punto de cruzar a verde, y apalancamiento en el máximo del año (3,31x). La base de activos regulados sigue en los 39.200 M EUR del cierre de 2022: la empresa no la actualiza hasta el anual.",
+      "periodoDisplay": "9M",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
-          "valor": 37193
+          "nombre": "Ingresos (M€)",
+          "valor": 37193.0
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 10783.1
         },
         {
-          "nombre": "Mg.EBITDA%",
-          "valor": 29
-        },
-        {
-          "nombre": "BNA",
-          "valor": 3637
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 47951
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.31
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 7679.5
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6350.3
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.202
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.0
         },
         {
           "nombre": "%Var EBITDA",
           "valor": 13.2
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3637.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 47951.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.31
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 7679.5
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 4396.7
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 39200.0
         }
       ]
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-26",
-      "semaforoGlobal": "V",
+      "fecha": "2024-02-22",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +9.0% YoY. DFN/EBITDA 3.32x. BNA +5.9%. Inv.orgánicas: €11.382M. Div.total 2023: €0,550/acc (+10% vs 2022).",
+      "resumen": "Cierre con margen 29,2 % —el ejercicio entero por debajo del 30 % que pide la tesis— y apalancamiento 3,32x. El EBITDA crece un 9,0 % y los ingresos un 9,7 %, los dos por encima de sus umbrales, pero el margen no llega y la deuda tampoco baja. ÁMBAR es el color honesto del año.",
+      "periodoDisplay": "FY",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 49334.9
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 14417.4
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 29.2
         },
         {
-          "nombre": "BNA",
+          "nombre": "%Var EBITDA",
+          "valor": 9.0
+        },
+        {
+          "nombre": "BNA (M€)",
           "valor": 4802.8
         },
         {
-          "nombre": "DFN Aj.",
-          "valor": 47832
+          "nombre": "Deuda neta (M€)",
+          "valor": 47914.0
         },
         {
-          "nombre": "DFN/EBITDA",
+          "nombre": "DN/EBITDA (x)",
           "valor": 3.32
         },
         {
-          "nombre": "CapEx",
-          "valor": 11382
+          "nombre": "Inversiones (M€)",
+          "valor": 11382.0
         },
         {
-          "nombre": "Nº Acc (M)",
-          "valor": 6350.3
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 6011.0
         },
         {
-          "nombre": "DPA €/acc",
-          "valor": 0.55
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 9
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Cancela la compra de PNM Resources (EE.UU.) al no lograr la aprobación del regulador de Nuevo México",
-          "impacto": "+",
-          "valoracion": "Disciplina de capital: abandona la operación al complicarse el marco regulatorio"
+          "nombre": "Base activos Redes (M€)",
+          "valor": 42210.0
         }
       ]
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-04-28",
+      "fecha": "2024-04-24",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +44.1% incl.efecto venta activos México (~€1.900M one-off). Ajustado: crecimiento orgánico moderado. DFN/EBITDA 2.78x. DPA: acuenta 2023 €0,202/acc (ene-24).",
+      "resumen": "Salto de margen al 46,2 % y apalancamiento a 2,79x, por debajo del corte de 3,0x por primera vez en la serie. Los dos ejes refuerzan. El EBITDA sube un 44,1 %, con la primera venta de México (feb-2024) dentro.",
+      "periodoDisplay": "1T",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 12678.5
         },
         {
-          "nombre": "EBITDA",
-          "valor": 5857
+          "nombre": "EBITDA (M€)",
+          "valor": 5857.0
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 46.2
-        },
-        {
-          "nombre": "BNA",
-          "valor": 2759.7
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 44998
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 2.78
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 2382.4
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6423.3
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.202
         },
         {
           "nombre": "%Var EBITDA",
           "valor": 44.1
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2759.7
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 45171.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 2.79
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 2382.4
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 1691.7
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 42210.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta de los activos de generación térmica en México a Mexico Infrastructure Partners, cerrada en febrero de 2024.",
+          "impacto": "=",
+          "valoracion": "Rota capital fuera de un mercado con riesgo regulatorio y político hacia redes en jurisdicciones AAA. La plusvalía distorsiona la comparación de 2024 con 2025 y hay que tenerlo presente al leer cualquier variación interanual de ese tramo."
         }
       ]
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
+      "fecha": "2024-07-24",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +27.0% incl.México. Leverage mínimo: 2.74x DFN/EBITDA. DPA: complementario 2023 €0,348/acc (jul-24). BNA +64.0% YoY.",
+      "resumen": "Margen 42,5 % y apalancamiento 2,75x, el mínimo de los catorce periodos. El EBITDA de Redes acumula 3.269 M EUR frente a 3.127 un año antes.",
+      "periodoDisplay": "1S",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
-          "valor": 22637
+          "nombre": "Ingresos (M€)",
+          "valor": 22637.0
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 9613.6
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 42.5
         },
         {
-          "nombre": "BNA",
+          "nombre": "%Var EBITDA",
+          "valor": 27.2
+        },
+        {
+          "nombre": "BNA (M€)",
           "valor": 4133.9
         },
         {
-          "nombre": "DFN Aj.",
-          "valor": 45153
+          "nombre": "Deuda neta (M€)",
+          "valor": 45235.0
         },
         {
-          "nombre": "DFN/EBITDA",
-          "valor": 2.74
+          "nombre": "DN/EBITDA (x)",
+          "valor": 2.75
         },
         {
-          "nombre": "CapEx",
+          "nombre": "Inversiones (M€)",
           "valor": 5276.4
         },
         {
-          "nombre": "Nº Acc (M)",
-          "valor": 6423.3
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 3269.4
         },
         {
-          "nombre": "DPA €/acc",
-          "valor": 0.348
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 27
+          "nombre": "Base activos Redes (M€)",
+          "valor": 42210.0
         }
       ]
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
+      "fecha": "2024-10-23",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +23.1% incl.México. DFN/EBITDA 2.76x. DPA: acuenta 2024 €0,230/acc. Recompra acciones: 6.364M acc.",
+      "resumen": "Margen 40,1 % y apalancamiento 2,82x. La base de activos de Redes sigue en el dato de cierre de 2023 (42.210 M EUR), que es lo que la empresa publica en los interinos de ese año.",
+      "periodoDisplay": "9M",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 33116.8
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 13268.5
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 40.1
         },
         {
-          "nombre": "BNA",
+          "nombre": "%Var EBITDA",
+          "valor": 23.0
+        },
+        {
+          "nombre": "BNA (M€)",
           "valor": 5470.7
         },
         {
-          "nombre": "DFN Aj.",
-          "valor": 46697
+          "nombre": "Deuda neta (M€)",
+          "valor": 47624.0
         },
         {
-          "nombre": "DFN/EBITDA",
-          "valor": 2.76
+          "nombre": "DN/EBITDA (x)",
+          "valor": 2.82
         },
         {
-          "nombre": "CapEx",
+          "nombre": "Inversiones (M€)",
           "valor": 8601.2
         },
         {
-          "nombre": "Nº Acc (M)",
-          "valor": 6364.3
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 4875.1
         },
         {
-          "nombre": "DPA €/acc",
-          "valor": 0.23
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 23.1
+          "nombre": "Base activos Redes (M€)",
+          "valor": 42210.0
         }
       ]
     },
@@ -358,322 +381,342 @@
       "fecha": "2025-02-26",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA +16.9% YoY (incl.México). DFN/EBITDA 3.07x. Inv.orgánicas: €11.946M. Div.total 2024: €0,619/acc (+12.5% vs 2023). Neoenergia OPA lanzada (impacta DFN 2025).",
+      "resumen": "Margen 37,7 % y EBITDA +16,9 %, los dos muy por encima de sus umbrales. El apalancamiento vuelve a 3,13x —zona de debilitar— por las inversiones del ejercicio. Los ingresos caen un 9,3 %, pero es la normalización del precio de la energía tras 2023, no pérdida de negocio: el margen sube ocho puntos.",
+      "periodoDisplay": "FY",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 44739.3
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 16847.7
         },
         {
-          "nombre": "Mg.EBITDA%",
-          "valor": 37.6
-        },
-        {
-          "nombre": "BNA",
-          "valor": 5611.9
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 51672
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.07
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 11946
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6364.3
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.619
+          "nombre": "Margen EBITDA (%)",
+          "valor": 37.7
         },
         {
           "nombre": "%Var EBITDA",
           "valor": 16.9
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Adquiere el 88% de Electricity North West (RU, ~5.000 M€), distribuidora regulada",
-          "impacto": "+",
-          "valoracion": "Refuerza el foco en redes reguladas de calidad en un país rating A"
         },
         {
-          "tipo": "M&A",
-          "hecho": "Compra el 18% restante de Avangrid y toma el control total de su filial estadounidense",
-          "impacto": "+",
-          "valoracion": "Consolida el 100% de la plataforma regulada y renovable en EE.UU."
+          "nombre": "BNA (M€)",
+          "valor": 5611.9
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 52667.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.13
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 11946.0
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 6423.0
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 45400.0
         }
       ]
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-04-28",
+      "fecha": "2025-04-23",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA -20.7% vs base 2024 inflada por México. DFN máx.histórico 55.685M€ por OPA Neoenergia. DFN/EBITDA LTM 3.56x. México aún operativo. DPA: acuenta 2024 €0,230/acc (ene-25).",
+      "resumen": "Apalancamiento 3,70x, el MÁXIMO de los catorce periodos, tras la consolidación de ENW en Reino Unido. Es el único eje que se mueve de verdad: el margen se mantiene en 36,1 %. Se marca ÁMBAR porque el §10.1 pesa el apalancamiento por encima del resto y este salto de 0,57x en un trimestre es real, no óptico.",
+      "periodoDisplay": "1T",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 12864.7
         },
         {
-          "nombre": "EBITDA",
-          "valor": 4643
+          "nombre": "EBITDA (M€)",
+          "valor": 4643.0
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 36.1
-        },
-        {
-          "nombre": "BNA",
-          "valor": 2004.4
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 55685
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.56
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 2719.7
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6440.6
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.23
         },
         {
           "nombre": "%Var EBITDA",
           "valor": -20.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 2004.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 57801.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.7
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 2719.7
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 2414.9
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 48847.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Consolidación por integración global de Electricity North West (Reino Unido) desde marzo de 2025.",
+          "impacto": "+",
+          "valoracion": "Suma unos 3.000 M GBP de base de activos regulados en la jurisdicción con el marco más previsible del grupo. Es la causa del salto de apalancamiento a 3,70x de este trimestre: deuda hoy contra retribución regulada durante décadas. Refuerza el pilar de la tesis."
         }
       ]
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "A",
+      "fecha": "2025-07-23",
+      "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA -13.8% vs S1-2024 (base México). DFN reduce a 52.666M€ desde máx. S1. DPA: compl.2024 €0,389/acc (jul-25). BNA -13.9%.",
+      "resumen": "El apalancamiento baja a 3,47x y el margen sube a 36,4 %. El EBITDA reportado cae un 13,8 %, y esa caída NO es deterioro: la base de 2024 lleva dentro las plusvalías de México.",
+      "periodoDisplay": "1S",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 22743.1
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 8286.9
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 36.4
-        },
-        {
-          "nombre": "BNA",
-          "valor": 3562.2
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 52666
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.39
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 5662
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6440.6
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.389
         },
         {
           "nombre": "%Var EBITDA",
           "valor": -13.8
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 3562.2
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 53814.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.47
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 5662.0
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 4271.1
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 48900.0
         }
       ],
       "hechos": [
         {
           "tipo": "Gobierno",
-          "hecho": "Pedro Azagra sustituye a Armando Martínez como consejero delegado (24-jun-2025)",
+          "hecho": "Relevo de consejero delegado el 24 de junio de 2025.",
           "impacto": "=",
-          "valoracion": "Relevo ordenado de CEO; continuidad bajo la presidencia de Sánchez Galán"
+          "valoracion": "El análisis de gobierno del Bloque 7 se cerró sin registrarlo y se corrigió al hacer el perfil corporativo. No mueve la tesis, pero un cambio en la primera línea ejecutiva de una empresa cuyo valor depende de negociar marcos regulatorios no es neutro a medio plazo."
         }
       ]
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-24",
+      "fecha": "2025-10-22",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "VERDE: la caída de EBITDA (−6,3%) es solo efecto base por la desinversión de México; el apalancamiento ya está normalizado (DFN/EBITDA LTM 3,03x, zona verde) y México quedó desinvertido en abr-2025. +240M de acciones nuevas por Neoenergia. DPA a cuenta 2025 €0,250/acc propuesto. Subyacente sólido.",
+      "resumen": "Apalancamiento 3,16x, casi de vuelta al corte, y margen 36,7 %, el mejor de la serie. El EBITDA de Redes acumula 6.128 M EUR frente a 4.875 un año antes.",
+      "periodoDisplay": "9M",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 33863.2
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 12438.2
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 36.7
-        },
-        {
-          "nombre": "BNA",
-          "valor": 5307
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 48474
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.03
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 8964
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6681.2
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.25
         },
         {
           "nombre": "%Var EBITDA",
           "valor": -6.3
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 5307.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 50614.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.16
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 8964.0
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 6128.0
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 49300.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta del negocio de contadores inteligentes en Reino Unido, con una plusvalía de 379 M EUR.",
+          "impacto": "=",
+          "valoracion": "Entra en el EBITDA reportado de 2025 y es una de las dos partidas que la empresa excluye para dar su EBITDA ajustado. Sin ella, el crecimiento comparable del año es +3,1 %."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "Ampliación de capital en julio de 2025.",
+          "impacto": "-",
+          "valoracion": "Sube el número de acciones y diluye las magnitudes por acción. Es la contrapartida del plan inversor: la empresa financia crecimiento regulado con capital, no solo con deuda."
         }
       ]
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
+      "fecha": "2026-02-25",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "VERDE: EBITDA reportado −1,5% por el efecto base de México (excl. México ~15.647 M€, comparable); BNA recurrente +12% (récord histórico) y DFN/EBITDA 3,02x (dentro de objetivo). Dividendo total 2025 €0,680/acc (+10% vs 2024). La tesis está intacta: el descenso es óptico, no real.",
+      "resumen": "CIERRE DEL EJERCICIO. El EBITDA reportado cae un 1,5 %, y la propia empresa lo explica: «excluyendo la plusvalía por la venta de contadores inteligentes en Reino Unido y las plusvalías del negocio en México en el 2024… el EBITDA ajustado de 2025 alcanza 15.684,4 M Eur, un 3,1 % superior a 2024». El EBITDA de Redes ajustado crece un 21 %. Margen 36,4 %, beneficio neto +12,0 %, base de activos +12,2 % hasta 50.900 M EUR. VERDE por el subyacente: la caída del reportado es efecto base y está demostrada con la cifra ajustada.",
+      "periodoDisplay": "FY",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 45546.8
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 16592.4
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 36.4
-        },
-        {
-          "nombre": "BNA",
-          "valor": 6285
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 50182
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.02
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 12563
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6681.2
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.68
         },
         {
           "nombre": "%Var EBITDA",
           "valor": -1.5
-        }
-      ],
-      "hechos": [
+        },
         {
-          "tipo": "Guidance",
-          "hecho": "Presenta el plan 2025-2028 (~58.000 M€), centrado en redes y con >70% en EE.UU. y RU",
-          "impacto": "+",
-          "valoracion": "Fija la hoja de ruta inversora y de dividendo creciente que sostiene la tesis"
+          "nombre": "BNA (M€)",
+          "valor": 6285.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 51755.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.12
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 12563.0
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 8323.2
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 50900.0
         }
       ]
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-28",
+      "fecha": "2026-04-22",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "VERDE: EBITDA ajustado +2,4% (reportado −9,7% por efecto base US 2025); BNA ajustado +11,4% (reportado −14,6% por operaciones discontinuadas de México). Desinversión de México completada (24/04) y OPA de Neoenergia cerrada al 98%. Vineyard Wind 780 MW operativos. DFN/EBITDA 3,4x. Rating BBB+ estable. Crecimiento subyacente confirmado.",
+      "resumen": "El EBITDA reportado cae un 9,7 % contra una base de 2025 YA reexpresada sin México, pero el ajustado sube un 2,4 % y el de Redes un 8,6 %. Margen 33,8 %: cede dos puntos y medio y sigue sobre el 30 %. PRIMER trimestre de la posible señal única —el margen cede—, así que el siguiente hay que mirarlo con esta columna delante.",
+      "periodoDisplay": "1T",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 12017.6
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 4067.1
         },
         {
-          "nombre": "Mg.EBITDA%",
-          "valor": 33.84
-        },
-        {
-          "nombre": "BNA",
-          "valor": 1865
-        },
-        {
-          "nombre": "DFN Aj.",
-          "valor": 51922
-        },
-        {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.4
-        },
-        {
-          "nombre": "CapEx",
-          "valor": 2699
-        },
-        {
-          "nombre": "Nº Acc (M)",
-          "valor": 6757.8
-        },
-        {
-          "nombre": "DPA €/acc",
-          "valor": 0.253
+          "nombre": "Margen EBITDA (%)",
+          "valor": 33.8
         },
         {
           "nombre": "%Var EBITDA",
-          "valor": 2.4
+          "valor": -9.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1711.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 54763.0
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.39
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 2699.0
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 2047.5
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 52800.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Acuerdo de venta del resto del negocio de Iberdrola México a COX ABG Group, por un valor de empresa aproximado de 4.170 M USD.",
+          "impacto": "=",
+          "valoracion": "México pasa a actividad discontinuada y obliga a reexpresar 2025. Es el motivo de que la base de comparación de este trimestre valga 139,8 M EUR menos que lo publicado en su día. EL ANÁLISIS DE ESTE LIBRO SE CERRÓ SIN SABERLO."
         }
       ]
     },
@@ -682,95 +725,65 @@
       "fecha": "2026-07-22",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "VERDE: semestre subyacente sólido pese al ruido reportado. EBITDA ajustado +7,4% (+8,8% ex-divisa) y BNA ajustado +7,8% (+14,4% ex-divisa); el BNA reportado (+21,7%) está inflado por la plusvalía de México (953,3M€) y el reportado de EBITDA (+0,3%) comprimido por el efecto base. Redes +12,6% con RAB +11% por RIIO-T3. DFN/EBITDA LTM ~3,3x (zona verde), FFO/DN 22,4%, rating BBB+/Baa1 estable. Dividendo +6,2%. Tesis intacta.",
+      "resumen": "El margen se RECUPERA al 35,8 %, así que la señal única NO se dispara: haría falta un segundo trimestre cediendo. EBITDA ajustado +7,4 % y el de Redes +12,6 %, con la base de activos regulados en 54.330 M EUR (+11,2 %) y el nuevo marco británico RIIO-T3 en vigor desde abril. El apalancamiento sube a 3,45x por el cierre de la venta de México y la autocartera.",
+      "periodoDisplay": "1S",
+      "origen": "revolcado",
       "metricas": [
         {
-          "nombre": "Ingresos",
+          "nombre": "Ingresos (M€)",
           "valor": 22469.1
         },
         {
-          "nombre": "EBITDA",
+          "nombre": "EBITDA (M€)",
           "valor": 8050.0
         },
         {
-          "nombre": "Mg.EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 35.8
         },
         {
-          "nombre": "BNA",
+          "nombre": "%Var EBITDA",
+          "valor": 0.3
+        },
+        {
+          "nombre": "BNA (M€)",
           "valor": 4336.4
         },
         {
-          "nombre": "DFN Aj.",
-          "valor": 53972
+          "nombre": "Deuda neta (M€)",
+          "valor": 57269.0
         },
         {
-          "nombre": "DFN/EBITDA",
-          "valor": 3.3
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.45
         },
         {
-          "nombre": "CapEx",
-          "valor": 5901
+          "nombre": "Inversiones (M€)",
+          "valor": 5901.0
         },
         {
-          "nombre": "Nº Acc (M)",
-          "valor": 6757.8
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 4212.7
         },
         {
-          "nombre": "DPA €/acc",
-          "valor": 0.432
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 7.4
+          "nombre": "Base activos Redes (M€)",
+          "valor": 54330.0
         }
       ],
       "hechos": [
         {
-          "tipo": "M&A",
-          "impacto": "+",
-          "hecho": "Completa el squeeze-out de los minoritarios de Neoenergia (15-may-2026, ~1.100 M€), alcanzando el 100% de la filial brasileña.",
-          "valoracion": "Consolida el control total de la plataforma regulada de Brasil, simplifica la estructura y captura el 100% del crecimiento del RAB; refuerza el foco en redes de la tesis."
-        },
-        {
           "tipo": "Desinversión",
-          "impacto": "+",
-          "hecho": "Cierra la venta del negocio de México (24-abr) y da entrada a GIC como socio en 7 proyectos de transporte en Brasil (~412 M€).",
-          "valoracion": "Disciplina de capital y rotación de activos: financia el plan inversor sin tensionar el balance ni recurrir a una nueva ampliación dilutiva."
+          "hecho": "Cierre de la venta de Iberdrola México a COX ABG, con una plusvalía neta de 953,3 M EUR.",
+          "impacto": "=",
+          "valoracion": "La capacidad instalada baja a 56.599 MW por la salida del perímetro, no por cierre de plantas. El beneficio neto del semestre (+21,7 %) lleva esa plusvalía dentro: el ajustado crece un 7,8 %, que es la cifra que hay que mirar."
         },
         {
           "tipo": "Regulatorio",
+          "hecho": "Entrada en vigor del nuevo marco regulatorio de transmisión RIIO-T3 en Reino Unido desde abril de 2026.",
           "impacto": "+",
-          "hecho": "Entra en vigor el marco RIIO-T3 de transmisión en Reino Unido (abril) y Brasil renueva las concesiones de distribución por 30 años (plan ~9.000 M€ de Neoenergia a 2030).",
-          "valoracion": "Mayor visibilidad regulatoria y mejores retornos en dos geografías clave; apuntala el crecimiento del EBITDA regulado del plan 2025-2028 y mitiga el riesgo regulatorio de la tesis."
-        },
-        {
-          "tipo": "Otros",
-          "impacto": "+",
-          "hecho": "Emite 1.500 M€ en bonos verdes senior (16-jun-2026) a 4 y 10 años, con demanda que triplicó el importe colocado.",
-          "valoracion": "Acceso a financiación en condiciones competitivas pese a tipos altos; con liquidez de 21.464 M€ (22 meses) reduce el riesgo de refinanciación señalado en el §8 de la tesis."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Reafirma el guidance 2026 de crecimiento del Beneficio Neto Ajustado superior al 8%, y dice alcanzarlo «cómodamente». Eleva el objetivo renovable a 15,5 GW para 2025-2030, frente a los 9,5 GW del plan 2025-2028. Deuda y ratios «según lo previsto», sin cifra objetivo publicada. Objetivos 2026 de EBITDA, inversión y dividendo: Pte. Revisión (no figuran en este documento).",
-          "impacto": "+",
-          "valoracion": "El >8% se cumple con holgura y el salto de 9,5 a 15,5 GW amplía sustancialmente el compromiso de crecimiento renovable a 2030. Refuerza la parte de la tesis que descansa en el crecimiento regulado y contratado."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Adquisición del 80% de Caruna Networks (Finlandia) por ~2.000 M€, sobre una valoración de ~5.000 M€, con una base de activos regulados de ~2.500 M€, ROE ~8% y marco regulatorio vigente hasta 2031.",
-          "impacto": "+",
-          "valoracion": "Encaja en la rotación hacia redes reguladas en jurisdicciones estables: retorno visible, riesgo bajo y visibilidad regulatoria a cinco años. Amplía la base de activos regulados sin exposición a mercado."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Nueva York aprueba 2.200 M$ de inversión adicional en redes; Berkshire Gas (Massachusetts) obtiene un marco tarifario de tres años. La inversión total del semestre asciende a 7.010 M€ (+25%), con una base de activos regulados de ~55.000 M€ (+11%) y 1.594 MW instalados.",
-          "impacto": "+",
-          "valoracion": "Confirma que el capital sigue yendo a donde la tesis dice que debe ir. El crecimiento del RAB (+11%) es el motor del beneficio de los próximos años y la aprobación de Nueva York le da soporte regulatorio."
+          "valoracion": "Es el primer catalizador regulatorio del plan que se materializa, y va a favor. Empuja el EBITDA de Redes ajustado un +12,6 % y la base de activos un +11 %. La revisión que sigue pendiente —y que concentra la tesis— es la ESPAÑOLA, no ésta."
         }
-      ],
-      "periodoDisplay": "S1"
+      ]
     }
-  ],
-  "schemaVersion": 2
+  ]
 }

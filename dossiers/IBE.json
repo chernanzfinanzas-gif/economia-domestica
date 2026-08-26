@@ -1,86 +1,104 @@
 {
+ "schemaVersion": 8,
  "ticker": "IBE",
  "empresa": "Iberdrola, S.A.",
- "fecha": "2026-06-23",
- "rating": "A",
- "score": 67.6,
- "decision": "COMPRAR",
- "metodoValoracion": "DCF + múltiplos regulados (RAB) — utility. PO oficial = objetivo del analista 12–18M (€24–29), que incorpora normalización de tipos y expansión de múltiplos; el DCF puro sobre FCL básico daría 9,8/14,4/18,1 €, más conservador.",
- "poBear": 12.5,
- "poBase": 26.5,
- "poBull": 32,
- "entMin": 18,
- "entMax": 21,
- "stop": 10.4,
- "moat": "Moat 77,2/100 — redes reguladas (CNMC/Ofgem/FERC) con retorno garantizado y barreras de entrada infranqueables; escala global en renovables y diversificación en 4 mercados de alta calidad crediticia.",
+ "fecha": "2026-08-26",
+ "rating": "BBB",
+ "score": 59.2,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF sobre OWNER EARNINGS + siete múltiplos históricos de la propia década — arquetipo REGULADAS. El PO oficial (17,66 €) es la SÍNTESIS PONDERADA de diez patas: tres escenarios de DCF con el 55 % del peso y siete múltiplos con el 45 %. NO es el DCF puro, que en su escenario base da 17,98 €. El flujo base son owner earnings (CFO − CAPEX de mantenimiento, media 5A = 6.104 M€) y no el FCL clásico, por decisión del operador de 26-ago-2026: sobre FCL el modelo no tenía solución para una empresa que reinvierte el 95,6 % de su NOPAT.",
+ "poBear": 14.76,
+ "poBase": 17.6621,
+ "poBull": 21.79,
+ "entMin": 14.76,
+ "entMax": 15.36,
+ "stop": 8.98,
+ "dpaPrevisto": 0.68,
+ "moat": "ESTRECHO (58.6/100), y de UN SOLO PILAR INDEPENDIENTE. Escala eficiente 80 e intangibles 62 son los dos ejes altos, y los dos son el mismo marco regulatorio: la red que nadie puede duplicar y la licencia que permite explotarla. Ventaja de costes 45 —el ROIC (6,89 %) es la mitad del de Endesa—, costes de cambio 18, efecto de red N/A. A 1,4 puntos del corte de MODERADO.",
  "catalizadores": [
-  "Confirmación de EBITDA 2026 en línea con la guía (~€16.500M)",
-  "Bajada de tipos del BCE: –50 pb adicionales en 2026",
-  "Resolución de la tarifa de redes España 2026–2031 con TIR ≥ 5,5%",
-  "Puesta en servicio acumulada ≥ 2.500 MW renovables",
-  "Reducción orgánica de DFN/EBITDA hacia 4,0x (vs. 4,4x FY2025)"
+  "Revisión del marco retributivo español: la tasa del 5,58 % cubría 2020-2025 y está VENCIDA. Toca al 50,2 % del EBITDA; cada 0,5 pp mueve ~±255 M€ de EBIT. Horizonte 0-12 meses, ±10 % del PO.",
+  "Puesta en carga de la base de activos regulada: ~36.000 M€ a Redes hasta 2028 (de ~58.000 brutos del plan). Es el único catalizador que no depende de una decisión ajena. +15 a +24 % del PO.",
+  "Cierre de la venta de Iberdrola México a COX ABG Group (~4.170 M USD de EV), con las autorizaciones de competencia y energía ya obtenidas por el comprador.",
+  "Sentencia del Tribunal Supremo británico en ScottishPower contra el HMRC, prevista para el 18-may-2026: resuelta a favor, una provisión pasa a ser catalizador. ±2 % del PO.",
+  "NEGATIVO · el coste medio de la deuda ha pasado del 2,86 % (2020) al 4,76 % (2025) sobre 51.610 M€: cada punto son ~516 M€. La retribución regulada se reindexa con retardo. −5 a −8 % del PO.",
+  "NEGATIVO · el reverse DCF exige un crecimiento implícito del 13,4 % contra un ROIIC 5A del 11,14 % y un g intrínseco del 6,59 %. El método lo etiqueta HEROICO: la exigencia está en el precio."
  ],
  "riesgos": [
-  "Regulatorio: reforma del marco retributivo de redes/renovables en España (precedente 2013-14)",
-  "Financiero: refinanciación de €29.381M de deuda a tipos del 4–5% (+€500-700M gasto anual)",
-  "Divisa: ~65% de ingresos en USD/GBP/BRL; –€3.887M en PN por conversión en FY2025",
-  "Dilución estructural: +5% de acciones en 3 años; riesgo de nueva ampliación en el plan",
-  "Ejecución: plan €58.000M con riesgo de retrasos en permisos e inflación de costes",
-  "Político (EE.UU.): recorte de incentivos IRA / permisos de eólica marina (Avangrid)"
+  "Regulatorio (probabilidad ALTA, único de la matriz): −4,03 % suave / −10,43 % duro sobre el PO. Toca al 50,2 % del EBITDA y el daño ocurre sobre la BASE DE ACTIVOS, que ninguna de las diez patas del PO mira. Es el punto ciego del modelo.",
+  "Divisa (Media): −6,02 / −16,05 %. El MAYOR impacto derivado. Neoenergia y ScottishPower aportan EBITDA en moneda distinta del euro, y el plan sube Reino Unido y EE.UU. al 65 % de la inversión.",
+  "Mercado · de-rating de múltiplos (Media): −6,31 / −12,63 %.",
+  "Operativo (Media): −4,44 / −11,84 %.",
+  "Financiero · coste y volumen de la deuda (Media): −2,77 / −6,66 %. DN/EBITDA 3,23x y cobertura de intereses 4,59x, ambas por debajo del umbral que pide esta tesis.",
+  "Ciberseguridad (Baja-Media): −4,02 / −11,93 %. Uno de los cuatro riesgos «ciegos» del método que SÍ entró: la empresa lo declara relevante y toca al negocio de red.",
+  "Societario y litigios (Baja-Media): −0,28 / −0,83 %. ScottishPower contra el HMRC en el Supremo británico, más Brasil y el expediente del artículo 12.5.",
+  "Contable (Baja): −0,89 / −1,78 %."
  ],
- "bull": "Con bajada de tipos en Europa el descuento de valoración se comprime: el plan €58.000M genera EBITDA creciente en activos regulados y el múltiplo EV/EBITDA se expande de ~9x a ~11x → precio implícito €29–35.",
- "bear": "España recorta la TIR regulada y el BCE mantiene tipos altos: cae el valor del RAB, sube el gasto financiero y aparece riesgo de ampliación dilutiva → precio implícito €11–14.",
- "resumen": "Utility regulada global, moat 77,2/100, Score 67,6 / Rating A. Cotiza a €20,32 con descuento frente a su valor en un escenario de tipos normalizados; los tres miedos del mercado (dilución, tipos, regulación) son monitoreables y no letales. COMPRAR/ACUMULAR en €18–21, PO 12–18m €24–29, stop €14,50.",
- "schemaVersion": 8,
+ "bull": "La revisión regulatoria sale neutra o favorable y los ~36.000 M€ comprometidos a Redes entran en carga: volumen +10 % y margen +0,5 pp dan 21,79 €, un +23,4 % sobre el PO y un +8,2 % sobre la cotización de hoy. No requiere expansión de múltiplo, solo ejecución.",
+ "bear": "El regulador recorta fuerte (margen −1,73 pp) y la bolsa además revalora el sector (de-rating −15 %): 14,76 €, el 0,836 del PO. Los tres pre-mortem del §8.2 llegan más abajo —11,49 / 10,64 / 9,50 €— y el peor de ellos es el ancla del stop.",
+ "resumen": "ESPERAR. Iberdrola es un buen negocio a un precio que no acompaña: a 20,13 € cotiza un 12,26 % por encima del precio objetivo del método (17,66 €) y el reverse DCF exige un crecimiento del 13,4 % contra un 6,59 % autofinanciable — el método lo llama HEROICO. La empresa no está en cuestión: rating BBB, moat presente aunque estrecho, spread ROIC−WACC positivo por cuarto año y dividendo creciente diez ejercicios seguidos. Lo que está en cuestión es el precio. Banda de entrada 14,76 – 15,36 € (un 23,7 % por debajo de hoy) y stop de tesis en 8,98 €. DOS AVISOS: la tesis está concentrada en UNA variable —la retribución regulada, cuya revisión está VENCIDA— y el análisis se cerró sin saber que México estaba en venta (~4.170 M USD, actividad discontinuada), lo que además mete 1.717 M€ de plusvalía no recurrente en el beneficio de 2024.",
  "confianza": {
-  "score": 100,
+  "score": 82,
   "nivel": "A",
   "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "2 input(s) crítico(s) en 'Pte. Revisión' (−16)",
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
+   "bloqueaCompraEnFirme": true,
+   "motivo": "2 inputs críticos sin confirmar",
+   "accion": "Si el veredicto fuese COMPRAR, debería ser condicionado/ESPERAR (hoy la decisión no es COMPRAR)."
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-08-26"
  },
  "robustez": {
   "nivel": "sensible",
   "sobreviveDecision": false,
   "matizada": false,
   "banda": {
-   "p10": 12.5,
-   "p50": 26.5,
-   "p90": 32
+   "p10": 14.76,
+   "p50": 17.6621,
+   "p90": 21.79
   },
   "sensibilidad": {
-   "poMin": 6.7,
-   "poMax": 34.1,
-   "poBase": 14.4,
-   "cotizacion": 20.32,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 15.77,
+   "poMax": 21.71,
+   "poBase": 17.66,
+   "cotizacion": 20.13,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.3,
+   "componentesIntactos": 9,
+   "dcf": {
+    "poMin": 11.66,
+    "poMax": 31.48,
+    "poBase": 17.9773711699756
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -67.0,
-   "mdsMax": 67.8
+   "mdsMin": -21.7,
+   "mdsMax": 7.9
   },
   "beta": {
-   "capm": null,
-   "ref2": 0.58,
+   "capm": 0.638,
+   "ref2": 0.62,
    "aviso": null
   },
   "motivos": [
-   "la cotización (20.32) cae DENTRO de la banda de PO [6.7–34.1] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (30 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 70 % restante de la ponderación —los otros 9 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (20.13) cae DENTRO de la banda del precio objetivo de síntesis [15.77–21.71] → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "para contraste, el DCF puro (§6.3) se mueve en [11.66–31.48] € alrededor de 17.98 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-08-26"
  },
  "dividendSafety": {
-  "score": 89,
+  "score": 83,
   "banda": "Muy seguro",
   "componentes": {
-   "C1": 35,
+   "C1": null,
    "C2": 15,
    "C3": 12,
    "C4": 15,
@@ -92,30 +110,30 @@
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 4.99x / FCL 2.79x (3a OE 6.10x) → 35/35",
+   "C1 cobertura: sin datos suficientes (dividendo ordinario / CFO) → no puntúa",
    "C2 payout BN ord.: 20% (3a 20%) → 15/15",
    "C3 balance parcial → 12/20",
    "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
    "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-08-26"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 7,
-   "banda": "fuerte",
+   "score": 4,
+   "banda": "medio",
    "detalle": {
     "roa_pos": 1,
-    "cfo_pos": 1,
+    "cfo_pos": 0,
     "roa_up": 1,
-    "accrual": 1,
+    "accrual": 0,
     "lever_dn": 0,
     "liquid_up": 1,
     "no_dilu": 0,
     "margin_up": 1,
-    "turn_up": 1
+    "turn_up": 0
    },
    "nota": "margen=EBIT (sin bruto)"
   },
@@ -124,41 +142,29 @@
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.57,
+   "m": -2.42,
    "senal": "sin indicios",
    "aproximado": [
     "GMI",
-    "SGAI"
+    "SGAI",
+    "TATA"
    ]
   },
   "sloan": {
-   "accruals": -3.4,
-   "senal": "normal"
+   "accruals": null,
+   "senal": "Pte. Revisión"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-08-26"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 9.42,
-  "gIntrinseco": 6.85,
-  "veredicto": "EXIGENTE",
-  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
-  "calculadoEl": "2026-07-27",
-  "entradas": {
-   "fcl": 3554,
-   "wacc": 4.9,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 6733.66,
-   "deudaNeta": 55737,
-   "modo": "EV",
-   "precioBase": 20.32,
-   "validado": true,
-   "desviacion": 0.002,
-   "gBase": 9.422,
-   "congeladoEl": "2026-07-31",
-   "fechaBase": "2026-07-27"
-  }
+  "gImplicito": 13.37,
+  "gIntrinseco": 6.59,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+  "calculadoEl": "2026-08-26"
  }
 }
