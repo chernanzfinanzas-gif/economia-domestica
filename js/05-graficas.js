@@ -653,18 +653,31 @@ function riesgoData(reRender){
   const n=dates.length-1;
   const portRet=[]; for(let i=0;i<n;i++){ let r=0; usable.forEach(t=>{ r+=W[t]*ret[t][i]; }); portRet.push(r); }
   let ibexRet=null; if(ibexData&&dates.every(d=>ibexMap[d]!=null)){ ibexRet=[]; for(let i=1;i<dates.length;i++){ const p0=ibexMap[dates[i-1]],p1=ibexMap[dates[i]]; ibexRet.push(p0>0?(p1/p0-1):0); } }
+
   const mean=a=>a.reduce((s,x)=>s+x,0)/(a.length||1);
   const std=a=>{ if(a.length<2)return 0; const m=mean(a); return Math.sqrt(a.reduce((s,x)=>s+(x-m)*(x-m),0)/(a.length-1)); };
   const corr=(a,b)=>{ if(a.length<2)return 0; const ma=mean(a),mb=mean(b); let nu=0,da=0,db=0; for(let i=0;i<a.length;i++){ nu+=(a[i]-ma)*(b[i]-mb); da+=(a[i]-ma)*(a[i]-ma); db+=(b[i]-mb)*(b[i]-mb); } return (da&&db)?nu/Math.sqrt(da*db):0; };
   const ANN=Math.sqrt(252);
   const volPort=std(portRet)*ANN; const volById={}; usable.forEach(t=>volById[t]=std(ret[t])*ANN);
   let idx=100,peak=100,ddMax=0; for(let i=0;i<n;i++){ idx*=(1+portRet[i]); if(idx>peak)peak=idx; const dd=idx/peak-1; if(dd<ddMax)ddMax=dd; }
+  const retPort=idx/100-1;
+  /* [27-ago-2026] Las mismas tres medidas SOBRE EL ÍNDICE. Una volatilidad del 13 % no dice nada sola:
+     lo que la convierte en un juicio es tenerla al lado de la del mercado. La serie del IBEX ya se
+     descarga aquí para la beta, así que esto no añade ni una petición de red. */
+  let volIbex=null, ddIbex=null, retIbex=null;
+  if(ibexRet&&ibexRet.length){
+    volIbex=std(ibexRet)*ANN;
+    let ix=100,pk=100,dd0=0;
+    for(let i=0;i<ibexRet.length;i++){ ix*=(1+ibexRet[i]); if(ix>pk)pk=ix; const dd=ix/pk-1; if(dd<dd0)dd0=dd; }
+    ddIbex=dd0; retIbex=ix/100-1;
+  }
   let beta=null,corrIbex=null; if(ibexRet){ corrIbex=corr(portRet,ibexRet); const mI=mean(ibexRet),mP=mean(portRet); let cov=0; for(let i=0;i<n;i++)cov+=(portRet[i]-mP)*(ibexRet[i]-mI); cov/=(n-1); const vI=std(ibexRet); beta=(vI>0)?cov/(vI*vI):null; }
   const corrM={}; usable.forEach(a=>{ corrM[a]={}; usable.forEach(b=>{ corrM[a][b]=(a===b)?1:corr(ret[a],ret[b]); }); });
   let cs=0,cc=0; for(let i=0;i<usable.length;i++)for(let j=i+1;j<usable.length;j++){ cs+=corrM[usable[i]][usable[j]]; cc++; } const avgCorr=cc?cs/cc:null;
   let hhi=0; usable.forEach(t=>hhi+=W[t]*W[t]); const effN=hhi>0?1/hhi:0; const topT=usable.slice().sort((a,b)=>W[b]-W[a])[0]; const topW=topT?W[topT]:0;
   const secW={}; usable.forEach(t=>{ const s=(typeof SECTOR!=='undefined'&&SECTOR[t])||'Sin sector'; secW[s]=(secW[s]||0)+W[t]; });
   return {ok:true,tickers:usable,W,volPort,volById,ddMax,beta,corrIbex,corrM,avgCorr,effN,topT,topW,secW,nDays:dates.length,desde:dates[0],hasta:dates[dates.length-1],
+          retPort:retPort, volIbex:volIbex, ddIbex:ddIbex, retIbex:retIbex,
           excl:excl, nPos:tickers.length, exclW:excl.reduce((s2,e)=>s2+e.w,0), ventana:ventana, omitido:_omit||''};
 }
 // === C4 · Exposición a factores de estilo vs IBEX (desde fundamentales.json) ===
@@ -747,6 +760,79 @@ function _factorBlockHTML(FX){
 /* Aviso de cobertura del panel de Riesgo — mismo papel que la nota «Calculado con X de tus Y
    posiciones» que ya lleva la tarjeta de factores unas líneas más abajo. Dos cosas que antes se
    callaban: qué posiciones no entran en el cálculo (y cuánto pesan) y por qué la ventana es corta. */
+/* [27-ago-2026] Compara una medida de la cartera con la misma medida del IBEX. Devuelve la frase que
+   va bajo el número: sin referencia, un porcentaje de volatilidad o de drawdown no es interpretable.
+   `mayorEsMejor` invierte el juicio (en drawdown y rentabilidad, más alto es mejor). */
+/* [27-ago-2026] EXPOSICIÓN POR FACTOR — sensibilidad × peso real del dinero.
+   `sensibilidad.json` (que el propio informe semanal genera a partir de los drivers de cada ficha) da,
+   por empresa, una sensibilidad con signo de −2 a +2 a once factores. Cruzarla con los pesos de la
+   cartera contesta una pregunta que hasta ahora no estaba en ninguna pantalla: a qué está expuesto el
+   dinero, en qué dirección y cuánto. Descubrió dos cosas en la cartera de Carlos: LatAm es su mayor
+   apuesta (40 % del dinero, las cuatro empresas en el mismo sentido, nada que compense) y en tipos está
+   casi cubierto (28,5 % a favor contra 48,1 % en contra), así que una subida del BCE le afecta menos de
+   lo que sugiere el titular.
+   Lee la MISMA variable que Escenarios (SENS_FICHA), así que no añade puente ni petición de red. */
+const RZ_FACT={BOLSA:'Bolsa / IBEX', TIPOS:'Tipos BCE', CRED:'Prima de riesgo', PIB:'PIB España',
+  CONSD:'Consumo discrecional', CONSB:'Consumo defensivo', LATAM:'Divisas LatAm', EUR:'EUR/USD',
+  BRENT:'Brent', GAS:'Gas TTF', REG:'Regulación energética'};
+function _rzExpoData(){
+  const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
+  if(!pos.length)return null;
+  const M=(typeof SENS_FICHA!=='undefined')?SENS_FICHA:null;
+  if(!M||!Object.keys(M).length)return {sinPuente:true};
+  const val={}; let tot=0;
+  pos.forEach(p=>{ const t=(p.ticker||'').toUpperCase(); const v=p.acciones*num(p.precioActual); val[t]=(val[t]||0)+v; tot+=v; });
+  if(!(tot>0))return null;
+  const filas=[]; let cubierto=0;
+  Object.keys(val).forEach(t=>{ if(M[t])cubierto+=val[t]; });
+  Object.keys(RZ_FACT).forEach(f=>{
+    let net=0, pro=0, con=0; const tksP=[], tksC=[];
+    Object.keys(val).forEach(t=>{
+      const sv=(M[t]||{})[f]; if(sv==null)return;
+      const w=val[t]/tot; net+=w*sv;
+      if(sv>0){ pro+=w; tksP.push(t); } else if(sv<0){ con+=w; tksC.push(t); }
+    });
+    if(tksP.length||tksC.length) filas.push({f:f, lab:RZ_FACT[f], net:net, pro:pro, con:con, tksP:tksP, tksC:tksC});
+  });
+  filas.sort((a,b)=>Math.abs(b.net)-Math.abs(a.net));
+  return {filas:filas, cubierto:cubierto/tot, nPos:pos.length, nCub:Object.keys(val).filter(t=>M[t]).length};
+}
+function _rzExpoCnt(){ const E=_rzExpoData(); if(!E||E.sinPuente)return 'sin datos'; return E.filas.length+' factores'; }
+function _rzExpoHTML(){
+  const E=_rzExpoData();
+  if(!E)return '';
+  if(E.sinPuente)return '<div class="rz-note">Falta <code>sensibilidad.json</code> en el repo: es el fichero que el informe semanal genera con los drivers de cada ficha. Sin él este bloque no puede calcularse.</div>';
+  const pc=x=>(x*100).toFixed(1)+'%';
+  const barra=r=>{
+    /* Escala: la longitud es el PESO del dinero, centrada. Verde a la derecha (gana si el factor sube),
+       rojo a la izquierda. Así se ve de un vistazo si un factor tiene contrapeso o es una apuesta neta. */
+    return '<span class="rz-xbar">'+
+      (r.con>0?'<i class="con" style="width:'+(r.con*50).toFixed(1)+'%"></i>':'')+
+      (r.pro>0?'<i class="pro" style="width:'+(r.pro*50).toFixed(1)+'%"></i>':'')+
+      '<span class="mid"></span></span>';
+  };
+  const filas=E.filas.map(r=>'<div class="rz-xr"><span class="nm">'+r.lab+'</span>'+barra(r)+
+      '<span class="tk">'+(r.tksP.join(' ')||'')+(r.tksP.length&&r.tksC.length?' · ':'')+
+      (r.tksC.length?'<span class="neg">'+r.tksC.join(' ')+'</span>':'')+'</span></div>').join('');
+  /* Titular: el factor con mayor exposición neta sin contrapeso, que es el que más conviene mirar. */
+  const solo=E.filas.filter(r=>r.pro>0.15&&r.con<0.02)[0];
+  const cubre=E.filas.filter(r=>r.pro>0.05&&r.con>0.05).sort((a,b)=>Math.abs(a.net)-Math.abs(b.net))[0];
+  let nota='';
+  if(solo)nota+='<b>'+solo.lab+'</b> es tu apuesta más unidireccional: '+pc(solo.pro)+' del dinero en el mismo sentido y nada que compense ('+solo.tksP.join(', ')+'). ';
+  if(cubre)nota+='En <b>'+cubre.lab+'</b>, en cambio, estás casi cubierto: '+pc(cubre.pro)+' gana si sube y '+pc(cubre.con)+' pierde, así que un movimiento te afecta menos de lo que parece.';
+  return (nota?'<div class="rz-note">'+nota+'</div>':'')
+    +'<div class="rz-xwrap">'+filas+'</div>'
+    +'<div class="rz-xleg"><span><i class="pro"></i>gana si el factor sube</span><span><i class="con"></i>pierde si sube</span><span>la longitud es el peso de tu dinero</span></div>'
+    +(E.nCub<E.nPos?('<div class="rz-note" style="margin-top:8px">Calculado con '+E.nCub+' de tus '+E.nPos+' posiciones ('+pc(E.cubierto)+' del valor): el resto no tiene ficha de sensibilidad todavía.</div>'):'');
+}
+function _rzVs(mio, idx, labBien, labMal, uni, mayorEsMejor){
+  if(idx==null||!isFinite(idx)) return 'sin referencia del IBEX';
+  const dif=(mio-idx)*100;
+  const bien=mayorEsMejor?(dif>0):(dif<0);
+  const cls=Math.abs(dif)<0.5?'':(bien?'pos':'neg');
+  const txt=Math.abs(dif).toFixed(1)+' '+uni+' '+(bien?labBien:labMal);
+  return 'IBEX <b>'+(idx*100).toFixed(1)+'%</b> · <span class="'+cls+'">'+(Math.abs(dif)<0.5?'igual que el mercado':txt)+'</span>';
+}
 function _rzCobertura(R){
   let h='';
   const ex=(R.excl||[]).filter(e=>e.motivo.indexOf('apartada')<0);
@@ -781,15 +867,20 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
   if(!R||R.empty){ el.innerHTML='<div class="empty">Sin posiciones abiertas.</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.loading){ el.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; if(kp)kp.innerHTML=''; return; }
   if(R.noData){ el.innerHTML='<div class="empty">No hay suficiente histórico de precios en el repo para calcular el riesgo. Ejecuta la actualización de cotizaciones.</div>'; if(kp)kp.innerHTML=''; return; }
-  window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,ingreso:false,corr:false,factores:false};
+  window._riesgoOpen=window._riesgoOpen||{pos:false,sec:false,ingreso:false,corr:false,factores:false,expo:false};
+  /* sensibilidad.json lo carga 17-escenarios.js al arrancar; si aún no ha llegado, se pide y se repinta. */
+  if(typeof SENS_FICHA!=='undefined'&&!Object.keys(SENS_FICHA||{}).length&&typeof escCargarFichas==='function'&&!renderRiesgo._sensPedido){
+    renderRiesgo._sensPedido=true; try{ escCargarFichas().then(function(){ renderRiesgo(); }); }catch(e){}
+  }
   const FX=_factorExpo(renderRiesgo);
   const pv=x=>x==null?'—':(x*100).toFixed(1)+'%';
   const corrCol=v=>v>=0.6?'#dc2626':v>=0.4?'#d97706':'#16a34a';
   const corrBg=v=>{ if(v==null)return '#fff'; const x=Math.max(-1,Math.min(1,v)); if(x>=0){const c=Math.round(255-x*105);return 'rgb(255,'+c+','+c+')';} const c2=Math.round(255+x*105); return 'rgb('+c2+',255,'+c2+')'; };
   const avgCorrOf=t=>{ let s=0,c=0; R.tickers.forEach(o=>{ if(o!==t){s+=R.corrM[t][o];c++;} }); return c?s/c:null; };
   if(kp)kp.innerHTML=
-    '<div class="rz-c hero"><div class="l">Volatilidad anual</div><div class="v">'+pv(R.volPort)+'</div><div class="p">'+(R.volPort>0.25?'alta':R.volPort<0.15?'contenida':'media')+'</div></div>'+
-    '<div class="rz-c"><div class="l">Drawdown máximo</div><div class="v neg">'+pv(R.ddMax)+'</div><div class="p">peor caída del periodo</div></div>'+
+    '<div class="rz-c hero"><div class="l">Volatilidad anual</div><div class="v">'+pv(R.volPort)+'</div><div class="p">'+_rzVs(R.volPort,R.volIbex,'menos movida','más movida','pp')+'</div></div>'+
+    '<div class="rz-c"><div class="l">Drawdown máximo</div><div class="v neg">'+pv(R.ddMax)+'</div><div class="p">'+_rzVs(R.ddMax,R.ddIbex,'menos castigo','más castigo','pp',true)+'</div></div>'+
+    '<div class="rz-c"><div class="l">Rentabilidad del periodo</div><div class="v '+(R.retPort>=0?'pos':'neg')+'">'+((R.retPort>=0?'+':'')+(R.retPort*100).toFixed(1)+'%')+'</div><div class="p">'+_rzVs(R.retPort,R.retIbex,'de ventaja','por detrás','pp',true)+'</div></div>'+
     '<div class="rz-c"><div class="l">Beta vs IBEX</div><div class="v">'+(R.beta==null?'—':R.beta.toFixed(2))+'</div><div class="p">'+(R.beta==null?'':(R.beta>1?'más que el mercado':'menos que el mercado'))+'</div></div>'+
     '<div class="rz-c"><div class="l">Correlación media</div><div class="v '+(R.avgCorr!=null&&R.avgCorr<0.5?'pos':(R.avgCorr>=0.7?'neg':''))+'">'+(R.avgCorr==null?'—':R.avgCorr.toFixed(2))+'</div><div class="p">'+(R.avgCorr!=null&&R.avgCorr<0.5?'diversifica bien':'poco diversificada')+'</div></div>'+
     '<div class="rz-c"><div class="l">Nº efectivo posiciones</div><div class="v">'+R.effN.toFixed(1)+' / '+R.tickers.length+'</div><div class="p">'
@@ -846,6 +937,7 @@ function renderRiesgo(){ const el=$('#riesgoBody'); if(!el)return; const kp=$('#
     blk('sec','🏭','Peso por sector',Object.keys(R.secW).length+' sectores','Rojo ≥35% (sobreconcentración) · ámbar ≥25%.',secInner)+
     blk('ingreso','🎯','Concentración del ingreso',ingCnt,'Aplica la concentración al <b>flujo de dividendos</b>, no al capital: una cartera bien repartida en valor puede tener la <b>renta</b> en pocos nombres. Mide la fragilidad de la "nómina" que financiará tu independencia. Marca además la <b>renta poco fiable</b> (Dividend Safety &lt; 60) y el 💧score de seguridad de cada pagador. No capta que una recesión recorte a varios pagadores del mismo sector a la vez (crúzalo con Escenarios).',ingInner)+
     blk('corr','🔗','Matriz de correlaciones','media '+(R.avgCorr==null?'—':R.avgCorr.toFixed(2)),'Verde = baja correlación (diversifica) · rojo = alta (se mueven juntas). En móvil, por empresa sus pares más correlacionados.',corrDesk+'<div class="rz-mob">'+corrCards+'</div>')+
+    blk('expo','🎛️','A qué está expuesto tu dinero',_rzExpoCnt(),'Sensibilidad de cada empresa (de <code>sensibilidad.json</code>, que sale de los drivers del informe) multiplicada por su peso real en la cartera.',_rzExpoHTML())+
     blk('factores','🧭','Exposición a factores vs IBEX',(FX&&FX.ok?'perfil de estilo de tu cartera':'—'),'',_factorBlockHTML(FX));
 }
 // === Gráfico interactivo de evolución de la cartera para el Panel (coste / valor / valor+div) con tooltip al pasar el ratón ===

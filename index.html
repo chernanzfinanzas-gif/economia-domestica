@@ -695,6 +695,24 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-riesgo .rz-blk[data-rzblk="factores"] .rz-blk-h .t{color:#5b21b6}
 #view-riesgo .rz-blk-b{display:none;padding:0 16px 16px;border-top:1px solid var(--line)}#view-riesgo .rz-blk.open .rz-blk-b{display:block}
 #view-riesgo .rz-note{font-size:12px;color:var(--muted);margin:10px 2px 12px;line-height:1.5}
+  #view-riesgo .rz-xwrap{display:flex;flex-direction:column;gap:7px;margin-top:4px}
+  #view-riesgo .rz-xr{display:grid;grid-template-columns:150px 1fr 34%;gap:11px;align-items:center;font-size:12.5px}
+  #view-riesgo .rz-xr .nm{font-weight:700;color:#334155}
+  #view-riesgo .rz-xbar{position:relative;height:15px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:4px;overflow:hidden}
+  #view-riesgo .rz-xbar .mid{position:absolute;left:50%;top:0;bottom:0;width:1px;background:#cbd5e1;z-index:2}
+  #view-riesgo .rz-xbar i{position:absolute;top:0;bottom:0;display:block}
+  #view-riesgo .rz-xbar i.pro{left:50%}
+  #view-riesgo .rz-xbar i.con{right:50%}
+  #view-riesgo .rz-xbar i.pro{background:#16a34a;opacity:.72}
+  #view-riesgo .rz-xbar i.con{background:#dc2626;opacity:.72}
+  #view-riesgo .rz-xr .tk{font-size:11px;color:#64748b;font-weight:600;text-align:right}
+  #view-riesgo .rz-xr .tk .neg{color:#b91c1c}
+  #view-riesgo .rz-xleg{display:flex;gap:16px;flex-wrap:wrap;font-size:10.5px;color:#94a3b8;margin-top:9px;padding-left:150px}
+  #view-riesgo .rz-xleg span{display:flex;align-items:center;gap:5px}
+  #view-riesgo .rz-xleg i{width:10px;height:10px;border-radius:2px;display:inline-block}
+  #view-riesgo .rz-xleg i.pro{background:#16a34a;opacity:.72}
+  #view-riesgo .rz-xleg i.con{background:#dc2626;opacity:.72}
+  @media(max-width:640px){ #view-riesgo .rz-xr{grid-template-columns:104px 1fr;row-gap:2px} #view-riesgo .rz-xr .tk{grid-column:1/-1;text-align:left} #view-riesgo .rz-xleg{padding-left:0} }
 #view-riesgo .rz-desk{overflow:auto}#view-riesgo .rz-mob{display:none}
 #view-riesgo .rz-desk table{width:100%;border-collapse:collapse;font-size:13px}
 #view-riesgo .rz-desk thead th{background:#f8fafc;text-align:right;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);padding:9px 10px;border-bottom:1px solid #e2e8f0;font-weight:700;white-space:nowrap}
