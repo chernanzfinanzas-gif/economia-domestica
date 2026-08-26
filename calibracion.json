@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-08-25",
+ "generadoEl": "2026-08-26",
  "fuenteDeVerdad": "Calibración Ex-Post - Método KH&Claude.xlsx · hoja «Registro t0»",
  "nota": "La composición del PO (dcf, recorteSintesis, banda, robustez, gImplicito…) solo existe en el lado del método: la app no puede calcularla. Las filas sin ella son aquellas cuyo [TICKER].json dejó de ser la foto de t0 — vacío significa «no se sabe», nunca cero.",
  "t0": [
@@ -1067,72 +1067,110 @@
    "ajusteFecha": null,
    "ajusteDecision": null,
    "ajustePo": null
+  },
+  {
+   "ticker": "IBE",
+   "empresa": "Iberdrola, S.A.",
+   "arquetipo": "REGULADAS · Eléctrica + Renovables",
+   "fecha": "2026-08-26",
+   "decision": "ESPERAR",
+   "rating": "BBB",
+   "score": 59.2,
+   "cot0": 20.13,
+   "poBear": 14.76,
+   "poBase": 17.6621,
+   "poBull": 21.79,
+   "entMin": 14.76,
+   "entMax": 15.36,
+   "stop": 8.98,
+   "beta": 0.638,
+   "mdsBase": null,
+   "potencialBull": null,
+   "riesgoBear": null,
+   "colchonStop": null,
+   "recorridoStop": null,
+   "dcf": null,
+   "recorteSintesis": null,
+   "bandaP10": 14.76,
+   "bandaP90": 21.79,
+   "robustez": "sensible · no sobrevive",
+   "gImplicito": 0.1337,
+   "veredictoRdcf": "HEROICO",
+   "confianza": "A · 82",
+   "vetoForense": "NO",
+   "dividendSafety": 83,
+   "betaReferencia": 0.638,
+   "desfaseBeta": 0,
+   "ajustesN": 0,
+   "ajusteFecha": null,
+   "ajusteDecision": null,
+   "ajustePo": null
   }
  ],
  "resumen": {
-  "filas": 28,
+  "filas": 29,
   "conComposicion": 27,
   "recorteMediano": -0.07708333333333339,
-  "desfaseBetaMediano": 0.05800000000000005
+  "desfaseBetaMediano": 0.01899999999999996
  },
  "sesgo": null,
  "espejo": {
-  "generadoEl": "2026-08-25",
+  "generadoEl": "2026-08-26",
   "libros": 25,
   "decisiones": {
-   "total": 37,
+   "total": 36,
    "reparto": [
     {
      "clave": "REAFIRMAR",
-     "n": 34,
-     "pct": 91.9
+     "n": 33,
+     "pct": 91.7
     },
     {
      "clave": "AJUSTA PO",
      "n": 2,
-     "pct": 5.4
+     "pct": 5.6
     },
     {
      "clave": "AJUSTA BANDA",
      "n": 1,
-     "pct": 2.7
+     "pct": 2.8
     }
    ]
   },
   "senales": {
-   "total": 37,
+   "total": 36,
    "dePrecio": 16,
-   "pctDePrecio": 43.2,
+   "pctDePrecio": 44.4,
    "reparto": [
     {
      "clave": "S3",
      "n": 15,
-     "pct": 40.5
+     "pct": 41.7
     },
     {
      "clave": "S6",
      "n": 8,
-     "pct": 21.6
+     "pct": 22.2
     },
     {
      "clave": "DISC",
-     "n": 7,
-     "pct": 18.9
+     "n": 6,
+     "pct": 16.7
     },
     {
      "clave": "S2",
      "n": 5,
-     "pct": 13.5
+     "pct": 13.9
     },
     {
      "clave": "S1",
      "n": 1,
-     "pct": 2.7
+     "pct": 2.8
     },
     {
      "clave": "§10.4",
      "n": 1,
-     "pct": 2.7
+     "pct": 2.8
     }
    ]
   },
@@ -1142,14 +1180,14 @@
     {
      "clave": "V",
      "nombre": "VERDE",
-     "n": 200,
-     "pct": 59.7
+     "n": 197,
+     "pct": 58.8
     },
     {
      "clave": "A",
      "nombre": "ÁMBAR",
-     "n": 122,
-     "pct": 36.4
+     "n": 125,
+     "pct": 37.3
     },
     {
      "clave": "R",
@@ -1161,7 +1199,7 @@
   },
   "latencia": {
    "medibles": 8,
-   "sinFechaDeApertura": 29,
+   "sinFechaDeApertura": 28,
    "mediana": 1,
    "maximo": 17,
    "detalle": [
@@ -1250,17 +1288,17 @@
     "trimestres": 14
    },
    {
+    "empresa": "Iberdrola",
+    "verdesSeguidos": 5,
+    "trimestres": 14
+   },
+   {
     "empresa": "Santander",
     "verdesSeguidos": 5,
     "trimestres": 14
    },
    {
     "empresa": "CIE",
-    "verdesSeguidos": 4,
-    "trimestres": 14
-   },
-   {
-    "empresa": "Iberdrola",
     "verdesSeguidos": 4,
     "trimestres": 14
    },

@@ -777,85 +777,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
   #view-riesgo .rz-cbar-h,#view-riesgo .rz-cbar{grid-template-columns:40px 1fr 82px 36px}
   #view-riesgo .fx-grid{grid-template-columns:1fr}#view-riesgo .fx-howread{flex-direction:column}
 }
-
-/* ===== Coyuntura (29-coyuntura.js) ===== */
-#view-coyuntura .coy-head{margin-bottom:12px}
-#view-coyuntura .coy-sub{font-size:12.5px;color:#475569;line-height:1.55}
-#view-coyuntura .coy-edad{margin-top:8px;display:inline-block;font-size:11.5px;font-weight:600;color:#475569;background:#f1f5f9;border:1px solid var(--line);border-radius:20px;padding:4px 11px}
-#view-coyuntura .coy-edad.viejo{background:#fffbeb;border-color:#fde68a;color:#92400e}
-#view-coyuntura .coy-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow)}
-#view-coyuntura .coy-blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;border-left:5px solid #94a3b8;background:linear-gradient(120deg,#f8fafc,#f1f5f9)}
-#view-coyuntura .coy-blk-h .ic{font-size:17px}
-#view-coyuntura .coy-blk-h .t{font-weight:800;font-size:15px;color:#1e293b}
-#view-coyuntura .coy-blk-h .cnt{color:var(--muted);font-size:12.5px;font-weight:600}
-#view-coyuntura .coy-blk-h .arw{margin-left:auto;color:#94a3b8;font-size:12px;transition:transform .15s}
-#view-coyuntura .coy-blk.open .coy-blk-h .arw{transform:rotate(90deg)}
-#view-coyuntura .coy-blk-b{display:none;padding:14px 16px 16px}
-#view-coyuntura .coy-blk.open .coy-blk-b{display:block}
-#view-coyuntura .coy-blk[data-coyblk="div"] .coy-blk-h{background:linear-gradient(120deg,#f0fdf4,#dcfce7);border-left-color:#16a34a}
-#view-coyuntura .coy-blk[data-coyblk="div"] .coy-blk-h .t{color:#166534}
-#view-coyuntura .coy-blk[data-coyblk="tipos"] .coy-blk-h{background:linear-gradient(120deg,#eff6ff,#dbeafe);border-left-color:#2563eb}
-#view-coyuntura .coy-blk[data-coyblk="tipos"] .coy-blk-h .t{color:#1e40af}
-#view-coyuntura .coy-blk[data-coyblk="energia"] .coy-blk-h{background:linear-gradient(120deg,#fff7ed,#ffedd5);border-left-color:#ea580c}
-#view-coyuntura .coy-blk[data-coyblk="energia"] .coy-blk-h .t{color:#9a3412}
-#view-coyuntura .coy-blk[data-coyblk="bolsa"] .coy-blk-h{background:linear-gradient(120deg,#ecfeff,#cffafe);border-left-color:#0891b2}
-#view-coyuntura .coy-blk[data-coyblk="bolsa"] .coy-blk-h .t{color:#155e75}
-#view-coyuntura .coy-blk[data-coyblk="inflacion"] .coy-blk-h{background:linear-gradient(120deg,#fffbeb,#fef3c7);border-left-color:#f59e0b}
-#view-coyuntura .coy-blk[data-coyblk="inflacion"] .coy-blk-h .t{color:#92400e}
-#view-coyuntura .coy-blk[data-coyblk="divisas"] .coy-blk-h{background:linear-gradient(120deg,#f5f3ff,#ede9fe);border-left-color:#7c3aed}
-#view-coyuntura .coy-blk[data-coyblk="divisas"] .coy-blk-h .t{color:#5b21b6}
-#view-coyuntura .coy-blk[data-coyblk="otros"] .coy-blk-h{background:linear-gradient(120deg,#f8fafc,#e2e8f0);border-left-color:#64748b}
-#view-coyuntura .coy-blk[data-coyblk="otros"] .coy-blk-h .t{color:#334155}
-#view-coyuntura .coy-note{font-size:11.5px;color:var(--muted);line-height:1.55;margin-bottom:10px}
-#view-coyuntura .coy-note code{background:#f1f5f9;border-radius:4px;padding:1px 5px;font-size:11px}
-#view-coyuntura .coy-empty{background:var(--panel);border:1px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted);font-size:13px;line-height:1.7}
-#view-coyuntura .coy-ind{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px}
-#view-coyuntura .coy-i{background:#f8fafc;border:1px solid var(--line);border-radius:11px;padding:11px 12px}
-#view-coyuntura .coy-i.pte{background:repeating-linear-gradient(135deg,#f8fafc,#f8fafc 8px,#f1f5f9 8px,#f1f5f9 16px)}
-#view-coyuntura .coy-i .n{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.35}
-#view-coyuntura .coy-i .v{font-size:20px;font-weight:800;margin-top:3px;color:#1e293b;font-variant-numeric:tabular-nums}
-#view-coyuntura .coy-i.pte .v{color:#94a3b8}
-#view-coyuntura .coy-i .d{font-size:11.5px;color:#475569;margin-top:2px;line-height:1.45}
-#view-coyuntura .coy-i .f{font-size:10.5px;color:#94a3b8;margin-top:6px}
-#view-coyuntura .coy-i .f a{color:#64748b;text-decoration:none;border-bottom:1px dotted #cbd5e1}
-#view-coyuntura .coy-arw{color:#94a3b8;font-weight:800;margin-right:4px}
-#view-coyuntura .coy-nota{color:var(--muted)}
-#view-coyuntura .coy-mut{color:#94a3b8;font-weight:400}
-#view-coyuntura .coy-org{display:inline-block;background:#e0f2fe;color:#075985;border-radius:20px;padding:0 6px;font-size:9.5px;font-weight:800;vertical-align:middle}
-#view-coyuntura .coy-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px}
-#view-coyuntura .coy-kpis .k{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
-#view-coyuntura .coy-kpis .k.hero{background:linear-gradient(135deg,#065f46,#16a34a);color:#fff;border:none}
-#view-coyuntura .coy-kpis .k .l{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em;line-height:1.35}
-#view-coyuntura .coy-kpis .k.hero .l,#view-coyuntura .coy-kpis .k.hero .p{color:#bbf7d0}
-#view-coyuntura .coy-kpis .k .v{font-size:24px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}
-#view-coyuntura .coy-kpis .k .p{font-size:11.5px;color:var(--muted);margin-top:2px}
-#view-coyuntura .coy-kpis .k .p.pos{color:#16a34a;font-weight:700}#view-coyuntura .coy-kpis .k .p.neg{color:#dc2626;font-weight:700}
-#view-coyuntura .coy-kpis .k.hero .p.pos{color:#fff;font-weight:800}#view-coyuntura .coy-kpis .k.hero .p.neg{color:#fecaca;font-weight:800}
-#view-coyuntura .coy-tw{overflow-x:auto;margin-bottom:10px}
-#view-coyuntura .coy-tbl{width:100%;border-collapse:collapse;font-size:12.5px}
-#view-coyuntura .coy-tbl th{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;text-align:right;padding:6px 8px;border-bottom:2px solid var(--line);white-space:nowrap}
-#view-coyuntura .coy-tbl td{text-align:right;padding:6px 8px;border-bottom:1px solid #f1f5f9;white-space:nowrap;font-variant-numeric:tabular-nums}
-#view-coyuntura .coy-tbl th.l,#view-coyuntura .coy-tbl td.l{text-align:left}
-#view-coyuntura .coy-tbl td.neg{color:#dc2626}
-#view-coyuntura .coy-tbl tr.tot td{font-weight:800;background:#f8fafc;border-top:2px solid var(--line);border-bottom:none}
-#view-coyuntura .coy-tk{color:var(--brand);cursor:pointer}
-#view-coyuntura .coy-nm{color:#94a3b8;font-weight:400}
-#view-coyuntura .coy-pill{display:inline-block;border-radius:20px;padding:1px 8px;font-size:10.5px;font-weight:800}
-#view-coyuntura .coy-pill.good{background:#dcfce7;color:#166534}
-#view-coyuntura .coy-pill.warn{background:#fef3c7;color:#92400e}
-#view-coyuntura .coy-pill.bad{background:#fee2e2;color:#991b1b}
-@media(max-width:820px){
-  #view-coyuntura .coy-kpis{grid-template-columns:1fr}
-  #view-coyuntura .coy-ind{grid-template-columns:1fr 1fr}
-  #view-coyuntura .coy-i .v{font-size:17px}
-  /* La tabla del dividendo tiene 6 columnas: en móvil se quita el nombre largo (queda el ticker,
-     que es con lo que se identifica la empresa en toda la app) y se aprieta la celda. Lo que aun
-     así no quepa sigue accesible: .coy-tw desplaza en horizontal. */
-  #view-coyuntura .coy-nm{display:none}
-  #view-coyuntura .coy-tbl{font-size:11.5px}
-  #view-coyuntura .coy-tbl th,#view-coyuntura .coy-tbl td{padding:5px 6px}
-  #view-coyuntura .coy-tbl th{font-size:9.5px}
-}
 #view-analisis #anaCards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px}
 #view-analisis .ana-k{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.08),0 1px 2px rgba(0,0,0,.04)}
 #view-analisis .ana-k .l{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
@@ -4487,18 +4408,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       </div>
     </div>
   </section>
-  <section class="view" id="view-coyuntura">
-    <div class="vhero g-teal">
-      <div class="vhero-main">
-        <span class="vhero-ic">🌍</span>
-        <div class="vhero-txt">
-          <h2>Coyuntura</h2>
-          <p>Qué está haciendo el mundo con los factores que mueven <b>esta</b> cartera: tipos, energía, inflación y divisas, más lo que rinde hoy tu dividendo frente al bono. Los datos llegan del <b>informe semanal</b> por el puente <code>macro.json</code>; las variaciones no llevan color a propósito, porque el mismo dato es ingreso para unas empresas y coste para otras.</p>
-        </div>
-      </div>
-    </div>
-    <div id="coyBody"></div>
-  </section>
   <section class="view" id="view-fiscalidad">
     <div class="vhero g-slate"><div class="vhero-main"><span class="vhero-ic">📋</span><div class="vhero-txt"><h2>Fiscalidad</h2><p>Tu situación fiscal orientativa: plusvalías/minusvalías latentes y realizadas, simulador de venta FIFO y el arrastre de pérdidas en el IRPF.</p></div></div></div>
     <div id="fiscalKpis" style="margin-bottom:14px"></div>
@@ -4644,7 +4553,6 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 <script src="js/26-excelprecios.js?v=20260731a"></script>
 <script src="js/27-derivag.js?v=20260731a"></script>
 <script src="js/28-micartera.js?v=20260731a"></script>
-<script src="js/29-coyuntura.js?v=20260825a"></script>
   <script src="js/06-main.js?v=20260731a"></script>
   <script src="js/15-cmdk.js?v=20260731a"></script>
 
