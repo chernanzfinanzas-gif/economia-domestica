@@ -118,6 +118,16 @@ function _coyEdad(){
    Comparar la primera con el bono de hoy es comparar dos épocas; la segunda, dos alternativas reales.
    El crecimiento del DPA NO se supone: sale de dividendos.json, que trae la serie real por empresa. */
 function _coyDivData(){
+  /* [27-ago-2026] LA VISTA PUEDE PINTARSE ANTES DE QUE HAYA DATOS.
+     `vistaArranque()` (06-main.js) abre la vista pedida con `?v=` -el acceso directo de la
+     PWA- y lo hace, por diseño, «con DB todavía vacía»; y el puente macro llega por su
+     cuenta, así que `_coyCargar().then(renderCoyuntura)` puede repintar en cualquier
+     instante de la carga. `invPositions()` lee `DB.operaciones` a pelo y con DB a null
+     revienta, se lleva por delante el render entero y la pestaña se queda EN BLANCO —el
+     mismo síntoma que traía aquí, por otra causa—. El resto del panel (tipos, energía,
+     bolsa…) no necesita la cartera para nada: se devuelve null, el bloque del dividendo
+     dice que está cargando y los demás se pintan igual. */
+  if(typeof DB==='undefined'||!DB) return null;
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
   if(!pos.length) return null;
   const D=(typeof _evoData!=='undefined'&&_evoData&&_evoData.empresas)?_evoData:null;
@@ -154,6 +164,9 @@ function _coyDivData(){
           rpdCoste:coste>0?div/coste*100:null, rpdValor:valor>0?div/valor*100:null};
 }
 function _coyDivHTML(bono){
+  /* «Sin posiciones» y «todavía no han cargado» no son lo mismo: con DB aún vacía decir
+     «no tienes posiciones» es mentir durante medio segundo, justo al abrir la app. */
+  if(typeof DB==='undefined'||!DB) return '<div class="coy-note">Cargando tus posiciones…</div>';
   const V=_coyDivData();
   if(!V) return '<div class="coy-note">Sin posiciones abiertas.</div>';
   if(typeof _evoData==='undefined'||!_evoData) return '<div class="coy-note">Cargando <code>dividendos.json</code>…</div>';
@@ -200,8 +213,120 @@ function _coyDivHTML(bono){
     +'<div class="coy-note">El crecimiento sale de <code>dividendos.json</code>, con la serie real de DPA por empresa. No es una hipótesis: es lo que han hecho.</div>';
 }
 
+/* ============================================================================
+   ESTILOS · se inyectan una vez, desde aqui                    [27-ago-2026]
+   ----------------------------------------------------------------------------
+   Este fichero se publico el 26-ago y la pestaña salia EN BLANCO: `index.html`
+   nunca recibio su mitad del trabajo -ni el `<script>`, ni la `<section
+   id="view-coyuntura">` con `#coyBody`, ni una sola regla `.coy-*`-. El menu si
+   estaba (06-main.js), asi que la pestaña aparecia y no habia nada detras. Es el
+   mismo patron que ya mordio con las barras sticky de Plan/Simulador: el JS viaja
+   y los ganchos del HTML se quedan.
+   Para que no vuelva a pasar, el CSS vive AQUI y no en `index.html`, como hace
+   `_mcCSS()` en 28-micartera.js: asi la vista entera cabe en un fichero y lo unico
+   que `index.html` tiene que aportar son dos lineas que no se pueden olvidar
+   porque sin ellas no se ve nada.
+   Se reutiliza el lenguaje visual de siempre -variables `--panel`/`--line`/
+   `--muted`, la tarjeta blanca con sombra, la cabecera plegable del Panel- para
+   que no parezca una vista de otra aplicacion.
+   ============================================================================ */
+function _coyCSS(){
+  if(document.getElementById('coy-css'))return;
+  const s=document.createElement('style'); s.id='coy-css';
+  s.textContent=[
+    '#view-coyuntura .coy-head{margin-bottom:14px}',
+    '#view-coyuntura .coy-sub{font-size:13px;color:var(--muted);line-height:1.5}',
+    /* La edad del dato es la regla 2 del fichero: cuando envejece, se dice en alto. */
+    '#view-coyuntura .coy-edad{display:inline-block;margin-top:8px;font-size:11.5px;color:#334155;',
+    '  background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:4px 12px;line-height:1.45}',
+    '#view-coyuntura .coy-edad.viejo{background:#fffbeb;border-color:#fde68a;color:#92400e}',
+
+    /* --- bloque plegable --- */
+    '#view-coyuntura .coy-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;',
+    '  box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}',
+    '#view-coyuntura .coy-blk-h{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;',
+    '  user-select:none;transition:background .12s}',
+    '#view-coyuntura .coy-blk-h:hover{background:#f8fafc}',
+    '#view-coyuntura .coy-blk-h .ic{font-size:16px;flex:none}',
+    '#view-coyuntura .coy-blk-h .t{font-size:14.5px;font-weight:800;color:#0f172a;flex:1 1 auto;min-width:0}',
+    '#view-coyuntura .coy-blk-h .cnt{font-size:11px;color:var(--muted);font-weight:600;flex:none}',
+    '#view-coyuntura .coy-blk-h .arw{font-size:10px;color:#94a3b8;flex:none;transition:transform .15s}',
+    '#view-coyuntura .coy-blk.open .coy-blk-h .arw{transform:rotate(90deg)}',
+    '#view-coyuntura .coy-blk-b{display:none;padding:0 16px 14px}',
+    '#view-coyuntura .coy-blk.open .coy-blk-b{display:block}',
+
+    /* --- tarjetas de indicador --- */
+    '#view-coyuntura .coy-ind{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:4px}',
+    '#view-coyuntura .coy-i{border:1px solid var(--line);border-radius:11px;padding:10px 12px;background:#fff;min-width:0}',
+    /* Un dato pendiente se ve pendiente: gris y en cursiva. Nunca un 0 disfrazado de medicion. */
+    '#view-coyuntura .coy-i.pte{background:#f8fafc;border-style:dashed}',
+    '#view-coyuntura .coy-i .n{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;',
+    '  letter-spacing:.02em;line-height:1.3}',
+    '#view-coyuntura .coy-i .v{font-size:20px;font-weight:800;color:#0f172a;margin-top:3px;font-variant-numeric:tabular-nums}',
+    '#view-coyuntura .coy-i.pte .v{color:#cbd5e1}',
+    '#view-coyuntura .coy-i .d{font-size:11.5px;color:#475569;margin-top:2px;line-height:1.4}',
+    '#view-coyuntura .coy-i .f{font-size:10px;color:#94a3b8;margin-top:5px}',
+    '#view-coyuntura .coy-i .f a{color:#94a3b8;text-decoration:underline;text-underline-offset:2px}',
+    '#view-coyuntura .coy-i .f a:hover{color:var(--brand)}',
+    /* La flecha NO lleva color de juicio (regla 3): el gas caro es ingreso para NTGY y coste para VIS. */
+    '#view-coyuntura .coy-arw{color:#64748b;font-weight:800;margin-right:4px}',
+    '#view-coyuntura .coy-mut{color:#94a3b8;font-style:italic}',
+    '#view-coyuntura .coy-nota{color:#94a3b8}',
+    '#view-coyuntura .coy-org{font-size:9px;font-weight:800;background:#eef2ff;color:#3730a3;',
+    '  border:1px solid #c7d2fe;border-radius:20px;padding:0 5px;margin-left:3px}',
+
+    /* --- KPIs del dividendo contra el bono --- */
+    '#view-coyuntura .coy-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:4px 0 14px}',
+    '#view-coyuntura .coy-kpis .k{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0}',
+    '#view-coyuntura .coy-kpis .k.hero{background:linear-gradient(135deg,#134e4a,#0f766e);border:none;color:#fff}',
+    '#view-coyuntura .coy-kpis .k .l{font-size:10.5px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.02em}',
+    '#view-coyuntura .coy-kpis .k.hero .l{color:#99f6e4}',
+    '#view-coyuntura .coy-kpis .k .v{font-size:23px;font-weight:800;margin-top:3px;font-variant-numeric:tabular-nums;color:#0f172a}',
+    '#view-coyuntura .coy-kpis .k.hero .v{color:#fff}',
+    '#view-coyuntura .coy-kpis .k .p{font-size:11px;color:var(--muted);margin-top:2px}',
+    '#view-coyuntura .coy-kpis .k.hero .p{color:#99f6e4}',
+    '#view-coyuntura .coy-kpis .k .p.pos{color:#15803d;font-weight:700}',
+    '#view-coyuntura .coy-kpis .k .p.neg{color:#b91c1c;font-weight:700}',
+    '#view-coyuntura .coy-kpis .k.hero .p.pos{color:#6ee7b7}',
+    '#view-coyuntura .coy-kpis .k.hero .p.neg{color:#fca5a5}',
+    '@media(max-width:760px){#view-coyuntura .coy-kpis{grid-template-columns:minmax(0,1fr)}}',
+
+    /* --- tabla del dividendo --- */
+    '#view-coyuntura .coy-tw{overflow-x:auto;border:1px solid var(--line);border-radius:11px}',
+    '#view-coyuntura .coy-tbl{width:100%;border-collapse:collapse;font-size:12.5px;',
+    '  font-variant-numeric:tabular-nums;white-space:nowrap}',
+    '#view-coyuntura .coy-tbl th{background:#f8fafc;text-align:right;font-size:10.5px;font-weight:800;',
+    '  color:var(--muted);text-transform:uppercase;letter-spacing:.02em;padding:8px 10px;',
+    '  border-bottom:1px solid var(--line)}',
+    '#view-coyuntura .coy-tbl td{text-align:right;padding:7px 10px;border-bottom:1px solid #f1f5f9}',
+    '#view-coyuntura .coy-tbl th.l,#view-coyuntura .coy-tbl td.l{text-align:left}',
+    '#view-coyuntura .coy-tbl tbody tr:hover{background:#f8fafc}',
+    '#view-coyuntura .coy-tbl tr.tot td{font-weight:800;background:#f8fafc;border-top:2px solid var(--line);',
+    '  border-bottom:none}',
+    '#view-coyuntura .coy-tbl td.neg{color:#b91c1c}',
+    '#view-coyuntura .coy-tk{color:var(--brand);cursor:pointer;text-decoration:underline;text-underline-offset:2px}',
+    '#view-coyuntura .coy-nm{color:var(--muted);font-size:11px}',
+    '#view-coyuntura .coy-pill{font-size:10.5px;font-weight:800;border-radius:20px;padding:2px 8px;border:1px solid}',
+    '#view-coyuntura .coy-pill.good{background:#dcfce7;color:#166534;border-color:#bbf7d0}',
+    '#view-coyuntura .coy-pill.warn{background:#fef3c7;color:#92400e;border-color:#fde68a}',
+    '#view-coyuntura .coy-pill.bad{background:#fee2e2;color:#991b1b;border-color:#fecaca}',
+
+    /* --- notas y vacio --- */
+    '#view-coyuntura .coy-note{font-size:11.5px;color:var(--muted);line-height:1.5;margin:8px 0}',
+    '#view-coyuntura .coy-note code{background:#f1f5f9;border-radius:4px;padding:1px 5px;font-size:11px}',
+    '#view-coyuntura .coy-empty{background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:12px;',
+    '  padding:14px 16px;font-size:13px;line-height:1.6}',
+    '#view-coyuntura .coy-empty code{background:#fef3c7;border-radius:4px;padding:1px 5px}',
+  ].join('');
+  document.head.appendChild(s);
+}
+
 function renderCoyuntura(){
-  const el=$('#coyBody'); if(!el)return;
+  const el=$('#coyBody');
+  /* Sin `#coyBody` no hay donde pintar. Antes se salia en silencio y la pestaña quedaba
+     en blanco sin una sola pista; ahora al menos lo dice por consola. */
+  if(!el){ try{ console.warn('[Coyuntura] falta #coyBody en index.html: la vista no puede pintarse.'); }catch(e){} return; }
+  _coyCSS();
   if(_macroInf===null||_macroMkt===null){
     el.innerHTML='<div class="coy-note">Cargando el puente macro…</div>';
     if(!renderCoyuntura._pedido){ renderCoyuntura._pedido=true; _coyCargar().then(renderCoyuntura); }
