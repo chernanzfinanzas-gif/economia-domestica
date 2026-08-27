@@ -1354,7 +1354,11 @@ function khGrafLinea(cont, cfg){
         if(fmt){
           const et={};
           let repe=false;
-          for(let g=0;g<=4;g++){ const s=String(fmt(a+(b-a)*g/4)); if(et[s]){repe=true;break;} et[s]=1; }
+          /* Se rotula con la MISMA amplitud con la que se va a dibujar: hay formateadores que
+             deciden los decimales según lo apretado que esté el eje (ver `_khEjeK`), así que
+             comprobarlos sin ella daría un veredicto sobre unas etiquetas que no son las que
+             se verán. */
+          for(let g=0;g<=4;g++){ const s=String(fmt(a+(b-a)*g/4, b-a)); if(et[s]){repe=true;break;} et[s]=1; }
           if(repe) continue;
         }
         return {mn:a,mx:b};
@@ -1365,7 +1369,16 @@ function khGrafLinea(cont, cfg){
   function pinta(){
     const m=z1-z0+1;
     let mn=0, mx=0;
-    if(cfg.baseCero===false){
+    /* [27-ago-2026] `baseCero:'auto'` — CERO MIENTRAS SE VE TODO, AJUSTADO AL ACERCAR.
+       El valor de la cartera es el caso raro en que el cero SI significa algo, asi que la
+       vista completa sigue arrancando en 0. Pero al arrastrar para acercar un mes, ese mismo
+       eje 0→380k dejaba el tramo ocupando cuatro pixeles: una raya plana que niega el gesto
+       que acabas de hacer -has acercado precisamente para ver el detalle-. Con 'auto' el eje
+       se recalcula al tramo VISIBLE en cuanto hay zoom y vuelve al cero al soltarlo (doble
+       clic o «volver a todo»), asi que la escala comparable no se pierde: se recupera con el
+       mismo gesto que la quitó. */
+    const _autoEje=(cfg.baseCero===false)||(cfg.baseCero==='auto'&&(z0>0||z1<n-1));
+    if(_autoEje){
       mn=Infinity; mx=-Infinity;
       for(let i=z0;i<=z1;i++){ const v=num(ys[i]); if(v<mn)mn=v; if(v>mx)mx=v; }
       if(!isFinite(mn)||!isFinite(mx)){ mn=0; mx=1; }
@@ -1382,7 +1395,7 @@ function khGrafLinea(cont, cfg){
     let grid='';
     for(let g=0;g<=4;g++){ const gv=mn+_amp*g/4, y=Y(gv);
       grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
-          +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv):Math.round(gv/1000)+'k')+'</text>'; }
+          +'<text x="'+(pl-7)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+(cfg.fmtEje?cfg.fmtEje(gv,_amp):Math.round(gv/1000)+'k')+'</text>'; }
     let d=''; for(let i=z0;i<=z1;i++) d+=(i===z0?'M':'L')+X(i).toFixed(1)+','+Y(ys[i]).toFixed(1);
     /* [18-ago-2026] SEPARADORES DE SESION, para el detalle de 5 minutos.
        Con varias sesiones pegadas -que es como se leen las cotizaciones: sin los huecos
@@ -1401,7 +1414,10 @@ function khGrafLinea(cont, cfg){
         cortes+='<line x1="'+X(x.i).toFixed(1)+'" y1="'+pt+'" x2="'+X(x.i).toFixed(1)+'" y2="'+(H-pb)+'" stroke="#dbe3ec" stroke-dasharray="2 3"/>'; });
     } else {
       const paso=Math.max(1,Math.ceil(m/6));
-      for(let i=z0;i<=z1;i+=paso) xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i]):xs[i])+'</text>';
+      /* A `fmtX` se le pasa cuántos puntos se están viendo: es lo único que le falta para poder
+         decidir si rotula el año o el día. Sin eso, al acercar un mes el eje repetía «2026»
+         seis veces. Los que no lo usan siguen recibiendo el valor en el primer argumento. */
+      for(let i=z0;i<=z1;i+=paso) xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'+(cfg.fmtX?cfg.fmtX(xs[i],m,n):xs[i])+'</text>';
     }
     const visibles=todasMarcas.filter(i=>i>=z0&&i<=z1);
     let mk=''; visibles.forEach(function(i){
@@ -1414,8 +1430,13 @@ function khGrafLinea(cont, cfg){
        vende— y colorearlos insinuaría una lectura que el gráfico no hace.
        Se distinguen de las marcas de compra por la forma: aquí punto relleno,
        allí anillo hueco. */
+    /* [27-ago-2026] `extremos:'zoom'` — máximo y mínimo SOLO cuando hay tramo acercado.
+       En la vista completa de la cartera el máximo es el último punto (la cartera solo sube) y
+       su etiqueta se montaba encima de la raya del máximo intradía, que dice ese mismo número.
+       Al acercar un mes, en cambio, es la información que uno busca. */
     let ext='';
-    if(cfg.extremos){
+    const _verExt=(cfg.extremos===true)||(cfg.extremos==='zoom'&&(z0>0||z1<n-1));
+    if(_verExt){
       let iH=z0, iL=z0;
       for(let i=z0;i<=z1;i++){ if(ys[i]>ys[iH])iH=i; if(ys[i]<ys[iL])iL=i; }
       const _pinta=function(i,cual){
@@ -1443,16 +1464,31 @@ function khGrafLinea(cont, cfg){
       const fuera=(lv>mx)?1:((lv<mn)?-1:0);
       const ly=Y(fuera>0?mx:(fuera<0?mn:lv));
       const lc=cfg.linea.color||'#b45309';
+      /* [27-ago-2026] La etiqueta pasa de la derecha a la IZQUIERDA. En la cartera el máximo
+         está SIEMPRE al final —sube— así que el rótulo «máximo intradía …» y la etiqueta «máx …»
+         del tramo aterrizaban en el mismo centímetro de esquina y se tachaban entre ellas. A la
+         izquierda no hay nada con lo que chocar: la serie arranca abajo. */
       ref='<line x1="'+pl+'" y1="'+ly.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+ly.toFixed(1)+'" '
         + 'stroke="'+lc+'" stroke-width="1.4" stroke-dasharray="6 4"'+(fuera?' opacity=".6"':'')+'/>'
-        + '<text x="'+(W-pr-3)+'" y="'+(ly+(fuera>0?11:-4)).toFixed(1)+'" text-anchor="end" '
+        + '<text x="'+(pl+3)+'" y="'+(ly+(fuera>0?11:-4)).toFixed(1)+'" text-anchor="start" '
         + 'font-size="9.5" font-weight="700" fill="'+lc+'">'
         + (cfg.linea.txt||'')+(fuera>0?' ↑ fuera del tramo':(fuera<0?' ↓ fuera del tramo':''))+'</text>';
     }
     const col=cfg.color||'#16a34a';
+    const _ejeNota=(cfg.baseCero==='auto'&&_autoEje)?' · eje ajustado al tramo':'';
+    /* [27-ago-2026] La variación PUNTA A PUNTA del tramo acercado. Va aquí y no en la leyenda
+       porque la leyenda la compone quien llama, ANTES de que exista el zoom: solo esta barra
+       se repinta con cada gesto. Es el número que uno busca al acercar un mes —«¿esto sube o
+       baja, y cuánto?»— y sin él hay que leerlo del eje a ojo. */
+    let _vt='';
+    if(z0>0||z1<n-1){
+      const _a=num(ys[z0]), _b=num(ys[z1]);
+      if(_a>0&&isFinite(_b)){ const _p=(_b-_a)/_a*100;
+        _vt=' · <b style="color:'+(_p>=0?'#15803d':'#b91c1c')+'">'+(_p>=0?'+':'')+_p.toFixed(2).replace('.',',')+'%</b> en el tramo'; }
+    }
     const zoomInfo=(z0>0||z1<n-1)
-      ? '<div class="kh-zoom">🔍 '+(cfg.fmtX?cfg.fmtX(xs[z0]):xs[z0])+' → '+(cfg.fmtX?cfg.fmtX(xs[z1]):xs[z1])
-        +' · '+m+' de '+n+' sesiones <button class="kh-unzoom" type="button">volver a todo</button></div>'
+      ? '<div class="kh-zoom">🔍 '+(cfg.fmtX?cfg.fmtX(xs[z0],m,n):xs[z0])+' → '+(cfg.fmtX?cfg.fmtX(xs[z1],m,n):xs[z1])
+        +_vt+' · '+m+' de '+n+' sesiones'+_ejeNota+' <button class="kh-unzoom" type="button">volver a todo</button></div>'
       : '<div class="kh-zoom kh-zoom-off">Arrastra sobre el gráfico para acercar una zona · doble clic para volver</div>';
     wrap.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMid meet">'
       +grid
@@ -1540,6 +1576,20 @@ function khGrafLinea(cont, cfg){
    Decisión de diseño que conviene no revertir: los importes de compra NO van en un
    segundo eje. Una compra de 20.000 € junto a una cartera de 380.000 se ve plana o
    descuadra la escala. Van como punto sobre la línea y el importe en el tooltip. */
+/* [27-ago-2026] Rótulo del eje vertical en miles. Existe porque al acercar un tramo corto el
+   `Math.round(v/1000)+'k'` que traía khGrafLinea por defecto rotulaba «379k · 379k · 380k · 380k»
+   —dos parejas idénticas a distinta altura, que parece un fallo—. Con un decimal eso no pasa, y
+   el «,0» se recorta porque en el histórico completo los pasos son redondos. Además, al pasarlo
+   como `fmtEje`, `_khEje` puede comprobar por sí mismo si dos etiquetas salen iguales y engordar
+   el paso de la rejilla: ésa es la salvaguarda de verdad. */
+function _khEjeK(v, amp){
+  /* Con el histórico entero a la vista el eje va de 0 a ~400k: ahí «403k» es exacto de sobra y
+     un decimal solo añade ruido. Al acercar un mes el recorrido son 40.000 € y sin decimal
+     saldrían dos parejas de etiquetas idénticas. El corte va por la AMPLITUD del eje, no por el
+     valor: es la amplitud la que decide cuántas cifras distinguen una raya de la siguiente. */
+  const d=(amp!=null&&amp<20000)?1:0;
+  return (num(v)/1000).toFixed(d).replace(/\.0$/,'').replace('.',',')+'k';
+}
 function _khIdxDeFecha(labels, f){
   /* primer índice cuya sesión es >= la fecha pedida; -1 si la fecha es posterior
      a todo (una compra de hoy antes de que haya sesión cerrada, p.ej.) */
@@ -1648,8 +1698,13 @@ function mcAbrirGrafCartera(){
   const _MI=maxIntra();
   khGrafLinea(hueco,{
     xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
+    /* Ver khGrafLinea: cero mientras se ve todo el histórico, ajustado al tramo al hacer zoom. */
+    baseCero:'auto', extremos:'zoom', fmtY:eur, fmtEje:_khEjeK,
     linea:_MI?{v:_MI.v, txt:'máximo intradía '+eur(_MI.v)+' · '+dd(_MI.f)}:null,
-    fmtX:iso=>String(iso).slice(0,4),
+    /* Año mientras se ve el histórico entero; día/mes/año en cuanto el tramo baja de ~2 años
+       de sesiones, que es cuando «2026 · 2026 · 2026» deja de decir nada. */
+    fmtX:function(iso,m){ const s=String(iso);
+      return (m!=null&&m<=520)?(s.slice(8,10)+'/'+s.slice(5,7)+'/'+s.slice(2,4)):s.slice(0,4); },
     tip:function(i){
       let h='<b>'+eur(ys[i])+'</b><br>'+dd(labels[i]);
       const c=porIdx[i];

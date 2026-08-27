@@ -632,6 +632,141 @@ function _mcCercaEntrada(){
 }
 
 /* --------------------------------------------------------------------------
+   La escalera de precio · LA MISMA que Análisis, Kanban y Ficha de Tesis
+   --------------------------------------------------------------------------
+   [27-ago-2026] Aquí había una barrita propia de 5 px (`.mc-bar`): un degradado de
+   tres colores con una rayita para la entrada y un cursor negro. Se leía «cerca» o
+   «lejos» y nada más — ni cuánto es la banda, ni dónde queda el precio objetivo, ni
+   dónde está el stop. Y era el CUARTO dibujo del mismo hecho en la misma app, que es
+   exactamente lo que se arregló el 29-jul unificando los otros tres en `khEscalera`.
+   Ahora se llama a esa: mismos colores, mismas etiquetas y mismo gesto en las cuatro
+   pantallas. Va a lo ancho de la fila —no dentro de la columna izquierda— porque el
+   problema de fondo de la barrita no era el dibujo, era el espacio: con 230 px las
+   etiquetas de stop, entrada y PO se pisan y hay que quitarlas.
+   -------------------------------------------------------------------------- */
+function _mcNiveles(t, extra){
+  const a=_mcAna(t); if(!a) return null;
+  const poBase=(typeof poBaseDe==='function')?_mcNum(poBaseDe(a))
+              :(_mcNum(a.precioObjetivo)||0);
+  const V={precio:_mcCot(t), stop:_mcNum(a.stopTesis),
+           entMin:_mcNum(a.entMin), entMax:_mcNum(a.entMax),
+           poBase:poBase, poBear:_mcNum(a.poMin), poBull:_mcNum(a.poMax)};
+  if(extra&&_mcNum(extra.pmedio)>0) V.pmedio=_mcNum(extra.pmedio);
+  return V;
+}
+function _mcEscaleraHTML(t, extra){
+  if(typeof khEscalera!=='function') return '';
+  const V=_mcNiveles(t,extra); if(!V) return '';
+  /* `grande:true, compacto:true` = exactamente la misma llamada que la Ficha de Tesis, que es
+     la referencia que Carlos da por buena. Aquí cabe: la escalera ocupa el ancho de la fila. */
+  let h=''; try{ h=khEscalera(V,{grande:true, compacto:true}); }catch(e){ h=''; }
+  if(!h) return '';
+  return '<div class="mc-esc">'+h+_mcNivelesPie(V)+'</div>';
+}
+/* El pie de la escalera. En modo compacto khEscalera solo rotula los dos extremos de la
+   horquilla: stop, banda de entrada y precio objetivo quedan como marcas de color con el valor
+   en el `title`. Eso vale en una tarjeta del Kanban de 225 px, donde escribirlos los solapa;
+   aquí hay ancho de sobra y el `title` no existe en el móvil —donde no hay ratón que pase por
+   encima—, así que los tres van escritos en una línea, con el mismo color que su marca. */
+function _mcNivelesPie(V){
+  /* Los importes con `_mcEur` y no con `_mcPrecio`: son los MISMOS números que khEscalera
+     escribe dentro del dibujo (PO bear / PO bull / precio), y dos formatos distintos del mismo
+     precio a cuatro centímetros uno de otro se leen como dos precios distintos. */
+  const soloN=function(x){ return _mcEur(x).replace(/\s*€\s*$/,''); };
+  const b=[];
+  if(_mcNum(V.stop)>0)   b.push('<span style="color:#dc2626">stop '+_mcEur(V.stop)+'</span>');
+  const eMin=_mcNum(V.entMin), eMax=_mcNum(V.entMax);
+  if(eMax>0) b.push('<span style="color:#16a34a">entrada '+(eMin>0?(soloN(eMin)+'–'+_mcEur(eMax)):('≤ '+_mcEur(eMax)))+'</span>');
+  if(_mcNum(V.poBase)>0) b.push('<span style="color:#be185d">objetivo '+_mcEur(V.poBase)+'</span>');
+  if(_mcNum(V.pmedio)>0) b.push('<span style="color:#0f172a">tu medio '+_mcEur(V.pmedio)+'</span>');
+  return b.length?('<div class="mc-niv">'+b.join('<i>·</i>')+'</div>'):'';
+}
+
+/* --------------------------------------------------------------------------
+   El estado en el PLAN de diversificación
+   --------------------------------------------------------------------------
+   [27-ago-2026] La pregunta que faltaba en esta pantalla: «de esta empresa, ¿me queda
+   algo por comprar?». Estaba a dos pestañas de distancia (Diversificación) y es justo
+   lo que uno quiere saber mirando la cartera con dinero en la caja.
+
+   No se calcula nada nuevo: la fuente es `_planParams()` (04-plan.js), la MISMA que
+   pinta Diversificación, así que las dos pantallas no pueden decir cifras distintas.
+   De ahí salen los tres estados que hay que distinguir y que se confunden con
+   facilidad:
+
+     · «Mantener»  — decisión de CALIDAD tuya: esta empresa no tiene con qué crecer,
+                     su objetivo se congela en lo que ya llevas invertido.
+     · congelada   — estado DERIVADO del motor (27-ago): la empresa se ha pasado de su
+                     objetivo, así que deja de recibir capital y su cuota se reparte
+                     entre las demás. Se descongela sola cuando la cartera crece. No es
+                     un juicio sobre la empresa, es aritmética del reparto.
+     · pendiente   — le quedan € por comprar. Es el único caso accionable, y por eso
+                     lleva también las acciones que salen a la cotización de hoy: es el
+                     número que se escribe en la orden.
+
+   `_planParams()` no está memoizado y arrastra la Proyección, así que se pide UNA vez
+   por repintado y se pasa a las fichas — no una vez por empresa. */
+function _mcPlanParams(){
+  if(typeof _planParams!=='function') return null;
+  try{ return _planParams(); }catch(e){ return null; }
+}
+var _MC_GRP={joya:['👑 Joya','#7c3aed','#ede9fe','#ddd6fe'],
+             nucleo:['⬢ Núcleo','#1e40af','#dbeafe','#bfdbfe'],
+             mantener:['● Mantener','#475569','#e2e8f0','#cbd5e1']};
+function _mcGrupoChip(tipo){
+  const g=_MC_GRP[tipo];
+  if(!g) return '<span class="mc-grp" style="color:#94a3b8;background:#f1f5f9;border-color:#e2e8f0"'
+                +' title="No está clasificada en el plan de diversificación">◦ sin grupo</span>';
+  return '<span class="mc-grp" style="color:'+g[1]+';background:'+g[2]+';border-color:'+g[3]+'">'+g[0]+'</span>';
+}
+function _mcPlanHTML(t, cot, PL){
+  if(!PL) return '';
+  t=_mcUp(t);
+  const enPlan=(PL.allTk||[]).indexOf(t)>=0;
+  const tipo=(typeof PL.tipoOf==='function')?(PL.tipoOf(t)||''):'';
+  const inv=_mcNum((PL.invByT||{})[t]);
+  const obj=(typeof PL.objEur==='function')?_mcNum(PL.objEur(t)):0;
+  const objT=(typeof PL.objTeorico==='function')?_mcNum(PL.objTeorico(t)):obj;
+  const congel=!!(PL.congel&&PL.congel.has&&PL.congel.has(t));
+  const pend=obj-inv;
+
+  if(!enPlan){
+    /* Sin chip de grupo: «sin grupo» y «fuera del plan» dicen lo mismo dos veces. */
+    return '<div class="mc-plan fuera" title="No está en el plan de diversificación, así que no tiene objetivo ni entra en el reparto. Se añade desde Diversificación.">'
+      +'<span>◦ fuera del plan de diversificación</span></div>';
+  }
+  let cls='ok', txt='', tit='Objetivo '+_mcEur(obj)+' · invertido '+_mcEur(inv);
+  if(tipo==='mantener'){
+    cls='hielo';
+    txt='🧊 congelada en su coste — «Mantener» no amplía';
+    tit='«Mantener»: su objetivo se congela en lo ya invertido ('+_mcEur(inv)+'). Es tu decisión sobre la calidad de la empresa, no del reparto.';
+  } else if(congel){
+    cls='hielo';
+    const ex=inv-objT;
+    txt='🧊 congelada — ya supera su objetivo'+(ex>0.5?(' en '+_mcEur(ex)):'');
+    tit='El reparto la congela en su coste porque se ha pasado de su objetivo teórico ('+_mcEur(objT)+' frente a '+_mcEur(inv)+' invertidos). Deja de recibir capital y su cuota va a las demás; se descongela sola cuando la cartera crezca.';
+  } else if(pend>0.5){
+    cls='pend';
+    const acc=(cot>0)?Math.floor(pend/cot):0;
+    const suf=(acc>0?(' <span class="mc-acc">≈ '+acc+' acc.</span>'):'');
+    /* Dos redacciones para el mismo número, porque no significan lo mismo. Con la posición ya
+       abierta, el pendiente es lo que FALTA. Sin abrir, el pendiente es la posición objetivo
+       ENTERA — y ahí «quedan 24.303 € por comprar» repetido en cinco fichas seguidas se lee
+       como un fallo de la app, cuando lo que dice es justo el diseño del plan: todas las de
+       núcleo tienen el mismo tamaño objetivo. */
+    if(inv>0.5){ txt='quedan <b>'+_mcEur(pend)+'</b> por comprar'+suf; }
+    else{ txt='sin empezar · posición objetivo <b>'+_mcEur(pend)+'</b>'+suf; }
+    tit=tit+' · a la cotización de hoy ('+_mcEur(cot)+')';
+  } else if(obj>0.5){
+    cls='ok'; txt='✓ objetivo del plan cubierto';
+  } else {
+    cls='sin'; txt='sin objetivo — clasifícala en Diversificación';
+    tit='Está en el plan pero sin grupo, así que su objetivo es 0 € y no entra en el reparto.';
+  }
+  return '<div class="mc-plan '+cls+'" title="'+_mcEsc(tit)+'">'+_mcGrupoChip(tipo)+'<span>'+txt+'</span></div>';
+}
+
+/* --------------------------------------------------------------------------
    Render
    -------------------------------------------------------------------------- */
 var _mcPreciosPedidos=false;
@@ -661,6 +796,9 @@ function renderMiCartera(){
   const diaTit=vivas?'Hoy':'Última sesión';
   const diaSes=(!vivas&&conDia.length)?_mcFecha(conDia[0].diaSesion,true):'';
   const selloG=_mcSelloGlobal(P.map(function(p){ return p.ticker; }));
+  /* Una sola lectura del plan para toda la pantalla: `_planParams()` recalcula la Proyección
+     y el reparto entero, así que pedirlo por ficha serían 30 pasadas para el mismo número. */
+  const PL=_mcPlanParams();
 
   /* ---- KPIs ---- */
   let kpis='<div class="pos-kpis mc-kpis">'
@@ -723,11 +861,15 @@ function renderMiCartera(){
          entero; y el ticker, que ya estaba escrito ahi, se convierte en la puerta a la
          Ficha con su subrayado y su color de enlace para que se vea que lo es. */
       return '<div class="mc-row" data-mcgrafv="'+p.ticker+'" title="Ver el gráfico de '+_mcEsc(p.nombre)+'">'
+        +'<div class="mc-top">'
         +'<div class="mc-l">'
         +  '<div class="mc-nom">'+_mcEsc(p.nombre)
         +    (compartida?'<span class="mc-cart">'+_mcEsc(p.carteras.join(' + '))+'</span>':'')+'</div>'
         +  '<div class="mc-sub">BME · <b class="mc-tk" data-ficha="'+p.ticker+'" title="Abrir la ficha de '+_mcEsc(p.nombre)+'">'+p.ticker+'</b></div>'
         +  '<div class="mc-sub">Compra '+(Math.round(p.acc*10000)/10000)+' @ '+_mcPrecio(p.pmedio)+'</div>'
+        /* Debajo del precio medio y las acciones, lo que falta por comprar de ESTA empresa —o
+           por qué no falta nada—. Ver `_mcPlanHTML`. */
+        +  _mcPlanHTML(p.ticker, p.cot, PL)
         +'</div>'
         +'<div class="mc-r">'
         +  '<div class="mc-cot">'+_mcEur(p.cot)+'</div>'
@@ -735,6 +877,10 @@ function renderMiCartera(){
         +  dia
         +  '<div class="mc-pl '+(p.pl>=0?'pos':'neg')+'">'+(p.pl>=0?'+':'')+_mcEur(p.pl)+' <span>('+_mcPct(p.plPct,1)+')</span></div>'
         +'</div>'
+        +'</div>'
+        /* La escalera va a lo ancho de la fila: en posición abierta lleva además tu precio
+           medio como marca, que es la referencia que no tiene ninguna otra pantalla. */
+        +_mcEscaleraHTML(p.ticker,{pmedio:p.pmedio})
         +'</div>';
     }).join('');
     lista='<div class="mc-list">'+lista+'</div>'
@@ -759,6 +905,11 @@ function renderMiCartera(){
         : (c.gap<=m*100
             ? '<span class="mc-chip near">🟡 a '+_mcPct(c.gap,1).replace('+','')+'</span>'
             : '<span class="mc-chip far">🟠 a '+_mcPct(c.gap,1).replace('+','')+'</span>');
+      /* [27-ago-2026] La barrita de 5 px ya no es lo que se pinta: la sustituye `khEscalera`,
+         la misma de Análisis, Kanban y Ficha de Tesis. Se conserva como RESERVA para la empresa
+         que tiene banda de entrada pero no tiene niveles suficientes para una escalera (sin PO
+         ni stop): ahí la escalera devuelve vacío y sin esto la ficha se quedaba sin ninguna
+         referencia visual de lo cerca que está. */
       const barra=(function(){
         /* Escala: borde izquierdo −margen, borde derecho +3×margen. La entrada queda al 25% y
            marcada con una raya, para que se vea de un vistazo quién la ha cruzado y quién no. */
@@ -771,6 +922,7 @@ function renderMiCartera(){
          una empresa que aun no tienes, que es justo de la que quieres saber si esta cara.
          Mismo criterio en los dos bloques: tarjeta -> grafico, ticker -> Ficha. */
       return '<div class="mc-row cerca" data-mcgrafv="'+c.ticker+'" title="Ver el gráfico de '+_mcEsc(c.nombre)+'">'
+        +'<div class="mc-top">'
         +'<div class="mc-l">'
         +  '<div class="mc-nom">'+_mcEsc(c.nombre)+' '+chip+'</div>'
         +  '<div class="mc-sub">BME · <b class="mc-tk" data-ficha="'+c.ticker+'" title="Abrir la ficha de '+_mcEsc(c.nombre)+'">'+c.ticker+'</b> · '+_mcEsc(c.decision||'—')
@@ -779,7 +931,8 @@ function renderMiCartera(){
         +      (c.rpd==null?'Esta empresa no está en la base de dividendos'
                           :'Dividendo bruto declarado del año en curso ÷ cotización')+'">RPD '
         +      (c.rpd==null?'—':(c.rpd.toFixed(1).replace('.',',')+'%'))+'</span></div>'
-        +  barra
+        /* Aquí «lo que queda por comprar» es el objetivo entero: no hay nada invertido todavía. */
+        +  _mcPlanHTML(c.ticker, c.cot, PL)
         +'</div>'
         +'<div class="mc-r">'
         +  '<div class="mc-cot">'+_mcEur(c.cot)+'</div>'
@@ -787,6 +940,8 @@ function renderMiCartera(){
         +  '<div class="mc-dia muted">entrada ≤ <b>'+_mcEur(c.entMax)+'</b></div>'
         +  '<div class="mc-pl '+(dentro?'pos':'neg')+'">'+(dentro?'ya comprable':'sobra '+_mcEur(c.cot-c.entMax))+'</div>'
         +'</div>'
+        +'</div>'
+        +(_mcEscaleraHTML(c.ticker)||barra)
         +'</div>';
     }).join('')+'</div>';
   }
@@ -920,11 +1075,41 @@ function _mcCSS(){
     '#view-micartera .mc-h-s{font-size:11px;font-weight:600;text-transform:none;letter-spacing:0;opacity:.8}',
     '#view-micartera .mc-list{background:var(--panel);border:1px solid var(--line);border-radius:14px;',
     '  box-shadow:var(--shadow);overflow:hidden}',
-    '#view-micartera .mc-row{display:flex;align-items:flex-start;gap:12px;padding:13px 16px;cursor:pointer;',
+    /* [27-ago-2026] La fila deja de ser un flex de dos columnas y pasa a ser un bloque con
+       DOS PISOS: arriba `.mc-top` (los datos, en dos columnas como siempre) y debajo la
+       escalera de precio a todo lo ancho. Es el cambio que hace legible la escalera: metida
+       en la columna izquierda tenía 230 px y las etiquetas de stop, entrada y PO se pisaban
+       —que es justo por lo que la barrita anterior no las llevaba—. */
+    '#view-micartera .mc-row{display:block;padding:13px 16px;cursor:pointer;',
     '  border-bottom:1px solid var(--line);transition:background .12s}',
+    '#view-micartera .mc-top{display:flex;align-items:flex-start;gap:12px}',
     '#view-micartera .mc-row:last-child{border-bottom:none}',
     '#view-micartera .mc-row:hover{background:#f8fafc}',
     '#view-micartera .mc-l{flex:1 1 auto;min-width:0}',
+    /* La escalera se centra y se le pone un tope: a 1.400 px de ancho, estirarla solo separa
+       las etiquetas hasta que dejan de leerse como un grupo. */
+    '#view-micartera .mc-esc{max-width:560px;margin:2px auto 0;padding:0 4px}',
+    /* Va DEBAJO del hueco que khEscalera se reserva para el precio y el aviso de horquilla
+       (44 px de margen inferior). Subirlo a base de margen negativo los pisaba. */
+    '#view-micartera .mc-niv{margin-top:-4px;text-align:center;font-size:11px;font-weight:700;',
+    '  font-variant-numeric:tabular-nums;line-height:1.4}',
+    '#view-micartera .mc-niv i{color:#cbd5e1;font-style:normal;margin:0 6px}',
+    /* En el móvil la línea parte, pero entre niveles — nunca dejando «tu medio» en una fila y
+       su importe en la siguiente. */
+    '#view-micartera .mc-niv span{white-space:nowrap}',
+    /* La línea del plan: chip de grupo + el estado. Colores por lo que significa, no por
+       decorar — hielo para las dos congelaciones, ámbar para lo que queda por comprar. */
+    '#view-micartera .mc-plan{display:flex;align-items:center;gap:6px;flex-wrap:wrap;',
+    '  font-size:11.5px;font-weight:600;margin-top:4px;line-height:1.35}',
+    '#view-micartera .mc-plan b{font-weight:800;font-variant-numeric:tabular-nums}',
+    '#view-micartera .mc-plan.pend{color:#92400e}',
+    '#view-micartera .mc-plan.hielo{color:#3730a3}',
+    '#view-micartera .mc-plan.ok{color:#15803d}',
+    '#view-micartera .mc-plan.sin{color:#b45309}',
+    '#view-micartera .mc-plan.fuera{color:#94a3b8;font-weight:600}',
+    '#view-micartera .mc-acc{font-weight:700;opacity:.75}',
+    '#view-micartera .mc-grp{font-size:9.5px;font-weight:800;border-radius:20px;padding:1px 7px;',
+    '  border:1px solid;white-space:nowrap;flex:none}',
     '#view-micartera .mc-r{flex:none;text-align:right;min-width:132px}',
     '#view-micartera .mc-nom{font-size:16px;font-weight:700;color:#0f172a;line-height:1.25;',
     '  display:flex;align-items:center;gap:7px;flex-wrap:wrap}',
@@ -946,14 +1131,15 @@ function _mcCSS(){
     '#view-micartera .mc-chip.near{background:#fef3c7;color:#92400e;border:1px solid #fde68a}',
     '#view-micartera .mc-chip.far{background:#ffedd5;color:#9a3412;border:1px solid #fed7aa}',
     '#view-micartera .mc-bar{position:relative;height:5px;background:linear-gradient(90deg,#bbf7d0 0%,#fde68a 25%,#fed7aa 100%);',
-    '  border-radius:4px;margin-top:7px;max-width:230px}',
+    '  border-radius:4px;margin:9px auto 2px;max-width:230px}',
     '#view-micartera .mc-bar u{position:absolute;left:25%;top:-2px;width:1px;height:9px;background:#64748b;opacity:.7}',
     '#view-micartera .mc-bar i{position:absolute;top:-3px;width:3px;height:11px;background:#0f172a;border-radius:2px;transform:translateX(-1px)}',
     '#view-micartera .mc-leyenda{font-size:11.5px;color:var(--muted);margin-top:7px;line-height:1.5}',
     '#view-micartera .mc-vacio{background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:12px;',
     '  padding:13px 15px;font-size:13px}',
     '@media(max-width:560px){',
-    '  #view-micartera .mc-row{padding:11px 13px;gap:8px}',
+    '  #view-micartera .mc-row{padding:11px 13px}',
+    '  #view-micartera .mc-top{gap:8px}',
     '  #view-micartera .mc-nom{font-size:15px}',
     '  #view-micartera .mc-cot{font-size:17px}',
     '  #view-micartera .mc-r{min-width:118px}',

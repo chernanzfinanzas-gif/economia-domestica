@@ -1382,6 +1382,12 @@ function khEscalera(V, opts){
   var F = function(x){ return (typeof fmt==='function')?fmt(x):((Math.round(x*100)/100)+' €'); };
   var cot=n(V.precio), stop=n(V.stop), eMin=n(V.entMin), eMax=n(V.entMax);
   var pBase=n(V.poBase), pBear=n(V.poBear), pBull=n(V.poBull);
+  /* [27-ago-2026] NIVEL OPCIONAL: TU PRECIO MEDIO DE COMPRA.
+     Solo lo pasa Mi Cartera, donde la escalera se dibuja sobre una posicion ABIERTA y la
+     pregunta no es solo «esta barata» sino «respecto a lo que YO pague». El grafico de la
+     Ficha ya lo pintaba; las tres escaleras, no. Es aditivo: quien no lo pasa ve exactamente
+     lo de antes -no entra en `pts`, asi que ni siquiera mueve el encuadre del eje-. */
+  var pMed=n(V.pmedio);
   if(!(cot>0)) return '';
   if(!(eMax>0 || pBase>0 || stop>0)) return '';
   var grande = !!opts.grande;
@@ -1394,11 +1400,16 @@ function khEscalera(V, opts){
   var compacto = !!opts.compacto;
   var H  = grande?19:15, TICK=grande?28:23, TOP=grande?4:-1;
 
+  /* OJO: `pMed` NO entra en `pts`. Una posición vieja puede tener el precio medio a la mitad
+     de la cotización -SAN: 4,78 frente a 12,64- y meterlo en el encuadre estira el eje hasta
+     dejar la banda de entrada aplastada en dos milímetros, que es justo lo que se viene a
+     mirar. Se dibuja solo si cae DENTRO del tramo que ya pedían los niveles; si queda fuera,
+     esa distancia ya la cuenta la plusvalía de la ficha y no hace falta deformar el dibujo. */
   var pts=[cot,stop,eMin,eMax,pBase,pBear,pBull].filter(function(v){ return v>0; });
   var lo=Math.min.apply(null,pts)*0.97, hi=Math.max.apply(null,pts)*1.03, rng=(hi-lo)||1;
   var P=function(v){ return Math.max(0,Math.min(100,(v-lo)/rng*100)); };
 
-  var COL={stop:'#dc2626',ent:'#16a34a',po:'#be185d',bear:'#b45309',bull:'#7c3aed'};
+  var COL={stop:'#dc2626',ent:'#16a34a',po:'#be185d',bear:'#b45309',bull:'#7c3aed',pmed:'#0f172a'};
   var s=P(stop), emn=P(eMin), emx=P(eMax), pm=P(pBase);
   var cortes=[s,emn,emx,pm].slice(); for(var i=1;i<cortes.length;i++){ if(cortes[i]<cortes[i-1])cortes[i]=cortes[i-1]; }
   s=cortes[0]; emn=cortes[1]; emx=cortes[2]; pm=cortes[3];
@@ -1432,7 +1443,13 @@ function khEscalera(V, opts){
   }
   /* El aviso de horquilla SÍ se queda en compacto: es lo único de aquí que no se ve a simple
      vista, y en la tarjeta va debajo del todo para no pisar el precio. */
-  var yAviso = compacto ? (grande?-40:-36) : yChips;
+  /* [27-ago-2026] EL AVISO DE HORQUILLA SE MONTABA ENCIMA DEL PRECIO.
+     En compacto el precio ocupa una sola línea justo bajo la barra —de +11 a +30 px— y el chip
+     iba a −40, es decir de +22 a +40: se solapaban unos 8 px y el precio quedaba tachado. Se ve
+     en cuanto una empresa cotiza fuera de su horquilla, que no es raro (CIE por debajo del PO
+     bear). Ahora el chip arranca DEBAJO del precio, y el margen inferior crece solo cuando el
+     aviso existe, para no dejar un hueco muerto en las 24 empresas que no lo llevan. */
+  var yAviso = compacto ? (grande?-54:-48) : yChips;
   if(fueraArriba) chips+=chip(Math.min(94,P(pBull)),COL.bull,'#fff','por encima del PO bull',yAviso);
   else if(fueraAbajo) chips+=chip(Math.max(8,P(pBear)),COL.bear,'#fff','por debajo del PO bear',yAviso);
 
@@ -1452,10 +1469,13 @@ function khEscalera(V, opts){
     : (lbl(stop,COL.stop,'Stop',TICK+3)+lbl(eMax,COL.ent,'Entrada',TICK+3)+lbl(pBase,COL.po,'P. objetivo',TICK+3)
        +lbl(pBear,COL.bear,'PO bear',TICK+25)+lbl(pBull,COL.bull,'PO bull',TICK+25));
 
-  var margen = compacto ? (grande?'40px 16px 44px':'34px 14px 38px')
+  var hayAviso = !!(fueraArriba||fueraAbajo);
+  var margen = compacto ? (grande?('40px 16px '+(hayAviso?'76px':'44px'))
+                                 :('34px 14px '+(hayAviso?'68px':'38px')))
                         : (grande?'62px 34px 62px':'52px 30px 56px');
   return '<div style="position:relative;margin:'+margen+'">'
     +'<div style="height:'+H+'px;border-radius:8px;background:'+grad+'"></div>'
+    +((pMed>0&&pMed>=lo&&pMed<=hi)?tick(pMed,COL.pmed,1,'Tu precio medio'):'')
     +tick(pBear,COL.bear,1,'PO bear')+tick(pBull,COL.bull,1,'PO bull')
     +tick(stop,COL.stop,0,'Stop')+tick(eMin,COL.ent,0,'Entrada mín.')+tick(eMax,COL.ent,0,'Entrada máx.')+tick(pBase,COL.po,0,'P. objetivo')
     +etiquetas
