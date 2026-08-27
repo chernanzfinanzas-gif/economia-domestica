@@ -829,7 +829,7 @@ function renderMiCartera(){
      5 minutos y únicamente con la pestaña visible. En el móvil, además, no hay .bat que valga. */
   if(P.length) kpis+='<div class="mc-fuente '+selloG.cls+'"><span class="d"></span>'
     +'<span class="mc-fuente-t">'+selloG.txt+'</span>'
-    +'<button class="mc-refr" data-mcrefr="1"'+(_mcRefrescando?' disabled':'')+'>'
+    +'<button class="mc-refr" data-mcrefr="1" title="Vuelve a pedir el intradía y, si ya está publicado, el cierre de Google de hoy"'+(_mcRefrescando?' disabled':'')+'>'
     +(_mcRefrescando?'…':'↻ Actualizar')+'</button>'
     /* Y el enlace para FORZAR un pase nuevo. No se puede disparar desde aquí —haría falta un
        token con permiso de Actions dentro de un repo público—, pero la página de GitHub sí
@@ -1004,7 +1004,24 @@ function _mcRefrescar(){
     else                   _mcAviso='Ya tenías el último pase, el de las '+j.hora+'. El siguiente entra a los minutos :00, :20 o :40.';
   }).catch(function(){
     _mcAviso='No he podido conectar. ¿Sin cobertura?';
-  }).then(function(){
+  })
+  /* [27-ago-2026] EL BOTÓN TAMBIÉN PIDE EL CIERRE DE GOOGLE.
+     `↻ Actualizar` es lo que uno pulsa cuando ve que falta un precio, y hasta hoy solo
+     repreguntaba el INTRADÍA. La tarde del 27-ago el cierre de Google estaba publicado en
+     la rama `datos` desde hacía media hora y este botón no lo traía: pedía justo la fuente
+     que a esas horas ya no se actualiza —la sesión está cerrada— y no la que acababa de
+     llegar. Se piden las dos, en este orden: primero el intradía, que es lo barato y lo
+     habitual, y encima el cierre, que manda sobre él cuando existe. */
+  .then(function(){
+    if(typeof sincronizarCierreGoogle!=='function') return null;
+    return Promise.resolve(sincronizarCierreGoogle()).catch(function(){ return null; });
+  })
+  .then(function(g){
+    if(g&&g.ok) _mcAviso+=' · '+g.ok+' cierres de Google aplicados.';
+    else if(typeof cierreGoogleEnEspera==='function'&&cierreGoogleEnEspera())
+      _mcAviso+=' El cierre de Google de hoy aún no está publicado; sigo mirándolo cada 10 min.';
+  })
+  .then(function(){
     _mcRefrescando=false; renderMiCartera();
   });
 }

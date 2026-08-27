@@ -297,9 +297,64 @@
   var URL_GOOGLE = 'https://raw.githubusercontent.com/chernanzfinanzas-gif/' +
                    'economia-domestica/datos/cierre-google.json';
 
+  /* ============================================================
+     EL REINTENTO — por que una sola pregunta no basta        [27-ago-2026]
+     ------------------------------------------------------------
+     `sincronizarGoogle()` se llamaba UNA vez, seis segundos despues de cargar la
+     pagina, y no volvia a preguntar jamas. Con la app instalada como PWA eso no es
+     «una vez al dia»: es una vez por arranque, y el ordenador de casa lleva la
+     ventana abierta desde por la manana. Preguntaba a las 09:00 -cuando el fichero
+     de hoy logicamente no existe-, se encontraba un 404 y ahi se quedaba.
+
+     El 27-ago-2026 se vio en vivo: GitHub tiro los DOS pases programados, Carlos lanzo
+     el workflow a mano a las 23:02, el fichero se publico perfectamente... y la app
+     siguio sin el cierre hasta que recargo. El dato estaba publicado y la app no lo
+     pedia. Es el mismo fallo que el intradia resolvio el 06-ago con su temporizador, y
+     se copia el patron entero: cada 10 minutos, SOLO con la pestaña visible, y ademas
+     al volver a la pestaña.
+
+     Tres guardas para no pedir por pedir:
+       · Solo de LUNES A VIERNES y a partir de las 18:40 locales. Antes de esa hora el
+         fichero de hoy no existe todavia y preguntar es ruido garantizado. La hora sale
+         de la medicion real: los pases programados a 18:50/19:50 CEST aterrizan entre
+         25 y 52 minutos tarde, asi que la ventana util es de 18:40 a medianoche.
+       · Se para en cuanto el cierre de hoy ESTA. El testigo `DB.excelCierres[hoy]` es
+         la señal, y sirve tambien si el cierre entro por el fichero de Excel: si ya
+         tienes cierre de hoy, venga de donde venga, no hay nada que ir a buscar.
+       · Un minuto de guarda entre peticiones, porque `visibilitychange` se dispara cada
+         vez que cambias de pestaña y sin esto alt-tabear seria un sondeo por gesto.
+     Fuera de esa ventana esto no cuesta NADA: ni un fetch, porque se corta antes.
+     ============================================================ */
+  var _G_DESDE_MIN = 18 * 60 + 40;      /* 18:40 en hora local */
+  var _G_CADA_MS   = 10 * 60 * 1000;
+  var _G_GUARDA_MS = 60 * 1000;
+  var _gUltima = 0;
+
+  /* Hora LOCAL a proposito, no UTC: «son mas de las 18:40 y es dia de bolsa» es una
+     afirmacion sobre el reloj de Madrid, no sobre el meridiano de Greenwich. */
+  function _googleEnVentana() {
+    var d = new Date(), dow = d.getDay();
+    if (dow === 0 || dow === 6) return false;
+    return (d.getHours() * 60 + d.getMinutes()) >= _G_DESDE_MIN;
+  }
+  function _googleYaAplicado() {
+    try {
+      var D = (typeof DB !== 'undefined') ? DB : null;
+      return !!(D && D.excelCierres && D.excelCierres[_hoy()]);
+    } catch (e) { return false; }
+  }
+  /* Estado legible desde la consola cuando algo no cuadre: dice si la app esta
+     esperando el cierre, y por que no lo esta pidiendo si no lo pide. */
+  function _googleEstado() {
+    return { enVentana: _googleEnVentana(), yaAplicado: _googleYaAplicado(),
+             ultimaPeticion: _gUltima ? new Date(_gUltima).toISOString() : null,
+             ultimoFallo: (typeof window !== 'undefined') ? (window._cierreGoogleFallo || null) : null };
+  }
+
   function sincronizarGoogle() {
     if (typeof fetch !== 'function') return Promise.resolve(null);
     if (typeof window !== 'undefined' && window._demoOn) return Promise.resolve(null);
+    _gUltima = Date.now();
     var hoy = _hoy();
     return fetch(URL_GOOGLE + '?t=' + Date.now(), { cache: 'no-store' })
       .then(function (r) {
@@ -463,6 +518,26 @@
         .catch(function () { return null; })
         .then(function () { try { verificar(); } catch (e) {} });
     }, 6000);
+
+    /* El temporizador de arriba. Mismo patron que `_intradiaTimer` de 01-core.js. */
+    (function _googleTimer() {
+      if (typeof window === 'undefined') return;
+      if (window._cierreGoogleTimerOn) return;
+      window._cierreGoogleTimerOn = true;
+      var tick = function () {
+        try {
+          if (document.visibilityState !== 'visible') return;
+          if (!_googleEnVentana()) return;
+          if (_googleYaAplicado()) return;
+          if (Date.now() - _gUltima < _G_GUARDA_MS) return;
+          sincronizarGoogle();
+        } catch (e) {}
+      };
+      setInterval(tick, _G_CADA_MS);
+      document.addEventListener('visibilitychange', function () {
+        if (document.visibilityState === 'visible') tick();
+      });
+    })();
   }
 
   /* expuesto para pruebas y para la paleta de comandos */
@@ -471,9 +546,12 @@
     window.verificarCierresExcel = verificar;
     window._khExcelAplicar = aplicar;
     window.sincronizarCierreGoogle = sincronizarGoogle;
+    window.cierreGoogleEstado = _googleEstado;
+    window.cierreGoogleEnEspera = function () { return _googleEnVentana() && !_googleYaAplicado(); };
   }
   if (typeof module !== 'undefined' && module.exports) {
     module.exports = { aplicar: aplicar, comparar: comparar, sincronizarGoogle: sincronizarGoogle,
-                      fuenteCorta: _fuenteCorta };
+                      fuenteCorta: _fuenteCorta, googleEnVentana: _googleEnVentana,
+                      googleYaAplicado: _googleYaAplicado };
   }
 })();

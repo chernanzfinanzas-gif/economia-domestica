@@ -12,10 +12,23 @@ name: Cierre desde Google
 #  HORAS (en UTC; Madrid es UTC+2 en verano y UTC+1 en invierno)
 #    "50 16 * * 1-5" -> 18:50 CEST. La buena en VERANO.
 #    "50 17 * * 1-5" -> 18:50 CET.  La buena en INVIERNO.
-#  Se lanzan las dos todo el año a proposito: la que cae fuera de hora no
+#    "20 18 * * 1-5" -> 20:20 CEST / 19:20 CET. PASE DE RED, ver abajo.
+#  Se lanzan las dos primeras todo el año a proposito: la que cae fuera de hora no
 #  encuentra el bloque de control y publica lo mismo, o no publica nada. Es mas
 #  barato que un cron que hay que acordarse de cambiar dos veces al año --y que
 #  el dia que se olvide fallara en silencio.
+#
+#  EL PASE DE RED, Y POR QUE HACE FALTA               [27-ago-2026]
+#  Los `schedule` de GitHub son de MEJOR ESFUERZO: se retrasan --y se tiran-- cuando
+#  la cola va cargada. No es teoria, esta medido en el historico de commits de la
+#  rama `datos`: los pases de las 16:50/17:50 aterrizan siempre entre 25 y 52 minutos
+#  tarde (17:15-17:42 y 18:13-18:28 UTC del 20 al 26-ago). Y el 27-ago se cayeron los
+#  DOS: cero commits ese dia hasta que Carlos lo lanzo a mano a las 21:02.
+#  Un tercer intento a las 18:20 UTC cubre ese caso y sigue estando muy por delante
+#  del T+1 de Yahoo de las 07:40. No cuesta nada el dia que los otros funcionan: el
+#  paso «Publicar» compara contra el indice y sale sin commit si no hay diferencia.
+#  Lo que NO arregla es un dia en que GitHub tire los tres; para eso esta el reintento
+#  de la app (26-excelprecios.js, `_googleTimer`), que repregunta cada 10 minutos.
 #
 #  POR QUE A LAS 18:50 Y NO A LAS 18:15
 #  La hoja captura DOS veces: `cierre` a las 17:55-18:10 y `control` a las
@@ -32,6 +45,7 @@ on:
   schedule:
     - cron: "50 16 * * 1-5"
     - cron: "50 17 * * 1-5"
+    - cron: "20 18 * * 1-5"
   workflow_dispatch: {}
 
 permissions:
