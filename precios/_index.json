@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-08-27",
+"actualizado": "2026-08-28",
 "ventana_dias": 10,
-"ventana_desde": "2026-08-17",
+"ventana_desde": "2026-08-18",
 "tickers": [
 {
 "ticker": "A3M",
@@ -371,8 +371,8 @@
 "ticker": "IBEX",
 "symbol": "^IBEX",
 "desde": "1999-01-04",
-"hasta": "2026-08-26",
-"n": 7006
+"hasta": "2026-08-27",
+"n": 7007
 },
 {
 "ticker": "IBG",
@@ -679,8 +679,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-08-21",
-"n": 3999
+"hasta": "2026-08-26",
+"n": 4002
 },
 {
 "ticker": "TUB",
