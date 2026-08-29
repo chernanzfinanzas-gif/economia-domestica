@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IBE · Nota de Revisión Extraordinaria · Agosto 2026</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#1BA545;--corp-dark:#127330;--corp-light:#EAF7EE}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo Disc.</div>
+      <div class="company-name">Iberdrola, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">Disc. · Revisión discrecional</span>
+        <span class="badge badge-sig">Agosto 2026</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">IBE · Bolsa de Madrid · IBEX 35<br>Fecha: 29 de agosto de 2026<br>Plazo señal: sin plazo · iniciada por el analista</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">ESPERAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">17,66 €</div><div class="kpi-sub">sin cambios</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">20,28 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">−12,9 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Techo sancionador</div><div class="kpi-val green">≈1,6 %</div><div class="kpi-sub">del EBITDA, en el peor caso</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Motivo de la revisión</div>
+  <p>No hay ninguna señal S1–S6 abierta: <b>ésta es una revisión discrecional</b>, iniciada por el analista. El motivo es un hueco detectado al cerrar el análisis: la CNMC mantiene abiertos expedientes sancionadores contra sociedades del grupo Iberdrola por el incidente eléctrico peninsular del 28 de abril de 2025, y <b>ninguna de las trece pestañas del libro los nombra</b>. El §8.1 tiene un riesgo «Societario y litigios» (probabilidad Baja-Media, impacto derivado −0,28 % suave / −0,83 % duro sobre el precio objetivo) cuyo contenido son otras tres cosas: ScottishPower contra el HMRC en el Supremo británico, los litigios de Brasil y el expediente del artículo 12.5. El apagón no está. La revisión se ha rehecho <b>desde la fuente primaria</b>: la nota discrecional del 17 de agosto que documentaba estos expedientes vive en la carpeta «Método antiguo (no intervenir)» y no se ha abierto, para no heredar su cifra ni su juicio.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p><b>El hecho está confirmado en fuente primaria, y el recuento NO.</b> La CNMC publicó el 17 de abril de 2026 la incoación de la primera tanda de expedientes sancionadores del incidente del 28-A, y el 24 de abril anunció que continuaba abriendo más. Su propia nota fija dos cosas que importan para leer esto con proporción: que el incidente <b>«respondió a un origen multifactorial»</b> y que la incoación <b>no prejuzga la responsabilidad</b> de nadie sobre la causa del apagón; y que los procedimientos duran <b>entre nueve y dieciocho meses</b> según la gravedad, de modo que las primeras resoluciones no llegarían antes de <b>enero de 2027</b>.<br><br>El desglose por sociedad la CNMC no lo publica en la nota, y su listado de expedientes en tramitación no fue accesible. Reconstruido con prensa financiera como fuente secundaria: en la tanda del 17 de abril, <b>Iberdrola Generación recibió 5 expedientes por el artículo 65.8</b> (infracción <b>grave</b>) y un sexto le llegó a través de la nuclear Ascó-Vandellòs II, participada con Endesa; el 27 de abril se incoó a la nuclear del grupo un segundo expediente calificado <b>muy grave</b>; y el 4 de mayo, en una tanda de ocho, le correspondió uno más por el <b>artículo 64.37</b>. A esa fecha el total del sector era de <b>64 expedientes</b> y los de Iberdrola <b>«superaban la veintena»</b>.<br><br><b>Y aquí está el hallazgo incómodo de esta revisión.</b> El análisis se cerró el 26 de agosto anotando <b>18 expedientes</b>. Ese número no lo sostiene ninguna de las fuentes consultadas: la primera tanda da seis, y a 4 de mayo la cifra ya pasaba de veinte. El recuento exacto a día de hoy queda en <b>«Pte. Revisión»</b> —requiere el listado oficial de expedientes en tramitación de la CNMC, que no se pudo recuperar— y se corrige por escrito el dato con el que se cerró el análisis. Un número sin fuente entró en el cierre; esta nota lo saca.</p>
+  <div class="cb-src">CNMC · notas de 17 y 24 de abril de 2026 (fuente primaria) · desglose por sociedad vía prensa financiera (secundaria) · art. 67 de la Ley 24/2013 para las cuantías</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Por qué es PUNTUAL en lo financiero</div>
+    <div class="seg-body"><b>El techo teórico es pequeño contra esta empresa.</b> El artículo 67 de la Ley 24/2013 tarifa la infracción muy grave entre 6.000.001 y 60.000.000 € y la grave entre 600.001 y 6.000.000 €. Poniéndose en el peor caso imaginable —unos veintidós expedientes, los dos muy graves al máximo y los veinte graves también al máximo— el techo sale en torno a <b>240 M€</b>: un <b>1,6 % del EBITDA</b> (14.700 M€) y un <b>0,5 % de los ingresos</b> (44.076 M€) del último ejercicio del libro. El límite alternativo del 10 % de la cifra de negocios que prevé el mismo artículo <b>no llega a morder</b>: serían 4.408 M€, muy por encima de la horquilla nominal.<br><br><b>Y ese techo es una cota superior, no una previsión.</b> Supone la sanción máxima en todos y cada uno de los expedientes, lo que no ocurre casi nunca: la horquilla se gradúa. La cifra realista está muy por debajo, y llegará repartida en el tiempo, porque la instrucción dura de nueve a dieciocho meses y las resoluciones son recurribles ante la Audiencia Nacional, lo que añade años. <b>Nada de esto mueve el precio objetivo</b>, cuyo escenario base descuenta flujos de una década.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Por qué NO se despacha como ruido</div>
+    <div class="seg-body"><b>El importe es lo de menos; lo que se toca es el activo que sostiene el moat.</b> El §7.1 puntúa el foso en 58,6 sobre 100 —ESTRECHO, a 1,4 puntos del corte de MODERADO— y sus dos pilares altos, escala eficiente (80) e intangibles (62), <b>son el mismo marco regulatorio</b>: la red que nadie puede duplicar y la licencia que permite explotarla. Quien instruye estos expedientes es la misma CNMC que fija la tasa financiera de la retribución regulada, que es la <b>señal única</b> declarada en el §10.4 de este libro. No son el mismo procedimiento y conviene no mezclarlos —una sanción no cambia una tasa—, pero sí son la misma relación.<br><br><b>Y hay un segundo motivo, de método.</b> Que un procedimiento sancionador de esta escala haya convivido nueve meses con un libro que no lo nombra dice algo del libro, no del suceso. El §10.4 lista siete red flags —tasa regulada, margen EBITDA, coste de deuda, de-rating, divisa, ampliación o M&amp;A, ciberseguridad— y <b>ninguna vigila un procedimiento sancionador</b>. El riesgo estaba en la matriz en abstracto; la señal que lo habría hecho visible, no.</div>
+  </div>
+</div>
+<div class="diag-verdict">PUNTUAL en lo financiero, con confianza ALTA: el techo sancionador no llega al 2 % del EBITDA y no toca ninguna hipótesis del modelo. Pero NO es un no-suceso: deja al descubierto que el libro no vigila el riesgo sancionador, y eso se corrige — no con el precio objetivo, sino con el §8.1 y el §10.4.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>El riesgo estaba mapeado; el suceso, no.</b> La fila 7 del §8.1 —«Societario y litigios», probabilidad Baja-Media, −0,28 % suave y −0,83 % duro— nombra ScottishPower contra el HMRC, Brasil y el expediente del artículo 12.5, y <b>no menciona el apagón</b>. Con el techo medido arriba (≈240 M€, 1,6 % del EBITDA) el impacto derivado de esa fila <b>no se queda corto</b>: es del orden correcto. Lo que falta no es magnitud, es <b>el nombre del suceso</b>, para que el próximo que lea la matriz sepa qué hay dentro.<br><br>Ninguno de los tres pre-mortem del §8.2 ha empezado su cadena: el Escenario A (la regulación se endurece y el mercado deja de pagar la prima) es el vecino más próximo, pero su detonante es la nueva tasa financiera regulada, no una sanción. <b>Propuesta, sin ejecutar:</b> añadir el suceso con su fecha a la fila 7 del §8.1 y una octava red flag al §10.4 — «resolución sancionadora firme por encima de X M€, o nueva tanda de incoaciones».</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>La tesis aguanta intacta, y no por poco.</b> El veredicto vigente ya es <b>ESPERAR</b> con un margen de seguridad negativo: a 20,28 € la acción cotiza un <b>12,9 % por encima</b> del precio objetivo base de 17,66 €. No hay nada que rebajar que no estuviera ya rebajado el 26 de agosto, y el Bull case —crecimiento de la base de activos regulados con retribución reindexada— no depende de estos expedientes.<br><br>El <b>stop de tesis (8,98 €)</b> está a un 56 % por debajo del precio de hoy y su ancla es el peor pre-mortem, no un porcentaje: no se toca. La <b>banda de entrada (14,76 – 15,36 €)</b> tampoco: sale del §9.3 y ninguna cifra del §6 ha cambiado. El <b>Dividend Safety de 83</b> («Muy seguro», sin tope duro activo) es indiferente a esto — una sanción no toca el payout del 20 % sobre beneficio ordinario.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid rgba(0,0,0,.08);align-items:baseline"><div style="flex:0 0 190px;font-weight:700;color:var(--corp-dark)">Forense</div><div style="flex:0 0 150px;font-size:12px;font-weight:600;color:#8a8a8a">No re-ejecutado</div><div style="flex:1;font-size:13px;line-height:1.55">El gatillo no es de calidad contable. Un expediente sancionador no altera Piotroski, Altman, Beneish ni Sloan, que se calculan sobre estados financieros ya publicados. El veredicto forense del cierre —sin veto— sigue vigente.</div></div><div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid rgba(0,0,0,.08);align-items:baseline"><div style="flex:0 0 190px;font-weight:700;color:var(--corp-dark)">Reverse DCF</div><div style="flex:0 0 150px;font-size:12px;font-weight:600;color:#8a8a8a">No re-ejecutado</div><div style="flex:1;font-size:13px;line-height:1.55">No hay gatillo de valoración: no se ha alcanzado el precio objetivo ni ha cambiado ninguna hipótesis del §6.0. El diagnóstico del cierre se mantiene — el precio exige un <b>13,37 %</b> de crecimiento frente a un <b>6,59 %</b> intrínseco: HEROICO, y es la razón del ESPERAR.</div></div><div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid rgba(0,0,0,.08);align-items:baseline"><div style="flex:0 0 190px;font-weight:700;color:var(--corp-dark)">Dividend Safety</div><div style="flex:0 0 150px;font-size:12px;font-weight:600;color:#8a8a8a">No re-ejecutado</div><div style="flex:1;font-size:13px;line-height:1.55">83/100, «Muy seguro», calculado el 26-ago-2026 y sin tope duro activo. El techo sancionador es un 1,6 % del EBITDA: no roza ninguno de los cinco componentes, y una sanción no toca el payout del 20 % sobre beneficio ordinario.</div></div><div style="display:flex;gap:14px;padding:10px 0;border-top:1px solid rgba(0,0,0,.08);align-items:baseline"><div style="flex:0 0 190px;font-weight:700;color:var(--corp-dark)">Cuantificación art. 67 LSE</div><div style="flex:0 0 150px;font-size:12px;font-weight:600;color:#127330">Sí — la medida de esta nota</div><div style="flex:1;font-size:13px;line-height:1.55">Techo teórico <b>≈240 M€</b> suponiendo unos 22 expedientes sancionados todos al máximo legal: <b>1,6 % del EBITDA</b> y <b>0,5 % de los ingresos</b>. El límite alternativo del 10 % de la cifra de negocios no llega a morder.</div></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Iberdrola por primera vez, a 20,28 €, sin poseerla y sin conocer mi precio de compra, y supiera que arrastra más de veinte expedientes sancionadores de su propio regulador —¿la compraría, la dejaría en watchlist, o la descartaría?</div>
+  <div class="anchor-a"><b>Watchlist, y por el precio, no por los expedientes.</b> La respuesta honesta es que los expedientes <b>no cambian la decisión</b>: ya no la compraría a 20,28 €, porque cotiza un 12,9 % por encima del precio objetivo y el reverse DCF exige un crecimiento heroico. Descartarla por esto sería tan poco riguroso como ignorarlo.<br><br>La trampa de anclaje aquí no es la habitual —no hay tentación de defender una posición, porque el veredicto vigente ya es negativo—. <b>Es la contraria</b>: como el veredicto ya era ESPERAR, resulta cómodo archivar el asunto sin medirlo, porque «no cambia nada». Por eso esta nota mide el techo en euros antes de llamarlo inmaterial, y por eso deja escrito lo que sí falla: el libro no tenía dónde vigilar esto, y el número con el que se cerró el análisis no tenía fuente.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box ok">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Se mantienen el veredicto ESPERAR, el precio objetivo base de 17,66 €, la banda de entrada 14,76 – 15,36 € y el stop de tesis de 8,98 €. No cambia ninguna cifra del modelo ni del [TICKER].json: el techo sancionador es un 1,6 % del EBITDA en el peor caso y las primeras resoluciones no llegan antes de enero de 2027.</div>
+  <div class="action-line">Acción: mantener el veredicto y vigilar. Tres cosas concretas: (1) cerrar el recuento exacto de expedientes contra el listado oficial de la CNMC — hoy queda en «Pte. Revisión» y el «18» del cierre queda corregido; (2) añadir el suceso, con su fecha, a la fila 7 del §8.1, que hoy nombra otros tres litigios y no éste; (3) abrir una octava red flag en el §10.4 para el riesgo sancionador, que ninguna de las siete vigila. Ninguna de las tres toca el precio objetivo.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li>CNMC · <a href="https://www.cnmc.es/prensa/incoacion-incidente-electrico-28A-20260417">La CNMC incoa expedientes sancionadores por indicios de infracción en el marco de las investigaciones del incidente eléctrico del 28 de abril de 2025</a> (17-abr-2026)</li><li>CNMC · <a href="https://www.cnmc.es/prensa/incoaciones-incidente-electrico-28A-2">La CNMC continúa el proceso de incoaciones en el marco de las investigaciones del incidente eléctrico del 28 de abril de 2025</a> (24-abr-2026)</li><li>BOE / Iberley · <a href="https://www.iberley.es/legislacion/articulo-67-sector-electrico">Artículo 67 de la Ley 24/2013, de 26 de diciembre, del Sector Eléctrico</a> — cuantía de las sanciones</li><li>Público · <a href="https://www.publico.es/economia/cnmc-abre-expedientes-sancionadores-iberdrola-endesa-naturgy-repsol-investigacion-apagon.amp.html">La CNMC abre expedientes sancionadores a Red Eléctrica, Iberdrola, Endesa, Naturgy o Repsol</a> (17-abr-2026) — desglose por sociedad, fuente secundaria</li><li>El Español · <a href="https://www.elespanol.com/invertia/empresas/energia/20260504/cnmc-abre-nuevos-expedientes-sancionadores-infracciones-graves-apagon-naturgy-iberdrola-edp/1003744233204_0.html">La CNMC abre ocho nuevos expedientes por infracciones relacionadas con el apagón a Naturgy, Iberdrola y EDP</a> (4-may-2026) — fuente secundaria</li></ul><p style="margin-top:8px"><b>No accesible:</b> el listado oficial de expedientes sancionadores de energía en tramitación de la CNMC devolvió error 403. Es la fuente que cerraría el recuento exacto; por eso queda en «Pte. Revisión» y no se ha sustituido por una estimación.</p></div>
+
+<div class="disclaimer">Documento de análisis propio, no es una recomendación de inversión. Método de Análisis Financiero KH&amp;Claude · Nota de Revisión Extraordinaria en modo discrecional (sin señal S1–S6). Cotización de 20,28 € tomada del histórico de cierres del método (28-ago-2026), nunca de una noticia. Las cifras de EBITDA (14.700 M€) e ingresos (44.076 M€) proceden del libro «Datos Financieros Iberdrola.xlsx». El recuento exacto de expedientes está marcado «Pte. Revisión»: no se ha inventado. Apunte registrado en el §10.5 de la pestaña Vigilancia con la señal «Disc.». 29 de agosto de 2026.</div>
+
+</div></body></html>
