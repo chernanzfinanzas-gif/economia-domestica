@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-08-28",
+ "generadoEl": "2026-08-29",
  "fuente": "mercado-diario",
  "nota": "Escrito por macro_mercado.py (GitHub Actions, un pase diario). Misma forma que macro.json: la app funde los dos y este pisa al del informe solo donde trae dato. Un indicador que falla no aparece; nunca se escribe 0 ni un valor a medias.",
  "ind": {
@@ -58,9 +58,9 @@
   "eur_usd": {
    "n": "EUR/USD",
    "grupo": "divisas",
-   "v": 1.1655,
-   "f": "2026-08-27",
-   "d": -0.17,
+   "v": 1.1587,
+   "f": "2026-08-28",
+   "d": -0.58,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · EURUSD=X",
@@ -69,12 +69,12 @@
   "latam_cesta": {
    "n": "Cesta LatAm (fuerza)",
    "grupo": "divisas",
-   "v": 11.4,
+   "v": 9.1,
    "u": "%",
-   "f": "2026-08-27",
+   "f": "2026-08-28",
    "slider": "LATAM",
-   "sliderV": 11.4,
-   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL +5,1 % · MXN +9,1 % · CLP +6,5 % · COP +25,0 %. ARS excluido: su tipo mide política cambiaria, no mercado",
+   "sliderV": 9.1,
+   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL +4,8 % · MXN +9,1 % · CLP +2,4 % · COP +20,1 %. ARS excluido: su tipo mide política cambiaria, no mercado",
    "src": "yahoo · EURBRL=X, EURMXN=X, EURCLP=X, EURCOP=X"
   },
   "treasury_10a": {
