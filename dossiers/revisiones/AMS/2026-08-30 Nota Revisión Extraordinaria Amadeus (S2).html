@@ -1,0 +1,177 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMS · Nota de Revisión Extraordinaria · 1S-2026 (cerrado el 30 de junio)</title>
+
+<style>
+:root{--corp:#0078C1;--corp-dark:#005487;--corp-light:#E8F3F9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Amadeus IT Group, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Semáforo trimestral ROJO · tesis en cuestión</span>
+        <span class="badge badge-sig">1S-2026 (cerrado el 30 de junio)</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">AMS · BME · IBEX 35<br>Fecha: 30 de agosto de 2026<br>Plazo señal: 7 días desde el 30-ago-2026</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">61,68 €</div><div class="kpi-sub">sin cambios · §6.5</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">58,14 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val amber">+6,09 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Reservas 1S-2026</div><div class="kpi-val red">−3,7 %</div><div class="kpi-sub">−0,2 % 1T · −7,6 % 2T</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p><b>Semáforo ROJO en el 1S-2026 del §10.3, con <code>tesisSigueIntacta = false</code>.</b> El gatillo es la <b>señal única de la tesis</b> que el §9.4 declaró al cerrar el análisis: <i>«la caída del volumen de reservas aéreas dos trimestres seguidos»</i>. A 30 de junio está disparada: las reservas de Amadeus cayeron un <b>0,2 % en el 1T</b> y un <b>7,6 % en el 2T</b>, un <b>−3,7 %</b> en el semestre. El contexto lo confirma: el tráfico aéreo mundial se contrajo un <b>2,8 %</b> entre abril y mayo, la primera caída en quince años sin contar la pandemia. Cotización de referencia <b>58,14 €</b>, cierre confirmado del 28/08/2026 tomado del histórico de cierres.<br><br><b>Y una precisión que el propio §10.1 no advierte:</b> hay dos alarmas sobre el mismo fenómeno con dos varas distintas, y sólo una ha saltado. La señal única del §9.4 vigila las <b>reservas de Amadeus</b> —disparada— y la señal del riesgo nº 2 del §8.1 vigila el <b>tráfico aéreo global dos trimestres consecutivos</b>: el 1T creció y el 2T cayó, así que <b>ésa NO está disparada</b>. Un lector que mire sólo el §8.1 concluiría que no pasa nada.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>El hecho está corroborado en fuente primaria y es el que la propia compañía declara: los resultados del 1S-2026 (CNMV, 31-jul-2026) atribuyen la caída a <b>la situación geopolítica en Oriente Medio</b>, que provocó ajustes de capacidad de las aerolíneas, más cancelaciones y menos reservas nuevas. IATA lo cuantifica y —esto es nuevo desde que se abrió la señal— <b>muestra que remite</b>: la demanda global cayó un 3,4 % en abril, un 2,2 % en mayo y un <b>1,7 % en junio</b>, con Willie Walsh hablando de <i>«gradual normalization of airline operations»</i> en Oriente Medio. El dato de julio aún no está publicado a la fecha de esta nota: <b>Pte. Revisión</b>.<br><br><b>Y la búsqueda encontró algo que no venía a buscar.</b> En el registro de la CNMV, con fecha <b>23 de julio de 2026</b>: <i>«Adquisición de Idemia Public Security y financiación de la operación»</i>. Amadeus compra <b>IDEMIA Public Security por 1.200 M€</b>, más un earn-out de hasta 150 M€, financiada con un <b>préstamo puente sindicado de 1.200 M€</b> y con cierre previsto a mediados de 2027. <b>El análisis completo no la nombra ni una vez</b> —cero celdas en las quince pestañas del libro, cero en el Perfil Corporativo, cero en el dossier—. Tampoco nombra a <b>SkyLink</b>, la compra de 50,5 M€ que sí aparece en el informe de resultados que se usó para el monitor. La operación no deja rastro en ninguna celda porque no consolida hasta 2027: no era una celda que cuadrara mal, era una que no existía.</p>
+  <div class="cb-src">Fuentes: CNMV (registro de otra información relevante de Amadeus) · nota de prensa de Amadeus del 29-abr-2026 · IATA, comunicados de mayo, junio y julio de 2026 · informe de resultados 1S-2026 de la compañía.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El detonante es geopolítico, está acotado, y el dinero no ha seguido al volumen.</div>
+    <div class="seg-body"><p><b>1 · La caída se está moderando, mes a mes.</b> Los datos de IATA van <b>−3,4 % (abril) → −2,2 % (mayo) → −1,7 % (junio)</b>. No es una serie que se acelere: es una que revierte. Y el epicentro está localizado: en junio, <b>Oriente Medio cayó un 13,9 %</b> mientras <b>Europa crecía un 0,8 %, Latinoamérica un 1,5 % y África un 3,8 %</b>. El mundo sin Oriente Medio no está en recesión aérea.</p><p><b>2 · El precio por reserva ha compensado el volumen, y con creces.</b> Éste es el dato central de la nota. Las reservas cayeron un 3,7 % en el semestre y el <b>ingreso por reserva subió un 5,1 %</b> a tipo constante (un 5,6 % en el 2T). Resultado: los ingresos de Distribución Aérea —el segmento que sufre el golpe— crecieron un <b>1,1 %</b> a tipo constante, su contribución un <b>1,5 %</b>, y el margen del segmento <b>subió 0,2 pp</b> hasta el 51,9 %. <b>El negocio que pierde volumen gana más dinero que el año pasado.</b></p><p><b>3 · El grupo entero mejora.</b> Ingresos +5,1 % a tipo constante, EBIT ajustado +4,9 %, margen EBIT ajustado <b>+0,5 pp</b> hasta el 30,3 %, flujo de caja libre +0,8 % y beneficio ajustado +2,3 %. La deuda queda en <b>1,00x</b> EBITDA, muy dentro de la banda del arquetipo (2,0 / 3,0).</p><p><b>4 · Ningún pre-mortem del §8.2 ha empezado su cadena.</b> El que más se parece es el escenario B —recesión del tráfico de dos años, −45,92 %— y su cadena exige que <i>«los costes fijos no bajen en la misma proporción → el margen se comprima»</i>. El margen ha subido. La cadena no ha arrancado.</p><p><b>5 · El motor comercial sigue funcionando.</b> En el semestre se firmaron Alaska Airlines, British Airways para Altéa NDC, un grupo de aerolíneas de más de 40 millones de pasajeros al año para Altéa, y la implantación de All Nippon Airways en su negocio doméstico. Hoteles y Otras Soluciones creció un <b>9,2 %</b>.</p></div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Hay una parte que no vuelve con el tráfico, y el método no la distingue del ruido.</div>
+    <div class="seg-body"><p><b>1 · Norteamérica pierde clientes, no tráfico.</b> Los pasajeros embarcados cayeron un <b>8,2 % en el 2T</b> y un 4,7 % en el semestre en esa región, y el propio informe da dos causas que <b>no son de demanda</b>: la <b>demigración de Hawaiian Airlines</b> —un cliente que se fue de la plataforma— y el <b>cese de operaciones de Spirit Airlines</b>. Eso no revierte cuando el tráfico se normalice. Es el riesgo nº 3 del §8.1 —concentración de cliente— manifestándose de verdad, y <b>ninguna señal del §10 lo separa del ruido de tráfico</b>: las dos cosas llegan mezcladas en la misma cifra agregada.</p><p><b>2 · Asia-Pacífico no cae por Oriente Medio.</b> IATA atribuye su −2,0 % de junio a los mercados domésticos de China y Japón y al encarecimiento del combustible. Es un segundo frente, más lento, con otra causa y sin fecha de caducidad.</p><p><b>3 · Amadeus cae más que el mercado, y no se puede explicar entero.</b> Sus reservas del 2T cayeron un 7,6 % contra un 2,8 % del tráfico global. Parte es cancelaciones —que revierten— y parte podría ser mezcla regional adversa, pero <b>con lo publicado no se puede separar</b>: <b>Pte. Revisión</b>. Es la cifra que hay que mirar primero en el 9M-2026.</p><p><b>4 · Y una compra apalancada de 1.200 M€ que el análisis no tenía.</b> IDEMIA Public Security no cambia el negocio de reservas, pero cambia el balance sobre el que se lee todo lo demás. Derivado perturbando el propio libro: la deuda sube de <b>1,00x a 1,47x</b> EBITDA y el precio objetivo se movería un <b>−3,54 %</b> si no aportara nada, o un <b>−2,53 %</b> consolidando sus 711 M€ de ingresos y 112 M€ de EBITDA. Y su margen del 15,8 % <b>diluye el del grupo en 2,1 pp</b>, del 37,6 % al 35,4 %.</p></div>
+  </div>
+</div>
+<div class="diag-verdict"><b>VEREDICTO DE DIAGNÓSTICO: PUNTUAL EN LO PRINCIPAL, CON UN COMPONENTE ESTRUCTURAL PEQUEÑO Y NO CUANTIFICABLE CON LO PUBLICADO. Confianza media-alta.</b> El golpe es geopolítico, está acotado a una región y ya remite mes a mes; el precio por reserva lo ha compensado con creces y el segmento afectado gana más dinero que hace un año. Lo que no es puntual —la salida de Hawaiian y el cierre de Spirit— es real, es permanente y es pequeño, pero <b>no se puede medir en euros con lo publicado</b> y por eso no se descuenta ni se ignora: se vigila.<br><br><b>Y el hallazgo que este diagnóstico deja sobre la mesa es del método, no de la empresa.</b> La señal única del §9.4 vigila el <b>volumen de reservas</b>, y la elasticidad que la respalda —«−10 % de volumen = −10,05 % del precio objetivo»— está derivada perturbando los <b>INGRESOS</b>, no el volumen: la receta escala ingresos, EBITDA y EBIT a la vez, con el margen intacto. Los dos son lo mismo <b>sólo si el precio por reserva no se mueve</b>, y este semestre se ha movido un +5,1 %. La consecuencia práctica: la frase del §10.4 —<i>«un año a −7,6 % se lleva alrededor de 4,7 € por acción»</i>— <b>no aguanta el dato</b>; aplicada a la variable que la perturbación realmente mueve, el semestre da signo positivo. La señal sigue siendo buena como aviso adelantado; lo que hay que corregir es su enunciado: <b>«reservas cayendo dos trimestres seguidos SIN que el ingreso por reserva lo compense»</b>.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><p><b>Los siete riesgos siguen siendo los correctos y ninguno se ha materializado</b> en el sentido que su propia señal de alarma define. El nº 2 (contracción del tráfico) tiene la alarma en «dos trimestres consecutivos» y lleva uno. El nº 3 (concentración de cliente) es el que más se acerca: Hawaiian se ha ido y Spirit ha cerrado, pero ninguna de las dos es «una aerolínea del top-10», que es lo que la señal exige.</p><p><b>Y hay un hueco, que esta revisión abre:</b> la matriz del §8.1 <b>no tiene riesgo de asignación de capital</b>. Los siete son NDC, tráfico, cliente, IA, regulatorio, ciberseguridad y divisa. La compañía acaba de comprometer <b>1.200 M€ en una compra apalancada</b> y el análisis no tiene dónde ponerlo. Se propone añadirlo como riesgo nº 8, con su impacto ya derivado del propio libro (<b>−3,54 %</b> sin aportación, <b>−2,53 %</b> consolidando IPS) y su señal de alarma: <i>que doce meses después del cierre el EBITDA del grupo no haya subido con la deuda</i>.</p><p><b>Los tres pre-mortem se mantienen</b> tal como están: −41,62 %, −45,92 % y −38,40 %. Ninguno en curso.</p></div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><p><b>El Bull case sigue vivo y el Bear no se está materializando.</b> El Bull descansa en el poder de precio y en el crecimiento de las líneas no ligadas a reservas: las dos han funcionado este semestre (+5,1 % de ingreso por reserva, +9,2 % en Hoteles y Otras Soluciones). El Bear descansa en la desintermediación y en la compresión de márgenes: el margen subió, y el NDC sigue entrando <b>por dentro</b> de la plataforma —British Airways contrató Altéa NDC este semestre—.</p><p><b>El precio objetivo no se toca, y el motivo es de método, no de conveniencia.</b> Los inputs del §6.5 son las cifras del ejercicio 2025 y ninguna se ha movido: un informe semestral no re-valora un modelo construido sobre cuentas anuales. Los 61,68 € siguen siendo el precio objetivo oficial.</p><p><b>Lo que sí se dice, porque el lector lo merece:</b> si se incorporara IDEMIA hoy, el precio objetivo estaría entre <b>59,49 y 60,12 €</b> y el margen de seguridad bajaría del 6,09 % al <b>2,3 – 3,4 %</b>. No se aplica —por la regla del método, los hechos societarios posteriores al cierre entran por la Actualización Anual— pero <b>se escribe</b>, para que nadie lea el 6,09 % como si fuera todo lo que hay.</p></div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class='herr'><b>Reverse DCF (§6.x) — es la herramienta pertinente al gatillo.</b> Re-ejecutada hoy sobre el libro: el precio de 58,14 € exige un crecimiento del flujo libre del <b>6,3 %</b> anual en la primera fase, contra un crecimiento intrínseco autofinanciable del <b>0,8 %</b>. Veredicto <b>HEROICO</b>, sin cambios respecto al análisis. Al recalcularla salió un defecto: estaba calculada contra el cierre de 2025 (62,84 €) y daba 7,4 %. Corregido en el libro, en el dossier y en el puente.</div><div class='herr'><b>Robustez de la decisión (§6.3 → §6.5).</b> Perturbando el coste del capital ±1 pp y el crecimiento a perpetuidad ±0,5 pp, el precio objetivo se mueve entre <b>58,16 y 67,35 €</b>. La cotización queda por debajo de todo el rango —veredicto <b>SÓLIDA</b>— pero por <b>dos céntimos</b>: un margen del 0,03 % sobre el extremo inferior. Aguanta en el filo.</div><div class='herr'><b>Forense y Dividend Safety — no pertinentes al gatillo, se citan por completitud.</b> Piotroski 6/9, Altman Z'' 6,37 (zona segura), Beneish M −2,82 (sin indicios), accruals de Sloan −7,4 % (normal), sin veto. Dividendo 82/100, «muy seguro», con cobertura de 2,48x sobre owner earnings.</div><div class='herr'><b>Índice de confianza.</b> 92/100, nivel A. Cuatro huecos secundarios, ninguno crítico. La regla dura no aplica.</div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Amadeus por primera vez, a 58,14 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la dejaría en watchlist o la descartaría?</div>
+  <div class="anchor-a"><b>Watchlist. No la compraría hoy.</b> Y conviene decir por qué con los cuatro motivos por separado, porque cada uno solo no bastaría. <b>Uno:</b> el margen de seguridad es del 6,09 %, muy lejos del 15 % que el método pide para comprar en firme, y con IDEMIA dentro bajaría al 2 – 3 %. <b>Dos:</b> el reverse DCF dice que el precio ya exige un 6,3 % de crecimiento del flujo libre cuando la empresa se autofinancia un 0,8 % — el escenario bueno ya está pagado. <b>Tres:</b> la señal única de la tesis está disparada, y aunque el diagnóstico la considere puntual, comprar mientras la única alarma que uno mismo se puso está sonando es exactamente lo que esta pregunta existe para evitar. <b>Cuatro:</b> el precio objetivo aguanta el barrido de supuestos por dos céntimos.<br><br><b>Y la respuesta honesta a la pregunta simétrica —¿la vendería?— es que no.</b> El negocio gana más dinero que hace un año, el margen sube, la caja convierte, la deuda está en 1,00x y el moat no se ha tocado. Vender aquí sería confundir un precio poco atractivo con una tesis rota. <b>Watchlist es exactamente MANTENER</b>, y por eso la decisión de abajo no es una inercia: es la misma conclusión por un camino independiente. Donde tiene sentido comprar sigue siendo la banda de <b>49,28 – 53,63 €</b>.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">El deterioro es puntual en lo principal y no rompe la tesis. Se mantienen el veredicto <b>MANTENER</b>, el precio objetivo de <b>61,68 €</b>, la banda de entrada de <b>49,28 – 53,63 €</b> y el stop de <b>29,54 €</b>. No cambia ningún campo del puente <code>AMS.json</code>.<br><br><b>Pero la señal se cierra con tres deberes escritos, y sin ellos el cierre sería falso:</b> <b>(1)</b> corregir el enunciado de la señal única del §9.4 —y su copia en el §10.1 y en el §10.4— a «reservas cayendo dos trimestres seguidos <i>sin que el ingreso por reserva lo compense</i>», y retirar la frase de los 4,7 € por acción, que la aritmética no sostiene; <b>(2)</b> añadir al §8.1 el riesgo de asignación de capital, con IDEMIA nombrada y su impacto derivado; <b>(3)</b> incorporar IDEMIA y SkyLink al perímetro del análisis en la Actualización Anual, que es donde la regla del método dice que entran.</div>
+  <div class="action-line">Acción: mantener la posición, no ampliar. Volver a mirar con el <b>9M-2026</b> (octubre), y mirar dos cosas concretas: si la brecha entre las reservas de Amadeus y el tráfico global se cierra, y si el EBITDA del grupo empieza a subir con la deuda de IDEMIA. Si el 9M vuelve a salir rojo, el diagnóstico deja de ser puntual por definición y la revisión siguiente ya no puede reafirmar por el mismo camino.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li><a href='https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-84236934&lang=es'>CNMV · Otra información relevante — AMADEUS IT GROUP, S.A.</a> (registro de comunicaciones de 2026; de aquí sale la del 23-jul-2026 sobre IDEMIA Public Security)</li><li><a href='https://amadeus.com/en/newsroom/press-releases/amadeus-to-acquire-idemia-public-security-ips'>Amadeus · «Amadeus to Acquire IDEMIA Public Security (IPS) for €1.2B»</a> (nota de prensa, 29-abr-2026)</li><li><a href='https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/'>Forbes España · «Amadeus formaliza la adquisición de Idemia Public Security por 1.200 millones»</a> (financiación: préstamo puente sindicado de 1.200 M€)</li><li><a href='https://www.biometricupdate.com/202604/amadeus-unveils-planned-e1-2b-idemia-ps-acquisition-to-extend-travel-biometrics'>Biometric Update · cifras de IDEMIA Public Security</a> (711 M€ de ingresos 2025, 112 M€ de EBITDA recurrente, múltiplo de 9,8x sobre EBITDA 2026)</li><li><a href='https://www.iata.org/en/pressroom/2026-releases/07-30-air-passenger-demand-falls-june/'>IATA · «Air Passenger Demand Falls 1.7% in June»</a> (30-jul-2026; datos por región)</li><li><a href='https://www.iata.org/en/pressroom/2026-releases/06-30-air-passenger-demand-falls-may/'>IATA · «Air Passenger Demand Falls 2.2% in May»</a> (30-jun-2026)</li></ul></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria del <b>Método de Análisis Financiero KH&amp;Claude</b>, emitida por la señal <b>S2</b> abierta el 30-ago-2026. Documento de análisis propio, no es una recomendación de inversión ni asesoramiento financiero. Las cifras de la compañía salen del informe de resultados del 1S-2026 y del libro «Datos Financieros Amadeus.xlsx»; los impactos en el precio objetivo están <b>derivados perturbando ese mismo libro</b> y recalculándolo, no estimados; la cotización sale del histórico de cierres del método (58,14 €, cierre confirmado del 28/08/2026) y nunca de una búsqueda web. Lo que no se ha podido determinar está marcado como <b>Pte. Revisión</b> en vez de rellenado. Desenlace registrado en el §10.5 del Excel, en <code>estado.json</code> y en <code>hallazgos.json</code>.</div>
+
+</div></body></html>
