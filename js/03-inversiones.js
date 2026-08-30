@@ -1909,7 +1909,52 @@ function trimCardHTML(d){
   var prevMap={}; if(prev){ (prev.metricas||[]).forEach(function(x){ prevMap[x.nombre]=x.valor; }); }
   var metr=(last.metricas||[]).map(function(m){ var dlt=prev?_trimDelta(m.valor,prevMap[m.nombre],prev.periodo):''; return '<tr><td>'+_trimEsc(m.nombre)+'</td><td class="num" style="font-weight:600;white-space:nowrap">'+_trimValUnidad(m)+dlt+'</td></tr>'; }).join('');
   var trend=revs.map(function(r){ var s=(r.semaforoGlobal||'').toUpperCase(); var c=semCol[s]||'#94a3b8'; return '<span title="'+_trimEsc(r.periodo)+' ('+(r.fecha||'')+')" style="display:inline-block;width:13px;height:13px;border-radius:3px;background:'+c+';margin-right:3px"></span>'; }).join('');
-  var alerta=(sg==='R'||last.tesisSigueIntacta===false)?'<span onclick="if(typeof showProtocolo===\'function\')showProtocolo(\'S2\',\'\',\''+_trimEsc((d.ticker||'').toUpperCase())+'\')" title="Pulsa para ver el procedimiento (señal S2 · plazo 7 días)" style="margin-left:8px;color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted">⚠️ revisar tesis · S2 📋</span>':'';
+  /* [F362 · 31-ago-2026] EL BADGE NO MIRABA SI LA SEÑAL YA ESTABA RESUELTA.
+     Se derivaba SOLO del -trim.json -semaforo R o tesis rota- y por eso seguia diciendo
+     «revisar tesis · S2» despues de emitir la Nota de Revision y cerrar la señal en los tres
+     sitios. Caso real: Amadeus, 31-ago-2026 — el Panel callaba (usa `_khHallazgosVivos`, que
+     filtra las resueltas) y la Ficha seguia avisando. Dos motores, dos criterios, y el de la
+     Ficha era el que no miraba. Es el mismo patron que ya se corrigio en el Kanban.
+     El semaforo ROJO se queda: el trimestre fue rojo y eso no lo borra ninguna Nota. Lo que
+     cambia es el badge, que pasa a decir COMO se cerro.
+     Los tres casos, y el tercero importa: si NO hay ninguna señal S2 registrada -ni viva ni
+     resuelta- se avisa como antes, porque un trimestre en rojo sin revision es justo lo que
+     hay que ver. Ante la duda, avisar. */
+  var alerta='';
+  if(sg==='R'||last.tesisSigueIntacta===false){
+    var _tk=(d.ticker||'').toUpperCase(), _s2=[], _viva=true;
+    try{
+      if(typeof hallazgosCorpDe==='function'){
+        _s2=(hallazgosCorpDe(_tk)||[]).filter(function(h){
+          if(!h) return false;
+          var c=((h.codigo||'')+'').toUpperCase(), i=((h.id||'')+'').toUpperCase();
+          return c==='S2'||i.indexOf('S2-')===0;
+        });
+        if(_s2.length) _viva=_s2.some(function(h){
+          var e=((h.estado||'')+'').toLowerCase();
+          return !(e==='resuelta'||e==='cerrada'||e==='caducada'||h.resueltoEl);
+        });
+      }
+    }catch(e){ _viva=true; }
+    if(_viva){
+      alerta='<span onclick="if(typeof showProtocolo===\'function\')showProtocolo(\'S2\',\'\',\''+_trimEsc(_tk)+'\')" title="Pulsa para ver el procedimiento (señal S2 · plazo 7 días)" style="margin-left:8px;color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted">⚠️ revisar tesis · S2 📋</span>';
+    }else{
+      /* cerrada: se dice CON QUE decision, leyendo la ultima fila S2 del §10.5 proyectado */
+      var _dec='', _f='', _mot='';
+      try{
+        if(typeof revisionesCorpDe==='function'){
+          (revisionesCorpDe(_tk).filas||[]).forEach(function(r){
+            if(((''+(r.senal||'')).toUpperCase().trim())!=='S2') return;
+            var dd=(''+(r.decision||'')).toUpperCase().trim();
+            if(dd&&dd!=='ABIERTA'&&dd!=='PTE. REVISIÓN'){ _dec=dd; _f=r.fecha||''; _mot=r.motivo||''; }
+          });
+        }
+      }catch(e){}
+      if(!_dec){ (_s2||[]).forEach(function(h){ if(h.desenlace&&!_mot) _mot=h.desenlace; if(h.resueltoEl&&!_f) _f=h.resueltoEl; }); }
+      var _txt='✅ revisada'+(_dec?(' · '+_dec):'')+(_f?(' · '+_f):'');
+      alerta='<span title="'+_trimEsc((_mot||'La señal S2 se revisó y se cerró.').slice(0,600))+'" style="margin-left:8px;color:#16a34a;font-weight:700">'+_trimEsc(_txt)+'</span>';
+    }
+  }
   return '<div class="card" style="margin-top:10px;border-left:4px solid '+(semCol[sg]||'#94a3b8')+'">'
     +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px">'
     +'<div style="font-weight:800;font-size:15px">📊 Monitor trimestral</div>'
