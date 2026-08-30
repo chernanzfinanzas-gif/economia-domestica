@@ -1924,17 +1924,18 @@ function trimCardHTML(d){
   if(sg==='R'||last.tesisSigueIntacta===false){
     var _tk=(d.ticker||'').toUpperCase(), _s2=[], _viva=true;
     try{
-      if(typeof hallazgosCorpDe==='function'){
-        _s2=(hallazgosCorpDe(_tk)||[]).filter(function(h){
-          if(!h) return false;
-          var c=((h.codigo||'')+'').toUpperCase(), i=((h.id||'')+'').toUpperCase();
-          return c==='S2'||i.indexOf('S2-')===0;
-        });
-        if(_s2.length) _viva=_s2.some(function(h){
-          var e=((h.estado||'')+'').toLowerCase();
-          return !(e==='resuelta'||e==='cerrada'||e==='caducada'||h.resueltoEl);
-        });
-      }
+      /* OJO con el contrato de estas dos, que es donde me equivoque la primera vez:
+         `hallazgosCorpDe` YA devuelve solo las VIVAS -filtra `_hallazgoInactivo`-, y las
+         resueltas viven en `historialCorpDe`. Preguntarle a la primera por una señal cerrada
+         devuelve lista vacia, que es indistinguible de «esta empresa no tiene señales». */
+      var _es2=function(h){ if(!h) return false;
+        var c=((h.codigo||'')+'').toUpperCase(), i=((h.id||'')+'').toUpperCase();
+        return c==='S2'||i.indexOf('S2-')===0; };
+      var _vivas=[], _hist=[];
+      if(typeof hallazgosCorpDe==='function') _vivas=(hallazgosCorpDe(_tk)||[]).filter(_es2);
+      if(typeof historialCorpDe==='function')  _hist=(historialCorpDe(_tk)||[]).filter(_es2);
+      _s2=_vivas.concat(_hist);
+      if(_s2.length) _viva=(_vivas.length>0);
     }catch(e){ _viva=true; }
     if(_viva){
       alerta='<span onclick="if(typeof showProtocolo===\'function\')showProtocolo(\'S2\',\'\',\''+_trimEsc(_tk)+'\')" title="Pulsa para ver el procedimiento (señal S2 · plazo 7 días)" style="margin-left:8px;color:#dc2626;font-weight:700;cursor:pointer;text-decoration:underline dotted">⚠️ revisar tesis · S2 📋</span>';
