@@ -49,29 +49,66 @@ function _mcCot(t){
   const a=_mcAna(t); return _mcNum(a&&a.cotizacion);
 }
 /* Cierre anterior, SOLO si el intradía de hoy lo trae. Sin él no hay variación del día. */
-/* Con qué cierre se compara para saber «cómo va el día». Dos fuentes, por orden:
-     1) el intradía, que trae el cierre de ayer pegado al precio vivo;
-     2) el histórico de cierres (precios/*.json), que permite enseñar la variación de la
-        ÚLTIMA SESIÓN CERRADA cuando el pase intradía todavía no ha corrido.
-   Sin la segunda, la columna se quedaba en «sin dato de hoy» todo el fin de semana y
-   hasta las 09:20 de cada mañana, que es justo cuando uno abre la cartera para ver qué
-   tal fue ayer. Devuelve {ant, viva, sesion} o null si no hay con qué comparar: nunca
-   una variación inventada. */
+/* Con qué cierre se compara para saber «cómo va el día».
+
+   [01-sep-2026] EL ORDEN ESTABA AL REVÉS, Y SE VEÍA EN PANTALLA.
+   Hasta hoy mandaba el `cierreAnt` del quote de `intradia.json` y el histórico era el
+   respaldo. Consecuencia: la app usaba DOS números distintos para el MISMO cierre de
+   ayer. El 01-sep, con la cartera en 380.087,86 €, el recuadro «Máximo de la cartera ·
+   por cierres diarios» —que lee `precios/`— decía «estás en máximos», y a su lado la
+   casilla «Hoy» decía −381,25 € porque restaba contra el quote de Yahoo. Las dos cosas a
+   la vez, en el mismo golpe de vista. La diferencia entre las dos referencias eran 482 €
+   sobre la cartera.
+
+   Y no era un empate de opiniones. Ese mismo día Yahoo confirmó su propia barra del
+   31-ago para Santander en 12,664, contra los 12,660 que había sembrado Google (+0,03 %,
+   o sea el redondeo a dos decimales) y contra los 12,686 de su PROPIO quote (+0,17 %,
+   cinco veces más lejos). El número que se salía era el quote, que es lo que Carlos
+   sospechaba: parece el cierre de ANTES de la subasta.
+
+   Ahora manda el HISTÓRICO: la última barra anterior a la fecha del precio que se está
+   enseñando. Es el mismo número que usan las gráficas, el TWR, el alfa y el rango de 52
+   semanas, así que la pantalla deja de contradecirse. El quote queda de respaldo para
+   cuando el histórico todavía no tiene la sesión —que desde la siembra de Google
+   (`sembrar_cierre.py`) ocurre pocas horas después del cierre, no al día siguiente.
+
+   OJO: esto NO decide quién es más exacto, Google o Yahoo. Eso lo está midiendo
+   `precios/_siembra.json` sesión a sesión. Esto decide otra cosa, que no necesitaba
+   datos: que la app use UN SOLO número, sea el que sea.
+
+   Devuelve {ant, viva, sesion, fuente} o null si no hay con qué comparar: nunca una
+   variación inventada. `fuente` es 'historico' o 'quote', para que el número no sea
+   anónimo. */
 function _mcCierreAnt(t){
   t=_mcUp(t);
+  const v0=(DB.valores||{})[t]||{};
+  const f=v0.precioFecha||'';
+  /* `viva` = lo que se enseña es el precio de la sesión EN CURSO, no un cierre. La marca
+     la pone `sincronizarIntradia()` al aplicar su precio; es la misma que mira
+     `_mcSelloDe()`. Antes esto se daba por cierto solo con que existiera intradía, y con
+     un cierre de Google blindado (`precioManual`) rotulaba «Hoy» un número que no lo era. */
+  const viva=!!v0.precioProvisional;
+  /* 1) EL HISTÓRICO. La última barra ANTERIOR a la fecha del precio que se enseña.
+        Vale para los dos casos sin distinguirlos: durante la sesión `f` es hoy y da el
+        cierre de ayer; fuera de ella `f` es un cierre y da el anterior. */
+  if(f){
+    const pj=(typeof _precioCache!=='undefined')?_precioCache[t]:null;
+    if(pj&&pj.data){
+      const d=pj.data;
+      for(let i=d.length-1;i>=0;i--){
+        const fe=d[i][0], px=_mcNum(d[i][1]);
+        if(!(px>0)||!fe||fe>=f)continue;
+        return {ant:px, viva:viva, sesion:f, fuente:'historico'};
+      }
+    }
+  }
+  /* 2) RESPALDO: el `cierreAnt` del quote. Cubre el primer pintado —`_precioCache` se
+        llena en diferido— y el día en que el histórico no llegue a la sesión anterior.
+        Al llegar el histórico la vista se repinta y el número se corrige solo; ese
+        parpadeo es preferible a enseñar «sin variación» mientras carga. */
   const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
   if(j&&j.datos&&j.datos[t]&&_mcNum(j.datos[t].cierreAnt)>0)
-    return {ant:_mcNum(j.datos[t].cierreAnt), viva:true, sesion:j.sesion||''};
-  const f=((DB.valores||{})[t]||{}).precioFecha||'';
-  if(!f)return null;                                   /* sin saber de cuándo es, no se compara */
-  const pj=(typeof _precioCache!=='undefined')?_precioCache[t]:null;
-  if(!pj||!pj.data)return null;
-  const d=pj.data;
-  for(let i=d.length-1;i>=0;i--){                       /* el último cierre ANTERIOR a esa fecha */
-    const fe=d[i][0], px=_mcNum(d[i][1]);
-    if(!(px>0)||!fe||fe>=f)continue;
-    return {ant:px, viva:false, sesion:f};
-  }
+    return {ant:_mcNum(j.datos[t].cierreAnt), viva:(viva||!f), sesion:j.sesion||'', fuente:'quote'};
   return null;
 }
 
@@ -586,7 +623,7 @@ function _mcPosiciones(){
              valor:valor, coste:coste, pl:valor-coste, plPct:coste>0?(valor-coste)/coste*100:0,
              carteras:Object.keys(m.carteras).sort()};
     if(ca&&ca.ant>0&&cot>0){ o.diaPct=(cot-ca.ant)/ca.ant*100; o.diaEur=m.acc*(cot-ca.ant);
-                             o.diaViva=!!ca.viva; o.diaSesion=ca.sesion; }
+                             o.diaViva=!!ca.viva; o.diaSesion=ca.sesion; o.diaFuente=ca.fuente; }
     return o;
   }).sort(function(a,b){ return b.valor-a.valor; });
 }
@@ -780,7 +817,12 @@ function renderMiCartera(){
   /* El histórico de cierres se pide UNA vez y en diferido: la vista se pinta ya con lo
      que hay y se repinta sola cuando llega. Así la variación de la última sesión no
      cuesta un segundo de pantalla en blanco al abrir la app. */
-  if(!_mcPreciosPedidos && typeof cargarPreciosCartera==='function' && P.some(function(p){ return p.diaEur==null; })){
+  /* [01-sep-2026] SE PIDE SIEMPRE, no solo cuando falta algún dato del día.
+     Con la condición vieja (`p.diaEur==null`) el histórico no se pedía nunca mientras el
+     intradía cubriera la cartera entera -- que es el caso normal-- y entonces
+     `_mcCierreAnt` no podía usarlo aunque ahora sea su fuente principal. La petición es
+     memoizada en `_precioCache`, así que repetirla no cuesta una descarga. */
+  if(!_mcPreciosPedidos && typeof cargarPreciosCartera==='function'){
     _mcPreciosPedidos=true;
     try{ cargarPreciosCartera().then(function(){ renderMiCartera(); }); }catch(e){}
   }
@@ -814,7 +856,14 @@ function renderMiCartera(){
       +'</div><div class="v '+(diaEur>=0?'pos':'neg')+'">'
       +(diaEur>=0?'+':'')+_mcEur(diaEur)+'</div><div class="p">'+_mcPct(diaPct)
       +(conDia.length<P.length?(' · '+conDia.length+' de '+P.length+' con dato'):'')
-      +(vivas?'':' · aún sin precio de hoy')+'</div></div>';
+      +(vivas?'':' · aún sin precio de hoy')
+      /* La procedencia solo se nombra cuando NO es la normal. Si el número sale del
+         histórico -lo esperado- no hace falta decir nada; si sale del quote es que el
+         histórico aún no tiene la sesión anterior, y eso el usuario tiene derecho a
+         saberlo porque es la referencia que puede no cuadrar con las gráficas. */
+      +(conDia.some(function(p){ return p.diaFuente==='quote'; })
+          ?' · <span title="El histórico de cierres todavía no tiene la sesión anterior, así que se compara contra el cierre que trae el pase intradía. Puede no cuadrar con las gráficas hasta que el histórico se ponga al día.">base provisional</span>':'')
+      +'</div></div>';
   } else {
     kpis+='<div class="k"><div class="l">Última sesión</div><div class="v muted" style="font-size:16px">sin variación</div>'
       +'<div class="p">no tengo el cierre anterior con el que comparar</div></div>';
