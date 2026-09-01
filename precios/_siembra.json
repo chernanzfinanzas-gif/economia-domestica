@@ -827,6 +827,17 @@
      "difPct": 0.0,
      "grave": false,
      "el": "2026-09-01"
+    },
+    "ACS": {
+     "google": 102.1,
+     "yahooBarra": 102.1,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-01",
+     "yahooQuote": 102.7,
+     "quoteVsBarra": 0.5877,
+     "quoteVsGoogle": 0.5877
     }
    },
    "yahooQuote": {
@@ -952,18 +963,18 @@
  "actualizado": "2026-09-01",
  "resumen": {
   "sesiones": 2,
-  "contrastes": 83,
+  "contrastes": 84,
   "medianaAbsPct": 0.0,
   "maxAbsPct": 4.0816,
   "gravesPct": 1.0,
   "graves": 3,
   "quoteVsBarra": {
-   "n": 24,
+   "n": 25,
    "medianaAbsPct": 0.1737,
    "maxAbsPct": 2.3904
   },
   "quoteVsGoogle": {
-   "n": 24,
+   "n": 25,
    "medianaAbsPct": 0.2054,
    "maxAbsPct": 2.3904
   },
