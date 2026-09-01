@@ -1,0 +1,89 @@
+{
+ "schemaVersion": 1,
+ "actualizado": "2026-09-01",
+ "ok": true,
+ "sesionIntradia": "2026-09-01",
+ "faltaSesion": [],
+ "discrepan": [
+  {
+   "ticker": "A3M",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 5.15,
+   "cierreAntIntradia": 5.13,
+   "difPct": 0.39
+  },
+  {
+   "ticker": "ACS",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 102.1,
+   "cierreAntIntradia": 102.7,
+   "difPct": -0.584
+  },
+  {
+   "ticker": "AMS",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 58.22,
+   "cierreAntIntradia": 57.68,
+   "difPct": 0.936
+  },
+  {
+   "ticker": "CIE",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 25.1,
+   "cierreAntIntradia": 25.7,
+   "difPct": -2.335
+  },
+  {
+   "ticker": "ELE",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 42.1,
+   "cierreAntIntradia": 42.25,
+   "difPct": -0.355
+  },
+  {
+   "ticker": "IBE",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 20.08,
+   "cierreAntIntradia": 20.15,
+   "difPct": -0.347
+  },
+  {
+   "ticker": "MCM",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 13.4,
+   "cierreAntIntradia": 13.35,
+   "difPct": 0.375
+  },
+  {
+   "ticker": "NTGY",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 29.46,
+   "cierreAntIntradia": 29.28,
+   "difPct": 0.615
+  },
+  {
+   "ticker": "PRM",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 13.2,
+   "cierreAntIntradia": 13.05,
+   "difPct": 1.149
+  },
+  {
+   "ticker": "TEF",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 3.65,
+   "cierreAntIntradia": 3.673,
+   "difPct": -0.626
+  },
+  {
+   "ticker": "VID",
+   "ultimaBarra": "2026-08-31",
+   "valorHistorico": 90.0,
+   "cierreAntIntradia": 89.7,
+   "difPct": 0.334
+  }
+ ],
+ "sinDato": [],
+ "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
+ "resumen": "0 con sesion ausente, 11 con valores discrepantes, 0 sin fichero"
+}

@@ -1,13 +1,22 @@
 name: Cierre desde Google
 # ============================================================================
 #  Publica `cierre-google.json` en la rama `datos` con el cierre de la subasta
-#  que la hoja «Cierres KH» captura por su cuenta.               [20-ago-2026]
+#  que la hoja «Cierres KH» captura por su cuenta, y SIEMBRA ese cierre en el
+#  historico `precios/*.json` de `main` como barra PROVISIONAL.  [20-ago-2026]
 #
 #  POR QUE NO BASTA CON YAHOO
 #  El pase de las 20:07 es PROVISIONAL y el cierre definitivo no queda fijado
 #  hasta el T+1 de las 07:40 del dia siguiente. Google tiene la subasta a las
 #  17:36. Medido el 20-ago sobre las 102 del universo: el cierre de Google es
 #  el mismo numero que el de Yahoo, redondeado a 2 decimales, en 101 de 102.
+#
+#  [01-sep-2026] ESA MEDICION NO SE REPRODUCE SIEMPRE, y conviene saberlo antes
+#  de fiarse. El 31-ago, sobre las 25 empresas presentes a la vez en
+#  `cierre-google.json` y en `intradia.json`: mediana de diferencia 0,205%,
+#  maximo 2,33% (CIE 25,10 contra 25,70) y ONCE de 25 por encima del 0,25%. Por
+#  eso la siembra entra como PROVISIONAL y no como cierre definitivo: quien
+#  confirma sigue siendo el T+1 de Yahoo, y cada discrepancia queda registrada
+#  en `precios/_siembra.json` para poder decidir con datos y no con impresiones.
 #
 #  HORAS (en UTC; Madrid es UTC+2 en verano y UTC+1 en invierno)
 #    "50 16 * * 1-5" -> 18:50 CEST. La buena en VERANO.
@@ -36,10 +45,19 @@ name: Cierre desde Google
 #  Y con la comparacion que dice si la hora temprana aguanta. Sigue siendo una
 #  hora antes del primer pase de Yahoo.
 #
-#  QUE NO HACE
-#  NO toca `precios/*.json`. Ese es el historico de CIERRES y su duenio es
-#  `actualizar_cotizaciones.py`. Aqui solo se produce un fichero que la app
-#  aplica a `DB.valores[t].precioActual`, igual que el de Excel.
+#  QUE HACE AHORA CON `precios/*.json`, Y POR QUE CAMBIA               [01-sep-2026]
+#  Hasta hoy aqui ponia «NO toca precios/*.json». Esa linea costo la sesion del
+#  lunes 31-ago: el cierre se capturo bien a las 20:31, se publico bien en `datos`,
+#  y el martes por la manana el historico seguia terminando el VIERNES 28, porque el
+#  unico destino del fichero era el localStorage del navegador -- y solo si la app
+#  estaba abierta entre las 18:40 y medianoche. El dato existia en el servidor y se
+#  perdia por el camino. Encima el pase de Yahoo de esa noche corrio tres veces en
+#  verde sin traer la sesion: 107 ficheros con +1 -1, solo la linea `actualizado`.
+#  Ahora `sembrar_cierre.py` escribe la barra en el historico marcada PROVISIONAL,
+#  sin avanzar `confirmadoHasta`, y NUNCA pisa una fecha que ya exista. Corregir y
+#  confirmar sigue siendo competencia de `actualizar_cotizaciones.py`, que reconsulta
+#  los ultimos 10 dias y sobrescribe via `fusionar()`.
+#  `cierre_google.py` sigue sin tocar nada: quien siembra es el script nuevo.
 # ============================================================================
 on:
   schedule:
@@ -124,4 +142,55 @@ jobs:
             sleep 5
           done
           echo "::error::No he podido publicar despues de 3 intentos."
+          exit 1
+
+      # ----------------------------------------------------------------------
+      # LA SIEMBRA. Va DESPUES de publicar en `datos` a proposito: si algo falla
+      # aqui, el fichero de Google ya esta a salvo en su rama y la app lo sigue
+      # aplicando como siempre. La siembra es una mejora del historico, no una
+      # condicion para que el cierre llegue.
+      # ----------------------------------------------------------------------
+      - name: Sembrar el cierre en el historico (provisional)
+        run: |
+          set -e
+          if [ ! -f _datos/cierre-google.json ]; then
+            echo "::warning::No hay cierre-google.json: no se siembra nada."
+            exit 0
+          fi
+          # `--intradia` es opcional y aqui SI esta: es lo que alimenta la guarda de
+          # coherencia, que compara el `cierreAnt` de Yahoo con la ultima barra del
+          # historico. El 31-ago los dos ficheros del mismo repo se contradecian y
+          # nada lo dijo; `_estado.json` publicaba `rezagados: []` con una sesion
+          # entera ausente.
+          INTRA=""
+          [ -f _datos/intradia.json ] && INTRA="--intradia _datos/intradia.json"
+          python sembrar_cierre.py --google _datos/cierre-google.json $INTRA --escribir
+
+      - name: Publicar la siembra en main
+        run: |
+          set -e
+          # Tres intentos, y cada uno REHACE la siembra sobre el `main` de ese momento
+          # en vez de rebasar. Es mas barato y mas seguro: el script es idempotente
+          # -- si la barra ya esta, no la pisa -- y deriva todo de los ficheros, asi
+          # que recalcular sobre la punta nueva no puede dejar un estado a medias.
+          INTRA=""
+          [ -f _datos/intradia.json ] && INTRA="--intradia _datos/intradia.json"
+          for i in 1 2 3; do
+            git add precios
+            if git diff --cached --quiet; then
+              echo "Historico sin cambios: no publico."
+              exit 0
+            fi
+            git commit -q -m "Siembra del cierre desde Google (provisional) · $(date -u +%Y-%m-%dT%H:%MZ)"
+            if git push -q origin HEAD:main; then
+              echo "Siembra publicada en main."
+              exit 0
+            fi
+            echo "Push rechazado (intento $i): rehago la siembra sobre origin/main."
+            git fetch -q origin main
+            git reset -q --hard FETCH_HEAD
+            python sembrar_cierre.py --google _datos/cierre-google.json $INTRA --escribir
+            sleep 5
+          done
+          echo "::error::No he podido publicar la siembra despues de 3 intentos."
           exit 1
