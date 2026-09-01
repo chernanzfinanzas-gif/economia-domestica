@@ -463,7 +463,297 @@
           ]
         }
       ]
+    },
+    {
+      "mesKey": "2026-09",
+      "fecha": "2026-09-01",
+      "periodoTexto": "desde 2026-08-01 (~31 días)",
+      "resumenTexto": "Radar (desde 2026-08-01 (~31 días)): 74 empresas con cambios, 38 con señal accionable. Señales: SACYR, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); COX ABG GROUP, S.A. — 📊 BPA revisado ▼ (¿resultados nuevos?), 🚩 Nueva alerta: BPA<=0 (payout/PER no fiables); PRIM, S.A. — 🟢 Más barata que hace un mes, 📊 BPA revisado ▼ (¿resultados nuevos?); ACCIONES FOMENTO DE CONSTRUCCIO — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); BANCO DE SABADELL — ✂️ Dividendo 12m a la baja, 🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único); LLEIDANETWORKS SERVEIS TELEMATI — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; AEDAS HOMES, S.A — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; ALMIRALL S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas.",
+      "totales": {
+        "conCambios": 74,
+        "conSenal": 38,
+        "universo": 102
+      },
+      "senaladas": [
+        {
+          "ticker": "SCYR",
+          "nombre": "SACYR, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "COXG",
+          "nombre": "COX ABG GROUP, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: BPA<=0 (payout/PER no fiables)"
+          ]
+        },
+        {
+          "ticker": "PRM",
+          "nombre": "PRIM, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "FCC",
+          "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SAB",
+          "nombre": "BANCO DE SABADELL",
+          "senales": [
+            "✂️ Dividendo 12m a la baja",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único)"
+          ]
+        },
+        {
+          "ticker": "LLN",
+          "nombre": "LLEIDANETWORKS SERVEIS TELEMATI",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "AEDAS",
+          "nombre": "AEDAS HOMES, S.A",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "ALM",
+          "nombre": "ALMIRALL S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "CLNX",
+          "nombre": "CELLNEX TELECOM, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "PRS",
+          "nombre": "PROMOTORA DE INFORMACIONES S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TUB",
+          "nombre": "TUBACEX, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "ANA",
+          "nombre": "ACCIONA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "OLE",
+          "nombre": "DEOLEO, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "AMP",
+          "nombre": "AMPER, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "GSJ",
+          "nombre": "GRUPO EMPRESARIAL SAN JOSE, S.A",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "PSG",
+          "nombre": "PROSEGUR",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CCEP",
+          "nombre": "COCA-COLA EUROPACIFIC PARTNERS ",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ENO",
+          "nombre": "ELECNOR S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "FER",
+          "nombre": "FERROVIAL N.V.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MEL",
+          "nombre": "MELIA HOTELS INTERNATIONAL, S.A",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "OHLA",
+          "nombre": "OBRASCON HUARTE LAIN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "REN",
+          "nombre": "RENTA CORPORACION REAL ESTATE, ",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ACS",
+          "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "COL",
+          "nombre": "COLONIAL SFL, SOCIMI. S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "GRF",
+          "nombre": "GRIFOLS S.A.",
+          "senales": [
+            "✂️ Dividendo 12m a la baja"
+          ]
+        },
+        {
+          "ticker": "MRL",
+          "nombre": "MERLIN PROPERTIES SOCIMI, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MVC",
+          "nombre": "METROVACESA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "A3M",
+          "nombre": "ATRESMEDIA CORPORACION DE MEDIO",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ORY",
+          "nombre": "ORYZON GENOMICS, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TRE",
+          "nombre": "TECNICAS REUNIDAS S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "VOC",
+          "nombre": "VOCENTO",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "AIR",
+          "nombre": "AIRBUS",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CIE",
+          "nombre": "CIE AUTOMOTIVE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ECO",
+          "nombre": "ECOENER, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "IBE",
+          "nombre": "ACCIONES IBERDROLA",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LOG",
+          "nombre": "COMPA...IA DE DISTRIBUCION INTE",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "SEC",
+          "nombre": "SECUOYA  GRUPO DE COMUNICACION,",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "HOME",
+          "nombre": "NEINOR HOMES, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        }
+      ]
     }
   ],
-  "actualizado": "2026-08-01T13:09:05+02:00"
+  "actualizado": "2026-09-01T13:17:53+02:00"
 }
