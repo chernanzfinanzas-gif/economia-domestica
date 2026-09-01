@@ -37,10 +37,23 @@ LO QUE HACE
      hay nada; no corrige a nadie. La correccion es competencia de Yahoo, que reconsulta
      los ultimos VENTANA=10 dias y sobrescribe via `fusionar()`.
 
-  3. CONTRASTA. Cada valor sembrado queda anotado en `precios/_siembra.json`. En pases
-     posteriores, cuando Yahoo ya ha confirmado esa fecha (`confirmadoHasta >= fecha`),
-     se apunta que valor puso Yahoo y cuanto se separaba el de Google. Eso convierte una
-     discusion en una medida.
+  3. CONTRASTA, y con TRES numeros para la misma sesion, no dos. Todo va a
+     `precios/_siembra.json`:
+
+       · `google`      la captura post-subasta de la hoja, la que siembra este script.
+       · `yahooQuote`  el `cierreAnt` que trae `intradia.json` a la manana siguiente.
+                       Es lo que la app usa HOY como "cierre de ayer" en la casilla
+                       «Hoy». CADUCA EN 24 HORAS: manana el fichero se reescribe y habla
+                       de otra vispera, asi que hay que capturarlo el dia siguiente o se
+                       pierde.
+       · `yahooBarra`  la que `actualizar_cotizaciones.py` acaba CONFIRMANDO en el
+                       historico, releida un dia posterior.
+
+     `difPct` mide google contra la barra confirmada; `quoteVsBarra` mide el quote contra
+     esa MISMA barra. La hipotesis de Carlos (01-sep-2026) es que el quote es el cierre de
+     ANTES de la subasta: si tiene razon, `quoteVsBarra` saldra sistematicamente mayor que
+     `difPct`, y el numero raro sera el quote, no el de Google. Eso convierte una discusion
+     en una medida.
 
      HACE FALTA, y esta medido. El 31-ago, comparando el cierre de Google con el
      `cierreAnt` de Yahoo en las 25 empresas presentes en los dos ficheros: mediana de
@@ -254,8 +267,25 @@ def sembrar(base, google, seco=True):
 
 
 # -------------------------------------------------------------------- registro y contraste
-def registrar_y_contrastar(base, res, google, seco=True):
-    """Apunta lo sembrado y, cuando Yahoo ya confirmo esa fecha, cuanto se separaba."""
+def registrar_y_contrastar(base, res, google, intradia=None, seco=True):
+    """Apunta lo sembrado y lo compara con los DOS numeros de Yahoo, que no son el mismo.
+
+    [01-sep-2026] La primera version solo guardaba dos columnas -- Google y la barra que
+    Yahoo confirma en el T+1 -- y con eso no se podia contestar la pregunta que de verdad
+    esta abierta. Carlos la formulo asi: que el 380.469 EUR de Yahoo fuese el cierre ANTES
+    de la subasta y el 379.961 EUR de Google el de despues. Son dos numeros DISTINTOS de
+    Yahoo:
+
+      · `yahooQuote`   -> el `cierreAnt` del quote que trae `intradia.json` a la manana
+                          siguiente. Es el que la app usa hoy como "cierre de ayer" en la
+                          casilla «Hoy», y el sospechoso de ser pre-subasta.
+      · `yahooBarra`   -> la barra que `actualizar_cotizaciones.py` acaba CONFIRMANDO en
+                          el historico, releida un dia posterior. Deberia ser el cierre
+                          consolidado de la subasta.
+
+    Si la hipotesis es correcta, `google` y `yahooBarra` se pareceran entre si y los dos se
+    separaran de `yahooQuote`. Sin la tercera columna esa comparacion no se puede hacer, y
+    habriamos esperado una semana para responder media pregunta."""
     outdir = os.path.join(base, OUTDIR)
     path = os.path.join(outdir, SIEMBRA)
     reg = _leer(path, {"schemaVersion": 1, "sesiones": {}}) or {"schemaVersion": 1, "sesiones": {}}
@@ -269,11 +299,32 @@ def registrar_y_contrastar(base, res, google, seco=True):
         s["selloUTC"] = res.get("selloUTC", "")
         s.setdefault("google", {}).update(res["sembrados"])
 
+    # EL `cierreAnt` DEL QUOTE, QUE CADUCA EN 24 HORAS.
+    # `intradia.json` de la sesion X trae, por ticker, el cierre de la sesion ANTERIOR
+    # segun el quote de Yahoo. Manana ese numero ya no estara: el fichero se reescribe y
+    # pasa a hablar de otra vispera. Asi que se captura AQUI, en el pase del dia
+    # siguiente, y se guarda junto a la sesion a la que pertenece.
+    nuevos_quote = 0
+    if intradia and intradia.get("datos"):
+        ses_i = intradia.get("sesion")
+        if ses_i:
+            fecha_ant = _dia_habil_anterior(ses_i)
+            s_ant = reg["sesiones"].get(fecha_ant)
+            if s_ant is not None:
+                q = s_ant.setdefault("yahooQuote", {})
+                for tk, d in (intradia.get("datos") or {}).items():
+                    ca = d.get("cierreAnt")
+                    if tk in q or not ca or not (ca > 0):
+                        continue
+                    q[tk] = ca
+                    nuevos_quote += 1
+
     # El contraste: para cada sesion registrada, mirar si el fichero ya trae esa fecha
     # CONFIRMADA y, si es asi, apuntar el numero de Yahoo al lado del de Google.
     nuevos_contrastes = 0
     for fecha, s in reg["sesiones"].items():
         gg = s.get("google") or {}
+        qq = s.get("yahooQuote") or {}
         con = s.setdefault("contraste", {})
         for tk, vg in gg.items():
             if tk in con:
@@ -293,16 +344,31 @@ def registrar_y_contrastar(base, res, google, seco=True):
                 continue
             dif = round(vy - vg, 6)
             pct = round(dif / vy * 100.0, 4)
-            con[tk] = {"google": vg, "yahoo": vy, "dif": dif, "difPct": pct,
-                       "grave": abs(pct) >= GRAVE_PCT, "el": hoy}
+            fila = {"google": vg, "yahooBarra": vy, "dif": dif, "difPct": pct,
+                    "grave": abs(pct) >= GRAVE_PCT, "el": hoy}
+            # La tercera columna, si se llego a capturar. `quoteVsBarra` es la que
+            # contesta la hipotesis: si sale grande y `difPct` sale pequena, el raro es
+            # el quote -- el pre-subasta-- y Google acertaba.
+            vq = qq.get(tk)
+            if vq and vq > 0:
+                fila["yahooQuote"] = vq
+                fila["quoteVsBarra"] = round((vq - vy) / vy * 100.0, 4)
+                fila["quoteVsGoogle"] = round((vq - vg) / vg * 100.0, 4)
+            con[tk] = fila
             nuevos_contrastes += 1
 
     # Resumen legible sin abrir el fichero entero.
-    todos = []
+    todos, qb, qg = [], [], []
     for s in reg["sesiones"].values():
         for c in (s.get("contraste") or {}).values():
             todos.append(abs(c["difPct"]))
-    todos.sort()
+            if c.get("quoteVsBarra") is not None:
+                qb.append(abs(c["quoteVsBarra"]))
+                qg.append(abs(c["quoteVsGoogle"]))
+    todos.sort(); qb.sort(); qg.sort()
+
+    def _med(x):
+        return x[len(x) // 2] if x else None
     reg["actualizado"] = hoy
     reg["resumen"] = {
         "sesiones": len(reg["sesiones"]),
@@ -311,13 +377,24 @@ def registrar_y_contrastar(base, res, google, seco=True):
         "maxAbsPct": (todos[-1] if todos else None),
         "gravesPct": GRAVE_PCT,
         "graves": sum(1 for x in todos if x >= GRAVE_PCT),
-        "nota": ("Cada linea compara el cierre que Google publico la misma tarde con el que "
-                 "Yahoo confirmo despues para la MISMA fecha. No decide quien gana: mide "
-                 "cuanto se separan, que es lo que hacia falta para poder decidirlo."),
+        # LA COMPARACION QUE CONTESTA LA HIPOTESIS. Si `medianaQuoteVsBarra` sale
+        # claramente por encima de `medianaAbsPct`, el numero raro es el quote de Yahoo
+        # -el pre-subasta- y no el cierre de Google.
+        "quoteVsBarra": {"n": len(qb), "medianaAbsPct": _med(qb),
+                         "maxAbsPct": (qb[-1] if qb else None)},
+        "quoteVsGoogle": {"n": len(qg), "medianaAbsPct": _med(qg),
+                          "maxAbsPct": (qg[-1] if qg else None)},
+        "nota": ("Tres numeros para la MISMA sesion: `google` (captura post-subasta de la "
+                 "hoja), `yahooBarra` (la que Yahoo confirma en el T+1 en el historico) y "
+                 "`yahooQuote` (el `cierreAnt` del quote, que es lo que la app usa hoy como "
+                 "cierre de ayer). `difPct` mide google contra la barra confirmada; "
+                 "`quoteVsBarra` mide el quote contra esa misma barra. Si la segunda es "
+                 "mayor que la primera, el raro es el quote. Esto no decide quien gana: "
+                 "mide, que es lo que hacia falta para poder decidirlo."),
     }
     if not seco:
         _escribir_si_cambia(path, reg, indent=1)
-    return reg, nuevos_contrastes
+    return reg, nuevos_contrastes, nuevos_quote
 
 
 # ------------------------------------------------------------------ guarda de coherencia
@@ -461,19 +538,26 @@ def main():
         n = refrescar_indices(base, sorted(res["sembrados"]), seco=seco)
         print("  Indices refrescados: %d tickers en _ultimos.json y _estado.json" % n)
 
-    reg, nuevos = registrar_y_contrastar(base, res, google, seco=seco)
+    intra = _leer(a.intradia) if a.intradia else None
+    reg, nuevos, nuevos_quote = registrar_y_contrastar(base, res, google, intradia=intra, seco=seco)
     r = reg.get("resumen", {})
     print()
     print("  CONTRASTE Google vs Yahoo  ·  %d comparaciones (%d nuevas en este pase)"
           % (r.get("contrastes", 0), nuevos))
+    if nuevos_quote:
+        print("     capturados %d `cierreAnt` del quote de la sesion anterior" % nuevos_quote)
     if r.get("contrastes"):
-        print("     mediana |dif| %.3f%%  ·  maximo %.3f%%  ·  graves (>=%.1f%%): %d"
+        print("     google vs barra confirmada : mediana %.3f%%  max %.3f%%  graves(>=%.1f%%) %d"
               % (r.get("medianaAbsPct") or 0, r.get("maxAbsPct") or 0,
                  GRAVE_PCT, r.get("graves", 0)))
+    qb = (r.get("quoteVsBarra") or {})
+    if qb.get("n"):
+        print("     quote  vs barra confirmada : mediana %.3f%%  max %.3f%%  (n=%d)"
+              % (qb.get("medianaAbsPct") or 0, qb.get("maxAbsPct") or 0, qb["n"]))
+        print("     -> si esta segunda linea es MAYOR que la primera, el raro es el quote")
 
     coh = None
-    if a.intradia:
-        intra = _leer(a.intradia)
+    if intra is not None:
         coh = coherencia(base, intra, seco=seco)
         print()
         print("  GUARDA DE COHERENCIA  ·  %s" % coh.get("resumen", "sin ejecutar"))
