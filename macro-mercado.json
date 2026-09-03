@@ -1,29 +1,29 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-02",
+ "generadoEl": "2026-09-03",
  "fuente": "mercado-diario",
  "nota": "Escrito por macro_mercado.py (GitHub Actions, un pase diario). Misma forma que macro.json: la app funde los dos y este pisa al del informe solo donde trae dato. Un indicador que falla no aparece; nunca se escribe 0 ni un valor a medias.",
  "ind": {
   "ibex": {
    "n": "IBEX 35",
    "grupo": "bolsa",
-   "v": 19824.0,
+   "v": 19779.0,
    "u": "puntos",
-   "f": "2026-09-01",
-   "d": -0.75,
+   "f": "2026-09-02",
+   "d": -0.23,
    "dU": "%",
    "dPer": "sesión",
    "src": "precios/IBEX.json (serie propia)",
    "slider": "BOLSA",
-   "sliderV": 32.7,
-   "nota": "+32,7 % en 12 meses (alimenta el escenario) · +14,5 % en lo que va de año"
+   "sliderV": 34.5,
+   "nota": "+34,5 % en 12 meses (alimenta el escenario) · +14,3 % en lo que va de año"
   },
   "vix": {
    "n": "VIX · volatilidad implícita",
    "grupo": "otros",
-   "v": 16.34,
-   "f": "2026-09-01",
-   "d": 9.52,
+   "v": 15.2,
+   "f": "2026-09-02",
+   "d": -6.98,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · ^VIX",
@@ -34,9 +34,9 @@
   "oro": {
    "n": "Oro",
    "grupo": "otros",
-   "v": 4348.0,
-   "f": "2026-09-01",
-   "d": -1.88,
+   "v": 4366.3,
+   "f": "2026-09-02",
+   "d": 0.42,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · GC=F",
@@ -46,9 +46,9 @@
   "brent": {
    "n": "Brent",
    "grupo": "energia",
-   "v": 94.65,
-   "f": "2026-09-01",
-   "d": 4.6,
+   "v": 95.63,
+   "f": "2026-09-02",
+   "d": 1.04,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · BZ=F",
@@ -58,9 +58,9 @@
   "eur_usd": {
    "n": "EUR/USD",
    "grupo": "divisas",
-   "v": 1.1618,
-   "f": "2026-09-01",
-   "d": 0.25,
+   "v": 1.1596,
+   "f": "2026-09-02",
+   "d": -0.19,
    "dU": "%",
    "dPer": "sesión",
    "src": "yahoo · EURUSD=X",
@@ -71,10 +71,10 @@
    "grupo": "divisas",
    "v": 11.1,
    "u": "%",
-   "f": "2026-09-01",
+   "f": "2026-09-02",
    "slider": "LATAM",
    "sliderV": 11.1,
-   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL +5,2 % · MXN +9,5 % · CLP +5,8 % · COP +24,0 %. ARS excluido: su tipo mide política cambiaria, no mercado",
+   "nota": "12 meses móviles, a partes iguales, signo invertido (par EUR/XXX al alza = divisa débil). BRL +6,3 % · MXN +9,8 % · CLP +5,9 % · COP +22,5 %. ARS excluido: su tipo mide política cambiaria, no mercado",
    "src": "yahoo · EURBRL=X, EURMXN=X, EURCLP=X, EURCOP=X"
   },
   "treasury_10a": {
@@ -82,7 +82,7 @@
    "grupo": "otros",
    "v": 4.8,
    "u": "%",
-   "f": "2026-09-01",
+   "f": "2026-09-02",
    "src": "yahoo · ^TNX"
   }
  }
