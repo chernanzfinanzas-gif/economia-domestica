@@ -1816,24 +1816,891 @@
     "VID": 88.7,
     "VIS": 57.3
    },
+   "contraste": {
+    "A3M": {
+     "google": 5.13,
+     "yahooBarra": 5.13,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 5.14,
+     "quoteVsBarra": 0.1949,
+     "quoteVsGoogle": 0.1949
+    },
+    "ACS": {
+     "google": 98.55,
+     "yahooBarra": 98.55,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 98.55,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "ACX": {
+     "google": 17.61,
+     "yahooBarra": 17.61,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ADZ": {
+     "google": 6.1,
+     "yahooBarra": 6.05,
+     "dif": -0.05,
+     "difPct": -0.8264,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "AEDAS": {
+     "google": 21.15,
+     "yahooBarra": 21.15,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "AENA": {
+     "google": 25.68,
+     "yahooBarra": 25.68,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 25.7,
+     "quoteVsBarra": 0.0779,
+     "quoteVsGoogle": 0.0779
+    },
+    "AIR": {
+     "google": 194.5,
+     "yahooBarra": 196.72,
+     "dif": 2.22,
+     "difPct": 1.1285,
+     "grave": true,
+     "el": "2026-09-03"
+    },
+    "ALM": {
+     "google": 10.46,
+     "yahooBarra": 10.46,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ALNT": {
+     "google": 9.9,
+     "yahooBarra": 9.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "AMP": {
+     "google": 4.34,
+     "yahooBarra": 4.34,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "AMS": {
+     "google": 56.5,
+     "yahooBarra": 56.5,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 56.62,
+     "quoteVsBarra": 0.2124,
+     "quoteVsGoogle": 0.2124
+    },
+    "ANA": {
+     "google": 199.5,
+     "yahooBarra": 199.5,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ANE": {
+     "google": 21.12,
+     "yahooBarra": 21.12,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "APAM": {
+     "google": 46.9,
+     "yahooBarra": 46.6,
+     "dif": -0.3,
+     "difPct": -0.6438,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ARM": {
+     "google": 11.0,
+     "yahooBarra": 10.5,
+     "dif": -0.5,
+     "difPct": -4.7619,
+     "grave": true,
+     "el": "2026-09-03"
+    },
+    "ART": {
+     "google": 28.6,
+     "yahooBarra": 28.6,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "AZK": {
+     "google": 9.96,
+     "yahooBarra": 9.96,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 9.98,
+     "quoteVsBarra": 0.2008,
+     "quoteVsGoogle": 0.2008
+    },
+    "BBVA": {
+     "google": 25.09,
+     "yahooBarra": 25.09,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "BKT": {
+     "google": 16.54,
+     "yahooBarra": 16.535,
+     "dif": -0.005,
+     "difPct": -0.0302,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 16.48,
+     "quoteVsBarra": -0.3326,
+     "quoteVsGoogle": -0.3628
+    },
+    "CABK": {
+     "google": 13.22,
+     "yahooBarra": 13.215,
+     "dif": -0.005,
+     "difPct": -0.0378,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "CAF": {
+     "google": 72.3,
+     "yahooBarra": 72.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "CCEP": {
+     "google": 93.3,
+     "yahooBarra": 93.1,
+     "dif": -0.2,
+     "difPct": -0.2148,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "CEV": {
+     "google": 10.3,
+     "yahooBarra": 10.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "CIE": {
+     "google": 25.3,
+     "yahooBarra": 25.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 25.25,
+     "quoteVsBarra": -0.1976,
+     "quoteVsGoogle": -0.1976
+    },
+    "CIRSA": {
+     "google": 16.16,
+     "yahooBarra": 16.16,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "CLNX": {
+     "google": 25.5,
+     "yahooBarra": 25.5,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "COL": {
+     "google": 5.23,
+     "yahooBarra": 5.225,
+     "dif": -0.005,
+     "difPct": -0.0957,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "COXG": {
+     "google": 11.55,
+     "yahooBarra": 11.55,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "DIA": {
+     "google": 39.25,
+     "yahooBarra": 39.25,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "EBRO": {
+     "google": 18.54,
+     "yahooBarra": 18.54,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 18.58,
+     "quoteVsBarra": 0.2157,
+     "quoteVsGoogle": 0.2157
+    },
+    "ECO": {
+     "google": 3.82,
+     "yahooBarra": 3.82,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ECR": {
+     "google": 3.49,
+     "yahooBarra": 3.49,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ELE": {
+     "google": 41.14,
+     "yahooBarra": 41.14,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 41.13,
+     "quoteVsBarra": -0.0243,
+     "quoteVsGoogle": -0.0243
+    },
+    "ENC": {
+     "google": 2.54,
+     "yahooBarra": 2.54,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ENG": {
+     "google": 16.59,
+     "yahooBarra": 16.59,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 16.64,
+     "quoteVsBarra": 0.3014,
+     "quoteVsGoogle": 0.3014
+    },
+    "ENO": {
+     "google": 30.3,
+     "yahooBarra": 30.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "FAE": {
+     "google": 4.5,
+     "yahooBarra": 4.495,
+     "dif": -0.005,
+     "difPct": -0.1112,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 4.495,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": -0.1111
+    },
+    "FCC": {
+     "google": 11.0,
+     "yahooBarra": 11.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "FDR": {
+     "google": 18.9,
+     "yahooBarra": 18.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 18.95,
+     "quoteVsBarra": 0.2646,
+     "quoteVsGoogle": 0.2646
+    },
+    "FER": {
+     "google": 49.77,
+     "yahooBarra": 49.77,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "GEST": {
+     "google": 2.9,
+     "yahooBarra": 2.895,
+     "dif": -0.005,
+     "difPct": -0.1727,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "GIGA": {
+     "google": 3.19,
+     "yahooBarra": 3.14,
+     "dif": -0.05,
+     "difPct": -1.5924,
+     "grave": true,
+     "el": "2026-09-03"
+    },
+    "GRE": {
+     "google": 87.0,
+     "yahooBarra": 87.0,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "GRF": {
+     "google": 9.9,
+     "yahooBarra": 9.898,
+     "dif": -0.002,
+     "difPct": -0.0202,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "GSJ": {
+     "google": 7.57,
+     "yahooBarra": 7.57,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "HOME": {
+     "google": 15.41,
+     "yahooBarra": 15.41,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "IAG": {
+     "google": 4.89,
+     "yahooBarra": 4.895,
+     "dif": 0.005,
+     "difPct": 0.1021,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "IBE": {
+     "google": 19.67,
+     "yahooBarra": 19.665,
+     "dif": -0.005,
+     "difPct": -0.0254,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 19.715,
+     "quoteVsBarra": 0.2543,
+     "quoteVsGoogle": 0.2288
+    },
+    "IBG": {
+     "google": 17.9,
+     "yahooBarra": 17.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "IDR": {
+     "google": 60.28,
+     "yahooBarra": 60.28,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ITX": {
+     "google": 56.16,
+     "yahooBarra": 56.16,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 56.3,
+     "quoteVsBarra": 0.2493,
+     "quoteVsGoogle": 0.2493
+    },
+    "LGT": {
+     "google": 5.98,
+     "yahooBarra": 6.06,
+     "dif": 0.08,
+     "difPct": 1.3201,
+     "grave": true,
+     "el": "2026-09-03"
+    },
+    "LOG": {
+     "google": 35.38,
+     "yahooBarra": 35.38,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 35.38,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "MAKS": {
+     "google": 6.5,
+     "yahooBarra": 6.45,
+     "dif": -0.05,
+     "difPct": -0.7752,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "MAP": {
+     "google": 4.48,
+     "yahooBarra": 4.482,
+     "dif": 0.002,
+     "difPct": 0.0446,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 4.494,
+     "quoteVsBarra": 0.2677,
+     "quoteVsGoogle": 0.3125
+    },
+    "MCM": {
+     "google": 13.3,
+     "yahooBarra": 13.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 13.3,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "MEL": {
+     "google": 9.86,
+     "yahooBarra": 9.86,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "MRL": {
+     "google": 13.21,
+     "yahooBarra": 13.21,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "MTS": {
+     "google": 64.28,
+     "yahooBarra": 64.28,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "MVC": {
+     "google": 10.52,
+     "yahooBarra": 10.52,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "NEA": {
+     "google": 9.9,
+     "yahooBarra": 9.8,
+     "dif": -0.1,
+     "difPct": -1.0204,
+     "grave": true,
+     "el": "2026-09-03"
+    },
+    "NTGY": {
+     "google": 29.6,
+     "yahooBarra": 29.6,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 29.68,
+     "quoteVsBarra": 0.2703,
+     "quoteVsGoogle": 0.2703
+    },
+    "ORY": {
+     "google": 2.81,
+     "yahooBarra": 2.812,
+     "dif": 0.002,
+     "difPct": 0.0711,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "PHM": {
+     "google": 82.75,
+     "yahooBarra": 82.75,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "PRM": {
+     "google": 12.95,
+     "yahooBarra": 12.95,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 12.95,
+     "quoteVsBarra": 0.0,
+     "quoteVsGoogle": 0.0
+    },
+    "PRS": {
+     "google": 2.84,
+     "yahooBarra": 2.84,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "PSG": {
+     "google": 2.87,
+     "yahooBarra": 2.865,
+     "dif": -0.005,
+     "difPct": -0.1745,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "PUIG": {
+     "google": 18.35,
+     "yahooBarra": 18.35,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "R4": {
+     "google": 19.4,
+     "yahooBarra": 19.4,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "RED": {
+     "google": 14.91,
+     "yahooBarra": 14.91,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 14.96,
+     "quoteVsBarra": 0.3353,
+     "quoteVsGoogle": 0.3353
+    },
+    "REP": {
+     "google": 28.05,
+     "yahooBarra": 28.05,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 27.99,
+     "quoteVsBarra": -0.2139,
+     "quoteVsGoogle": -0.2139
+    },
+    "RJF": {
+     "google": 2.69,
+     "yahooBarra": 2.7,
+     "dif": 0.01,
+     "difPct": 0.3704,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "ROVI": {
+     "google": 59.9,
+     "yahooBarra": 59.9,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "SAB": {
+     "google": 3.63,
+     "yahooBarra": 3.625,
+     "dif": -0.005,
+     "difPct": -0.1379,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "SAN": {
+     "google": 12.71,
+     "yahooBarra": 12.712,
+     "dif": 0.002,
+     "difPct": 0.0157,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 12.706,
+     "quoteVsBarra": -0.0472,
+     "quoteVsGoogle": -0.0315
+    },
+    "SCYR": {
+     "google": 4.16,
+     "yahooBarra": 4.162,
+     "dif": 0.002,
+     "difPct": 0.0481,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "SLR": {
+     "google": 16.52,
+     "yahooBarra": 16.525,
+     "dif": 0.005,
+     "difPct": 0.0303,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "TEF": {
+     "google": 3.66,
+     "yahooBarra": 3.655,
+     "dif": -0.005,
+     "difPct": -0.1368,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 3.662,
+     "quoteVsBarra": 0.1915,
+     "quoteVsGoogle": 0.0546
+    },
+    "TLGO": {
+     "google": 2.68,
+     "yahooBarra": 2.675,
+     "dif": -0.005,
+     "difPct": -0.1869,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "TRE": {
+     "google": 25.08,
+     "yahooBarra": 25.08,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "TUB": {
+     "google": 2.84,
+     "yahooBarra": 2.835,
+     "dif": -0.005,
+     "difPct": -0.1764,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "UNI": {
+     "google": 3.59,
+     "yahooBarra": 3.59,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03"
+    },
+    "VID": {
+     "google": 88.7,
+     "yahooBarra": 88.7,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 89.0,
+     "quoteVsBarra": 0.3382,
+     "quoteVsGoogle": 0.3382
+    },
+    "VIS": {
+     "google": 57.3,
+     "yahooBarra": 57.3,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-03",
+     "yahooQuote": 57.4,
+     "quoteVsBarra": 0.1745,
+     "quoteVsGoogle": 0.1745
+    }
+   },
+   "yahooQuote": {
+    "A3M": 5.14,
+    "ACS": 98.55,
+    "AENA": 25.7,
+    "AMS": 56.62,
+    "AZK": 9.98,
+    "BKT": 16.48,
+    "CIE": 25.25,
+    "EBRO": 18.58,
+    "ELE": 41.13,
+    "ENG": 16.64,
+    "FAE": 4.495,
+    "FDR": 18.95,
+    "IBE": 19.715,
+    "ITX": 56.3,
+    "LOG": 35.38,
+    "MAP": 4.494,
+    "MCM": 13.3,
+    "NTGY": 29.68,
+    "PRM": 12.95,
+    "RED": 14.96,
+    "REP": 27.99,
+    "SAN": 12.706,
+    "TEF": 3.662,
+    "VID": 89.0,
+    "VIS": 57.4
+   }
+  },
+  "2026-09-03": {
+   "sembradoEl": "2026-09-03",
+   "fuente": "Google Finance · hoja «Cierres KH» · captura post-subasta",
+   "selloUTC": "2026-09-03 18:31:08",
+   "google": {
+    "A3M": 5.18,
+    "ACS": 100.7,
+    "ACX": 18.11,
+    "ADZ": 6.15,
+    "AEDAS": 21.15,
+    "AENA": 25.8,
+    "AIR": 197.08,
+    "ALM": 10.4,
+    "ALNT": 9.8,
+    "AMP": 4.65,
+    "AMS": 57.3,
+    "ANA": 203.2,
+    "ANE": 21.44,
+    "APAM": 47.22,
+    "ARM": 10.5,
+    "ART": 29.0,
+    "AZK": 10.0,
+    "BBVA": 25.4,
+    "BKT": 16.91,
+    "CABK": 13.53,
+    "CAF": 72.5,
+    "CCEP": 93.9,
+    "CEV": 10.3,
+    "CIE": 25.75,
+    "CIRSA": 17.28,
+    "CLNX": 25.99,
+    "COL": 5.26,
+    "COXG": 11.6,
+    "DIA": 39.25,
+    "EBRO": 18.22,
+    "ECO": 3.98,
+    "ECR": 3.49,
+    "ELE": 41.2,
+    "ENC": 2.52,
+    "ENG": 16.5,
+    "ENO": 30.8,
+    "FAE": 4.51,
+    "FCC": 11.02,
+    "FDR": 18.86,
+    "FER": 49.81,
+    "GEST": 2.95,
+    "GIGA": 3.19,
+    "GRE": 86.6,
+    "GRF": 9.93,
+    "GSJ": 7.74,
+    "HOME": 15.46,
+    "IAG": 4.96,
+    "IBE": 19.75,
+    "IBG": 17.95,
+    "IDR": 58.9,
+    "ITX": 56.8,
+    "LGT": 5.98,
+    "LOG": 35.18,
+    "MAKS": 6.5,
+    "MAP": 4.54,
+    "MCM": 13.3,
+    "MEL": 9.82,
+    "MRL": 13.24,
+    "MTS": 65.58,
+    "MVC": 10.54,
+    "NEA": 9.9,
+    "NTGY": 29.3,
+    "ORY": 2.81,
+    "PHM": 83.75,
+    "PRM": 13.0,
+    "PRS": 2.78,
+    "PSG": 2.88,
+    "PUIG": 18.39,
+    "R4": 19.2,
+    "RED": 14.87,
+    "REP": 28.34,
+    "RJF": 2.75,
+    "ROVI": 59.55,
+    "SAB": 3.69,
+    "SAN": 12.9,
+    "SCYR": 4.26,
+    "SLR": 16.6,
+    "TEF": 3.68,
+    "TLGO": 2.66,
+    "TRE": 25.3,
+    "TUB": 2.82,
+    "UNI": 3.64,
+    "VID": 88.7,
+    "VIS": 56.7
+   },
    "contraste": {}
   }
  },
- "actualizado": "2026-09-02",
+ "actualizado": "2026-09-03",
  "resumen": {
-  "sesiones": 3,
-  "contrastes": 167,
+  "sesiones": 4,
+  "contrastes": 251,
   "medianaAbsPct": 0.0,
-  "maxAbsPct": 4.0816,
+  "maxAbsPct": 4.7619,
   "gravesPct": 1.0,
-  "graves": 6,
+  "graves": 11,
   "quoteVsBarra": {
-   "n": 50,
-   "medianaAbsPct": 0.1965,
+   "n": 75,
+   "medianaAbsPct": 0.1976,
    "maxAbsPct": 2.3904
   },
   "quoteVsGoogle": {
-   "n": 50,
+   "n": 75,
    "medianaAbsPct": 0.198,
    "maxAbsPct": 2.3904
   },
