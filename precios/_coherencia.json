@@ -62,13 +62,6 @@
    "difPct": -0.841
   },
   {
-   "ticker": "FAE",
-   "ultimaBarra": "2026-09-03",
-   "valorHistorico": 4.51,
-   "cierreAntIntradia": 4.495,
-   "difPct": 0.334
-  },
-  {
    "ticker": "FDR",
    "ultimaBarra": "2026-09-03",
    "valorHistorico": 18.86,
@@ -92,9 +85,9 @@
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-09-03",
-   "valorHistorico": 4.54,
+   "valorHistorico": 4.542,
    "cierreAntIntradia": 4.494,
-   "difPct": 1.024
+   "difPct": 1.068
   },
   {
    "ticker": "NTGY",
@@ -127,16 +120,16 @@
   {
    "ticker": "SAN",
    "ultimaBarra": "2026-09-03",
-   "valorHistorico": 12.9,
+   "valorHistorico": 12.902,
    "cierreAntIntradia": 12.706,
-   "difPct": 1.527
+   "difPct": 1.543
   },
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-09-03",
-   "valorHistorico": 3.68,
+   "valorHistorico": 3.679,
    "cierreAntIntradia": 3.662,
-   "difPct": 0.492
+   "difPct": 0.464
   },
   {
    "ticker": "VID",
@@ -155,5 +148,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 21 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 20 con valores discrepantes, 0 sin fichero"
 }
