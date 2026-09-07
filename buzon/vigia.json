@@ -1,9 +1,9 @@
 {
-  "generadoEl": "2026-08-31T15:47:11+02:00",
+  "generadoEl": "2026-09-07T14:30:06+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-08-31",
-  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +37d). 🔜 PRÓXIMOS 14 DÍAS: Inditex 10-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-09-07",
+  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +44d). 📅 ESTA SEMANA (1): Inditex 10-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "MCM",
@@ -13,11 +13,10 @@
       "fechaEstimada": "2026-07-25",
       "ultimoPeriodo": "2026-Q1",
       "ultimaFecha": "2026-05-08",
-      "diasVencido": 37
+      "diasVencido": 44
     }
   ],
-  "estaSemana": [],
-  "proximos14d": [
+  "estaSemana": [
     {
       "ticker": "ITX",
       "empresa": "Inditex",
@@ -28,6 +27,7 @@
       "ultimaFecha": "2026-06-10"
     }
   ],
+  "proximos14d": [],
   "siguienteEvento": {
     "ticker": "ITX",
     "empresa": "Inditex",
