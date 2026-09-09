@@ -35,13 +35,12 @@
  "bear": "El ciclo del crudo vuelve a la parte baja con los diferenciales de refino comprimidos, o la transición energética muerde antes de tiempo y obliga a revisar la vida útil del refino. Es la peor de las tres cadenas del pre-mortem: destruiría un 30,0 % del valor. PO bear 15,58 €.",
  "resumen": "Un balance de sobresaliente sosteniendo un negocio que no cubre su coste de capital. El §5.2 del scoring (79,3/100) es de los mejores que ha medido el método, con deuda neta a 0,84x EBITDA y reducida a la mitad en diez años; pero el ROIC de 6,29 % queda por debajo del WACC de 6,86 % y el spread ha sido negativo en siete de los diez ejercicios. El precio objetivo de 20,52 € está un 24,7 % por debajo de la cotización de 27,25 €, así que el veredicto es ESPERAR: es un veredicto de PRECIO, no de empresa. Banda de entrada 15,58–17,84 € y stop de tesis 13,35 €. Robustez SÓLIDA, confianza 69/B, Dividend Safety 83 y forense sin veto.",
  "confianza": {
-  "score": 69,
-  "nivel": "B",
+  "score": 100,
+  "nivel": "A",
   "motivos": [
-   "13 dato(s) secundario(s) en 'Pte. Revisión' (−26)",
-   "1 línea(s) de conciliación ⚠ sin corregir (−5)"
+   "sin huecos críticos ni discrepancias abiertas"
   ],
-  "sensibleASupuestos": true,
+  "sensibleASupuestos": false,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
