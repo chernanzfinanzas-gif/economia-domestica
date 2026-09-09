@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-01",
+ "generadoEl": "2026-09-09",
  "fuenteDeVerdad": "Calibración Ex-Post - Método KH&Claude.xlsx · hoja «Registro t0»",
  "nota": "La composición del PO (dcf, recorteSintesis, banda, robustez, gImplicito…) solo existe en el lado del método: la app no puede calcularla. Las filas sin ella son aquellas cuyo [TICKER].json dejó de ser la foto de t0 — vacío significa «no se sabe», nunca cero.",
  "t0": [
@@ -1143,72 +1143,110 @@
    "ajusteFecha": null,
    "ajusteDecision": null,
    "ajustePo": null
+  },
+  {
+   "ticker": "REP",
+   "empresa": "Repsol, S.A.",
+   "arquetipo": "COMMODITY · Oil & Gas Integrado",
+   "fecha": "2026-09-09",
+   "decision": "ESPERAR",
+   "rating": "BBB",
+   "score": 59.4,
+   "cot0": 27.25,
+   "poBear": 15.58,
+   "poBase": 20.52,
+   "poBull": 25.74,
+   "entMin": 15.58,
+   "entMax": 17.84,
+   "stop": 13.35,
+   "beta": 0.819,
+   "mdsBase": null,
+   "potencialBull": null,
+   "riesgoBear": null,
+   "colchonStop": null,
+   "recorridoStop": null,
+   "dcf": 31.78134411274531,
+   "recorteSintesis": -0.3543381951623992,
+   "bandaP10": 15.58,
+   "bandaP90": 25.74,
+   "robustez": "solida",
+   "gImplicito": -0.0155,
+   "veredictoRdcf": "PLAUSIBLE",
+   "confianza": "B · 69",
+   "vetoForense": "NO",
+   "dividendSafety": 83,
+   "betaReferencia": 0.429,
+   "desfaseBeta": -0.39,
+   "ajustesN": 0,
+   "ajusteFecha": null,
+   "ajusteDecision": null,
+   "ajustePo": null
   }
  ],
  "resumen": {
-  "filas": 30,
-  "conComposicion": 28,
-  "recorteMediano": -0.0643582120084839,
-  "desfaseBetaMediano": 0.01899999999999996
+  "filas": 31,
+  "conComposicion": 29,
+  "recorteMediano": -0.07708333333333339,
+  "desfaseBetaMediano": 0.003000000000000003
  },
  "sesgo": null,
  "espejo": {
-  "generadoEl": "2026-09-01",
+  "generadoEl": "2026-09-09",
   "libros": 25,
   "decisiones": {
-   "total": 36,
+   "total": 35,
    "reparto": [
     {
      "clave": "REAFIRMAR",
-     "n": 33,
-     "pct": 91.7
+     "n": 32,
+     "pct": 91.4
     },
     {
      "clave": "AJUSTA PO",
      "n": 2,
-     "pct": 5.6
+     "pct": 5.7
     },
     {
      "clave": "AJUSTA BANDA",
      "n": 1,
-     "pct": 2.8
+     "pct": 2.9
     }
    ]
   },
   "senales": {
-   "total": 36,
-   "dePrecio": 16,
-   "pctDePrecio": 44.4,
+   "total": 35,
+   "dePrecio": 15,
+   "pctDePrecio": 42.9,
    "reparto": [
     {
      "clave": "S3",
-     "n": 15,
-     "pct": 41.7
+     "n": 14,
+     "pct": 40.0
     },
     {
      "clave": "S6",
      "n": 8,
-     "pct": 22.2
+     "pct": 22.9
     },
     {
      "clave": "DISC",
      "n": 7,
-     "pct": 19.4
+     "pct": 20.0
     },
     {
      "clave": "S2",
      "n": 4,
-     "pct": 11.1
+     "pct": 11.4
     },
     {
      "clave": "S1",
      "n": 1,
-     "pct": 2.8
+     "pct": 2.9
     },
     {
      "clave": "§10.4",
      "n": 1,
-     "pct": 2.8
+     "pct": 2.9
     }
    ]
   },
@@ -1218,14 +1256,14 @@
     {
      "clave": "V",
      "nombre": "VERDE",
-     "n": 196,
-     "pct": 58.5
+     "n": 197,
+     "pct": 58.8
     },
     {
      "clave": "A",
      "nombre": "ÁMBAR",
-     "n": 125,
-     "pct": 37.3
+     "n": 124,
+     "pct": 37.0
     },
     {
      "clave": "R",
@@ -1237,7 +1275,7 @@
   },
   "latencia": {
    "medibles": 7,
-   "sinFechaDeApertura": 29,
+   "sinFechaDeApertura": 28,
    "mediana": 1,
    "maximo": 17,
    "detalle": [
@@ -1349,17 +1387,17 @@
     "trimestres": 13
    },
    {
-    "empresa": "Repsol",
-    "verdesSeguidos": 2,
-    "trimestres": 14
-   },
-   {
     "empresa": "Fluidra",
     "verdesSeguidos": 1,
     "trimestres": 14
    },
    {
     "empresa": "Mapfre",
+    "verdesSeguidos": 1,
+    "trimestres": 14
+   },
+   {
+    "empresa": "Repsol",
     "verdesSeguidos": 1,
     "trimestres": 14
    },
