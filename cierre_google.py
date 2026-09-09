@@ -111,6 +111,34 @@ def elegir_bloque(filas):
     return sesion, None, [], control
 
 
+def bloques_utiles(filas):
+    """Todos los bloques que se podrian usar de la ultima sesion, por orden de preferencia:
+    primero los `cierre` del sello mas nuevo al mas viejo, luego los `manual` igual.
+
+    [09-sep-2026] `elegir_bloque` devolvia UNO y se acababa la historia: el primer tipo que
+    existiera, con su sello mas reciente. Bastaba con que la captura de `cierre` saliera
+    vacia -- paso hoy: la hoja se atraganto y escribio los 102 tickers sin precio -- para que
+    el `manual` bueno de veinte minutos despues no llegara ni a mirarse. Un orden de
+    preferencia fijo solo vale si el preferido siempre sirve, y este no siempre sirve.
+    Ahora se ofrecen todos y quien decide es el que sabe cuantos precios saca cada uno.
+    """
+    if not filas:
+        return None, [], []
+    sesion = max(f["sesion"] for f in filas)
+    dia = [f for f in filas if f["sesion"] == sesion]
+    control = [f for f in dia if f["tipo"] == "control"]
+    out = []
+    for tipo in TIPOS_UTILES:
+        cand = [f for f in dia if f["tipo"] == tipo]
+        if not cand:
+            continue
+        for sello in sorted({f["sello"] for f in cand if f["sello"]}, reverse=True) or [""]:
+            trozo = [f for f in cand if f["sello"] == sello] if sello else cand
+            if trozo:
+                out.append((tipo, sello, trozo))
+    return sesion, out, control
+
+
 def depurar(bloque, sesion, universo, umbral=UMBRAL_EUR):
     """(precios, descartados). Nada se tira en silencio."""
     precios, fuera, vistos = {}, [], set()
@@ -196,16 +224,30 @@ def main(argv=None):
 
     filas = leer_csv(texto)
     print("Filas leidas: %d" % len(filas))
-    sesion, tipo, bloque, control = elegir_bloque(filas)
-    if not bloque:
+    sesion, candidatos, control = bloques_utiles(filas)
+    if not candidatos:
         sys.exit("No hay ningun bloque utilizable en la hoja.")
-    print("Bloque elegido: sesion %s · tipo %s · %d filas" % (sesion, tipo, len(bloque)))
 
     hoy = a.hoy or datetime.date.today().isoformat()
     if sesion > hoy:
         sys.exit("La hoja trae la sesion %s y hoy es %s. No escribo nada." % (sesion, hoy))
 
-    precios, fuera = depurar(bloque, sesion, universo, a.umbral)
+    # Se depuran TODOS y manda el que mas precios saca; a empate, el preferido (el primero,
+    # que es el `cierre` mas reciente). Asi una captura nueva sigue ganando a una vieja
+    # cuando las dos valen -- que es para lo que se puso la regla original -- pero una
+    # captura vacia ya no tapa a una buena.
+    intentos = []
+    for tipo, sello, trozo in candidatos:
+        pr, fu = depurar(trozo, sesion, universo, a.umbral)
+        intentos.append((len(pr), tipo, sello, trozo, pr, fu))
+    mejor = max(range(len(intentos)), key=lambda i: (intentos[i][0], -i))
+    _, tipo, sello, bloque, precios, fuera = intentos[mejor]
+    print("Bloque elegido: sesion %s · tipo %s · %d filas%s"
+          % (sesion, tipo, len(bloque), (" · sello " + sello[11:19]) if len(sello) > 18 else ""))
+    if len(intentos) > 1:
+        print("  (habia %d capturas de esta sesion: %s)"
+              % (len(intentos), ", ".join("%s%s=%d" % (t, ("/" + se[11:16]) if len(se) > 15 else "", nn)
+                                          for nn, t, se, _b, _p, _f in intentos)))
     if not precios:
         # [09-sep-2026] LA CABECERA DE ESTE FICHERO PROMETE QUE "NADA SE TIRA EN SILENCIO",
         # y hasta hoy lo incumplia justo cuando importa: los motivos solo se imprimian por
