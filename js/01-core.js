@@ -2290,13 +2290,17 @@ function _cfgComisionHTML(){
     +'</div>'
     +'<div class="muted" style="font-size:11px;margin-top:5px">Con esta tarifa, una compra de 5.000 € propondría <b>'+((typeof fmt==='function')?fmt(ej):ej+' €')+'</b>.</div>'
     +aviso
-    +(sin?('<div style="margin-top:10px">'
-      +'<div style="font-weight:600;font-size:12px">Cargar las que faltan, todas de una vez</div>'
-      +'<div class="muted" style="font-size:11.5px;margin:2px 0 5px">Una linea por operacion, con la fecha, la empresa y la comision. Las acciones solo hacen falta si ese dia compraste dos veces la misma empresa. Vale cualquier separador.</div>'
-      +'<button type="button" class="btn ghost sm" id="cfgComPlant">Traer las que faltan</button>'
-      +'<textarea id="cfgComPega" rows="5" style="width:100%;margin-top:5px;font-family:monospace;font-size:11.5px" placeholder="2026-05-06;NTGY;525;13,05"></textarea>'
+    /* [09-sep-2026, mismo dia] El cuadro se pintaba solo si faltaba alguna comision, y en
+       cuanto entraron las 35 desaparecio — justo cuando R4 mando el cargo real de Vidrala y
+       habia que CORREGIR una. Una herramienta que se esconde al terminar de usarse por
+       primera vez esta pensada para el estreno, no para el uso. Ahora esta siempre. */
+    +'<div style="margin-top:10px">'
+      +'<div style="font-weight:600;font-size:12px">'+(sin?'Cargar las que faltan, todas de una vez':'Cargar o corregir comisiones en bloque')+'</div>'
+      +'<div class="muted" style="font-size:11.5px;margin:2px 0 5px">Una linea por operacion, con la fecha, la empresa y la comision. Las acciones solo hacen falta si ese dia compraste dos veces la misma empresa. Vale cualquier separador. Si la operacion ya tenia comision, te avisa de que la sustituye antes de tocarla.</div>'
+      +'<button type="button" class="btn ghost sm" id="cfgComPlant">'+(sin?'Traer las que faltan':'Traer todas las operaciones')+'</button>'
+      +'<textarea id="cfgComPega" rows="5" style="width:100%;margin-top:5px;font-family:monospace;font-size:11.5px" placeholder="2026-09-09;VID;105;28,59"></textarea>'
       +'<button type="button" class="btn ghost sm" id="cfgComVer" style="margin-top:4px">Ver que se cargaria</button>'
-      +'<div id="cfgComPrev"></div></div>'):'')
+      +'<div id="cfgComPrev"></div></div>'
     +'</div>';
 }
 function abrirConfig(){ var dlg=document.getElementById('cfgDlg'); if(!dlg)return; renderCfg(); if(typeof dlg.showModal==='function'){ if(!dlg.open)dlg.showModal(); } else { dlg.setAttribute('open',''); } }
@@ -2466,12 +2470,16 @@ function comisionesAplicar(){
   renderCfg();
   alert(buenas.length+' comisiones cargadas.');
 }
-/* La lista de lo que falta, en el formato que luego se vuelve a pegar aquí. */
+/* La lista para volver a pegar aquí. Mientras falte alguna, solo esas —es lo que se está
+   haciendo—. Cuando no falta ninguna, TODAS con su comisión actual puesta al final: así
+   corregir una es cambiar un número en su línea, sin tener que escribirla de cero. */
 function comisionesPlantilla(){
-  var falta=_comTodasOps().filter(function(x){ return !khTieneComision(x.o); })
-    .sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
-  return falta.map(function(x){
-    return x.fecha+';'+x.ticker+';'+x.acc+';'+x.tipo+';'+(Math.round(x.acc*x.precio*100)/100)+';';
+  var todas=_comTodasOps().sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+  var falta=todas.filter(function(x){ return !khTieneComision(x.o); });
+  var lista=falta.length?falta:todas, soloFaltan=!!falta.length;
+  return lista.map(function(x){
+    return x.fecha+';'+x.ticker+';'+x.acc+';'+x.tipo+';'+(Math.round(x.acc*x.precio*100)/100)+';'
+      +(soloFaltan?'':khComision(x.o));
   }).join('\n');
 }
 function comisionesCopiarPlantilla(){
@@ -2479,7 +2487,10 @@ function comisionesCopiarPlantilla(){
   var ta=document.getElementById('cfgComPega'); if(ta) ta.value=t;
   try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t); }catch(e){}
   var av=document.getElementById('cfgComPrev');
-  if(av) av.innerHTML='<div class="muted" style="font-size:11.5px;margin-top:6px">Lista copiada y puesta arriba: fecha ; empresa ; acciones ; tipo ; importe ; <b>y aquí la comisión</b>. Rellena la última columna y pulsa «Ver qué se cargaría».</div>';
+  var _f=(typeof khOpsSinComision==='function')?khOpsSinComision():0;
+  if(av) av.innerHTML='<div class="muted" style="font-size:11.5px;margin-top:6px">Lista copiada y puesta arriba: fecha ; empresa ; acciones ; tipo ; importe ; <b>comisión</b>. '
+    +(_f?'Rellena la última columna':'Cambia el número de la última columna en las que quieras corregir y <b>borra las demás líneas</b>')
+    +' y pulsa «Ver qué se cargaría».</div>';
 }
 
 
