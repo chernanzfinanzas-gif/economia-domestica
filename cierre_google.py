@@ -207,6 +207,21 @@ def main(argv=None):
 
     precios, fuera = depurar(bloque, sesion, universo, a.umbral)
     if not precios:
+        # [09-sep-2026] LA CABECERA DE ESTE FICHERO PROMETE QUE "NADA SE TIRA EN SILENCIO",
+        # y hasta hoy lo incumplia justo cuando importa: los motivos solo se imprimian por
+        # el camino del EXITO, asi que el dia que no pasa ni un precio -- 102 filas fuera,
+        # 09-sep-2026 -- el log decia "ninguno ha pasado los filtros" y se callaba el por
+        # que. Un fallo total es el caso en el que menos se puede adivinar y el unico en el
+        # que no habia nada que mirar. Ahora el recuento por motivo sale ANTES de salir.
+        _por_motivo = {}
+        for d in fuera:
+            _m = (d.get("motivo") or "sin motivo")
+            _por_motivo.setdefault(_m, []).append(d.get("ticker") or "?")
+        print("\n  NINGUNO DE LOS %d HA PASADO. Por que:" % len(fuera))
+        for _m, _ts in sorted(_por_motivo.items(), key=lambda x: -len(x[1])):
+            print("    %3d  %s" % (len(_ts), _m))
+            print("         %s%s" % (", ".join(_ts[:12]), " ..." if len(_ts) > 12 else ""))
+        sys.stdout.flush()
         sys.exit("Ningun precio ha pasado los filtros. No escribo nada.")
 
     doc = {
