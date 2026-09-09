@@ -2607,7 +2607,12 @@ function r4ExtMontar(){
     if(t.closest && t.closest('#r4ExtRec')){ r4RecPrevia(); return; }
     if(t.closest && t.closest('#r4RecAplicar')){ r4RecAplicar(); return; }
     if(t.closest && t.closest('#r4ExtDel')){ r4ExtBorrar(); return; }
-    var h=t.closest && t.closest('.blk-h'); if(h){ d.classList.toggle('open'); }
+    /* [09-sep-2026] AQUI NO SE PLIEGA NADA, Y ES DELIBERADO.
+       La cabecera lleva `data-r4blk`, y `#view-fondor4` ya tiene un manejador global que
+       abre y cierra estos bloques por ese atributo. Al poner aqui OTRO toggle, los dos
+       saltaban con el mismo clic: uno abria y el otro cerraba, y el bloque no se abria
+       nunca. El sintoma era el peor posible -- se veia la cabecera y nada debajo, como si
+       faltara la mitad del codigo. */
   });
 }
 function _r4f(v){ return (typeof fmt==='function')?fmt(v):(Number(v).toFixed(2)+' €'); }
