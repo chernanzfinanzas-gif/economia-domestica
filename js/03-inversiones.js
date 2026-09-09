@@ -5,15 +5,15 @@ function invPositions(){
   const map={};
   (DB.operaciones||[]).slice().sort(invByFecha).forEach(o=>{
     const t=(o.ticker||'').toUpperCase(); if(!t)return; const car=o.cartera||'Propia'; const k=car+'|'+t;
-    const m=map[k]=map[k]||{cartera:car,ticker:t,acc:0,cost:0};
+    const m=map[k]=map[k]||{cartera:car,ticker:t,acc:0,cost:0,com:0,comReg:false};
     const n=num(o.acciones), pr=num(o.precio);
     /* [09-sep-2026] La comisión de COMPRA entra en el coste: el precio medio que sale de aquí
        lo consume media app (plusvalía, RPD sobre coste, invertido del plan, Diversificación…), y
        lo que uno pagó por una posición incluye lo que le cobraron por comprarla.
        En la VENTA no se toca: esa comisión reduce el valor de transmisión —cosa de Fiscalidad—
        y no cambia lo que costó lo que queda. Ver `khComision` en 01-core.js. */
-    if(o.tipo==='venta'){ const avg=m.acc?m.cost/m.acc:0; m.acc-=n; if(m.acc<0)m.acc=0; m.cost=m.acc*avg; }
-    else { m.acc+=n; m.cost+=n*pr+khComision(o); }
+    if(o.tipo==='venta'){ const avg=m.acc?m.cost/m.acc:0; const _pr=m.acc?Math.max(0,(m.acc-n))/m.acc:0; m.acc-=n; if(m.acc<0)m.acc=0; m.cost=m.acc*avg; m.com=m.com*_pr; }
+    else { m.acc+=n; m.cost+=n*pr+khComision(o); m.com+=khComision(o); if(khTieneComision(o)) m.comReg=true; }
   });
   /* [25-ago-2026] El precio sale de la cadena única de 01-core.js, no de `num(v.precioActual)` a
      secas: si esa casilla faltaba, el 0 se propagaba a la aritmética y la posición salía a −100,00 %
@@ -24,7 +24,11 @@ function invPositions(){
     out.push({cartera:m.cartera,ticker:m.ticker,nombre:v.nombre||m.ticker,acciones:m.acc,precioCompra:_pc,
       precioActual:_sin?_pc:_pi.p, sinPrecio:_sin, precioSrc:_pi.src,
       precioFecha:(_pi.src==='valores'?(v.precioFecha||''):(_pi.fecha||'')),
-      divAccion:num(v.divAccion),broker:v.broker||''});
+      divAccion:num(v.divAccion),broker:v.broker||'',
+      /* [09-sep-2026] La comision ya estaba DENTRO de `cost`; lo que faltaba era poder
+         ensenarla por separado. `comReg` distingue «no hubo» de «no la se»: sin el, una
+         posicion sin registrar ensenaria 0,00 EUR, que es afirmar algo que no consta. */
+      comision:m.com, comisionReg:m.comReg});
   });
   return out;
 }
@@ -80,7 +84,7 @@ function posLots(){
        que compara contra la cotización, y el que hace que «Posiciones» y «Cartera» digan lo mismo.
        `pcBruto` conserva el de mercado para poder enseñar los dos. */
     const _com=khComision(o), _pcEf=acc?(acc*num(o.precio)+_com)/acc:num(o.precio);
-    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:_pcEf,pcBruto:num(o.precio),com:_com,pa:_paL,sinPrecio:!(_pl.p>0),
+    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:_pcEf,pcBruto:num(o.precio),com:_com,comReg:khTieneComision(o),pa:_paL,sinPrecio:!(_pl.p>0),
       div:_posDivCobrado((DB.dividendos||{})[t],o.fecha,acc),years:_posYears(o.fecha,hoy),estado:'Cartera',fechaFin:hoy});
   });
   // --- lotes cerrados: archivados (DB.cerradas) ---
@@ -119,12 +123,12 @@ function renderPOS(){
   lots.forEach(l=>{ l.vc=l.acc*l.pc; l.va=l.acc*l.pa; l.pl=l.va-l.vc;
     l.cotPct=l.vc?l.pl/l.vc:0; l.divPct=l.vc?l.div/l.vc:0;
     l.cotYr=l.years>0?l.cotPct/l.years:l.cotPct; l.divYr=l.years>0?l.divPct/l.years:l.divPct; l.totYr=l.cotYr+l.divYr; });
-  const g={fecha:l=>l.fecha,ticker:l=>l.ticker,acc:l=>l.acc,pc:l=>l.pc,pa:l=>l.pa,vc:l=>l.vc,va:l=>l.va,pl:l=>l.pl,cotpct:l=>l.cotPct,div:l=>l.div,years:l=>l.years,cotyr:l=>l.cotYr,divyr:l=>l.divYr,totyr:l=>l.totYr,estado:l=>l.estado};
+  const g={fecha:l=>l.fecha,ticker:l=>l.ticker,acc:l=>l.acc,pc:l=>l.pc,com:l=>l.com,pa:l=>l.pa,vc:l=>l.vc,va:l=>l.va,pl:l=>l.pl,cotpct:l=>l.cotPct,div:l=>l.div,years:l=>l.years,cotyr:l=>l.cotYr,divyr:l=>l.divYr,totyr:l=>l.totYr,estado:l=>l.estado};
   const ord=(($('#posOrden')||{}).value||'fecha_desc');
   const sortLots=arr=> (_sort['pos']&&_sort['pos'].k)?sortApply('pos',arr,g):arr.slice().sort((a,b)=> ord==='fecha_asc'?((a.fecha<b.fecha)?-1:1):((a.fecha>b.fecha)?-1:1));
   const pc2=x=>(x>=0?'+':'')+(x*100).toFixed(1)+'%';
   const _sh=(k,l,cls)=>`<th class="${cls===undefined?'num':cls}" data-sorttbl="pos" data-sortk="${k}" style="cursor:pointer" title="Ordenar">${l}${sortArrow('pos',k)}</th>`;
-  const head='<tr>'+_sh('fecha','Fecha','')+_sh('ticker','Empresa','')+_sh('acc','Acc.')+_sh('pc','P.compra')+_sh('pa','P.actual')+_sh('vc','Valor compra')+_sh('va','Valor actual')+_sh('pl','Plusvalía')+_sh('cotpct','Δ% cotiz')+_sh('div','Div cobrado')+_sh('years','Años')+_sh('cotyr','%Cotiz/año')+_sh('divyr','%Div/año')+_sh('totyr','%Total/año')+'</tr>';
+  const head='<tr>'+_sh('fecha','Fecha','')+_sh('ticker','Empresa','')+_sh('acc','Acc.')+_sh('pc','P.compra')+_sh('com','Comisión')+_sh('pa','P.actual')+_sh('vc','Valor compra')+_sh('va','Valor actual')+_sh('pl','Plusvalía')+_sh('cotpct','Δ% cotiz')+_sh('div','Div cobrado')+_sh('years','Años')+_sh('cotyr','%Cotiz/año')+_sh('divyr','%Div/año')+_sh('totyr','%Total/año')+'</tr>';
   /* KPIs (sobre los lotes en cartera) */
   const _cart=lots.filter(l=>l.estado==='Cartera'); const kVC=_cart.reduce((s,l)=>s+l.vc,0),kVA=_cart.reduce((s,l)=>s+l.va,0),kPL=_cart.reduce((s,l)=>s+l.pl,0),kDIV=_cart.reduce((s,l)=>s+l.div,0);
   const kPLpct=kVC?kPL/kVC:0, kTot=kVC?(kPL+kDIV)/kVC:0;
@@ -142,7 +146,9 @@ function renderPOS(){
     const rows=arr.map(l=>{ sVC+=l.vc; sVA+=l.va; sPL+=l.pl; sDIV+=l.div;
       return `<tr><td class="l" style="white-space:nowrap">${ddmmyyyy(l.fecha)}</td>`+
         `<td class="l" style="white-space:nowrap"><b class="pos-tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker}</b> <span class="pos-nm">${l.cartera}</span></td>`+
-        `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td><td class="num">${fmt(l.pa)}</td>`+
+        `<td class="num">${l.acc}</td><td class="num">${fmt(l.pc)}</td>`+
+        `<td class="num" style="color:#64748b">${_comTxt(l.com,l.comReg)}</td>`+
+        `<td class="num">${fmt(l.pa)}</td>`+
         `<td class="num">${fmt(l.vc)}</td><td class="num">${fmt(l.va)}</td>`+
         `<td class="num ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</td>`+
         `<td class="num ${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</td>`+
@@ -158,9 +164,10 @@ function renderPOS(){
        y la columna «Años» muestra la antigüedad media con el mismo criterio. */
     const _pond=k=>sVC?arr.reduce((s2,l)=>s2+num(l[k])*num(l.vc),0)/sVC:0;
     const totCotYr=_pond('cotYr'), totDivYr=_pond('divYr'), totTotYr=_pond('totYr'), totYears=_pond('years');
-    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td class="num">${totYears.toFixed(1)}</td><td class="num ${totCotYr>=0?'pos':'neg'}">${pc2(totCotYr)}</td><td class="num pos">${pc2(totDivYr)}</td><td class="num ${totTotYr>=0?'pos':'neg'}"><b>${pc2(totTotYr)}</b></td></tr>`;
+    const _sCOM=arr.reduce((s2,l)=>s2+(l.comReg?num(l.com):0),0), _hayCOM=arr.some(l=>l.comReg);
+    const sub=`<tr class="pos-tot"><td class="l">TOTAL</td><td class="l pos-nm">${arr.length} lotes</td><td></td><td></td><td class="num" style="color:#64748b">${_hayCOM?fmt(_sCOM):''}</td><td></td><td class="num">${fmt(sVC)}</td><td class="num">${fmt(sVA)}</td><td class="num ${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td class="num ${totCot>=0?'pos':'neg'}">${pc2(totCot)}</td><td class="num pos">${fmt(sDIV)}</td><td class="num">${totYears.toFixed(1)}</td><td class="num ${totCotYr>=0?'pos':'neg'}">${pc2(totCotYr)}</td><td class="num pos">${pc2(totDivYr)}</td><td class="num ${totTotYr>=0?'pos':'neg'}"><b>${pc2(totTotYr)}</b></td></tr>`;
     /* móvil: tarjeta por lote */
-    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>%Cotiz/año</span><b class="${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
+    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div><div class="m"><span>Comisión</span><b>${_comTxt(l.com,l.comReg)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>%Cotiz/año</span><b class="${l.cotYr>=0?'pos':'neg'}">${pc2(l.cotYr)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
     const op=window._posOpen[estadoKey]?' open':'';
     return `<div class="pos-blk${op}" data-posblk="${estadoKey}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${titulo}</span><span class="bsum">${arr.length} lotes · valor ${fmt(sVA)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
   }
@@ -275,11 +282,11 @@ function renderInvLotes(){
         `<td><span class="${l.pl>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${l.pl>=0?'+':''}${fmt(l.pl)}</span></td>`+
         `<td>${l.years.toFixed(1)}</td>`+
         `<td><span class="mt-pill ${totCls}">${pc2(l.totYr)}</span></td></tr>`+
-        `<tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('P. compra',fmt(l.pc))}${(function(){const _n=precioNetoLote(l.pc,l.div,l.acc);return _mtNum('P. neto',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('P. actual',fmt(l.pa))}${_mtNum('Valor compra',fmt(l.vc))}${_mtNum('Δ% cotiz',pc2(l.cotPct),l.cotPct>=0?'mt-pos':'mt-neg')}${_mtNum('Div cobrado',fmt(l.div),'mt-pos')}${_mtNum('%Cotiz/año',pc2(l.cotYr),l.cotYr>=0?'mt-pos':'mt-neg')}${_mtNum('%Div/año',pc2(l.divYr),'mt-pos')}</div></td></tr>`;
+        `<tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('P. compra',fmt(l.pc))}${(function(){const _n=precioNetoLote(l.pc,l.div,l.acc);return _mtNum('P. neto',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('Comisión',_comTxt(l.com,l.comReg))}${_mtNum('P. actual',fmt(l.pa))}${_mtNum('Valor compra',fmt(l.vc))}${_mtNum('Δ% cotiz',pc2(l.cotPct),l.cotPct>=0?'mt-pos':'mt-neg')}${_mtNum('Div cobrado',fmt(l.div),'mt-pos')}${_mtNum('%Cotiz/año',pc2(l.cotYr),l.cotYr>=0?'mt-pos':'mt-neg')}${_mtNum('%Div/año',pc2(l.divYr),'mt-pos')}</div></td></tr>`;
     }).join('');
     const totRet=sVC?(sPL+sDIV)/sVC:0;
     const sub=`<tr class="mt-sub"><td class="l">TOTAL · ${arr.length} lotes</td><td></td><td></td><td><b>${fmt(sVA)}</b></td><td class="${sPL>=0?'mt-pos':'mt-neg'}">${sPL>=0?'+':''}${fmt(sPL)}</td><td></td><td><span class="mt-pill ${totRet>=0?'g':'r'}">${pc2(totRet)} tot.</span></td></tr>`;
-    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div>${(function(){const _n=precioNetoLote(l.pc,l.div,l.acc);return '<div class="m"><span>P. neto</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>Años</span><b>${l.years.toFixed(1)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
+    const mcards=arr.map(l=>`<div class="lcard"><div class="lc-h"><div class="tk" data-ficha="${l.ticker}" style="cursor:pointer">${l.ticker} <span class="nm">${l.cartera} · ${ddmmyyyy(l.fecha)}</span></div><div class="ty ${l.totYr>=0?'g':'r'}">${pc2(l.totYr)}<span>total/año</span></div></div><div class="lc-row"><span class="pl ${l.pl>=0?'pos':'neg'}">${l.pl>=0?'+':''}${fmt(l.pl)}</span> <span class="muted">plusvalía</span> · <b>${fmt(l.va)}</b> <span class="muted">valor</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${l.acc}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(l.pc)}→${fmt(l.pa)}</b></div>${(function(){const _n=precioNetoLote(l.pc,l.div,l.acc);return '<div class="m"><span>P. neto</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Comisión</span><b>${_comTxt(l.com,l.comReg)}</b></div><div class="m"><span>Δ% cotiz</span><b class="${l.cotPct>=0?'pos':'neg'}">${pc2(l.cotPct)}</b></div><div class="m"><span>Div cobrado</span><b class="pos">${fmt(l.div)}</b></div><div class="m"><span>Años</span><b>${l.years.toFixed(1)}</b></div><div class="m"><span>%Div/año</span><b class="pos">${pc2(l.divYr)}</b></div></div></div>`).join('');
     const op=window._invLotesOpen[estadoKey]?' open':'';
     return `<div class="pos-blk${op}" data-invlotesblk="${estadoKey}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${titulo}</span><span class="bsum">${arr.length} lotes · valor ${fmt(sVA)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
   }
@@ -291,6 +298,10 @@ function renderInvLotes(){
   if(!el._invLotesBound){ el._invLotesBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],a,button'))return; var rr=e.target.closest('tr.mt-row'); if(rr){ rr.classList.toggle('open'); return; } var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); var k=b.getAttribute('data-invlotesblk'); if(k){window._invLotesOpen=window._invLotesOpen||{};window._invLotesOpen[k]=b.classList.contains('open');} } }); }
 }
 function _mtNum(l,v,cls){ return '<div class="n"><div class="l">'+l+'</div><div class="v '+(cls||'')+'">'+v+'</div></div>'; }
+/* [09-sep-2026] Una comision que no consta NO es cero. Las 25 operaciones anteriores a hoy
+   vivieron sin este campo, y una herencia o un scrip llevan un 0 que si es un dato. Pintar
+   «0,00 EUR» en los dos casos borraria esa diferencia justo en la pantalla donde se mira. */
+function _comTxt(v,reg){ return reg?fmt(v):'—'; }
 /* [11-ago-2026] LA CHAPA TIENE QUE DESCRIBIR EL PRECIO QUE SE ESTA ENSENANDO.
    Esta vista llamaba a `intradiaSello()` a secas, que solo mira si HAY algun precio
    provisional en toda la app. Resultado, cazado por Carlos: tras importar el cierre oficial
@@ -356,7 +367,7 @@ function renderInv(){
       const _plTd=p.sinPrecio
         ? '<td class="muted" title="No se puede calcular sin cotización">—'
         : `<td><span class="${g>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${g>=0?'+':''}${fmt(g)}</span> <span class="mt-pill ${plCls}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}</span>`;
-      return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="pos-tk" data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${p.acciones}</td>${_paTd}<td><b>${fmt(v)}</b></td>${_plTd}</td><td>${peso.toFixed(1)}%</td><td class="mt-pos">${fmt(p.acciones*p.divAccion)}</td><td class="c"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px" title="Añadir operación">+ Op.</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-left:3px" title="Abrir dossier">📄</a>`:''} <button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}" title="Eliminar">✕</button></td></tr><tr class="mt-det"><td colspan="8"><div class="mt-nums">${_mtNum('P. compra',fmt(p.precioCompra))}${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':_mtNum('P. neto medio',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('Div/acción',fmt(p.divAccion))}${_mtNum('Div/año',fmt(p.acciones*p.divAccion),'mt-pos')}${_mtNum('RPD',p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—')}${_mtNum('YoC (yield on cost)',p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—')}</div></td></tr>`;
+      return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b class="pos-tk" data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${p.acciones}</td>${_paTd}<td><b>${fmt(v)}</b></td>${_plTd}</td><td>${peso.toFixed(1)}%</td><td class="mt-pos">${fmt(p.acciones*p.divAccion)}</td><td class="c"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}" style="font-size:10px" title="Añadir operación">+ Op.</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener" style="font-size:10px;margin-left:3px" title="Abrir dossier">📄</a>`:''} <button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}" title="Eliminar">✕</button></td></tr><tr class="mt-det"><td colspan="8"><div class="mt-nums">${_mtNum('P. compra',fmt(p.precioCompra))}${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':_mtNum('P. neto medio',fmt(_n),_n<=0?'mt-pos':'');})()}${_mtNum('Comisiones de compra',_comTxt(p.comision,p.comisionReg))}${_mtNum('Div/acción',fmt(p.divAccion))}${_mtNum('Div/año',fmt(p.acciones*p.divAccion),'mt-pos')}${_mtNum('RPD',p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—')}${_mtNum('YoC (yield on cost)',p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—')}</div></td></tr>`;
     }).join('');
     const sub=`<tr class="mt-sub"><td class="l">SUBTOTAL · ${lst.length} valores</td><td></td><td></td><td><b>${fmt(sV)}</b></td><td class="${sPL>=0?'mt-pos':'mt-neg'}">${sPL>=0?'+':''}${fmt(sPL)} <span style="font-weight:700">(${_pc(sPLp)})</span></td><td>${(valor?sV/valor*100:0).toFixed(1)}%</td><td class="mt-pos">${fmt(sD)}</td><td></td></tr>`;
     // móvil: tarjeta por empresa
@@ -364,7 +375,7 @@ function renderInv(){
       const _du=(typeof dossierURL==='function')?dossierURL(p.ticker,((DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===(p.ticker||'').toUpperCase())||{}).dossierUrl):'';
       const _tyM=p.sinPrecio?'<div class="ty" style="color:#92400e">—<span>sin cotización</span></div>':`<div class="ty ${g>=0?'g':'r'}">${c?((gp>=0?'+':'')+gp.toFixed(1)+'%'):'—'}<span>plusval.</span></div>`;
       const _plM=p.sinPrecio?'<span class="muted">plusvalía —</span> · <b>'+fmt(v)+'</b> <span class="muted">al coste</span>':`<span class="pl ${g>=0?'pos':'neg'}">${g>=0?'+':''}${fmt(g)}</span> <span class="muted">plusvalía</span> · <b>${fmt(v)}</b> <span class="muted">valor</span>`;
-      return `<div class="lcard invcol"><div class="lc-h"><div class="tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker} <span class="nm">${p.nombre||''}</span></div>${_tyM}</div><div class="lc-row">${_plM} <span class="muted">· peso ${peso.toFixed(1)}%</span><span class="invcol-arw">▾</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${p.acciones}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(p.precioCompra)}→${fmt(p.precioActual)}</b></div>${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':'<div class="m"><span>P. neto medio</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Div/año</span><b class="pos">${fmt(p.acciones*p.divAccion)}</b></div><div class="m"><span>RPD</span><b>${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>YoC</span><b>${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>Div/acc</span><b>${fmt(p.divAccion)}</b></div></div><div class="lc-act"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener">📄 Dossier</a>`:''}<button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕ Eliminar</button></div></div>`;
+      return `<div class="lcard invcol"><div class="lc-h"><div class="tk" data-ficha="${p.ticker}" style="cursor:pointer">${p.ticker} <span class="nm">${p.nombre||''}</span></div>${_tyM}</div><div class="lc-row">${_plM} <span class="muted">· peso ${peso.toFixed(1)}%</span><span class="invcol-arw">▾</span></div><div class="lg"><div class="m"><span>Acc.</span><b>${p.acciones}</b></div><div class="m"><span>P.compra→actual</span><b>${fmt(p.precioCompra)}→${fmt(p.precioActual)}</b></div>${(function(){const _n=precioNetoMedio(p.ticker);return _n==null?'':'<div class="m"><span>P. neto medio</span><b class="'+(_n<=0?'pos':'')+'">'+fmt(_n)+'</b></div>';})()}<div class="m"><span>Comisiones</span><b>${_comTxt(p.comision,p.comisionReg)}</b></div><div class="m"><span>Div/año</span><b class="pos">${fmt(p.acciones*p.divAccion)}</b></div><div class="m"><span>RPD</span><b>${p.precioActual?((p.divAccion/p.precioActual)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>YoC</span><b>${p.precioCompra?((p.divAccion/p.precioCompra)*100).toFixed(2)+'%':'—'}</b></div><div class="m"><span>Div/acc</span><b>${fmt(p.divAccion)}</b></div></div><div class="lc-act"><button class="btn sm" data-ops-t="${p.ticker}" data-ops-c="${p.cartera}">+ Operación</button>${_du?`<a class="btn ghost sm" href="${_du}" target="_blank" rel="noopener">📄 Dossier</a>`:''}<button class="btn red sm" data-del-t="${p.ticker}" data-del-c="${p.cartera}">✕ Eliminar</button></div></div>`;
     }).join('');
     const op=window._invOpen[car]?' open':'';
     html+=`<div class="pos-blk${op}" data-invblk="${car}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">Cartera ${car}</span><span class="bsum">${lst.length} valores · valor ${fmt(sV)} · plusvalía <b class="${sPL>=0?'pos':'neg'}">${sPL>=0?'+':''}${fmt(sPL)}</b></span></div><div class="pos-blk-b"><div class="pos-desk"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div><div class="pos-mob">${mcards}</div></div></div>`;
@@ -1446,15 +1457,24 @@ function cerradaCalc(c){
   if(c && c.ops && c.ops.length){
     const buys=c.ops.filter(o=>o.tipo!=='venta'), sells=c.ops.filter(o=>o.tipo==='venta');
     const acc=buys.reduce((s,o)=>s+num(o.acciones),0);
-    const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
-    const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+    /* [09-sep-2026] Mismo criterio que `invPositions` y que Fiscalidad: la comision de COMPRA
+       sube el coste y la de VENTA baja el importe transmitido. Sin esto, esta lista ensenaba
+       una P/G neta mejor que la real y no cuadraba con la pestana de Fiscalidad, que si las
+       descuenta desde hoy. Las dos leen el mismo dato; tienen que dar el mismo numero. */
+    const comCompra=buys.reduce((s,o)=>s+khComision(o),0);
+    const comVenta=sells.reduce((s,o)=>s+khComision(o),0);
+    const comReg=c.ops.some(o=>khTieneComision(o));
+    const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)+comCompra;
+    const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)-comVenta;
     const dv=(c.divs||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
     let dividendos=0; const byYear={};
     dv.forEach(d=>{ const held=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); const eur=held*num(d.importe); dividendos+=eur; const y=(d.fecha||'').slice(0,4); if(y)byYear[y]=(byYear[y]||0)+eur; });
-    return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:acc,coste,venta,dividendos,byYear,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||c.fechaCompra||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||c.fechaVenta||''};
+    return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:acc,coste,venta,dividendos,byYear,comCompra,comVenta,comReg,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||c.fechaCompra||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||c.fechaVenta||''};
   }
   const byYear={}; if(c.fechaVenta) byYear[(c.fechaVenta||'').slice(0,4)]=num(c.dividendos);
-  return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),byYear,fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''};
+  /* Entrada antigua sin operaciones dentro: no hay de donde sacar la comision, y no se
+     inventa. `comReg:false` hace que la pantalla ponga «—» y no un 0,00 EUR falso. */
+  return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:num(c.acciones),coste:num(c.coste),venta:num(c.venta),dividendos:num(c.dividendos),byYear,comCompra:0,comVenta:0,comReg:false,fechaCompra:c.fechaCompra||'',fechaVenta:c.fechaVenta||''};
 }
 function archivarCerrada(ticker){
   const t=(ticker||'').toUpperCase();
@@ -1502,11 +1522,14 @@ function invClosedComputed(){
     const buys=tops.filter(o=>o.tipo!=='venta'), sells=tops.filter(o=>o.tipo==='venta');
     const bSh=buys.reduce((s,o)=>s+num(o.acciones),0), sSh=sells.reduce((s,o)=>s+num(o.acciones),0);
     if(sSh>0.0001 && Math.abs(bSh-sSh)<0.0001){
-      const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
-      const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0);
+      const comCompra=buys.reduce((s,o)=>s+khComision(o),0);
+      const comVenta=sells.reduce((s,o)=>s+khComision(o),0);
+      const comReg=tops.some(o=>khTieneComision(o));
+      const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)+comCompra;
+      const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)-comVenta;
       const td=((DB.dividendos||{})[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
       let div=0; td.forEach(d=>{ const acc=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); div+=acc*num(d.importe); });
-      res.push({ticker:t,nombre:((DB.valores||{})[t]||{}).nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',acciones:bSh,coste,venta,dividendos:div,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||''});
+      res.push({ticker:t,nombre:((DB.valores||{})[t]||{}).nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',acciones:bSh,coste,venta,dividendos:div,comCompra,comVenta,comReg,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||''});
     }
   });
   return res;
@@ -1519,20 +1542,21 @@ function renderInvClosed(){
   const lst=[...arch,...comp].sort((a,b)=>(b.fechaVenta||'').localeCompare(a.fechaVenta||''));
   if(!lst.length){ el.innerHTML=''; return; }
   const fdate=x=>x?ddmmyyyy(x):'—';
-  let sC=0,sV=0,sD=0;
+  let sC=0,sV=0,sD=0,sCOM=0; let hayCOM=false;
   const rows=lst.map(p=>{
+    if(p.comReg){ hayCOM=true; sCOM+=num(p.comCompra)+num(p.comVenta); }
     const pc=p.acciones?p.coste/p.acciones:0, pv=p.acciones?p.venta/p.acciones:0;
     const neto=p.venta-p.coste+p.dividendos, rent=p.coste?neto/p.coste:0;
     sC+=p.coste; sV+=p.venta; sD+=p.dividendos;
     const act=p._arch?`<button class="btn red sm" data-delcerrada="${p.id}" title="Borrar definitivamente: se pierde el ciclo completo (operaciones y dividendos archivados)">✕</button>`:`<button class="btn ghost sm" data-archive="${p.ticker}" title="Archivar permanente">Archivar</button>`;
-    return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${fmt(p.coste)}</td><td><b>${fmt(p.venta)}</b></td><td><span class="${neto>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${neto>=0?'+':''}${fmt(neto)}</span></td><td><span class="mt-pill ${rent>=0?'g':'r'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</span></td><td class="l" style="color:#94a3b8;font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td><td class="c">${act}</td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Acciones',p.acciones)}${_mtNum('P. compra',fmt(pc))}${_mtNum('P. venta',fmt(pv))}${_mtNum('Dividendos cobrados',fmt(p.dividendos),'mt-pos')}</div></td></tr>`;
+    return `<tr class="mt-row"><td class="emp"><span class="mt-arw">▶</span><b data-ficha="${p.ticker}" style="cursor:pointer;color:var(--brand)">${p.ticker}</b> <span style="font-weight:600;color:#334155;font-size:11.5px">${p.nombre||''}</span></td><td>${fmt(p.coste)}</td><td><b>${fmt(p.venta)}</b></td><td><span class="${neto>=0?'mt-pos':'mt-neg'}" style="font-weight:700">${neto>=0?'+':''}${fmt(neto)}</span></td><td><span class="mt-pill ${rent>=0?'g':'r'}">${(rent>=0?'+':'')+(rent*100).toFixed(1)+'%'}</span></td><td class="l" style="color:#94a3b8;font-size:11px;white-space:nowrap">${fdate(p.fechaCompra)} → ${fdate(p.fechaVenta)}</td><td class="c">${act}</td></tr><tr class="mt-det"><td colspan="7"><div class="mt-nums">${_mtNum('Acciones',p.acciones)}${_mtNum('P. compra',fmt(pc))}${_mtNum('P. venta',fmt(pv))}${_mtNum('Comisión compra',_comTxt(p.comCompra,p.comReg))}${_mtNum('Comisión venta',_comTxt(p.comVenta,p.comReg))}${_mtNum('Dividendos cobrados',fmt(p.dividendos),'mt-pos')}</div></td></tr>`;
   }).join('');
   const netoT=sV-sC+sD, rentT=sC?netoT/sC:0;
   const sub=`<tr class="mt-sub"><td class="l">TOTAL · ${lst.length} cerradas</td><td>${fmt(sC)}</td><td><b>${fmt(sV)}</b></td><td class="${netoT>=0?'mt-pos':'mt-neg'}">${netoT>=0?'+':''}${fmt(netoT)}</td><td><span class="mt-pill ${rentT>=0?'g':'r'}">${(rentT>=0?'+':'')+(rentT*100).toFixed(1)+'%'}</span></td><td></td><td></td></tr>`;
   const head='<tr><th class="l">Empresa</th><th>Coste</th><th>Venta</th><th>P/G neta</th><th>Rent.</th><th class="l">Periodo</th><th></th></tr>';
   if(window._invClosedOpen===undefined)window._invClosedOpen=false;
   const op=window._invClosedOpen?' open':'';
-  el.innerHTML=`<div class="pos-blk${op}" data-invclosedblk="1" style="margin-top:12px"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚪ Posiciones cerradas</span><span class="bsum">${lst.length} cerradas · P/G neta <b class="${netoT>=0?'pos':'neg'}">${netoT>=0?'+':''}${fmt(netoT)}</b> (incl. dividendos) · «Archivar» fija el ciclo</span></div><div class="pos-blk-b"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div></div>`;
+  el.innerHTML=`<div class="pos-blk${op}" data-invclosedblk="1" style="margin-top:12px"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">⚪ Posiciones cerradas</span><span class="bsum">${lst.length} cerradas · P/G neta <b class="${netoT>=0?'pos':'neg'}">${netoT>=0?'+':''}${fmt(netoT)}</b> (incl. dividendos${hayCOM?' y comisiones':''})${hayCOM?(' · '+fmt(sCOM)+' de comisiones'):''} · «Archivar» fija el ciclo</span></div><div class="pos-blk-b"><div class="mt-wrap"><table class="mt-tbl"><thead>${head}</thead><tbody>${rows}${sub}</tbody></table></div></div></div>`;
   if(!el._invClosedBound){ el._invClosedBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-archive],[data-delcerrada],a,button'))return; var rr=e.target.closest('tr.mt-row'); if(rr){ rr.classList.toggle('open'); return; } var h=e.target.closest('.pos-blk-h'); if(h){ var b=h.parentElement; b.classList.toggle('open'); window._invClosedOpen=b.classList.contains('open'); } }); }
 }
 function autoFitTable(id,minPx,maxPx){ const w=$('#'+id); if(!w)return; const t=w.querySelector('table'); if(!t)return; if(!w.clientWidth)return; let fs=maxPx; t.style.fontSize=fs+'px'; let g=0; while(t.scrollWidth>w.clientWidth+1 && fs>minPx && g<50){ fs-=0.5; t.style.fontSize=fs+'px'; g++; } }
