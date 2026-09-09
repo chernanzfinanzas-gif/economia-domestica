@@ -2261,6 +2261,7 @@ function renderMetas(){ const el=$('#metasBody'); if(!el)return; const metas=DB.
 }
 function setR4Tipo(t){ var h=$('#r4Tipo'); if(h)h.value=t; $$('#r4TipoSeg button').forEach(function(b){ b.classList.toggle('on',b.dataset.t===t); }); var rw=$('#r4NetoWrap'); if(rw)rw.style.display=(t==='retirada'?'':'none'); }
 function renderFondoR4(){
+  try{ if(typeof r4ExtMontar==='function') r4ExtMontar(); }catch(e){}
   const fE=$('#r4Fecha'); if(fE && !fE.value) fE.value=new Date().toISOString().slice(0,10);
   const asc=easySorted();
   const Y=new Date().getFullYear();
@@ -2272,12 +2273,38 @@ function renderFondoR4(){
     if(e.tipo==='retirada' && e.neto!=null && e.neto!==''){ const n=num(e.neto), b=num(e.bruto); netoTot+=n; if((e.fecha||'').slice(0,4)===String(Y)){ netoAnio+=n; brutoAnio+=b; } }
   });
   const plusv=(valorAct!=null)?valorAct-inv:null;
+  /* [09-sep-2026] LAS TARJETAS TIENEN QUE CONTAR LA VIDA DEL FONDO, NO UN TROZO.
+     Las cuatro de antes respondian a dos preguntas y media: «Saldo aportado» se llamaba asi
+     pero era el COSTE de lo que queda dentro (habia aportado 54.964 EUR, no 10.042), y
+     «Plusvalia latente» ensenaba 28 EUR cuando lo ganado eran 113. Un vistazo rapido salia
+     con una idea equivocada, que es peor que no tener tarjeta.
+     Con extracto de R4 guardado, cada tarjeta responde a UNA pregunta: cuanto tengo, cuanto
+     he ganado, a que ritmo y como va el ano. Sin extracto se deja lo de antes: mejor la
+     cuenta corta que una invencion. */
+  const _ext=(typeof r4ExtCalcGuardado==='function')?r4ExtCalcGuardado():null;
   const cardEl=$('#r4Cards');
-  if(cardEl) cardEl.innerHTML=
+  if(cardEl && _ext){
+    const _aV=_ext.ventas.filter(v=>(v.fecha||'').slice(0,4)===String(Y));
+    const _aB=_aV.reduce((a,v)=>a+v.bruta,0), _aR=_aV.reduce((a,v)=>a+v.reten,0);
+    const _mm=Math.round(_ext.dias/30.44);
+    cardEl.innerHTML=
+      '<div class="r4-kpi"><div class="l">Valor del fondo</div><div class="v">'+fmt(_ext.valor)+'</div><div class="s">al '+ddmmyyyy(_ext.hasta)+' · coste '+fmt(_ext.coste)+'</div></div>'+
+      '<div class="r4-kpi"><div class="l">Ganancia total (bruta)</div><div class="v pos">+'+fmt(_ext.bruta)+'</div><div class="s">'+fmt(_ext.realizada)+' retirada + '+fmt(_ext.latente)+' dentro · retenido '+fmt(_ext.reten)+'</div></div>'+
+      '<div class="r4-kpi"><div class="l">Rentabilidad</div><div class="v '+((_ext.pctAnual||0)>=0?'pos':'neg')+'">'+(_ext.pctAnual!=null?(_ext.pctAnual.toFixed(2)+' %'):'—')+'</div><div class="s">anual, sobre '+fmt(_ext.saldoMedio)+' de saldo medio en '+_mm+' meses</div></div>'+
+      '<div class="r4-kpi"><div class="l">Realizado en '+Y+'</div><div class="v '+(_aB>=0?'pos':'neg')+'">'+(_aB>=0?'+':'')+fmt(_aB)+'</div><div class="s">'+_aV.length+' reembolso'+(_aV.length===1?'':'s')+' · retenido '+fmt(_aR)+'</div></div>';
+  } else if(cardEl) cardEl.innerHTML=
     '<div class="r4-kpi"><div class="l">Valor del fondo</div><div class="v">'+(valorAct!=null?fmt(valorAct):'—')+'</div><div class="s">'+(valorFecha?('al '+ddmmyyyy(valorFecha)):'sin valor registrado')+'</div></div>'+
     '<div class="r4-kpi"><div class="l">Saldo aportado (neto)</div><div class="v">'+fmt(inv)+'</div><div class="s">'+(DB.easy||[]).length+' movimientos</div></div>'+
     '<div class="r4-kpi"><div class="l">Plusvalía latente</div><div class="v '+(plusv!=null?(plusv>=0?'pos':'neg'):'')+'">'+(plusv!=null?((plusv>=0?'+':'')+fmt(plusv)):'—')+'</div><div class="s">'+(plusv!=null&&inv>0?((plusv/inv>=0?'+':'')+(plusv/inv*100).toFixed(2)+'%'):'')+'</div></div>'+
     '<div class="r4-kpi"><div class="l">Interés neto '+Y+'</div><div class="v '+(netoAnio>=0?'pos':'neg')+'">'+(netoAnio>=0?'+':'')+fmt(netoAnio)+'</div><div class="s">bruto '+fmt(brutoAnio)+' · histórico '+fmt(netoTot)+'</div></div>';
+  /* El sello dice de cuando es el extracto: sin el, uno de hace medio ano se confunde con
+     uno de hoy y las tarjetas mienten sin que nada lo diga. */
+  try{
+    const _g=(typeof r4ExtGuardado==='function')?r4ExtGuardado():null;
+    const _sel=document.getElementById('r4ExtSello'), _del=document.getElementById('r4ExtDel');
+    if(_sel) _sel.textContent=_g?('extracto al '+ddmmyyyy(_ext.hasta)+' · '+_g.movs.length+' apuntes'):'sin extracto';
+    if(_del) _del.style.display=_g?'':'none';
+  }catch(e){}
   const listEl=$('#r4List'); if(!listEl) return;
   const txt=(($('#r4Buscar')||{}).value||'').toLowerCase().trim();
   const ft=(($('#r4Ftipo')||{}).value||'');
@@ -2415,3 +2442,318 @@ function renderOrigen(){
     '<div style="margin-top:12px"><span class="or-badge'+rumboCls+'">'+rumboTxt+' &middot; '+(pctCumpl*100).toFixed(0)+'% del objetivo 2026</span></div>';
 }
 
+
+/* ═══════════ EXTRACTO DE RENTA 4 · el libro del fondo, tal cual lo da el banco ═══════════
+   [09-sep-2026] POR QUE EXISTE.
+   Los movimientos que se apuntan a mano en esta pestaña sirven para la caja —cuanto entra y
+   cuanto sale— pero NO pueden dar la ganancia real, y esa noche se vio por que: al retirar,
+   R4 vende participaciones por el capital MAS la plusvalia, y el apunte manual solo recoge
+   el capital. La ganancia sale del fondo sin dejar rastro. Con 71 movimientos apuntados, el
+   total que se podia deducir eran 28,47 EUR cuando la verdad son 113,70.
+
+   Y ademas el apunte manual del interes se olvida: de los 16 reembolsos, dos se habian
+   quedado sin `neto`. Un sistema que pide un dato a mano en cada operacion acaba perdiendo
+   alguno; no es cuestion de cuidado.
+
+   QUE HACE. Lee el extracto de «Operaciones de Fondos» de R4 pegado tal cual —con sus
+   participaciones, su valor liquidativo y sus retenciones— y calcula la ganancia por FIFO,
+   que es el criterio de Hacienda. El extracto NO sustituye a los movimientos: se guarda
+   aparte, en `DB.easyExtracto`, y manda solo en las cifras de rentabilidad. Los apuntes
+   siguen siendo suyos y nadie los toca.                                                    */
+
+/* '1.063,491777' y '10,53' -> numero. Vacio o basura -> 0. */
+function r4ExtNum(s){
+  s=(''+(s==null?'':s)).replace(/\s|€/g,'');
+  if(!s) return 0;
+  var v=parseFloat(s.replace(/\./g,'').replace(',','.'));
+  return isNaN(v)?0:v;
+}
+/* Una linea del extracto -> apunte. Devuelve null si no es una linea de datos. */
+function r4ExtLinea(ln){
+  var m=(''+ln).match(/^\s*(\d{2})\/(\d{2})\/(\d{4})\s+(VALORACI[ÓO]N|SUSCRIPCI[ÓO]N NUEVA|SUSCRIPCI[ÓO]N|REEMBOLSO TOTAL|REEMBOLSO)\s+(.*)$/i);
+  if(!m) return null;
+  var fecha=m[3]+'-'+m[2]+'-'+m[1];
+  var con=m[4].toUpperCase().replace('Ó','O');
+  var nums=((''+m[5]).replace(/EUR/gi,' ').match(/[\d.]+,\d+|\b\d+\b/g)||[]).map(r4ExtNum);
+  var esVal=con.indexOf('VALORACION')===0;
+  if(nums.length < (esVal?3:5)) return null;
+  /* El orden del extracto es: participaciones · valor liquidativo · importe bruto ·
+     comision · retencion · efectivo. La retencion se lee desde el FINAL (la penultima)
+     para que siga saliendo bien el dia que R4 quite o anada una columna intermedia. */
+  return {fecha:fecha,
+          tipo: esVal?'valoracion':(con.indexOf('SUSCRIPCION')===0?'suscripcion':'reembolso'),
+          part:nums[0], vl:nums[1],
+          bruto: esVal?0:nums[2],
+          reten: esVal?0:nums[nums.length-2],
+          efectivo:nums[nums.length-1]};
+}
+function r4ExtParse(txt){
+  var movs=[], lineas=(''+(txt||'')).split(/\r?\n/), ilegibles=0;
+  for(var i=0;i<lineas.length;i++){
+    var ln=lineas[i]; if(!ln.trim()) continue;
+    var r=r4ExtLinea(ln);
+    if(r) movs.push(r);
+    /* Solo cuenta como ilegible una linea que PARECE un apunte: el extracto trae arriba la
+       fecha de conexion y la de impresion, y contarlas asustaria sin motivo. */
+    else if(/\d{2}\/\d{2}\/\d{4}/.test(ln) && /(VALORACI|SUSCRIPCI|REEMBOLSO)/i.test(ln)) ilegibles++;
+  }
+  movs.sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+  return {movs:movs, ilegibles:ilegibles};
+}
+/* La cuenta entera: FIFO como Hacienda, y de ahi todo lo demas. */
+function r4ExtCalc(movs){
+  movs=(movs||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+  if(!movs.length) return null;
+  var lotes=[], realizada=0, reten=0, aport=0, reemb=0, nSus=0, nRee=0, ventas=[];
+  var flujos=[];   /* [fecha, participaciones +/-, valor liquidativo] para el saldo medio */
+  for(var i=0;i<movs.length;i++){
+    var m=movs[i];
+    if(m.tipo==='valoracion') continue;
+    if(m.tipo==='suscripcion'){
+      lotes.push({p:m.part, vl:m.vl}); aport+=m.bruto; nSus++;
+      flujos.push([m.fecha, m.part, m.vl]);
+    } else {
+      reemb+=m.bruto; reten+=m.reten; nRee++;
+      var q=m.part, coste=0;
+      while(q>1e-9 && lotes.length){
+        var t=Math.min(q,lotes[0].p); coste+=t*lotes[0].vl; lotes[0].p-=t; q-=t;
+        if(lotes[0].p<=1e-9) lotes.shift();
+      }
+      var g=m.part*m.vl-coste; realizada+=g;
+      ventas.push({fecha:m.fecha, bruta:g, reten:m.reten, neta:g-m.reten, efectivo:m.efectivo});
+      flujos.push([m.fecha, -m.part, m.vl]);
+    }
+  }
+  /* La foto final: la ultima VALORACION si la hay; si no, lo que quede en los lotes. */
+  var val=null;
+  for(var j=movs.length-1;j>=0;j--){ if(movs[j].tipo==='valoracion'){ val=movs[j]; break; } }
+  var partF=0; for(var k=0;k<lotes.length;k++) partF+=lotes[k].p;
+  var vlF = val? val.vl : movs[movs.length-1].vl;
+  var fechaF = val? val.fecha : movs[movs.length-1].fecha;
+  var valorF = val? (val.efectivo||val.part*val.vl) : partF*vlF;
+  var costeF=0; for(var k2=0;k2<lotes.length;k2++) costeF+=lotes[k2].p*lotes[k2].vl;
+  var latente=partF*vlF-costeF;
+  /* Saldo medio ponderado por dias: es el denominador honesto de un % cuando el dinero
+     entra y sale todo el rato. Dividir la ganancia entre el saldo de hoy diria cualquier
+     cosa el mes que se retira casi todo. */
+  var _d=function(s){ var p=(''+s).split('-'); return Date.UTC(+p[0],+p[1]-1,+p[2])/86400000; };
+  var area=0, part=0, prev=flujos.length?_d(flujos[0][0]):0;
+  for(var f=0;f<flujos.length;f++){
+    area += part*flujos[f][2]*(_d(flujos[f][0])-prev);
+    prev=_d(flujos[f][0]); part+=flujos[f][1];
+  }
+  area += part*vlF*(_d(fechaF)-prev);
+  var dias = flujos.length ? (_d(fechaF)-_d(flujos[0][0])) : 0;
+  var medio = dias>0 ? area/dias : 0;
+  var bruta=realizada+latente;
+  var vl0=movs[0].vl;
+  return {
+    desde:movs[0].fecha, hasta:fechaF, dias:dias,
+    nSus:nSus, nRee:nRee, nMovs:movs.length,
+    aportado:aport, reembolsado:reemb, valor:valorF, coste:costeF, part:partF, vl:vlF,
+    realizada:realizada, latente:latente, bruta:bruta, reten:reten, neta:bruta-reten,
+    ventas:ventas, saldoMedio:medio,
+    pctAnual: (medio>0&&dias>0) ? (bruta/medio)*(365/dias)*100 : null,
+    fondoPct: (vl0>0&&dias>0) ? (Math.pow(vlF/vl0,365/dias)-1)*100 : null,
+    /* El cuadre que lo valida todo: valor + reembolsos − aportaciones tiene que dar la
+       ganancia. Si no cuadra, el extracto viene incompleto y la pantalla lo dice. */
+    cuadre: valorF+reemb-aport
+  };
+}
+function r4ExtGuardado(){ try{ return (DB.easyExtracto&&DB.easyExtracto.movs&&DB.easyExtracto.movs.length)?DB.easyExtracto:null; }catch(e){ return null; } }
+function r4ExtCalcGuardado(){ var g=r4ExtGuardado(); return g?r4ExtCalc(g.movs):null; }
+
+/* ───────── El cuadro de pegado, y las tarjetas que salen de el ───────── */
+function _r4ExtCSS(){
+  if(document.getElementById('r4ExtCss')) return;
+  var st=document.createElement('style'); st.id='r4ExtCss';
+  st.textContent='#blkR4Ext .r4x-ta{width:100%;min-height:110px;font-family:ui-monospace,Consolas,monospace;font-size:11.5px;line-height:1.35}'
+   +'#blkR4Ext .r4x-res{margin-top:8px;font-size:12px}'
+   +'#blkR4Ext .r4x-tbl{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:6px}'
+   +'#blkR4Ext .r4x-tbl th,#blkR4Ext .r4x-tbl td{padding:3px 6px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}'
+   +'#blkR4Ext .r4x-tbl th:first-child,#blkR4Ext .r4x-tbl td:first-child{text-align:left}'
+   +'#blkR4Ext .r4x-wrap{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px 8px;margin-top:6px}'
+   +'#blkR4Ext .r4x-ok{color:#166534;font-weight:700}#blkR4Ext .r4x-ko{color:#b91c1c;font-weight:700}'
+   +'#blkR4Ext .r4x-sello{font-size:11.5px;color:#64748b;margin-bottom:6px}';
+  document.head.appendChild(st);
+}
+/* El bloque se INYECTA desde aqui: no hace falta tocar index.html, y asi esta pieza entra y
+   sale de una vez sin dejar HTML huerfano si algun dia se quita. */
+function r4ExtMontar(){
+  var sec=document.getElementById('view-fondor4'); if(!sec) return;
+  if(document.getElementById('blkR4Ext')) return;
+  var ancla=document.getElementById('blkR4Add'); if(!ancla) return;
+  _r4ExtCSS();
+  var d=document.createElement('div');
+  d.className='blk r4-blk'; d.id='blkR4Ext';
+  d.innerHTML='<div class="blk-h" data-r4blk="blkR4Ext"><span class="blk-arw">▶</span><span class="blk-ic">🧾</span>'
+    +'<div><div class="blk-t">Extracto de Renta 4</div><div class="blk-sub">Pega el extracto y la ganancia sale calculada por FIFO, como Hacienda</div></div>'
+    +'<div class="blk-right"><span class="blk-sub" id="r4ExtSello"></span></div></div>'
+    +'<div class="blk-b"><div style="padding:4px 2px">'
+    +'<div class="muted" style="font-size:11.5px;margin-bottom:6px">En Renta 4: <b>Operaciones de Fondos</b> → selecciona la tabla entera, cópiala y pégala aquí. '
+    +'No sustituye a tus movimientos: se guarda aparte y solo manda en las cifras de ganancia y rentabilidad.</div>'
+    +'<textarea id="r4ExtTa" class="r4x-ta" placeholder="09/09/2026   VALORACIÓN   925,701586   10,879376 EUR   10.071,06 EUR&#10;03/09/2026   SUSCRIPCIÓN  101,123036   10,877838 EUR   1.100,00  0,00  0,00  1.100,00 EUR"></textarea>'
+    +'<div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap">'
+    +'<button type="button" class="btn ghost sm" id="r4ExtVer">Ver qué sale</button>'
+    +'<button type="button" class="btn ghost sm" id="r4ExtRec">Reconstruir mis movimientos</button>'
+    +'<button type="button" class="btn ghost sm" id="r4ExtDel" style="display:none">Olvidar el extracto</button></div>'
+    +'<div id="r4ExtPrev" class="r4x-res"></div>'
+    +'</div></div>';
+  ancla.parentNode.insertBefore(d, ancla.nextSibling);
+  d.addEventListener('click', function(ev){
+    var t=ev.target;
+    if(t.closest && t.closest('#r4ExtVer')){ r4ExtPrevia(); return; }
+    if(t.closest && t.closest('#r4ExtAplicar')){ r4ExtAplicar(); return; }
+    if(t.closest && t.closest('#r4ExtRec')){ r4RecPrevia(); return; }
+    if(t.closest && t.closest('#r4RecAplicar')){ r4RecAplicar(); return; }
+    if(t.closest && t.closest('#r4ExtDel')){ r4ExtBorrar(); return; }
+    var h=t.closest && t.closest('.blk-h'); if(h){ d.classList.toggle('open'); }
+  });
+}
+function _r4f(v){ return (typeof fmt==='function')?fmt(v):(Number(v).toFixed(2)+' €'); }
+function _r4dd(f){ return (typeof ddmmyyyy==='function')?ddmmyyyy(f):f; }
+function r4ExtPrevia(){
+  var ta=document.getElementById('r4ExtTa'), cont=document.getElementById('r4ExtPrev');
+  if(!ta||!cont) return;
+  var p=r4ExtParse(ta.value);
+  if(!p.movs.length){
+    cont.innerHTML='<div class="r4x-ko" style="margin-top:6px">No he encontrado ningún apunte. Pega las líneas del extracto tal cual, con su fecha y su concepto.</div>';
+    return;
+  }
+  var c=r4ExtCalc(p.movs); window._r4ExtTmp=p.movs;
+  var desv=Math.abs(c.cuadre-c.bruta);
+  var filas=c.ventas.map(function(v){
+    return '<tr><td>'+_r4dd(v.fecha)+'</td><td>'+_r4f(v.efectivo)+'</td><td>'+_r4f(v.bruta)+'</td><td>'+_r4f(v.reten)+'</td><td><b>'+_r4f(v.neta)+'</b></td></tr>';
+  }).join('');
+  cont.innerHTML=
+    '<div><b>'+p.movs.length+' apuntes</b> · '+c.nSus+' suscripciones, '+c.nRee+' reembolsos · del '+_r4dd(c.desde)+' al '+_r4dd(c.hasta)+
+      (p.ilegibles?(' · <span class="r4x-ko">'+p.ilegibles+' líneas que no he sabido leer</span>'):'')+'</div>'
+    +'<div style="margin-top:6px">Ganancia <b>bruta '+_r4f(c.bruta)+'</b> ('+_r4f(c.realizada)+' retirada + '+_r4f(c.latente)+' todavía dentro) · retenido '+_r4f(c.reten)+' · <b>neta '+_r4f(c.neta)+'</b></div>'
+    +'<div>Rentabilidad <b>'+(c.pctAnual!=null?c.pctAnual.toFixed(2)+' %':'—')+' anual</b> sobre un saldo medio de '+_r4f(c.saldoMedio)+' en '+c.dias+' días'
+      +(c.fondoPct!=null?(' · el fondo rentó '+c.fondoPct.toFixed(2)+' %'):'')+'</div>'
+    /* La comprobacion que decide si el extracto esta completo. Sale ANTES del boton a
+       proposito: si no cuadra, que se vea antes de guardar y no despues. */
+    +'<div style="margin-top:6px">Comprobación: valor + reembolsos − aportaciones = '+_r4f(c.cuadre)+' · '
+      +(desv<0.05?'<span class="r4x-ok">cuadra con la ganancia</span>':'<span class="r4x-ko">NO cuadra, faltan apuntes ('+_r4f(desv)+' de diferencia)</span>')+'</div>'
+    +(filas?('<div class="r4x-wrap"><table class="r4x-tbl"><thead><tr><th>Reembolso</th><th>Efectivo</th><th>Bruta</th><th>Retención</th><th>Neta</th></tr></thead><tbody>'+filas+'</tbody></table></div>'):'')
+    +'<button type="button" class="btn sm" id="r4ExtAplicar" style="margin-top:8px">Guardar este extracto</button>';
+}
+function r4ExtAplicar(){
+  var movs=window._r4ExtTmp||[];
+  if(!movs.length){ alert('Primero pulsa «Ver qué sale».'); return; }
+  if(typeof pushSnapshot==='function') pushSnapshot('antes de guardar el extracto de R4');
+  DB.easyExtracto={guardado:new Date().toISOString().slice(0,19), fuente:'Renta 4 · Operaciones de Fondos', movs:movs};
+  if(typeof saveNow==='function') saveNow();
+  renderFondoR4();
+  var ta=document.getElementById('r4ExtTa'); if(ta) ta.value='';
+  var pv=document.getElementById('r4ExtPrev'); if(pv) pv.innerHTML='<div class="r4x-ok" style="margin-top:6px">Extracto guardado. Las tarjetas de arriba ya salen de él.</div>';
+}
+function r4ExtBorrar(){
+  if(!confirm('¿Olvidar el extracto guardado?\n\nLas tarjetas volverán a calcularse solo con tus movimientos apuntados a mano. No se borra ningún movimiento.')) return;
+  if(typeof pushSnapshot==='function') pushSnapshot('antes de olvidar el extracto de R4');
+  delete DB.easyExtracto;
+  if(typeof saveNow==='function') saveNow();
+  renderFondoR4();
+}
+
+/* ───────── Reconstruir los movimientos desde el extracto ─────────────────────────────────
+   [09-sep-2026] Carlos: «los desajustes los produje yo porque no entendia el extracto y
+   queria que me saliera lo mismo que en R4; de hecho modificaba cifras». Al cruzar los dos
+   libros salieron 25 apuntes con fecha distinta, tres suscripciones agrupadas en una y las
+   retiradas sin la plusvalia dentro. No son errores del banco: son una reconstruccion a
+   mano de algo que ya venia dado.
+
+   Asi que el libro pasa a ser el del banco. Esto NO empareja ni adivina: tira lo apuntado y
+   escribe los movimientos tal cual vienen en el extracto. Es reconstruccion, no fusion, y
+   por eso es fiable — un emparejador con esas tres diferencias a la vez acertaria el 90% y
+   el 10% restante serian duplicados o movimientos perdidos en registros de dinero.
+
+   EL PELIGRO, Y SU GUARDA. Si algun dia R4 sirve un extracto recortado (solo los ultimos
+   meses), reconstruir con el se llevaria por delante el historico. Por eso se compara la
+   fecha del primer apunte: si el extracto empieza DESPUES de lo que ya hay guardado, se
+   avisa y hay que confirmarlo aparte. */
+function r4RecConstruir(movs){
+  movs=(movs||[]).slice().sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+  var lotes=[], part=0, out=[], i=0, ult=null;
+  for(i=0;i<movs.length;i++){
+    var m=movs[i];
+    if(m.tipo==='valoracion'){ ult=m; continue; }
+    var e={id:'r4x'+m.fecha.replace(/-/g,'')+'-'+i, fecha:m.fecha};
+    if(m.tipo==='suscripcion'){
+      lotes.push({p:m.part, vl:m.vl}); part+=m.part;
+      e.tipo='aportacion'; e.importe=Math.round(m.efectivo*100)/100;
+    } else {
+      var q=m.part, coste=0;
+      while(q>1e-9 && lotes.length){
+        var t=Math.min(q,lotes[0].p); coste+=t*lotes[0].vl; lotes[0].p-=t; q-=t;
+        if(lotes[0].p<=1e-9) lotes.shift();
+      }
+      part-=m.part;
+      var g=m.part*m.vl-coste;
+      e.tipo='retirada';
+      /* El importe es el EFECTIVO que se movio de verdad, no el capital a secas: es lo que
+         entro en la cuenta, y es lo que la caja tiene que ver. Con este criterio el «saldo
+         aportado» pasa a ser dinero neto puesto, y valor − saldo da la ganancia TOTAL. */
+      e.importe=Math.round(m.efectivo*100)/100;
+      e.bruto=Math.round(g*100)/100;
+      e.retencion=Math.round(m.reten*100)/100;
+      e.neto=Math.round((g-m.reten)*100)/100;
+    }
+    e.valor=Math.round(part*m.vl*100)/100;
+    out.push(e);
+  }
+  /* La valoracion final entra como apunte de importe 0, que es como esta pestana ha
+     registrado siempre «hoy el fondo vale esto» sin mover dinero. */
+  if(ult) out.push({id:'r4xval'+ult.fecha.replace(/-/g,''), fecha:ult.fecha, tipo:'aportacion',
+                    importe:0, valor:Math.round((ult.efectivo||ult.part*ult.vl)*100)/100});
+  return out;
+}
+/* El antes y el despues, para que se vea lo que cambia ANTES de cambiarlo. */
+function r4RecDiff(nuevos){
+  var viejos=(DB.easy||[]).slice();
+  var _s=function(l){ var a=0; for(var i=0;i<l.length;i++){ var v=parseFloat(l[i].importe)||0; a += (l[i].tipo==='retirada'? -v : v); } return a; };
+  var _f=function(l){ var f=l.map(function(x){return x.fecha||'';}).filter(Boolean).sort(); return f.length?[f[0],f[f.length-1]]:['','']; };
+  var _val=function(l){ var v=null; l.slice().sort(function(a,b){return (a.fecha||'')<(b.fecha||'')?-1:1;}).forEach(function(x){ if(x.valor!=null&&x.valor!=='') v=parseFloat(x.valor); }); return v; };
+  var fv=_f(viejos), fn=_f(nuevos);
+  return {nAntes:viejos.length, nDespues:nuevos.length,
+          saldoAntes:_s(viejos), saldoDespues:_s(nuevos),
+          valorAntes:_val(viejos), valorDespues:_val(nuevos),
+          desdeAntes:fv[0], desdeDespues:fn[0], hastaAntes:fv[1], hastaDespues:fn[1],
+          recorta: !!(fv[0] && fn[0] && fn[0] > fv[0])};
+}
+function r4RecPrevia(){
+  var cont=document.getElementById('r4ExtPrev'); if(!cont) return;
+  var movs=(window._r4ExtTmp && window._r4ExtTmp.length) ? window._r4ExtTmp
+           : ((typeof r4ExtGuardado==='function' && r4ExtGuardado()) ? r4ExtGuardado().movs : []);
+  if(!movs.length){ alert('Primero pega un extracto y pulsa «Ver qué sale».'); return; }
+  var nuevos=r4RecConstruir(movs), d=r4RecDiff(nuevos);
+  window._r4RecTmp=nuevos;
+  var _e=function(v){ return (typeof fmt==='function')?fmt(v):(Number(v).toFixed(2)+' €'); };
+  var _d=function(f){ return (typeof ddmmyyyy==='function')?ddmmyyyy(f):f; };
+  cont.innerHTML=
+    '<div style="margin-top:4px"><b>Reconstruir los movimientos desde el extracto</b></div>'
+    +'<div class="r4x-wrap"><table class="r4x-tbl"><thead><tr><th></th><th>ahora</th><th>quedaría</th></tr></thead><tbody>'
+    +'<tr><td>Movimientos</td><td>'+d.nAntes+'</td><td><b>'+d.nDespues+'</b></td></tr>'
+    +'<tr><td>Primero</td><td>'+_d(d.desdeAntes)+'</td><td>'+_d(d.desdeDespues)+'</td></tr>'
+    +'<tr><td>Último</td><td>'+_d(d.hastaAntes)+'</td><td>'+_d(d.hastaDespues)+'</td></tr>'
+    +'<tr><td>Saldo aportado</td><td>'+_e(d.saldoAntes)+'</td><td><b>'+_e(d.saldoDespues)+'</b></td></tr>'
+    +'<tr><td>Valor del fondo</td><td>'+(d.valorAntes!=null?_e(d.valorAntes):'—')+'</td><td>'+(d.valorDespues!=null?_e(d.valorDespues):'—')+'</td></tr>'
+    +'</tbody></table></div>'
+    +'<div class="muted" style="font-size:11.5px;margin-top:6px">El saldo aportado cambia a propósito: las retiradas pasan a llevar dentro la plusvalía que cobraste, que es el dinero que de verdad se movió. Desde entonces, <b>valor − saldo aportado</b> es tu ganancia total.</div>'
+    +(d.recorta?('<div class="r4x-ko" style="margin-top:6px">⚠ El extracto empieza el '+_d(d.desdeDespues)+' y tus apuntes vienen del '+_d(d.desdeAntes)+'. Reconstruir con él BORRARÍA ese histórico. Baja de R4 el extracto completo antes de seguir.</div>'):'')
+    +'<div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap">'
+    +'<button type="button" class="btn '+(d.recorta?'ghost ':'')+'sm" id="r4RecAplicar">'+(d.recorta?'Reconstruir de todos modos':'Reconstruir')+'</button>'
+    +'<button type="button" class="btn ghost sm" id="r4ExtVer">Volver</button></div>';
+}
+function r4RecAplicar(){
+  var nuevos=window._r4RecTmp||[];
+  if(!nuevos.length){ alert('No hay nada que reconstruir.'); return; }
+  var d=r4RecDiff(nuevos);
+  if(!confirm('Se van a SUSTITUIR tus '+d.nAntes+' movimientos del Fondo R4 por los '+d.nDespues+' del extracto de Renta 4.\n\n'
+    +'Queda un punto de restauración en la Papelera, y tus datos de inversiones, gastos y todo lo demás no se tocan.\n\n¿Sigo?')) return;
+  if(typeof pushSnapshot==='function') pushSnapshot('antes de reconstruir el Fondo R4 desde el extracto');
+  DB.easy=nuevos;
+  if(typeof saveNow==='function') saveNow();
+  if(typeof renderAll==='function') renderAll(); else renderFondoR4();
+  alert('Hecho: '+d.nDespues+' movimientos, tal cual los da Renta 4.');
+}
