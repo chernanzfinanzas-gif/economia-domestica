@@ -8,7 +8,10 @@
    "estado": "activa",
    "resumen": "OPA de Ohmnia/Clerbil (con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) a 10 €/acción en efectivo (244,5 M€), un 12% por debajo del cierre previo al anuncio. Requiere aceptación de más del 50% del capital y autorizaciones de competencia en España y Alemania.",
    "fecha": "2026-07-24",
-   "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/"
+   "fuente": "https://theobjective.com/economia/banca/2026-07-24/clerbil-bbk-kutkabank-gobierno-vasco-opa-azkoyen/",
+   "precioIntervenido": "opa-sobre-la-empresa",
+   "precioIntervenidoPorque": "OPA de Ohmnia/Clerbil SOBRE Azkoyen a 10 EUR/accion en efectivo, anunciada el 24-jul-2026 y viva: la oferta pone techo a la cotizacion, que deja de ser precio de mercado libre. Decision del operador, 29-ago-2026.",
+   "precioIntervenidoDesde": "2026-07-24"
   },
   "ECR": {
    "tipo": "otro",
@@ -24,7 +27,9 @@
    "estado": "resuelta",
    "resumen": "La OPA hostil de BBVA sobre Banco Sabadell fracasó: solo logró el respaldo de un 25% de los accionistas, muy por debajo del umbral necesario. Situación cerrada — ya no hay amenaza de absorción sobre Sabadell.",
    "fecha": "2026-07-01",
-   "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html"
+   "fuente": "https://www.eldiario.es/economia/bbva-fracasa-opa-banco-sabadell-no-llegar-30-capital_1_12682412.html",
+   "precioIntervenido": null,
+   "precioIntervenidoPorque": "MIRADO Y NO LO ESTA: la OPA hostil del BBVA fracaso con un 25 % de aceptacion y la alerta esta resuelta. No hay oferta que ponga techo al precio. Decision del operador, 29-ago-2026."
   },
   "TEF": {
    "tipo": "otro",
@@ -40,7 +45,9 @@
    "estado": "activa",
    "resumen": "El consorcio Sidenor (Jainaga) se hizo con la mayoría de Talgo comprando el 29,7% a Pegaso por 157 M€ a comienzos de 2026. Hay controversia abierta sobre si los minoritarios deberían recibir una OPA obligatoria al cruzar ese umbral; el fondo polaco PFR se retiró tras no poder competir.",
    "fecha": "2026-02-01",
-   "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005"
+   "fuente": "https://www.estrategiasdeinversion.com/actualidad/noticias/bolsa-espana/talgo-los-minoritarios-se-pueden-quedar-fuera-n-755005",
+   "precioIntervenido": null,
+   "precioIntervenidoPorque": "MIRADO Y NO LO ESTA: Sidenor compro el 29,7 % a Pegaso, y aunque hay controversia sobre si debia lanzar OPA obligatoria a los minoritarios, NO hay oferta vigente sobre el resto del capital. Decision del operador, 29-ago-2026."
   },
   "TRG": {
    "tipo": "concurso",

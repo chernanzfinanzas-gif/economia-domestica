@@ -767,6 +767,10 @@ function _emCompraForm(t){ t=_emUp(t);
   if(carts.indexOf('Propia')<0)carts.unshift('Propia');
   var cajaHoy=P.caja;
   var cartOpts=carts.map(function(c){return '<option value="'+c+'"'+(c==='Propia'?' selected':'')+'>'+c+'</option>';}).join('');
+  /* Sin importe todavía no hay comisión que proponer, y la casilla se deja VACÍA: un 0 escrito
+     ahí significaría «esta compra no tuvo comisión», que es un dato distinto de «aún no lo sé». */
+  var _emImpIni=(accPrefill||0)*precio;
+  var _emComIni=(_emImpIni>0&&typeof comisionSugerida==='function')?comisionSugerida(_emImpIni):'';
   var html=
     '<div style="padding:14px 16px;border-bottom:1px solid #eef2f7;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:15px">🛒 Compra · '+t+'</b> <span style="color:#94a3b8;font-size:12px">'+nombre.replace(/</g,'&lt;').slice(0,26)+'</span></div><span data-emmx="1" style="cursor:pointer;color:#94a3b8;font-size:18px;line-height:1">✕</span></div>'+
     '<div style="padding:14px 16px;display:flex;flex-direction:column;gap:10px">'+
@@ -775,28 +779,46 @@ function _emCompraForm(t){ t=_emUp(t);
       '<div style="display:flex;gap:10px">'+
         '<label style="flex:1;font-size:12px;color:#475569">Acciones<input type="number" id="emcAcc" value="'+accPrefill+'" oninput="_emCompraCalc()" min="0" step="1" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
         '<label style="flex:1;font-size:12px;color:#475569">Precio €<input type="number" id="emcPrecio" value="'+(precio||'')+'" oninput="_emCompraCalc()" min="0" step="0.001" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
+        /* [09-sep-2026] La comisión se PROPONE desde la tarifa de Ajustes y se recalcula al cambiar
+           acciones o precio, pero solo mientras no la hayas tocado: en cuanto escribes ahí, manda lo
+           tuyo (`data-tocado`). Es lo que evita que esto se convierta en un dato más que teclear en
+           cada compra — el patrón que mata los proyectos de Carlos. */
+        '<label style="flex:1;font-size:12px;color:#475569">Comisión €<input type="number" id="emcCom" value="'+_emComIni+'" oninput="this.dataset.tocado=1;_emCompraCalc()" min="0" step="0.01" title="Propuesta con tu tarifa de Ajustes. Corrígela con la del justificante de R4." style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label>'+
       '</div>'+
-      '<div style="background:#f8fafc;border-radius:8px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between"><span>Total compra</span><b id="emcTotal">'+_emEur((accPrefill||0)*precio)+'</b></div>'+
+      '<div style="background:#f8fafc;border-radius:8px;padding:8px 10px;font-size:13px;display:flex;justify-content:space-between"><span>Total con comisión</span><b id="emcTotal">'+_emEur(_emImpIni+(_emComIni||0))+'</b></div>'+
       '<label style="font-size:12px;color:#475569;display:flex;align-items:center;gap:7px"><input type="checkbox" id="emcCaja" checked> Descontar de la caja bróker'+(cajaHoy!=null?' <span style="color:#94a3b8">(hoy '+_emEur(cajaHoy)+')</span>':'')+'</label>'+
       '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px"><button class="btn ghost sm" data-emmx="1">Cancelar</button><button class="btn sm" onclick="_emCompraDo(\''+t+'\')">Registrar compra</button></div>'+
     '</div>';
   _emModal(html); }
 function _emCompraCalc(){ var acc=_emNum((document.getElementById('emcAcc')||{}).value), pr=_emNum((document.getElementById('emcPrecio')||{}).value);
-  var el=document.getElementById('emcTotal'); if(el)el.textContent=_emEur(acc*pr); }
+  var ic=document.getElementById('emcCom');
+  /* Se reproponen los gastos mientras la casilla no se haya tocado a mano. */
+  if(ic && !ic.dataset.tocado && typeof comisionSugerida==='function') ic.value=(acc*pr>0)?comisionSugerida(acc*pr):'';
+  var com=ic?_emNum(ic.value):0;
+  var el=document.getElementById('emcTotal'); if(el)el.textContent=_emEur(acc*pr+com); }
 function _emCompraDo(t){ t=_emUp(t);
   var cart=((document.getElementById('emcCart')||{}).value||'Propia');
   var fecha=(document.getElementById('emcFecha')||{}).value||new Date().toISOString().slice(0,10);
   var acc=_emNum((document.getElementById('emcAcc')||{}).value), pr=_emNum((document.getElementById('emcPrecio')||{}).value);
+  var com=_emNum((document.getElementById('emcCom')||{}).value);
   var descontar=!!((document.getElementById('emcCaja')||{}).checked);
   if(!(acc>0)){ alert('Indica las acciones (> 0).'); return; }
   if(!(pr>0)){ alert('Indica el precio (> 0).'); return; }
-  var eur=acc*pr;
-  if(!confirm('¿Registrar compra de '+acc+' '+t+' a '+_emEur(pr)+' = '+_emEur(eur)+' en cartera «'+cart+'»'+(descontar?' y descontar de la caja bróker':'')+'?'))return;
+  if(com<0){ alert('La comisión no puede ser negativa.'); return; }
+  var eur=acc*pr, total=eur+com;
+  if(!confirm('¿Registrar compra de '+acc+' '+t+' a '+_emEur(pr)+' = '+_emEur(eur)+(com>0?(' + '+_emEur(com)+' de comisión = '+_emEur(total)):'')+' en cartera «'+cart+'»'+(descontar?' y descontar de la caja bróker':'')+'?'))return;
   DB.operaciones=DB.operaciones||[];
-  DB.operaciones.push({id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr,plan:true});
-  if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:eur}); }
+  /* La comisión se guarda SIEMPRE que se haya indicado, aunque sea 0: un 0 escrito a mano significa
+     «esta operación no tuvo comisión», que es un dato. Lo que no se escribe es el campo cuando la
+     casilla se deja vacía — ahí seguimos sin saberlo. */
+  var _op={id:(typeof uid==='function'?uid():'o'+Math.random().toString(36).slice(2,9)),fecha:fecha,ticker:t,cartera:cart,tipo:'compra',acciones:acc,precio:pr,plan:true};
+  var _cv=((document.getElementById('emcCom')||{}).value);
+  if(_cv!=null&&(''+_cv).trim()!=='') _op.comision=com;
+  DB.operaciones.push(_op);
+  /* De la caja sale el desembolso REAL, comisión incluida: es lo que descuenta el bróker. */
+  if(descontar){ DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:fecha,concepto:'Compra '+acc+' '+t,entra:0,sale:total}); }
   _emModalClose();
-  if(typeof showToast==='function')showToast('Compra registrada: '+acc+' '+t+' ('+_emEur(eur)+')');
+  if(typeof showToast==='function')showToast('Compra registrada: '+acc+' '+t+' ('+_emEur(total)+(com>0?', comisión incluida':'')+')');
   if(typeof saveNow==='function')saveNow();
   if(typeof renderAll==='function')renderAll(); }
 /* ===== DIVIDENDO desde Kanban (Paso B) — ventana emergente. Efectivo: confirma el importe real en la

@@ -245,7 +245,29 @@ function fiscalidadData(){ const nowY=new Date().getFullYear();
   const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o.fecha&&num(o.acciones)>0).slice().sort((a,b)=>{ const c=(a.fecha||'').localeCompare(b.fecha||''); if(c)return c; return (a.tipo==='venta'?1:0)-(b.tipo==='venta'?1:0); });
   const byT={}; ops.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); (byT[t]=byT[t]||[]).push(o); });
   const openLots=[], realized=[];
-  Object.keys(byT).forEach(t=>{ const q=[]; byT[t].forEach(o=>{ const acc=num(o.acciones),pr=num(o.precio); if(o.tipo==='venta'){ let rem=acc; while(rem>1e-6&&q.length){ const lot=q[0]; const take=Math.min(rem,lot.acciones); realized.push({t,fechaV:o.fecha,fechaC:lot.fecha,acc:take,precioC:lot.precio,precioV:pr,gan:(pr-lot.precio)*take}); lot.acciones-=take; rem-=take; if(lot.acciones<=1e-6)q.shift(); } } else q.push({fecha:o.fecha,acciones:acc,precio:pr}); }); q.forEach(lot=>{ if(lot.acciones>1e-6)openLots.push({t,fecha:lot.fecha,acciones:lot.acciones,precio:lot.precio}); }); });
+  /* [09-sep-2026] LOS GASTOS ENTRAN EN LA BASE, QUE ES COMO TRIBUTAN.
+     El valor de adquisición son los gastos inherentes a la COMPRA sumados al importe, y el de
+     transmisión, el de la VENTA restados. Antes esta función usaba `precio` a secas en los dos
+     lados y el pie de la pantalla lo confesaba con un «no incluye comisiones»: la ganancia salía
+     SIEMPRE mayor que la real, o sea el error caro de los dos.
+     Se trabaja con precios EFECTIVOS por acción —la comisión repartida entre las acciones de esa
+     operación— para que un lote consumido a medias por una venta parcial prorratee solo. `precio`
+     pasa a ser el efectivo, que es el que esta pantalla tiene que enseñar; el de mercado queda en
+     `precioBruto` por si hace falta. Una operación sin comisión registrada se comporta exactamente
+     como antes: `khComision` devuelve 0. */
+  Object.keys(byT).forEach(t=>{ const q=[]; byT[t].forEach(o=>{ const acc=num(o.acciones),pr=num(o.precio);
+    if(o.tipo==='venta'){
+      const comV=khComision(o), pvEf=(acc>0)?(pr-comV/acc):pr;   /* la comisión de venta baja lo que recibes */
+      let rem=acc;
+      while(rem>1e-6&&q.length){ const lot=q[0]; const take=Math.min(rem,lot.acciones);
+        realized.push({t,fechaV:o.fecha,fechaC:lot.fecha,acc:take,precioC:lot.precio,precioV:pvEf,
+                       precioCBruto:lot.precioBruto,precioVBruto:pr,gan:(pvEf-lot.precio)*take});
+        lot.acciones-=take; rem-=take; if(lot.acciones<=1e-6)q.shift(); }
+    } else {
+      const peC=(acc>0)?((acc*pr+khComision(o))/acc):pr;          /* la de compra sube lo que te costó */
+      q.push({fecha:o.fecha,acciones:acc,precio:peC,precioBruto:pr});
+    } });
+    q.forEach(lot=>{ if(lot.acciones>1e-6)openLots.push({t,fecha:lot.fecha,acciones:lot.acciones,precio:lot.precio,precioBruto:lot.precioBruto}); }); });
   openLots.forEach(l=>{ const pa=_precioActualDe(l.t); l.precioActual=pa; l.latente=(pa>0)?(pa-l.precio)*l.acciones:null; l.pct=(pa>0&&l.precio>0)?(pa/l.precio-1):null; });
   const latGain=openLots.reduce((s,l)=>s+((l.latente!=null&&l.latente>0)?l.latente:0),0);
   const latLoss=openLots.reduce((s,l)=>s+((l.latente!=null&&l.latente<0)?l.latente:0),0);

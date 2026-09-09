@@ -7,8 +7,13 @@ function invPositions(){
     const t=(o.ticker||'').toUpperCase(); if(!t)return; const car=o.cartera||'Propia'; const k=car+'|'+t;
     const m=map[k]=map[k]||{cartera:car,ticker:t,acc:0,cost:0};
     const n=num(o.acciones), pr=num(o.precio);
+    /* [09-sep-2026] La comisión de COMPRA entra en el coste: el precio medio que sale de aquí
+       lo consume media app (plusvalía, RPD sobre coste, invertido del plan, Diversificación…), y
+       lo que uno pagó por una posición incluye lo que le cobraron por comprarla.
+       En la VENTA no se toca: esa comisión reduce el valor de transmisión —cosa de Fiscalidad—
+       y no cambia lo que costó lo que queda. Ver `khComision` en 01-core.js. */
     if(o.tipo==='venta'){ const avg=m.acc?m.cost/m.acc:0; m.acc-=n; if(m.acc<0)m.acc=0; m.cost=m.acc*avg; }
-    else { m.acc+=n; m.cost+=n*pr; }
+    else { m.acc+=n; m.cost+=n*pr+khComision(o); }
   });
   /* [25-ago-2026] El precio sale de la cadena única de 01-core.js, no de `num(v.precioActual)` a
      secas: si esa casilla faltaba, el 0 se propagaba a la aritmética y la posición salía a −100,00 %
@@ -71,7 +76,11 @@ function posLots(){
     if(o.tipo==='venta') return; const t=(o.ticker||'').toUpperCase(); if(!openT.has(t)) return;
     const v=(DB.valores&&DB.valores[t])||{}; const acc=num(o.acciones); if(acc<=0) return;
     const _pl=precioActualInfo(t); const _paL=(_pl.p>0)?_pl.p:num(o.precio);   /* sin cotización: al coste del lote */
-    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:num(o.precio),pa:_paL,sinPrecio:!(_pl.p>0),
+    /* `pc` es el precio EFECTIVO (con la comisión repartida entre las acciones del lote): es el
+       que compara contra la cotización, y el que hace que «Posiciones» y «Cartera» digan lo mismo.
+       `pcBruto` conserva el de mercado para poder enseñar los dos. */
+    const _com=khComision(o), _pcEf=acc?(acc*num(o.precio)+_com)/acc:num(o.precio);
+    lots.push({fecha:o.fecha||'',ticker:t,nombre:v.nombre||t,cartera:o.cartera||'Propia',acc,pc:_pcEf,pcBruto:num(o.precio),com:_com,pa:_paL,sinPrecio:!(_pl.p>0),
       div:_posDivCobrado((DB.dividendos||{})[t],o.fecha,acc),years:_posYears(o.fecha,hoy),estado:'Cartera',fechaFin:hoy});
   });
   // --- lotes cerrados: archivados (DB.cerradas) ---
@@ -390,6 +399,9 @@ function renderInvOps(){
 function addOp(){
   if(!invOpsTicker){alert('Elige un valor primero.');return;}
   const fecha=$('#opFecha').value, tipo=$('#opTipo').value, n=num($('#opAcc').value), precio=num($('#opPrecio').value);
+  /* Vacío y 0 no son lo mismo: vacío es «no registrada», 0 es «no la hubo». Ver khTieneComision. */
+  const _cRaw=(($('#opComision')||{}).value||'').trim(), _cHay=_cRaw!=='', _com=num(_cRaw);
+  if(_cHay && _com<0){ alert('La comisión no puede ser negativa.'); return; }
   if(n<=0){alert('Indica acciones > 0.');return;}
   if(tipo==='compra'&&precio<=0){alert('Indica el precio de compra.');return;}
   if(precio<0){alert('El precio no puede ser negativo.');return;}
@@ -397,17 +409,34 @@ function addOp(){
   if(fecha){ const _d=new Date(fecha+'T00:00:00'); const _y=_d.getFullYear(); if(isNaN(_d.getTime())||_y<1990||_y>new Date().getFullYear()+1){ alert('La fecha «'+fecha+'» no parece válida.'); return; } if(_d.getTime()>Date.now()+86400000){ if(!confirm('La fecha '+fecha+' es futura. ¿Registrar la operación igualmente?'))return; } }
   if(tipo==='venta'){ const _sh=(typeof sharesHeldOf==='function')?sharesHeldOf(invOpsTicker,invOpsCartera||'Propia',opEditId):null; if(_sh!=null && n>_sh+1e-6){ if(!confirm('Vas a vender '+n+' acciones, pero en '+invOpsTicker+' ('+(invOpsCartera||'Propia')+') solo constan '+(Math.round(_sh*10000)/10000)+'. ¿Continuar igualmente?'))return; } }
   const _opEsNueva=!opEditId; const _opT=invOpsTicker;
-  if(opEditId){ const o=DB.operaciones.find(x=>x.id===opEditId); if(o){ o.fecha=fecha; o.tipo=tipo; o.acciones=n; o.precio=precio; } opEditEnd(); }
-  else { DB.operaciones.push({id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio}); }
-  $('#opAcc').value=''; $('#opPrecio').value='';
+  if(opEditId){ const o=DB.operaciones.find(x=>x.id===opEditId); if(o){ o.fecha=fecha; o.tipo=tipo; o.acciones=n; o.precio=precio;
+      /* Al editar, dejar la casilla vacía BORRA la comisión: es la única forma de volver a decir
+         «no la sé» después de haberla puesto por error. */
+      if(_cHay) o.comision=_com; else delete o.comision; } opEditEnd(); }
+  else { const _o={id:uid(),fecha,ticker:invOpsTicker,cartera:invOpsCartera||'Propia',tipo,acciones:n,precio};
+    if(_cHay) _o.comision=_com;
+    DB.operaciones.push(_o); }
+  $('#opAcc').value=''; $('#opPrecio').value=''; $('#opComision').value='';
   renderInv(); renderInvOps(); scheduleSave();
   /* M3: si es una operación NUEVA y reciente, ofrece anotarla en el Diario */
   if(_opEsNueva && typeof diarioOfrecerOp==='function') diarioOfrecerOp(_opT,tipo,precio,n,fecha);
 }
 function editOp(id){ const o=DB.operaciones.find(x=>x.id===id); if(!o)return; opEditId=id;
   $('#opFecha').value=o.fecha||''; $('#opTipo').value=o.tipo; $('#opAcc').value=o.acciones; $('#opPrecio').value=o.precio;
+  /* Se marca `tocado` para que la propuesta automática no pise lo que ya estaba guardado. */
+  const _ic=$('#opComision'); if(_ic){ _ic.value=khTieneComision(o)?o.comision:''; _ic.dataset.tocado='1'; }
   $('#opAdd').textContent='Guardar cambios'; $('#opCancelEdit').style.display='inline-block'; }
-function opEditEnd(){ opEditId=null; const b=$('#opAdd'); if(b)b.textContent='Añadir operación'; const c=$('#opCancelEdit'); if(c)c.style.display='none'; }
+function opEditEnd(){ opEditId=null; const b=$('#opAdd'); if(b)b.textContent='Añadir operación'; const c=$('#opCancelEdit'); if(c)c.style.display='none';
+  const ic=$('#opComision'); if(ic){ ic.value=''; delete ic.dataset.tocado; } }
+/* [09-sep-2026] La propuesta de comisión del formulario de Operaciones. Igual que en el modal del
+   Kanban: propone mientras no la toques, y se calla en cuanto escribes. Se engancha a los `input`
+   de acciones y precio desde 06-main.js. */
+function opComisionSugerir(){
+  const ic=$('#opComision'); if(!ic||ic.dataset.tocado) return;
+  if(($('#opTipo')||{}).value==='venta'){ /* también se propone en venta: los gastos también cuentan */ }
+  const imp=num(($('#opAcc')||{}).value)*num(($('#opPrecio')||{}).value);
+  ic.value=(imp>0&&typeof comisionSugerida==='function')?comisionSugerida(imp):'';
+}
 /* Auto-relleno de "+ Posición" al teclear un ticker que ya existe (no pisa lo ya escrito) */
 function invPrefillTicker(){
   const el0=$('#invTicker'); const t=((el0&&el0.value)||'').trim().toUpperCase(); if(!t) return;
@@ -431,7 +460,9 @@ function invNuevoValor(){
   const acc=num($('#invAcc').value);
   const car=($('#invCart').value||'').trim()||'Propia';
   const _pc=num($('#invPC').value), _fe=$('#invFecha').value||'';
-  if(acc>0){ DB.operaciones.push({id:uid(),fecha:_fe,ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:_pc}); }
+  if(acc>0){ const _o={id:uid(),fecha:_fe,ticker:t,cartera:car,tipo:'compra',acciones:acc,precio:_pc};
+    const _cv=(($('#invCom')||{}).value||'').trim(); if(_cv!=='') _o.comision=num(_cv);
+    DB.operaciones.push(_o); }
   $('#invForm').reset(); $('#invExch').value='BME'; $('#invForm').style.display='none';
   renderInv(); scheduleSave(); setInvStatus('Valor añadido: '+t);
   /* M3: nueva posición con compra → ofrece anotarla en el Diario */
@@ -765,14 +796,20 @@ function fichaCalc(ticker){
   const _anaT=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
   const precioActual=num(v.precioActual)||num(_anaT&&_anaT.cotizacion);
   const compras=ops.filter(o=>o.tipo!=='venta');
-  const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),coste=N*P;
+  /* [09-sep-2026] El lote lleva su comisión y el coste la incluye, igual que en `invPositions`:
+     si la Ficha y la vista Cartera dieran precios medios distintos para la misma posición, la
+     que se creería sería la equivocada. `P` sigue siendo el precio de mercado que se pagó por
+     acción —es lo que dice el justificante— y `Pe` es el efectivo con gastos, que es contra el
+     que se mide el dividendo neto. */
+  const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),com=khComision(o),coste=N*P+com;
+    const Pe=N?coste/N:P;
     const divShareAfter=divs.filter(x=>x.fecha>o.fecha).reduce((s,x)=>s+num(x.importe),0);
-    const divCobrado=N*divShareAfter, precioNeto=P-divShareAfter, valor=N*precioActual, balance=valor-coste;
-    return {fecha:o.fecha,cartera:o.cartera||'Propia',N,P,coste,divCobrado,precioNeto,valor,balance,rentTotal:coste?(balance+divCobrado)/coste:0};
+    const divCobrado=N*divShareAfter, precioNeto=Pe-divShareAfter, valor=N*precioActual, balance=valor-coste;
+    return {fecha:o.fecha,cartera:o.cartera||'Propia',N,P,com,Pe,coste,divCobrado,precioNeto,valor,balance,rentTotal:coste?(balance+divCobrado)/coste:0};
   });
   const tot={N:0,coste:0,div:0,valor:0}; lotes.forEach(l=>{tot.N+=l.N;tot.coste+=l.coste;tot.div+=l.divCobrado;tot.valor+=l.valor;});
   tot.precioMedio=tot.N?tot.coste/tot.N:0; tot.balance=tot.valor-tot.coste; tot.rentTotal=tot.coste?(tot.balance+tot.div)/tot.coste:0; tot.netoMedio=tot.precioMedio-(tot.N?tot.div/tot.N:0);
-  const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0); const pm=sb?cost/sb:0;
+  const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio)+khComision(o),0); const pm=sb?cost/sb:0;
     return {id:x.id,fecha:x.fecha,year:(x.fecha||'').slice(0,4),divShare:num(x.importe),acc:sb-sold,precioMedio:pm,importe:(sb-sold)*num(x.importe)}; });
   const ymap={}; divRows.forEach(r=>{ const g=ymap[r.year]||(ymap[r.year]={year:r.year,importeSum:0,divShareSum:0,pmEnd:0,rows:[]}); g.importeSum+=r.importe; g.divShareSum+=r.divShare; g.pmEnd=r.precioMedio; g.rows.push(r); });
   const divYears=Object.values(ymap).map(g=>Object.assign(g,{rend:g.pmEnd?g.divShareSum/g.pmEnd:0})).sort((a,b)=>(b.year||'').localeCompare(a.year||''));
@@ -1438,7 +1475,13 @@ function archivarCerrada(ticker){
   const _cid='c'+Math.random().toString(36).slice(2,9);
   const _opsOrig=ops.map(o=>Object.assign({},o));
   const _archivar=function(){
-    DB.cerradas.push({id:_cid,ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>({fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)})),divs:dvs});
+    DB.cerradas.push({id:_cid,ticker:t,nombre:v.nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',ops:ops.map(o=>{ const _o={fecha:o.fecha,tipo:o.tipo==='venta'?'venta':'compra',acciones:num(o.acciones),precio:num(o.precio)};
+      /* [09-sep-2026] La comisión viaja al archivo. Esta copia recorta campos a propósito, pero
+         recortar ÉSTE se llevaba el dato justo al archivar una posición vendida — que es cuando
+         Fiscalidad lo necesita para el valor de adquisición. Solo se escribe si estaba registrada:
+         un `comision: 0` aquí convertiría «no lo sé» en «no hubo», y ya no habría vuelta atrás. */
+      if(khTieneComision(o)) _o.comision=num(o.comision);
+      return _o; }),divs:dvs});
     DB.operaciones=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()!==t);
   };
   if(typeof undoableDelete==='function')
@@ -1591,8 +1634,12 @@ function renderDividendos(){
   const allOps=[...ops.map(o=>({ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})),...cerrOps].sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
   const posCost={};
   allOps.forEach(o=>{ const t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; const n=num(o.acciones), pr=num(o.precio); const p=posCost[t]=posCost[t]||{sh:0,cost:0};
-    if(o.tipo==='venta'){ const avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr; p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
-    else { compY[y]=(compY[y]||0)+n*pr; p.sh+=n; p.cost+=n*pr; } });
+    /* [09-sep-2026] Mismo criterio que el FIFO de Fiscalidad: la comisión de compra entra en el
+       coste y la de venta se resta de lo cobrado. Aquí el coste es por PRECIO MEDIO, no FIFO
+       —conviven los dos criterios en la app desde antes—, pero al menos los dos tratan igual
+       los gastos. */
+    if(o.tipo==='venta'){ const avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr-khComision(o); p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
+    else { compY[y]=(compY[y]||0)+n*pr+khComision(o); p.sh+=n; p.cost+=n*pr+khComision(o); } });
   cerrNoOps.forEach(c=>{ const yc=(c.fechaCompra||'').slice(0,4), yv=(c.fechaVenta||'').slice(0,4); if(yc)compY[yc]=(compY[yc]||0)+num(c.coste); if(yv){ventY[yv]=(ventY[yv]||0)+num(c.venta); costSoldY[yv]=(costSoldY[yv]||0)+num(c.coste);} });
   const ry=[...new Set([...years,...Object.keys(compY),...Object.keys(ventY),...Object.keys(DB.devolucionHacienda||{})])].sort();
   let cumInv=0,cumCom=0; const rs=[];
@@ -1616,7 +1663,7 @@ function renderDividendos(){
   const _fhead='<tr><th>A\u00f1o</th><th class="num">Dividendos brutos</th><th class="num">Retenci\u00f3n 19%</th><th class="num">Ganancia patrimonial (ventas)</th><th class="num">Base del ahorro</th></tr>';
   const fiscalDesk=`<div class="ptable"><table><thead>${_fhead}</thead><tbody>${_fbody}${_ffoot}</tbody></table></div>`;
   const fiscalMob=_fArr.map(r=>`<div class="lcard"><div class="lc-h"><div class="tk">${r.y}</div><div class="ty">${fmt(r.base)}<span>base ahorro</span></div></div><div class="lg"><div class="m"><span>Div. brutos</span><b class="pos">${r.db?fmt(r.db):'\u2014'}</b></div><div class="m"><span>Retenci\u00f3n 19%</span><b>${r.db?fmt(r.ret):'\u2014'}</b></div><div class="m"><span>Gan. patrimonial</span><b class="${r.pl<0?'neg':'pos'}">${r.hasPL?fmt(r.pl):'\u2014'}</b></div><div class="m"><span>Base ahorro</span><b>${fmt(r.base)}</b></div></div></div>`).join('');
-  const fiscalBlk=_fy.length?`<div class="d-note">Orientativo para la renta: dividendos = rendimientos del capital mobiliario (retenci\u00f3n 19%); ganancia patrimonial = ventas \u2212 coste de lo vendido (precio medio). No incluye comisiones ni p\u00e9rdidas compensables de a\u00f1os anteriores. Tambi\u00e9n lo ver\u00e1s en la pesta\u00f1a <b>Fiscalidad</b>.</div><div class="pos-desk">${fiscalDesk}</div><div class="pos-mob">${fiscalMob}</div>`:'';
+  const fiscalBlk=_fy.length?`<div class="d-note">Orientativo para la renta: dividendos = rendimientos del capital mobiliario (retenci\u00f3n 19%); ganancia patrimonial = ventas \u2212 coste de lo vendido (precio medio), con las comisiones registradas ya incluidas. No incluye las p\u00e9rdidas compensables de a\u00f1os anteriores. Tambi\u00e9n lo ver\u00e1s en la pesta\u00f1a <b>Fiscalidad</b>.</div><div class="pos-desk">${fiscalDesk}</div><div class="pos-mob">${fiscalMob}</div>`:'';
   // ---- ensamblar bloques ----
   const body=$('#divBody'); if(!body)return;
   window._divBlk=window._divBlk||{matriz:false,evol:false,resumen:false,fiscal:false};
@@ -1748,8 +1795,8 @@ function _fiscalPorAnio(){
   var allOps=ops.map(function(o){return {ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio};}).concat(cerrOps).sort(function(x,y){return (x.fecha||'').localeCompare(y.fecha||'');});
   var posCost={};
   allOps.forEach(function(o){ var t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; var n=num(o.acciones),pr=num(o.precio); var p=posCost[t]=posCost[t]||{sh:0,cost:0};
-    if(o.tipo==='venta'){ var avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr; p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
-    else { p.sh+=n; p.cost+=n*pr; } });
+    if(o.tipo==='venta'){ var avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr-khComision(o); p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
+    else { p.sh+=n; p.cost+=n*pr+khComision(o); } });
   cerrNoOps.forEach(function(c){ var yv=(c.fechaVenta||'').slice(0,4); if(yv){ventY[yv]=(ventY[yv]||0)+num(c.venta); costSoldY[yv]=(costSoldY[yv]||0)+num(c.coste);} });
   var dh=DB.devolucionHacienda||{};
   var fy=[...new Set([...Object.keys(totYear),...Object.keys(ventY),...Object.keys(dh)])].filter(function(y){return (totYear[y]||0)>0||(ventY[y]||0)>0||(costSoldY[y]||0)>0||num(dh[y]||0)>0;}).sort();

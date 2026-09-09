@@ -218,7 +218,7 @@ function buildFiscal(ctx){
   inner+='<h2>Resumen fiscal</h2>'+_infKpis([['Dividendos brutos (hist.)',fmt(tDB)],['Retención 19%',fmt(tRet)],['Plusvalías realizadas',fmt(tPL)],['Base del ahorro (hist.)',fmt(tBase)],['Último año',last.year||'—']]);
   inner+=_infChartsWrap([chart]);
   inner+='<h2>Detalle por año fiscal</h2><table><thead><tr><th>Año</th><th class="num">Dividendos brutos</th><th class="num">Retención 19%</th><th class="num">Plusvalías (ventas)</th><th class="num">Base del ahorro</th><th class="num">Devol. Hacienda</th></tr></thead><tbody>'+trs+'</tbody></table>';
-  inner+='<div class="resumen"><p class="muted">Orientativo para la renta: los dividendos son rendimientos del capital mobiliario (retención 19%); la plusvalía es ventas − coste de lo vendido (precio medio). No incluye comisiones ni pérdidas compensables de años anteriores. Consulta con tu asesor.</p></div>';
+  inner+='<div class="resumen"><p class="muted">Orientativo para la renta: los dividendos son rendimientos del capital mobiliario (retención 19%); la plusvalía es ventas − coste de lo vendido (precio medio), con las comisiones registradas ya incluidas. No incluye las pérdidas compensables de años anteriores. Consulta con tu asesor.</p></div>';
   return _infDocWrap('Informe fiscal (renta)',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 

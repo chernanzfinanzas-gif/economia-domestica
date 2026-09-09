@@ -21,6 +21,71 @@ const num = v => { const n = parseFloat(v); return isNaN(n)?0:n; };
    ajustar la escala toca UNA línea. */
 var KH_RATING = {AAA:100, AA:90, A:78, BBB:65, BB:52, B:40, CCC:28, CC:18, C:10};
 
+/* ===========================================================================
+   [09-sep-2026]  LA COMISIÓN DE UNA OPERACIÓN
+   ---------------------------------------------------------------------------
+   Hasta hoy la app no sabía nada de comisiones: el coste de una posición era
+   `acciones × precio` y punto, y tanto Fiscalidad como los informes lo decían
+   con un «no incluye comisiones» al pie. Medido sobre las 25 compras de Carlos:
+   a 10 € por operación son 250 € sobre 179.278 € de coste, un 0,14 %. Como
+   argumento de compra es ruido — pero no es un porcentaje, es un peaje FIJO, y
+   por eso pesa un 0,06 % en una compra de 17.000 € y un 5 % en una de 200 €.
+   Ahí sí decide: es lo que fija el ticket mínimo por debajo del cual trocear
+   una compra sale caro.
+
+   TRES REGLAS QUE NO SE NEGOCIAN
+
+   1. AUSENTE NO ES CERO. Una operación sin `comision` es una operación de la
+      que NO SABEMOS la comisión, no una que no la tuvo. Las 25 históricas están
+      en ese estado hasta que lleguen los extractos de R4. Por eso `khComision()`
+      devuelve 0 para poder sumar, y `khTieneComision()` existe aparte para poder
+      DECIRLO. Rellenar el hueco con una estimación sería inventar un dato justo
+      en el único sitio donde la cifra tiene consecuencia legal: al vender, la
+      comisión de compra sube el valor de adquisición y baja la ganancia
+      patrimonial. Un número plausible ahí es peor que un hueco, porque parece
+      un dato.
+
+   2. LA TARIFA PROPONE, NO DECIDE. `comisionSugerida()` sirve para PRERRELLENAR
+      el formulario; lo que se guarda es lo que quede en la casilla. La tarifa es
+      una comodidad para que esto no muera a las diez compras —el patrón que se
+      lleva por delante los proyectos de Carlos es el que pide una decisión por
+      elemento—, no una fuente de verdad.
+
+   3. SOLO LA DE COMPRA TOCA EL COSTE. En una venta la comisión reduce el valor
+      de TRANSMISIÓN; no tiene nada que ver con lo que costó lo que queda en
+      cartera. Meterla en el coste de la posición superviviente sería un error
+      silencioso y difícil de ver.
+   =========================================================================== */
+var KH_COMISION_DEF = {pct:0.10, min:10, fijo:0};   /* revisable en Ajustes */
+
+function comisionTarifa(){
+  var t={}; try{ t=(DB&&DB.config&&DB.config.comisionTarifa)||{}; }catch(e){ t={}; }
+  return {pct : (t.pct !=null&&t.pct !=='')?num(t.pct ):KH_COMISION_DEF.pct,
+          min : (t.min !=null&&t.min !=='')?num(t.min ):KH_COMISION_DEF.min,
+          fijo: (t.fijo!=null&&t.fijo!=='')?num(t.fijo):KH_COMISION_DEF.fijo};
+}
+/* Corretaje porcentual con mínimo, más un fijo (el canon de bolsa suele ir así).
+   Se redondea al céntimo: una comisión con cuatro decimales no existe en ningún
+   justificante y ensuciaría el coste. */
+function comisionSugerida(importe){
+  var T=comisionTarifa(), imp=num(importe);
+  if(!(imp>0)) return 0;
+  return Math.round((Math.max(T.min, imp*T.pct/100) + T.fijo)*100)/100;
+}
+/* ¿Esta operación trae comisión REGISTRADA? Distinto de que sea 0. */
+function khTieneComision(o){
+  return !!(o && o.comision!=null && o.comision!=='' && !isNaN(parseFloat(o.comision)));
+}
+/* La comisión de una operación para poder sumarla. Ausente -> 0. */
+function khComision(o){ return khTieneComision(o)?num(o.comision):0; }
+/* Cuántas operaciones siguen sin comisión registrada, para poder avisarlo sin
+   mentir en ninguna pantalla. */
+function khOpsSinComision(){
+  var n=0;
+  try{ (DB.operaciones||[]).forEach(function(o){ if(!khTieneComision(o)) n++; }); }catch(e){}
+  return n;
+}
+
 /* ---- Buscador de empresas por nombre/ticker (filtra filas con data-fs sin recargar la tabla) ---- */
 function _wireBuscador(input, rows, state){
   if(!input) return;
@@ -2197,9 +2262,43 @@ function perfilTitulares(){ try{ var p=(DB.config&&DB.config.perfil)||{}; return
 function perfilEmail(){ try{ return (DB&&DB.config&&DB.config.perfil&&DB.config.perfil.email)||'carlos220271@gmail.com'; }catch(e){ return 'carlos220271@gmail.com'; } }
 function _cfgEsc(x){ return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;'); }
 function _cfgCollect(){ var tit=[]; document.querySelectorAll('#cfgBody .cfgTn').forEach(function(inp){ var i=inp.getAttribute('data-i'); var nombre=(inp.value||'').trim(); var mInp=document.querySelector('#cfgBody .cfgTm[data-i="'+i+'"]'); var nom=mInp?parseFloat((''+mInp.value).replace(',','.')):NaN; tit.push({nombre:nombre,nomina:isFinite(nom)?nom:0}); }); var em=(document.getElementById('cfgEmail')||{}).value||''; return {titulares:tit,email:(''+em).trim()}; }
-function renderCfg(draft){ var body=document.getElementById('cfgBody'); if(!body)return; var p=draft||((DB.config&&DB.config.perfil))||{titulares:[],email:''}; var rows=(p.titulares||[]).map(function(t,i){ return '<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><input class="cfgTn" data-i="'+i+'" value="'+_cfgEsc(t.nombre)+'" placeholder="Titular" style="flex:1"><input class="cfgTm" data-i="'+i+'" type="number" step="0.01" value="'+(t.nomina!=null?t.nomina:'')+'" placeholder="Nomina EUR/mes" style="width:130px"><button type="button" class="btn ghost sm" data-cfgdel="'+i+'" title="Quitar">X</button></div>'; }).join(''); body.innerHTML='<div class="muted" style="font-size:12px;margin-bottom:8px">Titulares del hogar y su nomina mensual (se usan en informes por titular y en el plan de ahorro).</div>'+rows+'<button type="button" class="btn ghost sm" id="cfgAddTit">+ Titular</button><div style="margin-top:12px"><label class="muted" style="font-size:12px">Email de Google Drive (login)</label><br><input id="cfgEmail" value="'+_cfgEsc(p.email||'')+'" style="width:100%;max-width:340px"></div>'; }
+function renderCfg(draft){ var body=document.getElementById('cfgBody'); if(!body)return; var p=draft||((DB.config&&DB.config.perfil))||{titulares:[],email:''}; var rows=(p.titulares||[]).map(function(t,i){ return '<div style="display:flex;gap:6px;margin-bottom:6px;align-items:center"><input class="cfgTn" data-i="'+i+'" value="'+_cfgEsc(t.nombre)+'" placeholder="Titular" style="flex:1"><input class="cfgTm" data-i="'+i+'" type="number" step="0.01" value="'+(t.nomina!=null?t.nomina:'')+'" placeholder="Nomina EUR/mes" style="width:130px"><button type="button" class="btn ghost sm" data-cfgdel="'+i+'" title="Quitar">X</button></div>'; }).join(''); body.innerHTML='<div class="muted" style="font-size:12px;margin-bottom:8px">Titulares del hogar y su nomina mensual (se usan en informes por titular y en el plan de ahorro).</div>'+rows+'<button type="button" class="btn ghost sm" id="cfgAddTit">+ Titular</button><div style="margin-top:12px"><label class="muted" style="font-size:12px">Email de Google Drive (login)</label><br><input id="cfgEmail" value="'+_cfgEsc(p.email||'')+'" style="width:100%;max-width:340px"></div>'+_cfgComisionHTML(); }
+/* [09-sep-2026] LA TARIFA DEL BRÓKER, para PROPONER la comisión de cada compra.
+   No es una fuente de verdad: lo que se guarda en la operación es lo que quede en la casilla del
+   formulario, que se corrige con el justificante. Está aquí para que apuntar la comisión no cueste
+   un dato más que teclear en cada compra — que es como mueren estas cosas.
+   El aviso del pie no es decorativo: mientras queden operaciones sin comisión registrada, el coste
+   y la fiscalidad de esas posiciones están incompletos, y eso hay que poder verlo. */
+function _cfgComisionHTML(){
+  var T=(typeof comisionTarifa==='function')?comisionTarifa():{pct:0.10,min:10,fijo:0};
+  var sin=(typeof khOpsSinComision==='function')?khOpsSinComision():0;
+  var tot=0; try{ tot=(DB.operaciones||[]).length; }catch(e){}
+  var ej=(typeof comisionSugerida==='function')?comisionSugerida(5000):0;
+  var aviso = sin
+    ? '<div style="margin-top:8px;background:#fffbeb;border:1px solid #fde68a;color:#92400e;border-radius:8px;padding:7px 9px;font-size:11.5px;line-height:1.45">'
+      +'<b>'+sin+' de '+tot+' operaciones</b> siguen sin comisión registrada. No se rellenan solas a propósito: '
+      +'poner una estimación donde debe ir el dato del justificante es inventarse el valor de adquisición, '
+      +'y eso es justo lo que mira Hacienda al vender. Pide los extractos a R4 y se cargan de una vez.</div>'
+    : '<div style="margin-top:8px;background:#f0fdf4;border:1px solid #bbf7d0;color:#166534;border-radius:8px;padding:7px 9px;font-size:11.5px">Todas las operaciones tienen su comisión registrada.</div>';
+  return '<div style="margin-top:16px;border-top:1px solid var(--line);padding-top:12px">'
+    +'<div style="font-weight:700;font-size:13px">Comisión de compraventa</div>'
+    +'<div class="muted" style="font-size:12px;margin:3px 0 8px">Tu tarifa, para <b>proponer</b> la comisión al registrar una operación. Siempre puedes corregirla.</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap">'
+    +'<label class="muted" style="font-size:11.5px">Corretaje %<br><input id="cfgComPct" type="number" step="0.001" min="0" value="'+T.pct+'" style="width:90px"></label>'
+    +'<label class="muted" style="font-size:11.5px">Mínimo €<br><input id="cfgComMin" type="number" step="0.01" min="0" value="'+T.min+'" style="width:90px"></label>'
+    +'<label class="muted" style="font-size:11.5px">Fijo € (canon)<br><input id="cfgComFijo" type="number" step="0.01" min="0" value="'+T.fijo+'" style="width:90px"></label>'
+    +'</div>'
+    +'<div class="muted" style="font-size:11px;margin-top:5px">Con esta tarifa, una compra de 5.000 € propondría <b>'+((typeof fmt==='function')?fmt(ej):ej+' €')+'</b>.</div>'
+    +aviso+'</div>';
+}
 function abrirConfig(){ var dlg=document.getElementById('cfgDlg'); if(!dlg)return; renderCfg(); if(typeof dlg.showModal==='function'){ if(!dlg.open)dlg.showModal(); } else { dlg.setAttribute('open',''); } }
-function guardarPerfilCfg(){ var d=_cfgCollect(); d.titulares=d.titulares.filter(function(t){return t.nombre;}); DB.config=DB.config||{}; DB.config.perfil=d; if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
+function guardarPerfilCfg(){ var d=_cfgCollect(); d.titulares=d.titulares.filter(function(t){return t.nombre;}); DB.config=DB.config||{}; DB.config.perfil=d;
+  /* La tarifa se guarda aparte del perfil: no es un dato del hogar, es de la operativa. */
+  var _g=function(id){ var e=document.getElementById(id); return (e&&e.value!=='')?num(e.value):null; };
+  var _p=_g('cfgComPct'), _m=_g('cfgComMin'), _f=_g('cfgComFijo');
+  if(_p!=null||_m!=null||_f!=null){
+    DB.config.comisionTarifa={pct:(_p!=null?_p:KH_COMISION_DEF.pct), min:(_m!=null?_m:KH_COMISION_DEF.min), fijo:(_f!=null?_f:KH_COMISION_DEF.fijo)};
+  } if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
 document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)return;
   if(e.target.closest('#btnConfig')){ abrirConfig(); return; }
   if(e.target.closest('#cfgAddTit')){ var d=_cfgCollect(); d.titulares.push({nombre:'',nomina:0}); renderCfg(d); return; }

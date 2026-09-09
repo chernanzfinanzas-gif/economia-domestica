@@ -4199,6 +4199,8 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <label>1ª compra · fecha<input type="date" id="invFecha"></label>
       <label>Acciones<input type="number" id="invAcc" step="1" min="0"></label>
       <label>Precio compra (€)<input type="number" id="invPC" step="0.0001" min="0"></label>
+      <!-- [09-sep-2026] Gastos de esa primera compra. Vacía = no registrada, distinto de 0. -->
+      <label>Comisión (€)<input type="number" id="invCom" step="0.01" min="0" placeholder="opcional" title="Gastos de la compra inicial. Suben el coste de la posición. Déjala vacía si no la conoces."></label>
       <div class="row-actions"><button type="submit" class="btn">Crear posición</button>
         <button type="button" class="btn ghost" id="invCancel">Cancelar</button></div>
     </form>
@@ -4215,6 +4217,9 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
         <label>Operación<select id="opTipo"><option value="compra">Compra</option><option value="venta">Venta</option></select></label>
         <label>Acciones<input type="number" id="opAcc" step="1" min="0"></label>
         <label>Precio (€)<input type="number" id="opPrecio" step="0.0001" min="0"></label>
+        <!-- [09-sep-2026] Comisión de la operación. Vacía = no registrada, que NO es lo mismo que 0.
+             Se propone desde la tarifa de Ajustes al escribir acciones y precio. -->
+        <label>Comisión (€)<input type="number" id="opComision" step="0.01" min="0" placeholder="se propone sola" title="Gastos de la operación. En una compra suben el coste; en una venta bajan lo cobrado. Déjala vacía si no la conoces."></label>
       </div>
       <div style="margin-top:10px"><button class="btn" id="opAdd">Añadir operación</button>
         <button class="btn ghost" id="opCancelEdit" style="display:none">Cancelar edición</button>

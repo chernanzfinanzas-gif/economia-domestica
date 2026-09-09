@@ -1,766 +1,819 @@
 {
-  "ticker": "REP",
-  "empresa": "Repsol",
-  "revisiones": [
+ "schemaVersion": 2,
+ "ticker": "REP",
+ "empresa": "Repsol",
+ "revisiones": [
+  {
+   "periodo": "2023-Q1",
+   "periodoDisplay": "Q1-2023",
+   "fecha": "2023-04-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen de refino 15,6 $/Bbl, más del doble de la media del ciclo (7,06), y conversión al 100,4 %. La deuda neta baja a 880 M€, el mínimo de la serie. Es el pico del ciclo posterior a la crisis energética: no es sostenible y así hay que leerlo.",
+   "origen": "bloque-10",
+   "metricas": [
     {
-      "periodo": "2023-Q1",
-      "fecha": "2023-04-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Pico de ciclo: margen de refino 15,6 $/bbl, EBITDA CCS 3.061 e Industrial 1.279; deuda neta mínima (880). Trimestre muy fuerte.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 3061
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 2696
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 1827
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 880
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 15.6
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 608
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 81.2
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 474
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1279
-        }
-      ]
+     "nombre": "Producción (kbep/d)",
+     "valor": 608
     },
     {
-      "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Semestre potente: márgenes altos (11,0 $/bbl), FCO 3.522 y deuda neta 797. Año de bonanza del refino.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 4982
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 4303
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 3522
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 797
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 11
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 602
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 79.7
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 884
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1623
-        }
-      ]
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 15.6
     },
     {
-      "periodo": "2023-Q3",
-      "fecha": "2023-10-24",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Nueve meses sólidos (EBITDA CCS 7.408); deuda neta sube a 1.855 por retribución e inversión, sin tensión.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 7408
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 7194
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 4820
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 1855
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 11.9
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 600
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 82.1
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 1225
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 2173
-        }
-      ]
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 100.4
     },
     {
-      "periodo": "2023-Q4",
-      "fecha": "2024-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Gran año: EBITDA CCS 9.864, FCO récord 7.064 y deuda neta baja (2.096). Referencia alta del ciclo del refino.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 9864
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 9254
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 7064
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 2096
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 11.1
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 599
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 82.6
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 1779
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 2734
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Gravamen extraordinario a la energía en España, que drena beneficio y caja del sector.",
-          "impacto": "-",
-          "valoracion": "Presión fiscal-regulatoria que resta caja disponible para retribución e inversión."
-        }
-      ]
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 1891
     },
     {
-      "periodo": "2024-Q1",
-      "fecha": "2024-04-28",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Normalización: margen aún alto (11,4) pero EBITDA −20% YoY e Industrial a la baja (731); deuda neta sube a 3.901 por recompras. Ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 2144
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 2143
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 1362
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 3901
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 11.4
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 590
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 83.2
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 442
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 731
-        }
-      ]
+     "nombre": "Resultado neto (M€)",
+     "valor": 1112
     },
     {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Márgenes en descenso y deuda neta al alza (4.595) por recompras y dividendo. FCO más débil (2.287). Ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 4259
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 4144
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 2287
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 4595
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": null
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 589
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 84.1
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 869
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1019
-        }
-      ]
+     "nombre": "EBITDA (M€)",
+     "valor": 2696
     },
     {
-      "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "(modelo de reporting anterior, no comparable con 2025+) Deterioro continuado: EBITDA −23% YoY, deuda neta 5.532 (inversión + dividendo). Industrial flojo. Ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 6078
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 5565
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 3792
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 5532
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": null
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 577
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 82.8
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 1156
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1204
-        }
-      ]
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 3061
     },
     {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Año base sólido (modelo nuevo): RNA 3.025 M€, EBITDA CCS 6.627 y deuda neta baja (4.015). Por debajo de 2023 pero con balance fuerte; referencia verde.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 3025
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 6627
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 6052
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 4965
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 4015
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 6.6
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 571
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 80.8
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 1490
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1460
-        }
-      ]
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 1827
     },
     {
-      "periodo": "2025-Q1",
-      "fecha": "2025-04-28",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Arranque flojo: margen de refino en mínimo (5,3 $/bbl) e Industrial hundido (131 M€); Upstream aguanta (458). Señales mixtas → ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 557
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 1504
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 1244
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 1142
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 4694
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 5.3
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 540
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 75.7
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 458
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 131
-        }
-      ]
+     "nombre": "Deuda neta (M€)",
+     "valor": 880
     },
     {
-      "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Semestre débil en Industrial (230) por márgenes bajos (5,6 $/bbl) y Brent a la baja (71,9). FCO sólido (2.860). Ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 1155
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 2935
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 2392
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 2860
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 5728
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 5.6
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 549
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 71.9
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 897
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 230
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q3",
-      "fecha": "2025-10-24",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Recuperación incipiente del refino (9M 6,7; 3T 8,8 $/bbl) e Industrial (545); deuda neta repunta a 5.708. Mejora, aún ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 1907
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 4587
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 3929
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 4343
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 5708
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 6.7
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 549
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 70.9
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 1214
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 545
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Año a la baja (RNA −15% YoY) pero salida fuerte: 4T con refino 11,1 e Industrial 423; deuda neta vuelve a 4.487. Cierre mejor que el grueso del año → ámbar.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 2568
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 6184
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 5312
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 5365
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 4487
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 7.9
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 548
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 69.1
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 957
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 963
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Acuerdo con TotalEnergies UK y operación con Sinopec UK en el Mar del Norte (rotación/JV); importe Pte. Revisión.",
-          "impacto": "+",
-          "valoracion": "Rotación de cartera upstream que cristaliza valor y refuerza la disciplina financiera."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Plan estratégico 2026-2028 (CMD2025) con la retribución al accionista (dividendo + recompras) como prioridad.",
-          "impacto": "+",
-          "valoracion": "Prioriza el retorno total al accionista y la disciplina de inversión; apoya la tesis."
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q1",
-      "fecha": "2026-04-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Fuerte rebote: RNA 873 M€ (+57% YoY), margen de refino 10,9 $/bbl, EBITDA CCS 1.790 e Industrial 440. Deuda neta sube algo (4.800) sin tensión. Verde.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 873
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 1790
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 2613
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 1042
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 4800
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 10.9
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 539
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 81.1
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 302
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 440
-        }
-      ]
-    },
-    {
-      "periodo": "2026-Q2",
-      "fecha": "2026-07-24",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Trimestre muy fuerte, todos los KPIs verdes: RNA 2.711 M€ (+135% YoY), BNA reportado 2.201 (+265%) e Industrial 1.683 (vs 235) por el rebote del margen de refino a 12,4 $/bbl (Brent 92,3, +28%). Deuda neta baja a 3.667 (DN/EBITDA LTM ~0,4x), liquidez >10.000 M€, rating estable. A vigilar la normalización del margen tras la prima geopolítica. Verde.",
-      "metricas": [
-        {
-          "nombre": "RNA (M€)",
-          "valor": 2711
-        },
-        {
-          "nombre": "EBITDA CCS (M€)",
-          "valor": 5006
-        },
-        {
-          "nombre": "EBITDA Aj. (M€)",
-          "valor": 6135
-        },
-        {
-          "nombre": "FCO (M€)",
-          "valor": 2977
-        },
-        {
-          "nombre": "Deuda Neta (M€)",
-          "valor": 3667
-        },
-        {
-          "nombre": "Mg. refino ($/bbl)",
-          "valor": 12.4
-        },
-        {
-          "nombre": "Producción (kbep/d)",
-          "valor": 548
-        },
-        {
-          "nombre": "Brent ($/bbl)",
-          "valor": 92.3
-        },
-        {
-          "nombre": "RNA E&P (M€)",
-          "valor": 673
-        },
-        {
-          "nombre": "RNA Industrial (M€)",
-          "valor": 1683
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Acuerdo con TotalEnergies en Reino Unido: crea la Joint Venture 'Neo Next+', que en junio cerró un bono nórdico de 750 M USD al 6,625% (mayor bono nórdico de E&P).",
-          "impacto": "+",
-          "valoracion": "Rotación/consolidación de la cartera upstream en el Mar del Norte con financiación propia; cristaliza valor y refuerza la disciplina de balance. Apoya la tesis."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Mejora del marco operativo en Venezuela: Licencia General 50B de OFAC, acuerdos Repsol-ENI con PDVSA (Cardón IV, Petroquiriquire) y nueva Ley de Hidrocarburos.",
-          "impacto": "+",
-          "valoracion": "Desbloquea y da continuidad a la producción venezolana, aunque con incertidumbre geopolítica y regulatoria alta; potencial al alza si se consolida."
-        },
-        {
-          "tipo": "Desinversión",
-          "hecho": "Rotación de renovables (GBC): venta a Stonepeak del 43% del proyecto Outpost (629 MW, Texas) y acuerdo para desinvertir el 49,99% de una cartera renovable en España.",
-          "impacto": "+",
-          "valoracion": "Modelo de rotación de activos bajos en carbono que libera capital y valida valoraciones; coherente con la disciplina de inversión del plan 2026-2028."
-        },
-        {
-          "tipo": "Recompra",
-          "hecho": "Retribución creciente: dividendo julio 0,551 €/acc (+7,8%), amortización de ~16 M acciones (350 M€) y nuevo programa de recompra de hasta 500 M€ neto acordado el 22-jul; política de +3% anual y recompras del 30-40% del FCO (2026-2028).",
-          "impacto": "+",
-          "valoracion": "Retorno total al accionista en aumento con caja holgada; refuerza el componente de retribución de la tesis."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Crecimiento upstream: entradas en producción de Pikka (EE.UU.) y Lapa SW (Brasil), descubrimiento onshore en Libia (pozo Kobra-1) y acuerdo de operación unificada del campo I/R en Libia con TotalEnergies, Equinor y OMV.",
-          "impacto": "+",
-          "valoracion": "Nuevos barriles y opcionalidad exploratoria que sostienen la producción (~548 kbep/d) frente a las desinversiones; neutral-positivo para el perfil de reservas."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Guidance FY-2026 actualizado en julio: producción upstream de 560-570 Kboed, CFFO de >5,5-6 Bn€, Net Capex de 2,7 Bn€, retribución al accionista del 30-40% del CFFO, dividendo de 1,051 €/acción (+8% sobre 2025) y recompras de al menos 700 M€ — la primera de 350 M€ ya completada, una segunda de 500 M€ antes de final de octubre y una tercera a anunciar con los resultados del 3T. Supuestos: Brent 60-65 $/bbl, Henry Hub 3,5-4 $/Mbtu e indicador de margen de refino 6,5-7,5 $/bbl.",
-          "impacto": "+",
-          "valoracion": "Lo relevante es doble: el suelo de recompras sube a 700 M€ y el dividendo crece un 8%, todo ello sobre supuestos macro (Brent 60-65 $) muy por debajo de lo realizado en el semestre (92,3 $ de media). Es decir, la retribución está calculada con margen, no apurada."
-        },
-        {
-          "tipo": "Desinversión",
-          "hecho": "La desinversión renovable en España tiene cifras: 705 MW valorados en 849 M€, con 550 M€ de desconsolidación de deuda en el 2T y una entrada de caja de 150 M€ en el 4T de 2026.",
-          "impacto": "+",
-          "valoracion": "Completa el hecho ya registrado, que iba sin importes. Confirma el modelo de rotación de activos renovables: se monetiza el desarrollo y se libera balance sin renunciar a la operación."
-        },
-        {
-          "tipo": "Resultados",
-          "hecho": "El semestre incorpora special items de −1.333 M€ y un efecto inventario de +823 M€: por eso el beneficio neto (2.201 M€) queda por debajo del resultado neto ajustado (2.711 M€). El Net Capex del 2T cae a 0,3 Bn€ (−68% interanual) y el CFFO ex circulante sube a 3,3 Bn€ (+46%).",
-          "impacto": "=",
-          "valoracion": "Deja claro por qué el §10.3 monitoriza el RNA y no el beneficio contable: la diferencia entre ambos este semestre es de 510 M€ y es puramente de valoración e inventario."
-        }
-      ],
-      "periodoDisplay": "S1"
+     "nombre": "BPA (€/acc)",
+     "valor": 0.85
     }
-  ],
-  "schemaVersion": 2
+   ]
+  },
+  {
+   "periodo": "2023-Q2",
+   "periodoDisplay": "S1-2023",
+   "fecha": "2023-07-27",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "El margen cede a 11,0 $/Bbl acumulado pero sigue muy por encima del ciclo medio; la conversión aguanta en 95,1 % y la deuda neta en 797 M€. Normalización desde un pico, no deterioro.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 602
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 11
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 95.1
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2718
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1420
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 4303
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 4982
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 3522
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 797
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.08
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q3",
+   "periodoDisplay": "9M-2023",
+   "fecha": "2023-10-26",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen 11,9 y conversión 97,4 %: los dos en verde. La deuda sube a 1.855 M€ por el reparto al accionista y las inversiones, con el EBITDA todavía en 7.194 M€. Sube el numerador y el denominador acompaña.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 600
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 11.9
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 97.4
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 3816
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 2785
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 7194
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 7408
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 4820
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 1855
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 2.15
+    }
+   ]
+  },
+  {
+   "periodo": "2023-Q4",
+   "periodoDisplay": "FY-2023",
+   "fecha": "2024-02-22",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Cierra con margen 11,1 $/Bbl, conversión 100,0 % y EBITDA de 9.254 M€. Deuda neta 2.096 M€, muy por debajo del umbral del arquetipo. El mejor ejercicio de la serie después de 2022.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 599
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 11.1
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 100
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 5011
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 3168
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 9254
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 9864
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 7064
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 2096
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 2.46
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Gravamen extraordinario a la energía en España, que drena beneficio y caja del sector.",
+     "impacto": "-",
+     "valoracion": "Presión fiscal-regulatoria que resta caja disponible para retribución e inversión."
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q1",
+   "periodoDisplay": "Q1-2024",
+   "fecha": "2024-04-25",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen 11,4 y conversión 99,3 %: el ciclo aguanta. La deuda salta a 3.901 M€ desde 2.096 en un trimestre —dividendo, recompra y la compra de ConnectGen—, pero el EBITDA del trimestre sigue en 2.143 M€.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 590
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 11.4
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 99.3
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 1267
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 969
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2143
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 2144
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 1362
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 3901
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 0.79
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q2",
+   "periodoDisplay": "S1-2024",
+   "fecha": "2024-07-24",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Primer aviso de tendencia: el margen acumulado cae a 8,9 $/Bbl desde los 11,4 del trimestre anterior, aunque sigue por encima del ciclo medio. Conversión 97,8 %. La deuda sube otra vez, a 4.595 M€.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 589
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 8.9
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 97.8
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2126
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1626
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 4144
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 4259
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 2287
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 4595
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.33
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q3",
+   "periodoDisplay": "9M-2024",
+   "fecha": "2024-10-31",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "El margen acumulado baja a 7,3 $/Bbl, a dos décimas de la media del ciclo, y el trimestre estanco entra en 4,0. La deuda neta llega a 5.532 M€ con el EBITDA cayendo un 9,9 % interanual: es exactamente la señal que el §10.1 pide vigilar en la fila de deuda —que suba sin que suba el EBITDA—.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 577
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 7.3
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 98.8
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2684
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1792
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 5565
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 6078
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 3792
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 5532
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.47
+    }
+   ]
+  },
+  {
+   "periodo": "2024-Q4",
+   "periodoDisplay": "FY-2024",
+   "fecha": "2025-02-20",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen 6,6 $/Bbl, por debajo de la media del ciclo por primera vez desde 2021, y resultado ajustado −33,6 %. La conversión aguanta en 99,5 %, así que el problema es de precio, no de operación. La deuda cierra en 5.008 M€.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 571
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 6.6
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 99.5
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 3327
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1756
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 7488
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 8060
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 5410
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 5008
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.43
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q1",
+   "periodoDisplay": "Q1-2025",
+   "fecha": "2025-04-30",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "El peor trimestre de la serie por margen: 5,3 $/Bbl, dentro de la franja ámbar del §10.1. La conversión cae a 91,2 % y la deuda sube a 5.830 M€. El resultado ajustado se parte por la mitad (651 M€ contra 1.267).",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 540
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 5.3
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 91.2
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 651
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 366
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 1587
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 1847
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 1142
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 5830
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 0.3
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q2",
+   "periodoDisplay": "S1-2025",
+   "fecha": "2025-07-24",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen acumulado 5,6 $/Bbl y conversión 88,5 %: los dos indicadores de refino en ámbar a la vez, que es la primera vez en la serie. El flujo de caja operativo (2.860 M€) mejora un 25 % pese a todo, y ahí se ve el valor de la integración.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 549
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 5.6
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 88.5
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 1353
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 603
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 3078
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 3624
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 2860
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 5728
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 0.5
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q3",
+   "periodoDisplay": "9M-2025",
+   "fecha": "2025-10-30",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "El margen se recupera a 6,7 $/Bbl pero sigue por debajo del ciclo medio, y la deuda neta marca el máximo de la serie en 6.890 M€. Quinto periodo consecutivo en ámbar: es la tendencia que el §10.5 obliga a mirar, no un trimestre suelto.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 549
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 6.7
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 92.8
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2173
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1177
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 5013
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 5677
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 4343
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 6890
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 0.99
+    }
+   ]
+  },
+  {
+   "periodo": "2025-Q4",
+   "periodoDisplay": "FY-2025",
+   "fecha": "2026-02-19",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "FILA BASE DEL ANÁLISIS. El margen cierra en 7,9 $/Bbl, por encima de la media del ciclo, y la deuda neta cae 2.403 M€ en un trimestre hasta 4.487. La conversión (94,9 %) se queda a una décima del corte verde. ATENCIÓN A LA DEFINICIÓN: desde este informe Repsol cambia el modelo de reporting —los negocios conjuntos pasan a puesta en equivalencia— y el EBITDA del ejercicio 2024 pasa de 7.488 M€ (publicado en su día) a 6.052 M€ re-expresado, un −19,2 %. Las columnas de este monitor recogen lo que publica la empresa en CADA informe (criterio P8(c) del método), así que hay un quiebre de perímetro entre 9M-2025 y FY-2025 en el resultado ajustado, el EBITDA, el EBITDA CCS y el flujo de caja operativo. La producción, el margen de refino, la utilización, la deuda neta, el resultado neto y el BPA NO cambian de definición. Ningún crecimiento que cruce esta fila se lee sin este aviso.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 548
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 7.9
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 94.9
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2568
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 1899
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 5312
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 6184
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 5365
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 4487
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.62
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Otros",
+     "hecho": "Cambio del modelo de reporting por segmentos: los negocios conjuntos pasan de integración proporcional a puesta en equivalencia",
+     "impacto": "=",
+     "valoracion": "No toca los estados NIIF, pero re-expresa el EBITDA de 2024 de 7.488 a 6.052 M€. Quiebre de perímetro marcado en el §10.3"
+    },
+    {
+     "tipo": "M&A",
+     "hecho": "Acuerdo con TotalEnergies UK y operación con Sinopec UK en el Mar del Norte (rotación/JV); importe Pte. Revisión.",
+     "impacto": "+",
+     "valoracion": "Rotación de cartera upstream que cristaliza valor y refuerza la disciplina financiera."
+    },
+    {
+     "tipo": "Guidance",
+     "hecho": "Plan estratégico 2026-2028 (CMD2025) con la retribución al accionista (dividendo + recompras) como prioridad.",
+     "impacto": "+",
+     "valoracion": "Prioriza el retorno total al accionista y la disciplina de inversión; apoya la tesis."
+    }
+   ]
+  },
+  {
+   "periodo": "2026-Q1",
+   "periodoDisplay": "Q1-2026",
+   "fecha": "2026-04-30",
+   "semaforoGlobal": "A",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen de refino 10,9 $/Bbl, el mejor desde 2023 y muy por encima del ciclo medio; pero la utilización de conversión cae a 86,1 %, el nivel más bajo de toda la serie fuera de la pandemia, y el informe no explica la causa en su cuadro de portada. Un margen alto sobre menos barriles procesados vale menos, y la fila de utilización tiene banda propia en el §10.1: el ámbar es suyo, no del margen.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 539
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 10.9
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 86.1
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 873
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 929
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 2613
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 1790
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 1042
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 4800
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 0.82
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Recompra",
+     "hecho": "Primer programa de recompra de 350 M€ lanzado en febrero de 2026",
+     "impacto": "+",
+     "valoracion": "Ejecuta el primer catalizador del §9.1"
+    }
+   ]
+  },
+  {
+   "periodo": "2026-Q2",
+   "periodoDisplay": "S1-2026",
+   "fecha": "2026-07-23",
+   "semaforoGlobal": "V",
+   "tesisSigueIntacta": true,
+   "resumen": "Margen acumulado 12,4 $/Bbl —el mejor desde 2022— y resultado neto ajustado de 2.711 M€ en un semestre. La deuda neta baja a 3.667 M€, la mejor lectura desde 2023. La utilización se queda en 87,7 %, todavía en ámbar y es LO ÚNICO que hay que vigilar: la guía de la empresa para 2026 asume un margen de 6,5-7,5 $/Bbl y el semestre va al doble, así que el margen no es el riesgo hoy.",
+   "origen": "bloque-10",
+   "metricas": [
+    {
+     "nombre": "Producción (kbep/d)",
+     "valor": 548
+    },
+    {
+     "nombre": "Margen de refino ($/Bbl)",
+     "valor": 12.4
+    },
+    {
+     "nombre": "Utiliz. conversión (%)",
+     "valor": 87.7
+    },
+    {
+     "nombre": "Rtdo neto ajustado (M€)",
+     "valor": 2711
+    },
+    {
+     "nombre": "Resultado neto (M€)",
+     "valor": 2201
+    },
+    {
+     "nombre": "EBITDA (M€)",
+     "valor": 6135
+    },
+    {
+     "nombre": "EBITDA CCS (M€)",
+     "valor": 5006
+    },
+    {
+     "nombre": "Flujo de caja op. (M€)",
+     "valor": 2977
+    },
+    {
+     "nombre": "Deuda neta (M€)",
+     "valor": 3667
+    },
+    {
+     "nombre": "BPA (€/acc)",
+     "valor": 1.96
+    }
+   ],
+   "hechos": [
+    {
+     "tipo": "Recompra",
+     "hecho": "Primer programa de 350 M€ completado; segundo de 500 M€ a ejecutar antes de finales de octubre de 2026",
+     "impacto": "+",
+     "valoracion": "Retribución total al accionista de al menos 700 M€ en recompra sobre la guía"
+    },
+    {
+     "tipo": "Dividendo",
+     "hecho": "Dividendo de 1,051 €/acción para 2026, un 8 % por encima de 2025",
+     "impacto": "+",
+     "valoracion": "Coherente con la cobertura de 1,36x sobre FCL del §4.2"
+    },
+    {
+     "tipo": "M&A",
+     "hecho": "Acuerdo con TotalEnergies en Reino Unido: crea la Joint Venture 'Neo Next+', que en junio cerró un bono nórdico de 750 M USD al 6,625% (mayor bono nórdico de E&P).",
+     "impacto": "+",
+     "valoracion": "Rotación/consolidación de la cartera upstream en el Mar del Norte con financiación propia; cristaliza valor y refuerza la disciplina de balance. Apoya la tesis."
+    },
+    {
+     "tipo": "Regulatorio",
+     "hecho": "Mejora del marco operativo en Venezuela: Licencia General 50B de OFAC, acuerdos Repsol-ENI con PDVSA (Cardón IV, Petroquiriquire) y nueva Ley de Hidrocarburos.",
+     "impacto": "+",
+     "valoracion": "Desbloquea y da continuidad a la producción venezolana, aunque con incertidumbre geopolítica y regulatoria alta; potencial al alza si se consolida."
+    },
+    {
+     "tipo": "Desinversión",
+     "hecho": "Rotación de renovables (GBC): venta a Stonepeak del 43% del proyecto Outpost (629 MW, Texas) y acuerdo para desinvertir el 49,99% de una cartera renovable en España.",
+     "impacto": "+",
+     "valoracion": "Modelo de rotación de activos bajos en carbono que libera capital y valida valoraciones; coherente con la disciplina de inversión del plan 2026-2028."
+    },
+    {
+     "tipo": "Recompra",
+     "hecho": "Retribución creciente: dividendo julio 0,551 €/acc (+7,8%), amortización de ~16 M acciones (350 M€) y nuevo programa de recompra de hasta 500 M€ neto acordado el 22-jul; política de +3% anual y recompras del 30-40% del FCO (2026-2028).",
+     "impacto": "+",
+     "valoracion": "Retorno total al accionista en aumento con caja holgada; refuerza el componente de retribución de la tesis."
+    },
+    {
+     "tipo": "Otros",
+     "hecho": "Crecimiento upstream: entradas en producción de Pikka (EE.UU.) y Lapa SW (Brasil), descubrimiento onshore en Libia (pozo Kobra-1) y acuerdo de operación unificada del campo I/R en Libia con TotalEnergies, Equinor y OMV.",
+     "impacto": "+",
+     "valoracion": "Nuevos barriles y opcionalidad exploratoria que sostienen la producción (~548 kbep/d) frente a las desinversiones; neutral-positivo para el perfil de reservas."
+    },
+    {
+     "tipo": "Guidance",
+     "hecho": "Guidance FY-2026 actualizado en julio: producción upstream de 560-570 Kboed, CFFO de >5,5-6 Bn€, Net Capex de 2,7 Bn€, retribución al accionista del 30-40% del CFFO, dividendo de 1,051 €/acción (+8% sobre 2025) y recompras de al menos 700 M€ — la primera de 350 M€ ya completada, una segunda de 500 M€ antes de final de octubre y una tercera a anunciar con los resultados del 3T. Supuestos: Brent 60-65 $/bbl, Henry Hub 3,5-4 $/Mbtu e indicador de margen de refino 6,5-7,5 $/bbl.",
+     "impacto": "+",
+     "valoracion": "Lo relevante es doble: el suelo de recompras sube a 700 M€ y el dividendo crece un 8%, todo ello sobre supuestos macro (Brent 60-65 $) muy por debajo de lo realizado en el semestre (92,3 $ de media). Es decir, la retribución está calculada con margen, no apurada."
+    },
+    {
+     "tipo": "Desinversión",
+     "hecho": "La desinversión renovable en España tiene cifras: 705 MW valorados en 849 M€, con 550 M€ de desconsolidación de deuda en el 2T y una entrada de caja de 150 M€ en el 4T de 2026.",
+     "impacto": "+",
+     "valoracion": "Completa el hecho ya registrado, que iba sin importes. Confirma el modelo de rotación de activos renovables: se monetiza el desarrollo y se libera balance sin renunciar a la operación."
+    },
+    {
+     "tipo": "Resultados",
+     "hecho": "El semestre incorpora special items de −1.333 M€ y un efecto inventario de +823 M€: por eso el beneficio neto (2.201 M€) queda por debajo del resultado neto ajustado (2.711 M€). El Net Capex del 2T cae a 0,3 Bn€ (−68% interanual) y el CFFO ex circulante sube a 3,3 Bn€ (+46%).",
+     "impacto": "=",
+     "valoracion": "Deja claro por qué el §10.3 monitoriza el RNA y no el beneficio contable: la diferencia entre ambos este semestre es de 510 M€ y es puramente de valoración e inventario."
+    }
+   ]
+  }
+ ]
 }
