@@ -2289,7 +2289,15 @@ function _cfgComisionHTML(){
     +'<label class="muted" style="font-size:11.5px">Fijo € (canon)<br><input id="cfgComFijo" type="number" step="0.01" min="0" value="'+T.fijo+'" style="width:90px"></label>'
     +'</div>'
     +'<div class="muted" style="font-size:11px;margin-top:5px">Con esta tarifa, una compra de 5.000 € propondría <b>'+((typeof fmt==='function')?fmt(ej):ej+' €')+'</b>.</div>'
-    +aviso+'</div>';
+    +aviso
+    +(sin?('<div style="margin-top:10px">'
+      +'<div style="font-weight:600;font-size:12px">Cargar las que faltan, todas de una vez</div>'
+      +'<div class="muted" style="font-size:11.5px;margin:2px 0 5px">Una linea por operacion, con la fecha, la empresa y la comision. Las acciones solo hacen falta si ese dia compraste dos veces la misma empresa. Vale cualquier separador.</div>'
+      +'<button type="button" class="btn ghost sm" id="cfgComPlant">Traer las que faltan</button>'
+      +'<textarea id="cfgComPega" rows="5" style="width:100%;margin-top:5px;font-family:monospace;font-size:11.5px" placeholder="2026-05-06;NTGY;525;13,05"></textarea>'
+      +'<button type="button" class="btn ghost sm" id="cfgComVer" style="margin-top:4px">Ver que se cargaria</button>'
+      +'<div id="cfgComPrev"></div></div>'):'')
+    +'</div>';
 }
 function abrirConfig(){ var dlg=document.getElementById('cfgDlg'); if(!dlg)return; renderCfg(); if(typeof dlg.showModal==='function'){ if(!dlg.open)dlg.showModal(); } else { dlg.setAttribute('open',''); } }
 function guardarPerfilCfg(){ var d=_cfgCollect(); d.titulares=d.titulares.filter(function(t){return t.nombre;}); DB.config=DB.config||{}; DB.config.perfil=d;
@@ -2304,7 +2312,176 @@ document.addEventListener('click',function(e){ if(!e.target||!e.target.closest)r
   if(e.target.closest('#cfgAddTit')){ var d=_cfgCollect(); d.titulares.push({nombre:'',nomina:0}); renderCfg(d); return; }
   var del=e.target.closest('[data-cfgdel]'); if(del){ var i=+del.getAttribute('data-cfgdel'); var d2=_cfgCollect(); d2.titulares.splice(i,1); renderCfg(d2); return; }
   if(e.target.closest('#cfgSave')){ guardarPerfilCfg(); return; }
+  if(e.target.closest('#cfgComPlant')){ comisionesCopiarPlantilla(); return; }
+  if(e.target.closest('#cfgComVer')){ comisionesPrevia(); return; }
+  if(e.target.closest('#cfgComAplicar')){ comisionesAplicar(); return; }
 });
+/* ===== Carga por lotes de las comisiones históricas =====================================
+   [09-sep-2026] Meter 35 comisiones a mano, una por una, abriendo y cerrando la ficha de
+   cada operación, es exactamente la clase de tarea que mata un sistema: 35 decisiones
+   idénticas y ninguna que merezca un humano. Esto pega la lista entera de una vez.
+   El formato es deliberadamente tolerante —fecha, ticker, acciones (opcional) y comisión,
+   en cualquier orden y con cualquier separador— porque la lista va a venir copiada de un
+   extracto o de otra conversación, no escrita a mano con una plantilla delante.
+   NUNCA adivina: si una línea encaja con dos operaciones (mismo día y misma empresa, dos
+   compras), la marca como ambigua y pide las acciones. Preferimos no cargarla a cargarla
+   en la operación equivocada. */
+
+/* Un número tal y como lo escribe un extracto español o una hoja de cálculo inglesa. */
+function _comNum(s){
+  s=(''+(s==null?'':s)).replace(/[€\s]/g,'');
+  if(!s) return NaN;
+  var hayC=s.indexOf(',')>=0, hayP=s.indexOf('.')>=0;
+  if(hayC&&hayP){ s=(s.lastIndexOf(',')>s.lastIndexOf('.')) ? s.replace(/\./g,'').replace(',','.') : s.replace(/,/g,''); }
+  else if(hayC){ s=s.replace(',','.'); }
+  else if(hayP){ var d=s.split('.'); if(d.length===2&&d[1].length===3&&d[0].length<=3) s=s.replace('.',''); }
+  return parseFloat(s);
+}
+function _comFecha(s){
+  s=(''+s).trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+  var m=s.match(/^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/);
+  if(m) return m[3]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[1]).slice(-2);
+  return '';
+}
+/* Todas las operaciones que existen, vivas y archivadas, con la referencia al objeto real
+   para poder escribirle la comisión sin buscarlo dos veces. */
+function _comTodasOps(){
+  var out=[];
+  (DB.operaciones||[]).forEach(function(o){
+    out.push({o:o, fecha:o.fecha||'', ticker:(o.ticker||'').toUpperCase(), tipo:o.tipo||'compra',
+              acc:num(o.acciones), precio:num(o.precio), donde:'Cartera'});
+  });
+  (DB.cerradas||[]).forEach(function(c){
+    (c.ops||[]).forEach(function(o){
+      out.push({o:o, fecha:o.fecha||'', ticker:((o.ticker||c.ticker)||'').toUpperCase(), tipo:o.tipo||'compra',
+                acc:num(o.acciones), precio:num(o.precio), donde:'Cerrada '+(c.ticker||'')});
+    });
+  });
+  return out;
+}
+/* Una línea pegada -> {fecha,ticker,acc,com}. Devuelve null si no parece una línea de datos. */
+function _comParseLinea(ln){
+  /* La coma decimal NO es un separador: 14,07 es un numero, no dos. Se protege antes de
+     partir la linea y se devuelve despues, que es la unica forma de aceptar a la vez
+     "525;14,07" y "525, 14.07" sin preguntarle a nadie que formato trae. */
+  var txt=(''+ln).replace(/(\d),(\d{1,2})(?!\d)/g,'$1\u0001$2');
+  var trozos=txt.split(/[;|\t,]+|\s{1,}/).filter(function(x){return x!=='';})
+                .map(function(x){ return x.replace(/\u0001/g,','); });
+  if(!trozos.length) return null;
+  var fecha='', ticker='', nums=[], tipo='';
+  for(var i=0;i<trozos.length;i++){
+    var p=trozos[i], f=_comFecha(p);
+    if(f&&!fecha){ fecha=f; continue; }
+    if(/^[A-Za-z][A-Za-z0-9.]{0,7}$/.test(p) && !/^\d/.test(p)){
+      var pu=p.toUpperCase();
+      if(pu==='COMPRA'||pu==='VENTA'){ tipo=pu.toLowerCase(); continue; }
+      if(pu==='EUR') continue;
+      if(!ticker) ticker=pu;
+      continue;
+    }
+    var n=_comNum(p); if(!isNaN(n)) nums.push(n);
+  }
+  if(!fecha||!ticker) return null;
+  /* La plantilla sale con acciones, tipo e importe ya puestos y la comision vacia. Si la
+     linea vuelve tal cual, el importe de la compra NO puede colarse como comision: sin la
+     tercera cifra, esa linea es "todavia no la se", no un dato. */
+  if(tipo && nums.length<3) return {fecha:fecha, ticker:ticker, acc:(nums.length?Math.round(nums[0]):null), com:null, cruda:(''+ln).trim()};
+  if(!nums.length) return null;
+  var com=nums[nums.length-1], acc=null;
+  if(nums.length>1){ var a=nums[0]; if(a>0&&Math.abs(a-Math.round(a))<1e-9) acc=Math.round(a); }
+  return {fecha:fecha, ticker:ticker, acc:acc, com:com, cruda:(''+ln).trim()};
+}
+/* El cotejo: qué línea encaja con qué operación. No escribe nada. */
+function comisionesCotejar(txt){
+  var todas=_comTodasOps(), filas=[];
+  (''+(txt||'')).split(/\r?\n/).forEach(function(ln){
+    if(!ln.trim()) return;
+    var r=_comParseLinea(ln);
+    if(!r){ filas.push({estado:'ilegible', cruda:ln.trim()}); return; }
+    var cand=todas.filter(function(x){ return x.fecha===r.fecha && x.ticker===r.ticker; });
+    if(r.acc!=null && cand.length>1){
+      var c2=cand.filter(function(x){ return Math.abs(x.acc-r.acc)<0.001; });
+      if(c2.length) cand=c2;
+    }
+    if(!cand.length){ filas.push({estado:'sin-operacion', r:r}); return; }
+    if(cand.length>1){ filas.push({estado:'ambigua', r:r, n:cand.length}); return; }
+    var op=cand[0];
+    if(r.com==null){ filas.push({estado:'sin-comision', r:r, op:op}); return; }
+    /* Red de seguridad: una comision que se come medio importe, o que pasa de 500 EUR, es
+       casi siempre el importe de la operacion colado en la columna equivocada. No se aplica
+       sola; se ensena y que decida el. */
+    var imp=op.acc*op.precio;
+    if(r.com<0 || (imp>0 && r.com>=imp*0.5) || r.com>500){ filas.push({estado:'sospechosa', r:r, op:op, imp:imp}); return; }
+    filas.push({estado: khTieneComision(op.o)?'sustituye':'nueva', r:r, op:op});
+  });
+  return filas;
+}
+function _comResumen(filas){
+  var c={nueva:0,sustituye:0,ambigua:0,'sin-operacion':0,ilegible:0,'sin-comision':0,sospechosa:0};
+  filas.forEach(function(f){ c[f.estado]=(c[f.estado]||0)+1; });
+  return c;
+}
+function comisionesPrevia(){
+  var ta=document.getElementById('cfgComPega'), cont=document.getElementById('cfgComPrev');
+  if(!ta||!cont) return;
+  var filas=comisionesCotejar(ta.value);
+  window._comFilas=filas;
+  if(!filas.length){ cont.innerHTML='<div class="muted" style="font-size:11.5px;margin-top:6px">Pega las líneas y vuelve a pulsar.</div>'; return; }
+  var c=_comResumen(filas), col={nueva:'#166534',sustituye:'#1d4ed8',ambigua:'#b45309','sin-operacion':'#b91c1c',ilegible:'#b91c1c','sin-comision':'#6b7280',sospechosa:'#b91c1c'};
+  var rows=filas.map(function(f){
+    var izq, der;
+    if(f.estado==='ilegible'){ izq='<i>'+_cfgEsc(f.cruda)+'</i>'; der='no entiendo la línea'; }
+    else{
+      izq=f.r.fecha+' · '+f.r.ticker+(f.r.acc!=null?(' · '+f.r.acc+' acc'):'');
+      if(f.estado==='sin-operacion') der='no hay operación ese día';
+      else if(f.estado==='ambigua') der='encaja con '+f.n+' operaciones: añade las acciones';
+      else if(f.estado==='sin-comision') der='falta la comisión en la línea';
+      else if(f.estado==='sospechosa') der=fmt(f.r.com)+' sobre '+fmt(f.imp)+': ¿seguro? no la cargo';
+      else der=fmt(f.r.com)+(f.estado==='sustituye'?(' (sustituye '+fmt(khComision(f.op.o))+')'):'')+' · '+f.op.donde;
+    }
+    return '<div style="display:flex;gap:8px;padding:2px 0;border-bottom:1px solid var(--line);font-size:11.5px">'
+      +'<span style="flex:1">'+izq+'</span><span style="color:'+col[f.estado]+'">'+der+'</span></div>';
+  }).join('');
+  var listas=c.nueva+c.sustituye;
+  cont.innerHTML='<div style="margin-top:8px;max-height:230px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:6px 8px">'+rows+'</div>'
+    +'<div style="margin-top:6px;font-size:11.5px"><b>'+listas+'</b> se cargarían'
+    +(c.sustituye?(' ('+c.sustituye+' sustituyen una comisión ya puesta)'):'')
+    +(c.ambigua?(' · <span style="color:#b45309">'+c.ambigua+' ambiguas</span>'):'')
+    +(c['sin-comision']?(' · <span style="color:#6b7280">'+c['sin-comision']+' sin rellenar</span>'):'')
+    +(c.sospechosa?(' · <span style="color:#b91c1c">'+c.sospechosa+' raras</span>'):'')
+    +((c['sin-operacion']+c.ilegible)?(' · <span style="color:#b91c1c">'+(c['sin-operacion']+c.ilegible)+' sin encaje</span>'):'')
+    +'</div>'
+    +(listas?'<button type="button" class="btn sm" id="cfgComAplicar" style="margin-top:6px">Cargar esas '+listas+'</button>':'');
+}
+function comisionesAplicar(){
+  var filas=window._comFilas||[];
+  var buenas=filas.filter(function(f){ return f.estado==='nueva'||f.estado==='sustituye'; });
+  if(!buenas.length){ alert('No hay nada que cargar.'); return; }
+  if(!confirm('Se van a escribir '+buenas.length+' comisiones. ¿Sigo?')) return;
+  if(typeof pushSnapshot==='function') pushSnapshot('antes de cargar comisiones');
+  buenas.forEach(function(f){ f.op.o.comision=Math.round(f.r.com*100)/100; });
+  if(typeof saveNow==='function') saveNow();
+  if(typeof renderAll==='function') renderAll();
+  renderCfg();
+  alert(buenas.length+' comisiones cargadas.');
+}
+/* La lista de lo que falta, en el formato que luego se vuelve a pegar aquí. */
+function comisionesPlantilla(){
+  var falta=_comTodasOps().filter(function(x){ return !khTieneComision(x.o); })
+    .sort(function(a,b){ return a.fecha<b.fecha?-1:(a.fecha>b.fecha?1:0); });
+  return falta.map(function(x){
+    return x.fecha+';'+x.ticker+';'+x.acc+';'+x.tipo+';'+(Math.round(x.acc*x.precio*100)/100)+';';
+  }).join('\n');
+}
+function comisionesCopiarPlantilla(){
+  var t=comisionesPlantilla();
+  var ta=document.getElementById('cfgComPega'); if(ta) ta.value=t;
+  try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(t); }catch(e){}
+  var av=document.getElementById('cfgComPrev');
+  if(av) av.innerHTML='<div class="muted" style="font-size:11.5px;margin-top:6px">Lista copiada y puesta arriba: fecha ; empresa ; acciones ; tipo ; importe ; <b>y aquí la comisión</b>. Rellena la última columna y pulsa «Ver qué se cargaría».</div>';
+}
+
 
 /* ===== P4.3 · Hemeroteca de Análisis (dossiers por empresa) ===== */
 function renderHemeroAnalisis(){

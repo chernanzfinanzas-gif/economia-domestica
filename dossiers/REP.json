@@ -1,83 +1,96 @@
 {
+ "schemaVersion": 8,
  "ticker": "REP",
  "empresa": "Repsol, S.A.",
- "fecha": "2026-06-23",
- "rating": "A",
- "score": 66.3,
+ "fecha": "2026-09-09",
+ "rating": "BBB",
+ "score": 59.4,
  "decision": "ESPERAR",
- "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF — cíclica. PO oficial = síntesis ponderada ~18,3 €.",
- "poBear": 14,
- "poBase": 18,
- "poBull": 31,
- "entMin": 14,
- "entMax": 16,
- "stop": 11.7,
- "moat": "Estrecho (46)",
+ "metodoValoracion": "Múltiplos de ciclo normalizados (EV/EBITDA de ciclo medio y P/BV) complementados con DCF a tres escenarios y suelo de activos — arquetipo COMMODITY. PO oficial = síntesis ponderada del §6.5 (DCF 25 · múltiplos 60 · activos 10 · renta 5) = 20,52 €. El DCF puro daría 31,78 €, muy por encima, porque en una commodity el flujo depende de un precio que la empresa no controla y el método pondera los múltiplos históricos de la propia compañía. PER y P/FCL se calculan y NO ponderan: dos ejercicios sin beneficio y uno sin FCL en la ventana.",
+ "poBear": 15.58,
+ "poBase": 20.52,
+ "poBull": 25.74,
+ "entMin": 15.58,
+ "entMax": 17.84,
+ "stop": 13.35,
+ "dpaPrevisto": 1.051,
+ "moat": "39,2 sobre 100 · SIN MOAT CLARO. De los cinco ejes sólo la escala eficiente supera 50 (65): 4.430 estaciones de servicio y 1.013 kbbl/d de destilación en Iberia, irreplicables con la demanda en declive. Intangibles 35, ventaja de costes 35 —buena pero no diferencial frente a las integradas europeas—, efecto de red 15 y costes de cambio 10. Un solo pilar independiente, y depende de la misma variable que el precio objetivo: el margen de refino.",
  "catalizadores": [
-  "Recuperación del margen de refino",
-  "Ejecución del plan de retribución y recompras",
-  "Claridad fiscal (gravamen energético)",
-  "Retornos de la transición energética",
-  "Rotación de cartera / M&A"
+  "Recompra y amortización de capital: al menos 700 M€ en 2026, primer tramo de 350 M€ completado y segundo de 500 M€ antes de octubre",
+  "Cierre de NEO NEXT+: fusión del Mar del Norte con TotalEnergies UK, mayor productor de la región con ~250.000 bep/d previstos",
+  "Normalización al alza del diferencial de refino: la guía asume 6,5-7,5 $/Bbl y el primer semestre de 2026 va en 12,4",
+  "Rotación de cartera renovable: ~1.000 M€ presupuestados para 2026-2028, tras Schroders Greencoat y Stonepeak en 2025",
+  "Resolución del gravamen extraordinario a las energéticas: si decae, desaparece un riesgo de −8,0 a −10,8 % del valor"
  ],
  "riesgos": [
-  "Caída sostenida del crudo",
-  "Colapso del margen de refino",
-  "Fiscalidad y regulación climática",
-  "Declive estructural de la demanda de combustibles",
-  "Deterioros de activos",
-  "Insostenibilidad de la retribución",
-  "Exposición geopolítica del upstream"
+  "Precio del crudo y diferencial de refino (Macroeconómico · ALTA · −24,1 a −32,5 %)",
+  "Declive estructural de la demanda de combustibles (Estructural · MEDIA · −10,4 a −14,0 %)",
+  "Deterioro de activos de refino y upstream (Contable · MEDIA · −10,2 a −13,8 %)",
+  "Fiscalidad extraordinaria a las energéticas (Político · MEDIA · −8,0 a −10,8 %)",
+  "Sanción de competencia y litigio climático — MATERIALIZADO: CNMC, enero de 2026 (Societario · MEDIA · −5,2 a −7,0 %)",
+  "Riesgo país en upstream (Político · MEDIA · −5,2 a −7,0 %)",
+  "Recorte o supresión del dividendo (Financiero · BAJA-MEDIA · −4,0 a −5,4 %)"
  ],
- "bull": "Si el crudo y el margen de refino se recuperan y se ejecuta el plan de retribución, el valor converge hacia 30-32 € (DCF mid-cycle); el FCL Yield de doble dígito y el dividendo creciente premian la espera.",
- "bear": "Una recesión con Brent ~45 $/bbl hunde el FCL, fuerza un recorte del dividendo y desencadena un derating hacia 13-15 € (−30/−40%).",
- "resumen": "Repsol es una integrada financieramente sólida (Rating A, DN/EBITDA 1,3x) y muy generadora de caja (FCL Yield ~9%, dividendo creciente, recompras), pero cíclica, con moat estrecho y un ROIC que no cubre su coste de capital salvo en picos del crudo. A 21,81 € —tras rebotar desde 15,4 €— no ofrece margen de seguridad: el precio objetivo ponderado (~18 €) está un 16% por debajo. Veredicto ESPERAR: buena empresa de caja y dividendo, a comprar con descuento (entrada ≤16 €, stop ~11,7 €).",
- "schemaVersion": 8,
+ "bull": "El margen de refino se mantiene en la zona alta —el primer semestre de 2026 va en 12,4 $/Bbl contra los 6,5-7,5 que asume la propia guía—, el spread ROIC−WACC cruza a positivo por primera vez en la década y la recompra sigue reduciendo el capital un 2 % anual. PO bull 25,74 €.",
+ "bear": "El ciclo del crudo vuelve a la parte baja con los diferenciales de refino comprimidos, o la transición energética muerde antes de tiempo y obliga a revisar la vida útil del refino. Es la peor de las tres cadenas del pre-mortem: destruiría un 30,0 % del valor. PO bear 15,58 €.",
+ "resumen": "Un balance de sobresaliente sosteniendo un negocio que no cubre su coste de capital. El §5.2 del scoring (79,3/100) es de los mejores que ha medido el método, con deuda neta a 0,84x EBITDA y reducida a la mitad en diez años; pero el ROIC de 6,29 % queda por debajo del WACC de 6,86 % y el spread ha sido negativo en siete de los diez ejercicios. El precio objetivo de 20,52 € está un 24,7 % por debajo de la cotización de 27,25 €, así que el veredicto es ESPERAR: es un veredicto de PRECIO, no de empresa. Banda de entrada 15,58–17,84 € y stop de tesis 13,35 €. Robustez SÓLIDA, confianza 69/B, Dividend Safety 83 y forense sin veto.",
  "confianza": {
-  "score": 96,
-  "nivel": "A",
+  "score": 69,
+  "nivel": "B",
   "motivos": [
-   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "13 dato(s) secundario(s) en 'Pte. Revisión' (−26)",
+   "1 línea(s) de conciliación ⚠ sin corregir (−5)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-09"
  },
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
-  "matizada": true,
+  "matizada": false,
   "banda": {
-   "p10": 14,
-   "p50": 18,
-   "p90": 31
+   "p10": 15.58,
+   "p50": 20.52,
+   "p90": 25.74
   },
   "sensibilidad": {
-   "poMin": 24.76,
-   "poMax": 46.48,
-   "poBase": 32.4176120300048,
-   "cotizacion": 21.81,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 19.37,
+   "poMax": 22.59,
+   "poBase": 20.52,
+   "cotizacion": 27.25,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.15,
+   "componentesIntactos": 6,
+   "dcf": {
+    "poMin": 24.15,
+    "poMax": 45.6,
+    "poBase": 31.7813441127453
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 13.5,
-   "mdsMax": 113.1
+   "mdsMin": -28.9,
+   "mdsMax": -17.1
   },
   "beta": {
-   "capm": null,
-   "ref2": 1.0,
+   "capm": 0.819,
+   "ref2": null,
    "aviso": null
   },
   "motivos": [
-   "la cotización (21.81) queda por DEBAJO de toda la banda de PO [24.8–46.5] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es ESPERAR — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (15 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g terminal±0.5pp; el 85 % restante de la ponderación —los otros 6 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (27.25) queda por ENCIMA de toda la banda del precio objetivo de síntesis [19.37–22.59] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
+   "para contraste, el DCF puro (§6.3) se mueve en [24.15–45.60] € alrededor de 31.78 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-09"
  },
  "dividendSafety": {
   "score": 83,
@@ -89,7 +102,7 @@
    "C4": 9,
    "C5": 9
   },
-  "shareholderYield": 2.36,
+  "shareholderYield": null,
   "topeDuro": {
    "activo": false,
    "motivo": ""
@@ -102,13 +115,13 @@
    "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, buyback NETO negativo (dilución por scrip) → 9/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-09"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 7,
-   "banda": "fuerte",
+   "score": 6,
+   "banda": "medio",
    "detalle": {
     "roa_pos": 1,
     "cfo_pos": 1,
@@ -116,7 +129,7 @@
     "accrual": 1,
     "lever_dn": 0,
     "liquid_up": 1,
-    "no_dilu": 1,
+    "no_dilu": 0,
     "margin_up": 0,
     "turn_up": 1
    },
@@ -138,29 +151,16 @@
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-09"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -3.47,
-  "gIntrinseco": 0.84,
+  "gImplicito": -1.55,
+  "gIntrinseco": 2.42,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
-  "entradas": {
-   "fcl": 1986,
-   "wacc": 6.5,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 1132,
-   "deudaNeta": 5267,
-   "modo": "EV",
-   "precioBase": 21.81,
-   "validado": true,
-   "desviacion": 0.004,
-   "gBase": -3.466,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
-  }
+  "calculadoEl": "2026-09-09"
  }
 }
