@@ -2574,7 +2574,13 @@ function _r4ExtCSS(){
    +'#blkR4Ext .r4x-tbl th:first-child,#blkR4Ext .r4x-tbl td:first-child{text-align:left}'
    +'#blkR4Ext .r4x-wrap{max-height:260px;overflow:auto;border:1px solid var(--line);border-radius:8px;padding:4px 8px;margin-top:6px}'
    +'#blkR4Ext .r4x-ok{color:#166534;font-weight:700}#blkR4Ext .r4x-ko{color:#b91c1c;font-weight:700}'
-   +'#blkR4Ext .r4x-sello{font-size:11.5px;color:#64748b;margin-bottom:6px}';
+   +'#blkR4Ext .r4x-sello{font-size:11.5px;color:#64748b;margin-bottom:6px}'
+   /* [09-sep-2026] El aviso de "copia TODA la tabla". Es la unica forma de equivocarse
+      con esta pieza: con medio extracto los numeros salen mal y parecen buenos. */
+   +'#blkR4Ext .r4x-avi{background:#fffbeb;border:1px solid #fcd34d;border-left:4px solid #f59e0b;'
+   +'border-radius:8px;padding:8px 10px;margin-bottom:8px;font-size:12px;line-height:1.45;color:#78350f}'
+   +'#blkR4Ext .r4x-avi b{color:#78350f}'
+   +'#blkR4Ext .r4x-avi .r4x-avi-t{font-size:12.5px;font-weight:800;margin-bottom:3px}';
   document.head.appendChild(st);
 }
 /* El bloque se INYECTA desde aqui: no hace falta tocar index.html, y asi esta pieza entra y
@@ -2590,8 +2596,13 @@ function r4ExtMontar(){
     +'<div><div class="blk-t">Extracto de Renta 4</div><div class="blk-sub">Pega el extracto y la ganancia sale calculada por FIFO, como Hacienda</div></div>'
     +'<div class="blk-right"><span class="blk-sub" id="r4ExtSello"></span></div></div>'
     +'<div class="blk-b"><div style="padding:4px 2px">'
-    +'<div class="muted" style="font-size:11.5px;margin-bottom:6px">En Renta 4: <b>Operaciones de Fondos</b> → selecciona la tabla entera, cópiala y pégala aquí. '
-    +'No sustituye a tus movimientos: se guarda aparte y solo manda en las cifras de ganancia y rentabilidad.</div>'
+    +'<div class="r4x-avi">'
+    +'<div class="r4x-avi-t">⚠️ Copia TODA la tabla de Renta 4 — importante</div>'
+    +'En R4: <b>Operaciones de Fondos</b> → despliega el histórico <b>desde el principio</b>, selecciona la tabla entera y pégala aquí. '
+    +'Si copias solo un trozo, las cifras salen mal <b>y parecen buenas</b>.'
+    +'<div style="margin-top:5px">Luego, siempre en este orden: <b>Ver qué sale</b> → <b>Guardar este extracto</b> → <b>Reconstruir mis movimientos</b>. '
+    +'Así los apuntes son los de Renta 4 y no dependen de lo que interpretes tú.</div>'
+    +'</div>'
     +'<textarea id="r4ExtTa" class="r4x-ta" placeholder="09/09/2026   VALORACIÓN   925,701586   10,879376 EUR   10.071,06 EUR&#10;03/09/2026   SUSCRIPCIÓN  101,123036   10,877838 EUR   1.100,00  0,00  0,00  1.100,00 EUR"></textarea>'
     +'<div style="margin-top:5px;display:flex;gap:6px;flex-wrap:wrap">'
     +'<button type="button" class="btn ghost sm" id="r4ExtVer">Ver qué sale</button>'
