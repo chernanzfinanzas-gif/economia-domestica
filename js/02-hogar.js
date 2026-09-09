@@ -1861,7 +1861,37 @@ function carteraAtClose(year){
   var val=0; Object.keys(sh).forEach(function(t){ if(sh[t]>0.0001){ var px=priceRepoAt(t,cut); if(px>0)val+=sh[t]*px; } });
   return val;
 }
-function efectivoRealAt(year){ var cut=Date.UTC(year,11,31); var snaps=(typeof patSnaps==='function'?patSnaps():[]); var best=null; snaps.forEach(function(s){ if(!s.fecha)return; var sm=Date.parse(s.fecha+'T00:00:00'); if(isNaN(sm)||sm>cut)return; best=s; }); return best?snapTot(best).ef:null; }
+/* [09-sep-2026] EL EFECTIVO REAL NO ES SOLO LA FOTO, Y ESA ERA LA AVERIA.
+   El «invertido» de esta tabla se calcula EN VIVO con las operaciones, pero el efectivo salia
+   tal cual del ultimo apunte de Patrimonio, que es una FOTO con fecha. Entre foto y foto, el
+   dinero de cada compra se contaba DOS VECES: seguia entero en el efectivo y ya estaba dentro
+   de la cartera. El patrimonio salia inflado exactamente por el importe de la compra, y el
+   error era invisible porque los dos numeros, por separado, parecian correctos.
+   Se arrastran compras y ventas POSTERIORES a la foto, con su comision: es lo unico que mueve
+   dinero de una columna a la otra. La nomina, los dividendos y los gastos NO se arrastran —
+   viven en el Presupuesto y la foto sigue siendo su referencia. El efectivo no queda perfecto;
+   queda SIN el euro contado dos veces, que es el error que enganya.
+   Una operacion del MISMO DIA que la foto se considera ya incluida en ella. */
+function efectivoRealDet(year){
+  var cut=Date.UTC(year,11,31);
+  var snaps=(typeof patSnaps==='function')?patSnaps():[]; var best=null;
+  snaps.forEach(function(s){ if(!s.fecha)return; var sm=Date.parse(s.fecha+'T00:00:00'); if(isNaN(sm)||sm>cut)return; best=s; });
+  if(!best) return {ef:null, foto:null, fecha:'', ajuste:0, nOps:0};
+  var foto=snapTot(best).ef, desde=Date.parse((best.fecha||'')+'T00:00:00');
+  if(isNaN(desde)) return {ef:foto, foto:foto, fecha:(best.fecha||''), ajuste:0, nOps:0};
+  var aj=0, n=0, ops=(typeof _allOps==='function')?_allOps():[];
+  ops.forEach(function(o){
+    if(!o||!o.fecha) return;
+    var om=Date.parse(o.fecha+'T00:00:00');
+    if(isNaN(om)||om<=desde||om>cut) return;
+    var imp=num(o.acciones)*num(o.precio);
+    var com=(typeof khComision==='function')?num(khComision(o)):0;
+    aj += (o.tipo==='venta') ? (imp-com) : -(imp+com);
+    n++;
+  });
+  return {ef:foto+aj, foto:foto, fecha:(best.fecha||''), ajuste:aj, nOps:n};
+}
+function efectivoRealAt(year){ return efectivoRealDet(year).ef; }
 function proyColor(real,teor){ if(real==null||!teor||teor<=0)return 'transparent'; var r=real/teor; if(r>=1)return '#dcfce7'; if(r>=0.95)return '#fef9c3'; return '#fee2e2'; }
 /* ===== FASE 2 — valores REALES del año (de tus datos), para comparar con el pronóstico =====
    Solo años ya empezados (≤ año en curso). El año en curso va parcial ("YTD"). TODO sale de tu
@@ -1876,8 +1906,8 @@ function proyRealAgg(year){
   if(year>yrNow) return null;
   var _cart=(year<yrNow)?(typeof carteraAtClose==='function'?carteraAtClose(year):0):(typeof carteraLive==='function'?carteraLive():0);
   var cartera=_cart>0?_cart:null;
-  var _ef=(typeof efectivoRealAt==='function')?efectivoRealAt(year):null;
-  var efectivo=(_ef!=null)?_ef:null;
+  var _efd=(typeof efectivoRealDet==='function')?efectivoRealDet(year):{ef:null,foto:null,fecha:'',ajuste:0,nOps:0};
+  var efectivo=(_efd.ef!=null)?_efd.ef:null;
   var patrimonio=(cartera!=null)?(cartera+(efectivo!=null?efectivo:0)):null;
   /* Movimientos del año por categoría */
   var nomina=0,divi=0,ing=0,gas=0,meses={};
@@ -1893,7 +1923,7 @@ function proyRealAgg(year){
   var base=(DB.config&&DB.config.proyeccion)?Math.round(num(DB.config.proyeccion.anioBase)):year;
   ops.forEach(function(o){ if(!o.fecha)return; var yy=(''+o.fecha).slice(0,4); if(!/^\d{4}$/.test(yy))return; var eur=num(o.acciones)*num(o.precio); var s=(o.tipo==='venta'?-1:1); if(yy===(''+year))aNeta+=s*eur; if(+yy>=base&&+yy<=year)netAcum+=s*eur; });
   var invIni=(DB.config&&DB.config.proyeccion)?num(DB.config.proyeccion.invertidoCoste):0;
-  return {efectivo:efectivo,invertido:invIni+netAcum,cartera:cartera,patrimonio:patrimonio,nomina:nomina,dividendo:divi,extra:extra,ahorro:ahorro,aInversion:aNeta,aEfectivo:(ahorro-aNeta),gastoMes:gastoMes,ytd:(year===yrNow)};
+  return {efectivo:efectivo,efectivoFoto:_efd.foto,efectivoFecha:_efd.fecha,efectivoAjuste:_efd.ajuste,efectivoNops:_efd.nOps,invertido:invIni+netAcum,cartera:cartera,patrimonio:patrimonio,nomina:nomina,dividendo:divi,extra:extra,ahorro:ahorro,aInversion:aNeta,aEfectivo:(ahorro-aNeta),gastoMes:gastoMes,ytd:(year===yrNow)};
 }
 /* ===== FASE 2b — FOTO INICIAL congelada =====
    Guarda el plan de HOY (computeProy) como línea base fija. La fila Real se compara contra
@@ -1959,10 +1989,12 @@ function renderProy(){
     /* Real: sale de tu contabilidad y compara vs el Plan (P). Años futuros: fila en espera. */
     { const R=(r.anio<=yrNow)?proyRealAgg(r.anio):null;
       if(R){
-        const _c=(rv,tv,lowGood)=> (rv==null)?'<td class="num soft">·</td>':`<td class="num ${(tv==null)?'':((lowGood?(rv<=tv):(rv>=tv))?'preal-up':'preal-dn')}">${pf(rv)}</td>`;
+        const _c=(rv,tv,lowGood,tit)=> (rv==null)?'<td class="num soft">·</td>':`<td class="num ${(tv==null)?'':((lowGood?(rv<=tv):(rv>=tv))?'preal-up':'preal-dn')}"${tit||''}>${pf(rv)}</td>`;
+        /* Por que el efectivo no es el de la foto: se dice al pasar el raton, no en la celda. */
+        const _efT=R.efectivoAjuste?` title="Foto de Patrimonio del ${R.efectivoFecha?ddmmyyyy(R.efectivoFecha):'?'}: ${fmt(R.efectivoFoto)}\u000a${R.efectivoNops} operación${R.efectivoNops===1?'':'es'} después: ${fmt(R.efectivoAjuste)}\u000aHaz una foto nueva en Patrimonio y este ajuste desaparece."`:'';
         const nomAP=(P.nominaMes||0)*12;
         const _per=R.ytd?'YTD':'FY';
-        drows+=`<tr class="real"><td class="preal-lbl">Real</td><td class="rper">${_per}</td>${_c(R.efectivo,P.efectivo)}${_c(R.invertido,P.invertido)}${_c(R.cartera,P.cartera)}<td class="num tot ${R.patrimonio>=P.patrimonio?'preal-up':'preal-dn'}"><b>${pf(R.patrimonio)}</b></td>${_c(R.nomina,nomAP)}${_c(R.dividendo,P.dividendoAnual)}<td class="num extra ${R.extra>=(P.ingresosExtra||0)?'preal-up':''}">${R.extra?pf(R.extra):'·'}</td>${_c(R.ahorro,P.ahorroTotal)}${_c(R.aInversion,P.aInversion)}${_c(R.aEfectivo,P.aEfectivo)}${_c(R.gastoMes,P.disponibleMes,true)}</tr>`;
+        drows+=`<tr class="real"><td class="preal-lbl">Real</td><td class="rper">${_per}</td>${_c(R.efectivo,P.efectivo,false,_efT)}${_c(R.invertido,P.invertido)}${_c(R.cartera,P.cartera)}<td class="num tot ${R.patrimonio>=P.patrimonio?'preal-up':'preal-dn'}"><b>${pf(R.patrimonio)}</b></td>${_c(R.nomina,nomAP)}${_c(R.dividendo,P.dividendoAnual)}<td class="num extra ${R.extra>=(P.ingresosExtra||0)?'preal-up':''}">${R.extra?pf(R.extra):'·'}</td>${_c(R.ahorro,P.ahorroTotal)}${_c(R.aInversion,P.aInversion)}${_c(R.aEfectivo,P.aEfectivo)}${_c(R.gastoMes,P.disponibleMes,true)}</tr>`;
       } else {
         drows+=`<tr class="real"><td class="preal-lbl">Real</td><td class="pend" colspan="12">— se irá cerrando con tus datos; a 31-dic queda como la foto del año —</td></tr>`;
       }
