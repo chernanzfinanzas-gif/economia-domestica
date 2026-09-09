@@ -45,6 +45,69 @@ function gDonut(title,items,opt){ opt=opt||{}; const _dsz=num(opt.size)||140; it
     segs+=`<path d="M${x0.toFixed(1)} ${y0.toFixed(1)} A${r} ${r} 0 ${lg} 1 ${x1.toFixed(1)} ${y1.toFixed(1)} L${xi1.toFixed(1)} ${yi1.toFixed(1)} A${rin} ${rin} 0 ${lg} 0 ${xi0.toFixed(1)} ${yi0.toFixed(1)} Z" fill="${col}"><title>${gEsc(x.label)}: ${fmt(x.val)} (${(frac*100).toFixed(1)}%)</title></path>`; a0=a1; }); }
   const leg=items.map((x,i)=>`<div style="font-size:11px;margin:1px 0;white-space:nowrap"><span style="display:inline-block;width:10px;height:10px;background:${x.color||GRAF_COLS[i%GRAF_COLS.length]};border-radius:2px;margin-right:5px"></span>${gEsc(x.label)} <b>${fmt(x.val)}</b> <span class="muted">${(x.val/tot*100).toFixed(0)}%</span></div>`).join('');
   return `<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px;margin-bottom:4px">${title}</div><div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><svg width="${_dsz}" height="${_dsz}" viewBox="0 0 140 140">${segs}<text x="70" y="74" font-size="10" text-anchor="middle" fill="#475569">${fmt(tot)}</text></svg><div style="flex:1;min-width:150px">${leg}</div></div></div>`; }
+/* ===== [09-sep-2026] AVISO AL PASAR EL RATON (O EL DEDO) POR UNA BARRA =====
+   Las graficas de LINEA ya tenian su aviso (_gtBind, justo debajo). Las de BARRAS no:
+   unas no decian nada y otras usaban el <title> del navegador, que tarda casi un segundo
+   en aparecer, no se puede dar estilo y EN EL MOVIL NO SALE NUNCA.
+   Esto es deliberadamente simple y no toca el sistema de las lineas -- son dos piezas
+   independientes para que arreglar una no rompa la otra. Cada barra (o mejor, cada zona
+   sensible de columna entera, que es mas facil de acertar con el raton) lleva su texto en
+   `data-bartip`, y UN solo manejador en el documento lo pinta. Los saltos de linea del
+   texto se respetan: van como &#10; en el atributo y salen por `white-space:pre-line`. */
+var _btEl=null, _btBound=false, _btTouch=0;
+/* Texto -> atributo HTML. Sin esto, un apostrofe o un < de un concepto rompen el SVG entero. */
+function _btAttr(txt){
+  return (''+txt).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                 .replace(/"/g,'&quot;').replace(/\n/g,'&#10;');
+}
+function _btNodo(){
+  if(_btEl && document.body && document.body.contains(_btEl)) return _btEl;
+  _btEl=document.createElement('div');
+  _btEl.className='barTip';
+  _btEl.style.cssText='position:fixed;z-index:9999;pointer-events:none;display:none;'
+    +'background:#0f172a;color:#fff;font-size:11.5px;line-height:1.4;padding:6px 9px;'
+    +'border-radius:7px;box-shadow:0 4px 14px rgba(0,0,0,.25);max-width:240px;white-space:pre-line';
+  document.body.appendChild(_btEl);
+  return _btEl;
+}
+function _btOcultar(){ if(_btEl) _btEl.style.display='none'; }
+function _btMostrar(txt,x,y){
+  if(!txt) { _btOcultar(); return; }
+  var n=_btNodo(); n.textContent=txt; n.style.display='block';
+  /* Que no se salga de la pantalla: por defecto arriba a la derecha del cursor, y si no
+     cabe se da la vuelta. En el movil el dedo tapa el punto, asi que arriba es lo util. */
+  var w=n.offsetWidth||160, h=n.offsetHeight||40;
+  var px=x+14, py=y-h-12;
+  if(px+w>window.innerWidth-8) px=Math.max(8,window.innerWidth-w-8);
+  if(py<8) py=y+20;
+  n.style.left=px+'px'; n.style.top=py+'px';
+}
+function barTipBind(){
+  if(_btBound || typeof document==='undefined') return; _btBound=true;
+  document.addEventListener('mousemove',function(e){
+    var b=(e.target&&e.target.closest)?e.target.closest('[data-bartip]'):null;
+    if(!b){ if(Date.now()-_btTouch>2500) _btOcultar(); return; }
+    _btMostrar(b.getAttribute('data-bartip'), e.clientX, e.clientY);
+  });
+  /* Tactil: un toque en la columna enseña el aviso. No hay «quitar el raton», asi que se
+     va al tocar fuera o cuando pasan un par de segundos y vuelve a moverse el raton. */
+  document.addEventListener('touchstart',function(e){
+    var b=(e.target&&e.target.closest)?e.target.closest('[data-bartip]'):null;
+    if(!b){ _btOcultar(); return; }
+    var t=(e.touches&&e.touches[0])||null; if(!t) return;
+    _btTouch=Date.now();
+    _btMostrar(b.getAttribute('data-bartip'), t.clientX, t.clientY);
+  },{passive:true});
+  window.addEventListener('scroll',_btOcultar,true);
+  window.addEventListener('resize',_btOcultar);
+}
+/* Zona sensible de una columna entera. Se pinta ENCIMA de las barras y es transparente:
+   asi se acierta con el raton aunque la barra sea de tres pixeles o valga cero. */
+function btZona(x,y,w,h,txt){
+  return '<rect x="'+(+x).toFixed(1)+'" y="'+(+y).toFixed(1)+'" width="'+(+w).toFixed(1)+'" height="'+(+h).toFixed(1)+'"'
+       +' fill="transparent" pointer-events="all" data-bartip="'+_btAttr(txt)+'"/>';
+}
+
 // === Tooltip interactivo genérico para gLine/gLines (guía vertical + puntos + etiqueta con fecha/valor al pasar el ratón) ===
 const _gtReg={}; let _gtSeq=0, _gtBound=false;
 function _gtHideAll(){ document.querySelectorAll('.gtTip').forEach(t=>t.style.display='none'); document.querySelectorAll('.gtGuide,.gtDotH').forEach(el=>el.style.display='none'); }

@@ -1123,8 +1123,13 @@ function renderPanelDash(){
     }
   }
   // Mini-gráfico dividendos por año
-  if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars=''; ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`; });
-    if(mx>1) SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
+  if(typeof simYearTotal==='function'){ const ys=[]; for(let y=2011;y<=nowY;y++)ys.push(y); const vals=ys.map(simYearTotal); const mx=Math.max(...vals,1); const bw=Math.max(8,Math.floor(360/ys.length)); let bars='', zonas='';
+    /* [09-sep-2026] Aviso al pasar el raton: antes estas barras no decian nada y el año
+       solo se leia en los dos extremos. La zona sensible es la columna entera. */
+    if(typeof barTipBind==='function') barTipBind();
+    ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`;
+      if(typeof btZona==='function') zonas+=btZona(i*bw, 0, bw, 78, y+'\n'+fmt(vals[i])+(y===nowY?' · llevas cobrado este año':' cobrados')); });
+    if(mx>1) SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}${zonas}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
   var _av=document.getElementById('panelAvisos'); if(_av)_av.innerHTML=avisosHTML;
   var _sa=document.getElementById('panelSalud'); if(_sa)_sa.innerHTML=saludHTML;
   el.innerHTML=_pnlSecciones(SEC);

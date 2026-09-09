@@ -95,13 +95,34 @@ function _tzDivSerie(t){
 }
 
 /* --------- Gráfico SVG de dividendo --------- */
+/* [09-sep-2026] El importe del DPA con los decimales que de verdad tenga: 1,23 se queda en
+   1,23 y no en 1,2300, pero 0,1425 no se redondea a 0,14 -- en un dividendo por accion esos
+   dos ultimos decimales son dinero. */
+function _tzDivEur(v){
+  var s=(Math.round(_tzNum(v)*10000)/10000).toFixed(4).replace(/0+$/,'').replace(/[.,]$/,'');
+  return s.replace('.',',')+' €';
+}
+/* Lo que se lee al posarse en una columna. Antes solo se veia la cifra del primer año, el
+   ultimo y los de corte: en los de en medio habia que adivinar la altura de la barra. */
+function _tzDivTip(x){
+  var l=[''+x.year];
+  if(x.cut){ l.push('✂️ Sin dividendo: corte'); }
+  else{
+    l.push(_tzDivEur(x.val)+' por acción');
+    l.push(x.delta!=null ? (_tzPct(x.delta)+' respecto al año anterior') : 'primer año con dato');
+  }
+  if(x.proj) l.push('Previsión: todavía no cobrado');
+  if(x.reanuda) l.push('● Reanuda el pago tras el corte');
+  return l.join('\n');
+}
 function _tzDivChart(t){
   var D=_tzDivSerie(t); var s=D.serie;
   if(!s.length) return '<div class="muted" style="font-size:12px;padding:10px 0">Sin histórico de dividendo. Rellénalo en <b>Evolución del Dividendo</b>.</div>';
   var maxV=Math.max.apply(null,s.map(function(x){return x.val;})); if(!(maxV>0))maxV=1;
   var n=s.length, padL=8, padR=8, padT=14, padB=26, bw=Math.min(46,Math.max(20,Math.floor(560/n)));
   var W=padL+padR+n*bw, H=150, plotH=H-padT-padB, base=padT+plotH;
-  var bars='', lbls='';
+  var bars='', lbls='', zonas='';
+  if(typeof barTipBind==='function') barTipBind();
   s.forEach(function(x,i){
     var cx=padL+i*bw+bw/2, bh=x.val>0?Math.max(2,(x.val/maxV)*plotH):0, y=base-bh, halfw=Math.max(8,bw*0.62);
     var col=x.cut?TZ_COL.bad:(x.delta==null?TZ_COL.na:(x.delta>0.001?TZ_COL.ok:(x.delta<-0.001?TZ_COL.bad:TZ_COL.na)));
@@ -114,9 +135,12 @@ function _tzDivChart(t){
     }
     lbls+='<text x="'+cx+'" y="'+(H-14)+'" text-anchor="middle" font-size="9" fill="#64748b">'+("'"+(''+x.year).slice(2))+'</text>';
     if(i===0||i===n-1||x.cut||x.reanuda) lbls+='<text x="'+cx+'" y="'+(H-4)+'" text-anchor="middle" font-size="8" fill="#94a3b8">'+(x.val>0?(''+x.val).replace('.',','):'0')+'</text>';
+    /* La zona sensible cubre la COLUMNA entera, no la barra: con barras de 8 px de ancho
+       y años de corte sin barra, acertar con el raton seria una loteria. */
+    if(typeof btZona==='function') zonas+=btZona(padL+i*bw, padT, bw, plotH, _tzDivTip(x));
   });
   var svg='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:auto;max-height:170px" xmlns="http://www.w3.org/2000/svg">'+
-          '<line x1="'+padL+'" y1="'+base+'" x2="'+(W-padR)+'" y2="'+base+'" stroke="#e2e8f0"/>'+bars+lbls+'</svg>';
+          '<line x1="'+padL+'" y1="'+base+'" x2="'+(W-padR)+'" y2="'+base+'" stroke="#e2e8f0"/>'+bars+lbls+zonas+'</svg>';
   var chips=[];
   chips.push('<span style="background:'+(D.cagr==null?TZ_COL.na:(D.cagr>=0?TZ_COL.ok:TZ_COL.bad))+';color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">CAGR '+(D.cagr==null?'n.d.':_tzPct(D.cagr))+'</span>');
   chips.push('<span style="background:#0f172a;color:#fff;border-radius:6px;padding:1px 8px;font-size:11px;font-weight:700">Racha '+D.racha+' año'+(D.racha===1?'':'s')+'</span>');
