@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-09-10",
+"actualizado": "2026-09-11",
 "ventana_dias": 10,
-"ventana_desde": "2026-08-31",
+"ventana_desde": "2026-09-01",
 "tickers": [
 {
 "ticker": "A3M",
@@ -726,133 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "ADZ",
-"fecha": "2026-09-10",
-"anterior": 6.1,
-"nuevo": 6.2
-},
-{
-"ticker": "AEDAS",
-"fecha": "2026-09-10",
-"anterior": 21.5,
-"nuevo": 21.6
-},
-{
-"ticker": "AIR",
-"fecha": "2026-09-10",
-"anterior": 197.14,
-"nuevo": 196.42
-},
-{
-"ticker": "APAM",
-"fecha": "2026-09-10",
-"anterior": 45.66,
-"nuevo": 45.44
-},
-{
-"ticker": "ARM",
-"fecha": "2026-09-10",
-"anterior": 10.6,
-"nuevo": 10.4
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-09-10",
-"anterior": 89.5,
-"nuevo": 89.1
-},
-{
-"ticker": "GRF",
-"fecha": "2026-09-10",
-"anterior": 9.82,
-"nuevo": 9.818
-},
-{
-"ticker": "IAG",
-"fecha": "2026-09-10",
-"anterior": 4.81,
-"nuevo": 4.806
-},
-{
-"ticker": "IBG",
-"fecha": "2026-09-10",
-"anterior": 17.95,
-"nuevo": 17.85
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-09-10",
-"anterior": 6.4,
-"nuevo": 6.35
-},
-{
-"ticker": "MAP",
-"fecha": "2026-09-10",
-"anterior": 4.37,
-"nuevo": 4.368
-},
-{
-"ticker": "MCM",
-"fecha": "2026-09-10",
-"anterior": 13.4,
-"nuevo": 13.3
-},
-{
-"ticker": "MEL",
-"fecha": "2026-09-10",
-"anterior": 9.85,
-"nuevo": 9.845
-},
-{
-"ticker": "ORY",
-"fecha": "2026-09-10",
-"anterior": 2.8,
-"nuevo": 2.796
-},
-{
-"ticker": "PRM",
-"fecha": "2026-09-10",
-"anterior": 12.75,
-"nuevo": 12.8
-},
-{
-"ticker": "R4",
-"fecha": "2026-09-10",
-"anterior": 19.25,
-"nuevo": 19.3
-},
-{
-"ticker": "SAB",
-"fecha": "2026-09-10",
-"anterior": 3.65,
-"nuevo": 3.654
-},
-{
-"ticker": "SAN",
-"fecha": "2026-09-10",
-"anterior": 12.64,
-"nuevo": 12.642
-},
-{
-"ticker": "TEF",
-"fecha": "2026-09-10",
-"anterior": 3.63,
-"nuevo": 3.625
-},
-{
-"ticker": "TUB",
-"fecha": "2026-09-10",
-"anterior": 2.83,
-"nuevo": 2.825
-},
-{
-"ticker": "UNI",
-"fecha": "2026-09-10",
-"anterior": 3.59,
-"nuevo": 3.592
-}
-],
+"corregidos": [],
 "revisar": []
 }
