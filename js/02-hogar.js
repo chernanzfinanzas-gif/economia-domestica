@@ -1736,15 +1736,26 @@ function proyHipotesisHoy(){
     const t=(o.ticker||'').toUpperCase(); if(!t) return;
     sh[t]=(sh[t]||0)+((o.tipo==='venta')?-1:1)*num(o.acciones);
   }); }catch(e){}
-  /* Dividendo bruto que esas acciones pagan en el año base: es el primer año que proyecta
-     el modelo, y la fuente del DPA es la unica de la app (A5). */
+  /* [10-sep-2026] EL DIVIDENDO ES LA EXCEPCION, Y VA CON LA CARTERA DE HOY.
+     Lo corrigio Carlos el mismo dia: «el dividendo de 2026 no es el de la cartera de
+     diciembre, es eso y lo cobrado de lo comprado este año». Y tiene razon, porque las
+     cuatro cifras no son la misma clase de dato:
+       · efectivo, coste y cartera son FOTOS de un instante -- el modelo arranca de ellas y
+         le suma encima las operaciones del año, asi que tienen que ser del 31-dic;
+       · el dividendo es un FLUJO del año base, y el modelo NO le suma nada durante ese año
+         (`Div` solo crece a partir del segundo: `Div=Div*gD+prevS*rpdN`, dentro de `i>0`).
+     Con la cartera de diciembre se quedaria corto justo en lo comprado este año, y ese
+     hueco no lo taparia nadie mas abajo. Asi que sale de las posiciones VIVAS, como antes.
+     Sigue siendo una aproximacion -- cobra el año entero de lo comprado a mitad de año, y
+     no cuenta lo que cobro de lo vendido -- pero es la convencion que ya usaba la app. */
   let divB=0;
-  Object.keys(sh).forEach(function(t){
-    if(!(sh[t]>0.0001)) return;
+  try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){
+    if(!(p.acciones>0.0001))return;
+    const t=(p.ticker||'').toUpperCase();
     let d=(typeof dpaAnual==='function')?dpaAnual(t,yr):null;
     if(d==null) d=num(((DB.valores||{})[t]||{}).divAccion);
-    divB+=sh[t]*num(d);
-  });
+    divB+=num(p.acciones)*num(d);
+  }); }catch(e){}
   let cartera=0, coste=0;
   try{ cartera=(typeof carteraAtClose==='function')?num(carteraAtClose(yBase)):0; }catch(e){}
   try{ coste  =(typeof costeAtClose==='function')  ?num(costeAtClose(yBase))  :0; }catch(e){}
@@ -1805,7 +1816,7 @@ function proyRefrescarHipotesis(){
   if(!confirm('Refrescar la Hipótesis Inicial con tu foto del 31-dic-'+(new Date().getFullYear()-1)+'.\n\n'
               +'El modelo arranca en ese cierre y le suma encima las operaciones del año, así que el punto de partida NO es tu situación de hoy.\n\nCambia '+cambios.length+' valor(es):\n'+cambios.join('\n')+_nota+
               '\n\nNo se tocan los porcentajes de crecimiento, las aportaciones ni los eventos.\n'+
-              'Ojo: el presupuesto anual del Plan se calcula a partir de esto, así que se recalculará.')) return;
+              'La aportación anual a inversión NO se toca, así que tu plan de compras se queda igual.')) return;
   Object.keys(ETIQ).forEach(k=>{ c[k]=num(h[k]); });
   if(typeof _planRepartoInval==='function') _planRepartoInval();
   if(typeof saveNow==='function')saveNow(); else if(typeof scheduleSave==='function')scheduleSave();
@@ -1860,7 +1871,7 @@ function renderProyParams(c){
     ['efectivo','Efectivo inicial = 31-dic año prev. (€)',Math.round(c.efectivo),'100',0],
     ['invertidoCoste','Invertido / coste a 31-dic año prev. (€)',Math.round(c.invertidoCoste),'500',0],
     ['carteraInicial','Cartera teórica inicial = cierre 31-dic año prev. (€)',Math.round(c.carteraInicial),'500',0],
-    ['dividendoBruto','Dividendo bruto/año de esa cartera (€)',Math.round(c.dividendoBruto),'100',0],
+    ['dividendoBruto','Dividendo bruto/año esperado, cartera de hoy (€)',Math.round(c.dividendoBruto),'100',0],
     ['nominaMes','Nómina hogar/mes (con extras)',Math.round(c.nominaMes),'50',0],
     ['gastoMes','Gasto mensual presupuestado (€)',Math.round(c.gastoMes),'50',0],
     ['aportacionDefault','Aportación inversión/año (€)',Math.round(c.aportacionDefault),'500',0],
