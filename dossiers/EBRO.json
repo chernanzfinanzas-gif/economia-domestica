@@ -162,6 +162,21 @@
   "gIntrinseco": -0.29,
   "veredicto": "HEROICO",
   "motivo": "El precio exige un 10.22% de crecimiento del FCL a una empresa cuyo g intrínseco es NEGATIVO (-0.29%): no está reinvirtiendo para crecer, está encogiendo su capital invertido. El 10.22% queda POR ENCIMA del propio ROIC (7.8%): ni reinvirtiendo el 100% del NOPAT llegaría, haría falta capital externo. Para producirlo tendría que volver a reinvertir —o sacar el crecimiento de margen y precio indefinidamente—, que es lo contrario de lo que hace hoy. No es un dato que falte: es una exigencia real embebida en el precio.",
-  "calculadoEl": "2026-08-23"
+  "calculadoEl": "2026-08-23",
+  "entradas": {
+   "fcl": 97.08,
+   "wacc": 7,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 153.87,
+   "deudaNeta": 529.393,
+   "modo": "EV",
+   "precioBase": 18.2,
+   "validado": false,
+   "desviacion": -0.349,
+   "gBase": 9.871,
+   "fechaBase": "2026-08-23",
+   "congeladoEl": "2026-09-10"
+  }
  }
 }
