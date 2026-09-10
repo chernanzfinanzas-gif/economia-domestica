@@ -53,7 +53,8 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   },
   {
    "periodo": "2023-Q2",
@@ -527,7 +528,8 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   },
   {
    "periodo": "2025-Q3",
@@ -579,7 +581,8 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   },
   {
    "periodo": "2025-Q4",
@@ -631,7 +634,7 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado.",
+   "fechaOrigen": "cierre",
    "hechos": [
     {
      "tipo": "Guidance",
@@ -639,7 +642,8 @@
      "hecho": "Cierre del plan Beyond'25 y presentación de Beat'30 (2026-2030), con una guía de inversión de 100 M EUR para 2026",
      "valoracion": "La guía de 100 M EUR es la referencia de la SEÑAL ÚNICA de la tesis. En 2025 la inversión ya se pasó de la guía (84,1 sobre 75)."
     }
-   ]
+   ],
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   },
   {
    "periodo": "2026-Q1",
@@ -691,7 +695,7 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado.",
+   "fechaOrigen": "cierre",
    "hechos": [
     {
      "tipo": "Recompra",
@@ -705,7 +709,8 @@
      "hecho": "Reorganización de la alta dirección desde el 1-ene-2026 con el arranque de Beat'30",
      "valoracion": "El consejo tiene el 0,43 % del capital, la puntuación más baja del §7.2. Un cambio de primer nivel obliga a releer ese apartado."
     }
-   ]
+   ],
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   },
   {
    "periodo": "2026-Q2",
@@ -757,7 +762,8 @@
     }
    ],
    "origen": "revolcado",
-   "fechaOrigen": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
+   "fechaOrigen": "cierre",
+   "fechaOrigenNota": "CIERRE DEL PERIODO, no publicación: el informe de Viscofan de este periodo no imprime la fecha de publicación en portada. Se declara para que nadie la lea como fecha de mercado."
   }
  ]
 }

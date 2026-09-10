@@ -1694,6 +1694,13 @@ function proyDefaults(){
   const mes=(n)=>{const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0;};
   const _titN=(typeof perfilTitulares==='function'&&perfilTitulares().length)?perfilTitulares():['Carlos','Susana']; const nominaMes=_titN.reduce(function(a,n){return a+mes('Nómina '+n);},0)+mes('Pagas Extra');
   let gastosAnu=0; DB.presupuesto.filter(x=>pAnio(x)===yr).forEach(x=>{const c=DB.categorias.find(cc=>cc.id===x.categoriaId); if(c&&c.tipo==='gasto')gastosAnu+=anual(x);});
+  /* [10-sep-2026] El sembrado tambien arranca del cierre del 31-dic anterior, no de hoy: si
+     no, un instalador nuevo nace con el mismo doble conteo que hubo que arreglar. Lo que no
+     se pueda calcular conserva el valor de esta siembra. */
+  let _h=null; try{ _h=proyHipotesisHoy(); }catch(e){}
+  if(_h){ ['efectivo','invertidoCoste','carteraInicial','dividendoBruto'].forEach(function(k){
+    if(num(_h[k])>0){ if(k==='efectivo')last.ef=num(_h.efectivo); if(k==='invertidoCoste')coste=num(_h.invertidoCoste);
+                      if(k==='carteraInicial')cartera=num(_h.carteraInicial); if(k==='dividendoBruto')divB=num(_h.dividendoBruto); } }); }
   DB.config.proyeccion={ modeloEvo2:true, anioBase:yr, edadActual:55, edadFin:90, edadFinAportar:70,
     efectivo:Math.round(last.ef)||9000, invertidoCoste:Math.round(coste), carteraInicial:Math.round(cartera),
     dividendoBruto:Math.round(divB), nominaMes:Math.round(nominaMes)||5675, gastoMes:Math.round(gastosAnu/12)||3450,
@@ -1705,29 +1712,57 @@ function proyDefaults(){
    por la primera línea si ya existe) y nunca volvía a mirar la realidad. Como computeProy().aInversion
    es la fuente del presupuesto anual del Plan, el plan de compras podía estar colgando de una foto
    del hogar de hace meses. Estas dos funciones permiten refrescarla a mano y detectar que está vieja. */
+/* [10-sep-2026] LA HIPOTESIS ES LA FOTO DEL 31-DIC DEL AÑO ANTERIOR, NO LA DE HOY.
+   Lo destapo Carlos: «Invertido» decia 204.789 € y el coste de sus posiciones 179.724,89 €.
+   La cifra de partida se rellenaba con la situacion de HOY, pero el modelo la trata como el
+   punto de arranque del año base y despues le suma TODAS las operaciones de ese año desde el
+   1 de enero (`computeProy` y `proyRealAgg`). Resultado: todo lo comprado en el año base
+   antes de pulsar «Refrescar» se contaba DOS VECES -- dentro de la foto y otra vez encima.
+   Y no se quedaba ahi: el presupuesto anual del Plan cuelga de esta hipotesis, asi que un
+   punto de partida inflado ensuciaba tambien el plan de compras.
+   La propia pantalla ya decia lo que hacia falta: el campo de al lado se llama «Cartera
+   teorica inicial = cierre 31-dic año prev.». Ahora las cuatro cifras de stock -efectivo,
+   coste, cartera y dividendo- se calculan a esa fecha. Los flujos (nomina, gasto) siguen
+   siendo los del año en curso, que es lo correcto: el modelo los aplica ENCIMA del stock. */
 function proyHipotesisHoy(){
   const yr=new Date().getFullYear();
-  /* Cartera y coste desde las posiciones VIVAS (antes se leía DB.inversiones, el modelo legacy). */
-  let cartera=0, coste=0, divB=0;
-  try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){
-    if(!(p.acciones>0.0001))return;
-    const t=(p.ticker||'').toUpperCase();
-    cartera+=num(p.acciones)*num(p.precioActual);
-    coste  +=num(p.acciones)*num(p.precioCompra);
-    /* dividendo esperado con la misma fuente única que el resto de la app (A5) */
+  const yBase=yr-1;                     /* el cierre del que arranca el modelo */
+  const cut=Date.UTC(yBase,11,31);
+  /* Acciones que tenias el 31-dic del año anterior */
+  const sh={};
+  try{ (typeof _allOps==='function'?_allOps():[]).forEach(function(o){
+    if(!o||!o.fecha) return;
+    const om=Date.parse(o.fecha+'T00:00:00'); if(isNaN(om)||om>cut) return;
+    const t=(o.ticker||'').toUpperCase(); if(!t) return;
+    sh[t]=(sh[t]||0)+((o.tipo==='venta')?-1:1)*num(o.acciones);
+  }); }catch(e){}
+  /* Dividendo bruto que esas acciones pagan en el año base: es el primer año que proyecta
+     el modelo, y la fuente del DPA es la unica de la app (A5). */
+  let divB=0;
+  Object.keys(sh).forEach(function(t){
+    if(!(sh[t]>0.0001)) return;
     let d=(typeof dpaAnual==='function')?dpaAnual(t,yr):null;
     if(d==null) d=num(((DB.valores||{})[t]||{}).divAccion);
-    divB+=num(p.acciones)*num(d);
-  }); }catch(e){}
+    divB+=sh[t]*num(d);
+  });
+  let cartera=0, coste=0;
+  try{ cartera=(typeof carteraAtClose==='function')?num(carteraAtClose(yBase)):0; }catch(e){}
+  try{ coste  =(typeof costeAtClose==='function')  ?num(costeAtClose(yBase))  :0; }catch(e){}
+  /* Si los cierres del repo aun no han llegado, `carteraAtClose` da 0. No se inventa nada:
+     sale 0 y quien refresca conserva el valor anterior y lo dice. */
   const snaps=(typeof patSnaps==='function')?patSnaps():[];
   const last=snaps.length?snapTot(snaps[snaps.length-1]):{ef:0,inv:0};
-  if(!cartera) cartera=num(last.inv);
   const byName={}; (DB.categorias||[]).forEach(c=>byName[c.nombre]=c);
   const mes=n=>{ const c=byName[n]; if(!c)return 0; const pp=presFor(c.id,yr); return pp?mensual(pp):0; };
   const tit=(typeof perfilTitulares==='function'&&perfilTitulares().length)?perfilTitulares():['Carlos','Susana'];
   const nominaMes=tit.reduce((a,n)=>a+mes('Nómina '+n),0)+mes('Pagas Extra');
   let gastosAnu=0; (DB.presupuesto||[]).filter(x=>pAnio(x)===yr).forEach(x=>{ const c=(DB.categorias||[]).find(cc=>cc.id===x.categoriaId); if(c&&c.tipo==='gasto')gastosAnu+=anual(x); });
-  return { anioBase:yr, efectivo:Math.round(num(last.ef)), invertidoCoste:Math.round(coste),
+  /* Efectivo a esa misma fecha. `efectivoRealAt` ya arrastra las compras posteriores a la
+     ultima foto de Patrimonio (arreglo del 09-sep), asi que da el saldo del 31-dic. */
+  let _ef=null;
+  try{ _ef=(typeof efectivoRealAt==='function')?efectivoRealAt(yBase):null; }catch(e){}
+  const efectivo=(_ef!=null)?num(_ef):num(last.ef);
+  return { anioBase:yr, efectivo:Math.round(efectivo), invertidoCoste:Math.round(coste),
            carteraInicial:Math.round(cartera), dividendoBruto:Math.round(divB),
            nominaMes:Math.round(nominaMes), gastoMes:Math.round(gastosAnu/12) };
 }
@@ -1736,9 +1771,15 @@ function proyHipotesisVieja(){
   const c=(DB.config&&DB.config.proyeccion)||null; if(!c||!c.modeloEvo2) return null;
   const yr=new Date().getFullYear();
   if(num(c.anioBase)>0 && num(c.anioBase)<yr) return {tipo:'anio', txt:'la hipótesis es del año '+num(c.anioBase)};
-  const viva=(typeof carteraLive==='function')?carteraLive():0;
+  /* [10-sep-2026] ANTES SE COMPARABA CONTRA LA CARTERA VIVA, y con la hipotesis puesta ya
+     en el cierre del 31-dic anterior eso saltaria SIEMPRE: en un año bueno la cartera de hoy
+     se separa mas de un 10% de la de diciembre sin que nada este mal. Un aviso que salta
+     siempre no es un aviso: es ruido que enseña a ignorar los avisos de verdad.
+     Lo que hay que comparar es contra el cierre de esa MISMA fecha. */
+  const cierreBase=(typeof carteraAtClose==='function')?num(carteraAtClose(yr-1)):0;
   const base=num(c.carteraInicial);
-  if(viva>0 && base>0){ const d=Math.abs(viva-base)/viva; if(d>0.10) return {tipo:'cartera', txt:'la cartera real difiere un '+Math.round(d*100)+'% de la hipótesis'}; }
+  if(cierreBase>0 && base>0){ const d=Math.abs(cierreBase-base)/cierreBase;
+    if(d>0.10) return {tipo:'cartera', txt:'la hipótesis no cuadra con tu cierre del 31-dic ('+Math.round(d*100)+'% de diferencia)'}; }
   return null;
 }
 /* Refresca la hipótesis mostrando antes qué cambia exactamente. */
@@ -1746,19 +1787,23 @@ function proyRefrescarHipotesis(){
   const c=(DB.config&&DB.config.proyeccion)||null;
   if(!c||!c.modeloEvo2){ alert('Aún no hay hipótesis que refrescar.'); return; }
   const h=proyHipotesisHoy();
-  const ETIQ={anioBase:'Año base',efectivo:'Efectivo inicial',invertidoCoste:'Invertido / coste',
-              carteraInicial:'Cartera inicial',dividendoBruto:'Dividendo bruto/año',
+  const ETIQ={anioBase:'Año base',efectivo:'Efectivo a 31-dic año prev.',invertidoCoste:'Invertido / coste a 31-dic año prev.',
+              carteraInicial:'Cartera a 31-dic año prev.',dividendoBruto:'Dividendo bruto/año',
               nominaMes:'Nómina hogar/mes',gastoMes:'Gasto mensual'};
   /* Si un dato no se puede calcular hoy (p. ej. no hay presupuesto del año en curso, y nómina o gasto
      saldrían 0), se conserva el valor anterior: refrescar nunca debe vaciar el modelo. */
   const OMITIDOS=[];
-  ['nominaMes','gastoMes','efectivo','carteraInicial'].forEach(k=>{ if(!(num(h[k])>0) && num(c[k])>0){ h[k]=num(c[k]); OMITIDOS.push(ETIQ[k]); } });
+  /* [10-sep-2026] Se añaden `invertidoCoste` y `dividendoBruto`: desde que salen del cierre
+     del 31-dic tambien pueden dar 0 si el historico del repo no ha llegado, y vaciar el
+     punto de partida del modelo por una descarga lenta seria mucho peor que no refrescar. */
+  ['nominaMes','gastoMes','efectivo','carteraInicial','invertidoCoste','dividendoBruto'].forEach(k=>{ if(!(num(h[k])>0) && num(c[k])>0){ h[k]=num(c[k]); OMITIDOS.push(ETIQ[k]); } });
   const _v=(k,x)=>(k==='anioBase')?String(Math.round(x)):((typeof fmt==='function')?fmt(x):String(x));
   const cambios=[]; Object.keys(ETIQ).forEach(k=>{ const a=Math.round(num(c[k])), b=Math.round(num(h[k]));
     if(a!==b) cambios.push(' · '+ETIQ[k]+': '+_v(k,a)+'  →  '+_v(k,b)); });
   if(!cambios.length){ alert('La hipótesis ya coincide con tus datos actuales: no hay nada que cambiar.'); return; }
   const _nota=OMITIDOS.length?('\n\nSe conservan sin tocar (hoy no hay dato para calcularlos): '+OMITIDOS.join(', ')+'.'):'';
-  if(!confirm('Refrescar la Hipótesis Inicial con tus datos de hoy.\n\nCambia '+cambios.length+' valor(es):\n'+cambios.join('\n')+_nota+
+  if(!confirm('Refrescar la Hipótesis Inicial con tu foto del 31-dic-'+(new Date().getFullYear()-1)+'.\n\n'
+              +'El modelo arranca en ese cierre y le suma encima las operaciones del año, así que el punto de partida NO es tu situación de hoy.\n\nCambia '+cambios.length+' valor(es):\n'+cambios.join('\n')+_nota+
               '\n\nNo se tocan los porcentajes de crecimiento, las aportaciones ni los eventos.\n'+
               'Ojo: el presupuesto anual del Plan se calcula a partir de esto, así que se recalculará.')) return;
   Object.keys(ETIQ).forEach(k=>{ c[k]=num(h[k]); });
@@ -1812,10 +1857,10 @@ function renderProyParams(c){
     ['edadFin','Edad final',c.edadFin,'1',0],
     ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1',0],
     ['anioTrasJub','Año tras jubilación (→ a gastos)',Math.round(c.anioTrasJub||2039),'1',0],
-    ['efectivo','Efectivo inicial (€)',Math.round(c.efectivo),'100',0],
-    ['invertidoCoste','Invertido / coste (€)',Math.round(c.invertidoCoste),'500',0],
+    ['efectivo','Efectivo inicial = 31-dic año prev. (€)',Math.round(c.efectivo),'100',0],
+    ['invertidoCoste','Invertido / coste a 31-dic año prev. (€)',Math.round(c.invertidoCoste),'500',0],
     ['carteraInicial','Cartera teórica inicial = cierre 31-dic año prev. (€)',Math.round(c.carteraInicial),'500',0],
-    ['dividendoBruto','Dividendo bruto/año (€)',Math.round(c.dividendoBruto),'100',0],
+    ['dividendoBruto','Dividendo bruto/año de esa cartera (€)',Math.round(c.dividendoBruto),'100',0],
     ['nominaMes','Nómina hogar/mes (con extras)',Math.round(c.nominaMes),'50',0],
     ['gastoMes','Gasto mensual presupuestado (€)',Math.round(c.gastoMes),'50',0],
     ['aportacionDefault','Aportación inversión/año (€)',Math.round(c.aportacionDefault),'500',0],
@@ -1853,6 +1898,35 @@ function drawProyChart(ser){
   ser.forEach((r,i)=>{ if(r.edad%5===0) ctx.fillText(r.edad, X(i), H-5); });
 }
 function carteraLive(){ var v=0; try{ (typeof invPositions==='function'?invPositions():[]).forEach(function(p){ if(p.acciones>0.0001)v+=num(p.acciones)*num(p.precioActual); }); }catch(e){} return v; }
+/* [10-sep-2026] LO QUE TE HABIAN COSTADO las acciones que tenias el 31-dic de ese año.
+   Hermana de `carteraAtClose` (que da lo que VALIAN) y con el mismo criterio de coste que
+   `invPositions`, que es la fuente unica del precio medio en toda la app: la comision entra
+   en el coste de compra, y una venta rebaja el coste en proporcion a lo vendido -- nunca por
+   lo que te ingresaron, que es otra cosa. */
+function costeAtClose(year){
+  if(typeof _allOps!=='function') return 0;
+  var cut=Date.UTC(year,11,31), m={};
+  var ops=_allOps().filter(function(o){
+    if(!o||!o.fecha) return false;
+    var om=Date.parse(o.fecha+'T00:00:00');
+    return !isNaN(om) && om<=cut;
+  }).sort(function(a,b){ return (a.fecha<b.fecha)?-1:((a.fecha>b.fecha)?1:0); });
+  ops.forEach(function(o){
+    var t=(o.ticker||'').toUpperCase(); if(!t) return;
+    var x=m[t]||(m[t]={acc:0,cost:0});
+    var nAcc=num(o.acciones);
+    if(o.tipo==='venta'){
+      var avg=x.acc?x.cost/x.acc:0;
+      x.acc-=nAcc; if(x.acc<0)x.acc=0;
+      x.cost=x.acc*avg;
+    } else {
+      var com=(typeof khComision==='function')?num(khComision(o)):0;
+      x.acc+=nAcc; x.cost+=nAcc*num(o.precio)+com;
+    }
+  });
+  var tot=0; Object.keys(m).forEach(function(t){ if(m[t].acc>0.0001) tot+=m[t].cost; });
+  return tot;
+}
 function carteraAtClose(year){
   // Valor de cartera a cierre del 31-dic de 'year' = Sigma (acciones que tenias ese dia) x (cierre real del repo)
   if(typeof _allOps!=='function' || typeof priceRepoAt!=='function') return 0;
