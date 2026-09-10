@@ -156,10 +156,25 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 7.130074,
+  "gImplicito": 7.991068,
   "gIntrinseco": 7.43187,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El precio de 56,20 € exige un crecimiento del FCL del 7,13 % en la fase 1, y la empresa autofinancia un 7,43 % (reinversión 47,85 % × ROIC 15,53 %). Ratio 0,96x, por debajo del corte de 1,0x: el mercado no pide nada que Viscofan no haya demostrado hacer. Ojo a la contradicción, y está escrita en el §6.x del libro: el DCF etiqueta el precio como CARA y este contraste lo llama PLAUSIBLE, saliendo los dos del mismo modelo y del mismo WACC. La conciliación es que las tres tasas del escenario base (3,0 / 2,5 / 2,0 %) son más conservadoras que la capacidad medida de la empresa. Cifras tomadas del §6.x del libro, que trae su propia comprobación (residuo 1,4e-12), y no de la ejecución suelta de la herramienta, que daba 8,0 % y EXIGENTE sin declarar la suya [F480, decisión del operador del 10-sep-2026].",
-  "calculadoEl": "2026-09-09"
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio de 56,20 € exige un crecimiento del FCL del 7,99 % en la fase 1, y la empresa autofinancia un 7,43 % (reinversión 47,85 % × ROIC 15,53 %). Ratio 1,08x: por encima del corte de 1,0x, así que el mercado pide algo más de lo que Viscofan ha demostrado que puede hacer — poco más, pero por encima de la línea. Nota de método [F480, resuelto el 10-sep-2026]: este libro llevó durante un día un 7,13 % y un veredicto PLAUSIBLE, que contradecía la etiqueta CARA del §6.5. La causa no era el modelo ni el WACC —los dos motores compartían ambos— sino la CONVENCIÓN DE LA FASE 2: se invertía con la fase 2 medio punto por debajo de la primera, un escalón copiado del escenario base, que crece al 3,0 %; aplicado a un g1 del 7 % deja de converger. Con la regla declarada del método —fase 2 al 0,7 de la fase 1, que es donde caen los tres escenarios del §6.2 leídos como proporción (0,67 · 0,83 · 0,78)— salen 7,99 % y EXIGENTE, y los dos motores dicen ya lo mismo. Decisión del operador. La comprobación de residuo del modelo viejo daba cero: demostraba consistencia consigo mismo, no que el supuesto fuera el bueno.",
+  "calculadoEl": "2026-09-10",
+  "entradas": {
+   "fcl": 94.994,
+   "wacc": 7,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 46.5,
+   "deudaNeta": 252.55,
+   "modo": "EV",
+   "precioBase": 56.2,
+   "validado": true,
+   "desviacion": -0.0,
+   "gBase": 7.991,
+   "fechaBase": "2026-09-10",
+   "congeladoEl": "2026-09-10"
+  }
  }
 }
