@@ -338,10 +338,14 @@ function _mcMaxHTML(valorHoy){
      porque el de cierres sigue siendo la cifra de referencia -arranca en tu primera
      operación- y este solo puede mirar lo registrado. Mezclarlos en un renglón sería
      poner dos números de distinta profundidad histórica a la misma altura. */
-  const mi=_mcMaxIntradia();
+  const mi=_mcMaxIntradia(valorHoy);
   if(mi){
-    let it='<b>Máximo intradía: '+_mcEur(mi.valor)+'</b> · '+_mcFecha(mi.fecha)+' a las '+mi.hora;
+    let it='<b>Máximo intradía: '+_mcEur(mi.valor)+'</b> · '
+      +(mi.vivo ? ('hoy'+(mi.hora?(' '+mi.hora):'')+' · <b>lo estás marcando ahora</b>')
+                : (_mcFecha(mi.fecha)+' a las '+mi.hora));
     it+='<span class="mc-max-pie">dentro de la sesión, con las acciones de cada día · '
+      +(mi.vivo?'ahora mismo vale más que en cualquier instante ya archivado · ':'')
+      +'compras y ventas cuentan desde la sesión siguiente (tus operaciones guardan fecha, no hora) · '
       +'registrado desde el '+_mcFecha(mi.desde)+' ('+mi.sesiones+' '
       +(mi.sesiones===1?'sesión':'sesiones')+'), que es cuando empezó a archivarse el detalle '
       +'de 5 minutos</span>';
@@ -389,6 +393,32 @@ function _mcAccionesEn(fecha){
     const t=_mcUp(o.ticker); if(!t) return;
     const om=Date.parse((o.fecha||'')+'T00:00:00');
     if(isNaN(om)||om>lim) return;
+    acc[t]=(acc[t]||0)+((o.tipo==='venta')?-1:1)*_mcNum(o.acciones);
+  });
+  Object.keys(acc).forEach(function(t){ if(!(acc[t]>0.0001)) delete acc[t]; });
+  return acc;
+}
+
+/* [10-sep-2026] LAS ACCIONES CON LAS QUE SE ABRE LA SESION -- NO LAS DEL FINAL DEL DIA.
+   Tus operaciones guardan FECHA pero no HORA, asi que el dia en que compras la app no puede
+   saber en que momento entro el dinero. Contandola desde las 00:00 -- que es lo que hacia --
+   la sesion entera se valoraba como si ya tuvieras esas acciones: el 09-sep-2026 el maximo
+   intradia salio 392.511,23 € a las 09:15 llevando dentro un Viscofan comprado ese mismo dia.
+   Unos 9.200 € de cartera que a esa hora no existian.
+   Regla: dentro de la sesion, una compra o una venta cuenta desde la SESION SIGUIENTE. El dia
+   en que operas el maximo sale corto, y eso es lo correcto -- es una COTA INFERIOR, el mismo
+   criterio que ya usa el registro con las medidas incompletas. Mas vale quedarse corto que
+   ensenar un maximo que nunca ocurrio.
+   El PUNTO DE CIERRE es la excepcion y va aparte (ver `_mcIntraSesion`): a la hora del cierre
+   si se sabe con certeza que tenias, y ahi cuentan las acciones del final del dia. */
+function _mcAccionesIntra(fecha){
+  const acc={};
+  if(typeof _allOps!=='function') return acc;
+  const ini=Date.parse(fecha+'T00:00:00');
+  _allOps().forEach(function(o){
+    const t=_mcUp(o.ticker); if(!t) return;
+    const om=Date.parse((o.fecha||'')+'T00:00:00');
+    if(isNaN(om)||om>=ini) return;              /* ese mismo dia todavia no cuenta */
     acc[t]=(acc[t]||0)+((o.tipo==='venta')?-1:1)*_mcNum(o.acciones);
   });
   Object.keys(acc).forEach(function(t){ if(!(acc[t]>0.0001)) delete acc[t]; });
@@ -445,9 +475,11 @@ function _mcCierreOficial(t, fecha){
 /* La cartera valorada INSTANTE A INSTANTE dentro de una sesión. Función pura: se le dan
    las series ya descargadas. Devuelve {horas:[], valores:[], parcial, sinSerie:[...]} o null.
    De aquí salen las dos cosas: el máximo del día y la línea que se dibuja. */
-function _mcIntraSesion(fecha, series, acc){
+function _mcIntraSesion(fecha, series, acc, accCierre){
   const tks=Object.keys(acc||{});
   if(!tks.length) return null;
+  /* Las de la hora del cierre. Por defecto las mismas: solo cambian el dia que operaste. */
+  const accC=(accCierre&&Object.keys(accCierre).length)?accCierre:acc;
   const barras={}, sinSerie=[];
   let horas={};
   tks.forEach(function(t){
@@ -490,18 +522,23 @@ function _mcIntraSesion(fecha, series, acc){
      Se añade un punto final con el cierre oficial de cada valor EN ESA FECHA. Si a alguno
      le falta, no se añade nada: no se inventa media cartera para cuadrar un número. Y por
      eso la sesión en curso no lleva punto de cierre: todavía no ha cerrado. */
+  /* [10-sep-2026] Y AQUI SI CUENTAN LAS ACCIONES DEL FINAL DEL DIA. A la hora del cierre
+     ya no hay duda de que tenias, aunque hubieras comprado esa misma mañana. Si se usaran
+     las de la apertura, el dia de una compra el punto de cierre saldria por debajo del
+     cierre real y el maximo intradia volveria a caer por debajo del maximo por cierres --
+     la contradiccion que se arreglo el 18-ago. */
   let cierre=0, completo=true;
-  tks.forEach(function(t){
+  Object.keys(accC).forEach(function(t){
     const c=_mcCierreOficial(t,fecha);          /* el cierre de ESE día, o nada */
-    if(!(c>0)) completo=false; else cierre+=acc[t]*c;
+    if(!(c>0)) completo=false; else cierre+=accC[t]*c;
   });
   if(completo && cierre>0){ rejilla.push('cierre'); valores.push(cierre); }
   return {horas:rejilla, valores:valores, parcial:sinSerie.length>0, sinSerie:sinSerie};
 }
 
 /* Máximo de esa sesión. Envoltorio delgado sobre la serie: un solo cálculo, dos usos. */
-function _mcMaxIntraSesion(fecha, series, acc){
-  const r=_mcIntraSesion(fecha, series, acc);
+function _mcMaxIntraSesion(fecha, series, acc, accCierre){
+  const r=_mcIntraSesion(fecha, series, acc, accCierre);
   if(!r) return null;
   let mx=-Infinity, hmx='';
   for(let i=0;i<r.valores.length;i++){ if(r.valores[i]>mx){ mx=r.valores[i]; hmx=r.horas[i]; } }
@@ -528,7 +565,7 @@ function mcSerieIntraCartera(){
   if(!orden.length) return null;
   const xs=[], ys=[], ses=[]; let parcial=false; const sin={};
   orden.forEach(function(f){
-    const r=_mcIntraSesion(f, ser, _mcAccionesEn(f));
+    const r=_mcIntraSesion(f, ser, _mcAccionesIntra(f), _mcAccionesEn(f));
     if(!r) return;
     ses.push({i:xs.length, txt:_mcFecha(f,true)});
     for(let i=0;i<r.horas.length;i++){ xs.push(f+' '+r.horas[i]); ys.push(r.valores[i]); }
@@ -551,7 +588,7 @@ function _mcVolcarIntra(series){
   });
   let cambios=0;
   Object.keys(fechas).sort().forEach(function(f){
-    const r=_mcMaxIntraSesion(f, series, _mcAccionesEn(f));
+    const r=_mcMaxIntraSesion(f, series, _mcAccionesIntra(f), _mcAccionesEn(f));
     if(!r) return;
     const v=Math.round(r.valor*100)/100;
     const antes=reg[f];
@@ -575,8 +612,18 @@ function _mcVolcarIntra(series){
   return cambios>0;
 }
 
-/* Lo que se pinta: el máximo de TODO lo registrado, no solo de la ventana. */
-function _mcMaxIntradia(){
+/* Lo que se pinta: el máximo de TODO lo registrado, no solo de la ventana.
+   [10-sep-2026] Y ADEMAS EL VALOR DE AHORA MISMO, que es lo que faltaba.
+   Carlos vio esto: «valor de la cartera 392.548,75 · máximo intradía 392.511,23». Un
+   máximo por debajo del valor actual no puede ser, y no era un error de cálculo: el
+   registro (`DB.maxIntra`) sale del archivo de 5 minutos, que se descarga UNA vez al abrir
+   la app; el cuadro verde, en cambio, se refresca cada pase de intradía. Con la cartera
+   subiendo durante la sesión, el valor vivo adelanta al máximo registrado y la pantalla se
+   contradice a sí misma. La Fase 1 (máximo por cierres) ya contaba con el precio vivo — de
+   ahí el «estás en máximos» de arriba; esto le faltaba a la Fase 2.
+   No se guarda nada: el archivo de 5 minutos recoge la sesión de hoy y mañana, al abrir la
+   app, el registro se pone al día solo. Aquí solo se deja de mentir en pantalla. */
+function _mcMaxIntradia(valorHoy){
   const tks=Object.keys(_mcAccionesEn(new Date().toISOString().slice(0,10)));
   if(!_mcSeriesPedidas){
     _mcSeriesPedidas=true;
@@ -598,8 +645,20 @@ function _mcMaxIntradia(){
   let mf='';
   fechas.forEach(function(f){ if(!mf || reg[f].v>reg[mf].v) mf=f; });
   const faltan=tks.filter(function(t){ return !_mcSeries || !_mcSeries[t]; });
-  return {valor:reg[mf].v, fecha:mf, hora:reg[mf].h, parcial:!!reg[mf].p,
-          desde:fechas[0], sesiones:fechas.length, sinSerie:faltan};
+  const out={valor:reg[mf].v, fecha:mf, hora:reg[mf].h, parcial:!!reg[mf].p,
+             desde:fechas[0], sesiones:fechas.length, sinSerie:faltan};
+  /* El medio céntimo de margen es el mismo que usa «estás en máximos»: los dos números
+     llegan por caminos distintos y pueden separarse en el redondeo. */
+  const vh=_mcNum(valorHoy);
+  if(vh > out.valor+0.005){
+    const j=(typeof _intradia!=='undefined')?_intradia:(window._intradia||null);
+    out.valor=vh;
+    out.fecha=new Date().toISOString().slice(0,10);
+    out.hora=(j&&(j.datoHora||j.hora))||'';
+    out.parcial=false;
+    out.vivo=true;                  /* lo marca la pantalla: es de ahora, no del archivo */
+  }
+  return out;
 }
 
 /* --------------------------------------------------------------------------
