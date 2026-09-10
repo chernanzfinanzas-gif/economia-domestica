@@ -85,9 +85,16 @@
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-09-10",
-   "valorHistorico": 4.37,
+   "valorHistorico": 4.368,
    "cierreAntIntradia": 4.354,
-   "difPct": 0.367
+   "difPct": 0.322
+  },
+  {
+   "ticker": "MCM",
+   "ultimaBarra": "2026-09-10",
+   "valorHistorico": 13.3,
+   "cierreAntIntradia": 13.4,
+   "difPct": -0.746
   },
   {
    "ticker": "NTGY",
@@ -99,9 +106,9 @@
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-09-10",
-   "valorHistorico": 3.63,
+   "valorHistorico": 3.625,
    "cierreAntIntradia": 3.585,
-   "difPct": 1.255
+   "difPct": 1.116
   },
   {
    "ticker": "VID",
@@ -120,5 +127,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 16 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 17 con valores discrepantes, 0 sin fichero"
 }
