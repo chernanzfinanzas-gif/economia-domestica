@@ -10,7 +10,7 @@
  },
  "formulas": {
   "ok": false,
-  "detalle": "7 de 27 libros tienen las fórmulas MUDAS (caché borrado por openpyxl): CIE, Ebro Foods, Ebro Foods, Iberdrola, Repsol, Vidrala, Viscofan. Ábrelos en Excel y guárdalos: Excel recalcula y se arregla solo.",
+  "detalle": "6 de 27 libros tienen las fórmulas MUDAS (caché borrado por openpyxl): CIE, Ebro Foods, Ebro Foods, Iberdrola, Repsol, Vidrala. Ábrelos en Excel y guárdalos: Excel recalcula y se arregla solo.",
   "libros": [
    {
     "empresa": "CIE",
@@ -41,11 +41,6 @@
     "empresa": "Vidrala",
     "formulas": 2248,
     "mudas": 2248
-   },
-   {
-    "empresa": "Viscofan",
-    "formulas": 2510,
-    "mudas": 2510
    }
   ]
  }
