@@ -1,42 +1,44 @@
 {
+ "schemaVersion": 8,
  "ticker": "VIS",
  "empresa": "Viscofan, S.A.",
- "fecha": "2026-07-09",
- "rating": "AA",
- "score": 77.1,
+ "fecha": "2026-09-10",
+ "rating": "A",
+ "score": 72.0,
  "decision": "ESPERAR",
- "metodoValoracion": "DCF a dos fases + múltiplos históricos (arquetipo calidad/consumo). PO oficial = síntesis ponderada del Cap. VI (55% DCF + 45% múltiplos) = 47,8 €; bear 25,5 €, bull 65,1 €. WACC normalizado 6,5-8,5% en el DCF (el CAPM con β=0,14 daría un WACC ~4% que dispararía el valor).",
- "poBear": 25.5,
- "poBase": 47.8,
+ "metodoValoracion": "Síntesis ponderada de diez patas con los pesos del arquetipo CONSUMO: DCF 50 %, múltiplos históricos propios 40 %, renta por dividendo 10 %, activos 0 %. PO oficial = el §6.5, 52,44 €. El DCF puro daría 38,92 € y los siete múltiplos con peso implican 60,4-67,1 €: la horquilla es del 72 % y el PO es la media ponderada de dos lecturas que no se hablan.",
+ "poBear": 40.15,
+ "poBase": 52.44,
  "poBull": 65.1,
- "entMin": 42.0,
- "entMax": 45.0,
- "stop": 25.0,
- "moat": "Ancho (76/100) — líder mundial, única en las 4 tecnologías; ventaja de costes + intangibles + costes de cambio.",
+ "entMin": 40.15,
+ "entMax": 45.6,
+ "stop": 30.94,
+ "dpaPrevisto": 3.25,
+ "moat": "MODERADO · 73,9/100, a 1,1 puntos de ANCHO. Escala eficiente 80 y ventaja de costes 78 son los dos pilares por encima de 75; intangibles 70 y costes de cambio 55. El efecto de red se declara N/A —una envoltura no vale más porque más fabricantes de embutido la usen— y su 20 % de peso se reparte: con el eje puntuado el moat sería 62,1. Durabilidad 10+ años. La evidencia más dura es el censo del sector: queda un solo competidor directo cotizado en el mundo y pierde dinero.",
  "catalizadores": [
-  "Cumplimiento de las guías 2026 (ingresos +5-8%, EBITDA +8-12%, BNA +6-10%)",
-  "Normalización de márgenes hacia el 25% de EBITDA",
-  "Mejora de la conversión de EBITDA a caja libre",
-  "Recuperación de volúmenes de envolturas tras el ajuste de inventarios",
-  "Retribución al accionista creciente (dividendo + recompras)"
+  "Cierre parcial del de-rating del múltiplo (+9,68 pp del PO, 6-18 meses): 2025 es el mínimo de la década en tres de los siete múltiplos ponderados. Disparador: EV/EBITDA de cierre trimestral por encima de 10x con el margen intacto.",
+  "Recuperación del mix de precio (+7,81 pp, 2S-2026 y 2027): 2025 fue récord histórico de volúmenes con el precio unitario por debajo del año anterior. Disparador: contribución positiva del precio/mix en el puente de ventas dos trimestres seguidos, sin ceder volumen.",
+  "Beat'30 entrega volumen (+3,76 pp, resultados 2026 y 2027): guía de ingresos +5/+7 %, EBITDA +5/+8 % y neto +3/+6 %. Disparador: volumen ≥ +4 % anual con el margen EBITDA sin ceder, dos ejercicios seguidos.",
+  "Programa de recompra de hasta 150 M€ y 2.700.000 acciones (+1,13 pp), comunicado a la CNMV el 27-feb-2026 y vigente hasta el 1-mar-2027. Disparador: acciones amortizadas en junta y capital social reducido.",
+  "Venta del suelo de Chequia por 600 M CZK y normalización del CAPEX (2S-2027). Impacto NO derivable: no hay celda de entrada que represente un cobro extraordinario de inversión, y se declara así en vez de estimarlo."
  ],
  "riesgos": [
-  "Shock de materias primas y energía sin traslación a precio",
-  "Exposición a divisas emergentes (USD, BRL, CNY)",
-  "Presión de precios en plásticos / Nuevos Negocios",
-  "Debilidad estructural de la demanda de carne procesada",
-  "Ejecución y retorno del CAPEX del plan Beyond25"
+  "Sobreinversión o retraso del plan Beat'30 (operativo · probabilidad media · −16 % a −32 %). Es el riesgo dominante por magnitud y es la propia estrategia de la empresa: 100 M€ en 2026 y una fábrica de 1.250 M CZK en Chequia. Señal: CAPEX trimestral anualizado por encima de 110 M€, o revisión al alza del coste de la planta checa.",
+  "Coste de materias primas y energía (operativo · probabilidad alta · −8 % a −23 %). 411,6 M€ de consumos y la energía encima, sobre 1.252,0 de ventas. Señal: consumos por encima del 34 % de las ventas, o margen EBITDA cediendo dos trimestres.",
+  "Presión de precio de la envoltura (competitivo · probabilidad media · −8 % a −23 %). No es hipótesis: en 2025 el mix de precio quedó por debajo del año anterior con los volúmenes en récord. Señal: dos trimestres seguidos de mix negativo con volúmenes al alza.",
+  "Traslación de resultados por divisa (probabilidad alta · −5 % a −9 %). Sudamérica pesa 181,4 M€ de ventas, el 14,5 % del total, y las tres últimas compras son brasileñas. Señal: brecha reportado-comparable por encima de 4 puntos dos trimestres seguidos.",
+  "Reparto por encima de la caja libre (financiero · probabilidad media · −6 % a −13 %). Payout trienal del 95,4 % y cobertura del dividendo sobre FCL por debajo de 1,0x en siete de diez ejercicios. Señal: cobertura bajo 1,0x dos ejercicios seguidos con la deuda neta subiendo.",
+  "De-rating del múltiplo (mercado · probabilidad media · −9 % a −15 %). Medido, no supuesto: 2025 ya es el mínimo de la década. Señal: EV/EBITDA de cierre por debajo de 9,0x con el margen intacto. No es rotura de tesis: acerca la banda de entrada.",
+  "Caída del consumo de carne procesada (macro · probabilidad baja-media · −5 % a −19 %). Mitigante medido: en 2020 el beneficio neto (122,5 M€) superó al de 2019 (105,6). Señal: volumen de envolturas del grupo en contracción dos trimestres seguidos."
  ],
- "bull": "Recuperación de márgenes al 25%, vuelta al crecimiento de volúmenes y mejor conversión a caja, con re-rating del múltiplo → ~65-70 € (+14/+22%).",
- "bear": "Tormenta de costes prolongada o disrupción de la demanda de carne procesada → margen EBITDA <15%, beneficio −40% y derating → ~25-38 € (−33/−56%).",
- "resumen": "Viscofan es un negocio de máxima calidad (rating AA, moat ancho, ROIC ~15% muy por encima del WACC, balance excepcional) con un dividendo atractivo (~5,7%). Pero a 57,20 € cotiza ~16% por encima de su valor intrínseco estimado (~48 €) y de su valoración media histórica por múltiplos (~51 €): no hay margen de seguridad. Decisión: ESPERAR; entrada atractiva hacia ~45 € (ideal <42 €).",
- "schemaVersion": 8,
+ "bull": "El mercado deja de pagar el mínimo de la década por el mismo EBITDA (EV/EBITDA 9,43x contra una media propia de 10,96x) y el mix de precio acompaña por fin al volumen: los cuatro catalizadores medibles acumulados llevan el precio objetivo a 65,10 €, un +24,2 % sobre la base y un +15,8 % sobre la cotización.",
+ "bear": "El coste de las materias primas y la energía se dispara sin que el precio lo repercuta y el margen EBITDA pierde tres puntos: el precio objetivo cae a 40,15 €, un −23,4 %. En su versión peor —la cadena «Beat'30 se come la caja», con 60 M€ anuales de CAPEX adicional— el precio objetivo se va a 32,05 €, un −38,9 %.",
+ "resumen": "Viscofan fabrica envolturas cárnicas con una escala que nadie ha querido disputarle en una década: ningún entrante nuevo, y el único competidor directo cotizado del mundo pierde dinero. Renta un 15,53 % sobre el capital empleado contra un coste del 7,00 %, con el spread positivo los diez ejercicios. Rating A (72,0), moat 73,9 a 1,1 puntos de ANCHO y dividendo muy seguro (90/100). La calidad no es la discusión: el precio sí. El precio objetivo son 52,44 € y la acción cotiza a 56,20, un margen del −6,70 % contra un corte de compra del +15 %. De las seis condiciones de COMPRAR se cumplen cinco y falla exactamente ésa. Veredicto ESPERAR, con banda de acumulación en 40,15-45,60 € (un 18,9 % por debajo del precio de hoy) y stop de tesis en 30,94 €. Toda la tesis cuelga de una variable: la inversión del plan Beat'30, de la que dependen a la vez el moat —la escala se compra con fábricas— y el precio objetivo —cada 30 M€ anuales de CAPEX adicional valen el −16,24 %—.",
  "confianza": {
-  "score": 98,
+  "score": 100,
   "nivel": "A",
   "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "sin huecos críticos ni discrepancias abiertas"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -44,38 +46,50 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-10"
  },
  "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
+  "nivel": "sensible",
+  "sobreviveDecision": false,
   "matizada": false,
   "banda": {
-   "p10": 25.5,
-   "p50": 47.8,
+   "p10": 40.15,
+   "p50": 52.44,
    "p90": 65.1
   },
   "sensibilidad": {
-   "poMin": 30.6,
-   "poMax": 54.2,
-   "poBase": 39.3,
-   "cotizacion": 57.2,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 49.68,
+   "poMax": 57.49,
+   "poBase": 52.44,
+   "cotizacion": 56.2,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.3,
+   "componentesIntactos": 9,
+   "dcf": {
+    "poMin": 29.74,
+    "poMax": 55.77,
+    "poBase": 38.9155304405524
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -46.5,
-   "mdsMax": -5.2
+   "mdsMin": -11.6,
+   "mdsMax": 2.3
   },
   "beta": {
-   "capm": 0.14,
+   "capm": 0.345,
    "ref2": null,
-   "aviso": "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "aviso": null
   },
   "motivos": [
-   "la cotización (57.20) queda por ENCIMA de toda la banda de PO [30.6–54.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
-   "beta CAPM 0.14 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (30 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 70 % restante de la ponderación —los otros 9 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (56.20) cae DENTRO de la banda del precio objetivo de síntesis [49.68–57.49] → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "para contraste, el DCF puro (§6.3) se mueve en [29.74–55.77] € alrededor de 38.92 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-10"
  },
  "dividendSafety": {
   "score": 90,
@@ -87,7 +101,7 @@
    "C4": 15,
    "C5": 15
   },
-  "shareholderYield": null,
+  "shareholderYield": 5.84,
   "topeDuro": {
    "activo": false,
    "motivo": ""
@@ -100,7 +114,7 @@
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-10"
  },
  "forense": {
   "aplica": true,
@@ -121,11 +135,11 @@
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": 8.21,
+   "z": 8.22,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.46,
+   "m": -2.43,
    "senal": "sin indicios",
    "aproximado": [
     "SGAI"
@@ -136,29 +150,16 @@
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-10"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 9.4,
-  "gIntrinseco": 7.38,
-  "veredicto": "EXIGENTE",
-  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
-  "calculadoEl": "2026-07-27",
-  "entradas": {
-   "fcl": 95.58,
-   "wacc": 7.5,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 45.66,
-   "deudaNeta": 253.53,
-   "modo": "EV",
-   "precioBase": 57.2,
-   "validado": true,
-   "desviacion": -0.002,
-   "gBase": 9.398,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
-  }
+  "gImplicito": 7.130074,
+  "gIntrinseco": 7.43187,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El precio de 56,20 € exige un crecimiento del FCL del 7,13 % en la fase 1, y la empresa autofinancia un 7,43 % (reinversión 47,85 % × ROIC 15,53 %). Ratio 0,96x, por debajo del corte de 1,0x: el mercado no pide nada que Viscofan no haya demostrado hacer. Ojo a la contradicción, y está escrita en el §6.x del libro: el DCF etiqueta el precio como CARA y este contraste lo llama PLAUSIBLE, saliendo los dos del mismo modelo y del mismo WACC. La conciliación es que las tres tasas del escenario base (3,0 / 2,5 / 2,0 %) son más conservadoras que la capacidad medida de la empresa. Cifras tomadas del §6.x del libro, que trae su propia comprobación (residuo 1,4e-12), y no de la ejecución suelta de la herramienta, que daba 8,0 % y EXIGENTE sin declarar la suya [F480, decisión del operador del 10-sep-2026].",
+  "calculadoEl": "2026-09-09"
  }
 }
