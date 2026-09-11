@@ -398,6 +398,115 @@ function _atribWaterfall(steps){
   });
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="max-width:700px;display:block">${g}</svg>`;
 }
+
+/* === [11-sep-2026] SITUACION DE MI INVERSION ==========================================
+   Banner de cabecera de la vista Rentabilidad. Responde a UNA pregunta del operador:
+   «cuanto dinero ha salido de mi nomina y cuanto tengo hoy».
+
+   LA REGLA, y es DECISION SUYA del 11-sep-2026: el dinero que NO salio de la nomina no
+   cuenta como aportacion. Eso son dos cosas, y las dos «se han reinvertido siempre»
+   (palabras suyas): los DIVIDENDOS cobrados y la GANANCIA de lo ya vendido.
+
+       aportado  = coste de las abiertas - dividendos cobrados - resultado de lo vendido
+       resultado = valor de mercado hoy - aportado
+
+   Es ARITMETICAMENTE IDENTICO a «plusvalia + dividendos + resultado de cerradas»: el
+   resultado en EUROS no depende de esta decision, solo el PORCENTAJE. Medido sobre su
+   cartera el 11-sep-2026: +154,1 % sobre el coste bruto contra +247,4 % con esta regla.
+   Los 93 puntos de diferencia son el denominador, no el dinero.
+
+   POR ESO EL ROTULO NO DICE «RENTABILIDAD». Con el dividendo restado del denominador y
+   sumado al numerador, este numero NO es comparable con un indice ni con un fondo. Para
+   eso esta la TIR, que no tiene denominador y por construccion es inmune al dinero
+   reciclado: una venta entra como flujo positivo y la compra siguiente como negativo,
+   asi que el euro que vuelve a invertirse no se cuenta dos veces. Fue la objecion que
+   planteo el operador —«el dinero de la venta se usa en compras nuevas y apareceria como
+   invertido dos veces»— y la TIR es su respuesta.
+
+   La comision de COMPRA ya va dentro del coste (`invPositions`, 09-sep-2026), asi que el
+   aportado la lleva descontada. Fuera quedan la CUSTODIA, la comision de VENTA y el
+   efectivo parado en el broker; el pie del banner lo dice, porque un numero al que le
+   falta algo tiene que declarar que le falta.
+   -------------------------------------------------------------------------------------
+   `_cerradasNeto` recoge las DOS clases de posicion cerrada que maneja la app, con el
+   mismo criterio que `posLots()`: las archivadas en DB.cerradas y los ciclos vendidos
+   del todo que aun no se han archivado. Si un ticker apareciera en las dos a la vez, sus
+   dividendos se contarian dos veces: medido el 11-sep-2026 no ocurre (3 archivadas -BME,
+   ENG, TEF- y ninguna abierta coincide), pero el caso se VIGILA y se dice en el banner
+   en vez de fiarlo a que siga sin pasar.                                                */
+function _cerradasNeto(){
+  const _com=o=>(typeof khComision==='function')?num(khComision(o)):num(o&&o.comision);
+  let coste=0,venta=0,divs=0,n=0; const archT=new Set();
+  (DB.cerradas||[]).forEach(c=>{
+    const cc=(typeof cerradaCalc==='function')?cerradaCalc(c):null; if(!cc)return;
+    const T=(cc.ticker||'').toUpperCase(); if(T)archT.add(T);
+    coste+=num(cc.coste); venta+=num(cc.venta); divs+=num(cc.dividendos); n++; });
+  const openT=new Set(((typeof invPositions==='function')?invPositions():[]).filter(p=>p.acciones>0.0001).map(p=>(p.ticker||'').toUpperCase()));
+  const dobles=[...archT].filter(t=>openT.has(t));
+  const opsAll=DB.operaciones||[];
+  [...new Set(opsAll.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))].forEach(t=>{
+    if(openT.has(t)||archT.has(t))return;
+    const tops=opsAll.filter(o=>(o.ticker||'').toUpperCase()===t);
+    const buys=tops.filter(o=>o.tipo!=='venta'), sells=tops.filter(o=>o.tipo==='venta');
+    const bAcc=buys.reduce((s,o)=>s+num(o.acciones),0), sAcc=sells.reduce((s,o)=>s+num(o.acciones),0);
+    if(!(sAcc>0.0001&&Math.abs(bAcc-sAcc)<0.0001))return;   // solo ciclos cerrados del todo
+    coste+=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio)+_com(o),0);
+    venta+=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio)-_com(o),0);
+    ((DB.dividendos||{})[t]||[]).forEach(dd=>{ if(!dd.fecha)return;
+      let held=0; tops.forEach(o=>{ if((o.fecha||'')<=dd.fecha)held+=(o.tipo==='venta'?-1:1)*num(o.acciones); });
+      if(held>0.0001)divs+=held*num(dd.importe); });
+    n++; });
+  return {n,coste,venta,divs,neto:venta-coste+divs,dobles}; }
+
+/* Calculo puro, sin DOM: el banner, la prueba y cualquier otra pantalla leen de aqui.
+   Misma razon que `_rentaTotales`: un solo numero, varios sitios donde se ensena. */
+function _situacionInversion(R,CR){
+  if(!R||!R.ok)return null;
+  const T=_rentaTotales(R.rows), C=_cerradasNeto();
+  const aportado=T.coste-T.divCob-C.neto, valor=T.valor, resultado=valor-aportado;
+  /* Guarda de identidad: si estas dos formas de contar dejan de coincidir es que alguien
+     ha tocado una de las dos mitades. Se avisa en consola y NO se rompe la pantalla. */
+  const alt=T.pl+T.divCob+C.neto;
+  if(Math.abs(alt-resultado)>0.5&&typeof console!=='undefined')console.warn('[situacion] descuadre',resultado,alt);
+  let f0=''; (DB.operaciones||[]).forEach(o=>{ if(o.fecha&&(!f0||o.fecha<f0))f0=o.fecha; });
+  (DB.cerradas||[]).forEach(c=>(c.ops||[]).forEach(o=>{ if(o.fecha&&(!f0||o.fecha<f0))f0=o.fecha; }));
+  return {aportado,valor,resultado,
+          pct:(aportado>0.01)?resultado/aportado:null,                 // aportado <=0: no hay % que dar
+          tir:(CR&&CR.xirr!=null&&num(CR.anios)>=1)?CR.xirr:null,      // <1 ano: no se extrapola (P2.3)
+          anio0:f0?f0.slice(0,4):'', coste:T.coste, divCob:T.divCob, pl:T.pl, cerr:C, n:R.rows.length}; }
+
+function _situacionBanner(S){
+  if(!S)return '';
+  const sg=x=>(x>=0?'+':'')+fmt(x);
+  const pc=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
+  const cl=x=>x>=0?'pos':'neg';
+  const cN=S.cerr.neto;
+  const restaC=S.cerr.n?((cN>=0?' − ganancia de lo vendido ':' + pérdida de lo vendido ')+fmt(Math.abs(cN))):'';
+  const av=(S.cerr.dobles&&S.cerr.dobles.length)
+    ?'<div class="si-av">⚠ '+S.cerr.dobles.join(', ')+' figura archivado como cerrado y a la vez en cartera: revisa, sus dividendos pueden estar contándose dos veces.</div>':'';
+  return '<div class="si-ban">'
+    +'<div class="si-h">SITUACIÓN DE MI INVERSIÓN<span class="si-fe">a '+new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})+'</span></div>'
+    +'<div class="si-nums">'
+      +'<div class="si-n hero"><div class="v '+cl(S.resultado)+'">'+sg(S.resultado)+'</div><div class="l">resultado total</div></div>'
+      +'<div class="si-n"><div class="v '+(S.pct==null?'':cl(S.pct))+'">'+pc(S.pct)+'</div><div class="l">sobre mi dinero</div></div>'
+      +'<div class="si-n"><div class="v '+(S.tir==null?'':cl(S.tir))+'">'+pc(S.tir)+'</div><div class="l">anual'+(S.anio0?(' · desde '+S.anio0):'')+'</div></div>'
+    +'</div>'
+    +'<div class="si-cas">'
+      +'<div class="si-r"><span class="l">De mi nómina ha salido</span><span class="v">'+fmt(S.aportado)+'</span></div>'
+      +'<div class="si-s">compras '+fmt(S.coste)+' − dividendos cobrados '+fmt(S.divCob)+restaC+'</div>'
+      +'<div class="si-r"><span class="l">Hoy tengo</span><span class="v">'+fmt(S.valor)+'</span></div>'
+      +'<div class="si-s">valor de mercado de la cartera · '+S.n+' posiciones</div>'
+      +'<div class="si-r tot"><span class="l">RESULTADO</span><span class="v '+cl(S.resultado)+'">'+sg(S.resultado)+'</span></div>'
+    +'</div>'
+    +'<div class="si-d"><span class="si-dt">de dónde sale</span>'
+      +'<span class="si-di">dividendos cobrados y reinvertidos <b>'+fmt(S.divCob)+'</b></span>'
+      +(S.cerr.n?('<span class="si-di">'+(cN>=0?'ganancia':'pérdida')+' de lo ya vendido <b class="'+cl(cN)+'">'+sg(cN)+'</b></span>'):'')
+      +'<span class="si-di">plusvalía latente de lo que tengo <b class="'+cl(S.pl)+'">'+sg(S.pl)+'</b></span>'
+    +'</div>'
+    +av
+    +'<div class="si-p">El porcentaje se mide sobre <b>tu dinero</b> (compras menos lo que se reinvirtió solo), así que <b>no es comparable con un índice</b>: para eso está la cifra anual. No incluye gastos de custodia, comisiones de venta ni el efectivo parado en el bróker.</div>'
+  +'</div>'; }
+
 // === Rentabilidad por empresa: TIR de tu posición + rentab. total + TR del valor por periodos (YTD/1A/3A) ===
 function rentabilidadEmpresas(reRender){
   const pos=(typeof invPositions==='function'?invPositions():[]).filter(p=>p.acciones>0.0001);
@@ -533,7 +642,9 @@ function renderRentabEmpresas(){ const el=$('#rentaBody'); if(!el)return; const 
 <div class="meth-item"><div class="meth-h">🏢 TR YTD / 1A / 3A (rendimiento del activo)</div><p>Total-Return de la <b>empresa</b> en el año en curso, último año y últimos 3 años: (precio hoy − precio al inicio + dividendos/acción del periodo) ÷ precio al inicio. Mide cómo se ha comportado <b>la acción</b>, <b>sin importar cuándo entraste tú</b> — sirve para comparar empresas entre sí. TR 3A es <b>acumulado</b> (no anual). Usa las cotizaciones del repositorio.</p></div></div>`;
   window._rentaBlk=window._rentaBlk||{tabla:false,barras:false,ibex:false,meto:false};
   const B=(key,icon,title,sum,inner)=>{ const op=window._rentaBlk[key]?' open':''; return `<div class="pos-blk${op}" data-rentablk="${key}"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">${icon} ${title}</span><span class="bsum">${sum}</span></div><div class="pos-blk-b"><div class="renta-pad">${inner}</div></div></div>`; };
-  el.innerHTML=B('tabla','📈','Rentabilidad por empresa',R.rows.length+' posiciones · TIR '+(CR?pc(CR.xirr):'—'),tblBlk)
+  const SI=_situacionInversion(R,CR);
+  el.innerHTML=_situacionBanner(SI)
+    +B('tabla','📈','Rentabilidad por empresa',R.rows.length+' posiciones · TIR '+(CR?pc(CR.xirr):'—'),tblBlk)
     +B('barras','📊','Comparativa de rentabilidad','rent. total y TIR por empresa',barBlk)
     +B('ibex','⚖️','Tu cartera vs el IBEX-35',(CR&&CR.valDif!=null)?('ventaja '+sgv(CR.valDif)+' · alfa '+pc(CR.alfa)):'',ibexBlk)
     +B('meto','ℹ️','Cómo se calcula la rentabilidad','rentabilidad total · TIR · TR',methBlk);
@@ -1312,6 +1423,33 @@ function _khCSS(){
 .kh-rangos{gap:4px}
 .kh-rb{padding:4px 8px;font-size:11.5px;border-radius:7px}
 .kh-ficha{margin-left:0;order:9;flex-basis:100%;margin-top:4px}}
+
+.si-ban{background:linear-gradient(180deg,#f8fafc,#fff);border:1px solid #cbd5e1;border-radius:14px;padding:14px 16px;margin:0 0 14px;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+.si-ban .si-h{font-weight:800;font-size:13px;letter-spacing:.06em;color:#0f172a;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.si-ban .si-fe{font-weight:600;font-size:11px;color:#64748b;letter-spacing:0}
+.si-ban .si-nums{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 14px}
+.si-ban .si-n{flex:1 1 150px;min-width:130px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.si-ban .si-n.hero{flex:1 1 210px;background:#0f172a;border-color:#0f172a}
+.si-ban .si-n.hero .v{color:#fff}.si-ban .si-n.hero .l{color:#cbd5e1}
+.si-ban .si-n .v{font-size:24px;font-weight:800;line-height:1.15;color:#0f172a}
+.si-ban .si-n.hero .v.pos,.si-ban .si-n.hero .v.neg{color:#fff}
+.si-ban .si-n .v.pos{color:#16a34a}.si-ban .si-n .v.neg{color:#dc2626}
+.si-ban .si-n .l{font-size:11px;color:#64748b;margin-top:3px;font-weight:600}
+.si-ban .si-cas{border-top:1px solid #e2e8f0;padding-top:10px}
+.si-ban .si-r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;color:#0f172a;padding:3px 0}
+.si-ban .si-r .v{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.si-ban .si-r.tot{border-top:2px solid #0f172a;margin-top:7px;padding-top:7px;font-weight:800}
+.si-ban .si-r.tot .l{font-weight:800;letter-spacing:.03em}
+.si-ban .si-r .v.pos{color:#16a34a}.si-ban .si-r .v.neg{color:#dc2626}
+.si-ban .si-s{font-size:11px;color:#64748b;margin:0 0 6px;padding-left:2px}
+.si-ban .si-d{margin-top:11px;padding-top:9px;border-top:1px dashed #e2e8f0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.si-ban .si-dt{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:#94a3b8;text-transform:uppercase}
+.si-ban .si-di{font-size:11.5px;color:#475569;background:#f1f5f9;border-radius:7px;padding:3px 8px}
+.si-ban .si-di b{color:#0f172a}.si-ban .si-di b.pos{color:#16a34a}.si-ban .si-di b.neg{color:#dc2626}
+.si-ban .si-av{margin-top:9px;font-size:11.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 9px}
+.si-ban .si-p{margin-top:9px;font-size:11px;color:#64748b;line-height:1.5}
+@media(max-width:640px){.si-ban .si-nums{gap:8px}.si-ban .si-n{flex:1 1 100%}.si-ban .si-n .v{font-size:21px}}
+
 `;
   document.head.appendChild(st);
 }
