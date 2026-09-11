@@ -1,791 +1,802 @@
 {
+  "schemaVersion": 2,
   "ticker": "LOG",
   "empresa": "Logista",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-02-05",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2022-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Inicio de FY2023 con integración de adquisiciones de transporte (El Mosca, Carbó). Crecimiento fuerte.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 2986
+          "valor": 2986.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 398
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 398.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 84
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 84.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.1
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 71
+          "nombre": "Bº Explotación (M€)",
+          "valor": 71.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 60
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 60.0
         },
         {
-          "nombre": "%var VE",
-          "valor": null
+          "nombre": "VE Iberia (M€)",
+          "valor": 263.9
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": null
+          "nombre": "VE Italia (M€)",
+          "valor": 78.5
         },
         {
-          "nombre": "%var BN",
-          "valor": null
+          "nombre": "VE Francia (M€)",
+          "valor": 56.4
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 1.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Adquiere el 100% de Carbó Collbatallé (~51 M€), transporte capilar en frío",
-          "impacto": "+",
-          "valoracion": "Diversifica fuera del tabaco reforzando la pata de transporte"
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Adquiere el 60% de Transportes El Mosca (>100 M€), larga distancia",
-          "impacto": "+",
-          "valoracion": "Amplía la diversificación en transporte frente al declive del tabaco"
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-04-30",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "S1 sólido; margen sobre Ventas Económicas del 22%.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
           "valor": 5935.4
         },
         {
-          "nombre": "Ventas Econ. (M€)",
+          "nombre": "Ventas Económicas (M€)",
           "valor": 833.8
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
+          "nombre": "Bº Explot. Ajustado (M€)",
           "valor": 183.1
         },
         {
-          "nombre": "Margen s/VE %",
-          "valor": 22
+          "nombre": "Margen s/ VE (%)",
+          "valor": 22.0
         },
         {
-          "nombre": "Bº Explot. (M€)",
+          "nombre": "Bº Explotación (M€)",
           "valor": 146.1
         },
         {
-          "nombre": "Bº Neto (M€)",
+          "nombre": "Beneficio Neto (M€)",
           "valor": 125.8
         },
         {
-          "nombre": "%var VE",
-          "valor": null
+          "nombre": "VE Iberia (M€)",
+          "valor": 547.8
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": null
+          "nombre": "VE Italia (M€)",
+          "valor": 176.9
         },
         {
-          "nombre": "%var BN",
-          "valor": null
+          "nombre": "VE Francia (M€)",
+          "valor": 111.3
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 0.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-07-28",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "9M",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "9M con Ventas Económicas de 1.260 M€. EBIT Ajustado no reportado con esa etiqueta en el informe (Pte. Rev.).",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
           "valor": 9149.8
         },
         {
-          "nombre": "Ventas Econ. (M€)",
+          "nombre": "Ventas Económicas (M€)",
           "valor": 1260.3
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": null
-        },
-        {
-          "nombre": "Margen s/VE %",
-          "valor": 22
-        },
-        {
-          "nombre": "Bº Explot. (M€)",
+          "nombre": "Bº Explot. Ajustado (M€)",
           "valor": 273.3
         },
         {
-          "nombre": "Bº Neto (M€)",
+          "nombre": "Margen s/ VE (%)",
+          "valor": 22.0
+        },
+        {
+          "nombre": "Bº Explotación (M€)",
+          "valor": 216.8
+        },
+        {
+          "nombre": "Beneficio Neto (M€)",
           "valor": 193.4
         },
         {
-          "nombre": "%var VE",
-          "valor": null
+          "nombre": "VE Iberia (M€)",
+          "valor": 824.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": null
+          "nombre": "VE Italia (M€)",
+          "valor": 271.2
         },
         {
-          "nombre": "%var BN",
-          "valor": null
+          "nombre": "VE Francia (M€)",
+          "valor": 168.5
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -0.8
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2023-11-03",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "VE +36% (mayoritariamente perímetro por adquisiciones de transporte); BN 272 M€ (+37%). El margen s/VE baja a 21,7% al integrar transporte, de menor margen.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 12428
+          "valor": 12428.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1684
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1684.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 366
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 366.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.7
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 293
+          "nombre": "Bº Explotación (M€)",
+          "valor": 293.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 272
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 272.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 36.36
+          "nombre": "VE Iberia (M€)",
+          "valor": 1093.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 17.31
+          "nombre": "VE Italia (M€)",
+          "valor": 370.0
         },
         {
-          "nombre": "%var BN",
-          "valor": 36.68
+          "nombre": "VE Francia (M€)",
+          "valor": 226.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": 1.85
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -1.8
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-02-05",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Arranque fuerte de FY2024; BN +22%, ayudado por el ingreso financiero de la caja (tipos altos).",
+      "resumen": "Ventas Económicas +7.0 %, Bº Explotación Ajustado +6.0 %, Beneficio Neto +21.7 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 20.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.5 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 3166
+          "valor": 3166.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 426
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 426.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 89
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 89.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 20.9
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 72
+          "nombre": "Bº Explotación (M€)",
+          "valor": 72.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 73
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 73.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 7.04
+          "nombre": "VE Iberia (M€)",
+          "valor": 277.3
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 5.95
+          "nombre": "VE Italia (M€)",
+          "valor": 96.0
         },
         {
-          "nombre": "%var BN",
-          "valor": 21.67
+          "nombre": "VE Francia (M€)",
+          "valor": 54.2
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -0.5
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-04-30",
+      "periodoDisplay": "S1",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "BN +27%; margen s/VE 22,3%. Aportación creciente del resultado financiero.",
+      "resumen": "Ventas Económicas +4.0 %, Bº Explotación Ajustado +5.4 %, Beneficio Neto +27.2 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.3 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.9 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 6206
+          "valor": 6206.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 867
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 867.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 193
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 193.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 22.3
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 168
+          "nombre": "Bº Explotación (M€)",
+          "valor": 168.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 160
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 160.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 3.98
+          "nombre": "VE Iberia (M€)",
+          "valor": 569.3
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 5.41
+          "nombre": "VE Italia (M€)",
+          "valor": 190.1
         },
         {
-          "nombre": "%var BN",
-          "valor": 27.19
+          "nombre": "VE Francia (M€)",
+          "valor": 110.8
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -0.9
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-07-28",
+      "periodoDisplay": "9M",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "BN +22,5%, camino del récord anual.",
+      "resumen": "Ventas Económicas +4.6 %, Bº Explotación Ajustado +6.1 %, Beneficio Neto +22.5 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.0 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.7 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 9480
+          "valor": 9480.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1318
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1318.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 290
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 290.0
         },
         {
-          "nombre": "Margen s/VE %",
-          "valor": 22
+          "nombre": "Margen s/ VE (%)",
+          "valor": 22.0
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 249
+          "nombre": "Bº Explotación (M€)",
+          "valor": 249.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 237
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 237.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 4.58
+          "nombre": "VE Iberia (M€)",
+          "valor": 861.7
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": null
+          "nombre": "VE Italia (M€)",
+          "valor": 297.8
         },
         {
-          "nombre": "%var BN",
-          "valor": 22.54
+          "nombre": "VE Francia (M€)",
+          "valor": 163.5
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -0.7
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2024-11-03",
+      "periodoDisplay": "FY",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Récord histórico: BN 308 M€ (+13%), impulsado por el ingreso financiero de la caja a tipos altos. Margen s/VE 21,9%.",
+      "resumen": "Ventas Económicas +4.3 %, Bº Explotación Ajustado +5.2 %, Beneficio Neto +13.2 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 0.4 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 12986
+          "valor": 12986.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1757
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1757.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 385
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 385.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.9
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 326
+          "nombre": "Bº Explotación (M€)",
+          "valor": 326.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 308
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 308.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 4.33
+          "nombre": "VE Iberia (M€)",
+          "valor": 1144.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 5.19
+          "nombre": "VE Italia (M€)",
+          "valor": 402.0
         },
         {
-          "nombre": "%var BN",
-          "valor": 13.24
+          "nombre": "VE Francia (M€)",
+          "valor": 216.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": 2.09
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 0.4
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-02-05",
+      "periodoDisplay": "1T",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "VE +7,5% pero BN sólo +5,5%: empieza a notarse la menor aportación financiera al moderarse los tipos.",
+      "resumen": "Ventas Económicas +7.5 %, Bº Explotación Ajustado +10.1 %, Beneficio Neto +5.5 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.4 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 3.8 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 3292
+          "valor": 3292.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 458
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 458.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 98
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 98.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.4
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 86
+          "nombre": "Bº Explotación (M€)",
+          "valor": 86.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 77
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 77.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 7.51
+          "nombre": "VE Iberia (M€)",
+          "valor": 304.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 10.11
+          "nombre": "VE Italia (M€)",
+          "valor": 104.0
         },
         {
-          "nombre": "%var BN",
-          "valor": 5.48
+          "nombre": "VE Francia (M€)",
+          "valor": 51.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 3.8
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-04-30",
+      "periodoDisplay": "S1",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "VE +5,7% y BN −5,6%: la divergencia confirma la reversión del ingreso financiero (BCE a la baja).",
+      "resumen": "Ventas Económicas +5.7 %, Bº Explotación Ajustado +4.7 %, Beneficio Neto -5.6 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.1 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia sube 0.3 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 6425
+          "valor": 6425.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 916
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 916.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 202
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 202.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 22.1
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 174
+          "nombre": "Bº Explotación (M€)",
+          "valor": 174.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 151
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 151.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 5.65
+          "nombre": "VE Iberia (M€)",
+          "valor": 606.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 4.66
+          "nombre": "VE Italia (M€)",
+          "valor": 213.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -5.63
+          "nombre": "VE Francia (M€)",
+          "valor": 101.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 0.3
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-07-28",
+      "periodoDisplay": "9M",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "VE +3,3% con BN −9,7%: el beneficio cae pese a crecer las Ventas Económicas. Efecto tipos. Ámbar por el subyacente.",
+      "resumen": "Ventas Económicas +3.3 %, Bº Explotación Ajustado -1.0 %, Beneficio Neto -9.7 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.1 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia se mantiene plano 0.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 9937
+          "valor": 9937.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1361
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1361.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 287
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 287.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.1
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 245
+          "nombre": "Bº Explotación (M€)",
+          "valor": 245.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 214
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 214.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 3.26
+          "nombre": "VE Iberia (M€)",
+          "valor": 895.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": -1.03
+          "nombre": "VE Italia (M€)",
+          "valor": 322.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -9.7
+          "nombre": "VE Francia (M€)",
+          "valor": 150.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": 0.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2025-11-03",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "Cierre FY2025: VE +3,0%, BN 281 M€ (−8,8%) y EBIT Aj. −1,8%. El negocio crece pero el beneficio baja por el menor ingreso financiero. Ámbar.",
+      "periodoDisplay": "FY",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ventas Económicas +3.0 %, Bº Explotación Ajustado -1.8 %, Beneficio Neto -8.8 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 20.9 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 0.4 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 13536
+          "valor": 13536.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1809
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1809.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 378
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 378.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 20.9
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 318
+          "nombre": "Bº Explotación (M€)",
+          "valor": 318.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 281
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 281.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 2.96
+          "nombre": "VE Iberia (M€)",
+          "valor": 1181.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": -1.82
+          "nombre": "VE Italia (M€)",
+          "valor": 434.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -8.77
+          "nombre": "VE Francia (M€)",
+          "valor": 200.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": 2.01
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -0.4
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-02-05",
+      "periodoDisplay": "1T",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Trimestre mixto que confirma el patrón de 2025: el Bº de Explotación Ajustado crece +2,0% y el margen sobre Ventas Económicas mejora 60 pb (hasta 22,0%) —fortaleza operativa—, pero el Beneficio Neto vuelve a caer (−8,4%) por la menor aportación del ingreso financiero al bajar los tipos del BCE. Las Ventas Económicas ceden ligeramente (−0,8%), primer trimestre en negativo. Ámbar: la tesis operativa sigue intacta, pero el beneficio —y el dividendo, con pay-out ~98%— siguen presionados por la reversión de tipos, el riesgo clave del §8.1.",
+      "resumen": "Ventas Económicas -0.9 %, Bº Explotación Ajustado +2.0 %, Beneficio Neto -7.8 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 22.0 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 2.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 3399
+          "valor": 3399.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 454
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 454.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 100
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 100.0
         },
         {
-          "nombre": "Margen s/VE %",
-          "valor": 22
+          "nombre": "Margen s/ VE (%)",
+          "valor": 22.0
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 82
+          "nombre": "Bº Explotación (M€)",
+          "valor": 82.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 71
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 71.0
         },
         {
-          "nombre": "%var VE",
-          "valor": -0.8
+          "nombre": "VE Iberia (M€)",
+          "valor": 300.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 2
+          "nombre": "VE Italia (M€)",
+          "valor": 106.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -8.4
+          "nombre": "VE Francia (M€)",
+          "valor": 50.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -2.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
-      "fecha": "2026-04-30",
+      "periodoDisplay": "S1",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "El primer semestre confirma y AMPLÍA el deterioro: además del Beneficio Neto (−9,9%, por el menor ingreso financiero al bajar los tipos), ahora también ceden la magnitud operativa —Bº de Explotación Ajustado −3,5% y margen sobre Ventas Económicas −49 pb, hasta 21,6%— y las Ventas Económicas (−1,3%). El negocio sigue siendo muy rentable y el balance intacto, pero la debilidad ya no es solo financiera sino también operativa, frente a comparativas altas del año anterior. Ámbar en vigilancia estrecha: un tercer trimestre en negativo obligaría a revisar la tesis. El pay-out ~98% mantiene la presión sobre el dividendo.",
+      "resumen": "Ventas Económicas -1.3 %, Bº Explotación Ajustado -3.5 %, Beneficio Neto -9.9 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.6 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 1.2 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 6594
+          "valor": 6594.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 904
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 904.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 195
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 195.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.6
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 159
+          "nombre": "Bº Explotación (M€)",
+          "valor": 159.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 136
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 136.0
         },
         {
-          "nombre": "%var VE",
-          "valor": -1.3
+          "nombre": "VE Iberia (M€)",
+          "valor": 583.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": -3.5
+          "nombre": "VE Italia (M€)",
+          "valor": 222.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -9.9
+          "nombre": "VE Francia (M€)",
+          "valor": 102.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -1.2
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Venta de Logista Publicaciones en negociación tras la aprobación de la CNMC, con un deterioro registrado de 1 M€.",
-          "impacto": "=",
-          "valoracion": "Salida de un negocio pequeño y en declive estructural. Impacto irrelevante en cifras; relevante como señal de foco en las líneas que sí crecen."
-        },
-        {
-          "tipo": "Resultados",
-          "hecho": "Detalle del semestre (oct-2025 a mar-2026): el beneficio sobre la variación de inventario (BVI) cae a 32 M€ desde 46 M€ y los costes de reestructuración suben a 5 M€ desde 2 M€. El flujo de caja libre normalizado es de 157 M€ (63% del EBITDA) y el BPA baja a 1,03 € desde 1,14 €. El saldo medio de la línea de crédito sube a 1.928 M€ desde 1.747 M€, a un tipo del 2,48% más 0,75%.",
-          "impacto": "=",
-          "valoracion": "Los 14 M€ menos de BVI explican por sí solos buena parte de la caída del beneficio: es efecto precio del inventario de tabaco, no deterioro operativo. La caída del ingreso financiero por la bajada de tipos es el otro factor, y ese sí es estructural mientras el BCE no vuelva a subir."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q3",
-      "fecha": "2026-07-23",
+      "periodoDisplay": "9M",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "el informe de resultados de Logista no imprime su fecha de publicación en ninguna página: sólo el título del periodo y su rango. Comprobado en los quince. La fecha es el cierre del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Inflexión de mejora tras cinco trimestres ámbar: el EBIT Ajustado vuelve a crecer (+3,0%) y el margen sobre Ventas Económicas se expande a 21,5% (+39 pb), con las Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8%, desde −9,9% en el semestre) al desvanecerse el efecto del menor ingreso financiero —el BCE incluso subió tipos +25 pb en junio. Se resuelve la duda del S1: el deterioro operativo no ha continuado. Sigue ámbar porque el BN aún cede en tasa interanual, el margen queda por debajo del 22% y el pay-out ~99% mantiene la presión sobre el dividendo (riesgo clave §8.1). B4: 0 duros/1 blando → vigilar dividendo, sin S2. S6 (2º+ ámbar) → tendencia de MEJORA, seguir en ordinario.",
+      "resumen": "Ventas Económicas +1.1 %, Bº Explotación Ajustado +3.1 %, Beneficio Neto -1.9 % contra el mismo periodo del ejercicio anterior, con el margen sobre Ventas Económicas en 21.5 % (banda del §10.1: verde ≥ 21.0, rojo < 20.5). El volumen de tabaco en Iberia cae 1.3 %, que es la señal única de la tesis.  ·  QUIEBRE DE PERÍMETRO: desde este informe Polonia pasa de Iberia a Francia y la empresa ha reexpresado 2025. La serie de Iberia y la de Francia tienen aquí un escalón que no es operativo: ninguna lectura interanual de esas dos columnas que cruce este punto se lee sin este aviso.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 10165
+          "valor": 10165.0
         },
         {
-          "nombre": "Ventas Econ. (M€)",
-          "valor": 1376
+          "nombre": "Ventas Económicas (M€)",
+          "valor": 1376.0
         },
         {
-          "nombre": "Bº Expl. Aj. (M€)",
-          "valor": 296
+          "nombre": "Bº Explot. Ajustado (M€)",
+          "valor": 296.0
         },
         {
-          "nombre": "Margen s/VE %",
+          "nombre": "Margen s/ VE (%)",
           "valor": 21.5
         },
         {
-          "nombre": "Bº Explot. (M€)",
-          "valor": 244
+          "nombre": "Bº Explotación (M€)",
+          "valor": 244.0
         },
         {
-          "nombre": "Bº Neto (M€)",
-          "valor": 210
+          "nombre": "Beneficio Neto (M€)",
+          "valor": 210.0
         },
         {
-          "nombre": "%var VE",
-          "valor": 1.1
+          "nombre": "VE Iberia (M€)",
+          "valor": 884.0
         },
         {
-          "nombre": "%var EBIT Aj.",
-          "valor": 3.0
+          "nombre": "VE Italia (M€)",
+          "valor": 343.0
         },
         {
-          "nombre": "%var BN",
-          "valor": -1.8
+          "nombre": "VE Francia (M€)",
+          "valor": 154.0
         },
         {
-          "nombre": "DPA (€)",
-          "valor": null
+          "nombre": "Volumen tabaco Iberia (%)",
+          "valor": -1.3
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "El Consejo aprobó (23-jul-2026) un dividendo a cuenta del ejercicio 2026 de 0,58 €/acción (+3,6% vs. el a cuenta anterior), a pagar el 27-ago-2026; reitera el compromiso de dividendo total FY2026 ≥ 2,09 €/acción.",
-          "impacto": "+",
-          "valoracion": "Eleva el dividendo a cuenta y reafirma el suelo de 2,09 €/acc pese al pay-out ~99%; respalda el pilar de renta de la tesis, aunque la cobertura sigue estrecha y a vigilar."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Reafirma la guía FY2026: crecimiento de dígito sencillo medio en el Beneficio de Explotación Ajustado (ex-variación de inventarios) frente a FY2025.",
-          "impacto": "+",
-          "valoracion": "Coherente con el +3,0% de 9M; confirma que la fortaleza operativa persiste y que la presión sobre el beneficio es solo del ingreso financiero, que además empieza a revertir."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Reorganización interna de segmentos: Polonia se integra en Francia e Iberia pasa a incluir Holanda y Bélgica; las cifras de 2025 se reexpresan para comparabilidad.",
-          "impacto": "=",
-          "valoracion": "Cambio de perímetro de reporte sin efecto material en resultados; mejora la comparabilidad entre ejercicios."
-        }
-      ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     }
-  ],
-  "schemaVersion": 2
+  ]
 }

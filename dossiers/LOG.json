@@ -1,41 +1,45 @@
 {
+ "schemaVersion": 8,
  "ticker": "LOG",
- "empresa": "Compañía de Distribución Integral Logista Holdings, S.A.",
- "fecha": "2026-07-08",
+ "empresa": "Logista Integral, S.A.",
+ "fecha": "2026-09-11",
  "rating": "AA",
- "score": 79.8,
- "decision": "MANTENER",
- "metodoValoracion": "DCF (WACC normalizado 8%) + múltiplos históricos — consumo/distribución. PO oficial = síntesis ponderada ≈ 33,5 €; el DCF base daría ~39 € y los múltiplos históricos (sesgados a la baja por precios ajustados por dividendo) ~20 €.",
- "poBear": 24.0,
- "poBase": 34.0,
- "poBull": 47.0,
- "entMin": 27.0,
- "entMax": 30.0,
- "stop": 22.7,
- "moat": "Ancho (78/100)",
+ "score": 82.8,
+ "decision": "COMPRAR",
+ "metodoValoracion": "Síntesis ponderada del §6.5 — DCF sobre FCL recurrente 50 %, múltiplos 40 %, renta 10 %. PO oficial = 40,16 €. El DCF puro daría 32,09 / 48,71 / 79,42 €, y el rango es tan ancho porque el flujo base es la caja recurrente sin el circulante del impuesto del tabaco: la renta y los múltiplos son los que acotan. WACC 7,00 %, que es el suelo del arquetipo CONSUMO porque el CAPM queda por debajo los diez ejercicios.",
+ "poBear": 33.13,
+ "poBase": 40.16,
+ "poBull": 44.37,
+ "entMin": 33.13,
+ "entMax": 34.92,
+ "stop": 29.42,
+ "dpaPrevisto": 2.09,
+ "moat": "67,5 sobre 100 · MODERADO. Cinco pilares: escala eficiente 85 y costes de cambio 75 sostienen la nota; marca, efecto red y ventaja regulatoria quedan por debajo de 75. Solo DOS de los cinco superan el corte, y de ahí sale el aviso de concentración del §9.4.",
  "catalizadores": [
-  "Dividendo FY2026 sostenido o creciente (valida la tesis de renta)",
-  "La diversificación (transporte, Pharma, conveniencia) compensa el declive del tabaco",
-  "Estabilización del resultado financiero al tocar suelo los tipos del BCE",
-  "Nueva adquisición bolt-on creadora de valor (ROIC>WACC) con la caja neta"
+  "Cumplir el guidance de 2026: crecimiento de dígito sencillo medio del EBIT Ajustado ex-inventarios, reiterado sin cambios en los tres trimestres publicados (+3,0 % a nueve meses).",
+  "Que el mercado reconozca el cambio de perfil: transporte es ya el 40 % de las Ventas Económicas y cotiza a 16,4x de PER contra 14,3x de media propia.",
+  "Que el dividendo suba por primera vez desde 2024: congelado en 2,09 € dos ejercicios, con la empresa guiando «al menos mantener».",
+  "Una adquisición que rinda de verdad, con el múltiplo pagado publicado: tiene caja, capacidad y el hábito — 264 M€ en compras desde 2022.",
+  "Que la diversificación compense el tabaco en la cuenta de resultados, no solo en el relato: farma crece al 12,2 % y el tabaco de Iberia cae el 1,6 %."
  ],
  "riesgos": [
-  "Declive estructural de los volúmenes de tabaco (~−3%/año)",
-  "Caída de tipos del BCE que revierte el ingreso financiero de la caja",
-  "Endurecimiento fiscal/regulatorio del tabaco (Francia/UE)",
-  "Gobernanza: Imperial Brands controla el 50,01% y la línea de tesorería",
-  "Pay-out ~98% sin colchón ante un mal ejercicio"
+  "Fiscalidad del tabaco (Alta, −9 a −18 %): una subida del impuesto especial sin subida de precio rompe a la vez el margen y el viento de cola de inventarios, que en 2025 valió 45 M€.",
+  "Declive estructural del volumen (Alta, −5 a −12 %): Francia −8,8 % en 2025, Iberia −0,4 %, Italia −0,9 %; la empresa proyecta Francia −2,9 % anual hasta 2029.",
+  "Los tipos se comen el ingreso financiero (Alta, −2 a −6 %): ya pasó en 2025, de 93 a 63 M€ (−32,1 %), y ahí está el 8,8 % que cayó el beneficio neto.",
+  "Imperial Brands es dueño, proveedor y prestatario a la vez (Media, −4 a −7 %): 50,008 % del capital, 858,7 M€ de compras al año y 2.472 M€ de crédito concedido.",
+  "Reversión del múltiplo a su propia media (Media, −4 a −9 %).",
+  "Deterioro del fondo de comercio, y Francia es el candidato (Baja-Media, −1 a −2 %): 0 M€ de resultado de explotación estatutario con 52 M€ de amortización de contratos dentro.",
+  "Compras que no rinden lo esperado (Media, −2 a −4 %): 264 M€ invertidos sin publicar múltiplo ni retorno exigido, y el LTI de la directiva no tiene ninguna métrica de retorno sobre capital.",
+  "Ciberataque o caída prolongada de sistemas (Baja-Media, −2 a −4 %): es el primer riesgo que declara la propia empresa."
  ],
- "bull": "La diversificación compensa el tabaco, los tipos se estabilizan altos manteniendo el ingreso financiero y el mercado recalifica a PER ~16x: la acción tendería a 45-50 € (+35-47%).",
- "bear": "Tormenta fiscal-monetaria (recorte de tipos + subida fiscal del tabaco en Francia) → beneficio −20% → recorte del dividendo ~30% → des-rating: 22-25 € (−26 a −35%).",
- "resumen": "Logista es un cuasi-monopolio regulado de distribución, de calidad excepcional (Rating AA, moat ancho, ROIC ~31%, balance de caja neta, dividendo ~6% cubierto por la caja libre), que cotiza cerca de su valor razonable tras re-valorizarse con fuerza. Tesis de RENTA defensiva, no de revalorización: MANTENER para el inversor posicionado; ESPERAR entrada por debajo de 30 €. El punto a vigilar es la sensibilidad del beneficio a los tipos del BCE con un pay-out del ~98%.",
- "schemaVersion": 8,
+ "bull": "44,37 € — los tres primeros catalizadores cumpliéndose juntos: guidance entregado, re-rating del múltiplo hacia su media y el peso del transporte reconocido en la valoración. Es +10,5 % sobre el precio objetivo y +27,1 % sobre la cotización.",
+ "bear": "33,13 € — el riesgo regulatorio en su extremo duro: subida del impuesto sin subida de precio, margen cediendo dos trimestres y el viento de cola de inventarios desaparecido. Es 0,825 × PO, el suelo que el método fija, y coincide con la entrada mínima: el suelo es el suelo.",
+ "resumen": "COMPRAR, y conviene saber por cuánto: el margen de seguridad es del 15,07 % contra un umbral del 15 %, o sea DOS CÉNTIMOS. El precio máximo que deja ese margen es 34,92 € y la acción está en 34,90. La seguridad del dividendo pasa su corte por UN punto (61 sobre 100 contra 60), con un payout del 98 % cubierto 1,42 veces por la caja recurrente. Las otras dos condiciones tienen holgura de sobra: rating AA y una pérdida al bear del 5,13 % contra un límite del 20 %. De ahí el sizing reducido que recoge el §9.4: tres holguras estrechas a la vez no es lo mismo que una. El negocio es excelente —ROIC del 31,6 % y un spread de 24,6 puntos sobre el WACC los diez ejercicios— y vive de un circuito que nadie más tiene: mueve 30.000 M€ de impuesto del Estado, cobra a los estancos en cinco a quince días, paga los impuestos más tarde y presta el excedente —2.472 M€— a su propio dueño. Eso explica a la vez su rentabilidad y su dependencia.",
  "confianza": {
-  "score": 98,
+  "score": 100,
   "nivel": "A",
   "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "sin huecos críticos ni discrepancias abiertas"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -43,75 +47,89 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-11"
  },
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
-  "matizada": true,
+  "matizada": false,
   "banda": {
-   "p10": 24.0,
-   "p50": 34.0,
-   "p90": 47.0
+   "p10": 33.13,
+   "p50": 40.16,
+   "p90": 44.37
   },
   "sensibilidad": {
-   "poMin": 34.3,
-   "poMax": 50.4,
-   "poBase": 38.9,
-   "cotizacion": 33.9,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 37.13,
+   "poMax": 44.47,
+   "poBase": 40.16,
+   "cotizacion": 34.9,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.3,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 38.61,
+    "poMax": 63.07,
+    "poBase": 48.7114128193787
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 1.2,
-   "mdsMax": 48.7
+   "mdsMin": 6.4,
+   "mdsMax": 27.4
   },
   "beta": {
-   "capm": 0.47,
-   "ref2": null,
-   "aviso": null
+   "capm": 0.345,
+   "ref2": 0.646,
+   "aviso": "beta CAPM 0.34 vs 2ª ref 0.65: divergencia 0.30 > 0.3 → revisar cuál usar en el WACC"
   },
   "motivos": [
-   "la cotización (33.90) queda por DEBAJO de toda la banda de PO [34.3–50.4] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (30 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 70 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (34.90) queda por DEBAJO de toda la banda del precio objetivo de síntesis [37.13–44.47] → infravalorada en todo el rango; decisión de compra ROBUSTA",
+   "para contraste, el DCF puro (§6.3) se mueve en [38.61–63.07] € alrededor de 48.71 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "beta CAPM 0.34 vs 2ª ref 0.65: divergencia 0.30 > 0.3 → revisar cuál usar en el WACC",
+   "ojo al leerlo junto a la banda de escenarios [33.13–44.37] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-11"
  },
  "dividendSafety": {
-  "score": 54,
-  "banda": "Vigilar",
+  "score": 61,
+  "banda": "Seguro",
   "componentes": {
-   "C1": 16,
+   "C1": 10,
    "C2": 4,
    "C3": 20,
-   "C4": 5,
-   "C5": 9
+   "C4": 15,
+   "C5": 12
   },
-  "shareholderYield": 7.67,
+  "shareholderYield": null,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.60x / FCL 2.02x (3a OE 1.18x) → 16/35",
+   "C1 cobertura dividendo ord.: OE 1.57x / FCL 1.98x (3a OE 1.14x) → 10/35",
    "C2 payout BN ord.: 98% (3a 83%) → 4/15",
-   "C3 balance: DN/EBITDA 0.24x, cob.int 36.4x → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a (reciente) · DPA creciente → 5/15",
-   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY → 9/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+   "C5 predictores B4 (cuantitativos): beneficio neto a la baja YoY → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-11"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 6,
-   "banda": "medio",
+   "score": 7,
+   "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
     "cfo_pos": 1,
     "roa_up": 0,
     "accrual": 1,
-    "lever_dn": 0,
+    "lever_dn": 1,
     "liquid_up": 1,
     "no_dilu": 1,
     "margin_up": 0,
@@ -120,14 +138,13 @@
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": 2.88,
+   "z": 3.14,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.64,
+   "m": -2.63,
    "senal": "sin indicios",
    "aproximado": [
-    "DSRI",
     "SGAI"
    ]
   },
@@ -136,29 +153,31 @@
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-11"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 1.17,
-  "gIntrinseco": 6.87,
+  "gImplicito": -4.01,
+  "gIntrinseco": 5.44,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
+  "calculadoEl": "2026-09-11",
   "entradas": {
-   "fcl": 290,
-   "wacc": 8.0,
+   "fcl": 359.0938,
+   "wacc": 7,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 132.03,
-   "deudaNeta": 95.66,
+   "acciones": 132.75,
+   "deudaNeta": 99.883,
    "modo": "EV",
-   "precioBase": 33.9,
+   "precioBase": 34.9,
    "validado": true,
-   "desviacion": -0.005,
-   "gBase": 1.165,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": -0.0,
+   "gBase": -4.01,
+   "fechaBase": "2026-09-11",
+   "congeladoEl": "2026-09-11"
   }
  }
 }
