@@ -424,9 +424,16 @@ function _atribWaterfall(steps){
    invertido dos veces»— y la TIR es su respuesta.
 
    La comision de COMPRA ya va dentro del coste (`invPositions`, 09-sep-2026), asi que el
-   aportado la lleva descontada. Fuera quedan la CUSTODIA, la comision de VENTA y el
-   efectivo parado en el broker; el pie del banner lo dice, porque un numero al que le
-   falta algo tiene que declarar que le falta.
+   aportado la lleva descontada. Fuera quedan la CUSTODIA y la comision de VENTA, y el
+   pie del banner lo dice, porque un numero al que le falta algo tiene que declarar que
+   le falta.
+
+   EL SUPUESTO, y conviene no perderlo de vista: restar los dividendos del aportado solo
+   es exacto si NINGUNO se ha quedado sin invertir. El operador lo confirmo el 11-sep-2026
+   -«no hay nada, la compra de Vidrala ultima gasto el ultimo dividendo de Logista»-, y
+   por eso el pie ya no menciona el efectivo parado en el broker. Si algun dia empieza a
+   dejar dividendo sin reinvertir, ese dinero SI salio de la nomina, el aportado real sera
+   mayor y este porcentaje saldra alto. No se detecta solo: se sabe preguntando.
    -------------------------------------------------------------------------------------
    `_cerradasNeto` recoge las DOS clases de posicion cerrada que maneja la app, con el
    mismo criterio que `posLots()`: las archivadas en DB.cerradas y los ciclos vendidos
@@ -458,11 +465,43 @@ function _cerradasNeto(){
     n++; });
   return {n,coste,venta,divs,neto:venta-coste+divs,dobles}; }
 
+
+/* [11-sep-2026] LA VENTA PARCIAL, que es el hueco que abrio la pregunta del operador
+   -«si vendo alguna empresa... se calculara todo acorde a eso, no?»-.
+   Con la venta TOTAL si: el ticker sale de las abiertas y entra aqui como ciclo cerrado.
+   Con la PARCIAL no. `invPositions` baja el coste por precio medio y la ganancia de la
+   parte vendida no queda anotada en ningun sitio: la posicion sigue abierta, asi que no
+   es una «cerrada», y el coste que desaparece es solo el coste, no lo que se cobro.
+   Consecuencia: ese dinero vuelve al broker, financia la compra siguiente y el aportado
+   sube por una compra que en realidad no pago la nomina.
+       vendes media posicion de coste 5.000 por 8.000  ->  vuelven 8.000 a la cuenta
+       el coste baja 5.000  ->  faltan 3.000 de ganancia realizada por restar
+   Se calcula aqui, con el mismo precio medio movil que usa `invPositions`, y se suma al
+   resultado de lo vendido. Medido el 11-sep-2026 sobre su cartera: 0,00 EUR, porque sus
+   tres ventas han sido totales. Es una guarda para el dia que no lo sea.                */
+function _realizadoParciales(){
+  const _com=o=>(typeof khComision==='function')?num(khComision(o)):num(o&&o.comision);
+  const openT=new Set(((typeof invPositions==='function')?invPositions():[]).filter(p=>p.acciones>0.0001).map(p=>(p.ticker||'').toUpperCase()));
+  const porT={}; let real=0, n=0;
+  (DB.operaciones||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')).forEach(o=>{
+    const t=(o.ticker||'').toUpperCase(); if(!t||!openT.has(t))return;   // las totales ya van por `_cerradasNeto`
+    const m=porT[t]=porT[t]||{acc:0,cost:0};
+    const a=num(o.acciones), pr=num(o.precio);
+    if(o.tipo==='venta'){
+      const avg=m.acc?m.cost/m.acc:0; const vend=Math.min(a,m.acc);
+      real+=vend*pr-_com(o)-vend*avg; if(vend>0.0001)n++;
+      m.acc=Math.max(0,m.acc-a); m.cost=m.acc*avg;
+    } else { m.acc+=a; m.cost+=a*pr+_com(o); }
+  });
+  return {n,real};
+}
+
 /* Calculo puro, sin DOM: el banner, la prueba y cualquier otra pantalla leen de aqui.
    Misma razon que `_rentaTotales`: un solo numero, varios sitios donde se ensena. */
 function _situacionInversion(R,CR){
   if(!R||!R.ok)return null;
-  const T=_rentaTotales(R.rows), C=_cerradasNeto();
+  const T=_rentaTotales(R.rows), C=_cerradasNeto(), PA=_realizadoParciales();
+  C.neto+=PA.real; C.parciales=PA;            // la ganancia de las ventas parciales cuenta igual que la de las cerradas
   const aportado=T.coste-T.divCob-C.neto, valor=T.valor, resultado=valor-aportado;
   /* Guarda de identidad: si estas dos formas de contar dejan de coincidir es que alguien
      ha tocado una de las dos mitades. Se avisa en consola y NO se rompe la pantalla. */
@@ -475,13 +514,52 @@ function _situacionInversion(R,CR){
           tir:(CR&&CR.xirr!=null&&num(CR.anios)>=1)?CR.xirr:null,      // <1 ano: no se extrapola (P2.3)
           anio0:f0?f0.slice(0,4):'', coste:T.coste, divCob:T.divCob, pl:T.pl, cerr:C, n:R.rows.length}; }
 
+/* [11-sep-2026] El CSS del banner se inyecta DESDE AQUI, con su propio id.
+   Primero lo meti en `_khCSS()` y el banner salio sin formato: esa funcion solo la
+   llama `khModal()`, o sea que el estilo solo existia si antes habias abierto una
+   ventana de grafica. Un bloque de estilo tiene que colgar de quien lo usa, no de
+   quien lo tenia a mano. */
+function _siCSS(){
+  if(document.getElementById('si-css'))return;
+  const st=document.createElement('style'); st.id='si-css';
+  st.textContent=`
+.si-ban{background:linear-gradient(180deg,#f8fafc,#fff);border:1px solid #cbd5e1;border-radius:14px;padding:14px 16px;margin:0 0 14px;box-shadow:0 2px 10px rgba(15,23,42,.06)}
+.si-ban .si-h{font-weight:800;font-size:13px;letter-spacing:.06em;color:#0f172a;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.si-ban .si-fe{font-weight:600;font-size:11px;color:#64748b;letter-spacing:0}
+.si-ban .si-nums{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 14px}
+.si-ban .si-n{flex:1 1 150px;min-width:130px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
+.si-ban .si-n.hero{flex:1 1 210px;background:#0f172a;border-color:#0f172a}
+.si-ban .si-n.hero .v{color:#fff}.si-ban .si-n.hero .l{color:#cbd5e1}
+.si-ban .si-n .v{font-size:24px;font-weight:800;line-height:1.15;color:#0f172a}
+.si-ban .si-n.hero .v.pos,.si-ban .si-n.hero .v.neg{color:#fff}
+.si-ban .si-n .v.pos{color:#16a34a}.si-ban .si-n .v.neg{color:#dc2626}
+.si-ban .si-n .l{font-size:11px;color:#64748b;margin-top:3px;font-weight:600}
+.si-ban .si-cas{border-top:1px solid #e2e8f0;padding-top:10px}
+.si-ban .si-r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;color:#0f172a;padding:3px 0}
+.si-ban .si-r .v{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.si-ban .si-r.tot{border-top:2px solid #0f172a;margin-top:7px;padding-top:7px;font-weight:800}
+.si-ban .si-r.tot .l{font-weight:800;letter-spacing:.03em}
+.si-ban .si-r .v.pos{color:#16a34a}.si-ban .si-r .v.neg{color:#dc2626}
+.si-ban .si-s{font-size:11px;color:#64748b;margin:0 0 6px;padding-left:2px}
+.si-ban .si-d{margin-top:11px;padding-top:9px;border-top:1px dashed #e2e8f0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.si-ban .si-dt{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:#94a3b8;text-transform:uppercase}
+.si-ban .si-di{font-size:11.5px;color:#475569;background:#f1f5f9;border-radius:7px;padding:3px 8px}
+.si-ban .si-di b{color:#0f172a}.si-ban .si-di b.pos{color:#16a34a}.si-ban .si-di b.neg{color:#dc2626}
+.si-ban .si-av{margin-top:9px;font-size:11.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 9px}
+.si-ban .si-p{margin-top:9px;font-size:11px;color:#64748b;line-height:1.5}
+@media(max-width:640px){.si-ban .si-nums{gap:8px}.si-ban .si-n{flex:1 1 100%}.si-ban .si-n .v{font-size:21px}}
+`;
+  document.head.appendChild(st);
+}
 function _situacionBanner(S){
   if(!S)return '';
+  _siCSS();
   const sg=x=>(x>=0?'+':'')+fmt(x);
   const pc=x=>x==null?'—':((x>=0?'+':'')+(x*100).toFixed(1)+'%');
   const cl=x=>x>=0?'pos':'neg';
   const cN=S.cerr.neto;
-  const restaC=S.cerr.n?((cN>=0?' − ganancia de lo vendido ':' + pérdida de lo vendido ')+fmt(Math.abs(cN))):'';
+  const hayV=S.cerr.n||(S.cerr.parciales&&S.cerr.parciales.n);
+  const restaC=hayV?((cN>=0?' − ganancia de lo vendido ':' + pérdida de lo vendido ')+fmt(Math.abs(cN))):'';
   const av=(S.cerr.dobles&&S.cerr.dobles.length)
     ?'<div class="si-av">⚠ '+S.cerr.dobles.join(', ')+' figura archivado como cerrado y a la vez en cartera: revisa, sus dividendos pueden estar contándose dos veces.</div>':'';
   return '<div class="si-ban">'
@@ -500,11 +578,11 @@ function _situacionBanner(S){
     +'</div>'
     +'<div class="si-d"><span class="si-dt">de dónde sale</span>'
       +'<span class="si-di">dividendos cobrados y reinvertidos <b>'+fmt(S.divCob)+'</b></span>'
-      +(S.cerr.n?('<span class="si-di">'+(cN>=0?'ganancia':'pérdida')+' de lo ya vendido <b class="'+cl(cN)+'">'+sg(cN)+'</b></span>'):'')
+      +(hayV?('<span class="si-di">'+(cN>=0?'ganancia':'pérdida')+' de lo ya vendido <b class="'+cl(cN)+'">'+sg(cN)+'</b></span>'):'')
       +'<span class="si-di">plusvalía latente de lo que tengo <b class="'+cl(S.pl)+'">'+sg(S.pl)+'</b></span>'
     +'</div>'
     +av
-    +'<div class="si-p">El porcentaje se mide sobre <b>tu dinero</b> (compras menos lo que se reinvirtió solo), así que <b>no es comparable con un índice</b>: para eso está la cifra anual. No incluye gastos de custodia, comisiones de venta ni el efectivo parado en el bróker.</div>'
+    +'<div class="si-p">El porcentaje se mide sobre <b>tu dinero</b> (compras menos lo que se reinvirtió solo), así que <b>no es comparable con un índice</b>: para eso está la cifra anual. No incluye gastos de custodia ni comisiones de venta.</div>'
   +'</div>'; }
 
 // === Rentabilidad por empresa: TIR de tu posición + rentab. total + TR del valor por periodos (YTD/1A/3A) ===
@@ -1424,31 +1502,6 @@ function _khCSS(){
 .kh-rb{padding:4px 8px;font-size:11.5px;border-radius:7px}
 .kh-ficha{margin-left:0;order:9;flex-basis:100%;margin-top:4px}}
 
-.si-ban{background:linear-gradient(180deg,#f8fafc,#fff);border:1px solid #cbd5e1;border-radius:14px;padding:14px 16px;margin:0 0 14px;box-shadow:0 2px 10px rgba(15,23,42,.06)}
-.si-ban .si-h{font-weight:800;font-size:13px;letter-spacing:.06em;color:#0f172a;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
-.si-ban .si-fe{font-weight:600;font-size:11px;color:#64748b;letter-spacing:0}
-.si-ban .si-nums{display:flex;gap:14px;flex-wrap:wrap;margin:12px 0 14px}
-.si-ban .si-n{flex:1 1 150px;min-width:130px;background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:10px 12px}
-.si-ban .si-n.hero{flex:1 1 210px;background:#0f172a;border-color:#0f172a}
-.si-ban .si-n.hero .v{color:#fff}.si-ban .si-n.hero .l{color:#cbd5e1}
-.si-ban .si-n .v{font-size:24px;font-weight:800;line-height:1.15;color:#0f172a}
-.si-ban .si-n.hero .v.pos,.si-ban .si-n.hero .v.neg{color:#fff}
-.si-ban .si-n .v.pos{color:#16a34a}.si-ban .si-n .v.neg{color:#dc2626}
-.si-ban .si-n .l{font-size:11px;color:#64748b;margin-top:3px;font-weight:600}
-.si-ban .si-cas{border-top:1px solid #e2e8f0;padding-top:10px}
-.si-ban .si-r{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:13.5px;color:#0f172a;padding:3px 0}
-.si-ban .si-r .v{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
-.si-ban .si-r.tot{border-top:2px solid #0f172a;margin-top:7px;padding-top:7px;font-weight:800}
-.si-ban .si-r.tot .l{font-weight:800;letter-spacing:.03em}
-.si-ban .si-r .v.pos{color:#16a34a}.si-ban .si-r .v.neg{color:#dc2626}
-.si-ban .si-s{font-size:11px;color:#64748b;margin:0 0 6px;padding-left:2px}
-.si-ban .si-d{margin-top:11px;padding-top:9px;border-top:1px dashed #e2e8f0;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.si-ban .si-dt{font-size:10.5px;font-weight:800;letter-spacing:.05em;color:#94a3b8;text-transform:uppercase}
-.si-ban .si-di{font-size:11.5px;color:#475569;background:#f1f5f9;border-radius:7px;padding:3px 8px}
-.si-ban .si-di b{color:#0f172a}.si-ban .si-di b.pos{color:#16a34a}.si-ban .si-di b.neg{color:#dc2626}
-.si-ban .si-av{margin-top:9px;font-size:11.5px;color:#92400e;background:#fffbeb;border:1px solid #fde68a;border-radius:8px;padding:6px 9px}
-.si-ban .si-p{margin-top:9px;font-size:11px;color:#64748b;line-height:1.5}
-@media(max-width:640px){.si-ban .si-nums{gap:8px}.si-ban .si-n{flex:1 1 100%}.si-ban .si-n .v{font-size:21px}}
 
 `;
   document.head.appendChild(st);
