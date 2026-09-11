@@ -71,6 +71,53 @@ function _coyEsc(s){ return (s==null?'':''+s).replace(/[&<>"]/g,c=>({'&':'&amp;'
    y al revés, poner solo la fecha del diario haría pasar por fresco el IPC del informe. Cada
    tarjeta ya dice su fuente («auto» = mercado); la cabecera dice las dos fechas, y el aviso de
    antigüedad se refiere a lo que SOLO trae el informe, que es lo que de verdad envejece. */
+/* ============================================================================
+   LA LECTURA DEL PASE  ·  [11-sep-2026 · petición del operador]
+   ----------------------------------------------------------------------------
+   El panel tenía 18 tarjetas y ninguna decía qué SIGNIFICAN. La lectura se
+   escribía en cada pase... y se moría en la conversación: al mes siguiente el
+   panel conservaba los números y nadie recordaba por qué el gas había subido.
+
+   Tres condiciones que puso el operador, y las tres son código aquí abajo:
+     1. LLEVA SU FECHA EN EL TÍTULO. Un párrafo sin fecha se lee siempre como si
+        fuera de hoy — el mismo fallo que las tarjetas ya tienen resuelto. Y si
+        la lectura es de un pase ANTERIOR al último, se dice en alto.
+     2. SOLO HABLA DE LO QUE ESE PASE REFRESCÓ. El fichero se fusiona y el panel
+        mezcla dos fuentes: un texto que opinara sobre el IBEX, que lo escribe el
+        workflow diario, se contradiría solo.
+     3. DICE A QUIÉN AFECTA, NUNCA QUÉ HACER. El panel explica mecanismos —«el
+        gas es coste directo del vidrio»— y deja la decisión al método. Ésta es
+        la línea que convierte un termómetro en un panel útil sin convertirlo en
+        un consejo.
+   ========================================================================== */
+function _coyLectura(){
+  const L=(_macroInf&&_macroInf.lectura)||null;
+  if(!L||!L.puntos||!L.puntos.length) return '';
+  /* ¿la lectura es del último pase, o se quedó de uno anterior? El fichero se
+     fusiona, así que puede haber datos nuevos con una lectura vieja pegada. */
+  const fPase=(_macroInf&&_macroInf.generadoEl)||'';
+  const desfasada=!!(fPase&&L.generadoEl&&L.generadoEl<fPase);
+  const tit=_coyEsc(L.titulo||('Coyuntura Macro'+(L.generadoEl?(' a '+ddmmyyyy(L.generadoEl)):'')));
+  const ptos=L.puntos.map(function(p){
+    const af=[];
+    if(p.beneficia) af.push('<span class="coy-lec-b">▲ beneficia</span> '+_coyEsc(p.beneficia));
+    if(p.perjudica) af.push('<span class="coy-lec-p">▼ perjudica</span> '+_coyEsc(p.perjudica));
+    return '<li><div class="coy-lec-t">'+_coyEsc(p.t||'')+'</div>'
+      +'<div class="coy-lec-x">'+_coyEsc(p.txt||'')+'</div>'
+      +(af.length?('<div class="coy-lec-af">'+af.join(' &nbsp;·&nbsp; ')+'</div>'):'')+'</li>';
+  }).join('');
+  return '<div class="coy-lec'+(desfasada?' vieja':'')+'">'
+    +'<div class="coy-lec-h">'+tit
+    +(L.refrescados!=null?('<span class="coy-lec-n">'+L.refrescados+' de '+(L.total||18)+' indicadores refrescados en este pase</span>'):'')
+    +'</div>'
+    +(desfasada?('<div class="coy-lec-av">⚠️ Esta lectura es del pase del <b>'+ddmmyyyy(L.generadoEl)
+      +'</b> y el fichero ya tiene datos del <b>'+ddmmyyyy(fPase)+'</b>: habla de una foto anterior.</div>'):'')
+    +'<ul class="coy-lec-l">'+ptos+'</ul>'
+    +'<div class="coy-lec-pie">Explica a quién afecta cada movimiento. <b>No es una recomendación</b>: '
+    +'las decisiones sobre la cartera salen del método, no de este panel.</div>'
+    +'</div>';
+}
+
 function _coyEdad(){
   const f=(_macroInf&&_macroInf.generadoEl)||'';
   /* [26-ago-2026] La fecha del bloque de mercado NO es su `generadoEl`: ese es cuándo se lanzó
@@ -241,6 +288,25 @@ function _coyCSS(){
     '  background:#f8fafc;border:1px solid var(--line);border-radius:20px;padding:4px 12px;line-height:1.45}',
     '#view-coyuntura .coy-edad.viejo{background:#fffbeb;border-color:#fde68a;color:#92400e}',
 
+    /* --- la lectura del pase --- */
+    '#view-coyuntura .coy-lec{background:var(--panel);border:1px solid var(--line);border-left:4px solid #2563eb;',
+    '  border-radius:14px;box-shadow:var(--shadow);padding:16px 18px;margin-bottom:16px}',
+    '#view-coyuntura .coy-lec.vieja{border-left-color:#f59e0b}',
+    '#view-coyuntura .coy-lec-h{font-size:15px;font-weight:700;color:#0f172a;margin-bottom:2px}',
+    '#view-coyuntura .coy-lec-n{display:block;font-size:11.5px;font-weight:400;color:var(--muted);margin-top:3px}',
+    '#view-coyuntura .coy-lec-av{margin:10px 0 2px;font-size:11.5px;background:#fffbeb;border:1px solid #fde68a;',
+    '  color:#92400e;border-radius:8px;padding:6px 10px;line-height:1.45}',
+    '#view-coyuntura .coy-lec-l{margin:12px 0 0;padding:0;list-style:none}',
+    '#view-coyuntura .coy-lec-l li{padding:10px 0;border-top:1px solid var(--line)}',
+    '#view-coyuntura .coy-lec-l li:first-child{border-top:0;padding-top:2px}',
+    '#view-coyuntura .coy-lec-t{font-size:13.5px;font-weight:650;color:#0f172a;margin-bottom:3px}',
+    '#view-coyuntura .coy-lec-x{font-size:12.5px;color:#334155;line-height:1.55}',
+    '#view-coyuntura .coy-lec-af{margin-top:5px;font-size:11.5px;color:var(--muted);line-height:1.5}',
+    '#view-coyuntura .coy-lec-b{color:#15803d;font-weight:650}',
+    '#view-coyuntura .coy-lec-p{color:#b91c1c;font-weight:650}',
+    '#view-coyuntura .coy-lec-pie{margin-top:12px;padding-top:10px;border-top:1px solid var(--line);',
+    '  font-size:11px;color:var(--muted);line-height:1.45}',
+
     /* --- bloque plegable --- */
     '#view-coyuntura .coy-blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;',
     '  box-shadow:var(--shadow);margin-bottom:12px;overflow:hidden}',
@@ -385,7 +451,7 @@ function renderCoyuntura(){
   const cnt=g=>{ const n=ks.filter(k=>I[k].grupo===g).length; const p=ks.filter(k=>I[k].grupo===g&&I[k].v==null).length;
     return n+' indicador'+(n===1?'':'es')+(p?(' · '+p+' pendiente'+(p===1?'':'s')):''); };
 
-  let html=cab
+  let html=cab+_coyLectura()
     +blk('div','💶','Tu dividendo contra el bono',(bono!=null?('bono 10A '+bono.toLocaleString('es-ES',{minimumFractionDigits:2})+' %'):'sin bono en el puente'),'',_coyDivHTML(bono));
   COY_GRUPOS.forEach(g=>{ const inner=tarjetas(g.id); if(inner) html+=blk(g.id,g.ic,g.t,cnt(g.id),g.sub,inner); });
   const otros=tarjetas('otros');
