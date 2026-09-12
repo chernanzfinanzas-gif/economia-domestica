@@ -9,43 +9,50 @@
   "detalle": "RESULTADO: TODO SINCRONIZADO (50 archivos). La app refleja el método."
  },
  "formulas": {
-  "ok": false,
-  "detalle": "7 de 27 libros tienen las fórmulas MUDAS (caché borrado por openpyxl): CIE, Ebro Foods, Ebro Foods, Iberdrola, Inditex, Repsol, Vidrala. Ábrelos en Excel y guárdalos: Excel recalcula y se arregla solo.",
+  "ok": true,
+  "detalle": "25 libros revisados. 7 tienen el caché de fórmulas vacío, y los 7 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (CIE, Ebro Foods, Faes Farma, Iberdrola, Inditex, Repsol, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
   "libros": [
    {
     "empresa": "CIE",
     "formulas": 2346,
-    "mudas": 2346
-   },
-   {
-    "empresa": "Ebro Foods",
-    "formulas": 2268,
-    "mudas": 2268
+    "mudas": 2346,
+    "recalculaAlAbrir": true
    },
    {
     "empresa": "Ebro Foods",
     "formulas": 2278,
-    "mudas": 2278
+    "mudas": 2278,
+    "recalculaAlAbrir": true
+   },
+   {
+    "empresa": "Faes Farma",
+    "formulas": 2540,
+    "mudas": 2540,
+    "recalculaAlAbrir": true
    },
    {
     "empresa": "Iberdrola",
     "formulas": 2217,
-    "mudas": 2217
+    "mudas": 2217,
+    "recalculaAlAbrir": true
    },
    {
     "empresa": "Inditex",
     "formulas": 2712,
-    "mudas": 2712
+    "mudas": 2712,
+    "recalculaAlAbrir": true
    },
    {
     "empresa": "Repsol",
     "formulas": 2391,
-    "mudas": 2391
+    "mudas": 2391,
+    "recalculaAlAbrir": true
    },
    {
     "empresa": "Vidrala",
     "formulas": 2248,
-    "mudas": 2248
+    "mudas": 2248,
+    "recalculaAlAbrir": true
    }
   ]
  }
