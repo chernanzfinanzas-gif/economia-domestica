@@ -1,629 +1,749 @@
 {
+  "schemaVersion": 2,
   "ticker": "ITX",
   "empresa": "Inditex",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-06-14",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2023-04-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Arranque fuerte: +13% con margen bruto 60,5% y caja neta €10,5bn.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 7611
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 13.0
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 13.4
+          "valor": 7611.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 60.5
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 2195.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 28.8
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 2195
+          "nombre": "EBIT (M€)",
+          "valor": 1483.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 1168
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.5
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5801
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 1168.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10500
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 15.0
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5801.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 4603.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-09-13",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Semestre muy sólido (+13,5%; a tipo constante +16,6%).",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 16851
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 13.5
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 16.6
+          "valor": 16851.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 58.2
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 4663.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 27.7
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 4663
+          "nombre": "EBIT (M€)",
+          "valor": 3164.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 2513
+          "nombre": "Margen EBIT (%)",
+          "valor": 18.8
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5745
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 2513.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10500
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 9801.0
         }
       ],
-      "periodoDisplay": "S1"
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-12-13",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "9M",
+      "fecha": "2023-10-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Doble dígito sostenido (+11,1%); margen 59,4%; caja €11,5bn.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 25609
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 11.1
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": null
+          "valor": 25609.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 59.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 7429.0
         },
         {
           "nombre": "Margen EBITDA (%)",
           "valor": 29.0
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 7429
+          "nombre": "EBIT (M€)",
+          "valor": 5192.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 4102
+          "nombre": "Margen EBIT (%)",
+          "valor": 20.3
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5722
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 4102.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11500
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 15203.0
         }
       ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-03-13",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2024-01-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Ejercicio récord: +10,4%; EBITDA 9.850; caja €11,4bn.",
+      "resumen": "Primer periodo de la serie del monitor: no hay el mismo periodo del ejercicio anterior con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 35947
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 10.4
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 14.1
+          "valor": 35947.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 57.8
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 9850.0
         },
         {
           "nombre": "Margen EBITDA (%)",
           "valor": 27.4
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 9850
+          "nombre": "EBIT (M€)",
+          "valor": 6809.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 5381
+          "nombre": "Margen EBIT (%)",
+          "valor": 18.9
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5692
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 5381.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11400
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 20762.0
         }
       ],
-      "periodoDisplay": "FY"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-06-12",
+      "periodoDisplay": "1T",
+      "fecha": "2024-04-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Buen inicio (+7,1%; a tipo constante +10,6%); margen 60,6%.",
+      "resumen": "Ventas +7.1 %, EBIT +10.3 %, Beneficio neto atribuible +10.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 60.6 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). ",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 8150
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 7.1
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 10.6
+          "valor": 8150.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 60.6
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 2370.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 29.1
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 2370
+          "nombre": "EBIT (M€)",
+          "valor": 1636.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 1294
+          "nombre": "Margen EBIT (%)",
+          "valor": 20.1
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5698
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 1294.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11623
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": null
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 4940.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-09-11",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Crecimiento sano y márgenes estables (+7,2%; cc +10,2%).",
+      "resumen": "Ventas +7.2 %, EBIT +11.9 %, Beneficio neto atribuible +10.1 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 58.3 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 10.2 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 18065
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 7.2
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 10.2
+          "valor": 18065.0
         },
         {
           "nombre": "Margen bruto (%)",
-          "valor": 58.4
+          "valor": 58.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 5040.0
         },
         {
           "nombre": "Margen EBITDA (%)",
           "valor": 27.9
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 5040
+          "nombre": "EBIT (M€)",
+          "valor": 3541.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 2768
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.6
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5667
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 2768.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10911
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 10.2
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5667.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 10541.0
         }
       ],
-      "periodoDisplay": "S1"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-12-11",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "+7,1% con caja creciente €11,8bn.",
+      "resumen": "Ventas +7.1 %, EBIT +9.3 %, Beneficio neto atribuible +8.5 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 59.4 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 10.5 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 27422
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 7.1
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 10.5
+          "valor": 27422.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 59.4
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 7967.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 29.1
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 7967
+          "nombre": "EBIT (M€)",
+          "valor": 5673.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 4449
+          "nombre": "Margen EBIT (%)",
+          "valor": 20.7
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5659
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 4449.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11824
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5659.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 16291.0
         }
       ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-03-12",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2025-01-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Cierre +7,5%; EBITDA 10.728; caja €11,5bn.",
+      "resumen": "Ventas +7.5 %, EBIT +10.9 %, Beneficio neto atribuible +9.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.8 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 10.5 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 38632
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 7.5
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": null
+          "valor": 38632.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 57.8
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 10728.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 27.8
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 10728
+          "nombre": "EBIT (M€)",
+          "valor": 7554.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 5866
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.6
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5563
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 5866.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11495
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5563.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 22343.0
         }
       ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Lanza un plan logístico extraordinario de ~900 M€ (Zaragoza, Lelystad y Valencia)",
-          "impacto": "+",
-          "valoracion": "Amplía capacidad logística para sostener el crecimiento orgánico e integrado"
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-06-11",
-      "semaforoGlobal": "A",
+      "periodoDisplay": "1T",
+      "fecha": "2025-04-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Fuerte desaceleración (+1,5% vs +7,1%): comparativa exigente y efecto divisa; margen estable. A vigilar.",
+      "resumen": "Ventas +1.5 %, EBIT +0.3 %, Beneficio neto atribuible +0.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 60.6 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 4.2 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 8274
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 1.5
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": null
+          "valor": 8274.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 60.6
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 2393.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 28.9
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 2393
+          "nombre": "EBIT (M€)",
+          "valor": 1641.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 1305
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.8
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5562
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 1305.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10778
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 4.2
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5562.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 5011.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-09-10",
-      "semaforoGlobal": "A",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Semestre flojo (+1,6%); márgenes intactos; la caja baja por el dividendo. Seguir de cerca.",
+      "resumen": "Ventas +1.6 %, EBIT +0.9 %, Beneficio neto atribuible +0.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 58.3 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 5.1 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 18357
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 1.6
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": null
+          "valor": 18357.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 58.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 5114.0
         },
         {
           "nombre": "Margen EBITDA (%)",
           "valor": 27.9
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 5114
+          "nombre": "EBIT (M€)",
+          "valor": 3572.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 2791
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.5
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5528
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 2791.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10012
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 5.1
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5528.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 10703.0
         }
       ],
-      "periodoDisplay": "S1"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-12-10",
-      "semaforoGlobal": "A",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Ligera mejora (+2,7%; cc +6,2%); aún por debajo del ritmo histórico.",
+      "resumen": "Ventas +2.7 %, EBIT +4.8 %, Beneficio neto atribuible +3.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 59.7 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 6.2 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 28171
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 2.7
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 6.2
+          "valor": 28171.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 59.7
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 8303.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 29.5
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 8303
+          "nombre": "EBIT (M€)",
+          "valor": 5943.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 4622
+          "nombre": "Margen EBIT (%)",
+          "valor": 21.1
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5527
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 4622.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 11268
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 6.2
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5527.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 16811.0
         }
       ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-03-11",
+      "periodoDisplay": "FY",
+      "fecha": "2026-01-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Reacelera (+3,2%; cc +7,0%); EBITDA +5%, margen estable. Tesis intacta.",
+      "resumen": "Ventas +3.2 %, EBIT +5.9 %, Beneficio neto atribuible +6.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 58.3 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 7.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 39864
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 3.2
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 7.0
+          "valor": 39864.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 58.3
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 11267.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 28.3
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 11267
+          "nombre": "EBIT (M€)",
+          "valor": 7997.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 6220
+          "nombre": "Margen EBIT (%)",
+          "valor": 20.1
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5460
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 6220.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10958
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 7.0
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5460.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 23222.0
         }
       ],
-      "periodoDisplay": "FY"
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-06-10",
+      "periodoDisplay": "1T",
+      "fecha": "2026-04-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Fuerte reaceleración (+5,8%); margen bruto 61,2%; EBITDA +7,3%. Buena señal.",
+      "resumen": "Ventas +5.8 %, EBIT +7.0 %, Beneficio neto atribuible +5.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 61.2 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 8.8 %, que es la señal única de la tesis.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 8750
-        },
-        {
-          "nombre": "%Var Ventas",
-          "valor": 5.8
-        },
-        {
-          "nombre": "Ventas cc (%)",
-          "valor": 8.8
+          "valor": 8750.0
         },
         {
           "nombre": "Margen bruto (%)",
           "valor": 61.2
         },
         {
+          "nombre": "EBITDA (M€)",
+          "valor": 2568.0
+        },
+        {
           "nombre": "Margen EBITDA (%)",
           "valor": 29.3
         },
         {
-          "nombre": "EBITDA (M€)",
-          "valor": 2568
+          "nombre": "EBIT (M€)",
+          "valor": 1756.0
         },
         {
-          "nombre": "BNA (M€)",
-          "valor": 1375
+          "nombre": "Margen EBIT (%)",
+          "valor": 20.1
         },
         {
-          "nombre": "Nº tiendas",
-          "valor": 5456
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 1375.0
         },
         {
-          "nombre": "PFN / Caja neta (M€)",
-          "valor": 10796
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 8.8
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5456.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 5359.0
         }
       ],
-      "hechos": [
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-07-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "ninguno de los catorce informes de resultados de Inditex imprime su fecha de publicación: la portada lleva el título del periodo y su rango («1 de febrero 2026 a 31 de julio 2026») y nada más. Comprobado uno a uno. La fecha es el CIERRE del periodo y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Ventas +7.6 %, EBIT +7.6 %, Beneficio neto atribuible +6.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 58.7 % (banda del §10.1: verde ≥ 58.0, rojo < 57.3). El crecimiento de ventas a tipo de cambio constante sube 9.2 %, que es la señal única de la tesis.",
+      "metricas": [
         {
-          "tipo": "Guidance",
-          "hecho": "Guía para el ejercicio 2026: margen bruto estable con una banda de ±50 puntos básicos, inversión ordinaria de ~2.300 M€, crecimiento del espacio bruto en torno al +5% con contribución positiva del espacio, e impacto de divisa esperado de −1% en las ventas del año. No publica objetivo de crecimiento de ventas a tipo constante.",
-          "impacto": "=",
-          "valoracion": "Guía continuista y coherente con el trimestre: el margen bruto del 61,2% está dentro de la banda y el capex ordinario se mantiene en el entorno habitual. Que no haya objetivo de ventas es lo normal en Inditex y no debe leerse como una omisión."
+          "nombre": "Ventas (M€)",
+          "valor": 19755.0
         },
         {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo de 1,75 €/acción con cargo a 2025, en dos pagos de 0,875 € (4-may-2026 y 2-nov-2026).",
-          "impacto": "+",
-          "valoracion": "Retribución cubierta con holgura por la caja neta y por el beneficio del ejercicio; no compromete la capacidad inversora ni el objetivo de espacio."
+          "nombre": "Margen bruto (%)",
+          "valor": 58.7
         },
         {
-          "tipo": "Otros",
-          "hecho": "Trading update del segundo trimestre: las ventas en tienda y online a tipo de cambio constante crecen un +11,5% entre el 1 de mayo y el 1 de junio de 2026.",
-          "impacto": "+",
-          "valoracion": "Señal adelantada de que la reaceleración del primer trimestre continúa, y con más fuerza. Es el dato que más sostiene el verde de cara a la próxima revisión."
+          "nombre": "EBITDA (M€)",
+          "valor": 5513.0
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.9
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 3843.0
+        },
+        {
+          "nombre": "Margen EBIT (%)",
+          "valor": 19.5
+        },
+        {
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 2980.0
+        },
+        {
+          "nombre": "Ventas a tipo cte. (%)",
+          "valor": 9.2
+        },
+        {
+          "nombre": "Nº de tiendas",
+          "valor": 5444.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 11596.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     }
-  ],
-  "schemaVersion": 2
+  ]
 }
