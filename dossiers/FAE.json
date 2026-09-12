@@ -2,41 +2,44 @@
  "schemaVersion": 8,
  "ticker": "FAE",
  "empresa": "Faes Farma, S.A.",
- "fecha": "2026-07-21",
+ "fecha": "2026-09-12",
  "rating": "A",
- "score": 69.4,
- "decision": "MANTENER",
- "metodoValoracion": "DCF a 3 escenarios (arquetipo SALUD/calidad, sensibilidad a WACC y crecimiento) contrastado con múltiplos PER. PO oficial = síntesis 60% DCF · 40% múltiplos = 4,67 € (base). El rango oficial bear/base/bull = 2,90 / 4,67 / 6,80 € corresponde a los escenarios de la Tesis §9.3 (el DCF puro §6.2 daba pesimista 2,90 / base 4,84 / optimista 8,98 €, más agresivo en el extremo alcista).",
- "poBear": 2.9,
- "poBase": 4.67,
- "poBull": 6.8,
- "entMin": 3.9,
- "entMax": 4.2,
- "stop": 2.8,
- "dpaPrevisto": 0.128,
- "moat": "Estrecho",
+ "score": 71.3,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada de nueve métodos (40 % DCF a tres escenarios + 60 % múltiplos históricos a 10 años y renta) — arquetipo SALUD, subtipo Genéricos + Specialty. PO oficial = síntesis §6.5 = 2,59 €/acc. El DCF puro daría 1,43 € y es un SUELO por construcción: su flujo base son 35,2 M€, la media de cinco años, y esa ventana contiene los tres ejercicios de obra de la planta de Derio. Medido con las cinco bases de flujo posibles (2,59 · 2,66 · 2,81 · 3,39 · 3,74 €) la etiqueta es CARA en las cinco. El Plan Estratégico 2025-2030 NO está descontado: el g1 del 5,0 % es el crecimiento autofinanciable de la propia década.",
+ "poBear": 1.89,
+ "poBase": 2.59,
+ "poBull": 5.03,
+ "entMin": 1.89,
+ "entMax": 2.25,
+ "stop": 1.69,
+ "dpaPrevisto": 0.126,
+ "moat": "45,4 · MOAT ESTRECHO (corte en 45,0: aguanta por cuatro décimas). Es un foso de MARCA, no de patente, y está probado: la patente española de bilastina venció en 2021 y Bilaxten creció +10,1 %, +7 % y +3 % los tres ejercicios siguientes con genéricos enfrente y precios a la baja. Un solo pilar — intangibles 62; los otros cuatro ejes son costes de cambio 38, ventaja en costes 40, escala 30 y efecto red 10. La horquilla medida con las dos ponderaciones extremas va de 26,7 a 45,4: con los pesos repartidos de la peor forma volvería a SIN MOAT CLARO. No sube de 62 porque no se puede verificar que el foso se reponga: Faes publica dos cifras de I+D (1,67 % auditable y 6 % comunicado) y no publica el puente entre ellas.",
  "catalizadores": [
-  "Trimestrales 2026 con SIFI/Edol/ISF ya consolidados: confirmarían si el EBITDA de las adquiridas cumple el plan y el margen del grupo se recupera hacia ~20% (Q1-Q3 2026, +10/+20%).",
-  "Declaración del DPA 2025 que clarifique la política de dividendo tras el apalancamiento: DPA ≥ 0,18 € con pay-out ~50% (1S 2026, +3/+8%).",
-  "Senda de desapalancamiento hacia DN/EBITDA < 2x con la caja de las adquiridas y el FCL recurrente (2026-2027, +5/+10%).",
-  "Hitos de pipeline: aprobación de mesalazina 1500 mg y avance de hidroferol semanal y nuevos lanzamientos (2026-2027, +5/+10%).",
-  "Recuperación del ROIIC incremental por encima del WACC, señal de que el capital del M&A empieza a crear valor (2027+, +10/+15%)."
+  "El Plan Estratégico 2025-2030 empieza a verse en las cuentas (feb-2027 y cada ejercicio): guidance 2026 de +17/19 % en ingresos y +28/31 % en EBITDA, reafirmado en el 1S-2026 con 391,5 M€ y 90,8 M€ sobre la mesa. Punto medio = +33 M€ de EBITDA. Disparador: EBITDA de 2026 por encima de 151 M€.",
+  "El CAPEX de crecimiento ya es CERO y el flujo libre se normaliza (2026-2027): la ventana de cinco años del DCF lleva dentro los tres ejercicios de obra de Derio (FCL medio 35,2 M€ contra 75,9 en 2024). No depende de que nada salga bien, sólo de que no se empiece otra obra. Derivación: 20 M€ menos de CAPEX al año. Disparador: CAPEX 2026 por debajo de 25 M€ o FCL por encima de 70 M€.",
+  "La deuda vuelve por debajo de 2x y con ella el perfil de balance (2026-2027): de 301,8 M€ a 261,4 M€ en el 1S-2026. Los préstamos NO llevan covenants y el calendario está despejado hasta 2027. Lo que se re-califica no es el beneficio: es el riesgo. Disparador: deuda neta por debajo de 200 M€ o DN/EBITDA por debajo de 1,5x.",
+  "La oftalmología comprada empieza a contar un año entero (2026-2028): SIFI se formalizó en septiembre de 2025 y sólo aportó CUATRO MESES (40 M€); en el 1S-2026 la oftalmología ya es el ~16 % del negocio. El catalizador es aritmético: el ejercicio valorado no lo contiene entero. Disparador: aportación anualizada de SIFI por encima de 120 M€ en el cierre de 2026.",
+  "Una operación corporativa sobre el capital (sin fecha): Faes no tiene accionista de control —Alantra 9,52 %, Asúa 7,05 %, Indumenta Pueri 6,41 %, Mendibea 5,06 %—, la junta no ha aprobado medidas de neutralización frente a una OPA y no hay acuerdos que se modifiquen por cambio de control. Una prima de control se modela como re-rating del 20 %: es la magnitud, no una predicción. Disparador: comunicación a la CNMV por encima del 10 %."
  ],
  "riesgos": [
-  "Erosión de la franquicia bilastina por entrada de genéricos al vencer patentes base (patent cliff): principal fuente de EBITDA con dependencia de producto.",
-  "Ejecución e integración del M&A transformacional 2025 (SIFI oftalmología, Edol, ISF nutrición animal): riesgo de sobreprecio, sinergias no materializadas y goodwill (~34,7% del PN).",
-  "Regulación de precios de medicamentos y presión de sistemas públicos de salud sobre márgenes.",
-  "Concentración/dependencia de producto (bilastina) y del pipeline para sostener el crecimiento.",
-  "Coste financiero de la nueva deuda (crédito ~375 M€) que eleva el DN/EBITDA a 2,70x desde caja neta histórica."
+  "Las licencias, en los dos sentidos, y es la parte más rentable del grupo (Comercial · probabilidad ALTA · −18 a −45 %): 113,2 M€ de ingresos con coste incremental casi nulo sobre un EBITDA de 118,0 M€. La patente de bilastina en Japón ha caído y las licencias bajan un 9 % en el 1S-2026. En el otro sentido, Faes también disfruta de licencias de terceros «que suponen un porcentaje importante de sus ventas», con riesgo en cada vencimiento.",
+  "El compromiso de I+D del Plan 2030 tiene un coste, y está por escrito (Estructural · probabilidad ALTA · −14 a −36 %): I+D auditada de 10,48 M€ = 1,67 % de ventas frente al 6 % comunicado en el CMD, con objetivo del 10 % en 2030. No hay puente publicado entre las dos cifras y Faes no tiene línea propia de I+D en la cuenta de resultados.",
+  "Genéricos y precio administrado en la cartera nacional (Competitivo · probabilidad MEDIA · −15 a −39 %): España pesa 244,9 M€ de 610,6 (40 %) y ahí el precio lo pone el sistema nacional de precios de referencia. La empresa declara la entrada de genéricos como el PRIMERO de sus riesgos principales de 2025.",
+  "400 M€ comprados en un año, y es el año uno (Asignación de capital · probabilidad MEDIA · −16 a −28 %): SIFI, Edol e ISF. Los activos no corrientes fuera de España pasan de 49,2 a 383,3 M€. El ROIIC a cinco años es del 0,47 % y el ROIC ha bajado del 20,1 % de 2020 al 7,91 %: la forma que tiene el capital nuevo que aún no rinde.",
+  "Deuda por primera vez en la década, a tipo variable, y el dividendo ya se paga entero en dinero (Financiero · probabilidad MEDIA · −10 a −20 %): 375 M€ dispuestos en 2025, de los que sólo 30 van a tipo fijo, sin cobertura de tipos contratada. Alivia que los préstamos NO llevan covenants y la cobertura de intereses está en 19,3x.",
+  "Un balance sin historial de deterioros recibe 258,5 M€ de fondo de comercio (Contable · probabilidad BAJA-MEDIA · −10 a −20 %): el goodwill pasa de 56,5 a 258,5 M€ y es el 34,7 % del patrimonio neto, en un balance que no ha dotado un solo deterioro relevante en diez años. Al lado, 16,2 M€ de patente de bilastina activados con la patente española ya vencida.",
+  "La empresa declara el ciberataque como riesgo principal desde 2022 (Ciberseguridad · probabilidad BAJA-MEDIA · −13 a −36 %): en producción farmacéutica bajo GMP una parada no se recupera arrancando otra vez. Mitigante declarado: Plan Director de Seguridad y adhesión al ENS del RD 311/2022.",
+  "Nutrición y salud animal, y la peste porcina africana (Operativo · probabilidad BAJA-MEDIA · −8 a −16 %): el segmento factura 79,3 M€ (13 % de los ingresos ordinarios), ha crecido un 52 % en un año y aporta 9,1 M€ de beneficio antes de impuestos. Es el único riesgo del §8.1 que se materializa en semanas y no en trimestres."
  ],
- "bull": "La integración de SIFI/Edol/ISF entrega: EBITDA pro-forma supera 145 M€, el margen se recupera y el ROIIC vuelve por encima del WACC, revalorizando el múltiplo hacia ~6,80 € (+56%, P90 ~25%).",
- "bear": "Derivado del Pre-Mortem: el M&A decepciona, la bilastina se erosiona por genéricos y el desapalancamiento se atasca; el precio cae hacia ~2,90 € (−34%, P10 ~25%).",
- "resumen": "Faes Farma es un negocio de calidad alta (Rating A, score 69,4) con un moat estrecho (48,5) apoyado en la franquicia bilastina y ahora diversificado a oftalmología y nutrición animal por el M&A de 2025. A 4,365 € el margen de seguridad sobre el PO de 4,67 € es de solo +7% (zona MANTENER 5-15%), insuficiente para comprar en firme pese a la calidad. El Reverse DCF muestra que el precio solo exige un crecimiento del FCL del 3,5% frente al 11,6% que Faes puede autofinanciar, lo que limita el riesgo bajista y desaconseja vender. Decisión: MANTENER si se posee; para nueva entrada esperar < 4,20 € (MdS ≥ +10%). Señal clave de seguimiento: los trimestrales 2026 que revelen si la integración del M&A cumple el plan.",
+ "bull": "5,03 €/acc (1,94 × PO). Los tres primeros catalizadores del §9.1 perturbados JUNTOS, no sumando sus impactos por separado: el guidance de 2026 cumplido (+33 M€ de EBITDA, el punto medio del +28/31 % que la empresa publica), el CAPEX de crecimiento ya en cero liberando 20 M€ al año, y un re-rating del 10 % cuando la deuda vuelva por debajo de 2x. Está sólo un 13 % por encima de la cotización actual: el mercado ya paga casi el escenario en que todo sale bien a la vez.",
+ "bear": "1,89 €/acc (0,730 × PO). El riesgo dominante del §8.1 —las licencias— en el extremo que la banda del método admite: el área pierde un 12 % (13,6 M€ de ingresos casi íntegramente margen). La elección se declara porque fue al revés que de costumbre: el extremo duro (−20 %) da 1,44 €, un 0,554 × PO, muy por debajo de la banda 0,70-0,85 que el método pide para un bear, porque la amplificación medida en el §8.2 (×1,39, por el flujo base deprimido) saca los extremos de rango con facilidad.",
+ "resumen": "Empresa de calidad alta —rating A sobre 71,3 puntos— a un precio que no deja margen. Una casa de noventa y tres años cuyo foso de marca ya demostró que aguanta sin patente, que acaba de gastarse 400 M€ en comprar oftalmología y todavía no ha cobrado por ello. Se cumplen 3 de las 4 condiciones de compra —pérdida al bear del 16,0 %, rating A y moat presente—: la única que falla es el margen de seguridad, −41,81 % contra un umbral del +15 %. El precio máximo que autorizaría comprar es 2,25 € y la acción está en 4,455 €. El capital nuevo no rinde aún (ROIIC 5A del 0,47 % contra un WACC del 7,50 %), el margen EBITDA ha perdido casi ocho puntos en cuatro años y el spread ROIC−WACC se ha quedado en +0,41 pp. La tesis cuelga de UNA variable —el área de licencias, que es a la vez el único eje de moat que puntúa, el riesgo nº 1 y la base de los múltiplos— y esa línea ya cae un 9 % en el 1S-2026. Consecuencia operativa: media posición como máximo, y no ahora. Señal a vigilar: «Licencias» en el informe semestral, dos periodos por debajo del −8 %.",
  "confianza": {
-  "score": 100,
+  "score": 96,
   "nivel": "A",
   "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
+   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -44,38 +47,52 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-12"
  },
  "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 2.9,
-   "p50": 4.67,
-   "p90": 6.8
+   "p10": 1.89,
+   "p50": 2.59,
+   "p90": 5.03
   },
   "sensibilidad": {
-   "poMin": 3.81,
-   "poMax": 6.54,
-   "poBase": 4.8411519186261,
-   "cotizacion": 4.365,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 2.49,
+   "poMax": 2.77,
+   "poBase": 2.59,
+   "cotizacion": 4.455,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.24,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 0.98,
+    "poMax": 2.18,
+    "poBase": 1.42545721421967
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -12.7,
-   "mdsMax": 49.8
+   "mdsMin": -44.2,
+   "mdsMax": -37.7
   },
   "beta": {
-   "capm": 0.34,
-   "ref2": 0.9,
-   "aviso": "beta CAPM 0.34 vs 2ª ref 0.90: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+   "capm": 0.492,
+   "ref2": null,
+   "aviso": null
   },
   "motivos": [
-   "la cotización (4.37) cae DENTRO de la banda de PO [3.8–6.5] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
-   "beta CAPM 0.34 vs 2ª ref 0.90: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (24 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 76 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (4.46) queda por ENCIMA de toda la banda del precio objetivo de síntesis [2.49–2.77] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
+   "para contraste, el DCF puro (§6.3) se mueve en [0.98–2.18] € alrededor de 1.43 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "ojo al leerlo junto a la banda de escenarios [1.89–5.03] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-12"
  },
  "dividendSafety": {
   "score": 42,
@@ -87,7 +104,7 @@
    "C4": 3,
    "C5": 6
   },
-  "shareholderYield": 3.56,
+  "shareholderYield": 4.5,
   "topeDuro": {
    "activo": false,
    "motivo": ""
@@ -95,12 +112,12 @@
   "motivos": [
    "C1 cobertura dividendo ord.: OE 0.91x / FCL 1.12x (3a OE 1.94x) → 7/35",
    "C2 payout BN ord.: 70% (3a 42%) → 10/15",
-   "C3 balance: DN/EBITDA 2.70x, cob.int 2960.7x → 16/20",
-   "C4 trayectoria: 2 recorte(s) en 10a (reciente) · DPA creciente → 3/15",
+   "C3 balance: DN/EBITDA 2.69x, cob.int 19.3x → 16/20",
+   "C4 trayectoria: 2 recorte(s) en 9a (reciente) · DPA creciente → 3/15",
    "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, EBITDA a la baja YoY, beneficio neto a la baja YoY → 6/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-12"
  },
  "forense": {
   "aplica": true,
@@ -125,10 +142,9 @@
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.86,
+   "m": -2.72,
    "senal": "sin indicios",
    "aproximado": [
-    "DSRI",
     "SGAI"
    ]
   },
@@ -141,29 +157,29 @@
   ],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-12"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.5,
-  "gIntrinseco": 11.6,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
+  "gImplicito": 16.66,
+  "gIntrinseco": 11.55,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+  "calculadoEl": "2026-09-12",
   "entradas": {
-   "fcl": 75,
-   "wacc": 7.0,
+   "fcl": 35.1662,
+   "wacc": 7.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 311.26,
-   "deudaNeta": 303.21999999999997,
+   "acciones": 316.2,
+   "deudaNeta": 301.819,
    "modo": "EV",
-   "precioBase": 4.365,
+   "precioBase": 4.455,
    "validado": true,
-   "desviacion": 0.002,
-   "gBase": 3.502,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": 0.003,
+   "gBase": 16.663,
+   "fechaBase": "2026-09-12",
+   "congeladoEl": "2026-09-12"
   }
  }
 }
