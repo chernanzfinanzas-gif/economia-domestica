@@ -1,647 +1,484 @@
 {
+  "schemaVersion": 2,
   "ticker": "NTGY",
   "empresa": "Naturgy",
   "revisiones": [
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2023: EBITDA 2.849 M€, Rtdo. neto 1.045 M€. Semáforo verde del monitor de vigilancia.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 12054
+          "nombre": "Ingresos (M€)",
+          "valor": 12054.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2849
+          "nombre": "EBITDA (M€)",
+          "valor": 2849.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 23.6
+          "nombre": "Margen EBITDA (%)",
+          "valor": 23.64
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1045
+          "nombre": "EBIT (M€)",
+          "valor": 1713.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 39.2
+          "nombre": "Resultado neto (M€)",
+          "valor": 1045.0
         },
         {
-          "nombre": "Capex M€",
+          "nombre": "Deuda neta (M€)",
+          "valor": 10752.0
+        },
+        {
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5359.0
+        },
+        {
+          "nombre": "Var. interanual puntos gas (%)",
           "valor": null
         },
         {
-          "nombre": "FFO M€",
-          "valor": 1977
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 412.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 10752
-        },
-        {
-          "nombre": "DN/ EBITDA",
-          "valor": null
-        },
-        {
-          "nombre": "Renov. GW",
-          "valor": 5.7
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.09
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 960.8
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": null
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 322.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2023: EBITDA 5.475 M€, Rtdo. neto 1.986 M€, DN/EBITDA 2,2x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 22617
+          "nombre": "Ingresos (M€)",
+          "valor": 22617.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 5475
+          "nombre": "EBITDA (M€)",
+          "valor": 5475.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 24.2
+          "nombre": "Margen EBITDA (%)",
+          "valor": 24.21
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1986
+          "nombre": "EBIT (M€)",
+          "valor": 3470.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 10.5
+          "nombre": "Resultado neto (M€)",
+          "valor": 1986.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 2136
+          "nombre": "Deuda neta (M€)",
+          "valor": 12090.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 2536
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5352.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 12090
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.34
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.2
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 822.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 6.5
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 2.07
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 960.8
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": -20
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 650.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2024: EBITDA 2.846 M€, Rtdo. neto 1.043 M€, DN/EBITDA 2,2x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "EBITDA -0.1 %, EBIT +8.3 %, Resultado neto -0.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 31.4 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.3 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 9071
+          "nombre": "Ingresos (M€)",
+          "valor": 9071.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2846
+          "nombre": "EBITDA (M€)",
+          "valor": 2846.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 31.4
+          "nombre": "Margen EBITDA (%)",
+          "valor": 31.37
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1043
+          "nombre": "EBIT (M€)",
+          "valor": 1856.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -0.1
+          "nombre": "Resultado neto (M€)",
+          "valor": 1043.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 937
+          "nombre": "Deuda neta (M€)",
+          "valor": 11838.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 681
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5340.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 11838
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.35
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.2
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 393.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 6.6
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.09
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 960.7
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": null
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 341.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Acercamiento de OPA de Taqa sobre Naturgy en 2024, finalmente frustrado (desenlace Pte. Revisión).",
-          "impacto": "=",
-          "valoracion": "Elimina una prima de control potencial a corto plazo; sin cambio en el negocio."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-02-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2024: EBITDA 5.365 M€, Rtdo. neto 1.901 M€, DN/EBITDA 2,3x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "EBITDA -2.0 %, EBIT +2.3 %, Resultado neto -4.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 27.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 19267
+          "nombre": "Ingresos (M€)",
+          "valor": 19267.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 5365
+          "nombre": "EBITDA (M€)",
+          "valor": 5365.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 27.8
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.85
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1901
+          "nombre": "EBIT (M€)",
+          "valor": 3549.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -2
+          "nombre": "Resultado neto (M€)",
+          "valor": 1901.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 2280
+          "nombre": "Deuda neta (M€)",
+          "valor": 12201.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 1418
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5331.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 12201
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.39
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.3
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 763.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 7.3
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.98
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 960.7
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": -510
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 670.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Presentación del Plan Estratégico 2025-2027, con foco en redes reguladas y renovables.",
-          "impacto": "+",
-          "valoracion": "Plan de crecimiento moderado y disciplinado, coherente con la tesis income."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Nueva política de dividendo creciente 2025-2027 condicionada a mantener el rating BBB.",
-          "impacto": "+",
-          "valoracion": "Trayectoria de retribución creciente; ancla la tesis de renta."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "A",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2025: EBITDA 2.848 M€, Rtdo. neto 1.147 M€, DN/EBITDA 2,6x. Semáforo ámbar del monitor de vigilancia.",
+      "resumen": "EBITDA +0.1 %, EBIT +5.8 %, Resultado neto +10.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 28.6 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 9961
+          "nombre": "Ingresos (M€)",
+          "valor": 9961.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2848
+          "nombre": "EBITDA (M€)",
+          "valor": 2848.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 28.6
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.59
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1147
+          "nombre": "EBIT (M€)",
+          "valor": 1963.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 0.1
+          "nombre": "Resultado neto (M€)",
+          "valor": 1147.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 897
+          "nombre": "Deuda neta (M€)",
+          "valor": 13689.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 1280
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5319.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 13689
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.39
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.6
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 376.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 7.7
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.23
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 930.4
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": -2332
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 388.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Recompra",
-          "hecho": "Programa de recompra de acciones propias (~2.332 M€), posteriormente recolocadas entre accionistas.",
-          "impacto": "=",
-          "valoracion": "Gestión de liquidez y paz accionarial; efecto neutro sobre el free float final."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2025: EBITDA 4.214 M€, Rtdo. neto 1.668 M€, DN/EBITDA 2,4x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «9M», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 28.9 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 14586
+          "nombre": "Ingresos (M€)",
+          "valor": 14586.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 4214
+          "nombre": "EBITDA (M€)",
+          "valor": 4214.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 28.9
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.89
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1668
+          "nombre": "EBIT (M€)",
+          "valor": 2912.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -1.8
+          "nombre": "Resultado neto (M€)",
+          "valor": 1668.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 1389
+          "nombre": "Deuda neta (M€)",
+          "valor": 12913.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 2151
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5314.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 12913
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.36
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.4
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 583.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 7.8
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.79
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 930.4
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": null
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 565.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2025: EBITDA 5.334 M€, Rtdo. neto 2.023 M€, DN/EBITDA 2,3x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "EBITDA -0.6 %, EBIT +0.9 %, Resultado neto +6.4 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 27.4 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.4 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 19455
+          "nombre": "Ingresos (M€)",
+          "valor": 19455.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 5334
+          "nombre": "EBITDA (M€)",
+          "valor": 5334.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 27.4
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.42
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 2023
+          "nombre": "EBIT (M€)",
+          "valor": 3580.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -0.6
+          "nombre": "Resultado neto (M€)",
+          "valor": 2023.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 2142
+          "nombre": "Deuda neta (M€)",
+          "valor": 12317.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 2242
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5312.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 12317
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.36
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.3
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 756.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 8.1
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 2.17
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 930.4
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": -2580
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 741.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "La CNMC eleva la tasa de retribución de la distribución eléctrica al 6,58% para 2026-2031.",
-          "impacto": "+",
-          "valoracion": "Catalizador para el negocio de redes; mejora la visibilidad de ingresos."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Q1-2026: EBITDA 1.362 M€, Rtdo. neto 530 M€, DN/EBITDA 2,2x. Semáforo verde del monitor de vigilancia.",
+      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2025 pero NO publicó su «Q1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 26.7 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). ",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 5101
+          "nombre": "Ingresos (M€)",
+          "valor": 5101.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 1362
+          "nombre": "EBITDA (M€)",
+          "valor": 1362.0
         },
         {
-          "nombre": "Mg EBITDA%",
+          "nombre": "Margen EBITDA (%)",
           "valor": 26.7
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 530
+          "nombre": "EBIT (M€)",
+          "valor": 917.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 6.5
+          "nombre": "Resultado neto (M€)",
+          "valor": 530.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 339
+          "nombre": "Deuda neta (M€)",
+          "valor": 12151.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 1381
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5302.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 12151
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.43
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.2
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 170.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 8.1
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 0.57
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 930.4
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": null
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 186.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "BlackRock (vía GIP) vende su 11,2% restante y sale del capital, ampliando el free float.",
-          "impacto": "+",
-          "valoracion": "Mejora liquidez e indexación de la acción; reduce el descuento por iliquidez."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
-      "fecha": "2026-07-22",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "La fecha de cada revision es la que el informe IMPRIME EN SU PORTADA, que en Naturgy es la de publicacion de los resultados: «22 de julio de 2026» en el de 1S-2026, «24 de julio de 2023» en el de 1S-2023, comprobado en los nueve. No se usa la fecha de cierre del periodo porque el monitor de la app ordena por cuando se SUPO el dato, no por cuando termino el trimestre (F485).",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "S1-2026 VERDE: resuelve el ámbar del S1-2025. EBITDA +4,5% (2.975 M€, récord de un 1S) y beneficio neto +5,9% (1.215 M€); DN/EBITDA baja a 2,2x con deuda neta 11.745 M€ (−572 vs cierre 2025) y FCL neto +729 M€. Margen 29,5%, renovables 8,4 GW. Guía 2026 REVISADA AL ALZA (EBITDA >5.500 M€, BN >2.100). Free float ~46% tras salir CVC y GIP. Rating BBB estable. Tesis income intacta.",
+      "resumen": "EBITDA +4.5 %, EBIT +7.5 %, Resultado neto +5.9 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA sobre ingresos publicados en 29.5 % (banda del §10.1: verde ≥ 27.0, rojo < 25.0). Los puntos de conexión de gas en España caen 0.5 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 10097
+          "nombre": "Ingresos (M€)",
+          "valor": 10097.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2975
+          "nombre": "EBITDA (M€)",
+          "valor": 2975.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 29.5
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.46
         },
         {
-          "nombre": "Rtdo neto M€",
-          "valor": 1215
+          "nombre": "EBIT (M€)",
+          "valor": 2110.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 4.5
+          "nombre": "Resultado neto (M€)",
+          "valor": 1215.0
         },
         {
-          "nombre": "Capex M€",
-          "valor": 844
+          "nombre": "Deuda neta (M€)",
+          "valor": 11745.0
         },
         {
-          "nombre": "FFO M€",
-          "valor": 1259
+          "nombre": "Puntos conexión gas España (miles)",
+          "valor": 5295.0
         },
         {
-          "nombre": "Deuda neta M€",
-          "valor": 11745
+          "nombre": "Var. interanual puntos gas (%)",
+          "valor": -0.45
         },
         {
-          "nombre": "DN/ EBITDA",
-          "valor": 2.2
+          "nombre": "EBITDA Gas España (M€)",
+          "valor": 359.0
         },
         {
-          "nombre": "Renov. GW",
-          "valor": 8.4
-        },
-        {
-          "nombre": "BPA €",
-          "valor": 1.31
-        },
-        {
-          "nombre": "Nº acc. M",
-          "valor": 930.4
-        },
-        {
-          "nombre": "Recompra M€",
-          "valor": null
+          "nombre": "EBITDA Electricidad España (M€)",
+          "valor": 496.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "impacto": "+",
-          "hecho": "CVC (Rioja, 13,8%) y GIP (11,4%) completan su salida del capital; el free float sube a ~46% (máximo histórico) y Criteria Caixa alcanza el 28,5%.",
-          "valoracion": "Disuelve el overhang que pesaba sobre la acción y mejora la liquidez e indexación; reduce el riesgo de bloques vendedores y refuerza la tesis income."
-        },
-        {
-          "tipo": "Gobierno",
-          "impacto": "+",
-          "hecho": "Elimina la mayoría reforzada del consejo vigente desde 2016 (ahora mayoría simple), reorganiza las comisiones e incorpora a Enrico Letta como consejero independiente.",
-          "valoracion": "Gobernanza más ágil y alineada con mejores prácticas; facilita la ejecución del plan y la supervisión de la inversión."
-        },
-        {
-          "tipo": "Guidance",
-          "impacto": "+",
-          "hecho": "Revisa al alza la previsión 2026: EBITDA superior a 5.500 M€ y beneficio neto superior a 2.100 M€, con deuda neta en el entorno de 13.000 M€. Precisión sobre la guía previa: el documento indica que el objetivo anterior de beneficio neto era «superior a 1,9 Bn€» (los ~2,0 Bn€ eran el consenso de mercado, no la guía). Añade además un DPS mínimo de 1,80 €/acción —ajustable por autocartera, un 0,9% del capital—, con una rentabilidad por dividendo del 6,3% y un primer dividendo a cuenta de 0,60 €/acción el 29-jul-2026.",
-          "valoracion": "Mejora sobre la guía previa (~5.300 EBITDA / ~2.000 BN / ~13.500 deuda); da soporte al semáforo verde y a la visibilidad de resultados."
-        },
-        {
-          "tipo": "Regulatorio",
-          "impacto": "=",
-          "hecho": "La CNMC remitió al Consejo de Estado (29-jun-2026) su propuesta de circular final con la metodología de retribución de la distribución de gas en España para 2027-2032.",
-          "valoracion": "A vigilar en §10.4: es una propuesta, sin impacto cuantificado; podría ajustar la tasa del negocio de redes de gas en el próximo periodo regulatorio."
-        },
-        {
-          "tipo": "Dividendo",
-          "impacto": "+",
-          "hecho": "Aprueba un primer dividendo a cuenta de 2026 de 0,60 €/acción (pago 29-jul-2026); el dividendo total de 2025 quedó en 1,77 €/acción (+10,6%).",
-          "valoracion": "Mantiene la trayectoria de retribución creciente que ancla la tesis de renta, cubierta por el FCL del periodo."
-        },
-        {
-          "tipo": "Balance",
-          "hecho": "Un pago único a Sonatrach elevará la deuda neta en unos 400 M€ durante el segundo semestre de 2026. La compañía cifra su capacidad de balance en 10.000-12.000 M€ manteniendo el rating BBB, con un FFO/DN según S&P del 30% frente al umbral del 18% exigido para BBB.",
-          "impacto": "=",
-          "valoracion": "El pago a Sonatrach explica por qué el objetivo de deuda neta ~13,0 Bn€ está por encima de los 11.745 M€ actuales: no es deterioro, es un desembolso conocido. La holgura de 12 puntos sobre el umbral BBB es la que sostiene la capacidad de compra de 10-12 Bn€."
-        },
-        {
-          "tipo": "Inversión",
-          "hecho": "Crecimiento renovable de +1,0 GW en 2026 (+360 MW en el primer semestre y 630 MW en el segundo) y +2,1 GW en 2027-2030, de los que 1,2 GW son baterías. En centros de datos: 900 MW en desarrollo y 2 GW de cartera; concurso de ciclo combinado de 400 MW en Puerto Rico previsto para el verano de 2026.",
-          "impacto": "+",
-          "valoracion": "Da contenido concreto a la «nueva fase» que anuncia la compañía: el crecimiento no es solo inorgánico, y los centros de datos abren una vía de demanda contratada a largo plazo que hoy no está en la valoración."
-        }
-      ],
-      "periodoDisplay": "S1"
+      "origen": "revolcado"
     }
-  ],
-  "schemaVersion": 2
+  ]
 }

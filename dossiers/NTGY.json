@@ -1,42 +1,45 @@
 {
+ "schemaVersion": 8,
  "ticker": "NTGY",
- "empresa": "Naturgy",
- "fecha": "2026-06-23",
+ "empresa": "Naturgy Energy Group, S.A.",
+ "fecha": "2026-09-12",
  "rating": "A",
- "score": 74.2,
- "decision": "MANTENER",
- "metodoValoracion": "DCF a 10 años (peso 35%) + múltiplos históricos 10A (peso 65%). El precio objetivo es la media ponderada de ambos métodos: rango DCF 34,9–73,7 € (base ~49,7 €) y precio por múltiplos inferior, que rebaja el PO ponderado a 32,81 €.",
- "poBear": 21,
- "poBase": 32.81,
- "poBull": 40,
- "entMin": 24,
- "entMax": 26,
- "stop": 20.1,
- "moat": 72,
+ "score": 71.3,
+ "decision": "COMPRAR",
+ "metodoValoracion": "Síntesis ponderada de nueve métodos (DCF 55 % a tres escenarios + múltiplos históricos a 10 años 30 % + renta 15 % + activos 0 %) — arquetipo REGULADAS. PO oficial = síntesis §6.5 = 37,20 €/acc contra una cotización de 29,48 €, margen de seguridad +26,17 %, etiqueta BARATA. Los pesos se desvían de la banda del arquetipo y el desvío está declarado en el §6.0: los 15 puntos que la norma reserva a valor por activos se reparten a múltiplos y a renta porque Naturgy no publica NAV ni suma de partes, y el método retiró el EV/RAB al comprobar que el RAB no está en las cuentas anuales. El WACC del caso central (5,50 %) es el SUELO del arquetipo —el CAPM no lo alcanza en ninguno de los diez ejercicios— y queda por debajo del 6,8 % antes de impuestos que la propia Naturgy usa para descontar sus redes españolas, razón por la que el escenario pesimista descuenta al 6,50 %. El 71,4 % del valor del caso central está en el valor terminal: esta valoración es, en tres cuartas partes, una hipótesis sobre el año once en adelante.",
+ "poBear": 30.14,
+ "poBase": 37.2,
+ "poBull": 40.58,
+ "entMin": 30.14,
+ "entMax": 32.34,
+ "stop": 25.96,
+ "dpaPrevisto": 1.77,
+ "moat": "70,3 · MOAT MODERADO (escala del método: ANCHO ≥ 75 · MODERADO 60-74 · ESTRECHO 45-59). Es un foso de LICENCIA y de ESCALA, no de marca, y se puede señalar con el dedo: 138.247 km de red de gas y 158.557 de electricidad, 16,1 millones de puntos de suministro y el 70 % de los puntos de gas del país. Los cinco ejes, ponderados con la norma del arquetipo REGULADAS pedida a la librería y no tecleada: escala 85, intangibles 70, ventaja de costes 65, costes de cambio 40, y efecto de red declarado N/A —no puntuado a cero (F65)—. Ninguno llega a 100 por la misma razón, y es la tensión central de la tesis: quien concede la licencia es quien fija lo que se gana con ella, y la retribución de la red de gas 2027-2032 está sin escribir. El coste de cambio infinito de la red no lo pone una relación comercial: lo pone la ley, y por eso puntúa 40 y no 90.",
  "catalizadores": [
-  "Subida de la tasa de retribución regulada: la TRF de distribución eléctrica sube al 6,58% para 2026-2031, elevando el EBITDA de redes desde enero de 2026.",
-  "Confirmación del guidance 2026: EBITDA 2026E ≈ 5.300 M€ y resultado neto en línea con la guía de la compañía.",
-  "Claridad sobre la estructura accionarial (IFM/Criteria/GIP): un acuerdo entre accionistas o una colocación que amplíe el free float reduciría el descuento de gobernanza.",
-  "Bajada de tipos del BCE: revaloriza los activos regulados de larga duración y abarata el coste de la deuda.",
-  "Normalización del pay-out: fin de las recompras agresivas y política de dividendo sostenible (pay-out hacia 60-70%)."
+  "Vuelta a los índices MSCI · YA CUMPLIDO (efectos del 25-nov-2025): objetivo declarado del Plan Estratégico 2025-2027 y ya materializado. Demanda pasiva estructural, que es re-rating del múltiplo y no mejora del flujo: de-rating positivo del 8 %, +3,58 €/acc. El free float pasó del 32,2 % al 44,3 % con la salida de CVC en mayo de 2026. LO QUE PUEDE IMPEDIRLO: la ponderación depende del free float y el free float ha subido por una razón reversible —la salida de un fondo y la colocación de autocartera—; un nuevo bloque estable lo devuelve donde estaba. Vigilado en el §10.4 por su nombre.",
+  "La CNMC cierra el marco del gas 2027-2032 sin recorte (antes del 1-ene-2027): es el riesgo nº 1 de la matriz resolviéndose por el lado bueno. El 29-jun-2026 la CNMC remitió al Consejo de Estado, por vía de urgencia, la propuesta de circular final con una tasa de retribución financiera del 6,67 % para la distribución de gas frente al 5,83 % vigente (+84 pb) y 1.192-1.194 M€ anuales (+2,3 %). De-rating positivo del 6 %, +2,68 €/acc. LO QUE PUEDE IMPEDIRLO: la propuesta remitida no es la circular publicada —el dictamen puede devolverla— y los factores de eficiencia y el volumen de RAB retribuible pueden comerse los 84 pb sin tocar la tasa. El marco se cierra para seis años: aquí un recorte no se corrige en la siguiente revisión.",
+  "El dividendo de 1,9 €/acción confirmado para 2027 (feb-2027, con los resultados de 2026): trayectoria declarada de 1,6 €/acc en 2024 a 1,9 en 2027, con suelos de 1,7 y 1,8. Son +18,75 % sobre el dividendo que usa hoy el modelo y la pata de renta pesa 15 sobre 100: +2,30 €/acc. LO QUE PUEDE IMPEDIRLO: la propia política escribe su condición —«sujeto al mantenimiento de un rating crediticio BBB»—, el §10.1 proyecta DN/EBITDA de 3,0x en 2027 con el CAPEX del plan encima, y el payout sobre FCL de 2025 ya fue del 121 %. Si el desapalancamiento no acompaña, la trayectoria del dividendo es lo primero que se puede aplazar sin romper nada de lo prometido.",
+  "Rotación de la cartera latinoamericana (0-24 meses): el plan escribe, para Gas y Electricidad en Latinoamérica, «gestión de la cartera maximizando la rentabilidad». Una desinversión del orden de 1.500 M€ aplicada a reducir deuda vale +2,87 €/acc, y reduce la exposición a los cinco reguladores y las cinco monedas del riesgo nº 4. LO QUE PUEDE IMPEDIRLO: el precio —una venta por debajo de libros deteriora en vez de crear, y el comprador descuenta el mismo riesgo regulatorio que el vendedor— y el destino del dinero: el +2,87 € supone que los 1.500 M€ van íntegros a deuda; si van al CAPEX del plan el efecto es prácticamente nulo. Y el activo vendido se lleva su EBITDA con él.",
+  "El EBITDA del plan se supera (feb-2027 y feb-2028): el Plan 2025-2027 compromete 5,3 k M€ medios anuales y 2025 cerró en 5.334 M€, cumpliendo ya en el primer año. Superarlo un 3 % son +160 M€, equivalentes a 0,82 puntos de margen sobre ingresos: +6,56 €/acc, el mayor impacto de los cinco y el único que depende sólo de la ejecución. LO QUE PUEDE IMPEDIRLO: el EBITDA de 2025 que sirve de base lleva dentro la Generación Térmica inflada por el apagón peninsular de abril de 2025, que no se repite por definición, así que el listón es más alto de lo que parece. Por debajo, la variable de verdad es el precio mayorista de la electricidad, que ni la compañía ni el plan controlan."
  ],
  "riesgos": [
-  "Cambio regulatorio o tarifario que reduzca la retribución de redes (regulatorio, impacto alto).",
-  "Estructura accionarial y gobernanza: concentración en fondos (IFM/Criteria/GIP) y bajo free float, con conflicto potencial de intereses.",
-  "Exposición a Latinoamérica: riesgo de divisa e inflación en los mercados latinoamericanos.",
-  "Transición energética y declive estructural del negocio de gas a largo plazo.",
-  "Erosión del patrimonio neto por la retribución agresiva (dividendo elevado + recompras de 2.580 M€ en 2025), que eleva el gearing."
+  "La retribución de la red de gas 2027-2032 está sin escribir (Regulatorio · probabilidad MEDIA · −3 a −8 %): el periodo regulatorio del gas en España es 2021-2026 y termina. La CNMC tiene en tramitación las circulares de 2027-2032 y el marco se cierra para seis años. Afecta al 14,2 % del EBITDA. Disparador: la publicación de la propuesta de circular, cuya audiencia pública es el primer documento que dice hacia dónde va.",
+  "El activo es la demanda de gas y la transición está escrita para reducirla (Estructural · probabilidad ALTA · −8 a −19 %): los 11,1 millones de puntos de suministro y los 138.247 km de red valen lo que valga el gas que pase por ellos durante las próximas décadas. La respuesta declarada son los gases renovables, y su escala está en el propio informe: 4,1 MW de biometano instalados y 23,8 GWh producidos. Disparador: caída de los puntos de suministro de gas en España dos ejercicios seguidos, o altas netas negativas.",
+  "El dividendo prometido sube un 19 % desde un punto en el que el flujo libre ya no lo cubre (Financiero · probabilidad MEDIA · −4 a −10 %): payout sobre FCL del 81,5 % (2023), 100,7 % (2024) y 121,2 % (2025), con cobertura de 1,23x, 0,99x y 0,82x. Sobre eso, el plan compromete subir el DPA de 1,6 a 1,9 €/acc y llevar la deuda neta de 12,2 a 15,9 k M€ con un EBITDA plano. Disparador: cobertura por debajo de 0,80x un ejercicio más, o la perspectiva del rating BBB a negativa.",
+  "Latinoamérica es el 45 % de la mitad regulada, y la propia Naturgy la descuenta hasta al 22,1 % (Político · probabilidad MEDIA · −7 a −17 %): las redes de Argentina, Brasil, Chile, México y Panamá aportaron 1.213 M€ de los 2.710 M€ de EBITDA de Redes en 2025, las cinco bajo modelo «Price Cap». Disparador: apertura de una revisión tarifaria integral en cualquiera de los cinco con propuesta de tasa por debajo de la vigente, o una devaluación superior al 20 % en doce meses.",
+  "Seis manos tenían el 77 % del capital y el que se va marca el precio (Societario · probabilidad ALTA · −4 a −8 %): a 31-dic-2025 Criteria Caixa 26,0 %, IFM 15,5 %, CVC 13,8 %, BlackRock/GIP 12,5 %, Alba 5,0 % y Sonatrach 4,1 %, más un 4,5 % de autocartera. El 27-may-2026 CVC colocó su 13,8 % a 28,55 €/acc en una acelerada y el free float subió al 44,3 %. Disparador: que Criteria cruce el 30 % —a partir de ahí la ley obliga a OPA por el 100 %— o el anuncio de otra colocación acelerada.",
+  "297.000 km de red y un operador de infraestructura crítica (Ciberseguridad · probabilidad BAJA-MEDIA · −5 a −14 %): 138.247 km de red de gas, 158.557 de electricidad, 16,1 millones de puntos de suministro y 18,7 GW de generación, con telemando. Es el punto ciego que el método obliga a mirar y que el parque entero tenía a cero. Disparador: notificación de un incidente al INCIBE-CERT o al regulador sectorial, o la aparición de Naturgy en el listado de víctimas de cualquier grupo de ransomware.",
+  "Un expediente sancionador contra su propia distribuidora por favorecer a su propia comercializadora, y el apagón sin provisionar (Societario · probabilidad MEDIA · −0,4 a −1,2 %): la CNMC tiene abierto y pendiente de resolución un expediente contra UFD Distribución Electricidad por presunto abuso de posición de dominio en el alquiler de contadores y trato diferencial a las comercializadoras. Disparador: la resolución del expediente, o su elevación a un procedimiento sobre separación de actividades.",
+  "El deterioro de los activos regulados latinoamericanos, y por qué este modelo no lo ve (Contable · probabilidad BAJA-MEDIA · −0,5 a −1 %): Naturgy publica las tasas de descuento de sus tests unidad por unidad y las de Latinoamérica van del 10,9 % al 22,1 %, con Argentina al 16,6 % en dólares. Una revisión tarifaria adversa o un salto de la tasa obliga a deteriorar. Disparador: que suba la tasa de descuento de cualquier unidad latinoamericana respecto al ejercicio anterior."
  ],
- "bull": "Catalizadores regulatorio (nueva TRF del 6,58%) + bajada de tipos del BCE + claridad accionarial elevan el EBITDA regulado y reducen el descuento de gobernanza, con el dividendo y el BPA creciendo apoyados en las recompras. Precio ~40 € (+39%), probabilidad ~P90.",
- "bear": "Del Pre-Mortem (§8.2): shock regulatorio que recorte la retribución de redes y/o crisis en Latinoamérica, agravado por la erosión del patrimonio. Precio ~21 € (−27%), probabilidad ~P10.",
- "resumen": "Naturgy es un negocio de alta calidad (Rating A, 74,2/100; ROIC 11,1% > WACC 5,0%, spread +6,1 pp; margen EBITDA en máximos del 25,4% y desapalancamiento a DN/EBITDA 2,5x) que cotiza a un precio justo: precio objetivo 32,81 € frente a 28,80 €, con un margen de seguridad de +13,9%. La tesis es de income de calidad —dividendo recuperado a 1,77 € y BPA en máximos (2,17 €) impulsado por las recompras que han reducido las acciones de 1.000 a 930 M— más que de fuerte revalorización. Decisión: MANTENER; la compra resulta atractiva por debajo de ~26 € (MdS > 25%). Moat moderado-ancho (72) anclado en redes reguladas, con el matiz del patrimonio erosionado por la retribución agresiva y el descuento de gobernanza por la estructura accionarial (IFM/Criteria/GIP).",
- "schemaVersion": 8,
+ "bull": "40,58 €/acc (1,09 × PO, +37,65 % sobre la cotización de 29,48 €). No se construye sumando impactos: se perturba el modelo UNA sola vez con los tres primeros catalizadores juntos —vuelta a los índices MSCI, cierre del marco del gas 2027-2032 sin recorte y confirmación del dividendo de 1,9 €/acc para 2027— y los dos de-ratings positivos se COMPONEN en vez de sumarse (1,08 × 1,06 = 1,1448), porque el modelo no es lineal. Los tres caben dentro del horizonte del Plan 2025-2027 y dos de los tres son objetivos que la propia compañía ha puesto por escrito. Con el primero ya cumplido desde noviembre de 2025 y el segundo remitido al Consejo de Estado en junio de 2026, este bull case no es un escenario remoto: es la continuación de lo que ya está pasando. Y aun así se queda a sólo un 9,1 % del precio objetivo, lo que confirma que esta tesis se gana en la valoración de partida y no en los catalizadores.",
+ "bear": "30,14 €/acc (0,81 × PO, +2,24 % sobre la cotización). Es la cadena C del §8.2 —«Latinoamérica se cierra a la vez que el ciclo», la peor de las tres con un −26,61 %— y es la que ancla el stop de 25,96 €. El mecanismo: dos revisiones tarifarias integrales adversas en los cinco países del «Price Cap» a la vez que el ciclo, sobre unos activos que la propia Naturgy descuenta hasta al 22,1 % y que aportan 1.213 M€ de los 2.710 M€ de EBITDA de Redes. Lo que hace incómodo este bear no es su profundidad sino su suelo: a 30,14 € la acción todavía estaría por encima de la cotización de hoy, que es otra forma de decir que el mercado ya está descontando parte de esta cadena.",
+ "resumen": "Empresa de calidad alta —rating A sobre 71,3 puntos— a un precio que sí deja margen, y ése es el rasgo que la separa de casi todo lo demás del universo. Una utility regulada con un foso de licencia y escala (moat 70,3, MODERADO) que reparte 1,77 €/acción y cotiza a 29,48 € contra un precio objetivo de 37,20: margen de seguridad +26,17 %, etiqueta BARATA, y las cuatro condiciones de compra del §9.4 se cumplen. Las tensiones que el veredicto lleva dentro, dichas sin adorno: el 71,4 % del valor del caso central está en el valor terminal, el payout sobre flujo de caja libre de 2025 fue del 121 % con un plan que sube el dividendo y la deuda a la vez, la retribución de la red de gas 2027-2032 está sin escribir y se cierra para seis años, y el EBITDA de 2025 lleva dentro una Generación Térmica inflada por el apagón de abril. El activo, a cambio, es lo que es: 297.000 km de red, 16,1 millones de puntos de suministro y el 70 % del gas del país.",
  "confianza": {
   "score": 98,
   "nivel": "A",
   "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -44,68 +47,82 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-12"
  },
  "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": true,
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
   "banda": {
-   "p10": 21,
-   "p50": 32.81,
-   "p90": 40
+   "p10": 30.14,
+   "p50": 37.2,
+   "p90": 40.58
   },
   "sensibilidad": {
-   "poMin": 35.42,
-   "poMax": 78.02,
-   "poBase": 49.7141898176677,
-   "cotizacion": 28.8,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 32.02,
+   "poMax": 50.04,
+   "poBase": 37.2,
+   "cotizacion": 29.48,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.35,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 26.33,
+    "poMax": 77.82,
+    "poBase": 41.1335703839732
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 23.0,
-   "mdsMax": 170.9
+   "mdsMin": 8.6,
+   "mdsMax": 69.7
   },
   "beta": {
-   "capm": 0.45,
+   "capm": 0.489,
    "ref2": null,
    "aviso": null
   },
   "motivos": [
-   "la cotización (28.80) queda por DEBAJO de toda la banda de PO [35.4–78.0] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (29.48) queda por DEBAJO de toda la banda del precio objetivo de síntesis [32.02–50.04] → infravalorada en todo el rango",
+   "…pero la banda de margen de seguridad [+8.6 % … +69.7 %] CRUZA el umbral del 15 % de la tabla del §9.4: la DECISIÓN no es la misma en los dos extremos de la perturbación, así que es SENSIBLE [F621]. Que la cotización esté fuera de la banda del precio objetivo dice que la INFRA o SOBREvaloración aguanta; no dice que aguante el veredicto",
+   "para contraste, el DCF puro (§6.3) se mueve en [26.33–77.82] € alrededor de 41.13 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-12"
  },
  "dividendSafety": {
-  "score": 76,
+  "score": 79,
   "banda": "Seguro",
   "componentes": {
    "C1": 35,
-   "C2": 10,
+   "C2": 7,
    "C3": 13,
-   "C4": 3,
+   "C4": 9,
    "C5": 15
   },
-  "shareholderYield": 9.78,
+  "shareholderYield": 1.16,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.62x / FCL 2.13x (3a OE 2.89x) → 35/35",
-   "C2 payout BN ord.: 55% (3a 51%) → 10/15",
-   "C3 balance: DN/EBITDA 2.51x, cob.int 5.0x → 13/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C1 cobertura dividendo ord.: OE 2.62x / FCL 1.41x (3a OE 2.90x) → 35/35",
+   "C2 payout BN ord.: 83% (3a 76%) → 7/15",
+   "C3 balance: DN/EBITDA 2.31x, cob.int 4.5x → 13/20",
+   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-12"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 8,
+   "score": 7,
    "banda": "fuerte",
    "detalle": {
     "roa_pos": 1,
@@ -115,7 +132,7 @@
     "lever_dn": 1,
     "liquid_up": 0,
     "no_dilu": 1,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 1
    },
    "nota": "margen=EBIT (sin bruto)"
@@ -125,10 +142,9 @@
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.76,
+   "m": -2.92,
    "senal": "sin indicios",
    "aproximado": [
-    "DSRI",
     "GMI",
     "SGAI"
    ]
@@ -138,29 +154,31 @@
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-12"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -2.2,
-  "gIntrinseco": -0.97,
+  "gImplicito": -1.01,
+  "gIntrinseco": -1.13,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El precio solo exige un -2.20% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-07-27",
+  "motivo": "El precio solo exige un -1.01% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
+  "calculadoEl": "2026-09-12",
   "entradas": {
-   "fcl": 2376,
-   "wacc": 6.5,
+   "fcl": 1791.2,
+   "wacc": 5.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 930.41,
-   "deudaNeta": 12406,
+   "acciones": 969.614,
+   "deudaNeta": 12317,
    "modo": "EV",
-   "precioBase": 28.8,
+   "precioBase": 29.48,
    "validado": true,
-   "desviacion": 0.005,
-   "gBase": -2.195,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": -0.004,
+   "gBase": -1.014,
+   "fechaBase": "2026-09-12",
+   "congeladoEl": "2026-09-13"
   }
  }
 }
