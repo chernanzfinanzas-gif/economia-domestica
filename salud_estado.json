@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-12",
+ "generado": "2026-09-13",
  "linter": {
   "ok": true,
   "detalle": "50 ficheros validados, sin errores."
@@ -10,7 +10,7 @@
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados. 7 tienen el caché de fórmulas vacío, y los 7 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (CIE, Ebro Foods, Faes Farma, Iberdrola, Inditex, Repsol, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
+  "detalle": "25 libros revisados. 8 tienen el caché de fórmulas vacío, y los 8 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (CIE, Ebro Foods, Faes Farma, Iberdrola, Inditex, Naturgy, Repsol, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
   "libros": [
    {
     "empresa": "CIE",
@@ -40,6 +40,12 @@
     "empresa": "Inditex",
     "formulas": 2712,
     "mudas": 2712,
+    "recalculaAlAbrir": true
+   },
+   {
+    "empresa": "Naturgy",
+    "formulas": 2512,
+    "mudas": 2512,
     "recalculaAlAbrir": true
    },
    {
