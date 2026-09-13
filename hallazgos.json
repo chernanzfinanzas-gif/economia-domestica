@@ -734,7 +734,7 @@
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-09-12"
+        "semanal": "2026-08-30"
       },
       "hallazgos": [
         {
@@ -751,25 +751,6 @@
           "vigenteHasta": "2026-09-04",
           "resueltoEl": null,
           "desenlace": null
-        },
-        {
-          "id": "S6-2026-09-12",
-          "abiertoEl": "2026-09-12",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
-          "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
-          "tipo": "senal",
-          "naturaleza": "situacion",
-          "severidad": "alta",
-          "origen": "bloque 10 · vigilancia (regeneración del análisis)",
-          "fecha": "2026-09-12",
-          "fuente": null,
-          "exigeAccion": true,
-          "codigo": "S6",
-          "plazoDias": 7,
-          "vencePlazoEl": "2026-09-19",
-          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -1110,9 +1091,9 @@
       "revisionesFrescas": true
     },
     "PRM": {
-      "empresa": "Prim, S.A.",
+      "empresa": "Prim",
       "cobertura": {
-        "semanal": "2026-08-30"
+        "semanal": "2026-09-13"
       },
       "hallazgos": [
         {
@@ -1164,6 +1145,25 @@
           "vigenteHasta": "2026-09-04",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-09-13",
+          "abiertoEl": "2026-09-13",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "bloque 10 · vigilancia",
+          "fecha": "2026-09-13",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-09-20",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -1645,13 +1645,13 @@
       "coyuntura": 14,
       "otro": 13,
       "opa": 3,
-      "senal": 1,
       "litigio": 1,
+      "senal": 1,
       "concurso": 1
     },
     "exigenAccion": 1,
     "conPlazoVencido": 0,
     "situacionesAbiertas": 22,
-    "hechosCaducadosHoy": 3
+    "hechosCaducadosHoy": 0
   }
 }

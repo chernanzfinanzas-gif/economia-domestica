@@ -2,65 +2,42 @@
  "schemaVersion": 8,
  "ticker": "PRM",
  "empresa": "Prim, S.A.",
- "fecha": "2026-08-06",
+ "fecha": "2026-09-13",
  "rating": "A",
- "score": 66.5,
- "decision": "MANTENER",
- "metodoValoracion": "DCF de FCL normalizado (3 escenarios) + múltiplos históricos — SALUD/distribución. PO oficial = síntesis ponderada §6.5 (DCF 45% · múltiplos 55%) ≈ 14,9 €; el DCF base sobre FCL normalizado daría 16,9 € y los múltiplos 12,9 €.",
- "poBear": 11.8,
- "poBase": 14.9,
- "poBull": 20.0,
- "entMin": 12.0,
- "entMax": 13.0,
- "stop": 9.5,
- "dpaPrevisto": 0.489,
- "moat": "Estrecho (52/100): escala logística y relaciones establecidas en un nicho fragmentado de distribución sanitaria/ortopédica; sin barrera de patentes.",
+ "score": 63.5,
+ "decision": "ESPERAR",
+ "metodoValoracion": "Síntesis ponderada del §6.5 — DCF 50 · múltiplos 40 · renta 10 · activos 0, que son EXACTAMENTE los pesos de la norma del arquetipo SALUD, sin desviación que justificar. El PO oficial (10,83 €) es esa síntesis de nueve patas, no el DCF puro: el caso central del DCF da 7,48 € y la media de las cinco patas de múltiplo 13,71 €, y el §6.6 declara que el DCF de Prim sale por lo BAJO porque descuenta owner earnings medios de diez años (5,63 M€, el 16,6 % del EBITDA) que incluyen los ejercicios en que el circulante se comió la caja.",
+ "poBear": 8.98,
+ "poBase": 10.83,
+ "poBull": 11.54,
+ "entMin": 8.98,
+ "entMax": 9.41,
+ "stop": 6.71,
+ "dpaPrevisto": 0.528,
+ "moat": "MOAT ESTRECHO · 45,3 sobre 100",
  "catalizadores": [
-  "Normalización del circulante → FCL recurrente visible",
-  "Recuperación y estabilización de márgenes (EBITDA >11%)",
-  "Dividendo ordinario ~0,49 €/acc (DY 3,65%) — a VIGILAR, no sostenido: Dividend Safety 40/100, cobertura sobre owner earnings 3a 0,57x y 3 recortes en 10 años",
-  "Re-rating hacia el múltiplo del sector (PER 13,6× vs 15-20×)",
-  "Adquisición bolt-on acretiva bien integrada"
+  "La conversión de caja de 2024-2025 se confirma en el cierre de 2026: es el catalizador de esta empresa y no hay otro que se le acerque. Llevaría el flujo base del DCF de 5,63 a 14,90 M€ y el precio objetivo de 10,83 a 17,51 €.",
+  "Re-rating hacia el múltiplo de sus comparables europeos: Prim cotiza a 13,05x beneficio contra 17,0x de Embla Medical, 30,4x de AddLife y 52,4x de Asker, haciendo el mismo negocio y sin la deuda de 2,2-2,4x que llevan los tres.",
+  "El margen EBIT recupera un punto de los 2,96 perdidos en la década: la caída del 11,83 % al 8,87 % es casi toda amortización —la D&A pasa del 1,89 % de las ventas al 4,52 %— y revierte sola a medida que los intangibles de las compras se agotan.",
+  "Una compra que aporte fabricación propia en vez de más distribución: las siete adquisiciones desde 2021 están todas en Movilidad y Cuidados de la Salud, que gana un BAI del 7,6 % contra el 12,9 % de Tecnologías Médicas."
  ],
  "riesgos": [
-  "Dependencia del sector público (~48% ventas al SNS): presión de precios y retrasos de cobro",
-  "Compresión estructural de márgenes (margen neto del 12% al 6,6%)",
-  "Deterioro de fondo de comercio por M&A (goodwill 11,5 M€)",
-  "Iliquidez y descuento de small-cap",
-  "Volatilidad del circulante (FCL negativo en 2019 y 2023)"
+  "Comercial (−17 a −46 %): el concurso público aprieta el precio. Es el riesgo dominante y el que fija el bear case.",
+  "Operativo (−13 a −33 %): el circulante vuelve a absorber como en 2022-2023, cuando la conversión EBITDA→FCL fue del −77 %.",
+  "Competitivo (−7 a −18 %): un fabricante que Prim distribuye monta filial propia en España.",
+  "Asignación de capital (−6 a −15 %): una compra grande pagada con deuda que no aporta margen. Con el Plan 2026-2031 encima, ha dejado de ser hipotético.",
+  "Societario (−7 a −16 %): exclusión pactada o cambio de control a precio de mercado, con la acción cotizando por encima de su precio objetivo.",
+  "Contable (−1 a −2 %): deterioro del fondo de comercio y de los intangibles de las compras. El impacto es pequeño porque el modelo casi no mira el balance, no porque el riesgo lo sea.",
+  "Ciberseguridad (−12 a −25 %): parón de sistemas o brecha de datos de salud. El informe de gestión no nombra este riesgo en ningún sitio."
  ],
- "bull": "Los márgenes se estabilizan y el circulante deja de drenar caja: el FCL recurrente se hace visible, el mercado re-califica a Prim al múltiplo del sector y la retribución (3,65%) acompaña sin ser el motor → 18-20 €.",
- "bear": "La presión de precios en la licitación pública y la competencia comprimen el margen bruto por debajo del 46%, el ROIC converge hacia el WACC y, como small-cap ilíquida sin catalizador, el múltiplo se de-rata a PER 8-9× → ~10-12 €.",
- "resumen": "Prim es un negocio de calidad (Rating A, confianza 98/100) que CREA VALOR (ROIC 12,1% > WACC 6,4%; ROIIC 5A 16,8%), con un balance excepcional (caja neta, cobertura >50×) y sin alertas forenses. Es el 'value + income' de la salud española: barato frente a sus peers y defensivo, con un dividendo ordinario del 3,65% y A VIGILAR (Dividend Safety 40/100: cobertura plurianual ajustada 0,57× y recortes pasados), no un valor para comprar solo por la renta. Cotiza cerca de su valor justo (PO 14,9 € vs 13,35 €, +12%), con moat ESTRECHO y márgenes modestos/volátiles; el DCF la ve robustamente barata (robustez sólida), pero el PO de síntesis, más conservador, y la fragilidad del FCL normalizado (reverse DCF 'n.s.') dejan poco margen. Veredicto MANTENER; entrada atractiva por debajo de ~13 €.",
- "reverseDcf": {
-  "aplica": true,
-  "gImplicito": 2.17,
-  "gIntrinseco": 7.86,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
-  "entradas": {
-   "fcl": 14,
-   "wacc": 8.5,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 17.01,
-   "deudaNeta": -9.129999999999999,
-   "modo": "EV",
-   "precioBase": 13.35,
-   "validado": true,
-   "desviacion": 0.0,
-   "gBase": 2.17,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
-  }
- },
+ "bull": "Los dos primeros catalizadores perturbados JUNTOS —que la conversión de caja de 2024-2025 se confirme, llevando el flujo base del DCF de 5,63 a 14,90 M€, y un re-rating del 10 % hacia el múltiplo de los comparables europeos—: 11,54 €.",
+ "bear": "El riesgo dominante del §8.1 en su extremo SUAVE: una bajada del 1 % en el precio de concurso que se traslada íntegra al margen, porque el coste de la mercancía no baja con el precio de venta. Da 8,98 €, o sea 0,829 × precio objetivo, dentro de la banda 0,70-0,85 que el método declara.",
+ "resumen": "Prim es una empresa de calidad A (63,5) con un balance excepcional —caja neta, seis de cada diez años sin deuda, cobertura de intereses mínima de 31,5x— y una generación de caja que sólo ahora empieza a demostrarse: la conversión EBITDA→FCL media de la década es del 21,9 % y hay tres ejercicios con caja libre negativa. A 12,80 € el margen de seguridad es −15,4 % contra el precio objetivo de 10,83 €, así que se cumplen tres de las cuatro condiciones de COMPRAR y falla justamente la del precio. VEREDICTO: ESPERAR, con banda de entrada en 8,98-9,41 € y stop de tesis en 6,71 €. Dos avisos que van con la decisión: el dividendo renta un 4,00 % pero su Dividend Safety es 40 sobre 100 con el tope duro activo —no es una acción de renta—, y la tesis entera cuelga de una sola variable, el margen sobre el precio de concurso público, que fija el mismo pagador en el 90,5 % de las ventas.",
  "confianza": {
-  "score": 98,
+  "score": 100,
   "nivel": "A",
   "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "sin huecos críticos ni discrepancias abiertas"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -68,38 +45,52 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-13"
  },
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
-  "matizada": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
   "banda": {
-   "p10": 11.8,
-   "p50": 14.9,
-   "p90": 20.0
+   "p10": 8.98,
+   "p50": 10.83,
+   "p90": 11.54
   },
   "sensibilidad": {
-   "poMin": 14.14,
-   "poMax": 21.29,
-   "poBase": 16.9078601788438,
-   "cotizacion": 13.35,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 10.46,
+   "poMax": 11.47,
+   "poBase": 10.83,
+   "cotizacion": 12.8,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.26,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 6.05,
+    "poMax": 9.96,
+    "poBase": 7.48266240312826
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 5.9,
-   "mdsMax": 59.5
+   "mdsMin": -18.3,
+   "mdsMax": -10.4
   },
   "beta": {
-   "capm": 0.5,
-   "ref2": null,
+   "capm": 0.51,
+   "ref2": 0.27,
    "aviso": null
   },
   "motivos": [
-   "la cotización (13.35) queda por DEBAJO de toda la banda de PO [14.1–21.3] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (26 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 74 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (12.80) queda por ENCIMA de toda la banda del precio objetivo de síntesis [10.46–11.47] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-18.3 % … -10.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [6.05–9.96] € alrededor de 7.48 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-13"
  },
  "dividendSafety": {
   "score": 40,
@@ -108,10 +99,10 @@
    "C1": 1,
    "C2": 13,
    "C3": 20,
-   "C4": 0,
-   "C5": 12
+   "C4": 3,
+   "C5": 15
   },
-  "shareholderYield": null,
+  "shareholderYield": 3.74,
   "topeDuro": {
    "activo": true,
    "motivo": "cobertura sobre owner earnings 3a 0.57x < 1,0x"
@@ -119,13 +110,13 @@
   "motivos": [
    "C1 cobertura dividendo ord.: OE 2.62x / FCL 2.27x (3a OE 0.57x) → 1/35",
    "C2 payout BN ord.: 48% (3a 54%) → 13/15",
-   "C3 balance: DN/EBITDA -0.32x, cob.int 38.5x → 20/20",
-   "C4 trayectoria: 3 recorte(s) en 10a · DPA creciente → 0/15",
-   "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral.",
-   "TOPE DURO aplicado (score 46 → 40): cobertura sobre owner earnings 3a 0.57x < 1,0x"
+   "TOPE DURO aplicado (score 52 → 40): cobertura sobre owner earnings 3a 0.57x < 1,0x"
   ],
-  "calculadoEl": "2026-07-20"
+  "calculadoEl": "2026-09-13"
  },
  "forense": {
   "aplica": true,
@@ -146,7 +137,7 @@
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": 9.79,
+   "z": 9.84,
    "zona": "segura"
   },
   "beneish": {
@@ -163,7 +154,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-20"
+  "calculadoEl": "2026-09-13"
  },
- "cambiosDesdeUltimaRevision": "Revisión extraordinaria discrecional 6-ago-2026: dpaPrevisto 0,76 € -> 0,489 € (dividendo con cargo a 2025: 9,0 M€ / 17.036.578 acciones); RPD ~5,7% -> 3,65% sobre 13,40 €. Eliminada la devolución de prima de emisión como componente de la retribución: la nota 15.2 de las cuentas auditadas declara la prima sin movimiento en 2024 ni 2025 (saldo 1.227.059,19 €, 0,072 €/acción en total). Decisión REAFIRMAR: PO 14,9 €, banda <13 €, stop 9,5 € sin cambios (la valoración es DCF 45% / múltiplos 55%, no usa el dividendo)."
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 13.08,
+  "gIntrinseco": 6.01,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+  "calculadoEl": "2026-09-13",
+  "entradas": {
+   "fcl": 5.6297894,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 17.036578,
+   "deudaNeta": -2.08018,
+   "modo": "EV",
+   "precioBase": 12.8,
+   "validado": true,
+   "desviacion": 0.002,
+   "gBase": 13.082,
+   "fechaBase": "2026-09-13",
+   "congeladoEl": "2026-09-13"
+  }
+ }
 }
