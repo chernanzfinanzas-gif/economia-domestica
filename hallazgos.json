@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-08-30",
+  "generadoEl": "2026-09-13",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
@@ -734,7 +734,7 @@
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-08-30"
+        "semanal": "2026-09-12"
       },
       "hallazgos": [
         {
@@ -751,6 +751,25 @@
           "vigenteHasta": "2026-09-04",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-09-12",
+          "abiertoEl": "2026-09-12",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "bloque 10 · vigilancia (regeneración del análisis)",
+          "fecha": "2026-09-12",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-09-19",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -1099,9 +1118,9 @@
         {
           "id": "soc-otro-2026-08-03",
           "abiertoEl": "2026-08-03",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-09-13",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "Adquisicion de ORTOPEDIA QUERALTO: Prim entra en el mercado andaluz con ocho centros ortopedicos. Confirmada esta semana que fue comunicada POR EL EMISOR A LA CNMV el 3-ago a las 14:11 — no depende de prensa. NO CONSTA IMPORTE, y sin el no se puede contrastar contra el umbral del 8.1 R3 (operacion >20% de la capitalizacion): el importe queda Pte. Revision y NO se estima. Compra bolt-on que toca el driver de M&A y fondo de comercio. Severidad rebajada a BAJA respecto del registro provisional de la semana pasada por ser una operacion pequena sin umbral cruzado.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -1303,9 +1322,9 @@
         {
           "id": "soc-litigio-2026-08-04",
           "abiertoEl": "2026-08-04",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-09-13",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "La AUDIENCIA NACIONAL acuerda el 4-ago-2026 la SUSPENSION CAUTELAR de la liquidacion del gravamen temporal energetico del ejercicio 2023, por 152,415 M EUR. Es FAVORABLE a Repsol, pero con dos matices que cambian la lectura: (1) es medida CAUTELAR, no resolucion de fondo, y esta CONDICIONADA a que Repsol mantenga vigente el aval bancario solidario ya presentado ante la AEAT, razonando el tribunal que el credito de la Hacienda Publica queda asegurado; (2) REPSOL NO LO HA COMUNICADO — ni nota de prensa ni comunicacion a la CNMV verificable —, asi que se sostiene solo en prensa y la severidad queda topada en MEDIA por la regla de prudencia de fuente. Afecta solo a Repsol (habria abonado ~800 M EUR por este gravamen en 2023 y 2024); no anula el impuesto ni extiende efectos a otras energeticas. Contexto: el gravamen a las energeticas NO esta vigente desde 2025, cuando decayo su prorroga en el Congreso.",
           "tipo": "litigio",
           "naturaleza": "hecho",
@@ -1409,9 +1428,9 @@
         {
           "id": "soc-otro-2026-08-10",
           "abiertoEl": "2026-08-10",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-09-13",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "Programa de recompra de acciones propias por importe maximo de 1.825 M EUR con amortizacion posterior y la consiguiente reduccion de capital social. Maximo 1.468.931.950 titulos; inicio previsto 24-ago-2026, fin indicativo 8-ene-2027, unas 98 sesiones. Severidad baja por diseno: es retribucion al accionista dentro de la politica ya prevista, capital a la baja y no ampliacion dilutiva; no toca ningun umbral de riesgo ni la capacidad de mantener la posicion. Se registra porque refuerza el catalizador de RoTE/CET1/recompras del 9.1.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -1620,18 +1639,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 25,
-    "hallazgosActivos": 38,
+    "hallazgosActivos": 36,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 14,
-      "otro": 15,
+      "otro": 13,
       "opa": 3,
-      "litigio": 2,
+      "senal": 1,
+      "litigio": 1,
       "concurso": 1
     },
-    "exigenAccion": 0,
+    "exigenAccion": 1,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 21,
-    "hechosCaducadosHoy": 0
+    "situacionesAbiertas": 22,
+    "hechosCaducadosHoy": 3
   }
 }
