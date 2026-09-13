@@ -643,13 +643,18 @@ function _repintarAvisos(){
   if(typeof renderVision==='function'&&document.getElementById('view-vision'))renderVision();
   if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
 }
+/* [F641] Como se han cargado los avisos: del registro vivo o del respaldo congelado.
+   `null` = todavia no se ha intentado. Lo lee la bandeja del Panel para avisarlo. */
+var _alertasCorpModo = null;
+var _hallazgosGeneradoEl = null;
+function alertasCorpModo(){ return _alertasCorpModo; }
 function cargarAlertasCorp(){
   if(_alertasCorp) return Promise.resolve(_alertasCorp);
   return fetch('hallazgos.json',{cache:'no-store'})
     .then(function(r){ return r.ok?r.json():null; })
     .then(function(j){
       if(!j||!j.empresas) return null;
-      _hallazgosEmp=j.empresas; _alertasCorp={};
+      _hallazgosEmp=j.empresas; _alertasCorp={}; _hallazgosGeneradoEl=j.generadoEl||null;  /* [F641] */
       Object.keys(j.empresas).forEach(function(tk){
         var p=_hallazgoPrincipal((j.empresas[tk]||{}).hallazgos);
         if(p) _alertasCorp[(''+tk).toUpperCase()]=p;
@@ -665,13 +670,27 @@ function cargarAlertasCorp(){
           var _n=diarioImportar105();
           if(_n && typeof renderDiario==='function' && document.getElementById('view-diario')) renderDiario();
         } }catch(e){}
+        _alertasCorpModo = { respaldo:false, fecha:_hallazgosGeneradoEl };    /* [F641] */
         _repintarAvisos(); return _alertasCorp;
       }
       /* Caida a alertas.json: mientras dure la transicion la app sigue funcionando
          exactamente igual que antes si hallazgos.json aun no esta publicado. */
       return fetch('alertas.json',{cache:'no-store'})
         .then(function(r){ return r.ok?r.json():null; })
-        .then(function(j){ _alertasCorp=(j&&j.alertas)||{}; _hallazgosEmp=null; _repintarAvisos(); return _alertasCorp; });
+        .then(function(j){ _alertasCorp=(j&&j.alertas)||{}; _hallazgosEmp=null;
+          /* [F641 · 13-sep-2026] EL RESPALDO SE IDENTIFICA COMO RESPALDO.
+             `alertas.json` es la caida cuando `hallazgos.json` no se puede leer, y se quedo
+             congelado el 25-jul-2026 a proposito: desde entonces manda el registro. El problema
+             no es que este viejo, es que hasta hoy se servia EN SILENCIO — o sea que un fallo de
+             descarga hacia que la app pintase la foto de julio como si fuera la de hoy, sin
+             senales del protocolo y sin decirlo. Eso es peor que fallar: un respaldo mudo que
+             sirve datos viejos es indistinguible de un sistema que funciona.
+             Se guarda la fecha y el modo, y quien pinte los avisos puede decirlo. */
+          _alertasCorpModo = { respaldo:true, fecha:(j&&j.actualizado)||null };
+          try{ console.warn('[F641] hallazgos.json no disponible: la app esta usando el respaldo '
+               +'alertas.json'+((j&&j.actualizado)?(' del '+j.actualizado):'')
+               +'. No trae senales del protocolo (S1-S6).'); }catch(e){}
+          _repintarAvisos(); return _alertasCorp; });
     })
     .catch(function(){ _alertasCorp=_alertasCorp||{}; return _alertasCorp; });
 }

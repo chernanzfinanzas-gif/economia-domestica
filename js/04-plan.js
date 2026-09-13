@@ -903,6 +903,20 @@ function renderPanelDash(){
      enlace para pedir la Nota, situaciones societarias y coyuntura roja. Se anaden aqui para verlos
      todos en la bandeja del Panel sin ir ficha por ficha. Se descartan los que ya haya empujado otra
      fuente para el mismo ticker y senal (p. ej. el S2 que saca el monitor trimestral), para no duplicar. */
+  /* [F641 · 13-sep-2026] Si los avisos vienen del RESPALDO congelado y no del registro vivo, se
+     dice arriba del todo. Sin esto, un fallo de descarga de `hallazgos.json` hacia que el Panel
+     pintase la foto del 25-jul-2026 —sin ninguna señal del protocolo— exactamente igual que si
+     estuviera al dia. Un respaldo mudo que sirve datos viejos es indistinguible de un sistema que
+     funciona, y ese es el peor sitio donde puede estar un dato viejo: en la bandeja que se mira
+     para decidir que hay que mirar. */
+  try{ if(typeof alertasCorpModo==='function'){ const _m=alertasCorpModo();
+    if(_m && _m.respaldo){ avisos.push({ pri:-1, cls:'r', goto:'panel', tipo:'datos', tick:'', sig:'',
+      txt:'⚠️ <b>Los avisos NO vienen del registro vivo</b> — no se ha podido leer '
+         +'<code>hallazgos.json</code> y se está usando el respaldo <code>alertas.json</code>'
+         +(_m.fecha?(', congelado el <b>'+_m.fecha+'</b>'):'')
+         +'<div style="font-size:11.5px;color:#475569;margin-top:2px">El respaldo NO trae señales '
+         +'del protocolo (S1–S6): aunque haya alguna abierta, aquí no aparecerá. Lo que se ve es '
+         +'una foto antigua, no el estado de hoy.</div>' }); } } }catch(e){}
   try{ if(typeof hallazgosAvisos==='function') hallazgosAvisos().forEach(x=>{
     /* Si otra fuente ya empujo un aviso del mismo ticker y la misma senal (p. ej. el S2 del monitor
        trimestral), NO se descarta el de hallazgos: se SUSTITUYE al anterior. El de hallazgos es el
