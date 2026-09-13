@@ -10,7 +10,7 @@
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados. 9 tienen el caché de fórmulas vacío, y los 9 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (CIE, Ebro Foods, Endesa, Faes Farma, Iberdrola, Inditex, Naturgy, Repsol, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
+  "detalle": "25 libros revisados. 10 tienen el caché de fórmulas vacío, y los 10 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (CIE, Ebro Foods, Endesa, Faes Farma, Iberdrola, Inditex, Naturgy, Prim, Repsol, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
   "libros": [
    {
     "empresa": "CIE",
@@ -55,6 +55,12 @@
     "recalculaAlAbrir": true
    },
    {
+    "empresa": "Prim",
+    "formulas": 2584,
+    "mudas": 2584,
+    "recalculaAlAbrir": true
+   },
+   {
     "empresa": "Repsol",
     "formulas": 2391,
     "mudas": 2391,
@@ -70,6 +76,6 @@
  },
  "senales": {
   "ok": true,
-  "detalle": "Ninguna señal abierta se queda fuera del puente. 29 empresas en el puente, 1 exigen accion."
+  "detalle": "Ninguna señal abierta se queda fuera del puente. 29 empresas en el puente, 2 exigen accion."
  }
 }
