@@ -146,7 +146,7 @@ function _calibT0Foto(ticker, dossierFecha){
 function calibBaseline(ticker){
   ticker = (ticker||'').toUpperCase();
   const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker) || {};
-  const stored = ((DB.calibracion||{})[ticker]||{}).t0 || {};
+  const stored = (_calibReg(ticker, a.dossierFecha).t0) || {};   /* [F640] clave compuesta */
   const seed = CALIB_T0_SEED[ticker] || {};
   const pte  = calibPuenteDe(ticker, a.dossierFecha) || {};
   const foto = _calibT0Foto(ticker, a.dossierFecha);
@@ -229,7 +229,7 @@ function calibDataFor(ticker){
   ticker = (ticker||'').toUpperCase();
   const a = (DB.analisis||[]).find(x => (x.ticker||'').toUpperCase() === ticker);
   if(!a || !a.dossierFecha) return null;
-  const reg = (DB.calibracion||{})[ticker] || {};
+  const reg = _calibReg(ticker, a.dossierFecha);                 /* [F640] clave compuesta */
   const base = calibBaseline(ticker);
   const hoy = _calibHoy();
   return {
@@ -542,37 +542,107 @@ function showCalib(ticker, hito){
   if(h.vencida && !(info && info.cotDiana!=null && info.cotDiana!=='')) doAuto(true);
 }
 
+
+/* ===== [F640 · 13-sep-2026] CLAVE COMPUESTA: una empresa puede tener DOS t0 ==================
+   Lo pregunto el operador: «estoy registrando 2 t0, el del primer informe y el regenerado, pero
+   ahora en evaluaciones tambien me aparecen dos filas, ¿solo deberiamos evaluar el nuevo, o
+   debemos evaluar los dos?». Los DOS —lo decidio el, y esta escrito en su propio boton de
+   reanalisis: «la fila anterior SE CONSERVA, para poder ver dentro de un año cual de los dos
+   analisis acerto»—.
+
+   El Excel ya los distingue por (ticker, fecha). Esta app NO: guardaba todo en
+   DB.calibracion[TICKER], con el ticker a secas, asi que con dos t0 no sabia a cual pertenecia
+   cada evaluacion. El propio sincronizador lo dejo anotado el 30-jul-2026 y predijo el dia:
+   «en cuanto una empresa tenga dos t0 —su primera anual— la app no sabra a cual pertenece cada
+   evaluacion... Que lo diga el script». Llego antes de 2027 porque la regeneracion del parque
+   adelanto ONCE segundas filas de golpe.
+
+   Se arregla ahora porque hoy sale gratis: medido el 13-sep, las 216 filas de evaluacion del
+   Excel estan VACIAS — cero dianas rellenadas. En cuanto se rellene la primera, cambiar la clave
+   obliga a reasignar a mano evaluacion por evaluacion.
+
+   LAS FIRMAS NO CAMBIAN. `_calibGuardar(ticker, hito, ...)` y `_calibToggleDone(ticker, hito, on)`
+   siguen recibiendo el ticker a secas —las llama el check del calendario del radar, fuera de este
+   fichero— y la clave se deriva DENTRO. Asi no hay que tocar ningun otro modulo. */
+function _calibClave(ticker, fecha){
+  ticker = (ticker||'').toUpperCase();
+  if(!fecha){
+    try{ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===ticker);
+         fecha = a && a.dossierFecha; }catch(e){}
+  }
+  return fecha ? (ticker + '@' + (''+fecha).slice(0,10)) : ticker;
+}
+/* Lee el registro de un t0 concreto, cayendo a la clave VIEJA si aun no se ha migrado. */
+function _calibReg(ticker, fecha){
+  const C = DB.calibracion||{};
+  const k = _calibClave(ticker, fecha);
+  if(C[k]) return C[k];
+  const bare = (ticker||'').toUpperCase();
+  return (k!==bare && C[bare]) ? C[bare] : {};
+}
+/* Migracion, una sola vez. Lo guardado bajo la clave vieja pertenece al t0 que estaba vigente
+   cuando se escribio. Si NO se puede determinar cual era, se CONSERVA bajo la clave vieja y se
+   avisa por consola: adjudicar una evaluacion al t0 equivocado es peor que dejarla sin clasificar,
+   porque el proposito de todo esto es comparar los dos analisis. */
+function _calibMigrarClaves(){
+  try{
+    const C = DB.calibracion; if(!C) return;
+    let movidas=0, dudosas=[];
+    Object.keys(C).forEach(function(k){
+      if(k.indexOf('@')>=0) return;                       /* ya migrada */
+      const nk = _calibClave(k, null);
+      if(nk===k){ dudosas.push(k); return; }              /* sin fecha de dossier: no se adivina */
+      if(C[nk]){ dudosas.push(k); return; }               /* ya hay algo ahi: no se pisa */
+      /* ¿La evaluacion es ANTERIOR al dossier vigente? Entonces se hizo contra un t0 que ya no
+         es el actual —la empresa se ha regenerado desde entonces— y NO se puede saber cual era
+         desde la app. Se conserva bajo la clave vieja y se avisa: atribuirla al t0 nuevo
+         falsearia justo la comparacion para la que existen las dos series. */
+      const _vig=(nk.split('@')[1]||'');
+      const _ant=Object.keys(C[k]).some(function(h){
+        const f=C[k][h] && C[k][h].fecha; return f && (''+f).slice(0,10) < _vig; });
+      if(_ant){ dudosas.push(k); return; }
+      C[nk]=C[k]; delete C[k]; movidas++;
+    });
+    if(movidas && typeof saveNow==='function') saveNow();
+    if(dudosas.length) console.warn('[F640] calibracion: '+dudosas.length+
+      ' registro(s) sin migrar (no se pudo determinar a que t0 pertenecen): '+dudosas.join(', '));
+  }catch(e){}
+}
+try{ _calibMigrarClaves(); }catch(e){}
+
 /* ---------- Persistencia ---------- */
 function _calibGuardar(ticker, hito, base, ev, done){
   ticker = (ticker||'').toUpperCase();
+  const _k = _calibClave(ticker, null);                        /* [F640] clave compuesta */
   DB.calibracion = DB.calibracion || {};
-  DB.calibracion[ticker] = DB.calibracion[ticker] || {};
+  DB.calibracion[_k] = DB.calibracion[_k] || {};
   // línea base t0 (solo si hay algo que guardar)
-  DB.calibracion[ticker].t0 = {
+  DB.calibracion[_k].t0 = {
     cot0:base.cot0, poBase:base.poBase, entMax:base.entMax, stop:base.stop, decision:base.decision
   };
   /* [A10 · 26-jul-2026] Antes: done ? (hayCot || !!prev.done || true) : false — el `|| true` anulaba
      la condición entera, así que las dos primeras comprobaciones no hacían nada y el comentario
      prometía un automatismo que no existía. `done` lo decide el operador con los botones del
      diálogo (Guardar = true / Reabrir = false), y eso es lo que manda: se deja explícito. */
-  const prev = DB.calibracion[ticker][hito] || {};
-  DB.calibracion[ticker][hito] = {
+  const prev = DB.calibracion[_k][hito] || {};
+  DB.calibracion[_k][hito] = {
     done: !!done,
     fecha: done ? (prev.fecha || _calibHoy()) : '',
     nota: ev.nota||'',
     cotDiana:ev.cotDiana||'', maxP:ev.maxP||'', minP:ev.minP||'', div:ev.div||'',
     stopJust:ev.stopJust||'—', tesis:ev.tesis||'—'
   };
-  if(!done) DB.calibracion[ticker][hito].done = false;
+  if(!done) DB.calibracion[_k][hito].done = false;
   _calibRefrescar();
 }
 
 /* toggle rápido done (usado por el check del calendario del radar) — preserva la evaluación */
 function _calibToggleDone(ticker, hito, on){
   ticker=(ticker||'').toUpperCase();
-  DB.calibracion = DB.calibracion || {}; DB.calibracion[ticker] = DB.calibracion[ticker] || {};
-  const prev = DB.calibracion[ticker][hito] || {};
-  DB.calibracion[ticker][hito] = Object.assign({}, prev, { done:!!on, fecha: on ? (prev.fecha||_calibHoy()) : '' });
+  const _k = _calibClave(ticker, null);                        /* [F640] clave compuesta */
+  DB.calibracion = DB.calibracion || {}; DB.calibracion[_k] = DB.calibracion[_k] || {};
+  const prev = DB.calibracion[_k][hito] || {};
+  DB.calibracion[_k][hito] = Object.assign({}, prev, { done:!!on, fecha: on ? (prev.fecha||_calibHoy()) : '' });
   _calibRefrescar();
 }
 
