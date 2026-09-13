@@ -1,778 +1,749 @@
 {
+  "schemaVersion": 2,
   "ticker": "ELE",
   "empresa": "Endesa",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-28",
+      "periodoDisplay": "1T",
+      "fecha": "2023-05-09",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T-2023: EBITDA +60% interanual, pero sobre una base muy baja (1T-2022, golpeado por el inicio de la crisis del gas); los ingresos ya caen por la normalización de precios mayoristas. DFN elevada en 11,6 mil M€ por el circulante. Mejora más óptica que real. Ámbar.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 7504
+          "nombre": "Ingresos (M€)",
+          "valor": 7504.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 1462
+          "nombre": "EBITDA (M€)",
+          "valor": 1462.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11600
+          "nombre": "EBIT (M€)",
+          "valor": 990.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 19.5
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 594.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 594
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 594.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 15.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 19.48
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22044
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": null
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 19
+          "nombre": "Producción total (GWh)",
+          "valor": 15680.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 9.3
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 6835.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.8
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22044.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1S-2023: EBITDA +13% con recuperación de márgenes de generación y descenso de la deuda a medida que se libera el circulante del gas. Producción aún débil. La tendencia mejora respecto al 1T y confirma la salida gradual de la crisis. Verde.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 13121
+          "nombre": "Ingresos (M€)",
+          "valor": 13121.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2476
+          "nombre": "EBITDA (M€)",
+          "valor": 2476.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11600
+          "nombre": "EBIT (M€)",
+          "valor": 1521.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 18.9
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 879.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 879
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 879.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 29.5
+          "nombre": "Margen EBITDA (%)",
+          "valor": 18.87
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22044
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": null
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 36
+          "nombre": "Producción total (GWh)",
+          "valor": 29490.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 9.3
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 12441.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.9
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22044.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-24",
+      "periodoDisplay": "9M",
+      "fecha": "2023-10-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2023: EBITDA −10% y producción −7% por menor hidraulicidad y demanda, y por la comparación con un 3T-2022 fuerte. La normalización de precios pesa sobre los ingresos. Trimestre flojo que anticipa un cierre de año débil. Ámbar.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 19211
+          "nombre": "Ingresos (M€)",
+          "valor": 19211.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 3353
+          "nombre": "EBITDA (M€)",
+          "valor": 3353.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11600
+          "nombre": "EBIT (M€)",
+          "valor": 1903.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 17.5
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1059.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1059
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1059.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 46
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.45
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22044
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 54.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 59.2
+          "nombre": "Producción total (GWh)",
+          "valor": 45982.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 9.3
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 19357.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.9
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22044.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2024-02-28",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2023: el peor año del ciclo. EBITDA −32% y producción −7% por la crisis energética y la baja hidraulicidad. El RON reportado de 2.398 M€ infla la cifra con extraordinarios (comparable ~951 M€); el beneficio neto cae a 742 M€. Inversiones de 2.068 M€ sostenidas. Suelo del ciclo. Ámbar.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 25459
+          "nombre": "Ingresos (M€)",
+          "valor": 25459.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 3777
+          "nombre": "EBITDA (M€)",
+          "valor": 3777.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11600
+          "nombre": "EBIT (M€)",
+          "valor": 1645.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 14.8
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 742.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 951
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 951.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 60.3
+          "nombre": "Margen EBITDA (%)",
+          "valor": 14.84
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 21247
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 52.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 75
+          "nombre": "Producción total (GWh)",
+          "valor": 60264.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 9.9
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 24865.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.9
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 21247.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-04-28",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "1T-2024: EBITDA −26% sobre la base alta del 1T-2023 (favorecido por coberturas). Arranque flojo, con márgenes de comercialización presionados. Comparación exigente más que deterioro estructural. Ámbar.",
+      "periodoDisplay": "1T",
+      "fecha": "2024-05-08",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ingresos -26.1 %, EBITDA -26.2 %, Resultado ordinario neto -50.8 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 19.4 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 58.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 5547
+          "nombre": "Ingresos (M€)",
+          "valor": 5547.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 1079
+          "nombre": "EBITDA (M€)",
+          "valor": 1079.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11300
+          "nombre": "EBIT (M€)",
+          "valor": 573.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 19.5
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 292.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 292
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 292.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 19
+          "nombre": "Margen EBITDA (%)",
+          "valor": 19.45
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 21345
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 58.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 19
+          "nombre": "Producción total (GWh)",
+          "valor": 15618.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 6591.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.9
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 21247.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "A",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-24",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "S",
       "tesisSigueIntacta": true,
-      "resumen": "1S-2024: EBITDA −3%, estabilizándose tras el mal arranque; los márgenes empiezan a recomponerse y la deuda se mantiene controlada. Transición hacia la recuperación que se consolidará en el segundo semestre. Ámbar.",
+      "resumen": "HUECO DECLARADO, no un dato que falte: ÚNICO informe del histórico publicado en INGLÉS. Su anexo no trae la línea de ingresos con el rótulo de los demás, así que ingresos y margen EBITDA van en hueco declarado; el resto —EBITDA, EBIT, resultado neto y ordinario, capacidad, producción y margen unitario— sí se ha leído, y su tabla trae además las columnas en orden INVERSO al de las versiones españolas. Las demás magnitudes de este periodo sí están y son buenas, así que el periodo se escribe entero menos esta celda. La fila va SIN COLOR a propósito: un ámbar aquí se leería como un juicio sobre el margen, y no hay margen que juzgar.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 10416
+          "nombre": "Ingresos (M€)",
+          "valor": null
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2413
+          "nombre": "EBITDA (M€)",
+          "valor": 2413.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11300
+          "nombre": "EBIT (M€)",
+          "valor": 1383.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 23.2
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 800.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 772
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 772.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 29.78
+          "nombre": "Margen EBITDA (%)",
+          "valor": null
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 21440
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 58.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 37
+          "nombre": "Producción total (GWh)",
+          "valor": 29778.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10.1
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 12246.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.7
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 21440.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2024: EBITDA +16% y RON +30%, clara mejora operativa apoyada en la normalización de los márgenes de generación y la buena evolución de renovables y comercialización. Punto de inflexión del año. Verde.",
+      "resumen": "Ingresos -17.9 %, EBITDA +15.7 %, Resultado ordinario neto +29.9 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.6 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 57.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 15765
+          "nombre": "Ingresos (M€)",
+          "valor": 15765.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 3881
+          "nombre": "EBITDA (M€)",
+          "valor": 3881.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11300
+          "nombre": "EBIT (M€)",
+          "valor": 2300.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 24.6
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1404.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1376
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1376.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 45.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 24.62
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 21440
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 57.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 56
+          "nombre": "Producción total (GWh)",
+          "valor": 45742.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10.1
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 19344.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.7
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 21440.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-02-26",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-27",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2024: recuperación plena. EBITDA +40% hasta 5.293 M€, RON 1.993 M€ (+110% comparable) y DFN reducida a 9,7 mil M€. La normalización de precios, las coberturas y la aportación renovable devuelven el negocio a su nivel estructural. Dividendo holgadamente cubierto. Verde.",
+      "resumen": "Ingresos -16.3 %, EBITDA +40.1 %, Resultado ordinario neto +109.6 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.8 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 55.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 21307
+          "nombre": "Ingresos (M€)",
+          "valor": 21307.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 5293
+          "nombre": "EBITDA (M€)",
+          "valor": 5293.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11300
+          "nombre": "EBIT (M€)",
+          "valor": 3071.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 24.8
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1888.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1993
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1993.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 59.8
+          "nombre": "Margen EBITDA (%)",
+          "valor": 24.84
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 21449
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 55.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 74
+          "nombre": "Producción total (GWh)",
+          "valor": 59780.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10.1
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 24152.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.7
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 21449.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-04-28",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2025-05-07",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T-2025: EBITDA +33% y producción +2%, fuerte arranque del ejercicio con márgenes ya normalizados y mayor producción libre de emisiones. Confirma la solidez de la recuperación iniciada en 2024. Verde.",
+      "resumen": "Ingresos +6.3 %, EBITDA +32.6 %, Resultado ordinario neto +99.7 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 24.3 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 54.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 5899
+          "nombre": "Ingresos (M€)",
+          "valor": 5899.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 1431
+          "nombre": "EBITDA (M€)",
+          "valor": 1431.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11500
+          "nombre": "EBIT (M€)",
+          "valor": 859.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 24.3
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 583.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 583
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 583.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 15.9
+          "nombre": "Margen EBITDA (%)",
+          "valor": 24.26
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22072
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 54.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 18
+          "nombre": "Producción total (GWh)",
+          "valor": 15939.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10.8
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 7134.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.6
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22072.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1S-2025: EBITDA +12% y Resultado Neto +30%, con crecimiento de renovables y comercialización y costes financieros bajo control. Semestre que afianza la tendencia y da visibilidad al cumplimiento del guidance anual. Verde.",
+      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2024 pero NO publicó su «S1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 24.9 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). ",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 10880
+          "nombre": "Ingresos (M€)",
+          "valor": 10880.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 2711
+          "nombre": "EBITDA (M€)",
+          "valor": 2711.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11500
+          "nombre": "EBIT (M€)",
+          "valor": 1594.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 24.9
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1041.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1041
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1041.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 30.13
+          "nombre": "Margen EBITDA (%)",
+          "valor": 24.92
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22099
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 53.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 35
+          "nombre": "Producción total (GWh)",
+          "valor": 30136.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 10.8
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 12087.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.4
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22099.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-24",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "9M-2025: EBITDA +9%, RON +26% y producción +1%, tendencia sólida y sostenida pese a comparaciones cada vez más exigentes. La calidad del mix (renovables + redes) sostiene el margen. Verde.",
+      "resumen": "Ingresos +1.2 %, EBITDA +8.8 %, Resultado ordinario neto +26.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.5 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 53.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 15948
+          "nombre": "Ingresos (M€)",
+          "valor": 15948.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 4224
+          "nombre": "EBITDA (M€)",
+          "valor": 4224.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11500
+          "nombre": "EBIT (M€)",
+          "valor": 2545.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 26.5
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1711.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1735
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1735.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 46.4
+          "nombre": "Margen EBITDA (%)",
+          "valor": 26.49
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22346
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 53.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 54
+          "nombre": "Producción total (GWh)",
+          "valor": 46377.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 11
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 19065.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.3
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22346.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-24",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "FY-2025: confirma el cierre con EBITDA 5.756 M€ (+9%), RON 2.351 M€ (+18%), producción 61,0 TWh y DFN 10,1 mil M€ (~1,8x). Supera el guidance y consolida la recuperación. Idéntica a la fila REAL. Verde.",
+      "resumen": "Ingresos +0.5 %, EBITDA +8.7 %, Resultado ordinario neto +18.0 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 26.9 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 52.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 21424
+          "nombre": "Ingresos (M€)",
+          "valor": 21424.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 5756
+          "nombre": "EBITDA (M€)",
+          "valor": 5756.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11500
+          "nombre": "EBIT (M€)",
+          "valor": 3331.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 26.9
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 2198.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 2351
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 2351.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 61
+          "nombre": "Margen EBITDA (%)",
+          "valor": 26.87
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22616
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 52.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 71
+          "nombre": "Producción total (GWh)",
+          "valor": 61011.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 11.3
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 24924.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.2
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22616.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "CNMC (Circular 9/2025) eleva la retribución financiera de distribución del 5,58% al 6,58% para 2026-2031.",
-          "impacto": "+",
-          "valoracion": "Mejora la remuneración del negocio regulado, núcleo del moat y de la inversión futura."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Presentación del Plan Estratégico 2026-2028: inversión bruta ~10,6 mil M€, con más del 50% destinado a Redes.",
-          "impacto": "+",
-          "valoracion": "Refuerza el giro hacia activos regulados y la expansión de la base de activos (RAB)."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Inversiones inorgánicas por ~1.000 M€ en 2025, incluidos 0,6 GW hidráulicos.",
-          "impacto": "+",
-          "valoracion": "Crecimiento selectivo que amplía capacidad sin comprometer el balance."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-28",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2026-05-06",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "1T-2026: arranque muy sólido del nuevo Plan Estratégico 2026-28. EBITDA +14% (1.632 M€) y Resultado Ordinario Neto +24% (725 M€), con la mejora concentrada en Distribución (+45% de EBITDA por el nuevo marco regulatorio y reliquidaciones de años anteriores) y la resiliencia del negocio liberalizado. Margen EBITDA en el 28% —por encima del 24% que REFUERZA la tesis (§10.1)— y RON/EBITDA sube al 44%. La deuda neta repunta a 10,6 mil M€ (+5%) por el mayor ritmo inversor del plan, pero DFN/EBITDA se mantiene en 1,8x, muy por debajo del 2,5x de la zona de refuerzo. Conversión de caja del 65% del EBITDA y reservas hidráulicas en niveles récord. La dirección confirma los objetivos para todo el año. Todos los KPIs críticos del §10.1 (apalancamiento, margen, cobertura) en zona de refuerzo. Verde.",
+      "resumen": "Ingresos -1.3 %, EBITDA +14.0 %, Resultado ordinario neto +24.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 28.0 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 54.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 5824
+          "nombre": "Ingresos (M€)",
+          "valor": 5824.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 1632
+          "nombre": "EBITDA (M€)",
+          "valor": 1632.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11200
+          "nombre": "EBIT (M€)",
+          "valor": 1063.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 28.0
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 725.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 725
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 725.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 16.9
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.02
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22616
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 54.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 17
+          "nombre": "Producción total (GWh)",
+          "valor": 16900.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 11.3
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 6818.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.4
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22616.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Gianni Vittorio Armani nombrado CEO por unanimidad, en sustitución de José Bogas tras doce años.",
-          "impacto": "=",
-          "valoracion": "Relevo alineado con Enel y su foco en distribución; transición ordenada con Bogas como consejero."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Nombramiento de Angela Eliseo (dominical) y Ana Muñoz Merino (independiente) como consejeras.",
-          "impacto": "=",
-          "valoracion": "Renovación ordinaria del consejo; mantiene el equilibrio dominical/independiente."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2026-07-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicación en la portada, y además la repiten en el pie de cada página («Resultados 1S 2025 - Madrid, 29 julio 2025»). Comprobadas una a una: las catorce son distintas y van en orden.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "El mejor semestre de la serie: EBITDA 3.240 M€ (+20%), margen 29,5%, Resultado Ordinario Neto 1.480 M€ (+42%) y BPA 1,44 € (+46%), con el EBITDA regulado acercándose al 50% del total. Suben la guía: el objetivo de BPA 2026 pasa de 2,4 €/acc a >2,4 €/acc. Solvencia holgadísima (DN/EBITDA 1,6x, CFO/DN 38%) y recompra de 2.000 M€ ya ejecutada por encima del 50%. Matices: el semestre incluye efectos no recurrentes positivos (~80 M€ de intereses de demora), los ingresos solo suben +1% —todo el crecimiento es margen— y la capacidad renovable se ha parado (+128 MW). Verde.",
+      "resumen": "Ingresos +1.1 %, EBITDA +19.5 %, Resultado ordinario neto +42.2 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 29.5 % (banda del §10.1: verde ≥ 25.0, rojo < 22.0). El margen unitario eléctrico liberalizado sube 56.0 %, que es la señal única de la tesis.",
       "metricas": [
         {
-          "nombre": "Ingresos M€",
-          "valor": 10995
+          "nombre": "Ingresos (M€)",
+          "valor": 10995.0
         },
         {
-          "nombre": "EBITDA M€",
-          "valor": 3240
+          "nombre": "EBITDA (M€)",
+          "valor": 3240.0
         },
         {
-          "nombre": "RAB M€",
-          "valor": 11400
+          "nombre": "EBIT (M€)",
+          "valor": 2094.0
         },
         {
-          "nombre": "Mg EBITDA%",
-          "valor": 29.5
+          "nombre": "Resultado neto atribuible (M€)",
+          "valor": 1470.0
         },
         {
-          "nombre": "Rtdo Ord. Neto M€",
-          "valor": 1480
+          "nombre": "Resultado ordinario neto (M€)",
+          "valor": 1480.0
         },
         {
-          "nombre": "Producción  Total TWh",
-          "valor": 32.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.47
         },
         {
-          "nombre": "Capacidad total MW",
-          "valor": 22744
+          "nombre": "Margen unitario eléctrico liberalizado (€/MWh)",
+          "valor": 56.0
         },
         {
-          "nombre": "Ventas elec TWh",
-          "valor": 35
+          "nombre": "Producción total (GWh)",
+          "valor": 32708.0
         },
         {
-          "nombre": "Capacidad Renov. GW",
-          "valor": 11.4
+          "nombre": "Producción nuclear (GWh)",
+          "valor": 12636.0
         },
         {
-          "nombre": "Clientes Liberaliz. M",
-          "valor": 6.3
+          "nombre": "Capacidad instalada neta total (MW)",
+          "valor": 22744.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Mejora de la previsión de BPA para 2026: el objetivo pasa de 2,4 €/acción a «>2,4 €/acción», respaldado por el resultado del primer semestre y por la ejecución del programa de recompra. El resto de objetivos del plan se mantiene. FUENTE: «2026 Q2 Resultados Endesa.pdf», láminas 19-20 — «2,4 Objetivo 2026 · Consensus 2026 esperado 2,3-2,4 · >2,4» y «Ya se ha alcanzado más del 60% del objetivo de BPA para el año». El informe financiero semestral confirma además el Plan 2026-2028 sin desviaciones: inversión bruta 10,6 Bn€ (+10%), más del 50% a Redes (+40%), ~85% del EBITDA regulado o contratado y ~5% de TACC de crecimiento del BPA.",
-          "impacto": "+",
-          "valoracion": "Subida de guía a mitad de año con el ~60% del objetivo anual ya cubierto: es la señal más fuerte del semestre. La propia compañía matiza que el 1S incluye efectos no recurrentes positivos, así que la mejora no es íntegramente recurrente. No cambia el PO de 28,65 €, que sigue por debajo de la cotización: la tesis no es de fundamentales, es de precio."
-        },
-        {
-          "tipo": "Recompra",
-          "hecho": "Programa de recompra de acciones de 2.000 M€ ejecutado por encima del 50% (1,1 mil M€) a 30-jun-2026; sexto tramo de 500 M€ abierto del 15-jul-2026 al 27-nov-2026. La remuneración total al accionista del semestre asciende a 1,2 mil M€.",
-          "impacto": "+",
-          "valoracion": "Es lo que explica que el BPA crezca +46% frente al +42% del RON: la recompra es acretiva y el KPI §10.1 de número de acciones queda en zona REFUERZA («estable o a la baja»). En una compañía controlada al ~70% por Enel, además, la recompra concentra: conviene seguir el free float."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo complementario de 2025 de 1,084 €/acción pagado el 10-jul-2026, hasta un DPA total de 1,584 € con cargo a 2025. La política 2026-2028 fija un dividendo ordinario mínimo del 70% del beneficio ordinario neto atribuido.",
-          "impacto": "+",
-          "valoracion": "Checklist B4: 0 predictores duros y 0 blandos — el dividendo está en la mejor situación de toda la serie. Payout ordinario 70%, dentro de la banda REFUERZA del §10.1 (65-80%), cobertura sobre owner earnings 1,43x y sobre FCL 1,59x, y ninguna agencia en revisión negativa. Sin apunte en §10.4."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Aceleración del capex con Redes como foco: la inversión en Redes crece +38% interanual y el RAB pasa de 11,3 a 11,4 mil M€. En paralelo, la capacidad renovable instalada sube solo 128 MW en el semestre (de 11,3 a 11,4 GW), todo fotovoltaica.",
-          "impacto": "=",
-          "valoracion": "Es una reasignación deliberada de capital hacia el negocio regulado, y por eso el EBITDA gana visibilidad. El coste es el otro lado: el KPI §10.1 de capacidad renovable pide >+0,5 GW/año para reforzar y por debajo de +0,3 GW/año debilita — a este ritmo el objetivo propio de 13,2 GW en 2028 no se alcanza. Único KPI del watchlist en banda débil; vigilar que no pase de pausa a estancamiento."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "S&P mantiene el rating en BBB con perspectiva POSITIVA (17-mar-2026); Moody's en Baa1 estable (20-may-2026) y Fitch en BBB+ estable (19-may-2026).",
-          "impacto": "+",
-          "valoracion": "Ninguna agencia en revisión negativa y una con sesgo de mejora: el red flag §10.4 de «rebaja de rating» no solo no se activa, apunta en dirección contraria. Refuerza el margen de maniobra para sostener a la vez capex, recompra y dividendo."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "El Real Decreto-ley 18/2026, de 29 de junio, establece la eliminación progresiva del IVPEE, que desaparecerá por completo en 2028.",
-          "impacto": "+",
-          "valoracion": "Retirada de un impuesto que gravaba directamente la generación: mejora estructuralmente el margen del negocio liberalizado a partir de 2027-2028 sin que Endesa tenga que hacer nada."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Auto del Tribunal Supremo de 29-abr-2026 sobre la retribución de la transición nuclear y del carbón (TNP) del periodo 2020-2022, con 81 M€ de intereses de demora.",
-          "impacto": "+",
-          "valoracion": "Entrada no recurrente que resuelve a favor un contencioso de tres ejercicios. No cambia el negocio, pero sí aligera el litigio regulatorio pendiente."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Compra del 100% de Energía Colectiva, S.L.U. el 30-ene-2026, con más de 360.000 clientes y una salida de caja de 71 M€.",
-          "impacto": "+",
-          "valoracion": "Operación pequeña y de encaje directo: compra cartera de clientes en el negocio liberalizado, que es donde la tesis pide crecer. Irrelevante para el balance por tamaño."
-        }
-      ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     }
-  ],
-  "schemaVersion": 2
+  ]
 }
