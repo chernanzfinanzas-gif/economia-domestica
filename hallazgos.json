@@ -732,7 +732,7 @@
       "revisionesFrescas": true
     },
     "FAE": {
-      "empresa": "Faes Farma, S.A.",
+      "empresa": "Faes Farma",
       "cobertura": {
         "semanal": "2026-08-30"
       },
@@ -751,18 +751,38 @@
           "vigenteHasta": "2026-09-04",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-09-12",
+          "abiertoEl": "2026-09-12",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1). Señal ABIERTA a propósito: se deja viva para evaluarla y cerrarla junto con la S6 de Prim cuando el ciclo esté completo.",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "bloque 10 · vigilancia",
+          "fecha": "2026-09-12",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-09-19",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
         {
-          "fecha": "21-jul-2026",
+          "fila": 120,
+          "fecha": "12-sep-2026",
           "senal": "S6",
-          "cot": "4,365",
-          "decision": "REAFIRMAR",
-          "motivo": "Dos trimestres ámbar consecutivos en 2025 (Q1-S1-9M): margen y EBITDA reportados a la baja por la integración de SIFI/Edol/ISF. Tendencia adversa de márgenes CONFIRMADA pero explicada por el M&A ya recogido en la tesis (no deterioro nuevo). Q1-2026 rompe la racha al alza (EBITDA +23%). Ruido de transición → seguir vigilando la recuperación del margen; no se eleva a S2. · [Decisión original: «Seguir en ordinario (MANTENER)»]"
+          "cot": 4.455,
+          "decision": "ABIERTA",
+          "motivo": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1). Señal dejada ABIERTA a propósito: se evalúa y se cierra junto con la S6 de Prim cuando el ciclo del parque esté completo. Cotización de referencia: 4,455 € (cierre del 11-sep-2026). Apunte que el Bloque 10 del 12-sep no llegó a escribir."
         }
       ],
-      "revisionesEl": "2026-08-30",
+      "revisionesEl": "2026-09-13",
       "revisionesFrescas": true
     },
     "FDR": {
@@ -1168,28 +1188,15 @@
       ],
       "revisiones": [
         {
-          "fecha": "20-jul-2026",
-          "senal": "Disc.",
-          "cot": "13,25",
-          "decision": "REAFIRMAR",
-          "motivo": "Backfill del monitor con 13 trimestres (2023Q1–2026Q1). Sin semáforo ROJO. Dos ámbar (FY-2024 y Q1-2026) NO consecutivos → no se dispara S6. Tesis intacta (MANTENER). · [Señal original anotada: «S5→S6?»; el propio motivo concluye que S6 NO se dispara] · [Cotización normalizada el 29-jul-2026: el apunte traía 13,35 €, que es el precio en vivo que rellena el formulario de la app, no un cierre. Se pone el cierre que correspondía a esa fecha, 13.25 € (Matriz Bolsa Española).]"
-        },
-        {
-          "fecha": "4-ago-2026",
+          "fila": 113,
+          "fecha": "13-sep-2026",
           "senal": "S6",
-          "cot": "13,3",
-          "decision": "REAFIRMAR",
-          "motivo": "Señal abierta el 4-ago-2026 (cotización de referencia 13,3). REAFIRMAR: desfase temporal de inversion, no tendencia adversa confirmada. El EBITDA (-18,4%) y el BNA (-35,1%) caen por gastos -personal +6,9%, amortizaciones +8,0% del Plan Estrategico- con ventas planas y sin aportacion aun de las adquisiciones de 2026. Ninguna senal de alarma del 8.1 activada (Mg.EBITDA 12,1% vs <9%; Mg.Bruto 51,3% vs <47%) ni cadena del 8.2 en curso; balance en su mejor momento (caja neta +6,2 M EUR, CFO 14,6 M EUR +76%, conversion 96%) y forense sin veto. NO se escala a S2 y no se toca ninguna cifra: PO base 14,90, banda 12,00-13,00, stop 9,50. CONDICION ESCRITA: si en el 9M-2026 (1) el EBITDA sigue cayendo a doble digito con las compras ya consolidadas, (2) el margen neto sigue bajo el 6% -hoy 5,4%, primera vez que cruza la condicion del pre-mortem n3- o (3) el payout sobre beneficio supera el 100% -hoy ~99%, predictor duro H2 de B4-, se trata como S2. Vigilar ademas el importe de Impulseo y Physioacademie (pre-mortem n2) y el FCL del ejercicio, hoy Pte. Revision. Nota: Revisiones/2026-08-04 Nota Revision Extraordinaria Prim (S6).html"
-        },
-        {
-          "fecha": "6-ago-2026",
-          "senal": "Disc.",
-          "cot": "13,4",
-          "decision": "REAFIRMAR",
-          "motivo": "Sin apunte de apertura previo. Revision discrecional del analista (sin senal S1-S6). Hallazgo: el dossier atribuia a Prim una devolucion de prima de emision y cifraba la retribucion total en DY ~5,7% (dpaPrevisto 0,76 EUR). Las Cuentas Anuales Consolidadas auditadas lo desmienten: nota 15.2, 'no se han producido movimientos en la prima de emision' en 2015-2016 ni en 2024-2025, con saldo constante de 1.227.059,19 EUR (0,072 EUR/accion, la partida entera). La RPD real es 3,65% sobre 13,40 EUR. REAFIRMAR MANTENER: PO 14,9, banda <13 y stop 9,5 SIN cambios, porque la valoracion (DCF+multiplos) no usa el dividendo y ningun dato nuevo re-valora el negocio. Condicionada a corregir: dpaPrevisto a 0,489; catalizador n3 del 9.1 reescrito sin la prima y marcado 'a vigilar' (Dividend Safety 40/100, 3 recortes en 10 anios); retirar 'DY ~5,7%' del 9.2 y matizar 'dividendo seguro' del 9.4; y rellenar la fila 4.2 'Dividendo especial / prima de emision' con 0,00 en los diez ejercicios (ya no es Pte. Revision)."
+          "cot": 12.8,
+          "decision": "ABIERTA",
+          "motivo": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1). La abre el monitor nuevo sobre la serie nueva: 1T-2026 y 1S-2026 seguidos en ámbar —ventas −1,0 %, EBITDA −18,4 % y resultado de explotación −29,7 % en el semestre— CON EL MARGEN BRUTO SUBIENDO al 51,31 %, que es la señal única de la tesis y está 2,3 puntos por encima de su corte. La lectura preliminar es que la caída es base de costes del plan de crecimiento y no deterioro comercial, pero NO SE CIERRA AQUÍ: queda ABIERTA a propósito, para evaluarla y cerrarla junto con las demás señales del parque cuando el ciclo esté completo. Cotización de referencia: 12,80 € (cierre del 11-sep-2026). Ninguna señal del método anterior se ha heredado: el estado se vació al rehacer el análisis y las que había quedan archivadas en «Método antiguo (no intervenir)»."
         }
       ],
-      "revisionesEl": "2026-08-30",
+      "revisionesEl": "2026-09-13",
       "revisionesFrescas": true
     },
     "RED": {
@@ -1639,19 +1646,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 25,
-    "hallazgosActivos": 36,
+    "hallazgosActivos": 37,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 14,
       "otro": 13,
       "opa": 3,
+      "senal": 2,
       "litigio": 1,
-      "senal": 1,
       "concurso": 1
     },
-    "exigenAccion": 1,
+    "exigenAccion": 2,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 22,
+    "situacionesAbiertas": 23,
     "hechosCaducadosHoy": 0
   }
 }
