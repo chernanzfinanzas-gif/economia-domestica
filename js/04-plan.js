@@ -1006,10 +1006,28 @@ function renderPanelDash(){
       let filas=[]; try{ filas=revisionesCorpDe(t).filas||[]; }catch(e){ return false; }
       return filas.some(r=>((''+(r.senal||'')).toUpperCase().trim())===sig
                         && (''+(r.decision||'')).toUpperCase().trim()==='ABIERTA'); };
+    /* [F636 · 13-sep-2026] UNA SEÑAL ABIERTA DESPUÉS DEL ÚLTIMO APUNTE NO SE SILENCIA NUNCA.
+       Caso real, y es el que lo destapó: Faes Farma abrió una S6 el 12-sep al regenerarse su
+       análisis —dos ámbares seguidos y las licencias, la señal única de su tesis, en −9,1 %— y
+       el Panel no la mostraba. La apagaba el apunte del §10.5 del 21-jul, la S6 VIEJA, ya
+       resuelta como REAFIRMAR dos meses antes.
+       Por qué se colaba: para S2/S6 el «hecho nuevo» que despierta una señal silenciada es la
+       fecha de la última revisión trimestral, y ésa vale 2026-06-30 —el CIERRE CONTABLE del
+       semestre—, anterior al apunte de julio. Así que la comparación decía «no ha pasado nada
+       nuevo» sobre una señal abierta hacía un día.
+       El dato que faltaba mirar estaba delante: `abiertoEl` del propio hallazgo. Una señal que
+       se ABRE después de la última revisión registrada es, por definición, un hecho nuevo — no
+       hay heurística que valga contra una fecha de apertura. */
+    const _abiertaTrasApunte=(t,sig,ult)=>{ if(typeof hallazgosCorpDe!=='function')return false;
+      let hs=[]; try{ hs=hallazgosCorpDe(t)||[]; }catch(e){ return false; }
+      return hs.some(h=>h && h.exigeAccion
+                     && ((''+(h.codigo||'')).toUpperCase().trim()===sig)
+                     && (''+(h.abiertoEl||h.fecha||'')).slice(0,10) > ult); };
     const _silenciada=(t,sig,nivel)=>{ if(_abierta105(t,sig))return false;
       const arr=((DB.protocolo||{})[t]||[]).filter(a=>a.sig===sig&&_nivOK(a,nivel)).concat(_ap105(t,sig,nivel)); if(!arr.length)return false;
       if(arr.some(a=>a.estado==='abierta'))return true;
       const ult=arr.map(a=>a.fecha).filter(Boolean).sort().slice(-1)[0]; if(!ult)return true;
+      if(_abiertaTrasApunte(t,sig,ult))return false;      /* [F636] la apertura manda */
       if(_PRECIO[sig]) return (_hoyMs-new Date(ult+'T00:00:00').getTime())/86400000 <= _DIAS_SIL;
       const hito=_hechoNuevo(t,sig);
       return !(hito && hito > ult); };
