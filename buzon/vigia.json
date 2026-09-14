@@ -1,9 +1,9 @@
 {
-  "generadoEl": "2026-09-07T14:30:06+02:00",
+  "generadoEl": "2026-09-14T14:44:00+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-09-07",
-  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +44d). 📅 ESTA SEMANA (1): Inditex 10-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-09-14",
+  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +51d). Nada en 14 días. Siguiente: Faes Farma ~30-09 (9M). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "MCM",
@@ -13,29 +13,19 @@
       "fechaEstimada": "2026-07-25",
       "ultimoPeriodo": "2026-Q1",
       "ultimaFecha": "2026-05-08",
-      "diasVencido": 44
+      "diasVencido": 51
     }
   ],
-  "estaSemana": [
-    {
-      "ticker": "ITX",
-      "empresa": "Inditex",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-09-10",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-06-10"
-    }
-  ],
+  "estaSemana": [],
   "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "ITX",
-    "empresa": "Inditex",
-    "periodoEsperado": "2026-Q2",
-    "periodoLabel": "H1",
-    "fechaEstimada": "2026-09-10",
-    "ultimoPeriodo": "2026-Q1",
-    "ultimaFecha": "2026-06-10"
+    "ticker": "FAE",
+    "empresa": "Faes Farma",
+    "periodoEsperado": "2026-Q3",
+    "periodoLabel": "9M",
+    "fechaEstimada": "2026-09-30",
+    "ultimoPeriodo": "2026-Q2",
+    "ultimaFecha": "2026-06-30"
   },
   "sinDeterminar": [],
   "totalEmpresas": 25
