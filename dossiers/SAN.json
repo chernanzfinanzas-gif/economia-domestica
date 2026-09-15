@@ -61,7 +61,7 @@
    "p90": 10.44
   },
   "sensibilidad": {
-   "sobre": "dcf",
+   "sobre": "modelo",
    "regla": "F100",
    "poMin": 8.64,
    "poMax": 11.93,
@@ -88,19 +88,19 @@
    "aviso": null
   },
   "motivos": [
-   "⚠ la sensibilidad va sobre el DCF §6.3 SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
-   "la cotización (12.89) queda por ENCIMA de toda la banda del valor por acción del DCF [8.64–11.93] → sobrevalorada en todo el rango",
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (12.89) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [8.64–11.93] → sobrevalorada en todo el rango",
    "…y la banda de margen de seguridad [-33.0 % … -7.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
   ],
-  "calculadoEl": "2026-09-14"
+  "calculadoEl": "2026-09-15"
  },
  "dividendSafety": {
-  "score": 83,
+  "score": 88,
   "banda": "Muy seguro",
   "aplica": true,
   "rama": "banca",
   "componentes": {
-   "C1": null,
+   "C1": 30,
    "C2": 25,
    "C3": 20,
    "C4": 3,
@@ -112,13 +112,14 @@
    "motivo": ""
   },
   "motivos": [
+   "C1 pay-out dividendo (DPA/BPA) 27% → 30/30",
    "C2 CET1 13.5% → 25/25",
    "C3 RoTE 17.1% → 20/20",
    "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
    "C5 predictores: ninguno → 10/10",
    "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
   ],
-  "calculadoEl": "2026-09-14"
+  "calculadoEl": "2026-09-15"
  },
  "forense": {
   "aplica": false,
