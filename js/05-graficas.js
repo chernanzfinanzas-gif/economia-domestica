@@ -247,6 +247,92 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
   }
   return {ok:true,labels,dates:labels,aport,valor,valdiv,ibexVal,hayIbex,daily:true}; }
 
+// === Khb22: índice de RENDIMIENTO de tus acciones (no de valor), vs el cierre del IBEX a secas ===
+// [15-sep-2026] Carlos: «mi cartera solo descuenta el dividendo en la cotización cuando la empresa
+// paga (como el IBEX); no hay que comparar con un IBEX con dividendos». Y: «los dividendos
+// reinvertidos son compras nuevas, igual que mi dinero» → no deben inflar el % de "cuánto ha
+// subido" igual que tampoco debe inflarlo una aportación nueva cualquiera.
+// Por eso esto NO mide el valor en euros (ese ya lo hace carteraEvolData/pintaTodo): mide un
+// ÍNDICE que solo se mueve por PRECIO, encadenando el retorno diario de cada empresa que
+// tenías ponderado por el REPARTO REAL de ESE día (reconstruido de _allOps, no el reparto de
+// hoy aplicado hacia atrás) — así que meter o sacar dinero no cambia el número, solo cambia
+// los pesos que se usan A PARTIR de ese momento.
+// Dos variantes en el mismo cálculo: `pond` (ponderado por lo que pesaba cada empresa ese día)
+// y `glob` (igual peso entre las que tenías, sea grande o pequeña la posición).
+// `ibex` es el cierre del IBEX a secas (ticker 'IBEX', el mismo que ya se descarga para la
+// cartera), rebasado a 100 el primer día, para que las tres líneas arranquen del mismo sitio.
+function khb22Serie(reRender){
+  const ops=_allOps().filter(o=>o.fecha).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  if(!ops.length) return {empty:true};
+  const heldT=[...new Set(ops.map(o=>(o.ticker||'').toUpperCase()).filter(Boolean))];
+  const need=[...new Set([...heldT,'IBEX'])];
+  const falta=need.filter(t=>_precioCache[t]===undefined);
+  if(falta.length){ if(typeof cargarPreciosCartera==='function') cargarPreciosCartera().then(()=>{ if(typeof reRender==='function') reRender(); }); return {loading:true}; }
+  const ibexJ=_precioCache['IBEX']; const hayIbex=!!(ibexJ&&ibexJ.data&&ibexJ.data.length);
+  if(!hayIbex) return {sinIbex:true};
+
+  const firstD=(ops[0].fecha||'').slice(0,10);
+  const now=new Date(); const todayD=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(now.getDate()).padStart(2,'0');
+  // Eje temporal = unión de sesiones de las empresas en cartera + IBEX, igual criterio que carteraEvolData.
+  const dset={}; heldT.forEach(t=>{ const pj=_precioCache[t]; if(pj&&pj.data) pj.data.forEach(r=>{ if(r[0]>=firstD&&r[0]<=todayD) dset[r[0]]=1; }); });
+  ibexJ.data.forEach(r=>{ if(r[0]>=firstD&&r[0]<=todayD) dset[r[0]]=1; });
+  dset[firstD]=1;
+  let dates=Object.keys(dset).sort();
+  if(!dates.length||dates[dates.length-1]<todayD) dates.push(todayD);
+
+  // Punteros de acciones por empresa (mismo patrón que carteraEvolData): O(días×empresas), no
+  // O(días×empresas×operaciones) — necesario con 15 años de histórico.
+  const opsByT={}; heldT.forEach(t=>opsByT[t]=[]);
+  ops.forEach(o=>{ const t=(o.ticker||'').toUpperCase(); if(opsByT[t]) opsByT[t].push(o); });
+  const _oi={}, _sh={}; heldT.forEach(t=>{ _oi[t]=0; _sh[t]=0; });
+  function avanzaA(d){
+    heldT.forEach(t=>{ const ol=opsByT[t];
+      while(_oi[t]<ol.length && (ol[_oi[t]].fecha||'').slice(0,10)<=d){
+        const o=ol[_oi[t]]; _sh[t]+=(o.tipo==='venta'?-1:1)*num(o.acciones); _oi[t]++;
+      } });
+  }
+
+  avanzaA(dates[0]);
+  const prevSh={}; heldT.forEach(t=>prevSh[t]=_sh[t]);
+  let prevMs=Date.parse(dates[0]+'T00:00:00');
+  let prevIbexPx=priceRepoAt('IBEX',prevMs)||num(ibexJ.data[0][1]);
+
+  const labels=[dates[0]], pond=[100], glob=[100], ibex=[100], compras=_khComprasPorDia();
+  const marcas={};
+
+  for(let k=1;k<dates.length;k++){
+    const d=dates[k], dms=Date.parse(d+'T00:00:00');
+    // El reparto que cuenta es el de AYER (antes de que la sesión de hoy mueva nada): así una
+    // compra fechada hoy no se cuela en el rendimiento de hoy, solo pesa desde mañana.
+    const activos=heldT.filter(t=>prevSh[t]>0.0001);
+    let valorPrev=0; const pxPrev={};
+    activos.forEach(t=>{ const p=priceRepoAt(t,prevMs); pxPrev[t]=p; valorPrev+=prevSh[t]*p; });
+
+    let retPond=0, retGlob=0, nEfec=0;
+    activos.forEach(t=>{
+      const p0=pxPrev[t]; if(!(p0>0)) return;
+      const p1=priceRepoAt(t,dms)||p0;
+      const ret=p1/p0-1;
+      const w=(valorPrev>0)?(prevSh[t]*p0)/valorPrev:0;
+      retPond+=w*ret; retGlob+=ret; nEfec++;
+    });
+    if(nEfec>0) retGlob/=nEfec;
+    pond.push(pond[pond.length-1]*(1+retPond));
+    glob.push(glob[glob.length-1]*(1+retGlob));
+
+    const ipx=priceRepoAt('IBEX',dms)||prevIbexPx;
+    ibex.push(ibex[ibex.length-1]*(prevIbexPx>0?(ipx/prevIbexPx):1));
+    prevIbexPx=ipx;
+
+    labels.push(d);
+    if(compras[d]) marcas[k]=1;
+    avanzaA(d);
+    heldT.forEach(t=>prevSh[t]=_sh[t]);
+    prevMs=dms;
+  }
+  return {ok:true, labels, pond, glob, ibex, marcas};
+}
+
 // === Rentabilidad real: TIR/XIRR (ponderada por dinero) y TWR (ponderada por tiempo) + benchmark IBEX ===
 function _xirr(cf){ if(!cf||cf.length<2)return null; const pos=cf.some(c=>c.a>0),neg=cf.some(c=>c.a<0); if(!pos||!neg)return null;
   const t0=Math.min(...cf.map(c=>c.t)); const yr=c=>(c.t-t0)/(365.25*86400000);
@@ -1494,6 +1580,11 @@ function _khCSS(){
 .kh-tip .kh-tip-c{color:#93c5fd}
 .kh-graf .kh-leg{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:#475569;margin-top:8px}
 .kh-graf .kh-leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+.kh-veredicto{margin-top:10px;padding:10px 12px;border-radius:8px;background:#f0fdf4;border:1px solid #bbf7d0;font-size:12.5px;color:#166534;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.kh-veredicto.pierde{background:#fef2f2;border-color:#fecaca;color:#991b1b}
+.kh-veredicto b{font-weight:800}
+.kh-veredicto .kh-pastilla{margin-left:auto;font-weight:800;font-size:11.5px;padding:3px 9px;border-radius:999px;background:#16a34a;color:#fff}
+.kh-veredicto.pierde .kh-pastilla{background:#dc2626}
 @media(max-width:600px){#kh-modal{padding:8px}#kh-modal .kh-b{padding:8px 10px 12px}
 /* Siete botones de rango tienen que caber en UNA fila de 360px: 7x~40px = 280px. Y el
    enlace a la ficha baja a su propia linea -con margin-left:auto se comia el hueco del
@@ -1868,6 +1959,90 @@ function _khComprasPorDia(){
    de 5 minutos. La segunda existe desde que `mcSerieIntraCartera()` sabe valorar la cartera
    instante a instante; hoy son 6 sesiones y seran 10 cuando el archivo se llene. */
 let _khVistaCartera='todo';
+let _khCompPeriodo='3m', _khCompPeso='pond';
+
+/* Gráfico de DOS líneas en % (Khb22 vs IBEX), rebasadas a 0% en el inicio del tramo visible.
+   Hermano de khGrafLinea, no una modificación suya: khGrafLinea lo usan media docena de sitios
+   (Ficha, Tesis, Kanban, este mismo modal) y aquí la naturaleza del dato es otra — dos series
+   en % en vez de una en €, y el eje se recalcula CADA VEZ que cambias de tramo, no solo al
+   hacer zoom. Mismo gesto de arrastrar/soltar y doble clic que ya conoces, para no aprender
+   nada nuevo. */
+function khGrafDual(cont, cfg){
+  if(!cont) return;
+  const labels=cfg.labels||[], full1=cfg.ys1||[], full2=cfg.ys2||[], nAll=labels.length;
+  if(nAll<2){ cont.innerHTML='<div class="empty">No hay suficientes datos para dibujar.</div>'; return; }
+  const W=760,H=300,pl=48,pr=14,pt=16,pb=26, aw=W-pl-pr, ah=H-pt-pb;
+  let z0=cfg.z0!=null?cfg.z0:0, z1=cfg.z1!=null?cfg.z1:nAll-1;
+  cont.innerHTML='<div class="kh-graf"></div>';
+  const wrap=cont.querySelector('.kh-graf');
+
+  function pinta(){
+    const m=z1-z0+1;
+    const b1=full1[z0]||1, b2=full2[z0]||1;
+    const r1=[],r2=[];
+    for(let i=z0;i<=z1;i++){ r1.push((full1[i]/b1-1)*100); r2.push((full2[i]/b2-1)*100); }
+    let mn=Math.min(0,...r1,...r2), mx=Math.max(0,...r1,...r2);
+    const margen=(mx-mn)*0.12||1; mn-=margen; mx+=margen;
+    const X=i=>pl+aw*(m>1?i/(m-1):0), Y=v=>pt+ah*(1-(v-mn)/(mx-mn));
+    let grid='';
+    for(let g=0;g<=4;g++){ const gv=mn+(mx-mn)*g/4, y=Y(gv);
+      grid+='<line x1="'+pl+'" y1="'+y.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y.toFixed(1)+'" stroke="#eef2f7"/>'
+        +'<text x="'+(pl-6)+'" y="'+(y+3).toFixed(1)+'" text-anchor="end" font-size="9" fill="#94a3b8">'+gv.toFixed(1)+'%</text>'; }
+    if(mn<0&&mx>0){ const y0=Y(0);
+      grid+='<line x1="'+pl+'" y1="'+y0.toFixed(1)+'" x2="'+(W-pr)+'" y2="'+y0.toFixed(1)+'" stroke="#cbd5e1" stroke-dasharray="4 3"/>'; }
+    const path=arr=>arr.map((v,i)=>(i===0?'M':'L')+X(i).toFixed(1)+','+Y(v).toFixed(1)).join('');
+    let xl=''; const paso=Math.max(1,Math.ceil(m/7));
+    for(let i=0;i<m;i+=paso){ const s=String(labels[z0+i]);
+      xl+='<text x="'+X(i).toFixed(1)+'" y="'+(H-8)+'" text-anchor="middle" font-size="9" fill="#94a3b8">'
+        +(m>400?s.slice(0,4):(s.slice(8,10)+'/'+s.slice(5,7)))+'</text>'; }
+    let marcas=''; const mk=cfg.marcas||{};
+    for(let i=z0;i<=z1;i++){ if(mk[i]) marcas+='<circle cx="'+X(i-z0).toFixed(1)+'" cy="'+Y(r1[i-z0]).toFixed(1)+'" r="4" fill="#fff" stroke="#b45309" stroke-width="2"/>'; }
+    const zoomInfo=(z0>0||z1<nAll-1)
+      ? '<div class="kh-zoom">🔍 '+m+' de '+nAll+' sesiones <button class="kh-unzoom" type="button">volver a todo</button></div>'
+      : '<div class="kh-zoom kh-zoom-off">Arrastra sobre el gráfico para acercar una zona · doble clic para volver</div>';
+    wrap.innerHTML='<svg viewBox="0 0 '+W+' '+H+'">'+grid
+      +'<rect class="kh-brush" x="0" y="'+pt+'" width="0" height="'+(H-pt-pb)+'" fill="#3b82f6" opacity=".14" style="display:none"/>'
+      +'<path d="'+path(r2)+'" fill="none" stroke="'+(cfg.color2||'#2563eb')+'" stroke-width="2.2"/>'
+      +'<path d="'+path(r1)+'" fill="none" stroke="'+(cfg.color1||'#16a34a')+'" stroke-width="2.4"/>'
+      +marcas+xl+'</svg>'
+      +zoomInfo
+      +'<div class="kh-leg"><span><i style="background:'+(cfg.color1||'#16a34a')+'"></i>'+(cfg.nombre1||'Serie 1')+'</span>'
+      +'<span><i style="background:'+(cfg.color2||'#2563eb')+'"></i>'+(cfg.nombre2||'Serie 2')+'</span>'
+      +(cfg.marcas?'<span><i style="background:#fff;border:2px solid #b45309"></i>Día con compra</span>':'')+'</div>';
+    enlaza(X,m);
+    if(typeof cfg.onZoom==='function') cfg.onZoom(z0,z1);
+  }
+
+  function enlaza(X,m){
+    const svg=wrap.querySelector('svg'), brush=svg.querySelector('.kh-brush');
+    let arrastre=null;
+    const vxDe=ev=>{ const r=svg.getBoundingClientRect(); if(!r.width)return null;
+      const cx=(ev.touches&&ev.touches[0]?ev.touches[0].clientX:ev.clientX)-r.left;
+      return {vx:cx*W/r.width}; };
+    svg.addEventListener('mousedown',function(ev){ const q=vxDe(ev); if(!q)return; arrastre=q; ev.preventDefault(); });
+    svg.addEventListener('mousemove',function(ev){
+      if(!arrastre)return; const q=vxDe(ev); const brush2=svg.querySelector('.kh-brush'); if(!q||!brush2)return;
+      const a=Math.min(arrastre.vx,q.vx), b=Math.max(arrastre.vx,q.vx);
+      brush2.setAttribute('x',Math.max(pl,a)); brush2.setAttribute('width',Math.max(0,Math.min(W-pr,b)-Math.max(pl,a)));
+      brush2.style.display='';
+    });
+    svg.addEventListener('mouseup',function(ev){
+      if(!arrastre)return; const q=vxDe(ev); const a=arrastre; arrastre=null;
+      const brush2=svg.querySelector('.kh-brush'); if(brush2)brush2.style.display='none';
+      if(!q)return;
+      if(Math.abs(q.vx-a.vx)<8)return;
+      const iA=_khIndiceEn(Math.min(a.vx,q.vx),m,pl,aw,[],0);
+      const iB=_khIndiceEn(Math.max(a.vx,q.vx),m,pl,aw,[],0);
+      if(iB-iA<1)return;
+      z1=z0+iB; z0=z0+iA; pinta();
+    });
+    svg.addEventListener('dblclick',function(){ if(z0===0&&z1===nAll-1)return; z0=0; z1=nAll-1; pinta(); });
+    const btn=wrap.querySelector('.kh-unzoom');
+    if(btn)btn.addEventListener('click',function(){ z0=0; z1=nAll-1; pinta(); });
+  }
+
+  pinta();
+}
 
 function mcAbrirGrafCartera(){
   const cont=khModal('Evolución de la cartera',
@@ -1875,7 +2050,12 @@ function mcAbrirGrafCartera(){
   if(!cont)return;
   cont.innerHTML='<div class="kh-rangos"></div><div class="kh-hueco"></div>';
   const barra=cont.querySelector('.kh-rangos'), hueco=cont.querySelector('.kh-hueco');
-  const VISTAS=[['todo','Desde el principio'],['intra','Últimas sesiones (5 min)']];
+  const VISTAS=[['todo','Desde el principio'],['intra','Últimas sesiones (5 min)'],['comparar','Khb22 vs IBEX']];
+  const SUBS={
+    todo:'Valor de la cartera · los puntos son días de compra',
+    intra:'Cartera cada 5 minutos · detalle de las últimas sesiones',
+    comparar:'Tu índice Khb22 frente al IBEX 35 · los puntos son días de compra'
+  };
 
   /* El maximo intradia registrado: la linea contra la que se mide «cuanto falta». Sale de
      `DB.maxIntra`, que 28-micartera.js va acumulando sesion a sesion. */
@@ -1891,7 +2071,10 @@ function mcAbrirGrafCartera(){
   function pinta(){
     barra.innerHTML=VISTAS.map(v=>'<button type="button" class="kh-rb'+(v[0]===_khVistaCartera?' on':'')
       +'" data-khr="'+v[0]+'">'+v[1]+'</button>').join('');
+    const _sub=cont.closest('#kh-modal')?cont.closest('#kh-modal').querySelector('.kh-t small'):null;
+    if(_sub) _sub.textContent=SUBS[_khVistaCartera]||SUBS.todo;
     if(_khVistaCartera==='intra'){ pintaIntra(); return; }
+    if(_khVistaCartera==='comparar'){ pintaComparar(); return; }
     pintaTodo();
   }
 
@@ -1978,6 +2161,57 @@ function mcAbrirGrafCartera(){
              {c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
              .concat(_MI?[{c:'#b45309',t:'La raya de puntos es el máximo intradía registrado: '+eur(_MI.v)}]:[])
   });
+  }
+
+  /* [15-sep-2026] Khb22 vs IBEX: no es el valor en euros, es cuánto han subido de precio
+     TUS acciones frente al IBEX a secas, con el reparto real que tenías en cada momento.
+     Botones de periodo + el selector de reparto, y el cartel de abajo dice quién ganó. */
+  const PERIODOS_COMP=[['1s','1 Sem',5],['1m','1 Mes',21],['3m','3 Meses',63],['1a','1 Año',252],['todo','Todo',0]];
+  function pintaComparar(){
+    const d=(typeof khb22Serie==='function')?khb22Serie(pinta):null;
+    if(!d||d.empty){ hueco.innerHTML='<div class="empty">Todavía no hay operaciones registradas.</div>'; return; }
+    if(d.loading){ hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; return; }
+    if(d.sinIbex){ hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cierre del IBEX en el repo (precios/IBEX.json) — no se puede comparar.</div>'; return; }
+
+    const n=d.labels.length;
+    hueco.innerHTML='<div class="kh-rangos" id="khCompPer"></div>'
+      +'<div class="kh-rangos" id="khCompPeso" style="margin-top:-2px"></div>'
+      +'<div id="khCompGraf"></div>'
+      +'<div class="kh-veredicto" id="khCompVer"></div>'
+      +'<div class="muted" style="font-size:11px;margin-top:8px;font-style:italic">Reparto ponderado reconstruido con tu historial real de compras/ventas de cada momento — no el reparto de hoy aplicado hacia atrás.</div>';
+    const elP=hueco.querySelector('#khCompPer'), elW=hueco.querySelector('#khCompPeso'),
+          elG=hueco.querySelector('#khCompGraf'), elV=hueco.querySelector('#khCompVer');
+
+    elP.innerHTML=PERIODOS_COMP.map(p=>'<button type="button" class="kh-rb'+(p[0]===_khCompPeriodo?' on':'')
+      +'" data-khcp="'+p[0]+'">'+p[1]+'</button>').join('');
+    elW.innerHTML=
+      '<button type="button" class="kh-rb'+(_khCompPeso==='pond'?' on':'')+'" data-khcw="pond">Ponderado por posición</button>'
+      +'<button type="button" class="kh-rb'+(_khCompPeso==='glob'?' on':'')+'" data-khcw="glob">Global (igual peso)</button>';
+
+    const serieKhb=d[_khCompPeso];
+    const preset=PERIODOS_COMP.find(p=>p[0]===_khCompPeriodo);
+    const z1=n-1, z0=(preset&&preset[2]>0)?Math.max(0,n-1-preset[2]):0;
+    const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
+
+    function pintaVer(a,b){
+      const fKhb=(serieKhb[b]/serieKhb[a]-1)*100, fIbex=(d.ibex[b]/d.ibex[a]-1)*100, dif=fKhb-fIbex, gana=dif>=0;
+      elV.className='kh-veredicto'+(gana?'':' pierde');
+      elV.innerHTML='🔍 '+dd(d.labels[a])+' → '+dd(d.labels[b])
+        +' · Khb22 <b>'+(fKhb>=0?'+':'')+fKhb.toFixed(1).replace('.',',')+'%</b>'
+        +' · IBEX <b>'+(fIbex>=0?'+':'')+fIbex.toFixed(1).replace('.',',')+'%</b>'
+        +'<span class="kh-pastilla">'+(gana?'Khb22 gana':'El IBEX gana')+' por '+Math.abs(dif).toFixed(1).replace('.',',')+' puntos</span>';
+    }
+
+    khGrafDual(elG,{
+      labels:d.labels, ys1:serieKhb, ys2:d.ibex, marcas:d.marcas, z0:z0, z1:z1,
+      color1:'#16a34a', color2:'#2563eb', nombre1:'Khb22 (tus acciones)', nombre2:'IBEX 35',
+      onZoom:pintaVer
+    });
+
+    elP.addEventListener('click',function(e){ const b=e.target.closest('[data-khcp]'); if(!b)return;
+      _khCompPeriodo=b.getAttribute('data-khcp'); pintaComparar(); });
+    elW.addEventListener('click',function(e){ const b=e.target.closest('[data-khcw]'); if(!b)return;
+      _khCompPeso=b.getAttribute('data-khcw'); pintaComparar(); });
   }
 
   barra.addEventListener('click',function(e){
