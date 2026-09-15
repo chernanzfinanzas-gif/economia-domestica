@@ -243,24 +243,6 @@
    },
    "hallazgos": [
     {
-     "id": "S2-2026-07-27",
-     "abiertoEl": "2026-07-27",
-     "estado": "resuelta",
-     "resueltoEl": "2026-07-28",
-     "desenlace": "REAFIRMAR TESIS. El gatillo (RPK mundial IATA −3,4% abr-2026 y −2,2% may-2026) es un PROXY sectorial, no la métrica del umbral: ex-Oriente Medio la demanda creció los dos meses (+1,2% y +0,7%) y la región que causa la caída ya remonta (−46,6% → −28,4%). La métrica propia crece (pasajeros embarcados Q1-2026: 518,5 M, +3,1%), el guidance 2026 sigue intacto y la cadena de consecuencias del pre-mortem nº1 no ha empezado. Sin cambios: COMPRAR, PO 74 €, banda 45-55 €, stop 30 €; no se toca el AMS.json. Acción: no ejecutar el siguiente escalón de entrada hasta el Q2/1S-2026 del 31-jul-2026, que da a la vez la métrica literal del §8.1-R2 y el 2º trimestre de reservas del §8.1-R1 (Q1-2026: 128,0 M, −0,2%, primera pata de dos). Nota: Revisiones/2026-07-28 Nota Revisión Extraordinaria Amadeus (S2).html",
-     "resumen": "Informe semanal 2026-07-27: el RPK mundial de IATA cae −3,4% interanual en abril-2026 y −2,2% en mayo-2026 — dos meses consecutivos de caída, que es literalmente la señal de alarma del §8.1 R1 (tráfico aéreo) y la señal de salida temprana del pre-mortem nº1 «Shock aéreo global 2.0». Causa: guerra de Oriente Medio; ex-Oriente Medio, mayo fue +0,7%.",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "protocolo · estado.json",
-     "fecha": "2026-07-27",
-     "fuente": null,
-     "exigeAccion": true,
-     "codigo": "S2",
-     "vencePlazoEl": "2026-08-03",
-     "notaEmitida": true
-    },
-    {
      "id": "soc-otro",
      "abiertoEl": "2026-07-23",
      "estado": "activa",
@@ -274,25 +256,6 @@
      "fecha": "2026-07-23",
      "fuente": "https://forbes.es/forbestravel/986079/amadeus-formaliza-la-adquisicion-de-idemia-public-security-por-1-200-millones/",
      "exigeAccion": false
-    },
-    {
-     "id": "S2-2026-07-31",
-     "abiertoEl": "2026-07-31",
-     "estado": "resuelta",
-     "resueltoEl": "2026-07-31",
-     "desenlace": "REAFIRMAR TESIS. El recorte del outlook 2026 está acotado a Distribución Aérea y a su extremo bajo (de «dígito medio-alto» a «dígito bajo-medio»), con el supuesto de tráfico aéreo global bajando de +4,5% a +2% en línea con IATA (+4,4% → +1,9%). La compañía mantiene SIN CAMBIOS el margen de EBIT ajustado, el FCF (1.350-1.450 M€), el CAPEX y los dos segmentos ajenos al tráfico. Es un shock de VOLUMEN absorbido por un negocio diversificado, no un techo de crecimiento: las reservas caen 3,7% pero el ingreso por reserva crece 5,1% cte y el margen EBITDA marca récord (40,0%). El pre-mortem nº1 cruzó su umbral (IATA negativo en abril y mayo) pero su cadena no ha progresado; el nº2 (desintermediación NDC) retrocede — British Airways adopta Altéa NDC. Reverse DCF: el precio aún exige −1,07% de crecimiento del FCL, PLAUSIBLE. B4 0 duros/0 blandos. Sin cambios en veredicto (COMPRAR), PO 74 €, banda 45-55 € ni stop 30 €; no se toca el AMS.json. Vigilancia hasta el 3T: el tráfico real contra el supuesto de +2%, el margen de EBIT y Soluciones Tecnológicas.",
-     "resumen": "Guidance moderado por Oriente Medio + señal nº1 (pasajeros) negativa en el 2T y reservas −7,6%: determinar si es shock puntual o techo de crecimiento.",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "monitor-trimestral 2026-Q2",
-     "fecha": "2026-07-31",
-     "fuente": null,
-     "exigeAccion": true,
-     "codigo": "S2",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-07",
-     "notaEmitida": true
     },
     {
      "id": "soc-otro-2026-07-31",
@@ -464,27 +427,7 @@
    "cobertura": {
     "semanal": "2026-09-14"
    },
-   "hallazgos": [
-    {
-     "id": "S3-2026-07-29",
-     "abiertoEl": "2026-07-29",
-     "estado": "resuelta",
-     "resueltoEl": "2026-08-17",
-     "desenlace": "REAFIRMAR. Cerrada el mismo dia con el apunte que ya existe en el registro del §10.5 del libro (29-jul-2026, cotizacion 15,56 EUR): el bull del dossier es «RoTE >16%, el NIM resiste y el mercado sostiene el premium de P/TBV», de modo que el mercado ya paga entero el escenario optimista. La cautela es ROBUSTA, no una opinion: con el CoE movido +-1 pp la banda de PO queda en 10,43-14,37 EUR y la cotizacion esta POR ENCIMA de todo el rango. NO hay posicion que recortar y no se abre a 2,3x TBV: se mantiene ESPERAR y el valor sigue en el radar para una correccion hacia la banda 7,85-8,55 EUR. SIN Nota de Revision Extraordinaria: se cerro con el apunte del §10.5, que es donde vive la decision. REGISTRO RETROACTIVO (17-ago-2026): esta entrada no existia en estado.json, solo en el §10.5, asi que el detector de precio la sacaba como «nueva» todos los lunes. Se anota aqui con sus fechas reales para cerrar ese hueco; el §10.5 manda y no se ha tocado.",
-     "resumen": "Deteccion de precio 2026-07-29 (registrada retroactivamente el 17-ago-2026): PO ALCANZADO — cotizacion 15,56 EUR >= PO bull 15,50 EUR. Es un hecho distinto del apunte del 13-jul (15,40 EUR, por debajo del bull, cruce del PO base) y por eso se registra aparte. Dossier de 2026-07-13: reciente, no procede tratarla como S4 por PO caducado.",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "protocolo · estado.json",
-     "fecha": "2026-07-29",
-     "fuente": null,
-     "exigeAccion": true,
-     "codigo": "S3",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-05",
-     "notaEmitida": false
-    }
-   ],
+   "hallazgos": [],
    "revisiones": [
     {
      "fecha": "29-jul-2026",
@@ -914,26 +857,6 @@
    },
    "hallazgos": [
     {
-     "id": "S6-2026-07-29",
-     "abiertoEl": "2026-07-29",
-     "estado": "resuelta",
-     "resueltoEl": "2026-07-29",
-     "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (23-jul-2026): «S6 (2º+ ámbar consecutivo). El 9M-2026 confirma una INFLEXIÓN de mejora: EBIT Ajustado +3,0% (vs −3,5% en el S1), margen s/VE +39 pb a 21,5% y Ventas Económicas de nuevo en positivo (+1,1%); la caída del Beneficio Neto casi se detiene (−1,8% vs −9,9%). El deterioro operativo del semestre NO ha continuado y el BCE sube tipos (+25 pb en junio). Tendencia adversa NO confirmada → efecto de tipos en reversión, seguir en ordinario. Vigilar el dividendo (pay-out ~99%)». Queda anotado para la Actualización Anual: el DPA del §10.1 baja de 2,09 € (FY-2024) a 2,01 € (FY-2025) — el umbral de ese KPI es «creciente» refuerza / «plano» debilita, y una BAJADA no tiene banda asignada.",
-     "resumen": "6 ámbares consecutivos hasta 2026-Q3 (anterior: 2026-Q2)",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "auditoría S2/S6 del 29-jul-2026",
-     "fecha": "2026-07-29",
-     "fuente": null,
-     "exigeAccion": false,
-     "codigo": "S6",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-05",
-     "notaEmitida": false,
-     "nota": "§10.5 del libro · apunte del 2026-07-23 (cotización Pte. Revisión)"
-    },
-    {
      "id": "soc-otro",
      "abiertoEl": "2026-07-23",
      "estado": "activa",
@@ -1103,25 +1026,6 @@
      "fuente": "emisor ante registro (OIR CNMV, 03/08/2026 14:11)",
      "exigeAccion": false,
      "caducaEl": "2026-09-02"
-    },
-    {
-     "id": "S6-2026-08-04",
-     "abiertoEl": "2026-08-04",
-     "estado": "resuelta",
-     "resueltoEl": "2026-08-04",
-     "desenlace": "REAFIRMAR: desfase temporal de inversion, no tendencia adversa confirmada. El EBITDA (-18,4%) y el BNA (-35,1%) caen por gastos -personal +6,9%, amortizaciones +8,0% del Plan Estrategico- con ventas planas y sin aportacion aun de las adquisiciones de 2026. Ninguna senal de alarma del 8.1 activada (Mg.EBITDA 12,1% vs <9%; Mg.Bruto 51,3% vs <47%) ni cadena del 8.2 en curso; balance en su mejor momento (caja neta +6,2 M EUR, CFO 14,6 M EUR +76%, conversion 96%) y forense sin veto. NO se escala a S2 y no se toca ninguna cifra: PO base 14,90, banda 12,00-13,00, stop 9,50. CONDICION ESCRITA: si en el 9M-2026 (1) el EBITDA sigue cayendo a doble digito con las compras ya consolidadas, (2) el margen neto sigue bajo el 6% -hoy 5,4%, primera vez que cruza la condicion del pre-mortem n3- o (3) el payout sobre beneficio supera el 100% -hoy ~99%, predictor duro H2 de B4-, se trata como S2. Vigilar ademas el importe de Impulseo y Physioacademie (pre-mortem n2) y el FCL del ejercicio, hoy Pte. Revision. Nota: Revisiones/2026-08-04 Nota Revision Extraordinaria Prim (S6).html",
-     "resumen": "2 ámbares consecutivos hasta 2026-Q2 (anterior: 2026-Q1)",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "protocolo · estado.json",
-     "fecha": "2026-08-04",
-     "fuente": null,
-     "exigeAccion": true,
-     "codigo": "S6",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-11",
-     "notaEmitida": true
     },
     {
      "id": "coyuntura",
@@ -1616,5 +1520,6 @@
   "conPlazoVencido": 0,
   "situacionesAbiertas": 23,
   "hechosCaducadosHoy": 0
- }
+ },
+ "reproyectadoEl": "2026-09-15"
 }
