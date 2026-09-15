@@ -1,131 +1,135 @@
 {
- "schemaVersion": 8,
- "ticker": "BKT",
- "empresa": "Bankinter, S.A.",
- "fecha": "2026-07-13",
- "rating": "AA",
- "score": 75.8,
- "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + múltiplos históricos — banca. PO oficial = síntesis Cap. VI ≈ 10,2 € (65% P/TBV justificado forward + 35% múltiplos históricos); escenarios P/TBV justo: bear ~8,1 €, base ~11,3 €, bull ~15,5 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS).",
- "poBear": 8.1,
- "poBase": 10.2,
- "poBull": 15.5,
- "entMin": 7.85,
- "entMax": 8.55,
- "stop": 7.0,
- "dpaPrevisto": 0.61,
- "moat": "Estrecho-moderado (58/100): banca de relación reforzada por eficiencia líder y la mejor gestión de riesgo del sector.",
- "catalizadores": [
-  "RoTE sostenido >15% pese a la bajada de tipos",
-  "Defensa del NIM con volumen de crédito y comisiones",
-  "Crecimiento del crédito y expansión en Avant (Irlanda) / Portugal",
-  "Mejora de la retribución (subida del pay-out o recompras acretivas)",
-  "Retirada del impuesto a la banca en España"
- ],
- "riesgos": [
-  "Compresión del margen de intereses (NIM) por la bajada de tipos del BCE",
-  "Recesión y repunte de la morosidad",
-  "Impuesto a la banca y mayores requerimientos de capital",
-  "Concentración geográfica en España tras salir Línea Directa",
-  "Disrupción fintech/neobancos en pagos y consumo"
- ],
- "bull": "El RoTE se mantiene >16%, el NIM resiste con volumen y comisiones y el mercado sostiene el premium de P/TBV → ~17 € (+10%).",
- "bear": "Aterrizaje brusco de tipos + recesión española: el NIM se hunde, la morosidad repunta (coste del riesgo >1%) y el P/TBV se de-rata de ~2,3x a ~1,2x → ~8 € (−48%).",
- "resumen": "Bankinter es el banco de mayor calidad de España (Rating AA, 75,8): rentabilidad líder (RoTE ~18%, +8 pp sobre el coste de capital), eficiencia excepcional (37%) y la mejor calidad de activos del sector (morosidad 1,94%). Pero cotiza a P/TBV ~2,3x, sin margen de seguridad: el mercado ya paga toda la calidad y el RoTE tenderá a normalizarse con la bajada de tipos. Veredicto ESPERAR; para el radar y compra en un retroceso hacia ~11 €.",
- "confianza": {
-  "score": 100,
-  "nivel": "A",
-  "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
-  ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-07-26"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": false,
-  "banda": {
-   "p10": 8.1,
-   "p50": 10.2,
-   "p90": 15.5
-  },
-  "sensibilidad": {
-   "poMin": 10.43,
-   "poMax": 14.37,
-   "poBase": 11.74,
-   "cotizacion": 15.395,
-   "ejeCoste": "CoE",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": -32.3,
-   "mdsMax": -6.7
-  },
-  "beta": {
-   "metodo": "5 años móviles, retornos semanales vs IBEX, series del propio método",
-   "valor": 1.06,
-   "rango10a": [
-    0.89,
-    1.21
-   ],
-   "anterior": 0.04,
-   "pares5a": {
-    "CABK": 1.07,
-    "SAB": 1.33,
-    "BBVA": 1.46,
-    "SAN": 1.56
-   },
-   "calculadoEl": "2026-07-29",
-   "nota": "No alimenta el PO: el Bloque VI usa CoE de referencia 11/10/9%. El Ke del §3.5 con esta beta da 9,32% en 2025, que respalda ese 10%."
-  },
-  "motivos": [
-   "la cotización (15.39) queda por ENCIMA de toda la banda de PO [10.4–14.4] → sobrevalorada en todo el rango; la cautela es ROBUSTA"
-  ],
-  "calculadoEl": "2026-07-27"
- },
- "dividendSafety": {
-  "score": 83,
-  "banda": "Muy seguro",
-  "aplica": true,
-  "rama": "banca",
-  "componentes": {
-   "C1": 24,
-   "C2": 20,
-   "C3": 20,
-   "C4": 9,
-   "C5": 10
-  },
-  "shareholderYield": 4.51,
-  "topeDuro": {
-   "activo": false,
-   "motivo": ""
-  },
-  "motivos": [
-   "C1 pay-out dividendo (DPA/BPA) 50% → 24/30",
-   "C2 CET1 12.7% → 20/25",
-   "C3 RoTE 18.0% → 20/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
-   "C5 predictores: ninguno → 10/10",
-   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
-  ],
-  "calculadoEl": "2026-07-19"
- },
- "forense": {
-  "aplica": false,
-  "motivo": "rama financiera (banca/seguros)",
-  "flags": [],
-  "calculadoEl": "2026-07-19"
- },
- "reverseDcf": {
-  "aplica": false,
-  "veredicto": "No aplica",
-  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-  "calculadoEl": "2026-07-27"
- },
- "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 9,00-11,00 €, POR ENCIMA del PO base (10,20 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 7,85-8,55 €, margen de seguridad del 23% al 16%. No cambia la valoración: PO bear/base/bull siguen igual. · [29-jul-2026] S3 registrada: la cotización cruzó el PO BULL (15,56 € ≥ 15,50 €), no solo el base. Decisión REAFIRMAR — no hay posición y no se abre a 2,3x TBV. La cautela es robusta: con el CoE ±1pp la banda de PO queda en 10,43-14,37 € y el precio está por encima de todo el rango. BETA RESUELTA el 29-jul-2026: la beta registrada (CAPM 0,04) era errónea; recalculada desde las series del método —retornos semanales, ventana móvil de 5 años contra el IBEX— da 1,06, y entre 0,89 y 1,21 en la última década (pares a 5 años: CABK 1,07, SAB 1,33, BBVA 1,46, SAN 1,56). Corregida en la fila 25 del §3.5. NO cambia el precio objetivo: el Bloque VI valora por P/TBV justificado = (RoTE−g)/(CoE−g) con un CoE de referencia de banca europea de 11/10/9% por escenario, y la beta no entra en esa fórmula — el PO final sigue en 10,17 €, verificado tras el recálculo. Lo que aporta es una confirmación: con la beta buena el Ke del CAPM de 2025 sale 9,32%, muy cerca del 10% que la valoración venía asumiendo."
+"schemaVersion": 8,
+"ticker": "BKT",
+"empresa": "Bankinter, S.A.",
+"fecha": "2026-09-15",
+"rating": "A",
+"score": 74.7,
+"decision": "ESPERAR",
+"metodoValoracion": "P/TBV justificado por exceso de rentabilidad — (RoTE − g) / (CoE − g) × VCPA-T, rama BANCA. El PO oficial es la síntesis del §6.5: 12,44 €, con bear 9,59 € y bull 14,82 €. Sin DCF y sin EBITDA: la norma de pesos de FINANCIERAS pone el descuento de flujos a CERO DURO, porque la caja de operaciones de un banco oscila con el crédito y los depósitos y produce resultados falsos. El peso se reparte 65 % múltiplos y 35 % renta.",
+"poBear": 9.5922,
+"poBase": 12.4389,
+"poBull": 14.8213,
+"entMin": 9.5922,
+"entMax": 10.8164,
+"stop": 7.61,
+"dpaPrevisto": 0.6015,
+"moat": "45 · MOAT ESTRECHO (sobre 100). Cinco ejes con los pesos de la norma: costes de cambio 55, escala eficiente 30, intangibles 55, efecto de red 20 y ventaja de costes 85. El moat real de Bankinter es UNO solo —la ventaja de costes, medida: 36,09 % de ratio de eficiencia, primero de los seis bancos españoles— y pesa 5 puntos de 100 en la norma. Los cuatro ejes que más pesan son los que menos puntúa.",
+"catalizadores": [
+"El RoTE aguanta el pico de tipos (0-12 meses, +11,1 % sobre el PO). El caso base juzga que el RoTE sostenible son 15,7 %, el punto medio entre el régimen de tipo cero y el pico. El banco publica 20,03 % en 2025 y corre al 20,36 % en el 1S-2026.",
+"El coste del riesgo baja al mínimo de su propia década (12-18 meses, +8,0 % sobre el PO). Está en 0,353 % en 2025 y su mínimo de los diez años es 0,116 % (2018): la diferencia sobre una cartera de 92.457 M€ son 219,1 M€ de dotación.",
+"Las dos operaciones societarias mueven el banco hacia comisiones (12-24 meses, impacto NO derivable). Tulp Hypotheken —del orden de 1.000 M€ al año de hipoteca en Países Bajos— y la fusión de Bankinter Investment con Plenium Partners más el 64 % de Access Capital Partners, que suman más de 14.000 M€ de capital comprometido. Ninguna publica importe.",
+"Y uno que NO es catalizador, escrito para que nadie lo cuente dos veces: el gravamen a la banca no vuelve. Bankinter cargó 95 M€ en 2024 y CERO en 2025, así que el caso base ya está construido sobre un año sin impuesto."
+],
+"riesgos": [
+"La rentabilidad depende del tipo del BCE, y el ciclo ya ha girado (Media · −7 a −13 % sobre el PO). El margen de intereses es el 73,4 % del margen bruto y el NIM ya baja.",
+"El colchón de provisiones es de los más delgados del sector (Baja-Media · −1 a −14 %). Medido sobre los seis bancos: 67,89 % de cobertura.",
+"Los competidores están estrechando su ventaja (Media · −3 a −5 %). Bankinter es 1º de 6 en eficiencia con un 36,09 %, y esa ventaja es la que sostiene el exceso de rentabilidad.",
+"Un solo país, sin la pata aseguradora y sin escala global (Baja-Media · −3 a −6 %).",
+"Cambio de control: es el banco español de tamaño más comprable (Baja · −13 a −15 %).",
+"Recorte del dividendo: la palanca más potente del modelo, y no es el RoTE (Baja-Media · −8 a −14 %). La derivación lo destapó: la pata del dividendo pesa 35 puntos del modelo.",
+"El impuesto a la banca vuelve (Media · −3 a −5 %). La cifra está publicada: 95 M€ en 2024.",
+"Interrupción prolongada de los sistemas de un banco digital (Baja · −1 a −2 %)."
+],
+"bull": "Los dos catalizadores derivables acumulados —RoTE sostenible al 19,1 % y coste del riesgo al 0,116 %, en total +5,86 pp de RoTE— llevan el valor a 14,82 €. Aun así se queda por DEBAJO de la cotización: ni el mejor escenario del libro justifica el precio de hoy.",
+"bear": "Los TRES riesgos de probabilidad Media del §8.1 en su extremo duro —ciclo de tipos −3,98 pp, convergencia de la eficiencia −1,44 pp y regreso del gravamen −1,58 pp, total −7,00 pp de RoTE sostenible— dejan el valor en 9,59 €, un 0,771x el PO.",
+"resumen": "Bankinter es un banco excelente en lo que hace y estrecho en todo lo demás: rating A con 74,7 sobre 100, primero de los seis bancos españoles en eficiencia (36,09 %) y un RoTE de 20,03 %, pero con un moat de 45 que se apoya en un solo eje. El precio objetivo del método —P/TBV justificado, sin DCF— es de 12,44 €, y la cotización de referencia (16,60 €) está un 25,07 % POR ENCIMA. De las cuatro condiciones del §9.4 se cumplen tres: falla la del margen de seguridad, y falla con holgura. El veredicto es ESPERAR, no VENDER: la tesis no está rota, está cara. La banda de acumulación es 9,59–10,82 € y el stop de tesis, 7,61 €, cuelga del escenario catastrófico del §8.2 y no del bear.",
+"confianza": {
+"score": 82,
+"nivel": "A",
+"motivos": [
+"1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
+"5 dato(s) secundario(s) en 'Pte. Revisión' (−10)"
+],
+"sensibleASupuestos": true,
+"reglaDura": {
+"bloqueaCompraEnFirme": false,
+"motivo": "",
+"accion": null
+},
+"calculadoEl": "2026-09-15"
+},
+"robustez": {
+"nivel": "solida",
+"sobreviveDecision": true,
+"etiquetaPrecioSensible": false,
+"matizada": false,
+"banda": {
+"p10": 9.5922,
+"p50": 12.4389,
+"p90": 14.8213
+},
+"sensibilidad": {
+"sobre": "modelo",
+"regla": "F100",
+"poMin": 11.08,
+"poMax": 15.64,
+"poBase": 13.051150202977,
+"cotizacion": 16.6,
+"cotizacionBase": "actual",
+"componente": null,
+"pesoPerturbado": 1.0,
+"componentesIntactos": 0,
+"dcf": {
+"poMin": 11.08,
+"poMax": 15.64,
+"poBase": 13.051150202977
+},
+"ejeCoste": "CoE",
+"pertCoste": 1.0,
+"pertOtro": 0.5,
+"mdsMin": -33.3,
+"mdsMax": -5.8
+},
+"beta": {
+"capm": 1.061,
+"ref2": null,
+"aviso": null
+},
+"motivos": [
+"⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+"la cotización (16.60) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [11.08–15.64] → sobrevalorada en todo el rango",
+"…y la banda de margen de seguridad [-33.3 % … -5.8 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
+],
+"calculadoEl": "2026-09-15"
+},
+"dividendSafety": {
+"score": 83,
+"banda": "Muy seguro",
+"aplica": true,
+"rama": "banca",
+"componentes": {
+"C1": 24,
+"C2": 20,
+"C3": 20,
+"C4": 9,
+"C5": 10
+},
+"shareholderYield": 4.42,
+"topeDuro": {
+"activo": false,
+"motivo": ""
+},
+"motivos": [
+"C1 pay-out dividendo (DPA/BPA) 52% → 24/30",
+"C2 CET1 12.7% → 20/25",
+"C3 RoTE 20.0% → 20/20",
+"C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+"C5 predictores: ninguno → 10/10",
+"Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+],
+"calculadoEl": "2026-09-15"
+},
+"forense": {
+"aplica": false,
+"motivo": "rama financiera (banca/seguros)",
+"flags": [],
+"calculadoEl": "2026-09-15"
+},
+"reverseDcf": {
+"aplica": false,
+"veredicto": "No aplica",
+"motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+"calculadoEl": "2026-09-15"
+}
 }
