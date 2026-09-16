@@ -606,12 +606,8 @@ function pigDrawChart2(rows){
   for(var t=0;t<ticks;t++){ var idx=Math.round(t*(n-1)/(ticks-1||1)); ctx.fillText(rows[idx].edad+' a', X(idx), H-4); }
 }
 function renderPignoradoTabla(c,rows){
-  var step = c.horizonte<=12?1:(c.horizonte<=24?2:5);
   var body='';
-  rows.forEach(function(r,idx){
-    var esInicio = c.modo==='gasto' && r.ingresoExtra>0 && (idx===0 || rows[idx-1].ingresoExtra===0);
-    var show=(r.year%step===0) || r.year===1 || r.year===rows.length || esInicio;
-    if(!show) return;
+  rows.forEach(function(r){
     var ltvPct=r.ltv*100;
     var pillCls = ltvPct>50?'r':(ltvPct>30?'a':'g');
     body += '<tr><td class="l">'+r.year+' · '+r.edad+'a</td><td>'+fmt(r.cartera)+'</td><td>'+fmt(r.deuda)+'</td><td>'+fmt(r.interes)+'</td><td>'+fmt(r.ingresoExtra)+'</td><td class="c"><span class="mt-pill '+pillCls+'">'+ltvPct.toFixed(1)+'%</span></td></tr>';
