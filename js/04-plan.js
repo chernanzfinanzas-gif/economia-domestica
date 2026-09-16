@@ -441,6 +441,209 @@ function renderRebalanceo(){
     if(_a)_a.addEventListener('change',()=>{ DB.config.rebalAportacion=Math.max(0,num(_a.value)); if(typeof scheduleSave==='function')scheduleSave(); renderRebalanceo(); });
   }
 }
+// === Capital pignorado: simulador de préstamo con garantía de cartera (crédito lombardo /
+//     préstamo pignorado). Vista nativa con el estilo del resto de Plan (.blk, .patgrid,
+//     .proy-kpis, mt-tbl) — misma lógica que el simulador de referencia, sin sliders (inputs
+//     numéricos, como Proyección) y gráficos en canvas (como drawProyChart). ===
+function pigDefaults(){
+  return { modo:'gasto', cartera:400000, aportacion:37500, rendimiento:5, horizonte:40, edadActual:60,
+    ltvObjetivo:20, tipoCarry:4.0, yieldReinversion:5.5,
+    edadInicioPrestamo:80, retiradaAnual:30000, tipoGasto:4.0, pagarBolsillo:false };
+}
+function pigCfg(){
+  DB.config.pignorado = Object.assign(pigDefaults(), DB.config.pignorado||{});
+  return DB.config.pignorado;
+}
+function pigSimular(c){
+  var rows=[]; var cartera=c.cartera; var deuda0=c.cartera*(c.ltvObjetivo/100);
+  var deuda=(c.modo==='carry')?deuda0:0;
+  for(var y=1;y<=c.horizonte;y++){
+    var interesAnual, ingresoExtra;
+    cartera = cartera*(1+c.rendimiento/100) + c.aportacion;
+    if(c.modo==='carry'){
+      interesAnual = deuda0*(c.tipoCarry/100);
+      var dividendoAnual = deuda0*(c.yieldReinversion/100);
+      ingresoExtra = dividendoAnual - interesAnual;
+    } else {
+      var deudaPrev=deuda;
+      interesAnual = deudaPrev*(c.tipoGasto/100);
+      var edadEseAno = c.edadActual+y;
+      var draw=(edadEseAno>=c.edadInicioPrestamo)?c.retiradaAnual:0;
+      deuda = c.pagarBolsillo ? (deudaPrev+draw) : (deudaPrev*(1+c.tipoGasto/100)+draw);
+      ingresoExtra = draw;
+    }
+    var deudaRow = (c.modo==='carry') ? deuda0 : deuda;
+    var ltv = cartera>0 ? (deudaRow/cartera) : 0;
+    rows.push({year:y, edad:c.edadActual+y, cartera:cartera, deuda:deudaRow, interes:interesAnual, ingresoExtra:ingresoExtra, ltv:ltv});
+  }
+  return rows;
+}
+function pigParamsCartera(c){
+  return [
+    ['cartera','Cartera actual (€)',c.cartera,500],
+    ['aportacion','Aportación nueva al año (€)',c.aportacion,500],
+    ['rendimiento','Revalorización anual esperada (%)',c.rendimiento,0.5],
+    ['horizonte','Horizonte a simular (años)',c.horizonte,1],
+    ['edadActual','Tu edad actual (aprox.)',c.edadActual,1]
+  ];
+}
+function pigParamsPrestamo(c){
+  if(c.modo==='carry'){
+    return [
+      ['ltvObjetivo','LTV al pedirlo, deuda/cartera hoy (%)',c.ltvObjetivo,1],
+      ['tipoCarry','Tipo de interés del préstamo (%)',c.tipoCarry,0.1],
+      ['yieldReinversion','Dividendo de lo que compres con el préstamo (%)',c.yieldReinversion,0.1]
+    ];
+  }
+  return [
+    ['edadInicioPrestamo','Empiezas a pedirlo a partir de esta edad',c.edadInicioPrestamo,1],
+    ['retiradaAnual','Cuánto pides cada año, desde esa edad (€)',c.retiradaAnual,1000],
+    ['tipoGasto','Tipo de interés del préstamo (%)',c.tipoGasto,0.1]
+  ];
+}
+function pigCampos(list){
+  return list.map(function(f){ return '<label>'+f[1]+'<input type="number" step="'+f[3]+'" data-pig="'+f[0]+'" value="'+f[2]+'"></label>'; }).join('');
+}
+function renderPignoradoParams(){
+  var c=pigCfg();
+  var elC=document.getElementById('pigParamsCartera'); if(elC) elC.innerHTML=pigCampos(pigParamsCartera(c));
+  var tabs=document.getElementById('pigModoTabs');
+  if(tabs){ tabs.querySelectorAll('button').forEach(function(b){ b.classList.toggle('active', b.getAttribute('data-pigmodo')===c.modo); }); }
+  var elP=document.getElementById('pigParamsPrestamo'); if(elP) elP.innerHTML=pigCampos(pigParamsPrestamo(c));
+  var wrap=document.getElementById('pigBolsilloWrap');
+  if(wrap){
+    wrap.style.display = c.modo==='gasto' ? 'flex' : 'none';
+    var chk=document.getElementById('pigBolsillo'); if(chk) chk.checked = !!c.pagarBolsillo;
+  }
+}
+function pigStatTile(label,value,note,hero){
+  return '<div class="k'+(hero?' hero':'')+'"><div class="l">'+label+'</div><div class="v">'+value+'</div><div class="p">'+note+'</div></div>';
+}
+function renderPignoradoKpis(c,rows){
+  var pct=function(x){ return x.toFixed(1)+'%'; };
+  var last=rows[rows.length-1], first=rows[0];
+  var html='';
+  if(c.modo==='carry'){
+    html += pigStatTile('Ingreso extra al año', fmt(first.ingresoExtra), 'Dividendo ('+c.yieldReinversion.toFixed(1)+'%) menos interés ('+c.tipoCarry.toFixed(1)+'%) sobre '+fmt(c.cartera*c.ltvObjetivo/100), true);
+    html += pigStatTile('Deuda pedida (fija)', fmt(c.cartera*c.ltvObjetivo/100), 'No crece: el interés se paga con el propio dividendo');
+    html += pigStatTile('LTV al cabo de '+c.horizonte+' años', pct(last.ltv*100), (last.ltv*100)<c.ltvObjetivo?'Baja porque la cartera crece más que la deuda':'Sube: revisa tus supuestos');
+  } else {
+    var totalPedido=0, anosPidiendo=0;
+    rows.forEach(function(r){ totalPedido+=r.ingresoExtra; if(r.ingresoExtra>0) anosPidiendo++; });
+    var dentro = c.edadInicioPrestamo <= c.edadActual+c.horizonte;
+    if(dentro){
+      html += pigStatTile('Edad a la que empiezas a pedir', c.edadInicioPrestamo+' años', 'Hasta entonces: pura acumulación, deuda en 0', true);
+      html += pigStatTile('Total pedido en '+anosPidiendo+' años', fmt(totalPedido), fmt(c.retiradaAnual)+' cada año desde esa edad');
+      html += pigStatTile('LTV a los '+(c.edadActual+c.horizonte)+' años', pct(last.ltv*100), last.ltv>0.5?'Por encima del 50% — zona de riesgo':(last.ltv>0.3?'Por encima del 30% — vigilar':'Dentro de un rango tranquilo'));
+    } else {
+      html += pigStatTile('Edad a la que empiezas a pedir', c.edadInicioPrestamo+' años', 'Fuera del horizonte simulado — sube "Horizonte a simular" para verlo', true);
+      html += pigStatTile('Cartera a los '+(c.edadActual+c.horizonte)+' años', fmt(last.cartera), 'Sin deuda todavía en este horizonte');
+      html += pigStatTile('LTV', '0.0%', 'Aún no has empezado a pedir');
+    }
+  }
+  var el=document.getElementById('pigKpis'); if(el) el.innerHTML=html;
+}
+function pigNiceMax(n){
+  if(n<=0) return 10;
+  var mag=Math.pow(10, Math.floor(Math.log10(n)));
+  var steps=[1,2,2.5,5,10];
+  for(var i=0;i<steps.length;i++){ var cand=steps[i]*mag; if(cand>=n) return cand; }
+  return 10*mag;
+}
+function pigFmtCompact(v){
+  if(Math.abs(v)>=1000000) return (v/1000000).toFixed(2)+'M';
+  if(Math.abs(v)>=1000) return Math.round(v/1000)+'k';
+  return Math.round(v).toString();
+}
+function pigDrawChart1(rows){
+  var cv=document.getElementById('pigChart1'); if(!cv) return;
+  var ctx=cv.getContext('2d'); var W=cv.width=cv.clientWidth||700, H=cv.height=240;
+  ctx.clearRect(0,0,W,H);
+  var pad={l:46,r:8,t:10,b:20};
+  var n=rows.length;
+  var maxV=pigNiceMax(Math.max.apply(null, rows.map(function(r){return Math.max(r.cartera,r.deuda);})));
+  function X(i){ return pad.l+(W-pad.l-pad.r)*(n<=1?0.5:i/(n-1)); }
+  function Y(v){ return pad.t+(H-pad.t-pad.b)*(1-(v/maxV)); }
+  ctx.strokeStyle='#e5e7eb'; ctx.fillStyle='#94a3b8'; ctx.font='10px sans-serif'; ctx.textAlign='right';
+  for(var g=0; g<=4; g++){ var v=maxV*g/4, y=Y(v); ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke(); ctx.fillText(pigFmtCompact(v), pad.l-6, y+3); }
+  function area(getFn, fill, stroke){
+    ctx.beginPath(); ctx.moveTo(X(0), Y(getFn(rows[0])));
+    for(var i=1;i<n;i++) ctx.lineTo(X(i), Y(getFn(rows[i])));
+    ctx.lineTo(X(n-1), Y(0)); ctx.lineTo(X(0), Y(0)); ctx.closePath();
+    ctx.fillStyle=fill; ctx.fill();
+    ctx.beginPath(); ctx.moveTo(X(0), Y(getFn(rows[0])));
+    for(var j=1;j<n;j++) ctx.lineTo(X(j), Y(getFn(rows[j])));
+    ctx.strokeStyle=stroke; ctx.lineWidth=2; ctx.stroke();
+  }
+  area(function(r){return r.cartera;}, 'rgba(22,163,74,.10)', '#16a34a');
+  area(function(r){return r.deuda;}, 'rgba(124,58,237,.12)', '#7c3aed');
+  ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  var ticks=Math.min(n,6);
+  for(var t=0;t<ticks;t++){ var idx=Math.round(t*(n-1)/(ticks-1||1)); ctx.fillText(rows[idx].edad+' a', X(idx), H-4); }
+}
+function pigDrawChart2(rows){
+  var cv=document.getElementById('pigChart2'); if(!cv) return;
+  var ctx=cv.getContext('2d'); var W=cv.width=cv.clientWidth||700, H=cv.height=150;
+  ctx.clearRect(0,0,W,H);
+  var pad={l:36,r:8,t:10,b:20};
+  var n=rows.length;
+  var maxV=Math.max(60, pigNiceMax(Math.max.apply(null, rows.map(function(r){return r.ltv*100;}))));
+  function X(i){ return pad.l+(W-pad.l-pad.r)*(n<=1?0.5:i/(n-1)); }
+  function Y(v){ return pad.t+(H-pad.t-pad.b)*(1-(v/maxV)); }
+  ctx.strokeStyle='#e5e7eb'; ctx.fillStyle='#94a3b8'; ctx.font='10px sans-serif'; ctx.textAlign='right';
+  for(var g=0; g<=4; g++){ var v=maxV*g/4, y=Y(v); ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(W-pad.r,y); ctx.stroke(); ctx.fillText(v.toFixed(0)+'%', pad.l-6, y+3); }
+  ctx.beginPath(); ctx.moveTo(X(0), Y(rows[0].ltv*100));
+  for(var i=1;i<n;i++) ctx.lineTo(X(i), Y(rows[i].ltv*100));
+  ctx.lineTo(X(n-1), Y(0)); ctx.lineTo(X(0), Y(0)); ctx.closePath();
+  ctx.fillStyle='rgba(245,158,11,.14)'; ctx.fill();
+  ctx.beginPath(); ctx.moveTo(X(0), Y(rows[0].ltv*100));
+  for(var j=1;j<n;j++) ctx.lineTo(X(j), Y(rows[j].ltv*100));
+  ctx.strokeStyle='#f59e0b'; ctx.lineWidth=2; ctx.stroke();
+  function refLine(val,color,label){ var ry=Y(val); ctx.setLineDash([4,4]); ctx.strokeStyle=color; ctx.beginPath(); ctx.moveTo(pad.l,ry); ctx.lineTo(W-pad.r,ry); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle=color; ctx.textAlign='right'; ctx.font='9.5px sans-serif'; ctx.fillText(label, W-pad.r, ry-3); }
+  refLine(30,'#b8862b','30% aviso'); refLine(50,'#b0393a','50% riesgo');
+  ctx.fillStyle='#6b7280'; ctx.font='10px sans-serif'; ctx.textAlign='center';
+  var ticks=Math.min(n,6);
+  for(var t=0;t<ticks;t++){ var idx=Math.round(t*(n-1)/(ticks-1||1)); ctx.fillText(rows[idx].edad+' a', X(idx), H-4); }
+}
+function renderPignoradoTabla(c,rows){
+  var step = c.horizonte<=12?1:(c.horizonte<=24?2:5);
+  var body='';
+  rows.forEach(function(r,idx){
+    var esInicio = c.modo==='gasto' && r.ingresoExtra>0 && (idx===0 || rows[idx-1].ingresoExtra===0);
+    var show=(r.year%step===0) || r.year===1 || r.year===rows.length || esInicio;
+    if(!show) return;
+    var ltvPct=r.ltv*100;
+    var pillCls = ltvPct>50?'r':(ltvPct>30?'a':'g');
+    body += '<tr><td class="l">'+r.year+' · '+r.edad+'a</td><td>'+fmt(r.cartera)+'</td><td>'+fmt(r.deuda)+'</td><td>'+fmt(r.interes)+'</td><td>'+fmt(r.ingresoExtra)+'</td><td class="c"><span class="mt-pill '+pillCls+'">'+ltvPct.toFixed(1)+'%</span></td></tr>';
+  });
+  var el=document.getElementById('pigTablaBody'); if(el) el.innerHTML=body;
+}
+function renderPignorado(){
+  var view=document.getElementById('view-pignorado'); if(!view) return;
+  var c=pigCfg();
+  renderPignoradoParams();
+  var rows=pigSimular(c);
+  renderPignoradoKpis(c,rows);
+  pigDrawChart1(rows);
+  pigDrawChart2(rows);
+  renderPignoradoTabla(c,rows);
+
+  if(!view._pigBound){
+    view._pigBound=true;
+    view.addEventListener('click', function(e){
+      var mb=e.target.closest('[data-pigmodo]');
+      if(mb){ var c2=pigCfg(); c2.modo=mb.getAttribute('data-pigmodo'); if(typeof scheduleSave==='function')scheduleSave(); renderPignorado(); return; }
+      if(e.target.closest('input,select,button,a'))return;
+      var h=e.target.closest('.blk-h'); if(h){ h.parentElement.classList.toggle('open'); }
+    });
+    view.addEventListener('change', function(e){
+      var t=e.target; if(!t)return;
+      if(t.id==='pigBolsillo'){ var c3=pigCfg(); c3.pagarBolsillo=t.checked; if(typeof scheduleSave==='function')scheduleSave(); renderPignorado(); return; }
+      if(t.dataset && t.dataset.pig){ var c4=pigCfg(); c4[t.dataset.pig]=num(t.value); if(typeof scheduleSave==='function')scheduleSave(); renderPignorado(); return; }
+    });
+    window.addEventListener('resize', function(){ var v=document.getElementById('view-pignorado'); if(v && v.classList.contains('active')){ var c5=pigCfg(); var rows5=pigSimular(c5); pigDrawChart1(rows5); pigDrawChart2(rows5); } });
+  }
+}
 // === Base de gasto/ingreso recurrente = presupuesto mensual del año en curso (evita distorsión de gastos puntuales) ===
 function gastoMensualPresu(){ const nowY=new Date().getFullYear(); let g=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='gasto'){ g+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?g:null; }
 function ingMensualPresu(){ const nowY=new Date().getFullYear(); let ing=0,has=false; (DB.presupuesto||[]).forEach(p=>{ const y=(typeof pAnio==='function')?pAnio(p):p.anio; if(y!==nowY)return; const c=(typeof catById==='function')?catById(p.categoriaId):null; if(c&&c.tipo==='ingreso'){ ing+=(typeof mensual==='function')?mensual(p):num(p.importe); has=true; } }); return has?ing:null; }

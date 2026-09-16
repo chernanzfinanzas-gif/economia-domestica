@@ -3490,6 +3490,29 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
 #view-hemero #hemeroSubtabs button{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 20px;cursor:pointer;font-size:13.5px;font-weight:700;color:var(--muted);box-shadow:0 1px 3px rgba(0,0,0,.05);transition:transform .12s,box-shadow .12s,background .12s,color .12s}
 #view-hemero #hemeroSubtabs button:hover:not(.active){background:#f8fafc;color:#334155;border-color:#cbd5e1}
 #view-hemero #hemeroSubtabs button.active{background:linear-gradient(120deg,#1e293b,#334155,#475569);color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(30,41,59,.3);transform:translateY(-1px)}
+/* === Capital pignorado (Plan) === */
+#view-pignorado .blk{background:var(--panel);border:1px solid var(--line);border-radius:14px;margin-bottom:14px;box-shadow:var(--shadow);overflow:hidden}
+#view-pignorado .blk-h{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;border-left:5px solid #94a3b8}
+#view-pignorado .blk-h .arw{color:#94a3b8;font-size:11px;transition:transform .15s}
+#view-pignorado .blk.open .blk-h .arw{transform:rotate(90deg)}
+#view-pignorado .blk-t{font-weight:800;font-size:15px}
+#view-pignorado .blk-sub{font-size:12px;color:var(--muted);margin-left:auto}
+#view-pignorado .blk-b{display:none;padding:4px 16px 16px;border-top:1px solid #f1f5f9}
+#view-pignorado .blk.open .blk-b{display:block}
+#view-pignorado .blk#blkPigParams .blk-h{background:linear-gradient(120deg,#f5f3ff,#ede9fe);border-left-color:#7c3aed}
+#view-pignorado .blk#blkPigParams .blk-t{color:#5b21b6}
+#view-pignorado .blk#blkPigChart1 .blk-h{background:linear-gradient(120deg,#f0fdf4,#dcfce7);border-left-color:#16a34a}
+#view-pignorado .blk#blkPigChart1 .blk-t{color:#166534}
+#view-pignorado .blk#blkPigChart2 .blk-h{background:linear-gradient(120deg,#fffbeb,#fef3c7);border-left-color:#f59e0b}
+#view-pignorado .blk#blkPigChart2 .blk-t{color:#92400e}
+#view-pignorado .blk#blkPigTabla .blk-h{background:linear-gradient(120deg,#eff6ff,#dbeafe);border-left-color:#2563eb}
+#view-pignorado .blk#blkPigTabla .blk-t{color:#1e40af}
+#view-pignorado .pig-legend{display:flex;gap:16px;font-size:12px;color:var(--muted);margin-bottom:8px}
+#view-pignorado .pig-legend span{display:inline-flex;align-items:center;gap:6px}
+#view-pignorado .pig-dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+#view-pignorado canvas{width:100%;display:block}
+#view-pignorado .pig-check{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12.5px;color:var(--ink)}
+#view-pignorado .pig-note{font-size:11.5px;color:var(--muted);margin-top:10px;max-width:70ch}
 </style>
 </head>
 <body>
@@ -4035,6 +4058,63 @@ const GD = { clientId: "101599985615-op65nu3t63u4addahnbj9q6loh6089mt.apps.googl
       <div class="ind-hero-kpi" id="indHeroKpi"></div>
     </div>
     <div id="indepBody"></div>
+  </section>
+
+  <section class="view" id="view-pignorado">
+    <div class="vhero g-violet">
+      <div class="vhero-main">
+        <span class="vhero-ic">🔐</span>
+        <div class="vhero-txt">
+          <h2>Capital pignorado</h2>
+          <p>Simulación de pedir prestado contra tu cartera sin vender —<b>crédito lombardo / préstamo pignorado</b>— para aumentar ingresos en los años que más falta hagan, dejando que la cartera siga creciendo. Herramienta de apoyo: no sustituye a tu banco ni a un asesor.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="blk open" id="blkPigParams">
+      <div class="blk-h"><span class="arw">▶</span><span class="blk-t">🎚️ Tu cartera y el préstamo</span><span class="blk-sub">ajusta los números por los tuyos</span></div>
+      <div class="blk-b">
+        <div class="patgrid" id="pigParamsCartera"></div>
+        <div class="subtabs" id="pigModoTabs">
+          <button type="button" data-pigmodo="gasto">Gasto a partir de una edad</button>
+          <button type="button" data-pigmodo="carry">Carry (reinvertir en dividendo)</button>
+        </div>
+        <div class="patgrid" id="pigParamsPrestamo"></div>
+        <label class="pig-check" id="pigBolsilloWrap">
+          <input type="checkbox" id="pigBolsillo">
+          <span>Pagar el interés cada año de tu bolsillo (si no, se acumula: el préstamo se renueva solo cada año cubriendo la deuda vieja más lo nuevo)</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="proy-kpis" id="pigKpis" style="margin-bottom:14px"></div>
+
+    <div class="blk open" id="blkPigChart1">
+      <div class="blk-h"><span class="arw">▶</span><span class="blk-t">📈 Cartera y deuda</span><span class="blk-sub">valor de la cartera frente al saldo vivo del préstamo</span></div>
+      <div class="blk-b">
+        <div class="pig-legend"><span><span class="pig-dot" style="background:#16a34a"></span>Cartera</span><span><span class="pig-dot" style="background:#7c3aed"></span>Deuda</span></div>
+        <canvas id="pigChart1" height="240"></canvas>
+      </div>
+    </div>
+
+    <div class="blk open" id="blkPigChart2">
+      <div class="blk-h"><span class="arw">▶</span><span class="blk-t">📐 LTV a lo largo del tiempo</span><span class="blk-sub">deuda / cartera — 30% aviso, 50% riesgo</span></div>
+      <div class="blk-b">
+        <div class="pig-legend"><span><span class="pig-dot" style="background:#f59e0b"></span>LTV</span></div>
+        <canvas id="pigChart2" height="150"></canvas>
+      </div>
+    </div>
+
+    <div class="blk" id="blkPigTabla">
+      <div class="blk-h"><span class="arw">▶</span><span class="blk-t">📆 Tabla año a año</span><span class="blk-sub">cifras redondeadas al euro</span></div>
+      <div class="blk-b">
+        <div class="mt-wrap"><table class="mt-tbl">
+          <thead><tr><th class="l">Año · edad</th><th>Cartera</th><th>Deuda</th><th>Interés</th><th>Ingreso extra</th><th class="c">LTV</th></tr></thead>
+          <tbody id="pigTablaBody"></tbody>
+        </table></div>
+        <div class="pig-note">Simulación con supuestos constantes (revalorización, tipo de interés y dividendo fijos) — la realidad los mueve cada año. No es una recomendación de inversión ni asesoramiento fiscal.</div>
+      </div>
+    </div>
   </section>
 
   <section class="view" id="view-asignacion">
