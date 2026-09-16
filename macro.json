@@ -1,19 +1,19 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-11",
+ "generadoEl": "2026-09-16",
  "fuente": "pase-macro",
- "nota": "Pase macro del 11-sep-2026. Motivo: el BCE subio los tipos el 10-sep y el panel seguia con el 2,25 %. Foto anterior del 26-ago (16 dias).",
+ "nota": "Pase macro del 16-sep-2026. Dia de doble movimiento de tipos: entra en vigor la subida del BCE decidida el 10-sep y la Fed sube 25 pb (primera subida desde 2023). Foto anterior del 11-sep (5 dias). El pool de OMIE no se pudo refrescar: ni omie.es ni REE sirvieron la media de 30 dias, y no se sustituye por el precio de un dia suelto.",
  "ind": {
   "bce_deposito": {
    "n": "BCE · facilidad de depósito",
    "grupo": "tipos",
    "v": 2.5,
    "u": "%",
-   "f": "2026-09-10",
+   "f": "2026-09-16",
    "d": 25,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
-   "nota": "SUBIDA decidida el 10-sep-2026, segunda del año. ENTRA EN VIGOR el 16-sep: hasta esa fecha la facilidad sigue liquidando al 2,25 %. Operaciones principales de financiación, 2,65 %. El BCE admite que la inflación seguirá muy por encima del objetivo bastante tiempo y no da pistas del próximo movimiento; el mercado descuenta otra subida en diciembre",
+   "dPer": "reunión",
+   "nota": "decidida el 10-sep, EN VIGOR desde hoy 16-sep",
    "src": "ecb.europa.eu",
    "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
    "slider": "TIPOS"
@@ -21,67 +21,67 @@
   "euribor_12m": {
    "n": "Euríbor 12M",
    "grupo": "tipos",
-   "v": 3.138,
+   "v": 3.326,
    "u": "%",
-   "f": "2026-09-09",
-   "d": 14.9,
+   "f": "2026-09-15",
+   "d": 18.8,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
-   "nota": "Subiendo sin pausa desde primeros de septiembre: ya descontaba la subida del BCE antes de que se anunciara",
+   "dPer": "semana",
+   "nota": "sube sin pausa: 2,94 % a mediados de agosto",
    "src": "euribor-rates.eu",
    "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/"
   },
   "euribor_3m": {
    "n": "Euríbor 3M",
    "grupo": "tipos",
-   "v": 2.626,
+   "v": 2.682,
    "u": "%",
-   "f": "2026-09-09",
-   "d": 8.1,
+   "f": "2026-09-15",
+   "d": 5.6,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
+   "dPer": "semana",
    "src": "euribor-rates.eu",
    "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/"
   },
   "bono_10a_es": {
    "n": "Bono 10A España",
    "grupo": "tipos",
-   "v": 3.99,
+   "v": 4.0,
    "u": "%",
-   "f": "2026-09-10",
-   "d": 32.3,
+   "f": "2026-09-16",
+   "d": 1.3,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
-   "nota": "FUENTE CAMBIADA: euribor.com.es ha dejado de publicar el bono y la prima en portada. Tomado de Trading Economics. +27 pb en el mes y +66 pb en el año",
-   "src": "tradingeconomics.com",
+   "dPer": "semana",
+   "nota": "cierre europeo, antes del anuncio de la Fed",
+   "src": "es.tradingeconomics.com",
    "url": "https://es.tradingeconomics.com/spain/government-bond-yield"
   },
   "bund_10a": {
    "n": "Bund 10A Alemania",
    "grupo": "tipos",
-   "v": 3.51,
+   "v": 3.53,
    "u": "%",
-   "f": "2026-09-11",
-   "d": 30,
+   "f": "2026-09-16",
+   "d": 2.0,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
-   "nota": "Ya NO es derivado: se lee directamente. +35 pb en el mes y +80 pb en el año — la subida es europea, no española",
-   "src": "tradingeconomics.com",
+   "dPer": "semana",
+   "nota": "máximo desde junio de 2009",
+   "src": "es.tradingeconomics.com",
    "url": "https://es.tradingeconomics.com/germany/government-bond-yield"
   },
   "prima_riesgo": {
    "n": "Prima de riesgo",
    "grupo": "tipos",
-   "v": 48,
+   "v": 47,
    "u": "pb",
-   "f": "2026-09-10",
-   "d": 2.3,
+   "f": "2026-09-16",
+   "d": -1,
    "dU": "pb",
-   "dPer": "desde el 26-ago",
-   "nota": "CALCULADA (3,99 − 3,51). Las dos patas son de dias contiguos (bono del 10-sep, Bund del 11) porque la fuente que las daba juntas dejo de publicarlas: el margen de error es de unos 6 pb. Practicamente quieta pese al salto de los dos bonos",
+   "dPer": "semana",
+   "nota": "calculada (4,00 − 3,53); esta vez los dos bonos llevan la misma fecha, sin desfase",
    "src": "calculada",
    "slider": "CRED",
-   "sliderV": 0.48
+   "sliderV": 0.47
   },
   "wacc_cnmc": {
    "n": "Retribución de redes · WACC CNMC",
@@ -98,13 +98,13 @@
   "gas_ttf": {
    "n": "Gas TTF",
    "grupo": "energia",
-   "v": 80.81,
+   "v": 77.76,
    "u": "€/MWh",
-   "f": "2026-09-11",
-   "d": 32.42,
+   "f": "2026-09-16",
+   "d": -2.87,
    "dU": "%",
-   "dPer": "mes",
-   "nota": "DISPARADO: +147 % interanual y cerca de maximos desde diciembre de 2022, por cortes de suministro de GNL desde el Golfo Persico. Cotizacion intradia del 11-sep, no un cierre. Ingreso para Naturgy y Repsol; coste para Viscofan, Vidrala y CIE",
+   "dPer": "semana",
+   "nota": "+25,9 % en el mes; cerca de máximos de 2022 por el suministro de cara al invierno",
    "src": "tradingeconomics.com",
    "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
    "slider": "GAS"
@@ -128,13 +128,10 @@
    "v": 4.3,
    "u": "% i.a.",
    "f": "2026-08-01",
-   "d": 0.7,
-   "dU": "pp",
-   "dPer": "mes",
-   "nota": "AGOSTO · indicador ADELANTADO (el definitivo aun no esta publicado). Sube 7 decimas desde el 3,6 % de julio por los carburantes. La SUBYACENTE en cambio BAJA una decima, hasta el 2,9 %: el repunte es energia, no economia domestica. Este dato es el que explica la subida del BCE",
+   "nota": "agosto, dato definitivo publicado el 15-sep · siete décimas más que julio · subyacente 2,9 %",
    "src": "ine.es",
-   "url": "https://www.ine.es/dyngs/Prensa/adIPC0826.htm",
-   "caduca": 75
+   "url": "https://www.ine.es/dyngs/Prensa/es/IPC0826.htm",
+   "caduca": 45
   },
   "pib": {
    "n": "PIB España",
@@ -154,13 +151,10 @@
    "v": -0.3,
    "u": "% i.a.",
    "f": "2026-07-01",
-   "d": -0.8,
-   "dU": "pp",
-   "dPer": "mes",
-   "nota": "JULIO · ICM indice general a precios constantes, serie CVEC. SE DA LA VUELTA: de +0,5 % en junio a -0,3 %. Primer dato negativo de la serie reciente",
+   "nota": "julio · índice general a precios constantes CVEC · próximo dato (agosto) el 28-sep",
    "src": "ine.es",
    "url": "https://www.ine.es/dyngs/Prensa/es/ICM0726.htm",
-   "caduca": 100
+   "caduca": 45
   },
   "consumo_discrecional": {
    "n": "Consumo discrecional",
@@ -168,48 +162,47 @@
    "v": 2.3,
    "u": "% i.a.",
    "f": "2026-07-01",
-   "d": -0.5,
-   "dU": "pp",
-   "dPer": "mes",
-   "nota": "JULIO · ICM rama «Resto» (no alimentacion), serie ICM4073, precios constantes CVEC. Tercer mes consecutivo de desaceleracion: 3,8 en mayo, 3,0 en junio, 2,3 en julio. Lo que si se recorta: Atresmedia, Inditex",
+   "nota": "ICM rama «resto (no alimentación)», julio, precios constantes CVEC · venía de 3,0 % en junio",
    "src": "ine.es",
-   "url": "https://www.ine.es/wstempus/js/ES/DATOS_SERIE/ICM4073?nult=3",
+   "url": "https://www.ine.es/wstempus/js/ES/DATOS_SERIE/ICM4073",
    "slider": "CONSD",
-   "caduca": 100
+   "caduca": 45
   },
   "consumo_defensivo": {
    "n": "Consumo defensivo",
    "grupo": "inflacion",
-   "v": 0.3,
+   "v": -0.3,
    "u": "% i.a.",
-   "f": "2026-06-01",
-   "nota": "ICM rama «Alimentación», serie ICM4076: precios constantes, CVEC, variación anual. Lo que no se recorta: Viscofán, Ebro",
+   "f": "2026-07-01",
+   "nota": "ICM rama «alimentación», julio, precios constantes CVEC · entra en negativo desde +0,3 % en junio",
    "src": "ine.es",
-   "url": "https://www.ine.es/wstempus/js/ES/DATOS_SERIE/ICM4076?nult=3",
+   "url": "https://www.ine.es/wstempus/js/ES/DATOS_SERIE/ICM4076",
    "slider": "CONSB",
-   "caduca": 100
+   "caduca": 45
   },
   "eur_brl": {
    "n": "EUR/BRL",
    "grupo": "divisas",
-   "v": 5.9528,
-   "f": "2026-09-10",
-   "d": -1.04,
+   "v": 5.9368,
+   "f": "2026-09-16",
+   "d": -0.27,
    "dU": "%",
-   "dPer": "desde el 26-ago",
-   "nota": "Referencia diaria del BCE. Euro algo mas fuerte frente al real que hace dos semanas",
+   "dPer": "semana",
    "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
   },
   "fed": {
    "n": "Fed · tipo oficial",
    "grupo": "otros",
-   "v": 3.625,
+   "v": 3.875,
    "u": "%",
-   "f": "2026-07-30",
-   "nota": "Punto medio del rango 3,50–3,75 % (FOMC del 28-29 jul). Próxima reunión: 15-16 de septiembre, con proyecciones",
+   "f": "2026-09-16",
+   "d": 25,
+   "dU": "pb",
+   "dPer": "reunión",
+   "nota": "nuevo rango 3,75–4,00 % · primera subida desde 2023, por unanimidad (12-0) · próxima reunión el 27-28 de octubre",
    "src": "federalreserve.gov",
-   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260729a1.htm",
+   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
    "caduca": 60
   },
   "hipoteca_30a_us": {
@@ -238,42 +231,48 @@
   }
  },
  "lectura": {
-  "titulo": "Coyuntura Macro a 11/09/2026",
-  "generadoEl": "2026-09-11",
+  "titulo": "Coyuntura Macro a 16/09/2026",
+  "generadoEl": "2026-09-16",
   "fuente": "pase-macro",
-  "refrescados": 14,
+  "refrescados": 13,
   "total": 18,
-  "nota": "Sólo comenta lo que ESTE pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
+  "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
   "puntos": [
    {
-    "t": "El gas se dispara: +147 % en un año",
-    "txt": "El TTF pasa de 64 a 80,8 €/MWh, un 32 % más en un mes y cerca de máximos desde diciembre de 2022. La causa son cortes de suministro de gas licuado desde el Golfo Pérsico; el Brent acompaña por encima de 101 $.",
-    "beneficia": "Naturgy y Repsol, que venden energía",
-    "perjudica": "Viscofan y Vidrala, donde el gas es coste directo de proceso, y CIE"
+    "t": "La Fed sube tipos por primera vez desde 2023",
+    "txt": "El FOMC ha dejado el rango en 3,75–4,00 %, 25 pb más, por unanimidad (12-0). El comunicado dice que la actividad crece «a buen ritmo» y que la inflación sigue alta, y presenta la subida como la vía para volver antes al 2 %. Es un giro: durante dos años la dirección había sido la contraria.",
+    "beneficia": "los negocios que viven del margen de intermediación, como Santander, y la reinversión de las carteras de renta fija de las aseguradoras, como Mapfre",
+    "perjudica": "las empresas apalancadas que refinancian en dólares y, en general, cualquier valoración por descuento de flujos: el tipo sin riesgo con el que se descuenta sube"
    },
    {
-    "t": "El BCE sube al 2,50 %, con efecto el día 16",
-    "txt": "Segunda subida del año, decidida el 10 de septiembre. Hasta el martes 16 la facilidad de depósito sigue liquidando al 2,25 %. El Euríbor a 12 meses ya lo había descontado: 3,14 %, quince puntos más que en el pase anterior.",
-    "beneficia": "Bankinter y Santander, que amplían margen de intereses",
-    "perjudica": "las endeudadas y las reguladas, que refinancian más caro: Enagás, Redeia, Telefónica"
+    "t": "La subida del BCE entra hoy en vigor y el Euríbor no para",
+    "txt": "La facilidad de depósito queda en 2,50 % desde hoy —se decidió el 10-sep—. El Euríbor 12M está en 3,326 % (+19 pb en la semana) y el 3M en 2,682 %. A mediados de agosto el 12M estaba en 2,94 %: casi 40 pb en un mes.",
+    "beneficia": "la banca con cartera hipotecaria a tipo variable, que repreciará al alza en las próximas revisiones",
+    "perjudica": "las compañías con mucha deuda a tipo variable o con vencimientos próximos —utilities y concesiones— que refinancian más caro"
    },
    {
-    "t": "La inflación es energía, no economía doméstica",
-    "txt": "El IPC de agosto salta al 4,3 % desde el 3,6 % de julio, pero la subyacente BAJA una décima, hasta el 2,9 %. El repunte son los carburantes, no una inflación generalizada de fondo.",
-    "beneficia": "",
-    "perjudica": ""
+    "t": "El Bund en máximos de 2009 y la prima de riesgo, estrecha",
+    "txt": "El bono español a 10 años cierra en 4,00 % y el Bund alemán en 3,53 %, su nivel más alto desde junio de 2009 tras subir más de 16 pb la semana pasada. La prima se queda en 47 pb, un punto menos que hace cinco días: sube el bono español, pero sube más el alemán.",
+    "beneficia": "quien tenga que colocar dinero nuevo a renta fija, que encuentra el listón más alto sin salir de la deuda pública",
+    "perjudica": "la comparación de las rentabilidades por dividendo a precios de hoy, que se miden contra un bono que ya paga un 4 %"
    },
    {
-    "t": "El consumo se enfría, y van tres meses",
-    "txt": "Las ventas minoristas se dan la vuelta: de +0,5 % en junio a −0,3 % en julio. Y el consumo discrecional —el que se recorta cuando aprieta— desacelera por tercer mes seguido: 3,8 % en mayo, 3,0 en junio, 2,3 en julio.",
-    "beneficia": "",
-    "perjudica": "el consumo que se pospone: Atresmedia, Inditex"
+    "t": "El IPC de agosto se confirma en el 4,3 %",
+    "txt": "El INE cerró el 15-sep el dato definitivo de agosto: 4,3 % anual, siete décimas por encima de julio. La subyacente, en cambio, baja una décima hasta el 2,9 %, así que el salto viene sobre todo de energía y no del núcleo de precios.",
+    "beneficia": "las actividades con ingresos ligados a la inflación por contrato o por regulación",
+    "perjudica": "la rentabilidad REAL de los dividendos cobrados: con el IPC al 4,3 %, un dividendo que crece menos pierde poder de compra"
    },
    {
-    "t": "Los bonos suben en toda Europa, no sólo aquí",
-    "txt": "El bono español sube 32 puntos básicos desde el último pase, hasta el 3,99 %, y el alemán 30, hasta el 3,51 %. La prima de riesgo apenas se mueve: 48 puntos básicos. El encarecimiento es europeo, no un problema de España.",
-    "beneficia": "",
-    "perjudica": "sube el coste de capital de todo el mercado, y con él el listón de cualquier valoración"
+    "t": "El gas afloja en la semana pero sigue un 26 % arriba en el mes",
+    "txt": "El TTF está en 77,76 €/MWh, un 2,9 % menos que hace una semana, pero un 25,9 % por encima de hace un mes y cerca de los máximos de 2022. La tensión es de suministro de cara al invierno, no de demanda.",
+    "beneficia": "quien vende energía: Naturgy y Repsol",
+    "perjudica": "quien la quema para fabricar: en Viscofan y Vidrala el gas es coste directo de proceso, no una partida más"
+   },
+   {
+    "t": "El consumo de alimentación entra en negativo",
+    "txt": "El Índice de Comercio al por Menor de julio deja la rama de alimentación en −0,3 % anual a precios constantes, cuando en junio era +0,3 %. El resto (no alimentación) aguanta en +2,3 %, aunque también afloja desde el 3,0 % de junio. El índice general queda en −0,3 %.",
+    "beneficia": "nadie de forma directa; es un dato de volumen, y cae",
+    "perjudica": "lo que se apoya en volumen de alimentación —Viscofan y Ebro—, porque el retroceso es de unidades vendidas, no de precio"
    }
   ]
  }
