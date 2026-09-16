@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-09-16",
+"actualizado": "2026-09-17",
 "ventana_dias": 10,
-"ventana_desde": "2026-09-06",
+"ventana_desde": "2026-09-07",
 "tickers": [
 {
 "ticker": "A3M",
@@ -726,121 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "AIR",
-"fecha": "2026-09-16",
-"anterior": 195.0,
-"nuevo": 196.5
-},
-{
-"ticker": "BKT",
-"fecha": "2026-09-16",
-"anterior": 16.63,
-"nuevo": 16.625
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-09-16",
-"anterior": 89.4,
-"nuevo": 89.2
-},
-{
-"ticker": "CEV",
-"fecha": "2026-09-16",
-"anterior": 9.8,
-"nuevo": 10.2
-},
-{
-"ticker": "COL",
-"fecha": "2026-09-16",
-"anterior": 5.12,
-"nuevo": 5.115
-},
-{
-"ticker": "ENC",
-"fecha": "2026-09-16",
-"anterior": 2.43,
-"nuevo": 2.434
-},
-{
-"ticker": "GEST",
-"fecha": "2026-09-16",
-"anterior": 2.99,
-"nuevo": 2.985
-},
-{
-"ticker": "IBG",
-"fecha": "2026-09-16",
-"anterior": 17.35,
-"nuevo": 17.5
-},
-{
-"ticker": "LGT",
-"fecha": "2026-09-16",
-"anterior": 5.64,
-"nuevo": 5.76
-},
-{
-"ticker": "MAP",
-"fecha": "2026-09-16",
-"anterior": 4.43,
-"nuevo": 4.432
-},
-{
-"ticker": "ORY",
-"fecha": "2026-09-16",
-"anterior": 2.8,
-"nuevo": 2.802
-},
-{
-"ticker": "PRS",
-"fecha": "2026-09-16",
-"anterior": 2.65,
-"nuevo": 2.68
-},
-{
-"ticker": "R4",
-"fecha": "2026-09-16",
-"anterior": 19.3,
-"nuevo": 19.45
-},
-{
-"ticker": "RJF",
-"fecha": "2026-09-16",
-"anterior": 2.64,
-"nuevo": 2.62
-},
-{
-"ticker": "SAB",
-"fecha": "2026-09-16",
-"anterior": 3.69,
-"nuevo": 3.688
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-09-16",
-"anterior": 4.19,
-"nuevo": 4.192
-},
-{
-"ticker": "SLR",
-"fecha": "2026-09-16",
-"anterior": 17.22,
-"nuevo": 17.215
-},
-{
-"ticker": "TEF",
-"fecha": "2026-09-16",
-"anterior": 3.71,
-"nuevo": 3.707
-},
-{
-"ticker": "TUB",
-"fecha": "2026-09-16",
-"anterior": 2.63,
-"nuevo": 2.625
-}
-],
+"corregidos": [],
 "revisar": []
 }
