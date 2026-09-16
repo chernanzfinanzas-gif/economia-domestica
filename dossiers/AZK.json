@@ -2,91 +2,107 @@
  "schemaVersion": 8,
  "ticker": "AZK",
  "empresa": "Azkoyen, S.A.",
- "fecha": "2026-07-22",
- "rating": "AA",
- "score": 75.5,
- "decision": "ESPERAR",
- "metodoValoracion": "Múltiplos normalizados (EV/EBITDA, PER mid-cycle) + DCF con beta sectorial — industrial de nicho. PO oficial = síntesis ponderada 60% DCF (beta 2ª ref. 0,90, WACC 8,5%) + 40% múltiplos históricos = 13,28 €. Bear 11,73 € (DCF pesimista), bull 22,79 € (DCF optimista). La beta 0,33 de la Matriz se sustituye por la sectorial (ficha 08) para no sobrevalorar.",
- "poBear": 11.73,
- "poBase": 13.28,
- "poBull": 22.79,
- "entMin": 10.5,
- "entMax": 11.5,
- "stop": 10.5,
- "dpaPrevisto": 0.4,
- "moat": "ESTRECHO (51,9). IP en validación de medios de pago y base instalada dan defensa, pero escala reducida frente a competidores globales y disrupción del efectivo limitan la durabilidad.",
+ "fecha": "2026-09-16",
+ "rating": "A",
+ "score": 73.7,
+ "decision": "MANTENER",
+ "metodoValoracion": "Síntesis ponderada de ocho métodos — múltiplos históricos 50 % · DCF 40 % · activos 10 % · renta 0 %, que es la norma del arquetipo INDUSTRIAL. El PO oficial es esa síntesis: 10.84 €/acción. El DCF se descuenta sobre OWNER EARNINGS y no sobre FCL, que es una desviación declarada en el §6.0: con un CAPEX de 0,37x la amortización reponible, restar entero el CAPEX de crecimiento le quitaría a esta empresa un flujo que no está gastando. La pata de renta pesa cero por norma del arquetipo, no porque no reparta: con cargo a 2025 pagó 1,00 €/acción el 24-jul-2026. Y el DCF y los múltiplos no dicen lo mismo —caso central del DCF 14,07 € contra 9,01 € de media de las patas de múltiplo—, tensión que el §6.5 declara en vez de resolver.  ADVERTENCIA: mientras viva la OPA de Ohmnia a 10,00 €, la cotización de referencia NO es un precio de mercado libre sino una oferta, y el margen de seguridad se lee contra ella.",
+ "poBear": 8.24,
+ "poBase": 10.84,
+ "poBull": 13.33,
+ "entMin": 8.24,
+ "entMax": 9.42,
+ "stop": 7.66,
+ "dpaPrevisto": 0.356,
+ "moat": "50.6 · MOAT ESTRECHO (escala del método: ANCHO ≥ 75 · MODERADO 60-74 · ESTRECHO 45-59). Cuatro ejes ponderados con la norma del arquetipo INDUSTRIAL, pedida a la librería y no tecleada: intangibles 58 (peso 37,5), ventaja en costes 42 (37,5), escala eficiente 48 (18,75) y costes de cambio 65 (6,25), que es el más fuerte de todos y el que menos pesa. El efecto de red se declara N/A —no puede existir en esta categoría— y se anula en vez de puntuar cero (F65). Lo que el foso es, dicho sin adorno: homologaciones y base instalada en NICHOS pequeños —el aceptador de moneda de una máquina de vending, el control de accesos de un edificio— donde caben pocos y cambiar de proveedor obliga a tocar el hardware. Lo que no es: escala. Crane NXT vende 1.425 M€ contra 211 y gana ocho puntos más de margen.",
  "catalizadores": [
-  "OPA de Ohmnia/Clerbil (con Fundación BBK, Kutxabank y el Instituto Vasco de Finanzas) anunciada el 24-jul-2026: 10 €/acción en efectivo, valorando Azkoyen en 244,5 M€; busca mantenerla cotizada como plataforma de un grupo industrial vasco combinado (~400 M€ facturación, 65 M€ EBITDA) — puede acabar en fusión por absorción con Ohmnia.",
-  "Pivote a pago digital/cashless (Coges/Vendon) que despeje el riesgo de disrupción del efectivo",
-  "Resultados 2026 con crecimiento de ingresos y márgenes que sostengan el múltiplo",
-  "Nueva retribución al accionista (dividendo/recompra) apoyada en la caja neta",
-  "M&A selectiva y acretiva (tipo Ascaso/Vendon) que amplíe escala",
-  "Corrección de la cotización hacia 11-12 € que reabra margen de entrada"
+  "La OPA se resuelve — en cualquiera de los dos sentidos (4T-2026, sin impacto modelado sobre el PO). Ohmnia ofrece 10,00 €/acción por el 100 % con aceptación mínima del 50 %. El Bundeskartellamt autorizó el 7-sep-2026 y la CNMC está pendiente. Si prospera, el precio queda fijado en 10,00 €; si decae, la acción vuelve a cotizar libremente. Es el catalizador que gobierna todos los demás, porque los apaga o los libera. Trigger: El informe del consejo de administración sobre la oferta y el porcentaje de aceptación que publique la CNMV al cierre del plazo.",
+  "El mix sigue rotando hacia medios de pago y validación (2027-2028, +7.2 % sobre el PO). Es lo que ha subido el margen EBITDA del 14,17 % al 16,56 % en diez años sin subir precios: Payment Technologies y Time & Security ganando peso sobre el vending puro. Un punto más de margen son 2,11 M€ de EBITDA. DERIVACIÓN: el modelo lo mueve como +1,0 pp de margen. Trigger: El margen EBITDA por segmentos del informe semestral. Si el de Payment Technologies sube dos semestres seguidos mientras el de Coffee & Vending se mantiene, la rotación está dentro.",
+  "El crecimiento de ventas de su propia década (2027, +7.2 % sobre el PO). CAGR de ventas del 5,14 % en diez años y +6,04 % en 2025, con la plantilla creciendo de 761 a 999 personas. No hace falta suponer una aceleración: basta con que siga haciendo lo que ha hecho. DERIVACIÓN: +6 % de volumen. Trigger: Cifra de negocios semestral por encima de 108 M€, que es la mitad de 211 más el 6 %.",
+  "Re-rating hacia los múltiplos de sus comparables (2027-2028, +7.2 % sobre el PO). Al precio de la OPA, Azkoyen cotiza a 14,1x beneficios contra 15,3x de Glory, 19,9x de Crane NXT, 21,1x de Diebold y 25,4x de dormakaba. Es la más barata de las cinco. Un re-rating del 15 % la llevaría a unas 16,2x, todavía por debajo de los cuatro. DERIVACIÓN: de-rating en negativo, +15 %. Trigger: Que el EV/EBITDA de Azkoyen supere los 7,5x de forma sostenida, contra los 6,36x de media de su propia década.",
+  "La estructura de holding deja las dos patas separables (2027-2028, sin impacto modelado sobre el PO). La Junta Extraordinaria del 3-oct-2025 aprobó segregar TODO el negocio de Vending & Payment Solutions a una filial de nueva creación al 100 % (escritura el 8-oct, inscrita el 23-oct, efectos contables retrotraídos al 1-ene-2025), y la Junta del 9-jun-2026 cambió el objeto social para convertir a Azkoyen, S.A. en sociedad holding. La propia empresa escribe el motivo: «enfocar los recursos financieros y humanos en aquellos negocios con mayor potencial de contribuir al objetivo de maximizar la creación de valor para los accionistas». Medido en las cuentas individuales: la cifra de negocios de la matriz pasó de 88.219 a 494 mil € en 2025 y el negocio vive ya en otra sociedad. Tener las dos patas —VPS por un lado, Time & Security por otro— en vehículos separados es la condición previa de una venta o de una salida por separado, y es lo que hace que la suma de partes deje de ser un ejercicio de papel. NO SE MODELA: no hay golpe financiero que representarlo sin inventar un precio de venta. Trigger: Un hecho relevante de desinversión o de entrada de un socio en cualquiera de las dos filiales, o el desglose por sociedad en las cuentas anuales de 2026, que será el primer ejercicio completo con la estructura ya montada."
  ],
  "riesgos": [
-  "La OPA ofrece 10 €/acción, un 12% por debajo del cierre previo al anuncio (11,4 €) y muy por debajo de tu entMax (11,5 €) y del PO (13,28 €): si aceptas o si el precio converge a la oferta, comprar ahora sobre mercado puede acabar en pérdida. Pendiente de aceptación de >50% del capital y autorizaciones de competencia en España y Alemania (plazo incierto).",
-  "Declive estructural del efectivo → menos validación de monedas/billetes",
-  "Competencia de players globales mayores (Crane NXT, Glory)",
-  "Nuevo deterioro de fondo de comercio (Coges/Primion, ~46% del PN)",
-  "Ciclicidad del vending y apalancamiento operativo (COVID: ventas −22%)",
-  "Escala reducida y crecimiento orgánico limitado → de-rating del múltiplo"
+  "Societario · probabilidad ALTA · −8 a −29%. LA OPA DE EXCLUSIÓN FIJA EL PRECIO. Ohmnia Electronics, liderada por José Antonio Jainaga, ofrece 10,00 €/acción por el 100 % del capital (244,5 M€) con aceptación mínima del 50 %. Cronología: anuncio previo el 24-jul-2026, solicitud a la CNMV el 24-ago, admitida a trámite el 4-sep, autorización del Bundeskartellamt el 7-sep, CNMC pendiente. DERIVACIÓN: los 10,00 € quedan un 7,7 % por debajo del precio objetivo de síntesis del §6.5 (10,838 €) y un 28,9 % por debajo del caso central del DCF (14,07 €). Ése es el rango, y no sale de perturbar el modelo sino de comparar el precio ofrecido con los dos anclajes que el propio libro ya ha calculado: es un riesgo de PRECIO, no de negocio. Disparador: El informe del consejo de administración sobre la oferta, que es obligatorio y todavía no se ha publicado, y la resolución de la CNMC. Si el consejo recomienda aceptar sin mejora de precio, el rango se cierra por abajo.",
+  "Operativo · probabilidad MEDIA · −12 a −24%. EL CICLO DEL VENDING Y EL APALANCAMIENTO OPERATIVO. Grado de apalancamiento operativo de 5,4x y costes fijos del 59,1 % del total: un 1 % menos de ventas mueve el resultado de explotación un 5,4 %. El precedente está MEDIDO en el propio libro: en 2020 las ventas cayeron un 21,6 % y el EBIT un 47,5 %. DERIVACIÓN, perturbando el modelo: volumen −10 % → precio objetivo 9,54 € (−11,98 %) · volumen −20 % → 8,24 € (−23,97 %). Con la amortización quieta, que es lo que la hace fija [F691]: el EBIT cae 1,20 veces lo que caen las ventas, todavía por debajo del 2,20x que la empresa realizó en 2020 y muy por debajo del 5,4x que mide su apalancamiento operativo, así que este rango sigue siendo conservador. El colchón también está medido: el margen de seguridad operativo es del 24,1 %, así que hasta ahí no hay pérdidas de explotación. Disparador: La cifra de negocios semestral del segmento Coffee & Vending Systems. Es el primero que se mueve en un ciclo y la empresa lo publica por segmentos cada seis meses.",
+  "Operativo · probabilidad MEDIA · −6 a −13%. LA REPOSICIÓN APLAZADA HAY QUE PAGARLA. El CAPEX es 0,37x la amortización REPONIBLE en 2025 —ya descontada la de derechos de uso, que se repone firmando el arrendamiento y no invirtiendo— y sólo tres de diez años superan 1,0x. En 2025 el activo fijo neto baja por los tres conceptos a la vez: material 15,044 → 13,958 M€, otro intangible 16,090 → 13,274 y derechos de uso 8,093 → 6,909. DERIVACIÓN: la sensibilidad medida es de −3,17 % de precio objetivo por cada millón de CAPEX adicional al año (perturbando +30 M€ sale −95,15 % y +60 M€ sale −190,30 %, exactamente el doble: es lineal). Ponerse al día exige entre 2 y 4 M€ al año para llevar el ratio por encima de 1,0x sobre una amortización reponible de 6,155 M€ → −6,3 % a −12,7 %. Disparador: Que la fila «Pagos por inversiones en inmovilizado» del estado de flujos suba por encima de 5 M€ dos años seguidos, o que el inmovilizado material neto deje de bajar. Cualquiera de las dos dice que ya se están poniendo al día.",
+  "Competitivo · probabilidad MEDIA · −7 a −22%. LA CONSOLIDACIÓN DEL SECTOR COMPRIME EL MARGEN. Crane NXT —1.425 M€ de ventas y 24,3 % de margen EBITDA contra los 211 M€ y 16,6 % de Azkoyen— cerró en 2025 la compra de De La Rue Authentication Solutions y tomó el 32 % de Antares Vision, con el control total previsto en 2026. Cantaloupe fue absorbida por 365 Retail Markets en mayo de 2026. Un consolidador con seis veces más tamaño y ocho puntos más de margen puede comprar cuota a un precio que Azkoyen no puede igualar. DERIVACIÓN: margen EBITDA −1,0 pp → 10,05 € (−7,24 %) · −3,0 pp → 8,49 € (−21,71 %). Un punto de margen es lo que se pierde defendiendo una licitación; tres es perder una UGE de posición. Disparador: El margen EBITDA semestral por segmentos. Si el de Payment Technologies —la UGE Coges, la más expuesta a Crane NXT y Glory— cae dos semestres seguidos, la compresión ya está dentro.",
+  "Tecnológico · probabilidad BAJA-MEDIA · −12 a −24%. EL EFECTIVO SE RETIRA Y CON ÉL EL NEGOCIO DE VALIDARLO. La UGE Coges vive de aceptar monedas y billetes en máquinas de vending, y el pago sin contacto lleva una década desplazando al efectivo en Europa. El aviso no es teórico: Glory Ltd, el comparable mundial de este negocio, publicó ventas −7,9 % en su ejercicio cerrado el 31-mar-2026, y su propia explicación es el fin del ciclo de renovación de billetes en Japón. DERIVACIÓN, como pérdida de volumen en la UGE: volumen −10 % → −11,98 % · −20 % → −23,97 % [F691]. Azkoyen mitiga en parte porque Coges también vende medios de pago cashless, pero NO desglosa cuánto de su cifra viene de cada uno. Disparador: Que Azkoyen empiece a desglosar el peso del pago cashless dentro de Payment Technologies — las empresas desglosan lo que les favorece — o que no lo desglose mientras el segmento cae. Y las ventas de Glory y Crane NXT en el negocio de validación de moneda, que se publican antes.",
+  "Contable · probabilidad MEDIA · −1 a −2%. EL FONDO DE COMERCIO ES EL 45,7 % DEL PATRIMONIO Y YA SE ESTÁ DETERIORANDO. 61,063 M€ sobre 133,566 de patrimonio neto, y en 2025 BAJA por primera vez en la década —de 64,212 a 61,063— por un deterioro de 2,867 M€ (Nota 4). Las tasas a las que la empresa descuenta sus UGE están publicadas y no dejan holgura: 12,4 % en Coges, 14,9 % en Primion y 13,9 % en Ascaso, todas antes de impuestos. DERIVACIÓN, y el número sorprende: deterioro del 15 % del patrimonio → −1,08 % de precio objetivo · del 30 % → −2,16 %. Es PEQUEÑO, y hay que decir por qué en vez de esconderlo: la síntesis del §6.5 sólo da 10 puntos de peso a la familia «activos» (el P/BV), así que un saneamiento contable apenas mueve el precio objetivo aunque se lleve un cuarto del patrimonio. Lo que sí se lleva es el SUELO: el P/BV de 1,83x al precio de la OPA deja de tener respaldo. Disparador: La tasa de descuento del test de deterioro en la memoria del año que viene. Azkoyen la publica por UGE: si la de Primion sube otra vez —ya pasó de 12,2 % a 14,2 % y a 14,9 % en tres años— el saneamiento se está acercando.",
+  "Mercado · probabilidad MEDIA · −7 a −12%. DE-RATING DEL MÚLTIPLO SI LA OPA DECAE. Si la oferta no alcanza el 50 % de aceptación y decae, la acción vuelve a cotizar libremente — y vuelve a los múltiplos que el mercado español le ha pagado siempre: P/BV entre 1,10x y 1,91x y una media de PER de 11,69x en diez años, frente a los 14,1x que paga la OPA. DERIVACIÓN: de-rating de los múltiplos del §6.4 del −15 % → 10,06 € (−7,19 %) · del −25 % → 9,54 € (−11,99 %). El riesgo simétrico también existe y no se puede ignorar, y aquí hay que decir qué se sabe y qué no [F690]: el día del anuncio previo, 24-jul-2026, la acción cerró en 11,40 € —coincide en dos medios—, un 12,3 % POR ENCIMA de la oferta, y el 5-ago ya había caído a 10,10 €, pegada a ella. El máximo previo está EN DISPUTA —14,75 € (Valencia Plaza) y 13,71 € (Navarra Capital), los dos para el 6-jul-2026— y no se usa. Una versión anterior de este riesgo afirmaba «14,15 € semanas antes», cifra que no aparece en ninguna fuente y que queda retirada. Disparador: El porcentaje de aceptación que publique la CNMV al cierre del plazo. Por debajo del 50 % la oferta decae y este escenario se activa el mismo día."
  ],
- "bull": "Si el pivote al pago digital funciona y el crecimiento se acelera con M&A acretiva, el valor converge al DCF optimista (~22,8 €, +60%).",
- "bear": "Declive acelerado del efectivo o recesión que golpee el vending; en el escenario extremo del pre-mortem, −40/−50% de valor (suelo ~7-9 €).",
- "resumen": "Azkoyen es un negocio de nicho de alta calidad (Rating AA, caja neta, ROIC 15% muy por encima del WACC, FCF fuerte y gestión disciplinada) pero de foso estrecho y crecimiento limitado. Tras subir +63% desde el cierre 2025, cotiza a 14,20 € sin margen frente al PO de 13,28 €; el Reverse DCF confirma que el precio ya descuenta todo el crecimiento autofinanciable. Veredicto ESPERAR: comprar calidad con margen por debajo de 11,5 €. AVISO 24-jul-2026: hay una OPA en curso de Ohmnia/Clerbil a 10 €/acción (244,5 M€), por debajo tanto de la cotización reciente como de tu entMax/PO — la caída de precio de estos días responde a este evento corporativo, no a un cambio de fundamentales. Antes de tratar el precio actual como \"zona de entrada\" normal, conviene esperar a ver si la operación prospera, si mejora el precio, o si Azkoyen sigue cotizando de forma independiente.",
+ "bull": "13.33 €/acc (+33.3 % sobre el precio de la OPA). Los tres primeros catalizadores del §9.1 perturbados JUNTOS —la rotación del mix hacia medios de pago y validación, el crecimiento de ventas de su propia década y el re-rating hacia los múltiplos de sus comparables—, no sumando sus impactos por separado: el modelo no es lineal. Ninguno de los tres pide una aceleración: el primero es lo que ya ha subido el margen EBITDA del 14,17 % al 16,56 % en diez años, el segundo es el CAGR del 5,14 % que la empresa lleva haciendo, y el tercero sólo la llevaría a 16,2x beneficios, todavía por debajo de los 19,9x de Crane NXT y los 21,1x de Diebold. Es un bull de continuidad, no de ruptura — y aun así se queda un 23 % por encima del precio objetivo, que es otra forma de decir que aquí lo que hay es un problema de precio de partida, no de negocio.",
+ "bear": "8.24 €/acc (0,76 × PO, un 17.6 % por debajo del precio de la OPA). El riesgo dominante del §8.1 en su extremo duro: el ciclo del vending se da la vuelta y las ventas caen un 20 %, con el apalancamiento operativo detrás —grado de 5,4x y costes fijos del 59,1 %—, así que el EBIT cae más que las ventas porque la amortización, 9,36 M€ al año, no baja porque bajen los pedidos. El precedente está MEDIDO en el propio libro: en 2020 las ventas cayeron un 21,6 % y el EBIT un 47,5 %. Y el bear se queda CORTO a propósito: el modelo propaga una elasticidad de 1,20x contra los 2,20x que la empresa realizó en el único ciclo duro que tiene medido. Lo incómodo de este bear no es su profundidad: es que queda por DEBAJO de la peor cadena del pre-mortem (8,31 €), de la que cuelga el stop, y por eso la holgura de la entrada mínima sobre el stop se queda en el 7,6 % contra el 10 % que el método exige — declarado en el §9.3.",
+ "resumen": "Una empresa pequeña y sana a la que le han puesto precio desde fuera. Rating A con 73.7 sobre 100, moat ESTRECHO de 50.6, balance con caja neta, flujo de caja libre positivo los diez años y 114,5 M€ repartidos en la década —un 46,8 % de lo que la OPA paga hoy por la compañía entera—. El veredicto es MANTENER y la razón es una sola: el margen de seguridad es del 8,4 % contra el 15 % que exige COMPRAR; las otras tres condiciones se cumplen. Las tensiones, dichas sin adorno: la OPA de Ohmnia a 10,00 € fija el precio mientras viva y deja el análisis midiendo contra una oferta y no contra un mercado; el CAPEX es 0,37x la amortización reponible y la reposición aplazada es la peor cadena del pre-mortem; el fondo de comercio son 61,1 M€ sobre 133,6 de patrimonio y ya se ha deteriorado por 2,87 M€; y el primer semestre de 2026 es peor que el libro firmado —ventas +6,2 % pero EBITDA −16,2 % y margen del 13,63 %—. Por segmentos, el cuadro que las cifras agregadas no enseñan: Payment Technologies aporta el 123 % del BAI del grupo y Vending pierde dinero. La segregación de 2025 deja las dos patas en sociedades separadas, que es la condición previa de que alguna se venda por su cuenta.",
+ "cambiosDesdeUltimaRevision": "Revisión completa con el método regenerado, contra la foto del 22-jul-2026 —dos días antes del anuncio de la OPA—. rating: AA → A · score: 75,5 → 73.7 · decisión: ESPERAR → MANTENER · PO base: 13,28 → 10.84 € · PO bear: 11,73 → 8.24 · PO bull: 22,79 → 13.33 · banda de entrada: 10,50-11,50 → 8.24-9.42 · stop: 10,50 → 7.66 · DPA previsto: 0,40 → 0,356 € · moat: 51,9 → 50.6. Lo que mueve el precio objetivo no es el negocio: es que la valoración se mide ahora contra los 10,00 € de la OPA y con la ponderación del arquetipo, y que el bull de 22,79 € de la foto anterior no tenía detrás una perturbación del modelo. El DPA baja porque sólo cuenta el ORDINARIO: el extraordinario de 0,644 € con cargo a reservas no mide capacidad recurrente de reparto.",
  "confianza": {
-  "score": 96,
+  "score": 88,
   "nivel": "A",
   "motivos": [
+   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
    "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-16"
  },
  "robustez": {
   "nivel": "sensible",
   "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 11.73,
-   "p50": 13.28,
-   "p90": 22.79
+   "p10": 8.24,
+   "p50": 10.84,
+   "p90": 13.33
   },
   "sensibilidad": {
-   "poMin": 13.34,
-   "poMax": 20.16,
-   "poBase": 15.9826412216699,
-   "cotizacion": 14.2,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 10.26,
+   "poMax": 11.79,
+   "poBase": 10.84,
+   "cotizacion": 10.0,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.24,
+   "componentesIntactos": 7,
+   "dcf": {
+    "poMin": 11.65,
+    "poMax": 18.04,
+    "poBase": 14.071615948096
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -6.0,
-   "mdsMax": 41.9
+   "mdsMin": 2.6,
+   "mdsMax": 17.9
   },
   "beta": {
-   "capm": 0.33,
-   "ref2": 0.9,
-   "aviso": "beta CAPM 0.33 vs 2ª ref 0.90: divergencia 0.57 > 0.3 → revisar cuál usar en el WACC"
+   "capm": 0.779,
+   "ref2": null,
+   "aviso": null
   },
   "motivos": [
-   "la cotización (14.20) cae DENTRO de la banda de PO [13.3–20.2] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
-   "beta CAPM 0.33 vs 2ª ref 0.90: divergencia 0.57 > 0.3 → revisar cuál usar en el WACC"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (24 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 76 % restante de la ponderación —los otros 7 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (10.00) queda por DEBAJO de toda la banda del precio objetivo de síntesis [10.26–11.79] → infravalorada en todo el rango",
+   "…pero la banda de margen de seguridad [+2.6 % … +17.9 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4: la DECISIÓN no es la misma en los dos extremos de la perturbación, así que es SENSIBLE [F621]. Que la cotización esté fuera de la banda del precio objetivo dice que la INFRA o SOBREvaloración aguanta; no dice que aguante el veredicto",
+   "para contraste, el DCF puro (§6.3) se mueve en [11.65–18.04] € alrededor de 14.07 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-16"
  },
  "dividendSafety": {
-  "score": 75,
+  "score": 72,
   "banda": "Seguro",
   "componentes": {
    "C1": 27,
    "C2": 13,
    "C3": 20,
-   "C4": 3,
+   "C4": 0,
    "C5": 12
   },
   "shareholderYield": 4.43,
@@ -95,75 +111,75 @@
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.92x / FCL 2.54x (3a OE 2.57x) → 27/35",
-   "C2 payout BN ord.: 54% (3a 42%) → 13/15",
-   "C3 balance: DN/EBITDA -0.03x, cob.int 30.1x → 20/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C1 cobertura dividendo ord.: OE 1.86x / FCL 2.47x (3a OE 2.09x) → 27/35",
+   "C2 payout BN ord.: 54% (3a 43%) → 13/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 3 recorte(s) en 10a (reciente) · DPA creciente → 0/15",
    "C5 predictores B4 (cuantitativos): beneficio neto a la baja YoY → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-22"
+  "calculadoEl": "2026-09-16"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 7,
-   "banda": "fuerte",
+   "score": 5,
+   "banda": "medio",
    "detalle": {
     "roa_pos": 1,
-    "cfo_pos": 1,
+    "cfo_pos": 0,
     "roa_up": 0,
-    "accrual": 1,
-    "lever_dn": 0,
+    "accrual": 0,
+    "lever_dn": 1,
     "liquid_up": 1,
     "no_dilu": 1,
     "margin_up": 1,
-    "turn_up": 1
+    "turn_up": 0
    },
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": 8.01,
+   "z": 7.92,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.67,
+   "m": -2.46,
    "senal": "sin indicios",
    "aproximado": [
-    "DSRI",
-    "SGAI"
+    "SGAI",
+    "TATA"
    ]
   },
   "sloan": {
-   "accruals": -3.8,
-   "senal": "normal"
+   "accruals": null,
+   "senal": "Pte. Revisión"
   },
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-22"
+  "calculadoEl": "2026-09-16"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 2.29,
-  "gIntrinseco": 4.47,
+  "gImplicito": -2.34,
+  "gIntrinseco": 4.23,
   "veredicto": "PLAUSIBLE",
   "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
+  "calculadoEl": "2026-09-16",
   "entradas": {
-   "fcl": 22,
-   "wacc": 8.5,
+   "fcl": 18.398,
+   "wacc": 7.83,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 24.38,
-   "deudaNeta": -0.9,
+   "deudaNeta": -8.035,
    "modo": "EV",
-   "precioBase": 14.2,
+   "precioBase": 10,
    "validado": true,
-   "desviacion": 0.004,
-   "gBase": 2.294,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": -0.003,
+   "gBase": -2.343,
+   "fechaBase": "2026-09-16",
+   "congeladoEl": "2026-09-16"
   }
  }
 }

@@ -1,474 +1,378 @@
 {
   "schemaVersion": 2,
   "ticker": "AZK",
-  "empresa": "Azkoyen, S.A.",
+  "empresa": "Azkoyen",
   "revisiones": [
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-28",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-27",
+      "fechaOrigen": "cnmv",
+      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Fuerte crecimiento (+28% ingresos, +34% Bº) por la integración de Ascaso/Vendon; Payment 31,8 M€ y desapalancamiento en marcha. Refuerza la tesis (parte del salto es inorgánico).",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ventas (M€)",
           "valor": 99.56
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 27.9
+          "nombre": "EBITDA (M€)",
+          "valor": 17.408
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.48
+        },
+        {
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 8.857
+        },
+        {
+          "nombre": "Payment · ventas (M€)",
           "valor": 31.81
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.96
+          "nombre": "Payment · BAI (M€)",
+          "valor": 7.602
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 13.0
+          "nombre": "Vending · ventas (M€)",
+          "valor": 38.073
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 8.86
+          "nombre": "Vending · BAI (M€)",
+          "valor": 4.152
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 34.3
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 29.677
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 22.96
-        },
-        {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 937
-        },
-        {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.89
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 0.327
         }
       ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos +28% y Bº +34% en el semestre por la integración de Ascaso y Vendon (compradas en 2022).",
-          "impacto": "+",
-          "valoracion": "Confirma la acreción de las adquisiciones; refuerza la tesis de crecimiento por M&A."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo ordinario pagado el 21/07/2023.",
-          "impacto": "=",
-          "valoracion": "Retribución modesta; el grueso de la caja se destina a desapalancar tras la compra de 2022."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-28",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Año récord: ingresos +12,7%, Bº +16,3%; el segmento Payment (clave) crece +22%. Deuda neta bancaria 20,6 M€. Tesis de calidad intacta.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 192.47
+          "nombre": "Ventas (M€)",
+          "valor": 192.469
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 12.7
+          "nombre": "EBITDA (M€)",
+          "valor": 31.935
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 62.69
+          "nombre": "Margen EBITDA (%)",
+          "valor": 16.59
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 23.05
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 17.335
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.0
+          "nombre": "Payment · ventas (M€)",
+          "valor": 62.693
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 17.34
+          "nombre": "Payment · BAI (M€)",
+          "valor": 14.615
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 16.3
+          "nombre": "Vending · ventas (M€)",
+          "valor": 69.668
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 20.64
+          "nombre": "Vending · BAI (M€)",
+          "valor": 6.767
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 947
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 60.108
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.9
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 1.533
         }
       ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Año récord: ingresos 192 M€ (+12,7%) y Bº 17,3 M€ (+16,3%); segmento Payment +22%.",
-          "impacto": "+",
-          "valoracion": "Ejecución sólida; el segmento clave (Payment) acelera. Tesis intacta, sin cambio de PO."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-26",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-24",
+      "fechaOrigen": "cnmv",
+      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Semestre plano: ingresos +0,9% y Bº −4,5%. Payment sigue creciendo (+12%) pero el conjunto se frena tras el impulso inorgánico. Señal mixta; a vigilar el momentum.",
+      "resumen": "Ventas +0.9 %, EBITDA -3.4 %, Beneficio neto atribuible -4.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 16.7 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 12.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ventas (M€)",
           "valor": 100.46
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 0.9
+          "nombre": "EBITDA (M€)",
+          "valor": 16.819
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 35.72
+          "nombre": "Margen EBITDA (%)",
+          "valor": 16.74
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.24
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 8.456
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.2
+          "nombre": "Payment · ventas (M€)",
+          "valor": 35.717
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 8.46
+          "nombre": "Payment · BAI (M€)",
+          "valor": 9.441
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -4.5
+          "nombre": "Vending · ventas (M€)",
+          "valor": 32.028
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 8.61
+          "nombre": "Vending · BAI (M€)",
+          "valor": 0.86
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 985
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 32.715
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.35
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 1.564
         }
       ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Semestre plano: ingresos +0,9% y Bº −4,5% frente a un 1S-2023 muy fuerte.",
-          "impacto": "-",
-          "valoracion": "Desaceleración tras el impulso inorgánico; Payment sigue creciendo. Ámbar, sin cambio de PO."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo pagado el 05/07/2024.",
-          "impacto": "=",
-          "valoracion": "Política de retribución mantenida."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-02-27",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "El año cerró bien pese al flojo 1S: ingresos +3,4%, Bº +7,3%, Payment +10%; deuda bancaria casi cero (caja neta). Recuperación confirmada.",
+      "resumen": "Ventas +3.4 %, EBITDA +10.0 %, Beneficio neto atribuible +7.3 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 17.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 9.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 199.05
+          "nombre": "Ventas (M€)",
+          "valor": 199.049
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 3.4
+          "nombre": "EBITDA (M€)",
+          "valor": 35.113
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 68.86
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.64
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 25.89
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 18.595
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 13.0
+          "nombre": "Payment · ventas (M€)",
+          "valor": 68.857
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 18.6
+          "nombre": "Payment · BAI (M€)",
+          "valor": 17.434
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 7.3
+          "nombre": "Vending · ventas (M€)",
+          "valor": 63.061
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 0.65
+          "nombre": "Vending · BAI (M€)",
+          "valor": 1.926
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 984
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 67.131
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.03
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 5.334
         }
       ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos +3,4% y Bº +7,3%, recuperando el flojo 1S; CFO récord ~37 M€.",
-          "impacto": "+",
-          "valoracion": "Recuperación confirmada; la fuerte generación de caja devuelve el balance a caja neta."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-23",
+      "fechaOrigen": "cnmv",
+      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Crecimiento sólido (+2,1% ingresos, +7,7% Bº), Payment +4% y desapalancamiento continuo (DN bancaria 7,1 M€). Tesis reforzada.",
+      "resumen": "Ventas +2.1 %, EBITDA +5.3 %, Beneficio neto atribuible +7.7 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 17.3 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 4.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 102.53
+          "nombre": "Ventas (M€)",
+          "valor": 102.534
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 2.1
+          "nombre": "EBITDA (M€)",
+          "valor": 17.716
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 37.16
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.28
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 12.98
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 9.105
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.7
+          "nombre": "Payment · ventas (M€)",
+          "valor": 37.161
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 9.11
+          "nombre": "Payment · BAI (M€)",
+          "valor": 10.329
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": 7.7
+          "nombre": "Vending · ventas (M€)",
+          "valor": 30.455
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": 7.07
+          "nombre": "Vending · BAI (M€)",
+          "valor": 0.835
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 987
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 34.918
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": 0.27
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 1.145
         }
       ],
-      "periodoDisplay": "1S",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Crecimiento sólido: ingresos +2,1% y Bº +7,7%; deuda neta bancaria 7,1 M€.",
-          "impacto": "+",
-          "valoracion": "Momentum recuperado y desapalancamiento continuo. Tesis reforzada."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo pagado el 20/06/2025.",
-          "impacto": "=",
-          "valoracion": "Retribución mantenida."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "El impreso del 2º SEMESTRE de la CNMV no trae el campo «Fecha de firma de este informe semestral», que sí trae el del 1er semestre. Comprobado en los tres informes anuales de la ventana (FY-2023, FY-2024 y FY-2025): ninguno imprime fecha de firma ni de portada. Se usa el cierre del periodo, que NO es una fecha de mercado y así hay que leerla.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Ingresos récord (211 M€, +6%) y Payment +13,5% (mitiga el riesgo de disrupción del efectivo), pero Bº −6,9% por un deterioro puntual de 2,75 M€; caja neta bancaria. Dividendo extraordinario 1,00 € y segregación de VPS a filial. Ámbar por el retroceso puntual del beneficio.",
+      "resumen": "Ventas +6.0 %, EBITDA -0.4 %, Beneficio neto atribuible -6.8 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 16.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 13.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 211.07
+          "nombre": "Ventas (M€)",
+          "valor": 211.068
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 6.0
+          "nombre": "EBITDA (M€)",
+          "valor": 34.957
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 78.17
+          "nombre": "Margen EBITDA (%)",
+          "valor": 16.56
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 25.6
+          "nombre": "Bº neto atribuible (M€)",
+          "valor": 17.324
         },
         {
-          "nombre": "Margen explotación (%)",
-          "valor": 12.1
+          "nombre": "Payment · ventas (M€)",
+          "valor": 78.168
         },
         {
-          "nombre": "Bº atribuible (M€)",
-          "valor": 17.32
+          "nombre": "Payment · BAI (M€)",
+          "valor": 22.67
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -6.9
+          "nombre": "Vending · ventas (M€)",
+          "valor": 58.799
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": -8.04
+          "nombre": "Vending · BAI (M€)",
+          "valor": -1.877
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 999
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 74.101
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": -0.31
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 3.731
         }
       ],
-      "periodoDisplay": "FY",
-      "hechos": [
-        {
-          "tipo": "Resultados",
-          "hecho": "Ingresos récord 211 M€ (+6%) y Payment +13,5%, con Bº −6,9% por un deterioro de fondo de comercio de 2,75 M€.",
-          "impacto": "=",
-          "valoracion": "El retroceso del beneficio es puntual (no monetario) y el segmento crítico (Payment) crece a doble dígito, mitigando el riesgo de disrupción. No cambia el PO 13,28 €."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Segregación parcial del negocio de Vending & Payment Solutions (VPS) a Azkoyen Vending & Payment Solutions, S.L.U. (filial 100%), escriturada en octubre de 2025.",
-          "impacto": "=",
-          "valoracion": "Reorganización societaria (estructura holding); no cambia el perímetro económico, pero aporta flexibilidad estratégica futura."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo extraordinario de 1,00 €/acc (con cargo a resultados y reservas).",
-          "impacto": "+",
-          "valoracion": "Devolución puntual del exceso de caja; NO es un dividendo ordinario recurrente (payout 141%, RPD 11,5%). RPD normalizada ~4-6%."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2026-07-28",
+      "fechaOrigen": "cnmv",
+      "fechaOrigenNota": "La fecha de cada periodo es la del campo «Fecha de firma de este informe semestral por el organo de administracion correspondiente» del propio impreso de la CNMV, que es cuando el consejo formula y publica la declaracion. Los informes del 2o SEMESTRE no traen ese campo -comprobado en los tres de la ventana- y por eso llevan su propio `fechaOrigen: cierre` declarado periodo a periodo. Extraido de los siete informes semestrales que Azkoyen ha declarado a la CNMV entre el 1S-2023 y el 1S-2026, leyendo los CODIGOS del formulario oficial (1205 cifra de negocios, 1211 amortizacion, 1245 resultado de explotacion, 1300 resultado atribuido, 2221/2222/2223 segmentos) y no rotulos de texto. AZKOYEN PUBLICA SEMESTRAL: dos periodos al ano, no cuatro; las filas Q1 y 9M de la rejilla se quedan vacias porque esos informes NO EXISTEN, no porque falte el dato. El EBITDA no lo publica el formulario y se DERIVA como 1245 + |1211|; comprobado contra el libro, el FY-2025 asi derivado da 34,957 M EUR, que es el EBITDA OFICIAL del Capitulo I digito a digito. Guardas pasadas: cabecera del formulario contra el nombre del fichero (7/7), identidades contables (EBIT<=EBITDA, consolidado = atribuido + minoritarios, explotacion + financiero = BAI), monotonia del acumulado, suma de segmentos contra su propio total, y la que solo da este formulario: cada cifra sale DOS VECES -como acumulado de su informe y como comparable del informe siguiente- y los 25 cruces cuadran.",
       "semaforoGlobal": "R",
-      "tesisSigueIntacta": true,
-      "resumen": "Ingresos récord (108,9 M€, +6,2%) y Payment +20,3%, pero el margen de explotación cae de 12,7% a 9,6% y el Bº −20,4%: apalancamiento operativo negativo y sin deterioro puntual que lo explique. Vending entra en pérdidas (−1,5 M€, ingresos −9,5%) y Time & Security cae a 0,1 M€. Balance sano (caja neta bancaria 19,6 M€, FCO 14,7 M€), aunque con 30 M€ de deuda nueva y 24,4 M€ de dividendo pagado en julio. Rojo por deterioro de márgenes → S2 abierta el 28-jul y resuelta el 29-jul (REAFIRMAR con matiz).",
+      "tesisSigueIntacta": false,
+      "resumen": "Ventas +6.2 %, EBITDA -16.2 %, Beneficio neto atribuible -20.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 13.6 % (banda del §10.1: verde ≥ 16.5, rojo < 15.0). Las ventas de Payment Technologies suben un 20.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: Desde aquí la serie lleva dentro Primion AG, comprada en marzo de 2026 por 2,3 M€ (la tesorería que traía eran 1,2 M€). Es pequeña —no llega al 1 % de las ventas del semestre— y no explica la caída del margen, pero queda marcada para que nadie la use como explicación ni la ignore. El quiebre GRANDE de la década, Vendon y Ascaso en 2022, queda antes del arranque de esta rejilla.",
       "metricas": [
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 108.91
+          "nombre": "Ventas (M€)",
+          "valor": 108.913
         },
         {
-          "nombre": "Crec. ingresos YoY (%)",
-          "valor": 6.2
+          "nombre": "EBITDA (M€)",
+          "valor": 14.84
         },
         {
-          "nombre": "Ingresos Payment (M€) ⚙",
-          "valor": 44.71
+          "nombre": "Margen EBITDA (%)",
+          "valor": 13.63
         },
         {
-          "nombre": "Rtdo. explotación (M€)",
-          "valor": 10.47
-        },
-        {
-          "nombre": "Margen explotación (%)",
-          "valor": 9.6
-        },
-        {
-          "nombre": "Bº atribuible (M€)",
+          "nombre": "Bº neto atribuible (M€)",
           "valor": 7.25
         },
         {
-          "nombre": "Crec. Bº YoY (%)",
-          "valor": -20.4
+          "nombre": "Payment · ventas (M€)",
+          "valor": 44.706
         },
         {
-          "nombre": "Deuda neta bancaria (M€)",
-          "valor": -19.64
+          "nombre": "Payment · BAI (M€)",
+          "valor": 12.461
         },
         {
-          "nombre": "Plantilla media (nº) ⚙",
-          "valor": 1022
+          "nombre": "Vending · ventas (M€)",
+          "valor": 27.568
         },
         {
-          "nombre": "DN banc./EBIT (x)",
-          "valor": -0.94
+          "nombre": "Vending · BAI (M€)",
+          "valor": -1.527
+        },
+        {
+          "nombre": "Time & Security · ventas (M€)",
+          "valor": 36.639
+        },
+        {
+          "nombre": "Time & Security · BAI (M€)",
+          "valor": 0.128
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "OPA voluntaria de Ohmnia Electronics (Clerbil/Jainaga, con Fundación BBK, Kutxabank e Instituto Vasco de Finanzas) sobre el 100% del capital a 10 €/acción en efectivo, anunciada el 24-jul-2026; el Consejo la calificó de amistosa el 28-jul-2026 tras dar acceso a due diligence en junio. Condicionada a más del 50% de aceptación y a competencia en España y Alemania.",
-          "impacto": "-",
-          "valoracion": "El precio queda un 25% por debajo del PO de 13,28 € y por debajo de tu banda de entrada (10,50-11,50 €). El evento gobierna la cotización: desactiva la lectura normal del red flag «cotización < 11,5 € = zona de entrada». No cambio el PO por la OPA, pero sí condiciona la decisión ESPERAR: la oferta pone un suelo blando y un techo duro mientras siga viva."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Compra del 100% de primion AG (Tuggen, Suiza) por 2,07 MCHF (~2,3 M€) a través de la filial alemana primion Technology GmbH; cierre efectivo el 16-mar-2026.",
-          "impacto": "+",
-          "valoracion": "Operación pequeña y de encaje claro: refuerza Time & Security en Suiza, que es justamente el segmento hoy más débil en resultado. Irrelevante para el PO por tamaño; aporta algo de coste de integración al semestre."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Dividendo total de 1,00 €/acción (24,4 M€) aprobado el 9-jun-2026 y pagado el 24-jul-2026, íntegramente con cargo a reservas. El año anterior fueron 0,38 €/acción con cargo a resultados.",
-          "impacto": "=",
-          "valoracion": "Devuelve exceso de caja, pero excede el beneficio de 2025 (payout ~141%) y coincide con la emisión de 30 M€ de deuda nueva: pro-forma post-pago el balance queda en deuda neta bancaria de ~+4,8 M€, no en caja neta. NO es renta recurrente — la ordinaria ronda 0,40 €. Checklist B4: 1 predictor blando (b3, caída sostenida de BN) → «vigilar dividendo», sin S2 por esta vía."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Tras la modificación del objeto social derivada de la segregación de VPS, el grupo reporta desde 2026 un nuevo segmento «Unidad Corporativa» (holding), con −0,9 M€ de resultado en el semestre.",
-          "impacto": "=",
-          "valoracion": "Reclasificación contable: los costes de holding dejan de repartirse entre segmentos. Explica una parte del retroceso del resultado POR SEGMENTO, pero no del consolidado — el deterioro de margen del grupo es real."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Guía FY-2026 del informe de gestión consolidado intermedio: «se espera un ejercicio 2026 con un crecimiento de los ingresos por ventas superiores a los registrados en el ejercicio 2025», con el foco declarado a corto plazo en «preservar la rentabilidad mientras seguimos creciendo los ingresos a un ritmo sostenido y mantener una alta conversión de EBITDA en caja». No publica objetivo de margen ni de beneficio.",
-          "impacto": "-",
-          "valoracion": "La guía solo compromete ingresos —que sí crecen (+6,2%)— y deja la rentabilidad como intención, no como objetivo cuantificado. Y es justo la rentabilidad la que no se ha preservado: margen de explotación 12,7% → 9,6% y EBITDA −16,2%. Refuerza el ROJO: la compañía incumple su propia prioridad declarada en lo único que importaba este semestre."
-        },
-        {
-          "tipo": "Resultados",
-          "hecho": "Desglose del deterioro (informe de gestión, APM): EBITDA 14,84 M€ (−16,2%), margen EBITDA 13,6% frente a 17,3% (−3,7 pp). El margen bruto que publica la compañía —ventas menos coste variable comercial y coste de fabricación de lo vendido— baja de 47,1% a 45,6% por (i) una operación de gran volumen con un cliente relevante a márgenes inferiores al promedio en gestión del efectivo y (ii) la menor actividad en las fábricas de Coffee & Vending por caída de demanda. Los gastos fijos suben +10,0% (comerciales y marketing +14,7%; I+D +0,2%) contra ventas +6,2%.",
-          "impacto": "-",
-          "valoracion": "Matiza el diagnóstico de la Nota del S2: no todo el retroceso está en coste fijo. El margen bruto de la compañía también se contrae, y una de las dos causas es la infrautilización de las fábricas de Vending, es decir, la debilidad del segmento contrae margen además de ventas. ATENCIÓN A LA DEFINICIÓN: el 66,1% citado en la Nota es el margen sobre aprovisionamientos —que es el que calibra el umbral del 60% del §8.1 R2— y no el margen bruto de la compañía; conviene fijar en el §8.1 cuál de los dos manda para que la alarma no quede ambigua."
-        }
-      ],
-      "periodoDisplay": "1S",
-      "notaS2": "Resuelta el 29-jul-2026 (Nota de Revisión Extraordinaria S2). El semáforo se mantiene en ROJO —el margen del semestre es el que es— pero la tesis NO está rota: margen bruto 66,1% (alarma §8.1 R2 en 60%) y Payment +20,3% con margen estable, así que ningún pre-mortem del §8.2 tiene su cadena en marcha. El daño es estructura de costes: personal +10,7% y otros gastos +13,1% frente a ingresos +6,2%, con el coste por empleado subiendo 6,9% y la plantilla solo 3,5%. Consecuencia registrada: el catalizador nº2 del §9.1 pasa a «en riesgo de fallar». ESPERAR, PO 13,28 € sin cambios; la banda de entrada queda SUSPENDIDA mientras viva la OPA de Ohmnia a 10 €."
+      "origen": "revolcado"
     }
   ]
 }
