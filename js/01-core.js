@@ -1790,7 +1790,12 @@ async function ensureInfLogos(){
    - metas: array de lineas HTML que se muestran bajo el titulo (periodo, fecha, filtros...).
    Devuelve una PORTADA dedicada (.infCover) con salto de pagina: el contenido empieza en la hoja siguiente. */
 function infHeaderHTML(titulo, subtitulo, metas, logoSrc, imgAttrs){
-  logoSrc = logoSrc || (typeof INF_LOGO!=='undefined'?INF_LOGO:'');
+  /* [16-sep-2026] Red de seguridad: si por lo que sea (fallo de red al pedir
+     logo-informe.jpg, o que ensureInfLogos() no haya terminado a tiempo) INF_LOGO
+     sigue vacio en el momento de montar la portada, no se deja <img src="">
+     (eso el navegador lo pinta en blanco, sin icono ni nada) -- se cae al logo
+     que va EMBEBIDO en el propio fichero (INF_LOGO_DATA), que no depende de red. */
+  logoSrc = logoSrc || (typeof INF_LOGO!=='undefined' && INF_LOGO ? INF_LOGO : '') || (typeof INF_LOGO_DATA!=='undefined' ? INF_LOGO_DATA : '');
   subtitulo = (subtitulo==null) ? 'Gestión de Economía Doméstica' : subtitulo;
   imgAttrs = imgAttrs || 'alt="KHB"';
   var esc=(typeof _infEsc==='function')?_infEsc:function(x){return x==null?'':(''+x);};
