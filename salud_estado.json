@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-15",
+ "generado": "2026-09-16",
  "linter": {
   "ok": true,
   "detalle": "50 ficheros validados, sin errores."
@@ -10,8 +10,14 @@
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados. 12 tienen el caché de fórmulas vacío, y los 12 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (Bankinter, CIE, Ebro Foods, Endesa, Faes Farma, Iberdrola, Inditex, Naturgy, Prim, Repsol, Santander, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
+  "detalle": "25 libros revisados. 12 tienen el caché de fórmulas vacío, y los 12 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (Azkoyen, Bankinter, CIE, Ebro Foods, Endesa, Faes Farma, Iberdrola, Inditex, Naturgy, Prim, Santander, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
   "libros": [
+   {
+    "empresa": "Azkoyen",
+    "formulas": 2419,
+    "mudas": 2419,
+    "recalculaAlAbrir": true
+   },
    {
     "empresa": "Bankinter",
     "formulas": 1621,
@@ -64,12 +70,6 @@
     "empresa": "Prim",
     "formulas": 2584,
     "mudas": 2584,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Repsol",
-    "formulas": 2391,
-    "mudas": 2391,
     "recalculaAlAbrir": true
    },
    {
