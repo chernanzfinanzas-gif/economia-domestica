@@ -413,25 +413,57 @@ function buildMonitor(ctx){
 }
 
 /* ============ 4.9 PROYECCIÓN / JUBILACIÓN ============ */
+/* [16-sep-2026] Sincronizado con la tabla que se ve en pantalla (renderProy): fila PLAN
+   (la foto fijada si existe, si no el pronóstico vivo) + fila REAL (de tus movimientos,
+   solo años ya empezados) y el reparto del ahorro en tres -> Inversión / -> Gasto /
+   -> Efectivo, igual que en la vista de Proyección. */
 function buildProyeccion(ctx){
   if(typeof proyDefaults==='function')proyDefaults();
   var c=(DB.config&&DB.config.proyeccion);
   if(!c||typeof computeProy!=='function')return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin modelo de proyección configurado.</p>');
-  var rows=computeProy(c);
-  if(!rows.length)return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin datos de proyección.</p>');
-  var nowY=new Date().getFullYear();
-  var actual=rows.filter(function(r){return r.anio<=nowY;}).slice(-1)[0]||rows[0];
-  var jub=rows.filter(function(r){return r.trasJub;})[0]||rows[rows.length-1];
-  var fin=rows[rows.length-1];
-  var labels=rows.map(function(r){return String(r.anio);});
-  var chart=(typeof gLines==='function')?gLines('Patrimonio proyectado (teórico)',labels,[{name:'Patrimonio',color:'#2563eb',vals:rows.map(function(r){return r.patrimonio;})}]):'';
-  var chartDiv=(typeof gBars==='function')?gBars('Dividendo bruto proyectado',labels,[{name:'Dividendo',color:'#d97706',vals:rows.map(function(r){return r.dividendoAnual;})}],{}):'';
-  var trs=rows.map(function(r){ var pr=r.patrimonioReal; var bg=(typeof proyColor==='function'&&pr!=null)?proyColor(pr,r.patrimonio):'transparent'; return '<tr><td>'+r.anio+'</td><td class="num">'+r.edad+'</td><td class="num">'+fmt(r.aInversion)+'</td><td class="num">'+fmt(r.cartera)+'</td><td class="num" style="font-weight:600">'+fmt(r.patrimonio)+'</td><td class="num" style="background:'+bg+'">'+(pr!=null?fmt(pr):'—')+'</td><td class="num">'+fmt(r.dividendoAnual)+'</td></tr>'; }).join('');
+  var ser=computeProy(c);
+  if(!ser.length)return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],'<p class="muted">Sin datos de proyección.</p>');
+  var yrNow=new Date().getFullYear();
+  var fin=ser[ser.length-1];
+  var jub=ser.filter(function(r){return r.edad>=c.edadFinAportar;})[0]||fin;
+  var _fi=(c.fotoInicial&&c.fotoInicial.serie)?c.fotoInicial:null;
+  var _pf=function(v){return Math.round(num(v)).toLocaleString('es-ES');};
+  var labels=ser.map(function(r){return String(r.anio);});
+  var pSerie=ser.map(function(r){ var FI=_fi?_fi.serie[r.anio]:null; return FI||r; });
+  var chart=(typeof gLines==='function')?gLines('Patrimonio del plan',labels,[{name:'Patrimonio',color:'#2563eb',vals:pSerie.map(function(r){return r.patrimonio;})}]):'';
+  var chartDiv=(typeof gBars==='function')?gBars('Dividendo bruto del plan',labels,[{name:'Dividendo',color:'#d97706',vals:pSerie.map(function(r){return r.dividendoAnual;})}],{}):'';
+  var chartRep=(typeof gBars==='function')?gBars('Reparto anual del ahorro',labels,[
+    {name:'→ Inversión',color:'#2563eb',vals:pSerie.map(function(r){return r.aInversion;})},
+    {name:'→ Gasto',color:'#059669',vals:pSerie.map(function(r){return r.aGasto||0;})},
+    {name:'→ Efectivo',color:'#94a3b8',vals:pSerie.map(function(r){return r.aEfectivo;})}
+  ],{}):'';
+  var _kp=[
+    ['Patrimonio a los '+Math.round(c.edadFin),fmt(fin.patrimonio)],
+    ['Dividendos/mes a los '+Math.round(c.edadFin),fmt(fin.dividendoMes)],
+    ['Plusvalía latente a los '+Math.round(c.edadFin),fmt(fin.plusvalia)],
+    ['Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',fmt(jub.rentaMes)],
+    ['Horizonte',ser.length+' años'],
+    ['Plan',_fi?('fijado '+((typeof _proyFechaCorta==='function')?_proyFechaCorta(_fi.fecha):_fi.fecha)):'editable (pronóstico vivo)']
+  ];
   var inner='';
-  inner+='<h2>Proyección de patrimonio</h2>'+_infKpis([['Patrimonio actual',fmt(actual.patrimonio)],['Patrimonio a jubilación',fmt(jub.patrimonio)],['Dividendo/año a jub.',fmt(jub.dividendoAnual)],['Horizonte',rows.length+' años'],['Edad final',String(fin.edad)]]);
-  inner+=_infChartsWrap([chart,chartDiv]);
-  inner+='<h2>Detalle año a año</h2><table><thead><tr><th>Año</th><th class="num">Edad</th><th class="num">Aportación</th><th class="num">Cartera teórica</th><th class="num">Patrim. teórico</th><th class="num">Patrim. real</th><th class="num">Dividendo/año</th></tr></thead><tbody>'+trs+'</tbody></table>';
-  inner+='<div class="resumen"><p class="muted">Patrimonio teórico = modelo compuesto (revalorización + aportaciones). Patrimonio real (años ya vividos) se reconstruye con cotizaciones de cierre. Verde/ámbar/rojo = real frente a teórico.</p></div>';
+  inner+='<h2>Proyección de patrimonio</h2>'+_infKpis(_kp);
+  inner+=_infChartsWrap([chart,chartDiv,chartRep]);
+  var trs='';
+  ser.forEach(function(r){
+    var FI=_fi?_fi.serie[r.anio]:null; var P=FI||r;
+    var nomA=(P.nominaMes||0)*12;
+    trs+='<tr><td><b>'+r.anio+'</b></td><td class="num">'+r.edad+'</td><td class="num">'+_pf(P.efectivo)+'</td><td class="num">'+_pf(P.invertido)+'</td><td class="num">'+_pf(P.cartera)+'</td><td class="num" style="font-weight:700">'+_pf(P.patrimonio)+'</td><td class="num">'+_pf(nomA)+'</td><td class="num">'+_pf(P.dividendoAnual)+'</td><td class="num">'+(P.ingresosExtra?_pf(P.ingresosExtra):'·')+'</td><td class="num" style="font-weight:700">'+_pf(P.ahorroTotal)+'</td><td class="num">'+_pf(P.aInversion)+'</td><td class="num">'+_pf(P.aGasto||0)+'</td><td class="num" style="color:'+(P.aEfectivo>=0?'#111':'#dc2626')+'">'+_pf(P.aEfectivo)+'</td><td class="num">'+_pf(P.disponibleMes)+'</td></tr>';
+    var R=(r.anio<=yrNow&&typeof proyRealAgg==='function')?proyRealAgg(r.anio):null;
+    if(R){
+      var _c=function(rv,tv,lowGood){ if(rv==null)return '<td class="num" style="color:#94a3b8">·</td>'; if(tv==null)return '<td class="num">'+_pf(rv)+'</td>'; var good=lowGood?(rv<=tv):(rv>=tv); return '<td class="num" style="color:'+(good?'#16a34a':'#dc2626')+'">'+_pf(rv)+'</td>'; };
+      var nomAP=(P.nominaMes||0)*12;
+      var per=R.ytd?'YTD':'FY';
+      trs+='<tr style="background:#f8fafc"><td style="font-style:italic;color:#64748b">Real</td><td class="num" style="font-style:italic;color:#64748b">'+per+'</td>'+_c(R.efectivo,P.efectivo,false)+_c(R.invertido,P.invertido)+_c(R.cartera,P.cartera)+'<td class="num" style="font-weight:700;color:'+(R.patrimonio>=P.patrimonio?'#16a34a':'#dc2626')+'">'+_pf(R.patrimonio)+'</td>'+_c(R.nomina,nomAP)+_c(R.dividendo,P.dividendoAnual)+'<td class="num">'+(R.extra?_pf(R.extra):'·')+'</td>'+_c(R.ahorro,P.ahorroTotal)+_c(R.aInversion,P.aInversion)+'<td class="num" style="color:#94a3b8">·</td>'+_c(R.aEfectivo,P.aEfectivo)+_c(R.gastoMes,P.disponibleMes,true)+'</tr>';
+    }
+  });
+  var thead='<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera</th><th class="num">Patrimonio</th><th class="num">Nóminas/año</th><th class="num">Div./año</th><th class="num">Extra</th><th class="num">Ahorro</th><th class="num">→ Inv.</th><th class="num">→ Gasto</th><th class="num">→ Efec.</th><th class="num">Disponible/mes</th></tr>';
+  inner+='<h2>Detalle año a año</h2><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table>';
+  inner+='<div class="resumen"><p class="muted">Fila <b>'+(_fi?('Plan (foto fijada el '+((typeof _proyFechaCorta==='function')?_proyFechaCorta(_fi.fecha):_fi.fecha)+')'):'Plan (pronóstico vivo)')+'</b>. Fila <b>Real</b> sale de tus movimientos y cierra el 31-dic (verde = mejor que el plan, rojo = peor); el año en curso va parcial (YTD). El ahorro del año (nóminas + dividendo + extra) se reparte en tres: → Inversión y → Gasto los decides tú — → Gasto sube el disponible de ese mismo año — y → Efectivo es el resto, automático, que pasa a efectivo el 1 de enero siguiente.</p></div>';
   return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
 
