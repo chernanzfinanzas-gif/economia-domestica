@@ -2109,6 +2109,22 @@ function renderProy(){
   const pt=$('#proyTabla'); pt.innerHTML=deskHTML+`<div class="proy-mob">${mrows}</div>`;
   try{ if(typeof renderProyMonteCarlo==='function')renderProyMonteCarlo(); }catch(e){}
 }
+/* [16-sep-2026] Editar una celda (-> Inv., -> Gasto, Extra...) se llevaba la pantalla
+   arriba: renderProy() rehace TODO #proyTabla, incluida la propia tabla con scroll
+   propio, así que al reconstruirla el navegador perdía tanto el scroll de la página
+   como el scroll interno de la tabla. Se guardan los dos antes de redibujar y se
+   reponen después -dos veces, por si el navegador intenta moverlos al perder el foco
+   del input que se acaba de editar-. Usar SIEMPRE esta función (no renderProy directo)
+   en los manejadores de cambio de un input de la Proyección. */
+function renderProyConScroll(){
+  const sy=window.scrollY;
+  const ptb=document.querySelector('#proyTabla .ptable');
+  const st=ptb?ptb.scrollTop:0, sl=ptb?ptb.scrollLeft:0;
+  renderProy();
+  const fijar=()=>{ window.scrollTo(0,sy); const p2=document.querySelector('#proyTabla .ptable'); if(p2){ p2.scrollTop=st; p2.scrollLeft=sl; } };
+  fijar();
+  requestAnimationFrame(fijar);
+}
 /* Plegables de Proyección (Hipótesis Inicial / Eventos) y filas por año — enlazado
    ESTÁTICO (una vez) sobre #view-proyeccion, independiente de renderProy: así los
    desplegables funcionan aunque el render falle a mitad. */
