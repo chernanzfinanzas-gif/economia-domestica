@@ -1,20 +1,11 @@
-/* ===== Vídeo de introducción (una sola vez por navegador) ==========================
-   [16-sep-2026] Se ve la primera vez que se abre la app en cada navegador/dispositivo.
-   Deliberadamente NO depende de Google Drive ni de DB: si esperase a afterLoad() para
-   decidir si ya se vio, o parpadearía el vídeo un instante antes de ocultarse, o se
-   retrasaría el arranque. localStorage decide al vuelo, sin esperar a nada — por eso
-   es "una vez por navegador", no "una vez para siempre en cualquier dispositivo".
+/* ===== Vídeo de introducción (se ve cada vez que se abre la app) ===================
+   [16-sep-2026] Al principio se guardaba en localStorage para verse una sola vez por
+   navegador; a petición de Carlos (le gusta el vídeo) se quitó esa marca: se ve
+   siempre, en cada apertura. Sigue sin depender de Google Drive ni de DB, y sigue sin
+   poder bloquear la app: siempre hay una salida (fin del vídeo, botón Saltar, error de
+   carga, o un tope de 15s por si se queda colgado).
    Horizontal en PC/navegador, vertical en móvil: mismo corte (max-width:820px) que
-   vistaArranque() usa en 06-main.js para decidir la vista de arranque.
-   Si el vídeo no existe, no carga, o el navegador bloquea el autoplay con sonido,
-   NUNCA debe bloquear la app: siempre hay una salida (fin del vídeo, botón Saltar,
-   error de carga, o un tope de 15s por si se queda colgado). */
-function _khIntroVisto(){
-  try{ return localStorage.getItem('khIntroVisto')==='1'; }catch(e){ return true; }
-}
-function _khIntroMarcarVisto(){
-  try{ localStorage.setItem('khIntroVisto','1'); }catch(e){}
-}
+   vistaArranque() usa en 06-main.js para decidir la vista de arranque. */
 function _khIntroEsMovil(){
   try{ return window.matchMedia('(max-width:820px)').matches; }
   catch(e){ return (window.innerWidth||9999)<=820; }
@@ -25,7 +16,6 @@ function _khIntroSrc(){
 function iniciarIntro(){
   const cont=document.getElementById('khIntro');
   if(!cont) return;
-  if(_khIntroVisto()){ cont.style.display='none'; return; }
   const v=document.getElementById('khIntroVid');
   const skip=document.getElementById('khIntroSkip');
   const sonido=document.getElementById('khIntroSonido');
@@ -33,7 +23,6 @@ function iniciarIntro(){
   let cerrado=false;
   function cerrar(){
     if(cerrado) return; cerrado=true;
-    _khIntroMarcarVisto();
     cont.style.display='none';
     try{ v.pause(); v.removeAttribute('src'); v.load(); }catch(e){}
   }
