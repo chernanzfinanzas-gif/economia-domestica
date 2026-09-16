@@ -1573,6 +1573,11 @@ function _khCSS(){
 .kh-rb.on{background:#1d4ed8;border-color:#1d4ed8;color:#fff}
 .kh-ficha{margin-left:auto;font-size:12px;font-weight:600;color:#1d4ed8;text-decoration:none}
 .kh-ficha:hover{text-decoration:underline}
+.kh-anyo-wrap{display:flex;align-items:center;gap:6px}
+.kh-anyo-wrap span{font-size:11.5px;color:#64748b;font-weight:600}
+.kh-anyo{border:1px solid #cbd5e1;background:#fff;color:#0f172a;border-radius:8px;font-size:12px;font-weight:700;padding:4px 8px;cursor:pointer}
+.kh-anyo:hover{background:#f1f5f9}
+.kh-anyo.activo{border-color:#1d4ed8;color:#1d4ed8;background:#eff6ff}
 .kh-graf{position:relative}
 .kh-graf svg{display:block;width:100%;height:auto;touch-action:none}
 .kh-tip{position:absolute;pointer-events:none;background:rgba(15,23,42,.94);color:#fff;font-size:11.5px;line-height:1.5;padding:7px 10px;border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.25);white-space:nowrap;opacity:0;transition:opacity .08s,left .12s;z-index:5;max-width:70%}
@@ -1591,6 +1596,7 @@ function _khCSS(){
    septimo boton y volvia a partir la barra en tres filas-. */
 .kh-rangos{gap:4px}
 .kh-rb{padding:4px 8px;font-size:11.5px;border-radius:7px}
+.kh-anyo-wrap{order:8;flex-basis:100%;margin-top:4px}
 .kh-ficha{margin-left:0;order:9;flex-basis:100%;margin-top:4px}}
 
 
@@ -1944,6 +1950,15 @@ function _khIdxDeFecha(labels, f){
   for(let i=0;i<labels.length;i++) if(labels[i]>=f) return i;
   return labels.length?labels.length-1:-1;
 }
+/* [16-sep-2026] La gemela «hacia atrás»: último índice cuya sesión es <= la fecha pedida.
+   Con `_khIdxDeFecha` (primer índice >= fecha) son las dos puntas que hacen falta para
+   acotar un AÑO EXACTO en cualquier serie ya ordenada por fecha — el selector de año de
+   Mi Cartera y de Khb22 vs IBEX las usa juntas: `_khIdxDeFecha(l,'2022-01-01')` y
+   `_khIdxHasta(l,'2022-12-31')`. */
+function _khIdxHasta(labels, f){
+  let r=-1; for(let i=0;i<labels.length;i++){ if(labels[i]<=f) r=i; else break; }
+  return r;
+}
 function _khComprasPorDia(){
   const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o&&o.fecha&&o.tipo!=='venta');
   const m={};
@@ -1959,7 +1974,8 @@ function _khComprasPorDia(){
    de 5 minutos. La segunda existe desde que `mcSerieIntraCartera()` sabe valorar la cartera
    instante a instante; hoy son 6 sesiones y seran 10 cuando el archivo se llene. */
 let _khVistaCartera='todo';
-let _khCompPeriodo='3m', _khCompPeso='pond';
+let _khAnioTodo='';   /* [16-sep-2026] selector de año de «Desde el principio» */
+let _khCompPeriodo='3m', _khCompPeso='pond', _khCompAnio='';
 
 /* Gráfico de DOS líneas en % (Khb22 vs IBEX), rebasadas a 0% en el inicio del tramo visible.
    Hermano de khGrafLinea, no una modificación suya: khGrafLinea lo usan media docena de sitios
@@ -2123,11 +2139,34 @@ function mcAbrirGrafCartera(){
   if(!d||d.empty){ hueco.innerHTML='<div class="empty">Todavía no hay operaciones registradas.</div>'; return; }
   if(d.loading){ hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando cotizaciones del repo… (necesita conexión)</div>'; return; }
 
-  const labels=d.labels||[], ys=d.valor||[];
+  const labelsFull=d.labels||[], ysFull=d.valor||[];
+  /* [16-sep-2026] SELECTOR DE AÑO. Esta vista no tenía ni un botón: solo el arrastre, y con
+     15 años de histórico un año entero cabe en un puñado de píxeles. Los años salen de la
+     propia serie -del más antiguo con operaciones al actual-, y elegir uno RECORTA los
+     mismos `labels`/`valor` de siempre antes de pasarlos a `khGrafLinea`: no hace falta
+     tocar ese motor -lo usan Ficha, Tesis y Kanban- para nada de esto. */
+  const anios=[...new Set(labelsFull.map(function(l){ return l.slice(0,4); }))].sort(function(a,b){ return b-a; });
+  const enAnio=!!_khAnioTodo && anios.indexOf(_khAnioTodo)>=0;
+  hueco.innerHTML=(anios.length?('<div class="kh-anyo-wrap" style="margin-bottom:8px"><span>Año:</span>'
+    +'<select class="kh-anyo'+(enAnio?' activo':'')+'" data-khanio><option value="">— año —</option>'
+    +anios.map(function(a){ return '<option value="'+a+'"'+(a===_khAnioTodo?' selected':'')+'>'+a+'</option>'; }).join('')
+    +'</select>'+(enAnio?'<button type="button" class="kh-rb" data-khanioreset>Ver todo</button>':'')+'</div>') : '')
+    +'<div class="kh-hueco-graf"></div>';
+  const elG=hueco.querySelector('.kh-hueco-graf');
+
+  let i0=0, i1=labelsFull.length-1;
+  if(enAnio){ i0=_khIdxDeFecha(labelsFull,_khAnioTodo+'-01-01'); i1=_khIdxHasta(labelsFull,_khAnioTodo+'-12-31'); if(i1<i0)i1=i0; }
+  const labels=labelsFull.slice(i0,i1+1), ys=ysFull.slice(i0,i1+1);
   const compras=_khComprasPorDia();
   const marcas={};
   const porIdx={};
   Object.keys(compras).forEach(function(f){
+    /* [16-sep-2026] Con el histórico completo esto nunca fallaba: toda compra cae DENTRO
+       de `labels`, porque esa serie nace de las propias operaciones. Al recortar por año,
+       una compra de OTRO año queda fuera de rango, y `_khIdxDeFecha` no devuelve -1 para
+       eso -su «no encontrado» es «se acabó la serie, te doy el último índice»-. Sin este
+       guardián, una compra de 2024 se enganchaba al último día visible de 2023. */
+    if(!labels.length || f<labels[0] || f>labels[labels.length-1]) return;
     const i=_khIdxDeFecha(labels,f); if(i<0)return;
     marcas[i]=1;
     (porIdx[i]=porIdx[i]||[]).push.apply(porIdx[i],compras[f]);
@@ -2136,10 +2175,12 @@ function mcAbrirGrafCartera(){
   const eur=v=>(typeof fmt==='function')?fmt(v):String(Math.round(v));
 
   const _MI=maxIntra();
-  khGrafLinea(hueco,{
+  khGrafLinea(elG,{
     xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
-    /* Ver khGrafLinea: cero mientras se ve todo el histórico, ajustado al tramo al hacer zoom. */
-    baseCero:'auto', extremos:'zoom', fmtY:eur, fmtEje:_khEjeK,
+    /* Ver khGrafLinea: cero mientras se ve todo el histórico, ajustado al tramo al hacer zoom.
+       Con un AÑO concreto ya recortado a mano, se pide el mismo eje «ajustado, con máx/mín»
+       que da un arrastre manual -es exactamente lo que este selector viene a sustituir-. */
+    baseCero: enAnio?false:'auto', extremos: enAnio?true:'zoom', fmtY:eur, fmtEje:_khEjeK,
     linea:_MI?{v:_MI.v, txt:'máximo intradía '+eur(_MI.v)+' · '+dd(_MI.f)}:null,
     /* Año mientras se ve el histórico entero; día/mes/año en cuanto el tramo baja de ~2 años
        de sesiones, que es cuando «2026 · 2026 · 2026» deja de decir nada. */
@@ -2157,10 +2198,14 @@ function mcAbrirGrafCartera(){
       }
       return h;
     },
-    leyenda:[{c:'#16a34a',t:'Valor de la cartera'},
+    leyenda:[{c:'#16a34a',t:'Valor de la cartera'+(enAnio?(' · año '+_khAnioTodo):'')},
              {c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
              .concat(_MI?[{c:'#b45309',t:'La raya de puntos es el máximo intradía registrado: '+eur(_MI.v)}]:[])
   });
+  const selA=hueco.querySelector('[data-khanio]');
+  if(selA) selA.addEventListener('change',function(e){ _khAnioTodo=e.target.value; pintaTodo(); });
+  const btnR=hueco.querySelector('[data-khanioreset]');
+  if(btnR) btnR.addEventListener('click',function(){ _khAnioTodo=''; pintaTodo(); });
   }
 
   /* [15-sep-2026] Khb22 vs IBEX: no es el valor en euros, es cuánto han subido de precio
@@ -2182,15 +2227,25 @@ function mcAbrirGrafCartera(){
     const elP=hueco.querySelector('#khCompPer'), elW=hueco.querySelector('#khCompPeso'),
           elG=hueco.querySelector('#khCompGraf'), elV=hueco.querySelector('#khCompVer');
 
-    elP.innerHTML=PERIODOS_COMP.map(p=>'<button type="button" class="kh-rb'+(p[0]===_khCompPeriodo?' on':'')
-      +'" data-khcp="'+p[0]+'">'+p[1]+'</button>').join('');
+    /* [16-sep-2026] El año exacto se suma como una forma más de elegir tramo, junto a los
+       botones de periodo — no lo sustituye, porque «3 meses» o «1 semana» no tienen un año
+       que valga. Los años salen de la propia serie de `khb22Serie`, así que nunca ofrece uno
+       sin datos. */
+    const aniosComp=[...new Set(d.labels.map(function(l){ return l.slice(0,4); }))].sort(function(a,b){ return b-a; });
+    const enAnioComp=!!_khCompAnio && aniosComp.indexOf(_khCompAnio)>=0;
+    elP.innerHTML=PERIODOS_COMP.map(p=>'<button type="button" class="kh-rb'+((p[0]===_khCompPeriodo&&!enAnioComp)?' on':'')
+      +'" data-khcp="'+p[0]+'">'+p[1]+'</button>').join('')
+      +(aniosComp.length?('<div class="kh-anyo-wrap"><span>Año:</span><select class="kh-anyo'+(enAnioComp?' activo':'')+'" data-khanio>'
+        +'<option value="">— año —</option>'+aniosComp.map(function(a){ return '<option value="'+a+'"'+(a===_khCompAnio?' selected':'')+'>'+a+'</option>'; }).join('')
+        +'</select></div>') : '');
     elW.innerHTML=
       '<button type="button" class="kh-rb'+(_khCompPeso==='pond'?' on':'')+'" data-khcw="pond">Ponderado por posición</button>'
       +'<button type="button" class="kh-rb'+(_khCompPeso==='glob'?' on':'')+'" data-khcw="glob">Global (igual peso)</button>';
 
     const serieKhb=d[_khCompPeso];
-    const preset=PERIODOS_COMP.find(p=>p[0]===_khCompPeriodo);
-    const z1=n-1, z0=(preset&&preset[2]>0)?Math.max(0,n-1-preset[2]):0;
+    let z0, z1=n-1;
+    if(enAnioComp){ z0=_khIdxDeFecha(d.labels,_khCompAnio+'-01-01'); z1=_khIdxHasta(d.labels,_khCompAnio+'-12-31'); if(z1<z0)z1=z0; }
+    else { const preset=PERIODOS_COMP.find(p=>p[0]===_khCompPeriodo); z0=(preset&&preset[2]>0)?Math.max(0,n-1-preset[2]):0; }
     const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
 
     function pintaVer(a,b){
@@ -2209,7 +2264,9 @@ function mcAbrirGrafCartera(){
     });
 
     elP.addEventListener('click',function(e){ const b=e.target.closest('[data-khcp]'); if(!b)return;
-      _khCompPeriodo=b.getAttribute('data-khcp'); pintaComparar(); });
+      _khCompPeriodo=b.getAttribute('data-khcp'); _khCompAnio=''; pintaComparar(); });
+    elP.addEventListener('change',function(e){ const s=e.target.closest('[data-khanio]'); if(!s)return;
+      _khCompAnio=s.value; pintaComparar(); });
     elW.addEventListener('click',function(e){ const b=e.target.closest('[data-khcw]'); if(!b)return;
       _khCompPeso=b.getAttribute('data-khcw'); pintaComparar(); });
   }
@@ -2331,6 +2388,7 @@ function khTramo5(serie, sesiones){
 }
 
 let _khRangoValor='1m';
+let _khAnioValor='';   /* [16-sep-2026] selector de año — vacío = manda el rango de arriba */
 
 /* [20-ago-2026] DIEZMADO DE LOS TRAMOS LARGOS.
    «Max» son ~4.000 cierres y el dibujo mide 760 px de ancho: mas de ~1.500 puntos no pintan
@@ -2388,6 +2446,46 @@ function _khSerieValor(t, dias){
   return {xs:d.xs, ys:d.ys, nBrutos:xs.length, diezmado:d.xs.length<xs.length};
 }
 
+/* [16-sep-2026] SELECTOR DE AÑO. Arrastrar para acercar a un año exacto es impreciso —con
+   varios años de histórico, un año entero puede ocupar un puñado de píxeles del gráfico—.
+   Estas dos funciones son las gemelas de `_khSerieValor` y de la lista de rangos, pero
+   acotadas por CALENDARIO (1 de enero a 31 de diciembre) en vez de «los últimos N días
+   desde hoy». Un año de cierres diarios son ~250 filas, muy por debajo de `_KH_MAXPTS`:
+   no hace falta diezmar, así que un año sale siempre a resolución diaria completa. */
+function _khAniosDe(t){
+  t=(t||'').toUpperCase();
+  const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[t]:null;
+  const filas=(pj&&pj.data)?pj.data:[];
+  const s=new Set();
+  filas.forEach(function(f){ if(f&&f[0]) s.add(String(f[0]).slice(0,4)); });
+  return [...s].sort(function(a,b){ return b-a; });
+}
+function _khSerieValorAnio(t, anio){
+  t=(t||'').toUpperCase();
+  const pj=(typeof _precioCache!=='undefined'&&_precioCache)?_precioCache[t]:null;
+  const filas=(pj&&pj.data)?pj.data:[];
+  if(!filas.length) return null;
+  const c0=anio+'-01-01', c1=anio+'-12-31';
+  let xs=[],ys=[];
+  for(let i=0;i<filas.length;i++){
+    const f=filas[i]; if(!f||f.length<2)continue;
+    const fecha=String(f[0]); if(fecha<c0||fecha>c1)continue;
+    const v=num(f[1]); if(!(v>0))continue;
+    xs.push(fecha); ys.push(v);
+  }
+  /* El precio vivo solo entra si «hoy» cae DENTRO del año pedido: mirar un año pasado con
+     el precio de hoy pegado al final sería mentir sobre cuándo pasó. */
+  const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
+  const lp=num(v0.precioActual), lf=(v0.precioFecha||'');
+  if(lp>0&&lf&&lf>=c0&&lf<=c1){
+    if(!xs.length||lf>xs[xs.length-1]){ xs.push(lf); ys.push(lp); }
+    else if(lf===xs[xs.length-1]){ ys[ys.length-1]=lp; }
+  }
+  if(!xs.length) return null;
+  const d=_khDiezmar(xs,ys);
+  return {xs:d.xs, ys:d.ys, nBrutos:xs.length, diezmado:d.xs.length<xs.length};
+}
+
 function mcAbrirGrafValor(t){
   t=(t||'').toUpperCase(); if(!t)return;
   const v0=((typeof DB!=='undefined'&&DB.valores)?DB.valores[t]:null)||{};
@@ -2405,7 +2503,12 @@ function mcAbrirGrafValor(t){
   const barra=cont.querySelector('.kh-rangos'), hueco=cont.querySelector('.kh-hueco');
 
   function pinta(){
-    barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+(r[0]===_khRangoValor?' on':'')+'" data-khr="'+r[0]+'" title="'+r[3]+'">'+r[1]+'</button>').join('')
+    const anios=_khAniosDe(t);
+    const enAnio=!!_khAnioValor && anios.indexOf(_khAnioValor)>=0;
+    barra.innerHTML=_KH_RANGOS.map(r=>'<button type="button" class="kh-rb'+((r[0]===_khRangoValor&&!enAnio)?' on':'')+'" data-khr="'+r[0]+'" title="'+r[3]+'">'+r[1]+'</button>').join('')
+      +(anios.length?('<div class="kh-anyo-wrap"><span>Año:</span><select class="kh-anyo'+(enAnio?' activo':'')+'" data-khanio>'
+        +'<option value="">— año —</option>'+anios.map(a=>'<option value="'+a+'"'+(a===_khAnioValor?' selected':'')+'>'+a+'</option>').join('')
+        +'</select></div>') : '')
       +'<a class="kh-ficha" href="#" data-khficha="'+t+'">Ver la ficha de '+t+' ↗</a>';
     const cfg=_KH_RANGOS.find(r=>r[0]===_khRangoValor)||_KH_RANGOS[2];   /* el de reserva es «1M», no el segundo de la lista */
 
@@ -2429,15 +2532,17 @@ function mcAbrirGrafValor(t){
        dentro de la semana; ahora son unas 500 barras. «1 mes» y «1 año» siguen con
        cierres diarios: ahi el intradia ni cabe ni aporta.
        Solo las 25 con analisis completo tienen serie; para el resto se cae a cierres y
-       se DICE, en vez de enseñar cinco puntos sin explicar por que. */
-    const quiere5=_KH_S5_SESIONES[_khRangoValor]>0;
+       se DICE, en vez de enseñar cinco puntos sin explicar por que.
+       [16-sep-2026] Con un AÑO concreto seleccionado el detalle de 5 minutos no pinta nada
+       -ese archivo solo guarda las ultimas sesiones-, asi que se desactiva sin mas. */
+    const quiere5=!enAnio && _KH_S5_SESIONES[_khRangoValor]>0;
     if(quiere5 && _khSerie5Cache[t]===undefined){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando el detalle de 5 minutos de '+t+'…</div>';
       khCargarSerie5(t).then(function(){ if(document.body.contains(hueco)) pinta(); });
       return;
     }
     const s5=quiere5 ? khTramo5(_khSerie5Cache[t], _KH_S5_SESIONES[_khRangoValor]) : null;
-    const s = s5 || _khSerieValor(t,cfg[2]);
+    const s = s5 || (enAnio ? _khSerieValorAnio(t,_khAnioValor) : _khSerieValor(t,cfg[2]));
     if(!s||s.xs.length<2){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Sin cotizaciones de '+t+' en este tramo. '
         +'Prueba con <b>Máx</b>, o comprueba que la empresa está en <b>precios/</b> del repo.</div>';
@@ -2453,13 +2558,14 @@ function mcAbrirGrafValor(t){
        zoom pueden discrepar: por eso la leyenda dice de qué periodo habla. */
     let iH=0, iL=0;
     for(let i=0;i<s.ys.length;i++){ if(s.ys[i]>s.ys[iH])iH=i; if(s.ys[i]<s.ys[iL])iL=i; }
-    const rec=s5 ? (s5.nSesiones+(s5.nSesiones===1?' sesión':' sesiones'))
-                 : ((_khRangoValor==='1a')?'52 semanas':cfg[3]);
-    const anio=x=>dd(x)+'/'+String(x).slice(2,4);
+    const rec=enAnio ? ('año '+_khAnioValor)
+                 : (s5 ? (s5.nSesiones+(s5.nSesiones===1?' sesión':' sesiones'))
+                       : ((_khRangoValor==='1a')?'52 semanas':cfg[3]));
+    const anioTxt=enAnio ? _khAnioValor : cfg[3];
     const cuando=x=>s5 ? (dd(x)+' '+hhmm(x)) : (dd(x)+'/'+String(x).slice(2,4));
     const _leyenda=[
       {c:'#2563eb',t:(s5?'Cotización cada 5 minutos':'Cierre diario')
-                  +(varPct==null?'':(' · '+cfg[3]+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
+                  +(varPct==null?'':(' · '+anioTxt+': '+(varPct>=0?'+':'')+varPct.toFixed(1)+'%'))},
       {c:'#0f172a',t:'Máx '+prec(s.ys[iH])+' ('+cuando(s.xs[iH])+') · Mín '+prec(s.ys[iL])+' ('+cuando(s.xs[iL])+') · '+rec}
     ];
     if(quiere5 && !s5) _leyenda.push({c:'#94a3b8', t:'Sin detalle de 5 minutos para '+t+': se dibujan cierres diarios'});
@@ -2470,7 +2576,7 @@ function mcAbrirGrafValor(t){
        claramente positivo, y eso ya no es un matiz: es leer el grafico al reves. El modal
        no tiene la linea «c/div» -esa vive en el grafico de la Ficha-, asi que como minimo
        se dice, en vez de dejar que la lectura equivocada pase por buena. */
-    if(_khRangoValor==='5a'||_khRangoValor==='max'){
+    if(!enAnio && (_khRangoValor==='5a'||_khRangoValor==='max')){
       _leyenda.push({c:'#db2777', t:'Cierres brutos, SIN dividendo: a este plazo una empresa de renta parece plana aunque su retorno total no lo sea. La línea «c/div» está en el gráfico de la Ficha.'});
     }
     if(s.diezmado) _leyenda.push({c:'#cbd5e1', t:'Dibujo aligerado: '+s.xs.length+' puntos de '+s.nBrutos+' sesiones (se conservan el máximo, el mínimo y los extremos del tramo)'});
@@ -2491,10 +2597,15 @@ function mcAbrirGrafValor(t){
   khCargarSerie5(t);
   barra.addEventListener('click',function(e){
     const b=e.target.closest('[data-khr]');
-    if(b){ _khRangoValor=b.getAttribute('data-khr'); pinta(); return; }
+    if(b){ _khRangoValor=b.getAttribute('data-khr'); _khAnioValor=''; pinta(); return; }
     const f=e.target.closest('[data-khficha]');
     if(f){ e.preventDefault(); khModalCerrar();
       if(typeof abrirFicha==='function') abrirFicha(f.getAttribute('data-khficha')); }
+  });
+  barra.addEventListener('change',function(e){
+    const s=e.target.closest('[data-khanio]');
+    if(!s)return;
+    _khAnioValor=s.value; pinta();
   });
   pinta();
 }
