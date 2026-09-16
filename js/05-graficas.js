@@ -1959,6 +1959,29 @@ function _khIdxHasta(labels, f){
   let r=-1; for(let i=0;i<labels.length;i++){ if(labels[i]<=f) r=i; else break; }
   return r;
 }
+/* [16-sep-2026] Los dos desplegables «desde / hasta» del selector de años. Salen idénticos
+   en «Desde el principio» y en «Khb22 vs IBEX», así que se pintan en un solo sitio: si
+   mañana cambia el aspecto, cambia en los dos a la vez y no en uno solo. `anios` llega ya
+   ordenado del más nuevo al más viejo y las dos listas ofrecen LOS MISMOS años —los que
+   tienen datos en la serie—, para que no se pueda pedir un tramo vacío. */
+function _khSelAnios(anios, desde, hasta, activo){
+  const op=function(v,sel){ return '<option value="'+v+'"'+(v===sel?' selected':'')+'>'+v+'</option>'; };
+  const cls='kh-anyo'+(activo?' activo':'');
+  return '<div class="kh-anyo-wrap"><span>Años:</span>'
+    +'<select class="'+cls+'" data-khanio="d"><option value="">— desde —</option>'
+    +anios.map(function(a){ return op(a,desde); }).join('')+'</select>'
+    +'<span style="font-size:11.5px;color:#64748b;font-weight:700">–</span>'
+    +'<select class="'+cls+'" data-khanio="h"><option value="">— hasta —</option>'
+    +anios.map(function(a){ return op(a,hasta); }).join('')+'</select></div>';
+}
+/* Acomoda el par al tocar UNA de las dos puntas, en vez de dejar un rango imposible y
+   quejarse: si eliges un «desde» posterior al «hasta» que había, el «hasta» se mueve
+   contigo. Vaciar cualquiera de los dos es «ver todo». Devuelve [desde, hasta] ordenados. */
+function _khRangoAnios(cual, val, desde, hasta){
+  if(cual==='h'){ hasta=val; if(!hasta) return ['','']; if(!desde||desde>hasta) desde=hasta; }
+  else          { desde=val; if(!desde) return ['','']; if(!hasta||hasta<desde) hasta=desde; }
+  return [desde,hasta];
+}
 function _khComprasPorDia(){
   const ops=(typeof _allOps==='function'?_allOps():[]).filter(o=>o&&o.fecha&&o.tipo!=='venta');
   const m={};
@@ -1974,8 +1997,14 @@ function _khComprasPorDia(){
    de 5 minutos. La segunda existe desde que `mcSerieIntraCartera()` sabe valorar la cartera
    instante a instante; hoy son 6 sesiones y seran 10 cuando el archivo se llene. */
 let _khVistaCartera='todo';
-let _khAnioTodo='';   /* [16-sep-2026] selector de año de «Desde el principio» */
-let _khCompPeriodo='3m', _khCompPeso='pond', _khCompAnio='';
+/* [16-sep-2026] Selector de año de «Desde el principio». MISMO DÍA, segunda vuelta: pasa de
+   ser UN año a ser un RANGO «desde / hasta», dos desplegables en vez de uno. La razón de
+   elegir un rango y no una lista donde marcar años sueltos: un rango de años es contiguo
+   por definición, así que la condición de «años seguidos» se cumple sola y no hay nada que
+   validar ni ningún aviso de error que enseñar. Con desde===hasta se comporta exactamente
+   como antes, así que el año suelto no se pierde. */
+let _khAnioTodo='', _khAnioTodoH='';
+let _khCompPeriodo='3m', _khCompPeso='pond', _khCompAnio='', _khCompAnioH='';
 
 /* Gráfico de DOS líneas en % (Khb22 vs IBEX), rebasadas a 0% en el inicio del tramo visible.
    Hermano de khGrafLinea, no una modificación suya: khGrafLinea lo usan media docena de sitios
@@ -2146,17 +2175,40 @@ function mcAbrirGrafCartera(){
      mismos `labels`/`valor` de siempre antes de pasarlos a `khGrafLinea`: no hace falta
      tocar ese motor -lo usan Ficha, Tesis y Kanban- para nada de esto. */
   const anios=[...new Set(labelsFull.map(function(l){ return l.slice(0,4); }))].sort(function(a,b){ return b-a; });
-  const enAnio=!!_khAnioTodo && anios.indexOf(_khAnioTodo)>=0;
-  hueco.innerHTML=(anios.length?('<div class="kh-anyo-wrap" style="margin-bottom:8px"><span>Año:</span>'
-    +'<select class="kh-anyo'+(enAnio?' activo':'')+'" data-khanio><option value="">— año —</option>'
-    +anios.map(function(a){ return '<option value="'+a+'"'+(a===_khAnioTodo?' selected':'')+'>'+a+'</option>'; }).join('')
-    +'</select>'+(enAnio?'<button type="button" class="kh-rb" data-khanioreset>Ver todo</button>':'')+'</div>') : '')
+  const enAnio=!!_khAnioTodo && anios.indexOf(_khAnioTodo)>=0
+             && !!_khAnioTodoH && anios.indexOf(_khAnioTodoH)>=0;
+  const rotAnios=enAnio?(_khAnioTodo===_khAnioTodoH?_khAnioTodo:(_khAnioTodo+'–'+_khAnioTodoH)):'';
+  hueco.innerHTML=(anios.length?('<div style="margin-bottom:8px;display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+    +_khSelAnios(anios,_khAnioTodo,_khAnioTodoH,enAnio)
+    +(enAnio?'<button type="button" class="kh-rb" data-khanioreset>Ver todo</button>':'')+'</div>') : '')
     +'<div class="kh-hueco-graf"></div>';
   const elG=hueco.querySelector('.kh-hueco-graf');
 
   let i0=0, i1=labelsFull.length-1;
-  if(enAnio){ i0=_khIdxDeFecha(labelsFull,_khAnioTodo+'-01-01'); i1=_khIdxHasta(labelsFull,_khAnioTodo+'-12-31'); if(i1<i0)i1=i0; }
+  /* El tramo se acota con la punta de CADA desplegable: 1 de enero del primero, 31 de
+     diciembre del último. Con un solo año las dos puntas son el mismo y sale lo de antes. */
+  if(enAnio){ i0=_khIdxDeFecha(labelsFull,_khAnioTodo+'-01-01'); i1=_khIdxHasta(labelsFull,_khAnioTodoH+'-12-31'); if(i1<i0)i1=i0; }
   const labels=labelsFull.slice(i0,i1+1), ys=ysFull.slice(i0,i1+1);
+  /* [16-sep-2026] LO APORTADO Y LOS DIVIDENDOS, en el tooltip de cada día. `carteraEvolData`
+     ya venía calculando las dos series para el gráfico del Panel y aquí no las miraba nadie:
+     no hay cálculo nuevo ni descarga nueva, solo se recortan igual que `valor`.
+     Son ACUMULADAS DESDE EL PRINCIPIO, así que al elegir un tramo de años siguen diciendo
+     «hasta esta fecha» y no «dentro del tramo» — que es lo que se pidió.
+     Qué es exactamente `aport`: dinero NETO salido del bolsillo. Las compras suman y las
+     ventas restan a su precio de venta, así que una posición cerrada EN PÉRDIDA deja dentro
+     la parte que no volvió (Telefónica: entraron 6.973 €, volvieron 1.782 €, quedan 5.191 €).
+     Es lo correcto para «cuánto de mi nómina está puesto ahí»: ese dinero salió y no volvió.
+     El límite honesto de la cifra: si alguna compra se pagó con dividendos cobrados, aquí
+     cuenta como dinero propio, porque la operación no guarda de dónde salió el efectivo.
+     DECIDIDO EL 16-sep-2026, NO REVERTIR SIN PREGUNTAR: `aport` son acciones × precio y NADA
+     MÁS — las COMISIONES SE QUEDAN FUERA a propósito. El panel de «Posiciones cerradas» sí
+     las descuenta, así que las dos pantallas no cuadran al céntimo y eso ES lo acordado: son
+     366,64 € en las 35 operaciones del histórico, un 0,19 % de lo aportado, y meterlas obliga
+     a mover también la línea «Aportado» del gráfico del Panel, que come de este mismo
+     cálculo. Se prefirió no tocar lo que ya funcionaba. */
+  const aportFull=d.aport||[], valdivFull=d.valdiv||[];
+  const aport=aportFull.slice(i0,i1+1), valdiv=valdivFull.slice(i0,i1+1);
+  const pc1=function(x){ return (x>=0?'+':'')+x.toFixed(1).replace('.',',')+'%'; };
   const compras=_khComprasPorDia();
   const marcas={};
   const porIdx={};
@@ -2174,6 +2226,17 @@ function mcAbrirGrafCartera(){
   const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
   const eur=v=>(typeof fmt==='function')?fmt(v):String(Math.round(v));
 
+  /* El mismo dato del tooltip para el ÚLTIMO día visible, pero sin tener que buscarlo con el
+     ratón: la pregunta de fondo -«cuánto dinero mío hay puesto ahí y cuánto ha rendido»- se
+     contesta de un vistazo. Va la última de la leyenda para no empujar a las de arriba. */
+  function _resLeg(){
+    const j=ys.length-1; if(j<0) return [];
+    const ap=num(aport[j]); if(!(ap>0)) return [];
+    const plus=ys[j]-ap, div=(valdiv[j]!=null)?(valdiv[j]-ys[j]):0, tot=plus+div;
+    return [{c:'#94a3b8', t:'A '+dd(labels[j])+' · dinero tuyo puesto '+eur(ap)
+      +' · ganado por precio '+(plus>=0?'+':'')+eur(plus)+' ('+pc1(plus/ap*100)+')'
+      +(div>0?(' · dividendos cobrados '+eur(div)+' · ganado en total '+pc1(tot/ap*100)):'')}];
+  }
   const _MI=maxIntra();
   khGrafLinea(elG,{
     xs:labels, ys:ys, marcas:marcas, color:'#16a34a', colorMarca:'#b45309', alto:330,
@@ -2188,6 +2251,19 @@ function mcAbrirGrafCartera(){
       return (m!=null&&m<=520)?(s.slice(8,10)+'/'+s.slice(5,7)+'/'+s.slice(2,4)):s.slice(0,4); },
     tip:function(i){
       let h='<b>'+eur(ys[i])+'</b><br>'+dd(labels[i]);
+      /* [16-sep-2026] Los rótulos, en la segunda vuelta. «Revalorización» y «Con dividendos»
+         se leían como si una de las dos filas RESTARA el dividendo de lo pagado, y no es eso:
+         EL DIVIDENDO NUNCA TOCA «Dinero tuyo puesto». Las tres filas de abajo son un sumando,
+         otro sumando y su suma. Y los dos porcentajes se miden sobre la MISMA base -el dinero
+         propio- porque el dividendo es fruto de la inversión, no ahorro. */
+      const ap=num(aport[i]);
+      if(ap>0){
+        const plus=ys[i]-ap, div=(valdiv[i]!=null)?(valdiv[i]-ys[i]):0, tot=plus+div;
+        h+='<br><span class="kh-tip-c">Dinero tuyo puesto '+eur(ap)+'</span>'
+          +'<br>· Ganado por precio '+(plus>=0?'+':'')+eur(plus)+' ('+pc1(plus/ap*100)+')';
+        if(div>0) h+='<br>· Dividendos cobrados '+eur(div)
+          +'<br>· <b>Ganado en total '+(tot>=0?'+':'')+eur(tot)+' ('+pc1(tot/ap*100)+')</b>';
+      }
       const c=porIdx[i];
       if(c&&c.length){
         h+='<br><span class="kh-tip-c">'+(c.length===1?'Compra':(c.length+' compras'))+'</span>';
@@ -2198,14 +2274,19 @@ function mcAbrirGrafCartera(){
       }
       return h;
     },
-    leyenda:[{c:'#16a34a',t:'Valor de la cartera'+(enAnio?(' · año '+_khAnioTodo):'')},
+    leyenda:[{c:'#16a34a',t:'Valor de la cartera'+(enAnio?(' · '+(_khAnioTodo===_khAnioTodoH?'año ':'años ')+rotAnios):'')},
              {c:'#b45309',t:'Día con compra — pasa cerca del punto y se imanta'}]
              .concat(_MI?[{c:'#b45309',t:'La raya de puntos es el máximo intradía registrado: '+eur(_MI.v)}]:[])
+             .concat(_resLeg())
   });
-  const selA=hueco.querySelector('[data-khanio]');
-  if(selA) selA.addEventListener('change',function(e){ _khAnioTodo=e.target.value; pintaTodo(); });
+  Array.prototype.forEach.call(hueco.querySelectorAll('[data-khanio]'),function(sel){
+    sel.addEventListener('change',function(e){
+      const r=_khRangoAnios(e.target.getAttribute('data-khanio'), e.target.value, _khAnioTodo, _khAnioTodoH);
+      _khAnioTodo=r[0]; _khAnioTodoH=r[1]; pintaTodo();
+    });
+  });
   const btnR=hueco.querySelector('[data-khanioreset]');
-  if(btnR) btnR.addEventListener('click',function(){ _khAnioTodo=''; pintaTodo(); });
+  if(btnR) btnR.addEventListener('click',function(){ _khAnioTodo=''; _khAnioTodoH=''; pintaTodo(); });
   }
 
   /* [15-sep-2026] Khb22 vs IBEX: no es el valor en euros, es cuánto han subido de precio
@@ -2232,19 +2313,18 @@ function mcAbrirGrafCartera(){
        que valga. Los años salen de la propia serie de `khb22Serie`, así que nunca ofrece uno
        sin datos. */
     const aniosComp=[...new Set(d.labels.map(function(l){ return l.slice(0,4); }))].sort(function(a,b){ return b-a; });
-    const enAnioComp=!!_khCompAnio && aniosComp.indexOf(_khCompAnio)>=0;
+    const enAnioComp=!!_khCompAnio && aniosComp.indexOf(_khCompAnio)>=0
+                  && !!_khCompAnioH && aniosComp.indexOf(_khCompAnioH)>=0;
     elP.innerHTML=PERIODOS_COMP.map(p=>'<button type="button" class="kh-rb'+((p[0]===_khCompPeriodo&&!enAnioComp)?' on':'')
       +'" data-khcp="'+p[0]+'">'+p[1]+'</button>').join('')
-      +(aniosComp.length?('<div class="kh-anyo-wrap"><span>Año:</span><select class="kh-anyo'+(enAnioComp?' activo':'')+'" data-khanio>'
-        +'<option value="">— año —</option>'+aniosComp.map(function(a){ return '<option value="'+a+'"'+(a===_khCompAnio?' selected':'')+'>'+a+'</option>'; }).join('')
-        +'</select></div>') : '');
+      +(aniosComp.length?_khSelAnios(aniosComp,_khCompAnio,_khCompAnioH,enAnioComp):'');
     elW.innerHTML=
       '<button type="button" class="kh-rb'+(_khCompPeso==='pond'?' on':'')+'" data-khcw="pond">Ponderado por posición</button>'
       +'<button type="button" class="kh-rb'+(_khCompPeso==='glob'?' on':'')+'" data-khcw="glob">Global (igual peso)</button>';
 
     const serieKhb=d[_khCompPeso];
     let z0, z1=n-1;
-    if(enAnioComp){ z0=_khIdxDeFecha(d.labels,_khCompAnio+'-01-01'); z1=_khIdxHasta(d.labels,_khCompAnio+'-12-31'); if(z1<z0)z1=z0; }
+    if(enAnioComp){ z0=_khIdxDeFecha(d.labels,_khCompAnio+'-01-01'); z1=_khIdxHasta(d.labels,_khCompAnioH+'-12-31'); if(z1<z0)z1=z0; }
     else { const preset=PERIODOS_COMP.find(p=>p[0]===_khCompPeriodo); z0=(preset&&preset[2]>0)?Math.max(0,n-1-preset[2]):0; }
     const dd=iso=>{ const p=String(iso).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]+'/'+p[0]):iso; };
 
@@ -2264,9 +2344,10 @@ function mcAbrirGrafCartera(){
     });
 
     elP.addEventListener('click',function(e){ const b=e.target.closest('[data-khcp]'); if(!b)return;
-      _khCompPeriodo=b.getAttribute('data-khcp'); _khCompAnio=''; pintaComparar(); });
+      _khCompPeriodo=b.getAttribute('data-khcp'); _khCompAnio=''; _khCompAnioH=''; pintaComparar(); });
     elP.addEventListener('change',function(e){ const s=e.target.closest('[data-khanio]'); if(!s)return;
-      _khCompAnio=s.value; pintaComparar(); });
+      const r=_khRangoAnios(s.getAttribute('data-khanio'), s.value, _khCompAnio, _khCompAnioH);
+      _khCompAnio=r[0]; _khCompAnioH=r[1]; pintaComparar(); });
     elW.addEventListener('click',function(e){ const b=e.target.closest('[data-khcw]'); if(!b)return;
       _khCompPeso=b.getAttribute('data-khcw'); pintaComparar(); });
   }
