@@ -1,0 +1,187 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AMS · Nota de Revisión Extraordinaria · Revisión discrecional · sep-2026</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#0078C1;--corp-dark:#005487;--corp-light:#CFE5F3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo Disc.</div>
+      <div class="company-name">Amadeus IT Group, S.A.</div>
+      <div class="badges">
+        <span class="badge badge-alert">Disc. · Revisión Discrecional</span>
+        <span class="badge badge-sig">Revisión discrecional · sep-2026</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">AMS · Mercado Continuo · IBEX 35<br>Fecha: 16-sep-2026<br>Plazo señal: No aplica (discrecional, sin plazo de protocolo)</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">63,62 €</div><div class="kpi-sub">antes 61,68 € (+3,15 %)</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">58,14 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val amber">+9,4 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Precio medio recompra</div><div class="kpi-val green">~52 €/acc</div><div class="kpi-sub">vs PO 63,62 € → acretiva</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Motivo de la revisión discrecional</div>
+  <p>Amadeus inscribió en el Registro Mercantil, el 1-jul-2026, la amortización de 18.927.909 acciones. Por sí solo este hecho <b>no mueve nada</b>: esas acciones se compraron durante 2025 por 1.300,0 M€ y ya estaban en autocartera, es decir, ya estaban fuera del recuento de acciones en circulación que usa el libro; amortizarlas es un acto registral. Lo que sí mueve el precio objetivo son las <b>tres recompras del propio 2026</b>, leídas del informe de resultados del 2T-2026: 16-ene (1.641.000 acc. · 95,7 M€), 27-feb (9.816.086 acc. · 500,0 M€, programa de 500 M€) y 5-may (205.000 acc. · hasta 13,3 M€, plan de empleados). A 30-jun-2026 el capital social queda en 431.571.296 acciones, la autocartera en 11.584.620 (2,68 %) y las acciones en circulación en <b>419.986.676</b>, frente a las 439,38 M que usa hoy el modelo (media ponderada básica de 2025). La deuda financiera neta también sube, de 2.299,4 M€ (31-dic-2025, la del modelo) a <b>2.577,5 M€</b> (30-jun-2026, del propio §10.3 de Vigilancia). Ninguna señal S1–S6 del protocolo se ha disparado: esta revisión la abre el analista para no dejar pasar un ajuste de valoración medible y ya documentado.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Los dos hechos que sustentan la revisión están inscritos en los registros públicos de la CNMV (NIF A-84236934): el programa de recompra de acciones (comunicado el 05-may-2026) y la inscripción de la reducción de capital (comunicada el 01-jul-2026). Las cifras exactas de cada tramo de recompra, el capital social resultante y la deuda financiera neta a 30-jun-2026 se han tomado del informe oficial de resultados del 2T-2026 (<i>2026 Q2 Resultados Amadeus.pdf</i>, carpeta Informes/Trimestrales/), no de prensa ni de una búsqueda puntual.</p>
+  <div class="cb-src"><b>Fuentes:</b> <a href="https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-84236934" target="_blank">CNMV · Programa de recompra de acciones (05-may-2026)</a> · <a href="https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-84236934" target="_blank">CNMV · Inscripción de la reducción de capital (01-jul-2026)</a> · Informe 2T-2026 de Amadeus (Informes/Trimestrales/).</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">La amortización del 1-jul-2026 es un acto registral, ya descontado</div>
+    <div class="seg-body">Las 18,93 M de acciones amortizadas se compraron en 2025 y ya estaban fuera del recuento de circulación que usa el modelo (media ponderada básica del ejercicio). Amortizarlas no cambia ni el número de acciones que ve el libro ni la deuda: es papeleo societario sobre un hecho económico que ya había ocurrido el año anterior.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Las recompras de 2026 sí cambian, de forma permanente, el denominador</div>
+    <div class="seg-body">Los tres tramos de 2026 (95,7 + 500,0 + hasta 13,3 M€) sí reducen las acciones en circulación de forma definitiva, de 439,38 M a 419,99 M (−4,4 %), y la deuda financiera neta sube en paralelo un 12,1 % (2.299,4 → 2.577,5 M€) porque parte de la recompra se ha financiado con caja/deuda en vez de solo con FCL. Es un cambio de balance que no revierte solo y que la síntesis de valoración del §6.5 no recoge hasta que se cierre el ejercicio 2026.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> no hay deterioro del negocio que diagnosticar aquí — es un ajuste técnico y verificable de la base accionarial y de la deuda, de magnitud moderada (+3,15 % sobre el PO base) y sentido claramente favorable, no una alarma. Confianza alta: los dos datos de entrada (acciones y deuda) están en un informe oficial ya publicado, no en una proyección.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">El riesgo «Asignación de capital» ya está en el §8.1 desde la Nota del 30-ago-2026 (apalancamiento por la compra de IDEMIA Public Security). Las recompras de 2026 no añaden un riesgo nuevo a la matriz: elevan algo la deuda (0,94x EBITDA en el modelo vigente) pero dentro del apalancamiento bajo del arquetipo, y ningún pre-mortem del §8.2 ha empezado su cadena por este motivo.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">La tesis sigue viva y no cambia de naturaleza: sigue siendo una historia de re-rating de múltiplos y calidad del negocio, no de crecimiento. Lo único que se toca son las cuatro celdas canónicas del §9.3 (PO bear/base/bull, banda de entrada y stop), reescaladas +3,15 % porque el efecto de acciones y deuda es un dato de balance común a los tres escenarios, no algo que dependa de la hipótesis de crecimiento de cada uno — por eso los porcentajes bear/bull sobre el PO base (−20,1 % / +12,4 %) no cambian, solo los euros absolutos.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Ninguna</span> <span class="pill g">no aplica</span> el gatillo es una corrección de acciones en circulación y deuda neta sobre la síntesis de valoración (§6.5), no un evento de calidad contable (Forense), reinversión (ROIIC) ni de valoración por múltiplos exigidos (Reverse DCF). El Reverse DCF queda con los datos del 30-ago-2026 (439,38 M acc., 2.299,4 M€ deuda) y se recalculará junto con el resto del modelo en la Actualización Anual, cuando el ejercicio 2026 cierre.</div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Amadeus por primera vez, a 58,14 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?</div>
+  <div class="anchor-a">Watchlist, no compra. El PO ajustado (63,62 €) sigue dando solo un +9,4 % de margen de seguridad sobre la cotización, por debajo del +15 % que exige COMPRAR, y la cotización sigue un 5,1 % por encima del techo de la banda de entrada (55,32 €) — antes de esta revisión ese hueco era del 8,4 %, así que el ajuste acerca la banda a la cotización, pero no la cruza. Es la misma respuesta que ya daba la tesis en pie: no vendería (la calidad y el moat no han cambiado), pero tampoco compraría hoy.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box ajustar">
+  <div class="veredicto-word">AJUSTA PO / BANDA / STOP</div>
+  <div class="veredicto-sub">PO base 61,68 € → <b>63,62 €</b> (+3,15 %) · PO bear 49,28 € → 50,83 € · PO bull 69,31 € → 71,49 € · Banda de entrada 49,28–53,63 € → 50,83–55,32 € · Stop 29,54 € → 30,47 €. Veredicto sin cambios: MANTENER.</div>
+  <div class="action-line">Acción: Mantener la posición si existe (no hay red flag ni deterioro); no hay precio al que la tesis autorice comprar hoy. Actualizado ya: AMS.json (PO/banda/stop/fecha), §9.3 de Tesis de Inversión y el apunte del §10.5 de Vigilancia (fila 99, 16-sep-2026). Valoración!C21/C23 del §6.1 NO se tocan — son fórmulas ligadas al ejercicio anual cerrado y se actualizarán solas en la Actualización Anual de 2026, que además deberá incorporar IDEMIA Public Security.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="fuentes"><b>Fuentes externas:</b><ul><li><a href="https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-84236934" target="_blank">CNMV · Programa de recompra de acciones — Amadeus IT Group (05-may-2026)</a></li><li><a href="https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-84236934" target="_blank">CNMV · Inscripción de la reducción de capital — Amadeus IT Group (01-jul-2026)</a></li></ul></div>
+
+<div class="disclaimer">Este documento es una herramienta de análisis personal dentro del Método KH&Claude y no constituye asesoramiento de inversión. Elaborado por Carlos HB y Claude IA. Cierra el apunte discrecional del §10.5 de Vigilancia (fila 99, 16-sep-2026, decisión AJUSTA PO) y actualiza en consecuencia AMS.json y el §9.3 de Tesis de Inversión. Amadeus IT Group, S.A. · AMS · Mercado Continuo (IBEX 35).</div>
+
+</div></body></html>

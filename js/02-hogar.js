@@ -340,6 +340,14 @@ function _infEnsurePrint(){
       +'#informePrint .infHdr .tt{text-align:right}'
       +'#informePrint .infHdr .tt h1{font-size:30px;margin:0;color:#1E3A5F;letter-spacing:.3px}'
       +'#informePrint .infHdr .tt .sub{font-size:14px;color:#5b6b7d;margin-top:4px}'
+      /* [16-sep-2026] .infHdr era del diseño ANTERIOR de la portada y ya no lo genera
+         infHeaderHTML (usa .infCover) -- por eso el logo salia sin ningun limite de
+         tamano (a resolucion nativa del fichero) y se veia enorme al imprimir. */
+      +'#informePrint .infCover{text-align:center;padding-bottom:8px;margin-bottom:2px}'
+      +'#informePrint .infCover img{height:64px;width:auto;display:inline-block;margin-bottom:6px}'
+      +'#informePrint .covTitle{font-size:26px;margin:4px 0 2px;color:#1E3A5F;letter-spacing:.3px}'
+      +'#informePrint .covSub{font-size:13px;color:#5b6b7d}'
+      +'#informePrint .covRule{height:3px;background:linear-gradient(90deg,#1E3A5F 0 55%,#2E7D42 55% 100%);margin:8px auto 6px;max-width:420px;border-radius:2px}'
       +'#informePrint .accent{height:4px;background:linear-gradient(90deg,#1E3A5F 0 55%,#2E7D42 55% 100%);margin:0 0 6px}'
       +'#informePrint .metaline{font-size:12px;color:#6b7280;margin:4px 0 0}'
       +'#informePrint h1{font-size:30px;margin:0}'

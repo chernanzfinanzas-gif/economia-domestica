@@ -447,7 +447,6 @@ function buildProyeccion(ctx){
   ];
   var inner='';
   inner+='<h2>Proyección de patrimonio</h2>'+_infKpis(_kp);
-  inner+=_infChartsWrap([chart,chartDiv,chartRep]);
   var trs='';
   ser.forEach(function(r){
     var FI=_fi?_fi.serie[r.anio]:null; var P=FI||r;
@@ -463,6 +462,10 @@ function buildProyeccion(ctx){
   });
   var thead='<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera</th><th class="num">Patrimonio</th><th class="num">Nóminas/año</th><th class="num">Div./año</th><th class="num">Extra</th><th class="num">Ahorro</th><th class="num">→ Inv.</th><th class="num">→ Gasto</th><th class="num">→ Efec.</th><th class="num">Disponible/mes</th></tr>';
   inner+='<h2>Detalle año a año</h2><table><thead>'+thead+'</thead><tbody>'+trs+'</tbody></table>';
+  /* [16-sep-2026] Los graficos van DESPUES de la tabla (a peticion de Carlos): si la tabla
+     no cabe entera en la primera hoja, que los graficos caigan a la pagina 2 en vez de
+     interponerse entre los KPI y el detalle año a año. */
+  inner+='<h2>Gráficos</h2>'+_infChartsWrap([chart,chartDiv,chartRep]);
   inner+='<div class="resumen"><p class="muted">Fila <b>'+(_fi?('Plan (foto fijada el '+((typeof _proyFechaCorta==='function')?_proyFechaCorta(_fi.fecha):_fi.fecha)+')'):'Plan (pronóstico vivo)')+'</b>. Fila <b>Real</b> sale de tus movimientos y cierra el 31-dic (verde = mejor que el plan, rojo = peor); el año en curso va parcial (YTD). El ahorro del año (nóminas + dividendo + extra) se reparte en tres: → Inversión y → Gasto los decides tú — → Gasto sube el disponible de ese mismo año — y → Efectivo es el resto, automático, que pasa a efectivo el 1 de enero siguiente.</p></div>';
   return _infDocWrap('Informe de proyección',['A fecha de '+ddmmyyyy(_infHoyS())],inner);
 }
