@@ -427,7 +427,12 @@ function buildProyeccion(ctx){
   var fin=ser[ser.length-1];
   var jub=ser.filter(function(r){return r.edad>=c.edadFinAportar;})[0]||fin;
   var _fi=(c.fotoInicial&&c.fotoInicial.serie)?c.fotoInicial:null;
-  var _pf=function(v){return Math.round(num(v)).toLocaleString('es-ES');};
+  /* [16-sep-2026] toLocaleString('es-ES') NO pone separador de millares por debajo de
+     10.000 (es asi tambien en el navegador: es una rareza real del propio Intl, no un
+     bug de aqui) -- por eso en el PDF una fila enseñaba '9188' al lado de '281.835'.
+     Para un informe que se entrega a clientes eso desentona; este formateador SIEMPRE
+     pone el punto de millar, sea cual sea la cifra. */
+  var _pf=function(v){ v=Math.round(num(v)); var neg=v<0; v=Math.abs(v); var s=String(v).replace(/\B(?=(\d{3})+(?!\d))/g,'.'); return (neg?'-':'')+s; };
   var labels=ser.map(function(r){return String(r.anio);});
   var pSerie=ser.map(function(r){ var FI=_fi?_fi.serie[r.anio]:null; return FI||r; });
   var chart=(typeof gLines==='function')?gLines('Patrimonio del plan',labels,[{name:'Patrimonio',color:'#2563eb',vals:pSerie.map(function(r){return r.patrimonio;})}]):'';
@@ -443,7 +448,7 @@ function buildProyeccion(ctx){
     ['Plusvalía latente a los '+Math.round(c.edadFin),fmt(fin.plusvalia)],
     ['Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',fmt(jub.rentaMes)],
     ['Horizonte',ser.length+' años'],
-    ['Plan',_fi?('fijado '+((typeof _proyFechaCorta==='function')?_proyFechaCorta(_fi.fecha):_fi.fecha)):'editable (pronóstico vivo)']
+    ['Plan',_fi?('Fijado '+((typeof _proyFechaCorta==='function')?_proyFechaCorta(_fi.fecha):_fi.fecha)):'Vivo (editable)']
   ];
   var inner='';
   inner+='<h2>Proyección de patrimonio</h2>'+_infKpis(_kp);

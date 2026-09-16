@@ -1,183 +1,184 @@
 {
- "schemaVersion": 8,
- "ticker": "AMS",
- "empresa": "Amadeus IT Group, S.A.",
- "fecha": "2026-09-16",
- "rating": "AA",
- "score": 81.9,
- "decision": "MANTENER",
- "metodoValoracion": "Descuento de flujos (65 % del peso) con apoyo de múltiplos históricos (35 %) — arquetipo ESCALABLES. El PO oficial son 63,62 €: los 61,68 € de la síntesis ponderada original del §6.5, ajustados un +3,15 % en la revisión discrecional del 16-sep-2026 (§9.3 de Tesis de Inversión) por la corrección de acciones en circulación y deuda neta a 30-jun-2026 tras las recompras de 2026 — el §6.5 en sí no se ha tocado, y se recalculará solo con los datos cerrados de 2026 en la Actualización Anual. El DCF por sí solo da 52,93 € en su escenario base (dato del §6.5 sin ajustar); los múltiplos, que valoran Amadeus entre 74,5 y 83,7 €, son los que elevan el objetivo por encima de esa cifra.",
- "poBear": 50.83,
- "poBase": 63.62,
- "poBull": 71.49,
- "entMin": 50.83,
- "entMax": 55.32,
- "stop": 30.47,
- "dpaPrevisto": 1.54,
- "moat": "MODERADO · 73,5/100 · costes de cambio 85, escala 80, intangibles 75, red 60, costes 65",
- "catalizadores": [
-  "Re-rating hacia sus propios múltiplos históricos: cotiza a 18,1 veces beneficios frente a una media decenal de 26 (+5,82 % del PO)",
-  "Recuperación del volumen de reservas por encima de la guía revisada del 31-jul-2026 (+4,02 %)",
-  "Contención de costes convertida en margen: medio punto de margen EBITDA (+1,62 %)",
-  "Desapalancamiento adicional de 500 M€ desde las 0,94 veces EBITDA actuales (+1,48 %)",
-  "Ejecución del programa de recompra de 500 M€ anunciado en febrero de 2026 (+0,36 %)"
- ],
- "riesgos": [
-  "Desintermediación por NDC y venta directa de las aerolíneas (Tecnológico, probabilidad media, −10 a −20 %)",
-  "Contracción del tráfico aéreo mundial (Macroeconómico, probabilidad ALTA, −20 a −35 %) — materializándose: −2,8 % en el 2T 2026",
-  "Concentración del cliente en pocas aerolíneas grandes (Comercial, media, −10 a −20 %)",
-  "Plataformas de IA que se coloquen como capa de reserva (Tecnológico, baja-media, −3 a −9 %)",
-  "Escrutinio regulatorio sobre la concentración de la distribución (Regulatorio, baja, −3 a −9 %)",
-  "Fallo grave o brecha de seguridad en sistemas críticos (Ciberseguridad, baja-media, −5 a −10 %)",
-  "Exposición a divisa: se factura en varias monedas y se reporta en euros (Divisa, media, −3 a −6 %)",
-  "Asignación de capital: compras apalancadas que suban la deuda sin aportar EBITDA en el mismo plazo (Media, −3 a −5 %) — RIESGO NUEVO, abierto por la Nota de Revisión Extraordinaria del 30-ago-2026. El 23-jul-2026 Amadeus comunicó a la CNMV la compra de IDEMIA Public Security por 1.200 M€ (earn-out hasta 150 M€) con préstamo puente sindicado y cierre previsto a mediados de 2027; el análisis se había cerrado sin nombrarla porque no consolida hasta 2027. Derivado del propio libro: deuda de 1,00x a 1,47x EBITDA, margen del grupo diluido 2,1 pp (37,6 % → 35,4 %), y precio objetivo −3,54 % sin aportación o −2,53 % consolidándola. El PO oficial NO se ajusta: entra por la Actualización Anual."
- ],
- "bull": "Acumulando los cuatro primeros catalizadores a la vez —volumen +4 %, margen +0,5 pp, re-rating de múltiplos y desapalancamiento— el precio objetivo sube a 71,49 €, un 12,4 % sobre el base y un 19,2 % sobre la cotización.",
- "bear": "Perturbando el modelo con el riesgo dominante del §8.1 —la contracción del tráfico aéreo— en su tramo alto, el precio objetivo cae a 50,83 €, un 20,1 % por debajo del base. Es también el suelo de la banda de entrada.",
- "resumen": "Amadeus es la infraestructura sobre la que se reservan los viajes del mundo: margen EBITDA del 37,6 %, ROIC del 19,7 % contra un coste de capital del 8,3 % y deuda de 0,94 veces EBITDA. Calidad AA con un moat moderado (73,5) sostenido por unos costes de cambio de 85 sobre 100. El precio objetivo son 63,62 € contra una cotización de 58,14 €: un margen del +9,42 %, suficiente para MANTENER y lejos del 15 % que exige comprar; además la acción está un 5,1 % por encima del techo de la banda de entrada (50,83–55,32 €), así que hoy no hay precio al que la tesis autorice comprar. Dos cautelas: el descuento de flujos por sí solo da 52,93 €, de modo que parte del recorrido depende de que el mercado vuelva a pagar los múltiplos de su propia década; y la señal única de la tesis —el volumen de reservas— lleva dos trimestres cayendo (−0,2 % y −7,6 % en 2026), con una revisión extraordinaria abierta. El matiz: el dinero no ha seguido al volumen, porque los ingresos suben un 2,3 % y el margen mejora.",
- "confianza": {
-  "score": 92,
-  "nivel": "A",
-  "motivos": [
-   "4 dato(s) secundario(s) en 'Pte. Revisión' (−8)"
+  "schemaVersion": 8,
+  "ticker": "AMS",
+  "empresa": "Amadeus IT Group, S.A.",
+  "fecha": "2026-09-16",
+  "rating": "AA",
+  "score": 81.9,
+  "decision": "COMPRAR",
+  "metodoValoracion": "Descuento de flujos (65 % del peso) con apoyo de múltiplos históricos (35 %) — arquetipo ESCALABLES. El PO oficial son 63,62 €: los 61,68 € de la síntesis ponderada original del §6.5, ajustados un +3,15 % en la revisión discrecional del 16-sep-2026 (§9.3 de Tesis de Inversión) por la corrección de acciones en circulación y deuda neta a 30-jun-2026 tras las recompras de 2026 — el §6.5 en sí no se ha tocado, y se recalculará solo con los datos cerrados de 2026 en la Actualización Anual. El DCF por sí solo da 52,93 € en su escenario base (dato del §6.5 sin ajustar); los múltiplos, que valoran Amadeus entre 74,5 y 83,7 €, son los que elevan el objetivo por encima de esa cifra.",
+  "poBear": 50.83,
+  "poBase": 63.62,
+  "poBull": 71.49,
+  "entMin": 50.83,
+  "entMax": 55.32,
+  "stop": 30.47,
+  "dpaPrevisto": 1.54,
+  "moat": "MODERADO · 73,5/100 · costes de cambio 85, escala 80, intangibles 75, red 60, costes 65",
+  "catalizadores": [
+    "Re-rating hacia sus propios múltiplos históricos: cotiza a 18,1 veces beneficios frente a una media decenal de 26 (+5,82 % del PO)",
+    "Recuperación del volumen de reservas por encima de la guía revisada del 31-jul-2026 (+4,02 %)",
+    "Contención de costes convertida en margen: medio punto de margen EBITDA (+1,62 %)",
+    "Desapalancamiento adicional de 500 M€ desde las 0,94 veces EBITDA actuales (+1,48 %)",
+    "Ejecución del programa de recompra de 500 M€ anunciado en febrero de 2026 (+0,36 %)"
   ],
-  "sensibleASupuestos": false,
-  "reglaDura": {
-   "bloqueaCompraEnFirme": false,
-   "motivo": "",
-   "accion": null
-  },
-  "calculadoEl": "2026-08-30"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": true,
-  "banda": {
-   "p10": 49.28,
-   "p50": 61.68,
-   "p90": 69.31
-  },
-  "sensibilidad": {
-   "sobre": "sintesis",
-   "regla": "F100",
-   "poMin": 58.16,
-   "poMax": 67.35,
-   "poBase": 61.68,
-   "cotizacion": 58.14,
-   "cotizacionBase": "actual",
-   "componente": "DCF Base",
-   "pesoPerturbado": 0.35,
-   "componentesIntactos": 9,
-   "dcf": {
-    "poMin": 42.87,
-    "poMax": 69.14,
-    "poBase": 52.934744918152
-   },
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 0.0,
-   "mdsMax": 15.8
-  },
-  "beta": {
-   "capm": 0.954,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 9 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
-   "la cotización (58.14) queda por DEBAJO de toda la banda del precio objetivo de síntesis [58.16–67.35] → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "para contraste, el DCF puro (§6.3) se mueve en [42.87–69.14] € alrededor de 52.93 €: es la sensibilidad del MODELO, no la del precio objetivo",
-   "ojo al leerlo junto a la banda de escenarios [49.28–69.31] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen",
-   "matiz: el precio objetivo de síntesis la ve robustamente barata en todo el rango, pero la decisión oficial es MANTENER"
+  "riesgos": [
+    "Desintermediación por NDC y venta directa de las aerolíneas (Tecnológico, probabilidad media, −10 a −20 %)",
+    "Contracción del tráfico aéreo mundial (Macroeconómico, probabilidad ALTA, −20 a −35 %) — materializándose: −2,8 % en el 2T 2026",
+    "Concentración del cliente en pocas aerolíneas grandes (Comercial, media, −10 a −20 %)",
+    "Plataformas de IA que se coloquen como capa de reserva (Tecnológico, baja-media, −3 a −9 %)",
+    "Escrutinio regulatorio sobre la concentración de la distribución (Regulatorio, baja, −3 a −9 %)",
+    "Fallo grave o brecha de seguridad en sistemas críticos (Ciberseguridad, baja-media, −5 a −10 %)",
+    "Exposición a divisa: se factura en varias monedas y se reporta en euros (Divisa, media, −3 a −6 %)",
+    "Asignación de capital: compras apalancadas que suban la deuda sin aportar EBITDA en el mismo plazo (Media, −3 a −5 %) — RIESGO NUEVO, abierto por la Nota de Revisión Extraordinaria del 30-ago-2026. El 23-jul-2026 Amadeus comunicó a la CNMV la compra de IDEMIA Public Security por 1.200 M€ (earn-out hasta 150 M€) con préstamo puente sindicado y cierre previsto a mediados de 2027; el análisis se había cerrado sin nombrarla porque no consolida hasta 2027. Derivado del propio libro: deuda de 1,00x a 1,47x EBITDA, margen del grupo diluido 2,1 pp (37,6 % → 35,4 %), y precio objetivo −3,54 % sin aportación o −2,53 % consolidándola. El PO oficial NO se ajusta: entra por la Actualización Anual."
   ],
-  "calculadoEl": "2026-08-30"
- },
- "dividendSafety": {
-  "score": 82,
-  "banda": "Muy seguro",
-  "componentes": {
-   "C1": 31,
-   "C2": 13,
-   "C3": 20,
-   "C4": 3,
-   "C5": 15
+  "bull": "Acumulando los cuatro primeros catalizadores a la vez —volumen +4 %, margen +0,5 pp, re-rating de múltiplos y desapalancamiento— el precio objetivo sube a 71,49 €, un 12,4 % sobre el base y un 19,2 % sobre la cotización.",
+  "bear": "Perturbando el modelo con el riesgo dominante del §8.1 —la contracción del tráfico aéreo— en su tramo alto, el precio objetivo cae a 50,83 €, un 20,1 % por debajo del base. Es también el suelo de la banda de entrada.",
+  "resumen": "Amadeus es la infraestructura sobre la que se reservan los viajes del mundo: margen EBITDA del 37,6 %, ROIC del 19,7 % contra un coste de capital del 8,3 % y deuda de 0,94 veces EBITDA. Calidad AA con un moat moderado (73,5) sostenido por unos costes de cambio de 85 sobre 100. El precio objetivo son 63,62 € y el cierre del 15-sep-2026 fue 54,04 €: un margen del +17,73 %, dentro de la banda de entrada (50,83-55,32 €) y por encima del 15 % que exige COMPRAR. Dos cautelas, ninguna bloqueante: el descuento de flujos por sí solo da 52,93 €, de modo que parte del recorrido depende de que el mercado vuelva a pagar los múltiplos de su propia década; y la señal única de la tesis -el volumen de reservas- lleva dos trimestres cayendo (-0,2 % y -7,6 % en 2026), con un hueco de 4,8 puntos frente al tráfico aéreo global sin explicación confirmada, en revisión hasta el 9M-2026. El matiz: el dinero no ha seguido al volumen, porque los ingresos suben un 2,3 % y el margen mejora.",
+  "confianza": {
+    "score": 92,
+    "nivel": "A",
+    "motivos": [
+      "4 dato(s) secundario(s) en 'Pte. Revisión' (−8)"
+    ],
+    "sensibleASupuestos": false,
+    "reglaDura": {
+      "bloqueaCompraEnFirme": false,
+      "motivo": "",
+      "accion": null
+    },
+    "calculadoEl": "2026-08-30"
   },
-  "shareholderYield": 4.35,
-  "topeDuro": {
-   "activo": false,
-   "motivo": ""
+  "robustez": {
+    "nivel": "solida",
+    "sobreviveDecision": true,
+    "matizada": true,
+    "banda": {
+      "p10": 49.28,
+      "p50": 61.68,
+      "p90": 69.31
+    },
+    "sensibilidad": {
+      "sobre": "sintesis",
+      "regla": "F100",
+      "poMin": 58.16,
+      "poMax": 67.35,
+      "poBase": 61.68,
+      "cotizacion": 58.14,
+      "cotizacionBase": "actual",
+      "componente": "DCF Base",
+      "pesoPerturbado": 0.35,
+      "componentesIntactos": 9,
+      "dcf": {
+        "poMin": 42.87,
+        "poMax": 69.14,
+        "poBase": 52.934744918152
+      },
+      "ejeCoste": "WACC",
+      "pertCoste": 1.0,
+      "pertOtro": 0.5,
+      "mdsMin": 0.0,
+      "mdsMax": 15.8
+    },
+    "beta": {
+      "capm": 0.954,
+      "ref2": null,
+      "aviso": null
+    },
+    "motivos": [
+      "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 9 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+      "la cotización (58.14) queda por DEBAJO de toda la banda del precio objetivo de síntesis [58.16–67.35] → infravalorada en todo el rango; decisión de compra ROBUSTA",
+      "para contraste, el DCF puro (§6.3) se mueve en [42.87–69.14] € alrededor de 52.93 €: es la sensibilidad del MODELO, no la del precio objetivo",
+      "ojo al leerlo junto a la banda de escenarios [49.28–69.31] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen",
+      "matiz: el precio objetivo de síntesis la ve robustamente barata en todo el rango, pero la decisión oficial es MANTENER"
+    ],
+    "calculadoEl": "2026-08-30"
   },
-  "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.48x / FCL 2.25x (3a OE 2.80x) → 31/35",
-   "C2 payout BN ord.: 46% (3a 40%) → 13/15",
-   "C3 balance parcial → 20/20",
-   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
-   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-  ],
-  "calculadoEl": "2026-08-30"
- },
- "forense": {
-  "aplica": true,
-  "piotroski": {
-   "score": 6,
-   "banda": "medio",
-   "detalle": {
-    "roa_pos": 1,
-    "cfo_pos": 1,
-    "roa_up": 1,
-    "accrual": 1,
-    "lever_dn": 0,
-    "liquid_up": 0,
-    "no_dilu": 0,
-    "margin_up": 1,
-    "turn_up": 1
-   },
-   "nota": "margen=bruto"
+  "dividendSafety": {
+    "score": 82,
+    "banda": "Muy seguro",
+    "componentes": {
+      "C1": 31,
+      "C2": 13,
+      "C3": 20,
+      "C4": 3,
+      "C5": 15
+    },
+    "shareholderYield": 4.35,
+    "topeDuro": {
+      "activo": false,
+      "motivo": ""
+    },
+    "motivos": [
+      "C1 cobertura dividendo ord.: OE 2.48x / FCL 2.25x (3a OE 2.80x) → 31/35",
+      "C2 payout BN ord.: 46% (3a 40%) → 13/15",
+      "C3 balance parcial → 20/20",
+      "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+      "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+      "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+    ],
+    "calculadoEl": "2026-08-30"
   },
-  "altman": {
-   "z": 6.37,
-   "zona": "segura"
+  "forense": {
+    "aplica": true,
+    "piotroski": {
+      "score": 6,
+      "banda": "medio",
+      "detalle": {
+        "roa_pos": 1,
+        "cfo_pos": 1,
+        "roa_up": 1,
+        "accrual": 1,
+        "lever_dn": 0,
+        "liquid_up": 0,
+        "no_dilu": 0,
+        "margin_up": 1,
+        "turn_up": 1
+      },
+      "nota": "margen=bruto"
+    },
+    "altman": {
+      "z": 6.37,
+      "zona": "segura"
+    },
+    "beneish": {
+      "m": -2.82,
+      "senal": "sin indicios",
+      "aproximado": [
+        "SGAI"
+      ]
+    },
+    "sloan": {
+      "accruals": -7.4,
+      "senal": "normal"
+    },
+    "flags": [],
+    "veto": false,
+    "vetoMotivos": [],
+    "calculadoEl": "2026-08-30"
   },
-  "beneish": {
-   "m": -2.82,
-   "senal": "sin indicios",
-   "aproximado": [
-    "SGAI"
-   ]
+  "reverseDcf": {
+    "aplica": true,
+    "gImplicito": 6.3,
+    "gIntrinseco": 0.8,
+    "veredicto": "HEROICO",
+    "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+    "calculadoEl": "2026-08-30",
+    "entradas": {
+      "fcl": 1312.87,
+      "wacc": 8.2677,
+      "gTV": 2.0,
+      "ratioG2": 0.7,
+      "acciones": 439.38,
+      "deudaNeta": 2299.4,
+      "modo": "EV",
+      "precioBase": 58.14,
+      "validado": true,
+      "desviacion": -0.004,
+      "gBase": 6.296,
+      "fechaBase": "2026-08-30",
+      "congeladoEl": "2026-08-31"
+    }
   },
-  "sloan": {
-   "accruals": -7.4,
-   "senal": "normal"
-  },
-  "flags": [],
-  "veto": false,
-  "vetoMotivos": [],
-  "calculadoEl": "2026-08-30"
- },
- "reverseDcf": {
-  "aplica": true,
-  "gImplicito": 6.3,
-  "gIntrinseco": 0.8,
-  "veredicto": "HEROICO",
-  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-08-30",
-  "entradas": {
-   "fcl": 1312.87,
-   "wacc": 8.2677,
-   "gTV": 2.0,
-   "ratioG2": 0.7,
-   "acciones": 439.38,
-   "deudaNeta": 2299.4,
-   "modo": "EV",
-   "precioBase": 58.14,
-   "validado": true,
-   "desviacion": -0.004,
-   "gBase": 6.296,
-   "fechaBase": "2026-08-30",
-   "congeladoEl": "2026-08-31"
-  }
- }
+  "cambiosDesdeUltimaRevision": "Dos revisiones discrecionales el 16-sep-2026. (1) PO base: 61,68 € → 63,62 € (+3,15 %) · banda: 49,28-53,63 € → 50,83-55,32 € · stop: 29,54 € → 30,47 €, por la corrección de acciones en circulación y deuda neta tras las recompras de 2026 (§9.3). (2) decision: MANTENER → COMPRAR: el cierre del 15-sep (54,04 €) entró en la banda de entrada y el margen de seguridad (17,73 %) superó el 15 % exigido; único motivo que frenaba el veredicto (precio sobre el techo de banda) desaparecido. Reserva abierta y no bloqueante: hueco de reservas (Amadeus -7,6 % 2T vs tráfico global -2,8 %) sin confirmar como estructural; revisar con el 9M-2026. El §6.5 no se toca; se recalculará con datos cerrados de 2026 en la Actualización Anual."
 }

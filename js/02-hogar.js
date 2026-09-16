@@ -368,9 +368,16 @@ function _infEnsurePrint(){
       +'#informePrint .sec{margin-bottom:6px}'
       +'#informePrint .foot{margin-top:22px;border-top:1px solid #d7dee6;padding-top:6px;font-size:10px;color:#94a3b8;display:flex;justify-content:space-between}'
       +'#informePrint .infDoc+.infDoc{page-break-before:always;break-before:page}'
-      +'#informePrint .infCharts{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 12px}'
-      +'#informePrint .infCharts>*{flex:1 1 240px;min-width:220px;max-width:370px}'
-      +'#informePrint .infCharts .card{border:1px solid #dde3ea;border-radius:8px;padding:8px;background:#fff;margin:0;box-shadow:none}'
+      /* [16-sep-2026] Sin esto, cuando la fila de graficos no cabe entera en lo que
+         queda de pagina, Chrome la parte a mitad de un grafico (un SVG no se puede
+         cortar como el texto) y deja cachos sueltos entre las dos hojas. Con
+         break-inside:avoid en la fila Y en cada tarjeta, si no caben los tres juntos
+         se empujan ENTEROS a la pagina siguiente. */
+      +'#informePrint .infCharts{display:flex;flex-wrap:wrap;gap:10px;margin:6px 0 12px;break-inside:avoid;page-break-inside:avoid}'
+      +'#informePrint .infCharts>*{flex:1 1 240px;min-width:220px;max-width:370px;break-inside:avoid;page-break-inside:avoid}'
+      +'#informePrint .infCharts .card{border:1px solid #dde3ea;border-radius:8px;padding:8px;background:#fff;margin:0;box-shadow:none;break-inside:avoid;page-break-inside:avoid}'
+      /* Cebra en las tablas largas (no toca las filas ya coloreadas por su clase/estilo propio) */
+      +'#informePrint tbody tr:nth-child(even):not(.sub):not(.tot){background:#f9fafb}'
       +'#informePrint svg{max-width:100%;height:auto}';
     document.head.appendChild(st);
   }
