@@ -1,749 +1,749 @@
 {
   "schemaVersion": 2,
   "ticker": "AENA",
-  "empresa": "Aena, S.M.E., S.A.",
+  "empresa": "Aena",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-27",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "1T",
+      "fecha": "2023-04-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "Q1",
-      "resumen": "Arranque de recuperación post-COVID: EBITDA 368,6M (+153%), ingresos 1.026,7M (+34%). DN/EBITDA LTM 2,97x en descenso. Tesis intacta.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 53.6
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 41.6
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 334.4
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 1026.7
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 34.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 368.6
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 153.2
+          "nombre": "Margen EBITDA (%)",
+          "valor": 35.9
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 133.6
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 2.97
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 511.9
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 9.95
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 334.4
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 142.2
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 60.6
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 53.645869
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.233
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-27",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
       "periodoDisplay": "S1",
-      "resumen": "Semestre sólido: EBITDA 1.170,3M (+49,5%), margen 50,2%, BNA 607,7M. DN/EBITDA baja a 2,89x. Tráfico de verano récord.",
+      "fecha": "2023-07-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 129.4
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 23.4
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 710.7
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 2333.2
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 24.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 1170.3
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 49.5
+          "nombre": "Margen EBITDA (%)",
+          "valor": 50.2
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 607.7
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 2.89
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 1256.2
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 9.95
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 710.7
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 287.5
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 144.1
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 129.447124
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.49
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-30",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
       "periodoDisplay": "9M",
-      "resumen": "9M muy fuertes: EBITDA 2.113,6M (+38,8%), margen 55,9%, BNA 1.139,1M. Desapalancamiento a 2,38x.",
+      "fecha": "2023-11-02",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 216.6
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 17.6
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1127.8
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 3779.1
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 19.9
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 2113.6
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 38.8
+          "nombre": "Margen EBITDA (%)",
+          "valor": 55.9
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1139.1
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 2.38
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 2082.6
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 9.95
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1127.8
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 442.3
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 240.0
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 216.647764
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.206
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-27",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
       "periodoDisplay": "FY",
-      "resumen": "Recuperación fuerte post-COVID: tráfico récord (283,2M), EBITDA +35% e ingresos +20%. DN/EBITDA baja a 3,1x. Tesis intacta.",
+      "fecha": "2024-02-28",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 283.2
+          "nombre": "Ingresos totales (M€)",
+          "valor": 5141.8
         },
         {
-          "nombre": "%Var Pax",
-          "valor": 16.2
+          "nombre": "EBITDA reportado (M€)",
+          "valor": 3022.6
         },
         {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1534.5
+          "nombre": "Margen EBITDA (%)",
+          "valor": 58.8
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 5055.2
-        },
-        {
-          "nombre": "%Var Ingresos",
-          "valor": 20.4
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 2760.3
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 35.2
-        },
-        {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1630.8
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 2.25
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 2768.3
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 9.95
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1534.5
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 616.7
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 314.1
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 283.195399
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.419
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
       "fecha": "2024-04-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "Q1",
-      "resumen": "Consolidación: EBITDA 581,1M (+57,7%), margen 47,1%, BNA 261,0M. DN/EBITDA 1,79x. Momentum intacto.",
+      "resumen": "Ingresos totales +20.1 %, EBITDA +57.7 %, Beneficio neto +95.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 47.1 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 13.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 60.8
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 13.4
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 399.2
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 1233.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 20.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 581.1
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 57.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 47.1
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 261.0
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.79
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 622.3
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 399.2
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 169.6
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 74.6
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 60.750987
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.571
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-30",
+      "periodoDisplay": "S1",
+      "fecha": "2024-07-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "S1",
-      "resumen": "Semestre récord: EBITDA 1.555,3M (+32,9%), margen 56,6%, BNA 808,6M. DN/EBITDA 1,89x.",
+      "resumen": "Ingresos totales +17.7 %, EBITDA +32.9 %, Beneficio neto +33.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 56.6 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 11.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 144.2
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 11.4
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 834.3
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 2746.4
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 17.7
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 1555.3
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 32.9
+          "nombre": "Margen EBITDA (%)",
+          "valor": 56.6
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 808.6
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.89
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 1462.0
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 834.3
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 361.0
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 172.7
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 144.151231
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.788
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-29",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "9M",
-      "resumen": "9M excelentes: EBITDA 2.663,3M (+26,0%), margen 60,6%, BNA 1.449,8M. DN/EBITDA 1,60x, apalancamiento conservador.",
+      "resumen": "Ingresos totales +16.3 %, EBITDA +26.0 %, Beneficio neto +27.3 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 60.6 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 9.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 237.8
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 9.8
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1313.3
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 4396.7
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 16.3
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 2663.3
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 26.0
+          "nombre": "Margen EBITDA (%)",
+          "valor": 60.6
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1449.8
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.6
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 2392.6
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1313.3
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 554.3
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 282.5
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 237.81595
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.522
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
       "fecha": "2025-02-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "FY",
-      "resumen": "Año de consolidación: tráfico 309,4M, margen EBITDA 58,6%, DN/EBITDA 2,2x. Desapalancamiento y dividendo al alza. Tesis intacta.",
+      "resumen": "Ingresos totales +13.3 %, EBITDA +16.1 %, Beneficio neto +18.6 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 60.2 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 9.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 309.4
+          "nombre": "Ingresos totales (M€)",
+          "valor": 5827.8
         },
         {
-          "nombre": "%Var Pax",
-          "valor": 9.3
+          "nombre": "EBITDA reportado (M€)",
+          "valor": 3510.3
         },
         {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1760.0
+          "nombre": "Margen EBITDA (%)",
+          "valor": 60.2
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 5792.9
-        },
-        {
-          "nombre": "%Var Ingresos",
-          "valor": 14.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3394.4
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 23.0
-        },
-        {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1934.2
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.62
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 3147.5
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1760.0
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 727.3
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 369.5
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 309.344423
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.689
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-04-29",
+      "periodoDisplay": "1T",
+      "fecha": "2025-04-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "Q1",
-      "resumen": "Arranque firme: EBITDA 643,6M (+10,8%), margen 48,6%, BNA 301,3M. DN/EBITDA 1,37x, balance muy sólido.",
+      "resumen": "Ingresos totales +7.5 %, EBITDA +10.8 %, Beneficio neto +15.4 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 48.6 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 4.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 63.6
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 4.6
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 437.7
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 1325.6
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 7.5
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 643.6
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 10.8
+          "nombre": "Margen EBITDA (%)",
+          "valor": 48.6
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 301.3
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.37
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 673.5
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 437.7
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 163.9
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 78.3
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 63.615238
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.88
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-29",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "S1",
-      "resumen": "Semestre récord: EBITDA 1.692,3M (+8,8%), margen 56,5%, BNA 893,8M. DN/EBITDA 1,64x. Crecimiento se modera pero positivo.",
+      "resumen": "Ingresos totales +9.1 %, EBITDA +8.8 %, Beneficio neto +10.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 56.5 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 4.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 150.6
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 4.5
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 919.0
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 2995.9
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 9.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 1692.3
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 8.8
+          "nombre": "Margen EBITDA (%)",
+          "valor": 56.5
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 893.8
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.64
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 1552.7
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 919.1
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 413.8
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 180.9
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 150.6
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.103
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-28",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "9M",
-      "resumen": "9M de récord: EBITDA 2.882,7M (+8,2%), margen 60,2%, BNA 1.579,4M. DN/EBITDA 1,39x. Encamina FY-2025 récord.",
+      "resumen": "Ingresos totales +8.8 %, EBITDA +8.2 %, Beneficio neto +8.9 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 60.2 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 3.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 247.1
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 3.9
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1452.4
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 4785.2
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 8.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 2882.7
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 8.2
+          "nombre": "Margen EBITDA (%)",
+          "valor": 60.2
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1579.4
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.39
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 2514.9
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1452.4
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 648.4
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 294.1
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 247.1
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 5.878
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
       "fecha": "2026-02-25",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "FY",
-      "resumen": "Récord histórico: tráfico 321,6M, EBITDA 3.661M (58,1%), BNA 2.137M, DN/EBITDA 1,5x. Máxima solidez operativa; la cautela es de precio, no de negocio.",
+      "resumen": "Ingresos totales +9.5 %, EBITDA +7.8 %, Beneficio neto +10.5 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 59.3 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 4.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 321.6
+          "nombre": "Ingresos totales (M€)",
+          "valor": 6379.2
         },
         {
-          "nombre": "%Var Pax",
-          "valor": 3.9
+          "nombre": "EBITDA reportado (M€)",
+          "valor": 3785.0
         },
         {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 1929.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 59.3
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 6304.6
-        },
-        {
-          "nombre": "%Var Ingresos",
-          "valor": 8.8
-        },
-        {
-          "nombre": "EBITDA (M€)",
-          "valor": 3660.9
-        },
-        {
-          "nombre": "%Var EBITDA",
-          "valor": 7.9
-        },
-        {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 2136.7
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.5
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 3297.0
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 10.35
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 1929.7
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 906.7
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 384.8
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 321.6
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Desdoblamiento de acciones 10x1 (10 títulos nuevos por cada antiguo).",
-          "impacto": "=",
-          "valoracion": "Operación técnica de capital; mejora la liquidez del valor sin efecto en fundamentales."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-05-14",
+      "periodoDisplay": "1T",
+      "fecha": "2026-04-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "periodoDisplay": "1T",
-      "resumen": "Arranque sólido de 2026: EBITDA +2,7%, BNA +9,3%, pasajeros del Grupo +3,8% (81,3M). DFN baja a 3.621M. Tesis intacta; sin señales del protocolo (S2/S6). Fuente: informe 1T-2026.",
+      "resumen": "Ingresos totales +11.6 %, EBITDA +2.7 %, Beneficio neto +9.3 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 44.7 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 3.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: Desde aquí la línea internacional deja de ser comparable por dos motivos distintos que conviene no mezclar. El primero es CONTABLE: el salto de 163,9 a 258,5 M EUR es en buena parte servicios de construcción por IFRIC 12, y el propio informe da la cifra sin ese efecto, 174,3 M EUR. El segundo es de PERÍMETRO: en el primer semestre de 2026 Aena desembolsó 340 M EUR por el 51 % del holding que tiene el 100 % de Leeds Bradford y el 49 % de Newcastle, y el 30-mar-2026 se adjudicó RIOgaleão por unos 482,5 M EUR hasta mayo de ",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 65.6
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 3.2
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 462.0
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 1479.9
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 11.6
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 661.1
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 2.7
+          "nombre": "Margen EBITDA (%)",
+          "valor": 44.7
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 329.4
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.31
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 708.8
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 11.0
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 462.0
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 258.5
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 81.3
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 65.6
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 7.043
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Reelección de Maurici Lucena como Presidente-CEO por cuatro años más, ratificada por la Junta.",
-          "impacto": "+",
-          "valoracion": "Continuidad de gestión con historial sólido de cara al DORA III y a las reformas de Barajas y El Prat."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2026-07-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los catorce informes imprimen su fecha de publicacion en portada y se ha leido de ahi, una a una. Una salvedad DECLARADA: Q1-2025 lleva la fecha de su publicacion original, 30-abr-2025, y no la de su portada, 30-jul-2025. Aena reexpreso ese trimestre y lo volvio a publicar el dia del semestre, asi que las cifras de este monitor son las MODIFICADAS pero la fecha es la de cuando se publico el periodo. El motivo esta escrito en la nota del propio periodo y en la cabecera del extractor.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "El mejor semestre de la serie: ingresos 3.299,6 M€ (+10,1%), EBITDA 1.798,9 M€ (+6,3%) y beneficio neto 1.002,0 M€ (+12,1%), con 156,2 M pax en la red española (+3,7%). Todos los KPIs con umbral del §10.1 en zona REFUERZA salvo la deuda neta, que sube de 5.509 a 6.724 M€ por la compra de Augusta (340 M€) y el dividendo (1.646,4 M€), no por deterioro: el apalancamiento queda en 1,73x contra un umbral de 2,5x. A vigilar el margen EBITDA (56,5% → 54,5%), el EBITDA internacional (−3,8%) y la propia guía de tráfico 2026, rebajada a «alrededor del 3%» con avisos de visibilidad limitada en el 2S. Verde. IMAAJ 2026 fijado por la CNMC (resolución de 13-nov-2025) en 11,00 €/pax, +6,31% sobre 2025 — la base sobre la que decidirá el factor K del DORA III 2027-31.",
+      "resumen": "Ingresos totales +10.1 %, EBITDA +6.3 %, Beneficio neto +12.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 54.5 % (banda del §10.1: verde ≥ 44.0, rojo < 40.0). El tráfico de pasajeros de la red española sube un 3.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
-          "nombre": "Pax España (M)",
-          "valor": 156.2
-        },
-        {
-          "nombre": "%Var Pax",
-          "valor": 3.7
-        },
-        {
-          "nombre": "Ingr. Comercial (M€)",
-          "valor": 983.9
-        },
-        {
-          "nombre": "Ingresos (M€)",
+          "nombre": "Ingresos totales (M€)",
           "valor": 3299.6
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 10.1
-        },
-        {
-          "nombre": "EBITDA (M€)",
+          "nombre": "EBITDA reportado (M€)",
           "valor": 1798.9
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 6.3
+          "nombre": "Margen EBITDA (%)",
+          "valor": 54.5
         },
         {
-          "nombre": "BNA (M€)",
+          "nombre": "Beneficio neto atribuible (M€)",
           "valor": 1002.0
         },
         {
-          "nombre": "DFN/EBITDA (x)",
-          "valor": 1.73
+          "nombre": "Ingresos aeronáuticos (M€)",
+          "valor": 1682.0
         },
         {
-          "nombre": "IMAAJ (€/pax)",
-          "valor": 11.0
+          "nombre": "Ingresos comerciales (M€)",
+          "valor": 983.9
+        },
+        {
+          "nombre": "Ingresos internacionales (M€)",
+          "valor": 529.1
+        },
+        {
+          "nombre": "Tráfico del Grupo (M pax)",
+          "valor": 190.0
+        },
+        {
+          "nombre": "Tráfico de la red española (M pax)",
+          "valor": 156.2
+        },
+        {
+          "nombre": "Ingreso comercial por pasajero (€/pax)",
+          "valor": 6.299
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "El DORA III sigue en tramitación: la CNMC emitió el 26-may-2026 su informe no vinculante de supervisión y control, y el DORA definitivo debe aprobarlo el Consejo de Ministros antes del 30-sep-2026. Y el marco tarifario VIGENTE queda documentado en el informe de resultados: la resolución de la CNMC del 13-nov-2025 fijó el IMAAJ de 2026 en 11,00 €/pax, un +6,31% sobre los 10,35 € de 2025, incluyendo la recuperación de costes de COVID-19 y de control fronterizo.",
-          "impacto": "=",
-          "valoracion": "Sin novedad respecto a la S2 abierta el 27-jul y cerrada el 28-jul con REAFIRMAR: el calendario es el mismo que ya se analizó y sigue sin ser vinculante. Es el riesgo §8.1 R2 y el pre-mortem nº2, y sigue siendo la señal accionable más anticipada del expediente. Nada que cambiar en el PO de 21,6 €. El dato del IMAAJ 2026 —11,00 €/pax, +6,31%— es el que sostiene el crecimiento de ingresos aeronáuticos de este semestre y da la medida de lo que está en juego en el DORA III: la revisión 2027-31 decide el factor K que aplica sobre esa base. Ese número solo está en el informe de resultados; la presentación da el 11,0 sin su origen regulatorio."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "El 7-may-2026 Aena completó la compra del 51% de la sociedad holding Augusta, propietaria de los aeropuertos de Leeds Bradford y Newcastle, por 340,0 M€. La inversión total del semestre asciende a 916,3 M€, de los que 576,3 M€ son infraestructura aeroportuaria.",
-          "impacto": "=",
-          "valoracion": "Explica la mayor parte de la subida de la deuda neta del Grupo (5.509 → 6.724 M€) junto con el dividendo. Es M&A dentro del core y de tamaño moderado —no cruza el red flag del §10.4 «M&A grande fuera del core»— pero eleva el peso del internacional justo cuando su EBITDA cae un 3,8%. Vigilar que la integración no diluya margen."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Aena estima que el crecimiento del tráfico en 2026 se situará «alrededor del 3%» respecto a 2025, por debajo del +3,7% registrado en el semestre, citando visibilidad limitada en el segundo semestre: conflicto de Oriente Medio, fin de coberturas de combustible y debilidad del factor de ocupación frente a los asientos ofertados.",
-          "impacto": "-",
-          "valoracion": "Es una moderación, no un profit warning: implica un 2S en torno al +2,3%. El §10.1 pide «tráfico España crece» y seguiría cumpliéndose. Conviene retenerlo porque el catalizador §9.1 («pasajeros España >330 M anuales») depende justo de este tramo, y porque el DORA III de la CNMC proyecta +2,2% anual — la compañía se acerca a la previsión del regulador, no al revés."
-        },
-        {
-          "tipo": "Contrato",
-          "hecho": "Adjudicación de dos derechos de superficie para los primeros desarrollos hoteleros de la red en España: a Barceló en A.S. Madrid-Barajas y a Momentum (Hyatt) en J.T. Barcelona-El Prat. Las RMGA adjudicadas en el semestre suponen aumentos del 82% y 83% en tiendas para 2027 y 2028, y del 11% y 37% en restauración.",
-          "impacto": "+",
-          "valoracion": "Es la pata comercial de la tesis, la que no depende del regulador. Los saltos de RMGA comprometidas para 2027-28 dan visibilidad a los ingresos comerciales por encima del tráfico, y los servicios inmobiliarios (+15,0%) empiezan a aportar. No mueve el PO hoy, pero es lo que sostiene el margen si el DORA III aprieta la tarifa."
-        }
-      ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     }
   ]
 }

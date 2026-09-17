@@ -1,106 +1,123 @@
 {
  "schemaVersion": 8,
  "ticker": "AENA",
- "empresa": "Aena, S.M.E., S.A.",
- "fecha": "2026-07-20",
+ "empresa": "Aena S.M.E., S.A.",
+ "fecha": "2026-09-17",
  "rating": "AA",
- "score": 75.1,
+ "score": 75.015,
  "decision": "ESPERAR",
- "metodoValoracion": "DCF + múltiplos históricos (concesional). PO oficial = síntesis ponderada 21,6 € (DCF base 23,1 € + múltiplos 19–22 €); rango DCF 17,2 / 23,1 / 33,0 €.",
- "poBear": 17.2,
- "poBase": 21.6,
- "poBull": 33.0,
- "entMin": 16.5,
- "entMax": 18.0,
- "stop": 15.6,
+ "metodoValoracion": "Síntesis ponderada multi-método — arquetipo CONCESIONAL (infraestructura aeroportuaria regulada). El PO oficial es el del §6.5: DCF a tres escenarios 60 % (pesimista 12 · base 36 · optimista 12), múltiplos históricos de 10 años excluyendo 2020-2021 25 %, rentabilidad por dividendo 15 % y activos 0 % —desvío de la banda del arquetipo declarado y registrado, porque el valor contable no informa sobre una red de aeropuertos—. WACC del método 7,668 %. PO base 16,27 €; el DCF puro daría 9,37 € (rango 5,70 – 15,26) y la media de los seis múltiplos 23,50 €: la tensión entre las dos familias es de 2,5x y está declarada.",
+ "poBear": 13.21,
+ "poBase": 16.27,
+ "poBull": 21.45,
+ "entMin": 13.21,
+ "entMax": 14.14,
+ "stop": 5.63,
  "dpaPrevisto": 1.09,
- "moat": "ANCHO (79,7): monopolio aeroportuario regulado, activo único e irreplicable; escala eficiente + licencia DORA",
+ "moat": "76,0 · MOAT ANCHO — escala eficiente 85 (peso 30) · activos intangibles/licencia 80 (30) · costes de cambio 75 (10) · ventaja en costes 65 (25) · efecto de red 55 (5). Horquilla medida con las dos ponderaciones extremas: 67,0 – 77,5. Pilares INDEPENDIENTES: uno — los cuatro ejes altos describen el mismo hecho, que la red española es un monopolio legal.",
  "catalizadores": [
-  "DORA III favorable (2026-27)",
-  "Récord de tráfico sostenido",
-  "Bajada de tipos del BCE",
-  "Aumento del dividendo (payout ~80%)"
+  "El CAPEX no regulado del DORA III se ejecuta más despacio de lo anunciado: de los ~13.000 M€, unos 3.000 no son inversión regulada y Aena decide su ritmo (feb-2028, +14,73 % en el PO)",
+  "Se revierte la compresión de margen del primer semestre de 2026: el margen EBITDA cayó del 56,5 % al 54,5 % con los ingresos creciendo el 10,1 % (jul-2027, +6,17 %)",
+  "El tráfico cierra 2026 en el 3 % que la propia compañía guía, tras un primer semestre de 189,96 M de pasajeros (+3,9 %) (ene-2027, +5,49 %)",
+  "El dividendo sube con el beneficio al 80 % de payout declarado: beneficio atribuido del 1S-2026 de 1.002 M€, un 12,1 % más (feb-abr 2027, +3,20 %)",
+  "La pata internacional deja de ser una promesa: Leeds Bradford y Newcastle (270 M£) llevan los pasajeros en Reino Unido de 17 a 26,5 M, y RIOgaleão se adjudicó en marzo de 2026 (0-18 meses, +2,05 %)"
  ],
  "riesgos": [
-  "Shock de tráfico (apalancamiento operativo, −25 a −50%)",
-  "DORA III adverso",
-  "Interferencia política (Enaire 51%)",
-  "Concentración turismo europeo",
-  "Tipos altos / coste de deuda",
-  "Fiscalidad ESG a la aviación"
+  "Asignación de capital · probabilidad Alta · −19 a −22 % — RIESGO DOMINANTE: la mayor ola inversora de su historia con la tarifa congelada. El DORA III impone ~13.000 M€ entre 2027 y 2031, unos 2.600 M€ de CAPEX al año contra los 1.060,8 de 2025",
+  "Regulatorio · Alta · −3 a −9 % — el DORA se queda el excedente: el marco fija la tarifa sobre costes más retorno, así que cada euro de eficiencia vuelve al pasajero. El DORA III concede el +0,33 % anual frente al +3,82 % pedido",
+  "Macroeconómico · Baja-Media · −18 a −37 % — el tráfico, que nadie controla: costes fijos del 95,3 % y apalancamiento operativo. En 2020 el tráfico cayó de 275,2 a 76,1 M de pasajeros y el margen EBIT pasó de +43,91 % a −4,12 %",
+  "Político · Media · −8 a −17 % — la red única se fragmenta: proyecto de ley de cogestión de los aeropuertos de Baleares en tramitación (CNMV, 8-sep-2026)",
+  "Mercado · Media · −5 a −12 % — de-rating del múltiplo: cinco de las nueve patas de la síntesis son múltiplos históricos, así que una compresión se traslada al PO sin que cambien las cuentas",
+  "Financiero · Media · −8 a −13 % — el dividendo se recorta para pagar la obra: cobertura sobre flujo libre en 1,06x y payout sobre FCL del 94,69 %, con el CAPEX a punto de multiplicarse por dos y medio",
+  "Societario · Baja · −3 a −8 % — el 51 % del Estado decide por el minoritario: ENAIRE no puede bajar de la mayoría por ley, así que no hay prima de cambio de control posible",
+  "Ciberseguridad · Baja-Media · −5 a −15 % — parada prolongada de sistemas críticos en una red de 46 aeropuertos: facturación, embarque, equipajes y control de accesos"
  ],
- "bull": "DORA III favorable + tráfico récord + bajada de tipos expanden el múltiplo y el FCL crece ~6% → 30-33 €.",
- "bear": "Shock de tráfico o DORA III duro; el apalancamiento operativo hunde EBITDA y dividendo → 14-16 € (−40%).",
- "resumen": "Aena es una de las mejores infraestructuras cotizadas del mundo (Rating AA, Moat ancho, ROIC 15,3% vs WACC 7,0%, balance sólido), pero a 26,10 € la calidad ya está pagada: cotiza un 17% por encima del valor intrínseco (PO 21,6 €), con Reverse DCF heroico y un bear case asimétrico (−40%) por el apalancamiento operativo. Decisión: ESPERAR; entrada atractiva <22 €. Tenedor: MANTENER.",
+ "bull": "21,45 €/acción con los CINCO catalizadores perturbados a la vez: el tráfico creciendo el 3 % guiado más Leeds Bradford consolidando (+4,12 % de volumen entre los dos), los dos puntos de margen del primer semestre de 2026 recuperados, 300 M€ al año menos de CAPEX no regulado y el dividendo subiendo el 12 %. Un +31,87 % sobre el precio objetivo — y aun así un 14,1 % POR DEBAJO de la cotización de 24,98 €.",
+ "bear": "13,21 €/acción (0,812 × PO) derivado del riesgo dominante —asignación de capital— en su extremo SUAVE, que es lo que manda la regla: el suave cae dentro de la banda 0,70-0,85 × PO, así que no hay nada que elegir. El golpe no es una estimación: el DORA III mueve el CAPEX de 1.060,8 M€ a unos 2.600 M€ al año durante cinco ejercicios y el exceso que el flujo no absorbe (1.539,2 M€ al año) entra como deuda.",
+ "resumen": "Aena es un negocio excelente a un precio que esta tesis no autoriza pagar. La calidad no está en discusión —rating AA con 75,015 sobre 100, moat ANCHO de 76,0, ROIC del 15,58 % contra un WACC del 7,67 % (el mayor spread de la década, +7,91 pp) y una deuda neta que ha bajado un 33 % en diez años mientras el patrimonio crecía un 82 %—. El problema es el precio: el objetivo de síntesis son 16,27 € y la acción cotiza a 24,98 €, un margen de −34,88 % contra el +15 % exigido. Se cumplen 3 de las 4 condiciones de COMPRAR y falla la del margen. Ni siquiera el bull case con los cinco catalizadores a la vez (21,45 €) alcanza el precio de hoy, y el reverse DCF dice que la cotización exige un crecimiento del flujo libre del 14,6 % anual contra un 3,54 % autofinanciable: veredicto HEROICO. Veredicto ESPERAR, con banda de entrada de 13,21 – 14,14 € y stop de tesis en 5,63 €.",
  "confianza": {
-  "score": 88,
+  "score": 100,
   "nivel": "A",
   "motivos": [
-   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
-   "2 línea(s) de conciliación ⚠ sin corregir (−10)"
+   "sin huecos críticos ni discrepancias abiertas"
   ],
-  "sensibleASupuestos": true,
+  "sensibleASupuestos": false,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-17"
  },
  "robustez": {
-  "nivel": "sensible",
-  "sobreviveDecision": false,
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 17.2,
-   "p50": 21.6,
-   "p90": 33.0
+   "p10": 13.21,
+   "p50": 16.27,
+   "p90": 21.45
   },
   "sensibilidad": {
-   "poMin": 17.49,
-   "poMax": 33.38,
-   "poBase": 23.0857581151515,
-   "cotizacion": 26.1,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 15.42,
+   "poMax": 17.68,
+   "poBase": 16.27,
+   "cotizacion": 24.98,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.36,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 7.02,
+    "poMax": 13.29,
+    "poBase": 9.37279166963005
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -33.0,
-   "mdsMax": 27.9
+   "mdsMin": -38.3,
+   "mdsMax": -29.2
   },
   "beta": {
-   "capm": 0.76,
-   "ref2": 0.9,
+   "capm": 0.902,
+   "ref2": null,
    "aviso": null
   },
   "motivos": [
-   "la cotización (26.10) cae DENTRO de la banda de PO [17.5–33.4] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (36 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 64 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (24.98) queda por ENCIMA de toda la banda del precio objetivo de síntesis [15.42–17.68] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-38.3 % … -29.2 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [7.02–13.29] € alrededor de 9.37 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-17"
  },
  "dividendSafety": {
-  "score": 71,
+  "score": 73,
   "banda": "Seguro",
   "componentes": {
    "C1": 22,
    "C2": 7,
-   "C3": 18,
+   "C3": 20,
    "C4": 9,
    "C5": 15
   },
-  "shareholderYield": 4.38,
+  "shareholderYield": 4.19,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE 1.37x / FCL 1.38x (3a OE 1.59x) → 22/35",
+   "C1 cobertura dividendo ord.: OE 1.37x / FCL 1.15x (3a OE 1.59x) → 22/35",
    "C2 payout BN ord.: 70% (3a 60%) → 7/15",
-   "C3 balance: DN/EBITDA 1.50x, cob.int 11.5x → 18/20",
-   "C4 trayectoria: 1 recorte(s) en 7a · DPA creciente → 9/15",
+   "C3 balance parcial → 20/20",
+   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
    "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-20"
+  "calculadoEl": "2026-09-17"
  },
  "forense": {
   "aplica": true,
@@ -138,30 +155,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-20"
+  "calculadoEl": "2026-09-17"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 5.97,
-  "gIntrinseco": 3.53,
+  "gImplicito": 14.63,
+  "gIntrinseco": 3.54,
   "veredicto": "HEROICO",
   "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-07-27",
+  "calculadoEl": "2026-09-17",
   "entradas": {
-   "fcl": 1700,
-   "wacc": 7.0,
+   "fcl": 1045.6668,
+   "wacc": 7.67,
    "gTV": 2.0,
    "ratioG2": 0.7,
    "acciones": 1500,
-   "deudaNeta": 5509.03,
+   "deudaNeta": 5509.027,
    "modo": "EV",
-   "precioBase": 26.1,
+   "precioBase": 24.98,
    "validado": true,
-   "desviacion": 0.003,
-   "gBase": 5.973,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": 0.005,
+   "gBase": 14.635,
+   "fechaBase": "2026-09-17",
+   "congeladoEl": "2026-09-17"
   }
- },
- "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 18,00-22,00 €, POR ENCIMA del PO base (21,60 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 16,50-18,00 €, margen de seguridad del 24% al 17%. No cambia la valoración: PO bear/base/bull siguen igual."
+ }
 }
