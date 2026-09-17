@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-16",
+ "generado": "2026-09-17",
  "linter": {
   "ok": true,
   "detalle": "50 ficheros validados, sin errores."
@@ -10,14 +10,8 @@
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados. 12 tienen el caché de fórmulas vacío, y los 12 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (Azkoyen, Bankinter, CIE, Ebro Foods, Endesa, Faes Farma, Iberdrola, Inditex, Naturgy, Prim, Santander, Vidrala): se curan solos y no hay nada que hacer. (2 copias de seguridad no se cuentan)",
+  "detalle": "25 libros revisados. 2 tienen el caché de fórmulas vacío, y los 2 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (Bankinter, Santander): se curan solos y no hay nada que hacer.",
   "libros": [
-   {
-    "empresa": "Azkoyen",
-    "formulas": 2419,
-    "mudas": 2419,
-    "recalculaAlAbrir": true
-   },
    {
     "empresa": "Bankinter",
     "formulas": 1621,
@@ -25,63 +19,9 @@
     "recalculaAlAbrir": true
    },
    {
-    "empresa": "CIE",
-    "formulas": 2346,
-    "mudas": 2346,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Ebro Foods",
-    "formulas": 2278,
-    "mudas": 2278,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Endesa",
-    "formulas": 2505,
-    "mudas": 2505,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Faes Farma",
-    "formulas": 2540,
-    "mudas": 2540,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Iberdrola",
-    "formulas": 2217,
-    "mudas": 2217,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Inditex",
-    "formulas": 2712,
-    "mudas": 2712,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Naturgy",
-    "formulas": 2512,
-    "mudas": 2512,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Prim",
-    "formulas": 2584,
-    "mudas": 2584,
-    "recalculaAlAbrir": true
-   },
-   {
     "empresa": "Santander",
     "formulas": 1595,
     "mudas": 1595,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Vidrala",
-    "formulas": 2248,
-    "mudas": 2248,
     "recalculaAlAbrir": true
    }
   ]
