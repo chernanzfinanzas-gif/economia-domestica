@@ -112,16 +112,34 @@ jobs:
           [ "$MIN" -gt 330 ] && MIN=330                    # tope de GitHub: 360 por trabajo
           echo "Cobertura pedida: $MIN minutos (una pasada cada $((INTERVALO/60)))."
           FIN=$(( $(date +%s) + MIN*60 ))
+          # [18-sep-2026] PASADA DE CIERRE. El archivo de series solo se escribe cada 55
+          # minutos (SERIES_CADA_MIN), y eso deja el final de la sesion a suerte: si la
+          # ultima escritura cae a las 16:59, la siguiente tocaria a las 17:54, el mercado
+          # ya ha cerrado y el script deja de construir -> la ultima hora se descarga, se
+          # ve en el log y NO se guarda. Paso el 17-sep-2026: la serie acabo en 16:40
+          # teniendo barras de 17:25 en el log, y el maximo intradia del dia se perdio.
+          # Arreglo: en cuanto la sesion ha terminado se hace UNA pasada con `--forzar`
+          # (el mercado ya esta cerrado) y `--forzar-series` (no esperar los 55 minutos),
+          # que archiva el dia entero, y se termina. Despues del cierre no hay mas datos
+          # que esperar. Como la descarga trae 5 dias de barras, esta pasada tambien
+          # rellena los huecos que hubieran quedado en sesiones anteriores.
+          CIERRE_TS=$(TZ=Europe/Madrid date -d 'today 17:40' +%s)
+          cierre_hecho=0
           n=0; escritos=0; mudos=0
           while : ; do
             n=$(( n + 1 ))
             echo "::group::Pasada $n  ($(date -u '+%H:%M:%S') UTC)"
             rc=0
+            EXTRA=""
+            if [ "$cierre_hecho" -eq 0 ] && [ "$(date +%s)" -ge "$CIERRE_TS" ]; then
+              EXTRA="--forzar --forzar-series"
+              echo "Pasada de CIERRE: la sesion ha terminado; se archiva entera a la fuerza."
+            fi
             # [14-ago-2026] --series apunta DIRECTAMENTE al clon de la rama `datos`.
             # Tiene que ser ahi y no en el area de trabajo: el script fusiona lo nuevo
             # con lo ya guardado, y lo guardado esta en esa rama. Escribirlo aparte y
             # copiarlo despues perderia el historico en cada pasada.
-            python actualizar_intradia.py --salida intradia.json --series "$RUNNER_TEMP/pub/series" || rc=$?
+            python actualizar_intradia.py --salida intradia.json --series "$RUNNER_TEMP/pub/series" $EXTRA || rc=$?
             if [ "$rc" -eq 0 ] && [ -f intradia.json ]; then
               cp intradia.json "$RUNNER_TEMP/pub/intradia.json"
               (
@@ -158,6 +176,11 @@ jobs:
               mudos=$(( mudos + 1 ))
             fi
             echo "::endgroup::"
+            if [ -n "$EXTRA" ]; then
+              cierre_hecho=1
+              echo "Sesion archivada al completo: no quedan datos nuevos hasta manana."
+              break
+            fi
             if [ "$(date +%s)" -ge "$FIN" ]; then
               break
             fi
