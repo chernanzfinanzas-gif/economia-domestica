@@ -1,80 +1,94 @@
 {
+ "schemaVersion": 8,
  "ticker": "MAP",
  "empresa": "Mapfre, S.A.",
- "fecha": "2026-06-17",
+ "fecha": "2026-09-18",
  "rating": "A",
- "score": 73.9,
+ "score": 70.4,
  "decision": "ESPERAR",
- "metodoValoracion": "P/TBV justificado (RoTE vs CoE) — aseguradora. PO oficial = escenarios P/TBV justo sobre VCPA-T (bear 3,15 / base 4,43 / bull 5,89 €); la síntesis ponderada (70% forward + 30% múltiplos) da 3,76 €. Sin DCF ni EBITDA (arquetipo FINANCIERAS/seguros).",
- "poBear": 3.15,
- "poBase": 4.43,
- "poBull": 5.89,
- "entMin": 3.15,
- "entMax": 3.5,
- "stop": 2.35,
- "moat": "Estrecho (54,8/100): escala y marca en España y reaseguro LatAm, pero seguro comoditizado, con costes de cambio bajos y escaso poder de fijación de precios.",
+ "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + DDM de Gordon + múltiplos históricos — aseguradora. PO oficial = síntesis ponderada del §6.5 sobre once patas: siete de múltiplos con el 65 % del peso y cuatro de renta con el 35 %, DCF 0 %. Bear 3,02 € (riesgo dominante del §8.1), base 3,61 €, bull 4,17 € (tres catalizadores del §9.1). Sin DCF de flujo de caja libre, EV/EBITDA ni deuda neta: en seguros no aplican.",
+ "poBear": 3.02,
+ "poBase": 3.61,
+ "poBull": 4.17,
+ "entMin": 3.02,
+ "entMax": 3.14,
+ "stop": 2.77,
+ "dpaPrevisto": 0.18,
+ "moat": "50/100 · MOAT ESTRECHO. Lo sostienen la escala eficiente (65) y los intangibles de marca y red (60); lo hunde la ventaja de costes (30), con el ratio de gastos plano diez años. Efecto de red y costes de cambio, 40 cada uno. Ningún eje llega a 65: no hay una sola pata que aguante sola. Horquilla de ponderación 41,2 – 52.",
  "catalizadores": [
-  "Resultados S1-2026 con ratio combinado ≤92% y RoTE sostenido",
-  "Solvencia II de cierre 2025 (SFCR) por encima del 200%, que blinda el dividendo",
-  "Estabilización o apreciación del real brasileño (menor drag de divisa)",
-  "Subida del dividendo con cargo a 2025 (DPA ≥0,18 €)",
-  "Cumplimiento del Plan Estratégico 2024-2026 (ROE >13%, combinado 93-94%)"
+  "El combinado se queda por debajo del objetivo de su propio Plan",
+  "El exceso de capital habilita más retribución",
+  "El descuento estructural se estrecha",
+  "Safety Insurance cierra y aporta rentabilidad desde el primer año",
+  "Autos consolida por debajo del 100 %"
  ],
  "riesgos": [
-  "Divisa e hiperinflación en LatAm (real/peso) — probabilidad alta, impacto −10 a −20%",
-  "Catástrofes naturales y cambio climático (siniestralidad y coste de reaseguro)",
-  "Competencia y guerra de precios en Autos",
-  "Tipos de interés y mercados (cartera de inversión, duración ~5 años)",
-  "Concentración del control en la Fundación Mapfre (~67,7%): menor peso del minoritario, sin opa"
+  "AUTOMÓVILES ACABA DE CRUZAR A BENEFICIO TÉCNICO Y EL MARGEN ES DE 0,2 PUNTOS · probabilidad Alta · impacto −2 a −9%",
+  "EL 41 % DE LAS PRIMAS SE COBRA EN MONEDAS QUE SE DEPRECIAN CONTRA EL EURO · probabilidad Alta · impacto −4 a −10%",
+  "DE CADA EURO RETENIDO LLEGAN DIEZ CÉNTIMOS AL VALOR CONTABLE, Y EL MERCADO LO LLEVA DESCONTANDO DIEZ AÑOS · probabilidad Alta · impacto −2 a −4%",
+  "CATÁSTROFES Y EL PRECIO DEL REASEGURO, QUE ES EL RIESGO QUE LA PROPIA EMPRESA SEÑALA · probabilidad Media · impacto −6 a −13%",
+  "SAFETY INSURANCE: 1 · probabilidad Media · impacto −5 a −9%"
  ],
- "bull": "El combinado se mantiene ~90%, el real se estabiliza y el múltiplo converge hacia 2,0x → 5,0-5,9 € (+20% a +40%).",
- "bear": "Tormenta latinoamericana (divisa + hiperinflación): recorte del dividendo y P/TBV a 1,0x → 2,4-3,0 € (−30% a −40%).",
- "resumen": "Aseguradora de calidad (rating A, el mejor ratio combinado de su grupo 90,2%, RoTE 15,4% sobre un coste de capital ~5-8% y Solvencia II ~210%) cuya calidad ya está reconocida en el precio tras revalorizarse +145%. Cotiza en su valor justo (PO 3,76-4,43 € vs 4,18 €), sin margen de seguridad y con un riesgo-recompensa simétrico. Tesis de RENTA (dividendo ~4,3% bien cubierto), no de revalorización: ESPERAR para abrir posición (entrada atractiva <3,50 €) y MANTENER si ya se está en cartera. Riesgo clave a vigilar: la divisa latinoamericana (real brasileño + ratio combinado).",
- "schemaVersion": 8,
+ "bull": "Los tres primeros catalizadores del §9.1 perturbados juntos dan 4,17 €, un +15,6 % sobre el precio objetivo: el ratio combinado consolidando por debajo del 92 %, el exceso de solvencia convertido en retribución y el descuento estructural estrechándose.",
+ "bear": "La cadena C del §8.2 da 3,02 €, un −16,2 %: el fondo de comercio de Safety Insurance diluye el capital tangible un 11,9 %, la integración cuesta un punto de ratio combinado, y el mercado ensancha el descuento estructural 15 puntos porque la operación confirma que el capital retenido no vuelve al accionista.",
+ "resumen": "Mapfre está en el mejor momento de su década: ratio combinado del 90,2 %, RoTE del 15,4 % y el primer beneficio por encima de 1.000 M€. El problema no es la empresa, es el precio: a 4,43 € cotiza un 18,5 % por encima del objetivo de 3,61 €, y el mercado ya paga el 79,0 % del P/TBV justificado frente al 75,8 % de media de la década. La causa del descuento está medida: de cada euro retenido en diez años llegaron diez céntimos al valor contable. ESPERAR, con banda de entrada en 3,02–3,14 € y stop de tesis en 2,77 €.",
  "confianza": {
-  "score": 100,
+  "score": 90,
   "nivel": "A",
   "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-18"
  },
  "robustez": {
   "nivel": "sensible",
   "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 3.15,
-   "p50": 4.43,
-   "p90": 5.89
+   "p10": 3.02,
+   "p50": 3.61,
+   "p90": 4.17
   },
   "sensibilidad": {
-   "poMin": 3.84,
-   "poMax": 5.67,
-   "poBase": 4.8,
-   "cotizacion": 4.18,
+   "sobre": "modelo",
+   "regla": "F100",
+   "poMin": 3.7,
+   "poMax": 5.63,
+   "poBase": 4.721507673798,
+   "cotizacion": 4.43,
+   "cotizacionBase": "actual",
+   "componente": null,
+   "pesoPerturbado": 1.0,
+   "componentesIntactos": 0,
+   "dcf": {
+    "poMin": 3.7,
+    "poMax": 5.63,
+    "poBase": 4.721507673798
+   },
    "ejeCoste": "CoE",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -8.1,
-   "mdsMax": 35.6
+   "mdsMin": -16.4,
+   "mdsMax": 27.1
   },
   "beta": {
-   "capm": 0.26,
+   "capm": 0.844,
    "ref2": null,
-   "aviso": "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "aviso": null
   },
   "motivos": [
-   "la cotización (4.18) cae DENTRO de la banda de PO [3.8–5.7] bajo CoE±1.0pp/RoTE±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
-   "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (4.43) cae DENTRO de la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [3.70–5.63], y la banda de margen de seguridad [-16.4 % … +27.1 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4 → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-18"
  },
  "dividendSafety": {
   "score": 94,
@@ -88,31 +102,31 @@
    "C4": 9,
    "C5": 10
   },
-  "shareholderYield": 4.33,
+  "shareholderYield": 4.2,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
    "C1 pay-out sobre BN 49% → 30/30",
-   "C2 Solvencia II 210% → 25/25",
+   "C2 Solvencia II 207% → 25/25",
    "C3 ratio combinado 90.2% → 20/20",
    "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
    "C5 predictores: ninguno → 10/10",
    "Rama FINANCIERA (seguros): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
   ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-18"
  },
  "forense": {
   "aplica": false,
   "motivo": "rama financiera (banca/seguros)",
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-18"
  },
  "reverseDcf": {
   "aplica": false,
   "veredicto": "No aplica",
   "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-18"
  }
 }

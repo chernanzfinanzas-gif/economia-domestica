@@ -1,764 +1,749 @@
 {
+  "schemaVersion": 2,
   "ticker": "MAP",
   "empresa": "Mapfre",
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-28",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Suelo del ciclo: terremoto de Turquía (−77 M€) y Autos hunden el resultado −17%. Iberia (67) y LATAM (94) sostienen; Mapfre RE muy golpeado por la catástrofe. Solvencia 198,1%.",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "S",
+      "tesisSigueIntacta": true,
+      "resumen": "HUECO DECLARADO, no un dato que falte: Mapfre no publica el ROE ni los fondos propios en el informe del primer trimestre de 2023, que es el primero de la serie y el más escueto de los catorce: comprobado en el documento, no supuesto. Hueco DECLARADO [F588], no un dato que nadie buscó. Las demás magnitudes de este periodo sí están y son buenas, así que el periodo se escribe entero menos esta celda. La fila va SIN COLOR a propósito: un ámbar aquí se leería como un juicio sobre el margen, y no hay margen que juzgar.",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 7786
+          "valor": 7786.2
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 9121
+          "nombre": "Primas Autos (M€)",
+          "valor": 1575.2
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 128
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1109.4
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": -17
+          "nombre": "Primas Vida (M€)",
+          "valor": 1866.4
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 98.5
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 71.2
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.2
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 127.6
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": null
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 67.3
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 94
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
+          "nombre": "Fondos propios (M€)",
           "valor": null
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 198.1
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-25",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Sigue lastrado (−6%) pero el combinado mejora a 97,1%; Iberia 123, LATAM 193 y Mapfre RE 121 aportan. ROE 8,1% y solvencia 197,3% aún flojos.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 14350
+          "valor": 14349.9
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 17026
+          "nombre": "Primas Autos (M€)",
+          "valor": 3074.3
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 317
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1383.4
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": -6
+          "nombre": "Primas Vida (M€)",
+          "valor": 1307.7
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 97.1
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 70.0
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.1
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 317.0
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 8.1
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 122.7
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 193
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 121
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 197.3
+          "nombre": "Fondos propios (M€)",
+          "valor": 7683.3
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Regulatorio",
-          "hecho": "Arbitraje favorable a Mapfre por la ruptura de la alianza de bancaseguros con Bankia (tras su fusión con CaixaBank).",
-          "impacto": "+",
-          "valoracion": "Cierra un litigio a favor y libera el canal de distribución; refuerza su posición."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-24",
+      "periodoDisplay": "9M",
+      "fecha": "2023-10-27",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Combinado 96,8% y Mapfre RE duplica (190), pero el deterioro del fondo de comercio de EE.UU. (−75 M€) deja el neto en −3,6%. Iberia 246, solvencia 198,1%.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 20679
+          "valor": 20679.4
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 24596
+          "nombre": "Primas Autos (M€)",
+          "valor": 4624.8
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 471
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1698.0
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": -3.6
+          "nombre": "Primas Vida (M€)",
+          "valor": 1950.7
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 96.8
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 69.5
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.3
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 470.6
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 8.2
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 245.5
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 284
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 190
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 198.1
+          "nombre": "Fondos propios (M€)",
+          "valor": 7649.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Recuperación (+7,7%; +19% ex-impairment), primas récord. Iberia 361, LATAM 373, Mapfre RE 245, solvencia 199,6%. ROE 9,0% por debajo del umbral del 11%.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 26917
+          "valor": 26917.2
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 32239
+          "nombre": "Primas Autos (M€)",
+          "valor": 6109.3
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 692
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1996.4
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 7.7
+          "nombre": "Primas Vida (M€)",
+          "valor": 2664.7
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 97.2
         },
         {
-          "nombre": "ROE %",
-          "valor": 9
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 69.6
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 361
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 373
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 245
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 199.6
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q1",
-      "fecha": "2024-04-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Inflexión: resultado +69%, combinado −2,7 pp a 95,8% y ROE supera el 10%. Iberia 73, Mapfre RE recupera (67). El nuevo Plan empieza a notarse.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 8143
-        },
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9389
-        },
-        {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 216
-        },
-        {
-          "nombre": "%Var rtdo",
-          "valor": 69
-        },
-        {
-          "nombre": "Comb. No Vida %",
-          "valor": 95.8
-        },
-        {
-          "nombre": "ROE %",
-          "valor": 10.1
-        },
-        {
-          "nombre": "Iberia (M€)",
-          "valor": 73.1
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 94
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 67
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 197.7
-        }
-      ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Presentación del Plan Estratégico 2024-2026, con objetivos de crecimiento, ROE y ratio combinado.",
-          "impacto": "+",
-          "valoracion": "Hoja de ruta creíble de rentabilidad; ancla la tesis de mejora operativa."
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Fuerte momentum (+46%), ROE 10,6%, combinado 95,7%; mejora generalizada (Iberia 168, LATAM 203, Mapfre RE 140).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 15145
-        },
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 17725
-        },
-        {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 462
-        },
-        {
-          "nombre": "%Var rtdo",
-          "valor": 46
-        },
-        {
-          "nombre": "Comb. No Vida %",
-          "valor": 95.7
-        },
-        {
-          "nombre": "ROE %",
-          "valor": 10.6
-        },
-        {
-          "nombre": "Iberia (M€)",
-          "valor": 168
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 203
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 140
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 196.6
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Combinado 94,8% y ROE 10,9%; mejora técnica en todas las regiones (Iberia 283, LATAM 305, RE 207) pese a Verti Alemania. Solvencia 202,4%.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 21622
-        },
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 25345
-        },
-        {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 744
-        },
-        {
-          "nombre": "%Var rtdo",
-          "valor": 36
-        },
-        {
-          "nombre": "Comb. No Vida %",
-          "valor": 94.8
-        },
-        {
-          "nombre": "ROE %",
-          "valor": 10.9
-        },
-        {
-          "nombre": "Iberia (M€)",
-          "valor": 283
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 305
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 207
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 202.4
-        }
-      ]
-    },
-    {
-      "periodo": "2024-Q4",
-      "fecha": "2025-02-26",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Consolidación: +29%, combinado 94,4%, ROE ~11% y solvencia 207,4%. Iberia 367, LATAM 408, Mapfre RE 382.",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 28122
-        },
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 33177
-        },
-        {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 992
-        },
-        {
-          "nombre": "%Var rtdo",
-          "valor": 29
-        },
-        {
-          "nombre": "Comb. No Vida %",
-          "valor": 94.4
-        },
-        {
-          "nombre": "ROE %",
-          "valor": 10.9
-        },
-        {
-          "nombre": "Iberia (M€)",
-          "valor": 367
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 408
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 382
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 207.4
-        }
-      ]
-    },
-    {
-      "periodo": "2025-Q1",
-      "fecha": "2025-04-28",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Buen arranque (+27,6%), combinado 94,1%, ROE 11,7% y solvencia 205,6%; la recuperación de Autos impulsa Iberia (121, +65,6%).",
-      "metricas": [
-        {
-          "nombre": "Primas (M€)",
-          "valor": 8584
-        },
-        {
-          "nombre": "Ingresos (M€)",
-          "valor": 9888
-        },
-        {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 276
-        },
-        {
-          "nombre": "%Var rtdo",
+          "nombre": "Ratio de gastos (%)",
           "valor": 27.6
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Resultado neto (M€)",
+          "valor": 677.0
+        },
+        {
+          "nombre": "ROE (%)",
+          "valor": 8.3
+        },
+        {
+          "nombre": "Fondos propios (M€)",
+          "valor": 8070.8
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primas +4.6 %, Resultado neto +69.5 %, Primas de Autos +3.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.1 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 8142.8
+        },
+        {
+          "nombre": "Primas Autos (M€)",
+          "valor": 1629.2
+        },
+        {
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1176.0
+        },
+        {
+          "nombre": "Primas Vida (M€)",
+          "valor": 784.6
+        },
+        {
+          "nombre": "Ratio combinado No Vida (%)",
+          "valor": 95.8
+        },
+        {
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 68.0
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.7
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 216.3
+        },
+        {
+          "nombre": "ROE (%)",
+          "valor": 10.1
+        },
+        {
+          "nombre": "Fondos propios (M€)",
+          "valor": 8067.4
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primas +5.5 %, Resultado neto +45.6 %, Primas de Autos +5.5 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 15145.1
+        },
+        {
+          "nombre": "Primas Autos (M€)",
+          "valor": 3242.8
+        },
+        {
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1496.8
+        },
+        {
+          "nombre": "Primas Vida (M€)",
+          "valor": 1443.8
+        },
+        {
+          "nombre": "Ratio combinado No Vida (%)",
+          "valor": 95.7
+        },
+        {
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 68.2
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.5
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 461.6
+        },
+        {
+          "nombre": "ROE (%)",
+          "valor": 10.4
+        },
+        {
+          "nombre": "Fondos propios (M€)",
+          "valor": 8088.9
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primas +4.6 %, Resultado neto +38.9 %, Primas de Autos +4.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 10.9 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 21622.4
+        },
+        {
+          "nombre": "Primas Autos (M€)",
+          "valor": 4829.3
+        },
+        {
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1806.2
+        },
+        {
+          "nombre": "Primas Vida (M€)",
+          "valor": 2111.3
+        },
+        {
+          "nombre": "Ratio combinado No Vida (%)",
+          "valor": 94.8
+        },
+        {
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 67.4
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.4
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 653.5
+        },
+        {
+          "nombre": "ROE (%)",
+          "valor": 10.9
+        },
+        {
+          "nombre": "Fondos propios (M€)",
+          "valor": 8434.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-12",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Primas +4.5 %, Resultado neto +33.2 %, Primas de Autos +6.1 % contra el mismo periodo del ejercicio anterior, con el ROE en 11.1 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 28121.7
+        },
+        {
+          "nombre": "Primas Autos (M€)",
+          "valor": 6483.6
+        },
+        {
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 2154.4
+        },
+        {
+          "nombre": "Primas Vida (M€)",
+          "valor": 2695.6
+        },
+        {
+          "nombre": "Ratio combinado No Vida (%)",
+          "valor": 94.4
+        },
+        {
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 67.4
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.1
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 901.6
+        },
+        {
+          "nombre": "ROE (%)",
+          "valor": 11.1
+        },
+        {
+          "nombre": "Fondos propios (M€)",
+          "valor": 8508.3
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-04-25",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Primas +5.4 %, Resultado neto +27.6 %, Primas de Autos +3.5 % contra el mismo periodo del ejercicio anterior, con el ROE en 11.7 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Primas (M€)",
+          "valor": 8584.3
+        },
+        {
+          "nombre": "Primas Autos (M€)",
+          "valor": 1685.7
+        },
+        {
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1241.1
+        },
+        {
+          "nombre": "Primas Vida (M€)",
+          "valor": 724.6
+        },
+        {
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 94.1
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 66.9
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.2
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 275.9
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 11.7
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 121
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 118
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 48
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 205.6
+          "nombre": "Fondos propios (M€)",
+          "valor": 8380.8
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Revisión al alza de los objetivos del plan (ROE y ratio combinado) en la junta de 2025.",
-          "impacto": "+",
-          "valoracion": "El management supera y eleva sus guías; señal positiva de credibilidad."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-25",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-24",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Combinado baja a 93,1% y ROE 12,2%; mejora en todas las regiones (Iberia 239, LATAM 223, RE 149). Solvencia sube a 208,7%.",
+      "resumen": "Primas +5.3 %, Resultado neto +23.6 %, Primas de Autos +2.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.2 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 15947
+          "valor": 15947.4
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 18725
+          "nombre": "Primas Autos (M€)",
+          "valor": 3316.9
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 570
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1569.1
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 23.6
+          "nombre": "Primas Vida (M€)",
+          "valor": 1332.0
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 93.1
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 66.0
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.2
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 570.4
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 12.2
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 239
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 223
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 149
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 208.7
+          "nombre": "Fondos propios (M€)",
+          "valor": 8518.5
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-24",
+      "periodoDisplay": "9M",
+      "fecha": "2025-10-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Combinado excelente 92,6%, ROE 12,4% y solvencia 210,4% pese a extraordinarios (−79 M€). Iberia 347, LATAM 340, Mapfre RE 256.",
+      "resumen": "Primas +3.5 %, Resultado neto +26.9 %, Primas de Autos +2.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 22384
+          "valor": 22383.8
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 26456
+          "nombre": "Primas Autos (M€)",
+          "valor": 4941.0
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 829
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1894.6
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 26.8
+          "nombre": "Primas Vida (M€)",
+          "valor": 2033.9
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 92.6
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 65.1
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.5
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 829.0
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 12.4
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 347
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 340
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 256
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 210.4
+          "nombre": "Fondos propios (M€)",
+          "valor": 8923.9
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-12",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Récord histórico: combinado 92,2% (el mejor de su historia), beneficio NIIF 1.133 M€ (+17%), ROE 12,4%, solvencia 205,3% (Dic) y dividendo +12,5%. Iberia 450, Mapfre RE 381.",
+      "resumen": "Primas +3.6 %, Resultado neto +19.7 %, Primas de Autos +1.3 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.4 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 2.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 29145
+          "valor": 29144.7
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 34501
+          "nombre": "Primas Autos (M€)",
+          "valor": 6568.4
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 1079
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 2251.7
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 19.6
+          "nombre": "Primas Vida (M€)",
+          "valor": 2678.8
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 92.2
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 64.9
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.3
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 1078.8
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 12.4
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 450
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 365
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 381
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 205.3
+          "nombre": "Fondos propios (M€)",
+          "valor": 8960.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-28",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "La rentabilidad sigue mejorando (resultado +12,7%, ROE 12,9%, combinado 93,2%, solvencia 205,3% (dic-2025 prov.; SFCR 20-may)), PERO las primas caen −2,2% por la divisa: riesgo LatAm/FX visible. Iberia 138, Mapfre RE 85.",
+      "resumen": "Primas -2.2 %, Resultado neto +12.7 %, Primas de Autos -0.9 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.9 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 1.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Primas (M€)",
-          "valor": 8394
+          "valor": 8393.8
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 9697
+          "nombre": "Primas Autos (M€)",
+          "valor": 1669.8
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 311
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1307.2
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 12.7
+          "nombre": "Primas Vida (M€)",
+          "valor": 758.5
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 93.2
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 65.2
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 28.0
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 310.9
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 12.9
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 138
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 114
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 85.4
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 205.3
+          "nombre": "Fondos propios (M€)",
+          "valor": 8924.2
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Reelección de Antonio Huertas como presidente ejecutivo por cuatro años más.",
-          "impacto": "+",
-          "valoracion": "Continuidad de la estrategia y estabilidad en la cúpula; positivo para la tesis."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Aumento del dividendo con cargo a 2025 y compromiso de retribución creciente sostenible.",
-          "impacto": "+",
-          "valoracion": "Refuerza el pilar de renta; dividendo creciente y sostenible."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2026-07-23",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "MIXTO, y por eso cada periodo lo declara por su cuenta. OCHO de los catorce informes imprimen su fecha de publicación en la cabecera de la portada (9M-2023, 9M-2024, FY-2024, Q1-2025, S1-2025, 9M-2025, FY-2025 y S1-2026) y ésos llevan `fechaOrigen: portada` con esa fecha. Los SEIS restantes no la imprimen en ninguna página —comprobado uno a uno: lo único que aparece es la fecha de cierre del balance, 31.12.2023 y similares, que no es una fecha de publicación— así que van con el plan B de F485: la fecha de CIERRE del periodo y `fechaOrigen: cierre`. NO son fechas de mercado y así hay que leerlas.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Recuperación confirmada: las primas vuelven a crecer (+1,1%; +0,5% a tipo de cambio constante) tras la caída −2,2% del 1T, disipando la alerta ámbar de FX/LatAm. Combinado No Vida excelente 92,8% (−0,3 pp), ROE 12,5% (13,4% ajustado) y solvencia 206,8% (mar-2026), todos sobre sus umbrales. Resultado local +9,4% (NIIF +8,4%); Iberia 279 (+16,6%) y Mapfre RE 186 (+24,6%) tiran, LATAM 218 (−2,6%) modera pero con combinado 86,1% y Brasil ROE 25,1%. Tesis de renta intacta; sin señales S2/S6/B4.",
+      "resumen": "Primas +1.1 %, Resultado neto +9.4 %, Primas de Autos +1.4 % contra el mismo periodo del ejercicio anterior, con el ROE en 12.5 % (banda del §10.1: verde ≥ 11.0, rojo < 9.0). El ratio combinado No Vida cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Primas (M€)",
           "valor": 16126.9
         },
         {
-          "nombre": "Ingresos (M€)",
-          "valor": 19007.9
+          "nombre": "Primas Autos (M€)",
+          "valor": 3364.4
         },
         {
-          "nombre": "Rtdo. neto (M€)",
-          "valor": 624.2
+          "nombre": "Primas Salud y Accidentes (M€)",
+          "valor": 1695.1
         },
         {
-          "nombre": "%Var rtdo",
-          "valor": 9.4
+          "nombre": "Primas Vida (M€)",
+          "valor": 1448.2
         },
         {
-          "nombre": "Comb. No Vida %",
+          "nombre": "Ratio combinado No Vida (%)",
           "valor": 92.8
         },
         {
-          "nombre": "ROE %",
+          "nombre": "Ratio de siniestralidad (%)",
+          "valor": 65.0
+        },
+        {
+          "nombre": "Ratio de gastos (%)",
+          "valor": 27.8
+        },
+        {
+          "nombre": "Resultado neto (M€)",
+          "valor": 624.2
+        },
+        {
+          "nombre": "ROE (%)",
           "valor": 12.5
         },
         {
-          "nombre": "Iberia (M€)",
-          "valor": 278.6
-        },
-        {
-          "nombre": "LATAM (M€)",
-          "valor": 217.6
-        },
-        {
-          "nombre": "Mapfre RE (M€)",
-          "valor": 185.6
-        },
-        {
-          "nombre": "Solv. II %",
-          "valor": 206.8
+          "nombre": "Fondos propios (M€)",
+          "valor": 9591.9
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Anuncio de la compra de Safety Insurance (EE.UU., noreste); cierre previsto en el 1T-2027. Cifras de la operación: 105 $/acción, 1,54 Bn$ (~1,35 Bn€), PER implícito ~10,5x, con sinergias de costes de más de 30 M$/año y de capital de más de 140 M$, costes de reestructuración de 40 M$, un aumento esperado del resultado neto del Grupo superior al 5% en tres años y cierre previsto en el 1T-2027.",
-          "impacto": "+",
-          "valoracion": "Refuerza el liderazgo en Norteamérica; se estima acretiva (+5% del resultado del Grupo una vez integrada). No altera el veredicto ESPERAR pero mejora el perfil de crecimiento a medio plazo."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Terremotos en Venezuela a finales de junio; estimación conservadora con impacto atribuible máximo de 25 M€.",
-          "impacto": "=",
-          "valoracion": "Siniestro acotado y ya provisionado (reservas en el rango alto); sin efecto material en la tesis."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Mapfre NO publica objetivos numéricos para 2026 en este documento: no hay guía de ROE, ratio combinado, crecimiento de primas, payout ni solvencia. La única afirmación prospectiva es que «el plan estratégico continúa avanzando» y que hay «optimismo prudente para el segundo semestre del año».",
-          "impacto": "=",
-          "valoracion": "Se deja constancia para que la ausencia de guía en el §10.3 no se lea como un descuido de la revisión: la compañía sencillamente no la da. El seguimiento se ancla, por tanto, en los umbrales propios del §10.1."
-        },
-        {
-          "tipo": "Financiación",
-          "hecho": "Financiación de la compra de Safety: 700 M€ de deuda Tier 2 más 500 M€ sénior y deuda bancaria. Impacto estimado de ≈−10 puntos porcentuales en Solvencia II y ≈+7 puntos en apalancamiento. La deuda total sube a 2.905 M€ (+10,8%), el apalancamiento al 21,4% (+0,7 pp) y los gastos financieros a 63,2 M€ desde 49,4 M€.",
-          "impacto": "-",
-          "valoracion": "Es el coste real de la operación y el punto a vigilar: diez puntos de Solvencia II es una mordida seria sobre el 206,8% actual, aunque deja el ratio holgado. Los gastos financieros ya suben un 28% y seguirán subiendo en 2027."
-        },
-        {
-          "tipo": "Operativo",
-          "hecho": "EMEA entra en pérdidas: −4,6 M€ frente a +3,3 M€ del año anterior, con Italia en −14 M€ por refuerzo de reservas y un impacto de −14 M€ por hiperinflación en Turquía. En siniestralidad catastrófica: tormentas en Portugal y España y inundaciones en el sur de Turquía, con las reservas en el rango alto y 2 puntos de impacto en el combinado de Mapfre RE.",
-          "impacto": "-",
-          "valoracion": "El deterioro está concentrado y localizado —Italia y Turquía—, no es sistémico, y el grupo lo absorbe sin salirse del verde. Pero son dos focos que conviene seguir trimestre a trimestre, sobre todo el refuerzo de reservas italiano, que rara vez es de una sola vez."
-        }
-      ],
-      "periodoDisplay": "S1"
+      "origen": "revolcado"
     }
-  ],
-  "schemaVersion": 2
+  ]
 }
