@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-12",
+ "generadoEl": "2026-09-19",
  "metodo": {
   "formula": "Cov(r_accion, r_indice) / Var(r_indice)",
   "frecuencia": "semanal (ultimo dia cotizado de cada semana ISO)",
@@ -9,7 +9,7 @@
    "2a": "2 anos moviles"
   },
   "indice": "IBEX",
-  "hasta": "2026-09-11",
+  "hasta": "2026-09-18",
   "desfaseHabiles": 0,
   "forzado": false,
   "minObservaciones": 40,
@@ -27,79 +27,79 @@
  "betas": {
   "A3M": {
    "5a": {
-    "beta": 0.674,
+    "beta": 0.665,
     "n": 260,
-    "r2": 0.223,
+    "r2": 0.22,
     "planos": 1.5,
-    "blume": 0.781,
+    "blume": 0.776,
     "usable": true,
-    "recomendada": 0.674,
-    "origen": "cruda: R2 0.223 >= 0.20"
+    "recomendada": 0.665,
+    "origen": "cruda: R2 0.220 >= 0.20"
    },
    "2a": {
-    "beta": 0.55,
+    "beta": 0.528,
     "n": 104,
-    "r2": 0.157,
+    "r2": 0.146,
     "planos": 2.9,
-    "blume": 0.698,
+    "blume": 0.684,
     "usable": false,
-    "recomendada": 0.698,
-    "origen": "Blume 0,67xB+0,33: R2 0.157 < 0.20, la cruda no es informativa"
+    "recomendada": 0.684,
+    "origen": "Blume 0,67xB+0,33: R2 0.146 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ACS": {
    "5a": {
-    "beta": 0.854,
+    "beta": 0.859,
     "n": 260,
-    "r2": 0.323,
+    "r2": 0.325,
     "planos": 0.0,
-    "blume": 0.902,
+    "blume": 0.905,
     "usable": true,
-    "recomendada": 0.854,
-    "origen": "cruda: R2 0.323 >= 0.20"
+    "recomendada": 0.859,
+    "origen": "cruda: R2 0.325 >= 0.20"
    },
    "2a": {
-    "beta": 1.031,
+    "beta": 1.049,
     "n": 104,
-    "r2": 0.318,
+    "r2": 0.324,
     "planos": 0.0,
-    "blume": 1.021,
+    "blume": 1.033,
     "usable": true,
-    "recomendada": 1.031,
-    "origen": "cruda: R2 0.318 >= 0.20"
+    "recomendada": 1.049,
+    "origen": "cruda: R2 0.324 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ACX": {
    "5a": {
-    "beta": 0.926,
+    "beta": 0.931,
     "n": 260,
-    "r2": 0.261,
+    "r2": 0.265,
     "planos": 0.4,
-    "blume": 0.951,
+    "blume": 0.953,
     "usable": true,
-    "recomendada": 0.926,
-    "origen": "cruda: R2 0.261 >= 0.20"
+    "recomendada": 0.931,
+    "origen": "cruda: R2 0.265 >= 0.20"
    },
    "2a": {
-    "beta": 1.053,
+    "beta": 1.047,
     "n": 104,
-    "r2": 0.28,
+    "r2": 0.279,
     "planos": 1.0,
-    "blume": 1.035,
+    "blume": 1.031,
     "usable": true,
-    "recomendada": 1.053,
-    "origen": "cruda: R2 0.280 >= 0.20"
+    "recomendada": 1.047,
+    "origen": "cruda: R2 0.279 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ADX": {
    "5a": {
-    "beta": 0.977,
+    "beta": 0.978,
     "n": 260,
     "r2": 0.172,
     "planos": 1.2,
@@ -109,199 +109,199 @@
     "origen": "Blume 0,67xB+0,33: R2 0.172 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.39,
+    "beta": 0.393,
     "n": 104,
-    "r2": 0.063,
+    "r2": 0.065,
     "planos": 1.0,
-    "blume": 0.591,
+    "blume": 0.593,
     "usable": false,
-    "recomendada": 0.591,
-    "origen": "Blume 0,67xB+0,33: R2 0.063 < 0.20, la cruda no es informativa"
+    "recomendada": 0.593,
+    "origen": "Blume 0,67xB+0,33: R2 0.065 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.17 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro",
     "la beta a 2 anos (0.39) se aparta de la de 5 (0.98): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ADZ": {
    "5a": {
-    "beta": 0.143,
+    "beta": 0.141,
     "n": 260,
     "r2": 0.007,
     "planos": 9.6,
-    "blume": 0.426,
+    "blume": 0.425,
     "usable": false,
-    "recomendada": 0.426,
+    "recomendada": 0.425,
     "origen": "Blume 0,67xB+0,33: R2 0.007 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.183,
+    "beta": 0.172,
     "n": 104,
-    "r2": 0.016,
+    "r2": 0.014,
     "planos": 9.6,
-    "blume": 0.453,
+    "blume": 0.445,
     "usable": false,
-    "recomendada": 0.453,
-    "origen": "Blume 0,67xB+0,33: R2 0.016 < 0.20, la cruda no es informativa"
+    "recomendada": 0.445,
+    "origen": "Blume 0,67xB+0,33: R2 0.014 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta 0.14 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AEDAS": {
    "5a": {
-    "beta": 0.536,
+    "beta": 0.531,
     "n": 260,
-    "r2": 0.101,
+    "r2": 0.099,
     "planos": 3.8,
-    "blume": 0.689,
+    "blume": 0.686,
     "usable": false,
-    "recomendada": 0.689,
-    "origen": "Blume 0,67xB+0,33: R2 0.101 < 0.20, la cruda no es informativa"
+    "recomendada": 0.686,
+    "origen": "Blume 0,67xB+0,33: R2 0.099 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.386,
+    "beta": 0.357,
     "n": 104,
-    "r2": 0.06,
+    "r2": 0.051,
     "planos": 6.7,
-    "blume": 0.588,
+    "blume": 0.569,
     "usable": false,
-    "recomendada": 0.588,
-    "origen": "Blume 0,67xB+0,33: R2 0.060 < 0.20, la cruda no es informativa"
+    "recomendada": 0.569,
+    "origen": "Blume 0,67xB+0,33: R2 0.051 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.10 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.10: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AENA": {
    "5a": {
-    "beta": 0.902,
+    "beta": 0.893,
     "n": 260,
-    "r2": 0.405,
+    "r2": 0.4,
     "planos": 0.8,
-    "blume": 0.935,
+    "blume": 0.928,
     "usable": true,
-    "recomendada": 0.902,
-    "origen": "cruda: R2 0.405 >= 0.20"
+    "recomendada": 0.893,
+    "origen": "cruda: R2 0.400 >= 0.20"
    },
    "2a": {
-    "beta": 0.753,
+    "beta": 0.726,
     "n": 104,
-    "r2": 0.326,
+    "r2": 0.306,
     "planos": 0.0,
-    "blume": 0.834,
+    "blume": 0.817,
     "usable": true,
-    "recomendada": 0.753,
-    "origen": "cruda: R2 0.326 >= 0.20"
+    "recomendada": 0.726,
+    "origen": "cruda: R2 0.306 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AI": {
    "5a": {
-    "beta": 0.807,
+    "beta": 0.812,
     "n": 260,
-    "r2": 0.088,
+    "r2": 0.089,
     "planos": 4.6,
-    "blume": 0.87,
+    "blume": 0.874,
     "usable": false,
-    "recomendada": 0.87,
-    "origen": "Blume 0,67xB+0,33: R2 0.088 < 0.20, la cruda no es informativa"
+    "recomendada": 0.874,
+    "origen": "Blume 0,67xB+0,33: R2 0.089 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.773,
+    "beta": 0.802,
     "n": 104,
-    "r2": 0.11,
+    "r2": 0.118,
     "planos": 2.9,
-    "blume": 0.848,
+    "blume": 0.867,
     "usable": false,
-    "recomendada": 0.848,
-    "origen": "Blume 0,67xB+0,33: R2 0.110 < 0.20, la cruda no es informativa"
+    "recomendada": 0.867,
+    "origen": "Blume 0,67xB+0,33: R2 0.118 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AIR": {
    "5a": {
-    "beta": 0.925,
+    "beta": 0.926,
     "n": 260,
-    "r2": 0.302,
+    "r2": 0.303,
     "planos": 0.0,
     "blume": 0.95,
     "usable": true,
-    "recomendada": 0.925,
-    "origen": "cruda: R2 0.302 >= 0.20"
+    "recomendada": 0.926,
+    "origen": "cruda: R2 0.303 >= 0.20"
    },
    "2a": {
-    "beta": 0.99,
+    "beta": 1.0,
     "n": 104,
-    "r2": 0.296,
+    "r2": 0.301,
     "planos": 0.0,
-    "blume": 0.993,
+    "blume": 1.0,
     "usable": true,
-    "recomendada": 0.99,
-    "origen": "cruda: R2 0.296 >= 0.20"
+    "recomendada": 1.0,
+    "origen": "cruda: R2 0.301 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ALM": {
    "5a": {
-    "beta": 0.455,
+    "beta": 0.452,
     "n": 260,
-    "r2": 0.077,
+    "r2": 0.076,
     "planos": 0.8,
-    "blume": 0.635,
+    "blume": 0.633,
     "usable": false,
-    "recomendada": 0.635,
-    "origen": "Blume 0,67xB+0,33: R2 0.077 < 0.20, la cruda no es informativa"
+    "recomendada": 0.633,
+    "origen": "Blume 0,67xB+0,33: R2 0.076 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.647,
+    "beta": 0.641,
     "n": 104,
-    "r2": 0.158,
+    "r2": 0.156,
     "planos": 0.0,
-    "blume": 0.763,
+    "blume": 0.759,
     "usable": false,
-    "recomendada": 0.763,
-    "origen": "Blume 0,67xB+0,33: R2 0.158 < 0.20, la cruda no es informativa"
+    "recomendada": 0.759,
+    "origen": "Blume 0,67xB+0,33: R2 0.156 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ALNT": {
    "5a": {
-    "beta": 0.345,
+    "beta": 0.347,
     "n": 260,
     "r2": 0.06,
-    "planos": 6.5,
-    "blume": 0.561,
+    "planos": 6.2,
+    "blume": 0.562,
     "usable": false,
-    "recomendada": 0.561,
+    "recomendada": 0.562,
     "origen": "Blume 0,67xB+0,33: R2 0.060 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.288,
+    "beta": 0.31,
     "n": 104,
-    "r2": 0.04,
+    "r2": 0.048,
     "planos": 4.8,
-    "blume": 0.523,
+    "blume": 0.538,
     "usable": false,
-    "recomendada": 0.523,
-    "origen": "Blume 0,67xB+0,33: R2 0.040 < 0.20, la cruda no es informativa"
+    "recomendada": 0.538,
+    "origen": "Blume 0,67xB+0,33: R2 0.048 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AMP": {
    "5a": {
@@ -321,514 +321,514 @@
    "avisos": [
     "salto de 0.2070 a 5.1810 el 2026-07-20: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AMS": {
    "5a": {
-    "beta": 0.964,
+    "beta": 0.954,
     "n": 260,
-    "r2": 0.357,
+    "r2": 0.356,
     "planos": 0.8,
-    "blume": 0.976,
+    "blume": 0.969,
     "usable": true,
-    "recomendada": 0.964,
-    "origen": "cruda: R2 0.357 >= 0.20"
+    "recomendada": 0.954,
+    "origen": "cruda: R2 0.356 >= 0.20"
    },
    "2a": {
-    "beta": 0.854,
+    "beta": 0.833,
     "n": 104,
-    "r2": 0.244,
+    "r2": 0.235,
     "planos": 1.0,
-    "blume": 0.902,
+    "blume": 0.888,
     "usable": true,
-    "recomendada": 0.854,
-    "origen": "cruda: R2 0.244 >= 0.20"
+    "recomendada": 0.833,
+    "origen": "cruda: R2 0.235 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ANA": {
    "5a": {
-    "beta": 0.958,
+    "beta": 0.954,
     "n": 260,
-    "r2": 0.242,
-    "planos": 0.8,
-    "blume": 0.972,
+    "r2": 0.241,
+    "planos": 1.2,
+    "blume": 0.969,
     "usable": true,
-    "recomendada": 0.958,
-    "origen": "cruda: R2 0.242 >= 0.20"
+    "recomendada": 0.954,
+    "origen": "cruda: R2 0.241 >= 0.20"
    },
    "2a": {
-    "beta": 1.175,
+    "beta": 1.178,
     "n": 104,
-    "r2": 0.267,
-    "planos": 1.0,
-    "blume": 1.117,
+    "r2": 0.271,
+    "planos": 1.9,
+    "blume": 1.119,
     "usable": true,
-    "recomendada": 1.175,
-    "origen": "cruda: R2 0.267 >= 0.20"
+    "recomendada": 1.178,
+    "origen": "cruda: R2 0.271 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ANE": {
    "5a": {
-    "beta": 0.691,
+    "beta": 0.688,
     "n": 260,
-    "r2": 0.144,
+    "r2": 0.143,
     "planos": 0.4,
-    "blume": 0.793,
+    "blume": 0.791,
     "usable": false,
-    "recomendada": 0.793,
-    "origen": "Blume 0,67xB+0,33: R2 0.144 < 0.20, la cruda no es informativa"
+    "recomendada": 0.791,
+    "origen": "Blume 0,67xB+0,33: R2 0.143 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.817,
+    "beta": 0.829,
     "n": 104,
-    "r2": 0.193,
+    "r2": 0.206,
     "planos": 0.0,
-    "blume": 0.877,
-    "usable": false,
-    "recomendada": 0.877,
-    "origen": "Blume 0,67xB+0,33: R2 0.193 < 0.20, la cruda no es informativa"
+    "blume": 0.886,
+    "usable": true,
+    "recomendada": 0.829,
+    "origen": "cruda: R2 0.206 >= 0.20"
    },
    "avisos": [
     "R2 0.14 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "APAM.AS": {
    "5a": {
-    "beta": 1.076,
-    "n": 252,
-    "r2": 0.216,
+    "beta": 1.08,
+    "n": 251,
+    "r2": 0.218,
     "planos": 0.8,
-    "blume": 1.051,
+    "blume": 1.054,
     "usable": true,
-    "recomendada": 1.076,
-    "origen": "cruda: R2 0.216 >= 0.20"
+    "recomendada": 1.08,
+    "origen": "cruda: R2 0.218 >= 0.20"
    },
    "2a": {
-    "beta": 1.1,
-    "n": 96,
-    "r2": 0.189,
+    "beta": 1.099,
+    "n": 95,
+    "r2": 0.188,
     "planos": 2.1,
-    "blume": 1.067,
+    "blume": 1.066,
     "usable": false,
-    "recomendada": 1.067,
-    "origen": "Blume 0,67xB+0,33: R2 0.189 < 0.20, la cruda no es informativa"
+    "recomendada": 1.066,
+    "origen": "Blume 0,67xB+0,33: R2 0.188 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
    "ultimoCierre": "2026-07-15"
   },
   "APAM": {
    "5a": {
-    "beta": 1.093,
+    "beta": 1.092,
     "n": 260,
-    "r2": 0.214,
+    "r2": 0.215,
     "planos": 0.8,
     "blume": 1.062,
     "usable": true,
-    "recomendada": 1.093,
-    "origen": "cruda: R2 0.214 >= 0.20"
+    "recomendada": 1.092,
+    "origen": "cruda: R2 0.215 >= 0.20"
    },
    "2a": {
-    "beta": 1.149,
+    "beta": 1.135,
     "n": 104,
-    "r2": 0.19,
+    "r2": 0.187,
     "planos": 1.9,
-    "blume": 1.1,
+    "blume": 1.091,
     "usable": false,
-    "recomendada": 1.1,
-    "origen": "Blume 0,67xB+0,33: R2 0.190 < 0.20, la cruda no es informativa"
+    "recomendada": 1.091,
+    "origen": "Blume 0,67xB+0,33: R2 0.187 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ARM": {
    "5a": {
-    "beta": 0.179,
+    "beta": 0.156,
     "n": 260,
-    "r2": 0.007,
-    "planos": 32.3,
-    "blume": 0.45,
-    "usable": false,
-    "recomendada": 0.45,
-    "origen": "Blume 0,67xB+0,33: R2 0.007 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.172,
-    "n": 104,
     "r2": 0.005,
-    "planos": 56.7,
-    "blume": 0.446,
+    "planos": 32.3,
+    "blume": 0.435,
     "usable": false,
-    "recomendada": 0.446,
+    "recomendada": 0.435,
     "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
    },
+   "2a": {
+    "beta": 0.107,
+    "n": 104,
+    "r2": 0.002,
+    "planos": 56.7,
+    "blume": 0.402,
+    "usable": false,
+    "recomendada": 0.402,
+    "origen": "Blume 0,67xB+0,33: R2 0.002 < 0.20, la cruda no es informativa"
+   },
    "avisos": [
-    "beta 0.18 fuera del rango plausible 0.2-2.5",
+    "beta 0.16 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa",
     "32% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ART": {
    "5a": {
-    "beta": 0.26,
+    "beta": 0.243,
     "n": 260,
-    "r2": 0.013,
+    "r2": 0.011,
     "planos": 10.8,
-    "blume": 0.504,
+    "blume": 0.493,
     "usable": false,
-    "recomendada": 0.504,
-    "origen": "Blume 0,67xB+0,33: R2 0.013 < 0.20, la cruda no es informativa"
+    "recomendada": 0.493,
+    "origen": "Blume 0,67xB+0,33: R2 0.011 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.316,
+    "beta": 0.249,
     "n": 104,
-    "r2": 0.009,
+    "r2": 0.006,
     "planos": 7.7,
-    "blume": 0.541,
+    "blume": 0.497,
     "usable": false,
-    "recomendada": 0.541,
-    "origen": "Blume 0,67xB+0,33: R2 0.009 < 0.20, la cruda no es informativa"
+    "recomendada": 0.497,
+    "origen": "Blume 0,67xB+0,33: R2 0.006 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "AZK": {
    "5a": {
-    "beta": 0.314,
+    "beta": 0.311,
     "n": 260,
-    "r2": 0.043,
+    "r2": 0.042,
     "planos": 5.0,
-    "blume": 0.541,
+    "blume": 0.538,
     "usable": false,
-    "recomendada": 0.541,
-    "origen": "Blume 0,67xB+0,33: R2 0.043 < 0.20, la cruda no es informativa"
+    "recomendada": 0.538,
+    "origen": "Blume 0,67xB+0,33: R2 0.042 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.309,
+    "beta": 0.307,
     "n": 104,
-    "r2": 0.038,
+    "r2": 0.037,
     "planos": 1.0,
-    "blume": 0.537,
+    "blume": 0.535,
     "usable": false,
-    "recomendada": 0.537,
-    "origen": "Blume 0,67xB+0,33: R2 0.038 < 0.20, la cruda no es informativa"
+    "recomendada": 0.535,
+    "origen": "Blume 0,67xB+0,33: R2 0.037 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "BBVA": {
    "5a": {
-    "beta": 1.458,
+    "beta": 1.461,
     "n": 260,
-    "r2": 0.607,
+    "r2": 0.609,
     "planos": 0.0,
-    "blume": 1.307,
+    "blume": 1.309,
     "usable": true,
-    "recomendada": 1.458,
-    "origen": "cruda: R2 0.607 >= 0.20"
+    "recomendada": 1.461,
+    "origen": "cruda: R2 0.609 >= 0.20"
    },
    "2a": {
-    "beta": 1.307,
+    "beta": 1.305,
     "n": 104,
-    "r2": 0.576,
+    "r2": 0.579,
     "planos": 0.0,
-    "blume": 1.205,
+    "blume": 1.204,
     "usable": true,
-    "recomendada": 1.307,
-    "origen": "cruda: R2 0.576 >= 0.20"
+    "recomendada": 1.305,
+    "origen": "cruda: R2 0.579 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "BKT": {
    "5a": {
-    "beta": 1.061,
+    "beta": 1.062,
     "n": 260,
-    "r2": 0.33,
+    "r2": 0.331,
     "planos": 0.0,
     "blume": 1.041,
     "usable": true,
-    "recomendada": 1.061,
-    "origen": "cruda: R2 0.330 >= 0.20"
+    "recomendada": 1.062,
+    "origen": "cruda: R2 0.331 >= 0.20"
    },
    "2a": {
-    "beta": 1.083,
+    "beta": 1.096,
     "n": 104,
-    "r2": 0.458,
+    "r2": 0.469,
     "planos": 0.0,
-    "blume": 1.055,
+    "blume": 1.065,
     "usable": true,
-    "recomendada": 1.083,
-    "origen": "cruda: R2 0.458 >= 0.20"
+    "recomendada": 1.096,
+    "origen": "cruda: R2 0.469 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "BKY": {
    "5a": {
-    "beta": 1.033,
+    "beta": 1.045,
     "n": 260,
-    "r2": 0.069,
+    "r2": 0.071,
     "planos": 1.5,
-    "blume": 1.022,
+    "blume": 1.03,
     "usable": false,
-    "recomendada": 1.022,
-    "origen": "Blume 0,67xB+0,33: R2 0.069 < 0.20, la cruda no es informativa"
+    "recomendada": 1.03,
+    "origen": "Blume 0,67xB+0,33: R2 0.071 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.449,
+    "beta": 0.483,
     "n": 104,
-    "r2": 0.028,
+    "r2": 0.032,
     "planos": 1.9,
-    "blume": 0.631,
+    "blume": 0.654,
     "usable": false,
-    "recomendada": 0.631,
-    "origen": "Blume 0,67xB+0,33: R2 0.028 < 0.20, la cruda no es informativa"
+    "recomendada": 0.654,
+    "origen": "Blume 0,67xB+0,33: R2 0.032 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa",
-    "la beta a 2 anos (0.45) se aparta de la de 5 (1.03): riesgo cambiando"
+    "la beta a 2 anos (0.48) se aparta de la de 5 (1.04): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CABK": {
    "5a": {
-    "beta": 1.068,
+    "beta": 1.069,
     "n": 260,
-    "r2": 0.338,
+    "r2": 0.339,
     "planos": 0.0,
-    "blume": 1.046,
+    "blume": 1.047,
     "usable": true,
-    "recomendada": 1.068,
-    "origen": "cruda: R2 0.338 >= 0.20"
+    "recomendada": 1.069,
+    "origen": "cruda: R2 0.339 >= 0.20"
    },
    "2a": {
-    "beta": 1.105,
+    "beta": 1.115,
     "n": 104,
-    "r2": 0.431,
+    "r2": 0.438,
     "planos": 0.0,
-    "blume": 1.07,
+    "blume": 1.077,
     "usable": true,
-    "recomendada": 1.105,
-    "origen": "cruda: R2 0.431 >= 0.20"
+    "recomendada": 1.115,
+    "origen": "cruda: R2 0.438 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CAF": {
    "5a": {
-    "beta": 0.829,
+    "beta": 0.825,
     "n": 260,
-    "r2": 0.267,
-    "planos": 2.3,
-    "blume": 0.885,
+    "r2": 0.266,
+    "planos": 2.7,
+    "blume": 0.883,
     "usable": true,
-    "recomendada": 0.829,
-    "origen": "cruda: R2 0.267 >= 0.20"
+    "recomendada": 0.825,
+    "origen": "cruda: R2 0.266 >= 0.20"
    },
    "2a": {
-    "beta": 0.619,
+    "beta": 0.616,
     "n": 104,
     "r2": 0.144,
-    "planos": 1.9,
-    "blume": 0.744,
+    "planos": 2.9,
+    "blume": 0.743,
     "usable": false,
-    "recomendada": 0.744,
+    "recomendada": 0.743,
     "origen": "Blume 0,67xB+0,33: R2 0.144 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CCEP": {
    "5a": {
-    "beta": 0.424,
+    "beta": 0.429,
     "n": 260,
-    "r2": 0.103,
+    "r2": 0.106,
     "planos": 2.7,
-    "blume": 0.614,
+    "blume": 0.618,
     "usable": false,
-    "recomendada": 0.614,
-    "origen": "Blume 0,67xB+0,33: R2 0.103 < 0.20, la cruda no es informativa"
+    "recomendada": 0.618,
+    "origen": "Blume 0,67xB+0,33: R2 0.106 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.326,
+    "beta": 0.335,
     "n": 104,
-    "r2": 0.054,
+    "r2": 0.057,
     "planos": 3.8,
-    "blume": 0.549,
+    "blume": 0.555,
     "usable": false,
-    "recomendada": 0.549,
-    "origen": "Blume 0,67xB+0,33: R2 0.054 < 0.20, la cruda no es informativa"
+    "recomendada": 0.555,
+    "origen": "Blume 0,67xB+0,33: R2 0.057 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.10 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.11 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CEV": {
    "5a": {
-    "beta": -0.018,
+    "beta": -0.019,
     "n": 260,
     "r2": 0.0,
-    "planos": 62.3,
+    "planos": 62.7,
     "blume": 0.318,
     "usable": false,
     "recomendada": 0.318,
     "origen": "Blume 0,67xB+0,33: R2 0.000 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -0.092,
+    "beta": -0.087,
     "n": 104,
     "r2": 0.001,
     "planos": 39.4,
-    "blume": 0.268,
+    "blume": 0.272,
     "usable": false,
-    "recomendada": 0.268,
+    "recomendada": 0.272,
     "origen": "Blume 0,67xB+0,33: R2 0.001 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta -0.02 fuera del rango plausible 0.2-2.5",
     "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa",
-    "62% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+    "63% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CIE": {
    "5a": {
-    "beta": 0.778,
+    "beta": 0.776,
     "n": 260,
     "r2": 0.263,
     "planos": 1.5,
-    "blume": 0.851,
+    "blume": 0.85,
     "usable": true,
-    "recomendada": 0.778,
+    "recomendada": 0.776,
     "origen": "cruda: R2 0.263 >= 0.20"
    },
    "2a": {
-    "beta": 0.665,
+    "beta": 0.672,
     "n": 104,
-    "r2": 0.207,
+    "r2": 0.213,
     "planos": 1.9,
-    "blume": 0.776,
+    "blume": 0.78,
     "usable": true,
-    "recomendada": 0.665,
-    "origen": "cruda: R2 0.207 >= 0.20"
+    "recomendada": 0.672,
+    "origen": "cruda: R2 0.213 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CIRSA": {
    "5a": {
-    "beta": 0.175,
-    "n": 61,
-    "r2": 0.006,
+    "beta": 0.169,
+    "n": 62,
+    "r2": 0.005,
     "planos": 0.0,
-    "blume": 0.447,
+    "blume": 0.443,
     "usable": false,
-    "recomendada": 0.447,
-    "origen": "Blume 0,67xB+0,33: R2 0.006 < 0.20, la cruda no es informativa"
+    "recomendada": 0.443,
+    "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.175,
-    "n": 61,
-    "r2": 0.006,
+    "beta": 0.169,
+    "n": 62,
+    "r2": 0.005,
     "planos": 0.0,
-    "blume": 0.447,
+    "blume": 0.443,
     "usable": false,
-    "recomendada": 0.447,
-    "origen": "Blume 0,67xB+0,33: R2 0.006 < 0.20, la cruda no es informativa"
+    "recomendada": 0.443,
+    "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta 0.17 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "CLNX": {
    "5a": {
-    "beta": 0.782,
+    "beta": 0.786,
     "n": 260,
-    "r2": 0.165,
+    "r2": 0.168,
     "planos": 0.4,
-    "blume": 0.854,
+    "blume": 0.857,
     "usable": false,
-    "recomendada": 0.854,
-    "origen": "Blume 0,67xB+0,33: R2 0.165 < 0.20, la cruda no es informativa"
+    "recomendada": 0.857,
+    "origen": "Blume 0,67xB+0,33: R2 0.168 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.707,
+    "beta": 0.72,
     "n": 104,
-    "r2": 0.147,
+    "r2": 0.153,
     "planos": 1.0,
-    "blume": 0.803,
+    "blume": 0.813,
     "usable": false,
-    "recomendada": 0.803,
-    "origen": "Blume 0,67xB+0,33: R2 0.147 < 0.20, la cruda no es informativa"
+    "recomendada": 0.813,
+    "origen": "Blume 0,67xB+0,33: R2 0.153 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.17 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "COL": {
    "5a": {
-    "beta": 0.946,
+    "beta": 0.944,
     "n": 260,
-    "r2": 0.37,
+    "r2": 0.369,
     "planos": 1.2,
-    "blume": 0.964,
+    "blume": 0.962,
     "usable": true,
-    "recomendada": 0.946,
-    "origen": "cruda: R2 0.370 >= 0.20"
+    "recomendada": 0.944,
+    "origen": "cruda: R2 0.369 >= 0.20"
    },
    "2a": {
-    "beta": 0.782,
+    "beta": 0.778,
     "n": 104,
     "r2": 0.369,
     "planos": 1.0,
-    "blume": 0.854,
+    "blume": 0.851,
     "usable": true,
-    "recomendada": 0.782,
+    "recomendada": 0.778,
     "origen": "cruda: R2 0.369 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "COXG": {
    "5a": {
-    "beta": -0.098,
-    "n": 92,
-    "r2": 0.002,
-    "planos": 3.3,
-    "blume": 0.264,
+    "beta": -0.108,
+    "n": 93,
+    "r2": 0.003,
+    "planos": 3.2,
+    "blume": 0.257,
     "usable": false,
-    "recomendada": 0.264,
-    "origen": "Blume 0,67xB+0,33: R2 0.002 < 0.20, la cruda no es informativa"
+    "recomendada": 0.257,
+    "origen": "Blume 0,67xB+0,33: R2 0.003 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -0.098,
-    "n": 92,
-    "r2": 0.002,
-    "planos": 3.3,
-    "blume": 0.264,
+    "beta": -0.108,
+    "n": 93,
+    "r2": 0.003,
+    "planos": 3.2,
+    "blume": 0.257,
     "usable": false,
-    "recomendada": 0.264,
-    "origen": "Blume 0,67xB+0,33: R2 0.002 < 0.20, la cruda no es informativa"
+    "recomendada": 0.257,
+    "origen": "Blume 0,67xB+0,33: R2 0.003 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "beta -0.10 fuera del rango plausible 0.2-2.5",
+    "beta -0.11 fuera del rango plausible 0.2-2.5",
     "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "DIA": {
    "5a": {
@@ -848,497 +848,497 @@
    "avisos": [
     "salto de 0.0167 a 17.2000 el 2025-02-03: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "EBRO": {
    "5a": {
-    "beta": 0.085,
+    "beta": 0.083,
     "n": 260,
-    "r2": 0.013,
+    "r2": 0.012,
     "planos": 3.5,
-    "blume": 0.387,
+    "blume": 0.386,
     "usable": false,
-    "recomendada": 0.387,
-    "origen": "Blume 0,67xB+0,33: R2 0.013 < 0.20, la cruda no es informativa"
+    "recomendada": 0.386,
+    "origen": "Blume 0,67xB+0,33: R2 0.012 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.048,
+    "beta": 0.05,
     "n": 104,
-    "r2": 0.005,
+    "r2": 0.006,
     "planos": 1.9,
-    "blume": 0.362,
+    "blume": 0.364,
     "usable": false,
-    "recomendada": 0.362,
-    "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
+    "recomendada": 0.364,
+    "origen": "Blume 0,67xB+0,33: R2 0.006 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "beta 0.09 fuera del rango plausible 0.2-2.5",
+    "beta 0.08 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ECO": {
    "5a": {
-    "beta": 0.266,
+    "beta": 0.268,
     "n": 260,
     "r2": 0.02,
     "planos": 5.8,
-    "blume": 0.508,
+    "blume": 0.509,
     "usable": false,
-    "recomendada": 0.508,
+    "recomendada": 0.509,
     "origen": "Blume 0,67xB+0,33: R2 0.020 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -0.013,
+    "beta": -0.004,
     "n": 104,
     "r2": 0.0,
     "planos": 5.8,
-    "blume": 0.321,
+    "blume": 0.327,
     "usable": false,
-    "recomendada": 0.321,
+    "recomendada": 0.327,
     "origen": "Blume 0,67xB+0,33: R2 0.000 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ECR": {
    "5a": {
-    "beta": 0.555,
+    "beta": 0.558,
     "n": 260,
-    "r2": 0.078,
-    "planos": 6.2,
-    "blume": 0.702,
+    "r2": 0.079,
+    "planos": 6.5,
+    "blume": 0.704,
     "usable": false,
-    "recomendada": 0.702,
-    "origen": "Blume 0,67xB+0,33: R2 0.078 < 0.20, la cruda no es informativa"
+    "recomendada": 0.704,
+    "origen": "Blume 0,67xB+0,33: R2 0.079 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.157,
+    "beta": 0.158,
     "n": 104,
     "r2": 0.007,
-    "planos": 9.6,
-    "blume": 0.435,
+    "planos": 10.6,
+    "blume": 0.436,
     "usable": false,
-    "recomendada": 0.435,
+    "recomendada": 0.436,
     "origen": "Blume 0,67xB+0,33: R2 0.007 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa",
     "la beta a 2 anos (0.16) se aparta de la de 5 (0.56): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ELE": {
    "5a": {
-    "beta": 0.578,
+    "beta": 0.576,
     "n": 260,
-    "r2": 0.189,
+    "r2": 0.188,
     "planos": 0.8,
-    "blume": 0.717,
+    "blume": 0.716,
     "usable": false,
-    "recomendada": 0.717,
-    "origen": "Blume 0,67xB+0,33: R2 0.189 < 0.20, la cruda no es informativa"
+    "recomendada": 0.716,
+    "origen": "Blume 0,67xB+0,33: R2 0.188 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.48,
+    "beta": 0.484,
     "n": 104,
-    "r2": 0.136,
+    "r2": 0.141,
     "planos": 1.9,
-    "blume": 0.651,
+    "blume": 0.654,
     "usable": false,
-    "recomendada": 0.651,
-    "origen": "Blume 0,67xB+0,33: R2 0.136 < 0.20, la cruda no es informativa"
+    "recomendada": 0.654,
+    "origen": "Blume 0,67xB+0,33: R2 0.141 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.19 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ENC": {
    "5a": {
-    "beta": 0.718,
+    "beta": 0.716,
     "n": 260,
     "r2": 0.125,
     "planos": 0.8,
-    "blume": 0.811,
+    "blume": 0.81,
     "usable": false,
-    "recomendada": 0.811,
+    "recomendada": 0.81,
     "origen": "Blume 0,67xB+0,33: R2 0.125 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.505,
+    "beta": 0.509,
     "n": 104,
-    "r2": 0.088,
+    "r2": 0.09,
     "planos": 0.0,
-    "blume": 0.668,
+    "blume": 0.671,
     "usable": false,
-    "recomendada": 0.668,
-    "origen": "Blume 0,67xB+0,33: R2 0.088 < 0.20, la cruda no es informativa"
+    "recomendada": 0.671,
+    "origen": "Blume 0,67xB+0,33: R2 0.090 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.12 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ENG": {
    "5a": {
-    "beta": 0.398,
+    "beta": 0.392,
     "n": 260,
-    "r2": 0.1,
+    "r2": 0.097,
     "planos": 0.0,
-    "blume": 0.597,
+    "blume": 0.592,
     "usable": false,
-    "recomendada": 0.597,
-    "origen": "Blume 0,67xB+0,33: R2 0.100 < 0.20, la cruda no es informativa"
+    "recomendada": 0.592,
+    "origen": "Blume 0,67xB+0,33: R2 0.097 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.227,
+    "beta": 0.222,
     "n": 104,
-    "r2": 0.029,
+    "r2": 0.028,
     "planos": 0.0,
-    "blume": 0.482,
+    "blume": 0.478,
     "usable": false,
-    "recomendada": 0.482,
-    "origen": "Blume 0,67xB+0,33: R2 0.029 < 0.20, la cruda no es informativa"
+    "recomendada": 0.478,
+    "origen": "Blume 0,67xB+0,33: R2 0.028 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.10 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.10: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ENO": {
    "5a": {
-    "beta": 0.745,
+    "beta": 0.747,
     "n": 260,
-    "r2": 0.147,
+    "r2": 0.148,
     "planos": 5.0,
-    "blume": 0.829,
+    "blume": 0.83,
     "usable": false,
-    "recomendada": 0.829,
-    "origen": "Blume 0,67xB+0,33: R2 0.147 < 0.20, la cruda no es informativa"
+    "recomendada": 0.83,
+    "origen": "Blume 0,67xB+0,33: R2 0.148 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.87,
+    "beta": 0.867,
     "n": 104,
     "r2": 0.102,
     "planos": 1.9,
-    "blume": 0.913,
+    "blume": 0.911,
     "usable": false,
-    "recomendada": 0.913,
+    "recomendada": 0.911,
     "origen": "Blume 0,67xB+0,33: R2 0.102 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.15 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "EZE": {
    "5a": {
-    "beta": 0.744,
+    "beta": 0.747,
     "n": 260,
-    "r2": 0.022,
+    "r2": 0.023,
     "planos": 26.5,
-    "blume": 0.829,
+    "blume": 0.831,
     "usable": false,
-    "recomendada": 0.829,
-    "origen": "Blume 0,67xB+0,33: R2 0.022 < 0.20, la cruda no es informativa"
+    "recomendada": 0.831,
+    "origen": "Blume 0,67xB+0,33: R2 0.023 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.594,
+    "beta": 0.618,
     "n": 104,
-    "r2": 0.047,
+    "r2": 0.052,
     "planos": 2.9,
-    "blume": 0.728,
+    "blume": 0.744,
     "usable": false,
-    "recomendada": 0.728,
-    "origen": "Blume 0,67xB+0,33: R2 0.047 < 0.20, la cruda no es informativa"
+    "recomendada": 0.744,
+    "origen": "Blume 0,67xB+0,33: R2 0.052 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa",
     "26% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "FAE": {
    "5a": {
-    "beta": 0.475,
+    "beta": 0.464,
     "n": 260,
-    "r2": 0.129,
+    "r2": 0.127,
     "planos": 4.2,
-    "blume": 0.648,
+    "blume": 0.641,
     "usable": false,
-    "recomendada": 0.648,
-    "origen": "Blume 0,67xB+0,33: R2 0.129 < 0.20, la cruda no es informativa"
+    "recomendada": 0.641,
+    "origen": "Blume 0,67xB+0,33: R2 0.127 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.459,
+    "beta": 0.445,
     "n": 104,
-    "r2": 0.093,
-    "planos": 3.8,
-    "blume": 0.637,
+    "r2": 0.087,
+    "planos": 2.9,
+    "blume": 0.628,
     "usable": false,
-    "recomendada": 0.637,
-    "origen": "Blume 0,67xB+0,33: R2 0.093 < 0.20, la cruda no es informativa"
+    "recomendada": 0.628,
+    "origen": "Blume 0,67xB+0,33: R2 0.087 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.13 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "FCC": {
    "5a": {
-    "beta": 0.88,
+    "beta": 0.885,
     "n": 260,
-    "r2": 0.213,
+    "r2": 0.217,
     "planos": 3.8,
-    "blume": 0.92,
+    "blume": 0.923,
     "usable": true,
-    "recomendada": 0.88,
-    "origen": "cruda: R2 0.213 >= 0.20"
+    "recomendada": 0.885,
+    "origen": "cruda: R2 0.217 >= 0.20"
    },
    "2a": {
-    "beta": 1.069,
+    "beta": 1.06,
     "n": 104,
-    "r2": 0.251,
+    "r2": 0.25,
     "planos": 3.8,
-    "blume": 1.046,
+    "blume": 1.04,
     "usable": true,
-    "recomendada": 1.069,
-    "origen": "cruda: R2 0.251 >= 0.20"
+    "recomendada": 1.06,
+    "origen": "cruda: R2 0.250 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "FDR": {
    "5a": {
-    "beta": 0.933,
+    "beta": 0.929,
     "n": 260,
     "r2": 0.187,
     "planos": 0.0,
-    "blume": 0.955,
+    "blume": 0.952,
     "usable": false,
-    "recomendada": 0.955,
+    "recomendada": 0.952,
     "origen": "Blume 0,67xB+0,33: R2 0.187 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.992,
+    "beta": 0.985,
     "n": 104,
     "r2": 0.28,
     "planos": 0.0,
-    "blume": 0.995,
+    "blume": 0.99,
     "usable": true,
-    "recomendada": 0.992,
+    "recomendada": 0.985,
     "origen": "cruda: R2 0.280 >= 0.20"
    },
    "avisos": [
     "R2 0.19 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "FER": {
    "5a": {
-    "beta": 0.788,
+    "beta": 0.785,
     "n": 260,
-    "r2": 0.377,
+    "r2": 0.378,
     "planos": 0.8,
-    "blume": 0.858,
+    "blume": 0.856,
     "usable": true,
-    "recomendada": 0.788,
-    "origen": "cruda: R2 0.377 >= 0.20"
+    "recomendada": 0.785,
+    "origen": "cruda: R2 0.378 >= 0.20"
    },
    "2a": {
-    "beta": 0.993,
+    "beta": 0.994,
     "n": 104,
-    "r2": 0.474,
-    "planos": 1.9,
-    "blume": 0.995,
+    "r2": 0.477,
+    "planos": 1.0,
+    "blume": 0.996,
     "usable": true,
-    "recomendada": 0.993,
-    "origen": "cruda: R2 0.474 >= 0.20"
+    "recomendada": 0.994,
+    "origen": "cruda: R2 0.477 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "GEST": {
    "5a": {
-    "beta": 0.847,
+    "beta": 0.841,
     "n": 260,
-    "r2": 0.218,
+    "r2": 0.216,
     "planos": 0.0,
-    "blume": 0.898,
+    "blume": 0.893,
     "usable": true,
-    "recomendada": 0.847,
-    "origen": "cruda: R2 0.218 >= 0.20"
+    "recomendada": 0.841,
+    "origen": "cruda: R2 0.216 >= 0.20"
    },
    "2a": {
-    "beta": 0.574,
+    "beta": 0.561,
     "n": 104,
-    "r2": 0.114,
+    "r2": 0.11,
     "planos": 0.0,
-    "blume": 0.714,
+    "blume": 0.706,
     "usable": false,
-    "recomendada": 0.714,
-    "origen": "Blume 0,67xB+0,33: R2 0.114 < 0.20, la cruda no es informativa"
+    "recomendada": 0.706,
+    "origen": "Blume 0,67xB+0,33: R2 0.110 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "GIGA": {
    "5a": {
-    "beta": 0.248,
+    "beta": 0.252,
     "n": 260,
     "r2": 0.018,
-    "planos": 9.6,
-    "blume": 0.496,
+    "planos": 9.2,
+    "blume": 0.499,
     "usable": false,
-    "recomendada": 0.496,
+    "recomendada": 0.499,
     "origen": "Blume 0,67xB+0,33: R2 0.018 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.3,
+    "beta": 0.31,
     "n": 104,
-    "r2": 0.022,
-    "planos": 10.6,
-    "blume": 0.531,
+    "r2": 0.023,
+    "planos": 9.6,
+    "blume": 0.538,
     "usable": false,
-    "recomendada": 0.531,
-    "origen": "Blume 0,67xB+0,33: R2 0.022 < 0.20, la cruda no es informativa"
+    "recomendada": 0.538,
+    "origen": "Blume 0,67xB+0,33: R2 0.023 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "GRE": {
    "5a": {
-    "beta": 0.649,
+    "beta": 0.646,
     "n": 260,
-    "r2": 0.058,
+    "r2": 0.057,
     "planos": 1.5,
-    "blume": 0.765,
+    "blume": 0.763,
     "usable": false,
-    "recomendada": 0.765,
-    "origen": "Blume 0,67xB+0,33: R2 0.058 < 0.20, la cruda no es informativa"
+    "recomendada": 0.763,
+    "origen": "Blume 0,67xB+0,33: R2 0.057 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.225,
+    "beta": 0.243,
     "n": 104,
-    "r2": 0.006,
+    "r2": 0.007,
     "planos": 1.9,
-    "blume": 0.481,
+    "blume": 0.493,
     "usable": false,
-    "recomendada": 0.481,
-    "origen": "Blume 0,67xB+0,33: R2 0.006 < 0.20, la cruda no es informativa"
+    "recomendada": 0.493,
+    "origen": "Blume 0,67xB+0,33: R2 0.007 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa",
-    "la beta a 2 anos (0.23) se aparta de la de 5 (0.65): riesgo cambiando"
+    "la beta a 2 anos (0.24) se aparta de la de 5 (0.65): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "GRF": {
    "5a": {
-    "beta": 0.979,
+    "beta": 0.98,
     "n": 260,
-    "r2": 0.12,
+    "r2": 0.121,
     "planos": 1.2,
-    "blume": 0.986,
+    "blume": 0.987,
     "usable": false,
-    "recomendada": 0.986,
-    "origen": "Blume 0,67xB+0,33: R2 0.120 < 0.20, la cruda no es informativa"
+    "recomendada": 0.987,
+    "origen": "Blume 0,67xB+0,33: R2 0.121 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.717,
+    "beta": 0.738,
     "n": 104,
-    "r2": 0.108,
+    "r2": 0.115,
     "planos": 2.9,
-    "blume": 0.81,
+    "blume": 0.824,
     "usable": false,
-    "recomendada": 0.81,
-    "origen": "Blume 0,67xB+0,33: R2 0.108 < 0.20, la cruda no es informativa"
+    "recomendada": 0.824,
+    "origen": "Blume 0,67xB+0,33: R2 0.115 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.12 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "GSJ": {
    "5a": {
-    "beta": 0.698,
+    "beta": 0.701,
     "n": 260,
-    "r2": 0.174,
+    "r2": 0.176,
     "planos": 5.0,
-    "blume": 0.798,
+    "blume": 0.8,
     "usable": false,
-    "recomendada": 0.798,
-    "origen": "Blume 0,67xB+0,33: R2 0.174 < 0.20, la cruda no es informativa"
+    "recomendada": 0.8,
+    "origen": "Blume 0,67xB+0,33: R2 0.176 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.892,
+    "beta": 0.914,
     "n": 104,
-    "r2": 0.242,
+    "r2": 0.259,
     "planos": 3.8,
-    "blume": 0.928,
+    "blume": 0.942,
     "usable": true,
-    "recomendada": 0.892,
-    "origen": "cruda: R2 0.242 >= 0.20"
+    "recomendada": 0.914,
+    "origen": "cruda: R2 0.259 >= 0.20"
    },
    "avisos": [
-    "R2 0.17 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.18 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "HOME": {
    "5a": {
-    "beta": 0.442,
+    "beta": 0.44,
     "n": 260,
     "r2": 0.077,
     "planos": 3.1,
-    "blume": 0.626,
+    "blume": 0.625,
     "usable": false,
-    "recomendada": 0.626,
+    "recomendada": 0.625,
     "origen": "Blume 0,67xB+0,33: R2 0.077 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.428,
+    "beta": 0.413,
     "n": 104,
-    "r2": 0.06,
+    "r2": 0.056,
     "planos": 5.8,
-    "blume": 0.617,
+    "blume": 0.607,
     "usable": false,
-    "recomendada": 0.617,
-    "origen": "Blume 0,67xB+0,33: R2 0.060 < 0.20, la cruda no es informativa"
+    "recomendada": 0.607,
+    "origen": "Blume 0,67xB+0,33: R2 0.056 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "IAG": {
    "5a": {
-    "beta": 1.45,
+    "beta": 1.434,
     "n": 260,
-    "r2": 0.374,
+    "r2": 0.382,
     "planos": 0.8,
-    "blume": 1.301,
+    "blume": 1.291,
     "usable": true,
-    "recomendada": 1.45,
-    "origen": "cruda: R2 0.374 >= 0.20"
+    "recomendada": 1.434,
+    "origen": "cruda: R2 0.382 >= 0.20"
    },
    "2a": {
-    "beta": 1.37,
+    "beta": 1.351,
     "n": 104,
-    "r2": 0.324,
+    "r2": 0.319,
     "planos": 1.9,
-    "blume": 1.248,
+    "blume": 1.235,
     "usable": true,
-    "recomendada": 1.37,
-    "origen": "cruda: R2 0.324 >= 0.20"
+    "recomendada": 1.351,
+    "origen": "cruda: R2 0.319 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "IBE": {
    "5a": {
@@ -1346,487 +1346,487 @@
     "n": 260,
     "r2": 0.276,
     "planos": 1.2,
-    "blume": 0.755,
+    "blume": 0.754,
     "usable": true,
     "recomendada": 0.634,
     "origen": "cruda: R2 0.276 >= 0.20"
    },
    "2a": {
-    "beta": 0.442,
+    "beta": 0.436,
     "n": 104,
-    "r2": 0.176,
+    "r2": 0.172,
     "planos": 0.0,
-    "blume": 0.626,
+    "blume": 0.622,
     "usable": false,
-    "recomendada": 0.626,
-    "origen": "Blume 0,67xB+0,33: R2 0.176 < 0.20, la cruda no es informativa"
+    "recomendada": 0.622,
+    "origen": "Blume 0,67xB+0,33: R2 0.172 < 0.20, la cruda no es informativa"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "IBG": {
    "5a": {
-    "beta": 0.331,
+    "beta": 0.336,
     "n": 260,
-    "r2": 0.086,
+    "r2": 0.089,
     "planos": 9.2,
-    "blume": 0.552,
+    "blume": 0.555,
     "usable": false,
-    "recomendada": 0.552,
-    "origen": "Blume 0,67xB+0,33: R2 0.086 < 0.20, la cruda no es informativa"
+    "recomendada": 0.555,
+    "origen": "Blume 0,67xB+0,33: R2 0.089 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.311,
+    "beta": 0.318,
     "n": 104,
-    "r2": 0.097,
+    "r2": 0.101,
     "planos": 7.7,
-    "blume": 0.539,
+    "blume": 0.543,
     "usable": false,
-    "recomendada": 0.539,
-    "origen": "Blume 0,67xB+0,33: R2 0.097 < 0.20, la cruda no es informativa"
+    "recomendada": 0.543,
+    "origen": "Blume 0,67xB+0,33: R2 0.101 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "IDR": {
    "5a": {
-    "beta": 0.798,
+    "beta": 0.791,
     "n": 260,
-    "r2": 0.122,
+    "r2": 0.12,
     "planos": 0.4,
-    "blume": 0.865,
+    "blume": 0.86,
     "usable": false,
-    "recomendada": 0.865,
-    "origen": "Blume 0,67xB+0,33: R2 0.122 < 0.20, la cruda no es informativa"
+    "recomendada": 0.86,
+    "origen": "Blume 0,67xB+0,33: R2 0.120 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.868,
+    "beta": 0.861,
     "n": 104,
-    "r2": 0.086,
+    "r2": 0.085,
     "planos": 0.0,
-    "blume": 0.912,
+    "blume": 0.907,
     "usable": false,
-    "recomendada": 0.912,
-    "origen": "Blume 0,67xB+0,33: R2 0.086 < 0.20, la cruda no es informativa"
+    "recomendada": 0.907,
+    "origen": "Blume 0,67xB+0,33: R2 0.085 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.12 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ITX": {
    "5a": {
-    "beta": 1.076,
+    "beta": 1.081,
     "n": 260,
-    "r2": 0.443,
+    "r2": 0.445,
     "planos": 0.8,
-    "blume": 1.051,
+    "blume": 1.054,
     "usable": true,
-    "recomendada": 1.076,
-    "origen": "cruda: R2 0.443 >= 0.20"
+    "recomendada": 1.081,
+    "origen": "cruda: R2 0.445 >= 0.20"
    },
    "2a": {
-    "beta": 1.197,
+    "beta": 1.201,
     "n": 104,
-    "r2": 0.453,
+    "r2": 0.456,
     "planos": 1.0,
-    "blume": 1.132,
+    "blume": 1.135,
     "usable": true,
-    "recomendada": 1.197,
-    "origen": "cruda: R2 0.453 >= 0.20"
+    "recomendada": 1.201,
+    "origen": "cruda: R2 0.456 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "LDA": {
    "5a": {
     "beta": 0.527,
     "n": 260,
-    "r2": 0.122,
+    "r2": 0.124,
     "planos": 2.3,
     "blume": 0.683,
     "usable": false,
     "recomendada": 0.683,
-    "origen": "Blume 0,67xB+0,33: R2 0.122 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.124 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.634,
+    "beta": 0.625,
     "n": 104,
-    "r2": 0.154,
-    "planos": 2.9,
-    "blume": 0.755,
+    "r2": 0.151,
+    "planos": 1.9,
+    "blume": 0.749,
     "usable": false,
-    "recomendada": 0.755,
-    "origen": "Blume 0,67xB+0,33: R2 0.154 < 0.20, la cruda no es informativa"
+    "recomendada": 0.749,
+    "origen": "Blume 0,67xB+0,33: R2 0.151 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.12 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "LGT": {
    "5a": {
-    "beta": 0.258,
+    "beta": 0.259,
     "n": 260,
-    "r2": 0.025,
+    "r2": 0.026,
     "planos": 10.0,
     "blume": 0.503,
     "usable": false,
     "recomendada": 0.503,
-    "origen": "Blume 0,67xB+0,33: R2 0.025 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.026 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.109,
+    "beta": 0.111,
     "n": 104,
     "r2": 0.008,
     "planos": 15.4,
-    "blume": 0.403,
+    "blume": 0.404,
     "usable": false,
-    "recomendada": 0.403,
+    "recomendada": 0.404,
     "origen": "Blume 0,67xB+0,33: R2 0.008 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "LLN": {
    "5a": {
-    "beta": 0.759,
+    "beta": 0.755,
     "n": 260,
     "r2": 0.046,
     "planos": 3.8,
-    "blume": 0.839,
+    "blume": 0.836,
     "usable": false,
-    "recomendada": 0.839,
+    "recomendada": 0.836,
     "origen": "Blume 0,67xB+0,33: R2 0.046 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.746,
+    "beta": 0.747,
     "n": 104,
-    "r2": 0.07,
+    "r2": 0.071,
     "planos": 3.8,
-    "blume": 0.829,
+    "blume": 0.83,
     "usable": false,
-    "recomendada": 0.829,
-    "origen": "Blume 0,67xB+0,33: R2 0.070 < 0.20, la cruda no es informativa"
+    "recomendada": 0.83,
+    "origen": "Blume 0,67xB+0,33: R2 0.071 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "LOG": {
    "5a": {
-    "beta": 0.472,
+    "beta": 0.471,
     "n": 260,
-    "r2": 0.186,
+    "r2": 0.185,
     "planos": 1.2,
-    "blume": 0.647,
+    "blume": 0.645,
     "usable": false,
-    "recomendada": 0.647,
-    "origen": "Blume 0,67xB+0,33: R2 0.186 < 0.20, la cruda no es informativa"
+    "recomendada": 0.645,
+    "origen": "Blume 0,67xB+0,33: R2 0.185 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.376,
+    "beta": 0.377,
     "n": 104,
-    "r2": 0.103,
+    "r2": 0.105,
     "planos": 1.9,
     "blume": 0.582,
     "usable": false,
     "recomendada": 0.582,
-    "origen": "Blume 0,67xB+0,33: R2 0.103 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.105 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.19 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.18 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MAKS": {
    "5a": {
-    "beta": 0.292,
+    "beta": 0.293,
     "n": 260,
     "r2": 0.023,
-    "planos": 13.8,
+    "planos": 13.5,
     "blume": 0.526,
     "usable": false,
     "recomendada": 0.526,
     "origen": "Blume 0,67xB+0,33: R2 0.023 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -0.01,
+    "beta": -0.005,
     "n": 104,
     "r2": 0.0,
-    "planos": 18.3,
-    "blume": 0.323,
+    "planos": 17.3,
+    "blume": 0.327,
     "usable": false,
-    "recomendada": 0.323,
+    "recomendada": 0.327,
     "origen": "Blume 0,67xB+0,33: R2 0.000 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MAP": {
    "5a": {
-    "beta": 0.844,
+    "beta": 0.842,
     "n": 260,
     "r2": 0.396,
     "planos": 0.4,
-    "blume": 0.895,
+    "blume": 0.894,
     "usable": true,
-    "recomendada": 0.844,
+    "recomendada": 0.842,
     "origen": "cruda: R2 0.396 >= 0.20"
    },
    "2a": {
-    "beta": 0.887,
+    "beta": 0.876,
     "n": 104,
-    "r2": 0.358,
+    "r2": 0.356,
     "planos": 0.0,
-    "blume": 0.924,
+    "blume": 0.917,
     "usable": true,
-    "recomendada": 0.887,
-    "origen": "cruda: R2 0.358 >= 0.20"
+    "recomendada": 0.876,
+    "origen": "cruda: R2 0.356 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MCM": {
    "5a": {
-    "beta": 0.215,
+    "beta": 0.219,
     "n": 260,
-    "r2": 0.034,
+    "r2": 0.036,
     "planos": 7.3,
-    "blume": 0.474,
+    "blume": 0.477,
     "usable": false,
-    "recomendada": 0.474,
-    "origen": "Blume 0,67xB+0,33: R2 0.034 < 0.20, la cruda no es informativa"
+    "recomendada": 0.477,
+    "origen": "Blume 0,67xB+0,33: R2 0.036 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.224,
+    "beta": 0.233,
     "n": 104,
-    "r2": 0.052,
+    "r2": 0.056,
     "planos": 11.5,
-    "blume": 0.48,
+    "blume": 0.486,
     "usable": false,
-    "recomendada": 0.48,
-    "origen": "Blume 0,67xB+0,33: R2 0.052 < 0.20, la cruda no es informativa"
+    "recomendada": 0.486,
+    "origen": "Blume 0,67xB+0,33: R2 0.056 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MEL": {
    "5a": {
-    "beta": 1.118,
+    "beta": 1.111,
     "n": 260,
-    "r2": 0.315,
+    "r2": 0.318,
     "planos": 0.0,
-    "blume": 1.079,
+    "blume": 1.074,
     "usable": true,
-    "recomendada": 1.118,
-    "origen": "cruda: R2 0.315 >= 0.20"
+    "recomendada": 1.111,
+    "origen": "cruda: R2 0.318 >= 0.20"
    },
    "2a": {
-    "beta": 0.775,
+    "beta": 0.778,
     "n": 104,
-    "r2": 0.232,
+    "r2": 0.235,
     "planos": 0.0,
-    "blume": 0.849,
+    "blume": 0.851,
     "usable": true,
-    "recomendada": 0.775,
-    "origen": "cruda: R2 0.232 >= 0.20"
+    "recomendada": 0.778,
+    "origen": "cruda: R2 0.235 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MRL": {
    "5a": {
-    "beta": 0.861,
+    "beta": 0.866,
     "n": 260,
-    "r2": 0.334,
+    "r2": 0.336,
     "planos": 0.8,
-    "blume": 0.907,
+    "blume": 0.911,
     "usable": true,
-    "recomendada": 0.861,
-    "origen": "cruda: R2 0.334 >= 0.20"
+    "recomendada": 0.866,
+    "origen": "cruda: R2 0.336 >= 0.20"
    },
    "2a": {
-    "beta": 0.753,
+    "beta": 0.78,
     "n": 104,
-    "r2": 0.286,
+    "r2": 0.301,
     "planos": 0.0,
-    "blume": 0.834,
+    "blume": 0.852,
     "usable": true,
-    "recomendada": 0.753,
-    "origen": "cruda: R2 0.286 >= 0.20"
+    "recomendada": 0.78,
+    "origen": "cruda: R2 0.301 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MTS": {
    "5a": {
-    "beta": 1.145,
+    "beta": 1.15,
     "n": 260,
-    "r2": 0.272,
+    "r2": 0.276,
     "planos": 0.8,
-    "blume": 1.097,
+    "blume": 1.101,
     "usable": true,
-    "recomendada": 1.145,
-    "origen": "cruda: R2 0.272 >= 0.20"
+    "recomendada": 1.15,
+    "origen": "cruda: R2 0.276 >= 0.20"
    },
    "2a": {
-    "beta": 1.251,
+    "beta": 1.247,
     "n": 104,
     "r2": 0.287,
     "planos": 1.0,
-    "blume": 1.168,
+    "blume": 1.166,
     "usable": true,
-    "recomendada": 1.251,
+    "recomendada": 1.247,
     "origen": "cruda: R2 0.287 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "MVC": {
    "5a": {
-    "beta": 0.5,
+    "beta": 0.502,
     "n": 260,
-    "r2": 0.076,
+    "r2": 0.077,
     "planos": 3.5,
-    "blume": 0.665,
+    "blume": 0.667,
     "usable": false,
-    "recomendada": 0.665,
-    "origen": "Blume 0,67xB+0,33: R2 0.076 < 0.20, la cruda no es informativa"
+    "recomendada": 0.667,
+    "origen": "Blume 0,67xB+0,33: R2 0.077 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.54,
+    "beta": 0.535,
     "n": 104,
     "r2": 0.065,
     "planos": 3.8,
-    "blume": 0.692,
+    "blume": 0.689,
     "usable": false,
-    "recomendada": 0.692,
+    "recomendada": 0.689,
     "origen": "Blume 0,67xB+0,33: R2 0.065 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "NEA": {
    "5a": {
-    "beta": 0.363,
+    "beta": 0.362,
     "n": 260,
-    "r2": 0.067,
+    "r2": 0.068,
     "planos": 8.8,
     "blume": 0.573,
     "usable": false,
     "recomendada": 0.573,
-    "origen": "Blume 0,67xB+0,33: R2 0.067 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.068 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.229,
+    "beta": 0.225,
     "n": 104,
     "r2": 0.021,
-    "planos": 4.8,
-    "blume": 0.484,
+    "planos": 3.8,
+    "blume": 0.481,
     "usable": false,
-    "recomendada": 0.484,
+    "recomendada": 0.481,
     "origen": "Blume 0,67xB+0,33: R2 0.021 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "NTGY": {
    "5a": {
-    "beta": 0.471,
+    "beta": 0.47,
     "n": 260,
     "r2": 0.107,
     "planos": 1.2,
-    "blume": 0.646,
+    "blume": 0.645,
     "usable": false,
-    "recomendada": 0.646,
+    "recomendada": 0.645,
     "origen": "Blume 0,67xB+0,33: R2 0.107 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.275,
+    "beta": 0.277,
     "n": 104,
-    "r2": 0.054,
+    "r2": 0.056,
     "planos": 1.0,
-    "blume": 0.514,
+    "blume": 0.516,
     "usable": false,
-    "recomendada": 0.514,
-    "origen": "Blume 0,67xB+0,33: R2 0.054 < 0.20, la cruda no es informativa"
+    "recomendada": 0.516,
+    "origen": "Blume 0,67xB+0,33: R2 0.056 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.11 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "NXT": {
    "5a": {
-    "beta": 0.271,
+    "beta": 0.276,
     "n": 260,
-    "r2": 0.012,
+    "r2": 0.013,
     "planos": 3.5,
-    "blume": 0.512,
+    "blume": 0.515,
     "usable": false,
-    "recomendada": 0.512,
-    "origen": "Blume 0,67xB+0,33: R2 0.012 < 0.20, la cruda no es informativa"
+    "recomendada": 0.515,
+    "origen": "Blume 0,67xB+0,33: R2 0.013 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.544,
+    "beta": 0.565,
     "n": 104,
-    "r2": 0.046,
+    "r2": 0.05,
     "planos": 2.9,
-    "blume": 0.694,
+    "blume": 0.708,
     "usable": false,
-    "recomendada": 0.694,
-    "origen": "Blume 0,67xB+0,33: R2 0.046 < 0.20, la cruda no es informativa"
+    "recomendada": 0.708,
+    "origen": "Blume 0,67xB+0,33: R2 0.050 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "NYE": {
    "5a": {
-    "beta": 1.612,
+    "beta": 1.624,
     "n": 260,
-    "r2": 0.065,
+    "r2": 0.066,
     "planos": 20.4,
-    "blume": 1.41,
+    "blume": 1.418,
     "usable": false,
-    "recomendada": 1.41,
-    "origen": "Blume 0,67xB+0,33: R2 0.065 < 0.20, la cruda no es informativa"
+    "recomendada": 1.418,
+    "origen": "Blume 0,67xB+0,33: R2 0.066 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 2.084,
+    "beta": 1.997,
     "n": 104,
-    "r2": 0.048,
+    "r2": 0.045,
     "planos": 18.3,
-    "blume": 1.727,
+    "blume": 1.668,
     "usable": false,
-    "recomendada": 1.727,
-    "origen": "Blume 0,67xB+0,33: R2 0.048 < 0.20, la cruda no es informativa"
+    "recomendada": 1.668,
+    "origen": "Blume 0,67xB+0,33: R2 0.045 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa",
     "20% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA",
-    "la beta a 2 anos (2.08) se aparta de la de 5 (1.61): riesgo cambiando"
+    "la beta a 2 anos (2.00) se aparta de la de 5 (1.62): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "OHLA": {
    "5a": {
-    "beta": 0.924,
+    "beta": 0.925,
     "n": 260,
     "r2": 0.113,
     "planos": 0.8,
@@ -1836,123 +1836,123 @@
     "origen": "Blume 0,67xB+0,33: R2 0.113 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.895,
+    "beta": 0.896,
     "n": 104,
-    "r2": 0.078,
+    "r2": 0.079,
     "planos": 0.0,
-    "blume": 0.93,
+    "blume": 0.931,
     "usable": false,
-    "recomendada": 0.93,
-    "origen": "Blume 0,67xB+0,33: R2 0.078 < 0.20, la cruda no es informativa"
+    "recomendada": 0.931,
+    "origen": "Blume 0,67xB+0,33: R2 0.079 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.11 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "OLE": {
    "5a": {
-    "beta": 0.643,
+    "beta": 0.645,
     "n": 260,
-    "r2": 0.064,
+    "r2": 0.065,
     "planos": 5.4,
-    "blume": 0.761,
+    "blume": 0.762,
     "usable": false,
-    "recomendada": 0.761,
-    "origen": "Blume 0,67xB+0,33: R2 0.064 < 0.20, la cruda no es informativa"
+    "recomendada": 0.762,
+    "origen": "Blume 0,67xB+0,33: R2 0.065 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.389,
+    "beta": 0.399,
     "n": 104,
     "r2": 0.016,
     "planos": 4.8,
-    "blume": 0.591,
+    "blume": 0.597,
     "usable": false,
-    "recomendada": 0.591,
+    "recomendada": 0.597,
     "origen": "Blume 0,67xB+0,33: R2 0.016 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.06: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "ORY": {
-   "5a": {
-    "beta": 0.634,
-    "n": 260,
-    "r2": 0.039,
-    "planos": 1.9,
-    "blume": 0.754,
-    "usable": false,
-    "recomendada": 0.754,
-    "origen": "Blume 0,67xB+0,33: R2 0.039 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.579,
-    "n": 104,
-    "r2": 0.017,
-    "planos": 1.9,
-    "blume": 0.718,
-    "usable": false,
-    "recomendada": 0.718,
-    "origen": "Blume 0,67xB+0,33: R2 0.017 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "PHM": {
-   "5a": {
-    "beta": 0.69,
-    "n": 260,
-    "r2": 0.07,
-    "planos": 1.2,
-    "blume": 0.792,
-    "usable": false,
-    "recomendada": 0.792,
-    "origen": "Blume 0,67xB+0,33: R2 0.070 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.584,
-    "n": 104,
-    "r2": 0.034,
-    "planos": 1.9,
-    "blume": 0.722,
-    "usable": false,
-    "recomendada": 0.722,
-    "origen": "Blume 0,67xB+0,33: R2 0.034 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
+  },
+  "ORY": {
+   "5a": {
+    "beta": 0.635,
+    "n": 260,
+    "r2": 0.04,
+    "planos": 2.3,
+    "blume": 0.755,
+    "usable": false,
+    "recomendada": 0.755,
+    "origen": "Blume 0,67xB+0,33: R2 0.040 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.589,
+    "n": 104,
+    "r2": 0.018,
+    "planos": 2.9,
+    "blume": 0.725,
+    "usable": false,
+    "recomendada": 0.725,
+    "origen": "Blume 0,67xB+0,33: R2 0.018 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "PHM": {
+   "5a": {
+    "beta": 0.694,
+    "n": 260,
+    "r2": 0.071,
+    "planos": 1.2,
+    "blume": 0.795,
+    "usable": false,
+    "recomendada": 0.795,
+    "origen": "Blume 0,67xB+0,33: R2 0.071 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.569,
+    "n": 104,
+    "r2": 0.033,
+    "planos": 1.9,
+    "blume": 0.711,
+    "usable": false,
+    "recomendada": 0.711,
+    "origen": "Blume 0,67xB+0,33: R2 0.033 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.07: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
   },
   "PRM": {
    "5a": {
-    "beta": 0.334,
+    "beta": 0.336,
     "n": 260,
-    "r2": 0.083,
-    "planos": 9.2,
-    "blume": 0.554,
+    "r2": 0.085,
+    "planos": 9.6,
+    "blume": 0.555,
     "usable": false,
-    "recomendada": 0.554,
-    "origen": "Blume 0,67xB+0,33: R2 0.083 < 0.20, la cruda no es informativa"
+    "recomendada": 0.555,
+    "origen": "Blume 0,67xB+0,33: R2 0.085 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.276,
+    "beta": 0.277,
     "n": 104,
-    "r2": 0.071,
-    "planos": 14.4,
-    "blume": 0.515,
+    "r2": 0.072,
+    "planos": 15.4,
+    "blume": 0.516,
     "usable": false,
-    "recomendada": 0.515,
-    "origen": "Blume 0,67xB+0,33: R2 0.071 < 0.20, la cruda no es informativa"
+    "recomendada": 0.516,
+    "origen": "Blume 0,67xB+0,33: R2 0.072 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.08: el indice explica muy poco de su movimiento; la beta es poco informativa"
+    "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "PRS": {
    "5a": {
@@ -1972,175 +1972,175 @@
    "avisos": [
     "salto de 0.3000 a 3.0000 el 2026-07-10: split o contrasplit sin ajustar en la serie. La serie no sirve para calcular beta hasta que se reconstruya."
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "PSG": {
    "5a": {
-    "beta": 0.785,
+    "beta": 0.782,
     "n": 260,
-    "r2": 0.175,
+    "r2": 0.174,
     "planos": 1.2,
-    "blume": 0.856,
+    "blume": 0.854,
     "usable": false,
-    "recomendada": 0.856,
-    "origen": "Blume 0,67xB+0,33: R2 0.175 < 0.20, la cruda no es informativa"
+    "recomendada": 0.854,
+    "origen": "Blume 0,67xB+0,33: R2 0.174 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.497,
+    "beta": 0.485,
     "n": 104,
-    "r2": 0.063,
+    "r2": 0.061,
     "planos": 1.0,
-    "blume": 0.663,
+    "blume": 0.655,
     "usable": false,
-    "recomendada": 0.663,
-    "origen": "Blume 0,67xB+0,33: R2 0.063 < 0.20, la cruda no es informativa"
+    "recomendada": 0.655,
+    "origen": "Blume 0,67xB+0,33: R2 0.061 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.17 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "PUIG": {
    "5a": {
-    "beta": 0.439,
-    "n": 123,
-    "r2": 0.049,
+    "beta": 0.446,
+    "n": 124,
+    "r2": 0.051,
     "planos": 0.0,
-    "blume": 0.624,
+    "blume": 0.629,
     "usable": false,
-    "recomendada": 0.624,
-    "origen": "Blume 0,67xB+0,33: R2 0.049 < 0.20, la cruda no es informativa"
+    "recomendada": 0.629,
+    "origen": "Blume 0,67xB+0,33: R2 0.051 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.402,
-    "n": 104,
-    "r2": 0.044,
-    "planos": 0.0,
-    "blume": 0.599,
-    "usable": false,
-    "recomendada": 0.599,
-    "origen": "Blume 0,67xB+0,33: R2 0.044 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "PVA": {
-   "5a": {
-    "beta": 0.547,
-    "n": 260,
-    "r2": 0.029,
-    "planos": 10.0,
-    "blume": 0.697,
-    "usable": false,
-    "recomendada": 0.697,
-    "origen": "Blume 0,67xB+0,33: R2 0.029 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.358,
-    "n": 104,
-    "r2": 0.039,
-    "planos": 14.4,
-    "blume": 0.57,
-    "usable": false,
-    "recomendada": 0.57,
-    "origen": "Blume 0,67xB+0,33: R2 0.039 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "R4": {
-   "5a": {
-    "beta": 0.145,
-    "n": 260,
-    "r2": 0.023,
-    "planos": 19.2,
-    "blume": 0.427,
-    "usable": false,
-    "recomendada": 0.427,
-    "origen": "Blume 0,67xB+0,33: R2 0.023 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.19,
-    "n": 104,
-    "r2": 0.023,
-    "planos": 14.4,
-    "blume": 0.457,
-    "usable": false,
-    "recomendada": 0.457,
-    "origen": "Blume 0,67xB+0,33: R2 0.023 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "beta 0.14 fuera del rango plausible 0.2-2.5",
-    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "RED": {
-   "5a": {
-    "beta": 0.353,
-    "n": 260,
-    "r2": 0.111,
-    "planos": 0.8,
-    "blume": 0.567,
-    "usable": false,
-    "recomendada": 0.567,
-    "origen": "Blume 0,67xB+0,33: R2 0.111 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.339,
-    "n": 104,
-    "r2": 0.089,
-    "planos": 1.0,
-    "blume": 0.557,
-    "usable": false,
-    "recomendada": 0.557,
-    "origen": "Blume 0,67xB+0,33: R2 0.089 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.11 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "REN": {
-   "5a": {
-    "beta": 0.518,
-    "n": 260,
-    "r2": 0.086,
-    "planos": 6.2,
-    "blume": 0.677,
-    "usable": false,
-    "recomendada": 0.677,
-    "origen": "Blume 0,67xB+0,33: R2 0.086 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.458,
-    "n": 104,
-    "r2": 0.09,
-    "planos": 4.8,
-    "blume": 0.637,
-    "usable": false,
-    "recomendada": 0.637,
-    "origen": "Blume 0,67xB+0,33: R2 0.090 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "REP": {
-   "5a": {
     "beta": 0.417,
-    "n": 260,
-    "r2": 0.053,
+    "n": 104,
+    "r2": 0.048,
     "planos": 0.0,
     "blume": 0.609,
     "usable": false,
     "recomendada": 0.609,
-    "origen": "Blume 0,67xB+0,33: R2 0.053 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.048 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "PVA": {
+   "5a": {
+    "beta": 0.54,
+    "n": 260,
+    "r2": 0.028,
+    "planos": 10.0,
+    "blume": 0.692,
+    "usable": false,
+    "recomendada": 0.692,
+    "origen": "Blume 0,67xB+0,33: R2 0.028 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.351,
+    "n": 104,
+    "r2": 0.037,
+    "planos": 14.4,
+    "blume": 0.565,
+    "usable": false,
+    "recomendada": 0.565,
+    "origen": "Blume 0,67xB+0,33: R2 0.037 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "R4": {
+   "5a": {
+    "beta": 0.146,
+    "n": 260,
+    "r2": 0.024,
+    "planos": 19.2,
+    "blume": 0.428,
+    "usable": false,
+    "recomendada": 0.428,
+    "origen": "Blume 0,67xB+0,33: R2 0.024 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.193,
+    "n": 104,
+    "r2": 0.024,
+    "planos": 14.4,
+    "blume": 0.459,
+    "usable": false,
+    "recomendada": 0.459,
+    "origen": "Blume 0,67xB+0,33: R2 0.024 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "beta 0.15 fuera del rango plausible 0.2-2.5",
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "RED": {
+   "5a": {
+    "beta": 0.348,
+    "n": 260,
+    "r2": 0.108,
+    "planos": 0.8,
+    "blume": 0.563,
+    "usable": false,
+    "recomendada": 0.563,
+    "origen": "Blume 0,67xB+0,33: R2 0.108 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.331,
+    "n": 104,
+    "r2": 0.085,
+    "planos": 1.0,
+    "blume": 0.552,
+    "usable": false,
+    "recomendada": 0.552,
+    "origen": "Blume 0,67xB+0,33: R2 0.085 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.11 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "REN": {
+   "5a": {
+    "beta": 0.516,
+    "n": 260,
+    "r2": 0.086,
+    "planos": 6.2,
+    "blume": 0.676,
+    "usable": false,
+    "recomendada": 0.676,
+    "origen": "Blume 0,67xB+0,33: R2 0.086 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.454,
+    "n": 104,
+    "r2": 0.089,
+    "planos": 4.8,
+    "blume": 0.634,
+    "usable": false,
+    "recomendada": 0.634,
+    "origen": "Blume 0,67xB+0,33: R2 0.089 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.09: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "REP": {
+   "5a": {
+    "beta": 0.408,
+    "n": 260,
+    "r2": 0.051,
+    "planos": 0.0,
+    "blume": 0.604,
+    "usable": false,
+    "recomendada": 0.604,
+    "origen": "Blume 0,67xB+0,33: R2 0.051 < 0.20, la cruda no es informativa"
    },
    "2a": {
     "beta": 0.1,
@@ -2155,60 +2155,60 @@
    "avisos": [
     "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "RIO": {
    "5a": {
-    "beta": 0.127,
+    "beta": 0.128,
     "n": 260,
     "r2": 0.005,
     "planos": 13.1,
-    "blume": 0.415,
+    "blume": 0.416,
     "usable": false,
-    "recomendada": 0.415,
+    "recomendada": 0.416,
     "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.238,
+    "beta": 0.225,
     "n": 104,
-    "r2": 0.014,
+    "r2": 0.012,
     "planos": 10.6,
-    "blume": 0.49,
+    "blume": 0.481,
     "usable": false,
-    "recomendada": 0.49,
-    "origen": "Blume 0,67xB+0,33: R2 0.014 < 0.20, la cruda no es informativa"
+    "recomendada": 0.481,
+    "origen": "Blume 0,67xB+0,33: R2 0.012 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta 0.13 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "RJF": {
    "5a": {
     "beta": 0.51,
     "n": 260,
-    "r2": 0.101,
+    "r2": 0.102,
     "planos": 5.0,
     "blume": 0.672,
     "usable": false,
     "recomendada": 0.672,
-    "origen": "Blume 0,67xB+0,33: R2 0.101 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.102 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.389,
+    "beta": 0.384,
     "n": 104,
-    "r2": 0.073,
+    "r2": 0.072,
     "planos": 3.8,
-    "blume": 0.591,
+    "blume": 0.587,
     "usable": false,
-    "recomendada": 0.591,
-    "origen": "Blume 0,67xB+0,33: R2 0.073 < 0.20, la cruda no es informativa"
+    "recomendada": 0.587,
+    "origen": "Blume 0,67xB+0,33: R2 0.072 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.10 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "RLIA": {
    "5a": {
@@ -2222,46 +2222,46 @@
     "origen": "Blume 0,67xB+0,33: R2 0.000 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -0.017,
+    "beta": -0.006,
     "n": 104,
     "r2": 0.0,
     "planos": 2.9,
-    "blume": 0.319,
+    "blume": 0.326,
     "usable": false,
-    "recomendada": 0.319,
+    "recomendada": 0.326,
     "origen": "Blume 0,67xB+0,33: R2 0.000 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta 0.01 fuera del rango plausible 0.2-2.5",
     "R2 0.00: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "ROVI": {
    "5a": {
-    "beta": 0.448,
+    "beta": 0.447,
     "n": 260,
     "r2": 0.048,
     "planos": 1.2,
-    "blume": 0.63,
+    "blume": 0.629,
     "usable": false,
-    "recomendada": 0.63,
+    "recomendada": 0.629,
     "origen": "Blume 0,67xB+0,33: R2 0.048 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.675,
+    "beta": 0.669,
     "n": 104,
-    "r2": 0.087,
+    "r2": 0.086,
     "planos": 1.9,
-    "blume": 0.782,
+    "blume": 0.778,
     "usable": false,
-    "recomendada": 0.782,
-    "origen": "Blume 0,67xB+0,33: R2 0.087 < 0.20, la cruda no es informativa"
+    "recomendada": 0.778,
+    "origen": "Blume 0,67xB+0,33: R2 0.086 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "SAB": {
    "5a": {
@@ -2275,376 +2275,375 @@
     "origen": "cruda: R2 0.315 >= 0.20"
    },
    "2a": {
-    "beta": 1.097,
+    "beta": 1.096,
     "n": 104,
-    "r2": 0.347,
+    "r2": 0.348,
     "planos": 0.0,
-    "blume": 1.065,
+    "blume": 1.064,
     "usable": true,
-    "recomendada": 1.097,
-    "origen": "cruda: R2 0.347 >= 0.20"
+    "recomendada": 1.096,
+    "origen": "cruda: R2 0.348 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "SAN": {
    "5a": {
-    "beta": 1.556,
+    "beta": 1.557,
     "n": 260,
-    "r2": 0.667,
+    "r2": 0.668,
     "planos": 0.8,
-    "blume": 1.372,
+    "blume": 1.373,
     "usable": true,
-    "recomendada": 1.556,
-    "origen": "cruda: R2 0.667 >= 0.20"
+    "recomendada": 1.557,
+    "origen": "cruda: R2 0.668 >= 0.20"
    },
    "2a": {
-    "beta": 1.61,
+    "beta": 1.611,
     "n": 104,
-    "r2": 0.752,
+    "r2": 0.753,
     "planos": 1.0,
-    "blume": 1.408,
+    "blume": 1.409,
     "usable": true,
-    "recomendada": 1.61,
-    "origen": "cruda: R2 0.752 >= 0.20"
+    "recomendada": 1.611,
+    "origen": "cruda: R2 0.753 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "SCYR": {
    "5a": {
-    "beta": 0.952,
+    "beta": 0.954,
     "n": 260,
-    "r2": 0.431,
+    "r2": 0.433,
     "planos": 0.8,
-    "blume": 0.968,
+    "blume": 0.969,
     "usable": true,
-    "recomendada": 0.952,
-    "origen": "cruda: R2 0.431 >= 0.20"
+    "recomendada": 0.954,
+    "origen": "cruda: R2 0.433 >= 0.20"
    },
    "2a": {
-    "beta": 1.008,
+    "beta": 1.013,
     "n": 104,
-    "r2": 0.499,
+    "r2": 0.503,
     "planos": 1.0,
-    "blume": 1.005,
+    "blume": 1.009,
     "usable": true,
-    "recomendada": 1.008,
-    "origen": "cruda: R2 0.499 >= 0.20"
+    "recomendada": 1.013,
+    "origen": "cruda: R2 0.503 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "SEC": {
    "5a": {
-    "beta": -0.363,
+    "beta": -0.36,
     "n": 260,
     "r2": 0.005,
     "planos": 86.5,
-    "blume": 0.087,
+    "blume": 0.089,
     "usable": false,
-    "recomendada": 0.087,
+    "recomendada": 0.089,
     "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": -1.132,
+    "beta": -1.106,
     "n": 104,
-    "r2": 0.017,
+    "r2": 0.016,
     "planos": 73.1,
-    "blume": -0.429,
+    "blume": -0.411,
     "usable": false,
-    "recomendada": -0.429,
-    "origen": "Blume 0,67xB+0,33: R2 0.017 < 0.20, la cruda no es informativa"
+    "recomendada": -0.411,
+    "origen": "Blume 0,67xB+0,33: R2 0.016 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "beta -0.36 fuera del rango plausible 0.2-2.5",
     "R2 0.01: el indice explica muy poco de su movimiento; la beta es poco informativa",
     "86% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA",
-    "la beta a 2 anos (-1.13) se aparta de la de 5 (-0.36): riesgo cambiando"
+    "la beta a 2 anos (-1.11) se aparta de la de 5 (-0.36): riesgo cambiando"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "SLR": {
    "5a": {
-    "beta": 0.582,
+    "beta": 0.59,
     "n": 260,
-    "r2": 0.048,
+    "r2": 0.049,
     "planos": 0.4,
-    "blume": 0.72,
+    "blume": 0.725,
     "usable": false,
-    "recomendada": 0.72,
-    "origen": "Blume 0,67xB+0,33: R2 0.048 < 0.20, la cruda no es informativa"
+    "recomendada": 0.725,
+    "origen": "Blume 0,67xB+0,33: R2 0.049 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.204,
+    "beta": 0.244,
     "n": 104,
-    "r2": 0.005,
+    "r2": 0.007,
     "planos": 1.0,
-    "blume": 0.467,
+    "blume": 0.493,
     "usable": false,
-    "recomendada": 0.467,
-    "origen": "Blume 0,67xB+0,33: R2 0.005 < 0.20, la cruda no es informativa"
+    "recomendada": 0.493,
+    "origen": "Blume 0,67xB+0,33: R2 0.007 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa",
-    "la beta a 2 anos (0.20) se aparta de la de 5 (0.58): riesgo cambiando"
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "TEF": {
    "5a": {
-    "beta": 0.656,
+    "beta": 0.659,
     "n": 260,
-    "r2": 0.193,
+    "r2": 0.195,
     "planos": 0.0,
-    "blume": 0.769,
+    "blume": 0.772,
     "usable": false,
-    "recomendada": 0.769,
-    "origen": "Blume 0,67xB+0,33: R2 0.193 < 0.20, la cruda no es informativa"
+    "recomendada": 0.772,
+    "origen": "Blume 0,67xB+0,33: R2 0.195 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.505,
+    "beta": 0.506,
     "n": 104,
-    "r2": 0.108,
+    "r2": 0.109,
     "planos": 0.0,
     "blume": 0.669,
     "usable": false,
     "recomendada": 0.669,
-    "origen": "Blume 0,67xB+0,33: R2 0.108 < 0.20, la cruda no es informativa"
+    "origen": "Blume 0,67xB+0,33: R2 0.109 < 0.20, la cruda no es informativa"
    },
    "avisos": [
-    "R2 0.19 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+    "R2 0.20 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "TLGO": {
    "5a": {
-    "beta": 0.715,
+    "beta": 0.714,
     "n": 260,
     "r2": 0.15,
     "planos": 2.7,
-    "blume": 0.809,
+    "blume": 0.808,
     "usable": false,
-    "recomendada": 0.809,
+    "recomendada": 0.808,
     "origen": "Blume 0,67xB+0,33: R2 0.150 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.511,
+    "beta": 0.51,
     "n": 104,
     "r2": 0.093,
     "planos": 3.8,
-    "blume": 0.673,
+    "blume": 0.672,
     "usable": false,
-    "recomendada": 0.673,
+    "recomendada": 0.672,
     "origen": "Blume 0,67xB+0,33: R2 0.093 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.15 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "TRE": {
    "5a": {
-    "beta": 1.261,
+    "beta": 1.252,
     "n": 260,
-    "r2": 0.213,
+    "r2": 0.211,
     "planos": 1.5,
-    "blume": 1.175,
+    "blume": 1.169,
     "usable": true,
-    "recomendada": 1.261,
-    "origen": "cruda: R2 0.213 >= 0.20"
+    "recomendada": 1.252,
+    "origen": "cruda: R2 0.211 >= 0.20"
    },
    "2a": {
-    "beta": 1.446,
+    "beta": 1.414,
     "n": 104,
-    "r2": 0.277,
+    "r2": 0.271,
     "planos": 1.0,
-    "blume": 1.299,
+    "blume": 1.278,
     "usable": true,
-    "recomendada": 1.446,
-    "origen": "cruda: R2 0.277 >= 0.20"
+    "recomendada": 1.414,
+    "origen": "cruda: R2 0.271 >= 0.20"
    },
    "avisos": [],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-18"
   },
   "TRG": {
    "5a": {
-    "beta": 0.637,
+    "beta": 0.634,
     "n": 260,
-    "r2": 0.025,
-    "planos": 7.7,
-    "blume": 0.757,
+    "r2": 0.024,
+    "planos": 8.1,
+    "blume": 0.755,
     "usable": false,
-    "recomendada": 0.757,
-    "origen": "Blume 0,67xB+0,33: R2 0.025 < 0.20, la cruda no es informativa"
+    "recomendada": 0.755,
+    "origen": "Blume 0,67xB+0,33: R2 0.024 < 0.20, la cruda no es informativa"
    },
    "2a": {
-    "beta": 0.792,
+    "beta": 0.776,
     "n": 104,
-    "r2": 0.078,
-    "planos": 18.3,
-    "blume": 0.861,
+    "r2": 0.075,
+    "planos": 19.2,
+    "blume": 0.85,
     "usable": false,
-    "recomendada": 0.861,
-    "origen": "Blume 0,67xB+0,33: R2 0.078 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.03: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "TUB": {
-   "5a": {
-    "beta": 0.858,
-    "n": 260,
-    "r2": 0.183,
-    "planos": 1.9,
-    "blume": 0.905,
-    "usable": false,
-    "recomendada": 0.905,
-    "origen": "Blume 0,67xB+0,33: R2 0.183 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 1.05,
-    "n": 104,
-    "r2": 0.244,
-    "planos": 1.0,
-    "blume": 1.033,
-    "usable": true,
-    "recomendada": 1.05,
-    "origen": "cruda: R2 0.244 >= 0.20"
-   },
-   "avisos": [
-    "R2 0.18 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "UBS": {
-   "5a": {
-    "beta": 0.489,
-    "n": 260,
-    "r2": 0.046,
-    "planos": 35.4,
-    "blume": 0.658,
-    "usable": false,
-    "recomendada": 0.658,
-    "origen": "Blume 0,67xB+0,33: R2 0.046 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.317,
-    "n": 104,
-    "r2": 0.085,
-    "planos": 77.9,
-    "blume": 0.542,
-    "usable": false,
-    "recomendada": 0.542,
-    "origen": "Blume 0,67xB+0,33: R2 0.085 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa",
-    "35% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "UNI": {
-   "5a": {
-    "beta": 1.175,
-    "n": 260,
-    "r2": 0.351,
-    "planos": 1.5,
-    "blume": 1.117,
-    "usable": true,
-    "recomendada": 1.175,
-    "origen": "cruda: R2 0.351 >= 0.20"
-   },
-   "2a": {
-    "beta": 1.16,
-    "n": 104,
-    "r2": 0.451,
-    "planos": 1.9,
-    "blume": 1.107,
-    "usable": true,
-    "recomendada": 1.16,
-    "origen": "cruda: R2 0.451 >= 0.20"
-   },
-   "avisos": [],
-   "ultimoCierre": "2026-09-11"
-  },
-  "VID": {
-   "5a": {
-    "beta": 0.754,
-    "n": 260,
-    "r2": 0.249,
-    "planos": 2.3,
-    "blume": 0.835,
-    "usable": true,
-    "recomendada": 0.754,
-    "origen": "cruda: R2 0.249 >= 0.20"
-   },
-   "2a": {
-    "beta": 0.68,
-    "n": 104,
-    "r2": 0.233,
-    "planos": 0.0,
-    "blume": 0.786,
-    "usable": true,
-    "recomendada": 0.68,
-    "origen": "cruda: R2 0.233 >= 0.20"
-   },
-   "avisos": [],
-   "ultimoCierre": "2026-09-11"
-  },
-  "VIS": {
-   "5a": {
-    "beta": 0.224,
-    "n": 260,
-    "r2": 0.045,
-    "planos": 2.7,
-    "blume": 0.48,
-    "usable": false,
-    "recomendada": 0.48,
-    "origen": "Blume 0,67xB+0,33: R2 0.045 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.129,
-    "n": 104,
-    "r2": 0.016,
-    "planos": 3.8,
-    "blume": 0.416,
-    "usable": false,
-    "recomendada": 0.416,
-    "origen": "Blume 0,67xB+0,33: R2 0.016 < 0.20, la cruda no es informativa"
-   },
-   "avisos": [
-    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa"
-   ],
-   "ultimoCierre": "2026-09-11"
-  },
-  "VOC": {
-   "5a": {
-    "beta": 0.258,
-    "n": 260,
-    "r2": 0.018,
-    "planos": 4.2,
-    "blume": 0.503,
-    "usable": false,
-    "recomendada": 0.503,
-    "origen": "Blume 0,67xB+0,33: R2 0.018 < 0.20, la cruda no es informativa"
-   },
-   "2a": {
-    "beta": 0.062,
-    "n": 104,
-    "r2": 0.001,
-    "planos": 6.7,
-    "blume": 0.371,
-    "usable": false,
-    "recomendada": 0.371,
-    "origen": "Blume 0,67xB+0,33: R2 0.001 < 0.20, la cruda no es informativa"
+    "recomendada": 0.85,
+    "origen": "Blume 0,67xB+0,33: R2 0.075 < 0.20, la cruda no es informativa"
    },
    "avisos": [
     "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
    ],
-   "ultimoCierre": "2026-09-11"
+   "ultimoCierre": "2026-09-16"
+  },
+  "TUB": {
+   "5a": {
+    "beta": 0.864,
+    "n": 260,
+    "r2": 0.185,
+    "planos": 1.9,
+    "blume": 0.909,
+    "usable": false,
+    "recomendada": 0.909,
+    "origen": "Blume 0,67xB+0,33: R2 0.185 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 1.044,
+    "n": 104,
+    "r2": 0.251,
+    "planos": 1.0,
+    "blume": 1.029,
+    "usable": true,
+    "recomendada": 1.044,
+    "origen": "cruda: R2 0.251 >= 0.20"
+   },
+   "avisos": [
+    "R2 0.18 < 0.20: la beta cruda NO se usa como coste de capital; usa `recomendada` (Blume) y DECLARA el origen en el libro"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "UBS": {
+   "5a": {
+    "beta": 0.483,
+    "n": 260,
+    "r2": 0.045,
+    "planos": 35.8,
+    "blume": 0.654,
+    "usable": false,
+    "recomendada": 0.654,
+    "origen": "Blume 0,67xB+0,33: R2 0.045 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.297,
+    "n": 104,
+    "r2": 0.081,
+    "planos": 78.8,
+    "blume": 0.529,
+    "usable": false,
+    "recomendada": 0.529,
+    "origen": "Blume 0,67xB+0,33: R2 0.081 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.04: el indice explica muy poco de su movimiento; la beta es poco informativa",
+    "36% de semanas sin movimiento: valor ilíquido, la beta sale sesgada A LA BAJA"
+   ],
+   "ultimoCierre": "2026-09-16"
+  },
+  "UNI": {
+   "5a": {
+    "beta": 1.173,
+    "n": 260,
+    "r2": 0.351,
+    "planos": 1.5,
+    "blume": 1.116,
+    "usable": true,
+    "recomendada": 1.173,
+    "origen": "cruda: R2 0.351 >= 0.20"
+   },
+   "2a": {
+    "beta": 1.168,
+    "n": 104,
+    "r2": 0.459,
+    "planos": 1.9,
+    "blume": 1.112,
+    "usable": true,
+    "recomendada": 1.168,
+    "origen": "cruda: R2 0.459 >= 0.20"
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-09-18"
+  },
+  "VID": {
+   "5a": {
+    "beta": 0.748,
+    "n": 260,
+    "r2": 0.246,
+    "planos": 2.3,
+    "blume": 0.831,
+    "usable": true,
+    "recomendada": 0.748,
+    "origen": "cruda: R2 0.246 >= 0.20"
+   },
+   "2a": {
+    "beta": 0.654,
+    "n": 104,
+    "r2": 0.218,
+    "planos": 0.0,
+    "blume": 0.768,
+    "usable": true,
+    "recomendada": 0.654,
+    "origen": "cruda: R2 0.218 >= 0.20"
+   },
+   "avisos": [],
+   "ultimoCierre": "2026-09-18"
+  },
+  "VIS": {
+   "5a": {
+    "beta": 0.225,
+    "n": 260,
+    "r2": 0.046,
+    "planos": 2.7,
+    "blume": 0.481,
+    "usable": false,
+    "recomendada": 0.481,
+    "origen": "Blume 0,67xB+0,33: R2 0.046 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.117,
+    "n": 104,
+    "r2": 0.014,
+    "planos": 3.8,
+    "blume": 0.409,
+    "usable": false,
+    "recomendada": 0.409,
+    "origen": "Blume 0,67xB+0,33: R2 0.014 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.05: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
+  },
+  "VOC": {
+   "5a": {
+    "beta": 0.26,
+    "n": 260,
+    "r2": 0.018,
+    "planos": 4.2,
+    "blume": 0.504,
+    "usable": false,
+    "recomendada": 0.504,
+    "origen": "Blume 0,67xB+0,33: R2 0.018 < 0.20, la cruda no es informativa"
+   },
+   "2a": {
+    "beta": 0.072,
+    "n": 104,
+    "r2": 0.002,
+    "planos": 6.7,
+    "blume": 0.378,
+    "usable": false,
+    "recomendada": 0.378,
+    "origen": "Blume 0,67xB+0,33: R2 0.002 < 0.20, la cruda no es informativa"
+   },
+   "avisos": [
+    "R2 0.02: el indice explica muy poco de su movimiento; la beta es poco informativa"
+   ],
+   "ultimoCierre": "2026-09-18"
   }
  }
 }
