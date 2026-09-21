@@ -1,9 +1,9 @@
 {
-  "generadoEl": "2026-09-14T14:44:00+02:00",
+  "generadoEl": "2026-09-21T14:45:52+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-09-14",
-  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +51d). Nada en 14 días. Siguiente: Faes Farma ~30-09 (9M). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-09-21",
+  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +58d). 🔜 PRÓXIMOS 14 DÍAS: Bankinter 30-09, Faes Farma 30-09, Logista 30-09, Naturgy 30-09, Prim 30-09, Banco Santander 30-09, Viscofan 30-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "MCM",
@@ -13,14 +13,78 @@
       "fechaEstimada": "2026-07-25",
       "ultimoPeriodo": "2026-Q1",
       "ultimaFecha": "2026-05-08",
-      "diasVencido": 51
+      "diasVencido": 58
     }
   ],
   "estaSemana": [],
-  "proximos14d": [],
+  "proximos14d": [
+    {
+      "ticker": "BKT",
+      "empresa": "Bankinter",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "FAE",
+      "empresa": "Faes Farma",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "LOG",
+      "empresa": "Logista",
+      "periodoEsperado": "2026-Q4",
+      "periodoLabel": "FY",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q3",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "NTGY",
+      "empresa": "Naturgy",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "PRM",
+      "empresa": "Prim",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "SAN",
+      "empresa": "Banco Santander",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "VIS",
+      "empresa": "Viscofan",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    }
+  ],
   "siguienteEvento": {
-    "ticker": "FAE",
-    "empresa": "Faes Farma",
+    "ticker": "BKT",
+    "empresa": "Bankinter",
     "periodoEsperado": "2026-Q3",
     "periodoLabel": "9M",
     "fechaEstimada": "2026-09-30",
