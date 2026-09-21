@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "actualizado": "2026-09-21",
+ "actualizado": "2026-09-22",
  "ok": true,
  "sesionIntradia": "2026-09-21",
  "faltaSesion": [],
@@ -36,9 +36,9 @@
   {
    "ticker": "BKT",
    "ultimaBarra": "2026-09-21",
-   "valorHistorico": 16.86,
+   "valorHistorico": 16.855,
    "cierreAntIntradia": 16.47,
-   "difPct": 2.368
+   "difPct": 2.338
   },
   {
    "ticker": "CIE",
@@ -71,9 +71,9 @@
   {
    "ticker": "FAE",
    "ultimaBarra": "2026-09-21",
-   "valorHistorico": 4.66,
+   "valorHistorico": 4.655,
    "cierreAntIntradia": 4.575,
-   "difPct": 1.858
+   "difPct": 1.749
   },
   {
    "ticker": "FDR",
@@ -99,9 +99,9 @@
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-09-21",
-   "valorHistorico": 4.45,
+   "valorHistorico": 4.454,
    "cierreAntIntradia": 4.416,
-   "difPct": 0.77
+   "difPct": 0.861
   },
   {
    "ticker": "NTGY",
@@ -132,13 +132,6 @@
    "difPct": 1.53
   },
   {
-   "ticker": "TEF",
-   "ultimaBarra": "2026-09-21",
-   "valorHistorico": 3.58,
-   "cierreAntIntradia": 3.565,
-   "difPct": 0.421
-  },
-  {
    "ticker": "VIS",
    "ultimaBarra": "2026-09-21",
    "valorHistorico": 54.7,
@@ -148,5 +141,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 20 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 19 con valores discrepantes, 0 sin fichero"
 }

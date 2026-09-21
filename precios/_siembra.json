@@ -11954,6 +11954,38 @@
      "yahooQuote": 54.6,
      "quoteVsBarra": -0.1828,
      "quoteVsGoogle": -0.1828
+    },
+    "GSJ": {
+     "google": 7.71,
+     "yahooBarra": 7.71,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "MEL": {
+     "google": 9.81,
+     "yahooBarra": 9.81,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "MTS": {
+     "google": 65.6,
+     "yahooBarra": 65.6,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "SLR": {
+     "google": 17.55,
+     "yahooBarra": 17.545,
+     "dif": -0.005,
+     "difPct": -0.0285,
+     "grave": false,
+     "el": "2026-09-22"
     }
    },
    "yahooQuote": {
@@ -12767,6 +12799,38 @@
      "yahooQuote": 54.3,
      "quoteVsBarra": 0.1845,
      "quoteVsGoogle": 0.1845
+    },
+    "GSJ": {
+     "google": 7.58,
+     "yahooBarra": 7.58,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "MEL": {
+     "google": 9.65,
+     "yahooBarra": 9.65,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "MTS": {
+     "google": 63.1,
+     "yahooBarra": 63.1,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
+    },
+    "SLR": {
+     "google": 17.28,
+     "yahooBarra": 17.28,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-09-22"
     }
    },
    "yahooQuote": {
@@ -12887,10 +12951,10 @@
    "contraste": {}
   }
  },
- "actualizado": "2026-09-21",
+ "actualizado": "2026-09-22",
  "resumen": {
   "sesiones": 16,
-  "contrastes": 1238,
+  "contrastes": 1246,
   "medianaAbsPct": 0.0,
   "maxAbsPct": 9.7087,
   "gravesPct": 1.0,
