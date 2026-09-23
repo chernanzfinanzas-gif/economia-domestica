@@ -2,35 +2,38 @@
  "schemaVersion": 8,
  "ticker": "ENG",
  "empresa": "Enagás, S.A.",
- "fecha": "2026-07-21",
+ "fecha": "2026-09-23",
  "rating": "BBB",
- "score": 55.8,
+ "score": 54.4,
  "decision": "MANTENER",
- "metodoValoracion": "DCF + múltiplos regulados (utility). PO oficial = síntesis ponderada Cap. VI = 17,82 € (DCF base 22,3 € pero muy sensible al WACC bajo de la beta 0,26; se pondera con múltiplos históricos EV/EBITDA, P/E, P/BV y rentabilidad por dividendo). Bear 12,5 € / Bull 22 €.",
- "poBear": 12.5,
- "poBase": 17.82,
- "poBull": 22.0,
- "entMin": 14.0,
- "entMax": 15.0,
- "stop": 12.2,
+ "metodoValoracion": "Síntesis ponderada del §6.5 — DCF 55 · múltiplos 30 · renta 15 · activos 0 (utility regulada). PO oficial = 19,14 €/acc, la ponderación de nueve métodos: tres escenarios de DCF a dos fases (10+10 y perpetuidad), seis múltiplos históricos de diez años y la pata de renta por rentabilidad por dividendo. El DCF caso central daría 23,14 € y la media de las patas de múltiplos ~14,6 €: la tensión entre las dos familias está declarada en el §6.6 y el PO cae entre ellas. NO incorpora la compra del 31,5 % de Teréga (573 M€, cerrada el 30-jul-2026), posterior al último ejercicio cerrado; su efecto derivado por el canal de deuda es de −5,58 % a −8,00 % y está escrito en el §8.1 y en el capítulo ⑨ del dossier.",
+ "poBear": 15.86,
+ "poBase": 19.14,
+ "poBull": 22.72,
+ "entMin": 15.86,
+ "entMax": 16.65,
+ "stop": 13.42,
  "dpaPrevisto": 1.0,
- "moat": "Ancho (78/100): monopolio regulado por ley (TSO gasista de España), barreras de entrada absolutas y el mayor margen EBITDA del sector; PERO sobre un mercado en declive estructural (gas), lo que compromete su durabilidad a largo plazo.",
+ "moat": "60,0 · MOAT MODERADO. Escala eficiente 88 e intangibles 58 lo sostienen; ventaja de costes 35, costes de cambio 55 y efecto de red 40 no. Horquilla de ponderación medida: 46,5 – 63,3, o sea que el RATING sí depende del reparto de pesos y va de estrecho a moderado.",
  "catalizadores": [
-  "Circular final CNMC (jul-2026) que confirme la TRF del gas al 6,46% para 2027-2032 (+5/+15%)",
-  "Reafirmación/sostenibilidad del dividendo con la nueva retribución (+5/+10%)",
-  "Bajada de tipos del BCE: rerating como bond proxy (+3/+8%)",
-  "Opcionalidad del hidrógeno (H2 backbone, fondos CEF) a más largo plazo (+5/+10%)"
+  "Circular de la CNMC · la TRF del marco 2027-2032 pasa del 5,44 % a «aproximadamente el 6,5 %»",
+  "Cobro del laudo de Perú (~303 M$) y sentencia favorable del Supremo sobre Castor",
+  "Extensión de vida útil de los activos totalmente amortizados que siguen en operación",
+  "Venta del 40 % de Enagás Renovable a Hy24"
  ],
  "riesgos": [
-  "Declive estructural de la demanda de gas (prob. alta, -20/-35%)",
-  "Reversión regulatoria si la circular final rebaja la TRF propuesta (prob. baja, -15/-25%)",
-  "Recorte adicional del dividendo: no cubierto por FCL desde 2023 (prob. media, -10/-20%)",
-  "Deterioro de participadas internacionales / laudo CIADI Perú (prob. media, -5/-15%)",
-  "Activos varados si el hidrógeno no reutiliza la red (prob. media, -15/-30%)"
+  "Regulatorio (−8,6 a −17,1%) · EL MARCO 2027-2032 NO COMPENSA EL VACIADO DE LA BASE",
+  "Estructural (−3,4 a −13,7%) · LA BASE DE ACTIVOS SE AMORTIZA MÁS DEPRISA DE LO QUE SE REPONE",
+  "Asignación de capital (−12,1 a −24,2%) · EL CAPEX DE HIDRÓGENO ENTRA EN LA BASE ANTES DE QUE SE RETRIBUYA · Y AHORA HAY ADEMÁS UNA COMPRA REAL, CERRADA",
+  "Competitivo (−5,1 a −13,7%) · LA DEMANDA DE GAS NATURAL EN LA TRANSICIÓN ENERGÉTICA",
+  "Financiero (−0,7 a −1,2%) · REFINANCIACIÓN A TIPOS MÁS ALTOS · Y ES EL RIESGO QUE EL MODELO NO SABE VER",
+  "Mercado (−4,0 a −12,0%) · DE-RATING DEL MÚLTIPLO",
+  "Ciberseguridad (−8,3 a −24,8%) · CIBERATAQUE SOBRE LOS SISTEMAS DE CONTROL DE LA RED",
+  "Societario (−0,3 a −1,0%) · EL ESTADO GOBIERNA SIN SER DUEÑO · Y LOS TRES CIEGOS SOCIETARIOS, JUNTOS"
  ],
- "bull": "Regulación al alza (TRF 6,46% 2027-2032) + rerating como bond proxy si bajan los tipos + opcionalidad del hidrógeno llevarían la acción a ~22 € (+31%).",
- "bear": "Reversión regulatoria o declive acelerado del gas provocarían un recorte del dividendo y un derating hacia ~12,5 € (-26%); pérdida acotada por el balance sólido.",
- "resumen": "Enagás es un caso de renta con riesgo, mejorado por el catalizador regulatorio. Monopolio gasista regulado con balance sólido (DN/EBITDA 3,6x, cobertura 9,6x) y moat ancho, pero sobre un mercado en declive estructural y con un dividendo (RPD 5,9%) que no se cubre con caja libre desde 2023 (cobertura 0,36x). A un PO de 17,82 € (+6%) no hay margen de seguridad: MANTENER para quien la tiene; ESPERAR por debajo de 15 € para entrar nuevo. No comprar solo por el dividendo.",
+ "bull": "22,72 € (+18,67 % sobre el PO). Los cuatro catalizadores derivables del §9.1 aplicados a la vez: la Circular de la CNMC elevando la TRF, el cobro del laudo de Perú con la sentencia del Supremo sobre Castor, la extensión de vida útil de los activos amortizados y la venta del 40 % de Enagás Renovable a Hy24 por 48 M€.",
+ "bear": "15,86 € (−17,16 % sobre el PO). El riesgo dominante del §8.1 —el regulatorio— en su extremo DURO, por el canal de VOLUMEN de ingreso regulado y no por el margen: el marco traslada el opex, así que un recorte retributivo baja el ingreso con el coste detrás. Se usa el extremo duro porque el suave (17,50 €) invertiría la banda de entrada.",
+ "resumen": "MANTENER. Monopolio legal irreproducible —Gestor Técnico del Sistema y Transportista Único por ley, con una OPA legalmente imposible por la DA 31ª de la Ley 34/1998— con un problema de precio y otro de dividendo. Falla DOS de las cuatro condiciones de COMPRAR: el margen de seguridad es del +13,95 % contra el 15 % exigido y el rating de calidad es BBB contra el A que se pide; además la cotización (16,80 €) está por encima del techo de su propia banda de entrada (16,65 €). Debajo hay un deterioro estructural medido: el EBITDA cae un 6,45 % anual desde 2021, el RAB sustituto se vacía un 2,39 % anual y el CAPEX repone 0,42 € de cada euro amortizado. Y lo único que la distingue de Snam, Italgas, Terna y Redeia —su 7,60 % de rentabilidad por dividendo frente al 4,02-5,39 % de ellos— descansa sobre un dividendo con Dividend Safety 29/100, banda Frágil y tope duro ACTIVO. Consecuencia operativa: sizing reducido, no veredicto degradado.",
  "confianza": {
   "score": 100,
   "nivel": "A",
@@ -43,63 +46,76 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-23"
  },
  "robustez": {
   "nivel": "sensible",
   "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 12.5,
-   "p50": 17.82,
-   "p90": 22.0
+   "p10": 15.86,
+   "p50": 19.14,
+   "p90": 22.72
   },
   "sensibilidad": {
-   "poMin": 14.43,
-   "poMax": 39.93,
-   "poBase": 22.3335138737312,
-   "cotizacion": 16.82,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 16.61,
+   "poMax": 24.17,
+   "poBase": 19.14,
+   "cotizacion": 16.8,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.35,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 15.88,
+    "poMax": 37.48,
+    "poBase": 23.1357597658076
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -14.2,
-   "mdsMax": 137.4
+   "mdsMin": -1.2,
+   "mdsMax": 43.8
   },
   "beta": {
-   "capm": 0.26,
+   "capm": 0.523,
    "ref2": null,
-   "aviso": "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "aviso": null
   },
   "motivos": [
-   "la cotización (16.82) cae DENTRO de la banda de PO [14.4–39.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
-   "beta CAPM 0.26 anómala (fuera de 0,3–2,0) y SIN 2ª referencia registrada → añadir beta sectorial/Damodaran"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (16.80) cae DENTRO de la banda del precio objetivo de síntesis [16.61–24.17], y la banda de margen de seguridad [-1.2 % … +43.8 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4 → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "para contraste, el DCF puro (§6.3) se mueve en [15.88–37.48] € alrededor de 23.14 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-23"
  },
  "dividendSafety": {
-  "score": 25,
+  "score": 29,
   "banda": "Frágil",
   "componentes": {
-   "C1": 0,
+   "C1": 4,
    "C2": 0,
    "C3": 8,
    "C4": 5,
    "C5": 12
   },
-  "shareholderYield": 8.37,
+  "shareholderYield": 8.1,
   "topeDuro": {
    "activo": true,
-   "motivo": "cobertura sobre owner earnings 3a 0.82x < 1,0x y payout BN 3a 144% > 100%"
+   "motivo": "payout BN 3a 144% > 100%"
   },
   "motivos": [
-   "C1 cobertura dividendo ord.: OE -0.19x / FCL 0.36x (3a OE 0.82x) → 0/35",
+   "C1 cobertura dividendo ord.: OE 0.73x / FCL 0.36x (3a OE 2.14x) → 4/35",
    "C2 payout BN ord.: 77% (3a 144%) → 0/15",
-   "C3 balance parcial → 8/20",
+   "C3 balance: DN/EBITDA 4.74x, cob.int 5.9x → 8/20",
    "C4 trayectoria: 1 recorte(s) en 10a (reciente) → 5/15",
    "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-23"
  },
  "forense": {
   "aplica": true,
@@ -137,29 +153,29 @@
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-23"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -5.38,
-  "gIntrinseco": null,
+  "gImplicito": -4.92,
+  "gIntrinseco": -8.73,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El precio solo exige un -5.38% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-07-27",
+  "motivo": "El precio solo exige un -4.92% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
+  "calculadoEl": "2026-09-23",
   "entradas": {
-   "fcl": 350,
-   "wacc": 4.9,
+   "fcl": 401.7434,
+   "wacc": 5.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 262.32,
+   "acciones": 262,
    "deudaNeta": 2475.1,
    "modo": "EV",
-   "precioBase": 16.82,
+   "precioBase": 16.8,
    "validado": true,
-   "desviacion": 0.001,
-   "gBase": -5.379,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": -0.005,
+   "gBase": -4.925,
+   "fechaBase": "2026-09-23",
+   "congeladoEl": "2026-09-23"
   }
  }
 }
