@@ -2,150 +2,182 @@
  "schemaVersion": 8,
  "ticker": "RED",
  "empresa": "Redeia Corporación, S.A.",
- "fecha": "2026-07-21",
+ "fecha": "2026-09-22",
  "rating": "BBB",
- "score": 58.9,
- "decision": "ESPERAR",
- "metodoValoracion": "DCF + múltiplos regulados + DDM (utility). PO oficial = síntesis ponderada 50% múltiplos + 30% DDM + 20% DCF = 14,56 €; bear ~9-11 €, bull ~18-20 €. DCF/DDM infraponderados por hipersensibilidad al WACC (beta 0,45); WACC anclado en la retribución regulada.",
- "poBear": 10.0,
- "poBase": 14.56,
- "poBull": 19.0,
- "entMin": 12.0,
- "entMax": 13.0,
- "stop": 8.5,
+ "score": 57.4,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF sobre owner earnings + múltiplos históricos + renta — red regulada. PO oficial = síntesis ponderada del §6.5: 18,35 €/acc, con DCF 55 % (pesimista 10 · base 35 · optimista 10), múltiplos históricos de diez años 30 % y renta 15 %. Se descuentan owner earnings y no FCL, porque el plan de inversión deja el FCL negativo. La vara del sector, EV/RAB (1,54x hoy · 1,73x implícito en el PO), se publica como contraste DECLARADO y SIN peso: la serie del RAB no está publicada los diez años.",
+ "poBear": 14.7,
+ "poBase": 18.35,
+ "poBull": 24.78,
+ "entMin": 14.7,
+ "entMax": 15.96,
+ "stop": 11.17,
  "dpaPrevisto": 0.8,
- "moat": "ANCHO (81,5/100). Monopolio natural y legal: único operador de la red de transporte eléctrico de España, protegido por la Ley del Sector Eléctrico y retribuido por la CNMC. Foso que protege estabilidad, no beneficio en exceso.",
+ "moat": "66,5 sobre 100 · MOAT MODERADO. Foso LEGAL: la Ley 24/2013 designa a Red Eléctrica transportista único y operador del sistema. Escala eficiente 92 e intangibles 78 son la misma designación contada dos veces; ventaja en costes 45 porque la eficiencia se la queda el regulador en cada revisión. Horquilla de ponderación medida: 41,6 – 67,0. El foso protege el INGRESO, no el RETORNO.",
  "catalizadores": [
-  "Entrada en vigor de la nueva TRF 6,58% (2026-2031), ya aprobada",
-  "Recuperación del beneficio y del FCF en 2026",
-  "Superación del pico de CAPEX (intensidad hacia <60%)",
-  "Bajadas de tipos del BCE (revalorización como bond proxy)",
-  "Cierre del escrutinio del apagón sin sanción material"
+  "La tasa de retribución financiera del periodo 2026-2031 sube al 6,58 % desde el 5,58 % (Circular 9/2025 de la CNMC, 22-dic-2025): 89,0 M€ de ingreso anual sobre los 8.900 M€ de RAB, el 5,36 % de la cifra de negocio. Ya aprobado, se ve en las cuentas de 2026.",
+  "El RAB de transporte más Salto de Chira pasa de 8.900 a 12.000 M€ en 2029 (+7,76 % anual) y supera los 15.000 M€ en 2031, con el 93 % de los 6.500 M€ de inversión del plan destinado al TSO español.",
+  "El dividendo crece un 2 % anual desde los 0,80 € actuales hasta 0,87 €/acción en 2029, según la política declarada en el plan 2026-2029.",
+  "La resolución del expediente de la CNMC por el apagón del 28-A sin cuantía material: GOLPE DECLARADO CON IMPACTO CERO, porque el §6.5 nunca contabilizó la multa y no hay provisión dotada."
  ],
  "riesgos": [
-  "Recorte de la retribución regulada (TRF) por la CNMC — riesgo nº1",
-  "Shock regulatorio extraordinario (claw-back/impuesto)",
-  "Nuevo recorte del dividendo",
-  "Sobrecoste/retraso del CAPEX récord (ROIIC negativo)",
-  "De-rating de múltiplos desde niveles caros",
-  "Fallo de red/apagón (reputacional-político)",
-  "Politización por control estatal (SEPI ~20%)"
+  "Regulatorio (Alta) · −10,0 a −19,9 %: la revisión retributiva del periodo 2032-2037. Un punto de tasa vale el −9,96 % del precio objetivo. Ya pasó una vez: la Circular 2/2019 dejó la tasa en 5,58 % y el EBITDA cayó de 1.582 M€ (2019) a 1.210 (2024).",
+  "Financiero (Alta) · −10,6 a −16,4 %: el plan añade 9.400 M€ con deuda e híbridos sobre un coste medio del 2,24 %, y el calendario de subvenciones concentra 1.073 de los 1.311 M€ en 2026.",
+  "Ciberseguridad (Baja-Media) · −5,0 a −16,2 %: el operador del sistema eléctrico de un país es infraestructura crítica y opera el despacho en tiempo real.",
+  "Operativo (Media) · −6,9 a −13,8 %: el punto único de fallo, que ya se materializó el 28 de abril de 2025. La disponibilidad de la red lleva por debajo del 99 % desde 2021 y cierra en 98,39 %.",
+  "Político (Media) · −4,5 a −8,9 %: SEPI tiene el 20 % del capital y el Estado fija además el precio del servicio; la CNMC ha advertido del conflicto de ser juez y parte.",
+  "Asignación de capital (Media) · −1,3 a −3,3 %: capital invertido de 7.870 a 10.789 M€ con el ROIC del 9,57 % al 5,71 % y un ROIIC a cinco años del −7,45 %. Hispasat: 933 M€ a la entrada, 725 a la salida.",
+  "Societario (Alta) · −0,4 a −1,7 %: el expediente sancionador de la CNMC incoado el 17-abr-2026, con sanción potencial de hasta 60 M€ y plazo de resolución de nueve a dieciocho meses. Sin provisión dotada."
  ],
- "bull": "La nueva TRF 6,58% sobre un RAB muy ampliado reactiva beneficio, FCF y dividendo tras el punto bajo del ciclo; re-rating como bond proxy si baja el BCE. Precio implícito ~18-20 €.",
- "bear": "Recorte o shock regulatorio hunde beneficio y dividendo; espiral CAPEX+tipos fuerza ampliación/recorte; de-rating desde múltiplos caros amplifica la caída. Precio implícito ~9-11 € (−40%).",
- "resumen": "Activo de máxima calidad (monopolio natural, foso ancho, balance sólido, forense limpio) en el punto bajo de su ciclo regulatorio, pero a un precio sin margen de seguridad: cotiza caro vs su historia (EV/EBITDA 11x vs 8,5x) y ya descuenta la recuperación de la nueva TRF (Reverse DCF EXIGENTE). PO 14,6 € vs cotización 15,54 € (−6%). Veredicto ESPERAR; entrada atractiva <13 €. El riesgo se concentra al 100% en el regulatorio (CNMC).",
+ "bull": "24,78 €/acc. Los tres catalizadores derivables cumpliéndose juntos: la tasa del 6,58 % en la base de ingresos, el RAB creciendo a 12.000 M€ en 2029 y el dividendo en 0,87 €.",
+ "bear": "14,70 €/acc (0,801 × PO). El riesgo dominante —el regulatorio— en su extremo DURO: que la tasa vuelva al 4,58 %, cien puntos por debajo del periodo 2021-2025. Son 178,0 M€ sobre el RAB oficial, el 10,73 % de los ingresos. Se eligió el extremo duro y no el suave porque con el suave el bear saldría a 0,900 × PO y la banda de entrada quedaría invertida (F259 · M10).",
+ "resumen": "MANTENER, tres de cuatro condiciones. Precio objetivo 18,35 €/acc con un margen de seguridad del +20,73 % sobre 15,20 €; falla sólo la condición de rating (BBB contra el A que exige el método). Monopolio legal con la tasa retributiva subiendo al 6,58 % y el RAB camino de 12.000 M€ en 2029, pero con dos avisos que pesan sobre el TAMAÑO de la posición: la seguridad del dividendo sale 28/100 FRÁGIL —cobertura sobre owner earnings a tres años de 0,68x— y la tesis tiene UN SOLO PILAR, porque la calidad del foso y el precio del servicio cuelgan de la misma decisión administrativa. La señal única a vigilar no es el precio: es que la CNMC abra consulta pública sobre la metodología del periodo 2032-2037, entre 2030 y 2031.",
  "confianza": {
-  "score": 84,
-  "nivel": "A",
+  "score": 64,
+  "nivel": "B",
   "motivos": [
-   "Análisis completo de los 10 bloques",
-   "Conciliación ampliada con cuentas oficiales aplicada al Excel (Cap. I)",
-   "Sin huecos críticos en valoración o solvencia"
+   "4 input(s) crítico(s) en 'Pte. Revisión' (−32)",
+   "2 dato(s) secundario(s) en 'Pte. Revisión' (−4)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
-   "bloqueaCompraEnFirme": false
+   "bloqueaCompraEnFirme": true,
+   "motivo": "4 inputs críticos sin confirmar",
+   "accion": "Si el veredicto fuese COMPRAR, debería ser condicionado/ESPERAR (hoy la decisión no es COMPRAR)."
   },
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-22"
  },
  "robustez": {
   "nivel": "sensible",
   "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 10.0,
-   "p50": 14.56,
-   "p90": 19.0
+   "p10": 14.7,
+   "p50": 18.35,
+   "p90": 24.78
   },
   "sensibilidad": {
-   "poMin": 7.92,
-   "poMax": 23.89,
-   "poBase": 13.28,
-   "cotizacion": 15.54,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 15.68,
+   "poMax": 24.16,
+   "poBase": 18.35,
+   "cotizacion": 15.2,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.35,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 12.91,
+    "poMax": 37.13,
+    "poBase": 20.5276289739792
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -49.0,
-   "mdsMax": 53.7
+   "mdsMin": 3.2,
+   "mdsMax": 59.0
   },
   "beta": {
-   "capm": 0.45,
-   "ref2": 0.55,
+   "capm": 0.523,
+   "ref2": null,
    "aviso": null
   },
   "motivos": [
-   "la cotización (15.54) cae DENTRO de la banda de PO [7.9–23.9] bajo WACC±1.0pp/g_TV±0.5pp → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (15.20) queda por DEBAJO de toda la banda del precio objetivo de síntesis [15.68–24.16] → infravalorada en todo el rango",
+   "…pero la banda de margen de seguridad [+3.2 % … +59.0 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4: la DECISIÓN no es la misma en los dos extremos de la perturbación, así que es SENSIBLE [F621]. Que la cotización esté fuera de la banda del precio objetivo dice que la INFRA o SOBREvaloración aguanta; no dice que aguante el veredicto",
+   "para contraste, el DCF puro (§6.3) se mueve en [12.91–37.13] € alrededor de 20.53 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-22"
  },
  "dividendSafety": {
-  "score": 55,
-  "banda": "Vigilar",
+  "score": 28,
+  "banda": "Frágil",
   "componentes": {
-   "C1": 55,
-   "C2": 40,
-   "C3": 60,
-   "C4": 45,
-   "C5": 75
+   "C1": 3,
+   "C2": 0,
+   "C3": 10,
+   "C4": 3,
+   "C5": 12
   },
-  "shareholderYield": 5.6,
+  "shareholderYield": 5.52,
   "topeDuro": {
-   "activo": false,
-   "motivo": "Owner earnings cubren el dividendo ordinario (1,13x) → excepción A1: el déficit de FCL es capex de crecimiento"
+   "activo": true,
+   "motivo": "cobertura sobre owner earnings 3a 0.68x < 1,0x y payout BN 3a 102% > 100%"
   },
   "motivos": [
-   "Cobertura por owner earnings fina (1,13x, cayó a 0,87x en 2024)",
-   "Payout sobre beneficio 91%",
-   "Dividendo ya recortado (1,00→0,80)",
-   "Sin dilución; RPD 5,6%"
+   "C1 cobertura dividendo ord.: OE 1.17x / FCL -0.85x (3a OE 0.68x) → 3/35",
+   "C2 payout BN ord.: 91% (3a 102%) → 0/15",
+   "C3 balance: DN/EBITDA 4.35x, cob.int 6.2x → 10/20",
+   "C4 trayectoria: 2 recorte(s) en 10a (reciente) → 3/15",
+   "C5 predictores B4 (cuantitativos): buyback NETO negativo (dilución por scrip) → 12/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-22"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
-   "score": 7,
-   "banda": "fuerte"
+   "score": 8,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=EBIT (sin bruto)"
   },
   "altman": {
    "z": 4.51,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.6,
+   "m": -2.47,
    "senal": "sin indicios",
-   "aproximado": true
+   "aproximado": [
+    "GMI",
+    "SGAI"
+   ]
   },
   "sloan": {
-   "accruals": -0.03,
-   "senal": "conservador"
+   "accruals": -3.3,
+   "senal": "normal"
   },
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-22"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 3.07,
-  "gIntrinseco": 2.24,
-  "veredicto": "EXIGENTE",
-  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
-  "calculadoEl": "2026-07-27",
+  "gImplicito": -1.43,
+  "gIntrinseco": 1.93,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-09-22",
   "entradas": {
-   "fcl": 520,
-   "wacc": 6,
+   "fcl": 618.524,
+   "wacc": 5.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 540.49,
-   "deudaNeta": 5600.61,
+   "acciones": 541.08,
+   "deudaNeta": 5474.22,
    "modo": "EV",
-   "precioBase": 15.54,
+   "precioBase": 15.2,
    "validado": true,
-   "desviacion": 0.003,
-   "gBase": 3.073,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": 0.0,
+   "gBase": -1.43,
+   "fechaBase": "2026-09-22",
+   "congeladoEl": "2026-09-23"
   }
  }
 }
