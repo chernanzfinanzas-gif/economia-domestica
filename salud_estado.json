@@ -1,5 +1,5 @@
 {
- "generado": "2026-09-18",
+ "generado": "2026-09-23",
  "linter": {
   "ok": true,
   "detalle": "50 ficheros validados, sin errores."
@@ -10,21 +10,8 @@
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados. 2 tienen el caché de fórmulas vacío, y los 2 están marcados para que Excel los RECALCULE ENTEROS al abrirlos (Bankinter, Santander): se curan solos y no hay nada que hacer.",
-  "libros": [
-   {
-    "empresa": "Bankinter",
-    "formulas": 1621,
-    "mudas": 1621,
-    "recalculaAlAbrir": true
-   },
-   {
-    "empresa": "Santander",
-    "formulas": 1595,
-    "mudas": 1595,
-    "recalculaAlAbrir": true
-   }
-  ]
+  "detalle": "25 libros revisados; todas las fórmulas conservan su valor.",
+  "libros": []
  },
  "senales": {
   "ok": true,
