@@ -180,5 +180,103 @@
    "fechaBase": "2026-09-12",
    "congeladoEl": "2026-09-13"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Naturgy.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 10.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 11.99,
+   "roiic5a": null,
+   "roiic": 25.25,
+   "roiicVentana": "3A",
+   "roicMedio": 6.69,
+   "spread": 5.7,
+   "wacc": 5.5,
+   "conversionMedia": 34.94,
+   "coberturaDividendo": 1.38,
+   "gIntrinseco": -1.13,
+   "capexCrecimiento10a": 3306.0,
+   "fcl10a": 16381.0,
+   "retribucion10a": 14633.9,
+   "retribucionSobreFcl": 89.3
+  },
+  "tension": {
+   "anios": [
+    2018,
+    2021,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    0.82,
+    null,
+    1.16,
+    1.38
+   ],
+   "coberturaOe": [
+    0.92,
+    null,
+    1.58,
+    1.7
+   ],
+   "payoutBn": [
+    null,
+    95.8,
+    81.6,
+    84.8
+   ],
+   "payoutFcl": [
+    121.2,
+    null,
+    86.4,
+    72.2
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una <b>utility integrada de gas y electricidad</b> con dos mitades de peso parecido: las redes de distribución reguladas en España y Latinoamérica, que dan algo más de la mitad del EBITDA, y los mercados de energía —aprovisionamiento de gas y GNL, generación y comercialización—, que dan el resto y ponen la volatilidad. Es intensiva en capital, con un CAPEX del <b>8,3 % de las ventas</b>, y convierte poco: <b>34,9 % de conversión media</b> del EBITDA en flujo libre, ningún año (0 de diez) por encima del umbral de la banda, y en 2021, con la crisis del gas, el flujo libre fue negativo.",
+     "La década ha sido de desmontar, no de construir: ventas de Italia, Colombia, Moldavia y las redes eléctricas de Chile, y un saneamiento de casi cinco mil millones en 2018 que castigó la generación convencional española. Sólo desde 2023 ha vuelto a comprar, y lo último que declara buscar es una red regulada."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De la red, y sólo desde 2022.</b> El ROIC medio de la década, un 6,7 % contra un WACC del 5,5 %, esconde dos empresas: la de 2016-2021, con un ROIC medio del 4,0 % y un −5,9 % en el año del saneamiento, y la de 2022-2025, con un 10,8 % de media y un spread de <b>+5,70 pp</b> en 2025. Cuando el precio del gas se normalizó, las redes sostuvieron el resultado.",
+     "La inversión reciente ha rendido: el <b>ROIIC a tres años es del 25,2 %</b> —el libro no da un ROIIC a cinco años utilizable, así que la ventana es corta—, muy por encima del corte de WACC más cinco puntos. Pero el grueso de la caja no se ha reinvertido: la reinversión media es del <b>12,0 %</b> y, de 16.381 M€ de flujo libre en la década, <b>14.634 M€ —el 89 %— se han repartido</b>. Por eso está en la casilla del cupón."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "<b>La casilla la decide la década, y los tres últimos años no se le parecen.</b> Entre 2016 y 2022 la reinversión media fue del 5,3 %; en 2023-2025 ha sido del <b>27,7 %</b>, por encima del umbral de un compuesto, y es justamente la ventana en la que se mide el ROIIC. Además el libro cuenta como CAPEX de crecimiento 3.306 M€ en diez años, el 1,5 % de las ventas, bastante menos que el crecimiento que la propia compañía declara en sus informes: con la cifra de la empresa la reinversión sería mayor y la casilla podría ser otra. Es un dato a conciliar antes de apoyarse en él.",
+     "Y el cupón se paga ajustado. La cobertura con caja libre estuvo por debajo de la unidad en 2017 (0,99x) y 2018 (0,82x), bajó a 1,16x en 2024 y está en <b>1,38x</b> en 2025, con un payout del 84,8 % del beneficio. La retribución de 2025, 2.905 M€, es la mayor de la década y la deuda neta subió 116 M€ en el año. El plan 2025-2027 lo dice abiertamente: dividendos y recompras por encima del flujo libre, con la deuda neta subiendo hasta unos dieciséis mil millones en 2027."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Naturgy compra <b>un cupón alto y creciente respaldado por una red regulada</b>, con una empresa que en sus dos peores sustos —2018 y 2020— no tocó el dividendo y que sólo lo recortó, en 2021, cuando decidió invertir. El riesgo no es que no pueda pagarlo, es que el suelo prometido hasta 2027 se financie con deuda en vez de con caja, en una compañía que además afronta el fin del GNL ruso de Yamal en 2027 y acaba de cambiar de accionistas de control.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre. Si baja de la unidad mientras la deuda neta sube como dice el plan, el cupón lo estará pagando el balance, y el propio suelo del dividendo está condicionado a mantener el rating BBB."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo con caja libre: el plan 2025-2027 sube el suelo del dividendo mientras deja subir la deuda neta; si la cobertura baja de la unidad, el cupón lo estará pagando el balance y el rating BBB al que está atado.",
+  "version": 1
  }
 }

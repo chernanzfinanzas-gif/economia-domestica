@@ -179,5 +179,98 @@
    "fechaBase": "2026-09-22",
    "congeladoEl": "2026-09-23"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Redeia.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 3,
+   "nombre": "LA TRAMPA DEL CAPITAL",
+   "lema": "reinvierte mucho y rinde poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 10.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 31.4,
+   "roiic5a": -7.45,
+   "roiic": -7.45,
+   "roiicVentana": "5A",
+   "roicMedio": 7.99,
+   "spread": 0.21,
+   "wacc": 5.5,
+   "conversionMedia": 28.32,
+   "coberturaDividendo": 1.9,
+   "gIntrinseco": 1.93,
+   "capexCrecimiento10a": 2002.7,
+   "fcl10a": 4426.9,
+   "retribucion10a": 5066.2,
+   "retribucionSobreFcl": 114.4
+  },
+  "tension": {
+   "anios": [
+    2023,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    null,
+    null
+   ],
+   "coberturaOe": [
+    null,
+    1.14,
+    1.25
+   ],
+   "payoutBn": [
+    78.5,
+    117.5,
+    85.6
+   ],
+   "payoutFcl": [
+    null,
+    null,
+    null
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "El <b>transportista único y operador del sistema eléctrico español</b>, por ley: nadie compite con ella, y quien le pone el precio es la CNMC, que retribuye su base de activos a una tasa que revisa cada seis años. Es un negocio de capital muy pesado: el CAPEX es el 36,1 % de las ventas en la década y la conversión media de EBITDA en caja libre, un 28,3 %, con 2 años de diez por encima del 60 %.",
+     "Entre 2019 y 2022 intentó ser algo más —satélites, transmisión en Brasil, fibra óptica— y desde 2024 ha deshecho la parte grande: <b>Hispasat, comprada por 933 M€ en 2019, se vendió a Indra por 725 M€ en 2025</b>. El plan 2026-2029 vuelve a mandar más del 90 % de la inversión a la red española. La estructura de capital no se ha movido: ni una acción nueva en diez años."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De la tasa que fija el regulador, no de la empresa.</b> El ROIC medio de la década es un 8,0 % contra un WACC del 5,5 %, pero la tendencia es de bajada: del 9,6 % de 2016 al 5,7 % de 2025. La causa principal está documentada: el periodo regulatorio 2020-2025 recortó la retribución y el EBITDA no ha vuelto a su máximo de 2019. Una red regulada gana, por construcción, poco por encima de su coste de capital: el WACC del 5,5 % más cinco puntos que pide la familia 2 no está a su alcance.",
+     "La reinversión media, 31,4 %, esconde dos décadas en una: el libro marca reinversión nula en 2016-2020 y en 2023-2025 se dispara a un 103,2 % de media, con 933 M€ de CAPEX de crecimiento sólo en 2025. Y el <b>ROIIC de los últimos cinco años es del −7,4 %</b>: el capital invertido ha crecido y el beneficio operativo ha bajado. No quiere decir que la red nueva pierda dinero —buena parte es obra en curso que aún no está en la base retribuida, y en medio está la salida de Hispasat—; sí quiere decir que, hasta hoy, el capital añadido no ha producido resultado adicional."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La caja libre se ha dado la vuelta: positiva siete años seguidos y <b>negativa en 2023, 2024 y 2025</b> (−464, −123 y −394 M€), por el ciclo inversor. El dividendo se siguió pagando —se recortó a 0,80 € en 2024, el suelo que el plan había anunciado— y ese año el payout llegó al 117,5 % del beneficio, con el deterioro de Hispasat dentro. Por eso la cobertura con caja libre no se puede calcular desde 2023: <b>el 1,90x que el libro da como última cobertura es de 2022</b>. Sobre owner earnings, 2025 da 1,25x.",
+     "Y el spread ROIC − WACC, que era de +4,07 pp en 2016, ha quedado en <b>+0,21 pp</b> en 2025, tras tocar +0,09 en 2024. Encima, el apagón del 28 de abril de 2025 le ha costado un escalón de rating en las dos agencias —BBB+ desde febrero y marzo de 2026— justo cuando el plan prevé llevar la deuda neta de 5.474 M€ a unos 7.800 M€ en 2029."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Redeia compra <b>una tarifa, no un compuesto</b>. La pregunta que decide no es cuánto invierte —invertirá mucho, lo manda la planificación— sino a qué retorno: la CNMC ha subido la tasa del periodo 2026-2031 respecto a la de 2020-2025, y es esa subida la que tiene que convertir en beneficio la obra de estos años. Si la base retribuida crece como dice el plan y el ROIC recupera distancia sobre el WACC, la casilla 3 es un tránsito; si no, es el precio de un monopolio al que su regulador le pone el techo.",
+     "<b>Qué vigilar cada trimestre, por ser familia 3:</b> el spread ROIC − WACC. En 2025 está en +0,21 pp; si cruza a negativo con la tasa nueva ya en vigor, la inversión estará destruyendo valor. Al lado, el expediente sancionador de la CNMC por el apagón, sin provisión dotada."
+    ]
+   }
+  ],
+  "vigilar": "El spread ROIC − WACC: está a dos décimas de cero; si se pone negativo con la tasa 2026-2031 ya en vigor, la inversión estará destruyendo valor.",
+  "version": 1
  }
 }

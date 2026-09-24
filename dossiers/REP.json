@@ -176,5 +176,98 @@
    "fechaBase": "2026-09-09",
    "congeladoEl": "2026-09-10"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Repsol.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 3,
+   "nombre": "LA TRAMPA DEL CAPITAL",
+   "lema": "reinvierte mucho y rinde poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 11.85,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 42.87,
+   "roiic5a": null,
+   "roiic": -39.39,
+   "roiicVentana": "3A",
+   "roicMedio": 4.12,
+   "spread": -0.56,
+   "wacc": 6.85,
+   "conversionMedia": 27.5,
+   "coberturaDividendo": 1.36,
+   "gIntrinseco": 2.42,
+   "capexCrecimiento10a": 7844.0,
+   "fcl10a": 19864.0,
+   "retribucion10a": 21104.3,
+   "retribucionSobreFcl": 106.2
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2020,
+    2024
+   ],
+   "coberturaFcl": [
+    1.07,
+    0.9,
+    null
+   ],
+   "coberturaOe": [
+    1.59,
+    0.56,
+    1.75
+   ],
+   "payoutBn": [
+    -39.8,
+    -28.7,
+    66.0
+   ],
+   "payoutFcl": [
+    93.5,
+    110.7,
+    null
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una petrolera integrada de tamaño medio: <b>líder en el downstream ibérico</b> —refino, estaciones de servicio, GLP—, actor pequeño en el upstream mundial, con una producción que ha pasado de 690 a 548 kbep/d en la década, y una cartera de renovables en construcción. Es una COMMODITY y la caja lo dice: la conversión media de EBITDA en flujo libre es del 27,5 %, con 0 años de diez por encima del 60 %. El CAPEX, un 6,9 % de las ventas, parece bajo porque las ventas de una petrolera son enormes, no porque invierta poco.",
+     "El accionista ha cobrado de dos formas, dividendo y recompra: el número de acciones ha bajado de 1.465,6 a 1.105,4 millones en diez años, y el plan 2026-2028 promete repartir entre el 30 y el 40 % del flujo de operaciones."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>Del ciclo, más que del capital.</b> El ROIC medio de la década es un 4,1 %, por debajo de un WACC del 6,9 %, y detrás hay una montaña rusa: −6,4 % y −6,1 % en 2019 y 2020, con deterioros y COVID, y 12,6 % en 2022, con el margen de refino en máximos de la década. El spread sobre el WACC sólo ha sido positivo tres años de diez —2021, 2022 y 2023—, los del ciclo alto.",
+     "La reinversión media es alta, 42,9 %, pero concentrada: nula en 2016, 2017 y 2021, sin dato en 2019-2020, y del 150,8 % en 2024, el año fuerte de la inversión en generación baja en carbono. Y el retorno de ese capital es lo que clasifica a Repsol: <b>el ROIIC de los tres últimos años —el libro lo mide a tres, no a cinco— es del −39,4 %</b>. No significa que cada euro nuevo pierda eso cada año: significa que desde el pico de 2022 Repsol ha metido más capital y gana menos en términos absolutos, porque el ciclo bajó a la vez que invertía. El numerador es el ciclo; el denominador, la transición. Ninguno de los dos la acerca al corte del WACC del 6,85 % más cinco puntos."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión tiene fecha: <b>2024</b>. La reinversión fue del 150,8 %, el flujo libre se puso en negativo (−141 M€), la cobertura del dividendo con caja libre no se puede calcular y la caja neta empeoró 2.912 M€, mientras se retribuían 1.984 M€. 2025 lo corrigió —cobertura de 1,36x—, pero el spread sigue en <b>−0,56 pp</b>: con el ciclo en su sitio, Repsol no gana su coste de capital. En la década retribuyó 21.104 M€ contra 19.864 M€ de flujo libre, el 106 %.",
+     "Dos avisos de lectura. El payout sale negativo en 2019 y 2020 (−39,8 % y −28,7 %): se pagó dividendo sobre pérdidas contables que eran deterioros, no caja; en 2020 lo recortó, no lo suprimió. Y en el cuarto trimestre de 2025 Repsol cambió su modelo de reporting: el EBITDA de 2024 pasa de 7.488 a 6.052 M€ reexpresado. Una serie que cruce ese punto sin avisarlo cuenta un desplome que no existió."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Repsol compra <b>un cupón cíclico con un plan de devolución de caja</b>, no un compuesto: dividendo creciente, recompra y un CAPEX neto a la baja. Lo que la hace trampa del capital es la parte que sigue invirtiendo —la transición— sin haber demostrado que rinde por encima del WACC. El primer semestre de 2026, con el margen de refino casi al doble del escenario de su propia guía, va a mejorar las cifras; es ciclo, no gestión.",
+     "<b>Qué vigilar cada trimestre, por ser familia 3:</b> el spread ROIC − WACC, leído contra el margen de refino. Si vuelve a positivo sólo cuando el margen se dispara, no ha cambiado nada; si se sostiene en positivo con el margen en la media del ciclo, el capital de la transición estará empezando a rendir."
+    ]
+   }
+  ],
+  "vigilar": "El spread ROIC − WACC leído contra el margen de refino: sólo cuenta si se sostiene en positivo con el margen en la media del ciclo.",
+  "version": 1
  }
 }

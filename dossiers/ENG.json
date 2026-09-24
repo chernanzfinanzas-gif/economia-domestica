@@ -177,5 +177,103 @@
    "fechaBase": "2026-09-23",
    "congeladoEl": "2026-09-23"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Enagás.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": null,
+   "nombre": "SIN CASILLA",
+   "lema": "el libro marca el ROIIC como no significativo a 5 y a 3 años; no se elige por el ROIC",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 10.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 0.0,
+   "roiic5a": null,
+   "roiic": null,
+   "roiicVentana": null,
+   "roicMedio": 6.68,
+   "spread": 0.89,
+   "wacc": 5.5,
+   "conversionMedia": 59.15,
+   "coberturaDividendo": 0.36,
+   "gIntrinseco": -8.73,
+   "capexCrecimiento10a": 0.0,
+   "fcl10a": 5504.0,
+   "retribucion10a": 3329.0,
+   "retribucionSobreFcl": 60.5
+  },
+  "tension": {
+   "anios": [
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    1.41,
+    0.9,
+    1.36,
+    0.36
+   ],
+   "coberturaOe": [
+    1.03,
+    0.65,
+    0.64,
+    null
+   ],
+   "payoutBn": [
+    119.9,
+    133.1,
+    null,
+    77.3
+   ],
+   "payoutFcl": [
+    70.9,
+    110.7,
+    73.4,
+    277.5
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un monopolio legal de infraestructura</b>: Gestor Técnico del Sistema gasista y Transportista Único de la red troncal, con unos 11.000 km de gasoductos y presencia en seis de las siete plantas de regasificación de la península. No compite con nadie; su precio lo fija una circular de la CNMC que se revisa cada seis años, la próxima vez para 2027. Casi todo el ingreso es regulado español, pero un tercio del resultado de explotación de 2025 llega de participadas internacionales por puesta en equivalencia, sin ingresos detrás.",
+     "Es una red <b>que se amortiza más deprisa de lo que se renueva</b>: el CAPEX es el 7,7 % de las ventas y no llega a cubrir la amortización ningún año, así que el libro no clasifica ni un euro como CAPEX de crecimiento —0 M€ en diez años—. Los ingresos han pasado de 1.360 M€ en 2017 a 960 en 2025."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De la retribución regulada, y cada vez menos.</b> El ROIC medio de la década es un 6,7 % contra un WACC del 5,5 %: el spread era de +1,77 pp de media en 2016-2019, fue negativo en 2022 (−0,39 pp), ya con el marco 2021-2026 recortando la retribución, y en 2025 es de <b>+0,89 pp</b>. Es el retorno de un activo regulado: fiable, pero pegado al coste de capital.",
+     "<b>Por qué no hay casilla.</b> Enagás lleva cinco años haciéndose más pequeña: vendió Quintero, Morelos y COGA en 2022 y Tallgrass en 2024, y el capital invertido de 2025 es muy inferior al de 2020 y al de 2022. Cuando caen a la vez el capital y el NOPAT, su cociente no es un retorno sobre capital nuevo; el libro lo marca «n.s.» a cinco y a tres años. La lectura provisional la dan las otras cifras: reinversión del 0,0 %, crecimiento intrínseco del <b>−8,73 %</b> y un ROIC que se sostiene porque el denominador encoge más o menos al ritmo del beneficio. No es un negocio que reinvierta: es uno que <b>se está liquidando despacio mientras decide si el hidrógeno será su siguiente red</b>."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión es el dividendo. El payout sobre beneficio fue del 121,1 % de media en 2021-2023, y el 20 de febrero de 2024 la compañía recortó el dividendo de los 1,74 € que había comprometido por escrito hasta 2026 a 1,00 €, diecinueve meses después de prometerlo. Aun así, el flujo libre de 2025 se hundió a 94 M€, frente a 632 de media en 2016-2023, y la cobertura con caja libre cayó a <b>0,36x</b>: el dividendo recortado tampoco lo paga el negocio.",
+     "Y la deuda no ha bajado con caja: la reducción de 943 M€ de 2024 es la venta de Tallgrass, y en 2025 la deuda neta volvió a subir 71 M€. Lo que viene va en la otra dirección: Teréga, 573 M€ cerrados en julio de 2026; una red troncal de hidrógeno que todavía no tiene marco retributivo; y el marco regulatorio 2027-2032, que fijará el precio de todo lo demás."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Enagás compra <b>un cupón alto sobre una red que no crece y cuyo precio se renegocia en 2027</b>. Lo que la protege es real —el monopolio legal y un blindaje accionarial que hace imposible una OPA—; lo que la amenaza es aritmética: un activo que se amortiza más deprisa de lo que se renueva, una caja libre que ya no cubre el dividendo y un plan de inversión en hidrógeno que, la última vez que chocó con el dividendo, ganó.",
+     "<b>Qué vigilar cada trimestre, mientras no haya casilla:</b> la cobertura del dividendo con caja libre, que el operador dejó escrita como su señal única. En 0,36x, el dividendo de 1,00 € depende en 2026 del cobro de Castor, de las participadas y del balance; si la cobertura no vuelve por encima de 1,0x mientras arranca la inversión en hidrógeno, el precedente de 2024 deja de ser historia."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo con caja libre: mientras no vuelva por encima de 1,0x, el dividendo lo pagan el balance, las participadas y los cobros extraordinarios, no la red.",
+  "version": 1
  }
 }

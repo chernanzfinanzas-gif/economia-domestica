@@ -180,5 +180,103 @@
    "fechaBase": "2026-09-13",
    "congeladoEl": "2026-09-13"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Endesa.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "reinvierte mucho y bien",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 10.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 37.82,
+   "roiic5a": 19.54,
+   "roiic": 19.54,
+   "roiicVentana": "5A",
+   "roicMedio": 10.4,
+   "spread": 7.44,
+   "wacc": 5.5,
+   "conversionMedia": 28.84,
+   "coberturaDividendo": 1.12,
+   "gIntrinseco": 6.86,
+   "capexCrecimiento10a": 3508.0,
+   "fcl10a": 11482.0,
+   "retribucion10a": 15939.8,
+   "retribucionSobreFcl": 138.8
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2022,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    0.65,
+    null,
+    1.08,
+    1.12
+   ],
+   "coberturaOe": [
+    1.04,
+    0.01,
+    1.19,
+    1.19
+   ],
+   "payoutBn": [
+    913.4,
+    66.1,
+    73.9,
+    76.3
+   ],
+   "payoutFcl": [
+    152.8,
+    null,
+    92.4,
+    89.5
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una <b>utility ibérica con dos economías opuestas</b> bajo el mismo techo: la distribución eléctrica, un monopolio con licencia sobre la mayor red de España, que da algo más de un tercio del EBITDA con márgenes altísimos y previsibles; y la generación y comercialización —con el parque nuclear como activo que manda—, que da el resto, compite en precio y pierde cuota. Es intensiva en capital, con un CAPEX del <b>8,9 % de las ventas</b>, y convierte poco EBITDA en caja: <b>28,8 % de media</b>, ningún año (0 de diez) por encima del umbral de la banda.",
+     "Desde la venta de Latinoamérica a Enel en 2014 es una empresa puramente ibérica, controlada por Enel con algo más del setenta por ciento del capital, y con el mismo número de acciones los diez años: todo lo que ha recibido el accionista ha sido en efectivo."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De la red y de la nuclear.</b> El ROIC medio de la década es un 10,4 % contra un WACC del 5,5 %, y el spread de 2025 es de <b>+7,44 pp</b>. Sólo un año lo destruyó: 2019, con un ROIC del 2,1 % y un spread de −3,36 pp. Lo que ha invertido para crecer ha rendido bien: el <b>ROIIC a cinco años es del 19,5 %</b>, holgadamente por encima del corte de WACC más cinco puntos.",
+     "Y ha invertido: la reinversión media de la década es del <b>37,8 %</b>, por encima del umbral de un compuesto, con 647 M€ anuales de CAPEX de crecimiento de media entre 2019 y 2023, después de tres años (2016-2018) sin un euro. Eso la pone en la casilla del compuesto. Pero el compuesto no se ha financiado solo: de 11.482 M€ de flujo libre en diez años se han repartido <b>15.940 M€, el 139 %</b>, y la diferencia la ha puesto la deuda."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "<b>La casilla está en el borde, y la sostiene un solo año.</b> En 2019 el beneficio operativo se hundió y la reinversión, que se mide sobre él, se disparó al 199,6 %. Sin ese año, la media de los otros nueve se queda rozando el corte por debajo, y Endesa estaría en la casilla del cupón. Y los dos últimos años apuntan a cupón, no a compuesto: la reinversión de 2024-2025 es del <b>5,7 %</b> de media, con 136 M€ anuales de CAPEX de crecimiento. Ojo, no obstante, a lo que el libro no ve: la compra de la hidráulica de Acciona en 2025, unos mil millones, no está en el CAPEX de crecimiento.",
+     "Y el cupón se pagó durante años con balance: la deuda neta subió todos los ejercicios entre 2017 y 2022. En 2017-2021 la cobertura del dividendo con caja libre fue de 0,58x de media, con 0,15x en 2021; en 2022 el flujo libre fue negativo, −698 M€, y la deuda neta subió 2.063 M€ en el año. Cuando la caja no llegó, en 2023 recortó el dividendo. Hoy la cobertura es de <b>1,12x</b>."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Endesa no compra todavía un compuesto demostrado: compra <b>la apuesta de que el plan 2026-2028 lo convierta en uno</b>. Son unos diez mil millones en tres años —más de la mitad a redes de distribución—, con la deuda neta subiendo de unos diez a catorce o quince mil millones y un dividendo mínimo del setenta por ciento del beneficio ordinario. La red se retribuye a la tasa que fija la CNMC, y esa inversión difícilmente repetirá el 19,5 % del último quinquenio; lo que importa es cuánto baja. El relevo del consejero delegado, con un perfil de redes, apunta en la misma dirección.",
+     "<b>Qué vigilar cada trimestre, por ser familia 2:</b> el ROIIC. Con la reinversión subiendo por el plan, si el ROIIC a cinco años cae por debajo del corte de WACC más cinco puntos, Endesa pasa de compuesto a trampa del capital. Y a su lado, la condición que pone la propia empresa: el Real Decreto de planes de inversión en redes tiene que garantizar la retribución íntegra de lo invertido."
+    ]
+   }
+  ],
+  "vigilar": "El ROIIC a cinco años: el plan 2026-2028 multiplica la inversión, sobre todo en redes con retribución regulada; si el ROIIC baja del corte de WACC más cinco puntos con la reinversión ya alta, Endesa deja de ser un compuesto y pasa a la trampa del capital.",
+  "version": 1
  }
 }

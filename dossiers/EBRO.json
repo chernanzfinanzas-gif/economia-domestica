@@ -178,5 +178,103 @@
    "fechaBase": "2026-08-23",
    "congeladoEl": "2026-09-10"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Ebro Foods.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": null,
+   "nombre": "SIN CASILLA",
+   "lema": "el libro marca el ROIIC como no significativo a 5 y a 3 años; no se elige por el ROIC",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 10.18,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 22.73,
+   "roiic5a": null,
+   "roiic": null,
+   "roiicVentana": null,
+   "roicMedio": 6.57,
+   "spread": 2.58,
+   "wacc": 5.18,
+   "conversionMedia": 26.43,
+   "coberturaDividendo": 1.28,
+   "gIntrinseco": -0.29,
+   "capexCrecimiento10a": 408.2,
+   "fcl10a": 970.8,
+   "retribucion10a": 1390.9,
+   "retribucionSobreFcl": 143.3
+  },
+  "tension": {
+   "anios": [
+    2018,
+    2021,
+    2022,
+    2025
+   ],
+   "coberturaFcl": [
+    0.76,
+    -1.05,
+    -1.38,
+    1.28
+   ],
+   "coberturaOe": [
+    1.33,
+    -0.67,
+    -1.06,
+    1.58
+   ],
+   "payoutBn": [
+    null,
+    null,
+    null,
+    null
+   ],
+   "payoutFcl": [
+    131.3,
+    -95.6,
+    -72.7,
+    78.1
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Una cartera de negocios alimentarios gestionada con rotación</b>, no una alimentaria que hace compras: nació azucarera, vendió el azúcar y la leche, y en la última década ha vendido la pasta seca de volumen —Norteamérica en 2020, Panzani en 2021— para comprar arroz premium y pasta fresca. Es líder de arroz en casi todos sus mercados, con una marca que se paga en publicidad y no en tecnología, frente a una marca de distribución que le va quitando cuota en valor.",
+     "Es un negocio de marca con fábrica: el CAPEX de crecimiento es el 1,5 % de las ventas, pero el EBITDA llega mal a la caja —25,6 % de conversión media en 2016-2019 y 35,9 % en 2024-2025—, con sólo 2 años de diez por encima del 60 % que la banda pide a una CONSUMO. En la inflación de 2021-2022 el flujo libre fue negativo dos años, −102,6 y −132,8 M€, y el propio informe de 2022 sitúa el coste de esos años en el circulante, que se disparó."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un ROIC modesto pero fiable.</b> 6,6 % de media en la década contra un WACC del 5,2 %: el spread no ha sido negativo ningún año —el peor, +1,88 pp en 2019— y en 2025 es de <b>+2,58 pp</b>. Es la rentabilidad de un líder de categoría en alimentación básica: estable y estrecha.",
+     "<b>Por qué no hay casilla.</b> Ebro reinvierte por una puerta y desinvierte por otra. El CAPEX de crecimiento se lleva el 22,7 % del NOPAT de media, por encima del corte del 20 %, pero las ventas de negocios sacan capital más deprisa de lo que entra: el capital invertido de 2025 es menor que el de 2020 y que el de 2022 mientras el NOPAT ha subido, así que el incremento de capital es negativo a cinco y a tres años y el cociente no significa nada. El libro lo marca «n.s.», y su crecimiento intrínseco sale en <b>−0,29 %</b>. La lectura provisional: reinvierte mucho y le rinde poco por encima de su coste, pero esa reinversión convive con una rotación de cartera que el ROIIC no sabe medir."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión está en lo que reparte. De los 971 M€ de flujo libre de la década, la retribución se llevó 1.391 M€: <b>el 143 % de lo generado</b>. La diferencia la pagaron las ventas de negocios: los extraordinarios de 2020 y 2021 —397 y 186 M€ de retribución total esos dos años— devolvieron el precio de la pasta seca, y con la venta de Panzani la deuda neta bajó 446 M€ en 2021, el mismo año en que el flujo libre fue negativo.",
+     "Sin extraordinarios, el ordinario tampoco ha ido sobrado: la caja libre no lo cubrió en 2016-2018 —0,76x en 2018— y en 2025 lo cubre <b>1,28x</b>. El ordinario estuvo congelado siete años y el de 2026 repite el de 2025. Y a la deuda hay que sumarle los compromisos con los minoritarios que Ebro firma cuando compra la mayoría de una empresa: unos 299 M€ vivos al cierre de 2025."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Ebro compra <b>un líder defensivo de rentabilidad justa</b>, cuyo reparto ha dependido de vender negocios tanto como de generar caja. La resiliencia está documentada —ninguno de los once episodios de estrés que recoge su historia le obligó a recortar el dividendo ordinario—; lo que no está demostrado es que el negocio que queda, más pequeño en pasta y más premium, genere por sí solo la caja que reparte.",
+     "<b>Qué vigilar cada trimestre, mientras no haya casilla:</b> la cobertura del dividendo con caja libre, y con ella el circulante que la mueve. Por debajo de 1,0x el dividendo vuelve a pagarlo el balance. Y desde que la Junta de 2026 delegó en el consejo la facultad de ampliar capital, el número de acciones se vigila también."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo con caja libre: por debajo de 1,0x el reparto vuelve a salir del balance o de vender negocios, no del negocio.",
+  "version": 1
  }
 }

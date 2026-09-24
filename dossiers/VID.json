@@ -179,5 +179,98 @@
    "congeladoEl": "2026-08-24",
    "fechaBase": "2026-08-24"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Vidrala.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 4,
+   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
+   "lema": "ni reinvierte ni rinde",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.72,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 13.37,
+   "roiic5a": 12.22,
+   "roiic": 12.22,
+   "roiicVentana": "5A",
+   "roicMedio": 13.23,
+   "spread": 6.84,
+   "wacc": 7.72,
+   "conversionMedia": 44.37,
+   "coberturaDividendo": 3.37,
+   "gIntrinseco": 6.73,
+   "capexCrecimiento10a": 272.5,
+   "fcl10a": 1279.8,
+   "retribucion10a": 458.1,
+   "retribucionSobreFcl": 35.8
+  },
+  "tension": {
+   "anios": [
+    2016,
+    2022,
+    2023
+   ],
+   "coberturaFcl": [
+    5.36,
+    null,
+    2.64
+   ],
+   "coberturaOe": [
+    4.21,
+    0.84,
+    3.78
+   ],
+   "payoutBn": [
+    29.3,
+    24.4,
+    19.4
+   ],
+   "payoutFcl": [
+    18.7,
+    null,
+    37.9
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un fabricante de <b>envases de vidrio</b> para bebidas y alimentación: nueve plantas, veintiún hornos que funden las veinticuatro horas y un radio comercial corto, porque el vidrio no viaja. Eso hace del mercado un oligopolio por cuencas —primero o segundo en Iberia, primero en Reino Unido e Irlanda con Encirc, que además llena y distribuye— y convierte la energía en el coste que manda. La conversión media de EBITDA en caja libre es del 44,4 %, con 2 de los diez años por encima del 60 %.",
+     "Crece <b>comprando hornos</b>, no construyéndolos: Encirc en 2015, Santos Barosa en 2017, The Park y Vidroporto en 2023, Cristalerías Toro en Chile en 2025, y la venta de Italia en 2024. Y aun así la deuda neta es hoy una fracción de la de 2016: las compras se han pagado con caja propia."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un capital que rinde de verdad.</b> El ROIC ha subido del 9,4 % de 2016 al 14,6 % de 2025, con una media de 13,2 %, y el spread sobre el WACC ha sido positivo los diez años: +6,84 pp en 2025. El foso es la ventaja de coste en cada cuenca, y la integración de Encirc, que sube el coste de cambiar de proveedor.",
+     "Lo que no hace es reinvertir mucho dentro: la reinversión media es del 13,4 %, por debajo del 20 % que separa a quien reinvierte de quien reparte, y el crecimiento le viene de las compras, que no pasan por el CAPEX de crecimiento. El capital añadido en cinco años ha rendido bien, pero no lo bastante: <b>ROIIC del 12,22 %</b>, contra un corte del WACC del 7,72 % más cinco puntos. Se queda a medio punto. Por eso es familia 4: poca reinversión y un retorno incremental que no llega al listón del compuesto."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión es la energía. En 2022 el gas se disparó y el flujo libre se fue a −3,2 M€, con una conversión del −1,2 % y la cobertura del dividendo sobre owner earnings en 0,84x, la única por debajo de uno en diez años; recuperar el margen le costó tres ejercicios. En 2023 las compras de Brasil y Reino Unido se llevaron la caja neta: 305 M€ en el año. Y el apagón del 28 de abril de 2025 paró las plantas peninsulares y dañó hornos, con el impacto definitivo todavía sin cerrar.",
+     "Y dos cifras del libro que no se pueden leer tal cual: el <b>CAPEX sobre ventas de la década sale negativo</b>, algo imposible en un fabricante de vidrio, y 2016 arranca con una reinversión del −30,6 %. Quitando 2016, la reinversión media de 2017-2025 es del 18,3 %: sigue por debajo del corte, así que la casilla no depende del dato raro."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Vidrala compra <b>un buen negocio al que se le acaba el sitio en casa</b>. Con el core maduro y la demanda europea floja, la caja libre tiene tres destinos: dividendo, recompra —ampliada al 3 % del capital en 2026— y compras en Sudamérica. En la década sólo repartió el 36 % del flujo libre, con una cobertura del dividendo de 3,37x en 2025; el resto pagó deuda y compras. Lo que decide es el tercer destino: si Brasil y Chile acaban rindiendo como el core, el ROIIC cruza el corte; si no, el capital sale de donde más rinde para ir a donde rinde menos.",
+     "<b>Qué vigilar cada trimestre, por ser familia 4:</b> el plan. Que la guía de 2026 —EBITDA por encima de 450 M€, beneficio creciendo más de un 5 %, flujo libre en torno a 200 M€— se cumpla, y a qué retorno entra el capital de Sudamérica. Si el ROIIC sube el medio punto que le falta, es un compuesto; si baja, el plan de crecimiento se habrá convertido en un plan de reparto."
+    ]
+   }
+  ],
+  "vigilar": "El plan: que se cumpla la guía de 2026 y que el capital enviado a Sudamérica rinda como el core; el ROIIC está a medio punto del corte.",
+  "version": 1
  }
 }

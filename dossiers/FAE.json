@@ -181,5 +181,98 @@
    "fechaBase": "2026-09-12",
    "congeladoEl": "2026-09-12"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Faes Farma.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 3,
+   "nombre": "LA TRAMPA DEL CAPITAL",
+   "lema": "reinvierte mucho y rinde poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 32.9,
+   "roiic5a": 0.47,
+   "roiic": 0.47,
+   "roiicVentana": "5A",
+   "roicMedio": 15.32,
+   "spread": 0.41,
+   "wacc": 7.5,
+   "conversionMedia": 41.35,
+   "coberturaDividendo": 1.38,
+   "gIntrinseco": 11.55,
+   "capexCrecimiento10a": 265.9,
+   "fcl10a": 377.9,
+   "retribucion10a": 448.0,
+   "retribucionSobreFcl": 118.6
+  },
+  "tension": {
+   "anios": [
+    2021,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    0.33,
+    null,
+    1.38
+   ],
+   "coberturaOe": [
+    1.07,
+    1.75,
+    1.35
+   ],
+   "payoutBn": [
+    74.4,
+    52.5,
+    50.0
+   ],
+   "payoutFcl": [
+    302.8,
+    null,
+    72.6
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un laboratorio de tamaño medio con <b>dos motores de margen muy distintos</b>: la venta directa de su cartera —Bilaxten, Hidroferol, la nutrición y salud animal— y las licencias de la bilastina, su molécula propia, que se comercializa en más de 130 países con coste incremental casi nulo. El CAPEX es el 9,6 % de las ventas en la década, inflado por la planta nueva, y la conversión media de EBITDA en caja libre, un 41,4 %, con 1 de los diez años por encima del 60 %.",
+     "Es también una empresa que <b>se ha transformado en cinco años</b>: construyó la planta de Derio entre 2021 y 2024 (150 M€ comprometidos) y en 2025 hizo la mayor compra de su historia —SIFI en Italia y Edol en Portugal, 345 M€ entre las dos—. Los ingresos pasan de 237 M€ en 2016 a 627 en 2025."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De la marca y de la licencia, no del volumen de capital.</b> Hasta 2020 reinvertía poco —un 17,5 % de media— y ganaba mucho sobre lo que tenía: ROIC del 20,1 % en 2020 y un spread sobre el WACC de +12,58 pp. La prueba del foso llegó con la pérdida de patente de la bilastina en España en 2021: Bilaxten siguió creciendo los tres años siguientes, con genéricos y bajadas de precio enfrente. El ROIC medio de la década, 15,3 %, es el de un buen negocio.",
+     "El problema es lo que ha rendido el capital nuevo. La reinversión media sube al 32,9 % porque entre 2021 y 2023 se fue a un 72,5 % de media con Derio, y el <b>ROIIC de los últimos cinco años es del 0,47 %</b>: el capital añadido casi no ha producido beneficio operativo adicional. El listón de la familia 2 está en el WACC del 7,5 % más cinco puntos. <b>Faes reinvierte como un compuesto y, de momento, rinde como una trampa.</b>"
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión está en 2025. El ROIC cae al <b>7,9 %</b> desde el 13,9 % de 2024 y el spread contra el WACC queda en <b>+0,41 pp</b>, casi en cero, tras una década entre +5,02 y +12,58. Parte es de calendario: SIFI consolida desde septiembre, así que su capital entra entero y su beneficio sólo cuatro meses, y Derio sigue en transición con Lamiako. Pero la caja neta cayó 348 M€ en el año, financiada con deuda bancaria, y el beneficio neto bajó.",
+     "Dos cosas raras del libro, a la vista: <b>2025 registra una reinversión del 0,0 %</b> el año de la mayor compra de su historia —el libro no cuenta las adquisiciones como reinversión, así que esa cifra no quiere decir que Faes dejara de invertir—, y en 2023 el flujo libre fue negativo (−1,2 M€), sin cobertura del dividendo calculable. En la década repartió 448 M€ contra 378 M€ de flujo libre: el 119 %."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Faes compra <b>un buen negocio de marca en mitad de una apuesta de capital</b>: el plan 2025-2030 quiere duplicar ingresos y EBITDA, con compras y con Derio a pleno rendimiento. Si el capital de estos cinco años empieza a rendir como rendía el de antes, el spread vuelve a abrirse; si no, la empresa habrá cambiado un negocio de ROIC alto por otro más grande de ROIC corriente. El dividendo, con el payout ya bajado al 50 %, está cubierto 1,38x por la caja libre de 2025.",
+     "<b>Qué vigilar cada trimestre, por ser familia 3:</b> el spread ROIC − WACC. Hoy está en +0,41 pp; si se pone negativo, SIFI y Derio estarán destruyendo valor y la trampa deja de ser provisional. Y si en 2026, con SIFI un año entero, no se ha ensanchado, tampoco es buena señal."
+    ]
+   }
+  ],
+  "vigilar": "El spread ROIC − WACC: en 2025 quedó casi en cero y tiene que ensancharse con SIFI y Derio a año completo; si se pone negativo, la trampa se confirma.",
+  "version": 1
  }
 }

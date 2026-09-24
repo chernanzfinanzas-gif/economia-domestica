@@ -177,5 +177,98 @@
    "fechaBase": "2026-08-25",
    "congeladoEl": "2026-08-25"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros CIE.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": null,
+   "nombre": "SIN CASILLA",
+   "lema": "el libro marca el ROIIC como no significativo a 5 y a 3 años; no se elige por el ROIC",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 15.34,
+   "roiic5a": null,
+   "roiic": null,
+   "roiicVentana": null,
+   "roicMedio": 12.4,
+   "spread": 7.29,
+   "wacc": 7.5,
+   "conversionMedia": 46.82,
+   "coberturaDividendo": 3.48,
+   "gIntrinseco": 1.33,
+   "capexCrecimiento10a": 447.4,
+   "fcl10a": 2737.9,
+   "retribucion10a": 1463.2,
+   "retribucionSobreFcl": 53.4
+  },
+  "tension": {
+   "anios": [
+    2018,
+    2020,
+    2025
+   ],
+   "coberturaFcl": [
+    2.56,
+    3.72,
+    3.48
+   ],
+   "coberturaOe": [
+    3.1,
+    3.89,
+    3.52
+   ],
+   "payoutBn": [
+    20.1,
+    33.8,
+    33.4
+   ],
+   "payoutFcl": [
+    39.1,
+    26.9,
+    28.7
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un fabricante de componentes que creció comprando fábricas</b>, no construyéndolas: nace en 2002 de fusionar Egaña y Aforasa y se hace grande con compras —Golde y Aurangabad en 2019, la mayor tanda— que luego mete en un mismo modelo de gestión. Fabrica con cinco tecnologías (estampación, forja, aluminio, plástico y mecanizado), buena parte de lo que vende no depende del tipo de motor y ofrece al fabricante de coches resolver una plataforma entera con un solo proveedor.",
+     "Es industria de verdad, pero contenida: el CAPEX es el 6,2 % de las ventas y el de crecimiento, el 1,3 %. Convierte en flujo libre el <b>46,8 % del EBITDA</b> de media, con 0 de los diez años por encima del 60 %: más de la mitad del EBITDA no llega a caja libre."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>Del margen, no del volumen.</b> El ROIC ha estado por encima del WACC los diez años —12,4 % de media, 14,8 % en 2025, con un spread de <b>+7,29 pp</b>— y ni en 2020, con las ventas cayendo, cruzó el cero: el spread se quedó en +0,94 pp.",
+     "<b>Por qué no hay casilla.</b> El ROIIC necesita que el capital invertido se mueva, y en CIE lleva cinco años casi plano: la reinversión de la ventana queda por debajo del mínimo que el libro exige y cualquier cociente saldría enorme y vacío. A tres años, igual. La serie cruza además la salida de las forjas alemanas en 2022, que cambia el perímetro. La lectura provisional la dan las otras cifras: reinvertía el 27,8 % del NOPAT en 2016-2019 y sólo el 7,0 % desde 2020 —0,9 % en 2025—, con un crecimiento intrínseco del <b>1,33 %</b>. Rinde bien lo que tiene; lo nuevo no lo construye, lo compra, y el retorno de lo comprado está sin medir."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "Las ventas llevan dos años planas —3.959 M€ en 2023, 3.958 en 2025— y lo bueno reciente viene del margen, que tiene techo. La respuesta no ha sido reinvertir en las plantas sino volver a comprar: en 2025 cerró Engrecon y Weidplas Brasil y anunció <b>Grupo Aludec, unos 200 M€ y diez plantas</b>, que no estaba en el balance con el que se hizo el análisis. Es el mayor esfuerzo comprador desde 2019, el año en que la deuda neta subió 574 M€ de golpe.",
+     "Desde 2021 se ha desapalancado a un ritmo de 136 M€ al año de media, con el dividendo en torno al 33,4 % del beneficio y cubierto <b>3,48x</b> por la caja libre de 2025. La guía sube ahora el payout al 42 % en 2026 y al 50 % en 2027 y promete a la vez bajar la deuda: más reparto, menos deuda y Aludec tienen que casar con unas ventas que no crecen."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra CIE compra <b>un gestor industrial que rinde por encima de su coste de capital en cualquier punto del ciclo</b> y que crece a base de compras, con un núcleo estable de accionistas que elige la mayoría del consejo. La calidad del margen está probada; la de la asignación de capital se vuelve a examinar ahora, con Aludec.",
+     "<b>Qué vigilar cada trimestre, mientras no haya casilla:</b> la deuda neta contra el EBITDA. Cuando Aludec entre en el perímetro la deuda subirá por una compra conocida, no por sorpresa; lo que importa es que el EBITDA suba con ella. Si la deuda sube y el EBITDA no, el compromiso de apalancamiento de 2027 deja de ser creíble y la compra habrá salido del balance del accionista."
+    ]
+   }
+  ],
+  "vigilar": "La deuda neta contra el EBITDA: con Aludec la deuda va a subir; si el EBITDA no sube con ella, la compra se está pagando con el balance.",
+  "version": 1
  }
 }

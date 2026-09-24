@@ -181,5 +181,98 @@
    "fechaBase": "2026-09-16",
    "congeladoEl": "2026-09-16"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Azkoyen.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.83,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 1.27,
+   "roiic5a": 47.0,
+   "roiic": 47.0,
+   "roiicVentana": "5A",
+   "roicMedio": 13.22,
+   "spread": 6.7,
+   "wacc": 7.83,
+   "conversionMedia": 62.55,
+   "coberturaDividendo": 2.67,
+   "gIntrinseco": 4.23,
+   "capexCrecimiento10a": 1.8,
+   "fcl10a": 162.9,
+   "retribucion10a": 99.0,
+   "retribucionSobreFcl": 60.7
+  },
+  "tension": {
+   "anios": [
+    2020,
+    2022,
+    2023
+   ],
+   "coberturaFcl": [
+    1.98,
+    3.13,
+    1.25
+   ],
+   "coberturaOe": [
+    1.82,
+    3.2,
+    1.11
+   ],
+   "payoutBn": [
+    77.1,
+    30.2,
+    50.5
+   ],
+   "payoutFcl": [
+    50.5,
+    32.0,
+    80.2
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un fabricante pequeño que lleva ochenta años haciendo lo mismo con tecnologías distintas: <b>cobrar pequeños importes de forma automática y sin nadie delante</b>. Nacida en Peralta (Navarra) en 1945 y en bolsa desde 1988, hoy tiene tres negocios: medios de pago para vending (Coges, Vendon), control de accesos y seguridad en Alemania (Primion) y máquinas de café y vending, el que dio nombre a la casa. Es de <b>activo ligero</b>: el CAPEX es el 2,4 % de las ventas, la conversión de EBITDA en caja es del <b>62,5 % de media</b>, con 6 de los diez años por encima del 60 %, y la caja libre fue positiva los diez años, también en 2020, con las ventas cayendo más de una quinta parte.",
+     "Y ya no es lo que su nombre dice. En 2025 los medios de pago hicieron casi todo el beneficio antes de impuestos del grupo, el café y vending perdió dinero y la seguridad alemana apenas ganó; en el primer semestre de 2026 los medios de pago aportaron más que el grupo entero. La empresa lo ha formalizado: segregó los negocios en 2025 y se convirtió en holding en 2026, con <b>dos patas separables</b>."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De no necesitar capital.</b> El ROIC medio es un 13,2 % contra un WACC del 7,83 %, y sólo un año de diez —2020, con −0,86 pp— quedó por debajo del coste de capital; en 2025 el spread es de <b>+6,70 pp</b>. El <b>ROIIC a cinco años es del 47,0 %</b>, muy por encima del corte de WACC más cinco puntos.",
+     "Pero ese ROIIC descansa en casi nada: <b>1,82 M€ de CAPEX de crecimiento en diez años</b>, el 0,11 % de las ventas, con siete ejercicios a cero. La reinversión media es del 1,3 % y el crecimiento autofinanciable, del <b>4,2 % anual</b>. Lo que ha crecido lo ha hecho comprando por fuera del CAPEX —Vendon y Ascaso en julio de 2022, unos 26 M€ entre las dos, que subieron la deuda neta 40,5 M€ ese año— y con un resultado de uno de dos: Vendon superó su plan y Ascaso acabó con el fondo de comercio deteriorado. El resto se reparte: <b>99,0 M€ de retribución sobre 162,9 M€ de caja libre</b>, el 61 %."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "La tensión no está en la cobertura de hoy —2,67x en 2025, holgada— sino en lo que enseñó 2023, con las dos compras ya dentro: la conversión cayó al 34,2 %, la cobertura con caja libre a <b>1,25x</b> y sobre owner earnings a 1,11x, los mínimos de la década. Se recuperó en 2024, pero el reparto ya no es el de antes: de un payout del 30 % del beneficio en 2016-2018 a un 50 % en 2023-2025, y el de 2025 se pagó con la matriz en pérdidas individuales, con cargo a reservas.",
+     "La otra tensión es de mezcla. El café y vending está en pérdidas y ha perdido más de una cuarta parte de sus ventas entre el primer semestre de 2023 y el de 2026; la seguridad alemana crece en ventas sin margen. El 14,5 % de ROIC de 2025 se sostiene en una sola pata. Y el gobierno cambió en mayo de 2024: el consejero delegado dimitió a los dieciocho meses y el puesto no se cubrió, porque el presidente asumió la ejecución."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Azkoyen hoy no compra sólo un cupón: compra <b>una opción sobre una OPA</b>. Ohmnia Electronics ofrece diez euros por acción por el cien por cien, condicionada a que acepte al menos la mitad del capital, y el accionista de referencia, Inverlasa, tiene casi un tercio. Si la oferta sale, esta lectura sirve para juzgar el precio; si no sale, queda lo que dicen las cifras: <b>una máquina de cupón pequeña</b>, con caja libre positiva los diez años, que reparte y no crece por dentro, y cuyo crecimiento lo pone la mesa de compras con un historial de uno de dos.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo. Con el reparto fijado en al menos la mitad del beneficio, si se acerca a la unidad el dividendo pasa a pagarse con reservas, como ya ocurrió en la matriz en 2025. <b>Mientras viva la oferta:</b> la autorización de la CNMC y el nivel de aceptación deciden antes que cualquier trimestre."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo: con el reparto fijado en al menos la mitad del beneficio, si se acerca a la unidad el dividendo pasa a pagarse con reservas. Y, mientras viva la OPA, su calendario.",
+  "version": 1
  }
 }

@@ -179,5 +179,98 @@
    "fechaBase": "2026-09-11",
    "congeladoEl": "2026-09-11"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Logista.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.0,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 2.39,
+   "roiic5a": 45.49,
+   "roiic": 45.49,
+   "roiicVentana": "5A",
+   "roicMedio": 32.37,
+   "spread": 24.58,
+   "wacc": 7.0,
+   "conversionMedia": 81.63,
+   "coberturaDividendo": 1.36,
+   "gIntrinseco": 5.44,
+   "capexCrecimiento10a": 50.6,
+   "fcl10a": 3140.0,
+   "retribucion10a": 1905.1,
+   "retribucionSobreFcl": 60.7
+  },
+  "tension": {
+   "anios": [
+    2021,
+    2022,
+    2025
+   ],
+   "coberturaFcl": [
+    1.62,
+    1.81,
+    1.36
+   ],
+   "coberturaOe": [
+    1.63,
+    1.81,
+    1.42
+   ],
+   "payoutBn": [
+    94.6,
+    92.1,
+    98.7
+   ],
+   "payoutFcl": [
+    61.9,
+    55.2,
+    73.5
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un distribuidor que vive del dinero de otros.</b> Logista nació como el brazo de reparto de Tabacalera y sigue siendo, ante todo, quien lleva el tabaco a los estancos de España, Italia, Francia y Portugal —más de doscientos mil puntos de venta—, aunque en veinticinco años ha comprado red para repartir también paquetes, frío, farmacia y libros. Compra el tabaco y lo revende con margen, cobra a los estancos en plazos que fija el regulador y entrega los impuestos especiales en otro ciclo: su fondo de maniobra es negativo, y eso no es una debilidad, es el modelo.",
+     "Es de <b>activo ligerísimo</b>: 50,6 M€ de CAPEX de crecimiento en diez años, el 0,05 % de unos ingresos inflados por el tabaco que pasa por sus manos. La conversión media de EBITDA es del 81,6 %, con 9 de los diez años por encima del 60 %. El control lo tiene Imperial Brands, que es a la vez su dueño, su mayor proveedor y quien recibe prestado el excedente de caja."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>Del float, más que del margen.</b> El ROIC medio es un 32,4 % contra un WACC del 7,00 %, con el spread en <b>+24,58 pp</b> en 2025 y nunca por debajo de los +17,68 pp de 2016. No es que distribuir tabaco deje mucho margen —sobre ingresos es estrecho—: es que el capital invertido es pequeño porque el circulante lo financia el impuesto que todavía no se ha entregado al Estado. Y ese dinero, además, rinde: prestado a Imperial, da un ingreso financiero que se multiplicó con la subida de tipos y ya ha empezado a bajar.",
+     "El <b>ROIIC a cinco años es del 45,5 %</b>, muy por encima del corte de WACC más cinco puntos, pero sobre muy poco: la reinversión media es del 2,4 % —negativa en 2016 y 2017— y el crecimiento autofinanciable, del 5,4 % anual. El crecimiento de verdad ha venido de compras que el CAPEX no recoge: unos 264 M€ en transporte entre 2022 y 2025 (El Mosca, Carbó, Speedlink), sin publicar a qué múltiplo ni contra qué retorno. El resto se reparte: <b>1.905 M€ sobre 3.140 M€ de caja libre</b>, el 61 %, con un payout que en diez años nunca ha bajado del 90 % del beneficio."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "<b>Donde ha comprado, el retorno ha bajado.</b> El ROIC tocó techo en 2022 (39,9 %) y, con el transporte comprado dentro, se ha quedado en un 31,0 % de media en 2023-2025; el ejercicio 2025 incumplió la guía precisamente por el transporte y por la caída de Francia. A la vez, el ingreso financiero de la caja prestada a Imperial ha empezado a caer con los tipos. Y el dividendo por acción no se ha movido entre 2024 y 2025, así que la cobertura del dividendo que mide el libro ha bajado a <b>1,36x</b>, la más baja fuera de 2020, con el <b>98,7 % del beneficio repartido</b>.",
+     "La otra rareza está en la caja: la caja libre anual es muy volátil —en 2021 fue de −342,2 M€ y en 2020 de 792,4— porque recoge el vaivén del circulante del impuesto, y ni la conversión ni la cobertura del libro lo reflejan: en 2021 marcan un 73,3 % y 1,62x con la caja libre en negativo, y en 2025 la caja libre pagó el dividendo casi dos veces mientras la cobertura dice 1,36x. Están calculadas sobre otra base que la caja libre del año, y la caja de Logista hay que leerla con varios años juntos, nunca con uno."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Logista compra <b>un cupón casi entero</b>: el negocio reparte prácticamente todo lo que gana y no necesita capital para seguir. Su valor depende de tres cosas que no controla —el volumen de tabaco, los plazos que fija el regulador y el tipo al que presta a su dueño— y de una que sí: que el transporte comprado empiece a rendir lo que el tabaco.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo. Con el payout rozando todo el beneficio, un trimestre flojo del transporte o unos tipos más bajos se comen el margen entre el dividendo comprometido y la caja; si la cobertura se acerca a la unidad, el suelo de dividendo declarado se estará pagando con balance."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo: con el payout rozando todo el beneficio, si se acerca a la unidad el suelo de dividendo declarado se estará pagando con balance.",
+  "version": 1
  }
 }

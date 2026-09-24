@@ -32,7 +32,7 @@ function lecturaCardHTML(j){
   var corte=(c.cortes||{});
   var seis=[
     ['Reinversión neta · media', _lnxNum(f.reinversionMedia,1,' %'), '< '+_lnxNum(corte.reinversion,0,' %')],
-    ['ROIIC a cinco años', _lnxNum(f.roiic5a,1,' %'), '≥ '+_lnxNum(corte.roiic,1,' %')],
+    ['ROIIC a '+(f.roiicVentana==='3A'?'tres':'cinco')+' años', (f.roiic!=null||f.roiic5a!=null)?_lnxNum(f.roiic!=null?f.roiic:f.roiic5a,1,' %'):'n.s.', '≥ '+_lnxNum(corte.roiic,1,' %')],
     ['ROIC medio de la década', _lnxNum(f.roicMedio,1,' %'), ''],
     ['Spread ROIC − WACC', (f.spread>0?'+':'')+_lnxNum(f.spread,2,' pp'), ''],
     ['Conversión EBITDA → FCL', _lnxNum(f.conversionMedia,1,' %'), ''],
@@ -64,7 +64,7 @@ function lecturaCardHTML(j){
   return '<div class="card" style="margin-top:10px">'
     +'<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px">'
       +'<div style="font-weight:800;font-size:15px">🧭 Lectura de negocio</div>'
-      +'<span style="display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;color:#fff;background:'+col+'">CASILLA '+_lnxEsc(c.n)+' · '+_lnxEsc(c.nombre)+'</span>'
+      +'<span style="display:inline-block;font-size:11px;font-weight:800;letter-spacing:.03em;padding:3px 9px;border-radius:999px;color:#fff;background:'+col+'">'+(c.n!=null?'CASILLA '+_lnxEsc(c.n)+' · '+_lnxEsc(c.nombre):'CASILLA · PTE. REVISIÓN')+'</span>'
       +'<span class="muted" style="font-size:12px">'+_lnxEsc(c.lema||'')+(L.fecha?' · '+_lnxEsc(L.fecha):'')+'</span>'
     +'</div>'
     +'<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px">'+seis+'</div>'

@@ -178,5 +178,103 @@
    "fechaBase": "2026-09-13",
    "congeladoEl": "2026-09-13"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Prim.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 10.08,
+   "roiic5a": 23.2,
+   "roiic": 23.2,
+   "roiicVentana": "5A",
+   "roicMedio": 10.27,
+   "spread": 5.1,
+   "wacc": 7.5,
+   "conversionMedia": 21.87,
+   "coberturaDividendo": 2.02,
+   "gIntrinseco": 6.01,
+   "capexCrecimiento10a": 10.4,
+   "fcl10a": 48.2,
+   "retribucion10a": 78.8,
+   "retribucionSobreFcl": 163.5
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2022,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    null,
+    null,
+    2.02
+   ],
+   "coberturaOe": [
+    null,
+    null,
+    null,
+    2.1
+   ],
+   "payoutBn": [
+    34.0,
+    74.4,
+    60.0,
+    54.0
+   ],
+   "payoutFcl": [
+    null,
+    null,
+    null,
+    49.6
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un <b>distribuidor-fabricante sanitario ibérico</b> con dos mitades casi iguales: Tecnologías Médicas, que vende a hospitales por concurso, y Movilidad y Cuidados de la Salud, que fabrica ortopedia y la vende en mostrador. Detrás de casi todo hay un único mecanismo de precio, el del sistema público de salud. No necesita mucho inmovilizado —el CAPEX es el <b>4,3 % de las ventas</b>—, pero sí mucho circulante, y eso es lo que decide su caja: <b>21,9 % de conversión media</b> del EBITDA en flujo libre, con 1 solo de los diez años por encima del umbral de la banda y tres (2019, 2022 y 2023) en negativo.",
+     "Las ventas han pasado de 110,1 M€ en 2016 a 251,9 M€ en 2025, pero ese crecimiento es en buena parte comprado: diez operaciones pequeñas y baratas en la década, varias de ellas por debajo del valor de los activos. Prim compra situaciones, no activos de precio alto."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un margen bruto defendido, no de un retorno alto.</b> El ROIC medio de la década es un 10,3 % contra un WACC del 7,5 %: crea valor, pero con poco margen, y en 2022 —el año de la inflación de aprovisionamientos con precios administrados— el spread fue de <b>−1,98 pp</b>. En 2025 ha vuelto a +5,10 pp.",
+     "El ROIIC a cinco años sale del <b>23,2 %</b>, muy por encima del corte de WACC más cinco puntos, pero hay que leerlo con cuidado: se mide sobre muy poco capital. El CAPEX de crecimiento de toda la década suma <b>10,4 M€</b>, el 0,6 % de las ventas, y la reinversión media es del <b>10,1 %</b>; por eso cae en la casilla del cupón. Las compras de empresas, que es por donde crece de verdad, no entran en esa reinversión. Y el cupón ha ido por delante de la caja: de 48,2 M€ de flujo libre en diez años se han repartido <b>78,8 M€, el 163 %</b>."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "<b>Una máquina de cupón con la caja rota tres veces en diez años.</b> En 2023 el negocio creció y la caja se fue: flujo libre de <b>−20,1 M€</b> y conversión del −77,1 %, con el circulante comiéndose la amortización. En 2022 la deuda neta subió 24,5 M€. El dividendo se recortó dos veces en la década, con cargo a 2019 y a 2022, que son justamente años de caja negativa. 2024 y 2025 son la recuperación: cobertura de 1,41x y <b>2,02x</b>, y caja neta al cierre de 2025.",
+     "La tensión nueva es el plan 2026-2031: duplicar las ventas y comprar una decena de empresas por al menos 100 M€, cerca de la mitad de la capitalización, sobre un balance que hoy tiene caja neta y cuyo máximo de deuda de la década no llegó a 20 M€. A la vez fija un suelo de dividendo igual al pagado en 2025. Las dos promesas compiten por la misma caja, y el primer semestre de 2026 ya salió con el EBITDA cayendo."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Prim hoy compra <b>un cupón que depende de que la conversión de 2024-2025 se confirme</b>, y un plan que, si se ejecuta, la sacará de esta casilla: con cien millones en compras la reinversión dejará de ser pequeña y lo que habrá que medir será el retorno de esas compras. El descuento frente a sus pares europeos no es un error: es el precio de un solo pagador, de un circulante caprichoso y de dos recortes en diez años.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre. Si vuelve a caer por debajo de la unidad con el suelo del dividendo ya comprometido, el suelo lo pagará la deuda. <b>Fuera de ventana:</b> la compra de Ortopedia Queraltó (agosto de 2026) no está en ninguna cifra del libro."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo con caja libre: si vuelve a caer por debajo de la unidad —como en 2017, 2018 y en los tres años de flujo libre negativo— con el suelo de dividendo del plan 2026-2031 ya comprometido, el suelo lo pagará la deuda.",
+  "version": 1
  }
 }

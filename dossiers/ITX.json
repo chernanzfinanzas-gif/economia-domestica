@@ -178,5 +178,103 @@
    "fechaBase": "2026-09-11",
    "congeladoEl": "2026-09-12"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Inditex.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 14.45,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 9.79,
+   "roiic5a": null,
+   "roiic": 77.97,
+   "roiicVentana": "3A",
+   "roicMedio": 53.15,
+   "spread": 56.27,
+   "wacc": 9.45,
+   "conversionMedia": 59.28,
+   "coberturaDividendo": 1.2,
+   "gIntrinseco": 6.45,
+   "capexCrecimiento10a": 4500.0,
+   "fcl10a": 46171.0,
+   "retribucion10a": 32779.2,
+   "retribucionSobreFcl": 71.0
+  },
+  "tension": {
+   "anios": [
+    2020,
+    2023,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    1.06,
+    1.42,
+    1.26,
+    1.2
+   ],
+   "coberturaOe": [
+    0.83,
+    1.51,
+    1.49,
+    1.41
+   ],
+   "payoutBn": [
+    197.3,
+    89.2,
+    89.3,
+    87.7
+   ],
+   "payoutFcl": [
+    94.5,
+    70.6,
+    79.1,
+    83.7
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "El mayor grupo de moda del mundo, y <b>uno que nació fabricando</b>: primero un taller en A Coruña (1963), después la primera Zara (1975). Ocho formatos, seis creados en casa, sobre una cadena integrada que produce cerca —España, Portugal, Marruecos, Turquía— lo que tiene que reponerse en semanas y lejos lo que no cambia de temporada: reponer rápido es lo que le permite no rebajar. Para su tamaño es de <b>activo ligero</b>: el CAPEX es el 5,5 % de las ventas en la década y la conversión de EBITDA en caja libre es del <b>59,3 % de media</b>, a un paso del 60 % que pide la banda, con 5 de los diez años por encima.",
+     "La estructura de capital es de las más limpias del IBEX —una sola clase de acción, sin blindajes, el mismo número de títulos toda la década y recompras sólo para cubrir incentivos— y el control, de los más concentrados: Pontegadea tiene la mayoría absoluta. Presidencia familiar no ejecutiva, gestión profesional fuera de la familia."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De una máquina que gira mucho sobre poco capital.</b> El ROIC medio de la década es un 53,1 % contra un WACC del 9,45 %, y el spread de 2025, <b>+56,27 pp</b>; ni en 2020, el único año de ventas en contracción, bajó del coste de capital (+10,01 pp). Sale del margen —el primero de sus comparables por mucho— y de una red que ha crecido sustituyendo: de 23.311 a 39.864 M€ de ventas con una cuarta parte menos de tiendas y prácticamente la misma plantilla que en 2016.",
+     "El <b>ROIIC es del 78,0 % a tres años, porque a cinco el libro no lo da</b>: el euro nuevo rinde como los viejos. Y aun así ha reinvertido poco: una <b>reinversión media del 9,8 %</b>, con 2019, 2020 y 2021 a cero, y un crecimiento autofinanciable del 6,5 % anual. Inditex no compra empresas: reinvierte en su red y reparte el resto. De los 46.171 M€ de caja libre de la década, <b>32.779 M€ —el 71 %— han ido al accionista</b>."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "<b>La tensión está en los dos últimos años, y es de las buenas, pero es tensión.</b> La reinversión saltó al 20,7 % en 2024 —por encima del corte del 20 % que separa la máquina de cupón del compuesto— y quedó en el 18,8 % en 2025, justo debajo: el plan logístico y la reforma del parque. Mientras, la caja libre se ha quedado plana —6.795 M€ en 2023, 6.520 en 2025— y la retribución ha seguido subiendo, de 4.800 a 5.454 M€. La cobertura ha bajado de 1,42x a <b>1,20x</b>, con el 87,7 % del beneficio repartido.",
+     "No es la primera vez que se estrecha: en 2017 y 2018 la caja libre no cubrió el dividendo (0,94x y 0,88x), y en 2020 tampoco lo cubrieron los owner earnings (0,83x). El extraordinario está en nueve de los diez años: es política, no regalo. Y el mercado ya ha dicho qué no perdona: en septiembre de 2026 castigó un semestre récord porque el margen salió plano."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Inditex compra <b>un cupón muy alto sobre un negocio de retorno excepcional</b>, y la pregunta de los próximos años es si deja de ser cupón para ser compuesto. Si la reinversión se sostiene por encima del corte con un ROIIC como el actual, la media acabará cruzándolo y la familia pasará a la 2, y eso sería bueno. Lo que no cabe es más CAPEX y más dividendo con la caja libre plana: las dos cosas sólo suman si la caja vuelve a crecer.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo con caja libre, hoy 1,20x y bajando. Si cae por debajo de la unidad con el CAPEX alto, el extraordinario deja de pagarse con la caja del año. Y, a su lado, la banda de margen bruto que la empresa guía cada semestre: es la única cifra que se compromete a dar."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo con caja libre: viene bajando y, con el CAPEX alto, si cae por debajo de la unidad el extraordinario deja de pagarse con la caja del año.",
+  "version": 1
  }
 }
