@@ -996,6 +996,8 @@ function renderFicha(t){
   const veredictoCard = (_dec||_ana.rating||_duF) ? `<div class="card" style="margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="muted" style="font-size:12px">Veredicto:</span>${_dec?`<span style="font-weight:800;color:${_decCol[_dec]||'#475569'};font-size:15px">${_dec}</span>`:'<span class="muted">—</span>'}${_ana.rating?` <span style="font-size:12px">Calidad <b>${_ana.rating}</b></span>`:''}${_ana.dossierFecha?` <span style="font-size:11px;color:${(_mmV!=null&&_mmV>12)?'#dc2626':'#64748b'}">análisis ${_ana.dossierFecha}${_mmV!=null?' ('+_mmV+'m'+(_mmV>12?' ⚠️':'')+')':''}</span>`:''}<div style="flex:1"></div>${_duF?`<a class="btn" href="${_duF}" target="_blank" rel="noopener">📄 Abrir dossier</a>`:'<span class="muted" style="font-size:11px">sin dossier enlazado</span>'}</div>` : '';
   if(_tesisCache[fichaTicker]===undefined&&typeof cargarTesis==='function')cargarTesis(fichaTicker);
   const tesisCard=(typeof tesisCardHTML==='function')?tesisCardHTML(_tesisCache[fichaTicker]):'';
+  /* [24-sep-2026] §1-bis Lectura de negocio (js/30-lectura.js), leida del mismo puente [TICKER].json */
+  const lecturaCard=(typeof lecturaCardHTML==='function')?lecturaCardHTML(_tesisCache[fichaTicker]):'';
   if(_trimCache[fichaTicker]===undefined&&typeof cargarTrimestral==='function')cargarTrimestral(fichaTicker);
   const trimCard=(typeof trimCardHTML==='function')?trimCardHTML(_trimCache[fichaTicker]):'';
   /* [27-jul-2026] «Historia y salud del dividendo» se dibuja con dividendos.json (_evoData). Si la
@@ -1015,7 +1017,7 @@ function renderFicha(t){
      mas abajo (grafico, historico, lotes, dividendos) no la convierte en plegable sin querer. */
   _fv.innerHTML=_fichaDockHTML(f.t,f.nombre,{precio:f.precioActual,dec:_dec,doss:_duF,dossFecha:_ana.dossierFecha,dossM:_mmV})+header+_alertaBanner
     +'<div id="fichaPlegables">'
-      +(tesisCard?'':veredictoCard)+tesisCard+trimCard+hechosCard+protoCard+calibCard
+      +(tesisCard?'':veredictoCard)+tesisCard+lecturaCard+trimCard+hechosCard+protoCard+calibCard
       +((typeof tzFichaBoxes==='function')?tzFichaBoxes(fichaTicker):'')
     +'</div>'
     +chartCard+(typeof tesisHistHTML==='function'?tesisHistHTML(fichaTicker):'')+'<div id="fichaPosAncla"></div>'+mid+divSection;

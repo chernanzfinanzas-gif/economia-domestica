@@ -184,5 +184,101 @@
    "fechaBase": "2026-09-24",
    "congeladoEl": "2026-09-24"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-24",
+  "fuente": "Datos Financieros Atresmedia.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.27,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 12.66,
+   "roiic5a": 27.34,
+   "roicMedio": 15.85,
+   "spread": 0.65,
+   "wacc": 7.27,
+   "conversionMedia": 86.84,
+   "coberturaDividendo": 2.25,
+   "gIntrinseco": 1.4,
+   "capexCrecimiento10a": 122.5,
+   "fcl10a": 1299.9,
+   "retribucion10a": 956.0,
+   "retribucionSobreFcl": 73.5
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2023,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    3.37,
+    1.45,
+    1.08,
+    2.25
+   ],
+   "coberturaOe": [
+    3.65,
+    1.59,
+    1.1,
+    2.73
+   ],
+   "payoutBn": [
+    38.3,
+    55.4,
+    127.6,
+    65.4
+   ],
+   "payoutFcl": [
+    29.6,
+    69.1,
+    92.6,
+    44.4
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una televisión en abierto de <b>activo ligero</b>. Su fábrica son las licencias y el contenido, no el inmovilizado: el CAPEX es el <b>3,3 % de las ventas</b> en la década, y casi todo el EBITDA acaba siendo dinero —<b>86,8 % de conversión media</b>, con 9 de los diez años por encima del 60 % que la banda pide a una CONSUMO—. La caja de explotación no se puso en rojo ni en 2020.",
+     "La estructura de capital es la excepción limpia del parque: <b>225.732.800 acciones los diez años</b>, sin scrip, sin ampliaciones, sin cancelaciones. Todo lo que ha recibido el accionista ha sido en efectivo."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De no necesitar capital.</b> El ROIC medio de la década, un 15,9 % contra un WACC del 7 %, no sale de un margen extraordinario —el EBITDA ronda el 20 % de las ventas en los años normales— sino de un denominador pequeño. Y cuando invierte, invierte bien: el <b>ROIIC de los últimos cinco años es del 27,3 %</b>, veinte puntos por encima de su coste de capital.",
+     "El problema es que casi no invierte: <b>122,5 M€ de CAPEX de crecimiento en diez años</b>, el 1,3 % de las ventas, con dos ejercicios (2020 y 2021) sin un euro. Con una reinversión media del 12,7 % y ese ROIIC, el crecimiento que el negocio puede financiarse a sí mismo es del <b>1,4 % anual</b>. No crece porque no reinvierte, no porque no sepa hacerlo: de los 1.300 M€ de flujo libre de la década, <b>956 M€ —el 74 %— se han repartido</b> como retribución con cargo a cada ejercicio."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "El flujo libre lleva diez años plano —133,7 M€ de media en 2016-2019, 135,0 en 2021-2025— mientras el dividendo subía, y en 2024 las dos curvas se encontraron: el consejo repartió el <b>127,6 % del beneficio</b> y la cobertura con caja libre cayó a <b>1,08x</b>. 2025 fue el ajuste: el DPA ordinario bajó a 0,18 € y la cobertura volvió a <b>2,25x</b>. Pero la caja neta cayó 81,8 M€ en el año, porque lo que se pagó en 2025 fue el dividendo generoso de 2024: <b>el primer año de la década en que la retribución se financió consumiendo balance</b>.",
+     "Y el spread ROIC − WACC, que era de +12,58 pp en 2016, ha quedado en <b>+0,65 pp</b> en 2025: con la provisión del plan de bajas dentro, a sesenta y cinco puntos básicos de destruir valor. Sin la provisión sería más ancho, pero no se ha medido cuánto; es el dato de 2026 el que dirá si 2025 fue un tropiezo o el nuevo nivel."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Atresmedia compra <b>un cupón de caja alto sobre un negocio que no va a crecer</b>, no un compuesto. La pregunta que decide no es si el dividendo está cubierto hoy —lo está, 2,25x— sino si los unos 130 M€ anuales de flujo libre son defendibles en un mercado publicitario que se desplaza al vídeo digital. Con el 1,3 % de las ventas dedicado a crecer, la empresa no se está comprando esa defensa.",
+     "<b>Qué vigilar cada trimestre, por ser familia 1:</b> la cobertura del dividendo. Si cruza 1,0x sobre owner earnings, el recorte deja de ser una hipótesis. <b>Fuera de ventana:</b> el dividendo extraordinario de 0,83 € por acción del 16-dic-2026 sale de la venta del 5 % de Fever. Es caja de una desinversión, no del negocio: no cambia esta lectura."
+    ]
+   }
+  ],
+  "vigilar": "La cobertura del dividendo: si cruza 1,0x sobre owner earnings, el recorte deja de ser una hipótesis.",
+  "version": 1
  }
 }
