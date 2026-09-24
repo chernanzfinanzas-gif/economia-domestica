@@ -1,106 +1,56 @@
 {
+ "schemaVersion": 8,
  "ticker": "A3M",
  "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
- "fecha": "2026-07-09",
- "rating": "A",
- "score": 71.5,
- "decision": "ESPERAR",
- "metodoValoracion": "Múltiplos normalizados (EV/EBITDA ~5x, PER ~7,5x mid-cycle) + DCF sobre FCL normalizado — arquetipo CONSUMO/cíclico. PO oficial = síntesis ponderada (40% DCF + 60% múltiplos) = 5,15 €; rango DCF 4,40–8,53 €.",
- "poBear": 4.4,
- "poBase": 5.15,
- "poBull": 8.53,
- "entMin": 3.9,
- "entMax": 4.3,
- "stop": 2.5,
- "moat": "Estrecho (56)",
+ "fecha": "2026-09-24",
+ "rating": "AA",
+ "score": 77.6,
+ "decision": "COMPRAR",
+ "metodoValoracion": "DCF de dos fases sobre FCL normalizado a cinco años (134,98 M€) + múltiplos históricos de diez años + renta — arquetipo CONSUMO, norma de pesos al pie de la letra. PO oficial = síntesis ponderada del §6.5: 6,91 €/acc, con DCF 50 % (pesimista 10 · base 30 · optimista 10), múltiplos 40 % y renta 10 %. El DCF base vale 10,27 € (WACC 7,27 %, g terminal 1,4 % = g intrínseco) y la media de múltiplos ~4,28 €: la diferencia es la provisión del plan de bajas dentro del EBITDA y el BPA de 2025. P/BV (6,94 €) y P/TBV (10,09 €), que no usan el beneficio del año, confirman el DCF.",
+ "poBear": 5.17,
+ "poBase": 6.91,
+ "poBull": 9.78,
+ "entMin": 5.17,
+ "entMax": 6.0,
+ "stop": 3.83,
+ "dpaPrevisto": 0.18,
+ "moat": "54,8 sobre 100 · MOAT ESTRECHO. Escala eficiente 70, intangibles 60 y ventaja de costes 55 describen el mismo hecho —el duopolio publicitario de la televisión en abierto, con licencias renovadas hasta 2040—; efecto de red 45 y costes de cambio 15 son los ejes débiles, y son los que protegerían del vídeo digital. Horquilla de ponderación medida: 41,5 – 57,5, con el corte de SIN MOAT CLARO en 45. El foso protege el soporte, no el mercado.",
  "catalizadores": [
-  "Estabilización de ingresos 2026 (guía: margen EBITDA ~15%)",
-  "Integración de Clear Channel España (publicidad exterior, 115 M€)",
-  "Monetización creciente de Atresplayer y digital",
-  "Normalización del dividendo (payout FCL <100%)",
-  "Re-rating de la caja neta (cierre del descuento de múltiplo)"
+  "La provisión del plan de bajas de 2025 no se repite: +22,2 % al precio objetivo. El guidance de 2026 pide un margen EBITDA en torno al 15 % y el S1-2026 lo da del 16,75 %. Trigger: EBITDA de 2026 por encima de 125 M€ en los resultados de feb-2027.",
+  "Clear Channel España consolida (115 M€ · >100 M€ de ingresos · ~18 M€ de EBITDA), autorizada por la CNMC en Fase I el 21-jul-2026 con la condición de separar su comercialización hasta ocho años: +5,38 %. Primer ejercicio completo, 2027.",
+  "El dividendo ordinario vuelve a la media de la década (de 0,18 € a ~0,42 €): +4,07 %.",
+  "El mercado deja de medir a la empresa por su peor ejercicio (re-rating del 15 % de los múltiplos): +3,63 %.",
+  "Fever ya está vendido: el 5 % por 227 M€ (plusvalía neta ~205 M€) y dividendo a cuenta de 0,83 €/acc el 16-dic-2026, Junta Extraordinaria el 18-nov-2026. Al PO sólo le suma lo que queda dentro (−39,7 M€ de deuda neta): +1,78 %."
  ],
  "riesgos": [
-  "Declive estructural de la TV lineal (−20 a −35%)",
-  "Ciclicidad del mercado publicitario (−15 a −30%)",
-  "Inflación de costes de contenido",
-  "Insostenibilidad del dividendo (payout FCL >100%)",
-  "Fracaso de la transición digital / M&A destructivo",
-  "Gobernanza: accionista de control (Planeta ~44,5%)"
+  "Estructural (Alta) · −25 a −44 %: el presupuesto publicitario se desplaza al vídeo digital y no vuelve. La televisión cayó un 4,4 % en 2025, quinto año seguido, y la audiencia del grupo ha bajado del 27,3 % al 25,4 % en catorce periodos sin uno de mejora.",
+  "Comercial (Alta) · −15 a −30 %: un solo mercado, un solo soporte y un solo tipo de cliente, el gran anunciante de consumo masivo.",
+  "Competitivo (Media) · −10 a −22 %: la consolidación europea (MFE con Mediaset España y ProSiebenSat.1) la deja subescala para negociar contenidos. Es también la cara de la pre-mortem B (4,17 €), el ancla del stop.",
+  "Regulatorio (Baja-Media) · −21 a −40 %: la licencia de TDT la renueva el Estado; hoy vigente hasta 2040.",
+  "Operativo (Media) · −10 a −20 %: el coste de la parrilla no es flexible. Apalancamiento operativo medido: 0,695 súbito (2020) y 0,564 lento (2016-2024). La frontera del −50 % del valor está en −14 % de ingresos, y en 2020 cayeron un 18,4 %.",
+  "Mercado (Media) · −4 a −7 %: de-rating del múltiplo, que en buena parte ya ha ocurrido.",
+  "Financiero (Baja-Media) · −2 a −3 %: corte total del dividendo. Con caja neta de 58,1 M€, un corte vendría por decisión, no por falta de caja.",
+  "Ciberseguridad (Baja-Media) · −7 a −14 %: parada de emisión o de los sistemas de venta; el espacio no emitido no se vende más tarde."
  ],
- "bull": "Estabilización de ingresos con el digital y la publicidad exterior compensando el declive del lineal, dividendo sostenido y re-rating de la caja neta: convergencia hacia el DCF optimista (~8,5 €).",
- "bear": "Declive acelerado del lineal y/o recesión publicitaria hunden el EBITDA >40%, fuerzan el recorte del dividendo y comprimen el múltiplo a mínimos (~2,5–2,9 €).",
- "resumen": "Atresmedia es un negocio maduro de alta calidad financiera (Rating A, caja neta, gran generación de caja y dividendo atractivo) que lidera un sector en declive estructural con un moat estrecho. A 4,82 € el precio objetivo (5,15 €) ofrece apenas +7% de recorrido frente a un Bear Case del −45%: la asimetría es desfavorable. Decisión: ESPERAR — acción de renta/valor a comprar con paciencia por debajo de ~4,30 €.",
- "schemaVersion": 8,
+ "bull": "9,78 €/acc. Los cinco catalizadores del §9.1 compuestos: la provisión que no se repite, Clear Channel consolidando, el dividendo ordinario en la media de la década, un re-rating del 15 % y lo que Fever deja dentro. +41,6 % sobre el PO y +85,6 % sobre la cotización.",
+ "bear": "5,17 €/acc (0,749 × PO). El riesgo dominante —el estructural— en su extremo SUAVE: ingresos −8,5 % permanentes con el apalancamiento LENTO medido (0,564), dentro de la banda 0,70-0,85 de M10. El extremo duro (−15 %) daría 3,85 €, fuera de banda por abajo, y eso dice algo del riesgo nº 1, no del método.",
+ "resumen": "COMPRAR, cuatro de cuatro condiciones. Precio objetivo 6,91 €/acc con un margen de seguridad del +31,0 % sobre 5,27 €, rating AA (77,6), moat estrecho pero presente y pérdida al bear desde el techo de la banda del 13,8 %. El mercado paga un 1,9 % por encima del escenario pesimista: ya descuenta el declive del soporte publicitario como caso base, y el reverse DCF exige que el flujo libre caiga más de un 10 % anual. Lectura de negocio: casilla 1, LA MÁQUINA DE CUPÓN (reinversión 12,7 %, ROIIC 27,3 %). Dos avisos que pesan sobre el TAMAÑO de la posición, no sobre el veredicto: la tesis tiene UN SOLO PILAR —la inversión publicitaria en televisión en España— y la seguridad del dividendo sale 34/100 FRÁGIL, midiendo con un año de retraso el payout del 127,6 % de 2024 que llevó a recortar el DPA un 73,5 %. Señal única a vigilar: ingresos publicitarios trimestrales en negativo dos trimestres seguidos.",
+ "cambiosDesdeUltimaRevision": "Revisión completa con el método regenerado, contra la foto del 9-jul-2026. decisión: ESPERAR → COMPRAR · rating: A → AA · score: 71,5 → 77,6 · PO base: 5,15 → 6,91 € · PO bear: 4,40 → 5,17 · PO bull: 8,53 → 9,78 · banda de entrada: 3,90-4,30 → 5,17-6,00 · stop: 2,50 → 3,83 · moat: 56 → 54,8. Lo que mueve el precio objetivo es el método, no el negocio: el DCF usa ahora el FCL normalizado a cinco años, los pesos son la norma CONSUMO (50 · 40 · 10) en vez de 40 % DCF y 60 % múltiplos, y el bear se deriva perturbando el modelo con el apalancamiento operativo medido. El DPA previsto es el ORDINARIO (0,18 €): el 0,83 € a cuenta de 2026 sale de la venta de Fever y no mide capacidad recurrente de reparto.",
  "confianza": {
-  "score": 100,
+  "score": 85,
   "nivel": "A",
   "motivos": [
-   "conciliación ampliada aún NO ejecutada (ficha 03)"
+   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)",
+   "1 línea(s) de conciliación ⚠ sin corregir (−5)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
- },
- "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": true,
-  "banda": {
-   "p10": 4.4,
-   "p50": 5.15,
-   "p90": 8.53
-  },
-  "sensibilidad": {
-   "poMin": 5.27,
-   "poMax": 6.94,
-   "poBase": 5.96247073758182,
-   "cotizacion": 4.82,
-   "ejeCoste": "WACC",
-   "pertCoste": 1.0,
-   "pertOtro": 0.5,
-   "mdsMin": 9.3,
-   "mdsMax": 44.0
-  },
-  "beta": {
-   "capm": 0.76,
-   "ref2": null,
-   "aviso": null
-  },
-  "motivos": [
-   "la cotización (4.82) queda por DEBAJO de toda la banda de PO [5.3–6.9] bajo WACC±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es ESPERAR — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
-  ],
-  "calculadoEl": "2026-07-27"
- },
- "dividendSafety": {
-  "score": 59,
-  "banda": "Vigilar",
-  "componentes": {
-   "C1": 27,
-   "C2": 10,
-   "C3": 19,
-   "C4": 0,
-   "C5": 3
-  },
-  "shareholderYield": 4.01,
-  "topeDuro": {
-   "activo": false,
-   "motivo": ""
-  },
-  "motivos": [
-   "C1 cobertura dividendo ord.: OE 2.86x / FCL 2.26x (3a OE 1.92x) → 27/35",
-   "C2 payout BN ord.: 65% (3a 66%) → 10/15",
-   "C3 balance: DN/EBITDA -0.66x, cob.int 7.0x → 19/20",
-   "C4 trayectoria: 4 recorte(s) en 9a (reciente) → 0/15",
-   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 3/15",
-   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
-  ],
-  "calculadoEl": "2026-07-19"
+  "calculadoEl": "2026-09-24"
  },
  "forense": {
   "aplica": true,
@@ -121,7 +71,7 @@
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": 7.33,
+   "z": 7.31,
    "zona": "segura"
   },
   "beneish": {
@@ -136,29 +86,103 @@
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-19"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-24"
+ },
+ "dividendSafety": {
+  "score": 34,
+  "banda": "Frágil",
+  "componentes": {
+   "C1": 5,
+   "C2": 0,
+   "C3": 18,
+   "C4": null,
+   "C5": 6
+  },
+  "shareholderYield": 13.45,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 0.79x / FCL 0.63x (3a OE 1.32x) → 5/35",
+   "C2 payout BN ord.: 236% (3a 96%) → 0/15",
+   "C3 balance parcial → 18/20",
+   "C4 trayectoria: histórico de DPA insuficiente → no puntúa",
+   "C5 predictores B4 (cuantitativos): EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 6/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-09-24"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 5.17,
+   "p50": 6.91,
+   "p90": 9.78
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 6.38,
+   "poMax": 7.79,
+   "poBase": 6.91,
+   "cotizacion": 5.27,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.3,
+   "componentesIntactos": 8,
+   "dcf": {
+    "poMin": 8.5,
+    "poMax": 13.21,
+    "poBase": 10.2715745588462
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 21.0,
+   "mdsMax": 47.8
+  },
+  "beta": {
+   "capm": 0.677,
+   "ref2": 0.66,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (30 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 70 % restante de la ponderación —los otros 8 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (5.27) queda por DEBAJO de toda la banda del precio objetivo de síntesis [6.38–7.79] → infravalorada en todo el rango",
+   "…y la banda de margen de seguridad [+21.0 % … +47.8 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [8.50–13.21] € alrededor de 10.27 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "ojo al leerlo junto a la banda de escenarios [5.17–9.78] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
+  ],
+  "calculadoEl": "2026-09-24"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -6.97,
-  "gIntrinseco": 1.48,
-  "veredicto": "PLAUSIBLE",
-  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
-  "calculadoEl": "2026-07-27",
+  "gImplicito": -10.0,
+  "gIntrinseco": 1.4,
+  "veredicto": "n.s.",
+  "motivo": "El precio de 5,27 € exigiría que el flujo libre cayera más de un 10 % anual —el guardarraíl inferior del método, que no llega a resolver— contra un g intrínseco autofinanciable del +1,4 %. Lo que el mercado descuenta no es crecimiento bajo: es una liquidación lenta. Texto del libro: «n.s. — el precio implicaría un declive extremo (≤−10%): revisar el WACC y el FCL base».",
+  "calculadoEl": "2026-09-24",
+  "fuente": "§6.x de «Valoración», escrito por el Bloque 6 el 24-sep-2026. No se re-ejecuta reverse_dcf.py aquí porque escribe en la pestaña y caducaría la firma del Bloque 6, renovada hoy.",
   "entradas": {
-   "fcl": 120,
-   "wacc": 8.5,
+   "fcl": 134.9828,
+   "wacc": 7.27,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 225.2,
-   "deudaNeta": -55.61,
+   "acciones": 225.7328,
+   "deudaNeta": -58.1,
    "modo": "EV",
-   "precioBase": 4.82,
+   "precioBase": 5.27,
    "validado": true,
-   "desviacion": 0.001,
-   "gBase": -6.969,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": 0.025,
+   "gBase": -9.975,
+   "fechaBase": "2026-09-24",
+   "congeladoEl": "2026-09-24"
   }
  }
 }
