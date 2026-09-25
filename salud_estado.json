@@ -2,19 +2,19 @@
  "generado": "2026-09-25",
  "linter": {
   "ok": true,
-  "detalle": "48 ficheros validados, sin errores."
+  "detalle": "50 ficheros validados, sin errores."
  },
  "sincronia": {
-  "ok": false,
-  "detalle": "RESULTADO: 48 sincronizados · 2 INCIDENCIA(S) — la app puede"
+  "ok": true,
+  "detalle": "RESULTADO: TODO SINCRONIZADO (50 archivos). La app refleja el método."
  },
  "formulas": {
   "ok": true,
-  "detalle": "24 libros revisados; todas las fórmulas conservan su valor.",
+  "detalle": "25 libros revisados; todas las fórmulas conservan su valor.",
   "libros": []
  },
  "senales": {
   "ok": false,
-  "detalle": "1 desajuste(s) entre las señales del metodo y las que la app mostrara: Atresmedia (A3M): senal(es) S6 ABIERTAS en estado.json y AUSENTES del puente — la app no las mostrara"
+  "detalle": "2 desajuste(s) entre las señales del metodo y las que la app mostrara: Atresmedia (A3M): senal(es) S6 ABIERTAS en estado.json y AUSENTES del puente — la app no las mostrara · Miquel y Costas (MCM): senal(es) S2 ABIERTAS en estado.json y AUSENTES del puente — la app no las mostrara"
  }
 }
