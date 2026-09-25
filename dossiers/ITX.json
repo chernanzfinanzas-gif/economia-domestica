@@ -180,7 +180,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Inditex.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -190,6 +190,8 @@
    "n": 1,
    "nombre": "LA MÁQUINA DE CUPÓN",
    "lema": "rinde mucho, reinvierte poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 14.45,
@@ -275,6 +277,86 @@
    }
   ],
   "vigilar": "La cobertura del dividendo con caja libre: viene bajando y, con el CAPEX alto, si cae por debajo de la unidad el extraordinario deja de pagarse con la caja del año.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Moda con calidad AA, 10.958 M€ de caja neta y un ROCE que la propia empresa publica en el 40 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: seis de seis umbrales en verde y sin deuda.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor los diez ejercicios sin excepción: ROIC del 65,7 % contra un WACC del 9,45 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 9,8 % del NOPAT de media; ROIIC a tres años del 78,0 % contra un corte del 14,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Caja de primera calidad, pero el dividendo se ha comido casi toda la holgura: cubierto 1,20 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 82,9 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 38,55 € contra 54,58 €: margen de seguridad −29,4 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat moderado (66,3): ventaja en costes 88 y escala 82.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "La moda china sin tienda baja la vara del precio (probabilidad alta, −4 a −13 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el crecimiento del primer semestre se sostenga todo el ejercicio y que el margen bruto se expanda.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 28,46 – 33,53 € · stop de tesis 23,87 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La cobertura del dividendo con caja libre: viene bajando y, con el CAPEX alto, si cae por debajo de la unidad el extraordinario deja de pagarse con la caja del año.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico abierto; la amortización del libro se revisa al rehacerla, contra la de la nota de la memoria.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

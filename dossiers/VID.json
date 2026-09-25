@@ -181,7 +181,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Vidrala.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -191,6 +191,8 @@
    "n": 4,
    "nombre": "LA QUE SE QUEDÓ SIN SITIO",
    "lema": "ni reinvierte ni rinde",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.72,
@@ -271,6 +273,86 @@
    }
   ],
   "vigilar": "El plan: que se cumpla la guía de 2026 y que el capital enviado a Sudamérica rinda como el core; el ROIIC está a medio punto del corte.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "El fabricante de envase de vidrio más rentable de Europa: 29,2 % de margen EBITDA contra el 20,8 % de Verallia.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: 4 de 4 umbrales en verde, y no por poco (0,25 veces el EBITDA).",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: diferencial positivo los diez años y ensanchándose.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 4 · La que se quedó sin sitio: ni reinvierte ni rinde. Reinvierte el 13,4 % del NOPAT de media; ROIIC a cinco años del 12,2 % contra un corte del 12,7 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "La caja confirma: dividendo cubierto 3,37 veces, un solo año de flujo libre negativo en diez.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 75,7 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 106,42 € contra 90,10 €: margen de seguridad +18,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (48,1): el vidrio no viaja más de ~300 km, así que el foso es geográfico.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Sobrecapacidad y guerra de precios en Europa (probabilidad alta, −20 a −44 %). Cuatro puntos de margen lo cambian todo.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "El fin del desestocaje y la vuelta a crecer en volumen (+9 a +16 %), y Vidroporto a plena capacidad.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>COMPRAR</b> · banda de entrada 85,29 – 92,54 € · stop de tesis 37,50 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El plan: que se cumpla la guía de 2026 y que el capital enviado a Sudamérica rinda como el core; el ROIIC está a medio punto del corte.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "1 dato secundario abierto y la conciliación ampliada sin hacer; el libro trae el CAPEX con el signo al revés y no cuadra EBITDA − amortización = EBIT.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

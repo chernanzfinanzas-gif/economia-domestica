@@ -134,5 +134,185 @@
   "veredicto": "HEROICO",
   "motivo": "No aplica el Reverse DCF del método —un banco no tiene DCF de flujo de caja libre—, así que el §6.x usa el reverse de la rama banca: qué RoTE exige el precio. A 12,886 € el mercado exige un RoTE del 19,90 % sostenido con CoE 10 % y g 2 %, por encima de cualquier RoTE que este banco haya tenido nunca. La alternativa es creerse un coste del capital del 8,75 %, por debajo del ~10 % de la banca europea.",
   "calculadoEl": "2026-09-14"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-25",
+  "rama": "financiera",
+  "subrama": "banca",
+  "fuente": "Datos Financieros Banco Santander.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA · declarado con cargo al ejercicio (OFICIAL); Datos de Mercado · Nº acciones en circulación; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor contable TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito; Valoración · CoE — coste del capital, escenario base; «Valoración» · CoE del escenario base (el libro no trae la serie del Bloque 3)",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "retiene mucho y lo retenido le rinde",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 10.0,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 57.76,
+   "valorTangible5a": 11.75,
+   "valorTangible10a": 6.25,
+   "roteMedio": 11.97,
+   "spread": 7.1,
+   "coe": 10.0,
+   "coeFuente": "«Valoración» · CoE del escenario base (el libro no trae la serie del Bloque 3)",
+   "tension": 3.7,
+   "tensionAnio": 2025,
+   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
+   "tensionUnidad": "pp",
+   "repartosExtraordinarios": {}
+  },
+  "tension": {
+   "anios": [
+    2017,
+    2019,
+    2020,
+    2025
+   ],
+   "rote": [
+    10.41,
+    11.44,
+    1.95,
+    17.1
+   ],
+   "payoutTotal": [
+    40.3,
+    57.9,
+    null,
+    46.9
+   ],
+   "valorTangible": [
+    4.15,
+    4.18,
+    3.79,
+    5.76
+   ],
+   "capital": [
+    3.1,
+    1.9,
+    3.0,
+    3.7
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un banco comercial de escala mundial</b>: capta depósitos de 180 millones de clientes, presta ese dinero y se queda con la diferencia, más las comisiones de lo que les vende por el camino. Opera en Europa y en América, y una parte grande del riesgo de crédito está en mercados emergentes.",
+     "Su estructura de capital ha cambiado dos veces en la década: amplió capital para comprar el Popular en 2017 y, desde 2022, recompra y amortiza acciones —de 16.794 millones a 14.689 millones en tres años—."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De una década partida en dos.</b> El RoTE estuvo en el 11,0 % de media en 2016-2019, apenas por encima del 10 % de coste del capital que el método usa para el escenario base; se hundió en 2020 —−8.771 M€ de resultado, por los saneamientos— y desde 2021 sube cada año hasta el <b>17,1 %</b> de 2025, +7,10 pp por encima de ese coste.",
+     "La prueba por acción es más dura que el RoTE, porque recoge la ampliación del Popular y los saneamientos: el valor tangible por acción era de 4,22 € en 2016 y seguía en 4,18 € en 2019; hoy es de <b>5,76 €</b>. Con los dividendos cobrados, <b>un 11,7 % anual en los últimos cinco años, pero sólo un 6,2 % en la década</b>. Retiene mucho —57,8 % de media— y en la ventana que manda lo retenido le rinde: <b>el compuesto</b>, con una primera mitad de década que no lo fue."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el capital. Santander opera con el colchón más estrecho de los dos bancos del parque: <b>3,7 puntos de CET1</b> sobre lo que exige el BCE en 2025, que eran 1,9 en 2019. Lo que retiene no se acumula: se va en crecer el crédito y en recomprar acciones, y el payout total ha pasado del 37,2 % de 2016 al 46,9 % de 2025.",
+     "Y en el crédito: el riesgo que fija el escenario pesimista es el coste del riesgo en emergentes. Un repunte de morosidad allí come beneficio, y el beneficio es lo que alimenta el colchón y las recompras a la vez."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Santander compra <b>un banco que lleva cinco años componiendo valor por acción a más de su coste</b>, con recompras que ya se notan en el número de acciones, después de una década que en conjunto no lo cubrió. La tesis es que los cinco años buenos son el banco nuevo y no un ciclo favorable.",
+     "<b>Qué vigilar cada trimestre:</b> el coste del riesgo en emergentes y el colchón de CET1. Si el primero sube, el segundo deja de alcanzar para crecer y recomprar a la vez."
+    ]
+   }
+  ],
+  "vigilar": "El coste del riesgo en emergentes y el colchón de CET1: con 3,7 puntos sobre el requisito, el capital que retiene es el que paga las recompras.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Capta depósitos de 180 millones de clientes, presta ese dinero y se queda con la diferencia, más las comisiones.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida por capital: se mide por el colchón de CET1 sobre lo que exige el BCE.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Fuerte y mejorando: RoTE del 10,4 % al 17,1 %, por encima de su coste desde 2021.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 57,8 % de lo que gana y su valor tangible por acción más dividendos crece un 11,7 % al año en cinco años, contra un coste del capital del 10,00 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Retribución sana: payout total del 46,9 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 74,5 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 7,82 € contra 12,89 €: margen de seguridad −39,3 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat moderado (67,8): costes de cambio y escala.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El coste del riesgo en emergentes (probabilidad alta, −13 a −26 %). Es el que fija el escenario pesimista.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el coste del riesgo baje al 0,90 % (+13 % al precio objetivo) y que se cierre la mitad del descuento contra sus comparables (+11 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 5,79 – 6,80 € · stop de tesis 4,51 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El coste del riesgo en emergentes y el colchón de CET1: con 3,7 puntos sobre el requisito, el capital que retiene es el que paga las recompras.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "2 datos críticos abiertos; el fichero no dice cuáles → Pte. Revisión.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

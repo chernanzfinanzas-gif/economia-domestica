@@ -186,7 +186,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Atresmedia.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -196,6 +196,8 @@
    "n": 1,
    "nombre": "LA MÁQUINA DE CUPÓN",
    "lema": "rinde mucho, reinvierte poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.27,
@@ -205,6 +207,8 @@
   "cifras": {
    "reinversionMedia": 12.66,
    "roiic5a": 27.34,
+   "roiic": 27.34,
+   "roiicVentana": "5A",
    "roicMedio": 15.85,
    "spread": 0.65,
    "wacc": 7.27,
@@ -279,6 +283,86 @@
    }
   ],
   "vigilar": "La cobertura del dividendo: si cruza 1,0x sobre owner earnings, el recorte deja de ser una hipótesis.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Es la mitad de un duopolio: con Mediaset reúne en torno al 85 % de la publicidad de televisión en España, con licencias hasta 2040.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida y sin deuda: 58,1 M€ de caja neta.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor nueve de cada diez años (ROIC medio del 16,7 % contra el 7 %), pero en 2025 sólo supera su coste por 0,65 puntos.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 12,7 % del NOPAT de media; ROIIC a cinco años del 27,3 % contra un corte del 12,3 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "La caja está, el margen se ha ido: el dividendo está cubierto 2,25x con caja libre en 2025, después del 1,08x de 2024. Seguridad del dividendo: frágil.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 77,6 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 6,91 € contra 5,27 €: margen de seguridad +31,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (54,8): el mercado sólo da para dos televisiones privadas.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que la publicidad se vaya al vídeo digital y no vuelva (probabilidad alta, −25 a −44 %). Con costes fijos, cada euro perdido golpea de lleno el margen.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que la provisión de bajas de 2025 no se repita (+22 % al precio objetivo) y que consolide Clear Channel España, ya autorizada.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>COMPRAR</b> · banda de entrada 5,17 – 6,00 € · stop de tesis 3,83 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La cobertura del dividendo: si cruza 1,0x sobre owner earnings, el recorte deja de ser una hipótesis.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "El dividendo complementario de 2025, sin aprobar: las coberturas de ese año pueden salir más altas de lo que serán.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

@@ -131,5 +131,187 @@
   "veredicto": "No aplica",
   "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
   "calculadoEl": "2026-09-15"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-25",
+  "rama": "financiera",
+  "subrama": "banca",
+  "fuente": "Datos Financieros Bankinter.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "retiene mucho y lo retenido le rinde",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 9.39,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 56.83,
+   "valorTangible5a": 14.26,
+   "valorTangible10a": 11.16,
+   "roteMedio": 14.58,
+   "spread": 10.64,
+   "coe": 9.39,
+   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
+   "tension": 4.36,
+   "tensionAnio": 2025,
+   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
+   "tensionUnidad": "pp",
+   "repartosExtraordinarios": {
+    "2021": 1.3175
+   }
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2020,
+    2021,
+    2025
+   ],
+   "rote": [
+    null,
+    7.44,
+    10.18,
+    20.03
+   ],
+   "payoutTotal": [
+    49.0,
+    15.8,
+    16.4,
+    51.6
+   ],
+   "valorTangible": [
+    4.9,
+    5.24,
+    5.1,
+    6.72
+   ],
+   "capital": [
+    3.4,
+    4.6,
+    4.4,
+    4.4
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un banco comercial que gana por eficiencia, no por tamaño.</b> Es el más eficiente de los seis bancos comerciales cotizados españoles —gasta 36 céntimos por cada euro de margen—, y casi todo lo que ingresa depende del precio del dinero: el margen de intereses es el 73 % del margen bruto.",
+     "Su estructura de capital es de las más limpias del parque: <b>898.866.154 acciones en 2016 y las mismas en 2025</b>, sin una ampliación, y en 2021 devolvió al accionista un negocio entero —Línea Directa, repartida en acciones—."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De retener la mitad y hacerla rendir.</b> Reparte en torno a la mitad del beneficio desde 2017 y retiene el resto —56,8 % de media en la década—, porque en un banco el beneficio retenido es capital regulatorio: sin él no puede prestar más. Lo que decide es si ese capital rinde, y rinde: el RoTE pasó del 7,4 % de 2020 al <b>20,0 %</b> de 2025, +10,64 pp por encima de su coste del capital del 9,39 %.",
+     "La prueba por acción es la que manda: el valor tangible por acción pasó de 4,29 € a <b>6,72 €</b> en la década, y además el accionista cobró 3,07 € de dividendos y 1,32 € en acciones de Línea Directa. Todo junto, <b>un 14,3 % anual en los últimos cinco años y un 11,2 % en la década</b>, por encima de su coste en las dos ventanas. Retiene mucho y lo retenido le rinde: <b>el compuesto</b>."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "No está en el capital: el colchón de CET1 sobre lo que exige el BCE es de 4,4 puntos y apenas se mueve, porque el banco no acumula capital, lo pone a trabajar. La tensión está en el <b>precio del dinero</b>. El RoTE de 2023-2025 se ganó con los tipos altos, y con el 73 % del margen bruto en intereses, cada bajada del BCE va contra la cifra que hace del banco un compuesto.",
+     "2020 y 2021 no son política del banco: el BCE prohibió repartir y el payout cayó al 15,8 % y al 16,4 %; el beneficio de 2021 lleva además la plusvalía de Línea Directa."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Bankinter compra <b>un banco que compone valor por acción a más de su coste y sin diluir</b>, con un solo motor —el margen de intereses— y ese motor en la parte alta del ciclo. La calidad está probada; lo que no está probado es cuánto del RoTE actual sobrevive a unos tipos más bajos.",
+     "<b>Qué vigilar cada trimestre:</b> el RoTE contra el coste del capital. Si baja hacia el 9,4 %, el banco sigue reteniendo la mitad pero lo retenido deja de rendir, y el compuesto se convierte en otra cosa."
+    ]
+   }
+  ],
+  "vigilar": "El RoTE contra el coste del capital mientras bajan los tipos: el margen de intereses es el 73 % del margen bruto, y si el RoTE se acerca al CoE lo que el banco retiene deja de rendir.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Un banco excelente en lo que hace y estrecho en todo lo demás: el más eficiente de los seis españoles (36,1 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Excelente: RoTE del 20,03 % contra un coste del capital del 9,39 % (+10,64 pp).",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 56,8 % de lo que gana y su valor tangible por acción más dividendos crece un 14,3 % al año en cinco años, contra un coste del capital del 9,39 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Retribución sostenible; seguridad del dividendo: muy seguro.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 74,7 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 12,44 € contra 16,60 €: margen de seguridad −25,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (45).",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El ciclo de tipos: el margen de intereses es el 73,4 % del margen bruto y el ciclo ya ha girado (−7 a −13 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el RoTE aguante el pico de tipos (+11 % al precio objetivo) y que el coste del riesgo baje a su mínimo de la década (+8 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 9,59 – 10,82 € · stop de tesis 7,61 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El RoTE contra el coste del capital mientras bajan los tipos: el margen de intereses es el 73 % del margen bruto, y si el RoTE se acerca al CoE lo que el banco retiene deja de rendir.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "1 dato crítico y 5 secundarios abiertos; el rating A figuraba como «preliminar» en su titular.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

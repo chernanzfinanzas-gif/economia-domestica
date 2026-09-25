@@ -183,7 +183,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Iberdrola.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -193,6 +193,8 @@
    "n": 2,
    "nombre": "EL COMPUESTO",
    "lema": "reinvierte mucho y bien",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 11.1,
@@ -278,6 +280,86 @@
    }
   ],
   "vigilar": "El ROIIC a cinco años: está en el corte por centésimas y, si baja del WACC más cinco puntos, el compuesto pasa a ser una trampa del capital.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Un buen negocio a un precio que no acompaña: la mitad del EBITDA son redes reguladas en cuatro países.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida y apalancada por diseño; lo que sube es el coste de la deuda (del 2,86 % al 4,76 %), no el nivel.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor, y el capital nuevo el doble: ROIC del 6,88 % contra un WACC del 6,10 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 44,3 % del NOPAT de media; ROIIC a cinco años del 11,1 % contra un corte del 11,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "El dividendo lo paga el negocio, no el flujo libre: cubierto 0,78 veces con caja libre.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "BBB · 59,2 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 17,66 € contra 20,13 €: margen de seguridad −12,3 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho, y prestado en su mitad más fuerte (58,6): la red y las licencias son concesiones.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El regulatorio, el único de probabilidad alta: toca al 50,2 % del EBITDA. Es el que el modelo peor mide.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "La revisión del marco retributivo español (la tasa del 5,58 % está vencida) y la puesta en carga de ~36.000 M€ en redes.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 14,76 – 15,36 € · stop de tesis 8,98 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El ROIIC a cinco años: está en el corte por centésimas y, si baja del WACC más cinco puntos, el compuesto pasa a ser una trampa del capital.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "2 datos críticos abiertos; la retribución de 2025 es menos de la mitad que la de 2024 y el perímetro de México está sin marcar.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

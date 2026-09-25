@@ -183,7 +183,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Faes Farma.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -193,6 +193,8 @@
    "n": 3,
    "nombre": "LA TRAMPA DEL CAPITAL",
    "lema": "reinvierte mucho y rinde poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.5,
@@ -273,6 +275,86 @@
    }
   ],
   "vigilar": "El spread ROIC − WACC: en 2025 quedó casi en cero y tiene que ensancharse con SIFI y Derio a año completo; si se pone negativo, la trampa se confirma.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Farmacéutica con dos motores de margen muy distinto: las licencias, su área más rentable, y el resto.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida, con vigilancia: 4 de 5 umbrales en verde y uno en ámbar.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor sobre el capital, y en 2025 el colchón se ha agotado: ROIC del 7,91 % contra el 7,50 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 3 · La trampa del capital: reinvierte mucho y rinde poco. Reinvierte el 32,9 % del NOPAT de media; ROIIC a cinco años del 0,5 % contra un corte del 12,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Terminó un ciclo inversor que se financió solo; empieza otro financiado con deuda. Dividendo cubierto 1,38 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 71,3 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 2,59 € contra 4,46 €: margen de seguridad −41,9 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (45,4): un foso de marca que aguanta y no se repone.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Las licencias, su parte más rentable (probabilidad alta, −18 a −45 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el Plan 2025-2030 empiece a verse en las cuentas: guidance 2026 de +17/19 % en ingresos.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 1,89 – 2,25 € · stop de tesis 1,69 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El spread ROIC − WACC: en 2025 quedó casi en cero y tiene que ensancharse con SIFI y Derio a año completo; si se pone negativo, la trampa se confirma.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "2 datos secundarios abiertos; reinversión cero en 2025, el año de las compras de SIFI y Edol (345 M€ fuera del CAPEX).",
+    "origen": "escrita"
+   }
+  ]
  }
 }

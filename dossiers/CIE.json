@@ -179,20 +179,22 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros CIE.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
    2025
   ],
   "casilla": {
-   "n": null,
-   "nombre": "SIN CASILLA",
-   "lema": "el libro marca el ROIIC como no significativo a 5 y a 3 años; no se elige por el ROIC",
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "porSpread": true,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.5,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
    }
   },
   "cifras": {
@@ -250,7 +252,7 @@
     "titulo": "De dónde le viene la rentabilidad",
     "parrafos": [
      "<b>Del margen, no del volumen.</b> El ROIC ha estado por encima del WACC los diez años —12,4 % de media, 14,8 % en 2025, con un spread de <b>+7,29 pp</b>— y ni en 2020, con las ventas cayendo, cruzó el cero: el spread se quedó en +0,94 pp.",
-     "<b>Por qué no hay casilla.</b> El ROIIC necesita que el capital invertido se mueva, y en CIE lleva cinco años casi plano: la reinversión de la ventana queda por debajo del mínimo que el libro exige y cualquier cociente saldría enorme y vacío. A tres años, igual. La serie cruza además la salida de las forjas alemanas en 2022, que cambia el perímetro. La lectura provisional la dan las otras cifras: reinvertía el 27,8 % del NOPAT en 2016-2019 y sólo el 7,0 % desde 2020 —0,9 % en 2025—, con un crecimiento intrínseco del <b>1,33 %</b>. Rinde bien lo que tiene; lo nuevo no lo construye, lo compra, y el retorno de lo comprado está sin medir."
+     "<b>Por qué la casilla sale del spread.</b> El ROIIC necesita que el capital invertido se mueva, y en CIE lleva cinco años casi plano; la serie cruza además la salida de las forjas alemanas en 2022. El libro lo marca «n.s.» a cinco y a tres años, y la casilla se lee con el spread: reinvierte poco —el 27,8 % del NOPAT en 2016-2019 y sólo el 7,0 % desde 2020, 0,9 % en 2025— y gana <b>+7,29 pp</b> por encima de su coste: <b>máquina de cupón</b>, con un crecimiento intrínseco del 1,33 %. Rinde bien lo que tiene; lo nuevo no lo construye, lo compra, y el retorno de lo comprado está sin medir."
     ]
    },
    {
@@ -264,11 +266,91 @@
     "titulo": "Implicación para el inversor",
     "parrafos": [
      "Quien compra CIE compra <b>un gestor industrial que rinde por encima de su coste de capital en cualquier punto del ciclo</b> y que crece a base de compras, con un núcleo estable de accionistas que elige la mayoría del consejo. La calidad del margen está probada; la de la asignación de capital se vuelve a examinar ahora, con Aludec.",
-     "<b>Qué vigilar cada trimestre, mientras no haya casilla:</b> la deuda neta contra el EBITDA. Cuando Aludec entre en el perímetro la deuda subirá por una compra conocida, no por sorpresa; lo que importa es que el EBITDA suba con ella. Si la deuda sube y el EBITDA no, el compromiso de apalancamiento de 2027 deja de ser creíble y la compra habrá salido del balance del accionista."
+     "<b>Qué vigilar cada trimestre:</b> la deuda neta contra el EBITDA. Cuando Aludec entre en el perímetro la deuda subirá por una compra conocida, no por sorpresa; lo que importa es que el EBITDA suba con ella. Si la deuda sube y el EBITDA no, el compromiso de apalancamiento de 2027 deja de ser creíble y la compra habrá salido del balance del accionista."
     ]
    }
   ],
   "vigilar": "La deuda neta contra el EBITDA: con Aludec la deuda va a subir; si el EBITDA no sube con ella, la compra se está pagando con el balance.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Fabricante de componentes de automoción con el doble de margen EBIT que sus comparables europeos: 13,72 % contra 4,7-10,1 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: cinco años seguidos desapalancándose con caja propia.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: ROIC medio del 12,4 % en la década y, en 2025, +7,29 pp por encima de un WACC del 7,5 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 15,3 % del NOPAT de media; el ROIIC no es significativo y la casilla sale del spread (+7,29 pp).",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Dividendo muy seguro: cubierto 3,48 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 73,6 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 37,45 € contra 25,85 €: margen de seguridad +44,9 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (50,7), con un solo pilar: la ventaja de costes (72).",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El ciclo del automóvil: su demanda es la producción mundial de vehículos (−25 a −53 %). Y la electrificación cambia lo que va en cada coche.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Cumplir el guidance 2026-2027 con el margen intacto (+11 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>COMPRAR</b> · banda de entrada 28,14 – 32,57 € · stop de tesis 12,30 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La deuda neta contra el EBITDA: con Aludec la deuda va a subir; si el EBITDA no sube con ella, la compra se está pagando con el balance.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "5 datos secundarios abiertos; la retribución de 2018 incluye 405 M€ del reparto de Dominion en acciones.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

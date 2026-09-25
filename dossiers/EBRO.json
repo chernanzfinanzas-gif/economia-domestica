@@ -180,20 +180,22 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Ebro Foods.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
    2025
   ],
   "casilla": {
-   "n": null,
-   "nombre": "SIN CASILLA",
-   "lema": "el libro marca el ROIIC como no significativo a 5 y a 3 años; no se elige por el ROIC",
+   "n": 4,
+   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
+   "lema": "ni reinvierte ni rinde",
+   "porSpread": true,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 10.18,
-    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
    }
   },
   "cifras": {
@@ -256,7 +258,7 @@
     "titulo": "De dónde le viene la rentabilidad",
     "parrafos": [
      "<b>De un ROIC modesto pero fiable.</b> 6,6 % de media en la década contra un WACC del 5,2 %: el spread no ha sido negativo ningún año —el peor, +1,88 pp en 2019— y en 2025 es de <b>+2,58 pp</b>. Es la rentabilidad de un líder de categoría en alimentación básica: estable y estrecha.",
-     "<b>Por qué no hay casilla.</b> Ebro reinvierte por una puerta y desinvierte por otra. El CAPEX de crecimiento se lleva el 22,7 % del NOPAT de media, por encima del corte del 20 %, pero las ventas de negocios sacan capital más deprisa de lo que entra: el capital invertido de 2025 es menor que el de 2020 y que el de 2022 mientras el NOPAT ha subido, así que el incremento de capital es negativo a cinco y a tres años y el cociente no significa nada. El libro lo marca «n.s.», y su crecimiento intrínseco sale en <b>−0,29 %</b>. La lectura provisional: reinvierte mucho y le rinde poco por encima de su coste, pero esa reinversión convive con una rotación de cartera que el ROIIC no sabe medir."
+     "<b>Por qué «la que se quedó sin sitio», y no una trampa.</b> Ebro reinvierte por una puerta y desinvierte por otra. El CAPEX de crecimiento se lleva el 22,7 % del NOPAT de media, por encima del corte del 20 %, pero las ventas de negocios sacan capital más deprisa de lo que entra: el capital invertido de 2025 es menor que el de 2020 y que el de 2022 mientras el NOPAT ha subido, así que el ROIIC sale «n.s.» a cinco y a tres años. Leída por el spread, reinvierte mucho y gana <b>+2,58 pp</b> por encima de su coste: poco, pero por encima, y sin un solo año negativo en la década. No destruye valor con lo que reinvierte —eso sería la trampa—; lo que no consigue es que le rinda de más. Se parece más a un <b>bono</b> que a una trampa del capital: una renta estable, algo por encima de lo que cuesta, con un crecimiento intrínseco del −0,29 %."
     ]
    },
    {
@@ -270,11 +272,11 @@
     "titulo": "Implicación para el inversor",
     "parrafos": [
      "Quien compra Ebro compra <b>un líder defensivo de rentabilidad justa</b>, cuyo reparto ha dependido de vender negocios tanto como de generar caja. La resiliencia está documentada —ninguno de los once episodios de estrés que recoge su historia le obligó a recortar el dividendo ordinario—; lo que no está demostrado es que el negocio que queda, más pequeño en pasta y más premium, genere por sí solo la caja que reparte.",
-     "<b>Qué vigilar cada trimestre, mientras no haya casilla:</b> la cobertura del dividendo con caja libre, y con ella el circulante que la mueve. Por debajo de 1,0x el dividendo vuelve a pagarlo el balance. Y desde que la Junta de 2026 delegó en el consejo la facultad de ampliar capital, el número de acciones se vigila también."
+     "<b>Qué vigilar cada trimestre:</b> la cobertura del dividendo con caja libre, y con ella el circulante que la mueve. Por debajo de 1,0x el dividendo vuelve a pagarlo el balance. Y desde que la Junta de 2026 delegó en el consejo la facultad de ampliar capital, el número de acciones se vigila también."
     ]
    }
   ],
   "vigilar": "La cobertura del dividendo con caja libre: por debajo de 1,0x el reparto vuelve a salir del balance o de vender negocios, no del negocio.",
-  "version": 1
+  "version": 2
  }
 }

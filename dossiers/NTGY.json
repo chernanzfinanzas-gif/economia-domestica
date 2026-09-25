@@ -182,7 +182,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Naturgy.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -192,6 +192,8 @@
    "n": 1,
    "nombre": "LA MÁQUINA DE CUPÓN",
    "lema": "rinde mucho, reinvierte poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 10.5,
@@ -277,6 +279,86 @@
    }
   ],
   "vigilar": "La cobertura del dividendo con caja libre: el plan 2025-2027 sube el suelo del dividendo mientras deja subir la deuda neta; si la cobertura baja de la unidad, el cupón lo estará pagando el balance y el rating BBB al que está atado.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Una empresa de redes reguladas que todavía cotiza como un conglomerado: la tesis es cobrar esa diferencia.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida, pero el gearing empeora mientras la deuda baja, porque el patrimonio cae más.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor, pero encogiéndose: diferencial de +5,70 pp, el mejor de su década.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 12,0 % del NOPAT de media; ROIIC a tres años del 25,2 % contra un corte del 10,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "La caja está y se reparte entera: el dividendo está cubierto 1,38x con caja libre.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 71,3 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 37,20 € contra 29,48 €: margen de seguridad +26,2 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat moderado (70,3): un foso de licencia y de escala.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "La transición energética está escrita para reducir la demanda de gas (probabilidad alta, −8 a −19 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "La vuelta a los índices MSCI, ya cumplida, y que la CNMC cierre el marco del gas 2027-2032 sin recorte.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>COMPRAR</b> · banda de entrada 30,14 – 32,34 € · stop de tesis 25,96 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La cobertura del dividendo con caja libre: el plan 2025-2027 sube el suelo del dividendo mientras deja subir la deuda neta; si la cobertura baja de la unidad, el cupón lo estará pagando el balance y el rating BBB al que está atado.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "1 dato secundario abierto.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

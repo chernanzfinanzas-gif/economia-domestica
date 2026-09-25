@@ -182,7 +182,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Endesa.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -192,6 +192,8 @@
    "n": 2,
    "nombre": "EL COMPUESTO",
    "lema": "reinvierte mucho y bien",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 10.5,
@@ -277,6 +279,86 @@
    }
   ],
   "vigilar": "El ROIIC a cinco años: el plan 2026-2028 multiplica la inversión, sobre todo en redes con retribución regulada; si el ROIIC baja del corte de WACC más cinco puntos con la reinversión ya alta, Endesa deja de ser un compuesto y pasa a la trampa del capital.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Una buena empresa a un precio que no lo es: la eléctrica menos endeudada de las cinco cotizadas.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida, pero ya no holgada, y el deterioro es de diseño, no de un mal año.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: ROIC medio del 10,4 % contra un WACC del 5,5 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 37,8 % del NOPAT de media; ROIIC a cinco años del 19,5 % contra un corte del 10,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Dividendo seguro: cubierto 1,12 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 65,8 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 23,37 € contra 42,10 €: margen de seguridad −44,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat moderado (65,1): un foso de licencia, no de marca.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El marco retributivo de la distribución 2026-2031 (probabilidad alta, −10 a −19 %): es el 36 % del EBITDA.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el plan 2026-2028 cumpla su EBITDA y que se apruebe la inversión en redes con retribución íntegra.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 18,33 – 20,32 € · stop de tesis 15,40 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El ROIIC a cinco años: el plan 2026-2028 multiplica la inversión, sobre todo en redes con retribución regulada; si el ROIIC baja del corte de WACC más cinco puntos con la reinversión ya alta, Endesa deja de ser un compuesto y pasa a la trampa del capital.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "3 datos secundarios abiertos y 2 líneas de conciliación sin corregir; la compra hidráulica a Acciona (2025) no está en el CAPEX.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

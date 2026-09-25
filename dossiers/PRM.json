@@ -180,7 +180,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Prim.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -190,6 +190,8 @@
    "n": 1,
    "nombre": "LA MÁQUINA DE CUPÓN",
    "lema": "rinde mucho, reinvierte poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.5,
@@ -275,6 +277,86 @@
    }
   ],
   "vigilar": "La cobertura del dividendo con caja libre: si vuelve a caer por debajo de la unidad —como en 2017, 2018 y en los tres años de flujo libre negativo— con el suelo de dividendo del plan 2026-2031 ya comprometido, el suelo lo pagará la deuda.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Suministros médicos y ortopedia con un balance excepcional, cuya caja sólo ahora empieza a demostrarse.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: 6 de 6 métricas en verde; caja neta seis de cada diez años.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: diferencial positivo 9 de 10 años (ROIC del 10,3 % contra el 7,5 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 10,1 % del NOPAT de media; ROIIC a cinco años del 23,2 % contra un corte del 12,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "La caja no acompaña: conversión media del EBITDA en flujo libre del 21,9 %, con tres años en negativo.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 63,5 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 10,83 € contra 12,80 €: margen de seguridad −15,4 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (45,3), y barata contra sus comparables.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El concurso público aprieta el precio (−17 a −46 %). Ninguna cadena llega al −50 %, y eso no es buena noticia.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que la conversión de caja de 2024-2025 se confirme en 2026: no hay otro catalizador que se le acerque.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 8,98 – 9,41 € · stop de tesis 6,71 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La cobertura del dividendo con caja libre: si vuelve a caer por debajo de la unidad —como en 2017, 2018 y en los tres años de flujo libre negativo— con el suelo de dividendo del plan 2026-2031 ya comprometido, el suelo lo pagará la deuda.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico abierto.",
+    "origen": "escrita"
+   }
+  ]
  }
 }

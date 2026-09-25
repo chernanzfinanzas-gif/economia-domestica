@@ -181,7 +181,7 @@
   }
  },
  "lecturaNegocio": {
-  "fecha": "2026-09-24",
+  "fecha": "2026-09-25",
   "fuente": "Datos Financieros Aena.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
   "periodo": [
    2016,
@@ -191,6 +191,8 @@
    "n": 1,
    "nombre": "LA MÁQUINA DE CUPÓN",
    "lema": "rinde mucho, reinvierte poco",
+   "porSpread": false,
+   "roiicFragil": false,
    "cortes": {
     "reinversion": 20.0,
     "roiic": 12.67,
@@ -271,6 +273,86 @@
    }
   ],
   "vigilar": "La cobertura del dividendo con caja libre: si cae por debajo de la unidad mientras arranca el CAPEX del DORA III, payout e inversión dejan de caber juntos.",
-  "version": 1
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Opera los aeropuertos de España en concesión regulada: un negocio excelente a un precio que la tesis no autoriza pagar.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: los cinco umbrales en verde; la deuda neta ha bajado un 33 % en diez años.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: ROIC del 15,58 % contra un WACC del 7,67 % (+7,91 pp), el mejor diferencial de su década.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 6,1 % del NOPAT de media; ROIIC a tres años del 72,5 % contra un corte del 12,7 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Caja suficiente, pero justa: 1.727 M€ de flujo libre y el dividendo cubierto 1,06 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 75,0 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 16,27 € contra 24,98 €: margen de seguridad −34,9 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat ancho (76,0): escala eficiente 85 y licencia 80. El retorno lo fija el regulador.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "La mayor ola inversora de su historia (DORA III) con la tarifa congelada: −19 a −22 %. El titular del Bloque 8 decía «el tráfico»; el análisis vigente pone éste como dominante.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que la parte no regulada del DORA III (~3.000 M€) se ejecute más despacio, y que se revierta la caída de margen del primer semestre de 2026 (del 56,5 % al 54,5 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 13,21 – 14,14 € · stop de tesis 5,63 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "La cobertura del dividendo con caja libre: si cae por debajo de la unidad mientras arranca el CAPEX del DORA III, payout e inversión dejan de caber juntos.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico abierto. El libro da retribución cero en 2019-2021 y el perfil dice que «sostuvo el payout»: se revisa al rehacerla.",
+    "origen": "escrita"
+   }
+  ]
  }
 }
