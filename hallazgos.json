@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-22",
+ "generadoEl": "2026-09-25",
  "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
  "empresas": {
   "A3M": {
@@ -596,9 +596,9 @@
    "revisionesFrescas": true
   },
   "FDR": {
-   "empresa": "Fluidra, S.A.",
+   "empresa": "Fluidra",
    "cobertura": {
-    "semanal": "2026-09-18"
+    "semanal": "2026-09-25"
    },
    "hallazgos": [
     {
@@ -780,26 +780,6 @@
     "semanal": "2026-09-18"
    },
    "hallazgos": [
-    {
-     "id": "S6-2026-07-29",
-     "abiertoEl": "2026-07-29",
-     "estado": "resuelta",
-     "resueltoEl": "2026-07-29",
-     "desenlace": "REAFIRMAR. Cerrada con el apunte que ya existe en el registro del §10.5 del libro (21-jul-2026, cotización 14,13 €): «Cinco periodos consecutivos en ÁMBAR (Q1-2025→Q1-2026): EBITDA acumulado −6% a −8% y beneficio a la baja. Mini-revisión de tendencia (S6): el deterioro es NORMALIZACIÓN tras el pico de márgenes 2024 + efecto divisa (debilidad del USD sobre el ~90% de exportación), NO daño estructural del negocio de papel de fumar. Ingresos estables ~314 M€, caja neta intacta, márgenes aún en zona alta (EBITDA 22-24%). Se mantiene MANTENER (PO 15,7 €); vigilar que el EBITDA no perfore <70 M€ ni el margen <22% de forma sostenida (pasaría a revisión de tesis)». Aviso vivo: el Q1-2026 ya trae ingresos −13,5% y margen EBITDA 22,9%, el mínimo de toda la serie y a 0,9 pp de esa línea roja. El 1S-2026 se publica el 2-sep-2026 y es el dato que decide si esto sigue siendo normalización.",
-     "resumen": "5 ámbares consecutivos hasta 2026-Q1 (anterior: 2025-Q4)",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "auditoría S2/S6 del 29-jul-2026",
-     "fecha": "2026-07-29",
-     "fuente": null,
-     "exigeAccion": false,
-     "codigo": "S6",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-05",
-     "notaEmitida": false,
-     "nota": "§10.5 del libro · apunte del 2026-07-21 (cotización 14,13 €)"
-    },
     {
      "id": "coyuntura",
      "tipo": "coyuntura",
@@ -1393,5 +1373,5 @@
   "situacionesAbiertas": 23,
   "hechosCaducadosHoy": 0
  },
- "reproyectadoEl": "2026-09-24"
+ "reproyectadoEl": "2026-09-25"
 }
