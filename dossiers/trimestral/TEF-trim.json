@@ -5,791 +5,745 @@
   "revisiones": [
     {
       "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
       "fecha": "2023-05-11",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Ingresos +6,7% y OIBDA subyacente +2,4%; apalancamiento contenido 2,51x. Arranque del giro operativo.",
-      "periodoDisplay": "1T",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 10045
+          "valor": 10045.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 3145
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 3145.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 298
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 2320
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 31.31
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 454
+          "valor": 454.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 26443
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 26443.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.51
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 3088.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 6.7
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 2282.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 2.4
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 2101.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 14768.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 383582.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2023-07-27",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Crecimiento orgánico rentable; apalancamiento sube a 2,62x por estacionalidad. Señales mixtas.",
-      "periodoDisplay": "1S",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 20178
+          "valor": 20178.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 6306
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 6306.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 760
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 4326
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 31.25
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 1296
+          "valor": 1296.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 27479
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 27479.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.62
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 6183.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 3.7
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 4645.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.3
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 4192.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 15199.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 383552.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
-      "fecha": "2023-10-25",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "En línea para cumplir todos los objetivos 2023; desapalancamiento a 2,51x. Refuerza la tesis.",
       "periodoDisplay": "9M",
+      "fecha": "2023-11-08",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 30499
+          "valor": 30499.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 9648
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 9648.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.6
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 1262
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 6437
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 31.63
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 2426
+          "valor": 2426.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 26537
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 26537.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.51
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 9334.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 2.4
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 7112.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.3
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 6323.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 15669.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 384762.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
       "fecha": "2024-02-22",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Cumple todos los objetivos pero resultado -892M€ por ERE y deterioro VMO2; FCF 4.227M€ cubre el dividendo. Apalancamiento 2,60x.",
-      "periodoDisplay": "FY",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 40652
+          "valor": 40652.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 13121
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 13121.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 32.3
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": -892
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": "Pte. Revisión"
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 32.28
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 4227
+          "valor": 3988.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 27349
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 27349.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.6
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 12654.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 1.6
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 9650.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": "Pte. Revisión"
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 8614.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 16121.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 387798.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Entrada de STC (~9,9%) y de la SEPI (~10%) en el capital, configurando un núcleo de accionistas de referencia.",
-          "impacto": "-",
-          "valoracion": "Introduce agendas no puramente financieras (Estado y socio soberano); riesgo de gobernanza."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-05-15",
+      "periodoDisplay": "1T",
+      "fecha": "2024-05-09",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "EBITDA aj. +1,9%; FCF estacionalmente negativo y apalancamiento 2,71x. Operativo bien, deuda alta.",
-      "periodoDisplay": "1T",
+      "resumen": "Ingresos de España +1.0 %, Ingresos de Brasil +10.4 %, Ingresos de Alemania -0.1 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 31.6 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 1.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 10140
+          "valor": 10140.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 3205
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 3205.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.6
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 532
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 1453
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 31.61
         },
         {
           "nombre": "FCF (M€)",
-          "valor": -41
+          "valor": -41.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 28482
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 28482.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.71
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 3118.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 0.9
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 2520.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.9
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 2098.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 16587.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 388260.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2024-07-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Deuda financiera neta máxima del ciclo (29.240M€, 2,78x): roza el umbral de vigilancia de la tesis.",
-      "periodoDisplay": "1S",
+      "resumen": "Ingresos de España +1.0 %, Ingresos de Brasil +6.8 %, Ingresos de Alemania -0.1 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 31.5 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 0.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 20395
+          "valor": 20395.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 6424
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 6424.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
+          "nombre": "Margen EBITDA ajustado (%)",
           "valor": 31.5
         },
         {
-          "nombre": "Bº neto (M€)",
-          "valor": 979
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 2748
-        },
-        {
           "nombre": "FCF (M€)",
-          "valor": 163
+          "valor": 163.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 29240
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 29240.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.78
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 6245.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 1.1
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 4960.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.9
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 4189.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 17031.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 391974.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-30",
+      "periodoDisplay": "9M",
+      "fecha": "2024-11-07",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Ingresos -0,3% (primer signo negativo) y EBITDA plano; caja por encima de objetivos. Apalancamiento a 9M no publicado.",
-      "periodoDisplay": "9M",
+      "resumen": "Ingresos de España +1.0 %, Ingresos de Brasil +2.2 %, Ingresos de Alemania -0.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 31.8 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 0.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 30418
+          "valor": 30418.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 9684
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 9684.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 31.8
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 989
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 4001
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 31.84
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 1030
+          "valor": 1030.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 28748
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 28748.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": "Pte. Revisión"
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 9427.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": -0.3
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 7268.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 0.4
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 6286.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 17469.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 393068.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
       "fecha": "2025-02-27",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Cumple objetivos (ingresos +1,6%, FCF +14,1%, 2,58x) pero 2º año con pérdida (-49M€) por deterioro 4T. Dividendo 0,30€ mantenido.",
-      "periodoDisplay": "FY",
+      "resumen": "Ingresos de España +1.1 %, Ingresos de Brasil -0.3 %, Ingresos de Alemania -1.4 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 32.1 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo cae un 0.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 41315
+          "valor": 41315.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 13276
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 13276.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 32.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": -49
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 5212
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 32.13
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 2634
+          "valor": 2634.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 27161
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 27161.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.58
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 12791.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 1.6
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 9618.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.2
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 8492.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 17933.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 389950.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Marc Murtra sustituye a José María Álvarez-Pallete como presidente, en un cambio impulsado por la SEPI.",
-          "impacto": "-",
-          "valoracion": "Relevo con fuerte influencia estatal; anticipa un giro de estrategia y de dividendo."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
       "fecha": "2025-05-14",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Nuevo perímetro y nueva dirección: caídas reportadas -2,9%/-4,2% (orgánico ~plano); margen sube al 32,7%. Apalancamiento 2,67x.",
-      "periodoDisplay": "1T",
+      "resumen": "Ingresos de España +1.7 %, Ingresos de Brasil -7.3 %, Ingresos de Alemania -2.0 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 32.7 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 3.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).  ·  QUIEBRE DE PERÍMETRO: desde este periodo Hispam es actividad discontinuada (NIIF 5): ingresos, EBITDA, FCF y accesos del grupo pasan a operaciones continuadas y no se comparan con los de 2024 publicados en su día. Los ingresos por país (España, Brasil, Alemania) no cambian de perímetro.",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 9221
+          "valor": 9221.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 3014
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 3014.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 32.7
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 427
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 1412
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 32.69
         },
         {
           "nombre": "FCF (M€)",
-          "valor": -205
+          "valor": -205.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 27049
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 27049.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.67
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 3170.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": -2.9
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 2337.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -4.2
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 2056.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 15794.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 353519.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2025-07-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Efecto perímetro persistente; apalancamiento vuelve a 2,78x. Margen resiliente. Vigilar caja y dividendo.",
-      "periodoDisplay": "1S",
+      "resumen": "Ingresos de España +1.8 %, Ingresos de Brasil -6.9 %, Ingresos de Alemania -2.2 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 32.6 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 3.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 18013
+          "valor": 18013.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 5867
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 5867.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 32.6
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 558
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 2580
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 32.57
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 291
+          "valor": 291.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 27609
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 27609.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.78
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 6356.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": -3.3
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 4616.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -4.6
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 4095.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 16085.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 348589.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Venta acelerada de filiales de Hispam (Argentina, Perú, Colombia, Uruguay y Ecuador).",
-          "impacto": "=",
-          "valoracion": "Simplifica el perímetro y desapalanca, pero con fuerte impacto contable y pérdida de clientes."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
-      "fecha": "2025-10-29",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "ALERTA: apalancamiento 2,87x (máximo) y FCF -68% interanual tensionan el dividendo. Se activa señal S2.",
       "periodoDisplay": "9M",
+      "fecha": "2025-11-04",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos de España +1.7 %, Ingresos de Brasil -4.2 %, Ingresos de Alemania -3.7 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 33.1 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 4.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 26970
+          "valor": 26970.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 8938
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 8938.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 33.1
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": 828
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 3832
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 33.14
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 414
+          "valor": 414.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 28233
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 28233.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.87
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 9589.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": -2.8
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 6966.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": -3.6
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 6055.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 16400.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 350186.0
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-24",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Pérdida histórica -4.318M€ (ERE+Hispam) y RECORTE del dividendo a 0,15€: se materializa el riesgo bajista. EBITDA aj. +2,0%.",
       "periodoDisplay": "FY",
+      "fecha": "2026-02-24",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Los doce informes de 2023-2025 imprimen su fecha de publicación en la cabecera de la página de resultados («Resultados económico-financieros Telefónica nT AAAA · dd de mes de aaaa»), leída de cada PDF. Los dos de 2026 son presentaciones en inglés sin fecha: van con la fecha de cierre y su nota. BASE: 2023 y 2024 son la base publicada en su día CON Hispam; desde el 1T 2025 Telefónica presenta Hispam como actividad discontinuada (NIIF 5) y todas las cifras del grupo son de operaciones continuadas. El EBITDA es el OIBDA subyacente en 2023, el «EBITDA*» en 2024 y el EBITDA ajustado desde 2025: la misma magnitud con tres nombres.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos de España +1.7 %, Ingresos de Brasil -1.7 %, Ingresos de Alemania -3.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 33.9 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 5.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 35120
+          "valor": 35120.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 11918
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 11918.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 33.9
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": -4318
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 5081
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 33.94
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 2069
+          "valor": 2069.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 26824
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 26824.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.78
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 13012.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": -1.5
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 9451.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 2.0
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 8172.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": 15042.0
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": 326121.0
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Nuevo plan estratégico de Murtra hacia una compañía 'más europea', con foco en la consolidación in-market y sin ampliación de capital.",
-          "impacto": "=",
-          "valoracion": "Catalizador central; su ejecución puede cerrar el descuento o activar el bear case."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Recorte del dividendo a la mitad para 2026, sin ampliación de capital, para financiar desapalancamiento e inversión.",
-          "impacto": "-",
-          "valoracion": "Materializa el riesgo de dividendo señalado; debilita la tesis de renta a corto plazo."
-        }
-      ]
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-05-14",
-      "semaforoGlobal": "V",
-      "tesisSigueIntacta": true,
-      "resumen": "Giro confirmado: 2º trimestre de crecimiento, margen récord 34,9%, desapalancamiento a 2,72x y dividendo 0,15€ confirmado.",
       "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "la presentación en inglés no imprime su fecha de publicación; se usa el cierre del periodo hasta tener el informe en castellano",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "HUECO DE CADENCIA, no falta de dato: la empresa publicó 2025 pero NO publicó su «Q1», así que este periodo no tiene gemelo del ejercicio anterior con el que compararse. No es el primero de la serie ni hay nada que buscar: el periodo con el que se compararía no existe. El color se deja en ámbar porque el crecimiento no se puede razonar, no porque haya deterioro; el margen de este periodo, que sí está, es del 34.9 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). ",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 8127
+          "valor": 8127.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 2836
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 2836.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
+          "nombre": "Margen EBITDA ajustado (%)",
           "valor": 34.9
         },
         {
-          "nombre": "Bº neto (M€)",
-          "valor": 482
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 1375
-        },
-        {
           "nombre": "FCF (M€)",
-          "valor": 333
+          "valor": 333.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 25342
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 25342.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.72
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": null
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 0.4
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": null
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 1.3
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": null
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": null
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": null
         }
-      ]
+      ],
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
-      "fecha": "2026-07-29",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "la presentación en inglés no imprime su fecha de publicación; se usa el cierre del periodo hasta tener el informe en castellano",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Tercer trimestre consecutivo de crecimiento, margen EBITDA aj. récord (35,2%), desapalancamiento a 2,68x y guía de OpCFaL revisada AL ALZA (>2% → >3%). Pero los ingresos van a +0,4% constante frente a un objetivo de +1,5-2,5%, el FCF de continuadas cae −35,1% (944 M€, 31% de la guía anual) con el FCF total en negativo, la cobertura de intereses baja a 2,15x y Alemania se contrae con fuerza. El atribuido es una pérdida de −338 M€ (operaciones continuadas +614, discontinuación −821) por las salidas de Hispam; el beneficio neto AJUSTADO de continuadas, que la compañía titula aparte, es de 954 M€ (−21,0%). Ámbar: el giro es real, la caja va por detrás.",
+      "resumen": "Ingresos de España +2.5 %, Ingresos de Brasil +12.5 %, Ingresos de Alemania -9.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA ajustado en 35.2 % (banda del §10.1: verde ≥ 32.0, rojo < 30.0). El margen EBITDA ajustado del grupo sube un 8.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ingresos (M€)",
-          "valor": 16392
+          "valor": 16392.0
         },
         {
-          "nombre": "EBITDA aj. (M€)",
-          "valor": 5768
+          "nombre": "EBITDA ajustado (M€)",
+          "valor": 5768.0
         },
         {
-          "nombre": "Margen EBITDA (%)",
-          "valor": 35.2
-        },
-        {
-          "nombre": "Bº neto (M€)",
-          "valor": -338
-        },
-        {
-          "nombre": "OpCFaL (M€)",
-          "valor": 2654
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 35.19
         },
         {
           "nombre": "FCF (M€)",
-          "valor": 944
+          "valor": 944.0
         },
         {
-          "nombre": "Deuda Fin. Neta (M€)",
-          "valor": 25278
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 25278.0
         },
         {
-          "nombre": "DFN/EBITDAaL (x)",
-          "valor": 2.68
+          "nombre": "Ingresos Telefónica España (M€)",
+          "valor": 6513.0
         },
         {
-          "nombre": "%Var Ingresos",
-          "valor": 1.7
+          "nombre": "Ingresos Telefónica Brasil (M€)",
+          "valor": 5195.0
         },
         {
-          "nombre": "%Var EBITDA",
-          "valor": 3.8
+          "nombre": "Ingresos Telefónica Deutschland (M€)",
+          "valor": 3693.0
+        },
+        {
+          "nombre": "Accesos FTTH (miles)",
+          "valor": null
+        },
+        {
+          "nombre": "Accesos totales (miles)",
+          "valor": null
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Desinversión",
-          "hecho": "Salida de Hispam prácticamente completada: desconsolidación de T. Colombia (5-feb-26) y T. Móviles Chile (10-feb-26) y venta de T. México cerrada el 7-abr-26, sujeta a ciertas condiciones incluidas autorizaciones regulatorias. Todas reportadas como operaciones en discontinuación desde el 1-ene-26, con 2025 restatado.",
-          "impacto": "+",
-          "valoracion": "Ejecuta el eje del plan Transform & Grow: aporta 2.614 M€ de desinversiones netas que explican la caída de 1.546 M€ de la deuda neta en el semestre. El precio es contable: −812 M€ de discontinuadas dejan el atribuido en −338 M€ (BPA −0,09 €). No cambia el PO de 4,14 €; sí obliga a comparar contra bases restatadas — el 1S-25 pasa de 18.013 a 16.112 M€ de ingresos."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Revisión AL ALZA del objetivo 2026 de crecimiento del OpCFaL ajustado, de «por encima del 2%» a «por encima del 3%» interanual constante. El resto de objetivos 2026 se mantiene sin cambios.",
-          "impacto": "+",
-          "valoracion": "Primera subida de guía del equipo de Murtra: señal de credibilidad y de que el apalancamiento operativo funciona. Matiz que no hay que perder: la mejora viene de EFICIENCIA, no de crecimiento — los ingresos van a +0,4% cte. frente a un objetivo de +1,5-2,5%. He actualizado la fila FY-2026 (GUÍA) del §10.3."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "Confirmado el dividendo de 2026 de 0,15 €/acción en efectivo, pagadero en junio de 2027. El segundo tramo del dividendo de 2025 (0,15 €) se pagó el 18-jun-2026. Para 2027-28 la retribución se vinculará a un payout del 40-60% del flujo de caja libre base para dividendos.",
-          "impacto": "=",
-          "valoracion": "Confirma el nivel ya recortado e incorporado a la tesis (dpaPrevisto 0,15 €). El paso a un payout sobre CAJA es sano: elimina el ancla del beneficio contable, que en esta compañía lleva dos ejercicios en negativo por saneamientos. Checklist B4: 0 predictores duros / 2 blandos (b2 cobertura de intereses 2,15x; b3 Bº ajustado −21,0% YoY sostenido) → «vigilar dividendo», sin S2. Rating estable en las tres agencias (Baa3/BBB/BBB−), así que b6 no se activa."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Programa de reestructuración de empleados en Alemania, con 265 M€ de costes registrados en 2T-26.",
-          "impacto": "=",
-          "valoracion": "Coste hoy a cambio de margen mañana: Alemania ya mejora margen +1,4 pp pese a caer los ingresos −11,1%. Es el mismo patrón del ERE de España de 2023-24. A vigilar que el ahorro aparezca en 2S-26, como promete la compañía, porque de ahí sale buena parte de la guía subida de OpCFaL."
-        },
-        {
-          "tipo": "Contrato",
-          "hecho": "Nuevo acuerdo de OMV con Monzo en VMO2, ampliando el negocio mayorista en Reino Unido.",
-          "impacto": "+",
-          "valoracion": "Marginal en cifras, pero sostiene el pilar mayorista de VMO2, cuya aportación por puesta en equivalencia sigue siendo negativa (−243 M€ en el semestre) y es una de las patas flojas de la tesis."
-        },
-        {
-          "tipo": "Financiero",
-          "hecho": "El coste medio de los intereses de la deuda baja del 3,23% al 2,95% y el colchón de liquidez asciende a 17,4 Bn€ (7,3 de caja, 5,9 de líneas comprometidas y 4,2 de bilaterales), con 4,5 Bn€ de financiación captada en lo que va de 2026. Objetivo explícito de apalancamiento de 2,5x en 2028, con compromiso de mantener el grado de inversión.",
-          "impacto": "+",
-          "valoracion": "Es la mejor noticia del semestre y la que sostiene el ámbar en vez de un rojo: 28 puntos básicos menos de coste sobre 25.278 M€ de deuda son ~70 M€ anuales, y la senda a 2,5x da un ancla verificable a la reducción de apalancamiento."
-        },
-        {
-          "tipo": "Reestructuración",
-          "hecho": "Alemania: además de los 265 M€ ya registrados, el plan de 2026 contempla ~1.100 bajas voluntarias y el cierre de ~60 tiendas propias.",
-          "impacto": "-",
-          "valoracion": "Pone dimensión al ajuste alemán: no es solo una provisión, es una reducción de capacidad comercial. Confirma que la contracción de Alemania es estructural y no un mal trimestre."
-        },
-        {
-          "tipo": "Resultados",
-          "hecho": "Cuenta de resultados del semestre (estados financieros intermedios): operaciones continuadas +614 M€, operaciones en discontinuación −821 M€, resultado del periodo −207 M€, atribuido a los accionistas de la dominante −338 M€ (+474 de continuadas y −812 de discontinuadas) y +132 M€ a minoritarios. El «beneficio neto ajustado de operaciones continuadas» que titula el informe de resultados son 954 M€ (−21,0%).",
-          "impacto": "=",
-          "valoracion": "Las dos cifras son reales y miden cosas distintas, y confundirlas es lo que tenía el §10.3 diciendo una cosa y su propio resumen la contraria. El −338 es el resultado del accionista y es el que sigue la serie; el 954 mide el negocio que se queda, ya sin Hispam, y cae un 21%. Ninguna de las dos sostiene sola la lectura del semestre: la primera está distorsionada por la salida y la segunda la ignora."
-        }
-      ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     }
   ]
 }

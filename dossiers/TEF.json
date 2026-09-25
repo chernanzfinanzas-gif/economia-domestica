@@ -2,106 +2,117 @@
  "schemaVersion": 8,
  "ticker": "TEF",
  "empresa": "Telefónica, S.A.",
- "fecha": "2026-07-21",
+ "fecha": "2026-09-26",
  "rating": "BBB",
- "score": 51,
+ "score": 51.1,
  "decision": "MANTENER",
- "metodoValoracion": "DCF de flujo al accionista (FCFE) + múltiplos — teleco apalancada. PO oficial = síntesis Cap. VI 4,14 € (0,45×DCF FCFE base 4,60 + 0,55×múltiplos 3,76). El WACC del CAPM (3,2%) es inservible por la beta 0,29; se usó Ke sectorial 8,2%.",
- "poBear": 3.01,
- "poBase": 4.14,
- "poBull": 5.3,
- "entMin": 3.0,
- "entMax": 3.3,
- "stop": 2.6,
+ "metodoValoracion": "DCF de dos fases a tres escenarios sobre el flujo recurrente al accionista ordinario, media 2023-2025 (2.713,7 M€), al WACC del método (6,50 %, suelo del arquetipo ESCALABLES) + múltiplos históricos de diez años (EV/EBITDA, P/FCL, P/BV) — arquetipo ESCALABLES · telecomunicaciones. PO oficial = síntesis ponderada del §6.5 (DCF 65 · múltiplos 35), 4,05 €; bear 3,23 € (riesgo estructural en su extremo suave), bull 4,74 € (catalizadores de balance del §9.1).",
+ "poBear": 3.23,
+ "poBase": 4.05,
+ "poBull": 4.74,
+ "entMin": 3.23,
+ "entMax": 3.52,
+ "stop": 2.04,
  "dpaPrevisto": 0.15,
- "moat": "Estrecho (54,5): escala de incumbente y barreras de entrada altas (espectro, red), pero sin poder de fijación de precios; la portabilidad anula el lock-in y el ROIC ya convergió al coste del capital.",
+ "moat": "43,9 sobre 100 · SIN MOAT CLARO (horquilla de ponderación 37,9–49,6). Un solo pilar: la escala eficiente (60) en mercados de pocos operadores con red; intangibles 45, costes de cambio 40, ventaja de costes 30 y efecto de red N/A. La escala no se ve en el retorno: margen EBIT del 3,8 % en 2025, el último de seis peers europeos.",
  "catalizadores": [
-  "Estabilización de ingresos de servicio y OIBDA-aL en línea con el plan Murtra",
-  "Consolidación in-market en Europa (Alemania/UK)",
-  "Continuación del desapalancamiento (deuda neta −37% desde 2016)",
-  "Bajada de tipos del BCE",
-  "Dividendo (0,15 €) sostenible y cubierto por FCF"
+  "El mercado español se ordena con tres operadores (Orange compra el 100 % de MasOrange, cierre previsto en 2026): +8,80 % al precio objetivo. Trigger: ARPU de contrato en España plano o al alza dos trimestres seguidos, con portabilidades netas no negativas.",
+  "El apalancamiento se acerca al objetivo de ≈2,5x en 2028 y el mercado lo re-precia (+10 % de múltiplo): +4,86 %. Trigger: deuda neta / EBITDAaL por debajo de 2,6x en un cierre trimestral y mejora de perspectiva de una agencia.",
+  "El dividendo se recorta a la mitad (0,15 € para 2026) y la caja se queda dentro: +3,15 %. Trigger: la deuda neta cae en 2026 al menos en la caja retenida.",
+  "Chile vendida (10-feb-2026) y la salida de Hispam se cierra: +0,16 % contando sólo el cobro al cierre. El ahorro del ERE de España no tiene importe publicado: Pte. Revisión."
  ],
  "riesgos": [
-  "Recorte del dividendo (ya materializado a 0,15 € para 2026)",
-  "Guerra de precios y pérdida de cuota frente a Digi",
-  "Deterioro adicional del fondo de comercio (goodwill > patrimonio atribuible)",
-  "Tipos altos y refinanciación (% deuda fija cayó al 57%)",
-  "Interferencia política/gobernanza (SEPI ~10%, STC)"
+  "Estructural (Alta) · −20,17 a −39,05 %: el retorno no vuelve por encima de su coste. El ROIC (2,31 % en 2025) queda por debajo del WACC del método en siete de los diez años.",
+  "Divisa (Media) · −20,58 a −41,16 %: Brasil pesa el 26,9 % de las ventas y el 47,3 % del EBITDA; una devaluación del real llega entera al accionista a través de 26.824 M€ de deuda neta.",
+  "Competitivo (Alta) · −17,32 a −34,29 %: el bajo coste entra sin red propia (Digi en España, 1&1 en Alemania, donde la cuota móvil cayó del 31,4 % al 26,4 % en un año).",
+  "Operativo (Alta) · −5,28 a −15,21 %: las reestructuraciones se repiten (planes de plantilla en 2016, 2019, 2021, 2023 y 2025); el flujo base ya descuenta 929,7 M€ al año de pagos a empleados, y el riesgo es que se paguen más deprisa (+89,3 a +257,3 M€ al año)."
  ],
- "bull": "Estabilización operativa + consolidación europea + bajada de tipos → re-rating a ~5,3 € (+48%).",
- "bear": "Nuevo recorte de dividendo + presión de Digi + impairment de goodwill → ~2,4 € (−33%).",
- "resumen": "Telefónica es una historia de valor, no de calidad: mayor rendimiento por dividendo del sector y expectativas de mercado muy bajas (reverse DCF undemanding), pero balance apalancado (DN/EBITDA ~5x), ROIC (2,2%) por debajo del WACC y dividendo recortado a la mitad (0,15 € en 2026). PO 4,14 € (+15%); la asimetría (bear −33%) y el rating BBB/moat estrecho descartan comprar en firme. MANTENER; entrada disciplinada por debajo de 3,30 €.",
+ "bull": "4,74 €/acc. Los catalizadores derivables del §9.1 a la vez: la caja que retiene el recorte del dividendo, el cobro al cierre de Chile, un re-rating del 10 % al acercarse al apalancamiento objetivo y el mercado español con tres operadores. Es un bull corto (+17,1 % sobre el PO) porque los catalizadores son de balance: ninguno hace crecer el negocio.",
+ "bear": "3,23 €/acc (0,798 × PO). El riesgo dominante —el estructural: el retorno no vuelve por encima de su coste— en su extremo suave: el crecimiento de los tres escenarios del DCF baja 0,5 pp y el CAPEX sube 250 M€ al año.",
+ "resumen": "MANTENER. Precio objetivo 4,05 €/acc con un margen de seguridad del +17,36 % sobre 3,45 € (25-sep-2026): el precio pasa el umbral del 15 % y la pérdida al bear desde la entrada máxima (−8,2 %) también, pero la empresa no: rating BBB (51,1) y SIN MOAT CLARO (43,9). La tesis cuelga de una variable, el margen EBITDA multiplicado por 26.824 M€ de deuda neta: un punto de margen se lleva el 17,59 % del PO. Dividendo en banda Frágil (21/100) y ya recortado a 0,15 € para 2026. Posición pequeña, no se amplía.",
  "confianza": {
-  "score": 100,
+  "score": 90,
   "nivel": "A",
   "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
+   "1 input(s) crítico(s) en 'Pte. Revisión' (−8)",
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
   ],
-  "sensibleASupuestos": false,
+  "sensibleASupuestos": true,
   "reglaDura": {
    "bloqueaCompraEnFirme": false,
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-26"
+  "calculadoEl": "2026-09-25"
  },
  "robustez": {
-  "nivel": "solida",
-  "sobreviveDecision": true,
-  "matizada": true,
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
   "banda": {
-   "p10": 3.01,
-   "p50": 4.14,
-   "p90": 5.3
+   "p10": 3.23,
+   "p50": 4.05,
+   "p90": 4.74
   },
   "sensibilidad": {
-   "poMin": 4.08,
-   "poMax": 5.32,
-   "poBase": 4.6,
-   "cotizacion": 3.588,
-   "ejeCoste": "Ke",
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 3.39,
+   "poMax": 5.27,
+   "poBase": 4.05,
+   "cotizacion": 3.45,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.35,
+   "componentesIntactos": 5,
+   "dcf": {
+    "poMin": 2.66,
+    "poMax": 8.04,
+    "poBase": 4.55697482558685
+   },
+   "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": 13.7,
-   "mdsMax": 48.3
+   "mdsMin": -1.9,
+   "mdsMax": 52.6
   },
   "beta": {
-   "capm": 0.29,
-   "ref2": 0.85,
-   "aviso": "beta CAPM 0.29 vs 2ª ref 0.85: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC"
+   "capm": 0.751,
+   "ref2": null,
+   "aviso": null
   },
   "motivos": [
-   "la cotización (3.59) queda por DEBAJO de toda la banda de PO [4.1–5.3] bajo Ke±1.0pp/g_TV±0.5pp → infravalorada en todo el rango; decisión de compra ROBUSTA",
-   "beta CAPM 0.29 vs 2ª ref 0.85: divergencia 0.56 > 0.3 → revisar cuál usar en el WACC",
-   "matiz: el DCF (§6.3) la ve robustamente barata, pero la decisión oficial es MANTENER — el PO de síntesis §6.5 mezcla múltiplos/margen; el badge «sólida» indica robustez del DCF, no señal de compra"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (35 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 65 % restante de la ponderación —los otros 5 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (3.45) cae DENTRO de la banda del precio objetivo de síntesis [3.39–5.27], y la banda de margen de seguridad [-1.9 % … +52.6 %] CRUZA el umbral del 5 % y del 15 % de la tabla del §9.4 → la decisión DEPENDE del supuesto de coste de capital/crecimiento (SENSIBLE)",
+   "para contraste, el DCF puro (§6.3) se mueve en [2.66–8.04] € alrededor de 4.56 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-25"
  },
  "dividendSafety": {
-  "score": 55,
-  "banda": "Vigilar",
+  "score": 21,
+  "banda": "Frágil",
   "componentes": {
-   "C1": 35,
+   "C1": 10,
    "C2": null,
-   "C3": 3,
-   "C4": 9,
+   "C3": 5,
+   "C4": null,
    "C5": 0
   },
-  "shareholderYield": null,
+  "shareholderYield": 8.86,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
-   "C1 cobertura base 2.52x → 35/35",
+   "C1 cobertura dividendo ord.: OE 1.11x / FCL 2.51x (3a OE 1.69x) → 10/35",
    "C2 payout BN: sin datos → no puntúa",
-   "C3 balance: DN/EBITDA 4.97x, cob.int 1.2x → 3/20",
-   "C4 trayectoria: 1 recorte(s) en 10a → 9/15",
+   "C3 balance: DN/EBITDA 3.09x, cob.int 0.5x → 5/20",
+   "C4 trayectoria: histórico de DPA insuficiente → no puntúa",
    "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja YoY, beneficio neto a la baja YoY, recompras recortadas/suspendidas → 0/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-25"
  },
  "forense": {
   "aplica": true,
@@ -113,57 +124,230 @@
     "cfo_pos": 1,
     "roa_up": 0,
     "accrual": 1,
-    "lever_dn": 0,
+    "lever_dn": 1,
     "liquid_up": 1,
     "no_dilu": 1,
     "margin_up": 0,
-    "turn_up": 1
+    "turn_up": 0
    },
    "nota": "margen=bruto"
   },
   "altman": {
-   "z": null,
-   "zona": "Pte. Revisión"
+   "z": 4.04,
+   "zona": "segura"
   },
   "beneish": {
-   "m": -3.12,
+   "m": -3.3,
    "senal": "sin indicios",
    "aproximado": [
-    "DEPI",
-    "DSRI",
     "SGAI"
    ]
   },
   "sloan": {
-   "accruals": -14.4,
+   "accruals": -14.6,
    "senal": "muy conservador"
   },
   "flags": [],
   "veto": false,
   "vetoMotivos": [],
-  "calculadoEl": "2026-07-21"
+  "calculadoEl": "2026-09-25"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -1.2,
-  "gIntrinseco": -3.03,
+  "gImplicito": -1.69,
+  "gIntrinseco": -1.02,
   "veredicto": "PLAUSIBLE",
-  "motivo": "El precio solo exige un -1.20% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
-  "calculadoEl": "2026-07-27",
+  "motivo": "El precio solo exige un -1.69% de crecimiento del FCL, por debajo del propio g terminal del 2.0%: el mercado no está pagando ni el crecimiento con la inflación. No se compara con el g intrínseco porque es negativo — la empresa devuelve capital en vez de reinvertirlo, que es una característica de un negocio maduro, no un dato que falte.",
+  "calculadoEl": "2026-09-25",
   "entradas": {
-   "fcl": 1550,
-   "wacc": 8.2,
+   "fcl": 2713.66666666667,
+   "wacc": 6.5,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 5636.69,
-   "deudaNeta": 0.0,
-   "modo": "CAP",
-   "precioBase": 3.588,
+   "acciones": 5670.162,
+   "deudaNeta": 26824,
+   "modo": "EV",
+   "precioBase": 3.45,
    "validado": true,
    "desviacion": -0.004,
-   "gBase": -1.204,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "gBase": -1.694,
+   "fechaBase": "2026-09-25",
+   "congeladoEl": "2026-09-26"
   }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-25",
+  "fuente": "Datos Financieros Telefónica.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 4,
+   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
+   "lema": "ni reinvierte ni rinde",
+   "porSpread": true,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 11.5,
+    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 0.0,
+   "roiic5a": null,
+   "roiic": null,
+   "roiicVentana": null,
+   "roicMedio": 6.65,
+   "spread": -4.19,
+   "wacc": 6.5,
+   "conversionMedia": 40.35,
+   "coberturaDividendo": 2.74,
+   "gIntrinseco": -1.02,
+   "capexCrecimiento10a": 0.0,
+   "fcl10a": 53629.0,
+   "retribucion10a": 22128.4,
+   "retribucionSobreFcl": 41.3
+  },
+  "tension": {
+   "anios": [
+    2021,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    2.37,
+    3.36,
+    2.74
+   ],
+   "coberturaOe": [
+    2.03,
+    2.9,
+    2.61
+   ],
+   "payoutBn": [
+    21.3,
+    null,
+    null
+   ],
+   "payoutFcl": [
+    42.2,
+    29.8,
+    36.4
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una red: <b>capital pesado que hay que reponer siempre</b>. El CAPEX es el <b>15,8 % de las ventas</b> en la década y todo es de mantenimiento: el libro no encuentra un euro de CAPEX de crecimiento en diez años. La conversión del EBITDA en caja libre es del 40,4 % de media, y ningún año llega al 60 %.",
+     "Lo que vende es conectividad por suscripción en cuatro mercados —España, Brasil, Alemania y Reino Unido—, un servicio esencial con clientes recurrentes. La demanda aguanta; lo que no aguanta es el precio, porque en cada mercado hay un operador de bajo coste dispuesto a quitarle clientes."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De casi ningún sitio.</b> El ROIC medio de la década es del 6,7 %, y eso contando 2021, que lleva las plusvalías de las torres y de Reino Unido. Contra un WACC del 6,50 %, el spread fue negativo en siete de los diez años, y en 2025 es de −4,19 pp.",
+     "El capital tampoco crece: la reinversión neta es nula y el capital invertido baja con cada venta de activos. De los 53.629 M€ de flujo libre de la década, <b>22.128 M€ —el 41 %— han vuelto al accionista</b>; el resto ha ido a pagar deuda, intereses, arrendamientos y planes de plantilla."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En la deuda que hay delante del accionista. Con 26.824 M€ de deuda neta, <b>un punto de margen EBITDA son 351 M€ y se lleva el 17,59 % del precio objetivo</b>. Por eso la tesis cuelga de una sola variable, el margen, y la deuda la multiplica.",
+     "La caja lo enseña: el dividendo con cargo a 2025 está cubierto 2,74x por el flujo libre, pero la empresa ya lo ha recortado a la mitad para 2026, y los planes de salida de plantilla —uno cada dos años desde 2015— se comen cada vez parte de esa caja."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Telefónica compra <b>una red grande que no rinde su coste y que se ha pasado la década vendiendo activos para bajar deuda</b>. La casilla 4 no dice que la empresa vaya a quebrar —la liquidez es amplia y el rating es de grado de inversión—, sino que no ha encontrado dónde poner capital a un retorno que supere lo que cuesta.",
+     "<b>Qué vigilar, por ser familia 4:</b> el retorno y la reestructuración. Que el ROIC vuelva por encima del 3 % y que 2027 pase sin un plan de plantilla nuevo. Y el margen EBITDA ajustado, que es la señal única de la tesis."
+    ]
+   }
+  ],
+  "vigilar": "El margen EBITDA ajustado del grupo, la señal única del §10.1: dos trimestres seguidos de caída a tipos constantes abren revisión. Y, por ser familia 4, el retorno: que el ROIC del método vuelva por encima del 3 % en 2026 y no aparezca otro plan de plantilla antes de pagar el de 2025.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De la conectividad en cuatro mercados: España, Brasil, Alemania y Reino Unido (al 50 %). Brasil es el 26,9 % de las ventas y el 47,3 % del EBITDA.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Justo: 26.824 M€ de deuda neta, 3,09x el EBITDA contable, pero con grado de inversión (BBB-) y una liquidez amplia. Es el punto débil que lo multiplica todo.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Menos de lo que cuesta: ROIC del 6,7 % de media contra un WACC del 6,50 %, y del 2,31 % en 2025. El spread fue negativo siete de los diez años.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 4 · La que se quedó sin sitio: ni reinvierte ni rinde. Reinvierte el 0,0 % del NOPAT de media; el ROIIC no es significativo y la casilla sale del spread (−4,19 pp).",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Sí, pero se va en la deuda: el flujo libre cubre el dividendo de 2025 2,74x, y aun así la empresa lo ha recortado a 0,15 € para 2026.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "BBB · 51,1 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 4,05 € contra 3,45 €: margen de seguridad +17,4 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Casi nada: SIN MOAT CLARO (43,9). Un solo pilar, la escala en mercados de pocos operadores con red, que no se ve en el margen: el EBIT es el último de seis peers.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El retorno que no vuelve por encima de su coste (−20,17 a −39,05 % del precio objetivo). Detrás, Brasil y el real (−20,58 a −41,16 %): el 47,3 % del EBITDA.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el mercado español se ordene con tres operadores (+8,80 %), el re-rating al bajar la deuda (+4,86 %) y la caja que retiene el recorte del dividendo (+3,15 %). Juntos, 4,74 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>MANTENER</b> · banda de entrada 3,23 – 3,52 € · stop de tesis 2,04 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El margen EBITDA ajustado del grupo, la señal única del §10.1: dos trimestres seguidos de caída a tipos constantes abren revisión. Y, por ser familia 4, el retorno: que el ROIC del método vuelva por encima del 3 % en 2026 y no aparezca otro plan de plantilla antes de pagar el de 2025.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Si los planes de plantilla van a seguir: hubo en 2016, 2019, 2021, 2023 y 2025. Tampoco se conoce el ahorro anual del ERE de 2025, que la empresa no publica.",
+    "origen": "escrita"
+   }
+  ]
  }
 }
