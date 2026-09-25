@@ -5,18 +5,29 @@
   "revisiones": [
     {
       "periodo": "2023-Q1",
-      "fecha": "2023-04-27",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "Primer trimestre del desplome: ventas −16,9% (−17,9% a moneda constante) y EBITDA −28,9% por la corrección de inventario en el canal tras la burbuja. La DN/EBITDA salta a 3,20x, por encima del umbral ámbar del §10.1 (2,50-3,50x) y el peor dato de la serie. Solo el segmento Comercial (+2,1%) y Tratamiento de Agua (−2,3%) aguantan: es la primera evidencia de que el aftermarket amortigua y la obra nueva no.",
+      "periodoDisplay": "1T",
+      "fecha": "2023-05-10",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 554
+          "valor": 554.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -17.9
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 238.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 230.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -24,49 +35,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 121
+          "valor": 121.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 41
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 21.8
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1478
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 60.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 3.2
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": -138.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 394
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 41
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 82
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 3.19
         }
       ],
-      "periodoDisplay": "1T"
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q2",
-      "fecha": "2023-07-27",
-      "semaforoGlobal": "R",
-      "tesisSigueIntacta": false,
-      "resumen": "El deterioro se confirma en el semestre: ventas −18,0% y Residencial −21,0%, mientras Comercial crece un 3,6% a perímetro constante. El margen bruto ya mejora (52,5% frente al 51,1% de 2022) gracias al precio, que es la primera señal de que la caída es de volumen y no de poder de precio. Apalancamiento todavía en 3,00x.",
+      "periodoDisplay": "S1",
+      "fecha": "2023-07-28",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1186
+          "valor": 1186.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -18.0
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 480.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 544.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -74,49 +88,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 288
+          "valor": 288.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 104
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 24.3
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1300
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 151.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 3.0
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 42.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 840
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 97
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 172
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.96
         }
       ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
       "fecha": "2023-10-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Pasa a ámbar: la deuda neta baja de 1.325 a 1.230 M€ y el ratio a 2,90x, con el margen bruto en 52,4% frente al 51,2% del año anterior. Las ventas siguen cayendo (−16,2% cte.) pero el ritmo se modera respecto al −18,0% del semestre. La caída es severa y sigue, pero la generación de caja y el margen ya no se deterioran.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1623
+          "valor": 1623.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -16.2
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 658.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 718.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -124,49 +141,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 366
+          "valor": 366.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 108
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 22.6
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1230
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 180.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.9
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 236.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1139
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 140
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 242
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.91
         }
       ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2023-Q4",
-      "fecha": "2024-02-27",
+      "periodoDisplay": "FY",
+      "fecha": "2024-02-29",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Cierre del peor año del ciclo con la tesis intacta: ventas −14,2% y beneficio −28,8%, pero margen bruto en 53,2% (+1,9 pp) y deuda neta reducida en 147 M€ hasta 2,60x. Comercial cierra +4,8% y Tratamiento de Agua solo −8,3%, frente al −16,5% de Residencial: el aftermarket hizo exactamente lo que la tesis dice que hace. Ámbar y no rojo porque el balance mejora mientras cae la cuenta de resultados.",
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás y se deja en ámbar por prudencia, no por deterioro.",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 2051
+          "valor": 2051.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -12.7
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 870.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 827.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -174,63 +194,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 445
+          "valor": 445.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 114
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 21.7
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1172
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 211.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.6
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 365.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1440
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 181
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 300
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.63
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Dividendo",
-          "hecho": "Recorte del dividendo por acción de 0,70 € a 0,55 € con cargo al ejercicio 2023.",
-          "impacto": "-",
-          "valoracion": "Segundo recorte consecutivo desde los 0,85 € de 2021. Confirma que el dividendo de Fluidra es consecuencia del ciclo y no una promesa: es el dato que hunde a 3/15 el componente de trayectoria del Dividend Safety Score."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Puesta en marcha del Programa de Simplificación 2023-2025, con objetivo de 100 M€ de EBITDA ajustado.",
-          "impacto": "+",
-          "valoracion": "La respuesta ortodoxa al ciclo adverso: recortar coste en vez de perseguir volumen. Es el plan que sostiene la recuperación de margen de 2024-2025 y el antecedente que hace creíble el nuevo plan de 120 M€."
-        }
-      ],
-      "periodoDisplay": "FY"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q1",
-      "fecha": "2024-04-25",
-      "semaforoGlobal": "A",
-      "tesisSigueIntacta": true,
-      "resumen": "La caída se frena: −4,8% frente al −16,9% del año anterior, y el margen bruto salta al 54,8% (+2,7 pp) por el Programa de Simplificación. Sigue en ámbar por el apalancamiento estacional de 3,00x —el primer trimestre siempre es el peor— y porque Residencial aún cae un 5,1%. Comercial (+7,6%) y el margen son lo que sostiene.",
+      "periodoDisplay": "1T",
+      "fecha": "2024-05-08",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ventas -4.9 %, EBITDA ajustado -2.5 %, Beneficio neto ajustado -1.7 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 54.8 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 5.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 527
+          "valor": 527.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -4.4
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 239.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 206.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -238,99 +247,105 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 118
+          "valor": 118.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 37
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 22.4
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1345
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 59.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 3.0
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": -146.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 374
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 44
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 77
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 3.04
         }
       ],
-      "periodoDisplay": "1T"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q2",
-      "fecha": "2024-07-25",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "S1",
+      "fecha": "2024-08-01",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Primer verde de la serie: EBITDA +2,8% con ventas prácticamente planas, margen bruto en 55,9% (+3,4 pp) y deuda neta un 11,5% menor, con el ratio en 2,50x, ya en el umbral verde del §10.1. El beneficio atribuido crece un 7,5%. El negocio ha dejado de caer y la eficiencia está haciendo el trabajo que el volumen no hace.",
+      "resumen": "Ventas -1.3 %, EBITDA ajustado +2.8 %, Beneficio neto ajustado +4.0 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 55.9 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1171
+          "valor": 1171.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": -1.5
         },
         {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 500.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 514.0
+        },
+        {
           "nombre": "Margen bruto (%)",
           "valor": 55.9
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 296
+          "valor": 296.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 112
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 25.3
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1151
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 157.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.5
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 62.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 834
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 99
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 167
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.54
         }
       ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q3",
-      "fecha": "2024-10-24",
-      "semaforoGlobal": "V",
+      "periodoDisplay": "9M",
+      "fecha": "2024-10-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
+      "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Vuelta al crecimiento: +0,8% de ventas y +5,6% de EBITDA, con el beneficio atribuido +14,1%. La DN/EBITDA baja a 2,30x, seis décimas mejor que un año antes, y el margen bruto se consolida en 55,9%. Los tres segmentos crecen. Es el trimestre que confirma que el suelo de 2023 fue suelo y no escalón.",
+      "resumen": "Ventas +0.9 %, EBITDA ajustado +5.5 %, Beneficio neto ajustado +7.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 55.9 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1637
+          "valor": 1637.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 0.9
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 690.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 701.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -338,49 +353,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 386
+          "valor": 386.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 123
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 23.6
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1069
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 194.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 201.0
+        },
+        {
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
           "valor": 2.3
-        },
-        {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1155
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 143
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 242
         }
       ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2024-Q4",
-      "fecha": "2025-02-26",
+      "periodoDisplay": "FY",
+      "fecha": "2025-02-27",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Cierre en la parte alta del guidance: ventas +2,5%, EBITDA ajustado +7,3% y beneficio +21,3%, con crecimiento de volumen por primera vez desde 2021. Margen bruto en 56,6% (+3,4 pp) y apalancamiento en 2,37x. Los cuatro KPIs críticos del §10.1 —margen, EBITDA, deuda y cobertura— mejoran a la vez. Tesis reforzada.",
+      "resumen": "Ventas +2.5 %, EBITDA ajustado +7.2 %, Beneficio neto ajustado +10.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.6 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 6.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 2102
+          "valor": 2102.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 2.6
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 935.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 812.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -388,63 +406,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 477
+          "valor": 477.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 138
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 22.7
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1132
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 233.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 238.0
+        },
+        {
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
           "valor": 2.37
-        },
-        {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1488
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 185
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 304
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Gobierno",
-          "hecho": "Jaime Ramírez, procedente de Stanley Black & Decker, sustituye a Bruce Brooks como consejero delegado desde el 1 de junio de 2024.",
-          "impacto": "=",
-          "valoracion": "Relevo de ejecución, no de criterio: Brooks permanece como vocal del Consejo y el ancla familiar y financiera no se mueve. Neutro para la tesis, positivo para el plan de eficiencia."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Cierre de 2024 en la parte alta del guidance, con crecimiento de volumen por primera vez desde 2021.",
-          "impacto": "+",
-          "valoracion": "Primera confirmación de que el suelo de 2023 fue suelo. Refuerza el escenario base del DCF, que solo pide un 4,0% de crecimiento."
-        }
-      ],
-      "periodoDisplay": "FY"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q1",
-      "fecha": "2025-04-24",
+      "periodoDisplay": "1T",
+      "fecha": "2025-05-07",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Arranque fuerte: +6,9% de ventas (+5,1% a moneda constante), EBITDA ajustado +10,4% y beneficio +29,3%, con el margen bruto en un máximo de 57,3%. El ratio de 2,70x es estacional —el primer trimestre consume circulante— y mejora tres décimas interanuales. Residencial +8,3% es la primera señal real de recuperación del volumen.",
+      "resumen": "Ventas +7.0 %, EBITDA ajustado +11.0 %, Beneficio neto ajustado +11.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.3 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 4.6 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 564
+          "valor": 564.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 5.1
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 262.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 217.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -452,57 +459,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 131
+          "valor": 131.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 48
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 23.2
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1335
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 66.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.7
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": -191.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 405
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 47
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 77
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.72
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Cierre de la compra del 100% de BAC Pool Systems, fabricante de cubiertas con operaciones en Alemania y Suiza.",
-          "impacto": "+",
-          "valoracion": "Compra de complemento financiada con caja, coherente con el papel de consolidadora en un sector fragmentado. Tamaño no material para el precio objetivo."
-        }
-      ],
-      "periodoDisplay": "1T"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q2",
-      "fecha": "2025-07-24",
+      "periodoDisplay": "S1",
+      "fecha": "2025-07-31",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Semestre sólido con crecimiento en las tres regiones: ventas +4,8%, EBITDA ajustado +6,1% y beneficio +21,1%. La deuda neta baja a 1.116 M€ y el ratio a 2,40x pese a haber financiado la compra de BAC. Comercial acelera al +7,5% y Tratamiento de Agua al +4,2%: el aftermarket crece a la vez que la obra nueva se recupera.",
+      "resumen": "Ventas +4.8 %, EBITDA ajustado +6.1 %, Beneficio neto ajustado +8.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.5 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 1.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1227
+          "valor": 1227.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 5.4
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 527.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 538.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -510,69 +512,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 314
+          "valor": 314.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 136
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 25.6
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1116
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 171.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.4
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 3.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 873
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 106
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 174
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.25
         }
       ],
-      "hechos": [
-        {
-          "tipo": "M&A",
-          "hecho": "Inversión de 100 M$ por el 27% de Aiper, fabricante de robots limpiafondos sin cable, con opción de mayoría condicionada a que alcance 370 M$ de ingresos y ~15% de margen EBITDA.",
-          "impacto": "+",
-          "valoracion": "La operación más relevante del periodo. Compra opcionalidad sobre la disrupción de su propio canal —el robot inalámbrico vendido directo al consumidor— y condiciona el precio del control a que el activo demuestre el resultado. Disciplina de asignación de capital, pero introduce un compromiso futuro de caja no cuantificado."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Compra del 100% de PoolTrackr, plataforma SaaS de gestión para profesionales de piscina, lanzada en Australia.",
-          "impacto": "+",
-          "valoracion": "Refuerza el vínculo con el instalador profesional, que es el pilar real del moat de costes de cambio (60/100). Impacto en cifras irrelevante a corto."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Capital Markets Day de abril de 2025: objetivos a medio plazo de ventas +6% a +8%, margen EBITDA ajustado >25% y ROCE >17%.",
-          "impacto": "=",
-          "valoracion": "El objetivo de margen queda lejos: 22,9% en 2025 y un guidance 2026 de 23,3-24,3% que ya admite que no se alcanzará. Los objetivos del CMD no sirven como base de proyección; el guidance anual sí."
-        }
-      ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
       "fecha": "2025-10-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "El mejor trimestre del periodo analizado: ventas +5,3% (+6,6% cte.) con aceleración al +10% en el trimestre estanco, beneficio atribuido +33,0% y DN/EBITDA en 2,10x, el mínimo de la serie. Los gastos de reestructuración caen un 58% al terminar el Programa de Simplificación. El margen bruto cede una décima por mix geográfico y aranceles, y es lo único que conviene vigilar.",
+      "resumen": "Ventas +5.3 %, EBITDA ajustado +6.5 %, Beneficio neto ajustado +9.8 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto sube un 0.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1724
+          "valor": 1724.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 6.6
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 729.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 742.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -580,57 +565,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 411
+          "valor": 411.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 163
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 23.8
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1034
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 213.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.1
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 153.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1210
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 156
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 255
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.06
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Otros",
-          "hecho": "Reconocidos «Proveedor del Año» por los tres principales distribuidores de EE. UU. por quinto año consecutivo.",
-          "impacto": "+",
-          "valoracion": "Evidencia observable del pilar de intangibles del moat (72/100), el único que puntúa alto. Ganar cuota en un año de mercado plano es la señal más fiable de ventaja competitiva real."
-        }
-      ],
-      "periodoDisplay": "9M"
+      "origen": "revolcado"
     },
     {
       "periodo": "2025-Q4",
-      "fecha": "2026-02-25",
+      "periodoDisplay": "FY",
+      "fecha": "2026-02-26",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Cierre del ejercicio base del análisis, dentro del guidance: ventas +3,9% (+6,1% a moneda constante y perímetro), EBITDA ajustado 501 M€ (+5,0%, margen 22,9%) y beneficio atribuido +27,5%. Deuda neta en 1.087 M€ y ratio en 2,20x pese a financiar cuatro adquisiciones y la fase I de Aiper. El margen bruto se mantiene estable en 56,6% absorbiendo aranceles e inflación. Verde con una reserva: el crecimiento sigue apoyado en precio y eficiencia más que en volumen de obra nueva, y las coberturas de tipos vencieron en junio de 2026.",
+      "resumen": "Ventas +3.9 %, EBITDA ajustado +5.0 %, Beneficio neto ajustado +7.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.6 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto se mantiene plana un 0.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 2184
+          "valor": 2184.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
+          "nombre": "Crecimiento orgánico (%)",
           "valor": 6.1
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 959.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 861.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -638,69 +618,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 501
+          "valor": 501.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 176
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 22.9
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1087
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 250.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.2
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 272.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 1532
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 200
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 321
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.17
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Cierre de Powerplastics (Sudáfrica, noviembre) y firma de la compra del 100% de Variopool (diciembre, cierre en 2026), especialista en suelos y paredes móviles para piscina comercial.",
-          "impacto": "+",
-          "valoracion": "Cuatro adquisiciones completadas en el año sin que la deuda neta suba: el ratio cierra en 2,20x. Variopool refuerza el segmento comercial, que crece al 8,6% frente al 3,0% del residencial."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Anuncio del Plan de Eficiencia 2026-2030 con objetivo de 120 M€ de ahorros (75% en margen bruto, 25% en Opex) y ~50 M€ de costes no recurrentes asociados.",
-          "impacto": "+",
-          "valoracion": "Es el catalizador controlable de la tesis: 120 M€ sobre un EBITDA de 501 M€ son un 24% de mejora potencial que no requiere que el ciclo americano gire. Y el Programa de Simplificación anterior se cumplió íntegro."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Octava novación del Convenio de Sindicación (4 de diciembre), al aportar las familias fundadoras un 20% del capital a ADBE Partners, S.L.",
-          "impacto": "=",
-          "valoracion": "Reordenación patrimonial de las familias, no cambio de control: el bloque del Consejo sigue en el 54,6%. Confirma vocación de permanencia, y de paso que el minoritario seguirá sin decidir."
-        }
-      ],
-      "periodoDisplay": "FY"
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q1",
-      "fecha": "2026-04-23",
+      "periodoDisplay": "1T",
+      "fecha": "2026-05-06",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "A",
       "tesisSigueIntacta": true,
-      "resumen": "Primer no-verde en ocho trimestres, y el motivo es real, no óptico. El margen EBITDA ajustado cae del 23,2% al 22,0% (−1,2 pp) porque el Opex crece un 7,6% a moneda constante frente a un +5,4% de ventas. A nivel reportado el EBITDA cae un 4,8% y el beneficio un 4,6% —primeras caídas desde 2023— por la apreciación del euro, que deja las ventas planas (+0,1%) pese al +5,4% subyacente: es el riesgo de divisa del §8.1 materializándose. Sostienen el ámbar y no el rojo: margen bruto estable en 57,1%, desapalancamiento a 2,6x, guidance mantenido y Tratamiento de Agua +13,3% mientras Residencial cae un 3,0%. Este trimestre NO refleja aún el vencimiento de las coberturas de tipos del 30/06/2026: la primera lectura será 9M-2026.",
+      "resumen": "Ventas +0.0 %, EBITDA ajustado -5.3 %, Beneficio neto ajustado -7.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 57.1 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto cae un 0.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 564
+          "valor": 564.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
-          "valor": 5.4
+          "nombre": "Crecimiento orgánico (%)",
+          "valor": 5.3
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 249.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 228.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -708,81 +671,52 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 124
+          "valor": 124.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 46
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 22.0
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1278
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 61.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.6
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": -150.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 393
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 47
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 87
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.59
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Adquisición",
-          "hecho": "Cierre de la compra de Variopool, especialista en suelos y paredes móviles, con una contribución estimada del 1% a las ventas del Grupo en el año.",
-          "impacto": "+",
-          "valoracion": "Refuerza Piscina Comercial justo cuando ese segmento se desacelera (+1,5% reportado frente al +8,6% de FY-2025). Compra pequeña y coherente con el papel de consolidadora; no mueve el precio objetivo."
-        },
-        {
-          "tipo": "Guidance",
-          "hecho": "Guidance FY 2026 mantenido sin cambios: ventas +3% a +7%, margen EBITDA ajustado 23,3%-24,3% y beneficio neto ajustado por acción +4% a +13%, a tipo de cambio constante.",
-          "impacto": "=",
-          "valoracion": "Que no lo recorten tras un trimestre con el margen en 22,0% es la señal más relevante del informe: la compañía asume que recupera 1,3-2,3 puntos de margen en lo que queda de año vía plan de eficiencia. Es el compromiso a vigilar en 1S-2026; si lo revisan a la baja, el ámbar pasa a rojo."
-        },
-        {
-          "tipo": "Contrato",
-          "hecho": "Lanzamiento en Estados Unidos de la plataforma SaaS PoolTrackr, adquirida en 2025 y probada en Australia.",
-          "impacto": "+",
-          "valoracion": "Entra en el mercado que concentra el 43% de las ventas y donde Fluidra distribuye a través de terceros. Refuerza el vínculo directo con el instalador profesional, que es el pilar de costes de cambio del moat (60/100)."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "La compañía cuantifica la construcción de nuevas piscinas residenciales en sus cinco países principales en 169 mil unidades, frente a una media de 214 mil en 1980-2025 y 208 mil en 2015-2025.",
-          "impacto": "=",
-          "valoracion": "Dato clave para la tesis y de doble lectura. El ciclo de obra nueva sigue en mínimos históricos —un 19% por debajo de su media de 45 años—, lo que confirma que el catalizador principal no ha llegado. Pero también acota el riesgo: la caída ya ha ocurrido, y una simple reversión a la media supondría un +23% de volumen de piscina nueva."
-        },
-        {
-          "tipo": "Dividendo",
-          "hecho": "La compañía formaliza su política de asignación de capital: payout en torno al 50% del beneficio neto ajustado por acción, retornos adicionales si hay exceso de caja y objetivo de operar con un apalancamiento de aproximadamente 2x a medio plazo.",
-          "impacto": "+",
-          "valoracion": "Primera vez que fija un objetivo de apalancamiento explícito. Con 2,6x actuales y bajando, implica que la prioridad seguirá siendo desapalancar antes que repartir — coherente con el Dividend Safety de 68 y con no esperar subidas grandes de dividendo a corto plazo."
-        }
-      ],
-      "periodoDisplay": "1T"
+      "origen": "revolcado"
     },
     {
       "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
       "fecha": "2026-07-30",
+      "fechaOrigen": "portada",
+      "fechaOrigenNota": "Las catorce portadas imprimen su fecha de publicación y se han leído una a una (2023-Q1 a 2026-S1). Base PUBLICADA EN SU DÍA: comprobado cruzando el comparativo de cada informe con el periodo del año anterior en ventas y EBITDA ajustado, Fluidra no ha reexpresado ninguno en la ventana. FCL = flujo de explotación + CAPEX (no el «flujo de caja libre» de la empresa, que descuenta dividendos y compras). DN/EBITDA = deuda neta / EBITDA ajustado de los últimos doce meses, calculado; cuadra con el ratio publicado en los seis periodos en que la portada lo trae.",
       "semaforoGlobal": "V",
       "tesisSigueIntacta": true,
-      "resumen": "Vuelve al verde y desactiva el ámbar del 1T. A tipo de cambio constante —la base de la guía— las ventas crecen 4,9% (1.258 M€) y el EBITDA ajustado 5,7% (321 M€): el beneficio crece por encima de las ventas y el margen se sostiene en 25,5% (25,6% un año antes), con el margen bruto clavado en 56,5%. El resultado atribuido cae a 126 M€ (−7,1%), pero es contable y no operativo: los gastos de reestructuración, M&A e integración pasan de 14 a 35 M€ —22,8 M€ de indemnizaciones del plan de eficiencia, más el cierre de plantas en China y EE.UU. y de un centro de I+D en Francia— y el beneficio neto ajustado sube a 175 M€ (+7,1% cte. FX). Sigue el desapalancamiento: deuda neta 1.101 M€ frente a 1.116 M€ y ratio 2,20x frente a 2,30x, dentro del REFUERZA (<2,50x) del §10.1, con el flujo de explotación saltando de 31 a 81 M€. Guía FY-2026 mantenida sin cambios y recompra de 40 M€ anunciada. A vigilar: Comercial es el único segmento que se contrae (−2,8% cte. FX acumulado, −9,7% en el 2T estanco) y la deuda neta absoluta sigue en la banda DEBILITA del §10.1.",
+      "resumen": "Ventas +2.5 %, EBITDA ajustado +2.2 %, Beneficio neto ajustado +2.3 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.5 % (banda del §10.1: verde ≥ 56.0, rojo < 55.0). El margen bruto se mantiene plana un 0.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
       "metricas": [
         {
           "nombre": "Ventas (M€)",
-          "valor": 1258
+          "valor": 1258.0
         },
         {
-          "nombre": "Crec. ventas cte. FX (%)",
-          "valor": 4.9
+          "nombre": "Crecimiento orgánico (%)",
+          "valor": 4.4
+        },
+        {
+          "nombre": "Ventas América del Norte (M€)",
+          "valor": 518.0
+        },
+        {
+          "nombre": "Ventas Europa (M€)",
+          "valor": 574.0
         },
         {
           "nombre": "Margen bruto (%)",
@@ -790,72 +724,26 @@
         },
         {
           "nombre": "EBITDA ajustado (M€)",
-          "valor": 321
+          "valor": 321.0
         },
         {
-          "nombre": "Resultado atribuido (M€)",
-          "valor": 126
+          "nombre": "Margen EBITDA ajustado (%)",
+          "valor": 25.5
         },
         {
-          "nombre": "Deuda neta (M€)",
-          "valor": 1101
+          "nombre": "Beneficio neto ajustado (M€)",
+          "valor": 175.0
         },
         {
-          "nombre": "DN / LTM EBITDA aj. (x)",
-          "valor": 2.2
+          "nombre": "FCL · explotación + CAPEX (M€)",
+          "valor": 46.0
         },
         {
-          "nombre": "Vtas. Residencial (M€)",
-          "valor": 887
-        },
-        {
-          "nombre": "Vtas. Comercial (M€)",
-          "valor": 106
-        },
-        {
-          "nombre": "Vtas. Trat. Agua Resid. (M€)",
-          "valor": 192
+          "nombre": "Deuda neta / EBITDA aj. 12m (x)",
+          "valor": 2.17
         }
       ],
-      "hechos": [
-        {
-          "tipo": "Guidance",
-          "hecho": "Guía FY-2026 mantenida sin cambios, toda a tipo de cambio constante: ventas +3% a +7%, margen EBITDA ajustado 23,3%-24,3% y beneficio neto ajustado por acción +4% a +13%.",
-          "impacto": "+",
-          "valoracion": "Reafirmarla con el semestre cerrado y las ventas creciendo 4,9% cte. FX deja el año dentro de la banda sin necesidad de una segunda mitad heroica. No mueve el PO base de 25,44 €: el escenario central del DCF ya trabajaba con este rango."
-        },
-        {
-          "tipo": "Recompra",
-          "hecho": "Lanzamiento de un programa de recompra de acciones por 40 M€, presentado como refuerzo de la retribución al accionista y uso atractivo del capital a los niveles actuales de cotización.",
-          "impacto": "+",
-          "valoracion": "Es la primera recompra desde el análisis y llega con la cotización en 18-19 € frente a un PO base de 25,44 €: comprar por debajo del valor intrínseco crea valor. Mejora el shareholder yield sin tensar el balance, con el ratio en 2,20x. Añade además un argumento al score de asignación de capital del §7.2, que estaba en 55/100."
-        },
-        {
-          "tipo": "Gobierno",
-          "hecho": "Relevo en la dirección financiera: Xavier Tintoré figura como CFSO actual y Juan Graham como CFSO entrante en la presentación de resultados.",
-          "impacto": "=",
-          "valoracion": "Un cambio de CFO en plena ejecución del plan de eficiencia y con las coberturas de tipo venciendo el 30/06/2026 merece seguimiento, no alarma: es una sucesión anunciada y ordenada, no una salida abrupta. A vigilar que no venga acompañado de cambios de criterio contable ni de revisiones de la política de capital."
-        },
-        {
-          "tipo": "Adquisición",
-          "hecho": "Variopool (Países Bajos, suelos y paredes móviles) completada en el semestre por 8,5 M€ netos de caja y 20,6 M€ de fondo de comercio; firmada la compra de Hydrapro en Francia; el cierre de Riaan Pool Group se espera en el 3T.",
-          "impacto": "+",
-          "valoracion": "Tres operaciones pequeñas y de encaje claro en el negocio principal. Ninguna se acerca al umbral de red flag del §10.4 —12x EV/EBITDA o más de 1,0x de apalancamiento añadido—, así que no obligan a revisar la asignación de capital. Suman perímetro sin comprometer el desapalancamiento."
-        },
-        {
-          "tipo": "Otros",
-          "hecho": "Plan de eficiencia con 22,8 M€ de indemnizaciones por despido registrados en el semestre (2,9 M€ un año antes), cierre de plantas productivas en China y Estados Unidos y de un centro de I+D en Francia. La compañía cifra en unos 15 M€ los ahorros ya generados en el ejercicio.",
-          "impacto": "=",
-          "valoracion": "Es caja que sale este año a cambio de estructura de costes más ligera después. Explica por sí solo la caída del resultado reportado, y por eso el semáforo se ancla en el beneficio ajustado. Lo que hay que comprobar en el 9M es que los ahorros aparezcan en el opex: la guía de la propia empresa es que el opex crezca en torno al 3,5% en el año a FX constante."
-        },
-        {
-          "tipo": "Regulatorio",
-          "hecho": "El 23 de marzo de 2026 se extendió el vencimiento de la línea de crédito revolving de la financiación sindicada hasta enero de 2029.",
-          "impacto": "+",
-          "valoracion": "Alarga el colchón de liquidez justo antes del vencimiento de las permutas de tipo el 30/06/2026, que el §10.4 marca como el riesgo con fecha ya conocida. No elimina el encarecimiento del cupón, pero quita del calendario el riesgo de refinanciación."
-        }
-      ],
-      "periodoDisplay": "1S"
+      "origen": "revolcado"
     }
   ]
 }
