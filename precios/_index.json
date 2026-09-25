@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-09-25",
+"actualizado": "2026-09-26",
 "ventana_dias": 10,
-"ventana_desde": "2026-09-15",
+"ventana_desde": "2026-09-16",
 "tickers": [
 {
 "ticker": "A3M",
@@ -726,127 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "AIR",
-"fecha": "2026-09-25",
-"anterior": 192.7,
-"nuevo": 191.76
-},
-{
-"ticker": "AMP",
-"fecha": "2026-09-25",
-"anterior": 4.8,
-"nuevo": 4.795
-},
-{
-"ticker": "ARM",
-"fecha": "2026-09-25",
-"anterior": 15.8,
-"nuevo": 15.7
-},
-{
-"ticker": "CABK",
-"fecha": "2026-09-25",
-"anterior": 13.23,
-"nuevo": 13.225
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-09-25",
-"anterior": 88.4,
-"nuevo": 88.3
-},
-{
-"ticker": "CEV",
-"fecha": "2026-09-25",
-"anterior": 9.9,
-"nuevo": 9.3
-},
-{
-"ticker": "GRF",
-"fecha": "2026-09-25",
-"anterior": 9.59,
-"nuevo": 9.594
-},
-{
-"ticker": "IAG",
-"fecha": "2026-09-25",
-"anterior": 5.07,
-"nuevo": 5.068
-},
-{
-"ticker": "IBG",
-"fecha": "2026-09-25",
-"anterior": 17.45,
-"nuevo": 17.3
-},
-{
-"ticker": "LGT",
-"fecha": "2026-09-25",
-"anterior": 5.66,
-"nuevo": 5.6
-},
-{
-"ticker": "MAP",
-"fecha": "2026-09-25",
-"anterior": 4.34,
-"nuevo": 4.344
-},
-{
-"ticker": "ORY",
-"fecha": "2026-09-25",
-"anterior": 2.73,
-"nuevo": 2.732
-},
-{
-"ticker": "PRS",
-"fecha": "2026-09-25",
-"anterior": 2.48,
-"nuevo": 2.5
-},
-{
-"ticker": "PSG",
-"fecha": "2026-09-25",
-"anterior": 2.9,
-"nuevo": 2.895
-},
-{
-"ticker": "SAB",
-"fecha": "2026-09-25",
-"anterior": 3.76,
-"nuevo": 3.755
-},
-{
-"ticker": "SAN",
-"fecha": "2026-09-25",
-"anterior": 12.57,
-"nuevo": 12.572
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-09-25",
-"anterior": 4.04,
-"nuevo": 4.042
-},
-{
-"ticker": "SLR",
-"fecha": "2026-09-25",
-"anterior": 16.49,
-"nuevo": 16.485
-},
-{
-"ticker": "TEF",
-"fecha": "2026-09-25",
-"anterior": 3.45,
-"nuevo": 3.448
-},
-{
-"ticker": "UNI",
-"fecha": "2026-09-25",
-"anterior": 3.63,
-"nuevo": 3.626
-}
-],
+"corregidos": [],
 "revisar": []
 }
