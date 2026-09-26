@@ -925,7 +925,7 @@ function renderPanelDash(){
   const GITHUB_RUN_URL='https://github.com/chernanzfinanzas-gif/economia-domestica/actions/workflows/cotizaciones.yml';
   // 🔔 BANDEJA DE AVISOS UNIFICADA
   const _heldP={}, _heldSet=new Set();
-  try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); _heldP[_t]=p; _heldSet.add(_t); } }); }catch(e){}
+  try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); /* [26-sep-2026] una empresa puede estar en varias posiciones (propia y compartida): se SUMAN */ _heldP[_t]=_heldP[_t]?Object.assign({},_heldP[_t],{acciones:_heldP[_t].acciones+p.acciones}):p; _heldSet.add(_t); } }); }catch(e){}
   const avisos=[];
   /* [C6 · 27-jul-2026] Los -trim.json de las empresas analizadas, cargados y repintado al llegar:
      sin esto el aviso S2 de aquí abajo no tendría de dónde leer el semáforo. */
@@ -1027,6 +1027,9 @@ function renderPanelDash(){
      cuando ya hay un apunte S3 vivo o resuelto hace menos de 60 días. Quitarle `sig` haría
      que reapareciera al día siguiente de revisarla, que es el fallo contrario. */
   (DB.analisis||[]).forEach(a=>{ const c=_cotA(a),pMin=num(a.poMin),pMax=num(a.poMax); const pMed=(typeof poBaseDe==='function')?num(poBaseDe(a)):((pMin&&pMax)?(pMin+pMax)/2:(pMax||pMin||0)); if(c<=0)return; const t=(a.ticker||'').toUpperCase(); const p=_heldP[t];
+    /* [26-sep-2026 · decisión del operador] Sin posición y con veredicto ESPERAR, pasar el PO no pide
+       ninguna acción: «recoger beneficios» no aplica y «no comprar» ya lo dice el veredicto. No avisa. */
+    if(!p && /ESPERAR/i.test(''+(a.decision||'')))return;
     if(pMax>0&&c>=pMax){ avisos.push({pri:1,cls:'a',goto:'analisis',sig:'S3',nivel:'bull',tick:t,txt:`🎯 <b>${t}</b> — ha alcanzado tu precio objetivo máximo (${fmt(c)} ≥ PO ${fmt(pMax)})${p?` · tienes ${p.acciones} acc., ¿recoger beneficios?`:' · sobrevalorada, no comprar'}`}); }
     else if(pMed>0&&c>=pMed){ avisos.push({pri:3,cls:'a',goto:'analisis',sig:'S3',nivel:'base',tick:t,noApunte:1,txt:`🎯 <b>${t}</b> — en tu PO base (${fmt(c)} ≥ ${fmt(pMed)}), revisa la tesis${p?' · en cartera':''}`}); } });
   /* [C6 · 27-jul-2026] SEÑAL S2 — semáforo trimestral ROJO o tesis declarada tocada.
@@ -1271,7 +1274,25 @@ function renderPanelDash(){
     }).join('');
     const _allKeys=show.map(x=>x.key).join('~');
     const _aviOpen=window._pAviOpen===true;
-    avisosHTML=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${chips}${_aviOpen?(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>'):''}</div>`;
+    /* [26-sep-2026 · petición del operador] «Lanzar revisiones extraordinarias»: junta las señales
+       S1-S6 vivas del panel y copia al portapapeles la petición ya redactada, para pegarla en una
+       tarea nueva de Cowork del proyecto KH&Claude (la web no puede abrir esa tarea por sí sola). */
+    const _revVis={}; window._revPend=avisos.filter(x=>x.sig&&/^S[1-6]$/.test(x.sig)&&!x.noApunte&&!x.esApunte&&x.tick)
+      .filter(x=>{ const k=x.tick+'|'+x.sig; if(_revVis[k])return false; _revVis[k]=1; return true; })
+      .map(x=>({t:x.tick,sig:x.sig,txt:(''+x.txt).replace(/<[^>]+>/g,'').replace(/\s+/g,' ').trim()}));
+    const _btnRev=window._revPend.length?`<div style="margin:0 0 8px"><button class="btn sm" data-lanzarrev="1" title="Copia la petición con las señales pendientes; pégala en una tarea nueva del proyecto Análisis Financiero KH&amp;Claude">🧾 Lanzar revisiones extraordinarias (${window._revPend.length})</button></div>`:'';
+    if(!window._lanzarRevBound){ window._lanzarRevBound=true; document.addEventListener('click',function(ev){
+      const b=ev.target.closest&&ev.target.closest('[data-lanzarrev]'); if(!b)return;
+      const L=window._revPend||[]; const hoy=new Date().toISOString().slice(0,10);
+      const txt='Lanzar revisiones extraordinarias ('+hoy+').\n\nSeñales pendientes en la app:\n'
+        +L.map(x=>'- '+x.t+' · '+x.sig+' · '+x.txt).join('\n')
+        +'\n\nPara cada una: prepara la Nota de Revisión Extraordinaria con la skill nota-revision-extraordinaria (diagnóstico, anti-anclaje y decisión propuesta), publícala como página con botón de firma y espera mi firma. Con la firma: cierra la señal en el §10.5, en estado.json y en hallazgos.json, vuelve a sellar el QA y deja la Nota y hallazgos.json en el buzón _publicar.'
+        +'\nMis posiciones actuales son de renta. No pongas número de acciones sin preguntarme: tengo empresas repartidas en dos carteras.';
+      const ok=function(){ b.textContent='✓ Copiado — pégalo en una tarea nueva del proyecto KH&Claude'; };
+      try{ navigator.clipboard.writeText(txt).then(ok,function(){ _cp(); }); }catch(e){ _cp(); }
+      function _cp(){ try{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); ok(); }catch(e2){ b.textContent='No se pudo copiar'; } }
+    }); }
+    avisosHTML=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${_btnRev}${chips}${_aviOpen?(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>'):''}</div>`;
   }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;

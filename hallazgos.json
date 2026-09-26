@@ -417,9 +417,36 @@
           "fecha": "2026-07-31",
           "fuente": "emisor (comunicacion remitida a la CNMV)",
           "exigeAccion": false
+        },
+        {
+          "id": "S3-2026-09-26",
+          "abiertoEl": "2026-09-26",
+          "estado": "resuelta",
+          "resueltoEl": "2026-09-26",
+          "desenlace": "REAFIRMAR · tesis de renta: se mantiene la posición (62 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 23,37 €, banda 18,33–20,32 €, stop 15,40 €). Cotización 42,18 € = +21 % sobre el PO bull (34,93 €); dividendo 1,584 € (RPD 3,76 %), Dividend Safety 61. Nota del 26-sep-2026.",
+          "resumen": "Cotización 42.18 € sobre el PO bull (la señala la app)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-09-26",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-03",
+          "notaEmitida": true
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fecha": "26-sep-2026",
+          "senal": "S3",
+          "cot": "42,18",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. REAFIRMAR · tesis de renta: se mantiene la posición (762 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 23,37 €, banda 18,33–20,32 €, stop 15,40 €). Cotización 42,18 € = +21 % sobre el PO bull (34,93 €); dividendo 1,584 € (RPD 3,76 %), Dividend Safety 61. Nota del 26-sep-2026."
+        }
+      ],
       "revisionesEl": "2026-09-26",
       "revisionesFrescas": true
     },
@@ -688,9 +715,36 @@
           "fecha": "2026-07-23",
           "fuente": "https://www.merca2.es/2026/07/24/mapfre-compra-safety-insurance-millones-2423347/",
           "exigeAccion": false
+        },
+        {
+          "id": "S3-2026-09-26",
+          "abiertoEl": "2026-09-26",
+          "estado": "resuelta",
+          "resueltoEl": "2026-09-26",
+          "desenlace": "REAFIRMAR · tesis de renta: se mantiene la posición (10000 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 3,61 €, banda 3,02–3,14 €, stop 2,77 €). Cotización 4,34 € = +4 % sobre el PO bull (4,17 €); dividendo 0,18 € (RPD 4,15 %), Dividend Safety 94. Nota del 26-sep-2026.",
+          "resumen": "Cotización 4.34 € sobre el PO bull (la señala la app)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-09-26",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-03",
+          "notaEmitida": true
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fecha": "26-sep-2026",
+          "senal": "S3",
+          "cot": "4,34",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. REAFIRMAR · tesis de renta: se mantiene la posición (10000 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 3,61 €, banda 3,02–3,14 €, stop 2,77 €). Cotización 4,34 € = +4 % sobre el PO bull (4,17 €); dividendo 0,18 € (RPD 4,15 %), Dividend Safety 94. Nota del 26-sep-2026."
+        }
+      ],
       "revisionesEl": "2026-09-26",
       "revisionesFrescas": true
     },
@@ -995,6 +1049,25 @@
           "plazoDias": 14,
           "vencePlazoEl": "2026-09-23",
           "notaEmitida": false
+        },
+        {
+          "id": "S3-2026-09-26",
+          "abiertoEl": "2026-09-26",
+          "estado": "resuelta",
+          "resueltoEl": "2026-09-26",
+          "desenlace": "REAFIRMAR · tesis de renta: se mantiene la posición (2500 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 20,52 €, banda 15,58–17,84 €, stop 13,35 €). Cotización 30,75 € = +19 % sobre el PO bull (25,74 €); dividendo 1,051 € (RPD 3,42 %), Dividend Safety 83. Nota del 26-sep-2026.",
+          "resumen": "Cotización 30.75 € sobre el PO bull (la señala la app)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-09-26",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-03",
+          "notaEmitida": true
         }
       ],
       "revisiones": [
@@ -1004,6 +1077,13 @@
           "cot": "27,25",
           "decision": "REAFIRMAR",
           "motivo": "Sin apunte de apertura previo. S5 del cierre de ciclo del 9-sep-2026: el dossier se cerró sin ningún trimestre revisado en el §10.3 (F421). Se resolvió el MISMO DÍA registrando el 2026-Q2. No se tocó ninguna cifra de la tesis: precio objetivo, banda de entrada y stop quedan como los fijó el Bloque 9. Cotización de referencia 27,25 € (t0 del análisis, cierre del 31-ago-2026): la S5 no es una señal de precio y no se abre por cotización. Apunte escrito el 15-sep-2026, al detectar que esta señal se había juzgado y cerrado en estado.json sin dejar constancia aquí, que es lo que la cabecera de este registro exige (F670)."
+        },
+        {
+          "fecha": "26-sep-2026",
+          "senal": "S3",
+          "cot": "30,75",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. REAFIRMAR · tesis de renta: se mantiene la posición (2500 acc.) cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 20,52 €, banda 15,58–17,84 €, stop 13,35 €). Cotización 30,75 € = +19 % sobre el PO bull (25,74 €); dividendo 1,051 € (RPD 3,42 %), Dividend Safety 83. Nota del 26-sep-2026."
         }
       ],
       "revisionesEl": "2026-09-26",
@@ -1083,9 +1163,36 @@
           "fuente": "comunicacion a la CNMV de 10-ago-2026; OIR verificada por nombre de entidad",
           "exigeAccion": false,
           "caducaEl": "2026-09-09"
+        },
+        {
+          "id": "S3-2026-09-26",
+          "abiertoEl": "2026-09-26",
+          "estado": "resuelta",
+          "resueltoEl": "2026-09-26",
+          "desenlace": "REAFIRMAR · tesis de renta: se mantiene la posición cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 7,82 €, banda 5,79–6,80 €, stop 4,51 €). Cotización 12,57 € = +19 % sobre el PO bull (10,52 €); dividendo 0,24 € (RPD 1,91 %), Dividend Safety 88. Nota del 26-sep-2026.",
+          "resumen": "Cotización 12.57 € sobre el PO bull (la señala la app)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-09-26",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-03",
+          "notaEmitida": true
         }
       ],
-      "revisiones": [],
+      "revisiones": [
+        {
+          "fecha": "26-sep-2026",
+          "senal": "S3",
+          "cot": "12,57",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. REAFIRMAR · tesis de renta: se mantiene la posición cobrando el dividendo y no se amplía. ESPERAR sigue para dinero nuevo (PO 7,82 €, banda 5,79–6,80 €, stop 4,51 €). Cotización 12,57 € = +19 % sobre el PO bull (10,52 €); dividendo 0,24 € (RPD 1,91 %), Dividend Safety 88. Nota del 26-sep-2026."
+        }
+      ],
       "revisionesEl": "2026-09-26",
       "revisionesFrescas": true
     },

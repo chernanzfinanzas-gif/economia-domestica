@@ -422,7 +422,7 @@ function protoRegHTML(t){
      publicado) son del método antiguo: no se enseñan. Los abiertos se ven siempre. */
   const _viejos = protoViejos(t), _idsViejos = new Set(_viejos.map(a=>a.id));
   const arrPend  = arr.filter(a=>!yaEnExcel.has(claveRev(a.fecha,a.sig)) && !_idsViejos.has(a.id));
-  const nSubidos = arrTodos.length - arrPend.length;
+  const nSubidos = arrTodos.filter(a=>yaEnExcel.has(claveRev(a.fecha,a.sig)) && !_idsViejos.has(a.id)).length;   /* [26-sep] los ocultos no cuentan como subidos */
   const rows=arrPend.map(a=>{
     const p=PROTOCOLO_SENALES[a.sig]||{color:'#64748b',icono:'📋'};
     const vencido=a.estado==='abierta'&&a.limite&&a.limite<hoy;
