@@ -253,13 +253,24 @@ function _calDivMesReal(year){
    Pasado → dividendos realmente cobrados (Resumen Anual).
    Año en curso → cartera real cobrada + previsto de lo PENDIENTE DE EJECUTAR (compras planificadas).
    Futuro → proyección completa (cartera + previstas del radar) × acciones del Plan. */
+/* [26-sep-2026 · caso Atresmedia] Pagos PREVISTOS aún no registrados de una empresa que YA cobró este año.
+   Antes, en el año en curso, una empresa con algún cobro real ignoraba toda su previsión: el
+   extraordinario de 0,65 € de diciembre no llegaba a «Dividendos / mes». Se suman solo los pagos
+   futuros (fecha > hoy) que no estén ya en DB.dividendos con la misma fecha e importe. */
+function _calPendNoReg(T, year){
+  var hoy=(typeof _calHoy==='function')?_calHoy():new Date().toISOString().slice(0,10);
+  var reg=((DB.dividendos||{})[T]||[]).filter(function(d){ return (d.fecha||'').slice(0,4)===String(year); });
+  return _calEvDiv(T, year).filter(function(e){ if(e.tipo!=='pago'||!(e.fecha>hoy)) return false;
+    return !reg.some(function(d){ return (d.fecha||'').slice(0,10)===e.fecha && Math.abs(_calNum(d.importe)-_calNum(e.imp))<0.0005; }); });
+}
 function calBrutoCarteraAnio(year){
   var nowY=_calNowY();
   var R=(year<=nowY)?_calDivMesReal(year):{bruto:0,seen:{}};   /* pasado/en curso: realidad completa (abiertas+cerradas+heredado) */
   var tot=R.bruto; var seen=R.seen||{};
   if(year >= nowY){                                  /* previsto: futuro=todas; año en curso=solo lo pendiente aún no cobrado */
-    calTickers().forEach(function(t){ var T=(t||'').toUpperCase(); if(year===nowY && seen[T]) return;
-      _calEvDiv(t, year).forEach(function(e){ if(e.tipo==='pago') tot += _calNum(e.sh)*_calNum(e.imp); });
+    calTickers().forEach(function(t){ var T=(t||'').toUpperCase();
+      var _ev=(year===nowY && seen[T]) ? _calPendNoReg(T, year) : _calEvDiv(t, year);
+      _ev.forEach(function(e){ if(e.tipo==='pago') tot += _calNum(e.sh)*_calNum(e.imp); });
     });
   }
   return tot;
@@ -284,7 +295,11 @@ function calDivMesAnio(year){
 function calDivMesEmpresas(year){
   var nowY=_calNowY();
   var rows=[]; var totMes=new Array(12).fill(0); var seen={};
-  function pushRow(t, neto){ var tot=neto.reduce(function(a,b){return a+b;},0); if(tot>=1){ rows.push({t:t, neto:neto, total:tot}); for(var i=0;i<12;i++) totMes[i]+=neto[i]; } }
+  function pushRow(t, neto){ var tot=neto.reduce(function(a,b){return a+b;},0); if(tot>=1){
+      /* [26-sep-2026] si la empresa ya tiene fila (cobros reales), lo previsto pendiente se SUMA a ella */
+      var ex=rows.filter(function(r){ return r.t===t; })[0];
+      if(ex){ for(var j=0;j<12;j++) ex.neto[j]+=neto[j]; ex.total+=tot; } else rows.push({t:t, neto:neto, total:tot});
+      for(var i=0;i<12;i++) totMes[i]+=neto[i]; } }
   /* 1) CARTERA REAL cobrada (pasado y año en curso) */
   if(year <= nowY){
     var divs=DB.dividendos||{};
@@ -297,8 +312,9 @@ function calDivMesEmpresas(year){
   }
   /* 2) PREVISTO: futuro = cartera + previstas; año en curso = solo lo PENDIENTE DE EJECUTAR (no cobrado aún) */
   if(year >= nowY){
-    calTickers().forEach(function(t){ if(year===nowY && seen[t]) return; var neto=new Array(12).fill(0);
-      _calEvDiv(t, year).forEach(function(e){ if(e.tipo!=='pago') return; var m=parseInt(e.fecha.slice(5,7),10)-1; if(m>=0&&m<12) neto[m]+=_calNum(e.sh)*_calNum(e.imp)*0.81; });
+    calTickers().forEach(function(t){ var neto=new Array(12).fill(0);
+      var _ev=(year===nowY && seen[t]) ? _calPendNoReg((t||'').toUpperCase(), year) : _calEvDiv(t, year);
+      _ev.forEach(function(e){ if(e.tipo!=='pago') return; var m=parseInt(e.fecha.slice(5,7),10)-1; if(m>=0&&m<12) neto[m]+=_calNum(e.sh)*_calNum(e.imp)*0.81; });
       pushRow(t, neto);
     });
   }
