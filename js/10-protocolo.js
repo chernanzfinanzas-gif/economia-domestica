@@ -395,6 +395,15 @@ function protoApunteForm(sig, ticker, editarId, nivel){
   if(!dlg.open) dlg.showModal();
 }
 
+/* [26-sep-2026] Corte del análisis vigente: la fecha del dossier publicado (dossiers/T.json);
+   si aún no ha cargado, la que guarda la fila de Análisis. Sin fecha, no se oculta nada. */
+function _protoCorte(t){ t=(t||'').toUpperCase();
+  try{ var j=(typeof _tesisCache!=='undefined'&&_tesisCache)?_tesisCache[t]:null; if(j&&j.fecha)return (''+j.fecha).slice(0,10); }catch(e){}
+  var a=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===t; });
+  return (a&&a.dossierFecha)?(''+a.dossierFecha).slice(0,10):''; }
+function protoViejos(t){ t=(t||'').toUpperCase(); var c=_protoCorte(t); if(!c)return [];
+  return ((DB.protocolo||{})[t]||[]).filter(function(a){ return a.estado!=='abierta' && (a.fecha||'')<c; }); }
+
 /* ---------- Tarjeta del registro en la Ficha ---------- */
 function protoRegHTML(t){
   t=(t||'').toUpperCase();
@@ -409,7 +418,10 @@ function protoRegHTML(t){
   const yaEnExcel = (typeof revisionesCorpDe==='function' && typeof claveRev==='function')
     ? new Set(revisionesCorpDe(t).filas.map(x=>claveRev(x.fecha,x.senal))) : new Set();
   const arrTodos = arr;
-  const arrPend  = arr.filter(a=>!yaEnExcel.has(claveRev(a.fecha,a.sig)));
+  /* [26-sep-2026] Los borradores RESUELTOS anteriores al análisis vigente (fecha del dossier
+     publicado) son del método antiguo: no se enseñan. Los abiertos se ven siempre. */
+  const _viejos = protoViejos(t), _idsViejos = new Set(_viejos.map(a=>a.id));
+  const arrPend  = arr.filter(a=>!yaEnExcel.has(claveRev(a.fecha,a.sig)) && !_idsViejos.has(a.id));
   const nSubidos = arrTodos.length - arrPend.length;
   const rows=arrPend.map(a=>{
     const p=PROTOCOLO_SENALES[a.sig]||{color:'#64748b',icono:'📋'};
@@ -444,6 +456,7 @@ function protoRegHTML(t){
     </div>
     ${_protoZonaExcel(t)}
     ${nSubidos?`<div class="sub" style="margin:8px 0 0;color:#166534">✓ ${nSubidos} borrador${nSubidos===1?'':'es'} ya ${nSubidos===1?'está':'están'} en el §10.5 y ${nSubidos===1?'aparece':'aparecen'} arriba. <button class="btn ghost sm" data-protolimpiar="${t}" style="margin-left:6px">Limpiar de aquí</button></div>`:''}
+    ${_viejos.length?`<div class="sub" style="margin:8px 0 0;color:#64748b">🗄️ ${_viejos.length} borrador${_viejos.length===1?'':'es'} del análisis anterior (antes del ${_protoCorte(t)}) oculto${_viejos.length===1?'':'s'}. <button class="btn ghost sm" data-protoviejos="${t}" style="margin-left:6px">Borrarlos</button></div>`:''}
     <div class="sub" style="margin:10px 0 6px"><b>✏️ Borradores sin pasar al Excel.</b> Se escriben aquí, se copia la fila con <b>📋</b> y se pega en el §10.5. Suben al bloque de arriba cuando <b>tú</b> regeneres el puente con el .bat de <span style="font-family:monospace">03 - 03</span> — no ocurre solo.</div>
     <div class="sub" style="margin:-2px 0 8px;font-size:11.5px;color:#64748b;background:#f8fafc;border-left:3px solid #cbd5e1;border-radius:0 6px 6px 0;padding:6px 9px">
       <b>Cómo se pega:</b> el <b>📋</b> copia en dos pasos. <b>1)</b> las cuatro columnas simples → clic en la celda de la <b>Fecha</b> y pegar. <b>2)</b> el <b>Motivo</b> → clic en su celda y pegar. <b>3)</b> pulsa <span style="font-family:monospace">Publicar el 10.5 en la app (1 clic).bat</span> (<span style="font-family:monospace">Herramientas → 03 - 03</span>) y <b>sube <span style="font-family:monospace">hallazgos.json</span> a la raíz del repo</b>. Sin ese paso la app no se entera: no lee los Excel, lee el puente — y hasta ahora ese volcado solo ocurría con el informe semanal, los lunes.
@@ -551,6 +564,19 @@ document.addEventListener('click',e=>{
   /* [28-jul-2026] Borra los borradores que YA están pegados en el §10.5. No borra nada que no
      esté confirmado en el Excel: la clave es fecha + señal, y sale de lo que publica el puente.
      Si el puente no ha corrido todavía, aquí no hay nada que limpiar y el botón ni aparece. */
+  /* [26-sep-2026] Borra de una vez los borradores del análisis anterior (con deshacer). */
+  const pv=e.target.closest&&e.target.closest('[data-protoviejos]');
+  if(pv){
+    const t=(pv.dataset.protoviejos||'').toUpperCase();
+    const viejos=new Set(protoViejos(t).map(a=>a.id)); if(!viejos.size)return;
+    const antes=((DB.protocolo||{})[t]||[]); const quedan=antes.filter(a=>!viejos.has(a.id));
+    var _q2=function(){ DB.protocolo[t]=quedan; if(typeof saveNow==='function')saveNow(); };
+    if(typeof undoableDelete==='function')
+      undoableDelete('protocolo_lote', viejos.size+' borrador'+(viejos.size===1?'':'es')+' del análisis anterior · '+t, {t:t, antes:antes.slice()}, _q2, ['renderPanelDash']);
+    else { _q2(); if(typeof renderPanelDash==='function')renderPanelDash(); }
+    if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+    return;
+  }
   const lp=e.target.closest&&e.target.closest('[data-protolimpiar]');
   if(lp){
     const t=(lp.dataset.protolimpiar||'').toUpperCase();
