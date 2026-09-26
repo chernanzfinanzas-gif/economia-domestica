@@ -103,25 +103,6 @@
      "fecha": "2026-07-29",
      "fuente": "registro (IP CNMV n 3314; OIR n 42128)",
      "exigeAccion": false
-    },
-    {
-     "id": "S3-2026-08-10",
-     "abiertoEl": "2026-08-10",
-     "estado": "resuelta",
-     "resueltoEl": "2026-08-11",
-     "desenlace": "Senal abierta el 10-ago-2026 (cotizacion de referencia 109,10 EUR, cierre 10/08). REAFIRMAR TESIS. Nota emitida: Revisiones/2026-08-11 Nota Revision Extraordinaria ACS (S3).html. Se reabrio porque la S3 del 22-jul (117,10 EUR, REAFIRMAR) se decidio contra un PO anterior, revisado el 27-jul (AJUSTA PO, beta sectorial 1,05) y el 29-jul (AJUSTA BANDA); el PO bull vigente de 98,60 EUR nunca se habia juzgado. DIAGNOSTICO: el exceso de precio es REAL — Reverse DCF re-ejecutado con las entradas congeladas del 31-jul cambiando solo el precio da g implicito 6,20% frente a un g intrinseco de 1,73% (3,6x, HEROICO), y la robustez situa el PO entre 66,41 y 104,18 EUR, con la cotizacion por encima de TODO el rango. Ningun riesgo del 8.1 se ha materializado y ningun pre-mortem del 8.2 ha detonado: el driver n1 (capex de los hyperscalers, ~725-732.500 M USD en 2026, +79% i.a. sin recortes de guidance) va en direccion contraria a su alarma, y los tres gatillos del 8.1 R3 siguen sin documentarse. PERO el PO tiene un punto genuinamente desactualizado: el dossier es del 21-jul y el 1S-2026 se publico el 29-jul, con la deuda neta pasando de 3.352 M EUR (cierre 2025, la cifra que alimenta el DCF) a una CAJA NETA de 1.006 M EUR. Mecanicamente son +16,93 EUR/accion (4.358,4 M EUR / 257,46 M acc.): el PO base iria a 85,73 EUR y la cotizacion seguiria un 27,3% por encima. NO SE APLICA HOY, y el motivo es de metodo: la deuda neta de ACS es estacional (S1-2025 2.200 -> FY-2025 3.352, serie del 10.3), asi que la caja de junio no es la cifra estructural que va al descuento; ademas, con ese ajuste el PO bull pasaria a 115,53 EUR y la S3 DEJARIA DE ESTAR DISPARADA — ajustar el modelo hasta que la alarma se apague es justo lo que prohibe el 10.5. Se difiere a la Actualizacion Anual FY-2026. ANTI-ANCLAJE: a 109,10 EUR no se compraria (31x beneficios, 6,3x libros, margen EBITDA 6,2%); no hay posicion, asi que el sesgo de este caso no es el anclaje sino el FOMO — la banda 52,50-57,50 EUR exige una caida del 47,3%-52,3% y puede que ese precio no vuelva, lo que es un coste de oportunidad asumido, no un motivo para reescribir el umbral. SIN CAMBIOS: PO bear/base/bull 55,70 / 68,80 / 98,60 EUR, banda 52,50-57,50 EUR y stop 49,85 EUR, todos sin mover; no se toca el ACS.json. Accion: ninguna sobre la cartera (no hay posicion); vigilancia y no comprar por encima de 57,50 EUR. DOS HUECOS DEL EXPEDIENTE anotados: (1) las celdas canonicas del 9.3-bis siguen diciendo entrada 69,00-75,00 EUR pese al apunte del 29-jul que la recoloco a 52,50-57,50 EUR — si se regenera el dossier sin corregirlas, la banda revertiria; (2) la deuda neta del DCF quedara obsoleta con el FY-2026. Re-evaluar con el 9M-2026 (octubre) y, en firme, con la Actualizacion Anual.",
-     "resumen": "Informe semanal 2026-08-10 (deteccion de precio): PO ALCANZADO — cotizacion 109,10 EUR >= PO bull 98,60 EUR (+10,6%); sobre el PO base 68,80 EUR, +58,6%. Se REABRE porque la S3 del 22-jul-2026 (cot 117,10 EUR, REAFIRMAR) se decidio contra un PO ANTERIOR: el 27-jul se re-valoro con beta sectorial 1,05 (apunte AJUSTA PO) y el 29-jul se recoloco la banda de entrada a 52,50-57,50 EUR (apunte AJUSTA BANDA). El umbral vigente (bull 98,60 EUR) nunca se ha juzgado. Reverse DCF HEROICO (g implicito 7,22% vs 1,73% autofinanciable) y robustez SOLIDA: con WACC +-1 pp y g_TV +-0,5 pp el PO se mueve entre 66,41 y 104,18 EUR, POR DEBAJO de la cotizacion en TODO el rango. Dossier de 2026-07-21 (1 mes): no es una S4, no procede actualizar la valoracion por caducidad. Decision a tomar en 7 dias: revisar el PO al alza con hechos nuevos, o reconocer que no queda recorrido. El driver operativo nº1 (capex de los hyperscalers, ~725-732.500 M USD en 2026, +79% i.a.) sigue en el extremo OPUESTO de su alarma: esto es una senal de PRECIO, no de deterioro.",
-     "tipo": "senal",
-     "naturaleza": "situacion",
-     "severidad": "alta",
-     "origen": "protocolo · estado.json",
-     "fecha": "2026-08-10",
-     "fuente": null,
-     "exigeAccion": true,
-     "codigo": "S3",
-     "plazoDias": 7,
-     "vencePlazoEl": "2026-08-17",
-     "notaEmitida": true
     }
    ],
    "revisiones": [
@@ -1373,5 +1354,5 @@
   "situacionesAbiertas": 23,
   "hechosCaducadosHoy": 0
  },
- "reproyectadoEl": "2026-09-25"
+ "reproyectadoEl": "2026-09-26"
 }

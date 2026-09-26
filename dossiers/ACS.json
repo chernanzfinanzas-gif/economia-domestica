@@ -1,43 +1,41 @@
 {
  "schemaVersion": 8,
  "ticker": "ACS",
- "empresa": "ACS, S.A.",
- "fecha": "2026-07-21",
+ "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
+ "fecha": "2026-09-26",
  "rating": "A",
- "score": 71.4,
+ "score": 71.0,
  "decision": "ESPERAR",
- "moat": "Estrecho (50,9) — ventaja de escala y reputación, no de pricing power; nicho de data centers da ventaja temporal.",
- "poBear": 55.7,
- "poBase": 68.8,
- "poBull": 98.6,
- "entMin": 52.5,
- "entMax": 57.5,
- "stop": 49.85,
- "dpaPrevisto": 2.4,
- "metodoValoracion": "Síntesis ponderada 40% múltiplos históricos + 60% DCF base (industrial/cíclica), descontado con la BETA SECTORIAL de Damodaran (1,05) y no con la del CAPM (0,63): WACC base 8,3%. PO oficial ≈ 69 €. DCF tres escenarios 59/81/131 €; reverse DCF exige g FCL ~3,7% frente a un g intrínseco de 1,7% (heroico). Re-valorado el 27-jul-2026; con la beta del CAPM el PO era 82 €.",
- "resumen": "Negocio de calidad alta (Rating A, 71,4) con datos ya completos (Confianza A·100): ROIC 12-18% > WACC 8,3% (beta sectorial), DN/EBITDA ~1,1x, caja 12.100 M€, cartera récord 92.858 M€ y dividendo 2025 de 2,40 € (+20%) cubierto 5,5x. A 117,60 € cotiza a P/E ~31x y P/BV ~6,3x (vs 12,4x/1,8x) tras duplicar en 2024-25 por data centers. PO base 68,80 € (−41%); ni el escenario bull (98,60 €) llega al precio de hoy. Veredicto ESPERAR, entrada <75 € (ideal <69 €), stop de tesis 49,85 €.",
- "bull": "El ciclo de data centers/IA se acelera; Turner mantiene pedidos +40-50%; márgenes mejoran y el mercado sostiene el múltiplo de crecimiento (~99-131 €).",
- "bear": "Enfriamiento del capex de data centers: la cartera de Turner se contrae, el crecimiento se frena y el múltiplo se normaliza a 12-15x; añade sobrecostes o shock de gobernanza (~55-70 €).",
+ "metodoValoracion": "DCF de dos fases a tres escenarios sobre el flujo recurrente al accionista de ACS (FCL menos arrendamientos y dividendos a minoritarios), media de cinco años 2021-2025 (894,15 M€), al WACC del método (8,24 %) + múltiplos históricos de diez años sin 2021 (EV/EBITDA, EV/EBIT, PER, P/FCL) + rentabilidad por dividendo — arquetipo INDUSTRIAL · construcción e ingeniería. PO oficial = síntesis ponderada del §6.5 (DCF 45 · múltiplos 50 · renta 5), 56,43 €; bear 47,28 € (frenazo del ciclo de centros de datos de EE. UU., extremo suave), bull 64,61 € (tres catalizadores del §9.1 a la vez).",
+ "poBear": 47.28,
+ "poBase": 56.43,
+ "poBull": 64.61,
+ "entMin": 47.28,
+ "entMax": 49.07,
+ "stop": 29.56,
+ "dpaPrevisto": 2.323,
+ "moat": "42,8 sobre 100 · SIN MOAT CLARO (horquilla de ponderación 39,1–48,8). Ningún pilar llega a 60: economías de escala 55, intangibles 50, costes de cambio 40, ventaja en costes 30 y efecto de red N/A. La escala no se ve en el margen: EBIT del 4,2 % en 2025, el más bajo de sus seis comparables europeos.",
  "catalizadores": [
-  "Resultados FY2025 + guía 2026 (feb-2026)",
-  "Nuevas adjudicaciones de data centers de Turner",
-  "Declaración del dividendo 2025 + recompra",
-  "Simplificación societaria (Hochtief/Abertis/Cimic)",
-  "Bajada de tipos"
+  "La mezcla hacia infraestructura digital sube el margen: +0,25 pp de margen EBITDA suman un 8,23 % al precio objetivo. Trigger: margen EBITDA del grupo por encima del 6,5 % en un semestre.",
+  "Se cobra la contraprestación contingente de GIP (865 M€): +3,95 %. Trigger: las cuentas semestrales muestran cobros o la reclasifican a corto plazo.",
+  "Cumple la guía de 2026 (beneficio neto ordinario +20 a +25 % sobre 857 M€): +2,31 % con el suelo. Trigger: beneficio ordinario de 2026 por encima de 1.028 M€.",
+  "Thiess al 100 % (40 % comprado a Elliott por 723,6 M€, jul-2026): el motor lo mide en −3,25 % porque ACS no publica el beneficio de Thiess. Trigger: el beneficio atribuido de 2026 crece más que el EBITDA."
  ],
  "riesgos": [
-  "Concentración en data centers / IA (capex hyperscalers)",
-  "Derating por valoración exigente (P/E 31x)",
-  "Recesión / ciclo de la construcción",
-  "Sobrecostes en mega-proyectos a precio fijo",
-  "Deterioro del fondo de comercio (105% del PN)",
-  "Sucesión de F. Pérez / gobernanza"
+  "Macroeconómico (Media) · −16,21 a −30,40 %: se frena el ciclo de inversión en centros de datos de EE. UU. (el 59 % de las ventas; la infraestructura digital ya es el 18 % de la cartera).",
+  "Divisa (Media) · −15,61 a −31,21 % (cota superior): el dólar y el dólar australiano se deprecian; EE. UU. y Australia son el 77 % de las ventas.",
+  "Operativo (Media) · −8,23 a −16,45 %: sobrecostes en contratos grandes a precio cerrado; con un margen EBITDA del 6,2 %, un punto de margen son 498,5 M€.",
+  "Mercado (Media) · −7,50 a −15,01 %: el múltiplo del sector se comprime; ACS cotiza a 23,0x beneficios, casi el doble que los contratistas europeos.",
+  "Asignación de capital (Media) · −4,57 a −9,13 %: el capital sale de la construcción hacia activos de menor retorno (Abertis, centros de datos, Thiess)."
  ],
+ "bull": "64,61 €/acc. Tres catalizadores del §9.1 a la vez: el suelo de la guía de 2026 (+171,4 M€ de beneficio), el cobro de los 865 M€ contingentes de GIP y +0,25 pp de margen por la mezcla hacia infraestructura digital. Queda un 31,0 % por debajo de la cotización: ni el escenario bueno justifica el precio de hoy.",
+ "bear": "47,28 €/acc (0,838 × PO). El riesgo dominante —el frenazo del ciclo de inversión en centros de datos de EE. UU.— en su extremo suave: el volumen cae un 8 % con el margen intacto.",
+ "resumen": "ESPERAR. Precio objetivo 56,43 €/acc con un margen de seguridad del −39,71 % sobre 93,60 € (25-sep-2026): no falla la empresa, falla el precio. Rating A (71,0), caja neta, dividendo muy seguro (82/100) y forense limpio, pero SIN MOAT CLARO (42,8) y a este precio el mercado exige un flujo creciendo un 10,7 % al año cinco años. La tesis cuelga del volumen de obra en EE. UU.; la señal que se vigila son las adjudicaciones del grupo. Banda de entrada 47,28–49,07 €, stop de tesis 29,56 €.",
  "confianza": {
-  "score": 100,
+  "score": 94,
   "nivel": "A",
   "motivos": [
-   "sin huecos críticos ni discrepancias abiertas"
+   "3 dato(s) secundario(s) en 'Pte. Revisión' (−6)"
   ],
   "sensibleASupuestos": false,
   "reglaDura": {
@@ -45,123 +43,312 @@
    "motivo": "",
    "accion": null
   },
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-26"
  },
  "robustez": {
   "nivel": "solida",
   "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
   "matizada": false,
   "banda": {
-   "p10": 55.7,
-   "p50": 68.8,
-   "p90": 98.6
+   "p10": 47.28,
+   "p50": 56.43,
+   "p90": 64.61
   },
   "sensibilidad": {
-   "poMin": 66.41,
-   "poMax": 104.18,
-   "poBase": 81.2535027296034,
-   "cotizacion": 117.6,
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 53.83,
+   "poMax": 60.64,
+   "poBase": 56.43,
+   "cotizacion": 93.6,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.25,
+   "componentesIntactos": 7,
+   "dcf": {
+    "poMin": 50.28,
+    "poMax": 77.52,
+    "poBase": 60.7017905012762
+   },
    "ejeCoste": "WACC",
    "pertCoste": 1.0,
    "pertOtro": 0.5,
-   "mdsMin": -43.5,
-   "mdsMax": -11.4
+   "mdsMin": -42.5,
+   "mdsMax": -35.2
   },
   "beta": {
-   "capm": 0.63,
-   "ref2": 1.05,
-   "aviso": "beta CAPM 0.63 vs 2ª ref 1.05: divergencia 0.42 > 0.3 → revisar cuál usar en el WACC"
+   "capm": 0.853,
+   "ref2": 0.902,
+   "aviso": null
   },
   "motivos": [
-   "la cotización (117.60) queda por ENCIMA de toda la banda de PO [66.4–104.2] → sobrevalorada en todo el rango; la cautela es ROBUSTA",
-   "beta CAPM 0.63 vs 2ª ref 1.05: divergencia 0.42 > 0.3 → revisar cuál usar en el WACC"
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (25 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 75 % restante de la ponderación —los otros 7 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (93.60) queda por ENCIMA de toda la banda del precio objetivo de síntesis [53.83–60.64] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-42.5 % … -35.2 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [50.28–77.52] € alrededor de 60.70 €: es la sensibilidad del MODELO, no la del precio objetivo"
   ],
-  "calculadoEl": "2026-07-27"
+  "calculadoEl": "2026-09-26"
  },
  "dividendSafety": {
-  "score": 84,
+  "score": 82,
   "banda": "Muy seguro",
   "componentes": {
    "C1": 35,
-   "C2": 15,
+   "C2": 13,
    "C3": 13,
    "C4": 9,
    "C5": 12
   },
-  "shareholderYield": 2.21,
+  "shareholderYield": 2.05,
   "topeDuro": {
    "activo": false,
    "motivo": ""
   },
   "motivos": [
    "C1 cobertura dividendo ord.: OE 4.94x / FCL 5.48x (3a OE 4.19x) → 35/35",
-   "C2 payout BN ord.: 35% (3a 37%) → 15/15",
-   "C3 balance: DN/EBITDA 1.59x, cob.int 3.6x → 13/20",
-   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+   "C2 payout BN ord.: 44% (3a 46%) → 13/15",
+   "C3 balance: DN/EBITDA -0.01x, cob.int 2.4x → 13/20",
+   "C4 trayectoria: 1 recorte(s) en 9a · DPA creciente → 9/15",
    "C5 predictores B4 (cuantitativos): recompras recortadas/suspendidas → 12/15",
    "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
   ],
-  "calculadoEl": "2026-07-25"
+  "calculadoEl": "2026-09-26"
  },
  "forense": {
   "aplica": true,
   "piotroski": {
    "score": 5,
-   "banda": "media",
+   "banda": "medio",
    "detalle": {
     "roa_pos": 1,
     "cfo_pos": 1,
-    "roa_up": 0,
+    "roa_up": 1,
     "accrual": 1,
     "lever_dn": 0,
     "liquid_up": 0,
     "no_dilu": 0,
-    "margin_up": 1,
+    "margin_up": 0,
     "turn_up": 1
    },
-   "nota": "margen=EBIT (contratista, sin margen bruto); F-Score A4"
+   "nota": "margen=bruto"
   },
   "altman": {
    "z": 4.82,
    "zona": "segura"
   },
   "beneish": {
-   "m": -2.6,
+   "m": -2.56,
    "senal": "sin indicios",
    "aproximado": [
-    "GMI",
     "SGAI"
    ]
   },
   "sloan": {
-   "accruals": -4.6,
+   "accruals": -4.8,
    "senal": "normal"
   },
   "flags": [],
-  "calculadoEl": "2026-07-21"
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-09-26"
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": 7.22,
-  "gIntrinseco": 1.73,
-  "veredicto": "HEROICO",
-  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
-  "calculadoEl": "2026-07-27",
+  "gImplicito": 10.66,
+  "gIntrinseco": -5.06,
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio exige un 10.66% de crecimiento del FCL a una empresa cuyo g intrínseco es NEGATIVO (-5.06%): no está reinvirtiendo para crecer, está encogiendo su capital invertido. El 10.66% queda por debajo del ROIC (29.6%), que es el techo teórico —lo que crecería si reinvirtiera todo el NOPAT—, así que no es imposible. Para producirlo tendría que volver a reinvertir —o sacar el crecimiento de margen y precio indefinidamente—, que es lo contrario de lo que hace hoy. No es un dato que falte: es una exigencia real embebida en el precio.",
+  "calculadoEl": "2026-09-26",
   "entradas": {
-   "fcl": 1500,
-   "wacc": 8.3,
+   "fcl": 894.1504,
+   "wacc": 8.24,
    "gTV": 2.0,
    "ratioG2": 0.7,
-   "acciones": 257.46,
-   "deudaNeta": 3352.4,
+   "acciones": 271.664,
+   "deudaNeta": -17,
    "modo": "EV",
-   "precioBase": 117.6,
+   "precioBase": 93.6,
    "validado": true,
-   "desviacion": -0.002,
-   "gBase": 7.218,
-   "congeladoEl": "2026-08-24",
-   "fechaBase": "2026-07-27"
+   "desviacion": -0.001,
+   "gBase": 10.659,
+   "fechaBase": "2026-09-26",
+   "congeladoEl": "2026-09-26"
   }
  },
- "cambiosDesdeUltimaRevision": "[29-jul-2026] Banda de entrada recolocada. Estaba en 69,00-75,00 €, POR ENCIMA del PO base (68,80 €): comprar dentro de ella era pagar por encima del propio precio objetivo. Se aplica la regla observada en el resto del parque — entMin = 0,77 × PO base y entMax = 0,84 × PO base, medianas de las 20 fichas coherentes— redondeando siempre A LA BAJA para no ensanchar la zona de compra. Nueva banda 52,50-57,50 €, margen de seguridad del 24% al 16%. No cambia la valoración: PO bear/base/bull siguen igual. · Precios de referencia desfasados: el reverse DCF (g implícito 7,22% · veredicto HEROICO) y la banda de sensibilidad de robustez están calculados sobre 117,60 €, y la serie de precios de la app termina el 17-jul-2026. El VEREDICTO no se toca porque no depende del decimal: HEROICO exige g implícito > 1,4 × g intrínseco y hoy la razón es 4,2× (7,22 / 1,73), así que una caída del precio del 10% no lo mueve de banda. El VALOR EXACTO de gImplicito queda «Pte. Revisión» hasta que se re-ejecute el Bloque 8 con un cierre verificado."
+ "lecturaNegocio": {
+  "fecha": "2026-09-26",
+  "fuente": "Datos Financieros ACS.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde mucho, reinvierte poco",
+   "porSpread": true,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 13.24,
+    "regla": "ROIIC no significativo: por el spread ROIC − WACC (reinvierte poco: > 0 → 1; mucho: ≥ 5 → 2, 0-5 → 4, ≤ 0 → 3) · regla del 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 11.89,
+   "roiic5a": null,
+   "roiic": null,
+   "roiicVentana": null,
+   "roicMedio": 20.66,
+   "spread": 21.37,
+   "wacc": 8.24,
+   "conversionMedia": 48.11,
+   "coberturaDividendo": 3.65,
+   "gIntrinseco": -5.06,
+   "capexCrecimiento10a": 1481.3,
+   "fcl10a": 11482.1,
+   "retribucion10a": 5887.3,
+   "retribucionSobreFcl": 51.3
+  },
+  "tension": {
+   "anios": [
+    2021,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    1.8,
+    3.65
+   ],
+   "coberturaOe": [
+    null,
+    2.03,
+    3.78
+   ],
+   "payoutBn": [
+    20.0,
+    71.7,
+    66.4
+   ],
+   "payoutFcl": [
+    null,
+    55.5,
+    27.4
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un contratista: <b>construye por encargo y cobra por adelantado</b>. El CAPEX es el <b>1,8 % de las ventas</b> en la década, porque la obra la ejecutan equipos y subcontratas, no fábricas. La conversión del EBITDA en caja libre es del 48,1 % de media, con 2020 y 2021 —la COVID y la venta de Servicios Industriales— dentro.",
+     "Lo que vende es obra —edificación, obra civil, minería y, cada vez más, centros de datos— en Norteamérica, Asia-Pacífico y Europa, y es dueña del 50 % de Abertis. La demanda la ponen los grandes clientes; el margen lo pone la ejecución."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De lo poco que invierte, no del margen.</b> El ROIC medio de la década es del 20,7 % contra un WACC del 8,24 %, y el spread fue positivo los diez años: en 2025, +21,37 pp. El margen EBIT, en cambio, es del 4,2 %.",
+     "El capital no crece con el negocio: los anticipos de los clientes financian el circulante. De los 11.482 M€ de flujo libre de la década, <b>5.887 M€ —el 51 %— han vuelto al accionista</b> en dividendos en efectivo y recompras."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el volumen. Con un margen del 6,2 %, <b>un punto de margen son 498,5 M€ de EBITDA</b>, y el riesgo que manda es que el ciclo de centros de datos de EE. UU. se frene: un −8 % de volumen resta un 16,21 % al precio objetivo.",
+     "Y en el precio: a 93,60 € el mercado exige un flujo creciendo un 10,7 % al año durante cinco años. El dividendo está cubierto 3,65x y no es el problema; lo es la distancia entre la cotización y el precio objetivo de 56,43 €."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra ACS compra <b>un modelo que crea valor con el dinero de sus clientes, en el punto alto de un ciclo</b>. La casilla 1 dice que reinvierte poco capital propio y que ese capital rinde mucho más de lo que cuesta; no dice que tenga un foso, y el Bloque 7 no lo encuentra.",
+     "<b>Qué vigilar:</b> las adjudicaciones del grupo cada trimestre, que adelantan el volumen, y el capital que sale de la construcción hacia concesiones y centros de datos: si el capital invertido empieza a crecer, el ROIC dejará de ser el de hoy."
+    ]
+   }
+  ],
+  "vigilar": "Las adjudicaciones del grupo, la señal única del §10.1: dos trimestres seguidos por debajo del mismo trimestre del año anterior abren revisión. Y el margen EBITDA, con la banda del §8.1: verde desde 5,91 % y rojo por debajo de 5,66 %.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De construir por encargo, sobre todo en EE. UU.: Turner es el 51,7 % de las ventas y Norteamérica el 65 % en el primer semestre de 2026.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí, con caja neta: 17 M€ al cierre de 2025 y 1.006 M€ en junio de 2026, con 14.480 M€ de liquidez. La deuda bruta (14.463 M€) sí cuesta: cobertura de intereses de 3,46x.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Mucho sobre muy poco capital: ROIC del 20,7 % de media y del 29,6 % en 2025, contra un WACC del 8,24 %. El margen EBIT, en cambio, es del 4,2 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde mucho, reinvierte poco. Reinvierte el 11,9 % del NOPAT de media; el ROIIC no es significativo y la casilla sale del spread (+21,37 pp).",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Sí: 2.303 M€ de flujo libre en 2025, el 75 % del EBITDA; al accionista de ACS llegan 1.725 M€ y el dividendo está cubierto 3,65x.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 71,0 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 56,43 € contra 93,60 €: margen de seguridad −39,7 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Poco: SIN MOAT CLARO (42,8). La escala (55) es el único pilar por encima de 50, y el margen EBIT es el más bajo frente a sus seis comparables.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El frenazo del ciclo de centros de datos de EE. UU. (−16,21 a −30,40 % del precio objetivo). La peor cadena del pre-mortem cae un 42,74 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Cumplir la guía de 2026 (+2,31 %), cobrar los 865 M€ de GIP (+3,95 %) y una mezcla con más margen (+8,23 %). Juntos, 64,61 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 47,28 – 49,07 € · stop de tesis 29,56 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "Las adjudicaciones del grupo, la señal única del §10.1: dos trimestres seguidos por debajo del mismo trimestre del año anterior abren revisión. Y el margen EBITDA, con la banda del §8.1: verde desde 5,91 % y rojo por debajo de 5,66 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "El margen de la infraestructura digital y el beneficio de Thiess, que ACS no publica, y la categoría de cada consejero, que está en un informe que no forma parte del análisis.",
+    "origen": "escrita"
+   }
+  ]
+ }
 }
