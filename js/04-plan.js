@@ -1267,11 +1267,16 @@ function renderPanelDash(){
       +tiposPres.map(tp=>`<span data-avtipo="${tp}" style="cursor:pointer;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;background:${F.tipo===tp?'#1f2937':'#f1f5f9'};color:${F.tipo===tp?'#fff':'#475569'}">${_TN[tp]||tp}${_cont[tp]?' '+_cont[tp]:''}</span>`).join('')
       +(_nVistos?`<span data-avshow="1" style="cursor:pointer;font-size:11px;padding:2px 8px;border-radius:10px;background:#f1f5f9;color:#475569">${F.showSeen?'ocultar vistos':('ver vistos ('+_nVistos+')')}</span>`:'')
       +'</div>';
-    const grupos={}; show.forEach(x=>{ (grupos[x.tipo]=grupos[x.tipo]||[]).push(x); });
-    const _itav=Object.keys(grupos).map(tp=>{
+    /* [26-sep-2026 · petición del operador] «Ver 17 avisos asusta»: IMPORTANTES = señales S1-S6 que abren
+       apunte, avisos rojos y hallazgos; el resto (PO base, banda de entrada…) va plegado como informativo. */
+    const _esImp=x=>(x.sig&&/^S[1-6]$/.test(x.sig)&&!x.noApunte)||x.cls==='r'||x.tipo==='hallazgo';
+    const _grp=lista=>{ const grupos={}; lista.forEach(x=>{ (grupos[x.tipo]=grupos[x.tipo]||[]).push(x); }); return Object.keys(grupos).map(tp=>{
       const its=grupos[tp].map(x=>{ const vst=!!_vis[x.key]; return `<div style="font-size:12.5px;margin:3px 0;padding:6px 8px;background:#fff;border-left:3px solid ${x.cls==='r'?'#dc2626':'#d97706'};border-radius:4px;display:flex;align-items:flex-start;gap:8px;${vst?'opacity:.5':''}"><span data-goto="${x.goto}"${(x.sig&&!x.noApunte)?` data-sig="${x.sig}" data-ticker="${x.tick||''}" data-nivel="${x.nivel||''}" title="Pulsa para ver el procedimiento (señal ${x.sig})"`:''} style="cursor:pointer;flex:1">${x.txt}${(x.sig&&!x.noApunte)?` <span style="font-size:10px;font-weight:700;color:#94a3b8;background:#f1f5f9;border-radius:8px;padding:1px 6px">${x.sig} 📋</span>`:''}</span><span data-avseen="${x.key}" title="${vst?'Marcar como no visto':'Marcar como visto'}" style="cursor:pointer;color:${vst?'#16a34a':'#cbd5e1'};font-weight:700;font-size:13px">✓</span></div>`; }).join('');
       return `<div style="margin-bottom:6px"><div style="font-size:11px;font-weight:700;color:#94a3b8;margin:4px 0 2px">${_TN[tp]||tp}</div>${its}</div>`;
-    }).join('');
+    }).join(''); };
+    const _showImp=show.filter(_esImp), _showInf=show.filter(x=>!_esImp(x)), _infOpen=window._avInfoOpen===true;
+    const _itav=_grp(_showImp)+(_showInf.length?`<div data-avinfo="1" style="cursor:pointer;font-size:11.5px;font-weight:700;color:#64748b;margin:8px 0 2px"><span class="pcol-arw${_infOpen?' open':''}">▶</span> Informativos (${_showInf.length}) · no piden decisión</div>`+(_infOpen?_grp(_showInf):''):'');
+    if(!window._avInfoBound){ window._avInfoBound=true; document.addEventListener('click',function(ev){ const t=ev.target.closest&&ev.target.closest('[data-avinfo]'); if(!t)return; window._avInfoOpen=!(window._avInfoOpen===true); if(typeof renderPanelDash==='function')renderPanelDash(); }); }
     const _allKeys=show.map(x=>x.key).join('~');
     const _aviOpen=window._pAviOpen===true;
     /* [26-sep-2026 · petición del operador] «Lanzar revisiones extraordinarias»: junta las señales
@@ -1292,7 +1297,7 @@ function renderPanelDash(){
       try{ navigator.clipboard.writeText(txt).then(ok,function(){ _cp(); }); }catch(e){ _cp(); }
       function _cp(){ try{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); ok(); }catch(e2){ b.textContent='No se pudo copiar'; } }
     }); }
-    avisosHTML=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos (${show.length})</div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${_btnRev}${chips}${_aviOpen?(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>'):''}</div>`;
+    avisosHTML=`<div class="${hayCrit?'stopalert':''}" style="margin-top:4px;padding:12px 14px;background:${hayCrit?'#fee2e2':'#fff7ed'};border:1px solid ${hayCrit?'#fecaca':'#fed7aa'};border-radius:10px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><div class="pcol-h" data-pavi="1" style="font-weight:800;color:${hayCrit?'#991b1b':'#9a3412'};font-size:15px;cursor:pointer"><span class="pcol-arw${_aviOpen?' open':''}">▶</span>🔔 Avisos <span title="importantes / total">(${show.filter(_esImp).length}/${show.length})</span></div>${show.length?`<span data-avseenall="${_allKeys}" style="cursor:pointer;font-size:11px;color:#64748b" title="Marcar todos como vistos">marcar todos ✓</span>`:''}</div>${_btnRev}${chips}${_aviOpen?(_itav||'<div class="muted" style="font-size:12px">Sin avisos en este filtro.</div>'):''}</div>`;
   }
   const card=c=>`<div class="card"><div class="lbl">${c[0]}</div><div class="val ${c[2]||''}">${c[1]}</div>${c[3]?`<div class="sub">${c[3]}</div>`:''}</div>`;
   const block=(title,view,cards)=>`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="${view}">${title} <span class="muted" style="font-size:12px">›</span></h3><div class="cards">${cards.map(card).join('')}</div></div>`;
