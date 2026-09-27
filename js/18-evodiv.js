@@ -236,6 +236,17 @@ function _evoCrecAno(year){
 }
 function _evoRound(x,d){ var p=Math.pow(10,d==null?4:d); return Math.round(num(x)*p)/p; }
 var _EVO_RET = 0.19;   /* retención IRPF por defecto: neto = bruto × (1 − 19%) */
+/* [27-sep-2026] Quitar una anotación de un año futuro con UN clic. Vaciar la casilla dependía de que el
+   navegador disparase «change» al salir de ella, y en casa de Carlos no la borraba (A3M 2027 = 0). */
+function _evoQuitarBtn(r){ if(!r||r.ovr==null) return '';
+  return '<button type="button" data-evoquitar="'+_evoEsc(r.t)+'|'+_evoYear+'" title="Quitar tu anotación y volver a la proyección automática" style="margin-left:4px;border:1px solid #d97706;background:#fff;color:#b45309;border-radius:6px;font-size:11px;padding:1px 6px;cursor:pointer">✕ Quitar</button>'; }
+function _evoQuitarOvr(k){ var p=(k||'').split('|'); var t=(p[0]||'').toUpperCase(), y=String(p[1]||'');
+  var o=DB.divOverride&&DB.divOverride[t]; if(!o) return;
+  Object.keys(o).forEach(function(kk){ if(String(kk)===y) delete o[kk]; });
+  if(!Object.keys(o).length) delete DB.divOverride[t];
+  if(typeof scheduleSave==='function')scheduleSave();
+  if(typeof showToast==='function')showToast('Anotación de '+t+' '+y+' quitada: vuelve la proyección automática.');
+  renderEvoDiv(); }
 function _evoNeto(bruto){ return _evoRound(num(bruto)*(1-_EVO_RET),4); }
 function _evoOverride(t,year){
   var o=DB.divOverride&&DB.divOverride[(t||'').toUpperCase()];
@@ -535,7 +546,7 @@ function renderEvoDiv(){
          publicado si lo hay, y solo si no lo hay, la proyección. Antes ponía siempre la proyección,
          de modo que la fila decía una cosa y el resto de la app usaba otra. */
       var _fall=_b6Fallback(r), ph=_fall.txt;
-      divCell='<td class="num">'+_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fall.tit+'" style="width:86px;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:2px 5px;font-size:12px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'"></td>';
+      divCell='<td class="num">'+_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fall.tit+'" style="width:86px;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:2px 5px;font-size:12px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'+_evoQuitarBtn(r)+'</td>';
     } else {
       divCell='<td class="num" style="font-weight:600">'+(r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—')+'</td>';
     }
@@ -559,7 +570,7 @@ function renderEvoDiv(){
     var rpdTxt=r.rpd!=null?(_evoPf(r.rpd,2)+'%'):'—';
     var rpdC=r.rpd==null?'#94a3b8':(r.rpd>=5?'#16a34a':(r.rpd>=3.5?'#2563eb':'#475569'));
     var divM;
-    if(esFuturo){ var _fM=_b6Fallback(r), ph=_fM.txt; divM=_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fM.tit+'" style="width:100%;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:3px 5px;font-size:13px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'; }
+    if(esFuturo){ var _fM=_b6Fallback(r), ph=_fM.txt; divM=_b6Marca(r)+'<input type="number" step="0.0001" data-ovr="'+_evoEsc(r.t)+'|'+_evoYear+'" value="'+(r.ovr!=null?r.ovr:'')+'" placeholder="'+ph+'" title="'+_fM.tit+'" style="width:100%;text-align:right;border:1px solid '+(r.ovr!=null?'#d97706':'var(--line)')+';border-radius:6px;padding:3px 5px;font-size:13px;background:'+(r.ovr!=null?'#fffbeb':'#fff')+'">'+_evoQuitarBtn(r); }
     else { divM=(r.dpaB!=null?_evoPf(r.dpaB,4)+' €':'—'); }
     return '<div class="evo-card'+(open?' open':'')+(r.isCartera?' cart':'')+'" data-evocard="'+_evoEsc(r.t)+'" data-fs="'+_evoEsc((r.t+' '+r.nombre).toLowerCase())+'">'
       +'<div class="ec-h"><div class="ec-tk"><b data-ficha="'+_evoEsc(r.t)+'">'+_evoEsc(r.t)+'</b> <span class="nm">'+_evoEsc((r.nombre||'').slice(0,22))+'</span></div><span class="ec-arw">'+(open?'▾':'▸')+'</span></div>'
@@ -607,6 +618,7 @@ function renderEvoDiv(){
   if(yrg){ yrg.addEventListener('input',function(){ var lbl=document.getElementById('evoYearLbl'); if(lbl)lbl.textContent=this.value; var tg=document.getElementById('evoYearTag'); if(tg){ var vy=parseInt(this.value,10); tg.innerHTML=(vy>nowY)?' <span style="font-size:11px;color:#92400e">· proyección</span>':''; } });
     yrg.addEventListener('change',function(){ _evoYear=parseInt(this.value,10)||_evoYear; renderEvoDiv(); }); }
   host.querySelectorAll('[data-evogrp]').forEach(function(b){ b.addEventListener('click',function(){ var k=b.getAttribute('data-evogrp'); _evoGroups[k]=!_evoGroups[k]; renderEvoDiv(); }); });
+  host.querySelectorAll('button[data-evoquitar]').forEach(function(b){ b.addEventListener('click',function(e){ e.stopPropagation(); e.preventDefault(); _evoQuitarOvr(b.getAttribute('data-evoquitar')); }); });
   host.querySelectorAll('input[data-ovr]').forEach(function(inp){
     inp.addEventListener('click',function(e){ e.stopPropagation(); });
     inp.addEventListener('change',function(){
