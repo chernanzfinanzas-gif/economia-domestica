@@ -1,7 +1,15 @@
 let invOpsTicker=null, invOpsCartera=null, invCartFiltro='Todas', opEditId=null;
 function invByFecha(a,b){ return (a.fecha||'')<(b.fecha||'')?-1:(a.fecha||'')>(b.fecha||'')?1:0; }
 function invCarteras(){ const s=new Set(['Propia']); (DB.operaciones||[]).forEach(o=>s.add(o.cartera||'Propia')); return [...s]; }
+/* [27-sep-2026 · auditoría, fallo 3] Mientras se PINTA una pantalla (renderView / renderAllFull activan
+   window._khMemo) las posiciones se calculan una vez y se reutilizan: Análisis las recalculaba ~1.100 veces.
+   Se entrega una copia de cada fila, así que quien la modifique no ensucia a los demás. Fuera del pintado,
+   siempre se recalculan al momento. */
 function invPositions(){
+  const M=(typeof window!=='undefined')?window._khMemo:null; if(M&&M.pos) return M.pos.map(o=>Object.assign({},o));
+  const r=_invPositionsCalc(); if(M) M.pos=r.map(o=>Object.assign({},o)); return r;
+}
+function _invPositionsCalc(){
   const map={};
   (DB.operaciones||[]).slice().sort(invByFecha).forEach(o=>{
     const t=(o.ticker||'').toUpperCase(); if(!t)return; const car=o.cartera||'Propia'; const k=car+'|'+t;
@@ -720,20 +728,28 @@ const _FICHA_SUMCOL='#f472b6';      /* suma simple — el mismo color, más clar
    por delante sin dato. Esto devuelve el 1 de enero del primer anio que el fichero dice cubrir
    -no la fecha del primer pago: el fichero cubre el anio entero, y anclarlo al primer pago
    dejaria fuera una compra de enero por un dividendo que se paga en julio-. */
+/* [27-sep-2026 · auditoría, fallo 5] Años y pagos de Evolución del Dividendo CON tus ediciones
+   (evoAnioM = fichero publicado + DB.divData). Antes se leía solo el fichero publicado y el gráfico
+   «con dividendo» y la vista «Móvil» no veían, p. ej., el extraordinario de A3M. */
+function _fichaEvoAnios(t){
+  t=(t||'').toUpperCase(); const ys={};
+  const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[t]:null;
+  if(reg&&reg.anios) Object.keys(reg.anios).forEach(y=>ys[y]=1);
+  let ov=null; try{ ov=((DB&&DB.divData)||{})[t]; }catch(e){}
+  if(ov&&ov.anios) Object.keys(ov.anios).forEach(y=>ys[y]=1);
+  return Object.keys(ys).map(Number).filter(y=>y>1900).sort((a,b)=>a-b);
+}
 function _fichaDivDesde(t){
-  const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[(t||'').toUpperCase()]:null;
-  if(!reg||!reg.anios) return null;
-  const ys=Object.keys(reg.anios).map(Number).filter(y=>y>1900);
+  const ys=_fichaEvoAnios(t);
   if(!ys.length) return null;
-  return Date.UTC(Math.min.apply(null,ys),0,1);
+  return Date.UTC(ys[0],0,1);
 }
 function _fichaPagosDiv(t){
   t=(t||'').toUpperCase();
-  const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[t]:null;
-  if(!reg||!reg.anios) return [];
   const out=[];
-  Object.keys(reg.anios).forEach(y=>{
-    const a=reg.anios[y]||{};
+  _fichaEvoAnios(t).forEach(y=>{
+    const _r=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[t]:null;
+    const a=(typeof evoAnioM==='function')?evoAnioM(t,y):(((_r&&_r.anios)||{})[y]||null); if(!a) return;
     (a.pagos||[]).forEach(p=>{
       if(!p||(p.tipo||'')==='previsto') return;
       const imp=num(p.bruto); if(!(imp>0)) return;
@@ -808,14 +824,22 @@ function _fichaPrevistos(t, divs){
   const y=new Date().getFullYear(), hoy=_divHoyISO(); const a=evoAnioM(t,y); if(!a||!a.pagos) return [];
   const cob=(divs||[]).filter(d=>divEsCobrado(d)&&(d.fecha||'').slice(0,4)===String(y)).map(d=>(d.fecha||'').slice(0,10));
   const dias=(f1,f2)=>Math.abs(Date.parse(f1+'T00:00:00')-Date.parse(f2+'T00:00:00'))/864e5;
+  const an=DB.divAnotado||{};
   const out=[]; a.pagos.forEach(p=>{ const f=(''+(p.pago||p.exDiv||'')).slice(0,10); if(!f) return; const imp=num(p.bruto); if(!(imp>0)) return;
+    const _k=an[t+'|'+(''+(p.exDiv||'')).slice(0,10)]; if(_k&&_k.tipo==='descartado') return;   /* «No lo cobré» [27-sep] */
     if(f<=hoy){ /* pago ya pasado: solo es «previsto por anotar» si entonces tenías acciones y no está cobrado */
       const ex=(''+(p.exDiv||f)).slice(0,10); let sh=0; (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t && (o.fecha||'')<ex) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); });
       if(!(sh>0) || cob.some(c=>dias(c,f)<=30)) return; }
     out.push({fecha:f,imp:imp,tipo:(p.tipo||'')}); });
   return out;
 }
+/* [27-sep-2026 · auditoría, fallo 3] misma memoria de pintado que invPositions (copia por llamada) */
 function fichaCalc(ticker){
+  const M=(typeof window!=='undefined')?window._khMemo:null, _k=(ticker||'').toUpperCase();
+  if(M){ M.fc=M.fc||{}; if(M.fc[_k]) return JSON.parse(M.fc[_k]); const r=_fichaCalcRaw(ticker); M.fc[_k]=JSON.stringify(r); return r; }
+  return _fichaCalcRaw(ticker);
+}
+function _fichaCalcRaw(ticker){
   const t=(ticker||'').toUpperCase();
   let ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
   let divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
@@ -1754,73 +1778,9 @@ function calPrecio(c){ const v=(DB.valores||{})[(c.ticker||'').toUpperCase()]; c
 function calSharesByTicker(){ const m={}; (typeof invPositions==='function'?invPositions():[]).forEach(p=>{ if(p.acciones>0.0001){ const t=(p.ticker||'').toUpperCase(); m[t]=(m[t]||0)+p.acciones; } }); return m; }
 function evTipo(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return 'div'; if(c[0]==='Q') return 'res'; if(c==='JA') return 'jun'; return 'otro'; }
 function evTexto(code){ const c=(code||'').toUpperCase(); if(c[0]==='D') return 'Dividendo'; if(c[0]==='Q') return 'Resultados '+c; if(c==='JA') return 'Junta de accionistas'; if(c==='ID') return 'Investor Day'; return c; }
-function renderEventos(){
-  const ev=DB.eventos=DB.eventos||{};
-  const held=heldTickerSet();
-  let tickers=[...new Set([...Object.keys(ev), ...held])].filter(Boolean);
-  /* ---- Agenda: mes en curso + siguiente, en rejilla de bloques ---- */
-  const ag=$('#calAgenda');
-  if(ag){
-    const now=new Date(); const nowM=now.getMonth()+1; const nextM=nowM===12?1:nowM+1;
-    let all=[]; tickers.forEach(t=>(ev[t]||[]).forEach(e=>all.push({t,m:e.m,w:e.w,code:e.code})));
-    let up=all.filter(e=> e.m===nowM || e.m===nextM).sort((a,b)=> a.m-b.m||a.w-b.w);
-    const item=e=>{ const tp=evTipo(e.code); const h=held.has(e.t); return `<div style="font-size:11px;padding:3px 6px;background:#f8fafc;border-radius:6px"><span class="muted">${MESES_ES[e.m-1]} s${e.w}</span> <span class="evchip ev-${tp}">${e.code}</span> <span data-ficha="${e.t}" style="cursor:pointer;color:var(--brand)${h?';font-weight:700':''}">${e.t}</span> <span class="muted">${evTexto(e.code)}</span></div>`; };
-    ag.innerHTML=up.length?`<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:5px">${up.map(item).join('')}</div>`:'<div class="empty">Sin eventos en el mes en curso ni el siguiente.</div>';
-  }
-  /* ---- Calendario anual: 4 semanas/mes, editable ---- */
-  const el=$('#calEventos'); if(!el)return;
-  if(!tickers.length){ el.innerHTML='<div class="empty">Sin eventos. Importa «eventos-calendario.json» o pulsa «+ Empresa».</div>'; return; }
-  tickers.sort((a,b)=>(held.has(b)?1:0)-(held.has(a)?1:0) || a.localeCompare(b));
-  const h1='<tr><th rowspan="2">Empresa</th>'+MESES_ES.map(m=>`<th colspan="4" style="text-align:center;border-left:2px solid #cbd5e1">${m}</th>`).join('')+'</tr>';
-  const h2='<tr>'+MESES_ES.map(()=>[1,2,3,4].map((w,i)=>`<th style="font-weight:400;color:var(--muted)${i===0?';border-left:2px solid #cbd5e1':''}">${w}</th>`).join('')).join('')+'</tr>';
-  const body=tickers.map(t=>{ let cells='';
-    for(let m=1;m<=12;m++)for(let w=1;w<=4;w++){ const arr=(ev[t]||[]).filter(e=>e.m===m&&e.w===w).map(e=>(e.code||'')); const val=arr.join(' '); const U=arr.map(c=>c.toUpperCase()); let cs=''; if(U.some(c=>c[0]==='D')) cs=';background:#dcfce7;color:#166534;font-weight:700'; else if(U.some(c=>c==='JA'||c==='ID')) cs=';background:#fef9c3;color:#c2410c;font-weight:700'; else if(U.some(c=>c[0]==='Q')) cs=';background:#dbeafe;color:#1e40af;font-weight:700'; cells+=`<td style="padding:1px${w===1?';border-left:2px solid #cbd5e1':''}"><input class="anaInp" style="width:16px;text-align:center;font-size:8px;padding:0;background:transparent${cs}" data-evcell="${t}|${m}|${w}" value="${val}"></td>`; }
-    return `<tr${held.has(t)?' style="background:#fffbeb"':''}><td style="white-space:nowrap"><button class="btn ghost sm" data-ficha="${t}" style="padding:0 4px">${held.has(t)?'<b>'+t+'</b>':t}</button></td>${cells}</tr>`;
-  }).join('');
-  el.innerHTML=`<table><thead>${h1}${h2}</thead><tbody>${body}</tbody></table>`;
-}
-/* [26-ago-2026] Retirada `addEventoEmpresa()`: un prompt() de ticker sin validar que creaba
-   DB.eventos[tk] y DB.valores[tk]. Inalcanzable — se enganchaba a #evAdd, que no existe en index.html,
-   y el `if($('#evAdd'))` de 06-main.js se tragaba el fallo en silencio. Tampoco hace falta:
-   renderEventos lista Object.keys(DB.eventos) ∪ heldTickerSet(), así que toda empresa en cartera sale sola. */
+/* [27-sep-2026 · auditoría, fallo 7] Aquí vivían renderEventos() y renderCalendario() antiguos: el calendario
+   bueno está en 19-calendario.js, que se carga después y los pisaba. Retirados (copia en .antes-auditoria-27sep). */
 function calDivBruto(c){ const t=(c.ticker||'').toUpperCase(); const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0) return num(v.divAccion); if(c.divNeto) return num(c.divNeto)/0.81; return 0; }
-function renderCalendario(){
-  const el=$('#calTabla'); if(!el)return;
-  const shares=calSharesByTicker();
-  const ev=DB.eventos||{}; DB.divReparto=DB.divReparto||{};
-  const held=Object.keys(shares).filter(t=>shares[t]>0.0001);
-  if(!held.length){ el.innerHTML='<div class="empty">Sin posiciones en cartera.</div>'; $('#calKpis').innerHTML=''; if(typeof renderEventos==='function')renderEventos(); return; }
-  const calOf=t=>(DB.calendario||[]).find(x=>(x.ticker||'').toUpperCase()===t);
-  const nm=t=>((DB.valores||{})[t]||{}).nombre||(calOf(t)||{}).nombre||t;
-  const precioT=t=>{ const v=(DB.valores||{})[t]; return v&&num(v.precioActual)>0?num(v.precioActual):0; };
-  const brutoT=t=>{ const v=(DB.valores||{})[t]; if(v&&num(v.divAccion)>0)return num(v.divAccion); const c=calOf(t); return c?calDivBruto(c):0; };
-  const divEvents=t=>(ev[t]||[]).filter(e=>((e.code||'')[0]||'').toUpperCase()==='D').sort((a,b)=>a.m-b.m||a.w-b.w);
-  held.sort((a,b)=>{ const ra=precioT(a)?brutoT(a)/precioT(a):0, rb=precioT(b)?brutoT(b)/precioT(b):0; return rb-ra; });
-  const ingMes=new Array(12).fill(0); let ingAnual=0; let brutoAnual=0;
-  const rows=held.map(t=>{ const sh=shares[t]; const pr=precioT(t); const br=brutoT(t); const rep=DB.divReparto[t]||[]; const des=divEvents(t);
-    const monthEur=new Array(12).fill(0);
-    des.forEach((e,idx)=>{ const bruto=sh*br*(num(rep[idx]||0)/100); if(bruto){ monthEur[e.m-1]+=bruto*0.81; brutoAnual+=bruto; } });
-    monthEur.forEach((v,i)=>{ if(v){ ingMes[i]+=v; ingAnual+=v; } });
-    const pctInputs=[0,1,2,3].map(i=>`<td class="num" style="white-space:nowrap"><input type="number" step="1" class="anaInp" style="width:28px;text-align:center;font-size:9px;padding:0 1px" data-calrep="${t}|${i}" value="${(rep[i]!=null&&rep[i]!=='')?rep[i]:''}"><span style="font-size:8px;color:#64748b">%</span></td>`).join('');
-    const sumPct=rep.reduce((s,x)=>s+num(x||0),0);
-    const warn=(sumPct>0&&Math.abs(sumPct-100)>0.5)?` <span style="color:#dc2626" title="Los % no suman 100 (suman ${sumPct})">!</span>`:'';
-    const noEv=(!des.length&&br>0)?` <span style="color:#d97706" title="Sin eventos de dividendo (D) en el calendario anual">o</span>`:'';
-    const monthCells=monthEur.map(v=>v?`<td class="num" style="background:#dcfce7;color:#166534;font-weight:600">${fmt(v)}</td>`:`<td class="num">·</td>`).join('');
-    return `<tr><td><button class="btn ghost sm" data-ficha="${t}"><b>${t}</b></button> <span class="muted" style="font-size:10px">${nm(t)}</span>${warn}${noEv}</td><td class="num">${pr?fmt(pr):'·'}</td><td class="num">${br?br.toFixed(3):'·'}</td>${pctInputs}${monthCells}</tr>`;
-  }).join('');
-  const reten=brutoAnual*0.19;
-  ingMes[3]+=reten; ingAnual+=reten;
-  const empty6='<td></td><td></td><td></td><td></td><td></td><td></td>';
-  const devCells=new Array(12).fill(0).map((_,i)=> i===3 ? `<td class="num" style="color:#dc2626;font-weight:700">${reten?fmt(reten):'·'}</td>` : '<td class="num">·</td>').join('');
-  const devRow=`<tr><td>Devolución Hacienda</td>${empty6}${devCells}</tr>`;
-  const head='<tr><th>Empresa</th><th class="num">Cotización</th><th class="num">Div bruto</th><th class="num">%1</th><th class="num">%2</th><th class="num">%3</th><th class="num">%4</th>'+MESES_ES.map(m=>`<th class="num">${m}</th>`).join('')+'</tr>';
-  const ingRow=`<tr style="font-weight:700;background:#eef2f7"><td>Ingreso neto estimado · ${fmt(ingAnual)}/año</td>${empty6}${ingMes.map(v=>`<td class="num">${v?fmt(v):'·'}</td>`).join('')}</tr>`;
-  el.innerHTML=`<table><thead>${head}</thead><tbody>${devRow}${rows}${ingRow}</tbody></table>`;
-  const mejorMes=ingMes.indexOf(Math.max(...ingMes));
-  $('#calKpis').innerHTML=[['Empresas en cartera',String(held.length)],['Ingreso neto estimado/año',fmt(ingAnual)],['Retención 19% (Devol. Hacienda)',fmt(reten)],['Mejor mes', ingAnual? MESES_ES[mejorMes]+' ('+fmt(ingMes[mejorMes])+')':'—']].map(k=>`<div class="card"><div class="lbl">${k[0]}</div><div class="val">${k[1]}</div></div>`).join('');
-  const _v=$('#view-calendario'); if(_v&&_v.classList.contains('active')) setTimeout(()=>autoFitTable('calTabla',7,11),0);
-  if(typeof renderEventos==='function')renderEventos();
-}
 function divCobrados(t){ t=(t||'').toUpperCase();
   const tops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
   const td=((DB.dividendos||{})[t]||[]).filter(divEsCobrado).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));

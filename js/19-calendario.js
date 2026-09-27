@@ -267,7 +267,10 @@ function _calPendNoReg(T, year){
   var hoy=_calHoy(); var Y=String(year);
   var reg=((DB.dividendos||{})[T]||[]).map(function(d){ return (d.fecha||'').slice(0,10); }).filter(function(f){ return f.slice(0,4)===Y && f<=hoy; });
   var dms=function(a,b){ return Math.abs(Date.parse(a+'T00:00:00')-Date.parse(b+'T00:00:00'))/864e5; };
-  return _calEvDiv(T, year).filter(function(e){ if(e.tipo!=='pago') return false; if(e.fecha>hoy) return true;
+  /* [27-sep-2026 · auditoría, fallo 6] los marcados «No lo cobré» en el Kanban no son pendientes */
+  var an=DB.divAnotado||{}, a0=(typeof evoAnioM==='function')?evoAnioM(T,year):null;
+  var desc={}; ((a0&&a0.pagos)||[]).forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); var k=an[T+'|'+ex]; if(ex&&k&&k.tipo==='descartado') desc[(''+(p.pago||'')).slice(0,10)]=1; });
+  return _calEvDiv(T, year).filter(function(e){ if(e.tipo!=='pago') return false; if(desc[e.fecha]) return false; if(e.fecha>hoy) return true;
     return !reg.some(function(f){ return dms(f,e.fecha)<=30; }); });
 }
 function calBrutoCarteraAnio(year){

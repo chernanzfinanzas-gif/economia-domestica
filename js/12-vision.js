@@ -315,7 +315,7 @@ function _visBind(){
   });
   sec.addEventListener('change',function(e){ if(e.target&&e.target.id==='visSortSel'){ _visSort=e.target.value; renderVision(); } });
 }
-function _infEscSafe(x){ if(typeof _infEsc==='function')return _infEsc(x); return (''+(x==null?'':x)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+/* _infEscSafe: definida igual en 09-radardiv.js (que se carga antes) [27-sep-2026 · auditoría, fallo 7] */
 
 /* ---------- Eventos ---------- */
 function _visSetTags(t,arr){ t=(t||'').toUpperCase(); DB.riesgoTags=DB.riesgoTags||{}; DB.riesgoTags[t]=arr; if(typeof scheduleSave==='function')scheduleSave(); renderVision(); }

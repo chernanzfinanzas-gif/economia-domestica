@@ -706,10 +706,14 @@ function renderMovs(){
       '<div class="val">'+nOK+'/'+nTot+'</div>'+
       '<div class="mv-conc-p">'+pOK+'% comprobado · '+(nTot-nOK)+' pendientes'+(nWarn?(' · '+nWarn+' ⚠'):'')+'</div>'+
       '<div class="mv-conc-bar"><i style="width:'+pOK+'%"></i></div></div>';
-  const vis = movSoloSin ? list.filter(m=>!m.conc) : list;
+  const visAll = movSoloSin ? list.filter(m=>!m.conc) : list;
+  /* [27-sep-2026 · auditoría, fallo 4] Se pintan los primeros N (400 por defecto) y el resto a demanda:
+     pintar los 2.119 de golpe era lo más lento de la app. Totales y conciliación siguen sobre TODO. */
+  const _lim=(window._mvLimite>0)?window._mvLimite:400;
+  const vis = visAll.slice(0,_lim);
   window._mvVisibles=vis.map(m=>m.id);
   const _ssBtn=$('#fltSoloSin'); if(_ssBtn)_ssBtn.classList.toggle('on',movSoloSin);
-  $('#movCount').textContent = vis.length+' mov.'+(movSoloSin?' sin comprobar':'')+(!movSoloSin&&nTot-nOK?(' · '+(nTot-nOK)+' por comprobar'):'');
+  $('#movCount').textContent = visAll.length+' mov.'+(movSoloSin?' sin comprobar':'')+(!movSoloSin&&nTot-nOK?(' · '+(nTot-nOK)+' por comprobar'):'');
   if(!vis.length){ $('#movTable').innerHTML='<div class="empty" style="padding:22px;text-align:center;color:#94a3b8">'+(movSoloSin?'✓ No queda ningún movimiento por comprobar con estos filtros.':'No hay movimientos con los filtros aplicados.')+'</div>'; return; }
   /* El separador de mes solo tiene sentido si la lista va ordenada por fecha */
   const porMes = (ord==='fecha_desc'||ord==='fecha_asc');
@@ -719,7 +723,7 @@ function renderMovs(){
       const mk=(m.fecha||'').slice(0,7);
       if(mk!==mesAct){
         mesAct=mk;
-        const sM=_sumBudget(vis.filter(x=>(x.fecha||'').slice(0,7)===mk));
+        const sM=_sumBudget(visAll.filter(x=>(x.fecha||'').slice(0,7)===mk));
         const nt=sM.ing-sM.gas;
         const ntTxt=(nt>=0?'+':'−')+fmt(Math.abs(nt));
         trs+='<tr class="mv-mes"><td colspan="8">'+_mvMesLbl(m.fecha)+'<span class="rg '+(nt>=0?'pos':'neg')+'">Neto '+ntTxt+'</span></td></tr>';
@@ -765,8 +769,13 @@ function renderMovs(){
       '<th class="ctr">Importe</th><th class="lft">Fecha</th><th class="lft">Concepto</th>'+
       '<th class="ctr">Categoría</th><th class="lft">Comercio</th><th class="ctr">Titular</th><th></th>'+
     '</tr></thead><tbody>'+trs+'</tbody></table></div>'+
-    '<div class="mvcards">'+cds+'</div>';
+    '<div class="mvcards">'+cds+'</div>'+
+    (visAll.length>vis.length?('<div style="text-align:center;margin:14px 0;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+      '<span class="muted" style="align-self:center;font-size:12px">Mostrando '+vis.length+' de '+visAll.length+'</span>'+
+      '<button class="btn ghost sm" onclick="_mvMas(400)">Mostrar 400 más</button>'+
+      '<button class="btn ghost sm" onclick="_mvMas(0)">Mostrar todos</button></div>'):'');
 }
+function _mvMas(n){ window._mvLimite = n>0 ? ((window._mvLimite>0?window._mvLimite:400)+n) : 1e9; renderMovs(); }
 function comBases(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var b=(m.comercio||'').trim(); if(b) s[b]=(s[b]||0)+1; }); return Object.keys(s).sort(function(a,b){return s[b]-s[a]||a.localeCompare(b);}).map(function(k){return {name:k,n:s[k]};}); }
 function renderComDD(){ var p=$('#comDDpanel'); if(!p)return; var bs=comBases(); var html='<label style="font-weight:700"><input type="checkbox" id="comDDall">Todas / ninguna</label>'; bs.forEach(function(b){ var ck=movFiltCom.has(b.name)?'checked':''; html+='<label><input type="checkbox" class="comCk" value="'+b.name.replace(/"/g,'&quot;')+'" '+ck+'>'+_infEsc(b.name)+' <span class="muted">('+b.n+')</span></label>'; }); p.innerHTML=html; var btn=$('#comDDbtn'); if(btn) btn.textContent='Comercio'+(movFiltCom.size?' ('+movFiltCom.size+')':'')+' \u25be'; }
 function comRegItems(){ var s={}; (DB.movimientos||[]).forEach(function(m){ var d=((m.detalle||m.comercio)||'').trim(); if(!d)return; var k=d.toLowerCase(); if(!s[k])s[k]={detalle:d,base:m.comercio||'',n:0}; s[k].n++; }); return Object.keys(s).map(function(k){return s[k];}).sort(function(a,b){ return b.n-a.n || a.detalle.localeCompare(b.detalle); }); }

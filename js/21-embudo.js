@@ -51,14 +51,29 @@ function _emDivPend(t){ t=_emUp(t);
   var today=new Date().toISOString().slice(0,10), nowY=new Date().getFullYear(), best=null;
   [nowY-1, nowY].forEach(function(y){ var a; try{a=evoAnioM(t,y);}catch(e){a=null;} if(!a||!a.pagos)return;
     a.pagos.forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); if(!ex||ex>today)return; /* ex-div aún futura → todavía no toca */
-      var pago=(''+(p.pago||'')).slice(0,10); if(pago&&pago<today) return; /* ventana ex-div→pago: pasado el día de pago sale de «Necesita acción» (si no hay fecha de pago, se mantiene hasta anotar) */
-      var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return; /* ya anotado → no repetir (evitaría duplicar el cobro en caja) */
+      var pago=(''+(p.pago||'')).slice(0,10);
+      var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return; /* ya anotado (o descartado) → no repetir (evitaría duplicar el cobro en caja) */
+      /* [27-sep-2026 · auditoría, fallo 6] Pasado el día de pago ya no desaparece: sigue como «pagado sin anotar»
+         hasta 120 días, salvo que ya haya un cobro en la ficha a ±30 días o no tuvieras acciones en la ex-div. */
+      var vencido=false;
+      if(pago&&pago<today){
+        if((Date.parse(today)-Date.parse(pago))/864e5>120) return;
+        if(_emFichaTieneCobro(t,pago)) return;
+        if(!(_emAccEn(t,ex)>0)) return;
+        vencido=true;
+      }
       /* [27-sep-2026] varios pagos con la MISMA ex-div (A3M: 0,18 a cuenta + 0,65 extraordinario) son UN cobro: se suman */
-      if(best && best.exDiv===ex){ best.brutoAcc+=_emNum(p.bruto); best.pagos.push({pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}); if(p.tipo&&best.tipo.indexOf(p.tipo)<0) best.tipo+=(best.tipo?' + ':'')+p.tipo; if(!best.pago&&pago)best.pago=pago; return; }
-      if(!best || ex>best.exDiv) best={exDiv:ex, pago:pago, brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key, pagos:[{pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}]}; });
+      if(best && best.exDiv===ex){ if(vencido) best.vencido=true; best.brutoAcc+=_emNum(p.bruto); best.pagos.push({pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}); if(p.tipo&&best.tipo.indexOf(p.tipo)<0) best.tipo+=(best.tipo?' + ':'')+p.tipo; if(!best.pago&&pago)best.pago=pago; return; }
+      if(!best || ex>best.exDiv) best={exDiv:ex, pago:pago, vencido:vencido, brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key, pagos:[{pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}]}; });
   });
   if(best) best.brutoAcc=Math.round(best.brutoAcc*10000)/10000;
   return best; }
+function _emFichaTieneCobro(t,pago){ var ms=Date.parse(pago+'T00:00:00'); return (((DB.dividendos||{})[t])||[]).some(function(d){ var m=Date.parse((d.fecha||'')+'T00:00:00'); return !isNaN(m)&&Math.abs(m-ms)/864e5<=30; }); }
+function _emAccEn(t,f){ var sh=0; (DB.operaciones||[]).forEach(function(o){ if(_emUp(o.ticker)===t&&(o.fecha||'')<f) sh+=(o.tipo==='venta'?-1:1)*_emNum(o.acciones); }); return sh; }
+/* «No lo cobré»: se marca como descartado; deja de pedirse aquí y deja de contarse como pendiente en calendario y ficha. */
+function _emDivDescartar(t){ t=_emUp(t); var dp=_emDivPend(t); if(!dp) return; if(!confirm('¿Marcar el dividendo de '+t+' (ex-div '+_emFechaCorta(dp.exDiv)+') como NO cobrado?\n\nDeja de pedirse en el Kanban y de contarse como pendiente en el calendario y la ficha.'))return;
+  DB.divAnotado=DB.divAnotado||{}; DB.divAnotado[dp.key]={tipo:'descartado',fecha:new Date().toISOString().slice(0,10)};
+  _emModalClose(); if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
 function _emFechaCorta(f){ if(!f)return ''; var p=(''+f).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):(''+f); }
 /* Próximo año con tramo pendiente > 0. */
 function _emPlanProxAnio(t){ t=_emUp(t); var pend=null; if(typeof _planRem==='function'){ try{ var R=_planRem(t); Object.keys(R.rem||{}).forEach(function(y){ if(_emNum(R.rem[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }catch(e){} } var pc=(DB.planCompras||{})[t]||{}; Object.keys(pc).forEach(function(y){ if(_emNum(pc[y])>0){ y=+y; if(pend==null||y<pend)pend=y; } }); return pend; }
@@ -273,7 +288,7 @@ function accionDe(t){
     if(_emRevVencida(t)) return A('📅 Revisión pendiente ('+proxRevDe(t)+')','monitor',{emrev:t});
     return A('Revisar','monitor');
   }
-  if(held){ var _dp=_emDivPend(t); if(_dp) return A('💶 Anota el dividendo (ex-div '+_emFechaCorta(_dp.exDiv)+')','',{emdiv:t}); }
+  if(held){ var _dp=_emDivPend(t); if(_dp) return A(_dp.vencido?('💶 Dividendo pagado el '+_emFechaCorta(_dp.pago)+' sin anotar'):('💶 Anota el dividendo (ex-div '+_emFechaCorta(_dp.exDiv)+')'),'',{emdiv:t}); }
   var _decZ=_emUp(a&&a.decision);
   if(et==='En zona'){ if(_decZ==='COMPRAR') return A('🟢 Comprar — abrir posición','inversiones',{comprar:t}); return A('🎯 En tu zona de entrada — revisa el veredicto (ESPERAR)','analisis'); }
   if(et==='Cerca de entrada'){ var _txtZ='🟡 Cerca ('+_emPctOver(cot,eM)+')'; if(_decZ==='COMPRAR') return A(_txtZ+' — preparar compra','inversiones',{comprar:t}); return A(_txtZ+' de tu entrada (ESPERAR) — revisa el veredicto','analisis'); }
@@ -852,7 +867,7 @@ function _emDivForm(t){ t=_emUp(t);
         '<div style="display:flex;gap:10px"><label style="flex:1;font-size:12px;color:#475569">Acciones nuevas<input type="number" id="emdAcc" value="" step="1" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label><label style="flex:1;font-size:12px;color:#475569">Precio ref. €<input type="number" id="emdPrecio" value="'+(precio||'')+'" step="0.001" min="0" style="width:100%;padding:6px;border:1px solid var(--line);border-radius:8px;margin-top:3px"></label></div>'+
         '<div style="font-size:11px;color:#94a3b8;margin-top:3px">Crea una posición nueva y suma lo invertido (no toca la caja). Para cuando eliges acciones en vez de vender los derechos.</div>'+
       '</div>'+
-      '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px"><button class="btn ghost sm" data-emmx="1">Cancelar</button><button class="btn sm" onclick="_emDivDo(\''+t+'\')">Anotar dividendo</button></div>'+
+      '<div style="display:flex;gap:8px;justify-content:flex-end;margin-top:4px"><button class="btn ghost sm" data-emmx="1">Cancelar</button>'+(dp?'<button class="btn ghost sm" onclick="_emDivDescartar(\''+t+'\')" title="No llegué a cobrarlo">No lo cobré</button>':'')+'<button class="btn sm" onclick="_emDivDo(\''+t+'\')">Anotar dividendo</button></div>'+
     '</div>';
   _emModal(html); }
 function _emDivToggle(){ var s=(document.querySelector('input[name=emdivt]:checked')||{}).value; var ef=document.getElementById('emdEfec'), sc=document.getElementById('emdScrip'); if(ef)ef.style.display=(s==='scrip')?'none':'block'; if(sc)sc.style.display=(s==='scrip')?'block':'none'; }

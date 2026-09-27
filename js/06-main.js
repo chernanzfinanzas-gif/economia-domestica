@@ -25,11 +25,24 @@ const VIEW_FNS={
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
 };
 function _activeViewId(){ const el=document.querySelector('.view.active'); return el? el.id.replace(/^view-/,'') : null; }
-function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){} }); return true; }
+function _khMemoRun(fn){ if(window._khMemo) return fn(); window._khMemo={}; try{ return fn(); } finally{ window._khMemo=null; } }
+/* [27-sep-2026 · auditoría, fallo 2] Si una parte de la pantalla falla al pintarse, se DICE con una franja
+   arriba de la vista (y en la consola), en vez de dejarla vacía o a medias sin aviso. No toca datos. */
+function _khFranjaError(id, fallos){
+  const v=document.getElementById('view-'+id); if(!v) return;
+  let d=v.querySelector(':scope > .kh-err'); if(!fallos.length){ if(d) d.remove(); return; }
+  if(!d){ d=document.createElement('div'); d.className='kh-err'; d.style.cssText='margin:8px 0 12px;padding:10px 12px;border:1px solid #fca5a5;background:#fef2f2;color:#991b1b;border-radius:10px;font-size:12.5px'; v.insertBefore(d, v.firstChild); }
+  d.innerHTML='⚠ <b>Una parte de esta pantalla no se ha podido pintar.</b> Tus datos no se han tocado. Pásale este texto a Claude:<div style="font-family:monospace;font-size:11px;margin-top:4px;white-space:pre-wrap">'+fallos.map(f=>(f.n+': '+f.m).replace(/</g,'&lt;')).join('\n')+'</div>';
+}
+function renderView(id){ const fns=VIEW_FNS[id]; if(!fns)return false; const fallos=[];
+  _khMemoRun(()=>fns.forEach(n=>{ try{ if(typeof window[n]==='function')window[n](); }catch(e){ fallos.push({n:n,m:String((e&&e.message)||e)}); try{ if(typeof DB!=='undefined'&&DB) console.error('[pantalla '+id+'] '+n,e); }catch(_){} } }));
+  try{ if(typeof DB!=='undefined'&&DB) _khFranjaError(id,fallos); }catch(_){}   /* sin datos aún cargados (arranque) no se avisa */
+  return true; }
 /* [C8 · 27-jul-2026] renderRenov() se llamaba aquí y salía por la puerta en la primera línea:
    su contenedor (#presRenov) ya no existe en el HTML. Se quita la llamada; la función sigue en
    05-graficas.js, marcada como inactiva, por si el bloque de renovaciones vuelve. */
-function renderAllFull(){ renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario();  renderSimulador();  renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
+function renderAllFull(){ return _khMemoRun(_renderAllFullCalc); }
+function _renderAllFullCalc(){ renderPanel(); renderMovs(); renderPres(); renderPresDesglose(); renderPat(); renderProy(); renderAmalia(); renderFondoR4(); if(typeof renderMetas==='function')renderMetas(); if(typeof renderAsignacion==='function')renderAsignacion(); if(typeof renderAsignFotos==='function')renderAsignFotos(); renderInv(); if(typeof renderPOS==='function')renderPOS(); renderAnalisis(); renderDividendos(); renderRanking(); renderCalendario();  renderSimulador();  renderPlanLote(); if(typeof renderRebalanceo==='function')renderRebalanceo(); if(typeof renderProxCompra==='function')renderProxCompra(); if(typeof renderBacktest==='function')renderBacktest(); if(typeof renderRiesgo==='function')renderRiesgo(); if(typeof renderFiscalidad==='function')renderFiscalidad(); if(typeof renderAtribucion==='function')renderAtribucion(); if(typeof renderRentabEmpresas==='function')renderRentabEmpresas(); renderGraficas(); renderCaja(); renderMonitor(); renderInformesCenter(); renderMazinger(); }
 function renderAll(){ const id=_activeViewId(); if(id!=null && VIEW_FNS[id]){ renderView(id); } else { renderAllFull(); } }
 
 /* ----- diálogo categoría ----- */
@@ -874,3 +887,12 @@ init();
   head.addEventListener('pointermove',function(e){ if(!drag)return; panel.style.left=Math.max(0,Math.min(window.innerWidth-60,e.clientX-ox))+'px'; panel.style.top=Math.max(0,Math.min(window.innerHeight-40,e.clientY-oy))+'px'; });
   head.addEventListener('pointerup',function(){ drag=false; });
 })();
+/* [27-sep-2026 · auditoría, fallo 3] Toda función de PINTADO (render…) trabaja con la memoria de pintado:
+   dentro de ella las posiciones y la ficha de cada empresa se calculan una vez. Pintar solo lee datos, así
+   que no hay riesgo de cifras viejas; fuera del pintado todo se recalcula al momento. Incluye los
+   repintados en segundo plano (avisos, panel, diario) que ocurren al terminar de cargar datos. */
+(function(){ try{ Object.getOwnPropertyNames(window).forEach(function(n){
+  if(!/^(render[A-Z_]|_repintar)/.test(n)) return; var f=window[n]; if(typeof f!=='function'||f._khMemo) return;
+  var g=function(){ var self=this, a=arguments; return _khMemoRun(function(){ return f.apply(self,a); }); }; g._khMemo=1;
+  try{ window[n]=g; }catch(e){} }); }catch(e){} })();
+
