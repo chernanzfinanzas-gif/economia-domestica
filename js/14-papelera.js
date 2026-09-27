@@ -78,7 +78,7 @@ var TRASH_RESTORE={
   protocolo_lote:     function(p){ DB.protocolo=DB.protocolo||{}; DB.protocolo[p.t]=p.antes||[]; return ['renderPanelDash']; },
   /* Resto huérfano de DB.valores (un ticker mal escrito de los prompts antiguos). */
   valor_huerfano:     function(p){ DB.valores=DB.valores||{}; DB.valores[p.t]=p.item;
-                                   if(p.dpa){ DB.divPorAccion=DB.divPorAccion||{}; DB.divPorAccion[p.t]=p.dpa; }
+                                   /* [27-sep-2026] divPorAccion retirado: ya no se restaura */
                                    if(typeof renderPapelera==='function')renderPapelera();
                                    return []; },
   meta:               function(p){ DB.metas=DB.metas||[]; if(p.idx>=0&&p.idx<=DB.metas.length)DB.metas.splice(p.idx,0,p.item); else DB.metas.push(p.item); return ['renderMetas','renderPanel']; },

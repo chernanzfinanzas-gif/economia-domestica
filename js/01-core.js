@@ -1851,13 +1851,13 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
   });
   DB.dividendos = DB.dividendos||{};
   /* [27-sep-2026 · auditoría A3] Almacenes viejos RETIRADOS: divIngresos (totales anuales heredados, que todas
-     las vistas ignoran si la empresa tiene operaciones) y previsionDiv (sin lector). Se guardan UNA vez en
+     las vistas ignoran si la empresa tiene operaciones) y previsionDiv (sin lector); y desde la 2ª tanda divPorAccion (Evolución siempre tiene el dato antes:
+     medido 0 usos de 528) y fechasResultados (nada lo lee ni lo escribe). Se guardan UNA vez en
      DB._retirados por si hubiera que consultarlos y salen de los datos vivos. */
-  ['divIngresos','previsionDiv'].forEach(function(k){ var v=DB[k]; if(v&&typeof v==='object'&&Object.keys(v).length){ DB._retirados=DB._retirados||{}; if(!DB._retirados[k]) DB._retirados[k]={fecha:'2026-09-27',datos:v}; } delete DB[k]; });
+  ['divIngresos','previsionDiv','divPorAccion','fechasResultados'].forEach(function(k){ var v=DB[k]; if(v&&typeof v==='object'&&Object.keys(v).length){ DB._retirados=DB._retirados||{}; if(!DB._retirados[k]) DB._retirados[k]={fecha:'2026-09-27',datos:v}; } delete DB[k]; });
   DB.cerradas = DB.cerradas||[];
   DB.devolucionHacienda = DB.devolucionHacienda||{};
   DB.calendario = DB.calendario||[];
-  DB.divPorAccion = DB.divPorAccion||{};
   DB.simShares = DB.simShares||{};
   DB.previsionMaxYear = DB.previsionMaxYear||2030;
   DB.aniosConfirmados = DB.aniosConfirmados||{};

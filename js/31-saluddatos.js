@@ -45,9 +45,18 @@ function saludDatosChequeos(){
   var dd=DB.divData||{}; Object.keys(dd).forEach(function(t){ [Y-1,Y].forEach(function(y){ var a=((dd[t]||{}).anios||{})[String(y)]; if(!a||!a.pagos) return;
     a.pagos.forEach(function(p,i){ var b=_sdN(p.bruto), n=_sdN(p.neto); if(!(b>0)||!(n>0)) return; var auto=Math.round(b*0.81*10000)/10000;
       if(Math.abs(n-auto)>0.0006) add('neto',t+'|'+y+'|'+i+'|'+b+'|'+n,'<b>'+_sdU(t)+' '+y+'</b>: pago de '+b+' € brutos con neto '+n+' (el 19 % daría '+auto+'). Si la retención no fue distinta, corrige el neto en Evolución.'); }); }); });
+  /* 7 · [27-sep-2026] anotaciones de años futuros que no casan con lo recurrente (caso A3M 2027: 0,83 con un
+     extraordinario dentro; y luego un 0 volcado que dejaba la previsión sin pago) */
+  var ovA=DB.divOverride||{}; Object.keys(ovA).forEach(function(t0){ var t=_sdU(t0); Object.keys(ovA[t0]||{}).forEach(function(ys){ var y=+ys; if(!(y>Y)) return;
+    var raw=ovA[t0][ys]; if(raw==null||raw==='') return; var ov=_sdN(raw);
+    var rec=(typeof evoDpaRecurrente==='function')?evoDpaRecurrente(t,Y):null, ry=Y; if(!(rec>0)&&typeof evoDpaRecurrente==='function'){ rec=evoDpaRecurrente(t,Y-1); ry=Y-1; }
+    if(!(rec>0)) return;
+    if(ov===0) add('anotacion',t+'|'+y+'|'+ov,'<b>'+t+' '+y+'</b>: tienes anotado un dividendo de <b>0</b> y en '+ry+' pagó '+rec.toFixed(4)+' €/acc recurrentes. La app proyecta que no pagará nada. Si no es así, pulsa <b>✕ Quitar</b> en Evolución ('+y+').');
+    else if(ov>2*rec) add('anotacion',t+'|'+y+'|'+ov,'<b>'+t+' '+y+'</b>: tu anotación es <b>'+ov.toFixed(4)+'</b> €/acc, más del doble de lo recurrente de '+ry+' ('+rec.toFixed(4)+'). ¿Lleva dentro un extraordinario que no se repetirá? Si es así, pulsa <b>✕ Quitar</b> en Evolución ('+y+').');
+  }); });
   return out;
 }
-var _SD_TIT={fichaEvo:'Ficha y Evolución no cuadran en lo ya pagado',sinAnotar:'Cobros pagados sin anotar',futura:'Líneas de ficha con fecha futura',huerfana:'Líneas de ficha sin acciones ese día',duplicado:'Movimientos posiblemente duplicados',neto:'Netos que no son el 19 % del bruto'};
+var _SD_TIT={fichaEvo:'Ficha y Evolución no cuadran en lo ya pagado',sinAnotar:'Cobros pagados sin anotar',futura:'Líneas de ficha con fecha futura',huerfana:'Líneas de ficha sin acciones ese día',duplicado:'Movimientos posiblemente duplicados',neto:'Netos que no son el 19 % del bruto',anotacion:'Anotaciones futuras que no casan con lo recurrente'};
 function renderSaludDatos(){
   var est=document.getElementById('view-estado'); if(!est||typeof DB==='undefined'||!DB) return;
   var host=document.getElementById('saludDatos'); if(!host){ host=document.createElement('div'); host.id='saludDatos'; est.insertBefore(host, est.firstChild); }
