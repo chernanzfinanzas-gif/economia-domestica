@@ -46,7 +46,7 @@ function _invSinPrecioChip(all){
 }
 function _daysBetween(a,b){ if(!a||!b)return null; var da=Date.parse(a+'T00:00:00'), db=Date.parse(b+'T00:00:00'); if(isNaN(da)||isNaN(db))return null; return Math.round((da-db)/86400000); }
 function precioFreshColor(pf,ref){ if(!pf)return '#dc2626'; var d=_daysBetween(ref,pf); if(d==null)return '#dc2626'; if(d<=0)return '#16a34a'; if(d<=4)return '#d97706'; return '#dc2626'; }
-function _posDivCobrado(divArr,sinceFecha,acc){ let s=0; (divArr||[]).forEach(d=>{ if((d.fecha||'')>=(sinceFecha||'')) s+=acc*num(d.importe); }); return s; }
+function _posDivCobrado(divArr,sinceFecha,acc){ let s=0; (divArr||[]).forEach(d=>{ if((d.fecha||'')>=(sinceFecha||'') && divEsCobrado(d)) s+=acc*num(d.importe); }); return s; }
 function _posYears(desde,hasta){ const d=_daysBetween(hasta,desde); if(d==null) return 0; return Math.max(0, d/365.25); }
 /* [11-ago-2026] PRECIO NETO: lo que de verdad te queda pagando por accion una vez cobrados
    los dividendos de ese lote. Ya existia en la Ficha (`fichaCalc`), y ahora se ensena tambien
@@ -229,6 +229,10 @@ function _fkLotesMob(lotes, tt){
 /* `detallado` = la posición tiene lotes, así que hay acciones y precio medio por pago.
    Sin lotes solo existe el dividendo por acción, y se enseña únicamente eso: la alternativa
    sería pintar celdas vacías, que es peor que no pintarlas. */
+/* [27-sep-2026] etiquetas de la tabla de dividendos de la ficha */
+function _fkPrevTag(r){ return '<span title="Sale de Evolución del Dividendo. Se da por cobrado cuando lo anotes desde Kanban." style="font-size:10px;font-weight:600;color:#475569;background:#e2e8f0;border-radius:6px;padding:1px 6px;font-style:normal;white-space:nowrap">previsto'+((''+(r.tipo||'')).toLowerCase()==='extraordinario'?' · extra':'')+'</span>'; }
+function _fkFutTag(){ return '<span title="Fecha futura: esta línea NO cuenta como cobrada. Lo previsto sale de Evolución del Dividendo; revísala y bórrala." style="font-size:10px;font-weight:600;color:#b45309;background:#fef3c7;border-radius:6px;padding:1px 6px;margin-right:6px;white-space:nowrap">futura · no cuenta</span>'; }
+function _fkPrevSub(g){ return (g&&g.previstoSum>0)?'<div class="muted" style="font-size:10px;font-weight:400">cobrado '+fmt(g.divShareSum-g.previstoSum)+' · previsto '+fmt(g.previstoSum)+'</div>':''; }
 function _fkDivMob(divYears, rendByYear, detallado){
   if(!divYears || !divYears.length)
     return '<div class="empty" style="padding:12px">Sin dividendos registrados. Añade uno arriba.</div>';
@@ -240,7 +244,9 @@ function _fkDivMob(divYears, rendByYear, detallado){
       vs = _fkMet('vs año ant.', fmtpct(vv), vv>=0?'pos':'neg');
     }
     var pagos = [].concat(g.rows).reverse().map(function(r){
-      return '<div class="fk-pago">'
+      if(r.previsto) return '<div class="fk-pago" style="color:#64748b;font-style:italic">'+ddmmyyyy(r.fecha)+' · '+r.divShare+' €/acc. '+_fkPrevTag(r)
+        + (detallado ? ('<div class="fk-pago-x">'+r.acc+' acc. · bruto '+fmt(r.importe)+' · neto '+fmt(r.importe*0.81)+'</div>') : '')+'</div>';
+      return '<div class="fk-pago"'+(r.futuro?' style="opacity:.55"':'')+'>'+(r.futuro?_fkFutTag():'')
         + '<input type="date" class="anaInp" data-edf="'+r.id+'" value="'+(r.fecha||'')+'">'
         + '<input type="number" step="0.0001" class="anaInp fk-imp" data-edi="'+r.id+'" value="'+(r.divShare!=null?r.divShare:'')+'">'
         + '<button class="btn danger sm" data-deldiv="'+r.id+'">✕</button>'
@@ -796,6 +802,19 @@ function _fichaDivBtnsHTML(){
 function _fichaRangeBtn(key,lbl,vt,vc,sel){ return `<button type="button" data-frange="${key}" style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:3px 9px;min-width:46px;border:1px solid ${sel?'var(--brand)':'var(--line)'};border-radius:8px;background:${sel?'#eff6ff':'#fff'};cursor:pointer;transition:transform .12s ease;transform:${sel?'scale(1.12)':'none'};${sel?'box-shadow:0 1px 5px rgba(37,99,235,.18);':''}"><span style="font-weight:700;font-size:12px;color:${sel?'var(--brand)':'inherit'}">${lbl}</span><span style="font-size:10.5px;font-weight:700;color:${vc}">${vt}</span></button>`; }
 const _precioCache={};
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
+/* [27-sep-2026] Pagos PREVISTOS del año en curso según Evolución del Dividendo que aún no están cobrados en la ficha. */
+function _fichaPrevistos(t, divs){
+  t=(t||'').toUpperCase(); if(typeof evoAnioM!=='function') return [];
+  const y=new Date().getFullYear(), hoy=_divHoyISO(); const a=evoAnioM(t,y); if(!a||!a.pagos) return [];
+  const cob=(divs||[]).filter(d=>divEsCobrado(d)&&(d.fecha||'').slice(0,4)===String(y)).map(d=>(d.fecha||'').slice(0,10));
+  const dias=(f1,f2)=>Math.abs(Date.parse(f1+'T00:00:00')-Date.parse(f2+'T00:00:00'))/864e5;
+  const out=[]; a.pagos.forEach(p=>{ const f=(''+(p.pago||p.exDiv||'')).slice(0,10); if(!f) return; const imp=num(p.bruto); if(!(imp>0)) return;
+    if(f<=hoy){ /* pago ya pasado: solo es «previsto por anotar» si entonces tenías acciones y no está cobrado */
+      const ex=(''+(p.exDiv||f)).slice(0,10); let sh=0; (DB.operaciones||[]).forEach(o=>{ if((o.ticker||'').toUpperCase()===t && (o.fecha||'')<ex) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); });
+      if(!(sh>0) || cob.some(c=>dias(c,f)<=30)) return; }
+    out.push({fecha:f,imp:imp,tipo:(p.tipo||'')}); });
+  return out;
+}
 function fichaCalc(ticker){
   const t=(ticker||'').toUpperCase();
   let ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
@@ -814,15 +833,24 @@ function fichaCalc(ticker){
      que se mide el dividendo neto. */
   const lotes=compras.map(o=>{ const N=num(o.acciones),P=num(o.precio),com=khComision(o),coste=N*P+com;
     const Pe=N?coste/N:P;
-    const divShareAfter=divs.filter(x=>x.fecha>o.fecha).reduce((s,x)=>s+num(x.importe),0);
+    const divShareAfter=divs.filter(x=>x.fecha>o.fecha&&divEsCobrado(x)).reduce((s,x)=>s+num(x.importe),0);
     const divCobrado=N*divShareAfter, precioNeto=Pe-divShareAfter, valor=N*precioActual, balance=valor-coste;
     return {fecha:o.fecha,cartera:o.cartera||'Propia',N,P,com,Pe,coste,divCobrado,precioNeto,valor,balance,rentTotal:coste?(balance+divCobrado)/coste:0};
   });
   const tot={N:0,coste:0,div:0,valor:0}; lotes.forEach(l=>{tot.N+=l.N;tot.coste+=l.coste;tot.div+=l.divCobrado;tot.valor+=l.valor;});
   tot.precioMedio=tot.N?tot.coste/tot.N:0; tot.balance=tot.valor-tot.coste; tot.rentTotal=tot.coste?(tot.balance+tot.div)/tot.coste:0; tot.netoMedio=tot.precioMedio-(tot.N?tot.div/tot.N:0);
   const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio)+khComision(o),0); const pm=sb?cost/sb:0;
-    return {id:x.id,fecha:x.fecha,year:(x.fecha||'').slice(0,4),divShare:num(x.importe),acc:sb-sold,precioMedio:pm,importe:(sb-sold)*num(x.importe)}; });
-  const ymap={}; divRows.forEach(r=>{ const g=ymap[r.year]||(ymap[r.year]={year:r.year,importeSum:0,divShareSum:0,pmEnd:0,rows:[]}); g.importeSum+=r.importe; g.divShareSum+=r.divShare; g.pmEnd=r.precioMedio; g.rows.push(r); });
+    return {id:x.id,fecha:x.fecha,year:(x.fecha||'').slice(0,4),divShare:num(x.importe),acc:sb-sold,precioMedio:pm,importe:(sb-sold)*num(x.importe),futuro:!divEsCobrado(x)}; });
+  /* [27-sep-2026] Lo PREVISTO del año en curso sale de Evolución del Dividendo (no se teclea en la ficha):
+     pagos con fecha > hoy, o ya pasados pero sin cobro anotado a ±30 días. Cuenta en el Div/acción del
+     año (RPD y yield on cost) pero NO en lo cobrado. Las líneas de la ficha con fecha futura se enseñan
+     marcadas y no cuentan: son las antiguas que hay que revisar y borrar. */
+  const _abierta=tot.N>0 && (DB.operaciones||[]).some(o=>(o.ticker||'').toUpperCase()===t);
+  if(_abierta && typeof _fichaPrevistos==='function') _fichaPrevistos(t, divs).forEach(p=>{ const sh=tot.N; const pm=tot.precioMedio;
+    divRows.push({id:null,fecha:p.fecha,year:p.fecha.slice(0,4),divShare:p.imp,acc:sh,precioMedio:pm,importe:sh*p.imp,previsto:true,tipo:p.tipo}); });
+  divRows.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  const ymap={}; divRows.forEach(r=>{ const g=ymap[r.year]||(ymap[r.year]={year:r.year,importeSum:0,divShareSum:0,previstoSum:0,pmEnd:0,rows:[]}); if(!r.futuro){ g.importeSum+=r.importe; g.divShareSum+=r.divShare; if(r.previsto)g.previstoSum+=r.divShare; else g.pmEnd=r.precioMedio; } g.rows.push(r); });
+  Object.values(ymap).forEach(g=>{ if(!g.pmEnd){ const r=g.rows.find(x=>!x.futuro); if(r)g.pmEnd=r.precioMedio; } });
   const divYears=Object.values(ymap).map(g=>Object.assign(g,{rend:g.pmEnd?g.divShareSum/g.pmEnd:0})).sort((a,b)=>(b.year||'').localeCompare(a.year||''));
   return {t,nombre:v.nombre||t,precioActual,lotes,tot,divRows,divYears};
 }
@@ -970,11 +998,11 @@ function renderFicha(t){
   const rendByYear={}; f.divYears.forEach(g=>{rendByYear[g.year]=g.rend;});
   let divTable;
   if(detailed){
-    let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap;padding:6px 8px"><div style="display:grid;grid-template-columns:auto auto;gap:4px 16px"><div><div style="font-size:15px">${g.year}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Div/acción</div><div>${fmt(g.divShareSum)}</div></div><div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return '<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="muted">—</div>'; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</div></div></td>`; } divBody+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
+    let divBody=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBody+='<tr'+(r.futuro?' style="opacity:.55"':'')+'>'; if(i===0){ divBody+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap;padding:6px 8px"><div style="display:grid;grid-template-columns:auto auto;gap:4px 16px"><div><div style="font-size:15px">${g.year}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Yield on cost</div><div class="${g.rend>=0?'pos':'neg'}">${fmtpct(g.rend)}</div></div><div><div class="muted" style="font-size:10px;font-weight:400">Div/acción</div><div>${fmt(g.divShareSum)}</div>${_fkPrevSub(g)}</div><div>${(()=>{const p=rendByYear[String((+g.year)-1)]; if(p==null||!isFinite(p)||p===0)return '<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="muted">—</div>'; const vv=(g.rend-p)/Math.abs(p); return `<div class="muted" style="font-size:10px;font-weight:400">vs año ant.</div><div class="${vv>=0?'pos':'neg'}">${fmtpct(vv)}</div>`;})()}</div></div></td>`; } divBody+=r.previsto?`<td style="color:#64748b;font-style:italic">${ddmmyyyy(r.fecha)}</td><td class="num" style="color:#64748b;font-style:italic">${r.divShare}</td><td class="num" style="color:#64748b">${r.acc}</td><td class="num" style="color:#64748b">${fmt(r.precioMedio)}</td><td class="num" style="color:#64748b;font-style:italic">${fmt(r.importe)}</td><td class="num" style="color:#64748b;font-style:italic">${fmt(r.importe*0.81)}</td><td>${_fkPrevTag(r)}</td></tr>`:`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="num">${r.acc}</td><td class="num">${fmt(r.precioMedio)}</td><td class="num">${fmt(r.importe)}</td><td class="num">${fmt(r.importe*0.81)}</td><td class="right">${r.futuro?_fkFutTag():''}<button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
     divTable=`<div class="fk-desk" style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th class="num">Acciones</th><th class="num">Precio medio</th><th class="num">Bruto</th><th class="num">Neto</th><th></th></tr></thead><tbody>${divBody||'<tr><td colspan="8" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>
       <div class="fk-mob">${_fkDivMob(f.divYears, rendByYear, true)}</div>`;
   } else {
-    let divBodyS=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBodyS+='<tr>'; if(i===0){ divBodyS+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción año</div><div>${fmt(g.divShareSum)}</div></td>`; } divBodyS+=`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="right"><button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
+    let divBodyS=''; f.divYears.forEach(g=>{ const rows=[...g.rows].reverse(); rows.forEach((r,i)=>{ divBodyS+='<tr'+(r.futuro?' style="opacity:.55"':'')+'>'; if(i===0){ divBodyS+=`<td rowspan="${rows.length}" style="vertical-align:top;background:#eef2f7;font-weight:600;border-right:2px solid #cbd5e1;white-space:nowrap"><div style="font-size:15px">${g.year}</div><div class="muted" style="font-size:10px;font-weight:400;margin-top:5px">Div/acción año</div><div>${fmt(g.divShareSum)}</div>${_fkPrevSub(g)}</td>`; } divBodyS+=r.previsto?`<td style="color:#64748b;font-style:italic">${ddmmyyyy(r.fecha)}</td><td class="num" style="color:#64748b;font-style:italic">${r.divShare}</td><td>${_fkPrevTag(r)}</td></tr>`:`<td><input type="date" class="anaInp" style="width:142px" data-edf="${r.id}" value="${r.fecha}"></td><td class="num"><input type="number" step="0.0001" class="anaInp" style="width:92px;text-align:right" data-edi="${r.id}" value="${r.divShare}"></td><td class="right">${r.futuro?_fkFutTag():''}<button class="btn danger sm" data-deldiv="${r.id}">✕</button></td></tr>`; }); });
     divTable=`<div class="sub" style="margin-bottom:6px">Posición sin lotes detallados: se muestra el dividendo por acción registrado.</div><div class="fk-desk" style="overflow:auto"><table><thead><tr><th>Año</th><th>Fecha</th><th class="num">Div/acción</th><th></th></tr></thead><tbody>${divBodyS||'<tr><td colspan="4" class="muted" style="text-align:center;padding:14px">Sin dividendos registrados. Añade uno arriba.</td></tr>'}</tbody></table></div>
       <div class="fk-mob">${_fkDivMob(f.divYears, rendByYear, false)}</div>`;
   }
@@ -1031,7 +1059,7 @@ function renderFicha(t){
 function dpaReal(t){
   t=(t||'').toUpperCase();
   const arr=((DB.dividendos||{})[t]||[])
-    .filter(d=>d&&d.fecha)
+    .filter(d=>d&&d.fecha&&divEsCobrado(d))
     .map(d=>({ms:Date.parse(d.fecha+'T00:00:00'),imp:num(d.importe)}))
     .filter(d=>!isNaN(d.ms)&&d.imp>0).sort((a,b)=>a.ms-b.ms);
   if(!arr.length) return null;
@@ -1149,7 +1177,9 @@ function _fichaSerieVista(vista,t,full){
   if(vista==='rpd'){
     const reg=(typeof _evoIndex!=='undefined'&&_evoIndex)?_evoIndex[(t||'').toUpperCase()]:null;
     if(!reg||!reg.anios) return null;
-    const dpa={}; Object.keys(reg.anios).forEach(y=>{ const q=num((reg.anios[y]||{}).dpaBruto); if(q>0)dpa[y]=q; });
+    /* [27-sep-2026] con tus ediciones de Evolución (evoAnioM), no solo el fichero publicado */
+    const dpa={}; const _ys={}; Object.keys(reg.anios).forEach(y=>_ys[y]=1); _ys[String(new Date().getFullYear())]=1;
+    Object.keys(_ys).forEach(y=>{ const a=(typeof evoAnioM==='function')?evoAnioM(t,+y):reg.anios[y]; const q=num((a||{}).dpaBruto); if(q>0)dpa[y]=q; });
     const v=full.map(p=>{ const q=dpa[new Date(p[0]).getUTCFullYear()]; return (q>0&&p[1]>0)?q/p[1]*100:null; });
     if(v.filter(x=>x!=null).length<60) return null;
     return {vals:v,fmtY:x=>x.toFixed(1)+'%',col:'#0891b2',banda:true};
@@ -1447,10 +1477,15 @@ function validarUrlInv(){
   saveNow(); renderFicha(fichaTicker);
   alert(u?'Enlace guardado. La ficha usará esta URL.':'Enlace borrado. Se vuelve a la búsqueda genérica.');
 }
+/* [27-sep-2026 · decisión 4] En la ficha solo va lo COBRADO. Un dividendo futuro se anota en Evolución del Dividendo. */
+function _fichaAvisoFuturo(){
+  if(confirm('En la ficha solo se anota lo COBRADO (lo normal: desde Kanban, al cobrarlo).\n\nLos dividendos futuros se anotan en Evolución del Dividendo, y la ficha los enseña en gris como «previsto».\n\n¿Abrir Evolución del Dividendo?')){ if(typeof activarVista==='function') activarVista('prevision'); }
+}
 function addFichaDiv(){
   const fch=$('#fdivFecha').value, imp=num($('#fdivImp').value);
   if(!fch||!imp){alert('Pon fecha e importe del dividendo.');return;}
   if(imp<0){alert('El importe del dividendo no puede ser negativo.');return;}
+  if(fch>_divHoyISO()){ _fichaAvisoFuturo(); return; }
   { const _d=new Date(fch+'T00:00:00'); const _y=_d.getFullYear(); if(isNaN(_d.getTime())||_y<1990||_y>new Date().getFullYear()+1){ alert('La fecha «'+fch+'» no parece válida.'); return; } }
   DB.dividendos=DB.dividendos||{}; DB.dividendos[fichaTicker]=DB.dividendos[fichaTicker]||[];
   DB.dividendos[fichaTicker].push({fecha:fch,importe:imp,id:'d'+Math.random().toString(36).slice(2,9)}); saveNow(); renderFicha(fichaTicker);
@@ -1572,7 +1607,8 @@ function _divRiesgoScan(){
      (dividendos.json + Evolución del Dividendo), y detecta también la suspensión total del dividendo. */
   const nowY=new Date().getFullYear();
   const held=(typeof heldTickerSet==='function')?heldTickerSet():new Set();
-  const _real=(t,y)=>(typeof dpaAnual==='function')?dpaAnual(t,y,{soloReal:true}):null;
+  /* [26-sep-2026] se compara el dividendo RECURRENTE: un extraordinario (p. ej. A3M/Fever) no es un recorte cuando desaparece */
+  const _real=(t,y)=>{ const r=(typeof evoDpaRecurrente==='function')?evoDpaRecurrente(t,y):null; if(r!=null) return r; return (typeof dpaAnual==='function')?dpaAnual(t,y,{soloReal:true}):null; };
   const _prev=(t,y)=>(typeof dpaAnual==='function')?dpaAnual(t,y):null;
   const fmap={}; try{ if(typeof _radFundCache!=='undefined' && _radFundCache && _radFundCache.empresas){ _radFundCache.empresas.forEach(f=>{ fmap[(''+f.ticker).toUpperCase()]=f; }); } }catch(e){}
   const out=[];
@@ -1619,7 +1655,7 @@ function renderDividendos(){
     byTY[t]={};
     if(opTickers.has(t)){
       const tops=ops.filter(o=>(o.ticker||'').toUpperCase()===t);
-      const td=(divs[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+      const td=(divs[t]||[]).filter(divEsCobrado).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
       td.forEach(d=>{ const y=(d.fecha||'').slice(0,4); if(!y)return;
         const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0);
         byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });
@@ -1787,7 +1823,7 @@ function renderCalendario(){
 }
 function divCobrados(t){ t=(t||'').toUpperCase();
   const tops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
-  const td=((DB.dividendos||{})[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  const td=((DB.dividendos||{})[t]||[]).filter(divEsCobrado).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
   let s=0; td.forEach(d=>{ const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0); s+=acc*num(d.importe); }); return s; }
 function pieSVG(items){ const tot=items.reduce((s,i)=>s+i.val,0)||1; let a=-Math.PI/2; const R=78,cx=86,cy=86; let p='';
   items.forEach(it=>{ const ang=it.val/tot*2*Math.PI, a2=a+ang; const x1=cx+R*Math.cos(a),y1=cy+R*Math.sin(a),x2=cx+R*Math.cos(a2),y2=cy+R*Math.sin(a2); const lg=ang>Math.PI?1:0; p+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${R},${R} 0 ${lg} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${it.color}" stroke="#fff" stroke-width="1.5"/>`; a=a2; });
@@ -1803,7 +1839,7 @@ function _fiscalPorAnio(){
   tickers.forEach(function(t){ byTY[t]={};
     if(opTickers.has(t)){
       var tops=ops.filter(function(o){return (o.ticker||'').toUpperCase()===t;});
-      var td=(divs[t]||[]).slice().sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
+      var td=(divs[t]||[]).filter(divEsCobrado).sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
       td.forEach(function(d){ var y=(d.fecha||'').slice(0,4); if(!y)return;
         var acc=tops.filter(function(o){return o.tipo!=='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0)-tops.filter(function(o){return o.tipo==='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0);
         byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });

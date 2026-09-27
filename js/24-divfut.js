@@ -147,13 +147,15 @@ function renderDivFut(){
 
   var H='<div class="vhero g-emerald"><div class="vhero-main"><span class="vhero-ic">✏️</span><div class="vhero-txt"><h2>Actualizar Dividendos</h2><p>Anota el <b>dividendo bruto por acción</b> de los años futuros a medida que se anuncian; al <b>volcar</b>, se escribe en Evolución del Dividendo.</p></div></div></div>';
   H+='<div class="df-wrap">';
+  /* [27-sep-2026] aviso fijo: el año EN CURSO se cambia en Evolución del Dividendo, no aquí */
+  H+='<div class="df-info" style="background:#fffbeb;border-color:#fcd34d;color:#92400e">⚠ Los cambios del <b>año en curso ('+cur+')</b> —un pago nuevo, un <b>extraordinario</b>, una fecha que se mueve— se anotan en <b>Evolución del Dividendo</b>, pago a pago. Aquí solo van los años futuros. <button class="df-desc" onclick="if(typeof activarVista===\'function\')activarVista(\'prevision\')">Abrir Evolución</button></div>';
   H+='<div class="df-bar"><span class="df-yl">Año</span><select id="dfYear">'+yopts+'</select>'
     +'<span class="df-cb ok">✅ '+ok+' con dato</span><span class="df-cb no">⏳ '+no+' sin dato</span>'
     +'<input type="text" id="dfQ" placeholder="Buscar…" value="'+_dfQ.replace(/"/g,'&quot;')+'">'
     +'<span class="df-sp"></span>'
     +(nBorr?'<span class="df-cb bor" id="dfBor" title="Anotado pero todavía no volcado. Se guarda solo, pero hasta que no pulses «Volcar» no llega a Evolución del Dividendo.">📝 '+nBorr+' sin volcar</span><button class="df-desc" id="dfDesc">Descartar</button>':'')
     +'<button class="df-vol" id="dfVol"'+(editable&&nBorr?'':' disabled')+'>⤵ Volcar a Evolución</button></div>';
-  if(!editable) H+='<div class="df-info">Año '+(_dfYear===cur?'actual':'pasado')+' — informativo (dato real de dividendos.json). Solo se editan los años futuros.</div>';
+  if(!editable) H+='<div class="df-info">Año '+(_dfYear===cur?'actual':'pasado')+' — informativo (dato de Evolución del Dividendo). Solo se editan los años futuros.</div>';
   H+=_dfGrid(pag, editable, cur);
   H+='<div class="df-sech no">🚫 Figuran como que no pagan <span class="df-pill">'+nop.length+'</span></div>';
   H+=_dfGrid(nop, editable, cur);

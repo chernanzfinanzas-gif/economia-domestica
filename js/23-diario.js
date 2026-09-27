@@ -18,7 +18,7 @@ function _diScore(t){ var a=_diAna(t); return (a&&typeof cmpScore==='function')?
 function _diRPD(t){ var p=_diPrecio(t); var a=_diAna(t); var d=a?_diNum(a.divAccion):0; if(!(d>0)){ d=_diNum(((DB.valores||{})[_diUp(t)]||{}).divAccion); } return (p>0&&d>0)?(d/p*100):null; }
 function _diPeso(t){ t=_diUp(t); if(typeof invPositions!=='function')return 0; try{ var ps=invPositions(),tot=0,mine=0; ps.forEach(function(p){ var val=_diNum(p.acciones)*_diNum(p.precioActual); tot+=val; if(_diUp(p.ticker)===t)mine+=val; }); return tot>0?mine/tot*100:0; }catch(e){ return 0; } }
 /* dividendo/acción cobrado desde una fecha (para el "desde entonces") */
-function _diDivDesde(t,fecha){ t=_diUp(t); var arr=(DB.dividendos||{})[t]||[]; var s=0; arr.forEach(function(d){ if((d.fecha||'')>=(fecha||'')) s+=_diNum(d.importe); }); return s; }
+function _diDivDesde(t,fecha){ t=_diUp(t); var arr=(DB.dividendos||{})[t]||[]; var s=0; arr.forEach(function(d){ if((d.fecha||'')>=(fecha||'') && (typeof divEsCobrado!=='function'||divEsCobrado(d))) s+=_diNum(d.importe); }); return s; }
 function _diCtx(t){ var a=_diAna(t)||{}; return { score:_diScore(t), rating:a.rating||'', decision:a.decision||'', poMin:_diNum(a.poMin)||null, poMax:_diNum(a.poMax)||null, rpd:_diRPD(t), peso:_diPeso(t) }; }
 
 var _DI_TIPOS=[

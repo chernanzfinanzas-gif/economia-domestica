@@ -214,7 +214,7 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
   if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return {loading:true}; }
   // === SERIE DIARIA (por sesión): valor de cartera cada día = Σ participaciones(día) × cierre(día) del repo. ===
   const sharesAt=(t,ms)=>{ let sh=0; _ops2.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
-  const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,d.fecha))return;   /* [B9] se descarta solo lo del ciclo ARCHIVADO, no el ticker entero */ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
+  const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,d.fecha))return;   /* [B9] se descarta solo lo del ciclo ARCHIVADO, no el ticker entero */ if(d.fecha&&divEsCobrado(d)){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   const _opSet=new Set(_ops2.map(o=>(o.ticker||"").toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||"").toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ divEv.push({ms:Date.UTC(+y,11,31),eur:num(_dIng[t][y])}); }); });
   divEv.sort((a,b)=>a.ms-b.ms);
@@ -353,7 +353,7 @@ function carteraRentabilidad(reRender){ const d=carteraEvolData(reRender); if(!d
   const ops=(typeof _allOps==='function'?_allOps():[]); const cf=[];
   ops.forEach(o=>{ if(!o.fecha)return; const ms=Date.parse(o.fecha+'T00:00:00'); if(isNaN(ms))return; const eur=num(o.acciones)*num(o.precio); if(!eur)return; cf.push({t:ms,a:(o.tipo==='venta'?eur:-eur)}); });
   const shAt=(t,ms)=>{ let sh=0; ops.forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.fecha){ const om=Date.parse(o.fecha+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
-  const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(dd=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,dd.fecha))return;   /* [B9] */ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=shAt(T,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } }); });
+  const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(dd=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,dd.fecha))return;   /* [B9] */ if(dd.fecha&&divEsCobrado(dd)){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=shAt(T,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } }); });
   (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=shAt(T,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } }); });
   const _opSet=new Set(ops.map(o=>(o.ticker||'').toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||'').toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ const e=num(_dIng[t][y]); if(e)cf.push({t:Date.UTC(+y,11,31),a:e}); }); });
   const term=num(valor[n-1]); if(term>0)cf.push({t:Date.now(),a:term});
@@ -706,10 +706,10 @@ function rentabilidadEmpresas(reRender){
   const rows=Object.keys(_porT).map(_k=>{ const _m=_porT[_k];
     const t=_m.t; const acc=_m.acc, pa=_m.pa;
     const coste=_m.coste, valor=acc*pa, pl=valor-coste;
-    let divCob=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm))divCob+=sharesAt(t,dm)*num(dd.importe); } });
+    let divCob=0; (dvO[t]||[]).forEach(dd=>{ if(dd.fecha&&divEsCobrado(dd)){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm))divCob+=sharesAt(t,dm)*num(dd.importe); } });
     const rentTot=coste>0?(pl+divCob)/coste:null;
     const cf=[]; (opsByT[t]||[]).forEach(o=>{ const ms=Date.parse(o.fecha+'T00:00:00'); if(isNaN(ms))return; const eur=num(o.acciones)*num(o.precio); if(!eur)return; cf.push({t:ms,a:(o.tipo==='venta'?eur:-eur)}); });
-    (dvO[t]||[]).forEach(dd=>{ if(dd.fecha){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=sharesAt(t,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } });
+    (dvO[t]||[]).forEach(dd=>{ if(dd.fecha&&divEsCobrado(dd)){ const dm=Date.parse(dd.fecha+'T00:00:00'); if(!isNaN(dm)){ const e=sharesAt(t,dm)*num(dd.importe); if(e)cf.push({t:dm,a:e}); } } });
     if(valor>0)cf.push({t:nowMs,a:valor});
     const xirr=(typeof _xirr==='function')?_xirr(cf):null;
     const prNow=pa>0?pa:((typeof priceAtFB==='function')?priceAtFB(t,nowMs):0);
@@ -1385,7 +1385,7 @@ function aportValorHTML(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sort
   if(_faltaP.length){ if(typeof cargarPreciosCartera==='function')cargarPreciosCartera().then(()=>{ if(typeof reRender==='function')reRender(); }); return '<div class="card" style="margin:0"><div style="font-weight:700;font-size:13px">Aportado acumulado vs valor de cartera</div><div class="muted" style="font-size:12px">Cargando cotizaciones…</div></div>'; }
   const priceAt=(t,ms)=>priceAtFB(t,ms);
   const sharesAt=(t,ms)=>{ let sh=0; _ops2.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
-  const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,d.fecha))return;   /* [B9] se descarta solo lo del ciclo ARCHIVADO, no el ticker entero */ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
+  const divEv=[]; const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,d.fecha))return;   /* [B9] se descarta solo lo del ciclo ARCHIVADO, no el ticker entero */ if(d.fecha&&divEsCobrado(d)){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ if(d.fecha){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))divEv.push({ms:dm,eur:sharesAt(T,dm)*num(d.importe)}); } }); });
   const _opSet=new Set(_ops2.map(o=>(o.ticker||"").toUpperCase())); const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ if(_opSet.has((t||"").toUpperCase()))return; Object.keys(_dIng[t]||{}).forEach(y=>{ divEv.push({ms:Date.UTC(+y,11,31),eur:num(_dIng[t][y])}); }); });
   divEv.sort((a,b)=>a.ms-b.ms);

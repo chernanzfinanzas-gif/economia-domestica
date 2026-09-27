@@ -53,8 +53,11 @@ function _emDivPend(t){ t=_emUp(t);
     a.pagos.forEach(function(p){ var ex=(''+(p.exDiv||'')).slice(0,10); if(!ex||ex>today)return; /* ex-div aún futura → todavía no toca */
       var pago=(''+(p.pago||'')).slice(0,10); if(pago&&pago<today) return; /* ventana ex-div→pago: pasado el día de pago sale de «Necesita acción» (si no hay fecha de pago, se mantiene hasta anotar) */
       var key=t+'|'+ex; if((DB.divAnotado||{})[key]) return; /* ya anotado → no repetir (evitaría duplicar el cobro en caja) */
-      if(!best || ex>best.exDiv) best={exDiv:ex, pago:pago, brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key}; });
+      /* [27-sep-2026] varios pagos con la MISMA ex-div (A3M: 0,18 a cuenta + 0,65 extraordinario) son UN cobro: se suman */
+      if(best && best.exDiv===ex){ best.brutoAcc+=_emNum(p.bruto); best.pagos.push({pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}); if(p.tipo&&best.tipo.indexOf(p.tipo)<0) best.tipo+=(best.tipo?' + ':'')+p.tipo; if(!best.pago&&pago)best.pago=pago; return; }
+      if(!best || ex>best.exDiv) best={exDiv:ex, pago:pago, brutoAcc:_emNum(p.bruto), tipo:(p.tipo||''), key:key, pagos:[{pago:pago,bruto:_emNum(p.bruto),tipo:(p.tipo||'')}]}; });
   });
+  if(best) best.brutoAcc=Math.round(best.brutoAcc*10000)/10000;
   return best; }
 function _emFechaCorta(f){ if(!f)return ''; var p=(''+f).slice(0,10).split('-'); return p.length===3?(p[2]+'/'+p[1]):(''+f); }
 /* Próximo año con tramo pendiente > 0. */
@@ -855,6 +858,31 @@ function _emDivForm(t){ t=_emUp(t);
 function _emDivToggle(){ var s=(document.querySelector('input[name=emdivt]:checked')||{}).value; var ef=document.getElementById('emdEfec'), sc=document.getElementById('emdScrip'); if(ef)ef.style.display=(s==='scrip')?'none':'block'; if(sc)sc.style.display=(s==='scrip')?'block':'none'; }
 /* Neto = bruto − 19% de retención IRPF (se recalcula al teclear el bruto; el usuario puede ajustarlo). */
 function _emDivCalc(){ var b=_emNum((document.getElementById('emdBruto')||{}).value); var n=document.getElementById('emdNeto'); if(n) n.value=(b>0?(Math.round(b*0.81*100)/100):''); }
+/* [27-sep-2026] Líneas de la FICHA al anotar un cobro desde Kanban.
+   - Si el cobro por acción coincide con Evolución (±1 céntimo), se escribe UNA línea por pago previsto,
+     con su importe exacto y su tipo (así el extraordinario queda como tal: A3M 0,18 + 0,65).
+   - Si no coincide, se avisa con las dos cifras; aceptando, se escribe una sola línea con lo cobrado.
+   - Las líneas que ya hubiera en la ficha a ±30 días del pago (las antiguas «previstas») se SUSTITUYEN,
+     previa confirmación: nunca se duplica el cobro. Devuelve false si el usuario cancela. */
+function _emDivFichaLineas(t, dp, neto, sh, fecha, pagoF){
+  var cobAcc=Math.round((neto/0.81/sh)*10000)/10000;
+  var lineas;
+  if(dp && dp.pagos && dp.pagos.length && Math.abs(cobAcc-dp.brutoAcc)<=0.01){
+    lineas=dp.pagos.map(function(p){ var l={fecha:fecha,importe:Math.round(p.bruto*10000)/10000}; if(p.tipo)l.tipo=p.tipo; return l; });
+  } else {
+    if(dp && dp.brutoAcc>0 && !confirm('El cobro no coincide con Evolución del Dividendo:\n\n  previsto  '+dp.brutoAcc.toFixed(4)+' €/acc'+(dp.tipo?' ('+dp.tipo+')':'')+'\n  cobrado   '+cobAcc.toFixed(4)+' €/acc ('+sh+' acc.)\n\n¿Lo anoto igualmente? (Luego corrige Evolución si la previsión estaba mal.)')) return false;
+    lineas=[{fecha:fecha,importe:cobAcc}];
+  }
+  DB.dividendos=DB.dividendos||{}; var arr=DB.dividendos[t]=DB.dividendos[t]||[];
+  var ref=(pagoF||(dp&&dp.pago)||fecha), refMs=Date.parse(ref+'T00:00:00');
+  var viejas=arr.filter(function(d){ var m=Date.parse((d.fecha||'')+'T00:00:00'); return !isNaN(m) && Math.abs(m-refMs)/864e5<=30; });
+  if(viejas.length){
+    if(!confirm('En la ficha de '+t+' ya hay '+(viejas.length===1?'una línea':viejas.length+' líneas')+' cerca de esta fecha:\n\n'+viejas.map(function(d){return '  '+d.fecha+'  '+d.importe+' €/acc';}).join('\n')+'\n\nSe sustituyen por lo cobrado para no duplicar. ¿Seguir?')) return false;
+    viejas.forEach(function(d){ var i=arr.indexOf(d); if(i>=0) arr.splice(i,1); });
+  }
+  lineas.forEach(function(l){ l.id='d'+Math.random().toString(36).slice(2,9); arr.push(l); });
+  return true;
+}
 function _emDivDo(t){ t=_emUp(t);
   var dp=_emDivPend(t);
   var tipo=(document.querySelector('input[name=emdivt]:checked')||{}).value||'efectivo';
@@ -890,7 +918,8 @@ function _emDivDo(t){ t=_emUp(t);
     }
     var ckey=t+'|'+(_pagoF||fecha);
     DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
-    var sh=_emSharesHeld(t); if(sh>0){ var brutoAcc=Math.round((neto/0.81/sh)*10000)/10000; DB.dividendos=DB.dividendos||{}; DB.dividendos[t]=DB.dividendos[t]||[]; DB.dividendos[t].push({fecha:fecha,importe:brutoAcc,id:'d'+Math.random().toString(36).slice(2,9)}); }
+    var sh=_emSharesHeld(t); if(sh>0){ var r=_emDivFichaLineas(t, dp, neto, sh, fecha, _pagoF);
+      if(r===false){ delete DB.cajaDivReal[ckey]; delete DB.cajaDivFecha[ckey]; return; } }
     if(typeof showToast==='function')showToast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
   }
   DB.divAnotado=DB.divAnotado||{}; DB.divAnotado[key]={tipo:tipo,fecha:fecha};

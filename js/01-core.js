@@ -1947,6 +1947,11 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
    · Si el año en curso no tiene fila, se usa el último ejercicio real de los 3 anteriores.
    · Si la empresa no está en dividendos.json, devuelve null y cada vista decide. Nunca
      se inventa un dividendo. */
+/* [26-sep-2026 · decisión de Carlos] La ficha (DB.dividendos) es SOLO lo cobrado. Una línea con fecha
+   futura es una previsión mal ubicada: no cuenta como cobrada en ningún cálculo (TIR, fiscalidad,
+   posiciones, resumen, gráficos). Lo previsto vive en Evolución del Dividendo. */
+function _divHoyISO(){ var d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
+function divEsCobrado(d){ return !!(d&&d.fecha) && (''+d.fecha).slice(0,10) <= _divHoyISO(); }
 function dpaDeclarado(t){
   t=(t||'').toUpperCase(); if(!t)return null;
   if(typeof evoAnioM!=='function'||typeof evoDpaBruto!=='function')return null;

@@ -114,6 +114,9 @@ function _calEvDiv(t, year){
   if(!(dpa>0)) return out;
   var base = _calUltimoAnioConPagos(t, year-1);
   if(!base) return out;
+  /* [27-sep-2026] el patrón de un año futuro NO copia pagos extraordinarios/especiales */
+  var _rec=base.pagos.filter(function(p){ var tp=(''+(p.tipo||'')).toLowerCase(); return tp!=='extraordinario' && tp!=='especial'; });
+  if(_rec.length) base={ year:base.year, pagos:_rec, a:base.a };
   var sumBase = base.pagos.reduce(function(s,p){ return s + _calNum(p.bruto); }, 0);
   var sh = _calSharesYear(t, year);
   base.pagos.forEach(function(p){
@@ -244,7 +247,7 @@ function _calDivMesReal(year){
   var opSet={}; ops.forEach(function(o){ opSet[(o.ticker||'').toUpperCase()]=1; });
   var shAt=function(t,f){ var ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return 0; var sh=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()===t){ var om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*_calNum(o.acciones); } }); return sh; };
   var addPago=function(T,f,imp){ var g=shAt(T,f)*_calNum(imp); if(!g)return; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12)neto[m]+=g*0.81; bruto+=g; seen[T]=1; };
-  var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
+  var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(!(f<=_calHoy()))return;   /* [27-sep] la ficha solo cuenta lo COBRADO */ if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
   (DB.cerradas||[]).forEach(function(c){ var T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
   var dIng=DB.divIngresos||{}; Object.keys(dIng).forEach(function(t){ var T=(t||'').toUpperCase(); if(opSet[T]||closed[T])return; var v=(dIng[t]||{})[Y]; if(v){ var g=_calNum(v); neto[11]+=g*0.81; bruto+=g; seen[T]=1; } });
   return { neto:neto, bruto:bruto, seen:seen };
@@ -258,10 +261,14 @@ function _calDivMesReal(year){
    extraordinario de 0,65 € de diciembre no llegaba a «Dividendos / mes». Se suman solo los pagos
    futuros (fecha > hoy) que no estén ya en DB.dividendos con la misma fecha e importe. */
 function _calPendNoReg(T, year){
-  var hoy=(typeof _calHoy==='function')?_calHoy():new Date().toISOString().slice(0,10);
-  var reg=((DB.dividendos||{})[T]||[]).filter(function(d){ return (d.fecha||'').slice(0,4)===String(year); });
-  return _calEvDiv(T, year).filter(function(e){ if(e.tipo!=='pago'||!(e.fecha>hoy)) return false;
-    return !reg.some(function(d){ return (d.fecha||'').slice(0,10)===e.fecha && Math.abs(_calNum(d.importe)-_calNum(e.imp))<0.0005; }); });
+  /* [27-sep-2026] Año en curso: lo PREVISTO sale de Evolución del Dividendo.
+     - pagos con fecha > hoy: siempre (la ficha ya no cuenta futuros);
+     - pagos con fecha <= hoy: solo si aún no se han anotado en la ficha (no hay cobro a ±30 días). */
+  var hoy=_calHoy(); var Y=String(year);
+  var reg=((DB.dividendos||{})[T]||[]).map(function(d){ return (d.fecha||'').slice(0,10); }).filter(function(f){ return f.slice(0,4)===Y && f<=hoy; });
+  var dms=function(a,b){ return Math.abs(Date.parse(a+'T00:00:00')-Date.parse(b+'T00:00:00'))/864e5; };
+  return _calEvDiv(T, year).filter(function(e){ if(e.tipo!=='pago') return false; if(e.fecha>hoy) return true;
+    return !reg.some(function(f){ return dms(f,e.fecha)<=30; }); });
 }
 function calBrutoCarteraAnio(year){
   var nowY=_calNowY();
@@ -269,7 +276,7 @@ function calBrutoCarteraAnio(year){
   var tot=R.bruto; var seen=R.seen||{};
   if(year >= nowY){                                  /* previsto: futuro=todas; año en curso=solo lo pendiente aún no cobrado */
     calTickers().forEach(function(t){ var T=(t||'').toUpperCase();
-      var _ev=(year===nowY && seen[T]) ? _calPendNoReg(T, year) : _calEvDiv(t, year);
+      var _ev=(year===nowY) ? _calPendNoReg(T, year) : _calEvDiv(t, year);
       _ev.forEach(function(e){ if(e.tipo==='pago') tot += _calNum(e.sh)*_calNum(e.imp); });
     });
   }
@@ -304,7 +311,7 @@ function calDivMesEmpresas(year){
   if(year <= nowY){
     var divs=DB.dividendos||{};
     Object.keys(divs).forEach(function(t){ var T=(t||'').toUpperCase(); var neto=new Array(12).fill(0); var any=false;
-      (divs[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)!=String(year)) return;
+      (divs[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)!=String(year)) return; if(!(f<=_calHoy())) return;   /* [27-sep] solo cobrado */
         var sh=_calSharesAt(T,f); var g=sh*_calNum(d.importe)*0.81; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12){ neto[m]+=g; any=true; } });
       if(any) seen[T]=1;
       pushRow(T, neto);
@@ -313,7 +320,7 @@ function calDivMesEmpresas(year){
   /* 2) PREVISTO: futuro = cartera + previstas; año en curso = solo lo PENDIENTE DE EJECUTAR (no cobrado aún) */
   if(year >= nowY){
     calTickers().forEach(function(t){ var neto=new Array(12).fill(0);
-      var _ev=(year===nowY && seen[t]) ? _calPendNoReg((t||'').toUpperCase(), year) : _calEvDiv(t, year);
+      var _ev=(year===nowY) ? _calPendNoReg((t||'').toUpperCase(), year) : _calEvDiv(t, year);
       _ev.forEach(function(e){ if(e.tipo!=='pago') return; var m=parseInt(e.fecha.slice(5,7),10)-1; if(m>=0&&m<12) neto[m]+=_calNum(e.sh)*_calNum(e.imp)*0.81; });
       pushRow(t, neto);
     });

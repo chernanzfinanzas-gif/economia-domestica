@@ -150,10 +150,12 @@ function renderSimulador(){
   const _rOpSet={}; _rOps.forEach(o=>{ _rOpSet[(o.ticker||'').toUpperCase()]=1; });
   const _rShAt=(t,ms)=>{ let sh=0; _rOps.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
   const _realImp={}; const _rAdd=(T,y,e)=>{ if(!e)return; (_realImp[T]=_realImp[T]||{}); _realImp[T][y]=(_realImp[T][y]||0)+e; };
-  { const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
+  { const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(typeof divEsCobrado==='function'&&!divEsCobrado(d))return;   /* [27-sep] solo lo cobrado */ const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
     (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
     const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ const T=(t||'').toUpperCase(); if(_rOpSet[T]||_rClosed[T])return; Object.keys(_dIng[t]||{}).forEach(y=>{ _rAdd(T,+y,num(_dIng[t][y])); }); }); }
-  const simRealImp=(t,y)=>((_realImp[(t||'').toUpperCase()]||{})[y])||0;
+  /* [27-sep-2026] año en curso = cobrado (ficha <= hoy) + lo PENDIENTE de Evolución (mismo cálculo que el Calendario) */
+  const _pendC={}; const simPend=(t,y)=>{ if(y!==nowY||typeof _calPendNoReg!=='function')return 0; const T=(t||'').toUpperCase(); if(_pendC[T]==null){ let s=0; try{ _calPendNoReg(T,y).forEach(e=>{ s+=num(e.sh)*num(e.imp); }); }catch(e){} _pendC[T]=s; } return _pendC[T]; };
+  const simRealImp=(t,y)=>(((_realImp[(t||'').toUpperCase()]||{})[y])||0)+simPend(t,y);
   const simRealSh=(t,y)=>_rShAt((t||'').toUpperCase(), Date.parse(y+'-12-31T00:00:00'));
   tickers.forEach(t=>years.forEach(y=>{ tot[y]+=(y<=nowY)?simRealImp(t,y):(simEffShares(t,y,nowY)*num(simDpa(t,y)||0)); }));
   const eurK=v=>{ v=Math.round(v); const a=Math.abs(v); return a>=1000?((Math.round(v/100)/10).toLocaleString('es-ES')+'k'):(''+v); };
@@ -661,7 +663,7 @@ function dividendosEstado(){ if(typeof simYearTotal!=='function')return null; co
   const prevAnual=num(simYearTotal(nowY)), prevYear=num(simYearTotal(nowY-1));
   const ops=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
   const sharesAt=(t,ms)=>{ let sh=0; ops.forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.fecha){ const om=Date.parse(o.fecha+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
-  let cobradoYTD=0; const dvO=DB.dividendos||{}; Object.keys(dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(d=>{ if(d.fecha&&d.fecha.slice(0,4)===String(nowY)){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))cobradoYTD+=sharesAt(T,dm)*num(d.importe); } }); });
+  let cobradoYTD=0; const dvO=DB.dividendos||{}; Object.keys(dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(d=>{ if(d.fecha&&d.fecha.slice(0,4)===String(nowY)&&divEsCobrado(d)){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))cobradoYTD+=sharesAt(T,dm)*num(d.importe); } }); });
   const dgr=(prevYear>0)?(prevAnual/prevYear-1):null; const pctCobrado=prevAnual>0?cobradoYTD/prevAnual:null;
   return {nowY,cobradoYTD,prevAnual,prevYear,dgr,pctCobrado}; }
 // === Score de salud financiera: media de 4 pilares (ahorro, fondo emergencia, diversificación, alfa) ===

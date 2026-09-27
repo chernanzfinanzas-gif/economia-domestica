@@ -243,6 +243,24 @@ function _evoOverride(t,year){
   return null;
 }
 /* DPA bruto PROYECTADO: real del Excel > override manual > año anterior × (1+%). Cascada. */
+/* [26-sep-2026 · decisión de Carlos, caso Atresmedia/Fever] Un pago marcado «extraordinario» o
+   «especial» en Evolución del Dividendo cuenta en SU año (el total real no se toca) pero NO es base
+   de la previsión: el año siguiente se proyecta sobre el dividendo RECURRENTE. Antes 2027 salía de
+   1,04 € × (1+g) cuando lo recurrente de 2026 son 0,39 €. */
+var _EVO_NO_RECURRENTE={'extraordinario':1,'especial':1};
+function evoDpaRecurrente(t, year){
+  var a=evoAnioM(t,year); if(!a||a.dpaBruto==null) return null;
+  var ex=0; ((a.pagos)||[]).forEach(function(p){ if(_EVO_NO_RECURRENTE[(''+(p.tipo||'')).toLowerCase()]) ex+=num(p.bruto); });
+  return _evoRound(Math.max(0, num(a.dpaBruto)-ex),4);
+}
+/* Base para proyectar el año y+1: override (futuro) → recurrente del dato real → proyección. */
+function _evoBaseProy(t, y){
+  var ny=new Date().getFullYear();
+  if(y>ny){ var ov=_evoOverride(t,y); if(ov!=null) return ov; }
+  var a=evoAnioM(t,y);
+  if(a && a.dpaBruto!=null && (y<=ny || num(a.dpaBruto)>0)) return evoDpaRecurrente(t,y);
+  return evoDpaProyectado(t,y);
+}
 function evoDpaProyectado(t, year){
   t=(t||'').toUpperCase();
   var ny=new Date().getFullYear(); var esFut=year>ny;
@@ -257,7 +275,7 @@ function evoDpaProyectado(t, year){
   if(a && a.dpaBruto!=null && (!esFut || num(a.dpaBruto)>0)) return num(a.dpaBruto);
   if(!esFut) return null;   /* vigente/pasado sin dato real: no se proyecta */
   if(year>2100) return null;
-  var prev=evoDpaProyectado(t, year-1);
+  var prev=_evoBaseProy(t, year-1);
   if(prev==null||!(prev>0)) return null;
   return _evoRound(prev*(1+_evoCrecAno(year)/100),4);
 }
@@ -276,7 +294,7 @@ function _b6Marca(r){
 }
 /* Proyección automática de un año, IGNORANDO su propio override (para el placeholder de la casilla). */
 function _evoAutoProj(t, year){
-  var prev=evoDpaProyectado(t, year-1);
+  var prev=_evoBaseProy(t, year-1);
   if(prev==null||!(prev>0)) return null;
   return _evoRound(prev*(1+_evoCrecAno(year)/100),4);
 }
