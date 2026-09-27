@@ -20,7 +20,12 @@ function _emAnalizada(t){ return (typeof _esAnalizada==='function')?_esAnalizada
 function _emCola(t){ t=_emUp(t); return (DB.cola||[]).some(function(c){return _emUp(c.t)===t&&c.estado!=='hecha';}); }
 function _emColaInfo(t){ t=_emUp(t); var pos=0,n=0,it=null; (DB.cola||[]).forEach(function(c){ if(c.estado==='hecha')return; n++; if(_emUp(c.t)===t){pos=n;it=c;} }); return {pos:pos,it:it}; }
 function _emCerrada(t){ t=_emUp(t); return (DB.cerradas||[]).some(function(c){return _emUp(c.ticker)===t;}); }
-function _emSenal(t){ return (typeof _senalActiva==='function')?_senalActiva(t):null; }
+/* [27-sep-2026 · Carlos] El PO alcanzado ya contestado (Nota S3 firmada, apunte en el protocolo o
+   en el §10.5, hace ≤ 60 días) no vuelve a pedir acción: mismo criterio que el Panel y Cobertura.
+   El stop NO se calla aquí: un stop roto siempre pide acción. */
+function _emSenal(t){ var s=(typeof _senalActiva==='function')?_senalActiva(t):null;
+  if(s && s.tipo==='po' && typeof _cbSenalRespondida==='function' && _cbSenalRespondida(t,'po')) return null;
+  return s; }
 function _emProtoOpen(t){ t=_emUp(t); return ((DB.protocolo||{})[t]||[]).some(function(a){return a.estado==='abierta';}); }
 function _emProtoVenc(t){ t=_emUp(t); var hoy=new Date().toISOString().slice(0,10); return ((DB.protocolo||{})[t]||[]).some(function(a){return a.estado==='abierta'&&a.limite&&a.limite<hoy;}); }
 function _emDsMes(t){ var a=_emAna(t); return (a&&typeof mesesDesde==='function')?mesesDesde(a.dossierFecha):null; }

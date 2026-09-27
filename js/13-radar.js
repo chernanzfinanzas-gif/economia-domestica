@@ -687,7 +687,26 @@ function _senalActiva(t){ if(typeof khBandaEstado==='function' && khBandaEstado(
 function _cbSenalRespondida(t,tipo){
   var sig = tipo==='stop'?'S1':(tipo==='po'?'S3':null);
   if(!sig) return false;
-  var arr=((DB.protocolo||{})[(t||'').toUpperCase()]||[]).filter(function(a){return a.sig===sig;});
+  var T=(t||'').toUpperCase();
+  var arr=((DB.protocolo||{})[T]||[]).filter(function(a){return a.sig===sig;});
+  /* [27-sep-2026 · Carlos] Las Notas de revisión se firman en el §10.5 (vía hallazgos.json), no en
+     DB.protocolo. El Panel ya las contaba (04-plan `_ap105`); el Kanban y Cobertura no, y seguían
+     pidiendo «PO alcanzado — revisar» para MAP, SAN, ELE y REP con la Nota S3 firmada el 26-sep.
+     Mismo criterio que el Panel: fila ABIERTA en el §10.5 → no silencia; fila resuelta → cuenta
+     como revisión, y para el PO sólo si se hizo con la cotización por encima del PO máximo. */
+  try{ if(typeof revisionesCorpDe==='function'){
+    var filas=(revisionesCorpDe(T)||{}).filas||[];
+    var _sg=function(r){ return (''+(r.senal||'')).toUpperCase().trim(); }, _dc=function(r){ return (''+(r.decision||'')).toUpperCase().trim(); };
+    if(filas.some(function(r){ return _sg(r)===sig && _dc(r)==='ABIERTA'; })) return false;
+    var _an=(DB.analisis||[]).find(function(x){ return (x.ticker||'').toUpperCase()===T; }), _bull=_an?num(_an.poMax):0;
+    var _nES=function(v){ if(typeof v==='number')return isNaN(v)?0:v; var z=(''+(v==null?'':v)).trim().replace(/[^\d,.\-]/g,''); z=(z.indexOf(',')>=0)?z.replace(/\./g,'').replace(',','.'):z; var n=parseFloat(z); return isNaN(n)?0:n; };
+    var _fI=function(f){ var x=(''+(f||'')).trim().toLowerCase(); var m=x.match(/^(\d{1,2})[-\/\s]([a-záéíóú]{3})[a-záéíóú.]*[-\/\s](\d{4})/);
+      if(m){ var M={ene:'01',feb:'02',mar:'03',abr:'04',may:'05',jun:'06',jul:'07',ago:'08',sep:'09',oct:'10',nov:'11',dic:'12'}; if(M[m[2]]) return m[3]+'-'+M[m[2]]+'-'+('0'+m[1]).slice(-2); }
+      var i=x.match(/^(\d{4})-(\d{2})-(\d{2})/); return i?i[0]:''; };
+    filas.forEach(function(r){ if(_sg(r)!==sig) return; var d=_dc(r); if(!d||d==='ABIERTA') return;
+      if(sig==='S3' && _bull>0 && _nES(r.cot)<_bull) return;   /* un apunte del PO base no silencia el cruce del bull */
+      var f=_fI(r.fecha); if(f) arr.push({fecha:f,estado:''}); });
+  } }catch(e){}
   if(!arr.length) return false;
   if(arr.some(function(a){return a.estado==='abierta';})) return true;
   var PRECIO=(typeof PROTO_SIG_PRECIO!=='undefined')?PROTO_SIG_PRECIO:{S1:1,S3:1};
