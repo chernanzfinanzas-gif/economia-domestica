@@ -819,7 +819,7 @@ function fichaCalc(ticker){
   const t=(ticker||'').toUpperCase();
   let ops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t).slice().sort(invByFecha);
   let divs=((DB.dividendos||{})[t]||[]).slice().sort(invByFecha);
-  if(!ops.length){ const _c=(DB.cerradas||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_c&&_c.ops&&_c.ops.length){ ops=_c.ops.slice().sort(invByFecha); if(_c.divs&&_c.divs.length) divs=_c.divs.slice().sort(invByFecha); } }
+  if(!ops.length){ const _c=(DB.cerradas||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_c&&_c.ops&&_c.ops.length){ ops=_c.ops.slice().sort(invByFecha); if(_c.divs&&_c.divs.length){ _c.divs.forEach(d=>{ if(!d.id) d.id='d'+Math.random().toString(36).slice(2,9); });   /* [27-sep] con id, para que la ✕ funcione */ divs=_c.divs.slice().sort(invByFecha); } } }
   const v=(DB.valores||{})[t]||{};
   /* [A10] antes solo miraba DB.valores: una empresa que solo está en Análisis salía a 0,00 €
      en la ficha mientras la tabla la enseñaba con precio. Misma cascada que precioDe(). */
@@ -839,7 +839,7 @@ function fichaCalc(ticker){
   });
   const tot={N:0,coste:0,div:0,valor:0}; lotes.forEach(l=>{tot.N+=l.N;tot.coste+=l.coste;tot.div+=l.divCobrado;tot.valor+=l.valor;});
   tot.precioMedio=tot.N?tot.coste/tot.N:0; tot.balance=tot.valor-tot.coste; tot.rentTotal=tot.coste?(tot.balance+tot.div)/tot.coste:0; tot.netoMedio=tot.precioMedio-(tot.N?tot.div/tot.N:0);
-  const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<=x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio)+khComision(o),0); const pm=sb?cost/sb:0;
+  const divRows=divs.map(x=>{ const buys=compras.filter(o=>o.fecha<=x.fecha); const sb=buys.reduce((s,o)=>s+num(o.acciones),0); const sold=ops.filter(o=>o.tipo==='venta'&&o.fecha<x.fecha).reduce((s,o)=>s+num(o.acciones),0); const cost=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio)+khComision(o),0); const pm=sb?cost/sb:0;
     return {id:x.id,fecha:x.fecha,year:(x.fecha||'').slice(0,4),divShare:num(x.importe),acc:sb-sold,precioMedio:pm,importe:(sb-sold)*num(x.importe),futuro:!divEsCobrado(x)}; });
   /* [27-sep-2026] Lo PREVISTO del año en curso sale de Evolución del Dividendo (no se teclea en la ficha):
      pagos con fecha > hoy, o ya pasados pero sin cobro anotado a ±30 días. Cuenta en el Div/acción del
@@ -1505,7 +1505,7 @@ function cerradaCalc(c){
     const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)-comVenta;
     const dv=(c.divs||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
     let dividendos=0; const byYear={};
-    dv.forEach(d=>{ const held=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); const eur=held*num(d.importe); dividendos+=eur; const y=(d.fecha||'').slice(0,4); if(y)byYear[y]=(byYear[y]||0)+eur; });
+    dv.forEach(d=>{ const held=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<d.fecha).reduce((s,o)=>s+num(o.acciones),0); const eur=held*num(d.importe); dividendos+=eur; const y=(d.fecha||'').slice(0,4); if(y)byYear[y]=(byYear[y]||0)+eur; });
     return {id:c.id,ticker:c.ticker,nombre:c.nombre,cartera:c.cartera||'Propia',acciones:acc,coste,venta,dividendos,byYear,comCompra,comVenta,comReg,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||c.fechaCompra||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||c.fechaVenta||''};
   }
   const byYear={}; if(c.fechaVenta) byYear[(c.fechaVenta||'').slice(0,4)]=num(c.dividendos);
@@ -1565,7 +1565,7 @@ function invClosedComputed(){
       const coste=buys.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)+comCompra;
       const venta=sells.reduce((s,o)=>s+num(o.acciones)*num(o.precio),0)-comVenta;
       const td=((DB.dividendos||{})[t]||[]).slice().sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-      let div=0; td.forEach(d=>{ const acc=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0); div+=acc*num(d.importe); });
+      let div=0; td.forEach(d=>{ const acc=buys.filter(o=>o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-sells.filter(o=>o.fecha<d.fecha).reduce((s,o)=>s+num(o.acciones),0); div+=acc*num(d.importe); });
       res.push({ticker:t,nombre:((DB.valores||{})[t]||{}).nombre||t,cartera:(buys[0]&&buys[0].cartera)||'Propia',acciones:bSh,coste,venta,dividendos:div,comCompra,comVenta,comReg,fechaCompra:buys.map(o=>o.fecha).filter(Boolean).sort()[0]||'',fechaVenta:sells.map(o=>o.fecha).filter(Boolean).sort().slice(-1)[0]||''});
     }
   });
@@ -1657,7 +1657,7 @@ function renderDividendos(){
       const tops=ops.filter(o=>(o.ticker||'').toUpperCase()===t);
       const td=(divs[t]||[]).filter(divEsCobrado).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
       td.forEach(d=>{ const y=(d.fecha||'').slice(0,4); if(!y)return;
-        const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0);
+        const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((s,o)=>s+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<d.fecha).reduce((s,o)=>s+num(o.acciones),0);
         byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });
     } else if(divIng[t]){
       Object.keys(divIng[t]).forEach(y=>{ byTY[t][y]=num(divIng[t][y]); yearsSet.add(y); });
@@ -1824,7 +1824,7 @@ function renderCalendario(){
 function divCobrados(t){ t=(t||'').toUpperCase();
   const tops=(DB.operaciones||[]).filter(o=>(o.ticker||'').toUpperCase()===t);
   const td=((DB.dividendos||{})[t]||[]).filter(divEsCobrado).sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-  let s=0; td.forEach(d=>{ const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0); s+=acc*num(d.importe); }); return s; }
+  let s=0; td.forEach(d=>{ const acc=tops.filter(o=>o.tipo!=='venta'&&o.fecha<=d.fecha).reduce((x,o)=>x+num(o.acciones),0)-tops.filter(o=>o.tipo==='venta'&&o.fecha<d.fecha).reduce((x,o)=>x+num(o.acciones),0); s+=acc*num(d.importe); }); return s; }
 function pieSVG(items){ const tot=items.reduce((s,i)=>s+i.val,0)||1; let a=-Math.PI/2; const R=78,cx=86,cy=86; let p='';
   items.forEach(it=>{ const ang=it.val/tot*2*Math.PI, a2=a+ang; const x1=cx+R*Math.cos(a),y1=cy+R*Math.sin(a),x2=cx+R*Math.cos(a2),y2=cy+R*Math.sin(a2); const lg=ang>Math.PI?1:0; p+=`<path d="M${cx},${cy} L${x1.toFixed(1)},${y1.toFixed(1)} A${R},${R} 0 ${lg} 1 ${x2.toFixed(1)},${y2.toFixed(1)} Z" fill="${it.color}" stroke="#fff" stroke-width="1.5"/>`; a=a2; });
   return `<svg width="172" height="172" viewBox="0 0 172 172">${p}</svg>`; }
@@ -1841,7 +1841,7 @@ function _fiscalPorAnio(){
       var tops=ops.filter(function(o){return (o.ticker||'').toUpperCase()===t;});
       var td=(divs[t]||[]).filter(divEsCobrado).sort(function(a,b){return (a.fecha||'').localeCompare(b.fecha||'');});
       td.forEach(function(d){ var y=(d.fecha||'').slice(0,4); if(!y)return;
-        var acc=tops.filter(function(o){return o.tipo!=='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0)-tops.filter(function(o){return o.tipo==='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0);
+        var acc=tops.filter(function(o){return o.tipo!=='venta'&&o.fecha<=d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0)-tops.filter(function(o){return o.tipo==='venta'&&o.fecha<d.fecha;}).reduce(function(s,o){return s+num(o.acciones);},0);
         byTY[t][y]=(byTY[t][y]||0)+acc*num(d.importe); yearsSet.add(y); });
     } else if(divIng[t]){
       Object.keys(divIng[t]).forEach(function(y){ byTY[t][y]=num(divIng[t][y]); yearsSet.add(y); });

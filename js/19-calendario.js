@@ -55,11 +55,11 @@ function _calQ(p){
 }
 
 /* ---- acciones REALES a una fecha (pasado/vigente): compras − ventas ≤ fecha ---- */
-function _calSharesAt(t, fecha){
+function _calSharesAt(t, fecha, div){   /* div: para un dividendo, una venta del mismo día no resta [27-sep-2026] */
   t=(t||'').toUpperCase(); if(!fecha) return 0;
   var ops=(DB.operaciones||[]).filter(function(o){ return (o.ticker||'').toUpperCase()===t; });
   var sh=0;
-  ops.forEach(function(o){ if((o.fecha||'') <= fecha){ var n=_calNum(o.acciones); sh += (o.tipo==='venta' ? -n : n); } });
+  ops.forEach(function(o){ var of=(o.fecha||''); if(of < fecha || (of===fecha && !(div && o.tipo==='venta'))){ var n=_calNum(o.acciones); sh += (o.tipo==='venta' ? -n : n); } });
   return sh<0?0:sh;
 }
 /* ---- acciones PREVISTAS para un AÑO (Plan/Simulador: reales a hoy + compras planificadas) ---- */
@@ -70,7 +70,7 @@ function _calSharesYear(t, year){
 /* ---- acciones para un EVENTO: fecha pasada → reales a la fecha; fecha futura → previstas del Plan ---- */
 function _calShEvento(t, fecha, year){
   var f=(fecha||'').slice(0,10);
-  if(f && f <= _calHoy()) return _calSharesAt(t, f);
+  if(f && f <= _calHoy()) return _calSharesAt(t, f, 1);
   return _calSharesYear(t, year);
 }
 
@@ -245,7 +245,7 @@ function _calDivMesReal(year){
   var ops=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
   var closed={}; (DB.cerradas||[]).forEach(function(c){ closed[(c.ticker||'').toUpperCase()]=1; });
   var opSet={}; ops.forEach(function(o){ opSet[(o.ticker||'').toUpperCase()]=1; });
-  var shAt=function(t,f){ var ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return 0; var sh=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()===t){ var om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*_calNum(o.acciones); } }); return sh; };
+  var shAt=function(t,f){ var ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return 0; var sh=0; ops.forEach(function(o){ if((o.ticker||'').toUpperCase()===t){ var om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<ms||(om===ms&&o.tipo!=='venta')) sh+=(o.tipo==='venta'?-1:1)*_calNum(o.acciones); } }); return sh; };
   var addPago=function(T,f,imp){ var g=shAt(T,f)*_calNum(imp); if(!g)return; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12)neto[m]+=g*0.81; bruto+=g; seen[T]=1; };
   var dvO=DB.dividendos||{}; Object.keys(dvO).forEach(function(t){ var T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(!(f<=_calHoy()))return;   /* [27-sep] la ficha solo cuenta lo COBRADO */ if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
   (DB.cerradas||[]).forEach(function(c){ var T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)===Y)addPago(T,f,d.importe); }); });
@@ -312,7 +312,7 @@ function calDivMesEmpresas(year){
     var divs=DB.dividendos||{};
     Object.keys(divs).forEach(function(t){ var T=(t||'').toUpperCase(); var neto=new Array(12).fill(0); var any=false;
       (divs[t]||[]).forEach(function(d){ var f=(d.fecha||'').slice(0,10); if(f.slice(0,4)!=String(year)) return; if(!(f<=_calHoy())) return;   /* [27-sep] solo cobrado */
-        var sh=_calSharesAt(T,f); var g=sh*_calNum(d.importe)*0.81; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12){ neto[m]+=g; any=true; } });
+        var sh=_calSharesAt(T,f,1); var g=sh*_calNum(d.importe)*0.81; var m=parseInt(f.slice(5,7),10)-1; if(m>=0&&m<12){ neto[m]+=g; any=true; } });
       if(any) seen[T]=1;
       pushRow(T, neto);
     });

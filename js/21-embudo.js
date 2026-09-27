@@ -864,8 +864,9 @@ function _emDivCalc(){ var b=_emNum((document.getElementById('emdBruto')||{}).va
    - Si no coincide, se avisa con las dos cifras; aceptando, se escribe una sola línea con lo cobrado.
    - Las líneas que ya hubiera en la ficha a ±30 días del pago (las antiguas «previstas») se SUSTITUYEN,
      previa confirmación: nunca se duplica el cobro. Devuelve false si el usuario cancela. */
-function _emDivFichaLineas(t, dp, neto, sh, fecha, pagoF){
-  var cobAcc=Math.round((neto/0.81/sh)*10000)/10000;
+function _emDivFichaLineas(t, dp, neto, sh, fecha, pagoF, bruto){
+  /* [27-sep-2026] si tecleas el BRUTO se usa ese; solo sin bruto se deduce del neto con el 19 % */
+  var cobAcc=Math.round(((bruto>0?bruto:neto/0.81)/sh)*10000)/10000;
   var lineas;
   if(dp && dp.pagos && dp.pagos.length && Math.abs(cobAcc-dp.brutoAcc)<=0.01){
     lineas=dp.pagos.map(function(p){ var l={fecha:fecha,importe:Math.round(p.bruto*10000)/10000}; if(p.tipo)l.tipo=p.tipo; return l; });
@@ -918,7 +919,7 @@ function _emDivDo(t){ t=_emUp(t);
     }
     var ckey=t+'|'+(_pagoF||fecha);
     DB.cajaDivReal[ckey]=neto; DB.cajaDivFecha[ckey]=fecha;
-    var sh=_emSharesHeld(t); if(sh>0){ var r=_emDivFichaLineas(t, dp, neto, sh, fecha, _pagoF);
+    var sh=_emSharesHeld(t); if(sh>0){ var r=_emDivFichaLineas(t, dp, neto, sh, fecha, _pagoF, _emNum((document.getElementById('emdBruto')||{}).value));
       if(r===false){ delete DB.cajaDivReal[ckey]; delete DB.cajaDivFecha[ckey]; return; } }
     if(typeof showToast==='function')showToast('Dividendo anotado: '+t+' ('+_emEur(neto)+' neto)');
   }

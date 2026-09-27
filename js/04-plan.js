@@ -148,10 +148,10 @@ function renderSimulador(){
   const _rOps=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
   const _rClosed={}; (DB.cerradas||[]).forEach(c=>{ _rClosed[(c.ticker||'').toUpperCase()]=1; });
   const _rOpSet={}; _rOps.forEach(o=>{ _rOpSet[(o.ticker||'').toUpperCase()]=1; });
-  const _rShAt=(t,ms)=>{ let sh=0; _rOps.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<=ms) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
+  /* [27-sep-2026] una venta del MISMO día del pago no resta: el corte del dividendo es anterior */ const _rShAt=(t,ms,div)=>{ let sh=0; _rOps.forEach(o=>{ if((o.ticker||'').toUpperCase()===t){ const om=Date.parse((o.fecha||'')+'T00:00:00'); if(om<ms||(om===ms&&!(div&&o.tipo==='venta'))) sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
   const _realImp={}; const _rAdd=(T,y,e)=>{ if(!e)return; (_realImp[T]=_realImp[T]||{}); _realImp[T][y]=(_realImp[T][y]||0)+e; };
-  { const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(typeof divEsCobrado==='function'&&!divEsCobrado(d))return;   /* [27-sep] solo lo cobrado */ const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
-    (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms)*num(d.importe)); }); });
+  { const _dvO=DB.dividendos||{}; Object.keys(_dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (_dvO[t]||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); if(typeof divEnCicloCerrado==='function'&&divEnCicloCerrado(T,f))return;   /* [B9] solo el ciclo archivado */ if(typeof divEsCobrado==='function'&&!divEsCobrado(d))return;   /* [27-sep] solo lo cobrado */ const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms,1)*num(d.importe)); }); });
+    (DB.cerradas||[]).forEach(c=>{ const T=(c.ticker||'').toUpperCase(); (c.divs||[]).forEach(d=>{ const f=(d.fecha||'').slice(0,10); const ms=Date.parse(f+'T00:00:00'); if(isNaN(ms))return; _rAdd(T,+f.slice(0,4),_rShAt(T,ms,1)*num(d.importe)); }); });
     const _dIng=DB.divIngresos||{}; Object.keys(_dIng).forEach(t=>{ const T=(t||'').toUpperCase(); if(_rOpSet[T]||_rClosed[T])return; Object.keys(_dIng[t]||{}).forEach(y=>{ _rAdd(T,+y,num(_dIng[t][y])); }); }); }
   /* [27-sep-2026] año en curso = cobrado (ficha <= hoy) + lo PENDIENTE de Evolución (mismo cálculo que el Calendario) */
   const _pendC={}; const simPend=(t,y)=>{ if(y!==nowY||typeof _calPendNoReg!=='function')return 0; const T=(t||'').toUpperCase(); if(_pendC[T]==null){ let s=0; try{ _calPendNoReg(T,y).forEach(e=>{ s+=num(e.sh)*num(e.imp); }); }catch(e){} _pendC[T]=s; } return _pendC[T]; };
@@ -662,7 +662,7 @@ function proyeccionCierre(){ const nowY=new Date().getFullYear(); const startY=D
 function dividendosEstado(){ if(typeof simYearTotal!=='function')return null; const nowY=new Date().getFullYear();
   const prevAnual=num(simYearTotal(nowY)), prevYear=num(simYearTotal(nowY-1));
   const ops=(typeof _allOps==='function')?_allOps():(DB.operaciones||[]);
-  const sharesAt=(t,ms)=>{ let sh=0; ops.forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.fecha){ const om=Date.parse(o.fecha+'T00:00:00'); if(om<=ms)sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
+  /* [27-sep-2026] una venta del MISMO día del pago no resta: el corte del dividendo es anterior */ const sharesAt=(t,ms)=>{ let sh=0; ops.forEach(o=>{ if((o.ticker||'').toUpperCase()===t&&o.fecha){ const om=Date.parse(o.fecha+'T00:00:00'); if(om<ms||(om===ms&&o.tipo!=='venta'))sh+=(o.tipo==='venta'?-1:1)*num(o.acciones); } }); return sh; };
   let cobradoYTD=0; const dvO=DB.dividendos||{}; Object.keys(dvO).forEach(t=>{ const T=(t||'').toUpperCase(); (dvO[t]||[]).forEach(d=>{ if(d.fecha&&d.fecha.slice(0,4)===String(nowY)&&divEsCobrado(d)){ const dm=Date.parse(d.fecha+'T00:00:00'); if(!isNaN(dm))cobradoYTD+=sharesAt(T,dm)*num(d.importe); } }); });
   const dgr=(prevYear>0)?(prevAnual/prevYear-1):null; const pctCobrado=prevAnual>0?cobradoYTD/prevAnual:null;
   return {nowY,cobradoYTD,prevAnual,prevYear,dgr,pctCobrado}; }

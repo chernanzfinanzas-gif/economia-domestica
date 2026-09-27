@@ -84,7 +84,8 @@ var TRASH_RESTORE={
   meta:               function(p){ DB.metas=DB.metas||[]; if(p.idx>=0&&p.idx<=DB.metas.length)DB.metas.splice(p.idx,0,p.item); else DB.metas.push(p.item); return ['renderMetas','renderPanel']; },
   asignClase:         function(p){ DB.asignacion=DB.asignacion||[]; if(p.idx>=0&&p.idx<=DB.asignacion.length)DB.asignacion.splice(p.idx,0,p.item); else DB.asignacion.push(p.item); return ['renderAsignacion','renderPanel']; },
   asignFoto:          function(p){ DB.asignacionFotos=DB.asignacionFotos||[]; if(p.idx>=0&&p.idx<=DB.asignacionFotos.length)DB.asignacionFotos.splice(p.idx,0,p.item); else DB.asignacionFotos.push(p.item); return ['renderAsignFotos']; },
-  dividendo:          function(p){ DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
+  dividendo:          function(p){ if(p.cerrada){ var c=(DB.cerradas||[]).find(function(x){return (x.ticker||'').toUpperCase()===(p.t||'').toUpperCase();}); if(c){ c.divs=c.divs||[]; c.divs.push(p.item); return ['renderDividendos']; } }   /* [27-sep] vuelve a la posición cerrada */
+    DB.dividendos=DB.dividendos||{}; DB.dividendos[p.t]=DB.dividendos[p.t]||[]; DB.dividendos[p.t].push(p.item); return ['renderDividendos']; },
   /* [A10 · 26-jul-2026] Borrar una partida —o un capítulo entero— arrastraba sus presupuestos de
      TODOS los años en silencio y sin vuelta atrás: era el único borrado del hogar sin red. */
   /* [C1 · 27-jul-2026] Al restaurar se repinta también el Presupuesto y su desglose: renderAll es
