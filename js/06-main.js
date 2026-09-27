@@ -19,7 +19,7 @@ const VIEW_FNS={
   universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas','renderAtribucion'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], fiscalidad:['renderFiscalidad'],
-  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderPanelMetodo','renderSalud'],
+  monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderSaludDatos','renderPanelMetodo','renderSalud'],
   asignacion:['renderPlanLote','renderDiversifComp','renderRebalanceo'], riesgo:['renderRiesgo','renderEscenarios'], coyuntura:['renderCoyuntura'], independencia:['renderProy','renderIndependencia'], pignorado:['renderPignorado'],
   proyeccion:['renderProy'], diversif:['renderPlanLote'], simulador:['renderSimulador'], rebalanceo:['renderRebalanceo'],
   informes:['renderInformesCenter'], hemero:['renderHemero'], graficas:['renderGraficas'], backtest:['renderBacktest'], embudo:['renderEmbudo'], divcomp:['renderDiversifComp'], diario:['renderDiario']
