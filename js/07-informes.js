@@ -711,7 +711,7 @@ function _infSemanalBlockHTML(){
   var _infOrden='genera el informe semanal de cartera';
   var _infHref='claude://cowork/new?folder='+encodeURIComponent(_khCarpeta)+'&q='+encodeURIComponent(_infOrden)+'&prompt='+encodeURIComponent(_infOrden);
   return '<div class="pos-blk"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">🧾 Informe semanal de cartera</span><span class="bsum">Claude · Cowork</span></div><div class="pos-blk-b"><div class="blk-pad">'
-    +'<div class="feat-s" style="margin-bottom:12px">Coyuntura y <b>stress test</b> de todas tus empresas con análisis completo: portada-resumen y una página por empresa, con drivers del periodo, semáforos de riesgo y alertas tempranas. Lo genera Claude (Cowork) en este ordenador y se archiva en la Hemeroteca.</div>'
+    +'<div class="feat-s" style="margin-bottom:12px">Cada lunes: portada con <b>todas</b> tus empresas con análisis completo (riesgos, avisos de la sociedad y precio frente a su zona), la coyuntura de la semana con el contexto mundial, y una página solo para las que tienen novedades. Lo genera Claude (Cowork) en este ordenador y se archiva en la Hemeroteca. El Panel te avisa cuando toca.</div>'
     +'<a class="feat-btn" id="infcSemanalBtn" href="'+_infHref+'" title="Abre Claude (Cowork) en ESTE ordenador con la carpeta del programa. Al pulsar, la orden «genera el informe semanal de cartera» se copia al portapapeles: si no aparece ya escrita en el chat, pégala con Ctrl+V y envía. Requiere la app de Claude instalada en este PC.">🧾 Generar informe semanal (Claude)</a>'
     +'</div></div></div>';
 }

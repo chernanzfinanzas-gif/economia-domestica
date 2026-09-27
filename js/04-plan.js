@@ -928,7 +928,29 @@ function renderPanelDash(){
   // 🔔 BANDEJA DE AVISOS UNIFICADA
   const _heldP={}, _heldSet=new Set();
   try{ (invPositions()||[]).forEach(p=>{ if(p.acciones>0.0001){ const _t=(p.ticker||'').toUpperCase(); /* [26-sep-2026] una empresa puede estar en varias posiciones (propia y compartida): se SUMAN */ _heldP[_t]=_heldP[_t]?Object.assign({},_heldP[_t],{acciones:_heldP[_t].acciones+p.acciones}):p; _heldSet.add(_t); } }); }catch(e){}
-  const avisos=[];
+  const avisos=[]; let _franjaSemanal='';
+  /* [27-sep-2026 · informe semanal v3] El pase semanal se lanza desde aquí. Nada avisaba de que
+     se hubiera dejado de hacer: el 27-sep, 20 de 25 empresas llevaban sin vigilar desde el 30-ago y
+     no lo sabía nadie. Sale los LUNES si esa semana no hay pase, o cuando el último pasa de 7 días. */
+  try{ if(typeof _hallazgosEmp!=='undefined' && _hallazgosEmp){
+      const _d=new Date(), _hoy=_d.getFullYear()+'-'+String(_d.getMonth()+1).padStart(2,'0')+'-'+String(_d.getDate()).padStart(2,'0');
+      const _fs=Object.keys(_hallazgosEmp).map(t=>(((_hallazgosEmp[t]||{}).cobertura)||{}).semanal).filter(Boolean).sort();
+      const _ult=_fs.length?_fs[_fs.length-1]:null;
+      const _dias=_ult?Math.round((Date.parse(_hoy+'T00:00:00')-Date.parse(_ult+'T00:00:00'))/864e5):999;
+      const _lunes=_d.getDay()===1;
+      const _viejas=_ult?Object.keys(_hallazgosEmp).filter(t=>{ const c=(((_hallazgosEmp[t]||{}).cobertura)||{}).semanal; return !c || (Date.parse(_hoy)-Date.parse(c))/864e5>7; }).length:0;
+      if(_dias>=7 || (_lunes && _ult<_hoy) || _viejas>=5){
+        const _carp='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude', _ord='genera el informe semanal de cartera';
+        const _href='claude://cowork/new?folder='+encodeURIComponent(_carp)+'&q='+encodeURIComponent(_ord)+'&prompt='+encodeURIComponent(_ord);
+        const _fmt=x=>{ const p=(x||'').split('-'); return p.length===3?(+p[2]+'/'+(+p[1])):'—'; };
+        const _rojo=_dias>=10;
+        _franjaSemanal='<div data-franjasemanal="1" style="margin:4px 0 8px;padding:10px 14px;border-radius:10px;font-size:13px;background:'+(_rojo?'#fee2e2':'#fef3c7')+';border:1px solid '+(_rojo?'#fecaca':'#fde68a')+';color:#1f2937">'
+          +'🧾 <b>Toca el informe semanal</b> — el último pase es del '+_fmt(_ult)+(_ult?' (hace '+_dias+' días)':'')
+              +(_viejas?(' · <b>'+_viejas+'</b> empresas llevan más de una semana sin vigilar'):'')+'. '
+              +'<a href="'+_href+'" onclick="try{if(typeof _prepInfSemanal===\'function\')_prepInfSemanal(\''+_ord+'\',{carpeta:\'del método\',tarea:\'el informe semanal\'});}catch(e){}" '
+              +'style="font-size:10px;font-weight:700;color:#fff;background:#0f3057;border-radius:8px;padding:2px 8px;text-decoration:none">Lanzar el pase →</a></div>';
+      }
+  } }catch(e){}
   /* [C6 · 27-jul-2026] Los -trim.json de las empresas analizadas, cargados y repintado al llegar:
      sin esto el aviso S2 de aquí abajo no tendría de dónde leer el semáforo. */
   try{ if(typeof khTrimAsegurar==='function')
@@ -1389,6 +1411,7 @@ function renderPanelDash(){
     ys.forEach((y,i)=>{ const h=Math.round(vals[i]/mx*70); bars+=`<rect x="${i*bw}" y="${78-h}" width="${bw-2}" height="${h}" fill="var(--brand)"></rect>`;
       if(typeof btZona==='function') zonas+=btZona(i*bw, 0, bw, 78, y+'\n'+fmt(vals[i])+(y===nowY?' · llevas cobrado este año':' cobrados')); });
     if(mx>1) SEC.mas+=`<div style="margin-top:16px"><h3 style="cursor:pointer;margin-bottom:6px" data-goto="dividendos">Dividendos por año <span class="muted" style="font-size:12px">›</span></h3><svg width="${ys.length*bw}" height="92" viewBox="0 0 ${ys.length*bw} 92">${bars}${zonas}<text x="0" y="90" font-size="8" fill="#64748b">${ys[0]}</text><text x="${ys.length*bw-22}" y="90" font-size="8" fill="#64748b">${nowY}</text></svg></div>`; }
+  avisosHTML=_franjaSemanal+avisosHTML;  /* la franja del pase semanal va FUERA de la bandeja plegable: siempre a la vista */
   var _av=document.getElementById('panelAvisos'); if(_av)_av.innerHTML=avisosHTML;
   var _sa=document.getElementById('panelSalud'); if(_sa)_sa.innerHTML=saludHTML;
   el.innerHTML=_pnlSecciones(SEC);
