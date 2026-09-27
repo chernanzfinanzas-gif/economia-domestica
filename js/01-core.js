@@ -1850,11 +1850,13 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
     if(a.dossierFecha==null)a.dossierFecha='';
   });
   DB.dividendos = DB.dividendos||{};
-  DB.divIngresos = DB.divIngresos||{};
+  /* [27-sep-2026 · auditoría A3] Almacenes viejos RETIRADOS: divIngresos (totales anuales heredados, que todas
+     las vistas ignoran si la empresa tiene operaciones) y previsionDiv (sin lector). Se guardan UNA vez en
+     DB._retirados por si hubiera que consultarlos y salen de los datos vivos. */
+  ['divIngresos','previsionDiv'].forEach(function(k){ var v=DB[k]; if(v&&typeof v==='object'&&Object.keys(v).length){ DB._retirados=DB._retirados||{}; if(!DB._retirados[k]) DB._retirados[k]={fecha:'2026-09-27',datos:v}; } delete DB[k]; });
   DB.cerradas = DB.cerradas||[];
   DB.devolucionHacienda = DB.devolucionHacienda||{};
   DB.calendario = DB.calendario||[];
-  DB.previsionDiv = DB.previsionDiv||{};
   DB.divPorAccion = DB.divPorAccion||{};
   DB.simShares = DB.simShares||{};
   DB.previsionMaxYear = DB.previsionMaxYear||2030;
@@ -2174,7 +2176,7 @@ function _demoBuild(real){
     return _demoHash(a.ticker)-_demoHash(b.ticker);
   }).slice(0,12);   /* hasta 12 posiciones, priorizando COMPRAR/MANTENER */
 
-  const ops=[], inv=[], dividendos={}, divIngresos={};
+  const ops=[], inv=[], dividendos={};
   pick.forEach(a=>{
     const t=(a.ticker||'').toUpperCase();
     const pa=priceOf(t); if(!(pa>0)) return;
@@ -2193,14 +2195,13 @@ function _demoBuild(real){
       for(let y=anioC; y<=yNow; y++){
         arr.push({fecha:y+'-06-15', importe:imp, id:uid()});
         arr.push({fecha:y+'-12-15', importe:imp, id:uid()});
-        divIngresos[t]=divIngresos[t]||{}; divIngresos[t][y]=+(dpa*acc).toFixed(2);
       }
       dividendos[t]=arr;
     }
   });
-  D.operaciones=ops; D.inversiones=inv; D.dividendos=dividendos; D.divIngresos=divIngresos;
+  D.operaciones=ops; D.inversiones=inv; D.dividendos=dividendos;
   D.cerradas=[]; D.devolucionHacienda={}; D.amalia=[];
-  D.previsionDiv={}; D.divConfirmado={}; D.aniosConfirmados={};
+  D.divConfirmado={}; D.aniosConfirmados={};
 
   /* -------- Cuentas, movimientos y patrimonio ficticios (ahorrador modesto) -------- */
   const cuBanco=uid(), cuInv=uid();
