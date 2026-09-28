@@ -13,7 +13,7 @@
  "entMin": 5.17,
  "entMax": 6.0,
  "stop": 3.83,
- "dpaPrevisto": 0.18,
+ "dpaPrevisto": 0.39,
  "moat": "54,8 sobre 100 · MOAT ESTRECHO. Escala eficiente 70, intangibles 60 y ventaja de costes 55 describen el mismo hecho —el duopolio publicitario de la televisión en abierto, con licencias renovadas hasta 2040—; efecto de red 45 y costes de cambio 15 son los ejes débiles, y son los que protegerían del vídeo digital. Horquilla de ponderación medida: 41,5 – 57,5, con el corte de SIN MOAT CLARO en 45. El foso protege el soporte, no el mercado.",
  "catalizadores": [
   "La provisión del plan de bajas de 2025 no se repite: +22,2 % al precio objetivo. El guidance de 2026 pide un margen EBITDA en torno al 15 % y el S1-2026 lo da del 16,75 %. Trigger: EBITDA de 2026 por encima de 125 M€ en los resultados de feb-2027.",
@@ -35,7 +35,7 @@
  "bull": "9,78 €/acc. Los cinco catalizadores del §9.1 compuestos: la provisión que no se repite, Clear Channel consolidando, el dividendo ordinario en la media de la década, un re-rating del 15 % y lo que Fever deja dentro. +41,6 % sobre el PO y +85,6 % sobre la cotización.",
  "bear": "5,17 €/acc (0,749 × PO). El riesgo dominante —el estructural— en su extremo SUAVE: ingresos −8,5 % permanentes con el apalancamiento LENTO medido (0,564), dentro de la banda 0,70-0,85 de M10. El extremo duro (−15 %) daría 3,85 €, fuera de banda por abajo, y eso dice algo del riesgo nº 1, no del método.",
  "resumen": "COMPRAR, cuatro de cuatro condiciones. Precio objetivo 6,91 €/acc con un margen de seguridad del +31,0 % sobre 5,27 €, rating AA (77,6), moat estrecho pero presente y pérdida al bear desde el techo de la banda del 13,8 %. El mercado paga un 1,9 % por encima del escenario pesimista: ya descuenta el declive del soporte publicitario como caso base, y el reverse DCF exige que el flujo libre caiga más de un 10 % anual. Lectura de negocio: casilla 1, LA MÁQUINA DE CUPÓN (reinversión 12,7 %, ROIIC 27,3 %). Dos avisos que pesan sobre el TAMAÑO de la posición, no sobre el veredicto: la tesis tiene UN SOLO PILAR —la inversión publicitaria en televisión en España— y la seguridad del dividendo sale 34/100 FRÁGIL, midiendo con un año de retraso el payout del 127,6 % de 2024 que llevó a recortar el DPA un 73,5 %. Señal única a vigilar: ingresos publicitarios trimestrales en negativo dos trimestres seguidos.",
- "cambiosDesdeUltimaRevision": "Revisión completa con el método regenerado, contra la foto del 9-jul-2026. decisión: ESPERAR → COMPRAR · rating: A → AA · score: 71,5 → 77,6 · PO base: 5,15 → 6,91 € · PO bear: 4,40 → 5,17 · PO bull: 8,53 → 9,78 · banda de entrada: 3,90-4,30 → 5,17-6,00 · stop: 2,50 → 3,83 · moat: 56 → 54,8. Lo que mueve el precio objetivo es el método, no el negocio: el DCF usa ahora el FCL normalizado a cinco años, los pesos son la norma CONSUMO (50 · 40 · 10) en vez de 40 % DCF y 60 % múltiplos, y el bear se deriva perturbando el modelo con el apalancamiento operativo medido. El DPA previsto es el ORDINARIO (0,18 €): el 0,83 € a cuenta de 2026 sale de la venta de Fever y no mide capacidad recurrente de reparto.",
+ "cambiosDesdeUltimaRevision": "Revisión completa con el método regenerado, contra la foto del 9-jul-2026. decisión: ESPERAR → COMPRAR · rating: A → AA · score: 71,5 → 77,6 · PO base: 5,15 → 6,91 € · PO bear: 4,40 → 5,17 · PO bull: 8,53 → 9,78 · banda de entrada: 3,90-4,30 → 5,17-6,00 · stop: 2,50 → 3,83 · moat: 56 → 54,8. Lo que mueve el precio objetivo es el método, no el negocio: el DCF usa ahora el FCL normalizado a cinco años, los pesos son la norma CONSUMO (50 · 40 · 10) en vez de 40 % DCF y 60 % múltiplos, y el bear se deriva perturbando el modelo con el apalancamiento operativo medido. El DPA previsto es 0,39 € (0,18 a cuenta + 0,21 que el operador cuenta como recurrente aunque se pagó como extraordinario con cargo a reservas): el 0,83 € a cuenta de 2026 sale de la venta de Fever y no mide capacidad recurrente de reparto.",
  "confianza": {
   "score": 85,
   "nivel": "A",
@@ -364,5 +364,7 @@
     "origen": "escrita"
    }
   ]
- }
+ },
+ "dpaPrevistoMotivo": "Decisión del operador (28-sep-2026), previsión optimista: 0,39 € = 0,18 a cuenta + 0,21 de jun-2026, que se pagó como extraordinario con cargo a reservas pero se espera cada año. Solo se excluyen los extraordinarios puntuales, como el de Fever (0,65 €, dic-2026). El Excel sigue con 0,18 € de ordinario hasta la próxima actualización de Atresmedia. Si el 0,21 deja de pagarse, se corrige entonces.",
+ "revisadoEl": "2026-09-28"
 }
