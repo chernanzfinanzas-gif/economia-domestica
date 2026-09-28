@@ -1,26 +1,34 @@
 {
-  "generadoEl": "2026-09-21T14:45:52+02:00",
+  "generadoEl": "2026-09-28T15:51:50+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-09-21",
-  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +58d). 🔜 PRÓXIMOS 14 DÍAS: Bankinter 30-09, Faes Farma 30-09, Logista 30-09, Naturgy 30-09, Prim 30-09, Banco Santander 30-09, Viscofan 30-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-09-28",
+  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +90d). 📅 ESTA SEMANA (8): Bankinter 30-09, Enagás 30-09, Faes Farma 30-09, Logista 30-09, Naturgy 30-09, Prim 30-09, Banco Santander 30-09, Viscofan 30-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [
     {
       "ticker": "MCM",
       "empresa": "Miquel y Costas",
       "periodoEsperado": "2026-Q2",
       "periodoLabel": "H1",
-      "fechaEstimada": "2026-07-25",
+      "fechaEstimada": "2026-06-30",
       "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-05-08",
-      "diasVencido": 58
+      "ultimaFecha": "2026-03-31",
+      "diasVencido": 90
     }
   ],
-  "estaSemana": [],
-  "proximos14d": [
+  "estaSemana": [
     {
       "ticker": "BKT",
       "empresa": "Bankinter",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-09-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-06-30"
+    },
+    {
+      "ticker": "ENG",
+      "empresa": "Enagás",
       "periodoEsperado": "2026-Q3",
       "periodoLabel": "9M",
       "fechaEstimada": "2026-09-30",
@@ -82,6 +90,7 @@
       "ultimaFecha": "2026-06-30"
     }
   ],
+  "proximos14d": [],
   "siguienteEvento": {
     "ticker": "BKT",
     "empresa": "Bankinter",
