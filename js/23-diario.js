@@ -169,6 +169,32 @@ function _diTrigNiv(tr,H){
   if(act==null||lim==null||!isFinite(lim)||lim===0) return 0;
   return _diPaso(Math.abs(act-lim)/Math.abs(lim)/_DI_PRECIO_PASO);
 }
+/* [28-sep-2026] Orden de las decisiones de la ficha, de peor a mejor. */
+var _DI_DECRANK={VENDER:0,ESPERAR:1,MANTENER:2,COMPRAR:3};
+function _diDecRank(d){ var r=_DI_DECRANK[_diUp(d).trim()]; return (r==null)?null:r; }
+/* [28-sep-2026] El PO alcanzado NO es rotura en dos casos que Carlos ya decidió y que el Panel,
+   el Kanban y Cobertura ya aplicaban (el Diario era el único que no):
+     · ya está CONTESTADO — Nota S3 firmada en el §10.5 o apunte del protocolo reciente
+       (_cbSenalRespondida, 13-radar.js). Mapfre, Endesa, Repsol y Santander salían «rotas» el
+       mismo día en que la decisión anotada ERA la respuesta a ese PO.
+     · regla del 26-sep: SIN POSICIÓN y con veredicto ESPERAR no pide acción (ACS, Aena, Prim).
+   El stop NO se calla nunca. */
+function _diPoNoAplica(t,H){
+  var held=false; try{ held=(typeof heldTickerSet==='function')&&heldTickerSet().has(_diUp(t)); }catch(e){}
+  if(!held && /ESPERAR/.test(_diUp(H.decision))) return true;
+  try{ if(typeof _cbSenalRespondida==='function' && _cbSenalRespondida(t,'po')) return true; }catch(e){}
+  return false;
+}
+/* [28-sep-2026] Lo que ha MEJORADO desde la decisión: se enseña, pero no es rotura. */
+function diarioMejoras(e){
+  var out=[]; if(!e||((e.estado||'abierta')!=='abierta')) return out;
+  var H=_diHoyCtx(e.ticker), C=e.ctx||{};
+  var r0=_diDecRank(C.decision), r1=_diDecRank(H.decision);
+  if(r0!=null&&r1!=null&&r1>r0) out.push('la decisión de la ficha pasó de '+_diUp(C.decision)+' a '+_diUp(H.decision));
+  var s0=_diRatingScore(C.rating), s1=_diRatingScore(H.rating);
+  if(C.rating&&H.rating&&s0!=null&&s1!=null&&s1>s0) out.push('el rating subió de '+C.rating+' a '+H.rating);
+  return out;
+}
 function diarioRoturas(e){
   var out=[]; if(!e) return out;
   var t=_diUp(e.ticker); var H=_diHoyCtx(t); var C=e.ctx||{};
@@ -179,7 +205,12 @@ function diarioRoturas(e){
     push(0,'trigger',r,'','trigger:'+tr.campo+tr.op+tr.valor,_diTrigNiv(tr,H)); });
 
   /* 2 · deriva del contexto capturado al decidir */
-  if(C.decision && H.decision && _diUp(C.decision)!==_diUp(H.decision)){
+  /* [28-sep-2026 · Carlos] Solo EMPEORAR es rotura. Al regenerar los dossiers, Atresmedia,
+     Logista y Amadeus pasaron a COMPRAR (y a mejor rating) y el Diario las daba por «rotas»:
+     un supuesto no se rompe porque la tesis salga reforzada. Las mejoras se enseñan como nota
+     informativa en la tarjeta (diarioMejoras), sin contar en el aviso. */
+  var _r0=_diDecRank(C.decision), _r1=_diDecRank(H.decision);
+  if(C.decision && H.decision && _diUp(C.decision)!==_diUp(H.decision) && !(_r0!=null&&_r1!=null&&_r1>_r0)){
     var peor=(_diUp(H.decision)==='VENDER');
     push(peor?0:1,'decision','La decisión de la ficha pasó de <b>'+_diEsc(C.decision)+'</b> a <b>'+_diEsc(H.decision)+'</b>','',
          'decision:'+_diUp(C.decision)+'>'+_diUp(H.decision),0);
@@ -188,7 +219,7 @@ function diarioRoturas(e){
     var s0=_diRatingScore(C.rating), s1=_diRatingScore(H.rating);
     var clR='rating:'+C.rating+'>'+H.rating;
     if(s0!=null&&s1!=null&&s1<s0) push(1,'rating','El rating bajó de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>','',clR,0);
-    else if(s0==null||s1==null||s1!==s0) push(2,'rating','El rating cambió de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>','',clR,0);
+    else if(s0==null||s1==null) push(2,'rating','El rating cambió de <b>'+_diEsc(C.rating)+'</b> a <b>'+_diEsc(H.rating)+'</b>','',clR,0);
   }
   if(C.score!=null && H.score!=null && (C.score-H.score)>=_DI_SCORE_CAIDA)
     push(1,'score','El Score cayó '+Math.round(C.score-H.score)+' puntos ('+Math.round(C.score)+' → '+Math.round(H.score)+')','',
@@ -201,7 +232,7 @@ function diarioRoturas(e){
   if(H.stop>0 && H.precio>0 && H.precio<=H.stop)
     push(0,'stop','Stop de tesis tocado: '+_diEur(H.precio)+' ≤ '+_diEur(H.stop),'S1',
          'stop:'+H.stop,_diPaso(((H.stop-H.precio)/H.stop)/_DI_PRECIO_PASO));
-  else if(H.poMax>0 && H.precio>=H.poMax)
+  else if(H.poMax>0 && H.precio>=H.poMax && !_diPoNoAplica(t,H))
     push(1,'po','Alcanzó el precio objetivo máximo: '+_diEur(H.precio)+' ≥ '+_diEur(H.poMax),'S3',
          'po:'+H.poMax,_diPaso(((H.precio-H.poMax)/H.poMax)/_DI_PRECIO_PASO));
   if(H.trim){
@@ -239,12 +270,27 @@ function _diAckVale(e,rot){
   return ok?a:null;
 }
 /* Todas las decisiones abiertas con algún supuesto roto. `pendientes` = las no reconocidas aún. */
+/* [28-sep-2026 · Carlos] UNA FICHA POR EMPRESA. Cada apunte del protocolo ofrecía anotar un
+   «Reafirmar», y la misma empresa acababa con tres o cuatro decisiones abiertas gritando por lo
+   mismo (Enagás 4; Atresmedia, ACS, Azkoyen, Logista y Amadeus 3). Ahora se vigila la decisión
+   MÁS RECIENTE de cada empresa; las anteriores viajan dentro de su ficha (`anteriores`, de la
+   más reciente a la más antigua) y se pueden dar por sustituidas de un clic. El aviso cuenta
+   EMPRESAS, no decisiones. */
+function _diAbiertasPorEmpresa(){
+  var por={}, idx={};
+  (DB.diario||[]).forEach(function(e,i){ if((e.estado||'abierta')!=='abierta') return;
+    var t=_diUp(e.ticker); idx[e.id]=i; (por[t]=por[t]||[]).push(e); });
+  Object.keys(por).forEach(function(t){ por[t].sort(function(a,b){
+    return (b.fecha||'').localeCompare(a.fecha||'') || ((idx[b.id]||0)-(idx[a.id]||0)); }); });
+  return por;
+}
 function diarioInvalidaciones(){
-  var res=[]; (DB.diario||[]).forEach(function(e){
-    if((e.estado||'abierta')!=='abierta') return;
+  var res=[], por=_diAbiertasPorEmpresa();
+  Object.keys(por).forEach(function(t){
+    var arr=por[t], e=arr[0];
     var rot=diarioRoturas(e); if(!rot.length) return;
     var h=_diHuella(rot); var ack=_diAckVale(e,rot);
-    res.push({e:e, rot:rot, huella:h, ack:ack, sev:rot[0].sev});
+    res.push({e:e, rot:rot, huella:h, ack:ack, sev:rot[0].sev, anteriores:arr.slice(1)});
   });
   res.sort(function(a,b){ return a.sev-b.sev || ((b.e.fecha||'').localeCompare(a.e.fecha||'')); });
   return {todas:res, pendientes:res.filter(function(x){return !x.ack;})};
@@ -285,7 +331,7 @@ function renderDiario(){
 
   H+='<div class="di-bar"><button class="di-new" id="diNewBtn">+ Nueva decisión</button>'+
      '<div class="di-filters">'+_diChip('','tipo','Todas',F)+_DI_TIPOS.map(function(t){return _diChip(t.k,'tipo',t.k,F);}).join('')+
-     _diChip('abierta','estado','Abiertas',F)+_diChip('cerrada','estado','Cerradas',F)+'</div></div>';
+     _diChip('abierta','estado','Abiertas',F)+_diChip('cerrada','estado','Cerradas',F)+_diChip('sustituida','estado','Sustituidas',F)+'</div></div>';
 
   H+='<div id="diFormHost"></div>';
 
@@ -324,16 +370,21 @@ function _diInvalHTML(INV){
       +(e.invalidacion?'<div class="di-inv"><b>Escribiste:</b> «'+_diEsc(e.invalidacion)+'»</div>'
                       :'<div class="di-inv vacia">No escribiste condición de invalidación en esta decisión. La vigilancia automática es lo único que la cubre.</div>')
       +'<div class="di-rot"><b>Lo que ha cambiado:</b><ul>'+lis+'</ul></div>'
+      +(function(){ var mj=diarioMejoras(e); return mj.length?('<div class="muted" style="font-size:11.5px;margin:4px 0">ℹ️ También ha mejorado: '+_diEsc(mj.join(' · '))+' (no cuenta como rotura).</div>'):''; })()
+      +((x.anteriores&&x.anteriores.length)?('<div class="di-ant" style="font-size:12px;margin:6px 0;padding:6px 9px;background:#f8fafc;border-radius:8px"><b>Otras '+x.anteriores.length+' decisión'+(x.anteriores.length>1?'es':'')+' abierta'+(x.anteriores.length>1?'s':'')+' de '+_diEsc(e.ticker)+'</b> <span class="muted">(de la más reciente a la más antigua; se vigila solo la de arriba)</span><ul style="margin:4px 0 0 16px;padding:0">'
+          +x.anteriores.map(function(a){ return '<li>'+_diEsc(a.fecha)+' · '+_diEsc(a.tipo)+(a.invalidacion?(' — «'+_diEsc(a.invalidacion.slice(0,90))+(a.invalidacion.length>90?'…':'')+'»'):(a.porque?(' — '+_diEsc(a.porque.slice(0,90))+(a.porque.length>90?'…':'')):''))+'</li>'; }).join('')
+          +'</ul></div>'):'')
       +(x.ack?('<div class="di-ackn">✔ Revisado el '+_diEsc(x.ack.fecha)+' — «sigo igual». Volverá a avisar si se rompe algo nuevo o si esto empeora de verdad; el vaivén diario del precio ya no lo reabre.</div>'):'')
       +'<div class="di-aacts">'
         +(x.ack?'':'<button class="btn ghost sm" data-diack="'+e.id+'">Sigo igual</button>')
         +'<button class="btn ghost sm" data-dinueva="'+e.id+'">Anotar decisión nueva</button>'
         +'<button class="btn ghost sm" data-diclose="'+e.id+'">Marcar cerrada</button>'
+        +((x.anteriores&&x.anteriores.length)?'<button class="btn ghost sm" data-disust="'+_diEsc(e.ticker)+'" title="Pasan a «sustituida»: siguen en el historial, pero no cuentan como abiertas ni como aciertos">Dar por sustituidas las '+x.anteriores.length+' anteriores</button>':'')
       +'</div></div>';
   }).join('');
-  var tit=pend.length?('⚠️ '+pend.length+' supuesto'+(pend.length>1?'s':'')+' roto'+(pend.length>1?'s':'')+' sin revisar'):'✔ Supuestos rotos, todos revisados';
-  return '<div class="pos-blk'+(pend.length?' open':'')+'" data-diblk="inval"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+tit+'</span><span class="bsum">'+todas.length+' decisión(es) afectada(s)</span></div>'
-    +'<div class="pos-blk-b"><div class="blk-pad"><div class="muted" style="font-size:11.5px;margin-bottom:9px;line-height:1.5">Decisiones <b>abiertas</b> cuyo supuesto ya no se sostiene. Nada se cierra solo: lee lo que escribiste, mira lo que ha cambiado y decide. <b>«Sigo igual»</b> archiva este estado y deja de avisar hasta que se rompa algo nuevo.</div>'+cards+'</div></div></div>';
+  var tit=pend.length?('⚠️ '+pend.length+' empresa'+(pend.length>1?'s':'')+' con el supuesto roto sin revisar'):'✔ Supuestos rotos, todos revisados';
+  return '<div class="pos-blk'+(pend.length?' open':'')+'" data-diblk="inval"><div class="pos-blk-h"><span class="arw">▶</span><span class="bt">'+tit+'</span><span class="bsum">'+todas.length+' empresa(s) afectada(s)</span></div>'
+    +'<div class="pos-blk-b"><div class="blk-pad"><div class="muted" style="font-size:11.5px;margin-bottom:9px;line-height:1.5">Una ficha por empresa, de la más grave a la menos: se vigila su decisión <b>abierta más reciente</b>. Solo cuenta lo que <b>empeora</b> (las mejoras se anotan aparte). Nada se cierra solo: lee lo que escribiste, mira lo que ha cambiado y decide. <b>«Sigo igual»</b> archiva este estado y deja de avisar hasta que se rompa algo nuevo.</div>'+cards+'</div></div></div>';
 }
 function _diChip(val,grp,lab,F){ var on=(F[grp]===val); return '<span class="di-chip'+(on?' on':'')+'" data-difilt="'+grp+'|'+_diEsc(val)+'">'+_diEsc(lab)+'</span>'; }
 
@@ -350,6 +401,7 @@ function _diCard(e){
   if(v.ret!=null){ var col=v.ret>=0?'#16a34a':'#dc2626'; if(cfg.dir==='bear')col=v.ret<0?'#16a34a':'#dc2626';
     retTxt='Desde entonces: <span class="di-ret" style="color:'+col+'">'+(v.ret>=0?'+':'')+(v.ret*100).toFixed(1)+'%</span>'+(cfg.dir==='bear'?' (evitado)':''); }
   if((e.estado||'abierta')==='abierta'){ verChip='<span class="di-open">● abierta</span>'; }
+  else if(e.estado==='sustituida'){ verChip='<span class="di-open" style="color:#64748b">↪ sustituida'+(e.sustituidaEl?(' el '+_diEsc(e.sustituidaEl)):'')+'</span>'; }
   else { verChip=v.acierto===true?'<span class="di-ok">✓ acierto</span>':(v.acierto===false?'<span class="di-bad">✗ revisar criterio</span>':''); }
 
   return '<div class="di-card" style="border-left-color:'+_diColTipo(cfg)+'">'+
@@ -379,6 +431,7 @@ function _diTrigsChips(e){
       return '<span class="di-tg'+(roto?' roto':'')+'">'+(roto?'⚠ ':'👁 ')+_diEsc(_diTrigTxt(tr))+'</span>';
     }).join('')+'</div>';
   }
+  if(abierta){ var _mj=diarioMejoras(e); if(_mj.length) out+='<div class="muted" style="font-size:11.5px;margin-top:3px">ℹ️ Ha mejorado: '+_diEsc(_mj.join(' · '))+'</div>'; }
   if(abierta && rot.length){
     var S=_DI_SEVCFG[rot[0].sev]||_DI_SEVCFG[2];
     var ack=!!_diAckVale(e,rot);
@@ -625,6 +678,7 @@ function _diBind(sec){
       return; }
     /* [B1] acciones del bloque de supuestos rotos */
     var ak=e.target.closest('[data-diack]'); if(ak){ _diAck(ak.getAttribute('data-diack')); return; }
+    var su=e.target.closest('[data-disust]'); if(su){ _diSustituir(su.getAttribute('data-disust')); return; }
     var nv=e.target.closest('[data-dinueva]'); if(nv){ var en=(DB.diario||[]).find(function(x){return x.id===nv.getAttribute('data-dinueva');});
       if(en) _diOpenForm(en.ticker,'',{porque:'Revisión de la decisión del '+en.fecha+': '+(en.invalidacion||en.porque||'')}); return; }
     var pr=e.target.closest('[data-diproto]'); if(pr){ var pa=(pr.getAttribute('data-diproto')||'').split('|');
@@ -649,6 +703,15 @@ function _diAck(id){
   var e=(DB.diario||[]).find(function(x){return x.id===id;}); if(!e)return;
   var rot=diarioRoturas(e); if(!rot.length)return;
   e.ack={huella:_diHuella(rot), niveles:_diNiveles(rot), fecha:_diHoy()};
+  _diSave(); renderDiario();
+}
+/* [28-sep-2026] Las decisiones abiertas ANTERIORES de una empresa pasan a «sustituida»: la
+   más reciente manda. No se borran (el historial es la materia prima de la calibración) y no
+   cuentan como cerradas, así que no entran en el % de aciertos. «Reabrir» las devuelve. */
+function _diSustituir(tk){
+  var arr=(_diAbiertasPorEmpresa()[_diUp(tk)]||[]); if(arr.length<2) return;
+  var hoy=_diHoy(), nueva=arr[0];
+  arr.slice(1).forEach(function(e){ e.estado='sustituida'; e.sustituidaEl=hoy; e.sustituidaPor=nueva.id; });
   _diSave(); renderDiario();
 }
 function _diSetEstado(id,est){ var e=(DB.diario||[]).find(function(x){return x.id===id;}); if(e){ e.estado=est; _diSave(); renderDiario(); } }

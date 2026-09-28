@@ -996,7 +996,7 @@ function renderPanelDash(){
       avisos.push({pri:_top.sev===0?0:2, cls:_top.sev===0?'r':'a', goto:'diario', tick:_tk, sig:(_top.rot[0].sig||''),
         txt:'📝 <b>'+_tk+'</b> — se rompió el supuesto de tu decisión de '+_top.e.tipo.toLowerCase()+' del '+_top.e.fecha+': '
             +_top.rot[0].txt.replace(/<[^>]*>/g,'')
-            +(_mas>0?(' <span class="muted">(y '+_mas+' decisión'+(_mas>1?'es':'')+' más con supuestos rotos)</span>'):'')
+            +(_mas>0?(' <span class="muted">(y '+_mas+' empresa'+(_mas>1?'s':'')+' más con el supuesto roto)</span>'):'')
             +'. Revísalo en Mis Decisiones.'});
     }
   }catch(e){}

@@ -514,7 +514,7 @@ function renderHemeroteca(){
     var pdfs=arr.filter(function(f){return /\.pdf$/i.test((f&&f.name)||'');});
     pdfs.sort(function(a,b){ var fa=_hemFecha(a.name), fb=_hemFecha(b.name); return fa<fb?1:(fa>fb?-1:0); }); // más reciente arriba (por fecha del nombre)
     var _ss=document.getElementById('hemSemSum'); if(_ss)_ss.textContent=pdfs.length?(pdfs.length+' informe'+(pdfs.length===1?'':'s')):'sin informes';
-    if(!pdfs.length){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Centro de informes y sube el PDF a la carpeta <code>informes-semanales/</code> del repositorio.</div>'; return; }
+    if(!pdfs.length){ if(kp)kp.innerHTML=''; host.innerHTML='<div class="muted" style="font-size:13px">Aún no hay informes archivados. Genera uno con «🧾 Informe semanal (Claude)» en el Centro de informes: Claude deja el PDF en el buzón <code>_publicar/</code> y lo subes con «Publicar al repo (1 clic)».</div>'; return; }
     var _dd=function(n){ var m=(''+n).match(/(\d{4})-(\d{2})-(\d{2})/); return m?(m[3]+'/'+m[2]+'/'+m[1]):(''+n); };
     var nowY=String(new Date().getFullYear());
     var ult=_dd(pdfs[0].name); var esteAno=pdfs.filter(function(f){ return _hemFecha(f.name).slice(0,4)===nowY; }).length;
