@@ -1,112 +1,108 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-09-16",
- "fuente": "pase-macro",
- "nota": "Pase macro del 16-sep-2026. Dia de doble movimiento de tipos: entra en vigor la subida del BCE decidida el 10-sep y la Fed sube 25 pb (primera subida desde 2023). Foto anterior del 11-sep (5 dias). El pool de OMIE no se pudo refrescar: ni omie.es ni REE sirvieron la media de 30 dias, y no se sustituye por el precio de un dia suelto.",
+ "generadoEl": "2026-09-28",
+ "fuente": "informe-semanal-cartera",
+ "nota": "Pase del informe semanal del 28-sep-2026. Foto anterior del 16-sep. Bono, Bund y prima salen de countryeconomy.com porque euribor.com.es no los publicó esta semana. El pool de septiembre no se pudo leer de OMIE y se conserva la media de agosto. El IPC adelantado de septiembre y el comercio minorista de agosto salen el 29-sep.",
  "ind": {
   "bce_deposito": {
-   "n": "BCE · facilidad de depósito",
-   "grupo": "tipos",
    "v": 2.5,
    "u": "%",
    "f": "2026-09-16",
-   "d": 25,
-   "dU": "pb",
-   "dPer": "reunión",
-   "nota": "decidida el 10-sep, EN VIGOR desde hoy 16-sep",
+   "nota": "sin cambios; próxima reunión 29-oct con ~71 % de probabilidad de +25 pb (euribor.com.es, 25-sep)",
    "src": "ecb.europa.eu",
    "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/key_ecb_interest_rates/html/index.en.html",
+   "n": "BCE · facilidad de depósito",
+   "grupo": "tipos",
    "slider": "TIPOS"
   },
   "euribor_12m": {
-   "n": "Euríbor 12M",
-   "grupo": "tipos",
-   "v": 3.326,
+   "v": 3.308,
    "u": "%",
-   "f": "2026-09-15",
-   "d": 18.8,
+   "f": "2026-09-24",
+   "d": -1.8,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "sube sin pausa: 2,94 % a mediados de agosto",
    "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/"
+   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/",
+   "n": "Euríbor 12M",
+   "grupo": "tipos"
   },
   "euribor_3m": {
-   "n": "Euríbor 3M",
-   "grupo": "tipos",
-   "v": 2.682,
+   "v": 2.614,
    "u": "%",
-   "f": "2026-09-15",
-   "d": 5.6,
+   "f": "2026-09-24",
+   "d": -6.8,
    "dU": "pb",
    "dPer": "semana",
    "src": "euribor-rates.eu",
-   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/"
+   "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/",
+   "n": "Euríbor 3M",
+   "grupo": "tipos"
   },
   "bono_10a_es": {
-   "n": "Bono 10A España",
-   "grupo": "tipos",
-   "v": 4.0,
+   "v": 4.08,
    "u": "%",
-   "f": "2026-09-16",
-   "d": 1.3,
+   "f": "2026-09-25",
+   "d": 8,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "cierre europeo, antes del anuncio de la Fed",
-   "src": "es.tradingeconomics.com",
-   "url": "https://es.tradingeconomics.com/spain/government-bond-yield"
+   "nota": "cierre del viernes; fuente no canónica (euribor.com.es no lo publicó esta semana)",
+   "src": "countryeconomy.com",
+   "url": "https://countryeconomy.com/bonds/spain",
+   "n": "Bono 10A España",
+   "grupo": "tipos"
   },
   "bund_10a": {
-   "n": "Bund 10A Alemania",
-   "grupo": "tipos",
-   "v": 3.53,
+   "v": 3.62,
    "u": "%",
-   "f": "2026-09-16",
-   "d": 2.0,
+   "f": "2026-09-25",
+   "d": 9,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "máximo desde junio de 2009",
-   "src": "es.tradingeconomics.com",
-   "url": "https://es.tradingeconomics.com/germany/government-bond-yield"
+   "nota": "máximo desde 2009; fuente no canónica",
+   "src": "countryeconomy.com",
+   "url": "https://countryeconomy.com/bonds/germany",
+   "n": "Bund 10A Alemania",
+   "grupo": "tipos"
   },
   "prima_riesgo": {
-   "n": "Prima de riesgo",
-   "grupo": "tipos",
-   "v": 47,
+   "v": 46,
    "u": "pb",
-   "f": "2026-09-16",
+   "f": "2026-09-25",
    "d": -1,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "calculada (4,00 − 3,53); esta vez los dos bonos llevan la misma fecha, sin desfase",
+   "nota": "calculada (4,08 − 3,62), misma fecha",
    "src": "calculada",
+   "n": "Prima de riesgo",
+   "grupo": "tipos",
    "slider": "CRED",
-   "sliderV": 0.47
+   "sliderV": 0.46
   },
   "wacc_cnmc": {
-   "n": "Retribución de redes · WACC CNMC",
-   "grupo": "tipos",
    "v": 6.58,
    "u": "%",
-   "f": "2025-12-30",
-   "nota": "Tasa de retribución financiera del transporte y la distribución ELÉCTRICA, Circular 9/2025 de la CNMC (BOE 30-dic-2025), periodo regulatorio 2026-2031. Sube 100 pb desde el 5,58 % de 2020-2025. Recurrida ante la Audiencia Nacional, sin suspensión. La TRF del gas para 2027-2032 sigue en audiencia pública",
+   "f": "2025-12-22",
+   "nota": "Tasa de retribución financiera de las redes ELÉCTRICAS, Circular 9/2025, periodo 2026-2031. Verificado sin cambios el 28-sep-2026",
    "src": "cnmc.es",
    "url": "https://www.cnmc.es/prensa/circulares-retribucion-electrica-20251222",
+   "n": "Retribución de redes · WACC CNMC",
+   "grupo": "tipos",
    "slider": "REG",
    "caduca": 1900
   },
   "gas_ttf": {
-   "n": "Gas TTF",
-   "grupo": "energia",
-   "v": 77.76,
+   "v": 72.96,
    "u": "€/MWh",
-   "f": "2026-09-16",
-   "d": -2.87,
+   "f": "2026-09-28",
+   "d": 4.51,
    "dU": "%",
-   "dPer": "semana",
-   "nota": "+25,9 % en el mes; cerca de máximos de 2022 por el suministro de cara al invierno",
+   "dPer": "mes",
+   "nota": "baja desde 77,76 el 16-sep; almacenamiento UE ~70 %",
    "src": "tradingeconomics.com",
    "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
+   "n": "Gas TTF",
+   "grupo": "energia",
    "slider": "GAS"
   },
   "pool_omie": {
@@ -123,25 +119,25 @@
    "url": "https://www.grupoase.net/precio-luz-agosto-2026/"
   },
   "ipc": {
-   "n": "IPC España",
-   "grupo": "inflacion",
    "v": 4.3,
    "u": "% i.a.",
    "f": "2026-08-01",
-   "nota": "agosto, dato definitivo publicado el 15-sep · siete décimas más que julio · subyacente 2,9 %",
+   "nota": "agosto definitivo (15-sep), subyacente 2,9 %; el adelantado de septiembre sale el 29-sep",
    "src": "ine.es",
-   "url": "https://www.ine.es/dyngs/Prensa/es/IPC0826.htm",
+   "url": "https://www.ine.es/",
+   "n": "IPC España",
+   "grupo": "inflacion",
    "caduca": 45
   },
   "pib": {
-   "n": "PIB España",
-   "grupo": "inflacion",
-   "v": 2.7,
+   "v": 2.6,
    "u": "% i.a.",
    "f": "2026-04-01",
-   "nota": "Avance del 2T-2026 · +0,7 % trimestral",
+   "nota": "2T-2026, estimación revisada del 25-sep (el avance daba 2,7 %); +0,7 % trimestral",
    "src": "ine.es",
-   "url": "https://www.ine.es/dyngs/Prensa/avCNTR2T26.htm",
+   "url": "https://www.ine.es/",
+   "n": "PIB España",
+   "grupo": "inflacion",
    "slider": "PIB",
    "caduca": 225
   },
@@ -181,42 +177,39 @@
    "caduca": 45
   },
   "eur_brl": {
-   "n": "EUR/BRL",
-   "grupo": "divisas",
-   "v": 5.9368,
-   "f": "2026-09-16",
-   "d": -0.27,
+   "v": 5.9091,
+   "f": "2026-09-25",
+   "d": -0.47,
    "dU": "%",
    "dPer": "semana",
    "src": "ecb.europa.eu",
-   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+   "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+   "n": "EUR/BRL",
+   "grupo": "divisas"
   },
   "fed": {
-   "n": "Fed · tipo oficial",
-   "grupo": "otros",
    "v": 3.875,
    "u": "%",
-   "f": "2026-09-16",
-   "d": 25,
-   "dU": "pb",
-   "dPer": "reunión",
-   "nota": "nuevo rango 3,75–4,00 % · primera subida desde 2023, por unanimidad (12-0) · próxima reunión el 27-28 de octubre",
+   "f": "2026-09-17",
+   "nota": "rango 3,75–4,00 % desde el 17-sep; próxima reunión 27-28 oct",
    "src": "federalreserve.gov",
-   "url": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260916a.htm",
+   "url": "https://www.federalreserve.gov/monetarypolicy/openmarket.htm",
+   "n": "Fed · tipo oficial",
+   "grupo": "otros",
    "caduca": 60
   },
   "hipoteca_30a_us": {
-   "n": "Hipoteca 30A EE.UU.",
-   "grupo": "otros",
-   "v": 6.76,
+   "v": 7.03,
    "u": "%",
-   "f": "2026-09-10",
-   "d": 5,
+   "f": "2026-09-24",
+   "d": 8,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "Encuesta PMMS de Freddie Mac. Se da la vuelta: venia bajando en agosto y ahora sube. Hace un año, 6,35 %",
-   "src": "freddiemac.gcs-web.com",
-   "url": "https://www.freddiemac.com/pmms"
+   "nota": "PMMS de Freddie Mac: 7,03 % desde 6,95 %; +27 pb en dos semanas",
+   "src": "freddiemac.com",
+   "url": "https://www.freddiemac.com/pmms",
+   "n": "Hipoteca 30A EE.UU.",
+   "grupo": "otros"
   },
   "afiliacion": {
    "n": "Afiliación Seguridad Social",
@@ -231,48 +224,42 @@
   }
  },
  "lectura": {
-  "titulo": "Coyuntura Macro a 16/09/2026",
-  "generadoEl": "2026-09-16",
-  "fuente": "pase-macro",
+  "titulo": "Coyuntura Macro a 28/09/2026",
+  "generadoEl": "2026-09-28",
+  "fuente": "informe-semanal-cartera",
   "refrescados": 13,
   "total": 18,
   "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
   "puntos": [
    {
-    "t": "La Fed sube tipos por primera vez desde 2023",
-    "txt": "El FOMC ha dejado el rango en 3,75–4,00 %, 25 pb más, por unanimidad (12-0). El comunicado dice que la actividad crece «a buen ritmo» y que la inflación sigue alta, y presenta la subida como la vía para volver antes al 2 %. Es un giro: durante dos años la dirección había sido la contraria.",
-    "beneficia": "los negocios que viven del margen de intermediación, como Santander, y la reinversión de las carteras de renta fija de las aseguradoras, como Mapfre",
-    "perjudica": "las empresas apalancadas que refinancian en dólares y, en general, cualquier valoración por descuento de flujos: el tipo sin riesgo con el que se descuenta sube"
+    "t": "La deuda a largo sigue subiendo: Bund en máximos desde 2009",
+    "txt": "El bono español a 10 años cierra el 25-sep en el 4,08 % (+8 pb en la semana) y el Bund en el 3,62 % (+9 pb). Los dos saltaron unos 14 pb el 23-sep. La prima se queda en 46 pb: sube el bono español, pero sube igual el alemán.",
+    "beneficia": "quien coloca dinero nuevo en renta fija, y la reinversión de las carteras de las aseguradoras, como Mapfre",
+    "perjudica": "las reguladas que refinancian (Enagás, Redeia, Iberdrola) y la comparación de las rentabilidades por dividendo, que se miden contra un bono que ya paga más del 4 %"
    },
    {
-    "t": "La subida del BCE entra hoy en vigor y el Euríbor no para",
-    "txt": "La facilidad de depósito queda en 2,50 % desde hoy —se decidió el 10-sep—. El Euríbor 12M está en 3,326 % (+19 pb en la semana) y el 3M en 2,682 %. A mediados de agosto el 12M estaba en 2,94 %: casi 40 pb en un mes.",
-    "beneficia": "la banca con cartera hipotecaria a tipo variable, que repreciará al alza en las próximas revisiones",
-    "perjudica": "las compañías con mucha deuda a tipo variable o con vencimientos próximos —utilities y concesiones— que refinancian más caro"
+    "t": "El Euríbor corto afloja, pero el BCE puede volver a subir",
+    "txt": "El Euríbor 12M baja a 3,308 % (−1,8 pb) y el 3M a 2,614 % (−6,8 pb). El depósito del BCE sigue en 2,50 % y el mercado da un ~71 % de probabilidad a otra subida el 29-oct.",
+    "beneficia": "la banca con hipotecas a tipo variable, como Bankinter y Santander, que sigue repreciando al alza",
+    "perjudica": "las compañías con deuda a tipo variable, como Faes Farma con su primera deuda de la década"
    },
    {
-    "t": "El Bund en máximos de 2009 y la prima de riesgo, estrecha",
-    "txt": "El bono español a 10 años cierra en 4,00 % y el Bund alemán en 3,53 %, su nivel más alto desde junio de 2009 tras subir más de 16 pb la semana pasada. La prima se queda en 47 pb, un punto menos que hace cinco días: sube el bono español, pero sube más el alemán.",
-    "beneficia": "quien tenga que colocar dinero nuevo a renta fija, que encuentra el listón más alto sin salir de la deuda pública",
-    "perjudica": "la comparación de las rentabilidades por dividendo a precios de hoy, que se miden contra un bono que ya paga un 4 %"
-   },
-   {
-    "t": "El IPC de agosto se confirma en el 4,3 %",
-    "txt": "El INE cerró el 15-sep el dato definitivo de agosto: 4,3 % anual, siete décimas por encima de julio. La subyacente, en cambio, baja una décima hasta el 2,9 %, así que el salto viene sobre todo de energía y no del núcleo de precios.",
-    "beneficia": "las actividades con ingresos ligados a la inflación por contrato o por regulación",
-    "perjudica": "la rentabilidad REAL de los dividendos cobrados: con el IPC al 4,3 %, un dividendo que crece menos pierde poder de compra"
-   },
-   {
-    "t": "El gas afloja en la semana pero sigue un 26 % arriba en el mes",
-    "txt": "El TTF está en 77,76 €/MWh, un 2,9 % menos que hace una semana, pero un 25,9 % por encima de hace un mes y cerca de los máximos de 2022. La tensión es de suministro de cara al invierno, no de demanda.",
+    "t": "El gas afloja en la semana pero sigue en 73 €/MWh",
+    "txt": "El TTF está en 72,96 €/MWh, un 6 % menos que el 16-sep, pero un 4,5 % por encima de hace un mes. El almacenamiento de la UE ronda el 70 % a las puertas del invierno.",
     "beneficia": "quien vende energía: Naturgy y Repsol",
-    "perjudica": "quien la quema para fabricar: en Viscofan y Vidrala el gas es coste directo de proceso, no una partida más"
+    "perjudica": "quien la quema para fabricar: en Vidrala, Viscofan y Miquel y Costas el gas es coste directo de proceso"
    },
    {
-    "t": "El consumo de alimentación entra en negativo",
-    "txt": "El Índice de Comercio al por Menor de julio deja la rama de alimentación en −0,3 % anual a precios constantes, cuando en junio era +0,3 %. El resto (no alimentación) aguanta en +2,3 %, aunque también afloja desde el 3,0 % de junio. El índice general queda en −0,3 %.",
-    "beneficia": "nadie de forma directa; es un dato de volumen, y cae",
-    "perjudica": "lo que se apoya en volumen de alimentación —Viscofan y Ebro—, porque el retroceso es de unidades vendidas, no de precio"
+    "t": "La hipoteca a 30 años de EE.UU. pasa del 7 %",
+    "txt": "La encuesta de Freddie Mac del 24-sep la deja en el 7,03 %, 27 pb más que dos semanas antes. La Fed mantiene el rango en 3,75–4,00 % tras la subida del 17-sep.",
+    "beneficia": "nadie de forma directa en la cartera",
+    "perjudica": "la obra nueva ligada a la vivienda en EE.UU., como la piscina de Fluidra"
+   },
+   {
+    "t": "El PIB del 2T se revisa a la baja una décima",
+    "txt": "El INE deja el crecimiento del 2T-2026 en el 2,6 % interanual (el avance daba 2,7 %), con un +0,7 % trimestral. La demanda nacional suma 3,5 puntos y la externa resta 0,9.",
+    "beneficia": "los negocios que dependen del consumo interno, que sigue tirando",
+    "perjudica": "los que exportan desde España, porque el sector exterior resta"
    }
   ]
  }
