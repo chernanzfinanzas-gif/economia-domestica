@@ -42,6 +42,15 @@ function visTags(t){ t=(t||'').toUpperCase(); const m=(DB.riesgoTags||{})[t]; re
 function visLoadTesis(cb){
   const need=(DB.analisis||[]).map(a=>(a.ticker||'').toUpperCase()).filter(t=>t && (typeof _tesisCache==='undefined'||_tesisCache[t]===undefined));
   if(!need.length){ cb&&cb(); return; }
+  /* [29-sep-2026 · Línea Directa] Antes esta vista descargaba los dossiers POR SU CUENTA y los
+     dejaba en _tesisCache sin importarlos. Si abría antes que cargarDossiers(), cargarTesis()
+     encontraba el ticker ya en la caché, salía sin hacer nada y el Análisis se quedaba vacío
+     (rating, decisión, banda y stop en «—», y «sin dossier» en el Monitor de seguimiento).
+     Ahora usa cargarTesis(), que es la que importa: un solo camino de carga. */
+  if(typeof cargarTesis==='function'){
+    Promise.all(need.map(t=>Promise.resolve(cargarTesis(t)).catch(()=>{}))).then(()=>{ cb&&cb(); });
+    return;
+  }
   need.forEach(t=>{ _tesisCache[t]=null; });   /* marcar "cargando" (evita re-disparo) */
   Promise.all(need.map(t=>fetch('dossiers/'+t+'.json',{cache:'no-store'})
     .then(r=>r.ok?r.json():null).then(j=>{ _tesisCache[t]=j||null; }).catch(()=>{ _tesisCache[t]=null; })))
