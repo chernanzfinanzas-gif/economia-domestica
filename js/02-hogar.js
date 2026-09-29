@@ -802,7 +802,12 @@ function editMov(id){
 function resetMovForm(){
   $('#movForm').reset(); $('#movId').value=''; setMovTipo('gasto');
   if(typeof movReembUI==='function')movReembUI();
-  $('#movFecha').value = curYear+'-'+String(curMonth+1).padStart(2,'0')+'-'+String(Math.min(new Date().getDate(),28)).padStart(2,'0');
+  /* [29-sep-2026 · arreglo 9] Antes el día se topaba en 28: del 29 al 31 proponía el 28 y el apunte
+     caía con fecha equivocada si no te fijabas. Ahora: si miras el mes en curso, HOY; si miras otro
+     mes, ese mes con el día de hoy ajustado a su último día (30-feb → 28/29-feb). */
+  { const hoy=new Date(), ult=new Date(curYear,curMonth+1,0).getDate();
+    const d=(curYear===hoy.getFullYear()&&curMonth===hoy.getMonth())?hoy.getDate():Math.min(hoy.getDate(),ult);
+    $('#movFecha').value = curYear+'-'+String(curMonth+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'); }
   $('#movSubmit').textContent='Añadir'; $('#movCancel').style.display='none';
 }
 function setMovTipo(t){ movTipo=t; $$('#movTipoSeg button').forEach(b=>b.classList.toggle('on',b.dataset.t===t)); }
@@ -2457,7 +2462,21 @@ function renderFondoR4(){
     const _aV=_ext.ventas.filter(v=>(v.fecha||'').slice(0,4)===String(Y));
     const _aB=_aV.reduce((a,v)=>a+v.bruta,0), _aR=_aV.reduce((a,v)=>a+v.reten,0);
     const _mm=Math.round(_ext.dias/30.44);
-    cardEl.innerHTML=
+    /* [29-sep-2026 · arreglo 10] Las tarjetas leen SOLO el extracto. Si después anotaste movimientos
+       a mano (p. ej. la retirada del 11-sep), el «Valor del fondo» enseñaba un saldo que ya no existe.
+       Aviso en rojo con cuántos hay y el último valor anotado; la cifra buena llega al pegar otro extracto. */
+    const _post=asc.filter(e=>(e.fecha||'')>(_ext.hasta||''));
+    let _avPost='';
+    if(_post.length){
+      const _nR=_post.filter(e=>e.tipo==='retirada'&&num(e.importe)>0).reduce((a,e)=>a+num(e.importe),0);
+      const _nA=_post.filter(e=>e.tipo!=='retirada'&&num(e.importe)>0).reduce((a,e)=>a+num(e.importe),0);
+      const _uv=_post.filter(e=>e.valor!=null&&e.valor!=='').slice(-1)[0];
+      _avPost='<div style="grid-column:1/-1;background:#fee2e2;border:1px solid #fecaca;color:#991b1b;border-radius:10px;padding:8px 12px;font-size:12.5px">⚠ Hay <b>'+_post.length+' movimiento'+(_post.length===1?'':'s')+'</b> anotado'+(_post.length===1?'':'s')+' después del extracto ('+ddmmyyyy(_ext.hasta)+')'
+        +(_nR?' · retiradas '+fmt(_nR):'')+(_nA?' · aportaciones '+fmt(_nA):'')
+        +(_uv?' · último valor anotado <b>'+fmt(num(_uv.valor))+'</b> al '+ddmmyyyy(_uv.fecha):'')
+        +'. Estas tarjetas <b>no los cuentan</b>: pega un extracto nuevo de R4 para ponerlas al día.</div>';
+    }
+    cardEl.innerHTML=_avPost+
       '<div class="r4-kpi"><div class="l">Valor del fondo</div><div class="v">'+fmt(_ext.valor)+'</div><div class="s">al '+ddmmyyyy(_ext.hasta)+' · coste '+fmt(_ext.coste)+'</div></div>'+
       '<div class="r4-kpi"><div class="l">Ganancia total (bruta)</div><div class="v pos">+'+fmt(_ext.bruta)+'</div><div class="s">'+fmt(_ext.realizada)+' retirada + '+fmt(_ext.latente)+' dentro · retenido '+fmt(_ext.reten)+'</div></div>'+
       '<div class="r4-kpi"><div class="l">Rentabilidad</div><div class="v '+((_ext.pctAnual||0)>=0?'pos':'neg')+'">'+(_ext.pctAnual!=null?(_ext.pctAnual.toFixed(2)+' %'):'—')+'</div><div class="s">anual, sobre '+fmt(_ext.saldoMedio)+' de saldo medio en '+_mm+' meses</div></div>'+

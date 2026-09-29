@@ -706,7 +706,7 @@ function proximaCompra(){ if(typeof cmpScore!=='function')return null;
     const prio=0.5*(score!=null?score:50)+0.3*infraP+0.2*mb.margen;
     return {t,cot,entMax,entMin,stop,score,dec,obj,real,gap,gapPct,infraP,estado:mb.estado,dist:mb.dist,margen:mb.margen,enBanda,stopTocado,prio,held:!!held[t]}; }).filter(x=>x.cot>0);
   const cand=items.filter(x=>x.enBanda&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>b.prio-a.prio);
-  const cajaHoy=_saldoCajaHoy(); const capByCash=(cajaHoy!=null&&cajaHoy>0); let rem=capByCash?cajaHoy:Infinity; let recTotal=0;
+  const cajaHoy=_saldoCajaHoy(); const capByCash=(cajaHoy!=null&&isFinite(cajaHoy)); let rem=capByCash?Math.max(0,cajaHoy):Infinity;  /* [29-sep · arreglo 3] caja a 0 o negativa = no hay dinero, no «sin límite» */ let recTotal=0;
   cand.forEach(x=>{ let rec=Math.min(x.gap,rem); if(!isFinite(rec))rec=x.gap; if(rec<0)rec=0; x.rec=Math.round(rec); x.acc=x.cot>0?Math.floor(x.rec/x.cot):0; if(capByCash){rem-=rec; if(rem<0)rem=0;} recTotal+=x.rec; });
   const near=items.filter(x=>!x.enBanda&&x.dist!=null&&x.dist>0&&!x.stopTocado&&x.dec!=='VENDER').sort((a,b)=>a.dist-b.dist);
   return {cajaHoy,capByCash,items,cand,near,recTotal}; }
@@ -850,7 +850,7 @@ function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; if(typeof 
   window._proxNearOpen=window._proxNearOpen||false;
   /* ---- ESCRITORIO ---- */
   const rowT=(x,i,tipo)=>{ const btns=(tipo==='cand')?`<button class="btn ghost sm" data-proxplan="${x.t}" title="Añadir al Plan del año ${proxYearSel}">→ Plan</button> <button class="btn ghost sm" data-proxcaja="${x.t}" title="Registrar salida en la Caja bróker">→ Caja</button>`:'';
-    const rec=(tipo==='cand')?(x.rec>0?fmt(x.rec):(x.gap>0?fmt(x.gap):'·')):'·';
+    const rec=(tipo==='cand')?(x.rec>0?fmt(x.rec):(x.gap>0&&!M.capByCash?fmt(x.gap):(x.gap>0?'<span class="muted" title="Sin caja para esta empresa">—</span>':'·'))):'·';
     return `<tr${(tipo==='cand'&&i===0)?' class="best"':''}><td class="num">${x.__n}</td><td><b class="tk" data-ficha="${x.t}" style="cursor:pointer">${x.t}</b>${x.held?' <span class="hc">en cartera</span>':''}</td><td class="num"><b style="color:${sCol(x.score)}">${x.score!=null?x.score.toFixed(0):'—'}</b></td><td>${x.dec?`<span class="dec" style="background:${dcol[x.dec]}">${x.dec}</span>`:'—'}</td><td><span class="pill ${estCls(x)}">${x.estado}</span></td><td class="num">${fmt(x.cot)}</td><td class="num">${x.obj?fmt(x.obj):'·'}</td><td class="num">${x.real?fmt(x.real):'·'}</td><td class="num">${x.gap>0?fmt(x.gap):'·'}</td><td class="num">${x.infraP.toFixed(0)}</td><td class="num" style="font-weight:800">${rec}</td><td class="num">${(tipo==='cand'&&x.acc)?x.acc:'·'}</td><td style="white-space:nowrap">${btns}</td></tr>`; };
   const head='<tr><th class="num">#</th><th>Empresa</th><th class="num">Score</th><th>Decisión</th><th>Estado</th><th class="num">Cotiz.</th><th class="num">Objetivo</th><th class="num">Invertido</th><th class="num">Hueco</th><th class="num">Infra</th><th class="num">Recom. €</th><th class="num">Acc.</th><th>Acción</th></tr>';
   const infoSub='<div class="sub" style="margin-bottom:8px">Prioridad = 0,5·Score + 0,3·infraponderación vs objetivo + 0,2·margen de entrada. La columna <b>Recom. €</b> reparte tu caja disponible tapando primero el hueco de la mejor candidata. «→ Plan» lo añade al Plan de compras del año elegido; «→ Caja» registra la salida en la Caja bróker.</div>';
@@ -874,13 +874,19 @@ function renderProxCompra(){ const el=$('#proxTabla'); if(!el)return; if(typeof 
   el.innerHTML=deskHTML+mobHTML;
   if(!el._proxBound){ el._proxBound=true; el.addEventListener('click',function(e){ if(e.target.closest('[data-ficha],[data-proxplan],[data-proxcaja],a,button'))return; const h=e.target.closest('.blk-h'); if(h){ window._proxNearOpen=!window._proxNearOpen; el.querySelectorAll('.blk[data-proxnear]').forEach(function(b){ b.classList.toggle('open',window._proxNearOpen); }); } }); }
 }
+/* [29-sep-2026 · revisión, arreglo 3] Importe que mueven «→ Plan», «→ Caja» y «Pasar todo al Plan».
+   Antes, si la caja se había agotado en la primera candidata (rec = 0), se usaba el HUECO ENTERO
+   de las demás: «Pasar todo al Plan» llegó a escribir más de 100 veces la caja. Ahora, con la caja
+   conocida, manda lo recomendado (0 si ya no queda dinero); solo sin caja configurada se usa el hueco. */
+function _proxImporte(x,M){ if(!x)return 0; return Math.round(M&&M.capByCash?num(x.rec):(x.rec>0?x.rec:x.gap)); }
 function proxAddPlan(t,all){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const yr=proxYearSel||new Date().getFullYear(); DB.planCompras=DB.planCompras||{};
   const list=all?M.cand:M.cand.filter(x=>x.t===(t||'').toUpperCase()); let added=0;
-  list.forEach(x=>{ const amt=Math.round(x.rec>0?x.rec:x.gap); if(amt>0){ DB.planCompras[x.t]=DB.planCompras[x.t]||{}; DB.planCompras[x.t][yr]=num((DB.planCompras[x.t]||{})[yr]||0)+amt; added+=amt; } });
+  list.forEach(x=>{ const amt=_proxImporte(x,M); if(amt>0){ DB.planCompras[x.t]=DB.planCompras[x.t]||{}; const cur=num((DB.planCompras[x.t]||{})[yr]||0); /* se FIJA, no se suma: pulsar dos veces no duplica */ if(amt>cur){ DB.planCompras[x.t][yr]=amt; added+=amt-cur; } } });
   if(added>0){ if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); }
   return added; }
-function proxAddCaja(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; const amt=Math.round(x.rec>0?x.rec:x.gap); if(amt<=0)return 0;
-  DB.cajaMov=DB.cajaMov||[]; DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(x.acc?x.acc+' ':'')+x.t,entra:0,sale:amt});
+function proxAddCaja(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; const amt=_proxImporte(x,M); if(amt<=0)return 0;
+  DB.cajaMov=DB.cajaMov||[]; const _hoy=new Date().toISOString().slice(0,10); if(DB.cajaMov.some(m=>m&&m.fecha===_hoy&&num(m.sale)===amt&&(''+(m.concepto||'')).indexOf(x.t)>=0))return -1;  /* ya apuntada hoy: no se duplica */
+  DB.cajaMov.push({id:'c'+Math.random().toString(36).slice(2,9),fecha:new Date().toISOString().slice(0,10),concepto:'Compra '+(x.acc?x.acc+' ':'')+x.t,entra:0,sale:amt});
   if(typeof saveNow==='function')saveNow(); if(typeof renderAll==='function')renderAll(); return amt; }
 // === Presupuesto del Plan por año + reasignación ===
 /* [A10 · 26-jul-2026] Leía DB.planPresupuesto y DB.planCompras, las dos tablas del plan manual,
@@ -896,7 +902,7 @@ function _planYearInfo(yr){
   if(!planned){ const pc=DB.planCompras||{}; Object.keys(pc).forEach(t=>{ planned+=num((pc[t]||{})[yr]||0); }); }
   return {budget, planned, remaining:(disp||budget)-planned};
 }
-function proxAmount(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; return Math.round(x.rec>0?x.rec:x.gap); }
+function proxAmount(t){ if(typeof proximaCompra!=='function')return 0; const M=proximaCompra(); if(!M)return 0; const x=M.cand.find(y=>y.t===(t||'').toUpperCase()); if(!x)return 0; return _proxImporte(x,M); }
 function planDonorsYear(yr,exclude){ const pc=DB.planCompras||{}; const ex=(exclude||'').toUpperCase(); return Object.keys(pc).map(t=>({t:t.toUpperCase(),amt:num((pc[t]||{})[yr]||0)})).filter(x=>x.amt>0&&x.t!==ex).sort((a,b)=>b.amt-a.amt); }
 function proxApplyPlan(t,amt,yr,donor,donorAmt){ t=(t||'').toUpperCase(); amt=Math.round(num(amt)); if(amt<=0)return 0; DB.planCompras=DB.planCompras||{};
   if(donor&&donorAmt>0){ donor=donor.toUpperCase(); DB.planCompras[donor]=DB.planCompras[donor]||{}; const cur=num((DB.planCompras[donor]||{})[yr]||0); const ded=Math.min(Math.round(donorAmt),cur); DB.planCompras[donor][yr]=cur-ded; if(DB.planCompras[donor][yr]<=0)delete DB.planCompras[donor][yr]; }
@@ -1277,8 +1283,20 @@ function renderPanelDash(){
     const _GT={analisis:'precio',monitor:'tesis',dividendos:'dividendo',divfut:'dividendo',prevision:'dividendo',graficas:'cartera',asignacion:'cartera',presupuesto:'hogar',patrimonio:'hogar',caja:'hogar',panel:'datos',independencia:'datos',cobertura:'tesis',calendario:'agenda',diario:'tesis'};   /* [B1] un supuesto roto es asunto de tesis, no «otros» */
     const _TN={hallazgo:'🚨 Hallazgos',precio:'💹 Precio',tesis:'📋 Tesis',dividendo:'✂️ Dividendo',agenda:'📅 Agenda',cartera:'📦 Cartera',hogar:'🏠 Hogar',datos:'🔄 Datos',otros:'• Otros'};
     const _hash=s=>{ let h=0; s=(s||''); for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return (h>>>0).toString(36); };
-    avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros'; x.key=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt); });
-    DB.avisosVistos=DB.avisosVistos||{}; const _vis=DB.avisosVistos;
+    /* [29-sep-2026 · arreglo 8] Clave ESTABLE para «visto»: antes era un hash del texto completo y,
+       como 18 de 37 avisos llevan cifras (precio, %, meses), al moverse una cifra el aviso volvía a
+       salir aunque lo hubieras marcado (73 de 86 marcas estaban huérfanas). Ahora: empresa | señal |
+       gravedad | texto SIN cifras ni meses. Si empeora (ámbar→rojo) vuelve a salir, a propósito. */
+    const _norm=s=>String(s||'').replace(/<[^>]*>/g,'').toLowerCase().replace(/\b(ene|feb|mar|abr|may|jun|jul|ago|sep|oct|nov|dic)[a-z]*\b/g,'').replace(/[0-9]+([.,][0-9]+)*/g,'#').replace(/\s+/g,' ').trim();
+    DB.avisosVistos=DB.avisosVistos||{}; const _vis=DB.avisosVistos; let _visCambio=false;
+    avisos.forEach(x=>{ x.tipo=x.tipo||_GT[x.goto]||'otros';
+      const kOld=(x.tick||'')+'|'+(x.sig||'')+'|'+_hash(x.txt);
+      x.key='v2|'+(x.tick||'')+'|'+(x.sig||'')+'|'+(x.cls||'')+'|'+_hash(_norm(x.txt));
+      if(_vis[kOld]){ if(!_vis[x.key])_vis[x.key]=_vis[kOld]; delete _vis[kOld]; _visCambio=true; } });   /* migra la marca vieja */
+    /* limpieza: solo marcas sin aviso actual y de hace más de 90 días (no en la 1.ª pintada, con los datos a medias) */
+    { const act=new Set(avisos.map(x=>x.key)), lim=Date.now()-90*864e5;
+      if(window._khDatosListos!==false && avisos.length>5) Object.keys(_vis).forEach(k=>{ if(!act.has(k) && +_vis[k]<lim){ delete _vis[k]; _visCambio=true; } }); }
+    if(_visCambio && typeof scheduleSave==='function') scheduleSave();
     const F=window._avFiltro=window._avFiltro||{tipo:'',showSeen:false};
     const _nVistos=avisos.filter(x=>_vis[x.key]).length;
     let show=avisos.filter(x=> F.showSeen || !_vis[x.key]);

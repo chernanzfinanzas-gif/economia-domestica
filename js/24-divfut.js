@@ -105,14 +105,17 @@ function _dfSetDraft(t,y,val){
 }
 var _dfSaveT=null;
 function _dfSaveDraft(){ clearTimeout(_dfSaveT); _dfSaveT=setTimeout(function(){ if(typeof scheduleSave==='function')scheduleSave(); },900); }
-function _dfDraftCount(y){ var d=_dfDraftYear(y), n=0; Object.keys(d).forEach(function(t){ if((''+d[t]).trim()!=='')n++; }); return n; }
+/* [29-sep-2026 · arreglo 7] Vaciar una celda que tenía dato TAMBIÉN es un cambio pendiente («quitar»).
+   Antes el vacío no contaba ni se volcaba: la anotación vieja seguía mandando sin que se viera. Un
+   borrador vacío solo existe si el origen tenía valor (_dfSetDraft borra el borrador si coincide). */
+function _dfDraftCount(y){ return Object.keys(_dfDraftYear(y)).length; }
 /* [B6] Borradores anotados y sin volcar (todos los años). Alimenta el aviso del Panel: guardar el
    borrador sin avisar sería peor que perderlo, porque creerías que el dato ya está en el sistema. */
 function divBorradorPendiente(){
   var out={total:0, anios:[]};
   try{ var D=_dfDraftAll();
     Object.keys(D).sort().forEach(function(y){
-      var n=0; Object.keys(D[y]||{}).forEach(function(t){ if((''+D[y][t]).trim()!=='')n++; });
+      var n=Object.keys(D[y]||{}).length;   /* [arreglo 7] incluye los «quitar» */
       if(n){ out.anios.push({anio:y, n:n}); out.total+=n; }
     });
   }catch(_){}
@@ -170,11 +173,11 @@ function _dfGrid(list, editable, cur){
     var raw=_dfReal(r.t,_dfYear);
     var val=_dfGetCell(r.t,_dfYear);
     var vac=(val==='');
-    var esBor=(dra[r.t]!==undefined && (''+dra[r.t]).trim()!=='');   /* [B6] anotado y aún sin volcar */
+    var esBor=(dra[r.t]!==undefined);   /* [B6] anotado y aún sin volcar · [arreglo 7] vacío = quitar */
     var cls='df-gi'+(!r.paga?' no':(esBor?' bor':(editable&&vac?' pend':((!vac)?' real':''))));
     var ref='';
     var inner='<div class="df-tk" data-dftk="'+r.t+'">'+r.t+'</div><div class="df-nm" title="'+r.s+'">'+r.s+'</div>';
-    if(editable){ inner+='<div class="df-in"><input value="'+val+'" placeholder="—" inputmode="decimal" data-dfin="'+r.t+'"></div>'; }
+    if(editable){ inner+='<div class="df-in"><input value="'+val+'" placeholder="'+(esBor&&vac?'quitar':'—')+'" inputmode="decimal" data-dfin="'+r.t+'"></div>'; }
     else { inner+='<div class="df-val'+(vac?' empty':'')+'">'+(val||'—')+'</div>'; }
     h+='<div class="'+cls+'">'+inner+'</div>';
   });
@@ -182,9 +185,14 @@ function _dfGrid(list, editable, cur){
 }
 function _dfVolcar(){
   var cur=_dfCur(); if(!(_dfYear>cur)) return;
-  var y=String(_dfYear); var d=_dfDraftYear(y); var nue=0, act=0;
+  var y=String(_dfYear); var d=_dfDraftYear(y); var nue=0, act=0, qui=0, quiPub=[];
   Object.keys(d).forEach(function(t){
-    var raw=(''+d[t]).trim(); if(raw==='') return;
+    var raw=(''+d[t]).trim();
+    if(raw===''){                                   /* [arreglo 7] quitar la anotación */
+      if(DB.divOverride&&DB.divOverride[t]&&DB.divOverride[t][y]!=null){ delete DB.divOverride[t][y]; if(!Object.keys(DB.divOverride[t]).length) delete DB.divOverride[t]; qui++; }
+      if(_dfReal(t,_dfYear)!=null) quiPub.push(t);   /* sigue el dato publicado en dividendos.json */
+      return;
+    }
     var v=_dfNum(raw); if(!(v>=0)) return;
     var prev=null; try{ prev=(typeof _evoOverride==='function')?_evoOverride(t,_dfYear):null; }catch(_){}
     if(prev==null){ var pr2=_dfReal(t,_dfYear); if(pr2!=null)prev=_dfNum(pr2); }
@@ -197,7 +205,7 @@ function _dfVolcar(){
   });
   delete _dfDraftAll()[y];                                  /* [B6] el borrador ya está volcado */
   if(typeof scheduleSave==='function')scheduleSave();
-  if(typeof showToast==='function')showToast('Volcado a Evolución '+_dfYear+': '+nue+' nuevos · '+act+' actualizados.');
+  if(typeof showToast==='function')showToast('Volcado a Evolución '+_dfYear+': '+nue+' nuevos · '+act+' actualizados'+(qui?' · '+qui+' quitados':'')+'.'+(quiPub.length?' Siguen con el dato publicado en dividendos.json: '+quiPub.join(', ')+'.':''));
   renderDivFut();
 }
 /* [B6] refresca el contador «sin volcar» y el botón sin repintar la rejilla (no perder el foco). */
@@ -221,8 +229,8 @@ function _dfBind(sec){
     var inp=e.target.closest&&e.target.closest('[data-dfin]'); if(inp){
       var tk=_dfUp(inp.getAttribute('data-dfin')); _dfSetDraft(tk, _dfYear, inp.value.trim());
       var gi=inp.closest('.df-gi');
-      if(gi&&!gi.classList.contains('no')){ var vac=(inp.value.trim()===''), bor=(_dfDraftYear(_dfYear)[tk]!==undefined && !vac);
-        gi.classList.toggle('pend',vac); gi.classList.toggle('bor',bor); gi.classList.toggle('real',!vac&&!bor); }
+      if(gi&&!gi.classList.contains('no')){ var vac=(inp.value.trim()===''), bor=(_dfDraftYear(_dfYear)[tk]!==undefined);
+        gi.classList.toggle('pend',vac&&!bor); gi.classList.toggle('bor',bor); inp.placeholder=(bor&&vac)?'quitar':'—'; gi.classList.toggle('real',!vac&&!bor); }
       _dfRefreshBar();                                     /* [B6] mantiene vivo el contador «sin volcar» */
     }
   });

@@ -642,6 +642,22 @@ function _repintarAvisos(){
   if(typeof renderAnalisis==='function'&&document.getElementById('view-analisis'))renderAnalisis();
   if(typeof renderVision==='function'&&document.getElementById('view-vision'))renderVision();
   if(typeof fichaTicker!=='undefined'&&fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker);
+  khRepintarActiva();
+}
+/* [29-sep-2026 · revisión, arreglo 2] REPINTAR LA PESTAÑA ABIERTA CUANDO LLEGAN DATOS.
+   Los avisos (hallazgos.json), los dossiers y dividendos.json llegan DESPUÉS del primer pintado.
+   Solo se repintaban seis pantallas; el Kanban, Cobertura, la Ficha de Tesis, el Diario de Hechos,
+   Mis Decisiones y Estado del Sistema se quedaban con la foto incompleta (medido: Mis Decisiones
+   7 supuestos rotos en vez de 2, Kanban 4 «En revisión» falsos, Salud «todo en orden» con avisos).
+   Ahora, al terminar cada carga, se vuelve a pintar la pestaña que esté a la vista, sea la que sea.
+   Agrupado: varias llegadas seguidas producen un solo repintado. */
+var _khRepT=null;
+function khRepintarActiva(){
+  if(typeof setTimeout!=='function') return;   /* fuera del navegador (pruebas) no hay temporizador ni pantalla que repintar */
+  if(_khRepT)clearTimeout(_khRepT);
+  _khRepT=setTimeout(function(){ _khRepT=null;
+    try{ var id=(typeof _activeViewId==='function')?_activeViewId():null;
+      if(id&&typeof renderView==='function')renderView(id); }catch(e){} },250);
 }
 /* [F641] Como se han cargado los avisos: del registro vivo o del respaldo congelado.
    `null` = todavia no se ha intentado. Lo lee la bandeja del Panel para avisarlo. */
@@ -1092,7 +1108,7 @@ function khIndice(){
 /* Para forzar una relectura tras publicar sin recargar la app. */
 function khIndiceOlvidar(){ _khIdxProm=null; }
 
-async function cargarDossiers(){ try{ let set=new Set(), jset=new Set(); const idx=await khIndice(); if(idx){ (idx.dossiers||[]).forEach(function(t){ set.add((''+t).toUpperCase()); }); (idx.tesis||[]).forEach(function(t){ jset.add((''+t).toUpperCase()); }); } else { const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); } _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); }); }catch(e2){} }catch(e){} }
+async function cargarDossiers(){ try{ let set=new Set(), jset=new Set(); const idx=await khIndice(); if(idx){ (idx.dossiers||[]).forEach(function(t){ set.add((''+t).toUpperCase()); }); (idx.tesis||[]).forEach(function(t){ jset.add((''+t).toUpperCase()); }); } else { const r=await fetch('https://api.github.com/repos/chernanzfinanzas-gif/economia-domestica/contents/dossiers',{cache:'no-store'}); if(!r.ok)return; const arr=await r.json(); if(!Array.isArray(arr))return; arr.forEach(f=>{ const n=(f&&f.name)||''; if(/\.html$/i.test(n)) set.add(n.replace(/\.html$/i,'').toUpperCase()); else if(/\.json$/i.test(n)) jset.add(n.replace(/\.json$/i,'').toUpperCase()); }); } _dossierSet=set; _tesisSet=jset; if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderInv==='function')renderInv(); if(fichaTicker&&typeof renderFicha==='function')renderFicha(fichaTicker); try{ Promise.all(Array.from(jset).map(function(tt){ return (typeof cargarTesis==='function')?cargarTesis(tt):null; })).then(function(){ if(typeof renderAnalisis==='function')renderAnalisis(); if(typeof renderProxMos==='function')renderProxMos(); if(typeof scheduleSave==='function')scheduleSave(); khRepintarActiva(); }); }catch(e2){} }catch(e){} }
 /* ===========================================================================
    [29-jul-2026]  REPARACIÓN DE LAS FOTOS ANTIGUAS DE TESIS
    ---------------------------------------------------------------------------
@@ -1930,9 +1946,12 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
     .then(function(){ if(typeof sincronizarIntradia==='function') return sincronizarIntradia(); })
     .catch(function(){});   /* el intradía va DESPUÉS: durante la sesión manda él, al cerrar manda el cierre */
   if(typeof cargarDossiers==='function') cargarDossiers();
+  /* [29-sep-2026 · arreglo 2] Los avisos se piden al arrancar, no al abrir ciertas pestañas: así
+     todas las pantallas cuentan lo mismo abras la que abras primero. */
+  if(typeof cargarAlertasCorp==='function') cargarAlertasCorp();
   /* Consolidación de dividendos: divAccion (dividendo actual) se sincroniza desde dividendos.json,
      que es la única fuente. Se hace tras cargar dividendos.json (asíncrono). */
-  if(typeof _evoCargar==='function'){ _evoCargar().then(function(){ try{ if(typeof syncDivAccionDeDividendos==='function' && syncDivAccionDeDividendos()>0 && typeof renderAll==='function') renderAll(); }catch(e){} }); }
+  if(typeof _evoCargar==='function'){ _evoCargar().then(function(){ try{ if(typeof syncDivAccionDeDividendos==='function' && syncDivAccionDeDividendos()>0 && typeof renderAll==='function') renderAll(); }catch(e){} khRepintarActiva(); }); }
   const _fm=(location.hash||'').match(/ficha=([^&]+)/);
   if(_fm){ const h=document.querySelector('header'); if(h)h.style.display='none'; const m=$('#main'); if(m)m.style.display='none'; const fv=$('#fichaView'); if(fv)fv.style.display='block'; renderFicha(decodeURIComponent(_fm[1])); }
 }

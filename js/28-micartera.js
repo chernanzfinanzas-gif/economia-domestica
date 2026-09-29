@@ -712,6 +712,8 @@ function _mcCercaEntrada(){
     out.push({ticker:t, nombre:_mcNombre(t), etapa:et, cot:cot, entMax:eM, entMin:eMin,
               po:_mcNum((typeof poBaseDe==='function')?poBaseDe(a):a.poMax),
               decision:dec,
+              /* [29-sep · arreglo 4] frenos comunes (MANTENER/ESPERAR, señal abierta, OPA): «en zona» no es «comprable» */
+              bloq:(typeof khBloqueosCompra==='function')?khBloqueosCompra(t,a).map(function(x){return x.txt;}):[],
               /* [06-ago-2026] La RPD entra en la lista de la compra porque cambia lo que duele
                  pagar un poco caro: un +8% sobre la banda con un 5,5% de renta se digiere; con
                  un 1,8%, no. Es la RPD ÚNICA de la app (dpaDeclarado ÷ cotización), no el
@@ -1008,8 +1010,11 @@ function renderMiCartera(){
       const m=(typeof _emMargen==='function')?_emMargen():0.05;
       /* Tres niveles, no dos: ahora la lista llega hasta las que están MUY por encima y meter
          un +18% en el mismo amarillo que un +1,5% engañaba a simple vista. */
+      const bajo=dentro&&c.entMin>0&&c.cot<c.entMin, bq=(c.bloq||[]);
       const chip=dentro
-        ? '<span class="mc-chip in">🟢 en zona</span>'
+        ? (bq.length ? '<span class="mc-chip near" title="'+_mcEsc(bq.join(' · '))+'">🟡 en zona · no comprar</span>'
+           : (bajo ? '<span class="mc-chip near" title="Cotiza por debajo del suelo de su banda de entrada">🟢 bajo la banda</span>'
+           : '<span class="mc-chip in">🟢 en zona</span>'))
         : (c.gap<=m*100
             ? '<span class="mc-chip near">🟡 a '+_mcPct(c.gap,1).replace('+','')+'</span>'
             : '<span class="mc-chip far">🟠 a '+_mcPct(c.gap,1).replace('+','')+'</span>');
@@ -1046,7 +1051,7 @@ function renderMiCartera(){
         +  '<div class="mc-cot">'+_mcEur(c.cot)+'</div>'
         +  '<div class="mc-cuando '+sc.tipo+'" title="'+_mcEsc(sc.det)+'">'+_mcEsc(sc.txt)+'</div>'
         +  '<div class="mc-dia muted">entrada ≤ <b>'+_mcEur(c.entMax)+'</b></div>'
-        +  '<div class="mc-pl '+(dentro?'pos':'neg')+'">'+(dentro?'ya comprable':'sobra '+_mcEur(c.cot-c.entMax))+'</div>'
+        +  '<div class="mc-pl '+(dentro&&!bq.length?'pos':'neg')+'">'+(dentro?(bq.length?'no comprar: '+_mcEsc(bq[0].replace(/^el análisis dice /,'')):(bajo?'bajo la banda: revisa la tesis':'ya comprable')):'sobra '+_mcEur(c.cot-c.entMax))+'</div>'
         +'</div>'
         +'</div>'
         +(_mcEscaleraHTML(c.ticker)||barra)

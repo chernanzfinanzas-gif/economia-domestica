@@ -480,7 +480,12 @@ function invPrefillTicker(){
 function invNuevoValor(){
   const t=$('#invTicker').value.trim().toUpperCase(); if(!t){alert('Pon el ticker.');return;}
   DB.valores=DB.valores||{};
-  DB.valores[t]={nombre:$('#invNombre').value.trim()||t, precioActual:num($('#invPA').value), divAccion:num($('#invDiv').value), broker:$('#invBroker').value.trim(), exchange:$('#invExch').value.trim()||'BME'};
+  /* [29-sep-2026 · arreglo 6] Si la empresa YA existe, se FUSIONA: antes se sustituía la ficha entera y se
+     perdían la fecha y la fuente de la cotización, el enlace de Investing y el mes de cierre del
+     ejercicio (medido con SAN: de 12 campos a 5). Solo se pisa lo que escribes; el precio del repo manda. */
+  { const _prev=DB.valores[t]||null, _nom=$('#invNombre').value.trim(), _pa=num($('#invPA').value), _dv=num($('#invDiv').value), _br=$('#invBroker').value.trim(), _ex=$('#invExch').value.trim();
+    if(_prev){ if(_nom)_prev.nombre=_nom; if(_pa>0&&!(num(_prev.precioActual)>0))_prev.precioActual=_pa; if(_dv>0)_prev.divAccion=_dv; if(_br)_prev.broker=_br; if(_ex)_prev.exchange=_ex; }
+    else DB.valores[t]={nombre:_nom||t, precioActual:_pa, divAccion:_dv, broker:_br, exchange:_ex||'BME'}; }
   { const _iDiv=num($('#invDiv').value); if(_iDiv>0){ const _an=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); if(_an)_an.divAccion=_iDiv; } }  /* sincroniza el DPA con la ficha de Análisis */
   const acc=num($('#invAcc').value);
   const car=($('#invCart').value||'').trim()||'Propia';
@@ -1714,10 +1719,12 @@ function renderDividendos(){
   const yrAsc=[...years].filter(y=>totYear[y]>0).map(y=>({y,bruto:totYear[y]}));
   const evolBlk=`<div class="d-note">Cada barra es el dividendo cobrado ese año: en verde el <b>neto</b> (lo que te queda) y en ámbar la <b>retención del 19%</b>.</div>${_divBarsSVG(yrAsc)}`;
   // RESUMEN ANUAL
+  /* [29-sep-2026 · arreglo 5] Las copias de operaciones de abajo no llevaban la comisión, así que khComision() daba 0
+     y el resumen anual y el fiscal salían SIN comisiones aunque el texto dice incluirlas. */
   const compY={},ventY={},costSoldY={};
-  const cerrOps=(DB.cerradas||[]).flatMap(c=>(c.ops||[]).map(o=>({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})));
+  const cerrOps=(DB.cerradas||[]).flatMap(c=>(c.ops||[]).map(o=>({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio,comision:o.comision})));
   const cerrNoOps=(DB.cerradas||[]).filter(c=>!(c.ops&&c.ops.length));
-  const allOps=[...ops.map(o=>({ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio})),...cerrOps].sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+  const allOps=[...ops.map(o=>({ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio,comision:o.comision})),...cerrOps].sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
   const posCost={};
   allOps.forEach(o=>{ const t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; const n=num(o.acciones), pr=num(o.precio); const p=posCost[t]=posCost[t]||{sh:0,cost:0};
     /* [09-sep-2026] Mismo criterio que el FIFO de Fiscalidad: la comisión de compra entra en el
@@ -1812,9 +1819,9 @@ function _fiscalPorAnio(){
   var years=[...yearsSet].sort();
   var totYear={}; years.forEach(function(y){ var s=0; Object.keys(byTY).forEach(function(t){ s+=(byTY[t][y]||0); }); totYear[y]=s; });
   var ventY={},costSoldY={};
-  var cerrOps=(DB.cerradas||[]).reduce(function(a,c){ (c.ops||[]).forEach(function(o){ a.push({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio}); }); return a; },[]);
+  var cerrOps=(DB.cerradas||[]).reduce(function(a,c){ (c.ops||[]).forEach(function(o){ a.push({ticker:c.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio,comision:o.comision}); }); return a; },[]);
   var cerrNoOps=(DB.cerradas||[]).filter(function(c){return !(c.ops&&c.ops.length);});
-  var allOps=ops.map(function(o){return {ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio};}).concat(cerrOps).sort(function(x,y){return (x.fecha||'').localeCompare(y.fecha||'');});
+  var allOps=ops.map(function(o){return {ticker:o.ticker,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio,comision:o.comision};}).concat(cerrOps).sort(function(x,y){return (x.fecha||'').localeCompare(y.fecha||'');});
   var posCost={};
   allOps.forEach(function(o){ var t=(o.ticker||'').toUpperCase(), y=(o.fecha||'').slice(0,4); if(!t||!y)return; var n=num(o.acciones),pr=num(o.precio); var p=posCost[t]=posCost[t]||{sh:0,cost:0};
     if(o.tipo==='venta'){ var avg=p.sh?p.cost/p.sh:0; costSoldY[y]=(costSoldY[y]||0)+n*avg; ventY[y]=(ventY[y]||0)+n*pr-khComision(o); p.sh-=n; if(p.sh<0)p.sh=0; p.cost=p.sh*avg; }
