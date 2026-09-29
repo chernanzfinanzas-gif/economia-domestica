@@ -1,0 +1,316 @@
+{
+ "schemaVersion": 8,
+ "ticker": "LDA",
+ "empresa": "Línea Directa Aseguradora, S.A.",
+ "fecha": "2026-09-29",
+ "rating": "A",
+ "score": 71.4,
+ "decision": "ESPERAR",
+ "metodoValoracion": "P/TBV justificado (RoTE vs CoE) + DDM de Gordon + múltiplos históricos — aseguradora No Vida. PO oficial = síntesis ponderada del §6.5 sobre once patas: siete de múltiplos con el 65 % del peso (incluida la prima estructural medida, 123,2 %) y cuatro de renta con el 35 %, DCF 0 %, sobre bases del 1S-2026. Bear 0,79 € (riesgo dominante del §8.1 en su extremo suave), base 0,94 €, bull 1,24 € (los cuatro catalizadores del §9.1 juntos). Sin DCF de flujo de caja libre, EV/EBITDA ni deuda neta: en seguros no aplican.",
+ "poBear": 0.79,
+ "poBase": 0.94,
+ "poBull": 1.24,
+ "entMin": 0.79,
+ "entMax": 0.82,
+ "stop": 0.41,
+ "dpaPrevisto": 0.0414,
+ "moat": "47,8/100 · MOAT ESTRECHO. Lo sostiene un solo eje, la ventaja de costes del modelo directo (70): ratio de gastos del 21,0 % frente al 27,3 % de Mapfre, pero igual que Admiral (20,9 %), así que es del modelo y no exclusiva. Intangibles 50, escala 40, efecto de red 30, costes de cambio 25. Horquilla de ponderación 36,0 – 49,2: ningún reparto de pesos llega a moderado.",
+ "catalizadores": [
+  "El combinado se queda en torno al 91 %",
+  "El capital holgado vuelve al reparto",
+  "Salud llega al punto de equilibrio",
+  "El float rinde más"
+ ],
+ "riesgos": [
+  "EL CICLO DE SINIESTRALIDAD DE AUTOS · probabilidad Alta · impacto −16,24 a −40,59%",
+  "SALUD (VIVAZ) VUELVE A EMPEORAR · probabilidad Media · impacto −5,81 a −11,58%",
+  "TIPOS AL ALZA SOBRE LA RENTA FIJA QUE RESPALDA LAS RESERVAS · probabilidad Media · impacto −7,18 a −13,65%",
+  "LOS DOS PRIMEROS ACCIONISTAS SUMAN EL 38 % · probabilidad Baja-Media · impacto −2,31 a −7,55%",
+  "EL COCHE CAMBIA · probabilidad Baja-Media · impacto −4,62 a −9,65%",
+  "MÁS CAPITAL EXIGIDO O MÁS FISCALIDAD SECTORIAL · probabilidad Baja-Media · impacto −4,14 a −10,48%",
+  "CAÍDA DE SISTEMAS O BRECHA DE DATOS EN UN NEGOCIO 100 % TELEFÓNICO Y DIGITAL · probabilidad Baja-Media · impacto −1,64 a −10,19%"
+ ],
+ "bull": "Los cuatro catalizadores del §9.1 perturbados juntos dan 1,24 €, un +31,7 % sobre el precio objetivo: el combinado se queda en torno al 91 %, Salud llega al equilibrio, el float rinde 50 pb más y el reparto sube al 63 % del beneficio. Aun así queda un 2,2 % por debajo de la cotización de hoy.",
+ "bear": "El riesgo dominante del §8.1 en su extremo suave da 0,79 €, un −16,1 %: el combinado de Autos sube 2 puntos de forma duradera, lo que resta un 17,2 % al beneficio y al dividendo. La peor cadena del §8.2 —la inflación de siniestros vuelve y se queda— da 0,45 € (−51,83 %) y ancla el stop.",
+ "resumen": "Línea Directa es una buena aseguradora a un precio que ya descuenta más de lo que se puede justificar: rating A (71,4), RoTE del 24,5 % contra un CoE del 9,43 %, sin deuda y con Solvencia II del 196,3 %. Su ventaja es el coste del modelo directo (gastos del 21,0 %), estrecha y no exclusiva, y toda la tesis cuelga del combinado de Autos (81,4 % de las primas). A 1,268 € cotiza un 25,7 % sobre el objetivo de 0,94 € y por encima del bull (1,24 €); el precio exige un RoTE perpetuo del 29,7 %. ESPERAR, con banda de entrada en 0,79–0,82 € y stop de tesis en 0,41 €.",
+ "confianza": {
+  "score": 80,
+  "nivel": "A",
+  "motivos": [
+   "10 dato(s) secundario(s) en 'Pte. Revisión' (−20)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-09-29"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 0.79,
+   "p50": 0.94,
+   "p90": 1.24
+  },
+  "sensibilidad": {
+   "sobre": "modelo",
+   "regla": "F100",
+   "poMin": 0.65,
+   "poMax": 0.9,
+   "poBase": 0.780072158142053,
+   "cotizacion": 1.268,
+   "cotizacionBase": "actual",
+   "componente": null,
+   "pesoPerturbado": 1.0,
+   "componentesIntactos": 0,
+   "dcf": {
+    "poMin": 0.65,
+    "poMax": 0.9,
+    "poBase": 0.780072158142053
+   },
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -49.0,
+   "mdsMax": -28.9
+  },
+  "beta": {
+   "capm": 1.069,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (1.27) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [0.65–0.90] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-49.0 % … -28.9 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
+  ],
+  "calculadoEl": "2026-09-29"
+ },
+ "dividendSafety": {
+  "score": 79,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "seguros",
+  "componentes": {
+   "C1": 24,
+   "C2": 25,
+   "C3": 20,
+   "C4": 0,
+   "C5": 10
+  },
+  "shareholderYield": 3.79,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 pay-out sobre BN 53% → 24/30",
+   "C2 Solvencia II 183% → 25/25",
+   "C3 ratio combinado 92.6% → 20/20",
+   "C4 trayectoria: 4 recorte(s) en 9a → 0/15",
+   "C5 predictores: ninguno → 10/10",
+   "Rama FINANCIERA (seguros): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+  ],
+  "calculadoEl": "2026-09-29"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-09-29"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+  "calculadoEl": "2026-09-29"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-29",
+  "rama": "financiera",
+  "subrama": "seguros",
+  "fuente": "Datos Financieros Línea Directa.xlsx · Datos de Mercado · DPA (dividendo por acción); Datos de Mercado · Nº acciones en circulación; Datos de Mercado · VCPA-T (valor contable tangible por acción); Desempeño Operativo · CoE — coste del capital del método; Desempeño Operativo · Ratio combinado No Vida; Flujos de Caja · Payout total ((dividendo + recompras) / BN); Métricas Específicas · RoTE — Rentabilidad sobre capital tangible (%); Solvencia Financiera · Ratio de Solvencia II (cierre de ejercicio)",
+  "periodo": [
+   2017,
+   2025
+  ],
+  "casilla": {
+   "n": 4,
+   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
+   "lema": "reparte casi todo y aun así no cubre su coste",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 9.43,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 29.81,
+   "valorTangible5a": 9.42,
+   "valorTangible10a": 14.95,
+   "roteMedio": 26.48,
+   "spread": 15.07,
+   "coe": 9.43,
+   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
+   "tension": 182.6,
+   "tensionAnio": 2025,
+   "tensionNombre": "Ratio de Solvencia II",
+   "tensionUnidad": "%",
+   "repartosExtraordinarios": {
+    "2018": 0.013252,
+    "2021": 0.1103
+   }
+  },
+  "tension": {
+   "anios": [
+    2017,
+    2020,
+    2023,
+    2025
+   ],
+   "rote": [
+    37.32,
+    29.67,
+    -1.55,
+    24.5
+   ],
+   "payoutTotal": [
+    89.0,
+    0.0,
+    null,
+    53.8
+   ],
+   "valorTangible": [
+    0.28,
+    0.42,
+    0.26,
+    0.32
+   ],
+   "capital": [
+    null,
+    213.0,
+    180.0,
+    182.6
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Una aseguradora directa de coches</b>: vende sin oficinas ni agentes, sólo en España, y el automóvil es el 81,4 % de sus primas. Tiene dos motores —la suscripción, que se mide con el ratio combinado, y la inversión de las reservas— y manda el primero.",
+     "El capital no se ha tocado: <b>1.088 millones de acciones</b> en 2017 y las mismas en 2025. Todo lo que ha recibido el accionista ha sido dividendo, ordinario y extraordinario."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un RoTE muy alto y de repartir la mayor parte.</b> El RoTE medio de la ventana es del 26,5 % y el de 2025 del 24,5 %, contra un coste del capital del 9,43 %. El payout total ha sido del 70,2 % de media —91,1 % en 2021—: retiene el 29,8 % de lo que gana.",
+     "Y lo que retuvo apenas movió el valor tangible por acción: de 0,2758 € en 2017 a <b>0,3214 €</b> en 2025, con un máximo de 0,4176 € en 2020, el año en que retuvo todo antes de repartirlo como extraordinario en 2021. Con los dividendos cobrados, <b>un 9,42 % anual en cinco años, a una centésima del coste del capital del 9,43 %</b>. Rinde mucho sobre el capital y reparte la mayor parte, pero lo que llega al accionista por acción no llega a cubrir su coste: <b>la que se quedó sin sitio</b>, por el margen más estrecho posible."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "No en la solvencia: el ratio de Solvencia II estaba en el <b>182,6 %</b> al cierre de 2025 y en el 196,3 % en junio de 2026, holgado sobre el mínimo legal y sobre el 150 % que se fija el Consejo. La tensión está en la suscripción: el ratio combinado pasó del 83,4 % de 2020 al <b>104,1 %</b> de 2023 y volvió al 92,6 % en 2025.",
+     "Y en el crecimiento: el capital que exige el regulador sube más deprisa que el capital, así que crecer al 11 % en primas y repartir la mitad del beneficio no pueden seguir a la vez indefinidamente."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Línea Directa compra <b>una aseguradora de coches muy rentable, en un buen momento del ciclo y a un precio que ya lo descuenta</b>. El valor por acción depende de que el combinado de Autos se quede donde está; el dividendo, también.",
+     "<b>Qué vigilar cada trimestre:</b> el ratio combinado de Autos. Por encima del 95 % abre revisión; por encima del 97 %, el riesgo dominante de la tesis está en marcha."
+    ]
+   }
+  ],
+  "vigilar": "El ratio combinado de Autos de cada informe trimestral: por encima del 95 % abre revisión, y es la variable de la que cuelga toda la tesis.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Seguros de coche vendidos en directo, sin oficinas ni agentes: Autos es el 81,4 % de las primas.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí, con holgura: sin deuda financiera y Solvencia II del 182,6 % a cierre de 2025 (196,3 % en junio de 2026).",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Mucho sobre su capital, y de forma cíclica: RoTE del 24,5 % en 2025 contra un CoE del 9,43 %, pero −1,5 % en 2023.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 4 · La que se quedó sin sitio: reparte casi todo y aun así no cubre su coste. Retiene el 29,8 % de lo que gana y su valor tangible por acción más dividendos crece un 9,4 % al año en cinco años, contra un coste del capital del 9,43 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "El dividendo está cubierto 1,90 veces con un payout del 52,6 %, pero se suspendió en 2020 y en 2023.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 71,4 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 0,94 € contra 1,27 €: margen de seguridad −25,9 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (47,8 sobre 100): sólo la ventaja de costes del modelo directo (70), que Admiral también tiene.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Una nueva onda de inflación de siniestros en Autos que se quede: la cadena A resta un 51,83 % al valor (riesgo de probabilidad alta).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el combinado se quede en torno al 91 % en 2026 (+12,19 % en el precio objetivo) y que el capital sobrante vuelva al reparto.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 0,79 – 0,82 € · stop de tesis 0,41 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El ratio combinado de Autos de cada informe trimestral: por encima del 95 % abre revisión, y es la variable de la que cuelga toda la tesis.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Cuatro cosas, ninguna en el modelo: la cuota exacta en Autos, los objetivos del plan, cómo se cubre el plan de incentivos y la crisis de 2008 → Pte. Revisión.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
