@@ -872,7 +872,7 @@ function _qtoken(periodo){ var p=(''+periodo).toUpperCase();
   if(/Q2|S1|H1|1S|1H|6M|SEM/.test(p))return 'Q2';
   if(/Q1|3M|1T/.test(p))return 'Q1';
   return null; }
-function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTrim[t]===undefined;}); if(!need.length)return Promise.resolve(); return Promise.all(need.map(function(t){ return fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_cadTrim[t]=j;}).catch(function(){_cadTrim[t]=null;}); })); }
+function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTrim[t]===undefined;}); if(!need.length)return Promise.resolve(); var _agJob=(typeof _agCargar==='function')?Promise.resolve(_agCargar()).catch(function(){}):null; return Promise.all((_agJob?[_agJob]:[]).concat(need.map(function(t){ return fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){_cadTrim[t]=(typeof khTrimFechasPub==='function')?khTrimFechasPub(j):j;}).catch(function(){_cadTrim[t]=null;}); }))); }
 /* ---- Agenda confirmada (buzon/agenda.json): fecha REAL del próximo informe ----
    La deja agenda.py cada lunes (Yahoo). Si hay fecha confirmada para un ticker,
    manda sobre la ESTIMACIÓN de _cadenciaDe en el calendario, la cadencia y el Panel. */
@@ -901,6 +901,12 @@ function _cadenciaDe(t){
   var uDate=new Date(ultFecha+'T00:00:00'); var next=null;
   Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
   if(next)next.manual=!!cm[next.q];
+  /* [29-sep-2026] La agenda del lunes (Yahoo, confirmada) manda sobre la estimación, salvo que tú
+     hayas confirmado otra fecha en Cobertura. Solo si cae después del último informe y a menos de
+     75 días de la estimación (para no casar un informe con el trimestre que no es). */
+  try{ var _ag=(typeof _agResultado==='function')?_agResultado(t):null;
+    if(_ag&&_ag.fecha&&next&&!next.manual){ var _ad=new Date((''+_ag.fecha).slice(0,10)+'T00:00:00');
+      if(!isNaN(_ad)&&_ad>uDate&&Math.abs(_ad-next.date)<75*86400000){ next.date=_ad; next.agenda=true; next.confirmada=!!_ag.confirmada; } } }catch(e){}
   return {ultimo:ultimo, ultimoFecha:ultFecha, ultimoManual:!!cm[uq], next:next, uq:uq};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};

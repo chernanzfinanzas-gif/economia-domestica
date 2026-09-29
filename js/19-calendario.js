@@ -163,7 +163,7 @@ function _calEvTrim(t, year){
   if(d && d.revisiones){
     d.revisiones.forEach(function(r){ var q=_calQ(r.periodo); var f=(r.fecha||'').slice(0,10); if(!f) return;
       if(cm[q]) f=f.slice(0,4)+'-'+cm[q];
-      if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:false, proyectado:false }); }
+      if(f.slice(0,4)==String(year)){ out.push({ t:t, fecha:f, tipo:'res', periodo:q, imp:0, sh:0, fuente:'trim', estimado:!!(r.fechaEstimada&&!cm[q]), proyectado:false }); }
       filed[f.slice(0,4)+'-'+q]=1;   /* trimestre YA presentado ese año → no proyectarlo encima */
     });
   }

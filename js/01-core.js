@@ -2670,3 +2670,33 @@ function renderSalud(){
   }).catch(function(){ if(box)box.innerHTML=''; });
 }
 
+
+
+/* [29-sep-2026] FECHA DE PUBLICACIÓN de los trimestrales. En 9 empresas (BKT, ENG, FAE, LOG, MCM,
+   NTGY, PRM, SAN, VIS) el -trim.json guarda como «fecha» el CIERRE del trimestre (31-03, 30-06,
+   30-09, 31-12), no el día en que se publicaron los resultados. La app estimaba el próximo informe
+   con esas fechas y marcaba «publicado sin revisar» un mes antes de tiempo (Monitor, Diario de
+   Hechos, Panel, Cobertura, Calendario). Aquí, al leer el fichero, una fecha de fin de trimestre se
+   convierte en publicación ESTIMADA = cierre + retraso típico de ese trimestre, medido el 29-sep en
+   los 213 informes con fecha real de las otras empresas (3 de cada 4 publican antes de ese plazo):
+   Q1 38 días · Q2/semestre 30 · Q3/9M 31 · Q4/anual 58. La original queda en r.fechaCierre y la
+   fila lleva r.fechaEstimada=true. La fecha confirmada de la agenda del lunes y la que confirmes
+   en Cobertura siguen mandando sobre esta estimación. */
+var KH_TRIM_RETRASO={Q1:38,Q2:30,Q3:31,Q4:58};
+function khTrimQ(p){ p=(''+(p||'')).toUpperCase();
+  if(/Q4|FY|12M|ANUAL/.test(p))return 'Q4'; if(/Q3|9M/.test(p))return 'Q3';
+  if(/Q2|S1|H1|1S|1H|6M|SEM/.test(p))return 'Q2'; if(/Q1|3M|1T/.test(p))return 'Q1'; return null; }
+function khTrimFechasPub(d){
+  if(!d||!d.revisiones||d._fechasPub)return d;
+  try{ Object.defineProperty(d,'_fechasPub',{value:true,enumerable:false}); }catch(e){ d._fechasPub=true; }
+  d.revisiones.forEach(function(r){
+    var f=(''+(r&&r.fecha||'')).slice(0,10);
+    if(!/^\d{4}-(03-31|06-30|09-30|12-31)$/.test(f))return;
+    var dias=KH_TRIM_RETRASO[khTrimQ(r.periodo)]||31;
+    var y=+f.slice(0,4), m=+f.slice(5,7), dd=+f.slice(8,10);
+    var dt=new Date(Date.UTC(y,m-1,dd+dias));
+    r.fechaCierre=f; r.fechaEstimada=true;
+    r.fecha=dt.getUTCFullYear()+'-'+('0'+(dt.getUTCMonth()+1)).slice(-2)+'-'+('0'+dt.getUTCDate()).slice(-2);
+  });
+  return d;
+}

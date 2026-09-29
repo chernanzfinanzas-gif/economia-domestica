@@ -1949,7 +1949,7 @@ var _TRIM_TOK_Q={Q1:1,'1T':1,T1:1,'3M':1, Q2:2,'2T':2,T2:2,S1:2,H1:2,'6M':2, Q3:
 function _trimCanon(p){ if(p==null)return ''; var s=(''+p).trim().toUpperCase(); if(/^\d{4}-Q[1-4]$/.test(s))return s; var pt=s.split('-'); if(pt.length!==2)return ''+p; var a=pt[0],b=pt[1],year=null,tok=null; if(/^\d{4}$/.test(a)){year=a;tok=b;}else if(/^\d{4}$/.test(b)){year=b;tok=a;}else return ''+p; var q=_TRIM_TOK_Q[tok]; return q?(year+'-Q'+q):(''+p); }
 function _revHecha(rev,canon){ if(!rev)return false; if(rev[canon])return true; for(var k in rev){ if(rev[k]&&_trimCanon(k)===canon)return true; } return false; }
 async function cargarTrimestral(t){ t=(t||'').toUpperCase(); if(!t){return;}
-  try{ const r=await fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}); _trimCache[t]=r.ok?await r.json():null; }catch(e){ _trimCache[t]=null; }
+  try{ const r=await fetch('dossiers/trimestral/'+t+'-trim.json',{cache:'no-store'}); _trimCache[t]=r.ok?await r.json():null; if(_trimCache[t]&&typeof khTrimFechasPub==='function')khTrimFechasPub(_trimCache[t]); }catch(e){ _trimCache[t]=null; }
   try{ const d=_trimCache[t]; if(d&&d.revisiones){ DB.monitor=DB.monitor||{}; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; let chg=false; d.revisiones.forEach(function(rv){ var pc=_trimCanon(rv.periodo); if(pc&&!DB.monitor[t].rev[pc]){ DB.monitor[t].rev[pc]=true; chg=true; } }); if(chg&&typeof scheduleSave==='function')scheduleSave(); } }catch(e){}
   /* Sincroniza la caché de cadencia (_cadTrim del radar) con lo recién descargado y recalcula
      DB.cadencia[t]: así registrar un trimestre refresca al instante el "próximo" del Monitor/

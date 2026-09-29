@@ -56,9 +56,30 @@ def parse_fecha(s):
         return None
 
 
+# [29-sep-2026] Réplica de khTrimFechasPub (js/01-core.js). En varios -trim.json la «fecha» es el
+# CIERRE del trimestre (31-03, 30-06, 30-09, 31-12), no la publicación. Se convierte en publicación
+# ESTIMADA = cierre + retraso típico de ese trimestre (percentil 75 de 213 informes con fecha real).
+KH_TRIM_RETRASO = {"Q1": 38, "Q2": 30, "Q3": 31, "Q4": 58}
+
+
+def fechas_publicacion(data):
+    for r in data.get("revisiones", []) or []:
+        if not isinstance(r, dict):
+            continue
+        f = str(r.get("fecha") or "")[:10]
+        if not re.match(r"^\d{4}-(03-31|06-30|09-30|12-31)$", f):
+            continue
+        dias = KH_TRIM_RETRASO.get(qtoken(r.get("periodo")), 31)
+        r["fechaCierre"] = f
+        r["fechaEstimada"] = True
+        r["fecha"] = (datetime.date.fromisoformat(f) + datetime.timedelta(days=dias)).isoformat()
+    return data
+
+
 def cadencia_de(data):
     """Réplica EXACTA de _cadenciaDe (js/13-radar.js).
     Devuelve dict {ultimo, udate, next:(date,q), uq} o None."""
+    fechas_publicacion(data)
     revs = [r for r in data.get("revisiones", []) if isinstance(r, dict) and r.get("fecha")]
     if not revs:
         return None
