@@ -2958,7 +2958,14 @@ function r4RecAplicar(){
     +'Queda un punto de restauración en la Papelera, y tus datos de inversiones, gastos y todo lo demás no se tocan.\n\n¿Sigo?')) return;
   if(typeof pushSnapshot==='function') pushSnapshot('antes de reconstruir el Fondo R4 desde el extracto');
   DB.easy=nuevos;
+  /* [29-sep-2026] Reconstruir desde un extracto RECIÉN PEGADO lo guarda también. Antes la
+     pantalla de «Reconstruir» sustituía a la de «Ver qué sale» y el botón «Guardar este
+     extracto» desaparecía: los movimientos quedaban al día y las tarjetas seguían en el
+     extracto viejo (caso real: movimientos al 29-sep, tarjetas al 09-sep). */
+  var _ext=(window._r4ExtTmp&&window._r4ExtTmp.length)?window._r4ExtTmp:null, _extG=false;
+  if(_ext){ DB.easyExtracto={guardado:new Date().toISOString().slice(0,19), fuente:'Renta 4 · Operaciones de Fondos', movs:_ext}; _extG=true; }
   if(typeof saveNow==='function') saveNow();
   if(typeof renderAll==='function') renderAll(); else renderFondoR4();
-  alert('Hecho: '+d.nDespues+' movimientos, tal cual los da Renta 4.');
+  var _ta=document.getElementById('r4ExtTa'); if(_ta&&_extG) _ta.value='';
+  alert('Hecho: '+d.nDespues+' movimientos, tal cual los da Renta 4.'+(_extG?'\n\nEl extracto queda guardado también: las tarjetas ya salen de él.':''));
 }
