@@ -830,9 +830,15 @@ function renderIndependencia(){
   if(gastoAnual<=0){ el.innerHTML='<div class="empty">Necesito tu gasto anual (Presupuesto) y la Proyección para calcular la independencia.</div>'; return; }
   var rpd=valorCartera>0?divAnual/valorCartera:0.04;
   var infla=fireInflaPct();
-  var rReal=(1+num(c.crecCartera))/(1+infla)-1;
-  var edadObj=num(c.edadActual)+(num(c.anioTrasJub)-num(c.anioBase));
-  var n=Math.max(0,num(c.anioTrasJub)-nowY); var growth=Math.pow(1+rReal,n);
+  /* [29-sep-2026 · decisiones de Carlos] (1) UNA sola edad de jubilación en toda la pestaña: la de
+     «Aportar hasta edad» (70). Antes el Coast FIRE usaba el «Año objetivo» (2039 → 68).
+     (2) Rentabilidad TOTAL = revalorización + dividendo (RPD de tu cartera): el Coast FIRE es
+     «dejarlo crecer sin aportar», y el dividendo reinvertido también crece. Antes solo el 4 %. */
+  var rTot=num(c.crecCartera)+rpd;
+  var rReal=(1+rTot)/(1+infla)-1;
+  var edadHoy=num(c.edadActual)+(nowY-num(c.anioBase));
+  var edadObj=Math.round(num(c.edadFinAportar))||70;
+  var n=Math.max(0,edadObj-edadHoy); var growth=Math.pow(1+rReal,n);
   var eur=function(v){ return fmt(v); };
   function fireOf(numF){ var coast=growth>0?numF/growth:numF; var prog=coast>0?Math.min(100,patrimonio/coast*100):0; var ya=patrimonio>=coast; return {num:numF,coast:coast,prog:prog,ya:ya,falta:Math.max(0,coast-patrimonio)}; }
   var FI=fireOf(gastoAnual*25), FD=fireOf(rpd>0?gastoAnual/rpd:gastoAnual*25);
@@ -856,7 +862,7 @@ function renderIndependencia(){
     +'<div class="ind-kpis"><div class="k"><div class="l">Años de colchón</div><div class="v">'+anosColchon.toFixed(1)+' años</div><div class="p">patrimonio ÷ gasto anual ('+eur(gastoAnual)+')</div></div>'
     +'<div class="k"><div class="l">Tasa de ahorro</div><div class="v">'+(tasaAhorro!=null?tasaAhorro.toFixed(0)+'%':'—')+'</div><div class="p">de tus ingresos netos</div></div>'
     +'<div class="k"><div class="l">Patrimonio actual</div><div class="v">'+eur(patrimonio)+'</div><div class="p">efectivo + invertido</div></div></div>'
-    +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (cartera '+(num(c.crecCartera)*100).toFixed(0)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; la volatilidad y la inflación FIRE no tienen campo: se editan en el fichero de datos. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
+    +'<div class="ind-hyp">⚠️ <b>Muy sensible a las hipótesis</b>: gasto anual <b>'+eur(gastoAnual)+'</b>; retorno <b>real '+(rReal*100).toFixed(1)+'%</b> (revalorización '+(num(c.crecCartera)*100).toFixed(0)+'% + dividendo '+(rpd*100).toFixed(1)+'% − inflación '+(infla*100).toFixed(1)+'%); edad objetivo <b>'+edadObj+'</b> ('+n+' años); RPD cartera <b>'+(rpd*100).toFixed(1)+'%</b>. Todo sale de tu Proyección y tu cartera; la volatilidad y la inflación FIRE no tienen campo: se editan en el fichero de datos. Pequeños cambios mueven mucho el Coast FIRE. Orientativo, no es asesoramiento.</div>';
   // --- Bloque 2: D2 · Retirada dinámica (decumulación / sequence risk + guardrails) ---
   var retiInner='', retiSum='';
   try{
@@ -868,10 +874,25 @@ function renderIndependencia(){
     var capJub=jubRow?num(jubRow.patrimonio):patrimonio;
     var jubY=jubRow?jubRow.anio:nowY; var edadJubReal=jubRow?jubRow.edad:edadJub;
     var yrsRet=Math.max(1,edadFin-edadJubReal);
-    var gastoJub=gastoAnual*Math.pow(1+infla,Math.max(0,jubY-nowY));
-    var mu=num(c.crecCartera)||0.04, sigma=num(c.mcVol)||0.18, sigSrc='estimada '+(sigma*100).toFixed(0)+'%';
+    var mu=(num(c.crecCartera)||0.04)+rpd, sigma=num(c.mcVol)||0.18, sigSrc='estimada '+(sigma*100).toFixed(0)+'%';   /* [29-sep-2026] rentabilidad total */
+    /* [29-sep-2026 · decisión de Carlos] La pensión se estima IGUAL a la nómina (sube un 2,5 %/año
+       hasta el final). Del patrimonio solo sale lo que la pensión no cubre. Antes todo el gasto
+       salía del capital, como si no hubiera pensión. */
+    var pensionJub=jubRow?num(jubRow.nominaMes)*12:0;
+    var gastoBrutoJub=gastoAnual*Math.pow(1+infla,Math.max(0,(jubRow?jubRow.anio:nowY)-nowY));
+    var gastoJub=Math.max(0,gastoBrutoJub-pensionJub);   /* lo que tiene que salir del patrimonio */
     try{ if(typeof riesgoData==='function'){ var R=riesgoData(renderIndependencia); if(R&&R.ok&&R.volPort>0){ sigma=R.volPort; sigSrc='real de tu cartera ('+(sigma*100).toFixed(0)+'%)'; } else if(R&&R.loading){ sigSrc='estimada '+(sigma*100).toFixed(0)+'% (afinando con tu histórico al cargar cotizaciones…)'; } } }catch(e){}
-    if(!(capJub>0)||!(gastoJub>0)){
+    if(capJub>0&&gastoBrutoJub>0&&!(gastoJub>0)){
+      retiSum='la pensión cubre el gasto';
+      retiInner='<div class="d2-intro"><b class="h">✅ Tu pensión cubre todo el gasto</b>Con tu hipótesis (pensión = nómina, subiendo '+(num(c.inflacionNomina)*100).toFixed(1)+'%/año) no tendrás que vender nada para vivir: el riesgo de secuencia no aplica.</div>'
+        +'<div class="d2-kpis">'
+        +'<div class="k"><div class="l">Pensión al jubilarte ('+jubY+')</div><div class="v">'+eur(pensionJub)+'</div><div class="p">'+eur(pensionJub/12)+'/mes · igual a la nómina</div></div>'
+        +'<div class="k"><div class="l">Gasto en jubilación</div><div class="v">'+eur(gastoBrutoJub)+'</div><div class="p">tu gasto de hoy con inflación</div></div>'
+        +'<div class="k"><div class="l">Sobra cada año</div><div class="v">'+eur(pensionJub-gastoBrutoJub)+'</div><div class="p">antes de contar el dividendo</div></div>'
+        +'<div class="k"><div class="l">Capital al jubilarte</div><div class="v">'+eur(capJub)+'</div><div class="p">queda intacto como colchón y herencia</div></div>'
+        +'</div>'
+        +'<div class="d2-hyp">⚠️ Todo depende de que la pensión sea como la nómina. Si fuera menor, baja «Nómina/mes» o su subida en la Hipótesis inicial y aquí volverá a salir la simulación con lo que falte.</div>';
+    } else if(!(capJub>0)||!(gastoJub>0)){
       retiInner='<div class="empty">Necesito tu proyección de patrimonio a la jubilación y tu gasto anual para simular la retirada.</div>';
     } else {
       var _run=function(cap,g0,guard,collect){ var M=collect?2500:2000; var ok=0; var paths=collect?[]:null;
@@ -906,7 +927,7 @@ function renderIndependencia(){
         +'</div>'
         +'<div class="d2-kpis">'
         +'<div class="k"><div class="l">Capital al jubilarte ('+jubY+')</div><div class="v">'+eur(capJub)+'</div><div class="p">lo que proyectas tener</div></div>'
-        +'<div class="k"><div class="l">Gasto en jubilación</div><div class="v">'+eur(gastoJub)+'</div><div class="p">tu gasto de hoy con inflación</div></div>'
+        +'<div class="k"><div class="l">Sale del patrimonio</div><div class="v">'+eur(gastoJub)+'</div><div class="p">gasto '+eur(gastoBrutoJub)+' − pensión '+eur(pensionJub)+'</div></div>'
         +'<div class="k"><div class="l">Tasa de retirada inicial</div><div class="v">'+tasaIni.toFixed(1)+'%</div><div class="p">gasto ÷ capital</div></div>'
         +'<div class="k"><div class="l">Tasa segura (90% éxito)</div><div class="v">'+(safe*100).toFixed(1)+'%</div><div class="p">≈ '+eur(capJub*safe)+'/año fijo</div></div>'
         +'</div>'

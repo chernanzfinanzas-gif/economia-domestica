@@ -185,7 +185,12 @@ function calibVerdicto(base, ev){
     retTotal:  (evaluada && _calibIsN(base.cot0) && base.cot0!==0) ? ((cot + (_calibIsN(dv)?dv:0))/base.cot0 - 1) : null,
     entroBanda: (_calibIsN(mn) && _calibIsN(base.entMax)) ? (mn <= base.entMax ? 'SÍ' : 'NO') : null,
     tocoStop:   (_calibIsN(mn) && _calibIsN(base.stop))   ? (mn <= base.stop   ? 'SÍ' : 'NO') : null,
-    alcanzoPO:  (_calibIsN(mx) && _calibIsN(base.poBase)) ? (mx >= base.poBase ? 'SÍ' : 'NO') : null
+    /* [29-sep-2026] Con el PO POR DEBAJO de la cotización t0 (ESPERAR «está cara») «alcanzar el PO»
+       es BAJAR hasta él. Antes se medía siempre «máximo ≥ PO» y esas salían SÍ aunque la acción
+       subiera (13 de las 25 apuestas v1). Si no se sabe la cotización t0, se mide como antes. */
+    alcanzoPO:  (_calibIsN(base.poBase) && _calibIsN(base.cot0) && base.poBase < base.cot0)
+                  ? (_calibIsN(mn) ? (mn <= base.poBase ? 'SÍ' : 'NO') : null)
+                  : ((_calibIsN(mx) && _calibIsN(base.poBase)) ? (mx >= base.poBase ? 'SÍ' : 'NO') : null)
   };
 }
 
@@ -966,6 +971,77 @@ function _calibEspejoPanel(){
   return {sum, html};
 }
 
+/* ════════════════════════════════════════════════════════════════════════════
+   [29-sep-2026 · decisión de Carlos] LAS APUESTAS VIEJAS (método v1), MEDIDAS SOLAS
+   En julio cambió el método (v2) y se rehicieron los análisis; las 28 filas t0 de v1 siguen en
+   calibracion.json pero el Panel solo sigue el dossier VIGENTE. Carlos decide medirlas SIN
+   fichas: se calculan con el histórico de precios y los dividendos (mismo _calibDesdeHistorico
+   que los provisionales) y se enseñan aparte, al lado de las v2 CERRADAS, para ver en 2027 si
+   el cambio de método mejoró algo. No entran en el marcador, ni en «pendientes», ni en los avisos.
+   Qué fila cuenta: método v1 y fecha anterior en más de 30 días al dossier vigente (así no se
+   cuentan las filas repetidas de septiembre ni la tesis vigente mal etiquetada).
+   ════════════════════════════════════════════════════════════════════════════ */
+function _calibV1Filas(){
+  const out=[];
+  Object.keys(CALIB_PUENTE||{}).forEach(t=>{
+    const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t);
+    const vig=a&&a.dossierFecha?a.dossierFecha:null;
+    (CALIB_PUENTE[t]||[]).forEach(f=>{
+      if((f.metodo||'')!=='v1'||!f.fecha) return;
+      if(vig){ const lim=new Date(vig+'T00:00:00'); lim.setDate(lim.getDate()-30); if(f.fecha>lim.toISOString().slice(0,10)) return; }
+      out.push(Object.assign({ticker:t},f));
+    });
+  });
+  return out.sort((x,y)=>(x.fecha||'').localeCompare(y.fecha||''));
+}
+function _calibV1Panel(){
+  const filas=_calibV1Filas(); if(!filas.length) return null;
+  const hoy=_calibHoy(), falta=[];
+  const med=filas.map(f=>{
+    const base={cot0:_calibN(f.cot0), entMax:_calibN(f.entMax), stop:_calibN(f.stop), poBase:_calibN(f.poBase)};
+    const hs=['6m','12m'].map(k=>{ const meses=k==='6m'?6:12, diana=_calibDiana(f.fecha,meses);
+      const cerrada=diana<=hoy;
+      const r=_calibDesdeHistorico(f.ticker, base, f.fecha, cerrada?diana:hoy);
+      if(!r && typeof _precioCache!=='undefined' && _precioCache && _precioCache[f.ticker]===undefined) falta.push(f.ticker);
+      return {k, diana, cerrada, r}; });
+    return {f, base, hs};
+  });
+  if(falta.length){ const u=[...new Set(falta)]; let n=u.length; u.forEach(t=>_calibLazyPrecios(t,()=>{ if(--n===0) renderPanelMetodo(); })); }
+  const avg=a=>a.length?a.reduce((s,x)=>s+x,0)/a.length:null;
+  const agg=(lista)=>{ const n=lista.length; const r=lista.map(x=>x.v.retTotal).filter(x=>x!=null);
+    const dec=d=>avg(lista.filter(x=>x.dec===d).map(x=>x.v.retTotal).filter(x=>x!=null));
+    return {n, banda:n?lista.filter(x=>x.v.entroBanda==='SÍ').length/n:null, stops:lista.filter(x=>x.v.tocoStop==='SÍ').length,
+      po:n?lista.filter(x=>x.v.alcanzoPO==='SÍ').length/n:null, ret:avg(r), comprar:dec('COMPRAR'), mantener:dec('MANTENER'), esperar:dec('ESPERAR')}; };
+  const v1={};
+  ['6m','12m'].forEach(k=>{ v1[k]=agg(med.map(m=>{ const h=m.hs.find(x=>x.k===k); return (h.cerrada&&h.r&&h.r.ver&&h.r.ver.evaluada)?{v:h.r.ver,dec:(m.f.decision||'').toUpperCase()}:null; }).filter(Boolean)); });
+  /* v2 = las evaluaciones CERRADAS del marcador principal (mismas métricas) */
+  const v2={'6m':[], '12m':[]};
+  (DB.analisis||[]).map(a=>calibDataFor(a.ticker)).filter(Boolean).forEach(d=>d.hitos.forEach(h=>{ if(v2[h.k]&&h.done&&h.ver&&h.ver.evaluada) v2[h.k].push({v:h.ver,dec:(d.base.decision||'').toUpperCase()}); }));
+  const V2={'6m':agg(v2['6m']), '12m':agg(v2['12m'])};
+  const cel=v=>`<td style="text-align:center">${v}</td>`;
+  const celR=v=>`<td style="text-align:center;font-weight:700;color:${_calibRetColor(v)}">${_calibMetRet(v)}</td>`;
+  const cols=[v1['6m'],V2['6m'],v1['12m'],V2['12m']];
+  const fila=(etq,fn,sub)=>`<tr${sub?' style="color:#64748b"':''}><td style="${sub?'padding-left:18px;':'font-weight:600;'}white-space:nowrap">${etq}</td>${cols.map(fn).join('')}</tr>`;
+  const tabla=`<div class="ptable"><table><thead><tr><th class="l">Métrica</th><th>v1 · 6 m</th><th>v2 · 6 m</th><th>v1 · 12 m</th><th>v2 · 12 m</th></tr></thead><tbody>
+    ${fila('Evaluaciones',c=>cel(c.n))}
+    ${fila('% entró en banda',c=>cel(_calibMetPct(c.banda)))}
+    ${fila('Stops tocados',c=>cel(c.stops))}
+    ${fila('% alcanzó PO Base',c=>cel(_calibMetPct(c.po)))}
+    ${fila('Retorno total medio',c=>celR(c.ret))}
+    ${fila('· COMPRAR',c=>celR(c.comprar),true)}
+    ${fila('· MANTENER',c=>celR(c.mantener),true)}
+    ${fila('· ESPERAR',c=>celR(c.esperar),true)}
+  </tbody></table></div>`;
+  const det=med.map(m=>{ const h6=m.hs[0], r=h6.r;
+    const est=h6.cerrada?'<b>cerrada</b>':('en curso · diana '+h6.diana);
+    return `<tr><td class="l"><b>${m.f.ticker}</b></td><td>${m.f.fecha}</td><td>${m.f.decision||'—'}</td><td>${_calibFmt(m.base.cot0)}</td><td>${_calibFmt(m.base.poBase)}</td><td style="font-weight:700;color:${_calibRetColor(r&&r.ver?r.ver.retTotal:null)}">${r&&r.ver?_calibMetRet(r.ver.retTotal):'—'}</td><td>${r&&r.ver&&r.ver.alcanzoPO?('PO '+r.ver.alcanzoPO):'—'}</td><td class="l" style="font-size:11px;color:#64748b">${est}</td></tr>`; }).join('');
+  const n6=v1['6m'].n, nCurso=med.filter(m=>!m.hs[0].cerrada).length;
+  const html=`<div class="mt-empty" style="margin-bottom:8px">Las <b>${filas.length}</b> apuestas del método viejo (v1, jun–jul) que luego se rehicieron con el v2. Se miden <b>solas</b>, con el histórico de precios y los dividendos: no piden fichas ni avisan. Sirven para una sola cosa: comparar con las v2 <b>cerradas</b> y saber si el cambio de método mejoró algo. Las v2 cierran su primera diana el 23-feb-2027.</div>`
+    +tabla
+    +`<div style="margin-top:10px;font-weight:700;font-size:12.5px">Detalle (hito de 6 meses; «en curso» = retorno hasta hoy, aún no cuenta)</div>`
+    +`<div class="ptable"><table><thead><tr><th class="l">Empresa</th><th>t0</th><th>Decisión</th><th>Cotiz. t0</th><th>PO Base</th><th>Retorno total</th><th>PO</th><th class="l">Estado</th></tr></thead><tbody>${det}</tbody></table></div>`;
+  return {html, sum: n6?(n6+' cerradas a 6 m · '+nCurso+' en curso'):(filas.length+' apuestas · 1.ª diana '+(med[0].hs[0].diana||'—'))};
+}
 function renderPanelMetodo(){
   const sec = document.getElementById('view-metodo'); if(!sec) return;
   const empresas = (DB.analisis||[]).map(a => calibDataFor(a.ticker)).filter(Boolean);
@@ -1038,6 +1114,8 @@ function renderPanelMetodo(){
     +_mblk('ℹ️','Qué corregir del método','cómo leer el marcador', guia, false, 'corregir')
     +(function(){ const C=_calibComposicionPanel();
         return C ? _mblk('🧩','De qué está hecho el PO', C.sum, C.html, false, 'composicion') : ''; })()
+    +(function(){ const V=_calibV1Panel();   /* [29-sep-2026] apuestas v1, medidas solas */
+        return V ? _mblk('🕰️','Método viejo (v1) contra el nuevo', V.sum, V.html, false, 'v1') : ''; })()
     +(function(){ const E=_calibEspejoPanel();
         return E ? _mblk('🪞','El espejo del analista', E.sum, E.html, false, 'espejo') : ''; })();
   if(!sec._metBound){ sec._metBound=true; sec.addEventListener('click',function(e){ if(e.target.closest('[data-calibopen],a,button'))return; var h=e.target.closest('.pos-blk-h'); if(h)h.parentElement.classList.toggle('open'); }); }

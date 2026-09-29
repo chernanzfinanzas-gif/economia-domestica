@@ -1867,7 +1867,8 @@ function computeProy(c){
   const gC=1+num(c.crecCartera), gD=1+num(c.crecDividendo), gN=1+num(c.inflacionNomina), gA=1+num(c.crecAhorro), rpdN=num(c.rpdNuevas);
   let Ef=num(c.efectivo), I=num(c.invertidoCoste), C=num(c.carteraInicial), Div=num(c.dividendoBruto), Nom=num(c.nominaMes);
   let AN=(num(c.nominaMes)-num(c.gastoMes))*12; if(AN<0)AN=0;
-  const yJub=num(c.anioTrasJub)||2039;
+  /* [29-sep-2026] Una sola edad de jubilación: «Aportar hasta edad». El antiguo «Año objetivo» (2039 → 68) ya no se usa. */
+  const yJub=Math.round(num(c.anioBase)+(num(c.edadFinAportar)||70)-num(c.edadActual));
   let prevR=0,prevT=0,prevS=0;
   const yrNow=new Date().getFullYear(); const LV=(typeof carteraLive==='function'?carteraLive():0);
   const out=[];
@@ -1905,8 +1906,7 @@ function renderProyParams(c){
     ['edadActual','Edad actual',c.edadActual,'1',0],
     ['anioBase','Año actual',c.anioBase,'1',0],
     ['edadFin','Edad final',c.edadFin,'1',0],
-    ['edadFinAportar','Aportar hasta edad',c.edadFinAportar,'1',0],
-    ['anioTrasJub','Año objetivo de jubilación (para el Coast FIRE de Independencia)',Math.round(c.anioTrasJub||2039),'1',0],
+    ['edadFinAportar','Edad de jubilación (aportar hasta; también la usa el Coast FIRE)',c.edadFinAportar,'1',0],
     ['efectivo','Efectivo inicial = 31-dic año prev. (€)',Math.round(c.efectivo),'100',0],
     ['invertidoCoste','Invertido / coste a 31-dic año prev. (€)',Math.round(c.invertidoCoste),'500',0],
     ['carteraInicial','Cartera teórica inicial = cierre 31-dic año prev. (€)',Math.round(c.carteraInicial),'500',0],
@@ -2082,7 +2082,7 @@ function renderProy(){
     {hero:1,l:'Patrimonio a los '+Math.round(c.edadFin),v:fmt(fin.patrimonio),p:'cartera teórica '+fmt(fin.cartera)},
     {l:'Dividendos/mes a los '+Math.round(c.edadFin),v:fmt(fin.dividendoMes),p:fmt(fin.dividendoAnual)+'/año'},
     {l:'Plusvalía latente a los '+Math.round(c.edadFin),v:fmt(fin.plusvalia),p:'cartera − invertido'},
-    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),p:'dividendos + nómina'}
+    {l:'Renta/mes al jubilar ('+Math.round(c.edadFinAportar)+')',v:fmt(jub.rentaMes),p:'dividendos + pensión (= nómina)'}
   ];
   $('#proyCards').innerHTML=_kp.map(x=>`<div class="k${x.hero?' hero':''}"><div class="l">${x.l}</div><div class="v">${x.v}</div><div class="p">${x.p}</div></div>`).join('');
   renderProyEventos(c);
@@ -2127,7 +2127,7 @@ function renderProy(){
       }
     }
   });
-  const dhead=`<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera</th><th class="num tot">Patrimonio</th><th class="num">Nóminas/año</th><th class="num">Div./año</th><th class="num extra">Extra</th><th class="num split1">Ahorro</th><th class="num split2">→&nbsp;Inv.</th><th class="num split4">→&nbsp;Gasto</th><th class="num split3">→&nbsp;Efec.</th><th class="num gcol">Disponible/mes</th></tr>`;
+  const dhead=`<tr><th>Año</th><th class="num">Ed.</th><th class="num">Efectivo</th><th class="num">Invertido</th><th class="num">Cartera</th><th class="num tot">Patrimonio</th><th class="num" title="Hasta la jubilación, nómina; después, pensión (se estima igual a la nómina)">Nómina · pensión/año</th><th class="num">Div./año</th><th class="num extra">Extra</th><th class="num split1">Ahorro</th><th class="num split2">→&nbsp;Inv.</th><th class="num split4">→&nbsp;Gasto</th><th class="num split3">→&nbsp;Efec.</th><th class="num gcol">Disponible/mes</th></tr>`;
   const _fibtn=_fi
     ? `<span class="proy-fi">📸 Plan fijado: <b>${_proyFechaCorta(_fi.fecha)}</b> <button class="btn ghost sm" id="proyFotoFijar">Actualizar</button> <button class="btn ghost sm" id="proyFotoBorrar" title="Borrar la foto (vuelve a plan editable)">✕</button></span>`
     : `<button class="btn sm" id="proyFotoFijar" title="Congela el plan de hoy como foto fija; a partir de ahí la fila Real compara contra él">📸 Fijar plan (foto)</button>`;
