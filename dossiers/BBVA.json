@@ -1,0 +1,314 @@
+{
+ "schemaVersion": 8,
+ "ticker": "BBVA",
+ "empresa": "Banco Bilbao Vizcaya Argentaria, S.A.",
+ "fecha": "2026-09-30",
+ "rating": "AA",
+ "score": 77.6,
+ "decision": "ESPERAR",
+ "metodoValoracion": "P/TBV justificado por exceso de rentabilidad —(RoTE − g) / (CoE − g) × VCPA-T, rama BANCA— en tres escenarios (42 % del peso) más cuatro múltiplos históricos de diez años (58 %). El PO oficial es la síntesis ponderada de las siete patas del §6.5. Sin DCF de flujo de caja libre, que en un banco no aplica.",
+ "poBear": 11.97,
+ "poBase": 14.455105158391,
+ "poBull": 17.47,
+ "entMin": 11.97,
+ "entMax": 12.57,
+ "stop": 7.29,
+ "dpaPrevisto": 0.92,
+ "moat": "58,0 · MOAT ESTRECHO (sobre 100) con los pesos de la norma de banca: costes de cambio 60 (35 %), escala eficiente 65 (25 %), intangibles 55 (20 %), efecto de red 40 (15 %) y ventaja de costes 75 (5 %). Horquilla de ponderación 53,2-64,8: en el extremo bueno sería MODERADO, así que el veredicto depende de la ponderación y se dice. Un solo eje por encima de 70.",
+ "catalizadores": [
+  "El RoTE converge al objetivo del plan 2025-2028 (0-18 meses · +20,82 % sobre el PO). Disparador: RoTE publicado ≥ 21 % cuatro trimestres seguidos con el NIM del grupo por encima del 2,9 %: con tipos altos un RoTE alto no prueba que sea sostenible.",
+  "El coste del riesgo vuelve al nivel de 2022 (6-18 meses · +8,54 % sobre el PO). Disparador: Coste del riesgo acumulado del grupo por debajo del 1,15 % dos trimestres seguidos, con México por debajo del 3 %.",
+  "Recompra de 2.000 M€ anunciada en julio de 2026 (0-6 meses · −0,46 % sobre el PO). Disparador: Ejecución del programa y amortización de las acciones (comunicación a la CNMV).",
+  "Cierre de la venta de Garanti Bank Rumanía (4T-2026 · impacto no derivable (Pte. Revisión)). Disparador: Comunicación del cierre con su impacto en CET1 y resultado."
+ ],
+ "riesgos": [
+  "Financiero · Media · −8,58 a −17,16% · El margen de intereses depende del ciclo de tipos.",
+  "Macroeconómico · Media · −2,14 a −9,46% · El coste del riesgo más alto de la banca española.",
+  "Político · Media · −6,13 a −12,27% · México hace la mitad del beneficio.",
+  "Divisa · Media · −1,55 a −6,72% · Las divisas emergentes erosionan el capital y el beneficio en euros.",
+  "Regulatorio · Media · −0,51 a −2,07% · El impuesto sobre el margen de intereses y comisiones (IMIC).",
+  "Asignación de capital · Baja-Media · −3,84 a −7,68% · La próxima gran operación corporativa.",
+  "Ciberseguridad · Baja · −0,60 a −2,39% · Caída prolongada de los sistemas de un banco digital.",
+  "Societario · Media · −0,43 a −1,72% · El caso Cenyt: el banco está investigado como persona jurídica."
+ ],
+ "bull": "17,47 € (+20,86 % sobre el PO). El catalizador nº 1 cumplido: el RoTE sostenible llega al objetivo medio del plan 2025-2028 (~22 %). El coste del riesgo no se suma, porque el objetivo del plan ya lo lleva dentro. Aun así queda un 30,6 % POR DEBAJO de la cotización de 25,18 €: ni el escenario bueno justifica el precio de hoy.",
+ "bear": "11,97 € (0,828 × PO). El riesgo dominante del §8.1 —el ciclo de tipos— en su extremo DURO: el NIM vuelve a su media de 2016-2019 (2,527 % frente a 3,057 %), −4.556 M€ de margen y −5,52 pp de RoTE sostenible. La catástrofe es la cadena B del §8.2 (8,83 €), que ancla el stop.",
+ "resumen": "Banco de calidad AA (77,6 sobre 100) que crea valor —RoTE 19,3 % contra un coste del capital del 11,57 %— y cotiza muy por encima de lo que su rentabilidad justifica. Tres de las cuatro condiciones de COMPRAR se cumplen; falla el margen de seguridad, -42,59 % sobre 25,18 €. El precio exige un RoTE del 25,8 % perpetuo, y hasta el bull case (17,47 €) queda por debajo. Veredicto de precio, no de empresa: ESPERAR a la banda 11,97-12,57 €, con stop de tesis en 7,29 €.",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-09-30"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 11.97,
+   "p50": 14.455105158391,
+   "p90": 17.47
+  },
+  "sensibilidad": {
+   "sobre": "modelo",
+   "regla": "F100",
+   "poMin": 12.28,
+   "poMax": 16.33,
+   "poBase": 14.0921630094044,
+   "cotizacion": 25.18,
+   "cotizacionBase": "actual",
+   "componente": null,
+   "pesoPerturbado": 1.0,
+   "componentesIntactos": 0,
+   "dcf": {
+    "poMin": 12.28,
+    "poMax": 16.33,
+    "poBase": 14.0921630094044
+   },
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -51.2,
+   "mdsMax": -35.2
+  },
+  "beta": {
+   "capm": 1.458,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (25.18) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [12.28–16.33] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-51.2 % … -35.2 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
+  ],
+  "calculadoEl": "2026-09-30"
+ },
+ "dividendSafety": {
+  "score": 83,
+  "banda": "Muy seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {
+   "C1": 24,
+   "C2": 20,
+   "C3": 20,
+   "C4": 9,
+   "C5": 10
+  },
+  "shareholderYield": 5.41,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 pay-out dividendo (DPA/BPA) 52% → 24/30",
+   "C2 CET1 12.7% → 20/25",
+   "C3 RoTE 19.3% → 20/20",
+   "C4 trayectoria: 1 recorte(s) en 10a · DPA creciente → 9/15",
+   "C5 predictores: ninguno → 10/10",
+   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+  ],
+  "calculadoEl": "2026-09-30"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-09-30"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+  "calculadoEl": "2026-09-30"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-09-30",
+  "rama": "financiera",
+  "subrama": "banca",
+  "fuente": "Datos Financieros BBVA.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "retiene mucho y lo retenido le rinde",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 11.57,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 53.12,
+   "valorTangible5a": 14.5,
+   "valorTangible10a": 9.8,
+   "roteMedio": 13.3,
+   "spread": 7.73,
+   "coe": 11.57,
+   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
+   "tension": 3.42,
+   "tensionAnio": 2025,
+   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
+   "tensionUnidad": "pp",
+   "repartosExtraordinarios": {}
+  },
+  "tension": {
+   "anios": [
+    2016,
+    2020,
+    2021,
+    2025
+   ],
+   "rote": [
+    8.2,
+    7.8,
+    12.0,
+    19.3
+   ],
+   "payoutTotal": [
+    70.1,
+    30.1,
+    44.4,
+    50.0
+   ],
+   "valorTangible": [
+    5.72,
+    6.33,
+    6.26,
+    9.55
+   ],
+   "capital": [
+    1.1,
+    3.1,
+    4.2,
+    3.4
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un banco universal repartido en cinco áreas</b>: capta depósitos, presta y cobra comisiones en España, México, Turquía y América del Sur. El 71,2 % de su ingreso es margen de intereses y la mitad de su beneficio sale de México, donde es el primer banco del país.",
+     "Su perímetro ha cambiado en la década: vendió Chile en 2018 y Estados Unidos en 2021, y desde entonces recompra y amortiza acciones —de 6.668 millones a 5.709 millones—."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De una década partida en dos.</b> El RoTE estuvo en el 9,9 % de media en 2016-2020 y desde 2021 sube hasta el <b>19,3 %</b> de 2025, +7,73 pp por encima de un coste del capital del 11,57 %. Una parte de esa subida es negocio —la salida de Estados Unidos, la eficiencia— y otra es ciclo de tipos.",
+     "Por acción: el valor tangible pasó de 5,72 € en 2016 a <b>9,55 €</b> en 2025, más 3,73 € de dividendos por el camino: un 14,5 % anual en los últimos cinco años y un 9,8 % en la década. Retiene el 53,1 % de lo que gana de media, y lo retenido le rinde por encima de su coste."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el capital no está: el colchón de CET1 sobre lo que exige el BCE es de <b>3,4 puntos</b> en 2025, y el payout total pasó del 44,4 % de 2021 al 50,0 % de 2025 porque el banco devuelve todo lo que supera su rango de gestión.",
+     "Está en el ciclo y en México: el riesgo que fija el escenario pesimista es la vuelta de los tipos bajos, y el de mayor concentración es que la mitad del beneficio dependa de un solo país emergente y de su divisa."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra BBVA compra <b>un banco que crea valor por acción a más de su coste</b>, a un precio que ya descuenta que la rentabilidad de hoy es permanente. La tesis de calidad se sostiene; la de precio, no.",
+     "<b>Qué vigilar cada trimestre:</b> el RoTE publicado contra el 15,3 % del caso central y el NIM del grupo contra el 2,9 %."
+    ]
+   }
+  ],
+  "vigilar": "El RoTE publicado contra el 15,3 % del caso central, y el NIM del grupo contra el 2,9 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Banco universal en cinco áreas: el 71,2 % de su ingreso es margen de intereses y la mitad de su beneficio sale de México.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: capital, liquidez y calidad del crédito holgados; el único rojo es el coste del riesgo, el precio de la mezcla emergente.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Crea valor: RoTE del 19,3 %, +7,73 pp por encima de su coste del capital.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 53,1 % de lo que gana y su valor tangible por acción más dividendos crece un 14,5 % al año en cinco años, contra un coste del capital del 11,57 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Generosa y sostenible: reparte la mitad del beneficio y ha devuelto 8.460 M€ de capital sobrante en cinco años.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 77,6 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 14,46 € contra 25,18 €: margen de seguridad −42,6 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (58,0): la ventaja de BBVA es México más que el banco.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El ciclo de tipos: si el NIM vuelve a su media de 2016-2019, el valor cae a 11,97 €. Es el que fija el escenario pesimista.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el RoTE se mantenga en el objetivo del plan 2025-2028 (~22 %): lleva el valor a 17,47 €, aún por debajo del precio.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 11,97 – 12,57 € · stop de tesis 7,29 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El RoTE publicado contra el 15,3 % del caso central, y el NIM del grupo contra el 2,9 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico abierto; quedan sin medir el efecto de la crisis de la lira de 2018 y la cuantía del caso Cenyt.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}

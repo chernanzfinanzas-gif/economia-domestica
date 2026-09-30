@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 2,
+  "ticker": "BBVA",
+  "empresa": "BBVA",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 5642.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 6958.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 1846.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.3
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 13.13
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.05
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 43.3
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 1285.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 2.88
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 11410.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 14148.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 3878.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.9
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.99
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.04
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 42.0
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 2614.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 2.86
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 17843.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 22104.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 5961.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.0
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.73
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.11
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 41.8
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 3987.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 2.94
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 23089.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 29542.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 8019.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.0
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.67
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.15
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 41.7
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 5340.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 2.96
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +15.4 %, Margen bruto +18.1 %, Resultado atribuido +19.2 % contra el mismo periodo del ejercicio anterior, con el RoTE en 17.7 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 1.4 puntos sobre el mismo periodo del ejercicio anterior (17.7 % frente a 16.3 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 6512.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 8218.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2200.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.7
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.82
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.4
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.39
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 41.2
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 1441.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.27
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +13.9 %, Margen bruto +23.3 %, Resultado atribuido +28.8 % contra el mismo periodo del ejercicio anterior, con el RoTE en 20.0 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 3.1 puntos sobre el mismo periodo del ejercicio anterior (20.0 % frente a 16.9 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 12993.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 17446.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 4994.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.0
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.75
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.42
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.3
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 2858.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.34
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +5.7 %, Margen bruto +18.4 %, Resultado atribuido +27.9 % contra el mismo periodo del ejercicio anterior, con el RoTE en 20.1 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 3.1 puntos sobre el mismo periodo del ejercicio anterior (20.1 % frente a 17.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 18861.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 26161.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 7622.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.1
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.84
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.3
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.42
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.9
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 4193.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.43
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +9.4 %, Margen bruto +20.1 %, Resultado atribuido +25.4 % contra el mismo periodo del ejercicio anterior, con el RoTE en 19.7 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 2.7 puntos sobre el mismo periodo del ejercicio anterior (19.7 % frente a 17.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 25267.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 35481.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 10054.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.7
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.88
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 3.0
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.43
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 40.0
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 5447.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.39
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -1.8 %, Margen bruto +13.5 %, Resultado atribuido +22.6 % contra el mismo periodo del ejercicio anterior, con el RoTE en 20.2 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 2.5 puntos sobre el mismo periodo del ejercicio anterior (20.2 % frente a 17.7 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 6398.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 9324.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2698.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.2
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 13.09
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.9
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.3
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.2
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 1332.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.05
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -3.0 %, Margen bruto +3.4 %, Resultado atribuido +9.1 % contra el mismo periodo del ejercicio anterior, con el RoTE en 20.4 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 0.4 puntos sobre el mismo periodo del ejercicio anterior (20.4 % frente a 20.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 12607.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 18034.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 5447.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.4
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 13.34
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.9
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.32
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 37.6
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 2578.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.24
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +2.0 %, Margen bruto +3.7 %, Resultado atribuido +4.7 % contra el mismo periodo del ejercicio anterior, con el RoTE en 19.7 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado cae 0.4 puntos sobre el mismo periodo del ejercicio anterior (19.7 % frente a 20.1 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 19246.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 27136.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 7978.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.7
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 13.42
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.8
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.35
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.2
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 3875.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.27
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +4.0 %, Margen bruto +4.1 %, Resultado atribuido +4.5 % contra el mismo periodo del ejercicio anterior, con el RoTE en 19.3 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado cae 0.4 puntos sobre el mismo periodo del ejercicio anterior (19.3 % frente a 19.7 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 26280.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 36931.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 10511.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.3
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.7
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.39
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.8
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 5264.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.31
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +17.8 %, Margen bruto +14.2 %, Resultado atribuido +10.8 % contra el mismo periodo del ejercicio anterior, con el RoTE en 21.7 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 1.5 puntos sobre el mismo periodo del ejercicio anterior (21.7 % frente a 20.2 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 7537.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 10652.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2989.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 21.7
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.83
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.54
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.0
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 1453.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.45
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes trimestrales de BBVA imprime su fecha de publicación (comprobado uno a uno en el texto: sólo citan fechas de cierre, juntas y pagos). La fecha de creación del PDF existe en los metadatos, pero no es una fecha publicada y no se usa. Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +20.3 %, Margen bruto +17.3 %, Resultado atribuido +11.1 % contra el mismo periodo del ejercicio anterior, con el RoTE en 22.2 % (banda del §10.1: verde ≥ 19.0, rojo < 15.3). El RoTE publicado sube 1.8 puntos sobre el mismo periodo del ejercicio anterior (22.2 % frente a 20.4 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 15164.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 21159.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 6051.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 22.2
+        },
+        {
+          "nombre": "CET1 fully loaded (%)",
+          "valor": 12.9
+        },
+        {
+          "nombre": "Tasa de mora (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Coste de riesgo (%)",
+          "valor": 1.43
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 37.8
+        },
+        {
+          "nombre": "Resultado atribuido México (M€)",
+          "valor": 2979.0
+        },
+        {
+          "nombre": "Coste de riesgo México (%)",
+          "valor": 3.26
+        }
+      ],
+      "origen": "revolcado"
+    }
+  ]
+}
