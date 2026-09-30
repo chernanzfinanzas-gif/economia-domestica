@@ -1,20 +1,20 @@
 {
- "generado": "2026-09-26",
+ "generado": "2026-09-30",
  "linter": {
   "ok": true,
-  "detalle": "50 ficheros validados, sin errores."
+  "detalle": "54 ficheros validados, sin errores."
  },
  "sincronia": {
   "ok": true,
-  "detalle": "RESULTADO: TODO SINCRONIZADO (50 archivos). La app refleja el método."
+  "detalle": "RESULTADO: TODO SINCRONIZADO (54 archivos). La app refleja el método."
  },
  "formulas": {
   "ok": true,
-  "detalle": "25 libros revisados; todas las fórmulas conservan su valor.",
+  "detalle": "27 libros revisados; todas las fórmulas conservan su valor.",
   "libros": []
  },
  "senales": {
-  "ok": false,
-  "detalle": "2 desajuste(s) entre las señales del metodo y las que la app mostrara: Atresmedia (A3M): senal(es) S6 ABIERTAS en estado.json y AUSENTES del puente — la app no las mostrara · Miquel y Costas (MCM): senal(es) S2 ABIERTAS en estado.json y AUSENTES del puente — la app no las mostrara"
+  "ok": true,
+  "detalle": "Ninguna señal abierta se queda fuera del puente. 31 empresas en el puente, 1 exigen accion."
  }
 }
