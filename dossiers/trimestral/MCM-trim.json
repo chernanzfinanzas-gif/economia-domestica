@@ -691,6 +691,79 @@
         }
       ],
       "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "1S",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "El informe financiero semestral no imprime su fecha de publicación; el consejo lo firmó el 28-09-2026. Se declara la fecha de cierre del periodo, como en el resto de la serie.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ventas -7.4 %, EBITDA -13.7 %, Beneficio después de impuestos -23.1 % contra el mismo periodo del ejercicio anterior, con Margen EBITDA en 22.5 % (banda del §10.1: verde ≥ 24.0, rojo < 22.0). La variación de las ventas del segmento tabaco es de −5,6 M€ (−5,8 M€ en el Q1): la señal única sigue a la baja. Según la empresa: menor volumen y peor mix en tabaco, caída de volúmenes en usos industriales, dólar débil, energía más cara (Ormuz) y paradas técnicas del Plan Inversor 2024-2026; anticipa que el segundo semestre seguirá por debajo de 2025.",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 155.998
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 35.059
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 22.47
+        },
+        {
+          "nombre": "BAI (M€)",
+          "valor": 24.557
+        },
+        {
+          "nombre": "BDI (M€)",
+          "valor": 18.725
+        },
+        {
+          "nombre": "Cash-flow después de impuestos (M€)",
+          "valor": 30.234
+        },
+        {
+          "nombre": "Posición financiera neta (M€)",
+          "valor": 54.684
+        },
+        {
+          "nombre": "Capital empleado (M€)",
+          "valor": 357.429
+        },
+        {
+          "nombre": "Ventas tabaco · variación (M€)",
+          "valor": -5.6
+        },
+        {
+          "nombre": "Ventas tabaco · variación (%)",
+          "valor": null
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Guidance",
+          "hecho": "La empresa prevé que los resultados del segundo semestre sigan mostrando una evolución desfavorable frente a 2025 por el encarecimiento de la energía (tensiones en Ormuz) y no da estimación para el cierre del ejercicio.",
+          "impacto": "-",
+          "valoracion": "Confirma que el rojo no es un trimestre aislado: el riesgo dominante del §8.1 (energía) está activo. Es lo que tiene que juzgar la Nota de la S2."
+        },
+        {
+          "tipo": "Dividendo",
+          "hecho": "La empresa declara que su posición financiera le permite mantener la política de dividendos y el plan de inversiones.",
+          "impacto": "=",
+          "valoracion": "Caja neta de 54,7 M€ a junio: el dividendo no está en juego a corto plazo, aunque la caja neta baja 11,2 M€ en el semestre."
+        },
+        {
+          "tipo": "Recompra",
+          "hecho": "Reducción de capital de 5 M€ mediante amortización de 2.500.000 acciones propias, inscrita el 5-ago-2026 (37.500.000 acciones), y nuevo programa de recompra comunicado a la CNMV el 18-jun-2026.",
+          "impacto": "+",
+          "valoracion": "Ya recogido en el análisis del 25-sep (acciones en circulación 37,5 M)."
+        }
+      ],
+      "origen": "monitor-trimestral"
     }
   ]
 }

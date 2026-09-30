@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MCM · Nota de Revisión Extraordinaria · S1-2026</title>
+
+<style>
+:root{--corp:#813F09;--corp-dark:#5A2C06;--corp-light:#F4EEE9}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Miquel y Costas</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Revisión Extraordinaria</span>
+        <span class="badge badge-sig">S1-2026</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">MCM · Mercado Continuo<br>Fecha: 30-sep-2026<br>Plazo señal: 7 días · abierta el 25-sep, vence el 2-oct</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">16,28 €</div><div class="kpi-sub">sin cambios</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">12,85 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+26,7 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Margen EBITDA S1</div><div class="kpi-val amber">22,5 %</div><div class="kpi-sub">alarma §8.1 &lt; 22 %</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p>El monitor trimestral puso en <b>ROJO</b> el primer trimestre de 2026 —ventas −13,5 %, EBITDA −14,9 %, beneficio después de impuestos −22,5 % y margen EBITDA del 22,9 %— y abrió la S2 el 25-sep. El informe del primer semestre, publicado ahora, <b>repite el rojo</b>: cifra de negocios de 156,0 M€ (−7,4 %), EBITDA de 35,1 M€ (−13,7 %), beneficio después de impuestos de 18,7 M€ (−23,1 %) y margen EBITDA del <b>22,5 %</b>, frente al 24,1 % del primer semestre de 2025. La regla del monitor da rojo cuando dos de las tres magnitudes caen con el margen por debajo del 24 %, y aquí caen las tres. La señal única de la tesis, la variación de las ventas del segmento tabaco, es de <b>−5,6 M€</b> en el semestre (−5,8 M€ en el trimestre).</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Las cifras salen del Informe Financiero Semestral del primer semestre de 2026 en el modelo de la CNMV, firmado por el consejo el 28-09-2026, y de su informe de gestión intermedio. La empresa explica la caída por un mix menos favorable y menos volumen en papel para tabaco (−5,6 M€ de ventas), menos volumen en usos industriales (−5,3 M€), el dólar débil, la energía más cara por las tensiones en Ormuz y las paradas técnicas del Plan Inversor 2024-2026. Y lo más importante para esta Nota: <b>prevé que el segundo semestre siga por debajo de 2025</b>, con los precios de la energía «en niveles excepcionalmente altos», y no da estimación para el cierre.</p>
+  <div class="cb-src">Fuente: «2026 Q2 Resultados Miquel y Costas.pdf» (IFS, modelo CNMV) y su «Informe de Gestión», en Informes/Trimestrales. No se ha usado ninguna fuente web.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Una parte del rojo es base de comparación y obras</div>
+    <div class="seg-body">El primer trimestre de 2025 estaba inflado por pedidos adelantados ante los aranceles, así que parte de la caída del Q1-2026 es efecto base: en el semestre la caída de ventas se modera del −13,5 % al −7,4 %. Las paradas técnicas del plan de inversiones son temporales, y la empresa dice que las máquinas reformadas en años anteriores ya aportan cada vez más. El balance no está en juego: caja neta de 54,7 M€ en junio, sin deuda neta, y la empresa mantiene su política de dividendo. Y ninguna de las dos alarmas que el análisis fijó para estos riesgos ha saltado todavía: el margen semestral sigue por encima del 22 % y el tabaco lleva un semestre de caída, no dos.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">El riesgo dominante del análisis se está materializando</div>
+    <div class="seg-body">La energía es el riesgo nº 2 del §8.1 y el que fija el bear case, y la empresa anticipa que el segundo semestre será peor con precios comparables a los de la guerra de Ucrania: en 2022 el margen cayó del 27,9 % al 18,0 %. El margen ya baja 1,6 puntos contra el primer semestre de 2025 y está a medio punto de la alarma. El tabaco, el 64 % de las ventas y el 88 % del resultado de explotación, vuelve a caer, y con la mayor caída de la serie del monitor (−5,8 M€ en el trimestre y −5,6 M€ en el semestre), por volumen y por mix, no sólo por la base. Y el dólar débil, que ya restó en 2025, sigue restando. La caja neta baja 11,2 M€ en el semestre por el circulante (+21,3 M€).</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Diagnóstico: deterioro real, dentro de lo que el análisis ya modela.</b> No es un trimestre aislado —el semestre y la guía de la empresa lo confirman—, pero tampoco ha roto nada de lo que la tesis dejó como línea roja: el margen semestral está en 22,5 % contra una alarma del 22 %, y el bear case ya descuenta un margen 5 puntos más bajo de forma permanente (11,31 €). Confianza media: la decisión depende del segundo semestre, que la empresa ya anticipa malo.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body"><b>Riesgo nº 2 · energía (Operativo, −12,20 a −30,49 %): en curso, sin alarma.</b> Margen semestral 22,5 % frente al 22 % que lo dispara. La cadena B del pre-mortem —«vuelve 2022 y esta vez no se recupera», −34,26 %, ancla del stop— pide dos semestres seguidos por debajo del 22 %: no ha empezado. <b>Riesgo nº 1 · tabaco (Estructural):</b> un semestre de caída (−5,6 M€) después de uno que creció (+1,9 M€ en el segundo de 2025); la alarma y la cadena A piden dos seguidos. <b>Riesgo nº 4 · dólar:</b> sigue activo; el resultado de productos industriales baja sólo 0,3 M€ en el semestre. La probabilidad del riesgo nº 2 sube de hecho, y así se deja escrito.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body"><b>La tesis sigue en pie, con el bull case debilitado.</b> El PO base de 16,28 € no depende de los catalizadores, y la cotización (12,85 €) está dentro de la banda de entrada (11,31–14,16 €) y lejos del stop (10,25 €). El catalizador nº 2 —EBITDA de 2026 por encima de 80 M€— queda prácticamente descartado (35,1 M€ en el semestre y un segundo semestre peor), así que el bull case de 20,95 € pierde una de sus tres patas. El bear case (11,31 €, energía en su extremo duro) es el escenario que el semestre hace más probable, y ya está en la banda.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Checklist B4</span><span><span class="pill a">1 blando</span> Predictores de recorte del dividendo: ningún duro (la cobertura sobre <i>owner earnings</i> era de 1,95x en 2025); un blando activo, el EBITDA cayendo con guía desfavorable. Resultado: vigilar el dividendo, sin S2 por dividendo.</span></div><div class="tool-row"><span class="tool-name">Dividend Safety</span><span><span class="pill g">78 · Seguro</span> Sin re-ejecutar: es anual y no hay ejercicio nuevo. La caja neta de 54,7 M€ y la política de dividendo mantenida no cambian la lectura.</span></div><div class="tool-row"><span class="tool-name">Forense / Reverse DCF</span><span><span class="pill g">no aplican</span> El gatillo es de márgenes, no de contabilidad ni de valoración: no se re-ejecutan con un semestre sin auditar.</span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Miquel y Costas por primera vez, a 12,85 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la tendría en vigilancia o la descartaría?</div>
+  <div class="anchor-a">La tendría en vigilancia con una posición pequeña, que es exactamente lo que dice MANTENER. El precio está dentro de la banda, el margen de seguridad es del +26,7 %, el rating es A y no hay deuda. Pero no ampliaría en firme hoy: el análisis ya dejó fuera la compra por la pérdida hasta el bear, y el semestre acerca justo ese escenario. La respuesta coincide con la decisión vigente; no hay contradicción que obligue a cambiarla.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">MANTENER con PO 16,28 €, banda de entrada 11,31–14,16 € y stop 10,25 €, sin cambios. El deterioro es real pero está dentro del bear case y no ha cruzado ninguna alarma del §8.1. Se revisa de nuevo si el margen EBITDA semestral baja del 22 % o si las ventas del tabaco caen un segundo semestre, lo que se sabrá con los resultados del ejercicio 2026.</div>
+  <div class="action-line">Acción: mantener sin ampliar; esperar a los resultados de 2026 (feb-2027)</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="disclaimer">Nota de Revisión Extraordinaria del Método KH&amp;Claude. Cierra la señal S2 abierta el 25-sep-2026 (§10.5 de la pestaña Vigilancia). Cifras del Informe Financiero Semestral del primer semestre de 2026 y del libro «Datos Financieros Miquel y Costas.xlsx»; cotización del histórico de cierres del método (29-sep-2026). No es una recomendación de inversión. 30-sep-2026.</div>
+
+</div></body></html>
