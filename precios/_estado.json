@@ -1,1 +1,875 @@
-{"actualizado": "2026-09-30", "provisionales": [], "rezagados": [], "empresas": {"A3M": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ACS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ACX": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ADX": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ADZ": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AEDAS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AENA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AI": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AIR": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ALM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ALNT": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AMP": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AMS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ANA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ANE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "APAM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ARM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ART": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "AZK": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "BBVA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "BKT": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "BKY": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CABK": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CAF": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CCEP": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CEV": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CIE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CIRSA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "CLNX": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "COL": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "COXG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "DIA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "EBRO": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ECO": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ECR": {"ultima": "2026-09-22", "provisional": false, "confirmadoHasta": "2026-09-22", "sinConfirmar": []}, "ELE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ENC": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ENG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ENO": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "EZE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "FAE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "FCC": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "FDR": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "FER": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "GEST": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "GIGA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "GRE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "GRF": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "GSJ": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "HOME": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "IAG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "IBE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "IBEX": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "IBG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "IDR": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ITX": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "LDA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "LGT": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "LLN": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "LOG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MAKS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MAP": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MCM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MEL": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MRL": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MTS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "MVC": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "NEA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "NTGY": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "NXT": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "NYE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "OHLA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "OLE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ORY": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PHM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PRM": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PRS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PSG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PUIG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "PVA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "R4": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "RED": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "REN": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "REP": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "RIO": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "RJF": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "RLIA": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "ROVI": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "SAB": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "SAN": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "SCYR": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "SEC": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "SLR": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "TEF": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "TLGO": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "TRE": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "TRG": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "TUB": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "UBS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "UNI": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "VID": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "VIS": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}, "VOC": {"ultima": "2026-09-29", "provisional": false, "confirmadoHasta": "2026-09-29", "sinConfirmar": []}}}
+{
+"actualizado": "2026-09-30",
+"provisionales": [
+"A3M",
+"ACS",
+"ACX",
+"ADZ",
+"AEDAS",
+"AENA",
+"AIR",
+"ALM",
+"ALNT",
+"AMP",
+"AMS",
+"ANA",
+"ANE",
+"APAM",
+"ARM",
+"ART",
+"AZK",
+"BBVA",
+"BKT",
+"CABK",
+"CAF",
+"CCEP",
+"CEV",
+"CIE",
+"CIRSA",
+"CLNX",
+"COL",
+"COXG",
+"DIA",
+"EBRO",
+"ECO",
+"ELE",
+"ENC",
+"ENG",
+"ENO",
+"FAE",
+"FCC",
+"FDR",
+"FER",
+"GEST",
+"GIGA",
+"GRE",
+"GRF",
+"GSJ",
+"HOME",
+"IAG",
+"IBE",
+"IBG",
+"IDR",
+"ITX",
+"LGT",
+"LOG",
+"MAKS",
+"MAP",
+"MCM",
+"MEL",
+"MRL",
+"MTS",
+"MVC",
+"NEA",
+"NTGY",
+"ORY",
+"PHM",
+"PRM",
+"PRS",
+"PSG",
+"PUIG",
+"R4",
+"RED",
+"REP",
+"RJF",
+"ROVI",
+"SAB",
+"SAN",
+"SCYR",
+"SLR",
+"TEF",
+"TLGO",
+"TRE",
+"TUB",
+"UNI",
+"VID",
+"VIS"
+],
+"rezagados": [],
+"empresas": {
+"A3M": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ACS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ACX": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ADX": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"ADZ": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AEDAS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AENA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AI": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"AIR": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ALM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ALNT": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AMP": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AMS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ANA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ANE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"APAM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ARM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ART": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"AZK": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"BBVA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"BKT": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"BKY": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"CABK": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CAF": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CCEP": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CEV": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CIE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CIRSA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"CLNX": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"COL": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"COXG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"DIA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"EBRO": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ECO": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ECR": {
+"ultima": "2026-09-22",
+"provisional": false,
+"confirmadoHasta": "2026-09-22",
+"sinConfirmar": []
+},
+"ELE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ENC": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ENG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ENO": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"EZE": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"FAE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"FCC": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"FDR": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"FER": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"GEST": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"GIGA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"GRE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"GRF": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"GSJ": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"HOME": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"IAG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"IBE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"IBEX": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"IBG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"IDR": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"ITX": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"LDA": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"LGT": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"LLN": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"LOG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MAKS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MAP": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MCM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MEL": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MRL": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MTS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"MVC": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"NEA": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"NTGY": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"NXT": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"NYE": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"OHLA": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"OLE": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"ORY": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PHM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PRM": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PRS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PSG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PUIG": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"PVA": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"R4": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"RED": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"REN": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"REP": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"RIO": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"RJF": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"RLIA": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"ROVI": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"SAB": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"SAN": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"SCYR": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"SEC": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"SLR": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"TEF": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"TLGO": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"TRE": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"TRG": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"TUB": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"UBS": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+},
+"UNI": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"VID": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"VIS": {
+"ultima": "2026-09-30",
+"provisional": true,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": [
+"2026-09-30"
+]
+},
+"VOC": {
+"ultima": "2026-09-29",
+"provisional": false,
+"confirmadoHasta": "2026-09-29",
+"sinConfirmar": []
+}
+}
+}
