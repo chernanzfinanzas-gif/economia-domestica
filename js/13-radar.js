@@ -273,11 +273,22 @@ function _radCalcPos(cands){ var y=(typeof _radarYears!=='undefined')?_radarYear
 }
 /* Celda compacta que lleva Posición + Nivel: mini-barra con el % y color por nivel
    (verde=zona baja/barato · ámbar=media · rojo=zona alta/caro). */
-function _radPosCell(st,c){ if(!st){ var _mot=(c&&c.posSinPrecio)?'Sin cotización: no se puede situar el precio en su rango':'Sin histórico de precios suficiente para el periodo'; return '<span class="muted" title="'+_mot+'">—</span>'; } var pos=st.pos; var col=pos<33?'#16a34a':(pos<66?'#d97706':'#dc2626');
-  return '<span style="display:inline-flex;align-items:center;gap:3px;white-space:nowrap">'
+function _radPosCell(st,c){ if(!st){ var _mot=(c&&c.posSinPrecio)?'Sin cotización: no se puede situar el precio en su rango':'Sin histórico de precios suficiente para el periodo'; return '<span class="muted" title="'+_mot+'">—</span>'; } var pos=st.pos; var col=pos<33?'#16a34a':(pos<66?'#d97706':'#dc2626'); var vd=c?_radValDossier(c.t):null; var tip='Posición '+pos.toFixed(0)+'% del rango de precios de los últimos años (alto en su rango no es lo mismo que caro).'; if(vd){ col=vd.col; tip='Color de TU análisis: '+vd.txt+'. '+tip; }
+  return '<span title="'+_radEsc(tip)+'" style="cursor:help;display:inline-flex;align-items:center;gap:3px;white-space:nowrap">'
     +'<span style="position:relative;display:inline-block;width:32px;height:7px;background:linear-gradient(90deg,#dcfce7,#fef9c3,#fee2e2);border-radius:4px;border:1px solid #e5e7eb"><i style="position:absolute;left:'+pos.toFixed(0)+'%;top:-2px;width:2px;height:11px;background:'+col+';transform:translateX(-1px);border-radius:1px"></i></span>'
     +'<b style="color:'+col+';font-size:10px">'+pos.toFixed(0)+'</b></span>';
 }
+/* [01-oct-2026] En las empresas CON dossier el color no sale del rango de precios sino del
+   análisis propio: verde = en zona de entrada (precio ≤ entMax) · ámbar = entre la entrada y el
+   PO base · rojo = por encima del PO base. El rango de 3 años mide el precio contra su propia
+   historia, no contra el valor: con el mercado en máximos pintaba de rojo hasta los COMPRAR
+   (NTGY, LOG, A3M) y de verde un ESPERAR por encima de su entrada (VIS). */
+function _radValDossier(t){ t=(t||'').toUpperCase(); var a=(typeof DB!=='undefined'&&DB.analisis||[]).find(function(x){return (x.ticker||'').toUpperCase()===t;}); if(!a)return null;
+  var c=(typeof precioDe==='function')?num(precioDe(a)):num(a.cotizacion); var em=num(a.entMax); var po=(typeof poBaseDe==='function')?num(poBaseDe(a)):num(a.precioObjetivo);
+  if(!(c>0)||!(em>0))return null; var z=(c<=em)?'v':((po>0&&c>=po)?'r':'a');
+  var f2=function(x){return x.toFixed(2).replace('.',',');};
+  var txt=(z==='v')?'En zona de entrada de tu análisis (precio '+f2(c)+' ≤ entrada máx. '+f2(em)+')':(z==='r'?'Por encima de tu PO base (precio '+f2(c)+' ≥ PO '+f2(po)+')':'Entre tu entrada máx. ('+f2(em)+') y tu PO base ('+(po>0?f2(po):'—')+')');
+  return {z:z,c:c,em:em,po:po,txt:txt,col:{v:'#16a34a',a:'#d97706',r:'#dc2626'}[z]}; }
 function _radNivTxt(pos){ return pos<33?'bajo':(pos<66?'medio':'alto'); }
 /* Crecimiento del dividendo: CAGR del DPA bruto (dividendos.json/evoDiv) del último año con dato
    real a ~5 años antes. -99 = suspendido (último dividendo 0). */
@@ -340,9 +351,19 @@ function _radAlertas(c){ var out=[];
     else if(c.crecDiv<=-1)out.push({s:'r',t:'Dividendo decreciente',d:'Crecimiento del dividendo negativo (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
     else if(c.crecDiv<1)out.push({s:'a',t:'Dividendo estancado',d:'El dividendo apenas crece (CAGR '+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'});
     else if(c.crecDiv>=6)out.push({s:'v',t:'Dividendo creciente',d:'Buen crecimiento del dividendo (CAGR +'+c.crecDiv.toFixed(1).replace('.',',')+'% a ~5 años).'}); }
-  if(c.posN!=null){ if(c.posN>=66)out.push({s:'a',t:'Precio en zona alta (caro)',d:'Posición '+c.posN.toFixed(0)+'% del rango de los últimos años; poco margen de entrada.'});
-    else if(c.posN<=33)out.push({s:'v',t:'Precio en zona baja',d:'Posición '+c.posN.toFixed(0)+'% del rango; cerca de mínimos de los últimos años.'}); }
-  var nota=(c.nota||'').trim(); if(nota)out.push({s:'a',t:'Nota',d:nota});
+  /* [01-oct-2026] Precio: con dossier manda TU análisis; sin dossier, el rango (y sin llamarlo «caro»). */
+  var vd=_radValDossier(c.t);
+  if(vd){ if(vd.z==='v')out.push({s:'v',t:'En zona de entrada',d:vd.txt+'.'}); else if(vd.z==='r')out.push({s:'a',t:'Por encima de tu precio objetivo',d:vd.txt+'.'}); }
+  else if(c.posN!=null){ if(c.posN>=66)out.push({s:'a',t:'Alto en su rango',d:'Posición '+c.posN.toFixed(0)+'% del rango de precios de los últimos años. Es el precio contra su propia historia, no contra su valor.'});
+    else if(c.posN<=33)out.push({s:'v',t:'Bajo en su rango',d:'Posición '+c.posN.toFixed(0)+'% del rango; cerca de mínimos de los últimos años.'}); }
+  /* [01-oct-2026] Antes la «nota» del Atractivo se pintaba ENTERA en naranja: «seguridad Seguro»
+     (2ª mejor banda), «payout alto» en empresas cuya seguridad real es 90, «sin dividendo»… Ahora
+     cada cosa con su peso. Con Dividend Safety, el payout lo juzga él (la trampa <40 ya va arriba). */
+  var b=c.ds&&c.ds.score!=null?c.ds.banda:null;
+  if(b==='Vigilar')out.push({s:'a',t:'Seguridad del dividendo: Vigilar',d:'Dividend Safety '+c.ds.score+' de tu análisis.'});
+  else if((b==='Frágil'||b==='Recorte probable')&&!c.trampa)out.push({s:'r',t:'Seguridad del dividendo: '+b,d:'Dividend Safety '+c.ds.score+' de tu análisis.'});
+  if(!b&&c.f&&c.f.payout&&c.f.payout>RAD_PAYALTO)out.push({s:'a',t:'Payout alto',d:'Reparte el '+c.f.payout.toFixed(0)+'% del beneficio (umbral '+RAD_PAYALTO+'%).'});
+  if(c.f&&(c.f.flags||[]).some(function(x){return /irregular/i.test(x);}))out.push({s:'a',t:'Posible dividendo extraordinario',d:'Lo cobrado en 12 meses supera claramente lo del año anterior: la RPD puede estar inflada.'});
   return out;
 }
 function _radAlertBadge(c){ var al=_radAlertas(c); _radAlertMap[c.t]=al; if(!al.length)return '<span style="color:#cbd5e1">·</span>';
@@ -421,7 +442,7 @@ function _radBuild(sec){
     '</div>'+
     '<div id="radPromoPanel"></div>'+'<div class="rad-table"><table><thead><tr>'+
       '<th class="l">★</th><th class="l s" data-radsk="atr" title="Atractivo de CRIBA del universo: 35 % dividendo · 35 % calidad · 30 % valoración. Ordena a quién dedicarle un análisis. No es el mismo número que el «Interés» de Visión de conjunto ni que el del Kanban: responden a preguntas distintas. [C11 · 27-jul-2026]">Atractivo <span style="opacity:.55;font-weight:600">· criba</span></th><th class="l">Empresa</th><th class="l">Arquetipo</th>'+
-      '<th class="s" data-radsk="rpd">RPD</th><th class="s" data-radsk="crec" title="Crecimiento anualizado del dividendo (CAGR ~5 años)">Crec.Div</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="s" data-radsk="posN" title="Posición del precio en el rango de los últimos '+_ry+' años (verde=zona baja/barato · rojo=zona alta/caro)">Pos.'+_ry+'a</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l" title="Alertas — pulsa la señal para ver el detalle">⚠</th>'+
+      '<th class="s" data-radsk="rpd">RPD</th><th class="s" data-radsk="crec" title="Crecimiento anualizado del dividendo (CAGR ~5 años)">Crec.Div</th><th title="Payout (dividendo / beneficio)">Pay.</th><th class="s" data-radsk="roe">ROE</th><th title="Deuda neta / EBITDA">DN/EB</th><th class="s" data-radsk="per">PER</th><th>P/BV</th><th class="s" data-radsk="pos52sem">52s</th><th class="s" data-radsk="posN" title="Posición del precio en el rango de los últimos '+_ry+' años (sin dossier: verde=zona baja · rojo=zona alta de su rango; CON dossier el color es el de tu análisis: verde=en zona de entrada · ámbar=entre entrada y PO · rojo=sobre el PO)">Pos.'+_ry+'a</th><th class="l">Rating</th><th class="l" title="Dividend Safety Score de las empresas ya analizadas">Seg.</th><th class="l" title="Capa forense (Piotroski / Altman / Beneish / Sloan): ✓ sin alertas · ⚠️ alerta · VETO fraude/insolvencia">For.</th><th class="l" title="Índice de confianza del dato del dossier (A verde · B ámbar · C rojo)">Conf.</th><th class="l" title="Robustez de la decisión ante ±sensibilidad (sólida verde · sensible ámbar)">Rob.</th><th class="l" title="Alertas — pulsa la señal para ver el detalle">⚠</th>'+
     '</tr></thead><tbody id="radBody"></tbody></table></div>'+
     '<div class="rad-cards" id="radCards"></div>'+
     '<div class="muted" style="font-size:11px;margin-top:10px;line-height:1.5">El Atractivo es un filtro grueso, no una recomendación de compra. Marca ★ las que te encajen y pulsa «Añadir ★ a la cola» para llevarlas a Cobertura.</div>'+
@@ -488,7 +509,7 @@ function _radRenderList(){
         '<div class="m"><div class="l">PER</div><div class="v">'+_rf(f.per,'',1)+'</div></div>'+
         '<div class="m"><div class="l">P/BV</div><div class="v">'+_rf(f.pbv,'',2)+'</div></div>'+
         '<div class="m"><div class="l">Pos.52s</div><div class="v">'+_rf(f.pos52sem,'%',0)+'</div></div>'+
-        '<div class="m"><div class="l">Pos.'+((typeof _radarYears!=='undefined')?_radarYears:3)+'a</div><div class="v">'+(c.posN!=null?('<span style="color:'+(c.posN<33?'#16a34a':(c.posN<66?'#d97706':'#dc2626'))+'">'+c.posN.toFixed(0)+'% '+_radNivTxt(c.posN)+'</span>'):'—')+'</div></div>'+
+        '<div class="m"><div class="l">Pos.'+((typeof _radarYears!=='undefined')?_radarYears:3)+'a</div><div class="v">'+(c.posN!=null?(function(){var vd=_radValDossier(c.t); return '<span style="color:'+(vd?vd.col:(c.posN<33?'#16a34a':(c.posN<66?'#d97706':'#dc2626')))+'"'+(vd?' title="'+_radEsc(vd.txt)+'"':'')+'>'+c.posN.toFixed(0)+'% '+_radNivTxt(c.posN)+'</span>';})():'—')+'</div></div>'+
         (c.ds?'<div class="m"><div class="l">Seg. div.</div><div class="v" style="color:'+_radDsCol(c.ds.banda)+'">'+(c.ds.score!=null?c.ds.score:'n/a')+'</div></div>':'')+
         (function(){var fo=_radFo(c.t); if(!fo||!fo.aplica)return ''; var has=fo.flags&&fo.flags.length; var v=has&&_radFoVeto(fo); var lab=!has?'✓':(v?'⚠️ VETO':'⚠️'); var col=!has?'#16a34a':(v?'#991b1b':'#dc2626'); return '<div class="m"><div class="l">Forense</div><div class="v" style="color:'+col+'">'+lab+'</div></div>';})()+
         (function(){var cf=_radConf(c.t); if(!cf)return ''; return '<div class="m"><div class="l">Confianza</div><div class="v" style="color:'+(_RAD_CFCOL[cf]||'#64748b')+'">'+cf+'</div></div>';})()+

@@ -65,6 +65,36 @@ def div_12m(tk):
         return None, 0, None
 
 
+def div_media_previa(tk, anios=3):
+    """Dividendo de REFERENCIA (año anterior; si no hubo pago, media) de dividendos REALES en los `anios` periodos de 365 días ANTERIORES a los
+    últimos 12 meses (solo periodos con pago). None si no hay historia previa.
+    [01-oct-2026] Sirve de referencia para la marca «dividendo irregular»: la regla vieja
+    (≤2 pagos y el mayor >60 %) marcaba a todo el que paga una vez al año o a cuenta +
+    complementario desiguales — 43 de 102 empresas, BBVA, AENA o Vidrala incluidas."""
+    try:
+        s = tk.dividends
+        if s is None or len(s) == 0:
+            return None
+        import pandas as pd
+        hoy = pd.Timestamp(dt.datetime.now())
+        if getattr(s.index, "tz", None) is not None:
+            hoy = hoy.tz_localize(s.index.tz) if hoy.tzinfo is None else hoy.tz_convert(s.index.tz)
+        tot = []
+        for k in range(1, anios + 1):
+            a = hoy - pd.Timedelta(days=365 * (k + 1)); b = hoy - pd.Timedelta(days=365 * k)
+            v = float(s[(s.index >= a) & (s.index < b)].sum())
+            if v > 0:
+                tot.append(v)
+        if not tot:
+            return None
+        # Referencia = el año anterior; si ese año no hubo pago, la media de los que sí.
+        # (Contra la media de 3 años, un dividendo que crece deprisa —BBVA— parecía extraordinario.)
+        v1 = float(s[(s.index >= hoy - pd.Timedelta(days=730)) & (s.index < hoy - pd.Timedelta(days=365))].sum())
+        return round(v1, 4) if v1 > 0 else round(sum(tot) / len(tot), 4)
+    except Exception:
+        return None
+
+
 def pull(ticker, symbol):
     tk = yf.Ticker(symbol)
     try:
@@ -96,8 +126,11 @@ def pull(ticker, symbol):
     dnEbit = round((debt - cash) / ebitda, 2) if (debt is not None and cash is not None and ebitda and ebitda > 0) else None
 
     flags = []
-    if d12 and dmax and ndiv <= 2 and dmax > 0.60 * d12:
-        flags.append("dividendo irregular (posible extraordinario / pago único)")
+    # [01-oct-2026] Irregular = lo cobrado en 12 meses supera en más de un 50 % lo del año
+    # anterior (o la media de 3 años si ese año no pagó) (un extraordinario de verdad). Ya no se mira cómo se reparten los pagos.
+    dprev = div_media_previa(tk)
+    if d12 and dprev and d12 > 1.5 * dprev:
+        flags.append("dividendo irregular (posible extraordinario: 12m = %.1fx el año anterior)" % (d12 / dprev))
     if eps is not None and eps <= 0:
         flags.append("BPA<=0 (payout/PER no fiables)")
     cur = info.get("currency")
@@ -112,7 +145,7 @@ def pull(ticker, symbol):
         "moneda": cur,
         "precio": precio, "marketCap": _n(info.get("marketCap")),
         # dividendo (crudo + derivado)
-        "div12m": d12, "nDiv12m": ndiv, "divMax12m": dmax,
+        "div12m": d12, "nDiv12m": ndiv, "divMax12m": dmax, "divMedia3a": dprev,
         "rpd": rpd, "payout": payout,
         # beneficio / valoración
         "bpa": eps, "bpaFwd": epsF, "per": per, "perFwd": perF,
