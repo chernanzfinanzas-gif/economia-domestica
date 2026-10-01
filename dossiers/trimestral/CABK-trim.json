@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 2,
+  "ticker": "CABK",
+  "empresa": "CaixaBank",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE está en 10.5 %, por debajo del corte rojo (13.4), y eso basta (regla del §10.1).",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2163.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 3101.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 855.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 10.5
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.6
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.26
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 48.6
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 361077.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 614608.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el RoTE está en 12.0 %, por debajo del corte rojo (13.4), y eso basta (regla del §10.1).",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 4624.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 6673.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2137.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 12.0
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.27
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 46.0
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 363952.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 627824.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 7364.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 10689.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 3659.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.1
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.3
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 42.7
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 355057.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 619323.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 10113.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 14231.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 4816.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.4
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.28
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 40.9
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 354098.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 630330.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +28.6 %, Margen bruto +12.7 %, Resultado atribuido +17.5 % contra el mismo periodo del ejercicio anterior, con el RoTE en 15.8 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 5.3 puntos sobre el mismo periodo del ejercicio anterior (15.8 % frente a 10.5 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2781.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 3496.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 1005.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 15.8
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.8
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.29
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 40.3
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 354755.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 636490.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +20.5 %, Margen bruto +15.4 %, Resultado atribuido +25.2 % contra el mismo periodo del ejercicio anterior, con el RoTE en 16.9 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 4.9 puntos sobre el mismo periodo del ejercicio anterior (16.9 % frente a 12.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 5572.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 7701.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2675.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.2
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.29
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.0
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 361646.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 667424.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +13.6 %, Margen bruto +10.3 %, Resultado atribuido +16.1 % contra el mismo periodo del ejercicio anterior, con el RoTE en 16.9 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 2.8 puntos sobre el mismo periodo del ejercicio anterior (16.9 % frente a 14.1 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 8367.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 11793.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 4248.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.9
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.2
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.7
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.28
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.2
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 354507.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 673832.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +9.8 %, Margen bruto +11.5 %, Resultado atribuido +20.2 % contra el mismo periodo del ejercicio anterior, con el RoTE en 18.1 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 2.5 puntos sobre el mismo periodo del ejercicio anterior (18.1 % frente a 15.6 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 11108.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 15873.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 5787.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.1
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.2
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.27
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.5
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 361214.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 685365.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -4.9 %, Margen bruto +14.7 %, Resultado atribuido +46.3 % contra el mismo periodo del ejercicio anterior, con el RoTE en 19.4 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 3.6 puntos sobre el mismo periodo del ejercicio anterior (19.4 % frente a 15.8 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2646.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 4011.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 1470.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.4
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.5
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.25
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 37.7
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 364159.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 690523.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -5.2 %, Margen bruto +4.4 %, Resultado atribuido +10.3 % contra el mismo periodo del ejercicio anterior, con el RoTE en 18.5 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 1.6 puntos sobre el mismo periodo del ejercicio anterior (18.5 % frente a 16.9 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 5282.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 8040.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 2951.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.5
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.3
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.24
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 38.6
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 377649.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 717652.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -4.9 %, Margen bruto +2.8 %, Resultado atribuido +3.5 % contra el mismo periodo del ejercicio anterior, con el RoTE en 17.8 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado sube 0.9 puntos sobre el mismo periodo del ejercicio anterior (17.8 % frente a 16.9 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 7957.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 12118.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 4397.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.8
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.4
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.3
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.24
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.2
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 376691.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 720242.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses -3.9 %, Margen bruto +2.5 %, Resultado atribuido +1.8 % contra el mismo periodo del ejercicio anterior, con el RoTE en 17.5 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado cae 0.6 puntos sobre el mismo periodo del ejercicio anterior (17.5 % frente a 18.1 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 10671.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 16270.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 5891.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.5
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.6
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 2.1
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.22
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.4
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 384334.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 731936.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +0.6 %, Margen bruto +2.9 %, Resultado atribuido +6.9 % contra el mismo periodo del ejercicio anterior, con el RoTE en 17.6 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado cae 1.8 puntos sobre el mismo periodo del ejercicio anterior (17.6 % frente a 19.4 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 2662.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 4127.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 1572.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 17.6
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 1.98
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.23
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.6
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 388183.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 733975.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los 14 informes «Actividad y Resultados» de CaixaBank imprime su fecha de publicación (comprobado uno a uno en la portada y las primeras páginas: la única fecha es la de la directriz de ESMA citada en el aviso legal). Cada revisión lleva la fecha de CIERRE del periodo, y no es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen de intereses +2.0 %, Margen bruto +3.7 %, Resultado atribuido +8.5 % contra el mismo periodo del ejercicio anterior, con el RoTE en 18.0 % (banda del §10.1: verde ≥ 17.5, rojo < 13.4). El RoTE publicado cae 0.5 puntos sobre el mismo periodo del ejercicio anterior (18.0 % frente a 18.5 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 5390.0
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 8338.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 3203.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.0
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Ratio de morosidad (%)",
+          "valor": 1.78
+        },
+        {
+          "nombre": "Coste del riesgo (%)",
+          "valor": 0.24
+        },
+        {
+          "nombre": "Ratio de eficiencia (%)",
+          "valor": 39.6
+        },
+        {
+          "nombre": "Crédito a la clientela bruto (M€)",
+          "valor": 406233.0
+        },
+        {
+          "nombre": "Recursos de clientes (M€)",
+          "valor": 771943.0
+        }
+      ],
+      "origen": "revolcado"
+    }
+  ]
+}

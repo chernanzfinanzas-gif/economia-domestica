@@ -1,0 +1,313 @@
+{
+ "schemaVersion": 8,
+ "ticker": "CABK",
+ "empresa": "CaixaBank, S.A.",
+ "fecha": "2026-10-01",
+ "rating": "AA",
+ "score": 75.7,
+ "decision": "ESPERAR",
+ "metodoValoracion": "P/TBV justificado por exceso de rentabilidad —(RoTE − g) / (CoE − g) × VCPA-T, rama BANCA— en tres escenarios (42 % del peso) más tres múltiplos históricos de diez años (23 %) y la rentabilidad por dividendo media (35 %). El PO oficial es la síntesis ponderada de las siete patas del §6.5. Sin DCF de flujo de caja libre, que en un banco no aplica.",
+ "poBear": 6.49,
+ "poBase": 7.66564972601827,
+ "poBull": 9.46,
+ "entMin": 6.49,
+ "entMax": 6.67,
+ "stop": 2.98,
+ "dpaPrevisto": 0.5,
+ "moat": "63,8 · MOAT MODERADO (sobre 100) con los pesos de la norma de banca: costes de cambio 68 (35 %), escala eficiente 72 (25 %), intangibles 60 (20 %), efecto de red 45 (15 %) y ventaja de costes 65 (5 %). Horquilla de ponderación 57,5-66,5: en el extremo malo sería ESTRECHO. La ventaja es la franquicia minorista española: escala y vinculación del cliente.",
+ "catalizadores": [
+  "El RoTE llega a «alrededor del 20 %» en 2027 (6-18 meses · +23,44 % sobre el PO). Disparador: RoTE publicado ≥ 19 % cuatro trimestres seguidos.",
+  "Recompra extraordinaria SBB VIII de 500 M€ (0-6 meses · −0,21 % sobre el PO): sube el BPA un 0,57 % pero se compra a 2,66 veces el valor tangible.",
+  "Se recupera el IMIC de 2024, 580 M€ que el banco tiene como activo (6-24 meses · 0,00 %): elimina el extremo suave del riesgo fiscal, sin ganancia.",
+  "Salida ordenada del FROB, 18,08 % (sin fecha · impacto no derivable): actuaría sobre el múltiplo de mercado, no sobre el valor del método."
+ ],
+ "riesgos": [
+  "Financiero · Media · −15,39 a −30,79% · El margen de intereses vuelve a los tipos de 2016-2019.",
+  "Político · Media · −0,90 a −12,19% · El IMIC sube o se duplica.",
+  "Macroeconómico · Baja-Media · −6,25 a −25,87% · Recesión española con la vivienda: coste del riesgo al 0,348-0,75 %.",
+  "Gobernanza · Media · −2,93 a −5,86% · Accionistas de control (Criteria 31,269 % y FROB 18,082 %).",
+  "Competitivo · Baja-Media · −5,65 a −14,12% · Competencia por el depósito (+10 a +25 pb).",
+  "Societario · Baja-Media · −0,63 a −1,26% · Litigios: provisiones de 1.193 M€ y demanda de Mapfre sin cuantía.",
+  "Ciberseguridad · Baja · −0,23 a −0,94% · Interrupción de 5 a 20 días en un banco con 12,7 M de clientes digitales."
+ ],
+ "bull": "9,46 € (+23,44 % sobre el PO). El catalizador nº 1 cumplido: el RoTE sostenible llega a la guía de 2027, «alrededor del 20 %». Aun así queda un 24,98 % POR DEBAJO de la cotización de 12,61 €: ni el escenario bueno justifica el precio.",
+ "bear": "6,49 € (0,847 × PO). El riesgo dominante del §8.1 —el ciclo de tipos— en su extremo SUAVE: el NIM recorre parte del camino a su media de 2016-2019 y el RoTE sostenible pierde 2,5 pp. La catástrofe es la cadena B del §8.2, recesión española con la vivienda (3,42 €), que ancla el stop.",
+ "resumen": "Banco de calidad AA (75,7 sobre 100) que hoy crea valor —RoTE 17,5 % contra un coste del capital del 9,43 %— y cotiza muy por encima de lo que su rentabilidad sostenible justifica. Tres de las cuatro condiciones de COMPRAR se cumplen; falla el margen de seguridad, −39,21 % sobre 12,61 €. El precio exige un RoTE perpetuo del 21,77 %, 1,62 veces el central (13,4 %). Veredicto de precio, no de empresa: ESPERAR a la banda de 6,49-6,67 €.",
+ "confianza": {
+  "score": 94,
+  "nivel": "A",
+  "motivos": [
+   "3 dato(s) secundario(s) en 'Pte. Revisión' (−6)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-01"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 6.49,
+   "p50": 7.66564972601827,
+   "p90": 9.46
+  },
+  "sensibilidad": {
+   "sobre": "modelo",
+   "regla": "F100",
+   "poMin": 6.13,
+   "poMax": 8.77,
+   "poBase": 7.27267833109018,
+   "cotizacion": 12.61,
+   "cotizacionBase": "actual",
+   "componente": null,
+   "pesoPerturbado": 1.0,
+   "componentesIntactos": 0,
+   "dcf": {
+    "poMin": 6.13,
+    "poMax": 8.77,
+    "poBase": 7.27267833109018
+   },
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -51.4,
+   "mdsMax": -30.4
+  },
+  "beta": {
+   "capm": 1.069,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (12.61) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [6.13–8.77] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-51.4 % … -30.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
+  ],
+  "calculadoEl": "2026-10-01"
+ },
+ "dividendSafety": {
+  "score": 69,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {
+   "C1": 16,
+   "C2": 20,
+   "C3": 20,
+   "C4": 3,
+   "C5": 10
+  },
+  "shareholderYield": 5.56,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 pay-out dividendo (DPA/BPA) 63% → 16/30",
+   "C2 CET1 12.6% → 20/25",
+   "C3 RoTE 17.5% → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 10a · DPA creciente → 3/15",
+   "C5 predictores: ninguno → 10/10",
+   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+  ],
+  "calculadoEl": "2026-10-01"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-10-01"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+  "calculadoEl": "2026-10-01"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-01",
+  "rama": "financiera",
+  "subrama": "banca",
+  "fuente": "Datos Financieros CaixaBank.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "retiene mucho y lo retenido le rinde",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 9.43,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 51.1,
+   "valorTangible5a": 12.56,
+   "valorTangible10a": 8.4,
+   "roteMedio": 10.57,
+   "spread": 8.07,
+   "coe": 9.43,
+   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
+   "tension": 3.55,
+   "tensionAnio": 2025,
+   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
+   "tensionUnidad": "pp",
+   "repartosExtraordinarios": {}
+  },
+  "tension": {
+   "anios": [
+    2016,
+    2020,
+    2021,
+    2025
+   ],
+   "rote": [
+    5.6,
+    6.1,
+    7.6,
+    17.5
+   ],
+   "payoutTotal": [
+    74.3,
+    12.9,
+    23.7,
+    62.6
+   ],
+   "valorTangible": [
+    3.32,
+    3.56,
+    3.78,
+    4.73
+   ],
+   "capital": [
+    3.1,
+    5.5,
+    4.9,
+    3.5
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un banco minorista con una aseguradora dentro</b>: capta depósitos, presta y vende seguros, planes de pensiones y fondos por la misma red, casi todo en España. El 65,6 % de su ingreso es margen de intereses y la pata de seguros gana el 22,3 % del beneficio.",
+     "Su perímetro cambió en la década: BPI en 2017 y Bankia en 2021. Desde entonces recompra y amortiza acciones —de 8.061 millones a 7.025 millones—."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De una década partida en dos.</b> El RoTE estuvo en el 7,4 % de media en 2016-2020 y desde 2022 sube hasta el <b>17,5 %</b> de 2025, +8,07 pp por encima de un coste del capital del 9,43 %. Una parte de esa subida es negocio —las sinergias de Bankia, la eficiencia, los seguros— y otra es ciclo de tipos.",
+     "Por acción: el valor tangible pasó de 3,32 € en 2016 a <b>4,73 €</b> en 2025, más 2,12 € de dividendos por el camino: un 12,6 % anual en los últimos cinco años y un 8,4 % en la década. Retiene el 51,1 % de lo que gana de media."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el capital hay poca: el colchón de CET1 sobre lo que exige el BCE es de <b>3,5 puntos</b> en 2025, el más estrecho de los seis bancos cotizados porque el banco reparte todo lo que pasa de su objetivo. El payout total pasó del 23,7 % de 2021 al 62,6 % de 2025.",
+     "La tensión de verdad está en el ciclo: los tres riesgos mayores —tipos, recesión española y competencia por el depósito— golpean el mismo margen de intereses de la misma cartera española."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra CaixaBank compra <b>un banco que hoy crea valor por acción por encima de su coste</b>, a un precio que ya descuenta que la rentabilidad de hoy es permanente. La tesis de calidad se sostiene; la de precio, no.",
+     "<b>Qué vigilar cada trimestre:</b> el RoTE publicado contra el 13,4 % del caso central y el NIM contra el 1,42 %."
+    ]
+   }
+  ],
+  "vigilar": "El RoTE publicado contra el 13,4 % del caso central, y el NIM contra el 1,42 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Banco minorista con una aseguradora dentro: el 65,6 % de su ingreso es margen de intereses y el 90,9 % del beneficio sale de España.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: CET1 del 12,6 %, liquidez holgada y la mejor calidad de crédito de su historia; el colchón sobre el BCE es el más estrecho de los seis bancos, por decisión de reparto.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Rentable, ligada a tipos: RoTE del 17,5 %, +8,07 pp por encima de su coste del capital, sólo desde 2022.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: retiene mucho y lo retenido le rinde. Retiene el 51,1 % de lo que gana y su valor tangible por acción más dividendos crece un 12,6 % al año en cinco años, contra un coste del capital del 9,43 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Generosa y sostenible: reparte el 62,89 % del beneficio en dividendo y ha recomprado 4.800 M€ entre 2022 y 2025.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "AA · 75,7 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 7,67 € contra 12,61 €: margen de seguridad −39,2 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat moderado (63,8): la escala y la vinculación del cliente en la franquicia minorista española.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El ciclo de tipos: si el NIM vuelve a su media de 2016-2019, el precio objetivo cae entre un 15,39 % y un 30,79 %. Es el que fija el escenario pesimista.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el RoTE llegue a «alrededor del 20 %» en 2027, como guía el banco: lleva el valor a 9,46 €, aún por debajo del precio.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 6,49 – 6,67 € · stop de tesis 2,98 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El RoTE publicado contra el 13,4 % del caso central, y el NIM contra el 1,42 %: los dos miden lo mismo, cuánto de la rentabilidad de hoy es ciclo de tipos.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico abierto; quedan sin medir cómo pasó «la Caixa» la crisis de 2008, el calendario del FROB y la cuantía de la demanda de Mapfre.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
