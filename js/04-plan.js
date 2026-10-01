@@ -2289,6 +2289,15 @@ function renderMonitor(){
   const nm=t=>((DB.valores||{})[t]||{}).nombre||t;
   let pendInf=0, dosRe=0, qPend=0;
   const deskRows=[], mobCards=[];
+  /* [01-oct-2026 · MCM S1-2026] La casilla trimestral sólo se marcaba al ABRIR LA FICHA
+     (cargarTrimestral escribe DB.monitor[t].rev). Una revisión publicada en el -trim.json sin
+     abrir la ficha salía como «!» pendiente aunque estuviera hecha. Aquí se mira también el
+     -trim.json que el propio Monitor ya descarga (_cadTrim) y, si trae el periodo, se guarda en
+     DB.monitor[t].rev igual que hace la ficha. El clic manual sigue mandando para lo demás. */
+  const _trimTrae=(t,key)=>{ try{ const d=(typeof _cadTrim!=='undefined'&&_cadTrim)?_cadTrim[t]:null;
+      if(!d||!d.revisiones||typeof _trimCanon!=='function')return false;
+      return d.revisiones.some(r=>r&&_trimCanon(r.periodo)===key); }catch(e){ return false; } };
+  let _monChg=false;
   tickers.forEach(t=>{ const m=DB.monitor[t]||{}; const inf=!!m.informe; if(!inf)pendInf++;
     const rolInp=`<input class="anaInp mt-rol" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}">`;
     const infCell=`<button class="btn ghost sm" data-moninf="${t}">${inf?'<span class="pos">✓ Sí</span>':'<span class="muted">Pendiente</span>'}</button>${(inf&&m.informeFecha)?`<div class="muted" style="font-size:9px">${m.informeFecha}</div>`:''}`;
@@ -2296,7 +2305,7 @@ function renderMonitor(){
     const dosOver=(_m!=null&&_m>12); if(dosOver)dosRe++;
     let dosCell; if(!_df){ dosCell='<td class="ctr muted" style="font-size:10px">sin dossier</td>'; } else if(dosOver){ dosCell=`<td class="ctr" style="background:#fee2e2" title="Dossier de ${_df}"><span style="color:#dc2626;font-weight:700">⚠️ ${_m} m</span><div class="muted" style="font-size:9px">reanalizar</div></td>`; } else { dosCell=`<td class="ctr" title="Dossier de ${_df}"><span class="pos">${_m==null?'?':_m+' m'}</span><div class="muted" style="font-size:9px">${_df}</div></td>`; }
     let q, qm=[];
-    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; const done=(typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key]); const passed=_qPub(t,key); if(passed&&!done)qPend++; const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'<span class="mt-dot">·</span>'); qm.push({qc,key,done,passed}); return `<td class="ctr" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
+    if(inf){ q=['Q1','Q2','Q3','Q4'].map(qc=>{ const key=yr+'-'+qc; let done=(typeof _revHecha==='function')?_revHecha(m.rev,key):!!(m.rev&&m.rev[key]); if(!done&&_trimTrae(t,key)){ done=true; DB.monitor[t]=DB.monitor[t]||{}; DB.monitor[t].rev=DB.monitor[t].rev||{}; DB.monitor[t].rev[key]=true; _monChg=true; } const passed=_qPub(t,key); if(passed&&!done)qPend++; const bg=(passed&&!done)?'background:#fee2e2;':''; const mark=done?'<span class="pos">✓</span>':(passed?'<span style="color:#dc2626;font-weight:700">!</span>':'<span class="mt-dot">·</span>'); qm.push({qc,key,done,passed}); return `<td class="ctr" data-monrev="${t}|${key}" style="cursor:pointer;${bg}" title="${passed?'Informe publicado, pendiente de revisar':(done?'Revisado':'Aún no publicado')}">${mark}</td>`; }).join(''); }
     else { q='<td colspan="4" class="ctr muted" style="font-size:11px">Falta informe</td>'; }
     const _bg=(typeof statusRowBg==='function')?statusRowBg(t,held):'';
     deskRows.push(`<tr${_bg?` style="background:${_bg}"`:''}><td class="l" style="white-space:nowrap"><b class="mt-tk" data-ficha="${t}">${t}</b> <span class="nm">${nm(t)}</span>${(closed.has(t)&&!held.has(t)&&!plan.has(t))?' <span class="muted" style="font-size:9px">· cerrada</span>':''}</td><td class="l">${rolInp}</td><td class="ctr">${infCell}</td>${dosCell}${q}</tr>`);
@@ -2304,6 +2313,7 @@ function renderMonitor(){
     const qchips=inf?qm.map(o=>`<span class="mt-qch ${o.done?'ok':(o.passed?'bad':'')}" data-monrev="${t}|${o.key}">${o.qc} ${o.done?'✓':(o.passed?'!':'·')}</span>`).join(''):'<span class="mt-qch muted">falta informe</span>';
     mobCards.push(`<div class="mt-mcard"><div class="mt-mh"><div class="mt-tk" data-ficha="${t}" style="cursor:pointer">${t} <span class="nm">${(nm(t)||'').slice(0,20)}</span></div><div class="mt-badges">${badges}</div></div><div class="mt-mrow"><input class="anaInp mt-rol" data-mon="${t}|rol" value="${(m.rol||'').replace(/"/g,'&quot;')}" placeholder="Rol/Plan"><button class="btn ghost sm" data-moninf="${t}">${inf?'informe ✓':'marcar informe'}</button></div><div class="mt-mq">${qchips}</div></div>`);
   });
+  if(_monChg&&typeof scheduleSave==='function')scheduleSave();
   const head=`<tr><th class="l" rowspan="2">Empresa</th><th class="l" rowspan="2">Rol/Plan</th><th class="ctr" rowspan="2">Informe</th><th class="ctr" rowspan="2">Dossier</th><th class="ctr" colspan="4">Revisión trimestral ${yr}</th></tr><tr><th class="ctr">Q1</th><th class="ctr">Q2</th><th class="ctr">Q3</th><th class="ctr">Q4</th></tr>`;
   el.innerHTML=`<div class="pos-desk"><div class="ptable"><table><thead>${head}</thead><tbody>${deskRows.join('')}</tbody></table></div></div><div class="pos-mob">${mobCards.join('')}</div>`;
   if(kp)kp.innerHTML='<div class="pos-kpis">'
