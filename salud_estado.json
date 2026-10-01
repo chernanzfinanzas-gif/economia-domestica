@@ -1,20 +1,20 @@
 {
- "generado": "2026-09-30",
+ "generado": "2026-10-01",
  "linter": {
   "ok": true,
-  "detalle": "54 ficheros validados, sin errores."
+  "detalle": "56 ficheros validados, sin errores."
  },
  "sincronia": {
   "ok": true,
-  "detalle": "RESULTADO: TODO SINCRONIZADO (54 archivos). La app refleja el método."
+  "detalle": "RESULTADO: TODO SINCRONIZADO (56 archivos). La app refleja el método."
  },
  "formulas": {
   "ok": true,
-  "detalle": "27 libros revisados; todas las fórmulas conservan su valor.",
+  "detalle": "28 libros revisados; todas las fórmulas conservan su valor.",
   "libros": []
  },
  "senales": {
   "ok": true,
-  "detalle": "Ninguna señal abierta se queda fuera del puente. 31 empresas en el puente, 1 exigen accion."
+  "detalle": "Ninguna señal abierta se queda fuera del puente. 31 empresas en el puente, 0 exigen accion."
  }
 }
