@@ -753,7 +753,383 @@
           ]
         }
       ]
+    },
+    {
+      "mesKey": "2026-10",
+      "fecha": "2026-10-01",
+      "periodoTexto": "desde 2026-09-01 (~30 días)",
+      "resumenTexto": "Radar (desde 2026-09-01 (~30 días)): 76 empresas con cambios, 49 con señal accionable. Señales: ARIMA REAL ESTATE SOCIMI, S.A. — 🟢 Más barata que hace un mes, 💰 RPD cruzó el 5%, 📊 BPA revisado ▲ (¿resultados nuevos?), 🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único); GRENERGY RENOVABLES, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▲ (¿resultados nuevos?); MIQUEL Y COSTAS & MIQUEL, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas, 📊 BPA revisado ▼ (¿resultados nuevos?); CEV.MC,0P0000A5U9,0 — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); SOLARIA ENERGIA Y MEDIO AMBIENT — 🟢 Más barata que hace un mes, 📊 BPA revisado ▲ (¿resultados nuevos?); OBRASCON HUARTE LAIN, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; TELEFONICA,S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas; MERLIN PROPERTIES SOCIMI, S.A. — 🟢 Más barata que hace un mes, 📉 Entró en mínimos de 52 semanas.",
+      "totales": {
+        "conCambios": 76,
+        "conSenal": 49,
+        "universo": 102
+      },
+      "senaladas": [
+        {
+          "ticker": "ARM",
+          "nombre": "ARIMA REAL ESTATE SOCIMI, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "💰 RPD cruzó el 5%",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)",
+            "🚩 Nueva alerta: dividendo irregular (posible extraordinario / pago único)"
+          ]
+        },
+        {
+          "ticker": "GRE",
+          "nombre": "GRENERGY RENOVABLES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "MCM",
+          "nombre": "MIQUEL Y COSTAS & MIQUEL, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas",
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "CEV",
+          "nombre": "CEV.MC,0P0000A5U9,0",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "SLR",
+          "nombre": "SOLARIA ENERGIA Y MEDIO AMBIENT",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "OHLA",
+          "nombre": "OBRASCON HUARTE LAIN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TEF",
+          "nombre": "TELEFONICA,S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "MRL",
+          "nombre": "MERLIN PROPERTIES SOCIMI, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TLGO",
+          "nombre": "TALGO, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "AMP",
+          "nombre": "AMPER, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📊 BPA revisado ▲ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "COL",
+          "nombre": "COLONIAL SFL, SOCIMI. S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "ENC",
+          "nombre": "ENCE ENERGIA Y CELULOSA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "FCC",
+          "nombre": "ACCIONES FOMENTO DE CONSTRUCCIO",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "FER",
+          "nombre": "FERROVIAL N.V.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TRE",
+          "nombre": "TECNICAS REUNIDAS S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes",
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "TRG",
+          "nombre": "TUBOS REUNIDOS S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas",
+            "🚩 Nueva alerta: BPA<=0 (payout/PER no fiables)"
+          ]
+        },
+        {
+          "ticker": "ADX",
+          "nombre": "AUDAX RENOVABLES, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "RLIA",
+          "nombre": "REALIA BUSINESS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ACS",
+          "nombre": "ACS,ACTIVIDADES DE CONSTRUCCION",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ALNT",
+          "nombre": "ALANTRA PARTNERS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ECO",
+          "nombre": "ECOENER, S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "MTS",
+          "nombre": "ARCELORMITTAL SA",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "PHM",
+          "nombre": "PHARMA MAR, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CLNX",
+          "nombre": "CELLNEX TELECOM, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ITX",
+          "nombre": "INDUSTRIA DE DISE...O TEXTIL S.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LLN",
+          "nombre": "LLEIDANETWORKS SERVEIS TELEMATI",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "UNI",
+          "nombre": "UNICAJA BANCO, S.A.",
+          "senales": [
+            "💰 RPD cruzó el 5%"
+          ]
+        },
+        {
+          "ticker": "APAM",
+          "nombre": "APERAM",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "BKY",
+          "nombre": "BERKELEY ENERGIA LIMITED",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "GIGA",
+          "nombre": "GIGAS HOSTING, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "RIO",
+          "nombre": "BODEGAS RIOJANAS,S.A.",
+          "senales": [
+            "📊 BPA revisado ▼ (¿resultados nuevos?)"
+          ]
+        },
+        {
+          "ticker": "VIS",
+          "nombre": "VISCOFAN, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "AIR",
+          "nombre": "AIRBUS",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "AMS",
+          "nombre": "AMADEUS IT GROUP, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "BKT",
+          "nombre": "BANKINTER, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CABK",
+          "nombre": "CAIXABANK, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "CCEP",
+          "nombre": "COCA-COLA EUROPACIFIC PARTNERS ",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "EBRO",
+          "nombre": "EBRO FOODS, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "FDR",
+          "nombre": "FLUIDRA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LDA",
+          "nombre": "LINEA DIRECTA ASEGURADORA, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LGT",
+          "nombre": "LINGOTES ESPECIALES, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "LOG",
+          "nombre": "COMPA...IA DE DISTRIBUCION INTE",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "MAP",
+          "nombre": "MAPFRE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "NXT",
+          "nombre": "NUEVA EXPRESI...N TEXTIL, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "PRM",
+          "nombre": "PRIM, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "RED",
+          "nombre": "REDEIA CORPORACION, S.A.",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "RJF",
+          "nombre": "LABORATORIO REIG JOFRE, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        },
+        {
+          "ticker": "ROVI",
+          "nombre": "LABORATORIOS FARMACEUTICOS ROVI",
+          "senales": [
+            "📉 Entró en mínimos de 52 semanas"
+          ]
+        },
+        {
+          "ticker": "SCYR",
+          "nombre": "SACYR, S.A.",
+          "senales": [
+            "🟢 Más barata que hace un mes"
+          ]
+        }
+      ]
     }
   ],
-  "actualizado": "2026-09-01T13:17:53+02:00"
+  "actualizado": "2026-10-01T14:39:36+02:00"
 }

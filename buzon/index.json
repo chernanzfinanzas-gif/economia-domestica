@@ -1,5 +1,5 @@
 {
-  "actualizado": "2026-09-28T15:51:50+02:00",
+  "actualizado": "2026-10-01T14:39:36+02:00",
   "ficheros": [
     {
       "clave": "agenda",
@@ -16,12 +16,12 @@
       "clave": "radar",
       "titulo": "Radar: qué cambió (fundamentales)",
       "archivo": "fundamentales-cambios.json",
-      "generadoEl": "2026-09-01T13:17:53+02:00",
+      "generadoEl": "2026-10-01T14:39:36+02:00",
       "destinoApp": [
         "radar",
         "informe"
       ],
-      "resumen": "74 con cambios · 38 con señal"
+      "resumen": "76 con cambios · 49 con señal"
     },
     {
       "clave": "vigia",
