@@ -726,25 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "COL",
-"fecha": "2026-09-30",
-"anterior": 4.94,
-"nuevo": 4.936
-},
-{
-"ticker": "SAN",
-"fecha": "2026-09-30",
-"anterior": 12.33,
-"nuevo": 12.328
-},
-{
-"ticker": "TEF",
-"fecha": "2026-09-30",
-"anterior": 3.34,
-"nuevo": 3.338
-}
-],
+"corregidos": [],
 "revisar": []
 }
