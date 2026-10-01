@@ -1,0 +1,364 @@
+{
+ "schemaVersion": 8,
+ "ticker": "MRL",
+ "empresa": "Merlin Properties SOCIMI, S.A.",
+ "fecha": "2026-10-01",
+ "rating": "BBB",
+ "score": 55.8,
+ "decision": "ESPERAR",
+ "metodoValoracion": "NAV / P-FFO — rama INMOBILIARIAS (SOCIMI). Cuatro patas: NAV = EPRA NTA × P/NTA medio de diez años (40 %), P/FFO medio de diez años (25 %), rentabilidad por dividendo media (15 %) y DCF del flujo de las rentas —EBITDA oficial menos CAPEX de mantenimiento— al WACC del método (20 %). El PO oficial es la síntesis ponderada del §6.5; el DCF puro da 3,00 / 8,25 / 17,29 €.",
+ "poBear": 8.06,
+ "poBase": 10.19,
+ "poBull": 12.11,
+ "entMin": 8.06,
+ "entMax": 8.86,
+ "stop": 7.16,
+ "dpaPrevisto": 0.44,
+ "dpaPrevistoMotivo": "Último dividendo real (0,44 € con cargo a 2025): Merlin no publica una previsión de dividendo para 2026. La guía de FFO por acción de 2026 es 0,55 €, por debajo de los 0,58 € de 2025, por la ampliación de marzo.",
+ "moat": "48 · MOAT ESTRECHO (sobre 100) con la norma de INMOBILIARIAS: escala eficiente 55 (30 %), activos intangibles 50 (25 %), ventaja de costes 45 (25 %), costes de cambio 45 (15 %) y efecto red 20 (5 %). La cartera tradicional no tiene foso que se vea en los números; la barrera real es la potencia eléctrica de los centros de datos (160 MW alquilados o prealquilados).",
+ "catalizadores": [
+  "Fase I de centros de datos a pleno: 68 M€ de rentas en 2026 contra 31,2 M€ en 2025 (0-6 meses · +7,73 % sobre el PO). Disparador: rentas de centros de datos de 2026 ≥ 60 M€.",
+  "BIO-ARA 02 (48 MW, alquilado al 100 %) entra en renta en 2027 (3-9 meses · +15,76 % sobre el PO con su renta estabilizada). Disparador: entrega en diciembre de 2026 sin retraso.",
+  "La rentabilidad de salida de las tasaciones baja 25 pb (6-18 meses · +2,23 % sobre el PO).",
+  "Guía de FFO 2026: 340 M€, 0,55 € por acción (0-6 meses · −1,27 % sobre el PO): catalizador NEGATIVO por la dilución.",
+  "Desinversiones no estratégicas a valor de tasación: 166,2 M€ (0-12 meses · impacto no derivable)."
+ ],
+ "riesgos": [
+  "Mercado · Media · −8,38 a −20,95% · El mercado vuelve a pagar poco por los activos (de-rating): P/NTA de 0,716x a 0,537x. Riesgo dominante.",
+  "Regulatorio · Baja · −6,86 a −17,16% · Pérdida o cambio del régimen SOCIMI.",
+  "Societario · Baja · −2,03 a −15,60% · Cambio de control a precio bajo (Santander 24,68 %).",
+  "Operativo · Media · −1,48 a −12,16% · Centros de datos: ejecución y precio.",
+  "Estructural · Media · −4,73 a −9,45% · Oficinas: menos demanda por teletrabajo (53,86 % de las rentas).",
+  "Financiero · Media · −2,03 a −7,18% · Tipos y tasación de los activos (+1 pp de exit yield = −1.439,4 M€).",
+  "Operativo · Baja · −0,84 a −2,52% · Ciberataque en edificios o centros de datos."
+ ],
+ "bull": "12,11 € (+18,8 % sobre el PO). La Fase I de centros de datos rinde lo previsto en 2026, los tasadores bajan 25 pb la rentabilidad de salida y el mercado vuelve al P/NTA medio sin 2020-2022 (0,787x). Sólo un 1,6 % por encima de la cotización de 11,92 €: el precio ya paga casi todo el caso bueno.",
+ "bear": "8,06 € (0,790 × PO). El riesgo dominante del §8.1 —el de-rating— en su extremo DURO: el mercado vuelve a pagar lo que pagó en 2020-2022 (P/NTA 0,537x, múltiplos −25 %). La catástrofe es la cadena A del §8.2, tipos arriba y tasaciones abajo (7,73 €), que ancla el stop.",
+ "resumen": "SOCIMI de calidad BBB (55,8 sobre 100) con el balance más holgado de su grupo (LTV 24,5 % en junio de 2026) y una renta que aguanta, pero cuya cartera no cubre su coste del capital (ROIC 3,3 % contra WACC 6,33 %). Está CARA: PO 10,19 € contra 11,92 € (−14,5 %), y el precio exige un crecimiento del 6,1 % anual (HEROICO) que sólo pueden dar los centros de datos. Fallan el margen de seguridad y el rating. ESPERAR; señal única, el P/NTA por debajo de 0,65x.",
+ "confianza": {
+  "score": 86,
+  "nivel": "A",
+  "motivos": [
+   "7 dato(s) secundario(s) en 'Pte. Revisión' (−14)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-01"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 8.06,
+   "p50": 10.19,
+   "p90": 12.11
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 9.5,
+   "poMax": 11.6,
+   "poBase": 10.19,
+   "cotizacion": 11.92,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.2,
+   "componentesIntactos": 3,
+   "dcf": {
+    "poMin": 4.79,
+    "poMax": 15.31,
+    "poBase": 8.24901117029385
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -20.3,
+   "mdsMax": -2.7
+  },
+  "beta": {
+   "capm": 0.869,
+   "ref2": 0.91223,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 3 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (11.92) queda por ENCIMA de toda la banda del precio objetivo de síntesis [9.50–11.60] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-20.3 % … -2.7 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [4.79–15.31] € alrededor de 8.25 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "ojo al leerlo junto a la banda de escenarios [8.06–12.11] €, que SÍ contiene la cotización: bear/base/bull son tres historias distintas sobre el negocio, y esto de aquí mide otra cosa —el mismo escenario base con otros supuestos de coste de capital y crecimiento—. No se contradicen"
+  ],
+  "calculadoEl": "2026-10-01"
+ },
+ "dividendSafety": {
+  "score": 60,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 1,
+   "C4": 0,
+   "C5": 9
+  },
+  "shareholderYield": 1.76,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 3.33x / FCL -2.09x (3a OE 2.95x) → 35/35",
+   "C2 payout BN ord.: 16% (3a 33%) → 15/15",
+   "C3 balance: DN/EBITDA 9.37x, cob.int 2.9x → 1/20",
+   "C4 trayectoria: 4 recorte(s) en 10a · DPA creciente → 0/15",
+   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, recompras recortadas/suspendidas → 9/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-10-01"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 0,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 5.09,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.05,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": 2.7,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-10-01"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 6.08,
+  "gIntrinseco": -0.28,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un 6.08% de crecimiento del FCL a una empresa cuyo g intrínseco es NEGATIVO (-0.28%): no está reinvirtiendo para crecer, está encogiendo su capital invertido. El 6.08% queda POR ENCIMA del propio ROIC (3.3%): ni reinvirtiendo el 100% del NOPAT llegaría, haría falta capital externo. Para producirlo tendría que volver a reinvertir —o sacar el crecimiento de margen y precio indefinidamente—, que es lo contrario de lo que hace hoy. No es un dato que falte: es una exigencia real embebida en el precio.",
+  "calculadoEl": "2026-10-01",
+  "entradas": {
+   "fcl": 340.6152,
+   "wacc": 6.33,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 563.725,
+   "deudaNeta": 3743,
+   "modo": "EV",
+   "precioBase": 11.92,
+   "validado": true,
+   "desviacion": -0.002,
+   "gBase": 6.078,
+   "fechaBase": "2026-10-01",
+   "congeladoEl": "2026-10-01"
+  }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-01",
+  "fuente": "Datos Financieros Merlin Properties.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 3,
+   "nombre": "LA TRAMPA DEL CAPITAL",
+   "lema": "reinvierte mucho y rinde poco",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 11.33,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 86.07,
+   "roiic5a": null,
+   "roiic": 8.52,
+   "roiicVentana": "3A",
+   "roicMedio": 2.93,
+   "spread": -3.03,
+   "wacc": 6.33,
+   "conversionMedia": -10.99,
+   "coberturaDividendo": 0.11,
+   "gIntrinseco": -0.28,
+   "capexCrecimiento10a": 2665.0,
+   "fcl10a": -316.5,
+   "retribucion10a": 1559.2,
+   "retribucionSobreFcl": -492.7
+  },
+  "tension": {
+   "anios": [
+    2016,
+    2020,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    null,
+    0.11,
+    null
+   ],
+   "coberturaOe": [
+    null,
+    1.53,
+    1.16,
+    1.11
+   ],
+   "payoutBn": [
+    32.3,
+    248.6,
+    79.3,
+    31.6
+   ],
+   "payoutFcl": [
+    null,
+    null,
+    935.0,
+    null
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una <b>SOCIMI de oficinas que se está convirtiendo en una de centros de datos</b>: cobra alquileres (541,9 M€ en 2025, el 53,9 % de oficinas) con un margen EBITDA del 70,7 % y reparte la mayor parte del FFO, como obliga el régimen.",
+     "Es <b>intensiva en capital</b>: el CAPEX ha sido el <b>61,3 % de los ingresos</b> en la década, y en 2025 el 119 % por los centros de datos. Las compras de 2016 y las ampliaciones de 2024 y 2026 se pagaron con acciones nuevas."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De las tasaciones más que del alquiler.</b> El ROIC medio de la década es del 2,9 %: el EBITDA rinde un 3,16 % sobre el valor de la cartera. Sólo los años en que suben las tasaciones (2017-2018 y 2025) superan el coste del capital.",
+     "Reinvierte mucho —el <b>86,1 %</b> de su NOPAT de media— y lo reinvertido desde 2022 rinde un ROIIC del <b>8,5 %</b> a tres años: más que la cartera, pero por debajo del corte del método (WACC + 5 pp)."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "El spread ROIC − WACC pasa de −2,73 pp en 2016 a <b>−3,03 pp</b> en 2025: los tipos han subido el coste del capital (WACC del 6,33 %) más deprisa que la rentabilidad de la cartera.",
+     "Y la expansión no la paga la caja: el flujo libre fue negativo en cinco de diez años y las dos ampliaciones, por debajo del NTA, han hecho caer el FFO por acción un 9,4 % en diez años."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Merlin compra <b>un balance sólido y una renta que aguanta</b>, pero no un negocio que cree valor por acción con su cartera actual: la tesis de crecimiento son los centros de datos, y el precio de hoy ya los paga.",
+     "<b>Qué vigilar, por ser familia 3:</b> el P/NTA de cierre de trimestre (señal única, por debajo de 0,65x) y si los centros de datos suben el ROIC de la empresa por encima de su coste del capital."
+    ]
+   }
+  ],
+  "vigilar": "El P/NTA de cierre de trimestre: por debajo de 0,65x se activa el riesgo dominante. Y las rentas de centros de datos contra los 68 M€ que la Fase I estima para 2026.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Una SOCIMI de oficinas (el 53,9 % de las rentas) que se está convirtiendo en una de centros de datos: 541,9 M€ de rentas brutas en 2025.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: LTV del 28,9 % (24,5 % en junio de 2026), toda la deuda a tipo fijo y rating BBB+; el único rojo es la cobertura de intereses, 2,83x.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Poco en renta: ROIC del 3,3 %, con un spread de −3,03 pp sobre su WACC; el valor lo han creado las tasaciones, no el alquiler.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 3 · La trampa del capital: reinvierte mucho y rinde poco. Reinvierte el 86,1 % del NOPAT de media; ROIIC a tres años del 8,5 % contra un corte del 11,3 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Sí, pero justa: el dividendo está cubierto 1,11x con owner earnings y 1,21x con el AFFO; la expansión la pagan las ampliaciones y la deuda.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "BBB · 55,8 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 10,19 € contra 11,92 €: margen de seguridad −14,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (48): la cartera tradicional no tiene foso; la barrera real es la potencia eléctrica de los centros de datos.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que el mercado vuelva a pagar poco por los activos (de-rating, probabilidad media): entre un −8,38 % y un −20,95 % del precio objetivo. Es el que fija el escenario pesimista.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "BIO-ARA 02, alquilado al 100 % antes de entregarse: +15,76 % de precio objetivo con su renta estabilizada desde 2027.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 8,06 – 8,86 € · stop de tesis 7,16 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El P/NTA de cierre de trimestre: por debajo de 0,65x se activa el riesgo dominante. Y las rentas de centros de datos contra los 68 M€ que la Fase I estima para 2026.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Ningún dato crítico; quedan las acciones de la ampliación de 2026 en el precio objetivo (−0,75 %), el pasivo con Edged Spain (−0,35 %) y las cuotas de mercado.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
