@@ -1,0 +1,359 @@
+{
+ "schemaVersion": 8,
+ "ticker": "GEST",
+ "empresa": "Gestamp Automoción, S.A.",
+ "fecha": "2026-10-02",
+ "rating": "BBB",
+ "score": 56.5,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF + múltiplos históricos — rama INDUSTRIAL. Síntesis ponderada del §6.5: DCF de dos fases sobre el FLUJO PARA TODOS LOS FINANCIADORES (flujo libre + intereses pagados × (1 − t), media 2021-2025, 356,6 M€) con los minoritarios (910,3 M€) restados, por decisión del operador, al WACC del método (7,50 %, el suelo INDUSTRIAL), 40 %; múltiplos medios de 2017-2025 sin 2020 (EV/EBITDA 18, EV/EBIT 14, PER 13, P/BV 10), 55 %; rentabilidad por dividendo, 5 %. El PO oficial es esa síntesis; con el flujo libre a secas sería 3,60 € y con owner earnings 6,91 €.",
+ "poBear": 4.85,
+ "poBase": 5.65499552666932,
+ "poBull": 6.95,
+ "entMin": 4.85,
+ "entMax": 4.92,
+ "stop": 2.75,
+ "dpaPrevisto": 0.0803,
+ "dpaPrevistoMotivo": "Último dividendo real, con cargo a 2025 (0,0803 €): Gestamp reparte el 30 % del beneficio y no publica el dividendo por acción previsto para 2026.",
+ "moat": "41,6 · SIN MOAT CLARO (sobre 100) con la norma de INDUSTRIAL y el efecto red declarado N/A: activos intangibles 40 (37,5 %), ventaja de costes 35 (37,5 %), escala 50 (18,75 %) y costes de cambio 65 (6,25 %). Escala global y piezas adjudicadas para la vida del modelo, pero sin poder de precio: el margen EBIT (4,8 %) es el más bajo de sus comparables.",
+ "catalizadores": [
+  "Plan Phoenix: Norteamérica a doble dígito de margen EBITDA a finales de 2026; del 8,1 % al 10 % son +42,6 M€ de EBITDA (feb-2027 · +11,93 % sobre el PO). Disparador: margen de Norteamérica ≥ 10 % en las cuentas de 2026.",
+  "La caja libre reduce la deuda: 161,8 M€ al año después del dividendo (12 meses · +3,58 % sobre el PO). Disparador: deuda neta oficial por debajo de 1.700 M€ a cierre de 2026.",
+  "La divisa devuelve la mitad de los 3,9 puntos de ventas que restó en 2025 (12-24 meses · +7,14 % sobre el PO). Disparador: ventas reportadas por encima de las ventas a tipo constante en un semestre."
+ ],
+ "riesgos": [
+  "Divisa · Alta · −7,14 a −14,28% · Las monedas restan ventas: en 2025, 3,9 puntos. Riesgo dominante.",
+  "Macroeconómico · Media · −18,30 a −36,61% · Cae la producción de coches en sus regiones; Europa es el 52,6 % de las ventas.",
+  "Competitivo · Media · −15,89 a −31,78% · Los fabricantes aprietan el precio de la pieza; margen EBIT del 4,8 %.",
+  "Contable · Media · −5,42 a −21,80% · Factoring sin recurso (740,5 M€) y Andrómeda (245 M€) fuera de la deuda neta: 2,15x EBITDA con ellos.",
+  "Tecnológico · Media · −11,75 a −23,51% · El coche eléctrico exige más CAPEX con un capital nuevo que ya rinde menos que el WACC.",
+  "Político · Media · −7,23 a −18,07% · Aranceles en Norteamérica, el 19,8 % de las ventas.",
+  "Gobernanza · Baja-Media · −3,38 a −6,76% · Control familiar (62,5 %) y operaciones con sociedades vinculadas.",
+  "Financiero · Media · −1,09 a −2,18% · Refinanciar más caro; el modelo casi no lo ve."
+ ],
+ "bull": "6,95 € (+22,9 % sobre el PO). Los tres catalizadores juntos: Norteamérica a doble dígito, un año de caja libre reduciendo deuda y la divisa devolviendo la mitad de lo de 2025. Sobre la cotización de 2,98 € sería un +133 %.",
+ "bear": "4,85 € (0,857 × PO). El riesgo dominante del §8.1 —la divisa, el único con probabilidad Alta— en su extremo duro: repetir el efecto de 2025, −3,9 % de ventas. El suave (5,25 €) invertía la banda. La catástrofe es la cadena A del §8.2, una recesión europea con el margen fino (2,97 €, la cotización de hoy), que ancla el stop.",
+ "resumen": "Proveedor global de estructura metálica para coches, de calidad BBB (56,5 sobre 100) y SIN MOAT CLARO (41,6): escala y caja de explotación sólida (1.195,2 M€), pero margen EBIT del 4,8 %, el más bajo de sus comparables, y un capital nuevo que rinde menos que el WACC. Está BARATA: PO 5,65 € contra 2,98 € (+89,8 %), por debajo incluso del bear case, y el precio descuenta que el flujo encoja un 3,55 % anual. MANTENER: cumple precio, fallan rating y moat. La tesis cuelga del margen EBITDA (11,05 % en S1-2026; señal rota por debajo del 11 %).",
+ "revisadoEl": "2026-10-02",
+ "lecturaNegocio": {
+  "fecha": "2026-10-02",
+  "fuente": "Datos Financieros Gestamp.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "reinvierte mucho y bien",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 73.71,
+   "roiic5a": 77.06,
+   "roiic": 77.06,
+   "roiicVentana": "5A",
+   "roicMedio": 8.18,
+   "spread": 1.23,
+   "wacc": 7.5,
+   "conversionMedia": 7.8,
+   "coberturaDividendo": 4.5,
+   "gIntrinseco": 2.06,
+   "capexCrecimiento10a": 2849.1,
+   "fcl10a": 838.5,
+   "retribucion10a": 581.7,
+   "retribucionSobreFcl": 69.4
+  },
+  "tension": {
+   "anios": [
+    2018,
+    2020,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    null,
+    4.5
+   ],
+   "coberturaOe": [
+    2.31,
+    null,
+    10.86
+   ],
+   "payoutBn": [
+    30.2,
+    null,
+    30.4
+   ],
+   "payoutFcl": [
+    null,
+    0.0,
+    22.2
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un proveedor de <b>estructura metálica para coches</b> —carrocería, chasis y mecanismos— que vende a los fabricantes piezas adjudicadas para la vida de cada modelo. Es intensivo en capital: el CAPEX es el <b>8,5 % de las ventas</b> de media, y la conversión del EBITDA en caja libre del 7,8 % de media en la serie, con 2016-2018 en negativo.",
+     "Tiene escala global —cinco regiones, 24 países— y traslada al cliente el precio del acero y del aluminio, pero no fija el precio de la pieza: lo fija el fabricante en cada licitación."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De mucha reinversión sobre un margen fino.</b> Reinvierte de media el 73,7 % del NOPAT. El ROIC medio de la serie es del 8,2 % contra un WACC del 7,50 %, y en 2025 el spread fue de +1,23 pp.",
+     "<b>La casilla sale «el compuesto» por el ROIIC a cinco años (77,1 %), que se mide desde 2020, el año del covid, con el NOPAT en mínimos.</b> Sin esa base, el capital invertido en nueve años rinde un 6,07 %, por debajo del WACC: con esa vara Gestamp estaría en la casilla 3, la trampa del capital. De los 838,5 M€ de flujo libre de la serie, 581,7 M€ —el 69 %— han vuelto al accionista."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el margen. Con un margen EBITDA del 11,5 %, <b>un punto de margen son 113,5 M€ de EBITDA</b> y un 31,8 % del precio objetivo, porque delante del accionista están 1.820,8 M€ de deuda neta y 910,3 M€ de minoritarios. El riesgo que manda es que los fabricantes trasladen su presión de márgenes al proveedor.",
+     "Y en la caja. El dividendo de 2025 está cubierto 4,50x por el flujo libre, pero la caja libre es una sexta parte del EBITDA y hay 740,5 M€ de factoring fuera del balance. A 2,98 € el mercado descuenta que el flujo encoja un 3,55 % al año."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Gestamp compra <b>un proveedor grande y barato que reinvierte mucho y rinde poco más de lo que cuesta</b>. La casilla 2 hay que leerla con cuidado: el ROIIC que la da parte de una base deprimida, y el Bloque 7 no encuentra moat.",
+     "<b>Qué vigilar:</b> el margen EBITDA cada trimestre, que es la variable de la que cuelga todo; las ventas a tipo constante frente a la producción del mercado; y el margen de Norteamérica, que es el catalizador del Plan Phoenix."
+    ]
+   }
+  ],
+  "vigilar": "El margen EBITDA, la señal única del §10.1: verde desde el 11,7 % de la guía, ámbar entre el 11 % y el 11,7 % y rojo por debajo del 11 %; caer por debajo del 11 % en un semestre, o más de 0,5 pp contra el mismo periodo del año anterior, abre revisión. Y las ventas a tipo constante frente a la producción de su perímetro, que dicen si gana o pierde cuota.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De fabricar la estructura metálica de los coches: carrocería y chasis son el 83 % de las ventas, Europa el 52,6 % y Norteamérica el 19,8 %; los clientes son los fabricantes de automóviles.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí: deuda neta oficial de 1.820,8 M€, 1,39 veces el EBITDA, y 1.106,5 M€ de efectivo. Con el factoring sin recurso (740,5 M€) y Andrómeda (245 M€), 2,15 veces. El EBITDA cubre 5,6 veces los intereses.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Poco más que su coste: ROIC del 8,73 % en 2025 contra un WACC del 7,50 %, y del 8,2 % de media en la serie. El capital invertido en nueve años rinde un 6,07 %, por debajo del WACC.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 73,7 % del NOPAT de media; ROIIC a cinco años del 77,1 % contra un corte del 12,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Poco: 208,0 M€ de flujo libre en 2025, el 15,9 % del EBITDA, porque el CAPEX (987,2 M€) se come la caja de explotación. Cubre el dividendo 4,5 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "BBB · 56,5 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 5,65 € contra 2,98 €: margen de seguridad +89,8 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "No: SIN MOAT CLARO (41,6). Tiene escala y costes de cambio dentro de cada modelo, pero no poder de precio; su margen EBIT es el más bajo de sus comparables.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que los fabricantes aprieten el precio de la pieza (−15,89 a −31,78 %) o que caiga la producción (−18,30 a −36,61 %). La peor cadena del pre-mortem, una recesión europea, cae un 47,49 % y deja el valor en la cotización de hoy.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Norteamérica a doble dígito (+11,93 %), la caja libre reduciendo deuda (+3,58 %) y la divisa devolviendo parte de lo de 2025 (+7,14 %). Juntos, 6,95 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>MANTENER</b> · banda de entrada 4,85 – 4,92 € · stop de tesis 2,75 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El margen EBITDA, la señal única del §10.1: verde desde el 11,7 % de la guía, ámbar entre el 11 % y el 11,7 % y rojo por debajo del 11 %; caer por debajo del 11 % en un semestre, o más de 0,5 pp contra el mismo periodo del año anterior, abre revisión. Y las ventas a tipo constante frente a la producción de su perímetro, que dicen si gana o pierde cuota.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "La concentración de clientes, el número de plantas, los importes de las compras de Edscha y ThyssenKrupp Metal Forming y el detalle del Consejo del Informe Anual de Gobierno Corporativo de 2025.",
+    "origen": "escrita"
+   }
+  ]
+ },
+ "confianza": {
+  "score": 98,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-02"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": true,
+  "banda": {
+   "p10": 4.85,
+   "p50": 5.65499552666932,
+   "p90": 6.95
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 5.25,
+   "poMax": 6.32,
+   "poBase": 5.65,
+   "cotizacion": 2.98,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.2,
+   "componentesIntactos": 7,
+   "dcf": {
+    "poMin": 4.63,
+    "poMax": 9.95,
+    "poBase": 6.63798076485998
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 76.3,
+   "mdsMax": 112.0
+  },
+  "beta": {
+   "capm": 0.853,
+   "ref2": 0.90151,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 7 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (2.98) queda por DEBAJO de toda la banda del precio objetivo de síntesis [5.25–6.32] → infravalorada en todo el rango",
+   "…y la banda de margen de seguridad [+76.3 % … +112.0 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [4.63–9.95] € alrededor de 6.64 €: es la sensibilidad del MODELO, no la del precio objetivo",
+   "matiz: el precio objetivo de síntesis la ve robustamente barata en todo el rango, pero la decisión oficial es MANTENER"
+  ],
+  "calculadoEl": "2026-10-02"
+ },
+ "dividendSafety": {
+  "score": 70,
+  "banda": "Seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 11,
+   "C4": 0,
+   "C5": 9
+  },
+  "shareholderYield": 3.76,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 9.56x / FCL 3.68x (3a OE 7.21x) → 35/35",
+   "C2 payout BN ord.: 37% (3a 35%) → 15/15",
+   "C3 balance: DN/EBITDA 1.39x, cob.int 2.4x → 11/20",
+   "C4 trayectoria: 3 recorte(s) en 9a (reciente) → 0/15",
+   "C5 predictores B4 (cuantitativos): cobertura de intereses cayendo (<4x), beneficio neto a la baja YoY → 9/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-10-02"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 6,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 4.93,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -3.08,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -10.2,
+   "senal": "muy conservador"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-10-02"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": -6.94,
+  "gIntrinseco": 2.06,
+  "veredicto": "PLAUSIBLE",
+  "motivo": "El crecimiento que exige el precio está por debajo de lo que la empresa puede autofinanciar (g intrínseco): el mercado no está descontando expectativas exigentes. Posible margen a favor.",
+  "calculadoEl": "2026-10-02",
+  "entradas": {
+   "fcl": 356.629446021225,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 575.514,
+   "deudaNeta": 1820.781,
+   "modo": "EV",
+   "precioBase": 2.98,
+   "validado": true,
+   "desviacion": -0.005,
+   "gBase": -6.945,
+   "fechaBase": "2026-10-02",
+   "congeladoEl": "2026-10-02"
+  }
+ }
+}

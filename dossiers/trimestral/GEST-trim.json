@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 2,
+  "ticker": "GEST",
+  "empresa": "Gestamp",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 3144.0
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 33.9
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 6.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 336.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.7
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 173.3
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 79.8
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2265.2
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.8
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 7.55
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 6273.2
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 25.0
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 12.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 699.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 11.16
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 364.3
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 162.3
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2223.9
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.6
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 7.75
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 9071.6
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 16.6
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 9.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1010.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 11.14
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 506.7
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 225.3
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2235.4
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.6
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 7.52
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 12273.7
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 13.8
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 10.2
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1371.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 11.17
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 680.4
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 280.7
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2058.0
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.5
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 6.72
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -3.0 %, EBITDA -7.6 %, Resultado atribuido -31.5 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.2 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA cae un 4.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 3049.3
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 3.5
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": -0.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 311.0
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.2
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 134.8
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 54.7
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2232.8
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.7
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 3.81
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -2.1 %, EBITDA -8.3 %, Resultado atribuido -34.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.5 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA cae un 6.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 6139.5
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 5.1
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 0.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 641.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.46
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 285.2
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 105.9
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2191.4
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.7
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 5.71
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -1.6 %, EBITDA -7.4 %, Resultado atribuido -43.7 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.5 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA cae un 5.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 8926.8
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 5.7
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": -0.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 935.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.48
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 405.4
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 126.8
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2436.7
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.8
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 5.38
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -2.2 %, EBITDA -5.6 %, Resultado atribuido -32.8 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.8 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA cae un 3.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 12001.0
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 4.5
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": -0.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1294.0
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.78
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 582.1
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 188.5
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2096.8
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.6
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 6.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -2.2 %, EBITDA -3.4 %, Resultado atribuido -51.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.1 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA cae un 1.3 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 2983.3
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": -0.7
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 2.5
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 300.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.07
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 120.4
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 26.5
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2218.6
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.7
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 5.23
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -4.8 %, EBITDA -0.1 %, Resultado atribuido -29.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 11.0 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA sube un 4.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 5843.9
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": -0.9
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 3.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 641.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.97
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 285.6
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 74.6
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2141.3
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.66
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 6.24
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Cifra de negocios -4.9 %, EBITDA -1.1 %, Resultado atribuido -17.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.9 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA sube un 4.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 8486.0
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": -0.8
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 4.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 925.1
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.9
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 398.8
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 104.5
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 2106.8
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.6
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 6.53
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cifra de negocios -5.4 %, EBITDA +1.0 %, Resultado atribuido -19.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 11.5 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA sube un 6.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 11348.6
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": -1.2
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": 4.1
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 1307.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 11.52
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 546.4
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 152.2
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 1820.8
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.4
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 7.41
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cifra de negocios -5.0 %, EBITDA +1.0 %, Resultado atribuido +85.3 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 10.7 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA sube un 6.4 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 2833.6
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": -0.3
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": -2.6
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 303.4
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 10.71
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 114.0
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 49.1
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 1976.8
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.5
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 6.46
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada revisión lleva la fecha de CIERRE del periodo (31-mar, 30-jun, 30-sep, 31-dic); la de publicación figura en cada informe pero no es homogénea entre documentos.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Cifra de negocios -0.9 %, EBITDA -0.1 %, Resultado atribuido +47.6 % contra el mismo periodo del ejercicio anterior, con el margen EBITDA en 11.1 % (banda del §10.1: verde ≥ 11.0, rojo < 10.0). El margen EBITDA sube un 0.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Cifra de negocios (M€)",
+          "valor": 5794.0
+        },
+        {
+          "nombre": "Crecimiento a tipo constante (%)",
+          "valor": 1.3
+        },
+        {
+          "nombre": "Producción en su huella (%)",
+          "valor": -0.9
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 640.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 11.05
+        },
+        {
+          "nombre": "Resultado de explotación (M€)",
+          "valor": 264.7
+        },
+        {
+          "nombre": "Resultado atribuido (M€)",
+          "valor": 110.1
+        },
+        {
+          "nombre": "Deuda financiera neta (M€)",
+          "valor": 1771.3
+        },
+        {
+          "nombre": "DFN / EBITDA (x)",
+          "valor": 1.36
+        },
+        {
+          "nombre": "Margen EBITDA Norteamérica (%)",
+          "valor": 7.01
+        }
+      ],
+      "origen": "revolcado"
+    }
+  ]
+}
