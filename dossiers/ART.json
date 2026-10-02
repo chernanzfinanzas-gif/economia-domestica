@@ -1,0 +1,357 @@
+{
+ "schemaVersion": 8,
+ "ticker": "ART",
+ "empresa": "Arteche Lantegi Elkartea, S.A.",
+ "fecha": "2026-10-02",
+ "rating": "A",
+ "score": 66.6,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF + múltiplos históricos — rama INDUSTRIAL. Síntesis ponderada del §6.5: DCF de dos fases sobre los OWNER EARNINGS (media 2021-2025, 21,0 M€; la regla F610 los exige porque el flujo libre es el 53,5 % del NOPAT) al WACC del método (7,80 %), 40 %; múltiplos medios de 2021-2025 (EV/EBITDA 18, EV/EBIT 14, PER 18, P/BV 5), 55 %; rentabilidad por dividendo, 5 %. El PO oficial es esa síntesis; el DCF puro da 5,14 / 8,58 / 14,72 €.",
+ "poBear": 11.44,
+ "poBase": 13.68,
+ "poBull": 17,
+ "entMin": 11.44,
+ "entMax": 11.89,
+ "stop": 6.72,
+ "dpaPrevisto": 0.397,
+ "dpaPrevistoMotivo": "Último dividendo real, con cargo a 2025 (0,397 €): Arteche confirma un pay-out del 50 % del beneficio para 2026 pero no publica el dividendo por acción previsto.",
+ "moat": "52,2 · MOAT ESTRECHO (sobre 100) con la norma de INDUSTRIAL y el efecto red declarado N/A: activos intangibles 60 (37,5 %), ventaja de costes 45 (37,5 %), escala 45 (18,75 %) y costes de cambio 70 (6,25 %). La barrera son más de 1.500 homologaciones en compañías eléctricas, que protegen el sitio en la lista de proveedores pero no el precio.",
+ "catalizadores": [
+  "Cumple la guía de 2026: EBITDA 92,1-100,4 M€; el punto medio son +15,8 M€ sobre 2025 (feb-2027 · +33,88 % sobre el PO). Disparador: EBITDA de 2026 por encima de 92,1 M€.",
+  "La caja alcanza al beneficio: conversión EBITDA → flujo libre hacia el 50 % (12-24 meses · +13,44 % sobre el PO). Disparador: conversión ≥ 45 % en las cuentas de 2026.",
+  "El plan 2027-2029 consolida un punto más de margen (oct-nov 2026 · +10,90 % sobre el PO). Disparador: margen EBITDA objetivo del 17 % o más.",
+  "El dividendo de 2026 sube con el beneficio, +20 % sobre 0,397 € (feb-2027 · +1,63 % sobre el PO). Disparador: DPA con cargo a 2026 por encima de 0,47 €."
+ ],
+ "riesgos": [
+  "Competitivo · Media · −16,35 a −32,70% · Presión de precios cuando la capacidad del sector alcance a la demanda. Riesgo dominante.",
+  "Mercado · Media · −10,92 a −21,59% · El múltiplo se desinfla: 25,5x EBITDA y 44,8x beneficio contra medias de 10,0x y 23,4x.",
+  "Macroeconómico · Baja-Media · −8,63 a −17,26% · El ciclo de inversión en redes se frena con la capacidad recién ampliada.",
+  "Operativo · Media · −6,72 a −13,44% · La caja no acompaña al crecimiento (conversión del 28 % en 2025).",
+  "Divisa · Media · −5,45 a −10,90% · Divisas emergentes y dólar; hiperinflación en Argentina y Turquía.",
+  "Gobernanza · Baja · −3,67 a −7,31% · Control concentrado (72,6 %) y poco capital flotante.",
+  "Asignación de capital · Baja-Media · −0,40 a −0,99% · SEG Electronics, la mayor compra de su historia (50,6 M€, 47,4 M€ de fondo de comercio)."
+ ],
+ "bull": "17,00 € (+24,3 % sobre el PO). Los tres primeros catalizadores juntos: se cumple la guía de 2026, la caja alcanza al beneficio y el plan 2027-2029 consolida un punto más de margen. Aun así queda un 52,1 % por debajo de la cotización de 35,50 €: el precio paga más que el mejor caso que el análisis puede construir.",
+ "bear": "11,44 € (0,837 × PO). El riesgo dominante del §8.1 —ceder precio cuando la capacidad del sector alcance a la demanda— en su extremo suave: −1,5 % de precio a volumen constante, −1,5 pp de margen EBITDA. La catástrofe es la cadena A del §8.2, el ciclo de redes dándose la vuelta con la capacidad ampliada (7,29 €), que ancla el stop.",
+ "resumen": "Líder mundial de nicho en transformadores de medida y relés, de calidad A (66,6 sobre 100), con el balance casi sin deuda (0,28x EBITDA) y la mejor rentabilidad de su historia (ROIC 38,8 % contra WACC 7,80 %). Está CARA: PO 13,68 € contra 35,50 € (−61,5 %), por encima incluso del bull case, y el precio exige crecer un 19,2 % anual cinco años sobre los owner earnings de 2025. Falla sólo el margen de seguridad. ESPERAR; señal única, el margen EBITDA (rojo por debajo del 12 %).",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-02"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 11.44,
+   "p50": 13.68,
+   "p90": 17
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 13.34,
+   "poMax": 14.24,
+   "poBase": 13.68,
+   "cotizacion": 35.5,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.2,
+   "componentesIntactos": 7,
+   "dcf": {
+    "poMin": 6.89,
+    "poMax": 11.42,
+    "poBase": 8.5775129662285
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -62.4,
+   "mdsMax": -59.9
+  },
+  "beta": {
+   "capm": 0.779,
+   "ref2": 0.50219,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (20 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 80 % restante de la ponderación —los otros 7 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (35.50) queda por ENCIMA de toda la banda del precio objetivo de síntesis [13.34–14.24] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-62.4 % … -59.9 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [6.89–11.42] € alrededor de 8.58 €: es la sensibilidad del MODELO, no la del precio objetivo"
+  ],
+  "calculadoEl": "2026-10-02"
+ },
+ "dividendSafety": {
+  "score": 93,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 35,
+   "C2": 15,
+   "C3": 19,
+   "C4": 9,
+   "C5": 15
+  },
+  "shareholderYield": 0.74,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 3.82x / FCL 2.42x (3a OE 5.21x) → 35/35",
+   "C2 payout BN ord.: 21% (3a 22%) → 15/15",
+   "C3 balance: DN/EBITDA 0.28x, cob.int 8.1x → 19/20",
+   "C4 trayectoria: 1 recorte(s) en 4a · DPA creciente → 9/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-10-02"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 1,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 0,
+    "no_dilu": 0,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 5.77,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.29,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -1.3,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-10-02"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 30.0,
+  "gIntrinseco": 15.22,
+  "veredicto": "n.s.",
+  "motivo": "El precio exige un crecimiento extremo (>30%): el FCL de un solo año no es representativo (p.ej. por el float de circulante). Hay que usar un FCL normalizado, no el de un ejercicio.",
+  "calculadoEl": "2026-10-02",
+  "entradas": {
+   "fcl": 21.0036,
+   "wacc": 7.8,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 57.094,
+   "deudaNeta": 22.755,
+   "modo": "EV",
+   "precioBase": 35.5,
+   "validado": false,
+   "desviacion": -1.518,
+   "gBase": 28.482,
+   "fechaBase": "2026-10-02",
+   "congeladoEl": "2026-10-02"
+  }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-02",
+  "fuente": "Datos Financieros Arteche.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2019,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "reinvierte mucho y bien",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.8,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 29.95,
+   "roiic5a": 84.31,
+   "roiic": 84.31,
+   "roiicVentana": "5A",
+   "roicMedio": 17.68,
+   "spread": 30.95,
+   "wacc": 7.8,
+   "conversionMedia": 27.12,
+   "coberturaDividendo": 1.01,
+   "gIntrinseco": 15.22,
+   "capexCrecimiento10a": 41.7,
+   "fcl10a": 87.0,
+   "retribucion10a": 12.6,
+   "retribucionSobreFcl": 14.5
+  },
+  "tension": {
+   "anios": [
+    2021,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    2.52,
+    1.01
+   ],
+   "coberturaOe": [
+    null,
+    3.37,
+    1.68
+   ],
+   "payoutBn": [
+    30.1,
+    50.2,
+    50.0
+   ],
+   "payoutFcl": [
+    null,
+    39.6,
+    99.1
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Un fabricante de componentes para la red eléctrica: <b>transformadores de medida, relés y automatización de subestaciones</b>, vendidos por licitación a compañías eléctricas que antes tienen que homologarlos. El CAPEX es el <b>4,5 % de las ventas</b> de media, y la conversión del EBITDA en caja libre del 27,1 %, con 2021 en negativo.",
+     "Es un líder de nicho —top 2 mundial en transformadores de medida— que vende en cinco regiones, con Norteamérica como primer mercado. La demanda la pone la inversión de las eléctricas en sus redes; el margen, el equilibrio entre esa demanda y la capacidad del sector."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un capital pequeño y de un margen que se ha duplicado.</b> El ROIC medio de la serie es del 17,7 % contra un WACC del 7,80 %; en 2025, el spread fue de +30,95 pp. El capital nuevo de los últimos cinco años rinde un 84,3 %.",
+     "El negocio reinvierte una parte de lo que gana en capacidad y devuelve el resto: de los 87,0 M€ de flujo libre de la serie, <b>12,6 M€ —el 14 %— han vuelto al accionista</b> en dividendos en efectivo y recompras."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el margen. Con un margen EBITDA del 15,8 %, <b>un punto de margen son 5,1 M€ de EBITDA</b> y un 10,90 % del precio objetivo, y el riesgo que manda es que vuelvan las licitaciones por precio cuando el sector alcance a la demanda: ceder un 3 % de precio quita un 32,70 %.",
+     "Y en la caja y en el precio. La conversión en flujo libre no ha pasado del 50 % ningún año y el dividendo de 2025 está cubierto 1,01x por el flujo libre. A 35,50 € el mercado exige un crecimiento del 19,2 % anual cinco años sobre los owner earnings de 2025."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Arteche compra <b>un compuesto de nicho en el punto alto de su ciclo</b>: reinvierte una parte significativa de lo que gana y ese capital rinde muy por encima de lo que cuesta. La casilla no dice que el margen de hoy vaya a durar, y el Bloque 7 sólo encuentra un moat estrecho.",
+     "<b>Qué vigilar:</b> el margen EBITDA cada semestre, que es la variable de la que cuelga todo, y la contratación frente a las ventas, que adelanta el ciclo. Si la conversión en caja no mejora cuando termine la ampliación de capacidad, el ROIC contable estará sobreestimando el retorno."
+    ]
+   }
+  ],
+  "vigilar": "El margen EBITDA, la señal única del §10.1: verde desde el 15,8 %, ámbar entre el 12 % y el 15,8 % y rojo por debajo del 12 %; caer por debajo del 12 % o más de 2 pp contra el mismo periodo del año anterior abre revisión. Y la contratación de cada semestre frente a la cifra de negocios, que adelanta el ciclo.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De fabricar componentes para la red eléctrica: la medida es el 72,5 % de las ventas y Norteamérica el 31,6 %; los clientes son compañías eléctricas.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí, con holgura: deuda neta de 22,8 M€ en 2025, 0,28 veces el EBITDA, y 46,1 M€ (0,5 veces) en junio de 2026 tras comprar SEG Electronics. El EBITDA cubre 10,1 veces los intereses.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Mucho sobre poco capital: ROIC del 38,8 % en 2025 contra un WACC del 7,80 %, y del 17,7 % de media en la serie. Es un ROIC de tres años: en 2019 y 2021 estaba en el WACC.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 30,0 % del NOPAT de media; ROIIC a cinco años del 84,3 % contra un corte del 12,8 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "A medias: 22,9 M€ de flujo libre en 2025, el 28,4 % del EBITDA, porque la ampliación de capacidad y el circulante se comen la caja. Los owner earnings (38,0 M€) cubren el dividendo 1,68 veces.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 66,6 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 13,68 € contra 35,50 €: margen de seguridad −61,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Poco: moat ESTRECHO (52,2). La barrera son más de 1.500 homologaciones, pero protege el sitio en la lista de proveedores, no el precio.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que vuelvan las licitaciones por precio cuando la capacidad del sector alcance a la demanda (−16,35 a −32,70 % del precio objetivo). La peor cadena del pre-mortem cae un 46,69 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Cumplir la guía de 2026 (+33,88 %), que la caja alcance al beneficio (+13,44 %) y un plan 2027-2029 que consolide el margen (+10,90 %). Juntos, 17,00 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 11,44 – 11,89 € · stop de tesis 6,72 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El margen EBITDA, la señal única del §10.1: verde desde el 15,8 %, ámbar entre el 12 % y el 15,8 % y rojo por debajo del 12 %; caer por debajo del 12 % o más de 2 pp contra el mismo periodo del año anterior abre revisión. Y la contratación de cada semestre frente a la cifra de negocios, que adelanta el ciclo.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "La cuota de mercado actual, la categoría de cada consejero, los objetivos del plan 2027-2029 y lo que aportará SEG Electronics, que aún no tiene resultados que medir.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
