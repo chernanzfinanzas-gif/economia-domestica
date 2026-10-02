@@ -161,7 +161,7 @@
   "gImplicito": 30.0,
   "gIntrinseco": 15.22,
   "veredicto": "n.s.",
-  "motivo": "El precio exige un crecimiento extremo (>30%): el FCL de un solo año no es representativo (p.ej. por el float de circulante). Hay que usar un FCL normalizado, no el de un ejercicio.",
+  "motivo": "El precio exige un crecimiento de más del 30% anual durante cinco años incluso sobre el flujo normalizado (media de varios años) que descuenta el DCF. El flujo base no es el problema: la cotización está muy por encima de lo que el negocio ha generado.",
   "calculadoEl": "2026-10-02",
   "entradas": {
    "fcl": 21.0036,
@@ -353,5 +353,6 @@
     "origen": "escrita"
    }
   ]
- }
+ },
+ "revisadoEl": "2026-10-02"
 }
