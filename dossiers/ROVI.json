@@ -1,0 +1,358 @@
+{
+ "schemaVersion": 8,
+ "ticker": "ROVI",
+ "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
+ "fecha": "2026-10-05",
+ "rating": "A",
+ "score": 69.6,
+ "decision": "MANTENER",
+ "metodoValoracion": "DCF + múltiplos históricos — rama INDUSTRIAL, arquetipo SALUD. Síntesis ponderada del §6.5: DCF de dos fases sobre el FCL RECURRENTE (media 2021-2025, 105,3 M€: sin la ayuda del CDTI cobrada de una vez en 2025 ni los anticipos de los clientes del CDMO), por decisión del operador del 5-oct-2026, a tres escenarios (pesimista 27,50 · base 42,66 · optimista 70,74 €; peso 50); múltiplos históricos de diez años sobre el EBITDA, el EBIT y el beneficio de 2025 sin los 11,4 M€ de la ayuda (EV/EBITDA 75,23 · EV/EBIT 87,11 · PER 74,30 · P/BV 64,67 €; peso 45) y rentabilidad por dividendo (67,81 €; peso 5). WACC 7,50 %, el suelo del arquetipo. Precio objetivo 60,47 €, margen de seguridad +5,35 % sobre 57,40 € (2-oct-2026).",
+ "poBear": 50.77,
+ "poBase": 60.4735918645943,
+ "poBull": 69.92,
+ "entMin": 50.77,
+ "entMax": 52.59,
+ "stop": 42.47,
+ "dpaPrevisto": 0.9594,
+ "dpaPrevistoMotivo": "Último dividendo real, con cargo a 2025 (0,9594 €, pagado el 15-jul-2026): Rovi reparte el 35 % del beneficio y no publica el dividendo por acción previsto con cargo a 2026.",
+ "moat": "58,9 · MOAT ESTRECHO (sobre 100) con la norma de SALUD y el efecto red declarado N/A: activos intangibles 65 (42,1 %), costes de cambio 60 (21,05 %), ventaja en costes 45 (21,05 %) y economías de escala 60 (15,8 %). La horquilla moviendo los pesos va de 54,5 a 59,7: sigue siendo estrecho. Bemiparina propia, tecnología ISM® y plantas estériles certificadas por la FDA y la EMA; la enoxaparina es un biosimilar sin patente y el CDMO no se protegió cuando acabó el volumen de Moderna.",
+ "catalizadores": [
+  "Arranca el contrato de jeringas con una farmacéutica global (pendiente de autorización regulatoria desde abril de 2024): CDMO +20 % sobre 2025 con el margen intacto (12-24 meses · +8,02 % sobre el PO). Disparador: la comunicación de la autorización o ventas del CDMO por encima de 323 M€ en un ejercicio.",
+  "Okedi llega a 100 M€ de ventas (56,7 M€ en 2025; 34,0 M€ en el primer semestre de 2026, +27 %) (24-36 meses · +6,44 % sobre el PO). Disparador: ventas de Okedi por encima de 80 M€ en un ejercicio.",
+  "La caja se acumula: 47,9 M€ al año de FCL recurrente después del dividendo (12 meses · +1,16 % sobre el PO). Disparador: caja neta al cierre de 2026, o una recompra con amortización."
+ ],
+ "riesgos": [
+  "Comercial · Media · −8,02 a −16,04% · El CDMO sigue perdiendo ventas: de 409,3 M€ (2023) a 269,5 M€ (2025) y el plan pide casi 700 M€ en 2030. Riesgo dominante.",
+  "Competitivo · Media · −7,20 a −14,41% · Baja el precio de las heparinas: la enoxaparina es un biosimilar sin patente y Rovi espera presión en precios en 2026.",
+  "Regulatorio · Media · −3,05 a −6,10% · Recortes de precio en España, donde se hace el 38 % de las ventas.",
+  "Operativo · Media · −4,62 a −9,24% · Sube otra vez la materia prima de la heparina, que explicó parte de la mejora del margen bruto de 2025.",
+  "Asignación de capital · Media · −7,25 a −14,50% · La capacidad nueva (jeringas, Phoenix) sale más cara de lo previsto o tarda en llenarse.",
+  "Mercado · Media · −6,23 a −15,59% · Los múltiplos vuelven a su media sin los años de Moderna: el 45 % del PO sale de múltiplos históricos.",
+  "Tecnológico · Baja-Media · −2,90 a −5,57% · Okedi y la tecnología ISM® no llegan a sus objetivos (100-200 M€).",
+  "Gobernanza · Baja · −3,12 a −6,23% · Control familiar (Norbel, 58,19 %), presidente y consejero delegado a la vez y alquileres a sociedades de la familia."
+ ],
+ "bull": "69,92 € (+15,6 % sobre el PO). Los tres catalizadores juntos: el contrato de jeringas arranca y el CDMO sube un 20 %, Okedi llega a 100 M€ y un año de caja libre se acumula. Sobre la cotización de 57,40 € sería un +21,8 %.",
+ "bear": "50,77 € (0,840 × PO). El riesgo dominante del §8.1 —el CDMO, el de mayor impacto entre los seis de probabilidad Media— en su extremo duro: pierde otro 40 % de sus ventas (−107,8 M€) con el margen EBITDA intacto. El extremo suave daba 55,62 €. La catástrofe es la cadena C del §8.2, la expansión pagada sin clientes: 44,75 €, ancla del stop.",
+ "resumen": "Farmacéutica familiar con dos negocios —especialidades propias y con licencia (heparinas, Okedi) y fabricación de inyectables para terceros (CDMO)—, de calidad A (69,6 sobre 100) y MOAT ESTRECHO (58,9): margen EBITDA del 29,1 %, el más alto de las farmacéuticas españolas comparadas, ROIC del 20,4 % y deuda neta de 0,10 veces el EBITDA. Precio objetivo 60,47 € con la caja limpia de la ayuda del CDTI y de los anticipos del CDMO: margen de seguridad +5,35 % sobre 57,40 €, por debajo del 15 % que exige comprar. MANTENER. La tesis cuelga del CDMO, que vendió 269,5 M€ en 2025 frente a 409,3 M€ en 2023 y espera la autorización del contrato de jeringas; el precio ya pide crecer un 8,5 % al año.",
+ "revisadoEl": "2026-10-05",
+ "confianza": {
+  "score": 98,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-05"
+ },
+ "dividendSafety": {
+  "score": 81,
+  "banda": "Muy seguro",
+  "componentes": {
+   "C1": 31,
+   "C2": 15,
+   "C3": 20,
+   "C4": 0,
+   "C5": 15
+  },
+  "shareholderYield": 1.47,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 3.31x / FCL 2.49x (3a OE 2.07x) → 31/35",
+   "C2 payout BN ord.: 34% (3a 39%) → 15/15",
+   "C3 balance: DN/EBITDA 0.10x, cob.int 65.3x → 20/20",
+   "C4 trayectoria: 4 recorte(s) en 10a (reciente) · DPA creciente → 0/15",
+   "C5 predictores B4 (cuantitativos): ninguno activo → 15/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-10-05"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 7,
+   "banda": "fuerte",
+   "detalle": {
+    "roa_pos": 1,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 1,
+    "liquid_up": 1,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 0
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 11.71,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -2.39,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -5.2,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-10-05"
+ },
+ "robustez": {
+  "nivel": "sensible",
+  "sobreviveDecision": false,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 50.77,
+   "p50": 60.4735918645943,
+   "p90": 69.92
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 58.32,
+   "poMax": 64.2,
+   "poBase": 60.47,
+   "cotizacion": 57.4,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.26,
+   "componentesIntactos": 7,
+   "dcf": {
+    "poMin": 34.37,
+    "poMax": 57.0,
+    "poBase": 42.6590362047248
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": 1.6,
+   "mdsMax": 11.9
+  },
+  "beta": {
+   "capm": 0.51,
+   "ref2": 0.62681,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (26 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 74 % restante de la ponderación —los otros 7 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (57.40) queda por DEBAJO de toda la banda del precio objetivo de síntesis [58.32–64.20] → infravalorada en todo el rango",
+   "…pero la banda de margen de seguridad [+1.6 % … +11.9 %] CRUZA el umbral del 5 % de la tabla del §9.4: la DECISIÓN no es la misma en los dos extremos de la perturbación, así que es SENSIBLE [F621]. Que la cotización esté fuera de la banda del precio objetivo dice que la INFRA o SOBREvaloración aguanta; no dice que aguante el veredicto",
+   "para contraste, el DCF puro (§6.3) se mueve en [34.37–57.00] € alrededor de 42.66 €: es la sensibilidad del MODELO, no la del precio objetivo"
+  ],
+  "calculadoEl": "2026-10-05"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 8.45,
+  "gIntrinseco": 7.74,
+  "veredicto": "EXIGENTE",
+  "motivo": "El precio exige algo por encima de lo autofinanciable (g intrínseco): descuenta ejecución. Alcanzable si el negocio reinvierte con retornos altos (ROIC>WACC), pero el margen de seguridad se estrecha.",
+  "calculadoEl": "2026-10-05",
+  "entradas": {
+   "fcl": 105.3348,
+   "wacc": 7.5,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 51.235762,
+   "deudaNeta": 21.897,
+   "modo": "EV",
+   "precioBase": 57.4,
+   "validado": true,
+   "desviacion": 0.002,
+   "gBase": 8.452,
+   "fechaBase": "2026-10-05",
+   "congeladoEl": "2026-10-05"
+  }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-05",
+  "fuente": "Datos Financieros Rovi.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 2,
+   "nombre": "EL COMPUESTO",
+   "lema": "reinvierte mucho y bien",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.5,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 35.92,
+   "roiic5a": 26.15,
+   "roiic": 26.15,
+   "roiicVentana": "5A",
+   "roicMedio": 20.6,
+   "spread": 12.9,
+   "wacc": 7.5,
+   "conversionMedia": 16.48,
+   "coberturaDividendo": 2.43,
+   "gIntrinseco": 7.74,
+   "capexCrecimiento10a": 222.9,
+   "fcl10a": 513.3,
+   "retribucion10a": 507.6,
+   "retribucionSobreFcl": 98.9
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2023,
+    2025
+   ],
+   "coberturaFcl": [
+    null,
+    0.97,
+    2.43
+   ],
+   "coberturaOe": [
+    null,
+    1.49,
+    3.19
+   ],
+   "payoutBn": [
+    25.0,
+    35.0,
+    35.0
+   ],
+   "payoutFcl": [
+    null,
+    102.7,
+    41.2
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una farmacéutica con dos negocios: <b>medicamentos propios y con licencia</b> —heparinas, Okedi, Neparvis— que crecen todos los años, y <b>fabricación de inyectables para otras farmacéuticas</b> (CDMO), que va y viene con los grandes contratos. Invierte en capacidad: el CAPEX es el <b>7,7 % de las ventas</b> de media, y la conversión del EBITDA en caja libre del 16,5 % de media en la serie, con 2017-2019 en negativo.",
+     "Tiene tecnología propia —la bemiparina y la plataforma ISM® de Okedi— y plantas estériles certificadas por la FDA y la EMA, pero su producto más vendido, la enoxaparina, es un biosimilar sin patente."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De un margen alto sin deuda.</b> El ROIC medio de la serie es del 20,6 % contra un WACC del 7,50 %, y en 2025 el spread fue de +12,90 pp. Reinvierte de media el 35,9 % del NOPAT en CAPEX de crecimiento, y lo que gana el accionista sale del negocio, no del apalancamiento.",
+     "<b>La casilla sale «el compuesto» por el ROIIC a cinco años (26,2 %), que mide el capital puesto desde 2020.</b> A tres años el ROIIC es del −24,2 %: la capacidad ampliada en 2023-2025 todavía no ha dado fruto porque el CDMO perdió el volumen de Moderna. De los 513,3 M€ de flujo libre de la serie, 507,6 M€ —el 99 %— han vuelto al accionista en dividendos y recompras."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el CDMO. Vendió 409,3 M€ en 2023 y 269,5 M€ en 2025, y el contrato que debía llenar la capacidad nueva lleva desde abril de 2024 esperando autorización: <b>es el riesgo dominante, el catalizador principal y la señal de alarma</b>. La guía de 2026 se rebajó en mayo por ese retraso, aunque el CDMO ya sube un 38 % en el primer semestre.",
+     "Y en el precio. El dividendo de 2025 está cubierto 2,43x por el flujo libre y 1,98 veces con el recurrente, pero la caja de 2025 lleva 40,1 M€ de subvenciones cobradas de una vez. A 57,40 € el mercado descuenta que el flujo crezca un 8,5 % al año, más que el 7,7 % que la empresa financia sola."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Rovi compra <b>una farmacéutica de calidad, sin deuda, a un precio que ya cuenta con que el CDMO se recupere</b>. La casilla 2 es real a cinco años, pero a tres el capital nuevo aún no rinde, y el precio objetivo (60,47 €) deja un margen de seguridad del +5,35 %: suficiente para mantener, no para comprar.",
+     "<b>Qué vigilar:</b> las ventas del CDMO cada trimestre, que es la variable de la que cuelga la tesis; la autorización del contrato de jeringas; el margen bruto, por las heparinas; y las ventas de Okedi, el producto propio que más crece."
+    ]
+   }
+  ],
+  "vigilar": "Las ventas del CDMO, la señal única de la tesis: si el conjunto de 2026 queda por debajo de los 269,5 M€ de 2025, el contrato de jeringas sigue sin arrancar y la tesis se revisa. Y el margen bruto, verde por encima del 60 %, ámbar entre el 55 % y el 60 % y rojo por debajo del 55 %, que dice si la presión en precios de las heparinas o la materia prima se comen el margen.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De vender sus propios medicamentos —heparinas sobre todo— (473,9 M€, el 64 % de las ventas) y de fabricar inyectables para otras farmacéuticas (269,5 M€, el 36 %); el 62 % de las ventas se hace fuera de España.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí, de sobra: deuda neta de 21,9 M€, 0,10 veces el EBITDA, y caja neta de 22,5 M€ en junio de 2026. La deuda bruta (121,8 M€) son préstamos del BEI y de organismos públicos.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Mucho más que su coste: ROIC del 20,4 % en 2025 contra un WACC del 7,50 %, y del 20,6 % de media en la serie. El capital de los últimos tres años todavía no: ROIIC a tres años del −24,2 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 2 · El compuesto: reinvierte mucho y bien. Reinvierte el 35,9 % del NOPAT de media; ROIIC a cinco años del 26,2 % contra un corte del 12,5 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Sí, aunque irregular: 119,3 M€ de flujo libre en 2025, 97,1 M€ sin la ayuda del CDTI cobrada de una vez, y 105,3 M€ de media recurrente en 2021-2025. Cubre el dividendo 1,98 veces con el recurrente.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 69,6 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 60,47 € contra 57,40 €: margen de seguridad +5,4 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Un moat estrecho (58,9): la bemiparina y la tecnología ISM® propias, y plantas estériles que el cliente no cambia sin volver a validar con la FDA y la EMA. La enoxaparina, su producto más vendido, no tiene patente.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que el CDMO no recupere volumen (−8,02 a −16,04 %): cayó de 409,3 a 269,5 M€ y el contrato de jeringas sigue sin autorización. Si además se abaratan las heparinas y la expansión se paga sin clientes, el valor cae a 27,66 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que arranque el contrato de jeringas (+8,02 %), que Okedi llegue a 100 M€ (+6,44 %) y que la caja libre se acumule (+1,16 %). Juntos, 69,92 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>MANTENER</b> · banda de entrada 50,77 – 52,59 € · stop de tesis 42,47 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "Las ventas del CDMO, la señal única de la tesis: si el conjunto de 2026 queda por debajo de los 269,5 M€ de 2025, el contrato de jeringas sigue sin arrancar y la tesis se revisa. Y el margen bruto, verde por encima del 60 %, ámbar entre el 55 % y el 60 % y rojo por debajo del 55 %, que dice si la presión en precios de las heparinas o la materia prima se comen el margen.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Cuánto pesan los clientes del CDMO, la categoría de cada consejero, el capital flotante y la autocartera, y los importes de las compras de Bertex Pharma y de la planta de Alcalá.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}

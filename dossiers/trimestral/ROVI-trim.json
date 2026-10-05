@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 2,
+  "ticker": "ROVI",
+  "empresa": "Rovi",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 201.6
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 104.3
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 97.3
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 59.3
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 2.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 62.15
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 66.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 32.99
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 47.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": null
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 380.8
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 208.6
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 172.2
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 119.1
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 5.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.64
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 97.1
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 25.5
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 66.6
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": -90.4
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 594.9
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 307.3
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 287.6
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 175.4
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 9.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.93
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 171.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.78
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 118.8
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": null
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 829.5
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 420.2
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 409.3
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 242.1
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 14.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.98
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 244.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.48
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 170.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 38.6
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ingresos operativos -25.0 %, EBITDA -61.1 %, Beneficio neto -68.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 56.6 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 48.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 151.2
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 101.1
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 50.1
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 54.3
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 5.4
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 56.61
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 25.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.13
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 15.0
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 67.2
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Ingresos operativos -13.5 %, EBITDA -28.0 %, Beneficio neto -33.5 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 59.4 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 31.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 329.3
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 210.5
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 118.9
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 116.9
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 12.5
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 59.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 69.9
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 21.23
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 44.3
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 74.7
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -5.1 %, EBITDA -2.3 %, Beneficio neto -4.5 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 63.6 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 12.0 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 564.6
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 311.4
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 253.2
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 172.6
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 20.3
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 63.58
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 167.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.61
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 113.5
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 108.8
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -7.9 %, EBITDA -15.2 %, Beneficio neto -19.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 62.7 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 17.9 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 763.7
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 427.5
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 336.2
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 241.6
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 28.8
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 62.66
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 207.4
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 27.16
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 136.9
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 85.1
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos +2.4 %, EBITDA +17.0 %, Beneficio neto +20.7 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 58.5 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 28.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 154.9
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 119.1
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 35.8
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 67.7
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 12.6
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 58.49
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 30.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 19.56
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 18.1
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 77.1
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -4.5 %, EBITDA -6.2 %, Beneficio neto -10.4 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 62.4 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 35.1 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 314.6
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 237.4
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 77.2
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 131.3
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 26.9
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 62.36
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 65.6
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 20.85
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 39.7
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 79.7
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -7.0 %, EBITDA -10.6 %, Beneficio neto -13.9 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 67.0 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 28.2 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 525.1
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 343.4
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 181.7
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 183.6
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 41.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 67.05
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 149.5
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 28.47
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 97.7
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 72.4
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -2.6 %, EBITDA +4.2 %, Beneficio neto +2.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 66.5 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO caen un 19.8 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 743.5
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 473.9
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 269.5
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 258.1
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 56.7
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 66.54
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 216.2
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 29.08
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 140.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 21.9
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos -1.5 %, EBITDA -33.0 %, Beneficio neto -48.1 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 62.3 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO suben un 4.5 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 152.5
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 115.0
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 37.4
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 58.9
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 17.2
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 62.3
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 20.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 13.31
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 9.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 14.9
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Cada periodo lleva la fecha de CIERRE (31-mar, 30-jun, 30-sep, 31-dic).",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos operativos +9.4 %, EBITDA -10.4 %, Beneficio neto +112.6 % contra el mismo periodo del ejercicio anterior, con el margen bruto en 68.9 % (banda del §10.1: verde ≥ 60.0, rojo < 55.0). Las ventas del CDMO suben un 37.7 %, que es la señal única de la tesis (interanual, calculado sobre el mismo periodo del ejercicio anterior).",
+      "metricas": [
+        {
+          "nombre": "Ingresos operativos (M€)",
+          "valor": 344.2
+        },
+        {
+          "nombre": "Especialidades farmacéuticas (M€)",
+          "valor": 237.8
+        },
+        {
+          "nombre": "Fabricación a terceros · CDMO (M€)",
+          "valor": 106.3
+        },
+        {
+          "nombre": "Heparinas de bajo peso molecular (M€)",
+          "valor": 125.3
+        },
+        {
+          "nombre": "Okedi (M€)",
+          "valor": 34.0
+        },
+        {
+          "nombre": "Margen bruto (%)",
+          "valor": 68.88
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 58.8
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 17.08
+        },
+        {
+          "nombre": "Beneficio neto (M€)",
+          "valor": 84.4
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": -22.5
+        }
+      ],
+      "origen": "revolcado"
+    }
+  ]
+}
