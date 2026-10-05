@@ -1,16 +1,16 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-09-28T15:47:55+02:00",
+  "generadoEl": "2026-10-05T16:30:36+02:00",
   "generadoPor": "agenda.py (GitHub Actions) — fechas confirmadas de Yahoo Finance",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-09-28",
-  "resumenTexto": "📌 RESULTADOS confirmados (19): Enagás 20-10, Iberdrola, S.A. 21-10, Bankinter 22-10, Viscofan 22-10, Aena 28-10, CIE Automotive, S.A. 28-10, Endesa 28-10, Redeia 28-10. 💶 Ex-dividend (orientativo, 4): Ebro Foods 29-09, Inditex 29-10, Fluidra 08-12, Atresmedia 14-12. Sin fecha de resultados confirmada: 4 (rige la estimación del Vigía).",
+  "fechaReferencia": "2026-10-05",
+  "resumenTexto": "📌 RESULTADOS confirmados (22): Enagás 20-10, Iberdrola, S.A. 21-10, Bankinter 22-10, Viscofan 22-10, Aena 28-10, CIE Automotive, S.A. 28-10, Endesa 28-10, Redeia 28-10. 💶 Ex-dividend (orientativo, 6): Miquel y Costas 05-10, BBVA 13-10, Inditex 29-10, Banco Santander 29-10, Fluidra 08-12, Atresmedia 14-12. Sin fecha de resultados confirmada: 4 (rige la estimación del Vigía).",
   "resultados": [
     {
       "ticker": "ENG",
       "empresa": "Enagás",
       "fecha": "2026-10-20",
-      "dias": 22,
+      "dias": 15,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -18,7 +18,7 @@
       "ticker": "IBE",
       "empresa": "Iberdrola, S.A.",
       "fecha": "2026-10-21",
-      "dias": 23,
+      "dias": 16,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -26,7 +26,7 @@
       "ticker": "BKT",
       "empresa": "Bankinter",
       "fecha": "2026-10-22",
-      "dias": 24,
+      "dias": 17,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -34,7 +34,7 @@
       "ticker": "VIS",
       "empresa": "Viscofan",
       "fecha": "2026-10-22",
-      "dias": 24,
+      "dias": 17,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -42,7 +42,7 @@
       "ticker": "AENA",
       "empresa": "Aena",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -50,7 +50,7 @@
       "ticker": "CIE",
       "empresa": "CIE Automotive, S.A.",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -58,7 +58,7 @@
       "ticker": "ELE",
       "empresa": "Endesa",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -66,7 +66,7 @@
       "ticker": "RED",
       "empresa": "Redeia",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -74,7 +74,7 @@
       "ticker": "SAN",
       "empresa": "Banco Santander",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -82,7 +82,15 @@
       "ticker": "VID",
       "empresa": "Vidrala, S.A.",
       "fecha": "2026-10-28",
-      "dias": 30,
+      "dias": 23,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "BBVA",
+      "empresa": "BBVA",
+      "fecha": "2026-10-29",
+      "dias": 24,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -90,7 +98,7 @@
       "ticker": "FAE",
       "empresa": "Faes Farma",
       "fecha": "2026-10-29",
-      "dias": 31,
+      "dias": 24,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -98,7 +106,7 @@
       "ticker": "FDR",
       "empresa": "Fluidra",
       "fecha": "2026-10-29",
-      "dias": 31,
+      "dias": 24,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -106,7 +114,7 @@
       "ticker": "MAP",
       "empresa": "Mapfre",
       "fecha": "2026-10-29",
-      "dias": 31,
+      "dias": 24,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -114,7 +122,15 @@
       "ticker": "REP",
       "empresa": "Repsol",
       "fecha": "2026-10-29",
-      "dias": 31,
+      "dias": 24,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "CABK",
+      "empresa": "CaixaBank",
+      "fecha": "2026-10-30",
+      "dias": 25,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -122,7 +138,7 @@
       "ticker": "AMS",
       "empresa": "Amadeus",
       "fecha": "2026-11-06",
-      "dias": 39,
+      "dias": 32,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -130,7 +146,7 @@
       "ticker": "LOG",
       "empresa": "Logista",
       "fecha": "2026-11-06",
-      "dias": 39,
+      "dias": 32,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -138,7 +154,15 @@
       "ticker": "ACS",
       "empresa": "ACS",
       "fecha": "2026-11-12",
-      "dias": 45,
+      "dias": 38,
+      "confirmada": true,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "MRL",
+      "empresa": "Merlin Properties",
+      "fecha": "2026-11-12",
+      "dias": 38,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -146,7 +170,7 @@
       "ticker": "TEF",
       "empresa": "Telefónica",
       "fecha": "2026-11-12",
-      "dias": 45,
+      "dias": 38,
       "confirmada": true,
       "fuente": "calendar"
     },
@@ -154,35 +178,53 @@
       "ticker": "ITX",
       "empresa": "Inditex",
       "fecha": "2026-12-02",
-      "dias": 65,
+      "dias": 58,
       "confirmada": true,
       "fuente": "calendar"
     }
   ],
   "exDividendos": [
     {
-      "ticker": "EBRO",
-      "empresa": "Ebro Foods",
-      "exFecha": "2026-09-29",
-      "dias": 1,
+      "ticker": "MCM",
+      "empresa": "Miquel y Costas",
+      "exFecha": "2026-10-05",
+      "dias": 0,
       "pagoFecha": null,
-      "importe": 0.23,
+      "importe": 0.115462,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "BBVA",
+      "empresa": "BBVA",
+      "exFecha": "2026-10-13",
+      "dias": 8,
+      "pagoFecha": null,
+      "importe": 0.37,
       "fuente": "calendar"
     },
     {
       "ticker": "ITX",
       "empresa": "Inditex",
       "exFecha": "2026-10-29",
-      "dias": 31,
+      "dias": 24,
       "pagoFecha": null,
       "importe": 0.875,
+      "fuente": "calendar"
+    },
+    {
+      "ticker": "SAN",
+      "empresa": "Banco Santander",
+      "exFecha": "2026-10-29",
+      "dias": 24,
+      "pagoFecha": null,
+      "importe": 0.127,
       "fuente": "calendar"
     },
     {
       "ticker": "FDR",
       "empresa": "Fluidra",
       "exFecha": "2026-12-08",
-      "dias": 71,
+      "dias": 64,
       "pagoFecha": null,
       "importe": 0.33,
       "fuente": "calendar"
@@ -191,7 +233,7 @@
       "ticker": "A3M",
       "empresa": "Atresmedia",
       "exFecha": "2026-12-14",
-      "dias": 77,
+      "dias": 70,
       "pagoFecha": null,
       "importe": 0.83,
       "fuente": "calendar"
@@ -219,6 +261,6 @@
       "motivo": "Yahoo no confirma la fecha de resultados (rige la estimación del Vigía)"
     }
   ],
-  "totalConsultadas": 25,
+  "totalConsultadas": 31,
   "fallos": []
 }
