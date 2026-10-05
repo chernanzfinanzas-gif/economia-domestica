@@ -1,105 +1,21 @@
 {
-  "generadoEl": "2026-09-28T15:51:50+02:00",
+  "generadoEl": "2026-10-05T16:34:49+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-09-28",
-  "resumenTexto": "⚠️ VENCIDOS (1): Miquel y Costas (H1, +90d). 📅 ESTA SEMANA (8): Bankinter 30-09, Enagás 30-09, Faes Farma 30-09, Logista 30-09, Naturgy 30-09, Prim 30-09, Banco Santander 30-09, Viscofan 30-09. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
-  "vencidos": [
-    {
-      "ticker": "MCM",
-      "empresa": "Miquel y Costas",
-      "periodoEsperado": "2026-Q2",
-      "periodoLabel": "H1",
-      "fechaEstimada": "2026-06-30",
-      "ultimoPeriodo": "2026-Q1",
-      "ultimaFecha": "2026-03-31",
-      "diasVencido": 90
-    }
-  ],
-  "estaSemana": [
-    {
-      "ticker": "BKT",
-      "empresa": "Bankinter",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "ENG",
-      "empresa": "Enagás",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "FAE",
-      "empresa": "Faes Farma",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "LOG",
-      "empresa": "Logista",
-      "periodoEsperado": "2026-Q4",
-      "periodoLabel": "FY",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q3",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "NTGY",
-      "empresa": "Naturgy",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "PRM",
-      "empresa": "Prim",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "SAN",
-      "empresa": "Banco Santander",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    },
-    {
-      "ticker": "VIS",
-      "empresa": "Viscofan",
-      "periodoEsperado": "2026-Q3",
-      "periodoLabel": "9M",
-      "fechaEstimada": "2026-09-30",
-      "ultimoPeriodo": "2026-Q2",
-      "ultimaFecha": "2026-06-30"
-    }
-  ],
+  "fechaReferencia": "2026-10-05",
+  "resumenTexto": "Nada en 14 días. Siguiente: CIE Automotive, S.A. ~22-10 (9M). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "vencidos": [],
+  "estaSemana": [],
   "proximos14d": [],
   "siguienteEvento": {
-    "ticker": "BKT",
-    "empresa": "Bankinter",
+    "ticker": "CIE",
+    "empresa": "CIE Automotive, S.A.",
     "periodoEsperado": "2026-Q3",
     "periodoLabel": "9M",
-    "fechaEstimada": "2026-09-30",
+    "fechaEstimada": "2026-10-22",
     "ultimoPeriodo": "2026-Q2",
-    "ultimaFecha": "2026-06-30"
+    "ultimaFecha": "2026-07-20"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 25
+  "totalEmpresas": 31
 }
