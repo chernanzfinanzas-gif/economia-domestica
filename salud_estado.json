@@ -1,16 +1,16 @@
 {
- "generado": "2026-10-02",
+ "generado": "2026-10-05",
  "linter": {
   "ok": true,
-  "detalle": "62 ficheros validados, sin errores."
+  "detalle": "64 ficheros validados, sin errores."
  },
  "sincronia": {
-  "ok": true,
-  "detalle": "RESULTADO: TODO SINCRONIZADO (62 archivos). La app refleja el método."
+  "ok": false,
+  "detalle": "RESULTADO: 62 sincronizados · 2 INCIDENCIA(S) — la app puede"
  },
  "formulas": {
   "ok": true,
-  "detalle": "31 libros revisados; todas las fórmulas conservan su valor.",
+  "detalle": "32 libros revisados; todas las fórmulas conservan su valor.",
   "libros": []
  },
  "senales": {
