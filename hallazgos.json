@@ -6,7 +6,8 @@
     "A3M": {
       "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -91,7 +92,8 @@
       "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
       "cobertura": {
         "semanal": "2026-10-05",
-        "trimestral": "2026-07-29"
+        "trimestral": "2026-07-29",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -117,7 +119,8 @@
     "AENA": {
       "empresa": "Aena S.M.E., S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -158,7 +161,8 @@
     "AMS": {
       "empresa": "Amadeus IT Group, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -256,7 +260,8 @@
     "AZK": {
       "empresa": "Azkoyen, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -304,7 +309,8 @@
     "BKT": {
       "empresa": "Bankinter, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -314,7 +320,8 @@
     "CIE": {
       "empresa": "CIE Automotive, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -341,7 +348,8 @@
       "empresa": "Ebro Foods, S.A.",
       "cobertura": {
         "semanal": "2026-10-05",
-        "trimestral": "2026-08-23"
+        "trimestral": "2026-08-23",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -378,14 +386,16 @@
     },
     "ECR": {
       "empresa": "ECR.MC",
-      "cobertura": {},
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
       "hallazgos": [
         {
           "id": "soc-otro",
           "abiertoEl": "2026-05-01",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "resuelta",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Bondalti llegó al 85,85 % con la OPA de exclusión a 3,505 €/acción (37,23 % de aceptación, 16-sep-2026) y Ercros quedó excluida de bolsa el 21-23 de septiembre de 2026. Ya no cotiza; el 14,15 % restante queda en minoritarios fuera de mercado.",
           "resumen": "Ercros anunció planes de exclusión de bolsa tras elevar sus pérdidas a 13,6 M€; su accionista mayoritario Bondalti está impulsando activamente la exclusión bursátil junto a un giro industrial. Aún cotiza, pero el proceso de sacarla de bolsa está en marcha.",
           "tipo": "otro",
           "naturaleza": "situacion",
@@ -400,7 +410,8 @@
     "ELE": {
       "empresa": "Endesa, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -469,7 +480,8 @@
     "ENG": {
       "empresa": "Enagás, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -526,7 +538,8 @@
     "FAE": {
       "empresa": "Faes Farma, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -583,7 +596,8 @@
     "FDR": {
       "empresa": "Fluidra, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -624,7 +638,8 @@
     "IBE": {
       "empresa": "Iberdrola, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -678,7 +693,8 @@
     "ITX": {
       "empresa": "Industria de Diseño Textil, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -688,7 +704,8 @@
     "LOG": {
       "empresa": "Logista Integral, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -718,7 +735,8 @@
     "MAP": {
       "empresa": "Mapfre, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -775,7 +793,8 @@
     "MCM": {
       "empresa": "Miquel y Costas & Miquel, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -832,7 +851,8 @@
     "NTGY": {
       "empresa": "Naturgy Energy Group, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -889,7 +909,8 @@
     "PRM": {
       "empresa": "Prim, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -943,7 +964,8 @@
     "RED": {
       "empresa": "Redeia Corporación, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -987,13 +1009,13 @@
           "tipo": "sancion",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "barrido societario 2026-08-10",
-          "fecha": "2026-04-17",
-          "fuente": "registro publico (CNMC) + emisor (resultados 1S 29-jul) + OCU",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-10-04",
+          "fuente": "https://www.msn.com/es-es/noticias/other/la-cnmc-ultima-las-primeras-multas-por-el-gran-apagon-bajo-un-resquicio-legal-que-favorece-a-red-electrica/ar-AA2dzARZ",
           "exigeAccion": false,
           "ultimaNovedad": {
-            "fecha": "2026-04-17",
-            "texto": "Expediente sancionador de la CNMC por el apagon del 28-abr-2025, incoado el 17-abr-2026, ABIERTO Y SIN RESOLUCION. Sin novedad en la ventana 3-10 ago, pero con dos actualizaciones que agravan el perfil: (1) Redeia SIGUE SIN DOTAR PROVISION ALGUNA en las cuentas de junio, alegando que no es probable una salida de recursos — comunicado con los resultados del 29-jul; (2) la OCU abrio el 30-jul via de reclamacion colectiva de indemnizaciones contra Red Electrica y las electricas. Redeia ha alegado defectos formales y niega infraccion; la propia CNMC admite que las posibles infracciones son multifactoriales. RIESGO ABIERTO Y SIN CUANTIFICAR: la cuantia potencial del expediente y de las reclamaciones es Pte. Revision. HUECO DEL EXPEDIENTE anotado: ningun driver del 8.1 cubre el frente civil de reclamaciones."
+            "fecha": "2026-10-04",
+            "texto": "Expediente sancionador de la CNMC por el apagón del 28-abr-2025, incoado el 17-abr-2026, sin resolución. Novedad según prensa (El Mundo, 4-oct; Diario Qué!, 5-oct): la CNMC ultima las primeras multas con una interpretación que favorecería a Red Eléctrica y prevé cerrar los expedientes en marzo. No verificado en la CNMC."
           }
         },
         {
@@ -1034,7 +1056,8 @@
     "REP": {
       "empresa": "Repsol, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1143,7 +1166,9 @@
     },
     "SAB": {
       "empresa": "SAB.MC",
-      "cobertura": {},
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
       "hallazgos": [
         {
           "id": "soc-opa",
@@ -1165,7 +1190,8 @@
     "SAN": {
       "empresa": "Banco Santander, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1271,7 +1297,8 @@
     "TEF": {
       "empresa": "Telefónica, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1370,7 +1397,9 @@
     },
     "TLGO": {
       "empresa": "TLGO.MC",
-      "cobertura": {},
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
       "hallazgos": [
         {
           "id": "soc-opa",
@@ -1393,8 +1422,10 @@
       ]
     },
     "TRG": {
-      "empresa": "TRG.MC",
-      "cobertura": {},
+      "empresa": "Tubos Reunidos, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
       "hallazgos": [
         {
           "id": "soc-concurso",
@@ -1406,20 +1437,25 @@
           "tipo": "concurso",
           "naturaleza": "situacion",
           "severidad": "alta",
-          "origen": "alertas.json (migrado)",
-          "fecha": "2026-05-05",
-          "fuente": "https://www.moncloa.com/2026/07/15/tubos-reunidos-ofertas-concurso-acreedores-3400174/",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-06-29",
+          "fuente": "https://www.bolsamania.com/noticias/empresas/tubos-reunidos-comunica-cnmv-bases-venta-matriz-sociedades--22859676.html",
           "exigeAccion": false,
           "precioIntervenido": "suspension-cnmv",
-          "precioIntervenidoPorque": "Cotizacion SUSPENDIDA por la CNMV desde el 4-may-2026 (concurso voluntario). El historico repite el ultimo cruce: no hay precio, hay un fosil.",
-          "precioIntervenidoDesde": "2026-05-04"
+          "precioIntervenidoPorque": "La CNMV suspendió la cotización al pedir el concurso: el histórico repite el último cruce.",
+          "precioIntervenidoDesde": "2026-05-04",
+          "ultimaNovedad": {
+            "fecha": "2026-06-29",
+            "texto": "Concurso voluntario declarado (autos del 11-may y 17-jun-2026, Tribunal de Instancia de Vitoria) con administración concursal. El 29-jun se publicaron las reglas de venta de la unidad productiva o de las sociedades del perímetro; a 5-oct no consta adjudicación, convenio ni liquidación. Cotización SUSPENDIDA por la CNMV (último cierre 0,144 €). 1S-2026: pérdidas de 77,4 M€ e ingresos −51 %."
+          }
         }
       ]
     },
     "VID": {
       "empresa": "Vidrala, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1446,7 +1482,8 @@
       "empresa": "Viscofan, S.A.",
       "cobertura": {
         "semanal": "2026-10-05",
-        "trimestral": "2026-07-29"
+        "trimestral": "2026-07-29",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1480,7 +1517,8 @@
     "LDA": {
       "empresa": "Línea Directa Aseguradora, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1490,7 +1528,8 @@
     "BBVA": {
       "empresa": "Banco Bilbao Vizcaya Argentaria, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1500,7 +1539,8 @@
     "MRL": {
       "empresa": "Merlin Properties SOCIMI, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1526,7 +1566,8 @@
     "CABK": {
       "empresa": "CaixaBank, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1536,7 +1577,8 @@
     "ART": {
       "empresa": "Arteche Lantegi Elkartea, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
@@ -1546,7 +1588,8 @@
     "GEST": {
       "empresa": "Gestamp Automoción, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [
         {
@@ -1572,29 +1615,634 @@
     "ROVI": {
       "empresa": "Laboratorios Farmacéuticos Rovi, S.A.",
       "cobertura": {
-        "semanal": "2026-10-05"
+        "semanal": "2026-10-05",
+        "universo": "2026-10-05"
       },
       "hallazgos": [],
       "revisiones": [],
       "revisionesEl": "2026-10-05",
       "revisionesFrescas": true
+    },
+    "UBS": {
+      "empresa": "Urbas Grupo Financiero, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-concurso",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Urbas está en concurso de acreedores (Juzgado Mercantil nº 2 de Madrid; deuda de unos 200 M€) y con la cotización suspendida desde abril de 2025 (el auditor no firmó las cuentas de 2024). El 23-sep-2026 presentó una propuesta de convenio sin quitas con adhesiones del 61,19 % de la deuda ordinaria; la administración concursal se opone y el 1-oct fechó la insolvencia en 2021. Desenlace abierto: convenio o liquidación. Según prensa.",
+          "tipo": "concurso",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-09-23",
+          "fuente": "https://www.elespanol.com/invertia/empresas/20260923/urbas-presenta-juez-convenio-acreedores-aceptacion-deuda-salvar-concurso/1003744394856_0.html",
+          "exigeAccion": false,
+          "precioIntervenido": "suspension-cnmv",
+          "precioIntervenidoPorque": "Cotización suspendida desde abril de 2025: el precio no es de mercado.",
+          "precioIntervenidoDesde": "2025-04-30"
+        }
+      ]
+    },
+    "CIRSA": {
+      "empresa": "Cirsa Enterprises, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Acuerdo vinculante de fusión transfronteriza (2-sep-2026): Lottomatica absorbe a Cirsa con un canje de 0,668 acciones de Lottomatica por acción de Cirsa (sus accionistas, ~32,5 % del grupo resultante), más un dividendo extraordinario previo de 1,56 €/acción. Contraprestación implícita 18,11 €/acción; derecho de separación a 13,20 € con límite del 5 %. Cierre previsto en el 2T-2027; Cirsa dejará de cotizar.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-09-02",
+          "fuente": "https://www.cirsa.com/inversores/comunicados-cnmv/",
+          "exigeAccion": false,
+          "precioIntervenido": "canje-con-ecuacion-fija",
+          "precioIntervenidoPorque": "La cotización pasa a moverse con la de Lottomatica a través de la ecuación de canje fija.",
+          "precioIntervenidoDesde": "2026-09-02"
+        }
+      ]
+    },
+    "ANE": {
+      "empresa": "Corporación Acciona Energías Renovables, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Según prensa, Acciona tiene en revisión estratégica su ~80-91 % de Acciona Energía, sin descartar la venta total; ofertas vinculantes esperadas a mediados de octubre (EQT con Norges, Brookfield, Ardian). Si se vende el control habría OPA sobre los minoritarios. Los Entrecanales pedirían 26,7 €/acción frente a ~20,5 € en bolsa. Sin información privilegiada del emisor.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-09-15",
+          "fuente": "https://theobjective.com/economia/2026-09-16/entrecanales-comprador-acciona-energia-precio/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "OLE": {
+      "empresa": "Deoleo, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Según prensa (elEconomista, 19-ago-2026), Dcoop negocia comprar por unos 470 M€ el ~57 % que CVC tiene en Deoleo; también habría otros interesados. Deoleo comunicó que esos accionistas analizan alternativas sin decisión. Si se cierra puede obligar a una OPA; no consta firma ni cierre a 5-oct.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-08-19",
+          "fuente": "https://www.bolsamania.com/noticias/empresas/deoleo-dispara-bolsa-posible-oferta-dcoop-470-millones-euros--23302618.html",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "AEDAS": {
+      "empresa": "AEDAS Homes, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Tras dos OPAs (la segunda a 24 €, liquidada el 5-mar-2026) Neinor tiene el 96,8 % de AEDAS. Sigue cotizando con un flotante de ~3 %; Neinor habló de venta forzosa y también de mantener la cotización o lanzar una OPA de exclusión a 24 € como máximo. No consta anuncio en la ventana: liquidez mínima y posible exclusión.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-03-05",
+          "fuente": "https://forbes.es/economia/884989/neinor-se-hace-con-un-968-del-capital-de-aedas-por-923-millones-de-euros-tras-concluir-su-segunda-opa/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "ADX": {
+      "empresa": "Audax Renovables, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Audax comunicó el 25-jun-2026 una potencial OPA LANZADA POR ella sobre Elmera Group ASA (comercializadora noruega cotizada en Oslo), con actualizaciones el 26-jun y el 1-jul. Precio, importe, financiación y resultado sin verificar; junta extraordinaria el 7-oct-2026.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-06-25",
+          "fuente": "https://www.cnmv.es/portal/informacion-privilegiada/resultado-ip?nif=A62338827",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "OHLA": {
+      "empresa": "OHLA, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "caducada",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Los hermanos Amodio compraron el 7,22 % a Coapa Larca (Holzer) y suben del 21,6 % al 28,8 %, justo por debajo del 30 % que obliga a lanzar OPA (13-jul-2026); JP Morgan colocó además un 6 % con un 9 % de descuento.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-07-13",
+          "fuente": "https://www.merca2.es/2026/07/14/amodio-ohla-participacion-28-8-2416977/",
+          "exigeAccion": false,
+          "caducaEl": "2026-08-12"
+        },
+        {
+          "id": "soc-litigio",
+          "abiertoEl": "2026-10-05",
+          "estado": "caducada",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "OHLA comunicó como información privilegiada (1-sep-2026) procedimientos judiciales en Qatar sobre recursos de una UTE; importe y alcance sin verificar. Antecedente: condena de 43,9 M$ del Tribunal Supremo de Nueva York (24-jun-2026).",
+          "tipo": "litigio",
+          "naturaleza": "hecho",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-09-01",
+          "fuente": "https://www.cnmv.es/portal/informacion-privilegiada/resultado-ip?nif=A-48010573",
+          "exigeAccion": false,
+          "caducaEl": "2026-10-01"
+        }
+      ]
+    },
+    "TRE": {
+      "empresa": "Técnicas Reunidas, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-litigio",
+          "abiertoEl": "2026-10-05",
+          "estado": "caducada",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Según prensa, un tribunal británico rechazó el 10-ago-2026 las cautelares del consorcio Técnicas Reunidas–Technip–Samsung contra la ejecución de las garantías de Bapco (penalización del 10 %, ~418 M€ en total; a TR le tocaría ~140 M€ frente a 182,9 M€ de beneficio previsto en 2026). El emisor no lo ha comunicado.",
+          "tipo": "litigio",
+          "naturaleza": "hecho",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-08-10",
+          "fuente": "https://www.bankinter.com/blog/empresas/noticias-tecnicas-reunidas-analisis-acciones",
+          "exigeAccion": false,
+          "caducaEl": "2026-09-09"
+        }
+      ]
+    },
+    "MEL": {
+      "empresa": "Meliá Hotels International, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "caducada",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Información privilegiada (21-jul-2026): la filial Ilha Bela deja desde el 24-jul de gestionar y comercializar todos sus hoteles en Cuba. Motivo e impacto en cifras sin verificar.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-07-21",
+          "fuente": "https://www.cnmv.es/portal/informacion-privilegiada/resultado-ip?nif=A78304516",
+          "exigeAccion": false,
+          "caducaEl": "2026-08-20"
+        }
+      ]
+    },
+    "NYE": {
+      "empresa": "Nyesa Valores Corporación, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Ampliaciones de capital continuas por conversión de los bonos de LDA Capital (comunicaciones del 21-jul y 3-ago-2026), propuesta de ampliación de 5,3 M€ por compensación de créditos y duda del auditor sobre la continuidad del negocio (abril de 2026). Sigue cotizando; dilución continua.",
+          "tipo": "otro",
+          "naturaleza": "situacion",
+          "severidad": "media",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-07-21",
+          "fuente": "https://www.nyesa.com/accionistas-e-inversores/",
+          "exigeAccion": false
+        }
+      ]
+    },
+    "AMP": {
+      "empresa": "Amper, S.A.",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-otro",
+          "abiertoEl": "2026-10-05",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "La junta extraordinaria (1-oct-2026) aprobó una ampliación no dineraria de 44 M€ (7,65 M de acciones a 5,75 €) para los fondos Nazca a cambio del 28,39 % de Next Gen Critical Comms, sin derecho de suscripción preferente. Dilución sin cuantificar tras el contrasplit 1x25 de julio. Según prensa.",
+          "tipo": "otro",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-10-01",
+          "fuente": "https://pcbolsa.com/Noticia/14232/Amper-aprueba-una-ampliacion-de-44-millones-para-recibir-el-2839-de-Next-Gen-Critical-Comms",
+          "exigeAccion": false,
+          "caducaEl": "2026-10-31"
+        }
+      ]
+    },
+    "CEV": {
+      "empresa": "Compañía Española de Viviendas en Alquiler, S.A. (Cevasa)",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": [
+        {
+          "id": "soc-sancion",
+          "abiertoEl": "2026-10-05",
+          "estado": "caducada",
+          "resueltoEl": "2026-10-05",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
+          "resumen": "Sanción de la CNMV de 120.000 € por infracción grave al no cumplir los requisitos de publicación de operaciones vinculadas (resolución de 25-jun-2026, inscrita el 17-jul y publicada en el BOE el 3-ago).",
+          "tipo": "sancion",
+          "naturaleza": "hecho",
+          "severidad": "baja",
+          "origen": "barrido universo 2026-10-05",
+          "fecha": "2026-07-17",
+          "fuente": "https://www.cnmv.es/webservices/verdocumento/ver?e=9eKFlqE5E6qj%2fvWCM3aE5NKnQNCJ2NT0X3SJv8p65NVBdnC08ZpAWgji14hgsmVo",
+          "exigeAccion": false,
+          "caducaEl": "2026-08-16"
+        }
+      ]
+    },
+    "R4": {
+      "empresa": "R4",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "SCYR": {
+      "empresa": "SCYR",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "FCC": {
+      "empresa": "FCC",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "UNI": {
+      "empresa": "UNI",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ANA": {
+      "empresa": "ANA",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ACX": {
+      "empresa": "ACX",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "AIR": {
+      "empresa": "AIR",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "FER": {
+      "empresa": "FER",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "MTS": {
+      "empresa": "MTS",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "IDR": {
+      "empresa": "IDR",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "GRF": {
+      "empresa": "GRF",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "COL": {
+      "empresa": "COL",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ALM": {
+      "empresa": "ALM",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "PUIG": {
+      "empresa": "PUIG",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "GRE": {
+      "empresa": "GRE",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ENO": {
+      "empresa": "ENO",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "CAF": {
+      "empresa": "CAF",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "MAKS": {
+      "empresa": "MAKS",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "HOME": {
+      "empresa": "HOME",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "LLN": {
+      "empresa": "LLN",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "RLIA": {
+      "empresa": "RLIA",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "MVC": {
+      "empresa": "MVC",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "PHM": {
+      "empresa": "PHM",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "PSG": {
+      "empresa": "PSG",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ENC": {
+      "empresa": "ENC",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "GSJ": {
+      "empresa": "GSJ",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "TUB": {
+      "empresa": "TUB",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "NXT": {
+      "empresa": "NXT",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ALNT": {
+      "empresa": "ALNT",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "BKY": {
+      "empresa": "BKY",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "RJF": {
+      "empresa": "RJF",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ARM": {
+      "empresa": "ARM",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "AI": {
+      "empresa": "AI",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "NEA": {
+      "empresa": "NEA",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "VOC": {
+      "empresa": "VOC",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ADZ": {
+      "empresa": "ADZ",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "EZE": {
+      "empresa": "EZE",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "REN": {
+      "empresa": "REN",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "CCEP": {
+      "empresa": "CCEP",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "CLNX": {
+      "empresa": "CLNX",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "IBG": {
+      "empresa": "IBG",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "ORY": {
+      "empresa": "ORY",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
+    },
+    "DIA": {
+      "empresa": "DIA",
+      "cobertura": {
+        "universo": "2026-10-05"
+      },
+      "hallazgos": []
     }
   },
   "resumen": {
-    "empresasConHallazgo": 26,
-    "hallazgosActivos": 36,
+    "empresasConHallazgo": 33,
+    "hallazgosActivos": 43,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 17,
-      "otro": 11,
+      "otro": 17,
       "opa": 3,
       "litigio": 1,
-      "concurso": 1
+      "concurso": 2
     },
     "exigenAccion": 0,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 18,
-    "hechosCaducadosHoy": 0
+    "situacionesAbiertas": 24,
+    "hechosCaducadosHoy": 5
   },
   "reproyectadoEl": "2026-09-26"
 }
