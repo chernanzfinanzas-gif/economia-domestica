@@ -21535,13 +21535,22 @@
     "VID": 83.7,
     "VIS": 52.9
    },
-   "contraste": {}
+   "contraste": {
+    "MCM": {
+     "google": 13.15,
+     "yahooBarra": 13.15,
+     "dif": 0.0,
+     "difPct": 0.0,
+     "grave": false,
+     "el": "2026-10-06"
+    }
+   }
   }
  },
- "actualizado": "2026-10-05",
+ "actualizado": "2026-10-06",
  "resumen": {
   "sesiones": 26,
-  "contrastes": 2071,
+  "contrastes": 2072,
   "medianaAbsPct": 0.0,
   "maxAbsPct": 10.119,
   "gravesPct": 1.0,
