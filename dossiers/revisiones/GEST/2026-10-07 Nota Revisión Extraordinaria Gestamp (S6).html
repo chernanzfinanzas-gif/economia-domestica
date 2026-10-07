@@ -1,0 +1,185 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GEST · Nota de Revisión Extraordinaria · S1-2026 · 3er ámbar consecutivo</title>
+<!--
+  PLANTILLA — Nota de Revisión Extraordinaria (Método KH&Claude).
+  Sustituir los marcadores {{...}}. Reglas:
+   · --corp / --corp-dark / --corp-light = color corporativo de la empresa (hex del dossier).
+   · Si se construye el cuerpo como lista de secciones en Python, unir con "".join(...),
+     NUNCA interpolar la lista (evita volcar saltos escapados y corchetes de lista al HTML).
+   · Colorear .kpi-val y .veredicto-box según decisión (verde reafirmar / ámbar ajustar /
+     rojo rebajar-vender). No inventar datos: dato no verificable -> "Pte. Revisión".
+  Componentes disponibles: .trigger-box (§1) · .seg-grid+.seg-card good/bad (§2/§3) ·
+   .card (§3 herramientas) · .anchor-box (§4) · .veredicto-box (§5).
+-->
+<style>
+:root{--corp:#13426B;--corp-dark:#0D2E4A;--corp-light:#EAEEF2}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S6</div>
+      <div class="company-name">Gestamp</div>
+      <div class="badges">
+        <span class="badge badge-alert">S6 · Dos trimestres consecutivos en ámbar</span>
+        <span class="badge badge-sig">S1-2026 · 3er ámbar consecutivo</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">GEST · GEST.MC · Bolsa de Madrid<br>Fecha: 7 de octubre de 2026<br>Plazo señal: S6 · con el 2º ámbar · señalada por la app tras el análisis del 2-oct</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">MANTENER</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">5,65 €</div><div class="kpi-sub">sin cambio · dossier 2-oct</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">3,025 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+86,9 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Margen EBITDA</div><div class="kpi-val amber">11,05 %</div><div class="kpi-sub">señal única · S1-2026 (corte 11 %)</div></div>
+  </div>
+</div>
+
+<!-- §1 · reactivo: "Qué disparó la señal S2" · discrecional: "Motivo de la revisión discrecional" -->
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S6</div>
+  <p>Tres periodos seguidos en ámbar, después de siete en rojo (2024-Q1 a 2025-Q3). <b>FY-2025:</b> cifra de negocios −5,4 %, EBITDA +1,0 %, margen 11,52 %. <b>Q1-2026:</b> cifra de negocios −5,0 %, EBITDA +1,0 %, margen 10,71 %. <b>S1-2026:</b> cifra de negocios −0,9 %, EBITDA −0,1 %, margen 11,05 %. La banda del §10.1 pone el verde en el 11,0 % y el rojo por debajo del 10,0 %. El ámbar lo ponen unas ventas que no crecen.</p>
+</div>
+
+<!-- Corroboración externa del hecho (opcional). Añadir clase 'corrob-unconf' si el hecho NO se
+     pudo confirmar en fuente fiable. Omitir todo el bloque si la revisión no nace de un hecho. -->
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>La S6 no la dispara un hecho externo sino la propia serie del monitor, así que no hay un hecho que corroborar en la CNMV ni en prensa. Lo que sí se comprueba es <b>cuándo</b> se cargó esa serie: toda la historia trimestral de esta empresa se rellenó de una vez al regenerar el análisis (origen «revolcado» en cada periodo), y <b>no se ha publicado ningún periodo nuevo desde entonces</b>.</p>
+  <div class="cb-src">Series del monitor: GEST-trim.json (origen «revolcado» en todos los periodos) y §10.3 del libro.</div>
+</div>
+
+<!-- §2 -->
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">Es una mejora, no un deterioro</div>
+    <div class="seg-body">La racha sale de siete trimestres en rojo: pasar a ámbar es recuperar, no empeorar. El margen está por encima del 11 % en el ejercicio y en el semestre, que es donde la tesis lo mide, y sube frente al año anterior. La deuda sobre EBITDA baja a 1,36x. La caída de ventas es sobre todo de divisa, el riesgo dominante del §8.1, que ya está en el bear.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">El margen va justo, y la cotización está cerca del stop</div>
+    <div class="seg-body">El 11,05 % está sólo 0,05 puntos por encima del corte de la señal única, y el primer trimestre quedó por debajo (10,71 %). La cotización, 3,025 €, está un 10 % por encima del stop (2,75 €). Y el bear catastrófico del §8.2 —una recesión europea con el margen fino— vale 2,97 €, prácticamente el precio de hoy.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Puntual en la racha; frágil en el nivel.</b> No hay deterioro nuevo: el dossier del 2-oct se escribió con el S1-2026 delante. Pero la empresa está pegada a dos umbrales a la vez, el de margen y el del stop, y el siguiente informe puede cruzar cualquiera de los dos. Confianza: media.</div>
+
+<!-- §3 -->
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">El riesgo que se manifiesta estaba mapeado: divisa, probabilidad Alta, −7,1 a −14,3 %. Ningún pre-mortem ha avanzado desde el 2-oct, pero la cadena A (recesión europea) tiene su valor final en 2,97 €, que es el precio de mercado: <b>el mercado ya descuenta ese escenario</b>. La señal de salida es el stop, 2,75 €; si se toca, S1 en 48 horas.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">La tesis MANTENER sigue igual. El PO de 5,65 € no se mueve. Lo que impide COMPRAR con un margen de seguridad tan amplio es la regla del Bloque 9: COMPRAR exige rating A y Gestamp es BBB (56,5) y sin moat claro. Con flujo libre a secas, sin el ajuste de minoritarios, el PO bajaría a 3,60 € (+19 %).</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Forense (H13)</span><span>No re-ejecutado: sin cifras nuevas desde el 2-oct. Vigente: Piotroski 6/9 (medio), Altman Z 4,93 (zona segura), Beneish −3,08 (sin indicios). <b>Sin veto.</b></span></div><div class="tool-row"><span class="tool-name">Reverse DCF (H15)</span><span>Vigente, calculado el 2-oct: el precio exige un −6,94 % de crecimiento del flujo frente a un +2,06 % autofinanciable, veredicto <b>PLAUSIBLE</b>. Pendiente de decisión cómo tratar a los minoritarios en este cálculo.</span></div><div class="tool-row"><span class="tool-name">Dividend Safety (H12)</span><span>70/100, «Seguro». El gatillo no es de dividendo: no se re-ejecuta.</span></div>
+</div>
+
+<!-- §4 -->
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Gestamp por primera vez, a 3,025 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría?</div>
+  <div class="anchor-a"><b>La valoración dice que sí; la regla del método dice que no.</b> Con el PO publicado el margen de seguridad es del 87 %, pero el rating BBB impide COMPRAR. Esa tensión es justo la propuesta «COMPRAR con tamaño reducido para BBB», abierta el 2-oct y en medición; con sus condiciones (margen ≥ 40 % con el PO más bajo) Gestamp no entraría, porque con flujo libre a secas el margen es del 19 %. No es una contradicción que deba resolver una S6: se queda en esa propuesta.</div>
+</div>
+
+<!-- §5 -->
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR TESIS</div>
+  <div class="veredicto-sub">Se mantienen MANTENER, PO 5,65 €, banda de entrada 4,85–4,92 € y stop 2,75 €. GEST.json no se toca.</div>
+  <div class="action-line">Acción: ninguna; no hay posición. Vigilar dos cosas: el stop de 2,75 € (si se toca, S1 en 48 horas) y el margen EBITDA del 9M-2026 (finales de octubre). Si queda por debajo del 11 %, la señal única se rompe y se trata como S2.</div>
+</div>
+
+<!-- Fuentes externas citadas (omitir el bloque entero si no se usó ninguna). -->
+<div class="disclaimer">Documento de análisis personal; no es una recomendación de inversión. Método KH&amp;Claude · Protocolo de Revisión Extraordinaria. Cierre de la señal: apunte en el §10.5 de la hoja Vigilancia del libro, 07-oct-2026. Cotizaciones: histórico de cierres del repo (cierre confirmado del 06-oct-2026). Series del monitor: GEST-trim.json y §10.3. Riesgos, tesis y precios: §8.1, §9 y GEST.json del dossier del 2-oct-2026.</div>
+
+</div></body></html>
