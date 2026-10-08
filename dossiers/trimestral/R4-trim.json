@@ -1,0 +1,749 @@
+{
+  "schemaVersion": 2,
+  "ticker": "R4",
+  "empresa": "Renta 4 Banco",
+  "revisiones": [
+    {
+      "periodo": "2023-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el ROE publicado está en 16.8 %, por debajo del corte rojo (18.8), y eso basta (regla del §10.1).",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 120770.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 17136.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 29708.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 22.715
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 6.357
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 31.614
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 22.243
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 7.55
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 18.24
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 16.8
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Pero el ROJO no necesita comparativo: el ROE publicado está en 17.2 %, por debajo del corte rojo (18.8), y eso basta (regla del §10.1).",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 122675.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 17987.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 31006.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 45.142
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 12.397
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 62.349
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 45.116
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 14.096
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 18.03
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 17.23
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 123894.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 18339.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 29618.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 68.361
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 17.685
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 91.492
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 68.113
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 19.241
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 18.78
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 19.0
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Primer ejercicio de la serie del monitor: no hay ningún periodo de 2022 con el que comparar dentro de esta tabla, así que el color no puede razonarse como los demás. Se deja en ámbar por prudencia, no por deterioro.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 124995.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 19155.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 30852.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 96.509
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 23.194
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 126.828
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 94.28
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 26.127
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 18.62
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 18.8
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": false,
+      "resumen": "Comisiones netas +10.1 %, Margen bruto +3.2 %, Beneficio atribuido -9.0 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 18.0 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 1.2 puntos sobre el mismo periodo del ejercicio anterior (18.0 % frente a 16.8 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 126854.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 20031.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 32591.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 25.007
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 5.219
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 32.618
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 23.593
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 6.872
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 19.0
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 17.98
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +15.5 %, Margen bruto +11.5 %, Beneficio atribuido +7.7 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 18.9 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 1.7 puntos sobre el mismo periodo del ejercicio anterior (18.9 % frente a 17.2 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 128813.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 20712.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 33535.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 52.14
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 10.922
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 69.507
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 49.635
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 15.176
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 17.14
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 18.92
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +16.8 %, Margen bruto +16.7 %, Beneficio atribuido +20.7 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 20.6 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 1.6 puntos sobre el mismo periodo del ejercicio anterior (20.6 % frente a 19.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 131300.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 21223.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 34614.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 79.812
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 17.366
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 106.782
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 75.952
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 23.215
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 18.22
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 20.61
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +18.2 %, Margen bruto +19.0 %, Beneficio atribuido +23.0 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 21.7 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 2.9 puntos sobre el mismo periodo del ejercicio anterior (21.7 % frente a 18.8 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 135530.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 22074.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 35944.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 114.057
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 23.977
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 150.924
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 107.125
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 32.136
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 17.06
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 21.66
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +24.0 %, Margen bruto +21.4 %, Beneficio atribuido +28.4 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 22.6 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 4.6 puntos sobre el mismo periodo del ejercicio anterior (22.6 % frente a 18.0 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 139128.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 22662.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 36690.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 31.017
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 6.489
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 39.608
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 27.521
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 8.822
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 16.54
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 22.58
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +17.2 %, Margen bruto +17.0 %, Beneficio atribuido +26.9 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 23.6 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 4.7 puntos sobre el mismo periodo del ejercicio anterior (23.6 % frente a 18.9 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 141646.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 23848.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 38795.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 61.117
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 13.202
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 81.356
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 56.142
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 19.263
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 15.8
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 23.59
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +23.2 %, Margen bruto +21.1 %, Beneficio atribuido +32.2 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 25.4 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 4.8 puntos sobre el mismo periodo del ejercicio anterior (25.4 % frente a 20.6 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 143897.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 25094.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 41207.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 98.289
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 20.021
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 129.301
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 85.684
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 30.679
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 16.41
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 25.36
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +19.6 %, Margen bruto +16.7 %, Beneficio atribuido +32.7 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 26.9 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 5.3 puntos sobre el mismo periodo del ejercicio anterior (26.9 % frente a 21.6 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 146699.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 25923.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 42980.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 136.449
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 27.034
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 176.072
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 118.026
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 42.63
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 16.1
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 26.93
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "1T",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +17.6 %, Margen bruto +22.9 %, Beneficio atribuido +43.4 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 28.8 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 6.2 puntos sobre el mismo periodo del ejercicio anterior (28.8 % frente a 22.6 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 149571.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 27412.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 43947.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 36.467
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 7.736
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 48.688
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 31.001
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 12.647
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 17.7
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 28.79
+        }
+      ],
+      "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los informes trimestrales de Renta 4 imprime su fecha de publicación (comprobado en los 14 de la carpeta): cada revisión lleva la fecha de CIERRE del periodo, que NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Comisiones netas +30.5 %, Margen bruto +28.7 %, Beneficio atribuido +59.4 % contra el mismo periodo del ejercicio anterior, con el ROE publicado en 32.8 % (banda del §10.1: verde ≥ 22.5, rojo < 18.8). El ROE publicado sube 9.2 puntos sobre el mismo periodo del ejercicio anterior (32.8 % frente a 23.6 %), y es la señal única de la tesis.",
+      "metricas": [
+        {
+          "nombre": "Cuentas de clientes red propia (nº)",
+          "valor": 151529.0
+        },
+        {
+          "nombre": "Activos red propia (M€)",
+          "valor": 29381.0
+        },
+        {
+          "nombre": "Activos totales de clientes (M€)",
+          "valor": 47614.0
+        },
+        {
+          "nombre": "Comisiones netas (M€)",
+          "valor": 79.733
+        },
+        {
+          "nombre": "Margen de intereses (M€)",
+          "valor": 17.455
+        },
+        {
+          "nombre": "Margen bruto (M€)",
+          "valor": 104.673
+        },
+        {
+          "nombre": "Gastos de explotación (M€)",
+          "valor": 62.221
+        },
+        {
+          "nombre": "Beneficio atribuido (M€)",
+          "valor": 30.697
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 17.66
+        },
+        {
+          "nombre": "ROE publicado (%)",
+          "valor": 32.8
+        }
+      ],
+      "origen": "revolcado"
+    }
+  ]
+}

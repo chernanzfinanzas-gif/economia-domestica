@@ -1,0 +1,304 @@
+{
+ "schemaVersion": 8,
+ "ticker": "R4",
+ "empresa": "Renta 4 Banco",
+ "fecha": "2026-10-08",
+ "rating": "A",
+ "score": 74.4,
+ "decision": "ESPERAR",
+ "metodoValoracion": "P/TBV justificado por exceso de rentabilidad (RoTE vs CoE) + múltiplos históricos de diez años + rentabilidad por dividendo — rama BANCA, sin DCF ni EBITDA. PO oficial = síntesis ponderada del §6.5 (15,90 €): tres P/TBV justificados (42 %), P/TBV, PER y P/BV históricos (23 %) y RPD media (35 %). Bear 12,75 € (margen de intereses a su media de 2016-2019), bull 17,01 € (RoTE 2023-2025 como nuevo normal).",
+ "poBear": 12.75,
+ "poBull": 17.01,
+ "entMin": 12.75,
+ "entMax": 13.83,
+ "stop": 8.64,
+ "poBase": 15.9047624374923,
+ "dpaPrevisto": 0.699994050603488,
+ "dpaPrevistoMotivo": "Último dividendo ordinario declarado, con cargo a 2025 (0,7000 €). El puente lo toma como previsión anual mientras la empresa no publique el de 2026.",
+ "moat": "55,5 · MOAT ESTRECHO (sobre 100): activos intangibles 55 (20 %), costes de cambio 65 (35 %), efecto red 35 (15 %), ventaja en costes 30 (5 %), economías de escala 60 (25 %). La horquilla moviendo los pesos va de 42,5 a 55,5.",
+ "catalizadores": [
+  "El RoTE de 2023-2025 se consolida como el nuevo normal (0-18 meses · +6,97 % sobre el PO). Disparador: RoTE de 12 meses ≥ 27 % cuatro trimestres seguidos con el margen de intereses por debajo de 5 M€ por trimestre: con tipos altos un RoTE alto no prueba que sea sostenible.",
+  "El exceso de capital vuelve al accionista (6-18 meses). Disparador: Anuncio de dividendo extraordinario, recompra o subida del payout por encima del 70 %.",
+  "Los tipos del BCE se estabilizan en torno al 2 % (0-12 meses · +0,00 % sobre el PO). Disparador: Margen de intereses trimestral estable por encima de 6 M€ dos trimestres seguidos con la facilidad de depósito del BCE en el 2 % o más."
+ ],
+ "riesgos": [
+  "Macroeconómico · Media · −13,07 a −25,71% · Un año de bolsas a la baja hunde volúmenes, patrimonios y comisiones.",
+  "Financiero · Alta · −9,91 a −19,83% · La bajada de tipos del BCE se lleva el margen de intereses. Riesgo dominante.",
+  "Competitivo · Media · −5,00 a −12,51% · Neobrokers y bancos comprimen las tarifas de intermediación.",
+  "Regulatorio · Media · −5,85 a −11,71% · La Estrategia de Inversión Minorista de la UE limita los incentivos por distribuir productos de terceros.",
+  "Mercado · Media · −8,61 a −17,22% · El múltiplo vuelve al mínimo de su década.",
+  "Gobernanza · Baja-Media · −3,32 a −6,64% · Control familiar, sucesión del fundador y poca liquidez de la acción.",
+  "Ciberseguridad · Baja · −0,82 a −3,29% · Caída prolongada de la plataforma de un bróker digital."
+ ],
+ "bull": "17,01 € (+6,9 % sobre el PO). El catalizador nº 1 cumplido: el RoTE sostenible pasa de la media de diez años (23,2 %) a la media MEDIDA de 2023-2025 (24,65 · 27,09 · 32,04 = 27,93 %), +4,73 pp. Sobre la cotización de 19,50 € sería un −12,8 %.",
+ "bear": "12,75 € (0,802 × PO). El riesgo DOMINANTE del §8.1 en su extremo DURO: el margen de intereses vuelve a su media medida de 2016-2019 (3,31 M€ frente a 27,03 en 2025), −16,93 M€ de beneficio (−31,32 % del de 12 meses) y −2,72 pp de RoTE sostenible. La catástrofe es la peor cadena del §8.2, A · Mercado bajista largo con el múltiplo en su mínimo: 9,69 €, ancla del stop.",
+ "resumen": "Bróker y gestora con licencia bancaria, controlado por su fundador (39,66 %): RoTE del 32,0 % y CET1 del 16,29 % en 2025, rating A (74,4) y moat estrecho (55,5). A 19,50 € cotiza un 18,4 % por encima de su precio objetivo de 15,90 €, que ya descuenta un RoTE de ciclo: ESPERAR, con banda de entrada 12,75–13,83 € y stop de tesis en 8,64 €.",
+ "revisadoEl": "2026-10-08",
+ "confianza": {
+  "score": 100,
+  "nivel": "A",
+  "motivos": [
+   "sin huecos críticos ni discrepancias abiertas"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-08"
+ },
+ "dividendSafety": {
+  "score": 71,
+  "banda": "Seguro",
+  "aplica": true,
+  "rama": "banca",
+  "componentes": {
+   "C1": 16,
+   "C2": 25,
+   "C3": 20,
+   "C4": 3,
+   "C5": 7
+  },
+  "shareholderYield": 3.02,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 pay-out dividendo (DPA/BPA) 67% → 16/30",
+   "C2 CET1 16.3% → 25/25",
+   "C3 RoTE 32.0% → 20/20",
+   "C4 trayectoria: 2 recorte(s) en 9a · DPA creciente → 3/15",
+   "C5 predictores: CET1 a la baja → 7/10",
+   "Rama FINANCIERA (banca): score industrial (owner earnings/FCL) no aplica; métricas bancarias/aseguradoras (pay-out, capital regulatorio, rentabilidad, trayectoria)."
+  ],
+  "calculadoEl": "2026-10-08"
+ },
+ "forense": {
+  "aplica": false,
+  "motivo": "rama financiera (banca/seguros)",
+  "flags": [],
+  "calculadoEl": "2026-10-08"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 12.75,
+   "p50": 15.9047624374923,
+   "p90": 17.01
+  },
+  "sensibilidad": {
+   "sobre": "modelo",
+   "regla": "F100",
+   "poMin": 10.05,
+   "poMax": 13.77,
+   "poBase": 11.66,
+   "cotizacion": 19.5,
+   "cotizacionBase": "actual",
+   "componente": null,
+   "pesoPerturbado": 1.0,
+   "componentesIntactos": 0,
+   "dcf": {
+    "poMin": 10.05,
+    "poMax": 13.77,
+    "poBase": 11.66
+   },
+   "ejeCoste": "CoE",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -48.5,
+   "mdsMax": -29.4
+  },
+  "beta": {
+   "capm": 1.085,
+   "ref2": null,
+   "aviso": null
+  },
+  "motivos": [
+   "⚠ la sensibilidad va sobre el modelo del §6.3 (CoE × RoTE) SOLO, no sobre el precio objetivo: el §6.5 no tiene una fila «DCF Base» que la matriz §6.3 pueda perturbar",
+   "la cotización (19.50) queda por ENCIMA de toda la banda del valor por acción del modelo del §6.3 (CoE × RoTE) [10.05–13.77] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-48.5 % … -29.4 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA"
+  ],
+  "calculadoEl": "2026-10-08"
+ },
+ "reverseDcf": {
+  "aplica": false,
+  "veredicto": "No aplica",
+  "motivo": "Rama financiera (banca/seguros): se valora por descuento de dividendos (DDM) y P·TBV sobre capital tangible, no por DCF de flujo de caja libre. El crecimiento implícito del FCL no es un contraste válido aquí.",
+  "calculadoEl": "2026-10-08"
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-08",
+  "rama": "financiera",
+  "subrama": "banca",
+  "fuente": "Datos Financieros Renta 4 Banco.xlsx · Cuenta de Resultados · Beneficio neto; Datos de Mercado · DPA declarado; Datos de Mercado · Nº acciones en circulación; Desempeño Operativo · CoE — coste del capital del método; Flujos de Caja · Payout total ((dividendos + recompras) / BN); Métricas Específicas · RoTE — rentabilidad sobre capital tangible; Métricas Específicas · VCPA-T — valor TANGIBLE por acción; Solvencia Financiera · Colchón de CET1 sobre el requisito",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 1,
+   "nombre": "LA MÁQUINA DE CUPÓN",
+   "lema": "rinde por encima de su coste y reparte casi todo",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "retencion": 50.0,
+    "valorTangible": 9.52,
+    "regla": "retención ≥ 50 % y valor tangible por acción + dividendos a 5 años ≥ CoE · financieras, 25-sep-2026"
+   }
+  },
+  "cifras": {
+   "retencionMedia": 41.41,
+   "valorTangible5a": 19.24,
+   "valorTangible10a": 16.11,
+   "roteMedio": 23.15,
+   "spread": 22.52,
+   "coe": 9.52,
+   "coeFuente": "«Desempeño Operativo» · CoE del método, último año",
+   "tension": 7.93,
+   "tensionAnio": 2025,
+   "tensionNombre": "Colchón de CET1 sobre el requisito del BCE",
+   "tensionUnidad": "pp",
+   "repartosExtraordinarios": {}
+  },
+  "tension": {
+   "anios": [
+    2024,
+    2025
+   ],
+   "rote": [
+    27.09,
+    32.04
+   ],
+   "payoutTotal": [
+    67.7,
+    66.8
+   ],
+   "valorTangible": [
+    2.94,
+    3.6
+   ],
+   "capital": [
+    9.1,
+    7.9
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "<b>Un banco sin crédito, que vive de los clientes que invierten</b>: intermedia sus operaciones, gestiona su dinero en fondos y pensiones y asesora a empresas. El 69,7 % de su margen bruto son comisiones y el 15,4 % margen de intereses, que llegó con la subida de tipos.",
+     "El perímetro es estable y el número de acciones no se ha movido en la década: 41 millones en 2016 y 41 millones en 2025."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>De necesitar poco capital.</b> El RoTE estuvo en el 20,4 % de media en 2016-2020 y llegó al <b>32,0 %</b> en 2025, +22,52 pp por encima de un coste del capital del 9,52 %. Una parte de la subida es negocio —más clientes y más patrimonio— y otra es ciclo de bolsas y de tipos.",
+     "Por acción: el valor tangible pasó de 1,77 € en 2016 a <b>3,60 €</b> en 2025, más 3,18 € de dividendos por el camino: un 19,2 % anual en los últimos cinco años y un 16,1 % en la década. Retiene el 41,4 % de lo que gana de media."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el capital hay poca: el colchón de CET1 sobre lo que exige el BCE es de <b>7,9 puntos</b> en 2025. El payout total fue del 66,8 % en 2025, todo en dividendo.",
+     "La tensión de verdad está en el ciclo: los dos riesgos mayores —un mercado bajista y la bajada de tipos— golpean el mismo beneficio, con unos gastos que no se ajustan cuando caen los ingresos."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Renta 4 compra <b>un negocio que crea valor por acción muy por encima de su coste</b>, a un precio que exige un RoTE del 37,5 % para siempre. La tesis de calidad se sostiene; la de precio, no.",
+     "<b>Qué vigilar cada trimestre:</b> el ROE de doce meses contra el 23,2 % del caso central y el margen de intereses contra los 5 M€ por trimestre."
+    ]
+   }
+  ],
+  "vigilar": "El ROE de doce meses contra el 23,2 % del caso central, y el margen de intereses trimestral contra los 5 M€: los dos dicen cuánto de la rentabilidad de hoy es ciclo.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "Banco sin crédito que vive de los clientes que invierten: el 69,7 % de su margen bruto son comisiones y el 15,4 % margen de intereses.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sólida: CET1 del 16,29 % de máxima calidad, 7,93 puntos sobre lo que exige el BCE, y un crédito de 328 M€ casi todo con garantía de valores.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Mucho, con poco capital: RoTE del 32,0 %, +22,52 pp por encima de su coste del capital, y por encima los diez años.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 1 · La máquina de cupón: rinde por encima de su coste y reparte casi todo. Retiene el 41,4 % de lo que gana y su valor tangible por acción más dividendos crece un 19,2 % al año en cinco años, contra un coste del capital del 9,52 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Generosa y sostenible: reparte el 66,8 % del beneficio en dividendo en efectivo y aun así genera 194 pb de capital al año; no hace recompras.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "A · 74,4 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 15,90 € contra 19,50 €: margen de seguridad −18,4 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Moat estrecho (55,5): el cliente que entra se queda y una escala de nicho; no tiene ventaja en costes.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "El ciclo de los mercados: la bajada de tipos es el riesgo más probable (hasta −19,83 % del precio objetivo) y un mercado bajista largo el de mayor impacto (−39,07 %).",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que el RoTE de 2023-2025 sea el nuevo normal: lleva el valor a 17,01 €, aún por debajo del precio.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 12,75 – 13,83 € · stop de tesis 8,64 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El ROE de doce meses contra el 23,2 % del caso central, y el margen de intereses trimestral contra los 5 M€: los dos dicen cuánto de la rentabilidad de hoy es ciclo.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "Cómo pasó la crisis de 2008-2009, la estructura del variable de los consejeros y el plan de sucesión del fundador.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
