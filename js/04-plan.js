@@ -952,7 +952,13 @@ function renderPanelDash(){
       const _ult=_fs.length?_fs[_fs.length-1]:null;
       const _dias=_ult?Math.round((Date.parse(_hoy+'T00:00:00')-Date.parse(_ult+'T00:00:00'))/864e5):999;
       const _lunes=_d.getDay()===1;
-      const _viejas=_ult?Object.keys(_hallazgosEmp).filter(t=>{ const c=(((_hallazgosEmp[t]||{}).cobertura)||{}).semanal; return !c || (Date.parse(_hoy)-Date.parse(c))/864e5>7; }).length:0;
+      /* [08-oct-2026] hallazgos.json trae TODO el universo (91), y la revisión de alertas escribe también
+         las empresas que el pase semanal nunca vigila: sin fecha semanal contaban como «atrasadas» y el
+         aviso salía al día siguiente del pase («59 empresas sin vigilar» con el pase del 7-oct hecho).
+         Ahora solo cuentan las que están DENTRO del pase, es decir, las que ya tienen fecha semanal
+         (DB.analisis no sirve para esto: trae el universo entero). Una empresa que entra nueva al pase
+         cuenta desde su primera fecha. */
+      const _viejas=_ult?Object.keys(_hallazgosEmp).filter(t=>{ const c=(((_hallazgosEmp[t]||{}).cobertura)||{}).semanal; if(!c) return false; return (Date.parse(_hoy)-Date.parse(c))/864e5>7; }).length:0;
       if(_dias>=7 || (_lunes && _ult<_hoy) || _viejas>=5){
         const _carp='C:/Users/carlo/OneDrive/CoWork Análisis Financiero/Análisis Financiero KH&Claude', _ord='genera el informe semanal de cartera';
         const _href='claude://cowork/new?folder='+encodeURIComponent(_carp)+'&q='+encodeURIComponent(_ord)+'&prompt='+encodeURIComponent(_ord);
