@@ -371,8 +371,8 @@
 "ticker": "IBEX",
 "symbol": "^IBEX",
 "desde": "1999-01-04",
-"hasta": "2026-10-07",
-"n": 7036
+"hasta": "2026-10-08",
+"n": 7037
 },
 {
 "ticker": "IBG",
@@ -726,61 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "MCM",
-"fecha": "2026-09-29",
-"anterior": 12.9,
-"nuevo": 10.75
-},
-{
-"ticker": "MCM",
-"fecha": "2026-09-30",
-"anterior": 12.85,
-"nuevo": 10.7083
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-01",
-"anterior": 12.8,
-"nuevo": 10.6667
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-02",
-"anterior": 12.9,
-"nuevo": 10.75
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-05",
-"anterior": 13.15,
-"nuevo": 10.9583
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-06",
-"anterior": 13.0,
-"nuevo": 10.8333
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-07",
-"anterior": 13.1,
-"nuevo": 10.9167
-},
-{
-"ticker": "MCM",
-"fecha": "2026-10-08",
-"anterior": 13.0,
-"nuevo": 10.8333
-},
-{
-"ticker": "PRS",
-"fecha": "2026-10-08",
-"anterior": 2.3,
-"nuevo": 2.28
-}
-],
+"corregidos": [],
 "revisar": []
 }
