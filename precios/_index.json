@@ -371,8 +371,8 @@
 "ticker": "IBEX",
 "symbol": "^IBEX",
 "desde": "1999-01-04",
-"hasta": "2026-10-08",
-"n": 7037
+"hasta": "2026-10-09",
+"n": 7038
 },
 {
 "ticker": "IBG",
@@ -726,13 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "TEF",
-"fecha": "2026-10-09",
-"anterior": 3.25,
-"nuevo": 3.252
-}
-],
+"corregidos": [],
 "revisar": []
 }
