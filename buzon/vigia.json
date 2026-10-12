@@ -1,12 +1,49 @@
 {
-  "generadoEl": "2026-10-05T16:34:49+02:00",
+  "generadoEl": "2026-10-12T17:21:20+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-10-05",
-  "resumenTexto": "Nada en 14 días. Siguiente: CIE Automotive, S.A. ~22-10 (9M). Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-10-12",
+  "resumenTexto": "🔜 PRÓXIMOS 14 DÍAS: CIE Automotive, S.A. 22-10, Iberdrola, S.A. 22-10, Atresmedia 23-10, Vidrala, S.A. 25-10. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [],
   "estaSemana": [],
-  "proximos14d": [],
+  "proximos14d": [
+    {
+      "ticker": "CIE",
+      "empresa": "CIE Automotive, S.A.",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-22",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-20"
+    },
+    {
+      "ticker": "IBE",
+      "empresa": "Iberdrola, S.A.",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-22",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-22"
+    },
+    {
+      "ticker": "A3M",
+      "empresa": "Atresmedia",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-23",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-23"
+    },
+    {
+      "ticker": "VID",
+      "empresa": "Vidrala, S.A.",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-25",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-23"
+    }
+  ],
   "siguienteEvento": {
     "ticker": "CIE",
     "empresa": "CIE Automotive, S.A.",
@@ -17,5 +54,5 @@
     "ultimaFecha": "2026-07-20"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 31
+  "totalEmpresas": 33
 }
