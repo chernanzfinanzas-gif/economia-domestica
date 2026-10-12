@@ -1,6 +1,6 @@
 {
  "schemaVersion": 1,
- "generadoEl": "2026-10-05",
+ "generadoEl": "2026-10-12",
  "fuente": "informe-semanal-cartera",
  "nota": "Pase del informe semanal del 5-oct-2026. Bono, Bund y prima de countryeconomy.com (30-sep). Pool de septiembre y ramas del comercio minorista de prensa.",
  "ind": {
@@ -13,71 +13,71 @@
    "n": "BCE · facilidad de depósito",
    "grupo": "tipos",
    "slider": "TIPOS",
-   "nota": "sin cambios; próxima reunión 29-oct. La probabilidad de subida queda en Pte. Revisión (el «~71 %» de la semana pasada era la probabilidad de mantener)"
+   "nota": "29-oct: 96,4 % mantener según OIS (rateprobability.com, 11-oct); Polymarket 93 % mantener"
   },
   "euribor_12m": {
-   "v": 3.323,
+   "v": 3.191,
    "u": "%",
-   "f": "2026-10-02",
+   "f": "2026-10-09",
    "src": "euribor-rates.eu",
    "url": "https://www.euribor-rates.eu/en/current-euribor-rates/4/euribor-rate-12-months/",
    "n": "Euríbor 12M",
    "grupo": "tipos",
-   "d": 1.5,
+   "d": -13.2,
    "dU": "pb",
    "dPer": "semana"
   },
   "euribor_3m": {
-   "v": 2.598,
+   "v": 2.632,
    "u": "%",
-   "f": "2026-10-02",
+   "f": "2026-10-09",
    "src": "euribor-rates.eu",
    "url": "https://www.euribor-rates.eu/en/current-euribor-rates/2/euribor-rate-3-months/",
    "n": "Euríbor 3M",
    "grupo": "tipos",
-   "d": -1.6,
+   "d": 3.4,
    "dU": "pb",
    "dPer": "semana"
   },
   "bono_10a_es": {
-   "v": 4.11,
+   "v": 4.1,
    "u": "%",
-   "f": "2026-09-30",
+   "f": "2026-10-09",
    "src": "countryeconomy.com",
    "url": "https://countryeconomy.com/bonds/spain",
    "n": "Bono 10A España",
    "grupo": "tipos",
-   "d": 3,
+   "d": 1,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "último dato publicado; fuente no canónica"
+   "nota": "tocó 4,13 % intradía el 5-oct (máximo desde 2013); variación frente al 2-oct de la misma fuente"
   },
   "bund_10a": {
-   "v": 3.57,
+   "v": 3.49,
    "u": "%",
-   "f": "2026-09-30",
+   "f": "2026-10-09",
    "src": "countryeconomy.com",
    "url": "https://countryeconomy.com/bonds/germany",
    "n": "Bund 10A Alemania",
    "grupo": "tipos",
-   "d": -5,
+   "d": 4,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "último dato publicado; fuente no canónica"
+   "nota": "variación frente al 2-oct de la misma fuente"
   },
   "prima_riesgo": {
-   "v": 54,
+   "v": 62,
    "u": "pb",
-   "f": "2026-09-30",
+   "f": "2026-10-09",
    "src": "countryeconomy.com",
    "n": "Prima de riesgo",
    "grupo": "tipos",
    "slider": "CRED",
-   "sliderV": 0.54,
-   "d": 8,
+   "sliderV": 0.62,
+   "d": -1,
    "dU": "pb",
    "dPer": "semana",
-   "nota": "countryeconomy.com, 30-sep; +7 pb en el mes",
+   "nota": "cambio de fuente: countryeconomy ya daba 63 pb el 1-oct; el salto desde 54 no es del mercado",
    "url": "https://countryeconomy.com/risk-premium/spain"
   },
   "wacc_cnmc": {
@@ -93,31 +93,31 @@
    "caduca": 1900
   },
   "gas_ttf": {
-   "v": 73.19,
+   "v": 82.31,
    "u": "€/MWh",
-   "f": "2026-10-05",
+   "f": "2026-10-12",
    "src": "tradingeconomics.com",
    "url": "https://tradingeconomics.com/commodity/eu-natural-gas",
    "n": "Gas TTF",
    "grupo": "energia",
    "slider": "GAS",
-   "d": -0.16,
+   "d": 12.46,
    "dU": "%",
-   "dPer": "mes",
-   "nota": "almacenes UE ~72 % (media 5 años 87 %)"
+   "dPer": "semana",
+   "nota": "intradía 12-oct; almacenes UE ~73 % (aprox., sin verificar en AGSI)"
   },
   "pool_omie": {
    "n": "Pool eléctrico OMIE",
    "grupo": "energia",
-   "v": 143.72,
+   "v": 145.98,
    "u": "€/MWh",
-   "f": "2026-09-30",
-   "src": "merca2.es",
-   "url": "https://www.merca2.es/2026/09/29/precio-luz-septiembre-maximo-anual-2464282/",
-   "d": 25.47,
+   "f": "2026-10-12",
+   "src": "tarifaluzhora.es (datos OMIE)",
+   "url": "https://tarifaluzhora.es/precio-luz-diario/2026-10-12",
+   "d": 2.26,
    "dU": "€/MWh",
-   "dPer": "frente a agosto",
-   "nota": "Media del MES DE SEPTIEMBRE, según prensa (Merca2, 29-sep): máximo del año. El 5-oct el diario marca 196,88 €/MWh (omie.es)"
+   "dPer": "frente a la media de septiembre",
+   "nota": "Media de 7 días (6-12 oct). Diario del 12-oct: 151,76. Septiembre: 143,72 (prensa)"
   },
   "ipc": {
    "v": 4.9,
@@ -178,13 +178,13 @@
    "nota": "ICM rama «alimentación», agosto; interanual de prensa (El Debate, 29-sep), serie sin confirmar en el anexo del INE"
   },
   "eur_brl": {
-   "v": 5.5849,
-   "f": "2026-10-05",
+   "v": 5.6086,
+   "f": "2026-10-09",
    "src": "ecb.europa.eu",
    "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
    "n": "EUR/BRL",
    "grupo": "divisas",
-   "d": -5.49,
+   "d": 0.42,
    "dU": "%",
    "dPer": "semana",
    "nota": "el real se aprecia tras la primera vuelta del 4-oct"
@@ -198,17 +198,17 @@
    "n": "Fed · tipo oficial",
    "grupo": "otros",
    "caduca": 60,
-   "nota": "rango 3,75–4,00 % desde el 17-sep; próxima reunión con proyecciones 8-9 dic según el calendario de la Fed"
+   "nota": "rango 3,75–4,00 % desde el 17-sep; próxima reunión 27-28 oct"
   },
   "hipoteca_30a_us": {
-   "v": 7.28,
+   "v": 7.4,
    "u": "%",
-   "f": "2026-10-01",
+   "f": "2026-10-08",
    "src": "freddiemac.com",
    "url": "https://www.freddiemac.com/pmms",
    "n": "Hipoteca 30A EE.UU.",
    "grupo": "otros",
-   "d": 25,
+   "d": 12,
    "dU": "pb",
    "dPer": "semana",
    "nota": "PMMS de Freddie Mac"
@@ -226,36 +226,36 @@
   }
  },
  "lectura": {
-  "titulo": "Coyuntura Macro a 05/10/2026",
-  "generadoEl": "2026-10-05",
+  "titulo": "Coyuntura Macro a 12/10/2026",
+  "generadoEl": "2026-10-12",
   "fuente": "informe-semanal-cartera",
-  "refrescados": 16,
+  "refrescados": 11,
   "total": 18,
   "nota": "Sólo comenta lo que este pase ha refrescado. Explica a quién afecta y a quién beneficia; no recomienda ninguna acción sobre la cartera.",
   "puntos": [
    {
-    "t": "La inflación se acelera y el BCE puede subir el 29-oct",
-    "txt": "El IPC adelantado de septiembre sube al 4,9 % en España (subyacente 3,1 %) y al 3,8 % en la eurozona. El Euríbor 12M se queda en 3,323 %.",
-    "beneficia": "la banca con hipotecas a tipo variable, como Bankinter, CaixaBank y Santander",
-    "perjudica": "las compañías con deuda a tipo variable, como Faes Farma, y el consumo de las familias"
-   },
-   {
-    "t": "La prima de riesgo sube a 54 pb",
-    "txt": "El bono español cierra septiembre en el 4,11 % y el Bund en el 3,57 %: la prima pasa de 46 a 54 pb. En EE.UU. la hipoteca a 30 años sube a 7,28 %.",
-    "beneficia": "la reinversión de las aseguradoras en renta fija (Mapfre, Línea Directa)",
-    "perjudica": "las reguladas que refinancian (Enagás, Redeia) y Fluidra por la obra nueva de piscina en EE.UU."
-   },
-   {
-    "t": "El gas no baja y la luz marca máximos del año",
-    "txt": "El TTF sigue en 73 €/MWh con los almacenes de la UE al 72 %, y el pool de septiembre cierra en 143,72 €/MWh, máximo del año.",
+    "t": "El gas sube un 12 % en la semana",
+    "txt": "El TTF pasa de 73 a 82 €/MWh, máximo de cuatro semanas, con Ormuz sin resolver y los almacenes de la UE en torno al 73 %. El pool eléctrico baja: media de 7 días de 146 €/MWh.",
     "beneficia": "las eléctricas con generación sin gas",
     "perjudica": "los consumidores intensivos de energía: Vidrala, Viscofan y Miquel y Costas"
    },
    {
-    "t": "El real brasileño se aprecia un 5,5 %",
-    "txt": "Tras la primera vuelta del 4-oct el EUR/BRL baja a 5,5849.",
-    "beneficia": "en euros, el negocio en Brasil de Santander, Telefónica, Iberdrola y Mapfre",
-    "perjudica": "nadie de forma directa; hay volatilidad hasta la segunda vuelta del 25-oct"
+    "t": "El mercado deja de esperar una subida del BCE el 29-oct",
+    "txt": "El Euríbor 12M baja 13 pb, a 3,191 %, y el mercado da un 93-96 % a que el depósito siga en 2,50 %. El 3M sube a 2,632 %.",
+    "beneficia": "las compañías con deuda a tipo variable, como Faes Farma, y las hipotecas de las familias",
+    "perjudica": "algo el margen futuro de la banca con hipotecas a tipo variable"
+   },
+   {
+    "t": "Elecciones el 29-nov y bono español en máximos desde 2013",
+    "txt": "El bono a 10 años tocó el 4,13 % el 5-oct y cierra la semana en el 4,10 %; la prima, en 62 pb (cambio de fuente). Queda en el aire la continuidad del impuesto a la banca.",
+    "beneficia": "la reinversión de las aseguradoras en renta fija (Mapfre, Línea Directa)",
+    "perjudica": "las reguladas que refinancian (Enagás, Redeia) y la banca por la incertidumbre fiscal"
+   },
+   {
+    "t": "La hipoteca en EE.UU. sube al 7,40 %",
+    "txt": "Freddie Mac la sitúa en el 7,40 % el 8-oct (+12 pb).",
+    "beneficia": "—",
+    "perjudica": "Fluidra, por la obra nueva de piscina en EE.UU."
    }
   ]
  }
