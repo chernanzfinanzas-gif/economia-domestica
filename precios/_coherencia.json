@@ -1,17 +1,9 @@
 {
  "schemaVersion": 1,
- "actualizado": "2026-10-13",
- "ok": false,
+ "actualizado": "2026-10-14",
+ "ok": true,
  "sesionIntradia": "2026-10-13",
- "faltaSesion": [
-  {
-   "ticker": "LDA",
-   "ultimaBarra": "2026-10-09",
-   "valorHistorico": 1.218,
-   "cierreAntIntradia": 1.222,
-   "difPct": -0.327
-  }
- ],
+ "faltaSesion": [],
  "discrepan": [
   {
    "ticker": "ACS",
@@ -212,5 +204,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "1 con sesion ausente, 28 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 28 con valores discrepantes, 0 sin fichero"
 }
