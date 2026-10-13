@@ -728,106 +728,16 @@
 "fallos": [],
 "corregidos": [
 {
-"ticker": "AEDAS",
-"fecha": "2026-10-12",
-"anterior": 22.65,
-"nuevo": 22.75
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-12",
-"anterior": 187.22,
-"nuevo": 187.92
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-12",
-"anterior": 38.6,
-"nuevo": 38.66
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-12",
-"anterior": 11.7,
-"nuevo": 12.1
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-12",
-"anterior": 93.2,
-"nuevo": 93.4
-},
-{
-"ticker": "COL",
-"fecha": "2026-10-12",
-"anterior": 4.85,
-"nuevo": 4.852
-},
-{
-"ticker": "ECO",
-"fecha": "2026-10-12",
-"anterior": 3.42,
-"nuevo": 3.5
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-12",
-"anterior": 4.96,
-"nuevo": 4.958
-},
-{
-"ticker": "IBG",
-"fecha": "2026-10-12",
-"anterior": 17.0,
-"nuevo": 17.05
-},
-{
-"ticker": "ORY",
-"fecha": "2026-10-12",
-"anterior": 2.68,
-"nuevo": 2.678
-},
-{
-"ticker": "PRM",
-"fecha": "2026-10-12",
-"anterior": 12.7,
-"nuevo": 12.6
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-12",
-"anterior": 19.45,
-"nuevo": 19.5
-},
-{
-"ticker": "RJF",
-"fecha": "2026-10-12",
-"anterior": 2.62,
-"nuevo": 2.63
-},
-{
-"ticker": "SAB",
-"fecha": "2026-10-12",
-"anterior": 3.54,
-"nuevo": 3.537
-},
-{
 "ticker": "SAN",
-"fecha": "2026-10-12",
-"anterior": 12.26,
-"nuevo": 12.264
+"fecha": "2026-10-13",
+"anterior": 12.18,
+"nuevo": 12.178
 },
 {
 "ticker": "TEF",
-"fecha": "2026-10-12",
-"anterior": 3.22,
-"nuevo": 3.219
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-12",
-"anterior": 3.24,
-"nuevo": 3.236
+"fecha": "2026-10-13",
+"anterior": 3.25,
+"nuevo": 3.252
 }
 ],
 "revisar": []
