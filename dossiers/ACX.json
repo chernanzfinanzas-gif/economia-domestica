@@ -1,0 +1,357 @@
+{
+ "schemaVersion": 8,
+ "ticker": "ACX",
+ "empresa": "Acerinox",
+ "fecha": "2026-10-13",
+ "rating": "BBB",
+ "score": 57.2,
+ "decision": "ESPERAR",
+ "metodoValoracion": "DCF + múltiplos históricos — rama INDUSTRIAL, arquetipo COMMODITY. Síntesis ponderada del §6.5: DCF de dos fases sobre la media de cinco años del FCL (246,8 M€) a tres escenarios (pesimista 9,49 · base 16,30 · optimista 29,52 €; peso 25); múltiplos históricos de diez años aplicados sobre 2025, el suelo del ciclo (EV/EBITDA 5,61 · P/BV 11,21 · P/FCL 15,68 €; peso 65) y rentabilidad por dividendo (11,97 €; peso 10). WACC 7,08 %. Precio objetivo 12,44 €, margen de seguridad −26,06 % sobre 16,82 € (12-oct-2026). Con el EBITDA de ciclo medio (484 M€) serían 13,40 €; con el ajustado que publica la empresa (422 M€), entre 12,94 y 14,64 €: CARA en todos los casos.",
+ "poBear": 10.1,
+ "poBull": 16.33,
+ "entMin": 10.1,
+ "entMax": 10.81,
+ "stop": 7.03,
+ "poBase": 12.4359669483471,
+ "dpaPrevisto": 0.62,
+ "dpaPrevistoMotivo": "Último dividendo ordinario declarado, con cargo a 2025 (0,6200 €). El puente lo toma como previsión anual mientras la empresa no publique el de 2026.",
+ "moat": "53,6 · MOAT ESTRECHO (sobre 100): ventaja de costes 60 (44,44 %), escala eficiente 55 (27,78 %), activos intangibles (marca, patentes, licencias) 45 (22,22 %), costes de cambio 30 (5,56 %); efecto de red declarado N/A. La horquilla moviendo los pesos va de 41,4 a 53,6.",
+ "catalizadores": [
+  "Las nuevas medidas de defensa comercial de la UE sostienen la recuperación de Europa (6-12 meses · +15,00 % sobre el PO). Disparador: EBITDA del Grupo de 2026 por encima de 412 M€ (354 M€ de 2025 más los 58 M€), o dos trimestres seguidos por encima de 150 M€.",
+  "Se capturan las sinergias de Haynes (12-36 meses · +13,97 % sobre el PO). Disparador: Sinergias acumuladas comunicadas por encima de 40 M€, o margen EBITDA de la división de aleaciones por encima del 12 % en un semestre.",
+  "El circulante del semestre se devuelve (6-12 meses · +2,35 % sobre el PO). Disparador: Deuda financiera neta por debajo de 1.215 M€ en un cierre trimestral."
+ ],
+ "riesgos": [
+  "Macroeconómico · Alta · −18,78 a −36,06% · El ciclo del inoxidable vuelve a caer: el margen EBITDA ha ido del 6,1 % (2025) al 14,7 % (2021-2022) sin que cambie la empresa; el primer semestre de 2026 subió al 9 % y el precio de hoy ya lo descuenta. Riesgo dominante.",
+  "Político · Media · −21,57 a −38,70% · Se relaja La defensa comercial: el margen de NAS se apoya en los aranceles de la Sección 232 (50 % desde junio de 2025) y la recuperación de Europa en el CBAM (enero de 2026) y las nuevas cuotas de la Comisión (julio de 2026).",
+  "Competitivo · Media · −4,57 a −9,15% · La sobrecapacidad asiática se come volumen: Indonesia y China exportan excedentes; en 2025 las importaciones llegaron al 25 % del mercado europeo y el sudafricano cayó un 12,8 %.",
+  "Asignación de capital · Media · −3,23 a −4,94% · Las aleaciones no rinden lo pagado: Haynes costó 799 M$ (769 M€ pagados, 2024) y la división de aleaciones ganó un 5 % de margen EBITDA en el primer semestre de 2026, frente al 18,7 % de ATI; ROIIC a cinco años −0,8 %.",
+  "Financiero · Media · −2,77 a −11,26% · La Deuda aprieta en el suelo del ciclo: deuda neta de 1.189 M€ a cierre de 2025 y 1.361 M€ en junio de 2026; payout de tres años del 112 %.",
+  "Mercado · Media · −7,37 a −14,75% · El mercado deja de pagar La recuperación: a 16,82 € la acción cotiza por encima de todos los cierres de la década (8,7-12,7 €) y del precio objetivo (12,44 €).",
+  "Divisa · Media · −4,57 a −9,15% · El dólar se debilita: NAS factura y gana en dólares y es el motor del beneficio del grupo (informe del primer semestre de 2026); un euro más fuerte reduce las ventas y el EBITDA en euros."
+ ],
+ "bull": "16,33 € (+31,3 % sobre el PO). Los tres catalizadores del §9.1 perturbados JUNTOS: Europa conserva la mejora del primer semestre con las nuevas medidas de defensa comercial (+58 M€ de EBITDA), se capturan las sinergias de Haynes que faltan (+54 M€) y el circulante del semestre se devuelve (deuda neta −146 M€). Sobre la cotización de 16,82 € sería un −2,9 %.",
+ "bear": "10,10 € (0,812 × PO). El riesgo DOMINANTE del §8.1 —el macroeconómico, el único con probabilidad Alta— en su extremo suave: el ciclo del inoxidable vuelve a caer, margen EBITDA −1 pp y volumen −5 %. La catástrofe es la peor cadena del §8.2, B · EE.UU. retira la protección arancelaria: 7,62 €, ancla del stop.",
+ "resumen": "Siderúrgica de acero inoxidable y aleaciones de alto rendimiento, cíclica, de calidad BBB (57,2 sobre 100) y MOAT ESTRECHO (53,6): NAS, líder en EE. UU. y protegida por aranceles, hace que gane más que sus competidores europeos en el suelo del ciclo, y el balance aguanta (Altman 7,1). Precio objetivo 12,44 € con los múltiplos sobre 2025, el peor año de la década: margen de seguridad −26,06 % sobre 16,82 €. ESPERAR: no falla la empresa, falla el precio. La tesis cuelga del margen del inoxidable; el EBITDA del primer semestre de 2026 sube un 27 %, pero el bull (16,33 €) queda por debajo de la cotización.",
+ "revisadoEl": "2026-10-13",
+ "confianza": {
+  "score": 98,
+  "nivel": "A",
+  "motivos": [
+   "1 dato(s) secundario(s) en 'Pte. Revisión' (−2)"
+  ],
+  "sensibleASupuestos": false,
+  "reglaDura": {
+   "bloqueaCompraEnFirme": false,
+   "motivo": "",
+   "accion": null
+  },
+  "calculadoEl": "2026-10-13"
+ },
+ "dividendSafety": {
+  "score": 53,
+  "banda": "Vigilar",
+  "componentes": {
+   "C1": 22,
+   "C2": null,
+   "C3": 5,
+   "C4": 15,
+   "C5": 3
+  },
+  "shareholderYield": 4.92,
+  "topeDuro": {
+   "activo": false,
+   "motivo": ""
+  },
+  "motivos": [
+   "C1 cobertura dividendo ord.: OE 1.70x / FCL 0.94x (3a OE 1.55x) → 22/35",
+   "C2 payout BN: sin datos → no puntúa",
+   "C3 balance: DN/EBITDA 3.36x, cob.int 1.6x → 5/20",
+   "C4 trayectoria: 0 recorte(s) en 10a · DPA creciente → 15/15",
+   "C5 predictores B4 (cuantitativos): DN/EBITDA al alza, cobertura de intereses cayendo (<4x), EBITDA a la baja YoY, beneficio neto a la baja YoY → 3/15",
+   "C5 nota: los predictores CUALITATIVOS de B4 (rating en revisión, lenguaje del management) los evalúa el analista en el monitor trimestral."
+  ],
+  "calculadoEl": "2026-10-13"
+ },
+ "forense": {
+  "aplica": true,
+  "piotroski": {
+   "score": 5,
+   "banda": "medio",
+   "detalle": {
+    "roa_pos": 0,
+    "cfo_pos": 1,
+    "roa_up": 0,
+    "accrual": 1,
+    "lever_dn": 0,
+    "liquid_up": 0,
+    "no_dilu": 1,
+    "margin_up": 1,
+    "turn_up": 1
+   },
+   "nota": "margen=bruto"
+  },
+  "altman": {
+   "z": 7.1,
+   "zona": "segura"
+  },
+  "beneish": {
+   "m": -3.02,
+   "senal": "sin indicios",
+   "aproximado": [
+    "SGAI"
+   ]
+  },
+  "sloan": {
+   "accruals": -8.2,
+   "senal": "normal"
+  },
+  "flags": [],
+  "veto": false,
+  "vetoMotivos": [],
+  "calculadoEl": "2026-10-13"
+ },
+ "robustez": {
+  "nivel": "solida",
+  "sobreviveDecision": true,
+  "etiquetaPrecioSensible": false,
+  "matizada": false,
+  "banda": {
+   "p10": 10.1,
+   "p50": 12.4359669483471,
+   "p90": 16.33
+  },
+  "sensibilidad": {
+   "sobre": "sintesis",
+   "regla": "F100",
+   "poMin": 11.88,
+   "poMax": 13.45,
+   "poBase": 12.44,
+   "cotizacion": 16.82,
+   "cotizacionBase": "actual",
+   "componente": "DCF Base",
+   "pesoPerturbado": 0.13,
+   "componentesIntactos": 6,
+   "dcf": {
+    "poMin": 12.01,
+    "poMax": 24.07,
+    "poBase": 16.2959137100342
+   },
+   "ejeCoste": "WACC",
+   "pertCoste": 1.0,
+   "pertOtro": 0.5,
+   "mdsMin": -29.4,
+   "mdsMax": -20.1
+  },
+  "beta": {
+   "capm": 0.921,
+   "ref2": 0.94707,
+   "aviso": null
+  },
+  "motivos": [
+   "QUÉ SE HA PERTURBADO: solo «DCF Base» (13 % del peso de la síntesis §6.5), moviendo WACC±1.0pp y g_TV±0.5pp; el 87 % restante de la ponderación —los otros 6 componentes (múltiplos históricos, renta y los demás escenarios DCF)— NO se ha tocado. La banda de abajo mide el precio objetivo, no el modelo entero.",
+   "la cotización (16.82) queda por ENCIMA de toda la banda del precio objetivo de síntesis [11.88–13.45] → sobrevalorada en todo el rango",
+   "…y la banda de margen de seguridad [-29.4 % … -20.1 %] no cruza ninguno de los umbrales del §9.4 (5 % y 15 %): la decisión es la misma en los dos extremos. SÓLIDA",
+   "para contraste, el DCF puro (§6.3) se mueve en [12.01–24.07] € alrededor de 16.30 €: es la sensibilidad del MODELO, no la del precio objetivo"
+  ],
+  "calculadoEl": "2026-10-13"
+ },
+ "reverseDcf": {
+  "aplica": true,
+  "gImplicito": 3.56,
+  "gIntrinseco": 1.65,
+  "veredicto": "HEROICO",
+  "motivo": "El precio exige un crecimiento muy por encima de lo que la empresa puede autofinanciar (>1,4× el g intrínseco): descuenta un escenario difícil de sostener. El margen de seguridad es fino aunque el negocio sea de calidad.",
+  "calculadoEl": "2026-10-13",
+  "entradas": {
+   "fcl": 246.837,
+   "wacc": 7.1,
+   "gTV": 2.0,
+   "ratioG2": 0.7,
+   "acciones": 249.336,
+   "deudaNeta": 1189.1,
+   "modo": "EV",
+   "precioBase": 16.82,
+   "validado": true,
+   "desviacion": 0.001,
+   "gBase": 3.561,
+   "fechaBase": "2026-10-13",
+   "congeladoEl": "2026-10-13"
+  }
+ },
+ "lecturaNegocio": {
+  "fecha": "2026-10-13",
+  "fuente": "Datos Financieros Acerinox.xlsx · «Flujos de Caja» §4.1-§4.4 y «Desempeño Operativo» §3.2 y §3.2-bis",
+  "periodo": [
+   2016,
+   2025
+  ],
+  "casilla": {
+   "n": 4,
+   "nombre": "LA QUE SE QUEDÓ SIN SITIO",
+   "lema": "ni reinvierte ni rinde",
+   "porSpread": false,
+   "roiicFragil": false,
+   "cortes": {
+    "reinversion": 20.0,
+    "roiic": 12.08,
+    "regla": "reinversión ≥ 20 % y ROIIC ≥ WACC + 5 pp; cortes del 24-sep-2026 calibrados sobre veinte empresas"
+   }
+  },
+  "cifras": {
+   "reinversionMedia": 13.59,
+   "roiic5a": -0.77,
+   "roiic": -0.77,
+   "roiicVentana": "5A",
+   "roicMedio": 8.62,
+   "spread": -3.83,
+   "wacc": 7.08,
+   "conversionMedia": 41.17,
+   "coberturaDividendo": 0.94,
+   "gIntrinseco": 1.65,
+   "capexCrecimiento10a": 178.9,
+   "fcl10a": 2232.6,
+   "retribucion10a": 1683.2,
+   "retribucionSobreFcl": 75.4
+  },
+  "tension": {
+   "anios": [
+    2019,
+    2024,
+    2025
+   ],
+   "coberturaFcl": [
+    1.58,
+    0.57,
+    0.94
+   ],
+   "coberturaOe": [
+    1.36,
+    0.87,
+    1.68
+   ],
+   "payoutBn": [
+    null,
+    68.7,
+    null
+   ],
+   "payoutFcl": [
+    63.5,
+    173.9,
+    106.1
+   ]
+  },
+  "lectura": [
+   {
+    "titulo": "Qué clase de negocio es",
+    "parrafos": [
+     "Una siderúrgica de <b>acero inoxidable</b> —un producto con precio de mercado, vendido sobre todo a distribuidores— con una pata de <b>aleaciones de alto rendimiento</b> comprada en 2020 y 2024. El CAPEX es el <b>3,0 % de las ventas</b> de media, y la conversión del EBITDA en caja libre del 41,2 % de media en la serie, positiva todos los años.",
+     "Su ventaja está en una planta, NAS, la acería líder de EE. UU., protegida por los aranceles de la Sección 232. El resto del grupo depende de la defensa comercial frente a Asia."
+    ]
+   },
+   {
+    "titulo": "De dónde le viene la rentabilidad",
+    "parrafos": [
+     "<b>Del ciclo.</b> El ROIC medio de la serie es del 8,6 % contra un WACC del 7,08 %, pero en 2025 el spread fue de −3,83 pp: crea valor en la parte alta del ciclo y lo destruye en la baja. Reinvierte de media el 13,6 % del NOPAT en CAPEX de crecimiento.",
+     "<b>La casilla sale «la que se quedó sin sitio» por el ROIIC a cinco años (−0,8 %), que mide el capital puesto desde 2020</b>, sobre todo Haynes: todavía no rinde. De los 2.232,6 M€ de flujo libre de la serie, 1.683,2 M€ —el 75 %— han vuelto al accionista en dividendos y recompras."
+    ]
+   },
+   {
+    "titulo": "Dónde está la tensión",
+    "parrafos": [
+     "En el margen. Fue del 14,7 % en 2021-2022 y del 6,1 % en 2025, sin que cambie la empresa: <b>es el riesgo dominante, el catalizador principal y la señal de alarma</b>. Un punto de margen vale el 15 % del precio objetivo, y el primer semestre de 2026 ya lo sube al 9 %.",
+     "Y en la deuda y el dividendo. La compra de Haynes llevó la deuda neta de 341 a 1.189 M€, y el dividendo de 2025 está cubierto 0,94x por el flujo libre. A 16,82 € el mercado descuenta un crecimiento del 3,6 % anual, más que el 1,6 % que la empresa financia sola."
+    ]
+   },
+   {
+    "titulo": "Implicación para el inversor",
+    "parrafos": [
+     "Quien compra Acerinox compra <b>una cíclica de calidad media con un balance que aguanta, a un precio que ya cuenta con la recuperación del ciclo</b>. El precio objetivo (12,44 €) deja un margen de seguridad del −26,06 %: la tesis espera a la banda de 10,10 a 10,81 €.",
+     "<b>Qué vigilar:</b> el EBITDA trimestral del grupo, que es la variable de la que cuelga la tesis; el margen del inoxidable; el margen de las aleaciones, por Haynes; y la deuda neta, que subió a 1.361 M€ en junio de 2026."
+    ]
+   }
+  ],
+  "vigilar": "El EBITDA trimestral del grupo, la señal única de la tesis: por debajo de 100 M€ dos trimestres seguidos, el ciclo vuelve a caer y las medidas de defensa comercial no bastan. Y el margen EBITDA del inoxidable, verde por encima del 9 %, ámbar entre el 5 % y el 9 % y rojo por debajo del 5 %, que dice si el margen del que cuelga la tesis se recupera.",
+  "version": 3,
+  "preguntas": [
+   {
+    "n": 1,
+    "pregunta": "¿De qué vive?",
+    "respuesta": "De fundir y vender acero inoxidable (4.119 M€, el 71 % de las ventas) y aleaciones de alto rendimiento (1.683 M€, el 29 %); el 54 % de las ventas se hace en América.",
+    "origen": "escrita"
+   },
+   {
+    "n": 2,
+    "pregunta": "¿Aguanta el balance?",
+    "respuesta": "Sí, aunque más justo que antes: deuda neta de 1.189 M€, 3,36 veces el EBITDA de suelo, con una liquidez de 1.716 M€ y un Altman de 7,1. En junio de 2026 la deuda neta subió a 1.361 M€.",
+    "origen": "escrita"
+   },
+   {
+    "n": 3,
+    "pregunta": "¿Qué gana?",
+    "respuesta": "Depende del ciclo: ROIC del 3,25 % en 2025 contra un WACC del 7,08 %, del 22,2 % en 2021 y del 8,6 % de media en la serie. El capital nuevo no rinde todavía: ROIIC a cinco años del −0,8 %.",
+    "origen": "escrita"
+   },
+   {
+    "n": 4,
+    "pregunta": "¿Qué hace con lo que gana?",
+    "respuesta": "Casilla 4 · La que se quedó sin sitio: ni reinvierte ni rinde. Reinvierte el 13,6 % del NOPAT de media; ROIIC a cinco años del −0,8 % contra un corte del 12,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 5,
+    "pregunta": "¿Hay caja de verdad?",
+    "respuesta": "Sí: flujo libre positivo los diez años, 145,7 M€ en 2025. Pero en 2024 y 2025 no cubrió el dividendo (0,57x y 0,94x); con owner earnings, 1,68x.",
+    "origen": "escrita"
+   },
+   {
+    "n": 6,
+    "pregunta": "¿Es buena empresa?",
+    "respuesta": "BBB · 57,2 sobre 100.",
+    "origen": "automática"
+   },
+   {
+    "n": 7,
+    "pregunta": "¿Está cara o barata?",
+    "respuesta": "Precio objetivo 12,44 € contra 16,82 €: margen de seguridad −26,1 %.",
+    "origen": "automática"
+   },
+   {
+    "n": 8,
+    "pregunta": "¿Qué la protege?",
+    "respuesta": "Un moat estrecho (53,6): NAS, la acería más eficiente del grupo y líder en EE. UU., y la escala. Parte de la ventaja es arancel, y con otra ponderación el moat bajaría a 41,4.",
+    "origen": "escrita"
+   },
+   {
+    "n": 9,
+    "pregunta": "¿Qué la puede romper?",
+    "respuesta": "Que el ciclo vuelva a caer (−18,78 a −36,06 %) o que se relaje la defensa comercial (−21,57 a −38,70 %). Si EE. UU. retira la protección, el valor cae a 7,62 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 10,
+    "pregunta": "¿Qué la puede hacer subir?",
+    "respuesta": "Que la defensa comercial de la UE sostenga a Europa (+15,0 %), que se capturen las sinergias de Haynes (+13,97 %) y que se devuelva el circulante (+2,35 %). Juntos, 16,33 €.",
+    "origen": "escrita"
+   },
+   {
+    "n": 11,
+    "pregunta": "¿Qué hago?",
+    "respuesta": "<b>ESPERAR</b> · banda de entrada 10,10 – 10,81 € · stop de tesis 7,03 €.",
+    "origen": "automática"
+   },
+   {
+    "n": 12,
+    "pregunta": "¿Qué vigilo?",
+    "respuesta": "El EBITDA trimestral del grupo, la señal única de la tesis: por debajo de 100 M€ dos trimestres seguidos, el ciclo vuelve a caer y las medidas de defensa comercial no bastan. Y el margen EBITDA del inoxidable, verde por encima del 9 %, ámbar entre el 5 % y el 9 % y rojo por debajo del 5 %, que dice si el margen del que cuelga la tesis se recupera.",
+    "origen": "automática"
+   },
+   {
+    "n": 13,
+    "pregunta": "¿Qué no sabemos?",
+    "respuesta": "El calendario de los 500 M€ de EBITDA del plan, la sucesión del consejero delegado, la cuota actual de NAS en EE. UU. y los importes de la compra de Columbus y de las recompras.",
+    "origen": "escrita"
+   }
+  ]
+ }
+}
