@@ -726,19 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "SAN",
-"fecha": "2026-10-13",
-"anterior": 12.18,
-"nuevo": 12.178
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-13",
-"anterior": 3.25,
-"nuevo": 3.252
-}
-],
+"corregidos": [],
 "revisar": []
 }
