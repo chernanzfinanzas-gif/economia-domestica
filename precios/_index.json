@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-14",
+"actualizado": "2026-10-15",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-04",
+"ventana_desde": "2026-10-05",
 "tickers": [
 {
 "ticker": "A3M",
@@ -679,8 +679,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-10-09",
-"n": 4033
+"hasta": "2026-10-13",
+"n": 4035
 },
 {
 "ticker": "TUB",
@@ -726,121 +726,6 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "ADZ",
-"fecha": "2026-10-14",
-"anterior": 6.9,
-"nuevo": 7.0
-},
-{
-"ticker": "AEDAS",
-"fecha": "2026-10-14",
-"anterior": 22.6,
-"nuevo": 22.65
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-14",
-"anterior": 190.58,
-"nuevo": 191.58
-},
-{
-"ticker": "AMP",
-"fecha": "2026-10-14",
-"anterior": 4.43,
-"nuevo": 4.435
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-14",
-"anterior": 38.74,
-"nuevo": 38.94
-},
-{
-"ticker": "BKT",
-"fecha": "2026-10-14",
-"anterior": 15.33,
-"nuevo": 15.325
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-14",
-"anterior": 95.5,
-"nuevo": 95.1
-},
-{
-"ticker": "COL",
-"fecha": "2026-10-14",
-"anterior": 4.96,
-"nuevo": 4.962
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-14",
-"anterior": 2.32,
-"nuevo": 2.324
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-14",
-"anterior": 4.88,
-"nuevo": 4.876
-},
-{
-"ticker": "IBG",
-"fecha": "2026-10-14",
-"anterior": 16.95,
-"nuevo": 16.65
-},
-{
-"ticker": "MAP",
-"fecha": "2026-10-14",
-"anterior": 4.31,
-"nuevo": 4.308
-},
-{
-"ticker": "NEA",
-"fecha": "2026-10-14",
-"anterior": 9.52,
-"nuevo": 9.66
-},
-{
-"ticker": "ORY",
-"fecha": "2026-10-14",
-"anterior": 2.57,
-"nuevo": 2.572
-},
-{
-"ticker": "PRM",
-"fecha": "2026-10-14",
-"anterior": 12.25,
-"nuevo": 12.4
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-14",
-"anterior": 19.4,
-"nuevo": 19.5
-},
-{
-"ticker": "SLR",
-"fecha": "2026-10-14",
-"anterior": 15.71,
-"nuevo": 15.705
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-14",
-"anterior": 3.22,
-"nuevo": 3.224
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-14",
-"anterior": 3.25,
-"nuevo": 3.254
-}
-],
+"corregidos": [],
 "revisar": []
 }
