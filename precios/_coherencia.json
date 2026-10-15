@@ -50,9 +50,9 @@
   {
    "ticker": "BKT",
    "ultimaBarra": "2026-10-15",
-   "valorHistorico": 15.18,
+   "valorHistorico": 15.175,
    "cierreAntIntradia": 15.31,
-   "difPct": -0.849
+   "difPct": -0.882
   },
   {
    "ticker": "CIE",
@@ -92,9 +92,9 @@
   {
    "ticker": "GEST",
    "ultimaBarra": "2026-10-15",
-   "valorHistorico": 2.85,
+   "valorHistorico": 2.845,
    "cierreAntIntradia": 2.9,
-   "difPct": -1.724
+   "difPct": -1.897
   },
   {
    "ticker": "IBE",
@@ -109,6 +109,13 @@
    "valorHistorico": 55.44,
    "cierreAntIntradia": 54.54,
    "difPct": 1.65
+  },
+  {
+   "ticker": "LDA",
+   "ultimaBarra": "2026-10-15",
+   "valorHistorico": 1.236,
+   "cierreAntIntradia": 1.222,
+   "difPct": 1.146
   },
   {
    "ticker": "LOG",
@@ -141,9 +148,9 @@
   {
    "ticker": "PRM",
    "ultimaBarra": "2026-10-15",
-   "valorHistorico": 12.55,
+   "valorHistorico": 12.5,
    "cierreAntIntradia": 12.4,
-   "difPct": 1.21
+   "difPct": 0.806
   },
   {
    "ticker": "R4",
@@ -176,9 +183,9 @@
   {
    "ticker": "SAN",
    "ultimaBarra": "2026-10-15",
-   "valorHistorico": 12.0,
+   "valorHistorico": 11.998,
    "cierreAntIntradia": 12.12,
-   "difPct": -0.99
+   "difPct": -1.007
   },
   {
    "ticker": "TEF",
@@ -190,9 +197,9 @@
   {
    "ticker": "UNI",
    "ultimaBarra": "2026-10-15",
-   "valorHistorico": 3.22,
+   "valorHistorico": 3.224,
    "cierreAntIntradia": 3.264,
-   "difPct": -1.348
+   "difPct": -1.225
   },
   {
    "ticker": "VID",
@@ -211,5 +218,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 29 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 30 con valores discrepantes, 0 sin fichero"
 }
