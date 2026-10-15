@@ -31271,22 +31271,30 @@
 ]
 },
 "2020": {
-"dpaBruto": 0.17,
-"dpaNeto": 0.0,
-"nPagos": 0,
-"deltaPct": -0.26087,
+"dpaBruto": 0.1,
+"dpaNeto": 0.1,
+"nPagos": 1,
+"deltaPct": -0.565217,
 "racha": 10,
-"naturaleza": "efectivo",
+"naturaleza": "scrip",
 "junta": null,
 "presentacionResultados": null,
 "primaAsistencia": null,
-"pagos": []
+"pagos": [
+{
+"exDiv": "2020-11-16",
+"pago": "2020-12-11",
+"bruto": 0.1,
+"neto": 0.1,
+"tipo": "scrip"
+}
+]
 },
 "2021": {
 "dpaBruto": 0.076,
 "dpaNeto": 0.0668,
 "nPagos": 2,
-"deltaPct": -0.552941,
+"deltaPct": -0.24,
 "racha": 11,
 "naturaleza": "efectivo",
 "junta": null,

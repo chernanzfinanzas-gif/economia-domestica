@@ -1734,6 +1734,38 @@ function khEvRebaseTesis(t,j){
   return j;
 }
 /* No se pide al arrancar: la primera petición de la app es el índice de dossiers (test_indice). Lo pide cargarTesis(). */
+/* [15-oct-2026] SANTANDER · dividendo en acciones de nov-2020 (ampliación liberada 1x23, derecho 0,10 €).
+   No hubo opción de cobrar en efectivo (el BCE prohibió el dividendo en efectivo en 2020); las acciones nuevas
+   llegaron a cuenta el 11-dic-2020. Estaba apuntado como un COBRO de 0,17 €/acc el 1-nov-2020 y una COMPRA de
+   241 acciones a 3,928 € (+5,05 € de comisión) el 11-dic-2020: dos apuntes ficticios que se compensaban, así que
+   la rentabilidad total salía bien pero el invertido y los cobros de 2020 salían inflados en ~947 €.
+   Decisión de Carlos (15-oct-2026): «prefiero tener todo bien». Se hace UNA vez, solo si los datos son exactamente
+   los esperados, y lo que se quita se guarda en DB._retirados.sanScrip2020. */
+function _migrSanScrip2020(){
+  DB.config=DB.config||{}; if(DB.config.migrSanScrip2020) return false;
+  var hecho=[], ret={};
+  (DB.operaciones||[]).forEach(function(o){
+    if((o.ticker||'').toUpperCase()==='SAN' && (''+o.fecha).slice(0,10)==='2020-12-11' && num(o.acciones)===241 && Math.abs(num(o.precio)-3.928)<1e-6){
+      ret.operacion={id:o.id,precio:o.precio,comision:o.comision};
+      o.precio=0; o.comision=0;
+      o.nota='Acciones del dividendo en acciones de nov-2020 (ampliación liberada 1x23): coste 0. Antes 3,928 €/acc y 5,05 € de comisión.';
+      hecho.push('compra 241 acc → coste 0'); } });
+  var L=(DB.dividendos||{}).SAN;
+  if(Array.isArray(L)){ var q=L.filter(function(x){ return x&&(''+x.fecha).slice(0,4)==='2020'&&Math.abs(num(x.importe)-0.17)<1e-6; });
+    if(q.length){ ret.cobros=q; DB.dividendos.SAN=L.filter(function(x){ return q.indexOf(x)<0; }); hecho.push('cobro 0,17 €/acc de 2020 retirado'); } }
+  var dd=DB.divData=DB.divData||{};
+  if(dd.SAN&&dd.SAN.anios){ var y=dd.SAN.anios['2020']=dd.SAN.anios['2020']||{};
+    ret.evolucion2020=JSON.parse(JSON.stringify(y));
+    y.dpaBruto=0.10; y.dpaNeto=0.10; y.naturaleza='scrip'; y.deltaPct=-0.565217; y.nPagos=1; y.totalPrevisto=false;
+    y.pagos=[{exDiv:'2020-11-16',pago:'2020-12-11',bruto:0.10,neto:0.10,tipo:'scrip',previsto:false}];
+    y.notaTotal='Dividendo en acciones 1x23 (derecho 0,10 €). Sin opción de efectivo: el BCE prohibió el dividendo en efectivo en 2020. Acciones nuevas en cuenta el 11-dic-2020. Sin retención (no hay pago en dinero).';
+    var y21=dd.SAN.anios['2021']; if(y21){ ret.delta2021=y21.deltaPct; y21.deltaPct=-0.24; }
+    hecho.push('Evolución 2020: 0,10 € en acciones'); }
+  DB._retirados=DB._retirados||{}; DB._retirados.sanScrip2020={fecha:'2026-10-15',datos:ret};
+  DB.config.migrSanScrip2020={fecha:'2026-10-15',hecho:hecho};
+  try{ if(hecho.length&&typeof showToast==='function') setTimeout(function(){ showToast('✔ Santander 2020 corregido: '+hecho.join(' · '),'',null,12000); },1500); }catch(e){}
+  return hecho.length>0;
+}
 async function cargarTesis(t){ t=(t||'').toUpperCase(); if(!t||_tesisCache[t]!==undefined)return; _tesisCache[t]=null;
   try{ const r=await fetch('dossiers/'+t+'.json',{cache:'no-store'}); if(r.ok){ const j=await r.json(); if(j&&typeof j==='object'){ _tesisCache[t]=j; if(typeof validarTesisJSON==='function')_tesisWarn[t]=validarTesisJSON(j); try{ await khEvCargar(); khEvRebaseTesis(t,j); }catch(_eEv){} try{ if(typeof repararFotosPO==='function') repararFotosPO(); }catch(_e0){} try{ if(typeof normalizarPOAnalisis==='function') normalizarPOAnalisis(t); }catch(_e1){}
     /* Rellena el Score de Calidad en las fotos históricas que aún no lo tienen (el dossier solo trae el
@@ -1955,6 +1987,7 @@ function afterLoad(){ if(typeof ensureInfLogos==='function')ensureInfLogos(); if
      medido 0 usos de 528) y fechasResultados (nada lo lee ni lo escribe). Se guardan UNA vez en
      DB._retirados por si hubiera que consultarlos y salen de los datos vivos. */
   ['divIngresos','previsionDiv','divPorAccion','fechasResultados'].forEach(function(k){ var v=DB[k]; if(v&&typeof v==='object'&&Object.keys(v).length){ DB._retirados=DB._retirados||{}; if(!DB._retirados[k]) DB._retirados[k]={fecha:'2026-09-27',datos:v}; } delete DB[k]; });
+  try{ _migrSanScrip2020(); }catch(_eMs){}
   DB.cerradas = DB.cerradas||[];
   DB.devolucionHacienda = DB.devolucionHacienda||{};
   DB.calendario = DB.calendario||[];

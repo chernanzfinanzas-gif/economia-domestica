@@ -164,6 +164,127 @@
     "2024": 1.2,
     "2025": 1.2
    }
+  },
+  "SAN": {
+   "empresa": "Banco Santander, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "ampliación con derechos 1x10 (jul-2017) y dividendo en acciones 1x23 (nov-2020)",
+   "eventos": [
+    {
+     "exDate": "2017-07-06",
+     "tipo": "ampliacion_con_derechos",
+     "proporcion": "1x10 a 4,85 €",
+     "factor": 1.016725,
+     "fuente": "Nota de prensa Santander 3-jul-2017: «1 acción nueva por cada 10 acciones que posean … a un precio de 4,85 euros»; suscripción 6-20 jul-2017; 1.458 M de acciones nuevas.",
+     "verificacion": "factor teórico con el cierre con derecho del 5-jul-2017 (5,92 €): 5,92/((10×5,92+4,85)/11) = 1,01672; medido entre libro y serie: 1,061/1,0435 = 1,0168."
+    },
+    {
+     "exDate": "2020-11-16",
+     "tipo": "liberada",
+     "proporcion": "1x23",
+     "factor": 1.043478,
+     "fuente": "OCU 11-2020: «1 nueva acción por cada 23 derechos»; Bolsamanía: último día con derecho 13-nov-2020, cotiza sin derecho el 16-nov, derechos hasta el 30-nov-2020.",
+     "verificacion": "24/23 = 1,04348; medido 1,04347-1,04348 en 2017-2019."
+    }
+   ],
+   "fuente": "Santander (nota de prensa 2017, informe financiero 4T-2019), OCU y Bolsamanía.",
+   "factorCierre": {
+    "2016": 1.06093,
+    "2017": 1.043478,
+    "2018": 1.043478,
+    "2019": 1.043478,
+    "2020": 1,
+    "2021": 1,
+    "2022": 1,
+    "2023": 1,
+    "2024": 1,
+    "2025": 1
+   },
+   "errorEnLibro": "El libro de Santander tiene en 2019 un cierre de 3,575 €, que es el de la serie AJUSTADA; el publicado es 3,730 € (informe financiero 4T-2019, tabla «La acción y capitalización»). Pendiente de corregir en el libro (decisión del operador)."
+  },
+  "ACS": {
+   "empresa": "ACS, Actividades de Construcción y Servicios, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "dividendo flexible de enero de 2024 (1 acción nueva por cada 86 derechos), el único que Yahoo ajustó",
+   "eventos": [
+    {
+     "durante": "2024-01",
+     "tipo": "liberada",
+     "proporcion": "1x86",
+     "factor": 1.011628,
+     "fuente": "Ejecutivos.es 16-ene-2024: «0,457 euros o una acción por cada 86»; efectivo hasta el 26-ene, derechos hasta el 3-feb, acciones nuevas cotizan desde el 14-feb-2024.",
+     "verificacion": "87/86 = 1,011628; medido 1,01163 en los ocho cierres 2016-2023.",
+     "pendiente": "día ex exacto (segunda quincena de enero de 2024)"
+    }
+   ],
+   "nota": "ACS reparte dividendo flexible dos veces al año; Yahoo NO ajustó los demás, así que la serie ya está en base publicada para ellos.",
+   "factorCierre": {
+    "2016": 1.011628,
+    "2017": 1.011628,
+    "2018": 1.011628,
+    "2019": 1.011628,
+    "2020": 1.011628,
+    "2021": 1.011628,
+    "2022": 1.011628,
+    "2023": 1.011628,
+    "2024": 1,
+    "2025": 1
+   }
+  },
+  "FAE": {
+   "empresa": "Faes Farma, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "dividendo flexible de abril de 2023 (1 acción nueva por cada 26), el único que Yahoo ajustó",
+   "eventos": [
+    {
+     "exDate": "2023-04-12",
+     "tipo": "liberada",
+     "proporcion": "1x26",
+     "factor": 1.038462,
+     "fuente": "PC Bolsa (abril 2023): «1 acción nueva por cada 26 antiguas»; último día con derecho 11-abr, cotiza sin derecho el 12-abr, derechos hasta el 26-abr-2023.",
+     "verificacion": "27/26 = 1,03846; medido 1,03845-1,03847 en 2016-2022 (2021: 1,03905, diferencia de redondeo del libro)."
+    }
+   ],
+   "nota": "Faes repartió dividendo flexible otros años; Yahoo no los ajustó.",
+   "factorCierre": {
+    "2016": 1.038462,
+    "2017": 1.038462,
+    "2018": 1.038462,
+    "2019": 1.038462,
+    "2020": 1.038462,
+    "2021": 1.038462,
+    "2022": 1.038462,
+    "2023": 1,
+    "2024": 1,
+    "2025": 1
+   }
+  },
+  "BKT": {
+   "empresa": "Bankinter, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "dividendo en especie: reparto de Línea Directa Aseguradora (1 acción LDA por acción BKT)",
+   "eventos": [
+    {
+     "exDate": "2021-04-29",
+     "tipo": "dividendo_extraordinario_en_especie",
+     "proporcion": "1 LDA por 1 BKT",
+     "factor": 1.38866,
+     "fuente": "Bankinter (blog, fiscalidad de la salida a Bolsa de LDA): accionistas al cierre del 28-abr-2021, LDA debuta el 29-abr-2021; valoración fiscal 1,3175 €/acción.",
+     "verificacion": "factor MEDIDO entre los cierres publicados del libro y la serie (1,38866 en los cinco cierres 2016-2020). Yahoo lo calculó con el precio de mercado de LDA, no con la valoración de 1,3175 €, por eso no sale de una proporción."
+    }
+   ],
+   "factorCierre": {
+    "2016": 1.38866,
+    "2017": 1.38866,
+    "2018": 1.38866,
+    "2019": 1.38866,
+    "2020": 1.38866,
+    "2021": 1,
+    "2022": 1,
+    "2023": 1,
+    "2024": 1,
+    "2025": 1
+   }
   }
  },
  "campos": {
