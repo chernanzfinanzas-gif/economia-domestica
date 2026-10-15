@@ -187,7 +187,9 @@ function gHBars(title,items,opt){ opt=opt||{}; items=(items||[]).slice(0,opt.top
    de la real. Solo se copia si venía: ausente sigue significando «no registrada». */
 function _allOps(){ const out=(DB.operaciones||[]).slice(); (DB.cerradas||[]).forEach(c=>{ const t=(c.ticker||'').toUpperCase(); (c.ops||[]).forEach(o=>{ const _o={ticker:t,fecha:o.fecha,tipo:o.tipo,acciones:o.acciones,precio:o.precio}; if(o.comision!=null&&o.comision!=='') _o.comision=o.comision; out.push(_o); }); }); return out; }
 function cargarPreciosCartera(){ const need=[...new Set([..._allOps().map(o=>(o.ticker||'').toUpperCase()).filter(Boolean),'IBEX','IBEXTR'])]; const pend=need.filter(t=>_precioCache[t]===undefined); if(!pend.length)return Promise.resolve(); return Promise.all(pend.map(t=>fetch('precios/'+t+'.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(j=>{_precioCache[t]=j;}).catch(()=>{_precioCache[t]=null;}))); }
-function priceRepoAt(t,ms){ const pj=_precioCache[(t||'').toUpperCase()]; if(!pj||!pj.data||!pj.data.length)return 0; const arr=pj.data; let lo=0,hi=arr.length-1,res=0; while(lo<=hi){ const md=(lo+hi)>>1; const mt=Date.parse(arr[md][0]+'T00:00:00'); if(mt<=ms){res=arr[md][1];lo=md+1;}else hi=md-1; } return num(res); }
+/* [15-oct-2026] Devuelve el precio PUBLICADO (lo que valía una acción ese día): se multiplica por las
+   acciones de tus operaciones, que son las de entonces. La serie viene en acciones de hoy. */
+function priceRepoAt(t,ms){ const pj=_precioCache[(t||'').toUpperCase()]; if(!pj||!pj.data||!pj.data.length)return 0; const arr=pj.data; let lo=0,hi=arr.length-1,res=0,resD=''; while(lo<=hi){ const md=(lo+hi)>>1; const mt=Date.parse(arr[md][0]+'T00:00:00'); if(mt<=ms){res=arr[md][1];resD=arr[md][0];lo=md+1;}else hi=md-1; } return num(res)*((resD&&typeof khEvFactor==='function')?khEvFactor(t,resD):1); }
 function opPriceAt(t,ms){ t=(t||'').toUpperCase(); let best=0,bt=-1,first=0,ft=Infinity; (typeof _allOps==='function'?_allOps():[]).forEach(o=>{ if((o.ticker||'').toUpperCase()!==t)return; const p=num(o.precio); if(p<=0)return; const om=Date.parse((o.fecha||'')+'T00:00:00'); if(isNaN(om))return; if(om<=ms&&om>bt){bt=om;best=p;} if(om<ft){ft=om;first=p;} }); return best||first; }
 function priceAtFB(t,ms){ return priceRepoAt(t,ms)||opPriceAt(t,ms); }
 // Rentabilidad por dividendos anual estimada del IBEX-35 (para convertir el índice de PRECIO en TOTAL-RETURN). Editable en DB.config.ibexYield.
@@ -237,7 +239,7 @@ function carteraEvolData(reRender){ const _ops2=_allOps().filter(o=>o.fecha).sor
     while(di<divEv.length&&divEv[di].ms<=dms){ divAc+=divEv[di].eur; di++; }
     let val=0;
     for(let h=0;h<heldT.length;h++){ const t=heldT[h]; const ol=opsByT[t]; while(_oi[t]<ol.length&&(ol[_oi[t]].fecha||'').slice(0,10)<=d){ const o=ol[_oi[t]]; _sh[t]+=(o.tipo==='venta'?-1:1)*num(o.acciones); _oi[t]++; }
-      if(_sh[t]>0.0001){ const pa=_pj[t]; while(_pi[t]+1<pa.length&&pa[_pi[t]+1][0]<=d){ _pi[t]++; _px[t]=num(pa[_pi[t]][1]); }
+      if(_sh[t]>0.0001){ const pa=_pj[t]; while(_pi[t]+1<pa.length&&pa[_pi[t]+1][0]<=d){ _pi[t]++; _px[t]=num(pa[_pi[t]][1])*((typeof khEvFactor==='function')?khEvFactor(t,pa[_pi[t]][0]):1); }
         let px=_px[t];
         if(isLast){ const v=(DB.valores||{})[t]||{}; const lp=num(v.precioActual), lf=(v.precioFecha||''); const rf=(_pi[t]>=0)?pa[_pi[t]][0]:''; if(lp>0&&(lf>=rf||!(px>0)))px=lp; }
         if(!(px>0)&&typeof opPriceAt==='function')px=num(opPriceAt(t,dms));

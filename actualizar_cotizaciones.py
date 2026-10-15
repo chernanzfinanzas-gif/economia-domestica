@@ -65,6 +65,137 @@ except ImportError:
     sys.exit(1)
 
 
+# ══════════════════════════════════════════════════════════════════════════════════════════
+# [15-oct-2026 · Miquel y Costas, liberada 1x5] EVENTOS DE CAPITAL: liberadas y splits.
+#
+# Yahoo, con auto_adjust=False, NO ajusta por dividendos pero SI por splits, y una liberada la
+# trata como un split... cuando la registra (de MCM registró las de 2018 y 2021, no las de 2011
+# ni 2016). Con la ventana movil eso dejaba la serie MEZCLADA: el 9-oct-2026 Yahoo reexpresó
+# MCM a las acciones nuevas, cada pase reescribió SOLO los ultimos 10 dias (la diferencia,
+# −16,7 %, no llegaba a la guarda del 25 %) y quedó un escalón falso de 13,00 a 10,75 el 29-sep.
+# Ese escalón entraba en la gráfica, en «bajo el agua», en la beta y en la señal S1.
+#
+# Dos piezas, las dos dejan la serie entera en ACCIONES DE HOY (base ajustada):
+#  1) aplicar_eventos(): los eventos del registro del método (`eventos.json`, raiz del repo)
+#     marcados `aplicarEnRepo`. Busca el ESCALÓN —dos cierres seguidos cuya razón × factor ≈ 1—
+#     entre 45 días antes y 5 después de la fecha ex, y divide por el factor todo lo anterior.
+#     Una sola vez: queda anotado en `eventosAplicados` del propio fichero de la empresa.
+#  2) detectar_reexpresion(): lo que NADIE ha registrado todavía. Si en la ventana varios días
+#     seguidos (≥ 2) vuelven de Yahoo con la MISMA razón respecto a lo guardado (±1 %) y esa
+#     razón se aparta de 1 más de un 3 %, es Yahoo reexpresando la serie: se lleva TODO el
+#     histórico anterior a esa misma base y se anota en precios/_eventos.json como «detectado»,
+#     que la app y el método usan hasta que el evento se registre con su fuente.
+# Un salto de UN solo día no es una reexpresión (puede ser un dato malo): eso sigue yendo a
+# «revisar», como siempre.
+# ══════════════════════════════════════════════════════════════════════════════════════════
+EVENTOS_REGISTRO = "eventos.json"            # raiz del repo; lo publica el método (Herramientas/00 - 08)
+EVENTOS_DETECTADOS = "_eventos.json"          # dentro de precios/
+TOL_ESCALON = 0.05        # |razón × factor − 1| máximo para dar por bueno el escalón de un evento
+TOL_REEXP = 0.01          # dispersión máxima entre las razones de una reexpresión
+MIN_REEXP = 0.03          # por debajo de un 3 % no se considera reexpresión (es ruido de cierre)
+
+
+def cargar_registro_eventos(base):
+    try:
+        with open(os.path.join(base, EVENTOS_REGISTRO), encoding="utf-8") as f:
+            return (json.load(f).get("empresas") or {})
+    except Exception:
+        return {}
+
+
+def leer_extra(path):
+    """Campos propios de la serie que hay que conservar al reescribirla."""
+    try:
+        with open(path, encoding="utf-8") as f:
+            d = json.load(f)
+        return {k: d[k] for k in ("eventosAplicados",) if k in d}
+    except Exception:
+        return {}
+
+
+def _escala(data, hasta_incl, k):
+    """Multiplica por k los cierres con fecha <= hasta_incl."""
+    return [[f, round(v * k, DECIMALS)] if f <= hasta_incl else [f, v] for f, v in data]
+
+
+def aplicar_eventos(ticker, data, ficha, aplicados):
+    """Devuelve (data, nuevos_aplicados, avisos)."""
+    nuevos, avisos = [], []
+    hechos = {a.get("exDate") for a in (aplicados or [])}
+    for ev in (ficha or {}).get("eventos") or []:
+        if not ev.get("aplicarEnRepo") or ev.get("estado") == "pendiente":
+            continue
+        ex, f = ev.get("exDate"), ev.get("factor")
+        try:
+            f = float(f)
+            exd = dt.date.fromisoformat(ex)
+        except Exception:
+            avisos.append(f"{ticker}: evento sin exDate o factor válido ({ex}, {f})")
+            continue
+        if ex in hechos:
+            continue
+        lo = (exd - dt.timedelta(days=45)).isoformat()
+        hi = (exd + dt.timedelta(days=5)).isoformat()
+        mejor = None
+        for i in range(1, len(data)):
+            fch = data[i][0]
+            if fch < lo or fch > hi or data[i - 1][1] <= 0:
+                continue
+            err = abs(data[i][1] / data[i - 1][1] * f - 1)
+            if err <= TOL_ESCALON and (mejor is None or err < mejor[1]):
+                mejor = (i, err)
+        if mejor is None:
+            avisos.append(f"{ticker}: evento {ev.get('proporcion', '')} del {ex} (×{f}) sin escalón en la serie "
+                          f"entre {lo} y {hi}; NO se toca nada (¿ya estaba ajustada?)")
+            continue
+        i = mejor[0]
+        hasta = data[i - 1][0]
+        data = _escala(data, hasta, 1.0 / f)
+        nuevos.append({"exDate": ex, "factor": f, "escalon": data[i][0], "filas": i,
+                       "aplicadoEl": dt.date.today().isoformat()})
+    return data, nuevos, avisos
+
+
+def detectar_reexpresion(data, nuevos):
+    """{'hasta': fecha, 'razon': r} si Yahoo ha reexpresado la parte vieja de la ventana."""
+    viejo = {f: v for f, v in data}
+    pares = sorted((f, v / viejo[f]) for f, v in nuevos if f in viejo and viejo[f] > 0 and v > 0)
+    bloque = []
+    for f, r in pares:
+        if abs(r - 1) > MIN_REEXP:
+            bloque.append((f, r))
+        else:
+            break
+    if len(bloque) < 2:
+        return None
+    resto = pares[len(bloque):]
+    if any(abs(r - 1) > MIN_REEXP for _, r in resto):
+        return None                       # razones mezcladas: no es una reexpresión limpia
+    rs = sorted(r for _, r in bloque)
+    m = rs[len(rs) // 2]
+    if any(abs(r / m - 1) > TOL_REEXP for _, r in bloque):
+        return None
+    return {"hasta": bloque[-1][0], "razon": m}
+
+
+def guardar_detectado(outdir, ticker, ex, factor, hoy, motivo):
+    p = os.path.join(outdir, EVENTOS_DETECTADOS)
+    try:
+        with open(p, encoding="utf-8") as f:
+            d = json.load(f)
+    except Exception:
+        d = {}
+    d.setdefault("nota", "Eventos de capital DETECTADOS por el Action (Yahoo reexpresó la serie). "
+                         "Provisionales: se confirman registrándolos en eventos.json con su fuente.")
+    emp = d.setdefault("empresas", {}).setdefault(ticker, {"eventos": []})
+    if not any(e.get("exDate") == ex for e in emp["eventos"]):
+        emp["eventos"].append({"exDate": ex, "factor": round(factor, 6), "detectadoEl": hoy,
+                               "origen": "detectado", "motivo": motivo})
+    d["actualizado"] = hoy
+    with open(p, "w", encoding="utf-8") as f:
+        json.dump(d, f, ensure_ascii=False, indent=1)
+
+
 def cargar_existente(path):
     """Devuelve (lista_data, ultima_fecha) del JSON ya guardado, o ([], None)."""
     if not os.path.exists(path):
@@ -421,7 +552,8 @@ def main():
     # inicio de la ventana movil: todo lo posterior a esta fecha se vuelve a pedir y a sobrescribir
     desde_ventana = (dt.date.fromisoformat(hoy) - dt.timedelta(days=VENTANA)).isoformat()
     indice = {"actualizado": hoy, "ventana_dias": VENTANA, "ventana_desde": desde_ventana,
-              "tickers": [], "fallos": [], "corregidos": [], "revisar": []}
+              "tickers": [], "fallos": [], "corregidos": [], "revisar": [], "eventos": []}
+    registro = cargar_registro_eventos(base)
     estado = {}   # ticker -> {"ultima": fecha, "provisional": bool}
 
     for i, (ticker, symbol) in enumerate(sorted(tickers.items()), 1):
@@ -433,6 +565,21 @@ def main():
             print(f"        {ticker}: recortadas {_n0 - len(data)} sesiones anteriores a "
                   f"{PRIMERA_SESION[ticker]} (simbolo reutilizado)")
         ult = data[-1][0] if data else None
+        # [15-oct-2026] eventos de capital registrados: se aplican ANTES de descargar, una vez
+        extra = leer_extra(path)
+        cambio_ev = False
+        if data and ticker in registro:
+            data, _ap, _av = aplicar_eventos(ticker, data, registro[ticker], extra.get("eventosAplicados"))
+            for a in _ap:
+                print(f"        EVENTO {ticker} {a['exDate']} (x{a['factor']}): reexpresadas {a['filas']} "
+                      f"sesiones anteriores al escalón del {a['escalon']}")
+                indice["eventos"].append(dict(a, ticker=ticker, origen="registro"))
+            for m in _av:
+                print(f"        AVISO {m}")
+                indice["revisar"].append({"ticker": ticker, "motivo": m})
+            if _ap:
+                extra["eventosAplicados"] = (extra.get("eventosAplicados") or []) + _ap
+                cambio_ev = True
 
         if ult:
             # PARCHE: NO se arranca en (ult + 1 dia). Se retrocede hasta el inicio de la
@@ -456,6 +603,12 @@ def main():
                 print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) SIN DATOS (revisa el simbolo en tickers.json)")
                 indice["fallos"].append({"ticker": ticker, "symbol": symbol, "error": "sin datos"})
             else:
+                if cambio_ev:
+                    _c0 = leer_confirmado(path)
+                    with open(path, "w", encoding="utf-8") as f:
+                        json.dump(dict({"ticker": ticker, "symbol": symbol, "actualizado": hoy,
+                                        "confirmadoHasta": _c0, "provisional": None, "data": data}, **extra),
+                                  f, ensure_ascii=False)
                 print(f"[{i}/{len(tickers)}] {ticker} ({symbol}) sin novedades")
                 indice["tickers"].append({"ticker": ticker, "symbol": symbol,
                                           "desde": data[0][0], "hasta": data[-1][0], "n": len(data)})
@@ -465,6 +618,20 @@ def main():
                                   "confirmadoHasta": _conf, "sinConfirmar": _sc}
             time.sleep(PAUSA)
             continue
+
+        # [15-oct-2026] ¿Yahoo ha reexpresado la serie (liberada/split que nadie ha registrado)?
+        rx = detectar_reexpresion(data, nuevos)
+        if rx:
+            _ex = next((f for f, _ in data if f > rx["hasta"]), None) or next((f for f, _ in nuevos if f > rx["hasta"]), rx["hasta"])
+            _fac = 1.0 / rx["razon"]
+            data = _escala(data, rx["hasta"], rx["razon"])
+            _mot = (f"Yahoo devolvió la ventana hasta el {rx['hasta']} con razón {rx['razon']:.6f} "
+                    f"respecto a lo guardado: reexpresión (liberada o split, factor {_fac:.4f})")
+            print(f"::warning::{ticker}: {_mot}. Reexpresado TODO el histórico hasta {rx['hasta']}. "
+                  f"Registrar el evento en eventos.json con su fuente.")
+            indice["eventos"].append({"ticker": ticker, "exDate": _ex, "factor": round(_fac, 6),
+                                      "origen": "detectado", "motivo": _mot})
+            guardar_detectado(outdir, ticker, _ex, _fac, hoy, _mot)
 
         # fusionar SOBRESCRIBIENDO las fechas ya presentes (ver docstring del parche)
         data, altas, correcciones, sospechosas = fusionar(data, nuevos)
@@ -489,11 +656,11 @@ def main():
         provisional = bool(pendientes)
 
         with open(path, "w", encoding="utf-8") as f:
-            json.dump({"ticker": ticker, "symbol": symbol,
+            json.dump(dict({"ticker": ticker, "symbol": symbol,
                        "actualizado": hoy,
                        "confirmadoHasta": conf,
                        "provisional": pendientes[0] if pendientes else None,
-                       "data": data}, f, ensure_ascii=False)
+                       "data": data}, **extra), f, ensure_ascii=False)
 
         # [11-ago-2026] Cuando algo se queda sin confirmar, se dice TAMBIEN que trajo la
         # descarga. Sin eso no se puede distinguir "la fuente no sirve esa sesion" de "la

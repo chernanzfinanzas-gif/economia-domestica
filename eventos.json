@@ -1,0 +1,178 @@
+{
+ "schemaVersion": 2,
+ "generadoEl": "2026-10-15",
+ "nota": "Con qué BASE está la serie de precios de cada empresa, y cómo se pasa de una a la otra. Base PUBLICADA = lo que valía una acción aquel día. Base AJUSTADA = ese precio reexpresado en acciones de hoy. publicado = repo x factorCierre[año]. Solo aparecen las empresas que han tenido eventos que cambian el nº de acciones (o un dividendo en especie): en el resto el repo es a la vez publicada y ajustada.",
+ "regla": "Si el precio se DIVIDE con una cifra por acción (BPA, DPA, nº acciones, capitalización) -> base PUBLICADA. Si el precio se COMPARA consigo mismo en el tiempo (rentabilidad, drawdown, vs índice, beta) -> base AJUSTADA.",
+ "empresas": {
+  "VID": {
+   "empresa": "Vidrala, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "ampliaciones liberadas de 1x20 (+5 %), una al año",
+   "eventos": [
+    {
+     "durante": "2018",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    },
+    {
+     "durante": "2019",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    },
+    {
+     "durante": "2020",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    },
+    {
+     "durante": "2021",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    },
+    {
+     "durante": "2022",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    },
+    {
+     "durante": "2023",
+     "tipo": "liberada",
+     "proporcion": "1x20",
+     "factor": 1.05
+    }
+   ],
+   "fuente": "Cuentas Anuales: «one (1) new share for every twenty (20) existing shares» + nº de acciones de cada 31-dic",
+   "factorCierre": {
+    "2016": 1.340096,
+    "2017": 1.340096,
+    "2018": 1.276282,
+    "2019": 1.215506,
+    "2020": 1.157625,
+    "2021": 1.1025,
+    "2022": 1.05,
+    "2023": 1.0,
+    "2024": 1.0,
+    "2025": 1.0
+   },
+   "verificacion": "los factores medidos contra la serie publicada del libro coinciden con 1,05^n hasta el 5º decimal (n = 6,6,5,4,3,2,1,0,0,0)",
+   "pendiente": "las FECHAS exactas de cada liberada; el factor por cierre de ejercicio está verificado, el día concreto no"
+  },
+  "CIE": {
+   "empresa": "CIE Automotive, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "dividendo extraordinario EN ESPECIE: reparto de Global Dominion",
+   "eventos": [
+    {
+     "fecha": "2018-06-29",
+     "exDate": "2018-06-29",
+     "entrega": "2018-07-03",
+     "tipo": "dividendo_extraordinario_en_especie",
+     "detalle": "84.764.610 acciones de Global Dominion Access, S.A.",
+     "importe": 405000000,
+     "acciones": 129000000,
+     "porAccion": 3.13953,
+     "factor": 1.118757
+    }
+   ],
+   "fuente": "Cuentas Anuales Consolidadas 2018, Notas 1 y 2.2 («…ha ascendido a 405 millones de euros…») y nota de capital social (129.000.000 acciones al 31-12-2018 y 2017)",
+   "factorCierre": {
+    "2016": 1.118757,
+    "2017": 1.118757,
+    "2018": 1.0,
+    "2019": 1.0,
+    "2020": 1.0,
+    "2021": 1.0,
+    "2022": 1.0,
+    "2023": 1.0,
+    "2024": 1.0,
+    "2025": 1.0
+   },
+   "verificacion": "con estos cierres la acción cae en 2018 un -11,25 %, y la memoria de ese año dice «se han devaluado un 11 % hasta cotizar a 21,44 euros por acción a 31 de diciembre de 2018». Cuadra al primer decimal, y es una cifra INDEPENDIENTE del cálculo.",
+   "cierresPublicados": {
+    "2016": 18.48,
+    "2017": 24.16
+   }
+  },
+  "MCM": {
+   "empresa": "Miquel y Costas & Miquel, S.A.",
+   "serieRepo": "ajustada",
+   "causa": "ampliaciones liberadas: 3x4 (nov-2016), 3x5 (nov-2018), 4x11 (oct-2021) y 1x5 (oct-2026)",
+   "eventos": [
+    {
+     "exDate": "2011-10-11",
+     "tipo": "liberada",
+     "proporcion": "1x4?",
+     "factor": 1.25,
+     "estado": "pendiente",
+     "nota": "Solo se ve el salto en la serie (×1,2443 el 11-oct-2011); un foro (Rankia, 18-may-2016) habla de «1 nueva por 3». Sin confirmar en las cuentas de 2011: NO se usa ni se aplica al repo. Fuera de la ventana de análisis (2016-2025)."
+    },
+    {
+     "exDate": "2016-11-01",
+     "tipo": "liberada",
+     "proporcion": "3x4",
+     "factor": 1.75,
+     "aplicarEnRepo": true,
+     "fuente": "BORME-C-2016-9520: «tres acciones nuevas por cada cuatro antiguas»; último día con derecho 31-oct-2016, periodo de derechos 1-15 nov-2016. Precedida de una reducción de 650.000 acciones.",
+     "verificacion": "la serie del repo cae ese día de 17,7742 a 10,2850 (×0,5786 = 1/1,7282: la liberada más un −1,3 % de mercado)."
+    },
+    {
+     "durante": "2018-11",
+     "tipo": "liberada",
+     "proporcion": "3x5",
+     "factor": 1.6,
+     "fuente": "Informe Anual 2018, carta del Presidente: «el 30 de noviembre … tres acciones nuevas por cada cinco antiguas» (inscripción). Precedida de una reducción de 1.275.000 acciones.",
+     "pendiente": "el día ex exacto (mediados de nov-2018); el factor está verificado. La serie del repo ya viene ajustada por Yahoo en este evento."
+    },
+    {
+     "exDate": "2021-10-14",
+     "tipo": "liberada",
+     "proporcion": "4x11",
+     "factor": 1.363636,
+     "fuente": "BORME-C-2021-6765: «cuatro acciones nuevas por cada once antiguas»; último día con derecho 13-oct-2021, periodo de derechos 14-27 oct-2021. Precedida de una reducción de 1.666.666 acciones.",
+     "verificacion": "la serie del repo ya viene ajustada por Yahoo en este evento (no hay salto)."
+    },
+    {
+     "exDate": "2026-10-09",
+     "tipo": "liberada",
+     "proporcion": "1x5",
+     "factor": 1.2,
+     "aplicarEnRepo": true,
+     "fuente": "CNMV (Junta 18-jun-2026, 7.500.000 acciones de 2 € con cargo a reservas, 15 M€) y PC Bolsa 2-oct-2026: último día con derecho 8-oct, registro 12-oct, derechos 9-22 oct-2026. Capital tras la operación: 37.500.000 + 7.500.000 = 45.000.000 acciones.",
+     "verificacion": "cierre con derecho 8-oct 13,00 € (MarketScreener); la serie del repo quedó MEZCLADA: el Action reescribió del 29-sep en adelante con la serie ya ajustada (escalón falso de 13,00 a 10,75 el 29-sep)."
+    }
+   ],
+   "fuente": "BORME (2016, 2021), Informe Anual 2018 y CNMV/PC Bolsa (2026). Libro: Datos Financieros Miquel y Costas.xlsx, Cuenta de Resultados fila 72 y Datos de Mercado O8.",
+   "factorCierre": {
+    "2011": 4.581818,
+    "2012": 4.581818,
+    "2013": 4.581818,
+    "2014": 4.581818,
+    "2015": 4.581818,
+    "2016": 2.618182,
+    "2017": 2.618182,
+    "2018": 1.636364,
+    "2019": 1.636364,
+    "2020": 1.636364,
+    "2021": 1.2,
+    "2022": 1.2,
+    "2023": 1.2,
+    "2024": 1.2,
+    "2025": 1.2
+   }
+  }
+ },
+ "campos": {
+  "exDate": "primer día que la acción cotiza SIN el derecho. Es la fecha que usan la app y kh_eventos para traducir stop, PO y banda.",
+  "durante": "cuando no se conoce el día: «AAAA» o «AAAA-MM». Cuenta como el último día de ese periodo (aproximado).",
+  "factor": "acciones después / acciones antes (1x5 -> 1,2; 3x4 -> 1,75).",
+  "estado": "«pendiente» = sin verificar contra una fuente oficial: NO se usa en ningún cálculo.",
+  "aplicarEnRepo": "true = el Action de cotizaciones debe reexpresar el histórico anterior a esa fecha (lo hace UNA vez y lo anota en precios/[TK].json · eventosAplicados).",
+  "basePrecios": "(en el puente [TK].json, opcional) fecha de la base de sus niveles; si falta, se usa `fecha`. Una Nota que rehaga niveles después de un evento debe ponerla."
+ },
+ "detectados": "Lo que el Action detecta solo (Yahoo reexpresa la serie en la misma proporción varios días seguidos) va a precios/_eventos.json con origen «detectado». La app y kh_eventos lo usan hasta que aquí se registre el evento confirmado."
+}

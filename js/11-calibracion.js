@@ -207,12 +207,16 @@ function _calibDesdeHistorico(ticker, base, t0, diana){
   const per   = data.filter(p => p[0] >= t0 && p[0] <= diana);
   if(!hasta.length || !per.length) return null;
   const cot = hasta[hasta.length - 1];
-  const precios = per.map(p => p[1]);
+  /* [15-oct-2026] La t0 está en acciones del día del análisis y la serie en las de hoy: se pasa la
+     serie a la base de la t0 (× eventos posteriores a la t0) y cada dividendo a esa misma base. */
+  const _F0 = (typeof khEvFactor==='function') ? khEvFactor(ticker, t0) : 1;
+  const _Fd = f => (typeof khEvFactor==='function') ? khEvFactor(ticker, t0, f) : 1;
+  const precios = per.map(p => p[1]*_F0);
   const maxP = Math.max.apply(null, precios), minP = Math.min.apply(null, precios);
   const divs = ((DB.dividendos||{})[ticker]||[]).filter(x => x && x.fecha && x.fecha > t0 && x.fecha <= diana);
-  const div = Math.round(divs.reduce((s,x) => s + (_calibN(x.importe)||0), 0) * 10000) / 10000;
-  const ev = { cotDiana:cot[1], maxP:maxP, minP:minP, div:div };
-  return { cot:cot[1], cotFecha:cot[0], maxP, minP, div, nDiv:divs.length, nPer:per.length,
+  const div = Math.round(divs.reduce((s,x) => s + (_calibN(x.importe)||0)*_Fd(x.fecha), 0) * 10000) / 10000;
+  const ev = { cotDiana:cot[1]*_F0, maxP:maxP, minP:minP, div:div };
+  return { cot:cot[1]*_F0, cotFecha:cot[0], maxP, minP, div, nDiv:divs.length, nPer:per.length,
            futuro: cot[0] < diana, ev, ver: calibVerdicto(base, ev) };
 }
 
@@ -280,7 +284,7 @@ function _calibDivEntre(ticker, f0, f1){
   ticker=(ticker||'').toUpperCase();
   return ((DB.dividendos||{})[ticker]||[])
     .filter(x=>x&&x.fecha&&x.fecha>f0&&x.fecha<=f1)
-    .reduce((s,x)=>s+(_calibN(x.importe)||0),0);
+    .reduce((s,x)=>s+(_calibN(x.importe)||0)*((typeof khEvFactor==='function')?khEvFactor(ticker,f0,x.fecha):1),0);   /* en acciones de f0 */
 }
 /* Dirección esperada de cada tipo de decisión del Diario (misma tabla que 23-diario.js). */
 function _calibDirTipo(tipo){
@@ -299,13 +303,15 @@ function calibDecisionesEnHito(ticker, t0, diana, cotDianaConfirmada){
   if(!arr.length) return [];
   let cot=_calibN(cotDianaConfirmada);
   let cotFecha=diana;
-  if(!_calibIsN(cot)){ const p=_calibPrecioEn(ticker,diana); if(p){ cot=p.precio; cotFecha=p.fecha; } }
+  let cotRepo=false;   /* [15-oct-2026] el de la serie está en acciones de hoy; el confirmado, en las de la diana */
+  if(!_calibIsN(cot)){ const p=_calibPrecioEn(ticker,diana); if(p){ cot=p.precio; cotFecha=p.fecha; cotRepo=true; } }
   return arr.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||'')).map(e=>{
     const p0=_calibN(e.precio);
     let ret=null;
     if(_calibIsN(cot)&&_calibIsN(p0)&&p0!==0){
       const dv=_calibDivEntre(ticker, e.fecha, diana);
-      ret=(cot+dv)/p0-1;
+      const _fe=(typeof khEvFactor==='function')?(cotRepo?khEvFactor(ticker,e.fecha):khEvFactor(ticker,e.fecha,diana)):1;
+      ret=(cot*_fe+dv)/p0-1;
     }
     const dir=_calibDirTipo(e.tipo);
     let acierto=null;

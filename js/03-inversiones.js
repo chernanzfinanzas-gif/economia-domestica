@@ -760,7 +760,8 @@ function _fichaPagosDiv(t){
       const imp=num(p.bruto); if(!(imp>0)) return;
       const f=p.exDiv||p.pago; if(!f) return;
       const ms=Date.parse((''+f).slice(0,10)+'T00:00:00'); if(isNaN(ms)) return;
-      out.push({ms:ms,imp:imp});
+      /* [15-oct-2026] a la base de la serie (acciones de hoy), como el precio contra el que se suma */
+      out.push({ms:ms,imp:imp/((typeof khEvFactor==='function')?khEvFactor(t,ms):1)});
     });
   });
   out.sort((a,b)=>a.ms-b.ms);
@@ -1209,7 +1210,9 @@ function _fichaSerieVista(vista,t,full){
     /* [27-sep-2026] con tus ediciones de Evolución (evoAnioM), no solo el fichero publicado */
     const dpa={}; const _ys={}; Object.keys(reg.anios).forEach(y=>_ys[y]=1); _ys[String(new Date().getFullYear())]=1;
     Object.keys(_ys).forEach(y=>{ const a=(typeof evoAnioM==='function')?evoAnioM(t,+y):reg.anios[y]; const q=num((a||{}).dpaBruto); if(q>0)dpa[y]=q; });
-    const v=full.map(p=>{ const q=dpa[new Date(p[0]).getUTCFullYear()]; return (q>0&&p[1]>0)?q/p[1]*100:null; });
+    /* [15-oct-2026] El DPA se declaró con las acciones de entonces: se divide por el precio PUBLICADO (serie × eventos posteriores). */
+    const _evf=(typeof khEvFactor==='function')?(ms=>khEvFactor(t,ms)):(()=>1);
+    const v=full.map(p=>{ const q=dpa[new Date(p[0]).getUTCFullYear()]; return (q>0&&p[1]>0)?q/(p[1]*_evf(p[0]))*100:null; });
     if(v.filter(x=>x!=null).length<60) return null;
     return {vals:v,fmtY:x=>x.toFixed(1)+'%',col:'#0891b2',banda:true};
   }
