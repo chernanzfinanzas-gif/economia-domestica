@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-16",
+"actualizado": "2026-10-17",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-06",
+"ventana_desde": "2026-10-07",
 "tickers": [
 {
 "ticker": "A3M",
@@ -679,8 +679,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-10-14",
-"n": 4036
+"hasta": "2026-10-15",
+"n": 4037
 },
 {
 "ticker": "TUB",
@@ -726,116 +726,7 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "AEDAS",
-"fecha": "2026-10-16",
-"anterior": 22.15,
-"nuevo": 22.3
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-16",
-"anterior": 37.86,
-"nuevo": 37.98
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-16",
-"anterior": 11.4,
-"nuevo": 11.6
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-16",
-"anterior": 99.7,
-"nuevo": 99.1
-},
-{
-"ticker": "COL",
-"fecha": "2026-10-16",
-"anterior": 5.04,
-"nuevo": 5.035
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-16",
-"anterior": 2.34,
-"nuevo": 2.336
-},
-{
-"ticker": "GEST",
-"fecha": "2026-10-16",
-"anterior": 2.99,
-"nuevo": 2.985
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-16",
-"anterior": 4.93,
-"nuevo": 4.927
-},
-{
-"ticker": "LGT",
-"fecha": "2026-10-16",
-"anterior": 5.42,
-"nuevo": 5.44
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-10-16",
-"anterior": 6.25,
-"nuevo": 6.2
-},
-{
-"ticker": "MAP",
-"fecha": "2026-10-16",
-"anterior": 4.37,
-"nuevo": 4.374
-},
-{
-"ticker": "NEA",
-"fecha": "2026-10-16",
-"anterior": 9.72,
-"nuevo": 9.7
-},
-{
-"ticker": "ORY",
-"fecha": "2026-10-16",
-"anterior": 2.55,
-"nuevo": 2.548
-},
-{
-"ticker": "PRM",
-"fecha": "2026-10-16",
-"anterior": 12.65,
-"nuevo": 12.55
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-16",
-"anterior": 19.25,
-"nuevo": 19.3
-},
-{
-"ticker": "SAN",
-"fecha": "2026-10-16",
-"anterior": 12.03,
-"nuevo": 12.034
-},
-{
-"ticker": "TLGO",
-"fecha": "2026-10-16",
-"anterior": 2.38,
-"nuevo": 2.385
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-16",
-"anterior": 3.26,
-"nuevo": 3.256
-}
-],
+"corregidos": [],
 "revisar": [],
 "eventos": []
 }
