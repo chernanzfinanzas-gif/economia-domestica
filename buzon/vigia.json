@@ -1,12 +1,11 @@
 {
-  "generadoEl": "2026-10-12T17:21:20+02:00",
+  "generadoEl": "2026-10-19T15:11:06+02:00",
   "generadoPor": "vigia.py (GitHub Actions) — mismo motor que Cobertura (_cadenciaDe)",
   "zona": "Europe/Madrid",
-  "fechaReferencia": "2026-10-12",
-  "resumenTexto": "🔜 PRÓXIMOS 14 DÍAS: CIE Automotive, S.A. 22-10, Iberdrola, S.A. 22-10, Atresmedia 23-10, Vidrala, S.A. 25-10. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
+  "fechaReferencia": "2026-10-19",
+  "resumenTexto": "📅 ESTA SEMANA (4): CIE Automotive, S.A. 22-10, Iberdrola, S.A. 22-10, Atresmedia 23-10, Vidrala, S.A. 25-10. 🔜 PRÓXIMOS 14 DÍAS: Línea Directa 27-10, Aena 29-10, Ebro Foods 29-10, Endesa 29-10, Redeia 29-10, Fluidra 30-10, Repsol 30-10, Acerinox 31-10, BBVA 31-10, Bankinter 31-10, CaixaBank 31-10, Enagás 31-10, Faes Farma 31-10, Gestamp 31-10, Inditex 31-10, Mapfre 31-10, Miquel y Costas 31-10, Merlin Properties 31-10, Naturgy 31-10, Prim 31-10, Renta 4 Banco 31-10, Rovi 31-10, Banco Santander 31-10, Unicaja 31-10, Viscofan 31-10. Para registrar un informe: \"analizar informe trimestral de [empresa]\".",
   "vencidos": [],
-  "estaSemana": [],
-  "proximos14d": [
+  "estaSemana": [
     {
       "ticker": "CIE",
       "empresa": "CIE Automotive, S.A.",
@@ -44,6 +43,233 @@
       "ultimaFecha": "2026-07-23"
     }
   ],
+  "proximos14d": [
+    {
+      "ticker": "LDA",
+      "empresa": "Línea Directa",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-27",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-27"
+    },
+    {
+      "ticker": "AENA",
+      "empresa": "Aena",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-29",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-29"
+    },
+    {
+      "ticker": "EBRO",
+      "empresa": "Ebro Foods",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-29",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-29"
+    },
+    {
+      "ticker": "ELE",
+      "empresa": "Endesa",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-29",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-29"
+    },
+    {
+      "ticker": "RED",
+      "empresa": "Redeia",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-29",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-29"
+    },
+    {
+      "ticker": "FDR",
+      "empresa": "Fluidra",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "REP",
+      "empresa": "Repsol",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-30",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-23"
+    },
+    {
+      "ticker": "ACX",
+      "empresa": "Acerinox",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-24"
+    },
+    {
+      "ticker": "BBVA",
+      "empresa": "BBVA",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "BKT",
+      "empresa": "Bankinter",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "CABK",
+      "empresa": "CaixaBank",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "ENG",
+      "empresa": "Enagás",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "FAE",
+      "empresa": "Faes Farma",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "GEST",
+      "empresa": "Gestamp",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "ITX",
+      "empresa": "Inditex",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-31"
+    },
+    {
+      "ticker": "MAP",
+      "empresa": "Mapfre",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-23"
+    },
+    {
+      "ticker": "MCM",
+      "empresa": "Miquel y Costas",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "MRL",
+      "empresa": "Merlin Properties",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "NTGY",
+      "empresa": "Naturgy",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "PRM",
+      "empresa": "Prim",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "R4",
+      "empresa": "Renta 4 Banco",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "ROVI",
+      "empresa": "Rovi",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "SAN",
+      "empresa": "Banco Santander",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "UNI",
+      "empresa": "Unicaja",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    },
+    {
+      "ticker": "VIS",
+      "empresa": "Viscofan",
+      "periodoEsperado": "2026-Q3",
+      "periodoLabel": "9M",
+      "fechaEstimada": "2026-10-31",
+      "ultimoPeriodo": "2026-Q2",
+      "ultimaFecha": "2026-07-30"
+    }
+  ],
   "siguienteEvento": {
     "ticker": "CIE",
     "empresa": "CIE Automotive, S.A.",
@@ -54,5 +280,5 @@
     "ultimaFecha": "2026-07-20"
   },
   "sinDeterminar": [],
-  "totalEmpresas": 33
+  "totalEmpresas": 35
 }
