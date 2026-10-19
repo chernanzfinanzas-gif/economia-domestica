@@ -2622,7 +2622,9 @@ function mcAbrirGrafValor(t){
        el Kanban no los pide nadie y el grafico salia con «Sin cotizaciones en este tramo»:
        el dato estaba en el repo, no en memoria, y el mensaje culpaba al tramo. Con esto el
        boton se puede soltar en cualquier vista sin precargar nada antes. */
-    if(typeof _precioCache!=='undefined' && _precioCache[t]===undefined){
+    /* [17-oct-2026] Tambien si la cache guarda un FALLO anterior (null / sin datos): ver
+       _precioDebePedir en 03-inversiones.js. Era el «AMS sin cotizacion de 1M en adelante». */
+    if(typeof _precioCache!=='undefined' && (typeof _precioDebePedir==='function' ? _precioDebePedir(t) : _precioCache[t]===undefined)){
       hueco.innerHTML='<div class="muted" style="font-size:12px">Cargando los cierres de '+t+'…</div>';
       fetch('precios/'+t+'.json',{cache:'no-store'})
         .then(function(r){ return r.ok?r.json():null; })

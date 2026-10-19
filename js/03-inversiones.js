@@ -823,6 +823,20 @@ function _fichaDivBtnsHTML(){
 // Botón del selector de rango: caja diferenciada, 2 líneas (plazo + % del plazo); al seleccionar, "crece".
 function _fichaRangeBtn(key,lbl,vt,vc,sel){ return `<button type="button" data-frange="${key}" style="display:flex;flex-direction:column;align-items:center;line-height:1.05;padding:3px 9px;min-width:46px;border:1px solid ${sel?'var(--brand)':'var(--line)'};border-radius:8px;background:${sel?'#eff6ff':'#fff'};cursor:pointer;transition:transform .12s ease;transform:${sel?'scale(1.12)':'none'};${sel?'box-shadow:0 1px 5px rgba(37,99,235,.18);':''}"><span style="font-weight:700;font-size:12px;color:${sel?'var(--brand)':'inherit'}">${lbl}</span><span style="font-size:10.5px;font-weight:700;color:${vc}">${vt}</span></button>`; }
 const _precioCache={};
+/* [17-oct-2026] UNA DESCARGA FALLIDA NO PUEDE QUEDAR APUNTADA TODA LA SESION.
+   Varias vistas (Radar, Mi Cartera, Calibracion...) bajan los ~105 ficheros de precios/ de golpe
+   y, si uno falla por la red, guardan null en la cache. Luego el grafico solo pedia el fichero
+   si la cache estaba VACIA (undefined), asi que AMS salia «Sin cotizaciones» de 1M en adelante
+   hasta recargar la pagina, con el fichero perfecto en el repo. Ahora: si lo que hay no trae
+   datos, se vuelve a pedir; como mucho una vez cada 20 s para que un 404 real no haga bucle. */
+const _precioIntento={};
+function _precioDebePedir(t){
+  const pj=_precioCache[t];
+  if(pj&&pj.data&&pj.data.length) return false;
+  const ahora=Date.now();
+  if(pj!==undefined && ahora-(_precioIntento[t]||0)<20000) return false;
+  _precioIntento[t]=ahora; return true;
+}
 function fmtpct(x){ return x==null?'—':(x>=0?'+':'')+(x*100).toFixed(1)+'%'; }
 /* [27-sep-2026] Pagos PREVISTOS del año en curso según Evolución del Dividendo que aún no están cobrados en la ficha. */
 function _fichaPrevistos(t, divs){
@@ -1253,7 +1267,7 @@ async function drawFichaChart(t){
     try{ Promise.resolve(_evoCargar()).then(function(){ if(fichaTicker)drawFichaChart(fichaTicker); }).catch(function(){}); }catch(e){}
   }
   let pj=_precioCache[t];
-  if(pj===undefined){ try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; } _precioCache[t]=pj; }
+  if(_precioDebePedir(t)){ try{ const r=await fetch('precios/'+t+'.json',{cache:'no-store'}); pj=r.ok?await r.json():null; }catch(e){ pj=null; } _precioCache[t]=pj; }
   if(!pj||!pj.data||!pj.data.length){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos de cotización para '+t+'. (¿Está en precios/ del repo?)</div>'; setVar(''); setZoom(''); return; }
   const dataFull=pj.data.map(d=>[Date.parse(d[0]),d[1]]).filter(d=>!isNaN(d[0]));
   if(dataFull.length<2){ el.innerHTML='<div class="muted" style="font-size:12px">Sin datos suficientes.</div>'; setVar(''); return; }
