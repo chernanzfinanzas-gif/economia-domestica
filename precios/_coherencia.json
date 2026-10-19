@@ -43,16 +43,16 @@
   {
    "ticker": "BKT",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 14.97,
+   "valorHistorico": 14.965,
    "cierreAntIntradia": 15.255,
-   "difPct": -1.868
+   "difPct": -1.901
   },
   {
    "ticker": "CABK",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 11.75,
+   "valorHistorico": 11.745,
    "cierreAntIntradia": 11.925,
-   "difPct": -1.468
+   "difPct": -1.509
   },
   {
    "ticker": "CIE",
@@ -99,9 +99,9 @@
   {
    "ticker": "GEST",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 2.94,
+   "valorHistorico": 2.935,
    "cierreAntIntradia": 2.99,
-   "difPct": -1.672
+   "difPct": -1.839
   },
   {
    "ticker": "IBE",
@@ -118,6 +118,13 @@
    "difPct": -0.717
   },
   {
+   "ticker": "LDA",
+   "ultimaBarra": "2026-10-19",
+   "valorHistorico": 1.228,
+   "cierreAntIntradia": 1.24,
+   "difPct": -0.968
+  },
+  {
    "ticker": "LOG",
    "ultimaBarra": "2026-10-19",
    "valorHistorico": 36.92,
@@ -127,9 +134,9 @@
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 4.34,
+   "valorHistorico": 4.336,
    "cierreAntIntradia": 4.372,
-   "difPct": -0.732
+   "difPct": -0.823
   },
   {
    "ticker": "MCM",
@@ -160,13 +167,6 @@
    "difPct": -0.791
   },
   {
-   "ticker": "R4",
-   "ultimaBarra": "2026-10-19",
-   "valorHistorico": 19.3,
-   "cierreAntIntradia": 19.4,
-   "difPct": -0.515
-  },
-  {
    "ticker": "RED",
    "ultimaBarra": "2026-10-19",
    "valorHistorico": 14.56,
@@ -183,23 +183,23 @@
   {
    "ticker": "SAN",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 11.77,
+   "valorHistorico": 11.772,
    "cierreAntIntradia": 12.064,
-   "difPct": -2.437
+   "difPct": -2.42
   },
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 3.37,
+   "valorHistorico": 3.373,
    "cierreAntIntradia": 3.403,
-   "difPct": -0.97
+   "difPct": -0.882
   },
   {
    "ticker": "UNI",
    "ultimaBarra": "2026-10-19",
-   "valorHistorico": 3.2,
+   "valorHistorico": 3.196,
    "cierreAntIntradia": 3.258,
-   "difPct": -1.78
+   "difPct": -1.903
   },
   {
    "ticker": "VIS",
