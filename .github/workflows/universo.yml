@@ -1,0 +1,60 @@
+name: Informe del universo
+# Método KH v3 · 20-oct-2026. Recalcula los puntos del universo con las cotizaciones del día y deja:
+#   universo/informe.json  (lo que leerán las pestañas Universo y Radar de la app)
+#   universo/prueba.json   (la prueba con datos del pasado)
+#   universo/index.html    (la página para verlo desde el móvil)
+# Datos de entrada: universo/base.json (lo publica Carlos con el buzón cuando entran informes nuevos),
+# precios/, dividendos.json, eventos.json y fundamentales.json (ya los mantiene el repo).
+# NO hay cartera en el repositorio (es público): la página la lee, si la app la ha dejado, del navegador.
+#
+# Horas en UTC: "10 6 * * 2-6" = 08:10 CEST, después del pase de confirmación de cotizaciones (05:40 UTC).
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "10 6 * * 2-6"
+  push:
+    paths:
+      - "universo/base.json"
+      - "universo/*.py"
+      - "universo/matriz.json"
+      - "universo/universo.json"
+      - "universo/acciones_extra.json"
+permissions: { contents: write }
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
+jobs:
+  universo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Puntos del universo
+        run: |
+          python universo/informe_preliminar.py universo/base.json universo/universo.json universo/matriz.json precios universo/acciones_extra.json universo/informe.json fundamentales.json - dividendos.json eventos.json
+      - name: Prueba con datos del pasado
+        run: |
+          python universo/prueba_puntos.py universo/base.json universo/universo.json universo/matriz.json precios universo/acciones_extra.json _ fundamentales.json - dividendos.json eventos.json universo/prueba.json
+      - name: Página
+        run: |
+          python universo/pagina_preliminar.py universo/informe.json universo/index.html universo/prueba.json --completo
+      # Mismo bucle de reintentos que cotizaciones.yml: el buzón publica desde fuera de Actions.
+      - name: Commit y push (con reintentos ante colisiones)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add universo/informe.json universo/prueba.json universo/index.html
+          if git diff --staged --quiet; then
+            echo "Sin cambios"; exit 0
+          fi
+          git commit -m "Informe del universo"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "Push OK en el intento $i"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "Push rechazado, reintento $i..."; sleep 5
+          done
+          echo "No se pudo hacer push tras 5 intentos"; exit 1
