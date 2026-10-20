@@ -13,6 +13,7 @@ var DV={ fxHoy:null, fxF:'', ej:null, ejT:0, real:{tk:'KO', anio:2016}, v:{eur:1
 
 function nf(v,nd){ if(v==null||!isFinite(v))return '—'; return Number(v).toLocaleString('es-ES',{minimumFractionDigits:nd||0,maximumFractionDigits:nd||0}); }
 function pc(v,nd){ return (v==null||!isFinite(v))?'—':((v>0?'+':'')+nf(v*100,nd==null?1:nd)+' %'); }
+function eu(v){ return (v>0?'+':(v<0?'−':''))+nf(Math.abs(v),0)+' €'; }
 function col(v){ return v>0.0005?'#15803d':(v<-0.0005?'#b91c1c':'#334155'); }
 
 /* núcleo: rentabilidad en euros para unos parámetros */
@@ -32,12 +33,23 @@ function calc(p){
 function desglose(p){
   var q=function(o){ var x={}; for(var k in p)x[k]=p[k]; for(var j in o)x[j]=o[j]; return x; };
   var s1=calc(q({fee:0, fx1:p.fx0, ret:0, recupera:true}));     /* solo la acción, en dólares */
-  var s2=calc(q({fee:0, ret:0, recupera:true}));                 /* + el dólar */
-  var s3=calc(q({ret:0, recupera:true}));                        /* + comisiones de cambio */
+  var s2=calc(q({fx1:p.fx0, ret:0, recupera:true}));             /* + comisiones de cambio (dólar quieto) */
+  var s3=calc(q({ret:0, recupera:true}));                        /* + el dólar */
   var s4=calc(p);                                                /* + retención no recuperada */
-  return {accion:s1.r, divisa:s2.r-s1.r, comis:s3.r-s2.r, reten:s4.r-s3.r, total:s4.r, s4:s4, s1:s1};
+  return {accion:s1.r, comis:s2.r-s1.r, divisa:s3.r-s2.r, reten:s4.r-s3.r, total:s4.r, s4:s4, s1:s1};
 }
 
+function frase(o){
+  /* o: {inicio, eur, empresa, tot, accion, dolar, comis, reten, fx0, fx1} -> resumen en palabras */
+  var dv=o.fx0/o.fx1-1, sube=dv>0.005, baja=dv<-0.005;
+  var h='<div class="dvx-res">'+o.inicio+' <b>'+nf(o.eur,0)+' €</b>'+(o.empresa?' en <b>'+o.empresa+'</b>':'')+', '+(o.hoy||'al final')+' tendrías <b>'+nf(o.tot,0)+' €</b> ('+pc(o.tot/o.eur-1,1)+').<ul>'+
+    '<li><b>La empresa</b> (lo que sube la acción y los dividendos, contado en dólares): <b style="color:'+col(o.accion)+'">'+eu(o.accion)+'</b>.</li>'+
+    '<li><b>El dólar</b> '+(sube?'ha subido un '+nf(dv*100,0)+' % frente al euro':(baja?'ha bajado un '+nf(-dv*100,0)+' % frente al euro':'casi no se ha movido frente al euro'))+
+      ' (de '+nf(o.fx0,2)+' a '+nf(o.fx1,2)+' $ por euro). Al volver a euros eso te '+(o.dolar>=0?'da':'quita')+' <b style="color:'+col(o.dolar)+'">'+eu(o.dolar)+'</b>.'+
+      (sube?' <span class="muted">Cuando el dólar sube, cada dólar que tienes vale más euros: ganas.</span>':(baja?' <span class="muted">Cuando el dólar baja, cada dólar vale menos euros: pierdes.</span>':''))+'</li>'+
+    '<li><b>Las comisiones de cambio</b> se llevan <b style="color:'+col(o.comis)+'">'+eu(o.comis)+'</b>'+(Math.abs(o.reten)>=0.5?' y la <b>retención americana</b> que no recuperas, <b style="color:'+col(o.reten)+'">'+eu(o.reten)+'</b>':'')+'.</li></ul></div>';
+  return h;
+}
 function css(){
   if(document.getElementById('divisa-css'))return;
   var s=document.createElement('style'); s.id='divisa-css';
@@ -48,6 +60,7 @@ function css(){
   '.dvx-r .c.tot{border:2px solid #0f766e}.dvx-t{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow-x:auto;margin:0 0 12px}.dvx-t table{border-collapse:collapse;width:100%;font-size:12.5px}'+
   '.dvx-t th,.dvx-t td{padding:6px 10px;border-bottom:1px solid #f1f5f9;text-align:right;white-space:nowrap}.dvx-t th{background:#f8fafc;font-size:11px;color:#475569}.dvx-t td.l,.dvx-t th.l{text-align:left}.dvx-t tr.hoy td{background:#f0fdf4;font-weight:700}'+
   '.dvx-h{font-size:14px;font-weight:800;margin:16px 0 6px}.dvx-n{font-size:11.5px;color:#64748b;line-height:1.5;margin:0 0 10px}.dvx-box{background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.5;margin:0 0 12px}'+
+  '.dvx-res{background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:10px 14px;font-size:13px;line-height:1.55;margin:0 0 12px}.dvx-res ul{margin:6px 0 0 0;padding-left:18px}.dvx-res li{margin:2px 0}'+
   '.dvx-bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:#f1f5f9;margin:6px 0 2px}.dvx-bar span{display:block;height:100%}';
   document.head.appendChild(s);
 }
@@ -95,7 +108,9 @@ function pintar(){
   if(!(p.eur>0&&p.p0>0&&p.p1>=0&&p.fx0>0&&p.fx1>0)){ R.innerHTML='<div class="dvx-n">Rellena los importes con números mayores que cero.</div>'; return; }
   var d=desglose(p), s=d.s4, Y=Math.max(1,Math.round(p.anios));
   var tarj=function(l,v,sub,cls){ return '<div class="c'+(cls?' '+cls:'')+'"><div class="l">'+l+'</div><div class="v" style="color:'+col(v)+'">'+pc(v,1)+'</div><div class="p">'+sub+'</div></div>'; };
-  var h='<div class="dvx-r">'+
+  var h=frase({inicio:'Con estos números, si pones', eur:p.eur, empresa:'', hoy:'al cabo de '+Y+' año'+(Y===1?'':'s'), tot:s.tot, accion:d.accion*p.eur, dolar:d.divisa*p.eur, comis:d.comis*p.eur, reten:d.reten*p.eur, fx0:p.fx0, fx1:p.fx1})+
+    '<div class="dvx-n" style="margin-bottom:4px">Lo mismo en porcentaje sobre lo que inviertes (los cuatro suman el total):</div>'+
+    '<div class="dvx-r">'+
     tarj('La acción (en $)',d.accion,'precio + dividendos, sin tocar el euro')+
     tarj('El dólar',d.divisa,'EUR/USD de '+nf(p.fx0,2)+' a '+nf(p.fx1,2))+
     tarj('Comisiones de cambio',d.comis,nf(p.fee,2)+' % × '+(2+(p.div>0?Y:0))+' cambios')+
@@ -143,7 +158,7 @@ function calcReal(E,FX,m0,o,eur){
   var mL=meses[meses.length-1];
   (E.dividendos||[]).forEach(function(d){ var mes=d[0].slice(0,7); if(mes<=m0||mes>mL)return;
     var u=n*d[1]*(1-o.perdida), fx=o.fxFijo?fx0:fxDe(FX,mes); divU+=u; divE+=u/fx*(1-fee);
-    var y=mes.slice(0,4); porAnio[y]=porAnio[y]||{u:0,e:0}; porAnio[y].u+=u; porAnio[y].e+=u/fx*(1-fee); });
+    var y=mes.slice(0,4); porAnio[y]=porAnio[y]||{u:0,e:0,e0:0}; porAnio[y].u+=u; porAnio[y].e+=u/fx*(1-fee); porAnio[y].e0+=u/fx0*(1-fee); });
   var fxL=o.fxFijo?fx0:fxDe(FX,mL), pL=P[mL], venta=n*pL/fxL*(1-fee), tot=venta+divE;
   var anios=(parseInt(mL.slice(0,4),10)+(parseInt(mL.slice(5,7),10)-1)/12)-(parseInt(m0.slice(0,4),10)+(parseInt(m0.slice(5,7),10)-1)/12);
   return {n:n,p0:p0,fx0:fx0,pL:pL,fxL:fxL,mL:mL,divE:divE,divU:divU,venta:venta,tot:tot,r:tot/eur-1,
@@ -157,9 +172,11 @@ function pintarReal(){
   var a0=parseInt(ms[0].slice(0,4),10), aL=parseInt(ms[ms.length-1].slice(0,4),10)-1; if(r.anio<a0)r.anio=a0; if(r.anio>aL)r.anio=aL;
   var m0=ms.filter(function(m){ return m>=String(r.anio)+'-01' && fxDe(FX,m); })[0];
   var v=DV.v, fee=v.fee/100, ret=v.ret/100, perd=v.recupera?Math.max(0,ret-0.15):ret, eur=v.eur;
-  var s1=calcReal(E,FX,m0,{fee:0,perdida:0,fxFijo:true},eur), s2=calcReal(E,FX,m0,{fee:0,perdida:0,fxFijo:false},eur),
+  /* orden del reparto: empresa → comisiones (dólar quieto) → dólar → retención; así «el dólar» coincide con la tabla año a año */
+  var s1=calcReal(E,FX,m0,{fee:0,perdida:0,fxFijo:true},eur), s2=calcReal(E,FX,m0,{fee:fee,perdida:0,fxFijo:true},eur),
       s3=calcReal(E,FX,m0,{fee:fee,perdida:0,fxFijo:false},eur), s4=calcReal(E,FX,m0,{fee:fee,perdida:perd,fxFijo:false},eur);
   if(!s4){ R.innerHTML='<div class="dvx-n">No hay datos para ese mes.</div>'; return; }
+  var mesL=function(m){ var M=['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre']; return M[parseInt(m.slice(5,7),10)-1]+' de '+m.slice(0,4); };
   var mes=function(m){ var M=['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic']; return M[parseInt(m.slice(5,7),10)-1]+' '+m.slice(0,4); };
   var selE='<select data-dvr="tk">'+tks.map(function(t){ return '<option value="'+t+'"'+(t===r.tk?' selected':'')+'>'+J.empresas[t].nombre+' ('+t+')</option>'; }).join('')+'</select>';
   var anos=[]; for(var y=a0;y<=aL;y++)anos.push(y);
@@ -168,22 +185,28 @@ function pintarReal(){
   var h='<div class="dvx-g" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><label>Empresa'+selE+'</label><label>Comprada en enero de'+selA+'</label></div>'+
     '<div class="dvx-n">Compra: '+mes(m0)+' a <b>'+nf(s4.p0,2)+' $</b> con el euro a <b>'+nf(s4.fx0,4)+' $</b> → '+nf(s4.n,2)+' acciones por '+nf(eur,0)+' €. '+
     'Hoy ('+mes(s4.mL)+'): <b>'+nf(s4.pL,2)+' $</b> con el euro a <b>'+nf(s4.fxL,4)+' $</b>. '+nf(s4.anios,1)+' años.</div>'+
+    frase({inicio:'Si en '+mesL(m0)+' hubieras puesto', eur:eur, empresa:E.nombre, hoy:'hoy ('+mesL(s4.mL)+')', tot:s4.tot, accion:s1.r*eur, comis:(s2.r-s1.r)*eur, dolar:(s3.r-s2.r)*eur, reten:(s4.r-s3.r)*eur, fx0:s4.fx0, fx1:s4.fxL})+
+    '<div class="dvx-n" style="margin-bottom:4px">Lo mismo en porcentaje sobre lo que invertiste (los cuatro suman el total):</div>'+
     '<div class="dvx-r">'+
-      tarj('La acción (en $)',s1.r,'precio + dividendos cobrados')+
-      tarj('El dólar',s2.r-s1.r,'EUR/USD de '+nf(s4.fx0,2)+' a '+nf(s4.fxL,2))+
-      tarj('Comisiones de cambio',s3.r-s2.r,nf(v.fee,2)+' % en cada cambio')+
-      tarj('Retención no recuperada',s4.r-s3.r,v.recupera?'solo lo que pase del 15 %':'toda la retención')+
+      tarj('La empresa (en $)',s1.r,eu(s1.r*eur)+' · precio + dividendos')+
+      tarj('El dólar',s3.r-s2.r,eu((s3.r-s2.r)*eur)+' · de '+nf(s4.fx0,2)+' a '+nf(s4.fxL,2)+' $/€')+
+      tarj('Comisiones de cambio',s2.r-s1.r,eu((s2.r-s1.r)*eur)+' · '+nf(v.fee,2)+' % cada cambio')+
+      tarj('Retención no recuperada',s4.r-s3.r,eu((s4.r-s3.r)*eur)+(v.recupera?' · lo que pase del 15 %':' · toda'))+
       tarj('Total en euros',s4.r,nf(s4.tot,0)+' € de '+nf(eur,0)+' €'+(s4.ra!=null?' · '+pc(s4.ra,1)+'/año':''),'tot')+
     '</div>';
   /* año a año: valor en € real frente a «si el euro no se hubiera movido» */
-  var filas=[], cumU=0, cumE=0, y0=parseInt(m0.slice(0,4),10), yL=parseInt(s4.mL.slice(0,4),10);
+  var filas=[], cumU=0, cumE=0, cumE0=0, y0=parseInt(m0.slice(0,4),10), yL=parseInt(s4.mL.slice(0,4),10);
   for(var y2=y0;y2<=yL;y2++){
     var mf=(y2===yL)?s4.mL:(String(y2)+'-12'); if(!s4.P[mf])continue;
-    var pa=s4.porAnio[String(y2)]; if(pa){ cumU+=pa.u; cumE+=pa.e; }
-    var fx=fxDe(FX,mf), valU=s4.n*s4.P[mf]+cumU, valE=s4.n*s4.P[mf]/fx*(1-fee)+cumE, fijo=valU/s4.fx0;
+    var pa=s4.porAnio[String(y2)]; if(pa){ cumU+=pa.u; cumE+=pa.e; cumE0+=pa.e0; }
+    var fx=fxDe(FX,mf), valU=s4.n*s4.P[mf]+cumU, valE=s4.n*s4.P[mf]/fx*(1-fee)+cumE, fijo=s4.n*s4.P[mf]/s4.fx0*(1-fee)+cumE0;
     filas.push('<tr><td class="l">'+(y2===yL?mes(mf):'dic '+y2)+'</td><td>'+nf(s4.P[mf],2)+' $</td><td>'+nf(fx,3)+'</td><td>'+nf(valU,0)+' $</td><td><b>'+nf(valE,0)+' €</b></td><td>'+nf(fijo,0)+' €</td><td style="color:'+col(valE-fijo)+'">'+(valE-fijo>0?'+':'')+nf(valE-fijo,0)+' €</td></tr>');
   }
-  h+='<div class="dvx-h">Año a año</div><div class="dvx-t"><table><thead><tr><th class="l">Fin de</th><th>Precio</th><th>EUR/USD</th><th>Vale en $</th><th>Vale en €</th><th title="el valor en dólares pasado a euros al cambio del día de compra">Si el euro no se moviera</th><th>Lo que pone o quita el dólar</th></tr></thead><tbody>'+filas.join('')+'</tbody></table></div>'+
+  h+='<div class="dvx-h">Año a año</div>'+
+    '<div class="dvx-n">Cada fila es una foto a final de año de tu inversión: lo que valen tus acciones más los dividendos que ya has cobrado. '+
+    '<b>«Vale en €»</b> es lo que tendrías de verdad. <b>«Si el euro no se moviera»</b> es lo que tendrías si el cambio siguiera como el día que compraste. '+
+    'La última columna es la diferencia: lo que el dólar te ha <b style="color:#15803d">dado (+)</b> o <b style="color:#b91c1c">quitado (−)</b> hasta esa fecha.</div>'+
+    '<div class="dvx-t"><table><thead><tr><th class="l">Fin de</th><th>Precio</th><th>EUR/USD</th><th>Vale en $</th><th>Vale en €</th><th title="el valor en dólares pasado a euros al cambio del día de compra">Si el euro no se moviera</th><th>Lo que pone o quita el dólar</th></tr></thead><tbody>'+filas.join('')+'</tbody></table></div>'+
     '<div class="dvx-n">«Vale» = las acciones a precio de ese momento + los dividendos cobrados hasta entonces (sin reinvertir). La última columna es solo el efecto del cambio de moneda. Fuente: '+esc(J.fuente||'Yahoo')+', datos del '+esc((J.generado||'').slice(0,10))+'. Rentabilidad pasada, no futura.</div>';
   R.innerHTML=h;
 }
