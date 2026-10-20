@@ -1,0 +1,46 @@
+name: Datos de divisa (Invertir en euros)
+# 20-oct-2026. Trae de Yahoo los precios y dividendos de las empresas americanas de ejemplo
+# (Coca-Cola y McDonald's) y el EUR/USD mensual, para la pestaña «¿Invertir en euros?» de la app.
+# Deja divisa/ejemplos.json. Una vez al mes basta (los datos son mensuales).
+# Horas en UTC: "25 6 2 * *" = día 2 de cada mes, 08:25 CEST.
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "25 6 2 * *"
+  push:
+    paths:
+      - "divisa/ejemplos.py"
+permissions: { contents: write }
+concurrency:
+  group: buzon-commit
+  cancel-in-progress: false
+jobs:
+  divisa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Datos de Yahoo
+        run: |
+          pip install yfinance
+          python divisa/ejemplos.py divisa/ejemplos.json
+      # Mismo bucle de reintentos que cotizaciones.yml: el buzón publica desde fuera de Actions.
+      - name: Commit y push (con reintentos ante colisiones)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add divisa/ejemplos.json
+          if git diff --staged --quiet; then
+            echo "Sin cambios"; exit 0
+          fi
+          git commit -m "Datos de divisa"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin main; then
+              echo "Push OK en el intento $i"; exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            echo "Push rechazado, reintento $i..."; sleep 5
+          done
+          echo "No se pudo hacer push tras 5 intentos"; exit 1
