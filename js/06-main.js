@@ -16,7 +16,7 @@ function cmpScore(a){ if(!a)return null; const cw=(DB.config&&DB.config.anaPesos
 const VIEW_FNS={
   micartera:['renderMiCartera'], panel:['renderPanel'], presupuesto:['renderPres','renderMetas','renderPresDesglose'],
   movimientos:['renderMovs'], amalia:['renderAmalia'], mazinger:['renderMazinger'], fondor4:['renderFondoR4'], patrimonio:['renderPat','renderAsignacion','renderAsignFotos'],  origen:['renderOrigen'],
-  universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'],
+  universo:['renderUniverso'], radar:['renderRadar'], cobertura:['renderCobertura'], divisa:['renderDivisa'],
   vision:['renderVision'], escenarios:['renderEscenarios'], analisis:['renderAnalisis'], proxcompra:['renderProxCompra'], tesisinv:['renderTesisInv'],
   posiciones:['renderPOS'], inversiones:['renderInv'], ranking:['renderRanking'], rentabilidad:['renderRentabEmpresas','renderAtribucion'], caja:['renderCaja'], dividendos:['renderDividendos'], calendario:['renderCalendario'], prevision:['renderEvoDiv'], divfut:['renderDivFut'], fiscalidad:['renderFiscalidad'],
   monitor:['renderMonitor'], hechos:['renderHechos'], buzon:['renderBuzon'], estado:['renderSaludDatos','renderPanelMetodo','renderSalud'],
@@ -159,7 +159,7 @@ const GROUPS={
   control:[['micartera','Mi Cartera'],['panel','Panel'],['presupuesto','Presupuesto']],
   embudo:[['embudo','Kanban/Kaizen']],
   mov:[['movimientos','Movimientos'],['amalia','Reembolsables'],['mazinger','Mazinger Z'],['fondor4','Fondo R4'],['patrimonio','Patrimonio']],
-  trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura']],
+  trabajo:[['universo','Universo'],['radar','Radar Op.'],['cobertura','Cobertura'],['divisa','¿Invertir en euros?']],
   eleccion:[['vision','Visión de conjunto'],['analisis','Análisis'],['tesisinv','Ficha de Tesis']],
   /* [C12 · 27-jul-2026] «Posiciones ejecutadas» era una vista completa que se pintaba sola
      (estaba en VIEW_FNS) pero no figuraba en ningún grupo: no había forma de abrirla desde el
