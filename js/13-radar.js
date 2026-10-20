@@ -28,8 +28,11 @@ function radScore(f,rating,ds){
   var sc=0.5*sroe+0.3*sdn+0.2*srt;
   var sper=(f.per&&f.per>0)?_rclamp(100-Math.max(0,f.per-8)*5):50;
   var spbv=f.pbv?_rclamp(100-Math.max(0,f.pbv-1)*35):50;
-  var spos=(f.pos52sem!=null)?_rclamp(100-f.pos52sem):50;
-  var sv=(sper+spbv+spos)/3;
+  /* [20-oct-2026 · Carlos] Quitado el subíndice «cerca del mínimo de 52 semanas» (spos = 100 − pos52):
+     la prueba histórica 2017-2025 del método v3 dio que predice AL REVÉS (cerca del mínimo 0,6 %/año,
+     cerca del máximo 15,2 %/año; acierta 1 de 9 años). Valoración = (PER + P/VC) / 2, igual que en
+     universo/informe.json. La posición 52s sigue a la vista y en la puerta de la trampa de valor. */
+  var sv=(sper+spbv)/2;
   var atr=Math.round((RAD_W.div*sd+RAD_W.cal*sc+RAD_W.val*sv)*10)/10;
   var trampa=(ds&&ds.score!=null)?!!(ds.score<40||(ds.topeDuro&&ds.topeDuro.activo)):!!(rpd&&rpd>7&&((payout&&payout>90)||(f.crecBpa!=null&&f.crecBpa<0)||flags.some(function(x){return /irregular/i.test(x);})));
   /* sc = subíndice de CALIDAD (0,5·ROE + 0,3·solvencia + 0,2·rating); sirve como calidad estimada
@@ -55,6 +58,15 @@ function _uniColaBtn(r){
   return '<button class="uni-cola" data-unicola="'+_radEsc(t)+'" title="Añadir a la cola de análisis (Cobertura)">★→</button>';
 }
 function _uniChip(r){ if(r.held)return '<span class="uni-chip h">En cartera</span>'; if(r.ana)return '<span class="uni-chip a">Analizada</span>'; return '<span style="color:#cbd5e1">·</span>'; }
+/* [20-oct-2026] Enlace a la página del universo (universo/, método v3). Antes de abrirla deja la cartera
+   en localStorage (mismo origen): la página colorea las filas sin que la cartera salga del navegador. */
+function _uniAbrirInforme(){
+  try{ localStorage.setItem('kh_universo_cartera', JSON.stringify({fecha:new Date().toISOString().slice(0,10), tickers:Array.from(heldTickerSet())})); }catch(e){}
+  window.open('universo/','_blank');
+}
+function _uniBotonInforme(){
+  return '<div style="margin:8px 0 12px"><a href="universo/" target="_blank" rel="noopener" onclick="_uniAbrirInforme();return false;" style="display:inline-block;padding:7px 12px;border-radius:8px;background:#0f766e;color:#fff;font-weight:700;font-size:13px;text-decoration:none">📊 Ver informe del universo (método v3)</a> <span class="muted" style="font-size:11px">se calcula cada día; tu cartera se colorea en tu navegador</span></div>';
+}
 function renderUniverso(){
   var sec=document.getElementById('view-universo'); if(!sec)return;
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
@@ -69,7 +81,7 @@ function renderUniverso(){
   var arqCount={}; ks.forEach(function(t){var a=DB.universo[t].arquetipo||'Sin clasificar';arqCount[a]=(arqCount[a]||0)+1;});
   var arqOpts=RAD_ARQ.filter(function(a){return arqCount[a];}).map(function(a){return '<option value="'+_radEsc(a)+'"'+(a===window._uniArq?' selected':'')+'>'+_radEsc(a)+' ('+arqCount[a]+')</option>';}).join('');
   sec.innerHTML=
-    '<div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🌐</span><div class="vhero-txt"><h2>Universo</h2><p>La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos.</p></div></div></div>'+
+    '<div class="vhero g-teal"><div class="vhero-main"><span class="vhero-ic">🌐</span><div class="vhero-txt"><h2>Universo</h2><p>La base de datos de la <b>Matriz Bolsa Española</b>, editable. El <b>Radar</b> la usa para el arquetipo y el rating. Impórtala desde <code>matriz.json</code> y edítala aquí; al añadir una empresa se siembra en Análisis y Dividendos.</p></div></div></div>'+_uniBotonInforme()+
     /* [B14 · 26-jul-2026] El boton «+ Empresa» crea la ficha SOLO dentro de la app:
        no toca la Matriz, ni empresas.json, ni tickers.json. Una empresa dada de alta
        asi no tendra nunca cotizacion automatica ni fundamentales, y por tanto NO
@@ -383,7 +395,7 @@ function renderRadar(){
   var sec=document.getElementById('view-radar'); if(!sec)return; _radCss();
   if(typeof cargarAlertasCorp==='function'&&!_alertasCorp)cargarAlertasCorp();
   DB.universo=DB.universo||{}; DB.radarSel=DB.radarSel||{};
-  var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y marcar las dos trampas: la de <b>dividendo</b> (⚠️, reparto sin cubrir) y la de <b>valor</b> (🔻, ha caído y el negocio se deteriora).</p></div></div></div>';
+  var _radVhero='<div class="vhero g-amber"><div class="vhero-main"><span class="vhero-ic">🎯</span><div class="vhero-txt"><h2>Radar de Oportunidades</h2><p>Cruza tu <b>Universo</b> con los fundamentales para puntuar el atractivo de cada empresa y marcar las dos trampas: la de <b>dividendo</b> (⚠️, reparto sin cubrir) y la de <b>valor</b> (🔻, ha caído y el negocio se deteriora).</p></div></div></div>'+_uniBotonInforme();
   if(!Object.keys(DB.universo).length){ sec.innerHTML=_radVhero+'<div class="empty">Primero importa la clasificación en la pestaña <b>Universo</b> (botón «Importar matriz.json»).</div>'; if(typeof renderInfoBoxes==='function')renderInfoBoxes(); return; }
   sec.innerHTML=_radVhero+'<div class="muted" style="padding:10px">Cargando fundamentales del repo…</div>';
   Promise.all([_radCargarFund(), _radCambiosCargar(), (typeof _evoCargar==='function'?_evoCargar():Promise.resolve())]).then(function(_res){ var fund=_res[0];
