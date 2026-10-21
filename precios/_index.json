@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-21",
+"actualizado": "2026-10-22",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-11",
+"ventana_desde": "2026-10-12",
 "tickers": [
 {
 "ticker": "A3M",
@@ -922,134 +922,7 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "AEDAS",
-"fecha": "2026-10-21",
-"anterior": 22.25,
-"nuevo": 22.2
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-21",
-"anterior": 197.96,
-"nuevo": 199.0
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-21",
-"anterior": 37.34,
-"nuevo": 37.64
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-21",
-"anterior": 11.3,
-"nuevo": 11.5
-},
-{
-"ticker": "BKT",
-"fecha": "2026-10-21",
-"anterior": 15.29,
-"nuevo": 15.285
-},
-{
-"ticker": "CABK",
-"fecha": "2026-10-21",
-"anterior": 11.81,
-"nuevo": 11.805
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-21",
-"anterior": 99.3,
-"nuevo": 100.2
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-21",
-"anterior": 2.25,
-"nuevo": 2.252
-},
-{
-"ticker": "GRF",
-"fecha": "2026-10-21",
-"anterior": 10.09,
-"nuevo": 10.085
-},
-{
-"ticker": "MAKS",
-"fecha": "2026-10-21",
-"anterior": 6.25,
-"nuevo": 6.2
-},
-{
-"ticker": "MAP",
-"fecha": "2026-10-21",
-"anterior": 4.44,
-"nuevo": 4.444
-},
-{
-"ticker": "ORY",
-"fecha": "2026-10-21",
-"anterior": 2.6,
-"nuevo": 2.602
-},
-{
-"ticker": "PRS",
-"fecha": "2026-10-21",
-"anterior": 2.31,
-"nuevo": 2.15
-},
-{
-"ticker": "R4",
-"fecha": "2026-10-21",
-"anterior": 19.4,
-"nuevo": 19.5
-},
-{
-"ticker": "RJF",
-"fecha": "2026-10-21",
-"anterior": 2.59,
-"nuevo": 2.6
-},
-{
-"ticker": "SAB",
-"fecha": "2026-10-21",
-"anterior": 3.55,
-"nuevo": 3.548
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-10-21",
-"anterior": 4.04,
-"nuevo": 4.038
-},
-{
-"ticker": "SLR",
-"fecha": "2026-10-21",
-"anterior": 14.84,
-"nuevo": 14.835
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-21",
-"anterior": 3.42,
-"nuevo": 3.415
-},
-{
-"ticker": "TUB",
-"fecha": "2026-10-21",
-"anterior": 2.72,
-"nuevo": 2.715
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-21",
-"anterior": 3.25,
-"nuevo": 3.254
-}
-],
+"corregidos": [],
 "revisar": [],
 "eventos": []
 }
