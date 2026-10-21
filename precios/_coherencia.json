@@ -57,16 +57,16 @@
   {
    "ticker": "BKT",
    "ultimaBarra": "2026-10-21",
-   "valorHistorico": 15.29,
+   "valorHistorico": 15.285,
    "cierreAntIntradia": 15.03,
-   "difPct": 1.73
+   "difPct": 1.697
   },
   {
    "ticker": "CABK",
    "ultimaBarra": "2026-10-21",
-   "valorHistorico": 11.81,
+   "valorHistorico": 11.805,
    "cierreAntIntradia": 11.625,
-   "difPct": 1.591
+   "difPct": 1.548
   },
   {
    "ticker": "CIE",
@@ -133,10 +133,10 @@
   },
   {
    "ticker": "LDA",
-   "ultimaBarra": "2026-10-20",
-   "valorHistorico": 1.224,
+   "ultimaBarra": "2026-10-21",
+   "valorHistorico": 1.238,
    "cierreAntIntradia": 1.22,
-   "difPct": 0.328
+   "difPct": 1.475
   },
   {
    "ticker": "LOG",
@@ -148,9 +148,9 @@
   {
    "ticker": "MAP",
    "ultimaBarra": "2026-10-21",
-   "valorHistorico": 4.44,
+   "valorHistorico": 4.444,
    "cierreAntIntradia": 4.38,
-   "difPct": 1.37
+   "difPct": 1.461
   },
   {
    "ticker": "MCM",
@@ -172,6 +172,13 @@
    "valorHistorico": 12.7,
    "cierreAntIntradia": 12.55,
    "difPct": 1.195
+  },
+  {
+   "ticker": "R4",
+   "ultimaBarra": "2026-10-21",
+   "valorHistorico": 19.5,
+   "cierreAntIntradia": 19.4,
+   "difPct": 0.515
   },
   {
    "ticker": "RED",
@@ -204,9 +211,9 @@
   {
    "ticker": "UNI",
    "ultimaBarra": "2026-10-21",
-   "valorHistorico": 3.25,
+   "valorHistorico": 3.254,
    "cierreAntIntradia": 3.22,
-   "difPct": 0.932
+   "difPct": 1.056
   },
   {
    "ticker": "VID",
@@ -225,5 +232,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 31 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 32 con valores discrepantes, 0 sin fichero"
 }
