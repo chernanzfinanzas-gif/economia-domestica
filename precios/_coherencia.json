@@ -27,18 +27,25 @@
    "difPct": -1.634
   },
   {
+   "ticker": "AZK",
+   "ultimaBarra": "2026-10-23",
+   "valorHistorico": 10.1,
+   "cierreAntIntradia": 10.15,
+   "difPct": -0.493
+  },
+  {
    "ticker": "BKT",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 14.01,
+   "valorHistorico": 14.005,
    "cierreAntIntradia": 14.22,
-   "difPct": -1.477
+   "difPct": -1.512
   },
   {
    "ticker": "CABK",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 11.2,
+   "valorHistorico": 11.195,
    "cierreAntIntradia": 11.16,
-   "difPct": 0.358
+   "difPct": 0.314
   },
   {
    "ticker": "CIE",
@@ -71,9 +78,9 @@
   {
    "ticker": "FAE",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 4.64,
+   "valorHistorico": 4.635,
    "cierreAntIntradia": 4.73,
-   "difPct": -1.903
+   "difPct": -2.008
   },
   {
    "ticker": "FDR",
@@ -85,9 +92,9 @@
   {
    "ticker": "GEST",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 2.82,
+   "valorHistorico": 2.815,
    "cierreAntIntradia": 2.89,
-   "difPct": -2.422
+   "difPct": -2.595
   },
   {
    "ticker": "IBE",
@@ -102,6 +109,13 @@
    "valorHistorico": 56.74,
    "cierreAntIntradia": 56.38,
    "difPct": 0.639
+  },
+  {
+   "ticker": "LDA",
+   "ultimaBarra": "2026-10-23",
+   "valorHistorico": 1.226,
+   "cierreAntIntradia": 1.232,
+   "difPct": -0.487
   },
   {
    "ticker": "LOG",
@@ -139,6 +153,13 @@
    "difPct": 1.171
   },
   {
+   "ticker": "PRM",
+   "ultimaBarra": "2026-10-23",
+   "valorHistorico": 12.6,
+   "cierreAntIntradia": 12.65,
+   "difPct": -0.395
+  },
+  {
    "ticker": "REP",
    "ultimaBarra": "2026-10-23",
    "valorHistorico": 29.46,
@@ -155,16 +176,16 @@
   {
    "ticker": "TEF",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 3.42,
+   "valorHistorico": 3.417,
    "cierreAntIntradia": 3.483,
-   "difPct": -1.809
+   "difPct": -1.895
   },
   {
    "ticker": "UNI",
    "ultimaBarra": "2026-10-23",
-   "valorHistorico": 3.1,
+   "valorHistorico": 3.098,
    "cierreAntIntradia": 3.138,
-   "difPct": -1.211
+   "difPct": -1.275
   },
   {
    "ticker": "VID",
@@ -183,5 +204,5 @@
  ],
  "sinDato": [],
  "nota": "`cierreAnt` de intradia.json es el cierre de la sesion ANTERIOR segun Yahoo. Si no cuadra con la ultima barra de precios/, o falta una sesion o las dos fuentes no hablan del mismo dia. Las dos cosas hay que saberlas.",
- "resumen": "0 con sesion ausente, 25 con valores discrepantes, 0 sin fichero"
+ "resumen": "0 con sesion ausente, 28 con valores discrepantes, 0 sin fichero"
 }
