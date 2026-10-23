@@ -1,7 +1,7 @@
 {
-"actualizado": "2026-10-23",
+"actualizado": "2026-10-24",
 "ventana_dias": 10,
-"ventana_desde": "2026-10-13",
+"ventana_desde": "2026-10-14",
 "tickers": [
 {
 "ticker": "A3M",
@@ -861,8 +861,8 @@
 "ticker": "TRG",
 "symbol": "TRG.MC",
 "desde": "2011-01-03",
-"hasta": "2026-10-20",
-"n": 4040
+"hasta": "2026-10-22",
+"n": 4042
 },
 {
 "ticker": "TSK",
@@ -922,152 +922,7 @@
 }
 ],
 "fallos": [],
-"corregidos": [
-{
-"ticker": "ADZ",
-"fecha": "2026-10-23",
-"anterior": 6.85,
-"nuevo": 7.0
-},
-{
-"ticker": "AIR",
-"fecha": "2026-10-23",
-"anterior": 191.62,
-"nuevo": 191.8
-},
-{
-"ticker": "APAM",
-"fecha": "2026-10-23",
-"anterior": 35.24,
-"nuevo": 35.2
-},
-{
-"ticker": "ARM",
-"fecha": "2026-10-23",
-"anterior": 11.5,
-"nuevo": 11.4
-},
-{
-"ticker": "AZK",
-"fecha": "2026-10-23",
-"anterior": 10.15,
-"nuevo": 10.1
-},
-{
-"ticker": "BKT",
-"fecha": "2026-10-23",
-"anterior": 14.01,
-"nuevo": 14.005
-},
-{
-"ticker": "CABK",
-"fecha": "2026-10-23",
-"anterior": 11.2,
-"nuevo": 11.195
-},
-{
-"ticker": "CCEP",
-"fecha": "2026-10-23",
-"anterior": 99.9,
-"nuevo": 100.6
-},
-{
-"ticker": "COXG",
-"fecha": "2026-10-23",
-"anterior": 10.8,
-"nuevo": 10.9
-},
-{
-"ticker": "ENC",
-"fecha": "2026-10-23",
-"anterior": 2.21,
-"nuevo": 2.206
-},
-{
-"ticker": "FAE",
-"fecha": "2026-10-23",
-"anterior": 4.64,
-"nuevo": 4.635
-},
-{
-"ticker": "GEST",
-"fecha": "2026-10-23",
-"anterior": 2.82,
-"nuevo": 2.815
-},
-{
-"ticker": "IAG",
-"fecha": "2026-10-23",
-"anterior": 4.72,
-"nuevo": 4.721
-},
-{
-"ticker": "LGT",
-"fecha": "2026-10-23",
-"anterior": 5.42,
-"nuevo": 5.4
-},
-{
-"ticker": "NEA",
-"fecha": "2026-10-23",
-"anterior": 9.78,
-"nuevo": 9.66
-},
-{
-"ticker": "PRM",
-"fecha": "2026-10-23",
-"anterior": 12.65,
-"nuevo": 12.6
-},
-{
-"ticker": "PSG",
-"fecha": "2026-10-23",
-"anterior": 3.01,
-"nuevo": 3.005
-},
-{
-"ticker": "RJF",
-"fecha": "2026-10-23",
-"anterior": 2.59,
-"nuevo": 2.58
-},
-{
-"ticker": "SCYR",
-"fecha": "2026-10-23",
-"anterior": 3.95,
-"nuevo": 3.952
-},
-{
-"ticker": "SLR",
-"fecha": "2026-10-23",
-"anterior": 13.73,
-"nuevo": 13.725
-},
-{
-"ticker": "TEF",
-"fecha": "2026-10-23",
-"anterior": 3.42,
-"nuevo": 3.417
-},
-{
-"ticker": "TLGO",
-"fecha": "2026-10-23",
-"anterior": 2.32,
-"nuevo": 2.315
-},
-{
-"ticker": "TUB",
-"fecha": "2026-10-23",
-"anterior": 2.75,
-"nuevo": 2.745
-},
-{
-"ticker": "UNI",
-"fecha": "2026-10-23",
-"anterior": 3.1,
-"nuevo": 3.098
-}
-],
+"corregidos": [],
 "revisar": [],
 "eventos": []
 }
