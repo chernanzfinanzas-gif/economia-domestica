@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ENG · Nota de Revisión Extraordinaria · 2026-Q3 (9M-2026)</title>
+<style>
+:root{--corp:#0078AC;--corp-dark:#005478;--corp-light:#E8F3F8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S6</div>
+      <div class="company-name">Enagás</div>
+      <div class="badges">
+        <span class="badge badge-alert">S6 · 2º ámbar consecutivo (racha de 15)</span>
+        <span class="badge badge-sig">2026-Q3 (9M-2026)</span>
+        <span class="badge badge-soft">Veredicto vigente: MANTENER</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">ENG · BME<br>Fecha: 2026-10-24<br>Plazo señal: sin plazo (mini-revisión de tendencia)</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">MANTENER</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">REAFIRMAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">19,14 €</div><div class="kpi-sub">entrada 15,86–16,65 €</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">17,54 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val amber">+8,4 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">FFO/Deuda neta</div><div class="kpi-val green">20,5 %</div><div class="kpi-sub">umbral verde ≥15,0%</div></div>
+  </div>
+</div>
+
+<div class="trigger-box">
+  <div class="tb-head">① Mini-revisión de tendencia S6</div>
+  <p>Enagás acumula 15 periodos consecutivos en ÁMBAR, con el 9M-2026 como el último. Es la racha que la propia app ya revisó el 7-oct-2026 (REAFIRMAR) al regenerar el análisis; este es el primer periodo NUEVO desde entonces (2026-Q3 añadido al 2026-Q2 ya revisado). El EBITDA sigue cayendo en términos interanuales (−2,9 % en 9M-2026) y lo mismo el BDI recurrente (−5,4 %), pero el ratio clave de la tesis —FFO/Deuda neta— sigue firmemente en VERDE (20,5 %, umbral ≥15,0%).</p>
+</div>
+
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>No hay un hecho puntual detrás de este ámbar: es la transición regulatoria 2027-2032 (riesgo nº 1 de la Matriz) operando sobre la base de activos, combinada con el aumento de deuda por la inversión en Teréga (financiación de crecimiento, no de deterioro) y por la venta del 40% de Enagás Renovable (con 8,3 M€ de beneficio extraordinario registrado en este periodo).</p>
+  <div class="cb-src">Fuente: informe trimestral 9M-2026 de Enagás e historial del §10.3.</div>
+</div>
+
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">La caída de EBITDA/BDI se ESTRECHA cada trimestre, no se amplía</div>
+    <div class="seg-body">La caída interanual de EBITDA lleva SEIS trimestres consecutivos de mejora: −14,6 % (2025-Q2) → −11,7 % → −11,2 % → −9,9 % → −4,6 % (2026-Q2) → −2,9 % (2026-Q3). El BDI recurrente sigue el mismo patrón: −12,3 % → … → −8,6 % → −5,4 %. Es exactamente la trayectoria de una transición regulatoria que se va absorbiendo, no de un deterioro que se acelera. Los ingresos totales acumulan +8,2 % en lo que va de 2026. El ratio que ancla la tesis (FFO/Deuda neta) se mantiene en verde con amplio margen (20,5 % sobre el umbral de 15,0 %) a pesar del endeudamiento adicional de Teréga.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Quince ámbares seguidos y una base de activos que se amortiza más deprisa de lo que se repone</div>
+    <div class="seg-body">Una racha tan larga de ámbar (15 trimestres) es, por definición, lo contrario de un ruido puntual: es el estado normal de esta empresa desde hace casi cuatro años. El riesgo estructural nº 2 de la Matriz —la base de activos se amortiza más deprisa de lo que se repone— sigue sin revertir, y el marco regulatorio 2027-2032 todavía no está cerrado. El aumento de deuda por Teréga, aunque es inversión y no deterioro, reduce el colchón del ratio FFO/Deuda neta frente a shocks futuros si el nuevo marco retributivo es más duro de lo esperado.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> RUIDO EXPLICADO / transición regulatoria en curso, NO deterioro estructural nuevo. La racha larga de ámbar es el estado conocido y ya revisado de esta empresa (REAFIRMAR el 7-oct-2026); lo único nuevo en este periodo es que la tendencia de fondo sigue MEJORANDO (la caída de EBITDA se ha reducido a un tercio de su peor nivel) y el ratio ancla sigue verde con holgura. Confianza: ALTA.</div>
+
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">El riesgo regulatorio (−8,6 a −17,1 %) sigue siendo el dominante y define el Bear case, pero no ha cambiado de banda este trimestre: no hay ninguna circular nueva de la CNMC que lo active. El riesgo estructural de amortización de activos tampoco se ha materializado por encima de lo ya contemplado. Ningún riesgo cambia de probabilidad o impacto en esta revisión.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">El Bull case (22,72 €) y el Bear case (15,86 €) siguen vigentes. La tesis de MANTENER no se ve desmentida por este 9M: la caída de EBITDA se está absorbiendo, no ampliando, y el balance sigue sólido. No hay motivo para tocar PO, banda de entrada ni stop.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">ROIIC</span><span class="pill g">no aplica</span> gatillo de margen regulatorio, no de reinversión; sin cambios desde el Bloque 10.</div><div class="tool-row"><span class="tool-name">Reverse DCF</span><span class="pill g">no aplica</span> no hay S3 (el precio no ha tocado el PO).</div><div class="tool-row"><span class="tool-name">Dividend Safety</span><span class="pill g">sin cambios</span> el FFO/Deuda neta en verde sostiene la cobertura del dividendo sin alertas nuevas.</div>
+</div>
+
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Enagás por primera vez, a 17,54 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?</div>
+  <div class="anchor-a">La mantendría — no es una compra nueva a este precio (está por encima de la banda de entrada 15,86–16,65 €, aunque con margen de seguridad positivo del 8,4 % sobre el PO), pero tampoco hay nada en este trimestre que me hiciera salir. La caída de EBITDA se reduce cada trimestre, el ratio que sostiene la tesis está en verde con holgura, y el riesgo regulatorio —el que de verdad importa aquí— no ha cambiado. Es exactamente el perfil de una utility en transición que cumple lo esperado, ni mejor ni peor.</div>
+</div>
+
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Veredicto MANTENER, PO base 19,14 €, banda de entrada 15,86–16,65 € y stop 13,42 € sin cambios.</div>
+  <div class="action-line">Acción: Mantener posición. Sin acción adicional. Seguir la racha ámbar en el monitor ordinario; solo pasaría a S2 si FFO/Deuda neta cruzara el umbral rojo (14,0%) o la CNMC publicara un marco 2027-2032 peor que el extremo duro ya contemplado en el Bear case.</div>
+</div>
+
+<div class="fuentes"><b>Fuentes externas:</b><i>Sin fuentes externas: la revisión se apoya en el informe trimestral y el histórico del §10.3.</i></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria generada por el Método KH&Claude. No es una recomendación de inversión ni asesoramiento financiero: es el registro razonado de una decisión propia, consensuada dato a dato con el operador. Señal S6 cerrada con esta nota en el §10.5 del Excel, estado.json y hallazgos.json.</div>
+
+</div></body></html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>A3M · Nota de Revisión Extraordinaria · 2026-Q3 (9M-2026)</title>
+<style>
+:root{--corp:#FD7801;--corp-dark:#B15400;--corp-light:#FFF3E8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S2</div>
+      <div class="company-name">Atresmedia</div>
+      <div class="badges">
+        <span class="badge badge-alert">S2 · Semáforo Rojo</span>
+        <span class="badge badge-sig">2026-Q3 (9M-2026)</span>
+        <span class="badge badge-soft">Veredicto vigente: COMPRAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">A3M · BME<br>Fecha: 2026-10-24<br>Plazo señal: 7 días (vence 31-oct-2026)</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">COMPRAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">REAFIRMAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">6,91 €</div><div class="kpi-sub">entrada 5,17–6,00 €</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">5,82 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val green">+18,7 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Mg. EBITDA 9M</div><div class="kpi-val red">12,6 %</div><div class="kpi-sub">umbral rojo <13,0%</div></div>
+  </div>
+</div>
+
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal S2</div>
+  <p>El semáforo del Monitor Trimestral se puso en <b>ROJO</b> al cerrar el 9M-2026: el margen EBITDA cayó a <b>12,6 %</b> (91,3 M€ de RBE sobre 724,3 M€ de ingresos), por debajo del umbral rojo del §10.1 (&lt;13,0 %), tras un 3T aislado débil que borró la mejora de los dos primeros trimestres (16,0 % en Q1, 16,8 % en S1). La señal única de la tesis — Publicidad en Contenido Audiovisual — lleva dos periodos consecutivos cayendo en términos interanuales: −5,7 % en 9M-2025 y −1,8 % en 9M-2026. Es el gatillo exacto del riesgo nº 1 de la Matriz de Riesgos del Bloque 8: <i>«el presupuesto publicitario se desplaza al vídeo digital y no vuelve»</i>.</p>
+</div>
+
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>No hay un hecho puntual (profit warning, sanción, cambio regulatorio) detrás de este 3T: es el resultado agregado de la campaña publicitaria del verano y de la tendencia de audiencia, ambos ya vigilados en el método. Los dos hechos relevantes comunicados a la CNMV este trimestre — la venta del 5 % de Fever Labs (plusvalía neta ~205 M€) y el dividendo a cuenta de 0,83 €/acc — son positivos y no alteran el diagnóstico del semáforo.</p>
+  <div class="cb-src">Fuente: CNMV, Otra Información Relevante — Atresmedia, 23-sep-2026.</div>
+</div>
+
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El 3T aislado explica el grueso de la caída, y el total del grupo sigue creciendo</div>
+    <div class="seg-body">Los ingresos TOTALES del grupo en 9M-2026 (724,3 M€) crecen un +4,0 % interanual sobre los 696,5 M€ de 9M-2025 — la radio y la diversificación compensan. El ritmo de caída de la publicidad audiovisual se ha FRENADO: −5,7 % interanual en 9M-2025 frente a −1,8 % en 9M-2026. El margen EBITDA del 9M-2026 (12,6 %) es prácticamente IDÉNTICO al del 9M-2025 (12,95 %), no peor: no hay una segunda vuelta de deterioro, es el mismo nivel bajo del año pasado. La posición financiera neta se refuerza a 233,2 M€ (antes 70,2 M€) por la venta de Fever Labs — la caja para sostener el dividendo no es el problema.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">La audiencia no deja de caer, y es la base de todo lo demás</div>
+    <div class="seg-body">La audiencia total del grupo lleva TRES AÑOS cayendo sin un solo periodo de mejora: 26,8 % (2023) → 26,4 % (2024) → 26,2 % (2025) → 24,9 % (2026), y el ritmo de caída DENTRO de 2026 se ha acelerado (25,6 → 25,4 → 24,9 en tres trimestres). Es la base sobre la que se vende el inventario publicitario: si la audiencia sigue erosionándose, el frenazo de la caída publicitaria de este año puede ser una tregua, no una reversión. El Dividend Safety Score ya estaba en banda Frágil (34/100) antes de este trimestre, con la cobertura ordinaria por debajo de 1,0x — este dato no mejora ni empeora la señal, pero reduce el margen de maniobra si la tendencia se acelera.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> deterioro con raíz ESTRUCTURAL (riesgo nº 1 de la tesis, declarado desde el Bloque 8), pero moviéndose este trimestre DENTRO del ritmo ya observado el año pasado y DESACELERANDO en la métrica que más pesa (publicidad audiovisual). No hay evidencia de que el 9M-2026 sea el principio de una caída mayor que la del 9M-2025 — fue, de hecho, algo menos mala. Confianza: MEDIA. El verdadero contraste llega con el 4T: el año pasado el 4T-2025 fue un desplome (EBITDA −50,6 % interanual, aunque con 40,5 M€ de provisión del plan de bajas dentro), y si el 4T-2026 repitiera ese patrón SIN una provisión que lo explique, el diagnóstico pasaría a estructural sin matices.</div>
+
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">El riesgo nº 1 (Estructural, Alta probabilidad, −25 a −44 %) es exactamente el que se está manifestando: el presupuesto publicitario migra a digital. Sigue sin cruzar su propio umbral de caída de ingresos (−8,5 % a −15 % según extremo del Bear) — el realizado es −1,8 % en el segmento y +4,0 % en el total. El Pre-Mortem A (desaceleración del consumo + de-rating, −39,08 %) es el escenario más cercano narrativamente a lo que pasa hoy, pero sigue lejos de activarse: hace falta una caída de ingresos del 10 % para que su cadena arranque, diez veces lo observado. Ningún riesgo cambia de banda esta revisión.</div>
+  </div>
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">El Bull case (9,78 €) y el Bear case (5,17 €) siguen vigentes sin cambios: ninguno de sus supuestos se ha visto desmentido por el 9M-2026. El PO base (6,91 €) no se toca — nada en este trimestre cambia una hipótesis del DCF del Bloque 6. La tesis sigue intacta: el deterioro observado está DENTRO del rango que el Bear case ya contempla, no lo desborda.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Dividend Safety</span><span class="pill a">34/100 · Frágil</span> sin cambios desde el Bloque 10 (dato del 24-sep-2026); no se recalcula porque ningún componente (C1-C5) depende del 3T aislado.</div><div class="tool-row"><span class="tool-name">Reverse DCF</span><span class="pill g">no aplica</span> el gatillo es de margen operativo, no de valoración/PO (no hay S3).</div><div class="tool-row"><span class="tool-name">Forense</span><span class="pill g">no aplica</span> sin indicios de maquillaje contable; la provisión del plan de bajas (4T-2025) ya está declarada y no se repite en el 9M-2026.</div>
+</div>
+
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Atresmedia por primera vez, a 5,82 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?</div>
+  <div class="anchor-a">La compraría. Cotiza con un margen de seguridad del 18,7 % sobre el PO base, dentro de la banda de entrada (5,17–6,00 €), con caja neta reforzada tras la venta de Fever Labs (233,2 M€ de posición financiera neta) y un dividendo a cuenta recién anunciado. El riesgo nº 1 —la migración publicitaria a digital— es real y está bien identificado, pero avanza a un ritmo menor que el que el Bear case ya descuenta, y los ingresos totales del grupo siguen creciendo gracias a la diversificación (radio, producción). Lo que de verdad me haría descartarla es ver el mismo deterioro SIN frenar en el 4T, o un desplome de EBITDA como el del 4T-2025 sin una provisión puntual detrás.</div>
+</div>
+
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Veredicto COMPRAR, PO base 6,91 €, banda de entrada 5,17–6,00 € y stop 3,83 € sin cambios.</div>
+  <div class="action-line">Acción: Mantener posición y banda de entrada. Vigilar el 4T-2026 (Q4 completo y FY-2026) con especial atención: si el margen EBITDA FY no mejora sobre el 9M y no hay provisión que lo explique, tratar como deterioro estructural confirmado en el próximo monitor.</div>
+</div>
+
+<div class="fuentes"><b>Fuentes externas:</b><ul><li><a href="https://www.cnmv.es/portal/otra-informacion-relevante/resultado-oir?nif=A-78839271">CNMV — Otra Información Relevante, Atresmedia (venta Fever Labs y dividendo a cuenta, 23-sep-2026)</a></li></ul></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria generada por el Método KH&Claude. No es una recomendación de inversión ni asesoramiento financiero: es el registro razonado de una decisión propia, consensuada dato a dato con el operador. Señal S2 cerrada con esta nota en el §10.5 del Excel, estado.json y hallazgos.json.</div>
+
+</div></body></html>

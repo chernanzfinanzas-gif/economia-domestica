@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VIS · Nota de Revisión Extraordinaria · 2026-Q3 (9M-2026)</title>
+<style>
+:root{--corp:#0065AD;--corp-dark:#004679;--corp-light:#E8F1F8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S6</div>
+      <div class="company-name">Viscofan</div>
+      <div class="badges">
+        <span class="badge badge-alert">S6 · 2º ámbar consecutivo</span>
+        <span class="badge badge-sig">2026-Q3 (9M-2026)</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">VIS · BME<br>Fecha: 2026-10-24<br>Plazo señal: sin plazo (mini-revisión de tendencia)</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val amber">REAFIRMAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">52,44 €</div><div class="kpi-sub">entrada 40,15–45,60 €</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">55,20 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">−5,3 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Mg. comparable</div><div class="kpi-val amber">−0,6 p.p.</div><div class="kpi-sub">2º trimestre cediendo</div></div>
+  </div>
+</div>
+
+<div class="trigger-box">
+  <div class="tb-head">① Mini-revisión de tendencia S6</div>
+  <p>Segundo ámbar consecutivo: el margen EBITDA COMPARABLE —el que aísla divisa— lleva dos trimestres cediendo y EMPEORANDO: −0,4 p.p. interanual acumulado en S1-2026 y −0,6 p.p. en 9M-2026, con el 3T aislado cediendo −1,2 p.p. En este mismo periodo la empresa ha recortado su guía de EBITDA FY-2026 en 10-15 M€ (a 290-295 M€), el PRIMER recorte de guía de toda la serie, por el encarecimiento de los costes de energía y transporte.</p>
+</div>
+
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>Es, literalmente, el riesgo nº 2 de la Matriz de Riesgos (§8.1) disparándose por su propia señal declarada: <i>«consumos por encima del 34% de las ventas, O margen EBITDA cediendo dos trimestres»</i>. La segunda condición se ha cumplido exactamente. No es un hecho externo sorpresivo: es el riesgo que el propio método ya había identificado y puesto bajo vigilancia.</p>
+  <div class="cb-src">Fuente: informe trimestral 9M-2026 de Viscofan y §8.1 Matriz de Riesgos (Bloque 8).</div>
+</div>
+
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">La magnitud real sigue muy por debajo de lo que el Bear case ya contempla</div>
+    <div class="seg-body">El Bear case (40,15 €, −23,4 %) asume una pérdida de TRES puntos de margen EBITDA por el coste de materias primas y energía. Lo realizado hasta ahora es −0,6 p.p. acumulado — una quinta parte de lo que el escenario adverso ya precia. El recorte de guía (10-15 M€ sobre ~300 M€, un 3-5%) es moderado y la empresa mantiene el resto de su guidance (volumen, CAPEX de Beat'30). Los volúmenes y el mix de precio siguen sin ser el problema: lo es puramente el coste de insumos.</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">El riesgo dispara su propia señal de alarma declarada, y es el segundo trimestre seguido</div>
+    <div class="seg-body">El riesgo de coste de energía está clasificado como probabilidad ALTA desde el Bloque 8, y ahora su criterio de activación —dos trimestres de margen comparable cediendo— se ha cumplido de forma literal. Además el deterioro ACELERA dentro del propio periodo: el 3T aislado (−1,2 p.p.) es el doble de malo que el acumulado 9M (−0,6 p.p.), lo que sugiere que el coste energético no se está moderando. Y es la primera vez en la serie que la empresa recorta guía — una señal de que el propio management reconoce que no puede repercutir el coste al precio este año.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> TENDENCIA ADVERSA CONFIRMADA en dirección — el riesgo nº 2 está materializando exactamente como se había anticipado —, pero CONTENIDA en magnitud: un quinto de lo que el Bear case ya precia. No se trata como S2 (no cruza el umbral que lo activaría), pero tampoco es ruido estacional: hay que subir la probabilidad del riesgo de Media a Alta en la próxima revisión del §8.1 y vigilar el 4T-2026 muy de cerca. Confianza: ALTA.</div>
+
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card bad">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">El riesgo de coste de materias primas y energía (probabilidad Alta, −8% a −23%) ha disparado su propia señal declarada por primera vez: dos trimestres de margen comparable cediendo. RECOMENDACIÓN para el próximo refresco del §8.1: subir su probabilidad de 'Alta' a confirmada/vigente y revisar si el impacto (−8% a −23%) sigue siendo el rango correcto a la luz del recorte de guía. Los demás riesgos (sobreinversión Beat'30, mix de precio, divisa, payout) no han cambiado de banda.</div>
+  </div>
+  <div class="seg-card amber">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">La tesis sigue siendo ESPERAR, no COMPRAR: la cotización (55,20 €) ya está por encima del PO base (52,44 €), sin margen de seguridad. Este trimestre no cambia esa conclusión — si acaso, la refuerza: no es el momento de comprar con el riesgo nº 2 materializando y el precio ya caro. El Bear case (40,15 €) y su extremo 'Beat'30 se come la caja' (32,05 €) siguen vigentes sin cambios.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Reverse DCF</span><span class="pill g">no aplica</span> no hay S3 (el precio no ha tocado el PO al alza desde abajo; está por encima sin que se haya marcado señal de venta por valoración).</div><div class="tool-row"><span class="tool-name">ROIIC</span><span class="pill a">a vigilar</span> el CAPEX de Beat'30 (100 M€ en 2026) sigue dentro de guía; no se recalcula este trimestre al no haber cambiado el dato anual.</div><div class="tool-row"><span class="tool-name">Dividend Safety</span><span class="pill g">sin cambios</span> sin alertas nuevas; el riesgo de payout (financiero) no ha cambiado de banda.</div>
+</div>
+
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Viscofan por primera vez, a 55,20 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?</div>
+  <div class="anchor-a">La pondría en watchlist, no la compraría a este precio. Cotiza por encima de su PO base sin margen de seguridad, justo cuando el riesgo de coste energético —el dominante por probabilidad— empieza a materializarse de forma medible y la empresa ha recortado guía por primera vez en la serie. No descartaría la empresa: el deterioro es todavía pequeño frente al Bear case y el negocio de fondo (volúmenes, Beat'30) sigue intacto. Esperaría a que el precio entre en banda (40,15–45,60 €) o a ver cómo evoluciona el 4T antes de comprar.</div>
+</div>
+
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Veredicto ESPERAR, PO base 52,44 €, banda de entrada 40,15–45,60 € y stop 30,94 € sin cambios.</div>
+  <div class="action-line">Acción: No comprar a este precio (sin margen de seguridad). Vigilar de cerca el 4T-2026: si el margen comparable sigue cediendo un tercer trimestre o el 3T aislado (-1,2 p.p.) se repite, tratar como deterioro estructural confirmado y considerar abrir S2. Subir la probabilidad del riesgo de coste energético de Media a Alta en el próximo refresco del §8.1.</div>
+</div>
+
+<div class="fuentes"><b>Fuentes externas:</b><i>Sin fuentes externas: la revisión se apoya en el informe trimestral, la guía revisada por la empresa y el §8.1 del método.</i></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria generada por el Método KH&Claude. No es una recomendación de inversión ni asesoramiento financiero: es el registro razonado de una decisión propia, consensuada dato a dato con el operador. Señal S6 cerrada con esta nota en el §10.5 del Excel, estado.json y hallazgos.json.</div>
+
+</div></body></html>
