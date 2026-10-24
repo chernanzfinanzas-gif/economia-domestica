@@ -1,779 +1,829 @@
 {
- "schemaVersion": 2,
- "ticker": "BKT",
- "empresa": "Bankinter",
- "revisiones": [
-  {
-   "periodo": "2023-Q1",
-   "periodoDisplay": "Q1",
-   "fecha": "2023-03-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE Á · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2023 Q1 Resultados Bankinter.pdf.",
-   "metricas": [
+  "schemaVersion": 2,
+  "ticker": "BKT",
+  "empresa": "Bankinter",
+  "revisiones": [
     {
-     "nombre": "M. Intereses (M€)",
-     "valor": 522.23
+      "periodo": "2023-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2023-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE Á · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2023 Q1 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 522.23
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 615.89
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 184.71
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 14.0
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.97
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 35.65
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.18
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.55
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.21
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 73074.66
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2023 Q1 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "M. Bruto (M€)",
-     "valor": 615.89
+      "periodo": "2023-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2023-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · eficiencia V. Fuente: 2023 Q2 Resultados Bankinter.pdf. HUECO DECLARADO: el banco no publica cet1 en este periodo; no es un olvido.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1068.26
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 1277.94
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 417.91
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 16.44
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.94
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 35.39
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.22
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.34
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": null
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 74597.0
+        }
+      ],
+      "huecosDeclarados": [
+        "CET1 (%)"
+      ],
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2023 Q2 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "BNA (M€)",
-     "valor": 184.71
+      "periodo": "2023-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2023-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2023 Q3 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1638.74
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2005.08
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 684.68
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.15
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 2.02
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 34.89
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.19
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.16
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.48
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 74879.23
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2023 Q3 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "RoTE (%)",
-     "valor": 14.0
+      "periodo": "2023-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2023-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura Á · CET1 V · eficiencia V. Fuente: 2023 Q4 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 2213.5
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2660.54
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 844.79
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.14
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.96
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 37.34
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.11
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 64.69
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.3
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 76885.72
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2023 Q4 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "NIM (%)",
-     "valor": 1.97
+      "periodo": "2024-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2024-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura Á · CET1 V · eficiencia V. Fuente: 2024 Q1 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 577.69
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 658.66
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 200.8
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.42
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 2.05
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 35.26
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.23
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 64.11
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.46
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 77040.98
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2024 Q1 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "Eficiencia (%)",
-     "valor": 35.65
+      "periodo": "2024-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2024-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q2 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1160.28
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 1410.49
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 473.48
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.8
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.96
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 34.13
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.17
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 67.91
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.44
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 78686.72
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2024 Q2 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "Morosidad (%)",
-     "valor": 2.18
+      "periodo": "2024-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2024-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q3 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1728.39
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2151.41
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 731.05
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.18
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.95
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 34.62
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.22
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.69
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.56
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 78359.33
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2024 Q3 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "Cobertura (%)",
-     "valor": 66.55
+      "periodo": "2024-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2024-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q4 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 2278.41
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2901.48
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 952.97
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 18.99
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.87
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 36.32
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.11
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.84
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.41
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 80097.23
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2024 Q4 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "CET1 (%)",
-     "valor": 12.21
+      "periodo": "2025-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2025-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q1 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 540.71
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 731.68
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 270.13
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.94
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.75
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 36.76
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.16
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 68.77
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.35
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 80763.85
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2025 Q1 Resultados Bankinter.pdf"
     },
     {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 73074.66
+      "periodo": "2025-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2025-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q2 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1101.11
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 1494.42
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 541.69
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.5
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.67
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 35.88
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.14
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 70.31
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.57
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 83281.81
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2025 Q2 Resultados Bankinter.pdf"
+    },
+    {
+      "periodo": "2025-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2025-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q3 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1667.1
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2251.47
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 811.51
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 19.36
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.73
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 36.19
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 2.05
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.71
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.94
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 82500.86
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2025 Q3 Resultados Bankinter.pdf"
+    },
+    {
+      "periodo": "2025-Q4",
+      "periodoDisplay": "FY",
+      "fecha": "2025-12-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q4 Resultados Bankinter.pdf. Es además el ejercicio BASE del análisis: los bloques 6 a 9 valoran sobre este cierre. El rótulo lo decía con un «(REAL · base)» que el método lee como fila ANCLA —y una fila ancla NO cuenta como periodo revisado—, así que lo dice aquí.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 2237.09
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 3046.87
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 1089.98
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.03
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.71
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 36.09
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.94
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 67.89
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.72
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 84081.03
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2025 Q4 Resultados Bankinter.pdf"
+    },
+    {
+      "periodo": "2026-Q1",
+      "periodoDisplay": "Q1",
+      "fecha": "2026-03-31",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2026 Q1 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 570.6
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 779.04
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 290.7
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.0
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.67
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 35.44
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.92
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.53
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.96
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 84722.81
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2026 Q1 Resultados Bankinter.pdf"
+    },
+    {
+      "periodo": "2026-Q2",
+      "periodoDisplay": "S1",
+      "fecha": "2026-06-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2026 Q2 Resultados Bankinter.pdf.",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1160.1
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 1602.97
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 605.26
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.36
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.65
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 34.35
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.92
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 69.15
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 12.91
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 87153.13
+        }
+      ],
+      "huecosDeclarados": null,
+      "origen": "bloque 10 · vigilancia · volcado histórico",
+      "fuente": "2026 Q2 Resultados Bankinter.pdf"
+    },
+    {
+      "periodo": "2026-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2026-09-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "NIM (señal única) ESTIMADO en 1.78% -calculado anualizando el margen de intereses (1.762 M€ x 12/9) sobre el activo TOTAL de cierre (132.149 M€, Nota de prensa), no sobre el activo total MEDIO que usa el resto de la serie: los dos documentos de este trimestre (presentación 9M26 + nota de prensa) no publican el ATM. Aun así queda muy por encima del umbral verde del 1,60% del §10.1; pedir a Investing/la empresa el informe con el ATM para confirmar la cifra exacta en el próximo trimestre. RoTE 20,4% (verde >= 15,7), eficiencia 34,8% (verde <= 38,8, mejora frente al año anterior), morosidad 1,84% (verde <= 2,26, -21pb interanual), cobertura 66,8%, CET1 13,2% (muy por encima del mínimo BCE del 8,6%). Beneficio neto 901 M€ (+11% interanual), margen de intereses en niveles récord (+5,7%) y margen bruto +6,5%. Inversión crediticia ~87.000 M€, practicamente plana frente a S1-2026 (volúmenes con clientes totales +7,1% hasta 250.142 M€, por recursos minoristas y AUMs).",
+      "metricas": [
+        {
+          "nombre": "M. Intereses (M€)",
+          "valor": 1762.0
+        },
+        {
+          "nombre": "M. Bruto (M€)",
+          "valor": 2397.0
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 901.0
+        },
+        {
+          "nombre": "RoTE (%)",
+          "valor": 20.4
+        },
+        {
+          "nombre": "NIM (%)",
+          "valor": 1.78
+        },
+        {
+          "nombre": "Eficiencia (%)",
+          "valor": 34.8
+        },
+        {
+          "nombre": "Morosidad (%)",
+          "valor": 1.84
+        },
+        {
+          "nombre": "Cobertura (%)",
+          "valor": 66.8
+        },
+        {
+          "nombre": "CET1 (%)",
+          "valor": 13.2
+        },
+        {
+          "nombre": "Inv. crediticia (M€)",
+          "valor": 87000.0
+        }
+      ]
     }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2023 Q1 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2023-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2023-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · eficiencia V. Fuente: 2023 Q2 Resultados Bankinter.pdf. HUECO DECLARADO: el banco no publica cet1 en este periodo; no es un olvido.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1068.26
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 1277.94
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 417.91
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 16.44
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.94
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 35.39
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.22
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 66.34
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": null
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 74597.0
-    }
-   ],
-   "huecosDeclarados": [
-    "CET1 (%)"
-   ],
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2023 Q2 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2023-Q3",
-   "periodoDisplay": "9M",
-   "fecha": "2023-09-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2023 Q3 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1638.74
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 2005.08
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 684.68
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.15
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 2.02
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 34.89
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.19
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 66.16
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.48
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 74879.23
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2023 Q3 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2023-Q4",
-   "periodoDisplay": "FY",
-   "fecha": "2023-12-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura Á · CET1 V · eficiencia V. Fuente: 2023 Q4 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 2213.5
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 2660.54
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 844.79
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.14
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.96
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 37.34
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.11
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 64.69
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.3
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 76885.72
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2023 Q4 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2024-Q1",
-   "periodoDisplay": "Q1",
-   "fecha": "2024-03-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "A",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura Á · CET1 V · eficiencia V. Fuente: 2024 Q1 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 577.69
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 658.66
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 200.8
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.42
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 2.05
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 35.26
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.23
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 64.11
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.46
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 77040.98
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2024 Q1 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2024-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2024-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q2 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1160.28
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 1410.49
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 473.48
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.8
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.96
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 34.13
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.17
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 67.91
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.44
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 78686.72
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2024 Q2 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2024-Q3",
-   "periodoDisplay": "9M",
-   "fecha": "2024-09-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q3 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1728.39
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 2151.41
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 731.05
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.18
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.95
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 34.62
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.22
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 68.69
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.56
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 78359.33
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2024 Q3 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2024-Q4",
-   "periodoDisplay": "FY",
-   "fecha": "2024-12-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2024 Q4 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 2278.41
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 2901.48
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 952.97
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 18.99
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.87
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 36.32
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.11
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 68.84
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.41
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 80097.23
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2024 Q4 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2025-Q1",
-   "periodoDisplay": "Q1",
-   "fecha": "2025-03-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q1 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 540.71
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 731.68
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 270.13
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 19.94
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.75
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 36.76
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.16
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 68.77
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.35
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 80763.85
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2025 Q1 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2025-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2025-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q2 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1101.11
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 1494.42
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 541.69
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 19.5
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.67
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 35.88
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.14
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 70.31
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.57
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 83281.81
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2025 Q2 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2025-Q3",
-   "periodoDisplay": "9M",
-   "fecha": "2025-09-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q3 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1667.1
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 2251.47
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 811.51
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 19.36
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.73
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 36.19
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 2.05
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 69.71
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.94
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 82500.86
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2025 Q3 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2025-Q4",
-   "periodoDisplay": "FY",
-   "fecha": "2025-12-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2025 Q4 Resultados Bankinter.pdf. Es además el ejercicio BASE del análisis: los bloques 6 a 9 valoran sobre este cierre. El rótulo lo decía con un «(REAL · base)» que el método lee como fila ANCLA —y una fila ancla NO cuenta como periodo revisado—, así que lo dice aquí.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 2237.09
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 3046.87
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 1089.98
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 20.03
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.71
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 36.09
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 1.94
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 67.89
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.72
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 84081.03
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2025 Q4 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2026-Q1",
-   "periodoDisplay": "Q1",
-   "fecha": "2026-03-31",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2026 Q1 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 570.6
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 779.04
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 290.7
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 20.0
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.67
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 35.44
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 1.92
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 69.53
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.96
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 84722.81
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2026 Q1 Resultados Bankinter.pdf"
-  },
-  {
-   "periodo": "2026-Q2",
-   "periodoDisplay": "S1",
-   "fecha": "2026-06-30",
-   "fechaOrigen": "cierre",
-   "fechaOrigenNota": "Ninguno de los catorce informes de Bankinter imprime su fecha de publicación: la portada lleva el mes de CIERRE del periodo («4T · Información Consolidada · Diciembre 2025») y el pie de página no la repite. Comprobados los catorce uno a uno. La fecha de cada revisión es, por tanto, la del cierre del periodo, y NO es una fecha de mercado.",
-   "semaforoGlobal": "V",
-   "tesisSigueIntacta": true,
-   "resumen": "NIM V · RoTE V · mora V · cobertura V · CET1 V · eficiencia V. Fuente: 2026 Q2 Resultados Bankinter.pdf.",
-   "metricas": [
-    {
-     "nombre": "M. Intereses (M€)",
-     "valor": 1160.1
-    },
-    {
-     "nombre": "M. Bruto (M€)",
-     "valor": 1602.97
-    },
-    {
-     "nombre": "BNA (M€)",
-     "valor": 605.26
-    },
-    {
-     "nombre": "RoTE (%)",
-     "valor": 20.36
-    },
-    {
-     "nombre": "NIM (%)",
-     "valor": 1.65
-    },
-    {
-     "nombre": "Eficiencia (%)",
-     "valor": 34.35
-    },
-    {
-     "nombre": "Morosidad (%)",
-     "valor": 1.92
-    },
-    {
-     "nombre": "Cobertura (%)",
-     "valor": 69.15
-    },
-    {
-     "nombre": "CET1 (%)",
-     "valor": 12.91
-    },
-    {
-     "nombre": "Inv. crediticia (M€)",
-     "valor": 87153.13
-    }
-   ],
-   "huecosDeclarados": null,
-   "origen": "bloque 10 · vigilancia · volcado histórico",
-   "fuente": "2026 Q2 Resultados Bankinter.pdf"
-  }
- ]
+  ]
 }

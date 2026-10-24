@@ -784,6 +784,64 @@
           "valoracion": "Es el primer catalizador regulatorio del plan que se materializa, y va a favor. Empuja el EBITDA de Redes ajustado un +12,6 % y la base de activos un +11 %. La revisión que sigue pendiente —y que concentra la tesis— es la ESPAÑOLA, no ésta."
         }
       ]
+    },
+    {
+      "periodo": "2026-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2026-09-30",
+      "semaforoGlobal": "V",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen EBITDA 34.6% (S1-2026: 35,8%; Q1-2026: 33,8%), sigue holgado sobre el umbral verde del 30% del §10.1: no se confirma una segunda caída consecutiva de la señal única. EBITDA reportado practicamente plano (-0.7% interanual, 11.890,6 M€) por el 'phasing' regulatorio en EE.UU.; BNA reportado sube un 9,6% hasta 5.816,1 M€. Apalancamiento LTM 3.45x, igual que en S1-2026 (3,45x), dentro de la banda ámbar del §10.1 (3,0-4,0x) pero sin empeorar. El negocio de Redes sigue siendo el motor: EBITDA +4,9% reportado (+14,9% ajustado) hasta 6.430,2 M€, con la base de activos regulados (RAB) +14,0% interanual hasta 56.323 M€, impulsada por el nuevo marco britanico RIIO-T3 (vigente desde abril) y las nuevas tarifas en Nueva York y Connecticut. Inversiones organicas brutas practicamente planas (8.978 M€ vs 8.964 M€), con mas del 70% destinado a Redes.",
+      "metricas": [
+        {
+          "nombre": "Ingresos (M€)",
+          "valor": 34405.0
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 11890.6
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 34.6
+        },
+        {
+          "nombre": "%Var EBITDA",
+          "valor": -0.7
+        },
+        {
+          "nombre": "BNA (M€)",
+          "valor": 5816.1
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 56984
+        },
+        {
+          "nombre": "DN/EBITDA (x)",
+          "valor": 3.45
+        },
+        {
+          "nombre": "Inversiones (M€)",
+          "valor": 8978
+        },
+        {
+          "nombre": "EBITDA Redes (M€)",
+          "valor": 6430.2
+        },
+        {
+          "nombre": "Base activos Redes (M€)",
+          "valor": 56323
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Regulatorio",
+          "hecho": "Entrada en vigor del nuevo marco regulatorio de transmisión eléctrica en Reino Unido (RIIO-T3) desde abril de 2026.",
+          "impacto": "+",
+          "valoracion": "Refuerza el crecimiento del EBITDA de Redes en la geografía con mayor aportación al RAB; consistente con la tesis de crecimiento regulado."
+        }
+      ]
     }
   ]
 }

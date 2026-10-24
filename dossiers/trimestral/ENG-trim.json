@@ -856,6 +856,81 @@
         }
       ],
       "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2026-09-30",
+      "fechaOrigen": "cierre",
+      "fechaOrigenNota": "La fecha de cada revision es el CIERRE del periodo, no la de publicacion, y se declara porque no se ha podido determinar la de publicacion de forma fiable en los catorce informes. Medido: TRES no imprimen ninguna fecha posterior al cierre (1T-2023, 9M-2024 y el anual de 2024, que ademas es una presentacion y no una nota de resultados), y en otros la primera fecha posterior al cierre es la de un hecho CITADO dentro del documento y no la de su publicacion -el anual de 2023 daria el 15-ene-2024 cuando esos resultados se publican en febrero-. Media serie con la fecha buena y media con una fecha plausible pero falsa es peor que una serie entera declarada: una fecha de cierre que dice que lo es sigue siendo un dato; una de publicacion inventada, no. NO es una fecha de mercado y asi hay que leerla.",
+      "semaforoGlobal": "A",
+      "tesisSigueIntacta": true,
+      "resumen": "Ingresos totales -2.0 %, EBITDA -2.9 %, BDI recurrente -5.4 % contra el mismo periodo del ejercicio anterior (caida que se estrecha frente al -4.6 % y -8.6 % de S1-2026), con FFO / Deuda neta en 20.5 % (banda del §10.1: verde >= 15.0, rojo < 14.0): sigue en verde pese a caer un 25.2 % interanual. La deuda neta sube a 2.979 M€ (+26.9 % vs 9M-2025) porque desde este trimestre incluye la financiacion de la inversion en Terega (footnote de la propia empresa) -inversion estrategica declarada, no deterioro operativo-, lo que arrastra el DN/EBITDA ajustado a 4.6x. BDI reportado 204.1 M€ (+112.6 pp vs 9M-2025 en la lectura literal, no comparable: el 9M-2025 tambien llevaba extraordinarios) incluye +8.3 M€ por la venta del 40% de Enagas Renovable; limpio de ese efecto, el BDI recurrente es el de 195.8 M€ ya usado arriba. Sin presentacion de resultados para este trimestre (la empresa no la publica en 9M); informe de resultados completo.",
+      "metricas": [
+        {
+          "nombre": "Ingresos totales (M€)",
+          "valor": 696.7
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 491.5
+        },
+        {
+          "nombre": "EBIT (M€)",
+          "valor": 263.9
+        },
+        {
+          "nombre": "BDI recurrente (M€)",
+          "valor": 195.8
+        },
+        {
+          "nombre": "FFO (M€)",
+          "valor": 439.0
+        },
+        {
+          "nombre": "Dividendos de participadas (M€)",
+          "valor": 127.1
+        },
+        {
+          "nombre": "Deuda neta (M€)",
+          "valor": 2979
+        },
+        {
+          "nombre": "DN / EBITDA ajustado",
+          "valor": 4.6
+        },
+        {
+          "nombre": "FFO / Deuda neta (%)",
+          "valor": 20.5
+        },
+        {
+          "nombre": "Coste financiero de la deuda bruta (%)",
+          "valor": 2.1
+        },
+        {
+          "nombre": "Demanda de gas y exportaciones (% var.)",
+          "valor": 2.6
+        },
+        {
+          "nombre": "Disponibilidad de la red (%)",
+          "valor": 100.0
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Desinversión",
+          "hecho": "Venta del 40% de Enagás Renovable, con efecto positivo de +8,3 M€ (diferencia entre el BDI reportado de 204,1 M€ y el BDI recurrente de 195,8 M€ a 9M-2026).",
+          "impacto": "+",
+          "valoracion": "Extraordinario puntual y favorable; no cambia la tesis, que sigue apoyada en el BDI recurrente."
+        },
+        {
+          "tipo": "Otros",
+          "hecho": "La Deuda Neta a 30-sep-2026 (2.979 M€) incluye por primera vez la financiación de la inversión en Teréga, según declara la propia empresa en nota al pie de su informe.",
+          "impacto": "-",
+          "valoracion": "Explica la práctica totalidad de la subida del apalancamiento del trimestre; es una inversión estratégica declarada, no un deterioro del negocio regulado. A vigilar en el próximo trimestre si el ratio FFO/DN se sigue sosteniendo por encima del umbral verde del 15 %."
+        }
+      ],
+      "origen": "trimestral"
     }
   ]
 }

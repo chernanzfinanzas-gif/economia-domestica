@@ -744,6 +744,70 @@
         }
       ],
       "origen": "revolcado"
+    },
+    {
+      "periodo": "2026-Q3",
+      "periodoDisplay": "9M",
+      "fecha": "2026-09-30",
+      "semaforoGlobal": "R",
+      "tesisSigueIntacta": true,
+      "resumen": "Margen EBITDA 12.6% (RBE 91,3 M€ / ingresos 724,3 M€), por DEBAJO del umbral rojo del 13,0% del §10.1 -y cayendo desde el 16,75% de S1-2026, porque el 3T aislado ha sido débil-. Los ingresos de publicidad en Contenido Audiovisual (señal única) caen un 1,8% interanual, peor que el -1,3% de S1-2026: segundo trimestre consecutivo en negativo y empeorando. EBITDA ajustado (excluye el efecto NIIF16 de AMVIA) cae un 2,3% frente al +1,2% del reportado. BNA cae un 15,2% hasta 53,8 M€, en parte por la base 2025 (intereses de demora AEAT) y en parte por la dilución temporal de los dos primeros meses de AMVIA, consolidada desde agosto. Posición financiera neta sigue POSITIVA (233,2 M€, caja neta), reforzada por la venta de Fever Labs (plusvalía de 205 M€ registrada en Patrimonio Neto, no en el EBITDA). Ingresos totales +4,0% (724,3 M€), apoyados en diversificación (producción y distribución +7,2%, otros ingresos +45,7%, AMVIA aporta 12,8 M€ en sus dos primeros meses) y no en el negocio publicitario base, que sigue debilitado por el impacto del Mundial de Fútbol en las audiencias de TV (24,9% vs 26,2% un año antes).",
+      "metricas": [
+        {
+          "nombre": "Ingresos Netos (M€)",
+          "valor": 724.3
+        },
+        {
+          "nombre": "Publicidad en Contenido Audiovisual (M€)",
+          "valor": 519.4
+        },
+        {
+          "nombre": "Ingresos Audiovisual (M€)",
+          "valor": 657.5
+        },
+        {
+          "nombre": "Ingresos Radio (M€)",
+          "valor": 60.4
+        },
+        {
+          "nombre": "EBITDA (M€)",
+          "valor": 91.3
+        },
+        {
+          "nombre": "Margen EBITDA (%)",
+          "valor": 12.6
+        },
+        {
+          "nombre": "Beneficio del ejercicio (M€)",
+          "valor": 53.8
+        },
+        {
+          "nombre": "Posición Financiera Neta (M€)",
+          "valor": 233.2
+        },
+        {
+          "nombre": "Audiencia total TV · grupo (%)",
+          "valor": 24.9
+        },
+        {
+          "nombre": "Antena 3 · cuota (%)",
+          "valor": 12.5
+        }
+      ],
+      "hechos": [
+        {
+          "tipo": "Adquisición",
+          "hecho": "Toma de control efectiva de AMVIA (antes Clear Channel España), uno de los principales operadores de publicidad exterior en España, en agosto de 2026; aporta 12,8 M€ de ingresos en sus dos primeros meses en el Grupo.",
+          "impacto": "=",
+          "valoracion": "Diversifica ingresos fuera de la publicidad audiovisual, que sigue cayendo, pero aún no aporta margen por los costes de integración y el efecto NIIF16; a vigilar su contribución a EBITDA en los próximos trimestres (la propia empresa estima para AMVIA en términos anualizados unos 100 M€ de ingresos y un margen EBITDA cercano al 18%)."
+        },
+        {
+          "tipo": "Desinversión",
+          "hecho": "Plusvalía neta de 205 M€ por la venta de Fever Labs, registrada directamente en Patrimonio Neto (no en la cuenta de resultados ni en el EBITDA).",
+          "impacto": "+",
+          "valoracion": "Refuerza la posición financiera neta (233,2 M€ de caja), que financia parte del dividendo extraordinario anunciado; no afecta a la lectura operativa del trimestre."
+        }
+      ]
     }
   ]
 }

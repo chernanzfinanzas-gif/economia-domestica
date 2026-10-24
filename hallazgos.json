@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "generadoEl": "2026-10-12",
+  "generadoEl": "2026-10-24",
   "fuenteDeVerdad": "El §10.5 del Excel de Vigilancia manda sobre este fichero.",
   "empresas": {
     "A3M": {
-      "empresa": "Atresmedia Corporación de Medios de Comunicación, S.A.",
+      "empresa": "Atresmedia",
       "cobertura": {
-        "semanal": "2026-10-12",
+        "semanal": "2026-10-24",
         "universo": "2026-10-05"
       },
       "hallazgos": [
@@ -74,6 +74,25 @@
           "vigenteHasta": "2026-10-17",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S2-2026-10-24",
+          "abiertoEl": "2026-10-24",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "Semáforo ROJO en 2026-Q3: margen EBITDA 12.6% bajo el umbral rojo del 13.0%; señal única (publicidad Contenido Audiovisual) -1.8% YoY, 2º trimestre consecutivo en negativo.",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q3",
+          "fecha": "2026-10-24",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S2",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-31",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -478,9 +497,9 @@
       "revisionesFrescas": true
     },
     "ENG": {
-      "empresa": "Enagás, S.A.",
+      "empresa": "Enagás",
       "cobertura": {
-        "semanal": "2026-10-12",
+        "semanal": "2026-10-24",
         "universo": "2026-10-05"
       },
       "hallazgos": [
@@ -548,6 +567,25 @@
           "vigenteHasta": "2026-10-17",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-10-24",
+          "abiertoEl": "2026-10-24",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "15 ámbares consecutivos hasta 2026-Q3 (anterior: 2026-Q2)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q3",
+          "fecha": "2026-10-24",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-31",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -942,9 +980,9 @@
         {
           "id": "soc-otro-2026-09-18",
           "abiertoEl": "2026-09-28",
-          "estado": "activa",
-          "resueltoEl": null,
-          "desenlace": null,
+          "estado": "caducada",
+          "resueltoEl": "2026-10-24",
+          "desenlace": "Caducado: hecho puntual sin continuacion (>30 dias).",
           "resumen": "18-sep-2026: la CNMC fija la retribución financiera de la distribución de gas 2027-2032 en el 6,87 % (hoy 5,83 %; +20 pb sobre la propuesta), en vigor el 1-oct. Resuelve a favor el R1 del análisis.",
           "tipo": "otro",
           "naturaleza": "hecho",
@@ -1533,9 +1571,9 @@
       "revisionesFrescas": true
     },
     "VIS": {
-      "empresa": "Viscofan, S.A.",
+      "empresa": "Viscofan",
       "cobertura": {
-        "semanal": "2026-10-12",
+        "semanal": "2026-10-24",
         "trimestral": "2026-07-29",
         "universo": "2026-10-05"
       },
@@ -1554,6 +1592,25 @@
           "vigenteHasta": "2026-10-17",
           "resueltoEl": null,
           "desenlace": null
+        },
+        {
+          "id": "S6-2026-10-24",
+          "abiertoEl": "2026-10-24",
+          "estado": "activa",
+          "resueltoEl": null,
+          "desenlace": null,
+          "resumen": "2 ámbares consecutivos hasta 2026-Q3 (anterior: 2026-Q2)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "monitor-trimestral 2026-Q3",
+          "fecha": "2026-10-24",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S6",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-31",
+          "notaEmitida": false
         }
       ],
       "revisiones": [
@@ -2118,9 +2175,10 @@
       "hallazgos": []
     },
     "ACX": {
-      "empresa": "ACX",
+      "empresa": "Acerinox",
       "cobertura": {
-        "universo": "2026-10-05"
+        "universo": "2026-10-05",
+        "semanal": "2026-10-13"
       },
       "hallazgos": []
     },
@@ -2386,18 +2444,19 @@
   },
   "resumen": {
     "empresasConHallazgo": 34,
-    "hallazgosActivos": 44,
+    "hallazgosActivos": 46,
     "porTipo": {
       "sancion": 3,
       "coyuntura": 18,
-      "otro": 17,
+      "senal": 3,
+      "otro": 16,
       "opa": 3,
       "litigio": 1,
       "concurso": 2
     },
-    "exigenAccion": 0,
+    "exigenAccion": 3,
     "conPlazoVencido": 0,
-    "situacionesAbiertas": 24,
+    "situacionesAbiertas": 27,
     "hechosCaducadosHoy": 0
   },
   "reproyectadoEl": "2026-09-26"
