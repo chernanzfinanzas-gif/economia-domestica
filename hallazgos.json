@@ -755,6 +755,25 @@
             "fecha": "2026-04-23",
             "texto": "AL MENOS DIECIOCHO expedientes sancionadores de la CNMC por el incidente electrico del 28-abr-2025, INCOADOS, en fase inicial, plazo maximo 18 meses y SIN RESOLVER: diecisiete por el art. 65.8 LSE (infracciones GRAVES) mas el SNC/DE/047/26 por el art. 64.37 (MUY GRAVE, reduccion de produccion nuclear sin autorizacion). Contra CUATRO sociedades: Iberdrola S.A., Iberdrola Espana S.A.U., Iberdrola Generacion S.A.U. e Iberdrola Generacion Nuclear S.A.U. NINGUNO tiene importe: no hay propuesta de resolucion. A favor y ya resuelto: la Audiencia Nacional anulo una multa de 25 M EUR el 8-jun-2026 (firmeza: Pte. Revision). DIMENSIONADO en la revision discrecional del 17-ago-2026: con el techo de bandas del art. 67 LSE el maximo teorico son 162 M EUR = 0,12% de la capitalizacion y 0,024 EUR/accion; por el importe es irrelevante para la valoracion. Lo que si importa es la posicion ante el regulador que fija la retribucion (driver n1 de la tesis, con la TRF 2026-2031 impugnada por la propia Iberdrola). Queda abierta la lectura del tope del 10% de la cifra de negocios (~4.555 M EUR), que multiplicaria el techo por 28: Pte. Revision. HUECO DEL EXPEDIENTE: ningun riesgo del 8.1 ni Red Flag del 10.4 mide este frente, asi que no tiene umbral -pendiente de abrir la fila."
           }
+        },
+        {
+          "id": "S3-2026-10-24",
+          "abiertoEl": "2026-10-24",
+          "estado": "resuelta",
+          "resueltoEl": "2026-10-24",
+          "desenlace": "REAFIRMAR (ESPERAR). S3 por PO bull superado (21,90 € ≥ 21,79 €), posición de renta. Dividendo SEGURO: 10 años sin recorte, DPA +9 %/año, a cuenta 2026 0,275 € (+8,7 %), payout 73 %, Dividend Safety 83. Cubierto por owner earnings (1,42x) pero NO por flujo libre (0,78x en 2025, 0,90x en 2024): el hueco es inversión en red (RAB +14 %, ROIIC 11,1 % > coste 6,1 %), financiada con deuda (3,4x; coste 4,76 %). El precio ya descuenta el bull: MdS −19,4 % sobre PO base. Sin datos nuevos que muevan el PO. PO 17,66 €, bull 21,79 €, banda 14,76–15,36 €, stop 8,98 € sin cambios. Mantener sin ampliar; revisar dividendo si owner earnings < 1,0x o coste de deuda > 5,25 % sin nueva tasa regulada.",
+          "resumen": "PO bull superado: 21,90 € ≥ 21,79 € (cierre 23-oct-2026)",
+          "tipo": "senal",
+          "naturaleza": "situacion",
+          "severidad": "alta",
+          "origen": "protocolo · estado.json",
+          "fecha": "2026-10-24",
+          "fuente": null,
+          "exigeAccion": true,
+          "codigo": "S3",
+          "plazoDias": 7,
+          "vencePlazoEl": "2026-10-31",
+          "notaEmitida": true
         }
       ],
       "revisiones": [
@@ -764,6 +783,13 @@
           "cot": "20,28",
           "decision": "REAFIRMAR",
           "motivo": "Sin apunte de apertura previo. Revision discrecional por los expedientes sancionadores de la CNMC del apagon del 28-abr-2025, que no aparecian en ninguna pestana del libro. Techo teorico del art. 67 LSE con unos 22 expedientes al maximo legal: ~240 M EUR, un 1,6 % del EBITDA y un 0,5 % de los ingresos; no mueve el PO ni ninguna hipotesis del modelo, y las primeras resoluciones no llegan antes de enero de 2027. Se mantienen ESPERAR, PO base 17,6621 EUR, banda 14,76-15,36 EUR y stop 8,98 EUR. DOS CORRECCIONES QUE SI SALEN DE AQUI: el recuento de 18 expedientes anotado al cerrar el analisis NO lo sostiene ninguna fuente (a 4-may-2026 pasaban de veinte y el total del sector era 64), queda en Pte. Revision hasta consultar el listado oficial de la CNMC; y la fila 7 del 8.1 nombra otros tres litigios y no este, mientras las siete red flags del 10.4 no vigilan ningun procedimiento sancionador. Nota: Revisiones/2026-08-29 (Disc)."
+        },
+        {
+          "fecha": "24-oct-2026",
+          "senal": "S3",
+          "cot": "21,9",
+          "decision": "REAFIRMAR",
+          "motivo": "Sin apunte de apertura previo. REAFIRMAR (ESPERAR). S3 por PO bull superado (21,90 € ≥ 21,79 €), posición de renta. Dividendo SEGURO: 10 años sin recorte, DPA +9 %/año, a cuenta 2026 0,275 € (+8,7 %), payout 73 %, Dividend Safety 83. Cubierto por owner earnings (1,42x) pero NO por flujo libre (0,78x en 2025, 0,90x en 2024): el hueco es inversión en red (RAB +14 %, ROIIC 11,1 % > coste 6,1 %), financiada con deuda (3,4x; coste 4,76 %). El precio ya descuenta el bull: MdS −19,4 % sobre PO base. Sin datos nuevos que muevan el PO. PO 17,66 €, bull 21,79 €, banda 14,76–15,36 €, stop 8,98 € sin cambios. Mantener sin ampliar; revisar dividendo si owner earnings < 1,0x o coste de deuda > 5,25 % sin nueva tasa regulada."
         }
       ],
       "revisionesEl": "2026-10-24",

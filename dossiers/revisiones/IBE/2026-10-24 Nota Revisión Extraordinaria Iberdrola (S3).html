@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IBE · Nota de Revisión Extraordinaria · cotización 23-oct-2026 · tras el 9M-2026</title>
+<style>
+:root{--corp:#1BA545;--corp-dark:#127330;--corp-light:#EAF7EE}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;color:#1a1a2e;background:#f7f8fc;font-size:13px}
+.wrap{max-width:1000px;margin:0 auto;padding:1.4rem 1.1rem 3rem}
+.header{background:linear-gradient(135deg,var(--corp-dark) 0%,var(--corp) 100%);border-radius:14px;padding:1.5rem 1.8rem 1.3rem;margin-bottom:1.1rem;color:#fff;box-shadow:0 6px 22px rgba(0,20,40,.18)}
+.header-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.header-left{flex:1;min-width:260px}
+.header-logo{height:42px;width:auto;object-fit:contain;border-radius:8px;background:rgba(255,255,255,.95);padding:5px 12px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.92)}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-top:6px}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+.badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
+.badge-sig{background:rgba(255,255,255,.22);color:#fff}
+.badge-alert{background:rgba(255,90,90,.42);color:#fff}
+.badge-soft{background:rgba(255,255,255,.15);color:rgba(255,255,255,.92)}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.hr-firm{font-size:10px;color:rgba(255,255,255,.88)}
+.hr-meta{font-size:11px;color:rgba(255,255,255,.9);line-height:1.6;margin-top:2px}
+.kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:1.1rem}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:rgba(255,255,255,.12);border-radius:9px;padding:9px 10px;text-align:center;border:.5px solid rgba(255,255,255,.2)}
+.kpi-label{font-size:9px;color:rgba(255,255,255,.88);text-transform:uppercase;letter-spacing:.4px}
+.kpi-val{font-size:16px;font-weight:800;margin:3px 0;color:#fff;line-height:1.15}
+.kpi-val.green{color:#7ee2a8}.kpi-val.amber{color:#fbbf24}.kpi-val.red{color:#fc8181}
+.kpi-sub{font-size:9px;color:rgba(255,255,255,.86);line-height:1.3}
+.section-title{font-size:17px;font-weight:800;color:var(--corp-dark);margin:1.3rem 0 .7rem;border-left:4px solid var(--corp);padding-left:11px}
+p.bt{font-size:13px;line-height:1.78;color:#2d3748;margin-bottom:.7rem;text-align:justify}
+b{color:var(--corp-dark)}
+.card{background:#fff;border:1px solid #e2e8f0;border-radius:11px;padding:14px 18px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,30,50,.04)}
+.card-title{font-size:12px;font-weight:800;color:var(--corp-dark);text-transform:uppercase;letter-spacing:.6px;margin-bottom:7px}
+.trigger-box{background:#fff8f0;border:1.5px solid #f0a860;border-left:5px solid #e07b1a;border-radius:12px;padding:15px 20px;margin-bottom:16px}
+.trigger-box .tb-head{font-size:13px;font-weight:800;color:#b45309;margin-bottom:5px}
+.trigger-box p{font-size:12.7px;line-height:1.7;color:#3a3320}
+.corrob-box{background:#eef6ff;border:1px solid #b9d3f0;border-left:5px solid #2563eb;border-radius:12px;padding:13px 20px;margin-bottom:16px}
+.corrob-box .cb-head{font-size:11px;font-weight:800;color:#1d4ed8;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.corrob-box p{font-size:12.5px;line-height:1.68;color:#26374d}
+.corrob-box .cb-src{font-size:11px;color:#556677;margin-top:6px}
+.corrob-box .cb-src a{color:#1d4ed8;text-decoration:none}
+.corrob-unconf{background:#fff7ed;border-color:#fcd9a8;border-left-color:#ea9a2e}
+.corrob-unconf .cb-head{color:#b45309}
+.fuentes{font-size:11px;color:#556677;line-height:1.7;border-top:1px solid #e2e8f0;padding-top:10px;margin-top:1.2rem}
+.fuentes b{color:var(--corp-dark)}
+.fuentes ul{margin:5px 0 0 18px;padding:0}
+.fuentes a{color:#1d4ed8;text-decoration:none;word-break:break-all}
+.seg-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:.4rem 0 .9rem}
+@media(max-width:700px){.seg-grid{grid-template-columns:1fr}}
+.seg-card{border-radius:11px;padding:13px 16px;border:1px solid #e2e8f0}
+.seg-card.good{background:#f0fdf6;border-color:#86e0ab}
+.seg-card.bad{background:#fff5f5;border-color:#f8b4b4}
+.seg-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+.seg-card.good .seg-title{color:#15803d}
+.seg-card.bad .seg-title{color:#b91c1c}
+.seg-head{font-size:13px;font-weight:700;color:#1a1a2e;margin-bottom:4px}
+.seg-body{font-size:12.3px;line-height:1.65;color:#374151}
+.diag-verdict{background:var(--corp-light);border-radius:9px;padding:11px 16px;font-size:13px;line-height:1.6;color:#1a2a35;margin-bottom:.5rem}
+.diag-verdict b{color:var(--corp-dark)}
+.tool-row{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.6;color:#374151;padding:5px 0;border-bottom:1px dashed #e5e9f0}
+.tool-row:last-child{border-bottom:0}
+.tool-name{font-weight:700;color:var(--corp-dark);min-width:120px}
+.pill{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:5px}
+.pill.g{background:#dcfce7;color:#166534}.pill.a{background:#fef3c7;color:#92400e}.pill.r{background:#fee2e2;color:#991b1b}
+.anchor-box{background:#f2f6ff;border:1.5px solid #b6c9f0;border-radius:12px;padding:16px 20px;margin:.4rem 0 1rem}
+.anchor-q{font-size:13.5px;font-weight:700;color:#1e3a8a;font-style:italic;margin-bottom:7px}
+.anchor-a{font-size:12.8px;line-height:1.72;color:#33415a}
+.veredicto-box{border-radius:14px;padding:22px 26px;text-align:center;margin:.5rem 0 1rem;border:1.5px solid}
+.veredicto-box.reafirmar{background:#f0fdf4;border-color:#22c55e}
+.veredicto-box.ajustar{background:#fffbeb;border-color:#f59e0b}
+.veredicto-box.rebajar,.veredicto-box.vender{background:#fef2f2;border-color:#ef4444}
+.veredicto-word{font-size:34px;font-weight:800;letter-spacing:1.5px}
+.veredicto-box.reafirmar .veredicto-word{color:#15803d}
+.veredicto-box.ajustar .veredicto-word{color:#b45309}
+.veredicto-box.rebajar .veredicto-word,.veredicto-box.vender .veredicto-word{color:#b91c1c}
+.veredicto-sub{font-size:13px;color:#334155;margin-top:8px;line-height:1.6}
+.action-line{font-size:13px;font-weight:700;color:#1a1a2e;margin-top:10px}
+.disclaimer{font-size:10.5px;color:#8a94a6;line-height:1.6;border-top:1px solid #e2e8f0;padding-top:12px;margin-top:1.6rem;text-align:justify}
+</style></head>
+<body><div class="wrap">
+
+<div class="header">
+  <div class="header-top">
+    <div class="header-left">
+      <div class="eyebrow">Nota de Revisión Extraordinaria · Protocolo S3</div>
+      <div class="company-name">Iberdrola</div>
+      <div class="badges">
+        <span class="badge badge-alert">S3 · PO máximo (bull) alcanzado</span>
+        <span class="badge badge-sig">cotización 23-oct-2026 · tras el 9M-2026</span>
+        <span class="badge badge-soft">Veredicto vigente: ESPERAR</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="hr-firm">Carlos HB &amp; Claude IA</div>
+      <div class="hr-meta">IBE · BME<br>Fecha: 2026-10-24<br>Plazo señal: 7 días</div>
+    </div>
+  </div>
+  <div class="kpi-grid">
+    <div class="kpi"><div class="kpi-label">Veredicto vigente</div><div class="kpi-val">ESPERAR</div><div class="kpi-sub">antes de la nota</div></div>
+    <div class="kpi"><div class="kpi-label">Veredicto nuevo</div><div class="kpi-val green">REAFIRMAR</div><div class="kpi-sub">tras la revisión</div></div>
+    <div class="kpi"><div class="kpi-label">PO base</div><div class="kpi-val">17,66 €</div><div class="kpi-sub">bull 21,79 € · bear 14,76 €</div></div>
+    <div class="kpi"><div class="kpi-label">Cotización</div><div class="kpi-val">21,90 €</div><div class="kpi-sub">ref. señal</div></div>
+    <div class="kpi"><div class="kpi-label">Margen seg.</div><div class="kpi-val red">−19,4 %</div><div class="kpi-sub">vs PO base</div></div>
+    <div class="kpi"><div class="kpi-label">Cobertura div. por FCL</div><div class="kpi-val amber">0,78x</div><div class="kpi-sub">2025 · antes de inversión de crecimiento 1,42x</div></div>
+  </div>
+</div>
+
+<div class="trigger-box">
+  <div class="tb-head">① Qué disparó la señal</div>
+  <p>El 23-oct-2026 Iberdrola cerró a <b>21,90 €</b> (histórico de cierres del repo, confirmado), por encima de su <b>PO bull de 21,79 €</b> (§9.3). Es la señal S3 en su versión reforzada: el mercado ya paga el escenario optimista del §9.2 —la base de activos regulada en carga y la escala que eso da— y no le queda recorrido hasta el PO bull. Contra el PO base oficial (17,66 €) el margen de seguridad es del −19,4 %. El operador tiene 4.000 acciones y una posición de <b>renta</b>: por su criterio (26-sep-2026), la pregunta que abre esta señal no es si vender, sino si el dividendo sigue siendo seguro.</p>
+</div>
+
+<div class="corrob-box ">
+  <div class="cb-head">🔎 Corroboración del hecho (fuentes externas)</div>
+  <p>No hay un hecho detrás del precio: es la cotización acercándose al escenario alto. El 9M-2026, presentado el 21-oct-2026, confirma el dividendo: <b>dividendo a cuenta 2026 de 0,275 € (+8,7 %)</b>, pagadero a principios de 2027 con el programa «Retribución Flexible» (acciones o efectivo). La retribución abonada en 2026 con cargo a 2025 fue de 0,685 €/acción. FFO ajustado +0,8 % (9.264 M€) y FFO/deuda neta ajustada 22,4 % (24,9 % hace un año), «cómodamente dentro de los rangos de las agencias de calificación».</p>
+  <div class="cb-src">Fuente: informe y presentación de resultados 9M-2026 de Iberdrola (21-oct-2026), en Informes/Trimestrales.</div>
+</div>
+
+<div class="section-title">② Diagnóstico: ¿puntual o estructural?</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">✓ Argumentos de que es PUNTUAL</div>
+    <div class="seg-head">El dividendo NO está en riesgo: lo paga el negocio, y sube</div>
+    <div class="seg-body">Diez años sin un solo recorte y el DPA creciendo un 9 % anual; el a cuenta de 2026 vuelve a subir un 8,7 %. El payout sobre beneficio lleva una década clavado entre el 73 % y el 78 %, el Dividend Safety del método da 83/100 («muy seguro») y no salta ningún predictor duro de recorte. La caja de las operaciones antes de la inversión de crecimiento (owner earnings) cubre el dividendo los diez ejercicios: 1,42x en 2025. Y solo el 28 % se paga en efectivo: el resto va en acciones, que la empresa recompra y amortiza (la última reducción de capital, inscrita el 6-jul-2026).</div>
+  </div>
+  <div class="seg-card bad">
+    <div class="seg-title">⚠ Argumentos de que es ESTRUCTURAL</div>
+    <div class="seg-head">Con la vara estricta —la de Enagás— el flujo LIBRE no lo cubre</div>
+    <div class="seg-body">Medido contra el flujo de caja libre (CFO − CAPEX total), la cobertura fue de <b>0,90x en 2024 y 0,78x en 2025</b>: el dividendo entero no sale del flujo libre. Es el mismo criterio con el que el operador salió de Enagás. La diferencia, y es lo que hay que pesar, es la causa: aquí el hueco es inversión de CRECIMIENTO en red (la base regulada +14,0 % hasta 56.323 M€, con un ROIIC del 11,1 % contra un coste del 6,1 %), no un negocio que se encoge. Pero se paga con deuda que sube (3,4x EBITDA) y cuyo coste ha pasado del 2,86 % al 4,76 %, y el FFO/deuda ha bajado 2,5 puntos en un año. La holgura de los owner earnings está a dos centésimas del ámbar.</div>
+  </div>
+</div>
+<div class="diag-verdict"><b>Veredicto de diagnóstico:</b> DIVIDENDO SEGURO a corto y medio plazo — no hay riesgo de recorte. Pero NO está cubierto por el flujo libre: depende de que la inversión en red siga rindiendo por encima de su coste y de seguir financiándola con deuda. Y la señal S3 es de valoración, no de negocio: el precio ya descuenta el bull case. Confianza: ALTA en lo primero; lo segundo es un juicio que corresponde al operador.</div>
+
+<div class="section-title">③ Re-chequeo de los bloques afectados</div>
+<div class="seg-grid">
+  <div class="seg-card good">
+    <div class="seg-title">Bloque 8 · Due Diligence de Riesgos</div>
+    <div class="seg-body">Ningún riesgo de la matriz §8.1 se ha materializado en el 9M. El dominante —la tasa regulada española, vencida desde 2025— sigue pendiente de la CNMC, sin resolución nueva. Ningún pre-mortem del §8.2 ha empezado su cadena. Lo que sí se mueve es el catalizador NEGATIVO del §9.1, el coste de la deuda: no cruza aún su trigger (5,25 %).</div>
+  </div>
+  <div class="seg-card ">
+    <div class="seg-title">Bloque 9 · Tesis de Inversión</div>
+    <div class="seg-body">La tesis no se rompe: el Bull case se está materializando (RAB +14 %, RIIO-T3 en vigor). Pero el precio ya lo ha cobrado entero: a 21,90 € la cotización supera el PO bull y el reverse DCF, que a 20,13 € ya exigía un 13,4 % de crecimiento (HEROICO frente al 6,6 % intrínseco), exige ahora más. No hay datos nuevos que justifiquen subir el PO: la base de activos (56,3 mM€) aún no cruza el trigger del catalizador (60 mM€). Subirlo ahora sería moverlo por el precio, y eso está prohibido.</div>
+  </div>
+</div>
+<div class="card">
+  <div class="card-title">Herramientas del método re-ejecutadas</div>
+  <div class="tool-row"><span class="tool-name">Dividend Safety</span><span class="pill g">83 · muy seguro</span> sin predictores duros de recorte. Su componente C1 (cobertura por caja) no estaba medido: esta nota lo mide — 0,78x por flujo libre, 1,42x por owner earnings.</div><div class="tool-row"><span class="tool-name">Reverse DCF</span><span class="pill a">heroico</span> g implícito ≥ 13,4 % (calculado a 20,13 €; a 21,90 € es mayor) frente a un g intrínseco del 6,6 % y un ROIIC del 11,1 %.</div><div class="tool-row"><span class="tool-name">Forense</span><span class="pill g">sin veto</span> Altman 4,91 (zona segura), Beneish sin indicios; sin cambios.</div>
+</div>
+
+<div class="section-title">④ Prueba anti-anclaje (§10.5)</div>
+<div class="anchor-box">
+  <div class="anchor-q">Si descubriera hoy Iberdrola por primera vez, a 21,90 €, sin poseerla y sin conocer mi precio de compra, ¿la compraría, la mantendría en watchlist, o la descartaría?</div>
+  <div class="anchor-a">No la compraría: a este precio el margen de seguridad es del −19,4 %, la rentabilidad por dividendo baja al 3,1 % y el mercado ya paga el mejor escenario que el método sabe derivar. La tendría en watchlist con su banda de entrada (14,76–15,36 €). Para quien YA la tiene como posición de renta, la pregunta es otra y la respuesta es que el dividendo es seguro y sube: no hay motivo de tesis para salir. La única razón para aligerar sería de precio —recoger la plusvalía con el bull ya cobrado—, y esa decisión es del operador, no de la tesis.</div>
+</div>
+
+<div class="section-title">⑤ Decisión</div>
+<div class="veredicto-box reafirmar">
+  <div class="veredicto-word">REAFIRMAR</div>
+  <div class="veredicto-sub">Veredicto ESPERAR, PO base 17,66 €, bull 21,79 €, banda 14,76–15,36 € y stop 8,98 € sin cambios.</div>
+  <div class="action-line">Acción: Mantener la posición de renta y no ampliar. No comprar por encima de 15,36 €. La señal se silencia 60 días; si pasado ese plazo el precio sigue sobre el PO bull, se revisa de nuevo. Pasaría a revisión de dividendo si la cobertura por owner earnings bajara de 1,0x, si el coste de la deuda cruzara el 5,25 % sin nueva tasa regulada, o si la CNMC fijara una tasa por debajo del bear case.</div>
+</div>
+
+<div class="fuentes"><b>Fuentes externas:</b><i>Sin fuentes web: la revisión se apoya en el informe y la presentación del 9M-2026 de la propia empresa, el libro de Iberdrola y el histórico de cierres.</i></div>
+
+<div class="disclaimer">Nota de Revisión Extraordinaria generada por el Método KH&Claude. No es una recomendación de inversión ni asesoramiento financiero: es el registro razonado de una decisión propia. Señal S3 cerrada con esta nota en el §10.5 del Excel, estado.json y hallazgos.json.</div>
+
+</div></body></html>
