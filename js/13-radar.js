@@ -913,9 +913,20 @@ function _cadCargar(tickers){ var need=tickers.filter(function(t){return _cadTri
 var _agConf=null, _agLoading=null, _agRefrescado=false;
 function _agCargar(){ if(_agConf)return Promise.resolve(_agConf); if(_agLoading)return _agLoading;
   _agLoading=fetch('buzon/agenda.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;})
-    .then(function(j){ _agConf={byT:{}}; if(j&&j.resultados)j.resultados.forEach(function(x){ if(x&&x.ticker)_agConf.byT[(x.ticker||'').toUpperCase()]={fecha:x.fecha,confirmada:!!x.confirmada}; }); return _agConf; })
-    .catch(function(){ _agConf={byT:{}}; return _agConf; });
+    .then(function(j){ _agConf={byT:{},cnmv:{}}; if(j&&j.resultados)j.resultados.forEach(function(x){ if(x&&x.ticker)_agConf.byT[(x.ticker||'').toUpperCase()]={fecha:x.fecha,confirmada:!!x.confirmada}; }); return _agConf; })
+    .catch(function(){ _agConf={byT:{},cnmv:{}}; return _agConf; })
+    /* [24-oct-2026 · Carlos] CALENDARIO CNMV (recogida/calendario.json, lo sube la recogida diaria):
+       es la fuente de fechas de toda la app. Por ticker se guardan TODAS sus fechas (de cada
+       temporada): fecha = publicada si ya publicó, si no la anunciada/estimada; fuerte = la
+       anunció la empresa en la CNMV o la confirma Yahoo (no una copia del año pasado). */
+    .then(function(){ return fetch('recogida/calendario.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(cj){
+      var emp=(cj&&cj.empresas)||{}; Object.keys(emp).forEach(function(tk){ var lst=[];
+        Object.keys(emp[tk]||{}).forEach(function(tp){ var e=emp[tk][tp]||{}; var f=(''+(e.publicado||e.fecha||'')).slice(0,10); if(!/^\d{4}-\d{2}-\d{2}$/.test(f))return;
+          lst.push({fecha:f, publicado:!!e.publicado, fuerte:!!e.publicado||e.fuente==='aviso'||e.fuente==='yahoo', fuente:e.fuente||'', temporada:tp, momento:e.momento||null}); });
+        if(lst.length)_agConf.cnmv[tk.toUpperCase()]=lst; });
+      _agConf.cnmvGenerado=(cj&&cj.generado)||null; return _agConf; }).catch(function(){ return _agConf; }); });
   return _agLoading; }
+function _cnmvFechas(t){ return (_agConf&&_agConf.cnmv&&_agConf.cnmv[(t||'').toUpperCase()])||[]; }
 function _agResultado(t){ if(!_agConf)return null; return _agConf.byT[(t||'').toUpperCase()]||null; }
 function _cadenciaDe(t){
   var d=_cadTrim[(t||'').toUpperCase()]; if(!d||!d.revisiones||!d.revisiones.length)return null;
@@ -932,7 +943,16 @@ function _cadenciaDe(t){
      y con ella la fecha de partida de la proyección. */
   var uq=_qtoken(ultimo.periodo);
   var ultFecha=(cm[uq]&&ultimo.fecha)?(ultimo.fecha.slice(0,4)+'-'+cm[uq]):(ultimo.fecha||'');
-  var uDate=new Date(ultFecha+'T00:00:00'); var next=null;
+  /* [24-oct-2026] Si la fecha del último informe es ESTIMADA (cierre + N días) y la CNMV dice cuándo
+     se publicó de verdad (a menos de 75 días de la estimación), manda la publicada. */
+  try{ if(ultimo.fechaEstimada&&ultFecha){ var _ue=new Date(ultFecha+'T00:00:00'), _best=null;
+    _cnmvFechas(t).forEach(function(x){ if(!x.publicado)return; var d=new Date(x.fecha+'T00:00:00'); var dd=Math.abs(d-_ue);
+      if(dd<75*86400000&&(!_best||dd<_best.dd))_best={f:x.fecha,dd:dd}; });
+    if(_best)ultFecha=_best.f; } }catch(e){}
+  /* La PROYECCIÓN del siguiente parte de la fecha más tardía entre la publicada y la estimada: si no,
+     con la publicada (22-oct) la estimación del mismo trimestre (31-oct) volvería a salir como «próximo». */
+  var _proy=(ultimo.fecha&&ultimo.fecha>ultFecha)?ultimo.fecha:ultFecha;
+  var uDate=new Date(_proy+'T00:00:00'); var next=null;
   Object.keys(mdByQ).forEach(function(q){ var md=mdByQ[q]; for(var y=uDate.getFullYear(); y<=uDate.getFullYear()+1; y++){ var cand=new Date(y+'-'+md+'T00:00:00'); if(cand>uDate){ if(!next||cand<next.date){ next={date:cand,q:q}; } break; } } });
   if(next)next.manual=!!cm[next.q];
   /* [29-sep-2026] La agenda del lunes (Yahoo, confirmada) manda sobre la estimación, salvo que tú
@@ -941,6 +961,18 @@ function _cadenciaDe(t){
   try{ var _ag=(typeof _agResultado==='function')?_agResultado(t):null;
     if(_ag&&_ag.fecha&&next&&!next.manual){ var _ad=new Date((''+_ag.fecha).slice(0,10)+'T00:00:00');
       if(!isNaN(_ad)&&_ad>uDate&&Math.abs(_ad-next.date)<75*86400000){ next.date=_ad; next.agenda=true; next.confirmada=!!_ag.confirmada; } } }catch(e){}
+  /* [24-oct-2026 · Carlos] El CALENDARIO CNMV manda sobre la estimación y sobre Yahoo. Si la fecha es
+     FUERTE (publicada, anunciada en la CNMV o confirmada por Yahoo) manda también sobre la fecha que
+     pusiste a mano: esas se tocaron para tapar estimaciones malas (el 31/10). Si la CNMV solo trae la
+     fecha del año pasado, tu fecha manual sigue mandando. Misma guarda: posterior al último informe
+     y a menos de 75 días de la estimación, para no casar un informe con el trimestre que no es. */
+  try{ if(next){ var _bc=null;
+    var _hoy0=new Date(); _hoy0.setHours(0,0,0,0);
+    _cnmvFechas(t).forEach(function(x){ var d=new Date(x.fecha+'T00:00:00'); if(isNaN(d)||!(d>uDate))return;
+      if(!x.fuerte&&d<_hoy0)return;   /* una estimación que ya pasó sin publicarse no es una fecha (MCM «7-oct») */
+      var dd=Math.abs(d-next.date);
+      if(dd<75*86400000&&(!_bc||dd<_bc.dd))_bc={d:d,dd:dd,x:x}; });
+    if(_bc&&(_bc.x.fuerte||!next.manual)){ next.date=_bc.d; next.cnmv=true; next.confirmada=!!_bc.x.fuerte; next.fuente=_bc.x.fuente; next.publicado=!!_bc.x.publicado; if(_bc.x.fuerte)next.manual=false; } } }catch(e){}
   return {ultimo:ultimo, ultimoFecha:ultFecha, ultimoManual:!!cm[uq], next:next, uq:uq};
 }
 var _QLABEL={Q1:'Q1',Q2:'H1',Q3:'9M',Q4:'FY'};
