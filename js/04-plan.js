@@ -1190,7 +1190,11 @@ function renderPanelDash(){
      Si ese hecho es POSTERIOR al último apunte, la señal vuelve a sonar. Si no, calla. */
   try{ const _PRECIO=(typeof PROTO_SIG_PRECIO!=='undefined')?PROTO_SIG_PRECIO:{S1:1,S3:1}, _DIAS_SIL=(typeof PROTO_SILENCIO_DIAS!=='undefined')?PROTO_SILENCIO_DIAS:60, _hoyMs=Date.now();
     const _hechoNuevo=(t,sig)=>{ try{
-        if(sig==='S2'||sig==='S6'){ const r=(typeof khTrimUltimo==='function')?khTrimUltimo(t):null; return (r&&r.fecha)?(''+r.fecha).slice(0,10):null; }
+        /* [24-oct-2026] Si la fecha de publicación es ESTIMADA (cierre + N días, khTrimFechasPub), cae en el
+           futuro y ninguna revisión hecha antes podía callar el aviso (A3M/VIS/ENG 3T-2026: 30-sep → 31-oct).
+           El hecho nuevo es el PERIODO: se compara con su fecha de cierre. */
+        if(sig==='S2'||sig==='S6'){ const r=(typeof khTrimUltimo==='function')?khTrimUltimo(t):null; if(!r)return null;
+          const f=(r.fechaEstimada&&r.fechaCierre)?r.fechaCierre:r.fecha; return f?(''+f).slice(0,10):null; }
         if(sig==='S4'){ const a=(DB.analisis||[]).find(x=>(x.ticker||'').toUpperCase()===t); return (a&&a.dossierFecha)?(''+a.dossierFecha).slice(0,10):null; }
         if(sig==='S5'){ const c=(DB.cadencia||{})[t]; const d=c&&((c.next&&c.next.date)||c.nextDate); return d?(''+d).slice(0,10):null; }
       }catch(e){} return null; };

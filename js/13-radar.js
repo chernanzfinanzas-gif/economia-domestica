@@ -860,7 +860,8 @@ function khTrimUltimo(t){
   var revs=d.revisiones.slice().sort(function(a,b){ return (a.fecha||'').localeCompare(b.fecha||''); });
   var last=revs[revs.length-1];
   return { sem:(last.semaforoGlobal||'').toUpperCase(), intacta:last.tesisSigueIntacta,
-           fecha:last.fecha||'', periodo:last.periodo||'' };
+           fecha:last.fecha||'', periodo:last.periodo||'',
+           fechaCierre:last.fechaCierre||'', fechaEstimada:!!last.fechaEstimada };
 }
 
 /* [C10 · 27-jul-2026] SEÑAL S6 — dos trimestres consecutivos en ámbar.
