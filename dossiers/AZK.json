@@ -1,7 +1,7 @@
 {
  "schemaVersion": 8,
  "origen": "metodo-v3",
- "versionV3": "bloque9-v3 · 25-oct-2026",
+ "versionV3": "bloque9-v3 · 26-oct-2026 (vetos por dividendo y robustez)",
  "ticker": "AZK",
  "empresa": "Azkoyen, S.A.",
  "fecha": "2026-10-26",
@@ -34,7 +34,7 @@
  ],
  "bull": "12,78 € — escenario optimista: el mix sigue rotando hacia medios de pago; el WACC no baja del suelo del arquetipo",
  "bear": "8,08 € — escenario pesimista: el vending se frena; WACC al 8,85 %, la tasa que la propia Azkoyen aplica a su fondo de comercio",
- "resumen": "ESPERAR con la cotización de 10,10 € (2026-10-23): precio objetivo 10,49 € (bear 8,08 · bull 12,78), margen +3,8 %. Banda de entrada 8,08–9,12 €, stop de tesis 7,37 €.",
+ "resumen": "ESPERAR con la cotización de 10,15 € (2026-10-26): precio objetivo 10,49 € (bear 8,08 · bull 12,78), margen +3,3 %. Banda de entrada 8,08–9,12 €, stop de tesis 7,37 €.",
  "dividendSafety": {
   "score": 79,
   "banda": "Seguro",
@@ -100,7 +100,7 @@
  },
  "reverseDcf": {
   "aplica": true,
-  "gImplicito": -1.01,
+  "gImplicito": -0.94,
   "gIntrinseco": 4.02,
   "veredicto": "PLAUSIBLE",
   "motivo": "PLAUSIBLE (el precio no exige ni el crecimiento terminal del 2 %)",
@@ -114,13 +114,12 @@
    "acciones": 24.4,
    "deudaNeta": -0.151,
    "modo": "EV",
-   "precioBase": 10.1,
-   "gBase": -1.01,
-   "fechaBase": "2026-10-23",
+   "precioBase": 10.15,
+   "gBase": -0.94,
+   "fechaBase": "2026-10-26",
    "congeladoEl": "2026-10-26",
    "validado": true,
    "desviacion": 0.0
   }
- },
- "cambiosDesdeUltimaRevision": "Paso al método v3 (2026-10-26): precio objetivo 10,84 → 10,49 €; decisión MANTENER → ESPERAR; rating A → AA."
+ }
 }

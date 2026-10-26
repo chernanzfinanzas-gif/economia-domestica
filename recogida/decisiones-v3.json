@@ -83,6 +83,30 @@
     "revision": "TEF revisión extraordinaria S1",
     "origen": "metodo-v3"
    }
+  ],
+  "AZK": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "S2",
+    "cot": 10.1,
+    "decision": "REAFIRMAR",
+    "motivo": "Rojo del S1-2026 real (margen EBITDA 13,6 %, bajo la alarma del 15 %; vending en pérdidas): tesis tocada. Pero el precio está intervenido por la OPA de Ohmnia a 10,00 € en efectivo (CNMC autorizada el 25-sep; folleto aún sin autorizar), y el PO del v3 (10,49 €) es casi el de la oferta. Decisión de Carlos: REAFIRMAR ESPERAR hasta que se defina la OPA. Método v3.",
+    "revision": "AZK decisión OPA",
+    "origen": "metodo-v3"
+   }
+  ],
+  "A3M": [
+   {
+    "fecha": "26-oct-2026",
+    "fechaIso": "2026-10-26",
+    "senal": "VETO",
+    "cot": 5.82,
+    "decision": "REBAJA",
+    "motivo": "Veto por dividendo frágil (regla nueva del Bloque 9, 26-oct-2026): la decisión baja de COMPRAR a MANTENER. Margen 22,1 % (no cambia), pero seguridad del dividendo 30/100 en 2025: repartió 146 M€ con 62 M€ de beneficio, caja de explotación que cubre el 62 % y 4 recortes; la vigilancia lo califica de deterioro real. Aprobado por Carlos el 26-oct-2026. Método v3.",
+    "revision": "A3M veto por dividendo",
+    "origen": "metodo-v3"
+   }
   ]
  },
  "actualizado": "2026-10-26"
