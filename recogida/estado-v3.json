@@ -1,21 +1,21 @@
 {
  "schemaVersion": 1,
- "generado": "2026-10-26T21:45",
+ "generado": "2026-10-26T22:45",
  "origen": "metodo-v3",
  "revisiones_pendientes": [],
  "n_pendientes": 0,
  "ultima_subida": {
-  "cuando": "2026-10-26T21:45",
+  "cuando": "2026-10-26T22:45",
   "ficheros": [
+   "dossiers/AENA.html",
+   "dossiers/AENA.json",
+   "dossiers/ENG.html",
+   "dossiers/ENG.json",
    "dossiers/FAE.html",
-   "dossiers/FAE.json",
    "dossiers/PRM.html",
-   "dossiers/PRM.json",
    "dossiers/TEF.html",
-   "dossiers/TEF.json",
-   "dossiers/trimestral/FAE-trim.json",
-   "dossiers/trimestral/PRM-trim.json",
-   "dossiers/trimestral/TEF-trim.json"
+   "dossiers/VIS.html",
+   "dossiers/VIS.json"
   ]
  },
  "rechazos": [],
